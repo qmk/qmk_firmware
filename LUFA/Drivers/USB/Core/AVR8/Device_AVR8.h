@@ -100,8 +100,15 @@
 				 *  number for the device.
 				 */
 				#define USE_INTERNAL_SERIAL           0xDC
+
+				/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
+				 *  model.
+				 */
+				#define INTERNAL_SERIAL_LENGTH_BITS   80
 			#else
 				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
+
+				#define INTERNAL_SERIAL_LENGTH_BITS   0
 			#endif			
 			
 		/* Function Prototypes: */
@@ -190,19 +197,14 @@
 				return (UDADDR & (1 << ADDEN));
 			}
 		
-			static inline uint8_t USB_Device_GetSerialString(uint16_t* UnicodeString, const uint8_t MaxLen)
+			static inline void USB_Device_GetSerialString(uint16_t* UnicodeString)
 			{
-				uint8_t SerialCharNum = 0;
-
 				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 				{
 					uint8_t SigReadAddress = 0x0E;
 
-					for (SerialCharNum = 0; SerialCharNum < MIN(MaxLen, 20); SerialCharNum++)
+					for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BYTES * 2); SerialCharNum++)
 					{
-						if (SerialCharNum == MaxLen)
-						  break;
-
 						uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
 
 						if (SerialCharNum & 0x01)
@@ -217,8 +219,6 @@
 						                                           (('A' - 10) + SerialByte) : ('0' + SerialByte));
 					}
 				}
-				
-				return SerialCharNum;
 			}
 		
 	#endif

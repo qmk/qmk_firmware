@@ -90,9 +90,16 @@
 				 *  number for the device.
 				 */
 				#define USE_INTERNAL_SERIAL           0xDC
+				
+				/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
+				 *  model.
+				 */
+				#define INTERNAL_SERIAL_LENGTH_BITS   120
 			#else
 				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
-			#endif	
+
+				#define INTERNAL_SERIAL_LENGTH_BITS   0
+			#endif
 			
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
@@ -178,19 +185,14 @@
 				return AVR32_USBB.UDCON.adden;
 			}
 
-			static inline uint8_t USB_Device_GetSerialString(uint16_t* UnicodeString, const uint8_t MaxLen)
+			static inline void USB_Device_GetSerialString(uint16_t* UnicodeString)
 			{
-				uint8_t SerialCharNum = 0;
-
 				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 				{
-					uint32_t* SigReadAddress = 0x80800204;
+					uint8_t* SigReadAddress = (uint8_t*)0x80800204;
 
-					for (SerialCharNum = 0; SerialCharNum < MIN(MaxLen, 30); SerialCharNum++)
+					for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
 					{
-						if (SerialCharNum == MaxLen)
-						  break;
-
 						uint8_t SerialByte = *SigReadAddress;
 
 						if (SerialCharNum & 0x01)
@@ -205,8 +207,6 @@
 						                                           (('A' - 10) + SerialByte) : ('0' + SerialByte));
 					}
 				}
-				
-				return SerialCharNum;
 			}
 	#endif
 

@@ -204,12 +204,13 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 	struct
 	{
 		USB_Descriptor_Header_t Header;
-		uint16_t                UnicodeString[20];
+		uint16_t                UnicodeString[INTERNAL_SERIAL_LENGTH_BITS / 4];
 	} SignatureDescriptor;
 
 	SignatureDescriptor.Header.Type = DTYPE_String;
-	SignatureDescriptor.Header.Size = USB_STRING_LEN(USB_Device_GetSerialString(SignatureDescriptor.UnicodeString,
-	                                                 sizeof(SignatureDescriptor.UnicodeString) / sizeof(SignatureDescriptor.UnicodeString[0])));
+	SignatureDescriptor.Header.Size = USB_STRING_LEN(INTERNAL_SERIAL_LENGTH_BITS / 4);
+	
+	USB_Device_GetSerialString(SignatureDescriptor.UnicodeString);
 
 	Endpoint_ClearSETUP();
 
