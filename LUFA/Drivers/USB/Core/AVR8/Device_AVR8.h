@@ -203,7 +203,7 @@
 				{
 					uint8_t SigReadAddress = 0x0E;
 
-					for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BYTES * 2); SerialCharNum++)
+					for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
 					{
 						uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
 
