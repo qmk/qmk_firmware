@@ -172,10 +172,14 @@
 			 */
 			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   64
 
-			/** Total number of pipes (including the default control pipe at address 0) which may be used in
-			 *  the device.
-			 */
-			#define PIPE_TOTAL_PIPES                7
+			#if defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR) || defined(__DOXYGEN__)
+				/** Total number of pipes (including the default control pipe at address 0) which may be used in
+				 *  the device.
+				 */
+				#define PIPE_TOTAL_PIPES            8
+			#else
+				#define PIPE_TOTAL_PIPES            7			
+			#endif
 
 			/** Size in bytes of the largest pipe bank size possible in the device. Not all banks on each AVR
 			 *  model supports the largest bank size possible on the device; different pipe numbers support

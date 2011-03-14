@@ -98,15 +98,37 @@
 			#define _ENDPOINT_GET_BANKS2(EPDetails)        _ENDPOINT_GET_BANKS3(EPDetails)
 			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)   (Banks)
 
-			#define ENDPOINT_DETAILS_MAXEP                 7
+			#if defined(USB_SERIES_UC3A0_AVR) || defined(USB_SERIES_UC3A1_AVR)
+				#define ENDPOINT_DETAILS_MAXEP                 7
 
-			#define ENDPOINT_DETAILS_EP0                   64,  1
-			#define ENDPOINT_DETAILS_EP1                   64,  2
-			#define ENDPOINT_DETAILS_EP2                   64,  2
-			#define ENDPOINT_DETAILS_EP3                   64,  2
-			#define ENDPOINT_DETAILS_EP4                   64,  2
-			#define ENDPOINT_DETAILS_EP5                   256, 2
-			#define ENDPOINT_DETAILS_EP6                   256, 2
+				#define ENDPOINT_DETAILS_EP0                   64,  1
+				#define ENDPOINT_DETAILS_EP1                   256, 2
+				#define ENDPOINT_DETAILS_EP2                   256, 2
+				#define ENDPOINT_DETAILS_EP3                   64,  2
+				#define ENDPOINT_DETAILS_EP4                   64,  2
+				#define ENDPOINT_DETAILS_EP5                   256, 2
+				#define ENDPOINT_DETAILS_EP6                   256, 2
+			#elif defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR)
+				#define ENDPOINT_DETAILS_MAXEP                 8
+
+				#define ENDPOINT_DETAILS_EP0                   64,  1
+				#define ENDPOINT_DETAILS_EP1                   512, 2
+				#define ENDPOINT_DETAILS_EP2                   512, 2
+				#define ENDPOINT_DETAILS_EP3                   512, 2
+				#define ENDPOINT_DETAILS_EP4                   512, 2
+				#define ENDPOINT_DETAILS_EP5                   512, 2
+				#define ENDPOINT_DETAILS_EP6                   512, 2			
+			#elif defined(USB_SERIES_UC3B0_AVR) || defined(USB_SERIES_UC3B1_AVR) 
+				#define ENDPOINT_DETAILS_MAXEP                 7
+
+				#define ENDPOINT_DETAILS_EP0                   64,  1
+				#define ENDPOINT_DETAILS_EP1                   64,  2
+				#define ENDPOINT_DETAILS_EP2                   64,  2
+				#define ENDPOINT_DETAILS_EP3                   64,  2
+				#define ENDPOINT_DETAILS_EP4                   64,  2
+				#define ENDPOINT_DETAILS_EP5                   256, 2
+				#define ENDPOINT_DETAILS_EP6                   256, 2			
+			#endif
 
 		/* Inline Functions: */
 			static inline uint32_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
