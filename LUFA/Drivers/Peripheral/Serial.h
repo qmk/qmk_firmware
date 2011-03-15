@@ -58,9 +58,7 @@
 #define __SERIAL_H__
 
 	/* Macros: */
-		#if !defined(__DOXYGEN__)
-			#define __INCLUDE_FROM_SERIAL_H
-		#endif
+		#define __INCLUDE_FROM_SERIAL_H
 
 	/* Includes: */
 		#include "../../Common/Common.h"

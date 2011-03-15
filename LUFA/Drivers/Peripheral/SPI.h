@@ -58,9 +58,7 @@
 #define __SPI_H__
 
 	/* Macros: */
-		#if !defined(__DOXYGEN__)
-			#define __INCLUDE_FROM_SPI_H
-		#endif
+		#define __INCLUDE_FROM_SPI_H
 
 	/* Includes: */
 		#include "../../Common/Common.h"

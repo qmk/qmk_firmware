@@ -53,9 +53,7 @@
 #define __LUFA_COMMON_H__
 
 	/* Macros: */
-		#if !defined(__DOXYGEN__)
-			#define __INCLUDE_FROM_COMMON_H
-		#endif
+		#define __INCLUDE_FROM_COMMON_H
 		
 	/* Includes: */
 		#include <stdint.h>

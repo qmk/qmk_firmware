@@ -356,9 +356,7 @@
 #define __USB_H__
 
 	/* Macros: */
-		#if !defined(__DOXYGEN__)
-			#define __INCLUDE_FROM_USB_DRIVER
-		#endif
+		#define __INCLUDE_FROM_USB_DRIVER
 
 	/* Includes: */
 		#include "../../Common/Common.h"

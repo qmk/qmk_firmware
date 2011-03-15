@@ -94,10 +94,7 @@
 #define __JOYSTICK_H__
 
 	/* Macros: */
-	#if !defined(__DOXYGEN__)
 		#define __INCLUDE_FROM_JOYSTICK_H
-		#define INCLUDE_FROM_JOYSTICK_H
-	#endif
 
 	/* Includes: */
 		#include "../../Common/Common.h"

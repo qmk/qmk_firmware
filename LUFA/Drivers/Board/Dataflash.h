@@ -119,10 +119,7 @@
 #define __DATAFLASH_H__
 
 	/* Macros: */
-	#if !defined(__DOXYGEN__)
 		#define __INCLUDE_FROM_DATAFLASH_H
-		#define INCLUDE_FROM_DATAFLASH_H
-	#endif
 
 	/* Includes: */
 	#include "../../Common/Common.h"

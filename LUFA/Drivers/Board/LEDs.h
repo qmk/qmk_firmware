@@ -102,10 +102,7 @@
 #define __LEDS_H__
 
 	/* Macros: */
-	#if !defined(__DOXYGEN__)
 		#define __INCLUDE_FROM_LEDS_H
-		#define INCLUDE_FROM_LEDS_H
-	#endif
 
 	/* Includes: */
 	#include "../../Common/Common.h"
