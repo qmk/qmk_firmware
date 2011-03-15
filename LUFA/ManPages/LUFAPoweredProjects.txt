@@ -46,14 +46,16 @@
  *  - DIY PS3 controller emulator: https://code.google.com/p/diyps3controller/
  *  - EMUCOMBOX, a USB-RS422 adapter for E-Mu Emax samplers: http://users.skynet.be/emxp/EMUCOMBOX.htm
  *  - Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
- *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
+ *  - "Fingerlicking Wingdinger" (WARNING: Bad language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
+ *  - LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
  *  - Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
+ *  - Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
  *  - Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
  *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/

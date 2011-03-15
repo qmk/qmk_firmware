@@ -68,6 +68,8 @@
   *   - Changed TempDataLogger project's DS1307 driver to simplify the function interface and prevent a possible race condition
   *   - Changed AVRISP-MKII project to use the Watchdog interrupt for command timeouts, to reduce CPU usage and free timer 0
   *     for other uses
+  *   - Updated the software USART code in the XPLAIN Bridge application so that the incomming bits are sampled at their mid-point
+  *     instead of starting point, to give maximum reliability (thanks to Anton)
   *
   *  <b>Fixed:</b>
   *  - Core:

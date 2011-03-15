@@ -81,8 +81,10 @@ ISR(INT0_vect, ISR_BLOCK)
 	/* Reset the number of reception bits remaining counter */
 	RX_BitsRemaining = 8;
 
-	/* Reset the bit reception timer */
-	TCNT1 = 0;
+	/* Reset the bit reception timer to -(1/2) of the total bit time, so that the first data bit is
+	 * sampled mid way through the total bit time, making reception more robust.
+	 */
+	TCNT1 = -(OCR1A >> 1);
 
 	/* Check to see that the pin is still low (prevents glitches from starting a frame reception) */
 	if (!(SRXPIN & (1 << SRX)))
