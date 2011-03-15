@@ -112,8 +112,6 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 	if (USB_INT_HasOccurred(USB_INT_SUSPI) && USB_INT_IsEnabled(USB_INT_SUSPI))
 	{
-		USB_INT_Clear(USB_INT_SUSPI);
-
 		USB_INT_Disable(USB_INT_SUSPI);
 		USB_INT_Enable(USB_INT_WAKEUPI);
 

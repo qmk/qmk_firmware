@@ -75,12 +75,13 @@ void USB_Init(
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
 	{
-		UHWCON |= (1 << UIDE);
+		UHWCON |=  (1 << UIDE);
 		USB_INT_Enable(USB_INT_IDTI);
 		USB_CurrentMode = USB_GetUSBModeFromUID();
 	}
 	else
 	{
+		UHWCON &= ~(1 << UIDE);
 		USB_CurrentMode = Mode;
 	}
 	#endif

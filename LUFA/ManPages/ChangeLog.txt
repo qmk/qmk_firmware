@@ -70,7 +70,7 @@
   *   - Changed AVRISP-MKII project to use the Watchdog interrupt for command timeouts, to reduce CPU usage and free timer 0
   *     for other uses
   *   - Updated the software USART code in the XPLAIN Bridge application so that the incomming bits are sampled at their mid-point
-  *     instead of starting point, to give maximum reliability (thanks to Anton)
+  *     instead of starting point, to give maximum reliability (thanks to Anton Staaf)
   *
   *  <b>Fixed:</b>
   *  - Core:
@@ -88,6 +88,7 @@
   *   - Fixed Still Image Host class driver exiting the descriptor search routine prematurely if the data pipes (but not event pipe)
   *     is found
   *   - Fixed missing call to Pipe_SetInfiniteINRequests() in the Pipe_ConfigurePipe() routine
+  *   - Fixed Remote Wakeup broken on the AVRs due to the mechanism only operating when the SUSPI bit is set (thanks to Holger Steinhaus)
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground

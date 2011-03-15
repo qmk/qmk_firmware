@@ -117,10 +117,7 @@ void USB_ResetInterface(void)
 
 	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
-	{
-		AVR32_USBB.USBCON.uide = true;
-		USB_INT_Enable(USB_INT_IDTI);
-	}
+	  USB_INT_Enable(USB_INT_IDTI);
 	#endif
 
 	USB_CLK_Unfreeze();
@@ -129,6 +126,7 @@ void USB_ResetInterface(void)
 	{
 		#if defined(USB_CAN_BE_DEVICE)
 		AVR32_USBB.USBCON.uimod = true;
+
 		USB_Init_Device();
 		#endif
 	}
@@ -136,6 +134,7 @@ void USB_ResetInterface(void)
 	{
 		#if defined(USB_CAN_BE_HOST)
 		AVR32_USBB.USBCON.uimod = false;
+
 		USB_Init_Host();
 		#endif
 	}
@@ -180,7 +179,6 @@ static void USB_Init_Device(void)
 	USB_INT_Enable(USB_INT_EORSTI);
 
 	USB_Attach();
-	USB_Device_SetDeviceAddress(0);
 }
 #endif
 
