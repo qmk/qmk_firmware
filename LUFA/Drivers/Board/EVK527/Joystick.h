@@ -65,7 +65,9 @@
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
 			#define JOY_FMASK                 ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7))
-			#define JOY_CMASK                 (1 << 6))
+			#define JOY_CMASK                 (1 << 6)
+			
+			#define JOY_PORTC_MASK_SHIFT      3
 	#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -80,7 +82,7 @@
 			#define JOY_UP                    (1 << 5)
 
 			/** Mask for the joystick being pushed in the downward direction. */
-			#define JOY_DOWN                 ((1 << 6) >> 3)
+			#define JOY_DOWN                 ((1 << 6) >> JOY_PORTC_MASK_SHIFT)
 
 			/** Mask for the joystick being pushed inward. */
 			#define JOY_PRESS                 (1 << 6)
@@ -99,7 +101,7 @@
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Joystick_GetStatus(void)
 			{
-				return (((uint8_t)~PINF & JOY_FMASK) | (((uint8_t)~PINC & JOY_CMASK) >> 3));
+				return (((uint8_t)~PINF & JOY_FMASK) | (((uint8_t)~PINC & JOY_CMASK) >> JOY_PORTC_MASK_SHIFT));
 			}
 		#endif
 
