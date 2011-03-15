@@ -90,11 +90,20 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		if (USB_VBUS_GetStatus())
 		{
+			if (!(USB_Options & USB_OPT_MANUAL_PLL))
+			{
+				USB_PLL_On();
+				while (!(USB_PLL_IsReady()));
+			}
+
 			USB_DeviceState = DEVICE_STATE_Powered;
 			EVENT_USB_Device_Connect();
 		}
 		else
 		{
+			if (!(USB_Options & USB_OPT_MANUAL_PLL))
+			  USB_PLL_Off();
+
 			USB_DeviceState = DEVICE_STATE_Unattached;
 			EVENT_USB_Device_Disconnect();
 		}

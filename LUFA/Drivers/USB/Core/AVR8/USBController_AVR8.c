@@ -65,6 +65,13 @@ void USB_Init(
 	else
 	  USB_REG_Off();
 
+	if (!(USB_Options & USB_OPT_MANUAL_PLL))
+	{
+		#if defined(USB_SERIES_4_AVR)
+		PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
+		#endif
+	}
+
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
 	{
@@ -118,22 +125,9 @@ void USB_ResetInterface(void)
 
 	USB_Controller_Reset();
 
-	if (!(USB_Options & USB_OPT_MANUAL_PLL))
-	{
-		#if defined(USB_SERIES_4_AVR)
-		PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
-		#endif
-
-		USB_PLL_On();
-		while (!(USB_PLL_IsReady()));
-	}
-
 	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
-	{
-		UHWCON |= (1 << UIDE);
-		USB_INT_Enable(USB_INT_IDTI);
-	}
+	  USB_INT_Enable(USB_INT_IDTI);
 	#endif
 
 	USB_CLK_Unfreeze();
@@ -145,6 +139,16 @@ void USB_ResetInterface(void)
 		UHWCON |=  (1 << UIMOD);
 		#endif
 
+		if (!(USB_Options & USB_OPT_MANUAL_PLL))
+		{
+			#if defined(USB_SERIES_2_AVR)
+			USB_PLL_On();
+			while (!(USB_PLL_IsReady()));
+			#else
+			USB_PLL_Off();
+			#endif
+		}
+
 		USB_Init_Device();
 		#endif
 	}
@@ -152,6 +156,14 @@ void USB_ResetInterface(void)
 	{
 		#if defined(USB_CAN_BE_HOST)
 		UHWCON &= ~(1 << UIMOD);
+
+		if (!(USB_Options & USB_OPT_MANUAL_PLL))
+		{
+			#if defined(USB_CAN_BE_HOST)
+			USB_PLL_On();
+			while (!(USB_PLL_IsReady()));		
+			#endif
+		}
 
 		USB_Init_Host();
 		#endif
