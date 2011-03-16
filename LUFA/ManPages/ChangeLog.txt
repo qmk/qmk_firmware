@@ -30,6 +30,7 @@
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project
   *   - Added new KeyboardMouseMultiReport Device ClassDriver demo
+  *   - Added new VirtualSerialMassStorage Device ClassDriver demo
   *   - Added HID class bootloader, compatible with a modified version of the command line Teensy loader from PJRC.com
   *
   *  <b>Changed:</b>

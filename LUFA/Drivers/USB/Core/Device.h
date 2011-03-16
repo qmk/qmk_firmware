@@ -107,7 +107,8 @@
 			 *                                  the address of the descriptor.
 			 *  \param[out] MemoryAddressSpace  A value from the \ref USB_DescriptorMemorySpaces_t enum to indicate the memory
 			 *                                  space in which the descriptor is stored. This parameter does not exist when one
-			 *                                  of the \c USE_*_DESCRIPTORS compile time options is used.
+			 *                                  of the \c USE_*_DESCRIPTORS compile time options is used, or on architectures which
+			 *                                  use a unified address space.
 			 *
 			 *  \note By default, the library expects all descriptors to be located in flash memory via the \c PROGMEM attribute.
 			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to

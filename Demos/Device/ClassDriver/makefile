@@ -59,6 +59,9 @@ all:
 	$(MAKE) -C VirtualSerialMouse clean
 	$(MAKE) -C VirtualSerialMouse all
 
+	$(MAKE) -C VirtualSerialMassStorage clean
+	$(MAKE) -C VirtualSerialMassStorage all
+
 %:
 	$(MAKE) -C AudioInput $@
 	$(MAKE) -C AudioOutput $@
@@ -67,6 +70,7 @@ all:
 	$(MAKE) -C Joystick $@
 	$(MAKE) -C Keyboard $@
 	$(MAKE) -C KeyboardMouse $@
+	$(MAKE) -C KeyboardMouseMultiReport $@
 	$(MAKE) -C MassStorage $@
 	$(MAKE) -C MassStorageKeyboard $@
 	$(MAKE) -C MIDI $@
@@ -74,4 +78,5 @@ all:
 	$(MAKE) -C RNDISEthernet $@
 	$(MAKE) -C VirtualSerial $@
 	$(MAKE) -C VirtualSerialMouse $@
+	$(MAKE) -C VirtualSerialMassStorage $@
 

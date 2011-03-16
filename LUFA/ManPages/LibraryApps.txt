@@ -45,6 +45,7 @@
  *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework
  *        - <b>VirtualSerial</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>VirtualSerialMassStorage</b> - Virtual Serial Port and Mass Storage demo, using the library USB CDC and Mass Storage Class driver frameworks
  *        - <b>VirtualSerialMouse</b> - Virtual Serial Port and Mouse demo, using the library USB CDC and HID Class driver frameworks
  *      - <b>LowLevel</b>
  *        - <b>AudioInput</b> - Audio In (microphone) demo, using the low level LUFA APIs to implement the USB Audio class

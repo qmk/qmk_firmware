@@ -325,7 +325,7 @@
  *     0x2068
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Virtual Serial/Mass Storage Demo
  *    </td>
  *   </tr>
  *
