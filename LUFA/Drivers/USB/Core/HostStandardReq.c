@@ -54,8 +54,11 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 
 	Pipe_Unfreeze();
 
-	for (uint8_t HeaderByte = 0; HeaderByte < sizeof(USB_Request_Header_t); HeaderByte++)
-	  Pipe_Write_Byte(*(HeaderStream++));
+	Pipe_Write_Byte(USB_ControlRequest.bmRequestType);
+	Pipe_Write_Byte(USB_ControlRequest.bRequest);
+	Pipe_Write_Word_LE(USB_ControlRequest.wValue);
+	Pipe_Write_Word_LE(USB_ControlRequest.wIndex);
+	Pipe_Write_Word_LE(USB_ControlRequest.wLength);
 
 	Pipe_ClearSETUP();
 

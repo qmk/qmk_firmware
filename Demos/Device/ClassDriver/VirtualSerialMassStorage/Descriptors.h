@@ -43,13 +43,13 @@
 
 	/* Macros: */
 		/** Endpoint number of the CDC device-to-host notification IN endpoint. */
-		#define CDC_NOTIFICATION_EPNUM         2
+		#define CDC_NOTIFICATION_EPNUM         1
 
 		/** Endpoint number of the CDC device-to-host data IN endpoint. */
-		#define CDC_TX_EPNUM                   3
+		#define CDC_TX_EPNUM                   2
 
 		/** Endpoint number of the CDC host-to-device data OUT endpoint. */
-		#define CDC_RX_EPNUM                   4
+		#define CDC_RX_EPNUM                   3
 
 		/** Size in bytes of the CDC device-to-host notification IN endpoint. */
 		#define CDC_NOTIFICATION_EPSIZE        8
@@ -58,10 +58,10 @@
 		#define CDC_TXRX_EPSIZE                16
 
 		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */
-		#define MASS_STORAGE_IN_EPNUM          3
+		#define MASS_STORAGE_IN_EPNUM          4
 
 		/** Endpoint number of the Mass Storage host-to-device data OUT endpoint. */
-		#define MASS_STORAGE_OUT_EPNUM         4
+		#define MASS_STORAGE_OUT_EPNUM         5
 
 		/** Size in bytes of the Mass Storage data endpoints. */
 		#define MASS_STORAGE_IO_EPSIZE         64
