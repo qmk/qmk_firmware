@@ -154,23 +154,33 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
                                     const void** const DescriptorAddress)
 {
-	const uint8_t DescriptorType = (wValue >> 8);
+	const uint8_t DescriptorType   = (wValue >> 8);
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
 	
+	/* If/Else If chain compiles slightly smaller than a switch case */
 	if (DescriptorType == DTYPE_Device)
-	  Address = &DeviceDescriptor;
+	{
+		Address = &DeviceDescriptor;
+		Size    = sizeof(USB_Descriptor_Device_t);	
+	}
 	else if (DescriptorType == DTYPE_Configuration)
-	  Address = &ConfigurationDescriptor;
+	{
+		Address = &ConfigurationDescriptor;
+		Size    = sizeof(USB_Descriptor_Configuration_t);	
+	}
 	else if (DescriptorType == HID_DTYPE_HID)
-	  Address = &ConfigurationDescriptor.HID_VendorHID;
+	{
+		Address = &ConfigurationDescriptor.HID_VendorHID;
+		Size    = sizeof(USB_HID_Descriptor_HID_t);
+	}
 	else
-	  Address = &HIDReport;
+	{
+		Address = &HIDReport;
+		Size    = sizeof(HIDReport);
+	}
 
-	if (Address != NULL)
-	  Size = (Address == &HIDReport) ? sizeof(HIDReport) : ((USB_Descriptor_Header_t*)Address)->Size;
-	
 	*DescriptorAddress = Address;
 	return Size;
 }
