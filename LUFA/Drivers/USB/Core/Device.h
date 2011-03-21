@@ -121,7 +121,8 @@
 			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			                                    const uint8_t wIndex,
 			                                    const void** const DescriptorAddress
-			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+			#if (defined(ARCH_HAS_MULTI_ADDRESS_SPACE) || defined(__DOXYGEN__)) && \
+			    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
 			                                    , uint8_t* MemoryAddressSpace
 			#endif
 			                                    ) ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);

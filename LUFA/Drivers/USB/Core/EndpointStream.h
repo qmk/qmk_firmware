@@ -467,7 +467,10 @@
 			/** \name Stream functions for EEPROM source/destination data */
 			//@{
 
+			#if defined(ARCH_HAS_EEPROM_ADDRESS_SPACE) || defined(__DOXYGEN__)
 			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_LE().
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected endpoint into the buffer.
@@ -482,6 +485,8 @@
 
 			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
+			 *  \note This function is not available on all architectures.
+			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected endpoint into the buffer.
 			 *  \param[in] BytesProcessed  Pointer to a location where the total number of bytes processed in the current
@@ -495,6 +500,8 @@
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_LE().
 			 *
+			 *  \note This function is not available on all architectures.
+			 *
 			 *  \param[out] Buffer          Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in]  Length          Number of bytes to send via the currently selected endpoint.
 			 *  \param[in]  BytesProcessed  Pointer to a location where the total number of bytes processed in the current
@@ -507,6 +514,8 @@
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_BE().
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[out] Buffer          Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in]  Length          Number of bytes to send via the currently selected endpoint.
@@ -526,6 +535,9 @@
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
 			 *           together; i.e. the entire stream data must be read or written at the one time.
@@ -545,6 +557,9 @@
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
 			 *           together; i.e. the entire stream data must be read or written at the one time.
@@ -564,6 +579,9 @@
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
 			 *           together; i.e. the entire stream data must be read or written at the one time.
@@ -583,6 +601,9 @@
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
 			 *           together; i.e. the entire stream data must be read or written at the one time.
@@ -594,14 +615,18 @@
 			 */
 			uint8_t Endpoint_Read_Control_EStream_BE(void* const Buffer,
 			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			#endif
 			//@}
 
 			/** \name Stream functions for PROGMEM source/destination data */
 			//@{
 
+			#if defined(ARCH_HAS_FLASH_ADDRESS_SPACE) || defined(__DOXYGEN__)
 			/** FLASH buffer source version of \ref Endpoint_Write_Stream_LE().
 			 *
 			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected endpoint into the buffer.
@@ -617,6 +642,8 @@
 			/** FLASH buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
 			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected endpoint into the buffer.
@@ -638,6 +665,9 @@
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
 			 *           together; i.e. the entire stream data must be read or written at the one time.
@@ -659,6 +689,9 @@
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
 			 *           together; i.e. the entire stream data must be read or written at the one time.
@@ -670,6 +703,7 @@
 			 */
 			uint8_t Endpoint_Write_Control_PStream_BE(const void* const Buffer,
 			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			#endif
 			//@}
 
 	/* Disable C linkage for C++ Compilers: */

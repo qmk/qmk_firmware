@@ -238,7 +238,8 @@ static void USB_Device_GetDescriptor(void)
 
 	if ((DescriptorSize = CALLBACK_USB_GetDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
 	                                                 &DescriptorPointer
-	#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
+	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
 	                                                 , &DescriptorAddressSpace
 	#endif
 													 )) == NO_DESCRIPTOR)
@@ -248,7 +249,7 @@ static void USB_Device_GetDescriptor(void)
 
 	Endpoint_ClearSETUP();
 
-	#if defined(USE_RAM_DESCRIPTORS)
+	#if defined(USE_RAM_DESCRIPTORS) || !defined(ARCH_HAS_MULTI_ADDRESS_SPACE)
 	Endpoint_Write_Control_Stream_LE(DescriptorPointer, DescriptorSize);
 	#elif defined(USE_EEPROM_DESCRIPTORS)
 	Endpoint_Write_Control_EStream_LE(DescriptorPointer, DescriptorSize);

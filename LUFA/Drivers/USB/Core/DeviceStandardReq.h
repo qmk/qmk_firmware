@@ -61,13 +61,8 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			#if defined(USE_SINGLE_DEVICE_CONFIGURATION)
-				#define FIXED_NUM_CONFIGURATIONS           1
-			#endif
-
 		/* Enums: */
-			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+			#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) || defined(__DOXYGEN__)
 				/** Enum for the possible descriptor memory spaces, for the \c MemoryAddressSpace parameter of the
 				 *  \ref CALLBACK_USB_GetDescriptor() function. This can be used when none of the \c USE_*_DESCRIPTORS
 				 *  compile time options are used, to indicate in which memory space the descriptor is stored.

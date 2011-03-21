@@ -363,7 +363,10 @@
 			/** \name Stream functions for EEPROM source/destination data */
 			//@{
 			
+			#if defined(ARCH_HAS_EEPROM_ADDRESS_SPACE) || defined(__DOXYGEN__)
 			/** EEPROM buffer source version of \ref Pipe_Write_Stream_LE().
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected pipe into the buffer.
@@ -378,6 +381,8 @@
 			
 			/** EEPROM buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
+			 *  \note This function is not available on all architectures.
+			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected pipe into the buffer.
 			 *  \param[in] BytesProcessed  Pointer to a location where the total number of bytes already processed should
@@ -390,6 +395,8 @@
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Pipe_Read_Stream_LE().
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[out] Buffer          Pointer to the source data buffer to write to.
 			 *  \param[in]  Length          Number of bytes to read for the currently selected pipe to read from.
@@ -404,6 +411,8 @@
 			
 			/** EEPROM buffer source version of \ref Pipe_Read_Stream_BE().
 			 *
+			 *  \note This function is not available on all architectures.
+			 *
 			 *  \param[out] Buffer          Pointer to the source data buffer to write to.
 			 *  \param[in]  Length          Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in]  BytesProcessed  Pointer to a location where the total number of bytes already processed should
@@ -414,14 +423,18 @@
 			uint8_t Pipe_Read_EStream_BE(void* const Buffer,
 			                             uint16_t Length,
 			                             uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
+			#endif
 			//@}
 
 			/** \name Stream functions for PROGMEM source/destination data */
 			//@{
 			
+			#if defined(ARCH_HAS_FLASH_ADDRESS_SPACE) || defined(__DOXYGEN__)
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
 			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
+			 *  \note This function is not available on all architectures.
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected pipe into the buffer.
@@ -438,6 +451,8 @@
 			 *
 			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
+			 *  \note This function is not available on all architectures.
+			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
 			 *  \param[in] Length          Number of bytes to read for the currently selected pipe into the buffer.
 			 *  \param[in] BytesProcessed  Pointer to a location where the total number of bytes already processed should
@@ -448,6 +463,7 @@
 			uint8_t Pipe_Write_PStream_BE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
+			#endif
 			//@}
 
 	/* Disable C linkage for C++ Compilers: */

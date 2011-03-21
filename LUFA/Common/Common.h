@@ -80,7 +80,11 @@
 			
 			typedef uint8_t uint_reg_t;
 			
-			#define  ARCH_LITTLE_ENDIAN
+			#define ARCH_HAS_EEPROM_ADDRESS_SPACE
+			#define ARCH_HAS_FLASH_ADDRESS_SPACE
+			#define ARCH_HAS_MULTI_ADDRESS_SPACE
+			#define ARCH_LITTLE_ENDIAN
+
 			#include "Endianness.h"
 		#elif (ARCH == ARCH_UC3)
 			#include <avr32/io.h>
@@ -94,12 +98,12 @@
 			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
-			#define USE_RAM_DESCRIPTORS
 			// ==================================================
 
 			typedef uint32_t uint_reg_t;
 			
 			#define  ARCH_BIG_ENDIAN
+
 			#include "Endianness.h"
 		#else
 			#error Unknown device architecture specified.

@@ -80,6 +80,10 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
+		#if !defined(F_USB)
+			#error F_USB is not defined. You must define F_USB to the frequency of the clock input to the USB module.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name USB Controller Option Masks */

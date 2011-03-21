@@ -6,10 +6,10 @@
 
 /** \page Page_ConfiguringApps Configuring the Demos, Bootloaders and Projects
  *
- *  If the target AVR model, clock speed, board or other settings are different from the current settings, they must be changed
- *  and the project recompiled from the source code before being programmed into the AVR microcontroller. Most project
- *  configuration options are located in the "makefile" build script inside each LUFA application's folder, however some
- *  demo or application-specific configuration settings (such as the output format in the AudioOut demo) are located in one or
+ *  If the target microcontroller model, architecture, clock speed, board or other settings are different from the current
+ *  settings, they must be changed and the project recompiled from the source code before being programmed into the microcontroller.
+ *  Most project configuration options are located in the "makefile" build script inside each LUFA application's folder, however
+ *  some demo or application-specific configuration settings (such as the output format in the AudioOut demo) are located in one or
  *  more of the source files of the project. See each project's individual documentation for application-specific configuration
  *  values.
  *
@@ -20,10 +20,11 @@
  *  Inside each makefile, a number of configuration variables are located, with the format "<VARIABLE NAME> = <VALUE>". For
  *  each application, the important variables which should be altered are:
  *
- *    - <b>MCU</b>, the target AVR processor
+ *    - <b>MCU</b>, the target processor model
+ *    - <b>ARCH</b>, the target microcontroller architecture
  *    - <b>BOARD</b>, the target board hardware
- *    - <b>F_USB</b>, the target raw master clock frequency, before any prescaling is performed
- *    - <b>F_CPU</b>, the target AVR CPU master clock frequency, after any prescaling
+ *    - <b>F_CPU</b>, the target CPU master clock frequency, after any prescaling
+ *    - <b>F_USB</b>, the target raw input clock to the USB module of the processor
  *    - <b>CDEFS</b>, the C preprocessor defines which configure options the source code
  *    - <b>LUFA_PATH</b>, the path to the LUFA library source code
  *    - <b>LUFA_OPTS</b>, the compile time LUFA options which configure the library features
@@ -31,14 +32,21 @@
  *  These values should be changed to reflect the build hardware.
  *
  *  \section Sec_MCU The MCU Parameter
- *  This parameter indicates the target AVR model for the compiled application. This should be set to the model of the target AVR
- *  (such as the AT90USB1287, or the ATMEGA32U4), in all lower-case (e.g. "at90usb1287"). Note that not all demos support all the
- *  USB AVR models, as they may make use of peripherals or modes only present in some devices.
+ *  This parameter indicates the target microcontroller model for the compiled application. This should be set to the model of the target
+ *  microcontroller (such as the AT90USB1287, or the ATMEGA32U4), in all lower-case (e.g. "at90usb1287"). Note that not all demos support all the
+ *  microcontroller models and architectures, as they may make use of peripherals or modes only present in some devices.
  *
  *  For supported processor models, see \ref Page_DeviceSupport.
  *
+ *  \section Sec_ARCH The ARCH Parameter
+ *  This parameter indicates the target microcontroller architecture the library is to be compiled for. Different microcontroller
+ *  architectures require different source files to be compiled into the final binary, and so this option must be set to the correct
+ *  architecture for the selected platform.
+ *
+ *  For supported processor architectures, see \ref Page_DeviceSupport.
+ *
  *  \section Sec_BOARD The BOARD Parameter
- *  This parameter indicates the target AVR board hardware for the compiled application. Some LUFA library drivers are board-specific,
+ *  This parameter indicates the target board hardware for the compiled application. Some LUFA library drivers are board-specific,
  *  such as the LED driver, and the library needs to know the layout of the target board. If you are using one of the board models listed
  *  on the main library page, change this parameter to the board name in all UPPER-case.
  *
@@ -50,21 +58,13 @@
  *
  *  For boards with built in hardware driver support within the LUFA library, see \ref Page_DeviceSupport.
  *
- *  \section Sec_F_USB The F_USB Parameter
- *  This parameter indicates the target AVR's input clock frequency, in Hz. This is the actual clock input, before any prescaling is performed. In the
- *  USB AVR architecture, the input clock before any prescaling is fed directly to the PLL subsystem, and thus the PLL is derived directly from the
- *  clock input. The PLL then feeds the USB and other sections of the AVR with the correct upscaled frequencies required for those sections to function.
- *
- *  <b>Note that this value does not actually *alter* the AVR's input clock frequency</b>, it is just a way to indicate to the library the clock frequency
- *  of the AVR as set by the AVR's fuses. If this value does not reflect the actual running frequency of the AVR, incorrect operation of one of more
- *  library components will occur.
- *
  *  \section Sec_F_CPU The F_CPU Parameter
- *  This parameter indicates the target AVR's master CPU clock frequency, in Hz.
+ *  This parameter indicates the target microcontroller's main CPU clock frequency, in Hz. This is used by many libraries (and applications) for
+ *  timing related purposes, and should reflect the actual CPU speed after any prescaling or adjustments are performed.
  *
- *  <b>Note that this value does not actually *alter* the AVR's CPU clock frequency</b>, it is just a way to indicate to the library the clock frequency
- *  of the AVR core as set by the AVR's fuses. If this value does not reflect the actual running frequency of the AVR, incorrect operation of one of more
- *  library components will occur.
+ *  \section Sec_F_USB The F_USB Parameter
+ *  This parameter indicates the raw input clock frequency to the USB module within the microcontroller in Hz. This may be very different on some platforms
+ *  to the main CPU clock or other peripheral/bus clocks.
  *
  *  \section Sec_CDEFS The CDEFS Parameter
  *  Many applications have features which can be controlled by the defining of specially named preprocessor tokens at the point of compilation - for example,
@@ -82,8 +82,8 @@
  *  \section Sec_LUFA_OPTS The LUFA_OPTS Parameter
  *  This value is similar to the CDEFS parameter listed elsewhere -- indeed, it is simply a convenient place to group LUFA related tokens away from the
  *  application's compile time tokens. Normally, these options do not need to be altered to allow an application to compile and run correctly on a
- *  different board or AVR to the current configuration - if the options are incorrect, then the demo is most likely incompatible with the chosen USB AVR
- *  model and cannot be made to function through the altering of the makefile settings alone (or at all). Settings such as the USB mode (device, host or both),
- *  the USB interface speed (Low or Full speed) and other LUFA configuration options can be set here - see \ref Page_TokenSummary documentation for details
+ *  different board or microcontroller to the current configuration - if the options are incorrect, then the demo is most likely incompatible with the chosen
+ *  microcontroller model and cannot be made to function through the altering of the makefile settings alone (or at all). Settings such as the USB mode
+ *  (device, host or both), the USB interface speed and other LUFA configuration options can be set here - see \ref Page_TokenSummary documentation for details
  *  on the available LUFA compile time configuration options.
  */
