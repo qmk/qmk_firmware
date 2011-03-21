@@ -51,6 +51,7 @@
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
+ *  - Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
  *  - LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
@@ -78,10 +79,12 @@
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
  *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
+ *  - Universal USB AVR Module: http://usbavr.bplaced.net/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  - Wireless MIDI Guitar system: http://www.ise.pw.edu.pl/~wzab/wireless_guitar_system/
  *  - XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
+ *  - Zeus, a touch screen computer for music manipulation: http://www.benbengler.com/developments_zeus.html
  *
  *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
  *

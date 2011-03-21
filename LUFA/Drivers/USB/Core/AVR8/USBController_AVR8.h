@@ -80,11 +80,11 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
-		#if !defined(F_CLOCK)
-			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled USB controller clock in your project makefile.
+		#if !defined(F_USB)
+			#error F_USB is not defined. You must define F_USB to the frequency of the unprescaled USB controller clock in your project makefile.
 		#endif
 
-		#if (F_CLOCK == 8000000)
+		#if (F_USB == 8000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
 			     defined(__AVR_ATmega32U2__))
@@ -96,7 +96,7 @@
 			#elif (defined(__AVR_AT90USB647__)  || defined(__AVR_AT90USB1287__))
 				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
 			#endif
-		#elif (F_CLOCK == 16000000)
+		#elif (F_USB == 16000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
 			     defined(__AVR_ATmega32U2__))
@@ -111,7 +111,7 @@
 		#endif
 
 		#if !defined(USB_PLL_PSC)
-			#error No PLL prescale value available for chosen F_CLOCK value and AVR model.
+			#error No PLL prescale value available for chosen F_USB value and AVR model.
 		#endif
 
 	/* Public Interface - May be used in end-application: */

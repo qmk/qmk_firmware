@@ -60,6 +60,7 @@
   *   - Removed Pipe_ClearErrorFlags(), pipe error flags are now automatically cleared when Pipe_ClearError() is called
   *   - Endpoint_ResetFIFO() renamed to Endpoint_ResetEndpoint(), to be consistent with the Pipe_ResetPipe() function name
   *   - Implemented on-demand PLL clock generation for the U4, U6 and U7 series USB AVRs when automatic PLL mode is specified
+  *   - F_CLOCK changed to F_USB to be more descriptive, and applicable on future architecture ports
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
@@ -633,7 +634,7 @@
   *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
   *  - Pipe_ConfigurePipe() now automatically defaults IN pipes to accepting infinite IN requests, this can still be changed by calling
   *    the existing Pipe_SetFiniteINRequests() function
-  *  - Changed F_CLOCK entries in project makefiles to alias to F_CPU by default, as this is the most common case
+  *  - Changed F_USB entries in project makefiles to alias to F_CPU by default, as this is the most common case
   *  - Host mode demos now use sane terminal escape codes, so that text is always readable and events/program output is visually distinguished
   *    from one another using foreground colours
   *  - Internal per-device preprocessing conditions changed to per-device series rather than per-controller group for finer-grain
@@ -789,7 +790,7 @@
   *  - Fixed KeyboardMouse demo discarding the wIndex value in the REQ_GetReport request
   *  - USBtoSerial demo now discards all Rx data when not connected to a USB host, rather than buffering characters for transmission
   *    next time the device is attached to a host.
-  *  - Added new F_CLOCK compile time constant to the library and makefiles, to give the raw input clock (used to feed the PLL before any
+  *  - Added new F_USB compile time constant to the library and makefiles, to give the raw input clock (used to feed the PLL before any
   *    clock prescaling is performed) frequency, so that the PLL prescale mask can be determined
   *  - Changed stream wait timeout counter to be 16-bit, so that very long timeout periods can be set for correct communications with
   *    badly designed hosts or devices which greatly exceed the USB specification limits

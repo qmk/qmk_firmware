@@ -22,7 +22,7 @@
  *
  *    - <b>MCU</b>, the target AVR processor
  *    - <b>BOARD</b>, the target board hardware
- *    - <b>F_CLOCK</b>, the target raw master clock frequency, before any prescaling is performed
+ *    - <b>F_USB</b>, the target raw master clock frequency, before any prescaling is performed
  *    - <b>F_CPU</b>, the target AVR CPU master clock frequency, after any prescaling
  *    - <b>CDEFS</b>, the C preprocessor defines which configure options the source code
  *    - <b>LUFA_PATH</b>, the path to the LUFA library source code
@@ -50,7 +50,7 @@
  *
  *  For boards with built in hardware driver support within the LUFA library, see \ref Page_DeviceSupport.
  *
- *  \section Sec_F_CLOCK The F_CLOCK Parameter
+ *  \section Sec_F_USB The F_USB Parameter
  *  This parameter indicates the target AVR's input clock frequency, in Hz. This is the actual clock input, before any prescaling is performed. In the
  *  USB AVR architecture, the input clock before any prescaling is fed directly to the PLL subsystem, and thus the PLL is derived directly from the
  *  clock input. The PLL then feeds the USB and other sections of the AVR with the correct upscaled frequencies required for those sections to function.
