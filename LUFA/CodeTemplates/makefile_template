@@ -88,7 +88,7 @@ F_CPU = ### INSERT PRESCALED SYSTEM CLOCK SPEED HERE, IN HZ ###
 
 
 # Input clock frequency.
-#     This will define a symbol, F_CLOCK, in all source code files equal to the 
+#     This will define a symbol, F_USB, in all source code files equal to the 
 #     input clock frequency (before any prescaling is performed) in Hz. This value may
 #     differ from F_CPU if prescaling is used on the latter, and is required as the
 #     raw input clock is fed directly to the PLL sections of the AVR for high speed
@@ -98,7 +98,7 @@ F_CPU = ### INSERT PRESCALED SYSTEM CLOCK SPEED HERE, IN HZ ###
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_CLOCK = ### INSERT RAW INPUT CLOCK SPEED HERE, IN HZ ###
+F_USB = ### INSERT CLOCK TO USB MODULE HERE, IN HZ ###
 
 
 # Output format. (can be srec, ihex, binary)

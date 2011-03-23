@@ -360,7 +360,7 @@
 					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
 					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
 					HID_RI_REPORT_COUNT(8, 0x02),           \
-					HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
+					HID_RI_REPORT_SIZE(8, ((((MinAxisVal >= -0xFF) && (MaxAxisVal <= 0xFF)) ? 8 : 16))), \
 					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
 				HID_RI_END_COLLECTION(0),                   \
 				HID_RI_USAGE_PAGE(8, 0x09),                 \
@@ -476,7 +476,7 @@
 					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
 					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
 					HID_RI_REPORT_COUNT(8, 0x02),           \
-					HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
+					HID_RI_REPORT_SIZE(8, ((((MinAxisVal >= -0xFF) && (MaxAxisVal <= 0xFF)) ? 8 : 16))), \
 					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | (AbsoluteCoords ? HID_IOF_ABSOLUTE : HID_IOF_RELATIVE)), \
 				HID_RI_END_COLLECTION(0),                   \
 			HID_RI_END_COLLECTION(0)
