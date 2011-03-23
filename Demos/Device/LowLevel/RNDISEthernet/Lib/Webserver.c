@@ -181,7 +181,7 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 		uint16_t Length;
 
 		/* Determine the length of the loaded block */
-		Length = ((RemLength > HTTP_REPLY_BLOCK_SIZE) ? HTTP_REPLY_BLOCK_SIZE : RemLength);
+		Length = MIN(RemLength, HTTP_REPLY_BLOCK_SIZE);
 
 		/* Copy the next buffer sized block of the page to the packet buffer */
 		strncpy_P(BufferDataStr, &HTTPPage[PageBlock * HTTP_REPLY_BLOCK_SIZE], Length);

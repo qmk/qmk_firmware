@@ -155,8 +155,7 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint16_t AllocationLength  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[3]);
-	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
-	                                                                       sizeof(InquiryData);
+	uint16_t BytesTransferred  = MIN(AllocationLength, sizeof(InquiryData));
 
 	/* Only the standard INQUIRY data is supported, check if any optional INQUIRY bits set */
 	if ((MSInterfaceInfo->State.CommandBlock.SCSICommandData[1] & ((1 << 0) | (1 << 1))) ||
@@ -194,7 +193,7 @@ static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint8_t  AllocationLength = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
-	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
+	uint8_t  BytesTransferred = MIN(AllocationLength, sizeof(SenseData));
 
 	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NULL);
 	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);

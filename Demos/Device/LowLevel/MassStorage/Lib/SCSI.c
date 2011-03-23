@@ -150,8 +150,7 @@ bool SCSI_DecodeSCSICommand(void)
 static bool SCSI_Command_Inquiry(void)
 {
 	uint16_t AllocationLength  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[3]);
-	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
-	                                                                       sizeof(InquiryData);
+	uint16_t BytesTransferred  = MIN(AllocationLength, sizeof(InquiryData));
 
 	/* Only the standard INQUIRY data is supported, check if any optional INQUIRY bits set */
 	if ((CommandBlock.SCSICommandData[1] & ((1 << 0) | (1 << 1))) ||
@@ -188,7 +187,7 @@ static bool SCSI_Command_Inquiry(void)
 static bool SCSI_Command_Request_Sense(void)
 {
 	uint8_t  AllocationLength = CommandBlock.SCSICommandData[4];
-	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
+	uint8_t  BytesTransferred = MIN(AllocationLength, sizeof(SenseData));
 
 	/* Send the SENSE data - this indicates to the host the status of the last command */
 	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NULL);
