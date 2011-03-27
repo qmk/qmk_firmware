@@ -138,18 +138,21 @@ static void USB_Device_SetConfiguration(void)
 	#else
 	USB_Descriptor_Device_t* DevDescriptorPtr;
 
-	#if defined(USE_FLASH_DESCRIPTORS)
-		#define MemoryAddressSpace  MEMSPACE_FLASH
-	#elif defined(USE_EEPROM_DESCRIPTORS)
-		#define MemoryAddressSpace  MEMSPACE_EEPROM
-	#elif defined(USE_SRAM_DESCRIPTORS)
-		#define MemoryAddressSpace  MEMSPACE_SRAM
-	#else
-		uint8_t MemoryAddressSpace;
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE)
+		#if defined(USE_FLASH_DESCRIPTORS)
+			#define MemoryAddressSpace  MEMSPACE_FLASH
+		#elif defined(USE_EEPROM_DESCRIPTORS)
+			#define MemoryAddressSpace  MEMSPACE_EEPROM
+		#elif defined(USE_SRAM_DESCRIPTORS)
+			#define MemoryAddressSpace  MEMSPACE_SRAM
+		#else
+			uint8_t MemoryAddressSpace;
+		#endif
 	#endif
-
+	
 	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DevDescriptorPtr
-	#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
+	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
 	                               , &MemoryAddressSpace
 	#endif
 	                               ) == NO_DESCRIPTOR)
@@ -157,6 +160,7 @@ static void USB_Device_SetConfiguration(void)
 		return;
 	}
 
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE)
 	if (MemoryAddressSpace == MEMSPACE_FLASH)
 	{
 		if (((uint8_t)USB_ControlRequest.wValue > pgm_read_byte(&DevDescriptorPtr->NumberOfConfigurations)))
@@ -172,6 +176,10 @@ static void USB_Device_SetConfiguration(void)
 		if ((uint8_t)USB_ControlRequest.wValue > DevDescriptorPtr->NumberOfConfigurations)
 		  return;
 	}
+	#else
+	if ((uint8_t)USB_ControlRequest.wValue > DevDescriptorPtr->NumberOfConfigurations)
+	  return;	
+	#endif
 	#endif
 
 	Endpoint_ClearSETUP();
@@ -224,7 +232,8 @@ static void USB_Device_GetDescriptor(void)
 	const void* DescriptorPointer;
 	uint16_t    DescriptorSize;
 
-	#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
+	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
 	uint8_t DescriptorAddressSpace;
 	#endif
 
