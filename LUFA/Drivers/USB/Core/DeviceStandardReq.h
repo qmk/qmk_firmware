@@ -71,8 +71,12 @@
 				 */
 				enum USB_DescriptorMemorySpaces_t
 				{
+					#if defined(ARCH_HAS_FLASH_ADDRESS_SPACE) || defined(__DOXYGEN__)
 					MEMSPACE_FLASH    = 0, /**< Indicates the requested descriptor is located in FLASH memory. */
+					#endif
+					#if defined(ARCH_HAS_EEPROM_ADDRESS_SPACE) || defined(__DOXYGEN__)
 					MEMSPACE_EEPROM   = 1, /**< Indicates the requested descriptor is located in EEPROM memory. */
+					#endif
 					MEMSPACE_RAM      = 2, /**< Indicates the requested descriptor is located in RAM memory. */
 				};
 			#endif
