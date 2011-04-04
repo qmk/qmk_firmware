@@ -66,7 +66,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length,
 		}
 		else
 		{
-			Pipe_Discard_Byte();
+			Pipe_Discard_8();
 			
 			Length--;
 			BytesInTransfer++;
