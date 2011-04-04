@@ -95,8 +95,8 @@ void ISPProtocol_EnterISPMode(void)
 		}
 	}
 
-	Endpoint_Write_Byte(CMD_ENTER_PROGMODE_ISP);
-	Endpoint_Write_Byte(ResponseStatus);
+	Endpoint_Write_8(CMD_ENTER_PROGMODE_ISP);
+	Endpoint_Write_8(ResponseStatus);
 	Endpoint_ClearIN();
 }
 
@@ -121,8 +121,8 @@ void ISPProtocol_LeaveISPMode(void)
 	ISPTarget_DisableTargetISP();
 	ISPProtocol_DelayMS(Leave_ISP_Params.PostDelayMS);
 
-	Endpoint_Write_Byte(CMD_LEAVE_PROGMODE_ISP);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(CMD_LEAVE_PROGMODE_ISP);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -154,8 +154,8 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 		Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-		Endpoint_Write_Byte(V2Command);
-		Endpoint_Write_Byte(STATUS_CMD_FAILED);
+		Endpoint_Write_8(V2Command);
+		Endpoint_Write_8(STATUS_CMD_FAILED);
 		Endpoint_ClearIN();
 		return;
 	}
@@ -270,8 +270,8 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		  MustLoadExtendedAddress = true;
 	}	
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(ProgrammingStatus);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(ProgrammingStatus);
 	Endpoint_ClearIN();
 }
 
@@ -295,8 +295,8 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	/* Read each byte from the device and write them to the packet for the host */
 	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
@@ -312,7 +312,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		ISPTarget_SendByte(Read_Memory_Params.ReadMemoryCommand);
 		ISPTarget_SendByte(CurrentAddress >> 8);
 		ISPTarget_SendByte(CurrentAddress & 0xFF);
-		Endpoint_Write_Byte(ISPTarget_ReceiveByte());
+		Endpoint_Write_8(ISPTarget_ReceiveByte());
 
 		/* Check if the endpoint bank is currently full, if so send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -338,7 +338,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		}
 	}
 
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 	Endpoint_ClearIN();
@@ -380,8 +380,8 @@ void ISPProtocol_ChipErase(void)
 	else
 	  ResponseStatus = ISPTarget_WaitWhileTargetBusy();
 
-	Endpoint_Write_Byte(CMD_CHIP_ERASE_ISP);
-	Endpoint_Write_Byte(ResponseStatus);
+	Endpoint_Write_8(CMD_CHIP_ERASE_ISP);
+	Endpoint_Write_8(ResponseStatus);
 	Endpoint_ClearIN();
 }
 
@@ -410,10 +410,10 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 	for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 	  ResponseBytes[RByte] = ISPTarget_TransferByte(Read_FuseLockSigOSCCAL_Params.ReadCommandBytes[RByte]);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_Write_Byte(ResponseBytes[Read_FuseLockSigOSCCAL_Params.RetByte - 1]);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_OK);
+	Endpoint_Write_8(ResponseBytes[Read_FuseLockSigOSCCAL_Params.RetByte - 1]);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -439,9 +439,9 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 	for (uint8_t SByte = 0; SByte < sizeof(Write_FuseLockSig_Params.WriteCommandBytes); SByte++)
 	  ISPTarget_SendByte(Write_FuseLockSig_Params.WriteCommandBytes[SByte]);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_OK);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -463,8 +463,8 @@ void ISPProtocol_SPIMulti(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(CMD_SPI_MULTI);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(CMD_SPI_MULTI);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	uint8_t CurrTxPos = 0;
 	uint8_t CurrRxPos = 0;
@@ -484,9 +484,9 @@ void ISPProtocol_SPIMulti(void)
 	while (CurrRxPos < SPI_Multi_Params.RxBytes)
 	{
 		if (CurrTxPos < SPI_Multi_Params.TxBytes)
-		  Endpoint_Write_Byte(ISPTarget_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
+		  Endpoint_Write_8(ISPTarget_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
 		else
-		  Endpoint_Write_Byte(ISPTarget_ReceiveByte());
+		  Endpoint_Write_8(ISPTarget_ReceiveByte());
 
 		/* Check to see if we have filled the endpoint bank and need to send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -498,7 +498,7 @@ void ISPProtocol_SPIMulti(void)
 		CurrRxPos++;
 	}
 
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(STATUS_CMD_OK);
 
 	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 	Endpoint_ClearIN();

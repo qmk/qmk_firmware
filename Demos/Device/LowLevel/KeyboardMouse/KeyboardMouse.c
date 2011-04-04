@@ -168,7 +168,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				}
 
 				/* Read in the LED report from the host */
-				uint8_t LEDStatus = Endpoint_Read_Byte();
+				uint8_t LEDStatus = Endpoint_Read_8();
 
 				Endpoint_ClearOUT();
 				Endpoint_ClearStatusStage();
@@ -258,7 +258,7 @@ void Keyboard_HID_Task(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Read in and process the LED report from the host */
-		Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
+		Keyboard_ProcessLEDReport(Endpoint_Read_8());
 
 		/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
 		Endpoint_ClearOUT();

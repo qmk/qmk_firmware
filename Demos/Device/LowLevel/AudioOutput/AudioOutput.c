@@ -184,8 +184,8 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 	if (Endpoint_IsOUTReceived() && StreamingAudioInterfaceSelected)
 	{
 		/* Retrieve the signed 16-bit left and right audio samples, convert to 8-bit */
-		int8_t LeftSample_8Bit   = ((int16_t)Endpoint_Read_Word_LE() >> 8);
-		int8_t RightSample_8Bit  = ((int16_t)Endpoint_Read_Word_LE() >> 8);
+		int8_t LeftSample_8Bit   = ((int16_t)Endpoint_Read_16_LE() >> 8);
+		int8_t RightSample_8Bit  = ((int16_t)Endpoint_Read_16_LE() >> 8);
 
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);

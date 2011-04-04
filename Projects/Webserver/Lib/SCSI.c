@@ -329,10 +329,10 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 static bool SCSI_Command_ModeSense_6(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	/* Send an empty header response with the Write Protect flag status */
-	Endpoint_Write_Byte(0x00);
-	Endpoint_Write_Byte(0x00);
-	Endpoint_Write_Byte(DISK_READ_ONLY ? 0x80 : 0x00);
-	Endpoint_Write_Byte(0x00);
+	Endpoint_Write_8(0x00);
+	Endpoint_Write_8(0x00);
+	Endpoint_Write_8(DISK_READ_ONLY ? 0x80 : 0x00);
+	Endpoint_Write_8(0x00);
 	Endpoint_ClearIN();
 
 	/* Update the bytes transferred counter and succeed the command */

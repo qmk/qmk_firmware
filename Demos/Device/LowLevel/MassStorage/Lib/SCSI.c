@@ -212,10 +212,10 @@ static bool SCSI_Command_Request_Sense(void)
 static bool SCSI_Command_Read_Capacity_10(void)
 {
 	/* Send the total number of logical blocks in the current LUN */
-	Endpoint_Write_DWord_BE(LUN_MEDIA_BLOCKS - 1);
+	Endpoint_Write_32_BE(LUN_MEDIA_BLOCKS - 1);
 
 	/* Send the logical block size of the device (must be 512 bytes) */
-	Endpoint_Write_DWord_BE(VIRTUAL_MEMORY_BLOCK_SIZE);
+	Endpoint_Write_32_BE(VIRTUAL_MEMORY_BLOCK_SIZE);
 
 	/* Check if the current command is being aborted by the host */
 	if (IsMassStoreReset)
@@ -329,10 +329,10 @@ static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 static bool SCSI_Command_ModeSense_6(void)
 {
 	/* Send an empty header response with the Write Protect flag status */
-	Endpoint_Write_Byte(0x00);
-	Endpoint_Write_Byte(0x00);
-	Endpoint_Write_Byte(DISK_READ_ONLY ? 0x80 : 0x00);
-	Endpoint_Write_Byte(0x00);
+	Endpoint_Write_8(0x00);
+	Endpoint_Write_8(0x00);
+	Endpoint_Write_8(DISK_READ_ONLY ? 0x80 : 0x00);
+	Endpoint_Write_8(0x00);
 	Endpoint_ClearIN();
 
 	/* Update the bytes transferred counter and succeed the command */

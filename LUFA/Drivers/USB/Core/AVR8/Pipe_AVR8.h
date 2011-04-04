@@ -583,8 +583,8 @@
 			 *
 			 *  \return Next byte in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Pipe_Read_Byte(void)
+			static inline uint8_t Pipe_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Pipe_Read_8(void)
 			{
 				return UPDATX;
 			}
@@ -593,10 +593,10 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \param[in] Byte  Next byte to write into the the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write into the the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_Byte(const uint8_t Byte)
+			static inline void Pipe_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_8(const uint8_t Data)
 			{
 				UPDATX = Byte;
 			}
@@ -605,8 +605,8 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 */
-			static inline void Pipe_Discard_Byte(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Discard_Byte(void)
+			static inline void Pipe_Discard_8(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_8(void)
 			{
 				uint8_t Dummy;
 
@@ -618,21 +618,21 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \return Next word in the currently selected pipe's FIFO buffer.
+			 *  \return Next two bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Pipe_Read_Word_LE(void)
+			static inline uint16_t Pipe_Read_16_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Pipe_Read_16_LE(void)
 			{
 				union
 				{
-					uint16_t Word;
+					uint16_t Value;
 					uint8_t  Bytes[2];
 				} Data;
 
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
 
-				return Data.Word;
+				return Data.Value;
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
@@ -640,21 +640,21 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \return Next word in the currently selected pipe's FIFO buffer.
+			 *  \return Next two bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Pipe_Read_Word_BE(void)
+			static inline uint16_t Pipe_Read_16_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Pipe_Read_16_BE(void)
 			{
 				union
 				{
-					uint16_t Word;
+					uint16_t Value;
 					uint8_t  Bytes[2];
 				} Data;
 
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[0] = UPDATX;
 
-				return Data.Word;
+				return Data.Value;
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
@@ -662,13 +662,13 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_Word_LE(const uint16_t Word)
+			static inline void Pipe_Write_16_LE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_16_LE(const uint16_t Data)
 			{
-				UPDATX = (Word & 0xFF);
-				UPDATX = (Word >> 8);
+				UPDATX = (Data & 0xFF);
+				UPDATX = (Data >> 8);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -676,21 +676,21 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_Word_BE(const uint16_t Word)
+			static inline void Pipe_Write_16_BE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_16_BE(const uint16_t Data)
 			{
-				UPDATX = (Word >> 8);
-				UPDATX = (Word & 0xFF);
+				UPDATX = (Data >> 8);
+				UPDATX = (Data & 0xFF);
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 */
-			static inline void Pipe_Discard_Word(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Discard_Word(void)
+			static inline void Pipe_Discard_16(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_16(void)
 			{
 				uint8_t Dummy;
 
@@ -703,14 +703,14 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \return Next double word in the currently selected pipe's FIFO buffer.
+			 *  \return Next four bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Pipe_Read_DWord_LE(void)
+			static inline uint32_t Pipe_Read_32_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Pipe_Read_32_LE(void)
 			{
 				union
 				{
-					uint32_t DWord;
+					uint32_t Value;
 					uint8_t  Bytes[4];
 				} Data;
 
@@ -719,7 +719,7 @@
 				Data.Bytes[2] = UPDATX;
 				Data.Bytes[3] = UPDATX;
 
-				return Data.DWord;
+				return Data.Value;
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in big endian format, for OUT
@@ -727,10 +727,10 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \return Next double word in the currently selected pipe's FIFO buffer.
+			 *  \return Next four bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Pipe_Read_DWord_BE(void)
+			static inline uint32_t Pipe_Read_32_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Pipe_Read_32_BE(void)
 			{
 				union
 				{
@@ -751,15 +751,15 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
+			static inline void Pipe_Write_32_LE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_32_LE(const uint32_t Data)
 			{
-				UPDATX = (DWord &  0xFF);
-				UPDATX = (DWord >> 8);
-				UPDATX = (DWord >> 16);
-				UPDATX = (DWord >> 24);
+				UPDATX = (Data &  0xFF);
+				UPDATX = (Data >> 8);
+				UPDATX = (Data >> 16);
+				UPDATX = (Data >> 24);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -767,23 +767,23 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
+			static inline void Pipe_Write_32_BE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_32_BE(const uint32_t Data)
 			{
-				UPDATX = (DWord >> 24);
-				UPDATX = (DWord >> 16);
-				UPDATX = (DWord >> 8);
-				UPDATX = (DWord &  0xFF);
+				UPDATX = (Data >> 24);
+				UPDATX = (Data >> 16);
+				UPDATX = (Data >> 8);
+				UPDATX = (Data &  0xFF);
 			}
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 */
-			static inline void Pipe_Discard_DWord(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Discard_DWord(void)
+			static inline void Pipe_Discard_32(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_32(void)
 			{
 				uint8_t Dummy;
 

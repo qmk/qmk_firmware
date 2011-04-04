@@ -366,7 +366,7 @@ uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 		  return ErrorCode;
 	}
 
-	Pipe_Write_Byte(Data);
+	Pipe_Write_8(Data);
 	Pipe_Freeze();
 
 	return PIPE_READYWAIT_NoError;
@@ -415,7 +415,7 @@ int16_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	if (Pipe_IsINReceived())
 	{
 		if (Pipe_BytesInPipe())
-		  ReceivedByte = Pipe_Read_Byte();
+		  ReceivedByte = Pipe_Read_8();
 
 		if (!(Pipe_BytesInPipe()))
 		  Pipe_ClearIN();

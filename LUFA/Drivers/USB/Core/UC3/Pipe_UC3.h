@@ -98,6 +98,9 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define PIPE_HSB_ADDRESS_SPACE_SIZE    (64 * 1024UL)
+	
 		/* External Variables: */
 			extern volatile uint8_t  USB_SelectedPipe;
 			extern volatile uint8_t* USB_PipeFIFOPos[];
@@ -158,13 +161,6 @@
 			 *  bank.
 			 */
 			#define PIPE_BANK_DOUBLE                AVR32_USBB_UPCFG0_PBK_DOUBLE
-
-			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
-			 *  should have three banks, which requires more USB FIFO memory but results in faster transfers as one
-			 *  USB device (the AVR or the attached device) can access one bank while the other accesses the remaining
-			 *  banks.
-			 */
-			#define PIPE_BANK_TRIPLE                AVR32_USBB_UPCFG0_PBK_TRIPLE
 			//@}
 
 			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value
@@ -251,7 +247,7 @@
 			{
 				AVR32_USBB.uprst |=  (AVR32_USBB_PRST0_MASK << PipeNumber);
 				AVR32_USBB.uprst &= ~(AVR32_USBB_PRST0_MASK << PipeNumber);
-				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
@@ -524,7 +520,7 @@
 			static inline void Pipe_ClearSETUP(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txstpic = true;
-				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
@@ -537,7 +533,7 @@
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
 				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
-				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
@@ -550,7 +546,7 @@
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
 				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
-				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Determines if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
@@ -602,7 +598,7 @@
 			static inline void Pipe_ClearStall(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxstalldic = true;
-				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -611,8 +607,8 @@
 			 *
 			 *  \return Next byte in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Pipe_Read_Byte(void)
+			static inline uint8_t Pipe_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Pipe_Read_8(void)
 			{
 				return *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 			}
@@ -621,20 +617,20 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \param[in] Byte  Next byte to write into the the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write into the the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_Byte(const uint8_t Byte)
+			static inline void Pipe_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_8(const uint8_t Data)
 			{
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = Byte;
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = Data;
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 */
-			static inline void Pipe_Discard_Byte(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Discard_Byte(void)
+			static inline void Pipe_Discard_8(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_8(void)
 			{
 				uint8_t Dummy;
 
@@ -646,10 +642,10 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \return Next word in the currently selected pipe's FIFO buffer.
+			 *  \return Next two bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Pipe_Read_Word_LE(void)
+			static inline uint16_t Pipe_Read_16_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Pipe_Read_16_LE(void)
 			{
 				uint16_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				uint16_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
@@ -662,10 +658,10 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \return Next word in the currently selected pipe's FIFO buffer.
+			 *  \return Next two bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Pipe_Read_Word_BE(void)
+			static inline uint16_t Pipe_Read_16_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Pipe_Read_16_BE(void)
 			{
 				uint16_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				uint16_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
@@ -678,13 +674,13 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_Word_LE(const uint16_t Word)
+			static inline void Pipe_Write_16_LE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_16_LE(const uint16_t Data)
 			{
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word >> 8);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word & 0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data & 0xFF);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -692,21 +688,21 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_Word_BE(const uint16_t Word)
+			static inline void Pipe_Write_16_BE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_16_BE(const uint16_t Data)
 			{
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word & 0xFF);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data & 0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 8);
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 */
-			static inline void Pipe_Discard_Word(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Discard_Word(void)
+			static inline void Pipe_Discard_16(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_16(void)
 			{
 				uint8_t Dummy;
 
@@ -719,10 +715,10 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \return Next double word in the currently selected pipe's FIFO buffer.
+			 *  \return Next four bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Pipe_Read_DWord_LE(void)
+			static inline uint32_t Pipe_Read_32_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Pipe_Read_32_LE(void)
 			{
 				uint32_t Byte3 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				uint32_t Byte2 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
@@ -737,10 +733,10 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \return Next double word in the currently selected pipe's FIFO buffer.
+			 *  \return Next four bytes in the currently selected pipe's FIFO buffer.
 			 */
-			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Pipe_Read_DWord_BE(void)
+			static inline uint32_t Pipe_Read_32_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Pipe_Read_32_BE(void)
 			{
 				uint32_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				uint32_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
@@ -755,15 +751,15 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
+			static inline void Pipe_Write_32_LE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_32_LE(const uint32_t Data)
 			{
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 24);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 16);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 8);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord &  0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 24);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 16);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data &  0xFF);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -771,23 +767,23 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected pipe's FIFO buffer.
 			 */
-			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
+			static inline void Pipe_Write_32_BE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Write_32_BE(const uint32_t Data)
 			{
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord &  0xFF);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 8);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 16);
-				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 24);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data &  0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 16);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Data >> 24);
 			}
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_UC3
 			 */
-			static inline void Pipe_Discard_DWord(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Discard_DWord(void)
+			static inline void Pipe_Discard_32(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_32(void)
 			{
 				uint8_t Dummy;
 

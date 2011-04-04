@@ -180,7 +180,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		#endif
 
 		/* Write the sample to the buffer */
-		Endpoint_Write_Word_LE(AudioSample);
+		Endpoint_Write_16_LE(AudioSample);
 
 		/* Check to see if the bank is now full */
 		if (!(Endpoint_IsReadWriteAllowed()))

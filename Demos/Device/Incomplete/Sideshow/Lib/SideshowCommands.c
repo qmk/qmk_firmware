@@ -311,7 +311,7 @@ static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* const PacketHe
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
 	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
-	Endpoint_Write_DWord_LE(TotalApplications);
+	Endpoint_Write_32_LE(TotalApplications);
 
 	for (uint8_t App = 0; App < MAX_APPLICATIONS; App++)
 	{
@@ -332,7 +332,7 @@ static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* const Packet
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
 	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
-	Endpoint_Write_DWord_LE(1);
+	Endpoint_Write_32_LE(1);
 	Endpoint_Write_Stream_LE(&SupportedEndpointGUID, sizeof(GUID_t), NULL);
 	Endpoint_ClearIN();
 }

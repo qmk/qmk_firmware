@@ -203,7 +203,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				}
 
 				/* First byte of the data stage is the DNLOAD request's command */
-				SentCommand.Command = Endpoint_Read_Byte();
+				SentCommand.Command = Endpoint_Read_8();
 
 				/* One byte of the data stage is the command, so subtract it from the total data bytes */
 				SentCommand.DataSize--;
@@ -212,7 +212,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				for (uint8_t DataByte = 0; (DataByte < sizeof(SentCommand.Data)) &&
 				     Endpoint_BytesInEndpoint(); DataByte++)
 				{
-					SentCommand.Data[DataByte] = Endpoint_Read_Byte();
+					SentCommand.Data[DataByte] = Endpoint_Read_8();
 					SentCommand.DataSize--;
 				}
 
@@ -267,7 +267,7 @@ void EVENT_USB_Device_ControlRequest(void)
 							}
 
 							/* Write the next word into the current flash page */
-							boot_page_fill(CurrFlashAddress.Long, Endpoint_Read_Word_LE());
+							boot_page_fill(CurrFlashAddress.Long, Endpoint_Read_16_LE());
 
 							/* Adjust counters */
 							WordsInFlashPage      += 1;
@@ -316,7 +316,7 @@ void EVENT_USB_Device_ControlRequest(void)
 							}
 
 							/* Read the byte from the USB interface and write to to the EEPROM */
-							eeprom_write_byte((uint8_t*)StartAddr, Endpoint_Read_Byte());
+							eeprom_write_byte((uint8_t*)StartAddr, Endpoint_Read_8());
 
 							/* Adjust counters */
 							StartAddr++;
@@ -348,12 +348,12 @@ void EVENT_USB_Device_ControlRequest(void)
 				{
 					/* Blank checking is performed in the DFU_DNLOAD request - if we get here we've told the host
 					   that the memory isn't blank, and the host is requesting the first non-blank address */
-					Endpoint_Write_Word_LE(StartAddr);
+					Endpoint_Write_16_LE(StartAddr);
 				}
 				else
 				{
 					/* Idle state upload - send response to last issued command */
-					Endpoint_Write_Byte(ResponseByte);
+					Endpoint_Write_8(ResponseByte);
 				}
 			}
 			else
@@ -388,9 +388,9 @@ void EVENT_USB_Device_ControlRequest(void)
 
 						/* Read the flash word and send it via USB to the host */
 						#if (FLASHEND > 0xFFFF)
-							Endpoint_Write_Word_LE(pgm_read_word_far(CurrFlashAddress.Long));
+							Endpoint_Write_16_LE(pgm_read_word_far(CurrFlashAddress.Long));
 						#else
-							Endpoint_Write_Word_LE(pgm_read_word(CurrFlashAddress.Long));
+							Endpoint_Write_16_LE(pgm_read_word(CurrFlashAddress.Long));
 						#endif
 
 						/* Adjust counters */
@@ -417,7 +417,7 @@ void EVENT_USB_Device_ControlRequest(void)
 						}
 
 						/* Read the EEPROM byte and send it via USB to the host */
-						Endpoint_Write_Byte(eeprom_read_byte((uint8_t*)StartAddr));
+						Endpoint_Write_8(eeprom_read_byte((uint8_t*)StartAddr));
 
 						/* Adjust counters */
 						StartAddr++;
@@ -436,17 +436,17 @@ void EVENT_USB_Device_ControlRequest(void)
 			Endpoint_ClearSETUP();
 
 			/* Write 8-bit status value */
-			Endpoint_Write_Byte(DFU_Status);
+			Endpoint_Write_8(DFU_Status);
 
 			/* Write 24-bit poll timeout value */
-			Endpoint_Write_Byte(0);
-			Endpoint_Write_Word_LE(0);
+			Endpoint_Write_8(0);
+			Endpoint_Write_16_LE(0);
 
 			/* Write 8-bit state value */
-			Endpoint_Write_Byte(DFU_State);
+			Endpoint_Write_8(DFU_State);
 
 			/* Write 8-bit state string ID number */
-			Endpoint_Write_Byte(0);
+			Endpoint_Write_8(0);
 
 			Endpoint_ClearIN();
 
@@ -464,7 +464,7 @@ void EVENT_USB_Device_ControlRequest(void)
 			Endpoint_ClearSETUP();
 
 			/* Write the current device state to the endpoint */
-			Endpoint_Write_Byte(DFU_State);
+			Endpoint_Write_8(DFU_State);
 
 			Endpoint_ClearIN();
 
@@ -503,7 +503,7 @@ static void DiscardFillerBytes(uint8_t NumberOfBytes)
 		}
 		else
 		{
-			Endpoint_Discard_Byte();
+			Endpoint_Discard_8();
 		}
 	}
 }

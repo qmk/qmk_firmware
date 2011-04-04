@@ -188,7 +188,7 @@ uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
 		  return ErrorCode;
 	}
 
-	Endpoint_Write_Byte(Data);
+	Endpoint_Write_8(Data);
 	return ENDPOINT_READYWAIT_NoError;
 }
 
@@ -256,7 +256,7 @@ int16_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInf
 	if (Endpoint_IsOUTReceived())
 	{
 		if (Endpoint_BytesInEndpoint())
-		  ReceivedByte = Endpoint_Read_Byte();
+		  ReceivedByte = Endpoint_Read_8();
 
 		if (!(Endpoint_BytesInEndpoint()))
 		  Endpoint_ClearOUT();

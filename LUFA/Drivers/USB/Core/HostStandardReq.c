@@ -53,11 +53,11 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 
 	Pipe_Unfreeze();
 
-	Pipe_Write_Byte(USB_ControlRequest.bmRequestType);
-	Pipe_Write_Byte(USB_ControlRequest.bRequest);
-	Pipe_Write_Word_LE(USB_ControlRequest.wValue);
-	Pipe_Write_Word_LE(USB_ControlRequest.wIndex);
-	Pipe_Write_Word_LE(USB_ControlRequest.wLength);
+	Pipe_Write_8(USB_ControlRequest.bmRequestType);
+	Pipe_Write_8(USB_ControlRequest.bRequest);
+	Pipe_Write_16_LE(USB_ControlRequest.wValue);
+	Pipe_Write_16_LE(USB_ControlRequest.wIndex);
+	Pipe_Write_16_LE(USB_ControlRequest.wLength);
 
 	Pipe_ClearSETUP();
 
@@ -87,7 +87,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 
 				while (Pipe_BytesInPipe() && DataLen)
 				{
-					*(DataStream++) = Pipe_Read_Byte();
+					*(DataStream++) = Pipe_Read_8();
 					DataLen--;
 				}
 
@@ -121,7 +121,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 
 				while (DataLen && (Pipe_BytesInPipe() < USB_ControlPipeSize))
 				{
-					Pipe_Write_Byte(*(DataStream++));
+					Pipe_Write_8(*(DataStream++));
 					DataLen--;
 				}
 

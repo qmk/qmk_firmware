@@ -301,7 +301,7 @@ static uint8_t FetchNextCommandByte(void)
 	}
 
 	/* Fetch the next byte from the OUT endpoint */
-	return Endpoint_Read_Byte();
+	return Endpoint_Read_8();
 }
 
 /** Writes the next response byte to the CDC data IN endpoint, and sends the endpoint back if needed to free up the
@@ -327,7 +327,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 	}
 
 	/* Write the next byte to the IN endpoint */
-	Endpoint_Write_Byte(Response);
+	Endpoint_Write_8(Response);
 }
 
 /** Task to read in AVR910 commands from the CDC data OUT endpoint, process them, perform the required actions

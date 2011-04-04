@@ -61,6 +61,10 @@
   *   - Endpoint_ResetFIFO() renamed to Endpoint_ResetEndpoint(), to be consistent with the Pipe_ResetPipe() function name
   *   - Implemented on-demand PLL clock generation for the U4, U6 and U7 series USB AVRs when automatic PLL mode is specified
   *   - F_CLOCK changed to F_USB to be more descriptive, and applicable on future architecture ports
+  *   - Renamed all low level Endpoint_Read_*, Endpoint_Write_* and Endpoint_Discard_* functions to use the number of bits instead of
+  *     a symbolic size (Byte, Word, DWord) so that the function names are applicable and correct across all architectures
+  *   - Renamed all low level Pipe_Read_*, Pipe_Write_* and Pipe_Discard_* functions to use the number of bits instead of
+  *     a symbolic size (Byte, Word, DWord) so that the function names are applicable and correct across all architectures
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

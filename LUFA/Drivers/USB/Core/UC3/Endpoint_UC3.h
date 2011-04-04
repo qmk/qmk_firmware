@@ -130,6 +130,8 @@
 				#define ENDPOINT_DETAILS_EP6                   256, 2			
 			#endif
 
+			#define ENDPOINT_HSB_ADDRESS_SPACE_SIZE        (64 * 1024UL)
+
 		/* Inline Functions: */
 			static inline uint32_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
 			                                                                        ATTR_ALWAYS_INLINE;
@@ -359,7 +361,7 @@
 			{
 				AVR32_USBB.uerst |=  (AVR32_USBB_EPRST0_MASK << EndpointNumber);
 				AVR32_USBB.uerst &= ~(AVR32_USBB_EPRST0_MASK << EndpointNumber);
-				USB_EndpointFIFOPos[EndpointNumber] = &AVR32_USBB_SLAVE[EndpointNumber * 0x10000];
+				USB_EndpointFIFOPos[EndpointNumber] = &AVR32_USBB_SLAVE[EndpointNumber * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Enables the currently selected endpoint so that data can be sent and received through it to
@@ -523,7 +525,7 @@
 			static inline void Endpoint_ClearSETUP(void)
 			{
 				(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].rxstpic = true;
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * 0x10000];
+				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
@@ -536,7 +538,7 @@
 			{
 				(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].txinic   = true;
 				(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].fifoconc = true;
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * 0x10000];
+				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
@@ -549,7 +551,7 @@
 			{
 				(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].rxoutic  = true;
 				(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].fifoconc = true;
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * 0x10000];
+				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
@@ -620,34 +622,34 @@
 
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW_AVR32
+			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
 			 *  \return Next byte in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint8_t Endpoint_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Endpoint_Read_Byte(void)
+			static inline uint8_t Endpoint_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_Read_8(void)
 			{
 				return *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 			}
 
 			/** Writes one byte from the currently selected endpoint's bank, for IN direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW_AVR32
+			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \param[in] Byte  Next byte to write into the the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write into the the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_Byte(const uint8_t Byte)
+			static inline void Endpoint_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_8(const uint8_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = Byte;
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = Data;
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 */
-			static inline void Endpoint_Discard_Byte(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Discard_Byte(void)
+			static inline void Endpoint_Discard_8(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Discard_8(void)
 			{
 				uint8_t Dummy;
 
@@ -659,10 +661,10 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \return Next word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next two bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint16_t Endpoint_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Endpoint_Read_Word_LE(void)
+			static inline uint16_t Endpoint_Read_16_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Endpoint_Read_16_LE(void)
 			{
 				uint16_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				uint16_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
@@ -675,10 +677,10 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \return Next word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next two bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint16_t Endpoint_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Endpoint_Read_Word_BE(void)
+			static inline uint16_t Endpoint_Read_16_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Endpoint_Read_16_BE(void)
 			{
 				uint16_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				uint16_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
@@ -691,13 +693,13 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
+			static inline void Endpoint_Write_16_LE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_16_LE(const uint16_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Word >> 8);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Word & 0xFF);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data & 0xFF);
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -705,21 +707,21 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
+			static inline void Endpoint_Write_16_BE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_16_BE(const uint16_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Word & 0xFF);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Word >> 8);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data & 0xFF);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
 			}
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 */
-			static inline void Endpoint_Discard_Word(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Discard_Word(void)
+			static inline void Endpoint_Discard_16(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Discard_16(void)
 			{
 				uint8_t Dummy;
 
@@ -732,10 +734,10 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next four bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint32_t Endpoint_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Endpoint_Read_DWord_LE(void)
+			static inline uint32_t Endpoint_Read_32_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Endpoint_Read_32_LE(void)
 			{
 				uint32_t Byte3 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				uint32_t Byte2 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
@@ -750,10 +752,10 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next four bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint32_t Endpoint_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Endpoint_Read_DWord_BE(void)
+			static inline uint32_t Endpoint_Read_32_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Endpoint_Read_32_BE(void)
 			{
 				uint32_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				uint32_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
@@ -768,15 +770,15 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
+			static inline void Endpoint_Write_32_LE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_32_LE(const uint32_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord >> 24);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord >> 16);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord >> 8);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord &  0xFF);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 24);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 16);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data &  0xFF);
 			}
 
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -784,23 +786,23 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
+			static inline void Endpoint_Write_32_BE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_32_BE(const uint32_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord &  0xFF);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord >> 8);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord >> 16);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (DWord >> 24);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data &  0xFF);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 16);
+				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 24);
 			}
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_UC3
 			 */
-			static inline void Endpoint_Discard_DWord(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Discard_DWord(void)
+			static inline void Endpoint_Discard_32(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Discard_32(void)
 			{
 				uint8_t Dummy;
 

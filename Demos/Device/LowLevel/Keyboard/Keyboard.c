@@ -167,7 +167,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				}
 
 				/* Read in the LED report from the host */
-				uint8_t LEDStatus = Endpoint_Read_Byte();
+				uint8_t LEDStatus = Endpoint_Read_8();
 
 				Endpoint_ClearOUT();
 				Endpoint_ClearStatusStage();
@@ -183,7 +183,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the current protocol flag to the host */
-				Endpoint_Write_Byte(UsingReportProtocol);
+				Endpoint_Write_8(UsingReportProtocol);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -218,7 +218,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the current idle duration to the host, must be divided by 4 before sent to host */
-				Endpoint_Write_Byte(IdleCount >> 2);
+				Endpoint_Write_8(IdleCount >> 2);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -344,7 +344,7 @@ void ReceiveNextReport(void)
 		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Read in the LED report from the host */
-			uint8_t LEDReport = Endpoint_Read_Byte();
+			uint8_t LEDReport = Endpoint_Read_8();
 
 			/* Process the read LED report from the host */
 			ProcessLEDReport(LEDReport);

@@ -198,7 +198,7 @@ void WriteNextReport(uint8_t* ReportOUTData,
 
 		/* If the report index is used, send it before the report data */
 		if (ReportIndex)
-		  Pipe_Write_Byte(ReportIndex);
+		  Pipe_Write_8(ReportIndex);
 
 		/* Write out HID report data */
 		Pipe_Write_Stream_LE(ReportOUTData, ReportLength, NULL);

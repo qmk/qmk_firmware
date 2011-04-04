@@ -169,7 +169,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Write the request response byte */
-				Endpoint_Write_Byte(TMCRequestStatus);
+				Endpoint_Write_8(TMCRequestStatus);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -190,9 +190,9 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 								
 				/* Write the request response bytes */
-				Endpoint_Write_Byte(TMCRequestStatus);
-				Endpoint_Write_Word_LE(0);
-				Endpoint_Write_DWord_LE(LastTransferLength);
+				Endpoint_Write_8(TMCRequestStatus);
+				Endpoint_Write_16_LE(0);
+				Endpoint_Write_32_LE(LastTransferLength);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();				
@@ -223,8 +223,8 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Write the request response bytes */
-				Endpoint_Write_Byte(TMCRequestStatus);
-				Endpoint_Write_Byte(CurrentTransferTag);
+				Endpoint_Write_8(TMCRequestStatus);
+				Endpoint_Write_8(CurrentTransferTag);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -245,9 +245,9 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 								
 				/* Write the request response bytes */
-				Endpoint_Write_Byte(TMCRequestStatus);
-				Endpoint_Write_Word_LE(0);
-				Endpoint_Write_DWord_LE(LastTransferLength);
+				Endpoint_Write_8(TMCRequestStatus);
+				Endpoint_Write_16_LE(0);
+				Endpoint_Write_32_LE(LastTransferLength);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -260,7 +260,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Check that no split transaction is already in progress */
 				if (RequestInProgress != 0)
 				{
-					Endpoint_Write_Byte(TMC_STATUS_SPLIT_IN_PROGRESS);				
+					Endpoint_Write_8(TMC_STATUS_SPLIT_IN_PROGRESS);				
 				}
 				else
 				{
@@ -275,7 +275,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Write the request response byte */
-				Endpoint_Write_Byte(TMCRequestStatus);
+				Endpoint_Write_8(TMCRequestStatus);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -296,8 +296,8 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the request response bytes */
-				Endpoint_Write_Byte(TMCRequestStatus);
-				Endpoint_Write_Byte(0);
+				Endpoint_Write_8(TMCRequestStatus);
+				Endpoint_Write_8(0);
 				
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();				

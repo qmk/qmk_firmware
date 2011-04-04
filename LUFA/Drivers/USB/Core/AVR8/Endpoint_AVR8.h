@@ -618,8 +618,8 @@
 			 *
 			 *  \return Next byte in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint8_t Endpoint_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Endpoint_Read_Byte(void)
+			static inline uint8_t Endpoint_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_Read_8(void)
 			{
 				return UEDATX;
 			}
@@ -628,20 +628,20 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \param[in] Byte  Next byte to write into the the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write into the the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_Byte(const uint8_t Byte)
+			static inline void Endpoint_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_8(const uint8_t Data)
 			{
-				UEDATX = Byte;
+				UEDATX = Data;
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 */
-			static inline void Endpoint_Discard_Byte(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Discard_Byte(void)
+			static inline void Endpoint_Discard_8(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Discard_8(void)
 			{
 				uint8_t Dummy;
 
@@ -653,21 +653,21 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \return Next word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next two bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint16_t Endpoint_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Endpoint_Read_Word_LE(void)
+			static inline uint16_t Endpoint_Read_16_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Endpoint_Read_16_LE(void)
 			{
 				union
 				{
-					uint16_t Word;
+					uint16_t Value;
 					uint8_t  Bytes[2];
 				} Data;
 
 				Data.Bytes[0] = UEDATX;
 				Data.Bytes[1] = UEDATX;
 
-				return Data.Word;
+				return Data.Value;
 			}
 
 			/** Reads two bytes from the currently selected endpoint's bank in big endian format, for OUT
@@ -675,21 +675,21 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \return Next word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next two bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint16_t Endpoint_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint16_t Endpoint_Read_Word_BE(void)
+			static inline uint16_t Endpoint_Read_16_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Endpoint_Read_16_BE(void)
 			{
 				union
 				{
-					uint16_t Word;
+					uint16_t Value;
 					uint8_t  Bytes[2];
 				} Data;
 
 				Data.Bytes[1] = UEDATX;
 				Data.Bytes[0] = UEDATX;
 
-				return Data.Word;
+				return Data.Value;
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in little endian format, for IN
@@ -697,13 +697,13 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
+			static inline void Endpoint_Write_16_LE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_16_LE(const uint16_t Data)
 			{
-				UEDATX = (Word & 0xFF);
-				UEDATX = (Word >> 8);
+				UEDATX = (Data & 0xFF);
+				UEDATX = (Data >> 8);
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -711,21 +711,21 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
+			static inline void Endpoint_Write_16_BE(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_16_BE(const uint16_t Data)
 			{
-				UEDATX = (Word >> 8);
-				UEDATX = (Word & 0xFF);
+				UEDATX = (Data >> 8);
+				UEDATX = (Data & 0xFF);
 			}
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 */
-			static inline void Endpoint_Discard_Word(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Discard_Word(void)
+			static inline void Endpoint_Discard_16(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Discard_16(void)
 			{
 				uint8_t Dummy;
 
@@ -738,14 +738,14 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next four bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint32_t Endpoint_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Endpoint_Read_DWord_LE(void)
+			static inline uint32_t Endpoint_Read_32_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Endpoint_Read_32_LE(void)
 			{
 				union
 				{
-					uint32_t DWord;
+					uint32_t Value;
 					uint8_t  Bytes[4];
 				} Data;
 
@@ -754,7 +754,7 @@
 				Data.Bytes[2] = UEDATX;
 				Data.Bytes[3] = UEDATX;
 
-				return Data.DWord;
+				return Data.Value;
 			}
 
 			/** Reads four bytes from the currently selected endpoint's bank in big endian format, for OUT
@@ -762,14 +762,14 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
+			 *  \return Next four bytes in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint32_t Endpoint_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint32_t Endpoint_Read_DWord_BE(void)
+			static inline uint32_t Endpoint_Read_32_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint32_t Endpoint_Read_32_BE(void)
 			{
 				union
 				{
-					uint32_t DWord;
+					uint32_t Value;
 					uint8_t  Bytes[4];
 				} Data;
 
@@ -778,7 +778,7 @@
 				Data.Bytes[1] = UEDATX;
 				Data.Bytes[0] = UEDATX;
 
-				return Data.DWord;
+				return Data.Value;
 			}
 
 			/** Writes four bytes to the currently selected endpoint's bank in little endian format, for IN
@@ -786,15 +786,15 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
+			static inline void Endpoint_Write_32_LE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_32_LE(const uint32_t Data)
 			{
-				UEDATX = (DWord &  0xFF);
-				UEDATX = (DWord >> 8);
-				UEDATX = (DWord >> 16);
-				UEDATX = (DWord >> 24);
+				UEDATX = (Data &  0xFF);
+				UEDATX = (Data >> 8);
+				UEDATX = (Data >> 16);
+				UEDATX = (Data >> 24);
 			}
 
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -802,23 +802,23 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
+			 *  \param[in] Data  Data to write to the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
+			static inline void Endpoint_Write_32_BE(const uint32_t Data) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Write_32_BE(const uint32_t Data)
 			{
-				UEDATX = (DWord >> 24);
-				UEDATX = (DWord >> 16);
-				UEDATX = (DWord >> 8);
-				UEDATX = (DWord &  0xFF);
+				UEDATX = (Data >> 24);
+				UEDATX = (Data >> 16);
+				UEDATX = (Data >> 8);
+				UEDATX = (Data &  0xFF);
 			}
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 */
-			static inline void Endpoint_Discard_DWord(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Discard_DWord(void)
+			static inline void Endpoint_Discard_32(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_Discard_32(void)
 			{
 				uint8_t Dummy;
 

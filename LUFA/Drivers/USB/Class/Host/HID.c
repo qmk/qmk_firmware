@@ -240,7 +240,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 
 		if (HIDInterfaceInfo->Config.HIDParserData->UsingReportIDs)
 		{
-			ReportID = Pipe_Read_Byte();
+			ReportID = Pipe_Read_8();
 			*(BufferPos++) = ReportID;
 		}
 

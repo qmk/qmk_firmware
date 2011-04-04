@@ -203,7 +203,7 @@
 
 				(void)AudioInterfaceInfo;
 
-				Sample = Endpoint_Read_Byte();
+				Sample = Endpoint_Read_8();
 
 				if (!(Endpoint_BytesInEndpoint()))
 				  Endpoint_ClearOUT();
@@ -228,7 +228,7 @@
 
 				(void)AudioInterfaceInfo;
 
-				Sample = (int16_t)Endpoint_Read_Word_LE();
+				Sample = (int16_t)Endpoint_Read_16_LE();
 
 				if (!(Endpoint_BytesInEndpoint()))
 				  Endpoint_ClearOUT();
@@ -253,7 +253,7 @@
 
 				(void)AudioInterfaceInfo;
 
-				Sample = (((uint32_t)Endpoint_Read_Byte() << 16) | Endpoint_Read_Word_LE());
+				Sample = (((uint32_t)Endpoint_Read_8() << 16) | Endpoint_Read_16_LE());
 
 				if (!(Endpoint_BytesInEndpoint()))
 				  Endpoint_ClearOUT();
@@ -274,7 +274,7 @@
 			static inline void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                             const int8_t Sample)
 			{
-				Endpoint_Write_Byte(Sample);
+				Endpoint_Write_8(Sample);
 
 				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
 				  Endpoint_ClearIN();
@@ -293,7 +293,7 @@
 			static inline void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                              const int16_t Sample)
 			{
-				Endpoint_Write_Word_LE(Sample);
+				Endpoint_Write_16_LE(Sample);
 
 				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
 				  Endpoint_ClearIN();
@@ -312,8 +312,8 @@
 			static inline void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                              const int32_t Sample)
 			{
-				Endpoint_Write_Word_LE(Sample);
-				Endpoint_Write_Byte(Sample >> 16);
+				Endpoint_Write_16_LE(Sample);
+				Endpoint_Write_8(Sample >> 16);
 
 				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
 				  Endpoint_ClearIN();

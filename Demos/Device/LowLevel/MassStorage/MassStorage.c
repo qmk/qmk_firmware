@@ -146,7 +146,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Indicate to the host the number of supported LUNs (virtual disks) on the device */
-				Endpoint_Write_Byte(TOTAL_LUNS - 1);
+				Endpoint_Write_8(TOTAL_LUNS - 1);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();

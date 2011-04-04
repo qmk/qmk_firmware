@@ -73,7 +73,7 @@ void V2Protocol_Init(void)
  */
 void V2Protocol_ProcessCommand(void)
 {
-	uint8_t V2Command = Endpoint_Read_Byte();
+	uint8_t V2Command = Endpoint_Read_8();
 
 	/* Start the watchdog with timeout interrupt enabled to manage the timeout */
 	TimeoutExpired = false;
@@ -166,8 +166,8 @@ static void V2Protocol_UnknownCommand(const uint8_t V2Command)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(V2Command);
-	Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
+	Endpoint_Write_8(V2Command);
+	Endpoint_Write_8(STATUS_CMD_UNKNOWN);
 	Endpoint_ClearIN();
 }
 
@@ -178,9 +178,9 @@ static void V2Protocol_SignOn(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(CMD_SIGN_ON);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_Write_Byte(sizeof(PROGRAMMER_ID) - 1);
+	Endpoint_Write_8(CMD_SIGN_ON);
+	Endpoint_Write_8(STATUS_CMD_OK);
+	Endpoint_Write_8(sizeof(PROGRAMMER_ID) - 1);
 	Endpoint_Write_Stream_LE(PROGRAMMER_ID, (sizeof(PROGRAMMER_ID) - 1), NULL);
 	Endpoint_ClearIN();
 }
@@ -194,8 +194,8 @@ static void V2Protocol_ResetProtection(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(CMD_RESET_PROTECTION);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(CMD_RESET_PROTECTION);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 
@@ -207,33 +207,33 @@ static void V2Protocol_ResetProtection(void)
  */
 static void V2Protocol_GetSetParam(const uint8_t V2Command)
 {
-	uint8_t ParamID = Endpoint_Read_Byte();
+	uint8_t ParamID = Endpoint_Read_8();
 	uint8_t ParamValue;
 
 	if (V2Command == CMD_SET_PARAMETER)
-	  ParamValue = Endpoint_Read_Byte();
+	  ParamValue = Endpoint_Read_8();
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	Endpoint_Write_Byte(V2Command);
+	Endpoint_Write_8(V2Command);
 
 	uint8_t ParamPrivs = V2Params_GetParameterPrivileges(ParamID);
 
 	if ((V2Command == CMD_SET_PARAMETER) && (ParamPrivs & PARAM_PRIV_WRITE))
 	{
-		Endpoint_Write_Byte(STATUS_CMD_OK);
+		Endpoint_Write_8(STATUS_CMD_OK);
 		V2Params_SetParameterValue(ParamID, ParamValue);
 	}
 	else if ((V2Command == CMD_GET_PARAMETER) && (ParamPrivs & PARAM_PRIV_READ))
 	{
-		Endpoint_Write_Byte(STATUS_CMD_OK);
-		Endpoint_Write_Byte(V2Params_GetParameterValue(ParamID));
+		Endpoint_Write_8(STATUS_CMD_OK);
+		Endpoint_Write_8(V2Params_GetParameterValue(ParamID));
 	}
 	else
 	{
-		Endpoint_Write_Byte(STATUS_CMD_FAILED);
+		Endpoint_Write_8(STATUS_CMD_FAILED);
 	}
 
 	Endpoint_ClearIN();
@@ -254,8 +254,8 @@ static void V2Protocol_LoadAddress(void)
 	if (CurrentAddress & (1UL << 31))
 	  MustLoadExtendedAddress = true;
 
-	Endpoint_Write_Byte(CMD_LOAD_ADDRESS);
-	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_Write_8(CMD_LOAD_ADDRESS);
+	Endpoint_Write_8(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 

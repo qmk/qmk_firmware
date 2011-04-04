@@ -48,11 +48,11 @@ bool    USB_RemoteWakeupEnabled;
 
 void USB_Device_ProcessControlRequest(void)
 {
-	USB_ControlRequest.bmRequestType = Endpoint_Read_Byte();
-	USB_ControlRequest.bRequest      = Endpoint_Read_Byte();
-	USB_ControlRequest.wValue        = Endpoint_Read_Word_LE();
-	USB_ControlRequest.wIndex        = Endpoint_Read_Word_LE();
-	USB_ControlRequest.wLength       = Endpoint_Read_Word_LE();
+	USB_ControlRequest.bmRequestType = Endpoint_Read_8();
+	USB_ControlRequest.bRequest      = Endpoint_Read_8();
+	USB_ControlRequest.wValue        = Endpoint_Read_16_LE();
+	USB_ControlRequest.wIndex        = Endpoint_Read_16_LE();
+	USB_ControlRequest.wLength       = Endpoint_Read_16_LE();
 
 	EVENT_USB_Device_ControlRequest();
 
@@ -200,7 +200,7 @@ static void USB_Device_GetConfiguration(void)
 {
 	Endpoint_ClearSETUP();
 
-	Endpoint_Write_Byte(USB_ConfigurationNumber);
+	Endpoint_Write_8(USB_ConfigurationNumber);
 	Endpoint_ClearIN();
 
 	Endpoint_ClearStatusStage();
@@ -311,7 +311,7 @@ static void USB_Device_GetStatus(void)
 
 	Endpoint_ClearSETUP();
 
-	Endpoint_Write_Word_LE(CurrentStatus);
+	Endpoint_Write_16_LE(CurrentStatus);
 	Endpoint_ClearIN();
 
 	Endpoint_ClearStatusStage();

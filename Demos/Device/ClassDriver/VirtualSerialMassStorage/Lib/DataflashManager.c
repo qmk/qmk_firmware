@@ -129,22 +129,22 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 			}
 
 			/* Write one 16-byte chunk of data to the Dataflash */
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
-			Dataflash_SendByte(Endpoint_Read_Byte());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
+			Dataflash_SendByte(Endpoint_Read_8());
 
 			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
@@ -244,22 +244,22 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 			}
 
 			/* Read one 16-byte chunk of data from the Dataflash */
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			Endpoint_Write_Byte(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
+			Endpoint_Write_8(Dataflash_ReceiveByte());
 
 			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;

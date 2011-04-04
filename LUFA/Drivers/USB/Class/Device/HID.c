@@ -94,7 +94,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Write_Byte(HIDInterfaceInfo->State.UsingReportProtocol);
+				Endpoint_Write_8(HIDInterfaceInfo->State.UsingReportProtocol);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -124,7 +124,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Write_Byte(HIDInterfaceInfo->State.IdleCount >> 2);
+				Endpoint_Write_8(HIDInterfaceInfo->State.IdleCount >> 2);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -182,7 +182,7 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 			Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);
 
 			if (ReportID)
-			  Endpoint_Write_Byte(ReportID);
+			  Endpoint_Write_8(ReportID);
 
 			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NULL);
 
