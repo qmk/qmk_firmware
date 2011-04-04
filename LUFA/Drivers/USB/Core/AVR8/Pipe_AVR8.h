@@ -598,7 +598,7 @@
 			static inline void Pipe_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_8(const uint8_t Data)
 			{
-				UPDATX = Byte;
+				UPDATX = Data;
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
