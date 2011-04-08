@@ -39,10 +39,12 @@ bool Scheduler_HasDelayElapsed(const uint_least16_t Delay,
 	SchedulerDelayCounter_t CurrentTickValue_LCL;
 	SchedulerDelayCounter_t DelayCounter_LCL;
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		CurrentTickValue_LCL = Scheduler_TickCounter;
-	}
+	uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
+	USB_INT_GlobalDisable();
+
+	CurrentTickValue_LCL = Scheduler_TickCounter;
+
+	USB_INT_SetGlobalEnableState(CurrentGlobalInt);
 
 	DelayCounter_LCL = *DelayCounter;
 

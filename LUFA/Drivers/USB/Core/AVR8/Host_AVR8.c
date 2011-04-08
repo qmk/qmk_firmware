@@ -69,7 +69,7 @@ void USB_Host_ProcessNextHostState(void)
 		case HOST_STATE_Powered_WaitForDeviceSettle:
 			if (WaitMSRemaining--)
 			{
-				_delay_ms(1);
+				Delay_MS(1);
 				break;
 			}
 			else

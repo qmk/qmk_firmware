@@ -75,7 +75,6 @@
 			#include <avr/pgmspace.h>
 			#include <avr/eeprom.h>
 			#include <avr/boot.h>
-			#include <util/atomic.h>
 			#include <util/delay.h>
 			
 			typedef uint8_t uint_reg_t;
@@ -90,12 +89,8 @@
 			#include <avr32/io.h>
 
 			// === TODO: Find abstracted way to handle these ===
-			#define ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
 			#define PROGMEM                  const
-			#define ATOMIC_BLOCK(x)          if (1)
-			#define ATOMIC_RESTORESTATE
 			#define pgm_read_byte(x)         *x
-			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
 			// ==================================================
@@ -236,6 +231,23 @@
 				Byte = (((Byte & 0xAA) >> 1) | ((Byte & 0x55) << 1));
 
 				return Byte;
+			}
+
+			/** Function to perform a blocking delay for a specified number of milliseconds. The actual delay will be
+			 *  at a minimum the specified number of milliseconds, however due to loop overhead and internal calculations
+			 *  may be slightly higher.
+			 */
+			static inline void Delay_MS(uint8_t Milliseconds)
+			{
+				while (Milliseconds--)
+				{
+					#if (ARCH == ARCH_AVR8)
+					_delay_ms(1);
+					#elif (ARCH == ARCH_UC3)
+					__builtin_mtsr(AVR32_COUNT, 0);
+					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));				
+					#endif
+				}
 			}
 
 #endif

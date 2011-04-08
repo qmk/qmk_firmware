@@ -125,15 +125,17 @@
 		{
 			GCC_FORCE_POINTER_ACCESS(Buffer);
 
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{	
-				Buffer->In     = DataPtr;
-				Buffer->Out    = DataPtr;
-				Buffer->Start  = &DataPtr[0];
-				Buffer->End    = &DataPtr[Size];
-				Buffer->Size   = Size;
-				Buffer->Count  = 0;
-			}
+			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
+			USB_INT_GlobalDisable();
+	
+			Buffer->In     = DataPtr;
+			Buffer->Out    = DataPtr;
+			Buffer->Start  = &DataPtr[0];
+			Buffer->End    = &DataPtr[Size];
+			Buffer->Size   = Size;
+			Buffer->Count  = 0;
+
+			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
 		}
 
 		/** Retrieves the minimum number of bytes stored in a particular buffer. This value is computed
@@ -153,11 +155,12 @@
 		{
 			uint16_t Count;
 
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{
-				Count = Buffer->Count;
-			}
+			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
+			USB_INT_GlobalDisable();
+			
+			Count = Buffer->Count;
 
+			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
 			return Count;
 		}
 
@@ -210,10 +213,12 @@
 			if (++Buffer->In == Buffer->End)
 			  Buffer->In = Buffer->Start;
 
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{
-				Buffer->Count++;
-			}
+			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
+			USB_INT_GlobalDisable();
+			
+			Buffer->Count++;
+
+			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
 		}
 
 		/** Removes an element from the ring buffer.
@@ -235,10 +240,12 @@
 			if (++Buffer->Out == Buffer->End)
 			  Buffer->Out = Buffer->Start;
 
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{
-				Buffer->Count--;
-			}
+			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
+			USB_INT_GlobalDisable();
+			
+			Buffer->Count--;
+
+			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
 
 			return Data;
 		}

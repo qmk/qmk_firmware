@@ -84,6 +84,37 @@
 			};
 
 		/* Inline Functions: */
+			static inline uint_reg_t USB_INT_GetGlobalEnableState(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint_reg_t USB_INT_GetGlobalEnableState(void)
+			{
+				GCC_MEMORY_BARRIER();
+				return SREG;
+			}
+
+			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState)
+			{
+				GCC_MEMORY_BARRIER();
+				SREG = GlobalIntState;
+				GCC_MEMORY_BARRIER();
+			}
+		
+			static inline void USB_INT_GlobalEnable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_GlobalEnable(void)
+			{
+				GCC_MEMORY_BARRIER();
+				sei();
+				GCC_MEMORY_BARRIER();
+			}		
+
+			static inline void USB_INT_GlobalDisable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_GlobalDisable(void)
+			{
+				GCC_MEMORY_BARRIER();
+				cli();
+				GCC_MEMORY_BARRIER();
+			}
+
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
 			{

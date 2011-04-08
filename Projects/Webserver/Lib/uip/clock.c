@@ -29,10 +29,9 @@ clock_time_t clock_time()
 {
 	clock_time_t time;
 
-	ATOMIC_BLOCK(ATOMIC_FORCEON)
-	{
-		time = clock_datetime;
-	}
+	USB_INT_GlobalDisable();
+	time = clock_datetime;
+	USB_INT_GlobalEnable();
 
 	return time;
 }

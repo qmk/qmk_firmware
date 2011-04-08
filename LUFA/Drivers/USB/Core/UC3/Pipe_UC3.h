@@ -99,7 +99,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define PIPE_HSB_ADDRESS_SPACE_SIZE    (64 * 1024UL)
+			#define PIPE_HSB_ADDRESS_SPACE_SIZE     (64 * 1024UL)
 	
 		/* External Variables: */
 			extern volatile uint8_t  USB_SelectedPipe;

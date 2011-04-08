@@ -114,20 +114,20 @@ void USB_Device_ProcessControlRequest(void)
 
 static void USB_Device_SetAddress(void)
 {
-	uint8_t DeviceAddress = (USB_ControlRequest.wValue & 0x7F);
+	uint8_t DeviceAddress       = (USB_ControlRequest.wValue & 0x7F);
+	uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
+	USB_INT_GlobalDisable();
+				
+	Endpoint_ClearSETUP();
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		Endpoint_ClearSETUP();
+	Endpoint_ClearStatusStage();
 
-		Endpoint_ClearStatusStage();
+	while (!(Endpoint_IsINReady()));
 
-		while (!(Endpoint_IsINReady()));
-
-		USB_Device_SetDeviceAddress(DeviceAddress);
-	}
-	
+	USB_Device_SetDeviceAddress(DeviceAddress);
 	USB_DeviceState = (DeviceAddress) ? DEVICE_STATE_Addressed : DEVICE_STATE_Default;
+	
+	USB_INT_SetGlobalEnableState(CurrentGlobalInt);
 }
 
 static void USB_Device_SetConfiguration(void)

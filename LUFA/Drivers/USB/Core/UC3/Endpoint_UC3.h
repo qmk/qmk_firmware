@@ -90,13 +90,13 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define _ENDPOINT_GET_MAXSIZE(EPIndex)         _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_MAXSIZE2(EPDetails)      _ENDPOINT_GET_MAXSIZE3(EPDetails)
-			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, Banks) (MaxSize)
+			#define _ENDPOINT_GET_MAXSIZE(EPIndex)            _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## EPIndex)
+			#define _ENDPOINT_GET_MAXSIZE2(EPDetails)         _ENDPOINT_GET_MAXSIZE3(EPDetails)
+			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, Banks)    (MaxSize)
 
-			#define _ENDPOINT_GET_BANKS(EPIndex)           _ENDPOINT_GET_BANKS2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_BANKS2(EPDetails)        _ENDPOINT_GET_BANKS3(EPDetails)
-			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)   (Banks)
+			#define _ENDPOINT_GET_BANKS(EPIndex)              _ENDPOINT_GET_BANKS2(ENDPOINT_DETAILS_EP ## EPIndex)
+			#define _ENDPOINT_GET_BANKS2(EPDetails)           _ENDPOINT_GET_BANKS3(EPDetails)
+			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)      (Banks)
 
 			#if defined(USB_SERIES_UC3A0_AVR) || defined(USB_SERIES_UC3A1_AVR)
 				#define ENDPOINT_DETAILS_MAXEP                 7
@@ -130,7 +130,7 @@
 				#define ENDPOINT_DETAILS_EP6                   256, 2			
 			#endif
 
-			#define ENDPOINT_HSB_ADDRESS_SPACE_SIZE        (64 * 1024UL)
+			#define ENDPOINT_HSB_ADDRESS_SPACE_SIZE            (64 * 1024UL)
 
 		/* Inline Functions: */
 			static inline uint32_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST

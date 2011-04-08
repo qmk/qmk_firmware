@@ -57,6 +57,9 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
+			#define LUFA_ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
+			
+		/* Enums: */
 			enum USB_Interrupts_t
 			{
 				USB_INT_VBUSTI  = 0,
@@ -79,10 +82,38 @@
 				#endif
 			};
 		
-		/* ISR Prototypes: */
-			ISR(USB_GEN_vect);
-		
 		/* Inline Functions: */
+			static inline uint_reg_t USB_INT_GetGlobalEnableState(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint_reg_t USB_INT_GetGlobalEnableState(void)
+			{
+				GCC_MEMORY_BARRIER();
+				return (__builtin_mfsr(AVR32_SR) & AVR32_SR_GM);
+			}
+
+			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState)
+			{
+				GCC_MEMORY_BARRIER();
+				__builtin_ssrf(AVR32_SR_GM_OFFSET, GlobalIntState);
+				GCC_MEMORY_BARRIER();
+			}
+		
+			static inline void USB_INT_GlobalEnable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_GlobalEnable(void)
+			{
+				GCC_MEMORY_BARRIER();
+				__builtin_csrf(AVR32_SR_GM_OFFSET);
+				GCC_MEMORY_BARRIER();
+			}		
+
+			static inline void USB_INT_GlobalDisable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_GlobalDisable(void)
+			{
+				GCC_MEMORY_BARRIER();
+				__builtin_ssrf(AVR32_SR_GM_OFFSET);
+				GCC_MEMORY_BARRIER();
+			}
+
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
 			{			
@@ -335,6 +366,18 @@
 			void USB_INT_DisableAllInterrupts(void);
 	#endif
 
+	/* Public Interface - May be used in end-application: */
+		/* ISR Prototypes: */
+			#if defined(__DOXYGEN__)
+				/** Interrupt service routine handler for the USB controller ISR group. This interrupt routine <b>must</b> be
+				 *  linked to the entire USB controller ISR vector group inside the AVR32's interrupt controller peripheral,
+				 *  using the user application's preferred USB controller driver.
+				 */
+				void USB_GEN_vect(void);
+			#else
+				LUFA_ISR(USB_GEN_vect);
+			#endif
+			
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
