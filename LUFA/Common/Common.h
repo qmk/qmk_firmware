@@ -48,6 +48,12 @@
  *
  *  Macros to aid debugging of a user application.
  */
+ 
+/** \defgroup Group_GlobalInt Global Interrupt Macros
+ *  \brief Convenience macros for the management of interrupts globally within the device.
+ *
+ *  Macros and functions to create and control global interrupts within the device.
+ */
 
 #ifndef __LUFA_COMMON_H__
 #define __LUFA_COMMON_H__
@@ -228,6 +234,8 @@
 				 *  \note This is supplied on some architectures where the standard library does not include a valid
 				 *        definition. If an existing definition exists, the definition here will be ignored.
 				 *
+				 *  \ingroup Group_GlobalInt
+				 *
 				 *  \param Name  Unique name of the interrupt service routine.
 				 */
 				#define ISR(Name, ...)                  void Name (void) __attribute__((__interrupt__)); void Name (void)
@@ -280,6 +288,8 @@
 			 *  value can be stored before altering the global interrupt enable state, before restoring the
 			 *  flag(s) back to their previous values after a critical section using \ref SetGlobalInterruptMask().
 			 *
+			 *  \ingroup Group_GlobalInt
+			 *
 			 *  \return  Mask containing the current Global Interrupt Enable Mask bit(s).
 			 */
 			static inline uint_reg_t GetGlobalInterruptMask(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
@@ -300,6 +310,8 @@
 			 *  This can be combined with \ref GetGlobalInterruptMask() to save and restore the Global Interrupt Enable
 			 *  Mask bit(s) of the device after a critical section has completed.
 			 *
+			 *  \ingroup Group_GlobalInt
+			 *
 			 *  \param[in] GlobalIntState  Global Interrupt Enable Mask value to use
 			 */
 			static inline void SetGlobalInterruptMask(const uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
@@ -319,7 +331,10 @@
 				GCC_MEMORY_BARRIER();
 			}
 		
-			/** Enables global interrupt handling for the device, allowing interrupts to be handled. */
+			/** Enables global interrupt handling for the device, allowing interrupts to be handled.
+			 *
+			 *  \ingroup Group_GlobalInt
+			 */
 			static inline void GlobalInterruptEnable(void) ATTR_ALWAYS_INLINE;
 			static inline void GlobalInterruptEnable(void)
 			{
@@ -334,7 +349,10 @@
 				GCC_MEMORY_BARRIER();
 			}		
 
-			/** Disabled global interrupt handling for the device, preventing interrupts from being handled. */
+			/** Disabled global interrupt handling for the device, preventing interrupts from being handled.
+			 *
+			 *  \ingroup Group_GlobalInt
+			 */
 			static inline void GlobalInterruptDisable(void) ATTR_ALWAYS_INLINE;
 			static inline void GlobalInterruptDisable(void)
 			{
