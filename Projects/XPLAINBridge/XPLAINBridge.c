@@ -181,7 +181,7 @@ void SetupHardware(void)
 
 	/* Enable pull-up on the JTAG TDI pin so we can use it to select the mode */
 	PORTF |= (1 << 7);
-	_delay_ms(10);
+	Delay_MS(10);
 
 	/* Select the firmware mode based on the JTD pin's value */
 	CurrentFirmwareMode = (PINF & (1 << 7)) ? MODE_USART_BRIDGE : MODE_PDI_PROGRAMMER;

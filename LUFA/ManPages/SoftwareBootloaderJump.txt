@@ -54,8 +54,7 @@
  *      cli();
  *
  *      // Wait two seconds for the USB detachment to register on the host
- *      for (uint8_t i = 0; i < 128; i++)
- *        _delay_ms(16);
+ *      Delay_MS(2000);
  *
  *      // Set the bootloader key to the magic value and force a reset
  *      Boot_Key = MAGIC_BOOT_KEY;

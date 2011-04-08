@@ -87,14 +87,15 @@
 			static inline uint_reg_t USB_INT_GetGlobalEnableState(void)
 			{
 				GCC_MEMORY_BARRIER();
-				return (__builtin_mfsr(AVR32_SR) & AVR32_SR_GM);
+				return __builtin_mfsr(AVR32_SR);
 			}
 
 			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState)
 			{
 				GCC_MEMORY_BARRIER();
-				__builtin_ssrf(AVR32_SR_GM_OFFSET, GlobalIntState);
+				if (GlobalIntState & AVR32_SR_GM)
+				  __builtin_ssrf(AVR32_SR_GM_OFFSET);
 				GCC_MEMORY_BARRIER();
 			}
 		

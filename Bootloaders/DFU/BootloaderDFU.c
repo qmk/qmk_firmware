@@ -109,7 +109,7 @@ int main(void)
 
 	/* Enable pull-up on the JTAG TCK pin so we can use it to select the mode */
 	PORTF |= (1 << 4);
-	_delay_ms(10);
+	Delay_MS(10);
 
 	/* If the TCK pin is not jumpered to ground, start the user application instead */
 	RunBootloader = (!(PINF & (1 << 4)));

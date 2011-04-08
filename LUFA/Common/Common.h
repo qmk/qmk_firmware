@@ -236,18 +236,28 @@
 			/** Function to perform a blocking delay for a specified number of milliseconds. The actual delay will be
 			 *  at a minimum the specified number of milliseconds, however due to loop overhead and internal calculations
 			 *  may be slightly higher.
+			 *
+			 *  \param[in] Milliseconds  Number of milliseconds to delay
 			 */
 			static inline void Delay_MS(uint8_t Milliseconds)
 			{
+				#if (ARCH == ARCH_AVR8)
+				if (__builtin_constant_p(Milliseconds))
+				{
+					_delay_ms(Milliseconds);
+				}
+				else
+				{
+					while (Milliseconds--)
+					  _delay_ms(1);
+				}
+				#elif (ARCH == ARCH_UC3)
 				while (Milliseconds--)
 				{
-					#if (ARCH == ARCH_AVR8)
-					_delay_ms(1);
-					#elif (ARCH == ARCH_UC3)
 					__builtin_mtsr(AVR32_COUNT, 0);
 					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));				
-					#endif
 				}
+				#endif
 			}
 
 #endif

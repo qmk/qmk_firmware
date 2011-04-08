@@ -519,7 +519,7 @@ void ISPProtocol_SPIMulti(void)
 void ISPProtocol_DelayMS(uint8_t DelayMS)
 {
 	while (DelayMS-- && !(TimeoutExpired))
-	  _delay_ms(1);
+	  Delay_MS(1);
 }
 
 #endif
