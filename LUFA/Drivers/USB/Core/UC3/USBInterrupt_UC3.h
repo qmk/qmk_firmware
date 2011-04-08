@@ -55,10 +55,7 @@
 		#endif
 
 	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define LUFA_ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
-			
+	#if !defined(__DOXYGEN__)		
 		/* Enums: */
 			enum USB_Interrupts_t
 			{
@@ -83,38 +80,6 @@
 			};
 		
 		/* Inline Functions: */
-			static inline uint_reg_t USB_INT_GetGlobalEnableState(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
-			static inline uint_reg_t USB_INT_GetGlobalEnableState(void)
-			{
-				GCC_MEMORY_BARRIER();
-				return __builtin_mfsr(AVR32_SR);
-			}
-
-			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
-			static inline void USB_INT_SetGlobalEnableState(uint_reg_t GlobalIntState)
-			{
-				GCC_MEMORY_BARRIER();
-				if (GlobalIntState & AVR32_SR_GM)
-				  __builtin_ssrf(AVR32_SR_GM_OFFSET);
-				GCC_MEMORY_BARRIER();
-			}
-		
-			static inline void USB_INT_GlobalEnable(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_INT_GlobalEnable(void)
-			{
-				GCC_MEMORY_BARRIER();
-				__builtin_csrf(AVR32_SR_GM_OFFSET);
-				GCC_MEMORY_BARRIER();
-			}		
-
-			static inline void USB_INT_GlobalDisable(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_INT_GlobalDisable(void)
-			{
-				GCC_MEMORY_BARRIER();
-				__builtin_ssrf(AVR32_SR_GM_OFFSET);
-				GCC_MEMORY_BARRIER();
-			}
-
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
 			{			
@@ -376,7 +341,7 @@
 				 */
 				void USB_GEN_vect(void);
 			#else
-				LUFA_ISR(USB_GEN_vect);
+				ISR(USB_GEN_vect);
 			#endif
 			
 	/* Disable C linkage for C++ Compilers: */

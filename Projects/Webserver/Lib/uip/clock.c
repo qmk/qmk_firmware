@@ -1,9 +1,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <avr/interrupt.h>
-#include <avr/io.h>
-#include <avr/sfr_defs.h>
+
+#include <LUFA/Common/Common.h>
 
 #include "clock.h"
 
@@ -29,9 +28,9 @@ clock_time_t clock_time()
 {
 	clock_time_t time;
 
-	USB_INT_GlobalDisable();
+	GlobalInterruptDisable();
 	time = clock_datetime;
-	USB_INT_GlobalEnable();
+	GlobalInterruptEnable();
 
 	return time;
 }

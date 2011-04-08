@@ -49,7 +49,7 @@ void USB_INT_ClearAllInterrupts(void)
 	AVR32_USBB.udintclr = 0xFFFFFFFF;
 }
 
-LUFA_ISR(USB_GEN_vect)
+ISR(USB_GEN_vect)
 {
 	#if defined(USB_CAN_BE_DEVICE)
 	#if !defined(NO_SOF_EVENTS)

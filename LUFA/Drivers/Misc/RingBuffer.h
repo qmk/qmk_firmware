@@ -125,8 +125,8 @@
 		{
 			GCC_FORCE_POINTER_ACCESS(Buffer);
 
-			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
-			USB_INT_GlobalDisable();
+			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+			GlobalInterruptDisable();
 	
 			Buffer->In     = DataPtr;
 			Buffer->Out    = DataPtr;
@@ -135,7 +135,7 @@
 			Buffer->Size   = Size;
 			Buffer->Count  = 0;
 
-			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
+			SetGlobalInterruptMask(CurrentGlobalInt);
 		}
 
 		/** Retrieves the minimum number of bytes stored in a particular buffer. This value is computed
@@ -155,12 +155,12 @@
 		{
 			uint16_t Count;
 
-			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
-			USB_INT_GlobalDisable();
+			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+			GlobalInterruptDisable();
 			
 			Count = Buffer->Count;
 
-			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
+			SetGlobalInterruptMask(CurrentGlobalInt);
 			return Count;
 		}
 
@@ -213,12 +213,12 @@
 			if (++Buffer->In == Buffer->End)
 			  Buffer->In = Buffer->Start;
 
-			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
-			USB_INT_GlobalDisable();
+			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+			GlobalInterruptDisable();
 			
 			Buffer->Count++;
 
-			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
+			SetGlobalInterruptMask(CurrentGlobalInt);
 		}
 
 		/** Removes an element from the ring buffer.
@@ -240,12 +240,12 @@
 			if (++Buffer->Out == Buffer->End)
 			  Buffer->Out = Buffer->Start;
 
-			uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
-			USB_INT_GlobalDisable();
+			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+			GlobalInterruptDisable();
 			
 			Buffer->Count--;
 
-			USB_INT_SetGlobalEnableState(CurrentGlobalInt);
+			SetGlobalInterruptMask(CurrentGlobalInt);
 
 			return Data;
 		}

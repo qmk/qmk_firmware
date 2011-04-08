@@ -199,8 +199,8 @@
 		
 			static inline void USB_Device_GetSerialString(uint16_t* UnicodeString)
 			{
-				uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
-				USB_INT_GlobalDisable();
+				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+				GlobalInterruptDisable();
 				
 				uint8_t SigReadAddress = 0x0E;
 
@@ -220,7 +220,7 @@
 															   (('A' - 10) + SerialByte) : ('0' + SerialByte));
 				}
 				
-				USB_INT_SetGlobalEnableState(CurrentGlobalInt);
+				SetGlobalInterruptMask(CurrentGlobalInt);
 			}
 		
 	#endif

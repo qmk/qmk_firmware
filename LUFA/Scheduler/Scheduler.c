@@ -39,12 +39,12 @@ bool Scheduler_HasDelayElapsed(const uint_least16_t Delay,
 	SchedulerDelayCounter_t CurrentTickValue_LCL;
 	SchedulerDelayCounter_t DelayCounter_LCL;
 
-	uint_reg_t CurrentGlobalInt = USB_INT_GetGlobalEnableState();
-	USB_INT_GlobalDisable();
+	uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+	GlobalInterruptDisable();
 
 	CurrentTickValue_LCL = Scheduler_TickCounter;
 
-	USB_INT_SetGlobalEnableState(CurrentGlobalInt);
+	SetGlobalInterruptMask(CurrentGlobalInt);
 
 	DelayCounter_LCL = *DelayCounter;
 

@@ -263,7 +263,7 @@ ISR(USB_COM_vect, ISR_BLOCK)
 	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 	USB_INT_Disable(USB_INT_RXSTPI);
 
-	USB_INT_GlobalEnable();
+	GlobalInterruptEnable();
 
 	USB_Device_ProcessControlRequest();
 

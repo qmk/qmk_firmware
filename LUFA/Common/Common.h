@@ -97,7 +97,7 @@
 
 			typedef uint32_t uint_reg_t;
 			
-			#define  ARCH_BIG_ENDIAN
+			#define ARCH_BIG_ENDIAN
 
 			#include "Endianness.h"
 		#else
@@ -217,6 +217,22 @@
 			 */
 			#define GCC_MEMORY_BARRIER()                __asm__ __volatile__("" ::: "memory");
 
+			#if !defined(ISR) || defined(__DOXYGEN__)
+				/** Macro for the definition of interrupt service routines, so that the compiler can insert the required
+				 *  prologue and epilogue code to properly manage the interrupt routine without affecting the main thread's
+				 *  state with unintentional side-effects.
+				 *
+				 *  Interrupt handlers written using this macro may still need to be registered with the microcontroller's
+				 *  Interrupt Controller (if present) before they will properly handle incoming interrupt events.
+				 *
+				 *  \note This is supplied on some architectures where the standard library does not include a valid
+				 *        definition. If an existing definition exists, the definition here will be ignored.
+				 *
+				 *  \param Name  Unique name of the interrupt service routine.
+				 */
+				#define ISR(Name, ...)                  void Name (void) __attribute__((__interrupt__)); void Name (void)
+			#endif
+
 		/* Inline Functions: */
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
 			 *  etc.
@@ -258,6 +274,79 @@
 					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));				
 				}
 				#endif
+			}
+
+			/** Retrieves a mask which contains the current state of the global interrupts for the device. This
+			 *  value can be stored before altering the global interrupt enable state, before restoring the
+			 *  flag(s) back to their previous values after a critical section using \ref SetGlobalInterruptMask().
+			 *
+			 *  \return  Mask containing the current Global Interrupt Enable Mask bit(s).
+			 */
+			static inline uint_reg_t GetGlobalInterruptMask(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint_reg_t GetGlobalInterruptMask(void)
+			{
+				GCC_MEMORY_BARRIER();
+
+				#if (ARCH == ARCH_AVR8)
+				return SREG;
+				#elif (ARCH == ARCH_UC3)
+				return __builtin_mfsr(AVR32_SR);				
+				#endif
+
+				GCC_MEMORY_BARRIER();
+			}
+
+			/** Sets the global interrupt enable state of the microcontroller to the mask passed into the function.
+			 *  This can be combined with \ref GetGlobalInterruptMask() to save and restore the Global Interrupt Enable
+			 *  Mask bit(s) of the device after a critical section has completed.
+			 *
+			 *  \param[in] GlobalIntState  Global Interrupt Enable Mask value to use
+			 */
+			static inline void SetGlobalInterruptMask(const uint_reg_t GlobalIntState) ATTR_ALWAYS_INLINE;
+			static inline void SetGlobalInterruptMask(const uint_reg_t GlobalIntState)
+			{
+				GCC_MEMORY_BARRIER();
+
+				#if (ARCH == ARCH_AVR8)
+				SREG = GlobalIntState;
+				#elif (ARCH == ARCH_UC3)
+				if (GlobalIntState & AVR32_SR_GM)
+				  __builtin_ssrf(AVR32_SR_GM_OFFSET);
+				else
+				  __builtin_csrf(AVR32_SR_GM_OFFSET);
+				#endif
+				
+				GCC_MEMORY_BARRIER();
+			}
+		
+			/** Enables global interrupt handling for the device, allowing interrupts to be handled. */
+			static inline void GlobalInterruptEnable(void) ATTR_ALWAYS_INLINE;
+			static inline void GlobalInterruptEnable(void)
+			{
+				GCC_MEMORY_BARRIER();
+
+				#if (ARCH == ARCH_AVR8)
+				sei();
+				#elif (ARCH == ARCH_UC3)
+				__builtin_csrf(AVR32_SR_GM_OFFSET);
+				#endif
+
+				GCC_MEMORY_BARRIER();
+			}		
+
+			/** Disabled global interrupt handling for the device, preventing interrupts from being handled. */
+			static inline void GlobalInterruptDisable(void) ATTR_ALWAYS_INLINE;
+			static inline void GlobalInterruptDisable(void)
+			{
+				GCC_MEMORY_BARRIER();
+
+				#if (ARCH == ARCH_AVR8)
+				cli();
+				#elif (ARCH == ARCH_UC3)
+				__builtin_ssrf(AVR32_SR_GM_OFFSET);
+				#endif
+
+				GCC_MEMORY_BARRIER();
 			}
 
 #endif
