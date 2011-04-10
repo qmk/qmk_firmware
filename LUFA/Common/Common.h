@@ -99,7 +99,7 @@
 			#define pgm_read_byte(x)         *x
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
-			// ==================================================
+			// =================================================
 
 			typedef uint32_t uint_reg_t;
 			
@@ -159,6 +159,8 @@
 				 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
 				 *  removes/reorders code to the point where break points cannot reliably be set.
 				 *
+				 *  \note This macro is not available for all architectures.
+				 *
 				 *  \ingroup Group_Debugging
 				 */
 				#define JTAG_DEBUG_POINT()      __asm__ __volatile__ ("NOP" ::)
@@ -166,27 +168,17 @@
 				/** Defines an explicit JTAG break point in the resulting binary via the assembly \c BREAK statement. When
 				 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
 				 *
+				 *  \note This macro is not available for all architectures.
+				 *
 				 *  \ingroup Group_Debugging
 				 */
 				#define JTAG_DEBUG_BREAK()      __asm__ __volatile__ ("BREAK" ::)
 
-				#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
-					/** Reads a pointer out of PROGMEM space on the AVR8 architecture. This is currently a wrapper for the
-					 *  avr-libc \c pgm_read_ptr() macro with a \c void* cast, so that its value can be assigned directly
-					 *  to a pointer variable or used in pointer arithmetic without further casting in C. In a future
-					 *  avr-libc distribution this will be part of the standard API and will be implemented in a more formal
-					 *  manner.
-					 *
-					 *  \param[in] Addr  Address of the pointer to read.
-					 *
-					 *  \return Pointer retrieved from PROGMEM space.
-					 */
-					#define pgm_read_ptr(Addr)    (void*)pgm_read_word(Addr)
-				#endif
-
 				/** Macro for testing condition "x" and breaking via \ref JTAG_DEBUG_BREAK() if the condition is false.
 				 *
-				 *  \param[in] Condition  Condition that will be evaluated,
+				 *  \note This macro is not available for all architectures.
+				 *
+				 *  \param[in] Condition  Condition that will be evaluated.
 				 *
 				 *  \ingroup Group_Debugging
 				*/
@@ -198,6 +190,8 @@
 				 *
 				 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {Condition} failed."
 				 *
+				 *  \note This macro is not available for all architectures.
+				 *
 				 *  \param[in] Condition  Condition that will be evaluated,
 				 *
 				 *  \ingroup Group_Debugging
@@ -205,6 +199,22 @@
 				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
 				                                                "Assertion \"%s\" failed.\r\n"),     \
 				                                                __FILE__, __func__, __LINE__, #Condition); } }MACROE
+
+				#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
+					/** Reads a pointer out of PROGMEM space on the AVR8 architecture. This is currently a wrapper for the
+					 *  avr-libc \c pgm_read_ptr() macro with a \c void* cast, so that its value can be assigned directly
+					 *  to a pointer variable or used in pointer arithmetic without further casting in C. In a future
+					 *  avr-libc distribution this will be part of the standard API and will be implemented in a more formal
+					 *  manner.
+					 *
+					 *  \note This macro is not available for all architectures.
+					 *
+					 *  \param[in] Address  Address of the pointer to read.
+					 *
+					 *  \return Pointer retrieved from PROGMEM space.
+					 */
+					#define pgm_read_ptr(Addr)          (void*)pgm_read_word(Address)
+				#endif
 			#endif
 			
 			/** Forces GCC to use pointer indirection (via the device's pointer register pairs) when accessing the given
@@ -231,8 +241,8 @@
 				 *  Interrupt handlers written using this macro may still need to be registered with the microcontroller's
 				 *  Interrupt Controller (if present) before they will properly handle incoming interrupt events.
 				 *
-				 *  \note This is supplied on some architectures where the standard library does not include a valid
-				 *        definition. If an existing definition exists, the definition here will be ignored.
+				 *  \note This macro is only supplied on some architectures, where the standard library does not include a valid
+				 *        definition. If an existing definition exists, the alternative definition here will be ignored.
 				 *
 				 *  \ingroup Group_GlobalInt
 				 *

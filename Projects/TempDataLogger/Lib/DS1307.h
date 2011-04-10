@@ -30,9 +30,9 @@
 			{
 				struct
 				{
-					unsigned int Sec            : 4;
-					unsigned int TenSec         : 3;
-					unsigned int CH             : 1;
+					unsigned Sec            : 4;
+					unsigned TenSec         : 3;
+					unsigned CH             : 1;
 				} Fields;
 
 				uint8_t IntVal;
@@ -42,9 +42,9 @@
 			{
 				struct
 				{
-					unsigned int Min            : 4;
-					unsigned int TenMin         : 3;
-					unsigned int Reserved       : 1;
+					unsigned Min            : 4;
+					unsigned TenMin         : 3;
+					unsigned Reserved       : 1;
 				} Fields;
 
 				uint8_t IntVal;
@@ -54,10 +54,10 @@
 			{
 				struct
 				{
-					unsigned int Hour            : 4;
-					unsigned int TenHour         : 2;
-					unsigned int TwelveHourMode  : 1;
-					unsigned int Reserved        : 1;
+					unsigned Hour            : 4;
+					unsigned TenHour         : 2;
+					unsigned TwelveHourMode  : 1;
+					unsigned Reserved        : 1;
 				} Fields;
 
 				uint8_t IntVal;
@@ -67,8 +67,8 @@
 			{
 				struct
 				{
-					unsigned int DayOfWeek       : 3;
-					unsigned int Reserved        : 5;
+					unsigned DayOfWeek       : 3;
+					unsigned Reserved        : 5;
 				} Fields;
 
 				uint8_t IntVal;
@@ -78,9 +78,9 @@
 			{
 				struct
 				{
-					unsigned int Day             : 4;
-					unsigned int TenDay          : 2;
-					unsigned int Reserved        : 2;
+					unsigned Day             : 4;
+					unsigned TenDay          : 2;
+					unsigned Reserved        : 2;
 				} Fields;
 
 				uint8_t IntVal;
@@ -90,9 +90,9 @@
 			{
 				struct
 				{
-					unsigned int Month           : 4;
-					unsigned int TenMonth        : 1;
-					unsigned int Reserved        : 3;
+					unsigned Month           : 4;
+					unsigned TenMonth        : 1;
+					unsigned Reserved        : 3;
 				} Fields;
 
 				uint8_t IntVal;
@@ -102,8 +102,8 @@
 			{
 				struct
 				{
-					unsigned int Year            : 4;
-					unsigned int TenYear         : 4;
+					unsigned Year            : 4;
+					unsigned TenYear         : 4;
 				} Fields;
 
 				uint8_t IntVal;

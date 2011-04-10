@@ -155,7 +155,7 @@
 			                                    const uint32_t UECFGXData);
 		
 		/* External Variables: */
-			extern volatile uint8_t  USB_SelectedEndpoint;
+			extern volatile uint32_t USB_SelectedEndpoint;
 			extern volatile uint8_t* USB_EndpointFIFOPos[];
 	#endif
 

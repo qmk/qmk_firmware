@@ -90,16 +90,16 @@
 			
 			struct
 			{
-				unsigned char ListenOnly             : 1;
-				unsigned char TalkOnly               : 1;
-				unsigned char PulseIndicateSupported : 1;
-				unsigned char Reserved               : 5;
+				unsigned ListenOnly             : 1;
+				unsigned TalkOnly               : 1;
+				unsigned PulseIndicateSupported : 1;
+				unsigned Reserved               : 5;
 			} Interface;
 			
 			struct
 			{
-				unsigned char SupportsAbortINOnMatch : 1;
-				unsigned char Reserved               : 7;
+				unsigned SupportsAbortINOnMatch : 1;
+				unsigned Reserved               : 7;
 			} Device;
 			
 			uint8_t Reserved2[6];
@@ -108,16 +108,16 @@
 		
 		typedef struct
 		{
-			unsigned char LastMessageTransaction : 1;
-			unsigned char Reserved               : 7;
+			unsigned LastMessageTransaction     : 1;
+			unsigned Reserved                   : 7;
 
 			uint8_t Reserved2[3];
 		} TMC_DevOUTMessageHeader_t;
 
 		typedef struct
 		{
-			unsigned char TermCharEnabled        : 1;
-			unsigned char Reserved               : 7;
+			unsigned TermCharEnabled            : 1;
+			unsigned Reserved                   : 7;
 
 			uint8_t TermChar;
 			uint8_t Reserved2[2];

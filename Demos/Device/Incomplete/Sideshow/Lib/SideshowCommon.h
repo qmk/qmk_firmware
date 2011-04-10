@@ -65,13 +65,13 @@
 	/* Type Defines: */
 		typedef struct
 		{
-			uint32_t         Chunks[4];
+			uint32_t Chunks[4];
 		} GUID_t;
 
 		typedef struct
 		{
-			uint16_t         LengthInBytes;
-			int              UnicodeString[];
+			uint16_t LengthInBytes;
+			int      UnicodeString[];
 		} Unicode_String_t;
 
 		typedef union
@@ -80,19 +80,19 @@
 
 			struct
 			{
-				uint8_t TypeBytes[3];
+				uint8_t  TypeBytes[3];
 
-				int ErrorCode     : 6;
-				int NAK           : 1;
-				int Response      : 1;
+				unsigned ErrorCode     : 6;
+				unsigned NAK           : 1;
+				unsigned Response      : 1;
 			} TypeFields;
 		} SideShowPacketType_t;
 
 		typedef struct
 		{
-			uint32_t               Length;
-			SideShowPacketType_t   Type;
-			uint16_t               Number;
+			uint32_t             Length;
+			SideShowPacketType_t Type;
+			uint16_t             Number;
 		} SideShow_PacketHeader_t;
 
 	/* Function Prototypes: */

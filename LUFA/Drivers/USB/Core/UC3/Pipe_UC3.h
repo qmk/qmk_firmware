@@ -102,7 +102,7 @@
 			#define PIPE_HSB_ADDRESS_SPACE_SIZE     (64 * 1024UL)
 	
 		/* External Variables: */
-			extern volatile uint8_t  USB_SelectedPipe;
+			extern volatile uint32_t USB_SelectedPipe;
 			extern volatile uint8_t* USB_PipeFIFOPos[];
 	#endif
 

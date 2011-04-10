@@ -79,35 +79,35 @@
 		 */
 		typedef struct
 		{
-			unsigned char DeviceType          : 5;
-			unsigned char PeripheralQualifier : 3;
+			unsigned DeviceType          : 5;
+			unsigned PeripheralQualifier : 3;
 
-			unsigned char Reserved            : 7;
-			unsigned char Removable           : 1;
+			unsigned Reserved            : 7;
+			unsigned Removable           : 1;
 
-			uint8_t       Version;
+			uint8_t  Version;
 
-			unsigned char ResponseDataFormat  : 4;
-			unsigned char Reserved2           : 1;
-			unsigned char NormACA             : 1;
-			unsigned char TrmTsk              : 1;
-			unsigned char AERC                : 1;
+			unsigned ResponseDataFormat  : 4;
+			unsigned Reserved2           : 1;
+			unsigned NormACA             : 1;
+			unsigned TrmTsk              : 1;
+			unsigned AERC                : 1;
 
-			uint8_t       AdditionalLength;
-			uint8_t       Reserved3[2];
+			uint8_t  AdditionalLength;
+			uint8_t  Reserved3[2];
 
-			unsigned char SoftReset           : 1;
-			unsigned char CmdQue              : 1;
-			unsigned char Reserved4           : 1;
-			unsigned char Linked              : 1;
-			unsigned char Sync                : 1;
-			unsigned char WideBus16Bit        : 1;
-			unsigned char WideBus32Bit        : 1;
-			unsigned char RelAddr             : 1;
+			unsigned SoftReset           : 1;
+			unsigned CmdQue              : 1;
+			unsigned Reserved4           : 1;
+			unsigned Linked              : 1;
+			unsigned Sync                : 1;
+			unsigned WideBus16Bit        : 1;
+			unsigned WideBus32Bit        : 1;
+			unsigned RelAddr             : 1;
 
-			uint8_t       VendorID[8];
-			uint8_t       ProductID[16];
-			uint8_t       RevisionID[4];
+			uint8_t  VendorID[8];
+			uint8_t  ProductID[16];
+			uint8_t  RevisionID[4];
 		} MS_SCSI_Inquiry_Response_t;
 
 		/** Type define for a SCSI sense structure to a SCSI REQUEST SENSE command. For details of the
@@ -115,23 +115,23 @@
 		 */
 		typedef struct
 		{
-			uint8_t       ResponseCode;
+			uint8_t  ResponseCode;
 
-			uint8_t       SegmentNumber;
+			uint8_t  SegmentNumber;
 
-			unsigned char SenseKey            : 4;
-			unsigned char Reserved            : 1;
-			unsigned char ILI                 : 1;
-			unsigned char EOM                 : 1;
-			unsigned char FileMark            : 1;
+			unsigned SenseKey            : 4;
+			unsigned Reserved            : 1;
+			unsigned ILI                 : 1;
+			unsigned EOM                 : 1;
+			unsigned FileMark            : 1;
 
-			uint8_t       Information[4];
-			uint8_t       AdditionalLength;
-			uint8_t       CmdSpecificInformation[4];
-			uint8_t       AdditionalSenseCode;
-			uint8_t       AdditionalSenseQualifier;
-			uint8_t       FieldReplaceableUnitCode;
-			uint8_t       SenseKeySpecific[3];
+			uint8_t  Information[4];
+			uint8_t  AdditionalLength;
+			uint8_t  CmdSpecificInformation[4];
+			uint8_t  AdditionalSenseCode;
+			uint8_t  AdditionalSenseQualifier;
+			uint8_t  FieldReplaceableUnitCode;
+			uint8_t  SenseKeySpecific[3];
 		} MS_SCSI_Request_Sense_Response_t;
 
 	/* Function Prototypes: */

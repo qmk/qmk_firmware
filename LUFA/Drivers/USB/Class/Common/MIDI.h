@@ -272,12 +272,12 @@
 		 */
 		typedef struct
 		{
-			unsigned char Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet. */
-			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface. */
+			unsigned Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet. */
+			unsigned CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface. */
 
-			uint8_t Data1; /**< First byte of data in the MIDI event. */
-			uint8_t Data2; /**< Second byte of data in the MIDI event. */
-			uint8_t Data3; /**< Third byte of data in the MIDI event. */
+			uint8_t  Data1; /**< First byte of data in the MIDI event. */
+			uint8_t  Data2; /**< Second byte of data in the MIDI event. */
+			uint8_t  Data3; /**< Third byte of data in the MIDI event. */
 		} ATTR_PACKED MIDI_EventPacket_t;
 
 	/* Disable C linkage for C++ Compilers: */
