@@ -76,7 +76,7 @@ F_CPU = ### INSERT PRESCALED SYSTEM CLOCK SPEED HERE, IN HZ ###
 #     clock rate.
 #
 #     For the UC3 chips, this should be equal to 48MHz or 96MHz.
-F_USB = 48000000
+F_USB = ### INSERT CLOCK TO USB MODULE HERE, IN HZ ###
 
 
 # Output format. (can be srec, ihex, binary)
@@ -132,10 +132,6 @@ ASRC =
 OPT = s
 
 
-# Debugging level.
-DEBUG = 3
-
-
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
@@ -173,6 +169,9 @@ CPPDEFS += -DBOARD=BOARD_$(BOARD)
 CPPDEFS += -DARCH=ARCH_$(ARCH)
 CPPDEFS += $(LUFA_OPTS)
 
+
+# Debugging level.
+DEBUG = 3
 
 
 #---------------- Compiler Options C ----------------
