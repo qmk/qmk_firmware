@@ -232,6 +232,15 @@
 			 *  assembly output in an unexpected manner on sections of code that are ordering-specific.
 			 */
 			#define GCC_MEMORY_BARRIER()                __asm__ __volatile__("" ::: "memory");
+			
+			/** Evaluates to boolean true if the specified value can be determined at compile time to be a constant value
+			 *  when compiling under GCC.
+			 *
+			 *  \param[in] x  Value to check compile time constantness of.
+			 *
+			 *  \return Boolean true if the given value is known to be a compile time constant.
+			 */
+			#define GCC_IS_COMPILE_CONST(x)             __builtin_constant_p(x)
 
 			#if !defined(ISR) || defined(__DOXYGEN__)
 				/** Macro for the definition of interrupt service routines, so that the compiler can insert the required
@@ -273,10 +282,11 @@
 			 *
 			 *  \param[in] Milliseconds  Number of milliseconds to delay
 			 */
+			static inline void Delay_MS(uint8_t Milliseconds) ATTR_ALWAYS_INLINE;
 			static inline void Delay_MS(uint8_t Milliseconds)
 			{
 				#if (ARCH == ARCH_AVR8)
-				if (__builtin_constant_p(Milliseconds))
+				if (GCC_IS_COMPILE_CONST(Milliseconds))
 				{
 					_delay_ms(Milliseconds);
 				}

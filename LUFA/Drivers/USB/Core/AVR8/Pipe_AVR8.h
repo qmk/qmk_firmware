@@ -273,7 +273,7 @@
 			 *
 			 *  \return The current pipe token, as a \c PIPE_TOKEN_* mask.
 			 */
-			static inline uint8_t Pipe_GetPipeToken(void) ATTR_ALWAYS_INLINE;
+			static inline uint8_t Pipe_GetPipeToken(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetPipeToken(void)
 			{
 				return (UPCFG0X & (0x03 << PTOKEN0));
@@ -433,6 +433,7 @@
 			 *
 			 *  \return Total number of busy banks in the selected pipe.
 			 */
+			static inline uint8_t Pipe_GetBusyBanks(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetBusyBanks(void)
 			{
 				return (UPSTAX & (0x03 << NBUSYBK0));

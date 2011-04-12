@@ -74,7 +74,7 @@
 			 *
 			 *  \ingroup Group_ByteSwapping
 			 *
-			 *  \param[in]  x  16-bit value whose byte ordering is to be swapped.
+			 *  \param[in] x  16-bit value whose byte ordering is to be swapped.
 			 *
 			 *  \return Input value with the byte ordering reversed.
 			 */
@@ -87,7 +87,7 @@
 			 *
 			 *  \ingroup Group_ByteSwapping
 			 *
-			 *  \param[in]  x  32-bit value whose byte ordering is to be swapped.
+			 *  \param[in] x  32-bit value whose byte ordering is to be swapped.
 			 *
 			 *  \return Input value with the byte ordering reversed.
 			 */
@@ -440,24 +440,24 @@
 			 *
 			 *  \ingroup Group_ByteSwapping
 			 *
-			 *  \param[in,out] Data   Pointer to a number containing an even number of bytes to be reversed.
-			 *  \param[in]     Bytes  Length of the data in bytes.
+			 *  \param[in,out] Data    Pointer to a number containing an even number of bytes to be reversed.
+			 *  \param[in]     Length  Length of the data in bytes.
 			 */
-			static inline void SwapEndian_n(void* Data,
-			                                uint8_t Bytes) ATTR_NON_NULL_PTR_ARG(1);
-			static inline void SwapEndian_n(void* Data,
-			                                uint8_t Bytes)
+			static inline void SwapEndian_n(void* const Data,
+			                                uint8_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void SwapEndian_n(void* const Data,
+			                                uint8_t Length)
 			{
 				uint8_t* CurrDataPos = (uint8_t*)Data;
 
-				while (Bytes > 1)
+				while (Length > 1)
 				{
 					uint8_t Temp = *CurrDataPos;
-					*CurrDataPos = *(CurrDataPos + Bytes - 1);
-					*(CurrDataPos + Bytes - 1) = Temp;
+					*CurrDataPos = *(CurrDataPos + Length - 1);
+					*(CurrDataPos + Length - 1) = Temp;
 
 					CurrDataPos++;
-					Bytes -= 2;
+					Length -= 2;
 				}
 			}
 

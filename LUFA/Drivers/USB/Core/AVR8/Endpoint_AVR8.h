@@ -394,6 +394,7 @@
 			 *
 			 *  \return Total number of busy banks in the selected endpoint.
 			 */
+			static inline uint8_t Endpoint_GetBusyBanks(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Endpoint_GetBusyBanks(void)
 			{
 				return (UESTA0X & (0x03 << NBUSYBK0));

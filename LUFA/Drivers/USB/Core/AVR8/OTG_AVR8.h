@@ -93,7 +93,7 @@
 			 *
 			 *  \return Boolean \c true if currently sending a HNP to the other connected device, \c false otherwise
 			 */
-			static inline bool USB_OTG_Device_IsSendingHNP(void) ATTR_ALWAYS_INLINE;
+			static inline bool USB_OTG_Device_IsSendingHNP(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_OTG_Device_IsSendingHNP(void)
 			{
 				return ((OTGCON & (1 << HNPREQ)) ? true : false);

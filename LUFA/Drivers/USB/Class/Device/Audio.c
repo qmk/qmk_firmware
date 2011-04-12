@@ -88,9 +88,7 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioIn
 		}
 
 		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size, ENDPOINT_BANK_DOUBLE)))
-		{
-			return false;
-		}
+		  return false;
 	}
 
 	return true;
