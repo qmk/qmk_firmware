@@ -213,7 +213,7 @@
 					 *
 					 *  \return Pointer retrieved from PROGMEM space.
 					 */
-					#define pgm_read_ptr(Addr)          (void*)pgm_read_word(Address)
+					#define pgm_read_ptr(Address)        (void*)pgm_read_word(Address)
 				#endif
 			#endif
 			
