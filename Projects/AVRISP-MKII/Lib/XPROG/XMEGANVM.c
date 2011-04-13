@@ -45,10 +45,10 @@
 static void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress)
 {
 	/* Send the given 32-bit address to the target, LSB first */
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[2]);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[3]);
+	XPROGTarget_SendByte(AbsoluteAddress &  0xFF);
+	XPROGTarget_SendByte(AbsoluteAddress >> 8);
+	XPROGTarget_SendByte(AbsoluteAddress >> 16);
+	XPROGTarget_SendByte(AbsoluteAddress >> 24);
 }
 
 /** Sends the given NVM register address to the target.

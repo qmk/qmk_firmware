@@ -279,8 +279,8 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_Query_Complete_t* QUERY_Response = (RNDIS_Query_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t                Query_Oid      = QUERY_Message->Oid;
 
-			void*     QueryData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
-			                                                                    QUERY_Message->InformationBufferOffset];
+			void*     QueryData    = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			                                                                       QUERY_Message->InformationBufferOffset];
 			void*     ResponseData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];
 			uint16_t  ResponseSize;
 

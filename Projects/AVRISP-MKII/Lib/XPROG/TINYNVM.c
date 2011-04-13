@@ -43,9 +43,9 @@ static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
 {
 	/* Send the given 16-bit address to the target, LSB first */
 	XPROGTarget_SendByte(TPI_CMD_SSTPR | 0);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
+	XPROGTarget_SendByte(AbsoluteAddress & 0xFF);
 	XPROGTarget_SendByte(TPI_CMD_SSTPR | 1);
-	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
+	XPROGTarget_SendByte(AbsoluteAddress >> 8);
 }
 
 /** Sends a SIN command to the target with the specified I/O address, ready for the data byte to be written.

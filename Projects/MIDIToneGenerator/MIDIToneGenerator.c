@@ -166,7 +166,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		if (NoteData[i].Pitch)
 		{
 			/* Use the top 8 bits of the table position as the sample table index */
-			uint8_t TableIndex = ((uint8_t*)&NoteData[i].TablePosition)[3];
+			uint8_t TableIndex = (NoteData[i].TablePosition >> 24);
 			
 			/* Add the new tone sample to the accumulator and increment the table position */
 			MixedSample += SineTable[TableIndex];
