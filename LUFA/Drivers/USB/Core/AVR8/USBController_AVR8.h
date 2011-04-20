@@ -119,14 +119,15 @@
 			/** \name USB Controller Option Masks */
 			//@{
 			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
-			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
+			 *  regulator should be disabled and the AVR's VCC level used for the data pads.
 			 *
 			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
 			 */
 			#define USB_OPT_REG_DISABLED               (1 << 1)
 
 			/** Regulator enable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
-			 *  regulator should be disabled and the AVR's VCC level used for the data pads.
+			 *  regulator should be enabled to regulate the data pin voltages from the VBUS level down to a level within
+			 *  the range allowable by the USB standard.
 			 *
 			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
 			 */

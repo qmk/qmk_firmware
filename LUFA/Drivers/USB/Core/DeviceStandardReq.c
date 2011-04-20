@@ -114,7 +114,7 @@ void USB_Device_ProcessControlRequest(void)
 
 static void USB_Device_SetAddress(void)
 {
-	uint8_t DeviceAddress       = (USB_ControlRequest.wValue & 0x7F);
+	uint8_t    DeviceAddress    = (USB_ControlRequest.wValue & 0x7F);
 	uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 	GlobalInterruptDisable();
 				

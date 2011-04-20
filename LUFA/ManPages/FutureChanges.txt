@@ -18,6 +18,7 @@
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Add makefile includes to reduce boilerplate in user makefiles
+  *      -# Update stream APIs to use DMA transfers on supported architectures
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

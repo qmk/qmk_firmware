@@ -18,7 +18,7 @@
   *   - Added new Endpoint_Null_Stream() and Pipe_Null_Stream() functions
   *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
   *   - Added new HID report item macros (with HID_RI_ prefix) to allow for easy creation and editing of HID report descriptors
-  *   - Added new HID_DESCRIPTOR_MOUSE, HID_DESCRIPTOR_KEYBOARD, HID_DESCRIPTOR_JOYSTICK and HID_DESCRIPTOR_VENDOR macros
+  *   - Added new HID_DESCRIPTOR_MOUSE(), HID_DESCRIPTOR_KEYBOARD(), HID_DESCRIPTOR_JOYSTICK() and HID_DESCRIPTOR_VENDOR() macros
   *     for easy automatic creation of basic USB HID device reports
   *   - Added new MAX() and MIN() convenience macros
   *   - Added new Serial_SendData() function to the Serial driver
