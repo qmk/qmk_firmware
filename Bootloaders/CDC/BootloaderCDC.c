@@ -66,6 +66,9 @@ int main(void)
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
 
+	/* Turn on first LED on the board to indicate that the bootloader has started */
+	LEDs_SetAllLEDs(LEDS_LED1);
+
 	/* Enable global interrupts so that the USB stack can function */
 	sei();
 
@@ -100,6 +103,17 @@ void SetupHardware(void)
 
 	/* Initialize USB Subsystem */
 	USB_Init();
+	LEDs_Init();
+	
+	/* Bootloader active LED toggle timer initialization */
+	TIMSK1 = (1 << TOIE1);
+	TCCR1B = ((1 << CS11) | (1 << CS10));	
+}
+
+/** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
+ISR(TIMER1_OVF_vect, ISR_BLOCK)
+{
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready

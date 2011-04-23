@@ -50,6 +50,7 @@
 		#include "Descriptors.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 
 	/* Macros: */
 		/** Configuration define. Define this token to true to case the bootloader to reject all memory commands

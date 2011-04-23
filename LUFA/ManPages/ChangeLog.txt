@@ -33,6 +33,7 @@
   *   - Added new KeyboardMouseMultiReport Device ClassDriver demo
   *   - Added new VirtualSerialMassStorage Device ClassDriver demo
   *   - Added HID class bootloader, compatible with a modified version of the command line Teensy loader from PJRC.com
+  *   - Added LED flashing to the CDC and DFU class bootloaders to indicate when they are running
   *
   *  <b>Changed:</b>
   *  - Core:

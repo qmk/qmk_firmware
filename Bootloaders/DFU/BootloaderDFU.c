@@ -119,6 +119,9 @@ int main(void)
 	MCUCR &= ~(1 << JTD);	
 	#endif
 
+	/* Turn on first LED on the board to indicate that the bootloader has started */
+	LEDs_SetAllLEDs(LEDS_LED1);
+
 	/* Enable global interrupts so that the USB stack can function */
 	sei();
 
@@ -149,6 +152,11 @@ void SetupHardware(void)
 
 	/* Initialize the USB subsystem */
 	USB_Init();
+	LEDs_Init();
+	
+	/* Bootloader active LED toggle timer initialization */
+	TIMSK1 = (1 << TOIE1);
+	TCCR1B = ((1 << CS11) | (1 << CS10));
 }
 
 /** Resets all configured hardware required for the bootloader back to their original states. */
@@ -160,6 +168,12 @@ void ResetHardware(void)
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);
 	MCUCR = 0;
+}
+
+/** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
+ISR(TIMER1_OVF_vect, ISR_BLOCK)
+{
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
 /** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
