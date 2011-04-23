@@ -148,6 +148,9 @@ void EVENT_USB_Device_ControlRequest(void)
 		return;
 	}
 
+	/* Activity - toggle indicator LEDs */
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
+
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{

@@ -181,16 +181,19 @@ ISR(TIMER1_OVF_vect, ISR_BLOCK)
  *  internally.
  */
 void EVENT_USB_Device_ControlRequest(void)
-{
-	/* Get the size of the command and data from the wLength value */
-	SentCommand.DataSize = USB_ControlRequest.wLength;
-	
+{	
 	/* Ignore any requests that aren't directed to the DFU interface */
 	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
 	    (REQTYPE_CLASS | REQREC_INTERFACE))
 	{
 		return;
 	}
+
+	/* Activity - toggle indicator LEDs */
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
+
+	/* Get the size of the command and data from the wLength value */
+	SentCommand.DataSize = USB_ControlRequest.wLength;
 
 	switch (USB_ControlRequest.bRequest)
 	{
