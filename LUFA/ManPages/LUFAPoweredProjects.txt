@@ -56,6 +56,7 @@
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
  *  - LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
  *  - MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
+ *  - MiniBloq, a graphical Ardunio programming environment : http://minibloq.org/
  *  - Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
  *  - Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
  *  - Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
@@ -90,17 +91,20 @@
  *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
  *
  *  The following is a list of known commercial products using LUFA. Some of these are open source, although many are "black-box"
- *  solutions with no source code given.
+ *  solutions with no source code given. Those companies which have purchased a Commercial License to LUFA (see \ref Page_LicenseInfo)
+ *  are not listed here unless specifically requested.
  *
- *  - Arduino Uno, the official Arduino board: www.arduino.cc
+ *  - Arduino Uno, the official Arduino board: http://www.arduino.cc
  *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
  *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
+ *  - FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
  *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  - PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
  *  - PIR-4, a USB Connected 4 port IR transmitter: http://promixis.com/pir-4.php
  *  - Many of Busware's Products: http://www.busware.de/
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
+ *  - SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
  *  - USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
  *  - XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
  *  - Zeptoprog, a multifunction AVR programmer: http://www.mattairtech.com/index.php/featured/zeptoprog.html

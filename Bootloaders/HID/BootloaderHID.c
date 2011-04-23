@@ -123,7 +123,7 @@ void EVENT_USB_Device_ControlRequest(void)
 			#if (FLASHEND > 0xFFFF)
 			if ((uint16_t)(PageAddress >> 8) == COMMAND_STARTAPPLICATION)
 			#else
-			if (PageAddress == COMMAND_STARTAPPLICATION)			
+			if (PageAddress == COMMAND_STARTAPPLICATION)
 			#endif
 			{
 				RunBootloader = false;
