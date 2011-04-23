@@ -113,10 +113,18 @@ void EVENT_USB_Device_ControlRequest(void)
 			while (!(Endpoint_IsOUTReceived()));
 		
 			/* Read in the write destination address */
+			#if (FLASHEND > 0xFFFF)
+			uint32_t PageAddress = ((uint32_t)Endpoint_Read_16_LE() << 8);
+			#else
 			uint16_t PageAddress = Endpoint_Read_16_LE();
+			#endif
 			
 			/* Check if the command is a program page command, or a start application command */
-			if (PageAddress == COMMAND_STARTAPPLICATION)
+			#if (FLASHEND > 0xFFFF)
+			if ((uint16_t)(PageAddress >> 8) == COMMAND_STARTAPPLICATION)
+			#else
+			if (PageAddress == COMMAND_STARTAPPLICATION)			
+			#endif
 			{
 				RunBootloader = false;
 			}
