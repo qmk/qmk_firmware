@@ -257,7 +257,7 @@
 				 *
 				 *  \param Name  Unique name of the interrupt service routine.
 				 */
-				#define ISR(Name, ...)                  void Name (void) __attribute__((__interrupt__)); void Name (void)
+				#define ISR(Name, ...)                  void Name (void) __attribute__((__interrupt__)) __VA_ARGS__; void Name (void)
 			#endif
 
 		/* Inline Functions: */

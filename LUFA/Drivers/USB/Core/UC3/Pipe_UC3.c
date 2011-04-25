@@ -69,7 +69,7 @@ void Pipe_ClearPipes(void)
 	{
 		Pipe_SelectPipe(PNum);
 		(&AVR32_USBB.upcfg0)[PNum]    = 0;
-		(&AVR32_USBB.upcon0clr)[PNum] = 0xFFFFFFFF;
+		(&AVR32_USBB.upcon0clr)[PNum] = -1;
 		USB_PipeFIFOPos[PNum]         = &AVR32_USBB_SLAVE[PNum * 0x10000];
 		Pipe_DisablePipe();
 	}

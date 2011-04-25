@@ -78,7 +78,7 @@
 			 *
 			 *  \return Input value with the byte ordering reversed.
 			 */
-			#define SWAPENDIAN_16(x)          ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
+			#define SWAPENDIAN_16(x)            (uint16_t)((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
 
 			/** Swaps the byte ordering of a 32-bit value at compile-time. Do not use this macro for swapping byte orderings
 			 *  of dynamic values computed at runtime- use \ref SwapEndian_32() instead. The result of this macro can be used
@@ -91,8 +91,8 @@
 			 *
 			 *  \return Input value with the byte ordering reversed.
 			 */
-			#define SWAPENDIAN_32(x)          ((((x) & 0xFF000000UL) >> 24UL) | (((x) & 0x00FF0000UL) >> 8UL) | \
-			                                   (((x) & 0x0000FF00UL) << 8UL)  | (((x) & 0x000000FFUL) << 24UL))
+			#define SWAPENDIAN_32(x)            (uint32_t)((((x) & 0xFF000000UL) >> 24UL) | (((x) & 0x00FF0000UL) >> 8UL) | \
+			                                               (((x) & 0x0000FF00UL) << 8UL)  | (((x) & 0x000000FFUL) << 24UL))
 
 			#if defined(ARCH_BIG_ENDIAN) && !defined(le16_to_cpu)
 				#define le16_to_cpu(x)           SwapEndian_16(x)

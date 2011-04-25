@@ -236,9 +236,7 @@ ASFLAGS = $(ADEFS) -Wa,-adhlns=$(<:%.S=$(OBJDIR)/%.lst),-gstabs,--listing-cont-l
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
 LDFLAGS  = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--relax 
-LDFLAGS += -Wl,--gc-sections
-LDFLAGS += -Wl,--rodata-writable
+LDFLAGS += -Wl,--gc-sections --rodata-writable
 LDFLAGS += -Wl,--direct-data
 #LDFLAGS += -T linker_script.x
 

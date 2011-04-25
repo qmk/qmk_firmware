@@ -61,7 +61,7 @@ void Endpoint_ClearEndpoints(void)
 	{
 		Endpoint_SelectEndpoint(EPNum);
 		(&AVR32_USBB.uecfg0)[EPNum]    = 0;
-		(&AVR32_USBB.uecon0clr)[EPNum] = 0xFFFFFFFF;
+		(&AVR32_USBB.uecon0clr)[EPNum] = -1;
 		USB_EndpointFIFOPos[EPNum]     = &AVR32_USBB_SLAVE[EPNum * 0x10000];
 		Endpoint_DisableEndpoint();
 	}

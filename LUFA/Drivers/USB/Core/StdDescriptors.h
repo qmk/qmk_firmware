@@ -612,17 +612,21 @@
 			{
 				USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
-				wchar_t UnicodeString[]; /**< String data, as unicode characters (alternatively,
-				                          *   string language IDs). If normal ASCII characters are
-				                          *   to be used, they must be added as an array of characters
-				                          *   rather than a normal C string so that they are widened to
-				                          *   Unicode size.
-				                          *
-				                          *   Under GCC, strings prefixed with the "L" character (before
-				                          *   the opening string quotation mark) are considered to be
-				                          *   Unicode strings, and may be used instead of an explicit
-				                          *   array of ASCII characters.
-				                          */
+				#if (ARCH == ARCH_AVR8)
+				wchar_t  UnicodeString[];
+				#else
+				uint16_t UnicodeString[]; /**< String data, as unicode characters (alternatively,
+				                           *   string language IDs). If normal ASCII characters are
+				                           *   to be used, they must be added as an array of characters
+				                           *   rather than a normal C string so that they are widened to
+				                           *   Unicode size.
+				                           *
+				                           *   Under GCC, strings prefixed with the "L" character (before
+				                           *   the opening string quotation mark) are considered to be
+				                           *   Unicode strings, and may be used instead of an explicit
+				                           *   array of ASCII characters.
+				                           */
+				#endif
 			} ATTR_PACKED USB_Descriptor_String_t;
 
 			/** \brief Standard USB String Descriptor (USB-IF naming conventions).

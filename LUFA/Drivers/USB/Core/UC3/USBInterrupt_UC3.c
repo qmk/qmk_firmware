@@ -36,8 +36,8 @@ void USB_INT_DisableAllInterrupts(void)
 	AVR32_USBB.USBCON.vbuste = false;
 	AVR32_USBB.USBCON.idte   = false;
 
-	AVR32_USBB.uhinteclr = 0xFFFFFFFF;
-	AVR32_USBB.udinteclr = 0xFFFFFFFF;
+	AVR32_USBB.uhinteclr     = -1;
+	AVR32_USBB.udinteclr     = -1;
 }
 
 void USB_INT_ClearAllInterrupts(void)
@@ -45,8 +45,8 @@ void USB_INT_ClearAllInterrupts(void)
 	AVR32_USBB.USBSTACLR.vbustic = true;
 	AVR32_USBB.USBSTACLR.idtic   = true;
 
-	AVR32_USBB.uhintclr = 0xFFFFFFFF;
-	AVR32_USBB.udintclr = 0xFFFFFFFF;
+	AVR32_USBB.uhintclr      = -1;
+	AVR32_USBB.udintclr      = -1;
 }
 
 ISR(USB_GEN_vect)

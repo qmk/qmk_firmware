@@ -72,6 +72,8 @@ void USB_Init(
 		AVR32_USBB.USBCON.uide = false;
 		USB_CurrentMode = Mode;
 	}
+	#else
+	AVR32_USBB.USBCON.uide = false;	
 	#endif
 
 	USB_IsInitialized = true;
