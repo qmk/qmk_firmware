@@ -42,7 +42,7 @@ USB_NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 #---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli.exe -mmcu=$(MCU) -w -v $(TARGET).hex
+PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
 
 

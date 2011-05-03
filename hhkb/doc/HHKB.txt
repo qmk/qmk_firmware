@@ -68,7 +68,7 @@ Keyswitch PCB:
                 http://www.alldatasheet.com/datasheet-pdf/pdf/27373/TI/SN74LS145D.html
     BU9831      Non-volatile electronic potentiometer: for calibration?
                 http://www.alldatasheet.com/datasheet-pdf/pdf/36387/ROHM/BU9831.html
-    TP1684      Capacitive Sensing controller: no datasheet available.
+    TP1683/4    Capacitive Sensing controller: no datasheet available.
 
     (HHKB_keyswitch.jpg)
 
@@ -120,16 +120,16 @@ Matrix diagram:
              |bias control?            - - - - - - - -     ---
              |                  3.9K*8 R R R R R R R R      |
     +--------^+      +--------+        - - - - - - - -      |  
-    | TP 1684 |      | HC4051 <0-------|-|-|-|-|-|-|-|--|R|-+
+    |        2|      | HC4051 <0-------|-|-|-|-|-|-|-|--|R|-+
     |         |capa. |        <1-------|-|-|-|-|-|-|-|--|R|-+
-    |         |sense |        <2-------|-|-|-|-|-|-|-|--|R|-+
-    |         <------|        <3-------|-|-|-|-|-|-|-|--|R|-+
+    | TP1684  |sense |        <2-------|-|-|-|-|-|-|-|--|R|-+
+    |       11<------|        <3-------|-|-|-|-|-|-|-|--|R|-+
     |         |      |        <4-------|-|-|-|-|-|-|-|--|R|-+
     |         |      |        <5-------|-|-|-|-|-|-|-|--|R|-+
-    |         |calib.|        <6-------|-|-|-|-|-|-|-|--|R|-+
-    |         <-+?   |        <7-------|-|-|-|-|-|-|-|--|R|-+
-    +---V-----+ |    +-^-^-^--+        0 1 2 3 4 5 6 7  33K*8
-       KEY ???  |      A B C         +-----------------+
+    |         <-+    |        <6-------|-|-|-|-|-|-|-|--|R|-+
+    |   1   4 | |    |        <7-------|-|-|-|-|-|-|-|--|R|-+
+    +---V---^-+ |    +-^-^-^--+        0 1 2 3 4 5 6 7  33K*8
+       KEY PREV |      A B C         +-----------------+
         |   | +-^----+ | | |         |      LS145      |
     Vcc |   | |BU9831| | | |         +-^--^--^--^------+
     --- |   | +------+ | | |           A  B  C  D   +------+
