@@ -52,7 +52,7 @@
  */
 
 // LAYER_ENTER_DELAY: prevent from moving new layer
-#define LAYER_ENTER_DELAY 10
+#define LAYER_ENTER_DELAY 5
 
 // LAYER_SEND_FN_TERM: send keycode if release key in this term
 #define LAYER_SEND_FN_TERM 40
@@ -76,7 +76,7 @@ uint8_t layer_get_keycode(uint8_t row, uint8_t col)
 }
 
 // bit substract b from a
-#define BIT_SUBT(a, b) (a&(a^b))
+#define BIT_SUBST(a, b) (a&(a^b))
 void layer_switching(uint8_t fn_bits)
 {
     // layer switching
@@ -90,7 +90,7 @@ void layer_switching(uint8_t fn_bits)
             // do nothing
         } else {
             if (timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
-                uint8_t _layer_to_switch = new_layer(BIT_SUBT(fn_bits, sent_fn));
+                uint8_t _layer_to_switch = new_layer(BIT_SUBST(fn_bits, sent_fn));
                 if (current_layer != _layer_to_switch) { // not switch layer yet
                     debug("Fn case: 1,2,3(LAYER_ENTER_DELAY passed)\n");
                     debug("Switch Layer: "); debug_hex(current_layer);
@@ -100,7 +100,7 @@ void layer_switching(uint8_t fn_bits)
                 }
             } else {
                 if (host_has_anykey()) { // other keys is pressed
-                    uint8_t _fn_to_send = BIT_SUBT(fn_bits, sent_fn);
+                    uint8_t _fn_to_send = BIT_SUBST(fn_bits, sent_fn);
                     if (_fn_to_send) {
                         debug("Fn case: 4(send Fn before other key pressed)\n");
                         // send only Fn key first
@@ -127,27 +127,26 @@ void layer_switching(uint8_t fn_bits)
         debug("last_timer: "); debug_hex16(last_timer); debug("\n");
 
         // pressed Fn
-        if ((fn_changed = BIT_SUBT(fn_bits, last_fn))) {
+        if ((fn_changed = BIT_SUBST(fn_bits, last_fn))) {
         debug("fn_changed: "); debug_bin(fn_changed); debug("\n");
             if (host_has_anykey()) {
                 debug("Fn case: 5(pressed Fn with other key)\n");
                 sent_fn |= fn_changed;
             } else if (fn_changed & sent_fn) { // pressed same Fn in a row
                 if (timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
-                    debug("Fn case: 6(repate2)\n");
+                    debug("Fn case: 6(not repeat)\n");
                     // time passed: not repeate
                     sent_fn &= ~fn_changed;
                 } else {
-                    debug("Fn case: 6(repate)\n");
+                    debug("Fn case: 6(repeat)\n");
                 }
             }
         }
         // released Fn
-        if ((fn_changed = BIT_SUBT(last_fn, fn_bits))) {
+        if ((fn_changed = BIT_SUBST(last_fn, fn_bits))) {
         debug("fn_changed: "); debug_bin(fn_changed); debug("\n");
             if (timer_elapsed(last_timer) < LAYER_SEND_FN_TERM) {
-                //if (!layer_used && BIT_SUBT(fn_changed, sent_fn)) {  // layer not used && Fn not sent
-                if (BIT_SUBT(fn_changed, sent_fn)) {  // layer not used && Fn not sent
+                if (!layer_used && BIT_SUBST(fn_changed, sent_fn)) {
                     debug("Fn case: 2(send Fn one shot: released Fn during LAYER_SEND_FN_TERM)\n");
                     // send only Fn key first
                     host_swap_keyboard_report();
@@ -160,11 +159,11 @@ void layer_switching(uint8_t fn_bits)
                 }
             }
             debug("Switch Layer(released Fn): "); debug_hex(current_layer);
-            current_layer = new_layer(BIT_SUBT(fn_bits, sent_fn));
-            layer_used = false;
+            current_layer = new_layer(BIT_SUBST(fn_bits, sent_fn));
             debug(" -> "); debug_hex(current_layer); debug("\n");
         }
 
+        layer_used = false;
         last_fn = fn_bits;
         last_mods = keyboard_report->mods;
         last_timer = timer_read();
