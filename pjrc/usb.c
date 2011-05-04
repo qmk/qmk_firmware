@@ -681,7 +681,8 @@ ISR(USB_GEN_vect)
 				UEINTX = 0x3A;
 			}
 		}
-		if (usb_keyboard_idle_config && (++div4 & 3) == 0) {
+                /* TODO: should keep IDLE rate on each keyboard interface */
+		if (!keyboard_nkro && usb_keyboard_idle_config && (++div4 & 3) == 0) {
 			UENUM = KBD_ENDPOINT;
 			if (UEINTX & (1<<RWAL)) {
 				usb_keyboard_idle_count++;
