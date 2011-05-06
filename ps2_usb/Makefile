@@ -10,7 +10,7 @@ TARGET_DIR = .
 # keyboard dependent files
 TARGET_SRC =	main_pjrc.c \
 		keymap.c \
-  	        matrix.c \
+		matrix.c \
 		led.c \
 		ps2.c
 
