@@ -12,13 +12,13 @@ TARGET_SRC =	main_vusb.c \
 		keymap.c \
 		matrix.c \
 		led.c \
-		ps2_usart.c \
-		sendchar_dummy.c
-#		sendchar_usart.c
+		ps2_usart.c
 
 CONFIG_H = config_vusb.h
 
 
+# V-USB debug level: To use ps2_usart.c level must be 0
+# ps2_usart.c requires USART to receive PS/2 signal.
 OPT_DEFS = -DDEBUG_LEVEL=0
 
 
