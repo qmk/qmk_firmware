@@ -19,6 +19,7 @@
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Add makefile includes to reduce boilerplate in user makefiles
   *      -# Update stream APIs to use DMA transfers on supported architectures
+  *      -# Pull out third party libraries into a seperate folder and reference them as required
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

@@ -145,10 +145,10 @@
 			CDC_CSCP_ATCommandProtocol      = 0x01, /**< Descriptor Protocol value indicating that the device or interface
 			                                         *   belongs to the AT Command protocol of the CDC class.
 			                                         */
-			CDC_CSCP_NoSpecificProtocol     = 0x00, /**< Descriptor Class value indicating that the device or interface
+			CDC_CSCP_NoSpecificProtocol     = 0x00, /**< Descriptor Protocol value indicating that the device or interface
 			                                         *   belongs to no specific protocol of the CDC class.
 			                                         */
-			CDC_CSCP_VendorSpecificProtocol = 0xFF, /**< Descriptor Class value indicating that the device or interface
+			CDC_CSCP_VendorSpecificProtocol = 0xFF, /**< Descriptor Protocol value indicating that the device or interface
 			                                         *   belongs to a vendor-specific protocol of the CDC class.
 			                                         */
 			CDC_CSCP_CDCDataClass           = 0x0A, /**< Descriptor Class value indicating that the device or interface
