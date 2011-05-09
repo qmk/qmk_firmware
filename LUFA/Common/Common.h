@@ -67,6 +67,10 @@
 		#include <string.h>
 		#include <stddef.h>
 		
+		#if defined(USE_LUFA_CONFIG_HEADER)
+			#include "LUFAConfig.h"
+		#endif
+
 		#include "Architectures.h"
 		#include "Attributes.h"
 		#include "BoardTypes.h"
