@@ -10,9 +10,9 @@
  *  compiler via the -D switch, to alter the LUFA library code. These tokens may alter the library behaviour,
  *  or remove features unused by a given application in order to save flash space.
  *
- *  If the \c USE_LUFA_CONFIG_HEADER token is defined, the library will include a header file named \c LUFAConfig.h located
- *  in the user directory where the below compile time tokens may be defined. This allows for an alternative to makefile
- *  defined tokens for configuring the library.
+ *  \note If the \c USE_LUFA_CONFIG_HEADER token is defined, the library will include a header file named \c LUFAConfig.h located
+ *        in the user directory where the below compile time tokens may be defined. This allows for an alternative to makefile
+ *        defined tokens for configuring the library.
  *
  *  \section Sec_SummaryNonUSBTokens Non USB Related Tokens
  *  This section describes compile tokens which affect non-USB sections of the LUFA library.
