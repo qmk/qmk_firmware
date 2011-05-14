@@ -36,6 +36,7 @@
   *   - Added new VirtualSerialMassStorage Device ClassDriver demo
   *   - Added HID class bootloader, compatible with a modified version of the command line Teensy loader from PJRC.com
   *   - Added LED flashing to the CDC and DFU class bootloaders to indicate when they are running
+  *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
   *
   *  <b>Changed:</b>
   *  - Core:
@@ -99,6 +100,7 @@
   *     is found
   *   - Fixed missing call to Pipe_SetInfiniteINRequests() in the Pipe_ConfigurePipe() routine
   *   - Fixed Remote Wakeup broken on the AVRs due to the mechanism only operating when the SUSPI bit is set (thanks to Holger Steinhaus)
+  *   - Fixed possible invalid program execution when in host mode if corrupt descriptor lengths are supplied by the attached device
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground

@@ -63,6 +63,13 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
+			/** Enum for the various states of the USB Device state machine. Only some states are
+			 *  implemented in the LUFA library - other states are left to the user to implement.
+			 *
+			 *  For information on each possible USB device state, refer to the USB 2.0 specification.
+			 *
+			 *  \see \ref USB_DeviceState, which stores the current device state machine state.
+			 */
 			enum USB_Device_States_t
 			{
 				DEVICE_STATE_Unattached                   = 0, /**< Internally implemented by the library. This state indicates

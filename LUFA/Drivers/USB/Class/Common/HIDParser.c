@@ -351,7 +351,7 @@ uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData,
 		uint16_t ReportSizeBits = ParserData->ReportIDSizes[i].ReportSizeBits[ReportType];
 
 		if (ParserData->ReportIDSizes[i].ReportID == ReportID)
-		  return ((ReportSizeBits >> 3) + ((ReportSizeBits & 0x07) ? 1 : 0));
+		  return (ReportSizeBits / 8) + ((ReportSizeBits % 8) ? 1 : 0);
 	}
 
 	return 0;

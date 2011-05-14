@@ -166,8 +166,10 @@
 			 *
 			 *  \return A value from the \ref USB_Host_GetConfigDescriptor_ErrorCodes_t enum.
 			 */
-			uint8_t USB_Host_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr,
-			                                           uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(2) ATTR_NON_NULL_PTR_ARG(3);
+			uint8_t USB_Host_GetDeviceConfigDescriptor(const uint8_t ConfigNumber,
+			                                           uint16_t* const ConfigSizePtr,
+			                                           void* const BufferPtr,
+			                                           const uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(2) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value.
 			 *  The bytes remaining value is automatically decremented.
@@ -254,7 +256,7 @@
 			 */
 			uint8_t USB_GetNextDescriptorComp(uint16_t* const BytesRem,
 			                                  void** const CurrConfigLoc,
-			                                  ConfigComparatorPtr_t const ComparatorRoutine);
+			                                  const ConfigComparatorPtr_t const ComparatorRoutine);
 
 		/* Inline Functions: */
 			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then
@@ -269,8 +271,11 @@
 			                                         void** CurrConfigLoc)
 			{
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
+				
+				if (*BytesRem < CurrDescriptorSize)
+				  CurrDescriptorSize = *BytesRem;
 
-				*CurrConfigLoc  = ((uint8_t*)*CurrConfigLoc) + CurrDescriptorSize;
+				*CurrConfigLoc  = (void*)((uintptr_t)*CurrConfigLoc + CurrDescriptorSize);
 				*BytesRem      -= CurrDescriptorSize;
 			}
 

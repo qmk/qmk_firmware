@@ -89,18 +89,24 @@
 				 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
 				 *  number for the device.
 				 */
-				#define USE_INTERNAL_SERIAL           0xDC
+				#define USE_INTERNAL_SERIAL             0xDC
 				
 				/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
 				 *  model.
 				 */
-				#define INTERNAL_SERIAL_LENGTH_BITS   120
-			#else
-				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
+				#define INTERNAL_SERIAL_LENGTH_BITS     120
 
-				#define INTERNAL_SERIAL_LENGTH_BITS   0
+				/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
+				 *  model.
+				 */
+				#define INTERNAL_SERIAL_START_ADDRESS   0x80800204
+			#else
+				#define USE_INTERNAL_SERIAL             NO_DESCRIPTOR
+
+				#define INTERNAL_SERIAL_LENGTH_BITS     0
+				#define INTERNAL_SERIAL_START_ADDRESS   0
 			#endif
-			
+						
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
 			 *  be taken out of suspended mode, and communications should resume.
@@ -186,12 +192,13 @@
 				return AVR32_USBB.UDCON.adden;
 			}
 
-			static inline void USB_Device_GetSerialString(uint16_t* UnicodeString)
+			#if (USE_INTERNAL_SERIAL != NO_DESCRIPTOR)
+			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString)
 			{
 				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 				GlobalInterruptDisable();
 				
-				uint8_t* SigReadAddress = (uint8_t*)0x80800204;
+				uint8_t* SigReadAddress = (uint8_t*)INTERNAL_SERIAL_START_ADDRESS;
 
 				for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
 				{
@@ -211,6 +218,8 @@
 				
 				SetGlobalInterruptMask(CurrentGlobalInt);
 			}
+			#endif
+
 	#endif
 
 #endif

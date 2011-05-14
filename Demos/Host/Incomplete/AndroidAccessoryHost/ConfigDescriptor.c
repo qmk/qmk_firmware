@@ -90,7 +90,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  DataINEndpoint = EndpointData;
+		  DataINEndpoint  = EndpointData;
 		else
 		  DataOUTEndpoint = EndpointData;
 	}

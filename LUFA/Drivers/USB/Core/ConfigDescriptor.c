@@ -32,8 +32,10 @@
 #include "ConfigDescriptor.h"
 
 #if defined(USB_CAN_BE_HOST)
-uint8_t USB_Host_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr,
-                                           void* BufferPtr, uint16_t BufferSize)
+uint8_t USB_Host_GetDeviceConfigDescriptor(const uint8_t ConfigNumber,
+                                           uint16_t* const ConfigSizePtr,
+                                           void* const BufferPtr,
+                                           const uint16_t BufferSize)
 {
 	uint8_t ErrorCode;
 	uint8_t ConfigHeader[sizeof(USB_Descriptor_Configuration_Header_t)];
@@ -114,7 +116,9 @@ void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
 	  USB_GetNextDescriptorOfType(BytesRem, CurrConfigLoc, Type);
 }
 
-uint8_t USB_GetNextDescriptorComp(uint16_t* const BytesRem, void** const CurrConfigLoc, ConfigComparatorPtr_t const ComparatorRoutine)
+uint8_t USB_GetNextDescriptorComp(uint16_t* const BytesRem,
+                                  void** const CurrConfigLoc,
+                                  const ConfigComparatorPtr_t const ComparatorRoutine)
 {
 	uint8_t ErrorCode;
 
