@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
@@ -31,29 +32,62 @@ static uint16_t _matrix0[MATRIX_ROWS];
 static uint16_t _matrix1[MATRIX_ROWS];
 #endif
 
+// HHKB has no ghost and no bounce.
 #ifdef MATRIX_HAS_GHOST
 static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
 
 
-// matrix is active low. (key on: 0/key off: 1)
+// Matrix I/O ports
 //
-// HHKB has no ghost and no bounce.
-// row: HC4051 select input channel(0-8)
-//      PB0, PB1, PB2(A, B, C)
-// col: LS145 select low output line(0-8)
-//      PB3, PB4, PB5, PB6(A, B, C, D)
-//      use D as ENABLE: (enable: 0/unenable: 1)
-// key: KEY: (on: 0/ off:1)
-//      KEY_PREV: (on: 1/ off: 0)
-//      PE6,PE7(KEY, KEY_PREV)
-#define COL_ENABLE              (1<<6)
-#define KEY_SELELCT(ROW, COL)   (PORTB = (PORTB&(1<<7))|COL_ENABLE|(((COL)&0x07)<<3)|((ROW)&0x07))
-#define KEY_ENABLE              (PORTB &= ~COL_ENABLE)
-#define KEY_UNABLE              (PORTB |=  COL_ENABLE)
-#define KEY_STATE               (PINE&(1<<6))
-#define KEY_PREV_ON             (PORTE |= (1<<7))
-#define KEY_PREV_OFF            (PORTE &= ~(1<<7))
+// row:     HC4051[A,B,C]  selects scan row0-7
+// col:     LS145[A,B,C,D] selects scan col0-7 and enable(D)
+// key:     on: 0/off: 1
+// prev:    unknown: output previous key state(negated)?
+
+#ifdef HOST_PJRC
+// Ports for Teensy
+// row:     PB0-2
+// col:     PB3-5,6
+// key:     PE6(pull-uped)
+// prev:    PE7
+#define KEY_INIT()              do {    \
+    DDRB |= 0x7F;                       \
+    DDRE |=  (1<<7);                    \
+    DDRE &= ~(1<<6);                    \
+    PORTE |= (1<<6);                    \
+} while (0)
+#define KEY_SELECT(ROW, COL)    (PORTB = (PORTB & 0xC0) |       \
+                                         (((COL) & 0x07)<<3) |    \
+                                         ((ROW) & 0x07))
+#define KEY_ENABLE()            (PORTB &= ~(1<<6))
+#define KEY_UNABLE()            (PORTB |=  (1<<6))
+#define KEY_STATE()             (PINE & (1<<6))
+#define KEY_PREV_ON()           (PORTE |=  (1<<7))
+#define KEY_PREV_OFF()          (PORTE &= ~(1<<7))
+
+#else
+// Ports for V-USB
+// key:     PB0(pull-uped)
+// prev:    PB1
+// row:     PB2-4
+// col:     PC0-2,3
+#define KEY_INIT()              do {    \
+    DDRB |= 0x1E;                       \
+    DDRB &= ~(1<<0);                    \
+    PORTB |= (1<<0);                    \
+    DDRC |= 0x0F;                       \
+} while (0)
+#define KEY_SELECT(ROW, COL)    do {    \
+    PORTB = (PORTB & 0xE3) | ((ROW) & 0x07)<<2; \
+    PORTC = (PORTC & 0xF8) | ((COL) & 0x07);    \
+} while (0)
+#define KEY_ENABLE()            (PORTC &= ~(1<<3))
+#define KEY_UNABLE()            (PORTC |=  (1<<3))
+#define KEY_STATE()             (PINB & (1<<0))
+#define KEY_PREV_ON()           (PORTB |=  (1<<1))
+#define KEY_PREV_OFF()          (PORTB &= ~(1<<1))
+#endif
 
 
 inline
@@ -70,13 +104,7 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    // row & col output(PB0-6)
-    DDRB = 0xFF;
-    KEY_SELELCT(0, 0);
-    // KEY: input with pullup(PE6)
-    // KEY_PREV: output(PE7)
-    DDRE = 0xBF;
-    PORTE = 0x40;
+    KEY_INIT();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
@@ -95,21 +123,31 @@ uint8_t matrix_scan(void)
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            KEY_SELELCT(row, col);
+            KEY_SELECT(row, col);
             _delay_us(40);  // from logic analyzer chart
             if (matrix_prev[row] & (1<<col)) {
-                KEY_PREV_ON;
+                KEY_PREV_ON();
             }
             _delay_us(7);  // from logic analyzer chart
-            KEY_ENABLE;
+
+#if HOST_VUSB
+            // to avoid V-USB interrupt during read key state
+            uint8_t sreg = SREG;
+            cli();
+#endif
+            KEY_ENABLE();
             _delay_us(10);  // from logic analyzer chart
-            if (KEY_STATE) {
+            if (KEY_STATE()) {
                 matrix[row] &= ~(1<<col);
             } else {
                 matrix[row] |= (1<<col);
             }
-            KEY_PREV_OFF;
-            KEY_UNABLE;
+#if HOST_VUSB
+            SREG = sreg;
+#endif
+
+            KEY_PREV_OFF();
+            KEY_UNABLE();
             _delay_us(150);  // from logic analyzer chart
         }
     }

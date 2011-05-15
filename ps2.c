@@ -227,8 +227,13 @@ uint8_t ps2_host_recv(void)
     return pbuf_dequeue();
 }
 
+#if 0
 #define DEBUGP_INIT() do { DDRC = 0xFF; } while (0)
 #define DEBUGP(x) do { PORTC = x; } while (0)
+#else
+#define DEBUGP_INIT()
+#define DEBUGP(x)
+#endif
 ISR(PS2_INT_VECT)
 {
     static enum {
