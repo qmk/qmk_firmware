@@ -49,7 +49,8 @@
 #define __DATAFLASH_USBKEY_H__
 
 	/* Includes: */
-		#include "../../Misc/AT45DB642D.h"
+		#include "../../../../Common/Common.h"
+		#include "../../../Misc/AT45DB642D.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
