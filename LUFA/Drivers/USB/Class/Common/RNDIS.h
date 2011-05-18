@@ -68,6 +68,9 @@
 		#endif
 
 	/* Macros: */
+		/** Additional error code for RNDIS functions when a device returns a logical command failure. */
+		#define RNDIS_ERROR_LOGICAL_CMD_FAILED        0x80
+
 		/** Implemented RNDIS Version Major. */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
 
@@ -205,25 +208,25 @@
 		};
 
 	/* Type Defines: */
+		/** \brief Ethernet Frame Packet Information Structure.
+		 *
+		 *  Type define for an Ethernet frame buffer data and information structure. This can be used to conveniently
+		 *  store both the size and data in an Ethernet frame.
+		 */
+		typedef struct
+		{
+			uint8_t  FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
+			uint16_t FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
+		} Ethernet_Frame_Info_t;
+
 		/** \brief MAC Address Structure.
 		 *
 		 *  Type define for a physical MAC address of a device on a network.
 		 */
 		typedef struct
 		{
-			uint8_t       Octets[6]; /**< Individual bytes of a MAC address */
+			uint8_t Octets[6]; /**< Individual bytes of a MAC address */
 		} ATTR_PACKED MAC_Address_t;
-
-		/** \brief RNDIS Ethernet Frame Packet Information Structure.
-		 *
-		 *  Type define for an Ethernet frame buffer data and information structure.
-		 */
-		typedef struct
-		{
-			uint8_t       FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
-			uint16_t      FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
-			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer. */
-		} ATTR_PACKED Ethernet_Frame_Info_t;
 
 		/** \brief RNDIS Common Message Header Structure.
 		 *

@@ -124,10 +124,6 @@
 				RNDIS_ENUMERROR_PipeConfigurationFailed    = 3, /**< One or more pipes for the specified interface could not be configured correctly. */
 			};
 
-		/* Macros: */
-			/** Additional error code for RNDIS functions when a device returns a logical command failure. */
-			#define RNDIS_COMMAND_FAILED                  0xC0
-
 		/* Function Prototypes: */
 			/** Host interface configuration routine, to configure a given RNDIS host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given RNDIS Host instance's

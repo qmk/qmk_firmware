@@ -74,7 +74,7 @@ void TCP_Task(void)
 	}
 
 	/* Bail out early if there is already a frame waiting to be sent in the Ethernet OUT buffer */
-	if (FrameOUT.FrameInBuffer)
+	if (FrameOUT.FrameLength)
 	  return;
 
 	/* Send response packets from each application as the TCP packet buffers are filled by the applications */
@@ -144,7 +144,6 @@ void TCP_Task(void)
 
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
 			FrameOUT.FrameLength            = PacketSize;
-			FrameOUT.FrameInBuffer          = true;
 
 			ConnectionStateTable[CSTableEntry].Info.Buffer.Ready = false;
 

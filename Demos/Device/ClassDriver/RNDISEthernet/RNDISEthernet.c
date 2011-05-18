@@ -63,6 +63,8 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 			},
 	};
 
+static Ethernet_Frame_Info_t FrameIN;
+static Ethernet_Frame_Info_t FrameOUT;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -79,14 +81,23 @@ int main(void)
 
 	for (;;)
 	{
-		if (Ethernet_RNDIS_Interface.State.FrameIN.FrameInBuffer)
+		if (RNDIS_Device_IsPacketReceived(&Ethernet_RNDIS_Interface))
 		{
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-			Ethernet_ProcessPacket(&Ethernet_RNDIS_Interface.State.FrameIN, &Ethernet_RNDIS_Interface.State.FrameOUT);
+			
+			RNDIS_Device_ReadPacket(&Ethernet_RNDIS_Interface, &FrameIN.FrameData, &FrameIN.FrameLength);
+			Ethernet_ProcessPacket(&FrameIN, &FrameOUT);
+			
+			if (FrameOUT.FrameLength)
+			{
+				RNDIS_Device_SendPacket(&Ethernet_RNDIS_Interface, &FrameOUT.FrameData, FrameOUT.FrameLength);				
+				FrameOUT.FrameLength = 0;
+			}
+			
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 		}
 
-		TCP_TCPTask(&Ethernet_RNDIS_Interface);
+		TCP_TCPTask(&Ethernet_RNDIS_Interface, &FrameOUT);
 
 		RNDIS_Device_USBTask(&Ethernet_RNDIS_Interface);
 		USB_USBTask();

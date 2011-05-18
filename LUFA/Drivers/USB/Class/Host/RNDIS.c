@@ -315,7 +315,7 @@ uint8_t RNDIS_Host_InitializeDevice(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 	}
 
 	if (InitMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
-	  return RNDIS_COMMAND_FAILED;
+	  return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 
 	RNDISInterfaceInfo->State.DeviceMaxPacketSize = InitMessageResponse.MaxTransferSize;
 
@@ -361,7 +361,7 @@ uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 	}
 
 	if (SetMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
-	  return RNDIS_COMMAND_FAILED;
+	  return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 
 	return HOST_SENDCONTROL_Successful;
 }
@@ -403,7 +403,7 @@ uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInt
 	}
 
 	if (QueryMessageResponseData.QueryMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
-	  return RNDIS_COMMAND_FAILED;
+	  return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 
 	memcpy(Buffer, &QueryMessageResponseData.ContiguousBuffer, MaxLength);
 
@@ -458,7 +458,8 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
 
-	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
+	Pipe_Discard_Stream(DeviceMessage.DataOffset -
+	                    (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
 	                    NULL);
 
 	Pipe_Read_Stream_LE(Buffer, *PacketLength, NULL);

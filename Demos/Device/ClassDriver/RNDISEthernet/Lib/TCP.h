@@ -228,7 +228,8 @@
 		} TCP_Header_t;
 
 	/* Function Prototypes: */
-		void                  TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
+		void                  TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+		                                  Ethernet_Frame_Info_t* const FrameOUT);
 		void                  TCP_Init(void);
 		bool                  TCP_SetPortState(const uint16_t Port,
 		                                       const uint8_t State,

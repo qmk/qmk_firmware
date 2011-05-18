@@ -204,7 +204,7 @@ void RNDIS_Task(void)
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 
 		/* Check if the data OUT endpoint contains data, and that the IN buffer is empty */
-		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
+		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameLength))
 		{
 			/* Read in the packet message header */
 			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
@@ -224,16 +224,13 @@ void RNDIS_Task(void)
 
 			/* Store the size of the Ethernet frame */
 			FrameIN.FrameLength = RNDISPacketHeader.DataLength;
-
-			/* Indicate Ethernet IN buffer full */
-			FrameIN.FrameInBuffer = true;
 		}
 
 		/* Select the data IN endpoint */
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 		/* Check if the data IN endpoint is ready for more data, and that the IN buffer is full */
-		if (Endpoint_IsINReady() && FrameOUT.FrameInBuffer)
+		if (Endpoint_IsINReady() && FrameOUT.FrameLength)
 		{
 			/* Clear the packet header with all 0s so that the relevant fields can be filled */
 			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_Packet_Message_t));
@@ -254,7 +251,7 @@ void RNDIS_Task(void)
 			Endpoint_ClearIN();
 
 			/* Indicate Ethernet OUT buffer no longer full */
-			FrameOUT.FrameInBuffer = false;
+			FrameOUT.FrameLength = 0;
 		}
 	}
 }
@@ -273,7 +270,7 @@ void Ethernet_Task(void)
 	  return;
 
 	/* Check if a frame has been written to the IN frame buffer */
-	if (FrameIN.FrameInBuffer)
+	if (FrameIN.FrameLength)
 	{
 		/* Indicate packet processing started */
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);

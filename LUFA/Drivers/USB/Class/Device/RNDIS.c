@@ -163,8 +163,6 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
-
 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.NotificationEndpointNumber);
 
 	if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.ResponseReady)
@@ -183,50 +181,6 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 		Endpoint_ClearIN();
 
 		RNDISInterfaceInfo->State.ResponseReady = false;
-	}
-
-	if ((RNDISInterfaceInfo->State.CurrRNDISState == RNDIS_Data_Initialized) && !(MessageHeader->MessageLength))
-	{
-		RNDIS_Packet_Message_t RNDISPacketHeader;
-
-		Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber);
-
-		if (Endpoint_IsOUTReceived() && !(RNDISInterfaceInfo->State.FrameIN.FrameInBuffer))
-		{
-			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
-
-			if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
-			{
-				Endpoint_StallTransaction();
-				return;
-			}
-
-			Endpoint_Read_Stream_LE(RNDISInterfaceInfo->State.FrameIN.FrameData, RNDISPacketHeader.DataLength, NULL);
-
-			Endpoint_ClearOUT();
-
-			RNDISInterfaceInfo->State.FrameIN.FrameLength = RNDISPacketHeader.DataLength;
-
-			RNDISInterfaceInfo->State.FrameIN.FrameInBuffer = true;
-		}
-
-		Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber);
-
-		if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer)
-		{
-			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_Packet_Message_t));
-
-			RNDISPacketHeader.MessageType   = REMOTE_NDIS_PACKET_MSG;
-			RNDISPacketHeader.MessageLength = (sizeof(RNDIS_Packet_Message_t) + RNDISInterfaceInfo->State.FrameOUT.FrameLength);
-			RNDISPacketHeader.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
-			RNDISPacketHeader.DataLength    = RNDISInterfaceInfo->State.FrameOUT.FrameLength;
-
-			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
-			Endpoint_Write_Stream_LE(RNDISInterfaceInfo->State.FrameOUT.FrameData, RNDISPacketHeader.DataLength, NULL);
-			Endpoint_ClearIN();
-
-			RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer = false;
-		}
 	}
 }
 
@@ -491,6 +445,86 @@ static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDI
 		default:
 			return false;
 	}
+}
+
+bool RNDIS_Device_IsPacketReceived(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+{
+	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+	    (RNDISInterfaceInfo->State.CurrRNDISState != RNDIS_Data_Initialized))
+	{
+		return false;
+	}
+	
+	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber);
+	return Endpoint_IsOUTReceived();
+}
+
+uint8_t RNDIS_Device_ReadPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+                                void* Buffer,
+                                uint16_t* const PacketLength)
+{
+	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+	    (RNDISInterfaceInfo->State.CurrRNDISState != RNDIS_Data_Initialized))
+	{
+		return ENDPOINT_RWSTREAM_DeviceDisconnected;
+	}
+	
+	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber);
+	
+	*PacketLength = 0;
+
+	if (!(Endpoint_IsOUTReceived()))
+		return ENDPOINT_RWSTREAM_NoError;
+
+	RNDIS_Packet_Message_t RNDISPacketHeader;	
+	Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
+
+	if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
+	{
+		Endpoint_StallTransaction();
+
+		return RNDIS_ERROR_LOGICAL_CMD_FAILED;
+	}
+	
+	*PacketLength = (uint16_t)RNDISPacketHeader.DataLength;
+
+	Endpoint_Read_Stream_LE(Buffer, RNDISPacketHeader.DataLength, NULL);
+	Endpoint_ClearOUT();
+	
+	return ENDPOINT_RWSTREAM_NoError;
+}
+
+uint8_t RNDIS_Device_SendPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+                                void* Buffer,
+                                const uint16_t PacketLength)
+{
+	uint8_t ErrorCode;
+
+	if ((USB_DeviceState != DEVICE_STATE_Configured) ||
+	    (RNDISInterfaceInfo->State.CurrRNDISState != RNDIS_Data_Initialized))
+	{
+		return ENDPOINT_RWSTREAM_DeviceDisconnected;
+	}
+	
+	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber);
+
+	if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)
+	  return ErrorCode;
+
+	RNDIS_Packet_Message_t RNDISPacketHeader;
+
+	memset(&RNDISPacketHeader, 0, sizeof(RNDIS_Packet_Message_t));
+
+	RNDISPacketHeader.MessageType   = REMOTE_NDIS_PACKET_MSG;
+	RNDISPacketHeader.MessageLength = (sizeof(RNDIS_Packet_Message_t) + PacketLength);
+	RNDISPacketHeader.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
+	RNDISPacketHeader.DataLength    = PacketLength;
+
+	Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
+	Endpoint_Write_Stream_LE(Buffer, PacketLength, NULL);
+	Endpoint_ClearIN();
+
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 #endif

@@ -55,7 +55,8 @@ TCP_ConnectionState_t  ConnectionStateTable[MAX_TCP_CONNECTIONS];
  *  level. If an application produces a response, this task constructs the appropriate Ethernet frame and places it into the Ethernet OUT
  *  buffer for later transmission.
  */
-void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+		         Ethernet_Frame_Info_t* const FrameOUT)
 {
 	/* Run each application in sequence, to process incoming and generate outgoing packets */
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
@@ -73,11 +74,8 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 		}
 	}
 
-	/* Get pointer to the output frame info struct for convenience */
-	Ethernet_Frame_Info_t* FrameOUT = &RNDISInterfaceInfo->State.FrameOUT;
-
 	/* Bail out early if there is already a frame waiting to be sent in the Ethernet OUT buffer */
-	if (FrameOUT->FrameInBuffer)
+	if (FrameOUT->FrameLength)
 	  return;
 
 	/* Send response packets from each application as the TCP packet buffers are filled by the applications */
@@ -147,7 +145,6 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
 			FrameOUT->FrameLength           = PacketSize;
-			FrameOUT->FrameInBuffer         = true;
 
 			ConnectionStateTable[CSTableEntry].Info.Buffer.Ready = false;
 

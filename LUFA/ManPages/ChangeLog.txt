@@ -29,6 +29,7 @@
   *   - Added new architecture independant functions to enable, disable, save and restore the Global Interrupt Enable flags
   *   - Added USE_LUFA_CONFIG_HEADER compile time option to include a LUFAConfig.h header in the user director for LUFA configuration
   *     tokens as an alternative to tokens defined in the project makefile
+  *   - Added new RNDIS Device Classs Driver packet send and receive functions
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project

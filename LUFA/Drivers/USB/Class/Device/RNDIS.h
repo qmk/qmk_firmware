@@ -106,12 +106,6 @@
 					bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host. */
 					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the \ref RNDIS_States_t enum. */
 					uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver. */
-					Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
-													*   processing.
-													*/
-					Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
-													 *   user application.
-													 */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
@@ -145,6 +139,48 @@
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */
 			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+
+			/** Determines if a packet is currently waiting for the device to read in and process.
+			 *
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class configuration and state.
+			 *
+			 *  \return Boolean \c true if a packet is waiting to be read in by the host, \c false otherwise.
+			 */
+			bool RNDIS_Device_IsPacketReceived(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
+
+			/** Retrieves the next pending packet from the device, discarding the remainder of the RNDIS packet header to leave
+			 *  only the packet contents for processing by the device in the nominated buffer.
+			 *
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class configuration and state.
+			 *  \param[out]    Buffer              Pointer to a buffer where the packer data is to be written to.
+			 *  \param[out]    PacketLength        Pointer to where the length in bytes of the read packet is to be stored.
+			 *
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t RNDIS_Device_ReadPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+											void* Buffer,
+											uint16_t* const PacketLength);
+
+			/** Sends the given packet to the attached RNDIS device, after adding a RNDIS packet message header.
+			 *
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class configuration and state.
+			 *  \param[in]     Buffer              Pointer to a buffer where the packer data is to be read from.
+			 *  \param[in]     PacketLength        Length in bytes of the packet to send.
+			 *
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t RNDIS_Device_SendPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+											void* Buffer,
+											const uint16_t PacketLength);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
