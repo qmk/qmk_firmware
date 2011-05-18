@@ -20,9 +20,8 @@
  *
  *  \section Sec_InDevelopment Latest In-Development Source Code
  *  Issue Tracker: http://www.lufa-lib.org/tracker \n
- *  Bazaar Access: http://www.lufa-lib.org/bzr \n
  *  SVN Access: http://www.lufa-lib.org/svn \n
- *  Git Access: http://www.lufa-lib.org/git \n
+ *  GIT Access: http://www.lufa-lib.org/git \n
  *  Latest Repository Source Archive: http://www.lufa-lib.org/latest-archive \n
  *  Commit RSS Feed: http://www.lufa-lib.org/rss \n
  *
