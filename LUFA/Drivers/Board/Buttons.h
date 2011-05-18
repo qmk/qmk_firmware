@@ -94,37 +94,37 @@
 		#if (BOARD == BOARD_NONE)
 			#error The Board Buttons driver cannot be used if the makefile BOARD option is not set.
 		#elif (BOARD == BOARD_USBKEY)
-			#include "USBKEY/Buttons.h"
+			#include "AVR8/USBKEY/Buttons.h"
 		#elif (BOARD == BOARD_STK525)
-			#include "STK525/Buttons.h"
+			#include "AVR8/STK525/Buttons.h"
 		#elif (BOARD == BOARD_STK526)
-			#include "STK526/Buttons.h"
+			#include "AVR8/STK526/Buttons.h"
 		#elif (BOARD == BOARD_ATAVRUSBRF01)
-			#include "ATAVRUSBRF01/Buttons.h"
+			#include "AVR8/ATAVRUSBRF01/Buttons.h"
 		#elif (BOARD == BOARD_BUMBLEB)
-			#include "BUMBLEB/Buttons.h"
+			#include "AVR8/BUMBLEB/Buttons.h"
 		#elif (BOARD == BOARD_EVK527)
-			#include "EVK527/Buttons.h"
+			#include "AVR8/EVK527/Buttons.h"
 		#elif (BOARD == BOARD_USBTINYMKII)
-			#include "USBTINYMKII/Buttons.h"
+			#include "AVR8/USBTINYMKII/Buttons.h"
 		#elif (BOARD == BOARD_BENITO)
-			#include "BENITO/Buttons.h"
+			#include "AVR8/BENITO/Buttons.h"
 		#elif (BOARD == BOARD_JMDBU2)
-			#include "JMDBU2/Buttons.h"
+			#include "AVR8/JMDBU2/Buttons.h"
 		#elif (BOARD == BOARD_OLIMEX162)
-			#include "OLIMEX162/Buttons.h"
+			#include "AVR8/OLIMEX162/Buttons.h"
 		#elif (BOARD == BOARD_USBFOO)
-			#include "USBFOO/Buttons.h"
+			#include "AVR8/USBFOO/Buttons.h"
 		#elif (BOARD == BOARD_UDIP)
-			#include "UDIP/Buttons.h"
+			#include "AVR8/UDIP/Buttons.h"
 		#elif (BOARD == BOARD_CULV3)
-			#include "CULV3/Buttons.h"
+			#include "AVR8/CULV3/Buttons.h"
 		#elif (BOARD == BOARD_MINIMUS)
-			#include "MINIMUS/Buttons.h"
+			#include "AVR8/MINIMUS/Buttons.h"
 		#elif (BOARD == BOARD_MICROSIN162)
-			#include "MICROSIN162/Buttons.h"
+			#include "AVR8/MICROSIN162/Buttons.h"
 		#elif (BOARD == BOARD_EVK1101)
-			#include "EVK1101/Buttons.h"
+			#include "UC3/EVK1101/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

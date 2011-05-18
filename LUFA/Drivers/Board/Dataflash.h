@@ -235,17 +235,15 @@
 			#if (BOARD == BOARD_NONE)
 				#error The Board Dataflash driver cannot be used if the makefile BOARD option is not set.
 			#elif (BOARD == BOARD_USBKEY)
-				#include "USBKEY/Dataflash.h"
+				#include "AVR8/USBKEY/Dataflash.h"
 			#elif (BOARD == BOARD_STK525)
-				#include "STK525/Dataflash.h"
+				#include "AVR8/STK525/Dataflash.h"
 			#elif (BOARD == BOARD_STK526)
-				#include "STK526/Dataflash.h"
-			#elif (BOARD == BOARD_XPLAIN)
-				#include "XPLAIN/Dataflash.h"
-			#elif (BOARD == BOARD_XPLAIN_REV1)
-				#include "XPLAIN/Dataflash.h"
+				#include "AVR8/STK526/Dataflash.h"
+			#elif ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
+				#include "AVR8/XPLAIN/Dataflash.h"
 			#elif (BOARD == BOARD_EVK527)
-				#include "EVK527/Dataflash.h"
+				#include "AVR8/EVK527/Dataflash.h"
 			#else
 				#include "Board/Dataflash.h"
 			#endif

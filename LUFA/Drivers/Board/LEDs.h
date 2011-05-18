@@ -116,55 +116,55 @@
 		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
 		static inline uint8_t LEDs_GetLEDs(void) { return 0; }
 	#elif (BOARD == BOARD_USBKEY)
-		#include "USBKEY/LEDs.h"
+		#include "AVR8/USBKEY/LEDs.h"
 	#elif (BOARD == BOARD_STK525)
-		#include "STK525/LEDs.h"
+		#include "AVR8/STK525/LEDs.h"
 	#elif (BOARD == BOARD_STK526)
-		#include "STK526/LEDs.h"
+		#include "AVR8/STK526/LEDs.h"
 	#elif (BOARD == BOARD_RZUSBSTICK)
-		#include "RZUSBSTICK/LEDs.h"
+		#include "AVR8/RZUSBSTICK/LEDs.h"
 	#elif (BOARD == BOARD_ATAVRUSBRF01)
-		#include "ATAVRUSBRF01/LEDs.h"
+		#include "AVR8/ATAVRUSBRF01/LEDs.h"
 	#elif ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-		#include "XPLAIN/LEDs.h"
+		#include "AVR8/XPLAIN/LEDs.h"
 	#elif (BOARD == BOARD_BUMBLEB)
-		#include "BUMBLEB/LEDs.h"
+		#include "AVR8/BUMBLEB/LEDs.h"
 	#elif (BOARD == BOARD_EVK527)
-		#include "EVK527/LEDs.h"
+		#include "AVR8/EVK527/LEDs.h"
 	#elif (BOARD == BOARD_TEENSY)
-		#include "TEENSY/LEDs.h"
+		#include "AVR8/TEENSY/LEDs.h"
 	#elif (BOARD == BOARD_USBTINYMKII)
-		#include "USBTINYMKII/LEDs.h"
+		#include "AVR8/USBTINYMKII/LEDs.h"
 	#elif (BOARD == BOARD_BENITO)
-		#include "BENITO/LEDs.h"
+		#include "AVR8/BENITO/LEDs.h"
 	#elif (BOARD == BOARD_JMDBU2)
-		#include "JMDBU2/LEDs.h"
+		#include "AVR8/JMDBU2/LEDs.h"
 	#elif (BOARD == BOARD_OLIMEX162)
-		#include "OLIMEX162/LEDs.h"
+		#include "AVR8/OLIMEX162/LEDs.h"
 	#elif (BOARD == BOARD_USBFOO)
-		#include "USBFOO/LEDs.h"
+		#include "AVR8/USBFOO/LEDs.h"
 	#elif (BOARD == BOARD_UDIP)
-		#include "UDIP/LEDs.h"
+		#include "AVR8/UDIP/LEDs.h"
 	#elif (BOARD == BOARD_BUI)
-		#include "BUI/LEDs.h"
+		#include "AVR8/BUI/LEDs.h"
 	#elif (BOARD == BOARD_UNO)
-		#include "UNO/LEDs.h"
+		#include "AVR8/UNO/LEDs.h"
 	#elif (BOARD == BOARD_CULV3)
-		#include "CULV3/LEDs.h"
+		#include "AVR8/CULV3/LEDs.h"
 	#elif (BOARD == BOARD_BLACKCAT)
-		#include "BLACKCAT/LEDs.h"
+		#include "AVR8/BLACKCAT/LEDs.h"
 	#elif (BOARD == BOARD_MAXIMUS)
-		#include "MAXIMUS/LEDs.h"
+		#include "AVR8/MAXIMUS/LEDs.h"
 	#elif (BOARD == BOARD_MINIMUS)
-		#include "MINIMUS/LEDs.h"
+		#include "AVR8/MINIMUS/LEDs.h"
 	#elif (BOARD == BOARD_ADAFRUITU4)
-		#include "ADAFRUITU4/LEDs.h"
+		#include "AVR8/ADAFRUITU4/LEDs.h"
 	#elif (BOARD == BOARD_MICROSIN162)
-		#include "MICROSIN162/LEDs.h"
+		#include "AVR8/MICROSIN162/LEDs.h"
 	#elif (BOARD == BOARD_SPARKFUN8U2)
-		#include "SPARKFUN8U2/LEDs.h"
+		#include "AVR8/SPARKFUN8U2/LEDs.h"
 	#elif (BOARD == BOARD_EVK1101)
-		#include "EVK1101/LEDs.h"
+		#include "UC3/EVK1101/LEDs.h"
 	#else
 		#include "Board/LEDs.h"
 	#endif

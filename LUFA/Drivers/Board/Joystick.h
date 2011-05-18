@@ -102,17 +102,17 @@
 		#if (BOARD == BOARD_NONE)
 			#error The Board Joystick driver cannot be used if the makefile BOARD option is not set.
 		#elif (BOARD == BOARD_USBKEY)
-			#include "USBKEY/Joystick.h"
+			#include "AVR8/USBKEY/Joystick.h"
 		#elif (BOARD == BOARD_STK525)
-			#include "STK525/Joystick.h"
+			#include "AVR8/STK525/Joystick.h"
 		#elif (BOARD == BOARD_STK526)
-			#include "STK526/Joystick.h"
+			#include "AVR8/STK526/Joystick.h"
 		#elif (BOARD == BOARD_BUMBLEB)
-			#include "BUMBLEB/Joystick.h"
+			#include "AVR8/BUMBLEB/Joystick.h"
 		#elif (BOARD == BOARD_EVK527)
-			#include "EVK527/Joystick.h"
+			#include "AVR8/EVK527/Joystick.h"
 		#elif (BOARD == BOARD_EVK1101)
-			#include "EVK1101/Joystick.h"
+			#include "UC3/EVK1101/Joystick.h"
 		#else
 			#include "Board/Joystick.h"
 		#endif
