@@ -150,7 +150,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the device returned a
 			 *          logical command failure.
 			 */
 			uint8_t RNDIS_Host_SendKeepAlive(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
@@ -160,8 +160,8 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
-			 *          logical command failure.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the
+			 *          device returned a logical command failure.
 			 */
 			uint8_t RNDIS_Host_InitializeDevice(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -172,8 +172,8 @@
 			 *  \param[in]     Buffer              Pointer to where the property data is to be sourced from.
 			 *  \param[in]     Length              Length in bytes of the property data to sent to the device.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
-			 *          logical command failure.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the
+			 *          device returned a logical command failure.
 			 */
 			uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 			                                    const uint32_t Oid,
@@ -187,8 +187,8 @@
 			 *  \param[in]     Buffer              Pointer to where the property data is to be written to.
 			 *  \param[in]     MaxLength           Length in bytes of the destination buffer size.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
-			 *          logical command failure.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_ERROR_LOGICAL_CMD_FAILED if the
+			 *          device returned a logical command failure.
 			 */
 			uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 			                                      const uint32_t Oid,
