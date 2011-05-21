@@ -2,7 +2,12 @@
 #include <avr/interrupt.h>
 #include "usb_keycodes.h"
 #include "usb_keyboard.h"
+#if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
 #include "usb_mouse.h"
+#endif
+#ifdef USB_EXTRA_ENABLE
+#include "usb_extra.h"
+#endif
 #include "debug.h"
 #include "host.h"
 #include "util.h"
@@ -104,10 +109,24 @@ void host_send_keyboard_report(void)
     usb_keyboard_send_report(keyboard_report);
 }
 
+#if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
 void host_mouse_send(report_mouse_t *report)
 {
     usb_mouse_send(report->x, report->y, report->v, report->h, report->buttons);
 }
+#endif
+
+#ifdef USB_EXTRA_ENABLE
+void host_system_send(uint8_t data)
+{
+    usb_extra_system_send(data);
+}
+
+void host_audio_send(uint8_t data)
+{
+    usb_extra_audio_send(data);
+}
+#endif
 
 
 static inline void add_key_byte(uint8_t code)
