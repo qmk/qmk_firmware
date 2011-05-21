@@ -4,6 +4,11 @@
 #include <stdint.h>
 
 
+/* report id */
+#define REPORT_ID_MOUSE     1
+#define REPORT_ID_SYSTEM    2
+#define REPORT_ID_AUDIO     3
+
 /* keyboard Modifiers in boot protocol report */
 #define BIT_LCTRL   (1<<0)
 #define BIT_LSHIFT  (1<<1)
@@ -25,6 +30,16 @@
 #define MOUSE_BTN4 (1<<3)
 #define MOUSE_BTN5 (1<<4)
 
+// Consumer Page(0x0C) Consumer Control(0x01)
+#define AUDIO_VOL_UP		(1<<0)
+#define AUDIO_VOL_DOWN		(1<<1)
+#define AUDIO_MUTE		(1<<2)
+
+// Generic Desktop Page(0x01) System Control(0x80)
+#define SYSTEM_POWER_DOWN	(1<<0)
+#define SYSTEM_SLEEP		(1<<1)
+#define SYSTEM_WAKE_UP		(1<<2)
+
 
 #if defined(HOST_PJRC)
 #   include "usb.h"
@@ -44,6 +59,7 @@ typedef struct {
 } report_keyboard_t;
 
 typedef struct {
+    uint8_t report_id;
     uint8_t buttons;
     int8_t x;
     int8_t y;
@@ -74,6 +90,12 @@ uint8_t host_get_first_key(void);
 
 
 void host_send_keyboard_report(void);
+#if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
 void host_mouse_send(report_mouse_t *report);
+#endif
+#ifdef USB_EXTRA_ENABLE
+void host_system_send(uint8_t data);
+void host_audio_send(uint8_t data);
+#endif
 
 #endif

@@ -11,9 +11,7 @@
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
-/* TODO: shoud make new API */
 #ifdef USB_EXTRA_ENABLE
-#include "usb_extra.h"
 #include <util/delay.h>
 #endif
 
@@ -68,23 +66,27 @@ void keyboard_proc(void)
 #ifdef USB_EXTRA_ENABLE
             // audio control & system control
             else if (code == KB_MUTE) {
-                usb_extra_audio_send(AUDIO_MUTE);
-                usb_extra_audio_send(0);
+                host_audio_send(AUDIO_MUTE);
                 _delay_ms(500);
+                host_audio_send(0);
             } else if (code == KB_VOLU) {
-                usb_extra_audio_send(AUDIO_VOL_UP);
-                usb_extra_audio_send(0);
+                host_audio_send(AUDIO_VOL_UP);
                 _delay_ms(200);
+                host_audio_send(0);
             } else if (code == KB_VOLD) {
-                usb_extra_audio_send(AUDIO_VOL_DOWN);
-                usb_extra_audio_send(0);
+                host_audio_send(AUDIO_VOL_DOWN);
                 _delay_ms(200);
+                host_audio_send(0);
             } else if (code == KB_PWR) {
+#ifdef HOST_PJRC
                 if (suspend && remote_wakeup) {
                     usb_remote_wakeup();
                 } else {
-                    usb_extra_system_send(SYSTEM_POWER_DOWN);
+                    host_system_send(SYSTEM_POWER_DOWN);
                 }
+#else
+                host_system_send(SYSTEM_POWER_DOWN);
+#endif
                 _delay_ms(1000);
             }
 #endif

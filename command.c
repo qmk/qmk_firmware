@@ -122,11 +122,15 @@ uint8_t command_proc(void)
 #endif
 #ifdef USB_EXTRA_ENABLE
         case KB_ESC:
+#ifdef HOST_PJRC
             if (suspend && remote_wakeup) {
                 usb_remote_wakeup();
             } else {
-                usb_extra_system_send(SYSTEM_POWER_DOWN);
+                host_system_send(SYSTEM_POWER_DOWN);
             }
+#else
+            host_system_send(SYSTEM_POWER_DOWN);
+#endif
             break;
 #endif
         case KB_BSPC:
