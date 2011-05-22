@@ -904,10 +904,12 @@ uip_process(u8_t flag)
 #if UIP_BROADCAST
     DEBUG_PRINTF("UDP IP checksum 0x%04x\n", uip_ipchksum());
     if(BUF->proto == UIP_PROTO_UDP &&
-       uip_ipaddr_cmp(&BUF->destipaddr, &uip_broadcast_addr)
-       /*&&
-	 uip_ipchksum() == 0xffff*/) {
-      goto udp_input;
+       uip_ipaddr_cmp(&BUF->destipaddr, &uip_broadcast_addr))
+	{
+		if (uip_ipaddr_cmp(&BUF->srcipaddr, &uip_all_zeroes_addr))
+		  uip_ipaddr_copy(&BUF->srcipaddr, &uip_broadcast_addr);
+
+		goto udp_input;
     }
 #endif /* UIP_BROADCAST */
 

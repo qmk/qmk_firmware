@@ -43,7 +43,7 @@
 		#include "Lib/uIPManagement.h"
 
 	/* External Variables: */
-		extern USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface;
+		extern USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface_Host;
 
 	/* Function Prototypes: */
 		void USBHostMode_USBTask(void);

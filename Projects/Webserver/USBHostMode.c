@@ -40,7 +40,7 @@
  *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
+USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface_Host =
 	{
 		.Config =
 			{
@@ -82,7 +82,7 @@ void USBHostMode_USBTask(void)
 				break;
 			}
 
-			if (RNDIS_Host_ConfigurePipes(&Ethernet_RNDIS_Interface,
+			if (RNDIS_Host_ConfigurePipes(&Ethernet_RNDIS_Interface_Host,
 										  ConfigDescriptorSize, ConfigDescriptorData) != RNDIS_ENUMERROR_NoError)
 			{
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -97,7 +97,7 @@ void USBHostMode_USBTask(void)
 				break;
 			}
 
-			if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface) != HOST_SENDCONTROL_Successful)
+			if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface_Host) != HOST_SENDCONTROL_Successful)
 			{
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
@@ -105,7 +105,7 @@ void USBHostMode_USBTask(void)
 			}
 
 			uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST);
-			if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_CURRENT_PACKET_FILTER,
+			if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface_Host, OID_GEN_CURRENT_PACKET_FILTER,
 											&PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
 			{
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -113,7 +113,7 @@ void USBHostMode_USBTask(void)
 				break;
 			}
 
-			if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface, OID_802_3_CURRENT_ADDRESS,
+			if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface_Host, OID_802_3_CURRENT_ADDRESS,
 											  &MACAddress, sizeof(MACAddress)) != HOST_SENDCONTROL_Successful)
 			{
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -133,7 +133,7 @@ void USBHostMode_USBTask(void)
 			break;
 	}
 
-	RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface);
+	RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface_Host);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and

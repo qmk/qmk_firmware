@@ -43,13 +43,13 @@
 void DHCPClientApp_Init(void)
 {
 	/* Create a new UDP connection to the DHCP server port for the DHCP solicitation */
-	struct uip_udp_conn* Connection = uip_udp_new(&uip_broadcast_addr, HTONS(DHCPC_SERVER_PORT));
+	struct uip_udp_conn* Connection = uip_udp_new(&uip_broadcast_addr, HTONS(DHCP_SERVER_PORT));
 
 	/* If the connection was successfully created, bind it to the local DHCP client port */
 	if (Connection != NULL)
 	{
 		uip_udp_appstate_t* const AppState = &Connection->appstate;
-		uip_udp_bind(Connection, HTONS(DHCPC_CLIENT_PORT));
+		uip_udp_bind(Connection, HTONS(DHCP_CLIENT_PORT));
 
 		/* Set the initial client state */
 		AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
@@ -80,8 +80,8 @@ void DHCPClientApp_Callback(void)
 
 			/* Add the required DHCP options list to the packet */
 			uint8_t RequiredOptionList[] = {DHCP_OPTION_SUBNET_MASK, DHCP_OPTION_ROUTER, DHCP_OPTION_DNS_SERVER};
-			AppDataSize += DHCPClientApp_SetOption(AppData->Options, DHCP_OPTION_REQ_LIST, sizeof(RequiredOptionList),
-			                                       RequiredOptionList);
+			AppDataSize += DHCPCommon_SetOption(AppData->Options, DHCP_OPTION_REQ_LIST, sizeof(RequiredOptionList),
+			                                    RequiredOptionList);
 
 			/* Send the DHCP DISCOVER packet */
 			uip_udp_send(AppDataSize);
@@ -103,14 +103,14 @@ void DHCPClientApp_Callback(void)
 
 			uint8_t OfferResponse_MessageType;
 			if ((AppData->TransactionID == DHCP_TRANSACTION_ID) &&
-			    DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &OfferResponse_MessageType) &&
+			    DHCPCommon_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &OfferResponse_MessageType) &&
 			    (OfferResponse_MessageType == DHCP_OFFER))
 			{
 				/* Received a DHCP offer for an IP address, copy over values for later request */
 				memcpy(&AppState->DHCPClient.DHCPOffer_Data.AllocatedIP, &AppData->YourIP, sizeof(uip_ipaddr_t));
-				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_SUBNET_MASK, &AppState->DHCPClient.DHCPOffer_Data.Netmask);
-				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_ROUTER,      &AppState->DHCPClient.DHCPOffer_Data.GatewayIP);
-				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_SERVER_ID,   &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
+				DHCPCommon_GetOption(AppData->Options, DHCP_OPTION_SUBNET_MASK, &AppState->DHCPClient.DHCPOffer_Data.Netmask);
+				DHCPCommon_GetOption(AppData->Options, DHCP_OPTION_ROUTER,      &AppState->DHCPClient.DHCPOffer_Data.GatewayIP);
+				DHCPCommon_GetOption(AppData->Options, DHCP_OPTION_SERVER_ID,   &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
 
 				timer_reset(&AppState->DHCPClient.Timeout);
 				AppState->DHCPClient.CurrentState = DHCP_STATE_SendRequest;
@@ -122,12 +122,12 @@ void DHCPClientApp_Callback(void)
 			AppDataSize += DHCPClientApp_FillDHCPHeader(AppData, DHCP_REQUEST, AppState);
 
 			/* Add the DHCP REQUESTED IP ADDRESS option to the packet */
-			AppDataSize += DHCPClientApp_SetOption(AppData->Options, DHCP_OPTION_REQ_IPADDR, sizeof(uip_ipaddr_t),
-			                                       &AppState->DHCPClient.DHCPOffer_Data.AllocatedIP);
+			AppDataSize += DHCPCommon_SetOption(AppData->Options, DHCP_OPTION_REQ_IPADDR, sizeof(uip_ipaddr_t),
+			                                    &AppState->DHCPClient.DHCPOffer_Data.AllocatedIP);
 
 			/* Add the DHCP SERVER IP ADDRESS option to the packet */
-			AppDataSize += DHCPClientApp_SetOption(AppData->Options, DHCP_OPTION_SERVER_ID, sizeof(uip_ipaddr_t),
-			                                       &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
+			AppDataSize += DHCPCommon_SetOption(AppData->Options, DHCP_OPTION_SERVER_ID, sizeof(uip_ipaddr_t),
+			                                    &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
 
 			/* Send the DHCP REQUEST packet */
 			uip_udp_send(AppDataSize);
@@ -149,7 +149,7 @@ void DHCPClientApp_Callback(void)
 
 			uint8_t RequestResponse_MessageType;
 			if ((AppData->TransactionID == DHCP_TRANSACTION_ID) &&
-			    DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &RequestResponse_MessageType) &&
+			    DHCPCommon_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &RequestResponse_MessageType) &&
 			    (RequestResponse_MessageType == DHCP_ACK))
 			{
 				/* Set the new network parameters from the DHCP server */
@@ -207,66 +207,5 @@ static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader,
 	return (sizeof(DHCP_Header_t) + 4);
 }
 
-/** Sets the given DHCP option in the DHCP packet's option list. This automatically moves the
- *  end of options terminator past the new option in the options list.
- *
- *  \param[in,out] DHCPOptionList  Pointer to the start of the DHCP packet's options list
- *  \param[in]     Option          DHCP option to add to the list
- *  \param[in]     DataLen         Size in bytes of the option data to add
- *  \param[in]     OptionData      Buffer where the option's data is to be sourced from
- *
- *  \return Number of bytes added to the DHCP packet
- */
-static uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList,
-                                       const uint8_t Option,
-                                       const uint8_t DataLen,
-                                       void* const OptionData)
-{
-	/* Skip through the DHCP options list until the terminator option is found */
-	while (*DHCPOptionList != DHCP_OPTION_END)
-	  DHCPOptionList += (DHCPOptionList[1] + 2);
-
-	/* Overwrite the existing terminator with the new option, add a new terminator at the end of the list */
-	DHCPOptionList[0] = Option;
-	DHCPOptionList[1] = DataLen;
-	memcpy(&DHCPOptionList[2], OptionData, DataLen);
-	DHCPOptionList[2 + DataLen] = DHCP_OPTION_END;
-
-	/* Calculate the total number of bytes added to the outgoing packet */
-	return (2 + DataLen);
-}
-
-/** Retrieves the given option's data (if present) from the DHCP packet's options list.
- *
- *  \param[in,out] DHCPOptionList  Pointer to the start of the DHCP packet's options list
- *  \param[in]     Option          DHCP option to retrieve to the list
- *  \param[out]    Destination     Buffer where the option's data is to be written to if found
- *
- *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
- */
-static bool DHCPClientApp_GetOption(const uint8_t* DHCPOptionList,
-                                    const uint8_t Option,
-                                    void* const Destination)
-{
-	/* Look through the incoming DHCP packet's options list for the requested option */
-	while (*DHCPOptionList != DHCP_OPTION_END)
-	{
-		/* Check if the current DHCP option in the packet is the one requested */
-		if (DHCPOptionList[0] == Option)
-		{
-			/* Copy request option's data to the destination buffer */
-			memcpy(Destination, &DHCPOptionList[2], DHCPOptionList[1]);
-
-			/* Indicate that the requested option data was successfully retrieved */
-			return true;
-		}
-
-		/* Skip to next DHCP option in the options list */
-		DHCPOptionList += (DHCPOptionList[1] + 2);
-	}
-
-	/* Requested option not found in the incoming packet's DHCP options list */
-	return false;
-}
 #endif
 

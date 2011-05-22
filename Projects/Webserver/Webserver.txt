@@ -52,10 +52,12 @@
  *  demonstrates how the libraries can be combined into a robust network enabled application, with the addition of a RNDIS
  *  network device.
  *
- *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage device. Load
- *  HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
+ *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage and RNDIS composite
+ *  device. Load HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
  *  <i>index.htm</i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver, and the total
- *  requested file path must be equal to or less than the maximum URI length (\see \ref Sec_Options).
+ *  requested file path must be equal to or less than the maximum URI length (\see \ref Sec_Options). Supply the included INF
+ *  file when requested on Windows machines to enable the RNDIS interface, and allow the files to be viewed on a standard web-browser
+ *  using the IP address 10.0.0.2.
  *
  *  When attached to a RNDIS class device, such as a USB (desktop) modem, the system will enumerate the device, set the
  *  appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80 and TELNET
@@ -87,6 +89,11 @@
  *    <td>ENABLE_DHCP_CLIENT</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_DHCP_SERVER</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>When defined, this enables the DHCP server for dynamic IP allocation of the network settings to a DHCP client.</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_IP_ADDRESS</td>

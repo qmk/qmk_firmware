@@ -128,22 +128,25 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 LUFA_OPTS += -D INTERRUPT_CONTROL_ENDPOINT
 
 LUFA_OPTS += -D ENABLE_DHCP_CLIENT
+LUFA_OPTS += -D ENABLE_DHCP_SERVER
 LUFA_OPTS += -D ENABLE_TELNET_SERVER
 LUFA_OPTS += -D MAX_URI_LENGTH=50
-LUFA_OPTS += -D UIP_CONF_UDP="defined(ENABLE_DHCP_CLIENT)"
+
+LUFA_OPTS += -D UIP_CONF_UDP="defined(ENABLE_DHCP_CLIENT) || defined(ENABLE_DHCP_SERVER)"
+LUFA_OPTS += -D UIP_CONF_BROADCAST=1
 LUFA_OPTS += -D UIP_CONF_TCP=1
 LUFA_OPTS += -D UIP_CONF_UDP_CONNS=1
 LUFA_OPTS += -D UIP_CONF_MAX_CONNECTIONS=3
 LUFA_OPTS += -D UIP_CONF_MAX_LISTENPORTS=5
-LUFA_OPTS += -D UIP_URGDATA=0
 LUFA_OPTS += -D UIP_CONF_BUFFER_SIZE=1514
-LUFA_OPTS += -D UIP_ARCH_CHKSUM=0
 LUFA_OPTS += -D UIP_CONF_LL_802154=0
 LUFA_OPTS += -D UIP_CONF_LL_80211=0
 LUFA_OPTS += -D UIP_CONF_ROUTER=0
 LUFA_OPTS += -D UIP_CONF_ICMP6=0
-LUFA_OPTS += -D UIP_ARCH_ADD32=0
 LUFA_OPTS += -D UIP_CONF_ICMP_DEST_UNREACH=1
+LUFA_OPTS += -D UIP_URGDATA=0
+LUFA_OPTS += -D UIP_ARCH_CHKSUM=0
+LUFA_OPTS += -D UIP_ARCH_ADD32=0
 LUFA_OPTS += -D UIP_NEIGHBOR_CONF_ADDRTYPE=0
 
 
@@ -159,7 +162,9 @@ SRC = $(TARGET).c                                                 \
 	  Lib/SCSI.c                                                  \
 	  Lib/DataflashManager.c                                      \
 	  Lib/uIPManagement.c                                         \
+	  Lib/DHCPCommon.c                                            \
 	  Lib/DHCPClientApp.c                                         \
+	  Lib/DHCPServerApp.c                                         \
 	  Lib/HTTPServerApp.c                                         \
 	  Lib/TELNETServerApp.c                                       \
 	  Lib/uip/uip.c                                               \

@@ -33,7 +33,6 @@
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
   *      -# Arduino Uno compatible USB-MIDI, USB-HID
-  *      -# Make Webserver project work in RNDIS device mode
   *  - Ports
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers

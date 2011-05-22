@@ -38,6 +38,7 @@
   *   - Added HID class bootloader, compatible with a modified version of the command line Teensy loader from PJRC.com
   *   - Added LED flashing to the CDC and DFU class bootloaders to indicate when they are running
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
+  *   - Added RNDIS device mode to the Webserver project
   *
   *  <b>Changed:</b>
   *  - Core:

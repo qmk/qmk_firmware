@@ -63,7 +63,10 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 			},
 	};
 
+/** Global to store the incoming frame from the host before it is processed by the device. */
 static Ethernet_Frame_Info_t FrameIN;
+
+/** Global to store the outgoing frame created in the device before it is sent to the host. */
 static Ethernet_Frame_Info_t FrameOUT;
 
 /** Main program entry point. This routine contains the overall program flow, including initial

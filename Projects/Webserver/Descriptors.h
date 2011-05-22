@@ -51,6 +51,21 @@
 		/** Size in bytes of the Mass Storage data endpoints. */
 		#define MASS_STORAGE_IO_EPSIZE         64
 
+		/** Endpoint number of the CDC device-to-host notification IN endpoint. */
+		#define CDC_NOTIFICATION_EPNUM         5
+
+		/** Endpoint number of the CDC device-to-host data IN endpoint. */
+		#define CDC_TX_EPNUM                   1
+
+		/** Endpoint number of the CDC host-to-device data OUT endpoint. */
+		#define CDC_RX_EPNUM                   2
+
+		/** Size in bytes of the CDC device-to-host notification IN endpoint. */
+		#define CDC_NOTIFICATION_EPSIZE        8
+
+		/** Size in bytes of the CDC data IN and OUT endpoints. */
+		#define CDC_TXRX_EPSIZE                64
+
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -58,10 +73,19 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            MS_Interface;
-			USB_Descriptor_Endpoint_t             MS_DataInEndpoint;
-			USB_Descriptor_Endpoint_t             MS_DataOutEndpoint;
+			USB_Descriptor_Configuration_Header_t  Config;
+			USB_Descriptor_Interface_Association_t CDC_IAD;
+			USB_Descriptor_Interface_t             CDC_CCI_Interface;
+			USB_CDC_Descriptor_FunctionalHeader_t  CDC_Functional_Header;
+			USB_CDC_Descriptor_FunctionalACM_t     CDC_Functional_ACM;
+			USB_CDC_Descriptor_FunctionalUnion_t   CDC_Functional_Union;
+			USB_Descriptor_Endpoint_t              CDC_NotificationEndpoint;
+			USB_Descriptor_Interface_t             CDC_DCI_Interface;
+			USB_Descriptor_Endpoint_t              RNDIS_DataOutEndpoint;
+			USB_Descriptor_Endpoint_t              RNDIS_DataInEndpoint;
+			USB_Descriptor_Interface_t             MS_Interface;
+			USB_Descriptor_Endpoint_t              MS_DataInEndpoint;
+			USB_Descriptor_Endpoint_t              MS_DataOutEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */

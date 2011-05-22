@@ -36,6 +36,33 @@
 
 #include "USBDeviceMode.h"
 
+/** LUFA RNDIS Class driver interface configuration and state information. This structure is
+ *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
+USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface_Device =
+	{
+		.Config =
+			{
+				.ControlInterfaceNumber         = 0,
+
+				.DataINEndpointNumber           = CDC_TX_EPNUM,
+				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
+				.DataINEndpointDoubleBank       = false,
+
+				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
+				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointDoubleBank      = false,
+
+				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointDoubleBank = false,
+
+				.AdapterVendorDescription       = "LUFA RNDIS Adapter",
+				.AdapterMACAddress              = {{0x02, 0x00, 0x02, 0x00, 0x02, 0x00}},
+			},
+	};
+	
 /** LUFA Mass Storage Class driver interface configuration and state information. This structure is
  *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -44,15 +71,15 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber           = 0,
+				.InterfaceNumber           = 2,
 
 				.DataINEndpointNumber      = MASS_STORAGE_IN_EPNUM,
 				.DataINEndpointSize        = MASS_STORAGE_IO_EPSIZE,
-				.DataINEndpointDoubleBank  = true,
+				.DataINEndpointDoubleBank  = false,
 
 				.DataOUTEndpointNumber     = MASS_STORAGE_OUT_EPNUM,
 				.DataOUTEndpointSize       = MASS_STORAGE_IO_EPSIZE,
-				.DataOUTEndpointDoubleBank = true,
+				.DataOUTEndpointDoubleBank = false,
 
 				.TotalLUNs                 = 1,
 			},
@@ -67,6 +94,9 @@ void USBDeviceMode_USBTask(void)
 	if (USB_CurrentMode != USB_MODE_Device)
 	  return;
 
+	uIPManagement_ManageNetwork();
+
+	RNDIS_Device_USBTask(&Ethernet_RNDIS_Interface_Device);
 	MS_Device_USBTask(&Disk_MS_Interface);
 }
 
@@ -74,6 +104,8 @@ void USBDeviceMode_USBTask(void)
 void EVENT_USB_Device_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uIPManagement_Init();
 }
 
 /** Event handler for the library USB Disconnection event. */
@@ -87,6 +119,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
 
+	ConfigSuccess &= RNDIS_Device_ConfigureEndpoints(&Ethernet_RNDIS_Interface_Device);
 	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -95,6 +128,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 /** Event handler for the library USB Control Request reception event. */
 void EVENT_USB_Device_ControlRequest(void)
 {
+	RNDIS_Device_ProcessControlRequest(&Ethernet_RNDIS_Interface_Device);
 	MS_Device_ProcessControlRequest(&Disk_MS_Interface);
 }
 

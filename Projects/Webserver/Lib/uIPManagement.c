@@ -61,22 +61,49 @@ void uIPManagement_Init(void)
 	/* uIP Stack Initialization */
 	uip_init();
 	uip_arp_init();
-	uip_setethaddr(MACAddress);
 
 	/* DHCP/Server IP Settings Initialization */
-	#if defined(ENABLE_DHCP_CLIENT)
-	HaveIPConfiguration = false;
-	DHCPClientApp_Init();
-	#else
-	HaveIPConfiguration = true;
-	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
-	uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
-	uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
-	uip_ipaddr(&GatewayIPAddress, DEVICE_GATEWAY[0],    DEVICE_GATEWAY[1],    DEVICE_GATEWAY[2],    DEVICE_GATEWAY[3]);
-	uip_sethostaddr(&IPAddress);
-	uip_setnetmask(&Netmask);
-	uip_setdraddr(&GatewayIPAddress);
-	#endif
+	if (USB_CurrentMode == USB_MODE_Device)
+	{
+		MACAddress.addr[0] = SERVER_MAC_ADDRESS[0];
+		MACAddress.addr[1] = SERVER_MAC_ADDRESS[1];
+		MACAddress.addr[2] = SERVER_MAC_ADDRESS[2];
+		MACAddress.addr[3] = SERVER_MAC_ADDRESS[3];
+		MACAddress.addr[4] = SERVER_MAC_ADDRESS[4];
+		MACAddress.addr[5] = SERVER_MAC_ADDRESS[5];
+
+		#if defined(ENABLE_DHCP_SERVER)
+		DHCPServerApp_Init();	
+		#endif
+
+		HaveIPConfiguration = true;
+		uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
+		uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
+		uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
+		uip_ipaddr(&GatewayIPAddress, DEVICE_GATEWAY[0],    DEVICE_GATEWAY[1],    DEVICE_GATEWAY[2],    DEVICE_GATEWAY[3]);
+		uip_sethostaddr(&IPAddress);
+		uip_setnetmask(&Netmask);
+		uip_setdraddr(&GatewayIPAddress);
+	}
+	else
+	{
+		#if defined(ENABLE_DHCP_CLIENT)
+		HaveIPConfiguration = false;
+		DHCPClientApp_Init();	
+		#else
+		HaveIPConfiguration = true;
+		uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
+		uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
+		uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
+		uip_ipaddr(&GatewayIPAddress, DEVICE_GATEWAY[0],    DEVICE_GATEWAY[1],    DEVICE_GATEWAY[2],    DEVICE_GATEWAY[3]);
+		uip_sethostaddr(&IPAddress);
+		uip_setnetmask(&Netmask);
+		uip_setdraddr(&GatewayIPAddress);
+		#endif
+	}
+
+	/* Virtual Webserver Ethernet Address Configuration */
+	uip_setethaddr(MACAddress);
 
 	/* HTTP Webserver Initialization */
 	HTTPServerApp_Init();
@@ -92,7 +119,8 @@ void uIPManagement_Init(void)
  */
 void uIPManagement_ManageNetwork(void)
 {
-	if ((USB_CurrentMode == USB_MODE_Host) && (USB_HostState == HOST_STATE_Configured))
+	if (((USB_CurrentMode == USB_MODE_Host) && (USB_HostState == HOST_STATE_Configured)) ||
+	    ((USB_CurrentMode == USB_MODE_Device) && (USB_DeviceState == DEVICE_STATE_Configured)))
 	{
 		uIPManagement_ProcessIncomingPacket();
 		uIPManagement_ManageConnections();
@@ -126,24 +154,46 @@ void uIPManagement_UDPCallback(void)
 	/* Call the correct UDP application based on the port number the connection is listening on */
 	switch (uip_udp_conn->lport)
 	{
-		case HTONS(DHCPC_CLIENT_PORT):
+		#if defined(ENABLE_DHCP_CLIENT)
+		case HTONS(DHCP_CLIENT_PORT):
 			DHCPClientApp_Callback();
 			break;
+		#endif
+		#if defined(ENABLE_DHCP_SERVER)
+		case HTONS(DHCP_SERVER_PORT):
+			DHCPServerApp_Callback();
+			break;
+		#endif
 	}
 }
 
 /** Processes Incoming packets to the server from the connected RNDIS device, creating responses as needed. */
 static void uIPManagement_ProcessIncomingPacket(void)
 {
-	/* If no packet received, exit processing routine */
-	if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface)))
-	  return;
+	/* Determine which USB mode the system is currently initialised in */
+	if (USB_CurrentMode == USB_MODE_Device)
+	{
+		/* If no packet received, exit processing routine */
+		if (!(RNDIS_Device_IsPacketReceived(&Ethernet_RNDIS_Interface_Device)))
+		  return;
+	
+		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
-	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+		/* Read the Incoming packet straight into the UIP packet buffer */
+		RNDIS_Device_ReadPacket(&Ethernet_RNDIS_Interface_Device, uip_buf, &uip_len);
+	}
+	else
+	{
+		/* If no packet received, exit processing routine */
+		if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface_Host)))
+		  return;
+	
+		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
-	/* Read the Incoming packet straight into the UIP packet buffer */
-	RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
-
+		/* Read the Incoming packet straight into the UIP packet buffer */
+		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface_Host, uip_buf, &uip_len);
+	}
+	
 	/* If the packet contains an Ethernet frame, process it */
 	if (uip_len > 0)
 	{

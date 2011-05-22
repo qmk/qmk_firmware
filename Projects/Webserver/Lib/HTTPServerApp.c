@@ -181,7 +181,7 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	}
 
 	/* Copy over the requested filename */
-	strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
+	strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], sizeof(AppState->HTTPServer.FileName));
 
 	/* Ensure filename is null-terminated */
 	AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
@@ -190,11 +190,11 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	uint8_t FileNameLen = strlen(AppState->HTTPServer.FileName);
 
 	/* If the URI is a directory, append the default filename */
-	if (AppState->HTTPServer.FileName[FileNameLen - 1] == '/')
+	if ((AppState->HTTPServer.FileName[FileNameLen - 1] == '/') || !(FileNameLen))
 	{
 		strncpy_P(&AppState->HTTPServer.FileName[FileNameLen], DefaultDirFileName,
 		          (sizeof(AppState->HTTPServer.FileName) - FileNameLen));
-
+		
 		/* Ensure altered filename is still null-terminated */
 		AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
 	}

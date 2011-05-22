@@ -59,7 +59,7 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
 
 	DecodeDHCPHeader(DHCPHeaderInStart);
 
-	/* Zero out the response DHCP packet, as much of it legacy and left at 0 */
+	/* Zero out the response DHCP packet, as much of it is legacy and left at 0 */
 	memset(DHCPHeaderOUT, 0, sizeof(DHCP_Header_t));
 
 	/* Fill out the response DHCP packet */
