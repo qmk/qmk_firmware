@@ -60,11 +60,13 @@
 
 		/** Size in bytes of each of the HID reporting IN. */
 		#define HID_EPSIZE                16
-		
+	
+	/* Enums: */
+		/** Enum for the HID report IDs used in the device. */
 		enum
 		{
-			HID_REPORTID_MouseReport    = 0x01,
-			HID_REPORTID_KeyboardReport = 0x02,
+			HID_REPORTID_MouseReport    = 0x01, /**< Report ID for the Mouse report within the device. */
+			HID_REPORTID_KeyboardReport = 0x02, /**< Report ID for the Keyboard report within the device. */
 		} HID_Report_IDs;
 
 	/* Function Prototypes: */
