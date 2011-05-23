@@ -337,7 +337,7 @@
  *     0x2069
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Webserver Project
  *    </td>
  *   </tr>
  *
@@ -349,7 +349,7 @@
  *     0x206A
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Media Control Project
  *    </td>
  *   </tr>
  *
