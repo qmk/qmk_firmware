@@ -51,12 +51,13 @@
 		#if defined(INCLUDE_FROM_DHCPSERVERAPP_C)
 		static uint16_t DHCPServerApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader,
 		                                             const uint8_t DHCPMessageType,
-		                                             struct uip_eth_addr* ClientHardwareAddress,
-		                                             uint32_t TransactionID);
-		static bool DHCPServerApp_CheckIfIPLeased(uip_ipaddr_t* IPAddress);
-		static void DHCPServerApp_GetUnleasedIP(uip_ipaddr_t* NewIPAddress);
-		static void DHCPServerApp_LeaseIP(uip_ipaddr_t* IPAddress);
-		static void DHCPServerApp_UnleaseIP(uip_ipaddr_t* IPAddress);
+		                                             const struct uip_eth_addr* const ClientHardwareAddress,
+		                                             const uip_ipaddr_t* const PreferredClientIP,
+		                                             const uint32_t TransactionID);
+		static bool DHCPServerApp_CheckIfIPLeased(const uip_ipaddr_t* const IPAddress);
+		static void DHCPServerApp_GetUnleasedIP(uip_ipaddr_t* const NewIPAddress);
+		static void DHCPServerApp_LeaseIP(const uip_ipaddr_t* const IPAddress);
+		static void DHCPServerApp_UnleaseIP(const uip_ipaddr_t* const IPAddress);
 		#endif
 #endif
 
