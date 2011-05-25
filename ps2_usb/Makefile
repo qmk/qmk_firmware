@@ -1,5 +1,10 @@
+#
+# Makefile for PJRC Teensy
+#
+
+
 # Target file name (without extension).
-TARGET = ps2_usb
+TARGET = ps2_usb_pjrc
 
 # Directory common source filess exist
 COMMON_DIR = ..
@@ -37,7 +42,7 @@ F_CPU = 16000000
 #   comment out to disable the options.
 #
 MOUSEKEY_ENABLE = yes	# Mouse keys
-USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+USB_EXTRA_ENABLE = yes	# Audio control and System control
 USB_NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
