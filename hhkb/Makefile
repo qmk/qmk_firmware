@@ -1,5 +1,10 @@
+#
+# Makefile for PJRC Teensy
+#
+
+
 # Target file name (without extension).
-TARGET = hhkb
+TARGET = hhkb_pjrc
 
 # Directory common source filess exist
 COMMON_DIR = ..
@@ -13,7 +18,7 @@ TARGET_SRC =	main_pjrc.c \
   	        matrix.c \
 		led.c
 
-CONFIG_H = config.h
+CONFIG_H = config_pjrc.h
 
 
 # MCU name, you MUST set this to match the board you are using
@@ -36,7 +41,7 @@ F_CPU = 16000000
 #   comment out to disable the options.
 MOUSEKEY_ENABLE = yes	# Mouse keys
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
-USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+USB_EXTRA_ENABLE = yes	# Audio control and System control
 USB_NKRO_ENABLE = yes	# USB Nkey Rollover
 
 

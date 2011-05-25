@@ -1,3 +1,8 @@
+#
+# Makefile for V-USB
+#
+
+
 # Target file name (without extension).
 TARGET = hhkb_vusb
 
@@ -23,10 +28,6 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 
 # MCU name, you MUST set this to match the board you are using
 # type "make clean" after changing this, so all files will be rebuilt
-#MCU = at90usb162       # Teensy 1.0
-#MCU = atmega32u4       # Teensy 2.0
-#MCU = at90usb646       # Teensy++ 1.0
-#MCU = at90usb1286      # Teensy++ 2.0
 MCU = atmega168
 
 
@@ -42,7 +43,7 @@ F_CPU = 20000000
 #   comment out to disable the options.
 #
 MOUSEKEY_ENABLE = yes	# Mouse keys
-USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+USB_EXTRA_ENABLE = yes	# Audio control and System control
 #USB_NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
