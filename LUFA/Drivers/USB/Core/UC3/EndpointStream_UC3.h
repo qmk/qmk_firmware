@@ -46,8 +46,8 @@
  *  @{
  */ 
 
-#ifndef __ENDPOINT_STREAM_H__
-#define __ENDPOINT_STREAM_H__
+#ifndef __ENDPOINT_STREAM_UC3_H__
+#define __ENDPOINT_STREAM_UC3_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"

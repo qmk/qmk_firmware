@@ -26,8 +26,8 @@ all:
 	$(MAKE) -C Magstripe clean
 	$(MAKE) -C Magstripe all
 
-	$(MAKE) -C MediaControl clean
-	$(MAKE) -C MediaControl all
+	$(MAKE) -C MediaController clean
+	$(MAKE) -C MediaController all
 
 	$(MAKE) -C MIDIToneGenerator clean
 	$(MAKE) -C MIDIToneGenerator all
@@ -55,7 +55,7 @@ all:
 	$(MAKE) -C Benito $@
 	$(MAKE) -C LEDNotifier $@
 	$(MAKE) -C Magstripe $@
-	$(MAKE) -C MediaControl $@
+	$(MAKE) -C MediaController $@
 	$(MAKE) -C MissileLauncher $@
 	$(MAKE) -C RelayBoard $@
 	$(MAKE) -C TempDataLogger $@
