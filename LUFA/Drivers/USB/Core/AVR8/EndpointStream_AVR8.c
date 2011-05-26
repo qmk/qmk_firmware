@@ -29,11 +29,11 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "USBMode.h"
+#include "../USBMode.h"
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#include "EndpointStream.h"
+#include "EndpointStream_AVR8.h"
 
 #if !defined(CONTROL_ONLY_DEVICE)
 uint8_t Endpoint_Discard_Stream(uint16_t Length,
