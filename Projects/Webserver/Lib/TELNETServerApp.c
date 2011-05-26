@@ -146,7 +146,7 @@ static void TELNETServerApp_DisplayTCPConnections(void)
 		if (CurrConnection->tcpstateflags != UIP_CLOSED)
 		{
 			/* Add the current connection's details to the out buffer */
-			ResponseLen += sprintf_P(&AppData[ResponseLen], PSTR("%u) %02d.%02d.%02d.%02d (Local %u, Remote %u)\r\n"),
+			ResponseLen += sprintf_P(&AppData[ResponseLen], PSTR("%u) %d.%d.%d.%d (Local Port %u <=> Remote Port %u)\r\n"),
 			                         ++ActiveConnCount,
 			                         CurrConnection->ripaddr.u8[0],
 			                         CurrConnection->ripaddr.u8[1],

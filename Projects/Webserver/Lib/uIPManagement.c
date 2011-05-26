@@ -46,9 +46,6 @@ static struct timer ARPTimer;
 /** MAC address of the RNDIS device, when enumerated. */
 struct uip_eth_addr MACAddress;
 
-/** Indicates if an IP configuration has been set in the device. */
-bool HaveIPConfiguration;
-
 
 /** Configures the uIP stack ready for network traffic processing. */
 void uIPManagement_Init(void)
@@ -76,7 +73,6 @@ void uIPManagement_Init(void)
 		DHCPServerApp_Init();	
 		#endif
 
-		HaveIPConfiguration = true;
 		uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
 		uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
 		uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
@@ -88,10 +84,8 @@ void uIPManagement_Init(void)
 	else
 	{
 		#if defined(ENABLE_DHCP_CLIENT)
-		HaveIPConfiguration = false;
 		DHCPClientApp_Init();	
 		#else
-		HaveIPConfiguration = true;
 		uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
 		uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
 		uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
@@ -228,7 +222,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 		}
 	}
 
-	LEDs_SetAllLEDs(LEDMASK_USB_READY | ((HaveIPConfiguration) ? LEDMASK_UIP_READY_CONFIG : LEDMASK_UIP_READY_NOCONFIG));
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Manages the currently open network connections, including TCP and (if enabled) UDP. */

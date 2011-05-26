@@ -157,9 +157,6 @@ void DHCPClientApp_Callback(void)
 				uip_setnetmask((uip_ipaddr_t*)&AppState->DHCPClient.DHCPOffer_Data.Netmask);
 				uip_setdraddr((uip_ipaddr_t*)&AppState->DHCPClient.DHCPOffer_Data.GatewayIP);
 
-				/* Indicate to the user that we now have a valid IP configuration */
-				HaveIPConfiguration = true;
-
 				AppState->DHCPClient.CurrentState = DHCP_STATE_AddressLeased;
 			}
 

@@ -48,15 +48,15 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface_Device =
 
 				.DataINEndpointNumber           = CDC_TX_EPNUM,
 				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank       = false,
+				.DataINEndpointDoubleBank       = true,
 
 				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
 				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank      = false,
+				.DataOUTEndpointDoubleBank      = true,
 
 				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
 				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank = false,
+				.NotificationEndpointDoubleBank = true,
 
 				.AdapterVendorDescription       = "LUFA RNDIS Adapter",
 				.AdapterMACAddress              = {{0x02, 0x00, 0x02, 0x00, 0x02, 0x00}},

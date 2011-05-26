@@ -70,8 +70,6 @@
 	/* External Variables: */
 		extern struct uip_eth_addr MACAddress;
 
-		extern bool HaveIPConfiguration;
-
 	/* Function Prototypes: */
 		void uIPManagement_Init(void);
 		void uIPManagement_ManageNetwork(void);
