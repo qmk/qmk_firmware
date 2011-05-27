@@ -11,7 +11,7 @@
   *  - Core:
   *   - Added USE_LUFA_CONFIG_HEADER compile time option to include a LUFAConfig.h header in the user director for LUFA configuration
   *     tokens as an alternative to tokens defined in the project makefile
-  *   - Added new RNDIS Device Classs Driver packet send and receive functions
+  *   - Added new USB_Host_SetInterfaceAltSetting() convenience function for the selection of an interface's alternative setting
   *  - Library Applications:
   *   - Added new MediaControl project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
@@ -50,6 +50,7 @@
   *   - Internal restructuring for eventual multiple architecture ports
   *   - Added AVR32 UC3 architecture port (currently incomplete/experimental)
   *   - Added new architecture independant functions to enable, disable, save and restore the Global Interrupt Enable flags
+  *   - Added new RNDIS Device Classs Driver packet send and receive functions
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project

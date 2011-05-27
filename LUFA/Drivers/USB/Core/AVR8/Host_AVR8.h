@@ -330,6 +330,19 @@
 			 */
 			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointIndex);
 
+			/** Selects a given alternative setting for the specfied interface, via a SET INTERFACE standard request to
+			 *  the attached device.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[in] InterfaceIndex  Index of the interface whose alternative setting is to be altered.
+			 *  \param[in] AltSetting      Index of the interface's alternative setting which is to be selected.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceNum,
+													const uint8_t AltSetting);
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

@@ -177,16 +177,7 @@ void USB_Printer_Host(void)
 			 * request to switch to the interface alternate setting with the Bidirectional protocol */
 			if (PrinterAltSetting)
 			{
-				USB_ControlRequest = (USB_Request_Header_t)
-					{
-						.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
-						.bRequest      = REQ_SetInterface,
-						.wValue        = PrinterAltSetting,
-						.wIndex        = PrinterInterfaceNumber,
-						.wLength       = 0,
-					};
-
-				if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+				if ((ErrorCode = USB_Host_SetInterfaceAltSetting(PrinterInterfaceNumber, PrinterAltSetting)) != HOST_SENDCONTROL_Successful)
 				{
 					printf_P(PSTR(ESC_FG_RED "Control Error (Set Interface).\r\n"
 					                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);

@@ -181,19 +181,11 @@ uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInte
 	{
 		uint8_t ErrorCode;
 
-		USB_ControlRequest = (USB_Request_Header_t)
-			{
-				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
-				.bRequest      = REQ_SetInterface,
-				.wValue        = PRNTInterfaceInfo->State.AlternateSetting,
-				.wIndex        = PRNTInterfaceInfo->State.InterfaceNumber,
-				.wLength       = 0,
-			};
-
-		Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-		if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-		  return ErrorCode;
+		if ((ErrorCode = USB_Host_SetInterfaceAltSetting(PRNTInterfaceInfo->State.InterfaceNumber,
+		                                                 PRNTInterfaceInfo->State.AlternateSetting)) != HOST_SENDCONTROL_Successful)
+		{
+			return ErrorCode;
+		}
 	}
 
 	return HOST_SENDCONTROL_Successful;
