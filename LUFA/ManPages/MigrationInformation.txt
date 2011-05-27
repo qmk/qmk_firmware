@@ -10,7 +10,10 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- *  \section Sec_MigrationXXXXXX Migrating from 101122 to XXXXXX
+ *  \section Sec_MigrationXXXXXX Migrating from 110528 to XXXXXX
+ *  <i>None</i>
+ *
+ *  \section Sec_Migration110528 Migrating from 101122 to 110528
  *  <b>Non-USB Library Components</b>
  *    - The TWI driver \ref TWI_StartTransmission() function return type has now changed, so that the function returns an
  *      error code from the \ref TWI_ErrorCodes_t enum instead of a boolean success flag. Existing code must now check
