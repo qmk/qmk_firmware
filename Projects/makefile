@@ -56,6 +56,7 @@ all:
 	$(MAKE) -C LEDNotifier $@
 	$(MAKE) -C Magstripe $@
 	$(MAKE) -C MediaController $@
+	$(MAKE) -C MIDIToneGenerator $@	
 	$(MAKE) -C MissileLauncher $@
 	$(MAKE) -C RelayBoard $@
 	$(MAKE) -C TempDataLogger $@
