@@ -45,14 +45,14 @@ int main(void)
 	V2Protocol_Init();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	GlobalInterruptEnable();
-	
+	sei();
+
 	for (;;)
 	{
 		#if (BOARD == BOARD_USBTINYMKII)
-			/* On the USBTINY-MKII board target, there is a secondary LED which indicates the current selected
-			   power mode - either VBUS, or sourced from the VTARGET pin of the programming connectors */
-			LEDs_ChangeLEDs(LEDS_LED3, (PIND & (1 << 0)) ? 0 : LEDS_LED3);
+		/* On the USBTINY-MKII target, there is a secondary LED which indicates the current selected power
+		   mode - either VBUS, or sourced from the VTARGET pin of the programming connectors */
+		LEDs_ChangeLEDs(LEDMASK_VBUSPOWER, (PIND & (1 << 0)) ? 0 : LEDMASK_VBUSPOWER);
 		#endif
 
 		AVRISP_Task();
@@ -63,35 +63,13 @@ int main(void)
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
-	#if (ARCH == ARCH_AVR8)
-		/* Disable watchdog if enabled by bootloader/fuses */
-		MCUSR &= ~(1 << WDRF);
-		wdt_disable();
+	/* Disable watchdog if enabled by bootloader/fuses */
+	MCUSR &= ~(1 << WDRF);
+	wdt_disable();
 
-		/* Disable clock division */
-		clock_prescale_set(clock_div_1);
-	#elif (ARCH == ARCH_UC3)
-		/* Select slow startup, external high frequency crystal attached to OSC0 */
-		AVR32_PM.OSCCTRL0.mode    = 7;
-		AVR32_PM.OSCCTRL0.startup = 6;
-		AVR32_PM.MCCTRL.osc0en    = true;
-		while (!(AVR32_PM.POSCSR.osc0rdy));
+	/* Disable clock division */
+	clock_prescale_set(clock_div_1);
 
-		/* Switch CPU core to use OSC0 as the system clock */
-		AVR32_PM.MCCTRL.mcsel     = 1;
-
-		/* Start PLL1 to feed into the USB generic clock module */
-		AVR32_PM.PLL[1].pllmul    = (F_USB / F_CPU) ? (((F_USB / F_CPU) - 1) / 2) : 0;
-		AVR32_PM.PLL[1].plldiv    = 0;
-		AVR32_PM.PLL[1].pllosc    = 0;	
-		AVR32_PM.PLL[1].pllen     = true;
-		while (!(AVR32_PM.POSCSR.lock1));
-	
-		/* Configure interrupt management peripheral */
-//		INTC_Init();
-		INTC_RegisterGroupHandler(AVR32_USBB_IRQ, AVR32_INTC_INT0, USB_GEN_vect);	
-	#endif
-	
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();

@@ -37,19 +37,12 @@
 #define _ISP_TARGET_
 
 	/* Includes: */
-		#include <LUFA/Common/Common.h>
+		#include <avr/io.h>
+		#include <avr/pgmspace.h>
+		#include <util/delay.h>
+
 		#include <LUFA/Drivers/USB/USB.h>
-		
-		#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
-			#include <LUFA/Drivers/Peripheral/SPI.h> // TODO: FIXME
-		#endif
-		
-		#if (ARCH == ARCH_AVR8)
-			#include <avr/io.h>
-			#include <avr/pgmspace.h>
-		#elif (ARCH == ARCH_UC3)
-			#include <avr32/io.h>			
-		#endif
+		#include <LUFA/Drivers/Peripheral/SPI.h>
 
 		#include "../V2ProtocolParams.h"
 
@@ -91,7 +84,6 @@
 		                                      const uint8_t ReadMemCommand);
 
 	/* Inline Functions: */
-		#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
 		/** Sends a byte of ISP data to the attached target, using the appropriate SPI hardware or
 		 *  software routines depending on the selected ISP speed.
 		 *
@@ -132,7 +124,6 @@
 			else
 			  return ISPTarget_TransferSoftSPIByte(Byte);
 		}
-		#endif
 
 #endif
 

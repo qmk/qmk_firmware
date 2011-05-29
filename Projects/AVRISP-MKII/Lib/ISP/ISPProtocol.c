@@ -52,7 +52,7 @@ void ISPProtocol_EnterISPMode(void)
 		uint8_t PollValue;
 		uint8_t PollIndex;
 		uint8_t EnterProgBytes[4];
-	} ATTR_PACKED Enter_ISP_Params;
+	} Enter_ISP_Params;
 
 	Endpoint_Read_Stream_LE(&Enter_ISP_Params, sizeof(Enter_ISP_Params), NULL);
 
@@ -107,7 +107,7 @@ void ISPProtocol_LeaveISPMode(void)
 	{
 		uint8_t PreDelayMS;
 		uint8_t PostDelayMS;
-	} ATTR_PACKED Leave_ISP_Params;
+	} Leave_ISP_Params;
 
 	Endpoint_Read_Stream_LE(&Leave_ISP_Params, sizeof(Leave_ISP_Params), NULL);
 
@@ -141,12 +141,12 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		uint8_t  ProgrammingCommands[3];
 		uint8_t  PollValue1;
 		uint8_t  PollValue2;
-		uint8_t  ProgData[256];        // Note, the Jungo driver has a very short ACK timeout period, need to buffer the
-	} ATTR_PACKED Write_Memory_Params; // whole page and ACK the packet as fast as possible to prevent it from aborting
+		uint8_t  ProgData[256]; // Note, the Jungo driver has a very short ACK timeout period, need to buffer the
+	} Write_Memory_Params;      // whole page and ACK the packet as fast as possible to prevent it from aborting
 
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, (sizeof(Write_Memory_Params) -
 	                                               sizeof(Write_Memory_Params.ProgData)), NULL);
-	Write_Memory_Params.BytesToWrite = be16_to_cpu(Write_Memory_Params.BytesToWrite);
+	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
 	
 	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))
 	{
@@ -286,10 +286,10 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 	{
 		uint16_t BytesToRead;
 		uint8_t  ReadMemoryCommand;
-	} ATTR_PACKED Read_Memory_Params;
+	} Read_Memory_Params;
 
 	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params), NULL);
-	Read_Memory_Params.BytesToRead = be16_to_cpu(Read_Memory_Params.BytesToRead);
+	Read_Memory_Params.BytesToRead = SwapEndian_16(Read_Memory_Params.BytesToRead);
 	
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -360,7 +360,7 @@ void ISPProtocol_ChipErase(void)
 		uint8_t EraseDelayMS;
 		uint8_t PollMethod;
 		uint8_t EraseCommandBytes[4];
-	} ATTR_PACKED Erase_Chip_Params;
+	} Erase_Chip_Params;
 
 	Endpoint_Read_Stream_LE(&Erase_Chip_Params, sizeof(Erase_Chip_Params), NULL);
 
@@ -396,7 +396,7 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 	{
 		uint8_t RetByte;
 		uint8_t ReadCommandBytes[4];
-	} ATTR_PACKED Read_FuseLockSigOSCCAL_Params;
+	} Read_FuseLockSigOSCCAL_Params;
 
 	Endpoint_Read_Stream_LE(&Read_FuseLockSigOSCCAL_Params, sizeof(Read_FuseLockSigOSCCAL_Params), NULL);
 
@@ -427,7 +427,7 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 	struct
 	{
 		uint8_t WriteCommandBytes[4];
-	} ATTR_PACKED Write_FuseLockSig_Params;
+	} Write_FuseLockSig_Params;
 
 	Endpoint_Read_Stream_LE(&Write_FuseLockSig_Params, sizeof(Write_FuseLockSig_Params), NULL);
 
@@ -454,7 +454,7 @@ void ISPProtocol_SPIMulti(void)
 		uint8_t RxBytes;
 		uint8_t RxStartAddr;
 		uint8_t TxData[255];
-	} ATTR_PACKED SPI_Multi_Params;
+	} SPI_Multi_Params;
 
 	Endpoint_Read_Stream_LE(&SPI_Multi_Params, (sizeof(SPI_Multi_Params) - sizeof(SPI_Multi_Params.TxData)), NULL);
 	Endpoint_Read_Stream_LE(&SPI_Multi_Params.TxData, SPI_Multi_Params.TxBytes, NULL);

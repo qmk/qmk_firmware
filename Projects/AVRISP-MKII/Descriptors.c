@@ -53,8 +53,8 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
-	.VendorID               = CPU_TO_LE16(0x03EB),
-	.ProductID              = CPU_TO_LE16(0x2104),
+	.VendorID               = 0x03EB,
+	.ProductID              = 0x2104,
 	.ReleaseNumber          = VERSION_BCD(02.00),
 
 	.ManufacturerStrIndex   = 0x01,
@@ -75,7 +75,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			.TotalConfigurationSize = CPU_TO_LE16(sizeof(USB_Descriptor_Configuration_t)),
+			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
 			.TotalInterfaces        = 1,
 
 			.ConfigurationNumber    = 1,
@@ -108,7 +108,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | AVRISP_DATA_IN_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-			.EndpointSize           = CPU_TO_LE16(AVRISP_DATA_EPSIZE),
+			.EndpointSize           = AVRISP_DATA_EPSIZE,
 			.PollingIntervalMS      = 0x0A
 		},
 
@@ -118,7 +118,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | AVRISP_DATA_OUT_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-			.EndpointSize           = CPU_TO_LE16(AVRISP_DATA_EPSIZE),
+			.EndpointSize           = AVRISP_DATA_EPSIZE,
 			.PollingIntervalMS      = 0x0A
 		},
 };
@@ -142,17 +142,7 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
-	.UnicodeString          = {CPU_TO_LE16('D'),
-	                           CPU_TO_LE16('e'), 
-	                           CPU_TO_LE16('a'), 
-	                           CPU_TO_LE16('n'), 
-	                           CPU_TO_LE16(' '), 
-	                           CPU_TO_LE16('C'), 
-	                           CPU_TO_LE16('a'), 
-	                           CPU_TO_LE16('m'), 
-	                           CPU_TO_LE16('e'), 
-	                           CPU_TO_LE16('r'), 
-	                           CPU_TO_LE16('a')}
+	.UnicodeString          = L"Dean Camera"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -163,28 +153,7 @@ const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
 
-	.UnicodeString          = {CPU_TO_LE16('L'), 
-	                           CPU_TO_LE16('U'), 
-	                           CPU_TO_LE16('F'), 
-	                           CPU_TO_LE16('A'), 
-	                           CPU_TO_LE16(' '), 
-	                           CPU_TO_LE16('A'), 
-	                           CPU_TO_LE16('V'), 
-	                           CPU_TO_LE16('R'), 
-	                           CPU_TO_LE16('I'), 
-	                           CPU_TO_LE16('S'), 
-	                           CPU_TO_LE16('P'), 
-	                           CPU_TO_LE16(' '), 
-	                           CPU_TO_LE16('M'), 
-	                           CPU_TO_LE16('k'), 
-	                           CPU_TO_LE16('I'), 
-	                           CPU_TO_LE16('I'), 
-	                           CPU_TO_LE16(' '), 
-	                           CPU_TO_LE16('C'), 
-	                           CPU_TO_LE16('l'), 
-	                           CPU_TO_LE16('o'), 
-	                           CPU_TO_LE16('n'), 
-	                           CPU_TO_LE16('e')}
+	.UnicodeString          = L"LUFA AVRISP MkII Clone"
 };
 
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
@@ -194,19 +163,7 @@ const USB_Descriptor_String_t PROGMEM SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
 
-	.UnicodeString          = {CPU_TO_LE16('0'), 
-	                           CPU_TO_LE16('0'), 
-	                           CPU_TO_LE16('0'), 
-	                           CPU_TO_LE16('0'), 
-	                           CPU_TO_LE16('A'), 
-	                           CPU_TO_LE16('0'), 
-	                           CPU_TO_LE16('0'), 
-	                           CPU_TO_LE16('1'), 
-	                           CPU_TO_LE16('2'), 
-	                           CPU_TO_LE16('8'), 
-	                           CPU_TO_LE16('2'), 
-	                           CPU_TO_LE16('5'), 
-	                           CPU_TO_LE16('5')}
+	.UnicodeString          = L"0000A00128255"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"

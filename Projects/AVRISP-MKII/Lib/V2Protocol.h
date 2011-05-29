@@ -37,17 +37,12 @@
 #define _V2_PROTOCOL_
 
 	/* Includes: */
-		#include <LUFA/Common/Common.h>
+		#include <avr/io.h>
+		#include <avr/interrupt.h>
+		#include <avr/wdt.h>
+	
 		#include <LUFA/Drivers/USB/USB.h>
 
-		#if (ARCH == ARCH_AVR8)
-			#include <avr/io.h>
-			#include <avr/interrupt.h>
-			#include <avr/wdt.h>
-		#elif (ARCH == ARCH_UC3)
-			#include <avr32/io.h>
-		#endif
-		
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
@@ -74,13 +69,15 @@
 		/** Timeout period for each issued command from the host before it is aborted (in 10ms ticks). */
 		#define COMMAND_TIMEOUT_TICKS      100
 
+		/** Command timeout expiration flag, GPIOR for speed. */
+		#define TimeoutExpired             GPIOR1
+
 		/** MUX mask for the VTARGET ADC channel number. */
 		#define VTARGET_ADC_CHANNEL_MASK   ADC_GET_CHANNEL_MASK(VTARGET_ADC_CHANNEL)
 
 	/* External Variables: */
-		extern uint32_t      CurrentAddress;
-		extern bool          MustLoadExtendedAddress;
-		extern volatile bool TimeoutExpired;
+		extern uint32_t CurrentAddress;
+		extern bool     MustLoadExtendedAddress;
 
 	/* Function Prototypes: */
 		void V2Protocol_Init(void);

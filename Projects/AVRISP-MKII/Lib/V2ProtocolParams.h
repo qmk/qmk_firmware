@@ -37,18 +37,13 @@
 #define _V2_PROTOCOL_PARAMS_
 
 	/* Includes: */
-		#include <LUFA/Common/Common.h>
+		#include <avr/io.h>
+		#include <avr/eeprom.h>
+
 		#include <LUFA/Version.h>
 
 		#if defined(ADC)
 			#include <LUFA/Drivers/Peripheral/ADC.h>
-		#endif
-
-		#if (ARCH == ARCH_AVR8)
-			#include <avr/io.h>
-			#include <avr/eeprom.h>
-		#elif (ARCH == ARCH_UC3)
-			#include <avr32/io.h>		
 		#endif
 
 		#include "V2Protocol.h"
@@ -64,12 +59,6 @@
 
 		/** Total number of parameters in the parameter table */
 		#define TABLE_PARAM_COUNT   (sizeof(ParameterTable) / sizeof(ParameterTable[0]))
-		
-		#if (ARCH == ARCH_UC3) // TODO: FIXME
-			#define EEMEM
-			#define eeprom_read_byte(x) *x
-			#define eeprom_update_byte(x,y) *x=y
-		#endif
 
 	/* Type Defines: */
 		/** Type define for a parameter table entry indicating a PC readable or writable device parameter. */
