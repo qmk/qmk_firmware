@@ -204,7 +204,7 @@
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define AUDIO_SAMPLE_FREQ(freq)           {.Byte1 = (freq & 0x0000FF), .Byte2 = ((freq >> 8) & 0xFF), .Byte3 = ((freq >> 16) & 0xFF)}
+		#define AUDIO_SAMPLE_FREQ(freq)           {.Byte1 = ((uint32_t)freq & 0x0000FF), .Byte2 = (((uint32_t)freq >> 8) & 0xFF), .Byte3 = (((uint32_t)freq >> 16) & 0xFF)}
 
 		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
@@ -215,7 +215,7 @@
 		 *  will accept partially filled endpoint packets of audio samples.
 		 */
 		#define AUDIO_EP_ACCEPTS_SMALL_PACKETS    (0 << 7)
-
+		
 	/* Enums: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Audio
 		 *  device class.
@@ -267,6 +267,22 @@
 		enum Audio_CSEndpoint_SubTypes_t
 		{
 			AUDIO_DSUBTYPE_CSEndpoint_General         = 0x01, /**< Audio class specific endpoint general descriptor. */
+		};
+
+		/** Enum for the Audio class specific control requests that can be issued by the USB bus host. */
+		enum Audio_ClassRequests_t
+		{
+			AUDIO_REQ_SetCurrent    = 0x01, /**< Audio class-specific request to set the current value of a parameter within the device. */
+			AUDIO_REQ_SetMinimum    = 0x02, /**< Audio class-specific request to set the minimum value of a parameter within the device. */
+			AUDIO_REQ_SetMaximum    = 0x03, /**< Audio class-specific request to set the maximum value of a parameter within the device. */
+			AUDIO_REQ_SetResolution = 0x04, /**< Audio class-specific request to set the resolution value of a parameter within the device. */
+			AUDIO_REQ_SetMemory     = 0x05, /**< Audio class-specific request to set the memory value of a parameter within the device. */
+			AUDIO_REQ_GetCurrent    = 0x81, /**< Audio class-specific request to get the current value of a parameter within the device. */
+			AUDIO_REQ_GetMinimum    = 0x82, /**< Audio class-specific request to get the minimum value of a parameter within the device. */
+			AUDIO_REQ_GetMaximum    = 0x83, /**< Audio class-specific request to get the maximum value of a parameter within the device. */
+			AUDIO_REQ_GetResolution = 0x84, /**< Audio class-specific request to get the resolution value of a parameter within the device. */
+			AUDIO_REQ_GetMemory     = 0x85, /**< Audio class-specific request to get the memory value of a parameter within the device. */
+			AUDIO_REQ_GetStatus     = 0xFF, /**< Audio class-specific request to get the device status. */
 		};
 
 	/* Type Defines: */

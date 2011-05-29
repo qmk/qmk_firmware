@@ -37,17 +37,24 @@
 #define _AVRISP_H_
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/wdt.h>
-		#include <avr/interrupt.h>
-		#include <avr/power.h>
-
+		#include <LUFA/Common/Common.h>
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#if defined(ADC)
 			#include <LUFA/Drivers/Peripheral/ADC.h>
+		#endif
+
+		#if (ARCH == ARCH_AVR8)
+			#include <avr/io.h>
+			#include <avr/wdt.h>
+			#include <avr/interrupt.h>
+			#include <avr/power.h>
+		#elif (ARCH == ARCH_UC3)
+			#include <avr32/io.h>
+
+			#include <LUFA/Platform/UC3/INTC_UC3.h> // TODO: FIXME
 		#endif
 
 		#include "Descriptors.h"
@@ -68,9 +75,6 @@
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_BUSY             (LEDS_LED1 | LEDS_LED2)
-
-		/** LED mask for the library LED driver, to indicate that the target is being powered by VBUS. */
-		#define LEDMASK_VBUSPOWER         LEDS_LED3
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

@@ -37,11 +37,14 @@
 #define _XPROG_TARGET_
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/interrupt.h>
-		#include <stdbool.h>
-
 		#include <LUFA/Common/Common.h>
+
+		#if (ARCH == ARCH_AVR8)
+			#include <avr/io.h>
+			#include <avr/interrupt.h>
+		#elif (ARCH == ARCH_UC3)
+			#include <avr32/io.h>			
+		#endif
 
 		#include "../V2Protocol.h"
 		#include "XPROGProtocol.h"

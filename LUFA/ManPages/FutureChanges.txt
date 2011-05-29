@@ -29,11 +29,10 @@
   *  - Demos/Projects
   *      -# Device/Host USB bridge
   *      -# Alternative (USB-IF endorsed) USB-CDC Ethernet Class
-  *      -# Finish Test and Measurement Class demo
-  *      -# Finish BluetoothHost demo
-  *      -# Finish SideShow demo
-  *      -# Finish StandaloneProgrammer project
-  *      -# Arduino Uno compatible USB-MIDI, USB-HID
+  *      -# Finish incomplete demos and projects
+  *      -# Add class driver support for Audio Host class
+  *      -# Add class driver support for Test and Measurement class
+  *      -# Fix up Audio class support - add support for mixers, etc., add support for GET/SET commands
   *  - Ports
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers

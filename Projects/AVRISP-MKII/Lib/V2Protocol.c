@@ -42,13 +42,17 @@ uint32_t CurrentAddress;
 /** Flag to indicate that the next read/write operation must update the device's current extended FLASH address */
 bool MustLoadExtendedAddress;
 
+/** Command timeout expiration flag. */
+volatile bool TimeoutExpired;
 
+#if (ARCH == ARCH_AVR8) // TODO: FIXME
 /** ISR to manage timeouts whilst processing a V2Protocol command */
 ISR(WDT_vect, ISR_BLOCK)
 {
 	TimeoutExpired = true;
 	wdt_disable();
 }
+#endif
 
 /** Initialises the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
@@ -75,10 +79,12 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_8();
 
+	#if (ARCH == ARCH_AVR8) // TODO: FIXME
 	/* Start the watchdog with timeout interrupt enabled to manage the timeout */
 	TimeoutExpired = false;
 	wdt_enable(WDTO_1S);
 	WDTCSR |= (1 << WDIE);
+	#endif
 
 	switch (V2Command)
 	{
@@ -140,8 +146,10 @@ void V2Protocol_ProcessCommand(void)
 			break;
 	}
 
+	#if (ARCH == ARCH_AVR8) // TODO: FIXME
 	/* Disable the timeout management watchdog timer */
 	wdt_disable();
+	#endif
 
 	Endpoint_WaitUntilReady();
 	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);

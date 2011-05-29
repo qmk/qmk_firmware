@@ -37,11 +37,18 @@
 #define _DESCRIPTORS_H_
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-
+		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#if (ARCH == ARCH_AVR8)
+			#include <avr/pgmspace.h>
+		#endif
+
 	/* Macros: */
+		#if (ARCH == ARCH_UC3) // TODO: FIXME
+			#define PROGMEM const
+		#endif
+	
 		#if !defined(LIBUSB_DRIVER_COMPAT)
 			/** Endpoint number of the AVRISP data OUT endpoint. */
 			#define AVRISP_DATA_OUT_EPNUM      2
@@ -70,7 +77,7 @@
 			USB_Descriptor_Interface_t               AVRISP_Interface;
 			USB_Descriptor_Endpoint_t                AVRISP_DataInEndpoint;
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;
-		} USB_Descriptor_Configuration_t;
+		} ATTR_PACKED USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

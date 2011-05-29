@@ -143,6 +143,15 @@ void EVENT_USB_Device_ControlRequest(void)
 			}
 
 			break;
+		case AUDIO_REQ_GetStatus:
+			/* Get Status request can be directed at either the interface or endpoint, neither is currently used
+			 * according to the latest USB Audio 1.0 standard, but must be ACKed with no data when requested */
+			if ((USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE)) ||
+			    (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT)))
+			{
+				Endpoint_ClearSETUP();
+				Endpoint_ClearStatusStage();
+			}
 	}
 }
 

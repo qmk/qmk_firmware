@@ -37,7 +37,7 @@
 #include "V2ProtocolParams.h"
 
 /* Non-Volatile Parameter Values for EEPROM storage */
-static uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
+static uint8_t EEMEM EEPROM_Reset_Polarity = 0x00;
 
 /* Volatile Parameter Values for RAM storage */
 static ParameterItem_t ParameterTable[] =
@@ -88,7 +88,7 @@ static ParameterItem_t ParameterTable[] =
 void V2Params_LoadNonVolatileParamValues(void)
 {
 	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM */
-	V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = eeprom_read_byte(&EEPROM_Rest_Polarity);
+	V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = eeprom_read_byte(&EEPROM_Reset_Polarity);
 }
 
 /** Updates any parameter values that are sourced from hardware rather than explicitly set by the host, such as
@@ -163,7 +163,7 @@ void V2Params_SetParameterValue(const uint8_t ParamID,
 
 	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
 	if (ParamID == PARAM_RESET_POLARITY)
-	  eeprom_update_byte(&EEPROM_Rest_Polarity, Value);
+	  eeprom_update_byte(&EEPROM_Reset_Polarity, Value);
 }
 
 /** Retrieves a parameter entry (including ID, value and privileges) from the parameter table that matches the given

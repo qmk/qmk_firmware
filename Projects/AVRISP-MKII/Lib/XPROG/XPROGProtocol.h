@@ -37,11 +37,17 @@
 #define _XPROG_PROTOCOL_
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <util/delay.h>
-		#include <stdio.h>
-
+		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>
+
+		#if (ARCH == ARCH_AVR8)
+			#include <avr/io.h>
+		#elif (ARCH == ARCH_UC3)
+			#include <avr32/io.h>			
+		#endif
+		
+		#include <stdbool.h>
+		#include <stdio.h>
 
 		#include "../V2Protocol.h"
 		#include "XMEGANVM.h"

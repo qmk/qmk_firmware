@@ -57,6 +57,13 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 			}
 
 			break;
+		case AUDIO_REQ_GetStatus:
+			if ((USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE)) ||
+			    (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT)))
+			{
+				Endpoint_ClearSETUP();
+				Endpoint_ClearStatusStage();
+			}
 	}
 }
 

@@ -60,7 +60,7 @@ void XPROGProtocol_SetMode(void)
 	struct
 	{
 		uint8_t Protocol;
-	} SetMode_XPROG_Params;
+	} ATTR_PACKED SetMode_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&SetMode_XPROG_Params, sizeof(SetMode_XPROG_Params), NULL);
 
@@ -163,10 +163,10 @@ static void XPROGProtocol_Erase(void)
 	{
 		uint8_t  MemoryType;
 		uint32_t Address;
-	} Erase_XPROG_Params;
+	} ATTR_PACKED Erase_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&Erase_XPROG_Params, sizeof(Erase_XPROG_Params), NULL);
-	Erase_XPROG_Params.Address = SwapEndian_32(Erase_XPROG_Params.Address);
+	Erase_XPROG_Params.Address = be32_to_cpu(Erase_XPROG_Params.Address);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -242,12 +242,12 @@ static void XPROGProtocol_WriteMemory(void)
 		uint32_t Address;
 		uint16_t Length;
 		uint8_t  ProgData[256];
-	} WriteMemory_XPROG_Params;
+	} ATTR_PACKED WriteMemory_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params, (sizeof(WriteMemory_XPROG_Params) -
 	                                                    sizeof(WriteMemory_XPROG_Params).ProgData), NULL);
-	WriteMemory_XPROG_Params.Address = SwapEndian_32(WriteMemory_XPROG_Params.Address);
-	WriteMemory_XPROG_Params.Length  = SwapEndian_16(WriteMemory_XPROG_Params.Length);
+	WriteMemory_XPROG_Params.Address = be32_to_cpu(WriteMemory_XPROG_Params.Address);
+	WriteMemory_XPROG_Params.Length  = be16_to_cpu(WriteMemory_XPROG_Params.Length);
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length, NULL);
 
 	// The driver will terminate transfers that are a round multiple of the endpoint bank in size with a ZLP, need
@@ -335,11 +335,11 @@ static void XPROGProtocol_ReadMemory(void)
 		uint8_t  MemoryType;
 		uint32_t Address;
 		uint16_t Length;
-	} ReadMemory_XPROG_Params;
+	} ATTR_PACKED ReadMemory_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&ReadMemory_XPROG_Params, sizeof(ReadMemory_XPROG_Params), NULL);
-	ReadMemory_XPROG_Params.Address = SwapEndian_32(ReadMemory_XPROG_Params.Address);
-	ReadMemory_XPROG_Params.Length  = SwapEndian_16(ReadMemory_XPROG_Params.Length);
+	ReadMemory_XPROG_Params.Address = be32_to_cpu(ReadMemory_XPROG_Params.Address);
+	ReadMemory_XPROG_Params.Length  = be16_to_cpu(ReadMemory_XPROG_Params.Length);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -380,7 +380,7 @@ static void XPROGProtocol_ReadCRC(void)
 	struct
 	{
 		uint8_t CRCType;
-	} ReadCRC_XPROG_Params;
+	} ATTR_PACKED ReadCRC_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params), NULL);
 
