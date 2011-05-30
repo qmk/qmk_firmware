@@ -11,7 +11,12 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 110528 to XXXXXX
- *  <i>None</i>
+ *  <b>Device Mode</b>
+ *    - The definition of the Audio class \ref USB_Audio_Descriptor_Format_t has been altered, to remove the fixed singular
+ *      audio sample rate in the descriptor definition, and to rename the \c SampleFrequencyType to the more appropriate
+ *      \c TotalDiscreteSampleRates. Existing applications will need to add an array of \ref USB_Audio_SampleFreq_t elements
+ *      immediately following any \ref USB_Audio_Descriptor_Format_t descriptors, and insert the appropriate sampling rates
+ *      supported by the device, as well as rename the descriptor elements to match the updated element names.
  *
  *  \section Sec_Migration110528 Migrating from 101122 to 110528
  *  <b>Non-USB Library Components</b>

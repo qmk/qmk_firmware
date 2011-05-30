@@ -351,7 +351,7 @@ uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointNum)
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceNum,
+uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
                                         const uint8_t AltSetting)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -359,7 +359,7 @@ uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceNum,
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
 			.bRequest      = REQ_SetInterface,
 			.wValue        = AltSetting,
-			.wIndex        = InterfaceNum,
+			.wIndex        = InterfaceIndex,
 			.wLength       = 0,
 		};
 

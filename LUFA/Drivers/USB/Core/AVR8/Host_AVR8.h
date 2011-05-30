@@ -340,7 +340,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceNum,
+			uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
 													const uint8_t AltSetting);
 
 	/* Private Interface - For use in library only: */

@@ -64,13 +64,6 @@
 		#endif
 
 	/* Macros: */
-		#if !defined(AUDIO_TOTAL_SAMPLE_RATES) || defined(__DOXYGEN__)
-			/** Total number of discrete audio sample rates supported by the device. This value can be overridden by defining this
-			 *  token in the project makefile to the desired value, and passing it to the compiler via the -D switch.
-			 */
-			#define AUDIO_TOTAL_SAMPLE_RATES    1
-		#endif
-		
 		/** \name Audio Channel Masks */
 		//@{
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
@@ -563,6 +556,9 @@
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
 		 *  in the device's audio streams. See the USB Audio specification for more details.
 		 *
+		 *  \note This descriptor <b>must</b> be followed by one or more \ref USB_Audio_SampleFreq_t elements containing
+		 *        the continuous or discrete sample frequencies.
+		 *
 		 *  \see \ref USB_Audio_StdDescriptor_Format_t for the version of this type with standard element names.
 		 */
 		typedef struct
@@ -578,8 +574,11 @@
 			uint8_t                 SubFrameSize; /**< Size in bytes of each channel's sample data in the stream. */
 			uint8_t                 BitResolution; /**< Bits of resolution of each channel's samples in the stream. */
 
-			uint8_t                 SampleFrequencyType; /**< Total number of sample frequencies supported by the device. */
-			USB_Audio_SampleFreq_t  SampleFrequencies[AUDIO_TOTAL_SAMPLE_RATES]; /**< Sample frequencies supported by the device (must be 24-bit). */
+			uint8_t                 TotalDiscreteSampleRates; /**< Total number of discrete sample frequencies supported by the device. When
+			                                                   *   zero, this must be followed by the lower and upper continuous sampling
+			                                                   *   frequencies supported by the device; otherwise, this must be followed
+			                                                   *   by the given number of discrete sampling frequencies supported.
+			                                                   */
 		} ATTR_PACKED USB_Audio_Descriptor_Format_t;
 
 		/** \brief Audio class-specific Format Descriptor (USB-IF naming conventions).
@@ -587,6 +586,9 @@
 		 *  Type define for an Audio class-specific audio format descriptor. This is used to give the host full details
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
 		 *  in the device's audio streams. See the USB Audio specification for more details.
+		 *
+		 *  \note This descriptor <b>must</b> be followed by one or more 24-bit integer elements containing the continuous
+		 *        or discrete sample frequencies.
 		 *
 		 *  \see \ref USB_Audio_Descriptor_Format_t for the version of this type with non-standard LUFA specific
 		 *       element names.
@@ -608,8 +610,11 @@
 			uint8_t bSubFrameSize; /**< Size in bytes of each channel's sample data in the stream. */
 			uint8_t bBitResolution; /**< Bits of resolution of each channel's samples in the stream. */
 
-			uint8_t bSampleFrequencyType; /**< Total number of sample frequencies supported by the device. */
-			uint8_t SampleFrequencies[AUDIO_TOTAL_SAMPLE_RATES * 3]; /**< Sample frequencies supported by the device (must be 24-bit). */
+			uint8_t bSampleFrequencyType; /**< Total number of sample frequencies supported by the device. When
+			                               *   zero, this must be followed by the lower and upper continuous sampling
+			                               *   frequencies supported by the device; otherwise, this must be followed
+			                               *   by the given number of discrete sampling frequencies supported.
+			                               */
 		} ATTR_PACKED USB_Audio_StdDescriptor_Format_t;
 
 		/** \brief Audio class-specific Streaming Endpoint Descriptor (LUFA naming conventions).

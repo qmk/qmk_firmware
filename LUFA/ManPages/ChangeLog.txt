@@ -22,6 +22,9 @@
   *  <b>Changed:</b>
   *  - Core:
   *   - Added support for the Audio class GET STATUS request so that it is correctly ACKed when sent by the host
+  *   - Altered the definition of the USB_Audio_Descriptor_Format_t descriptor so that the user is now responsible for supplying
+  *     the supported audio sampling rates, to allow for multiple audio interfaces with different numbers of supported rates and/or
+  *     continuous sample rates
   *  - Library Applications:
   *   - <i>None</i>
   *
