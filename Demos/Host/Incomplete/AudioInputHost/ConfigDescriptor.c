@@ -37,10 +37,24 @@
 
 #include "ConfigDescriptor.h"
 
+/** Index of the currently used Audio Streaming Interface within the device. */
 uint8_t StreamingInterfaceIndex      = 0;
+
+/** Alternative Setting of the currently used Audio Streaming Interface within the device. */
 uint8_t StreamingInterfaceAltSetting = 0;
+
+/** Address of the streaming audio endpoint currently in use within the device. */
 uint8_t StreamingEndpointAddress     = 0;
 
+
+/** Reads and processes an attached device's descriptors, to determine compatibility and pipe configurations. This
+ *  routine will read in the entire configuration descriptor, and configure the hosts pipes to correctly communicate
+ *  with compatible devices.
+ *
+ *  This routine searches for a Streaming Audio interface descriptor containing a valid Isochronous audio endpoint.
+ *
+ *  \return An error code from the \ref RNDISHost_GetConfigDescriptorDataCodes_t enum.
+ */
 uint8_t ProcessConfigurationDescriptor(void)
 {
 	uint8_t  ConfigDescriptorData[512];
@@ -66,12 +80,17 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	while (!(DataINEndpoint))
 	{
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
 		if (!(AudioControlInterface) ||
 		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextAudioInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			if (!(AudioControlInterface))
+			/* Check if we haven't found an Audio Control interface yet, or if we have run out of related Audio Streaming interfaces */
+			if (!(AudioControlInterface) ||
+			    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+			                              DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
+				/* Find a new Audio Control interface if the current one doesn't contain a compatible streaming interface */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 											  DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
@@ -81,20 +100,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 				/* Save the interface in case we need to refer back to it later */
 				AudioControlInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);			
-			}
-		
-			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-										  DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-			{
+
+				/* Find the next Audio Streaming interface within that Audio Control interface */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-											  DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+										  DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
 					return NoCompatibleInterfaceFound;
 				}
-
-				/* Save the interface in case we need to refer back to it later */
-				AudioControlInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
 			}
 
 			/* Save the interface in case we need to refer back to it later */
@@ -124,6 +137,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 	return SuccessfulConfigRead;
 }
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Interface descriptor of the correct Audio Control Class, Subclass and Protocol values.
+ *
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ */
 uint8_t DComp_NextAudioControlInterface(void* CurrentDescriptor)
 {
 	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
@@ -143,6 +164,14 @@ uint8_t DComp_NextAudioControlInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Interface descriptor of the correct Audio Streaming Class, Subclass and Protocol values.
+ *
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ */
 uint8_t DComp_NextAudioStreamInterface(void* CurrentDescriptor)
 {
 	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
@@ -162,6 +191,15 @@ uint8_t DComp_NextAudioStreamInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Isochronous Endpoint descriptor within the current interface, aborting the
+ *  search if another interface descriptor is found before the next endpoint.
+ *
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ */
 uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
 {
 	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
@@ -180,4 +218,3 @@ uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
 
 	return DESCRIPTOR_SEARCH_NotFound;
 }
-
