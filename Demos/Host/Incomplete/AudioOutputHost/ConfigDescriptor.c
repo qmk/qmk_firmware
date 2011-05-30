@@ -63,7 +63,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	USB_Descriptor_Interface_t* AudioControlInterface   = NULL;
 	USB_Descriptor_Interface_t* AudioStreamingInterface = NULL;
-	USB_Descriptor_Endpoint_t*  DataINEndpoint          = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint         = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -78,7 +78,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 
-	while (!(DataINEndpoint))
+	while (!(DataOUTEndpoint))
 	{
 		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
 		if (!(AudioControlInterface) ||
@@ -120,18 +120,18 @@ uint8_t ProcessConfigurationDescriptor(void)
 		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Save the endpoint if it is an IN type endpoint */
-		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  DataINEndpoint = EndpointData;
+		/* Save the endpoint if it is an OUT type endpoint */
+		if (!(EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN))
+		  DataOUTEndpoint = EndpointData;
 	}
 
 	StreamingInterfaceIndex      = AudioStreamingInterface->InterfaceNumber;
 	StreamingInterfaceAltSetting = AudioStreamingInterface->AlternateSetting;
-	StreamingEndpointAddress     = DataINEndpoint->EndpointAddress;
+	StreamingEndpointAddress     = DataOUTEndpoint->EndpointAddress;
 
-	/* Configure the Audio data IN pipe */
-	Pipe_ConfigurePipe(AUDIO_DATA_IN_PIPE, EP_TYPE_ISOCHRONOUS, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_DOUBLE);
+	/* Configure the Audio data OUT pipe */
+	Pipe_ConfigurePipe(AUDIO_DATA_OUT_PIPE, EP_TYPE_ISOCHRONOUS, PIPE_TOKEN_OUT,
+	                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_DOUBLE);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

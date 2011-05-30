@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for AudioInputHost.c.
+ *  Header file for AudioOutputHost.c.
  */
 
-#ifndef _AUDIO_INPUT_HOST_H_
-#define _AUDIO_INPUT_HOST_H_
+#ifndef _AUDIO_OUTPUT_HOST_H_
+#define _AUDIO_OUTPUT_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -49,6 +49,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
 
 		#include "ConfigDescriptor.h"
 

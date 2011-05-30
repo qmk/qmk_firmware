@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Main source file for the AudioInputHost demo. This file contains the main tasks of
+ *  Main source file for the AudioOutputHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
 
-#include "AudioInputHost.h"
+#include "AudioOutputHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
@@ -43,7 +43,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_FG_CYAN "Audio Input Host Demo running.\r\n" ESC_FG_WHITE));
+	puts_P(PSTR(ESC_FG_CYAN "Audio Output Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
@@ -67,6 +67,7 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	Serial_Init(9600, false);
+	Buttons_Init();
 	LEDs_Init();
 	USB_Init();
 
@@ -211,16 +212,8 @@ void Audio_Task(void)
 			OCR0A   = ((F_CPU / 8 / 48000) - 1);
 			TCCR0A  = (1 << WGM01);  // CTC mode
 			TCCR0B  = (1 << CS01);   // Fcpu/8 speed	
-
-			/* Set speaker as output */
-			DDRC   |= (1 << 6);
-
-			/* PWM speaker timer initialization */
-			TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
-					| (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
-			TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
 			
-			puts_P(PSTR("Microphone Enumerated.\r\n"));
+			puts_P(PSTR("Speaker Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
 			break;
@@ -229,46 +222,33 @@ void Audio_Task(void)
 	}
 }
 
-/** ISR to handle the reloading of the PWM timer with the next sample. */
+/** ISR to handle the reloading of the endpoint with the next sample. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	uint8_t PrevPipe = Pipe_GetCurrentPipe();
 
-	Pipe_SelectPipe(AUDIO_DATA_IN_PIPE);
+	Pipe_SelectPipe(AUDIO_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 
-	/* Check if the current pipe can be read from (contains a packet) and the device is sending data */
-	if (Pipe_IsINReceived())
+	/* Check if the current pipe can be written to (device ready for more data) */
+	if (Pipe_IsOUTReady())
 	{
-		/* Retrieve the signed 16-bit audio sample, convert to 8-bit */
-		int8_t Sample_8Bit = (Pipe_Read_16_LE() >> 8);
-
-		/* Check to see if the bank is now empty */
+		static uint8_t SquareWaveSampleCount;
+		static int16_t CurrentWaveValue;
+			
+		if (SquareWaveSampleCount++ == 0xFF)
+		  CurrentWaveValue ^= 0x8000;
+			
+		/* Only generate audio if the board button is being pressed */
+		int16_t Sample_16Bit = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
+		
+		Pipe_Write_16_LE(Sample_16Bit);
+		Pipe_Write_16_LE(Sample_16Bit);
+		
 		if (!(Pipe_IsReadWriteAllowed()))
-		{
-			/* Acknowledge the packet, clear the bank ready for the next packet */
-			Pipe_ClearIN();
-		}
-
-		/* Load the sample into the PWM timer channel */
-		OCR3A = (Sample_8Bit ^ (1 << 7));
-
-		uint8_t LEDMask = LEDS_NO_LEDS;
-
-		/* Turn on LEDs as the sample amplitude increases */
-		if (Sample_8Bit > 16)
-		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4);
-		else if (Sample_8Bit > 8)
-		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3);
-		else if (Sample_8Bit > 4)
-		  LEDMask = (LEDS_LED1 | LEDS_LED2);
-		else if (Sample_8Bit > 2)
-		  LEDMask = (LEDS_LED1);
-
-		LEDs_SetAllLEDs(LEDMask);
+		  Pipe_ClearOUT();
 	}
-	
-	Pipe_Freeze();
 
+	Pipe_Freeze();
 	Pipe_SelectPipe(PrevPipe);
 }

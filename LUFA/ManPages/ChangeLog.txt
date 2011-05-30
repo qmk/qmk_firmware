@@ -18,6 +18,7 @@
   *   - Added new MediaControl project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
   *   - Added new incomplete AudioInputHost Host LowLevel demo
+  *   - Added new incomplete AudioOutputHost Host LowLevel demo
   *
   *  <b>Changed:</b>
   *  - Core:
