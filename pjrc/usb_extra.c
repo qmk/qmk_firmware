@@ -1,8 +1,10 @@
+#include <util/delay.h>
 #include <avr/interrupt.h>
+#include "host.h"
 #include "usb_extra.h"
 
 
-int8_t usb_extra_send(uint8_t report_id, uint8_t bits)
+int8_t usb_extra_send(uint8_t report_id, uint16_t data)
 {
 	uint8_t intr_state, timeout;
 
@@ -26,19 +28,20 @@ int8_t usb_extra_send(uint8_t report_id, uint8_t bits)
 	}
 
 	UEDATX = report_id;
-	UEDATX = bits;
+        UEDATX = data&0xFF;
+        UEDATX = (data>>8)&0xFF;
 
 	UEINTX = 0x3A;
 	SREG = intr_state;
 	return 0;
 }
 
-int8_t usb_extra_audio_send(uint8_t bits)
+int8_t usb_extra_consumer_send(uint16_t bits)
 {
-	return usb_extra_send(1, bits);
+	return usb_extra_send(REPORT_ID_CONSUMER, bits);
 }
 
-int8_t usb_extra_system_send(uint8_t bits)
+int8_t usb_extra_system_send(uint16_t bits)
 {
-	return usb_extra_send(2, bits);
+	return usb_extra_send(REPORT_ID_SYSTEM, bits);
 }

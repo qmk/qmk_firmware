@@ -219,76 +219,53 @@ static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
 // http://www.keil.com/forum/15671/
 // http://www.microsoft.com/whdc/device/input/wheel.mspx
 static uint8_t PROGMEM mouse_hid_report_desc[] = {
-    0x05, 0x01,        // USAGE_PAGE (Generic Desktop)
-    0x09, 0x02,        // USAGE (Mouse)
-    0xa1, 0x01,        // COLLECTION (Application)
-    0x09, 0x02,        //   USAGE (Mouse)
-    0xa1, 0x02,        //   COLLECTION (Logical)
-    0x09, 0x01,        //     USAGE (Pointer)
-    0xa1, 0x00,        //     COLLECTION (Physical)
-                       // ------------------------------  Buttons
-    0x05, 0x09,        //       USAGE_PAGE (Button)
-    0x19, 0x01,        //       USAGE_MINIMUM (Button 1)
-    0x29, 0x05,        //       USAGE_MAXIMUM (Button 5)
-    0x15, 0x00,        //       LOGICAL_MINIMUM (0)
-    0x25, 0x01,        //       LOGICAL_MAXIMUM (1)
-    0x75, 0x01,        //       REPORT_SIZE (1)
-    0x95, 0x05,        //       REPORT_COUNT (5)
-    0x81, 0x02,        //       INPUT (Data,Var,Abs)
-                       // ------------------------------  Padding
-    0x75, 0x03,        //       REPORT_SIZE (3)
-    0x95, 0x01,        //       REPORT_COUNT (1)
-    0x81, 0x03,        //       INPUT (Cnst,Var,Abs)
-                       // ------------------------------  X,Y position
-    0x05, 0x01,        //       USAGE_PAGE (Generic Desktop)
-    0x09, 0x30,        //       USAGE (X)
-    0x09, 0x31,        //       USAGE (Y)
-    0x15, 0x81,        //       LOGICAL_MINIMUM (-127)
-    0x25, 0x7f,        //       LOGICAL_MAXIMUM (127)
-    0x75, 0x08,        //       REPORT_SIZE (8)
-    0x95, 0x02,        //       REPORT_COUNT (2)
-    0x81, 0x06,        //       INPUT (Data,Var,Rel)
-    0xa1, 0x02,        //       COLLECTION (Logical)
-                       // ------------------------------  Vertical wheel res multiplier
-    0x09, 0x48,        //         USAGE (Resolution Multiplier)
-    0x15, 0x00,        //         LOGICAL_MINIMUM (0)
-    0x25, 0x01,        //         LOGICAL_MAXIMUM (1)
-    0x35, 0x01,        //         PHYSICAL_MINIMUM (1)
-    0x45, 0x04,        //         PHYSICAL_MAXIMUM (4)
-    0x75, 0x02,        //         REPORT_SIZE (2)
-    0x95, 0x01,        //         REPORT_COUNT (1)
-    0xa4,              //         PUSH
-    0xb1, 0x02,        //         FEATURE (Data,Var,Abs)
-                       // ------------------------------  Vertical wheel
-    0x09, 0x38,        //         USAGE (Wheel)
-    0x15, 0x81,        //         LOGICAL_MINIMUM (-127)
-    0x25, 0x7f,        //         LOGICAL_MAXIMUM (127)
-    0x35, 0x00,        //         PHYSICAL_MINIMUM (0)        - reset physical
-    0x45, 0x00,        //         PHYSICAL_MAXIMUM (0)
-    0x75, 0x08,        //         REPORT_SIZE (8)
-    0x81, 0x06,        //         INPUT (Data,Var,Rel)
-    0xc0,              //       END_COLLECTION
-    0xa1, 0x02,        //       COLLECTION (Logical)
-                       // ------------------------------  Horizontal wheel res multiplier
-    0x09, 0x48,        //         USAGE (Resolution Multiplier)
-    0xb4,              //         POP
-    0xb1, 0x02,        //         FEATURE (Data,Var,Abs)
-                       // ------------------------------  Padding for Feature report
-    0x35, 0x00,        //         PHYSICAL_MINIMUM (0)        - reset physical
-    0x45, 0x00,        //         PHYSICAL_MAXIMUM (0)
-    0x75, 0x04,        //         REPORT_SIZE (4)
-    0xb1, 0x03,        //         FEATURE (Cnst,Var,Abs)
-                       // ------------------------------  Horizontal wheel
-    0x05, 0x0c,        //         USAGE_PAGE (Consumer Devices)
-    0x0a, 0x38, 0x02,  //         USAGE (AC Pan)
-    0x15, 0x81,        //         LOGICAL_MINIMUM (-127)
-    0x25, 0x7f,        //         LOGICAL_MAXIMUM (127)
-    0x75, 0x08,        //         REPORT_SIZE (8)
-    0x81, 0x06,        //         INPUT (Data,Var,Rel)
-    0xc0,              //       END_COLLECTION
-    0xc0,              //     END_COLLECTION
-    0xc0,              //   END_COLLECTION
-    0xc0               // END_COLLECTION
+    /* mouse */
+    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+    0x09, 0x02,                    // USAGE (Mouse)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    //0x85, REPORT_ID_MOUSE,         //   REPORT_ID (1)
+    0x09, 0x01,                    //   USAGE (Pointer)
+    0xa1, 0x00,                    //   COLLECTION (Physical)
+                                   // ----------------------------  Buttons
+    0x05, 0x09,                    //     USAGE_PAGE (Button)
+    0x19, 0x01,                    //     USAGE_MINIMUM (Button 1)
+    0x29, 0x05,                    //     USAGE_MAXIMUM (Button 5)
+    0x15, 0x00,                    //     LOGICAL_MINIMUM (0)
+    0x25, 0x01,                    //     LOGICAL_MAXIMUM (1)
+    0x75, 0x01,                    //     REPORT_SIZE (1)
+    0x95, 0x05,                    //     REPORT_COUNT (5)
+    0x81, 0x02,                    //     INPUT (Data,Var,Abs)
+    0x75, 0x03,                    //     REPORT_SIZE (3)
+    0x95, 0x01,                    //     REPORT_COUNT (1)
+    0x81, 0x03,                    //     INPUT (Cnst,Var,Abs)
+                                   // ----------------------------  X,Y position
+    0x05, 0x01,                    //     USAGE_PAGE (Generic Desktop)
+    0x09, 0x30,                    //     USAGE (X)
+    0x09, 0x31,                    //     USAGE (Y)
+    0x15, 0x81,                    //     LOGICAL_MINIMUM (-127)
+    0x25, 0x7f,                    //     LOGICAL_MAXIMUM (127)
+    0x75, 0x08,                    //     REPORT_SIZE (8)
+    0x95, 0x02,                    //     REPORT_COUNT (2)
+    0x81, 0x06,                    //     INPUT (Data,Var,Rel)
+                                   // ----------------------------  Vertical wheel
+    0x09, 0x38,                    //     USAGE (Wheel)
+    0x15, 0x81,                    //     LOGICAL_MINIMUM (-127)
+    0x25, 0x7f,                    //     LOGICAL_MAXIMUM (127)
+    0x35, 0x00,                    //     PHYSICAL_MINIMUM (0)        - reset physical
+    0x45, 0x00,                    //     PHYSICAL_MAXIMUM (0)
+    0x75, 0x08,                    //     REPORT_SIZE (8)
+    0x95, 0x01,                    //     REPORT_COUNT (1)
+    0x81, 0x06,                    //     INPUT (Data,Var,Rel)
+                                   // ----------------------------  Horizontal wheel
+    0x05, 0x0c,                    //     USAGE_PAGE (Consumer Devices)
+    0x0a, 0x38, 0x02,              //     USAGE (AC Pan)
+    0x15, 0x81,                    //     LOGICAL_MINIMUM (-127)
+    0x25, 0x7f,                    //     LOGICAL_MAXIMUM (127)
+    0x75, 0x08,                    //     REPORT_SIZE (8)
+    0x95, 0x01,                    //     REPORT_COUNT (1)
+    0x81, 0x06,                    //     INPUT (Data,Var,Rel)
+    0xc0,                          //   END_COLLECTION
+    0xc0,                          // END_COLLECTION
 };
 #endif
 
@@ -309,38 +286,32 @@ static uint8_t PROGMEM debug_hid_report_desc[] = {
 // audio controls & system controls
 // http://www.microsoft.com/whdc/archive/w2kbd.mspx
 static uint8_t PROGMEM extra_hid_report_desc[] = {
-    0x05, 0x0c,                    // USAGE_PAGE (Consumer Devices)
-    0x09, 0x01,                    // USAGE (Consumer Control)
-    0xa1, 0x01,                    // COLLECTION (Application)
-    0x85, 0x01,                    //   REPORT_ID (1)
-    0x09, 0xe9,                    //   USAGE (Volume Up)
-    0x09, 0xea,                    //   USAGE (Volume Down)
-    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
-    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
-    0x75, 0x01,                    //   REPORT_SIZE (1)
-    0x95, 0x02,                    //   REPORT_COUNT (2)
-    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
-    0x09, 0xe2,                    //   USAGE (Mute)
-    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
-    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
-    0x75, 0x01,                    //   REPORT_SIZE (1)
-    0x95, 0x01,                    //   REPORT_COUNT (1)
-    0x81, 0x06,                    //   INPUT (Data,Var,Rel)
-    0x95, 0x05,                    //   REPORT_COUNT (5)
-    0x81, 0x07,                    //   INPUT (Cnst,Var,Abs)
-    0xc0,                          // END_COLLECTION
-
+    /* system control */
     0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
     0x09, 0x80,                    // USAGE (System Control)
     0xa1, 0x01,                    // COLLECTION (Application)
-    0x85, 0x02,                    //   REPORT_ID (2)
-    0x19, 0x81,                    //   USAGE_MINIMUM (System Power Down)
-    0x29, 0x83,                    //   USAGE_MAXIMUM (System Wake Up)
-    0x95, 0x03,                    //   REPORT_COUNT (3)
-    0x81, 0x06,                    //   INPUT (Data,Var,Rel)
-    0x95, 0x05,                    //   REPORT_COUNT (5)
-    0x81, 0x07,                    //   INPUT (Cnst,Var,Rel)
-    0xc0                           // END_COLLECTION
+    0x85, REPORT_ID_SYSTEM,        //   REPORT_ID (2)
+    0x15, 0x01,                    //   LOGICAL_MINIMUM (0x1)
+    0x25, 0xb7,                    //   LOGICAL_MAXIMUM (0xb7)
+    0x19, 0x01,                    //   USAGE_MINIMUM (0x1)
+    0x29, 0xb7,                    //   USAGE_MAXIMUM (0xb7)
+    0x75, 0x10,                    //   REPORT_SIZE (16)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x81, 0x00,                    //   INPUT (Data,Array,Abs)
+    0xc0,                          // END_COLLECTION
+    /* consumer */
+    0x05, 0x0c,                    // USAGE_PAGE (Consumer Devices)
+    0x09, 0x01,                    // USAGE (Consumer Control)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, REPORT_ID_CONSUMER,      //   REPORT_ID (3)
+    0x15, 0x01,                    //   LOGICAL_MINIMUM (0x1)
+    0x26, 0x9c, 0x02,              //   LOGICAL_MAXIMUM (0x29c)
+    0x19, 0x01,                    //   USAGE_MINIMUM (0x1)
+    0x2a, 0x9c, 0x02,              //   USAGE_MAXIMUM (0x29c)
+    0x75, 0x10,                    //   REPORT_SIZE (16)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x81, 0x00,                    //   INPUT (Data,Array,Abs)
+    0xc0,                          // END_COLLECTION
 };
 #endif
 

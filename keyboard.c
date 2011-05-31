@@ -31,6 +31,9 @@ void keyboard_init(void)
 void keyboard_proc(void)
 {
     uint8_t fn_bits = 0;
+#ifdef USB_EXTRA_ENABLE
+    uint16_t consumer_code = 0;
+#endif
 
     matrix_scan();
 
@@ -64,20 +67,8 @@ void keyboard_proc(void)
                 fn_bits |= FN_BIT(code);
             }
 #ifdef USB_EXTRA_ENABLE
-            // audio control & system control
-            else if (code == KB_MUTE) {
-                host_audio_send(AUDIO_MUTE);
-                _delay_ms(500);
-                host_audio_send(0);
-            } else if (code == KB_VOLU) {
-                host_audio_send(AUDIO_VOL_UP);
-                _delay_ms(200);
-                host_audio_send(0);
-            } else if (code == KB_VOLD) {
-                host_audio_send(AUDIO_VOL_DOWN);
-                _delay_ms(200);
-                host_audio_send(0);
-            } else if (code == KB_PWR) {
+            // System Control
+            else if (code == KB_SYSTEM_POWER) {
 #ifdef HOST_PJRC
                 if (suspend && remote_wakeup) {
                     usb_remote_wakeup();
@@ -87,7 +78,57 @@ void keyboard_proc(void)
 #else
                 host_system_send(SYSTEM_POWER_DOWN);
 #endif
-                _delay_ms(1000);
+                host_system_send(0);
+                _delay_ms(500);
+            } else if (code == KB_SYSTEM_SLEEP) {
+                host_system_send(SYSTEM_SLEEP);
+                host_system_send(0);
+                _delay_ms(500);
+            } else if (code == KB_SYSTEM_WAKE) {
+                host_system_send(SYSTEM_WAKE_UP);
+                host_system_send(0);
+                _delay_ms(500);
+            }
+            // Consumer Page
+            else if (code == KB_AUDIO_MUTE) {
+                consumer_code = AUDIO_MUTE;
+            } else if (code == KB_AUDIO_VOL_UP) {
+                consumer_code = AUDIO_VOL_UP;
+            } else if (code == KB_AUDIO_VOL_DOWN) {
+                consumer_code = AUDIO_VOL_DOWN;
+            }
+            else if (code == KB_MEDIA_NEXT_TRACK) {
+                consumer_code = TRANSPORT_NEXT_TRACK;
+            } else if (code == KB_MEDIA_PREV_TRACK) {
+                consumer_code = TRANSPORT_PREV_TRACK;
+            } else if (code == KB_MEDIA_STOP) {
+                consumer_code = TRANSPORT_STOP;
+            } else if (code == KB_MEDIA_PLAY_PAUSE) {
+                consumer_code = TRANSPORT_PLAY_PAUSE;
+            } else if (code == KB_MEDIA_SELECT) {
+                consumer_code = AL_CC_CONFIG;
+            }
+            else if (code == KB_MAIL) {
+                consumer_code = AL_EMAIL;
+            } else if (code == KB_CALCULATOR) {
+                consumer_code = AL_CALCULATOR;
+            } else if (code == KB_MY_COMPUTER) {
+                consumer_code = AL_LOCAL_BROWSER;
+            }
+            else if (code == KB_WWW_SEARCH) {
+                consumer_code = AC_SEARCH;
+            } else if (code == KB_WWW_HOME) {
+                consumer_code = AC_HOME;
+            } else if (code == KB_WWW_BACK) {
+                consumer_code = AC_BACK;
+            } else if (code == KB_WWW_FORWARD) {
+                consumer_code = AC_FORWARD;
+            } else if (code == KB_WWW_STOP) {
+                consumer_code = AC_STOP;
+            } else if (code == KB_WWW_REFRESH) {
+                consumer_code = AC_REFRESH;
+            } else if (code == KB_WWW_FAVORITES) {
+                consumer_code = AC_BOOKMARKS;
             }
 #endif
             else if (IS_KEY(code)) {
@@ -113,6 +154,9 @@ void keyboard_proc(void)
     // TODO: should send only when changed from last report
     if (matrix_is_modified()) {
         host_send_keyboard_report();
+#ifdef USB_EXTRA_ENABLE
+        host_consumer_send(consumer_code);
+#endif
 #ifdef DEBUG_LED
         // LED flash for debug
         DEBUG_LED_CONFIG;

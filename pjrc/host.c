@@ -117,14 +117,18 @@ void host_mouse_send(report_mouse_t *report)
 #endif
 
 #ifdef USB_EXTRA_ENABLE
-void host_system_send(uint8_t data)
+void host_system_send(uint16_t data)
 {
     usb_extra_system_send(data);
 }
 
-void host_audio_send(uint8_t data)
+void host_consumer_send(uint16_t data)
 {
-    usb_extra_audio_send(data);
+    static uint16_t last_data = 0;
+    if (data == last_data) return;
+    last_data = data;
+
+    usb_extra_consumer_send(data);
 }
 #endif
 
