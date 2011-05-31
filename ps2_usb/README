@@ -133,4 +133,34 @@ needs a bit of your effort at this time.
     ),
 
 
+Multimedia keys
+---------------
+Following lists PS/2 special keys supported by Windows.
+http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
+
+Key                         PS/2(Set2)      HID
+---------------------------------------------------
+System Power                E0 37           01 0081
+System Sleep                E0 3F           01 0082
+System Wake                 E0 5E           01 0083
+System Mute                 E0 23           0C 00E2
+Volume Up                   E0 32           0C 00E9
+Volume Down                 E0 21           0C 00EA
+Scan Next Track             E0 4D           0C 00B5
+Scan Previous Track         E0 15           0C 00B6
+Stop                        E0 3B           0C 00B7
+Play/Pause                  E0 34           0C 00CD
+Media Select                E0 50           0C 0183
+Mail                        E0 48           0C 018A
+Calculator                  E0 2B           0C 0192
+My Computer                 E0 40           0C 0194
+WWW Search                  E0 10           0C 0221
+WWW Home                    E0 3A           0C 0223
+WWW Back                    E0 38           0C 0224
+WWW Forward                 E0 30           0C 0225
+WWW Stop                    E0 28           0C 0226
+WWW Refresh                 E0 20           0C 0227
+WWW Favorites               E0 18           0C 022A
+
+
 EOF
