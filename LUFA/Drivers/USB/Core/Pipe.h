@@ -45,7 +45,7 @@
 
 /** \ingroup Group_PipeRW
  *  \defgroup Group_PipePrimitiveRW Read/Write of Primitive Data Types
- *  \brief Pipe data primative read/write definitions.
+ *  \brief Pipe data primitive read/write definitions.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to pipes.

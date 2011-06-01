@@ -53,7 +53,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the ADC and board temperature sensor drivers before first use
+ *      // Initialize the ADC and board temperature sensor drivers before first use
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
  *      Temperature_Init();
  *
@@ -102,7 +102,7 @@
 			#define TEMP_MAX_TEMP          ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET_DEGREES)
 
 		/* Inline Functions: */
-			/** Initialises the temperature sensor driver, including setting up the appropriate ADC channel.
+			/** Initializes the temperature sensor driver, including setting up the appropriate ADC channel.
 			 *  This must be called before any other temperature sensor routines.
 			 *
 			 *  \pre The ADC itself (not the ADC channel) must be configured separately before calling the

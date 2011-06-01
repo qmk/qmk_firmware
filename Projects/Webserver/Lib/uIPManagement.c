@@ -164,7 +164,7 @@ void uIPManagement_UDPCallback(void)
 /** Processes Incoming packets to the server from the connected RNDIS device, creating responses as needed. */
 static void uIPManagement_ProcessIncomingPacket(void)
 {
-	/* Determine which USB mode the system is currently initialised in */
+	/* Determine which USB mode the system is currently initialized in */
 	if (USB_CurrentMode == USB_MODE_Device)
 	{
 		/* If no packet received, exit processing routine */

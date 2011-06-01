@@ -65,7 +65,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the board Joystick driver before first use
+ *      // Initialize the board Joystick driver before first use
  *      Joystick_Init();
  *
  *      printf("Waiting for joystick movement...\r\n");
@@ -119,7 +119,7 @@
 
 		/* Pseudo-Functions for Doxygen: */
 		#if defined(__DOXYGEN__)
-			/** Initialises the joystick driver so that the joystick position can be read. This sets the appropriate
+			/** Initializes the joystick driver so that the joystick position can be read. This sets the appropriate
 			 *  I/O pins to inputs with their pull-ups enabled.
 			 */
 			static inline void Joystick_Init(void);

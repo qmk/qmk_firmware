@@ -45,7 +45,7 @@
 
 /** \ingroup Group_EndpointRW
  *  \defgroup Group_EndpointPrimitiveRW Read/Write of Primitive Data Types
- *  \brief Endpoint data primative read/write definitions.
+ *  \brief Endpoint data primitive read/write definitions.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to endpoints.

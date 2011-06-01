@@ -50,7 +50,7 @@ ISR(WDT_vect, ISR_BLOCK)
 	wdt_disable();
 }
 
-/** Initialises the hardware and software associated with the V2 protocol command handling. */
+/** Initializes the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
 {
 	#if defined(ADC)

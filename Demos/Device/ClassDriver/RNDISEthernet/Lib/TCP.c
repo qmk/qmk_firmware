@@ -153,7 +153,7 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
 	}
 }
 
-/** Initialises the TCP protocol handler, clearing the port and connection state tables. This must be called before TCP packets are
+/** Initializes the TCP protocol handler, clearing the port and connection state tables. This must be called before TCP packets are
  *  processed.
  */
 void TCP_Init(void)

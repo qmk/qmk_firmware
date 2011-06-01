@@ -66,7 +66,7 @@
  *      RingBuffer_t Buffer;
  *      uint8_t      BufferData[128];
  *
- *      // Initialise the buffer with the created storage array
+ *      // Initialize the buffer with the created storage array
  *      RingBuffer_InitBuffer(&Buffer, BufferData, sizeof(BufferData));
  *
  *      // Insert some data into the buffer

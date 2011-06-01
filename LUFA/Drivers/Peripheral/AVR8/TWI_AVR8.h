@@ -52,7 +52,7 @@
  *
  *  <b>Low Level API Example:</b>
  *  \code
- *      // Initialise the TWI driver before first use
+ *      // Initialize the TWI driver before first use
  *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
@@ -91,7 +91,7 @@
  * 
  *  <b>High Level API Example:</b>
  *  \code
- *      // Initialise the TWI driver before first use
+ *      // Initialize the TWI driver before first use
  *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
@@ -171,7 +171,7 @@
 			/** Enum for the possible return codes of the TWI transfer start routine and other dependant TWI functions. */
 			enum TWI_ErrorCodes_t
 			{
-				TWI_ERROR_NoError              = 0, /**< Indicates that the command completed sucessfully. */
+				TWI_ERROR_NoError              = 0, /**< Indicates that the command completed successfully. */
 				TWI_ERROR_BusFault             = 1, /**< A TWI bus fault occurred while attempting to capture the bus. */
 				TWI_ERROR_BusCaptureTimeout    = 2, /**< A timeout occurred whilst waiting for the bus to be ready. */
 				TWI_ERROR_SlaveResponseTimeout = 3, /**< No ACK received at the nominated slave address within the timeout period. */
@@ -180,7 +180,7 @@
 			};
 	
 		/* Inline Functions: */
-			/** Initialises the TWI hardware into master mode, ready for data transmission and reception. This must be
+			/** Initializes the TWI hardware into master mode, ready for data transmission and reception. This must be
 			 *  before any other TWI operations.
 			 *
 			 *  The generated SCL frequency will be according to the formula <pre>F_CPU / (16 + 2 * BitLength + 4 ^ Prescale)</pre>.

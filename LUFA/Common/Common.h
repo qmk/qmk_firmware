@@ -163,7 +163,7 @@
 
 			#if (ARCH == ARCH_AVR8) || defined(__DOXYGEN__)
 				/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
-				 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
+				 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimizer
 				 *  removes/reorders code to the point where break points cannot reliably be set.
 				 *
 				 *  \note This macro is not available for all architectures.

@@ -52,7 +52,7 @@ static uint8_t RX_BitsRemaining;
 static uint8_t RX_Data;
 
 
-/** Initialises the software UART, ready for data transmission and reception into the global ring buffers. */
+/** Initializes the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {
 	/* Set TX pin to output high, enable RX pull-up */

@@ -37,7 +37,7 @@
  *
  *  <b>USB Core</b>
  *    - By default, unordered Endpoint and Pipe configuration is now allowed once again, via the previous workaround of
- *      reconfiguring all Endpoints/Pipes in order each time a new Endpoint/Pipe is created. To minimise the compiled program
+ *      reconfiguring all Endpoints/Pipes in order each time a new Endpoint/Pipe is created. To minimize the compiled program
  *      size, the new \c ORDERED_EP_CONFIG compile time option may be defined in the project makefile to restrict the ordering
  *      in exchange for a smaller compiled binary size.
  *    - The previous F_CLOCK symbol, required in the project makefile, has been renamed to F_USB. This is due to the previous name

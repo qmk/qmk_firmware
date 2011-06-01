@@ -230,7 +230,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			if (ProgrammingStatus != STATUS_CMD_OK)
 			  break;
 
-			/* Must reset the polling address afterwards, so it is not erronously used for the next byte */
+			/* Must reset the polling address afterwards, so it is not erroneously used for the next byte */
 			PollAddress = 0;
 		}
 		

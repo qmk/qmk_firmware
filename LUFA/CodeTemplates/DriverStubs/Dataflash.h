@@ -79,7 +79,7 @@
 			#define DATAFLASH_PAGES                      // TODO: Replace with the total number of pages inside one of the Dataflash ICs
 
 		/* Inline Functions: */
-			/** Initialises the dataflash driver so that commands and data may be sent to an attached dataflash IC.
+			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *  The microcontroller's SPI driver MUST be initialized before any of the dataflash commands are used.
 			 */
 			static inline void Dataflash_Init(void)

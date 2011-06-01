@@ -74,7 +74,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the board LED driver before first use
+ *      // Initialize the board LED driver before first use
  *      LEDs_Init();
  *
  *      // Turn on each of the four LEDs in turn
@@ -187,7 +187,7 @@
 
 	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
-		/** Initialises the board LED driver so that the LEDs can be controlled. This sets the appropriate port
+		/** Initializes the board LED driver so that the LEDs can be controlled. This sets the appropriate port
 		 *  I/O pins as outputs, and sets the LEDs to default to off.
 		 */
 		static inline void LEDs_Init(void);

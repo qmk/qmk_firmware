@@ -55,8 +55,8 @@
   *   - Added TWI baud rate prescaler and bit length parameters to the TWI_Init() function (thanks to Thomas Herlinghaus)
   *   - Internal restructuring for eventual multiple architecture ports
   *   - Added AVR32 UC3 architecture port (currently incomplete/experimental)
-  *   - Added new architecture independant functions to enable, disable, save and restore the Global Interrupt Enable flags
-  *   - Added new RNDIS Device Classs Driver packet send and receive functions
+  *   - Added new architecture independent functions to enable, disable, save and restore the Global Interrupt Enable flags
+  *   - Added new RNDIS Device Class Driver packet send and receive functions
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project
@@ -97,7 +97,7 @@
   *     a symbolic size (Byte, Word, DWord) so that the function names are applicable and correct across all architectures
   *   - Renamed all low level Pipe_Read_*, Pipe_Write_* and Pipe_Discard_* functions to use the number of bits instead of
   *     a symbolic size (Byte, Word, DWord) so that the function names are applicable and correct across all architectures
-  *   - Seperated out board drivers by architecture in the library internals for better organisation
+  *   - Separated out board drivers by architecture in the library internals for better organisation
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
@@ -108,7 +108,7 @@
   *   - Changed TempDataLogger project's DS1307 driver to simplify the function interface and prevent a possible race condition
   *   - Changed AVRISP-MKII project to use the Watchdog interrupt for command timeouts, to reduce CPU usage and free timer 0
   *     for other uses
-  *   - Updated the software USART code in the XPLAIN Bridge application so that the incomming bits are sampled at their mid-point
+  *   - Updated the software USART code in the XPLAIN Bridge application so that the incoming bits are sampled at their mid-point
   *     instead of starting point, to give maximum reliability (thanks to Anton Staaf)
   *
   *  <b>Fixed:</b>
@@ -123,7 +123,7 @@
   *   - Fixed several functions in the Host mode Still Image Class driver returning an error code from the incorrect
   *     error code enum (thanks to Daniel Seibert)
   *   - Fixed ReportID not being removed from the feature/out report data array in the HID class driver when Report IDs are used
-  *   - Fixed incorect BUTTONS_BUTTON1 definition for the Minimus board
+  *   - Fixed incorrect BUTTONS_BUTTON1 definition for the Minimus board
   *   - Fixed Still Image Host class driver exiting the descriptor search routine prematurely if the data pipes (but not event pipe)
   *     is found
   *   - Fixed missing call to Pipe_SetInfiniteINRequests() in the Pipe_ConfigurePipe() routine
@@ -168,7 +168,7 @@
   *    - Added board hardware driver support for the Minimus board (thanks to the PSGroove team)
   *    - Added new NO_CLASS_DRIVER_AUTOFLUSH compile time option to disable automatic flushing of interfaces when the USB management
   *      tasks for each driver is called
-  *    - Added standard keyboard HID report scancode defines (thanks to Laszlo Monda)
+  *    - Added standard keyboard HID report scan-code defines (thanks to Laszlo Monda)
   *    - Added new Pipe_GetBusyBanks(), Endpoint_GetBusyBanks() and Endpoint_AbortPendingIN() functions
   *  - Library Applications:
   *    - Added default test tone generation mode to the Device mode AudioInput demos

@@ -147,7 +147,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
-	/* Update the Media Control report with the user button pressess */
+	/* Update the Media Control report with the user button presses */
 	MediaReport->Mute          = ((ButtonStatus_LCL & BUTTONS_BUTTON1) ? true : false);
 	MediaReport->PlayPause     = ((JoyStatus_LCL & JOY_PRESS) ? true : false);
 	MediaReport->VolumeUp      = ((JoyStatus_LCL & JOY_UP)    ? true : false);

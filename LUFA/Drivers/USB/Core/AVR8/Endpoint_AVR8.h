@@ -45,7 +45,7 @@
 
 /** \ingroup Group_EndpointPrimitiveRW
  *  \defgroup Group_EndpointPrimitiveRW_AVR8 Read/Write of Primitive Data Types (AVR8)
- *  \brief Endpoint primative read/write definitions for the Atmel AVR8 architecture.
+ *  \brief Endpoint primitive read/write definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to endpoints.
@@ -182,7 +182,7 @@
 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
 			#endif
 
-			/** Retrives the maximum bank size in bytes of a given endpoint.
+			/** Retrieves the maximum bank size in bytes of a given endpoint.
 			 *
 			 *  \note This macro will only work correctly on endpoint indexes that are compile-time constants
 			 *        defined by the preprocessor.

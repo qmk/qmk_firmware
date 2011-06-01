@@ -51,7 +51,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the serial USART driver before first use, with 9600 baud (and no double-speed mode)
+ *      // Initialize the serial USART driver before first use, with 9600 baud (and no double-speed mode)
  *      Serial_Init(9600, false);
  *
  *      // Send a string through the USART

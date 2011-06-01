@@ -45,7 +45,7 @@
 
 /** \ingroup Group_PipePrimitiveRW
  *  \defgroup Group_PipePrimitiveRW_UC3 Read/Write of Primitive Data Types (UC3)
- *  \brief Pipe primative data read/write definitions for the Atmel AVR32 UC3 architecture.
+ *  \brief Pipe primitive data read/write definitions for the Atmel AVR32 UC3 architecture.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to pipes.

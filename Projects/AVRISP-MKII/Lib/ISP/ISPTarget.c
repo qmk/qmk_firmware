@@ -140,7 +140,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	PINB |= (1 << 1);
 }
 
-/** Initialises the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
+/** Initializes the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
  *  communication with the attached target.
  */
 void ISPTarget_EnableTargetISP(void)
@@ -186,7 +186,7 @@ void ISPTarget_DisableTargetISP(void)
 }
 
 /** Configures the AVR to produce a .5MHz rescue clock out of the OCR1A pin of the AVR, so
- *  that it can be fed into the XTAL1 pin of an AVR whose fuses have been misconfigured for
+ *  that it can be fed into the XTAL1 pin of an AVR whose fuses have been mis-configured for
  *  an external clock rather than a crystal. When used, the ISP speed must be 125KHz for this
  *  functionality to work correctly.
  */

@@ -152,7 +152,7 @@ void TCP_Task(void)
 	}
 }
 
-/** Initialises the TCP protocol handler, clearing the port and connection state tables. This must be called before TCP packets are
+/** Initializes the TCP protocol handler, clearing the port and connection state tables. This must be called before TCP packets are
  *  processed.
  */
 void TCP_Init(void)

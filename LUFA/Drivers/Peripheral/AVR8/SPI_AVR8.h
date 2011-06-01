@@ -53,7 +53,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the SPI driver before first use
+ *      // Initialize the SPI driver before first use
  *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
  *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
  *
@@ -159,7 +159,7 @@
 			//@}
 			
 		/* Inline Functions: */
-			/** Initialises the SPI subsystem, ready for transfers. Must be called before calling any other
+			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
 			 *
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the \c SPI_SPEED_*,

@@ -19,7 +19,7 @@
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Add makefile includes to reduce boilerplate in user makefiles
   *      -# Update stream APIs to use DMA transfers on supported architectures
-  *      -# Pull out third party libraries into a seperate folder and reference them as required
+  *      -# Pull out third party libraries into a separate folder and reference them as required
   *      -# Add a LUFA_YIELD macro for integration into a third-party RTOS
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
   *  - Documentation/Support

@@ -66,7 +66,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the SPI and board Dataflash drivers before first use
+ *      // Initialize the SPI and board Dataflash drivers before first use
  *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
  *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
  *      Dataflash_Init();
@@ -146,7 +146,7 @@
 			#define DATAFLASH_CHIP_MASK(index)      __GET_DATAFLASH_MASK(index)
 
 		/* Inline Functions: */
-			/** Initialises the dataflash driver so that commands and data may be sent to an attached dataflash IC.
+			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *
 			 *  \note The microcontroller's SPI driver must be initialized before any of the dataflash commands are used.
 			 */

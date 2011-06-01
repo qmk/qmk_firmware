@@ -142,7 +142,7 @@ void Android_Host_Task(void)
 			/* Save whether the Android device needs to be mode-switched later on */
 			bool RequiresModeSwitch = (ErrorCode == NonAccessoryModeAndroidDevice);
 			
-			/* Error out if the device is not an Android device or an error ocurred */
+			/* Error out if the device is not an Android device or an error occurred */
 			if ((ErrorCode != AccessoryModeAndroidDevice) && !(RequiresModeSwitch))
 			{
 				if (ErrorCode == DevControlError)

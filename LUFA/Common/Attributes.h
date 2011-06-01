@@ -42,7 +42,7 @@
  *  \brief GCC special function/variable attribute macros.
  *
  *  This module contains macros for applying GCC specific attributes to functions and variables to control various
- *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype
+ *  optimizer and code generation features of the compiler. Attributes may be placed in the function prototype
  *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
  *  separated list.
  *
@@ -85,13 +85,13 @@
 				 */
 				#define ATTR_NAKED                  __attribute__ ((naked))
 
-				/** Prevents the compiler from considering a specified function for inlining. When applied, the given
-				 *  function will not be inlined under any circumstances.
+				/** Prevents the compiler from considering a specified function for in-lining. When applied, the given
+				 *  function will not be in-lined under any circumstances.
 				 */
 				#define ATTR_NO_INLINE              __attribute__ ((noinline))
 
 				/** Forces the compiler to inline the specified function. When applied, the given function will be
-				 *  inlined under all circumstances.
+				 *  in-lined under all circumstances.
 				 */
 				#define ATTR_ALWAYS_INLINE          __attribute__ ((always_inline))
 

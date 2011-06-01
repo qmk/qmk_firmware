@@ -54,11 +54,11 @@
  *  of data exchanged between a HID device and a host, including both the physical encoding of each item
  *  (such as a button, key press or joystick axis) in the sent and received data packets - known as "reports" -
  *  as well as other information about each item such as the usages, data range, physical location and other
- *  characterstics. In this way a HID device can retain a high degree of flexibility in its capabilities, as it
- *  is not forced to comply with a given report layout or featureset.
+ *  characteristics. In this way a HID device can retain a high degree of flexibility in its capabilities, as it
+ *  is not forced to comply with a given report layout or feature-set.
  *
  *  This module also contains routines for the processing of data in an actual HID report, using the parsed report
- *  descritor data as a guide for the encoding.
+ *  descriptor data as a guide for the encoding.
  *
  *  @{
  */

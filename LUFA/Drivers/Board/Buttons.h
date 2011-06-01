@@ -66,7 +66,7 @@
  *  application.
  *
  *  \code
- *      // Initialise the button driver before first use
+ *      // Initialize the button driver before first use
  *      Buttons_Init();
  *
  *      printf("Waiting for button press...\r\n");
@@ -131,7 +131,7 @@
 
 		/* Pseudo-Functions for Doxygen: */
 		#if defined(__DOXYGEN__)
-			/** Initialises the BUTTONS driver, so that the current button position can be read. This sets the appropriate
+			/** Initializes the BUTTONS driver, so that the current button position can be read. This sets the appropriate
 			 *  I/O pins to an inputs with pull-ups enabled.
 			 *
 			 *  This must be called before any Button driver functions are used.

@@ -102,7 +102,7 @@
 		#define HID_KEYBOARD_LED_KATANA                           (1 << 3)
 		//@}
 
-		/** \name Keyboard Standard Report Key Scancodes */
+		/** \name Keyboard Standard Report Key Scan-codes */
 		//@{	
 		#define HID_KEYBOARD_SC_ERROR_ROLLOVER                    0x01
 		#define HID_KEYBOARD_SC_POST_FAIL                         0x02
@@ -483,11 +483,11 @@
 
 		/** \hideinitializer
 		 *  A list of HID report item array elements that describe a typical Vendor Defined byte array HID report descriptor,
-		 *  used for transporting abitrary data between the USB host and device via HID reports. The resulting report should be
+		 *  used for transporting arbitrary data between the USB host and device via HID reports. The resulting report should be
 		 *  a uint8_t byte array of the specified length in both Device to Host (IN) and Host to Device (OUT) directions.
 		 *
 		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF.
-		 *  \param[in] CollectionUsage  Vendor Usage for the encompasing report IN and OUT collection, ranging from 0x00 to 0xFF.
+		 *  \param[in] CollectionUsage  Vendor Usage for the encompassing report IN and OUT collection, ranging from 0x00 to 0xFF.
 		 *  \param[in] DataINUsage      Vendor Usage for the IN report data, ranging from 0x00 to 0xFF.
 		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF.   
 		 *  \param[in] NumBytes         Length of the data IN and OUT reports.

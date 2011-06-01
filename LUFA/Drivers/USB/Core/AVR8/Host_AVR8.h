@@ -330,7 +330,7 @@
 			 */
 			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointIndex);
 
-			/** Selects a given alternative setting for the specfied interface, via a SET INTERFACE standard request to
+			/** Selects a given alternative setting for the specified interface, via a SET INTERFACE standard request to
 			 *  the attached device.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
