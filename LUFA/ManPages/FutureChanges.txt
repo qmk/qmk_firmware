@@ -34,6 +34,7 @@
   *      -# Add class driver support for Test and Measurement class
   *      -# Fix up Audio class support - add support for mixers, etc., add support for GET/SET commands
   *  - Ports
+  *      -# Complete AVR32 port for existing devices, add UC3C support
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
   */

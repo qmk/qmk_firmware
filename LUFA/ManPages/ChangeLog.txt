@@ -33,7 +33,7 @@
   *  - Core:
   *   - <i>None</i>
   *  - Library Applications:
-  *   - <i>None</i>
+  *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *
   *  \section Sec_ChangeLog110528 Version 110528
   *  <b>New:</b>

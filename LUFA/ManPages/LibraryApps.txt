@@ -92,6 +92,8 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
  *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
  *      - <b>Incomplete</b>
+ *        - <b>AudioInputHost</b> - Incomplete Audio Input host demo, using the low level LUFA APIs to implement a USB microphone host
+ *        - <b>AudioOutputHost</b> - Incomplete Audio Output host demo, using the low level LUFA APIs to implement a USB speaker host
  *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
  *    - <b>DualRole</b>
  *      - <b>ClassDriver</b>

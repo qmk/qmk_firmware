@@ -216,8 +216,7 @@ void Audio_Task(void)
 			DDRC   |= (1 << 6);
 
 			/* PWM speaker timer initialization */
-			TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
-					| (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
+			TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)); // Set on match, clear on TOP
 			TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
 			
 			puts_P(PSTR("Microphone Enumerated.\r\n"));
@@ -225,6 +224,7 @@ void Audio_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
+			/* Do nothing - audio stream is handled by the timer interrupt routine */
 			break;
 	}
 }
@@ -269,6 +269,5 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 	}
 	
 	Pipe_Freeze();
-
 	Pipe_SelectPipe(PrevPipe);
 }

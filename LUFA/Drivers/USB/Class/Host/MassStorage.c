@@ -361,7 +361,7 @@ uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
 	{
 		*MaxLUNIndex = 0;
-		ErrorCode = HOST_SENDCONTROL_Successful;
+		ErrorCode    = HOST_SENDCONTROL_Successful;
 	}
 
 	return ErrorCode;

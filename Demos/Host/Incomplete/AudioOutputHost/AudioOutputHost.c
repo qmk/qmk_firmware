@@ -218,6 +218,7 @@ void Audio_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
+			/* Do nothing - audio stream is handled by the timer interrupt routine */
 			break;
 	}
 }
