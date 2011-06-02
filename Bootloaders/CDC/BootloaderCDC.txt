@@ -51,12 +51,40 @@
  *  you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
  *  values in the accompanying makefile.
  *
- *  This bootloader is compatible with the open source application AVRDUDE, or Atmel's AVRPROG.
+ *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
+ *  bootloader from the normal user application.
+ *
+ *  \section Sec_Installation Driver Installation
  *
  *  After running this bootloader for the first time on a new computer, you will need to supply the .INF
  *  file located in this bootloader project's directory as the device's driver when running under Windows.
  *  This will enable Windows to use its inbuilt CDC drivers, negating the need for custom drivers for the
  *  device. Other Operating Systems should automatically use their own inbuilt CDC-ACM drivers.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  This bootloader is compatible with the open source application AVRDUDE, Atmel's AVRPROG, or other
+ *  applications implementing the AVR109 protocol, which is documented on the Atmel website as an application
+ *  note.
+ *
+ *  \subsection SSec_AVRDude AVRDUDE (Windows, Mac, Linux)
+ *
+ *  AVRDude is a free, cross-platform and open source command line programmer for Atmel and third party AVR
+ *  programmers. It is available on the the Windows platform as part of the "WinAVR" package, or on other systems
+ *  either from a build from the official source code, or in many distributions as a precompiled binary package.
+ *
+ *  To load a new HEX file with AVRDude, specify "AVR109" as the programmer, with the allocated COM port. On Windows
+ *  platforms this will be a COMx port name:
+ *  \code
+ *  avrdude -c AVR109 -p at90usb1287 -P COM0 -U flash:w:Mouse.hex
+ *  \endcode
+ *
+ *  On Linux systems, this will typically be a /dev/ttyACMx port name:
+ *  \code
+ *  avrdude -c AVR109 -p at90usb1287 -P /dev/ttyACM0 -U flash:w:Mouse.hex
+ *  \endcode
+ *
+ *  Refer to the AVRDude project documentation for additional usage instructions.
  *
  *  \section Sec_Options Project Options
  *

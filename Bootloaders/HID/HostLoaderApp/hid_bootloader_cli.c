@@ -49,7 +49,7 @@ void usage(void)
 	fprintf(stderr, "\n<MCU> = atmegaXXuY or at90usbXXXY");
 
 	fprintf(stderr, "\nFor support and more information, please visit:\n");
-	fprintf(stderr, "http://www.lufa-lub.org\n");
+	fprintf(stderr, "http://www.lufa-lib.org\n");
 
 	fprintf(stderr, "\nBased on the TeensyHID command line programmer software:\n");
 	fprintf(stderr, "http://www.pjrc.com/teensy/loader_cli.html\n");

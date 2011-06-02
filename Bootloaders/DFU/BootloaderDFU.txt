@@ -47,27 +47,47 @@
  *  This bootloader enumerates to the host as a DFU Class device, allowing for DFU-compatible programming
  *  software to load firmware onto the AVR.
  *
- *  This bootloader is compatible with Atmel's FLIP application. However, it requires the use of Atmel's
- *  DFU drivers. You will need to install Atmel's DFU drivers prior to using this bootloader. If you are
- *  using a 64 bit Windows OS, you will need to either disable the driver signing requirement (see online
- *  tutorials for details) or use a digitally signed version of the official Atmel driver provided by a
- *  third party AVR user at
- *  <a>http://www.avrfreaks.net/index.php?module=Freaks%20Academy&func=viewItem&item_id=2196&item_type=project</a>.
- *
- *  As an open-source option, this bootloader is also compatible with the Linux Atmel USB DFU Programmer
- *  software, available for download at <a>http://sourceforge.net/projects/dfu-programmer/</a>.
- *
- *  If SECURE_MODE is defined as true, upon start-up the bootloader will be locked, with only the chip erase
- *  function available (similar to Atmel's DFU bootloader). If SECURE_MODE is defined as false, all functions
- *  are usable on start-up without the prerequisite firmware erase.
- *
  *  Out of the box this bootloader builds for the USB1287, and should fit into 4KB of bootloader space. If
  *  you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
  *  values in the accompanying makefile.
  *
- *  <b>NOTE:</b> This device spoofs Atmel's DFU Bootloader USB VID and PID so that the Atmel DFU bootloader
- *               drivers included with FLIP will work. If you do not wish to use Atmel's ID codes, please
- *               manually change them in Descriptors.c and alter your driver's INF file accordingly.
+ *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
+ *  bootloader from the normal user application.
+ *
+ *  \section Sec_Installation Driver Installation
+ *
+ *  This bootloader is designed to be compatible with Atmel's provided Windows DFU class drivers. You will need to
+ *  install Atmel's DFU drivers prior to using this bootloader on Windows platforms. If you are using a 64 bit Windows
+ *  OS, you will need to either disable the driver signing requirement (see online tutorials for details) or use a
+ *  digitally signed version of the official Atmel driver provided by a third party AVR user at
+ *  <a>http://www.avrfreaks.net/index.php?module=Freaks%20Academy&func=viewItem&item_id=2196&item_type=project</a>.
+ *
+ *  \note This device spoofs Atmel's DFU Bootloader USB VID and PID so that the Atmel DFU bootloader
+ *        drivers included with FLIP will work. If you do not wish to use Atmel's ID codes, please
+ *        manually change them in Descriptors.c and alter your driver's INF file accordingly.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *  
+ *  This bootloader is compatible with Atmel's FLIP utility on Windows machines, and dfu-programmer on Linux machines.
+ *
+ *  \subsection SSec_FLIP FLIP (Windows)
+ *
+ *  FLIP (Flexible In-System Programmer) is a utility written by Atmel, and distributed for free on the Atmel website.
+ *  The FLIP utility is designed to assist in the bootloader programming of a range of Atmel devices, through several
+ *  popular physical interfaces including USB. It is written in Java, however makes use of native extensions for USB
+ *  support and thus is only offered on Windows.
+ *
+ *  To program a device using FLIP, refer to the Atmel FLIP documentation.
+ *
+ *  \subsection SSec_DFUProgrammer dfu-programmer (Linux)
+ *
+ *  dfu-programmer is an open-source command line solution for the bootloader programming of Atmel devices through a
+ *  USB connection, using the DFU protocol, available for download at <a>http://sourceforge.net/projects/dfu-programmer/</a>.
+ *
+ *  The following example loads a HEX file into the AVR's FLASH memory using dfu-programmer:
+ *  \code
+ *  dfu-programmer at90usb1287 erase flash Mouse.hex
+ *  \endcode
  *
  *  \section Sec_Options Project Options
  *
