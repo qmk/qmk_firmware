@@ -137,9 +137,13 @@ int main(void)
 							PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
 						}
 						else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
-						         (KeyCode <= HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
+						         (KeyCode  < HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
 						{
-							PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '0';
+							PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '1';
+						}
+						else if (KeyCode == HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS)
+						{
+							PressedKey = '0';
 						}
 						else if (KeyCode == HID_KEYBOARD_SC_SPACE)
 						{

@@ -13,6 +13,7 @@
   *     tokens as an alternative to tokens defined in the project makefile
   *   - Added new USB_Host_SetInterfaceAltSetting() convenience function for the selection of an interface's alternative setting
   *   - Added Audio class control request definitions
+  *   - Added new callback to the Audio Class driver to allow for endpoint control manipulations such as data sample rates
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new MediaControl project
@@ -27,13 +28,14 @@
   *     the supported audio sampling rates, to allow for multiple audio interfaces with different numbers of supported rates and/or
   *     continuous sample rates
   *  - Library Applications:
-  *   - <i>None</i>
+  *   - Modified the Class Driver AudioInput and AudioOutput demos to support multiple sample rates
   *
   *  <b>Fixed:</b>
   *  - Core:
   *   - <i>None</i>
   *  - Library Applications:
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
+  *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed
   *
   *  \section Sec_ChangeLog110528 Version 110528
   *  <b>New:</b>

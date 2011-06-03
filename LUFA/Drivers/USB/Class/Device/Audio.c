@@ -45,6 +45,22 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
 	  return;
 
+	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_INTERFACE)
+	{
+		if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
+		  return;
+	}
+	else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
+	{
+		if (!((AudioInterfaceInfo->Config.DataINEndpointNumber &&
+		       (USB_ControlRequest.wIndex == AudioInterfaceInfo->Config.DataINEndpointNumber)) ||
+		      (AudioInterfaceInfo->Config.DataOUTEndpointNumber &&
+		       (USB_ControlRequest.wIndex == AudioInterfaceInfo->Config.DataOUTEndpointNumber))))
+		{
+			return;
+		}
+	}	
+
 	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_SetInterface:
@@ -64,6 +80,53 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 				Endpoint_ClearSETUP();
 				Endpoint_ClearStatusStage();
 			}
+
+			break;
+		case AUDIO_REQ_SetCurrent:
+		case AUDIO_REQ_SetMinimum:
+		case AUDIO_REQ_SetMaximum:
+		case AUDIO_REQ_SetResolution:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
+			{
+				uint8_t EndpointProperty = USB_ControlRequest.bRequest;
+				uint8_t EndpointIndex    = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t EndpointControl  = (USB_ControlRequest.wValue >> 8);
+			
+				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointIndex, EndpointControl, NULL, NULL))
+				{
+					uint16_t ValueLength = USB_ControlRequest.wLength;
+					uint8_t  Value[ValueLength];
+					
+					Endpoint_ClearSETUP();
+					Endpoint_Read_Control_Stream_LE(Value, ValueLength);
+					Endpoint_ClearIN();					
+
+					CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointIndex, EndpointControl, &ValueLength, Value);
+				}				
+			}
+
+			break;
+		case AUDIO_REQ_GetCurrent:
+		case AUDIO_REQ_GetMinimum:
+		case AUDIO_REQ_GetMaximum:
+		case AUDIO_REQ_GetResolution:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
+			{
+				uint8_t  EndpointProperty = USB_ControlRequest.bRequest;
+				uint8_t  EndpointIndex    = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t  EndpointControl  = (USB_ControlRequest.wValue >> 8);
+				uint16_t ValueLength      = USB_ControlRequest.wLength;
+				uint8_t  Value[ValueLength];
+
+				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointIndex, EndpointControl, &ValueLength, Value))
+				{
+					Endpoint_ClearSETUP();
+					Endpoint_Write_Control_Stream_LE(Value, ValueLength);
+					Endpoint_ClearOUT();					
+				}
+			}
+
+			break;
 	}
 }
 

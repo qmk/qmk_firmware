@@ -28,10 +28,11 @@
   *      -# Write LUFA tutorials
   *  - Demos/Projects
   *      -# Device/Host USB bridge
-  *      -# Alternative (USB-IF endorsed) USB-CDC Ethernet Class
   *      -# Finish incomplete demos and projects
   *      -# Add class driver support for Audio Host class
   *      -# Add class driver support for Test and Measurement class
+  *      -# Add class driver support for EEM class
+  *      -# Add class driver support for ECM class
   *      -# Fix up Audio class support - add support for mixers, etc., add support for GET/SET commands
   *  - Ports
   *      -# Complete AVR32 port for existing devices, add UC3C support

@@ -74,8 +74,8 @@
 			 */
 			#define CONTROL_REQTYPE_TYPE       0x60
 
-			/** Mask for the request type parameter, to indicate the recipient of the request (Standard, Class
-			 *  or Vendor Specific). The result of this mask should then be compared to the request recipient
+			/** Mask for the request type parameter, to indicate the recipient of the request (Device, Interface
+			 *  Endpoint or Other). The result of this mask should then be compared to the request recipient
 			 *  masks.
 			 *
 			 *  \see REQREC_* macros for masks indicating the request recipient.

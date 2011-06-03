@@ -130,6 +130,35 @@
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
 			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			
+			/** Audio class driver callback for the setting and retrieval of streaming endpoint properties. This callback must be implemented
+			 *  in the user application to handle property manipulations on streaming audio endpoints.
+			 *
+			 *  When the DataLength parameter is NULL, this callback should only indicate whether the specified operation is valid for
+			 *  the given endpoint index, and should return as fast as possible. When non-NULL, this value may be altered for GET operations
+			 *  to indicate the size of the retreived data.
+			 *
+			 *  \note The length of the retrieved data stored into the Data buffer on GET operations should not exceed the initial value
+			 *        of the \c DataLength parameter.
+			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in]     EndpointProperty    Property of the endpoint to get or set, a value from \ref Audio_ClassRequests_t.
+			 *  \param[in]     EndpointIndex       Index of the streaming endpoint whose property is being referenced.
+			 *  \param[in]     EndpointControl     Parameter of the endpoint to get or set, a value from \ref Audio_EndpointControls_t.
+			 *  \param[in,out] DataLength          For SET operations, the length of the parameter data to set. For GET operations, the maximum
+			 *                                     length of the retrieved data. When NULL, the function should return whether the given property
+			 *                                     and parameter is valid for the requested endpoint without reading or modifying the Data buffer.
+			 *  \param[in,out] Data                Pointer to a location where the parameter data is stored for SET operations, or where
+			 *                                     the retrieved data is to be stored for GET operations.
+			 *
+			 *  \return Boolean true if the property get/set was successful, false otherwise
+			 */
+			bool CALLBACK_Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
+			                                           const uint8_t EndpointProperty,
+			                                           const uint8_t EndpointIndex,
+			                                           const uint8_t EndpointControl,
+			                                           uint16_t* const DataLength,
+			                                           uint8_t* Data);
 
 		/* Inline Functions: */
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should

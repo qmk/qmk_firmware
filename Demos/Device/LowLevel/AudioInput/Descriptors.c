@@ -191,7 +191,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 	.Audio_AudioFormat =
 		{
-			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Format_t), .Type = DTYPE_CSInterface},
+			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Format_t) +
+			                                     sizeof(ConfigurationDescriptor.Audio_AudioFormatSampleRates),
+			                             .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_FormatType,
 
 			.FormatType               = 0x01,

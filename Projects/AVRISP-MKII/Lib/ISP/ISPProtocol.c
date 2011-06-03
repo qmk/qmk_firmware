@@ -236,12 +236,12 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		
 		/* EEPROM just increments the address each byte, flash needs to increment on each word and
 		 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
-		 * address boundary has been crossed */
+		 * address boundary has been crossed during FLASH memory programming */
 		if ((CurrentByte & 0x01) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 		{
 			CurrentAddress++;
 
-			if ((V2Command != CMD_PROGRAM_EEPROM_ISP) && !(CurrentAddress & 0xFFFF))
+			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
 			  MustLoadExtendedAddress = true;
 		}
 	}

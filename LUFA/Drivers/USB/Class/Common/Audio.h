@@ -197,7 +197,7 @@
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define AUDIO_SAMPLE_FREQ(freq)           {.Byte1 = ((uint32_t)freq & 0x0000FF), .Byte2 = (((uint32_t)freq >> 8) & 0xFF), .Byte3 = (((uint32_t)freq >> 16) & 0xFF)}
+		#define AUDIO_SAMPLE_FREQ(freq)           {.Byte1 = ((uint32_t)freq & 0xFF), .Byte2 = (((uint32_t)freq >> 8) & 0xFF), .Byte3 = (((uint32_t)freq >> 16) & 0xFF)}
 
 		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
@@ -208,6 +208,16 @@
 		 *  will accept partially filled endpoint packets of audio samples.
 		 */
 		#define AUDIO_EP_ACCEPTS_SMALL_PACKETS    (0 << 7)
+
+		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
+		 *  allows for sampling frequency adjustments to be made via control requests directed at the endpoint.
+		 */
+		#define AUDIO_EP_SAMPLE_FREQ_CONTROL      (1 << 0)
+
+		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
+		 *  allows for pitch adjustments to be made via control requests directed at the endpoint.
+		 */
+		#define AUDIO_EP_PITCH_CONTROL            (1 << 1)
 		
 	/* Enums: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Audio
@@ -276,6 +286,15 @@
 			AUDIO_REQ_GetResolution = 0x84, /**< Audio class-specific request to get the resolution value of a parameter within the device. */
 			AUDIO_REQ_GetMemory     = 0x85, /**< Audio class-specific request to get the memory value of a parameter within the device. */
 			AUDIO_REQ_GetStatus     = 0xFF, /**< Audio class-specific request to get the device status. */
+		};
+		
+		/** Enum for Audio class specific Endpoint control modifiers which can be set and retrieved by a USB host, if the corresponding
+		 *  endpoint control is indicated to be supported in the Endpoint's Audio-class specific endpoint descriptor.
+		 */
+		enum Audio_EndpointControls_t
+		{
+			AUDIO_EPCONTROL_SamplingFreq = 0x01, /**< Sampling frequency adjustment of the endpoint. */
+			AUDIO_EPCONTROL_Pitch        = 0x02, /**< Pitch adjustment of the endpoint. */
 		};
 
 	/* Type Defines: */
@@ -538,18 +557,6 @@
 			uint16_t wFormatTag; /**< Format of the audio stream, see Audio Device Formats specification. */
 		} ATTR_PACKED USB_Audio_StdDescriptor_Interface_AS_t;
 
-		/** \brief 24-Bit Audio Frequency Structure.
-		 *
-		 *  Type define for a 24bit audio sample frequency structure. GCC does not contain a built in 24bit datatype,
-		 *  this this structure is used to build up the value instead. Fill this structure with the \ref AUDIO_SAMPLE_FREQ() macro.
-		 */
-		typedef struct
-		{
-			uint8_t Byte1; /**< Lowest 8 bits of the 24-bit value. */
-			uint8_t Byte2; /**< Middle 8 bits of the 24-bit value. */
-			uint8_t Byte3; /**< Upper 8 bits of the 24-bit value. */
-		} ATTR_PACKED USB_Audio_SampleFreq_t;
-
 		/** \brief Audio class-specific Format Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific audio format descriptor. This is used to give the host full details
@@ -580,6 +587,18 @@
 			                                                   *   by the given number of discrete sampling frequencies supported.
 			                                                   */
 		} ATTR_PACKED USB_Audio_Descriptor_Format_t;
+
+		/** \brief 24-Bit Audio Frequency Structure.
+		 *
+		 *  Type define for a 24bit audio sample frequency structure. As GCC does not contain a built in 24-bit datatype,
+		 *  this this structure is used to build up the value instead. Fill this structure with the \ref AUDIO_SAMPLE_FREQ() macro.
+		 */
+		typedef struct
+		{
+			uint8_t Byte1; /**< Lowest 8 bits of the 24-bit value. */
+			uint8_t Byte2; /**< Middle 8 bits of the 24-bit value. */
+			uint8_t Byte3; /**< Upper 8 bits of the 24-bit value. */
+		} ATTR_PACKED USB_Audio_SampleFreq_t;
 
 		/** \brief Audio class-specific Format Descriptor (USB-IF naming conventions).
 		 *
