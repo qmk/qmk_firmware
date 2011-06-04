@@ -14,6 +14,7 @@
   *   - Added new USB_Host_SetInterfaceAltSetting() convenience function for the selection of an interface's alternative setting
   *   - Added Audio class control request definitions
   *   - Added new callback to the Audio Class driver to allow for endpoint control manipulations such as data sample rates
+  *   - Added board driver support for the Busware TUL board
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new MediaControl project
