@@ -17,6 +17,9 @@
  *      \c TotalDiscreteSampleRates. Existing applications will need to add an array of \ref USB_Audio_SampleFreq_t elements
  *      immediately following any \ref USB_Audio_Descriptor_Format_t descriptors, and insert the appropriate sampling rates
  *      supported by the device, as well as rename the descriptor elements to match the updated element names.
+ *    - The device mode Audio class driver now requires a new user application callback, \ref CALLBACK_Audio_GetSetEndpointProperty().
+ *      Existing applications must implement this new callback, however if multiple sample rates or pitch control is not used,
+ *      this function may be hard-coded to always return false for previous behaviour to be retained.
  *
  *  \section Sec_Migration110528 Migrating from 101122 to 110528
  *  <b>Non-USB Library Components</b>

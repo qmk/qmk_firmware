@@ -127,8 +127,8 @@ static void Bluetooth_ProcessIncomingACLPackets(void)
 	}
 
 	/* Read in the received ACL packet headers when it has been discovered that a packet has been received */
-	Pipe_Read_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader));
-	Pipe_Read_Stream_LE(&DataHeader, sizeof(DataHeader));
+	Pipe_Read_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader), NULL);
+	Pipe_Read_Stream_LE(&DataHeader, sizeof(DataHeader), NULL);
 
 	BT_ACL_DEBUG(2, "");
 	BT_ACL_DEBUG(2, "Packet Received");
@@ -142,7 +142,7 @@ static void Bluetooth_ProcessIncomingACLPackets(void)
 	{
 		/* Read in the Signal Command header of the incoming packet */
 		BT_Signal_Header_t SignalCommandHeader;
-		Pipe_Read_Stream_LE(&SignalCommandHeader, sizeof(SignalCommandHeader));
+		Pipe_Read_Stream_LE(&SignalCommandHeader, sizeof(SignalCommandHeader), NULL);
 
 		/* Dispatch to the appropriate handler function based on the Signal message code */
 		switch (SignalCommandHeader.Code)
@@ -175,8 +175,8 @@ static void Bluetooth_ProcessIncomingACLPackets(void)
 				BT_ACL_DEBUG(1, "<< Command Reject");
 
 				uint16_t RejectReason;
-				Pipe_Read_Stream_LE(&RejectReason, sizeof(RejectReason));
-				Pipe_Discard_Stream(ACLPacketHeader.DataLength - sizeof(RejectReason));
+				Pipe_Read_Stream_LE(&RejectReason, sizeof(RejectReason), NULL);
+				Pipe_Discard_Stream(ACLPacketHeader.DataLength - sizeof(RejectReason), NULL);
 				Pipe_ClearIN();
 				Pipe_Freeze();
 
@@ -185,7 +185,7 @@ static void Bluetooth_ProcessIncomingACLPackets(void)
 			default:
 				BT_ACL_DEBUG(1, "<< Unknown Signaling Command 0x%02X", SignalCommandHeader.Code);
 
-				Pipe_Discard_Stream(ACLPacketHeader.DataLength);
+				Pipe_Discard_Stream(ACLPacketHeader.DataLength, NULL);
 				Pipe_ClearIN();
 				Pipe_Freeze();
 				break;
@@ -195,7 +195,7 @@ static void Bluetooth_ProcessIncomingACLPackets(void)
 	{
 		/* Non-signaling packet received, read in the packet contents and pass to the user application */
 		uint8_t PacketData[DataHeader.PayloadLength];
-		Pipe_Read_Stream_LE(PacketData, DataHeader.PayloadLength);
+		Pipe_Read_Stream_LE(PacketData, DataHeader.PayloadLength, NULL);
 		Pipe_ClearIN();
 		Pipe_Freeze();
 
@@ -281,9 +281,9 @@ uint8_t Bluetooth_SendPacket(void* Data,
 	Pipe_Unfreeze();
 
 	/* Write the packet contents to the pipe so that it can be sent to the remote device */
-	Pipe_Write_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader));
-	Pipe_Write_Stream_LE(&DataHeader, sizeof(DataHeader));
-	Pipe_Write_Stream_LE(Data, DataLen);
+	Pipe_Write_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader), NULL);
+	Pipe_Write_Stream_LE(&DataHeader, sizeof(DataHeader), NULL);
+	Pipe_Write_Stream_LE(Data, DataLen, NULL);
 	Pipe_ClearOUT();
 
 	Pipe_Freeze();
@@ -410,7 +410,7 @@ static inline void Bluetooth_Signal_ConnectionReq(const BT_Signal_Header_t* cons
 {
 	BT_Signal_ConnectionReq_t ConnectionRequest;
 
-	Pipe_Read_Stream_LE(&ConnectionRequest, sizeof(ConnectionRequest));
+	Pipe_Read_Stream_LE(&ConnectionRequest, sizeof(ConnectionRequest), NULL);
 
 	Pipe_ClearIN();
 	Pipe_Freeze();
@@ -494,7 +494,7 @@ static inline void Bluetooth_Signal_ConnectionResp(const BT_Signal_Header_t* con
 {
 	BT_Signal_ConnectionResp_t ConnectionResponse;
 
-	Pipe_Read_Stream_LE(&ConnectionResponse, sizeof(ConnectionResponse));
+	Pipe_Read_Stream_LE(&ConnectionResponse, sizeof(ConnectionResponse), NULL);
 
 	Pipe_ClearIN();
 	Pipe_Freeze();
@@ -529,8 +529,8 @@ static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* c
 	uint8_t OptionsLen = (SignalCommandHeader->Length - sizeof(ConfigurationRequest));
 	uint8_t Options[OptionsLen];
 
-	Pipe_Read_Stream_LE(&ConfigurationRequest, sizeof(ConfigurationRequest));
-	Pipe_Read_Stream_LE(&Options, sizeof(Options));
+	Pipe_Read_Stream_LE(&ConfigurationRequest, sizeof(ConfigurationRequest), NULL);
+	Pipe_Read_Stream_LE(&Options, sizeof(Options), NULL);
 
 	Pipe_ClearIN();
 	Pipe_Freeze();
@@ -612,7 +612,7 @@ static inline void Bluetooth_Signal_ConfigurationResp(const BT_Signal_Header_t* 
 {
 	BT_Signal_ConfigurationResp_t ConfigurationResponse;
 
-	Pipe_Read_Stream_LE(&ConfigurationResponse, sizeof(ConfigurationResponse));
+	Pipe_Read_Stream_LE(&ConfigurationResponse, sizeof(ConfigurationResponse), NULL);
 
 	Pipe_ClearIN();
 	Pipe_Freeze();
@@ -657,7 +657,7 @@ static inline void Bluetooth_Signal_DisconnectionReq(const BT_Signal_Header_t* c
 {
 	BT_Signal_DisconnectionReq_t DisconnectionRequest;
 
-	Pipe_Read_Stream_LE(&DisconnectionRequest, sizeof(DisconnectionRequest));
+	Pipe_Read_Stream_LE(&DisconnectionRequest, sizeof(DisconnectionRequest), NULL);
 
 	BT_ACL_DEBUG(1, "<< L2CAP Disconnection Request");
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", DisconnectionRequest.DestinationChannel);
@@ -703,7 +703,7 @@ static inline void Bluetooth_Signal_DisconnectionResp(const BT_Signal_Header_t* 
 {
 	BT_Signal_DisconnectionResp_t DisconnectionResponse;
 
-	Pipe_Read_Stream_LE(&DisconnectionResponse, sizeof(DisconnectionResponse));
+	Pipe_Read_Stream_LE(&DisconnectionResponse, sizeof(DisconnectionResponse), NULL);
 
 	BT_ACL_DEBUG(1, "<< L2CAP Disconnection Response");
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", DisconnectionResponse.DestinationChannel);
@@ -754,7 +754,7 @@ static inline void Bluetooth_Signal_InformationReq(const BT_Signal_Header_t* con
 {
 	BT_Signal_InformationReq_t InformationRequest;
 
-	Pipe_Read_Stream_LE(&InformationRequest, sizeof(InformationRequest));
+	Pipe_Read_Stream_LE(&InformationRequest, sizeof(InformationRequest), NULL);
 
 	BT_ACL_DEBUG(1, "<< L2CAP Information Request");
 	BT_ACL_DEBUG(2, "-- Info Type: 0x%04X", InformationRequest.InfoType);

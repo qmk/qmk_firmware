@@ -65,13 +65,13 @@ void Bluetooth_HCITask(void)
 				BT_HCIEvent_Header_t HCIEventHeader;
 
 				/* Read in the event header to fetch the event code and payload length */
-				Pipe_Read_Stream_LE(&HCIEventHeader, sizeof(HCIEventHeader));
+				Pipe_Read_Stream_LE(&HCIEventHeader, sizeof(HCIEventHeader), NULL);
 
 				/* Create a temporary buffer for the event parameters */
 				uint8_t EventParams[HCIEventHeader.ParameterLength];
 
 				/* Read in the event parameters into the temporary buffer */
-				Pipe_Read_Stream_LE(&EventParams, HCIEventHeader.ParameterLength);
+				Pipe_Read_Stream_LE(&EventParams, HCIEventHeader.ParameterLength, NULL);
 				Pipe_ClearIN();
 
 				BT_HCI_DEBUG(1, "Event Received (0x%02X)", HCIEventHeader.EventCode);
