@@ -44,7 +44,7 @@
  *  \section Sec_Description Project Description:
  *
  *  Keyboard host demonstration application. This gives a simple reference
- *  application for implementing a USB keyboard, for USB keyboards using
+ *  application for implementing a USB keyboard host, for USB keyboards using
  *  the standard keyboard HID profile.
  *
  *  Pressed alpha-numeric, enter or space key is transmitted through the serial

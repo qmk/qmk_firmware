@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Header file for MouseHost.c.
+ *  Header file for GenericHIDHost.c.
  */
 
 #ifndef _GENERICHID_HOST_H_

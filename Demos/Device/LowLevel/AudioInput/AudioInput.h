@@ -57,7 +57,7 @@
 		/** ADC channel MUX mask for the microphone input. */
 		#define MIC_IN_ADC_MUX_MASK       ADC_CHANNEL2
 
-		/** Maximum ADC sample value for the microphone input. */
+		/** Maximum audio sample value for the microphone input. */
 		#define SAMPLE_MAX_RANGE          0xFFFF
 
 		/** Maximum ADC range for the microphone input. */

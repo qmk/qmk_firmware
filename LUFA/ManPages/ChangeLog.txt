@@ -33,7 +33,7 @@
   *
   *  <b>Fixed:</b>
   *  - Core:
-  *   - <i>None</i>
+  *   - Large number of documentation and code comment corrections (thanks to Andrewy from Microsin.ru)
   *  - Library Applications:
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed

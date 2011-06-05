@@ -169,7 +169,7 @@ void TCP_Init(void)
 /** Sets the state and callback handler of the given port, specified in big endian to the given state.
  *
  *  \param[in] Port     Port whose state and callback function to set, specified in big endian
- *  \param[in] State    New state of the port, a value from the TCP_PortStates_t enum
+ *  \param[in] State    New state of the port, a value from the \ref TCP_PortStates_t enum
  *  \param[in] Handler  Application callback handler for the port
  *
  *  \return Boolean true if the port state was set, false otherwise (no more space in the port state table)
@@ -221,7 +221,7 @@ bool TCP_SetPortState(const uint16_t Port,
  *
  *  \param[in] Port  TCP port whose state is to be retrieved, given in big-endian
  *
- *  \return A value from the TCP_PortStates_t enum
+ *  \return A value from the \ref TCP_PortStates_t enum
  */
 uint8_t TCP_GetPortState(const uint16_t Port)
 {
@@ -244,7 +244,7 @@ uint8_t TCP_GetPortState(const uint16_t Port)
  *  \param[in] Port           TCP port of the connection on the device, specified in big endian
  *  \param[in] RemoteAddress  Remote protocol IP address of the connected device
  *  \param[in] RemotePort     TCP port of the remote device in the connection, specified in big endian
- *  \param[in] State          TCP connection state, a value from the TCP_ConnectionStates_t enum
+ *  \param[in] State          TCP connection state, a value from the \ref TCP_ConnectionStates_t enum
  *
  *  \return Boolean true if the connection was updated or created, false otherwise (no more space in the connection state table)
  */
@@ -289,7 +289,7 @@ bool TCP_SetConnectionState(const uint16_t Port,
  *  \param[in] RemoteAddress  Remote protocol IP address of the connected host
  *  \param[in] RemotePort     Remote TCP port of the connected host, specified in big endian
  *
- *  \return A value from the TCP_ConnectionStates_t enum
+ *  \return A value from the \ref TCP_ConnectionStates_t enum
  */
 uint8_t TCP_GetConnectionState(const uint16_t Port,
                                const IP_Address_t RemoteAddress,

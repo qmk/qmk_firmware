@@ -89,7 +89,7 @@ RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISMessageBu
 /** Indicates if a RNDIS message response is ready to be sent back to the host. */
 bool                    ResponseReady               = false;
 
-/** Current RNDIS adapter state, a value from the RNDIS_States_t enum. */
+/** Current RNDIS adapter state, a value from the \ref RNDIS_States_t enum. */
 uint8_t                 CurrRNDISState              = RNDIS_Uninitialized;
 
 /** Current Ethernet packet filter mask. This is non-zero when the adapter is initialized, or zero when disabled. */

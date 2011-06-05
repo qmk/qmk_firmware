@@ -590,7 +590,7 @@
 				return UPDATX;
 			}
 
-			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
+			/** Writes one byte to the currently selected pipe's bank, for IN direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW_AVR8
 			 *

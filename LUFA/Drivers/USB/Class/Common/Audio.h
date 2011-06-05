@@ -477,7 +477,7 @@
 			uint8_t                 UnitID; /**< ID value of this feature unit - must be a unique value within the device. */
 			uint8_t                 SourceID; /**< Source ID value of the audio source input into this feature unit. */
 
-			uint8_t                 ControlSize; /**< Size of each element in the \c ChanelControlls array. */
+			uint8_t                 ControlSize; /**< Size of each element in the \c ChannelControls array. */
 			uint8_t                 ChannelControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
 
 			uint8_t                 FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -506,7 +506,7 @@
 			uint8_t bUnitID; /**< ID value of this feature unit - must be a unique value within the device. */
 			uint8_t bSourceID; /**< Source ID value of the audio source input into this feature unit. */
 
-			uint8_t bControlSize; /**< Size of each element in the \c ChanelControlls array. */
+			uint8_t bControlSize; /**< Size of each element in the \c ChannelControls array. */
 			uint8_t bmaControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
 
 			uint8_t iFeature; /**< Index of a string descriptor describing this descriptor within the device. */

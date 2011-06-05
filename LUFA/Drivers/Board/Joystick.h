@@ -55,7 +55,7 @@
  *  Hardware Joystick driver. This module provides an easy to use interface to control the hardware digital Joystick
  *  located on many boards.
  *
- *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Joystick.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
  *
  *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.

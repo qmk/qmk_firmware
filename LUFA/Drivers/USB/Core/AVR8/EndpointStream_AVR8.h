@@ -452,7 +452,7 @@
 			                                  uint16_t Length,
 			                                  uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_LE().
+			/** EEPROM buffer destination version of \ref Endpoint_Read_Stream_LE().
 			 *
 			 *  \param[out] Buffer          Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in]  Length          Number of bytes to send via the currently selected endpoint.
@@ -465,7 +465,7 @@
 			                                 uint16_t Length,
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_BE().
+			/** EEPROM buffer destination version of \ref Endpoint_Read_Stream_BE().
 			 *
 			 *  \param[out] Buffer          Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in]  Length          Number of bytes to send via the currently selected endpoint.

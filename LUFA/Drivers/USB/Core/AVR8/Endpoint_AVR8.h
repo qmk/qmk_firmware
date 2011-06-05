@@ -625,7 +625,7 @@
 				return UEDATX;
 			}
 
-			/** Writes one byte from the currently selected endpoint's bank, for IN direction endpoints.
+			/** Writes one byte to the currently selected endpoint's bank, for IN direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *

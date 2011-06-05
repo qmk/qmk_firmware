@@ -185,7 +185,7 @@
 			 */
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Sends a Send Break request to the device. This is generally used to separate data data or to indicate a special condition
+			/** Sends a Send Break request to the device. This is generally used to separate data or to indicate a special condition
 			 *  to the receiving device.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.

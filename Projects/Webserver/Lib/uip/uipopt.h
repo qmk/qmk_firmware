@@ -282,15 +282,15 @@
  */
 
 /**
- * Toggles whether UDP support should be compiled in or not.
+ * Toggles whether TCP support should be compiled in or not.
  *
  * \hideinitializer
  */
 #ifdef UIP_CONF_TCP
 #define UIP_TCP UIP_CONF_TCP
-#else /* UIP_CONF_UDP */
+#else /* UIP_CONF_TCP */
 #define UIP_TCP           1
-#endif /* UIP_CONF_UDP */
+#endif /* UIP_CONF_TCP */
 
 /**
  * Determines if support for opening connections from uIP should be

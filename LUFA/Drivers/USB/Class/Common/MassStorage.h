@@ -132,7 +132,7 @@
 		/** SCSI Sense Code to indicate an error whilst accessing the medium. */
 		#define SCSI_SENSE_KEY_MEDIUM_ERROR                    0x03
 
-		/** SCSI Sense Code to indicate a hardware has occurred. */
+		/** SCSI Sense Code to indicate a hardware error has occurred. */
 		#define SCSI_SENSE_KEY_HARDWARE_ERROR                  0x04
 
 		/** SCSI Sense Code to indicate that an illegal request has been issued. */

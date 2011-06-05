@@ -158,7 +158,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 			  return;
 		}
 
-		/* Decrement the blocks remaining counter and reset the sub block counter */
+		/* Decrement the blocks remaining counter */
 		TotalBlocks--;
 	}
 
@@ -372,7 +372,7 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 			BytesInBlockDiv16++;
 		}
 
-		/* Decrement the blocks remaining counter and reset the sub block counter */
+		/* Decrement the blocks remaining counter */
 		TotalBlocks--;
 	}
 

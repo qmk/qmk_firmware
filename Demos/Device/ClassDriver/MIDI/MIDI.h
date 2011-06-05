@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Header file for AudioOutput.c.
+ *  Header file for MIDI.c.
  */
 
 #ifndef _AUDIO_OUTPUT_H_

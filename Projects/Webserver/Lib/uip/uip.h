@@ -933,7 +933,7 @@ struct uip_udp_conn *uip_udp_new(const uip_ipaddr_t *ripaddr, u16_t rport);
   } while(0)
 
 /**
- * Construct an IPv6 address from eight 8-bit words.
+ * Construct an IPv6 address from sixteen 8-bit words.
  *
  * This function constructs an IPv6 address.
  *

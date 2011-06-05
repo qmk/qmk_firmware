@@ -87,7 +87,7 @@
 
 		/** Retrieves a bit from the next location inside a given bit buffer.
 		 *
-		 *  \param[in,out] Buffer  Bit buffer to store a bit into
+		 *  \param[in,out] Buffer  Bit buffer to retrieve a bit from
 		 *
 		 *  \return Next bit from the buffer
 		 */

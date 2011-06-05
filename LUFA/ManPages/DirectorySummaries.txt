@@ -112,7 +112,7 @@
  *  located in the parent Board directory should be included instead.
  *
  *  \dir LUFA/Drivers/Board/AVR8/EVK527
- *  \brief XPLAIN board hardware driver files.
+ *  \brief EVK527 board hardware driver files.
  *
  *  This folder contains drivers for hardware on the Atmel EVK527 development board. The header files in this folder should
  *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
@@ -187,6 +187,13 @@
  *  This folder contains drivers for hardware on all revisions of the PJRC Teensy boards (http://www.pjrc.com/teensy/). The header
  *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located
  *  in the parent Board directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/AVR8/TUL
+ *  \brief TUL board hardware driver files.
+ *
+ *  This folder contains drivers for hardware on the Busware TUL (http://busware.de/tiki-index.php?page=TUL).
+ *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
+ *  located in the parent Board directory should be included instead.
  *
  *  \dir LUFA/Drivers/Board/AVR8/UDIP
  *  \brief UDIP board hardware driver files.

@@ -124,7 +124,7 @@
 			 *  are deselected.
 			 *
 			 *  \param[in] PageAddress  Address of the page to manipulate, ranging from
-			 *                          ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
+			 *                          0 to ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
 			 */
 			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress)
 			{
@@ -166,7 +166,7 @@
 			}
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
-			 *  dataflash commands which require a complete 24-byte address.
+			 *  dataflash commands which require a complete 24-bit address.
 			 *
 			 *  \param[in] PageAddress  Page address within the selected dataflash IC
 			 *  \param[in] BufferByte   Address within the dataflash's buffer

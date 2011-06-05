@@ -154,7 +154,7 @@
  *
  *  <b>Host Mode</b>
  *    - The \ref CDC_Host_ReceiveByte() function has changed, and now returns a signed 16-bit integer, with -1 indicating no data was
- *      received. This allows for more efficient coding, as a call to \ref CDC_Device_BytesReceived() is no longer needed if the exact
+ *      received. This allows for more efficient coding, as a call to \ref CDC_Host_BytesReceived() is no longer needed if the exact
  *      number of queued bytes received is not needed.
  *    - The \ref CDC_Host_USBTask() now calls \ref CDC_Host_Flush() automatically, flushing any queued data to the attached device. Manual
  *      flushing of the interface is no longer needed if the flushes should be in sync with calls to \ref CDC_Host_USBTask().
@@ -339,7 +339,7 @@
  *    - The HWB driver has changed to the \c Buttons driver. See the board Buttons driver documentation for the new API.
  *
  *  <b>Dual Role Mode</b>
- *    - The \c USB_PowerOnFail even has been renamed to \c USB_InitFailure.
+ *    - The \c USB_PowerOnFail event has been renamed to \c USB_InitFailure.
  *    - The functions in \c OTG.h have been renamed to remain more consistent with the library API. See the functions in \c OTG.h for more
  *      details.
  *

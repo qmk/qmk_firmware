@@ -32,15 +32,15 @@
  *  \brief Board specific LED driver header for the Busware CULV3.
  *  \copydetails Group_LEDs_CULV3
  *
- *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
+ *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
-/** \ingroup Group_LEDs
- *  \defgroup Group_LEDs_CULV3 CULV3
- *  \brief Board specific LED driver header for the Busware CULV3.
+/** \ingroup Group_Buttons
+ *  \defgroup Group_Buttons_CULV3 CULV3
+ *  \brief Board specific Buttons driver header for the Busware CULV3.
  *
- *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
+ *  Board specific Buttons driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
  *  @{
  */

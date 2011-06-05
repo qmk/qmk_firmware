@@ -176,7 +176,7 @@
  *
  *  To initialize the Class driver instance, the driver's <tt><i>{Class Name}</i>_Device_ConfigureEndpoints()</tt> function
  *  should be called in response to the \ref EVENT_USB_Device_ConfigurationChanged() event. This function will return a
- *  boolean value if the driver successfully initialized the instance. Like all the class driver functions, this function
+ *  boolean true value if the driver successfully initialized the instance. Like all the class driver functions, this function
  *  takes in the address of the specific instance you wish to initialize - in this manner, multiple separate instances of
  *  the same class type can be initialized like this:
  *

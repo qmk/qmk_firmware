@@ -78,7 +78,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Get the next Still Image interface's data endpoint descriptor */
+		/* Get the next Bluetooth interface's data endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextInterfaceBluetoothDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{

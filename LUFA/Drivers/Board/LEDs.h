@@ -55,7 +55,7 @@
  *  Hardware LEDs driver. This provides an easy to use driver for the hardware LEDs present on many boards. It
  *  provides an interface to configure, test and change the status of all the board LEDs.
  *
- *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/LEDs.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file. If the BOARD value
  *  is set to \c BOARD_NONE, this driver is silently disabled.
  *

@@ -137,7 +137,7 @@ void ReadNextReport(void)
 	/* Select mouse data pipe */
 	Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);
 
-	/* Unfreeze keyboard data pipe */
+	/* Unfreeze mouse data pipe */
 	Pipe_Unfreeze();
 
 	/* Check to see if a packet has been received */

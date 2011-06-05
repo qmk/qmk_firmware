@@ -222,7 +222,7 @@
 			{
 				FEATURE_SEL_EndpointHalt       = 0x00, /**< Feature selector for Clear Feature or Set Feature commands. When
 				                                        *   used in a Set Feature or Clear Feature request this indicates that an
-				                                        *   endpoint (whose address is given elsewhere in the request should have
+				                                        *   endpoint (whose address is given elsewhere in the request) should have
 				                                        *   its stall condition changed.
 				                                        */
 				FEATURE_SEL_DeviceRemoteWakeup = 0x01, /**< Feature selector for Device level Remote Wakeup enable set or clear.

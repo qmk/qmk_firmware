@@ -145,7 +145,7 @@
 			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out MSB first. */
 			#define SPI_ORDER_MSB_FIRST            (0 << DORD)
 
-			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out MSB first. */
+			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define SPI_ORDER_LSB_FIRST            (1 << DORD)
 			//@}
 			

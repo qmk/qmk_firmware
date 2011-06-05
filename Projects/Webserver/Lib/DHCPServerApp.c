@@ -154,6 +154,7 @@ void DHCPServerApp_Callback(void)
  *  \param[out] DHCPHeader             Location in the packet buffer where the BOOTP header should be written to
  *  \param[in]  DHCPMessageType        DHCP Message type, such as DHCP_DISCOVER
  *  \param[in]  ClientHardwareAddress  Client MAC address the created transaction should be directed to
+ *  \param[in]  PreferredClientIP      Preferred IP that should be given to the client if it is unallocated
  *  \param[in]  TransactionID          Transaction ID the created transaction should be associated with
  *
  *  \return Size in bytes of the created DHCP packet

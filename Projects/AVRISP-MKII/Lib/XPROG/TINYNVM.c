@@ -206,7 +206,7 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
 	if (WriteLength & 0x01)
 	  WriteBuffer[WriteLength++] = 0xFF;
 
-	/* Set the NVM control register to the WORD WRITE command for memory reading */
+	/* Set the NVM control register to the WORD WRITE command for memory writing */
 	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
 	XPROGTarget_SendByte(TINY_NVM_CMD_WORDWRITE);
 
@@ -227,7 +227,7 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
 		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
 		XPROGTarget_SendByte(*(WriteBuffer++));
 
-		/* Need to decrement the write length twice, since we read out a whole word */
+		/* Need to decrement the write length twice, since we wrote a whole two-byte word */
 		WriteLength -= 2;
 	}
 

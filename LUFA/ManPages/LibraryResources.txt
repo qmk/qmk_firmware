@@ -7,6 +7,9 @@
 /**
  *  \page Page_Resources Library Resources
  *
+ *  \section Sec_UnofficialResources Unofficial Resources
+ *  Unofficial Russian LUFA documentation translation: http://microsin.ru/Download.cnt/doc/LUFA/ \n
+ *
  *  \section Sec_ProjectPages LUFA Related Webpages
  *  Project Homepage: http://www.lufa-lib.org \n
  *  Commercial Licenses: http://www.lufa-lib.org/license \n

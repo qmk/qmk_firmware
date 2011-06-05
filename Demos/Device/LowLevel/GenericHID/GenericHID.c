@@ -148,9 +148,9 @@ void EVENT_USB_Device_ControlRequest(void)
 	}
 }
 
-/** Function to process the lest received report from the host.
+/** Function to process the last received report from the host.
  *
- *  \param[in] DataArray  Pointer to a buffer where the last report data is stored
+ *  \param[in] DataArray  Pointer to a buffer where the last received report has been stored
  */
 void ProcessGenericHIDReport(uint8_t* DataArray)
 {

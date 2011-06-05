@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific joystick driver header for the Fletchtronics BUMLEB.
+ *  \brief Board specific joystick driver header for the Fletchtronics BUMBLEB.
  *  \copydetails Group_Joystick_BUMBLEB
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
@@ -38,7 +38,7 @@
 
 /** \ingroup Group_Joystick
  *  \defgroup Group_Joystick_BUMBLEB BUMBLEB
- *  \brief Board specific joystick driver header for the Fletchtronics BUMLEB.
+ *  \brief Board specific joystick driver header for the Fletchtronics BUMBLEB.
  *
  *  Board specific joystick driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB
  *  third-party board does not include any on-board peripherals, but does have an officially recommended external peripheral

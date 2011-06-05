@@ -87,7 +87,7 @@ static uint8_t Flash64KBPage = 0;
  */
 static uint16_t StartAddr = 0x0000;
 
-/** Memory end address, indicating the end address to read to/write from in the memory being addressed (either FLASH
+/** Memory end address, indicating the end address to read from/write to in the memory being addressed (either FLASH
  *  of EEPROM depending on the issued command from the host).
  */
 static uint16_t EndAddr = 0x0000;

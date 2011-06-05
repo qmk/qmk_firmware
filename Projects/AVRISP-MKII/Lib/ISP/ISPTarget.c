@@ -161,7 +161,7 @@ void ISPTarget_EnableTargetISP(void)
 		DDRB  |= ((1 << 1) | (1 << 2));
 		PORTB |= ((1 << 0) | (1 << 3));
 
-		ISPTarget_ConfigureSoftwareISP(SCKDuration);
+		ISPTarget_ConfigureSoftwareSPI(SCKDuration);
 	}
 }
 
@@ -185,7 +185,7 @@ void ISPTarget_DisableTargetISP(void)
 	}
 }
 
-/** Configures the AVR to produce a .5MHz rescue clock out of the OCR1A pin of the AVR, so
+/** Configures the AVR to produce a 4MHz rescue clock out of the OCR1A pin of the AVR, so
  *  that it can be fed into the XTAL1 pin of an AVR whose fuses have been mis-configured for
  *  an external clock rather than a crystal. When used, the ISP speed must be 125KHz for this
  *  functionality to work correctly.
@@ -217,14 +217,14 @@ void ISPTarget_ConfigureRescueClock(void)
 	#endif
 }
 
-/** Configures the AVR's timer ready to produce software ISP for the slower ISP speeds that
+/** Configures the AVR's timer ready to produce software SPI for the slower ISP speeds that
  *  cannot be obtained when using the AVR's hardware SPI module.
  *
  *  \param[in] SCKDuration  Duration of the desired software ISP SCK clock
  */
-void ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration)
+void ISPTarget_ConfigureSoftwareSPI(const uint8_t SCKDuration)
 {
-	/* Configure Timer 1 for software ISP using the specified SCK duration */
+	/* Configure Timer 1 for software SPI using the specified SCK duration */
 	TIMSK1 = (1 << OCIE1A);
 	TCNT1  = 0;
 	OCR1A  = pgm_read_word(&TimerCompareFromSCKDuration[SCKDuration - sizeof(SPIMaskFromSCKDuration)]);

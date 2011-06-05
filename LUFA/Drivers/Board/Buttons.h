@@ -56,7 +56,7 @@
  *  It provides a way to easily configure and check the status of all the buttons on the board so that appropriate
  *  actions can be taken.
  *
- *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Buttons.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
  *
  *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.

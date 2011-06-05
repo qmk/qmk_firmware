@@ -40,7 +40,7 @@ HID_ReportInfo_t HIDReportInfo;
 /** Function to read in the HID report descriptor from the attached device, and process it into easy-to-read
  *  structures via the HID parser routines in the LUFA library.
  *
- *  \return  A value from the MouseHostWithParser_GetHIDReportDataCodes_t enum
+ *  \return  A value from the \ref MouseHostWithParser_GetHIDReportDataCodes_t enum
  */
 uint8_t GetHIDReportData(void)
 {

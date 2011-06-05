@@ -133,7 +133,7 @@
 				OTGCON &= ~(1 << HNPREQ);
 			}
 
-			/** Indicates if the connected device is not currently sending a HNP request.
+			/** Indicates if the connected device is currently sending a HNP request.
 			 *
 			 *  \return Boolean \c true if a HNP is currently being issued by the connected device, \c false otherwise.
 			 */

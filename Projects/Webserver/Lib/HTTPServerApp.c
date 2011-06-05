@@ -47,7 +47,7 @@ const char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                      "Content-Type: ";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
- *  given URL is invalid, and gives extra error information.
+ *  URL is invalid, and gives extra error information.
  */
 const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                      "Server: LUFA " LUFA_VERSION_STRING "\r\n"

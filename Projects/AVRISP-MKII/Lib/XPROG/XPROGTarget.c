@@ -140,7 +140,7 @@ void XPROGTarget_SendByte(const uint8_t Byte)
 	UDR1    = Byte;
 }
 
-/** Receives a byte via the software USART, blocking until data is received.
+/** Receives a byte via the hardware USART, blocking until data is received or timeout expired.
  *
  *  \return Received byte from the USART
  */

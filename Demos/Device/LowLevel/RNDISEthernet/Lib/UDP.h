@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Header file for IP.c.
+ *  Header file for UDP.c.
  */
 
 #ifndef _UDP_H_

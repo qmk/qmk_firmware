@@ -197,14 +197,14 @@
 			uint16_t               RemotePort; /**< Connection port number on the host */
 			IP_Address_t           RemoteAddress; /**< Connection protocol IP address of the host */
 			TCP_ConnectionInfo_t   Info; /**< Connection information, including application buffer */
-			uint8_t                State; /**< Current connection state, a value from the TCP_ConnectionStates_t enum */
+			uint8_t                State; /**< Current connection state, a value from the \ref TCP_ConnectionStates_t enum */
 		} TCP_ConnectionState_t;
 
 		/** Type define for a TCP port state. */
 		typedef struct
 		{
 			uint16_t               Port; /**< TCP port number on the device */
-			uint8_t                State; /**< Current port state, a value from the TCP_PortStates_t enum */
+			uint8_t                State; /**< Current port state, a value from the \ref TCP_PortStates_t enum */
 			void                   (*ApplicationHandler) (TCP_ConnectionState_t* ConnectionState,
 			                                              TCP_ConnectionBuffer_t* Buffer); /**< Port application handler */
 		} TCP_PortState_t;

@@ -74,7 +74,7 @@ timer_set(struct timer *t, clock_time_t interval)
  * given to the timer_set() function. The start point of the interval
  * is the exact time that the timer last expired. Therefore, this
  * function will cause the timer to be stable over time, unlike the
- * timer_rester() function.
+ * timer_restart() function.
  *
  * \param t A pointer to the timer.
  *

@@ -146,7 +146,7 @@
 		/** Configuration Request signaling command structure, for channel configuration requests. */
 		typedef struct
 		{
-			uint16_t DestinationChannel; /**< Destination channel address which is to be disconnected */
+			uint16_t DestinationChannel; /**< Destination channel address which is to be configured */
 			uint16_t Flags; /**< Configuration flags for the request, including command continuation */
 		} BT_Signal_ConfigurationReq_t;
 

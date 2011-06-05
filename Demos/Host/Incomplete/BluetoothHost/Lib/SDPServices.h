@@ -70,7 +70,7 @@
 			uint16_t B; /**< Bits 32-47 of the UUID. */
 			uint16_t C; /**< Bits 48-63 of the UUID. */
 			uint16_t D; /**< Bits 64-79 of the UUID. */
-			uint8_t  E[6]; /**< Bits 80-128 of the UUID. */
+			uint8_t  E[6]; /**< Bits 80-127 of the UUID. */
 		} UUID_t;
 
 		/** Structure for the association of attribute ID values to an attribute value in FLASH. A table of these
@@ -152,7 +152,7 @@
 			struct
 			{
 				ItemUUID_t UUID; /**< UUID to store in the protocol list Data Element sequence */
-				Item16Bit_t Channel; /**< 8-Bit Parameter associated with the service */
+				Item16Bit_t Channel; /**< 16-Bit Parameter associated with the service */
 			} Protocol;
 		} ItemProtocol_16BitParam_t;
 

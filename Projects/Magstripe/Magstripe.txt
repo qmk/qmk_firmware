@@ -87,13 +87,11 @@
  *   </tr>
  *  </table>
  *
- *  This project is based on the LUFA Keyboard projectnstration application,
- *  written by Denver Gingerich.
+ *  This project is based on the LUFA Keyboard project demonstration application, written by Denver Gingerich.
  *
- *  This application uses a keyboard HID driver to communicate the data collected
- *  a TTL magnetic stripe reader to the connected computer. The raw bitstream
- *  obtained from the magnetic stripe reader is "typed" through the keyboard
- *  driver as 0's and 1's. After every card swipe, the project will send a return key.
+ *  This application uses a keyboard HID driver to communicate the data collected a TTL magnetic stripe reader
+ *  to the connected computer. The raw bitstream obtained from the magnetic stripe reader is "typed" through
+ *  the keyboard driver as 0's and 1's. After every card swipe, the project will send a return key.
  *
  *  \section Sec_Options Project Options
  *

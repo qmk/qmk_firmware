@@ -72,7 +72,7 @@
 		void    ISPTarget_EnableTargetISP(void);
 		void    ISPTarget_DisableTargetISP(void);
 		void    ISPTarget_ConfigureRescueClock(void);
-		void    ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration);
+		void    ISPTarget_ConfigureSoftwareSPI(const uint8_t SCKDuration);
 		uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte);
 		void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);
 		uint8_t ISPTarget_WaitWhileTargetBusy(void);

@@ -219,7 +219,7 @@ uint8_t SImage_SendData(void* const Buffer,
 	return ErrorCode;
 }
 
-/** Function to receive the given data to the device, after a response block has been received.
+/** Function to receive the given data from the device, after a response block has been received.
  *
  *  \param[out] Buffer  Destination data buffer to put read bytes from the device
  *  \param[in] Bytes    Number of bytes to receive
