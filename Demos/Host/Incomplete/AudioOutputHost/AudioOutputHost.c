@@ -186,7 +186,7 @@ void Audio_Task(void)
 				{
 					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT),
 					.bRequest      = AUDIO_REQ_SetCurrent,
-					.wValue        = 0x0100,
+					.wValue        = (AUDIO_EPCONTROL_SamplingFreq << 8),
 					.wIndex        = StreamingEndpointAddress,
 					.wLength       = sizeof(USB_Audio_SampleFreq_t),
 				};
