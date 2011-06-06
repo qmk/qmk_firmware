@@ -361,7 +361,7 @@
  *     0x206B
  *    </td>
  *    <td>
- *     Class Driver Audio Input Demo (Multiple Sample Rates)
+ *     <i>Currently Unallocated</i>
  *    </td>
  *   </tr>
  *
@@ -373,7 +373,7 @@
  *     0x206C
  *    </td>
  *    <td>
- *     Class Driver Audio Output Demo (Multiple Sample Rates)
+ *     <i>Currently Unallocated</i>
  *    </td>
  *   </tr>
  *

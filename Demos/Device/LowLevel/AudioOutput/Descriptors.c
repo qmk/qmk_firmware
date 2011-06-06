@@ -55,7 +55,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2046,
-	.ReleaseNumber          = VERSION_BCD(00.01),
+	.ReleaseNumber          = VERSION_BCD(00.02),
 
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
@@ -202,12 +202,16 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.SubFrameSize             = 0x02,
 			.BitResolution            = 16,
 
-			.TotalDiscreteSampleRates = 1,
+			.TotalDiscreteSampleRates = (sizeof(ConfigurationDescriptor.Audio_AudioFormatSampleRates) / sizeof(USB_Audio_SampleFreq_t)),
 		},
 	
 	.Audio_AudioFormatSampleRates =
 		{
-			AUDIO_SAMPLE_FREQ(AUDIO_SAMPLE_FREQUENCY)
+			AUDIO_SAMPLE_FREQ(8000),
+			AUDIO_SAMPLE_FREQ(11025),
+			AUDIO_SAMPLE_FREQ(22050),
+			AUDIO_SAMPLE_FREQ(44100),
+			AUDIO_SAMPLE_FREQ(48000),
 		},
 
 	.Audio_StreamEndpoint =

@@ -51,9 +51,6 @@
 		 */
 		#define AUDIO_STREAM_EPSIZE          ENDPOINT_MAX_SIZE(AUDIO_STREAM_EPNUM)
 
-		/** Sample frequency of the data being transmitted through the streaming endpoint. */
-		#define AUDIO_SAMPLE_FREQUENCY       48000
-
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -70,7 +67,7 @@
 			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt1;
 			USB_Audio_Descriptor_Interface_AS_t       Audio_StreamInterface_SPC;
 			USB_Audio_Descriptor_Format_t             Audio_AudioFormat;
-			USB_Audio_SampleFreq_t                    Audio_AudioFormatSampleRates[1];
+			USB_Audio_SampleFreq_t                    Audio_AudioFormatSampleRates[5];
 			USB_Audio_Descriptor_StreamEndpoint_Std_t Audio_StreamEndpoint;
 			USB_Audio_Descriptor_StreamEndpoint_Spc_t Audio_StreamEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;

@@ -39,6 +39,9 @@
 /** Flag to indicate if the streaming audio alternative interface has been selected by the host. */
 static bool StreamingAudioInterfaceSelected = false;
 
+/** Current audio sampling frequency of the streaming audio endpoint. */
+static uint32_t CurrentAudioSampleFrequency = 48000;
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -87,7 +90,7 @@ void EVENT_USB_Device_Connect(void)
 
 	/* Sample reload timer initialization */
 	TIMSK0  = (1 << OCIE0A);
-	OCR0A   = ((F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1);
+	OCR0A   = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 }
@@ -152,6 +155,57 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearSETUP();
 				Endpoint_ClearStatusStage();
 			}
+
+			break;
+		case AUDIO_REQ_SetCurrent:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
+			{
+				/* Extract out the relevant request information to get the target Endpoint index and control being set */
+				uint8_t EndpointIndex   = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
+				
+				/* Only handle SET CURRENT requests to the audio endpoint's sample frequency property */
+				if ((EndpointIndex == AUDIO_STREAM_EPNUM) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				{
+					uint8_t SampleRate[3];
+				
+					Endpoint_ClearSETUP();
+					Endpoint_Read_Control_Stream_LE(SampleRate, sizeof(SampleRate));
+					Endpoint_ClearOUT();
+					
+					/* Set the new sampling frequency to the value given by the host */
+					CurrentAudioSampleFrequency = (((uint32_t)SampleRate[2] << 16) | ((uint32_t)SampleRate[1] << 8) | (uint32_t)SampleRate[0]);
+
+					/* Adjust sample reload timer to the new frequency */
+					OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
+				}
+			}
+			
+			break;
+		case AUDIO_REQ_GetCurrent:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
+			{
+				/* Extract out the relevant request information to get the target Endpoint index and control being retrieved */
+				uint8_t EndpointIndex   = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
+				
+				/* Only handle GET CURRENT requests to the audio endpoint's sample frequency property */
+				if ((EndpointIndex == AUDIO_STREAM_EPNUM) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				{
+					uint8_t SampleRate[3];
+					
+					/* Convert the sampling rate value into the 24-bit format the host expects for the property */
+					SampleRate[2] = (CurrentAudioSampleFrequency >> 16);
+					SampleRate[1] = (CurrentAudioSampleFrequency >> 8);
+					SampleRate[0] = (CurrentAudioSampleFrequency &  0xFF);
+				
+					Endpoint_ClearSETUP();
+					Endpoint_Write_Control_Stream_LE(SampleRate, sizeof(SampleRate));
+					Endpoint_ClearOUT();					
+				}
+			}
+
+			break;
 	}
 }
 

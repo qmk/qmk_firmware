@@ -52,7 +52,7 @@ USB_ClassInfo_Audio_Device_t Speaker_Audio_Interface =
 	};
 
 /** Current audio sampling frequency of the streaming audio endpoint. */
-uint32_t CurrentAudioSampleFrequency = 48000;
+static uint32_t CurrentAudioSampleFrequency = 48000;
 
 
 /** Main program entry point. This routine contains the overall program flow, including initial

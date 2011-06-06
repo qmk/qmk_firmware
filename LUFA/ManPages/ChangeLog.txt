@@ -29,7 +29,7 @@
   *     the supported audio sampling rates, to allow for multiple audio interfaces with different numbers of supported rates and/or
   *     continuous sample rates
   *  - Library Applications:
-  *   - Modified the Class Driver AudioInput and AudioOutput demos to support multiple sample rates
+  *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple sample rates
   *
   *  <b>Fixed:</b>
   *  - Core:
@@ -1016,7 +1016,7 @@
   *  - Library license changed from LGPLv3 to MIT license
   *
   *
-  *  \section Sec_ChangeLog151 Version 1.5.1 - Released 31st July, 2008
+  *  \section Sec_ChangeLog151 Version 1.5.1 - Released 7th July, 2008
   *
   *  - Changed host demos to enable the host function task on the firing of the USB_DeviceEnumerationComplete event
   *    rather than the USB_DeviceAttached event
@@ -1095,7 +1095,7 @@
   *  - Added USE_NONSTANDARD_DESCRIPTOR_NAMES token to switch back to the non-standard descriptor element names
   *
   *
-  *  \section Sec_ChangeLog141 Version 1.4.1 - Released 5 May, 2008
+  *  \section Sec_ChangeLog141 Version 1.4.1 - Released 19 May, 2008
   *
   *  - Enhanced KeyboardWithParser demo, now prints out pressed alphanumeric characters like the standard demo
   *  - Fixed MassStorage demo, read/writes using non mode-10 commands now work correctly
