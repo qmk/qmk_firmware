@@ -17,10 +17,10 @@
   *   - Added board driver support for the Busware TUL board
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
-  *   - Added new MediaControl project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
-  *   - Added new incomplete AudioInputHost Host LowLevel demo
-  *   - Added new incomplete AudioOutputHost Host LowLevel demo
+  *   - Added new MediaControl project
+  *   - Added new AudioInputHost Host LowLevel demo
+  *   - Added new AudioOutputHost Host LowLevel demo
   *
   *  <b>Changed:</b>
   *  - Core:
