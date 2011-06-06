@@ -77,9 +77,11 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
  *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
  *      - <b>LowLevel</b>
+ *        - <b>AudioInputHost</b> - Incomplete Audio Input host demo, using the low level LUFA APIs to implement a USB microphone host
+ *        - <b>AudioOutputHost</b> - Incomplete Audio Output host demo, using the low level LUFA APIs to implement a USB speaker host
+ *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the low level LUFA APIs to implement
  *                                          the USB HID class
- *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the low level LUFA APIs to
  *                                          implement the USB HID class
@@ -92,8 +94,6 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
  *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
  *      - <b>Incomplete</b>
- *        - <b>AudioInputHost</b> - Incomplete Audio Input host demo, using the low level LUFA APIs to implement a USB microphone host
- *        - <b>AudioOutputHost</b> - Incomplete Audio Output host demo, using the low level LUFA APIs to implement a USB speaker host
  *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
  *    - <b>DualRole</b>
  *      - <b>ClassDriver</b>
