@@ -226,13 +226,13 @@ void EVENT_USB_Device_ControlRequest(void)
  */
 bool CALLBACK_Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
                                            const uint8_t EndpointProperty,
-                                           const uint8_t EndpointIndex,
+                                           const uint8_t EndpointAddress,
                                            const uint8_t EndpointControl,
                                            uint16_t* const DataLength,
                                            uint8_t* Data)
 {
 	/* Check the requested endpoint to see if a supported endpoint is being manipulated */
-	if (EndpointIndex == Speaker_Audio_Interface.Config.DataOUTEndpointNumber)
+	if (EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_OUT | Speaker_Audio_Interface.Config.DataOUTEndpointNumber))
 	{
 		/* Check the requested control to see if a supported control is being manipulated */
 		if (EndpointControl == AUDIO_EPCONTROL_SamplingFreq)

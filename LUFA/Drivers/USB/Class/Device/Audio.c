@@ -42,9 +42,6 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 
-	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
-	  return;
-
 	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_INTERFACE)
 	{
 		if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
@@ -52,13 +49,16 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 	}
 	else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
 	{
-		if (!((AudioInterfaceInfo->Config.DataINEndpointNumber &&
-		       (USB_ControlRequest.wIndex == AudioInterfaceInfo->Config.DataINEndpointNumber)) ||
-		      (AudioInterfaceInfo->Config.DataOUTEndpointNumber &&
-		       (USB_ControlRequest.wIndex == AudioInterfaceInfo->Config.DataOUTEndpointNumber))))
-		{
-			return;
-		}
+		bool EndpointFilterMatch = false;
+	
+		EndpointFilterMatch |= (AudioInterfaceInfo->Config.DataINEndpointNumber &&
+		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DESCRIPTOR_DIR_IN  | AudioInterfaceInfo->Config.DataINEndpointNumber)));
+	
+		EndpointFilterMatch |= (AudioInterfaceInfo->Config.DataOUTEndpointNumber &&
+		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DESCRIPTOR_DIR_OUT | AudioInterfaceInfo->Config.DataOUTEndpointNumber)));
+
+		if (!(EndpointFilterMatch))
+		  return;
 	}	
 
 	switch (USB_ControlRequest.bRequest)
@@ -89,10 +89,10 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
 			{
 				uint8_t EndpointProperty = USB_ControlRequest.bRequest;
-				uint8_t EndpointIndex    = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t EndpointAddress  = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl  = (USB_ControlRequest.wValue >> 8);
 			
-				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointIndex, EndpointControl, NULL, NULL))
+				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress, EndpointControl, NULL, NULL))
 				{
 					uint16_t ValueLength = USB_ControlRequest.wLength;
 					uint8_t  Value[ValueLength];
@@ -101,7 +101,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 					Endpoint_Read_Control_Stream_LE(Value, ValueLength);
 					Endpoint_ClearIN();					
 
-					CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointIndex, EndpointControl, &ValueLength, Value);
+					CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress, EndpointControl, &ValueLength, Value);
 				}				
 			}
 
@@ -113,12 +113,12 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
 			{
 				uint8_t  EndpointProperty = USB_ControlRequest.bRequest;
-				uint8_t  EndpointIndex    = (uint8_t)USB_ControlRequest.wIndex;
+				uint8_t  EndpointAddress  = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t  EndpointControl  = (USB_ControlRequest.wValue >> 8);
 				uint16_t ValueLength      = USB_ControlRequest.wLength;
 				uint8_t  Value[ValueLength];
 
-				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointIndex, EndpointControl, &ValueLength, Value))
+				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress, EndpointControl, &ValueLength, Value))
 				{
 					Endpoint_ClearSETUP();
 					Endpoint_Write_Control_Stream_LE(Value, ValueLength);

@@ -186,12 +186,12 @@ void EVENT_USB_Device_ControlRequest(void)
 		case AUDIO_REQ_SetCurrent:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
 			{
-				/* Extract out the relevant request information to get the target Endpoint index and control being set */
-				uint8_t EndpointIndex   = (uint8_t)USB_ControlRequest.wIndex;
+				/* Extract out the relevant request information to get the target Endpoint address and control being set */
+				uint8_t EndpointAddress = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
 				
 				/* Only handle SET CURRENT requests to the audio endpoint's sample frequency property */
-				if ((EndpointIndex == AUDIO_STREAM_EPNUM) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				if ((EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_OUT | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
 				{
 					uint8_t SampleRate[3];
 				
@@ -211,12 +211,12 @@ void EVENT_USB_Device_ControlRequest(void)
 		case AUDIO_REQ_GetCurrent:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
 			{
-				/* Extract out the relevant request information to get the target Endpoint index and control being retrieved */
-				uint8_t EndpointIndex   = (uint8_t)USB_ControlRequest.wIndex;
+				/* Extract out the relevant request information to get the target Endpoint address and control being retrieved */
+				uint8_t EndpointAddress = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
 				
 				/* Only handle GET CURRENT requests to the audio endpoint's sample frequency property */
-				if ((EndpointIndex == AUDIO_STREAM_EPNUM) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				if ((EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_OUT | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
 				{
 					uint8_t SampleRate[3];
 					
