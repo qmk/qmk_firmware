@@ -194,7 +194,7 @@ static uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-uint8_t AUDIO_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                          bool EnableStreaming)
 {
 	if (!(AudioInterfaceInfo->State.IsActive))
@@ -202,6 +202,38 @@ uint8_t AUDIO_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInt
 
 	return USB_Host_SetInterfaceAltSetting(AudioInterfaceInfo->State.StreamingInterfaceNumber,
 	                                       EnableStreaming ? AudioInterfaceInfo->State.EnabledStreamingAltIndex : 0);
+}
+
+uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			                         const uint8_t DataPipeIndex,
+			                         const uint8_t EndpointProperty,
+			                         const uint8_t EndpointControl,
+			                         uint16_t const DataLength,
+			                         uint8_t* Data)
+{
+	uint8_t RequestType;
+	uint8_t EndpointAddress;
+	
+	if (EndpointProperty & 0x80)
+	  RequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE);
+	else
+	  RequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE);	
+	  
+	Pipe_SelectPipe(DataPipeIndex);
+	EndpointAddress = Pipe_GetBoundEndpointAddress();
+
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = RequestType,
+			.bRequest      = EndpointProperty,
+			.wValue        = ((uint16_t)EndpointControl << 8),
+			.wIndex        = EndpointAddress,
+			.wLength       = DataLength,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	return USB_Host_SendControlRequest(Data);	
 }
 
 #endif

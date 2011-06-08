@@ -86,13 +86,7 @@ bool Pipe_IsEndpointBound(const uint8_t EndpointAddress)
 		if (!(Pipe_IsConfigured()))
 		  continue;
 
-		uint8_t PipeToken        = Pipe_GetPipeToken();
-		bool    PipeTokenCorrect = true;
-
-		if (PipeToken != PIPE_TOKEN_SETUP)
-		  PipeTokenCorrect = (PipeToken == ((EndpointAddress & PIPE_EPDIR_MASK) ? PIPE_TOKEN_IN : PIPE_TOKEN_OUT));
-
-		if (PipeTokenCorrect && (Pipe_BoundEndpointNumber() == (EndpointAddress & PIPE_EPNUM_MASK)))
+		if (Pipe_GetBoundEndpointAddress() == EndpointAddress)
 		  return true;
 	}
 

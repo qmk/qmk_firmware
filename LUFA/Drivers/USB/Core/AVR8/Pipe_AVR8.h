@@ -321,15 +321,16 @@
 				return ((UPSTAX & (1 << CFGOK)) ? true : false);
 			}
 
-			/** Retrieves the endpoint number of the endpoint within the attached device that the currently selected
+			/** Retrieves the endpoint address of the endpoint within the attached device that the currently selected
 			 *  pipe is bound to.
 			 *
-			 *  \return Endpoint number the currently selected pipe is bound to.
+			 *  \return Endpoint address the currently selected pipe is bound to.
 			 */
-			static inline uint8_t Pipe_BoundEndpointNumber(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Pipe_BoundEndpointNumber(void)
+			static inline uint8_t Pipe_GetBoundEndpointAddress(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Pipe_GetBoundEndpointAddress(void)
 			{
-				return ((UPCFG0X >> PEPNUM0) & PIPE_EPNUM_MASK);
+				return (((UPCFG0X >> PEPNUM0) & PIPE_EPNUM_MASK) |
+				        ((Pipe_GetPipeToken() == PIPE_TOKEN_IN) ? ENDPOINT_DESCRIPTOR_DIR_IN : 0));
 			}
 
 			/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.

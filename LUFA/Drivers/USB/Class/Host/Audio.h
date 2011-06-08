@@ -29,23 +29,23 @@
 */
 
 /** \file
- *  \brief Host mode driver for the library USB Audio Class driver.
+ *  \brief Host mode driver for the library USB Audio 1.0 Class driver.
  *
- *  Host mode driver for the library USB Audio Class driver.
+ *  Host mode driver for the library USB Audio 1.0 Class driver.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
  *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassAudio
- *  \defgroup Group_USBClassAudioHost Audio Class Host Mode Driver
+ *  \defgroup Group_USBClassAudioHost Audio 1.0 Class Host Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/Audio.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Sec_ModDescription Module Description
- *  Host Mode USB Class driver framework interface, for the Audio USB Class driver.
+ *  Host Mode USB Class driver framework interface, for the Audio 1.0 USB Class driver.
  *
  *  @{
  */
@@ -138,8 +138,29 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
-			uint8_t AUDIO_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                      bool EnableStreaming);
+
+			/** Gets or sets the specified property of a streaming audio class endpoint that is bound to a pipe in the given
+			 *  class instance.
+			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class host configuration and state.
+			 *  \param[in]     DataPipeIndex       Index of the data pipe whose bound endpoint is to be altered.
+			 *  \param[in]     EndpointProperty    Property of the endpoint to get or set, a value from \ref Audio_ClassRequests_t.
+			 *  \param[in]     EndpointControl     Parameter of the endpoint to get or set, a value from \ref Audio_EndpointControls_t.
+			 *  \param[in,out] DataLength          For SET operations, the length of the parameter data to set. For GET operations, the maximum
+			 *                                     length of the retrieved data.
+			 *  \param[in,out] Data                Pointer to a location where the parameter data is stored for SET operations, or where
+			 *                                     the retrieved data is to be stored for GET operations.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
+			 */			
+			uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			                                     const uint8_t DataPipeIndex,
+			                                     const uint8_t EndpointProperty,
+			                                     const uint8_t EndpointControl,
+			                                     uint16_t* const DataLength,
+			                                     uint8_t* Data);
 
 		/* Inline Functions: */
 			/** General management task for a given Audio host class interface, required for the correct operation of
