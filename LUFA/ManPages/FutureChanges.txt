@@ -22,6 +22,7 @@
   *      -# Pull out third party libraries into a separate folder and reference them as required
   *      -# Add a LUFA_YIELD macro for integration into a third-party RTOS
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
+  *      -# Consider switch from endpoint numbers to full endpoint addresses for future expansion
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

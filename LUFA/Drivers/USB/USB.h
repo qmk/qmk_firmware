@@ -94,7 +94,7 @@
  *  <tr>
  *   <td>Audio</td>
  *   <td bgcolor="#00EE00">Yes</td>
- *   <td bgcolor="#EE0000">No</td>
+ *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
  *   <td>CDC</td>

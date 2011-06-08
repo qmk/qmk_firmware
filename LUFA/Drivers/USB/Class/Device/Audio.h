@@ -101,9 +101,9 @@
 				           */
 				struct
 				{
-					bool     InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
-												*   of the Audio Streaming interface.
-												*/
+					bool InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
+					                        *   of the Audio Streaming interface.
+					                        */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
@@ -159,6 +159,14 @@
 			                                           const uint8_t EndpointControl,
 			                                           uint16_t* const DataLength,
 			                                           uint8_t* Data);
+
+			/** Audio class driver event for an Audio Stream start/stop change. This event fires each time the device receives a stream enable or
+			 *  disable control request from the host, to start and stop the audio stream. The current state of the stream can be determined by the
+			 *  State.InterfaceEnabled value inside the Audio interface structure passed as a parameter.
+			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 */
+			void EVENT_Audio_StreamStartStopChange(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 		/* Inline Functions: */
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
@@ -347,6 +355,18 @@
 				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
 				  Endpoint_ClearIN();
 			}
+
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Function Prototypes: */
+			#if defined(__INCLUDE_FROM_AUDIO_DEVICE_C)
+				void Audio_Device_Event_Stub(void) ATTR_CONST;
+				
+				void EVENT_Audio_StreamStartStopChange(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
+				                                       ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(Audio_Device_Event_Stub);
+			#endif
+
+	#endif	
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

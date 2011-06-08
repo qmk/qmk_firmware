@@ -177,7 +177,7 @@
 			/** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
 			 *  control line state change (containing the virtual serial control line states, such as DTR) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
-			 *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
+			 *  are available in the State.ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
 			 *  a mask of CDC_CONTROL_LINE_OUT_* masks.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.

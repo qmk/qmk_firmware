@@ -37,18 +37,19 @@ LUFA_SRC_USB          = $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Device_$(ARCH
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/HostStandardReq.c                \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/USBTask.c                        \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Common/HIDParser.c
-LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/Audio.c                 \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDC.c                   \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/HID.c                   \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MassStorage.c           \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MIDI.c                  \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/RNDIS.c                 \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/CDC.c                     \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/HID.c                     \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/MassStorage.c             \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/MIDI.c                    \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/Printer.c                 \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/RNDIS.c                   \
+LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/Audio.c                  \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDC.c                    \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/HID.c                    \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MassStorage.c            \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MIDI.c                   \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/RNDIS.c                  \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/Audio.c                    \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/CDC.c                      \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/HID.c                      \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/MassStorage.c              \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/MIDI.c                     \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/Printer.c                  \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/RNDIS.c                    \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/StillImage.c
 LUFA_SRC_TEMPERATURE  = $(LUFA_ROOT_PATH)/Drivers/Board/Temperature.c
 LUFA_SRC_SERIAL       = $(LUFA_ROOT_PATH)/Drivers/Peripheral/$(ARCH)/Serial_$(ARCH).c
