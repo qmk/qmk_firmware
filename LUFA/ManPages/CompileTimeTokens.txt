@@ -84,7 +84,9 @@
  *  <b>ORDERED_EP_CONFIG</b> - (\ref Group_EndpointManagement , \ref Group_PipeManagement)  - <i>AVR8 Only</i> \n
  *  The USB AVRs do not allow for Endpoints and Pipes to be configured out of order; they <i>must</i> be configured in an ascending order to
  *  prevent data corruption issues. However, by default LUFA employs a workaround to allow for unordered Endpoint/Pipe initialization. This compile
- *  time token may be used to restrict the initialization order to ascending indexes only in exchange for a smaller compiled binary size.
+ *  time token may be used to restrict the initialization order to ascending indexes only in exchange for a smaller compiled binary size. Use
+ *  caution when applied to applications using the library USB Class drivers; the user application must ensure that all endpoints and pipes are
+ *  allocated sequentially.
  *
  *  <b>USE_STATIC_OPTIONS</b>=<i>x</i> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
  *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad

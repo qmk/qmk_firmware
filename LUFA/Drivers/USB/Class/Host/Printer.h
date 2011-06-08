@@ -114,23 +114,11 @@
 			};
 
 		/* Function Prototypes: */
-			/** General management task for a given Printer host class interface, required for the correct operation of
-			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
-			 */
-			void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-
 			/** Host interface configuration routine, to configure a given Printer host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Printer
 			 *  instance's state values and configures the pipes required to communicate with the interface if it is found within
 			 *  the device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
-			 *
-			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo       Pointer to a structure containing a Printer Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
@@ -141,6 +129,14 @@
 			uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 			                                 uint16_t ConfigDescriptorSize,
 			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
+
+			/** General management task for a given Printer host class interface, required for the correct operation of
+			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 */
+			void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Configures the printer to enable Bidirectional mode, if it is not already in this mode. This should be called
 			 *  once the connected device's configuration has been set, to ensure the printer is ready to accept commands.

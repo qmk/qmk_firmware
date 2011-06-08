@@ -137,10 +137,6 @@
 			 *  is found within the device. This should be called once after the stack has enumerated the attached device, while
 			 *  the host state machine is in the Addressed state.
 			 *
-			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
-			 *
 			 *  \param[in,out] MSInterfaceInfo       Pointer to a structure containing an MS Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize  Length of the attached device's Configuration Descriptor.
 			 *  \param[in]     ConfigDescriptorData  Pointer to a buffer containing the attached device's Configuration Descriptor.

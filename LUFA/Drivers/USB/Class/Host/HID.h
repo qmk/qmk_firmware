@@ -148,11 +148,6 @@
 			 *  device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
 			 *
-			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
-			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
-			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
-			 *        \n\n
-			 *
 			 *  \note Once the device pipes are configured, the HID device's reporting protocol <b>must</b> be set via a call
 			 *        to either the \ref HID_Host_SetBootProtocol() or \ref HID_Host_SetReportProtocol() function.
 			 *
