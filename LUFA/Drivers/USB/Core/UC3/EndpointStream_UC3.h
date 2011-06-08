@@ -52,6 +52,7 @@
 	/* Includes: */
 		#include "../../../../Common/Common.h"
 		#include "../USBMode.h"
+		#include "../USBTask.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
