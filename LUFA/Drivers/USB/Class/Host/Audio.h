@@ -194,10 +194,11 @@
 
 				bool SampleReceived = false;
 
-				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataOUTPipeNumber);
+				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataINPipeNumber);
 				Pipe_Unfreeze();
 				SampleReceived = Pipe_IsINReceived();
 				Pipe_Freeze();
+
 				return SampleReceived;
 			}
 
@@ -218,7 +219,7 @@
 				if ((USB_HostState != HOST_STATE_Configured) || !(AudioInterfaceInfo->State.IsActive))
 				  return false;
 
-				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataINPipeNumber);
+				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataOUTPipeNumber);
 				return Pipe_IsOUTReady();
 			}
 
@@ -324,7 +325,7 @@
 			{
 				Pipe_Write_8(Sample);
 
-				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataINPipeSize)
+				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataOUTPipeSize)
 				{
 					Pipe_Unfreeze();
 					Pipe_ClearOUT();
@@ -347,7 +348,7 @@
 			{
 				Pipe_Write_16_LE(Sample);
 
-				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataINPipeSize)
+				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataOUTPipeSize)
 				{
 					Pipe_Unfreeze();
 					Pipe_ClearOUT();
@@ -371,7 +372,7 @@
 				Pipe_Write_16_LE(Sample);
 				Pipe_Write_8(Sample >> 16);
 
-				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataINPipeSize)
+				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataOUTPipeSize)
 				{
 					Pipe_Unfreeze();
 					Pipe_ClearOUT();

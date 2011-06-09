@@ -213,11 +213,11 @@ uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInte
 {
 	uint8_t RequestType;
 	uint8_t EndpointAddress;
-	
+
 	if (EndpointProperty & 0x80)
-	  RequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE);
+	  RequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT);
 	else
-	  RequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE);	
+	  RequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT);
 	  
 	Pipe_SelectPipe(DataPipeIndex);
 	EndpointAddress = Pipe_GetBoundEndpointAddress();
@@ -233,7 +233,7 @@ uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInte
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
-	return USB_Host_SendControlRequest(Data);	
+	return USB_Host_SendControlRequest(Data);
 }
 
 #endif
