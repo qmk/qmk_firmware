@@ -68,6 +68,8 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	Serial_Init(9600, false);
 	Buttons_Init();
+	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);
+	ADC_SetupChannel(MIC_IN_ADC_CHANNEL);	
 	LEDs_Init();
 	USB_Init();
 
@@ -234,17 +236,30 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 	/* Check if the current pipe can be written to (device ready for more data) */
 	if (Pipe_IsOUTReady())
 	{
-		static uint8_t SquareWaveSampleCount;
-		static int16_t CurrentWaveValue;
+		int16_t AudioSample;		
+	
+		#if defined(USE_TEST_TONE)
+			static uint8_t SquareWaveSampleCount;
+			static int16_t CurrentWaveValue;
 			
-		if (SquareWaveSampleCount++ == 0xFF)
-		  CurrentWaveValue ^= 0x8000;
+			/* In test tone mode, generate a square wave at 1/256 of the sample rate */
+			if (SquareWaveSampleCount++ == 0xFF)
+			  CurrentWaveValue ^= 0x8000;
 			
-		/* Only generate audio if the board button is being pressed */
-		int16_t Sample_16Bit = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
+			/* Only generate audio if the board button is being pressed */
+			AudioSample = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
+		#else
+			/* Audio sample is ADC value scaled to fit the entire range */
+			AudioSample = ((SAMPLE_MAX_RANGE / ADC_MAX_RANGE) * ADC_GetResult());
+
+			#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
+			/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
+			AudioSample -= (SAMPLE_MAX_RANGE / 2);
+			#endif		
+		#endif
 		
-		Pipe_Write_16_LE(Sample_16Bit);
-		Pipe_Write_16_LE(Sample_16Bit);
+		Pipe_Write_16_LE(AudioSample);
+		Pipe_Write_16_LE(AudioSample);
 		
 		if (!(Pipe_IsReadWriteAllowed()))
 		  Pipe_ClearOUT();

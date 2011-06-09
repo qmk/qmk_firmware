@@ -91,7 +91,8 @@ void SetupHardware(void)
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
-
+	
+	/* Check that the USB bus is ready for the next sample to read */
 	if (Audio_Device_IsSampleReceived(&Speaker_Audio_Interface))
 	{
 		/* Retrieve the signed 16-bit left and right audio samples, convert to 8-bit */

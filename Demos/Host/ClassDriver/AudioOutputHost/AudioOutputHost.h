@@ -46,13 +46,11 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
-
-		#include "ConfigDescriptor.h"
+		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
 		/** ADC channel number for the microphone input. */
@@ -80,7 +78,6 @@
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 	/* Function Prototypes: */
-		void Audio_Task(void);
 		void SetupHardware(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);

@@ -98,7 +98,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
 
-	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
+	/* Check that the USB bus is ready for the next sample to write */
 	if (Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
 	{
 		int16_t AudioSample;

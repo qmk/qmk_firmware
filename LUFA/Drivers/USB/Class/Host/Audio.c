@@ -209,7 +209,7 @@ uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInte
 			                         const uint8_t EndpointProperty,
 			                         const uint8_t EndpointControl,
 			                         uint16_t const DataLength,
-			                         uint8_t* Data)
+			                         void* const Data)
 {
 	uint8_t RequestType;
 	uint8_t EndpointAddress;

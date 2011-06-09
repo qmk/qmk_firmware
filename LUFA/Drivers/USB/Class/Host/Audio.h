@@ -159,8 +159,8 @@
 			                                     const uint8_t DataPipeIndex,
 			                                     const uint8_t EndpointProperty,
 			                                     const uint8_t EndpointControl,
-			                                     uint16_t* const DataLength,
-			                                     uint8_t* Data);
+			                                     uint16_t const DataLength,
+			                                     void* const Data);
 
 		/* Inline Functions: */
 			/** General management task for a given Audio host class interface, required for the correct operation of
@@ -192,8 +192,13 @@
 				if ((USB_HostState != HOST_STATE_Configured) || !(AudioInterfaceInfo->State.IsActive))
 				  return false;
 
+				bool SampleReceived = false;
+
 				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataOUTPipeNumber);
-				return Pipe_IsINReceived();
+				Pipe_Unfreeze();
+				SampleReceived = Pipe_IsINReceived();
+				Pipe_Freeze();
+				return SampleReceived;
 			}
 
 			/** Determines if the given audio interface is ready to accept the next sample to be written to it, and selects
@@ -237,7 +242,11 @@
 				Sample = Pipe_Read_8();
 
 				if (!(Pipe_BytesInPipe()))
-				  Pipe_ClearIN();
+				{
+					Pipe_Unfreeze();
+					Pipe_ClearIN();
+					Pipe_Freeze();
+				}
 
 				return Sample;
 			}
@@ -262,7 +271,11 @@
 				Sample = (int16_t)Pipe_Read_16_LE();
 
 				if (!(Pipe_BytesInPipe()))
-				  Pipe_ClearIN();
+				{
+					Pipe_Unfreeze();
+					Pipe_ClearIN();
+					Pipe_Freeze();
+				}
 
 				return Sample;
 			}
@@ -287,7 +300,11 @@
 				Sample = (((uint32_t)Pipe_Read_8() << 16) | Pipe_Read_16_LE());
 
 				if (!(Pipe_BytesInPipe()))
-				  Pipe_ClearIN();
+				{
+					Pipe_Unfreeze();
+					Pipe_ClearIN();
+					Pipe_Freeze();
+				}
 
 				return Sample;
 			}
@@ -308,7 +325,11 @@
 				Pipe_Write_8(Sample);
 
 				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataINPipeSize)
-				  Pipe_ClearOUT();
+				{
+					Pipe_Unfreeze();
+					Pipe_ClearOUT();
+					Pipe_Freeze();
+				}
 			}
 
 			/** Writes the next 16-bit audio sample to the current audio interface.
@@ -327,7 +348,11 @@
 				Pipe_Write_16_LE(Sample);
 
 				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataINPipeSize)
-				  Pipe_ClearOUT();
+				{
+					Pipe_Unfreeze();
+					Pipe_ClearOUT();
+					Pipe_Freeze();
+				}
 			}
 
 			/** Writes the next 24-bit audio sample to the current audio interface.
@@ -347,7 +372,11 @@
 				Pipe_Write_8(Sample >> 16);
 
 				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataINPipeSize)
-				  Pipe_ClearOUT();
+				{
+					Pipe_Unfreeze();
+					Pipe_ClearOUT();
+					Pipe_Freeze();
+				}
 			}
 			
 	/* Private Interface - For use in library only: */

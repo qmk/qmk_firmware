@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for AudioOutputHost.c.
+ *  Header file for AudioInputHost.c.
  */
 
-#ifndef _AUDIO_OUTPUT_HOST_H_
-#define _AUDIO_OUTPUT_HOST_H_
+#ifndef _AUDIO_INPUT_HOST_H_
+#define _AUDIO_INPUT_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -46,27 +46,11 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
-		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Buttons.h>
-
-		#include "ConfigDescriptor.h"
+		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** ADC channel number for the microphone input. */
-		#define MIC_IN_ADC_CHANNEL        2
-
-		/** ADC channel MUX mask for the microphone input. */
-		#define MIC_IN_ADC_MUX_MASK       ADC_CHANNEL2
-
-		/** Maximum audio sample value for the microphone input. */
-		#define SAMPLE_MAX_RANGE          0xFFFF
-
-		/** Maximum ADC range for the microphone input. */
-		#define ADC_MAX_RANGE             0x3FF
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -80,7 +64,6 @@
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 	/* Function Prototypes: */
-		void Audio_Task(void);
 		void SetupHardware(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
