@@ -14,6 +14,12 @@
 # code.
 
 all:
+	$(MAKE) -C AudioInputHost clean
+	$(MAKE) -C AudioInputHost all
+
+	$(MAKE) -C AudioOutputHost clean
+	$(MAKE) -C AudioOutputHost all
+
 	$(MAKE) -C JoystickHostWithParser clean
 	$(MAKE) -C JoystickHostWithParser all
 
@@ -48,6 +54,8 @@ all:
 	$(MAKE) -C VirtualSerialHost all
 
 %:
+	$(MAKE) -C AudioInputHost $@
+	$(MAKE) -C AudioOutputHost $@
 	$(MAKE) -C JoystickHostWithParser $@
 	$(MAKE) -C KeyboardHost $@
 	$(MAKE) -C KeyboardHostWithParser $@

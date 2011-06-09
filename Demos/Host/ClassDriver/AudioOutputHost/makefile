@@ -123,6 +123,9 @@ LUFA_PATH = ../../../..
 LUFA_OPTS  = -D USB_HOST_ONLY
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
+LUFA_OPTS += -D MICROPHONE_BIASED_TO_HALF_RAIL
+LUFA_OPTS += -D USE_TEST_TONE
+
 
 # Create the LUFA source path variables by including the LUFA root makefile
 include $(LUFA_PATH)/LUFA/makefile
