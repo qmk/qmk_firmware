@@ -62,7 +62,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 			                              DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-											  DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return AUDIO_ENUMERROR_NoCompatibleInterfaceFound;
 				}
@@ -70,7 +70,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 				AudioControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);			
 
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-										  DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return AUDIO_ENUMERROR_NoCompatibleInterfaceFound;
 				}
@@ -102,7 +102,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 			Size            = DataINEndpoint->EndpointSize;
 			EndpointAddress = DataINEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_BULK;
+			Type            = EP_TYPE_ISOCHRONOUS;
 			DoubleBanked    = true;
 
 			AudioInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
@@ -211,6 +211,9 @@ uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInte
 			                         uint16_t const DataLength,
 			                         void* const Data)
 {
+	if (!(AudioInterfaceInfo->State.IsActive))
+	  return HOST_SENDCONTROL_DeviceDisconnected;
+
 	uint8_t RequestType;
 	uint8_t EndpointAddress;
 

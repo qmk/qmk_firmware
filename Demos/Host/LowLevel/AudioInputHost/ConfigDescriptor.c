@@ -92,7 +92,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			{
 				/* Find a new Audio Control interface if the current one doesn't contain a compatible streaming interface */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-											  DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
 					return NoCompatibleInterfaceFound;
@@ -103,7 +103,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 				/* Find the next Audio Streaming interface within that Audio Control interface */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-										  DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
 					return NoCompatibleInterfaceFound;

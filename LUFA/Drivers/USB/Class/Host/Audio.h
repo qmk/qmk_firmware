@@ -79,8 +79,14 @@
 			{
 				const struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the Audio interface's IN data pipe. */
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Audio interface's OUT data pipe. */
+					uint8_t  DataINPipeNumber; /**< Pipe number of the Audio interface's IN data pipe. If this interface should not
+					                            *   bind to an IN endpoint, this may be set to 0 to disable audio input streaming for
+					                            *   this driver instance.
+					                            */
+					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Audio interface's OUT data pipe. If this interface should not
+					                            *   bind to an OUT endpoint, this may be set to 0 to disable audio output streaming for
+					                            *   this driver instance.
+					                            */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -325,10 +331,11 @@
 			{
 				Pipe_Write_8(Sample);
 
-				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataOUTPipeSize)
+				if (!(Pipe_IsReadWriteAllowed()))
 				{
 					Pipe_Unfreeze();
 					Pipe_ClearOUT();
+					Pipe_WaitUntilReady();
 					Pipe_Freeze();
 				}
 			}
@@ -348,10 +355,11 @@
 			{
 				Pipe_Write_16_LE(Sample);
 
-				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataOUTPipeSize)
+				if (!(Pipe_IsReadWriteAllowed()))
 				{
 					Pipe_Unfreeze();
 					Pipe_ClearOUT();
+					Pipe_WaitUntilReady();
 					Pipe_Freeze();
 				}
 			}
@@ -372,10 +380,11 @@
 				Pipe_Write_16_LE(Sample);
 				Pipe_Write_8(Sample >> 16);
 
-				if (Pipe_BytesInPipe() == AudioInterfaceInfo->State.DataOUTPipeSize)
+				if (!(Pipe_IsReadWriteAllowed()))
 				{
 					Pipe_Unfreeze();
 					Pipe_ClearOUT();
+					Pipe_WaitUntilReady();
 					Pipe_Freeze();
 				}
 			}
