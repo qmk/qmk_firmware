@@ -51,7 +51,8 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return AUDIO_ENUMERROR_InvalidConfigDescriptor;
 
-	while (!(DataINEndpoint) || !(DataOUTEndpoint))
+	while ((AudioInterfaceInfo->Config.DataINPipeNumber  && !(DataINEndpoint)) ||
+	       (AudioInterfaceInfo->Config.DataOUTPipeNumber && !(DataOUTEndpoint)))
 	{
 		if (!(AudioControlInterface) ||
 		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
@@ -77,6 +78,9 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 			}
 
 			AudioStreamingInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+			
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
 
 			continue;
 		}
@@ -195,7 +199,7 @@ static uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
 }
 
 uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                          bool EnableStreaming)
+			                          const bool EnableStreaming)
 {
 	if (!(AudioInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
@@ -208,7 +212,7 @@ uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInte
 			                         const uint8_t DataPipeIndex,
 			                         const uint8_t EndpointProperty,
 			                         const uint8_t EndpointControl,
-			                         uint16_t const DataLength,
+			                         const uint16_t DataLength,
 			                         void* const Data)
 {
 	if (!(AudioInterfaceInfo->State.IsActive))

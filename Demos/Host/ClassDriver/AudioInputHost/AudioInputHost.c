@@ -104,7 +104,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+			
 				USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
 				if (Audio_GetSetEndpointProperty(&Microphone_Audio_Interface, Microphone_Audio_Interface.Config.DataINPipeNumber,
 				                                 AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,

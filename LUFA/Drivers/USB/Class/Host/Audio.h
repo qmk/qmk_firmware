@@ -145,7 +145,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
 			uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                      bool EnableStreaming);
+			                                      const bool EnableStreaming);
 
 			/** Gets or sets the specified property of a streaming audio class endpoint that is bound to a pipe in the given
 			 *  class instance.
@@ -165,7 +165,7 @@
 			                                     const uint8_t DataPipeIndex,
 			                                     const uint8_t EndpointProperty,
 			                                     const uint8_t EndpointControl,
-			                                     uint16_t const DataLength,
+			                                     const uint16_t DataLength,
 			                                     void* const Data);
 
 		/* Inline Functions: */
