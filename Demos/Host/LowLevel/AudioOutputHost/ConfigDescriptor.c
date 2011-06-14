@@ -53,7 +53,7 @@ uint8_t StreamingEndpointAddress     = 0;
  *
  *  This routine searches for a Streaming Audio interface descriptor containing a valid Isochronous audio endpoint.
  *
- *  \return An error code from the \ref RNDISHost_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the \ref AudioHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {

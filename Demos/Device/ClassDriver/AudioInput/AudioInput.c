@@ -178,7 +178,7 @@ void EVENT_USB_Device_ControlRequest(void)
  *
  *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
  *  \param[in]     EndpointProperty    Property of the endpoint to get or set, a value from Audio_ClassRequests_t.
- *  \param[in]     EndpointIndex       Index of the streaming endpoint whose property is being referenced.
+ *  \param[in]     EndpointAddress     Address of the streaming endpoint whose property is being referenced.
  *  \param[in]     EndpointControl     Parameter of the endpoint to get or set, a value from Audio_EndpointControls_t.
  *  \param[in,out] DataLength          For SET operations, the length of the parameter data to set. For GET operations, the maximum
  *                                     length of the retrieved data. When NULL, the function should return whether the given property
