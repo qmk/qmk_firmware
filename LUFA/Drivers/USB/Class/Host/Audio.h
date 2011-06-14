@@ -393,9 +393,9 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_AUDIO_HOST_C)
-				static uint8_t DComp_NextAudioControlInterface(void* CurrentDescriptor);
-				static uint8_t DComp_NextAudioStreamInterface(void* CurrentDescriptor);
-				static uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor);
+				static uint8_t DCOMP_Audio_Host_NextAudioControlInterface(void* CurrentDescriptor);
+				static uint8_t DCOMP_Audio_Host_NextAudioStreamInterface(void* CurrentDescriptor);
+				static uint8_t DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor);
 			#endif
 	#endif
 

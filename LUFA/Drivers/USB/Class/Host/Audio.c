@@ -56,14 +56,14 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	{
 		if (!(AudioControlInterface) ||
 		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_NextAudioInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (!(AudioControlInterface) ||
 			    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-			                              DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_Audio_Host_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-				                              DComp_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_Audio_Host_NextAudioControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return AUDIO_ENUMERROR_NoCompatibleInterfaceFound;
 				}
@@ -71,7 +71,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 				AudioControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);			
 
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-				                              DComp_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_Audio_Host_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return AUDIO_ENUMERROR_NoCompatibleInterfaceFound;
 				}
@@ -141,7 +141,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	return AUDIO_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_NextAudioControlInterface(void* CurrentDescriptor)
+static uint8_t DCOMP_Audio_Host_NextAudioControlInterface(void* CurrentDescriptor)
 {
 	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
@@ -160,7 +160,7 @@ static uint8_t DComp_NextAudioControlInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_NextAudioStreamInterface(void* CurrentDescriptor)
+static uint8_t DCOMP_Audio_Host_NextAudioStreamInterface(void* CurrentDescriptor)
 {
 	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
@@ -179,7 +179,7 @@ static uint8_t DComp_NextAudioStreamInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
+static uint8_t DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
 {
 	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 

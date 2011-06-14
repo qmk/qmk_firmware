@@ -22,6 +22,8 @@
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
   *   - Added new MediaControl project
+  *   - Added new AudioInputHost Host ClassDriver demo
+  *   - Added new AudioOutputHost Host ClassDriver demo
   *   - Added new AudioInputHost Host LowLevel demo
   *   - Added new AudioOutputHost Host LowLevel demo
   *
