@@ -18,6 +18,7 @@
   *   - Added new EVENT_Audio_Device_StreamStartStop() event to the Audio Device Class driver to detect stream start/stop events
   *   - Added board driver support for the Busware TUL board
   *   - Added new Host mode Audio Class driver
+  *   - Added new \ref SPI_GetCurrentMode() function to the SPI peripheral driver
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
@@ -40,7 +41,9 @@
   *
   *  <b>Fixed:</b>
   *  - Core:
-  *   - Large number of documentation and code comment corrections (thanks to Andrewy from Microsin.ru)
+  *   - Large number of documentation and code comment corrections (thanks to Andrey from Microsin.ru)
+  *   - Fixed possibility of the AVR's SPI interface being pulled out of master mode if the /SS pin is a input and pulled low (thanks
+  *     to Andrey from Microsin.ru)
   *  - Library Applications:
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed
