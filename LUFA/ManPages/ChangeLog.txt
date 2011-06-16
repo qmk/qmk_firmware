@@ -18,7 +18,7 @@
   *   - Added new EVENT_Audio_Device_StreamStartStop() event to the Audio Device Class driver to detect stream start/stop events
   *   - Added board driver support for the Busware TUL board
   *   - Added new Host mode Audio Class driver
-  *   - Added new \ref SPI_GetCurrentMode() function to the SPI peripheral driver
+  *   - Added new SPI_GetCurrentMode() function to the SPI peripheral driver
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo

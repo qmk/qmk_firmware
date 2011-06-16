@@ -350,13 +350,15 @@ void TMC_Task(void)
 				break;
 			case TMC_MESSAGEID_DEV_DEP_MSG_IN:
 				Endpoint_ClearOUT();
+				
+				char MessageData[] = "TMC Class Test";
 
-				MessageHeader.TransferSize = 3;
+				MessageHeader.TransferSize = strlen(MessageData);
 				MessageHeader.MessageIDSpecific.DeviceOUT.LastMessageTransaction = true;
 				WriteTMCHeader(&MessageHeader);
 
 				BytesTransferred = 0;
-				while (Endpoint_Write_Stream_LE("TMC", MessageHeader.TransferSize, &BytesTransferred) ==
+				while (Endpoint_Write_Stream_LE(MessageData, MessageHeader.TransferSize, &BytesTransferred) ==
 				       ENDPOINT_RWSTREAM_IncompleteTransfer)
 				{
 					if (IsTMCBulkINReset)
@@ -388,6 +390,7 @@ void TMC_Task(void)
 bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 {
 	uint16_t BytesTransferred;
+	uint8_t  ErrorCode;
 
 	/* Select the Data Out endpoint */
 	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
@@ -398,7 +401,7 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	
 	/* Read in the header of the command from the host */
 	BytesTransferred = 0;
-	while (Endpoint_Read_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred) ==
+	while ((ErrorCode = Endpoint_Read_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred)) ==
 	       ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
 		if (IsTMCBulkOUTReset)
@@ -409,12 +412,13 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	CurrentTransferTag = MessageHeader->Tag;
 	
 	/* Indicate if the command has been aborted or not */
-	return !(IsTMCBulkOUTReset);
+	return (!(IsTMCBulkOUTReset) && (ErrorCode == ENDPOINT_RWSTREAM_NoError));
 }
 
 bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 {
 	uint16_t BytesTransferred;
+	uint8_t  ErrorCode;
 
 	/* Set the message tag of the command header */
 	MessageHeader->Tag        =  CurrentTransferTag;
@@ -425,7 +429,7 @@ bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 
 	/* Send the command header to the host */
 	BytesTransferred = 0;
-	while (Endpoint_Write_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred) ==
+	while ((ErrorCode = Endpoint_Write_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred)) ==
 	       ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
 		if (IsTMCBulkINReset)
@@ -433,5 +437,5 @@ bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	}
 
 	/* Indicate if the command has been aborted or not */
-	return !(IsTMCBulkINReset);
+	return (!(IsTMCBulkINReset) && (ErrorCode == ENDPOINT_RWSTREAM_NoError));
 }
