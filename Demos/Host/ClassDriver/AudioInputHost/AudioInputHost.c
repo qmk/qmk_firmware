@@ -106,9 +106,9 @@ int main(void)
 				}
 			
 				USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
-				if (Audio_GetSetEndpointProperty(&Microphone_Audio_Interface, Microphone_Audio_Interface.Config.DataINPipeNumber,
-				                                 AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,
-				                                 sizeof(SampleRate), &SampleRate) != HOST_SENDCONTROL_Successful)
+				if (Audio_Host_GetSetEndpointProperty(&Microphone_Audio_Interface, Microphone_Audio_Interface.Config.DataINPipeNumber,
+				                                      AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,
+				                                      sizeof(SampleRate), &SampleRate) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Audio Sampling Frequency.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

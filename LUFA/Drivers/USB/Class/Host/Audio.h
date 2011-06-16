@@ -161,12 +161,12 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */			
-			uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                     const uint8_t DataPipeIndex,
-			                                     const uint8_t EndpointProperty,
-			                                     const uint8_t EndpointControl,
-			                                     const uint16_t DataLength,
-			                                     void* const Data);
+			uint8_t Audio_Host_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			                                          const uint8_t DataPipeIndex,
+			                                          const uint8_t EndpointProperty,
+			                                          const uint8_t EndpointControl,
+			                                          const uint16_t DataLength,
+			                                          void* const Data);
 
 		/* Inline Functions: */
 			/** General management task for a given Audio host class interface, required for the correct operation of

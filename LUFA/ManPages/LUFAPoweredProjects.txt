@@ -43,6 +43,7 @@
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
+ *  - CULFW, a 868MHz RF packet encoder/decoder: http://www.koeniglich.de/culfw/culfw.html
  *  - DIY PS3 controller emulator: https://code.google.com/p/diyps3controller/
  *  - EMuSer, a USB-RS422 adapter for E-Mu samplers: http://www.emxp.net/EMuSer.htm
  *  - Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/

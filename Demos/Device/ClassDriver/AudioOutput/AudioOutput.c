@@ -225,12 +225,12 @@ void EVENT_USB_Device_ControlRequest(void)
  *
  *  \return Boolean true if the property get/set was successful, false otherwise
  */
-bool CALLBACK_Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
-                                           const uint8_t EndpointProperty,
-                                           const uint8_t EndpointAddress,
-                                           const uint8_t EndpointControl,
-                                           uint16_t* const DataLength,
-                                           uint8_t* Data)
+bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
+                                                  const uint8_t EndpointProperty,
+                                                  const uint8_t EndpointAddress,
+                                                  const uint8_t EndpointControl,
+                                                  uint16_t* const DataLength,
+                                                  uint8_t* Data)
 {
 	/* Check the requested endpoint to see if a supported endpoint is being manipulated */
 	if (EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_OUT | Speaker_Audio_Interface.Config.DataOUTEndpointNumber))

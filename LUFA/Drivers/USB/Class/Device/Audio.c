@@ -70,7 +70,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 				Endpoint_ClearStatusStage();
 
 				AudioInterfaceInfo->State.InterfaceEnabled = ((USB_ControlRequest.wValue & 0xFF) != 0);
-				EVENT_Audio_StreamStartStopChange(AudioInterfaceInfo);
+				EVENT_Audio_Device_StreamStartStop(AudioInterfaceInfo);
 			}
 
 			break;
@@ -93,7 +93,8 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 				uint8_t EndpointAddress  = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl  = (USB_ControlRequest.wValue >> 8);
 			
-				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress, EndpointControl, NULL, NULL))
+				if (CALLBACK_Audio_Device_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress,
+				                                                 EndpointControl, NULL, NULL))
 				{
 					uint16_t ValueLength = USB_ControlRequest.wLength;
 					uint8_t  Value[ValueLength];
@@ -102,7 +103,8 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 					Endpoint_Read_Control_Stream_LE(Value, ValueLength);
 					Endpoint_ClearIN();					
 
-					CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress, EndpointControl, &ValueLength, Value);
+					CALLBACK_Audio_Device_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress,
+					                                             EndpointControl, &ValueLength, Value);
 				}				
 			}
 
@@ -119,7 +121,8 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 				uint16_t ValueLength      = USB_ControlRequest.wLength;
 				uint8_t  Value[ValueLength];
 
-				if (CALLBACK_Audio_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress, EndpointControl, &ValueLength, Value))
+				if (CALLBACK_Audio_Device_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress,
+				                                                 EndpointControl, &ValueLength, Value))
 				{
 					Endpoint_ClearSETUP();
 					Endpoint_Write_Control_Stream_LE(Value, ValueLength);

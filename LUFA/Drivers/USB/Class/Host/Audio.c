@@ -208,12 +208,12 @@ uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInt
 	                                       EnableStreaming ? AudioInterfaceInfo->State.EnabledStreamingAltIndex : 0);
 }
 
-uint8_t Audio_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                         const uint8_t DataPipeIndex,
-			                         const uint8_t EndpointProperty,
-			                         const uint8_t EndpointControl,
-			                         const uint16_t DataLength,
-			                         void* const Data)
+uint8_t Audio_Host_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			                              const uint8_t DataPipeIndex,
+			                              const uint8_t EndpointProperty,
+			                              const uint8_t EndpointControl,
+			                              const uint16_t DataLength,
+			                              void* const Data)
 {
 	if (!(AudioInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
