@@ -23,7 +23,6 @@
   *      -# Add a LUFA_YIELD macro for integration into a third-party RTOS
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
   *      -# Consider switch from endpoint numbers to full endpoint addresses to ease future architecture expansion
-  *      -# Add architecture sanity guards to arch-specific files so that entire tree can be built from an IDE
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
@@ -31,6 +30,7 @@
   *  - Demos/Projects
   *      -# Device/Host USB bridge
   *      -# Finish incomplete demos and projects
+  *      -# HID Report Parser Dumper Project
   *      -# Add class driver support for Test and Measurement class
   *      -# Add class driver support for EEM class
   *      -# Add class driver support for ECM class

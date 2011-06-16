@@ -15,6 +15,7 @@
   *   - Added Audio class control request definitions
   *   - Added new CALLBACK_Audio_Device_GetSetEndpointProperty() callback to the Audio Device Class driver to allow for endpoint control manipulations
   *     such as data sample rates
+  *   - Added support for the Audio class GET STATUS request in the Audio Device Class driver so that it is correctly ACKed when sent by the host
   *   - Added new EVENT_Audio_Device_StreamStartStop() event to the Audio Device Class driver to detect stream start/stop events
   *   - Added board driver support for the Busware TUL board
   *   - Added new Host mode Audio Class driver
@@ -30,14 +31,13 @@
   *
   *  <b>Changed:</b>
   *  - Core:
-  *   - Added support for the Audio class GET STATUS request so that it is correctly ACKed when sent by the host
   *   - Altered the definition of the USB_Audio_Descriptor_Format_t descriptor so that the user is now responsible for supplying
   *     the supported audio sampling rates, to allow for multiple audio interfaces with different numbers of supported rates and/or
   *     continuous sample rates
   *   - Pipe_BoundEndpointNumber() has been renamed to Pipe_GetBoundEndpointAddress(), and now returns the correct endpoint direction
   *     as part of the endpoint address
   *  - Library Applications:
-  *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple sample rates
+  *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple audio sample rates
   *
   *  <b>Fixed:</b>
   *  - Core:
