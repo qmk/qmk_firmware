@@ -56,7 +56,7 @@
  *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
- *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10))
+ *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10) == TWI_ERROR_NoError)
  *      {
  *          TWI_SendByte(0xDC);
  *
@@ -69,12 +69,12 @@
  *      }
  *
  *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
- *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10))
+ *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10) == TWI_ERROR_NoError)
  *      {
  *          TWI_SendByte(0xDC);
  *          TWI_StopTransmission();
  *
- *          if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_READ, 10))
+ *          if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_READ, 10) == TWI_ERROR_NoError)
  *          {
  *              uint8_t Byte1, Byte2, Byte3;
  *
@@ -276,7 +276,7 @@
 			uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
 			                       const uint8_t TimeoutMS,
 			                       const uint8_t* InternalAddress,
-			                       uint8_t InternalAddressLen,
+			                       const uint8_t InternalAddressLen,
 			                       uint8_t* Buffer,
 			                       uint8_t Length);
 
