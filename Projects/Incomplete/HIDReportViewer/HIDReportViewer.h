@@ -43,6 +43,7 @@
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
 		#include <stdio.h>
+		#include <inttypes.h>
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>

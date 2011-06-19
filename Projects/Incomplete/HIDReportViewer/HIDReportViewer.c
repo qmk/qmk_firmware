@@ -117,7 +117,7 @@ int main(void)
 			case HOST_STATE_Configured:
 				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 				
-				printf_P(PSTR("\r\n\r\nTotal Reports: %d\r\n"), HIDReportInfo.TotalDeviceReports);
+				printf_P(PSTR("\r\n\r\nTotal Reports: %" PRId8 "\r\n"), HIDReportInfo.TotalDeviceReports);
 				for (uint8_t ReportIndex = 0; ReportIndex < HIDReportInfo.TotalDeviceReports; ReportIndex++)
 				{
 					HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[ReportIndex];
@@ -127,7 +127,7 @@ int main(void)
 					uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
 
 					/* Print out the byte sizes of each report within the device */
-					printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
+					printf_P(PSTR("  + Report ID %" PRId8 " - In: %" PRId8 " bytes, Out: %" PRId8 " bytes, Feature: %" PRId8 " bytes\r\n"),
 					         CurrReportIDInfo->ReportID,
 							 ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
 							 ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
@@ -137,22 +137,22 @@ int main(void)
 				printf_P(PSTR("\r\n\r\nReport Items: %d\r\n"), HIDReportInfo.TotalDeviceReports);
 				for (uint8_t ItemIndex = 0; ItemIndex < HIDReportInfo.TotalReportItems; ItemIndex++)
 				{
-					HID_ReportItem_t* RItem = &HIDReportInfo.ReportItems[ItemIndex];
+					const HID_ReportItem_t* RItem = &HIDReportInfo.ReportItems[ItemIndex];
 
-					printf_P(PSTR("  + Item %d:\r\n"
-					              "    - Report ID:          0x%02X\r\n"
+					printf_P(PSTR("  + Item %" PRId8 ":\r\n"
+					              "    - Report ID:          0x%02" PRIX8  "\r\n"
 					              "    - Data Direction:     %s\r\n"
-					              "    - Item Flags:         0x%02X\r\n"
-					              "    - Item Offset (Bits): 0x%02X\r\n"
-					              "    - Item Size (Bits):   0x%02X\r\n"
-					              "    - Usage Page:         0x%04X\r\n"
-					              "    - Usage:              0x%04X\r\n"
-					              "    - Unit Type:          0x%04X\r\n"
-					              "    - Unit Exponent:      0x%02X\r\n"
-					              "    - Logical Minimum:    0x%04X\r\n"
-					              "    - Logical Maximum:    0x%04X\r\n"
-					              "    - Physical Minimum:   0x%04X\r\n"
-					              "    - Physical Maximum:   0x%04X\r\n"
+					              "    - Item Flags:         0x%02" PRIX8  "\r\n"
+					              "    - Item Offset (Bits): 0x%02" PRIX8  "\r\n"
+					              "    - Item Size (Bits):   0x%02" PRIX8  "\r\n"
+					              "    - Usage Page:         0x%04" PRIX32 "\r\n"
+					              "    - Usage:              0x%04" PRIX32 "\r\n"
+					              "    - Unit Type:          0x%04" PRIX32 "\r\n"
+					              "    - Unit Exponent:      0x%02" PRIX8  "\r\n"
+					              "    - Logical Minimum:    0x%04" PRIX32 "\r\n"
+					              "    - Logical Maximum:    0x%04" PRIX32 "\r\n"
+					              "    - Physical Minimum:   0x%04" PRIX32 "\r\n"
+					              "    - Physical Maximum:   0x%04" PRIX32 "\r\n"
 					              "    - Collection Path:\r\n"),
 					         ItemIndex,
 					         RItem->ReportID,
@@ -169,20 +169,20 @@ int main(void)
 					         RItem->Attributes.Physical.Minimum,
 					         RItem->Attributes.Physical.Maximum);
 					
-					HID_CollectionPath_t* CollectionPath  = RItem->CollectionPath;
-					uint8_t               CollectionDepth = 6;
+					const HID_CollectionPath_t* CollectionPath  = RItem->CollectionPath;
+					uint8_t                     CollectionDepth = 6;
 					
 					while (CollectionPath != NULL)
 					{
 						for (uint8_t i = 0; i < CollectionDepth; i++)
 						  putchar(' ');
 
-						printf_P(PSTR("- Type: 0x%02X\r\n"), CollectionPath->Type);
+						printf_P(PSTR("- Type: 0x%02" PRIX8 "\r\n"), CollectionPath->Type);
 					
 						for (uint8_t i = 0; i < CollectionDepth; i++)
 						  putchar(' ');
 
-						printf_P(PSTR("- Usage: 0x%02X\r\n"), CollectionPath->Usage);
+						printf_P(PSTR("- Usage: 0x%02" PRIX8 "\r\n"), CollectionPath->Usage);
 
 						CollectionDepth += 3;
 						CollectionPath   = CollectionPath->Parent;
