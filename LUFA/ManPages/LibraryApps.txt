@@ -107,6 +107,7 @@
  *  - <b>Projects</b>
  *    - <b>AVRISP-MKII</b> - AVRISP-MKII Programmer Clone project
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
+ *    - <b>HIDReportViewer</b> - HID Device Report Viewer project
  *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
  *    - <b>MediaController</b> - Media Playback Controller project

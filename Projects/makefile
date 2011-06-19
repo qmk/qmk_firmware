@@ -20,6 +20,9 @@ all:
 	$(MAKE) -C Benito clean
 	$(MAKE) -C Benito all
 
+	$(MAKE) -C HIDReportViewer clean
+	$(MAKE) -C HIDReportViewer all
+
 	$(MAKE) -C LEDNotifier clean
 	$(MAKE) -C LEDNotifier all
 
@@ -53,6 +56,7 @@ all:
 %:
 	$(MAKE) -C AVRISP-MKII $@
 	$(MAKE) -C Benito $@
+	$(MAKE) -C HIDReportViewer $@	
 	$(MAKE) -C LEDNotifier $@
 	$(MAKE) -C Magstripe $@
 	$(MAKE) -C MediaController $@
