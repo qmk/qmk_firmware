@@ -143,26 +143,32 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioIn
 		uint16_t Size;
 		uint8_t  Type;
 		uint8_t  Direction;
+		bool     DoubleBanked;
 
 		if (EndpointNum == AudioInterfaceInfo->Config.DataINEndpointNumber)
 		{
 			Size         = AudioInterfaceInfo->Config.DataINEndpointSize;
 			Direction    = ENDPOINT_DIR_IN;
 			Type         = EP_TYPE_ISOCHRONOUS;
+			DoubleBanked = true;
 		}
 		else if (EndpointNum == AudioInterfaceInfo->Config.DataOUTEndpointNumber)
 		{
 			Size         = AudioInterfaceInfo->Config.DataOUTEndpointSize;
 			Direction    = ENDPOINT_DIR_OUT;
 			Type         = EP_TYPE_ISOCHRONOUS;
+			DoubleBanked = true;
 		}
 		else
 		{
 			continue;
 		}
 
-		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size, ENDPOINT_BANK_DOUBLE)))
-		  return false;
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
+		                                 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		{
+			return false;
+		}
 	}
 
 	return true;
