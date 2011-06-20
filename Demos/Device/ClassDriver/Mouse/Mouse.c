@@ -67,7 +67,7 @@ int main(void)
 	SetupHardware();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{
@@ -79,13 +79,35 @@ int main(void)
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
-	/* Disable watchdog if enabled by bootloader/fuses */
-	MCUSR &= ~(1 << WDRF);
-	wdt_disable();
+	#if (ARCH == ARCH_AVR8)
+		/* Disable watchdog if enabled by bootloader/fuses */
+		MCUSR &= ~(1 << WDRF);
+		wdt_disable();
 
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
+		/* Disable clock division */
+		clock_prescale_set(clock_div_1);
+	#elif (ARCH == ARCH_UC3)
+		/* Initialize interrupt subsystem */
+		INTC_Init();
+		INTC_RegisterGroupHandler(AVR32_USBB_IRQ, AVR32_INTC_INT0, USB_GEN_vect);
 
+		/* Select slow startup, external high frequency crystal attached to OSC0 */
+		AVR32_PM.OSCCTRL0.startup = 6;
+		AVR32_PM.OSCCTRL0.mode    = 7;
+		AVR32_PM.MCCTRL.osc0en    = true;
+		while (!(AVR32_PM.POSCSR.osc0rdy));
+
+		/* Switch CPU core to use OSC0 as the system clock */
+		AVR32_PM.MCCTRL.mcsel     = 1;
+
+		/* Start PLL1 to feed into the USB generic clock module */
+		AVR32_PM.PLL[1].pllmul    = (F_USB / F_CPU) ? (((F_USB / F_CPU) - 1) / 2) : 0;
+		AVR32_PM.PLL[1].plldiv    = 0;
+		AVR32_PM.PLL[1].pllosc    = 0;	
+		AVR32_PM.PLL[1].pllen     = true;
+		while (!(AVR32_PM.POSCSR.lock1));	
+	#endif
+	
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
@@ -147,8 +169,8 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 {
 	USB_MouseReport_Data_t* MouseReport = (USB_MouseReport_Data_t*)ReportData;
 
-	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
-	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
+	uint_reg_t JoyStatus_LCL    = Joystick_GetStatus();
+	uint_reg_t ButtonStatus_LCL = Buttons_GetStatus();
 
 	if (JoyStatus_LCL & JOY_UP)
 	  MouseReport->Y = -1;

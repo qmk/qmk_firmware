@@ -72,13 +72,13 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
-	.VendorID               = 0x03EB,
-	.ProductID              = 0x2041,
-	.ReleaseNumber          = VERSION_BCD(00.01),
+	.VendorID               = CPU_TO_LE16(0x03EB),
+	.ProductID              = CPU_TO_LE16(0x2041),
+	.ReleaseNumber          = VERSION_BCD(00.02),
 
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
-	.SerialNumStrIndex      = NO_DESCRIPTOR,
+	.SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
@@ -94,7 +94,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
+			.TotalConfigurationSize = CPU_TO_LE16(sizeof(USB_Descriptor_Configuration_t)),
 			.TotalInterfaces        = 1,
 
 			.ConfigurationNumber    = 1,
@@ -129,7 +129,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
 			.HIDReportType          = HID_DTYPE_Report,
-			.HIDReportLength        = sizeof(MouseReport)
+			.HIDReportLength        = CPU_TO_LE16(sizeof(MouseReport))
 		},
 
 	.HID_ReportINEndpoint =
@@ -138,7 +138,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | MOUSE_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-			.EndpointSize           = MOUSE_EPSIZE,
+			.EndpointSize           = CPU_TO_LE16(MOUSE_EPSIZE),
 			.PollingIntervalMS      = 0x01
 		}
 };
@@ -162,7 +162,17 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
-	.UnicodeString          = L"Dean Camera"
+	.UnicodeString          = {CPU_TO_LE16('D'),
+	                           CPU_TO_LE16('e'),
+	                           CPU_TO_LE16('a'),
+	                           CPU_TO_LE16('n'),
+	                           CPU_TO_LE16(' '),
+	                           CPU_TO_LE16('C'),
+	                           CPU_TO_LE16('a'),
+	                           CPU_TO_LE16('m'),
+	                           CPU_TO_LE16('e'),
+	                           CPU_TO_LE16('r'),
+	                           CPU_TO_LE16('a')}
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -173,7 +183,21 @@ const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(15), .Type = DTYPE_String},
 
-	.UnicodeString          = L"LUFA Mouse Demo"
+	.UnicodeString          = {CPU_TO_LE16('L'),
+	                           CPU_TO_LE16('U'),
+	                           CPU_TO_LE16('F'),
+	                           CPU_TO_LE16('A'),
+	                           CPU_TO_LE16(' '),
+	                           CPU_TO_LE16('M'),
+	                           CPU_TO_LE16('o'),
+	                           CPU_TO_LE16('u'),
+	                           CPU_TO_LE16('s'),
+	                           CPU_TO_LE16('e'),
+	                           CPU_TO_LE16(' '),
+	                           CPU_TO_LE16('D'),
+	                           CPU_TO_LE16('e'),
+	                           CPU_TO_LE16('m'),
+	                           CPU_TO_LE16('o')}
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -207,15 +231,15 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			{
 				case 0x00:
 					Address = &LanguageString;
-					Size    = pgm_read_byte(&LanguageString.Header.Size);
+					Size    = LanguageString.Header.Size;
 					break;
 				case 0x01:
 					Address = &ManufacturerString;
-					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
+					Size    = ManufacturerString.Header.Size;
 					break;
 				case 0x02:
 					Address = &ProductString;
-					Size    = pgm_read_byte(&ProductString.Header.Size);
+					Size    = ProductString.Header.Size;
 					break;
 			}
 

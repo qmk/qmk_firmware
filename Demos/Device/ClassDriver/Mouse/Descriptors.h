@@ -37,10 +37,13 @@
 #define _DESCRIPTORS_H_
 
 	/* Includes: */
+		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
-		#include <avr/pgmspace.h>
-
+		#if (ARCH == ARCH_AVR8)
+			#include <avr/pgmspace.h>
+		#endif
+		
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -52,7 +55,7 @@
 			USB_Descriptor_Interface_t            HID_Interface;
 			USB_HID_Descriptor_HID_t              HID_MouseHID;
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
-		} USB_Descriptor_Configuration_t;
+		} ATTR_PACKED USB_Descriptor_Configuration_t;
 
 	/* Macros: */
 		/** Endpoint number of the Mouse HID reporting IN endpoint. */
