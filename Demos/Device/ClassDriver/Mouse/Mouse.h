@@ -37,27 +37,21 @@
 #define _MOUSE_H_
 
 	/* Includes: */
-		#include <LUFA/Common/Common.h>
+		#include <avr/io.h>
+		#include <avr/wdt.h>
+		#include <avr/interrupt.h>
+		#include <avr/power.h>
+		#include <avr/interrupt.h>
+		#include <stdbool.h>
+		#include <string.h>
+
+		#include "Descriptors.h"
+
+		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
-
-		#if (ARCH == ARCH_AVR8)
-			#include <avr/io.h>
-			#include <avr/wdt.h>
-			#include <avr/interrupt.h>
-			#include <avr/power.h>
-			#include <avr/interrupt.h>
-			#include <stdbool.h>
-			#include <string.h>
-		#elif (ARCH == ARCH_UC3)
-			#include <LUFA/Platform/UC3/INTC.h>
-
-			#include <avr32/io.h>			
-		#endif
-
-		#include "Descriptors.h"
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
