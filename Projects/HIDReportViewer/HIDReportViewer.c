@@ -140,7 +140,7 @@ int main(void)
 							 ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 				}
 				
-				printf_P(PSTR("\r\n\r\nReport Items: %d\r\n"), HIDReportInfo.TotalDeviceReports);
+				puts_P(PSTR("\r\nReport Items:\r\n"));
 				for (uint8_t ItemIndex = 0; ItemIndex < HIDReportInfo.TotalReportItems; ItemIndex++)
 				{
 					const HID_ReportItem_t* RItem = &HIDReportInfo.ReportItems[ItemIndex];
