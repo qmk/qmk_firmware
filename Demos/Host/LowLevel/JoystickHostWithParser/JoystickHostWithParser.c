@@ -190,24 +190,6 @@ void Joystick_HID_Task(void)
 				break;
 			}
 
-			printf("Total Reports: %d\r\n", HIDReportInfo.TotalDeviceReports);
-
-			for (uint8_t i = 0; i < HIDReportInfo.TotalDeviceReports; i++)
-			{
-				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
-
-				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
-				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
-				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
-
-				/* Print out the byte sizes of each report within the device */
-				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
-				         CurrReportIDInfo->ReportID,
-				         ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
-				         ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
-				         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
-			}
-
 			puts_P(PSTR("Joystick Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
