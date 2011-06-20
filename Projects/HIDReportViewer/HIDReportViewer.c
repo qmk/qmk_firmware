@@ -123,7 +123,7 @@ int main(void)
 			case HOST_STATE_Configured:
 				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 				
-				printf_P(PSTR("\r\n\r\nTotal Reports: %" PRId8 "\r\n"), HIDReportInfo.TotalDeviceReports);
+				printf_P(PSTR("\r\n\r\nTotal Device Reports: %" PRId8 "\r\n"), HIDReportInfo.TotalDeviceReports);
 				for (uint8_t ReportIndex = 0; ReportIndex < HIDReportInfo.TotalDeviceReports; ReportIndex++)
 				{
 					HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[ReportIndex];
@@ -146,7 +146,7 @@ int main(void)
 					         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 				}
 				
-				puts_P(PSTR("\r\nReport Items:\r\n"));
+				printf_P(PSTR("\r\nReport Items (%" PRId8 " Stored in Table):\r\n"), HIDReportInfo.TotalReportItems);
 				for (uint8_t ItemIndex = 0; ItemIndex < HIDReportInfo.TotalReportItems; ItemIndex++)
 				{
 					const HID_ReportItem_t* RItem = &HIDReportInfo.ReportItems[ItemIndex];
@@ -182,22 +182,15 @@ int main(void)
 					         RItem->Attributes.Physical.Maximum);
 					
 					const HID_CollectionPath_t* CollectionPath  = RItem->CollectionPath;
-					uint8_t                     CollectionDepth = 6;
 					
 					while (CollectionPath != NULL)
 					{
-						for (uint8_t i = 0; i < CollectionDepth; i++)
-						  putchar(' ');
-
-						printf_P(PSTR("- Type:  0x%02" PRIX8 "\r\n"), CollectionPath->Type);
-					
-						for (uint8_t i = 0; i < CollectionDepth; i++)
-						  putchar(' ');
-
-						printf_P(PSTR("- Usage: 0x%02" PRIX8 "\r\n"), CollectionPath->Usage);
-
-						CollectionDepth += 3;
-						CollectionPath   = CollectionPath->Parent;
+						printf_P(PSTR("      |\r\n"
+						              "      - Type:  0x%02" PRIX8 "\r\n"
+						              "      - Usage: 0x%02" PRIX8 "\r\n"),
+						              CollectionPath->Type, CollectionPath->Usage);
+						
+						CollectionPath = CollectionPath->Parent;
 					}
 				}
 				
