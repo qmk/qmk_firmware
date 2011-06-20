@@ -693,6 +693,15 @@ doxygen:
 clean_doxygen:
 	rm -rf Documentation
 
+checksource:
+	@for f in $(SRC) $(CPPSRC) $(ASRC); do \
+		if [ -f $$f ]; then \
+			echo "Found Source File: $$f" ; \
+		else \
+			echo "Source File Not Found: $$f" ; \
+		fi; done 
+
+
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
 
@@ -704,5 +713,5 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff doxygen clean          \
-clean_list clean_doxygen program debug gdb-config
+clean_list clean_doxygen program debug gdb-config checksource
 

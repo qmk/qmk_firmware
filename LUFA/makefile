@@ -81,7 +81,9 @@ ifeq ($(origin LUFA_PATH), undefined)
 
    clean_doxygen:
 	rm -rf Documentation
-	
+
+   checksource:
+
    version:
 	@echo "LUFA `grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`"
 
