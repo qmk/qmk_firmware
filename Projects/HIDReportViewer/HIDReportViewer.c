@@ -151,14 +151,14 @@ int main(void)
 					              "    - Item Flags:         0x%02" PRIX8  "\r\n"
 					              "    - Item Offset (Bits): 0x%02" PRIX8  "\r\n"
 					              "    - Item Size (Bits):   0x%02" PRIX8  "\r\n"
-					              "    - Usage Page:         0x%04" PRIX32 "\r\n"
-					              "    - Usage:              0x%04" PRIX32 "\r\n"
-					              "    - Unit Type:          0x%04" PRIX32 "\r\n"
+					              "    - Usage Page:         0x%04" PRIX16 "\r\n"
+					              "    - Usage:              0x%04" PRIX16 "\r\n"
+					              "    - Unit Type:          0x%08" PRIX32 "\r\n"
 					              "    - Unit Exponent:      0x%02" PRIX8  "\r\n"
-					              "    - Logical Minimum:    0x%04" PRIX32 "\r\n"
-					              "    - Logical Maximum:    0x%04" PRIX32 "\r\n"
-					              "    - Physical Minimum:   0x%04" PRIX32 "\r\n"
-					              "    - Physical Maximum:   0x%04" PRIX32 "\r\n"
+					              "    - Logical Minimum:    0x%08" PRIX32 "\r\n"
+					              "    - Logical Maximum:    0x%08" PRIX32 "\r\n"
+					              "    - Physical Minimum:   0x%08" PRIX32 "\r\n"
+					              "    - Physical Maximum:   0x%08" PRIX32 "\r\n"
 					              "    - Collection Path:\r\n"),
 					         ItemIndex,
 					         RItem->ReportID,
@@ -183,7 +183,7 @@ int main(void)
 						for (uint8_t i = 0; i < CollectionDepth; i++)
 						  putchar(' ');
 
-						printf_P(PSTR("- Type: 0x%02" PRIX8 "\r\n"), CollectionPath->Type);
+						printf_P(PSTR("- Type:  0x%02" PRIX8 "\r\n"), CollectionPath->Type);
 					
 						for (uint8_t i = 0; i < CollectionDepth; i++)
 						  putchar(' ');

@@ -30,7 +30,6 @@
   *  - Demos/Projects
   *      -# Device/Host USB bridge
   *      -# Finish incomplete demos and projects
-  *      -# HID Report Parser Dumper Project
   *      -# Add class driver support for Test and Measurement class
   *      -# Add class driver support for EEM class
   *      -# Add class driver support for ECM class
