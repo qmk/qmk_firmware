@@ -8,7 +8,7 @@
  *  \mainpage
  *
  *  \image html LUFA.png
- *  <div align="center"><small><i>Logo design by <a href="http://ryophotography.wordpress.com">Ryo Photography</a></i></small></div>
+ *  <div align="center"><small><i>Logo design by <a href="http://www.studiomonsoon.com">Studio Monsoon Photography</a></i></small></div>
  *  \n
  *  <div align="center"><a href="http://www.lufa-lib.org">http://www.lufa-lib.org</a></div>
  *  \n

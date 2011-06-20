@@ -83,7 +83,7 @@
 			//@}
 			
 			#if (!defined(NO_INTERNAL_SERIAL) && \
-			     (defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR) || \
+			     (defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || \
 				  defined(__DOXYGEN__)))
 				/** String descriptor index for the device's unique serial number string descriptor within the device.
 				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port

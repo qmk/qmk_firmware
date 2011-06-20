@@ -168,7 +168,7 @@
 			 */
 			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   64
 
-			#if defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR) || defined(__DOXYGEN__)
+			#if defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || defined(__DOXYGEN__)
 				/** Total number of pipes (including the default control pipe at address 0) which may be used in
 				 *  the device.
 				 */

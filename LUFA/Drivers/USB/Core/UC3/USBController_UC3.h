@@ -298,7 +298,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */			
-			#if (defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR))
+			#if (defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32))
 				#define USB_CLOCK_REQUIRED_FREQ  12000000UL
 			#else
 				#define USB_CLOCK_REQUIRED_FREQ  48000000UL

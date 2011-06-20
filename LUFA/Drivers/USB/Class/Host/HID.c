@@ -112,7 +112,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 			DoubleBanked    = HIDInterfaceInfo->Config.DataINPipeDoubleBank;
 			InterruptPeriod = DataINEndpoint->PollingIntervalMS;
 
-			HIDInterfaceInfo->State.DataINPipeSize   = DataINEndpoint->EndpointSize;
+			HIDInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == HIDInterfaceInfo->Config.DataOUTPipeNumber)
 		{
@@ -148,7 +148,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	HIDInterfaceInfo->State.HIDReportSize        = HIDDescriptor->HIDReportLength;
 	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_CSCP_NonBootProtocol);
 	HIDInterfaceInfo->State.LargestReportSize    = 8;
-	HIDInterfaceInfo->State.IsActive = true;
+	HIDInterfaceInfo->State.IsActive             = true;
 
 	return HID_ENUMERROR_NoError;
 }
