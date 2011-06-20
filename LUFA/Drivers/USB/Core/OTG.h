@@ -54,6 +54,11 @@
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"		
 		
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
@@ -62,6 +67,11 @@
 	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/OTG_AVR8.h"
+		#endif
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
 		#endif
 
 #endif

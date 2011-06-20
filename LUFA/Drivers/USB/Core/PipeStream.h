@@ -88,6 +88,11 @@
 		#elif (ARCH == ARCH_UC3)
 			#include "UC3/PipeStream_UC3.h"
 		#endif
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 	
 #endif
 

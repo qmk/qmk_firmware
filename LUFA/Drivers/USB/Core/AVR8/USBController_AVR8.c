@@ -191,7 +191,21 @@ static void USB_Init_Device(void)
 
 	#if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
 	USB_Descriptor_Device_t* DeviceDescriptorPtr;
+	
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
+	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
+	uint8_t DescriptorAddressSpace;
 
+	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr, &DescriptorAddressSpace) != NO_DESCRIPTOR)
+	{
+		if (DescriptorAddressSpace == MEMSPACE_FLASH)
+		  USB_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+		else if (DescriptorAddressSpace == MEMSPACE_EEPROM)
+		  USB_ControlEndpointSize = eeprom_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+		else
+		  USB_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
+	}
+	#else
 	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr) != NO_DESCRIPTOR)
 	{
 		#if defined(USE_RAM_DESCRIPTORS)
@@ -201,7 +215,8 @@ static void USB_Init_Device(void)
 		#else
 		USB_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
 		#endif
-	}
+	}	
+	#endif
 	#endif
 
 	#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))

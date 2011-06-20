@@ -256,7 +256,7 @@
 			 */
 			uint8_t USB_GetNextDescriptorComp(uint16_t* const BytesRem,
 			                                  void** const CurrConfigLoc,
-			                                  const ConfigComparatorPtr_t const ComparatorRoutine);
+			                                  ConfigComparatorPtr_t const ComparatorRoutine);
 
 		/* Inline Functions: */
 			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then

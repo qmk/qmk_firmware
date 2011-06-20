@@ -54,6 +54,11 @@
 		#include "../../Core/StdDescriptors.h"
 		#include "HIDParser.h"
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_HID_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
@@ -633,6 +638,11 @@
 
 		/** Type define for the data type used to store HID report descriptor elements. */
 		typedef uint8_t USB_Descriptor_HIDReport_Datatype_t;
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 

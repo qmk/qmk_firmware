@@ -75,6 +75,11 @@
 		#include "Attributes.h"
 		#include "BoardTypes.h"
 		
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Architecture specific utility includes: */
 		#if defined(__DOXYGEN__)
 			/** Type define for an unsigned integer the same width as the selected architecture's machine register.
@@ -393,6 +398,11 @@
 
 				GCC_MEMORY_BARRIER();
 			}
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 

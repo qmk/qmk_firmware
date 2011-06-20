@@ -56,6 +56,11 @@
 #ifndef __LUFA_ENDIANNESS_H__
 #define __LUFA_ENDIANNESS_H__
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_COMMON_H)
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
@@ -460,6 +465,11 @@
 					Length -= 2;
 				}
 			}
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 

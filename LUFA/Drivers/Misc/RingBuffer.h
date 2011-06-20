@@ -96,6 +96,11 @@
 	/* Includes: */
 		#include "../../Common/Common.h"
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Type Defines: */
 		/** \brief Ring Buffer Management Structure.
 		 *
@@ -260,6 +265,11 @@
 		{
 			return *Buffer->Out;
 		}
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 

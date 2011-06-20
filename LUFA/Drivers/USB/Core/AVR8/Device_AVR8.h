@@ -54,6 +54,11 @@
 		#include "../USBInterrupt.h"
 		#include "../Endpoint.h"
 		
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
@@ -233,6 +238,11 @@
 			#endif
 
 	#endif
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 

@@ -55,6 +55,11 @@
 #ifndef __USBMODE_H__
 #define __USBMODE_H__
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
@@ -201,6 +206,11 @@
 				#error The currently selected device or architecture is not supported under the USB component of the library.
 			#endif
 	#endif
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
 
