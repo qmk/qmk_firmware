@@ -133,11 +133,17 @@ int main(void)
 					uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
 
 					/* Print out the byte sizes of each report within the device */
-					printf_P(PSTR("  + Report ID %" PRId8 " - In: %" PRId8 " bytes, Out: %" PRId8 " bytes, Feature: %" PRId8 " bytes\r\n"),
+					printf_P(PSTR("  + Report ID 0x%02" PRIX8 "\r\n"
+					              "    - Input Data:   %" PRId8 " bits (%" PRId8 " bytes)\r\n"
+					              "    - Output Data:  %" PRId8 " bits (%" PRId8 " bytes)\r\n"
+					              "    - Feature Data: %" PRId8 " bits (%" PRId8 " bytes)\r\n"),
 					         CurrReportIDInfo->ReportID,
-							 ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
-							 ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
-							 ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
+					         ReportSizeInBits,
+					         ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
+					         ReportSizeOutBits,
+					         ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
+					         ReportSizeFeatureBits,
+					         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 				}
 				
 				puts_P(PSTR("\r\nReport Items:\r\n"));
