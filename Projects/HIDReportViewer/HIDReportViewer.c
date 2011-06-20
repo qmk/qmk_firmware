@@ -123,76 +123,8 @@ int main(void)
 			case HOST_STATE_Configured:
 				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 				
-				printf_P(PSTR("\r\n\r\nTotal Device Reports: %" PRId8 "\r\n"), HIDReportInfo.TotalDeviceReports);
-				for (uint8_t ReportIndex = 0; ReportIndex < HIDReportInfo.TotalDeviceReports; ReportIndex++)
-				{
-					HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[ReportIndex];
-
-					uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
-					uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
-					uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
-
-					/* Print out the byte sizes of each report within the device */
-					printf_P(PSTR("  + Report ID 0x%02" PRIX8 "\r\n"
-					              "    - Input Data:   %" PRId8 " bits (%" PRId8 " bytes)\r\n"
-					              "    - Output Data:  %" PRId8 " bits (%" PRId8 " bytes)\r\n"
-					              "    - Feature Data: %" PRId8 " bits (%" PRId8 " bytes)\r\n"),
-					         CurrReportIDInfo->ReportID,
-					         ReportSizeInBits,
-					         ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
-					         ReportSizeOutBits,
-					         ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
-					         ReportSizeFeatureBits,
-					         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
-				}
-				
-				printf_P(PSTR("\r\nReport Items (%" PRId8 " Stored in Table):\r\n"), HIDReportInfo.TotalReportItems);
-				for (uint8_t ItemIndex = 0; ItemIndex < HIDReportInfo.TotalReportItems; ItemIndex++)
-				{
-					const HID_ReportItem_t* RItem = &HIDReportInfo.ReportItems[ItemIndex];
-
-					printf_P(PSTR("  + Item %" PRId8 ":\r\n"
-					              "    - Report ID:          0x%02" PRIX8  "\r\n"
-					              "    - Data Direction:     %s\r\n"
-					              "    - Item Flags:         0x%02" PRIX8  "\r\n"
-					              "    - Item Offset (Bits): 0x%02" PRIX8  "\r\n"
-					              "    - Item Size (Bits):   0x%02" PRIX8  "\r\n"
-					              "    - Usage Page:         0x%04" PRIX16 "\r\n"
-					              "    - Usage:              0x%04" PRIX16 "\r\n"
-					              "    - Unit Type:          0x%08" PRIX32 "\r\n"
-					              "    - Unit Exponent:      0x%02" PRIX8  "\r\n"
-					              "    - Logical Minimum:    0x%08" PRIX32 "\r\n"
-					              "    - Logical Maximum:    0x%08" PRIX32 "\r\n"
-					              "    - Physical Minimum:   0x%08" PRIX32 "\r\n"
-					              "    - Physical Maximum:   0x%08" PRIX32 "\r\n"
-					              "    - Collection Path:\r\n"),
-					         ItemIndex,
-					         RItem->ReportID,
-					         ((RItem->ItemType == HID_REPORT_ITEM_In) ? "IN" : ((RItem->ItemType == HID_REPORT_ITEM_Out) ? "OUT" : "FEATURE")),
-					         RItem->ItemFlags,
-					         RItem->BitOffset,
-					         RItem->Attributes.BitSize,
-					         RItem->Attributes.Usage.Page,
-					         RItem->Attributes.Usage.Usage,
-					         RItem->Attributes.Unit.Type,
-					         RItem->Attributes.Unit.Exponent,
-					         RItem->Attributes.Logical.Minimum,
-					         RItem->Attributes.Logical.Maximum,
-					         RItem->Attributes.Physical.Minimum,
-					         RItem->Attributes.Physical.Maximum);
-					
-					const HID_CollectionPath_t* CollectionPath  = RItem->CollectionPath;
-					
-					while (CollectionPath != NULL)
-					{
-						printf_P(PSTR("      |\r\n"
-						              "      - Type:  0x%02" PRIX8 "\r\n"
-						              "      - Usage: 0x%02" PRIX8 "\r\n"),
-						              CollectionPath->Type, CollectionPath->Usage);
-						
-						CollectionPath = CollectionPath->Parent;
-					}
-				}
+				OutputReportSizes();
+				OutputParsedReportItems();
 				
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
@@ -202,6 +134,104 @@ int main(void)
 		HID_Host_USBTask(&Device_HID_Interface);
 		USB_USBTask();
 	}
+}
+
+/** Prints a summary of the device's HID report sizes from the HID parser output to the serial port
+ *  for display to the user.
+ */
+void OutputReportSizes(void)
+{
+	printf_P(PSTR("\r\n\r\nTotal Device Reports: %" PRId8 "\r\n"), HIDReportInfo.TotalDeviceReports);
+
+	for (uint8_t ReportIndex = 0; ReportIndex < HIDReportInfo.TotalDeviceReports; ReportIndex++)
+	{
+		const HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[ReportIndex];
+
+		uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
+		uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
+		uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
+
+		/* Print out the byte sizes of each report within the device */
+		printf_P(PSTR("  + Report ID 0x%02" PRIX8 "\r\n"
+					  "    - Input Data:   %" PRId8 " bits (%" PRId8 " bytes)\r\n"
+					  "    - Output Data:  %" PRId8 " bits (%" PRId8 " bytes)\r\n"
+					  "    - Feature Data: %" PRId8 " bits (%" PRId8 " bytes)\r\n"),
+				 CurrReportIDInfo->ReportID,
+				 ReportSizeInBits,
+				 ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
+				 ReportSizeOutBits,
+				 ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
+				 ReportSizeFeatureBits,
+				 ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
+	}
+}
+
+/** Prints a summary of the device's parsed and stored report items along with their attributes
+ *  to the serial port for display to the user.
+ */
+void OutputParsedReportItems(void)
+{
+	printf_P(PSTR("\r\nReport Items (%" PRId8 " in Table):\r\n"), HIDReportInfo.TotalReportItems);
+
+	for (uint8_t ItemIndex = 0; ItemIndex < HIDReportInfo.TotalReportItems; ItemIndex++)
+	{
+		const HID_ReportItem_t* RItem = &HIDReportInfo.ReportItems[ItemIndex];
+
+		printf_P(PSTR("  + Item %" PRId8 ":\r\n"
+					  "    - Report ID:          0x%02" PRIX8  "\r\n"
+					  "    - Data Direction:     %s\r\n"
+					  "    - Item Flags:         0x%02" PRIX8  "\r\n"
+					  "    - Item Offset (Bits): 0x%02" PRIX8  "\r\n"
+					  "    - Item Size (Bits):   0x%02" PRIX8  "\r\n"
+					  "    - Usage Page:         0x%04" PRIX16 "\r\n"
+					  "    - Usage:              0x%04" PRIX16 "\r\n"
+					  "    - Unit Type:          0x%08" PRIX32 "\r\n"
+					  "    - Unit Exponent:      0x%02" PRIX8  "\r\n"
+					  "    - Logical Minimum:    0x%08" PRIX32 "\r\n"
+					  "    - Logical Maximum:    0x%08" PRIX32 "\r\n"
+					  "    - Physical Minimum:   0x%08" PRIX32 "\r\n"
+					  "    - Physical Maximum:   0x%08" PRIX32 "\r\n"
+					  "    - Collection Path:\r\n"),
+				 ItemIndex,
+				 RItem->ReportID,
+				 ((RItem->ItemType == HID_REPORT_ITEM_In) ? "IN" : ((RItem->ItemType == HID_REPORT_ITEM_Out) ? "OUT" : "FEATURE")),
+				 RItem->ItemFlags,
+				 RItem->BitOffset,
+				 RItem->Attributes.BitSize,
+				 RItem->Attributes.Usage.Page,
+				 RItem->Attributes.Usage.Usage,
+				 RItem->Attributes.Unit.Type,
+				 RItem->Attributes.Unit.Exponent,
+				 RItem->Attributes.Logical.Minimum,
+				 RItem->Attributes.Logical.Maximum,
+				 RItem->Attributes.Physical.Minimum,
+				 RItem->Attributes.Physical.Maximum);
+		
+		OutputCollectionPath(RItem->CollectionPath);
+	}
+}
+
+/** Prints the HID Collection path (along with each node's attributes) to the serial port
+ *  for display to the user, from the given starting node to the root node.
+ *
+ *  \param[in] CollectionPath  Starting HID Collection node to print
+ */
+void OutputCollectionPath(const HID_CollectionPath_t* const CollectionPath)
+{
+	const HID_CollectionPath_t* CurrentNode = CollectionPath;
+
+	while (CurrentNode != NULL)
+	{
+		printf_P(PSTR("      |\r\n"
+					  "      - Type:  0x%02" PRIX8 "\r\n"
+					  "      - Usage: 0x%02" PRIX8 "\r\n"),
+					  CurrentNode->Type, CurrentNode->Usage);
+		
+		CurrentNode = CurrentNode->Parent;
+	}
+	
+	printf_P(PSTR("      |\r\n"
+				  "      END\r\n"));
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */

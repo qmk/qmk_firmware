@@ -69,6 +69,9 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		void OutputReportSizes(void);
+		void OutputParsedReportItems(void);
+		void OutputCollectionPath(const HID_CollectionPath_t* const CollectionPath);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);
