@@ -129,6 +129,8 @@
 			#include "AVR8/TUL/Buttons.h"
 		#elif (BOARD == BOARD_EVK1100)
 			#include "UC3/EVK1100/Buttons.h"
+		#elif (BOARD == BOARD_EVK1104)
+			#include "UC3/EVK1104/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

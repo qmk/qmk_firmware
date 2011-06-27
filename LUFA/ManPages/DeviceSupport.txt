@@ -88,6 +88,7 @@
  *  Currently supported Atmel UC3 boards (see \ref Group_BoardTypes):
  *   - EVK1100
  *   - EVK1101
+ *   - EVK1104
  *
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
