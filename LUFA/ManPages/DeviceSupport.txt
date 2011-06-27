@@ -86,6 +86,7 @@
  *   - AT32UC3B1512 (USB Host and Device)
  *
  *  Currently supported Atmel UC3 boards (see \ref Group_BoardTypes):
+ *   - EVK1100
  *   - EVK1101
  *
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):

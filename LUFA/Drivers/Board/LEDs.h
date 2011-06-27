@@ -167,6 +167,8 @@
 		#include "UC3/EVK1101/LEDs.h"
 	#elif (BOARD == BOARD_TUL)
 		#include "AVR8/TUL/LEDs.h"	
+	#elif (BOARD == BOARD_EVK1100)
+		#include "UC3/EVK1100/LEDs.h"
 	#else
 		#include "Board/LEDs.h"
 	#endif

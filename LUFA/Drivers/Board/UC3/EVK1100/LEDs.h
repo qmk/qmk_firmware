@@ -29,24 +29,24 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Atmel EVK1101.
- *  \copydetails Group_LEDs_EVK1101
+ *  \brief Board specific LED driver header for the Atmel EVK1100.
+ *  \copydetails Group_LEDs_EVK1100
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  \defgroup Group_LEDs_EVK1101 EVK1101
- *  \brief Board specific LED driver header for the Atmel EVK1101.
+ *  \defgroup Group_LEDs_EVK1100 EVK1100
+ *  \brief Board specific LED driver header for the Atmel EVK1100.
  *
- *  Board specific LED driver header for the Atmel EVK1101.
+ *  Board specific LED driver header for the Atmel EVK1100.
  *
  *  @{
  */
 
-#ifndef __LEDS_EVK1101_H__
-#define __LEDS_EVK1101_H__
+#ifndef __LEDS_EVK1100_H__
+#define __LEDS_EVK1100_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -64,16 +64,16 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define LEDS_PORT        0
+			#define LEDS_PORT        1
 	#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1        (1UL << 7)
+			#define LEDS_LED1        (1UL << 19)
 
 			/** LED mask for the second LED on the board. */
-			#define LEDS_LED2        (1UL << 8)
+			#define LEDS_LED2        (1UL << 20)
 
 			/** LED mask for the third LED on the board. */
 			#define LEDS_LED3        (1UL << 21)
@@ -81,8 +81,21 @@
 			/** LED mask for the fourth LED on the board. */
 			#define LEDS_LED4        (1UL << 22)
 
+			/** LED mask for the fifth LED on the board. */
+			#define LEDS_LED5        (1UL << 27)
+
+			/** LED mask for the sixth LED on the board. */
+			#define LEDS_LED6        (1UL << 28)
+
+			/** LED mask for the seventh LED on the board. */
+			#define LEDS_LED7        (1UL << 29)
+
+			/** LED mask for the eighth LED on the board. */
+			#define LEDS_LED8        (1UL << 30)
+			
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4 \
+			                          LEDS_LED5 | LEDS_LED6 | LEDS_LED7 | LEDS_LED8)
 
 			/** LED mask for the none of the board LEDs */
 			#define LEDS_NO_LEDS     0

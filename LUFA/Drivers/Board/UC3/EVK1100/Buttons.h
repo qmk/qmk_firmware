@@ -29,24 +29,24 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the Atmel EVK1101.
- *  \copydetails Group_Buttons_EVK1101
+ *  \brief Board specific Buttons driver header for the Atmel EVK1100.
+ *  \copydetails Group_Buttons_EVK1100
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
 
 /** \ingroup Group_Buttons
- *  \defgroup Group_Buttons_EVK1101 EVK1101
- *  \brief Board specific Buttons driver header for the Atmel EVK1101.
+ *  \defgroup Group_Buttons_EVK1100 EVK1100
+ *  \brief Board specific Buttons driver header for the Atmel EVK1100.
  *
- *  Board specific Buttons driver header for the Atmel EVK1101.
+ *  Board specific Buttons driver header for the Atmel EVK1100.
  *
  *  @{
  */
  
-#ifndef __BUTTONS_EVK1101_H__
-#define __BUTTONS_EVK1101_H__
+#ifndef __BUTTONS_EVK1100_H__
+#define __BUTTONS_EVK1100_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -64,16 +64,19 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define BUTTONS_PORT          1
+			#define BUTTONS_PORT          2
 	#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask of the first button on the board */
-			#define BUTTONS_BUTTON1       (1UL << 2)
+			#define BUTTONS_BUTTON1       (1UL << 24)
 
 			/** Mask of the second button on the board */
-			#define BUTTONS_BUTTON2       (1UL << 3)
+			#define BUTTONS_BUTTON2       (1UL << 21)
+
+			/** Mask of the third button on the board */
+			#define BUTTONS_BUTTON3       (1UL << 18)
 
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)

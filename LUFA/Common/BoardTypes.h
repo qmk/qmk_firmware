@@ -149,6 +149,9 @@
 			
 			/** Selects the Busware TUL specific board drivers, including the Button and LED drivers. */
 			#define BOARD_TUL           28
+
+			/** Selects the Atmel EVK1100 specific board drivers, including the Button, Joystick and LED drivers. */
+			#define BOARD_EVK1100       29
 			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE

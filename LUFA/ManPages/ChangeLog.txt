@@ -20,6 +20,7 @@
   *   - Added board driver support for the Busware TUL board
   *   - Added new Host mode Audio Class driver
   *   - Added new SPI_GetCurrentMode() function to the SPI peripheral driver
+  *   - Added board hardware driver support for the EVK1100 board
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
