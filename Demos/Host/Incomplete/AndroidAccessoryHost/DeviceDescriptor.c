@@ -59,7 +59,8 @@ uint8_t ProcessDeviceDescriptor(void)
 	if (DeviceDescriptor.VendorID != ANDROID_VENDOR_ID)
 		return IncorrectAndroidDevice;
 
-	if ((DeviceDescriptor.ProductID != ANDROID_ACCESSORY_PRODUCT_ID) ||
+	/* Check the product ID to determine if the Android device is in accessory mode */
+	if ((DeviceDescriptor.ProductID != ANDROID_ACCESSORY_PRODUCT_ID) &&
 	    (DeviceDescriptor.ProductID != ANDROID_ACCESSORY_ADB_PRODUCT_ID))
 	{
 		return NonAccessoryModeAndroidDevice;

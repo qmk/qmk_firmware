@@ -23,6 +23,7 @@
   *      -# Add a LUFA_YIELD macro for integration into a third-party RTOS
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
   *      -# Consider switch from endpoint numbers to full endpoint addresses to ease future architecture expansion
+  *      -# Fix HID report parser usage support for array types
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

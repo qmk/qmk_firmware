@@ -191,6 +191,8 @@ void Android_Host_Task(void)
 				/* Send the control request for the Android device to switch to accessory mode */
 				Pipe_SelectPipe(PIPE_CONTROLPIPE);
 				USB_Host_SendControlRequest(NULL);
+				
+				puts_P(PSTR("Switching to Accessory Mode.\r\n"));
 			
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;

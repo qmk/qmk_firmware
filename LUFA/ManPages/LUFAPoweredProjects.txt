@@ -41,6 +41,8 @@
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - Bus Ninja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
+ *  - Collection of alternative Arduino Uno firmwares: http://hunt.net.nz/users/darran/
+ *  - Dashkey, a custom PC keyboard controller: http://geekhack.org/showwiki.php?title=Island:19096
  *  - CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
  *  - CULFW, a 868MHz RF packet encoder/decoder: http://www.koeniglich.de/culfw/culfw.html
@@ -80,6 +82,7 @@
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
+ *  - SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
  *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html

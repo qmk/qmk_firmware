@@ -29,6 +29,7 @@
   *   - Added new AudioOutputHost Host ClassDriver demo
   *   - Added new AudioInputHost Host LowLevel demo
   *   - Added new AudioOutputHost Host LowLevel demo
+  *   - Added new "checksource" target to all library project makefiles
   *
   *  <b>Changed:</b>
   *  - Core:
@@ -136,7 +137,7 @@
   *   - Fixed incorrect definition of the HID_KEYBOARD_SC_D constant in the HID class driver (thanks to Opendous Inc.)
   *   - Fixed incorrect definition of the HID_KEYBOARD_SC_RIGHT_ARROW constant in the HID class driver (thanks to Joby Taffey)
   *   - Fixed incorrect endpoint initialisation order in the several device demos (thanks to Rick Drolet)
-  *   - Fixed inverted Minimum board LEDs
+  *   - Fixed inverted Minimus board LEDs
   *   - Fixed incorrect byte ordering in the Audio_Device_WriteSample24 function (thanks to WZab)
   *   - Fixed several functions in the Host mode Still Image Class driver returning an error code from the incorrect
   *     error code enum (thanks to Daniel Seibert)
