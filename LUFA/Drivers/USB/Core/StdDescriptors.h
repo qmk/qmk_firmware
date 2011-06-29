@@ -93,6 +93,9 @@
 			 *  Decimal format for descriptor fields requiring BCD encoding, such as the USB version number in the
 			 *  standard device descriptor.
 			 *
+			 *  \note This value is automatically converted into Little Endian, suitable for direct use inside device
+			 *        descriptors on all architectures without endianness conversion macros.
+			 *
 			 *  \param[in]  x  Version number to encode as a 16-bit little-endian number, as a floating point number.
 			 */
 			#define VERSION_BCD(x)                    CPU_TO_LE16((((VERSION_TENS(x) << 4) | VERSION_ONES(x)) << 8) | \
@@ -101,7 +104,7 @@
 			/** String language ID for the English language. Should be used in \ref USB_Descriptor_String_t descriptors
 			 *  to indicate that the English language is supported by the device in its string descriptors.
 			 */
-			#define LANGUAGE_ID_ENG                   CPU_TO_LE16(0x0409)
+			#define LANGUAGE_ID_ENG                   0x0409
 
 			/** \name Endpoint Address Direction Masks */
 			//@{

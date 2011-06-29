@@ -137,7 +137,7 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 {
 	memset(&HIDInterfaceInfo->State, 0x00, sizeof(HIDInterfaceInfo->State));
 	HIDInterfaceInfo->State.UsingReportProtocol = true;
-	HIDInterfaceInfo->State.IdleCount = 500;
+	HIDInterfaceInfo->State.IdleCount           = 500;
 
 	if (!(Endpoint_ConfigureEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber, EP_TYPE_INTERRUPT,
 									 ENDPOINT_DIR_IN, HIDInterfaceInfo->Config.ReportINEndpointSize,

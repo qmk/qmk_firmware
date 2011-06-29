@@ -68,7 +68,7 @@ BOARD = ### INSERT NAME OF BOARD HERE, OR NONE IF NO BOARD DRIVERS USED ###
 F_CPU = ### INSERT PRESCALED SYSTEM CLOCK SPEED HERE, IN HZ ###
 
 
-# Input clock frequency.
+# USB controller master clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
 #     input clock frequency (before any prescaling is performed) in Hz. This value may
 #     differ from F_CPU, as the USB clock is often sourced from the same oscillator as
