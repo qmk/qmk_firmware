@@ -238,34 +238,32 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
 		/* Check the requested control to see if a supported control is being manipulated */
 		if (EndpointControl == AUDIO_EPCONTROL_SamplingFreq)
 		{
-			/* Check the requested property to see if a supported property is being manipulated */
-			if (EndpointProperty == AUDIO_REQ_SetCurrent)
+			switch (EndpointProperty)
 			{
-				/* Check if we are just testing for a valid property, or actually adjusting it */
-				if (DataLength != NULL)
-				{
-					/* Set the new sampling frequency to the value given by the host */
-					CurrentAudioSampleFrequency = (((uint32_t)Data[2] << 16) | ((uint32_t)Data[1] << 8) | (uint32_t)Data[0]);
+				case AUDIO_REQ_SetCurrent:
+					/* Check if we are just testing for a valid property, or actually adjusting it */
+					if (DataLength != NULL)
+					{
+						/* Set the new sampling frequency to the value given by the host */
+						CurrentAudioSampleFrequency = (((uint32_t)Data[2] << 16) | ((uint32_t)Data[1] << 8) | (uint32_t)Data[0]);
 
-					/* Adjust sample reload timer to the new frequency */
-					OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);				
-				}
-				
-				return true;
-			}
-			else if (EndpointProperty == AUDIO_REQ_GetCurrent)
-			{
-				/* Check if we are just testing for a valid property, or actually reading it */
-				if (DataLength != NULL)
-				{
-					*DataLength = 3;
+						/* Adjust sample reload timer to the new frequency */
+						OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);				
+					}
+					
+					return true;				
+				case AUDIO_REQ_GetCurrent:
+					/* Check if we are just testing for a valid property, or actually reading it */
+					if (DataLength != NULL)
+					{
+						*DataLength = 3;
 
-					Data[2] = (CurrentAudioSampleFrequency >> 16);
-					Data[1] = (CurrentAudioSampleFrequency >> 8);
-					Data[0] = (CurrentAudioSampleFrequency &  0xFF);					
-				}
-				
-				return true;
+						Data[2] = (CurrentAudioSampleFrequency >> 16);
+						Data[1] = (CurrentAudioSampleFrequency >> 8);
+						Data[0] = (CurrentAudioSampleFrequency &  0xFF);					
+					}
+					
+					return true;
 			}
 		}
 	}
