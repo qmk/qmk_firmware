@@ -139,9 +139,8 @@ void Android_Host_Task(void)
 			/* Get and process the configuration descriptor data */
 			ErrorCode = ProcessDeviceDescriptor();
 			
-			/* Save whether the Android device needs to be mode-switched later on */
 			bool RequiresModeSwitch = (ErrorCode == NonAccessoryModeAndroidDevice);
-			
+
 			/* Error out if the device is not an Android device or an error occurred */
 			if ((ErrorCode != AccessoryModeAndroidDevice) && !(RequiresModeSwitch))
 			{
@@ -179,20 +178,43 @@ void Android_Host_Task(void)
 			/* Check if a valid Android device was attached, but it is not current in Accessory mode */
 			if (RequiresModeSwitch)
 			{
-				USB_ControlRequest = (USB_Request_Header_t)
+				uint16_t AndroidProtocol;
+			
+				/* Fetch the version of the Android Accessory Protocol supported by the device */
+				if ((ErrorCode = Android_GetAccessoryProtocol(&AndroidProtocol)) != HOST_SENDCONTROL_Successful)
 				{
-					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR | REQREC_DEVICE),
-					.bRequest      = ANDROID_Req_StartAccessoryMode,
-					.wValue        = 0,
-					.wIndex        = 0,
-					.wLength       = 0,
-				};
+					printf_P(PSTR(ESC_FG_RED "Control Error (Get Protocol).\r\n"
+					                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
-				/* Send the control request for the Android device to switch to accessory mode */
-				Pipe_SelectPipe(PIPE_CONTROLPIPE);
-				USB_Host_SendControlRequest(NULL);
+					/* Indicate error via status LEDs */
+					LEDs_SetAllLEDs(LEDS_LED1);
+
+					/* Wait until USB device disconnected */
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
 				
-				puts_P(PSTR("Switching to Accessory Mode.\r\n"));
+				/* Validate the returned protocol version */
+				if (AndroidProtocol != ANDROID_PROTOCOL_Accessory)
+				{
+					puts_P(PSTR(ESC_FG_RED "Accessory Mode Not Supported."));
+
+					/* Indicate error via status LEDs */
+					LEDs_SetAllLEDs(LEDS_LED1);
+
+					/* Wait until USB device disconnected */
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+			
+				/* Send the device strings and start the Android Accessory Mode */
+				Android_SendString(ANDROID_STRING_Manufacturer, "Dean Camera");
+				Android_SendString(ANDROID_STRING_Model,        "LUFA Android Demo");
+				Android_SendString(ANDROID_STRING_Description,  "LUFA Android Demo");
+				Android_SendString(ANDROID_STRING_Version,      "1.0");
+				Android_SendString(ANDROID_STRING_URI,          "http://www.lufa-lib.org");
+				Android_SendString(ANDROID_STRING_Serial,       "0000000012345678");
+				Android_StartAccessoryMode();
 			
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;

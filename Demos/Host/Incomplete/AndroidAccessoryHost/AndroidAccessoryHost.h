@@ -46,6 +46,7 @@
 
 		#include "DeviceDescriptor.h"
 		#include "ConfigDescriptor.h"
+		#include "Lib/AndroidAccessoryCommands.h" 
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
@@ -69,17 +70,6 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
-	/* Enums: */
-		enum Android_Requests_t
-		{
-			ANDROID_Req_GetAccessoryProtocol    = 51,
-			ANDROID_Req_GetString               = 52,
-			ANDROID_Req_StartAccessoryMode      = 53,
-		};
-
-	/* Task Definitions: */
-		void Android_Host_Task(void);
-
 	/* Event Handlers: */
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);
@@ -89,6 +79,7 @@
 		                                            const uint8_t SubErrorCode);
 
 	/* Function Prototypes: */
+		void Android_Host_Task(void);
 		void SetupHardware(void);
 
 #endif

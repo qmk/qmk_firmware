@@ -71,9 +71,6 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
-	/* Task Definitions: */
-		void Bluetooth_Host_Task(void);
-
 	/* Event Handlers: */
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);
@@ -83,6 +80,7 @@
 		                                            const uint8_t SubErrorCode);
 
 	/* Function Prototypes: */
+		void Bluetooth_Host_Task(void);
 		void SetupHardware(void);
 
 #endif

@@ -132,6 +132,7 @@ include $(LUFA_PATH)/LUFA/makefile
 SRC = $(TARGET).c                                                 \
 	  DeviceDescriptor.c                                          \
 	  ConfigDescriptor.c                                          \
+	  Lib/AndroidAccessoryCommands.c                              \
 	  $(LUFA_SRC_USB)                                             \
 	  $(LUFA_SRC_SERIAL)
 
