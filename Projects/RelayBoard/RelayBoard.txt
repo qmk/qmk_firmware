@@ -50,8 +50,8 @@
  *
  *  Relays 1 to 4 are respectively wired to pins C4, C5, C6 and C7 of the Teensy++ V2,
  *  which are the PORTC bits 4 to 7 of the AT90USB1286. The relays MUST be wired through
- *  a transistor, and a diode must be added on the relay's contact pins to protect
- *  the transistor from back EMF generated from the relay when the coil is turned off.
+ *  a transistor, and a diode must be added in antiparallel on the relay's coil pins to
+ *  protect the transistor from back EMF generated from the relay when the coil is turned off.
  *  The transistor base pin is wired to the Teensy data port through a 10K resistor. A
  *  LED may be also be added as a relay status indicator on each channel.
  *
