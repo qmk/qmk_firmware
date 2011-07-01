@@ -47,6 +47,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
+			
+			// SideShow Interface
 			USB_Descriptor_Interface_t            SSHOW_Interface;
 			USB_Descriptor_Endpoint_t             SSHOW_DataInEndpoint;
 			USB_Descriptor_Endpoint_t             SSHOW_DataOutEndpoint;

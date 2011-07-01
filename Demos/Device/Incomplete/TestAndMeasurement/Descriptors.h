@@ -66,10 +66,12 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_Endpoint_t             DataOutEndpoint;
-			USB_Descriptor_Endpoint_t             DataInEndpoint;
-			USB_Descriptor_Endpoint_t             NotificationEndpoint;
+			
+			// Test and Measurement Interface
+			USB_Descriptor_Interface_t            TM_Interface;
+			USB_Descriptor_Endpoint_t             TM_DataOutEndpoint;
+			USB_Descriptor_Endpoint_t             TM_DataInEndpoint;
+			USB_Descriptor_Endpoint_t             TM_NotificationEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */

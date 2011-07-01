@@ -43,9 +43,13 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
+			
+			// Mass Storage Interface
 			USB_Descriptor_Interface_t            MS_Interface;
 			USB_Descriptor_Endpoint_t             MS_DataInEndpoint;
 			USB_Descriptor_Endpoint_t             MS_DataOutEndpoint;
+			
+			// Settings Management Generic HID Interface
 			USB_Descriptor_Interface_t            HID_Interface;
 			USB_HID_Descriptor_HID_t              HID_GenericHID;
 			USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;

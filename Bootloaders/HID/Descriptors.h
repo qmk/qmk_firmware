@@ -47,6 +47,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
+			
+			// Generic HID Interface
 			USB_Descriptor_Interface_t            HID_Interface;
 			USB_HID_Descriptor_HID_t              HID_VendorHID;
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;

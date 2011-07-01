@@ -59,10 +59,14 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t     Config;
+
+			// Audio Control Interface
 			USB_Descriptor_Interface_t                Audio_ControlInterface;
 			USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
 			USB_Audio_Descriptor_InputTerminal_t      Audio_InputTerminal;
 			USB_Audio_Descriptor_OutputTerminal_t     Audio_OutputTerminal;
+
+			// Audio Streaming Interface
 			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt0;
 			USB_Descriptor_Interface_t                Audio_StreamInterface_Alt1;
 			USB_Audio_Descriptor_Interface_AS_t       Audio_StreamInterface_SPC;

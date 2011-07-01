@@ -59,6 +59,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
+
+			// Mass Storage Interface
 			USB_Descriptor_Interface_t            MS_Interface;
 			USB_Descriptor_Endpoint_t             MS_DataInEndpoint;
 			USB_Descriptor_Endpoint_t             MS_DataOutEndpoint;

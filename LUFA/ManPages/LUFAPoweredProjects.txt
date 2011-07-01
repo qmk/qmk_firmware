@@ -80,6 +80,7 @@
  *  - Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
+ *  - SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
  *  - SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
@@ -108,6 +109,7 @@
  *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  - PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
  *  - PIR-4, a USB Connected 4 port IR transmitter: http://promixis.com/pir-4.php
+ *  - KeyGlove, an alternative input system: http://www.keyglove.net/
  *  - Many of Busware's Products: http://www.busware.de/
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org

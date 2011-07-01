@@ -67,6 +67,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t    Config;
+			
+			// Atmel AVRISP-MKII Interface
 			USB_Descriptor_Interface_t               AVRISP_Interface;
 			USB_Descriptor_Endpoint_t                AVRISP_DataInEndpoint;
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;

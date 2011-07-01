@@ -74,21 +74,29 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t    Config;
+
+			// First CDC Control Interface
 			USB_Descriptor_Interface_Association_t   CDC1_IAD;
 			USB_Descriptor_Interface_t               CDC1_CCI_Interface;
 			USB_CDC_Descriptor_FunctionalHeader_t    CDC1_Functional_Header;
 			USB_CDC_Descriptor_FunctionalACM_t       CDC1_Functional_ACM;
 			USB_CDC_Descriptor_FunctionalUnion_t     CDC1_Functional_Union;
 			USB_Descriptor_Endpoint_t                CDC1_ManagementEndpoint;
+
+			// First CDC Data Interface
 			USB_Descriptor_Interface_t               CDC1_DCI_Interface;
 			USB_Descriptor_Endpoint_t                CDC1_DataOutEndpoint;
 			USB_Descriptor_Endpoint_t                CDC1_DataInEndpoint;
+
+			// Second CDC Control Interface
 			USB_Descriptor_Interface_Association_t   CDC2_IAD;
 			USB_Descriptor_Interface_t               CDC2_CCI_Interface;
 			USB_CDC_Descriptor_FunctionalHeader_t    CDC2_Functional_Header;
 			USB_CDC_Descriptor_FunctionalACM_t       CDC2_Functional_ACM;
 			USB_CDC_Descriptor_FunctionalUnion_t     CDC2_Functional_Union;
 			USB_Descriptor_Endpoint_t                CDC2_ManagementEndpoint;
+
+			// Second CDC Data Interface
 			USB_Descriptor_Interface_t               CDC2_DCI_Interface;
 			USB_Descriptor_Endpoint_t                CDC2_DataOutEndpoint;
 			USB_Descriptor_Endpoint_t                CDC2_DataInEndpoint;
