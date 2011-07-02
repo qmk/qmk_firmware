@@ -60,7 +60,7 @@
 		/** Endpoint number of the HID reporting IN endpoint. */
 		#define HID_IN_EPNUM              1
 
-		/** Size in bytes of each of the HID reporting IN. */
+		/** Size in bytes of each of the HID reporting IN endpoint. */
 		#define HID_EPSIZE                8
 	
 	/* Enums: */

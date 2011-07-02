@@ -46,7 +46,7 @@
 		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPNUM               1
 
-		/** Size in bytes of the Keyboard HID reporting IN and OUT endpoints. */
+		/** Size in bytes of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPSIZE              8
 
 		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */

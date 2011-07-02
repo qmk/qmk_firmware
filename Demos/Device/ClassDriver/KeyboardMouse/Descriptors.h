@@ -68,7 +68,7 @@
 		/** Endpoint number of the Mouse HID reporting IN endpoint. */
 		#define MOUSE_IN_EPNUM            3
 
-		/** Size in bytes of each of the HID reporting IN and OUT endpoints. */
+		/** Size in bytes of each of the HID reporting IN endpoints. */
 		#define HID_EPSIZE                8
 
 	/* Function Prototypes: */

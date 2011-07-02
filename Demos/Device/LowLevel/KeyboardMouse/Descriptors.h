@@ -55,11 +55,13 @@
 			USB_Descriptor_Interface_t            HID1_KeyboardInterface;
 			USB_HID_Descriptor_HID_t              HID1_KeyboardHID;
 			USB_Descriptor_Endpoint_t             HID1_ReportINEndpoint;
+			USB_Descriptor_Endpoint_t             HID1_ReportOUTEndpoint;
 
 			// Mouse HID Interface
 			USB_Descriptor_Interface_t            HID2_MouseInterface;
 			USB_HID_Descriptor_HID_t              HID2_MouseHID;
 			USB_Descriptor_Endpoint_t             HID2_ReportINEndpoint;
+			USB_Descriptor_Endpoint_t             HID2_ReportOUTEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */

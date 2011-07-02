@@ -24,6 +24,7 @@
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
   *      -# Consider switch from endpoint numbers to full endpoint addresses to ease future architecture expansion
   *      -# Fix HID report parser usage support for array types
+  *      -# Remove need for direct user Host State Machine interaction in the Host mode applications
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
