@@ -115,7 +115,7 @@ static uint8_t kbuf_tail = 0;
 
 void host_vusb_keyboard_send(void)
 {
-    while (usbInterruptIsReady() && kbuf_head != kbuf_tail) {
+    if (usbInterruptIsReady() && kbuf_head != kbuf_tail) {
         usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
         kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
     }
