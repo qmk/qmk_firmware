@@ -22,6 +22,7 @@
   *   - Added new SPI_GetCurrentMode() function to the SPI peripheral driver
   *   - Added board hardware driver support for the EVK1100 board
   *   - Added board hardware driver support for the EVK1104 board
+  *   - Added new HID_Host_SetIdlePeriod() function to the HID Host Class driver
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo

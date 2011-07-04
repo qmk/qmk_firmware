@@ -357,6 +357,22 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 	return HOST_SENDCONTROL_Successful;
 }
 
+uint8_t HID_Host_SetIdlePeriod(const uint16_t MS)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
+			.bRequest      = HID_REQ_SetIdle,
+			.wValue        = ((MS << 6) & 0xFF00),
+			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+			.wLength       = 0,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	return USB_Host_SendControlRequest(HIDReportData);
+}
+
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {

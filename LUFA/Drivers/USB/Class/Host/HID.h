@@ -251,6 +251,16 @@
 			 */
 			uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Sets the idle period for the attached HID device to the specified interval. The HID idle period determines the rate
+			 *  at which the device should send a report, when no state changes have ocurred; i.e. on HID keyboards, this sets the
+			 *  hardware key repeat interval.
+			 *
+			 *  \param[in] MS  Idle period as a multiple of four milliseconds, zero to disable hardware repeats
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
+			 */
+			uint8_t HID_Host_SetIdlePeriod(const uint16_t MS);
+
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			/** Switches the attached HID device's reporting protocol over to the standard Report protocol mode. This also retrieves
 			 *  and parses the device's HID report descriptor, so that the size of each report can be determined in advance.
