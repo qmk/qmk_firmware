@@ -255,7 +255,8 @@
 			 *  at which the device should send a report, when no state changes have ocurred; i.e. on HID keyboards, this sets the
 			 *  hardware key repeat interval.
 			 *
-			 *  \param[in] MS  Idle period as a multiple of four milliseconds, zero to disable hardware repeats
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
+			 *  \param[in]     MS                Idle period as a multiple of four milliseconds, zero to disable hardware repeats
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */

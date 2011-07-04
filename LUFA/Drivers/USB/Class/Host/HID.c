@@ -357,7 +357,8 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 	return HOST_SENDCONTROL_Successful;
 }
 
-uint8_t HID_Host_SetIdlePeriod(const uint16_t MS)
+uint8_t HID_Host_SetIdlePeriod(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                               const uint16_t MS)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
