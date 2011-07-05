@@ -261,7 +261,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
 			uint8_t HID_Host_SetIdlePeriod(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
-			                               const uint16_t MS);
+			                               const uint16_t MS) ATTR_NON_NULL_PTR_ARG(1);
 
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			/** Switches the attached HID device's reporting protocol over to the standard Report protocol mode. This also retrieves

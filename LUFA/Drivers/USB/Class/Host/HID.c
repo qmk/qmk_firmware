@@ -362,7 +362,7 @@ uint8_t HID_Host_SetIdlePeriod(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = HID_REQ_SetIdle,
 			.wValue        = ((MS << 6) & 0xFF00),
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
@@ -371,7 +371,7 @@ uint8_t HID_Host_SetIdlePeriod(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
-	return USB_Host_SendControlRequest(HIDReportData);
+	return USB_Host_SendControlRequest(NULL);
 }
 
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
