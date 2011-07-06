@@ -135,21 +135,21 @@
 			#include "Board/Buttons.h"
 		#endif
 
-		/* Pseudo-Functions for Doxygen: */
-		#if defined(__DOXYGEN__)
-			/** Initializes the BUTTONS driver, so that the current button position can be read. This sets the appropriate
-			 *  I/O pins to an inputs with pull-ups enabled.
-			 *
-			 *  This must be called before any Button driver functions are used.
-			 */
-			static inline void Buttons_Init(void);
+	/* Pseudo-Functions for Doxygen: */
+	#if defined(__DOXYGEN__)
+		/** Initializes the BUTTONS driver, so that the current button position can be read. This sets the appropriate
+		 *  I/O pins to an inputs with pull-ups enabled.
+		 *
+		 *  This must be called before any Button driver functions are used.
+		 */
+		static inline void Buttons_Init(void);
 
-			/** Returns a mask indicating which board buttons are currently pressed.
-			 *
-			 *  \return Mask indicating which board buttons are currently pressed.
-			 */
-			static inline uint_reg_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-		#endif
+		/** Returns a mask indicating which board buttons are currently pressed.
+		 *
+		 *  \return Mask indicating which board buttons are currently pressed.
+		 */
+		static inline uint_reg_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+	#endif
 
 #endif
 

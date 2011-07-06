@@ -119,21 +119,21 @@
 			#include "Board/Joystick.h"
 		#endif
 
-		/* Pseudo-Functions for Doxygen: */
-		#if defined(__DOXYGEN__)
-			/** Initializes the joystick driver so that the joystick position can be read. This sets the appropriate
-			 *  I/O pins to inputs with their pull-ups enabled.
-			 */
-			static inline void Joystick_Init(void);
+	/* Pseudo-Functions for Doxygen: */
+	#if defined(__DOXYGEN__)
+		/** Initializes the joystick driver so that the joystick position can be read. This sets the appropriate
+		 *  I/O pins to inputs with their pull-ups enabled.
+		 */
+		static inline void Joystick_Init(void);
 
-			/** Returns the current status of the joystick, as a mask indicating the direction the joystick is
-			 *  currently facing in (multiple bits can be set).
-			 *
-			 *  \return Mask indicating the joystick direction - see corresponding board specific Joystick.h file
-			 *          for direction masks.
-			 */
-			static inline uint_reg_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-		#endif
+		/** Returns the current status of the joystick, as a mask indicating the direction the joystick is
+		 *  currently facing in (multiple bits can be set).
+		 *
+		 *  \return Mask indicating the joystick direction - see corresponding board specific Joystick.h file
+		 *          for direction masks.
+		 */
+		static inline uint_reg_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+	#endif
 
 #endif
 

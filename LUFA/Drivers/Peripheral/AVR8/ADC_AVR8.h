@@ -65,8 +65,11 @@
  *
  *      // Start reading ADC channel 1 in free running (continuous conversion) mode
  *      ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_CHANNEL1);
- *      while (!(ADC_IsReadingComplete())) {};
- *      printf("Conversion Result: %d\r\n", ADC_GetResult());
+ *      for (;;)
+ *      {
+ *           while (!(ADC_IsReadingComplete())) {};
+ *           printf("Conversion Result: %d\r\n", ADC_GetResult());
+ *      }
  *  \endcode
  *
  *  @{

@@ -105,91 +105,92 @@
 		#define __INCLUDE_FROM_LEDS_H
 
 	/* Includes: */
-	#include "../../Common/Common.h"
+		#include "../../Common/Common.h"
 
-	#if (BOARD == BOARD_NONE)
-		static inline void LEDs_Init(void) {};
-		static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask) {};
-		static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask) {};
-		static inline void LEDs_SetAllLEDs(const uint8_t LEDMask) {};
-		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask) {};
-		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
-		static inline uint8_t LEDs_GetLEDs(void) { return 0; }
-	#elif (BOARD == BOARD_USBKEY)
-		#include "AVR8/USBKEY/LEDs.h"
-	#elif (BOARD == BOARD_STK525)
-		#include "AVR8/STK525/LEDs.h"
-	#elif (BOARD == BOARD_STK526)
-		#include "AVR8/STK526/LEDs.h"
-	#elif (BOARD == BOARD_RZUSBSTICK)
-		#include "AVR8/RZUSBSTICK/LEDs.h"
-	#elif (BOARD == BOARD_ATAVRUSBRF01)
-		#include "AVR8/ATAVRUSBRF01/LEDs.h"
-	#elif ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-		#include "AVR8/XPLAIN/LEDs.h"
-	#elif (BOARD == BOARD_BUMBLEB)
-		#include "AVR8/BUMBLEB/LEDs.h"
-	#elif (BOARD == BOARD_EVK527)
-		#include "AVR8/EVK527/LEDs.h"
-	#elif (BOARD == BOARD_TEENSY)
-		#include "AVR8/TEENSY/LEDs.h"
-	#elif (BOARD == BOARD_USBTINYMKII)
-		#include "AVR8/USBTINYMKII/LEDs.h"
-	#elif (BOARD == BOARD_BENITO)
-		#include "AVR8/BENITO/LEDs.h"
-	#elif (BOARD == BOARD_JMDBU2)
-		#include "AVR8/JMDBU2/LEDs.h"
-	#elif (BOARD == BOARD_OLIMEX162)
-		#include "AVR8/OLIMEX162/LEDs.h"
-	#elif (BOARD == BOARD_USBFOO)
-		#include "AVR8/USBFOO/LEDs.h"
-	#elif (BOARD == BOARD_UDIP)
-		#include "AVR8/UDIP/LEDs.h"
-	#elif (BOARD == BOARD_BUI)
-		#include "AVR8/BUI/LEDs.h"
-	#elif (BOARD == BOARD_UNO)
-		#include "AVR8/UNO/LEDs.h"
-	#elif (BOARD == BOARD_CULV3)
-		#include "AVR8/CULV3/LEDs.h"
-	#elif (BOARD == BOARD_BLACKCAT)
-		#include "AVR8/BLACKCAT/LEDs.h"
-	#elif (BOARD == BOARD_MAXIMUS)
-		#include "AVR8/MAXIMUS/LEDs.h"
-	#elif (BOARD == BOARD_MINIMUS)
-		#include "AVR8/MINIMUS/LEDs.h"
-	#elif (BOARD == BOARD_ADAFRUITU4)
-		#include "AVR8/ADAFRUITU4/LEDs.h"
-	#elif (BOARD == BOARD_MICROSIN162)
-		#include "AVR8/MICROSIN162/LEDs.h"
-	#elif (BOARD == BOARD_SPARKFUN8U2)
-		#include "AVR8/SPARKFUN8U2/LEDs.h"
-	#elif (BOARD == BOARD_EVK1101)
-		#include "UC3/EVK1101/LEDs.h"
-	#elif (BOARD == BOARD_TUL)
-		#include "AVR8/TUL/LEDs.h"	
-	#elif (BOARD == BOARD_EVK1100)
-		#include "UC3/EVK1100/LEDs.h"
-	#elif (BOARD == BOARD_EVK1104)
-		#include "UC3/EVK1104/LEDs.h"
-	#else
-		#include "Board/LEDs.h"
-	#endif
+		#if (BOARD == BOARD_NONE)
+			static inline void LEDs_Init(void) {};
+			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask) {};
+			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask) {};
+			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask) {};
+			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask) {};
+			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
+			static inline uint8_t LEDs_GetLEDs(void) { return 0; }
+		#elif (BOARD == BOARD_USBKEY)
+			#include "AVR8/USBKEY/LEDs.h"
+		#elif (BOARD == BOARD_STK525)
+			#include "AVR8/STK525/LEDs.h"
+		#elif (BOARD == BOARD_STK526)
+			#include "AVR8/STK526/LEDs.h"
+		#elif (BOARD == BOARD_RZUSBSTICK)
+			#include "AVR8/RZUSBSTICK/LEDs.h"
+		#elif (BOARD == BOARD_ATAVRUSBRF01)
+			#include "AVR8/ATAVRUSBRF01/LEDs.h"
+		#elif ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
+			#include "AVR8/XPLAIN/LEDs.h"
+		#elif (BOARD == BOARD_BUMBLEB)
+			#include "AVR8/BUMBLEB/LEDs.h"
+		#elif (BOARD == BOARD_EVK527)
+			#include "AVR8/EVK527/LEDs.h"
+		#elif (BOARD == BOARD_TEENSY)
+			#include "AVR8/TEENSY/LEDs.h"
+		#elif (BOARD == BOARD_USBTINYMKII)
+			#include "AVR8/USBTINYMKII/LEDs.h"
+		#elif (BOARD == BOARD_BENITO)
+			#include "AVR8/BENITO/LEDs.h"
+		#elif (BOARD == BOARD_JMDBU2)
+			#include "AVR8/JMDBU2/LEDs.h"
+		#elif (BOARD == BOARD_OLIMEX162)
+			#include "AVR8/OLIMEX162/LEDs.h"
+		#elif (BOARD == BOARD_USBFOO)
+			#include "AVR8/USBFOO/LEDs.h"
+		#elif (BOARD == BOARD_UDIP)
+			#include "AVR8/UDIP/LEDs.h"
+		#elif (BOARD == BOARD_BUI)
+			#include "AVR8/BUI/LEDs.h"
+		#elif (BOARD == BOARD_UNO)
+			#include "AVR8/UNO/LEDs.h"
+		#elif (BOARD == BOARD_CULV3)
+			#include "AVR8/CULV3/LEDs.h"
+		#elif (BOARD == BOARD_BLACKCAT)
+			#include "AVR8/BLACKCAT/LEDs.h"
+		#elif (BOARD == BOARD_MAXIMUS)
+			#include "AVR8/MAXIMUS/LEDs.h"
+		#elif (BOARD == BOARD_MINIMUS)
+			#include "AVR8/MINIMUS/LEDs.h"
+		#elif (BOARD == BOARD_ADAFRUITU4)
+			#include "AVR8/ADAFRUITU4/LEDs.h"
+		#elif (BOARD == BOARD_MICROSIN162)
+			#include "AVR8/MICROSIN162/LEDs.h"
+		#elif (BOARD == BOARD_SPARKFUN8U2)
+			#include "AVR8/SPARKFUN8U2/LEDs.h"
+		#elif (BOARD == BOARD_EVK1101)
+			#include "UC3/EVK1101/LEDs.h"
+		#elif (BOARD == BOARD_TUL)
+			#include "AVR8/TUL/LEDs.h"	
+		#elif (BOARD == BOARD_EVK1100)
+			#include "UC3/EVK1100/LEDs.h"
+		#elif (BOARD == BOARD_EVK1104)
+			#include "UC3/EVK1104/LEDs.h"
+		#else
+			#include "Board/LEDs.h"
+		#endif
 
-	#if !defined(LEDS_LED1)
-		#define LEDS_LED1      0
-	#endif
+	/* Preprocessor Checks: */
+		#if !defined(LEDS_LED1)
+			#define LEDS_LED1      0
+		#endif
 
-	#if !defined(LEDS_LED2)
-		#define LEDS_LED2      0
-	#endif
+		#if !defined(LEDS_LED2)
+			#define LEDS_LED2      0
+		#endif
 
-	#if !defined(LEDS_LED3)
-		#define LEDS_LED3      0
-	#endif
+		#if !defined(LEDS_LED3)
+			#define LEDS_LED3      0
+		#endif
 
-	#if !defined(LEDS_LED4)
-		#define LEDS_LED4      0
-	#endif
+		#if !defined(LEDS_LED4)
+			#define LEDS_LED4      0
+		#endif
 
 	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
