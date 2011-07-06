@@ -178,17 +178,17 @@
 			 */
 			enum USB_Control_Request_t
 			{
-				REQ_GetStatus           = 0, /**< Implemented in the library for device, endpoint and interface
-				                              *   recipients. Passed to the user application for other recipients
-				                              *   via the \ref EVENT_USB_Device_ControlRequest() event when received in
+				REQ_GetStatus           = 0, /**< Implemented in the library for device and endpoint recipients. Passed
+				                              *   to the user application for other recipients via the
+				                              *   \ref EVENT_USB_Device_ControlRequest() event when received in
 				                              *   device mode. */
-				REQ_ClearFeature        = 1, /**< Implemented in the library for device, endpoint and interface
-				                              *   recipients. Passed to the user application for other recipients
-				                              *   via the \ref EVENT_USB_Device_ControlRequest() event when received in
+				REQ_ClearFeature        = 1, /**< Implemented in the library for device and endpoint recipients. Passed
+				                              *   to the user application for other recipients via the
+				                              *   \ref EVENT_USB_Device_ControlRequest() event when received in
 				                              *   device mode. */
-				REQ_SetFeature          = 3, /**< Implemented in the library for device, endpoint and interface
-				                              *   recipients. Passed to the user application for other recipients
-				                              *   via the \ref EVENT_USB_Device_ControlRequest() event when received in
+				REQ_SetFeature          = 3, /**< Implemented in the library for device and endpoint recipients. Passed
+				                              *   to the user application for other recipients via the
+				                              *   \ref EVENT_USB_Device_ControlRequest() event when received in
 				                              *   device mode. */
 				REQ_SetAddress          = 5, /**< Implemented in the library for the device recipient. Passed
 				                              *   to the user application for other recipients via the

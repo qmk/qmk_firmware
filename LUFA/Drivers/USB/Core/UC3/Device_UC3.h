@@ -145,28 +145,28 @@
 			}
 
 			#if !defined(NO_SOF_EVENTS)
-				/** Enables the device mode Start Of Frame events. When enabled, this causes the
-				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
-				 *  at the start of each USB frame when enumerated in device mode.
-				 *
-				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
-				 */
-				static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
-				static inline void USB_Device_EnableSOFEvents(void)
-				{
-					USB_INT_Enable(USB_INT_SOFI);
-				}
+			/** Enables the device mode Start Of Frame events. When enabled, this causes the
+			 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
+			 *  at the start of each USB frame when enumerated in device mode.
+			 *
+			 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
+			 */
+			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_EnableSOFEvents(void)
+			{
+				USB_INT_Enable(USB_INT_SOFI);
+			}
 
-				/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
-				 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
-				 *
-				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
-				 */
-				static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
-				static inline void USB_Device_DisableSOFEvents(void)
-				{
-					USB_INT_Disable(USB_INT_SOFI);
-				}
+			/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
+			 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
+			 *
+			 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
+			 */
+			static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_DisableSOFEvents(void)
+			{
+				USB_INT_Disable(USB_INT_SOFI);
+			}
 			#endif
 
 	/* Private Interface - For use in library only: */

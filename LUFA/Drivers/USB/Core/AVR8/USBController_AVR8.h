@@ -359,20 +359,20 @@
 			static inline void USB_PLL_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_PLL_On(void)
 			{
-				PLLCSR  = USB_PLL_PSC;
-				PLLCSR |= (1 << PLLE);
+				PLLCSR = USB_PLL_PSC;
+				PLLCSR = (USB_PLL_PSC | (1 << PLLE));
 			}
 
 			static inline void USB_PLL_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_PLL_Off(void)
 			{
-				PLLCSR  = 0;
+				PLLCSR = 0;
 			}
 
 			static inline bool USB_PLL_IsReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_PLL_IsReady(void)
 			{
-				return ((PLLCSR  &   (1 << PLOCK)) ? true : false);
+				return ((PLLCSR & (1 << PLOCK)) ? true : false);
 			}
 
 			static inline void USB_REG_On(void) ATTR_ALWAYS_INLINE;
@@ -436,10 +436,8 @@
 			static inline void USB_Controller_Reset(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Reset(void)
 			{
-				const uint8_t Temp = USBCON;
-
-				USBCON = (Temp & ~(1 << USBE));
-				USBCON = (Temp |  (1 << USBE));
+				USBCON &= ~(1 << USBE);
+				USBCON |=  (1 << USBE);
 			}
 
 			#if defined(USB_CAN_BE_BOTH)
