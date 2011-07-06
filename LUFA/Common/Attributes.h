@@ -29,19 +29,19 @@
 */
 
 /** \file
- *  \brief GCC special function/variable attribute macros.
+ *  \brief Special function/variable attribute macros.
  *
- *  \copydetails Group_GCCAttributes
+ *  \copydetails Group_FuncVarAttributes
  *
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
  */
 
 /** \ingroup Group_Common
- *  \defgroup Group_GCCAttributes Function/Variable Attributes
- *  \brief GCC special function/variable attribute macros.
+ *  \defgroup Group_FuncVarAttributes Function/Variable Attributes
+ *  \brief Special function/variable attribute macros.
  *
- *  This module contains macros for applying GCC specific attributes to functions and variables to control various
+ *  This module contains macros for applying specific attributes to functions and variables to control various
  *  optimizer and code generation features of the compiler. Attributes may be placed in the function prototype
  *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
  *  separated list.
