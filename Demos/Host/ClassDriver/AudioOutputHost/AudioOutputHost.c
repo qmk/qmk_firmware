@@ -182,6 +182,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	{
 		puts_P(PSTR("Error Enabling Audio Stream.\r\n"));
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 	
@@ -192,6 +193,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	{
 		puts_P(PSTR("Error Setting Audio Sampling Frequency.\r\n"));
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 

@@ -215,6 +215,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	{
 		puts_P(PSTR("Error Setting Report Protocol Mode or Not a Valid Mouse.\r\n"));
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 

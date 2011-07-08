@@ -134,6 +134,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 

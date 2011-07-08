@@ -202,6 +202,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	{
 		puts_P(PSTR("Could not Set Boot Protocol Mode.\r\n"));
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 

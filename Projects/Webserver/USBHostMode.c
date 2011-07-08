@@ -120,6 +120,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface_Host) != HOST_SENDCONTROL_Successful)
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 
@@ -128,6 +129,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	                                &PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 
@@ -135,6 +137,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	                                  &MACAddress, sizeof(MACAddress)) != HOST_SENDCONTROL_Successful)
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 
