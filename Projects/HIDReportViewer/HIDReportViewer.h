@@ -69,6 +69,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		void RetrieveDeviceData(void);
 		void OutputReportSizes(void);
 		void OutputParsedReportItems(void);
 		void OutputCollectionPath(const HID_CollectionPath_t* const CollectionPath);

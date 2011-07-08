@@ -67,166 +67,8 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (MS_Host_ConfigurePipes(&FlashDisk_MS_Interface,
-				                           ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Mass Storage Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Mass Storage Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-
-				uint8_t MaxLUNIndex;
-				if (MS_Host_GetMaxLUN(&FlashDisk_MS_Interface, &MaxLUNIndex))
-				{
-					puts_P(PSTR("Error retrieving max LUN index.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				printf_P(PSTR("Total LUNs: %d - Using first LUN in device.\r\n"), (MaxLUNIndex + 1));
-
-				if (MS_Host_ResetMSInterface(&FlashDisk_MS_Interface))
-				{
-					puts_P(PSTR("Error resetting Mass Storage interface.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				SCSI_Request_Sense_Response_t SenseData;
-				if (MS_Host_RequestSense(&FlashDisk_MS_Interface, 0, &SenseData) != 0)
-				{
-					puts_P(PSTR("Error retrieving device sense.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (MS_Host_PreventAllowMediumRemoval(&FlashDisk_MS_Interface, 0, true))
-				{
-					puts_P(PSTR("Error setting Prevent Device Removal bit.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				SCSI_Inquiry_Response_t InquiryData;
-				if (MS_Host_GetInquiryData(&FlashDisk_MS_Interface, 0, &InquiryData))
-				{
-					puts_P(PSTR("Error retrieving device Inquiry data.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				printf_P(PSTR("Vendor \"%.8s\", Product \"%.16s\"\r\n"), InquiryData.VendorID, InquiryData.ProductID);
-
-				puts_P(PSTR("Waiting until ready...\r\n"));
-
-				for (;;)
-				{
-					uint8_t ErrorCode = MS_Host_TestUnitReady(&FlashDisk_MS_Interface, 0);
-
-					if (!(ErrorCode))
-					  break;
-
-					/* Check if an error other than a logical command error (device busy) received */
-					if (ErrorCode != MS_ERROR_LOGICAL_CMD_FAILED)
-					{
-						puts_P(PSTR("Error waiting for device to be ready.\r\n"));
-						LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-						USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-						break;
-					}
-				}
-
-				puts_P(PSTR("Retrieving Capacity...\r\n"));
-
-				SCSI_Capacity_t DiskCapacity;
-				if (MS_Host_ReadDeviceCapacity(&FlashDisk_MS_Interface, 0, &DiskCapacity))
-				{
-					puts_P(PSTR("Error retrieving device capacity.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				printf_P(PSTR("%lu blocks of %lu bytes.\r\n"), DiskCapacity.Blocks, DiskCapacity.BlockSize);
-
-				uint8_t BlockBuffer[DiskCapacity.BlockSize];
-
-				if (MS_Host_ReadDeviceBlocks(&FlashDisk_MS_Interface, 0, 0x00000000, 1, DiskCapacity.BlockSize, BlockBuffer))
-				{
-					puts_P(PSTR("Error reading device block.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("\r\nContents of first block:\r\n"));
-
-				for (uint16_t Chunk = 0; Chunk < (DiskCapacity.BlockSize >> 4); Chunk++)
-				{
-					uint8_t* ChunkPtr = &BlockBuffer[Chunk << 4];
-
-					/* Print out the 16 bytes of the chunk in HEX format */
-					for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
-					{
-						char CurrByte = *(ChunkPtr + ByteOffset);
-						printf_P(PSTR("%.2X "), CurrByte);
-					}
-
-					printf_P(PSTR("    "));
-
-					/* Print out the 16 bytes of the chunk in ASCII format */
-					for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
-					{
-						char CurrByte = *(ChunkPtr + ByteOffset);
-						putchar(isprint(CurrByte) ? CurrByte : '.');
-					}
-
-					printf_P(PSTR("\r\n"));
-				}
-
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-		}
-
+		MassStorageHost_Task();
+		
 		MS_Host_USBTask(&FlashDisk_MS_Interface);
 		USB_USBTask();
 	}
@@ -249,6 +91,87 @@ void SetupHardware(void)
 
 	/* Create a stdio stream for the serial port for stdin and stdout */
 	Serial_CreateStream(NULL);
+}
+
+/** Task to manage an enumerated USB Mass Storage device once connected, to print out
+ *  data from the device.
+ */
+void MassStorageHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
+	puts_P(PSTR("Waiting until ready...\r\n"));
+
+	for (;;)
+	{
+		uint8_t ErrorCode = MS_Host_TestUnitReady(&FlashDisk_MS_Interface, 0);
+
+		if (!(ErrorCode))
+		  break;
+
+		/* Check if an error other than a logical command error (device busy) received */
+		if (ErrorCode != MS_ERROR_LOGICAL_CMD_FAILED)
+		{
+			puts_P(PSTR("Error waiting for device to be ready.\r\n"));
+			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+			USB_Host_SetDeviceConfiguration(0);
+			return;
+		}
+	}
+
+	puts_P(PSTR("Retrieving Capacity...\r\n"));
+
+	SCSI_Capacity_t DiskCapacity;
+	if (MS_Host_ReadDeviceCapacity(&FlashDisk_MS_Interface, 0, &DiskCapacity))
+	{
+		puts_P(PSTR("Error retrieving device capacity.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("%lu blocks of %lu bytes.\r\n"), DiskCapacity.Blocks, DiskCapacity.BlockSize);
+
+	uint8_t BlockBuffer[DiskCapacity.BlockSize];
+
+	if (MS_Host_ReadDeviceBlocks(&FlashDisk_MS_Interface, 0, 0x00000000, 1, DiskCapacity.BlockSize, BlockBuffer))
+	{
+		puts_P(PSTR("Error reading device block.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("\r\nContents of first block:\r\n"));
+
+	for (uint16_t Chunk = 0; Chunk < (DiskCapacity.BlockSize >> 4); Chunk++)
+	{
+		uint8_t* ChunkPtr = &BlockBuffer[Chunk << 4];
+
+		/* Print out the 16 bytes of the chunk in HEX format */
+		for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
+		{
+			char CurrByte = *(ChunkPtr + ByteOffset);
+			printf_P(PSTR("%.2X "), CurrByte);
+		}
+
+		printf_P(PSTR("    "));
+
+		/* Print out the 16 bytes of the chunk in ASCII format */
+		for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
+		{
+			char CurrByte = *(ChunkPtr + ByteOffset);
+			putchar(isprint(CurrByte) ? CurrByte : '.');
+		}
+
+		printf_P(PSTR("\r\n"));
+	}
+
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	USB_Host_SetDeviceConfiguration(0);
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -274,6 +197,82 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (MS_Host_ConfigurePipes(&FlashDisk_MS_Interface,
+	                           ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Mass Storage Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	uint8_t MaxLUNIndex;
+	if (MS_Host_GetMaxLUN(&FlashDisk_MS_Interface, &MaxLUNIndex))
+	{
+		puts_P(PSTR("Error retrieving max LUN index.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Total LUNs: %d - Using first LUN in device.\r\n"), (MaxLUNIndex + 1));
+
+	if (MS_Host_ResetMSInterface(&FlashDisk_MS_Interface))
+	{
+		puts_P(PSTR("Error resetting Mass Storage interface.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	SCSI_Request_Sense_Response_t SenseData;
+	if (MS_Host_RequestSense(&FlashDisk_MS_Interface, 0, &SenseData) != 0)
+	{
+		puts_P(PSTR("Error retrieving device sense.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	if (MS_Host_PreventAllowMediumRemoval(&FlashDisk_MS_Interface, 0, true))
+	{
+		puts_P(PSTR("Error setting Prevent Device Removal bit.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	SCSI_Inquiry_Response_t InquiryData;
+	if (MS_Host_GetInquiryData(&FlashDisk_MS_Interface, 0, &InquiryData))
+	{
+		puts_P(PSTR("Error retrieving device Inquiry data.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Vendor \"%.8s\", Product \"%.16s\"\r\n"), InquiryData.VendorID, InquiryData.ProductID);
+
+	puts_P(PSTR("Mass Storage Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

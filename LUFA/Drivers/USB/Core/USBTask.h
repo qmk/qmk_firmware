@@ -93,9 +93,8 @@
 					/** Indicates the current host state machine state. When in host mode, this indicates the state
 					 *  via one of the values of the \ref USB_Host_States_t enum values.
 					 *
-					 *  This value may be altered by the user application to implement the \ref HOST_STATE_Addressed,
-					 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
-					 *  the library internally.
+					 *  This value should not be altered by the user application as it is handled automatically by the
+					 *  library.
 					 *
 					 *  To reduce program size and speed up checks of this global on the AVR8 architecture, it can be
 					 *  placed into one of the AVR's \c GPIOR hardware registers instead of RAM by defining the

@@ -144,7 +144,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_INT_Disable(USB_INT_WAKEUPI);
 		USB_INT_Enable(USB_INT_SUSPI);
 
-		if (USB_ConfigurationNumber)
+		if (USB_Device_ConfigurationNumber)
 		  USB_DeviceState = DEVICE_STATE_Configured;
 		else
 		  USB_DeviceState = (USB_Device_IsAddressSet()) ? DEVICE_STATE_Configured : DEVICE_STATE_Powered;
@@ -160,15 +160,15 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	{
 		USB_INT_Clear(USB_INT_EORSTI);
 
-		USB_DeviceState         = DEVICE_STATE_Default;
-		USB_ConfigurationNumber = 0;
+		USB_DeviceState                = DEVICE_STATE_Default;
+		USB_Device_ConfigurationNumber = 0;
 
 		USB_INT_Clear(USB_INT_SUSPI);
 		USB_INT_Disable(USB_INT_SUSPI);
 		USB_INT_Enable(USB_INT_WAKEUPI);
 
 		Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
-		                           ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
+		                           ENDPOINT_DIR_OUT, USB_Device_ControlEndpointSize,
 		                           ENDPOINT_BANK_SINGLE);
 
 		#if defined(INTERRUPT_CONTROL_ENDPOINT)

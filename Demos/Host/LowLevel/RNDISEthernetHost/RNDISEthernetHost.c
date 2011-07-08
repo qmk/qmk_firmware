@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		RNDIS_Host_Task();
+		RNDISHost_Task();
+
 		USB_USBTask();
 	}
 }
@@ -97,6 +98,75 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	uint16_t DeviceMaxPacketSize;
+	if ((ErrorCode = RNDIS_InitializeDevice(1024, &DeviceMaxPacketSize)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Error Initializing Device.\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), DeviceMaxPacketSize);
+
+	/* We set the default filter to only receive packets we would be interested in */
+	uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
+	if ((ErrorCode = RNDIS_SetRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
+	                                        &PacketFilter, sizeof(PacketFilter))) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Error Setting Device Packet Filter.\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	uint32_t VendorID;
+	if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,
+	                                          &VendorID, sizeof(VendorID))) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Error Getting Vendor ID.\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
+
+	puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -126,8 +196,13 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-void PrintIncomingPackets(void)
+/** Task to read in data received from the attached RNDIS device and print it to the serial port.
+ */
+void RNDISHost_Task(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	uint8_t ErrorCode;
 
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
@@ -136,7 +211,7 @@ void PrintIncomingPackets(void)
 	if ((ErrorCode = RNDIS_GetPacketLength(&PacketLength)) != HOST_SENDCONTROL_Successful)
 	{
 		printf_P(PSTR(ESC_FG_RED "Packet Reception Error.\r\n"
-								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 		return;
 	}
 
@@ -168,109 +243,5 @@ void PrintIncomingPackets(void)
 	printf("\r\n\r\n");
 
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated, and to read in
- *  data received from the attached RNDIS device and print it to the serial port.
- */
-void RNDIS_Host_Task(void)
-{
-	uint8_t ErrorCode;
-
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			uint16_t DeviceMaxPacketSize;
-			if ((ErrorCode = RNDIS_InitializeDevice(1024, &DeviceMaxPacketSize)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Error Initializing Device.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), DeviceMaxPacketSize);
-
-			/* We set the default filter to only receive packets we would be interested in */
-			uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
-			if ((ErrorCode = RNDIS_SetRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
-			                                        &PacketFilter, sizeof(PacketFilter))) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Error Setting Device Packet Filter.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			uint32_t VendorID;
-			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,
-			                                          &VendorID, sizeof(VendorID))) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Error Getting Vendor ID.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
-
-			puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			PrintIncomingPackets();
-
-			break;
-	}
 }
 

@@ -830,9 +830,9 @@
 			 *        changed in value.
 			 */
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
-				extern uint8_t USB_ControlEndpointSize;
+				extern uint8_t USB_Device_ControlEndpointSize;
 			#else
-				#define USB_ControlEndpointSize FIXED_CONTROL_ENDPOINT_SIZE
+				#define USB_Device_ControlEndpointSize FIXED_CONTROL_ENDPOINT_SIZE
 			#endif
 
 		/* Function Prototypes: */

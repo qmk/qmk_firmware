@@ -179,8 +179,8 @@
  *
  *  <b>NO_DEVICE_SELF_POWER</b> - (\ref Group_Device) - <i>All Architectures</i> \n
  *  USB devices may be bus powered, self powered, or a combination of both. When a device can be both bus powered and self powered, the host may
- *  query the device to determine the current power source, via \ref USB_CurrentlySelfPowered. For solely bus powered devices, this global and the
- *  code required to manage it may be disabled by passing this token to the library via the -D switch.
+ *  query the device to determine the current power source, via \ref USB_Device_CurrentlySelfPowered. For solely bus powered devices, this global
+ *  and the code required to manage it may be disabled by passing this token to the library via the -D switch.
  *
  *
  *  \section Sec_SummaryUSBHostTokens USB Host Mode Driver Related Tokens

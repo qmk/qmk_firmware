@@ -74,66 +74,28 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_ConfigurePipes(&Device_HID_Interface,
-				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid HID Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_SetReportProtocol(&Device_HID_Interface) != 0)
-				{
-					puts_P(PSTR("Error Setting Report Protocol Mode.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("HID Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-				
-				OutputReportSizes();
-				OutputParsedReportItems();
-				
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-		}
-
+		RetrieveDeviceData();
+		
 		HID_Host_USBTask(&Device_HID_Interface);
 		USB_USBTask();
 	}
+}
+
+/** Task to retrieve the HID device information from an attached device, and output
+ *  the relevant data to the serial port for analysis.
+ */
+void RetrieveDeviceData(void)
+{
+	if (USB_CurrentMode != USB_MODE_Host)
+	  return;
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+	
+	OutputReportSizes();
+	OutputParsedReportItems();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	USB_Host_SetDeviceConfiguration(0);
 }
 
 /** Prints a summary of the device's HID report sizes from the HID parser output to the serial port
@@ -276,6 +238,43 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_ConfigurePipes(&Device_HID_Interface,
+	                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid HID Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_SetReportProtocol(&Device_HID_Interface) != 0)
+	{
+		puts_P(PSTR("Error Setting Report Protocol Mode.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("HID Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

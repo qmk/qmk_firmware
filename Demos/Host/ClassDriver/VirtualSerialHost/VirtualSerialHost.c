@@ -70,55 +70,7 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface,
-				                            ConfigDescriptorSize, ConfigDescriptorData) != CDC_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid CDC Class Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("CDC Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				if (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
-				{
-					/* Echo received bytes from the attached device through the USART */
-					int16_t ReceivedByte = CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface);
-					if (!(ReceivedByte < 0))
-					  putchar(ReceivedByte);
-				}
-
-				break;
-		}
+		CDCHost_Task();
 
 		CDC_Host_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -144,6 +96,23 @@ void SetupHardware(void)
 	Serial_CreateStream(NULL);
 }
 
+/** Task to manage an enumerated USB CDC device once connected, to print received data
+ *  from the device to the serial port.
+ */
+void CDCHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
+	if (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
+	{
+		/* Echo received bytes from the attached device through the USART */
+		int16_t ReceivedByte = CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface);
+		if (!(ReceivedByte < 0))
+		  putchar(ReceivedByte);
+	}
+}
+
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
  *  starts the library USB task to begin the enumeration and USB management process.
  */
@@ -167,6 +136,35 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface,
+	                            ConfigDescriptorSize, ConfigDescriptorData) != CDC_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid CDC Class Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("CDC Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

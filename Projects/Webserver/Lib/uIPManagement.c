@@ -113,7 +113,7 @@ void uIPManagement_Init(void)
  */
 void uIPManagement_ManageNetwork(void)
 {
-	if (((USB_CurrentMode == USB_MODE_Host) && (USB_HostState == HOST_STATE_Configured)) ||
+	if (((USB_CurrentMode == USB_MODE_Host)   && (USB_HostState   == HOST_STATE_Configured)) ||
 	    ((USB_CurrentMode == USB_MODE_Device) && (USB_DeviceState == DEVICE_STATE_Configured)))
 	{
 		uIPManagement_ProcessIncomingPacket();

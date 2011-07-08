@@ -53,7 +53,7 @@ int main(void)
 		/* Determine which USB mode we are currently in */
 		if (USB_CurrentMode == USB_MODE_Host)
 		{
-			MouseHostTask();
+			MouseHost_Task();
 			HID_Host_USBTask(&Mouse_HID_Host_Interface);
 		}
 		else

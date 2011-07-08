@@ -91,7 +91,7 @@
 			 *
 			 *  \ingroup Group_Device
 			 */
-			extern uint8_t USB_ConfigurationNumber;
+			extern uint8_t USB_Device_ConfigurationNumber;
 
 			#if !defined(NO_DEVICE_REMOTE_WAKEUP)
 				/** Indicates if the host is currently allowing the device to issue remote wakeup events. If this
@@ -108,7 +108,7 @@
 				 *
 				 *  \ingroup Group_Device
 				 */
-				extern bool USB_RemoteWakeupEnabled;
+				extern bool USB_Device_RemoteWakeupEnabled;
 			#endif
 
 			#if !defined(NO_DEVICE_SELF_POWER)
@@ -118,7 +118,7 @@
 				 *
 				 *  \ingroup Group_Device
 				 */
-				extern bool USB_CurrentlySelfPowered;
+				extern bool USB_Device_CurrentlySelfPowered;
 			#endif
 
 	/* Private Interface - For use in library only: */

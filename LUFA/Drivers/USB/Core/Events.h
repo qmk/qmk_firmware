@@ -249,7 +249,7 @@
 			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
 			 *  one second) will prevent the device from enumerating correctly.
 			 *
-			 *  This event fires after the value of \ref USB_ConfigurationNumber has been changed.
+			 *  This event fires after the value of \ref USB_Device_ConfigurationNumber has been changed.
 			 *
 			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).

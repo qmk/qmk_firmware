@@ -67,63 +67,7 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (MIDI_Host_ConfigurePipes(&Keyboard_MIDI_Interface,
-				                             ConfigDescriptorSize, ConfigDescriptorData) != MIDI_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid MIDI Class Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("MIDI Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				CheckJoystickMovement();
-
-				MIDI_EventPacket_t MIDIEvent;
-				while (MIDI_Host_ReceiveEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent))
-				{
-					bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
-					bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
-
-					if (NoteOnEvent || NoteOffEvent)
-					{
-						printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
-																						       ((MIDIEvent.Data1 & 0x0F) + 1),
-																						       MIDIEvent.Data2, MIDIEvent.Data3);
-					}
-				}
-
-				break;
-		}
+		JoystickHost_Task();
 
 		MIDI_Host_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
@@ -151,6 +95,35 @@ void SetupHardware(void)
 	Serial_CreateStream(NULL);
 }
 
+/** Task to manage an enumerated USB MIDI device once connected, to display received
+ *  note events from the host and send note changes in response to tbe board's joystick.
+ */
+void JoystickHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
+	MIDI_EventPacket_t MIDIEvent;
+	while (MIDI_Host_ReceiveEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent))
+	{
+		bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
+		bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
+
+		/* Display note events from the host */
+		if (NoteOnEvent || NoteOffEvent)
+		{
+			printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
+																				   ((MIDIEvent.Data1 & 0x0F) + 1),
+																				   MIDIEvent.Data2, MIDIEvent.Data3);
+		}
+	}
+
+	CheckJoystickMovement();
+}
+
+/** Checks for movement of the board's joystick, and sends corresponding MIDI note on/off
+ *  messages to the host.
+ */
 void CheckJoystickMovement(void)
 {
 	static uint8_t PrevJoystickStatus;
@@ -170,26 +143,22 @@ void CheckJoystickMovement(void)
 		MIDICommand = ((JoystickStatus & JOY_LEFT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3C;
 	}
-
-	if (JoystickChanges & JOY_UP)
+	else if (JoystickChanges & JOY_UP)
 	{
 		MIDICommand = ((JoystickStatus & JOY_UP)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3D;
 	}
-
-	if (JoystickChanges & JOY_RIGHT)
+	else if (JoystickChanges & JOY_RIGHT)
 	{
 		MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3E;
 	}
-
-	if (JoystickChanges & JOY_DOWN)
+	else if (JoystickChanges & JOY_DOWN)
 	{
 		MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3F;
 	}
-
-	if (JoystickChanges & JOY_PRESS)
+	else if (JoystickChanges & JOY_PRESS)
 	{
 		MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 		MIDIPitch   = 0x3B;
@@ -237,6 +206,35 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (MIDI_Host_ConfigurePipes(&Keyboard_MIDI_Interface,
+	                             ConfigDescriptorSize, ConfigDescriptorData) != MIDI_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid MIDI Class Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("MIDI Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

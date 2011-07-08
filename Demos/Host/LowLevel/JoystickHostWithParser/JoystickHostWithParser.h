@@ -67,8 +67,8 @@
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
 	/* Function Prototypes: */
-		void Joystick_HID_Task(void);
 		void SetupHardware(void);
+		void JoystickHost_Task(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

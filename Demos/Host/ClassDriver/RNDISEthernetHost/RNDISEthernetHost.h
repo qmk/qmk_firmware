@@ -68,7 +68,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void PrintIncomingPackets(void);
+		void RNDISHost_Task(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

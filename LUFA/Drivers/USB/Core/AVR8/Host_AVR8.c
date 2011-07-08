@@ -137,7 +137,7 @@ void USB_Host_ProcessNextHostState(void)
 				break;
 			}
 
-			USB_ControlPipeSize = DataBuffer[offsetof(USB_Descriptor_Device_t, Endpoint0Size)];
+			USB_Host_ControlPipeSize = DataBuffer[offsetof(USB_Descriptor_Device_t, Endpoint0Size)];
 
 			USB_Host_ResetDevice();
 
@@ -146,7 +146,7 @@ void USB_Host_ProcessNextHostState(void)
 		case HOST_STATE_Default_PostReset:
 			Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
 			                   PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
-			                   USB_ControlPipeSize, PIPE_BANK_SINGLE);
+			                   USB_Host_ControlPipeSize, PIPE_BANK_SINGLE);
 
 			if (!(Pipe_IsConfigured()))
 			{
@@ -175,8 +175,9 @@ void USB_Host_ProcessNextHostState(void)
 		case HOST_STATE_Default_PostAddressSet:
 			USB_Host_SetDeviceAddress(USB_HOST_DEVICEADDRESS);
 
-			EVENT_USB_Host_DeviceEnumerationComplete();
 			USB_HostState = HOST_STATE_Addressed;
+
+			EVENT_USB_Host_DeviceEnumerationComplete();
 			break;
 	}
 
@@ -253,6 +254,8 @@ static void USB_Host_ResetDevice(void)
 	USB_Host_ResetBus();
 	while (!(USB_Host_IsBusResetComplete()));
 	USB_Host_ResumeBus();
+	
+	USB_Host_ConfigurationNumber = 0;
 
 	bool HSOFIEnabled = USB_INT_IsEnabled(USB_INT_HSOFI);
 
@@ -283,89 +286,6 @@ static void USB_Host_ResetDevice(void)
 	  USB_Host_SuspendBus();
 
 	USB_INT_Enable(USB_INT_DDISCI);
-}
-
-uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-			.bRequest      = REQ_SetConfiguration,
-			.wValue        = ConfigNumber,
-			.wIndex        = 0,
-			.wLength       = 0,
-		};
-
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(NULL);
-}
-
-uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Device << 8),
-			.wIndex        = 0,
-			.wLength       = sizeof(USB_Descriptor_Device_t),
-		};
-
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(DeviceDescriptorPtr);
-}
-
-uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
-                                           void* const Buffer,
-                                           const uint8_t BufferLength)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_String << 8) | Index,
-			.wIndex        = 0,
-			.wLength       = BufferLength,
-		};
-
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(Buffer);
-}
-
-uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointNum)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
-			.bRequest      = REQ_ClearFeature,
-			.wValue        = FEATURE_SEL_EndpointHalt,
-			.wIndex        = EndpointNum,
-			.wLength       = 0,
-		};
-
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(NULL);
-}
-
-uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
-                                        const uint8_t AltSetting)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
-			.bRequest      = REQ_SetInterface,
-			.wValue        = AltSetting,
-			.wIndex        = InterfaceIndex,
-			.wLength       = 0,
-		};
-
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(NULL);
 }
 
 #endif

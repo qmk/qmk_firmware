@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		MIDI_Host_Task();
+		MIDIHost_Task();
+
 		USB_USBTask();
 	}
 }
@@ -99,6 +100,35 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("MIDI Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -128,147 +158,102 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Task to set the configuration of the attached device after it has been enumerated, and to read in
- *  note on/off messages from the attached MIDI device and print it to the serial port. When the board
- *  joystick or buttons are pressed, note on/off messages are sent to the attached device.
+/** Task to read in note on/off messages from the attached MIDI device and print it to the serial port.
+ *  When the board joystick or buttons are pressed, note on/off messages are sent to the attached device.
  */
-void MIDI_Host_Task(void)
+void MIDIHost_Task(void)
 {
-	uint8_t ErrorCode;
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+	  
+	Pipe_SelectPipe(MIDI_DATA_IN_PIPE);
 
-	switch (USB_HostState)
+	if (Pipe_IsINReceived())
 	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
+		MIDI_EventPacket_t MIDIEvent;
 
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+		Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
 
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+		if (!(Pipe_BytesInPipe()))
+		  Pipe_ClearIN();
 
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
+		bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
 
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
+		if (NoteOnEvent || NoteOffEvent)
+		{
+			printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
+																				   ((MIDIEvent.Data1 & 0x0F) + 1),
+																				   MIDIEvent.Data2, MIDIEvent.Data3);
+		}				
+	}
 
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+	Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
 
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	if (Pipe_IsOUTReady())
+	{
+		uint8_t MIDICommand = 0;
+		uint8_t MIDIPitch;
 
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
+		static uint8_t PrevJoystickStatus;
+		uint8_t JoystickStatus  = Joystick_GetStatus();
+		uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
 
-			puts_P(PSTR("MIDI Device Enumerated.\r\n"));
+		/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
+		uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
 
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			Pipe_SelectPipe(MIDI_DATA_IN_PIPE);
+		if (JoystickChanges & JOY_LEFT)
+		{
+			MIDICommand = ((JoystickStatus & JOY_LEFT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3C;
+		}
 
-			if (Pipe_IsINReceived())
-			{
-				MIDI_EventPacket_t MIDIEvent;
+		if (JoystickChanges & JOY_UP)
+		{
+			MIDICommand = ((JoystickStatus & JOY_UP)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3D;
+		}
 
-				Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
+		if (JoystickChanges & JOY_RIGHT)
+		{
+			MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3E;
+		}
 
-				if (!(Pipe_BytesInPipe()))
-				  Pipe_ClearIN();
+		if (JoystickChanges & JOY_DOWN)
+		{
+			MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3F;
+		}
 
-				bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
-				bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
+		if (JoystickChanges & JOY_PRESS)
+		{
+			MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3B;
+		}
 
-				if (NoteOnEvent || NoteOffEvent)
+		/* Check if a MIDI command is to be sent */
+		if (MIDICommand)
+		{
+			MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 				{
-					printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
-				                                                                           ((MIDIEvent.Data1 & 0x0F) + 1),
-				                                                                           MIDIEvent.Data2, MIDIEvent.Data3);
-				}				
-			}
+					.CableNumber = 0,
+					.Command     = (MIDICommand >> 4),
 
-			Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
+					.Data1       = MIDICommand | Channel,
+					.Data2       = MIDIPitch,
+					.Data3       = MIDI_STANDARD_VELOCITY,
+				};
 
-			if (Pipe_IsOUTReady())
-			{
-				uint8_t MIDICommand = 0;
-				uint8_t MIDIPitch;
+			/* Write the MIDI event packet to the pipe */
+			Pipe_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
 
-				static uint8_t PrevJoystickStatus;
-				uint8_t JoystickStatus  = Joystick_GetStatus();
-				uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
+			/* Send the data in the pipe to the device */
+			Pipe_ClearOUT();
+		}
 
-				/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
-				uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
-
-				if (JoystickChanges & JOY_LEFT)
-				{
-					MIDICommand = ((JoystickStatus & JOY_LEFT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-					MIDIPitch   = 0x3C;
-				}
-
-				if (JoystickChanges & JOY_UP)
-				{
-					MIDICommand = ((JoystickStatus & JOY_UP)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-					MIDIPitch   = 0x3D;
-				}
-
-				if (JoystickChanges & JOY_RIGHT)
-				{
-					MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-					MIDIPitch   = 0x3E;
-				}
-
-				if (JoystickChanges & JOY_DOWN)
-				{
-					MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-					MIDIPitch   = 0x3F;
-				}
-
-				if (JoystickChanges & JOY_PRESS)
-				{
-					MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-					MIDIPitch   = 0x3B;
-				}
-
-				/* Check if a MIDI command is to be sent */
-				if (MIDICommand)
-				{
-					MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
-						{
-							.CableNumber = 0,
-							.Command     = (MIDICommand >> 4),
-
-							.Data1       = MIDICommand | Channel,
-							.Data2       = MIDIPitch,
-							.Data3       = MIDI_STANDARD_VELOCITY,
-						};
-
-					/* Write the MIDI event packet to the pipe */
-					Pipe_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
-
-					/* Send the data in the pipe to the device */
-					Pipe_ClearOUT();
-				}
-
-				/* Save previous joystick value for next joystick change detection */
-				PrevJoystickStatus = JoystickStatus;
-			}
-
-			break;
+		/* Save previous joystick value for next joystick change detection */
+		PrevJoystickStatus = JoystickStatus;
 	}
 }
 

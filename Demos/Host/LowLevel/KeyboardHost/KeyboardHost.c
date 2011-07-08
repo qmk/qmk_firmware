@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		Keyboard_HID_Task();
+		KeyboardHost_Task();
+
 		USB_USBTask();
 	}
 }
@@ -97,6 +98,59 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* HID class request to set the keyboard protocol to the Boot Protocol */
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = HID_REQ_SetProtocol,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = 0,
+		};
+
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	/* Send the request, display error and wait for device detach if request fails */
+	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Protocol).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Keyboard Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -126,12 +180,13 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Reads in and processes the next report from the attached device, displaying the report
+/** Task to read in and processes the next report from the attached device, displaying the report
  *  contents on the board LEDs and via the serial port.
  */
-void ReadNextReport(void)
+void KeyboardHost_Task(void)
 {
-	USB_KeyboardReport_Data_t KeyboardReport;
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
 
 	/* Select keyboard data pipe */
 	Pipe_SelectPipe(KEYBOARD_DATA_IN_PIPE);
@@ -151,6 +206,8 @@ void ReadNextReport(void)
 	/* Ensure pipe contains data before trying to read from it */
 	if (Pipe_IsReadWriteAllowed())
 	{
+		USB_KeyboardReport_Data_t KeyboardReport;
+
 		/* Read in keyboard report data */
 		Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport), NULL);
 
@@ -201,88 +258,5 @@ void ReadNextReport(void)
 
 	/* Refreeze keyboard data pipe */
 	Pipe_Freeze();
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  HID reports from the device and display the results onto the board LEDs.
- */
-void Keyboard_HID_Task(void)
-{
-	uint8_t ErrorCode;
-
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* HID class request to set the keyboard protocol to the Boot Protocol */
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-					.bRequest      = HID_REQ_SetProtocol,
-					.wValue        = 0,
-					.wIndex        = 0,
-					.wLength       = 0,
-				};
-
-			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-			/* Send the request, display error and wait for device detach if request fails */
-			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Protocol).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("Keyboard Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			/* If a report has been received, read and process it */
-			ReadNextReport();
-
-			break;
-	}
 }
 

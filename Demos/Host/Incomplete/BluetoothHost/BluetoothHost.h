@@ -80,7 +80,6 @@
 		                                            const uint8_t SubErrorCode);
 
 	/* Function Prototypes: */
-		void Bluetooth_Host_Task(void);
 		void SetupHardware(void);
 
 #endif

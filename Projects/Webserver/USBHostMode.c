@@ -66,73 +66,8 @@ void USBHostMode_USBTask(void)
 	if (USB_CurrentMode != USB_MODE_Host)
 	  return;
 
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-			uint16_t ConfigDescriptorSize;
-			uint8_t  ConfigDescriptorData[512];
-
-			if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-												   sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-			{
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			if (RNDIS_Host_ConfigurePipes(&Ethernet_RNDIS_Interface_Host,
-										  ConfigDescriptorSize, ConfigDescriptorData) != RNDIS_ENUMERROR_NoError)
-			{
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-			{
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface_Host) != HOST_SENDCONTROL_Successful)
-			{
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST);
-			if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface_Host, OID_GEN_CURRENT_PACKET_FILTER,
-											&PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
-			{
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface_Host, OID_802_3_CURRENT_ADDRESS,
-											  &MACAddress, sizeof(MACAddress)) != HOST_SENDCONTROL_Successful)
-			{
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Initialize uIP stack */
-			uIPManagement_Init();
-
-			LEDs_SetAllLEDs(LEDMASK_USB_READY);
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			uIPManagement_ManageNetwork();
-
-			break;
-	}
-
+	uIPManagement_ManageNetwork();
+	
 	RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface_Host);
 }
 
@@ -157,6 +92,55 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (RNDIS_Host_ConfigurePipes(&Ethernet_RNDIS_Interface_Host,
+	                              ConfigDescriptorSize, ConfigDescriptorData) != RNDIS_ENUMERROR_NoError)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface_Host) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST);
+	if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface_Host, OID_GEN_CURRENT_PACKET_FILTER,
+	                                &PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface_Host, OID_802_3_CURRENT_ADDRESS,
+	                                  &MACAddress, sizeof(MACAddress)) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Initialize uIP stack */
+	uIPManagement_Init();
+
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

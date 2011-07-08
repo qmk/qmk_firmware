@@ -50,7 +50,7 @@ int main(void)
 
 	for (;;)
 	{
-		Android_Host_Task();
+		AndroidHost_Task();
 		USB_USBTask();
 	}
 }
@@ -72,6 +72,53 @@ void SetupHardware(void)
 
 	/* Create a stdio stream for the serial port for stdin and stdout */
 	Serial_CreateStream(NULL);
+}
+
+/** Task to set the configuration of the attached device after it has been enumerated. */
+void AndroidHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;	
+
+	/* Select the data IN pipe */
+	Pipe_SelectPipe(ANDROID_DATA_IN_PIPE);
+	Pipe_Unfreeze();
+
+	/* Check to see if a packet has been received */
+	if (Pipe_IsINReceived())
+	{
+		/* Re-freeze IN pipe after the packet has been received */
+		Pipe_Freeze();
+
+		/* Check if data is in the pipe */
+		if (Pipe_IsReadWriteAllowed())
+		{
+			uint8_t NextReceivedByte = Pipe_BytesInPipe();
+			uint8_t LEDMask          = LEDS_NO_LEDS;
+
+			if (NextReceivedByte & 0x01)
+			  LEDMask |= LEDS_LED1;
+
+			if (NextReceivedByte & 0x02)
+			  LEDMask |= LEDS_LED2;
+
+			if (NextReceivedByte & 0x04)
+			  LEDMask |= LEDS_LED3;
+
+			if (NextReceivedByte & 0x08)
+			  LEDMask |= LEDS_LED4;
+
+			LEDs_SetAllLEDs(LEDMask);
+		}
+		else
+		{
+			/* Clear the pipe after all data in the packet has been read, ready for the next packet */
+			Pipe_ClearIN();
+		}
+	}
+
+	/* Re-freeze IN pipe after use */
+	Pipe_Freeze();
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -97,6 +144,92 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Device Data.\r\n"));
+
+	/* Get and process the configuration descriptor data */
+	uint8_t ErrorCode = ProcessDeviceDescriptor();
+	
+	bool RequiresModeSwitch = (ErrorCode == NonAccessoryModeAndroidDevice);
+
+	/* Error out if the device is not an Android device or an error occurred */
+	if ((ErrorCode != AccessoryModeAndroidDevice) && !(RequiresModeSwitch))
+	{
+		if (ErrorCode == DevControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Device).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	printf_P(PSTR("Android Device Detected - %sAccessory mode.\r\n"), (RequiresModeSwitch ? "Non-" : ""));
+	
+	/* Check if a valid Android device was attached, but it is not current in Accessory mode */
+	if (RequiresModeSwitch)
+	{
+		uint16_t AndroidProtocol;
+	
+		/* Fetch the version of the Android Accessory Protocol supported by the device */
+		if ((ErrorCode = Android_GetAccessoryProtocol(&AndroidProtocol)) != HOST_SENDCONTROL_Successful)
+		{
+			printf_P(PSTR(ESC_FG_RED "Control Error (Get Protocol).\r\n"
+			                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+			return;
+		}
+		
+		/* Validate the returned protocol version */
+		if (AndroidProtocol != ANDROID_PROTOCOL_Accessory)
+		{
+			puts_P(PSTR(ESC_FG_RED "Accessory Mode Not Supported."));
+
+			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+			return;
+		}
+	
+		/* Send the device strings and start the Android Accessory Mode */
+		Android_SendString(ANDROID_STRING_Manufacturer, "Dean Camera");
+		Android_SendString(ANDROID_STRING_Model,        "LUFA Android Demo");
+		Android_SendString(ANDROID_STRING_Description,  "LUFA Android Demo");
+		Android_SendString(ANDROID_STRING_Version,      "1.0");
+		Android_SendString(ANDROID_STRING_URI,          "http://www.lufa-lib.org");
+		Android_SendString(ANDROID_STRING_Serial,       "0000000012345678");
+
+		Android_StartAccessoryMode();	
+		return;
+	}
+
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("Accessory Mode Android Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -124,168 +257,5 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated. */
-void Android_Host_Task(void)
-{
-	uint8_t ErrorCode;
-
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Device Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			ErrorCode = ProcessDeviceDescriptor();
-			
-			bool RequiresModeSwitch = (ErrorCode == NonAccessoryModeAndroidDevice);
-
-			/* Error out if the device is not an Android device or an error occurred */
-			if ((ErrorCode != AccessoryModeAndroidDevice) && !(RequiresModeSwitch))
-			{
-				if (ErrorCode == DevControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Device).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			printf_P(PSTR("Android Device Detected - %sAccessory mode.\r\n"), (RequiresModeSwitch ? "Non-" : ""));
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-			
-			/* Check if a valid Android device was attached, but it is not current in Accessory mode */
-			if (RequiresModeSwitch)
-			{
-				uint16_t AndroidProtocol;
-			
-				/* Fetch the version of the Android Accessory Protocol supported by the device */
-				if ((ErrorCode = Android_GetAccessoryProtocol(&AndroidProtocol)) != HOST_SENDCONTROL_Successful)
-				{
-					printf_P(PSTR(ESC_FG_RED "Control Error (Get Protocol).\r\n"
-					                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-					/* Indicate error via status LEDs */
-					LEDs_SetAllLEDs(LEDS_LED1);
-
-					/* Wait until USB device disconnected */
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-				
-				/* Validate the returned protocol version */
-				if (AndroidProtocol != ANDROID_PROTOCOL_Accessory)
-				{
-					puts_P(PSTR(ESC_FG_RED "Accessory Mode Not Supported."));
-
-					/* Indicate error via status LEDs */
-					LEDs_SetAllLEDs(LEDS_LED1);
-
-					/* Wait until USB device disconnected */
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-			
-				/* Send the device strings and start the Android Accessory Mode */
-				Android_SendString(ANDROID_STRING_Manufacturer, "Dean Camera");
-				Android_SendString(ANDROID_STRING_Model,        "LUFA Android Demo");
-				Android_SendString(ANDROID_STRING_Description,  "LUFA Android Demo");
-				Android_SendString(ANDROID_STRING_Version,      "1.0");
-				Android_SendString(ANDROID_STRING_URI,          "http://www.lufa-lib.org");
-				Android_SendString(ANDROID_STRING_Serial,       "0000000012345678");
-				Android_StartAccessoryMode();
-			
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("Getting Config Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("Accessory Mode Android Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			/* Select the data IN pipe */
-			Pipe_SelectPipe(ANDROID_DATA_IN_PIPE);
-			Pipe_Unfreeze();
-
-			/* Check to see if a packet has been received */
-			if (Pipe_IsINReceived())
-			{
-				/* Re-freeze IN pipe after the packet has been received */
-				Pipe_Freeze();
-
-				/* Check if data is in the pipe */
-				if (Pipe_IsReadWriteAllowed())
-				{
-					uint8_t NextReceivedByte = Pipe_BytesInPipe();
-					uint8_t LEDMask          = LEDS_NO_LEDS;
-
-					if (NextReceivedByte & 0x01)
-						LEDMask |= LEDS_LED1;
-
-					if (NextReceivedByte & 0x02)
-						LEDMask |= LEDS_LED2;
-
-					if (NextReceivedByte & 0x04)
-						LEDMask |= LEDS_LED3;
-
-					if (NextReceivedByte & 0x08)
-						LEDMask |= LEDS_LED4;
-
-					LEDs_SetAllLEDs(LEDMask);
-				}
-				else
-				{
-					/* Clear the pipe after all data in the packet has been read, ready for the next packet */
-					Pipe_ClearIN();
-				}
-			}
-
-			/* Re-freeze IN pipe after use */
-			Pipe_Freeze();
-			break;			
-	}
 }
 

@@ -74,97 +74,7 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_ConfigurePipes(&Joystick_HID_Interface,
-				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Joystick.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_SetReportProtocol(&Joystick_HID_Interface) != 0)
-				{
-					puts_P(PSTR("Error Setting Report Protocol Mode or Not a Valid Joystick.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Joystick Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				if (HID_Host_IsReportReceived(&Joystick_HID_Interface))
-				{
-					uint8_t JoystickReport[Joystick_HID_Interface.State.LargestReportSize];
-					HID_Host_ReceiveReport(&Joystick_HID_Interface, &JoystickReport);
-
-					uint8_t LEDMask = LEDS_NO_LEDS;
-
-					for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
-					{
-						HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
-
-						/* Update the report item value if it is contained within the current report */
-						if (!(USB_GetHIDReportItemInfo(JoystickReport, ReportItem)))
-						  continue;
-
-						/* Determine what report item is being tested, process updated value as needed */
-						if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
-							(ReportItem->ItemType                     == HID_REPORT_ITEM_In))
-						{
-							if (ReportItem->Value)
-							  LEDMask = LEDS_ALL_LEDS;
-						}
-						else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
-								 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
-								  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
-								 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
-						{
-							int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
-
-							if (DeltaMovement)
-							{
-								if (ReportItem->Attributes.Usage.Usage == USAGE_X)
-								  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
-								else
-								  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
-							}
-						}
-					}
-
-					LEDs_SetAllLEDs(LEDMask);
-				}
-
-				break;
-		}
+		JoystickHost_Task();
 
 		HID_Host_USBTask(&Joystick_HID_Interface);
 		USB_USBTask();
@@ -190,6 +100,57 @@ void SetupHardware(void)
 	Serial_CreateStream(NULL);
 }
 
+/** Task to manage an enumerated USB joystick once connected, to display movement
+ *  data as it is received.
+ */
+void JoystickHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
+	if (HID_Host_IsReportReceived(&Joystick_HID_Interface))
+	{
+		uint8_t JoystickReport[Joystick_HID_Interface.State.LargestReportSize];
+		HID_Host_ReceiveReport(&Joystick_HID_Interface, &JoystickReport);
+
+		uint8_t LEDMask = LEDS_NO_LEDS;
+
+		for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
+		{
+			HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
+
+			/* Update the report item value if it is contained within the current report */
+			if (!(USB_GetHIDReportItemInfo(JoystickReport, ReportItem)))
+			  continue;
+
+			/* Determine what report item is being tested, process updated value as needed */
+			if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
+			    (ReportItem->ItemType                     == HID_REPORT_ITEM_In))
+			{
+				if (ReportItem->Value)
+				  LEDMask = LEDS_ALL_LEDS;
+			}
+			else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
+			         ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
+			          (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
+			         (ReportItem->ItemType                == HID_REPORT_ITEM_In))
+			{
+				int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
+
+				if (DeltaMovement)
+				{
+					if (ReportItem->Attributes.Usage.Usage == USAGE_X)
+					  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
+					else
+					  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
+				}
+			}
+		}
+
+		LEDs_SetAllLEDs(LEDMask);
+	}
+}
+
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
  *  starts the library USB task to begin the enumeration and USB management process.
  */
@@ -213,6 +174,42 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_ConfigurePipes(&Joystick_HID_Interface,
+	                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Joystick.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_SetReportProtocol(&Joystick_HID_Interface) != 0)
+	{
+		puts_P(PSTR("Error Setting Report Protocol Mode or Not a Valid Joystick.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("Joystick Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

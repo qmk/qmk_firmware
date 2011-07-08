@@ -69,7 +69,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void MIDI_Host_Task(void);
+		void MIDIHost_Task(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

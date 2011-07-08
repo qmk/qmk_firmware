@@ -35,7 +35,7 @@
 
 #include "../Pipe.h"
 
-uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
+uint8_t USB_Host_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 
 volatile uint32_t USB_SelectedPipe = PIPE_CONTROLPIPE;
 volatile uint8_t* USB_PipeFIFOPos[PIPE_TOTAL_PIPES];

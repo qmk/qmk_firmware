@@ -67,7 +67,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void CDC_Host_Task(void);
+		void CDCHost_Task(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

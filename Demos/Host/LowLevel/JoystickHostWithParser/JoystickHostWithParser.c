@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		Joystick_HID_Task();
+		JoystickHost_Task();
+
 		USB_USBTask();
 	}
 }
@@ -97,6 +98,52 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+	
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
+
+	/* Get and process the device's first HID report descriptor */
+	if ((ErrorCode = GetHIDReportData()) != ParseSuccessful)
+	{
+		puts_P(PSTR(ESC_FG_RED "Report Parse Error.\r\n"));
+
+		if (!(HIDReportInfo.TotalReportItems))
+			puts_P(PSTR("Not a valid Joystick." ESC_FG_WHITE));
+		else
+			printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	puts_P(PSTR("Joystick Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -125,104 +172,40 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  the HID report descriptor and HID reports from the device and display the results onto the board LEDs.
+/** Task to read and process the HID report descriptor and HID reports from the device
+ *  and display the results onto the board LEDs.
  */
-void Joystick_HID_Task(void)
+void JoystickHost_Task(void)
 {
-	uint8_t ErrorCode;
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+	
+	/* Select and unfreeze joystick data pipe */
+	Pipe_SelectPipe(JOYSTICK_DATA_IN_PIPE);
+	Pipe_Unfreeze();
 
-	/* Switch to determine what user-application handled host state the host state machine is in */
-	switch (USB_HostState)
+	/* Check to see if a packet has been received */
+	if (Pipe_IsINReceived())
 	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
+		/* Check if data has been received from the attached joystick */
+		if (Pipe_IsReadWriteAllowed())
+		{
+			/* Create buffer big enough for the report */
+			uint8_t JoystickReport[Pipe_BytesInPipe()];
 
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+			/* Load in the joystick report */
+			Pipe_Read_Stream_LE(JoystickReport, Pipe_BytesInPipe(), NULL);
 
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+			/* Process the read in joystick report from the device */
+			ProcessJoystickReport(JoystickReport);
+		}
 
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
-
-			/* Get and process the device's first HID report descriptor */
-			if ((ErrorCode = GetHIDReportData()) != ParseSuccessful)
-			{
-				puts_P(PSTR(ESC_FG_RED "Report Parse Error.\r\n"));
-
-				if (!(HIDReportInfo.TotalReportItems))
-					puts_P(PSTR("Not a valid Joystick." ESC_FG_WHITE));
-				else
-					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("Joystick Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			/* Select and unfreeze joystick data pipe */
-			Pipe_SelectPipe(JOYSTICK_DATA_IN_PIPE);
-			Pipe_Unfreeze();
-
-			/* Check to see if a packet has been received */
-			if (Pipe_IsINReceived())
-			{
-				/* Check if data has been received from the attached joystick */
-				if (Pipe_IsReadWriteAllowed())
-				{
-					/* Create buffer big enough for the report */
-					uint8_t JoystickReport[Pipe_BytesInPipe()];
-
-					/* Load in the joystick report */
-					Pipe_Read_Stream_LE(JoystickReport, Pipe_BytesInPipe(), NULL);
-
-					/* Process the read in joystick report from the device */
-					ProcessJoystickReport(JoystickReport);
-				}
-
-				/* Clear the IN endpoint, ready for next data packet */
-				Pipe_ClearIN();
-			}
-
-			/* Freeze joystick data pipe */
-			Pipe_Freeze();
-			break;
+		/* Clear the IN endpoint, ready for next data packet */
+		Pipe_ClearIN();
 	}
+
+	/* Freeze joystick data pipe */
+	Pipe_Freeze();
 }
 
 /** Processes a read HID report from an attached joystick, extracting out elements via the HID parser results

@@ -43,7 +43,7 @@
 		extern USB_ClassInfo_HID_Host_t Mouse_HID_Host_Interface;
 
 	/* Function Prototypes: */
-		void MouseHostTask(void);
+		void MouseHost_Task(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

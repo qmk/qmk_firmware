@@ -103,8 +103,8 @@ int main(void)
 	for (;;)
 	{
 		Read_Joystick_Status();
-
-		HID_Host_Task();
+		DiscardNextReport();
+		
 		USB_USBTask();
 	}
 }
@@ -198,6 +198,22 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	/* Get and process the configuration descriptor data */
+	if (ProcessConfigurationDescriptor() != SuccessfulConfigRead)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -222,6 +238,9 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 /** Reads in and discards the next report from the attached device. */
 void DiscardNextReport(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	/* Select and unfreeze HID data IN pipe */
 	Pipe_SelectPipe(HID_DATA_IN_PIPE);
 	Pipe_Unfreeze();
@@ -250,6 +269,9 @@ void DiscardNextReport(void)
 void WriteNextReport(uint8_t* const ReportOUTData,
                      const uint16_t ReportLength)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	/* Select and unfreeze HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
 
@@ -294,48 +316,6 @@ void WriteNextReport(uint8_t* const ReportOUTData,
 
 		/* Send the request to the device */
 		USB_Host_SendControlRequest(ReportOUTData);
-	}
-}
-
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  HID reports from the device and to send reports if desired.
- */
-void HID_Host_Task(void)
-{
-	uint8_t ErrorCode;
-
-	/* Switch to determine what user-application handled host state the host state machine is in */
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			DiscardNextReport();
-
-			break;
 	}
 }
 

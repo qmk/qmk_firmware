@@ -69,81 +69,7 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_ConfigurePipes(&Mouse_HID_Interface,
-				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Mouse.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (HID_Host_SetBootProtocol(&Mouse_HID_Interface) != 0)
-				{
-					puts_P(PSTR("Could not Set Boot Protocol Mode.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				puts_P(PSTR("Mouse Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
-				{
-					uint8_t LEDMask  = LEDS_NO_LEDS;
-
-					USB_MouseReport_Data_t MouseReport;
-					HID_Host_ReceiveReport(&Mouse_HID_Interface, &MouseReport);
-
-					printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
-																  MouseReport.Y,
-																  MouseReport.Button);
-					if (MouseReport.X > 0)
-					  LEDMask |= LEDS_LED1;
-					else if (MouseReport.X < 0)
-					  LEDMask |= LEDS_LED2;
-
-					if (MouseReport.Y > 0)
-					  LEDMask |= LEDS_LED3;
-					else if (MouseReport.Y < 0)
-					  LEDMask |= LEDS_LED4;
-
-					if (MouseReport.Button)
-					  LEDMask  = LEDS_ALL_LEDS;
-
-					LEDs_SetAllLEDs(LEDMask);
-				}
-
-				break;
-		}
+		MouseHost_Task();
 
 		HID_Host_USBTask(&Mouse_HID_Interface);
 		USB_USBTask();
@@ -169,6 +95,41 @@ void SetupHardware(void)
 	Serial_CreateStream(NULL);
 }
 
+/** Task to manage an enumerated USB mouse once connected, to display movement
+ *  data as it is received.
+ */
+void MouseHost_Task(void)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+	  
+	if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
+	{
+		uint8_t LEDMask = LEDS_NO_LEDS;
+
+		USB_MouseReport_Data_t MouseReport;
+		HID_Host_ReceiveReport(&Mouse_HID_Interface, &MouseReport);
+
+		printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
+		                                              MouseReport.Y,
+		                                              MouseReport.Button);
+		if (MouseReport.X > 0)
+		  LEDMask |= LEDS_LED1;
+		else if (MouseReport.X < 0)
+		  LEDMask |= LEDS_LED2;
+
+		if (MouseReport.Y > 0)
+		  LEDMask |= LEDS_LED3;
+		else if (MouseReport.Y < 0)
+		  LEDMask |= LEDS_LED4;
+
+		if (MouseReport.Button)
+		  LEDMask  = LEDS_ALL_LEDS;
+
+		LEDs_SetAllLEDs(LEDMask);
+	}
+}
+
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
  *  starts the library USB task to begin the enumeration and USB management process.
  */
@@ -192,6 +153,42 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_ConfigurePipes(&Mouse_HID_Interface,
+	                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Mouse.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (HID_Host_SetBootProtocol(&Mouse_HID_Interface) != 0)
+	{
+		puts_P(PSTR("Could not Set Boot Protocol Mode.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	puts_P(PSTR("Mouse Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

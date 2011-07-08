@@ -208,6 +208,9 @@
 			/** Suspends the USB bus, preventing any communications from occurring between the host and attached
 			 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
 			 *  messages to the device.
+			 *
+			 *  \note While the USB bus is suspended, all USB interrupt sources are also disabled; this means that
+			 *        some events (such as device disconnections) will not fire until the bus is resumed.
 			 */
 			static inline void USB_Host_SuspendBus(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_SuspendBus(void)
@@ -276,73 +279,6 @@
 			{
 				return AVR32_USBB.UHCON.resume;
 			}
-
-		/* Function Prototypes: */
-			/** Convenience function. This routine sends a SET CONFIGURATION standard request to the attached
-			 *  device, with the given configuration index. This can be used to easily set the device
-			 *  configuration without creating and sending the request manually.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in] ConfigNumber  Configuration index to send to the device.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
-
-			/** Convenience function. This routine sends a GET DESCRIPTOR standard request to the attached
-			 *  device, requesting the device descriptor. This can be used to easily retrieve information
-			 *  about the device such as its VID, PID and power requirements.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
-			 *                                   the read data is to be stored.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
-
-			/** Convenience function. This routine sends a GET DESCRIPTOR standard request to the attached
-			 *  device, requesting the string descriptor of the specified index. This can be used to easily
-			 *  retrieve string descriptors from the device by index, after the index is obtained from the
-			 *  Device or Configuration descriptors.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in]  Index        Index of the string index to retrieve.
-			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
-			 *                           to be stored.
-			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
-			                                           void* const Buffer,
-			                                           const uint8_t BufferLength);
-
-			/** Clears a stall condition on the given pipe, via a CLEAR FEATURE standard request to the attached device.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in] EndpointIndex  Index of the endpoint to clear, including the endpoint's direction.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointIndex);
-
-			/** Selects a given alternative setting for the specified interface, via a SET INTERFACE standard request to
-			 *  the attached device.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in] InterfaceIndex  Index of the interface whose alternative setting is to be altered.
-			 *  \param[in] AltSetting      Index of the interface's alternative setting which is to be selected.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
-													const uint8_t AltSetting);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

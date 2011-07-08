@@ -804,7 +804,7 @@
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.
 			 */
-			extern uint8_t USB_ControlPipeSize;
+			extern uint8_t USB_Host_ControlPipeSize;
 
 		/* Function Prototypes: */
 			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the

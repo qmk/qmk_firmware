@@ -50,7 +50,6 @@ int main(void)
 
 	for (;;)
 	{
-		Audio_Task();
 		USB_USBTask();
 	}
 }
@@ -100,6 +99,73 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+	
+	if ((ErrorCode = USB_Host_SetInterfaceAltSetting(StreamingInterfaceIndex,
+	                                                 StreamingInterfaceAltSetting)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Could not set alternative streaming interface setting.\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT),
+			.bRequest      = AUDIO_REQ_SetCurrent,
+			.wValue        = (AUDIO_EPCONTROL_SamplingFreq << 8),
+			.wIndex        = StreamingEndpointAddress,
+			.wLength       = sizeof(USB_Audio_SampleFreq_t),
+		};
+		
+	USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
+
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	/* Set the sample rate on the streaming interface endpoint */
+	if ((ErrorCode = USB_Host_SendControlRequest(&SampleRate)) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	/* Sample reload timer initialization */
+	TIMSK0  = (1 << OCIE0A);
+	OCR0A   = ((F_CPU / 8 / 48000) - 1);
+	TCCR0A  = (1 << WGM01);  // CTC mode
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed	
+	
+	puts_P(PSTR("Speaker Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -127,102 +193,6 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-}
-
-void Audio_Task(void)
-{
-	uint8_t ErrorCode;
-
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-			
-			if ((ErrorCode = USB_Host_SetInterfaceAltSetting(StreamingInterfaceIndex,
-			                                                 StreamingInterfaceAltSetting)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Could not set alternative streaming interface setting.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT),
-					.bRequest      = AUDIO_REQ_SetCurrent,
-					.wValue        = (AUDIO_EPCONTROL_SamplingFreq << 8),
-					.wIndex        = StreamingEndpointAddress,
-					.wLength       = sizeof(USB_Audio_SampleFreq_t),
-				};
-				
-			USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
-
-			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-			/* Set the sample rate on the streaming interface endpoint */
-			if ((ErrorCode = USB_Host_SendControlRequest(&SampleRate)) != HOST_SENDCONTROL_Successful)
-			{
-				/* Indicate error status */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-	
-			/* Sample reload timer initialization */
-			TIMSK0  = (1 << OCIE0A);
-			OCR0A   = ((F_CPU / 8 / 48000) - 1);
-			TCCR0A  = (1 << WGM01);  // CTC mode
-			TCCR0B  = (1 << CS01);   // Fcpu/8 speed	
-			
-			puts_P(PSTR("Speaker Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			/* Do nothing - audio stream is handled by the timer interrupt routine */
-			break;
-	}
 }
 
 /** ISR to handle the reloading of the endpoint with the next sample. */

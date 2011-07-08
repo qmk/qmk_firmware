@@ -63,74 +63,6 @@ int main(void)
 
 	for (;;)
 	{
-		switch (USB_HostState)
-		{
-			case HOST_STATE_Addressed:
-				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-				uint16_t ConfigDescriptorSize;
-				uint8_t  ConfigDescriptorData[512];
-
-				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-				{
-					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (Audio_Host_ConfigurePipes(&Speaker_Audio_Interface,
-				                              ConfigDescriptorSize, ConfigDescriptorData) != AUDIO_ENUMERROR_NoError)
-				{
-					puts_P(PSTR("Attached Device Not a Valid Audio Output Device.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-
-				if (Audio_Host_StartStopStreaming(&Speaker_Audio_Interface, true) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Enabling Audio Stream.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-				
-				USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
-				if (Audio_Host_GetSetEndpointProperty(&Speaker_Audio_Interface, Speaker_Audio_Interface.Config.DataOUTPipeNumber,
-				                                      AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,
-				                                      sizeof(SampleRate), &SampleRate) != HOST_SENDCONTROL_Successful)
-				{
-					puts_P(PSTR("Error Setting Audio Sampling Frequency.\r\n"));
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;				
-				}
-
-				/* Sample reload timer initialization */
-				TIMSK0  = (1 << OCIE0A);
-				OCR0A   = ((F_CPU / 8 / 48000) - 1);
-				TCCR0A  = (1 << WGM01);  // CTC mode
-				TCCR0B  = (1 << CS01);   // Fcpu/8 speed
-
-				puts_P(PSTR("Audio Device Enumerated.\r\n"));
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-				USB_HostState = HOST_STATE_Configured;
-				break;
-			case HOST_STATE_Configured:
-				/* Do nothing - audio stream is handled by the timer interrupt routine */
-				break;
-		}
-
 		Audio_Host_USBTask(&Speaker_Audio_Interface);
 		USB_USBTask();
 	}
@@ -218,6 +150,58 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+	                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
+	{
+		puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (Audio_Host_ConfigurePipes(&Speaker_Audio_Interface,
+	                              ConfigDescriptorSize, ConfigDescriptorData) != AUDIO_ENUMERROR_NoError)
+	{
+		puts_P(PSTR("Attached Device Not a Valid Audio Output Device.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Device Configuration.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (Audio_Host_StartStopStreaming(&Speaker_Audio_Interface, true) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Enabling Audio Stream.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+	
+	USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
+	if (Audio_Host_GetSetEndpointProperty(&Speaker_Audio_Interface, Speaker_Audio_Interface.Config.DataOUTPipeNumber,
+	                                      AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,
+	                                      sizeof(SampleRate), &SampleRate) != HOST_SENDCONTROL_Successful)
+	{
+		puts_P(PSTR("Error Setting Audio Sampling Frequency.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Sample reload timer initialization */
+	TIMSK0  = (1 << OCIE0A);
+	OCR0A   = ((F_CPU / 8 / 48000) - 1);
+	TCCR0A  = (1 << WGM01);  // CTC mode
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
+
+	puts_P(PSTR("Audio Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 

@@ -74,8 +74,8 @@
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
 	/* Function Prototypes: */
-		void MassStorage_Task(void);
 		void SetupHardware(void);
+		void MassStorageHost_Task(void);
 
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

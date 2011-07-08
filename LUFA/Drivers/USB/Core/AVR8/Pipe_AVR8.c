@@ -35,7 +35,7 @@
 
 #include "../Pipe.h"
 
-uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
+uint8_t USB_Host_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 
 bool Pipe_ConfigurePipe(const uint8_t Number,
                         const uint8_t Type,

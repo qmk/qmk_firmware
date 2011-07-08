@@ -132,8 +132,8 @@
 			 *  \note This macro should only be used if the device has indicated to the host that it
 			 *        supports the Remote Wakeup feature in the device descriptors, and should only be
 			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-			 *        the \ref USB_RemoteWakeupEnabled flag is set). When the \c NO_DEVICE_REMOTE_WAKEUP compile
-			 *        time option is used, this macro is unavailable.
+			 *        the \ref USB_Device_RemoteWakeupEnabled flag is set). When the \c NO_DEVICE_REMOTE_WAKEUP
+			 *        compile time option is used, this macro is unavailable.
 			 *        \n\n
 			 *
 			 *  \note The USB clock must be running for this function to operate. If the stack is initialized with

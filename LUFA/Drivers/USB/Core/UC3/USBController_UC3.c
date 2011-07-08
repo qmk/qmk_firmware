@@ -147,22 +147,22 @@ void USB_ResetInterface(void)
 #if defined(USB_CAN_BE_DEVICE)
 static void USB_Init_Device(void)
 {
-	USB_DeviceState          = DEVICE_STATE_Unattached;
-	USB_ConfigurationNumber  = 0;
+	USB_DeviceState                 = DEVICE_STATE_Unattached;
+	USB_Device_ConfigurationNumber  = 0;
 
 	#if !defined(NO_DEVICE_REMOTE_WAKEUP)
-	USB_RemoteWakeupEnabled  = false;
+	USB_Device_RemoteWakeupEnabled  = false;
 	#endif
 
 	#if !defined(NO_DEVICE_SELF_POWER)
-	USB_CurrentlySelfPowered = false;
+	USB_Device_CurrentlySelfPowered = false;
 	#endif
 
 	#if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
 	USB_Descriptor_Device_t* DeviceDescriptorPtr;
 
 	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr) != NO_DESCRIPTOR)
-	  USB_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
+	  USB_Device_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
 	#endif
 
 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
@@ -173,7 +173,7 @@ static void USB_Init_Device(void)
 	USB_INT_Enable(USB_INT_VBUSTI);
 
 	Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
-							   ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
+							   ENDPOINT_DIR_OUT, USB_Device_ControlEndpointSize,
 							   ENDPOINT_BANK_SINGLE);
 
 	USB_INT_Clear(USB_INT_SUSPI);
@@ -187,8 +187,9 @@ static void USB_Init_Device(void)
 #if defined(USB_CAN_BE_HOST)
 static void USB_Init_Host(void)
 {
-	USB_HostState       = HOST_STATE_Unattached;
-	USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
+	USB_HostState                = HOST_STATE_Unattached;
+	USB_Host_ConfigurationNumber = 0;
+	USB_Host_ControlPipeSize     = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 
 	USB_Host_HostMode_On();
 

@@ -20,6 +20,19 @@
  *    - The device mode Audio class driver now requires a new user application callback, \ref CALLBACK_Audio_Device_GetSetEndpointProperty().
  *      Existing applications must implement this new callback, however if multiple sample rates or pitch control is not used,
  *      this function may be hard-coded to always return false for previous behaviour to be retained.
+ *    - The \c USB_ConfigurationNumber, \c USB_RemoteWakeupEnabled and \c USB_CurrentlySelfPowered globals have been renamed to
+ *      \ref USB_Device_ConfigurationNumber, \ref USB_Device_RemoteWakeupEnabled and \ref USB_Device_CurrentlySelfPowered to clearly indicate
+ *      the USB mode they relate to. Existing applications using these variables should rename all references to the previous names.
+ *
+ *  <b>Host Mode</b>
+ *    - The USB_Host_SetDeviceConfiguration() function now automatically sets the USB Host state machine to the \ref HOST_STATE_Configured
+ *      state if a non-zero configuration is set sucessfully, or the \ref HOST_STATE_Addressed if a zero-index configuration is specified. Existing
+ *      applications should no longer manually alter the \ref USB_HostState global, and should instead call this function to configure and
+ *      unconfigure an attached device.
+ *    - The \c HOST_STATE_WaitForDeviceRemoval and \c HOST_STATE_Suspended host state machine states have been removed; these are replaced by
+ *      unconfiguring the attached device via a call to \ref USB_Host_SetDeviceConfiguration() and a test of \ref USB_Host_IsBusSuspended() instead.
+ *    - It is highly recommended that the EVENT_USB_Host_DeviceEnumerationComplete() event callback now be used for initial device configuration,
+ *      rather than a switch on the USB host state machine state for readability.
  *
  *  \section Sec_Migration110528 Migrating from 101122 to 110528
  *  <b>Non-USB Library Components</b>

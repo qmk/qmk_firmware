@@ -50,7 +50,8 @@ int main(void)
 
 	for (;;)
 	{
-		USB_Printer_Host();
+		PrinterHost_Task();
+
 		USB_USBTask();
 	}
 }
@@ -97,6 +98,65 @@ void EVENT_USB_Host_DeviceUnattached(void)
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
+	puts_P(PSTR("Getting Config Data.\r\n"));
+
+	uint8_t ErrorCode;
+
+	/* Get and process the configuration descriptor data */
+	if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
+	{
+		if (ErrorCode == ControlError)
+		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
+		else
+		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
+
+		printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+	if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	/* Some printers use alternate settings to determine the communication protocol used - if so, send a SetInterface
+	 * request to switch to the interface alternate setting with the Bidirectional protocol */
+	if (PrinterAltSetting)
+	{
+		if ((ErrorCode = USB_Host_SetInterfaceAltSetting(PrinterInterfaceNumber, PrinterAltSetting)) != HOST_SENDCONTROL_Successful)
+		{
+			printf_P(PSTR(ESC_FG_RED "Control Error (Set Interface).\r\n"
+			                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+			USB_Host_SetDeviceConfiguration(0);
+			return;
+		}
+	}
+
+	puts_P(PSTR("Retrieving Device ID...\r\n"));
+
+	char DeviceIDString[300];
+	if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Get Device ID).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
+	}
+
+	printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString);
+
+	puts_P(PSTR("Printer Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
@@ -126,122 +186,39 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Task to set the configuration of the attached device after it has been enumerated, and to send some test page
- *  data to the attached printer.
+/** Task to manage an enumerated USB printer once connected, to display device
+ *  information and print a test PCL page.
  */
-void USB_Printer_Host(void)
+void PrinterHost_Task(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	uint8_t ErrorCode;
 
-	switch (USB_HostState)
+	/* Indicate device busy via the status LEDs */
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
+	char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
+	uint16_t TestPageLength = strlen(TestPageData);
+
+	printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
+
+	/* Send the test page to the attached printer */
+	if ((ErrorCode = Printer_SendData(&TestPageData, TestPageLength)) != PIPE_RWSTREAM_NoError)
 	{
-		case HOST_STATE_Addressed:
-			puts_P(PSTR("Getting Config Data.\r\n"));
+		printf_P(PSTR(ESC_FG_RED "Error Sending Test Page.\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
-			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-			/* Get and process the configuration descriptor data */
-			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
-			{
-				if (ErrorCode == ControlError)
-				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
-				else
-				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
-
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			/* Some printers use alternate settings to determine the communication protocol used - if so, send a SetInterface
-			 * request to switch to the interface alternate setting with the Bidirectional protocol */
-			if (PrinterAltSetting)
-			{
-				if ((ErrorCode = USB_Host_SetInterfaceAltSetting(PrinterInterfaceNumber, PrinterAltSetting)) != HOST_SENDCONTROL_Successful)
-				{
-					printf_P(PSTR(ESC_FG_RED "Control Error (Set Interface).\r\n"
-					                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-					/* Indicate error via status LEDs */
-					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-					/* Wait until USB device disconnected */
-					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;
-				}
-			}
-
-			puts_P(PSTR("Retrieving Device ID...\r\n"));
-
-			char DeviceIDString[300];
-			if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Get Device ID).\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString);
-
-			puts_P(PSTR("Printer Enumerated.\r\n"));
-
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			/* Indicate device busy via the status LEDs */
-			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-
-			char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
-			uint16_t TestPageLength = strlen(TestPageData);
-
-			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
-
-			if ((ErrorCode = Printer_SendData(&TestPageData, TestPageLength)) != PIPE_RWSTREAM_NoError)
-			{
-				printf_P(PSTR(ESC_FG_RED "Error Sending Test Page.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
-
-			puts_P(PSTR("Test Page Sent.\r\n"));
-
-			/* Indicate device no longer busy */
-			LEDs_SetAllLEDs(LEDMASK_USB_READY);
-
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			break;
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		USB_Host_SetDeviceConfiguration(0);
+		return;
 	}
+
+	puts_P(PSTR("Test Page Sent.\r\n"));
+
+	/* Indicate device no longer busy */
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);	
+	USB_Host_SetDeviceConfiguration(0);
 }
 
