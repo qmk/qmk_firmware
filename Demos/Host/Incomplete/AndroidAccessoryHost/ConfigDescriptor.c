@@ -66,18 +66,17 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return DevControlError;
 	}
-
-	/* The Android Accessory Mode specification mandates that the accessory communications endpoints
-	   be in the first interface descriptor (interface 0) */
-	USB_GetNextDescriptorOfType(&CurrConfigBytesRem, &CurrConfigLocation, DTYPE_Interface);
-
-	/* Ensure that an interface was found, and the end of the descriptor was not reached */
-	if (!(CurrConfigBytesRem))
-	  return NoCompatibleInterfaceFound;
+	
+	/* There should be only one compatible Android Accessory Mode interface in the device, attempt to find it */
+	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+	                              DCOMP_NextAndroidAccessoryInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	{
+		return NoCompatibleInterfaceFound;
+	}
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Get the next Still Image interface's data endpoint descriptor */
+		/* Get the next Android Accessory Mode interface's data endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DCOMP_NextInterfaceBulkEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
@@ -111,7 +110,35 @@ uint8_t ProcessConfigurationDescriptor(void)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the
+ *  This comparator searches for the next Interface descriptor containing the correct Android Accessory Mode Class, Subclass
+ *  and Protocol values.
+ *
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ */
+uint8_t DCOMP_NextAndroidAccessoryInterface(void* const CurrentDescriptor)
+{
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
+	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
+		if ((Interface->Class    == ANDROID_INTERFACE_CLASS)    &&
+		    (Interface->SubClass == ANDROID_INTERFACE_SUBCLASS) &&
+		    (Interface->Protocol == ANDROID_INTERFACE_PROTOCOL))
+		{
+			return DESCRIPTOR_SEARCH_Found;
+		}
+	}
+
+	return DESCRIPTOR_SEARCH_NotFound;
+}
+
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next bulk Endpoint descriptor inside the current interface descriptor, aborting the
  *  search if another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
@@ -125,6 +152,7 @@ uint8_t DCOMP_NextInterfaceBulkEndpoint(void* const CurrentDescriptor)
 		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
 
 		uint8_t EndpointType = (Endpoint->Attributes & EP_TYPE_MASK);
+
 		if ((EndpointType == EP_TYPE_BULK) && (!(Pipe_IsEndpointBound(Endpoint->EndpointAddress))))
 		  return DESCRIPTOR_SEARCH_Found;
 	}
