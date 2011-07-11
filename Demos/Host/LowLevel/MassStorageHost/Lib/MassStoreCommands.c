@@ -68,12 +68,12 @@ static uint8_t MassStore_SendCommand(MS_CommandBlockWrapper_t* const SCSICommand
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	/* Each transmission should have a unique tag value, increment before use */
-	SCSICommandBlock->Tag = ++MassStore_Tag;
-
 	/* Wrap Tag value when invalid - MS class defines tag values of 0 and 0xFFFFFFFF to be invalid */
-	if (MassStore_Tag == 0xFFFFFFFF)
+	if (++MassStore_Tag == 0xFFFFFFFF)
 	  MassStore_Tag = 1;
+
+	/* Each transmission should have a unique tag value, increment before use */
+	SCSICommandBlock->Tag = MassStore_Tag;
 
 	/* Select the OUT data pipe for CBW transmission */
 	Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
@@ -95,7 +95,7 @@ static uint8_t MassStore_SendCommand(MS_CommandBlockWrapper_t* const SCSICommand
 	/* Freeze pipe after use */
 	Pipe_Freeze();
 
-	/* Send data if any */
+	/* Send data if any has been given */
 	if ((BufferPtr != NULL) &&
 	    ((ErrorCode = MassStore_SendReceiveData(SCSICommandBlock, BufferPtr)) != PIPE_READYWAIT_NoError))
 	{

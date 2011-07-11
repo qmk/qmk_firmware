@@ -41,7 +41,7 @@
  *
  *  This routine checks to ensure that the attached device's VID and PID matches Google's for Android devices.
  *
- *  \return An error code from the \ref BluetoothHost_GetDeviceDescriptorDataCodes_t enum.
+ *  \return An error code from the \ref AndroidHost_GetDeviceDescriptorDataCodes_t enum.
  */
 uint8_t ProcessDeviceDescriptor(void)
 {
@@ -55,9 +55,9 @@ uint8_t ProcessDeviceDescriptor(void)
 	if (DeviceDescriptor.Header.Type != DTYPE_Device)
 	  return InvalidDeviceDataReturned;
 
-	/* Validate returned device Class, SubClass and Protocol values against the Bluetooth spec values */
+	/* Validate returned device Vendor ID against the Android ADK spec values */
 	if (DeviceDescriptor.VendorID != ANDROID_VENDOR_ID)
-		return IncorrectAndroidDevice;
+	  return IncorrectAndroidDevice;
 
 	/* Check the product ID to determine if the Android device is in accessory mode */
 	if ((DeviceDescriptor.ProductID != ANDROID_ACCESSORY_PRODUCT_ID) &&
