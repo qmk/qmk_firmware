@@ -24,6 +24,7 @@
   *   - Added board hardware driver support for the EVK1104 board
   *   - Added new HID_Host_SetIdlePeriod() function to the HID Host Class driver
   *   - Added new USB_Host_ConfigurationNumber global variable to indicate the selected configuration in an attached device
+  *   - Added RingBuffer_GetFreeCount() function to the Ring Buffer driver
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo

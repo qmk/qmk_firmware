@@ -162,11 +162,11 @@
 			 *
 			 *  \ingroup Group_PipeControlReq
 			 *
-			 *  \param[in] EndpointIndex  Index of the endpoint to clear, including the endpoint's direction.
+			 *  \param[in] EndpointAddress  Address of the endpoint to clear, including the endpoint's direction.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointIndex);
+			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointAddress);
 
 			/** Selects a given alternative setting for the specified interface, via a SET INTERFACE standard request to
 			 *  the attached device.

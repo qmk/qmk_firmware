@@ -238,14 +238,14 @@ uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 	return USB_Host_SendControlRequest(Buffer);
 }
 
-uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointNum)
+uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointAddress)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
 			.bRequest      = REQ_ClearFeature,
 			.wValue        = FEATURE_SEL_EndpointHalt,
-			.wIndex        = EndpointNum,
+			.wIndex        = EndpointAddress,
 			.wLength       = 0,
 		};
 

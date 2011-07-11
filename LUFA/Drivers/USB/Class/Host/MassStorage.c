@@ -172,11 +172,11 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	SCSICommandBlock->Signature = MS_CBW_SIGNATURE;
-	SCSICommandBlock->Tag       = ++MSInterfaceInfo->State.TransactionTag;
-
-	if (MSInterfaceInfo->State.TransactionTag == 0xFFFFFFFF)
+	if (++MSInterfaceInfo->State.TransactionTag == 0xFFFFFFFF)
 	  MSInterfaceInfo->State.TransactionTag = 1;
+
+	SCSICommandBlock->Signature = MS_CBW_SIGNATURE;
+	SCSICommandBlock->Tag       = MSInterfaceInfo->State.TransactionTag;
 
 	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
