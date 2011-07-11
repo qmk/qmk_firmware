@@ -109,12 +109,12 @@
 
 		#if (BOARD == BOARD_NONE)
 			static inline void LEDs_Init(void) {};
-			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask) {};
-			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask) {};
-			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask) {};
-			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask) {};
-			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
-			static inline uint8_t LEDs_GetLEDs(void) { return 0; }
+			static inline void LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {};
+			static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {};
+			static inline void LEDs_SetAllLEDs(const uint_reg_t LEDMask) {};
+			static inline void LEDs_ChangeLEDs(const uint_reg_t LEDMask, const uint_reg_t ActiveMask) {};
+			static inline void LEDs_ToggleLEDs(const uint_reg_t LEDMask) {};
+			static inline uint_reg_t LEDs_GetLEDs(void) { return 0; }
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/LEDs.h"
 		#elif (BOARD == BOARD_STK525)
@@ -176,20 +176,22 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(LEDS_LED1)
-			#define LEDS_LED1      0
-		#endif
+		#if !defined(__DOXYGEN__)
+			#if !defined(LEDS_LED1)
+				#define LEDS_LED1      0
+			#endif
 
-		#if !defined(LEDS_LED2)
-			#define LEDS_LED2      0
-		#endif
+			#if !defined(LEDS_LED2)
+				#define LEDS_LED2      0
+			#endif
 
-		#if !defined(LEDS_LED3)
-			#define LEDS_LED3      0
-		#endif
+			#if !defined(LEDS_LED3)
+				#define LEDS_LED3      0
+			#endif
 
-		#if !defined(LEDS_LED4)
-			#define LEDS_LED4      0
+			#if !defined(LEDS_LED4)
+				#define LEDS_LED4      0
+			#endif
 		#endif
 
 	/* Pseudo-Functions for Doxygen: */
