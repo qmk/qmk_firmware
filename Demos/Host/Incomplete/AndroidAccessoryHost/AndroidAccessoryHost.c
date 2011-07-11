@@ -152,9 +152,9 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	bool RequiresModeSwitch = (ErrorCode == NonAccessoryModeAndroidDevice);
 
 	/* Error out if the device is not an Android device or an error occurred */
-	if ((ErrorCode != AccessoryModeAndroidDevice) && !(RequiresModeSwitch))
+	if ((ErrorCode != AccessoryModeAndroidDevice) && (ErrorCode != NonAccessoryModeAndroidDevice))
 	{
-		if (ErrorCode == DevControlError)
+		if (ErrorCode == ControlError)
 		  puts_P(PSTR(ESC_FG_RED "Control Error (Get Device).\r\n"));
 		else
 		  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
