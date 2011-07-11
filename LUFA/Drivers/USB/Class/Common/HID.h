@@ -574,6 +574,8 @@
 		 *  specification for details on the structure elements.
 		 *
 		 *  \see \ref USB_HID_StdDescriptor_HID_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -595,6 +597,8 @@
 		 *
 		 *  \see \ref USB_HID_Descriptor_HID_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{

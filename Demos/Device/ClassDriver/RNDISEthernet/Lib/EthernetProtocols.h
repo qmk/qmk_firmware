@@ -37,6 +37,9 @@
 #ifndef _ETHERNET_PROTOCOLS_H_
 #define _ETHERNET_PROTOCOLS_H_
 
+	/* Includes: */
+		#include <LUFA/Drivers/USB/Class/RNDIS.h>
+
 	/* Macros: */
 		#define ETHERTYPE_IPV4                   0x0800
 		#define ETHERTYPE_ARP                    0x0806
@@ -72,6 +75,13 @@
 		#define PROTOCOL_SCTP                    132
 
 	/* Type Defines: */
+		/** Type define for an Ethernet frame buffer data and information structure. */
+		typedef struct
+		{
+			uint8_t  FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
+			uint16_t FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
+		} Ethernet_Frame_Info_t;
+
 		/** Type define for a protocol IP address of a device on a network. */
 		typedef struct
 		{

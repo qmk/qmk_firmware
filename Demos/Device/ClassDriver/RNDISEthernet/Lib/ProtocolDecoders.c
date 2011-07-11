@@ -51,12 +51,12 @@
 
 /** Decodes an Ethernet frame header and prints its contents to through the USART in a human readable format.
  *
- *  \param[in] FrameINData  Pointer to the start of an Ethernet frame information structure
+ *  \param[in] FrameINData  Pointer to the start of an Ethernet frame data
  */
-void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* const FrameINData)
+void DecodeEthernetFrameHeader(void* InDataStart)
 {
 	#if !defined(NO_DECODE_ETHERNET)
-	Ethernet_Frame_Header_t* FrameHeader = (Ethernet_Frame_Header_t*)FrameINData->FrameData;
+	Ethernet_Frame_Header_t* FrameHeader = (Ethernet_Frame_Header_t*)InDataStart;
 
 	printf_P(PSTR("\r\n"));
 
@@ -84,10 +84,7 @@ void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* const FrameINData)
 	                                                                     FrameHeader->Destination.Octets[4],
 	                                                                     FrameHeader->Destination.Octets[5]);
 
-	if (SwapEndian_16(FrameINData->FrameLength) > ETHERNET_VER2_MINSIZE)
-	  printf_P(PSTR("  + Protocol: 0x%04x\r\n"), SwapEndian_16(FrameHeader->EtherType));
-	else
-	  printf_P(PSTR("  + Protocol: UNKNOWN E1\r\n"));
+	printf_P(PSTR("  + Protocol: 0x%04x\r\n"), SwapEndian_16(FrameHeader->EtherType));
 	#endif
 }
 

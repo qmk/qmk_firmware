@@ -305,6 +305,8 @@
 		 *  a USB endpoint). See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_InputTerminal_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -333,6 +335,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_InputTerminal_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -363,6 +367,8 @@
 		 *  a USB endpoint). See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_OutputTerminal_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -389,6 +395,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_OutputTerminal_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -417,6 +425,8 @@
 		 *  details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_Interface_AC_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -440,6 +450,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_Interface_AC_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -466,6 +478,8 @@
 		 *  specification for more details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_FeatureUnit_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -491,6 +505,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_FeatureUnit_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -518,6 +534,8 @@
 		 *  how audio streams within the device are formatted. See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_Interface_AS_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -539,6 +557,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_Interface_AS_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -567,6 +587,8 @@
 		 *        the continuous or discrete sample frequencies.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_Format_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -592,6 +614,8 @@
 		 *
 		 *  Type define for a 24bit audio sample frequency structure. As GCC does not contain a built in 24-bit datatype,
 		 *  this this structure is used to build up the value instead. Fill this structure with the \ref AUDIO_SAMPLE_FREQ() macro.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -611,6 +635,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_Format_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -642,6 +668,8 @@
 		 *  descriptor with a few Audio-class-specific extensions. See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_StreamEndpoint_Std_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -658,6 +686,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_StreamEndpoint_Std_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -689,6 +719,8 @@
 		 *  class-specific extended endpoint descriptor. See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_StreamEndpoint_Spc_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -711,6 +743,8 @@
 		 *
 		 *  \see \ref USB_Audio_Descriptor_StreamEndpoint_Spc_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{

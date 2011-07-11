@@ -254,6 +254,8 @@
 			 *  uses LUFA-specific element names to make each element's purpose clearer.
 			 *
 			 *  \see \ref USB_StdDescriptor_Header_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -269,6 +271,8 @@
 			 *  uses the relevant standard's given element names to ensure compatibility with the standard.
 			 *
 			 *  \see \ref USB_Descriptor_Header_t for the version of this type with non-standard LUFA specific element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -284,6 +288,8 @@
 			 *  element's purpose clearer.
 			 *
 			 *  \see \ref USB_StdDescriptor_Device_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -333,6 +339,8 @@
 			 *  to ensure compatibility with the standard.
 			 *
 			 *  \see \ref USB_Descriptor_Device_t for the version of this type with non-standard LUFA specific element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -381,6 +389,8 @@
 			 *  to make each element's purpose clearer.
 			 *
 			 *  \see \ref USB_StdDescriptor_Configuration_Header_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -410,6 +420,8 @@
 			 *  to ensure compatibility with the standard.
 			 *
 			 *  \see \ref USB_Descriptor_Device_t for the version of this type with non-standard LUFA specific element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -438,6 +450,8 @@
 			 *  to make each element's purpose clearer.
 			 *
 			 *  \see \ref USB_StdDescriptor_Interface_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -464,6 +478,8 @@
 			 *  to ensure compatibility with the standard.
 			 *
 			 *  \see \ref USB_Descriptor_Interface_t for the version of this type with non-standard LUFA specific element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -498,6 +514,8 @@
 			 *  function. Read the ECN for more information.
 			 *
 			 *  \see \ref USB_StdDescriptor_Interface_Association_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -528,6 +546,8 @@
 			 *
 			 *  \see \ref USB_Descriptor_Interface_Association_t for the version of this type with non-standard LUFA specific
 			 *       element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -551,6 +571,8 @@
 			 *  to make each element's purpose clearer.
 			 *
 			 *  \see \ref USB_StdDescriptor_Endpoint_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -577,6 +599,8 @@
 			 *
 			 *  \see \ref USB_Descriptor_Endpoint_t for the version of this type with non-standard LUFA specific
 			 *       element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -610,6 +634,8 @@
 			 *  This structure uses LUFA-specific element names to make each element's purpose clearer.
 			 *
 			 *  \see \ref USB_StdDescriptor_String_t for the version of this type with standard element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{
@@ -645,6 +671,8 @@
 			 *
 			 *  \see \ref USB_Descriptor_String_t for the version of this type with with non-standard LUFA specific
 			 *       element names.
+			 *
+			 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 			 */
 			typedef struct
 			{

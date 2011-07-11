@@ -59,7 +59,7 @@ const IP_Address_t  ClientIPAddress     = {CLIENT_IP_ADDRESS};
 void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* const FrameIN,
                             Ethernet_Frame_Info_t* const FrameOUT)
 {
-	DecodeEthernetFrameHeader(FrameIN);
+	DecodeEthernetFrameHeader(FrameIN->FrameData);
 
 	/* Cast the incoming Ethernet frame to the Ethernet header type */
 	Ethernet_Frame_Header_t* FrameINHeader  = (Ethernet_Frame_Header_t*)&FrameIN->FrameData;

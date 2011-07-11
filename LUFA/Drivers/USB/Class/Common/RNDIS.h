@@ -208,17 +208,6 @@
 		};
 
 	/* Type Defines: */
-		/** \brief Ethernet Frame Packet Information Structure.
-		 *
-		 *  Type define for an Ethernet frame buffer data and information structure. This can be used to conveniently
-		 *  store both the size and data in an Ethernet frame.
-		 */
-		typedef struct
-		{
-			uint8_t  FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
-			uint16_t FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
-		} Ethernet_Frame_Info_t;
-
 		/** \brief MAC Address Structure.
 		 *
 		 *  Type define for a physical MAC address of a device on a network.
@@ -231,6 +220,8 @@
 		/** \brief RNDIS Common Message Header Structure.
 		 *
 		 *  Type define for a RNDIS message header, sent before RNDIS messages.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -241,6 +232,8 @@
 		/** \brief RNDIS Message Structure.
 		 *
 		 *  Type define for a RNDIS packet message, used to encapsulate Ethernet packets sent to and from the adapter.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -260,6 +253,8 @@
 		/** \brief RNDIS Initialization Message Structure.
 		 *
 		 *  Type define for a RNDIS Initialize command message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -275,6 +270,8 @@
 		/** \brief RNDIS Initialize Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS Initialize Complete response message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -297,6 +294,8 @@
 		/** \brief RNDIS Keep Alive Message Structure.
 		 *
 		 *  Type define for a RNDIS Keep Alive command message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -308,6 +307,8 @@
 		/** \brief RNDIS Keep Alive Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS Keep Alive Complete response message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -320,6 +321,8 @@
 		/** \brief RNDIS Reset Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS Reset Complete response message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -333,6 +336,8 @@
 		/** \brief RNDIS OID Property Set Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Set command message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -349,6 +354,8 @@
 		/** \brief RNDIS OID Property Set Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Set Complete response message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -361,6 +368,8 @@
 		/** \brief RNDIS OID Property Query Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Query command message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -377,6 +386,8 @@
 		/** \brief RNDIS OID Property Query Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Query Complete response message.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{

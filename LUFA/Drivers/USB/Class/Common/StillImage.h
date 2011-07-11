@@ -138,6 +138,8 @@
 		 *
 		 *  Type define for a PIMA container, use to send commands and receive responses to and from an
 		 *  attached Still Image device.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{

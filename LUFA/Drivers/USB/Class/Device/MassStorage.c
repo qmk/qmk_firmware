@@ -124,17 +124,15 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 			if (MSInterfaceInfo->State.CommandBlock.Flags & MS_COMMAND_DIR_DATA_IN)
 			  Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 
-			MSInterfaceInfo->State.CommandStatus.Status = CALLBACK_MS_Device_SCSICommandReceived(MSInterfaceInfo) ?
-			                                               MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
-			MSInterfaceInfo->State.CommandStatus.Signature           = MS_CSW_SIGNATURE;
+			bool SCSICommandResult = CALLBACK_MS_Device_SCSICommandReceived(MSInterfaceInfo);
+
+			MSInterfaceInfo->State.CommandStatus.Status              = (SCSICommandResult) ? MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
+			MSInterfaceInfo->State.CommandStatus.Signature           = CPU_TO_LE32(MS_CSW_SIGNATURE);
 			MSInterfaceInfo->State.CommandStatus.Tag                 = MSInterfaceInfo->State.CommandBlock.Tag;
 			MSInterfaceInfo->State.CommandStatus.DataTransferResidue = MSInterfaceInfo->State.CommandBlock.DataTransferLength;
 
-			if ((MSInterfaceInfo->State.CommandStatus.Status == MS_SCSI_COMMAND_Fail) &&
-			    (MSInterfaceInfo->State.CommandStatus.DataTransferResidue))
-			{
-				Endpoint_StallTransaction();
-			}
+			if (!(SCSICommandResult) && (le32_to_cpu(MSInterfaceInfo->State.CommandStatus.DataTransferResidue)))
+			  Endpoint_StallTransaction();
 
 			MS_Device_ReturnCommandStatus(MSInterfaceInfo);
 		}
@@ -167,11 +165,15 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	                               (sizeof(MS_CommandBlockWrapper_t) - 16), &BytesProcessed) ==
 	                               ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return false;
 	}
 
-	if ((MSInterfaceInfo->State.CommandBlock.Signature         != MS_CBW_SIGNATURE)                  ||
+	if ((MSInterfaceInfo->State.CommandBlock.Signature         != CPU_TO_LE32(MS_CBW_SIGNATURE))     ||
 	    (MSInterfaceInfo->State.CommandBlock.LUN               >= MSInterfaceInfo->Config.TotalLUNs) ||
 		(MSInterfaceInfo->State.CommandBlock.Flags              & 0x1F)                              ||
 		(MSInterfaceInfo->State.CommandBlock.SCSICommandLength == 0)                                 ||
@@ -189,6 +191,10 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	                                MSInterfaceInfo->State.CommandBlock.SCSICommandLength, &BytesProcessed) ==
 	                                ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return false;
 	}
@@ -229,6 +235,10 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 	                                sizeof(MS_CommandStatusWrapper_t), &BytesProcessed) ==
 	                                ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}

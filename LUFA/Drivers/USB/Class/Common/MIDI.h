@@ -103,6 +103,8 @@
 		 *  See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_AudioInterface_AS_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -123,6 +125,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_AudioInterface_AS_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -143,6 +147,8 @@
 		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_InputJack_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -162,6 +168,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_InputJack_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -184,6 +192,8 @@
 		 *  a physical output jack, or a logical jack (sending output data internally, or to the host via an endpoint).
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_OutputJack_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -207,6 +217,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_OutputJack_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -234,6 +246,8 @@
 		 *  class-specific extended MIDI endpoint descriptor. See the USB Audio specification for more details.
 		 *
 		 *  \see \ref USB_MIDI_StdDescriptor_Jack_Endpoint_t for the version of this type with standard element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -252,6 +266,8 @@
 		 *
 		 *  \see \ref USB_MIDI_Descriptor_Jack_Endpoint_t for the version of this type with non-standard LUFA specific
 		 *       element names.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{
@@ -269,6 +285,8 @@
 		/** \brief MIDI Class Driver Event Packet.
 		 *
 		 *  Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface.
+		 *
+		 *  \note Regardless of CPU architecture, these values should be stored as little endian.
 		 */
 		typedef struct
 		{

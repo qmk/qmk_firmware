@@ -84,6 +84,8 @@
 			 *  inside of the \ref EVENT_USB_Device_ControlRequest() event, or for filling up with a control request to 
 			 *  issue when in Host mode before calling \ref USB_Host_SendControlRequest().
 			 *
+			 *  \note The contents of this structure is automatically endian-corrected for the current CPU architecture.
+			 *
 			 *  \ingroup Group_USBManagement
 			 */
 			 extern USB_Request_Header_t USB_ControlRequest;

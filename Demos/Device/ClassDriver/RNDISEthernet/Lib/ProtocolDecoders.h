@@ -47,7 +47,7 @@
 		#include "Ethernet.h"
 
 	/* Function Prototypes: */
-		void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* const FrameINData);
+		void DecodeEthernetFrameHeader(void* InDataStart);
 		void DecodeARPHeader(void* InDataStart);
 		void DecodeIPHeader(void* InDataStart);
 		void DecodeICMPHeader(void* InDataStart);

@@ -276,9 +276,9 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = CDC_NOTIF_SerialState,
-			.wValue        = 0,
-			.wIndex        = 0,
-			.wLength       = sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
+			.wValue        = CPU_TO_LE16(0),
+			.wIndex        = CPU_TO_LE16(0),
+			.wLength       = CPU_TO_LE16(sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost)),
 		};
 
 	Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NULL);
