@@ -126,7 +126,7 @@
 		 *  \param[out] DataPtr  Pointer to a global array that will hold the data stored into the ring buffer.
 		 *  \param[out] Size     Maximum number of bytes that can be stored in the underlying data array.
 		 */
-		static inline void RingBuffer_InitBuffer(RingBuffer_t* const Buffer, uint8_t* const DataPtr, const uint16_t Size)
+		static inline void RingBuffer_InitBuffer(RingBuffer_t* Buffer, uint8_t* const DataPtr, const uint16_t Size)
 		{
 			GCC_FORCE_POINTER_ACCESS(Buffer);
 
@@ -141,23 +141,6 @@
 			Buffer->Count  = 0;
 
 			SetGlobalInterruptMask(CurrentGlobalInt);
-		}
-
-		/** Retrieves the free space in a particular buffer. This value is computed by entering an atomic lock
-		 *  on the buffer, so that the buffer cannot be modified while the computation takes place.
-		 *
-		 *  \note The value returned by this function is guaranteed to only be the maximum number of bytes
-		 *        free in the given buffer; this value may change as other threads write new data, thus
-		 *        the returned number should be used only to determine how many successive writes may safely
-		 *        be performed on the buffer when there is a single writer thread.
-		 *
-		 *  \param[in] Buffer  Pointer to a ring buffer structure whose free count is to be computed.
-		 *
-		 *  \return Number of free bytes in the buffer.
-		 */
-		static inline uint16_t RingBuffer_GetFreeCount(RingBuffer_t* const Buffer)
-		{
-			return (Buffer->Size - RingBuffer_GetCount(Buffer));
 		}
 
 		/** Retrieves the current number of bytes stored in a particular buffer. This value is computed
@@ -187,17 +170,21 @@
 			return Count;
 		}
 
-		/** Atomically determines if the specified ring buffer contains any free space. This should
-		 *  be tested before storing data to the buffer, to ensure that no data is lost due to a
-		 *  buffer overrun.
+		/** Retrieves the free space in a particular buffer. This value is computed by entering an atomic lock
+		 *  on the buffer, so that the buffer cannot be modified while the computation takes place.
 		 *
-		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
+		 *  \note The value returned by this function is guaranteed to only be the maximum number of bytes
+		 *        free in the given buffer; this value may change as other threads write new data, thus
+		 *        the returned number should be used only to determine how many successive writes may safely
+		 *        be performed on the buffer when there is a single writer thread.
 		 *
-		 *  \return Boolean \c true if the buffer contains no free space, false otherwise.
+		 *  \param[in] Buffer  Pointer to a ring buffer structure whose free count is to be computed.
+		 *
+		 *  \return Number of free bytes in the buffer.
 		 */
-		static inline bool RingBuffer_IsFull(RingBuffer_t* const Buffer)
+		static inline uint16_t RingBuffer_GetFreeCount(RingBuffer_t* const Buffer)
 		{
-			return (RingBuffer_GetCount(Buffer) == Buffer->Size);
+			return (Buffer->Size - RingBuffer_GetCount(Buffer));
 		}
 
 		/** Atomically determines if the specified ring buffer contains any data. This should
@@ -215,6 +202,19 @@
 		static inline bool RingBuffer_IsEmpty(RingBuffer_t* const Buffer)
 		{
 			return (RingBuffer_GetCount(Buffer) == 0);
+		}
+
+		/** Atomically determines if the specified ring buffer contains any free space. This should
+		 *  be tested before storing data to the buffer, to ensure that no data is lost due to a
+		 *  buffer overrun.
+		 *
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
+		 *
+		 *  \return Boolean \c true if the buffer contains no free space, false otherwise.
+		 */
+		static inline bool RingBuffer_IsFull(RingBuffer_t* const Buffer)
+		{
+			return (RingBuffer_GetCount(Buffer) == Buffer->Size);
 		}
 
 		/** Inserts an element into the ring buffer.
