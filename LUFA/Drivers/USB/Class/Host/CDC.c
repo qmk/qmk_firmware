@@ -110,7 +110,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 
 		if (PipeNum == CDCInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Size            = DataINEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
 			EndpointAddress = DataINEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
 			Type            = EP_TYPE_BULK;
@@ -121,7 +121,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 		}
 		else if (PipeNum == CDCInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Size            = DataOUTEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 			EndpointAddress = DataOUTEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_OUT;
 			Type            = EP_TYPE_BULK;
@@ -132,7 +132,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 		}
 		else if (PipeNum == CDCInterfaceInfo->Config.NotificationPipeNumber)
 		{
-			Size            = NotificationEndpoint->EndpointSize;
+			Size            = le16_to_cpu(NotificationEndpoint->EndpointSize);
 			EndpointAddress = NotificationEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
 			Type            = EP_TYPE_INTERRUPT;

@@ -103,7 +103,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 
 		if (PipeNum == AudioInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Size            = DataINEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
 			EndpointAddress = DataINEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
 			Type            = EP_TYPE_ISOCHRONOUS;
@@ -113,7 +113,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 		}
 		else if (PipeNum == AudioInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Size            = DataOUTEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 			EndpointAddress = DataOUTEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_OUT;
 			Type            = EP_TYPE_ISOCHRONOUS;

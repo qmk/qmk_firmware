@@ -112,7 +112,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 
 		if (PipeNum == RNDISInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Size            = DataINEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
 			EndpointAddress = DataINEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
 			Type            = EP_TYPE_BULK;
@@ -123,7 +123,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 		}
 		else if (PipeNum == RNDISInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Size            = DataOUTEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 			EndpointAddress = DataOUTEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_OUT;
 			Type            = EP_TYPE_BULK;
@@ -134,7 +134,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 		}
 		else if (PipeNum == RNDISInterfaceInfo->Config.NotificationPipeNumber)
 		{
-			Size            = NotificationEndpoint->EndpointSize;
+			Size            = le16_to_cpu(NotificationEndpoint->EndpointSize);
 			EndpointAddress = NotificationEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
 			Type            = EP_TYPE_INTERRUPT;
@@ -241,6 +241,7 @@ static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const R
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
 	return USB_Host_SendControlRequest(Buffer);
 }
 
@@ -258,6 +259,7 @@ static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const R
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
 	return USB_Host_SendControlRequest(Buffer);
 }
 
@@ -268,9 +270,9 @@ uint8_t RNDIS_Host_SendKeepAlive(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfac
 	RNDIS_KeepAlive_Message_t  KeepAliveMessage;
 	RNDIS_KeepAlive_Complete_t KeepAliveMessageResponse;
 
-	KeepAliveMessage.MessageType     = REMOTE_NDIS_KEEPALIVE_MSG;
-	KeepAliveMessage.MessageLength   = sizeof(RNDIS_KeepAlive_Message_t);
-	KeepAliveMessage.RequestId       = RNDISInterfaceInfo->State.RequestID++;
+	KeepAliveMessage.MessageType     = CPU_TO_LE32(REMOTE_NDIS_KEEPALIVE_MSG);
+	KeepAliveMessage.MessageLength   = CPU_TO_LE32(sizeof(RNDIS_KeepAlive_Message_t));
+	KeepAliveMessage.RequestId       = cpu_to_le32(RNDISInterfaceInfo->State.RequestID++);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(RNDISInterfaceInfo, &KeepAliveMessage,
 	                                               sizeof(RNDIS_KeepAlive_Message_t))) != HOST_SENDCONTROL_Successful)
@@ -294,13 +296,13 @@ uint8_t RNDIS_Host_InitializeDevice(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 	RNDIS_Initialize_Message_t  InitMessage;
 	RNDIS_Initialize_Complete_t InitMessageResponse;
 
-	InitMessage.MessageType     = REMOTE_NDIS_INITIALIZE_MSG;
-	InitMessage.MessageLength   = sizeof(RNDIS_Initialize_Message_t);
-	InitMessage.RequestId       = RNDISInterfaceInfo->State.RequestID++;
+	InitMessage.MessageType     = CPU_TO_LE32(REMOTE_NDIS_INITIALIZE_MSG);
+	InitMessage.MessageLength   = CPU_TO_LE32(sizeof(RNDIS_Initialize_Message_t));
+	InitMessage.RequestId       = cpu_to_le32(RNDISInterfaceInfo->State.RequestID++);
 
-	InitMessage.MajorVersion    = REMOTE_NDIS_VERSION_MAJOR;
-	InitMessage.MinorVersion    = REMOTE_NDIS_VERSION_MINOR;
-	InitMessage.MaxTransferSize = RNDISInterfaceInfo->Config.HostMaxPacketSize;
+	InitMessage.MajorVersion    = CPU_TO_LE32(REMOTE_NDIS_VERSION_MAJOR);
+	InitMessage.MinorVersion    = CPU_TO_LE32(REMOTE_NDIS_VERSION_MINOR);
+	InitMessage.MaxTransferSize = cpu_to_le32(RNDISInterfaceInfo->Config.HostMaxPacketSize);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(RNDISInterfaceInfo, &InitMessage,
 	                                               sizeof(RNDIS_Initialize_Message_t))) != HOST_SENDCONTROL_Successful)
@@ -314,10 +316,10 @@ uint8_t RNDIS_Host_InitializeDevice(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 		return ErrorCode;
 	}
 
-	if (InitMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
+	if (InitMessageResponse.Status != CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS))
 	  return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 
-	RNDISInterfaceInfo->State.DeviceMaxPacketSize = InitMessageResponse.MaxTransferSize;
+	RNDISInterfaceInfo->State.DeviceMaxPacketSize = le32_to_cpu(InitMessageResponse.MaxTransferSize);
 
 	return HOST_SENDCONTROL_Successful;
 }
@@ -337,14 +339,14 @@ uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 
 	RNDIS_Set_Complete_t SetMessageResponse;
 
-	SetMessageData.SetMessage.MessageType    = REMOTE_NDIS_SET_MSG;
-	SetMessageData.SetMessage.MessageLength  = sizeof(RNDIS_Set_Message_t) + Length;
-	SetMessageData.SetMessage.RequestId      = RNDISInterfaceInfo->State.RequestID++;
+	SetMessageData.SetMessage.MessageType    = CPU_TO_LE32(REMOTE_NDIS_SET_MSG);
+	SetMessageData.SetMessage.MessageLength  = cpu_to_le32(sizeof(RNDIS_Set_Message_t) + Length);
+	SetMessageData.SetMessage.RequestId      = cpu_to_le32(RNDISInterfaceInfo->State.RequestID++);
 
-	SetMessageData.SetMessage.Oid            = Oid;
-	SetMessageData.SetMessage.InformationBufferLength = Length;
-	SetMessageData.SetMessage.InformationBufferOffset = (sizeof(RNDIS_Set_Message_t) - sizeof(RNDIS_Message_Header_t));
-	SetMessageData.SetMessage.DeviceVcHandle = 0;
+	SetMessageData.SetMessage.Oid            = cpu_to_le32(Oid);
+	SetMessageData.SetMessage.InformationBufferLength = cpu_to_le32(Length);
+	SetMessageData.SetMessage.InformationBufferOffset = CPU_TO_LE32(sizeof(RNDIS_Set_Message_t) - sizeof(RNDIS_Message_Header_t));
+	SetMessageData.SetMessage.DeviceVcHandle = CPU_TO_LE32(0);
 
 	memcpy(&SetMessageData.ContiguousBuffer, Buffer, Length);
 
@@ -360,7 +362,7 @@ uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 		return ErrorCode;
 	}
 
-	if (SetMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
+	if (SetMessageResponse.Status != CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS))
 	  return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 
 	return HOST_SENDCONTROL_Successful;
@@ -381,14 +383,14 @@ uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInt
 		uint8_t                ContiguousBuffer[MaxLength];
 	} QueryMessageResponseData;
 
-	QueryMessage.MessageType    = REMOTE_NDIS_QUERY_MSG;
-	QueryMessage.MessageLength  = sizeof(RNDIS_Query_Message_t);
-	QueryMessage.RequestId      = RNDISInterfaceInfo->State.RequestID++;
+	QueryMessage.MessageType    = CPU_TO_LE32(REMOTE_NDIS_QUERY_MSG);
+	QueryMessage.MessageLength  = CPU_TO_LE32(sizeof(RNDIS_Query_Message_t));
+	QueryMessage.RequestId      = cpu_to_le32(RNDISInterfaceInfo->State.RequestID++);
 
-	QueryMessage.Oid            = Oid;
-	QueryMessage.InformationBufferLength = 0;
-	QueryMessage.InformationBufferOffset = 0;
-	QueryMessage.DeviceVcHandle = 0;
+	QueryMessage.Oid            = cpu_to_le32(Oid);
+	QueryMessage.InformationBufferLength = CPU_TO_LE32(0);
+	QueryMessage.InformationBufferOffset = CPU_TO_LE32(0);
+	QueryMessage.DeviceVcHandle = CPU_TO_LE32(0);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(RNDISInterfaceInfo, &QueryMessage,
 	                                               sizeof(RNDIS_Query_Message_t))) != HOST_SENDCONTROL_Successful)
@@ -402,7 +404,7 @@ uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInt
 		return ErrorCode;
 	}
 
-	if (QueryMessageResponseData.QueryMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
+	if (QueryMessageResponseData.QueryMessageResponse.Status != CPU_TO_LE32(REMOTE_NDIS_STATUS_SUCCESS))
 	  return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 
 	memcpy(Buffer, &QueryMessageResponseData.ContiguousBuffer, MaxLength);
@@ -456,7 +458,7 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 		return ErrorCode;
 	}
 
-	*PacketLength = (uint16_t)DeviceMessage.DataLength;
+	*PacketLength = (uint16_t)le32_to_cpu(DeviceMessage.DataLength);
 
 	Pipe_Discard_Stream(DeviceMessage.DataOffset -
 	                    (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
@@ -484,10 +486,10 @@ uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	RNDIS_Packet_Message_t DeviceMessage;
 
 	memset(&DeviceMessage, 0, sizeof(RNDIS_Packet_Message_t));
-	DeviceMessage.MessageType   = REMOTE_NDIS_PACKET_MSG;
-	DeviceMessage.MessageLength = (sizeof(RNDIS_Packet_Message_t) + PacketLength);
-	DeviceMessage.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
-	DeviceMessage.DataLength    = PacketLength;
+	DeviceMessage.MessageType   = CPU_TO_LE32(REMOTE_NDIS_PACKET_MSG);
+	DeviceMessage.MessageLength = CPU_TO_LE32(sizeof(RNDIS_Packet_Message_t) + PacketLength);
+	DeviceMessage.DataOffset    = CPU_TO_LE32(sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
+	DeviceMessage.DataLength    = cpu_to_le32(PacketLength);
 
 	Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();

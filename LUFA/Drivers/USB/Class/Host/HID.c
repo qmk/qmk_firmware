@@ -105,7 +105,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 
 		if (PipeNum == HIDInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Size            = DataINEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
 			EndpointAddress = DataINEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_IN;
 			Type            = EP_TYPE_INTERRUPT;
@@ -119,7 +119,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 			if (DataOUTEndpoint == NULL)
 			  continue;
 		
-			Size            = DataOUTEndpoint->EndpointSize;
+			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 			EndpointAddress = DataOUTEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_OUT;
 			Type            = EP_TYPE_INTERRUPT;
@@ -145,7 +145,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	}
 
 	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;
-	HIDInterfaceInfo->State.HIDReportSize        = HIDDescriptor->HIDReportLength;
+	HIDInterfaceInfo->State.HIDReportSize        = LE16_TO_CPU(HIDDescriptor->HIDReportLength);
 	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_CSCP_NonBootProtocol);
 	HIDInterfaceInfo->State.LargestReportSize    = 8;
 	HIDInterfaceInfo->State.IsActive             = true;
@@ -334,6 +334,9 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 {
 	uint8_t ErrorCode;
 
+	if (!(HIDInterfaceInfo->State.SupportsBootProtocol))
+	  return HID_ERROR_LOGICAL;
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
@@ -344,9 +347,6 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	if (!(HIDInterfaceInfo->State.SupportsBootProtocol))
-	  return HID_ERROR_LOGICAL;
 
 	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
