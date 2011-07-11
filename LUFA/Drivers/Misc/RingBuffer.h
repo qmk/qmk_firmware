@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Lightweight ring buffer, for fast insertion/deletion of bytes.
+ *  \brief Lightweight ring (circular) buffer, for fast insertion/deletion of bytes.
  *
  *  Lightweight ring buffer, for fast insertion/deletion. Multiple buffers can be created of
  *  different sizes to suit different needs.
@@ -126,7 +126,7 @@
 		 *  \param[out] DataPtr  Pointer to a global array that will hold the data stored into the ring buffer.
 		 *  \param[out] Size     Maximum number of bytes that can be stored in the underlying data array.
 		 */
-		static inline void RingBuffer_InitBuffer(RingBuffer_t* Buffer, uint8_t* const DataPtr, const uint16_t Size)
+		static inline void RingBuffer_InitBuffer(RingBuffer_t* const Buffer, uint8_t* const DataPtr, const uint16_t Size)
 		{
 			GCC_FORCE_POINTER_ACCESS(Buffer);
 
@@ -143,18 +143,36 @@
 			SetGlobalInterruptMask(CurrentGlobalInt);
 		}
 
-		/** Retrieves the minimum number of bytes stored in a particular buffer. This value is computed
-		 *  by entering an atomic lock on the buffer while the IN and OUT locations are fetched, so that
-		 *  the buffer cannot be modified while the computation takes place. This value should be cached
-		 *  when reading out the contents of the buffer, so that as small a time as possible is spent
-		 *  in an atomic lock.
+		/** Retrieves the free space in a particular buffer. This value is computed by entering an atomic lock
+		 *  on the buffer, so that the buffer cannot be modified while the computation takes place.
+		 *
+		 *  \note The value returned by this function is guaranteed to only be the maximum number of bytes
+		 *        free in the given buffer; this value may change as other threads write new data, thus
+		 *        the returned number should be used only to determine how many successive writes may safely
+		 *        be performed on the buffer when there is a single writer thread.
+		 *
+		 *  \param[in] Buffer  Pointer to a ring buffer structure whose free count is to be computed.
+		 *
+		 *  \return Number of free bytes in the buffer.
+		 */
+		static inline uint16_t RingBuffer_GetFreeCount(RingBuffer_t* const Buffer)
+		{
+			return (Buffer->Size - RingBuffer_GetCount(Buffer));
+		}
+
+		/** Retrieves the current number of bytes stored in a particular buffer. This value is computed
+		 *  by entering an atomic lock on the buffer, so that the buffer cannot be modified while the
+		 *  computation takes place. This value should be cached when reading out the contents of the buffer,
+		 *  so that as small a time as possible is spent in an atomic lock.
 		 *
 		 *  \note The value returned by this function is guaranteed to only be the minimum number of bytes
-		 *        stored in the given buffer; this value may change as other threads write new data and so
+		 *        stored in the given buffer; this value may change as other threads write new data, thus
 		 *        the returned number should be used only to determine how many successive reads may safely
 		 *        be performed on the buffer.
 		 *
 		 *  \param[in] Buffer  Pointer to a ring buffer structure whose count is to be computed.
+		 *
+		 *  \return Number of bytes currently stored in the buffer.
 		 */
 		static inline uint16_t RingBuffer_GetCount(RingBuffer_t* const Buffer)
 		{
