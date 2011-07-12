@@ -62,6 +62,7 @@
   *   - Fixed compile error when FIXED_CONTROL_ENDPOINT_SIZE compile time option was disabled, and a USE_*_DESCRIPTORS compile time
   *     option was not enabled on the AVR8s
   *   - Fixed lack of C++ compatibility in some internal header files causing compile errors when using LUFA in C++ projects
+  *   - Fixed error in the pipe unordered allocation algorithm for the AVR8 devices breaking compatibility with some devices
   *  - Library Applications:
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed

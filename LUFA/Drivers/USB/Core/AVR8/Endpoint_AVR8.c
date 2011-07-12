@@ -78,7 +78,7 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 		  continue;
 
 		Endpoint_DisableEndpoint();
-		UECFG1X &= (1 << ALLOC);
+		UECFG1X &= ~(1 << ALLOC);
 
 		Endpoint_EnableEndpoint();
 		UECFG0X = UECFG0XTemp;
