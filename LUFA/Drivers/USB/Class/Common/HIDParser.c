@@ -189,7 +189,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 					CurrCollectionPath->Parent = ParentCollectionPath;
 				}
 
-				CurrCollectionPath->Type = ReportItemData;
+				CurrCollectionPath->Type       = ReportItemData;
 				CurrCollectionPath->Usage.Page = CurrStateTable->Attributes.Usage.Page;
 
 				if (UsageListSize)

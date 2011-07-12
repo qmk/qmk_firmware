@@ -284,8 +284,8 @@
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
 			 *  member of the report item's \ref HID_ReportItem_t structure.
 			 *
-			 *  When called on a report with an item that exists in that report, this copies the report item's Value
-			 *  to it's PreviousValue element for easy checking to see if an item's value has changed before processing
+			 *  When called on a report with an item that exists in that report, this copies the report item's \c Value
+			 *  to its \c PreviousValue element for easy checking to see if an item's value has changed before processing
 			 *  a report. If the given item does not exist in the report, the function does not modify the report item's
 			 *  data.
 			 *
@@ -297,12 +297,12 @@
 			bool USB_GetHIDReportItemInfo(const uint8_t* ReportData,
 			                              HID_ReportItem_t* const ReportItem) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
-			/** Retrieves the given report item's value out of the Value member of the report item's
+			/** Retrieves the given report item's value out of the \c Value member of the report item's
 			 *  \ref HID_ReportItem_t structure and places it into the correct position in the HID report
 			 *  buffer. The report buffer is assumed to have the appropriate bits cleared before calling
 			 *  this function (i.e., the buffer should be explicitly cleared before report values are added).
 			 *
-			 *  When called, this copies the report item's Value element to it's PreviousValue element for easy
+			 *  When called, this copies the report item's \c Value element to its \c PreviousValue element for easy
 			 *  checking to see if an item's value has changed before sending a report.
 			 *
 			 *  If the device has multiple HID reports, the first byte in the report is set to the report ID of the given item.
@@ -313,14 +313,14 @@
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData,
 			                              HID_ReportItem_t* const ReportItem) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
-			/** Retrieves the size of a given HID report in bytes from it's Report ID.
+			/** Retrieves the size of a given HID report in bytes from its Report ID.
 			 *
 			 *  \param[in] ParserData  Pointer to a \ref HID_ReportInfo_t instance containing the parser output.
-			 *  \param[in] ReportID    Report ID of the report whose size is to be retrieved.
-			 *  \param[in] ReportType  Type of the report whose size is to be determined, a valued from the
+			 *  \param[in] ReportID    Report ID of the report whose size is to be determined.
+			 *  \param[in] ReportType  Type of the report whose size is to be determined, a value from the
 			 *                         \ref HID_ReportItemTypes_t enum.
 			 *
-			 *  \return Size of the report in bytes, or 0 if the report does not exist.
+			 *  \return Size of the report in bytes, or \c 0 if the report does not exist.
 			 */
 			uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData,
 			                              const uint8_t ReportID,
