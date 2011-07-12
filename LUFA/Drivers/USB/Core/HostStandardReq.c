@@ -238,6 +238,22 @@ uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 	return USB_Host_SendControlRequest(Buffer);
 }
 
+uint8_t USB_Host_GetDeviceStatus(uint8_t* const FeatureStatus)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetFeature,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = 0,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	return USB_Host_SendControlRequest(FeatureStatus);
+}
+
 uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointAddress)
 {
 	USB_ControlRequest = (USB_Request_Header_t)

@@ -104,9 +104,7 @@
 			 */
 			uint8_t USB_Host_SendControlRequest(void* const BufferPtr);
 
-			/** Convenience function. This routine sends a SET CONFIGURATION standard request to the attached
-			 *  device, with the given configuration index. This can be used to easily set the device
-			 *  configuration without creating and sending the request manually.
+			/** Sends a SET CONFIGURATION standard request to the attached device, with the given configuration index.
 			 *
 			 *  This routine will automatically update the \ref USB_HostState and \ref USB_Host_ConfigurationNumber
 			 *  state variables according to the given function parameters and the result of the request.
@@ -121,9 +119,9 @@
 			 */
 			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
 
-			/** Convenience function. This routine sends a GET DESCRIPTOR standard request to the attached
-			 *  device, requesting the device descriptor. This can be used to easily retrieve information
-			 *  about the device such as its VID, PID and power requirements.
+			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the device descriptor.
+			 *  This can be used to easily retrieve information about the device such as its VID, PID and power
+			 *  requirements.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
@@ -136,10 +134,9 @@
 			 */
 			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
 
-			/** Convenience function. This routine sends a GET DESCRIPTOR standard request to the attached
-			 *  device, requesting the string descriptor of the specified index. This can be used to easily
-			 *  retrieve string descriptors from the device by index, after the index is obtained from the
-			 *  Device or Configuration descriptors.
+			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the string descriptor
+			 *  of the specified index. This can be used to easily retrieve string descriptors from the device by
+			 *  index, after the index is obtained from the Device or Configuration descriptors.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
@@ -155,6 +152,20 @@
 			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 			                                           void* const Buffer,
 			                                           const uint8_t BufferLength);
+
+			/** Retrieves the current feature status of the attached device, via a GET STATUS standard request. The
+			 *  retrieved feature status can then be examined by masking the retrieved value with the various
+			 *  FEATURE_* masks for bus/self power information and remote wakeup support.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \ingroup Group_PipeControlReq
+			 *
+			 *  \param[out]  FeatureStatus  Location where the retrieved feature status should be stored.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceStatus(uint8_t* const FeatureStatus);
 
 			/** Clears a stall condition on the given pipe, via a CLEAR FEATURE standard request to the attached device.
 			 *

@@ -183,7 +183,7 @@
 				/* Switch /SS to input mode after configuration to allow for forced mode changes */
 				DDRB &= ~(1 << 0);
 
-				SPCR   = ((1 << SPE) | SPIOptions);
+				SPCR  = ((1 << SPE) | SPIOptions);
 			}
 
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */

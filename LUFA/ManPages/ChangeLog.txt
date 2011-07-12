@@ -18,13 +18,14 @@
   *   - Added support for the Audio class GET STATUS request in the Audio Device Class driver so that it is correctly ACKed when sent by the host
   *   - Added new EVENT_Audio_Device_StreamStartStop() event to the Audio Device Class driver to detect stream start/stop events
   *   - Added board driver support for the Busware TUL board
-  *   - Added new Host mode Audio Class driver
-  *   - Added new SPI_GetCurrentMode() function to the SPI peripheral driver
   *   - Added board hardware driver support for the EVK1100 board
   *   - Added board hardware driver support for the EVK1104 board
+  *   - Added new Host mode Audio Class driver
+  *   - Added new SPI_GetCurrentMode() function to the SPI peripheral driver
+  *   - Added RingBuffer_GetFreeCount() function to the Ring Buffer driver
   *   - Added new HID_Host_SetIdlePeriod() function to the HID Host Class driver
   *   - Added new USB_Host_ConfigurationNumber global variable to indicate the selected configuration in an attached device
-  *   - Added RingBuffer_GetFreeCount() function to the Ring Buffer driver
+  *   - Added new USB_Host_GetDeviceStatus() function to the host standard request function set
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
@@ -46,7 +47,8 @@
   *   - Renamed global state variables that are specific to a certain USB mode to clearly indicate which mode the variable relates to,
   *     by changing the USB_* prefix to USB_Device_* or USB_Host_*
   *   - Removed the HOST_STATE_WaitForDeviceRemoval and HOST_STATE_Suspended host state machine states, as these are no longer required
-  *   - Altered the USB_Host_SetDeviceConfiguration() function to update the new USB_Host_ConfigurationNumber global as required
+  *   - Altered the USB_Host_SetDeviceConfiguration() function to update the global Host state machine state and the new
+  *     USB_Host_ConfigurationNumber global as required
   *  - Library Applications:
   *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple audio sample rates
   *   - Updated all host mode demos and projects to use the EVENT_USB_Host_DeviceEnumerationComplete() event callback for device configuration
