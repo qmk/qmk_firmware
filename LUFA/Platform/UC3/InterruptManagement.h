@@ -28,8 +28,47 @@
   this software.
 */
 
-#ifndef _INTERRUPT_MANAGEMENT_H_
-#define _INTERRUPT_MANAGEMENT_H_
+/** \file
+ *  \brief Interrupt Controller Driver for the AVR32 UC3 microcontrollers.
+ *
+ *  Interrupt controller driver for the AVR32 UC3 microcontrollers, for the configuration of interrupt
+ *  handlers within the device.
+ */
+
+/** \ingroup Group_PlatformDrivers
+ *  \defgroup Group_PlatformDrivers_UC3Interrupts UC3 Interrupt Controller Driver - LUFA/Platform/UC3/InterruptManagement.h
+ *  \brief Interrupt Controller Driver for the AVR32 UC3 microcontrollers.
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Platform/UC3/InterruptManagement.c
+ *    - LUFA/Platform/UC3/Exception.S
+ *
+ *  \section Sec_ModDescription Module Description
+ *  Interrupt controller driver for the AVR32 UC3 microcontrollers, for the configuration of interrupt
+ *  handlers within the device.
+ *
+ *  Usage Example:
+ *  \code
+ *		#include <LUFA/Platform/UC3/InterruptManagement.h>
+ *
+ *		ISR(USB_Group_IRQ_Handler)
+ *		{
+ *			// USB group handler code here
+ *		}
+ *
+ *		void main(void)
+ *		{
+ *			INTC_Init();
+ *			INTC_RegisterGroupHandler(INTC_IRQ_GROUP(AVR32_USBB_IRQ), AVR32_INTC_INT0, USB_Group_IRQ_Handler);
+ *		}
+ *  \endcode
+ *
+ *  @{
+ */
+
+#ifndef _UC3_INTERRUPT_MANAGEMENT_H_
+#define _UC3_INTERRUPT_MANAGEMENT_H_
 
 	/* Includes: */
 		#include <avr32/io.h>
@@ -38,46 +77,91 @@
 
 		#include <LUFA/Common/Common.h>
 
-	/* Macros: */
-		#if !defined(ISR)
-			#define ISR(Name)                 void Name (void) __attribute__((__interrupt__)); void Name (void)
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
 		#endif
-		
-		#define INTC_EnableInterrupts()   do { GCC_MEMORY_BARRIER(); __builtin_csrf(AVR32_SR_GM_OFFSET); } while (0)
-		#define INTC_DisableInterrupts()  do { __builtin_ssrf(AVR32_SR_GM_OFFSET); GCC_MEMORY_BARRIER(); } while (0)
 
-	/* Type Defines: */
-		typedef void (*InterruptHandlerPtr_t)(void);
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* External Variables: */
+			extern const void            EVBA_Table;
+			extern const uint32_t        Autovector_Table[];
+			extern InterruptHandlerPtr_t InterruptHandlers[AVR32_INTC_NUM_INT_GRPS];
+	#endif
 
-	/* External Variables: */
-		extern const void            EVBA_Table;
-		extern const uint32_t        Autovector_Table[];
-		extern InterruptHandlerPtr_t InterruptHandlers[AVR32_INTC_NUM_INT_GRPS];
+	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			/** Converts a given interrupt index into its assocated interrupt group.
+			 *
+			 *  \param[in] IRQIndex  Index of the interrupt request to convert.
+			 *
+			 *  \return Interrupt group number associated with the interrupt index.
+			 */
+			#define INTC_IRQ_GROUP(IRQIndex)  (IRQIndex / 32)
 
-	/* Function Prototypes: */
-		void INTC_Init(void);
+			/** Converts a given interrupt index into its assocated interrupt line.
+			 *
+			 *  \param[in] IRQIndex  Index of the interrupt request to convert.
+			 *
+			 *  \return Interrupt line number associated with the interrupt index.
+			 */
+			#define INTC_IRQ_LINE(IRQIndex)   (IRQIndex % 32)
 
-	/* Inline Functions: */
-		/** Registers a handler for a given interrupt group. On the AVR32 UC3 devices, interrupts are grouped by
-		 *  peripheral. To save on SRAM used, a single ISR handles all interrupt lines within a single group - to
-		 *  determine the exact line that has interrupted within the group ISR handler, examine the module's interrupt
-		 *  flag register bits.
-		 *
-		 *  If multiple interrupts with the same group are registered, the last registered handler will become the
-		 *  handler called for interrupts raised within that group.
-		 *
-		 *  \param[in] InterruptRequest  Interrupt request index for the given interrupt, a AVR32_*_IRQ mask.
-		 *  \param[in] InterruptLevel    Priority level for the specified interrupt, a AVR32_INTC_INT* mask.
-		 *  \param[in] Handler           Address of the ISR handler for the interrupt group.
-		 */
-		static inline void INTC_RegisterGroupHandler(const uint16_t InterruptRequest,
-												     const uint8_t  InterruptLevel,
-												     const InterruptHandlerPtr_t Handler)
-		{
-			uint8_t InterruptGroup = (InterruptRequest >> 5);
+		/* Type Defines: */
+			/** Type define for an interrupt handler ISR function. */
+			typedef void (*InterruptHandlerPtr_t)(void);
 
-			InterruptHandlers[InterruptGroup] = Handler;
-			AVR32_INTC.ipr[InterruptGroup]    = Autovector_Table[InterruptLevel];
-		}
+		/* Function Prototypes: */
+			/** Initializes the interrupt controller, nulling out all interrupt handlers ready for new registration. This
+			 *  function should be called once on startup to ensure the interrupt controller is ready for use.
+			 */
+			void INTC_Init(void);
+
+		/* Inline Functions: */
+			/** Registers a handler for a given interrupt group. On the AVR32 UC3 devices, interrupts are grouped by
+			 *  peripheral. To save on SRAM used, a single ISR handles all interrupt lines within a single group - to
+			 *  determine the exact line that has interrupted within the group ISR handler, use \ref INTC_GetGroupInterrupts().
+			 *
+			 *  If multiple interrupts with the same group are registered, the last registered handler will become the
+			 *  handler called for interrupts raised within that group.
+			 *
+			 *  To obtain the group number of a specific interrupt index, use the \ref INTC_IRQ_GROUP() macro.
+			 *
+			 *  \param[in] GroupNumber       Group number of the interrupt group to register a handler for.
+			 *  \param[in] InterruptLevel    Priority level for the specified interrupt, a \c AVR32_INTC_INT* mask.
+			 *  \param[in] Handler           Address of the ISR handler for the interrupt group.
+			 */
+			static inline void INTC_RegisterGroupHandler(const uint16_t GroupNumber,
+			                                             const uint8_t InterruptLevel,
+			                                             const InterruptHandlerPtr_t Handler) ATTR_ALWAYS_INLINE;
+			static inline void INTC_RegisterGroupHandler(const uint16_t GroupNumber,
+			                                             const uint8_t InterruptLevel,
+			                                             const InterruptHandlerPtr_t Handler)
+			{
+				InterruptHandlers[GroupNumber] = Handler;
+				AVR32_INTC.ipr[GroupNumber]    = Autovector_Table[InterruptLevel];
+			}
+			
+			/** Retrieves the pending interrupts for a given interrupt group. The result of this function should be masked
+			 *  against interrupt request indexes converted to a request line number via the \ref INTC_IRQ_LINE() macro. To
+			 *  obtain the group number of a given interrupt request, use the \ref INTC_IRQ_GROUP() macro.
+			 *
+			 *  \param[in] GroupNumber Group number of the interrupt group to check.
+			 *
+			 *  \return Mask of pending interrupt lines for the given interrupt group.
+			 */
+			static inline uint_reg_t INTC_GetGroupInterrupts(const uint16_t GroupNumber) ATTR_ALWAYS_INLINE;
+			static inline uint_reg_t INTC_GetGroupInterrupts(const uint16_t GroupNumber)
+			{
+				return AVR32_INTC.irr[GroupNumber];
+			}
+	
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 
 #endif
+
+/** @} */

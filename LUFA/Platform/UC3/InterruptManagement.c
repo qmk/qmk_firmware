@@ -36,11 +36,11 @@ InterruptHandlerPtr_t InterruptHandlers[AVR32_INTC_NUM_INT_GRPS];
 /** ISR for unhandled interrupt groups */
 ISR(Unhandled_Interrupt)
 {
-	while (true);
+	for (;;);
 }
 
-/** Retrieves the associated interrupt handler for the interrupt currently being fired. This is
- *  called directly from the exception handler routine before dispatching to the ISR.
+/** Retrieves the associated interrupt handler for the interrupt group currently being fired. This
+ *  is called directly from the exception handler routine before dispatching to the ISR.
  */
 InterruptHandlerPtr_t INTC_GetInterruptHandler(const uint_reg_t InterruptLevel)
 {

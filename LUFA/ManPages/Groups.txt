@@ -19,3 +19,7 @@
  *  Miscellaneous driver Functions, macros, variables, enums and types.
  */
 
+/** @defgroup Group_PlatformDrivers System Platform Drivers
+ *
+ *  Drivers relating to the general architecture platform, such as clock setup and interrupt management.
+ */
