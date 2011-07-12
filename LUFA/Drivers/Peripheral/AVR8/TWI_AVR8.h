@@ -232,13 +232,13 @@
 
 			/** Receives a byte from the currently addressed device on the TWI bus.
 			 *
-			 *  \param[in] Byte      Location where the read byte is to be stored
-			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true
+			 *  \param[in] Byte      Location where the read byte is to be stored.
+			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true.
 			 *
-			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise
+			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise.
 			 */
-			static inline uint8_t TWI_ReceiveByte(uint8_t* const Byte,
-			                                      const bool LastByte)
+			static inline bool TWI_ReceiveByte(uint8_t* const Byte,
+			                                   const bool LastByte)
 			{
 				uint8_t TWCRMask = ((1 << TWINT) | (1 << TWEN));
 
@@ -255,10 +255,10 @@
 		/* Function Prototypes: */
 			/** Begins a master mode TWI bus communication with the given slave device address.
 			 *
-			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with
-			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds
+			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with.
+			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds.
 			 *
-			 *  \return A value from the \ref TWI_ErrorCodes_t enum
+			 *  \return A value from the \ref TWI_ErrorCodes_t enum.
 			 */
 			uint8_t TWI_StartTransmission(const uint8_t SlaveAddress,
 			                              const uint8_t TimeoutMS);
@@ -266,19 +266,21 @@
 			/** High level function to perform a complete packet transfer over the TWI bus to the specified
 			 *  device.
 			 *
-			 *  \param[in] SlaveAddress        Base address of the TWI slave device to communicate with
-			 *  \param[in] TimeoutMS           Timeout for bus capture and slave START ACK, in milliseconds
-			 *  \param[in] InternalAddress     Pointer to a location where the internal slave read start address is stored
-			 *  \param[in] InternalAddressLen  Size of the internal device address, in bytes
-			 *  \param[in] Buffer              Pointer to a buffer where the read packet data is to be stored
-			 *  \param[in] Length              Size of the packet to read, in bytes
+			 *  \param[in] SlaveAddress        Base address of the TWI slave device to communicate with.
+			 *  \param[in] TimeoutMS           Timeout for bus capture and slave START ACK, in milliseconds.
+			 *  \param[in] InternalAddress     Pointer to a location where the internal slave read start address is stored.
+			 *  \param[in] InternalAddressLen  Size of the internal device address, in bytes.
+			 *  \param[in] Buffer              Pointer to a buffer where the read packet data is to be stored.
+			 *  \param[in] Length              Size of the packet to read, in bytes.
+			 *
+			 *  \return A value from the \ref TWI_ErrorCodes_t enum.
 			 */
 			uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
 			                       const uint8_t TimeoutMS,
 			                       const uint8_t* InternalAddress,
 			                       const uint8_t InternalAddressLen,
 			                       uint8_t* Buffer,
-			                       uint8_t Length);
+			                       uint8_t Length) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** High level function to perform a complete packet transfer over the TWI bus from the specified
 			 *  device.
@@ -289,13 +291,15 @@
 			 *  \param[in] InternalAddressLen  Size of the internal device address, in bytes
 			 *  \param[in] Buffer              Pointer to a buffer where the packet data to send is stored
 			 *  \param[in] Length              Size of the packet to send, in bytes
+			 *
+			 *  \return A value from the \ref TWI_ErrorCodes_t enum.
 			 */
 			uint8_t TWI_WritePacket(const uint8_t SlaveAddress,
 			                        const uint8_t TimeoutMS,
 			                        const uint8_t* InternalAddress,
 			                        uint8_t InternalAddressLen,
 			                        const uint8_t* Buffer,
-			                        uint8_t Length);
+			                        uint8_t Length) ATTR_NON_NULL_PTR_ARG(3);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

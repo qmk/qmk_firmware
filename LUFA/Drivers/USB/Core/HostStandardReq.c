@@ -243,7 +243,7 @@ uint8_t USB_Host_GetDeviceStatus(uint8_t* const FeatureStatus)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			.bRequest      = REQ_GetFeature,
+			.bRequest      = REQ_GetStatus,
 			.wValue        = 0,
 			.wIndex        = 0,
 			.wLength       = 0,
