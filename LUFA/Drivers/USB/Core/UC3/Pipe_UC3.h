@@ -877,7 +877,7 @@
 			 *  \return Boolean \c true if a pipe bound to the given endpoint address of the specified direction is found,
 			 *          \c false otherwise.
 			 */
-			bool Pipe_IsEndpointBound(const uint8_t EndpointAddress);
+			bool Pipe_IsEndpointBound(const uint8_t EndpointAddress) ATTR_WARN_UNUSED_RESULT;
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

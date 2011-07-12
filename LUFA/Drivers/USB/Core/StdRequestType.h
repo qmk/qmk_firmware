@@ -167,7 +167,7 @@
 				uint16_t wValue; /**< wValue parameter of the request. */
 				uint16_t wIndex; /**< wIndex parameter of the request. */
 				uint16_t wLength; /**< Length of the data to transfer in bytes. */
-			} USB_Request_Header_t;
+			} ATTR_PACKED USB_Request_Header_t;
 
 		/* Enums: */
 			/** Enumeration for the various standard request commands. These commands are applicable when the

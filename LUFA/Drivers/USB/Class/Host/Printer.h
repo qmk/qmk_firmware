@@ -272,8 +272,10 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_PRINTER_HOST_C)
-				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor)
+				                                                 ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor)
+				                                                         ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
 

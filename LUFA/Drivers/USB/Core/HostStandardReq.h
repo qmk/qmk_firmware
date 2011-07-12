@@ -132,7 +132,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
+			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the string descriptor
 			 *  of the specified index. This can be used to easily retrieve string descriptors from the device by
@@ -151,7 +151,7 @@
 			 */
 			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 			                                           void* const Buffer,
-			                                           const uint8_t BufferLength);
+			                                           const uint8_t BufferLength) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Retrieves the current feature status of the attached device, via a GET STATUS standard request. The
 			 *  retrieved feature status can then be examined by masking the retrieved value with the various
@@ -165,7 +165,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceStatus(uint8_t* const FeatureStatus);
+			uint8_t USB_Host_GetDeviceStatus(uint8_t* const FeatureStatus) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Clears a stall condition on the given pipe, via a CLEAR FEATURE standard request to the attached device.
 			 *

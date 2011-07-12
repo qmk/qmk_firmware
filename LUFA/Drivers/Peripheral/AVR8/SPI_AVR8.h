@@ -200,6 +200,7 @@
 			 *
 			 *  \return \ref SPI_MODE_MASTER if the interface is currently in SPI Master mode, \ref SPI_MODE_SLAVE otherwise
 			 */
+			static inline uint8_t SPI_GetCurrentMode(void) ATTR_ALWAYS_INLINE;
 			static inline uint8_t SPI_GetCurrentMode(void)
 			{
 				return (SPCR & SPI_MODE_MASTER);

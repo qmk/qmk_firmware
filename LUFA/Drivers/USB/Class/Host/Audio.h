@@ -145,6 +145,8 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
 			uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			                                      const bool EnableStreaming) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                      const bool EnableStreaming);
 
 			/** Gets or sets the specified property of a streaming audio class endpoint that is bound to a pipe in the given
@@ -160,7 +162,13 @@
 			 *                                     the retrieved data is to be stored for GET operations.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
-			 */			
+			 */
+			uint8_t Audio_Host_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
+			                                          const uint8_t DataPipeIndex,
+			                                          const uint8_t EndpointProperty,
+			                                          const uint8_t EndpointControl,
+			                                          const uint16_t DataLength,
+			                                          void* const Data) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
 			uint8_t Audio_Host_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                          const uint8_t DataPipeIndex,
 			                                          const uint8_t EndpointProperty,
@@ -175,7 +183,8 @@
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class host configuration and state.
 			 */
-			static inline void Audio_Host_USBTask(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo);
+			static inline void Audio_Host_USBTask(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
+			                                      ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void Audio_Host_USBTask(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
 			{
 				(void)AudioInterfaceInfo;
@@ -192,7 +201,7 @@
 			 *  \return Boolean \c true if the given Audio interface has a sample to be read, \c false otherwise.
 			 */
 			static inline bool Audio_Host_IsSampleReceived(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
-			                                                 ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                               ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline bool Audio_Host_IsSampleReceived(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
 			{
 				if ((USB_HostState != HOST_STATE_Configured) || !(AudioInterfaceInfo->State.IsActive))
@@ -219,7 +228,7 @@
 			 *  \return Boolean \c true if the given Audio interface is ready to accept the next sample, \c false otherwise.
 			 */
 			static inline bool Audio_Host_IsReadyForNextSample(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
-			                                                     ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                                   ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline bool Audio_Host_IsReadyForNextSample(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
 			{
 				if ((USB_HostState != HOST_STATE_Configured) || !(AudioInterfaceInfo->State.IsActive))
@@ -239,7 +248,7 @@
 			 *  \return  Signed 8-bit audio sample from the audio interface.
 			 */
 			static inline int8_t Audio_Host_ReadSample8(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
-			                                              ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                            ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline int8_t Audio_Host_ReadSample8(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
 			{
 				int8_t Sample;
@@ -268,7 +277,7 @@
 			 *  \return  Signed 16-bit audio sample from the audio interface.
 			 */
 			static inline int16_t Audio_Host_ReadSample16(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
-			                                                ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                              ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline int16_t Audio_Host_ReadSample16(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
 			{
 				int16_t Sample;
@@ -297,7 +306,7 @@
 			 *  \return Signed 24-bit audio sample from the audio interface.
 			 */
 			static inline int32_t Audio_Host_ReadSample24(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
-			                                                ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                              ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline int32_t Audio_Host_ReadSample24(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo)
 			{
 				int32_t Sample;
@@ -325,9 +334,9 @@
 			 *  \param[in]     Sample              Signed 8-bit audio sample.
 			 */
 			static inline void Audio_Host_WriteSample8(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                             const int8_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                           const int8_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void Audio_Host_WriteSample8(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                             const int8_t Sample)
+			                                           const int8_t Sample)
 			{
 				Pipe_Write_8(Sample);
 
@@ -349,9 +358,9 @@
 			 *  \param[in]     Sample              Signed 16-bit audio sample.
 			 */
 			static inline void Audio_Host_WriteSample16(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                              const int16_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                            const int16_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void Audio_Host_WriteSample16(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                              const int16_t Sample)
+			                                            const int16_t Sample)
 			{
 				Pipe_Write_16_LE(Sample);
 
@@ -373,9 +382,9 @@
 			 *  \param[in]     Sample              Signed 24-bit audio sample.
 			 */
 			static inline void Audio_Host_WriteSample24(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                              const int32_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
+			                                            const int32_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void Audio_Host_WriteSample24(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                              const int32_t Sample)
+			                                            const int32_t Sample)
 			{
 				Pipe_Write_16_LE(Sample);
 				Pipe_Write_8(Sample >> 16);
@@ -393,9 +402,12 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_AUDIO_HOST_C)
-				static uint8_t DCOMP_Audio_Host_NextAudioControlInterface(void* CurrentDescriptor);
-				static uint8_t DCOMP_Audio_Host_NextAudioStreamInterface(void* CurrentDescriptor);
-				static uint8_t DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor);
+				static uint8_t DCOMP_Audio_Host_NextAudioControlInterface(void* CurrentDescriptor)
+				                                                          ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_Audio_Host_NextAudioStreamInterface(void* CurrentDescriptor)
+				                                                         ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_Audio_Host_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
+				                                                               ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
 
