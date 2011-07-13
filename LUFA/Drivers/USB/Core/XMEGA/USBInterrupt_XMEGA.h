@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB controller interrupt service routine management.
+ *  \brief USB Controller Interrupt definitions for the AVR XMEGA microcontrollers.
  *
  *  This file contains definitions required for the correct handling of low level USB service routine interrupts
  *  from the USB controller.
@@ -38,12 +38,11 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-#ifndef __USBINTERRUPT_H__
-#define __USBINTERRUPT_H__
+#ifndef __USBINTERRUPT_XMEGA_H__
+#define __USBINTERRUPT_XMEGA_H__
 
 	/* Includes: */
-		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
+		#include "../../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -55,14 +54,54 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
-	/* Architecture Includes: */
-		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/USBInterrupt_AVR8.h"
-		#elif (ARCH == ARCH_UC3)
-			#include "UC3/USBInterrupt_UC3.h"
-		#elif (ARCH == ARCH_XMEGA)
-			#include "XMEGA/USBInterrupt_XMEGA.h"	
-		#endif
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Enums: */
+			enum USB_Interrupts_t
+			{
+				USB_INT_NONE  = 0, // TODO
+			};
+
+		/* Inline Functions: */
+			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_Enable(const uint8_t Interrupt)
+			{
+				// TODO
+			}
+
+			static inline void USB_INT_Disable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_Disable(const uint8_t Interrupt)
+			{
+				// TODO
+			}
+			
+			static inline void USB_INT_Clear(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_Clear(const uint8_t Interrupt)
+			{
+				// TODO
+			}
+			
+			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt)
+			{
+				return false; // TODO
+			}
+		
+			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt)
+			{
+				return false; // TODO
+			}
+
+		/* Includes: */
+			#include "../USBMode.h"
+			#include "../Events.h"
+			#include "../USBController.h"
+
+		/* Function Prototypes: */
+			void USB_INT_ClearAllInterrupts(void);
+			void USB_INT_DisableAllInterrupts(void);
+	#endif
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

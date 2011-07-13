@@ -66,7 +66,9 @@
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/USBController_AVR8.h"
 		#elif (ARCH == ARCH_UC3)
-			#include "UC3/USBController_UC3.h"	
+			#include "UC3/USBController_UC3.h"
+		#elif (ARCH == ARCH_XMEGA)
+			#include "XMEGA/USBController_XMEGA.h"	
 		#endif
 
 	/* Disable C linkage for C++ Compilers: */

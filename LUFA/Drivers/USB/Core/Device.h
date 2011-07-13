@@ -144,6 +144,8 @@
 			#include "AVR8/Device_AVR8.h"
 		#elif (ARCH == ARCH_UC3)
 			#include "UC3/Device_UC3.h"
+		#elif (ARCH == ARCH_XMEGA)
+			#include "XMEGA/Device_XMEGA.h"		
 		#endif
 
 	/* Disable C linkage for C++ Compilers: */

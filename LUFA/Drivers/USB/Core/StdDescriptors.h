@@ -637,7 +637,7 @@
 			{
 				USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 
-				#if (ARCH == ARCH_AVR8)
+				#if ((ARCH == ARCH_AVR8) || (ARCH == ARCH_XMEGA))
 				wchar_t  UnicodeString[];
 				#else
 				uint16_t UnicodeString[]; /**< String data, as unicode characters (alternatively,

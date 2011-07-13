@@ -92,5 +92,23 @@
  *
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
+ *
+ *  \section Sec_XMEGA_Support Atmel USB XMEGA AVR (XMEGA)
+ *  Note: <i>The XMEGA device support is currently <b>experimental</b>, and is included for preview purposes only.</i>
+ *  Currently supported XMEGA models:
+ *   - ATXMEGA16A4U (USB Device Only)
+ *   - ATXMEGA32A4U (USB Device Only)
+ *   - ATXMEGA64A3U (USB Device Only)
+ *   - ATXMEGA128A3U (USB Device Only)
+ *   - ATXMEGA192A3U (USB Device Only)
+ *   - ATXMEGA256A3U (USB Device Only)
+ *   - ATXMEGA256A3BU (USB Device Only)
+ *   - ATXMEGA128A1U (USB Device Only)
+ *
+ *  Currently supported Atmel XMEGA boards (see \ref Group_BoardTypes):
+ *   - None
+ *
+ *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
+ *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
 

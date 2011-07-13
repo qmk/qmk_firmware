@@ -119,6 +119,21 @@
 			#define ARCH_BIG_ENDIAN
 
 			#include "Endianness.h"
+		#elif (ARCH == ARCH_XMEGA)
+			#include <avr/io.h>
+			#include <avr/interrupt.h>
+			#include <avr/pgmspace.h>
+			#include <avr/eeprom.h>
+			#include <util/delay.h>
+			
+			typedef uint8_t uint_reg_t;
+			
+			#define ARCH_HAS_EEPROM_ADDRESS_SPACE
+			#define ARCH_HAS_FLASH_ADDRESS_SPACE
+			#define ARCH_HAS_MULTI_ADDRESS_SPACE
+			#define ARCH_LITTLE_ENDIAN
+
+			#include "Endianness.h"		
 		#else
 			#error Unknown device architecture specified.
 		#endif
@@ -289,6 +304,16 @@
 					__builtin_mtsr(AVR32_COUNT, 0);
 					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));				
 				}
+				#elif (ARCH == ARCH_XMEGA)
+				if (GCC_IS_COMPILE_CONST(Milliseconds))
+				{
+					_delay_ms(Milliseconds);
+				}
+				else
+				{
+					while (Milliseconds--)
+					  _delay_ms(1);
+				}				
 				#endif
 			}
 
@@ -308,7 +333,9 @@
 				#if (ARCH == ARCH_AVR8)
 				return SREG;
 				#elif (ARCH == ARCH_UC3)
-				return __builtin_mfsr(AVR32_SR);				
+				return __builtin_mfsr(AVR32_SR);
+				#elif (ARCH == ARCH_XMEGA)
+				return SREG;
 				#endif
 
 				GCC_MEMORY_BARRIER();
@@ -334,6 +361,8 @@
 				  __builtin_ssrf(AVR32_SR_GM_OFFSET);
 				else
 				  __builtin_csrf(AVR32_SR_GM_OFFSET);
+				#elif (ARCH == ARCH_XMEGA)
+				SREG = GlobalIntState;				
 				#endif
 				
 				GCC_MEMORY_BARRIER();
@@ -352,6 +381,8 @@
 				sei();
 				#elif (ARCH == ARCH_UC3)
 				__builtin_csrf(AVR32_SR_GM_OFFSET);
+				#elif (ARCH == ARCH_XMEGA)
+				sei();
 				#endif
 
 				GCC_MEMORY_BARRIER();
@@ -370,6 +401,8 @@
 				cli();
 				#elif (ARCH == ARCH_UC3)
 				__builtin_ssrf(AVR32_SR_GM_OFFSET);
+				#elif (ARCH == ARCH_XMEGA)
+				cli();
 				#endif
 
 				GCC_MEMORY_BARRIER();

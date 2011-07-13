@@ -174,6 +174,19 @@
 				#define USB_SERIES_UC3B1_AVR32
 				#define USB_CAN_BE_DEVICE
 				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR_ATxmega128A1U__))
+				#define USB_SERIES_A1U_XMEGA
+				#define USB_CAN_BE_DEVICE
+			#elif (defined(__AVR_ATxmega16A4U__) || defined(__AVR_ATxmega32A4U__))
+				#define USB_SERIES_A4U_XMEGA
+				#define USB_CAN_BE_DEVICE
+			#elif (defined(__AVR_ATxmega64A3U__) || defined(__AVR_ATxmega128A3U__) || \
+			       defined(__AVR_ATxmega192A3U__) || defined(__AVR_ATxmega256A3U__))
+				#define USB_SERIES_A3U_XMEGA
+				#define USB_CAN_BE_DEVICE
+			#elif (defined(__AVR_ATxmega256A3BU__))
+				#define USB_SERIES_A3BU_XMEGA
+				#define USB_CAN_BE_DEVICE
 			#endif
 			
 			#if (defined(USB_CAN_BE_DEVICE) && defined(USB_CAN_BE_HOST))

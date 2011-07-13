@@ -26,6 +26,7 @@
   *   - Added new HID_Host_SetIdlePeriod() function to the HID Host Class driver
   *   - Added new USB_Host_ConfigurationNumber global variable to indicate the selected configuration in an attached device
   *   - Added new USB_Host_GetDeviceStatus() function to the host standard request function set
+  *   - Added AVR USB XMEGA architecture port (currently incomplete/experimental)
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
@@ -49,6 +50,7 @@
   *   - Removed the HOST_STATE_WaitForDeviceRemoval and HOST_STATE_Suspended host state machine states, as these are no longer required
   *   - Altered the USB_Host_SetDeviceConfiguration() function to update the global Host state machine state and the new
   *     USB_Host_ConfigurationNumber global as required
+  *   - Added endian correcting code to the library USB class drivers for multiple architecture support
   *  - Library Applications:
   *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple audio sample rates
   *   - Updated all host mode demos and projects to use the EVENT_USB_Host_DeviceEnumerationComplete() event callback for device configuration
