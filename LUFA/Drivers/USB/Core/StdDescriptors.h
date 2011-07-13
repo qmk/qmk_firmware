@@ -54,10 +54,6 @@
 		#include "USBMode.h"
 		#include "Events.h"
 
-		#if defined(USB_CAN_BE_DEVICE)
-			#include "Device.h"
-		#endif
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

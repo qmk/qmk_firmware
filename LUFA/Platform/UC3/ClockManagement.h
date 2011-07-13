@@ -148,7 +148,7 @@
 						return false;
 				}
 
-				AVR32_PM.mcctrl                |= (1 << (AVR32_PM_MCCTRL_OSC0EN_OFFSET + Channel));
+				AVR32_PM.mcctrl |= (1 << (AVR32_PM_MCCTRL_OSC0EN_OFFSET + Channel));
 
 				while (!(AVR32_PM.poscsr & (1 << (AVR32_PM_POSCSR_OSC0RDY_OFFSET + Channel))));
 				return true;
@@ -161,7 +161,7 @@
 			static inline void AVR32CLK_StopExternalOscillator(const uint8_t Channel) ATTR_ALWAYS_INLINE;
 			static inline void AVR32CLK_StopExternalOscillator(const uint8_t Channel)
 			{
-				AVR32_PM.mcctrl                &= ~(1 << (AVR32_PM_MCCTRL_OSC0EN_OFFSET + Channel));
+				AVR32_PM.mcctrl &= ~(1 << (AVR32_PM_MCCTRL_OSC0EN_OFFSET + Channel));
 			}
 
 			/** Starts the given PLL of the UC3 microcontroller, with the given options. This routine blocks until the PLL is ready for use.
@@ -194,9 +194,9 @@
 						return false;
 				}
 
-				AVR32_PM.PLL[Channel].pllmul    = (Frequency / SourceFreq) ? (((Frequency / SourceFreq) - 1) / 2) : 0;
-				AVR32_PM.PLL[Channel].plldiv    = 0;
-				AVR32_PM.PLL[Channel].pllen     = true;
+				AVR32_PM.PLL[Channel].pllmul = (Frequency / SourceFreq) ? (((Frequency / SourceFreq) - 1) / 2) : 0;
+				AVR32_PM.PLL[Channel].plldiv = 0;
+				AVR32_PM.PLL[Channel].pllen  = true;
 
 				while (!(AVR32_PM.poscsr & (1 << (AVR32_PM_POSCSR_LOCK0_OFFSET + Channel))));
 				return true;
@@ -209,7 +209,7 @@
 			static inline void AVR32CLK_StopPLL(const uint8_t Channel) ATTR_ALWAYS_INLINE;
 			static inline void AVR32CLK_StopPLL(const uint8_t Channel)
 			{
-				AVR32_PM.PLL[Channel].pllen     = false;
+				AVR32_PM.PLL[Channel].pllen = false;
 			}
 			
 			/** Starts the given Generic Clock of the UC3 microcontroller, with the given options.
@@ -255,9 +255,9 @@
 				if (SourceFreq < Frequency)
 				  return false;
 
-				AVR32_PM.GCCTRL[Channel].diven  = (SourceFreq > Frequency) ? true : false;
-				AVR32_PM.GCCTRL[Channel].div    = (((SourceFreq / Frequency) - 1) / 2);
-				AVR32_PM.GCCTRL[Channel].cen    = true;
+				AVR32_PM.GCCTRL[Channel].diven = (SourceFreq > Frequency) ? true : false;
+				AVR32_PM.GCCTRL[Channel].div   = (((SourceFreq / Frequency) - 1) / 2);
+				AVR32_PM.GCCTRL[Channel].cen   = true;
 				
 				return true;
 			}
@@ -269,7 +269,7 @@
 			static inline void AVR32CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
 			static inline void AVR32CLK_StopGenericClock(const uint8_t Channel)
 			{
-				AVR32_PM.GCCTRL[Channel].cen    = false;
+				AVR32_PM.GCCTRL[Channel].cen = false;
 			}
 			
 			/** Sets the clock source for the main microcontroller core. The given clock source should be configured
@@ -292,13 +292,13 @@
 				switch (Source)
 				{
 					case CLOCK_SRC_SLOW_CLK:
-						AVR32_PM.MCCTRL.mcsel   = 0;
+						AVR32_PM.MCCTRL.mcsel = 0;
 						break;
 					case CLOCK_SRC_OSC0:
-						AVR32_PM.MCCTRL.mcsel   = 1;
+						AVR32_PM.MCCTRL.mcsel = 1;
 						break;
 					case CLOCK_SRC_PLL0:
-						AVR32_PM.MCCTRL.mcsel   = 2;
+						AVR32_PM.MCCTRL.mcsel = 2;
 						break;
 					default:
 						return false;
