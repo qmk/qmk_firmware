@@ -379,6 +379,53 @@
 				                              */
 			} ATTR_PACKED USB_StdDescriptor_Device_t;
 
+			/** \brief Standard USB Device Qualifier Descriptor (LUFA naming conventions).
+			 *
+			 *  Type define for a standard Device Qualifier Descriptor. This structure uses LUFA-specific element names
+			 *  to make each element's purpose clearer.
+			 *
+			 *  \see \ref USB_StdDescriptor_DeviceQualifier_t for the version of this type with standard element names.
+			 */
+			typedef struct
+			{
+				USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
+
+				uint16_t USBSpecification; /**< BCD of the supported USB specification. */
+				uint8_t  Class; /**< USB device class. */
+				uint8_t  SubClass; /**< USB device subclass. */
+				uint8_t  Protocol; /**< USB device protocol. */
+
+				uint8_t  Endpoint0Size; /**< Size of the control (address 0) endpoint's bank in bytes. */
+				uint8_t  NumberOfConfigurations; /**< Total number of configurations supported by
+				                                  *   the device.
+				                                  */
+				uint8_t  Reserved; /**< Reserved for future use, must be 0. */
+			} ATTR_PACKED USB_Descriptor_DeviceQualifier_t;
+
+			/** \brief Standard USB Device Qualifier Descriptor (USB-IF naming conventions).
+			 *
+			 *  Type define for a standard Device Qualifier Descriptor. This structure uses the relevant standard's given element names
+			 *  to ensure compatibility with the standard.
+			 *
+			 *  \see \ref USB_Descriptor_DeviceQualifier_t for the version of this type with non-standard LUFA specific element names.
+			 */
+			typedef struct
+			{
+				uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+				uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                              *   given by the specific class.
+				                              */
+				uint16_t bcdUSB; /**< BCD of the supported USB specification. */
+				uint8_t  bDeviceClass; /**< USB device class. */
+				uint8_t  bDeviceSubClass; /**< USB device subclass. */
+				uint8_t  bDeviceProtocol; /**< USB device protocol. */
+				uint8_t  bMaxPacketSize0; /**< Size of the control (address 0) endpoint's bank in bytes. */
+				uint8_t  bNumConfigurations; /**< Total number of configurations supported by
+				                              *   the device.
+				                              */
+				uint8_t  bReserved; /**< Reserved for future use, must be 0. */
+			} ATTR_PACKED USB_StdDescriptor_DeviceQualifier_t;
+
 			/** \brief Standard USB Configuration Descriptor (LUFA naming conventions).
 			 *
 			 *  Type define for a standard Configuration Descriptor header. This structure uses LUFA-specific element names
