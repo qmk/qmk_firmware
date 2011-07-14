@@ -118,6 +118,7 @@
 				#define ENDPOINT_DETAILS_EP4                   512, 2
 				#define ENDPOINT_DETAILS_EP5                   512, 2
 				#define ENDPOINT_DETAILS_EP6                   512, 2			
+				#define ENDPOINT_DETAILS_EP7                   512, 2
 			#elif defined(USB_SERIES_UC3B0_AVR32) || defined(USB_SERIES_UC3B1_AVR32) 
 				#define ENDPOINT_DETAILS_MAXEP                 7
 
@@ -127,7 +128,7 @@
 				#define ENDPOINT_DETAILS_EP3                   64,  2
 				#define ENDPOINT_DETAILS_EP4                   64,  2
 				#define ENDPOINT_DETAILS_EP5                   256, 2
-				#define ENDPOINT_DETAILS_EP6                   256, 2			
+				#define ENDPOINT_DETAILS_EP6                   256, 2
 			#endif
 
 			#define ENDPOINT_HSB_ADDRESS_SPACE_SIZE            (64 * 1024UL)
