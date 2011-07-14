@@ -71,10 +71,6 @@
 #define _UC3_INTERRUPT_MANAGEMENT_H_
 
 	/* Includes: */
-		#include <avr32/io.h>
-		#include <stdbool.h>
-		#include <stdint.h>
-
 		#include <LUFA/Common/Common.h>
 
 	/* Enable C linkage for C++ Compilers: */

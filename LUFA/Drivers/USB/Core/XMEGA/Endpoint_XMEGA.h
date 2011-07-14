@@ -95,6 +95,23 @@
 
 			#define ENDPOINT_DETAILS_MAXEP                 16
 
+		/* Inline Functions: */
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
+			                                                                       ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+			{
+				uint8_t  MaskVal    = 0;
+				uint16_t CheckBytes = 8;
+
+				while (CheckBytes < Bytes)
+				{
+					MaskVal++;
+					CheckBytes <<= 1;
+				}
+
+				return (MaskVal << USB_EP_SIZE_gp);
+			}
+
 		/* Function Prototypes: */
 			void Endpoint_ClearEndpoints(void);
 			bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
@@ -110,12 +127,12 @@
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
-			#define ENDPOINT_DIR_OUT                        0 // TODO
+			#define ENDPOINT_DIR_OUT                        false
 
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
-			#define ENDPOINT_DIR_IN                         0 // TODO
+			#define ENDPOINT_DIR_IN                         true
 			//@}
 			
 			/** \name Endpoint Bank Mode Masks */
@@ -125,14 +142,14 @@
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
 			 *  bank at the one time.
 			 */
-			#define ENDPOINT_BANK_SINGLE                    0 // TODO
+			#define ENDPOINT_BANK_SINGLE                    0
 
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
 			 */
-			#define ENDPOINT_BANK_DOUBLE                    0 // TODO
+			#define ENDPOINT_BANK_DOUBLE                    USB_EP_BANK_bm
 			//@}
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
