@@ -95,14 +95,6 @@
 
 			#define ENDPOINT_DETAILS_MAXEP                 16
 
-		/* Inline Functions: */
-			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
-			                                                                       ATTR_ALWAYS_INLINE;
-			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
-			{
-				return 0; // TODO
-			}
-
 		/* Function Prototypes: */
 			void Endpoint_ClearEndpoints(void);
 			bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,

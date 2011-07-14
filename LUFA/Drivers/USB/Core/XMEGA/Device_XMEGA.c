@@ -37,7 +37,7 @@
 
 void USB_Device_SendRemoteWakeup(void)
 {
-	// TODO
+	USB.CTRLB |= USB_RWAKEUP_bm;
 }
 
 #endif

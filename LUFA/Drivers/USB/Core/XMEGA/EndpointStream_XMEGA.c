@@ -39,13 +39,79 @@
 uint8_t Endpoint_Discard_Stream(uint16_t Length,
                                 uint16_t* const BytesProcessed)
 {
-	return 0; // TODO
+	uint8_t  ErrorCode;
+	uint16_t BytesInTransfer = 0;
+	
+	if ((ErrorCode = Endpoint_WaitUntilReady()))
+	  return ErrorCode;
+	  
+	if (BytesProcessed != NULL)
+	  Length -= *BytesProcessed;
+
+	while (Length)
+	{
+		if (!(Endpoint_IsReadWriteAllowed()))
+		{
+			Endpoint_ClearOUT();
+
+			if (BytesProcessed != NULL)
+			{
+				*BytesProcessed += BytesInTransfer;
+				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+			}
+
+			if ((ErrorCode = Endpoint_WaitUntilReady()))
+			  return ErrorCode;
+		}
+		else
+		{
+			Endpoint_Discard_8();
+
+			Length--;
+			BytesInTransfer++;
+		}
+	}
+	
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 uint8_t Endpoint_Null_Stream(uint16_t Length,
                              uint16_t* const BytesProcessed)
 {
-	return 0; // TODO
+	uint8_t  ErrorCode;
+	uint16_t BytesInTransfer = 0;
+	
+	if ((ErrorCode = Endpoint_WaitUntilReady()))
+	  return ErrorCode;
+	  
+	if (BytesProcessed != NULL)
+	  Length -= *BytesProcessed;
+
+	while (Length)
+	{
+		if (!(Endpoint_IsReadWriteAllowed()))
+		{
+			Endpoint_ClearIN();
+
+			if (BytesProcessed != NULL)
+			{
+				*BytesProcessed += BytesInTransfer;
+				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+			}
+
+			if ((ErrorCode = Endpoint_WaitUntilReady()))
+			  return ErrorCode;
+		}
+		else
+		{
+			Endpoint_Write_8(0);
+
+			Length--;
+			BytesInTransfer++;
+		}
+	}
+	
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Stream_LE
