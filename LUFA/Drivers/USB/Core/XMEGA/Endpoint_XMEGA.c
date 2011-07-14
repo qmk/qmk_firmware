@@ -43,7 +43,7 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint8_t UECFG0XData,
                                     const uint8_t UECFG1XData)
 {
-	// TODO
+	return false; // TODO
 }
 
 void Endpoint_ClearEndpoints(void)

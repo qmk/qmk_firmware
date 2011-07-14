@@ -123,12 +123,12 @@
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline uint8_t AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                       const uint8_t Type,
-			                                                       const uint8_t Startup) ATTR_ALWAYS_INLINE;
-			static inline uint8_t AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                       const uint8_t Type,
-			                                                       const uint8_t Startup)
+			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t Channel,
+			                                                    const uint8_t Type,
+			                                                    const uint8_t Startup) ATTR_ALWAYS_INLINE;
+			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t Channel,
+			                                                    const uint8_t Type,
+			                                                    const uint8_t Startup)
 			{
 				switch (Channel)
 				{
@@ -162,6 +162,8 @@
 
 			/** Starts the given PLL of the UC3 microcontroller, with the given options. This routine blocks until the PLL is ready for use.
 			 *
+			 *  \note The output frequency must be equal to or greater than the source frequency.
+			 *
 			 *  \param[in] Channel     Index of the PLL to start.
 			 *  \param[in] Source      Clock source for the PLL, a value from \ref UC3_System_ClockSource_t.
 			 *  \param[in] SourceFreq  Frequency of the PLL's clock source, in Hz.
@@ -178,6 +180,9 @@
 			                                     const uint32_t SourceFreq,
 			                                     const uint32_t Frequency)
 			{
+				if (SourceFreq > Frequency)
+				  return false;
+			
 				switch (Source)
 				{
 					case CLOCK_SRC_OSC0:

@@ -53,7 +53,13 @@
  *
  *		void main(void)
  *		{
- *			[TODO]
+ *			// Start the internal 32MHz RC oscillator and switch the CPU core to run from it
+ *			AVR32CLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
+ *			XMEGACLK_SetCPUClockSource(CLOCK_SRC_INT_RC32MHZ, F_CPU);
+ *
+ *			// Start the external oscillator and multiply up the frequency
+ *			AVR32CLK_StartExternalOscillator(EXOSC_FREQ_9MHZ_MAX, EXOSC_START_1KCLK);
+ *			AVR32CLK_StartPLL(CLOCK_SRC_XOSC, 8000000, F_USB);
  *		}
  *  \endcode
  *
@@ -73,13 +79,13 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Enum for the possible external oscillator types. */
-			enum XMEGA_Extern_OSC_ClockTypes_t
+			/** Enum for the possible external oscillator frequency ranges. */
+			enum XMEGA_Extern_OSC_ClockFrequency_t
 			{
-				EXOSC_MODE_2MHZ_MAX      = OSC_FRQRANGE_04TO2_gc,  /**< External crystal oscillator equal to or slower than 2MHz. */
-				EXOSC_MODE_9MHZ_MAX      = OSC_FRQRANGE_2TO9_gc,   /**< External crystal oscillator equal to or slower than 9MHz. */
-				EXOSC_MODE_12MHZ_MAX     = OSC_FRQRANGE_9TO12_gc,  /**< External crystal oscillator equal to or slower than 12MHz. */
-				EXOSC_MODE_16MHZ_MAX     = OSC_FRQRANGE_12TO16_gc, /**< External crystal oscillator equal to or slower than 16MHz. */	
+				EXOSC_FREQ_2MHZ_MAX      = OSC_FRQRANGE_04TO2_gc,  /**< External crystal oscillator equal to or slower than 2MHz. */
+				EXOSC_FREQ_9MHZ_MAX      = OSC_FRQRANGE_2TO9_gc,   /**< External crystal oscillator equal to or slower than 9MHz. */
+				EXOSC_FREQ_12MHZ_MAX     = OSC_FRQRANGE_9TO12_gc,  /**< External crystal oscillator equal to or slower than 12MHz. */
+				EXOSC_FREQ_16MHZ_MAX     = OSC_FRQRANGE_12TO16_gc, /**< External crystal oscillator equal to or slower than 16MHz. */	
 			};
 
 			/** Enum for the possible external oscillator statup times. */
@@ -103,113 +109,183 @@
 			};
 
 		/* Inline Functions: */
-			/** Starts the given external oscillator of the UC3 microcontroller, with the given options. This routine blocks until
+			/** Starts the external oscillator of the XMEGA microcontroller, with the given options. This routine blocks until
 			 *  the oscillator is ready for use.
 			 *
-			 *  \param[in] Channel  Index of the external oscillator to start.
-			 *  \param[in] Type     Type of clock attached to the given oscillator channel, a value from \ref XMEGA_Extern_OSC_ClockTypes_t.
-			 *  \param[in] Startup  Statup time of the external oscillator, a value from \ref XMEGA_Extern_OSC_ClockStartup_t.
+			 *  \param[in] FreqRange  Frequency range of the external oscillator, a value from \ref XMEGA_Extern_OSC_ClockFrequency_t.
+			 *  \param[in] Startup    Statup time of the external oscillator, a value from \ref XMEGA_Extern_OSC_ClockStartup_t.
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline uint8_t AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                       const uint8_t Type,
-			                                                       const uint8_t Startup) ATTR_ALWAYS_INLINE;
-			static inline uint8_t AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                       const uint8_t Type,
-			                                                       const uint8_t Startup)
+			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t FreqRange,
+			                                                    const uint8_t Startup) ATTR_ALWAYS_INLINE;
+			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t FreqRange,
+			                                                    const uint8_t Startup)
 			{
-				return false; // TODO
+				OSC.XOSCCTRL  = (FreqRange | ((Startup == EXOSC_START_32KCLK) ? OSC_X32KLPM_bm : 0) | Startup);
+				OSC.CTRL     |= OSC_XOSCEN_bm;
+				
+				while (!(OSC.STATUS & OSC_XOSCRDY_bm));				
+				return true;
 			}
 
-			/** Stops the given external oscillator of the UC3 microcontroller.
+			/** Stops the external oscillator of the XMEGA microcontroller. */
+			static inline void AVR32CLK_StopExternalOscillator(void) ATTR_ALWAYS_INLINE;
+			static inline void AVR32CLK_StopExternalOscillator(void)
+			{
+				OSC.CTRL     &= ~OSC_XOSCEN_bm;
+			}
+
+			/** Starts the given internal oscillator of the XMEGA microcontroller, with the given options. This routine blocks until
+			 *  the oscillator is ready for use.
 			 *
-			 *  \param[in] Channel  Index of the external oscillator to stop.
+			 *  \param[in] Source  Internal oscillator to start, a value from \ref XMEGA_System_ClockSource_t.
+			 *
+			 *  \return Boolean \c true if the internal oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline void AVR32CLK_StopExternalOscillator(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopExternalOscillator(const uint8_t Channel)
+			static inline uint8_t AVR32CLK_StartInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline uint8_t AVR32CLK_StartInternalOscillator(const uint8_t Source)
 			{
-				return; // TODO
+				switch (Source)
+				{
+					case CLOCK_SRC_INT_RC2MHZ:
+						OSC.CTRL |= OSC_RC2MEN_bm;
+						while (!(OSC.STATUS & OSC_RC2MRDY_bm));
+						return true;
+					case CLOCK_SRC_INT_RC32MHZ:
+						OSC.CTRL |= OSC_RC32MEN_bm;
+						while (!(OSC.STATUS & OSC_RC32MRDY_bm));					
+						return true;
+					case CLOCK_SRC_INT_RC32KHZ:
+						OSC.CTRL |= OSC_RC32KEN_bm;
+						while (!(OSC.STATUS & OSC_RC32KRDY_bm));					
+						return true;
+				}
+			
+				return false;
 			}
 
-			/** Starts the given PLL of the UC3 microcontroller, with the given options. This routine blocks until the PLL is ready for use.
+			/** Stops the given internal oscillator of the XMEGA microcontroller.
 			 *
-			 *  \param[in] Channel     Index of the PLL to start.
-			 *  \param[in] Source      Clock source for the PLL, a value from \ref XMEGA_System_ClockSource_t.
-			 *  \param[in] SourceFreq  Frequency of the PLL's clock source, in Hz.
-			 *  \param[in] Frequency   Target frequency of the PLL's output.
+			 *  \param[in] Source  Internal oscillator to stop, a value from \ref XMEGA_System_ClockSource_t.
+			 *
+			 *  \return Boolean \c true if the internal oscillator was successfully stopped, \c false if invalid parameters specified.
+			 */			
+			static inline bool AVR32CLK_StopInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline bool AVR32CLK_StopInternalOscillator(const uint8_t Source)
+			{
+				switch (Source)
+				{
+					case CLOCK_SRC_INT_RC2MHZ:
+						OSC.CTRL &= ~OSC_RC2MEN_bm;
+						return true;
+					case CLOCK_SRC_INT_RC32MHZ:
+						OSC.CTRL &= ~OSC_RC32MEN_bm;
+						return true;
+					case CLOCK_SRC_INT_RC32KHZ:
+						OSC.CTRL &= ~OSC_RC32KEN_bm;
+						return true;
+				}
+			
+				return false;
+			}
+
+			/** Starts the PLL of the XMEGA microcontroller, with the given options. This routine blocks until the PLL is ready for use.
+			 *
+			 *  \note The output frequency must be equal to or greater than the source frequency.
+			 *
+			 *  \param[in] Source       Clock source for the PLL, a value from \ref XMEGA_System_ClockSource_t.
+			 *  \param[in] SourceFreq   Frequency of the PLL's clock source, in Hz.
+			 *  \param[in] Frequency    Target frequency of the PLL's output.
 			 *
 			 *  \return Boolean \c true if the PLL was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StartPLL(const uint8_t Channel,
-			                                     const uint8_t Source,
+			static inline bool AVR32CLK_StartPLL(const uint8_t Source,
 			                                     const uint32_t SourceFreq,
 			                                     const uint32_t Frequency) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartPLL(const uint8_t Channel,
-			                                     const uint8_t Source,
+			static inline bool AVR32CLK_StartPLL(const uint8_t Source,
 			                                     const uint32_t SourceFreq,
 			                                     const uint32_t Frequency)
 			{
-				return false; // TODO
+				uint8_t MulFactor = (Frequency / SourceFreq);
+				
+				if (SourceFreq > Frequency)
+				  return false;				
+			
+				switch (Source)
+				{
+					case CLOCK_SRC_INT_RC2MHZ:
+						OSC.PLLCTRL = (OSC_PLLSRC_RC2M_gc  | MulFactor);
+						break;
+					case CLOCK_SRC_INT_RC32MHZ:
+						OSC.PLLCTRL = (OSC_PLLSRC_RC32M_gc | MulFactor);
+						break;
+					case CLOCK_SRC_XOSC:
+						OSC.PLLCTRL = (OSC_PLLSRC_XOSC_gc  | MulFactor);
+						break;
+					default:
+						return false;
+				}
+
+				OSC.CTRL |= OSC_PLLEN_bm;
+				
+				while (!(OSC.STATUS & OSC_PLLRDY_bm));
+				return true;
 			}
 
-			/** Stops the given PLL of the UC3 microcontroller.
-			 *
-			 *  \param[in] Channel  Index of the PLL to stop.
-			 */
-			static inline void AVR32CLK_StopPLL(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopPLL(const uint8_t Channel)
+			/** Stops the PLL of the XMEGA microcontroller. */
+			static inline void AVR32CLK_StopPLL(void) ATTR_ALWAYS_INLINE;
+			static inline void AVR32CLK_StopPLL(void)
 			{
-				// TODO
-			}
-			
-			/** Starts the given Generic Clock of the UC3 microcontroller, with the given options.
-			 *
-			 *  \param[in] Channel     Index of the Generic Clock to start.
-			 *  \param[in] Source      Clock source for the Generic Clock, a value from \ref XMEGA_System_ClockSource_t.
-			 *  \param[in] SourceFreq  Frequency of the Generic Clock's clock source, in Hz.
-			 *  \param[in] Frequency   Target frequency of the Generic Clock's output.
-			 *
-			 *  \return Boolean \c true if the Generic Clock was successfully started, \c false if invalid parameters specified.
-			 */
-			static inline bool AVR32CLK_StartGenericClock(const uint8_t Channel,
-			                                              const uint8_t Source,
-			                                              const uint32_t SourceFreq,
-			                                              const uint32_t Frequency) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartGenericClock(const uint8_t Channel,
-			                                              const uint8_t Source,
-			                                              const uint32_t SourceFreq,
-			                                              const uint32_t Frequency)
-			{
-				return false; // TODO
-			}
-			
-			/** Stops the given generic clock of the UC3 microcontroller.
-			 *
-			 *  \param[in] Channel  Index of the generic clock to stop.
-			 */
-			static inline void AVR32CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopGenericClock(const uint8_t Channel)
-			{
-				// TODO
+				OSC.CTRL &= ~OSC_PLLEN_bm;
 			}
 			
 			/** Sets the clock source for the main microcontroller core. The given clock source should be configured
 			 *  and ready for use before this function is called.
-			 *
-			 *  This function will configure the FLASH controller's wait states automatically to suit the given clock source.
 			 *
 			 *  \param[in] Source      Clock source for the CPU core, a value from \ref XMEGA_System_ClockSource_t.
 			 *  \param[in] SourceFreq  Frequency of the CPU core's clock source, in Hz.
 			 *
 			 *  \return Boolean \c true if the CPU core clock was sucessfully altered, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_SetCPUClockSource(const uint8_t Source,
+			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source,
 			                                              const uint32_t SourceFreq) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_SetCPUClockSource(const uint8_t Source,
+			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source,
 			                                              const uint32_t SourceFreq)
 			{
-				return false // TODO
+				uint8_t ClockSourceMask = 0;
+			
+				switch (Source)
+				{
+					case CLOCK_SRC_INT_RC2MHZ:
+						ClockSourceMask = CLK_SCLKSEL_RC2M_gc;
+						break;
+					case CLOCK_SRC_INT_RC32MHZ:
+						ClockSourceMask = CLK_SCLKSEL_RC32M_gc;
+						break;
+					case CLOCK_SRC_INT_RC32KHZ:
+						ClockSourceMask = CLK_SCLKSEL_RC32K_gc;
+						break;
+					case CLOCK_SRC_XOSC:
+						ClockSourceMask = CLK_SCLKSEL_XOSC_gc;
+						break;
+					case CLOCK_SRC_PLL:
+						ClockSourceMask = CLK_SCLKSEL_PLL_gc;
+						break;
+					default:
+						return false;
+				}
+				
+				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+				GlobalInterruptDisable();
+
+				CCP      = CCP_IOREG_gc;
+				CLK.CTRL = ClockSourceMask;
+				
+				SetGlobalInterruptMask(CurrentGlobalInt);
+				
+				Delay_MS(1);				
+				return (CLK.CTRL == ClockSourceMask);
 			}
 
 	/* Disable C linkage for C++ Compilers: */

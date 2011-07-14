@@ -78,6 +78,11 @@ void USB_Disable(void)
 
 void USB_ResetInterface(void)
 {
+	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
+	  CLK.USBCTRL = ((((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp) | CLK_USBSRC_PLL_gc | CLK_USBEN_bm);
+	else
+	  CLK.USBCTRL = ((((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp) | CLK_USBSRC_PLL_gc | CLK_USBEN_bm);
+	
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
 

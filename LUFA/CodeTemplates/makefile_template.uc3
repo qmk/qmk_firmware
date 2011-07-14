@@ -70,10 +70,7 @@ F_CPU = ### INSERT PRESCALED SYSTEM CLOCK SPEED HERE, IN HZ ###
 
 # USB controller master clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
-#     input clock frequency (before any prescaling is performed) in Hz. This value may
-#     differ from F_CPU, as the USB clock is often sourced from the same oscillator as
-#     the CPU clock, but run through multipliers and dividers to achieve the desired
-#     clock rate.
+#     input clock frequency of the USB controller's clock generator in Hz.
 #
 #     For the UC3 chips, this should be equal to 48MHz or 96MHz.
 F_USB = ### INSERT CLOCK TO USB MODULE HERE, IN HZ ###
