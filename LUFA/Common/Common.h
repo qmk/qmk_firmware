@@ -181,6 +181,26 @@
 			#if !defined(MIN) || defined(__DOXYGEN__)
 				#define MIN(x, y)               ((x < y) ? x : y)
 			#endif
+			
+			#if !defined(STRINGIFY) || defined(__DOXYGEN__)
+				/** Converts the given input into a string, via the C Preprocessor. This macro puts literal quotation
+				 *  marks around the input, converting the source into a string literal.
+				 *
+				 *  \param[in] x  Input to convert into a string literal.
+				 *
+				 *  \return String version of the input.
+				 */
+				#define STRINGIFY(x)            #x
+
+				/** Converts the given input into a string after macro expansion, via the C Preprocessor. This macro puts
+				 *  literal quotation marks around the expanded input, converting the source into a string literal.
+				 *
+				 *  \param[in] x  Input to expand and convert into a string literal.
+				 *
+				 *  \return String version of the expanded input.
+				 */
+				#define STRINGIFY_EXPANDED(x)   STRINGIFY(x)
+			#endif
 
 			#if (ARCH == ARCH_AVR8) || defined(__DOXYGEN__)
 				/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always

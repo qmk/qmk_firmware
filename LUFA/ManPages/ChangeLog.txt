@@ -27,6 +27,7 @@
   *   - Added new USB_Host_ConfigurationNumber global variable to indicate the selected configuration in an attached device
   *   - Added new USB_Host_GetDeviceStatus() function to the host standard request function set
   *   - Added AVR USB XMEGA architecture port (currently incomplete/experimental)
+  *   - Added new STRINGIFY() and STRINGIFY_EXPANDED() convenience macros
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
   *   - Added new incomplete AndroidAccessoryHost Host LowLevel demo
