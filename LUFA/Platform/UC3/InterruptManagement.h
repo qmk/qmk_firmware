@@ -84,6 +84,9 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
+		/* Type Defines: */
+			typedef void (*InterruptHandlerPtr_t)(void);
+
 		/* External Variables: */
 			extern const void            EVBA_Table;
 			extern const uint32_t        Autovector_Table[];
@@ -107,10 +110,6 @@
 			 *  \return Interrupt line number associated with the interrupt index.
 			 */
 			#define INTC_IRQ_LINE(IRQIndex)   (IRQIndex % 32)
-
-		/* Type Defines: */
-			/** Type define for an interrupt handler ISR function. */
-			typedef void (*InterruptHandlerPtr_t)(void);
 
 		/* Function Prototypes: */
 			/** Initializes the interrupt controller, nulling out all interrupt handlers ready for new registration. This

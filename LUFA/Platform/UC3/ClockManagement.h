@@ -127,12 +127,12 @@
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline void AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                    const uint8_t Type,
-			                                                    const uint8_t Startup) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                    const uint8_t Type,
-			                                                    const uint8_t Startup)
+			static inline uint8_t AVR32CLK_StartExternalOscillator(const uint8_t Channel,
+			                                                       const uint8_t Type,
+			                                                       const uint8_t Startup) ATTR_ALWAYS_INLINE;
+			static inline uint8_t AVR32CLK_StartExternalOscillator(const uint8_t Channel,
+			                                                       const uint8_t Type,
+			                                                       const uint8_t Startup)
 			{
 				switch (Channel)
 				{
