@@ -56,22 +56,88 @@ void USB_Init(
                #endif
                )
 {
-	// TODO
+	#if !defined(USE_STATIC_OPTIONS)
+	USB_Options = Options;
+	#endif
+	
+	USB_IsInitialized = true;
+
+	USB_ResetInterface();	
 }
 
 void USB_Disable(void)
 {
-	// TODO
+	USB_INT_DisableAllInterrupts();
+	USB_INT_ClearAllInterrupts();
+
+	USB_Detach();
+	USB_Controller_Disable();
+
+	USB_IsInitialized = false;	
 }
 
 void USB_ResetInterface(void)
 {
-	// TODO
+	USB_INT_DisableAllInterrupts();
+	USB_INT_ClearAllInterrupts();
+
+	USB_Controller_Reset();
+	USB_Init_Device();
 }
 
 #if defined(USB_CAN_BE_DEVICE)
 static void USB_Init_Device(void)
 {
-	// TODO
+	USB_DeviceState                 = DEVICE_STATE_Unattached;
+	USB_Device_ConfigurationNumber  = 0;
+
+	#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+	USB_Device_RemoteWakeupEnabled  = false;
+	#endif
+
+	#if !defined(NO_DEVICE_SELF_POWER)
+	USB_Device_CurrentlySelfPowered = false;
+	#endif
+
+	#if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
+	USB_Descriptor_Device_t* DeviceDescriptorPtr;
+	
+	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
+	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
+	uint8_t DescriptorAddressSpace;
+
+	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr, &DescriptorAddressSpace) != NO_DESCRIPTOR)
+	{
+		if (DescriptorAddressSpace == MEMSPACE_FLASH)
+		  USB_Device_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+		else if (DescriptorAddressSpace == MEMSPACE_EEPROM)
+		  USB_Device_ControlEndpointSize = eeprom_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+		else
+		  USB_Device_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
+	}
+	#else
+	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr) != NO_DESCRIPTOR)
+	{
+		#if defined(USE_RAM_DESCRIPTORS)
+		USB_Device_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
+		#elif defined(USE_EEPROM_DESCRIPTORS)
+		USB_Device_ControlEndpointSize = eeprom_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+		#else
+		USB_Device_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+		#endif
+	}	
+	#endif
+	#endif
+
+	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
+	  USB_Device_SetLowSpeed();
+	else
+	  USB_Device_SetFullSpeed();
+
+	Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
+							   ENDPOINT_DIR_OUT, USB_Device_ControlEndpointSize,
+							   ENDPOINT_BANK_SINGLE);
+
+	USB_Attach();
 }
 #endif

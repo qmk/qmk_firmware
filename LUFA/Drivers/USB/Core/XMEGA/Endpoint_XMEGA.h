@@ -90,33 +90,10 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define _ENDPOINT_GET_MAXSIZE(EPIndex)         _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_MAXSIZE2(EPDetails)      _ENDPOINT_GET_MAXSIZE3(EPDetails)
-			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, Banks) (MaxSize)
+			#define _ENDPOINT_GET_MAXSIZE(EPIndex)         1023
+			#define _ENDPOINT_GET_BANKS(EPIndex)           2
 
-			#define _ENDPOINT_GET_BANKS(EPIndex)           _ENDPOINT_GET_BANKS2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_BANKS2(EPDetails)        _ENDPOINT_GET_BANKS3(EPDetails)
-			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)   (Banks)
-
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				#define ENDPOINT_DETAILS_MAXEP             7
-
-				#define ENDPOINT_DETAILS_EP0               64,  1
-				#define ENDPOINT_DETAILS_EP1               256, 2
-				#define ENDPOINT_DETAILS_EP2               64,  2
-				#define ENDPOINT_DETAILS_EP3               64,  2
-				#define ENDPOINT_DETAILS_EP4               64,  2
-				#define ENDPOINT_DETAILS_EP5               64,  2
-				#define ENDPOINT_DETAILS_EP6               64,  2
-			#else
-				#define ENDPOINT_DETAILS_MAXEP             5
-
-				#define ENDPOINT_DETAILS_EP0               64,  1
-				#define ENDPOINT_DETAILS_EP1               64,  1
-				#define ENDPOINT_DETAILS_EP2               64,  1
-				#define ENDPOINT_DETAILS_EP3               64,  2
-				#define ENDPOINT_DETAILS_EP4               64,  2
-			#endif
+			#define ENDPOINT_DETAILS_MAXEP                 16
 
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
@@ -141,12 +118,12 @@
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
-			#define ENDPOINT_DIR_OUT                        (0 << EPDIR)
+			#define ENDPOINT_DIR_OUT                        0 // TODO
 
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
-			#define ENDPOINT_DIR_IN                         (1 << EPDIR)
+			#define ENDPOINT_DIR_IN                         0 // TODO
 			//@}
 			
 			/** \name Endpoint Bank Mode Masks */
@@ -156,14 +133,14 @@
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
 			 *  bank at the one time.
 			 */
-			#define ENDPOINT_BANK_SINGLE                    (0 << EPBK0)
+			#define ENDPOINT_BANK_SINGLE                    0 // TODO
 
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
 			 */
-			#define ENDPOINT_BANK_DOUBLE                    (1 << EPBK0)
+			#define ENDPOINT_BANK_DOUBLE                    0 // TODO
 			//@}
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))

@@ -77,62 +77,32 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** \name USB Controller Option Masks */
-			//@{
-			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
-			 *  regulator should be disabled and the AVR's VCC level used for the data pads.
-			 *
-			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
-			 */
-			#define USB_OPT_REG_DISABLED               (1 << 1)
-
-			/** Regulator enable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
-			 *  regulator should be enabled to regulate the data pin voltages from the VBUS level down to a level within
-			 *  the range allowable by the USB standard.
-			 *
-			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
-			 */
-			#define USB_OPT_REG_ENABLED                (0 << 1)
-
-			/** Manual PLL control option mask for \ref USB_Init(). This indicates to the library that the user application
-			 *  will take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
-			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
-			 */
-			#define USB_OPT_MANUAL_PLL                 (1 << 2)
-
-			/** Automatic PLL control option mask for \ref USB_Init(). This indicates to the library that the library should
-			 *  take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
-			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
-			 */
-			#define USB_OPT_AUTO_PLL                   (0 << 2)
-			//@}
-			
+		/* Macros: */			
 			/** \name Endpoint/Pipe Type Masks */
 			//@{
 			/** Mask for a CONTROL type endpoint or pipe.
 			 *
 			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
-			#define EP_TYPE_CONTROL                    0x00
+			#define EP_TYPE_CONTROL                 0x00
 
 			/** Mask for an ISOCHRONOUS type endpoint or pipe.
 			 *
 			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
-			#define EP_TYPE_ISOCHRONOUS                0x01
+			#define EP_TYPE_ISOCHRONOUS             0x01
 
 			/** Mask for a BULK type endpoint or pipe.
 			 *
 			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
-			#define EP_TYPE_BULK                       0x02
+			#define EP_TYPE_BULK                    0x02
 
 			/** Mask for an INTERRUPT type endpoint or pipe.
 			 *
 			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
-			#define EP_TYPE_INTERRUPT                  0x03
+			#define EP_TYPE_INTERRUPT               0x03
 			//@}
 
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
@@ -147,18 +117,6 @@
 			#endif
 
 		/* Inline Functions: */
-			/** Determines if the VBUS line is currently high (i.e. the USB host is supplying power).
-			 *
-			 *  \note This function is not available on some AVR models which do not support hardware VBUS monitoring.
-			 *
-			 *  \return Boolean \c true if the VBUS line is currently detecting power from a host, \c false otherwise.
-			 */
-			static inline bool USB_VBUS_GetStatus(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool USB_VBUS_GetStatus(void)
-			{
-				return 0; // TODO
-			}
-
 			/** Detaches the device from the USB bus. This has the effect of removing the device from any
 			 *  attached host, ceasing USB communications. If no host is present, this prevents any host from
 			 *  enumerating the device once attached until \ref USB_Attach() is called.
@@ -166,7 +124,7 @@
 			static inline void USB_Detach(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Detach(void)
 			{
-				// TODO
+				USB.CTRLB &= ~USB_ATTACH_bm;
 			}
 
 			/** Attaches the device to the USB bus. This announces the device's presence to any attached
@@ -180,7 +138,7 @@
 			static inline void USB_Attach(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Attach(void)
 			{
-				// TODO
+				USB.CTRLB |= USB_ATTACH_bm;
 			}
 
 		/* Function Prototypes: */
@@ -304,46 +262,23 @@
 			#endif
 
 		/* Inline Functions: */
-			static inline void USB_REG_On(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_REG_On(void)
-			{
-				// TODO
-			}
-
-			static inline void USB_REG_Off(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_REG_Off(void)
-			{
-				// TODO
-			}
-
-			static inline void USB_CLK_Freeze(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_CLK_Freeze(void)
-			{
-				// TODO
-			}
-
-			static inline void USB_CLK_Unfreeze(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_CLK_Unfreeze(void)
-			{
-				// TODO
-			}
-
 			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Enable(void)
 			{
-				// TODO
+				USB.CTRLA |= (USB_ENABLE_bm | USB_STFRNUM_bm | USB_MAXEP_gm);
 			}
 
 			static inline void USB_Controller_Disable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Disable(void)
 			{
-				// TODO
+				USB.CTRLA &= ~USB_ENABLE_bm;
 			}
 
 			static inline void USB_Controller_Reset(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Reset(void)
 			{
-				// TODO
+				USB.CTRLA &= ~USB_ENABLE_bm;
+				USB.CTRLA |=  USB_ENABLE_bm;
 			}
 
 	#endif

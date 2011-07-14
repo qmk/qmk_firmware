@@ -81,12 +81,12 @@
 			 *  \note Restrictions apply on the number, size and type of endpoints which can be used
 			 *        when running in low speed mode - refer to the USB 2.0 specification.
 			 */
-			#define USB_DEVICE_OPT_LOWSPEED            (1 << 0)
+			#define USB_DEVICE_OPT_LOWSPEED        (1 << 0)
 
 			/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 			 *  USB interface should be initialized in full speed (12Mb/s) mode.
 			 */
-			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
+			#define USB_DEVICE_OPT_FULLSPEED       (0 << 0)
 			//@}
 			
 			/** String descriptor index for the device's unique serial number string descriptor within the device.
@@ -98,17 +98,17 @@
 			 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
 			 *  number for the device.
 			 */
-			#define USE_INTERNAL_SERIAL            NO_DESCRIPTOR
+			#define USE_INTERNAL_SERIAL            0xDC
 
 			/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
 			 *  model.
 			 */
-			#define INTERNAL_SERIAL_LENGTH_BITS    0
+			#define INTERNAL_SERIAL_LENGTH_BITS    112
 			
 			/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
 			 *  model.
 			 */
-			#define INTERNAL_SERIAL_START_ADDRESS  0			
+			#define INTERNAL_SERIAL_START_ADDRESS  0x08
 			
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
@@ -173,34 +173,58 @@
 			static inline void USB_Device_SetLowSpeed(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetLowSpeed(void)
 			{
-				// TODO
+				USB.CTRLA &= ~USB_SPEED_bm;
 			}
 
 			static inline void USB_Device_SetFullSpeed(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetFullSpeed(void)
 			{
-				// TODO
+				USB.CTRLA |=  USB_SPEED_bm;
 			}
 
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)
 			{
-				// TODO
+				USB.ADDR = Address;
 			}
 
 			static inline bool USB_Device_IsAddressSet(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline bool USB_Device_IsAddressSet(void)
 			{
-				return false; // TODO
+				return ((USB.ADDR != 0) ? true : false);
 			}
 		
-			#if (USE_INTERNAL_SERIAL != NO_DESCRIPTOR)
 			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString)
 			{
-				// TODO
+				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
+				GlobalInterruptDisable();
+				
+				uint8_t SigReadAddress = INTERNAL_SERIAL_START_ADDRESS;
+
+				for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
+				{					
+					uint8_t SerialByte;
+
+					NVM.CMD    = NVM_CMD_READ_CALIB_ROW_gc;
+					SerialByte = pgm_read_byte(SigReadAddress);
+
+					if (SerialCharNum & 0x01)
+					{
+						SerialByte >>= 4;
+						SigReadAddress++;
+					}
+
+					SerialByte &= 0x0F;
+
+					UnicodeString[SerialCharNum] = cpu_to_le16((SerialByte >= 10) ?
+															   (('A' - 10) + SerialByte) : ('0' + SerialByte));
+				}
+				
+				SetGlobalInterruptMask(CurrentGlobalInt);
+
+
 			}
-			#endif
 
 	#endif
 
