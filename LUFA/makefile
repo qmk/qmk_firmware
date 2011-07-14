@@ -12,7 +12,7 @@
 # Check to see if the LUFA_PATH variable has not been set (the makefile is not being included from a project makefile)
 ifeq ($(origin LUFA_PATH), undefined)
    LUFA_ROOT_PATH = .
-   ARCH = {AVR8,UC3}
+   ARCH = {AVR8,UC3,XMEGA}
 else
    LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
 endif
