@@ -112,13 +112,13 @@
 				#define ENDPOINT_DETAILS_MAXEP                 8
 
 				#define ENDPOINT_DETAILS_EP0                   64,  1
-				#define ENDPOINT_DETAILS_EP1                   512, 2
-				#define ENDPOINT_DETAILS_EP2                   512, 2
-				#define ENDPOINT_DETAILS_EP3                   512, 2
-				#define ENDPOINT_DETAILS_EP4                   512, 2
-				#define ENDPOINT_DETAILS_EP5                   512, 2
-				#define ENDPOINT_DETAILS_EP6                   512, 2
-				#define ENDPOINT_DETAILS_EP7                   512, 2
+				#define ENDPOINT_DETAILS_EP1                   512, 3
+				#define ENDPOINT_DETAILS_EP2                   512, 3
+				#define ENDPOINT_DETAILS_EP3                   512, 3
+				#define ENDPOINT_DETAILS_EP4                   512, 3
+				#define ENDPOINT_DETAILS_EP5                   512, 3
+				#define ENDPOINT_DETAILS_EP6                   512, 3
+				#define ENDPOINT_DETAILS_EP7                   512, 3
 			#elif defined(USB_SERIES_UC3B0_AVR32) || defined(USB_SERIES_UC3B1_AVR32) 
 				#define ENDPOINT_DETAILS_MAXEP                 7
 
