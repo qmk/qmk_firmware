@@ -92,19 +92,19 @@
 			 *  generation module. This indicates that an external oscillator should be used directly instead of an
 			 *  internal PLL clock source.
 			 */
-			#define USB_OPT_GCLK_SRC_OSC               (1 << 1)
+			#define USB_OPT_GCLK_SRC_OSC               (1 << 2)
 
 			/** Selects one of the system's PLL oscillators as the input clock to the USB Generic Clock source
 			 *  generation module. This indicates that one of the device's PLL outputs should be used instead of an
 			 *  external oscillator source.
 			 */
-			#define USB_OPT_GCLK_SRC_PLL               (0 << 1)
+			#define USB_OPT_GCLK_SRC_PLL               (0 << 2)
 
 			/** Selects PLL or External Oscillator 0 as the USB Generic Clock source module input clock. */
-			#define USB_OPT_GCLK_CHANNEL_0             (1 << 2)
+			#define USB_OPT_GCLK_CHANNEL_0             (1 << 3)
 
 			/** Selects PLL or External Oscillator 1 as the USB Generic Clock source module input clock. */
-			#define USB_OPT_GCLK_CHANNEL_1             (0 << 2)
+			#define USB_OPT_GCLK_CHANNEL_1             (0 << 3)
 			//@}
 
 			/** \name Endpoint/Pipe Type Masks */

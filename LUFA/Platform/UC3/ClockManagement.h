@@ -233,19 +233,19 @@
 				switch (Source)
 				{
 					case CLOCK_SRC_OSC0:
-						AVR32_PM.GCCTRL[Channel].pllsel = 0;
+						AVR32_PM.GCCTRL[Channel].pllsel = false;
 						AVR32_PM.GCCTRL[Channel].oscsel = 0;
 						break;
 					case CLOCK_SRC_OSC1:
-						AVR32_PM.GCCTRL[Channel].pllsel = 0;
+						AVR32_PM.GCCTRL[Channel].pllsel = false;
 						AVR32_PM.GCCTRL[Channel].oscsel = 1;
 						break;
 					case CLOCK_SRC_PLL0:
-						AVR32_PM.GCCTRL[Channel].pllsel = 1;
+						AVR32_PM.GCCTRL[Channel].pllsel = true;
 						AVR32_PM.GCCTRL[Channel].oscsel = 0;
 						break;
 					case CLOCK_SRC_PLL1:
-						AVR32_PM.GCCTRL[Channel].pllsel = 1;
+						AVR32_PM.GCCTRL[Channel].pllsel = true;
 						AVR32_PM.GCCTRL[Channel].oscsel = 1;
 						break;
 					default:
@@ -291,15 +291,21 @@
 
 				switch (Source)
 				{
+					#if defined(AVR32_PM_MCCTRL_MCSEL_SLOW)
 					case CLOCK_SRC_SLOW_CLK:
-						AVR32_PM.MCCTRL.mcsel = 0;
+						AVR32_PM.MCCTRL.mcsel = AVR32_PM_MCCTRL_MCSEL_SLOW;
 						break;
+					#endif
+					#if defined(AVR32_PM_MCCTRL_MCSEL_OSC0)
 					case CLOCK_SRC_OSC0:
-						AVR32_PM.MCCTRL.mcsel = 1;
+						AVR32_PM.MCCTRL.mcsel = AVR32_PM_MCCTRL_MCSEL_OSC0;
 						break;
+					#endif
+					#if defined(AVR32_PM_MCCTRL_MCSEL_PLL0)
 					case CLOCK_SRC_PLL0:
-						AVR32_PM.MCCTRL.mcsel = 2;
+						AVR32_PM.MCCTRL.mcsel = AVR32_PM_MCCTRL_MCSEL_PLL0;
 						break;
+					#endif
 					default:
 						return false;
 				}

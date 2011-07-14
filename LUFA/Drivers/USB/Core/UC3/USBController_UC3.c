@@ -166,9 +166,20 @@ static void USB_Init_Device(void)
 	#endif
 
 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
-	  USB_Device_SetLowSpeed();
+	{
+		USB_Device_SetLowSpeed();
+	}
 	else
-	  USB_Device_SetFullSpeed();
+	{
+		#if defined(USB_DEVICE_OPT_HIGHSPEED)
+		if (USB_Options & USB_DEVICE_OPT_HIGHSPEED)	
+		  USB_Device_SetHighSpeed();
+		else
+		  USB_Device_SetFullSpeed();
+		#else
+		USB_Device_SetFullSpeed();
+		#endif		
+	}
 
 	USB_INT_Enable(USB_INT_VBUSTI);
 
