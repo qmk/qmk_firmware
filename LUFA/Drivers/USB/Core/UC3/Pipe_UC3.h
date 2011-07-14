@@ -161,6 +161,17 @@
 			 *  bank.
 			 */
 			#define PIPE_BANK_DOUBLE                AVR32_USBB_UPCFG0_PBK_DOUBLE
+
+			#if defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || defined(__DOXYGEN__)
+				/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the
+				 *  pipe should have three banks, which requires more USB FIFO memory but results in faster transfers
+				 *  as one USB device (the AVR or the attached device) can access one bank while the other accesses the
+				 *  remaining banks.
+				 *
+				 *  \note Not available on all AVR models.
+				 */
+				#define PIPE_BANK_TRIPLE           AVR32_USBB_UPCFG0_PBK_TRIPLE
+			#endif
 			//@}
 
 			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value

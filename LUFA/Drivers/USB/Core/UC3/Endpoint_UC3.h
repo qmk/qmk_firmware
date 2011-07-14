@@ -117,7 +117,7 @@
 				#define ENDPOINT_DETAILS_EP3                   512, 2
 				#define ENDPOINT_DETAILS_EP4                   512, 2
 				#define ENDPOINT_DETAILS_EP5                   512, 2
-				#define ENDPOINT_DETAILS_EP6                   512, 2			
+				#define ENDPOINT_DETAILS_EP6                   512, 2
 				#define ENDPOINT_DETAILS_EP7                   512, 2
 			#elif defined(USB_SERIES_UC3B0_AVR32) || defined(USB_SERIES_UC3B1_AVR32) 
 				#define ENDPOINT_DETAILS_MAXEP                 7
@@ -190,6 +190,17 @@
 			 *  accesses the second bank.
 			 */
 			#define ENDPOINT_BANK_DOUBLE                    AVR32_USBB_UECFG0_EPBK_DOUBLE
+
+			#if defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || defined(__DOXYGEN__)
+				/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
+				 *  that the endpoint should have three banks, which requires more USB FIFO memory but results
+				 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
+				 *  accesses the remaining banks.
+				 *
+				 *  \note Not available on all AVR models.
+				 */
+				#define ENDPOINT_BANK_TRIPLE                AVR32_USBB_UECFG0_EPBK_TRIPLE
+			#endif
 			//@}
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
