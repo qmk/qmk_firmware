@@ -84,7 +84,25 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */			
+		/* Macros: */
+			/** \name USB Controller Option Masks */
+			//@{
+			/** Sets the USB bus interrupt priority level to be low priority. The USB bus interrupt is used for Start of Frame events, bus suspend
+			 *  and resume events, bus reset events and other events related to the management of the USB bus.
+			 */
+			#define USB_OPT_BUSEVENT_PRILOW           ((0 << 1) | (0 << 1))
+
+			/** Sets the USB bus interrupt priority level to be medium priority. The USB bus interrupt is used for Start of Frame events, bus suspend
+			 *  and resume events, bus reset events and other events related to the management of the USB bus.
+			 */
+			#define USB_OPT_BUSEVENT_PRIMED           ((0 << 1) | (1 << 1))
+
+			/** Sets the USB bus interrupt priority level to be high priority. The USB bus interrupt is used for Start of Frame events, bus suspend
+			 *  and resume events, bus reset events and other events related to the management of the USB bus.
+			 */
+			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 1) | (0 << 1))
+			//@}
+
 			/** \name Endpoint/Pipe Type Masks */
 			//@{
 			/** Mask for a CONTROL type endpoint or pipe.

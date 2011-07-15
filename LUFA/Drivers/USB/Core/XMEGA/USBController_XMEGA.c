@@ -72,6 +72,13 @@ void USB_Init(
 	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
 	
+	if ((USB_Options & USB_OPT_BUSEVENT_PRIHIGH) == USB_OPT_BUSEVENT_PRIHIGH)
+	  USB.INTCTRLA = (3 << USB_INTLVL_gp);
+	else if ((USB_Options & USB_OPT_BUSEVENT_PRIMED) == USB_OPT_BUSEVENT_PRIMED)
+	  USB.INTCTRLA = (2 << USB_INTLVL_gp);
+	else
+	  USB.INTCTRLA = (1 << USB_INTLVL_gp);
+
 	SetGlobalInterruptMask(CurrentGlobalInt);
 
 	USB_ResetInterface();	
@@ -97,10 +104,6 @@ void USB_ResetInterface(void)
 	
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
-
-	// TODO: Config define for priority
-	USB.INTCTRLA = (2 << USB_INTLVL_gp);
-	PMIC.CTRL   |= (1 << PMIC_MEDLVLEX_bp);
 
 	USB_Controller_Reset();
 	USB_Init_Device();
