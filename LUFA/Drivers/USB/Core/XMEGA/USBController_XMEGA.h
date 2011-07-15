@@ -55,6 +55,13 @@
 		#include "../USBTask.h"
 		#include "../USBInterrupt.h"
 
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* External Variables: */
+			extern USB_EP_TABLE_t USB_EndpointTable;
+	#endif
+	
+	/* Includes: */
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "../Device.h"
 			#include "../Endpoint.h"

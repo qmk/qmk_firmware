@@ -109,7 +109,7 @@
 					CheckBytes <<= 1;
 				}
 
-				return (MaskVal << USB_EP_SIZE_gp);
+				return (MaskVal << USB_EP_BUFSIZE_gp);
 			}
 
 		/* Function Prototypes: */

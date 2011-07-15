@@ -50,6 +50,7 @@
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
+		#include "../USBController.h"
 		#include "../StdDescriptors.h"
 		#include "../USBInterrupt.h"
 		#include "../Endpoint.h"
@@ -103,12 +104,12 @@
 			/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
 			 *  model.
 			 */
-			#define INTERNAL_SERIAL_LENGTH_BITS    112
+			#define INTERNAL_SERIAL_LENGTH_BITS    (8 * (1 + (offsetof(NVM_PROD_SIGNATURES_t, COORDY1) - offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0))))
 			
 			/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
 			 *  model.
 			 */
-			#define INTERNAL_SERIAL_START_ADDRESS  0x08
+			#define INTERNAL_SERIAL_START_ADDRESS  offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0)
 			
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
@@ -139,7 +140,7 @@
 			static inline uint16_t USB_Device_GetFrameNumber(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t USB_Device_GetFrameNumber(void)
 			{
-				return 0; // TODO
+				return (((uint16_t)USB_EndpointTable.FRAMENUMH << 8) | USB_EndpointTable.FRAMENUML);
 			}
 
 			#if !defined(NO_SOF_EVENTS)
@@ -152,7 +153,7 @@
 			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_EnableSOFEvents(void)
 			{
-				// TODO
+				USB.INTCTRLA |=  USB_SOFIE_bm;
 			}
 
 			/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
@@ -163,7 +164,7 @@
 			static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_DisableSOFEvents(void)
 			{
-				// TODO
+				USB.INTCTRLA &= ~USB_SOFIE_bm;
 			}
 			#endif
 
@@ -222,8 +223,6 @@
 				}
 				
 				SetGlobalInterruptMask(CurrentGlobalInt);
-
-
 			}
 
 	#endif

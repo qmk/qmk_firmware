@@ -59,38 +59,92 @@
 		/* Enums: */
 			enum USB_Interrupts_t
 			{
-				USB_INT_NONE  = 0, // TODO
+				USB_INT_BUSEVENTI         = 1,
+				USB_INT_BUSEVENTI_Suspend = 2,
+				USB_INT_BUSEVENTI_Resume  = 3,
+				USB_INT_BUSEVENTI_Reset   = 4,
+				USB_INT_SOFI              = 5,
 			};
 
 		/* Inline Functions: */
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
 			{
-				// TODO
+				switch (Interrupt)
+				{
+					case USB_INT_BUSEVENTI:
+						USB.INTCTRLA |=  USB_BUSEVIE_bm;
+						return;
+					case USB_INT_SOFI:
+						USB.INTCTRLA |=  USB_SOFIE_bm;						
+						return;				
+				}
 			}
 
 			static inline void USB_INT_Disable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Disable(const uint8_t Interrupt)
 			{
-				// TODO
+				switch (Interrupt)
+				{
+					case USB_INT_BUSEVENTI:
+						USB.INTCTRLA &= ~USB_BUSEVIE_bm;
+						return;
+					case USB_INT_SOFI:
+						USB.INTCTRLA &= ~USB_SOFIE_bm;						
+						return;				
+				}
 			}
 			
 			static inline void USB_INT_Clear(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Clear(const uint8_t Interrupt)
 			{
-				// TODO
+				switch (Interrupt)
+				{
+					case USB_INT_BUSEVENTI_Suspend:
+						USB.INTFLAGSACLR = USB_SUSPENDIF_bm;
+						return;
+					case USB_INT_BUSEVENTI_Resume:
+						USB.INTFLAGSACLR = USB_RESUMEIF_bm;
+						return;
+					case USB_INT_BUSEVENTI_Reset:
+						USB.INTFLAGSACLR = USB_RSTIF_bm;
+						return;
+					case USB_INT_SOFI:
+						USB.INTFLAGSACLR = USB_SOFIF_bm;						
+						return;				
+				}
 			}
 			
 			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt)
 			{
-				return false; // TODO
+				switch (Interrupt)
+				{
+					case USB_INT_BUSEVENTI:
+						return (USB.INTCTRLA & USB_BUSEVIE_bm);
+					case USB_INT_SOFI:
+						return (USB.INTCTRLA & USB_SOFIE_bm);
+				}
+				
+				return false;
 			}
 		
 			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt)
 			{
-				return false; // TODO
+				switch (Interrupt)
+				{
+					case USB_INT_BUSEVENTI_Suspend:
+						return (USB.INTFLAGSACLR & USB_SUSPENDIF_bm);
+					case USB_INT_BUSEVENTI_Resume:
+						return (USB.INTFLAGSACLR & USB_RESUMEIF_bm);
+					case USB_INT_BUSEVENTI_Reset:
+						return (USB.INTFLAGSACLR & USB_RSTIF_bm);
+					case USB_INT_SOFI:
+						return (USB.INTFLAGSACLR & USB_SOFIF_bm);
+				}
+				
+				return false;
 			}
 
 		/* Includes: */
