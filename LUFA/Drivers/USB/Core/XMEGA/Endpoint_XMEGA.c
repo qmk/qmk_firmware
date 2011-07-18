@@ -39,27 +39,61 @@
 uint8_t USB_Device_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
-                                    const uint8_t UECFG0XData,
-                                    const uint8_t UECFG1XData)
-{
-	return false; // TODO
-}
+volatile uint8_t   Endpoint_SelectedEndpoint;
+volatile USB_EP_t* Endpoint_SelectedEndpointHandle;
 
 void Endpoint_ClearEndpoints(void)
 {
-	// TODO
+	for (uint8_t EPNum = 0; EPNum < (ENDPOINT_TOTAL_ENDPOINTS * 2); EPNum++)
+	  ((USB_EP_t*)&USB_EndpointTable)[EPNum].CTRL = 0;
 }
 
 void Endpoint_ClearStatusStage(void)
 {
-	// TODO
+	while (!(Endpoint_IsOUTReceived()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;
+	}
+
+	Endpoint_ClearOUT();
 }
 
 #if !defined(CONTROL_ONLY_DEVICE)
 uint8_t Endpoint_WaitUntilReady(void)
 {
-	return 0; // TODO
+	#if (USB_STREAM_TIMEOUT_MS < 0xFF)
+	uint8_t  TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
+	#else
+	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
+	#endif
+
+	uint16_t PreviousFrameNumber = USB_Device_GetFrameNumber();
+
+	for (;;)
+	{
+		if (Endpoint_IsOUTReceived())
+		  return ENDPOINT_READYWAIT_NoError;
+		
+		uint8_t USB_DeviceState_LCL = USB_DeviceState;
+
+		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)
+		  return ENDPOINT_READYWAIT_DeviceDisconnected;
+		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
+		  return ENDPOINT_READYWAIT_BusSuspended;
+		else if (Endpoint_IsStalled())
+		  return ENDPOINT_READYWAIT_EndpointStalled;
+
+		uint16_t CurrentFrameNumber = USB_Device_GetFrameNumber();
+
+		if (CurrentFrameNumber != PreviousFrameNumber)
+		{
+			PreviousFrameNumber = CurrentFrameNumber;
+
+			if (!(TimeoutMSRem--))
+			  return ENDPOINT_READYWAIT_Timeout;
+		}
+	}
 }
 #endif
 

@@ -76,6 +76,7 @@
 		#include "../../../../Common/Common.h"
 		#include "../USBTask.h"
 		#include "../USBInterrupt.h"
+		#include "../USBController.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -94,6 +95,10 @@
 			#define _ENDPOINT_GET_BANKS(EPIndex)           2
 
 			#define ENDPOINT_DETAILS_MAXEP                 16
+
+		/* External Variables: */
+			extern volatile uint8_t   Endpoint_SelectedEndpoint;
+			extern volatile USB_EP_t* Endpoint_SelectedEndpointHandle;
 
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
@@ -114,10 +119,6 @@
 
 		/* Function Prototypes: */
 			void Endpoint_ClearEndpoints(void);
-			bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
-			                                    const uint8_t UECFG0XData,
-			                                    const uint8_t UECFG1XData);
-
 	#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -127,12 +128,12 @@
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
-			#define ENDPOINT_DIR_OUT                        false
+			#define ENDPOINT_DIR_OUT                        ENDPOINT_DESCRIPTOR_DIR_OUT
 
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
-			#define ENDPOINT_DIR_IN                         true
+			#define ENDPOINT_DIR_IN                         ENDPOINT_DESCRIPTOR_DIR_IN
 			//@}
 			
 			/** \name Endpoint Bank Mode Masks */
@@ -149,7 +150,7 @@
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
 			 */
-			#define ENDPOINT_BANK_DOUBLE                    USB_EP_BANK_bm
+			#define ENDPOINT_BANK_DOUBLE                    USB_EP_PINGPONG_bm
 			//@}
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
@@ -212,6 +213,24 @@
 			};
 
 		/* Inline Functions: */
+			/** Selects the given endpoint number. If the address from the device descriptors is used, the
+			 *  value should be masked with the \ref ENDPOINT_EPNUM_MASK constant to extract only the endpoint
+			 *  number (and discarding the endpoint direction bit).
+			 *
+			 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
+			 *  the currently selected endpoint.
+			 *
+			 *  \param[in] EndpointNumber Endpoint number to select.
+			 */
+			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
+			{
+				uint8_t EPTableIndex = ((EndpointNumber & ENDPOINT_EPNUM_MASK) << 1) | ((EndpointNumber & ENDPOINT_DESCRIPTOR_DIR_IN) ? 0x01 : 0);
+
+				Endpoint_SelectedEndpoint       = EndpointNumber;
+				Endpoint_SelectedEndpointHandle = &((USB_EP_t*)&USB_EndpointTable)[EPTableIndex];
+			}
+
 			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
 			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
 			 *  on its direction.
@@ -263,7 +282,9 @@
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				return 0; // TODO
+				Endpoint_SelectEndpoint(Number | Direction);
+				Endpoint_SelectedEndpointHandle->CTRL = (Type | Banks | Endpoint_BytesToEPSizeMask(Size));
+				return true;
 			}
 
 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
@@ -278,7 +299,7 @@
 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_BytesInEndpoint(void)
 			{
-				return 0; // TODO
+				return (((uint16_t)(Endpoint_SelectedEndpointHandle->CNTH & ~USB_EP_ZLP_bm) << 8) | Endpoint_SelectedEndpointHandle->CNTL);
 			}
 
 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
@@ -290,22 +311,7 @@
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
 			{
-				return 0; // TODO
-			}
-
-			/** Selects the given endpoint number. If the address from the device descriptors is used, the
-			 *  value should be masked with the \ref ENDPOINT_EPNUM_MASK constant to extract only the endpoint
-			 *  number (and discarding the endpoint direction bit).
-			 *
-			 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
-			 *  the currently selected endpoint.
-			 *
-			 *  \param[in] EndpointNumber Endpoint number to select.
-			 */
-			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
-			{
-				// TODO
+				return Endpoint_SelectedEndpoint;
 			}
 
 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
@@ -318,7 +324,7 @@
 			{
 				// TODO
 			}
-
+#if 0
 			/** Enables the currently selected endpoint so that data can be sent and received through it to
 			 *  and from a host.
 			 *
@@ -338,7 +344,7 @@
 			{
 				// TODO
 			}
-
+#endif
 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
 			 *
 			 * \return Boolean \c true if the currently selected endpoint is enabled, \c false otherwise.
@@ -346,7 +352,7 @@
 			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsEnabled(void)
 			{
-				return 0; // TODO
+				return true;
 			}
 
 			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queued for
@@ -399,7 +405,7 @@
 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsConfigured(void)
 			{
-				return 0; // TODO
+				return ((Endpoint_SelectedEndpointHandle->CTRL & USB_EP_TYPE_gm) ? true : false);
 			}
 
 			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
@@ -436,7 +442,7 @@
 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsINReady(void)
 			{
-				return 0; // TODO
+				return (Endpoint_SelectedEndpointHandle->STATUS & USB_EP_TRNCOMPL0_bm);
 			}
 
 			/** Determines if the selected OUT endpoint has received new packet from the host.
@@ -448,7 +454,7 @@
 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsOUTReceived(void)
 			{
-				return 0; // TODO
+				return (Endpoint_SelectedEndpointHandle->STATUS & USB_EP_TRNCOMPL0_bm);
 			}
 
 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
@@ -460,7 +466,7 @@
 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsSETUPReceived(void)
 			{
-				return 0; // TODO
+				return (Endpoint_SelectedEndpointHandle->STATUS & USB_EP_SETUP_bm);
 			}
 
 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
@@ -512,7 +518,7 @@
 			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_StallTransaction(void)
 			{
-				// TODO
+				Endpoint_SelectedEndpointHandle->CTRL |=  USB_EP_STALL_bm;
 			}
 
 			/** Clears the STALL condition on the currently selected endpoint.
@@ -522,7 +528,7 @@
 			static inline void Endpoint_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearStall(void)
 			{
-				// TODO
+				Endpoint_SelectedEndpointHandle->CTRL &= ~USB_EP_STALL_bm;
 			}
 
 			/** Determines if the currently selected endpoint is stalled, false otherwise.
@@ -534,14 +540,14 @@
 			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsStalled(void)
 			{
-				return 0; // TODO
+				return (Endpoint_SelectedEndpointHandle->CTRL & USB_EP_STALL_bm);
 			}
 
 			/** Resets the data toggle of the currently selected endpoint. */
 			static inline void Endpoint_ResetDataToggle(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ResetDataToggle(void)
 			{
-				// TODO
+				Endpoint_SelectedEndpointHandle->STATUS &= ~USB_EP_TOGGLE_bm;
 			}
 
 			/** Determines the currently selected endpoint's direction.

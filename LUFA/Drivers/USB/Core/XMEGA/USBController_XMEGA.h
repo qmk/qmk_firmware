@@ -103,31 +103,31 @@
 			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 1) | (0 << 1))
 			//@}
 
-			/** \name Endpoint/Pipe Type Masks */
+			/** \name Endpoint Type Masks */
 			//@{
 			/** Mask for a CONTROL type endpoint or pipe.
 			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement for endpoint functions.
 			 */
-			#define EP_TYPE_CONTROL                 0x00
+			#define EP_TYPE_CONTROL                 USB_EP_TYPE_CONTROL_gc
 
 			/** Mask for an ISOCHRONOUS type endpoint or pipe.
 			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement for endpoint functions.
 			 */
-			#define EP_TYPE_ISOCHRONOUS             0x01
+			#define EP_TYPE_ISOCHRONOUS             USB_EP_TYPE_ISOCHRONOUS_gc
 
 			/** Mask for a BULK type endpoint or pipe.
 			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement for endpoint functions.
 			 */
-			#define EP_TYPE_BULK                    0x02
+			#define EP_TYPE_BULK                    USB_EP_TYPE_BULK_gc
 
 			/** Mask for an INTERRUPT type endpoint or pipe.
 			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement for endpoint functions.
 			 */
-			#define EP_TYPE_INTERRUPT               0x03
+			#define EP_TYPE_INTERRUPT              USB_EP_TYPE_BULK_gc
 			//@}
 
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
