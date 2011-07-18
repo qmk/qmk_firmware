@@ -117,9 +117,9 @@
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t FreqRange,
+			static inline bool XMEGACLK_StartExternalOscillator(const uint8_t FreqRange,
 			                                                    const uint8_t Startup) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t FreqRange,
+			static inline bool XMEGACLK_StartExternalOscillator(const uint8_t FreqRange,
 			                                                    const uint8_t Startup)
 			{
 				OSC.XOSCCTRL  = (FreqRange | ((Startup == EXOSC_START_32KCLK) ? OSC_X32KLPM_bm : 0) | Startup);
@@ -130,8 +130,8 @@
 			}
 
 			/** Stops the external oscillator of the XMEGA microcontroller. */
-			static inline void AVR32CLK_StopExternalOscillator(void) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopExternalOscillator(void)
+			static inline void XMEGACLK_StopExternalOscillator(void) ATTR_ALWAYS_INLINE;
+			static inline void XMEGACLK_StopExternalOscillator(void)
 			{
 				OSC.CTRL     &= ~OSC_XOSCEN_bm;
 			}
@@ -143,8 +143,8 @@
 			 *
 			 *  \return Boolean \c true if the internal oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline uint8_t AVR32CLK_StartInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
-			static inline uint8_t AVR32CLK_StartInternalOscillator(const uint8_t Source)
+			static inline uint8_t XMEGACLK_StartInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline uint8_t XMEGACLK_StartInternalOscillator(const uint8_t Source)
 			{
 				switch (Source)
 				{
@@ -171,8 +171,8 @@
 			 *
 			 *  \return Boolean \c true if the internal oscillator was successfully stopped, \c false if invalid parameters specified.
 			 */			
-			static inline bool AVR32CLK_StopInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StopInternalOscillator(const uint8_t Source)
+			static inline bool XMEGACLK_StopInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline bool XMEGACLK_StopInternalOscillator(const uint8_t Source)
 			{
 				switch (Source)
 				{
@@ -200,10 +200,10 @@
 			 *
 			 *  \return Boolean \c true if the PLL was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StartPLL(const uint8_t Source,
+			static inline bool XMEGACLK_StartPLL(const uint8_t Source,
 			                                     const uint32_t SourceFreq,
 			                                     const uint32_t Frequency) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartPLL(const uint8_t Source,
+			static inline bool XMEGACLK_StartPLL(const uint8_t Source,
 			                                     const uint32_t SourceFreq,
 			                                     const uint32_t Frequency)
 			{
@@ -234,8 +234,8 @@
 			}
 
 			/** Stops the PLL of the XMEGA microcontroller. */
-			static inline void AVR32CLK_StopPLL(void) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopPLL(void)
+			static inline void XMEGACLK_StopPLL(void) ATTR_ALWAYS_INLINE;
+			static inline void XMEGACLK_StopPLL(void)
 			{
 				OSC.CTRL &= ~OSC_PLLEN_bm;
 			}
