@@ -161,20 +161,7 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** \name Endpoint Direction Masks */
-			//@{
-			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
-			 */
-			#define ENDPOINT_DIR_OUT                        AVR32_USBB_UECFG0_EPDIR_OUT
-
-			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-			 *  should be initialized in the IN direction - i.e. data flows from device to host.
-			 */
-			#define ENDPOINT_DIR_IN                         AVR32_USBB_UECFG0_EPDIR_IN
-			//@}
-			
+		/* Macros: */			
 			/** \name Endpoint Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
@@ -316,7 +303,7 @@
 			{
 				return Endpoint_ConfigureEndpoint_Prv(Number, (AVR32_USBB_ALLOC_MASK |
 				                                               ((uint32_t)Type      << AVR32_USBB_EPTYPE_OFFSET) | 
-				                                               ((uint32_t)Direction << AVR32_USBB_EPDIR_OFFSET)  |
+				                                               ((uint32_t)(Direction ? AVR32_USBB_UECFG0_EPDIR_MASK : 0) |
 				                                               ((uint32_t)Banks     << AVR32_USBB_EPBK_OFFSET)   |
 				                                               Endpoint_BytesToEPSizeMask(Size)));
 			}

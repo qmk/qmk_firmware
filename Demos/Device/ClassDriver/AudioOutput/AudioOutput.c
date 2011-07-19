@@ -233,7 +233,7 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
                                                   uint8_t* Data)
 {
 	/* Check the requested endpoint to see if a supported endpoint is being manipulated */
-	if (EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_OUT | Speaker_Audio_Interface.Config.DataOUTEndpointNumber))
+	if (EndpointAddress == (ENDPOINT_DIR_OUT | Speaker_Audio_Interface.Config.DataOUTEndpointNumber))
 	{
 		/* Check the requested control to see if a supported control is being manipulated */
 		if (EndpointControl == AUDIO_EPCONTROL_SamplingFreq)

@@ -102,8 +102,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
 		/* If the endpoint is a IN type endpoint */
-		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  DataINEndpoint = EndpointData;
+		if ((EndpointData->EndpointAddress & ENDPOINT_DIR_MASK) == ENDPOINT_DIR_IN)
+		  DataINEndpoint  = EndpointData;
 		else
 		  DataOUTEndpoint = EndpointData;
 	}

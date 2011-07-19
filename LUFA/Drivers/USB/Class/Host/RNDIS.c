@@ -88,7 +88,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
-		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		if ((EndpointData->EndpointAddress & ENDPOINT_DIR_MASK) == ENDPOINT_DIR_IN)
 		{
 			if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
 			  NotificationEndpoint = EndpointData;

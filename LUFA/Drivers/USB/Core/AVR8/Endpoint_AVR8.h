@@ -144,20 +144,7 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** \name Endpoint Direction Masks */
-			//@{
-			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
-			 */
-			#define ENDPOINT_DIR_OUT                        (0 << EPDIR)
-
-			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-			 *  should be initialized in the IN direction - i.e. data flows from device to host.
-			 */
-			#define ENDPOINT_DIR_IN                         (1 << EPDIR)
-			//@}
-			
+		/* Macros: */			
 			/** \name Endpoint Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
@@ -286,7 +273,7 @@
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				return Endpoint_ConfigureEndpoint_Prv(Number, ((Type << EPTYPE0) | Direction),
+				return Endpoint_ConfigureEndpoint_Prv(Number, ((Type << EPTYPE0) | (Direction ? (1 << EPDIR) : 0)),
 				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
 			}
 

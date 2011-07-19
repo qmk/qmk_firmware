@@ -102,21 +102,6 @@
 			 */
 			#define LANGUAGE_ID_ENG                   0x0409
 
-			/** \name Endpoint Address Direction Masks */
-			//@{
-			/** Can be masked with an endpoint address for a \ref USB_Descriptor_Endpoint_t endpoint descriptor's
-			 *  EndpointAddress value to indicate to the host that the endpoint is of the IN direction (i.e, from
-			 *  device to host).
-			 */
-			#define ENDPOINT_DESCRIPTOR_DIR_IN        0x80
-
-			/** Can be masked with an endpoint address for a \ref USB_Descriptor_Endpoint_t endpoint descriptor's
-			 *  EndpointAddress value to indicate to the host that the endpoint is of the OUT direction (i.e, from
-			 *  host to device).
-			 */
-			#define ENDPOINT_DESCRIPTOR_DIR_OUT       0x00
-			//@}
-
 			/** \name USB Configuration Descriptor Attribute Masks */
 			//@{
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t

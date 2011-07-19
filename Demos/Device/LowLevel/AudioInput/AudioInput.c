@@ -165,7 +165,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
 				
 				/* Only handle SET CURRENT requests to the audio endpoint's sample frequency property */
-				if ((EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				if ((EndpointAddress == (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
 				{
 					uint8_t SampleRate[3];
 				
@@ -190,7 +190,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
 				
 				/* Only handle GET CURRENT requests to the audio endpoint's sample frequency property */
-				if ((EndpointAddress == (ENDPOINT_DESCRIPTOR_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
+				if ((EndpointAddress == (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
 				{
 					uint8_t SampleRate[3];
 					

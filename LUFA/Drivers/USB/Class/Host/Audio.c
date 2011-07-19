@@ -87,7 +87,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
-		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		if ((EndpointData->EndpointAddress & ENDPOINT_DIR_MASK) == ENDPOINT_DIR_IN)
 		  DataINEndpoint  = EndpointData;
 		else
 		  DataOUTEndpoint = EndpointData;

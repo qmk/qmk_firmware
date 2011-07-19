@@ -122,20 +122,7 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** \name Endpoint Direction Masks */
-			//@{
-			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
-			 */
-			#define ENDPOINT_DIR_OUT                        ENDPOINT_DESCRIPTOR_DIR_OUT
-
-			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-			 *  should be initialized in the IN direction - i.e. data flows from device to host.
-			 */
-			#define ENDPOINT_DIR_IN                         ENDPOINT_DESCRIPTOR_DIR_IN
-			//@}
-			
+		/* Macros: */			
 			/** \name Endpoint Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
@@ -225,7 +212,8 @@
 			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
 			{
-				uint8_t EPTableIndex = ((EndpointNumber & ENDPOINT_EPNUM_MASK) << 1) | ((EndpointNumber & ENDPOINT_DESCRIPTOR_DIR_IN) ? 0x01 : 0);
+				uint8_t EPTableIndex = ((EndpointNumber & ENDPOINT_EPNUM_MASK) << 1) |
+				                        ((EndpointNumber & ENDPOINT_DIR_IN) ? 0x01 : 0);
 
 				Endpoint_SelectedEndpoint       = EndpointNumber;
 				Endpoint_SelectedEndpointHandle = &((USB_EP_t*)&USB_EndpointTable)[EPTableIndex];

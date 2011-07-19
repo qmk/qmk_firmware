@@ -52,10 +52,10 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 		bool EndpointFilterMatch = false;
 	
 		EndpointFilterMatch |= (AudioInterfaceInfo->Config.DataINEndpointNumber &&
-		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DESCRIPTOR_DIR_IN  | AudioInterfaceInfo->Config.DataINEndpointNumber)));
+		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DIR_IN  | AudioInterfaceInfo->Config.DataINEndpointNumber)));
 	
 		EndpointFilterMatch |= (AudioInterfaceInfo->Config.DataOUTEndpointNumber &&
-		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DESCRIPTOR_DIR_OUT | AudioInterfaceInfo->Config.DataOUTEndpointNumber)));
+		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DIR_OUT | AudioInterfaceInfo->Config.DataOUTEndpointNumber)));
 
 		if (!(EndpointFilterMatch))
 		  return;
