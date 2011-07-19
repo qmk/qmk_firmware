@@ -45,6 +45,7 @@ volatile uint8_t* USB_EndpointFIFOPos[ENDPOINT_TOTAL_ENDPOINTS];
 bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint32_t UECFG0Data)
 {
+#if defined(CONTROL_ONLY_DEVICE) || defined(ORDERED_EP_CONFIG)
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
 
@@ -53,6 +54,38 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 	USB_EndpointFIFOPos[Number]  = &AVR32_USBB_SLAVE[Number * 0x10000];
 
 	return Endpoint_IsConfigured();
+#else
+	for (uint8_t EPNum = Number; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
+	{
+		uint8_t UECFG0Temp;
+
+		Endpoint_SelectEndpoint(EPNum);
+		
+		if (EPNum == Number)
+		{
+			UECFG0Temp = UECFG0Data;
+		}
+		else
+		{
+			UECFG0Temp = (&AVR32_USBB.uecfg0)[EPNum];
+		}
+
+		if (!(UECFG0Temp & AVR32_USBB_ALLOC_MASK))
+		  continue;
+
+		Endpoint_DisableEndpoint();
+		(&AVR32_USBB.uecfg0)[EPNum] &= ~AVR32_USBB_ALLOC_MASK;
+
+		Endpoint_EnableEndpoint();
+		(&AVR32_USBB.uecfg0)[EPNum] = UECFG0Temp;
+			
+		if (!(Endpoint_IsConfigured()))
+		  return false;			
+	}
+	
+	Endpoint_SelectEndpoint(Number);
+	return true;
+#endif
 }
 
 void Endpoint_ClearEndpoints(void)

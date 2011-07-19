@@ -283,7 +283,24 @@
 			                                              const uint8_t Banks)
 			{
 				Endpoint_SelectEndpoint(Number | Direction);
-				Endpoint_SelectedEndpointHandle->CTRL = (Type | Banks | Endpoint_BytesToEPSizeMask(Size));
+
+				uint8_t EPTypeMask = 0;
+				switch (Type)
+				{
+					case USB_EPTYPE_Control:
+						EPTypeMask = USB_EP_TYPE_CONTROL_gc;
+						break;
+					case USB_EPTYPE_Isochronous:
+						EPTypeMask = USB_EP_TYPE_ISOCHRONOUS_gc;
+						break;
+					default:
+						EPTypeMask = USB_EP_TYPE_BULK_gc;
+						break;
+				}
+	
+				Endpoint_SelectedEndpointHandle->CTRL   = 0;
+				Endpoint_SelectedEndpointHandle->STATUS = (USB_EP_BUSNACK0_bm | USB_EP_BUSNACK1_bm);
+				Endpoint_SelectedEndpointHandle->CTRL   = (EPTypeMask | Banks | Endpoint_BytesToEPSizeMask(Size));				
 				return true;
 			}
 
@@ -324,27 +341,7 @@
 			{
 				// TODO
 			}
-#if 0
-			/** Enables the currently selected endpoint so that data can be sent and received through it to
-			 *  and from a host.
-			 *
-			 *  \note Endpoints must first be configured properly via \ref Endpoint_ConfigureEndpoint().
-			 */
-			static inline void Endpoint_EnableEndpoint(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_EnableEndpoint(void)
-			{
-				// TODO
-			}
 
-			/** Disables the currently selected endpoint so that data cannot be sent and received through it
-			 *  to and from a host.
-			 */
-			static inline void Endpoint_DisableEndpoint(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_DisableEndpoint(void)
-			{
-				// TODO
-			}
-#endif
 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
 			 *
 			 * \return Boolean \c true if the currently selected endpoint is enabled, \c false otherwise.
@@ -353,20 +350,6 @@
 			static inline bool Endpoint_IsEnabled(void)
 			{
 				return true;
-			}
-
-			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queued for
-			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgement via the
-			 *  \ref Endpoint_ClearOUT() command.
-			 *
-			 *  \ingroup Group_EndpointPacketManagement_XMEGA
-			 *
-			 *  \return Total number of busy banks in the selected endpoint.
-			 */
-			static inline uint8_t Endpoint_GetBusyBanks(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t Endpoint_GetBusyBanks(void)
-			{
-				return 0; // TODO
 			}
 
 			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
