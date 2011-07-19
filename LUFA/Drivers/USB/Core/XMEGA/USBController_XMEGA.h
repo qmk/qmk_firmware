@@ -103,33 +103,6 @@
 			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 1) | (0 << 1))
 			//@}
 
-			/** \name Endpoint Type Masks */
-			//@{
-			/** Mask for a CONTROL type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement for endpoint functions.
-			 */
-			#define EP_TYPE_CONTROL                 USB_EP_TYPE_CONTROL_gc
-
-			/** Mask for an ISOCHRONOUS type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement for endpoint functions.
-			 */
-			#define EP_TYPE_ISOCHRONOUS             USB_EP_TYPE_ISOCHRONOUS_gc
-
-			/** Mask for a BULK type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement for endpoint functions.
-			 */
-			#define EP_TYPE_BULK                    USB_EP_TYPE_BULK_gc
-
-			/** Mask for an INTERRUPT type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement for endpoint functions.
-			 */
-			#define EP_TYPE_INTERRUPT              USB_EP_TYPE_BULK_gc
-			//@}
-
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
 				/** Constant for the maximum software timeout period of the USB data stream transfer functions
 				 *  (both control and standard) when in either device or host mode. If the next packet of a stream

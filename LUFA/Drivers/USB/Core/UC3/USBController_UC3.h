@@ -107,33 +107,6 @@
 			#define USB_OPT_GCLK_CHANNEL_1             (0 << 3)
 			//@}
 
-			/** \name Endpoint/Pipe Type Masks */
-			//@{
-			/** Mask for a CONTROL type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
-			 */
-			#define EP_TYPE_CONTROL                    0x00
-
-			/** Mask for an ISOCHRONOUS type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
-			 */
-			#define EP_TYPE_ISOCHRONOUS                0x01
-
-			/** Mask for a BULK type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
-			 */
-			#define EP_TYPE_BULK                       0x02
-
-			/** Mask for an INTERRUPT type endpoint or pipe.
-			 *
-			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
-			 */
-			#define EP_TYPE_INTERRUPT                  0x03
-			//@}
-
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
 				/** Constant for the maximum software timeout period of the USB data stream transfer functions
 				 *  (both control and standard) when in either device or host mode. If the next packet of a stream

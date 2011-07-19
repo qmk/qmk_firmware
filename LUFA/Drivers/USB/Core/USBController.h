@@ -62,6 +62,34 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
+	/* Defines: */
+		/** \name Endpoint/Pipe Type Masks */
+		//@{
+		/** Mask for a CONTROL type endpoint or pipe.
+		 *
+		 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+		 */
+		#define EP_TYPE_CONTROL                    0x00
+
+		/** Mask for an ISOCHRONOUS type endpoint or pipe.
+		 *
+		 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+		 */
+		#define EP_TYPE_ISOCHRONOUS                0x01
+
+		/** Mask for a BULK type endpoint or pipe.
+		 *
+		 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+		 */
+		#define EP_TYPE_BULK                       0x02
+
+		/** Mask for an INTERRUPT type endpoint or pipe.
+		 *
+		 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
+		 */
+		#define EP_TYPE_INTERRUPT                  0x03
+		//@}
+
 	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/USBController_AVR8.h"
