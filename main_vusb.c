@@ -1,7 +1,3 @@
-/* PS/2 to USB keyboard converter
- * 2011/02/20
- * Copyright (c) 2011 tmk
- */
 /* Name: main.c
  * Project: hid-mouse, a very simple HID example
  * Author: Christian Starkjohann
