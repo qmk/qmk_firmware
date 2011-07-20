@@ -1,6 +1,3 @@
-/* 2010/08/23 noname
- * keyboard firmware based on PJRC USB keyboard example
- */
 /* Keyboard example with debug channel, for Teensy USB Development Board
  * http://www.pjrc.com/teensy/usb_keyboard.html
  * Copyright (c) 2008 PJRC.COM, LLC

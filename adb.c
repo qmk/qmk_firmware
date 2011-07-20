@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2011 Jun WAKO <wakojun@gmail.com>
+Copyright 2011 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -34,6 +34,7 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include <stdbool.h>
 #include <util/delay.h>
 #include <avr/io.h>
