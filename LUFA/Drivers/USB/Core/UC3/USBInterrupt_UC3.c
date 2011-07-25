@@ -121,6 +121,10 @@ ISR(USB_GEN_vect)
 		                           ENDPOINT_DIR_OUT, USB_Device_ControlEndpointSize,
 		                           ENDPOINT_BANK_SINGLE);
 
+		#if defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_INT_Enable(USB_INT_RXSTPI);
+		#endif
+
 		EVENT_USB_Device_Reset();
 	}
 	#endif
@@ -200,3 +204,22 @@ ISR(USB_GEN_vect)
 	}
 	#endif
 }
+
+#if defined(INTERRUPT_CONTROL_ENDPOINT) && defined(USB_CAN_BE_DEVICE)
+ISR(USB_COM_vect, ISR_BLOCK)
+{
+	uint8_t PrevSelectedEndpoint = Endpoint_GetCurrentEndpoint();
+
+	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+	USB_INT_Disable(USB_INT_RXSTPI);
+
+	GlobalInterruptEnable();
+
+	USB_Device_ProcessControlRequest();
+
+	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+	USB_INT_Enable(USB_INT_RXSTPI);
+	Endpoint_SelectEndpoint(PrevSelectedEndpoint);
+}
+#endif
+

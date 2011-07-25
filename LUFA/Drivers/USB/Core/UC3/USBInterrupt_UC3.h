@@ -43,6 +43,7 @@
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
+		#include "../Endpoint.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -68,14 +69,15 @@
 				USB_INT_SUSPI   = 3,
 				USB_INT_EORSTI  = 4,
 				USB_INT_SOFI    = 5,
+				USB_INT_RXSTPI  = 6,
 				#endif
 				#if (defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__))			
-				USB_INT_HSOFI   = 6,
-				USB_INT_DCONNI  = 7,
-				USB_INT_DDISCI  = 8,
-				USB_INT_RSTI    = 9,
-				USB_INT_BCERRI  = 10,
-				USB_INT_VBERRI  = 11,
+				USB_INT_HSOFI   = 7,
+				USB_INT_DCONNI  = 8,
+				USB_INT_DDISCI  = 9,
+				USB_INT_RSTI    = 10,
+				USB_INT_BCERRI  = 11,
+				USB_INT_VBERRI  = 12,
 				#endif
 			};
 		
@@ -105,6 +107,9 @@
 						break;
 					case USB_INT_SOFI:
 						AVR32_USBB.UDINTESET.sofes    = true;
+						break;
+					case USB_INT_RXSTPI:
+						(&AVR32_USBB.UECON0SET)[USB_SelectedEndpoint].rxstpes = true;
 						break;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
@@ -155,6 +160,9 @@
 						break;
 					case USB_INT_SOFI:
 						AVR32_USBB.UDINTECLR.sofec    = true;
+						break;
+					case USB_INT_RXSTPI:
+						(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].rxstpec = true;
 						break;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
@@ -212,6 +220,9 @@
 						AVR32_USBB.UDINTCLR.sofc     = true;
 						(void)AVR32_USBB.UDINTCLR;
 						break;
+					case USB_INT_RXSTPI:
+						(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].rxstpic = true;
+						break;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
@@ -262,6 +273,8 @@
 						return AVR32_USBB.UDINTE.eorste;
 					case USB_INT_SOFI:
 						return AVR32_USBB.UDINTE.sofe;
+					case USB_INT_RXSTPI:
+						return (&AVR32_USBB.UECON0)[USB_SelectedEndpoint].rxstpe;
 					#endif
 					#if defined(USB_CAN_BE_HOST)					
 					case USB_INT_HSOFI:
@@ -302,6 +315,8 @@
 						return AVR32_USBB.UDINT.eorst;
 					case USB_INT_SOFI:
 						return AVR32_USBB.UDINT.sof;
+					case USB_INT_RXSTPI:
+						return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].rxstpi;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
