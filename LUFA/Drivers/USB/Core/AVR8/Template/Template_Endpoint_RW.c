@@ -53,15 +53,15 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE const Buffer,
 		{
 			TEMPLATE_CLEAR_ENDPOINT();
 
+			#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+			USB_USBTask();
+			#endif
+
 			if (BytesProcessed != NULL)
 			{
 				*BytesProcessed += BytesInTransfer;
 				return ENDPOINT_RWSTREAM_IncompleteTransfer;
 			}
-
-			#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-			USB_USBTask();
-			#endif
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
 			  return ErrorCode;

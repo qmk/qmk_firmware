@@ -90,7 +90,5 @@
 			static void ReturnCommandStatus(void);
 		#endif
 
-		uint8_t StreamCallback_AbortOnMassStoreReset(void);
-
 #endif
 
