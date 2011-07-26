@@ -39,6 +39,7 @@
   *   - Added new AudioInputHost Host LowLevel demo
   *   - Added new AudioOutputHost Host LowLevel demo
   *   - Added new "checksource" target to all library project makefiles
+  *   - Added new VTARGET_USE_INTERNAL_REF configuration option to the AVRISP-MKII clone project (thanks to Volker Bosch)
   *
   *  <b>Changed:</b>
   *  - Core:

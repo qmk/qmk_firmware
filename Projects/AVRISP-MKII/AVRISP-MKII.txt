@@ -267,6 +267,12 @@
  *        to the ADC. <i>Ignored when compiled for targets lacking an ADC, or when NO_VTARGET_DETECT is defined.</i></td>
  *   </tr>
  *   <tr>
+ *    <td>VTARGET_USE_INTERNAL_REF</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Selects the internal 2.56V ADC reference voltage, instead of using the AVR's VREF pin. When enabled, this option will
+ *        override the VTARGET_REF_VOLTS configuration option.</i></td>
+ *   </tr>
+ *   <tr>
  *    <td>VTARGET_SCALE_FACTOR</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the target's supply voltage scale factor when applied to the ADC. A simple resistive divider can be used on the

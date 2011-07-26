@@ -117,7 +117,7 @@
  *  can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the RAISE_EVENT macro.
  *  When defined, this token disables the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
  *
- *  <b>NO_SOF_EVENTS</b> - (\ref Group_Events) - <i>AVR8, UC3</i> \n
+ *  <b>NO_SOF_EVENTS</b> - (\ref Group_Events) - <i>All Architectures</i> \n
  *  By default, there exists a LUFA application event for the start of each USB frame while the USB bus is not suspended in either host or device mode.
  *  This event can be selectively enabled or disabled by calling the appropriate device or host mode function. When this compile time token is defined,
  *  the ability to receive USB Start of Frame events via the \ref EVENT_USB_Device_StartOfFrame() or \ref EVENT_USB_Host_StartOfFrame() events is removed,
@@ -167,7 +167,7 @@
  *  is through control endpoint requests. Defining this token will remove several features related to the selection and control of device
  *  endpoints internally, saving space. Generally, this is usually only useful in (some) bootloaders and is best avoided.
  *
- *  <b>INTERRUPT_CONTROL_ENDPOINT</b> - (\ref Group_USBManagement) - <i>AVR8 Only</i> \n
+ *  <b>INTERRUPT_CONTROL_ENDPOINT</b> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
  *  Some applications prefer to not call the USB_USBTask() management task regularly while in device mode, as it can complicate code significantly.
  *  Instead, when device mode is used this token can be passed to the library via the -D switch to allow the library to manage the USB control
  *  endpoint entirely via USB controller interrupts asynchronously to the user application. When defined, USB_USBTask() does not need to be called

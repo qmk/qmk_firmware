@@ -61,6 +61,15 @@
 		#if defined(USB_SERIES_4_AVR) && ((VTARGET_ADC_CHANNEL == 2) || (VTARGET_ADC_CHANNEL == 3))
 			#error The U4 AVR chips do not contain ADC channels 2 or 3. Please change VTARGET_ADC_CHANNEL or define NO_VTARGET_DETECT in the makefile.
 		#endif
+		
+		#if defined(VTARGET_USE_INTERNAL_REF)
+			#undef  VTARGET_REF_VOLTS
+			#define VTARGET_REF_VOLTS 2.56
+			
+			#define VTARGET_REF_MASK ADC_REFERENCE_INT2560MV
+		#else
+			#define VTARGET_REF_MASK ADC_REFERENCE_AVCC
+		#endif
 
 	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing. */
