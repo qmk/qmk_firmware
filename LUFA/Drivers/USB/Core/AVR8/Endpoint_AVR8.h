@@ -587,7 +587,7 @@
 			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetEndpointDirection(void)
 			{
-				return (UECFG0X & ENDPOINT_DIR_IN);
+				return (UECFG0X & (1 << EPDIR)) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT;
 			}
 
 			/** Sets the direction of the currently selected endpoint.
@@ -597,7 +597,7 @@
 			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask)
 			{
-				UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | DirectionMask);
+				UECFG0X = ((UECFG0X & ~(1 << EPDIR)) | (DirectionMask ? (1 << EPDIR) : 0));
 			}
 
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints.
