@@ -357,7 +357,7 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 
 				/* Send the Dataflash buffer write command */
 				Dataflash_ToggleSelectedChipCS();
-				Dataflash_SendByte(DF_CMD_BUFF1WRITE);
+				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2WRITE : DF_CMD_BUFF1WRITE);
 				Dataflash_SendAddressBytes(0, 0);
 			}
 

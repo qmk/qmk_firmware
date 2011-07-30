@@ -74,6 +74,7 @@
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed
   *   - Fixed compile errors in the incomplete BluetoothHost demo application (thanks to Timo Lindfors)
+  *   - Fixed incorrect Dataflash buffer use in the DataflashManager_WriteBlocks_RAM() function of several demos/projects (thanks to Jeremy Willden)
   *
   *  \section Sec_ChangeLog110528 Version 110528
   *  <b>New:</b>
