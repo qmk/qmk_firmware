@@ -33,7 +33,7 @@
    compile time options, as an alternative to the compile time
    constants supplied through a makefile. To use this configuration
    header, copy this into your project's root directory and supply
-   the USE_LUFA_CONFIG_HEADER token to the compiler so that it is
+   the \c USE_LUFA_CONFIG_HEADER token to the compiler so that it is
    defined in all compiled source files.
    
    For information on what each token does, refer to the LUFA
@@ -99,6 +99,7 @@
 //		#define NO_CLASS_DRIVER_AUTOFLUSH
 
 		/* General USB Driver Related Tokens: */
+//		#define ORDERED_EP_CONFIG
 //		#define USE_STATIC_OPTIONS               {Insert Value Here}
 //		#define USB_DEVICE_ONLY
 //		#define USB_HOST_ONLY
@@ -110,6 +111,7 @@
 //		#define FIXED_CONTROL_ENDPOINT_SIZE      {Insert Value Here}
 //		#define FIXED_NUM_CONFIGURATION          {Insert Value Here}
 //		#define CONTROL_ONLY_DEVICE
+//		#define INTERRUPT_CONTROL_ENDPOINT
 //		#define NO_DEVICE_REMOTE_WAKEUP
 //		#define NO_DEVICE_SELF_POWER
 

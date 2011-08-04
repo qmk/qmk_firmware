@@ -25,6 +25,7 @@
   *      -# Consider switch from endpoint numbers to full endpoint addresses to ease future architecture expansion
   *      -# Fix HID report parser usage support for array types
   *      -# Add additional standard request helper functions to host mode
+  *      -# Add Dataflash_SendCommand()
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
