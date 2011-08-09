@@ -88,7 +88,7 @@
  *  - Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
  *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
  *  - Universal USB AVR Module: http://usbavr.bplaced.net/
- *  - USB2AX, a USB to Dynamixel network adapter: http://trac.assembla.com/XD_DSbot/browser/trunk
+ *  - USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - USB powered Geiger Counter: http://uhrheber.wordpress.com/2011/04/28/a-usb-powered-geiger-counter-for-the-z2-and-other-computers/
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/

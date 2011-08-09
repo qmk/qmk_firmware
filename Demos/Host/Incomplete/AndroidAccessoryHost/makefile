@@ -122,6 +122,7 @@ LUFA_PATH = ../../../..
 # LUFA library compile-time options and predefined tokens
 LUFA_OPTS  = -D USB_HOST_ONLY
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS += -D HOST_DEVICE_SETTLE_DELAY_MS=0
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
