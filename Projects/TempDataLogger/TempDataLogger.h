@@ -72,11 +72,8 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
-		/** Filename for the log data when written to the dataflash FAT filesystem. */
-		#define LOG_FILENAME             "TEMPLOG.txt"
-
 		/** Default log interval when the EEPROM is blank, in 500ms ticks. */
-		#define DEFAULT_LOG_INTERVAL     20
+		#define DEFAULT_LOG_INTERVAL     10
 
 		/** Indicates if the disk is write protected or not. */
 		#define DISK_READ_ONLY           false

@@ -102,7 +102,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	uint8_t LEDMask = LEDs_GetLEDs();
 
 	/* Check to see if the logging interval has expired */
-	if (CurrentLoggingTicks++ < LoggingInterval500MS_SRAM)
+	if (++CurrentLoggingTicks < LoggingInterval500MS_SRAM)
 	  return;
 
 	/* Reset log tick counter to prepare for next logging interval */
