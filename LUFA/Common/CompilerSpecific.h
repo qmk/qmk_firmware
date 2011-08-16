@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Compiler specific macros for code optimization and correctness.
+ *  \brief Compiler specific definitions for code optimization and correctness.
  *
  *  \copydetails Group_CompilerSpecific
  *
@@ -38,10 +38,10 @@
  */
 
 /** \ingroup Group_Common
- *  \defgroup Group_CompilerSpecific Compiler Specific Macros
- *  \brief Compiler specific macros for code optimization and correctness.
+ *  \defgroup Group_CompilerSpecific Compiler Specific Definitions
+ *  \brief Compiler specific definitions for code optimization and correctness.
  *
- *  Compiler specific macros to expose certain compiler features which may increase the level of code optimization
+ *  Compiler specific definitions to expose certain compiler features which may increase the level of code optimization
  *  for a specific compiler, or correct certain issues that may be present such as memory barriers for use in conjunction
  *  with atomic variable access. 
  *

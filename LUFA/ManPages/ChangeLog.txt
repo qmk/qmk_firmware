@@ -28,6 +28,7 @@
   *   - Added new USB_Host_GetDeviceStatus() function to the host standard request function set
   *   - Added AVR USB XMEGA architecture port (currently incomplete/experimental)
   *   - Added new STRINGIFY() and STRINGIFY_EXPANDED() convenience macros
+  *   - Added new JTAG_DISABLE() macro for the AVR8 architecture
   *   - Added Device Qualifier standard descriptor structure definitions USB_StdDescriptor_DeviceQualifier_t and USB_Descriptor_DeviceQualifier_t
   *  - Library Applications:
   *   - Added RNDIS device mode to the Webserver project
