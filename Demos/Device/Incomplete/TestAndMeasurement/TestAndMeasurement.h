@@ -108,19 +108,15 @@
 		
 		typedef struct
 		{
-			unsigned LastMessageTransaction     : 1;
-			unsigned Reserved                   : 7;
-
-			uint8_t Reserved2[3];
+			uint8_t LastMessageTransaction;
+			uint8_t TermChar;
+			uint8_t Reserved[2];
 		} TMC_DevOUTMessageHeader_t;
 
 		typedef struct
 		{
-			unsigned TermCharEnabled            : 1;
-			unsigned Reserved                   : 7;
-
-			uint8_t TermChar;
-			uint8_t Reserved2[2];
+			uint8_t LastMessageTransaction;
+			uint8_t Reserved[3];
 		} TMC_DevINMessageHeader_t;
 
 		typedef struct

@@ -65,7 +65,13 @@ static bool IsTMCBulkOUTReset = false;
 static uint8_t CurrentTransferTag = 0;
 
 /** Length of last data transfer, for reporting to the host in case an in-progress transfer is aborted */
-static uint32_t LastTransferLength = 0;
+static uint16_t LastTransferLength = 0;
+
+/** Buffer to hold the next message to sent to the TMC host */
+static uint8_t NextResponseBuffer[64];
+
+/** Indicates the length of the next response to send */
+static uint8_t NextReponseLen;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -318,6 +324,27 @@ void EVENT_USB_Device_ControlRequest(void)
 	}
 }
 
+void ProcessSentMessage(uint8_t* const Data, const uint8_t Length)
+{
+	if (strncmp((char*)Data, "*IDN?", 5) == 0)
+	  strcpy((char*)NextResponseBuffer, "LUFA TMC DEMO");
+
+	NextReponseLen = strlen((char*)NextResponseBuffer);
+}
+
+uint8_t GetNextMessage(uint8_t* const Data)
+{
+	  strcpy((char*)NextResponseBuffer, "LUFA TMC DEMO");
+
+	NextReponseLen = strlen((char*)NextResponseBuffer);
+// ---
+	uint8_t DataLen = MIN(NextReponseLen, 64);
+
+	strlcpy((char*)Data, (char*)NextResponseBuffer, DataLen);
+
+	return DataLen;
+}
+
 /** Function to manage TMC data transmission and reception to and from the host. */
 void TMC_Task(void)
 {
@@ -326,7 +353,7 @@ void TMC_Task(void)
 	  return;
 	
 	TMC_MessageHeader_t MessageHeader;
-	uint16_t            BytesTransferred;
+	uint8_t             MessagePayload[128];
 	
 	/* Try to read in a TMC message from the interface, process if one is available */
 	if (ReadTMCHeader(&MessageHeader))
@@ -337,34 +364,32 @@ void TMC_Task(void)
 		switch (MessageHeader.MessageID)
 		{
 			case TMC_MESSAGEID_DEV_DEP_MSG_OUT:
-				BytesTransferred = 0;
-				while (Endpoint_Discard_Stream(MessageHeader.TransferSize, &BytesTransferred) ==
+				LastTransferLength = 0;
+				while (Endpoint_Read_Stream_LE(MessagePayload, MIN(MessageHeader.TransferSize, sizeof(MessagePayload)), &LastTransferLength) ==
 				       ENDPOINT_RWSTREAM_IncompleteTransfer)
 				{
 					if (IsTMCBulkOUTReset)
 					  break;
 				}
-				LastTransferLength = BytesTransferred;
 				
 				Endpoint_ClearOUT();
+
+				ProcessSentMessage(MessagePayload, LastTransferLength);				
 				break;
 			case TMC_MESSAGEID_DEV_DEP_MSG_IN:
 				Endpoint_ClearOUT();
 				
-				char MessageData[] = "TMC Class Test";
-
-				MessageHeader.TransferSize = strlen(MessageData);
+				MessageHeader.TransferSize = GetNextMessage(MessagePayload);				
 				MessageHeader.MessageIDSpecific.DeviceOUT.LastMessageTransaction = true;
 				WriteTMCHeader(&MessageHeader);
 
-				BytesTransferred = 0;
-				while (Endpoint_Write_Stream_LE(MessageData, MessageHeader.TransferSize, &BytesTransferred) ==
+				LastTransferLength = 0;
+				while (Endpoint_Write_Stream_LE(MessagePayload, MessageHeader.TransferSize, &LastTransferLength) ==
 				       ENDPOINT_RWSTREAM_IncompleteTransfer)
 				{
 					if (IsTMCBulkINReset)
 					  break;
 				}
-				LastTransferLength = BytesTransferred;
 
 				Endpoint_ClearIN();
 				break;

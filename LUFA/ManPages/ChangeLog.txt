@@ -75,6 +75,7 @@
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed
   *   - Fixed compile errors in the incomplete BluetoothHost demo application (thanks to Timo Lindfors)
   *   - Fixed incorrect Dataflash buffer use in the DataflashManager_WriteBlocks_RAM() function of several demos/projects (thanks to Jeremy Willden)
+  *   - Fixed incorrect logging interval (always 500ms longer than requested) in the TempDataLogger project
   *
   *  \section Sec_ChangeLog110528 Version 110528
   *  <b>New:</b>

@@ -70,26 +70,26 @@
 				 *
 				 *  \param[in, out] StructPtr  Pointer to a structure which is to be forced into indirect access mode.
 				 */
-				#define GCC_FORCE_POINTER_ACCESS(StructPtr) __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
+				#define GCC_FORCE_POINTER_ACCESS(StructPtr)   __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
 
 				/** Forces GCC to create a memory barrier, ensuring that memory accesses are not reordered past the barrier point.
 				 *  This can be used before ordering-critical operations, to ensure that the compiler does not re-order the resulting
 				 *  assembly output in an unexpected manner on sections of code that are ordering-specific.
 				 */
-				#define GCC_MEMORY_BARRIER()                __asm__ __volatile__("" ::: "memory");
+				#define GCC_MEMORY_BARRIER()                  __asm__ __volatile__("" ::: "memory");
 				
 				/** Evaluates to boolean true if the specified value can be determined at compile time to be a constant value
 				 *  when compiling under GCC.
 				 *
 				 *  \param[in] x  Value to check compile time constantness of.
 				 *
-				 *  \return Boolean true if the given value is known to be a compile time constant.
+				 *  \return Boolean true if the given value is known to be a compile time constant, false otherwise.
 				 */
-				#define GCC_IS_COMPILE_CONST(x)             __builtin_constant_p(x)
+				#define GCC_IS_COMPILE_CONST(x)               __builtin_constant_p(x)
 			#else
 				#define GCC_FORCE_POINTER_ACCESS(StructPtr)
 				#define GCC_MEMORY_BARRIER()
-				#define GCC_IS_COMPILE_CONST(x)             0
+				#define GCC_IS_COMPILE_CONST(x)               0
 			#endif
 
 #endif
