@@ -169,8 +169,8 @@
 			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
 			 *  line buffering.
 			 *
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL stdio
-			 *                         and stdin will be configured to use the USART.
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL, \c stdout
+			 *                         and \c stdin will be configured to use the USART.
 			 *
 			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
 			 */
@@ -189,8 +189,8 @@
 			/** Identical to \ref Serial_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer.
 			 *
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL stdio
-			 *                         and stdin will be configured to use the USART.
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL, \c stdout
+			 *                         and \c stdin will be configured to use the USART.
 			 *
 			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
 			 */

@@ -57,7 +57,7 @@
  *    - No reversed/shorted target connector detection and notification
  *    - A separate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
  *
- *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
+ *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the \c VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
  *  without an ADC converter, VTARGET will report a fixed 5V level at all times.
  *
