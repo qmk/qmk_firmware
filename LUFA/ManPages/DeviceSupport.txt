@@ -23,8 +23,8 @@
  *  <table>
  *  <tr>
  *   <th width="150px">Part</th>
- *   <th width="150px">Device Mode</th>
- *   <th width="150px">Host Mode</th>
+ *   <th width="150px">USB Device Mode</th>
+ *   <th width="150px">USB Host Mode</th>
  *  </tr>
  *  <tr>
  *   <td>AT90USB82</td>
@@ -131,8 +131,8 @@
  *  <table>
  *  <tr>
  *   <th width="150px">Part</th>
- *   <th width="150px">Device Mode</th>
- *   <th width="150px">Host Mode</th>
+ *   <th width="150px">USB Device Mode</th>
+ *   <th width="150px">USB Host Mode</th>
  *  </tr>
  *  <tr>
  *   <td>AT32UC3A064</td>
@@ -300,8 +300,8 @@
  *  <table>
  *  <tr>
  *   <th width="150px">Part</th>
- *   <th width="150px">Device Mode</th>
- *   <th width="150px">Host Mode</th>
+ *   <th width="150px">USB Device Mode</th>
+ *   <th width="150px">USB Host Mode</th>
  *  </tr>
  *  <tr>
  *   <td>ATXMEGA16A4U</td>
