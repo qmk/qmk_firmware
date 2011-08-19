@@ -7,22 +7,88 @@
 /**
  *  \page Page_DeviceSupport Device and Hardware Support
  *
- *  \section Sec_AVR8_Support Atmel 8-Bit AVR (AVR8)
+ *  <b>Atmel Microcontrollers:</b>
+ *  \li \subpage Page_AVR8Support - Atmel AVR8 Support
+ *  \li \subpage Page_UC3Support - Atmel AVR32 UC3 Support
+ *  \li \subpage Page_XMEGASupport - Atmel XMEGA Support
+ */
+ 
+/**
+ *  \page Page_AVR8Support Atmel 8-Bit AVR (AVR8) Support
+ *
+ *  \section Sec_AVR8Support_Devices Supported Microcontroller Models
  *
  *  Currently supported AVR8 models:
- *   - AT90USB82 (USB Device Only)
- *   - ATMEGA8U2 (USB Device Only)
- *   - AT90USB162 (USB Device Only)
- *   - ATMEGA16U2 (USB Device Only)
- *   - ATMEGA16U4 (USB Device Only)
- *   - ATMEGA32U2 (USB Device Only)
- *   - ATMEGA32U4 (USB Device Only)
- *   - ATMEGA32U6 (USB Device Only)
- *   - AT90USB646 (USB Device Only)
- *   - AT90USB647 (USB Host and Device)
- *   - AT90USB1286 (USB Device Only)
- *   - AT90USB1287 (USB Host and Device)
  *
+ *  <table>
+ *  <tr>
+ *   <th width="150px">Part</th>
+ *   <th width="150px">Device Mode</th>
+ *   <th width="150px">Host Mode</th>
+ *  </tr>
+ *  <tr>
+ *   <td>AT90USB82</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATMEGA8U2</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT90USB162</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATMEGA16U2</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATMEGA16U4</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATMEGA32U2</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATMEGA32U4</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATMEGA32U6</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT90USB646</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT90USB647</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT90USB1286</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT90USB1287</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  </table>
+ *
+ *  \section Sec_AVR8Support_Boards Supported Atmel Boards
  *  Currently supported Atmel AVR8 boards (see \ref Group_BoardTypes):
  *   - AT90USBKEY
  *   - ATAVRUSBRF01
@@ -32,7 +98,8 @@
  *   - STK526
  *   - XPLAIN (Excluding the blue XPLAINED family boards)
  *
- *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
+ *  \section Sec_AVR8Support_ThirdParty Supported Third Party Models
+ *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Adafruit U4 Breakout Board
  *   - Arduino Uno
  *   - Busware BUI
@@ -51,64 +118,239 @@
  *   - Tempusdictum Benito
  *   - Tom's USBTINY-MKII (all revisions and versions)
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
- *
- *  \section Sec_AVR32_Support Atmel 32-Bit UC3 AVR (UC3)
+ */
+ 
+/**
+ *  \page Page_UC3Support Atmel 32-Bit UC3 AVR (UC3)
  *  Note: <i>The AVR32 UC3 device support is currently <b>experimental</b>, and is included for preview purposes only.</i>
  *
+ *  \section Sec_UC3Support_Devices Supported Microcontroller Models
+ *
  *  Currently supported UC3 models:
- *   - AT32UC3A064 (USB Host and Device)
- *   - AT32UC3A164 (USB Host and Device)
- *   - AT32UC3A364 (USB Host and Device)
- *   - AT32UC3A364S (USB Host and Device)
- *   - AT32UC3A464 (USB Host and Device)
- *   - AT32UC3A464S (USB Host and Device)
- *   - AT32UC3B064 (USB Host and Device)
- *   - AT32UC3B164 (USB Host and Device)
- *   - AT32UC3A0128 (USB Host and Device)
- *   - AT32UC3A1128 (USB Host and Device)
- *   - AT32UC3A3128 (USB Host and Device)
- *   - AT32UC3A3128S (USB Host and Device)
- *   - AT32UC3A4128 (USB Host and Device)
- *   - AT32UC3A4128S (USB Host and Device)
- *   - AT32UC3B0128 (USB Host and Device)
- *   - AT32UC3B1128 (USB Host and Device)
- *   - AT32UC3A0256 (USB Host and Device)
- *   - AT32UC3A1256 (USB Host and Device)
- *   - AT32UC3A3256 (USB Host and Device)
- *   - AT32UC3A3256S (USB Host and Device)
- *   - AT32UC3A4256 (USB Host and Device)
- *   - AT32UC3A4256S (USB Host and Device)
- *   - AT32UC3B0256 (USB Host and Device)
- *   - AT32UC3B1256 (USB Host and Device)
- *   - AT32UC3A0512 (USB Host and Device)
- *   - AT32UC3A1512 (USB Host and Device)
- *   - AT32UC3B0512 (USB Host and Device)
- *   - AT32UC3B1512 (USB Host and Device)
+ *
+ *  <table>
+ *  <tr>
+ *   <th width="150px">Part</th>
+ *   <th width="150px">Device Mode</th>
+ *   <th width="150px">Host Mode</th>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A064</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A164</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A364</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A364S</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A464</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A464S</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B064</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B164</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A0128</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A1128</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A3128</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A3128S</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A4128</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A4128S</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B0128</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B1128</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A0256</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A1256</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A3256</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A3256S</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A4256</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A4256S</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B0256</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B1256</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A0512</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3A1512</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B0512</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>AT32UC3B1512</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  </table>
+ *
+ *  \section Sec_UC3Support_Boards Supported Atmel Boards
  *
  *  Currently supported Atmel UC3 boards (see \ref Group_BoardTypes):
  *   - EVK1100
  *   - EVK1101
  *   - EVK1104
  *
- *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
+ *  \section Sec_UC3Support_ThirdParty Supported Third Party Models
+ *
+ *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
- *
- *  \section Sec_XMEGA_Support Atmel USB XMEGA AVR (XMEGA)
+ */
+ 
+/**
+ *  \page Page_XMEGASupport Atmel USB XMEGA AVR (XMEGA)
  *  Note: <i>The XMEGA device support is currently <b>experimental</b>, and is included for preview purposes only.</i>
- *  Currently supported XMEGA models:
- *   - ATXMEGA16A4U (USB Device Only)
- *   - ATXMEGA32A4U (USB Device Only)
- *   - ATXMEGA64A3U (USB Device Only)
- *   - ATXMEGA128A3U (USB Device Only)
- *   - ATXMEGA192A3U (USB Device Only)
- *   - ATXMEGA256A3U (USB Device Only)
- *   - ATXMEGA256A3BU (USB Device Only)
- *   - ATXMEGA128A1U (USB Device Only)
  *
+ *  \section Sec_XMEGASupport_Devices Supported Microcontroller Models
+ *
+ *  Currently supported XMEGA models:
+ *
+ *  <table>
+ *  <tr>
+ *   <th width="150px">Part</th>
+ *   <th width="150px">Device Mode</th>
+ *   <th width="150px">Host Mode</th>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA16A4U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA32A4U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA64A3U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA128A3U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA192A3U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA256A3U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA256A3BU</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA128A1U</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  </table>
+ *
+ *  \section Sec_XMEGASupport_Boards Supported Atmel Boards
  *  Currently supported Atmel XMEGA boards (see \ref Group_BoardTypes):
  *   - None
  *
- *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
+ *  \section Sec_XMEGASupport_ThirdParty Supported Third Party Models
+ *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
 
