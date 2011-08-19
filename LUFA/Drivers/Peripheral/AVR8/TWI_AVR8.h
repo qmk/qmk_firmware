@@ -99,14 +99,14 @@
  *      uint8_t WritePacket[3] = {0x01, 0x02, 0x03};
  *
  *      TWI_WritePacket(0xA0, 10, &InternalWriteAddress, sizeof(InternalWriteAddress),
- *                      &WritePacket, sizeof(WritePacket);
+ *                      WritePacket, sizeof(WritePacket);
  *
  *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
  *      uint8_t InternalReadAddress = 0xDC;
  *      uint8_t ReadPacket[3];
  *
  *      TWI_ReadPacket(0xA0, 10, &InternalReadAddress, sizeof(InternalReadAddress),
- *                     &ReadPacket, sizeof(ReadPacket);
+ *                     ReadPacket, sizeof(ReadPacket);
  *  \endcode
  *
  *  @{
