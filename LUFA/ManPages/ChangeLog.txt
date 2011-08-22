@@ -56,10 +56,12 @@
   *     USB_Host_ConfigurationNumber global as required
   *   - Added endian correcting code to the library USB class drivers for multiple architecture support
   *   - Removed the ENDPOINT_DESCRIPTOR_DIR_* macros, replaced by ENDPOINT_DIR_* instead
+  *   - Renamed the JTAG_DEBUG_ASSERT() macro to JTAG_ASSERT()
   *  - Library Applications:
   *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple audio sample rates
   *   - Updated all host mode demos and projects to use the EVENT_USB_Host_DeviceEnumerationComplete() event callback for device configuration
   *     instead of manual host state machine manipulations in the main application task
+  *   - Changed the reports in the GenericHID device demos to control the board LEDs, to reduce user confusion over the callback routines
   *
   *  <b>Fixed:</b>
   *  - Core:
@@ -71,6 +73,8 @@
   *   - Fixed lack of C++ compatibility in some internal header files causing compile errors when using LUFA in C++ projects
   *   - Fixed error in the pipe unordered allocation algorithm for the AVR8 devices breaking compatibility with some devices
   *   - Fixed USB_USBTask not being called internally in stream transfers between packets when Partial Stream Transfers are used
+  *   - Fixed swapped TWI_ADDRESS_READ and TWI_ADDRESS_WRITE values
+  *   - Fixed TWI_ReadPacket() not releasing the TWI bus on read completion
   *  - Library Applications:
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed

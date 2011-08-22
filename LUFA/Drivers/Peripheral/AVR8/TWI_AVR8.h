@@ -143,12 +143,12 @@
 			/** TWI slave device address mask for a read session. Mask with a slave device base address to obtain
 			 *  the correct TWI bus address for the slave device when reading data from it.
 			 */
-			#define TWI_ADDRESS_READ         0x00
+			#define TWI_ADDRESS_READ         0x01
 
 			/** TWI slave device address mask for a write session. Mask with a slave device base address to obtain
 			 *  the correct TWI bus address for the slave device when writing data to it.
 			 */
-			#define TWI_ADDRESS_WRITE        0x01
+			#define TWI_ADDRESS_WRITE        0x00
 
 			/** Mask to retrieve the base address for a TWI device, which can then be ORed with \ref TWI_ADDRESS_READ
 			 *  or \ref TWI_ADDRESS_WRITE to obtain the device's read and write address respectively.

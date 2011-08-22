@@ -84,14 +84,14 @@
 				 *
 				 *  \note This macro is not available for all architectures.
 				 */
-				#define JTAG_DEBUG_POINT()              __asm__ __volatile__ ("NOP" ::)
+				#define JTAG_DEBUG_POINT()              __asm__ __volatile__ ("nop" ::)
 
 				/** Defines an explicit JTAG break point in the resulting binary via the assembly \c BREAK statement. When
 				 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
 				 *
 				 *  \note This macro is not available for all architectures.
 				 */
-				#define JTAG_DEBUG_BREAK()              __asm__ __volatile__ ("BREAK" ::)
+				#define JTAG_DEBUG_BREAK()              __asm__ __volatile__ ("break" ::)
 
 				/** Macro for testing condition "x" and breaking via \ref JTAG_DEBUG_BREAK() if the condition is false.
 				 *
@@ -99,7 +99,7 @@
 				 *
 				 *  \param[in] Condition  Condition that will be evaluated.
 				*/
-				#define JTAG_DEBUG_ASSERT(Condition)    MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
+				#define JTAG_ASSERT(Condition)          MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
 
 				/** Macro for testing condition \c "x" and writing debug data to the stdout stream if \c false. The stdout stream
 				 *  must be pre-initialized before this macro is run and linked to an output device, such as the microcontroller's

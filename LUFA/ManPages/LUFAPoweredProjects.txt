@@ -55,6 +55,7 @@
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
  *  - Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
+ *  - Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
  *  - LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair

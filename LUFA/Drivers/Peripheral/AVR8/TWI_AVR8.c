@@ -117,7 +117,7 @@ uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
 	{
 		while (Length--)
 		{
-			if (!(TWI_ReceiveByte(Buffer++, (Length == 0))))
+			if (!(TWI_ReceiveByte(Buffer++, (Length == 1))))
 			{
 				ErrorCode = TWI_ERROR_SlaveNAK;
 				break;

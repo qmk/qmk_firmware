@@ -39,14 +39,6 @@
 /** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
 static uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
 
-/** Structure to contain reports from the host, so that they can be echoed back upon request */
-static struct
-{
-	uint8_t  ReportID;
-	uint16_t ReportSize;
-	uint8_t  ReportData[GENERIC_REPORT_SIZE];
-} HIDReportEcho;
-
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -151,13 +143,16 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
                                          void* ReportData,
                                          uint16_t* const ReportSize)
 {
-	if (HIDReportEcho.ReportID)
-	  *ReportID = HIDReportEcho.ReportID;
+	uint8_t* Data = (uint8_t*)ReportData;
+	uint8_t  CurrLEDMask = LEDs_GetLEDs();
+		
+	Data[0] = ((CurrLEDMask & LEDS_LED1) ? 1 : 0);
+	Data[1] = ((CurrLEDMask & LEDS_LED2) ? 1 : 0);
+	Data[2] = ((CurrLEDMask & LEDS_LED3) ? 1 : 0);
+	Data[3] = ((CurrLEDMask & LEDS_LED4) ? 1 : 0);
 
-	memcpy(ReportData, HIDReportEcho.ReportData, HIDReportEcho.ReportSize);
-
-	*ReportSize = HIDReportEcho.ReportSize;
-	return true;
+	*ReportSize = sizeof(GENERIC_REPORT_SIZE);
+	return false;
 }
 
 /** HID class driver callback function for the processing of HID reports from the host.
@@ -174,8 +169,21 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const void* ReportData,
                                           const uint16_t ReportSize)
 {
-	HIDReportEcho.ReportID   = ReportID;
-	HIDReportEcho.ReportSize = ReportSize;
-	memcpy(HIDReportEcho.ReportData, ReportData, ReportSize);
+	uint8_t* Data = (uint8_t*)ReportData;
+	uint8_t  NewLEDMask = LEDS_NO_LEDS;
+	
+	if (Data[0])
+	  NewLEDMask |= LEDS_LED1;
+
+	if (Data[1])
+	  NewLEDMask |= LEDS_LED1;
+
+	if (Data[2])
+	  NewLEDMask |= LEDS_LED1;
+
+	if (Data[3])
+	  NewLEDMask |= LEDS_LED1;
+	  
+	LEDs_SetAllLEDs(NewLEDMask);
 }
 
