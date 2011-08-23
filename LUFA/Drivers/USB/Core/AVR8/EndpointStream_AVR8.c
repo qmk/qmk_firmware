@@ -114,6 +114,9 @@ uint8_t Endpoint_Null_Stream(uint16_t Length,
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
+/* The following abuses the C preprocessor in order to copy-paste common code with slight alterations,
+ * so that the code needs to be written once. It is a crude form of templating to reduce code maintenance. */
+
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Stream_LE
 #define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()

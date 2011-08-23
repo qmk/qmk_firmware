@@ -19,7 +19,7 @@
  *      reconfiguring all Endpoints/Pipes in order each time a new Endpoint/Pipe is created. To minimize the compiled program
  *      size, the new \c ORDERED_EP_CONFIG compile time option may be defined in the project makefile to restrict the ordering
  *      in exchange for a smaller compiled binary size.
- *    - The previous F_CLOCK symbol, required in the project makefile, has been renamed to F_USB. This is due to the previous name
+ *    - The previous \c F_CLOCK symbol, required in the project makefile, has been renamed to \c F_USB. This is due to the previous name
  *      being far too generic for use in future architecture ports, where multiple clock domains are used.
  *
  *  <b>Device Mode</b>
@@ -30,13 +30,13 @@
  *      error code to allow the user application to determine when to send the next chunk of data.
  *    - The \ref CDC_Device_SendString() function now expects a null terminated string instead of an explicit length. Existing code
  *      should use the new \ref CDC_Device_SendData() function, or remove the length parameter from the function call.
- *    - The Endpoint_ResetFIFO() function has been renamed to \ref Endpoint_ResetEndpoint(), to make the API function names more
+ *    - The \c Endpoint_ResetFIFO() function has been renamed to \ref Endpoint_ResetEndpoint(), to make the API function names more
  *      consistent. Existing applications using the old function name should simply replace it with a call to the new function name.
- *    - The Endpoint_*_Byte() functions have been renamed Endpoint_*_8() to ensure they are correct across all architectures. Existing
+ *    - The \c Endpoint_*_Byte() functions have been renamed Endpoint_*_8() to ensure they are correct across all architectures. Existing
  *      code using these functions should replace the previous function names with the new function names.
- *    - The Endpoint_*_Word() functions have been renamed Endpoint_*_16() to ensure they are correct across all architectures. Existing
+ *    - The \c Endpoint_*_Word() functions have been renamed Endpoint_*_16() to ensure they are correct across all architectures. Existing
  *      code using these functions should replace the previous function names with the new function names.
- *    - The Endpoint_*_DWord() functions have been renamed Endpoint_*_32() to ensure they are correct across all architectures. Existing
+ *    - The \c Endpoint_*_DWord() functions have been renamed Endpoint_*_32() to ensure they are correct across all architectures. Existing
  *      code using these functions should replace the previous function names with the new function names.
  *    - The Device mode RNDIS class driver no longer stores the incoming and outgoing packets in the class driver instance; the user is
  *      now expected to manually define a storage location for the packet data. Packets must now be sent and received manually via a call
@@ -65,14 +65,17 @@
  *    - The \ref PRNT_Host_SendString() and \ref CDC_Host_SendString() functions now expect a null terminated string instead of an explicit
  *      length. Existing code should use the new \ref PRNT_Host_SendData() and \ref CDC_Host_SendData() functions, or remove the
  *      length parameter from the function call.
- *    - The Pipe_ClearErrorFlags() function has been removed, as the pipe error flags are now automatically cleared when the
+ *    - The \c Pipe_ClearErrorFlags() function has been removed, as the pipe error flags are now automatically cleared when the
  *      \ref Pipe_ClearError() function is called.
- *    - The Pipe_*_Byte() functions have been renamed Pipe_*_8() to ensure they are correct across all architectures. Existing code using
+ *    - The \c Pipe_*_Byte() functions have been renamed Pipe_*_8() to ensure they are correct across all architectures. Existing code using
  *      these functions should replace the previous function names with the new function names.
- *    - The Pipe_*_Word() functions have been renamed Pipe_*_16() to ensure they are correct across all architectures. Existing code using
+ *    - The \c Pipe_*_Word() functions have been renamed Pipe_*_16() to ensure they are correct across all architectures. Existing code using
  *      these functions should replace the previous function names with the new function names.
- *    - The Pipe_*_DWord() functions have been renamed Pipe_*_32() to ensure they are correct across all architectures. Existing code using
+ *    - The \c Pipe_*_DWord() functions have been renamed Pipe_*_32() to ensure they are correct across all architectures. Existing code using
  *      these functions should replace the previous function names with the new function names.
+ *    - The \c USB_Host_ClearPipeStall() function has been renamed to USB_Host_ClearEndpointStall(), as it operates on a full endpoing address
+ *      within the attached device and not a pipe within the host. Existing code using the old function name should update the function calls and
+ *      check for correct usage.
  *
  *  \section Sec_Migration101122 Migrating from 100807 to 101122
  *  <b>USB Core</b>

@@ -160,7 +160,7 @@
 			 *  \return The larger of the two input parameters
 			 */
 			#if !defined(MAX) || defined(__DOXYGEN__)
-				#define MAX(x, y)               ((x > y) ? x : y)
+				#define MAX(x, y)               (((x) > (y)) ? (x) : (y))
 			#endif
 
 			/** Convenience macro to determine the smaller of two values.
@@ -174,7 +174,7 @@
 			 *  \return The smaller of the two input parameters
 			 */
 			#if !defined(MIN) || defined(__DOXYGEN__)
-				#define MIN(x, y)               ((x < y) ? x : y)
+				#define MIN(x, y)               (((x) < (y)) ? (x) : (y))
 			#endif
 			
 			#if !defined(STRINGIFY) || defined(__DOXYGEN__)
