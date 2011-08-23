@@ -11,20 +11,8 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 110528 to XXXXXX
- *  <b>Device Mode</b>
- *    - The definition of the Audio class \ref USB_Audio_Descriptor_Format_t has been altered, to remove the fixed singular
- *      audio sample rate in the descriptor definition, and to rename the \c SampleFrequencyType to the more appropriate
- *      \c TotalDiscreteSampleRates. Existing applications will need to add an array of \ref USB_Audio_SampleFreq_t elements
- *      immediately following any \ref USB_Audio_Descriptor_Format_t descriptors, and insert the appropriate sampling rates
- *      supported by the device, as well as rename the descriptor elements to match the updated element names.
- *    - The device mode Audio class driver now requires a new user application callback, \ref CALLBACK_Audio_Device_GetSetEndpointProperty().
- *      Existing applications must implement this new callback, however if multiple sample rates or pitch control is not used,
- *      this function may be hard-coded to always return false for previous behaviour to be retained.
- *    - The \c USB_ConfigurationNumber, \c USB_RemoteWakeupEnabled and \c USB_CurrentlySelfPowered globals have been renamed to
- *      \ref USB_Device_ConfigurationNumber, \ref USB_Device_RemoteWakeupEnabled and \ref USB_Device_CurrentlySelfPowered to clearly indicate
- *      the USB mode they relate to. Existing applications using these variables should rename all references to the previous names.
- *    - The \c ENDPOINT_DESCRIPTOR_DIR_IN and \c ENDPOINT_DESCRIPTOR_DIR_OUT macros have now been replaced by \ref ENDPOINT_DIR_IN and
- *      \ref ENDPOINT_DIR_OUT to improve code clarity.
+ *  <b>Non-USB Library Components</b>
+ *    - The \c JTAG_DEBUG_ASSERT() macro has been renamed \ref JTAG_ASSERT() to be consistent with \ref STDOUT_ASSERT().
  *
  *  <b>USB Core</b>
  *    - By default, unordered Endpoint and Pipe configuration is now allowed once again, via the previous workaround of
@@ -53,6 +41,20 @@
  *    - The Device mode RNDIS class driver no longer stores the incoming and outgoing packets in the class driver instance; the user is
  *      now expected to manually define a storage location for the packet data. Packets must now be sent and received manually via a call
  *      to \ref RNDIS_Device_ReadPacket() and/or \ref RNDIS_Device_SendPacket().
+ *    - The definition of the Audio class \ref USB_Audio_Descriptor_Format_t has been altered, to remove the fixed singular
+ *      audio sample rate in the descriptor definition, and to rename the \c SampleFrequencyType to the more appropriate
+ *      \c TotalDiscreteSampleRates. Existing applications will need to add an array of \ref USB_Audio_SampleFreq_t elements
+ *      immediately following any \ref USB_Audio_Descriptor_Format_t descriptors, and insert the appropriate sampling rates
+ *      supported by the device, as well as rename the descriptor elements to match the updated element names.
+ *    - The device mode Audio class driver now requires a new user application callback, \ref CALLBACK_Audio_Device_GetSetEndpointProperty().
+ *      Existing applications must implement this new callback, however if multiple sample rates or pitch control is not used,
+ *      this function may be hard-coded to always return false for previous behaviour to be retained.
+ *    - The \c USB_ConfigurationNumber, \c USB_RemoteWakeupEnabled and \c USB_CurrentlySelfPowered globals have been renamed to
+ *      \ref USB_Device_ConfigurationNumber, \ref USB_Device_RemoteWakeupEnabled and \ref USB_Device_CurrentlySelfPowered to clearly indicate
+ *      the USB mode they relate to. Existing applications using these variables should rename all references to the previous names.
+ *    - The \c ENDPOINT_DESCRIPTOR_DIR_IN and \c ENDPOINT_DESCRIPTOR_DIR_OUT macros have now been replaced by \ref ENDPOINT_DIR_IN and
+ *      \ref ENDPOINT_DIR_OUT to improve code clarity.
+ *    - The \ref HID_DESCRIPTOR_JOYSTICK() macro now takes an additional (first) parameter indicating the number of axis in the joystick.
  *
  *  <b>Host Mode</b>
  *    - The Pipe stream functions now all require a \c BytesProcessed parameter instead of the previous callback parameter.
