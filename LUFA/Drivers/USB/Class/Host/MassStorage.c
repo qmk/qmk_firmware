@@ -226,8 +226,7 @@ static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInte
 
 		if (Pipe_IsStalled())
 		{
-			USB_Host_ClearPipeStall(MSInterfaceInfo->Config.DataOUTPipeNumber);
-
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 			return PIPE_RWSTREAM_PipeStalled;
 		}
 
@@ -237,8 +236,7 @@ static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInte
 
 		if (Pipe_IsStalled())
 		{
-			USB_Host_ClearPipeStall(MSInterfaceInfo->Config.DataINPipeNumber);
-
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 			return PIPE_RWSTREAM_PipeStalled;
 		}
 
@@ -328,6 +326,8 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterf
 
 uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 {
+	uint8_t ErrorCode;
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
@@ -339,7 +339,20 @@ uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
-	return USB_Host_SendControlRequest(NULL);
+	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	
+	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+
+	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+
+	return HOST_SENDCONTROL_Successful;
 }
 
 uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,

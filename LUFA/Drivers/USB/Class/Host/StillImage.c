@@ -254,7 +254,7 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 
 		if (Pipe_IsStalled())
 		{
-			USB_Host_ClearPipeStall(SIInterfaceInfo->Config.DataOUTPipeNumber);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 			return PIPE_RWSTREAM_PipeStalled;
 		}
 
@@ -264,7 +264,7 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 
 		if (Pipe_IsStalled())
 		{
-			USB_Host_ClearPipeStall(SIInterfaceInfo->Config.DataINPipeNumber);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 			return PIPE_RWSTREAM_PipeStalled;
 		}
 

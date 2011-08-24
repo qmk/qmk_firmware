@@ -871,7 +871,7 @@
 			                        const uint16_t Size,
 			                        const uint8_t Banks);
 
-			/** Spin-loops until the currently selected non-control pipe is ready for the next packed of data to be read
+			/** Spin-loops until the currently selected non-control pipe is ready for the next packet of data to be read
 			 *  or written to it, aborting in the case of an error condition (such as a timeout or device disconnect).
 			 *
 			 *  \ingroup Group_PipeRW_UC3

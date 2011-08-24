@@ -58,6 +58,10 @@
   *   - Removed the ENDPOINT_DESCRIPTOR_DIR_* macros, replaced by ENDPOINT_DIR_* instead
   *   - Renamed the JTAG_DEBUG_ASSERT() macro to JTAG_ASSERT()
   *   - Added variable number of axis to HID_DESCRIPTOR_JOYSTICK() for multi-axis joysticks above just X and Y
+  *   - Renamed USB_Host_ClearPipeStall() to USB_Host_ClearEndpointStall() as the function works on an endpoint address within the attached device,
+  *     and not a Pipe within the host
+  *   - The MS_Host_ResetMSInterface() now performs a full Mass Storage reset sequence to prevent data corruption in the event of a device
+  *     lock up or timeout (thanks to David Lyons)
   *  - Library Applications:
   *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple audio sample rates
   *   - Updated all host mode demos and projects to use the EVENT_USB_Host_DeviceEnumerationComplete() event callback for device configuration

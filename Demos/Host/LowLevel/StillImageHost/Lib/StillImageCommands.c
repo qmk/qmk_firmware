@@ -140,7 +140,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			USB_Host_ClearPipeStall(SIMAGE_DATA_OUT_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			/* Return error code and break out of the loop */
 			return PIPE_RWSTREAM_PipeStalled;
@@ -154,7 +154,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			USB_Host_ClearPipeStall(SIMAGE_DATA_IN_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			/* Return error code */
 			return PIPE_RWSTREAM_PipeStalled;

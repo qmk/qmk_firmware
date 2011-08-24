@@ -254,7 +254,7 @@ uint8_t USB_Host_GetDeviceStatus(uint8_t* const FeatureStatus)
 	return USB_Host_SendControlRequest(FeatureStatus);
 }
 
-uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointAddress)
+uint8_t USB_Host_ClearEndpointStall(const uint8_t EndpointAddress)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{

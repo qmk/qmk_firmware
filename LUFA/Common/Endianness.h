@@ -102,20 +102,20 @@
 			#if defined(ARCH_BIG_ENDIAN) && !defined(le16_to_cpu)
 				#define le16_to_cpu(x)           SwapEndian_16(x)
 				#define le32_to_cpu(x)           SwapEndian_32(x)
-				#define be16_to_cpu(x)           x
-				#define be32_to_cpu(x)           x
+				#define be16_to_cpu(x)           (x)
+				#define be32_to_cpu(x)           (x)
 				#define cpu_to_le16(x)           SwapEndian_16(x)
 				#define cpu_to_le32(x)           SwapEndian_32(x)
-				#define cpu_to_be16(x)           x
-				#define cpu_to_be32(x)           x
+				#define cpu_to_be16(x)           (x)
+				#define cpu_to_be32(x)           (x)
 				#define LE16_TO_CPU(x)           SWAPENDIAN_16(x)
 				#define LE32_TO_CPU(x)           SWAPENDIAN_32(x)
-				#define BE16_TO_CPU(x)           x
-				#define BE32_TO_CPU(x)           x
+				#define BE16_TO_CPU(x)           (x)
+				#define BE32_TO_CPU(x)           (x)
 				#define CPU_TO_LE16(x)           SWAPENDIAN_16(x)
 				#define CPU_TO_LE32(x)           SWAPENDIAN_32(x)
-				#define CPU_TO_BE16(x)           x
-				#define CPU_TO_BE32(x)           x			
+				#define CPU_TO_BE16(x)           (x)
+				#define CPU_TO_BE32(x)           (x)			
 			#elif !defined(le16_to_cpu)
 				/** \name Run-time endianness conversion */
 				//@{
@@ -134,7 +134,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define le16_to_cpu(x)           x
+				#define le16_to_cpu(x)           (x)
 
 				/** Performs a conversion between a Little Endian encoded 32-bit piece of data and the
 				 *  Endianness of the currently selected CPU architecture.
@@ -150,7 +150,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define le32_to_cpu(x)           x
+				#define le32_to_cpu(x)           (x)
 
 				/** Performs a conversion between a Big Endian encoded 16-bit piece of data and the
 				 *  Endianness of the currently selected CPU architecture.
@@ -198,7 +198,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define cpu_to_le16(x)           x
+				#define cpu_to_le16(x)           (x)
 
 				/** Performs a conversion on a natively encoded 32-bit piece of data to ensure that it
 				 *  is in Little Endian format regardless of the currently selected CPU architecture.
@@ -214,7 +214,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define cpu_to_le32(x)           x
+				#define cpu_to_le32(x)           (x)
 
 				/** Performs a conversion on a natively encoded 16-bit piece of data to ensure that it
 				 *  is in Big Endian format regardless of the currently selected CPU architecture.
@@ -267,7 +267,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define LE16_TO_CPU(x)           x
+				#define LE16_TO_CPU(x)           (x)
 
 				/** Performs a conversion between a Little Endian encoded 32-bit piece of data and the
 				 *  Endianness of the currently selected CPU architecture.
@@ -283,7 +283,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define LE32_TO_CPU(x)           x
+				#define LE32_TO_CPU(x)           (x)
 
 				/** Performs a conversion between a Big Endian encoded 16-bit piece of data and the
 				 *  Endianness of the currently selected CPU architecture.
@@ -331,7 +331,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define CPU_TO_LE16(x)           x
+				#define CPU_TO_LE16(x)           (x)
 
 				/** Performs a conversion on a natively encoded 32-bit piece of data to ensure that it
 				 *  is in Little Endian format regardless of the currently selected CPU architecture.
@@ -347,7 +347,7 @@
 				 *
 				 *  \return Endian corrected version of the input value.
 				 */
-				#define CPU_TO_LE32(x)           x
+				#define CPU_TO_LE32(x)           (x)
 
 				/** Performs a conversion on a natively encoded 16-bit piece of data to ensure that it
 				 *  is in Big Endian format regardless of the currently selected CPU architecture.

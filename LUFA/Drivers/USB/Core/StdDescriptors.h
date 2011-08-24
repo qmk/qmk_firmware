@@ -681,7 +681,8 @@
 				                           *   Under GCC, strings prefixed with the "L" character (before
 				                           *   the opening string quotation mark) are considered to be
 				                           *   Unicode strings, and may be used instead of an explicit
-				                           *   array of ASCII characters.
+				                           *   array of ASCII characters on little endian devices with
+				                           *   UTF-16-LE \c wchar_t encoding.
 				                           */
 				#endif
 			} ATTR_PACKED USB_Descriptor_String_t;

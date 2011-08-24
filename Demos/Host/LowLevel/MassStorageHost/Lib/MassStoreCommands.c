@@ -145,7 +145,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			USB_Host_ClearPipeStall(MASS_STORE_DATA_OUT_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -158,7 +158,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			USB_Host_ClearPipeStall(MASS_STORE_DATA_IN_PIPE);
+			USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress());
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -274,12 +274,15 @@ static uint8_t MassStore_GetReturnedStatus(MS_CommandStatusWrapper_t* const SCSI
 }
 
 /** Issues a Mass Storage class specific request to reset the attached device's Mass Storage interface,
- *  readying the device for the next CBW.
+ *  readying the device for the next CBW. The Data endpoints are cleared of any STALL condition once this
+ *  command completes sucessfuly.
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
 uint8_t MassStore_MassStorageReset(void)
 {
+	uint8_t ErrorCode;
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
@@ -291,8 +294,23 @@ uint8_t MassStore_MassStorageReset(void)
 
 	/* Select the control pipe for the request transfer */
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	/* Select first data pipe to clear STALL condition if one exists */
+	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
+	
+	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
 
-	return USB_Host_SendControlRequest(NULL);
+	/* Select second data pipe to clear STALL condition if one exists */
+	Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
+
+	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	return HOST_SENDCONTROL_Successful;
 }
 
 /** Issues a Mass Storage class specific request to determine the index of the highest numbered Logical

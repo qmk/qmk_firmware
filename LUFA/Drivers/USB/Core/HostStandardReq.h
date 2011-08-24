@@ -177,7 +177,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointAddress);
+			uint8_t USB_Host_ClearEndpointStall(const uint8_t EndpointAddress);
 
 			/** Selects a given alternative setting for the specified interface, via a SET INTERFACE standard request to
 			 *  the attached device.
