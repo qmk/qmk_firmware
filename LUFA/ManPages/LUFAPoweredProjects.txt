@@ -41,16 +41,17 @@
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - Bus Ninja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
- *  - Collection of alternative Arduino Uno firmwares: http://hunt.net.nz/users/darran/
- *  - Dashkey, a custom PC keyboard controller: http://geekhack.org/showwiki.php?title=Island:19096
  *  - CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
+ *  - Collection of alternative Arduino Uno firmwares: http://hunt.net.nz/users/darran/
  *  - CULFW, a 868MHz RF packet encoder/decoder: http://www.koeniglich.de/culfw/culfw.html
+ *  - Dashkey, a custom PC keyboard controller: http://geekhack.org/showwiki.php?title=Island:19096
  *  - DIY PS3 controller emulator: https://code.google.com/p/diyps3controller/
  *  - EMuSer, a USB-RS422 adapter for E-Mu samplers: http://www.emxp.net/EMuSer.htm
  *  - Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
  *  - "Fingerlicking Wingdinger" (WARNING: Bad language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
+ *  - Gamecube controller to USB adapter: https://www.facebook.com/media/set/?set=a.10150202447076304.310536.688776303&l=df53851c50 
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
@@ -58,33 +59,33 @@
  *  - Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
- *  - LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
- *  - MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
- *  - MiniBloq, a graphical Ardunio programming environment : http://minibloq.org/
- *  - Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
- *  - Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
- *  - Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
- *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
- *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
  *  - Linux Secure Storage Dongle: http://github.com/TomMD/teensy
+ *  - LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
+ *  - MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
+ *  - MiniBloq, a graphical Ardunio programming environment : http://minibloq.org/
  *  - MiXley, a port of the Teacup 3D printer firmware for the USB AVRs: http://codaset.com/michielh/mixley
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - Moco, a native Arduino Uno MIDI replacement firmware: http://web.mac.com/kuwatay/morecat_lab./MocoLUFA.html
+ *  - Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
+ *  - Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
  *  - Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
  *  - NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
+ *  - Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
  *  - Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
  *  - Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
+ *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  - SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
  *  - SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
+ *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
  *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html

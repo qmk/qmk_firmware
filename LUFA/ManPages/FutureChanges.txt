@@ -26,6 +26,7 @@
   *      -# Fix HID report parser usage support for array types
   *      -# Add additional standard request helper functions to host mode
   *      -# Add Dataflash_SendCommand()
+  *      -# Make HOST_DEVICE_SETTLE_DELAY_MS a global variable that can be changed
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

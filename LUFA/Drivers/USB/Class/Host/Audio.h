@@ -146,8 +146,6 @@
 			 */
 			uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                      const bool EnableStreaming) ATTR_NON_NULL_PTR_ARG(1);
-			uint8_t Audio_Host_StartStopStreaming(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                      const bool EnableStreaming);
 
 			/** Gets or sets the specified property of a streaming audio class endpoint that is bound to a pipe in the given
 			 *  class instance.
@@ -169,12 +167,6 @@
 			                                          const uint8_t EndpointControl,
 			                                          const uint16_t DataLength,
 			                                          void* const Data) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
-			uint8_t Audio_Host_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
-			                                          const uint8_t DataPipeIndex,
-			                                          const uint8_t EndpointProperty,
-			                                          const uint8_t EndpointControl,
-			                                          const uint16_t DataLength,
-			                                          void* const Data);
 
 		/* Inline Functions: */
 			/** General management task for a given Audio host class interface, required for the correct operation of
@@ -338,6 +330,8 @@
 			static inline void Audio_Host_WriteSample8(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                           const int8_t Sample)
 			{
+				(void)AudioInterfaceInfo;
+			
 				Pipe_Write_8(Sample);
 
 				if (!(Pipe_IsReadWriteAllowed()))
@@ -362,6 +356,8 @@
 			static inline void Audio_Host_WriteSample16(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                            const int16_t Sample)
 			{
+				(void)AudioInterfaceInfo;
+			
 				Pipe_Write_16_LE(Sample);
 
 				if (!(Pipe_IsReadWriteAllowed()))
@@ -386,6 +382,8 @@
 			static inline void Audio_Host_WriteSample24(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                            const int32_t Sample)
 			{
+				(void)AudioInterfaceInfo;
+
 				Pipe_Write_16_LE(Sample);
 				Pipe_Write_8(Sample >> 16);
 
