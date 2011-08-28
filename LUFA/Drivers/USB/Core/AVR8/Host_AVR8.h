@@ -73,17 +73,6 @@
 			 */
 			#define USB_HOST_DEVICEADDRESS                 1
 
-			#if !defined(USB_HOST_TIMEOUT_MS) || defined(__DOXYGEN__)
-				/** Constant for the maximum software timeout period of sent USB control transactions to an attached
-				 *  device. If a device fails to respond to a sent control request within this period, the
-				 *  library will return a timeout error code.
-				 *
-				 *  This value may be overridden in the user project makefile as the value of the
-				 *  \ref USB_HOST_TIMEOUT_MS token, and passed to the compiler using the -D switch.
-				 */
-				#define USB_HOST_TIMEOUT_MS                1000
-			#endif
-
 			#if !defined(HOST_DEVICE_SETTLE_DELAY_MS) || defined(__DOXYGEN__)
 				/** Constant for the delay in milliseconds after a device is connected before the library
 				 *  will start the enumeration process. Some devices require a delay of up to 5 seconds

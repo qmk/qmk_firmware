@@ -148,7 +148,8 @@
 			                               void* ConfigDescriptorData) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Sends a MASS STORAGE RESET control request to the attached device, resetting the Mass Storage Interface
-			 *  and readying it for the next Mass Storage command.
+			 *  and readying it for the next Mass Storage command. This should be called after a failed SCSI request to 
+			 *  ensure the attached Mass Storage device is ready to receive the next command.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *
