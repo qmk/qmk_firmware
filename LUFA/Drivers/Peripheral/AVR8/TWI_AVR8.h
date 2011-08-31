@@ -99,14 +99,14 @@
  *      uint8_t WritePacket[3] = {0x01, 0x02, 0x03};
  *
  *      TWI_WritePacket(0xA0, 10, &InternalWriteAddress, sizeof(InternalWriteAddress),
- *                      WritePacket, sizeof(WritePacket);
+ *                      &WritePacket, sizeof(WritePacket);
  *
  *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
  *      uint8_t InternalReadAddress = 0xDC;
  *      uint8_t ReadPacket[3];
  *
  *      TWI_ReadPacket(0xA0, 10, &InternalReadAddress, sizeof(InternalReadAddress),
- *                     ReadPacket, sizeof(ReadPacket);
+ *                     &ReadPacket, sizeof(ReadPacket);
  *  \endcode
  *
  *  @{
@@ -215,43 +215,6 @@
 				TWCR = ((1 << TWINT) | (1 << TWSTO) | (1 << TWEN));
 			}
 
-			/** Sends a byte to the currently addressed device on the TWI bus.
-			 *
-			 *  \param[in] Byte  Byte to send to the currently addressed device
-			 *
-			 *  \return Boolean \c true if the recipient ACKed the byte, \c false otherwise
-			 */
-			static inline bool TWI_SendByte(const uint8_t Byte)
-			{
-				TWDR = Byte;
-				TWCR = ((1 << TWINT) | (1 << TWEN));
-				while (!(TWCR & (1 << TWINT)));
-
-				return ((TWSR & TW_STATUS_MASK) == TW_MT_DATA_ACK);
-			}
-
-			/** Receives a byte from the currently addressed device on the TWI bus.
-			 *
-			 *  \param[in] Byte      Location where the read byte is to be stored.
-			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true.
-			 *
-			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise.
-			 */
-			static inline bool TWI_ReceiveByte(uint8_t* const Byte,
-			                                   const bool LastByte)
-			{
-				uint8_t TWCRMask = ((1 << TWINT) | (1 << TWEN));
-
-				if (!(LastByte))
-				  TWCRMask |= (1 << TWEA);
-
-				TWCR = TWCRMask;
-				while (!(TWCR & (1 << TWINT)));
-				*Byte = TWDR;
-
-				return ((TWSR & TW_STATUS_MASK) == TW_MR_DATA_ACK);
-			}
-
 		/* Function Prototypes: */
 			/** Begins a master mode TWI bus communication with the given slave device address.
 			 *
@@ -263,6 +226,26 @@
 			uint8_t TWI_StartTransmission(const uint8_t SlaveAddress,
 			                              const uint8_t TimeoutMS);
 
+			/** Sends a byte to the currently addressed device on the TWI bus.
+			 *
+			 *  \param[in] Byte  Byte to send to the currently addressed device
+			 *
+			 *  \return Boolean \c true if the recipient ACKed the byte, \c false otherwise
+			 */
+			bool TWI_SendByte(const uint8_t Byte);
+
+			/** Receives a byte from the currently addressed device on the TWI bus.
+			 *
+			 *  \param[in] Byte      Location where the read byte is to be stored.
+			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true.
+			 *
+			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise.
+			 */
+			bool TWI_ReceiveByte(uint8_t* const Byte,
+			                     const bool LastByte) ATTR_NON_NULL_PTR_ARG(1);
+			bool TWI_ReceiveByte(uint8_t* const Byte,
+			                     const bool LastByte);
+					 
 			/** High level function to perform a complete packet transfer over the TWI bus to the specified
 			 *  device.
 			 *
@@ -278,7 +261,7 @@
 			uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
 			                       const uint8_t TimeoutMS,
 			                       const uint8_t* InternalAddress,
-			                       const uint8_t InternalAddressLen,
+			                       uint8_t InternalAddressLen,
 			                       uint8_t* Buffer,
 			                       uint8_t Length) ATTR_NON_NULL_PTR_ARG(3);
 

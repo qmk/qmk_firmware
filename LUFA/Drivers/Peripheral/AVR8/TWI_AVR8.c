@@ -97,34 +97,69 @@ uint8_t TWI_StartTransmission(const uint8_t SlaveAddress,
 	}
 }
 
+bool TWI_SendByte(const uint8_t Byte)
+{
+	TWDR = Byte;
+	TWCR = ((1 << TWINT) | (1 << TWEN));
+	while (!(TWCR & (1 << TWINT)));
+
+	return ((TWSR & TW_STATUS_MASK) == TW_MT_DATA_ACK);
+}
+
+bool TWI_ReceiveByte(uint8_t* const Byte,
+					 const bool LastByte)
+{
+	uint8_t TWCRMask;
+
+	if (LastByte)
+	  TWCRMask = ((1 << TWINT) | (1 << TWEN));
+	else
+	  TWCRMask = ((1 << TWINT) | (1 << TWEN) | (1 << TWEA));
+
+	TWCR = TWCRMask;
+	while (!(TWCR & (1 << TWINT)));
+	*Byte = TWDR;
+	
+	uint8_t Status = (TWSR & TW_STATUS_MASK);
+	
+	return ((LastByte) ? (Status == TW_MR_DATA_NACK) : (Status == TW_MR_DATA_ACK));
+}
+
 uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
                        const uint8_t TimeoutMS,
                        const uint8_t* InternalAddress,
-                       const uint8_t InternalAddressLen,
+                       uint8_t InternalAddressLen,
                        uint8_t* Buffer,
                        uint8_t Length)
 {
 	uint8_t ErrorCode;
 	
-	if ((ErrorCode = TWI_WritePacket(SlaveAddress, TimeoutMS, InternalAddress, InternalAddressLen,
-	                                 NULL, 0)) != TWI_ERROR_NoError)
+	if ((ErrorCode = TWI_StartTransmission((SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_WRITE,
+	                                       TimeoutMS)) == TWI_ERROR_NoError)
 	{
-		return ErrorCode;
-	}
-
-	if ((ErrorCode = TWI_StartTransmission((SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_READ,
-										   TimeoutMS)) == TWI_ERROR_NoError)
-	{
-		while (Length--)
+		while (InternalAddressLen--)
 		{
-			if (!(TWI_ReceiveByte(Buffer++, (Length == 1))))
-			{
+			if (!(TWI_SendByte(*(InternalAddress++))))
+			{				
 				ErrorCode = TWI_ERROR_SlaveNAK;
 				break;
 			}
 		}
 		
-		TWI_StopTransmission();
+		if ((ErrorCode = TWI_StartTransmission((SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_READ,
+											   TimeoutMS)) == TWI_ERROR_NoError)
+		{
+			while (Length--)
+			{
+				if (!(TWI_ReceiveByte(Buffer++, (Length == 0))))
+				{
+					ErrorCode = TWI_ERROR_SlaveNAK;
+					break;
+				}
+			}
+			
+			TWI_StopTransmission();
+		}
 	}
 	
 	return ErrorCode;
@@ -145,7 +180,7 @@ uint8_t TWI_WritePacket(const uint8_t SlaveAddress,
 		while (InternalAddressLen--)
 		{
 			if (!(TWI_SendByte(*(InternalAddress++))))
-			{
+			{				
 				ErrorCode = TWI_ERROR_SlaveNAK;
 				break;
 			}
