@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "util.h"
 #include "debug.h"
+#include "host.h"
+#include "led.h"
 #include "adb.h"
 #include "matrix.h"
 
@@ -35,6 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_ROWS > 255)
 #   error "MATRIX_ROWS must not exceed 255"
 #endif
+
+#define CAPS        0x39
+#define CAPS_UP     (CAPS | 0x80)
+#define ROW(key)    ((key)>>3&0x0F)
+#define COL(key)    ((key)&0x07)
 
 
 static bool _matrix_is_modified = false;
@@ -93,11 +100,35 @@ uint8_t matrix_scan(void)
     key0 = codes>>8;
     key1 = codes&0xFF;
 
+#ifdef MATRIX_HAS_LOCKING_CAPS
+    // Send Caps key up event
+    if (matrix_is_on(ROW(CAPS), COL(CAPS))) {
+        _matrix_is_modified = true;
+        _register_key(CAPS_UP);
+    }
+#endif
     if (codes == 0) {                           // no keys
         return 0;
     } else if (key0 == 0xFF && key1 != 0xFF) {  // error
         return codes&0xFF;
     } else {
+#ifdef MATRIX_HAS_LOCKING_CAPS    
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+            // Ignore LockingCaps key down event when CAPS LOCK is on
+            if (key0 == CAPS && (key1 == CAPS || key1 == 0xFF)) return 0;
+            if (key0 == CAPS) key0 = key1;
+            if (key1 == CAPS) key1 = 0xFF;
+            // Convert LockingCaps key up event into down event
+            if (key0 == CAPS_UP) key0 = CAPS;
+            if (key1 == CAPS_UP) key1 = CAPS;
+        } else {
+            // CAPS LOCK off:
+            // Ignore LockingCaps key up event when CAPS LOCK is off
+            if (key0 == CAPS_UP && (key1 == CAPS_UP || key1 == 0xFF)) return 0;
+            if (key0 == CAPS_UP) key0 = key1;
+            if (key1 == CAPS_UP) key1 = 0xFF;
+        }
+#endif        
         _matrix_is_modified = true;
         _register_key(key0);
         if (key1 != 0xFF)       // key1 is 0xFF when no second key.
