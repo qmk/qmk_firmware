@@ -200,7 +200,7 @@ void SetupHardware(void)
 	Temperature_Init();
 	Dataflash_Init();
 	USB_Init();
-	TWI_Init(TWI_BIT_PRESCALE_4, (F_CPU / 4 / 50000) / 2);
+	TWI_Init(TWI_BIT_PRESCALE_4, TWI_BITLENGTH_FROM_FREQ(4, 50000));
 
 	/* 500ms logging interval timer configuration */
 	OCR1A   = (((F_CPU / 1024) / 2) - 1);

@@ -52,8 +52,8 @@
  *
  *  <b>Low Level API Example:</b>
  *  \code
- *      // Initialize the TWI driver before first use
- *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
+ *      // Initialize the TWI driver before first use at 200KHz
+ *      TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 200000));
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10) == TWI_ERROR_NoError)
@@ -91,8 +91,8 @@
  * 
  *  <b>High Level API Example:</b>
  *  \code
- *      // Initialize the TWI driver before first use
- *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
+ *      // Initialize the TWI driver before first use at 200KHz
+ *      TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 200000));
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      uint8_t InternalWriteAddress = 0xDC;
