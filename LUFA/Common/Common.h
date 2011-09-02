@@ -237,8 +237,8 @@
 			 *
 			 *  \param[in] Milliseconds  Number of milliseconds to delay
 			 */
-			static inline void Delay_MS(uint8_t Milliseconds) ATTR_ALWAYS_INLINE;
-			static inline void Delay_MS(uint8_t Milliseconds)
+			static inline void Delay_MS(uint16_t Milliseconds) ATTR_ALWAYS_INLINE;
+			static inline void Delay_MS(uint16_t Milliseconds)
 			{
 				#if (ARCH == ARCH_AVR8)
 				if (GCC_IS_COMPILE_CONST(Milliseconds))

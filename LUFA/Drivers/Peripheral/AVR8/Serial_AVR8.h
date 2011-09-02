@@ -97,15 +97,23 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
+			/** Macro for calculating the baud value from a given baud rate when the \c U2X (double speed) bit is
 			 *  not set.
+			 *
+			 *  \param[in] Baud  Target serial UART baud rate.
+			 *
+			 *  \return Closest UBRR register value for the given UART frequency.
 			 */
-			#define SERIAL_UBBRVAL(baud)    ((((F_CPU / 16) + (baud / 2)) / (baud)) - 1)
+			#define SERIAL_UBBRVAL(Baud)    ((((F_CPU / 16) + (Baud / 2)) / (Baud)) - 1)
 
-			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
+			/** Macro for calculating the baud value from a given baud rate when the \c U2X (double speed) bit is
 			 *  set.
+			 *
+			 *  \param[in] Baud  Target serial UART baud rate.
+			 *
+			 *  \return Closest UBRR register value for the given UART frequency.
 			 */
-			#define SERIAL_2X_UBBRVAL(baud) ((((F_CPU / 8) + (baud / 2)) / (baud)) - 1)
+			#define SERIAL_2X_UBBRVAL(Baud) ((((F_CPU / 8) + (Baud / 2)) / (Baud)) - 1)
 
 		/* Function Prototypes: */
 			/** Transmits a given string located in program space (FLASH) through the USART.

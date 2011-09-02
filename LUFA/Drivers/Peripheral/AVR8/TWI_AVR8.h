@@ -167,6 +167,17 @@
 			/** Bit length prescaler for \ref TWI_Init(). This mask multiplies the TWI bit length prescaler by 64. */
 			#define TWI_BIT_PRESCALE_64      ((1 << TWPS1) | (1 << TWPS0))
 			
+			/** Calculates the length of each bit on the TWI bus for a given target frequency. This may be used with
+			 *  the \ref TWI_Init() function to convert a bus frequency to a number of clocks for the \c BitLength
+			 *  parameter.
+			 *
+			 *  \param[in] Prescaler  Prescaler set on the TWI bus.
+			 *  \param[in] Frequency  Desired TWI bus frequency in Hz.
+			 *
+			 *  \return Bit length in clocks for the given TWI bus frequency at the given prescaler value.
+			 */
+			#define TWI_BITLENGTH_FROM_FREQ(Prescale, Frequency) ((((F_CPU / (Prescale)) / (Frequency)) - 16) / 2)
+
 		/* Enums: */
 			/** Enum for the possible return codes of the TWI transfer start routine and other dependant TWI functions. */
 			enum TWI_ErrorCodes_t
