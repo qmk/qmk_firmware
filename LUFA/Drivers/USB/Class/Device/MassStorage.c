@@ -202,6 +202,10 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 
 	while (Endpoint_IsStalled())
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}
@@ -210,6 +214,10 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 
 	while (Endpoint_IsStalled())
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}
