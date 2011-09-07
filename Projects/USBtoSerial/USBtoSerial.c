@@ -100,7 +100,7 @@ int main(void)
 		
 		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
 		uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
-		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
+		if ((TIFR0 & (1 << TOV0)) || (BufferCount > (uint8_t)(sizeof(USARTtoUSB_Buffer_Data) * .75)))
 		{
 			/* Clear flush timer expiry flag */
 			TIFR0 |= (1 << TOV0);
