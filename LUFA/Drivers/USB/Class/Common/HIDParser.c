@@ -258,16 +258,14 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 					if (ParserData->LargestReportSizeBits < NewReportItem.BitOffset)
 					  ParserData->LargestReportSizeBits = NewReportItem.BitOffset;
 
+					if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)
+					  return HID_PARSE_InsufficientReportItems;
+
+					memcpy(&ParserData->ReportItems[ParserData->TotalReportItems],
+					       &NewReportItem, sizeof(HID_ReportItem_t));
+
 					if (!(ReportItemData & HID_IOF_CONSTANT) && CALLBACK_HIDParser_FilterHIDReportItem(&NewReportItem))
-					{
-						if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)
-						  return HID_PARSE_InsufficientReportItems;
-
-						memcpy(&ParserData->ReportItems[ParserData->TotalReportItems],
-						       &NewReportItem, sizeof(HID_ReportItem_t));
-
-						ParserData->TotalReportItems++;
-					}
+					  ParserData->TotalReportItems++;
 				}
 
 				break;
@@ -291,7 +289,7 @@ bool USB_GetHIDReportItemInfo(const uint8_t* ReportData,
                               HID_ReportItem_t* const ReportItem)
 {
 	if (ReportItem == NULL)
-		return false;
+	  return false;
 
 	uint16_t DataBitsRem  = ReportItem->Attributes.BitSize;
 	uint16_t CurrentBit   = ReportItem->BitOffset;
@@ -324,7 +322,7 @@ void USB_SetHIDReportItemInfo(uint8_t* ReportData,
                               HID_ReportItem_t* const ReportItem)
 {
 	if (ReportItem == NULL)
-		return;
+	  return;
 
 	uint16_t DataBitsRem  = ReportItem->Attributes.BitSize;
 	uint16_t CurrentBit   = ReportItem->BitOffset;

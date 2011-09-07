@@ -27,6 +27,8 @@
   *      -# Add additional standard request helper functions to host mode
   *      -# Add Dataflash_SendCommand()
   *      -# Make HOST_DEVICE_SETTLE_DELAY_MS a global variable that can be changed
+  *      -# Add MANDATORY_EVENT_FUNCTIONS compile time option
+  *      -# Add watchdog support to the library and apps/bootloaders
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
