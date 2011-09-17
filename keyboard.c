@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
-#ifdef USB_EXTRA_ENABLE
+#ifdef EXTRAKEY_ENABLE
 #include <util/delay.h>
 #endif
 
@@ -47,7 +47,7 @@ void keyboard_init(void)
 void keyboard_proc(void)
 {
     uint8_t fn_bits = 0;
-#ifdef USB_EXTRA_ENABLE
+#ifdef EXTRAKEY_ENABLE
     uint16_t consumer_code = 0;
 #endif
 
@@ -82,7 +82,8 @@ void keyboard_proc(void)
             } else if (IS_FN(code)) {
                 fn_bits |= FN_BIT(code);
             }
-#ifdef USB_EXTRA_ENABLE
+// TODO: use table or something
+#ifdef EXTRAKEY_ENABLE
             // System Control
             else if (code == KB_SYSTEM_POWER) {
 #ifdef HOST_PJRC
@@ -170,7 +171,7 @@ void keyboard_proc(void)
     // TODO: should send only when changed from last report
     if (matrix_is_modified()) {
         host_send_keyboard_report();
-#ifdef USB_EXTRA_ENABLE
+#ifdef EXTRAKEY_ENABLE
         host_consumer_send(consumer_code);
 #endif
 #ifdef DEBUG_LED

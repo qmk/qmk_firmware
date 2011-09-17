@@ -1,14 +1,14 @@
 OPT_DEFS += -DHOST_PJRC
 
-SRC =	usb_keyboard.c \
+SRC +=	pjrc.c \
+	usb_keyboard.c \
 	usb_debug.c \
 	usb.c \
 	jump_bootloader.c
-SRC +=	$(TARGET_SRC)
 
 
-# C source file search path
-VPATH = $(TARGET_DIR):$(COMMON_DIR):$(COMMON_DIR)/pjrc
+# Search Path
+VPATH += $(COMMON_DIR):$(COMMON_DIR)/pjrc
 
 
 # Option modules
@@ -16,6 +16,6 @@ ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
     SRC += usb_mouse.c
 endif
 
-ifdef USB_EXTRA_ENABLE
+ifdef EXTRAKEY_ENABLE
     SRC += usb_extra.c
 endif

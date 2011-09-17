@@ -18,8 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SENDCHAR_H
 #define SENDCHAR_H
 
+#include <stdint.h>
+
+
 /* transmit a character.  return 0 on success, -1 on error. */
 int8_t sendchar(uint8_t c);
 
 #endif
-

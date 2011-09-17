@@ -14,10 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "uart.h"
+#include "sendchar.h"
 
-#ifndef HOST_VUSB_H
-#define HOST_VUSB_H
 
-void host_vusb_keyboard_send(void);
-
-#endif
+int8_t sendchar(uint8_t c)
+{
+    uart_putchar(c);
+    return 0;
+}

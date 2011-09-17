@@ -20,7 +20,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
-#define TIMER_DIFF(a, b) ((a) >= (b) ?  (a) - (b) : UINT16_MAX - (b) + (a))
+#ifndef TIMER_PRESCALER
+#   if F_CPU > 16000000
+#       define TIMER_PRESCALER      256
+#   elif F_CPU >= 4000000
+#       define TIMER_PRESCALER      64
+#   else
+#       define TIMER_PRESCALER      8
+#   endif
+#endif
+#define TIMER_RAW_FREQ      (F_CPU/TIMER_PRESCALER)
+#define TIMER_RAW           TCNT0
+#define TIMER_RAW_TOP       (TIMER_RAW_FREQ/1000)
+
+#if (TIMER_RAW_TOP > 255)
+#   error "Timer0 can't count 1ms at this clock freq. Use larger prescaler."
+#endif
+
+#define TIMER_DIFF(a, b, max)   ((a) >= (b) ?  (a) - (b) : (max) - (b) + (a))
+#define TIMER_DIFF_RAW(a, b)    TIMER_DIFF(a, b, UINT8_MAX)
+#define TIMER_DIFF_MS(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
 
 
 extern volatile uint16_t timer_count;

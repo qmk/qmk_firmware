@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
 #include "usb_mouse.h"
 #endif
-#ifdef USB_EXTRA_ENABLE
+#ifdef EXTRAKEY_ENABLE
 #include "usb_extra.h"
 #endif
 #include "debug.h"
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 
 
-#ifdef USB_NKRO_ENABLE
+#ifdef NKRO_ENABLE
 bool keyboard_nkro = false;
 #endif
 
@@ -51,7 +51,7 @@ uint8_t host_keyboard_leds(void)
 /* keyboard report operations */
 void host_add_key(uint8_t key)
 {
-#ifdef USB_NKRO_ENABLE
+#ifdef NKRO_ENABLE
     if (keyboard_nkro) {
         add_key_bit(key);
         return;
@@ -109,7 +109,7 @@ uint8_t host_has_anykey(void)
 
 uint8_t host_get_first_key(void)
 {
-#ifdef USB_NKRO_ENABLE
+#ifdef NKRO_ENABLE
     if (keyboard_nkro) {
         uint8_t i = 0;
         for (; i < REPORT_KEYS && !keyboard_report->keys[i]; i++)
@@ -133,7 +133,7 @@ void host_mouse_send(report_mouse_t *report)
 }
 #endif
 
-#ifdef USB_EXTRA_ENABLE
+#ifdef EXTRAKEY_ENABLE
 void host_system_send(uint16_t data)
 {
     usb_extra_system_send(data);

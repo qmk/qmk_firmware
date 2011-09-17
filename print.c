@@ -29,6 +29,19 @@
 
 bool print_enable = false;
 
+void print_S(const char *s)
+{
+	if (!print_enable) return;
+	char c;
+
+	while (1) {
+		c = *s++;
+		if (!c) break;
+		if (c == '\n') sendchar('\r');
+		sendchar(c);
+	}
+}
+
 void print_P(const char *s)
 {
 	if (!print_enable) return;

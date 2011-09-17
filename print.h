@@ -24,6 +24,7 @@
 #ifndef PRINT_H__
 #define PRINT_H__ 1
 
+#include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 
@@ -34,6 +35,7 @@ extern bool print_enable;
 // the string is automatically placed into flash memory :)
 #define print(s) print_P(PSTR(s))
 
+void print_S(const char *s);
 void print_P(const char *s);
 void phex(unsigned char c);
 void phex16(unsigned int i);

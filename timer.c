@@ -20,17 +20,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "timer.h"
 
+
+// counter resolution 1ms
 volatile uint16_t timer_count = 0;
 
-// Configure timer 0 to generate a timer overflow interrupt every
-// 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
-// This demonstrates how to use interrupts to implement a simple
-// inactivity timeout.
 void timer_init(void)
 {
-    TCCR0A = 0x00;
+    // Timer0 CTC mode
+    TCCR0A = 0x02;
+
+#if TIMER_PRESCALER == 1
+    TCCR0B = 0x01;
+#elif TIMER_PRESCALER == 8
+    TCCR0B = 0x02;
+#elif TIMER_PRESCALER == 64
+    TCCR0B = 0x03;
+#elif TIMER_PRESCALER == 256
+    TCCR0B = 0x04;
+#elif TIMER_PRESCALER == 1024
     TCCR0B = 0x05;
-    TIMSK0 = (1<<TOIE0);
+#else
+#   error "Timer prescaler value is NOT vaild."
+#endif
+
+    OCR0A = TIMER_RAW_TOP;
+    TIMSK0 = (1<<OCIE0A);
 }
 
 inline
@@ -65,14 +79,11 @@ uint16_t timer_elapsed(uint16_t last)
     t = timer_count;
     SREG = sreg;
 
-    return TIMER_DIFF(t, last);
+    return TIMER_DIFF_MS(t, last);
 }
 
-// This interrupt routine is run approx 61 times per second.
-// A very simple inactivity timeout is implemented, where we
-// will send a space character and print a message to the
-// hid_listen debug message window.
-ISR(TIMER0_OVF_vect)
+// excecuted once per 1ms.(excess for just timer count?)
+ISR(TIMER0_COMPA_vect)
 {
     timer_count++;
 }

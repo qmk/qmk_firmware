@@ -96,8 +96,8 @@ Build Options
 3. Choose optional modules as needed. Comment out to disable optional modules.
      MOUSEKEY_ENABLE = yes	# Mouse keys
      PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
-     USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
-     USB_NKRO_ENABLE = yes	# USB Nkey Rollover
+     EXTRAKEY_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+     NKRO_ENABLE = yes		# USB Nkey Rollover
 
 <target>/config.h:
 1. USB vendor/product ID and device description

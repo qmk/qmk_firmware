@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* 
- * Key codes from HID Keyboard/Keypad Page
+ * Key codes: HID Keyboard/Keypad Page(0x07)
  * http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
  */
 #ifndef USB_KEYCODES_H
@@ -353,7 +353,8 @@ enum keycodes {
     KB_CRSEL,
     KB_EXSEL,
 
-    /* NOTE: uses 0xB0-DF for special keycodes */
+    /* NOTE: 0xB0-DF are used as special_keycodes */
+#if 0
     KB_KP_00 = 0xB0,
     KB_KP_000,
     KB_THOUSANDS_SEPARATOR,
@@ -400,6 +401,7 @@ enum keycodes {
     KB_KP_OCTAL,
     KB_KP_DECIMAL,
     KB_KP_HEXADECIMAL,
+#endif
 
     /* Modifiers */
     KB_LCTRL = 0xE0,
@@ -411,7 +413,7 @@ enum keycodes {
     KB_RALT,
     KB_RGUI,
 
-    /* NOTE: uses 0xE8-FF for special keycodes */
+    /* NOTE: 0xE8-FF are used as special_keycodes */
 };
 
 #endif /* USB_KEYCODES_H */
