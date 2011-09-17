@@ -255,8 +255,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 
 					CurrReportIDInfo->ReportSizeBits[NewReportItem.ItemType] += CurrStateTable->Attributes.BitSize;
 
-					if (ParserData->LargestReportSizeBits < NewReportItem.BitOffset)
-					  ParserData->LargestReportSizeBits = NewReportItem.BitOffset;
+					ParserData->LargestReportSizeBits = MAX(ParserData->LargestReportSizeBits, CurrReportIDInfo->ReportSizeBits[NewReportItem.ItemType]);
 
 					if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)
 					  return HID_PARSE_InsufficientReportItems;

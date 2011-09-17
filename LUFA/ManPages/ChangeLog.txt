@@ -83,6 +83,8 @@
   *   - Fixed optimization error in the HID Parser item value USB_SetHIDReportItemInfo() and USB_GetHIDReportItemInfo() routines if the report item was
   *     \c NULL (which should be allowable according to the API)
   *   - Fixed HID Parser CALLBACK_HIDParser_FilterHIDReportItem() callback function not being passed a cacheable report item pointer
+  *   - Fixed HID Parser's largest report size bit count not including the size of the last parsed report item
+  *   - Fixed HID host driver's largest HID report size count corrupt when the number of report bits exceeds 255
   *  - Library Applications:
   *   - Fixed incorrect signature in the CDC and DFU class bootloaders for the ATMEGA8U2
   *   - Fixed KeyboardHost and KeyboardHostWithParser demos displaying incorrect values when numerical keys were pressed
