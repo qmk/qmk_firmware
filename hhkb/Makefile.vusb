@@ -13,10 +13,10 @@ COMMON_DIR = ..
 TARGET_DIR = .
 
 # keyboard dependent files
-TARGET_SRC =	main_vusb.c \
-		keymap.c \
-		matrix.c \
-		led.c
+SRC =	main.c \
+	keymap.c \
+	matrix.c \
+	led.c
 
 CONFIG_H = config_vusb.h
 
@@ -28,7 +28,9 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 
 # MCU name, you MUST set this to match the board you are using
 # type "make clean" after changing this, so all files will be rebuilt
-MCU = atmega168
+MCU = atmega168p
+# avrdude doesn't know atmega168p
+AVRDUDE_MCU = atmega168
 
 
 # Processor frequency.
@@ -36,15 +38,15 @@ MCU = atmega168
 #   so your program will run at the correct speed.  You should also set this
 #   variable to same clock speed.  The _delay_ms() macro uses this, and many
 #   examples use this variable to calculate timings.  Do not add a "UL" here.
-F_CPU = 20000000
+F_CPU = 12000000
 
 
 # Build Options
 #   comment out to disable the options.
 #
 MOUSEKEY_ENABLE = yes	# Mouse keys
-USB_EXTRA_ENABLE = yes	# Audio control and System control
-#USB_NKRO_ENABLE = yes	# USB Nkey Rollover
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+#NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 
@@ -70,8 +72,8 @@ AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 # to submit bug reports.
 #AVRDUDE_VERBOSE = -v -v
 
-#AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
-AVRDUDE_FLAGS = -p $(MCU) -c $(AVRDUDE_PROGRAMMER)
+#AVRDUDE_FLAGS = -p $(AVRDUDE_MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
+AVRDUDE_FLAGS = -p $(AVRDUDE_MCU) -c $(AVRDUDE_PROGRAMMER)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
 AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
 AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
@@ -80,5 +82,8 @@ PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE
 
 
 
-include $(COMMON_DIR)/Makefile.vusb
-include $(COMMON_DIR)/Makefile.common
+# Search Path
+VPATH = $(TARGET_DIR)
+
+include $(COMMON_DIR)/vusb.mk
+include $(COMMON_DIR)/common.mk

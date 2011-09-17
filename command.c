@@ -30,24 +30,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef HOST_PJRC
 #   include "jump_bootloader.h"
 #   include "usb_keyboard.h"
-#   ifdef USB_EXTRA_ENABLE
+#   ifdef EXTRAKEY_ENABLE
 #       include "usb_extra.h"
 #   endif
 #endif
 
+#ifdef HOST_VUSB
+#   include "usbdrv.h"
+#endif
 
+
+static uint8_t command_common(void);
 static void help(void);
 static void switch_layer(uint8_t layer);
 
+static bool last_print_enable;
 
 uint8_t command_proc(void)
 {
+    uint8_t processed = 0;
+    last_print_enable = print_enable;
+
     if (!IS_COMMAND())
         return 0;
 
-    uint8_t processed = 1;
-    bool last_print_enable = print_enable;
     print_enable = true;
+    if (command_extra() || command_common()) {
+        processed = 1;
+        _delay_ms(500);
+    }
+    print_enable = last_print_enable;
+    return processed;
+}
+
+/* This allows to define extra commands. return 0 when not processed. */
+uint8_t command_extra(void) __attribute__ ((weak));
+uint8_t command_extra(void)
+{
+    return 0;
+}
+
+
+static uint8_t command_common(void)
+{
     switch (host_get_first_key()) {
         case KB_H:
             help();
@@ -123,20 +148,26 @@ uint8_t command_proc(void)
             print("usb_keyboard_idle_config:"); phex(usb_keyboard_idle_config); print("\n");
             print("usb_keyboard_idle_count:"); phex(usb_keyboard_idle_count); print("\n");
 #endif
+
+#ifdef HOST_VUSB
+#   if USB_COUNT_SOF
+            print("usbSofCount: "); phex(usbSofCount); print("\n");
+#   endif
+#endif
             break;
-#ifdef USB_NKRO_ENABLE
+#ifdef NKRO_ENABLE
         case KB_N:
             // send empty report before change
             host_clear_keyboard_report();
             host_send_keyboard_report();
             keyboard_nkro = !keyboard_nkro;
             if (keyboard_nkro)
-                print("USB_NKRO: enabled\n");
+                print("NKRO: enabled\n");
             else
-                print("USB_NKRO: disabled\n");
+                print("NKRO: disabled\n");
             break;
 #endif
-#ifdef USB_EXTRA_ENABLE
+#ifdef EXTRAKEY_ENABLE
         case KB_ESC:
             host_clear_keyboard_report();
             host_send_keyboard_report();
@@ -175,12 +206,9 @@ uint8_t command_proc(void)
             switch_layer(4);
             break;
         default:
-            processed = 0;
+            return 0;
     }
-    if (processed)
-        _delay_ms(500);
-    print_enable = last_print_enable;
-    return processed;
+    return 1;
 }
 
 static void help(void)
@@ -194,8 +222,8 @@ static void help(void)
     print("v: print version\n");
     print("t: print timer count\n");
     print("s: print status\n");
-#ifdef USB_NKRO_ENABLE
-    print("n: toggle USB_NKRO\n");
+#ifdef NKRO_ENABLE
+    print("n: toggle NKRO\n");
 #endif
     print("Backspace: clear matrix\n");
     print("ESC: power down/wake up\n");

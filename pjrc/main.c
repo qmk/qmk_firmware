@@ -35,6 +35,8 @@
 #ifdef PS2_MOUSE_ENABLE
 #   include "ps2_mouse.h"
 #endif
+#include "host.h"
+#include "pjrc.h"
 
 
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
@@ -88,6 +90,7 @@ int main(void)
     }
 
 
+    host_set_driver(pjrc_driver());
     while (1) {
        keyboard_proc(); 
     }

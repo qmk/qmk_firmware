@@ -25,8 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
+#include "timer.h"
 #include "matrix.h"
 
+
+// Timer resolution check
+#if (1000000/TIMER_RAW_FREQ > 20)
+#   error "Timer resolution(>20us) is not enough for HHKB matrix scan tweak on V-USB."
+#endif
 
 #if (MATRIX_COLS > 16)
 #   error "MATRIX_COLS must not exceed 16"
@@ -82,18 +88,22 @@ static bool matrix_has_ghost_in_row(uint8_t row);
 #define KEY_STATE()             (PINE & (1<<6))
 #define KEY_PREV_ON()           (PORTE |=  (1<<7))
 #define KEY_PREV_OFF()          (PORTE &= ~(1<<7))
-
+#define KEY_POWER_ON()
+#define KEY_POWER_OFF()
 #else
 // Ports for V-USB
 // key:     PB0(pull-uped)
 // prev:    PB1
 // row:     PB2-4
 // col:     PC0-2,3
+// power:   PB5(Low:on/Hi-z:off)
 #define KEY_INIT()              do {    \
-    DDRB |= 0x1E;                       \
-    DDRB &= ~(1<<0);                    \
-    PORTB |= (1<<0);                    \
-    DDRC |= 0x0F;                       \
+    DDRB  |= 0x3E;                      \
+    DDRB  &= ~(1<<0);                   \
+    PORTB |= 1<<0;                      \
+    DDRC  |= 0x0F;                      \
+    KEY_UNABLE();                       \
+    KEY_PREV_OFF();                     \
 } while (0)
 #define KEY_SELECT(ROW, COL)    do {    \
     PORTB = (PORTB & 0xE3) | ((ROW) & 0x07)<<2; \
@@ -104,6 +114,18 @@ static bool matrix_has_ghost_in_row(uint8_t row);
 #define KEY_STATE()             (PINB & (1<<0))
 #define KEY_PREV_ON()           (PORTB |=  (1<<1))
 #define KEY_PREV_OFF()          (PORTB &= ~(1<<1))
+// Power supply switching
+#define KEY_POWER_ON()          do {    \
+    KEY_INIT();                         \
+    PORTB &= ~(1<<5);                   \
+    _delay_us(200);                     \
+} while (0)
+#define KEY_POWER_OFF()         do {    \
+    DDRB  &= ~0x3F;                     \
+    PORTB &= ~0x3F;                     \
+    DDRC  &= ~0x0F;                     \
+    PORTC &= ~0x0F;                     \
+} while (0)
 #endif
 
 
@@ -138,36 +160,46 @@ uint8_t matrix_scan(void)
     matrix_prev = matrix;
     matrix = tmp;
 
+    KEY_POWER_ON();
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             KEY_SELECT(row, col);
-            _delay_us(40);  // from logic analyzer chart
+            _delay_us(40);
+
+            // Not sure this is needed. This just emulates HHKB controller's behaviour.
             if (matrix_prev[row] & (1<<col)) {
                 KEY_PREV_ON();
             }
-            _delay_us(7);  // from logic analyzer chart
+            _delay_us(7);
 
-#if HOST_VUSB
-            // to avoid V-USB interrupt during read key state
-            uint8_t sreg = SREG;
-            cli();
-#endif
+            // NOTE: KEY_STATE is valid only in 20us after KEY_ENABLE.
+            // If V-USB interrupts in this section we could lose 40us or so
+            // and would read invalid value from KEY_STATE.
+            uint8_t last = TIMER_RAW;
+
             KEY_ENABLE();
-            _delay_us(10);  // from logic analyzer chart
+            // Wait for KEY_STATE outputs its value.
+            // 1us was ok on one HHKB, but not worked on another.
+            _delay_us(10);
             if (KEY_STATE()) {
                 matrix[row] &= ~(1<<col);
             } else {
                 matrix[row] |= (1<<col);
             }
-#if HOST_VUSB
-            SREG = sreg;
-#endif
+
+            // Ignore if this code region execution time elapses more than 20us.
+            if (TIMER_DIFF_RAW(TIMER_RAW, last) > 20/(1000000/TIMER_RAW_FREQ)) {
+                matrix[row] = matrix_prev[row];
+            }
 
             KEY_PREV_OFF();
             KEY_UNABLE();
-            _delay_us(150);  // from logic analyzer chart
+            // NOTE: KEY_STATE keep its state in 20us after KEY_ENABLE.
+            // This takes 25us or more to make sure KEY_STATE returns to idle state.
+            _delay_us(150);
         }
     }
+    KEY_POWER_OFF();
     return 1;
 }
 

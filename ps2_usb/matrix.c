@@ -349,6 +349,7 @@ uint8_t matrix_scan(void)
             default:
                 state = INIT;
         }
+        phex(code);
     }
     return 1;
 }

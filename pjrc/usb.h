@@ -120,7 +120,7 @@ void usb_remote_wakeup(void);
 #define KBD_REPORT_KEYS		(KBD_SIZE - 2)
 
 // secondary keyboard
-#ifdef USB_NKRO_ENABLE
+#ifdef NKRO_ENABLE
 #define KBD2_INTERFACE		4
 #define KBD2_ENDPOINT		5
 #define KBD2_SIZE		16

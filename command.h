@@ -19,5 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMMAND
 
 uint8_t command_proc(void);
+/* This allows to extend commands. Return 0 when command is not processed. */
+uint8_t command_extra(void);
 
 #endif

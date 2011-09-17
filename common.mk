@@ -19,17 +19,20 @@ ifdef PS2_MOUSE_ENABLE
     OPT_DEFS += -DPS2_MOUSE_ENABLE
 endif
 
-ifdef USB_EXTRA_ENABLE
-    OPT_DEFS += -DUSB_EXTRA_ENABLE
+ifdef EXTRAKEY_ENABLE
+    OPT_DEFS += -DEXTRAKEY_ENABLE
 endif
 
-ifdef USB_NKRO_ENABLE
-    OPT_DEFS += -DUSB_NKRO_ENABLE
+ifdef NKRO_ENABLE
+    OPT_DEFS += -DNKRO_ENABLE
 endif
 
 ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
-    OPT_DEFS += -DUSB_MOUSE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
 endif
 
+# Search Path
+VPATH += $(COMMON_DIR)
 
-include $(COMMON_DIR)/Makefile.rules
+
+include $(COMMON_DIR)/rules.mk

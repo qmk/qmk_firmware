@@ -69,10 +69,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // LAYER_ENTER_DELAY: prevent from moving new layer
-#define LAYER_ENTER_DELAY 10
+#define LAYER_ENTER_DELAY 150
 
 // LAYER_SEND_FN_TERM: send keycode if release key in this term
-#define LAYER_SEND_FN_TERM 40
+#define LAYER_SEND_FN_TERM 500
 
 
 uint8_t default_layer = 0;

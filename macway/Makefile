@@ -8,10 +8,10 @@ COMMON_DIR = ..
 TARGET_DIR = .
 
 # keyboard dependent files
-TARGET_SRC =	main_pjrc.c \
-		keymap.c \
-  	        matrix.c \
-		led.c
+SRC =	main.c \
+	keymap.c \
+	matrix.c \
+	led.c
 
 CONFIG_H = config.h
 
@@ -37,8 +37,8 @@ F_CPU = 16000000
 #
 MOUSEKEY_ENABLE = yes	# Mouse keys
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
-USB_EXTRA_ENABLE = yes	# Audio control and System control
-#USB_NKRO_ENABLE = yes	# USB Nkey Rollover
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+#NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 
@@ -47,5 +47,5 @@ PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
 
 
-include $(COMMON_DIR)/Makefile.pjrc
-include $(COMMON_DIR)/Makefile.common
+include $(COMMON_DIR)/pjrc.mk
+include $(COMMON_DIR)/common.mk

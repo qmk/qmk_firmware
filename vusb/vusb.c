@@ -16,133 +16,69 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include <avr/interrupt.h>
 #include "usbdrv.h"
 #include "usbconfig.h"
-#include "print.h"
-#include "usb_keycodes.h"
 #include "host.h"
-#include "host_vusb.h"
+#include "report.h"
+#include "print.h"
 #include "debug.h"
+#include "host_driver.h"
+#include "vusb.h"
 
 
-static report_keyboard_t report0;
-static report_keyboard_t report1;
-report_keyboard_t *keyboard_report = &report0;
-report_keyboard_t *keyboard_report_prev = &report1;
+static uint8_t vusb_keyboard_leds = 0;
+static uint8_t vusb_idle_rate = 0;
 
-static uint8_t keyboard_leds = 0;
-static uchar   idleRate = 0;
-
-uint8_t host_keyboard_leds(void)
-{
-    return keyboard_leds;
-}
-
-
-/*------------------------------------------------------------------*
- * Keyboard report operations
- *------------------------------------------------------------------*/
-void host_add_key(uint8_t code)
-{
-    int8_t i = 0;
-    int8_t empty = -1;
-    for (; i < REPORT_KEYS; i++) {
-        if (keyboard_report_prev->keys[i] == code) {
-            keyboard_report->keys[i] = code;
-            break;
-        }
-        if (empty == -1 && keyboard_report_prev->keys[i] == KB_NO && keyboard_report->keys[i] == KB_NO) {
-            empty = i;
-        }
-    }
-    if (i == REPORT_KEYS && empty != -1) {
-        keyboard_report->keys[empty] = code;
-    }
-}
-
-void host_add_mod_bit(uint8_t mod)
-{
-    keyboard_report->mods |= mod;
-}
-
-void host_set_mods(uint8_t mods)
-{
-    keyboard_report->mods = mods;
-}
-
-void host_add_code(uint8_t code)
-{
-    if (IS_MOD(code)) {
-        host_add_mod_bit(MOD_BIT(code));
-    } else {
-        host_add_key(code);
-    }
-}
-
-void host_swap_keyboard_report(void)
-{
-    uint8_t sreg = SREG;
-    cli();
-    report_keyboard_t *tmp = keyboard_report_prev;
-    keyboard_report_prev = keyboard_report;
-    keyboard_report = tmp;
-    SREG = sreg;
-}
-
-void host_clear_keyboard_report(void)
-{
-    keyboard_report->mods = 0;
-    for (int8_t i = 0; i < REPORT_KEYS; i++) {
-        keyboard_report->keys[i] = 0;
-    }
-}
-
-uint8_t host_has_anykey(void)
-{
-    uint8_t cnt = 0;
-    for (int i = 0; i < REPORT_KEYS; i++) {
-        if (keyboard_report->keys[i])
-            cnt++;
-    }
-    return cnt;
-}
-
-uint8_t host_get_first_key(void)
-{
-#ifdef USB_NKRO_ENABLE
-    if (keyboard_nkro) {
-        uint8_t i = 0;
-        for (; i < REPORT_KEYS && !keyboard_report->keys[i]; i++)
-            ;
-        return i<<3 | biton(keyboard_report->keys[i]);
-    }
-#endif
-    return keyboard_report->keys[0];
-}
-
-
-/*------------------------------------------------------------------*
- * Keyboard report send buffer
- *------------------------------------------------------------------*/
+/* Keyboard report send buffer */
 #define KBUF_SIZE 16
 static report_keyboard_t kbuf[KBUF_SIZE];
 static uint8_t kbuf_head = 0;
 static uint8_t kbuf_tail = 0;
 
-void host_vusb_keyboard_send(void)
+
+/* transfer keyboard report from buffer */
+void vusb_transfer_keyboard(void)
 {
-    if (usbInterruptIsReady() && kbuf_head != kbuf_tail) {
-        usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-        kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+    if (usbInterruptIsReady()) {
+       if (kbuf_head != kbuf_tail) {
+            usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
+            kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+       }
     }
 }
 
-void host_send_keyboard_report(void)
+
+/*------------------------------------------------------------------*
+ * Host driver
+ *------------------------------------------------------------------*/
+static uint8_t keyboard_leds(void);
+static void send_keyboard(report_keyboard_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_system(uint16_t data);
+static void send_consumer(uint16_t data);
+
+static host_driver_t driver = {
+        keyboard_leds,
+        send_keyboard,
+        send_mouse,
+        send_system,
+        send_consumer
+};
+
+host_driver_t *vusb_driver(void)
+{
+    return &driver;
+}
+
+static uint8_t keyboard_leds(void) {
+    return vusb_keyboard_leds;
+}
+
+static void send_keyboard(report_keyboard_t *report)
 {
     uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
     if (next != kbuf_tail) {
-        kbuf[kbuf_head] = *keyboard_report;
+        kbuf[kbuf_head] = *report;
         kbuf_head = next;
     } else {
         debug("kbuf: full\n");
@@ -150,20 +86,15 @@ void host_send_keyboard_report(void)
 }
 
 
-#if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
-void host_mouse_send(report_mouse_t *report)
+static void send_mouse(report_mouse_t *report)
 {
     report->report_id = REPORT_ID_MOUSE;
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)report, sizeof(*report));
-    } else {
-        debug("Int3 not ready\n");
     }
 }
-#endif
 
-#ifdef USB_EXTRA_ENABLE
-void host_system_send(uint16_t data)
+static void send_system(uint16_t data)
 {
     // Not need static?
     static uint8_t report[] = { REPORT_ID_SYSTEM, 0, 0 };
@@ -171,12 +102,10 @@ void host_system_send(uint16_t data)
     report[2] = (data>>8)&0xFF;
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
-    } else {
-        debug("Int3 not ready\n");
     }
 }
 
-void host_consumer_send(uint16_t data)
+static void send_consumer(uint16_t data)
 {
     static uint16_t last_data = 0;
     if (data == last_data) return;
@@ -188,11 +117,8 @@ void host_consumer_send(uint16_t data)
     report[2] = (data>>8)&0xFF;
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
-    } else {
-        debug("Int3 not ready\n");
     }
 }
-#endif
 
 
 
@@ -213,32 +139,36 @@ usbRequest_t    *rq = (void *)data;
 
     if((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS){    /* class request type */
         if(rq->bRequest == USBRQ_HID_GET_REPORT){
-            debug(" GET_REPORT");
+            debug("GET_REPORT:");
             /* we only have one report type, so don't look at wValue */
             usbMsgPtr = (void *)keyboard_report_prev;
             return sizeof(*keyboard_report_prev);
         }else if(rq->bRequest == USBRQ_HID_GET_IDLE){
-            debug(" GET_IDLE: ");
-            debug_hex(idleRate);
-            usbMsgPtr = &idleRate;
+            debug("GET_IDLE: ");
+            //debug_hex(vusb_idle_rate);
+            usbMsgPtr = &vusb_idle_rate;
             return 1;
         }else if(rq->bRequest == USBRQ_HID_SET_IDLE){
-            idleRate = rq->wValue.bytes[1];
-            debug(" SET_IDLE: ");
-            debug_hex(idleRate);
+            vusb_idle_rate = rq->wValue.bytes[1];
+            debug("SET_IDLE: ");
+            debug_hex(vusb_idle_rate);
         }else if(rq->bRequest == USBRQ_HID_SET_REPORT){
-            //debug(" SET_REPORT: ");
+            debug("SET_REPORT: ");
+            // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
             if (rq->wValue.word == 0x0200 && rq->wIndex.word == 0) {
+                debug("SET_LED: ");
                 last_req.kind = SET_LED;
                 last_req.len = rq->wLength.word;
             }
             return USB_NO_MSG; // to get data in usbFunctionWrite
+        } else {
+            debug("UNKNOWN:");
         }
-        debug("\n");
     }else{
-        debug("VENDOR\n");
+        debug("VENDOR:");
         /* no vendor specific requests implemented */
     }
+    debug("\n");
     return 0;   /* default for not implemented requests: return no data back to host */
 }
 
@@ -249,8 +179,10 @@ uchar usbFunctionWrite(uchar *data, uchar len)
     }
     switch (last_req.kind) {
         case SET_LED:
-            //debug("SET_LED\n");
-            keyboard_leds = data[0];
+            debug("SET_LED: ");
+            debug_hex(data[0]);
+            debug("\n");
+            vusb_keyboard_leds = data[0];
             last_req.len = 0;
             return 1;
             break;
@@ -484,13 +416,14 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq)
 {
     usbMsgLen_t len = 0;
 
+/*
     debug("usbFunctionDescriptor: ");
     debug_hex(rq->bmRequestType); debug(" ");
     debug_hex(rq->bRequest); debug(" ");
     debug_hex16(rq->wValue.word); debug(" ");
     debug_hex16(rq->wIndex.word); debug(" ");
     debug_hex16(rq->wLength.word); debug("\n");
-
+*/
     switch (rq->wValue.bytes[1]) {
 #if USB_CFG_DESCR_PROPS_CONFIGURATION
         case USBDESCR_CONFIG:
@@ -499,8 +432,16 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq)
             break;
 #endif
         case USBDESCR_HID:
-            usbMsgPtr = (unsigned char *)(usbDescriptorConfiguration + 18);
-            len = 9;
+            switch (rq->wValue.bytes[0]) {
+                case 0:
+                    usbMsgPtr = (unsigned char *)(usbDescriptorConfiguration + 9 + 9);
+                    len = 9;
+                    break;
+                case 1:
+                    usbMsgPtr = (unsigned char *)(usbDescriptorConfiguration + 9 + (9 + 9 + 7) + 9);
+                    len = 9;
+                    break;
+            }
             break;
         case USBDESCR_HID_REPORT:
             /* interface index */
@@ -516,6 +457,6 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq)
             }
             break;
     }
-    debug("desc len: "); debug_hex(len); debug("\n");
+    //debug("desc len: "); debug_hex(len); debug("\n");
     return len;
 }
