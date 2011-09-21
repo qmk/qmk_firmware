@@ -151,7 +151,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	Data[2] = ((CurrLEDMask & LEDS_LED3) ? 1 : 0);
 	Data[3] = ((CurrLEDMask & LEDS_LED4) ? 1 : 0);
 
-	*ReportSize = sizeof(GENERIC_REPORT_SIZE);
+	*ReportSize = GENERIC_REPORT_SIZE;
 	return false;
 }
 

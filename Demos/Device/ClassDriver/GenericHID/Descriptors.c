@@ -46,7 +46,7 @@
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
 {
 	/* Use the HID class driver's standard Vendor HID report.
-	 *  Vendor Usage Page: 1
+	 *  Vendor Usage Page: 0
 	 *  Vendor Collection Usage: 1
 	 *  Vendor Report IN Usage: 2
 	 *  Vendor Report OUT Usage: 3

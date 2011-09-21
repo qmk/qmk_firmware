@@ -45,7 +45,7 @@
  */
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
 {
-	HID_RI_USAGE_PAGE(16, 0xFF00), /* Vendor Page 1 */
+	HID_RI_USAGE_PAGE(16, 0xFF00), /* Vendor Page 0 */
 	HID_RI_USAGE(8, 0x01), /* Vendor Usage 1 */
 	HID_RI_COLLECTION(8, 0x01), /* Vendor Usage 1 */
 	    HID_RI_USAGE(8, 0x02), /* Vendor Usage 2 */
