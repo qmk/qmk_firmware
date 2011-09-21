@@ -305,7 +305,7 @@
 				                                               ((uint32_t)Type      << AVR32_USBB_EPTYPE_OFFSET) | 
 				                                               ((uint32_t)(Direction ? AVR32_USBB_UECFG0_EPDIR_MASK : 0) |
 				                                               ((uint32_t)Banks     << AVR32_USBB_EPBK_OFFSET)   |
-				                                               Endpoint_BytesToEPSizeMask(Size)));
+				                                               Endpoint_BytesToEPSizeMask(Size))));
 			}
 
 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.

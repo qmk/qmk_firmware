@@ -37,6 +37,7 @@
  *
  *  - Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
+ *  - Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
  *  - AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - Bluetooth Explorerbot: http://code.google.com/p/bluetooth-explorerbot/
@@ -85,6 +86,7 @@
  *  - SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
+ *  - Smartcard Detective: https://code.google.com/p/smartcarddetective/
  *  - SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
  *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/

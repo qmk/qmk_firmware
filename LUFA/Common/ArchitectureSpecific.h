@@ -56,6 +56,11 @@
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
 		#endif
 		
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if (ARCH == ARCH_AVR8) || defined(__DOXYGEN__)
