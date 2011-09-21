@@ -41,7 +41,7 @@
  *
  *  \hideinitializer
  */
-static uint8_t SPIMaskFromSCKDuration[] PROGMEM =
+static const uint8_t SPIMaskFromSCKDuration[] PROGMEM =
 {
 #if (F_CPU == 8000000)
 	SPI_SPEED_FCPU_DIV_2,    // AVRStudio =   8MHz SPI, Actual =   4MHz SPI
@@ -68,7 +68,7 @@ static uint8_t SPIMaskFromSCKDuration[] PROGMEM =
  *
  *  \hideinitializer
  */
-static uint16_t TimerCompareFromSCKDuration[] PROGMEM =
+static const uint16_t TimerCompareFromSCKDuration[] PROGMEM =
 {
 	TIMER_COMP(96386), TIMER_COMP(89888), TIMER_COMP(84211), TIMER_COMP(79208), TIMER_COMP(74767),
 	TIMER_COMP(70797), TIMER_COMP(67227), TIMER_COMP(64000), TIMER_COMP(61069), TIMER_COMP(58395),

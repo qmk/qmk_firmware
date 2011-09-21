@@ -39,22 +39,22 @@
 /** HTTP server response header, for transmission before the page contents. This indicates to the host that a page exists at the
  *  given location, and gives extra connection information.
  */
-char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
-                               "Server: LUFA RNDIS\r\n"
-                               "Content-type: text/html\r\n"
-                               "Connection: close\r\n\r\n";
+const char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
+                                     "Server: LUFA RNDIS\r\n"
+                                     "Content-type: text/html\r\n"
+                                     "Connection: close\r\n\r\n";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
  *  given URL is invalid, and gives extra error information.
  */
-char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
-                               "Server: LUFA RNDIS\r\n"
-                               "Connection: close\r\n\r\n";
+const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
+                                     "Server: LUFA RNDIS\r\n"
+                                     "Connection: close\r\n\r\n";
 
 /** HTTP page to serve to the host when a HTTP request is made. This page is too long for a single response, thus it is automatically
  *  broken up into smaller blocks and sent as a series of packets each time the webserver application callback is run.
  */
-char PROGMEM HTTPPage[]   =
+const char PROGMEM HTTPPage[]   =
 		"<html>"
 		"	<head>"
 		"		<title>"

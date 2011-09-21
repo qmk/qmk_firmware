@@ -38,12 +38,12 @@
 #include "RNDIS.h"
 
 /** Physical MAC address of the network adapter, which becomes the MAC address of the host for packets sent to the adapter. */
-static MAC_Address_t  PROGMEM AdapterMACAddress          = {ADAPTER_MAC_ADDRESS};
+static const MAC_Address_t PROGMEM AdapterMACAddress     = {ADAPTER_MAC_ADDRESS};
 
 /** Vendor description of the adapter. This is overridden by the INF file required to install the appropriate RNDIS drivers for
  *  the device, but may still be used by the OS in some circumstances.
  */
-static char           PROGMEM AdapterVendorDescription[] = "LUFA RNDIS Adapter";
+static const char PROGMEM AdapterVendorDescription[]     = "LUFA RNDIS Adapter";
 
 /** List of RNDIS OID commands supported by this adapter. */
 static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
