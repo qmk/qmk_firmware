@@ -171,7 +171,7 @@
 			 *  the \ref TWI_Init() function to convert a bus frequency to a number of clocks for the \c BitLength
 			 *  parameter.
 			 *
-			 *  \param[in] Prescaler  Prescaler set on the TWI bus.
+			 *  \param[in] Prescale   Prescaler set on the TWI bus.
 			 *  \param[in] Frequency  Desired TWI bus frequency in Hz.
 			 *
 			 *  \return Bit length in clocks for the given TWI bus frequency at the given prescaler value.
