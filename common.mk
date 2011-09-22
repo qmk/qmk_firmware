@@ -4,6 +4,7 @@ SRC +=	host.c \
 	layer.c \
 	timer.c \
 	print.c \
+	bootloader.c \
 	util.c
 
 

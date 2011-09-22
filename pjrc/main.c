@@ -31,7 +31,7 @@
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "jump_bootloader.h"
+#include "bootloader.h"
 #ifdef PS2_MOUSE_ENABLE
 #   include "ps2_mouse.h"
 #endif
@@ -86,7 +86,7 @@ int main(void)
     if (matrix_key_count() >= 4) {
         print("jump to bootloader...\n");
         _delay_ms(1000);
-        jump_bootloader(); // not return
+        bootloader_jump(); // not return
     }
 
 
