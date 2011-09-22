@@ -4,7 +4,7 @@ SRC +=	pjrc.c \
 	usb_keyboard.c \
 	usb_debug.c \
 	usb.c \
-	jump_bootloader.c
+	bootloader_teensy.c
 
 
 # Search Path

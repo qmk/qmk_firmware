@@ -25,10 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "layer.h"
 #include "matrix.h"
+#include "bootloader.h"
 #include "command.h"
 
 #ifdef HOST_PJRC
-#   include "jump_bootloader.h"
 #   include "usb_keyboard.h"
 #   ifdef EXTRAKEY_ENABLE
 #       include "usb_extra.h"
@@ -78,13 +78,12 @@ static uint8_t command_common(void)
             help();
             break;
         case KB_B:
-#ifdef HOST_PJRC
             host_clear_keyboard_report();
             host_send_keyboard_report();
-            print("jump to bootloader...\n");
+            print("jump to bootloader... ");
             _delay_ms(1000);
-            jump_bootloader(); // not return
-#endif
+            bootloader_jump(); // not return
+            print("not supported.\n");
             break;
         case KB_D:
             debug_enable = !debug_enable;

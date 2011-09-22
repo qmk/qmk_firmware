@@ -2,8 +2,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "bootloader.h"
 
-void jump_bootloader(void) {
+void bootloader_jump(void) {
     cli();
     // disable watchdog, if enabled
     // disable all peripherals
