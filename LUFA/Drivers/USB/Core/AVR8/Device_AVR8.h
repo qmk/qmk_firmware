@@ -148,6 +148,8 @@
 		/* Inline Functions: */
 			/** Returns the current USB frame number, when in device mode. Every millisecond the USB bus is active (i.e. enumerated to a host)
 			 *  the frame number is incremented by one.
+			 *
+			 *  \return Current USB frame number from the USB controller.
 			 */
 			static inline uint16_t USB_Device_GetFrameNumber(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t USB_Device_GetFrameNumber(void)

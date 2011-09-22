@@ -76,16 +76,16 @@
 			/** Mask for the first dataflash chip selected. */
 			#define DATAFLASH_CHIP1                      0
 
-			#if (BOARD == BOARD_XPLAIN_REV1)
-				#define DATAFLASH_PAGE_SIZE              256
-
-				#define DATAFLASH_PAGES                  2048
-			#else
+			#if ((BOARD != BOARD_XPLAIN_REV1) || defined(__DOXYGEN__))
 				/** Internal main memory page size for the board's dataflash ICs. */
 				#define DATAFLASH_PAGE_SIZE              1024
 
 				/** Total number of pages inside each of the board's dataflash ICs. */
 				#define DATAFLASH_PAGES                  8192
+			#else
+				#define DATAFLASH_PAGE_SIZE              256
+
+				#define DATAFLASH_PAGES                  2048
 			#endif
 
 		/* Inline Functions: */

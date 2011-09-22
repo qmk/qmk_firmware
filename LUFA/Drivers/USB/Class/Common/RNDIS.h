@@ -114,7 +114,10 @@
 		#define REMOTE_NDIS_MEDIA_STATE_DISCONNECTED  0x00000001UL
 		//@}
 		
+		/** \name RNDIS Media Types */
+		//@{
 		#define REMOTE_NDIS_MEDIUM_802_3              0x00000000UL
+		//@}
 
 		/** \name RNDIS Connection Types */
 		//@{

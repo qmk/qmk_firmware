@@ -390,6 +390,8 @@
 			 *  \ingroup Group_ByteSwapping
 			 *
 			 *  \param[in] Word  Word of data whose bytes are to be swapped.
+			 *
+			 *  \return Input data with the individual bytes reversed.
 			 */
 			static inline uint16_t SwapEndian_16(const uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint16_t SwapEndian_16(const uint16_t Word)
@@ -419,6 +421,8 @@
 			 *  \ingroup Group_ByteSwapping
 			 *
 			 *  \param[in] DWord  Double word of data whose bytes are to be swapped.
+			 *
+			 *  \return Input data with the individual bytes reversed.
 			 */
 			static inline uint32_t SwapEndian_32(const uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint32_t SwapEndian_32(const uint32_t DWord)
@@ -453,6 +457,8 @@
 			 *
 			 *  \param[in,out] Data    Pointer to a number containing an even number of bytes to be reversed.
 			 *  \param[in]     Length  Length of the data in bytes.
+			 *
+			 *  \return Input data with the individual bytes reversed.
 			 */
 			static inline void SwapEndian_n(void* const Data,
 			                                uint8_t Length) ATTR_NON_NULL_PTR_ARG(1);

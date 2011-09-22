@@ -105,6 +105,7 @@
 			} USB_ClassInfo_PRNT_Host_t;
 
 		/* Enums: */
+			/** Enum for the possible error codes returned by the \ref PRNT_Host_ConfigurePipes() function. */
 			enum PRNT_Host_EnumerationFailure_ErrorCodes_t
 			{
 				PRNT_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */

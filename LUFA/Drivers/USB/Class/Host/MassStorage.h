@@ -122,6 +122,7 @@
 			} SCSI_Capacity_t;
 
 		/* Enums: */
+			/** Enum for the possible error codes returned by the \ref MS_Host_ConfigurePipes() function. */
 			enum MS_Host_EnumerationFailure_ErrorCodes_t
 			{
 				MS_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */

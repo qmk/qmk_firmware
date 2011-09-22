@@ -403,6 +403,8 @@
 			 *        the results read directly from the \ref ADC_GetResult() instead to reduce overhead.
 			 *
 			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask.
+			 *
+			 *  \return Converted ADC result for the given ADC channel.
 			 */
 			static inline uint16_t ADC_GetChannelReading(const uint16_t MUXMask) ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t ADC_GetChannelReading(const uint16_t MUXMask)

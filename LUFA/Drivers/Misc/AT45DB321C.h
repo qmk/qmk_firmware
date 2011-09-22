@@ -54,8 +54,6 @@
 			#define DF_STATUS_SECTORPROTECTION_ON           (1 << 1)
 			//@}
 
-			#define DF_MANUFACTURER_ATMEL                   0x1F
-
 			/** \name Dataflash Commands */
 			//@{
 			#define DF_CMD_GETSTATUS                        0xD7
@@ -92,6 +90,9 @@
 
 			#define DF_CMD_READMANUFACTURERDEVICEINFO       0x9F
 			//@}
+
+			/** Manufacturer code for Atmel Corporation, returned by Atmel Dataflash ICs in response to the \c DF_CMD_READMANUFACTURERDEVICEINFO command. */
+			#define DF_MANUFACTURER_ATMEL                   0x1F
 
 #endif
 

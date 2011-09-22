@@ -220,6 +220,8 @@
 			 *  etc.
 			 *
 			 *  \param[in] Byte  Byte of data whose bits are to be reversed.
+			 *
+			 *  \return Input data with the individual bits reversed (mirrored).
 			 */
 			static inline uint8_t BitReverse(uint8_t Byte) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint8_t BitReverse(uint8_t Byte)
