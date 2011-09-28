@@ -291,7 +291,7 @@
  
 /**
  *  \page Page_XMEGASupport Atmel USB XMEGA AVR (XMEGA)
- *  Note: <i>The XMEGA device support is currently <b>experimental</b>, and is included for preview purposes only.</i>
+ *  Note: <i>The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.</i>
  *
  *  \section Sec_XMEGASupport_Devices Supported Microcontroller Models
  *

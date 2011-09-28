@@ -55,12 +55,19 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 
 	Pipe_Unfreeze();
 
+	#if defined(ARCH_BIG_ENDIAN)
 	Pipe_Write_8(USB_ControlRequest.bmRequestType);
 	Pipe_Write_8(USB_ControlRequest.bRequest);
 	Pipe_Write_16_LE(USB_ControlRequest.wValue);
 	Pipe_Write_16_LE(USB_ControlRequest.wIndex);
 	Pipe_Write_16_LE(USB_ControlRequest.wLength);
+	#else
+	uint8_t* HeaderStream = (uint8_t*)&USB_ControlRequest;
 
+	for (uint8_t HeaderByte = 0; HeaderByte < sizeof(USB_Request_Header_t); HeaderByte++)
+	  Pipe_Write_Byte(*(HeaderStream++));	
+	#endif
+	
 	Pipe_ClearSETUP();
 
 	if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_SetupSent)) != HOST_SENDCONTROL_Successful)

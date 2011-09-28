@@ -123,6 +123,7 @@
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
  *  - SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
  *  - USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
+ *  - VMeter, a USB MIDI touch strip controller: http://www.vmeter.net/
  *  - XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
  *  - Zeptoprog, a multifunction AVR programmer: http://www.mattairtech.com/index.php/featured/zeptoprog.html
  *
