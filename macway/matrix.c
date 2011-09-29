@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <util/delay.h>
 #include "print.h"
+#include "debug.h"
 #include "util.h"
 #include "matrix.h"
 
@@ -34,6 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   error "MATRIX_ROWS must not exceed 255"
 #endif
 
+
+#ifndef DEBOUNCE
+#   define DEBOUNCE	0
+#endif
+static uint8_t debouncing = DEBOUNCE;
 
 // matrix state buffer(1:on, 0:off)
 #if (MATRIX_COLS <= 8)
@@ -85,27 +91,40 @@ void matrix_init(void)
 
 uint8_t matrix_scan(void)
 {
-    uint8_t *tmp;
-
-    tmp = matrix_prev;
-    matrix_prev = matrix;
-    matrix = tmp;
+    if (!debouncing) {
+        uint8_t *tmp = matrix_prev;
+        matrix_prev = matrix;
+        matrix = tmp;
+    }
 
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         unselect_rows();
         select_row(i);
         _delay_us(30);  // without this wait read unstable value.
-        matrix[i] = ~read_col();
+        if (matrix[i] != (uint8_t)~read_col()) {
+            matrix[i] = (uint8_t)~read_col();
+            if (debouncing) {
+                debug("bounce!: "); debug_hex(debouncing); print("\n");
+            }
+            debouncing = DEBOUNCE;
+        }
     }
     unselect_rows();
+
+    if (debouncing) {
+        debouncing--;
+    }
+
     return 1;
 }
 
 bool matrix_is_modified(void)
 {
+    if (debouncing) return false;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i])
+        if (matrix[i] != matrix_prev[i]) {
             return true;
+        }
     }
     return false;
 }
