@@ -54,12 +54,12 @@
  *		void main(void)
  *		{
  *			// Start the internal 32MHz RC oscillator and switch the CPU core to run from it
- *			AVR32CLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
+ *			XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
  *			XMEGACLK_SetCPUClockSource(CLOCK_SRC_INT_RC32MHZ, F_CPU);
  *
  *			// Start the external oscillator and multiply up the frequency
- *			AVR32CLK_StartExternalOscillator(EXOSC_FREQ_9MHZ_MAX, EXOSC_START_1KCLK);
- *			AVR32CLK_StartPLL(CLOCK_SRC_XOSC, 8000000, F_USB);
+ *			XMEGACLK_StartExternalOscillator(EXOSC_FREQ_9MHZ_MAX, EXOSC_START_1KCLK);
+ *			XMEGACLK_StartPLL(CLOCK_SRC_XOSC, 8000000, F_USB);
  *		}
  *  \endcode
  *

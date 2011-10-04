@@ -275,10 +275,10 @@
 				uint8_t EPTypeMask = 0;
 				switch (Type)
 				{
-					case USB_EPTYPE_Control:
+					case EP_TYPE_CONTROL:
 						EPTypeMask = USB_EP_TYPE_CONTROL_gc;
 						break;
-					case USB_EPTYPE_Isochronous:
+					case EP_TYPE_ISOCHRONOUS:
 						EPTypeMask = USB_EP_TYPE_ISOCHRONOUS_gc;
 						break;
 					default:

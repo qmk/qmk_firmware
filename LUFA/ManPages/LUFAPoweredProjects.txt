@@ -81,6 +81,7 @@
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
  *  - Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
  *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
+ *  - PS/2 to USB adapter: https://github.com/makestuff/p2ukbd
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  - SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
