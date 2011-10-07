@@ -68,6 +68,7 @@
   *   - Updated all host mode demos and projects to use the EVENT_USB_Host_DeviceEnumerationComplete() event callback for device configuration
   *     instead of manual host state machine manipulations in the main application task
   *   - Changed the reports in the GenericHID device demos to control the board LEDs, to reduce user confusion over the callback routines
+  *   - Added reliability patches to the AVRISP-MKII Clone project's ISP and PDI/TPI protocols (thanks to Justin Mattair)
   *
   *  <b>Fixed:</b>
   *  - Core:
