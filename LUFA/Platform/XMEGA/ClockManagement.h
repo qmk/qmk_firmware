@@ -108,6 +108,14 @@
 				CLOCK_SRC_PLL           = 4, /**< Clock sourced from the Internal PLL clock. */
 			};
 
+			/** Enum for the possible DFLL clock reference sources. */
+			enum XMEGA_System_DFLLReference_t
+			{
+				DFLL_REF_INT_RC32KHZ   = 0, /**< Reference clock sourced from the Internal 32KHz RC Oscillator clock. */
+				DFLL_REF_EXT_RC32KHZ   = 1, /**< Reference clock sourced from the External 32KHz RC Oscillator clock connected to TOSC pins. */
+				DFLL_REF_INT_USBSOF    = 2, /**< Reference clock sourced from the USB Start Of Frame packets. */
+			};
+
 		/* Inline Functions: */
 			/** Starts the external oscillator of the XMEGA microcontroller, with the given options. This routine blocks until
 			 *  the oscillator is ready for use.
@@ -240,6 +248,79 @@
 				OSC.CTRL &= ~OSC_PLLEN_bm;
 			}
 			
+			/** Starts the DFLL of the XMEGA microcontroller, with the given options.
+			 *
+			 *  \param[in] Source     RC Clock source for the DFLL, a value from \ref XMEGA_System_ClockSource_t.
+			 *  \param[in] Reference  Reference clock source for the DFLL, an value from \ref XMEGA_System_DFLLReference_t
+			 *  \param[in] Frequency  Target frequency of the DFLL's output.
+			 *
+			 *  \return Boolean \c true if the DFLL was successfully started, \c false if invalid parameters specified.
+			 */
+			static inline bool XMEGACLK_StartDFLL(const uint8_t Source,
+			                                      const uint8_t Reference,
+			                                      const uint32_t Frequency) ATTR_ALWAYS_INLINE;
+			static inline bool XMEGACLK_StartDFLL(const uint8_t Source,
+			                                      const uint8_t Reference,
+			                                      const uint32_t Frequency)
+			{
+				uint16_t DFLLCompare = (Frequency / 1024);
+				uint16_t DFFLCal     = 0;
+
+				if (Reference == DFLL_REF_INT_USBSOF)
+				{
+					NVM.CMD = NVM_CMD_READ_CALIB_ROW_gc;
+					DFFLCal = ((0x00 << 8) | pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSC)));
+				}
+				
+				switch (Source)
+				{
+					case CLOCK_SRC_INT_RC2MHZ:
+						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
+						DFLLRC2M.COMP1  = (DFLLCompare >> 8);
+						DFLLRC2M.COMP2  = (DFLLCompare & 0xFF);
+						DFLLRC2M.CALA   = (DFFLCal >> 8);
+						DFLLRC2M.CALB   = (DFFLCal & 0xFF);
+						DFLLRC2M.CTRL   = DFLL_ENABLE_bm;
+						break;
+					case CLOCK_SRC_INT_RC32MHZ:
+						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
+						DFLLRC32M.COMP1 = (DFLLCompare >> 8);
+						DFLLRC32M.COMP2 = (DFLLCompare & 0xFF);
+						DFLLRC32M.CALA  = (DFFLCal >> 8);
+						DFLLRC32M.CALB  = (DFFLCal & 0xFF);
+						DFLLRC32M.CTRL  = DFLL_ENABLE_bm;
+						break;
+					default:
+						return false;
+				}
+				
+				return true;
+			}
+
+			/** Stops the given DFLL of the XMEGA microcontroller.
+			 *
+			 *  \param[in] Source  RC Clock source for the DFLL to be stopped, a value from \ref XMEGA_System_ClockSource_t.
+			 *
+			 *  \return Boolean \c true if the DFLL was successfully stopped, \c false if invalid parameters specified.
+			 */
+			static inline bool XMEGACLK_StopDFLL(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline bool XMEGACLK_StopDFLL(const uint8_t Source)
+			{
+				switch (Source)
+				{
+					case CLOCK_SRC_INT_RC2MHZ:
+						DFLLRC2M.CTRL = 0;
+						break;
+					case CLOCK_SRC_INT_RC32MHZ:
+						DFLLRC32M.CTRL = 0;
+						break;
+					default:
+						return false;
+				}
+				
+				return true;
+			}
+
 			/** Sets the clock source for the main microcontroller core. The given clock source should be configured
 			 *  and ready for use before this function is called.
 			 *
