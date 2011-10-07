@@ -79,6 +79,7 @@
  *  - Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
+ *  - Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
  *  - Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
  *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  - PS/2 to USB adapter: https://github.com/makestuff/p2ukbd

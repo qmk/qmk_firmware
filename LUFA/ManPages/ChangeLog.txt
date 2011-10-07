@@ -62,6 +62,7 @@
   *     and not a Pipe within the host
   *   - The MS_Host_ResetMSInterface() now performs a full Mass Storage reset sequence to prevent data corruption in the event of a device
   *     lock up or timeout (thanks to David Lyons)
+  *   - Added endian-correction to the CDC driver's Line Encoding control request handlers.
   *  - Library Applications:
   *   - Modified the Low Level and Class Driver AudioInput and AudioOutput demos to support multiple audio sample rates
   *   - Updated all host mode demos and projects to use the EVENT_USB_Host_DeviceEnumerationComplete() event callback for device configuration
