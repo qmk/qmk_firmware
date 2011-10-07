@@ -65,7 +65,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 	uint8_t* HeaderStream = (uint8_t*)&USB_ControlRequest;
 
 	for (uint8_t HeaderByte = 0; HeaderByte < sizeof(USB_Request_Header_t); HeaderByte++)
-	  Pipe_Write_Byte(*(HeaderStream++));	
+	  Pipe_Write_8(*(HeaderStream++));	
 	#endif
 	
 	Pipe_ClearSETUP();

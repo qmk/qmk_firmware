@@ -85,7 +85,7 @@
 		/** Type define for a protocol IP address of a device on a network. */
 		typedef struct
 		{
-			uint8_t       Octets[4]; /**< Individual bytes of an IP address */
+			uint8_t  Octets[4]; /**< Individual bytes of an IP address */
 		} IP_Address_t;
 
 #endif
