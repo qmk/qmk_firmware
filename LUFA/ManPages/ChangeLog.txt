@@ -94,6 +94,7 @@
   *   - Fixed incorrect Dataflash buffer use in the DataflashManager_WriteBlocks_RAM() function of several demos/projects (thanks to Jeremy Willden)
   *   - Fixed incorrect logging interval (always 500ms longer than requested) in the TempDataLogger project
   *   - Fixed incorrect buffer size check in the USBtoSerial project (thanks to Yuri A Nikiforov)
+  *   - Fixed port state table corruption in the TCP layer of the RNDIS Ethernet device demos
   *
   *  \section Sec_ChangeLog110528 Version 110528
   *  <b>New:</b>

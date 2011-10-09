@@ -84,7 +84,7 @@
 		                                            const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
-		void ShowDiskReadError(char* CommandString,
+		void ShowDiskReadError(const char* CommandString,
 		                       const uint8_t ErrorCode);
 
 #endif

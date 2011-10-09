@@ -181,7 +181,7 @@ bool TCP_SetPortState(const uint16_t Port,
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	/* Check to see if the port entry is already in the port state table */
-	for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+	for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 	{
 		/* Find existing entry for the port in the table, update it if found */
 		if (PortStateTable[PTableEntry].Port == Port)
@@ -195,7 +195,7 @@ bool TCP_SetPortState(const uint16_t Port,
 	/* Check if trying to open the port -- if so we need to find an unused (closed) entry and replace it */
 	if (State == TCP_Port_Open)
 	{
-		for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+		for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 		{
 			/* Find a closed port entry in the table, change it to the given port and state */
 			if (PortStateTable[PTableEntry].State == TCP_Port_Closed)
@@ -227,7 +227,7 @@ uint8_t TCP_GetPortState(const uint16_t Port)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
-	for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+	for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 	{
 		/* Find existing entry for the port in the table, return the port status if found */
 		if (PortStateTable[PTableEntry].Port == Port)

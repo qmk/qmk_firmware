@@ -353,7 +353,7 @@ void UnicodeToASCII(uint8_t* UnicodeString,
 void ShowCommandError(uint8_t ErrorCode,
                       bool ResponseCodeError)
 {
-	char* FailureType = ((ResponseCodeError) ? PSTR("Response Code != OK") : PSTR("Transaction Fail"));
+	const char* FailureType = ((ResponseCodeError) ? PSTR("Response Code != OK") : PSTR("Transaction Fail"));
 
 	printf_P(PSTR(ESC_FG_RED "Command Error (%S).\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), FailureType, ErrorCode);

@@ -348,7 +348,7 @@ void MassStorageHost_Task(void)
  *  \param[in] CommandString  ASCII string located in PROGMEM space indicating what operation failed
  *  \param[in] ErrorCode      Error code of the function which failed to complete successfully
  */
-void ShowDiskReadError(char* CommandString,
+void ShowDiskReadError(const char* CommandString,
                        const uint8_t ErrorCode)
 {
 	if (ErrorCode == MASS_STORE_SCSI_COMMAND_FAILED)
