@@ -613,6 +613,8 @@
 				uint8_t Dummy;
 
 				Dummy = UPDATX;
+
+				(void)Dummy;
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -698,6 +700,8 @@
 
 				Dummy = UPDATX;
 				Dummy = UPDATX;
+
+				(void)Dummy;
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -793,6 +797,8 @@
 				Dummy = UPDATX;
 				Dummy = UPDATX;
 				Dummy = UPDATX;
+
+				(void)Dummy;
 			}
 
 		/* External Variables: */

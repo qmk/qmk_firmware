@@ -648,6 +648,8 @@
 				uint8_t Dummy;
 
 				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+
+				(void)Dummy;
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -721,6 +723,8 @@
 
 				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+
+				(void)Dummy;
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -804,6 +808,8 @@
 				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+
+				(void)Dummy;
 			}
 
 		/* External Variables: */

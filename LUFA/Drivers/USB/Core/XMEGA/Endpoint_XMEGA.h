@@ -288,7 +288,7 @@
 	
 				Endpoint_SelectedEndpointHandle->CTRL   = 0;
 				Endpoint_SelectedEndpointHandle->STATUS = (USB_EP_BUSNACK0_bm | USB_EP_BUSNACK1_bm);
-				Endpoint_SelectedEndpointHandle->CTRL   = (EPTypeMask | Banks | Endpoint_BytesToEPSizeMask(Size));				
+				Endpoint_SelectedEndpointHandle->CTRL   = (EPTypeMask | Banks | Endpoint_BytesToEPSizeMask(Size));
 				return true;
 			}
 

@@ -654,6 +654,8 @@
 				uint8_t Dummy;
 
 				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+
+				(void)Dummy;
 			}
 
 			/** Reads two bytes from the currently selected endpoint's bank in little endian format, for OUT
@@ -727,6 +729,8 @@
 
 				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+
+				(void)Dummy;
 			}
 
 			/** Reads four bytes from the currently selected endpoint's bank in little endian format, for OUT
@@ -810,6 +814,8 @@
 				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
 				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+
+				(void)Dummy;
 			}
 
 		/* External Variables: */

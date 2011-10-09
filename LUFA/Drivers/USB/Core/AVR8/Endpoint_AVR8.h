@@ -634,6 +634,8 @@
 				uint8_t Dummy;
 
 				Dummy = UEDATX;
+
+				(void)Dummy;
 			}
 
 			/** Reads two bytes from the currently selected endpoint's bank in little endian format, for OUT
@@ -719,6 +721,8 @@
 
 				Dummy = UEDATX;
 				Dummy = UEDATX;
+
+				(void)Dummy;
 			}
 
 			/** Reads four bytes from the currently selected endpoint's bank in little endian format, for OUT
@@ -814,6 +818,8 @@
 				Dummy = UEDATX;
 				Dummy = UEDATX;
 				Dummy = UEDATX;
+
+				(void)Dummy;
 			}
 
 		/* External Variables: */
