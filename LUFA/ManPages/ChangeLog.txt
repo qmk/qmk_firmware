@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLog111009b Version 111009b
+  *  \section Sec_ChangeLog111009 Version 111009
   *  <b>New:</b>
   *  - Core:
   *   - Added USE_LUFA_CONFIG_HEADER compile time option to include a LUFAConfig.h header in the user director for LUFA configuration
