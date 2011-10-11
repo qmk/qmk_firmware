@@ -52,7 +52,7 @@
  *
  *  If you are not using any board-specific drivers in the LUFA library, or you are using a custom board layout, change this to read
  *  "USER" (no quotes) instead of a standard board name. If the USER board type is selected and the application makes use of one or more
- *  board-specific hardware drivers inside the LUFA library, then the appropriate stub drives files should be copied from the /BoardStubs/
+ *  board-specific hardware drivers inside the LUFA library, then the appropriate stub drives files should be copied from the \c /CodeTemplates/DriverStubs/
  *  directory into a /Board/ folder inside the application directory, and the stub driver completed with the appropriate code to drive the
  *  custom board's hardware.
  *

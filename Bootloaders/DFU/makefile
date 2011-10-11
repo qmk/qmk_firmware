@@ -97,6 +97,7 @@ F_USB = $(F_CPU)
 FLASH_SIZE_KB        = 128
 BOOT_SECTION_SIZE_KB = 4
 BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
+BOOT_API_TABLESTART  = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 32)" | bc)
 
 
 # Output format. (can be srec, ihex, binary)
@@ -137,6 +138,7 @@ include $(LUFA_PATH)/LUFA/makefile
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
+	  BootloaderAPI.c                                             \
 	  Descriptors.c                                               \
 	  $(LUFA_SRC_USB)                                             \
 
@@ -152,7 +154,7 @@ CPPSRC =
 #     Even though the DOS/Win* filesystem matches both .s and .S the same,
 #     it will preserve the spelling of the filenames, and gcc itself does
 #     care about how the name is spelled on its command-line.
-ASRC =
+ASRC = BootloaderAPITable.S
 
 
 # Optimization level, can be [0, 1, 2, 3, s].
@@ -333,7 +335,7 @@ EXTMEMOPTS =
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
 LDFLAGS  = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--section-start=.text=$(BOOT_START)
+LDFLAGS += -Wl,--section-start=.text=$(BOOT_START) -Wl,--section-start=.apitable=$(BOOT_API_TABLESTART)
 LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)

@@ -89,6 +89,27 @@
  *  dfu-programmer at90usb1287 erase flash Mouse.hex
  *  \endcode
  *
+ *  \section Sec_API User Application API
+ *
+ *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
+ *  allowing the user application to call into the bootloader at runtime to read and write FLASH data.
+ *
+ *  \note The APIs exposed by the DFU class bootloader are \b NOT compatible with the API exposed by the official Atmel DFU bootloader.
+ *
+ *  By default, the bootloader API jump table is located 32 bytes from the end of the device's FLASH memory, and follows the
+ *  following layout:
+ *
+ *  \code
+ *  #define BOOTLOADER_API_START(Index)        (void*)(((FLASHEND - 32) + (2 * Index)) / 2)
+ *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_START(0);
+ *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_START(1);
+ *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_START(2);
+ *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_START(3);
+ *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_START(4);
+ *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_START(5);
+ *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_START(6);
+ *  \endcode
+ *
  *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

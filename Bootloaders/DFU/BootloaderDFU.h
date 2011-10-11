@@ -48,6 +48,7 @@
 		#include <stdbool.h>
 
 		#include "Descriptors.h"
+		#include "BootloaderAPI.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>

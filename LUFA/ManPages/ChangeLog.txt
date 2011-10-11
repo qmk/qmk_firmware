@@ -6,6 +6,25 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
+  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  <b>New:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - Added User Application APIs to the CDC and DFU class bootloaders
+  *
+  *  <b>Changed:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - None
+  *
+  *  <b>Fixed:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - None
+  *
   *  \section Sec_ChangeLog111009 Version 111009
   *  <b>New:</b>
   *  - Core:

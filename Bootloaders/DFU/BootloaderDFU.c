@@ -99,6 +99,10 @@ static uint16_t EndAddr = 0x0000;
  */
 int main(void)
 {
+	/* Force a reference to the API jump table to prevent the linker from discarding it */
+	uint8_t* volatile Dummy = BootloaderAPI_JumpTable;
+	(void)Dummy;
+
 	/* Configure hardware required by the bootloader */
 	SetupHardware();
 
@@ -742,4 +746,3 @@ static void ProcessReadCommand(void)
 	else if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x01))                    // Read signature byte
 	  ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
 }
-
