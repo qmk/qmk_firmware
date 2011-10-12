@@ -15,7 +15,8 @@
   *
   *  <b>Changed:</b>
   *  - Core:
-  *   - None
+  *   - When automatic PLL management mode is enabled on the U4 series AVR8 chips, the PLL is now configured for 48MHz and not
+  *     a divided 96MHz, to lower power consumption and to keep the system within the datasheet specs for 3.3V operation (thanks to Scott Vitale)
   *  - Library Applications:
   *   - None
   *

@@ -68,7 +68,7 @@ void USB_Init(
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	{
 		#if defined(USB_SERIES_4_AVR)
-		PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
+		PLLFRQ = (1 << PDIV2);
 		#endif
 	}
 
