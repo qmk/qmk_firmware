@@ -149,13 +149,18 @@ void XMEGANVM_DisablePDI(void)
 {
 	XMEGANVM_WaitWhileNVMBusBusy();
 
-	/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
-	XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
-	XPROGTarget_SendByte(0x00);
-
-	/* Do it twice to make sure it takes effect (silicon bug?) */
-	XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
-	XPROGTarget_SendByte(0x00);
+	/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run - must perform this until the 
+	 * change takes effect, as in some cases it takes multiple writes (silicon bug?).
+	 */
+	do
+	{
+		/* Clear reset register */
+		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
+		XPROGTarget_SendByte(0x00);
+	
+		/* Read back the reset register, check to see if it took effect */
+		XPROGTarget_SendByte(PDI_CMD_LDCS | PDI_RESET_REG);
+	} while (XPROGTarget_ReceiveByte() != 0x00);
 
 	XPROGTarget_DisableTargetPDI();
 }

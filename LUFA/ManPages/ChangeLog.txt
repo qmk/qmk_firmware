@@ -24,7 +24,7 @@
   *  - Core:
   *   - None
   *  - Library Applications:
-  *   - None
+  *   - Added reliability patches to the AVRISP-MKII Clone project's PDI/TPI protocols (thanks to Justin Mattair)
   *
   *  \section Sec_ChangeLog111009 Version 111009
   *  <b>New:</b>

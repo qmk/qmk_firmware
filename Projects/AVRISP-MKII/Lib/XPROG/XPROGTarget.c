@@ -92,7 +92,8 @@ void XPROGTarget_EnableTargetTPI(void)
 void XPROGTarget_DisableTargetPDI(void)
 {
 	/* Switch to Rx mode to ensure that all pending transmissions are complete */
-	XPROGTarget_SetRxMode();
+	if (IsSending)
+	  XPROGTarget_SetRxMode();
 
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A  = ((1 << TXC1) | (1 << RXC1));
@@ -108,7 +109,8 @@ void XPROGTarget_DisableTargetPDI(void)
 void XPROGTarget_DisableTargetTPI(void)
 {
 	/* Switch to Rx mode to ensure that all pending transmissions are complete */
-	XPROGTarget_SetRxMode();
+	if (IsSending)
+	  XPROGTarget_SetRxMode();
 
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
@@ -169,19 +171,16 @@ void XPROGTarget_SendIdle(void)
 		/* Wait for a full cycle of the clock */
 		while (PIND & (1 << 5));
 		while (!(PIND & (1 << 5)));
+		while (PIND & (1 << 5));
 	}
 }
 
 static void XPROGTarget_SetTxMode(void)
 {
-    /* Need to do nothing for a full frame to send a BREAK - only one cycle should be needed, however
-	 * there are reports that sometimes the interface will get stuck in some environments. */
-    for (uint8_t i = 0; i < BITS_IN_USART_FRAME; i++)
-    {
-        /* Wait for a full cycle of the clock */
-        while (PIND & (1 << 5));
-        while (!(PIND & (1 << 5)));
-    }
+	/* Wait for a full cycle of the clock */
+	while (PIND & (1 << 5));
+	while (!(PIND & (1 << 5)));
+	while (PIND & (1 << 5));
 
 	PORTD  |=  (1 << 3);
 	DDRD   |=  (1 << 3);
