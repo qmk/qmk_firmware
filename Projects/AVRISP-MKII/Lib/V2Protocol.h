@@ -58,7 +58,7 @@
 			#endif
 		#endif
 
-		#if defined(USB_SERIES_4_AVR) && ((VTARGET_ADC_CHANNEL == 2) || (VTARGET_ADC_CHANNEL == 3))
+		#if defined(USB_SERIES_4_AVR) && ((VTARGET_ADC_CHANNEL == 2) || (VTARGET_ADC_CHANNEL == 3)) && !defined(NO_VTARGET_DETECT)
 			#error The U4 AVR chips do not contain ADC channels 2 or 3. Please change VTARGET_ADC_CHANNEL or define NO_VTARGET_DETECT in the makefile.
 		#endif
 		

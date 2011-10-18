@@ -25,6 +25,7 @@
   *   - Fixed ring buffer size limited to 255 elements, instead of the intended 65535 elements.
   *  - Library Applications:
   *   - Added reliability patches to the AVRISP-MKII Clone project's PDI/TPI protocols (thanks to Justin Mattair)
+  *   - Fixed AVRISP-MKII Clone compile warning on AVR8 U4 targets even when NO_VTARGET_DETECT is enabled
   *
   *  \section Sec_ChangeLog111009 Version 111009
   *  <b>New:</b>
