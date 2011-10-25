@@ -49,18 +49,18 @@
  *
  *  Usage Example:
  *  \code
- *		#include <LUFA/Platform/XMEGA/ClockManagement.h>
- *
- *		void main(void)
- *		{
- *			// Start the internal 32MHz RC oscillator and switch the CPU core to run from it
- *			XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
- *			XMEGACLK_SetCPUClockSource(CLOCK_SRC_INT_RC32MHZ, F_CPU);
- *
- *			// Start the external oscillator and multiply up the frequency
- *			XMEGACLK_StartExternalOscillator(EXOSC_FREQ_9MHZ_MAX, EXOSC_START_1KCLK);
- *			XMEGACLK_StartPLL(CLOCK_SRC_XOSC, 8000000, F_USB);
- *		}
+ *   	#include <LUFA/Platform/XMEGA/ClockManagement.h>
+ *   	
+ *   	void main(void)
+ *   	{
+ *   		// Start the PLL to multiply the 2MHz RC oscillator to 32MHz and switch the CPU core to run from it
+ *   		XMEGACLK_StartPLL(CLOCK_SRC_INT_RC2MHZ, 2000000, 32000000);
+ *   		XMEGACLK_SetCPUClockSource(CLOCK_SRC_PLL, F_CPU);
+ *   	
+ *   		// Start the 32MHz internal RC oscillator and start the DFLL to increase it to 48MHz using the USB SOF as a reference
+ *   		XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
+ *   		XMEGACLK_StartDFLL(CLOCK_SRC_INT_RC32MHZ, DFLL_REF_INT_USBSOF, 48000000);
+ *   	}
  *  \endcode
  *
  *  @{

@@ -662,10 +662,10 @@
 			static inline uint16_t Pipe_Read_16_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_16_LE(void)
 			{
-				uint16_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				uint16_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint16_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 
-				return ((Byte0 << 8) | Byte1);
+				return ((Byte1 << 8) | Byte0);
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
@@ -737,12 +737,12 @@
 			static inline uint32_t Pipe_Read_32_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_32_LE(void)
 			{
-				uint32_t Byte3 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
-				uint32_t Byte2 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
-				uint32_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 				uint32_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte2 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte3 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 
-				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
+				return ((Byte3 << 24) | (Byte2 << 16) | (Byte1 << 8) | Byte0);
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in big endian format, for OUT
