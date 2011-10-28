@@ -44,7 +44,7 @@
 		#define ANDROID_DATA_OUT_PIPE        2
 		
 		#define ANDROID_INTERFACE_CLASS      0xFF
-		#define ANDROID_INTERFACE_SUBCLASS   0x42
+		#define ANDROID_INTERFACE_SUBCLASS   0xFF
 		#define ANDROID_INTERFACE_PROTOCOL   0x01		
 
 	/* Enums: */
