@@ -156,8 +156,8 @@
 			                                    const uint32_t UECFGXData);
 		
 		/* External Variables: */
-			extern volatile uint32_t USB_SelectedEndpoint;
-			extern volatile uint8_t* USB_EndpointFIFOPos[];
+			extern volatile uint32_t USB_Endpoint_SelectedEndpoint;
+			extern volatile uint8_t* USB_Endpoint_FIFOPos[];
 	#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -320,7 +320,7 @@
 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_BytesInEndpoint(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].byct;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].byct;
 			}
 
 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
@@ -332,7 +332,7 @@
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
 			{
-				return USB_SelectedEndpoint;
+				return USB_Endpoint_SelectedEndpoint;
 			}
 
 			/** Selects the given endpoint number. If the address from the device descriptors is used, the
@@ -347,7 +347,7 @@
 			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
 			{
-				USB_SelectedEndpoint = EndpointNumber;
+				USB_Endpoint_SelectedEndpoint = EndpointNumber;
 			}
 
 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
@@ -360,7 +360,7 @@
 			{
 				AVR32_USBB.uerst |=  (AVR32_USBB_EPRST0_MASK << EndpointNumber);
 				AVR32_USBB.uerst &= ~(AVR32_USBB_EPRST0_MASK << EndpointNumber);
-				USB_EndpointFIFOPos[EndpointNumber] = &AVR32_USBB_SLAVE[EndpointNumber * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
+				USB_Endpoint_FIFOPos[EndpointNumber] = &AVR32_USBB_SLAVE[EndpointNumber * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Enables the currently selected endpoint so that data can be sent and received through it to
@@ -371,7 +371,7 @@
 			static inline void Endpoint_EnableEndpoint(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_EnableEndpoint(void)
 			{
-				AVR32_USBB.uerst |=  (AVR32_USBB_EPEN0_MASK << USB_SelectedEndpoint);
+				AVR32_USBB.uerst |=  (AVR32_USBB_EPEN0_MASK << USB_Endpoint_SelectedEndpoint);
 			}
 
 			/** Disables the currently selected endpoint so that data cannot be sent and received through it
@@ -380,7 +380,7 @@
 			static inline void Endpoint_DisableEndpoint(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_DisableEndpoint(void)
 			{
-				AVR32_USBB.uerst &= ~(AVR32_USBB_EPEN0_MASK << USB_SelectedEndpoint);
+				AVR32_USBB.uerst &= ~(AVR32_USBB_EPEN0_MASK << USB_Endpoint_SelectedEndpoint);
 			}
 
 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
@@ -390,7 +390,7 @@
 			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsEnabled(void)
 			{
-				return ((AVR32_USBB.uerst & (AVR32_USBB_EPEN0_MASK << USB_SelectedEndpoint)) ? true : false);
+				return ((AVR32_USBB.uerst & (AVR32_USBB_EPEN0_MASK << USB_Endpoint_SelectedEndpoint)) ? true : false);
 			}
 
 			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queued for
@@ -404,7 +404,7 @@
 			static inline uint8_t Endpoint_GetBusyBanks(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Endpoint_GetBusyBanks(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].nbusybk;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].nbusybk;
 			}
 
 			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
@@ -418,8 +418,8 @@
 			{
 				while (Endpoint_GetBusyBanks() != 0)
 				{
-					(&AVR32_USBB.UECON0SET)[USB_SelectedEndpoint].killbks = true;
-					while ((&AVR32_USBB.UECON0)[USB_SelectedEndpoint].killbk);
+					(&AVR32_USBB.UECON0SET)[USB_Endpoint_SelectedEndpoint].killbks = true;
+					while ((&AVR32_USBB.UECON0)[USB_Endpoint_SelectedEndpoint].killbk);
 				}
 			}
 			
@@ -437,7 +437,7 @@
 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsReadWriteAllowed(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].rwall;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].rwall;
 			}
 
 			/** Determines if the currently selected endpoint is configured.
@@ -447,7 +447,7 @@
 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsConfigured(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].cfgok;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].cfgok;
 			}
 
 			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
@@ -487,7 +487,7 @@
 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsINReady(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].txini;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].txini;
 			}
 
 			/** Determines if the selected OUT endpoint has received new packet from the host.
@@ -499,7 +499,7 @@
 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsOUTReceived(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].rxouti;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].rxouti;
 			}
 
 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
@@ -511,7 +511,7 @@
 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsSETUPReceived(void)
 			{
-				return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].rxstpi;
+				return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].rxstpi;
 			}
 
 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
@@ -524,8 +524,8 @@
 			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearSETUP(void)
 			{
-				(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].rxstpic = true;
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
+				(&AVR32_USBB.UESTA0CLR)[USB_Endpoint_SelectedEndpoint].rxstpic = true;
+				USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_Endpoint_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
@@ -536,9 +536,9 @@
 			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearIN(void)
 			{
-				(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].txinic   = true;
-				(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].fifoconc = true;
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
+				(&AVR32_USBB.UESTA0CLR)[USB_Endpoint_SelectedEndpoint].txinic   = true;
+				(&AVR32_USBB.UECON0CLR)[USB_Endpoint_SelectedEndpoint].fifoconc = true;
+				USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_Endpoint_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
@@ -549,9 +549,9 @@
 			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearOUT(void)
 			{
-				(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].rxoutic  = true;
-				(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].fifoconc = true;
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
+				(&AVR32_USBB.UESTA0CLR)[USB_Endpoint_SelectedEndpoint].rxoutic  = true;
+				(&AVR32_USBB.UECON0CLR)[USB_Endpoint_SelectedEndpoint].fifoconc = true;
+				USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_Endpoint_SelectedEndpoint * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
@@ -568,7 +568,7 @@
 			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_StallTransaction(void)
 			{
-				(&AVR32_USBB.UECON0SET)[USB_SelectedEndpoint].stallrqs = true;
+				(&AVR32_USBB.UECON0SET)[USB_Endpoint_SelectedEndpoint].stallrqs = true;
 			}
 
 			/** Clears the STALL condition on the currently selected endpoint.
@@ -578,7 +578,7 @@
 			static inline void Endpoint_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearStall(void)
 			{
-				(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].stallrqc = true;
+				(&AVR32_USBB.UECON0CLR)[USB_Endpoint_SelectedEndpoint].stallrqc = true;
 			}
 
 			/** Determines if the currently selected endpoint is stalled, false otherwise.
@@ -590,14 +590,14 @@
 			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsStalled(void)
 			{
-				return (&AVR32_USBB.UECON0)[USB_SelectedEndpoint].stallrq;
+				return (&AVR32_USBB.UECON0)[USB_Endpoint_SelectedEndpoint].stallrq;
 			}
 
 			/** Resets the data toggle of the currently selected endpoint. */
 			static inline void Endpoint_ResetDataToggle(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ResetDataToggle(void)
 			{
-				(&AVR32_USBB.UECON0SET)[USB_SelectedEndpoint].rstdts = true;
+				(&AVR32_USBB.UECON0SET)[USB_Endpoint_SelectedEndpoint].rstdts = true;
 			}
 
 			/** Determines the currently selected endpoint's direction.
@@ -607,7 +607,7 @@
 			static inline uint32_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_GetEndpointDirection(void)
 			{
-				return ((&AVR32_USBB.UECFG0)[USB_SelectedEndpoint].epdir ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT);
+				return ((&AVR32_USBB.UECFG0)[USB_Endpoint_SelectedEndpoint].epdir ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT);
 			}
 
 			/** Sets the direction of the currently selected endpoint.
@@ -617,7 +617,7 @@
 			static inline void Endpoint_SetEndpointDirection(const uint32_t DirectionMask) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_SetEndpointDirection(const uint32_t DirectionMask)
 			{
-				(&AVR32_USBB.UECFG0)[USB_SelectedEndpoint].epdir = (DirectionMask == ENDPOINT_DIR_IN);
+				(&AVR32_USBB.UECFG0)[USB_Endpoint_SelectedEndpoint].epdir = (DirectionMask == ENDPOINT_DIR_IN);
 			}
 
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -629,7 +629,7 @@
 			static inline uint8_t Endpoint_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_Read_8(void)
 			{
-				return *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				return *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 			}
 
 			/** Writes one byte to the currently selected endpoint's bank, for IN direction endpoints.
@@ -641,7 +641,7 @@
 			static inline void Endpoint_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_8(const uint8_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = Data;
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = Data;
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -653,7 +653,7 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				(void)Dummy;
 			}
@@ -668,8 +668,8 @@
 			static inline uint16_t Endpoint_Read_16_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_16_LE(void)
 			{
-				uint16_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint16_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				uint16_t Byte0 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint16_t Byte1 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				return ((Byte1 << 8) | Byte0);
 			}
@@ -684,8 +684,8 @@
 			static inline uint16_t Endpoint_Read_16_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_16_BE(void)
 			{
-				uint16_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint16_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				uint16_t Byte0 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint16_t Byte1 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				return ((Byte0 << 8) | Byte1);
 			}
@@ -700,8 +700,8 @@
 			static inline void Endpoint_Write_16_LE(const uint16_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_16_LE(const uint16_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data & 0xFF);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data & 0xFF);
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -714,8 +714,8 @@
 			static inline void Endpoint_Write_16_BE(const uint16_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_16_BE(const uint16_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data & 0xFF);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data & 0xFF);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 8);
 			}
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -727,8 +727,8 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				(void)Dummy;
 			}
@@ -743,10 +743,10 @@
 			static inline uint32_t Endpoint_Read_32_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_Read_32_LE(void)
 			{
-				uint32_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint32_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint32_t Byte2 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint32_t Byte3 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				uint32_t Byte0 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint32_t Byte1 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint32_t Byte2 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint32_t Byte3 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				return ((Byte3 << 24) | (Byte2 << 16) | (Byte1 << 8) | Byte0);
 			}
@@ -761,10 +761,10 @@
 			static inline uint32_t Endpoint_Read_32_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_Read_32_BE(void)
 			{
-				uint32_t Byte0 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint32_t Byte1 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint32_t Byte2 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				uint32_t Byte3 = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				uint32_t Byte0 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint32_t Byte1 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint32_t Byte2 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				uint32_t Byte3 = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
@@ -779,10 +779,10 @@
 			static inline void Endpoint_Write_32_LE(const uint32_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_32_LE(const uint32_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 24);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 16);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data &  0xFF);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 24);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 16);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data &  0xFF);
 			}
 
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -795,10 +795,10 @@
 			static inline void Endpoint_Write_32_BE(const uint32_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_32_BE(const uint32_t Data)
 			{
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data &  0xFF);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 8);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 16);
-				*(USB_EndpointFIFOPos[USB_SelectedEndpoint]++) = (Data >> 24);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data &  0xFF);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 8);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 16);
+				*(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++) = (Data >> 24);
 			}
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -810,10 +810,10 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
-				Dummy = *(USB_EndpointFIFOPos[USB_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
+				Dummy = *(USB_Endpoint_FIFOPos[USB_Endpoint_SelectedEndpoint]++);
 
 				(void)Dummy;
 			}
