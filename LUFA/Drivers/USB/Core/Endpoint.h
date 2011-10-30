@@ -91,7 +91,7 @@
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the device.
 			 */
-			#define ENDPOINT_EPNUM_MASK                     0x07
+			#define ENDPOINT_EPNUM_MASK                     0x0F
 
 			/** Endpoint address for the default control endpoint, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the endpoint macros.
