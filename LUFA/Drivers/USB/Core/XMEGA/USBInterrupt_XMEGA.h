@@ -121,9 +121,9 @@
 				switch (Interrupt)
 				{
 					case USB_INT_BUSEVENTI:
-						return (USB.INTCTRLA & USB_BUSEVIE_bm);
+						return ((USB.INTCTRLA & USB_BUSEVIE_bm) ? true : false);
 					case USB_INT_SOFI:
-						return (USB.INTCTRLA & USB_SOFIE_bm);
+						return ((USB.INTCTRLA & USB_SOFIE_bm) ? true : false);
 				}
 				
 				return false;
@@ -135,13 +135,13 @@
 				switch (Interrupt)
 				{
 					case USB_INT_BUSEVENTI_Suspend:
-						return (USB.INTFLAGSACLR & USB_SUSPENDIF_bm);
+						return ((USB.INTFLAGSACLR & USB_SUSPENDIF_bm) ? true : false);
 					case USB_INT_BUSEVENTI_Resume:
-						return (USB.INTFLAGSACLR & USB_RESUMEIF_bm);
+						return ((USB.INTFLAGSACLR & USB_RESUMEIF_bm) ? true : false);
 					case USB_INT_BUSEVENTI_Reset:
-						return (USB.INTFLAGSACLR & USB_RSTIF_bm);
+						return ((USB.INTFLAGSACLR & USB_RSTIF_bm) ? true : false);
 					case USB_INT_SOFI:
-						return (USB.INTFLAGSACLR & USB_SOFIF_bm);
+						return ((USB.INTFLAGSACLR & USB_SOFIF_bm) ? true : false);
 				}
 				
 				return false;

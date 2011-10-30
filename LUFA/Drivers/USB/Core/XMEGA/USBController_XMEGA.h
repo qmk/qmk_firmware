@@ -57,8 +57,20 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
+		/* Type Defines: */
+			typedef struct
+			{
+				uint16_t FrameNum;
+				struct
+				{
+					USB_EP_t OUT;
+					USB_EP_t IN;
+				} Endpoints[16];
+			} ATTR_PACKED USB_EndpointTable_t;
+	
 		/* External Variables: */
-			extern USB_EP_TABLE_t USB_EndpointTable;
+			extern USB_EndpointTable_t USB_EndpointTable;
+		
 	#endif
 	
 	/* Includes: */
@@ -90,17 +102,17 @@
 			/** Sets the USB bus interrupt priority level to be low priority. The USB bus interrupt is used for Start of Frame events, bus suspend
 			 *  and resume events, bus reset events and other events related to the management of the USB bus.
 			 */
-			#define USB_OPT_BUSEVENT_PRILOW           ((0 << 1) | (0 << 1))
+			#define USB_OPT_BUSEVENT_PRILOW           ((0 << 2) | (0 << 1))
 
 			/** Sets the USB bus interrupt priority level to be medium priority. The USB bus interrupt is used for Start of Frame events, bus suspend
 			 *  and resume events, bus reset events and other events related to the management of the USB bus.
 			 */
-			#define USB_OPT_BUSEVENT_PRIMED           ((0 << 1) | (1 << 1))
+			#define USB_OPT_BUSEVENT_PRIMED           ((0 << 2) | (1 << 1))
 
 			/** Sets the USB bus interrupt priority level to be high priority. The USB bus interrupt is used for Start of Frame events, bus suspend
 			 *  and resume events, bus reset events and other events related to the management of the USB bus.
 			 */
-			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 1) | (0 << 1))
+			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 2) | (0 << 1))
 			//@}
 
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
@@ -263,7 +275,7 @@
 			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Enable(void)
 			{
-				USB.CTRLA |= (USB_ENABLE_bm | USB_STFRNUM_bm | USB_MAXEP_gm);
+				USB.CTRLA |=  USB_ENABLE_bm;
 			}
 
 			static inline void USB_Controller_Disable(void) ATTR_ALWAYS_INLINE;

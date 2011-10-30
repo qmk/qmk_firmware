@@ -39,8 +39,31 @@
 uint8_t USB_Device_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-volatile uint8_t   Endpoint_SelectedEndpoint;
-volatile USB_EP_t* Endpoint_SelectedEndpointHandle;
+Endpoint_AuxData_t           Endpoint_AuxData[ENDPOINT_DETAILS_MAXEP * 2];
+
+volatile uint8_t             Endpoint_SelectedEndpoint;
+volatile USB_EP_t*           Endpoint_SelectedEndpointHandle;
+volatile Endpoint_AuxData_t* Endpoint_SelectedEndpointAux;
+
+bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
+                                    const uint8_t Direction,
+                                    const uint8_t Config,
+                                    const uint8_t Size)
+{
+	Endpoint_SelectEndpoint(Number | Direction);
+	
+	Endpoint_SelectedEndpointHandle->CTRL      = 0;
+	Endpoint_SelectedEndpointHandle->STATUS    = (Direction == ENDPOINT_DIR_IN) ? USB_EP_BUSNACK0_bm : 0;
+	Endpoint_SelectedEndpointHandle->CTRL      = Config;
+	Endpoint_SelectedEndpointHandle->CNT       = 0;
+	Endpoint_SelectedEndpointHandle->DATAPTR   = (intptr_t)&Endpoint_SelectedEndpointAux->Data;
+	
+	Endpoint_SelectedEndpointAux->BankSize     = Size;
+	Endpoint_SelectedEndpointAux->FIFOLength   = (Direction == ENDPOINT_DIR_IN) ? Size : 0;
+	Endpoint_SelectedEndpointAux->FIFOPosition = 0;
+
+	return true;
+}
 
 void Endpoint_ClearEndpoints(void)
 {

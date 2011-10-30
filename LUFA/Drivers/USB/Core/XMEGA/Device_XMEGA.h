@@ -142,7 +142,7 @@
 			static inline uint16_t USB_Device_GetFrameNumber(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t USB_Device_GetFrameNumber(void)
 			{
-				return (((uint16_t)USB_EndpointTable.FRAMENUMH << 8) | USB_EndpointTable.FRAMENUML);
+				return USB_EndpointTable.FrameNum;
 			}
 
 			#if !defined(NO_SOF_EVENTS)
