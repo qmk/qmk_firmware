@@ -60,12 +60,12 @@
 		/* Type Defines: */
 			typedef struct
 			{
-				uint16_t FrameNum;
 				struct
 				{
 					USB_EP_t OUT;
 					USB_EP_t IN;
 				} Endpoints[16];
+				uint16_t FrameNum;
 			} ATTR_PACKED USB_EndpointTable_t;
 	
 		/* External Variables: */
@@ -113,6 +113,12 @@
 			 *  and resume events, bus reset events and other events related to the management of the USB bus.
 			 */
 			#define USB_OPT_BUSEVENT_PRIHIGH          ((1 << 2) | (0 << 1))
+
+			/** Sets the USB controller to source its clock from the internal RC 32MHz clock, once it has been DFLL calibrated to 48MHz. */
+			#define USB_OPT_RC32MCLKSRC               (0 << 3)
+
+			/** Sets the USB controller to source its clock from the internal PLL. */
+			#define USB_OPT_PLLCLKSRC                 (1 << 3)
 			//@}
 
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)

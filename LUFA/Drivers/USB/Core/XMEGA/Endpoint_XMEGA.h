@@ -231,8 +231,10 @@
 				                        ((EndpointNumber & ENDPOINT_DIR_IN) ? 0x01 : 0);
 
 				Endpoint_SelectedEndpoint       = EndpointNumber;
-				Endpoint_SelectedEndpointHandle = &((USB_EP_t*)&USB_EndpointTable.Endpoints)[EPTableIndex];
 				Endpoint_SelectedEndpointAux    = &Endpoint_AuxData[EPTableIndex];
+				Endpoint_SelectedEndpointHandle = (EndpointNumber & ENDPOINT_DIR_IN) ?
+				                                   &USB_EndpointTable.Endpoints[EndpointNumber & ENDPOINT_EPNUM_MASK].IN :
+				                                   &USB_EndpointTable.Endpoints[EndpointNumber & ENDPOINT_EPNUM_MASK].OUT;
 			}
 
 			/** Configures the specified endpoint number with the given endpoint type, direction, bank size

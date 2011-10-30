@@ -263,14 +263,7 @@
 			                                      const uint8_t Reference,
 			                                      const uint32_t Frequency)
 			{
-				uint16_t DFLLCompare = (Frequency / 1024);
-				uint16_t DFFLCal     = 0;
-
-				if (Reference == DFLL_REF_INT_USBSOF)
-				{
-					NVM.CMD = NVM_CMD_READ_CALIB_ROW_gc;
-					DFFLCal = ((0x00 << 8) | pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSC)));
-				}
+				uint16_t DFLLCompare = (Frequency / 1000);
 				
 				switch (Source)
 				{
@@ -278,16 +271,21 @@
 						OSC.DFLLCTRL   |= (Reference << OSC_RC2MCREF_bp);
 						DFLLRC2M.COMP1  = (DFLLCompare & 0xFF);
 						DFLLRC2M.COMP2  = (DFLLCompare >> 8);
-						DFLLRC2M.CALA   = (DFFLCal & 0xFF);
-						DFLLRC2M.CALB   = (DFFLCal >> 8);
 						DFLLRC2M.CTRL   = DFLL_ENABLE_bm;
 						break;
 					case CLOCK_SRC_INT_RC32MHZ:
 						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
 						DFLLRC32M.COMP1 = (DFLLCompare & 0xFF);
 						DFLLRC32M.COMP2 = (DFLLCompare >> 8);
-						DFLLRC32M.CALA  = (DFFLCal & 0xFF);
-						DFLLRC32M.CALB  = (DFFLCal >> 8);
+
+						if (Reference == DFLL_REF_INT_USBSOF)
+						{
+							NVM.CMD        = NVM_CMD_READ_CALIB_ROW_gc;
+							DFLLRC32M.CALA = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSCA));
+							NVM.CMD        = NVM_CMD_READ_CALIB_ROW_gc;
+							DFLLRC32M.CALB = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSC));
+						}
+
 						DFLLRC32M.CTRL  = DFLL_ENABLE_bm;
 						break;
 					default:
