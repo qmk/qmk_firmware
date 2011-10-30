@@ -12,6 +12,7 @@
   *   - None
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders
+  *   - Added INVERTED_ISP_MISO compile time option to the AVRISP-MKII clone project (thanks to Chuck Rohs)
   *
   *  <b>Changed:</b>
   *  - Core:

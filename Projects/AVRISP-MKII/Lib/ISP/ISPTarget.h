@@ -104,10 +104,17 @@
 		 */
 		static inline uint8_t ISPTarget_ReceiveByte(void)
 		{
+			#if !defined(INVERTED_ISP_MISO)
 			if (HardwareSPIMode)
 			  return SPI_ReceiveByte();
 			else
 			  return ISPTarget_TransferSoftSPIByte(0x00);
+			#else
+			if (HardwareSPIMode)
+			  return ~SPI_ReceiveByte();
+			else
+			  return ~ISPTarget_TransferSoftSPIByte(0x00);			
+			#endif
 		}
 
 		/** Sends and receives a byte of ISP data to and from the attached target, using the
@@ -119,10 +126,17 @@
 		 */
 		static inline uint8_t ISPTarget_TransferByte(const uint8_t Byte)
 		{
+			#if !defined(INVERTED_ISP_MISO)
 			if (HardwareSPIMode)
 			  return SPI_TransferByte(Byte);
 			else
 			  return ISPTarget_TransferSoftSPIByte(Byte);
+			#else
+			if (HardwareSPIMode)
+			  return ~SPI_TransferByte(Byte);
+			else
+			  return ~ISPTarget_TransferSoftSPIByte(Byte);		
+			#endif
 		}
 
 #endif

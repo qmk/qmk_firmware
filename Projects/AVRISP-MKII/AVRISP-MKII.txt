@@ -293,6 +293,12 @@
  *    <td>Define to move the ISP rescue clock to the AVR's XCK pin instead of the OCR1A output pin. This is useful for existing programming
  *        hardware that does not expose the OCR1A pin of the AVR, but *may* cause some issues with PDI programming mode.
  *   </tr>
+ *   <tr>
+ *    <td>INVERTED_ISP_MISO</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Define to invert the received data on the ISP MISO line. This is sometimes needed depending on the level translation hardware used,
+ *        if the translator hardware inverts the received logic level.
+ *   </tr>
  *  </table>
  */
 
