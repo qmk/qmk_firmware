@@ -56,7 +56,7 @@
 		#endif
 
 	/* Macros: */
-		/** Low level device command to issue an extended FLASH address, for devices with other 128KB of FLASH. */
+		/** Low level device command to issue an extended FLASH address, for devices with over 128KB of FLASH. */
 		#define LOAD_EXTENDED_ADDRESS_CMD     0x4D
 
 		/** Macro to convert an ISP frequency to a number of timer clock cycles for the software SPI driver. */

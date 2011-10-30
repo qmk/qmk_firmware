@@ -352,9 +352,9 @@
 			static inline void USB_REG_On(void)
 			{
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				UHWCON  |=  (1 << UVREGE);
+				UHWCON |=  (1 << UVREGE);
 			#else
-				REGCR   &= ~(1 << REGDIS);
+				REGCR  &= ~(1 << REGDIS);
 			#endif
 			}
 
@@ -362,9 +362,9 @@
 			static inline void USB_REG_Off(void)
 			{
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				UHWCON  &= ~(1 << UVREGE);
+				UHWCON &= ~(1 << UVREGE);
 			#else
-				REGCR   |=  (1 << REGDIS);
+				REGCR  |=  (1 << REGDIS);
 			#endif
 			}
 
@@ -372,38 +372,38 @@
 			static inline void USB_OTGPAD_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTGPAD_On(void)
 			{
-				USBCON  |=  (1 << OTGPADE);
+				USBCON |=  (1 << OTGPADE);
 			}
 
 			static inline void USB_OTGPAD_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTGPAD_Off(void)
 			{
-				USBCON  &= ~(1 << OTGPADE);
+				USBCON &= ~(1 << OTGPADE);
 			}
 			#endif
 
 			static inline void USB_CLK_Freeze(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_CLK_Freeze(void)
 			{
-				USBCON  |=  (1 << FRZCLK);
+				USBCON |=  (1 << FRZCLK);
 			}
 
 			static inline void USB_CLK_Unfreeze(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_CLK_Unfreeze(void)
 			{
-				USBCON  &= ~(1 << FRZCLK);
+				USBCON &= ~(1 << FRZCLK);
 			}
 
 			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Enable(void)
 			{
-				USBCON  |=  (1 << USBE);
+				USBCON |=  (1 << USBE);
 			}
 
 			static inline void USB_Controller_Disable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Disable(void)
 			{
-				USBCON  &= ~(1 << USBE);
+				USBCON &= ~(1 << USBE);
 			}
 
 			static inline void USB_Controller_Reset(void) ATTR_ALWAYS_INLINE;
