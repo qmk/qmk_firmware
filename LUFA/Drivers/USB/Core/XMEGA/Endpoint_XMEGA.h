@@ -99,17 +99,23 @@
 		/* Type Defines: */
 			typedef struct
 			{
-				uint8_t   Data[64];
-				uint8_t   BankSize;
-				uint8_t   FIFOLength;
-				uint8_t   FIFOPosition;
-			} Endpoint_AuxData_t;
+				uint8_t Data[64];
+
+				uint8_t Length;
+				uint8_t Position;
+			} Endpoint_FIFO_t;
+		
+			typedef struct
+			{
+				Endpoint_FIFO_t OUT;
+				Endpoint_FIFO_t IN;
+			} Endpoint_FIFOPair_t;
 
 		/* External Variables: */
-			extern Endpoint_AuxData_t           Endpoint_AuxData[ENDPOINT_DETAILS_MAXEP * 2];
-			extern volatile uint8_t             Endpoint_SelectedEndpoint;
-			extern volatile USB_EP_t*           Endpoint_SelectedEndpointHandle;
-			extern volatile Endpoint_AuxData_t* Endpoint_SelectedEndpointAux;
+			extern Endpoint_FIFOPair_t       USB_Endpoint_FIFOs[ENDPOINT_DETAILS_MAXEP];
+			extern volatile uint8_t          USB_Endpoint_SelectedEndpoint;
+			extern volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
+			extern volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
 
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
@@ -224,17 +230,21 @@
 			 *
 			 *  \param[in] EndpointNumber Endpoint number to select.
 			 */
-			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber);
 			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
 			{
-				uint8_t EPTableIndex = ((EndpointNumber & ENDPOINT_EPNUM_MASK) << 1) |
-				                        ((EndpointNumber & ENDPOINT_DIR_IN) ? 0x01 : 0);
-
-				Endpoint_SelectedEndpoint       = EndpointNumber;
-				Endpoint_SelectedEndpointAux    = &Endpoint_AuxData[EPTableIndex];
-				Endpoint_SelectedEndpointHandle = (EndpointNumber & ENDPOINT_DIR_IN) ?
-				                                   &USB_EndpointTable.Endpoints[EndpointNumber & ENDPOINT_EPNUM_MASK].IN :
-				                                   &USB_EndpointTable.Endpoints[EndpointNumber & ENDPOINT_EPNUM_MASK].OUT;
+				USB_Endpoint_SelectedEndpoint   = EndpointNumber;
+				
+				if (EndpointNumber & ENDPOINT_DIR_IN)
+				{
+					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber & ENDPOINT_EPNUM_MASK].IN;
+					USB_Endpoint_SelectedHandle = &USB_EndpointTable.Endpoints[EndpointNumber & ENDPOINT_EPNUM_MASK].IN;
+				}
+				else
+				{
+					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber & ENDPOINT_EPNUM_MASK].OUT;
+					USB_Endpoint_SelectedHandle = &USB_EndpointTable.Endpoints[EndpointNumber & ENDPOINT_EPNUM_MASK].OUT;
+				}
 			}
 
 			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
@@ -260,20 +270,11 @@
 			 *                        More banks uses more USB DPRAM, but offers better performance. Isochronous type
 			 *                        endpoints <b>must</b> have at least two banks.
 			 *
-			 *  \note When the \c ORDERED_EP_CONFIG compile time option is used, Endpoints <b>must</b> be configured in
-			 *        ascending order, or bank corruption will occur.
-			 *        \n\n
-			 *
-			 *  \note Different endpoints may have different maximum packet sizes based on the endpoint's index - refer to
-			 *        the chosen microcontroller model's datasheet to determine the maximum bank size for each endpoint.
-			 *        \n\n
-			 *
 			 *  \note The default control endpoint should not be manually configured by the user application, as
 			 *        it is automatically configured by the library internally.
 			 *        \n\n
 			 *
-			 *  \note This routine will automatically select the specified endpoint upon success. Upon failure, the endpoint
-			 *        which failed to reconfigure correctly will be selected.
+			 *  \note This routine will automatically select the specified endpoint.
 			 *
 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
 			 */
@@ -321,7 +322,7 @@
 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_BytesInEndpoint(void)
 			{
-				return Endpoint_SelectedEndpointAux->FIFOPosition;
+				return USB_Endpoint_SelectedFIFO->Position;
 			}
 
 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
@@ -333,7 +334,7 @@
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
 			{
-				return Endpoint_SelectedEndpoint;
+				return USB_Endpoint_SelectedEndpoint;
 			}
 
 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
@@ -344,7 +345,7 @@
 			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber)
 			{
-				Endpoint_SelectedEndpointAux->FIFOPosition = 0;
+				USB_Endpoint_SelectedFIFO->Position = 0;
 			}
 
 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
@@ -383,7 +384,7 @@
 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsReadWriteAllowed(void)
 			{
-				return (Endpoint_SelectedEndpointAux->FIFOPosition < Endpoint_SelectedEndpointAux->FIFOLength);
+				return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
 			}
 
 			/** Determines if the currently selected endpoint is configured.
@@ -393,7 +394,7 @@
 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsConfigured(void)
 			{
-				return ((Endpoint_SelectedEndpointHandle->CTRL & USB_EP_TYPE_gm) ? true : false);
+				return ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) ? true : false);
 			}
 
 			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
@@ -430,7 +431,9 @@
 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsINReady(void)
 			{
-				return ((Endpoint_SelectedEndpointHandle->STATUS & USB_EP_TRNCOMPL0_bm) ? true : false);
+				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+				
+				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm) ? true : false);
 			}
 
 			/** Determines if the selected OUT endpoint has received new packet from the host.
@@ -442,9 +445,11 @@
 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsOUTReceived(void)
 			{
-				if (Endpoint_SelectedEndpointHandle->STATUS & USB_EP_TRNCOMPL0_bm)
+				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+
+				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
 				{
-					Endpoint_SelectedEndpointAux->FIFOLength = Endpoint_SelectedEndpointHandle->CNT;
+					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
 					return true;
 				}
 				
@@ -460,7 +465,15 @@
 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsSETUPReceived(void)
 			{
-				return ((Endpoint_SelectedEndpointHandle->STATUS & USB_EP_SETUP_bm) ? true : false);
+				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+
+				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_SETUP_bm)
+				{
+					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+					return true;				
+				}
+			
+				return false;
 			}
 
 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
@@ -473,9 +486,8 @@
 			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearSETUP(void)
 			{
-				Endpoint_SelectedEndpointHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_BUSNACK0_bm);
-
-				Endpoint_SelectedEndpointAux->FIFOPosition    = 0;
+				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_BUSNACK0_bm);
+				USB_Endpoint_SelectedFIFO->Position  = 0;
 			}
 
 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
@@ -486,10 +498,9 @@
 			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearIN(void)
 			{
-				Endpoint_SelectedEndpointHandle->CNT     = Endpoint_SelectedEndpointAux->FIFOPosition;
-				Endpoint_SelectedEndpointHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm);
-
-				Endpoint_SelectedEndpointAux->FIFOPosition    = 0;
+				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
+				USB_Endpoint_SelectedFIFO->Position  = 0;
 			}
 
 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
@@ -500,9 +511,8 @@
 			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearOUT(void)
 			{				
-				Endpoint_SelectedEndpointHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm);
-
-				Endpoint_SelectedEndpointAux->FIFOPosition    = 0;
+				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
+				USB_Endpoint_SelectedFIFO->Position  = 0;
 			}
 
 			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
@@ -519,7 +529,7 @@
 			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_StallTransaction(void)
 			{
-				Endpoint_SelectedEndpointHandle->CTRL |=  USB_EP_STALL_bm;
+				USB_Endpoint_SelectedHandle->CTRL |=  USB_EP_STALL_bm;
 			}
 
 			/** Clears the STALL condition on the currently selected endpoint.
@@ -529,7 +539,7 @@
 			static inline void Endpoint_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearStall(void)
 			{
-				Endpoint_SelectedEndpointHandle->CTRL &= ~USB_EP_STALL_bm;
+				USB_Endpoint_SelectedHandle->CTRL &= ~USB_EP_STALL_bm;
 			}
 
 			/** Determines if the currently selected endpoint is stalled, false otherwise.
@@ -541,14 +551,14 @@
 			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsStalled(void)
 			{
-				return ((Endpoint_SelectedEndpointHandle->CTRL & USB_EP_STALL_bm) ? true : false);
+				return ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_STALL_bm) ? true : false);
 			}
 
 			/** Resets the data toggle of the currently selected endpoint. */
 			static inline void Endpoint_ResetDataToggle(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ResetDataToggle(void)
 			{
-				Endpoint_SelectedEndpointHandle->STATUS &= ~USB_EP_TOGGLE_bm;
+				USB_Endpoint_SelectedHandle->STATUS &= ~USB_EP_TOGGLE_bm;
 			}
 
 			/** Determines the currently selected endpoint's direction.
@@ -558,7 +568,7 @@
 			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetEndpointDirection(void)
 			{
-				return ((Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN) ? true : false);
+				return ((USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN) ? true : false);
 			}
 
 			/** Sets the direction of the currently selected endpoint.
@@ -580,7 +590,7 @@
 			static inline uint8_t Endpoint_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_Read_8(void)
 			{
-				return Endpoint_SelectedEndpointAux->Data[Endpoint_SelectedEndpointAux->FIFOPosition++];
+				return USB_Endpoint_SelectedFIFO->Data[USB_Endpoint_SelectedFIFO->Position++];
 			}
 
 			/** Writes one byte to the currently selected endpoint's bank, for IN direction endpoints.
@@ -592,7 +602,7 @@
 			static inline void Endpoint_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_8(const uint8_t Data)
 			{
-				Endpoint_SelectedEndpointAux->Data[Endpoint_SelectedEndpointAux->FIFOPosition++] = Data;
+				USB_Endpoint_SelectedFIFO->Data[USB_Endpoint_SelectedFIFO->Position++] = Data;
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -602,7 +612,7 @@
 			static inline void Endpoint_Discard_8(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_8(void)
 			{
-				Endpoint_SelectedEndpointAux->FIFOPosition++;
+				USB_Endpoint_SelectedFIFO->Position++;
 			}
 
 			/** Reads two bytes from the currently selected endpoint's bank in little endian format, for OUT
