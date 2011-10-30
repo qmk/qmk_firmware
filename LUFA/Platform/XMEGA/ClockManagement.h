@@ -275,19 +275,19 @@
 				switch (Source)
 				{
 					case CLOCK_SRC_INT_RC2MHZ:
-						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
-						DFLLRC2M.COMP1  = (DFLLCompare >> 8);
-						DFLLRC2M.COMP2  = (DFLLCompare & 0xFF);
-						DFLLRC2M.CALA   = (DFFLCal >> 8);
-						DFLLRC2M.CALB   = (DFFLCal & 0xFF);
+						OSC.DFLLCTRL   |= (Reference << OSC_RC2MCREF_bp);
+						DFLLRC2M.COMP1  = (DFLLCompare & 0xFF);
+						DFLLRC2M.COMP2  = (DFLLCompare >> 8);
+						DFLLRC2M.CALA   = (DFFLCal & 0xFF);
+						DFLLRC2M.CALB   = (DFFLCal >> 8);
 						DFLLRC2M.CTRL   = DFLL_ENABLE_bm;
 						break;
 					case CLOCK_SRC_INT_RC32MHZ:
 						OSC.DFLLCTRL   |= (Reference << OSC_RC32MCREF_gp);
-						DFLLRC32M.COMP1 = (DFLLCompare >> 8);
-						DFLLRC32M.COMP2 = (DFLLCompare & 0xFF);
-						DFLLRC32M.CALA  = (DFFLCal >> 8);
-						DFLLRC32M.CALB  = (DFFLCal & 0xFF);
+						DFLLRC32M.COMP1 = (DFLLCompare & 0xFF);
+						DFLLRC32M.COMP2 = (DFLLCompare >> 8);
+						DFLLRC32M.CALA  = (DFFLCal & 0xFF);
+						DFLLRC32M.CALB  = (DFFLCal >> 8);
 						DFLLRC32M.CTRL  = DFLL_ENABLE_bm;
 						break;
 					default:
