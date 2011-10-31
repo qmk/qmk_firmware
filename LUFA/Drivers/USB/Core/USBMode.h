@@ -111,6 +111,31 @@
 		 *  (i.e. AT32UC3B1*) when defined.
 		 */
 		#define USB_SERIES_UC3B1_AVR
+		
+		/** Indicates that the target AVR microcontroller belongs to the XMEGA A1U Series USB controller
+		 *  (i.e. ATXMEGA*A1U) when defined.
+		 */
+		#define USB_SERIES_A1U_XMEGA
+
+		/** Indicates that the target AVR microcontroller belongs to the XMEGA A3U Series USB controller
+		 *  (i.e. ATXMEGA*A3U) when defined.
+		 */
+		#define USB_SERIES_A3U_XMEGA
+
+		/** Indicates that the target AVR microcontroller belongs to the XMEGA A4U Series USB controller
+		 *  (i.e. ATXMEGA*A4U) when defined.
+		 */
+		#define USB_SERIES_A4U_XMEGA
+
+		/** Indicates that the target AVR microcontroller belongs to the XMEGA B1 Series USB controller
+		 *  (i.e. ATXMEGA*B1) when defined.
+		 */
+		#define USB_SERIES_B1_XMEGA
+
+		/** Indicates that the target AVR microcontroller belongs to the XMEGA B3 Series USB controller
+		 *  (i.e. ATXMEGA*B3) when defined.
+		 */
+		#define USB_SERIES_B3_XMEGA
 
 		/** Indicates that the target microcontroller and compilation settings allow for the
 		 *  target to be configured in USB Device mode when defined.
@@ -186,6 +211,12 @@
 				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_ATxmega16A4U__) || defined(__AVR_ATxmega32A4U__))
 				#define USB_SERIES_A4U_XMEGA
+				#define USB_CAN_BE_DEVICE
+			#elif (defined(__AVR_ATxmega128B1__) || defined(__AVR_ATxmega64B1__))
+				#define USB_SERIES_B1_XMEGA
+				#define USB_CAN_BE_DEVICE
+			#elif (defined(__AVR_ATxmega128B3__) || defined(__AVR_ATxmega64B3__))
+				#define USB_SERIES_B3_XMEGA
 				#define USB_CAN_BE_DEVICE
 			#endif
 			
