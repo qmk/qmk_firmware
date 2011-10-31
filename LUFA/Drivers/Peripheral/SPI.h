@@ -66,6 +66,8 @@
 	/* Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/SPI_AVR8.h"
+		#elif (ARCH == ARCH_XMEGA)
+			#include "XMEGA/SPI_XMEGA.h"			
 		#else
 			#error The SPI peripheral driver is not currently available for your selected architecture.
 		#endif

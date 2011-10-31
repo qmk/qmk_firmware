@@ -76,18 +76,18 @@
 		#if !defined(__DOXYGEN__)
 			static inline void Buttons_Init(void)
 			{
-				PORTE.OUTCLR = BUTTONS_BUTTON1;
-				PORTF.OUTCLR = (BUTTONS_BUTTON2 | BUTTONS_BUTTON3);
+				PORTE_OUTCLR = BUTTONS_BUTTON1;
+				PORTF_OUTCLR = (BUTTONS_BUTTON2 | BUTTONS_BUTTON3);
 				
-				PORTE.PIN5CTRL = PORT_OPC_PULLUP_gc;
-				PORTF.PIN1CTRL = PORT_OPC_PULLUP_gc;
-				PORTF.PIN2CTRL = PORT_OPC_PULLUP_gc;
+				PORTE_PIN5CTRL = PORT_OPC_PULLUP_gc;
+				PORTF_PIN1CTRL = PORT_OPC_PULLUP_gc;
+				PORTF_PIN2CTRL = PORT_OPC_PULLUP_gc;
 			}
 
 			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Buttons_GetStatus(void)
 			{
-				return ((~PORTE.IN & BUTTONS_BUTTON1) | (~PORTF.IN & (BUTTONS_BUTTON2 | BUTTONS_BUTTON3)));
+				return ((~PORTE_IN & BUTTONS_BUTTON1) | (~PORTF_IN & (BUTTONS_BUTTON2 | BUTTONS_BUTTON3)));
 			}
 		#endif
 
