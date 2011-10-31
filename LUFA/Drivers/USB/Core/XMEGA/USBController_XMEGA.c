@@ -69,8 +69,8 @@ void USB_Init(
 
 	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
 	USB.CAL0 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL0));
-	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
+	NVM.CMD  = 0;
 	
 	USB.EPPTR = (intptr_t)&USB_EndpointTable;
 	USB.CTRLA = (USB_STFRNUM_bm | USB_MAXEP_gm);

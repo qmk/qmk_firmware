@@ -53,7 +53,7 @@ bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
 	Endpoint_SelectEndpoint(Number | Direction);
 	
 	USB_Endpoint_SelectedHandle->CTRL      = 0;
-	USB_Endpoint_SelectedHandle->STATUS    = (Direction == ENDPOINT_DIR_IN) ? (USB_EP_BUSNACK0_bm | USB_EP_TRNCOMPL0_bm) : USB_EP_BUSNACK0_bm;
+	USB_Endpoint_SelectedHandle->STATUS    = (Direction == ENDPOINT_DIR_IN) ? USB_EP_BUSNACK0_bm : 0;
 	USB_Endpoint_SelectedHandle->CTRL      = Config;
 	USB_Endpoint_SelectedHandle->CNT       = 0;
 	USB_Endpoint_SelectedHandle->DATAPTR   = (intptr_t)&USB_Endpoint_SelectedFIFO->Data[0];
@@ -72,13 +72,26 @@ void Endpoint_ClearEndpoints(void)
 
 void Endpoint_ClearStatusStage(void)
 {
-	while (!(Endpoint_IsOUTReceived()))
+	if (USB_ControlRequest.bmRequestType & REQDIR_DEVICETOHOST)
 	{
-		if (USB_DeviceState == DEVICE_STATE_Unattached)
-		  return;
-	}
+		while (!(Endpoint_IsOUTReceived()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 
-	Endpoint_ClearOUT();
+		Endpoint_ClearOUT();
+	}
+	else
+	{
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
+
+		Endpoint_ClearIN();
+	}
 }
 
 #if !defined(CONTROL_ONLY_DEVICE)

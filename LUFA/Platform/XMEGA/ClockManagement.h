@@ -282,8 +282,8 @@
 						{
 							NVM.CMD        = NVM_CMD_READ_CALIB_ROW_gc;
 							DFLLRC32M.CALA = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSCA));
-							NVM.CMD        = NVM_CMD_READ_CALIB_ROW_gc;
 							DFLLRC32M.CALB = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBRCOSC));
+							NVM.CMD        = 0;
 						}
 
 						DFLLRC32M.CTRL  = DFLL_ENABLE_bm;
@@ -359,7 +359,7 @@
 				GlobalInterruptDisable();
 
 				CCP      = CCP_IOREG_gc;
-				CLK.CTRL = ClockSourceMask;
+				CLK_CTRL = ClockSourceMask;
 				
 				SetGlobalInterruptMask(CurrentGlobalInt);
 				

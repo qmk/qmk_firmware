@@ -211,6 +211,7 @@
 
 					NVM.CMD    = NVM_CMD_READ_CALIB_ROW_gc;
 					SerialByte = pgm_read_byte(SigReadAddress);
+					NVM.CMD    = 0;
 
 					if (SerialCharNum & 0x01)
 					{
