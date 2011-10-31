@@ -156,6 +156,9 @@
 			/** Selects the Atmel EVK1104 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_EVK1104       30
 			
+			/** Selects the Atmel XMEGA A3BU Xplained specific board drivers, including the Button and LED drivers. */
+			#define BOARD_A3BU_XPLAINED 31
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

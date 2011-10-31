@@ -171,6 +171,8 @@
 			#include "UC3/EVK1100/LEDs.h"
 		#elif (BOARD == BOARD_EVK1104)
 			#include "UC3/EVK1104/LEDs.h"
+		#elif (BOARD == BOARD_A3BU_XPLAINED)
+			#include "XMEGA/A3BU_XPLAINED/LEDs.h"			
 		#else
 			#include "Board/LEDs.h"
 		#endif

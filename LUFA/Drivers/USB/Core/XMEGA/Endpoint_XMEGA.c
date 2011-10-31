@@ -107,8 +107,16 @@ uint8_t Endpoint_WaitUntilReady(void)
 
 	for (;;)
 	{
-		if (Endpoint_IsOUTReceived())
-		  return ENDPOINT_READYWAIT_NoError;
+		if (Endpoint_GetEndpointDirection() == ENDPOINT_DIR_IN)
+		{
+			if (Endpoint_IsINReady())
+			  return ENDPOINT_READYWAIT_NoError;
+		}
+		else
+		{
+			if (Endpoint_IsOUTReceived())
+			  return ENDPOINT_READYWAIT_NoError;
+		}
 		
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
 

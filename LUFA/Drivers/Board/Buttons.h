@@ -131,6 +131,8 @@
 			#include "UC3/EVK1100/Buttons.h"
 		#elif (BOARD == BOARD_EVK1104)
 			#include "UC3/EVK1104/Buttons.h"
+		#elif (BOARD == BOARD_A3BU_XPLAINED)
+			#include "XMEGA/A3BU_XPLAINED/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

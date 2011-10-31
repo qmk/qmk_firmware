@@ -305,7 +305,7 @@
 				}
 				
 				if (Type == EP_TYPE_CONTROL)
-				  Endpoint_ConfigureEndpoint_PRV(Number, Direction ^ ENDPOINT_DIR_IN, EPConfigMask, Size);
+				  Endpoint_ConfigureEndpoint_PRV(Number, (Direction ^ ENDPOINT_DIR_IN), EPConfigMask, Size);
 				  
 				return Endpoint_ConfigureEndpoint_PRV(Number, Direction, EPConfigMask, Size);
 			}
@@ -367,7 +367,7 @@
 			 */
 			static inline void Endpoint_AbortPendingIN(void)
 			{
-				// TODO
+				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_BUSNACK0_bm;
 			}
 
 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
@@ -581,7 +581,7 @@
 			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetEndpointDirection(void)
 			{
-				return ((USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN) ? true : false);
+				return (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN);
 			}
 
 			/** Sets the direction of the currently selected endpoint.
