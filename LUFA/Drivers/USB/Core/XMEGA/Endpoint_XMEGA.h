@@ -289,7 +289,7 @@
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				uint8_t EPConfigMask = (Banks | Endpoint_BytesToEPSizeMask(Size));
+				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | Banks | Endpoint_BytesToEPSizeMask(Size));
 
 				switch (Type)
 				{
@@ -345,7 +345,10 @@
 			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber)
 			{
-				USB_Endpoint_SelectedFIFO->Position = 0;
+				if (EndpointNumber & ENDPOINT_DIR_IN)
+				  USB_Endpoint_FIFOs[EndpointNumber & ENDPOINT_EPNUM_MASK].IN.Position  = 0;
+				else
+				  USB_Endpoint_FIFOs[EndpointNumber & ENDPOINT_EPNUM_MASK].OUT.Position = 0;
 			}
 
 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
@@ -564,7 +567,7 @@
 			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsStalled(void)
 			{
-				return ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_STALLF_bm) ? true : false);
+				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_STALLF_bm) ? true : false);
 			}
 
 			/** Resets the data toggle of the currently selected endpoint. */
