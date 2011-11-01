@@ -83,10 +83,10 @@
 			/** Selects the BUMBLEB specific board drivers, using the officially recommended peripheral layout. */
 			#define BOARD_BUMBLEB       6
 
-			/** Selects the XPLAIN (Revision 2 or newer) specific board drivers, including LED and Dataflash driver. */
+			/** Selects the XPLAIN (Revision 2 or newer) specific board drivers, including LED and Dataflash drivers. */
 			#define BOARD_XPLAIN        7
 
-			/** Selects the XPLAIN (Revision 1) specific board drivers, including LED and Dataflash driver. */
+			/** Selects the XPLAIN (Revision 1) specific board drivers, including LED and Dataflash drivers. */
 			#define BOARD_XPLAIN_REV1   8
 
 			/** Selects the EVK527 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
@@ -156,7 +156,7 @@
 			/** Selects the Atmel EVK1104 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_EVK1104       30
 			
-			/** Selects the Atmel XMEGA A3BU Xplained specific board drivers, including the Button and LED drivers. */
+			/** Selects the Atmel XMEGA A3BU Xplained specific board drivers, including Dataflash, Button and LED drivers. */
 			#define BOARD_A3BU_XPLAINED 31
 
 			#if !defined(__DOXYGEN__)
