@@ -28,8 +28,10 @@ namespace CPUMonitor
         {
             AppRegKey = Registry.CurrentUser.CreateSubKey("Software\\CPUMonitor");
 
-            for (int i = 1; i <= 99; i++)
-                cmbComPort.Items.Add("COM" + i.ToString());
+            String[] PortNames = System.IO.Ports.SerialPort.GetPortNames();
+            Array.Sort<String>(PortNames, delegate(string strA, string strB) { return int.Parse(strA.Substring(3)).CompareTo(int.Parse(strB.Substring(3))); });
+            cmbComPort.Items.Clear();
+            cmbComPort.Items.AddRange(PortNames);
 
             cmbComPort.SelectedIndex = System.Convert.ToInt32(AppRegKey.GetValue("Port", "1")) - 1;
             serSerialPort.PortName = cmbComPort.Text;

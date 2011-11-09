@@ -20,8 +20,10 @@ namespace LEDMixer
 
         private void LEDMixer_Load(object sender, EventArgs e)
         {
-            for (int i = 1; i <= 99; i++)
-                cbPort.Items.Add("COM" + i.ToString());
+            String[] PortNames = System.IO.Ports.SerialPort.GetPortNames();
+            Array.Sort<String>(PortNames, delegate(string strA, string strB) { return int.Parse(strA.Substring(3)).CompareTo(int.Parse(strB.Substring(3))); });
+            cbPort.Items.Clear();
+            cbPort.Items.AddRange(PortNames);
 
             cbPort.SelectedIndex = 0;
 
