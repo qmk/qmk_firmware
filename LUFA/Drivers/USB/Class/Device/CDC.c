@@ -51,10 +51,14 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+
+				while (!(Endpoint_IsINReady()));
+
 				Endpoint_Write_32_LE(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS);
 				Endpoint_Write_8(CDCInterfaceInfo->State.LineEncoding.CharFormat);
 				Endpoint_Write_8(CDCInterfaceInfo->State.LineEncoding.ParityType);
 				Endpoint_Write_8(CDCInterfaceInfo->State.LineEncoding.DataBits);
+
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -64,13 +68,17 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+
+				while (!(Endpoint_IsOUTReceived()));
+
 				CDCInterfaceInfo->State.LineEncoding.BaudRateBPS = Endpoint_Read_32_LE();
 				CDCInterfaceInfo->State.LineEncoding.CharFormat  = Endpoint_Read_8();
 				CDCInterfaceInfo->State.LineEncoding.ParityType  = Endpoint_Read_8();
 				CDCInterfaceInfo->State.LineEncoding.DataBits    = Endpoint_Read_8();
+
 				Endpoint_ClearOUT();
 				Endpoint_ClearStatusStage();
-
+			
 				EVENT_CDC_Device_LineEncodingChanged(CDCInterfaceInfo);
 			}
 

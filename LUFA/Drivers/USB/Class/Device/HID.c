@@ -94,6 +94,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+				while (!(Endpoint_IsINReady()));
 				Endpoint_Write_8(HIDInterfaceInfo->State.UsingReportProtocol);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -124,6 +125,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+				while (!(Endpoint_IsINReady()));
 				Endpoint_Write_8(HIDInterfaceInfo->State.IdleCount >> 2);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();

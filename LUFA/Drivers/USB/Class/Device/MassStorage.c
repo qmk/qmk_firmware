@@ -61,6 +61,7 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+				while (!(Endpoint_IsINReady()));
 				Endpoint_Write_8(MSInterfaceInfo->Config.TotalLUNs - 1);
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();

@@ -136,6 +136,10 @@
  *  - Elektor Magazine, "20 x Open Source" by Jens Nickel, March 2010 Issue
  *  - Circuit Cellar Magazine, "Advanced USB Design Debugging" by Collin O'Flynn, August 2010 Issue
  *
+ *  \section Sec_PortsAndForks Non-Official LUFA Ports and Forks
+ *  - NXP's official "nxpusblib" LUFA fork, for LPC devices: http://www.lpcware.com/content/project/nxpusblib
+ *  - Kevin Mehall's LUFA port to the NXP LPC13xx: https://github.com/kevinmehall/LUFA-LPC13xx
+ *
  *  \section Sec_LUFANotableMentions Other Notable Mentions of LUFA
  *  - Adafruit "Ask an Engineer", 7th November 2010
  *  - Arduino 2010 Keynote speech
