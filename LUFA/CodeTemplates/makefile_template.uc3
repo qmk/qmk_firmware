@@ -95,7 +95,7 @@ LUFA_PATH = ### INSERT PATH TO LUFA LIBRARY RELATIVE TO PROJECT DIRECTORY HERE #
 
 
 # LUFA library compile-time options and predefined tokens (add '-D' before each token)
-LUFA_OPTS = ### INSERT LUFA COMPILE TIME TOKES HERE ###
+LUFA_OPTS = ### INSERT LUFA COMPILE TIME TOKENS HERE ###
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
