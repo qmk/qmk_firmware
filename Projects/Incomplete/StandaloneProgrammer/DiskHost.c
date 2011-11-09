@@ -50,69 +50,59 @@ USB_ClassInfo_MS_Host_t DiskHost_MS_Interface =
 
 void DiskHost_USBTask(void)
 {
-	if (USB_HostState == HOST_STATE_Addressed)
+	MS_Host_USBTask(&DiskHost_MS_Interface);
+}
+
+void EVENT_USB_Host_DeviceEnumerationComplete(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+
+	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+
+	if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+										   sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-
-		uint16_t ConfigDescriptorSize;
-		uint8_t  ConfigDescriptorData[512];
-
-		if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
-											   sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
-		{
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			return;
-		}
-
-		if (MS_Host_ConfigurePipes(&DiskHost_MS_Interface,
-		                           ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
-		{
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			return;
-		}
-
-		if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
-		{
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			return;
-		}
-
-		uint8_t MaxLUNIndex;
-		if (MS_Host_GetMaxLUN(&DiskHost_MS_Interface, &MaxLUNIndex))
-		{
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			return;
-		}
-
-		if (MS_Host_ResetMSInterface(&DiskHost_MS_Interface))
-		{
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			return;
-		}
-
-		USB_HostState = HOST_STATE_Configured;
-
-		/* Note: For the RequestSense call to work, the host state machine must be in the
-		 *       Configured state, or the call will be aborted */
-		SCSI_Request_Sense_Response_t SenseData;
-		if (MS_Host_RequestSense(&DiskHost_MS_Interface, 0, &SenseData) != 0)
-		{
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			return;
-		}
-
-		pf_mount(&DiskFATState);
-
-		LEDs_SetAllLEDs(LEDMASK_USB_READY);
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
 	}
 
-	MS_Host_USBTask(&DiskHost_MS_Interface);
+	if (MS_Host_ConfigurePipes(&DiskHost_MS_Interface,
+							   ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	uint8_t MaxLUNIndex;
+	if (MS_Host_GetMaxLUN(&DiskHost_MS_Interface, &MaxLUNIndex))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	if (MS_Host_ResetMSInterface(&DiskHost_MS_Interface))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	SCSI_Request_Sense_Response_t SenseData;
+	if (MS_Host_RequestSense(&DiskHost_MS_Interface, 0, &SenseData) != 0)
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;
+	}
+
+	pf_mount(&DiskFATState);
+
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 void EVENT_USB_Host_DeviceAttached(void)

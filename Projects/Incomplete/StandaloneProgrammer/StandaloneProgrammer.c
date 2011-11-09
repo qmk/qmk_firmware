@@ -43,7 +43,6 @@ FILE DiskStream = FDEV_SETUP_STREAM(NULL, Disk_getchar, _FDEV_SETUP_READ);
 /** Petite FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
 
-
 /** Stream character fetching routine for the FAT driver so that characters from the currently open file can be
  *  read in sequence when applied to a stdio stream.
  */
