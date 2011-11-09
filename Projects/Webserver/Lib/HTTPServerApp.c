@@ -218,7 +218,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 	{
 		/* Copy over the HTTP 404 response header and send it to the receiving client */
 		strcpy_P(AppData, HTTP404Header);
-		strcpy(&AppData[strlen(AppData)], AppState->HTTPServer.FileName);
+		strcat(AppData, AppState->HTTPServer.FileName);
 		uip_send(AppData, strlen(AppData));
 
 		AppState->HTTPServer.NextState = WEBSERVER_STATE_Closing;
@@ -236,7 +236,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 		{
 			if (strcmp(&Extension[1], MIMETypes[i].Extension) == 0)
 			{
-				strcpy(&AppData[strlen(AppData)], MIMETypes[i].MIMEType);
+				strcat(AppData, MIMETypes[i].MIMEType);
 				FoundMIMEType = true;
 				break;
 			}
@@ -247,11 +247,11 @@ static void HTTPServerApp_SendResponseHeader(void)
 	if (!(FoundMIMEType))
 	{
 		/* MIME type not found - copy over the default MIME type */
-		strcpy_P(&AppData[strlen(AppData)], DefaultMIMEType);
+		strcat_P(AppData, DefaultMIMEType);
 	}
 
 	/* Add the end-of-line terminator and end-of-headers terminator after the MIME type */
-	strcpy_P(&AppData[strlen(AppData)], PSTR("\r\n\r\n"));
+	strcat_P(AppData, PSTR("\r\n\r\n"));
 
 	/* Send the MIME header to the receiving client */
 	uip_send(AppData, strlen(AppData));
