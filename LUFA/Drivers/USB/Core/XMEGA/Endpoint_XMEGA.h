@@ -290,6 +290,10 @@
 			                                              const uint8_t Banks)
 			{
 				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | Banks | Endpoint_BytesToEPSizeMask(Size));
+				
+				// TODO - Fix once limitations are lifted
+				if ((Banks != ENDPOINT_BANK_SINGLE) || (Size > 64))
+				  return false;
 
 				switch (Type)
 				{
@@ -473,7 +477,7 @@
 				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_SETUP_bm)
 				{
 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
-					return true;				
+					return true;
 				}
 			
 				return false;
@@ -489,8 +493,8 @@
 			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearSETUP(void)
 			{
+				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
-
 				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
 				USB_Endpoint_SelectedFIFO->Position  = 0;
 
@@ -543,7 +547,7 @@
 				if ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) == USB_EP_TYPE_CONTROL_gc)
 				{
 					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint |  ENDPOINT_DIR_IN);
-					USB_Endpoint_SelectedHandle->STATUS |= USB_EP_STALL_bm;
+					USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
 					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
 				}
 			}
@@ -567,7 +571,7 @@
 			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsStalled(void)
 			{
-				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_STALLF_bm) ? true : false);
+				return ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_STALL_bm) ? true : false);
 			}
 
 			/** Resets the data toggle of the currently selected endpoint. */
