@@ -219,7 +219,7 @@ void Keyboard_HID_Task(void)
 	if (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 	{
 		/* Make sent key uppercase by indicating that the left shift key is pressed */
-		KeyboardReportData.Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
+		KeyboardReportData.Modifier = HID_KEYBOARD_MODIFIER_LEFTSHIFT;
 
 		if (JoyStatus_LCL & JOY_UP)
 		  KeyboardReportData.KeyCode[0] = HID_KEYBOARD_SC_A;

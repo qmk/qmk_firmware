@@ -68,28 +68,28 @@
 		/** \name Keyboard Standard Report Modifier Masks */
 		//@{
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left control key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_LEFTCTRL                     (1 << 0)
+		#define HID_KEYBOARD_MODIFIER_LEFTCTRL                    (1 << 0)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left shift key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_LEFTSHIFT                    (1 << 1)
+		#define HID_KEYBOARD_MODIFIER_LEFTSHIFT                   (1 << 1)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left alt key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_LEFTALT                      (1 << 2)
+		#define HID_KEYBOARD_MODIFIER_LEFTALT                     (1 << 2)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left GUI key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_LEFTGUI                      (1 << 3)
+		#define HID_KEYBOARD_MODIFIER_LEFTGUI                     (1 << 3)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right control key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_RIGHTCTRL                    (1 << 4)
+		#define HID_KEYBOARD_MODIFIER_RIGHTCTRL                   (1 << 4)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right shift key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_RIGHTSHIFT                   (1 << 5)
+		#define HID_KEYBOARD_MODIFIER_RIGHTSHIFT                  (1 << 5)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right alt key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_RIGHTALT                     (1 << 6)
+		#define HID_KEYBOARD_MODIFIER_RIGHTALT                    (1 << 6)
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right GUI key is currently pressed. */
-		#define HID_KEYBOARD_MODIFER_RIGHTGUI                     (1 << 7)
+		#define HID_KEYBOARD_MODIFIER_RIGHTGUI                    (1 << 7)
 		//@}
 		
 		/** \name Keyboard Standard Report LED Masks */

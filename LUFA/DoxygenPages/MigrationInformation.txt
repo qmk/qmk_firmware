@@ -11,7 +11,9 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 111009 to XXXXXX
- *  None
+ *  <b>USB Core</b>
+ *    - The HID_KEYBOARD_MODIFER_* macros in the HID class driver have been corrected to HID_KEYBOARD_MODIFIER_* (note the spelling of "modifier").
+ *      Existing applications should switch over to the correctly spelled macro names.
  *
  *  \section Sec_Migration111009 Migrating from 110528 to 111009
  *  <b>Non-USB Library Components</b>

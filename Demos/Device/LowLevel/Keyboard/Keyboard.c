@@ -251,7 +251,7 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* const ReportData)
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
 
 	/* Make sent key uppercase by indicating that the left shift key is pressed */
-	ReportData->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
+	ReportData->Modifier = HID_KEYBOARD_MODIFIER_LEFTSHIFT;
 
 	if (JoyStatus_LCL & JOY_UP)
 	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_A;
