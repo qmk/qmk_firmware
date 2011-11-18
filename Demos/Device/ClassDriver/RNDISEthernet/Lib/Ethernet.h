@@ -40,7 +40,7 @@
 		#include <avr/io.h>
 		#include <string.h>
 
-		#include <LUFA/Drivers/USB/Class/RNDIS.h>
+		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "EthernetProtocols.h"
 		#include "ProtocolDecoders.h"

@@ -38,7 +38,7 @@
 #define _ETHERNET_PROTOCOLS_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/Class/RNDIS.h>
+		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
 		#define ETHERTYPE_IPV4                   0x0800

@@ -388,14 +388,14 @@
 			#include "Core/OTG.h"
 		#endif
 		
-		#include "Class/Audio.h"
-		#include "Class/CDC.h"
-		#include "Class/HID.h"
-		#include "Class/MassStorage.h"
-		#include "Class/MIDI.h"
-		#include "Class/Printer.h"
-		#include "Class/RNDIS.h"
-		#include "Class/StillImage.h"
+		#include "Class/AudioClass.h"
+		#include "Class/CDCClass.h"
+		#include "Class/HIDClass.h"
+		#include "Class/MassStorageClass.h"
+		#include "Class/MIDIClass.h"
+		#include "Class/PrinterClass.h"
+		#include "Class/RNDISClass.h"
+		#include "Class/StillImageClass.h"
 
 #endif
 

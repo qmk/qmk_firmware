@@ -14,6 +14,10 @@
  *  <b>USB Core</b>
  *    - The HID_KEYBOARD_MODIFER_* macros in the HID class driver have been corrected to HID_KEYBOARD_MODIFIER_* (note the spelling of "modifier").
  *      Existing applications should switch over to the correctly spelled macro names.
+ *    - The names of the USB Device and USB Host class driver files have changed; a new "ClassDevice" and "ClassHost" postfix has been added to the
+ *      respective class driver files. Projects referencing the class driver source files by filename rather than the LUFA_SRC_USBCLASS makefile
+ *      variable should append these postfixes to the source file names. Projects including the USB class driver dispatch headers directly should either
+ *      switch to including the main USB driver header instead, or use the updated header filenames.
  *
  *  \section Sec_Migration111009 Migrating from 110528 to 111009
  *  <b>Non-USB Library Components</b>

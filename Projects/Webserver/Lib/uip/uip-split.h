@@ -77,7 +77,7 @@
 
 #include "../../USBHostMode.h"
 
-#include <LUFA/Drivers/USB/Class/RNDIS.h>
+#include <LUFA/Drivers/USB/USB.h>
 
 /**
  * Handle outgoing packets.

@@ -70,7 +70,7 @@
 		#include "../../../../Common/Common.h"
 
 		#include "HIDReportData.h"
-		#include "../Common/HID.h"
+		#include "HIDClassCommon.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
