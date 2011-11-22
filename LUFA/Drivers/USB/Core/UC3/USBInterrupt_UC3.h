@@ -43,7 +43,6 @@
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
-		#include "../Endpoint.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -56,7 +55,10 @@
 		#endif
 
 	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)		
+	#if !defined(__DOXYGEN__)
+		/* External Variables: */
+			extern volatile uint32_t USB_Endpoint_SelectedEndpoint;
+	
 		/* Enums: */
 			enum USB_Interrupts_t
 			{
@@ -109,7 +111,7 @@
 						AVR32_USBB.UDINTESET.sofes    = true;
 						break;
 					case USB_INT_RXSTPI:
-						(&AVR32_USBB.UECON0SET)[USB_SelectedEndpoint].rxstpes = true;
+						(&AVR32_USBB.UECON0SET)[USB_Endpoint_SelectedEndpoint].rxstpes = true;
 						break;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
@@ -162,7 +164,7 @@
 						AVR32_USBB.UDINTECLR.sofec    = true;
 						break;
 					case USB_INT_RXSTPI:
-						(&AVR32_USBB.UECON0CLR)[USB_SelectedEndpoint].rxstpec = true;
+						(&AVR32_USBB.UECON0CLR)[USB_Endpoint_SelectedEndpoint].rxstpec = true;
 						break;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
@@ -221,7 +223,7 @@
 						(void)AVR32_USBB.UDINTCLR;
 						break;
 					case USB_INT_RXSTPI:
-						(&AVR32_USBB.UESTA0CLR)[USB_SelectedEndpoint].rxstpic = true;
+						(&AVR32_USBB.UESTA0CLR)[USB_Endpoint_SelectedEndpoint].rxstpic = true;
 						break;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
@@ -274,7 +276,7 @@
 					case USB_INT_SOFI:
 						return AVR32_USBB.UDINTE.sofe;
 					case USB_INT_RXSTPI:
-						return (&AVR32_USBB.UECON0)[USB_SelectedEndpoint].rxstpe;
+						return (&AVR32_USBB.UECON0)[USB_Endpoint_SelectedEndpoint].rxstpe;
 					#endif
 					#if defined(USB_CAN_BE_HOST)					
 					case USB_INT_HSOFI:
@@ -316,7 +318,7 @@
 					case USB_INT_SOFI:
 						return AVR32_USBB.UDINT.sof;
 					case USB_INT_RXSTPI:
-						return (&AVR32_USBB.UESTA0)[USB_SelectedEndpoint].rxstpi;
+						return (&AVR32_USBB.UESTA0)[USB_Endpoint_SelectedEndpoint].rxstpi;
 					#endif
 					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:

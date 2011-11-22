@@ -47,6 +47,8 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
                         const uint16_t Size,
                         const uint8_t Banks)
 {
+	USB_Pipe_FIFOPos[Number]     = &AVR32_USBB_SLAVE[Number * 0x10000];
+
 #if defined(ORDERED_EP_CONFIG)
 	Pipe_SelectPipe(Number);
 	Pipe_EnablePipe();
@@ -57,7 +59,6 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	                                ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
 	                                ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
 	                                ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
-	USB_PipeFIFOPos[Number]      = &AVR32_USBB_SLAVE[Number * 0x10000];
 
 	Pipe_SetInfiniteINRequests();
 
@@ -65,7 +66,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 #else
 	for (uint8_t PNum = Number; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
-		uint8_t UPCFG0Temp;
+		uint32_t UPCFG0Temp;
 
 		Pipe_SelectPipe(PNum);
 		
@@ -109,7 +110,7 @@ void Pipe_ClearPipes(void)
 		Pipe_SelectPipe(PNum);
 		(&AVR32_USBB.upcfg0)[PNum]    = 0;
 		(&AVR32_USBB.upcon0clr)[PNum] = -1;
-		USB_PipeFIFOPos[PNum]         = &AVR32_USBB_SLAVE[PNum * 0x10000];
+		USB_Pipe_FIFOPos[PNum]        = &AVR32_USBB_SLAVE[PNum * 0x10000];
 		Pipe_DisablePipe();
 	}
 }
