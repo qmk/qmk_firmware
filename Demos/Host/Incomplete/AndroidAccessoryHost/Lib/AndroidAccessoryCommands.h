@@ -68,7 +68,7 @@
 	/* Function Prototypes: */
 		uint8_t Android_GetAccessoryProtocol(uint16_t* const Protocol);
 		uint8_t Android_SendString(const uint8_t StringIndex,
-		                           char* String);
+		                           const char* const String);
 		uint8_t Android_StartAccessoryMode(void);	
 	
 #endif

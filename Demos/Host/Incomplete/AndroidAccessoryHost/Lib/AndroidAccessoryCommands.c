@@ -52,7 +52,7 @@ uint8_t Android_GetAccessoryProtocol(uint16_t* const Protocol)
 }
 
 uint8_t Android_SendString(const uint8_t StringIndex,
-                           char* String)
+                           const char* const String)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
@@ -64,7 +64,7 @@ uint8_t Android_SendString(const uint8_t StringIndex,
 	};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	return USB_Host_SendControlRequest(String);
+	return USB_Host_SendControlRequest((char*)String);
 }
 
 uint8_t Android_StartAccessoryMode(void)
