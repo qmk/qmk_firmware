@@ -69,8 +69,7 @@
 			#define _HID_RI_ENCODE_32(Data)                 _HID_RI_ENCODE_16(Data) _HID_RI_ENCODE_16(Data >> 16)
 			#define _HID_RI_ENCODE(DataBits, ...)           _HID_RI_ENCODE_ ## DataBits(__VA_ARGS__)
 			
-			#define _HID_RI_ENTRY(Type, Tag, DataBits, ...) \
-			                                                (Type | Tag | HID_RI_DATA_BITS(DataBits)) _HID_RI_ENCODE(DataBits, (__VA_ARGS__))
+			#define _HID_RI_ENTRY(Type, Tag, DataBits, ...) (Type | Tag | HID_RI_DATA_BITS(DataBits)) _HID_RI_ENCODE(DataBits, (__VA_ARGS__))
 	#endif
 	
 	/* Public Interface - May be used in end-application: */

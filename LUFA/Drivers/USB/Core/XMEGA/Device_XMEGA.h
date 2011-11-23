@@ -69,6 +69,14 @@
 			#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
 		#endif
 
+		#if (defined(USE_FLASH_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
+			#error USE_FLASH_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+		#endif
+
+		#if (defined(USE_FLASH_DESCRIPTORS) && defined(USE_RAM_DESCRIPTORS))
+			#error USE_FLASH_DESCRIPTORS and USE_RAM_DESCRIPTORS are mutually exclusive.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name USB Device Mode Option Masks */
@@ -90,26 +98,33 @@
 			#define USB_DEVICE_OPT_FULLSPEED       (0 << 0)
 			//@}
 			
-			/** String descriptor index for the device's unique serial number string descriptor within the device.
-			 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
-			 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
-			 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
-			 *  will cause it to use the internal serial number.
-			 *
-			 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
-			 *  number for the device.
-			 */
-			#define USE_INTERNAL_SERIAL            0xDC
+			#if (!defined(NO_INTERNAL_SERIAL) || defined(__DOXYGEN__))
+				/** String descriptor index for the device's unique serial number string descriptor within the device.
+				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
+				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
+				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
+				 *  will cause it to use the internal serial number.
+				 *
+				 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
+				 *  number for the device.
+				 */
+				#define USE_INTERNAL_SERIAL            0xDC
 
-			/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
-			 *  model.
-			 */
-			#define INTERNAL_SERIAL_LENGTH_BITS    (8 * (1 + (offsetof(NVM_PROD_SIGNATURES_t, COORDY1) - offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0))))
-			
-			/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
-			 *  model.
-			 */
-			#define INTERNAL_SERIAL_START_ADDRESS  offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0)
+				/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
+				 *  model.
+				 */
+				#define INTERNAL_SERIAL_LENGTH_BITS    (8 * (1 + (offsetof(NVM_PROD_SIGNATURES_t, COORDY1) - offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0))))
+				
+				/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
+				 *  model.
+				 */
+				#define INTERNAL_SERIAL_START_ADDRESS  offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0)
+			#else
+				#define USE_INTERNAL_SERIAL            NO_DESCRIPTOR
+
+				#define INTERNAL_SERIAL_LENGTH_BITS    0
+				#define INTERNAL_SERIAL_START_ADDRESS  0
+			#endif
 			
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should

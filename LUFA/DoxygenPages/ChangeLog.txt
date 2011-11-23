@@ -29,8 +29,8 @@
   *   - Fixed CDC class drivers not saving and sending all 16-bits of the control line states (thanks to Matthew Swabey)
   *   - Fixed race conditions in the CDC, HID and Mass Storage class drivers when processing some control requests
   *   - Fixed misspelled HID_KEYBOARD_MODIFIER_* macros in the HID class driver (thanks to Laszlo Monda)
-  *   - Fixed broken AVR32 endpoint/pipe communications when ORDERED_EP_CONFIG compile time option is not enabled (thanks to Matthias)
-  *   - Fixed broken compilation for the AVR32 devices if the NO_SOF_EVENTS compile time option was not enabled (thanks to Matthias)
+  *   - Fixed broken AVR32 endpoint/pipe communications when ORDERED_EP_CONFIG compile time option is not enabled (thanks to Matthias Jahr)
+  *   - Fixed broken compilation for the AVR32 devices if the NO_SOF_EVENTS compile time option was not enabled (thanks to Matthias Jahr)
   *  - Library Applications:
   *   - Added reliability patches to the AVRISP-MKII Clone project's PDI/TPI protocols (thanks to Justin Mattair)
   *   - Fixed AVRISP-MKII Clone compile warning on AVR8 U4 targets even when NO_VTARGET_DETECT is enabled
