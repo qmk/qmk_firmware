@@ -99,10 +99,6 @@ static uint16_t EndAddr = 0x0000;
  */
 int main(void)
 {
-	/* Force a reference to the API jump table to prevent the linker from discarding it */
-	uint8_t* volatile Dummy = BootloaderAPI_JumpTable;
-	(void)Dummy;
-
 	/* Configure hardware required by the bootloader */
 	SetupHardware();
 

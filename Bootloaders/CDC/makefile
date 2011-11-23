@@ -340,7 +340,7 @@ EXTMEMOPTS =
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
 LDFLAGS  = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--section-start=.text=$(BOOT_START) -Wl,--section-start=.apitable=$(BOOT_API_TABLESTART)
+LDFLAGS += -Wl,--section-start=.text=$(BOOT_START) -Wl,--section-start=.apitable=$(BOOT_API_TABLESTART) -Wl,--undefined=BootloaderAPI_JumpTable
 LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)

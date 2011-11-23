@@ -43,9 +43,6 @@
 		
 		#include <LUFA/Common/Common.h>
 	
-	/* External Variables: */
-		extern uint8_t* BootloaderAPI_JumpTable;
-	
 	/* Function Prototypes: */
 		void    BootloaderAPI_ErasePage(uint32_t Address);
 		void    BootloaderAPI_WritePage(uint32_t Address);

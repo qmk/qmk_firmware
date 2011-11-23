@@ -63,10 +63,6 @@ static bool RunBootloader = true;
  */
 int main(void)
 {
-	/* Force a reference to the API jump table to prevent the linker from discarding it */
-	uint8_t* volatile Dummy = BootloaderAPI_JumpTable;
-	(void)Dummy;
-
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
 
