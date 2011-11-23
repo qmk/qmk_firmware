@@ -93,7 +93,7 @@ void AndroidHost_Task(void)
 		/* Check if data is in the pipe */
 		if (Pipe_IsReadWriteAllowed())
 		{
-			uint8_t NextReceivedByte = Pipe_BytesInPipe();
+			uint8_t NextReceivedByte = Pipe_Read_8();
 			uint8_t LEDMask          = LEDS_NO_LEDS;
 
 			if (NextReceivedByte & 0x01)

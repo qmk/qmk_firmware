@@ -11,10 +11,11 @@
   *  - Core:
   *   - Added support for the XMEGA A3BU Xplained board
   *   - Added support for the new B series XMEGA devices
-  *   - Added support for version 2 of the Teensy boards (thanks to Christoph Redecker).
+  *   - Added support for version 2 of the Teensy boards (thanks to Christoph Redecker)
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders
   *   - Added INVERTED_ISP_MISO compile time option to the AVRISP-MKII clone project (thanks to Chuck Rohs)
+  *   - Added new Android Accessory Host demo (thanks to Opendous Inc.)
   *
   *  <b>Changed:</b>
   *  - Core:

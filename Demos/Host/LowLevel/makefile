@@ -14,6 +14,9 @@
 # code.
 
 all:
+	$(MAKE) -C AndroidAccessoryHost clean
+	$(MAKE) -C AndroidAccessoryHost all
+
 	$(MAKE) -C AudioInputHost clean
 	$(MAKE) -C AudioInputHost all
 
