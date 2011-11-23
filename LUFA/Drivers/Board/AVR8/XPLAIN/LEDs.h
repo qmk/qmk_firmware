@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Atmel XPLAIN.
+ *  \brief Board specific LED driver header for the original Atmel XPLAIN.
  *  \copydetails Group_LEDs_XPLAIN
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
@@ -38,7 +38,7 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_XPLAIN XPLAIN
- *  \brief Board specific LED driver header for the Atmel XPLAIN.
+ *  \brief Board specific LED driver header for the original Atmel XPLAIN.
  *
  *  Board specific LED driver header for the Atmel XPLAIN.
  *

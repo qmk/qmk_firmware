@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash driver header for the Atmel XPLAIN.
+ *  \brief Board specific Dataflash driver header for the original Atmel XPLAIN.
  *  \copydetails Group_Dataflash_XPLAIN
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
@@ -38,7 +38,9 @@
 
 /** \ingroup Group_Dataflash
  *  \defgroup Group_Dataflash_XPLAIN XPLAIN
- *  \brief Board specific Dataflash driver header for the Atmel XPLAIN.
+ *  \brief Board specific Dataflash driver header for the original Atmel XPLAIN.
+ *
+ *  \note For the first revision XPLAIN board, compile with <code>BOARD = BOARD_XPLAIN_REV1</code>.
  *
  *  Board specific Dataflash driver header for the Atmel XPLAIN.
  *

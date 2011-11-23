@@ -172,7 +172,9 @@
 		#elif (BOARD == BOARD_EVK1104)
 			#include "UC3/EVK1104/LEDs.h"
 		#elif (BOARD == BOARD_A3BU_XPLAINED)
-			#include "XMEGA/A3BU_XPLAINED/LEDs.h"			
+			#include "XMEGA/A3BU_XPLAINED/LEDs.h"
+		#elif (BOARD == BOARD_TEENSY2)
+			#include "AVR8/TEENSY/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif

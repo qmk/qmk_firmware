@@ -112,7 +112,7 @@
  *   - Microsin AVR-USB162
  *   - Minimus USB
  *   - Olimex AVR-USB-162
- *   - PJRC Teensy (all revisions and versions)
+ *   - PJRC Teensy (1.x and 2.x versions)
  *   - Sparkfun U2 Breakout Board
  *   - TCNISO Blackcat USB JTAG
  *   - Tempusdictum Benito

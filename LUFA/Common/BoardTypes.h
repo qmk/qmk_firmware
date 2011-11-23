@@ -96,7 +96,7 @@
 			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
 			#define BOARD_NONE          10
 
-			/** Selects the Teensy (all versions) specific board drivers, including the driver for the board LEDs. */
+			/** Selects the Teensy version 1.x specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_TEENSY        11
 
 			/** Selects the USBTINY MKII specific board drivers, including the Button and LEDs drivers. */
@@ -158,6 +158,9 @@
 			
 			/** Selects the Atmel XMEGA A3BU Xplained specific board drivers, including Dataflash, Button and LED drivers. */
 			#define BOARD_A3BU_XPLAINED 31
+
+			/** Selects the Teensy version 2.x specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_TEENSY        32
 
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
