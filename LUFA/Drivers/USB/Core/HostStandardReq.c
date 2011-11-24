@@ -211,6 +211,22 @@ uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber)
 	return ErrorCode;
 }
 
+uint8_t USB_Host_GetDeviceConfiguration(uint8_t* const ConfigNumber)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetConfiguration,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = sizeof(uint8_t),
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	return USB_Host_SendControlRequest(ConfigNumber);
+}
+
 uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -235,7 +251,7 @@ uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_String << 8) | Index,
+			.wValue        = ((DTYPE_String << 8) | Index),
 			.wIndex        = 0,
 			.wLength       = BufferLength,
 		};
@@ -292,6 +308,23 @@ uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	return USB_Host_SendControlRequest(NULL);
+}
+
+uint8_t USB_Host_GetInterfaceAltSetting(const uint8_t InterfaceIndex,
+                                        uint8_t* const AltSetting)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
+			.bRequest      = REQ_GetInterface,
+			.wValue        = 0,
+			.wIndex        = InterfaceIndex,
+			.wLength       = sizeof(uint8_t),
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	return USB_Host_SendControlRequest(AltSetting);
 }
 
 #endif

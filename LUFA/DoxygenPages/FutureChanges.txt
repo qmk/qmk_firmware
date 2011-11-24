@@ -24,8 +24,6 @@
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
   *      -# Consider switch from endpoint numbers to full endpoint addresses to ease future architecture expansion
   *      -# Fix HID report parser usage support for array types
-  *      -# Add additional standard request helper functions to host mode
-  *      -# Add Dataflash_SendCommand()
   *      -# Make HOST_DEVICE_SETTLE_DELAY_MS a global variable that can be changed
   *      -# Add MANDATORY_EVENT_FUNCTIONS compile time option
   *      -# Add watchdog support to the library and apps/bootloaders
@@ -40,7 +38,6 @@
   *      -# Add class driver support for Test and Measurement class
   *      -# Add class driver support for EEM class
   *      -# Add class driver support for ECM class
-  *      -# Add class driver support for the Android Accessory Host class
   *      -# Port all demos to multiple architectures
   *  - Ports
   *      -# Finish USB XMEGA port

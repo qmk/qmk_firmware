@@ -112,14 +112,14 @@
 				 *  identical name (in which case the weak reference is discarded at link time).
 				 */
 				#define ATTR_WEAK                   __attribute__ ((weak))
-
-				/** Forces the compiler to not automatically zero the given global variable on startup, so that the
-				 *  current RAM contents is retained. Under most conditions this value will be random due to the
-				 *  behaviour of volatile memory once power is removed, but may be used in some specific circumstances,
-				 *  like the passing of values back after a system watchdog reset.
-				 */
-				#define ATTR_NO_INIT                __attribute__ ((section (".noinit")))
 			#endif
+
+			/** Forces the compiler to not automatically zero the given global variable on startup, so that the
+			 *  current RAM contents is retained. Under most conditions this value will be random due to the
+			 *  behaviour of volatile memory once power is removed, but may be used in some specific circumstances,
+			 *  like the passing of values back after a system watchdog reset.
+			 */
+			#define ATTR_NO_INIT                    __attribute__ ((section (".noinit")))
 
 			/** Places the function in one of the initialization sections, which execute before the main function
 			 *  of the application. Refer to the avr-libc manual for more information on the initialization sections.

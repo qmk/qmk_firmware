@@ -130,6 +130,19 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
+			
+			/** Sends a GET CONFIGURATION standard request to the attached device, to retrieve the currently selected
+			 *  device configuration index.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \ingroup Group_PipeControlReq
+			 *
+			 *  \param[out] ConfigNumber  Pointer to a location where the retrieved configuration index should be stored.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceConfiguration(uint8_t* const ConfigNumber) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the device descriptor.
 			 *  This can be used to easily retrieve information about the device such as its VID, PID and power
@@ -206,6 +219,22 @@
 			uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
 													const uint8_t AltSetting);
 
+
+			/** Retrieves the current alternative setting for the specified interface, via a GET INTERFACE standard request to
+			 *  the attached device.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \ingroup Group_PipeControlReq
+			 *
+			 *  \param[in]  InterfaceIndex  Index of the interface whose alternative setting is to be altered.
+			 *  \param[out] AltSetting      Pointer to a location where the retrieved alternative setting value should be stored.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetInterfaceAltSetting(const uint8_t InterfaceIndex,
+			                                        uint8_t* const AltSetting) ATTR_NON_NULL_PTR_ARG(2);
+										
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Enums: */
