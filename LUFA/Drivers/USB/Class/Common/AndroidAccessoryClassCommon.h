@@ -82,7 +82,7 @@
 			AOA_CSCP_AOADataClass    = 0xFF, /**< Descriptor Class value indicating that the device or interface
 			                                  *   belongs to the AOA data class.
 			                                  */
-			AOA_CSCP_AOADataSubclass = 0x00, /**< Descriptor Subclass value indicating that the device or interface
+			AOA_CSCP_AOADataSubclass = 0xFF, /**< Descriptor Subclass value indicating that the device or interface
 			                                  *   belongs to AOA data subclass.
 			                                  */
 			AOA_CSCP_AOADataProtocol = 0x00, /**< Descriptor Protocol value indicating that the device or interface
