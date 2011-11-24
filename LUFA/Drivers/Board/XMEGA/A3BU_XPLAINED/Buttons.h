@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  \defgroup Group_Buttons_A3BU_XPLAINED XMEGA A3BU Xplained.
+ *  \defgroup Group_Buttons_A3BU_XPLAINED A3BU_XPLAINED
  *  \brief Board specific Buttons driver header for the Atmel XMEGA A3BU Xplained.
  *
  *  Board specific Buttons driver header for the Atmel XMEGA A3BU Xplained.

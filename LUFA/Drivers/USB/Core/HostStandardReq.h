@@ -234,6 +234,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
+			static inline uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* const DeviceDescriptorPtr) ATTR_NON_NULL_PTR_ARG(1);
 			static inline uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* const DeviceDescriptorPtr)
 			{
 				return USB_Host_GetDescriptor(DTYPE_Device, 0, DeviceDescriptorPtr, sizeof(USB_Descriptor_Device_t));
@@ -255,6 +256,9 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
+			static inline uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
+			                                                         void* const Buffer,
+			                                                         const uint8_t BufferLength) ATTR_NON_NULL_PTR_ARG(2);
 			static inline uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 			                                                         void* const Buffer,
 			                                                         const uint8_t BufferLength)

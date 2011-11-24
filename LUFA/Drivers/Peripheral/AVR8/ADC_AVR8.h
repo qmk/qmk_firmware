@@ -177,7 +177,7 @@
 			/** MUX mask define for the ADC1 channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading(). */
 			#define ADC_CHANNEL1                    (0x01 << MUX0)
 
-			#if !(defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
+			#if (!(defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC2 channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading().
 				 *
 				 *  \note Not available on all AVR models.
@@ -202,9 +202,6 @@
 
 			/** MUX mask define for the ADC7 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
 			#define ADC_CHANNEL7                    (0x07 << MUX0)
-
-			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading(). */
-			#define ADC_1100MV_BANDGAP              (0x1E << MUX0)
 
 			#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC8 channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading().
@@ -250,6 +247,9 @@
 				 */
 				#define ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
+
+			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading(). */
+			#define ADC_1100MV_BANDGAP              (0x1E << MUX0)
 
 			/** Retrieves the ADC MUX mask for the given ADC channel number.
 			 *
@@ -422,8 +422,8 @@
 			 *
 			 *  \param[in] Mode  Mask of ADC prescale and mode settings.
 			 */
-			static inline void ADC_Init(uint8_t Mode) ATTR_ALWAYS_INLINE;
-			static inline void ADC_Init(uint8_t Mode)
+			static inline void ADC_Init(const uint8_t Mode) ATTR_ALWAYS_INLINE;
+			static inline void ADC_Init(const uint8_t Mode)
 			{
 				ADCSRA = ((1 << ADEN) | Mode);
 			}

@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  \defgroup Group_LEDs_A3BU_XPLAINED XMEGA A3BU Xplained
+ *  \defgroup Group_LEDs_A3BU_XPLAINED A3BU_XPLAINED
  *  \brief Board specific LED driver header for the Atmel XMEGA A3BU Xplained.
  *
  *  Board specific LED driver header for the Atmel XMEGA A3BU Xplained.

@@ -79,7 +79,7 @@
 				#define ANSI_ESCAPE_SEQUENCE(EscapeSeq)
 			#endif
 
-			/** \name Text Display Modifier Escape Sequences */
+			/** \name Text Display Modifier Control Sequences */
 			//@{
 			/** Turns on bold so that any following text is printed to the terminal in bold. */
 			#define ESC_BOLD_ON                     ANSI_ESCAPE_SEQUENCE("1m")

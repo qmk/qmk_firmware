@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_Dataflash
- *  \defgroup Group_Dataflash_A3BU_XPLAINED XMEGA A3BU Xplained.
+ *  \defgroup Group_Dataflash_A3BU_XPLAINED A3BU_XPLAINED
  *  \brief Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained.
  *
  *  Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained board.
