@@ -227,31 +227,16 @@ uint8_t USB_Host_GetDeviceConfiguration(uint8_t* const ConfigNumber)
 	return USB_Host_SendControlRequest(ConfigNumber);
 }
 
-uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
+uint8_t USB_Host_GetDescriptor(const uint8_t Type,
+                               const uint8_t Index,
+                               void* const Buffer,
+                               const uint8_t BufferLength)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Device << 8),
-			.wIndex        = 0,
-			.wLength       = sizeof(USB_Descriptor_Device_t),
-		};
-
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(DeviceDescriptorPtr);
-}
-
-uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
-                                           void* const Buffer,
-                                           const uint8_t BufferLength)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			.bRequest      = REQ_GetDescriptor,
-			.wValue        = ((DTYPE_String << 8) | Index),
+			.wValue        = (((uint16_t)Type << 8) | Index),
 			.wIndex        = 0,
 			.wLength       = BufferLength,
 		};

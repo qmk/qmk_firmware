@@ -80,12 +80,12 @@
 			{
 				HOST_SENDCONTROL_Successful         = 0, /**< No error occurred in the request transfer. */
 				HOST_SENDCONTROL_DeviceDisconnected = 1, /**< The attached device was disconnected during the
-				                                        *   request transfer.
+				                                        *     request transfer.
 				                                        */
 				HOST_SENDCONTROL_PipeError          = 2, /**< An error occurred in the pipe while sending the request. */
 				HOST_SENDCONTROL_SetupStalled       = 3, /**< The attached device stalled the request, usually
-				                                        *   indicating that the request is unsupported on the device.
-				                                        */
+				                                          *   indicating that the request is unsupported on the device.
+				                                          */
 				HOST_SENDCONTROL_SoftwareTimeOut    = 4, /**< The request or data transfer timed out. */
 			};
 
@@ -144,39 +144,24 @@
 			 */
 			uint8_t USB_Host_GetDeviceConfiguration(uint8_t* const ConfigNumber) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the device descriptor.
-			 *  This can be used to easily retrieve information about the device such as its VID, PID and power
-			 *  requirements.
+			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the  descriptor of the
+			 *  specified type and index.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
 			 *  \ingroup Group_PipeControlReq
 			 *
-			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
-			 *                                   the read data is to be stored.
+			 *  \param[in]  Type          Type of descriptor to retrieve, a value from the \ref USB_DescriptorTypes_t enum.
+			 *  \param[in]  Index         Index of the descriptor to retrieve.
+			 *  \param[out] Buffer        Pointer to the destination buffer where the retrieved string descriptor is to be stored.
+			 *  \param[in]  BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr) ATTR_NON_NULL_PTR_ARG(1);
-
-			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the string descriptor
-			 *  of the specified index. This can be used to easily retrieve string descriptors from the device by
-			 *  index, after the index is obtained from the Device or Configuration descriptors.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \ingroup Group_PipeControlReq
-			 *
-			 *  \param[in]  Index        Index of the string index to retrieve.
-			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
-			 *                           to be stored.
-			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
-			                                           void* const Buffer,
-			                                           const uint8_t BufferLength) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t USB_Host_GetDescriptor(const uint8_t Type,
+			                               const uint8_t Index,
+			                               void* const Buffer,
+			                               const uint8_t BufferLength) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Retrieves the current feature status of the attached device, via a GET STATUS standard request. The
 			 *  retrieved feature status can then be examined by masking the retrieved value with the various
@@ -217,7 +202,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_SetInterfaceAltSetting(const uint8_t InterfaceIndex,
-													const uint8_t AltSetting);
+			                                        const uint8_t AltSetting);
 
 
 			/** Retrieves the current alternative setting for the specified interface, via a GET INTERFACE standard request to
@@ -234,7 +219,49 @@
 			 */
 			uint8_t USB_Host_GetInterfaceAltSetting(const uint8_t InterfaceIndex,
 			                                        uint8_t* const AltSetting) ATTR_NON_NULL_PTR_ARG(2);
-										
+
+		/* Inline Functions: */
+			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the device descriptor.
+			 *  This can be used to easily retrieve information about the device such as its VID, PID and power
+			 *  requirements. This is a convenience wrapper for \ref USB_Host_GetDescriptor().
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \ingroup Group_PipeControlReq
+			 *
+			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
+			 *                                   the read data is to be stored.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			static inline uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* const DeviceDescriptorPtr)
+			{
+				return USB_Host_GetDescriptor(DTYPE_Device, 0, DeviceDescriptorPtr, sizeof(USB_Descriptor_Device_t));
+			}
+			
+			/** Sends a GET DESCRIPTOR standard request to the attached device, requesting the string descriptor
+			 *  of the specified index. This can be used to easily retrieve string descriptors from the device by
+			 *  index, after the index is obtained from the Device or Configuration descriptors. This is a convenience
+			 *  wrapper for \ref USB_Host_GetDescriptor().
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \ingroup Group_PipeControlReq
+			 *
+			 *  \param[in]  Index        Index of the string descriptor to retrieve.
+			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
+			 *                           to be stored.
+			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			static inline uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
+			                                                         void* const Buffer,
+			                                                         const uint8_t BufferLength)
+			{
+				return USB_Host_GetDescriptor(DTYPE_String, Index,  Buffer, BufferLength);
+			}
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Enums: */
