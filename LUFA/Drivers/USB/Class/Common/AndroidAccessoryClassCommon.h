@@ -64,8 +64,13 @@
 		#endif
 
 	/* Macros: */
+		/** Vendor ID value in a Device Descriptor to indicate an Android device. */
 		#define ANDROID_VENDOR_ID                   0x18D1
+
+		/** Product ID value in a Device Descriptor to indicate an Android device in Open Accessory mode. */
 		#define ANDROID_ACCESSORY_PRODUCT_ID        0x2D00
+
+		/** Product ID value in a Device Descriptor to indicate an Android device in Open Accessory and Android Debug mode. */
 		#define ANDROID_ACCESSORY_ADB_PRODUCT_ID    0x2D01
 
 	/* Enums: */
@@ -111,7 +116,7 @@
 		/** Enum for the possible Android Open Accessory protocol versions. */
 		enum AOA_Protocols_t
 		{
-			AOA_PROTOCOL_Accessory          = 0x0001, /**< Android Open Accessory version 1. */
+			AOA_PROTOCOL_AccessoryV1        = 0x0001, /**< Android Open Accessory version 1. */
 		};
 
 	/* Disable C linkage for C++ Compilers: */

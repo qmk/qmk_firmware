@@ -87,7 +87,7 @@
  *
  *  <table>
  *  <tr>
- *   <th width="100px">USB Class</th>
+ *   <th width="200px">USB Class</th>
  *   <th width="90px">Device Mode</th>
  *   <th width="90px">Host Mode</th>
  *  </tr>

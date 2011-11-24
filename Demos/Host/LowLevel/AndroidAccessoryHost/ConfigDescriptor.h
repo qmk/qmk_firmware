@@ -42,10 +42,6 @@
 	/* Macros: */
 		#define ANDROID_DATA_IN_PIPE         1
 		#define ANDROID_DATA_OUT_PIPE        2
-		
-		#define ANDROID_INTERFACE_CLASS      0xFF
-		#define ANDROID_INTERFACE_SUBCLASS   0xFF
-		#define ANDROID_INTERFACE_PROTOCOL   0x00
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

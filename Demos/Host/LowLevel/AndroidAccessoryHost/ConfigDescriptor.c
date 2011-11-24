@@ -123,9 +123,9 @@ uint8_t DCOMP_NextAndroidAccessoryInterface(void* const CurrentDescriptor)
 	{
 		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
 
-		if ((Interface->Class    == ANDROID_INTERFACE_CLASS)    &&
-		    (Interface->SubClass == ANDROID_INTERFACE_SUBCLASS) &&
-		    (Interface->Protocol == ANDROID_INTERFACE_PROTOCOL))
+		if ((Interface->Class    == AOA_CSCP_AOADataClass)    &&
+		    (Interface->SubClass == AOA_CSCP_AOADataSubclass) &&
+		    (Interface->Protocol == AOA_CSCP_AOADataProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

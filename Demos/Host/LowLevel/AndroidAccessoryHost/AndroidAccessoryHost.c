@@ -183,7 +183,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		}
 		
 		/* Validate the returned protocol version */
-		if (AndroidProtocol != ANDROID_PROTOCOL_Accessory)
+		if (AndroidProtocol != AOA_PROTOCOL_AccessoryV1)
 		{
 			puts_P(PSTR(ESC_FG_RED "Accessory Mode Not Supported."));
 
@@ -192,12 +192,12 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		}
 	
 		/* Send the device strings and start the Android Accessory Mode */
-		Android_SendString(ANDROID_STRING_Manufacturer, "Dean Camera");
-		Android_SendString(ANDROID_STRING_Model,        "LUFA Android Demo");
-		Android_SendString(ANDROID_STRING_Description,  "LUFA Android Demo");
-		Android_SendString(ANDROID_STRING_Version,      "1.0");
-		Android_SendString(ANDROID_STRING_URI,          "http://www.lufa-lib.org");
-		Android_SendString(ANDROID_STRING_Serial,       "0000000012345678");
+		Android_SendString(AOA_STRING_Manufacturer, "Dean Camera");
+		Android_SendString(AOA_STRING_Model,        "LUFA Android Demo");
+		Android_SendString(AOA_STRING_Description,  "LUFA Android Demo");
+		Android_SendString(AOA_STRING_Version,      "1.0");
+		Android_SendString(AOA_STRING_URI,          "http://www.lufa-lib.org");
+		Android_SendString(AOA_STRING_Serial,       "0000000012345678");
 
 		Android_StartAccessoryMode();	
 		return;

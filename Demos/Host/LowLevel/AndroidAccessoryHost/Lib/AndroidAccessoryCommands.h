@@ -41,29 +41,6 @@
 		#include <stdbool.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-
-	/* Enums: */
-		enum Android_Requests_t
-		{
-			ANDROID_Req_GetAccessoryProtocol    = 51,
-			ANDROID_Req_SendString              = 52,
-			ANDROID_Req_StartAccessoryMode      = 53,
-		};
-
-		enum Android_Strings_t
-		{
-			ANDROID_STRING_Manufacturer         = 0,
-			ANDROID_STRING_Model                = 1,
-			ANDROID_STRING_Description          = 2,
-			ANDROID_STRING_Version              = 3,
-			ANDROID_STRING_URI                  = 4,
-			ANDROID_STRING_Serial               = 5,
-		};
-		
-		enum Android_Protocols_t
-		{
-			ANDROID_PROTOCOL_Accessory          = 0x0001,
-		};
 	
 	/* Function Prototypes: */
 		uint8_t Android_GetAccessoryProtocol(uint16_t* const Protocol);

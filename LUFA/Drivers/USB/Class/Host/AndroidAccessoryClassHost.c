@@ -194,7 +194,7 @@ uint8_t AOA_Host_StartAccessoryMode(USB_ClassInfo_AOA_Host_t* const AOAInterface
 	if ((ErrorCode = AOA_Host_GetAccessoryProtocol(&AccessoryProtocol)) != HOST_WAITERROR_Successful)
 	  return ErrorCode;
 
-	if (AccessoryProtocol != CPU_TO_LE16(AOA_PROTOCOL_Accessory))
+	if (AccessoryProtocol != CPU_TO_LE16(AOA_PROTOCOL_AccessoryV1))
 	  return AOA_ERROR_LOGICAL_CMD_FAILED;
 
 	for (uint8_t PropertyIndex = 0; PropertyIndex < AOA_STRING_TOTAL_STRINGS; PropertyIndex++)

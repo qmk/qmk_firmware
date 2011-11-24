@@ -41,7 +41,7 @@ uint8_t Android_GetAccessoryProtocol(uint16_t* const Protocol)
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE),
-		.bRequest      = ANDROID_Req_GetAccessoryProtocol,
+		.bRequest      = AOA_REQ_GetAccessoryProtocol,
 		.wValue        = 0,
 		.wIndex        = 0,
 		.wLength       = sizeof(uint16_t),
@@ -57,7 +57,7 @@ uint8_t Android_SendString(const uint8_t StringIndex,
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR | REQREC_DEVICE),
-		.bRequest      = ANDROID_Req_SendString,
+		.bRequest      = AOA_REQ_SendString,
 		.wValue        = 0,
 		.wIndex        = StringIndex,
 		.wLength       = (strlen(String) + 1),
@@ -72,7 +72,7 @@ uint8_t Android_StartAccessoryMode(void)
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_VENDOR | REQREC_DEVICE),
-		.bRequest      = ANDROID_Req_StartAccessoryMode,
+		.bRequest      = AOA_REQ_StartAccessoryMode,
 		.wValue        = 0,
 		.wIndex        = 0,
 		.wLength       = 0,
