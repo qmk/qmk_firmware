@@ -66,6 +66,7 @@
  *                                      Measurement class
  *    - <b>Host</b>
  *      - <b>ClassDriver</b>
+ *        - <b>AndroidAccessoryHost</b> - Android Accessory host demo, using the library USB Android Open Accessory Class driver framework
  *        - <b>AudioInputHost</b> - Audio Input host demo, using the library USB Audio Class driver framework
  *        - <b>AudioOutputHost</b> - Audio Output host demo, using the library USB Audio Class driver framework
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the library USB HID Class driver framework
@@ -79,7 +80,7 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
  *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
  *      - <b>LowLevel</b>
- *        - <b>AndroidAccessoryHost</b> - Android Accessory host demo, using the low level LUFA APIs to implement the Android Accessory Host class
+ *        - <b>AndroidAccessoryHost</b> - Android Accessory host demo, using the low level LUFA APIs to implement the Android Open Accessory class
  *        - <b>AudioInputHost</b> - Audio Input host demo, using the low level LUFA APIs to implement the USB Audio class
  *        - <b>AudioOutputHost</b> - Audio Output host demo, using the low level LUFA APIs to implement the USB Audio class
  *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class

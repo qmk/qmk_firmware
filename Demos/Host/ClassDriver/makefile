@@ -14,6 +14,9 @@
 # code.
 
 all:
+	$(MAKE) -C AndroidAccessoryHost clean
+	$(MAKE) -C AndroidAccessoryHost all
+
 	$(MAKE) -C AudioInputHost clean
 	$(MAKE) -C AudioInputHost all
 
@@ -54,6 +57,7 @@ all:
 	$(MAKE) -C VirtualSerialHost all
 
 %:
+	$(MAKE) -C AndroidAccessoryHost $@
 	$(MAKE) -C AudioInputHost $@
 	$(MAKE) -C AudioOutputHost $@
 	$(MAKE) -C JoystickHostWithParser $@

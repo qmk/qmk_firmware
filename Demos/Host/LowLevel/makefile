@@ -57,6 +57,7 @@ all:
 	$(MAKE) -C VirtualSerialHost all
 
 %:
+	$(MAKE) -C AndroidAccessoryHost $@
 	$(MAKE) -C AudioInputHost $@
 	$(MAKE) -C AudioOutputHost $@
 	$(MAKE) -C GenericHIDHost $@

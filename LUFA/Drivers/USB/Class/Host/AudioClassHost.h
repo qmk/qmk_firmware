@@ -42,7 +42,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/Class/Host/Audio.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
+ *    - LUFA/Drivers/USB/Class/Host/AudioClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the Audio 1.0 USB Class driver.
@@ -126,15 +126,15 @@
 			 *  device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo      Pointer to a structure containing an Audio Class host configuration and state.
-			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
-			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
+			 *  \param[in,out] AudioInterfaceInfo    Pointer to a structure containing an Audio Class host configuration and state.
+			 *  \param[in]     ConfigDescriptorSize  Length of the attached device's Configuration Descriptor.
+			 *  \param[in]     ConfigDescriptorData  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
 			 *  \return A value from the \ref AUDIO_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfaceInfo,
 			                                  uint16_t ConfigDescriptorSize,
-			                                  void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
+			                                  void* ConfigDescriptorData) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Starts or stops the audio streaming for the given configured Audio Host interface, allowing for audio samples to be
 			 *  send and/or received.

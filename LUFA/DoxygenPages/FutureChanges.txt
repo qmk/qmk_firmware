@@ -40,6 +40,7 @@
   *      -# Add class driver support for Test and Measurement class
   *      -# Add class driver support for EEM class
   *      -# Add class driver support for ECM class
+  *      -# Add class driver support for the Android Accessory Host class
   *      -# Port all demos to multiple architectures
   *  - Ports
   *      -# Finish USB XMEGA port

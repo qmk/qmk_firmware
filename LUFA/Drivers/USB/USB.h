@@ -92,6 +92,11 @@
  *   <th width="90px">Host Mode</th>
  *  </tr>
  *  <tr>
+ *   <td>Android Open Accessory</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
  *   <td>Audio</td>
  *   <td bgcolor="#00EE00">Yes</td>
  *   <td bgcolor="#00EE00">Yes</td>
@@ -388,6 +393,7 @@
 			#include "Core/OTG.h"
 		#endif
 		
+		#include "Class/AndroidAccessoryClass.h"
 		#include "Class/AudioClass.h"
 		#include "Class/CDCClass.h"
 		#include "Class/HIDClass.h"
