@@ -35,6 +35,13 @@
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
+ 
+/** \ingroup Group_Dataflash
+ *  \defgroup Group_Dataflash_XPLAIN_REV1 XPLAIN_REV1
+ *  \brief Board specific Dataflash driver header for the original Atmel XPLAIN, revision 1.
+ *
+ *  See \ref Group_Dataflash_XPLAIN for more details.
+ */
 
 /** \ingroup Group_Dataflash
  *  \defgroup Group_Dataflash_XPLAIN XPLAIN

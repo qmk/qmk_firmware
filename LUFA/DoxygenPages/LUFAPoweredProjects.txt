@@ -72,6 +72,7 @@
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - Moco, a native Arduino Uno MIDI replacement firmware: http://web.mac.com/kuwatay/morecat_lab./MocoLUFA.html
  *  - Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
+ *  - MRF49XA RF Tranceiver Dongle: http://www.github.com/hpux735/MRF49XA-Dongle
  *  - Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
  *  - Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
  *  - NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
@@ -99,6 +100,7 @@
  *  - Universal USB AVR Module: http://usbavr.bplaced.net/
  *  - USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
+ *  - USB MIDI to DMX controller: http://github.com/hanshuebner/miDiMX
  *  - USB powered Geiger Counter: http://uhrheber.wordpress.com/2011/04/28/a-usb-powered-geiger-counter-for-the-z2-and-other-computers/
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  - Wireless MIDI Guitar system: http://www.ise.pw.edu.pl/~wzab/wireless_guitar_system/
