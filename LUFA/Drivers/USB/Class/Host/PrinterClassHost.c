@@ -382,7 +382,7 @@ uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo
                               char* const DeviceIDString,
                               const uint16_t BufferSize)
 {
-	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
+	uint8_t  ErrorCode;
 	uint16_t DeviceIDStringLength = 0;
 
 	USB_ControlRequest = (USB_Request_Header_t)

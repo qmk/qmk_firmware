@@ -162,6 +162,12 @@
 			/** Selects the Teensy version 2.x specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_TEENSY2       32
 
+			/** Selects the USB2AX version 1 and 2 specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_USB2AX        33
+
+			/** Selects the USB2AX version 3 specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_USB2AX_V3     34
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

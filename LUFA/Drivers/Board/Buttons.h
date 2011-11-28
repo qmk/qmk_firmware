@@ -133,6 +133,8 @@
 			#include "UC3/EVK1104/Buttons.h"
 		#elif (BOARD == BOARD_A3BU_XPLAINED)
 			#include "XMEGA/A3BU_XPLAINED/Buttons.h"
+		#elif ((BOARD == BOARD_USB2AX) || (BOARD == BOARD_USB2AX_V3))
+			#include "AVR8/USB2AX/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

@@ -131,7 +131,7 @@
 			#include "AVR8/BUMBLEB/LEDs.h"
 		#elif (BOARD == BOARD_EVK527)
 			#include "AVR8/EVK527/LEDs.h"
-		#elif (BOARD == BOARD_TEENSY)
+		#elif ((BOARD == BOARD_TEENSY) || (BOARD == BOARD_TEENSY2))
 			#include "AVR8/TEENSY/LEDs.h"
 		#elif (BOARD == BOARD_USBTINYMKII)
 			#include "AVR8/USBTINYMKII/LEDs.h"
@@ -173,8 +173,8 @@
 			#include "UC3/EVK1104/LEDs.h"
 		#elif (BOARD == BOARD_A3BU_XPLAINED)
 			#include "XMEGA/A3BU_XPLAINED/LEDs.h"
-		#elif (BOARD == BOARD_TEENSY2)
-			#include "AVR8/TEENSY/LEDs.h"
+		#elif ((BOARD == BOARD_USB2AX) || (BOARD == BOARD_USB2AX_V3))
+			#include "AVR8/USB2AX/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
