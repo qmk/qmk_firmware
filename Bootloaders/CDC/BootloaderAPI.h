@@ -44,13 +44,13 @@
 		#include <LUFA/Common/Common.h>
 	
 	/* Function Prototypes: */
-		void    BootloaderAPI_ErasePage(uint32_t Address);
-		void    BootloaderAPI_WritePage(uint32_t Address);
-		void    BootloaderAPI_FillWord(uint32_t Address, uint16_t Word);
-		uint8_t BootloaderAPI_ReadSignature(uint16_t Address);
-		uint8_t BootloaderAPI_ReadFuse(uint16_t Address);
+		void    BootloaderAPI_ErasePage(const uint32_t Address);
+		void    BootloaderAPI_WritePage(const uint32_t Address);
+		void    BootloaderAPI_FillWord(const uint32_t Address, const uint16_t Word);
+		uint8_t BootloaderAPI_ReadSignature(const uint16_t Address);
+		uint8_t BootloaderAPI_ReadFuse(const uint16_t Address);
 		uint8_t BootloaderAPI_ReadLock(void);
-		void    BootloaderAPI_WriteLock(uint8_t LockBits);
+		void    BootloaderAPI_WriteLock(const uint8_t LockBits);
 
 #endif
 

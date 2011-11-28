@@ -35,29 +35,29 @@
 
 #include "BootloaderAPI.h"
 
-void BootloaderAPI_ErasePage(uint32_t Address)
+void BootloaderAPI_ErasePage(const uint32_t Address)
 {
 	boot_page_erase_safe(Address);
 	boot_rww_enable();
 }
 
-void BootloaderAPI_WritePage(uint32_t Address)
+void BootloaderAPI_WritePage(const uint32_t Address)
 {
 	boot_page_write_safe(Address);
 	boot_rww_enable();
 }
 
-void BootloaderAPI_FillWord(uint32_t Address, uint16_t Word)
+void BootloaderAPI_FillWord(const uint32_t Address, const uint16_t Word)
 {
 	boot_page_fill_safe(Address, Word);
 }
 
-uint8_t BootloaderAPI_ReadSignature(uint16_t Address)
+uint8_t BootloaderAPI_ReadSignature(const uint16_t Address)
 {
 	return boot_signature_byte_get(Address);
 }
 
-uint8_t BootloaderAPI_ReadFuse(uint16_t Address)
+uint8_t BootloaderAPI_ReadFuse(const uint16_t Address)
 {
 	return boot_lock_fuse_bits_get(Address);
 }
@@ -67,7 +67,7 @@ uint8_t BootloaderAPI_ReadLock(void)
 	return boot_lock_fuse_bits_get(GET_LOCK_BITS);
 }
 
-void BootloaderAPI_WriteLock(uint8_t LockBits)
+void BootloaderAPI_WriteLock(const uint8_t LockBits)
 {
 	boot_lock_bits_set_safe(LockBits);
 }
