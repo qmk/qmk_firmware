@@ -326,7 +326,7 @@ uint8_t MassStore_MassStorageReset(void)
  */
 uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 {
-	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
+	uint8_t ErrorCode;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
