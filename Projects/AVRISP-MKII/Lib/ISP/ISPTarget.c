@@ -243,7 +243,8 @@ uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte)
 	SoftSPI_Data          = Byte;
 	SoftSPI_BitsRemaining = 8;
 
-	if (SoftSPI_Data & 0x01)
+	/* Set initial MOSI pin state according to the byte to be transferred */
+	if (SoftSPI_Data & (1 << 7))
 	  PORTB |=  (1 << 2);
 	else
 	  PORTB &= ~(1 << 2);
