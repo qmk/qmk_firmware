@@ -146,9 +146,15 @@ void TINYNVM_DisableTPI(void)
 {
 	TINYNVM_WaitWhileNVMBusBusy();
 
-	/* Clear the NVMEN bit in the TPI STATUS register to disable TPI mode */
-	XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_STATUS_REG);
-	XPROGTarget_SendByte(0x00);
+	do
+	{
+		/* Clear the NVMEN bit in the TPI STATUS register to disable TPI mode */
+		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_STATUS_REG);
+		XPROGTarget_SendByte(0x00);
+	
+		/* Read back the STATUS register, check to see if it took effect */
+		XPROGTarget_SendByte(TPI_CMD_SLDCS | PDI_RESET_REG);
+	} while (XPROGTarget_ReceiveByte() != 0x00);
 
 	XPROGTarget_DisableTargetTPI();
 }
