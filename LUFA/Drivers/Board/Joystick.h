@@ -83,7 +83,7 @@
  *      if (JoystickMovement & (JOY_LEFT | JOY_RIGHT))
  *        printf("%s ", (JoystickMovement & JOY_LEFT) ? "Left" : "Right");
  *
- *      if (JoystickMovement & JOY_PRESSED)
+ *      if (JoystickMovement & JOY_PRESS)
  *        printf("Pressed");
  *  \endcode
  *
