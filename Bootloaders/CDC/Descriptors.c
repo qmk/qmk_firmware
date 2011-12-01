@@ -115,7 +115,7 @@ const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
 			.Subtype                = 0x02,
 
-			.Capabilities           = 0x04,
+			.Capabilities           = 0x06,
 		},
 
 	.CDC_Functional_Union =
