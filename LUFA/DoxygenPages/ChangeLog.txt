@@ -25,8 +25,11 @@
   *   - When automatic PLL management mode is enabled on the U4 series AVR8 chips, the PLL is now configured for 48MHz and not
   *     a divided 96MHz, to lower power consumption and to keep the system within the datasheet specs for 3.3V operation (thanks to Scott Vitale)
   *   - Added Class, ClassDevice, ClassHost and ClassCommon to the internal class driver source filenames to prevent ambiguities
+  *   - Altered the Mass Storage Host class driver so that SCSI data STALLs from the attached device can be recovered from automatically without
+  *     having to reset the Mass Storage interface
   *  - Library Applications:
-  *   - None
+  *   - Altered the Mass Storage Host LowLevel demo so that SCSI data STALLs from the attached device can be recovered from automatically without
+  *     having to reset the Mass Storage interface
   *
   *  <b>Fixed:</b>
   *  - Core:

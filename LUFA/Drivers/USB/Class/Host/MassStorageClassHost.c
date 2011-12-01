@@ -183,21 +183,28 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t),
 	                                      NULL)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
+	{
+		return ErrorCode;
+	}
+	
 	Pipe_ClearOUT();
 	Pipe_WaitUntilReady();
 
 	Pipe_Freeze();
 
-	if ((BufferPtr != NULL) &&
-	    ((ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, SCSICommandBlock, (void*)BufferPtr)) != PIPE_RWSTREAM_NoError))
+	if (BufferPtr != NULL)
 	{
-		Pipe_Freeze();
-		return ErrorCode;
+		ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, SCSICommandBlock, (void*)BufferPtr);
+		
+		if ((ErrorCode != PIPE_RWSTREAM_NoError) && (ErrorCode != PIPE_RWSTREAM_PipeStalled))
+		{
+			Pipe_Freeze();
+			return ErrorCode;
+		}
 	}
-
-	return ErrorCode;
+	
+	MS_CommandStatusWrapper_t SCSIStatusBlock;
+	return MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSIStatusBlock);
 }
 
 static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
@@ -358,7 +365,7 @@ uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
                           uint8_t* const MaxLUNIndex)
 {
-	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
+	uint8_t ErrorCode;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -387,8 +394,6 @@ uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
 
-	uint8_t ErrorCode;
-
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = CPU_TO_LE32(sizeof(SCSI_Inquiry_Response_t)),
@@ -406,15 +411,7 @@ uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
-	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, InquiryData)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	return PIPE_RWSTREAM_NoError;
+	return MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, InquiryData);
 }
 
 uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -422,8 +419,6 @@ uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-
-	uint8_t ErrorCode;
 
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
@@ -442,15 +437,7 @@ uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
-	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, NULL)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	return PIPE_RWSTREAM_NoError;
+	return MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, NULL);
 }
 
 uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -483,16 +470,11 @@ uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
 	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, DeviceCapacity)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	DeviceCapacity->Blocks    = BE32_TO_CPU(DeviceCapacity->Blocks);
 	DeviceCapacity->BlockSize = BE32_TO_CPU(DeviceCapacity->BlockSize);
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
 
 	return PIPE_RWSTREAM_NoError;
 }
@@ -503,8 +485,6 @@ uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-
-	uint8_t ErrorCode;
 
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
@@ -523,15 +503,7 @@ uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
-	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, SenseData)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	return PIPE_RWSTREAM_NoError;
+	return MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, SenseData);
 }
 
 uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -540,8 +512,6 @@ uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInter
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-
-	uint8_t ErrorCode;
 
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
@@ -560,15 +530,7 @@ uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInter
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
-	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, NULL)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	return PIPE_RWSTREAM_NoError;
+	return MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, NULL);
 }
 
 uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -580,8 +542,6 @@ uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-
-	uint8_t ErrorCode;
 
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
@@ -604,15 +564,7 @@ uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
-	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, BlockBuffer)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	return PIPE_RWSTREAM_NoError;
+	return MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, BlockBuffer);
 }
 
 uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -624,8 +576,6 @@ uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-
-	uint8_t ErrorCode;
 
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
@@ -648,15 +598,7 @@ uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo
 				}
 		};
 
-	MS_CommandStatusWrapper_t SCSICommandStatus;
-
-	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, BlockBuffer)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
-	return PIPE_RWSTREAM_NoError;
+	return MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock, BlockBuffer);
 }
 
 #endif
