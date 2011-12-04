@@ -15,9 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
- * scan matrix
- */
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
@@ -29,53 +26,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 
 
-#if (MATRIX_COLS > 16)
-#   error "MATRIX_COLS must not exceed 16"
-#endif
-#if (MATRIX_ROWS > 255)
-#   error "MATRIX_ROWS must not exceed 255"
+static void matrix_make(uint8_t code);
+static void matrix_break(uint8_t code);
+#ifdef MATRIX_HAS_GHOST
+static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
 
 
 /*
- * Matrix usage:
- * "PS/2 Scan Codes Set 2" is assigned to 256(32x8)cells matrix.
- * Hmm, It is very sparse and not efficient :(
+ * Matrix Array usage:
+ * 'Scan Code Set 2' is assigned into 256(32x8)cell matrix.
+ * Hmm, it is very sparse and not efficient :(
  *
- *      8bit
- *    ---------
+ * Notes:
+ * Both 'Hanguel/English'(F1) and 'Hanja'(F2) collide with 'Delete'(E0 71) and 'Down'(E0 72).
+ * These two Korean keys need exceptional handling and are not supported for now. Sorry.
+ *
+ *    8bit wide
+ *   +---------+
  *  0|         |
  *  :|   XX    | 00-7F for normal codes(without E0-prefix)
  *  f|_________|
  * 10|         |
- *  :|  E0 XX  | 80-FF for E0-prefix codes(use (XX|0x80) as code)
- * 1f|         |
- *    ---------
- * exceptions:
- * 83:    F8[0x83](normal codes but > 0x7F)
- * FC:    PrintScreen[E0 7C or 84]
- * FE:    Puause
+ *  :|  E0 YY  | 80-FF for E0-prefixed codes
+ * 1f|         |     (<YY>|0x80) is used as matrix position.
+ *   +---------+
+ *
+ * Exceptions:
+ * 0x83:    F7(0x83) This is a normal code but beyond  0x7F.
+ * 0xFC:    PrintScreen
+ * 0xFE:    Pause
  */
-#define F8             (0x83)
-#define PRINT_SCREEN   (0xFC)
-#define PAUSE          (0xFE)
+static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      (code>>3)
 #define COL(code)      (code&0x07)
 
+// matrix positions for exceptional keys
+#define F7             (0x83)
+#define PRINT_SCREEN   (0xFC)
+#define PAUSE          (0xFE)
+
 static bool is_modified = false;
-
-// matrix state buffer(1:on, 0:off)
-#if (MATRIX_COLS <= 8)
-static uint8_t matrix[MATRIX_ROWS];
-#else
-static uint16_t matrix[MATRIX_ROWS];
-#endif
-
-#ifdef MATRIX_HAS_GHOST
-static bool matrix_has_ghost_in_row(uint8_t row);
-#endif
-static void matrix_make(uint8_t code);
-static void matrix_break(uint8_t code);
 
 
 inline
@@ -107,13 +98,13 @@ void matrix_init(void)
  * The scan code for these keys are varied or prefix/postfix'd
  * depending on modifier key state.
  *
- * References:
+ * Keyboard Scan Code Specification:
  *     http://www.microsoft.com/whdc/archive/scancode.mspx
  *     http://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/scancode.doc
  *
  *
- * Insert, Delete, Home, End, PageUp, PageDown, Up, Down, Right, Left:
- *     Num Lock: off
+ * 1) Insert, Delete, Home, End, PageUp, PageDown, Up, Down, Right, Left
+ *     a) when Num Lock is off
  *     modifiers | make                      | break
  *     ----------+---------------------------+----------------------
  *     Ohter     |                    <make> | <break>
@@ -121,16 +112,16 @@ void matrix_init(void)
  *     RShift    | E0 F0 59           <make> | <break>  E0 59
  *     L+RShift  | E0 F0 12  E0 F0 59 <make> | <break>  E0 59 E0 12
  *
- *     Num Lock: on
+ *     b) when Num Lock is on
  *     modifiers | make                      | break
  *     ----------+---------------------------+----------------------
  *     Other     | E0 12              <make> | <break>  E0 F0 12
  *     Shift'd   |                    <make> | <break>
  *
- *     Handling: ignore these prefix/postfix codes
+ *     Handling: These prefix/postfix codes are ignored.
  *
  *
- * Keypad-/:
+ * 2) Keypad /
  *     modifiers | make                      | break
  *     ----------+---------------------------+----------------------
  *     Ohter     |                    <make> | <break>
@@ -138,12 +129,10 @@ void matrix_init(void)
  *     RShift    | E0 F0 59           <make> | <break>  E0 59
  *     L+RShift  | E0 F0 12  E0 F0 59 <make> | <break>  E0 59 E0 12
  *
- *     Handling: ignore these prefix/postfix codes
+ *     Handling: These prefix/postfix codes are ignored.
  *
  *
- * PrintScreen:
- *     With hoding down modifiers, the scan code is sent as following:
- *
+ * 3) PrintScreen
  *     modifiers | make         | break
  *     ----------+--------------+-----------------------------------
  *     Other     | E0 12  E0 7C | E0 F0 7C  E0 F0 12
@@ -151,29 +140,30 @@ void matrix_init(void)
  *     Control'd |        E0 7C | E0 F0 7C
  *     Alt'd     |           84 | F0 84
  *
- *     Handling: ignore prefix/postfix codes and treat both scan code
- *               E0 7C and 84 as PrintScreen.
+ *     Handling: These prefix/postfix codes are ignored, and both scan codes
+ *               'E0 7C' and 84 are seen as PrintScreen.
  *
- * Pause:
- *     With hoding down modifiers, the scan code is sent as following:
- *
+ * 4) Pause
  *     modifiers | make(no break code)
  *     ----------+--------------------------------------------------
- *     no mods   | E1 14 77 E1 F0 14 F0 77
+ *     Other     | E1 14 77 E1 F0 14 F0 77
  *     Control'd | E0 7E E0 F0 7E
  *
- *     Handling: treat these two code sequence as Pause
+ *     Handling: Both code sequences are treated as a whole.
+ *               And we need a ad hoc 'pseudo break code' hack to get the key off
+ *               because it has no break code.
  *
  */
 uint8_t matrix_scan(void)
 {
 
+    // scan code reading states
     static enum {
         INIT,
         F0,
         E0,
         E0_F0,
-        // states for Pause/Break
+        // Pause
         E1,
         E1_14,
         E1_14_77,
@@ -181,12 +171,16 @@ uint8_t matrix_scan(void)
         E1_14_77_E1_F0,
         E1_14_77_E1_F0_14,
         E1_14_77_E1_F0_14_F0,
+        // Control'd Pause
+        E0_7E,
+        E0_7E_E0,
+        E0_7E_E0_F0,
     } state = INIT;
 
 
     is_modified = false;
 
-    // Pause/Break off(PS/2 has no break for this key)
+    // 'pseudo break code' hack
     if (matrix_is_on(ROW(PAUSE), COL(PAUSE))) {
         matrix_break(PAUSE);
     }
@@ -196,20 +190,20 @@ uint8_t matrix_scan(void)
         switch (state) {
             case INIT:
                 switch (code) {
-                    case 0xE0:  // 2byte make
+                    case 0xE0:
                         state = E0;
                         break;
-                    case 0xF0:  // break code
+                    case 0xF0:
                         state = F0;
                         break;
-                    case 0xE1:  // Pause/Break
+                    case 0xE1:
                         state = E1;
                         break;
-                    case 0x83:  // F8
-                        matrix_make(F8);
+                    case 0x83:  // F7
+                        matrix_make(F7);
                         state = INIT;
                         break;
-                    case 0x84:  // PrintScreen
+                    case 0x84:  // Alt'd PrintScreen
                         matrix_make(PRINT_SCREEN);
                         state = INIT;
                         break;
@@ -222,21 +216,19 @@ uint8_t matrix_scan(void)
                         state = INIT;
                 }
                 break;
-            case E0:
+            case E0:    // E0-Prefixed
                 switch (code) {
-                    case 0x12:  // postfix/postfix code for exceptional keys
-                    case 0x59:  // postfix/postfix code for exceptional keys
-                        // ignore
+                    case 0x12:  // to be ignored
+                    case 0x59:  // to be ignored
                         state = INIT;
                         break;
-                    case 0x7E:  // former part of Control-Pause[E0 7E  E0 F0 7E]
-                        matrix_make(PAUSE);
-                        state = INIT;
+                    case 0x7E:  // Control'd Pause
+                        state = E0_7E;
                         break;
-                    case 0xF0:  // E0 break
+                    case 0xF0:
                         state = E0_F0;
                         break;
-                    default:    // E0 make
+                    default:
                         if (code < 0x80) {
                             matrix_make(code|0x80);
                         } else {
@@ -245,13 +237,13 @@ uint8_t matrix_scan(void)
                         state = INIT;
                 }
                 break;
-            case F0:
+            case F0:    // Break code
                 switch (code) {
-                    case 0x83:
-                        matrix_break(F8);
+                    case 0x83:  // F7
+                        matrix_break(F7);
                         state = INIT;
                         break;
-                    case 0x84:
+                    case 0x84:  // Alt'd PrintScreen
                         matrix_break(PRINT_SCREEN);
                         state = INIT;
                         break;
@@ -264,12 +256,10 @@ uint8_t matrix_scan(void)
                     state = INIT;
                 }
                 break;
-            case E0_F0: // E0 break
+            case E0_F0: // Break code of E0-prefixed
                 switch (code) {
-                    case 0x12:  // postfix/postfix code for exceptional keys
-                    case 0x59:  // postfix/postfix code for exceptional keys
-                    case 0x7E:  // latter part of Control-Pause[E0 7E  E0 F0 7E]
-                        // ignore
+                    case 0x12:  // to be ignored
+                    case 0x59:  // to be ignored
                         state = INIT;
                         break;
                     default:
@@ -281,7 +271,7 @@ uint8_t matrix_scan(void)
                         state = INIT;
                 }
                 break;
-            /* Pause */
+            // following are states of Pause
             case E1:
                 switch (code) {
                     case 0x14:
@@ -346,6 +336,24 @@ uint8_t matrix_scan(void)
                         state = INIT;
                 }
                 break;
+            // Following are states of Control'd Pause
+            case E0_7E:
+                if (code == 0xE0)
+                    state = E0_7E_E0;
+                else
+                    state = INIT;
+                break;
+            case E0_7E_E0:
+                if (code == 0xF0)
+                    state = E0_7E_E0_F0;
+                else
+                    state = INIT;
+                break;
+            case E0_7E_E0_F0:
+                if (code == 0x7E)
+                    matrix_make(PAUSE);
+                state = INIT;
+                break;
             default:
                 state = INIT;
         }
@@ -378,29 +386,17 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 }
 
 inline
-#if (MATRIX_COLS <= 8)
 uint8_t matrix_get_row(uint8_t row)
-#else
-uint16_t matrix_get_row(uint8_t row)
-#endif
 {
     return matrix[row];
 }
 
 void matrix_print(void)
 {
-#if (MATRIX_COLS <= 8)
     print("\nr/c 01234567\n");
-#else
-    print("\nr/c 0123456789ABCDEF\n");
-#endif
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         phex(row); print(": ");
-#if (MATRIX_COLS <= 8)
         pbin_reverse(matrix_get_row(row));
-#else
-        pbin_reverse16(matrix_get_row(row));
-#endif
 #ifdef MATRIX_HAS_GHOST
         if (matrix_has_ghost_in_row(row)) {
             print(" <ghost");
@@ -414,11 +410,7 @@ uint8_t matrix_key_count(void)
 {
     uint8_t count = 0;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-#if (MATRIX_COLS <= 8)
         count += bitpop(matrix[i]);
-#else
-        count += bitpop16(matrix[i]);
-#endif
     }
     return count;
 }
