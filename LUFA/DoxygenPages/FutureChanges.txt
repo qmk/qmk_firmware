@@ -41,7 +41,7 @@
   *      -# Port all demos to multiple architectures
   *  - Ports
   *      -# Finish USB XMEGA port
-  *      -# Add AVR32 UC3C support
+  *      -# Add AVR32 UC3C, UC3D and UC3L support
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
   */

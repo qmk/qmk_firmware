@@ -106,7 +106,7 @@
 			/** Pipe number mask, for masking against pipe addresses to retrieve the pipe's numerical address
 			 *  in the device.
 			 */
-			#define PIPE_PIPENUM_MASK               0x07
+			#define PIPE_PIPENUM_MASK               0x0F
 
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the attached device.
@@ -114,7 +114,7 @@
 			#define PIPE_EPNUM_MASK                 0x0F
 
 			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  direction for comparing with the \c ENDPOINT_DESCRIPTOR_DIR_* masks.
+			 *  direction for comparing with the \c ENDPOINT_DIR_* masks.
 			 */
 			#define PIPE_EPDIR_MASK                 0x80
 

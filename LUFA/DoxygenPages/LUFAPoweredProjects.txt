@@ -128,6 +128,7 @@
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Norduino, a wireless Arduino: http://norduino.robomotic.com/norduino-is-now-usb-hid/
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
+ *  - RFI21.1EU UHF RFID reader: http://www.metra.cz/rfid/uhf-rfid-ctecky/rfi21-1eu-uhf-rfid-ctecka.htm
  *  - SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
  *  - USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
  *  - VMeter, a USB MIDI touch strip controller: http://www.vmeter.net/
