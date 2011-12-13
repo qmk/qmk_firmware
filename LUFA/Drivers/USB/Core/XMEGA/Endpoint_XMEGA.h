@@ -546,9 +546,8 @@
 				
 				if ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) == USB_EP_TYPE_CONTROL_gc)
 				{
-					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint |  ENDPOINT_DIR_IN);
+					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint ^ ENDPOINT_DIR_IN);
 					USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
-					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
 				}
 			}
 
@@ -589,16 +588,6 @@
 			static inline uint8_t Endpoint_GetEndpointDirection(void)
 			{
 				return (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN);
-			}
-
-			/** Sets the direction of the currently selected endpoint.
-			 *
-			 *  \param[in] DirectionMask  New endpoint direction, as a \c ENDPOINT_DIR_* mask.
-			 */
-			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask)
-			{
-				// TODO
 			}
 
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints.

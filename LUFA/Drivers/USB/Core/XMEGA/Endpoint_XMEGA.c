@@ -56,7 +56,7 @@ bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
 	USB_Endpoint_SelectedHandle->STATUS  = (Direction == ENDPOINT_DIR_IN) ? USB_EP_BUSNACK0_bm : 0;
 	USB_Endpoint_SelectedHandle->CTRL    = Config;
 	USB_Endpoint_SelectedHandle->CNT     = 0;
-	USB_Endpoint_SelectedHandle->DATAPTR = (intptr_t)&USB_Endpoint_SelectedFIFO->Data[0];
+	USB_Endpoint_SelectedHandle->DATAPTR = (intptr_t)USB_Endpoint_SelectedFIFO->Data;
 	
 	USB_Endpoint_SelectedFIFO->Length    = (Direction == ENDPOINT_DIR_IN) ? Size : 0;
 	USB_Endpoint_SelectedFIFO->Position  = 0;
