@@ -44,9 +44,6 @@ bool AOA_Host_ValidateAccessoryDevice(USB_ClassInfo_AOA_Host_t* const AOAInterfa
 	if (DeviceDescriptor->Header.Type != DTYPE_Device)
 	  return false;
 
-	if (DeviceDescriptor->VendorID != ANDROID_VENDOR_ID)
-	  return false;
-
 	*NeedModeSwitch = ((DeviceDescriptor->ProductID != ANDROID_ACCESSORY_PRODUCT_ID) &&
 	                   (DeviceDescriptor->ProductID != ANDROID_ACCESSORY_ADB_PRODUCT_ID));
 

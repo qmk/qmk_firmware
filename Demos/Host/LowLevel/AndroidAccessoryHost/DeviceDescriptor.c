@@ -55,10 +55,6 @@ uint8_t ProcessDeviceDescriptor(void)
 	if (DeviceDescriptor.Header.Type != DTYPE_Device)
 	  return InvalidDeviceDataReturned;
 
-	/* Validate returned device Vendor ID against the Android ADK spec values */
-	if (DeviceDescriptor.VendorID != ANDROID_VENDOR_ID)
-	  return IncorrectAndroidDevice;
-
 	/* Check the product ID to determine if the Android device is in accessory mode */
 	if ((DeviceDescriptor.ProductID != ANDROID_ACCESSORY_PRODUCT_ID) &&
 	    (DeviceDescriptor.ProductID != ANDROID_ACCESSORY_ADB_PRODUCT_ID))

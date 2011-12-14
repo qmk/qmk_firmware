@@ -64,9 +64,6 @@
 		#endif
 
 	/* Macros: */
-		/** Vendor ID value in a Device Descriptor to indicate an Android device. */
-		#define ANDROID_VENDOR_ID                   0x18D1
-
 		/** Product ID value in a Device Descriptor to indicate an Android device in Open Accessory mode. */
 		#define ANDROID_ACCESSORY_PRODUCT_ID        0x2D00
 
