@@ -55,9 +55,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
-    0,              // Fn1
-    0,              // Fn2
+    1,              // Fn0
+    2,              // Fn1
+    3,              // Fn2
     0,              // Fn3
     0,              // Fn4
     0,              // Fn5
@@ -68,8 +68,8 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_NO,          // Fn0
-    KB_NO,          // Fn1
+    KB_SCOLON,      // Fn0
+    KB_SLASH,       // Fn1
     KB_NO,          // Fn2
     KB_NO,          // Fn3
     KB_NO,          // Fn4
@@ -79,25 +79,51 @@ static const uint8_t PROGMEM fn_keycode[] = {
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // LShift and RShift are logically same one button.
+    // LOption and ROption are logically same one button.
     /* Default Layer: plain keymap
      * ,---------------------------------------------------------.
      * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Bacpa|
      * |---------------------------------------------------------|
      * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \|
      * |---------------------------------------------------------|
-     * |CapsLo|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return|
+     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn0|  '|Return|
      * |---------------------------------------------------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift   |
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|Fn1|   Shift|
      * `---------------------------------------------------------'
-     *      |Opt|Alt |         Space               |Alt |Opt|
+     *      |Fn2|Alt |         Space               |Gui |Fn2|
      *      `-----------------------------------------------'
      */
     KEYMAP(
     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,
-    CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,
-    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,
-         LGUI,LALT,          SPC,                     RALT
+    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN0, QUOT,     ENT,
+    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN1, 
+         FN2, LALT,          SPC,                     LGUI
+    ),
+    // vi mousekeys
+    KEYMAP(
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,
+    CAPS,NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,
+    LCTL,VOLD,VOLU,MUTE,NO,  NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,       ENT,
+    LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,NO,  NO,  NO,  
+         NO,  LALT,          BTN1,                    LGUI
+    ),
+    // vi cusorkeys
+    KEYMAP(
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,
+    CAPS,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO,
+    LCTL,NO,  NO,  NO,  NO,  NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,
+    LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN1, 
+         NO,  LALT,          SPC,                     LGUI
+    ),
+    // HHKB & WASD
+    KEYMAP(
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,
+    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  NO,
+    LCTL,LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     ENT,
+    LSFT,END, NO,  PGDN,NO,  VOLD,VOLU,MUTE,END, PGDN,DOWN,
+         FN2, LALT,          SPC,                     LGUI
     ),
 };
 

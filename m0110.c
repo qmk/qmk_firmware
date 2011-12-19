@@ -103,7 +103,7 @@ KEY EVENT:
     To get scan code,  use ((bits&(1<<7)) | ((bits&7F))>>1).
 
 SCAN CODE:
-    M0110A
+    M0110
     ,---------------------------------------------------------.
     |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs|
     |---------------------------------------------------------|
@@ -211,7 +211,9 @@ uint8_t m0110_recv(void)
         }
     }
     idle();
-    print("m0110_send recv data: "); phex(data); print("\n");
+    if (data != M0110_NULL) {
+        print("m0110_recv data: "); phex(data); print("\n");
+    }
     return data;
 ERROR:
     if (m0110_error) {
@@ -229,7 +231,7 @@ uint8_t m0110_recv_key(void)
     if (key == 0xFF || key == M0110_NULL)
         return M0110_NULL;
     else 
-        return (key&(1<<7) | (key&0x7F)>>1);
+        return ((key&(1<<7)) | ((key&0x7F)>>1));
 }
 
 
