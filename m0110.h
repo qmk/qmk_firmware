@@ -65,7 +65,7 @@ POSSIBILITY OF SUCH DAMAGE.
 extern uint8_t m0110_error;
 
 /* host role */
-void m0110_host_init(void);
+void m0110_init(void);
 uint8_t m0110_send(uint8_t data);
 uint8_t m0110_recv(void);
 uint8_t m0110_recv_key(void);
