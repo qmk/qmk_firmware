@@ -39,6 +39,7 @@
   *   - Fixed misspelled HID_KEYBOARD_MODIFIER_* macros in the HID class driver (thanks to Laszlo Monda)
   *   - Fixed broken AVR32 endpoint/pipe communications when ORDERED_EP_CONFIG compile time option is not enabled (thanks to Matthias Jahr)
   *   - Fixed broken compilation for the AVR32 devices if the NO_SOF_EVENTS compile time option was not enabled (thanks to Matthias Jahr)
+  *   - Fixed compiler warning on GCC with \c -wundef compile flag is used (thanks to Georg Glock)
   *  - Library Applications:
   *   - Added reliability patches to the AVRISP-MKII Clone project's PDI/TPI protocols (thanks to Justin Mattair)
   *   - Fixed AVRISP-MKII Clone compile warning on AVR8 U4 targets even when NO_VTARGET_DETECT is enabled
