@@ -142,7 +142,7 @@ void host_mouse_send(report_mouse_t *report)
 void host_system_send(uint16_t data)
 {
     if (!driver) return;
-    (*driver->send_consumer)(data);
+    (*driver->send_system)(data);
 }
 
 void host_consumer_send(uint16_t data)
