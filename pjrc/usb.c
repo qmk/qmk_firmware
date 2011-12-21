@@ -66,6 +66,10 @@
 #   define PRODUCT_ID		0xBABE
 #endif
 
+#ifndef DEVICE_VER
+#   define DEVICE_VER		0x0100
+#endif
+
 
 // USB devices are supposed to implment a halt feature, which is
 // rarely (if ever) used.  If you comment this line out, the halt
@@ -134,7 +138,7 @@ static uint8_t PROGMEM device_descriptor[] = {
 	ENDPOINT0_SIZE,				// bMaxPacketSize0
 	LSB(VENDOR_ID), MSB(VENDOR_ID),		// idVendor
 	LSB(PRODUCT_ID), MSB(PRODUCT_ID),	// idProduct
-	0x00, 0x01,				// bcdDevice
+	LSB(DEVICE_VER), MSB(DEVICE_VER),	// bcdDevice
 	1,					// iManufacturer
 	2,					// iProduct
 	0,					// iSerialNumber
