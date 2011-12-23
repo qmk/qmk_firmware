@@ -87,16 +87,16 @@ int main(void)
 		if (RNDIS_Device_IsPacketReceived(&Ethernet_RNDIS_Interface))
 		{
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-			
+
 			RNDIS_Device_ReadPacket(&Ethernet_RNDIS_Interface, &FrameIN.FrameData, &FrameIN.FrameLength);
 			Ethernet_ProcessPacket(&FrameIN, &FrameOUT);
-			
+
 			if (FrameOUT.FrameLength)
 			{
-				RNDIS_Device_SendPacket(&Ethernet_RNDIS_Interface, &FrameOUT.FrameData, FrameOUT.FrameLength);				
+				RNDIS_Device_SendPacket(&Ethernet_RNDIS_Interface, &FrameOUT.FrameData, FrameOUT.FrameLength);
 				FrameOUT.FrameLength = 0;
 			}
-			
+
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 		}
 

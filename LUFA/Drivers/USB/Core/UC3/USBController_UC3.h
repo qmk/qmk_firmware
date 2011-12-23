@@ -270,13 +270,13 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */			
+		/* Macros: */
 			#if defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32)
 				#define USB_CLOCK_REQUIRED_FREQ  12000000UL
 			#else
 				#define USB_CLOCK_REQUIRED_FREQ  48000000UL
 			#endif
-	
+
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_USB_CONTROLLER_C)
 				#if defined(USB_CAN_BE_DEVICE)

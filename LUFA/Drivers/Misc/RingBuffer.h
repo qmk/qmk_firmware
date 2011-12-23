@@ -39,7 +39,7 @@
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
  *  operating occurring at the same point in time, atomic (mutex) locking should be used.
  */
- 
+
 /** \ingroup Group_MiscDrivers
  *  \defgroup Group_RingBuff Generic Byte Ring Buffer - LUFA/Drivers/Misc/RingBuffer.h
  *  \brief Lightweight ring buffer, for fast insertion/deletion of bytes.
@@ -134,7 +134,7 @@
 
 			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 			GlobalInterruptDisable();
-	
+
 			Buffer->In     = DataPtr;
 			Buffer->Out    = DataPtr;
 			Buffer->Start  = &DataPtr[0];
@@ -166,7 +166,7 @@
 
 			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 			GlobalInterruptDisable();
-			
+
 			Count = Buffer->Count;
 
 			SetGlobalInterruptMask(CurrentGlobalInt);
@@ -244,7 +244,7 @@
 
 			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 			GlobalInterruptDisable();
-			
+
 			Buffer->Count++;
 
 			SetGlobalInterruptMask(CurrentGlobalInt);
@@ -264,7 +264,7 @@
 		static inline uint8_t RingBuffer_Remove(RingBuffer_t* Buffer)
 		{
 			GCC_FORCE_POINTER_ACCESS(Buffer);
-		
+
 			uint8_t Data = *Buffer->Out;
 
 			if (++Buffer->Out == Buffer->End)
@@ -272,7 +272,7 @@
 
 			uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 			GlobalInterruptDisable();
-			
+
 			Buffer->Count--;
 
 			SetGlobalInterruptMask(CurrentGlobalInt);

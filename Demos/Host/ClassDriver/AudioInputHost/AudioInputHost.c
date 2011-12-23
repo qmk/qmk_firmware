@@ -96,7 +96,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 		LEDs_SetAllLEDs(LEDMask);
 	}
-	
+
 	Pipe_SelectPipe(PrevPipe);
 }
 
@@ -193,7 +193,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	TIMSK0  = (1 << OCIE0A);
 	OCR0A   = ((F_CPU / 8 / 48000) - 1);
 	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS01);   // Fcpu/8 speed	
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 
 	/* Set speaker as output */
 	DDRC   |= (1 << 6);

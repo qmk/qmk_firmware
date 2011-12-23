@@ -70,7 +70,7 @@
 	/* Includes: */
 		#include "../../../Common/Common.h"
 		#include "../../Misc/TerminalCodes.h"
-		
+
 		#include <stdio.h>
 
 	/* Enable C linkage for C++ Compilers: */
@@ -87,7 +87,7 @@
 	#if !defined(__DOXYGEN__)
 		/* External Variables: */
 			extern FILE USARTSerialStream;
-	
+
 		/* Function Prototypes: */
 			int Serial_putchar(char DataByte,
 			                   FILE *Stream);
@@ -127,7 +127,7 @@
 			 *  \param[in] StringPtr  Pointer to a string located in SRAM space.
 			 */
 			void Serial_SendString(const char* StringPtr) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Transmits a given buffer located in SRAM memory through the USART.
 			 *
 			 *  \param[in] Buffer  Pointer to a buffer containing the data to send.
@@ -190,7 +190,7 @@
 					stdin  = Stream;
 					stdout = Stream;
 				}
-			
+
 				*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar, _FDEV_SETUP_RW);
 			}
 
@@ -244,7 +244,7 @@
 			{
 				if (!(Serial_IsCharReceived()))
 				  return -1;
-				
+
 				return UDR1;
 			}
 

@@ -233,7 +233,7 @@
 			#elif (BOARD == BOARD_EVK527)
 				#include "AVR8/EVK527/Dataflash.h"
 			#elif (BOARD == BOARD_A3BU_XPLAINED)
-				#include "XMEGA/A3BU_XPLAINED/Dataflash.h"			
+				#include "XMEGA/A3BU_XPLAINED/Dataflash.h"
 			#else
 				#include "Board/Dataflash.h"
 			#endif

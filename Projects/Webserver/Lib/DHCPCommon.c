@@ -100,3 +100,4 @@ bool DHCPCommon_GetOption(const uint8_t* DHCPOptionList,
 }
 
 #endif
+

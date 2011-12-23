@@ -287,7 +287,7 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 		               SCSI_ASENSE_WRITE_PROTECTED,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return false;		
+		return false;
 	}
 
 	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
@@ -345,3 +345,4 @@ static bool SCSI_Command_ModeSense_6(USB_ClassInfo_MS_Device_t* const MSInterfac
 
 	return true;
 }
+

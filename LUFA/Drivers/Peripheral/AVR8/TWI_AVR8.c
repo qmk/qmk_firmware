@@ -119,9 +119,9 @@ bool TWI_ReceiveByte(uint8_t* const Byte,
 	TWCR = TWCRMask;
 	while (!(TWCR & (1 << TWINT)));
 	*Byte = TWDR;
-	
+
 	uint8_t Status = (TWSR & TW_STATUS_MASK);
-	
+
 	return ((LastByte) ? (Status == TW_MR_DATA_NACK) : (Status == TW_MR_DATA_ACK));
 }
 
@@ -133,19 +133,19 @@ uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
                        uint8_t Length)
 {
 	uint8_t ErrorCode;
-	
+
 	if ((ErrorCode = TWI_StartTransmission((SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_WRITE,
 	                                       TimeoutMS)) == TWI_ERROR_NoError)
 	{
 		while (InternalAddressLen--)
 		{
 			if (!(TWI_SendByte(*(InternalAddress++))))
-			{				
+			{
 				ErrorCode = TWI_ERROR_SlaveNAK;
 				break;
 			}
 		}
-		
+
 		if ((ErrorCode = TWI_StartTransmission((SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_READ,
 											   TimeoutMS)) == TWI_ERROR_NoError)
 		{
@@ -157,11 +157,11 @@ uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
 					break;
 				}
 			}
-			
+
 			TWI_StopTransmission();
 		}
 	}
-	
+
 	return ErrorCode;
 }
 
@@ -180,7 +180,7 @@ uint8_t TWI_WritePacket(const uint8_t SlaveAddress,
 		while (InternalAddressLen--)
 		{
 			if (!(TWI_SendByte(*(InternalAddress++))))
-			{				
+			{
 				ErrorCode = TWI_ERROR_SlaveNAK;
 				break;
 			}
@@ -194,9 +194,10 @@ uint8_t TWI_WritePacket(const uint8_t SlaveAddress,
 				break;
 			}
 		}
-		
+
 		TWI_StopTransmission();
 	}
-	
+
 	return ErrorCode;
 }
+

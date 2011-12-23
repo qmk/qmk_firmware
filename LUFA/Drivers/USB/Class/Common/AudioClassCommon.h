@@ -218,7 +218,7 @@
 		 *  allows for pitch adjustments to be made via control requests directed at the endpoint.
 		 */
 		#define AUDIO_EP_PITCH_CONTROL            (1 << 1)
-		
+
 	/* Enums: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Audio
 		 *  device class.
@@ -244,7 +244,7 @@
 			                                                   *   interface belongs to the Streaming Audio protocol.
 			                                                   */
 		};
-	
+
 		/** Audio class specific interface description subtypes, for the Audio Control interface. */
 		enum Audio_CSInterface_AC_SubTypes_t
 		{
@@ -287,7 +287,7 @@
 			AUDIO_REQ_GetMemory     = 0x85, /**< Audio class-specific request to get the memory value of a parameter within the device. */
 			AUDIO_REQ_GetStatus     = 0xFF, /**< Audio class-specific request to get the device status. */
 		};
-		
+
 		/** Enum for Audio class specific Endpoint control modifiers which can be set and retrieved by a USB host, if the corresponding
 		 *  endpoint control is indicated to be supported in the Endpoint's Audio-class specific endpoint descriptor.
 		 */

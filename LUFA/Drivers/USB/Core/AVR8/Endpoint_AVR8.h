@@ -144,7 +144,7 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */			
+		/* Macros: */
 			/** \name Endpoint Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates

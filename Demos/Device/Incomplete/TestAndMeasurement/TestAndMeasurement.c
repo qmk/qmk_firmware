@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -38,7 +38,7 @@ TMC_Capabilities_t Capabilities =
 	{
 		.Status     = TMC_STATUS_SUCCESS,
 		.TMCVersion = VERSION_BCD(1.00),
-		
+
 		.Interface  =
 			{
 				.ListenOnly             = false,
@@ -82,7 +82,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
-	
+
 	for (;;)
 	{
 		TMC_Task();
@@ -99,7 +99,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
@@ -167,43 +167,43 @@ void EVENT_USB_Device_ControlRequest(void)
 				{
 					/* Indicate that all in-progress/pending data OUT requests should be aborted */
 					IsTMCBulkOUTReset = true;
-					
+
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgress = Req_InitiateAbortBulkOut;
 				}
 
 				Endpoint_ClearSETUP();
-				
+
 				/* Write the request response byte */
 				Endpoint_Write_8(TMCRequestStatus);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 		case Req_CheckAbortBulkOutStatus:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
 			{
 				/* Check that an ABORT BULK OUT transaction has been requested and that the request has completed */
 				if (RequestInProgress != Req_InitiateAbortBulkOut)
-				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;				
+				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;
 				else if (IsTMCBulkOUTReset)
 				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
-				  RequestInProgress = 0;	
+				  RequestInProgress = 0;
 
 				Endpoint_ClearSETUP();
-								
+
 				/* Write the request response bytes */
 				Endpoint_Write_8(TMCRequestStatus);
 				Endpoint_Write_16_LE(0);
 				Endpoint_Write_32_LE(LastTransferLength);
 
 				Endpoint_ClearIN();
-				Endpoint_ClearStatusStage();				
+				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 		case Req_InitiateAbortBulkIn:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
@@ -211,7 +211,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Check that no split transaction is already in progress and the data transfer tag is valid */
 				if (RequestInProgress != 0)
 				{
-					TMCRequestStatus = TMC_STATUS_SPLIT_IN_PROGRESS;				
+					TMCRequestStatus = TMC_STATUS_SPLIT_IN_PROGRESS;
 				}
 				else if (USB_ControlRequest.wValue != CurrentTransferTag)
 				{
@@ -221,13 +221,13 @@ void EVENT_USB_Device_ControlRequest(void)
 				{
 					/* Indicate that all in-progress/pending data IN requests should be aborted */
 					IsTMCBulkINReset = true;
-					
+
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgress = Req_InitiateAbortBulkIn;
 				}
 
 				Endpoint_ClearSETUP();
-				
+
 				/* Write the request response bytes */
 				Endpoint_Write_8(TMCRequestStatus);
 				Endpoint_Write_8(CurrentTransferTag);
@@ -235,7 +235,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 		case Req_CheckAbortBulkInStatus:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
@@ -249,7 +249,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				  RequestInProgress = 0;
 
 				Endpoint_ClearSETUP();
-								
+
 				/* Write the request response bytes */
 				Endpoint_Write_8(TMCRequestStatus);
 				Endpoint_Write_16_LE(0);
@@ -258,7 +258,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 		case Req_InitiateClear:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
@@ -266,34 +266,34 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Check that no split transaction is already in progress */
 				if (RequestInProgress != 0)
 				{
-					Endpoint_Write_8(TMC_STATUS_SPLIT_IN_PROGRESS);				
+					Endpoint_Write_8(TMC_STATUS_SPLIT_IN_PROGRESS);
 				}
 				else
 				{
 					/* Indicate that all in-progress/pending data IN and OUT requests should be aborted */
 					IsTMCBulkINReset  = true;
 					IsTMCBulkOUTReset = true;
-					
+
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgress = Req_InitiateClear;
 				}
 
 				Endpoint_ClearSETUP();
-				
+
 				/* Write the request response byte */
 				Endpoint_Write_8(TMCRequestStatus);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 		case Req_CheckClearStatus:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Check that a CLEAR transaction has been requested and that the request has completed */
 				if (RequestInProgress != Req_InitiateClear)
-				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;				
+				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;
 				else if (IsTMCBulkINReset || IsTMCBulkOUTReset)
 				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
@@ -304,22 +304,22 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Write the request response bytes */
 				Endpoint_Write_8(TMCRequestStatus);
 				Endpoint_Write_8(0);
-				
+
 				Endpoint_ClearIN();
-				Endpoint_ClearStatusStage();				
+				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 		case Req_GetCapabilities:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-					
+
 				/* Write the device capabilities to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&Capabilities, sizeof(TMC_Capabilities_t));				
+				Endpoint_Write_Control_Stream_LE(&Capabilities, sizeof(TMC_Capabilities_t));
 				Endpoint_ClearOUT();
 			}
-			
+
 			break;
 	}
 }
@@ -351,16 +351,16 @@ void TMC_Task(void)
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-	
+
 	TMC_MessageHeader_t MessageHeader;
 	uint8_t             MessagePayload[128];
-	
+
 	/* Try to read in a TMC message from the interface, process if one is available */
 	if (ReadTMCHeader(&MessageHeader))
 	{
 		/* Indicate busy */
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-		
+
 		switch (MessageHeader.MessageID)
 		{
 			case TMC_MESSAGEID_DEV_DEP_MSG_OUT:
@@ -371,15 +371,15 @@ void TMC_Task(void)
 					if (IsTMCBulkOUTReset)
 					  break;
 				}
-				
+
 				Endpoint_ClearOUT();
 
-				ProcessSentMessage(MessagePayload, LastTransferLength);				
+				ProcessSentMessage(MessagePayload, LastTransferLength);
 				break;
 			case TMC_MESSAGEID_DEV_DEP_MSG_IN:
 				Endpoint_ClearOUT();
-				
-				MessageHeader.TransferSize = GetNextMessage(MessagePayload);				
+
+				MessageHeader.TransferSize = GetNextMessage(MessagePayload);
 				MessageHeader.MessageIDSpecific.DeviceOUT.LastMessageTransaction = true;
 				WriteTMCHeader(&MessageHeader);
 
@@ -400,7 +400,7 @@ void TMC_Task(void)
 
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
-	
+
 	/* All pending data has been processed - reset the data abort flags */
 	IsTMCBulkINReset  = false;
 	IsTMCBulkOUTReset = false;
@@ -419,11 +419,11 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 
 	/* Select the Data Out endpoint */
 	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
-	
+
 	/* Abort if no command has been sent from the host */
 	if (!(Endpoint_IsOUTReceived()))
 	  return false;
-	
+
 	/* Read in the header of the command from the host */
 	BytesTransferred = 0;
 	while ((ErrorCode = Endpoint_Read_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred)) ==
@@ -435,7 +435,7 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 
 	/* Store the new command tag value for later use */
 	CurrentTransferTag = MessageHeader->Tag;
-	
+
 	/* Indicate if the command has been aborted or not */
 	return (!(IsTMCBulkOUTReset) && (ErrorCode == ENDPOINT_RWSTREAM_NoError));
 }
@@ -464,3 +464,4 @@ bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	/* Indicate if the command has been aborted or not */
 	return (!(IsTMCBulkINReset) && (ErrorCode == ENDPOINT_RWSTREAM_NoError));
 }
+

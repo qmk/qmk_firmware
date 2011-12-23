@@ -70,7 +70,7 @@ ISR(USB_BUSEVENT_vect)
 	if (USB_INT_HasOccurred(USB_INT_BUSEVENTI_Resume))
 	{
 		USB_INT_Clear(USB_INT_BUSEVENTI_Resume);
-		
+
 		if (USB_Device_ConfigurationNumber)
 		  USB_DeviceState = DEVICE_STATE_Configured;
 		else
@@ -86,7 +86,7 @@ ISR(USB_BUSEVENT_vect)
 	if (USB_INT_HasOccurred(USB_INT_BUSEVENTI_Reset))
 	{
 		USB_INT_Clear(USB_INT_BUSEVENTI_Reset);
-		
+
 		USB_DeviceState                = DEVICE_STATE_Default;
 		USB_Device_ConfigurationNumber = 0;
 

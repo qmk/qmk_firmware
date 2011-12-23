@@ -70,7 +70,7 @@ void uIPManagement_Init(void)
 		MACAddress.addr[5] = SERVER_MAC_ADDRESS[5];
 
 		#if defined(ENABLE_DHCP_SERVER)
-		DHCPServerApp_Init();	
+		DHCPServerApp_Init();
 		#endif
 
 		uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
@@ -84,7 +84,7 @@ void uIPManagement_Init(void)
 	else
 	{
 		#if defined(ENABLE_DHCP_CLIENT)
-		DHCPClientApp_Init();	
+		DHCPClientApp_Init();
 		#else
 		uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
 		uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
@@ -170,7 +170,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 		/* If no packet received, exit processing routine */
 		if (!(RNDIS_Device_IsPacketReceived(&Ethernet_RNDIS_Interface_Device)))
 		  return;
-	
+
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Read the Incoming packet straight into the UIP packet buffer */
@@ -181,13 +181,13 @@ static void uIPManagement_ProcessIncomingPacket(void)
 		/* If no packet received, exit processing routine */
 		if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface_Host)))
 		  return;
-	
+
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Read the Incoming packet straight into the UIP packet buffer */
 		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface_Host, uip_buf, &uip_len);
 	}
-	
+
 	/* If the packet contains an Ethernet frame, process it */
 	if (uip_len > 0)
 	{

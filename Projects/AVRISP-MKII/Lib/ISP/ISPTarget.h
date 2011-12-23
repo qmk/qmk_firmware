@@ -113,7 +113,7 @@
 			if (HardwareSPIMode)
 			  return ~SPI_ReceiveByte();
 			else
-			  return ~ISPTarget_TransferSoftSPIByte(0x00);			
+			  return ~ISPTarget_TransferSoftSPIByte(0x00);
 			#endif
 		}
 
@@ -135,7 +135,7 @@
 			if (HardwareSPIMode)
 			  return ~SPI_TransferByte(Byte);
 			else
-			  return ~ISPTarget_TransferSoftSPIByte(Byte);		
+			  return ~ISPTarget_TransferSoftSPIByte(Byte);
 			#endif
 		}
 

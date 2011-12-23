@@ -49,7 +49,7 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			
+
 			// Relay Board Interface
 			USB_Descriptor_Interface_t            RelayBoardInterface;
 		} USB_Descriptor_Configuration_t;

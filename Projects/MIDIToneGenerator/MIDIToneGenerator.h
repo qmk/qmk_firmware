@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for AudioOutput.c.
  */
- 
+
 #ifndef _AUDIO_OUTPUT_H_
 #define _AUDIO_OUTPUT_H_
 
@@ -45,7 +45,7 @@
 		#include <stdbool.h>
 
 		#include "Descriptors.h"
-				
+
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
@@ -63,27 +63,27 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-		
+
 		/** Scale factor used to convert the floating point frequencies and ratios into a fixed point number */
 		#define SCALE_FACTOR               65536
-		
+
 		/** Base (lowest) allowable MIDI note frequency */
 		#define BASE_FREQUENCY             27.5
-		
+
 		/** Ratio between each note in an octave */
 		#define NOTE_OCTIVE_RATIO          1.05946
-		
+
 		/** Lowest valid MIDI pitch index */
 		#define BASE_PITCH_INDEX           21
-		
+
 		/** Maximum number of MIDI notes that can be played simultaneously */
 		#define MAX_SIMULTANEOUS_NOTES     3
-		
+
 		/** Number of samples in the virtual sample table (can be expanded to lower maximum frequency, but allow for
 		 *  more simultaneous notes due to the reduced amount of processing time needed when the samples are spaced out)
 		 */
 		#define VIRTUAL_SAMPLE_TABLE_SIZE  512
-		
+
 		/** Sample table increments per period for the base MIDI note frequency */
 		#define BASE_INCREMENT             (((F_CPU / VIRTUAL_SAMPLE_TABLE_SIZE / 2) / BASE_FREQUENCY))
 
@@ -98,10 +98,11 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		
+
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
-		
+
 #endif
+

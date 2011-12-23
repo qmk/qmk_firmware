@@ -62,7 +62,7 @@
 
 		/** Size in bytes of each of the HID reporting IN endpoint. */
 		#define HID_EPSIZE                8
-	
+
 	/* Enums: */
 		/** Enum for the HID report IDs used in the device. */
 		enum

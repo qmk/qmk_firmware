@@ -119,7 +119,7 @@
 				#define ENDPOINT_DETAILS_EP5                   512, 3
 				#define ENDPOINT_DETAILS_EP6                   512, 3
 				#define ENDPOINT_DETAILS_EP7                   512, 3
-			#elif defined(USB_SERIES_UC3B0_AVR32) || defined(USB_SERIES_UC3B1_AVR32) 
+			#elif defined(USB_SERIES_UC3B0_AVR32) || defined(USB_SERIES_UC3B1_AVR32)
 				#define ENDPOINT_DETAILS_MAXEP                 7
 
 				#define ENDPOINT_DETAILS_EP0                   64,  1
@@ -154,14 +154,14 @@
 			void Endpoint_ClearEndpoints(void);
 			bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 			                                    const uint32_t UECFGXData);
-		
+
 		/* External Variables: */
 			extern volatile uint32_t USB_Endpoint_SelectedEndpoint;
 			extern volatile uint8_t* USB_Endpoint_FIFOPos[];
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */			
+		/* Macros: */
 			/** \name Endpoint Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
@@ -302,7 +302,7 @@
 			                                              const uint8_t Banks)
 			{
 				return Endpoint_ConfigureEndpoint_Prv(Number, (AVR32_USBB_ALLOC_MASK |
-				                                               ((uint32_t)Type      << AVR32_USBB_EPTYPE_OFFSET) | 
+				                                               ((uint32_t)Type      << AVR32_USBB_EPTYPE_OFFSET) |
 				                                               ((uint32_t)(Direction ? AVR32_USBB_UECFG0_EPDIR_MASK : 0) |
 				                                               ((uint32_t)Banks     << AVR32_USBB_EPBK_OFFSET)   |
 				                                               Endpoint_BytesToEPSizeMask(Size))));
@@ -422,7 +422,7 @@
 					while ((&AVR32_USBB.UECON0)[USB_Endpoint_SelectedEndpoint].killbk);
 				}
 			}
-			
+
 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is an IN
 			 *  direction). This function will return false if an error has occurred in the endpoint, if the endpoint

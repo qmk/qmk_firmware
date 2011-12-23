@@ -104,10 +104,10 @@ void SetupHardware(void)
 	/* Initialize USB Subsystem */
 	USB_Init();
 	LEDs_Init();
-	
+
 	/* Bootloader active LED toggle timer initialization */
 	TIMSK1 = (1 << TOIE1);
-	TCCR1B = ((1 << CS11) | (1 << CS10));	
+	TCCR1B = ((1 << CS11) | (1 << CS10));
 }
 
 /** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
@@ -266,7 +266,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 				{
 					LowByte = FetchNextCommandByte();
 				}
-				
+
 				HighByte = !HighByte;
 			}
 			else
@@ -365,7 +365,7 @@ void CDC_Task(void)
 	if (Command == 'E')
 	{
 		RunBootloader = false;
-	
+
 		/* Send confirmation byte back to the host */
 		WriteNextResponseByte('\r');
 	}

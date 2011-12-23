@@ -43,7 +43,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
+		#include "USBMode.h"
 		#include "USBController.h"
 		#include "Events.h"
 		#include "StdRequestType.h"
@@ -81,7 +81,7 @@
 			extern volatile bool USB_IsInitialized;
 
 			/** Structure containing the last received Control request when in Device mode (for use in user-applications
-			 *  inside of the \ref EVENT_USB_Device_ControlRequest() event, or for filling up with a control request to 
+			 *  inside of the \ref EVENT_USB_Device_ControlRequest() event, or for filling up with a control request to
 			 *  issue when in Host mode before calling \ref USB_Host_SendControlRequest().
 			 *
 			 *  \note The contents of this structure is automatically endian-corrected for the current CPU architecture.

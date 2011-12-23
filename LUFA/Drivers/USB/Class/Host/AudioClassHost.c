@@ -68,7 +68,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 					return AUDIO_ENUMERROR_NoCompatibleInterfaceFound;
 				}
 
-				AudioControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);			
+				AudioControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 				                              DCOMP_Audio_Host_NextAudioStreamInterface) != DESCRIPTOR_SEARCH_COMP_Found)
@@ -78,7 +78,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 			}
 
 			AudioStreamingInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
-			
+
 			DataINEndpoint  = NULL;
 			DataOUTEndpoint = NULL;
 
@@ -125,7 +125,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 		{
 			continue;
 		}
-		
+
 		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
 		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
 		{
@@ -137,7 +137,7 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	AudioInterfaceInfo->State.StreamingInterfaceNumber  = AudioStreamingInterface->InterfaceNumber;
 	AudioInterfaceInfo->State.EnabledStreamingAltIndex  = AudioStreamingInterface->AlternateSetting;
 	AudioInterfaceInfo->State.IsActive = true;
-	
+
 	return AUDIO_ENUMERROR_NoError;
 }
 
@@ -225,7 +225,7 @@ uint8_t Audio_Host_GetSetEndpointProperty(USB_ClassInfo_Audio_Host_t* const Audi
 	  RequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT);
 	else
 	  RequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT);
-	  
+
 	Pipe_SelectPipe(DataPipeIndex);
 	EndpointAddress = Pipe_GetBoundEndpointAddress();
 

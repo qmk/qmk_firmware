@@ -90,3 +90,4 @@ uint8_t TEMPLATE_FUNC_NAME (const void* const Buffer,
 #undef TEMPLATE_TRANSFER_BYTE
 
 #endif
+

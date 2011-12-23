@@ -65,7 +65,7 @@
 		#if !defined(__INCLUDE_FROM_COMMON_H)
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
 		#endif
-		
+
 		#if !(defined(ARCH_BIG_ENDIAN) || defined(ARCH_LITTLE_ENDIAN))
 			#error ARCH_BIG_ENDIAN or ARCH_LITTLE_ENDIAN not set for the specified architecture.
 		#endif
@@ -115,11 +115,11 @@
 				#define CPU_TO_LE16(x)           SWAPENDIAN_16(x)
 				#define CPU_TO_LE32(x)           SWAPENDIAN_32(x)
 				#define CPU_TO_BE16(x)           (x)
-				#define CPU_TO_BE32(x)           (x)			
+				#define CPU_TO_BE32(x)           (x)
 			#elif !defined(le16_to_cpu)
 				/** \name Run-time endianness conversion */
 				//@{
-			
+
 				/** Performs a conversion between a Little Endian encoded 16-bit piece of data and the
 				 *  Endianness of the currently selected CPU architecture.
 				 *
@@ -398,7 +398,7 @@
 			{
 				if (GCC_IS_COMPILE_CONST(Word))
 				  return SWAPENDIAN_16(Word);
-			
+
 				uint8_t Temp;
 
 				union
@@ -486,3 +486,4 @@
 #endif
 
 /** @} */
+

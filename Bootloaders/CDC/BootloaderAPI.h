@@ -40,9 +40,9 @@
 		#include <avr/io.h>
 		#include <avr/boot.h>
 		#include <stdbool.h>
-		
+
 		#include <LUFA/Common/Common.h>
-	
+
 	/* Function Prototypes: */
 		void    BootloaderAPI_ErasePage(const uint32_t Address);
 		void    BootloaderAPI_WritePage(const uint32_t Address);

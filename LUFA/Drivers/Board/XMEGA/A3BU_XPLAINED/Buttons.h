@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -44,7 +44,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __BUTTONS_A3BU_XPLAINED_H__
 #define __BUTTONS_A3BU_XPLAINED_H__
 
@@ -78,7 +78,7 @@
 			{
 				PORTE_OUTCLR = BUTTONS_BUTTON1;
 				PORTF_OUTCLR = (BUTTONS_BUTTON2 | BUTTONS_BUTTON3);
-				
+
 				PORTE_PIN5CTRL = PORT_OPC_PULLUP_gc;
 				PORTF_PIN1CTRL = PORT_OPC_PULLUP_gc;
 				PORTF_PIN2CTRL = PORT_OPC_PULLUP_gc;
@@ -99,5 +99,4 @@
 #endif
 
 /** @} */
-
 

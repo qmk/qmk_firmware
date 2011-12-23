@@ -104,7 +104,7 @@ int main(void)
 	{
 		Read_Joystick_Status();
 		DiscardNextReport();
-		
+
 		USB_USBTask();
 	}
 }

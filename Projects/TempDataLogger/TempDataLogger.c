@@ -304,7 +304,7 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const uint16_t ReportSize)
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
-	
+
 	DS1307_SetTimeDate(&ReportParams->TimeDate);
 
 	/* If the logging interval has changed from its current value, write it to EEPROM */

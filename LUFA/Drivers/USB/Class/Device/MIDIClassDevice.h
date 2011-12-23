@@ -91,7 +91,7 @@
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
-				
+
 				struct
 				{
 					// No state information for this class

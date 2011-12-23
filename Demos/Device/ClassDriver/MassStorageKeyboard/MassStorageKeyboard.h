@@ -81,7 +81,7 @@
 
 		/** Indicates if the disk is write protected or not. */
 		#define DISK_READ_ONLY           false
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 

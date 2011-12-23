@@ -120,7 +120,7 @@ void XPROGTarget_DisableTargetTPI(void)
 	/* Set all USART lines as inputs, tristate */
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
-	
+
 	/* Tristate target /RESET line */
 	AUX_LINE_DDR  &= ~AUX_LINE_MASK;
 	AUX_LINE_PORT &= ~AUX_LINE_MASK;
@@ -164,7 +164,7 @@ void XPROGTarget_SendIdle(void)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	  XPROGTarget_SetTxMode();
-	
+
 	/* Need to do nothing for a full frame to send an IDLE */
 	for (uint8_t i = 0; i < BITS_IN_USART_FRAME; i++)
 	{

@@ -65,7 +65,7 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void JoystickHost_Task(void);

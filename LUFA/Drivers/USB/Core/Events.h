@@ -217,7 +217,7 @@
 			void EVENT_USB_Device_Disconnect(void);
 
 			/** Event for control requests. This event fires when a the USB host issues a control request
-			 *  to the mandatory device control endpoint (of address 0). This may either be a standard 
+			 *  to the mandatory device control endpoint (of address 0). This may either be a standard
 			 *  request that the library may have a handler code for internally, or a class specific request
 			 *  issued to the device which must be handled appropriately. If a request is not processed in the
 			 *  user application via this event, it will be passed to the library for processing internally

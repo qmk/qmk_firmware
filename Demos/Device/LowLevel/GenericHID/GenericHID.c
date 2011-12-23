@@ -157,7 +157,7 @@ void ProcessGenericHIDReport(uint8_t* DataArray)
 		holding the report sent from the host.
 	*/
 
-	uint8_t NewLEDMask = LEDS_NO_LEDS;	
+	uint8_t NewLEDMask = LEDS_NO_LEDS;
 
 	if (DataArray[0])
 	  NewLEDMask |= LEDS_LED1;
@@ -170,7 +170,7 @@ void ProcessGenericHIDReport(uint8_t* DataArray)
 
 	if (DataArray[3])
 	  NewLEDMask |= LEDS_LED1;
-	  
+
 	LEDs_SetAllLEDs(NewLEDMask);
 }
 
@@ -187,7 +187,7 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 	*/
 
 	uint8_t CurrLEDMask = LEDs_GetLEDs();
-		
+
 	DataArray[0] = ((CurrLEDMask & LEDS_LED1) ? 1 : 0);
 	DataArray[1] = ((CurrLEDMask & LEDS_LED2) ? 1 : 0);
 	DataArray[2] = ((CurrLEDMask & LEDS_LED3) ? 1 : 0);

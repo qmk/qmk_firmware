@@ -108,7 +108,7 @@ static uint8_t MassStore_SendCommand(MS_CommandBlockWrapper_t* const SCSICommand
 			return ErrorCode;
 		}
 	}
-	
+
 	/* Retrieve the returned SCSI status from the device */
 	MS_CommandStatusWrapper_t SCSIStatusBlock;
 	return MassStore_GetReturnedStatus(&SCSIStatusBlock);
@@ -267,7 +267,7 @@ static uint8_t MassStore_GetReturnedStatus(MS_CommandStatusWrapper_t* const SCSI
 	{
 		return ErrorCode;
 	}
-	
+
 	/* Clear the data ready for next reception */
 	Pipe_ClearIN();
 
@@ -302,13 +302,13 @@ uint8_t MassStore_MassStorageReset(void)
 
 	/* Select the control pipe for the request transfer */
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	
+
 	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	
+
 	/* Select first data pipe to clear STALL condition if one exists */
 	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
-	
+
 	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 
@@ -317,7 +317,7 @@ uint8_t MassStore_MassStorageReset(void)
 
 	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 

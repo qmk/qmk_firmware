@@ -63,15 +63,15 @@
 			#define HID_RI_DATA_BITS_32                     0x03
 			#define HID_RI_DATA_BITS(DataBits)              HID_RI_DATA_BITS_ ## DataBits
 
-			#define _HID_RI_ENCODE_0(Data)                  
+			#define _HID_RI_ENCODE_0(Data)
 			#define _HID_RI_ENCODE_8(Data)                  , (Data & 0xFF)
 			#define _HID_RI_ENCODE_16(Data)                 _HID_RI_ENCODE_8(Data)  _HID_RI_ENCODE_8(Data >> 8)
 			#define _HID_RI_ENCODE_32(Data)                 _HID_RI_ENCODE_16(Data) _HID_RI_ENCODE_16(Data >> 16)
 			#define _HID_RI_ENCODE(DataBits, ...)           _HID_RI_ENCODE_ ## DataBits(__VA_ARGS__)
-			
+
 			#define _HID_RI_ENTRY(Type, Tag, DataBits, ...) (Type | Tag | HID_RI_DATA_BITS(DataBits)) _HID_RI_ENCODE(DataBits, (__VA_ARGS__))
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 		/** \name HID Input, Output and Feature Report Descriptor Item Flags */
@@ -95,7 +95,7 @@
 			#define HID_IOF_BUFFERED_BYTES                  (1 << 8)
 			#define HID_IOF_BITFIELD                        (0 << 8)
 		//@}
-		
+
 		/** \name HID Report Descriptor Item Macros */
 		//@{
 			#define HID_RI_INPUT(DataBits, ...)             _HID_RI_ENTRY(HID_RI_TYPE_MAIN  , 0x80, DataBits, __VA_ARGS__)

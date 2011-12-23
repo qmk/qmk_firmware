@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -36,7 +36,7 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_EndpointRW  
+/** \ingroup Group_EndpointRW
  *  \defgroup Group_EndpointStreamRW Read/Write of Multi-Byte Streams
  *  \brief Endpoint data stream transmission and reception management.
  *
@@ -44,7 +44,7 @@
  *  and to endpoints.
  *
  *  @{
- */ 
+ */
 
 #ifndef __ENDPOINT_STREAM_H__
 #define __ENDPOINT_STREAM_H__
@@ -89,7 +89,7 @@
 				                                           *   again to process the next chunk of data in the transfer.
 				                                           */
 			};
-			
+
 			/** Enum for the possible error return codes of the \c Endpoint_*_Control_Stream_* functions. */
 			enum Endpoint_ControlStream_RW_ErrorCodes_t
 			{
@@ -110,7 +110,7 @@
 		#elif (ARCH == ARCH_UC3)
 			#include "UC3/EndpointStream_UC3.h"
 		#elif (ARCH == ARCH_XMEGA)
-			#include "XMEGA/EndpointStream_XMEGA.h"	
+			#include "XMEGA/EndpointStream_XMEGA.h"
 		#endif
 
 	/* Disable C linkage for C++ Compilers: */

@@ -58,7 +58,7 @@
 	#if !defined(__DOXYGEN__)
 		/* External Variables: */
 			extern volatile uint32_t USB_Endpoint_SelectedEndpoint;
-	
+
 		/* Enums: */
 			enum USB_Interrupts_t
 			{
@@ -73,7 +73,7 @@
 				USB_INT_SOFI    = 5,
 				USB_INT_RXSTPI  = 6,
 				#endif
-				#if (defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__))			
+				#if (defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__))
 				USB_INT_HSOFI   = 7,
 				USB_INT_DCONNI  = 8,
 				USB_INT_DDISCI  = 9,
@@ -82,11 +82,11 @@
 				USB_INT_VBERRI  = 12,
 				#endif
 			};
-		
+
 		/* Inline Functions: */
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
-			{			
+			{
 				switch (Interrupt)
 				{
 					case USB_INT_VBUSTI:
@@ -189,7 +189,7 @@
 					#endif
 				}
 			}
-			
+
 			static inline void USB_INT_Clear(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Clear(const uint8_t Interrupt)
 			{
@@ -254,7 +254,7 @@
 					#endif
 				}
 			}
-			
+
 			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt)
 			{
@@ -278,7 +278,7 @@
 					case USB_INT_RXSTPI:
 						return (&AVR32_USBB.UECON0)[USB_Endpoint_SelectedEndpoint].rxstpe;
 					#endif
-					#if defined(USB_CAN_BE_HOST)					
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						return AVR32_USBB.UHINTE.hsofie;
 					case USB_INT_DCONNI:
@@ -293,10 +293,10 @@
 						return AVR32_USBB.USBCON.vberre;
 					#endif
 				}
-				
+
 				return false;
 			}
-		
+
 			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt)
 			{
@@ -360,7 +360,7 @@
 			#else
 				ISR(USB_GEN_vect);
 			#endif
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

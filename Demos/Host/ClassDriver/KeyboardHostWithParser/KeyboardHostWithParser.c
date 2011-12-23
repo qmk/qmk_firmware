@@ -107,7 +107,7 @@ void KeyboardHost_Task(void)
 {
 	if (USB_HostState != HOST_STATE_Configured)
 	  return;
-	
+
 	if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
 	{
 		uint8_t KeyboardReport[Keyboard_HID_Interface.State.LargestReportSize];

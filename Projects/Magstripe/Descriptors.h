@@ -50,7 +50,7 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config; /**< Configuration descriptor header structure */
-			
+
 			// Keyboard HID Interface
 			USB_Descriptor_Interface_t            HID_Interface; /**< Keyboard interface descriptor */
 			USB_HID_Descriptor_HID_t              HID_KeyboardHID; /**< Keyboard HID descriptor */

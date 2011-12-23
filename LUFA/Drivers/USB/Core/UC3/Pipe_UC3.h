@@ -100,7 +100,7 @@
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
 			#define PIPE_HSB_ADDRESS_SPACE_SIZE     (64 * 1024UL)
-	
+
 		/* External Variables: */
 			extern volatile uint32_t USB_Pipe_SelectedPipe;
 			extern volatile uint8_t* USB_Pipe_FIFOPos[];
@@ -146,7 +146,7 @@
 			 */
 			#define PIPE_TOKEN_OUT                  AVR32_USBB_UPCFG0_PTOKEN_OUT
 			//@}
-			
+
 			/** \name Pipe Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
@@ -185,7 +185,7 @@
 				 */
 				#define PIPE_TOTAL_PIPES            8
 			#else
-				#define PIPE_TOTAL_PIPES            7			
+				#define PIPE_TOTAL_PIPES            7
 			#endif
 
 			/** Size in bytes of the largest pipe bank size possible in the device. Not all banks on each AVR
@@ -446,7 +446,7 @@
 			static inline uint8_t Pipe_GetErrorFlags(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetErrorFlags(void)
 			{
-				
+
 				return (((&AVR32_USBB.uperr0)[USB_Pipe_SelectedPipe] &
 				        (PIPE_ERRORFLAG_CRC16 | PIPE_ERRORFLAG_TIMEOUT |
 				         PIPE_ERRORFLAG_PID   | PIPE_ERRORFLAG_DATAPID |
@@ -454,7 +454,7 @@
 				        (((&AVR32_USBB.upsta0)[USB_Pipe_SelectedPipe] << 8) &
 						 PIPE_ERRORFLAG_OVERFLOW));
 			}
-			
+
 			/** Retrieves the number of busy banks in the currently selected pipe, which have been queued for
 			 *  transmission via the \ref Pipe_ClearOUT() command, or are awaiting acknowledgement via the
 			 *  \ref Pipe_ClearIN() command.
@@ -902,7 +902,7 @@
 			#if !defined(ENDPOINT_CONTROLEP)
 				#define ENDPOINT_CONTROLEP          0
 			#endif
-			
+
 		/* Inline Functions: */
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes)

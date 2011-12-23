@@ -91,7 +91,7 @@
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right GUI key is currently pressed. */
 		#define HID_KEYBOARD_MODIFIER_RIGHTGUI                    (1 << 7)
 		//@}
-		
+
 		/** \name Keyboard Standard Report LED Masks */
 		//@{
 		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
@@ -108,7 +108,7 @@
 		//@}
 
 		/** \name Keyboard Standard Report Key Scan-codes */
-		//@{	
+		//@{
 		#define HID_KEYBOARD_SC_ERROR_ROLLOVER                    0x01
 		#define HID_KEYBOARD_SC_POST_FAIL                         0x02
 		#define HID_KEYBOARD_SC_ERROR_UNDEFINED                   0x03
@@ -208,7 +208,7 @@
 		#define HID_KEYBOARD_SC_KEYPAD_9_AND_PAGE_UP              0x61
 		#define HID_KEYBOARD_SC_KEYPAD_0_AND_INSERT               0x62
 		#define HID_KEYBOARD_SC_KEYPAD_DOT_AND_DELETE             0x63
-		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64		
+		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64
 		#define HID_KEYBOARD_SC_POWER                             0x66
 		#define HID_KEYBOARD_SC_EQUAL_SIGN                        0x67
 		#define HID_KEYBOARD_SC_F13                               0x68
@@ -496,7 +496,7 @@
 		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF.
 		 *  \param[in] CollectionUsage  Vendor Usage for the encompassing report IN and OUT collection, ranging from 0x00 to 0xFF.
 		 *  \param[in] DataINUsage      Vendor Usage for the IN report data, ranging from 0x00 to 0xFF.
-		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF.   
+		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF.
 		 *  \param[in] NumBytes         Length of the data IN and OUT reports.
 		 */
 		#define HID_DESCRIPTOR_VENDOR(VendorPageNum, CollectionUsage, DataINUsage, DataOUTUsage, NumBytes) \
@@ -517,7 +517,7 @@
 				HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
 			HID_RI_END_COLLECTION(0)
 		//@}
-		
+
 	/* Type Defines: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the HID
 		 *  device class.
@@ -543,7 +543,7 @@
 			                                       *   belongs to the Mouse HID boot protocol.
 			                                       */
 		};
-	
+
 		/** Enum for the HID class specific control requests that can be issued by the USB bus host. */
 		enum HID_ClassRequests_t
 		{

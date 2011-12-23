@@ -59,7 +59,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 				.NotificationEndpointDoubleBank = false,
 			},
 	};
-	
+
 /** LUFA Mass Storage Class driver interface configuration and state information. This structure is
  *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -211,3 +211,4 @@ bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSI
 
 	return CommandSuccess;
 }
+

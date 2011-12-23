@@ -159,11 +159,11 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			Address = &DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
-		case DTYPE_Configuration: 
+		case DTYPE_Configuration:
 			Address = &ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
-		case DTYPE_String: 
+		case DTYPE_String:
 			if (!(DescriptorNumber))
 			{
 				Address = &LanguageString;
@@ -174,10 +174,10 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 				Address = &ProductString;
 				Size    = ProductString.Header.Size;
 			}
-			
+
 			break;
 	}
-	
+
 	*DescriptorAddress = Address;
 	return Size;
 }

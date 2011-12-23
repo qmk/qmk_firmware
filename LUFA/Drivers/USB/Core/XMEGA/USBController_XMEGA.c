@@ -61,9 +61,9 @@ void USB_Init(
 	#if !defined(USE_STATIC_OPTIONS)
 	USB_Options = Options;
 	#endif
-	
+
 	USB_IsInitialized = true;
-	
+
 	uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 	GlobalInterruptDisable();
 
@@ -71,7 +71,7 @@ void USB_Init(
 	USB.CAL0 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL0));
 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
 	NVM.CMD  = 0;
-	
+
 	USB.EPPTR = (intptr_t)&USB_EndpointTable;
 	USB.CTRLA = (USB_STFRNUM_bm | USB_MAXEP_gm);
 
@@ -95,7 +95,7 @@ void USB_Disable(void)
 	USB_Detach();
 	USB_Controller_Disable();
 
-	USB_IsInitialized = false;	
+	USB_IsInitialized = false;
 }
 
 void USB_ResetInterface(void)
@@ -104,14 +104,14 @@ void USB_ResetInterface(void)
 	  CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
 	else
 	  CLK.USBCTRL = (((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp);
-	
+
 	if (USB_Options & USB_OPT_PLLCLKSRC)
 	  CLK.USBCTRL |= (CLK_USBSRC_PLL_gc | CLK_USBSEN_bm);
 	else
 	  CLK.USBCTRL |= (CLK_USBSRC_RC32M_gc | CLK_USBSEN_bm);
 
 	USB_Device_SetDeviceAddress(0);
-	
+
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
 
@@ -135,7 +135,7 @@ static void USB_Init_Device(void)
 
 	#if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
 	USB_Descriptor_Device_t* DeviceDescriptorPtr;
-	
+
 	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
 	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
 	uint8_t DescriptorAddressSpace;
@@ -159,7 +159,7 @@ static void USB_Init_Device(void)
 		#else
 		USB_Device_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
 		#endif
-	}	
+	}
 	#endif
 	#endif
 
@@ -177,3 +177,4 @@ static void USB_Init_Device(void)
 	USB_Attach();
 }
 #endif
+

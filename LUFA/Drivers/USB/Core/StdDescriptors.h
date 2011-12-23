@@ -123,7 +123,7 @@
 			 */
 			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0x20
 			//@}
-			
+
 			/** \name Endpoint Descriptor Attribute Masks */
 			//@{
 			/** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
@@ -154,7 +154,7 @@
 			 */
 			#define ENDPOINT_ATTR_SYNC                (3 << 2)
 			//@}
-			
+
 			/** \name Endpoint Descriptor Usage Masks */
 			//@{
 			/** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
@@ -178,7 +178,7 @@
 			 */
 			#define ENDPOINT_USAGE_IMPLICIT_FEEDBACK  (2 << 4)
 			//@}
-			
+
 		/* Enums: */
 			/** Enum for the possible standard descriptor types, as given in each descriptor's header. */
 			enum USB_DescriptorTypes_t

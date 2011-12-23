@@ -46,7 +46,7 @@
 
 		#include "DeviceDescriptor.h"
 		#include "ConfigDescriptor.h"
-		#include "Lib/AndroidAccessoryCommands.h" 
+		#include "Lib/AndroidAccessoryCommands.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>

@@ -59,7 +59,7 @@ void USB_Init(
 	#if !defined(USE_STATIC_OPTIONS)
 	USB_Options = Options;
 	#endif
-	
+
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
 	{
@@ -73,7 +73,7 @@ void USB_Init(
 		USB_CurrentMode = Mode;
 	}
 	#else
-	AVR32_USBB.USBCON.uide = false;	
+	AVR32_USBB.USBCON.uide = false;
 	#endif
 
 	USB_IsInitialized = true;
@@ -172,13 +172,13 @@ static void USB_Init_Device(void)
 	else
 	{
 		#if defined(USB_DEVICE_OPT_HIGHSPEED)
-		if (USB_Options & USB_DEVICE_OPT_HIGHSPEED)	
+		if (USB_Options & USB_DEVICE_OPT_HIGHSPEED)
 		  USB_Device_SetHighSpeed();
 		else
 		  USB_Device_SetFullSpeed();
 		#else
 		USB_Device_SetFullSpeed();
-		#endif		
+		#endif
 	}
 
 	USB_INT_Enable(USB_INT_VBUSTI);

@@ -145,7 +145,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 {
 	uint8_t* Data = (uint8_t*)ReportData;
 	uint8_t  CurrLEDMask = LEDs_GetLEDs();
-		
+
 	Data[0] = ((CurrLEDMask & LEDS_LED1) ? 1 : 0);
 	Data[1] = ((CurrLEDMask & LEDS_LED2) ? 1 : 0);
 	Data[2] = ((CurrLEDMask & LEDS_LED3) ? 1 : 0);
@@ -171,7 +171,7 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 {
 	uint8_t* Data = (uint8_t*)ReportData;
 	uint8_t  NewLEDMask = LEDS_NO_LEDS;
-	
+
 	if (Data[0])
 	  NewLEDMask |= LEDS_LED1;
 
@@ -183,7 +183,7 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 
 	if (Data[3])
 	  NewLEDMask |= LEDS_LED1;
-	  
+
 	LEDs_SetAllLEDs(NewLEDMask);
 }
 

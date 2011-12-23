@@ -91,7 +91,7 @@ void SetupHardware(void)
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
-	
+
 	/* Check that the USB bus is ready for the next sample to read */
 	if (Audio_Device_IsSampleReceived(&Speaker_Audio_Interface))
 	{
@@ -128,8 +128,8 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 		LEDs_SetAllLEDs(LEDMask);
 	}
-	
-	Endpoint_SelectEndpoint(PrevEndpoint);	
+
+	Endpoint_SelectEndpoint(PrevEndpoint);
 }
 
 /** Event handler for the library USB Connection event. */
@@ -248,10 +248,10 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
 						CurrentAudioSampleFrequency = (((uint32_t)Data[2] << 16) | ((uint32_t)Data[1] << 8) | (uint32_t)Data[0]);
 
 						/* Adjust sample reload timer to the new frequency */
-						OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);				
+						OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
 					}
-					
-					return true;				
+
+					return true;
 				case AUDIO_REQ_GetCurrent:
 					/* Check if we are just testing for a valid property, or actually reading it */
 					if (DataLength != NULL)
@@ -260,13 +260,14 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
 
 						Data[2] = (CurrentAudioSampleFrequency >> 16);
 						Data[1] = (CurrentAudioSampleFrequency >> 8);
-						Data[0] = (CurrentAudioSampleFrequency &  0xFF);					
+						Data[0] = (CurrentAudioSampleFrequency &  0xFF);
 					}
-					
+
 					return true;
 			}
 		}
 	}
-	
+
 	return false;
 }
+

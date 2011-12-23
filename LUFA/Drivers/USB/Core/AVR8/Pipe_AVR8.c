@@ -56,7 +56,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	Pipe_SetInfiniteINRequests();
 
 	return Pipe_IsConfigured();
-#else	
+#else
 	for (uint8_t PNum = Number; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
 		uint8_t UPCFG0XTemp;
@@ -65,7 +65,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		uint8_t UPIENXTemp;
 
 		Pipe_SelectPipe(PNum);
-		
+
 		if (PNum == Number)
 		{
 			UPCFG0XTemp = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
@@ -83,7 +83,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 
 		if (!(UPCFG1XTemp & (1 << ALLOC)))
 		  continue;
-		  
+
 		Pipe_DisablePipe();
 		UPCFG1X &= ~(1 << ALLOC);
 
@@ -94,12 +94,12 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		UPIENX  = UPIENXTemp;
 
 		Pipe_SetInfiniteINRequests();
-	
+
 		if (!(Pipe_IsConfigured()))
-		  return false;		
+		  return false;
 	}
-		
-	Pipe_SelectPipe(Number);	
+
+	Pipe_SelectPipe(Number);
 	return true;
 #endif
 }

@@ -61,7 +61,7 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 		uint32_t UECFG0Temp;
 
 		Endpoint_SelectEndpoint(EPNum);
-		
+
 		if (EPNum == Number)
 		{
 			UECFG0Temp = UECFG0Data;
@@ -79,11 +79,11 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 
 		Endpoint_EnableEndpoint();
 		(&AVR32_USBB.uecfg0)[EPNum] = UECFG0Temp;
-			
+
 		if (!(Endpoint_IsConfigured()))
-		  return false;			
+		  return false;
 	}
-	
+
 	Endpoint_SelectEndpoint(Number);
 	return true;
 #endif
@@ -148,7 +148,7 @@ uint8_t Endpoint_WaitUntilReady(void)
 			if (Endpoint_IsOUTReceived())
 			  return ENDPOINT_READYWAIT_NoError;
 		}
-		
+
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
 
 		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)

@@ -35,7 +35,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
- 
+
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_TEENSY2 TEENSY2
  *  \brief Board specific LED driver header for the PJRC Teensy 2 boards.
@@ -88,7 +88,7 @@
 				DDRD  |= LEDS_ALL_LEDS;
 
 				#if (BOARD == BOARD_TEENSY2)
-				PORTD &= ~LEDS_ALL_LEDS;				
+				PORTD &= ~LEDS_ALL_LEDS;
 				#else
 				PORTD |=  LEDS_ALL_LEDS;
 				#endif
@@ -97,7 +97,7 @@
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_TEENSY2)
-				PORTD |=  LEDMask;				
+				PORTD |=  LEDMask;
 				#else
 				PORTD &= ~LEDMask;
 				#endif
@@ -106,7 +106,7 @@
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_TEENSY2)
-				PORTD &= ~LEDMask;				
+				PORTD &= ~LEDMask;
 				#else
 				PORTD |=  LEDMask;
 				#endif
@@ -125,7 +125,7 @@
 			                                   const uint8_t ActiveMask)
 			{
 				#if (BOARD == BOARD_TEENSY2)
-				PORTD = ((PORTD & ~LEDMask) | ActiveMask);				
+				PORTD = ((PORTD & ~LEDMask) | ActiveMask);
 				#else
 				PORTD = ((PORTD | LEDMask) & ~ActiveMask);
 				#endif
@@ -140,7 +140,7 @@
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
 				#if (BOARD == BOARD_TEENSY2)
-				return (PORTD & LEDS_ALL_LEDS);				
+				return (PORTD & LEDS_ALL_LEDS);
 				#else
 				return (~PORTD & LEDS_ALL_LEDS);
 				#endif

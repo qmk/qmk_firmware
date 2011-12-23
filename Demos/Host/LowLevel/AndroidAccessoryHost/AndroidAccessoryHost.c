@@ -78,7 +78,7 @@ void SetupHardware(void)
 void AndroidHost_Task(void)
 {
 	if (USB_HostState != HOST_STATE_Configured)
-	  return;	
+	  return;
 
 	/* Select the data IN pipe */
 	Pipe_SelectPipe(ANDROID_DATA_IN_PIPE);
@@ -148,7 +148,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 
 	/* Get and process the configuration descriptor data */
 	uint8_t ErrorCode = ProcessDeviceDescriptor();
-	
+
 	bool RequiresModeSwitch = (ErrorCode == NonAccessoryModeAndroidDevice);
 
 	/* Error out if the device is not an Android device or an error occurred */
@@ -166,12 +166,12 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	}
 
 	printf_P(PSTR("Android Device Detected - %sAccessory mode.\r\n"), (RequiresModeSwitch ? "Non-" : ""));
-	
+
 	/* Check if a valid Android device was attached, but it is not current in Accessory mode */
 	if (RequiresModeSwitch)
 	{
 		uint16_t AndroidProtocol;
-	
+
 		/* Fetch the version of the Android Accessory Protocol supported by the device */
 		if ((ErrorCode = Android_GetAccessoryProtocol(&AndroidProtocol)) != HOST_SENDCONTROL_Successful)
 		{
@@ -181,7 +181,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			return;
 		}
-		
+
 		/* Validate the returned protocol version */
 		if (AndroidProtocol != AOA_PROTOCOL_AccessoryV1)
 		{
@@ -190,7 +190,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			return;
 		}
-	
+
 		/* Send the device strings and start the Android Accessory Mode */
 		Android_SendString(AOA_STRING_Manufacturer, "Dean Camera");
 		Android_SendString(AOA_STRING_Model,        "LUFA Android Demo");
@@ -199,7 +199,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		Android_SendString(AOA_STRING_URI,          "http://www.lufa-lib.org");
 		Android_SendString(AOA_STRING_Serial,       "0000000012345678");
 
-		Android_StartAccessoryMode();	
+		Android_StartAccessoryMode();
 		return;
 	}
 

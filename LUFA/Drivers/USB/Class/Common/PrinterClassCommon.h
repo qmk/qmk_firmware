@@ -92,7 +92,7 @@
 			                                         *   belongs to the Bidirectional protocol of the Printer class.
 			                                         */
 		};
-	
+
 		/** Enum for the Printer class specific control requests that can be issued by the USB bus host. */
 		enum PRNT_ClassRequests_t
 		{
@@ -106,7 +106,7 @@
 			PRNT_REQ_SoftReset              = 0x02, /**< Printer class-specific request to reset the device, ready for new
 			                                         *   printer commands.
 			                                         */
-		};		
+		};
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

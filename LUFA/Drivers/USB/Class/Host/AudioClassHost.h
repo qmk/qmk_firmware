@@ -98,7 +98,7 @@
 					                */
 					uint8_t ControlInterfaceNumber; /**< Interface index of the Audio Control interface within the attached device. */
 					uint8_t StreamingInterfaceNumber; /**< Interface index of the Audio Streaming interface within the attached device. */
-					
+
 					uint8_t EnabledStreamingAltIndex; /**< Alternative setting index of the Audio Streaming interface when the stream is enabled. */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the Audio interface's IN data pipe. */
@@ -331,7 +331,7 @@
 			                                           const int8_t Sample)
 			{
 				(void)AudioInterfaceInfo;
-			
+
 				Pipe_Write_8(Sample);
 
 				if (!(Pipe_IsReadWriteAllowed()))
@@ -357,7 +357,7 @@
 			                                            const int16_t Sample)
 			{
 				(void)AudioInterfaceInfo;
-			
+
 				Pipe_Write_16_LE(Sample);
 
 				if (!(Pipe_IsReadWriteAllowed()))
@@ -395,7 +395,7 @@
 					Pipe_Freeze();
 				}
 			}
-			
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */

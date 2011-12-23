@@ -171,7 +171,7 @@ void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 
 	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
 	MIDI_Host_Flush(MIDIInterfaceInfo);
-	#endif	
+	#endif
 }
 
 uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)

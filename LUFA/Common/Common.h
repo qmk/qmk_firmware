@@ -42,7 +42,7 @@
  *
  *  @{
  */
- 
+
 /** \defgroup Group_GlobalInt Global Interrupt Macros
  *  \brief Convenience macros for the management of interrupts globally within the device.
  *
@@ -54,13 +54,13 @@
 
 	/* Macros: */
 		#define __INCLUDE_FROM_COMMON_H
-		
+
 	/* Includes: */
 		#include <stdint.h>
 		#include <stdbool.h>
 		#include <string.h>
 		#include <stddef.h>
-		
+
 		#if defined(USE_LUFA_CONFIG_HEADER)
 			#include "LUFAConfig.h"
 		#endif
@@ -70,7 +70,7 @@
 		#include "ArchitectureSpecific.h"
 		#include "CompilerSpecific.h"
 		#include "Attributes.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -90,9 +90,9 @@
 			#include <avr/eeprom.h>
 			#include <avr/boot.h>
 			#include <util/delay.h>
-			
+
 			typedef uint8_t uint_reg_t;
-			
+
 			#define ARCH_HAS_EEPROM_ADDRESS_SPACE
 			#define ARCH_HAS_FLASH_ADDRESS_SPACE
 			#define ARCH_HAS_MULTI_ADDRESS_SPACE
@@ -110,7 +110,7 @@
 			// =================================================
 
 			typedef uint32_t uint_reg_t;
-			
+
 			#define ARCH_BIG_ENDIAN
 
 			#include "Endianness.h"
@@ -120,15 +120,15 @@
 			#include <avr/pgmspace.h>
 			#include <avr/eeprom.h>
 			#include <util/delay.h>
-			
+
 			typedef uint8_t uint_reg_t;
-			
+
 			#define ARCH_HAS_EEPROM_ADDRESS_SPACE
 			#define ARCH_HAS_FLASH_ADDRESS_SPACE
 			#define ARCH_HAS_MULTI_ADDRESS_SPACE
 			#define ARCH_LITTLE_ENDIAN
 
-			#include "Endianness.h"		
+			#include "Endianness.h"
 		#else
 			#error Unknown device architecture specified.
 		#endif
@@ -176,7 +176,7 @@
 			#if !defined(MIN) || defined(__DOXYGEN__)
 				#define MIN(x, y)               (((x) < (y)) ? (x) : (y))
 			#endif
-			
+
 			#if !defined(STRINGIFY) || defined(__DOXYGEN__)
 				/** Converts the given input into a string, via the C Preprocessor. This macro puts literal quotation
 				 *  marks around the input, converting the source into a string literal.
@@ -256,7 +256,7 @@
 				while (Milliseconds--)
 				{
 					__builtin_mtsr(AVR32_COUNT, 0);
-					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));				
+					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));
 				}
 				#elif (ARCH == ARCH_XMEGA)
 				if (GCC_IS_COMPILE_CONST(Milliseconds))
@@ -267,7 +267,7 @@
 				{
 					while (Milliseconds--)
 					  _delay_ms(1);
-				}				
+				}
 				#endif
 			}
 
@@ -316,12 +316,12 @@
 				else
 				  __builtin_csrf(AVR32_SR_GM_OFFSET);
 				#elif (ARCH == ARCH_XMEGA)
-				SREG = GlobalIntState;				
+				SREG = GlobalIntState;
 				#endif
-				
+
 				GCC_MEMORY_BARRIER();
 			}
-		
+
 			/** Enables global interrupt handling for the device, allowing interrupts to be handled.
 			 *
 			 *  \ingroup Group_GlobalInt
@@ -340,7 +340,7 @@
 				#endif
 
 				GCC_MEMORY_BARRIER();
-			}		
+			}
 
 			/** Disabled global interrupt handling for the device, preventing interrupts from being handled.
 			 *

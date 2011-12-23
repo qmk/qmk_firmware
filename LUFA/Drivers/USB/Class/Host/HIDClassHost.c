@@ -118,7 +118,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		{
 			if (DataOUTEndpoint == NULL)
 			  continue;
-		
+
 			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 			EndpointAddress = DataOUTEndpoint->EndpointAddress;
 			Token           = PIPE_TOKEN_OUT;
@@ -139,7 +139,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		{
 			return HID_ENUMERROR_PipeConfigurationFailed;
 		}
-		
+
 		if (InterruptPeriod)
 		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}

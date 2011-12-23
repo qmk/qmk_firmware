@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -95,7 +95,7 @@
 				AVR32_GPIO.port[LEDS_PORT].oders = LEDS_ALL_LEDS;
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LEDS_ALL_LEDS;
 			}
-			
+
 			static inline void LEDs_TurnOnLEDs(const uint32_t LEDMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrc  = LEDMask;
@@ -111,7 +111,7 @@
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LEDS_ALL_LEDS;
 				AVR32_GPIO.port[LEDS_PORT].ovrc  = LEDMask;
 			}
-			
+
 			static inline void LEDs_ChangeLEDs(const uint32_t LEDMask, const uint32_t ActiveMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LEDMask;
@@ -122,7 +122,7 @@
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrt  = LEDMask;
 			}
-			
+
 			static inline uint32_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint32_t LEDs_GetLEDs(void)
 			{
@@ -134,7 +134,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

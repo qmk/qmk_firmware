@@ -69,7 +69,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		uint32_t UPCFG0Temp;
 
 		Pipe_SelectPipe(PNum);
-		
+
 		if (PNum == Number)
 		{
 			UPCFG0Temp = (AVR32_USBB_ALLOC_MASK |
@@ -85,7 +85,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 
 		if (!(UPCFG0Temp & AVR32_USBB_ALLOC_MASK))
 		  continue;
-		  
+
 		Pipe_DisablePipe();
 		(&AVR32_USBB.upcfg0)[PNum] &= ~AVR32_USBB_ALLOC_MASK;
 
@@ -93,12 +93,12 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		(&AVR32_USBB.upcfg0)[PNum] = UPCFG0Temp;
 
 		Pipe_SetInfiniteINRequests();
-	
+
 		if (!(Pipe_IsConfigured()))
-		  return false;		
+		  return false;
 	}
-		
-	Pipe_SelectPipe(Number);	
+
+	Pipe_SelectPipe(Number);
 	return true;
 #endif
 }

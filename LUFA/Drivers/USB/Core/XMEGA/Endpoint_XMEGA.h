@@ -104,7 +104,7 @@
 				uint8_t Length;
 				uint8_t Position;
 			} Endpoint_FIFO_t;
-		
+
 			typedef struct
 			{
 				Endpoint_FIFO_t OUT;
@@ -143,7 +143,7 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */			
+		/* Macros: */
 			/** \name Endpoint Bank Mode Masks */
 			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
@@ -234,7 +234,7 @@
 			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
 			{
 				USB_Endpoint_SelectedEndpoint   = EndpointNumber;
-				
+
 				if (EndpointNumber & ENDPOINT_DIR_IN)
 				{
 					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber & ENDPOINT_EPNUM_MASK].IN;
@@ -290,7 +290,7 @@
 			                                              const uint8_t Banks)
 			{
 				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | Banks | Endpoint_BytesToEPSizeMask(Size));
-				
+
 				// TODO - Fix once limitations are lifted
 				if ((Banks != ENDPOINT_BANK_SINGLE) || (Size > 64))
 				  return false;
@@ -307,10 +307,10 @@
 						EPConfigMask |= USB_EP_TYPE_BULK_gc;
 						break;
 				}
-				
+
 				if (Type == EP_TYPE_CONTROL)
 				  Endpoint_ConfigureEndpoint_PRV(Number, (Direction ^ ENDPOINT_DIR_IN), EPConfigMask, Size);
-				  
+
 				return Endpoint_ConfigureEndpoint_PRV(Number, Direction, EPConfigMask, Size);
 			}
 
@@ -439,7 +439,7 @@
 			static inline bool Endpoint_IsINReady(void)
 			{
 				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
-				
+
 				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
 			}
 
@@ -459,7 +459,7 @@
 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
 					return true;
 				}
-				
+
 				return false;
 			}
 
@@ -479,7 +479,7 @@
 					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
 					return true;
 				}
-			
+
 				return false;
 			}
 
@@ -523,7 +523,7 @@
 			 */
 			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearOUT(void)
-			{				
+			{
 				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
 				USB_Endpoint_SelectedFIFO->Position  = 0;
 			}
@@ -543,7 +543,7 @@
 			static inline void Endpoint_StallTransaction(void)
 			{
 				USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
-				
+
 				if ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) == USB_EP_TYPE_CONTROL_gc)
 				{
 					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint ^ ENDPOINT_DIR_IN);
@@ -636,7 +636,7 @@
 			{
 				uint16_t Byte0 = Endpoint_Read_8();
 				uint16_t Byte1 = Endpoint_Read_8();
-				
+
 				return ((Byte1 << 8) | Byte0);
 			}
 
@@ -652,7 +652,7 @@
 			{
 				uint16_t Byte0 = Endpoint_Read_8();
 				uint16_t Byte1 = Endpoint_Read_8();
-				
+
 				return ((Byte0 << 8) | Byte1);
 			}
 
@@ -709,7 +709,7 @@
 				uint32_t Byte1 = Endpoint_Read_8();
 				uint32_t Byte2 = Endpoint_Read_8();
 				uint32_t Byte3 = Endpoint_Read_8();
-				
+
 				return ((Byte3 << 24) | (Byte2 << 16) | (Byte1 << 8) | Byte0);
 			}
 
@@ -727,7 +727,7 @@
 				uint32_t Byte1 = Endpoint_Read_8();
 				uint32_t Byte2 = Endpoint_Read_8();
 				uint32_t Byte3 = Endpoint_Read_8();
-				
+
 				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
 

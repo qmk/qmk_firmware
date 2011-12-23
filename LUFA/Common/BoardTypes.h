@@ -140,13 +140,13 @@
 
 			/** Selects the Kernel Concepts USBFOO specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_USBFOO        25
-			
+
 			/** Selects the Sparkfun ATMEGA8U2 specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_SPARKFUN8U2   26
 
 			/** Selects the Atmel EVK1101 specific board drivers, including the Button, Joystick and LED drivers. */
 			#define BOARD_EVK1101       27
-			
+
 			/** Selects the Busware TUL specific board drivers, including the Button and LED drivers. */
 			#define BOARD_TUL           28
 
@@ -155,7 +155,7 @@
 
 			/** Selects the Atmel EVK1104 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_EVK1104       30
-			
+
 			/** Selects the Atmel XMEGA A3BU Xplained specific board drivers, including Dataflash, Button and LED drivers. */
 			#define BOARD_A3BU_XPLAINED 31
 

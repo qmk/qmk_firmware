@@ -41,11 +41,12 @@
 		#include <stdbool.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-	
+
 	/* Function Prototypes: */
 		uint8_t Android_GetAccessoryProtocol(uint16_t* const Protocol);
 		uint8_t Android_SendString(const uint8_t StringIndex,
 		                           const char* const String);
-		uint8_t Android_StartAccessoryMode(void);	
-	
+		uint8_t Android_StartAccessoryMode(void);
+
 #endif
+

@@ -392,7 +392,7 @@
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 			#include "Core/OTG.h"
 		#endif
-		
+
 		#include "Class/AndroidAccessoryClass.h"
 		#include "Class/AudioClass.h"
 		#include "Class/CDCClass.h"

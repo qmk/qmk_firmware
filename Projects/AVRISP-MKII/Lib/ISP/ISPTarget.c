@@ -178,7 +178,7 @@ void ISPTarget_DisableTargetISP(void)
 	{
 		DDRB  &= ~((1 << 1) | (1 << 2));
 		PORTB &= ~((1 << 0) | (1 << 3));
-		
+
 		/* Must re-enable rescue clock once software ISP has exited, as the timer for the rescue clock is
 		 * re-purposed for software SPI */
 		ISPTarget_ConfigureRescueClock();
@@ -195,7 +195,7 @@ void ISPTarget_ConfigureRescueClock(void)
 	#if defined(XCK_RESCUE_CLOCK_ENABLE)
 		/* Configure XCK as an output for the specified AVR model */
 		DDRD  |= (1 << 5);
-		
+
 		/* Start USART to generate a 4MHz clock on the XCK pin */
 		UBRR1  = ((F_CPU / 2 / ISP_RESCUE_CLOCK_SPEED) - 1);
 		UCSR1B = (1 << TXEN1);

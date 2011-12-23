@@ -333,3 +333,4 @@ int ff_del_syncobj (_SYNC_t);		/* Delete a sync object */
 #endif
 
 #endif /* _FATFS */
+

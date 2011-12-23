@@ -55,7 +55,7 @@
 		#if !defined(__INCLUDE_FROM_COMMON_H)
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
 		#endif
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -82,7 +82,7 @@
 				                                                  "M" (_SFR_IO_ADDR(MCUCR))          \
 				                                                : "r0");                             \
 				                                        }MACROE
-			
+
 				/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
 				 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimizer
 				 *  removes/reorders code to the point where break points cannot reliably be set.
@@ -136,7 +136,7 @@
 					#define pgm_read_ptr(Address)        (void*)pgm_read_word(Address)
 				#endif
 			#endif
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

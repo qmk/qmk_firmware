@@ -50,16 +50,16 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 	else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
 	{
 		bool EndpointFilterMatch = false;
-	
+
 		EndpointFilterMatch |= (AudioInterfaceInfo->Config.DataINEndpointNumber &&
 		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DIR_IN  | AudioInterfaceInfo->Config.DataINEndpointNumber)));
-	
+
 		EndpointFilterMatch |= (AudioInterfaceInfo->Config.DataOUTEndpointNumber &&
 		                        ((uint8_t)USB_ControlRequest.wIndex == (ENDPOINT_DIR_OUT | AudioInterfaceInfo->Config.DataOUTEndpointNumber)));
 
 		if (!(EndpointFilterMatch))
 		  return;
-	}	
+	}
 
 	switch (USB_ControlRequest.bRequest)
 	{
@@ -92,20 +92,20 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 				uint8_t EndpointProperty = USB_ControlRequest.bRequest;
 				uint8_t EndpointAddress  = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl  = (USB_ControlRequest.wValue >> 8);
-			
+
 				if (CALLBACK_Audio_Device_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress,
 				                                                 EndpointControl, NULL, NULL))
 				{
 					uint16_t ValueLength = USB_ControlRequest.wLength;
 					uint8_t  Value[ValueLength];
-					
+
 					Endpoint_ClearSETUP();
 					Endpoint_Read_Control_Stream_LE(Value, ValueLength);
-					Endpoint_ClearIN();					
+					Endpoint_ClearIN();
 
 					CALLBACK_Audio_Device_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress,
 					                                             EndpointControl, &ValueLength, Value);
-				}				
+				}
 			}
 
 			break;
@@ -126,7 +126,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 				{
 					Endpoint_ClearSETUP();
 					Endpoint_Write_Control_Stream_LE(Value, ValueLength);
-					Endpoint_ClearOUT();					
+					Endpoint_ClearOUT();
 				}
 			}
 
@@ -180,3 +180,4 @@ void Audio_Device_Event_Stub(void)
 }
 
 #endif
+

@@ -33,8 +33,8 @@
  *  Android Accessory Mode utility functions, for the configuration of an attached
  *  Android device into Android Accessory Mode ready for general communication.
  */
- 
-#include "AndroidAccessoryCommands.h" 
+
+#include "AndroidAccessoryCommands.h"
 
 uint8_t Android_GetAccessoryProtocol(uint16_t* const Protocol)
 {
@@ -79,5 +79,6 @@ uint8_t Android_StartAccessoryMode(void)
 	};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	return USB_Host_SendControlRequest(NULL);	
+	return USB_Host_SendControlRequest(NULL);
 }
+

@@ -218,7 +218,7 @@ void PrinterHost_Task(void)
 	puts_P(PSTR("Test Page Sent.\r\n"));
 
 	/* Indicate device no longer busy */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);	
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	USB_Host_SetDeviceConfiguration(0);
 }
 

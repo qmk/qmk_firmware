@@ -42,20 +42,20 @@
 struct uip_conn* BroadcastConnection;
 
 uint8_t LeasedIPs[255 / 8];
-	
+
 /** Initialization function for the DHCP server. */
 void DHCPServerApp_Init(void)
 {
 	/* Listen on port 67 for DHCP server connections from hosts */
 	uip_listen(HTONS(DHCP_SERVER_PORT));
-	
+
 	/* Create a new UDP connection to the DHCP server port for the DHCP solicitation */
 	struct uip_udp_conn* BroadcastConnection = uip_udp_new(&uip_broadcast_addr, HTONS(DHCP_CLIENT_PORT));
 
 	/* If the connection was successfully created, bind it to the local DHCP client port */
 	if (BroadcastConnection != NULL)
 	  uip_udp_bind(BroadcastConnection, HTONS(DHCP_SERVER_PORT));
-	  
+
 	/* Set all IP addresses as unleased */
 	memset(LeasedIPs, 0x00, sizeof(LeasedIPs));
 }
@@ -88,8 +88,8 @@ void DHCPServerApp_Callback(void)
 
 		/* Try to extract out the client's preferred IP address if it is indicated in the packet */
 		if (!(DHCPCommon_GetOption(AppData->Options, DHCP_OPTION_REQ_IPADDR, &PreferredClientIP)))
-		  memcpy(&PreferredClientIP, &uip_all_zeroes_addr, sizeof(uip_ipaddr_t));	
-		
+		  memcpy(&PreferredClientIP, &uip_all_zeroes_addr, sizeof(uip_ipaddr_t));
+
 		switch (DHCPMessageType)
 		{
 			case DHCP_DISCOVER:
@@ -116,7 +116,7 @@ void DHCPServerApp_Callback(void)
 				/* Check to see if the requested IP address has already been leased to a client */
 				if (!(DHCPServerApp_CheckIfIPLeased(&PreferredClientIP)))
 				{
-					/* Create a new DHCP ACK packet to accept the IP address lease */					
+					/* Create a new DHCP ACK packet to accept the IP address lease */
 					AppDataSize += DHCPServerApp_FillDHCPHeader(AppData, DHCP_ACK, &RemoteMACAddress, &PreferredClientIP, TransactionID);
 
 					/* Add network mask and router information to the list of DHCP ACK packet options */
@@ -133,12 +133,12 @@ void DHCPServerApp_Callback(void)
 					/* Create a new DHCP NAK packet to reject the requested allocation */
 					AppDataSize += DHCPServerApp_FillDHCPHeader(AppData, DHCP_NAK, &RemoteMACAddress, &uip_all_zeroes_addr, TransactionID);
 				}
-				
+
 				/* Send the DHCP ACK or NAK packet */
 				uip_poll_conn(BroadcastConnection);
 				memcpy(&uip_udp_conn->ripaddr, &uip_broadcast_addr, sizeof(uip_ipaddr_t));
 				uip_udp_send(AppDataSize);
-			
+
 				break;
 			case DHCP_RELEASE:
 				/* Mark the IP address as released in the allocation table */
@@ -179,7 +179,7 @@ static uint16_t DHCPServerApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader,
 	memcpy(&DHCPHeader->YourIP, PreferredClientIP, sizeof(uip_ipaddr_t));
 	memcpy(&DHCPHeader->ClientHardwareAddress, ClientHardwareAddress, sizeof(struct uip_eth_addr));
 	DHCPHeader->Cookie                = DHCP_MAGIC_COOKIE;
-	  
+
 	/* Add a DHCP message type and terminator options to the start of the DHCP options field */
 	DHCPHeader->Options[0]            = DHCP_OPTION_MSG_TYPE;
 	DHCPHeader->Options[1]            = 1;
@@ -202,7 +202,7 @@ static bool DHCPServerApp_CheckIfIPLeased(const uip_ipaddr_t* const IPAddress)
 {
 	uint8_t Byte = (IPAddress->u8[3] / 8);
 	uint8_t Mask = (1 << (IPAddress->u8[3] % 8));
-	
+
 	/* Make sure that the requested IP address isn't already leased to the virtual server or another client */
 	if (IPAddress->u8[3] && !(IPAddress->u8[3] == uip_hostaddr.u8[3]) && !(LeasedIPs[Byte] & Mask))
 	  return false;
@@ -217,13 +217,13 @@ static bool DHCPServerApp_CheckIfIPLeased(const uip_ipaddr_t* const IPAddress)
 static void DHCPServerApp_GetUnleasedIP(uip_ipaddr_t* const NewIPAddress)
 {
 	uip_ipaddr_copy(NewIPAddress, &uip_hostaddr);
-	
+
 	/** Look through the current subnet, skipping the broadcast and zero IP addresses */
 	for (uint8_t IP = 1; IP < 254; IP++)
 	{
 		/* Update new IP address to lease with the current IP address to test */
 		NewIPAddress->u8[3] = IP;
-		
+
 		/* If we've found an unleased IP, abort with the updated IP stored for the called */
 		if (!(DHCPServerApp_CheckIfIPLeased(NewIPAddress)))
 		  return;
@@ -241,7 +241,7 @@ static void DHCPServerApp_LeaseIP(const uip_ipaddr_t* const IPAddress)
 {
 	uint8_t Byte = (IPAddress->u8[3] / 8);
 	uint8_t Mask = (1 << (IPAddress->u8[3] % 8));
-	
+
 	/* Mark the IP address as leased in the allocation table */
 	LeasedIPs[Byte] |= Mask;
 }
@@ -257,7 +257,7 @@ static void DHCPServerApp_UnleaseIP(const uip_ipaddr_t* const IPAddress)
 {
 	uint8_t Byte = (IPAddress->u8[3] / 8);
 	uint8_t Mask = (1 << (IPAddress->u8[3] % 8));
-	
+
 	/* Mark the IP address as unleased in the allocation table */
 	LeasedIPs[Byte] &= ~Mask;
 }

@@ -68,7 +68,7 @@ int main(void)
 	for (;;)
 	{
 		MassStorageHost_Task();
-		
+
 		MS_Host_USBTask(&FlashDisk_MS_Interface);
 		USB_USBTask();
 	}

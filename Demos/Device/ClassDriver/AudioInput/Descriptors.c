@@ -204,7 +204,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalDiscreteSampleRates = (sizeof(ConfigurationDescriptor.Audio_AudioFormatSampleRates) / sizeof(USB_Audio_SampleFreq_t))
 		},
-	
+
 	.Audio_AudioFormatSampleRates =
 		{
 			AUDIO_SAMPLE_FREQ(8000),

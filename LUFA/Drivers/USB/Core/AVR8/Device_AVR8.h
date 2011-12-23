@@ -54,7 +54,7 @@
 		#include "../StdDescriptors.h"
 		#include "../USBInterrupt.h"
 		#include "../Endpoint.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -99,7 +99,7 @@
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
 			//@}
-			
+
 			#if (!defined(NO_INTERNAL_SERIAL) && \
 			     (defined(USB_SERIES_7_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_4_AVR) || \
 			      (defined(USB_SERIES_2_AVR) && (!defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__))) || \
@@ -119,7 +119,7 @@
 				 *  model.
 				 */
 				#define INTERNAL_SERIAL_LENGTH_BITS    80
-				
+
 				/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
 				 *  model.
 				 */
@@ -129,8 +129,8 @@
 
 				#define INTERNAL_SERIAL_LENGTH_BITS    0
 				#define INTERNAL_SERIAL_START_ADDRESS  0
-			#endif			
-			
+			#endif
+
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
 			 *  be taken out of suspended mode, and communications should resume.
@@ -221,14 +221,14 @@
 			{
 				return (UDADDR & (1 << ADDEN));
 			}
-		
+
 			#if (USE_INTERNAL_SERIAL != NO_DESCRIPTOR)
 			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString)
 			{
 				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 				GlobalInterruptDisable();
-				
+
 				uint8_t SigReadAddress = INTERNAL_SERIAL_START_ADDRESS;
 
 				for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
@@ -246,7 +246,7 @@
 					UnicodeString[SerialCharNum] = cpu_to_le16((SerialByte >= 10) ?
 															   (('A' - 10) + SerialByte) : ('0' + SerialByte));
 				}
-				
+
 				SetGlobalInterruptMask(CurrentGlobalInt);
 			}
 			#endif

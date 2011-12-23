@@ -147,13 +147,13 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 		{
 			continue;
 		}
-		
+
 		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
 		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
 		{
 			return CDC_ENUMERROR_PipeConfigurationFailed;
 		}
-		
+
 		if (InterruptPeriod)
 		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}
@@ -241,7 +241,7 @@ static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const R
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	
+
 	return USB_Host_SendControlRequest(Buffer);
 }
 
@@ -259,7 +259,7 @@ static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const R
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	
+
 	return USB_Host_SendControlRequest(Buffer);
 }
 

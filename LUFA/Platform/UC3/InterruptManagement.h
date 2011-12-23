@@ -137,7 +137,7 @@
 				InterruptHandlers[GroupNumber] = Handler;
 				AVR32_INTC.ipr[GroupNumber]    = Autovector_Table[InterruptLevel];
 			}
-			
+
 			/** Retrieves the pending interrupts for a given interrupt group. The result of this function should be masked
 			 *  against interrupt request indexes converted to a request line number via the \ref INTC_IRQ_LINE() macro. To
 			 *  obtain the group number of a given interrupt request, use the \ref INTC_IRQ_GROUP() macro.
@@ -151,7 +151,7 @@
 			{
 				return AVR32_INTC.irr[GroupNumber];
 			}
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -160,3 +160,4 @@
 #endif
 
 /** @} */
+

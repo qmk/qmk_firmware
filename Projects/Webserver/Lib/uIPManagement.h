@@ -60,7 +60,7 @@
 		 *  (when DHCP is disabled).
 		 */
 		#define DEVICE_GATEWAY            (uint8_t[]){10, 0, 0, 1}
-		
+
 		/** Ethernet MAC address of the virtual webserver. When in device RNDIS mode, the virtual webserver requires
 		 *  a unique MAC address that it can use when sending packets to the RNDIS adapter, which contains a seperate
 		 *  MAC address as set in the RNDIS class driver configuration structure.

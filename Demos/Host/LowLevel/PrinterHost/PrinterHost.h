@@ -83,6 +83,6 @@
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 		                                            const uint8_t SubErrorCode);
-		
+
 #endif
 

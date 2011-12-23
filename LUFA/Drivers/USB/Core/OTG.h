@@ -52,8 +52,8 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
-		
+		#include "USBMode.h"
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

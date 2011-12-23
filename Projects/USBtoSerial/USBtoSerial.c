@@ -97,7 +97,7 @@ int main(void)
 			if (!(ReceivedByte < 0))
 			  RingBuffer_Insert(&USBtoUSART_Buffer, ReceivedByte);
 		}
-		
+
 		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
 		uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 		if ((TIFR0 & (1 << TOV0)) || (BufferCount > (uint8_t)(sizeof(USARTtoUSB_Buffer_Data) * .75)))

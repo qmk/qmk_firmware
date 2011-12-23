@@ -52,7 +52,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
+		#include "USBMode.h"
 		#include "HostStandardReq.h"
 		#include "StdDescriptors.h"
 
@@ -266,7 +266,7 @@
 			                                         void** CurrConfigLoc)
 			{
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
-				
+
 				if (*BytesRem < CurrDescriptorSize)
 				  CurrDescriptorSize = *BytesRem;
 

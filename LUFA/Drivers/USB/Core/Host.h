@@ -51,7 +51,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
+		#include "USBMode.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -108,16 +108,16 @@
 				                                               *   bus address is being set.
 				                                               */
 				HOST_STATE_Default_PostAddressSet       = 9,  /**< This state indicates that the device's address has now been set, and the
-				                                               *   stack is has now completed the device enumeration process. This state causes 
+				                                               *   stack is has now completed the device enumeration process. This state causes
 				                                               *   the stack to change the current USB device address to that set for the
 				                                               *   connected device, before progressing to the \ref HOST_STATE_Addressed state
 				                                               *   ready for use in the user application.
 				                                               */
 				HOST_STATE_Addressed                    = 10, /**< Indicates that the device has been enumerated and addressed, and is now waiting
-				                                               *   for the user application to configure the device ready for use.				
+				                                               *   for the user application to configure the device ready for use.
 				                                               */
 				HOST_STATE_Configured                   = 11, /**< Indicates that the device has been configured into a valid device configuration,
-				                                               *   ready for general use by the user application.				
+				                                               *   ready for general use by the user application.
 				                                               */
 			};
 

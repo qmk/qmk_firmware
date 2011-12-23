@@ -254,7 +254,7 @@ static void USB_Host_ResetDevice(void)
 	USB_Host_ResetBus();
 	while (!(USB_Host_IsBusResetComplete()));
 	USB_Host_ResumeBus();
-	
+
 	USB_Host_ConfigurationNumber = 0;
 
 	bool HSOFIEnabled = USB_INT_IsEnabled(USB_INT_HSOFI);

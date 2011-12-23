@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -44,7 +44,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __JOYSTICK_EVK1100_H__
 #define __JOYSTICK_EVK1100_H__
 
@@ -67,7 +67,7 @@
 			#define JOY_PORT                 0
 			#define JOY_MASK                ((1UL << 28) | (1UL << 27) | (1UL << 26) | (1UL << 25) | (1UL << 20))
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for the joystick being pushed in the left direction. */
@@ -84,7 +84,7 @@
 
 			/** Mask for the joystick being pushed inward. */
 			#define JOY_PRESS                 (1UL << 20)
-			
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
@@ -92,7 +92,7 @@
 				AVR32_GPIO.port[JOY_PORT].gpers = JOY_MASK;
 				AVR32_GPIO.port[JOY_PORT].gpers = JOY_MASK;
 			};
-			
+
 			static inline uint32_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint32_t Joystick_GetStatus(void)
 			{
@@ -108,3 +108,4 @@
 #endif
 
 /** @} */
+

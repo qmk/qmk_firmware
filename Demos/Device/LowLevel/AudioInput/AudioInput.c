@@ -163,16 +163,16 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Extract out the relevant request information to get the target Endpoint address and control being set */
 				uint8_t EndpointAddress = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
-				
+
 				/* Only handle SET CURRENT requests to the audio endpoint's sample frequency property */
 				if ((EndpointAddress == (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
 				{
 					uint8_t SampleRate[3];
-				
+
 					Endpoint_ClearSETUP();
 					Endpoint_Read_Control_Stream_LE(SampleRate, sizeof(SampleRate));
 					Endpoint_ClearIN();
-					
+
 					/* Set the new sampling frequency to the value given by the host */
 					CurrentAudioSampleFrequency = (((uint32_t)SampleRate[2] << 16) | ((uint32_t)SampleRate[1] << 8) | (uint32_t)SampleRate[0]);
 
@@ -180,7 +180,7 @@ void EVENT_USB_Device_ControlRequest(void)
 					OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
 				}
 			}
-			
+
 			break;
 		case AUDIO_REQ_GetCurrent:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
@@ -188,20 +188,20 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Extract out the relevant request information to get the target Endpoint address and control being retrieved */
 				uint8_t EndpointAddress = (uint8_t)USB_ControlRequest.wIndex;
 				uint8_t EndpointControl = (USB_ControlRequest.wValue >> 8);
-				
+
 				/* Only handle GET CURRENT requests to the audio endpoint's sample frequency property */
 				if ((EndpointAddress == (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM)) && (EndpointControl == AUDIO_EPCONTROL_SamplingFreq))
 				{
 					uint8_t SampleRate[3];
-					
+
 					/* Convert the sampling rate value into the 24-bit format the host expects for the property */
 					SampleRate[2] = (CurrentAudioSampleFrequency >> 16);
 					SampleRate[1] = (CurrentAudioSampleFrequency >> 8);
 					SampleRate[0] = (CurrentAudioSampleFrequency &  0xFF);
-				
+
 					Endpoint_ClearSETUP();
 					Endpoint_Write_Control_Stream_LE(SampleRate, sizeof(SampleRate));
-					Endpoint_ClearOUT();					
+					Endpoint_ClearOUT();
 				}
 			}
 
@@ -225,11 +225,11 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		#if defined(USE_TEST_TONE)
 			static uint8_t SquareWaveSampleCount;
 			static int16_t CurrentWaveValue;
-			
+
 			/* In test tone mode, generate a square wave at 1/256 of the sample rate */
 			if (SquareWaveSampleCount++ == 0xFF)
 			  CurrentWaveValue ^= 0x8000;
-			
+
 			/* Only generate audio if the board button is being pressed */
 			AudioSample = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
 		#else
@@ -239,7 +239,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 			#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
 			/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
 			AudioSample -= (SAMPLE_MAX_RANGE / 2);
-			#endif		
+			#endif
 		#endif
 
 		/* Write the sample to the buffer */

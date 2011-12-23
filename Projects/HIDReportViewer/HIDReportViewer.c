@@ -33,7 +33,7 @@
  *  Main source file for the HIDReportViewer project. This file contains the main tasks of
  *  the project and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "HIDReportViewer.h"
 
 /** Processed HID report descriptor items structure, containing information on each HID report element */
@@ -75,7 +75,7 @@ int main(void)
 	for (;;)
 	{
 		RetrieveDeviceData();
-		
+
 		HID_Host_USBTask(&Device_HID_Interface);
 		USB_USBTask();
 	}
@@ -88,12 +88,12 @@ void RetrieveDeviceData(void)
 {
 	if (USB_CurrentMode != USB_MODE_Host)
 	  return;
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-	
+
 	OutputReportSizes();
 	OutputParsedReportItems();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	USB_Host_SetDeviceConfiguration(0);
 }
@@ -168,7 +168,7 @@ void OutputParsedReportItems(void)
 				 RItem->Attributes.Logical.Maximum,
 				 RItem->Attributes.Physical.Minimum,
 				 RItem->Attributes.Physical.Maximum);
-		
+
 		OutputCollectionPath(RItem->CollectionPath);
 	}
 }
@@ -188,10 +188,10 @@ void OutputCollectionPath(const HID_CollectionPath_t* const CollectionPath)
 					  "      - Type:  0x%02" PRIX8 "\r\n"
 					  "      - Usage: 0x%02" PRIX8 "\r\n"),
 					  CurrentNode->Type, CurrentNode->Usage);
-		
+
 		CurrentNode = CurrentNode->Parent;
 	}
-	
+
 	printf_P(PSTR("      |\r\n"
 				  "      END\r\n"));
 }

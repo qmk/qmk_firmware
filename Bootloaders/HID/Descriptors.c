@@ -8,14 +8,14 @@
 
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-	  
-  Permission to use, copy, modify, distribute, and sell this 
+
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,9 +30,9 @@
 
 /** \file
  *
- *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special 
+ *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special
  *  computer-readable structures which the host requests upon device enumeration, to determine
- *  the device's capabilities and functions.  
+ *  the device's capabilities and functions.
  */
 
 #include "Descriptors.h"
@@ -52,7 +52,7 @@ const USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
 	    HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
 	    HID_RI_REPORT_SIZE(8, 0x08),
-	    HID_RI_REPORT_COUNT(16, (sizeof(uint16_t) + SPM_PAGESIZE)),		
+	    HID_RI_REPORT_COUNT(16, (sizeof(uint16_t) + SPM_PAGESIZE)),
 	    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
 	HID_RI_END_COLLECTION(0),
 };
@@ -91,49 +91,49 @@ const USB_Descriptor_Device_t DeviceDescriptor =
  */
 const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 {
-	.Config = 
+	.Config =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
 			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
 			.TotalInterfaces        = 1,
-				
+
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
-				
+
 			.ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
-			
+
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
-		
-	.HID_Interface = 
+
+	.HID_Interface =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber        = 0x00,
 			.AlternateSetting       = 0x00,
-			
+
 			.TotalEndpoints         = 1,
-				
+
 			.Class                  = HID_CSCP_HIDClass,
 			.SubClass               = HID_CSCP_NonBootSubclass,
 			.Protocol               = HID_CSCP_NonBootProtocol,
-				
+
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.HID_VendorHID = 
-		{  
+	.HID_VendorHID =
+		{
 			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
-			
+
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
 			.HIDReportType          = HID_DTYPE_Report,
 			.HIDReportLength        = sizeof(HIDReport)
 		},
-		
-	.HID_ReportINEndpoint = 
+
+	.HID_ReportINEndpoint =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -158,17 +158,17 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
-	
+
 	/* If/Else If chain compiles slightly smaller than a switch case */
 	if (DescriptorType == DTYPE_Device)
 	{
 		Address = &DeviceDescriptor;
-		Size    = sizeof(USB_Descriptor_Device_t);	
+		Size    = sizeof(USB_Descriptor_Device_t);
 	}
 	else if (DescriptorType == DTYPE_Configuration)
 	{
 		Address = &ConfigurationDescriptor;
-		Size    = sizeof(USB_Descriptor_Configuration_t);	
+		Size    = sizeof(USB_Descriptor_Configuration_t);
 	}
 	else if (DescriptorType == HID_DTYPE_HID)
 	{
@@ -184,3 +184,4 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 	*DescriptorAddress = Address;
 	return Size;
 }
+

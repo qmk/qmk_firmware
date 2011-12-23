@@ -67,12 +67,12 @@
 				} Endpoints[16];
 				uint16_t FrameNum;
 			} ATTR_PACKED USB_EndpointTable_t;
-	
+
 		/* External Variables: */
 			extern USB_EndpointTable_t USB_EndpointTable;
-		
+
 	#endif
-	
+
 	/* Includes: */
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "../Device.h"
@@ -94,7 +94,7 @@
 		#if !defined(F_USB)
 			#error F_USB is not defined. You must define F_USB to the frequency of the unprescaled USB controller clock in your project makefile.
 		#endif
-		
+
 		#if (F_USB % 6000000)
 			#error Invalid F_USB specified. F_USB must be a multiple of 6MHz for USB Low Speed operation, and a multiple of 48MHz for Full Speed operation.
 		#endif

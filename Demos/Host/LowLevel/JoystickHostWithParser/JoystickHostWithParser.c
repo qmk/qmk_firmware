@@ -99,7 +99,7 @@ void EVENT_USB_Host_DeviceUnattached(void)
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
 	puts_P(PSTR("Getting Config Data.\r\n"));
-	
+
 	uint8_t ErrorCode;
 
 	/* Get and process the configuration descriptor data */
@@ -179,7 +179,7 @@ void JoystickHost_Task(void)
 {
 	if (USB_HostState != HOST_STATE_Configured)
 	  return;
-	
+
 	/* Select and unfreeze joystick data pipe */
 	Pipe_SelectPipe(JOYSTICK_DATA_IN_PIPE);
 	Pipe_Unfreeze();
@@ -268,3 +268,4 @@ void ProcessJoystickReport(uint8_t* JoystickReport)
 	/* Display the button information on the board LEDs */
 	LEDs_SetAllLEDs(LEDMask);
 }
+

@@ -81,7 +81,7 @@
 		                     const uint8_t ReportIndex,
 		                     const uint8_t ReportType,
 		                     uint16_t ReportLength);
-		
+
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);

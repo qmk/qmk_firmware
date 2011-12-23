@@ -8,14 +8,14 @@
 
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-	  
-  Permission to use, copy, modify, distribute, and sell this 
+
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -47,18 +47,18 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			
+
 			// Generic HID Interface
 			USB_Descriptor_Interface_t            HID_Interface;
 			USB_HID_Descriptor_HID_t              HID_VendorHID;
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
-					
+
 	/* Macros: */
 		/** Endpoint number of the HID data IN endpoint. */
 		#define HID_IN_EPNUM                 1
 
-		/** Size in bytes of the HID reporting IN endpoint. */		
+		/** Size in bytes of the HID reporting IN endpoint. */
 		#define HID_IN_EPSIZE                64
 
 	/* Function Prototypes: */
@@ -68,3 +68,4 @@
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif
+

@@ -115,7 +115,7 @@
 			 */
 			#define ESC_STRIKETHROUGH_OFF           ANSI_ESCAPE_SEQUENCE("29m")
 			//@}
-			
+
 			/** \name Text Colour Control Sequences */
 			//@{
 			/** Sets the foreground (text) colour to black. */

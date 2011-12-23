@@ -51,7 +51,7 @@ int main(void)
 	for (;;)
 	{
 		ReadNextReport();
-		
+
 		USB_USBTask();
 	}
 }

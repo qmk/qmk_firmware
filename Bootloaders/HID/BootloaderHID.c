@@ -9,13 +9,13 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Main source file for the HID class bootloader. This file contains the complete bootloader logic.
  */
- 
+
 #include "BootloaderHID.h"
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
@@ -41,20 +41,20 @@
  */
 static bool RunBootloader = true;
 
-/** Main program entry point. This routine configures the hardware required by the bootloader, then continuously 
+/** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
  *  runs the bootloader processing routine until instructed to soft-exit.
  */
 int main(void)
 {
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
-	
+
 	/* Enable global interrupts so that the USB stack can function */
 	sei();
 
 	while (RunBootloader)
 	  USB_USBTask();
-	
+
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
 	USB_Detach();
 
@@ -108,17 +108,17 @@ void EVENT_USB_Device_ControlRequest(void)
 	{
 		case HID_REQ_SetReport:
 			Endpoint_ClearSETUP();
-			
+
 			/* Wait until the command has been sent by the host */
 			while (!(Endpoint_IsOUTReceived()));
-		
+
 			/* Read in the write destination address */
 			#if (FLASHEND > 0xFFFF)
 			uint32_t PageAddress = ((uint32_t)Endpoint_Read_16_LE() << 8);
 			#else
 			uint16_t PageAddress = Endpoint_Read_16_LE();
 			#endif
-			
+
 			/* Check if the command is a program page command, or a start application command */
 			#if (FLASHEND > 0xFFFF)
 			if ((uint16_t)(PageAddress >> 8) == COMMAND_STARTAPPLICATION)
@@ -133,9 +133,9 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Erase the given FLASH page, ready to be programmed */
 				boot_page_erase(PageAddress);
 				boot_spm_busy_wait();
-				
+
 				/* Write each of the FLASH page's bytes in sequence */
-				for (uint8_t PageWord = 0; PageWord < (SPM_PAGESIZE / 2); PageWord++)				
+				for (uint8_t PageWord = 0; PageWord < (SPM_PAGESIZE / 2); PageWord++)
 				{
 					/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 					if (!(Endpoint_BytesInEndpoint()))
@@ -162,3 +162,4 @@ void EVENT_USB_Device_ControlRequest(void)
 			break;
 	}
 }
+

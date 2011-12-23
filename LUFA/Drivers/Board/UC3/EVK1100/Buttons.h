@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -44,7 +44,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __BUTTONS_EVK1100_H__
 #define __BUTTONS_EVK1100_H__
 
@@ -60,7 +60,7 @@
 		#if !defined(__INCLUDE_FROM_BUTTONS_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
 		#endif
-		
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
@@ -97,7 +97,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-			
+
 #endif
 
 /** @} */
+

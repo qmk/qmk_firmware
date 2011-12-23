@@ -66,10 +66,10 @@
 
 			/** Selects the Atmel 32-bit UC3 AVR (AT32UC3* chips) architecture. */
 			#define ARCH_UC3            1
-			
+
 			/** Selects the Atmel XMEGA AVR (ATXMEGA*U chips) architecture. */
 			#define ARCH_XMEGA          2
-			
+
 			#if !defined(__DOXYGEN__)
 				#define ARCH_           ARCH_AVR8
 

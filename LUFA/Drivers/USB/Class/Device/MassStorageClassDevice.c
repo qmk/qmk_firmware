@@ -160,7 +160,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	uint16_t BytesProcessed;
 
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-	
+
 	BytesProcessed = 0;
 	while (Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock,
 	                               (sizeof(MS_CommandBlockWrapper_t) - 16), &BytesProcessed) ==
@@ -231,8 +231,9 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}
-	
+
 	Endpoint_ClearIN();
 }
 
 #endif
+

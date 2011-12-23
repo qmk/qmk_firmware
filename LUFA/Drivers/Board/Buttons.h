@@ -78,7 +78,7 @@
  *      // Display which button was pressed (assuming two board buttons)
  *      printf("Button pressed: %s\r\n", (ButtonPress == BUTTONS_BUTTON1) ? "Button 1" : "Button 2");
  *  \endcode
- * 
+ *
  *  @{
  */
 

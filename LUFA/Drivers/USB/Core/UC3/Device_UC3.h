@@ -54,7 +54,7 @@
 		#include "../StdDescriptors.h"
 		#include "../USBInterrupt.h"
 		#include "../Endpoint.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -81,15 +81,15 @@
 			 *  USB interface should be initialized in full speed (12Mb/s) mode.
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
-			
+
 			#if defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || defined(__DOXYGEN__)
 				/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 				 *  USB interface should be initialized in high speed (480Mb/s) mode.
 				 */
-				#define USB_DEVICE_OPT_HIGHSPEED           (1 << 1)			
+				#define USB_DEVICE_OPT_HIGHSPEED           (1 << 1)
 			#endif
 			//@}
-			
+
 			#if (!defined(NO_INTERNAL_SERIAL) && \
 			     (defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || \
 				  defined(__DOXYGEN__)))
@@ -103,7 +103,7 @@
 				 *  number for the device.
 				 */
 				#define USE_INTERNAL_SERIAL             0xDC
-				
+
 				/** Length of the device's unique internal serial number, in bits, if present on the selected microcontroller
 				 *  model.
 				 */
@@ -119,7 +119,7 @@
 				#define INTERNAL_SERIAL_LENGTH_BITS     0
 				#define INTERNAL_SERIAL_START_ADDRESS   0
 			#endif
-						
+
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
 			 *  be taken out of suspended mode, and communications should resume.
@@ -225,7 +225,7 @@
 			{
 				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 				GlobalInterruptDisable();
-				
+
 				uint8_t* SigReadAddress = (uint8_t*)INTERNAL_SERIAL_START_ADDRESS;
 
 				for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
@@ -243,7 +243,7 @@
 					UnicodeString[SerialCharNum] = cpu_to_le16((SerialByte >= 10) ?
 															   (('A' - 10) + SerialByte) : ('0' + SerialByte));
 				}
-				
+
 				SetGlobalInterruptMask(CurrentGlobalInt);
 			}
 			#endif

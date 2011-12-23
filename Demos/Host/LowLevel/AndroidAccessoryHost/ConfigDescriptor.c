@@ -66,7 +66,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return DevControlError;
 	}
-	
+
 	/* There should be only one compatible Android Accessory Mode interface in the device, attempt to find it */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DCOMP_NextAndroidAccessoryInterface) != DESCRIPTOR_SEARCH_COMP_Found)

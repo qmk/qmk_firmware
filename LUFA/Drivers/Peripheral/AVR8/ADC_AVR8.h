@@ -104,7 +104,7 @@
 			#define _ADC_GET_MUX_MASK2(y)           ADC_CHANNEL ## y
 			#define _ADC_GET_MUX_MASK(y)            _ADC_GET_MUX_MASK2(y)
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name ADC Reference Configuration Masks */
@@ -118,7 +118,7 @@
 			/** Reference mask, for using the internally generated 2.56V reference voltage as the ADC reference. */
 			#define ADC_REFERENCE_INT2560MV         ((1 << REFS1) | (1 << REFS0))
 			//@}
-			
+
 			/** \name ADC Result Adjustment Configuration Masks */
 			//@{
 			/** Left-adjusts the 10-bit ADC result, so that the upper 8 bits of the value returned by the
@@ -144,7 +144,7 @@
 			 */
 			#define ADC_SINGLE_CONVERSION           (0 << ADATE)
 			//@}
-			
+
 			/** \name ADC Prescaler Configuration Masks */
 			//@{
 			/** Sets the ADC input clock to prescale by a factor of 2 the AVR's system clock. */

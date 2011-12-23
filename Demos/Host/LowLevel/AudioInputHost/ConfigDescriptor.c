@@ -99,7 +99,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 				}
 
 				/* Save the interface in case we need to refer back to it later */
-				AudioControlInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);			
+				AudioControlInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
 
 				/* Find the next Audio Streaming interface within that Audio Control interface */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
@@ -218,3 +218,4 @@ uint8_t DComp_NextAudioInterfaceDataEndpoint(void* CurrentDescriptor)
 
 	return DESCRIPTOR_SEARCH_NotFound;
 }
+

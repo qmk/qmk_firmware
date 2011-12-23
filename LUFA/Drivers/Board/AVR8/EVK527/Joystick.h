@@ -66,7 +66,7 @@
 		/* Macros: */
 			#define JOY_FMASK                 ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7))
 			#define JOY_CMASK                 (1 << 6)
-			
+
 			#define JOY_PORTC_MASK_SHIFT      3
 	#endif
 

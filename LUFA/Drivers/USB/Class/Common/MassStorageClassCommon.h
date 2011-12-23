@@ -117,7 +117,7 @@
 		/** SCSI Command Code for a MODE SENSE (10) command. */
 		#define SCSI_CMD_MODE_SENSE_10                         0x5A
 		//@}
-		
+
 		/** \name SCSI Sense Key Values */
 		//@{
 		/** SCSI Sense Code to indicate no error has occurred. */
@@ -164,7 +164,7 @@
 		/** SCSI Sense Code to indicate that the source data did not match the data read from the medium. */
 		#define SCSI_SENSE_KEY_MISCOMPARE                      0x0E
 		//@}
-		
+
 		/** \name SCSI Additional Sense Codes */
 		//@{
 		/** SCSI Additional Sense Code to indicate no additional sense information is available. */
@@ -196,7 +196,7 @@
 		/** SCSI Additional Sense Code to indicate that no removable medium is inserted into the device. */
 		#define SCSI_ASENSE_MEDIUM_NOT_PRESENT                 0x3A
 		//@}
-		
+
 		/** \name SCSI Additional Sense Key Code Qualifiers */
 		//@{
 		/** SCSI Additional Sense Qualifier Code to indicate no additional sense qualifier information is available. */
@@ -213,7 +213,7 @@
 		/** SCSI Additional Sense Qualifier Code to indicate that an operation is currently in progress. */
 		#define SCSI_ASENSEQ_OPERATION_IN_PROGRESS             0x07
 		//@}
-		
+
 	/* Enums: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Mass
 		 *  Storage device class.
@@ -231,7 +231,7 @@
 			                                           *   belongs to the Bulk Only Transport protocol of the Mass Storage class.
 			                                           */
 		};
-	
+
 		/** Enum for the Mass Storage class specific control requests that can be issued by the USB bus host. */
 		enum MS_ClassRequests_t
 		{

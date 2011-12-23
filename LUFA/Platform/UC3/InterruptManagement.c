@@ -60,3 +60,4 @@ void INTC_Init(void)
 
 	__builtin_mtsr(AVR32_EVBA, (uintptr_t)&EVBA_Table);
 }
+

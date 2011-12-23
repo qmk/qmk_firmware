@@ -62,7 +62,7 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
-	
+
 	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);

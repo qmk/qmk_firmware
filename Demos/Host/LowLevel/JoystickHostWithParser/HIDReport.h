@@ -40,7 +40,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "JoystickHostWithParser.h"
-		
+
 	/* Macros: */
 		/** HID Report Descriptor Usage Page value for a toggle button. */
 		#define USAGE_PAGE_BUTTON           0x09
@@ -55,7 +55,7 @@
 		#define USAGE_X                     0x30
 
 		/** HID Report Descriptor Usage value for a Y axis movement. */
-		#define USAGE_Y                     0x31	
+		#define USAGE_Y                     0x31
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref GetHIDReportData() function. */

@@ -43,7 +43,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
+		#include "USBMode.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -61,7 +61,7 @@
 		#elif (ARCH == ARCH_UC3)
 			#include "UC3/USBInterrupt_UC3.h"
 		#elif (ARCH == ARCH_XMEGA)
-			#include "XMEGA/USBInterrupt_XMEGA.h"	
+			#include "XMEGA/USBInterrupt_XMEGA.h"
 		#endif
 
 	/* Disable C linkage for C++ Compilers: */

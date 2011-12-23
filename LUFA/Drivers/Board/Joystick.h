@@ -76,7 +76,7 @@
  *
  *      // Display which direction the joystick was moved in
  *      printf("Joystick moved:\r\n");
- *      
+ *
  *      if (JoystickMovement & (JOY_UP | JOY_DOWN))
  *        printf("%s ", (JoystickMovement & JOY_UP) ? "Up" : "Down");
  *

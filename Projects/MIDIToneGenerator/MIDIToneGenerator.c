@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -90,7 +90,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
-	
+
 	for (;;)
 	{
 		MIDI_EventPacket_t ReceivedMIDIEvent;
@@ -99,7 +99,7 @@ int main(void)
 			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
 				DDSNoteData* LRUNoteStruct = &NoteData[0];
-			
+
 				/* Find a free entry in the note table to use for the note being turned on */
 				for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
 				{
@@ -112,13 +112,13 @@ int main(void)
 					}
 					else if (NoteData[i].LRUAge >= LRUNoteStruct->LRUAge)
 					{
-						/* If an older entry that the current entry has been found, prefer overwriting that one */						
+						/* If an older entry that the current entry has been found, prefer overwriting that one */
 						LRUNoteStruct = &NoteData[i];
 					}
-					
+
 					NoteData[i].LRUAge++;
 				}
-				
+
 				/* Update the oldest note entry with the new note data and reset its age */
 				LRUNoteStruct->Pitch          = ReceivedMIDIEvent.Data2;
 				LRUNoteStruct->TableIncrement = (uint32_t)(BASE_INCREMENT * SCALE_FACTOR) +
@@ -133,7 +133,7 @@ int main(void)
 			else if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_OFF >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
 				bool FoundActiveNote = false;
-			
+
 				/* Find the note in the note table to turn off */
 				for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
 				{
@@ -142,13 +142,13 @@ int main(void)
 					else if (NoteData[i].Pitch)
 					  FoundActiveNote   = true;
 				}
-				
+
 				/* If all notes off, turn off the indicator LED */
 				if (!(FoundActiveNote))
 				  LEDs_SetAllLEDs(LEDS_NO_LEDS);
 			}
 		}
-	
+
 		MIDI_Device_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
 	}
@@ -158,7 +158,7 @@ int main(void)
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	uint16_t MixedSample = 0;
-	
+
 	/* Sum together all the active notes to form a single sample */
 	for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
 	{
@@ -167,13 +167,13 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		{
 			/* Use the top 8 bits of the table position as the sample table index */
 			uint8_t TableIndex = (NoteData[i].TablePosition >> 24);
-			
+
 			/* Add the new tone sample to the accumulator and increment the table position */
 			MixedSample += SineTable[TableIndex];
 			NoteData[i].TablePosition += NoteData[i].TableIncrement;
 		}
 	}
-	
+
 	/* Output clamped mixed sample value to the PWM */
 	OCR3A = (MixedSample <= 0xFF) ? MixedSample : 0xFF;
 }
@@ -187,7 +187,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
@@ -234,7 +234,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&Keyboard_MIDI_Interface);
-	
+
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
@@ -243,3 +243,4 @@ void EVENT_USB_Device_ControlRequest(void)
 {
 	MIDI_Device_ProcessControlRequest(&Keyboard_MIDI_Interface);
 }
+

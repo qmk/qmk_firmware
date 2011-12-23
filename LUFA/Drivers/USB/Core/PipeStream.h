@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2011.
-              
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2011  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -27,7 +27,7 @@
   arising out of or in connection with the use or performance of
   this software.
 */
- 
+
 /** \file
  *  \brief Pipe data stream transmission and reception management.
  *  \copydetails Group_PipeStreamRW
@@ -36,7 +36,7 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_PipeRW  
+/** \ingroup Group_PipeRW
  *  \defgroup Group_PipeStreamRW Read/Write of Multi-Byte Streams
  *  \brief Pipe data stream transmission and reception management.
  *
@@ -52,7 +52,7 @@
 	/* Includes: */
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -62,17 +62,17 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
 			/** Enum for the possible error return codes of the Pipe_*_Stream_* functions. */
 			enum Pipe_Stream_RW_ErrorCodes_t
 			{
 				PIPE_RWSTREAM_NoError            = 0, /**< Command completed successfully, no error. */
-				PIPE_RWSTREAM_PipeStalled        = 1, /**< The device stalled the pipe during the transfer. */		
+				PIPE_RWSTREAM_PipeStalled        = 1, /**< The device stalled the pipe during the transfer. */
 				PIPE_RWSTREAM_DeviceDisconnected = 2, /**< Device was disconnected from the host during
 			                                           *   the transfer.
-			                                           */		
+			                                           */
 				PIPE_RWSTREAM_Timeout            = 3, /**< The device failed to accept or send the next packet
 				                                       *   within the software timeout period set by the
 				                                       *   \ref USB_STREAM_TIMEOUT_MS macro.
@@ -93,7 +93,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+
 #endif
 
 /** @} */

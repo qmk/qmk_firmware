@@ -43,7 +43,7 @@
  *
  *  Compiler specific definitions to expose certain compiler features which may increase the level of code optimization
  *  for a specific compiler, or correct certain issues that may be present such as memory barriers for use in conjunction
- *  with atomic variable access. 
+ *  with atomic variable access.
  *
  *  Where possible, on alternative compilers, these macros will either have no effect, or default to returning a sane value
  *  so that they can be used in existing code without the need for extra compiler checks in the user application code.
@@ -77,7 +77,7 @@
 				 *  assembly output in an unexpected manner on sections of code that are ordering-specific.
 				 */
 				#define GCC_MEMORY_BARRIER()                  __asm__ __volatile__("" ::: "memory");
-				
+
 				/** Evaluates to boolean true if the specified value can be determined at compile time to be a constant value
 				 *  when compiling under GCC.
 				 *

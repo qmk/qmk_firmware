@@ -113,10 +113,10 @@ int main(void)
 
 	/* If the TCK pin is not jumpered to ground, start the user application instead */
 	RunBootloader = (!(PINF & (1 << 4)));
-	
+
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);
-	MCUCR &= ~(1 << JTD);	
+	MCUCR &= ~(1 << JTD);
 	#endif
 
 	/* Turn on first LED on the board to indicate that the bootloader has started */
@@ -153,7 +153,7 @@ void SetupHardware(void)
 	/* Initialize the USB subsystem */
 	USB_Init();
 	LEDs_Init();
-	
+
 	/* Bootloader active LED toggle timer initialization */
 	TIMSK1 = (1 << TOIE1);
 	TCCR1B = ((1 << CS11) | (1 << CS10));
@@ -181,7 +181,7 @@ ISR(TIMER1_OVF_vect, ISR_BLOCK)
  *  internally.
  */
 void EVENT_USB_Device_ControlRequest(void)
-{	
+{
 	/* Ignore any requests that aren't directed to the DFU interface */
 	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
 	    (REQTYPE_CLASS | REQREC_INTERFACE))
@@ -742,3 +742,4 @@ static void ProcessReadCommand(void)
 	else if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x01))                    // Read signature byte
 	  ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
 }
+

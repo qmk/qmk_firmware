@@ -61,7 +61,7 @@ void V2Protocol_Init(void)
 	#endif
 
 	V2Params_LoadNonVolatileParamValues();
-	
+
 	#if defined(ENABLE_ISP_PROTOCOL)
 	ISPTarget_ConfigureRescueClock();
 	#endif

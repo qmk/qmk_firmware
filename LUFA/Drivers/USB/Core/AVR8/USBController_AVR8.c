@@ -162,7 +162,7 @@ void USB_ResetInterface(void)
 		{
 			#if defined(USB_CAN_BE_HOST)
 			USB_PLL_On();
-			while (!(USB_PLL_IsReady()));		
+			while (!(USB_PLL_IsReady()));
 			#endif
 		}
 
@@ -191,7 +191,7 @@ static void USB_Init_Device(void)
 
 	#if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
 	USB_Descriptor_Device_t* DeviceDescriptorPtr;
-	
+
 	#if defined(ARCH_HAS_MULTI_ADDRESS_SPACE) && \
 	    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))
 	uint8_t DescriptorAddressSpace;
@@ -215,7 +215,7 @@ static void USB_Init_Device(void)
 		#else
 		USB_Device_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
 		#endif
-	}	
+	}
 	#endif
 	#endif
 
@@ -255,7 +255,7 @@ static void USB_Init_Host(void)
 
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);
-	
+
 	USB_Attach();
 }
 #endif

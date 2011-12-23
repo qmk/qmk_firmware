@@ -86,3 +86,4 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE const Buffer,
 #undef TEMPLATE_BUFFER_MOVE
 
 #endif
+

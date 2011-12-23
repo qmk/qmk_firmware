@@ -71,7 +71,7 @@ int main(void)
 	for (;;)
 	{
 		StillImageHost_Task();
-		
+
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
 	}

@@ -50,13 +50,13 @@
  *  Usage Example:
  *  \code
  *   	#include <LUFA/Platform/XMEGA/ClockManagement.h>
- *   	
+ *
  *   	void main(void)
  *   	{
  *   		// Start the PLL to multiply the 2MHz RC oscillator to 32MHz and switch the CPU core to run from it
  *   		XMEGACLK_StartPLL(CLOCK_SRC_INT_RC2MHZ, 2000000, 32000000);
  *   		XMEGACLK_SetCPUClockSource(CLOCK_SRC_PLL, F_CPU);
- *   	
+ *
  *   		// Start the 32MHz internal RC oscillator and start the DFLL to increase it to 48MHz using the USB SOF as a reference
  *   		XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
  *   		XMEGACLK_StartDFLL(CLOCK_SRC_INT_RC32MHZ, DFLL_REF_INT_USBSOF, 48000000);
@@ -85,7 +85,7 @@
 				EXOSC_FREQ_2MHZ_MAX      = OSC_FRQRANGE_04TO2_gc,  /**< External crystal oscillator equal to or slower than 2MHz. */
 				EXOSC_FREQ_9MHZ_MAX      = OSC_FRQRANGE_2TO9_gc,   /**< External crystal oscillator equal to or slower than 9MHz. */
 				EXOSC_FREQ_12MHZ_MAX     = OSC_FRQRANGE_9TO12_gc,  /**< External crystal oscillator equal to or slower than 12MHz. */
-				EXOSC_FREQ_16MHZ_MAX     = OSC_FRQRANGE_12TO16_gc, /**< External crystal oscillator equal to or slower than 16MHz. */	
+				EXOSC_FREQ_16MHZ_MAX     = OSC_FRQRANGE_12TO16_gc, /**< External crystal oscillator equal to or slower than 16MHz. */
 			};
 
 			/** Enum for the possible external oscillator statup times. */
@@ -97,7 +97,7 @@
 				EXOSC_START_1KCLK        = OSC_XOSCSEL_XTAL_1KCLK_gc,  /**< Wait 1K clock cycles before startup. */
 				EXOSC_START_16KCLK       = OSC_XOSCSEL_XTAL_16KCLK_gc, /**< Wait 16K clock cycles before startup. */
 			};
-			
+
 			/** Enum for the possible module clock sources. */
 			enum XMEGA_System_ClockSource_t
 			{
@@ -132,8 +132,8 @@
 			{
 				OSC.XOSCCTRL  = (FreqRange | ((Startup == EXOSC_START_32KCLK) ? OSC_X32KLPM_bm : 0) | Startup);
 				OSC.CTRL     |= OSC_XOSCEN_bm;
-				
-				while (!(OSC.STATUS & OSC_XOSCRDY_bm));				
+
+				while (!(OSC.STATUS & OSC_XOSCRDY_bm));
 				return true;
 			}
 
@@ -162,14 +162,14 @@
 						return true;
 					case CLOCK_SRC_INT_RC32MHZ:
 						OSC.CTRL |= OSC_RC32MEN_bm;
-						while (!(OSC.STATUS & OSC_RC32MRDY_bm));					
+						while (!(OSC.STATUS & OSC_RC32MRDY_bm));
 						return true;
 					case CLOCK_SRC_INT_RC32KHZ:
 						OSC.CTRL |= OSC_RC32KEN_bm;
-						while (!(OSC.STATUS & OSC_RC32KRDY_bm));					
+						while (!(OSC.STATUS & OSC_RC32KRDY_bm));
 						return true;
 				}
-			
+
 				return false;
 			}
 
@@ -178,7 +178,7 @@
 			 *  \param[in] Source  Internal oscillator to stop, a value from \ref XMEGA_System_ClockSource_t.
 			 *
 			 *  \return Boolean \c true if the internal oscillator was successfully stopped, \c false if invalid parameters specified.
-			 */			
+			 */
 			static inline bool XMEGACLK_StopInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
 			static inline bool XMEGACLK_StopInternalOscillator(const uint8_t Source)
 			{
@@ -194,7 +194,7 @@
 						OSC.CTRL &= ~OSC_RC32KEN_bm;
 						return true;
 				}
-			
+
 				return false;
 			}
 
@@ -216,10 +216,10 @@
 			                                     const uint32_t Frequency)
 			{
 				uint8_t MulFactor = (Frequency / SourceFreq);
-				
+
 				if (SourceFreq > Frequency)
-				  return false;				
-			
+				  return false;
+
 				switch (Source)
 				{
 					case CLOCK_SRC_INT_RC2MHZ:
@@ -236,7 +236,7 @@
 				}
 
 				OSC.CTRL |= OSC_PLLEN_bm;
-				
+
 				while (!(OSC.STATUS & OSC_PLLRDY_bm));
 				return true;
 			}
@@ -247,7 +247,7 @@
 			{
 				OSC.CTRL &= ~OSC_PLLEN_bm;
 			}
-			
+
 			/** Starts the DFLL of the XMEGA microcontroller, with the given options.
 			 *
 			 *  \param[in] Source     RC Clock source for the DFLL, a value from \ref XMEGA_System_ClockSource_t.
@@ -264,7 +264,7 @@
 			                                      const uint32_t Frequency)
 			{
 				uint16_t DFLLCompare = (Frequency / 1000);
-				
+
 				switch (Source)
 				{
 					case CLOCK_SRC_INT_RC2MHZ:
@@ -291,7 +291,7 @@
 					default:
 						return false;
 				}
-				
+
 				return true;
 			}
 
@@ -315,7 +315,7 @@
 					default:
 						return false;
 				}
-				
+
 				return true;
 			}
 
@@ -333,7 +333,7 @@
 			                                              const uint32_t SourceFreq)
 			{
 				uint8_t ClockSourceMask = 0;
-			
+
 				switch (Source)
 				{
 					case CLOCK_SRC_INT_RC2MHZ:
@@ -354,16 +354,16 @@
 					default:
 						return false;
 				}
-				
+
 				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 				GlobalInterruptDisable();
 
 				CCP      = CCP_IOREG_gc;
 				CLK_CTRL = ClockSourceMask;
-				
+
 				SetGlobalInterruptMask(CurrentGlobalInt);
-				
-				Delay_MS(1);				
+
+				Delay_MS(1);
 				return (CLK.CTRL == ClockSourceMask);
 			}
 
@@ -375,3 +375,4 @@
 #endif
 
 /** @} */
+

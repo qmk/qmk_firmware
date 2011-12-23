@@ -150,7 +150,7 @@ int main(void)
 					{
 						break;
 					}
-					
+
 					/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
 					RingBuffer_Remove(&USARTtoUSB_Buffer);
 				}

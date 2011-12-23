@@ -309,7 +309,8 @@ static void ReturnCommandStatus(void)
 		if (IsMassStoreReset)
 		  return;
 	}
-	
+
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
 }
+

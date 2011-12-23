@@ -145,13 +145,13 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 		{
 			continue;
 		}
-		
+
 		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
 		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
 		{
 			return CDC_ENUMERROR_PipeConfigurationFailed;
 		}
-		
+
 		if (InterruptPeriod)
 		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}

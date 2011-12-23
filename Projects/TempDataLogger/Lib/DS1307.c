@@ -34,7 +34,7 @@ bool DS1307_SetTimeDate(const TimeDate_t* NewTimeDate)
 	NewRegValues.Byte6.Fields.Month     = (NewTimeDate->Month % 10);
 	NewRegValues.Byte7.Fields.TenYear   = (NewTimeDate->Year / 10);
 	NewRegValues.Byte7.Fields.Year      = (NewTimeDate->Year % 10);
-	
+
 	// Write the new Time and Date into the DS1307
 	if (TWI_WritePacket(DS1307_ADDRESS, 10, &WriteAddress, sizeof(WriteAddress),
 	                   (uint8_t*)&NewRegValues, sizeof(DS1307_DateTimeRegs_t)) != TWI_ERROR_NoError)
@@ -51,24 +51,24 @@ bool DS1307_GetTimeDate(TimeDate_t* const TimeDate)
 	TimeDate->Hour   = 1;
 	TimeDate->Minute = 1;
 	TimeDate->Second = 1;
-	
+
 	TimeDate->Day    = 1;
 	TimeDate->Month  = 1;
 	TimeDate->Year   = 1;
-	
+
 	return true;
 #endif
 
 	DS1307_DateTimeRegs_t CurrentRegValues;
 	const uint8_t         ReadAddress = 0;
-	
+
 	// Read in the stored Time and Date from the DS1307
 	if (TWI_ReadPacket(DS1307_ADDRESS, 10, &ReadAddress, sizeof(ReadAddress),
 	                   (uint8_t*)&CurrentRegValues, sizeof(DS1307_DateTimeRegs_t)) != TWI_ERROR_NoError)
 	{
 		return false;
 	}
-	
+
 	// Convert stored time value into decimal
 	TimeDate->Second  = (CurrentRegValues.Byte1.Fields.TenSec  * 10) + CurrentRegValues.Byte1.Fields.Sec;
 	TimeDate->Minute  = (CurrentRegValues.Byte2.Fields.TenMin  * 10) + CurrentRegValues.Byte2.Fields.Min;

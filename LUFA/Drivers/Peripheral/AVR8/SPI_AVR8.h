@@ -70,7 +70,7 @@
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SPI_TransferByte(0xDC);
  *  \endcode
- * 
+ *
  *  @{
  */
 
@@ -139,7 +139,7 @@
 			/** SPI data sample mode mask for \c SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
 			#define SPI_SAMPLE_TRAILING            (1 << CPHA)
 			//@}
-			
+
 			/** \name SPI Data Ordering Configuration Masks */
 			//@{
 			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out MSB first. */
@@ -148,7 +148,7 @@
 			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define SPI_ORDER_LSB_FIRST            (1 << DORD)
 			//@}
-			
+
 			/** \name SPI Mode Configuration Masks */
 			//@{
 			/** SPI mode mask for \c SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
@@ -157,7 +157,7 @@
 			/** SPI mode mask for \c SPI_Init(). Indicates that the SPI interface should be initialized into master mode. */
 			#define SPI_MODE_MASTER                (1 << MSTR)
 			//@}
-			
+
 		/* Inline Functions: */
 			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
@@ -195,7 +195,7 @@
 				SPCR   = 0;
 				SPSR   = 0;
 			}
-			
+
 			/** Retrieves the currently selected SPI mode, once the SPI interface has been configured.
 			 *
 			 *  \return \ref SPI_MODE_MASTER if the interface is currently in SPI Master mode, \ref SPI_MODE_SLAVE otherwise

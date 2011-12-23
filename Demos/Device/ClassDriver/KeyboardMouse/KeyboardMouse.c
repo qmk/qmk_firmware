@@ -258,3 +258,4 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 		LEDs_SetAllLEDs(LEDMask);
 	}
 }
+

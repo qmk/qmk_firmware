@@ -107,7 +107,7 @@ void MouseHost_Task(void)
 {
 	if (USB_HostState != HOST_STATE_Configured)
 	  return;
-	
+
 	if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
 	{
 		uint8_t MouseReport[Mouse_HID_Interface.State.LargestReportSize];

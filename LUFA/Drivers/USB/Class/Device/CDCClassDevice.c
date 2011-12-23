@@ -78,7 +78,7 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 
 				Endpoint_ClearOUT();
 				Endpoint_ClearStatusStage();
-			
+
 				EVENT_CDC_Device_LineEncodingChanged(CDCInterfaceInfo);
 			}
 

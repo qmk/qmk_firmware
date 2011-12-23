@@ -35,7 +35,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
- 
+
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_XPLAIN_REV1 XPLAIN_REV1
  *  \brief Board specific LED driver header for the original Atmel XPLAIN, revision 1.

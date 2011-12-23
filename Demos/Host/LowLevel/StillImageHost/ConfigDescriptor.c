@@ -177,7 +177,7 @@ uint8_t DComp_NextStillImageInterfaceDataEndpoint(void* CurrentDescriptor)
 		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
 
 		/* Check the endpoint type, break out if correct BULK or INTERRUPT type endpoint found */
-		if (((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK) || 
+		if (((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK) ||
 		    ((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT))
 		{
 			return DESCRIPTOR_SEARCH_Found;

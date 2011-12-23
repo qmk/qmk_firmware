@@ -148,7 +148,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
 	if (!(ButtonStatus_LCL & BUTTONS_BUTTON1))
-	{		
+	{
 		USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
 
 		KeyboardReport->Modifier = HID_KEYBOARD_MODIFIER_LEFTSHIFT;
@@ -221,3 +221,4 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 
 	LEDs_SetAllLEDs(LEDMask);
 }
+

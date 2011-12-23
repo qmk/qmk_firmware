@@ -48,7 +48,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE const Buffer,
 		Length -= *BytesProcessed;
 		TEMPLATE_BUFFER_MOVE(DataStream, *BytesProcessed);
 	}
-	
+
 	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
@@ -85,3 +85,4 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE const Buffer,
 #undef TEMPLATE_BUFFER_MOVE
 
 #endif
+

@@ -81,11 +81,11 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		#if defined(USE_TEST_TONE)
 			static uint8_t SquareWaveSampleCount;
 			static int16_t CurrentWaveValue;
-			
+
 			/* In test tone mode, generate a square wave at 1/256 of the sample rate */
 			if (SquareWaveSampleCount++ == 0xFF)
 			  CurrentWaveValue ^= 0x8000;
-			
+
 			/* Only generate audio if the board button is being pressed */
 			AudioSample = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
 		#else
@@ -97,11 +97,11 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 			AudioSample -= (SAMPLE_MAX_RANGE / 2);
 			#endif
 		#endif
-		
-		Audio_Host_WriteSample16(&Speaker_Audio_Interface, AudioSample);	
+
+		Audio_Host_WriteSample16(&Speaker_Audio_Interface, AudioSample);
 		Audio_Host_WriteSample16(&Speaker_Audio_Interface, AudioSample);
 	}
-	
+
 	Pipe_SelectPipe(PrevPipe);
 }
 
@@ -185,7 +185,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
-	
+
 	USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
 	if (Audio_Host_GetSetEndpointProperty(&Speaker_Audio_Interface, Speaker_Audio_Interface.Config.DataOUTPipeNumber,
 	                                      AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,

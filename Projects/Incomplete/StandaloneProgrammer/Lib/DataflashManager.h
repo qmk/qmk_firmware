@@ -66,7 +66,7 @@
 
 		/** Indicates if the disk is write protected or not. */
 		#define DISK_READ_ONLY              false
-		
+
 	/* Function Prototypes: */
 		#if defined(USB_CAN_BE_DEVICE)
 			void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,

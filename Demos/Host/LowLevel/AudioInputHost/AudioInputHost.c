@@ -123,7 +123,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 		return;
 	}
-	
+
 	if ((ErrorCode = USB_Host_SetInterfaceAltSetting(StreamingInterfaceIndex,
 	                                                 StreamingInterfaceAltSetting)) != HOST_SENDCONTROL_Successful)
 	{
@@ -143,7 +143,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 			.wIndex        = StreamingEndpointAddress,
 			.wLength       = sizeof(USB_Audio_SampleFreq_t),
 		};
-		
+
 	USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
 
 	/* Select the control pipe for the request transfer */
@@ -153,7 +153,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	if ((ErrorCode = USB_Host_SendControlRequest(&SampleRate)) != HOST_SENDCONTROL_Successful)
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-		USB_Host_SetDeviceConfiguration(0);		
+		USB_Host_SetDeviceConfiguration(0);
 		return;
 	}
 
@@ -161,7 +161,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	TIMSK0  = (1 << OCIE0A);
 	OCR0A   = ((F_CPU / 8 / 48000) - 1);
 	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS01);   // Fcpu/8 speed	
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 
 	/* Set speaker as output */
 	DDRC   |= (1 << 6);
@@ -169,7 +169,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	/* PWM speaker timer initialization */
 	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)); // Set on match, clear on TOP
 	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
-	
+
 	puts_P(PSTR("Microphone Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
@@ -238,7 +238,8 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 		LEDs_SetAllLEDs(LEDMask);
 	}
-	
+
 	Pipe_Freeze();
 	Pipe_SelectPipe(PrevPipe);
 }
+

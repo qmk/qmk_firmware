@@ -228,3 +228,4 @@ uint8_t Endpoint_Null_Stream(uint16_t Length,
 #include "Template/Template_Endpoint_Control_R.c"
 
 #endif
+

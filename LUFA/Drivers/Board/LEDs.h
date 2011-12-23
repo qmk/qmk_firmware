@@ -78,13 +78,13 @@
  *      LEDs_Init();
  *
  *      // Turn on each of the four LEDs in turn
- *      LEDs_SetAllLEDs(LEDS_LED1); 
+ *      LEDs_SetAllLEDs(LEDS_LED1);
  *      Delay_MS(500);
- *      LEDs_SetAllLEDs(LEDS_LED1); 
+ *      LEDs_SetAllLEDs(LEDS_LED1);
  *      Delay_MS(500);
- *      LEDs_SetAllLEDs(LEDS_LED1); 
+ *      LEDs_SetAllLEDs(LEDS_LED1);
  *      Delay_MS(500);
- *      LEDs_SetAllLEDs(LEDS_LED1); 
+ *      LEDs_SetAllLEDs(LEDS_LED1);
  *      Delay_MS(500);
  *
  *      // Turn on all LEDs
@@ -166,7 +166,7 @@
 		#elif (BOARD == BOARD_EVK1101)
 			#include "UC3/EVK1101/LEDs.h"
 		#elif (BOARD == BOARD_TUL)
-			#include "AVR8/TUL/LEDs.h"	
+			#include "AVR8/TUL/LEDs.h"
 		#elif (BOARD == BOARD_EVK1100)
 			#include "UC3/EVK1100/LEDs.h"
 		#elif (BOARD == BOARD_EVK1104)

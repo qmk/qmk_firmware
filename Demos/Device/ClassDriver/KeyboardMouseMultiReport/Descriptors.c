@@ -77,7 +77,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM HIDReport[] =
 	        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 	    HID_RI_END_COLLECTION(0),
 	HID_RI_END_COLLECTION(0),
-	
+
 	/* Keyboard Report */
 	HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
 	HID_RI_USAGE(8, 0x06), /* Keyboard */
@@ -280,7 +280,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			break;
 		case HID_DTYPE_HID:
 			Address = &ConfigurationDescriptor.HID_HIDData;
-			Size    = sizeof(USB_HID_Descriptor_HID_t);			
+			Size    = sizeof(USB_HID_Descriptor_HID_t);
 			break;
 		case HID_DTYPE_Report:
 			Address = &HIDReport;

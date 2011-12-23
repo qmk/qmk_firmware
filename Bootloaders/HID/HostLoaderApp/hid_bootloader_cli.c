@@ -710,10 +710,10 @@ int teensy_open(void)
 {
 	teensy_close();
 	uhid_teensy_fd = open_usb_device(0x16C0, 0x0478);
-	
+
 	if (uhid_teensy_fd < 0)
 		uhid_teensy_fd = open_usb_device(0x03eb, 0x2067);
-	
+
 	if (uhid_teensy_fd < 0) return 0;
 	return 1;
 }
@@ -826,7 +826,7 @@ parse_hex_line(char *line)
 	int addr, code, num;
         int sum, len, cksum, i;
         char *ptr;
-        
+
         num = 0;
         if (line[0] != ':') return 0;
         if (strlen(line) < 11) return 0;

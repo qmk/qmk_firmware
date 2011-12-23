@@ -74,7 +74,7 @@ void EVENT_USB_Host_DeviceUnattached(void)
  *  enumerated by the host and is now ready to be used by the application.
  */
 void EVENT_USB_Host_DeviceEnumerationComplete(void)
-{	
+{
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	uint16_t ConfigDescriptorSize;

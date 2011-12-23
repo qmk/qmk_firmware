@@ -54,7 +54,7 @@
 		#include "../StdDescriptors.h"
 		#include "../USBInterrupt.h"
 		#include "../Endpoint.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -97,7 +97,7 @@
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED       (0 << 0)
 			//@}
-			
+
 			#if (!defined(NO_INTERNAL_SERIAL) || defined(__DOXYGEN__))
 				/** String descriptor index for the device's unique serial number string descriptor within the device.
 				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
@@ -114,7 +114,7 @@
 				 *  model.
 				 */
 				#define INTERNAL_SERIAL_LENGTH_BITS    (8 * (1 + (offsetof(NVM_PROD_SIGNATURES_t, COORDY1) - offsetof(NVM_PROD_SIGNATURES_t, LOTNUM0))))
-				
+
 				/** Start address of the internal serial number, in the appropriate address space, if present on the selected microcontroller
 				 *  model.
 				 */
@@ -125,7 +125,7 @@
 				#define INTERNAL_SERIAL_LENGTH_BITS    0
 				#define INTERNAL_SERIAL_START_ADDRESS  0
 			#endif
-			
+
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
 			 *  be taken out of suspended mode, and communications should resume.
@@ -211,17 +211,17 @@
 			{
 				return ((USB.ADDR != 0) ? true : false);
 			}
-		
+
 			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void USB_Device_GetSerialString(uint16_t* const UnicodeString)
 			{
 				uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 				GlobalInterruptDisable();
-				
+
 				uint8_t SigReadAddress = INTERNAL_SERIAL_START_ADDRESS;
 
 				for (uint8_t SerialCharNum = 0; SerialCharNum < (INTERNAL_SERIAL_LENGTH_BITS / 4); SerialCharNum++)
-				{					
+				{
 					uint8_t SerialByte;
 
 					NVM.CMD    = NVM_CMD_READ_CALIB_ROW_gc;
@@ -239,7 +239,7 @@
 					UnicodeString[SerialCharNum] = cpu_to_le16((SerialByte >= 10) ?
 															   (('A' - 10) + SerialByte) : ('0' + SerialByte));
 				}
-				
+
 				SetGlobalInterruptMask(CurrentGlobalInt);
 			}
 

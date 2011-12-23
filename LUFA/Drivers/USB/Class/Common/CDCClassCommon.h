@@ -111,7 +111,7 @@
 		 */
 		#define CDC_CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
 		//@}
-		
+
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
@@ -161,7 +161,7 @@
 			                                         *   belongs to no specific protocol of the CDC data class.
 			                                         */
 		};
-		
+
 		/** Enum for the CDC class specific control requests that can be issued by the USB bus host. */
 		enum CDC_ClassRequests_t
 		{
@@ -355,7 +355,7 @@
 			uint8_t bMasterInterface; /**< Interface number of the CDC Control interface. */
 			uint8_t bSlaveInterface0; /**< Interface number of the CDC Data interface. */
 		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalUnion_t;
-		
+
 		/** \brief CDC Virtual Serial Port Line Encoding Settings Structure.
 		 *
 		 *  Type define for a CDC Line Encoding structure, used to hold the various encoding parameters for a virtual

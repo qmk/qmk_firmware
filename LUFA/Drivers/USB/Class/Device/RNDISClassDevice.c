@@ -238,7 +238,7 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			uint16_t ResponseSize;
 
 			QUERY_Response->MessageType                 = CPU_TO_LE32(REMOTE_NDIS_QUERY_CMPLT);
-			
+
 			if (RNDIS_Device_ProcessNDISQuery(RNDISInterfaceInfo, Query_Oid, QueryData, le32_to_cpu(QUERY_Message->InformationBufferLength),
 			                                  ResponseData, &ResponseSize))
 			{
@@ -453,7 +453,7 @@ bool RNDIS_Device_IsPacketReceived(USB_ClassInfo_RNDIS_Device_t* const RNDISInte
 	{
 		return false;
 	}
-	
+
 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber);
 	return Endpoint_IsOUTReceived();
 }
@@ -467,15 +467,15 @@ uint8_t RNDIS_Device_ReadPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfa
 	{
 		return ENDPOINT_RWSTREAM_DeviceDisconnected;
 	}
-	
+
 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber);
-	
+
 	*PacketLength = 0;
 
 	if (!(Endpoint_IsOUTReceived()))
 		return ENDPOINT_RWSTREAM_NoError;
 
-	RNDIS_Packet_Message_t RNDISPacketHeader;	
+	RNDIS_Packet_Message_t RNDISPacketHeader;
 	Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
 
 	if (le32_to_cpu(RNDISPacketHeader.DataLength) > ETHERNET_FRAME_SIZE_MAX)
@@ -484,12 +484,12 @@ uint8_t RNDIS_Device_ReadPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfa
 
 		return RNDIS_ERROR_LOGICAL_CMD_FAILED;
 	}
-	
+
 	*PacketLength = (uint16_t)le32_to_cpu(RNDISPacketHeader.DataLength);
 
 	Endpoint_Read_Stream_LE(Buffer, *PacketLength, NULL);
 	Endpoint_ClearOUT();
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
@@ -504,7 +504,7 @@ uint8_t RNDIS_Device_SendPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfa
 	{
 		return ENDPOINT_RWSTREAM_DeviceDisconnected;
 	}
-	
+
 	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber);
 
 	if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)

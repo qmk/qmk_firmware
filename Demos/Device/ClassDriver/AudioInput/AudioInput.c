@@ -106,11 +106,11 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 		#if defined(USE_TEST_TONE)
 			static uint8_t SquareWaveSampleCount;
 			static int16_t CurrentWaveValue;
-			
+
 			/* In test tone mode, generate a square wave at 1/256 of the sample rate */
 			if (SquareWaveSampleCount++ == 0xFF)
 			  CurrentWaveValue ^= 0x8000;
-			
+
 			/* Only generate audio if the board button is being pressed */
 			AudioSample = (Buttons_GetStatus() & BUTTONS_BUTTON1) ? CurrentWaveValue : 0;
 		#else
@@ -122,7 +122,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 			AudioSample -= (SAMPLE_MAX_RANGE / 2);
 			#endif
 		#endif
-		
+
 		Audio_Device_WriteSample16(&Microphone_Audio_Interface, AudioSample);
 	}
 
@@ -211,10 +211,10 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
 						CurrentAudioSampleFrequency = (((uint32_t)Data[2] << 16) | ((uint32_t)Data[1] << 8) | (uint32_t)Data[0]);
 
 						/* Adjust sample reload timer to the new frequency */
-						OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);				
+						OCR0A = ((F_CPU / 8 / CurrentAudioSampleFrequency) - 1);
 					}
-					
-					return true;				
+
+					return true;
 				case AUDIO_REQ_GetCurrent:
 					/* Check if we are just testing for a valid property, or actually reading it */
 					if (DataLength != NULL)
@@ -223,13 +223,14 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
 
 						Data[2] = (CurrentAudioSampleFrequency >> 16);
 						Data[1] = (CurrentAudioSampleFrequency >> 8);
-						Data[0] = (CurrentAudioSampleFrequency &  0xFF);					
+						Data[0] = (CurrentAudioSampleFrequency &  0xFF);
 					}
-					
+
 					return true;
 			}
 		}
 	}
-	
+
 	return false;
 }
+

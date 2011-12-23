@@ -51,7 +51,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		#include "USBMode.h"		
+		#include "USBMode.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -219,7 +219,7 @@
 				                              *   via the \ref EVENT_USB_Device_ControlRequest() event when received in
 				                              *   device mode. */
 			};
-			
+
 			/** Feature Selector values for Set Feature and Clear Feature standard control requests directed to the device, interface
 			 *  and endpoint recipients.
 			 */

@@ -67,7 +67,7 @@ void USBHostMode_USBTask(void)
 	  return;
 
 	uIPManagement_ManageNetwork();
-	
+
 	RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface_Host);
 }
 

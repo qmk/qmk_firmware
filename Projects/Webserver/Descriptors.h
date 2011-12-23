@@ -74,7 +74,7 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t  Config;
-			
+
 			// RNDIS CDC Command Interface
 			USB_Descriptor_Interface_Association_t CDC_IAD;
 			USB_Descriptor_Interface_t             CDC_CCI_Interface;
@@ -82,12 +82,12 @@
 			USB_CDC_Descriptor_FunctionalACM_t     CDC_Functional_ACM;
 			USB_CDC_Descriptor_FunctionalUnion_t   CDC_Functional_Union;
 			USB_Descriptor_Endpoint_t              CDC_NotificationEndpoint;
-			
+
 			// RNDIS CDC Data Interface
 			USB_Descriptor_Interface_t             CDC_DCI_Interface;
 			USB_Descriptor_Endpoint_t              RNDIS_DataOutEndpoint;
 			USB_Descriptor_Endpoint_t              RNDIS_DataInEndpoint;
-			
+
 			// Mass Storage Interface
 			USB_Descriptor_Interface_t             MS_Interface;
 			USB_Descriptor_Endpoint_t              MS_DataInEndpoint;

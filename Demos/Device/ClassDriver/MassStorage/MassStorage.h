@@ -73,7 +73,7 @@
 
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
 		#define LUN_MEDIA_BLOCKS         (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
-		
+
 		/** Indicates if the disk is write protected or not. */
 		#define DISK_READ_ONLY            false
 

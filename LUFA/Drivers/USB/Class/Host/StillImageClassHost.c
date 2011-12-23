@@ -133,13 +133,13 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		{
 			continue;
 		}
-		
+
 		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
 		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
 		{
 			return SI_ENUMERROR_PipeConfigurationFailed;
 		}
-		
+
 		if (InterruptPeriod)
 		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}

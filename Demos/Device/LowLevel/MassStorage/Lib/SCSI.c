@@ -287,12 +287,12 @@ static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 		               SCSI_ASENSE_WRITE_PROTECTED,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return false;		
+		return false;
 	}
 
 	BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
 	TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
-	
+
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
 	{
@@ -340,3 +340,4 @@ static bool SCSI_Command_ModeSense_6(void)
 
 	return true;
 }
+

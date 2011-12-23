@@ -42,7 +42,7 @@
  *  descriptor is parsed by the host and its contents used to determine what data (and in what encoding)
  *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
  *  more details on HID report descriptors.
- */ 
+ */
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] =
 {
 	/* Use the HID class driver's standard Joystick report.

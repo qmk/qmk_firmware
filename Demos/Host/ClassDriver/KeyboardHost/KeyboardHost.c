@@ -140,7 +140,7 @@ void KeyboardHost_Task(void)
 			{
 				PressedKey = '\n';
 			}
-			
+
 			if (PressedKey)
 			  putchar(PressedKey);
 		}
