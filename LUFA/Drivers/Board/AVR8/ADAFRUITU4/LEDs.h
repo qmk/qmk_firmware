@@ -92,18 +92,18 @@
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTE = ((PORTE & ~LEDS_ALL_LEDS) | LEDMask);
+				PORTE  = ((PORTE & ~LEDS_ALL_LEDS) | LEDMask);
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTE = ((PORTE & ~LEDMask) | ActiveMask);
+				PORTE  = ((PORTE & ~LEDMask) | ActiveMask);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTE &= LEDMask;
+				PORTE ^= LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
