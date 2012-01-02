@@ -27,6 +27,7 @@
   *   - Added Class, ClassDevice, ClassHost and ClassCommon to the internal class driver source filenames to prevent ambiguities
   *   - Altered the Mass Storage Host class driver so that SCSI data STALLs from the attached device can be recovered from automatically without
   *     having to reset the Mass Storage interface
+  *   - USB_CONFIG_ATTR_BUSPOWERED constant renamed to USB_CONFIG_ATTR_RESERVED, as this was misnamed (thanks to NXP Semiconductors)
   *  - Library Applications:
   *   - Altered the Mass Storage Host LowLevel demo so that SCSI data STALLs from the attached device can be recovered from automatically without
   *     having to reset the Mass Storage interface

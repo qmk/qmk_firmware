@@ -18,6 +18,9 @@
  *      respective class driver files. Projects referencing the class driver source files by filename rather than the LUFA_SRC_USBCLASS makefile
  *      variable should append these postfixes to the source file names. Projects including the USB class driver dispatch headers directly should either
  *      switch to including the main USB driver header instead, or use the updated header filenames.
+ *    - The USB_CONFIG_ATTR_BUSPOWERED constant has been renamed to USB_CONFIG_ATTR_RESERVED, as this was misnamed. All devices must set this bit in
+ *      the Configuration descriptor's attributes field. As all devices are assumed to be bus-powered unless stated otherwise with the
+ *      USB_CONFIG_ATTR_SELFPOWERED flag a replacement constant for bus powered devices is not provided.
  *
  *  \section Sec_Migration111009 Migrating from 110528 to 111009
  *  <b>Non-USB Library Components</b>
