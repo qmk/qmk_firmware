@@ -67,6 +67,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KB_APP  KB_APPLICATION
 #define KB_NUHS KB_NONUS_HASH
 #define KB_NUBS KB_NONUS_BSLASH
+#define KB_ERAS KB_ALT_ERASE,
+#define KB_CLR  KB_CLEAR
 /* for Japanese */
 #define KB_ZKHK KB_GRAVE
 #define KB_RO   KB_INT1
@@ -86,6 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KB_P9   KB_KP_9
 #define KB_P0   KB_KP_0
 #define KB_PDOT KB_KP_DOT
+#define KB_PCMM KB_KP_COMMA
 #define KB_PSLS KB_KP_SLASH
 #define KB_PAST KB_KP_ASTERISK
 #define KB_PMNS KB_KP_MINUS
