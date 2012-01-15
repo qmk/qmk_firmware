@@ -1,40 +1,56 @@
 PS/2 to USB keyboard converter
 ==============================
 This firmware converts PS/2 keyboard protocol to USB and for now supports only Scan Code Set 2.
+This will works on USB AVR(ATMega32U4, AT90USB) or V-USB.
 
 
 Features
 --------
 Mouse keys
     You can emulates mouse move and button click using keyboard.
-
 System/Media control
     You can sends Power event, Volume down/up and Mute.
-
 USB NKRO(actually 120KRO+8Modifiers)
     You can tolggles NKRO feature.
-
 Keymap customization
     You can customize keymaps easily by editing source code. See keymap.c.
 
 
+PS/2 signal handling implementations
+------------------------------------
+Following three methods are used to implement PS/2 signal handling.
+a. Simple and stupid wait & read loop(intensive use of cycles)
+    This is implemented with (expected) portable C code for reference. See ps2.c.
+b. Interrupt driven
+    See ps2_intr.c
+c. Using USART hardware module(no cycle needed)
+    This uses AVR USART function to recevie PS/2 signal and be used in V-USB converter.
+    See ps2_usart.c.
+
+
 Build Converter
 ---------------
-0. Connect PS/2 keyboard into Teensy with 4 lines(Vcc, GND, Data, Clock).
-   By default Clock is on PF0 and Data on PF1.
-   You can change this pin configuration by editing config_pjrc.h.
-   In this photo Vcc is yellow, GND is green, Data is red and Clock is black.
-   http://img17.imageshack.us/img17/7243/201101181933.jpg
+Connect PS/2 keyboard into Teensy with 4 lines(Vcc, GND, Data, Clock).
+For a. Simple and stupid and b. Interrupt implementaion:
+    By default Clock is on PF0 and Data on PF1.
+    You can change this pin configuration by editing config_pjrc.h.
+    In this photo Vcc is yellow, GND is green, Data is red and Clock is black.
+    http://img17.imageshack.us/img17/7243/201101181933.jpg
+For c. USART implementation:
+    In case of Teensny(ATMega32u4) CLock is on PD2 and Data on PD5.
 
 
 Build Frimware
 --------------
 1. Edit Makefile for build options and MCU setting.
-   Use 'atmega32u4' for Teensy 2.0 or 'at90usb1286' for Teensy++ 2.0.
+    Use 'atmega32u4' for Teensy 2.0 or 'at90usb1286' for Teensy++ 2.0.
 2. make
-   Just type 'make' in a terminal.
+    Just type 'make' in a terminal.
+    Use '-f Makefile.pjrc_intr' option to use b. Interrupt.
+    Use '-f Makefile.pjrc_usart' option to use c. USART.
+    Use '-f Makefile.vusb' option to build V-USB converter.
 3. program with Teensy Loader.
-   http://www.pjrc.com/teensy/loader.html
+    http://www.pjrc.com/teensy/loader.html
 
 
 Demonstration of Features
@@ -95,36 +111,6 @@ To define keymap layer switching may needs a bit of your effort at this time.
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           P1,  P2,  P3,
     LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT,PENT
     ),
-
-
-Multimedia keys
----------------
-Following lists PS/2 special keys supported by Windows.
-http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
-
-Key                         PS/2(Set2)      HID
----------------------------------------------------
-System Power                E0 37           01 0081
-System Sleep                E0 3F           01 0082
-System Wake                 E0 5E           01 0083
-System Mute                 E0 23           0C 00E2
-Volume Up                   E0 32           0C 00E9
-Volume Down                 E0 21           0C 00EA
-Scan Next Track             E0 4D           0C 00B5
-Scan Previous Track         E0 15           0C 00B6
-Stop                        E0 3B           0C 00B7
-Play/Pause                  E0 34           0C 00CD
-Media Select                E0 50           0C 0183
-Mail                        E0 48           0C 018A
-Calculator                  E0 2B           0C 0192
-My Computer                 E0 40           0C 0194
-WWW Search                  E0 10           0C 0221
-WWW Home                    E0 3A           0C 0223
-WWW Back                    E0 38           0C 0224
-WWW Forward                 E0 30           0C 0225
-WWW Stop                    E0 28           0C 0226
-WWW Refresh                 E0 20           0C 0227
-WWW Favorites               E0 18           0C 022A
 
 
 EOF
