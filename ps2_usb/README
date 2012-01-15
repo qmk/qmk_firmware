@@ -37,7 +37,7 @@ For a. Simple and stupid and b. Interrupt implementaion:
     In this photo Vcc is yellow, GND is green, Data is red and Clock is black.
     http://img17.imageshack.us/img17/7243/201101181933.jpg
 For c. USART implementation:
-    In case of Teensny(ATMega32u4) CLock is on PD2 and Data on PD5.
+    In case of Teensny(ATMega32u4) CLock is on PD5 and Data on PD2.
 
 
 Build Frimware
