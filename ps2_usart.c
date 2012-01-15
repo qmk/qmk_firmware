@@ -95,10 +95,8 @@ static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
 static inline void idle(void);
 static inline void inhibit(void);
-#if defined PS2_USE_INT || defined PS2_USE_USART
 static inline uint8_t pbuf_dequeue(void);
 static inline void pbuf_enqueue(uint8_t data);
-#endif
 
 
 void ps2_host_init(void)

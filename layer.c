@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "debug.h"
 #include "timer.h"
+#include "usb_keycodes.h"
 #include "layer.h"
 
 
