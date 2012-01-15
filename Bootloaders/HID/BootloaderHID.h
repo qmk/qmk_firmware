@@ -53,7 +53,7 @@
 		#define COMMAND_STARTAPPLICATION   0xFFFF
 
 	/* Function Prototypes: */
-		void SetupHardware(void);
+		static void SetupHardware(void);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);

@@ -72,8 +72,8 @@
 		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
 
 	/* Function Prototypes: */
-		void CDC_Task(void);
-		void SetupHardware(void);
+		static void CDC_Task(void);
+		static void SetupHardware(void);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
 

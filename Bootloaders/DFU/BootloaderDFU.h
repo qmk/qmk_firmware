@@ -192,8 +192,8 @@
 		};
 
 	/* Function Prototypes: */
-		void SetupHardware(void);
-		void ResetHardware(void);
+		static void SetupHardware(void);
+		static void ResetHardware(void);
 
 		void EVENT_USB_Device_ControlRequest(void);
 

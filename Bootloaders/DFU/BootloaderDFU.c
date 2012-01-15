@@ -137,7 +137,7 @@ int main(void)
 }
 
 /** Configures all hardware required for the bootloader. */
-void SetupHardware(void)
+static void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -160,7 +160,7 @@ void SetupHardware(void)
 }
 
 /** Resets all configured hardware required for the bootloader back to their original states. */
-void ResetHardware(void)
+static void ResetHardware(void)
 {
 	/* Shut down the USB subsystem */
 	USB_Disable();

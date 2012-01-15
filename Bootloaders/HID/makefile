@@ -96,6 +96,10 @@ F_USB = $(F_CPU)
 # bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
 FLASH_SIZE_KB        = 128
 BOOT_SECTION_SIZE_KB = 4
+
+
+# Formulas used to calculate the starting address of the Bootloader section. These formulas
+# should not need to be altered - modify the FLASH_SIZE_KB and BOOT_SECTION_KB values above instead.
 BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
 
 

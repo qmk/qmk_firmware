@@ -88,7 +88,7 @@ int main(void)
 }
 
 /** Configures all hardware required for the bootloader. */
-void SetupHardware(void)
+static void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -350,7 +350,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 /** Task to read in AVR910 commands from the CDC data OUT endpoint, process them, perform the required actions
  *  and send the appropriate response back to the host.
  */
-void CDC_Task(void)
+static void CDC_Task(void)
 {
 	/* Select the OUT endpoint */
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);

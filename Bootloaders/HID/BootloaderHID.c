@@ -65,7 +65,7 @@ int main(void)
 }
 
 /** Configures all hardware required for the bootloader. */
-void SetupHardware(void)
+static void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
