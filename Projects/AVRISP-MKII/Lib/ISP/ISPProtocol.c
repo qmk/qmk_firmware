@@ -515,7 +515,9 @@ void ISPProtocol_SPIMulti(void)
 	}
 }
 
-/** Blocking delay for a given number of milliseconds.
+/** Blocking delay for a given number of milliseconds. This provides a simple wrapper around
+ *  the avr-libc provided delay function, so that the delay function can be called with a
+ *  constant value (to prevent run-time floating point operations being required).
  *
  *  \param[in] DelayMS  Number of milliseconds to delay for
  */

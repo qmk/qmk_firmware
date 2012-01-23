@@ -444,10 +444,10 @@ static void XPROGProtocol_SetParam(void)
 	switch (XPROGParam)
 	{
 		case XPRG_PARAM_NVMBASE:
-			XPROG_Param_NVMBase = Endpoint_Read_32_BE();
+			XPROG_Param_NVMBase       = Endpoint_Read_32_BE();
 			break;
 		case XPRG_PARAM_EEPPAGESIZE:
-			XPROG_Param_EEPageSize = Endpoint_Read_16_BE();
+			XPROG_Param_EEPageSize    = Endpoint_Read_16_BE();
 			break;
 		case XPRG_PARAM_NVMCMD_REG:
 			XPROG_Param_NVMCMDRegAddr = Endpoint_Read_8();
