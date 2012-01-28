@@ -44,7 +44,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 
 	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_INTERFACE)
 	{
-		if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
+		if ((USB_ControlRequest.wIndex & 0xFF) != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
 		  return;
 	}
 	else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
@@ -107,6 +107,26 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 					                                             EndpointControl, &ValueLength, Value);
 				}
 			}
+			else if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			{
+				uint8_t  Property  = USB_ControlRequest.bRequest;
+				uint8_t  Entity    = (USB_ControlRequest.wIndex >> 8);
+				uint16_t Parameter = USB_ControlRequest.wValue;
+
+				if (CALLBACK_Audio_Device_GetSetInterfaceProperty(AudioInterfaceInfo, Property, Entity,
+				                                                  Parameter, NULL, NULL))
+				{
+					uint16_t ValueLength = USB_ControlRequest.wLength;
+					uint8_t  Value[ValueLength];
+
+					Endpoint_ClearSETUP();
+					Endpoint_Read_Control_Stream_LE(Value, ValueLength);
+					Endpoint_ClearIN();
+
+					CALLBACK_Audio_Device_GetSetInterfaceProperty(AudioInterfaceInfo, Property, Entity,
+				                                                  Parameter, NULL, NULL);
+				}
+			}
 
 			break;
 		case AUDIO_REQ_GetCurrent:
@@ -123,6 +143,22 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 
 				if (CALLBACK_Audio_Device_GetSetEndpointProperty(AudioInterfaceInfo, EndpointProperty, EndpointAddress,
 				                                                 EndpointControl, &ValueLength, Value))
+				{
+					Endpoint_ClearSETUP();
+					Endpoint_Write_Control_Stream_LE(Value, ValueLength);
+					Endpoint_ClearOUT();
+				}
+			}
+			else if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			{
+				uint8_t  Property    = USB_ControlRequest.bRequest;
+				uint8_t  Entity      = (USB_ControlRequest.wIndex >> 8);
+				uint16_t Parameter   = USB_ControlRequest.wValue;
+				uint16_t ValueLength = USB_ControlRequest.wLength;
+				uint8_t  Value[ValueLength];
+
+				if (CALLBACK_Audio_Device_GetSetInterfaceProperty(AudioInterfaceInfo, Property, Entity,
+				                                                  Parameter, &ValueLength, Value))
 				{
 					Endpoint_ClearSETUP();
 					Endpoint_Write_Control_Stream_LE(Value, ValueLength);

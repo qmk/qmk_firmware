@@ -22,6 +22,11 @@
  *      the Configuration descriptor's attributes field. As all devices are assumed to be bus-powered unless stated otherwise with the
  *      USB_CONFIG_ATTR_SELFPOWERED flag a replacement constant for bus powered devices is not provided.
  *
+ *  <b>Device Mode</b>
+ *    - The device mode Audio class driver now requires a new user application callback, \ref CALLBACK_Audio_Device_GetSetInterfaceProperty().
+ *      Existing applications must implement this new callback, however if no audio entities are defined in the audio device's descriptors,
+ *      this function may be hard-coded to always return false for previous behaviour to be retained.
+ *
  *  \section Sec_Migration111009 Migrating from 110528 to 111009
  *  <b>Non-USB Library Components</b>
  *    - The \c JTAG_DEBUG_ASSERT() macro has been renamed \ref JTAG_ASSERT() to be consistent with \ref STDOUT_ASSERT().
