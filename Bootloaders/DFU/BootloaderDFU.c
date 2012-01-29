@@ -150,7 +150,7 @@ static void SetupHardware(void)
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
 
-	/* Initialize the USB subsystem */
+	/* Initialize the USB and other board hardware drivers */
 	USB_Init();
 	LEDs_Init();
 
@@ -162,8 +162,9 @@ static void SetupHardware(void)
 /** Resets all configured hardware required for the bootloader back to their original states. */
 static void ResetHardware(void)
 {
-	/* Shut down the USB subsystem */
+	/* Shut down the USB and other board hardware drivers */
 	USB_Disable();
+	LEDs_Disable();
 
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);

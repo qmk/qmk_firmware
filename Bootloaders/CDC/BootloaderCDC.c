@@ -101,7 +101,7 @@ static void SetupHardware(void)
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
 
-	/* Initialize USB Subsystem */
+	/* Initialize the USB and other board hardware drivers */
 	USB_Init();
 	LEDs_Init();
 
