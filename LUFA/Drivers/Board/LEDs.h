@@ -205,6 +205,9 @@
 		 */
 		static inline void LEDs_Init(void);
 
+		/** Disables the board LED driver, releasing the I/O pins back to their default high-impedence input mode. */
+		static inline void LEDs_Disable(void);
+
 		/** Turns on the LEDs specified in the given LED mask.
 		 *
 		 *  \param[in] LEDMask  Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file).

@@ -98,6 +98,15 @@
 				AVR32_GPIO.port[JOY_PRESS_PORT].puers = JOY_PRESS_MASK;
 			};
 
+			static inline void Joystick_Disable(void)
+			{
+				AVR32_GPIO.port[JOY_MOVE_PORT].gperc  = JOY_MOVE_MASK;
+				AVR32_GPIO.port[JOY_PRESS_PORT].gperc = JOY_PRESS_MASK;
+
+				AVR32_GPIO.port[JOY_MOVE_PORT].puerc  = JOY_MOVE_MASK;
+				AVR32_GPIO.port[JOY_PRESS_PORT].puerc = JOY_PRESS_MASK;
+			};
+
 			static inline uint32_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint32_t Joystick_GetStatus(void)
 			{

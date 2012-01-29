@@ -83,6 +83,12 @@
 				PORTR_OUTSET = LEDS_ALL_LEDS;
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				PORTR_DIRCLR = LEDS_ALL_LEDS;
+				PORTR_OUTCLR = LEDS_ALL_LEDS;
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				PORTR_OUTCLR = LEDMask;

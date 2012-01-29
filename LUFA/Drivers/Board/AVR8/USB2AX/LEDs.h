@@ -104,6 +104,17 @@
 				#endif				
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				#if (BOARD == BOARD_USB2AX)
+				DDRC  &= ~LEDS_ALL_LEDS;
+				PORTC &= ~LEDS_ALL_LEDS;				
+				#else
+				DDRD  &= ~LEDS_ALL_LEDS;
+				PORTD &= ~LEDS_ALL_LEDS;				
+				#endif				
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_USB2AX)

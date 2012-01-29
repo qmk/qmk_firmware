@@ -84,6 +84,16 @@
 				PORTF_PIN2CTRL = PORT_OPC_PULLUP_gc;
 			}
 
+			static inline void Buttons_Disable(void)
+			{
+				PORTE_OUTCLR = BUTTONS_BUTTON1;
+				PORTF_OUTCLR = (BUTTONS_BUTTON2 | BUTTONS_BUTTON3);
+
+				PORTE_PIN5CTRL = 0;
+				PORTF_PIN1CTRL = 0;
+				PORTF_PIN2CTRL = 0;
+			}
+
 			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Buttons_GetStatus(void)
 			{

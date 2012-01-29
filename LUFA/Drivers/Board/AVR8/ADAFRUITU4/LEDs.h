@@ -80,6 +80,12 @@
 				PORTE &= ~LEDS_ALL_LEDS;
          	}
 
+			static inline void LEDs_Disable(void)
+			{
+				DDRE  &= ~LEDS_ALL_LEDS;
+				PORTE &= ~LEDS_ALL_LEDS;
+         	}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				PORTE |= LEDMask;

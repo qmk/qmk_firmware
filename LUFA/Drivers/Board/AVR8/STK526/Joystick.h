@@ -90,7 +90,14 @@
 			{
 				DDRB  &= ~JOY_BMASK;
 
-				PORTB |= JOY_BMASK;
+				PORTB |=  JOY_BMASK;
+			}
+
+			static inline void Joystick_Disable(void)
+			{
+				DDRB  &= ~JOY_BMASK;
+
+				PORTB &= ~JOY_BMASK;
 			}
 
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;

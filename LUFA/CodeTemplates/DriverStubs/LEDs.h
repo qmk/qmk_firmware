@@ -82,6 +82,11 @@
 				// TODO: Add code to initialize LED port pins as outputs here
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				// TODO: Clear the LED port pins as high impedance inputs here
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				// TODO: Add code to turn on LEDs given in the LEDMask mask here, leave others as-is

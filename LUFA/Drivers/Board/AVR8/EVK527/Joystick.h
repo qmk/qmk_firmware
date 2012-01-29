@@ -91,11 +91,20 @@
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
 			{
-				DDRF  &= ~(JOY_FMASK);
-				DDRC  &= ~(JOY_CMASK);
+				DDRF  &= ~JOY_FMASK;
+				DDRC  &= ~JOY_CMASK;
 
-				PORTF |= JOY_FMASK;
-				PORTC |= JOY_CMASK;
+				PORTF |=  JOY_FMASK;
+				PORTC |=  JOY_CMASK;
+			}
+
+			static inline void Joystick_Disable(void)
+			{
+				DDRF  &= ~JOY_FMASK;
+				DDRC  &= ~JOY_CMASK;
+
+				PORTF &= ~JOY_FMASK;
+				PORTC &= ~JOY_CMASK;
 			}
 
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;

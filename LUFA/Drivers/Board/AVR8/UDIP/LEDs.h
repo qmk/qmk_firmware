@@ -98,6 +98,12 @@
 				DDRD |= (LEDS_PORTD_LEDS << LEDS_PORTD_MASK_SHIFT);
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				DDRB &= ~LEDS_PORTB_LEDS;
+				DDRD &= ~(LEDS_PORTD_LEDS << LEDS_PORTD_MASK_SHIFT);
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				PORTB |= (LEDMask & LEDS_PORTB_LEDS);

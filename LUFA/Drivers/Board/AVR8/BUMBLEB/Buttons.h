@@ -76,6 +76,12 @@
 				PORTD |=  BUTTONS_BUTTON1;
 			}
 
+			static inline void Buttons_Disable(void)
+			{
+				DDRD  &= ~BUTTONS_BUTTON1;
+				PORTD &= ~BUTTONS_BUTTON1;
+			}
+
 			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Buttons_GetStatus(void)
 			{

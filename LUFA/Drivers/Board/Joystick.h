@@ -126,6 +126,9 @@
 		 */
 		static inline void Joystick_Init(void);
 
+		/** Disables the joystick driver, releasing the I/O pins back to their default high-impedence input mode. */
+		static inline void Joystick_Disable(void);
+
 		/** Returns the current status of the joystick, as a mask indicating the direction the joystick is
 		 *  currently facing in (multiple bits can be set).
 		 *

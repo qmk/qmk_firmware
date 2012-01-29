@@ -16,6 +16,7 @@
   *   - Added new Android Accessory Host class driver
   *   - Added new USB_Host_GetDescriptor(), USB_Host_GetDeviceConfiguration() and USB_Host_GetInterfaceAltSetting() functions
   *   - Added new CALLBACK_Audio_Device_GetSetInterfaceProperty() callback to the Audio Device Class driver
+  *   - Added new LEDs_Disable(), Buttons_Disable() and Joystick_Disable() functions to the board hardware drivers
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders
   *   - Added INVERTED_ISP_MISO compile time option to the AVRISP-MKII clone project (thanks to Chuck Rohs)

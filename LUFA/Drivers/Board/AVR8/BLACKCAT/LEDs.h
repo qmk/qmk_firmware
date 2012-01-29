@@ -83,6 +83,12 @@
 				PORTD &= ~LEDS_ALL_LEDS;
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				DDRD  &= ~LEDS_ALL_LEDS;
+				PORTD &= ~LEDS_ALL_LEDS;
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				PORTD |= LEDMask;

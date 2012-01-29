@@ -91,6 +91,12 @@
 				PORTB &= ~LEDS_ALL_LEDS;
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				DDRB  &= ~LEDS_ALL_LEDS;
+				PORTB &= ~LEDS_ALL_LEDS;
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LedMask)
 			{
 				PORTB |= LedMask;

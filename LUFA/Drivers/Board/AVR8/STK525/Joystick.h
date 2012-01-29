@@ -91,11 +91,20 @@
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
 			{
-				DDRB  &= ~(JOY_BMASK);
-				DDRE  &= ~(JOY_EMASK);
+				DDRB  &= ~JOY_BMASK;
+				DDRE  &= ~JOY_EMASK;
 
-				PORTB |= JOY_BMASK;
-				PORTE |= JOY_EMASK;
+				PORTB |=  JOY_BMASK;
+				PORTE |=  JOY_EMASK;
+			}
+
+			static inline void Joystick_Disable(void)
+			{
+				DDRB  &= ~JOY_BMASK;
+				DDRE  &= ~JOY_EMASK;
+
+				PORTB &= ~JOY_BMASK;
+				PORTE &= ~JOY_EMASK;
 			}
 
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;

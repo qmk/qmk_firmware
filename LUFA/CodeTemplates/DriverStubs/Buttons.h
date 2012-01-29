@@ -67,6 +67,11 @@
 				// TODO: Initialize the appropriate port pins as an inputs here, with pull-ups
 			}
 
+			static inline void Buttons_Disable(void)
+			{
+				// TODO: Clear the appropriate port pins as high impedance inputs here
+			}
+
 			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Buttons_GetStatus(void)
 			{

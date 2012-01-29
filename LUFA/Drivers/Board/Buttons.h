@@ -141,12 +141,15 @@
 
 	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
-		/** Initializes the BUTTONS driver, so that the current button position can be read. This sets the appropriate
+		/** Initializes the buttons driver, so that the current button position can be read. This sets the appropriate
 		 *  I/O pins to an inputs with pull-ups enabled.
 		 *
 		 *  This must be called before any Button driver functions are used.
 		 */
 		static inline void Buttons_Init(void);
+
+		/** Disables the buttons driver, releasing the I/O pins back to their default high-impedence input mode. */
+		static inline void Buttons_Disable(void);
 
 		/** Returns a mask indicating which board buttons are currently pressed.
 		 *

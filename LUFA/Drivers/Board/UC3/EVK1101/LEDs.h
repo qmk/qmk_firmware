@@ -96,6 +96,13 @@
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LEDS_ALL_LEDS;
 			}
 
+			static inline void LEDs_Disable(void)
+			{
+				AVR32_GPIO.port[LEDS_PORT].gperc = LEDS_ALL_LEDS;
+				AVR32_GPIO.port[LEDS_PORT].oderc = LEDS_ALL_LEDS;
+				AVR32_GPIO.port[LEDS_PORT].ovrc  = LEDS_ALL_LEDS;
+			}
+
 			static inline void LEDs_TurnOnLEDs(const uint32_t LEDMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrc  = LEDMask;

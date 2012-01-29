@@ -79,6 +79,11 @@
 				// TODO: Initialize joystick port pins as inputs with pull-ups
 			}
 
+			static inline void Joystick_Disable(void)
+			{
+				// TODO: Clear the joystick pins as high impedance inputs here
+			}
+
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Joystick_GetStatus(void)
 			{

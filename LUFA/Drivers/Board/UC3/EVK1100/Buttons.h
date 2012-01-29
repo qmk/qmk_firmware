@@ -86,6 +86,12 @@
 				AVR32_GPIO.port[BUTTONS_PORT].puers = (BUTTONS_BUTTON1 | BUTTONS_BUTTON2);
 			}
 
+			static inline void Buttons_Disable(void)
+			{
+				AVR32_GPIO.port[BUTTONS_PORT].gperc = (BUTTONS_BUTTON1 | BUTTONS_BUTTON2);
+				AVR32_GPIO.port[BUTTONS_PORT].puerc = (BUTTONS_BUTTON1 | BUTTONS_BUTTON2);
+			}
+
 			static inline uint32_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint32_t Buttons_GetStatus(void)
 			{
