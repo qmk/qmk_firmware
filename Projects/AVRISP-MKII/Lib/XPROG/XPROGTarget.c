@@ -155,6 +155,9 @@ uint8_t XPROGTarget_ReceiveByte(void)
 	/* Wait until a byte has been received before reading */
 	while (!(UCSR1A & (1 << RXC1)) && !(TimeoutExpired));
 
+	/* Byte of data received - reset the timeout */
+	wdt_reset();
+
 	return UDR1;
 }
 

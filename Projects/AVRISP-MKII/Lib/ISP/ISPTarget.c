@@ -357,6 +357,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
 			break;
 	}
 
+	/* Program complete - reset timeout */
+	wdt_reset();
+
 	return ProgrammingStatus;
 }
 

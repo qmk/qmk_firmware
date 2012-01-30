@@ -49,6 +49,7 @@
   *   - Fixed AVRISP-MKII Clone compile warning on AVR8 U4 targets even when NO_VTARGET_DETECT is enabled
   *   - Fixed AVRISP-MKII Clone failing to start application firmware once a TPI programming session is exited
   *   - Fixed DFU class bootloader not resetting the LED pins as high impedance inputs when a software jump to the user applications is requested
+  *   - Fixed AVRISP-MKII Clone timing out on long programming commands such as programming the EEPROM on an ATMEGA8 (thanks to Martin Kelling)
   *
   *  \section Sec_ChangeLog111009 Version 111009
   *  <b>New:</b>
