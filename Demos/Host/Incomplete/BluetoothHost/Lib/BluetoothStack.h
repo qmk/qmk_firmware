@@ -121,7 +121,7 @@
 		/** Local Bluetooth device information structure, for the defining of local device characteristics for the Bluetooth stack. */
 		typedef struct
 		{
-			uint32_t Class; /**< Class of the local device, a mask of DEVICE_CLASS_* masks. */
+			uint32_t Class; /**< Class of the local device, a mask of \c DEVICE_CLASS_* masks. */
 			char     PINCode[16]; /**< Pin code required to send or receive in order to authenticate with a remote device. */
 			char     Name[]; /**< Name of the local Bluetooth device, up to 248 characters. */
 		} Bluetooth_Device_t;

@@ -219,7 +219,7 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 			break;
 		}
 
-		if (Pipe_IsError() == true)
+		if (Pipe_IsError())
 		{
 			Pipe_ClearError();
 			ErrorCode = HOST_WAITERROR_PipeError;
@@ -227,7 +227,7 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 			break;
 		}
 
-		if (Pipe_IsStalled() == true)
+		if (Pipe_IsStalled())
 		{
 			Pipe_ClearStall();
 			ErrorCode = HOST_WAITERROR_SetupStalled;

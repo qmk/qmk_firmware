@@ -158,7 +158,7 @@ void Send_Command_Report(const uint8_t* const Report,
 	WriteNextReport(CmdBuffer, ReportSize);
 }
 
-/** Sends one of the CMD_* command constants to the attached device.
+/** Sends one of the \c CMD_* command constants to the attached device.
  *
  *  \param[in] Command  One of the command constants.
  */

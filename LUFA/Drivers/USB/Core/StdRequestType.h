@@ -68,14 +68,14 @@
 			/** Mask for the request type parameter, to indicate the direction of the request data (Host to Device
 			 *  or Device to Host). The result of this mask should then be compared to the request direction masks.
 			 *
-			 *  \see REQDIR_* macros for masks indicating the request data direction.
+			 *  \see \c REQDIR_* macros for masks indicating the request data direction.
 			 */
 			#define CONTROL_REQTYPE_DIRECTION  0x80
 
 			/** Mask for the request type parameter, to indicate the type of request (Device, Class or Vendor
 			 *  Specific). The result of this mask should then be compared to the request type masks.
 			 *
-			 *  \see REQTYPE_* macros for masks indicating the request type.
+			 *  \see \c REQTYPE_* macros for masks indicating the request type.
 			 */
 			#define CONTROL_REQTYPE_TYPE       0x60
 
@@ -83,7 +83,7 @@
 			 *  Endpoint or Other). The result of this mask should then be compared to the request recipient
 			 *  masks.
 			 *
-			 *  \see REQREC_* macros for masks indicating the request recipient.
+			 *  \see \c REQREC_* macros for masks indicating the request recipient.
 			 */
 			#define CONTROL_REQTYPE_RECIPIENT  0x1F
 

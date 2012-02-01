@@ -99,7 +99,7 @@
 		 */
 		typedef struct
 		{
-			uint8_t  PDU; /**< SDP packet type, a SDP_PDU_* mask value */
+			uint8_t  PDU; /**< SDP packet type, a \c SDP_PDU_* mask value */
 			uint16_t TransactionID; /**< Unique transaction ID number to associate requests and responses */
 			uint16_t ParameterLength; /**< Length of the data following the SDP header */
 		} SDP_PDUHeader_t;

@@ -108,7 +108,7 @@ void V2Params_UpdateParamValues(void)
  *
  *  \param[in] ParamID  Parameter ID whose privileges are to be retrieved from the table
  *
- *  \return Privileges for the requested parameter, as a mask of PARAM_PRIV_* masks
+ *  \return Privileges for the requested parameter, as a mask of \c PARAM_PRIV_* masks
  */
 uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
 {

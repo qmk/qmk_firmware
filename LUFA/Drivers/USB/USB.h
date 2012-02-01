@@ -97,12 +97,12 @@
  *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
- *   <td>Audio</td>
+ *   <td>Audio 1.0</td>
  *   <td bgcolor="#00EE00">Yes</td>
  *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
- *   <td>CDC</td>
+ *   <td>CDC-ACM</td>
  *   <td bgcolor="#00EE00">Yes</td>
  *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>

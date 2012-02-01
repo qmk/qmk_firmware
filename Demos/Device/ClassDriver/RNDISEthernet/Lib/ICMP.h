@@ -67,7 +67,7 @@
 		/** Type define for an ICMP message header. */
 		typedef struct
 		{
-			uint8_t       Type; /**< ICMP message type, a ICMP_TYPE_* constant */
+			uint8_t       Type; /**< ICMP message type, an \c ICMP_TYPE_* constant */
 			uint8_t       Code; /**< ICMP message code, indicating the message value */
 			uint16_t      Checksum; /**< Ethernet checksum of the ICMP message */
 			uint16_t      Id; /**< Id of the ICMP message */

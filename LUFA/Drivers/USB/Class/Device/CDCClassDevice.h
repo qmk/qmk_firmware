@@ -173,8 +173,8 @@
 			/** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
 			 *  control line state change (containing the virtual serial control line states, such as DTR) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
-			 *  are available in the State.ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
-			 *  a mask of CDC_CONTROL_LINE_OUT_* masks.
+			 *  are available in the \c ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
+			 *  a mask of \c CDC_CONTROL_LINE_OUT_* masks.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
@@ -281,7 +281,7 @@
 			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial
 			 *  control lines (DCD, DSR, etc.) have changed states, or to give BREAK notifications to the host. Line states persist
 			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's
-			 *  ControlLineStates.DeviceToHost value is updated to push the new states to the USB host.
+			 *  \c ControlLineStates.DeviceToHost value is updated to push the new states to the USB host.
 			 *
 			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
@@ -291,7 +291,7 @@
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
-			 *  functions in the standard <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
+			 *  functions in the standard <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf()). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
 			 *
 			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single

@@ -392,7 +392,7 @@
 		 *  \code
 		 *  struct
 		 *  {
-		 *      uint8_t Modifier; // Keyboard modifier byte indicating pressed modifier keys (HID_KEYBOARD_MODIFER_* masks)
+		 *      uint8_t Modifier; // Keyboard modifier byte indicating pressed modifier keys (\c HID_KEYBOARD_MODIFER_* masks)
 		 *      uint8_t Reserved; // Reserved for OEM use, always set to 0.
 		 *      uint8_t KeyCode[MaxKeys]; // Length determined by the number of keys that can be reported
 		 *  } Keyboard_Report;

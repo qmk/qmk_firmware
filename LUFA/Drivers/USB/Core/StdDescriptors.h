@@ -431,8 +431,8 @@
 				uint8_t  ConfigurationNumber; /**< Configuration index of the current configuration. */
 				uint8_t  ConfigurationStrIndex; /**< Index of a string descriptor describing the configuration. */
 
-				uint8_t  ConfigAttributes; /**< Configuration attributes, comprised of a mask of zero or
-				                            *   more USB_CONFIG_ATTR_* masks.
+				uint8_t  ConfigAttributes; /**< Configuration attributes, comprised of a mask of \c USB_CONFIG_ATTR_* masks.
+				                            *   On all devices, this should include USB_CONFIG_ATTR_RESERVED at a minimum.
 				                            */
 
 				uint8_t  MaxPowerConsumption; /**< Maximum power consumption of the device while in the
@@ -462,8 +462,8 @@
 				uint8_t  bNumInterfaces; /**< Total number of interfaces in the configuration. */
 				uint8_t  bConfigurationValue; /**< Configuration index of the current configuration. */
 				uint8_t  iConfiguration; /**< Index of a string descriptor describing the configuration. */
-				uint8_t  bmAttributes; /**< Configuration attributes, comprised of a mask of zero or
-				                        *   more USB_CONFIG_ATTR_* masks.
+				uint8_t  bmAttributes; /**< Configuration attributes, comprised of a mask of \c USB_CONFIG_ATTR_* masks.
+				                        *   On all devices, this should include USB_CONFIG_ATTR_RESERVED at a minimum.
 				                        */
 				uint8_t  bMaxPower; /**< Maximum power consumption of the device while in the
 				                     *   current configuration, calculated by the \ref USB_CONFIG_POWER_MA()
