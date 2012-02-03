@@ -78,10 +78,9 @@
 				 */
 				#define GCC_MEMORY_BARRIER()                  __asm__ __volatile__("" ::: "memory");
 
-				/** Evaluates to boolean true if the specified value can be determined at compile time to be a constant value
-				 *  when compiling under GCC.
+				/** Determines if the specified value can be determined at compile-time to be a constant value when compiling under GCC.
 				 *
-				 *  \param[in] x  Value to check compile time constantness of.
+				 *  \param[in] x  Value to check compile-time constantness of.
 				 *
 				 *  \return Boolean true if the given value is known to be a compile time constant, false otherwise.
 				 */
