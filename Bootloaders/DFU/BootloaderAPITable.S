@@ -32,12 +32,17 @@
 .section .apitable, "ax"
 .org 0
 
+; API function jump table
 .global BootloaderAPI_JumpTable
 BootloaderAPI_JumpTable:
-	jmp BootloaderAPI_ErasePage
-	jmp BootloaderAPI_WritePage
-	jmp BootloaderAPI_FillWord
-	jmp BootloaderAPI_ReadSignature
-	jmp BootloaderAPI_ReadFuse
-	jmp BootloaderAPI_ReadLock
-	jmp BootloaderAPI_WriteLock
+	rjmp BootloaderAPI_ErasePage
+	rjmp BootloaderAPI_WritePage
+	rjmp BootloaderAPI_FillWord
+	rjmp BootloaderAPI_ReadSignature
+	rjmp BootloaderAPI_ReadFuse
+	rjmp BootloaderAPI_ReadLock
+	rjmp BootloaderAPI_WriteLock
+
+; Bootloader table signature
+.org 30
+	.word 0xDCFB

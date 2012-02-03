@@ -108,7 +108,13 @@
  *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_START(4);
  *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_START(5);
  *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_START(6);
+ *
+ *  #define BOOTLOADER_SIG_START               (FLASHEND - 32)
+ *  #define BOOTLOADER_SIGNATURE               0xDCFB
  *  \endcode
+ *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_SIG_START and comparing them to the value \c BOOTLOADER_SIGNATURE.
  *
  *  \section Sec_Options Project Options
  *

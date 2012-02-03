@@ -71,4 +71,3 @@ void BootloaderAPI_WriteLock(const uint8_t LockBits)
 {
 	boot_lock_bits_set_safe(LockBits);
 }
-
