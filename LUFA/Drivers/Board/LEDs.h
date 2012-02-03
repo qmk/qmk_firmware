@@ -175,7 +175,7 @@
 			#include "XMEGA/A3BU_XPLAINED/LEDs.h"
 		#elif ((BOARD == BOARD_USB2AX) || (BOARD == BOARD_USB2AX_V3))
 			#include "AVR8/USB2AX/LEDs.h"
-		#elif (BOARD_MICROPENDOUS_32U2)
+		#elif (BOARD == BOARD_MICROPENDOUS_32U2)
 			#include "AVR8/MICROPENDOUS/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
