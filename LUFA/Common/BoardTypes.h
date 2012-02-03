@@ -59,120 +59,141 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Selects the USBKEY specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
-			#define BOARD_USBKEY        0
+			#define BOARD_USBKEY               0
 
 			/** Selects the STK525 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
-			#define BOARD_STK525        1
+			#define BOARD_STK525               1
 
 			/** Selects the STK526 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
-			#define BOARD_STK526        2
+			#define BOARD_STK526               2
 
 			/** Selects the RZUSBSTICK specific board drivers, including the driver for the boards LEDs. */
-			#define BOARD_RZUSBSTICK    3
+			#define BOARD_RZUSBSTICK           3
 
 			/** Selects the ATAVRUSBRF01 specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_ATAVRUSBRF01  4
+			#define BOARD_ATAVRUSBRF01         4
 
 			/** Selects the user-defined board drivers, which should be placed in the user project's folder
 			 *  under a directory named \c /Board/. Each board driver should be named identically to the LUFA
 			 *  master board driver (i.e., driver in the \c LUFA/Drivers/Board directory) so that the library
 			 *  can correctly identify it.
 			 */
-			#define BOARD_USER          5
+			#define BOARD_USER                 5
 
 			/** Selects the BUMBLEB specific board drivers, using the officially recommended peripheral layout. */
-			#define BOARD_BUMBLEB       6
+			#define BOARD_BUMBLEB              6
 
 			/** Selects the XPLAIN (Revision 2 or newer) specific board drivers, including LED and Dataflash drivers. */
-			#define BOARD_XPLAIN        7
+			#define BOARD_XPLAIN               7
 
 			/** Selects the XPLAIN (Revision 1) specific board drivers, including LED and Dataflash drivers. */
-			#define BOARD_XPLAIN_REV1   8
+			#define BOARD_XPLAIN_REV1          8
 
 			/** Selects the EVK527 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
-			#define BOARD_EVK527        9
+			#define BOARD_EVK527               9
 
 			/** Disables board drivers when operation will not be adversely affected (e.g. LEDs) - use of board drivers
 			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
-			#define BOARD_NONE          10
+			#define BOARD_NONE                 10
 
 			/** Selects the Teensy version 1.x specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_TEENSY        11
+			#define BOARD_TEENSY               11
 
 			/** Selects the USBTINY MKII specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_USBTINYMKII   12
+			#define BOARD_USBTINYMKII          12
 
 			/** Selects the Benito specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_BENITO        13
+			#define BOARD_BENITO               13
 
 			/** Selects the JM-DB-U2 specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_JMDBU2        14
+			#define BOARD_JMDBU2               14
 
 			/** Selects the Olimex AVR-USB-162 specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_OLIMEX162     15
+			#define BOARD_OLIMEX162            15
 
 			/** Selects the UDIP specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_UDIP          16
+			#define BOARD_UDIP                 16
 
 			/** Selects the BUI specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_BUI           17
+			#define BOARD_BUI                  17
 
 			/** Selects the Arduino Uno specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_UNO           18
+			#define BOARD_UNO                  18
 
 			/** Selects the Busware CUL V3 specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_CULV3         19
+			#define BOARD_CULV3                19
 
 			/** Selects the Blackcat USB JTAG specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_BLACKCAT      20
+			#define BOARD_BLACKCAT             20
 
 			/** Selects the Maximus specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_MAXIMUS       21
+			#define BOARD_MAXIMUS              21
 
 			/** Selects the Minimus specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_MINIMUS       22
+			#define BOARD_MINIMUS              22
 
 			/** Selects the Adafruit U4 specific board drivers, including the Button driver. */
-			#define BOARD_ADAFRUITU4    23
+			#define BOARD_ADAFRUITU4           23
 
 			/** Selects the Microsin AVR-USB162 specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_MICROSIN162   24
+			#define BOARD_MICROSIN162          24
 
 			/** Selects the Kernel Concepts USBFOO specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_USBFOO        25
+			#define BOARD_USBFOO               25
 
 			/** Selects the Sparkfun ATMEGA8U2 specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_SPARKFUN8U2   26
+			#define BOARD_SPARKFUN8U2          26
 
 			/** Selects the Atmel EVK1101 specific board drivers, including the Button, Joystick and LED drivers. */
-			#define BOARD_EVK1101       27
+			#define BOARD_EVK1101              27
 
 			/** Selects the Busware TUL specific board drivers, including the Button and LED drivers. */
-			#define BOARD_TUL           28
+			#define BOARD_TUL                  28
 
 			/** Selects the Atmel EVK1100 specific board drivers, including the Button, Joystick and LED drivers. */
-			#define BOARD_EVK1100       29
+			#define BOARD_EVK1100              29
 
 			/** Selects the Atmel EVK1104 specific board drivers, including the Button and LED drivers. */
-			#define BOARD_EVK1104       30
+			#define BOARD_EVK1104              30
 
 			/** Selects the Atmel XMEGA A3BU Xplained specific board drivers, including Dataflash, Button and LED drivers. */
-			#define BOARD_A3BU_XPLAINED 31
+			#define BOARD_A3BU_XPLAINED        31
 
 			/** Selects the Teensy version 2.x specific board drivers, including the driver for the board LEDs. */
-			#define BOARD_TEENSY2       32
+			#define BOARD_TEENSY2              32
 
 			/** Selects the USB2AX version 1 and 2 specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_USB2AX        33
+			#define BOARD_USB2AX               33
 
 			/** Selects the USB2AX version 3 specific board drivers, including the Button and LEDs drivers. */
-			#define BOARD_USB2AX_V3     34
+			#define BOARD_USB2AX_V3            34
+
+			/** Selects the Micropendous 32U2 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_MICROPENDOUS_32U2    35
+
+			/** Selects the Micropendous A specific board drivers, including the Button. */
+			#define BOARD_MICROPENDOUS_A       36
+
+			/** Selects the Micropendous 1 specific board drivers, including the Button. */
+			#define BOARD_MICROPENDOUS_1       37
+
+			/** Selects the Micropendous 2 specific board drivers, including the Button. */
+			#define BOARD_MICROPENDOUS_2       38
+
+			/** Selects the Micropendous 3 specific board drivers, including the Button. */
+			#define BOARD_MICROPENDOUS_3       39
+
+			/** Selects the Micropendous 4 specific board drivers, including the Button. */
+			#define BOARD_MICROPENDOUS_4       40
+
+			/** Selects the Micropendous DIP specific board drivers, including the Button. */
+			#define BOARD_MICROPENDOUS_DIP     41
 
 			#if !defined(__DOXYGEN__)
-				#define BOARD_          BOARD_NONE
+				#define BOARD_                 BOARD_NONE
 
 				#if !defined(BOARD)
-					#define BOARD       BOARD_NONE
+					#define BOARD              BOARD_NONE
 				#endif
 			#endif
 

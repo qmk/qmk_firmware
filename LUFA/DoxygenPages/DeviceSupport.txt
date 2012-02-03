@@ -104,11 +104,13 @@
  *   - Arduino Uno
  *   - Busware BUI
  *   - Busware CUL V3
- *   - Fletchtronics Bumble-B (using officially recommended peripheral layout)
+ *   - Busware TUL
+ *   - Fletchtronics Bumble-B (using manufacturer recommended peripheral layout)
  *   - Kernel Concepts USBFOO
  *   - Linnix UDIP
  *   - MattairTech JM-DB-U2
  *   - Maximus USB
+ *   - Micropendous Boards (many versions)
  *   - Microsin AVR-USB162
  *   - Minimus USB
  *   - Olimex AVR-USB-162
