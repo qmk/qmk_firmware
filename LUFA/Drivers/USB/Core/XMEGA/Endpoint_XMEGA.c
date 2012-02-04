@@ -39,10 +39,10 @@
 uint8_t USB_Device_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-Endpoint_FIFOPair_t           USB_Endpoint_FIFOs[ENDPOINT_DETAILS_MAXEP];
+Endpoint_FIFOPair_t       USB_Endpoint_FIFOs[ENDPOINT_TOTAL_ENDPOINTS];
 
-volatile uint8_t              USB_Endpoint_SelectedEndpoint;
-volatile USB_EP_t*            USB_Endpoint_SelectedHandle;
+volatile uint8_t          USB_Endpoint_SelectedEndpoint;
+volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
 volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
 
 bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
@@ -66,8 +66,11 @@ bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
 
 void Endpoint_ClearEndpoints(void)
 {
-	for (uint8_t EPNum = 0; EPNum < (ENDPOINT_TOTAL_ENDPOINTS * 2); EPNum++)
-	  ((USB_EP_t*)&USB_EndpointTable)[EPNum].CTRL = 0;
+	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
+	{
+		USB_EndpointTable.Endpoints[EPNum].IN.CTRL  = 0;
+		USB_EndpointTable.Endpoints[EPNum].OUT.CTRL = 0;
+	}
 }
 
 void Endpoint_ClearStatusStage(void)

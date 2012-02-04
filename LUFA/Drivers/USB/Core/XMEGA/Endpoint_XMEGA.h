@@ -391,7 +391,10 @@
 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsReadWriteAllowed(void)
 			{
-				return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
+				if (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN)
+				  return (USB_Endpoint_SelectedFIFO->Position < USB_Endpoint_SelectedFIFO->Length);
+				else
+				  return (USB_Endpoint_SelectedFIFO->Position > 0);
 			}
 
 			/** Determines if the currently selected endpoint is configured.

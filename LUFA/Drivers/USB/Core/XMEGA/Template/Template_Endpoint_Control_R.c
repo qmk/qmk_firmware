@@ -35,6 +35,8 @@ uint8_t TEMPLATE_FUNC_NAME (void* const Buffer,
 {
 	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 
+	Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+
 	if (!(Length))
 	  Endpoint_ClearOUT();
 
