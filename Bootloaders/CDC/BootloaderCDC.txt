@@ -118,6 +118,11 @@
  *
  *  <table>
  *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
  *    <td>NO_BLOCK_SUPPORT</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to disable memory block read/write support in the bootloader, requiring all reads and writes to be made
