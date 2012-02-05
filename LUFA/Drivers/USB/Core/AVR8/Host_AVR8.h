@@ -64,6 +64,10 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
+		#if defined(INVERTED_VBUS_ENABLE_LINE) && !defined(NO_AUTO_VBUS_MANAGEMENT)
+			#error The INVERTED_VBUS_ENABLE_LINE compile option requires NO_AUTO_VBUS_MANAGEMENT for the AVR8 architecture.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates the fixed USB device address which any attached device is enumerated to when in
@@ -310,7 +314,11 @@
 			static inline void USB_Host_VBUS_Manual_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_On(void)
 			{
+				#if defined(INVERTED_VBUS_ENABLE_LINE)
+				PORTE  &= ~(1 << 7);
+				#else
 				PORTE  |=  (1 << 7);
+				#endif
 			}
 
 			static inline void USB_Host_VBUS_Auto_Off(void) ATTR_ALWAYS_INLINE;
@@ -322,7 +330,11 @@
 			static inline void USB_Host_VBUS_Manual_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_Off(void)
 			{
+				#if defined(INVERTED_VBUS_ENABLE_LINE)
+				PORTE  |=  (1 << 7);
+				#else
 				PORTE  &= ~(1 << 7);
+				#endif
 			}
 
 			static inline void USB_Host_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;

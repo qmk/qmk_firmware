@@ -78,6 +78,7 @@
  *  the compile time token may be defined in the application's makefile to disable automatic flushing during calls to the class driver USB
  *  management tasks.
  *
+ *
  *  \section Sec_SummaryUSBTokens General USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
  *
@@ -122,6 +123,7 @@
  *  This event can be selectively enabled or disabled by calling the appropriate device or host mode function. When this compile time token is defined,
  *  the ability to receive USB Start of Frame events via the \ref EVENT_USB_Device_StartOfFrame() or \ref EVENT_USB_Host_StartOfFrame() events is removed,
  *  reducing the compiled program's binary size.
+ *
  *
  *  \section Sec_SummaryUSBDeviceTokens USB Device Mode Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Device mode.
@@ -204,5 +206,15 @@
  *  they will fail to enumerate correctly. By placing a delay before the enumeration process, it can be ensured that the bus has settled
  *  back to a known idle state before communications occur with the device. This token may be defined to a 16-bit value to set the device
  *  settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
+ *
+ *  <b>INVERTED_VBUS_ENABLE_LINE</b> - (\ref Group_Host) - <i>All Architectures</i> 
+ *  If enabled, this will indicate that the USB target VBUS line polarity is inverted; i.e. it should be pulled low to enable VBUS to the
+ *  target, and pulled high to stop the target VBUS generation.
+ *
+ *  \note On AVR8 architecture devices, this compile time option requires \c NO_AUTO_VBUS_MANAGEMENT to be set.
+ *
+ *  <b>NO_AUTO_VBUS_MANAGEMENT</b> - (\ref Group_Host) - <i>All Architectures</i> 
+ *  Disables the automatic management of VBUS to the target, i.e. automatic shut down in the even of an overcurrent situation. When enabled, VBUS
+ *  is enabled while the USB controller is initialized in USB Host mode.
  */
 

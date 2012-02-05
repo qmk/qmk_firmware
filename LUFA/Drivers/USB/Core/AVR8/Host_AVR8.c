@@ -79,6 +79,11 @@ void USB_Host_ProcessNextHostState(void)
 				USB_OTGPAD_On();
 				USB_Host_VBUS_Auto_Enable();
 				USB_Host_VBUS_Auto_On();
+				
+				#if defined(NO_AUTO_VBUS_MANAGEMENT)
+				USB_Host_VBUS_Manual_Enable();
+				USB_Host_VBUS_Manual_On();
+				#endif
 
 				USB_HostState = HOST_STATE_Powered_WaitForConnect;
 			}

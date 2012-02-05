@@ -68,6 +68,7 @@
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
  *  - MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
+ *  - MIDI interface hack of a toy Guitar: http://blog.x37v.info/2011/06/26/toy-guitar-hacked-midi-conroller
  *  - MiniBloq, a graphical Ardunio programming environment : http://minibloq.org/
  *  - MiXley, a port of the Teacup 3D printer firmware for the USB AVRs: http://codaset.com/michielh/mixley
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
@@ -149,4 +150,5 @@
  *  - Adafruit "Ask an Engineer", 7th November 2010
  *  - Arduino 2010 Keynote speech
  *  - The Amp Hour podcast blog #11
+ *  - Blackhat 2011 conference, "Exploiting USB Devices with Arduino"
  */
