@@ -13,7 +13,7 @@ namespace Project1HostApp
     public partial class frmDataloggerSettings : Form
     {
         private const int DEVICE_VID = 0x03EB;
-        private const int DEVICE_PID = 0xFAFA;
+        private const int DEVICE_PID = 0x2063;
 
         private struct Device_Report_t
         {
