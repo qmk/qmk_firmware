@@ -79,6 +79,20 @@
  */
 
 /** \ingroup Group_Buttons
+ *  \defgroup Group_Buttons_MICROPENDOUS_REV1 MICROPENDOUS_REV1
+ *  \brief Board specific Button driver header for the Micropendous Arduino-like Revision 1 (https://code.google.com/p/micropendous/wiki/Micropendous).
+ *
+ *  See \ref Group_Buttons_MICROPENDOUS_32U2 for more details.
+ */
+
+/** \ingroup Group_Buttons
+ *  \defgroup Group_Buttons_MICROPENDOUS_REV2 MICROPENDOUS_REV2
+ *  \brief Board specific Button driver header for the Micropendous Arduino-like Revision 2 (https://code.google.com/p/micropendous/wiki/Micropendous).
+ *
+ *  See \ref Group_Buttons_MICROPENDOUS_32U2 for more details.
+ */
+
+/** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_MICROPENDOUS_32U2 MICROPENDOUS_32U2
  *  \brief Board specific Buttons driver header for the Micropendous 32U2.
  *
@@ -126,6 +140,12 @@
 			#define _BOARD_BUTTON1_MASK             (1 << 2)
 			#define _BOARD_BUTTON_PORTLETTER        E
 		#elif (BOARD == BOARD_MICROPENDOUS_DIP)
+			#define _BOARD_BUTTON1_MASK             (1 << 2)
+			#define _BOARD_BUTTON_PORTLETTER        E
+		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
+			#define _BOARD_BUTTON1_MASK             (1 << 2)
+			#define _BOARD_BUTTON_PORTLETTER        E
+		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
 			#define _BOARD_BUTTON1_MASK             (1 << 2)
 			#define _BOARD_BUTTON_PORTLETTER        E
 		#endif

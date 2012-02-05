@@ -189,6 +189,12 @@
 			/** Selects the Micropendous DIP specific board drivers, including the Button. */
 			#define BOARD_MICROPENDOUS_DIP     41
 
+			/** Selects the Micropendous (Arduino-like) revision 1 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_MICROPENDOUS_REV1    42
+
+			/** Selects the Micropendous (Arduino-like) revision 2 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_MICROPENDOUS_REV2    43
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

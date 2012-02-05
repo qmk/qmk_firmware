@@ -17,7 +17,7 @@
   *   - Added new USB_Host_GetDescriptor(), USB_Host_GetDeviceConfiguration() and USB_Host_GetInterfaceAltSetting() functions
   *   - Added new CALLBACK_Audio_Device_GetSetInterfaceProperty() callback to the Audio Device Class driver
   *   - Added new LEDs_Disable(), Buttons_Disable() and Joystick_Disable() functions to the board hardware drivers
-  *   - Added support for the Micropendous family of boards
+  *   - Added support for the Micropendous family of boards (Arduino-like revisions 1 and 2, DIP, 32U2, A, 1, 2, 3 and 4)
   *   - Added INVERTED_VBUS_ENABLE_LINE and NO_AUTO_VBUS_MANAGEMENT compile time options (thanks to Opendous Inc.)
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders

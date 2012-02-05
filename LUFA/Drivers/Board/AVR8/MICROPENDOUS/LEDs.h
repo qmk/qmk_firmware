@@ -37,6 +37,20 @@
  */
 
 /** \ingroup Group_LEDs
+ *  \defgroup Group_LEDs_MICROPENDOUS_REV1 MICROPENDOUS_REV1
+ *  \brief Board specific LED driver header for the Micropendous Arduino-like Revision 1 (https://code.google.com/p/micropendous/wiki/Micropendous).
+ *
+ *  See \ref Group_LEDs_MICROPENDOUS_32U2 for more details.
+ */
+
+/** \ingroup Group_LEDs
+ *  \defgroup Group_LEDs_MICROPENDOUS_REV2 MICROPENDOUS_REV2
+ *  \brief Board specific LED driver header for the Micropendous Arduino-like Revision 2 (https://code.google.com/p/micropendous/wiki/Micropendous).
+ *
+ *  See \ref Group_LEDs_MICROPENDOUS_32U2 for more details.
+ */
+
+/** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_MICROPENDOUS_32U2 MICROPENDOUS_32U2
  *  \brief Board specific LED driver header for the Micropendous 32U2.
  *
@@ -61,10 +75,30 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
 
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		#if (BOARD == BOARD_MICROPENDOUS_32U2)
+			#define _BOARD_LED1_MASK                (1 << 6)
+			#define _BOARD_LED_PORTLETTER           D
+		#elif (BOARD == BOARD_MICROPENDOUS_REV1)
+			#define _BOARD_LED1_MASK                (1 << 1)
+			#define _BOARD_LED_PORTLETTER           B
+		#elif (BOARD == BOARD_MICROPENDOUS_REV2)
+			#define _BOARD_LED1_MASK                (1 << 1)
+			#define _BOARD_LED_PORTLETTER           B
+		#endif
+		
+		#define _BOARD_LED_CONCAT2(Reg, Letter)     Reg ## Letter
+		#define _BOARD_LED_CONCAT(Reg, Letter)      _BOARD_LED_CONCAT2(Reg, Letter)
+
+		#define _BOARD_LED_PORT                     _BOARD_LED_CONCAT(PORT, _BOARD_LED_PORTLETTER)
+		#define _BOARD_LED_DDR                      _BOARD_LED_CONCAT(DDR,  _BOARD_LED_PORTLETTER)
+	#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1        (1 << 6)
+			#define LEDS_LED1        _BOARD_LED1_MASK
 
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    LEDS_LED1
@@ -76,46 +110,46 @@
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				DDRD  |=  LEDS_ALL_LEDS;
-				PORTD &= ~LEDS_ALL_LEDS;
+				_BOARD_LED_DDR  |=  LEDS_ALL_LEDS;
+				_BOARD_LED_PORT &= ~LEDS_ALL_LEDS;
 			}
 
 			static inline void LEDs_Disable(void)
 			{
-				DDRD  &= ~LEDS_ALL_LEDS;
-				PORTD &= ~LEDS_ALL_LEDS;
+				_BOARD_LED_DDR  &= ~LEDS_ALL_LEDS;
+				_BOARD_LED_PORT &= ~LEDS_ALL_LEDS;
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTD |= LEDMask;
+				_BOARD_LED_PORT |= LEDMask;
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTD &= ~LEDMask;
+				_BOARD_LED_PORT &= ~LEDMask;
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTD = ((PORTF & ~LEDS_ALL_LEDS) | LEDMask);
+				_BOARD_LED_PORT = ((PORTF & ~LEDS_ALL_LEDS) | LEDMask);
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTD = ((PORTF & ~LEDMask) | ActiveMask);
+				_BOARD_LED_PORT = ((PORTF & ~LEDMask) | ActiveMask);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD ^= LEDMask;
+				_BOARD_LED_PORT ^= LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return (PORTD & LEDS_ALL_LEDS);
+				return (_BOARD_LED_PORT & LEDS_ALL_LEDS);
 			}
 		#endif
 
