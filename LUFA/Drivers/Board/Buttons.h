@@ -141,6 +141,8 @@
 		       (BOARD == BOARD_MICROPENDOUS_REV1) || (BOARD == BOARD_MICROPENDOUS_REV2) || \
 		       (BOARD == BOARD_MICROPENDOUS_DIP))
 			#include "AVR8/MICROPENDOUS/Buttons.h"
+		#elif (BOARD == BOARD_B1_XPLAINED)
+			#include "XMEGA/B1_XPLAINED/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

@@ -90,7 +90,7 @@
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
 			 *
-			 *  \param[in] Byte of data to send to the dataflash
+			 *  \param[in] Byte  Byte of data to send to the dataflash
 			 *
 			 *  \return Last response byte from the dataflash
 			 */
@@ -102,7 +102,7 @@
 
 			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
 			 *
-			 *  \param[in] Byte of data to send to the dataflash
+			 *  \param[in] Byte  Byte of data to send to the dataflash
 			 */
 			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)

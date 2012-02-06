@@ -381,6 +381,7 @@
  *  \section Sec_XMEGASupport_Boards Supported Atmel Boards
  *  Currently supported Atmel XMEGA boards (see \ref Group_BoardTypes):
  *   - XMEGA A3BU Xplained
+ *   - XMEGA B1 Xplained
  *
  *  \section Sec_XMEGASupport_ThirdParty Supported Third Party Models
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):

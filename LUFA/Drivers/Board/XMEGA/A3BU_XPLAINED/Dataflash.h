@@ -93,25 +93,24 @@
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
 			 *
-			 *  \param[in] Byte of data to send to the dataflash
+			 *  \param[in] Byte  Byte of data to send to the dataflash
 			 *
 			 *  \return Last response byte from the dataflash
 			 */
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
 			{
-				// TODO
-				return 0;
+				return SPI_TransferByte(&SPID, Byte);
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
 			 *
-			 *  \param[in] Byte of data to send to the dataflash
+			 *  \param[in] Byte  Byte of data to send to the dataflash
 			 */
 			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)
 			{
-				// TODO
+				SPI_SendByte(&SPID, Byte);
 			}
 
 			/** Sends a dummy byte to the currently selected dataflash IC, and returns the next byte from the dataflash.
@@ -121,8 +120,7 @@
 			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_ReceiveByte(void)
 			{
-				// TODO
-				return 0;
+				return SPI_ReceiveByte(&SPID);
 			}
 
 			/** Determines the currently selected dataflash chip.

@@ -195,6 +195,9 @@
 			/** Selects the Micropendous (Arduino-like) revision 2 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_MICROPENDOUS_REV2    43
 
+			/** Selects the XMEGA B1 Xplained specific board drivers, including the Button and LED drivers. */
+			#define BOARD_B1_XPLAINED          44
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

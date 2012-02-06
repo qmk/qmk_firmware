@@ -178,6 +178,8 @@
 		#elif ((BOARD == BOARD_MICROPENDOUS_REV1) || (BOARD == BOARD_MICROPENDOUS_REV2) || \
 		       (BOARD == BOARD_MICROPENDOUS_32U2))
 			#include "AVR8/MICROPENDOUS/LEDs.h"
+		#elif (BOARD == BOARD_B1_XPLAINED)
+			#include "XMEGA/B1_XPLAINED/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
