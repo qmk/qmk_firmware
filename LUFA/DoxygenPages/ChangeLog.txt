@@ -37,6 +37,9 @@
   *  - Library Applications:
   *   - Altered the Mass Storage Host LowLevel demo so that SCSI data STALLs from the attached device can be recovered from automatically without
   *     having to reset the Mass Storage interface
+  *   - Updated the AVRISP-MKII Clone programmer project to be compatible with the latest version of AVR Studio (version 5.1)
+  *   - Changed the AVRISP-MKII Clone programmer project to report a fixed 3.3V VTARGET voltage on USB AVRs lacking an ADC instead of 5V to prevent
+  *     warnings in AVR Studio 5.1 when programming XMEGA devices
   *
   *  <b>Fixed:</b>
   *  - Core:

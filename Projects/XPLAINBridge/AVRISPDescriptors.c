@@ -81,7 +81,7 @@ const AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescript
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
 
-			.ConfigAttributes       = USB_CONFIG_ATTR_RESERVED,
+			.ConfigAttributes       = (USB_CONFIG_ATTR_RESERVED | USB_CONFIG_ATTR_SELFPOWERED),
 
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
@@ -96,8 +96,8 @@ const AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescript
 			.TotalEndpoints         = 2,
 
 			.Class                  = USB_CSCP_VendorSpecificClass,
-			.SubClass               = 0x00,
-			.Protocol               = 0x00,
+			.SubClass               = USB_CSCP_NoDeviceSubclass,
+			.Protocol               = USB_CSCP_NoDeviceProtocol,
 
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
@@ -140,9 +140,9 @@ const USB_Descriptor_String_t PROGMEM AVRISP_LanguageString =
  */
 const USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
 
-	.UnicodeString          = L"Dean Camera"
+	.UnicodeString          = L"ATMEL"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -151,9 +151,9 @@ const USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString =
  */
 const USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
-	.UnicodeString          = L"LUFA AVRISP MkII Clone"
+	.UnicodeString          = L"AVRISP mkII"
 };
 
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
@@ -163,7 +163,7 @@ const USB_Descriptor_String_t PROGMEM AVRISP_SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
 
-	.UnicodeString          = L"0000A00128255"
+	.UnicodeString          = L"000200053650\0"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -219,4 +219,3 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 	*DescriptorAddress = Address;
 	return Size;
 }
-

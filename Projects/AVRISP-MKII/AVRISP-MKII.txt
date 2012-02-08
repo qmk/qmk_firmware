@@ -46,9 +46,9 @@
  *
  *  Firmware for an AVRStudio compatible AVRISP-MKII clone programmer. This project will enable the USB AVR series of
  *  microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within AVRStudio. In its
- *  most basic form, it allows for the programming of 5V AVRs from within AVRStudio with no special hardware other than
- *  the USB AVR and the parts needed for the USB interface. If the user desires, more advanced circuits incorporating
- *  level conversion can be made to allow for the programming of 3.3V AVR designs.
+ *  most basic form, it allows for the programming of AVRs at the programmer's VCC voltage from within AVRStudio with
+ *  no special hardware other than the USB AVR and the parts needed for the USB interface. If the user desires, more
+ *  advanced circuits incorporating level conversion can be made to allow for the programming of 3.3V AVR designs.
  *
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
  *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
@@ -59,7 +59,7 @@
  *
  *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the \c VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
- *  without an ADC converter, VTARGET will report a fixed 5V level at all times.
+ *  without an ADC converter, VTARGET will report a fixed 3.3V level at all times.
  *
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
  *  of FLASH is required. On 8KB devices, ISP or PDI/TPI programming support can be disabled to reduce program size.
@@ -256,7 +256,7 @@
  *    <td>NO_VTARGET_DETECT</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to disable VTARGET sampling and reporting on AVR models with an ADC converter. This will cause the programmer
- *        to report a fixed 5V target voltage to the host regardless of the real target voltage. <i>Ignored when compiled for
+ *        to report a fixed 3.3V target voltage to the host regardless of the real target voltage. <i>Ignored when compiled for
  *        targets lacking an ADC.</i></td>
  *   </tr>
  *   <tr>
@@ -285,19 +285,24 @@
  *    <td>LIBUSB_DRIVER_COMPAT</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
- *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
+ *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.</td>
  *   </tr>
  *   <tr>
  *    <td>XCK_RESCUE_CLOCK_ENABLE</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to move the ISP rescue clock to the AVR's XCK pin instead of the OCR1A output pin. This is useful for existing programming
- *        hardware that does not expose the OCR1A pin of the AVR, but *may* cause some issues with PDI programming mode.
+ *        hardware that does not expose the OCR1A pin of the AVR, but *may* cause some issues with PDI programming mode.</td>
  *   </tr>
  *   <tr>
  *    <td>INVERTED_ISP_MISO</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to invert the received data on the ISP MISO line. This is sometimes needed depending on the level translation hardware used,
- *        if the translator hardware inverts the received logic level.
+ *        if the translator hardware inverts the received logic level.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>FIRMWARE_VERSION_MINOR</td>
+ *    <td>Define to set the minor firmware revision nunber reported to the host on request. By default this will use a firmware version compatible
+ *        with the latest Atmel IDE version, however if desired the reported minor value can be adjusted here.</td>
  *   </tr>
  *  </table>
  */

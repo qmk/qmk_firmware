@@ -140,9 +140,9 @@ const USB_Descriptor_String_t PROGMEM LanguageString =
  */
 const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
 
-	.UnicodeString          = L"Dean Camera"
+	.UnicodeString          = L"ATMEL"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -151,9 +151,9 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 const USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
-	.UnicodeString          = L"LUFA AVRISP MkII Clone"
+	.UnicodeString          = L"AVRISP mkII"
 };
 
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
@@ -162,8 +162,8 @@ const USB_Descriptor_String_t PROGMEM ProductString =
 const USB_Descriptor_String_t PROGMEM SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
-
-	.UnicodeString          = L"0000A00128255"
+	
+	.UnicodeString          = L"000200012345\0" // Note: Real AVRISP-MKII has the embedded NUL byte, bug in firmware?
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"

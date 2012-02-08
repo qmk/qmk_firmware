@@ -455,6 +455,12 @@ static void XPROGProtocol_SetParam(void)
 		case XPRG_PARAM_NVMCSR_REG:
 			XPROG_Param_NVMCSRRegAddr = Endpoint_Read_8();
 			break;
+		case XPRG_PARAM_UNKNOWN_1:
+			/* TODO: Undocumented parameter added in AVRStudio 5.1, purpose unknown. Must ACK and discard or
+			         the communication with AVRStudio 5.1 will fail.
+			*/
+			Endpoint_Discard_16();
+			break;
 		default:
 			ReturnStatus = XPRG_ERR_FAILED;
 			break;

@@ -60,11 +60,11 @@ static ParameterItem_t ParameterTable[] =
 
 		{ .ParamID          = PARAM_SW_MINOR,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
-		  .ParamValue       = 0x0D                               },
+		  .ParamValue       = FIRMWARE_VERSION_MINOR             },
 
 		{ .ParamID          = PARAM_VTARGET,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
-		  .ParamValue       = 0x32                               },
+		  .ParamValue       = (uint8_t)(3.3 * 10)                },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
 		  .ParamPrivileges  = PARAM_PRIV_READ | PARAM_PRIV_WRITE,

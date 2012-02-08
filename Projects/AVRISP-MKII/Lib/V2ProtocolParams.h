@@ -59,6 +59,12 @@
 
 		/** Total number of parameters in the parameter table */
 		#define TABLE_PARAM_COUNT   (sizeof(ParameterTable) / sizeof(ParameterTable[0]))
+		
+		#if (!defined(FIRMWARE_VERSION_MINOR) || defined(__DOXYGEN__))
+			/** Minor firmware version, reported to the host on request; must match the version
+			 *  the host is expecting, or it (may) reject further communications with the programmer. */
+			#define FIRMWARE_VERSION_MINOR   0x11
+		#endif
 
 	/* Type Defines: */
 		/** Type define for a parameter table entry indicating a PC readable or writable device parameter. */
