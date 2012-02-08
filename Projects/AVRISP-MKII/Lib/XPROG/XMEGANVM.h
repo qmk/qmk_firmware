@@ -56,7 +56,7 @@
 		#endif
 
 	/* Defines: */
-		#define XMEGA_CRC_LENGTH                     3
+		#define XMEGA_CRC_LENGTH_BYTES               3
 
 		#define XMEGA_NVM_REG_ADDR0                  0x00
 		#define XMEGA_NVM_REG_ADDR1                  0x01
@@ -70,6 +70,8 @@
 		#define XMEGA_NVM_REG_INTCTRL                0x0D
 		#define XMEGA_NVM_REG_STATUS                 0x0F
 		#define XMEGA_NVM_REG_LOCKBITS               0x10
+		
+		#define XMEGA_NVM_BIT_CTRLA_CMDEX            (1 << 0)
 
 		#define XMEGA_NVM_CMD_NOOP                   0x00
 		#define XMEGA_NVM_CMD_CHIPERASE              0x40

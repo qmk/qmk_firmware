@@ -91,6 +91,7 @@
  *   </tr>
  *   <tr>
  *    <td>FIRMWARE_VERSION_MINOR</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to set the minor firmware revision nunber reported to the host on request. By default this will use a firmware version compatible
  *        with the latest Atmel IDE version, however if desired the reported minor value can be adjusted here.</td>
  *   </tr>

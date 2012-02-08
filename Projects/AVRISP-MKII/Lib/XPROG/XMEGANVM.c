@@ -186,7 +186,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	/* Set CMDEX bit in NVM CTRLA register to start the CRC generation */
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-	XPROGTarget_SendByte(1 << 0);
+	XPROGTarget_SendByte(XMEGA_NVM_BIT_CTRLA_CMDEX);
 
 	/* Wait until the NVM bus is ready again */
 	if (!(XMEGANVM_WaitWhileNVMBusBusy()))
@@ -202,11 +202,11 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 
 	/* Send the REPEAT command to grab the CRC bytes */
 	XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
-	XPROGTarget_SendByte(XMEGA_CRC_LENGTH - 1);
+	XPROGTarget_SendByte(XMEGA_CRC_LENGTH_BYTES - 1);
 
 	/* Read in the CRC bytes from the target */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH; i++)
+	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH_BYTES; i++)
 	  ((uint8_t*)CRCDest)[i] = XPROGTarget_ReceiveByte();
 
 	return (TimeoutExpired == false);
@@ -304,7 +304,7 @@ bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t Eras
 		/* Set CMDEX bit in NVM CTRLA register to start the buffer erase */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);
+		XPROGTarget_SendByte(XMEGA_NVM_BIT_CTRLA_CMDEX);
 	}
 
 	if (WriteSize)
@@ -376,7 +376,7 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 		/* Set CMDEX bit in NVM CTRLA register to start the erase sequence */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);
+		XPROGTarget_SendByte(XMEGA_NVM_BIT_CTRLA_CMDEX);
 	}
 	else if (EraseCommand == XMEGA_NVM_CMD_ERASEEEPROM)
 	{
@@ -388,7 +388,7 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 		/* Set CMDEX bit in NVM CTRLA register to start the buffer erase */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);
+		XPROGTarget_SendByte(XMEGA_NVM_BIT_CTRLA_CMDEX);
 
 		/* Wait until the NVM controller is no longer busy */
 		if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
@@ -420,7 +420,7 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 		/* Set CMDEX bit in NVM CTRLA register to start the EEPROM erase sequence */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);
+		XPROGTarget_SendByte(XMEGA_NVM_BIT_CTRLA_CMDEX);
 	}
 	else
 	{
