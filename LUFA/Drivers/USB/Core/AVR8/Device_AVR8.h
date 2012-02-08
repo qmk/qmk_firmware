@@ -101,8 +101,8 @@
 			//@}
 
 			#if (!defined(NO_INTERNAL_SERIAL) && \
-			     (defined(USB_SERIES_7_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_4_AVR) || \
-			      (defined(USB_SERIES_2_AVR) && (!defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__))) || \
+			     (defined(USB_SERIES_7_AVR) || defined(USB_SERIES_6_AVR) || \
+			      defined(USB_SERIES_4_AVR) || defined(USB_SERIES_2_AVR) || \
 				  defined(__DOXYGEN__)))
 				/** String descriptor index for the device's unique serial number string descriptor within the device.
 				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
