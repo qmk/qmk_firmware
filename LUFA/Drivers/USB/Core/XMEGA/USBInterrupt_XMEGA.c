@@ -90,6 +90,9 @@ ISR(USB_BUSEVENT_vect)
 		USB_DeviceState                = DEVICE_STATE_Default;
 		USB_Device_ConfigurationNumber = 0;
 
+		USB_Device_SetDeviceAddress(0);
+
+		Endpoint_ClearEndpoints();
 		Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
 		                           ENDPOINT_DIR_OUT, USB_Device_ControlEndpointSize,
 		                           ENDPOINT_BANK_SINGLE);
