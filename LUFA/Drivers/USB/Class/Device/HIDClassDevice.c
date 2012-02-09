@@ -156,6 +156,9 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
+	if (HIDInterfaceInfo->State.PrevFrameNum == USB_Device_GetFrameNumber())
+	  return;
+	  
 	Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);
 
 	if (Endpoint_IsReadWriteAllowed())
@@ -190,6 +193,8 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 
 			Endpoint_ClearIN();
 		}
+		
+		HIDInterfaceInfo->State.PrevFrameNum = USB_Device_GetFrameNumber();
 	}
 }
 
