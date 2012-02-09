@@ -97,48 +97,56 @@
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				PORTB_DIRSET = LEDS_PORTB_LEDS;
-				PORTB_OUTSET = LEDS_PORTB_LEDS;
+				PORTB.DIRSET    = LEDS_PORTB_LEDS;
+				PORTB.OUTCLR    = LEDS_PORTB_LEDS;
 
-				PORTE_DIRSET = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
-				PORTE_OUTCLR = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
+				PORTCFG.MPCMASK = LEDS_PORTB_LEDS;
+				PORTB.PIN0CTRL  = PORT_INVEN_bm;
+
+				PORTE.DIRSET    = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
+				PORTE.OUTCLR    = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
 			}
 
 			static inline void LEDs_Disable(void)
 			{
-				PORTB_DIRCLR = LEDS_PORTB_LEDS;
-				PORTB_OUTCLR = LEDS_PORTB_LEDS;
+				PORTB.DIRCLR    = LEDS_PORTB_LEDS;
+				PORTB.OUTCLR    = LEDS_PORTB_LEDS;
+				
+				PORTCFG.MPCMASK = 0;
+				PORTB.PIN0CTRL  = LEDS_PORTB_LEDS;
 
-				PORTE_DIRCLR = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
-				PORTE_OUTCLR = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
+				PORTE.DIRCLR    = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
+				PORTE.OUTCLR    = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTB_OUTCLR = (LEDMask & LEDS_PORTB_LEDS);
+				PORTB_OUTSET = (LEDMask & LEDS_PORTB_LEDS);
 				PORTE_OUTSET = ((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT);
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTB_OUTSET = (LEDMask & LEDS_PORTB_LEDS);
+				PORTB_OUTCLR = (LEDMask & LEDS_PORTB_LEDS);
 				PORTE_OUTCLR = ((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT);
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTB_OUTSET = LEDS_PORTB_LEDS;
+				PORTB_OUTCLR = LEDS_PORTB_LEDS;
 				PORTE_OUTCLR = (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
 
-				PORTB_OUTCLR = (LEDMask & LEDS_PORTB_LEDS);
+				PORTB_OUTSET = (LEDMask & LEDS_PORTB_LEDS);
 				PORTE_OUTSET = ((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT);
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask)
 			{
-				PORTB_OUT = (PORTB.OUT & (~LEDMask & LEDS_PORTB_LEDS)) | (ActiveMask & LEDS_PORTB_LEDS);
-				PORTE_OUT = (PORTB.OUT & (((~LEDMask & LEDS_PORTB_LEDS)) << LEDS_PORTE_MASK_SHIFT) &
-				             ~((ActiveMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT));
+				PORTB_OUTCLR =  (LEDMask & LEDS_PORTB_LEDS);
+				PORTE_OUTCLR = ((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT);
+			
+				PORTB_OUTSET =  (ActiveMask & LEDS_PORTB_LEDS);
+				PORTE_OUTSET = ((ActiveMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
@@ -150,7 +158,7 @@
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return ((~PORTB_OUT & LEDS_PORTB_LEDS) | (PORTE_OUT & (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT)));
+				return ((PORTB_OUT & LEDS_PORTB_LEDS) | (PORTE_OUT & (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT)));
 			}
 		#endif
 

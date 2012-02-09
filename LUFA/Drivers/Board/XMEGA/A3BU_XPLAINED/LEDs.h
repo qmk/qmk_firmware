@@ -79,24 +79,30 @@
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				PORTR_DIRSET = LEDS_ALL_LEDS;
-				PORTR_OUTSET = LEDS_ALL_LEDS;
+				PORTR.DIRSET    = LEDS_ALL_LEDS;
+				PORTR.OUTCLR    = LEDS_ALL_LEDS;
+				
+				PORTCFG.MPCMASK = LEDS_ALL_LEDS;
+				PORTR.PIN0CTRL  = PORT_INVEN_bm;				
 			}
 
 			static inline void LEDs_Disable(void)
 			{
-				PORTR_DIRCLR = LEDS_ALL_LEDS;
-				PORTR_OUTCLR = LEDS_ALL_LEDS;
+				PORTR.DIRCLR    = LEDS_ALL_LEDS;
+				PORTR.OUTCLR    = LEDS_ALL_LEDS;
+
+				PORTCFG.MPCMASK = 0;
+				PORTR.PIN0CTRL  = LEDS_ALL_LEDS;
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUTCLR = LEDMask;
+				PORTR_OUTSET = LEDMask;
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUTSET = LEDMask;
+				PORTR_OUTCLR = LEDMask;
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
@@ -117,7 +123,7 @@
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return (~PORTR_OUT & LEDS_ALL_LEDS);
+				return (PORTR_OUT & LEDS_ALL_LEDS);
 			}
 		#endif
 

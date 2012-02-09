@@ -29,24 +29,24 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained.
- *  \copydetails Group_Dataflash_B1_XPLAINED
+ *  \brief Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained.
+ *  \copydetails Group_Dataflash_A3BU_XPLAINED
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
 
 /** \ingroup Group_Dataflash
- *  \defgroup Group_Dataflash_B1_XPLAINED B1_XPLAINED
- *  \brief Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained.
+ *  \defgroup Group_Dataflash_A3BU_XPLAINED A3BU_XPLAINED
+ *  \brief Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained.
  *
- *  Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained board.
+ *  Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained board.
  *
  *  @{
  */
 
-#ifndef __DATAFLASH_B1_XPLAINED_H__
-#define __DATAFLASH_B1_XPLAINED_H__
+#ifndef __DATAFLASH_A3BU_XPLAINED_H__
+#define __DATAFLASH_A3BU_XPLAINED_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -60,8 +60,8 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define DATAFLASH_CHIPCS_MASK                (1 << 4)
-			#define DATAFLASH_CHIPCS_PORT                PORTF
+			#define DATAFLASH_CHIPCS_MASK                (1 << 2)
+			#define DATAFLASH_CHIPCS_PORT                PORTD
 	#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -100,7 +100,7 @@
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
 			{
-				// TODO: USART in SPI mode on PORT D
+				// TODO: USART in SPI mode on PORT C
 				#warning The Dataflash driver for the selected board is currently incomplete and non-functional.
 				return 0;
 			}

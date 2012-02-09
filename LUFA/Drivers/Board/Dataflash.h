@@ -122,8 +122,8 @@
 		#define __INCLUDE_FROM_DATAFLASH_H
 
 	/* Includes: */
-	#include "../../Common/Common.h"
-	#include "../Peripheral/SPI.h"
+		#include "../../Common/Common.h"
+		#include "../Peripheral/SPI.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -234,6 +234,8 @@
 				#include "AVR8/EVK527/Dataflash.h"
 			#elif (BOARD == BOARD_A3BU_XPLAINED)
 				#include "XMEGA/A3BU_XPLAINED/Dataflash.h"
+			#elif (BOARD == BOARD_B1_XPLAINED)
+				#include "XMEGA/B1_XPLAINED/Dataflash.h"
 			#else
 				#include "Board/Dataflash.h"
 			#endif
