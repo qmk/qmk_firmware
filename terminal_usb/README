@@ -1,0 +1,34 @@
+PS/2 to USB  keyboard converter for IBM terminal keyboard
+=========================================================
+It supports PS/2 Scan Code Set 3 and runs on Teensy, Teensy++ and boards withATMega32u4/AT90USB.
+I tested the converter only on Teensy with 1392595(102keys terminal keyboard), though, I think it will also work with 122keys boards.
+
+
+
+CONNECTION
+----------
+Data: PD0
+Clock: PD1
+
+It is same as Soarer's converter pin configuration.
+http://geekhack.org/showwiki.php?title=Island:17458
+
+
+
+BUILD
+-----
+For 102keys:
+$ make -f Makefile.102_pjrc
+
+For 122keys(not tested):
+$ make -f Makefile.122_pjrc
+
+
+I used WinAVR 20100110 to develop.
+
+
+
+RESOURCE
+--------
+WinAVR: http://winavr.sourceforge.net/
+1392595: http://geekhack.org/showthread.php?10737-What-Can-I-Do-With-a-Terminal-Model-M

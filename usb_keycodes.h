@@ -51,7 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KB_PGDN KB_PGDOWN
 #define KB_PSCR KB_PSCREEN
 #define KB_SLCK KB_SCKLOCK
-#define KB_BRK  KB_BREAK
+#define KB_PAUS KB_PAUSE
+#define KB_BRK  KB_PAUSE
 #define KB_NLCK KB_NUMLOCK
 #define KB_SPC  KB_SPACE
 #define KB_MINS KB_MINUS
@@ -262,7 +263,7 @@ enum keycodes {
     KB_F12,
     KB_PSCREEN,
     KB_SCKLOCK,
-    KB_BREAK,
+    KB_PAUSE,
     KB_INSERT,
     KB_HOME,
     KB_PGUP,
