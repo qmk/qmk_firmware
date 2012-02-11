@@ -456,7 +456,7 @@
 		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations (16-bit).
 		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations (16-bit).
 		 *  \param[in] Buttons         Total number of buttons in the device (8-bit).
-		 *  \param[in] AbsoluteCoords  Boolean true to use absolute X/Y coordinates (e.g. touchscreen).
+		 *  \param[in] AbsoluteCoords  Boolean \c true to use absolute X/Y coordinates (e.g. touchscreen).
 		 */
 		#define HID_DESCRIPTOR_MOUSE(MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons, AbsoluteCoords) \
 			HID_RI_USAGE_PAGE(8, 0x01),                     \
@@ -491,7 +491,7 @@
 		/** \hideinitializer
 		 *  A list of HID report item array elements that describe a typical Vendor Defined byte array HID report descriptor,
 		 *  used for transporting arbitrary data between the USB host and device via HID reports. The resulting report should be
-		 *  a uint8_t byte array of the specified length in both Device to Host (IN) and Host to Device (OUT) directions.
+		 *  a \c uint8_t byte array of the specified length in both Device to Host (IN) and Host to Device (OUT) directions.
 		 *
 		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF.
 		 *  \param[in] CollectionUsage  Vendor Usage for the encompassing report IN and OUT collection, ranging from 0x00 to 0xFF.
