@@ -159,9 +159,9 @@
 			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
 			 *
-			 *  \param[in, out] SPI         Pointer to the base of the SPI peripheral within the device.
-			 *  \param[in]      SPIOptions  SPI Options, a mask consisting of one of each of the \c SPI_SPEED_*,
-			 *                         \c SPI_SCK_*, \c SPI_SAMPLE_*, \c SPI_ORDER_* and \c SPI_MODE_* masks.
+			 *  \param[in,out] SPI         Pointer to the base of the SPI peripheral within the device.
+			 *  \param[in]     SPIOptions  SPI Options, a mask consisting of one of each of the \c SPI_SPEED_*,
+			 *                             \c SPI_SCK_*, \c SPI_SAMPLE_*, \c SPI_ORDER_* and \c SPI_MODE_* masks.
 			 */
 			static inline void SPI_Init(SPI_t* const SPI,
 			                            const uint8_t SPIOptions)
@@ -171,7 +171,7 @@
 
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration.
 			 *
-			 *  \param[in, out] SPI   Pointer to the base of the SPI peripheral within the device.
+			 *  \param[in,out] SPI   Pointer to the base of the SPI peripheral within the device.
 			 */
 			static inline void SPI_Disable(SPI_t* const SPI)
 			{
@@ -180,7 +180,7 @@
 
 			/** Retrieves the currently selected SPI mode, once the SPI interface has been configured.
 			 *
-			 *  \param[in, out] SPI  Pointer to the base of the SPI peripheral within the device.
+			 *  \param[in,out] SPI  Pointer to the base of the SPI peripheral within the device.
 			 *
 			 *  \return \ref SPI_MODE_MASTER if the interface is currently in SPI Master mode, \ref SPI_MODE_SLAVE otherwise
 			 */
@@ -192,8 +192,8 @@
 
 			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.
 			 *
-			 *  \param[in, out] SPI   Pointer to the base of the SPI peripheral within the device.
-			 *  \param[in]      Byte  Byte to send through the SPI interface.
+			 *  \param[in,out] SPI   Pointer to the base of the SPI peripheral within the device.
+			 *  \param[in]     Byte  Byte to send through the SPI interface.
 			 *
 			 *  \return Response byte from the attached SPI device.
 			 */
@@ -210,8 +210,8 @@
 			/** Sends a byte through the SPI interface, blocking until the transfer is complete. The response
 			 *  byte sent to from the attached SPI device is ignored.
 			 *
-			 *  \param[in, out] SPI   Pointer to the base of the SPI peripheral within the device.
-			 *  \param[in]      Byte  Byte to send through the SPI interface.
+			 *  \param[in,out] SPI   Pointer to the base of the SPI peripheral within the device.
+			 *  \param[in]     Byte  Byte to send through the SPI interface.
 			 */
 			static inline void SPI_SendByte(SPI_t* const SPI,
 			                                const uint8_t Byte) ATTR_ALWAYS_INLINE;
@@ -225,7 +225,7 @@
 			/** Sends a dummy byte through the SPI interface, blocking until the transfer is complete. The response
 			 *  byte from the attached SPI device is returned.
 			 *
-			 *  \param[in, out] SPI  Pointer to the base of the SPI peripheral within the device.
+			 *  \param[in,out] SPI  Pointer to the base of the SPI peripheral within the device.
 			 *
 			 *  \return The response byte from the attached SPI device.
 			 */

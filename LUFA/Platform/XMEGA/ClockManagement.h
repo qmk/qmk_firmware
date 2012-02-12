@@ -35,8 +35,8 @@
  *  of the various clocks within the device to clock the various peripherals.
  */
 
-/** \ingroup Group_PlatformDrivers
- *  \defgroup Group_PlatformDrivers_XMEGAClocks AVR USB XMEGA Clock Management Driver - LUFA/Platform/XMEGA/ClockManagement.h
+/** \ingroup Group_PlatformDrivers_XMEGA
+ *  \defgroup Group_PlatformDrivers_XMEGAClocks Clock Management Driver - LUFA/Platform/XMEGA/ClockManagement.h
  *  \brief Module Clock Driver for the AVR USB XMEGA microcontrollers.
  *
  *  \section Sec_Dependencies Module Source Dependencies

@@ -43,7 +43,7 @@
  *  \section Sec_ModDescription Module Description
  *  On-chip serial USART driver for the 8-bit AVR microcontrollers.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
+ *  \note This file should not be included directly. It is automatically included as needed by the USART driver
  *        dispatch header located in LUFA/Drivers/Peripheral/Serial.h.
  *
  *  \section Sec_ExampleUsage Example Usage

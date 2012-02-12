@@ -35,8 +35,8 @@
  *  handlers within the device.
  */
 
-/** \ingroup Group_PlatformDrivers
- *  \defgroup Group_PlatformDrivers_UC3Interrupts UC3 Interrupt Controller Driver - LUFA/Platform/UC3/InterruptManagement.h
+/** \ingroup Group_PlatformDrivers_UC3
+ *  \defgroup Group_PlatformDrivers_UC3Interrupts Interrupt Controller Driver - LUFA/Platform/UC3/InterruptManagement.h
  *  \brief Interrupt Controller Driver for the AVR32 UC3 microcontrollers.
  *
  *  \section Sec_Dependencies Module Source Dependencies

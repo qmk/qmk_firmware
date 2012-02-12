@@ -43,7 +43,7 @@
  *  \section Sec_ModDescription Module Description
  *  On-chip serial USART driver for the XMEGA AVR microcontrollers.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
+ *  \note This file should not be included directly. It is automatically included as needed by the USART driver
  *        dispatch header located in LUFA/Drivers/Peripheral/Serial.h.
  *
  *  \section Sec_ExampleUsage Example Usage
@@ -52,13 +52,13 @@
  *
  *  \code
  *      // Initialize the serial USART driver before first use, with 9600 baud (and no double-speed mode)
- *      Serial_Init(9600, false);
+ *      Serial_Init(&USARTD, 9600, false);
  *
  *      // Send a string through the USART
- *      Serial_TxString("Test String\r\n");
+ *      Serial_TxString(&USARTD, "Test String\r\n");
  *
  *      // Receive a byte through the USART
- *      uint8_t DataByte = Serial_RxByte();
+ *      uint8_t DataByte = Serial_RxByte(&USARTD);
  *  \endcode
  *
  *  @{
@@ -153,7 +153,7 @@
 			                               const uint32_t BaudRate,
 			                               const bool DoubleSpeed)
 			{
-				uint32_t BaudValue = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
+				uint16_t BaudValue = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
 
 				USART->BAUDCTRLB = (BaudValue >> 8);
 				USART->BAUDCTRLA = (BaudValue & 0xFF);
@@ -263,6 +263,7 @@
 				if (!(Serial_IsCharReceived(USART)))
 				  return -1;
 
+				USART->STATUS = USART_RXCIF_bm;
 				return USART->DATA;
 			}
 
