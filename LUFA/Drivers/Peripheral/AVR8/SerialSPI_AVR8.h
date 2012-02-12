@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Serial USART Master SPI Mode Peripheral Driver (XMEGA)
+ *  \brief Master SPI Mode Serial USART Peripheral Driver (XMEGA)
  *
  *  On-chip Master SPI mode USART driver for the XMEGA AVR microcontrollers.
  *
@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_SerialSPI
- *  \defgroup Group_SerialSPI_AVR8 Serial USART Peripheral Driver (AVR8)
+ *  \defgroup Group_SerialSPI_AVR8 Master SPI Mode Serial USART Peripheral Driver (AVR8)
  *
  *  \section Sec_ModDescription Module Description
  *  On-chip serial USART driver for the 8-bit AVR8 microcontrollers.
@@ -98,28 +98,28 @@
 		/* Macros: */
 			/** \name SPI SCK Polarity Configuration Masks */
 			//@{
-			/** SPI clock polarity mask for \c SPI_Init(). Indicates that the SCK should lead on the rising edge. */
+			/** SPI clock polarity mask for \ref SPI_Init(). Indicates that the SCK should lead on the rising edge. */
 			#define USART_SPI_SCK_LEAD_RISING            (0 << UCPOL)
 
-			/** SPI clock polarity mask for \c SPI_Init(). Indicates that the SCK should lead on the falling edge. */
+			/** SPI clock polarity mask for \ref SPI_Init(). Indicates that the SCK should lead on the falling edge. */
 			#define USART_SPI_SCK_LEAD_FALLING           (1 << UCPOL)
 			//@}
 
 			/** \name SPI Sample Edge Configuration Masks */
 			//@{
-			/** SPI data sample mode mask for \c SerialSPI_Init(). Indicates that the data should sampled on the leading edge. */
+			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should sampled on the leading edge. */
 			#define USART_SPI_SAMPLE_LEADING             (0 << UPCHA)
 
-			/** SPI data sample mode mask for \c SerialSPI_Init(). Indicates that the data should be sampled on the trailing edge. */
+			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should be sampled on the trailing edge. */
 			#define USART_SPI_SAMPLE_TRAILING            (1 << UPCHA)
 			//@}
 
 			/** \name SPI Data Ordering Configuration Masks */
 			//@{
-			/** SPI data order mask for \c Serial_SPIInit(). Indicates that data should be shifted out MSB first. */
+			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out MSB first. */
 			#define USART_SPI_ORDER_MSB_FIRST            (0 << UDORD)
 
-			/** SPI data order mask for \c Serial_SPIInit(). Indicates that data should be shifted out LSB first. */
+			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define USART_SPI_ORDER_LSB_FIRST            (1 << UDORD)
 			//@}			
 

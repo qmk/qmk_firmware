@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Serial USART Master SPI Mode Peripheral Driver (XMEGA)
+ *  \brief Master SPI Mode Serial USART Peripheral Driver (XMEGA)
  *
  *  On-chip Master SPI mode USART driver for the XMEGA AVR microcontrollers.
  *
@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_SerialSPI
- *  \defgroup Group_SerialSPI_XMEGA Serial USART Peripheral Driver (XMEGA)
+ *  \defgroup Group_SerialSPI_XMEGA Master SPI Mode Serial USART Peripheral Driver (XMEGA)
  *
  *  \section Sec_ModDescription Module Description
  *  On-chip serial USART driver for the XMEGA AVR microcontrollers.
@@ -52,12 +52,12 @@
  *
  *  \code
  *      // Initialize the Master SPI mode USART driver before first use, with 1Mbit baud
- *      SerialSPI_Init(&USARTD, (USART_SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_ORDER_MSB_FIRST), 1000000);
+ *      SerialSPI_Init(&USARTD0, (USART_SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_ORDER_MSB_FIRST), 1000000);
  *
  *      // Send several bytes, ignoring the returned data
- *      SerialSPI_SendByte(&USARTD, 0x01);
- *      SerialSPI_SendByte(&USARTD, 0x02);
- *      SerialSPI_SendByte(&USARTD, 0x03);
+ *      SerialSPI_SendByte(&USARTD0, 0x01);
+ *      SerialSPI_SendByte(&USARTD0, 0x02);
+ *      SerialSPI_SendByte(&USARTD0, 0x03);
  *
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SerialSPI_ReceiveByte(&USARTD);
@@ -65,7 +65,7 @@
  *      uint8_t Byte3 = SerialSPI_ReceiveByte(&USARTD);
  *
  *      // Send a byte, and store the received byte from the same transaction
- *      uint8_t ResponseByte = SerialSPI_TransferByte(&USARTD, 0xDC);
+ *      uint8_t ResponseByte = SerialSPI_TransferByte(&USARTD0, 0xDC);
  *  \endcode
  *
  *  @{
@@ -98,25 +98,25 @@
 		/* Macros: */
 			/** \name SPI SCK Polarity Configuration Masks */
 			//@{
-			/** SPI clock polarity mask for \c SerialSPI_Init(). Indicates that the SCK should lead on the rising edge. */
+			/** SPI clock polarity mask for \ref SerialSPI_Init(). Indicates that the SCK should lead on the rising edge. */
 			#define USART_SPI_SCK_LEAD_RISING      0
 			//@}
 
 			/** \name SPI Sample Edge Configuration Masks */
 			//@{
-			/** SPI data sample mode mask for \c SerialSPI_Init(). Indicates that the data should sampled on the leading edge. */
+			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should sampled on the leading edge. */
 			#define USART_SPI_SAMPLE_LEADING       0
 
-			/** SPI data sample mode mask for \c SerialSPI_Init(). Indicates that the data should be sampled on the trailing edge. */
+			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should be sampled on the trailing edge. */
 			#define USART_SPI_SAMPLE_TRAILING      USART_UPCHA_bm
 			//@}
 
 			/** \name SPI Data Ordering Configuration Masks */
 			//@{
-			/** SPI data order mask for \c Serial_SPIInit(). Indicates that data should be shifted out MSB first. */
+			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out MSB first. */
 			#define USART_SPI_ORDER_MSB_FIRST      0
 
-			/** SPI data order mask for \c Serial_SPIInit(). Indicates that data should be shifted out LSB first. */
+			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define USART_SPI_ORDER_LSB_FIRST      USART_UDORD_bm
 			//@}			
 

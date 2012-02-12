@@ -97,61 +97,61 @@
 		/* Macros: */
 			/** \name SPI Prescaler Configuration Masks */
 			//@{
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 2. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 2. */
 			#define SPI_SPEED_FCPU_DIV_2           SPI_USE_DOUBLESPEED
 
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 4. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 4. */
 			#define SPI_SPEED_FCPU_DIV_4           0
 
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 8. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 8. */
 			#define SPI_SPEED_FCPU_DIV_8           (SPI_USE_DOUBLESPEED | (1 << SPI_PRESCALER_gp))
 
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 16. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 16. */
 			#define SPI_SPEED_FCPU_DIV_16          (1 << SPI_PRESCALER_gp)
 
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 32. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 32. */
 			#define SPI_SPEED_FCPU_DIV_32          (SPI_USE_DOUBLESPEED | (2 << SPI_PRESCALER_gp))
 
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 64. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 64. */
 			#define SPI_SPEED_FCPU_DIV_64          (2 << SPI_PRESCALER_gp)
 
-			/** SPI prescaler mask for \c SPI_Init(). Divides the system clock by a factor of 128. */
+			/** SPI prescaler mask for \ref SPI_Init(). Divides the system clock by a factor of 128. */
 			#define SPI_SPEED_FCPU_DIV_128         (3 << SPI_PRESCALER_gp)
 			//@}
 
 			/** \name SPI SCK Polarity Configuration Masks */
 			//@{
-			/** SPI clock polarity mask for \c SPI_Init(). Indicates that the SCK should lead on the rising edge. */
+			/** SPI clock polarity mask for \ref SPI_Init(). Indicates that the SCK should lead on the rising edge. */
 			#define SPI_SCK_LEAD_RISING            0
 
-			/** SPI clock polarity mask for \c SPI_Init(). Indicates that the SCK should lead on the falling edge. */
+			/** SPI clock polarity mask for \ref SPI_Init(). Indicates that the SCK should lead on the falling edge. */
 			#define SPI_SCK_LEAD_FALLING           SPI_MODE1_bm
 			//@}
 
 			/** \name SPI Sample Edge Configuration Masks */
 			//@{
-			/** SPI data sample mode mask for \c SPI_Init(). Indicates that the data should sampled on the leading edge. */
+			/** SPI data sample mode mask for \ref SPI_Init(). Indicates that the data should sampled on the leading edge. */
 			#define SPI_SAMPLE_LEADING             0
 
-			/** SPI data sample mode mask for \c SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
+			/** SPI data sample mode mask for \ref SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
 			#define SPI_SAMPLE_TRAILING            SPI_MODE0_bm
 			//@}
 
 			/** \name SPI Data Ordering Configuration Masks */
 			//@{
-			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out MSB first. */
+			/** SPI data order mask for \ref SPI_Init(). Indicates that data should be shifted out MSB first. */
 			#define SPI_ORDER_MSB_FIRST            0
 
-			/** SPI data order mask for \c SPI_Init(). Indicates that data should be shifted out LSB first. */
+			/** SPI data order mask for \ref SPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define SPI_ORDER_LSB_FIRST            SPI_DORD_bm
 			//@}
 
 			/** \name SPI Mode Configuration Masks */
 			//@{
-			/** SPI mode mask for \c SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
+			/** SPI mode mask for \ref SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
 			#define SPI_MODE_SLAVE                 0
 
-			/** SPI mode mask for \c SPI_Init(). Indicates that the SPI interface should be initialized into master mode. */
+			/** SPI mode mask for \ref SPI_Init(). Indicates that the SPI interface should be initialized into master mode. */
 			#define SPI_MODE_MASTER                SPI_MASTER_bm
 			//@}
 
