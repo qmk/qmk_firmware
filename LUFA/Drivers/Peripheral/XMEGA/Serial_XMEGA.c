@@ -36,56 +36,59 @@ FILE USARTSerialStream;
 int Serial_putchar(char DataByte,
                    FILE *Stream)
 {
-	(void)Stream;
+	USART_t* USART = fdev_get_udata(Stream);
 
-	Serial_SendByte(DataByte);
+	Serial_SendByte(USART, DataByte);
 	return 0;
 }
 
 int Serial_getchar(FILE *Stream)
 {
-	(void)Stream;
+	USART_t* USART = fdev_get_udata(Stream);
 
-	if (!(Serial_IsCharReceived()))
+	if (!(Serial_IsCharReceived(USART)))
 	  return _FDEV_EOF;
 
-	return Serial_ReceiveByte();
+	return Serial_ReceiveByte(USART);
 }
 
 int Serial_getchar_Blocking(FILE *Stream)
 {
-	(void)Stream;
+	USART_t* USART = fdev_get_udata(Stream);
 
-	while (!(Serial_IsCharReceived()));
-	return Serial_ReceiveByte();
+	while (!(Serial_IsCharReceived(USART)));
+	return Serial_ReceiveByte(USART);
 }
 
-void Serial_SendString_P(const char* FlashStringPtr)
+void Serial_SendString_P(USART_t* const USART,
+                         const char* FlashStringPtr)
 {
 	uint8_t CurrByte;
 
 	while ((CurrByte = pgm_read_byte(FlashStringPtr)) != 0x00)
 	{
-		Serial_SendByte(CurrByte);
+		Serial_SendByte(USART, CurrByte);
 		FlashStringPtr++;
 	}
 }
 
-void Serial_SendString(const char* StringPtr)
+void Serial_SendString(USART_t* const USART,
+                       const char* StringPtr)
 {
 	uint8_t CurrByte;
 
 	while ((CurrByte = *StringPtr) != 0x00)
 	{
-		Serial_SendByte(CurrByte);
+		Serial_SendByte(USART, CurrByte);
 		StringPtr++;
 	}
 }
 
-void Serial_SendData(const uint8_t* Buffer,
+void Serial_SendData(USART_t* const USART,
+                     const uint8_t* Buffer,
                      uint16_t Length)
 {
 	while (Length--)
-	  Serial_SendByte(*(Buffer++));
+	  Serial_SendByte(USART, *(Buffer++));
 }
 
