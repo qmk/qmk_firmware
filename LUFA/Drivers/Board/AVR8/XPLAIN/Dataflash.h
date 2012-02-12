@@ -60,6 +60,7 @@
 	/* Includes: */
 		#include "../../../../Common/Common.h"
 		#include "../../../Misc/AT45DB642D.h"
+		#include "../../../Peripheral/SPI.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_DATAFLASH_H)

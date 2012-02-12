@@ -20,7 +20,8 @@
   *   - Added support for the Micropendous family of boards (Arduino-like revisions 1 and 2, DIP, 32U2, A, 1, 2, 3 and 4)
   *   - Added INVERTED_VBUS_ENABLE_LINE and NO_AUTO_VBUS_MANAGEMENT compile time options (thanks to Opendous Inc.)
   *   - Added support for the Atmel XMEGA B1 Xplained board
-  *   - Added Serial USART peripheral driver for the XMEGA platform
+  *   - Added Serial USART peripheral driver for the XMEGA architecture
+  *   - Added Master Mode SPI USART peripheral driver for the XMEGA and AVR8 architectures
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders
   *   - Added INVERTED_ISP_MISO compile time option to the AVRISP-MKII clone project (thanks to Chuck Rohs)

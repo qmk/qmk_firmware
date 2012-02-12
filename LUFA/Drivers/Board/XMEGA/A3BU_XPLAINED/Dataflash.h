@@ -51,6 +51,7 @@
 	/* Includes: */
 		#include "../../../../Common/Common.h"
 		#include "../../../Misc/AT45DB642D.h"
+		#include "../../../Peripheral/SerialSPI.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
@@ -100,9 +101,7 @@
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
 			{
-				// TODO: USART in SPI mode on PORT D
-				#warning The Dataflash driver for the selected board is currently incomplete and non-functional.
-				return 0;
+				return SerialSPI_TransferByte(&USARTD0, Byte);
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
@@ -112,7 +111,7 @@
 			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)
 			{
-				return; // TODO
+				SerialSPI_SendByte(&USARTD0, Byte);
 			}
 
 			/** Sends a dummy byte to the currently selected dataflash IC, and returns the next byte from the dataflash.
@@ -122,7 +121,7 @@
 			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_ReceiveByte(void)
 			{
-				return 0; // TODO
+				return SerialSPI_ReceiveByte(&USARTD0);
 			}
 
 			/** Determines the currently selected dataflash chip.
@@ -170,10 +169,7 @@
 				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
 				  return;
 
-				if (PageAddress & 0x01)
-				  Dataflash_SelectChip(DATAFLASH_CHIP2);
-				else
-				  Dataflash_SelectChip(DATAFLASH_CHIP1);
+				Dataflash_SelectChip(DATAFLASH_CHIP1);
 			}
 
 			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive
@@ -207,8 +203,6 @@
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
 			                                              const uint16_t BufferByte)
 			{
-				PageAddress >>= 1;
-
 				Dataflash_SendByte(PageAddress >> 5);
 				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);

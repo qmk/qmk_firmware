@@ -123,7 +123,6 @@
 
 	/* Includes: */
 		#include "../../Common/Common.h"
-		#include "../Peripheral/SPI.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -148,7 +147,9 @@
 		/* Inline Functions: */
 			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *
-			 *  \note The microcontroller's SPI driver must be initialized before any of the dataflash commands are used.
+			 *  \note The microcontroller's physical interface driver connected to the Dataflash IC must be initialized before
+			 *        any of the dataflash commands are used. This is usually a SPI hardware port, but on some devices/boards may
+			 *        be a USART operating in SPI Master mode.
 			 */
 			static inline void Dataflash_Init(void);
 
