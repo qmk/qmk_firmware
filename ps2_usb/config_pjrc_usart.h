@@ -47,13 +47,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* PS/2 lines */
-#define PS2_CLOCK_PORT  PORTF
-#define PS2_CLOCK_PIN   PINF
-#define PS2_CLOCK_DDR   DDRF
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
 #define PS2_CLOCK_BIT   5
-#define PS2_DATA_PORT   PORTF
-#define PS2_DATA_PIN    PINF
-#define PS2_DATA_DDR    DDRF
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
 #define PS2_DATA_BIT    2
 
 
