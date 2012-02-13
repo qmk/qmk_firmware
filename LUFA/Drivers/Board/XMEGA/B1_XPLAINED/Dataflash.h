@@ -90,6 +90,8 @@
 			{
 				DATAFLASH_CHIPCS_PORT.DIRSET = DATAFLASH_CHIPCS_MASK;
 				DATAFLASH_CHIPCS_PORT.OUTSET = DATAFLASH_CHIPCS_MASK;
+				
+				PORTE.REMAP |= PORT_USART0_bm;
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
