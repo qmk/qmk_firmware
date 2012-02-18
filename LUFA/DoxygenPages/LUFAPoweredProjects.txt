@@ -102,6 +102,7 @@
  *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
  *  - Universal USB AVR Module: http://usbavr.bplaced.net/
  *  - USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
+ *  - USB Infrared Receiver/Transmitter: http://vaton4.web2001.cz/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - USB MIDI to DMX controller: http://github.com/hanshuebner/miDiMX
  *  - USB powered Geiger Counter: http://uhrheber.wordpress.com/2011/04/28/a-usb-powered-geiger-counter-for-the-z2-and-other-computers/
