@@ -52,8 +52,10 @@ void USB_USBTask(void)
 	#else
 		if (USB_CurrentMode == USB_MODE_Device)
 		  USB_DeviceTask();
+		#if defined(USB_CAN_BE_HOST)
 		else if (USB_CurrentMode == USB_MODE_Host)
 		  USB_HostTask();
+		#endif
 	#endif
 }
 

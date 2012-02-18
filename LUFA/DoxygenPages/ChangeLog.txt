@@ -22,6 +22,7 @@
   *   - Added support for the Atmel XMEGA B1 Xplained board
   *   - Added Serial USART peripheral driver for the XMEGA architecture
   *   - Added Master Mode SPI USART peripheral driver for the XMEGA and AVR8 architectures
+  *   - Added build tests to verify correct compilation of as many modules as possible under as many architectures as possible
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders
   *   - Added INVERTED_ISP_MISO compile time option to the AVRISP-MKII clone project (thanks to Chuck Rohs)
@@ -56,6 +57,9 @@
   *   - Fixed broken compilation for the AVR32 devices if the NO_SOF_EVENTS compile time option was not enabled (thanks to Matthias Jahr)
   *   - Fixed compiler warning on GCC with \c -wundef compile flag is used (thanks to Georg Glock)
   *   - Fixed incorrect implementation of LEDs_ToggleLEDs() for the Adafruit-U4 board (thanks to Caroline Saliman)
+  *   - Fixed broken compilation of LUFA under C++ compilers when the Serial peripheral module header file is included in a C++ source file
+  *   - Fixed missing semicolon in the UC3 architecture host pipe functions
+  *   - Fixed failed compilation for the XMEGA architecture if USB_DEVICE_ONLY us not specified
   *  - Library Applications:
   *   - Added reliability patches to the AVRISP-MKII Clone project's PDI/TPI protocols (thanks to Justin Mattair)
   *   - Fixed AVRISP-MKII Clone compile warning on AVR8 U4 targets even when NO_VTARGET_DETECT is enabled

@@ -89,6 +89,7 @@
 			#include <avr/pgmspace.h>
 			#include <avr/eeprom.h>
 			#include <avr/boot.h>
+			#include <math.h>
 			#include <util/delay.h>
 
 			typedef uint8_t uint_reg_t;
@@ -119,6 +120,7 @@
 			#include <avr/interrupt.h>
 			#include <avr/pgmspace.h>
 			#include <avr/eeprom.h>
+			#include <math.h>
 			#include <util/delay.h>
 
 			typedef uint8_t uint_reg_t;
@@ -256,7 +258,7 @@
 				while (Milliseconds--)
 				{
 					__builtin_mtsr(AVR32_COUNT, 0);
-					while (__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));
+					while ((uint32_t)__builtin_mfsr(AVR32_COUNT) < (F_CPU / 1000));
 				}
 				#elif (ARCH == ARCH_XMEGA)
 				if (GCC_IS_COMPILE_CONST(Milliseconds))

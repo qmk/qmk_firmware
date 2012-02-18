@@ -21,6 +21,7 @@ all:
 	$(MAKE) -C Demos $@ -s
 	$(MAKE) -C Projects $@ -s
 	$(MAKE) -C Bootloaders $@ -s
+	$(MASK) -C BuildTests $@ -s
 	@echo
 	@echo LUFA \"make $@\" operation complete.
 

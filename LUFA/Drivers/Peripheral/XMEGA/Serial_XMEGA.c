@@ -92,3 +92,26 @@ void Serial_SendData(USART_t* const USART,
 	  Serial_SendByte(USART, *(Buffer++));
 }
 
+void Serial_CreateStream(FILE* Stream)
+{
+	if (!(Stream))
+	{
+		Stream = &USARTSerialStream;
+		stdin  = Stream;
+		stdout = Stream;
+	}
+
+	*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar, _FDEV_SETUP_RW);
+}
+
+void Serial_CreateBlockingStream(FILE* Stream)
+{
+	if (!(Stream))
+	{
+		Stream = &USARTSerialStream;
+		stdin  = Stream;
+		stdout = Stream;
+	}
+
+	*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar_Blocking, _FDEV_SETUP_RW);
+}

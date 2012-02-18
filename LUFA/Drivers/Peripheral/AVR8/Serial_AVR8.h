@@ -135,6 +135,32 @@
 			 */
 			void Serial_SendData(const uint8_t* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Creates a standard character stream from the USART so that it can be used with all the regular functions
+			 *  in the avr-libc \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
+			 *  stream is bidirectional and can be used for both input and output functions.
+			 *
+			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single
+			 *  fetch, as the endpoint will not be ready at some point in the transmission, aborting the transfer. However, this may
+			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
+			 *  line buffering.
+			 *
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL, \c stdout
+			 *                         and \c stdin will be configured to use the USART.
+			 *
+			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
+			 */
+			void Serial_CreateStream(FILE* Stream);
+			
+			/** Identical to \ref Serial_CreateStream(), except that reads are blocking until the calling stream function terminates
+			 *  the transfer.
+			 *
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL, \c stdout
+			 *                         and \c stdin will be configured to use the USART.
+			 *
+			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
+			 */
+			void Serial_CreateBlockingStream(FILE* Stream);
+
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
@@ -166,52 +192,6 @@
 
 				DDRD  &= ~(1 << 3);
 				PORTD &= ~(1 << 2);
-			}
-
-			/** Creates a standard character stream from the USART so that it can be used with all the regular functions
-			 *  in the avr-libc \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
-			 *  stream is bidirectional and can be used for both input and output functions.
-			 *
-			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single
-			 *  fetch, as the endpoint will not be ready at some point in the transmission, aborting the transfer. However, this may
-			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
-			 *  line buffering.
-			 *
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL, \c stdout
-			 *                         and \c stdin will be configured to use the USART.
-			 *
-			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
-			 */
-			static inline void Serial_CreateStream(FILE* Stream)
-			{
-				if (!(Stream))
-				{
-					Stream = &USARTSerialStream;
-					stdin  = Stream;
-					stdout = Stream;
-				}
-
-				*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar, _FDEV_SETUP_RW);
-			}
-
-			/** Identical to \ref Serial_CreateStream(), except that reads are blocking until the calling stream function terminates
-			 *  the transfer.
-			 *
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL, \c stdout
-			 *                         and \c stdin will be configured to use the USART.
-			 *
-			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
-			 */
-			static inline void Serial_CreateBlockingStream(FILE* Stream)
-			{
-				if (!(Stream))
-				{
-					Stream = &USARTSerialStream;
-					stdin  = Stream;
-					stdout = Stream;
-				}
-
-				*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar_Blocking, _FDEV_SETUP_RW);
 			}
 
 			/** Indicates whether a character has been received through the USART.

@@ -80,7 +80,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		}
 		else
 		{
-			UPCFG0Temp = (&AVR32_USBB.upcfg0)[PNum]
+			UPCFG0Temp = (&AVR32_USBB.upcfg0)[PNum];
 		}
 
 		if (!(UPCFG0Temp & AVR32_USBB_ALLOC_MASK))
