@@ -58,6 +58,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	                                ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
 	                                ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
 	                                ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
+	                                Pipe_BytesToEPSizeMask(Size) |
 	                                ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
 
 	Pipe_SetInfiniteINRequests();
@@ -76,6 +77,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 			              ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
 			              ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
 			              ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
+			              Pipe_BytesToEPSizeMask(Size) |
 			              ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
 		}
 		else

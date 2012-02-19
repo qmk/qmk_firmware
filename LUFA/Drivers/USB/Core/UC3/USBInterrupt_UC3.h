@@ -350,15 +350,13 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* ISR Prototypes: */
+		/* Function Prototypes: */
 			#if defined(__DOXYGEN__)
 				/** Interrupt service routine handler for the USB controller ISR group. This interrupt routine <b>must</b> be
 				 *  linked to the entire USB controller ISR vector group inside the AVR32's interrupt controller peripheral,
 				 *  using the user application's preferred USB controller driver.
 				 */
 				void USB_GEN_vect(void);
-			#else
-				ISR(USB_GEN_vect);
 			#endif
 
 	/* Disable C linkage for C++ Compilers: */

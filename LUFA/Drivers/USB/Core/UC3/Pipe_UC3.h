@@ -389,7 +389,7 @@
 			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber)
 			{
-				return ((AVR32_USBB.uhint & (AVR32_USBB_P0INTES_MASK << USB_Pipe_SelectedPipe)) ? true : false);
+				return ((AVR32_USBB.uhint & (AVR32_USBB_P0INTES_MASK << PipeNumber)) ? true : false);
 			}
 
 			/** Unfreezes the selected pipe, allowing it to communicate with an attached device. */

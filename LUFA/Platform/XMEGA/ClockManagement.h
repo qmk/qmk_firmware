@@ -323,14 +323,11 @@
 			 *  and ready for use before this function is called.
 			 *
 			 *  \param[in] Source      Clock source for the CPU core, a value from \ref XMEGA_System_ClockSource_t.
-			 *  \param[in] SourceFreq  Frequency of the CPU core's clock source, in Hz.
 			 *
 			 *  \return Boolean \c true if the CPU core clock was sucessfully altered, \c false if invalid parameters specified.
 			 */
-			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source,
-			                                              const uint32_t SourceFreq) ATTR_ALWAYS_INLINE;
-			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source,
-			                                              const uint32_t SourceFreq)
+			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source)
 			{
 				uint8_t ClockSourceMask = 0;
 

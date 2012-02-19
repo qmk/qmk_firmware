@@ -429,6 +429,7 @@
 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber)
 			{
+				(void)EndpointNumber;
 				return 0; // TODO
 			}
 

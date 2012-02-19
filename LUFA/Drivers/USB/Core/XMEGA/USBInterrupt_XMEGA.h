@@ -73,10 +73,10 @@
 				switch (Interrupt)
 				{
 					case USB_INT_BUSEVENTI:
-						USB.INTCTRLA |=  USB_BUSEVIE_bm;
+						USB.INTCTRLA |= USB_BUSEVIE_bm;
 						return;
 					case USB_INT_SOFI:
-						USB.INTCTRLA |=  USB_SOFIE_bm;
+						USB.INTCTRLA |= USB_SOFIE_bm;
 						return;
 				}
 			}

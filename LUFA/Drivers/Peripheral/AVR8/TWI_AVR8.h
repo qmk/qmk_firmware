@@ -254,8 +254,6 @@
 			 */
 			bool TWI_ReceiveByte(uint8_t* const Byte,
 			                     const bool LastByte) ATTR_NON_NULL_PTR_ARG(1);
-			bool TWI_ReceiveByte(uint8_t* const Byte,
-			                     const bool LastByte);
 
 			/** High level function to perform a complete packet transfer over the TWI bus to the specified
 			 *  device.

@@ -62,6 +62,7 @@
   *   - Fixed broken compilation of LUFA under C++ compilers when the Serial peripheral module header file is included in a C++ source file
   *   - Fixed missing semicolon in the UC3 architecture host pipe functions
   *   - Fixed failed compilation for the XMEGA architecture if USB_DEVICE_ONLY us not specified
+  *   - Fixed UC3 architecture ignoring the pipe size when Pipe_ConfigurePipe() is called
   *  - Library Applications:
   *   - Added reliability patches to the AVRISP-MKII Clone project's PDI/TPI protocols (thanks to Justin Mattair)
   *   - Fixed AVRISP-MKII Clone compile warning on AVR8 U4 targets even when NO_VTARGET_DETECT is enabled
