@@ -39,6 +39,7 @@
   *   - USB_CONFIG_ATTR_BUSPOWERED constant renamed to USB_CONFIG_ATTR_RESERVED, as this was misnamed (thanks to NXP Semiconductors)
   *   - Reordered board name definition indexes so that a mispelled BOARD compile option will default to BOARD_USER rather than BOARD_USBKEY
   *   - Altered the HID class driver to only try to construct at maximum one packet per USB frame, to reduce CPU usage
+  *   - All USB Class Driver configuration struct values are now non-const, to allow for run-time modifications if required before configuring an instance
   *  - Library Applications:
   *   - Altered the Mass Storage Host LowLevel demo so that SCSI data STALLs from the attached device can be recovered from automatically without
   *     having to reset the Mass Storage interface

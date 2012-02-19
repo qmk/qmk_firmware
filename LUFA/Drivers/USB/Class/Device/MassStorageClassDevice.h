@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  InterfaceNumber; /**< Interface number of the Mass Storage interface within the device. */
 

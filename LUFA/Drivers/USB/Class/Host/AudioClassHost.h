@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the Audio interface's IN data pipe. If this interface should not
 					                            *   bind to an IN endpoint, this may be set to 0 to disable audio input streaming for

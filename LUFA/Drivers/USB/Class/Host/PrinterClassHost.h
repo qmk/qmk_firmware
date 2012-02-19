@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the Printer interface's IN data pipe. */
 					bool     DataINPipeDoubleBank; /**< Indicates if the Printer interface's IN data pipe should use double banking. */

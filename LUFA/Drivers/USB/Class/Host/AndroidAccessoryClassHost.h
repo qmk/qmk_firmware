@@ -83,7 +83,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the AOA interface's IN data pipe. */
 					bool     DataINPipeDoubleBank; /**< Indicates if the AOA interface's IN data pipe should use double banking. */

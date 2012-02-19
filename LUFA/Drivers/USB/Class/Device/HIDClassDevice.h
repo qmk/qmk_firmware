@@ -81,7 +81,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device. */
 

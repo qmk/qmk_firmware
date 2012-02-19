@@ -41,6 +41,8 @@ bool AOA_Host_ValidateAccessoryDevice(USB_ClassInfo_AOA_Host_t* const AOAInterfa
                                       const USB_Descriptor_Device_t* const DeviceDescriptor,
                                       bool* const NeedModeSwitch)
 {
+	(void)AOAInterfaceInfo;
+
 	if (DeviceDescriptor->Header.Type != DTYPE_Device)
 	  return false;
 

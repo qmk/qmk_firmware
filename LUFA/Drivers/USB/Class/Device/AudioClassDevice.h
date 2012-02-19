@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
 														*   structure controls.

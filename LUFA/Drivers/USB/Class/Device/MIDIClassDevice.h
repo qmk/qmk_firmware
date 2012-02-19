@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls. */
 
@@ -94,7 +94,7 @@
 
 				struct
 				{
-					// No state information for this class
+					uint8_t RESERVED; // No state information for this class
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */

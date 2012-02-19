@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe. */
 					bool     DataINPipeDoubleBank; /**< Indicates if the MIDI interface's IN data pipe should use double banking. */

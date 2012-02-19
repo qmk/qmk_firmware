@@ -77,7 +77,7 @@
 			 */
 			typedef struct
 			{
-				const struct
+				struct
 				{
 					uint8_t  ControlInterfaceNumber; /**< Interface number of the RNDIS control interface within the device. */
 
