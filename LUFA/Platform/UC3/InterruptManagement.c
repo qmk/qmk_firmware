@@ -28,6 +28,7 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_INTMANAGEMENT_C
 #include "InterruptManagement.h"
 
 /** Interrupt vector table, containing the ISR to call for each interrupt group */

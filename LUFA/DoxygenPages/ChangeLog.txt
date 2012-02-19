@@ -22,7 +22,8 @@
   *   - Added support for the Atmel XMEGA B1 Xplained board
   *   - Added Serial USART peripheral driver for the XMEGA architecture
   *   - Added Master Mode SPI USART peripheral driver for the XMEGA and AVR8 architectures
-  *   - Added build tests to verify correct compilation of as many modules as possible under as many architectures as possible
+  *   - Added build test to verify correct compilation of as many modules as possible under as many architectures as possible under the C and C++ languages
+  *   - Added build test to verify correct compilation of the USB driver when forced into single USB mode under as many architectures as possible
   *  - Library Applications:
   *   - Added User Application APIs to the CDC and DFU class bootloaders
   *   - Added INVERTED_ISP_MISO compile time option to the AVRISP-MKII clone project (thanks to Chuck Rohs)

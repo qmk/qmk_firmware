@@ -84,9 +84,11 @@
 			typedef void (*InterruptHandlerPtr_t)(void);
 
 		/* External Variables: */
-			extern const void            EVBA_Table;
-			extern const uint32_t        Autovector_Table[];
+			#if defined(__INCLUDE_FROM_INTMANAGEMENT_C)
+				extern const void        EVBA_Table;
+			#endif
 			extern InterruptHandlerPtr_t InterruptHandlers[AVR32_INTC_NUM_INT_GRPS];
+			extern const uint32_t        Autovector_Table[];
 	#endif
 
 	/* Public Interface - May be used in end-application: */

@@ -11,9 +11,10 @@
 # not intended to be modified or compiled by non-developers.
 
 all:
-	$(MAKE) -C ModuleTest clean
 	$(MAKE) -C ModuleTest all
+	$(MAKE) -C SingleUSBModeTest all
 
 %:
 	$(MAKE) -C ModuleTest $@
+	$(MAKE) -C SingleUSBModeTest $@
 
