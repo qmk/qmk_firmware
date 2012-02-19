@@ -13,6 +13,9 @@
 # application.
 
 all:
+	@echo Executing build test "SingleUSBModeTest".
+	@echo
+
 	$(MAKE) -f makefile.avr8 clean
 	$(MAKE) -f makefile.avr8 LUFA_OPTS='-D USB_DEVICE_ONLY'
 	$(MAKE) -f makefile.avr8 clean
@@ -25,6 +28,9 @@ all:
 	$(MAKE) -f makefile.uc3 LUFA_OPTS='-D USB_DEVICE_ONLY'
 	$(MAKE) -f makefile.uc3 clean
 	$(MAKE) -f makefile.uc3 LUFA_OPTS='-D USB_HOST_ONLY'
+
+	@echo Build test "SingleUSBModeTest" complete.
+	@echo
 
 clean:
 	$(MAKE) -f makefile.avr8 clean

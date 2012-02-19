@@ -13,6 +13,9 @@
 # application.
 
 all:
+	@echo Executing build test "ModuleTest".
+	@echo
+
 	$(MAKE) -f makefile.avr8 clean
 	$(MAKE) -f makefile.avr8
 
@@ -21,6 +24,9 @@ all:
 
 	$(MAKE) -f makefile.uc3 clean
 	$(MAKE) -f makefile.uc3
+
+	@echo Build test "ModuleTest" complete.
+	@echo
 
 clean:
 	$(MAKE) -f makefile.avr8 clean

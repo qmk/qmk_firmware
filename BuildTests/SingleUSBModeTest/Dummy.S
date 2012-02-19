@@ -28,6 +28,9 @@
   this software.
 */
 
+.section .text
+
+
 # Mandatory entry point for successful compilation and link
 .global main
 main:
