@@ -6,6 +6,9 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
+  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  None.
+  *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>
   *  - Core:
