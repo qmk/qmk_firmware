@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the XMEGA A3BU Xplained board
