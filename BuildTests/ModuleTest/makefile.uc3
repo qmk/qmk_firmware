@@ -186,12 +186,36 @@ CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
 CFLAGS += -fno-strict-aliasing
-CFLAGS += -Wall
-CFLAGS += -Wstrict-prototypes
 CFLAGS += -masm-addr-pseudos
 CFLAGS += -Wa,-adhlns=$(<:%.c=$(OBJDIR)/%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
+CFLAGS += -Werror
+CFLAGS += -Wall
+CFLAGS += -Wextra
+CFLAGS += -Wstrict-prototypes
+CFLAGS += -Wformat=2
+CFLAGS += -Winit-self
+CFLAGS += -Wswitch-enum
+CFLAGS += -Wunused
+CFLAGS += -Wundef
+CFLAGS += -Wpointer-arith
+#CFLAGS += -Wcast-align
+CFLAGS += -Wwrite-strings
+CFLAGS += -Wlogical-op
+CFLAGS += -Wmissing-parameter-type
+CFLAGS += -Wmissing-declarations
+CFLAGS += -Wmissing-field-initializers
+CFLAGS += -Wmissing-format-attribute
+#CFLAGS += -Wredundant-decls
+CFLAGS += -Wnested-externs
+CFLAGS += -Woverlength-strings
+#CFLAGS += -Wswitch-default
+#CFLAGS += -Wc++-compat
+#CFLAGS += -Wcast-qual
+#CFLAGS += -Wconversion
+#CFLAGS += -Wjump-misses-init
+#CFLAGS += -pedantic
 
 
 #---------------- Compiler Options C++ ----------------
