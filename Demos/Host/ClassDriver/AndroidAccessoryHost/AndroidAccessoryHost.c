@@ -52,12 +52,12 @@ USB_ClassInfo_AOA_Host_t AndroidDevice_AOA_Interface =
 				
 				.PropertyStrings =
 					{
-						.Manufacturer       = "Dean Camera",
-						.Model              = "LUFA Android Demo",
-						.Description        = "LUFA Android Demo",
-						.Version            = "1.0",
-						.URI                = "http://www.lufa-lib.org",
-						.Serial             = "0000000012345678",
+						[AOA_STRING_Manufacturer] = "Dean Camera",
+						[AOA_STRING_Model]        = "LUFA Android Demo",
+						[AOA_STRING_Description]  = "LUFA Android Demo",
+						[AOA_STRING_Version]      = "1.0",
+						[AOA_STRING_URI]          = "http://www.lufa-lib.org",
+						[AOA_STRING_Serial]       = "0000000012345678",
 					},
 			},
 	};
