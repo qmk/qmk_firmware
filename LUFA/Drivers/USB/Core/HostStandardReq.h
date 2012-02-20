@@ -278,6 +278,7 @@
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_HOSTSTDREQ_C)
+				static uint8_t USB_Host_SendControlRequest_PRV(void* const BufferPtr);
 				static uint8_t USB_Host_WaitForIOS(const uint8_t WaitType);
 			#endif
 	#endif

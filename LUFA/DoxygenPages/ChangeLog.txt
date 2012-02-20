@@ -7,7 +7,23 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  None.
+  *  <b>New:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - None
+  *
+  *  <b>Changed:</b>
+  *  - Core:
+  *   - Android Accessory Host property strings changed from a struct of pointer to an array to prevent unaligned access on greater than 8-bit architectures
+  *  - Library Applications:
+  *   - None
+  *
+  *  <b>Fixed:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - None
   *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>

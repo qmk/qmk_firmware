@@ -38,17 +38,16 @@
 
 uint8_t USB_Host_ConfigurationNumber;
 
-uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
+static uint8_t USB_Host_SendControlRequest_PRV(void* const BufferPtr)
 {
 	uint8_t* DataStream   = (uint8_t*)BufferPtr;
-	bool     BusSuspended = USB_Host_IsBusSuspended();
 	uint8_t  ReturnStatus = HOST_SENDCONTROL_Successful;
 	uint16_t DataLen      = USB_ControlRequest.wLength;
 
 	USB_Host_ResumeBus();
 
 	if ((ReturnStatus = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
-	  goto End_Of_Control_Send;
+	  return ReturnStatus;
 
 	Pipe_SetPipeToken(PIPE_TOKEN_SETUP);
 	Pipe_ClearError();
@@ -71,12 +70,12 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 	Pipe_ClearSETUP();
 
 	if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_SetupSent)) != HOST_SENDCONTROL_Successful)
-	  goto End_Of_Control_Send;
+	  return ReturnStatus;
 
 	Pipe_Freeze();
 
 	if ((ReturnStatus = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
-	  goto End_Of_Control_Send;
+	  return ReturnStatus;
 
 	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_DIRECTION) == REQDIR_DEVICETOHOST)
 	{
@@ -89,7 +88,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 				Pipe_Unfreeze();
 
 				if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_InReceived)) != HOST_SENDCONTROL_Successful)
-				  goto End_Of_Control_Send;
+				  return ReturnStatus;
 
 				if (!(Pipe_BytesInPipe()))
 				  DataLen = 0;
@@ -109,12 +108,12 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 		Pipe_Unfreeze();
 
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)) != HOST_SENDCONTROL_Successful)
-		  goto End_Of_Control_Send;
+		  return ReturnStatus;
 
 		Pipe_ClearOUT();
 
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)) != HOST_SENDCONTROL_Successful)
-		  goto End_Of_Control_Send;
+		  return ReturnStatus;
 	}
 	else
 	{
@@ -126,7 +125,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 			while (DataLen)
 			{
 				if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)) != HOST_SENDCONTROL_Successful)
-				  goto End_Of_Control_Send;
+				  return ReturnStatus;
 
 				while (DataLen && (Pipe_BytesInPipe() < USB_Host_ControlPipeSize))
 				{
@@ -138,7 +137,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 			}
 
 			if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)) != HOST_SENDCONTROL_Successful)
-			  goto End_Of_Control_Send;
+			  return ReturnStatus;
 
 			Pipe_Freeze();
 		}
@@ -147,19 +146,11 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 		Pipe_Unfreeze();
 
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_InReceived)) != HOST_SENDCONTROL_Successful)
-		  goto End_Of_Control_Send;
+		  return ReturnStatus;
 
 		Pipe_ClearIN();
 	}
-
-End_Of_Control_Send:
-	Pipe_Freeze();
-
-	if (BusSuspended)
-	  USB_Host_SuspendBus();
-
-	Pipe_ResetPipe(PIPE_CONTROLPIPE);
-
+	
 	return ReturnStatus;
 }
 
@@ -185,6 +176,21 @@ static uint8_t USB_Host_WaitForIOS(const uint8_t WaitType)
 	}
 
 	return HOST_SENDCONTROL_Successful;
+}
+
+uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
+{
+	bool BusSuspended    = USB_Host_IsBusSuspended();
+	uint8_t ReturnStatus = USB_Host_SendControlRequest_PRV(BufferPtr);
+
+	Pipe_Freeze();
+
+	if (BusSuspended)
+	  USB_Host_SuspendBus();
+
+	Pipe_ResetPipe(PIPE_CONTROLPIPE);
+
+	return ReturnStatus;
 }
 
 uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber)

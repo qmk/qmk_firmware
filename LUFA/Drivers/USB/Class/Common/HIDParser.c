@@ -61,17 +61,18 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 		switch (HIDReportItem & HID_RI_DATA_SIZE_MASK)
 		{
 			case HID_RI_DATA_BITS_32:
-				ReportItemData  = le32_to_cpu(*((uint32_t*)ReportData));
+				ReportItemData  = (((uint32_t)ReportData[3] << 24) | ((uint32_t)ReportData[2] << 16) |
+			                       ((uint16_t)ReportData[1] << 8)  | ReportData[0]);
 				ReportSize     -= 4;
 				ReportData     += 4;
 				break;
 			case HID_RI_DATA_BITS_16:
-				ReportItemData  = le16_to_cpu(*((uint16_t*)ReportData));
+				ReportItemData  = (((uint16_t)ReportData[1] << 8) | (ReportData[0]));
 				ReportSize     -= 2;
 				ReportData     += 2;
 				break;
 			case HID_RI_DATA_BITS_8:
-				ReportItemData  = *((uint8_t*)ReportData);
+				ReportItemData  = ReportData[0];
 				ReportSize     -= 1;
 				ReportData     += 1;
 				break;

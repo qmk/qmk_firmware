@@ -233,7 +233,7 @@ static uint8_t AOA_Host_GetAccessoryProtocol(uint16_t* const Protocol)
 static uint8_t AOA_Host_SendPropertyString(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo,
                                            const uint8_t StringIndex)
 {	
-	const char* String = ((char**)&AOAInterfaceInfo->Config.PropertyStrings)[StringIndex];
+	const char* String = AOAInterfaceInfo->Config.PropertyStrings[StringIndex];
 	
 	if (String == NULL)
 	  String = "";

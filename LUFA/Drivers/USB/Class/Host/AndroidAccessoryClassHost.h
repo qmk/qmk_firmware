@@ -91,16 +91,8 @@
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the AOA interface's OUT data pipe. */
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the AOA interface's OUT data pipe should use double banking. */
 					
-					struct
-					{
-						char* Manufacturer; /**< Device manufacturer string. */
-						char* Model; /**< Device model name string. */
-						char* Description; /**< Device description string. */
-						char* Version; /**< Device version string. */
-						char* URI; /**< Device URI information string. */
-						char* Serial; /**< Device serial number string. */
-					} ATTR_PACKED PropertyStrings; /**< Android Accessory property strings, sent to identify the accessory when the
-					                                *   Android device is switched into Open Accessory mode. */
+					char*    PropertyStrings[AOA_STRING_TOTAL_STRINGS]; /**< Android Accessory property strings, sent to identify the accessory when the
+					                                                     *   Android device is switched into Open Accessory mode. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */

@@ -278,7 +278,7 @@ uint8_t PRNT_Host_SendByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 }
 
 uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-                             void* String)
+                             const char* const String)
 {
 	uint8_t ErrorCode;
 
