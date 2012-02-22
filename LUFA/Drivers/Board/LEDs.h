@@ -180,6 +180,10 @@
 			#include "AVR8/MICROPENDOUS/LEDs.h"
 		#elif (BOARD == BOARD_B1_XPLAINED)
 			#include "XMEGA/B1_XPLAINED/LEDs.h"
+		#elif (BOARD == BOARD_MULTIO)
+			#include "AVR8/MULTIO/LEDs.h"
+		#elif (BOARD == BOARD_BIGMULTIO)
+			#include "AVR8/BIGMULTIO/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif

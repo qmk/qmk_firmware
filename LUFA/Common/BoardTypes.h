@@ -171,22 +171,22 @@
 			/** Selects the Micropendous 32U2 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_MICROPENDOUS_32U2    35
 
-			/** Selects the Micropendous A specific board drivers, including the Button. */
+			/** Selects the Micropendous A specific board drivers, including the driver for the board Button. */
 			#define BOARD_MICROPENDOUS_A       36
 
-			/** Selects the Micropendous 1 specific board drivers, including the Button. */
+			/** Selects the Micropendous 1 specific board drivers, including the driver for the board Button. */
 			#define BOARD_MICROPENDOUS_1       37
 
-			/** Selects the Micropendous 2 specific board drivers, including the Button. */
+			/** Selects the Micropendous 2 specific board drivers, including the driver for the board Button. */
 			#define BOARD_MICROPENDOUS_2       38
 
-			/** Selects the Micropendous 3 specific board drivers, including the Button. */
+			/** Selects the Micropendous 3 specific board drivers, including the driver for the board Button. */
 			#define BOARD_MICROPENDOUS_3       39
 
-			/** Selects the Micropendous 4 specific board drivers, including the Button. */
+			/** Selects the Micropendous 4 specific board drivers, including the driver for the board Button. */
 			#define BOARD_MICROPENDOUS_4       40
 
-			/** Selects the Micropendous DIP specific board drivers, including the Button. */
+			/** Selects the Micropendous DIP specific board drivers, including the driver for the board Button. */
 			#define BOARD_MICROPENDOUS_DIP     41
 
 			/** Selects the Micropendous (Arduino-like) revision 1 specific board drivers, including the Button and LED drivers. */
@@ -197,6 +197,12 @@
 
 			/** Selects the XMEGA B1 Xplained specific board drivers, including the Button and LED drivers. */
 			#define BOARD_B1_XPLAINED          44
+
+			/** Selects the Bitwizard Multio specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_MULTIO               45
+
+			/** Selects the Bitwizard Big-Multio specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_BIGMULTIO            46
 
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE

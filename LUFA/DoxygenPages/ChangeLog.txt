@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
   *  - Core:
-  *   - None
+  *   - Added support for the BitWizard Multio and Big-Multio boards
   *  - Library Applications:
   *   - None
   *

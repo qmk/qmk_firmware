@@ -102,6 +102,7 @@
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Adafruit U4 Breakout Board
  *   - Arduino Uno
+ *   - Bitwizard Multio and Big-Multio
  *   - Busware BUI
  *   - Busware CUL V3
  *   - Busware TUL
