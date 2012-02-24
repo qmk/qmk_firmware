@@ -94,7 +94,7 @@
  *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
  *  allowing the user application to call into the bootloader at runtime to read and write FLASH data.
  *
- *  \note The APIs exposed by the DFU class bootloader are \b NOT compatible with the API exposed by the official Atmel DFU bootloader.
+ *  \warning The APIs exposed by the DFU class bootloader are \b NOT compatible with the API exposed by the official Atmel DFU bootloader.
  *
  *  By default, the bootloader API jump table is located 32 bytes from the end of the device's FLASH memory, and follows the
  *  following layout:

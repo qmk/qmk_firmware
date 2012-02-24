@@ -76,7 +76,7 @@
 		/** Structure for the association of attribute ID values to an attribute value in FLASH. A table of these
 		 *  structures can then be built up for each supported UUID service within the device.
 		 *
-		 *  \note This table must be terminated with a \ref SERVICE_ATTRIBUTE_TABLE_TERMINATOR element.
+		 *  \attention This table must be terminated with a \ref SERVICE_ATTRIBUTE_TABLE_TERMINATOR element.
 		 */
 		typedef struct
 		{
