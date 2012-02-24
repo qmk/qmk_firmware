@@ -73,8 +73,8 @@
 			 *  or device (i.e. if \ref USB_Init() has been run). If this is false, all other library globals related
 			 *  to the USB driver are invalid.
 			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
+			 *  \attention This variable should be treated as read-only in the user application, and never manually
+			 *             changed in value.
 			 *
 			 *  \ingroup Group_USBManagement
 			 */
@@ -133,11 +133,11 @@
 					 *  the compiler via the -D switch. When defined, the corresponding GPIOR register should not be used
 					 *  in the user application except implicitly via the library APIs.
 					 *
+					 *  \attention This variable should be treated as read-only in the user application, and never manually
+					 *             changed in value except in the circumstances outlined above.
+					 *
 					 *  \note This global is only present if the user application can be a USB device.
 					 *        \n\n
-					 *
-					 *  \note This variable should be treated as read-only in the user application, and never manually
-					 *        changed in value except in the circumstances outlined above.
 					 *
 					 *  \see \ref USB_Device_States_t for a list of possible device states.
 					 *

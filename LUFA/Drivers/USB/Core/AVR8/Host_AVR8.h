@@ -146,7 +146,7 @@
 				 *  \ref EVENT_USB_Host_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when a device is enumerated while in host mode.
 				 *
-				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
+				 *  \note This function is not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Host_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Host_EnableSOFEvents(void)
@@ -157,7 +157,7 @@
 				/** Disables the host mode Start Of Frame events. When disabled, this stops the firing of the
 				 *  \ref EVENT_USB_Host_StartOfFrame() event when enumerated in host mode.
 				 *
-				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 *  \note This function is not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Host_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Host_DisableSOFEvents(void)
@@ -203,8 +203,8 @@
 			 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
 			 *  messages to the device.
 			 *
-			 *  \note While the USB bus is suspended, all USB interrupt sources are also disabled; this means that
-			 *        some events (such as device disconnections) will not fire until the bus is resumed.
+			 *  \attention While the USB bus is suspended, all USB interrupt sources are also disabled; this means that
+			 *             some events (such as device disconnections) will not fire until the bus is resumed.
 			 */
 			static inline void USB_Host_SuspendBus(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_SuspendBus(void)

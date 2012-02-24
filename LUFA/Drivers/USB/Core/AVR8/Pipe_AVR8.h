@@ -193,9 +193,6 @@
 		/* Inline Functions: */
 			/** Indicates the number of bytes currently stored in the current pipes's selected bank.
 			 *
-			 *  \note The return width of this function may differ, depending on the maximum pipe bank size
-			 *        of the selected AVR model.
-			 *
 			 *  \ingroup Group_PipeRW_AVR8
 			 *
 			 *  \return Total number of bytes in the currently selected pipe's FIFO buffer.
@@ -807,8 +804,8 @@
 		     *  descriptor once the USB interface is initialized into host mode and a device is attached
 			 *  to the USB bus.
 			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
+			 *  \attention This variable should be treated as read-only in the user application, and never manually
+			 *             changed in value.
 			 */
 			extern uint8_t USB_Host_ControlPipeSize;
 
@@ -842,9 +839,8 @@
 			 *                             uses more USB DPRAM, but offers better performance. Isochronous type pipes <b>must</b>
 			 *                             have at least two banks.
 			 *
-			 *  \note When the \c ORDERED_EP_CONFIG compile time option is used, Pipes <b>must</b> be configured in ascending order,
-			 *        or bank corruption will occur.
-			 *        \n\n
+			 *  \attention When the \c ORDERED_EP_CONFIG compile time option is used, Pipes <b>must</b> be configured in ascending order,
+			 *             or bank corruption will occur.
 			 *
 			 *  \note Certain microcontroller model's pipes may have different maximum packet sizes based on the pipe's
 			 *        index - refer to the chosen microcontroller's datasheet to determine the maximum bank size for each pipe.

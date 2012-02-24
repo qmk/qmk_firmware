@@ -158,9 +158,6 @@
  *  before the class driver is used. Each Device mode Class driver typically contains a set of configuration parameters
  *  for the endpoint size/number of the associated logical USB interface, plus any class-specific configuration parameters.
  *
- *  \note The \c State section of the \c USB_ClassInfo_* structures are designed to be controlled by the Class Drivers only
- *        for maintaining the Class Driver instance's state, and should not normally be altered by the user application.
- *
  *  The following is an example of a properly initialized instance of the Audio Class Driver structure:
  *
  *  \code
@@ -257,9 +254,6 @@
  *  section contains the instance's configuration parameters, and <b>must have all fields set by the user application</b>
  *  before the class driver is used. Each Device mode Class driver typically contains a set of configuration parameters
  *  for the endpoint size/number of the associated logical USB interface, plus any class-specific configuration parameters.
- *
- *  \note The \c State section of the \c USB_ClassInfo_* structures are designed to be controlled by the Class Drivers only
- *        for maintaining the Class Driver instance's state, and should not normally be altered by the user application.
  *
  *  The following is an example of a properly initialized instance of the MIDI Host Class Driver structure:
  *

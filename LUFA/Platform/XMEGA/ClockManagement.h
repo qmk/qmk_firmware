@@ -200,7 +200,7 @@
 
 			/** Starts the PLL of the XMEGA microcontroller, with the given options. This routine blocks until the PLL is ready for use.
 			 *
-			 *  \note The output frequency must be equal to or greater than the source frequency.
+			 *  \attention The output frequency must be equal to or greater than the source frequency.
 			 *
 			 *  \param[in] Source       Clock source for the PLL, a value from \ref XMEGA_System_ClockSource_t.
 			 *  \param[in] SourceFreq   Frequency of the PLL's clock source, in Hz.

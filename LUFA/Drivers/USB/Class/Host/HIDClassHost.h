@@ -148,8 +148,8 @@
 			 *  device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
 			 *
-			 *  \note Once the device pipes are configured, the HID device's reporting protocol <b>must</b> be set via a call
-			 *        to either the \ref HID_Host_SetBootProtocol() or \ref HID_Host_SetReportProtocol() function.
+			 *  \attention Once the device pipes are configured, the HID device's reporting protocol <b>must</b> be set via a call
+			 *             to either the \ref HID_Host_SetBootProtocol() or \ref HID_Host_SetReportProtocol() function.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo      Pointer to a structure containing a HID Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize  Length of the attached device's Configuration Descriptor.
@@ -167,8 +167,8 @@
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \note The destination buffer should be large enough to accommodate the largest report that the attached device
-			 *        can generate.
+			 *  \attention The destination buffer should be large enough to accommodate the largest report that the attached device
+			 *             can generate.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
 			 *  \param[in]     Buffer            Buffer to store the received report into.
@@ -267,9 +267,8 @@
 			/** Switches the attached HID device's reporting protocol over to the standard Report protocol mode. This also retrieves
 			 *  and parses the device's HID report descriptor, so that the size of each report can be determined in advance.
 			 *
-			 *  \note Whether this function is used or not, the \ref CALLBACK_HIDParser_FilterHIDReportItem() callback from the HID
-			 *        Report Parser this function references <b>must</b> be implemented in the user code.
-			 *        \n\n
+			 *  \attention Whether this function is used or not, the \ref CALLBACK_HIDParser_FilterHIDReportItem() callback from the HID
+			 *             Report Parser this function references <b>must</b> be implemented in the user code.
 			 *
 			 *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *

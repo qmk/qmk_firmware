@@ -214,9 +214,6 @@
 		/* Inline Functions: */
 			/** Indicates the number of bytes currently stored in the current pipes's selected bank.
 			 *
-			 *  \note The return width of this function may differ, depending on the maximum pipe bank size
-			 *        of the selected AVR model.
-			 *
 			 *  \ingroup Group_PipeRW_UC3
 			 *
 			 *  \return Total number of bytes in the currently selected pipe's FIFO buffer.
@@ -818,8 +815,8 @@
 		     *  descriptor once the USB interface is initialized into host mode and a device is attached
 			 *  to the USB bus.
 			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
+			 *  \attention This variable should be treated as read-only in the user application, and never manually
+			 *             changed in value.
 			 */
 			extern uint8_t USB_Host_ControlPipeSize;
 

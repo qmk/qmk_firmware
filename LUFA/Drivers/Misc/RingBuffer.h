@@ -225,9 +225,9 @@
 
 		/** Inserts an element into the ring buffer.
 		 *
-		 *  \note Only one execution thread (main program thread or an ISR) may insert into a single buffer
-		 *        otherwise data corruption may occur. Insertion and removal may occur from different execution
-		 *        threads.
+		 *  \warning Only one execution thread (main program thread or an ISR) may insert into a single buffer
+		 *           otherwise data corruption may occur. Insertion and removal may occur from different execution
+		 *           threads.
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *  \param[in]     Data    Data element to insert into the buffer.
@@ -252,9 +252,9 @@
 
 		/** Removes an element from the ring buffer.
 		 *
-		 *  \note Only one execution thread (main program thread or an ISR) may remove from a single buffer
-		 *        otherwise data corruption may occur. Insertion and removal may occur from different execution
-		 *        threads.
+		 *  \warning Only one execution thread (main program thread or an ISR) may remove from a single buffer
+		 *           otherwise data corruption may occur. Insertion and removal may occur from different execution
+		 *           threads.
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from.
 		 *

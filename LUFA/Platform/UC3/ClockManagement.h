@@ -162,7 +162,7 @@
 
 			/** Starts the given PLL of the UC3 microcontroller, with the given options. This routine blocks until the PLL is ready for use.
 			 *
-			 *  \note The output frequency must be equal to or greater than the source frequency.
+			 *  \attention The output frequency must be equal to or greater than the source frequency.
 			 *
 			 *  \param[in] Channel     Index of the PLL to start.
 			 *  \param[in] Source      Clock source for the PLL, a value from \ref UC3_System_ClockSource_t.

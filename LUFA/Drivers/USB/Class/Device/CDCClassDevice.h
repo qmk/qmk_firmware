@@ -53,16 +53,17 @@
  *
  *        One major issue with CDC-ACM is that it requires two Interface descriptors,
  *        which will upset most hosts when part of a multi-function "Composite" USB
- *        device, as each interface will be loaded into a separate driver instance. To
- *        combat this, you should use the "Interface Association Descriptor" addendum to
- *        the USB standard which is available on most OSes when creating Composite devices.
+ *        device. This is because each interface will be loaded into a separate driver
+ *        instance, causing the two interfaces be become unlinked. To prevent this, you
+ *        should use the "Interface Association Descriptor" addendum to the USB 2.0 standard
+ *        which is available on most OSes when creating Composite devices.
  *
  *        Another major oversight is that there is no mechanism for the host to notify the
  *        device that there is a data sink on the host side ready to accept data. This
  *        means that the device may try to send data while the host isn't listening, causing
- *        lengthy blocking timeouts in the transmission routines. To combat this, it is
- *        recommended that the virtual serial line DTR (Data Terminal Ready) be used where
- *        possible to determine if a host application is ready for data.
+ *        lengthy blocking timeouts in the transmission routines. It is thus highly recommended
+ *        that the virtual serial line DTR (Data Terminal Ready) signal be used where possible
+ *        to determine if a host application is ready for data.
  *
  *  @{
  */
@@ -299,7 +300,7 @@
 			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
 			 *  line buffering.
 			 *
-			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
+			 *  \note The created stream can be given as \c stdout if desired to direct the standard output from all <stdio.h> functions
 			 *        to the given CDC interface.
 			 *        \n\n
 			 *

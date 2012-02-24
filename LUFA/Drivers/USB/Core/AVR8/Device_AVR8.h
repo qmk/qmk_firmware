@@ -89,7 +89,7 @@
 				 *        \n
 				 *
 				 *  \note Restrictions apply on the number, size and type of endpoints which can be used
-				 *        when running in low speed mode - refer to the USB 2.0 specification.
+				 *        when running in low speed mode - please refer to the USB 2.0 specification.
 				 */
 				#define USB_DEVICE_OPT_LOWSPEED            (1 << 0)
 			#endif
@@ -138,16 +138,16 @@
 			 *  Typically, this is implemented so that HID devices (mice, keyboards, etc.) can wake up the
 			 *  host computer when the host has suspended all USB devices to enter a low power state.
 			 *
-			 *  \note This macro should only be used if the device has indicated to the host that it
-			 *        supports the Remote Wakeup feature in the device descriptors, and should only be
-			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-			 *        the \ref USB_Device_RemoteWakeupEnabled flag is set). When the \c NO_DEVICE_REMOTE_WAKEUP
-			 *        compile time option is used, this macro is unavailable.
-			 *        \n\n
+			 *  \attention This function should only be used if the device has indicated to the host that it
+			 *             supports the Remote Wakeup feature in the device descriptors, and should only be
+			 *             issued if the host is currently allowing remote wakeup events from the device (i.e.,
+			 *             the \ref USB_Device_RemoteWakeupEnabled flag is set). When the \c NO_DEVICE_REMOTE_WAKEUP
+			 *             compile time option is used, this function is unavailable.
+			 *             \n\n
 			 *
-			 *  \note The USB clock must be running for this function to operate. If the stack is initialized with
-			 *        the \ref USB_OPT_MANUAL_PLL option enabled, the user must ensure that the PLL is running
-			 *        before attempting to call this function.
+			 *  \attention The USB clock must be running for this function to operate. If the stack is initialized with
+			 *             the \ref USB_OPT_MANUAL_PLL option enabled, the user must ensure that the PLL is running
+			 *             before attempting to call this function.
 			 *
 			 *  \see \ref Group_StdDescriptors for more information on the RMWAKEUP feature and device descriptors.
 			 */
@@ -170,7 +170,7 @@
 				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when enumerated in device mode.
 				 *
-				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
+				 *  \note This function is not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Device_EnableSOFEvents(void)
@@ -181,7 +181,7 @@
 				/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
 				 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
 				 *
-				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
+				 *  \note This function is not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Device_DisableSOFEvents(void)

@@ -184,7 +184,7 @@
 			 *        function prototype.
 			 *        \n\n
 			 *
-			 *  \note To reduce the FLASH requirements of the library if only fixed settings are are required,
+			 *  \note To reduce the FLASH requirements of the library if only fixed settings are required,
 			 *        the options may be set statically in the same manner as the mode (see the Mode parameter of
 			 *        this function). To statically set the USB options, pass in the \c USE_STATIC_OPTIONS token,
 			 *        defined to the appropriate options masks. When the options are statically set, this
@@ -224,9 +224,8 @@
 				/** Indicates the mode that the USB interface is currently initialized to, a value from the
 				 *  \ref USB_Modes_t enum.
 				 *
-				 *  \note This variable should be treated as read-only in the user application, and never manually
-				 *        changed in value.
-				 *        \n\n
+				 *  \attention This variable should be treated as read-only in the user application, and never manually
+				 *             changed in value.
 				 *
 				 *  \note When the controller is initialized into UID auto-detection mode, this variable will hold the
 				 *        currently selected USB mode (i.e. \ref USB_MODE_Device or \ref USB_MODE_Host). If the controller
@@ -246,8 +245,8 @@
 				/** Indicates the current USB options that the USB interface was initialized with when \ref USB_Init()
 				 *  was called. This value will be one of the \c USB_MODE_* masks defined elsewhere in this module.
 				 *
-				 *  \note This variable should be treated as read-only in the user application, and never manually
-				 *        changed in value.
+				 *  \attention This variable should be treated as read-only in the user application, and never manually
+				 *             changed in value.
 				 */
 				extern volatile uint8_t USB_Options;
 			#elif defined(USE_STATIC_OPTIONS)

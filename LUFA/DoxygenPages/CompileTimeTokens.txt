@@ -210,7 +210,7 @@
  *    If enabled, this will indicate that the USB target VBUS line polarity is inverted; i.e. it should be pulled low to enable VBUS to the
  *    target, and pulled high to stop the target VBUS generation.
  *
- *  \note On AVR8 architecture devices, this compile time option requires \c NO_AUTO_VBUS_MANAGEMENT to be set.
+ *    \attention On AVR8 architecture devices, this compile time option requires \c NO_AUTO_VBUS_MANAGEMENT to be set.
  *
  *  - <b>NO_AUTO_VBUS_MANAGEMENT</b> - (\ref Group_Host) - <i>All Architectures</i> \n
  *    Disables the automatic management of VBUS to the target, i.e. automatic shut down in the even of an overcurrent situation. When enabled, VBUS

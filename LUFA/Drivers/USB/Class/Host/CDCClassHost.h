@@ -289,7 +289,7 @@
 			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
 			 *  line buffering.
 			 *
-			 *  \note The created stream can be given as stdout if desired to direct the standard output from all \c <stdio.h> functions
+			 *  \note The created stream can be given as \c stdout if desired to direct the standard output from all \c <stdio.h> functions
 			 *        to the given CDC interface.
 			 *        \n\n
 			 *

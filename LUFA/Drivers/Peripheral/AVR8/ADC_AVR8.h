@@ -253,8 +253,8 @@
 
 			/** Retrieves the ADC MUX mask for the given ADC channel number.
 			 *
-			 *  \note This macro will only work correctly on channel numbers that are compile-time
-			 *        constants defined by the preprocessor.
+			 *  \attention This macro will only work correctly on channel numbers that are compile-time
+			 *             constants defined by the preprocessor.
 			 *
 			 *  \param[in] Channel  Index of the ADC channel whose MUX mask is to be retrieved.
 			 */
@@ -268,9 +268,8 @@
 			 *
 			 *  \note This must only be called for ADC channels with are connected to a physical port
 			 *        pin of the AVR, denoted by its special alternative function ADCx.
-			 *        \n\n
 			 *
-			 *  \note The channel number must be specified as an integer, and <b>not</b> a \c ADC_CHANNEL* mask.
+			 *  \warning The channel number must be specified as an integer, and <b>not</b> a \c ADC_CHANNEL* mask.
 			 *
 			 *  \param[in] ChannelIndex  ADC channel number to set up for conversions.
 			 */
@@ -311,9 +310,8 @@
 			 *
 			 *  \note This must only be called for ADC channels with are connected to a physical port
 			 *        pin of the AVR, denoted by its special alternative function ADCx.
-			 *        \n\n
 			 *
-			 *  \note The channel number must be specified as an integer, and <b>not</b> a \c ADC_CHANNEL* mask.
+			 *  \warning The channel number must be specified as an integer, and <b>not</b> a \c ADC_CHANNEL* mask.
 			 *
 			 *  \param[in] ChannelIndex  ADC channel number to set up for conversions.
 			 */

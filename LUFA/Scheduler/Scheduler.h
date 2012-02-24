@@ -199,7 +199,7 @@
 			/** Contains the total number of tasks in the task list, irrespective of if the task's status is set to
 			 *  \ref TASK_RUN or \ref TASK_STOP.
 			 *
-			 *  \note This value should be treated as read-only, and never altered in user-code.
+			 *  \warning This value should be treated as read-only, and never altered in user-application code.
 			 */
 			extern volatile uint_least8_t Scheduler_TotalTasks;
 

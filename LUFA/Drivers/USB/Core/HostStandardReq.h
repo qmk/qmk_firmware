@@ -95,8 +95,8 @@
 			 *
 			 *  To set a device configuration, call the \ref USB_Host_SetDeviceConfiguration() function.
 			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
+			 *  \attention This variable should be treated as read-only in the user application, and never manually
+			 *             changed in value.
 			 *
 			 *  \ingroup Group_Host
 			 */

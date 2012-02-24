@@ -583,8 +583,8 @@
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
 		 *  in the device's audio streams. See the USB Audio specification for more details.
 		 *
-		 *  \note This descriptor <b>must</b> be followed by one or more \ref USB_Audio_SampleFreq_t elements containing
-		 *        the continuous or discrete sample frequencies.
+		 *  \attention This descriptor <b>must</b> be followed by one or more \ref USB_Audio_SampleFreq_t elements containing
+		 *             the continuous or discrete sample frequencies.
 		 *
 		 *  \see \ref USB_Audio_StdDescriptor_Format_t for the version of this type with standard element names.
 		 *
@@ -630,8 +630,8 @@
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
 		 *  in the device's audio streams. See the USB Audio specification for more details.
 		 *
-		 *  \note This descriptor <b>must</b> be followed by one or more 24-bit integer elements containing the continuous
-		 *        or discrete sample frequencies.
+		 *  \attention This descriptor <b>must</b> be followed by one or more 24-bit integer elements containing the continuous
+		 *             or discrete sample frequencies.
 		 *
 		 *  \see \ref USB_Audio_Descriptor_Format_t for the version of this type with non-standard LUFA specific
 		 *       element names.

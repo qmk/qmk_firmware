@@ -170,8 +170,8 @@
 
 			/** Retrieves the maximum bank size in bytes of a given endpoint.
 			 *
-			 *  \note This macro will only work correctly on endpoint indexes that are compile-time constants
-			 *        defined by the preprocessor.
+			 *  \attention This macro will only work correctly on endpoint indexes that are compile-time constants
+			 *             defined by the preprocessor.
 			 *
 			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
@@ -179,8 +179,8 @@
 
 			/** Retrieves the total number of banks supported by the given endpoint.
 			 *
-			 *  \note This macro will only work correctly on endpoint indexes that are compile-time constants
-			 *        defined by the preprocessor.
+			 *  \attention This macro will only work correctly on endpoint indexes that are compile-time constants
+			 *             defined by the preprocessor.
 			 *
 			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
@@ -315,9 +315,6 @@
 			}
 
 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
-			 *
-			 *  \note The return width of this function may differ, depending on the maximum endpoint bank size
-			 *        of the selected AVR model.
 			 *
 			 *  \ingroup Group_EndpointRW_XMEGA
 			 *
@@ -793,8 +790,8 @@
 			 *  \c FIXED_CONTROL_ENDPOINT_SIZE token - it is recommended that the \c FIXED_CONTROL_ENDPOINT_SIZE token
 			 *  be used in the device descriptors to ensure this.
 			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
+			 *  \attention This variable should be treated as read-only in the user application, and never manually
+			 *             changed in value.
 			 */
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
 				extern uint8_t USB_Device_ControlEndpointSize;
@@ -806,6 +803,8 @@
 			/** Completes the status stage of a control transfer on a CONTROL type endpoint automatically,
 			 *  with respect to the data direction. This is a convenience function which can be used to
 			 *  simplify user control request handling.
+			 *
+			 *  \note This routine should not be called on non CONTROL type endpoints.
 			 */
 			void Endpoint_ClearStatusStage(void);
 

@@ -86,8 +86,8 @@
 			 *  different configurations which the host can select between; this indicates the currently selected
 			 *  value, or 0 if no configuration has been selected.
 			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
+			 *  \attention This variable should be treated as read-only in the user application, and never manually
+			 *             changed in value.
 			 *
 			 *  \ingroup Group_Device
 			 */
@@ -97,9 +97,8 @@
 				/** Indicates if the host is currently allowing the device to issue remote wakeup events. If this
 				 *  flag is cleared, the device should not issue remote wakeup events to the host.
 				 *
-				 *  \note This variable should be treated as read-only in the user application, and never manually
-				 *        changed in value.
-				 *        \n\n
+				 *  \attention This variable should be treated as read-only in the user application, and never manually
+				 *             changed in value.
 				 *
 				 *  \note To reduce FLASH usage of the compiled applications where Remote Wakeup is not supported,
 				 *        this global and the underlying management code can be disabled by defining the

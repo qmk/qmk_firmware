@@ -89,6 +89,7 @@
  *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  - PS/2 to USB adapter: https://github.com/makestuff/p2ukbd
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
+ *  - RFPirate, a RF experimentation platform: https://github.com/ebuller/RF-Pirate
  *  - RF Transciever using the MRF49XA: http://alternet.us.com/?page_id=1494
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  - SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/

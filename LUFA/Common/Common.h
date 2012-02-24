@@ -153,8 +153,8 @@
 
 			/** Convenience macro to determine the larger of two values.
 			 *
-			 *  \note This macro should only be used with operands that do not have side effects from being evaluated
-			 *        multiple times.
+			 *  \attention This macro should only be used with operands that do not have side effects from being evaluated
+			 *             multiple times.
 			 *
 			 *  \param[in] x  First value to compare
 			 *  \param[in] y  First value to compare
@@ -167,8 +167,8 @@
 
 			/** Convenience macro to determine the smaller of two values.
 			 *
-			 *  \note This macro should only be used with operands that do not have side effects from being evaluated
-			 *        multiple times.
+			 *  \attention This macro should only be used with operands that do not have side effects from being evaluated
+			 *             multiple times.
 			 *
 			 *  \param[in] x  First value to compare
 			 *  \param[in] y  First value to compare

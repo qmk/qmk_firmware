@@ -196,8 +196,8 @@
 			 *
 			 *  The generated SCL frequency will be according to the formula <pre>F_CPU / (16 + 2 * BitLength + 4 ^ Prescale)</pre>.
 			 *
-			 *  \note The value of the \c BitLength parameter should not be set below 10 or invalid bus conditions may
-			 *        occur, as indicated in the AVR8 microcontroller datasheet.
+			 *  \attention The value of the \c BitLength parameter should not be set below 10 or invalid bus conditions may
+			 *             occur, as indicated in the AVR8 microcontroller datasheet.
 			 *
 			 *  \param[in] Prescale   Prescaler to use when determining the bus frequency, a \c TWI_BIT_PRESCALE_* value.
 			 *  \param[in] BitLength  Length of the bits sent on the bus.
