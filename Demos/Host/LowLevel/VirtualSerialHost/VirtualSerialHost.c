@@ -126,6 +126,31 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		return;
 	}
 
+	CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 9600,
+	                                    .CharFormat  = CDC_LINEENCODING_OneStopBit,
+	                                    .ParityType  = CDC_PARITY_None,
+	                                    .DataBits    = 8                            };
+
+	USB_ControlRequest = (USB_Request_Header_t)
+	{
+		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+		.bRequest      = CDC_REQ_SetLineEncoding,
+		.wValue        = 0,
+		.wIndex        = 0,
+		.wLength       = sizeof(LineEncoding),
+	};
+
+	/* Set the Line Encoding of the CDC interface within the device, so that it is ready to accept data */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	if (USB_Host_SendControlRequest(&LineEncoding) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Control Error (Set Line Encoding).\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;	
+	}
+
 	puts_P(PSTR("CDC Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }

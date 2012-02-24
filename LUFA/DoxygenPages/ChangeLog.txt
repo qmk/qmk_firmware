@@ -11,7 +11,7 @@
   *  - Core:
   *   - Added support for the BitWizard Multio and Big-Multio boards
   *  - Library Applications:
-  *   - None
+  *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
   *
   *  <b>Changed:</b>
   *  - Core:

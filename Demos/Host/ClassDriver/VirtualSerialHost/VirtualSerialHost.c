@@ -163,6 +163,18 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 		return;
 	}
+	
+	VirtualSerial_CDC_Interface.State.LineEncoding.BaudRateBPS = 9600;
+	VirtualSerial_CDC_Interface.State.LineEncoding.CharFormat  = CDC_LINEENCODING_OneStopBit;
+	VirtualSerial_CDC_Interface.State.LineEncoding.ParityType  = CDC_PARITY_None;
+	VirtualSerial_CDC_Interface.State.LineEncoding.DataBits    = 8;
+	
+	if (CDC_Host_SetLineEncoding(&VirtualSerial_CDC_Interface))
+	{
+		puts_P(PSTR("Error Setting Device Line Encoding.\r\n"));
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		return;	
+	}
 
 	puts_P(PSTR("CDC Device Enumerated.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
