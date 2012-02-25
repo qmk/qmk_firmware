@@ -39,5 +39,9 @@
  *    Since many people are now using LUFA in their own projects, you can take advantage of other's knowledge when you run
  *    into difficulties or need some advice. In addition, you can also email the library author to receive personalized
  *    support when you need it (subject to author's schedule).
+ *
+ *  <b>Subsections:</b> 
+ *  \li \subpage Page_LUFAvsAtmelStack - How does LUFA compare to the Atmel USB AVR stack?
+ *  \li \subpage Page_AlternativeStacks - Alternative USB AVR Stacks
  */
 

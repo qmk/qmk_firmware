@@ -38,11 +38,11 @@
  *  and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
- *  \li \subpage Page_WhyUseLUFA - What are the advantages of using LUFA?
- *  \li \subpage Page_LUFAvsAtmelStack - How does LUFA compare to the Atmel USB AVR stack?
- *  \li \subpage Page_AlternativeStacks - Alternative USB AVR Stacks
+ *  \li \subpage Page_ChangeLog - Project Changelog
  *  \li \subpage Page_LicenseInfo - Project source license and commercial use information
  *  \li \subpage Page_Donating - Donating to support this project
+ *  \li \subpage Page_AboutLUFA - LUFA Support and Resources
+ *  \li \subpage Page_WhyUseLUFA - What are the advantages of using LUFA?
  *  \li \subpage Page_LibraryApps - Overview of included Demos, Bootloaders and Projects
  */
 

@@ -36,7 +36,7 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_Descriptors
+/** \ingroup Group_StdDescriptors
  *  \defgroup Group_ConfigDescriptorParser Configuration Descriptor Parser
  *  \brief USB Configuration Descriptor definitions.
  *

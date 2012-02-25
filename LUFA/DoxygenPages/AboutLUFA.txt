@@ -13,7 +13,6 @@
  *  <b>Subsections:</b>
  *  \li \subpage Page_DeviceSupport - Current Device and Hardware Support
  *  \li \subpage Page_Resources - LUFA and USB Related Resources
- *  \li \subpage Page_ChangeLog - Project Changelog
  *  \li \subpage Page_FutureChanges - Planned Changes to the Library
  *  \li \subpage Page_LUFAPoweredProjects - Other Projects Using LUFA
  */
