@@ -111,11 +111,9 @@ void USB_Host_ProcessNextHostState(void)
 			HOST_TASK_NONBLOCK_WAIT(200, HOST_STATE_Powered_ConfigPipe);
 			break;
 		case HOST_STATE_Powered_ConfigPipe:
-			Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
-							   PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
-							   PIPE_CONTROLPIPE_DEFAULT_SIZE, PIPE_BANK_SINGLE);
-
-			if (!(Pipe_IsConfigured()))
+			if (!(Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
+			                         PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
+			                         PIPE_CONTROLPIPE_DEFAULT_SIZE, PIPE_BANK_SINGLE)))
 			{
 				ErrorCode    = HOST_ENUMERROR_PipeConfigError;
 				SubErrorCode = 0;
@@ -136,6 +134,7 @@ void USB_Host_ProcessNextHostState(void)
 
 			uint8_t DataBuffer[8];
 
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);
 			if ((SubErrorCode = USB_Host_SendControlRequest(DataBuffer)) != HOST_SENDCONTROL_Successful)
 			{
 				ErrorCode = HOST_ENUMERROR_ControlError;
@@ -149,11 +148,9 @@ void USB_Host_ProcessNextHostState(void)
 			HOST_TASK_NONBLOCK_WAIT(200, HOST_STATE_Default_PostReset);
 			break;
 		case HOST_STATE_Default_PostReset:
-			Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
-			                   PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
-			                   USB_Host_ControlPipeSize, PIPE_BANK_SINGLE);
-
-			if (!(Pipe_IsConfigured()))
+			if (!(Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
+			                         PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
+			                         USB_Host_ControlPipeSize, PIPE_BANK_SINGLE)))
 			{
 				ErrorCode    = HOST_ENUMERROR_PipeConfigError;
 				SubErrorCode = 0;
