@@ -473,8 +473,8 @@ static inline void Bluetooth_Signal_ConnectionReq(const BT_Signal_Header_t* cons
 	ResponsePacket.SignalCommandHeader.Length            = sizeof(ResponsePacket.ConnectionResponse);
 
 	/* Fill out the Connection Response in the response packet */
-	ResponsePacket.ConnectionResponse.DestinationChannel = ChannelData->LocalNumber;
-	ResponsePacket.ConnectionResponse.SourceChannel      = ChannelData->RemoteNumber;
+	ResponsePacket.ConnectionResponse.DestinationChannel = (ChannelData != NULL) ? ChannelData->LocalNumber  : 0;
+	ResponsePacket.ConnectionResponse.SourceChannel      = (ChannelData != NULL) ? ChannelData->RemoteNumber : 0;
 	ResponsePacket.ConnectionResponse.Result             = ChannelStatus;
 	ResponsePacket.ConnectionResponse.Status             = 0x00;
 
@@ -576,7 +576,7 @@ static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* c
 	ResponsePacket.SignalCommandHeader.Length            = sizeof(ResponsePacket.ConfigurationResponse);
 
 	/* Fill out the Configuration Response in the response packet */
-	ResponsePacket.ConfigurationResponse.SourceChannel   = ChannelData->RemoteNumber;
+	ResponsePacket.ConfigurationResponse.SourceChannel   = (ChannelData != NULL) ? ChannelData->RemoteNumber   : 0;
 	ResponsePacket.ConfigurationResponse.Flags           = 0x00;
 	ResponsePacket.ConfigurationResponse.Result          = (ChannelData != NULL) ? BT_CONFIGURATION_SUCCESSFUL : BT_CONFIGURATION_REJECTED;
 
@@ -681,8 +681,8 @@ static inline void Bluetooth_Signal_DisconnectionReq(const BT_Signal_Header_t* c
 	ResponsePacket.SignalCommandHeader.Length               = sizeof(ResponsePacket.DisconnectionResponse);
 
 	/* Fill out the Disconnection Response in the response packet */
-	ResponsePacket.DisconnectionResponse.DestinationChannel = ChannelData->RemoteNumber;
-	ResponsePacket.DisconnectionResponse.SourceChannel      = ChannelData->LocalNumber;
+	ResponsePacket.DisconnectionResponse.DestinationChannel = (ChannelData != NULL) ? ChannelData->RemoteNumber : 0;
+	ResponsePacket.DisconnectionResponse.SourceChannel      = (ChannelData != NULL) ? ChannelData->LocalNumber  : 0;
 
 	Bluetooth_SendPacket(&ResponsePacket, sizeof(ResponsePacket), NULL);
 

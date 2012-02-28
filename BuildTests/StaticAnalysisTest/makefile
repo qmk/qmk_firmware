@@ -18,6 +18,6 @@ EXCLUDE_LIST     = HostLoaderApp/ FATFs/ PetiteFATFs/ uip/
 MESSAGE_TEMPLATE = "{file}({line}): {severity} ({id}): {message}"
 
 all:
-	cppcheck -q -f --error-exitcode=1 --template $(MESSAGE_TEMPLATE) --enable=style --suppress=variableScope $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
+	cppcheck -q -f --error-exitcode=1 --inline-suppr --enable=style --suppress=variableScope --template $(MESSAGE_TEMPLATE) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
 	
 %:

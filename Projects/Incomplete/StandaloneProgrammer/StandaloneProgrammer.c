@@ -114,18 +114,15 @@ int main(void)
 	{
 		Programmer_Task();
 
+		#if defined(USB_CAN_BE_HOST)
 		if (USB_CurrentMode == USB_MODE_Host)
-		{
-			#if defined(USB_CAN_BE_HOST)
-			DiskHost_USBTask();
-			#endif
-		}
-		else
-		{
-			#if defined(USB_CAN_BE_DEVICE)
-			DiskDevice_USBTask();
-			#endif
-		}
+		  DiskHost_USBTask();
+		#endif
+		
+		#if defined(USB_CAN_BE_DEVICE)
+		if (USB_CurrentMode == USB_MODE_Device)
+		  DiskDevice_USBTask();
+		#endif
 
 		USB_USBTask();
 	}

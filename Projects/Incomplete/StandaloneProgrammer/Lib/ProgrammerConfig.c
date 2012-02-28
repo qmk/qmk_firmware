@@ -40,7 +40,7 @@ struct
 
 bool ProgrammerConfig_ProcessConfiguration(void)
 {
-	memset(&ProgrammerConfig, sizeof(ProgrammerConfig), 0x00);
+	memset(&ProgrammerConfig, 0x00, sizeof(ProgrammerConfig));
 
 	if (!(pf_open("CONF.txt") == FR_OK))
 	{
@@ -61,8 +61,8 @@ bool ProgrammerConfig_ProcessConfiguration(void)
 			                                                       &ProgrammerConfig.SigBytes[1],
 			                                                       &ProgrammerConfig.SigBytes[2],
 			                                                       &ProgrammerConfig.SigBytes[3]);
-
-			sscanf(CurrentLine, "SPEED = %lu", &ProgrammerConfig.ProgrammingSpeed);
+																   
+			sscanf(CurrentLine, "SPEED = %08lu", &ProgrammerConfig.ProgrammingSpeed);
 		}
 	} while (CurrentLine);
 

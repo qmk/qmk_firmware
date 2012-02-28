@@ -9,10 +9,7 @@
 
 bool DS1307_SetTimeDate(const TimeDate_t* NewTimeDate)
 {
-#if defined(DUMMY_RTC)
-	return true;
-#endif
-
+#if !defined(DUMMY_RTC)
 	DS1307_DateTimeRegs_t NewRegValues;
 	const uint8_t         WriteAddress = 0;
 
@@ -41,6 +38,7 @@ bool DS1307_SetTimeDate(const TimeDate_t* NewTimeDate)
 	{
 		return false;
 	}
+#endif
 
 	return true;
 }
@@ -55,10 +53,7 @@ bool DS1307_GetTimeDate(TimeDate_t* const TimeDate)
 	TimeDate->Day    = 1;
 	TimeDate->Month  = 1;
 	TimeDate->Year   = 1;
-
-	return true;
-#endif
-
+#else
 	DS1307_DateTimeRegs_t CurrentRegValues;
 	const uint8_t         ReadAddress = 0;
 
@@ -78,6 +73,7 @@ bool DS1307_GetTimeDate(TimeDate_t* const TimeDate)
 	TimeDate->Day    = (CurrentRegValues.Byte5.Fields.TenDay   * 10) + CurrentRegValues.Byte5.Fields.Day;
 	TimeDate->Month  = (CurrentRegValues.Byte6.Fields.TenMonth * 10) + CurrentRegValues.Byte6.Fields.Month;
 	TimeDate->Year   = (CurrentRegValues.Byte7.Fields.TenYear  * 10) + CurrentRegValues.Byte7.Fields.Year;
+#endif
 
 	return true;
 }

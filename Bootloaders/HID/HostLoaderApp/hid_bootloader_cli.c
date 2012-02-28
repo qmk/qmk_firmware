@@ -801,6 +801,7 @@ int read_intel_hex(const char *filename)
 		if (*buf) {
 			if (parse_hex_line(buf) == 0) {
 				//printf("Warning, parse error line %d\n", lineno);
+				fclose(fp);
 				return -2;
 			}
 		}
