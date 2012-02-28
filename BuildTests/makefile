@@ -13,8 +13,9 @@
 all:
 	$(MAKE) -C ModuleTest all
 	$(MAKE) -C SingleUSBModeTest all
+	$(MAKE) -C StaticAnalysisTest all
 
 %:
 	$(MAKE) -C ModuleTest $@
 	$(MAKE) -C SingleUSBModeTest $@
-
+	$(MAKE) -C StaticAnalysisTest $@
