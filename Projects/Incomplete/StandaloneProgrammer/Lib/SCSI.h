@@ -42,8 +42,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
-		#include "StandaloneProgrammer.h"
-		#include "Descriptors.h"
+		#include "../StandaloneProgrammer.h"
+		#include "../Descriptors.h"
 		#include "DataflashManager.h"
 
 	/* Macros: */

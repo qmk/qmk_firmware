@@ -44,10 +44,10 @@
 		#include <uip-split.h>
 		#include <timer.h>
 
-		#include "Lib/DHCPClientApp.h"
-		#include "Lib/DHCPServerApp.h"
-		#include "Lib/HTTPServerApp.h"
-		#include "Lib/TELNETServerApp.h"
+		#include "DHCPClientApp.h"
+		#include "DHCPServerApp.h"
+		#include "HTTPServerApp.h"
+		#include "TELNETServerApp.h"
 
 	/* Macros: */
 		/** IP address that the webserver should use once connected to a RNDIS device (when DHCP is disabled). */

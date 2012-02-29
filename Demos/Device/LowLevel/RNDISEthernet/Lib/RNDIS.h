@@ -40,7 +40,7 @@
 		#include <avr/io.h>
 		#include <stdbool.h>
 
-		#include "RNDISEthernet.h"
+		#include "../RNDISEthernet.h"
 		#include "Ethernet.h"
 
 	/* External Variables: */

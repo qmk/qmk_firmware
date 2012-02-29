@@ -42,8 +42,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
-		#include "VirtualSerialMassStorage.h"
-		#include "Descriptors.h"
+		#include "../VirtualSerialMassStorage.h"
+		#include "../Descriptors.h"
 		#include "DataflashManager.h"
 
 	/* Macros: */

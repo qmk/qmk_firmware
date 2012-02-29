@@ -39,8 +39,8 @@
 	/* Includes: */
 		#include <avr/io.h>
 
-		#include "TempDataLogger.h"
-		#include "Descriptors.h"
+		#include "../TempDataLogger.h"
+		#include "../Descriptors.h"
 
 		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>

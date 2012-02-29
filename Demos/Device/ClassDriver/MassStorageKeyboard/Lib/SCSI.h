@@ -42,8 +42,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
-		#include "MassStorageKeyboard.h"
-		#include "Descriptors.h"
+		#include "../MassStorageKeyboard.h"
+		#include "../Descriptors.h"
 		#include "DataflashManager.h"
 
 	/* Macros: */

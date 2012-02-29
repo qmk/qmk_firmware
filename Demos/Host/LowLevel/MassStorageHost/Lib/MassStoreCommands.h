@@ -39,7 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 
-		#include "MassStorageHost.h"
+		#include "../MassStorageHost.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
 

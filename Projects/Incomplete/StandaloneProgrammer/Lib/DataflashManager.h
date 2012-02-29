@@ -39,8 +39,8 @@
 	/* Includes: */
 		#include <avr/io.h>
 
-		#include "StandaloneProgrammer.h"
-		#include "Descriptors.h"
+		#include "../StandaloneProgrammer.h"
+		#include "../Descriptors.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/Dataflash.h>

@@ -44,8 +44,8 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 
-		#include "MassStorage.h"
-		#include "Descriptors.h"
+		#include "../MassStorage.h"
+		#include "../Descriptors.h"
 		#include "DataflashManager.h"
 
 	/* Macros: */

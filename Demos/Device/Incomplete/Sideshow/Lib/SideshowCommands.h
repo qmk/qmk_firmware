@@ -36,7 +36,7 @@
 		#include <stdbool.h>
 		#include <string.h>
 
-		#include "Sideshow.h"
+		#include "../Sideshow.h"
 		#include "SideshowCommon.h"
 		#include "SideshowApplications.h"
 		#include "SideshowContent.h"
