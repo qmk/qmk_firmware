@@ -785,7 +785,7 @@ ISR(USB_COM_vect)
 			usb_configuration = wValue;
 			usb_send_in();
 			cfg = endpoint_config_table;
-			for (i=1; i<=6; i++) {
+			for (i=1; i<=MAX_ENDPOINT; i++) {
 				UENUM = i;
 				en = pgm_read_byte(cfg++);
                                 if (en) {
@@ -796,7 +796,7 @@ ISR(USB_COM_vect)
                                     UECONX = 0;
 				}
 			}
-        		UERST = 0x7E;
+        		UERST = UERST_MASK;
         		UERST = 0;
 			return;
 		}

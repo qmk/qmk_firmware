@@ -53,7 +53,13 @@ void usb_remote_wakeup(void);
 			((s) == 16 ? 0x10 :	\
 			             0x00)))
 
-#define MAX_ENDPOINT		4
+#if defined (__AVR_AT90USB162__) || defined (__AVR_AT90USB82__)
+#   define MAX_ENDPOINT     4
+#   define UERST_MASK       0x1E
+#else
+#   define MAX_ENDPOINT     6
+#   define UERST_MASK       0x7E
+#endif
 
 #define LSB(n) (n & 255)
 #define MSB(n) ((n >> 8) & 255)
