@@ -31,21 +31,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Convert physical keyboard layout to matrix array.
 // This is a macro to define keymap easily in keyboard layout form.
 #define KEYMAP( \
-    R1C1, R1C0, R2C0, R3C0, R4C0, R4C1, R5C1, R5C0, R6C0, R7C0, R8C0, R8C1, R6C1, R0C2, \
-    R1C2, R1C3, R2C3, R3C3, R4C3, R4C2, R5C2, R5C3, R6C3, R7C3, R8C3, R8C2, R6C2, \
-    R1C5, R1C4, R2C4, R3C4, R4C4, R4C5, R5C5, R5C4, R6C4, R7C4, R8C4, R8C5, R0C6, \
-    R6C7, R1C6, R2C6, R3C6, R4C6, R4C7, R5C7, R5C6, R6C6, R7C6, R8C7, R3C2, R3C5, \
-    R7C5, R2C2, R0C0, R0C7, R2C1, R0C4, R3C7, R2C7, R1C7 \
+    K11, K10, K20, K30, K40, K41, K51, K50, K60, K70, K80, K81, K61, K02, \
+    K12, K13, K23, K33, K43, K42, K52, K53, K63, K73, K83, K82, K62, \
+    K15, K14, K24, K34, K44, K45, K55, K54, K64, K74, K84, K85, K06, \
+    K67, K16, K26, K36, K46, K47, K57, K56, K66, K76, K87, K32, K35, \
+    K75, K22, K00, K07, K21, K04, K37, K27, K17 \
 ) { \
-    { R0C0, KB_NO, R0C2,  KB_NO, R0C4, KB_NO, R0C6,  R0C7 }, \
-    { R1C0, R1C1,  R1C2,  R1C3,  R1C4, R1C5,  R1C6,  R1C7 }, \
-    { R2C0, R2C1,  R2C2,  R2C3,  R2C4, KB_NO, R2C6,  R2C7 }, \
-    { R3C0, KB_NO, R3C2,  R3C3,  R3C4, R3C5,  R3C6,  R3C7 }, \
-    { R4C0, R4C1,  R4C2,  R4C3,  R4C4, R4C5,  R4C6,  R4C7 }, \
-    { R5C0, R5C1,  R5C2,  R5C3,  R5C4, R5C5,  R5C6,  R5C7 }, \
-    { R6C0, R6C1,  R6C2,  R6C3,  R6C4, KB_NO, R6C6,  R6C7 }, \
-    { R7C0, KB_NO, KB_NO, R7C3,  R7C4, R7C5,  R7C6,  KB_NO }, \
-    { R8C0, R8C1,  R8C2,  R8C3,  R8C4, R8C5,  KB_NO, R8C7 } \
+    { KB_##K00, KB_NO,    KB_##K02, KB_NO,    KB_##K04, KB_NO,    KB_##K06, KB_##K07 }, \
+    { KB_##K10, KB_##K11, KB_##K12, KB_##K13, KB_##K14, KB_##K15, KB_##K16, KB_##K17 }, \
+    { KB_##K20, KB_##K21, KB_##K22, KB_##K23, KB_##K24, KB_NO,    KB_##K26, KB_##K27 }, \
+    { KB_##K30, KB_NO,    KB_##K32, KB_##K33, KB_##K34, KB_##K35, KB_##K36, KB_##K37 }, \
+    { KB_##K40, KB_##K41, KB_##K42, KB_##K43, KB_##K44, KB_##K45, KB_##K46, KB_##K47 }, \
+    { KB_##K50, KB_##K51, KB_##K52, KB_##K53, KB_##K54, KB_##K55, KB_##K56, KB_##K57 }, \
+    { KB_##K60, KB_##K61, KB_##K62, KB_##K63, KB_##K64, KB_NO,    KB_##K66, KB_##K67 }, \
+    { KB_##K70, KB_NO,    KB_NO,    KB_##K73, KB_##K74, KB_##K75, KB_##K76, KB_NO    }, \
+    { KB_##K80, KB_##K81, KB_##K82, KB_##K83, KB_##K84, KB_##K85, KB_NO,    KB_##K87 } \
 }
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
@@ -90,11 +90,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Fn7|Gui |Alt  |Fn4                   |Alt  |Gui|Fn6|Fn6|Ctr|
      * `-----------------------------------------------------------'
      */
-    KEYMAP(KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,   KB_MINS,KB_EQL, KB_BSPC, \
-           KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC, \
-           KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   KB_FN3, KB_QUOT,KB_ENT, \
-           KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_FN2, KB_RSFT,KB_FN1, \
-           KB_FN7, KB_LGUI,KB_LALT,KB_FN4, KB_RALT,KB_RGUI,KB_FN6, KB_FN6, KB_RCTL),
+    KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
+           TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC, \
+           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,ENT, \
+           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
+           FN7, LGUI,LALT,FN4, RALT,BSLS,GRV, FN6, RCTL),
 
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -110,11 +110,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   |Gui |Alt  |                      |Alt  |Gui|   |   |Ctr|
      * `-----------------------------------------------------------'
      */ 
-    KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_DEL, \
-           KB_CAPS,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PSCR,KB_SLCK,KB_BRK, KB_UP,  KB_NO, \
-           KB_LCTL,KB_VOLD,KB_VOLU,KB_MUTE,KB_NO,  KB_NO,  KB_PAST,KB_PSLS,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
-           KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PPLS,KB_PMNS,KB_END, KB_PGDN,KB_DOWN,KB_RSFT,KB_FN1, \
-           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_NO,  KB_NO,  KB_NO,  KB_RCTL),
+    KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
+           CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO, \
+           LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
+           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN1, \
+           NO,  LGUI,LALT,SPC, RALT,NO,  NO,  NO,  RCTL),
 
 
     /* Layer 2: Vi mode (Quote/Rmeta)
@@ -130,11 +130,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   |Gui |Alt  |Space                 |Alt  |Gui|Fn6|Fn6|Ctr|
      * `-----------------------------------------------------------'
      */
-    KEYMAP(KB_GRV, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_GRV, \
-           KB_BSLS,KB_HOME,KB_PGDN,KB_UP,  KB_PGUP,KB_END, KB_HOME,KB_PGDN,KB_PGUP,KB_END, KB_NO,  KB_NO,  KB_NO, \
-           KB_LCTL,KB_NO,  KB_LEFT,KB_DOWN,KB_RGHT,KB_NO,  KB_LEFT,KB_DOWN,KB_UP,  KB_RGHT,KB_NO,  KB_NO,  KB_BSLS, \
-           KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_FN2, KB_RSFT,KB_NO, \
-           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_RGUI,KB_FN6, KB_FN6, KB_RCTL),
+    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
+           BSLS,HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO, \
+           LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  BSLS, \
+           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT,NO, \
+           NO,  LGUI,LALT,SPC, RALT,RGUI,FN6, FN6, RCTL),
 
 
     /* Layer 3: Mouse mode (Semicolon)
@@ -151,11 +151,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
-    KEYMAP(KB_GRV, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_GRV, \
-           KB_BSLS,KB_WH_L,KB_WH_D,KB_MS_U,KB_WH_U,KB_WH_R,KB_WH_L,KB_WH_D,KB_WH_U,KB_WH_R,KB_NO,  KB_NO,  KB_NO, \
-           KB_LCTL,KB_NO,  KB_MS_L,KB_MS_D,KB_MS_R,KB_NO,  KB_MS_L,KB_MS_D,KB_MS_U,KB_MS_R,KB_FN3, KB_NO,  KB_BSLS, \
-           KB_LSFT,KB_NO,  KB_NO,  KB_BTN1,KB_BTN2,KB_BTN3,KB_BTN2,KB_BTN1,KB_NO,  KB_NO,  KB_NO,  KB_RSFT,KB_NO, \
-           KB_FN7, KB_LGUI,KB_LALT,KB_BTN1,KB_RALT,KB_NO,  KB_NO,  KB_NO,  KB_NO),
+    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
+           BSLS,WH_L,WH_D,MS_U,WH_U,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO, \
+           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  BSLS, \
+           LSFT,NO,  NO,  BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  RSFT,NO, \
+           FN7, LGUI,LALT,BTN1,RALT,NO,  NO,  NO,  NO),
 
 
     /* Layer 4: Matias half keyboard style (Space)
@@ -171,11 +171,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   |Gui |Alt  |xxxxxxxxxxxxxxxxxxxxxx|Alt  |Gui|   |   |Ctr|
      * `-----------------------------------------------------------'
      */
-    KEYMAP(KB_MINS,KB_0,   KB_9,   KB_8,   KB_7,   KB_6,   KB_5,   KB_4,   KB_3,   KB_2,   KB_1,   KB_NO,  KB_NO,  KB_ESC, \
-           KB_BSPC,KB_P,   KB_O,   KB_I,   KB_U,   KB_Y,   KB_T,   KB_R,   KB_E,   KB_W,   KB_Q,   KB_TAB, KB_TAB, \
-           KB_LCTL,KB_SCLN,KB_L,   KB_K,   KB_J,   KB_H,   KB_G,   KB_F,   KB_D,   KB_S,   KB_A,   KB_RCTL,KB_RCTL, \
-           KB_LSFT,KB_SLSH,KB_DOT, KB_COMM,KB_M,   KB_N,   KB_B,   KB_V,   KB_C,   KB_X,   KB_Z,   KB_RSFT,KB_NO, \
-           KB_NO,  KB_LGUI,KB_LALT,KB_FN4, KB_RALT,KB_RGUI,KB_NO,  KB_NO,  KB_RCTL),
+    KEYMAP(MINS,0,   9,   8,   7,   6,   5,   4,   3,   2,   1,   NO,  NO,  ESC, \
+           BSPC,P,   O,   I,   U,   Y,   T,   R,   E,   W,   Q,   TAB, TAB, \
+           LCTL,SCLN,L,   K,   J,   H,   G,   F,   D,   S,   A,   RCTL,RCTL, \
+           LSFT,SLSH,DOT, COMM,M,   N,   B,   V,   C,   X,   Z,   RSFT,NO, \
+           NO,  LGUI,LALT,FN4, RALT,RGUI,NO,  NO,  RCTL),
 };
 
 
