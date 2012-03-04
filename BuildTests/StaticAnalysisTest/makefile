@@ -14,14 +14,15 @@ LUFA_ROOT_PATH    = ../..
 # Filenames or directories (including fragments) to exclude from the analysis
 EXCLUDE_LIST      = FATFs/            \
                     PetiteFATFs/      \
-					uip/
+                    uip/
 
 # Output message template for found warnings and errors
 MESSAGE_TEMPLATE  = "{file}:{line}: {severity} ({id}): {message}"
 
 # Checks to suppress so that generated warnings are discarded
 SUPPRESS_WARNINGS = variableScope     \
-                    unusedFunction
+                    unusedFunction    \
+                    missingInclude
 
 # Extra paths to search for include files
 INCLUDE_PATHS     = $(LUFA_ROOT_PATH)/LUFA/CodeTemplates/
@@ -38,7 +39,7 @@ end:
 	@echo
 
 staticcheck:
-	cppcheck --quiet --inline-suppr --check-config $(SUPPRESS_WARNINGS:%=--suppress=%) --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
+	cppcheck --quiet --inline-suppr --check-config --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
 	cppcheck --quiet --inline-suppr --error-exitcode=1 --std=c99 --force --enable=all --inconclusive $(SUPPRESS_WARNINGS:%=--suppress=%) --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
-	
+
 %:
