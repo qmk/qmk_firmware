@@ -44,14 +44,15 @@
  *
  *  \section Sec_Description Project Description:
  *
- *  Firmware for an AVRStudio compatible AVRISP-MKII clone programmer. This project will enable the USB AVR series of
- *  microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within AVRStudio. In its
- *  most basic form, it allows for the programming of AVRs at the programmer's VCC voltage from within AVRStudio with
- *  no special hardware other than the USB AVR and the parts needed for the USB interface. If the user desires, more
+ *  Firmware for an Atmel Studio/AVRStudio compatible AVRISP-MKII clone programmer. This project will enable the USB
+ *  AVR series of microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within
+ *  Atmel Studio/AVRStudio or with any software capable of driving a real Atmel AVRISP-MKII programmer. In its most
+ *  basic form, it allows for the programming of AVRs at the programmer's VCC voltage from within Atmel Studio/AVRStudio
+ *  with no special hardware other than the USB AVR and the parts needed for the USB interface. If the user desires, more
  *  advanced circuits incorporating level conversion can be made to allow for the programming of 3.3V AVR designs.
  *
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
- *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
+ *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with Atmel Studio/AVRStudio.
  *
  *  Note that this design currently has the following limitations:
  *    - No reversed/shorted target connector detection and notification
