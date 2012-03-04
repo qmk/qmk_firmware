@@ -195,7 +195,9 @@ usb_dev_handle * open_usb_device(int vid, int pid)
 	struct usb_bus *bus;
 	struct usb_device *dev;
 	usb_dev_handle *h;
+	#ifdef LIBUSB_HAS_GET_DRIVER_NP
 	char buf[128];
+	#endif
 	int r;
 
 	usb_init();
@@ -390,7 +392,6 @@ int write_usb_device(HANDLE h, void *buf, int len, int timeout)
 		if (r != WAIT_OBJECT_0) return 0;
 	}
 	if (!GetOverlappedResult(h, &ov, &n, FALSE)) return 0;
-	if (n <= 0) return 0;
 	return 1;
 }
 

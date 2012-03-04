@@ -22,7 +22,7 @@ UC3_FAMILIES   = uc3a0256 uc3a1256 uc3a3256 uc3a4256 uc3b0256 uc3b1256
 DEVICE_FAMILIES = $(AVR8_FAMILIES:%=%.avr8) $(XMEGA_FAMILIES:%=%.xmega) $(UC3_FAMILIES:%=%.uc3)
 
 
-all: begin $(DEVICE_FAMILIES) end
+all: begin $(DEVICE_FAMILIES) clean end
 
 begin:
 	@echo Executing build test "ModuleTest".
@@ -33,21 +33,21 @@ end:
 	@echo
 
 %.avr8:
-	$(MAKE) -f makefile.avr8 clean
-	$(MAKE) -f makefile.avr8 all MCU=$(@:%.avr8=%)
+	$(MAKE) -f makefile.avr8 clean -s
+	$(MAKE) -f makefile.avr8 all MCU=$(@:%.avr8=%) -s
 
 %.xmega:
-	$(MAKE) -f makefile.xmega clean
-	$(MAKE) -f makefile.xmega all MCU=$(@:%.xmega=%)
+	$(MAKE) -f makefile.xmega clean -s
+	$(MAKE) -f makefile.xmega all MCU=$(@:%.xmega=%) -s
 
 %.uc3:
-	$(MAKE) -f makefile.uc3 clean
-	$(MAKE) -f makefile.uc3 all MCU=$(@:%.uc3=%)
+	$(MAKE) -f makefile.uc3 clean -s
+	$(MAKE) -f makefile.uc3 all MCU=$(@:%.uc3=%) -s
 
 clean:
-	$(MAKE) -f makefile.avr8 clean
-	$(MAKE) -f makefile.xmega clean
-	$(MAKE) -f makefile.uc3 clean
+	$(MAKE) -f makefile.avr8 clean -s
+	$(MAKE) -f makefile.xmega clean -s
+	$(MAKE) -f makefile.uc3 clean -s
 
 %:
 	

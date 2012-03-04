@@ -45,9 +45,10 @@
 
 		#include "AVRISPDescriptors.h"
 		#include "USARTDescriptors.h"
-
-		#include "Lib/SoftUART.h"
+		
+		// cppcheck-suppress missingInclude
 		#include "Lib/V2Protocol.h"
+		#include "Lib/SoftUART.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
