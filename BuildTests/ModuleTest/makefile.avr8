@@ -132,7 +132,6 @@ SRC = Test_C.c                   \
       $(LUFA_SRC_USB)            \
       $(LUFA_SRC_USBCLASS)       \
       $(LUFA_SRC_SERIAL)         \
-      $(LUFA_SRC_TWI)            \
       $(LUFA_SRC_SCHEDULER)
 
 
