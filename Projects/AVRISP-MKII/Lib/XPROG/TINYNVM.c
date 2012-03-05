@@ -128,9 +128,9 @@ bool TINYNVM_EnableTPI(void)
 	/* Enable TPI programming mode with the attached target */
 	XPROGTarget_EnableTargetTPI();
 
-	/* Lower direction change guard time to 0 USART bits */
+	/* Lower direction change guard time to 32 USART bits */
 	XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
-	XPROGTarget_SendByte(0x07);
+	XPROGTarget_SendByte(0x02);
 
 	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 	XPROGTarget_SendByte(TPI_CMD_SKEY);

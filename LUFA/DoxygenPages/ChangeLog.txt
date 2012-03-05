@@ -17,7 +17,7 @@
   *  - Core:
   *   - Android Accessory Host property strings changed from a struct of pointer to an array to prevent unaligned access on greater than 8-bit architectures
   *  - Library Applications:
-  *   - None
+  *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *
   *  <b>Fixed:</b>
   *  - Core:
