@@ -39,6 +39,7 @@
  *  - Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  - Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
+ *  - AttoBasic AVR BASIC interpreter: http://www.cappels.org/dproj/AttoBasic2_1/AttoBasic_2.1_with_USB_and_Arduino_support.html
  *  - AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - Bluetooth Explorerbot: http://code.google.com/p/bluetooth-explorerbot/
