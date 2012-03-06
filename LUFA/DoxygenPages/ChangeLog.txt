@@ -23,6 +23,7 @@
   *  - Core:
   *   - Fixed possible enumeration error if the user application selects a pipe other than the default Control pipe between the Powered and Default states of
   *     the host state machine
+  *   - Fixed compile error for the UC3 architecture when INTERRUPT_CONTROL_ENDPOINT is specified (thanks to Andrus Aaslaid)
   *  - Library Applications:
   *   - None
   *

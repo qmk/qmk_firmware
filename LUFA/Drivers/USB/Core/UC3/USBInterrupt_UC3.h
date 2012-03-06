@@ -357,6 +357,8 @@
 				 *  using the user application's preferred USB controller driver.
 				 */
 				void USB_GEN_vect(void);
+			#else
+				ISR(USB_GEN_vect);
 			#endif
 
 	/* Disable C linkage for C++ Compilers: */
