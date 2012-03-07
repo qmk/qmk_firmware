@@ -245,7 +245,7 @@ bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* 
  *        of the \c DataLength parameter.
  *
  *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
- *  \param[in]     Property            Property of the interface to get or set, a value from \ref Audio_ClassRequests_t.
+ *  \param[in]     Property            Property of the interface to get or set, a value from Audio_ClassRequests_t.
  *  \param[in]     EntityAddress       Address of the audio entity whose property is being referenced.
  *  \param[in]     Parameter           Parameter of the entity to get or set, specific to each type of entity (see USB Audio specification).
  *  \param[in,out] DataLength          For SET operations, the length of the parameter data to set. For GET operations, the maximum
