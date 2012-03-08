@@ -10,6 +10,8 @@
 
 LUFA_ROOT = ../
 
+all:
+
 upgrade-doxygen:
 	@echo Upgrading Doxygen.conf files...
 	@for doxygen_conf in `find $(LUFA_ROOT) -name Doxygen.conf`; do \
