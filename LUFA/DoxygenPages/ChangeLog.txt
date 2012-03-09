@@ -12,6 +12,7 @@
   *   - Added support for the BitWizard Multio and Big-Multio boards
   *  - Library Applications:
   *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
+  *   - Added Dataflash operational checks and aborts to all projects using the Dataflash to ensure it is working correctly before use
   *
   *  <b>Changed:</b>
   *  - Core:

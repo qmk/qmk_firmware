@@ -131,6 +131,13 @@ void SetupHardware(void)
 	Dataflash_Init();
 	USB_Init();
 
+	/* Check if the Dataflash is working, abort if not */
+	if (!(DataflashManager_CheckDataflashOperation()))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		for(;;);
+	}
+
 	/* Clear Dataflash sector protections, if enabled */
 	DataflashManager_ResetDataflashProtections();
 }

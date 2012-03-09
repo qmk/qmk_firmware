@@ -207,6 +207,13 @@ void SetupHardware(void)
 	TCCR1B  = (1 << WGM12) | (1 << CS12) | (1 << CS10);
 	TIMSK1  = (1 << OCIE1A);
 
+	/* Check if the Dataflash is working, abort if not */
+	if (!(DataflashManager_CheckDataflashOperation()))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		for(;;);
+	}
+
 	/* Clear Dataflash sector protections, if enabled */
 	DataflashManager_ResetDataflashProtections();
 }

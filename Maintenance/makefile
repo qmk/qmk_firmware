@@ -23,12 +23,6 @@ upgrade-doxygen:
 	done;
 	@echo Doxygen configuration update complete.
 
-# Validate the working branch - compile all documentation, demos/projects/examples and run build tests
-validate-branch:
-	make -s -C $(LUFA_ROOT) doxygen
-	make -s -C $(LUFA_ROOT) all	
-	make -s -C $(LUFA_ROOT)/BuildTests all
-
 # Check the working branch documentation, ensure no placeholder values
 check-documentation-placeholders:
 	@echo Checking for release suitability...
@@ -41,6 +35,12 @@ check-documentation-placeholders:
 	  exit 1; \
 	fi;
 	@echo Done.
+
+# Validate the working branch - compile all documentation, demos/projects/examples and run build tests
+validate-branch:
+	make -s -C $(LUFA_ROOT) doxygen
+	make -s -C $(LUFA_ROOT) all	
+	make -s -C $(LUFA_ROOT)/BuildTests all
 
 # Validate the working branch for general release, check for placeholder documentation then build and test everything
 validate-release: check-documentation-placeholders validate-branch
