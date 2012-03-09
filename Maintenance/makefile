@@ -12,6 +12,8 @@ LUFA_ROOT = ../
 
 all:
 
+
+# Update all Doxygen configuration files to the latest Doxygen version - force Markdown support to be disabled
 upgrade-doxygen:
 	@echo Upgrading Doxygen.conf files...
 	@for doxygen_conf in `find $(LUFA_ROOT) -name Doxygen.conf`; do \
@@ -20,8 +22,15 @@ upgrade-doxygen:
 	  mv -u $$doxygen_conf.new $$doxygen_conf; \
 	done;
 	@echo Doxygen configuration update complete.
-	
-check-release:
+
+# Validate the working branch - compile all documentation, demos/projects/examples and run build tests
+validate-branch:
+	make -s -C $(LUFA_ROOT) doxygen
+	make -s -C $(LUFA_ROOT) all	
+	make -s -C $(LUFA_ROOT)/BuildTests all
+
+# Check the working branch documentation, ensure no placeholder values
+check-documentation-placeholders:
 	@echo Checking for release suitability...
 	@if ( grep "XXXXXX" $(LUFA_ROOT)/LUFA/DoxygenPages/*.txt > /dev/null ;); then \
 	  echo "  ERROR: Doxygen documentation has not been updated for release!"; \
@@ -32,3 +41,6 @@ check-release:
 	  exit 1; \
 	fi;
 	@echo Done.
+
+# Validate the working branch for general release, check for placeholder documentation then build and test everything
+validate-release: check-documentation-placeholders validate-branch
