@@ -77,7 +77,11 @@ ifeq ($(origin LUFA_PATH), undefined)
 
    doxygen:
 	@echo Generating LUFA Library Documentation...
-	( cat Doxygen.conf ; echo "PROJECT_NUMBER=`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`" ) | doxygen -
+
+	@if ( ( cat Doxygen.conf ; echo "PROJECT_NUMBER=`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`" ) | doxygen - 2>&1 | grep "warning" ;); then \
+	  exit 1; \
+	fi;
+
 	@echo Documentation Generation Complete.
 
    clean_doxygen:

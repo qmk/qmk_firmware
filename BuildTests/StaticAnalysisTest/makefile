@@ -43,3 +43,4 @@ staticcheck:
 	cppcheck --quiet --inline-suppr --error-exitcode=1 --std=c99 --force --enable=all --inconclusive $(SUPPRESS_WARNINGS:%=--suppress=%) --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
 
 %:
+	

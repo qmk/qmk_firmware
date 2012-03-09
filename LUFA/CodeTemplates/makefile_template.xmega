@@ -675,7 +675,9 @@ clean_list :
 
 doxygen:
 	@echo Generating Project Documentation \($(TARGET)\)...
-	@doxygen Doxygen.conf
+	@if ( doxygen Doxygen.conf 2>&1 | grep "warning" ;); then \
+	  exit 1; \
+	fi;
 	@echo Documentation Generation Complete.
 
 clean_doxygen:
