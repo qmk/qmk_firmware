@@ -38,10 +38,13 @@
  *  and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
- *  \li \subpage Page_ChangeLog - Project Changelog
  *  \li \subpage Page_LicenseInfo - Project source license and commercial use information
+ *  \li \subpage Page_DeviceSupport - Current Device and Hardware Support
  *  \li \subpage Page_Donating - Donating to support this project
- *  \li \subpage Page_AboutLUFA - LUFA Support and Resources
+ *  \li \subpage Page_ChangeLog - Project Changelog
+ *  \li \subpage Page_FutureChanges - Planned Changes to the Library
+ *  \li \subpage Page_LUFAPoweredProjects - Other Projects Using LUFA
+ *  \li \subpage Page_Resources - LUFA and USB Related Resources
  *  \li \subpage Page_WhyUseLUFA - What are the advantages of using LUFA?
  */
 
