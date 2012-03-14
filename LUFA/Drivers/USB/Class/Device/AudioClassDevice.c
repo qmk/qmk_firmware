@@ -44,7 +44,11 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 
 	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_INTERFACE)
 	{
-		if ((USB_ControlRequest.wIndex & 0xFF) != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
+		uint8_t InterfaceIndex = (USB_ControlRequest.wIndex & 0xFF);
+	
+		if ((InterfaceIndex != AudioInterfaceInfo->Config.ControlInterfaceNumber) &&
+		    (InterfaceIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber))
+		
 		  return;
 	}
 	else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)

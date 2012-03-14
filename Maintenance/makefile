@@ -6,7 +6,7 @@
 #           www.lufa-lib.org
 #
 
-# Maintenance scripts not required by general LUFA users, used for development.
+# Maintenance scripts not required by general LUFA users, used for project development purposes.
 
 LUFA_ROOT = ../
 

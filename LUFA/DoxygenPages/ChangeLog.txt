@@ -17,6 +17,7 @@
   *  <b>Changed:</b>
   *  - Core:
   *   - Android Accessory Host property strings changed from a struct of pointer to an array to prevent unaligned access on greater than 8-bit architectures
+  *   - Audio Device Class driver changed to also require the index of the Audio Control interface within the device, for SET/GET/CUR/MIN/MAX/RES property adjustments 
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *

@@ -11,6 +11,10 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 120219 to XXXXXX
+ *  <b>Device Mode</b>
+ *    - The device mode Audio Class driver now requires an additional configuration parameter, the Audio Control interface index. Existing applications should
+ *      be adjusted to specify the additional configuration parameter.
+ *
  *  <b>Host Mode</b>
  *    - The Android Accessory Host class driver property strings are now a array of \c char* rather than a struct of named pointers. Existing applications
  *      should use C99 Designated Initializers with the property string indexes located in \ref AOA_Strings_t instead.

@@ -79,6 +79,9 @@
 			{
 				struct
 				{
+					uint8_t  ControlInterfaceNumber; /**< Index of the Audio Control interface within the device this
+					                                  *   structure controls.
+					                                  */
 					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
 														*   structure controls.
 														*/

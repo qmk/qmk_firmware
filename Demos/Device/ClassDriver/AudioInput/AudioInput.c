@@ -44,6 +44,7 @@ USB_ClassInfo_Audio_Device_t Microphone_Audio_Interface =
 	{
 		.Config =
 			{
+				.ControlInterfaceNumber   = 0,
 				.StreamingInterfaceNumber = 1,
 
 				.DataINEndpointNumber     = AUDIO_STREAM_EPNUM,
