@@ -125,7 +125,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 					Endpoint_ClearIN();
 
 					CALLBACK_Audio_Device_GetSetInterfaceProperty(AudioInterfaceInfo, Property, Entity,
-				                                                  Parameter, NULL, NULL);
+				                                                  Parameter, &ValueLength, Value);
 				}
 			}
 

@@ -17,7 +17,7 @@
   *  <b>Changed:</b>
   *  - Core:
   *   - Android Accessory Host property strings changed from a struct of pointer to an array to prevent unaligned access on greater than 8-bit architectures
-  *   - Audio Device Class driver changed to also require the index of the Audio Control interface within the device, for SET/GET/CUR/MIN/MAX/RES property adjustments 
+  *   - Audio Device Class driver changed to also require the index of the Audio Control interface within the device, for SET/GET/CUR/MIN/MAX/RES property adjustments
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *
@@ -25,6 +25,7 @@
   *  - Core:
   *   - Fixed possible enumeration error if the user application selects a pipe other than the default Control pipe between the Powered and Default states of
   *     the host state machine
+  *   - Fixed incorrect call to the user callback CALLBACK_Audio_Device_GetSetInterfaceProperty() in the Audio Class device driver (thanks to Tiit Ratsep)
   *   - Fixed compile error for the UC3 architecture when INTERRUPT_CONTROL_ENDPOINT is specified (thanks to Andrus Aaslaid)
   *  - Library Applications:
   *   - None
