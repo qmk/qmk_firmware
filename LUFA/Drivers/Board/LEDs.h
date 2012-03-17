@@ -109,6 +109,7 @@
 
 		#if (BOARD == BOARD_NONE)
 			static inline void LEDs_Init(void) {};
+			static inline void LEDs_Disable(void) {};
 			static inline void LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {};
 			static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {};
 			static inline void LEDs_SetAllLEDs(const uint_reg_t LEDMask) {};
