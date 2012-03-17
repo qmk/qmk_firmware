@@ -293,8 +293,6 @@
 				#elif (ARCH == ARCH_XMEGA)
 				return SREG;
 				#endif
-
-				GCC_MEMORY_BARRIER();
 			}
 
 			/** Sets the global interrupt enable state of the microcontroller to the mask passed into the function.
