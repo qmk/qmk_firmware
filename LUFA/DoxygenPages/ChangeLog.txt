@@ -29,7 +29,7 @@
   *   - Fixed compile error for the UC3 architecture when INTERRUPT_CONTROL_ENDPOINT is specified (thanks to Andrus Aaslaid)
   *   - Fixed compile error if LEDs_Disable() is called and BOARD=NONE is set (thanks to Sam Lin)
   *  - Library Applications:
-  *   - None
+  *   - Fixed error in the AVRISP-MKII programmer when ISP mode is used at 64KHz (thanks to Ben R. Porter)
   *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>

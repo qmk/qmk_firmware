@@ -129,9 +129,12 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	{
 		SoftSPI_Data <<= 1;
 
-		if (!(SoftSPI_BitsRemaining--))
-		  TCCR1B = 0;
-
+		if (!(--SoftSPI_BitsRemaining))
+		{
+			TCCR1B = 0;
+			TIFR1  = (1 << OCF1A);
+		}
+		
 		if (PINB & (1 << 3))
 		  SoftSPI_Data |= (1 << 0);
 	}
