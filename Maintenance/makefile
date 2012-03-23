@@ -36,6 +36,13 @@ check-documentation-placeholders:
 	fi;
 	@echo Done.
 
+# Test all generated documentation for any bad links
+check-documentation-links:
+	@for html_file in `find $(LUFA_ROOT) -name *.html`; do \
+		echo Checking $$html_file...; \
+		cat $$html_file | grep -v "doxygen.org" | grep -v "fourwalledcubicle.com" | wget -nv --referer=www.lufa-lib.org --user-agent="lufa-link-check-script" -B $(dir $$html_file) --spider --force-html --input-file=-; \
+	done;
+
 # Validate the working branch - compile all documentation, demos/projects/examples and run build tests
 validate-branch:
 	make -s -C $(LUFA_ROOT) doxygen
