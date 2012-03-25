@@ -38,8 +38,8 @@ end:
 	@echo
 
 staticcheck:
-	cppcheck --quiet --inline-suppr --check-config --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
-	cppcheck --quiet --inline-suppr --error-exitcode=1 --std=c99 --force --enable=all --inconclusive $(SUPPRESS_WARNINGS:%=--suppress=%) --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) $(LUFA_ROOT_PATH)
+	cppcheck --quiet --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) --inline-suppr --force --check-config $(LUFA_ROOT_PATH)
+	cppcheck --quiet --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) --inline-suppr --force --error-exitcode=1 --std=c99 --enable=all $(SUPPRESS_WARNINGS:%=--suppress=%) --inconclusive $(LUFA_ROOT_PATH)
 
 %:
 	
