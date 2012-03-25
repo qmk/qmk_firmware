@@ -395,17 +395,6 @@ int write_usb_device(HANDLE h, void *buf, int len, int timeout)
 	return 1;
 }
 
-void print_win32_err(void)
-{
-        char buf[256];
-        DWORD err;
-
-        err = GetLastError();
-        FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, err,
-                0, buf, sizeof(buf), NULL);
-        printf("err %ld: %s\n", err, buf);
-}
-
 static HANDLE win32_teensy_handle = NULL;
 
 int teensy_open(void)

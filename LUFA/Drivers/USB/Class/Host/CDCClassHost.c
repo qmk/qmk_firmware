@@ -504,6 +504,7 @@ static int CDC_Host_getchar_Blocking(FILE* Stream)
 }
 #endif
 
+// cppcheck-suppress unusedFunction
 void CDC_Host_Event_Stub(void)
 {
 

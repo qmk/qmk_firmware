@@ -36,7 +36,6 @@
  *  The following are known hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
  *  can be incorporated into many different applications.
  *
- *  - Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  - Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
  *  - AttoBasic AVR BASIC interpreter: http://www.cappels.org/dproj/AttoBasic2_1/AttoBasic_2.1_with_USB_and_Arduino_support.html

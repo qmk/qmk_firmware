@@ -21,7 +21,6 @@ MESSAGE_TEMPLATE  = "{file}:{line}: {severity} ({id}): {message}"
 
 # Checks to suppress so that generated warnings are discarded
 SUPPRESS_WARNINGS = variableScope     \
-                    unusedFunction    \
                     missingInclude
 
 # Extra paths to search for include files
