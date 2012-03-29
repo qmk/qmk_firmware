@@ -70,12 +70,12 @@
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_ControlRequest(void);
 
-		void CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
-                                                          const uint8_t Property,
-                                                          const uint8_t EntityAddress,
-                                                          const uint16_t Parameter,
-                                                          uint16_t* const DataLength,
-                                                          uint8_t* Data);
+		bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
+		                                                  const uint8_t EndpointProperty,
+		                                                  const uint8_t EndpointAddress,
+		                                                  const uint8_t EndpointControl,
+		                                                  uint16_t* const DataLength,
+		                                                  uint8_t* Data) ATTR_NON_NULL_PTR_ARG(1);
 		bool CALLBACK_Audio_Device_GetSetInterfaceProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 		                                                   const uint8_t Property,
 		                                                   const uint8_t EntityAddress,
