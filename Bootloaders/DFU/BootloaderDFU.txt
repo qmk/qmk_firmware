@@ -100,21 +100,31 @@
  *  following layout:
  *
  *  \code
- *  #define BOOTLOADER_API_START(Index)        (void*)(((FLASHEND - 32) + (2 * Index)) / 2)
- *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_START(0);
- *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_START(1);
- *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_START(2);
- *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_START(3);
- *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_START(4);
- *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_START(5);
- *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_START(6);
+ *  #define BOOTLOADER_API_CALL(Index)        (void*)(((FLASHEND - 32) + (2 * Index)) / 2)
  *
- *  #define BOOTLOADER_SIG_START               (FLASHEND - 32)
- *  #define BOOTLOADER_SIGNATURE               0xDCFB
+ *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
+ *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
+ *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
+ *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_CALL(3);
+ *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
+ *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
+ *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
+ *
+ *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (FLASHEND - 2)
+ *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
+ *
+ *  #define BOOTLOADER_CLASS_SIGNATURE_START   (FLASHEND - 4)
+ *  #define BOOTLOADER_DFU_SIGNATURE           0xDFB1
+ *
+ *  #define BOOTLOADER_ADDRESS_START           (FLASHEND - 8)
+ *  #define BOOTLOADER_ADDRESS_LENGTH          4
  *  \endcode
  *
  *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
- *  \c BOOTLOADER_SIG_START and comparing them to the value \c BOOTLOADER_SIGNATURE.
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_CDC_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes of FLASH
+ *  memory starting from address \c BOOTLOADER_ADDRESS_START.
  *
  *  \section Sec_Options Project Options
  *

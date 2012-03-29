@@ -43,6 +43,10 @@ BootloaderAPI_JumpTable:
 	rjmp BootloaderAPI_ReadLock
 	rjmp BootloaderAPI_WriteLock
 
-; Bootloader table signature
+; Bootloader table signatures and information
+.org 24
+	.long BOOT_START_ADDR ; Start address of the bootloader
+.org 28
+	.word 0xCDC1 ; Signature for the CDC class bootloader, V1
 .org 30
-	.word 0xDCFB
+	.word 0xDCFB ; Signature for a LUFA class bootloader
