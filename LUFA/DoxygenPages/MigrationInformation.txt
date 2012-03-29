@@ -14,6 +14,9 @@
  *  <b>Device Mode</b>
  *    - The device mode Audio Class driver now requires an additional configuration parameter, the Audio Control interface index. Existing applications should
  *      be adjusted to specify the additional configuration parameter.
+ *    - The HID_DESCRIPTOR_JOYSTICK() macro no longer takes a variable number of axis as a parameter, due to OS incompatibilities; this macro now uses a fixed
+ *      3 axis of data. User applications should update their calls to this macro and their report structures to suit a fixed 3-axis joystick report. If a user
+ *      application requires more than 3 axis' of data, a custom report descriptor will need to be constructed by hand.
  *
  *  <b>Host Mode</b>
  *    - The Android Accessory Host class driver property strings are now a array of \c char* rather than a struct of named pointers. Existing applications
