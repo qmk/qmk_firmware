@@ -359,9 +359,9 @@
 			HID_RI_COLLECTION(8, 0x01),                     \
 				HID_RI_USAGE(8, 0x01),                      \
 				HID_RI_COLLECTION(8, 0x00),                 \
-					HID_RI_USAGE_(8, 0x30),                 \
-					HID_RI_USAGE_(8, 0x31),                 \
-					HID_RI_USAGE_(8, 0x32),                 \
+					HID_RI_USAGE(8, 0x30),                  \
+					HID_RI_USAGE(8, 0x31),                  \
+					HID_RI_USAGE(8, 0x32),                  \
 					HID_RI_LOGICAL_MINIMUM(16, MinAxisVal), \
 					HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
 					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
