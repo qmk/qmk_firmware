@@ -22,6 +22,7 @@
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *   - Added additional bootloader API data to expose the bootloader start address and class to the DFU and CDC class bootloaders
+  *   - Reverted AVRISP-MKII clone project watchdog based command timeout patch in favour of a hardware timer, to allow for use in devices with WDTRST fuse programmed
   *
   *  <b>Fixed:</b>
   *  - Core:

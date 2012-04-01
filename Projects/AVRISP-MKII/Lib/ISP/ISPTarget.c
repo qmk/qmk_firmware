@@ -254,7 +254,7 @@ uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte)
 
 	TCNT1  = 0;
 	TCCR1B = ((1 << WGM12) | (1 << CS11));
-	while (SoftSPI_BitsRemaining && !(TimeoutExpired));
+	while (SoftSPI_BitsRemaining && TimeoutTicksRemaining);
 	TCCR1B = 0;
 
 	return SoftSPI_Data;
@@ -296,9 +296,9 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 		ISPTarget_SendByte(0x00);
 		ISPTarget_SendByte(0x00);
 	}
-	while ((ISPTarget_ReceiveByte() & 0x01) && !(TimeoutExpired));
+	while ((ISPTarget_ReceiveByte() & 0x01) && TimeoutTicksRemaining);
 
-	return (TimeoutExpired) ? STATUS_RDY_BSY_TOUT : STATUS_CMD_OK;
+	return (TimeoutTicksRemaining > 0) ? STATUS_CMD_OK : STATUS_RDY_BSY_TOUT;
 }
 
 /** Sends a low-level LOAD EXTENDED ADDRESS command to the target, for addressing of memory beyond the
@@ -348,10 +348,10 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
 				ISPTarget_SendByte(PollAddress >> 8);
 				ISPTarget_SendByte(PollAddress & 0xFF);
 			}
-			while ((ISPTarget_TransferByte(0x00) == PollValue) && !(TimeoutExpired));
+			while ((ISPTarget_TransferByte(0x00) == PollValue) && TimeoutTicksRemaining);
 
-			if (TimeoutExpired)
-			 ProgrammingStatus = STATUS_CMD_TOUT;
+			if (!(TimeoutTicksRemaining))
+			  ProgrammingStatus = STATUS_CMD_TOUT;
 
 			break;
 		case PROG_MODE_WORD_READYBUSY_MASK:

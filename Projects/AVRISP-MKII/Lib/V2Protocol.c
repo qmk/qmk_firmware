@@ -44,10 +44,12 @@ bool MustLoadExtendedAddress;
 
 
 /** ISR to manage timeouts whilst processing a V2Protocol command */
-ISR(WDT_vect, ISR_BLOCK)
+ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
 {
-	TimeoutExpired = true;
-	wdt_disable();
+	if (TimeoutTicksRemaining)
+	  TimeoutTicksRemaining--;
+	else
+	  TCCR0B = 0;
 }
 
 /** Initializes the hardware and software associated with the V2 protocol command handling. */
@@ -59,6 +61,11 @@ void V2Protocol_Init(void)
 	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
 	ADC_StartReading(VTARGET_REF_MASK | ADC_RIGHT_ADJUSTED | VTARGET_ADC_CHANNEL_MASK);
 	#endif
+
+	/* Timeout timer initialization (~10ms period) */
+	OCR0A  = (((F_CPU / 1024) / 100) - 1);
+	TCCR0A = (1 << WGM01);
+	TIMSK0 = (1 << OCIE0A);
 
 	V2Params_LoadNonVolatileParamValues();
 
@@ -75,10 +82,9 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_8();
 
-	/* Start the watchdog with timeout interrupt enabled to manage the timeout */
-	TimeoutExpired = false;
-	wdt_enable(WDTO_1S);
-	WDTCSR |= (1 << WDIE);
+	/* Reset timeout counter duration and start the timer */
+	TimeoutTicksRemaining = COMMAND_TIMEOUT_TICKS;
+	TCCR0B = ((1 << CS02) | (1 << CS00));	
 
 	switch (V2Command)
 	{
@@ -140,8 +146,8 @@ void V2Protocol_ProcessCommand(void)
 			break;
 	}
 
-	/* Disable the timeout management watchdog timer */
-	wdt_disable();
+	/* Disable the timeout management timer */
+	TCCR0B = 0;
 
 	Endpoint_WaitUntilReady();
 	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
