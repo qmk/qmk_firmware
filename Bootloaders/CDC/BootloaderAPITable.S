@@ -30,9 +30,9 @@
 
 ; Bootloader API Jump Table
 .section .apitable, "ax"
-.org 0
 
 ; API function jump table
+.org 0
 .global BootloaderAPI_JumpTable
 BootloaderAPI_JumpTable:
 	rjmp BootloaderAPI_ErasePage
@@ -42,11 +42,16 @@ BootloaderAPI_JumpTable:
 	rjmp BootloaderAPI_ReadFuse
 	rjmp BootloaderAPI_ReadLock
 	rjmp BootloaderAPI_WriteLock
+	nop ; UNUSED ENTRY
+	nop ; UNUSED ENTRY
+	nop ; UNUSED ENTRY
+	nop ; UNUSED ENTRY
+	ret
 
 ; Bootloader table signatures and information
-.org 24
+.org (32 - 8)
+BootloaderAPI_Signatures:
+.global BootloaderAPI_Signatures
 	.long BOOT_START_ADDR ; Start address of the bootloader
-.org 28
 	.word 0xCDC1 ; Signature for the CDC class bootloader, V1
-.org 30
 	.word 0xDCFB ; Signature for a LUFA class bootloader
