@@ -98,6 +98,7 @@
  *  - Smartcard Detective: https://code.google.com/p/smartcarddetective/
  *  - SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
  *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
+ *  - Simple USB LED Controller: https://github.com/scottbez1/sulc
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - Stylophone, with USB MIDI connectivity: http://www.waitingforfriday.com/index.php/Stylophone_Studio_5
  *  - Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
