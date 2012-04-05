@@ -60,6 +60,7 @@
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - Generic HID Open Source Framework: http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
+ *  - Hardware Volume Control: https://github.com/davidk/hw-volume-control
  *  - Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
  *  - Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
