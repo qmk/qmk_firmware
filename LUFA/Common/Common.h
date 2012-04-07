@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \dir
+ *  \brief Common library header files.
+ *
+ *  This folder contains header files which are common to all parts of the LUFA library. They may be used freely in
+ *  user applications.
+ */
+
 /** \file
  *  \brief Common library convenience headers, macros and functions.
  *

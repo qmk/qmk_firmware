@@ -4,246 +4,72 @@
  *  documentation pages. It is not a project source file.
  */
 
-/** \dir LUFA/Common
- *  \brief Common library header files.
+/** \dir Platform
+ *  \brief Platform specific drivers.
  *
- *  This folder contains header files which are common to all parts of the LUFA library. They may be used freely in
- *  user applications.
+ *  This folder contains platform specific drivers and defines for various supported architectures. These may or may
+ *  not be used in a LUFA application, and are provided for convenience purposes.
  *
- *  \dir LUFA/Drivers
+ *  \dir Drivers
  *  \brief Library hardware and software drivers.
  *
  *  This folder contains all the library hardware and software drivers for each supported board, architecture and
  *  microcontroller model.
  *
- *  \dir LUFA/Drivers/Misc
+ *  \dir Drivers/Misc
  *  \brief Miscellaneous driver files.
  *
  *  This folder contains drivers for aspects other than the USB interface, board hardware or microcontroller peripherals.
  *
- *  \dir LUFA/Drivers/Peripheral
+ *  \dir Drivers/Peripheral
  *  \brief Microcontroller peripheral driver files.
  *
  *  This folder contains drivers for various low level microcontroller peripherals, usually located on the microcontroller
  *  die within the same physical chip.
  *
- *  \dir LUFA/Drivers/USB
+ *  \dir Drivers/USB
  *  \brief USB controller peripheral driver files.
  *
  *  This folder contains the complete LUFA USB stack and controller files, including the core driver and stack, as well
  *  as the USB class driver implementations.
  *
- *  \dir LUFA/Drivers/USB/Core
+ *  \dir Drivers/USB/Core
  *  \brief Core USB driver files.
  *
  *  This folder contains the core USB stack and controller driver files, to correctly implement USB functionality on the
  *  target architecture and microcontroller model. This
  *
- *  \dir LUFA/Drivers/USB/Class
+ *  \dir Drivers/USB/Class
  *  \brief USB Class helper driver files.
  *
  *  This folder contains drivers for implementing functionality of standardized USB classes. These are not used directly by the library,
  *  but provide a standard and library-maintained way of implementing functionality from some of the defined USB classes without extensive
  *  development effort. Is is recommended that these drivers be used where possible to reduce maintenance of user applications.
  *
- *  \dir LUFA/Drivers/USB/Class/Device
+ *  \dir Drivers/USB/Class/Device
  *  \brief USB Device Class helper driver files.
  *
  *  Device mode drivers for the standard USB classes.
  *
- *  \dir LUFA/Drivers/USB/Class/Host
+ *  \dir Drivers/USB/Class/Host
  *  \brief USB Host Class helper driver files.
  *
  *  Host mode drivers for the standard USB classes.
  *
- *  \dir LUFA/Drivers/Board
+ *  \dir Drivers/Board
  *  \brief Board hardware driver files.
  *
  *  This folder contains drivers for interfacing with the physical hardware on supported commercial boards, primarily from
  *  the Atmel corporation. Header files in this folder should be included in user applications requiring the functionality of
  *  hardware placed on supported boards.
  *
- *  \dir LUFA/Drivers/Board/AVR8/ADAFRUITU4
- *  \brief ADAFRUITU4 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Adafruit U4 breakout board (http://ladyada.net/products/atmega32u4breakout).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *  \dir LUFA/Drivers/Board/AVR8/ATAVRUSBRF01
- *  \brief ATAVRUSBRF01 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel ATAVRUSBRF01 board, as used in several Atmel wireless demo kits. The header
- *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
- *  the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/BENITO
- *  \brief BENITO board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Benito boards (http://dorkbotpdx.org/wiki/benito). The header files in this
- *  folder should not be included directly in user applications; the similarly named dispatch header files located in the parent
- *  Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/BUMBLEB
- *  \brief BUMBLEB board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Fletchtronics Bumble-B board (http://fletchtronics.net/bumble-b). The header
- *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
- *  the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/BUI
- *  \brief BUI board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Busware BUI (http://www.busware.de/tiki-index.php?page=BUI).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead. 
- *
- *  \dir LUFA/Drivers/Board/AVR8/BLACKCAT
- *  \brief BLACKCAT board hardware driver files.
- *
- *  This folder contains drivers for hardware on the TCNISO Blackcat USB JTAG (http://www.embeddedcomputers.net/products/BlackcatUSB/.
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/CULV3
- *  \brief CULV3 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/EVK527
- *  \brief EVK527 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel EVK527 development board. The header files in this folder should
- *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
- *  should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/JMDBU2
- *  \brief JM-DB-U2 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the JM-DB-U2 boards (http://u2.mattair.net/). The header files in this folder
- *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board
- *  directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/MAXIMUS
- *  \brief MAXIMUS board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Maximus boards (http://www.avrusb.com/). The header files in this folder
- *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board
- *  directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/MICROSIN162
- *  \brief MICROSIN162 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Microsin AVR-USB162 board (http://microsin.ru/content/view/685/44/). The
- *  header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/MINIMUS
- *  \brief MINIMUS board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Minimus boards (http://www.minimususb.com/). The header files in this folder
- *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board
- *  directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/OLIMEX162
- *  \brief Olimex USB-STK-162 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Olimex AVR-USB-162 boards (http://www.olimex.com/dev/avr-usb-162.html).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/RZUSBSTICK
- *  \brief RZUSBSTICK board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel RZUSBSTICK board, as used in the Atmel "Raven" wireless kits. The header
- *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
- *  the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/SPARKFUN8U2
- *  \brief SPARKFUN8U2 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Sparkfun ATMEGA8U2 breakout board (http://www.sparkfun.com/products/10277). The
- *  header files in this folder should not be included directly in user applications; the similarly named dispatch header files located
- *  in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/STK525
- *  \brief STK525 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel STK525 development board. The header files in this folder should
- *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
- *  should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/STK526
- *  \brief STK526 board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel STK526 development board. The header files in this folder should
- *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
- *  should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/TEENSY
- *  \brief TEENSY board hardware driver files.
- *
- *  This folder contains drivers for hardware on all revisions of the PJRC Teensy boards (http://www.pjrc.com/teensy/). The header
- *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located
- *  in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/TUL
- *  \brief TUL board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Busware TUL (http://busware.de/tiki-index.php?page=TUL).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/UDIP
- *  \brief UDIP board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Linnix UDIP boards (http://linnix.com/udip/).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/UNO
- *  \brief UNO board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Arduino Uno boards (http://www.arduino.cc).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/USBFOO
- *  \brief USBFOO board hardware driver files.
- *
- *  This folder contains drivers for hardware on the USBFOO boards (http://shop.kernelconcepts.de/product_info.php?products_id=102).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/USBKEY
- *  \brief USBKEY board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel USBKEY demonstration board. The header files in this folder should
- *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
- *  should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/USBTINYMKII
- *  \brief USBTINY-MKII board hardware driver files.
- *
- *  This folder contains drivers for hardware on all revisions of the USBTINY-MKII boards (http://tom-itx.dyndns.org:81/~webpage/).
- *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
- *  located in the parent Board directory should be included instead.
- *
- *  \dir LUFA/Drivers/Board/AVR8/XPLAIN
- *  \brief XPLAIN board hardware driver files.
- *
- *  This folder contains drivers for hardware on the Atmel XPLAIN board (all hardware revisions). The header files in this folder
- *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board
- *  directory should be included instead.
- *
- *  \dir LUFA/CodeTemplates
+ *  \dir CodeTemplates
  *  \brief Code templates for use in LUFA powered applications.
  *
  *  This contains code templates for board drivers, sample LUFA project makefiles and other similar templates that can be copied into
  *  a LUFA powered application and modified to speed up development.
  *
- *  \dir LUFA/CodeTemplates/DriverStubs
+ *  \dir CodeTemplates/DriverStubs
  *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
  *
  *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardware other than those
