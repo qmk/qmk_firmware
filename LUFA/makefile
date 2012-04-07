@@ -88,9 +88,14 @@ ifeq ($(origin LUFA_PATH), undefined)
 	rm -rf Documentation
 
    checksource:
+   
+   export_tar:
+	@echo Exporting LUFA library to a TAR archive...
+	@tar -cf LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar --directory=. --exclude=Documentation --exclude=CodeTemplates --exclude=*.tar *
+	@echo Export LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar complete.
 
    version:
 	@echo "LUFA `grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`"
 
-   .PHONY: all clean clean_list doxygen clean_doxygen version
+   .PHONY: all clean clean_list doxygen clean_doxygen checksource export_tar version
 endif
