@@ -91,7 +91,7 @@ ifeq ($(origin LUFA_PATH), undefined)
    
    export_tar:
 	@echo Exporting LUFA library to a TAR archive...
-	@tar -cf LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar --directory=. --exclude=Documentation --exclude=CodeTemplates --exclude=*.tar *
+	@tar -cf LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar --directory=. --exclude=Documentation --exclude=DoxygenPages --exclude=CodeTemplates --exclude=Doxygen.conf --exclude=*.tar *
 	@echo Export LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar complete.
 
    version:
