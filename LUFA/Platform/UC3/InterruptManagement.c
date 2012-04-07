@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../Common/Common.h"
+#if (ARCH == ARCH_UC3)
+
 #define  __INCLUDE_FROM_INTMANAGEMENT_C
 #include "InterruptManagement.h"
 
@@ -62,3 +65,4 @@ void INTC_Init(void)
 	__builtin_mtsr(AVR32_EVBA, (uintptr_t)&EVBA_Table);
 }
 
+#endif

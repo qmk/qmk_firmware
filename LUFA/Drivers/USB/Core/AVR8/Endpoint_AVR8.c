@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../../Common/Common.h"
+#if (ARCH == ARCH_AVR8)
+
 #define  __INCLUDE_FROM_USB_DRIVER
 #include "../USBMode.h"
 
@@ -180,3 +183,4 @@ uint8_t Endpoint_WaitUntilReady(void)
 
 #endif
 
+#endif

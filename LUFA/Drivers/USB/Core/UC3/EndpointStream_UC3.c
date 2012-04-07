@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../../Common/Common.h"
+#if (ARCH == ARCH_UC3)
+
 #define  __INCLUDE_FROM_USB_DRIVER
 #include "../USBMode.h"
 
@@ -229,3 +232,4 @@ uint8_t Endpoint_Null_Stream(uint16_t Length,
 
 #endif
 
+#endif

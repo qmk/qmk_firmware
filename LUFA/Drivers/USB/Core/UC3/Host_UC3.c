@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../../Common/Common.h"
+#if (ARCH == ARCH_UC3)
+
 #define  __INCLUDE_FROM_USB_DRIVER
 #include "../USBMode.h"
 
@@ -292,3 +295,4 @@ static void USB_Host_ResetDevice(void)
 
 #endif
 
+#endif

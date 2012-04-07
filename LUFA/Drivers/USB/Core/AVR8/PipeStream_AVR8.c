@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../../Common/Common.h"
+#if (ARCH == ARCH_AVR8)
+
 #define  __INCLUDE_FROM_USB_DRIVER
 #include "../USBMode.h"
 
@@ -211,6 +214,8 @@ uint8_t Pipe_Null_Stream(uint16_t Length,
 #define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream -= Amount
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte(BufferPtr, Pipe_Read_8())
 #include "Template/Template_Pipe_RW.c"
+
+#endif
 
 #endif
 

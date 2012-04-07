@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../Common/Common.h"
+#if (ARCH == ARCH_AVR8)
+
 #define  __INCLUDE_FROM_TWI_C
 #include "../TWI.h"
 
@@ -201,3 +204,4 @@ uint8_t TWI_WritePacket(const uint8_t SlaveAddress,
 	return ErrorCode;
 }
 
+#endif

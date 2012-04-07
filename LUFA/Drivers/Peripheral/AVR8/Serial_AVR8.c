@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../Common/Common.h"
+#if (ARCH == ARCH_AVR8)
+
 #define  __INCLUDE_FROM_SERIAL_C
 #include "../Serial.h"
 
@@ -112,3 +115,5 @@ void Serial_CreateBlockingStream(FILE* Stream)
 
 	*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar_Blocking, _FDEV_SETUP_RW);
 }
+
+#endif

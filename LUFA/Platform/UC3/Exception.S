@@ -28,6 +28,7 @@
   this software.
 */
 
+#if defined(__AVR32__)
 #include <avr32/io.h>
 
 .section .exception_handlers, "ax", @progbits
@@ -123,3 +124,5 @@ Autovector_Table:
 	.word ((AVR32_INTC_INT0 + \Level) << AVR32_INTC_IPR_INTLEVEL_OFFSET) | (Exception_INT\Level - EVBA_Table)
 .endr
 // === END OF GENERAL INTERRUPT HANDLER OFFSET TABLE ===
+
+#endif

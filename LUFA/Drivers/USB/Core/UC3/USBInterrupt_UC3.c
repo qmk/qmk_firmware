@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../../../Common/Common.h"
+#if (ARCH == ARCH_UC3)
+
 #define  __INCLUDE_FROM_USB_DRIVER
 #include "../USBInterrupt.h"
 
@@ -223,3 +226,4 @@ ISR(USB_COM_vect)
 }
 #endif
 
+#endif
