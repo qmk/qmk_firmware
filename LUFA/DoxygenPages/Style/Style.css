@@ -944,6 +944,7 @@ dl.section dd
 	border-collapse:separate;
 	text-align:center;
 	vertical-align:bottom;
+	padding-left: 20px;
 }
 
 #projectlogo img
@@ -979,10 +980,15 @@ dl.section dd
 
 #titlearea
 {
-	border-bottom:1px solid #4A70BD;
 	margin:0;
 	padding:0;
 	width:100%;
+	background-color:#E1E7F4;
+	background-image:url('nav_f.png');
+	background-repeat:repeat-x;
+	color:#20335A;
+	font-weight:bold;
+	text-shadow:0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
 .image

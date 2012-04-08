@@ -25,18 +25,18 @@
  *   - DoxygenPages/
  *   - CodeTemplates/
  *
- *  If required, files from the CodeTemplates/ subdirectory may be copied to your IDE project as required.
+ *  If required, files from the CodeTemplates/ subdirectory may be copied to your IDE project as needed.
  *
  *  The resulting copy of the library may then be imported into your chosen IDE according to the instructions
  *  shown in \ref Sec_LibraryImport.
  *
  *  \subsection SSec_AutomaticExport Automatic Export
  *  If desired, the steps indicated in \ref SSec_ManualExport may be automatically performed, by running the
- *  command <b><code>make export_tar</code></b> from the command line. This will generate two .TAR files in the
- *  current directory, named <b>LUFA_<i>{Version Number}</i>.tar</b> and
- *  <b>LUFA_<i>{Version Number}</i>_Code_Templates.tar</b>. The first archive contains the exported LUFA core
- *  with the non-required files removed, while the second contains an archived copy of the code template files
- *  for the current LUFA version.
+ *  command <b><code>make export_tar</code></b> from the command line. This will generate two .tar files in the
+ *  current directory, named <code>LUFA_XXXXXX.tar</code> and <code>LUFA_XXXXXX_Code_Templates.tar</code> (where "XXXXXX" is
+ *  the version of the library being exported). The first archive contains the exported LUFA core with the
+ *  non-required files removed, while the second contains an archived copy of the code template files for the
+ *  current LUFA version.
  *
  *  The resulting archived copy of the library may then be extracted to your chosen IDE project source directory
  *  and imported according to the instructions shown in \ref Sec_LibraryImport.
