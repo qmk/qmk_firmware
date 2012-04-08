@@ -1120,7 +1120,7 @@
   *    rather than passing the size back to the caller through a parameter and returning a boolean
   *
   *
-  *  \section Sec_ChangeLog153 Version 1.5.3 - Released 2nd October, 2008
+  *  \section Sec_ChangeLog153 Version 1.5.3 (081002)
   *
   *  - Fixed CDC bootloader using pgmspace macros for some descriptors inappropriately
   *  - Updated all Mouse and Keyboard device demos to include boot protocol support (now works in BIOS)
@@ -1155,7 +1155,7 @@
   *    are reflected in the hardware (change was previously lost)
   *
   *
-  *  \section Sec_ChangeLog152 Version 1.5.2 - Released 31st July, 2008
+  *  \section Sec_ChangeLog152 Version 1.5.2 (080731)
   *
   *  - Fixed SwapEndian_32() function in Common.h so that it now works correctly (wrong parameter types)
   *  - Updated RNDIS demo - notification endpoint is no longer blocking so that it works with faulty Linux RNDIS
@@ -1169,7 +1169,7 @@
   *  - Library license changed from LGPLv3 to MIT license
   *
   *
-  *  \section Sec_ChangeLog151 Version 1.5.1 - Released 7th July, 2008
+  *  \section Sec_ChangeLog151 Version 1.5.1 (080707)
   *
   *  - Changed host demos to enable the host function task on the firing of the USB_DeviceEnumerationComplete event
   *    rather than the USB_DeviceAttached event
@@ -1196,7 +1196,7 @@
   *  - Added RNDISEthernet demo application
   *
   *
-  *  \section Sec_ChangeLog150 Version 1.5.0 - Released 10 June, 2008
+  *  \section Sec_ChangeLog150 Version 1.5.0 (080610)
   *
   *  - Fixed MIDI demo, now correctly waits for the endpoint to be ready between multiple note messages
   *  - Added CDC Host demo application
@@ -1248,14 +1248,14 @@
   *  - Added USE_NONSTANDARD_DESCRIPTOR_NAMES token to switch back to the non-standard descriptor element names
   *
   *
-  *  \section Sec_ChangeLog141 Version 1.4.1 - Released 19 May, 2008
+  *  \section Sec_ChangeLog141 Version 1.4.1 (090519)
   *
   *  - Enhanced KeyboardWithParser demo, now prints out pressed alphanumeric characters like the standard demo
   *  - Fixed MassStorage demo, read/writes using non mode-10 commands now work correctly
   *  - Corrected version number in Version.h
   *
   *
-  *  \section Sec_ChangeLog140 Version 1.4.0 - Released 5 May, 2008
+  *  \section Sec_ChangeLog140 Version 1.4.0 (090505)
   *
   *  - Added HID Report Parser API to the library
   *  - Added Mouse and Keyboard host demo applications, using the new HID report parser engine
@@ -1281,7 +1281,7 @@
   *  - Added 10 microsecond delay after addressing devices in host mode, to prevent control stalls
   *
   *
-  *  \section Sec_ChangeLog132 Version 1.3.2 - Released April 1st, 2008
+  *  \section Sec_ChangeLog132 Version 1.3.2 (080401)
   *
   *  - Added call to ReconfigureUSART() in USBtoSerial SetLineCoding request, so that baud rate changes
   *    are reflected in the hardware
@@ -1297,7 +1297,7 @@
   *  - Added MANUAL_PLL_CONTROL compile time option to prevent the USB library from manipulating the PLL
   *
   *
-  *  \section Sec_ChangeLog131 Version 1.3.1 - Released March 19th 2008
+  *  \section Sec_ChangeLog131 Version 1.3.1 (080319)
   *
   *  - Fixed USB to Serial demo - class value in the descriptors was incorrect
   *  - Control endpoint size changed from 64 bytes to 8 bytes to save on USB FIFO RAM and to allow low
@@ -1325,7 +1325,7 @@
   *  - Added missing Pipe_GetCurrentPipe() macro to Pipe.h
   *
   *
-  *  \section Sec_ChangeLog130 Version 1.3.0 - Released March 7th 2008
+  *  \section Sec_ChangeLog130 Version 1.3.0 (080307)
   *
   *  - Unnecessary control endpoint config removed from device mode
   *  - Fixed device standard request interpreter accidentally processing some class-specific requests
@@ -1355,7 +1355,7 @@
   *    the real high speed mode, which is unavailable on the USB AVRs)
   *
   *
-  *  \section Sec_ChangeLog120 Version 1.2.0 - Released February 4th, 2008
+  *  \section Sec_ChangeLog120 Version 1.2.0 (080204)
   *
   *  - Added USB_DeviceEnumerationComplete event for host mode
   *  - Added new Scheduler_Init routine to prepare the scheduler, so that tasks can be started and
@@ -1373,7 +1373,7 @@
   *  - Added in alloca macro to common.h, in case the user is using an old version of avr-lib-c missing the macro
   *
   *
-  *  \section Sec_ChangeLog130 Version 1.1.0 - Released January 25th 2008
+  *  \section Sec_ChangeLog110 Version 1.1.0 (080125)
   *
   *  - Fixed DCONNI interrupt being enabled accidentally after a USB reset
   *  - Fixed DDISCI interrupt not being disabled when a device is not connected
