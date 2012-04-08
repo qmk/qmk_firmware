@@ -26,6 +26,9 @@ SUPPRESS_WARNINGS = variableScope     \
 # Extra paths to search for include files
 INCLUDE_PATHS     = $(LUFA_ROOT_PATH)/LUFA/CodeTemplates/
 
+# Configuration options to pass to cppcheck
+CPPCHECK_OPTIONS  = --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) --inline-suppr --force --error-exitcode=1 --std=c99
+
 
 all: begin staticcheck end
 
@@ -38,8 +41,8 @@ end:
 	@echo
 
 staticcheck:
-	cppcheck --quiet --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) --inline-suppr --force --check-config $(LUFA_ROOT_PATH)
-	cppcheck --quiet --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) --inline-suppr --force --error-exitcode=1 --std=c99 --enable=all $(SUPPRESS_WARNINGS:%=--suppress=%) --inconclusive $(LUFA_ROOT_PATH)
+	cppcheck --quiet $(CPPCHECK_OPTIONS) --check-config $(LUFA_ROOT_PATH)
+	cppcheck --quiet $(CPPCHECK_OPTIONS) --enable=all $(SUPPRESS_WARNINGS:%=--suppress=%) $(LUFA_ROOT_PATH)
 
 %:
 	

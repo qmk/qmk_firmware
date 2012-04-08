@@ -48,6 +48,7 @@
 		
 		// cppcheck-suppress missingInclude
 		#include "Lib/V2Protocol.h"
+		// cppcheck-suppress missingInclude
 		#include "Lib/SoftUART.h"
 
 		#include <LUFA/Version.h>
