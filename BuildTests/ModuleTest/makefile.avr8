@@ -131,8 +131,7 @@ include $(LUFA_PATH)/LUFA/makefile
 SRC = Test_C.c                   \
       $(LUFA_SRC_USB)            \
       $(LUFA_SRC_USBCLASS)       \
-      $(LUFA_SRC_SERIAL)         \
-      $(LUFA_SRC_SCHEDULER)
+      $(LUFA_SRC_SERIAL)
 
 
 

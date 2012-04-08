@@ -19,6 +19,7 @@
   *   - Android Accessory Host property strings changed from a struct of pointer to an array to prevent unaligned access on greater than 8-bit architectures
   *   - Audio Device Class driver changed to also require the index of the Audio Control interface within the device, for SET/GET/CUR/MIN/MAX/RES property adjustments
   *   - Removed variable axis support from the HID_DESCRIPTOR_JOYSTICK() macro due to OS incompatibilities, replaced with fixed 3-axis joystick report structure
+  *   - Removed the old pseudo-scheduler from the library as it was unused and deprecated since the 090810 release
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *   - Added additional bootloader API data to expose the bootloader start address and class to the DFU and CDC class bootloaders

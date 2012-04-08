@@ -55,7 +55,6 @@ LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/AudioClassDev
 LUFA_SRC_TEMPERATURE  = $(LUFA_ROOT_PATH)/Drivers/Board/Temperature.c
 LUFA_SRC_SERIAL       = $(LUFA_ROOT_PATH)/Drivers/Peripheral/$(ARCH)/Serial_$(ARCH).c
 LUFA_SRC_TWI          = $(LUFA_ROOT_PATH)/Drivers/Peripheral/$(ARCH)/TWI_$(ARCH).c
-LUFA_SRC_SCHEDULER    = $(LUFA_ROOT_PATH)/Scheduler/Scheduler.c
 
 
 # Check to see if the LUFA_PATH variable has not been set (the makefile is not being included from a project makefile)
@@ -66,8 +65,7 @@ ifeq ($(origin LUFA_PATH), undefined)
                         $(LUFA_SRC_USBCLASS)       \
                         $(LUFA_SRC_TEMPERATURE)    \
                         $(LUFA_SRC_SERIAL)         \
-                        $(LUFA_SRC_TWI)            \
-                        $(LUFA_SRC_SCHEDULER)
+                        $(LUFA_SRC_TWI)
 
    all:
 
