@@ -28,15 +28,17 @@
   this software.
 */
 
-/*
-   This is a stub driver header file, for implementing custom board
-   layout hardware with compatible LUFA board specific drivers. If
-   the library is configured to use the BOARD_USER board mode, this
-   driver file should be completed and copied into the "/Board/" folder
-   inside the application's folder.
-
-   This stub is for the board-specific component of the LUFA Joystick
-   driver, for a digital four-way (plus button) joystick.
+/** \file
+ *  \brief LUFA Custom Board Joystick Hardware Driver (Template)
+ *
+ *  This is a stub driver header file, for implementing custom board
+ *  layout hardware with compatible LUFA board specific drivers. If
+ *  the library is configured to use the BOARD_USER board mode, this
+ *  driver file should be completed and copied into the "/Board/" folder
+ *  inside the application's folder.
+ *
+ *  This stub is for the board-specific component of the LUFA Joystick
+ *  driver, for a digital four-way (plus button) joystick.
 */
 
 #ifndef __JOYSTICK_USER_H__

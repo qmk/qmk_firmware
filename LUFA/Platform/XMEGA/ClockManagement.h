@@ -251,7 +251,7 @@
 			/** Starts the DFLL of the XMEGA microcontroller, with the given options.
 			 *
 			 *  \param[in] Source     RC Clock source for the DFLL, a value from \ref XMEGA_System_ClockSource_t.
-			 *  \param[in] Reference  Reference clock source for the DFLL, an value from \ref XMEGA_System_DFLLReference_t
+			 *  \param[in] Reference  Reference clock source for the DFLL, an value from \ref XMEGA_System_DFLLReference_t.
 			 *  \param[in] Frequency  Target frequency of the DFLL's output.
 			 *
 			 *  \return Boolean \c true if the DFLL was successfully started, \c false if invalid parameters specified.

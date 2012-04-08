@@ -28,16 +28,18 @@
   this software.
 */
 
-/*
-   This is a stub driver header file, for implementing custom board
-   layout hardware with compatible LUFA board specific drivers. If
-   the library is configured to use the BOARD_USER board mode, this
-   driver file should be completed and copied into the "/Board/" folder
-   inside the application's folder.
-
-   This stub is for the board-specific component of the LUFA Buttons driver,
-   for the control of physical board-mounted GPIO pushbuttons.
-*/
+/** \file
+ *  \brief LUFA Custom Board Button Hardware Driver (Template)
+ *
+ *  This is a stub driver header file, for implementing custom board
+ *  layout hardware with compatible LUFA board specific drivers. If
+ *  the library is configured to use the BOARD_USER board mode, this
+ *  driver file should be completed and copied into the "/Board/" folder
+ *  inside the application's folder.
+ *
+ *  This stub is for the board-specific component of the LUFA Buttons driver,
+ *  for the control of physical board-mounted GPIO pushbuttons.
+ */
 
 #ifndef __BUTTONS_USER_H__
 #define __BUTTONS_USER_H__

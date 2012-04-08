@@ -28,17 +28,19 @@
   this software.
 */
 
-/*
-   This is a header file which can be used to configure LUFA's
-   compile time options, as an alternative to the compile time
-   constants supplied through a makefile. To use this configuration
-   header, copy this into your project's root directory and supply
-   the \c USE_LUFA_CONFIG_HEADER token to the compiler so that it is
-   defined in all compiled source files.
-
-   For information on what each token does, refer to the LUFA
-   manual section "Summary of Compile Tokens".
-*/
+/** \file
+ *  \brief LUFA Library Configuration Header File (Template)
+ *
+ *  This is a header file which can be used to configure LUFA's
+ *  compile time options, as an alternative to the compile time
+ *  constants supplied through a makefile. To use this configuration
+ *  header, copy this into your project's root directory and supply
+ *  the \c USE_LUFA_CONFIG_HEADER token to the compiler so that it is
+ *  defined in all compiled source files.
+ *
+ *  For information on what each token does, refer to the LUFA
+ *  manual section "Summary of Compile Tokens".
+ */
 
 #ifndef __LUFA_CONFIG_H__
 #define __LUFA_CONFIG_H__
