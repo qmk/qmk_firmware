@@ -60,6 +60,8 @@ LUFA_SRC_SCHEDULER    = $(LUFA_ROOT_PATH)/Scheduler/Scheduler.c
 
 # Check to see if the LUFA_PATH variable has not been set (the makefile is not being included from a project makefile)
 ifeq ($(origin LUFA_PATH), undefined)
+   LUFA_VERSION_NUM   = $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
+
    LUFA_SRC_ALL_FILES = $(LUFA_SRC_USB)            \
                         $(LUFA_SRC_USBCLASS)       \
                         $(LUFA_SRC_TEMPERATURE)    \
@@ -78,7 +80,7 @@ ifeq ($(origin LUFA_PATH), undefined)
    doxygen:
 	@echo Generating LUFA Library Documentation...
 
-	@if ( ( cat Doxygen.conf ; echo "PROJECT_NUMBER=`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`" ) | doxygen - 2>&1 | grep ": warning:" ;); then \
+	@if ( ( cat Doxygen.conf ; echo "PROJECT_NUMBER=$(LUFA_VERSION_NUM)" ) | doxygen - 2>&1 | grep ": warning:" ;); then \
 	  exit 1; \
 	fi;
 
@@ -91,12 +93,12 @@ ifeq ($(origin LUFA_PATH), undefined)
    
    export_tar:
 	@echo Exporting LUFA library to a TAR archive...
-	@tar -cf LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar --directory=. --exclude=Documentation --exclude=DoxygenPages --exclude=CodeTemplates --exclude=Doxygen.conf --exclude=*.tar *
-	@tar -cf LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`_Code_Templates.tar CodeTemplates
-	@echo Export LUFA_`grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`.tar complete.
+	@tar -cf LUFA_$(LUFA_VERSION_NUM).tar --directory=. --exclude=Documentation --exclude=DoxygenPages --exclude=CodeTemplates --exclude=Doxygen.conf --exclude=*.tar *
+	@tar -cf LUFA_$(LUFA_VERSION_NUM)_Code_Templates.tar CodeTemplates
+	@echo Export LUFA_$(LUFA_VERSION_NUM).tar complete.
 
    version:
-	@echo "LUFA `grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2`"
+	@echo "LUFA $(LUFA_VERSION_NUM)"
 
    .PHONY: all clean clean_list doxygen clean_doxygen checksource export_tar version
 endif
