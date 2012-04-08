@@ -54,21 +54,21 @@
  *  Copy over the exported library archive created via the steps listed in \ref Sec_LibraryExport to your AS5/AS6
  *  project directory.
  *
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step1.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step1.png
  *
  *  \subsubsection SSSec_AS56_Import_Step2 Extract exported library
  *  Extract out the contents of the archive to a new folder. This may be any name you wish, however keep in mind
  *  that this name will need to be referenced within your user application under most circumstances. It is
  *  suggested that this folder be named "LUFA", or "LUFA" followed by the version string for easy reference.
  *
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step2.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step2.png
  *
  *  \subsubsection SSSec_AS56_Import_Step3 Add the library files
  *  Open your AVRStudio 5/Atmel Studio 6 project. From the "Solution Explorer" pane, click the "Show All Files"
  *  button on the toolbar to display ghosted icons of files and folders located in the project source directory
  *  that are not currently added to the project.
  *
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step3.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step3.png
  *
  *  Right-click the ghosted version of the extracted LUFA export folder in the Solution Explorer pane, and
  *  choose the "Add to Project" option from the context menu. This will add the entire LUFA source tree to the
@@ -79,7 +79,7 @@
  *  open the Project Properties window. This window allows you to configure the various project global compiler,
  *  assembler and linker options.
  *
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step4.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step4.png
  * 
  *  Click the "Toolchain" tab on the left side of the Project Properties window.
  *
@@ -94,13 +94,13 @@
  *   - F_CPU
  *   - F_USB
  *   - BOARD
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step5_1.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step5_1.png
  *
  *  Next, open the GNU C Compiler section's "Optimization" page. Ensure that the option to prepare functions for
  *  garbage collection is enabled.
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step5_2.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step5_2.png
  *
  *  Finally, in the GNU C Linker section, open the "Optimization" page. Ensure that the option to garbage collect
  *  unused sections is selected.
- *  \image html Images\AS5_AS6_Import\AS5_AS6_Import_Step5_3.png
+ *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step5_3.png
  */

@@ -7,7 +7,7 @@
 /**
  *  \mainpage
  *
- *  \image html LUFA.png
+ *  \image html Images/LUFA.png
  *  <div align="center"><small><i>Logo design by <a href="http://www.studiomonsoon.com">Studio Monsoon Photography</a></i></small></div>
  *  \n
  *  <div align="center"><a href="http://www.lufa-lib.org">http://www.lufa-lib.org</a></div>
