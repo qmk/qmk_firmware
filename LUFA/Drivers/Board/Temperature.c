@@ -28,7 +28,10 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_TEMPERATURE_C
 #include "Temperature.h"
+
+#if defined(TEMPERATURE_SENSOR_DRIVER_COMPATIBLE)
 
 static const uint16_t PROGMEM Temperature_Lookup[TEMP_TABLE_SIZE] =
 {
@@ -60,3 +63,4 @@ int8_t Temperature_GetTemperature(void)
 	return TEMP_MAX_TEMP;
 }
 
+#endif

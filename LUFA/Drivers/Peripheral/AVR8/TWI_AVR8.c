@@ -29,7 +29,7 @@
 */
 
 #include "../../../Common/Common.h"
-#if (ARCH == ARCH_AVR8)
+#if (ARCH == ARCH_AVR8) && defined(TWCR)
 
 #define  __INCLUDE_FROM_TWI_C
 #include "../TWI.h"
