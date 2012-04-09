@@ -66,6 +66,8 @@ ifeq ($(origin LUFA_PATH), undefined)
                         $(LUFA_SRC_TEMPERATURE)    \
                         $(LUFA_SRC_SERIAL)         \
                         $(LUFA_SRC_TWI)
+	
+   EXCLUDE_FROM_EXPORT = Documentation DoxygenPages CodeTemplates *.conf *.tar *.o *.lss *.lst *.hex *.elf *.bin
 
    all:
 
@@ -78,7 +80,7 @@ ifeq ($(origin LUFA_PATH), undefined)
    doxygen:
 	@echo Generating LUFA Library Documentation...
 
-	@if ( ( cat Doxygen.conf ; echo "PROJECT_NUMBER=$(LUFA_VERSION_NUM)" ) | doxygen - 2>&1 | grep ": warning:" ;); then \
+	@if ( ( cat Doxygen.conf ; echo "PROJECT_NUMBER=$(LUFA_VERSION_NUM)" ) | doxygen - 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then \
 	  exit 1; \
 	fi;
 
@@ -91,7 +93,7 @@ ifeq ($(origin LUFA_PATH), undefined)
    
    export_tar:
 	@echo Exporting LUFA library to a TAR archive...
-	@tar -cf LUFA_$(LUFA_VERSION_NUM).tar --directory=. --exclude=Documentation --exclude=DoxygenPages --exclude=CodeTemplates --exclude=Doxygen.conf --exclude=*.tar *
+	@tar -cf LUFA_$(LUFA_VERSION_NUM).tar --directory=. $(EXCLUDE_FROM_EXPORT:%=--exclude=%) *
 	@tar -cf LUFA_$(LUFA_VERSION_NUM)_Code_Templates.tar CodeTemplates
 	@echo Export LUFA_$(LUFA_VERSION_NUM).tar complete.
 

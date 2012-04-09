@@ -723,7 +723,7 @@ clean_list :
 
 doxygen:
 	@echo Generating Project Documentation \($(TARGET)\)...
-	@if ( doxygen Doxygen.conf 2>&1 | grep ": warning:" ;); then \
+	@if ( doxygen Doxygen.conf 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then \
 	  exit 1; \
 	fi;
 	@echo Documentation Generation Complete.
