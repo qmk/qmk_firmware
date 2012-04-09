@@ -75,7 +75,7 @@
 //		#define NO_INTERNAL_SERIAL
 //		#define FIXED_CONTROL_ENDPOINT_SIZE      {Insert Value Here}
 //		#define DEVICE_STATE_AS_GPIOR            {Insert Value Here}
-//		#define FIXED_NUM_CONFIGURATION          {Insert Value Here}
+//		#define FIXED_NUM_CONFIGURATIONS         {Insert Value Here}
 //		#define CONTROL_ONLY_DEVICE
 //		#define INTERRUPT_CONTROL_ENDPOINT
 //		#define NO_DEVICE_REMOTE_WAKEUP
@@ -115,7 +115,7 @@
 //		#define NO_INTERNAL_SERIAL
 //		#define FIXED_CONTROL_ENDPOINT_SIZE      {Insert Value Here}
 //		#define DEVICE_STATE_AS_GPIOR            {Insert Value Here}
-//		#define FIXED_NUM_CONFIGURATION          {Insert Value Here}
+//		#define FIXED_NUM_CONFIGURATIONS         {Insert Value Here}
 //		#define CONTROL_ONLY_DEVICE
 //		#define NO_DEVICE_REMOTE_WAKEUP
 //		#define NO_DEVICE_SELF_POWER
@@ -145,7 +145,7 @@
 		/* USB Device Mode Driver Related Tokens: */
 //		#define NO_INTERNAL_SERIAL
 //		#define FIXED_CONTROL_ENDPOINT_SIZE      {Insert Value Here}
-//		#define FIXED_NUM_CONFIGURATION          {Insert Value Here}
+//		#define FIXED_NUM_CONFIGURATIONS         {Insert Value Here}
 //		#define CONTROL_ONLY_DEVICE
 //		#define INTERRUPT_CONTROL_ENDPOINT
 //		#define NO_DEVICE_REMOTE_WAKEUP
