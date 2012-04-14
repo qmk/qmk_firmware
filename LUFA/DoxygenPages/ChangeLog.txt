@@ -15,6 +15,7 @@
   *  - Library Applications:
   *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
   *   - Added Dataflash operational checks and aborts to all projects using the Dataflash to ensure it is working correctly before use
+  *   - Added new SerialToLCD user project contributed by Simon Foster
   *
   *  <b>Changed:</b>
   *  - Core:

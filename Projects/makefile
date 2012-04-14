@@ -41,6 +41,9 @@ all:
 	$(MAKE) -C RelayBoard clean
 	$(MAKE) -C RelayBoard all
 
+	$(MAKE) -C SerialToLCD clean
+	$(MAKE) -C SerialToLCD all
+
 	$(MAKE) -C TempDataLogger clean
 	$(MAKE) -C TempDataLogger all
 
@@ -63,6 +66,7 @@ all:
 	$(MAKE) -C MIDIToneGenerator $@	
 	$(MAKE) -C MissileLauncher $@
 	$(MAKE) -C RelayBoard $@
+	$(MAKE) -C SerialToLCD $@
 	$(MAKE) -C TempDataLogger $@
 	$(MAKE) -C USBtoSerial $@
 	$(MAKE) -C Webserver $@
