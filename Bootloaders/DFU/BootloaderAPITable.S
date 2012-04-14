@@ -31,25 +31,45 @@
 ; Bootloader API Jump Table
 .section .apitable, "ax"
 
-; API function jump table
+; Trampolines to actual API implementations if the target address is outside the
+; range of a rjmp instruction (can happen with large bootloader sections)
 .org 0
-.global BootloaderAPI_JumpTable
-BootloaderAPI_JumpTable:
-	rjmp BootloaderAPI_ErasePage
-	rjmp BootloaderAPI_WritePage
-	rjmp BootloaderAPI_FillWord
-	rjmp BootloaderAPI_ReadSignature
-	rjmp BootloaderAPI_ReadFuse
-	rjmp BootloaderAPI_ReadLock
-	rjmp BootloaderAPI_WriteLock
-	nop ; UNUSED ENTRY
-	nop ; UNUSED ENTRY
-	nop ; UNUSED ENTRY
-	nop ; UNUSED ENTRY
+BootloaderAPI_ErasePage_Trampoline:
+	jmp BootloaderAPI_ErasePage
+BootloaderAPI_WritePage_Trampoline:
+	jmp BootloaderAPI_WritePage
+BootloaderAPI_FillWord_Trampoline:
+	jmp BootloaderAPI_FillWord
+BootloaderAPI_ReadSignature_Trampoline:
+	jmp BootloaderAPI_ReadSignature
+BootloaderAPI_ReadFuse_Trampoline:
+	jmp BootloaderAPI_ReadFuse
+BootloaderAPI_ReadLock_Trampoline:
+	jmp BootloaderAPI_ReadLock
+BootloaderAPI_WriteLock_Trampoline:
+	jmp BootloaderAPI_WriteLock
+BootloaderAPU_UNUSED:
 	ret
 
+; API function jump table
+.org (96 - 32)
+.global BootloaderAPI_JumpTable
+BootloaderAPI_JumpTable:
+	rjmp BootloaderAPI_ErasePage_Trampoline
+	rjmp BootloaderAPI_WritePage_Trampoline
+	rjmp BootloaderAPI_FillWord_Trampoline
+	rjmp BootloaderAPI_ReadSignature_Trampoline
+	rjmp BootloaderAPI_ReadFuse_Trampoline
+	rjmp BootloaderAPI_ReadLock_Trampoline
+	rjmp BootloaderAPI_WriteLock_Trampoline
+	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
+	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
+	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
+	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
+	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
+
 ; Bootloader table signatures and information
-.org (32 - 8)
+.org (96 - 8)
 BootloaderAPI_Signatures:
 .global BootloaderAPI_Signatures
 	.long BOOT_START_ADDR ; Start address of the bootloader

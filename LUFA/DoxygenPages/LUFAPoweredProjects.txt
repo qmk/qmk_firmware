@@ -85,6 +85,7 @@
  *  \li Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  \li Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
+ *  \li PPM signal generator over USB: https://github.com/G33KatWork/USBPPM
  *  \li Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
  *  \li Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
  *  \li PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
@@ -104,6 +105,7 @@
  *  \li Stylophone, with USB MIDI connectivity: http://www.waitingforfriday.com/index.php/Stylophone_Studio_5
  *  \li Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
  *  \li Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
+ *  \li UDFS, a BBC Micro USB disk filing system: https://github.com/makestuff/udfs
  *  \li Universal USB AVR Module: http://usbavr.bplaced.net/
  *  \li USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
  *  \li USB Infrared Receiver/Transmitter: http://vaton4.web2001.cz/

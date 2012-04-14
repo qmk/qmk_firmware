@@ -102,7 +102,7 @@ BOOT_SECTION_SIZE_KB = 4
 # API jump table (for more information on the latter, see the bootloader documentation). These formulas
 # should not need to be altered - modify the FLASH_SIZE_KB and BOOT_SECTION_KB values above instead.
 BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
-BOOT_API_TABLESTART  = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 32)" | bc)
+BOOT_API_TABLESTART  = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 96)" | bc)
 
 
 # Output format. (can be srec, ihex, binary)

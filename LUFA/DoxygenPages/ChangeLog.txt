@@ -37,6 +37,7 @@
   *   - Fixed error in the AVRISP-MKII programmer when ISP mode is used at 64KHz (thanks to Ben R. Porter)
   *   - Fixed AVRISP-MKII programmer project failing to compile for the U4 chips when VTARGET_ADC_CHANNEL is defined to an invalid channel and NO_VTARGET_DETECT is
   *     defined (thanks to Steven Morehouse)
+  *   - Fixed CDC and DFU bootloaders failing to compile when the bootloader section size is 8KB or more (thanks to Georg Glock)
   *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>
