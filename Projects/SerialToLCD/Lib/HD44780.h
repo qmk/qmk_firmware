@@ -43,16 +43,16 @@
 		#include <avr/power.h>
 
 	/* Macros: */
-		#define RS                  (0x10)      // PD4
-		#define ENABLE              (0x80)      // PD7
+		#define RS                  (1 << 4)    /* PD4 */
+		#define ENABLE              (1 << 7)    /* PD7 */
 
-		#define HI4_MASK            (0xF0)
-		#define LO4_MASK            (0x0F)      // PD0..3
+		#define HI4_MASK            0xF0
+		#define LO4_MASK            0x0F        /* PD0-PD3 */
 
-		#define ALL_BITS            (RS|ENABLE|LO4_MASK)
+		#define ALL_BITS            (RS | ENABLE | LO4_MASK)
 
-		#define HI4( c )            (( c & HI4_MASK ) >> 4 )
-		#define LO4( c )            (( c & LO4_MASK ) >> 0 )
+		#define HI4(c)              ((c & HI4_MASK) >> 4)
+		#define LO4(c)              ((c & LO4_MASK) >> 0)
 
 		#define CMD_DISPLAY_ON      0x0C
 

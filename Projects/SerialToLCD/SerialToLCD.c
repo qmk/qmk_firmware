@@ -33,31 +33,6 @@
  *
  *  Main source file for the SerialToLCD program. This file contains the main tasks of
  *  the project and is responsible for the initial application hardware configuration.
- *    
- *  \section Hardware Information
- *
- *    LCD Datasheet:  See http://www.sparkfun.com/datasheets/LCD/HD44780.pdf
- *   
- *   Also see the two articles from EPE which are linked from here:
- *   http://en.wikipedia.org/wiki/HD44780_Character_LCD
- *
- *   Connections from the Minimus to the HD44780 as shown below.
- *   
- *   =========================================================  \n
- *   Minimus                 HD44780     Pin                    \n
- *   =========================================================  \n
- *   PD0                     DB4         11                     \n
- *   PD1                     DB5         12                     \n
- *   PD2                     DB6         13                     \n
- *   PD3                     DB7         14                     \n
- *                                                              \n
- *   PD4                     RS          4                      \n
- *                           RW          5       GND            \n
- *   PD7                     EN          6                      \n
- *                                                              \n
- *                                       1       GND            \n
- *                                       2       USB +5V        \n
- *                                       3       2k -> GND      \n
  */
 
 #include "SerialToLCD.h"

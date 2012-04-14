@@ -83,11 +83,11 @@ static void HD44780_WriteByte(const uint8_t c)
 
 static void HD44780_PowerUp4Bit(void)
 {
-	/*  Wait for more than 40 ms after VCC rises to 2.7 V */
+	/* Wait for more than 40 ms after VCC rises to 2.7 V */
 	_delay_ms(40);
 	HD44780_WriteNibble(0x03);        // FN_SET 8-bit
 
-	/*  Wait for more than 4.1 ms */
+	/* Wait for more than 4.1 ms */
 	_delay_ms(5);
 	HD44780_WriteNibble(0x03);        // FN_SET 8-bit
 	
@@ -95,12 +95,12 @@ static void HD44780_PowerUp4Bit(void)
 	_delay_us(100);
 	HD44780_WriteNibble(0x03);        // FN_SET 8-bit
 	
-	/*  From now on we must allow 40us for each command */
+	/* From now on we must allow 40us for each command */
 	_delay_us(50);
 	HD44780_WriteNibble(0x02);        // FN_SET 4-bit
 
-	/*  The LCD is now in 4-bit mode so we can continue
-		using the 4-bit API */
+	/* The LCD is now in 4-bit mode so we can continue
+	   using the 4-bit API */
 	_delay_us(50);
 }
 
