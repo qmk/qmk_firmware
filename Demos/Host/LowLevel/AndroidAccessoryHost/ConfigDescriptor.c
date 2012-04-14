@@ -95,12 +95,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Configure the Android Accessory data IN pipe */
-	Pipe_ConfigurePipe(ANDROID_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(ANDROID_DATA_IN_PIPE, EP_TYPE_BULK, DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, 1);
 
 	/* Configure the Android Accessory data OUT pipe */
-	Pipe_ConfigurePipe(ANDROID_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(ANDROID_DATA_OUT_PIPE, EP_TYPE_BULK, DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, 1);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

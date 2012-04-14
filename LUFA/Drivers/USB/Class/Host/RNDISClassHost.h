@@ -80,14 +80,9 @@
 			{
 				struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the RNDIS interface's IN data pipe. */
-					bool     DataINPipeDoubleBank; /**< Indicates if the RNDIS interface's IN data pipe should use double banking. */
-
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the RNDIS interface's OUT data pipe. */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the RNDIS interface's OUT data pipe should use double banking. */
-
-					uint8_t  NotificationPipeNumber; /**< Pipe number of the RNDIS interface's IN notification endpoint, if used. */
-					bool     NotificationPipeDoubleBank; /**< Indicates if the RNDIS interface's notification pipe should use double banking. */
+					USB_Pipe_Table_t DataINPipe; /**< Data IN Pipe configuration table. */
+					USB_Pipe_Table_t DataOUTPipe; /**< Data OUT Pipe configuration table. */
+					USB_Pipe_Table_t NotificationPipe; /**< Notification IN Pipe configuration table. */
 
 					uint32_t HostMaxPacketSize; /**< Maximum size of a packet which can be buffered by the host. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
@@ -100,10 +95,6 @@
 					                *   Configured state.
 					                */
 					uint8_t ControlInterfaceNumber; /**< Interface index of the RNDIS control interface within the attached device. */
-
-					uint16_t DataINPipeSize; /**< Size in bytes of the RNDIS interface's IN data pipe. */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the RNDIS interface's OUT data pipe. */
-					uint16_t NotificationPipeSize;  /**< Size in bytes of the RNDIS interface's IN notification pipe, if used. */
 
 					uint32_t DeviceMaxPacketSize; /**< Maximum size of a packet which can be buffered by the attached RNDIS device. */
 

@@ -57,11 +57,11 @@
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */
-		/** Endpoint number of the Media Control HID reporting IN endpoint. */
-		#define MEDIACONTROL_HID_EPNUM               1
+		/** Endpoint address of the Media Control HID reporting IN endpoint. */
+		#define MEDIACONTROL_HID_EPADDR           (ENDPOINT_DIR_IN | 1)
 
-		/** Size in bytes of the Media Control HID reporting IN and OUT endpoints. */
-		#define MEDIACONTROL_HID_EPSIZE              8
+		/** Size in bytes of the Media Control HID reporting IN endpoint. */
+		#define MEDIACONTROL_HID_EPSIZE           8
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

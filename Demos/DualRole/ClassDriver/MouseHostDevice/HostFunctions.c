@@ -44,9 +44,16 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Host_Interface =
 	{
 		.Config =
 			{
-				.DataINPipeNumber       = 1,
-				.DataOUTPipeNumber      = 2,
-
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_IN  | 1),
+						.Banks          = 1,
+					},
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_OUT | 2),
+						.Banks          = 1,
+					},
 				.HIDInterfaceProtocol   = HID_CSCP_MouseBootProtocol,
 			},
 	};

@@ -40,8 +40,11 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#define ANDROID_DATA_IN_PIPE         1
-		#define ANDROID_DATA_OUT_PIPE        2
+		/** Pipe address of the Android Accessory data IN pipe. */
+		#define ANDROID_DATA_IN_PIPE         (PIPE_DIR_IN  | 1)
+
+		/** Pipe address of the Android Accessory data OUT pipe. */
+		#define ANDROID_DATA_OUT_PIPE        (PIPE_DIR_OUT | 2)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

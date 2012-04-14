@@ -79,11 +79,8 @@
 			{
 				struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe. */
-					bool     DataINPipeDoubleBank; /**< Indicates if the MIDI interface's IN data pipe should use double banking. */
-
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MIDI interface's streaming OUT data pipe. */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the MIDI interface's OUT data pipe should use double banking. */
+					USB_Pipe_Table_t DataINPipe; /**< Data IN Pipe configuration table. */
+					USB_Pipe_Table_t DataOUTPipe; /**< Data OUT Pipe configuration table. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -94,9 +91,6 @@
 					                    *   Configured state.
 					                    */
 					uint8_t  InterfaceNumber; /**< Interface index of the MIDI interface within the attached device. */
-
-					uint16_t DataINPipeSize; /**< Size in bytes of the MIDI Streaming Data interface's IN data pipe. */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the MIDI Streaming Data interface's OUT data pipe. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.

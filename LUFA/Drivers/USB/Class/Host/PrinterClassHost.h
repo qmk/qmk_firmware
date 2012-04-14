@@ -79,11 +79,8 @@
 			{
 				struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the Printer interface's IN data pipe. */
-					bool     DataINPipeDoubleBank; /**< Indicates if the Printer interface's IN data pipe should use double banking. */
-
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Printer interface's OUT data pipe. */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the Printer interface's OUT data pipe should use double banking. */
+					USB_Pipe_Table_t DataINPipe; /**< Data IN Pipe configuration table. */
+					USB_Pipe_Table_t DataOUTPipe; /**< Data OUT Pipe configuration table. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -95,9 +92,6 @@
 					                */
 					uint8_t InterfaceNumber; /**< Interface index of the Printer interface within the attached device. */
 					uint8_t AlternateSetting; /**< Alternate setting within the Printer Interface in the attached device. */
-
-					uint16_t DataINPipeSize; /**< Size in bytes of the Printer interface's IN data pipe. */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Printer interface's OUT data pipe. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.

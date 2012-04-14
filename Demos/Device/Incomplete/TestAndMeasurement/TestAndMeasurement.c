@@ -129,12 +129,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup TMC In, Out and Notification Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_IN_EPNUM,  EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, TMC_IO_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_IN_EPADDR,  EP_TYPE_BULK, TMC_IO_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_OUT_EPADDR, EP_TYPE_BULK, TMC_IO_EPSIZE, 1);
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -418,7 +415,7 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	uint8_t  ErrorCode;
 
 	/* Select the Data Out endpoint */
-	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
+	Endpoint_SelectEndpoint(TMC_OUT_EPADDR);
 
 	/* Abort if no command has been sent from the host */
 	if (!(Endpoint_IsOUTReceived()))
@@ -450,7 +447,7 @@ bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	MessageHeader->InverseTag = ~CurrentTransferTag;
 
 	/* Select the Data In endpoint */
-	Endpoint_SelectEndpoint(TMC_IN_EPNUM);
+	Endpoint_SelectEndpoint(TMC_IN_EPADDR);
 
 	/* Send the command header to the host */
 	BytesTransferred = 0;

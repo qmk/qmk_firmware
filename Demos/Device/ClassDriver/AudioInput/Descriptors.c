@@ -220,7 +220,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				{
 					.Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
-					.EndpointAddress     = (ENDPOINT_DIR_IN | AUDIO_STREAM_EPNUM),
+					.EndpointAddress     = AUDIO_STREAM_EPADDR,
 					.Attributes          = (EP_TYPE_ISOCHRONOUS | ENDPOINT_ATTR_SYNC | ENDPOINT_USAGE_DATA),
 					.EndpointSize        = AUDIO_STREAM_EPSIZE,
 					.PollingIntervalMS   = 0x01

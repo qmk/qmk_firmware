@@ -83,11 +83,8 @@
 			{
 				struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the HID interface's IN data pipe. */
-					bool     DataINPipeDoubleBank; /**< Indicates if the HID interface's IN data pipe should use double banking. */
-
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the HID interface's OUT data pipe. */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the HID interface's OUT data pipe should use double banking. */
+					USB_Pipe_Table_t DataINPipe; /**< Data IN Pipe configuration table. */
+					USB_Pipe_Table_t DataOUTPipe; /**< Data OUT Pipe configuration table. */
 
 					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if a specific
 					                                *   boot subclass protocol is required, a protocol value from the
@@ -111,9 +108,6 @@
 					                *   Configured state.
 					                */
 					uint8_t InterfaceNumber; /**< Interface index of the HID interface within the attached device. */
-
-					uint16_t DataINPipeSize; /**< Size in bytes of the HID interface's IN data pipe. */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe. */
 
 					bool SupportsBootProtocol; /**< Indicates if the current interface instance supports the HID Boot
 					                            *   Protocol when enabled via \ref HID_Host_SetBootProtocol().

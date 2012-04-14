@@ -69,7 +69,7 @@
 			} ATTR_PACKED USB_EndpointTable_t;
 
 		/* External Variables: */
-			extern USB_EndpointTable_t USB_EndpointTable;
+			extern uint8_t USB_EndpointTable[];
 
 	#endif
 

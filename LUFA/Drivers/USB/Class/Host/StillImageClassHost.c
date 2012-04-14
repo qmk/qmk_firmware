@@ -87,63 +87,27 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		}
 	}
 
-	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Token;
-		uint8_t  EndpointAddress;
-		uint8_t  InterruptPeriod;
-		bool     DoubleBanked;
+	SIInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
+	SIInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
+	SIInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
+	
+	SIInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+	SIInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
+	SIInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
+	
+	SIInterfaceInfo->Config.EventsPipe.Size = le16_to_cpu(EventsEndpoint->EndpointSize);
+	SIInterfaceInfo->Config.EventsPipe.EndpointAddress = EventsEndpoint->EndpointAddress;
+	SIInterfaceInfo->Config.EventsPipe.Type = EP_TYPE_INTERRUPT;
 
-		if (PipeNum == SIInterfaceInfo->Config.DataINPipeNumber)
-		{
-			Size            = DataINEndpoint->EndpointSize;
-			EndpointAddress = DataINEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_BULK;
-			DoubleBanked    = SIInterfaceInfo->Config.DataINPipeDoubleBank;
-			InterruptPeriod = 0;
+	if (!(Pipe_ConfigurePipeTable(&SIInterfaceInfo->Config.DataINPipe, 1)))
+	  return false;
+	
+	if (!(Pipe_ConfigurePipeTable(&SIInterfaceInfo->Config.DataOUTPipe, 1)))
+	  return false;
 
-			SIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
-		}
-		else if (PipeNum == SIInterfaceInfo->Config.DataOUTPipeNumber)
-		{
-			Size            = DataOUTEndpoint->EndpointSize;
-			EndpointAddress = DataOUTEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_OUT;
-			Type            = EP_TYPE_BULK;
-			DoubleBanked    = SIInterfaceInfo->Config.DataOUTPipeDoubleBank;
-			InterruptPeriod = 0;
-
-			SIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
-		}
-		else if (PipeNum == SIInterfaceInfo->Config.EventsPipeNumber)
-		{
-			Size            = EventsEndpoint->EndpointSize;
-			EndpointAddress = EventsEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_INTERRUPT;
-			DoubleBanked    = SIInterfaceInfo->Config.EventsPipeDoubleBank;
-			InterruptPeriod = EventsEndpoint->PollingIntervalMS;
-
-			SIInterfaceInfo->State.EventsPipeSize = EventsEndpoint->EndpointSize;
-		}
-		else
-		{
-			continue;
-		}
-
-		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
-		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
-		{
-			return SI_ENUMERROR_PipeConfigurationFailed;
-		}
-
-		if (InterruptPeriod)
-		  Pipe_SetInterruptPeriod(InterruptPeriod);
-	}
-
+	if (!(Pipe_ConfigurePipeTable(&SIInterfaceInfo->Config.EventsPipe, 1)))
+	  return false;
+	
 	SIInterfaceInfo->State.InterfaceNumber = StillImageInterface->InterfaceNumber;
 	SIInterfaceInfo->State.IsActive = true;
 
@@ -204,7 +168,7 @@ uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	if (SIInterfaceInfo->State.IsSessionOpen)
 	  PIMAHeader->TransactionID = cpu_to_le32(SIInterfaceInfo->State.TransactionID++);
 
-	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipe.Address);
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(PIMAHeader, PIMA_COMMAND_SIZE(0), NULL)) != PIPE_RWSTREAM_NoError)
@@ -233,7 +197,7 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 
-	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Unfreeze();
 
 	while (!(Pipe_IsINReceived()))
@@ -249,7 +213,7 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 		}
 
 		Pipe_Freeze();
-		Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipe.Address);
 		Pipe_Unfreeze();
 
 		if (Pipe_IsStalled())
@@ -259,7 +223,7 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 		}
 
 		Pipe_Freeze();
-		Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipe.Address);
 		Pipe_Unfreeze();
 
 		if (Pipe_IsStalled())
@@ -298,7 +262,7 @@ uint8_t SI_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 
-	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipe.Address);
 	Pipe_Unfreeze();
 
 	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes, NULL);
@@ -318,7 +282,7 @@ uint8_t SI_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 
-	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Unfreeze();
 
 	ErrorCode = Pipe_Read_Stream_LE(Buffer, Bytes, NULL);
@@ -335,7 +299,7 @@ bool SI_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return false;
 
-	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
+	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipe.Address);
 	Pipe_Unfreeze();
 
 	if (Pipe_BytesInPipe())
@@ -354,7 +318,7 @@ uint8_t SI_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 
-	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
+	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipe.Address);
 	Pipe_Unfreeze();
 
 	ErrorCode = Pipe_Read_Stream_LE(PIMAHeader, sizeof(PIMA_Container_t), NULL);

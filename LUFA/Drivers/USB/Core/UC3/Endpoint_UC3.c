@@ -45,6 +45,23 @@ uint8_t USB_Device_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 volatile uint32_t USB_Endpoint_SelectedEndpoint = ENDPOINT_CONTROLEP;
 volatile uint8_t* USB_Endpoint_FIFOPos[ENDPOINT_TOTAL_ENDPOINTS];
 
+bool Endpoint_ConfigureEndpointTable(const USB_Endpoint_Table_t* const Table,
+                                     const uint8_t Entries)
+{
+	for (uint8_t i = 0; i < Entries; i++)
+	{
+		if (!(Table[i].Address))
+		  continue;
+	
+		if (!(Endpoint_ConfigureEndpoint(Table[i].Address, Table[i].Type, Table[i].Size, Table[i].Banks)))
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
 bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint32_t UECFG0Data)
 {

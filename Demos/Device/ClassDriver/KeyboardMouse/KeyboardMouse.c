@@ -52,11 +52,12 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 		.Config =
 			{
 				.InterfaceNumber              = 0,
-
-				.ReportINEndpointNumber       = KEYBOARD_IN_EPNUM,
-				.ReportINEndpointSize         = HID_EPSIZE,
-				.ReportINEndpointDoubleBank   = false,
-
+				.ReportINEndpoint             =
+					{
+						.Address              = KEYBOARD_IN_EPADDR,
+						.Size                 = HID_EPSIZE,
+						.Banks                = 1,
+					},
 				.PrevReportINBuffer           = PrevKeyboardHIDReportBuffer,
 				.PrevReportINBufferSize       = sizeof(PrevKeyboardHIDReportBuffer),
 			},
@@ -72,10 +73,12 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 		.Config =
 			{
 				.InterfaceNumber              = 1,
-
-				.ReportINEndpointNumber       = MOUSE_IN_EPNUM,
-				.ReportINEndpointSize         = HID_EPSIZE,
-
+				.ReportINEndpoint             =
+					{
+						.Address              = MOUSE_IN_EPADDR,
+						.Size                 = HID_EPSIZE,
+						.Banks                = 1,
+					},
 				.PrevReportINBuffer           = PrevMouseHIDReportBuffer,
 				.PrevReportINBufferSize       = sizeof(PrevMouseHIDReportBuffer),
 			},

@@ -42,8 +42,8 @@
 		#include "HIDReport.h"
 
 	/* Macros: */
-		/** Pipe number for the joystick report data pipe. */
-		#define JOYSTICK_DATA_IN_PIPE       1
+		/** Pipe address for the joystick report data pipe. */
+		#define JOYSTICK_DATA_IN_PIPE       (PIPE_DIR_IN | 1)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

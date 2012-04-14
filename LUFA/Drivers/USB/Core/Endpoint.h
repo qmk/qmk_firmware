@@ -87,6 +87,18 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Type Defines: */
+			/** Type define for a endpoint table entry, used to configure endpoints in groups via
+			 *  \ref Endpoint_ConfigureEndpointTable().
+			 */
+			typedef struct
+			{
+				uint8_t  Address; /**< Address of the endpoint to configure, or zero if the table entry is to be unused. */
+				uint16_t Size; /**< Size of the endpoint bank, in bytes. */
+				uint8_t  Type; /**< Type of the endpoint, a \c EP_TYPE_* mask. */
+				uint8_t  Banks; /**< Number of hardware banks to use for the endpoint. */
+			} USB_Endpoint_Table_t;
+	
 		/* Macros: */
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the device.

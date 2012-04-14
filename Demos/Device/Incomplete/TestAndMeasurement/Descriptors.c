@@ -119,7 +119,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-			.EndpointAddress        = (ENDPOINT_DIR_OUT | TMC_OUT_EPNUM),
+			.EndpointAddress        = TMC_OUT_EPADDR,
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = TMC_IO_EPSIZE,
 			.PollingIntervalMS      = 0x01
@@ -129,7 +129,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-			.EndpointAddress        = (ENDPOINT_DIR_IN | TMC_IN_EPNUM),
+			.EndpointAddress        = TMC_IN_EPADDR,
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = TMC_IO_EPSIZE,
 			.PollingIntervalMS      = 0x01
@@ -139,7 +139,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-			.EndpointAddress        = (ENDPOINT_DIR_IN | TMC_NOTIFICATION_EPNUM),
+			.EndpointAddress        = TMC_NOTIFICATION_EPADDR,
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = TMC_NOTIFICATION_EPSIZE,
 			.PollingIntervalMS      = 0xFF

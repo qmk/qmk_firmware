@@ -42,8 +42,8 @@
 		#include "HIDReport.h"
 
 	/* Macros: */
-		/** Pipe number for the mouse report data pipe. */
-		#define MOUSE_DATA_IN_PIPE          1
+		/** Pipe address for the mouse report data IN pipe. */
+		#define MOUSE_DATA_IN_PIPE          (ENDPOINT_DIR_IN | 1)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

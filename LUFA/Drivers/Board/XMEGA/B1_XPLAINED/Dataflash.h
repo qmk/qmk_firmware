@@ -71,10 +71,10 @@
 			#define DATAFLASH_TOTALCHIPS                 1
 
 			/** Mask for no dataflash chip selected. */
-			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
+			#define DATAFLASH_NO_CHIP                    0
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      0
+			#define DATAFLASH_CHIP1                      (1 << 2)
 
 			/** Internal main memory page size for the board's dataflash ICs. */
 			#define DATAFLASH_PAGE_SIZE                  1024
@@ -88,10 +88,12 @@
 			 */
 			static inline void Dataflash_Init(void)
 			{
-				DATAFLASH_CHIPCS_PORT.DIRSET = DATAFLASH_CHIPCS_MASK;
-				DATAFLASH_CHIPCS_PORT.OUTSET = DATAFLASH_CHIPCS_MASK;
+				DATAFLASH_CHIPCS_PORT.DIRSET   = DATAFLASH_CHIPCS_MASK;
 				
-				PORTE.REMAP |= PORT_USART0_bm;
+				PORTCFG.MPCMASK                = DATAFLASH_CHIPCS_MASK;
+				DATAFLASH_CHIPCS_PORT.PIN0CTRL = PORT_INVEN_bm;	
+				
+				PORTC.REMAP |= PORT_USART0_bm;
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
@@ -103,7 +105,7 @@
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
 			{
-				return SerialSPI_TransferByte(&USARTE0, Byte);
+				return SerialSPI_TransferByte(&USARTC0, Byte);
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
@@ -113,7 +115,7 @@
 			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)
 			{
-				SerialSPI_SendByte(&USARTE0, Byte);
+				SerialSPI_SendByte(&USARTC0, Byte);
 			}
 
 			/** Sends a dummy byte to the currently selected dataflash IC, and returns the next byte from the dataflash.
@@ -123,7 +125,7 @@
 			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_ReceiveByte(void)
 			{
-				return SerialSPI_ReceiveByte(&USARTE0);
+				return SerialSPI_ReceiveByte(&USARTC0);
 			}
 
 			/** Determines the currently selected dataflash chip.
@@ -145,7 +147,8 @@
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask)
 			{
-				DATAFLASH_CHIPCS_PORT.OUT = ((DATAFLASH_CHIPCS_PORT.OUT & ~DATAFLASH_CHIPCS_MASK) | ChipMask);
+				DATAFLASH_CHIPCS_PORT.OUTCLR = DATAFLASH_CHIPCS_MASK;
+				DATAFLASH_CHIPCS_PORT.OUTSET = (ChipMask & DATAFLASH_CHIPCS_MASK);
 			}
 
 			/** Deselects the current dataflash chip, so that no dataflash is selected. */

@@ -10,6 +10,8 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the BitWizard Multio and Big-Multio boards
+  *   - Added new Endpoint_ConfigureEndpointTable() function
+  *   - Added new Pipe_ConfigurePipeTable() function
   *  - Library Applications:
   *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
   *   - Added Dataflash operational checks and aborts to all projects using the Dataflash to ensure it is working correctly before use
@@ -20,6 +22,16 @@
   *   - Audio Device Class driver changed to also require the index of the Audio Control interface within the device, for SET/GET/CUR/MIN/MAX/RES property adjustments
   *   - Removed variable axis support from the HID_DESCRIPTOR_JOYSTICK() macro due to OS incompatibilities, replaced with fixed 3-axis joystick report structure
   *   - Removed the old pseudo-scheduler from the library as it was unused and deprecated since the 090810 release
+  *   - Endpoint indexes are now specified as full endpoint addresses within the device in device mode, rather than a logical index
+  *   - The Endpoint_ConfigureEndpoint() function no longer takes an endpoint direction as a parameter, as this is now deduced from the specified full endpoint
+  *     address and type
+  *   - The Endpoint_ConfigureEndpoint() function no longer takes a number of banks as a special mask; the number of banks is now specified as an integer parameter
+  *   - Endpoints are now configured via instances of a new struct USB_Endpoint_Table_t in all device mode class drivers, rather than a list of endpoint parameters
+  *   - Pipe indexes are now specified as full pipe addresses within the host in host mode, rather than a logical index
+  *   - The Pipe_ConfigurePipe() function no longer takes an pipe token as a parameter, as this is now deduced from the specified full pipe address and type
+  *   - The Pipe_ConfigurePipe() function no longer takes a number of banks as a special mask; the number of banks is now specified as an integer parameter
+  *   - Pipes are now configured via instances of a new struct USB_Pipe_Table_t in all host mode class drivers, rather than a list of pipe parameters
+  *   - Added support for various assert and debugging macros for the UC3 devices
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *   - Added additional bootloader API data to expose the bootloader start address and class to the DFU and CDC class bootloaders

@@ -85,9 +85,7 @@
 				{
 					uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device. */
 
-					uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint. */
-					uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint. */
-					bool     ReportINEndpointDoubleBank; /**< Indicates if the HID interface's IN report endpoint should use double banking. */
+					USB_Endpoint_Table_t ReportINEndpoint; /**< Data IN HID report endpoint configuration table. */
 
 					void*    PrevReportINBuffer; /**< Pointer to a buffer where the previously created HID input report can be
 					                              *  stored by the driver, for comparison purposes to detect report changes that

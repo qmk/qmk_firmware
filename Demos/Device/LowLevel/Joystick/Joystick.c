@@ -96,8 +96,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup HID Report Endpoint */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(JOYSTICK_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            JOYSTICK_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(JOYSTICK_EPADDR, EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -183,7 +182,7 @@ void HID_Task(void)
 	  return;
 
 	/* Select the Joystick Report Endpoint */
-	Endpoint_SelectEndpoint(JOYSTICK_EPNUM);
+	Endpoint_SelectEndpoint(JOYSTICK_EPADDR);
 
 	/* Check to see if the host is ready for another packet */
 	if (Endpoint_IsINReady())

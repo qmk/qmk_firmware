@@ -78,45 +78,19 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		  DataOUTEndpoint = EndpointData;
 	}
 
-	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Token;
-		uint8_t  EndpointAddress;
-		bool     DoubleBanked;
-
-		if (PipeNum == MIDIInterfaceInfo->Config.DataINPipeNumber)
-		{
-			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
-			EndpointAddress = DataINEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_BULK;
-			DoubleBanked    = MIDIInterfaceInfo->Config.DataINPipeDoubleBank;
-
-			MIDIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
-		}
-		else if (PipeNum == MIDIInterfaceInfo->Config.DataOUTPipeNumber)
-		{
-			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
-			EndpointAddress = DataOUTEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_OUT;
-			Type            = EP_TYPE_BULK;
-			DoubleBanked    = MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank;
-
-			MIDIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
-		}
-		else
-		{
-			continue;
-		}
-
-		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
-		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
-		{
-			return MIDI_ENUMERROR_PipeConfigurationFailed;
-		}
-	}
+	MIDIInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
+	MIDIInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
+	MIDIInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
+	
+	MIDIInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+	MIDIInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
+	MIDIInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
+	
+	if (!(Pipe_ConfigurePipeTable(&MIDIInterfaceInfo->Config.DataINPipe, 1)))
+	  return false;
+	
+	if (!(Pipe_ConfigurePipeTable(&MIDIInterfaceInfo->Config.DataOUTPipe, 1)))
+	  return false;	
 
 	MIDIInterfaceInfo->State.InterfaceNumber = MIDIInterface->InterfaceNumber;
 	MIDIInterfaceInfo->State.IsActive = true;
@@ -181,7 +155,7 @@ uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 
 	uint8_t ErrorCode;
 
-	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipe.Address);
 
 	if (Pipe_BytesInPipe())
 	{
@@ -202,7 +176,7 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 
 	uint8_t ErrorCode;
 
-	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipe.Address);
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
@@ -219,7 +193,7 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
 
-	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataINPipe.Address);
 
 	if (!(Pipe_IsReadWriteAllowed()))
 	  return false;

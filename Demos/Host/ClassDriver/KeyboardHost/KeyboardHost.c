@@ -44,12 +44,16 @@ USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
 	{
 		.Config =
 			{
-				.DataINPipeNumber       = 1,
-				.DataINPipeDoubleBank   = false,
-
-				.DataOUTPipeNumber      = 2,
-				.DataOUTPipeDoubleBank  = false,
-
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_IN  | 1),
+						.Banks          = 1,
+					},
+				.DataOUTPipe            =
+					{
+						.Address        = (PIPE_DIR_OUT | 2),
+						.Banks          = 1,
+					},
 				.HIDInterfaceProtocol   = HID_CSCP_KeyboardBootProtocol,
 			},
 	};

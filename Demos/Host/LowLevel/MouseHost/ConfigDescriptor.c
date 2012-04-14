@@ -98,8 +98,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Configure the HID data IN pipe */
-	Pipe_ConfigurePipe(MOUSE_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(MOUSE_DATA_IN_PIPE, EP_TYPE_INTERRUPT, DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, 1);
 	Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
 
 	/* Valid data found, return success */

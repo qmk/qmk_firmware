@@ -131,47 +131,20 @@
 
 			/** \name Pipe Token Masks */
 			//@{
-			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a SETUP token (for CONTROL type pipes),
+			/** Token mask for \ref Pipe_SetPipeToken() and \ref Pipe_GetPipeToken(). This sets the pipe as a SETUP token (for CONTROL type pipes),
 			 *  which will trigger a control request on the attached device when data is written to the pipe.
 			 */
 			#define PIPE_TOKEN_SETUP                AVR32_USBB_UPCFG0_PTOKEN_SETUP
 
-			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a IN token (for non-CONTROL type pipes),
+			/** Token mask for \ref Pipe_SetPipeToken() and \ref Pipe_GetPipeToken(). This sets the pipe as a IN token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from device to host.
 			 */
 			#define PIPE_TOKEN_IN                   AVR32_USBB_UPCFG0_PTOKEN_IN
 
-			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a OUT token (for non-CONTROL type pipes),
+			/** Token mask for \ref Pipe_SetPipeToken() and \ref Pipe_GetPipeToken(). This sets the pipe as a OUT token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from host to device.
 			 */
 			#define PIPE_TOKEN_OUT                  AVR32_USBB_UPCFG0_PTOKEN_OUT
-			//@}
-
-			/** \name Pipe Bank Mode Masks */
-			//@{
-			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
-			 *  should have one single bank, which requires less USB FIFO memory but results in slower transfers as
-			 *  only one USB device (the AVR or the attached device) can access the pipe's bank at the one time.
-			 */
-			#define PIPE_BANK_SINGLE                AVR32_USBB_UPCFG0_PBK_SINGLE
-
-			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
-			 *  should have two banks, which requires more USB FIFO memory but results in faster transfers as one
-			 *  USB device (the AVR or the attached device) can access one bank while the other accesses the second
-			 *  bank.
-			 */
-			#define PIPE_BANK_DOUBLE                AVR32_USBB_UPCFG0_PBK_DOUBLE
-
-			#if defined(USB_SERIES_UC3A3_AVR32) || defined(USB_SERIES_UC3A4_AVR32) || defined(__DOXYGEN__)
-				/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the
-				 *  pipe should have three banks, which requires more USB FIFO memory but results in faster transfers
-				 *  as one USB device (the AVR or the attached device) can access one bank while the other accesses the
-				 *  remaining banks.
-				 *
-				 *  \note Not available on all AVR models.
-				 */
-				#define PIPE_BANK_TRIPLE           AVR32_USBB_UPCFG0_PBK_TRIPLE
-			#endif
 			//@}
 
 			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value
@@ -224,6 +197,16 @@
 				return (&AVR32_USBB.UPSTA0)[USB_Pipe_SelectedPipe].pbyct;
 			}
 
+			/** Determines the currently selected pipe's direction.
+			 *
+			 *  \return The currently selected pipe's direction, as a \c PIPE_DIR_* mask.
+			 */
+			static inline uint8_t Pipe_GetPipeDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Pipe_GetPipeDirection(void)
+			{
+				return (((&AVR32_USBB.UPCFG0)[USB_Endpoint_SelectedEndpoint].ptoken == PIPE_TOKEN_OUT) ? PIPE_DIR_OUT : PIPE_DIR_IN);
+			}
+			
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
 			 *  currently selected pipe number so that it can be restored after another pipe has been manipulated.
 			 *
@@ -232,30 +215,32 @@
 			static inline uint8_t Pipe_GetCurrentPipe(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetCurrentPipe(void)
 			{
-				return USB_Pipe_SelectedPipe;
+				return (USB_Pipe_SelectedPipe | Pipe_GetPipeDirection());
 			}
 
-			/** Selects the given pipe number. Any pipe operations which do not require the pipe number to be
+			/** Selects the given pipe address. Any pipe operations which do not require the pipe address to be
 			 *  indicated will operate on the currently selected pipe.
 			 *
-			 *  \param[in] PipeNumber  Index of the pipe to select.
+			 *  \param[in] Address  Address of the pipe to select.
 			 */
-			static inline void Pipe_SelectPipe(const uint8_t PipeNumber) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_SelectPipe(const uint8_t PipeNumber)
+			static inline void Pipe_SelectPipe(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_SelectPipe(const uint8_t Address)
 			{
-				USB_Pipe_SelectedPipe = PipeNumber;
+				USB_Pipe_SelectedPipe = (Address & PIPE_EPNUM_MASK);
 			}
 
 			/** Resets the desired pipe, including the pipe banks and flags.
 			 *
-			 *  \param[in] PipeNumber  Index of the pipe to reset.
+			 *  \param[in] Address  Index of the pipe to reset.
 			 */
-			static inline void Pipe_ResetPipe(const uint8_t PipeNumber) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_ResetPipe(const uint8_t PipeNumber)
+			static inline void Pipe_ResetPipe(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_ResetPipe(const uint8_t Address)
 			{
+				uint32_t PipeNumber = (Address & PIPE_EPNUM_MASK);
+
 				AVR32_USBB.uprst |=  (AVR32_USBB_PRST0_MASK << PipeNumber);
 				AVR32_USBB.uprst &= ~(AVR32_USBB_PRST0_MASK << PipeNumber);
-				USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[USB_Pipe_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
+				USB_Pipe_FIFOPos[PipeNumber] = &AVR32_USBB_SLAVE[PipeNumber * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
@@ -349,7 +334,7 @@
 			static inline uint8_t Pipe_GetBoundEndpointAddress(void)
 			{
 				return ((&AVR32_USBB.UPCFG0)[USB_Pipe_SelectedPipe].pepnum |
-				        ((Pipe_GetPipeToken() == PIPE_TOKEN_IN) ? PIPE_EPDIR_MASK : 0));
+				        ((Pipe_GetPipeToken() == PIPE_TOKEN_IN) ? PIPE_DIR_IN : PIPE_DIR_OUT));
 			}
 
 			/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.
@@ -376,17 +361,17 @@
 				                             AVR32_USBB_P0INT_MASK)) >> AVR32_USBB_P0INT_OFFSET);
 			}
 
-			/** Determines if the specified pipe number has interrupted (valid only for INTERRUPT type
+			/** Determines if the specified pipe address has interrupted (valid only for INTERRUPT type
 			 *  pipes).
 			 *
-			 *  \param[in] PipeNumber  Index of the pipe whose interrupt flag should be tested.
+			 *  \param[in] Address  Address of the pipe whose interrupt flag should be tested.
 			 *
 			 *  \return Boolean \c true if the specified pipe has interrupted, \c false otherwise.
 			 */
-			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber)
+			static inline bool Pipe_HasPipeInterrupted(const uint8_t Address) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Pipe_HasPipeInterrupted(const uint8_t Address)
 			{
-				return ((AVR32_USBB.uhint & (AVR32_USBB_P0INTES_MASK << PipeNumber)) ? true : false);
+				return ((AVR32_USBB.uhint & (AVR32_USBB_P0INTES_MASK << (Address & PIPE_EPNUM_MASK))) ? true : false);
 			}
 
 			/** Unfreezes the selected pipe, allowing it to communicate with an attached device. */
@@ -821,8 +806,22 @@
 			extern uint8_t USB_Host_ControlPipeSize;
 
 		/* Function Prototypes: */
-			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the
-			 *  attached device, bank size and banking mode.
+			/** Configures a table of pipe descriptions, in sequence. This function can be used to configure multiple
+			 *  pipes at the same time.
+			 *
+			 *  \note Pipe with a zero address will be ignored, thus this function cannot be used to configure the
+			 *        control pipe.
+			 *
+			 *  \param[in] Table    Pointer to a table of pipe descriptions.
+			 *  \param[in] Entries  Number of entries in the pipe table to configure.
+			 *
+			 *  \return Boolean \c true if all pipes configured successfully, \c false otherwise.
+			 */			
+			bool Pipe_ConfigurePipeTable(const USB_Pipe_Table_t* const Table,
+			                             const uint8_t Entries);
+
+			/** Configures the specified pipe address with the given pipe type, endpoint address within the attached device, bank size
+			 *  and number of hardware banks.
 			 *
 			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze()
 			 *  before being used. Pipes should be kept frozen unless waiting for data from a device while in IN mode, or
@@ -830,25 +829,19 @@
 			 *  numbers of IN requests without automatic freezing - this can be overridden by a call to
 			 *  \ref Pipe_SetFiniteINRequests().
 			 *
-			 *  \param[in] Number          Pipe number to configure. This must be more than 0 and less than \ref PIPE_TOTAL_PIPES.
+			 *  \param[in] Address          Pipe address to configure.
 			 *
-			 *  \param[in] Type            Type of pipe to configure, an \c EP_TYPE_* mask. Not all pipe types are available on Low
-			 *                             Speed USB devices - refer to the USB 2.0 specification.
+			 *  \param[in] Type             Type of pipe to configure, an \c EP_TYPE_* mask. Not all pipe types are available on Low
+			 *                              Speed USB devices - refer to the USB 2.0 specification.
 			 *
-			 *  \param[in] Token           Pipe data token, either \ref PIPE_TOKEN_SETUP, \ref PIPE_TOKEN_OUT or \ref PIPE_TOKEN_IN.
-			 *                             All pipes (except Control type) are unidirectional - data may only be read from or
-			 *                             written to the pipe bank based on its direction, not both.
+			 *  \param[in] EndpointAddress  Endpoint address within the attached device that the pipe should interface to.
 			 *
-			 *  \param[in] EndpointNumber  Endpoint index within the attached device that the pipe should interface to.
+			 *  \param[in] Size             Size of the pipe's bank, where packets are stored before they are transmitted to
+			 *                              the USB device, or after they have been received from the USB device (depending on
+			 *                              the pipe's data direction). The bank size must indicate the maximum packet size that
+			 *                              the pipe can handle.
 			 *
-			 *  \param[in] Size            Size of the pipe's bank, where packets are stored before they are transmitted to
-			 *                             the USB device, or after they have been received from the USB device (depending on
-			 *                             the pipe's data direction). The bank size must indicate the maximum packet size that
-			 *                             the pipe can handle.
-			 *
-			 *  \param[in] Banks           Number of banks to use for the pipe being configured, a \c PIPE_BANK_* mask. More banks
-			 *                             uses more USB DPRAM, but offers better performance. Isochronous type pipes <b>must</b>
-			 *                             have at least two banks.
+			 *  \param[in] Banks            Number of banks to use for the pipe being configured.
 			 *
 			 *  \note When the \c ORDERED_EP_CONFIG compile time option is used, Pipes <b>must</b> be configured in ascending order,
 			 *        or bank corruption will occur.
@@ -867,10 +860,9 @@
 			 *
 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
 			 */
-			bool Pipe_ConfigurePipe(const uint8_t Number,
+			bool Pipe_ConfigurePipe(const uint8_t Address,
 			                        const uint8_t Type,
-			                        const uint8_t Token,
-			                        const uint8_t EndpointNumber,
+			                        const uint8_t EndpointAddress,
 			                        const uint16_t Size,
 			                        const uint8_t Banks);
 

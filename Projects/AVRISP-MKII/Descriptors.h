@@ -42,18 +42,15 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#if !defined(LIBUSB_DRIVER_COMPAT)
-			/** Endpoint number of the AVRISP data OUT endpoint. */
-			#define AVRISP_DATA_OUT_EPNUM      2
+		#if !defined(LIBUSB_DRIVER_COMPAT) || defined(__DOXYGEN__)
+			/** Endpoint address of the AVRISP data OUT endpoint. */
+			#define AVRISP_DATA_OUT_EPADDR     (ENDPOINT_DIR_OUT | 2)
 
-			/** Endpoint number of the AVRISP data IN endpoint. */
-			#define AVRISP_DATA_IN_EPNUM       2
+			/** Endpoint address of the AVRISP data IN endpoint. */
+			#define AVRISP_DATA_IN_EPADDR      (ENDPOINT_DIR_IN  | 2)
 		#else
-			/** Endpoint number of the AVRISP data OUT endpoint. */
-			#define AVRISP_DATA_OUT_EPNUM      2
-
-			/** Endpoint number of the AVRISP data IN endpoint. */
-			#define AVRISP_DATA_IN_EPNUM       3
+			#define AVRISP_DATA_OUT_EPADDR     (ENDPOINT_DIR_OUT | 2)
+			#define AVRISP_DATA_IN_EPADDR      (ENDPOINT_DIR_IN  | 3)
 		#endif
 
 		/** Size in bytes of the AVRISP data endpoint. */

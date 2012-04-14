@@ -117,10 +117,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup HID Report Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-	                                            KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPADDR, EP_TYPE_INTERRUPT, KEYBOARD_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_OUT_EPADDR, EP_TYPE_INTERRUPT, KEYBOARD_EPSIZE, 1);
 
 	/* Turn on Start-of-Frame events for tracking HID report period expiry */
 	USB_Device_EnableSOFEvents();
@@ -315,7 +313,7 @@ void SendNextReport(void)
 	}
 
 	/* Select the Keyboard Report Endpoint */
-	Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+	Endpoint_SelectEndpoint(KEYBOARD_IN_EPADDR);
 
 	/* Check if Keyboard Endpoint Ready for Read/Write and if we should send a new report */
 	if (Endpoint_IsReadWriteAllowed() && SendReport)
@@ -335,7 +333,7 @@ void SendNextReport(void)
 void ReceiveNextReport(void)
 {
 	/* Select the Keyboard LED Report Endpoint */
-	Endpoint_SelectEndpoint(KEYBOARD_OUT_EPNUM);
+	Endpoint_SelectEndpoint(KEYBOARD_OUT_EPADDR);
 
 	/* Check if Keyboard LED Endpoint contains a packet */
 	if (Endpoint_IsOUTReceived())

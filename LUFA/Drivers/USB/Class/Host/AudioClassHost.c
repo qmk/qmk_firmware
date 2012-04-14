@@ -51,8 +51,8 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return AUDIO_ENUMERROR_InvalidConfigDescriptor;
 
-	while ((AudioInterfaceInfo->Config.DataINPipeNumber  && !(DataINEndpoint)) ||
-	       (AudioInterfaceInfo->Config.DataOUTPipeNumber && !(DataOUTEndpoint)))
+	while ((AudioInterfaceInfo->Config.DataINPipe.Address  && !(DataINEndpoint)) ||
+	       (AudioInterfaceInfo->Config.DataOUTPipe.Address && !(DataOUTEndpoint)))
 	{
 		if (!(AudioControlInterface) ||
 		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
@@ -93,45 +93,21 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 		  DataOUTEndpoint = EndpointData;
 	}
 
-	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Token;
-		uint8_t  EndpointAddress;
-		bool     DoubleBanked;
-
-		if (PipeNum == AudioInterfaceInfo->Config.DataINPipeNumber)
-		{
-			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
-			EndpointAddress = DataINEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_ISOCHRONOUS;
-			DoubleBanked    = true;
-
-			AudioInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
-		}
-		else if (PipeNum == AudioInterfaceInfo->Config.DataOUTPipeNumber)
-		{
-			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
-			EndpointAddress = DataOUTEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_OUT;
-			Type            = EP_TYPE_ISOCHRONOUS;
-			DoubleBanked    = true;
-
-			AudioInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
-		}
-		else
-		{
-			continue;
-		}
-
-		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
-		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
-		{
-			return AUDIO_ENUMERROR_PipeConfigurationFailed;
-		}
-	}
+	AudioInterfaceInfo->Config.DataINPipe.Size   = le16_to_cpu(DataINEndpoint->EndpointSize);
+	AudioInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
+	AudioInterfaceInfo->Config.DataINPipe.Type   = EP_TYPE_ISOCHRONOUS;
+	AudioInterfaceInfo->Config.DataINPipe.Banks  = 2;
+	
+	AudioInterfaceInfo->Config.DataOUTPipe.Size  = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+	AudioInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
+	AudioInterfaceInfo->Config.DataOUTPipe.Type  = EP_TYPE_ISOCHRONOUS;
+	AudioInterfaceInfo->Config.DataOUTPipe.Banks = 2;
+	
+	if (!(Pipe_ConfigurePipeTable(&AudioInterfaceInfo->Config.DataINPipe, 1)))
+	  return false;
+	
+	if (!(Pipe_ConfigurePipeTable(&AudioInterfaceInfo->Config.DataOUTPipe, 1)))
+	  return false;
 
 	AudioInterfaceInfo->State.ControlInterfaceNumber    = AudioControlInterface->InterfaceNumber;
 	AudioInterfaceInfo->State.StreamingInterfaceNumber  = AudioStreamingInterface->InterfaceNumber;

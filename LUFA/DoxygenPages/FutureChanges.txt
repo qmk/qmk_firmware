@@ -22,7 +22,6 @@
   *      -# Pull out third party libraries into a separate folder and reference them as required
   *      -# Add a LUFA_YIELD macro for integration into a third-party RTOS
   *      -# Abstract out Mass Storage byte send/receive to prevent low level API use in projects
-  *      -# Consider switch from endpoint numbers to full endpoint addresses to ease future architecture expansion
   *      -# Fix HID report parser usage support for array types
   *      -# Make HOST_DEVICE_SETTLE_DELAY_MS a global variable that can be changed
   *      -# Add MANDATORY_EVENT_FUNCTIONS compile time option

@@ -55,8 +55,8 @@
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */
-		/** Endpoint number of the HID data IN endpoint. */
-		#define HID_IN_EPNUM                 1
+		/** Endpoint address of the HID data IN endpoint. */
+		#define HID_IN_EPADDR                (ENDPOINT_DIR_IN | 1)
 
 		/** Size in bytes of the HID reporting IN endpoint. */
 		#define HID_IN_EPSIZE                64

@@ -42,8 +42,8 @@
 		#include "AudioInputHost.h"
 
 	/* Macros: */
-		/** Pipe number for the Audio data IN pipe. */
-		#define AUDIO_DATA_IN_PIPE          1
+		/** Pipe address for the Audio data IN pipe. */
+		#define AUDIO_DATA_IN_PIPE          (PIPE_DIR_IN | 1)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

@@ -78,45 +78,19 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 		  DataOUTEndpoint = EndpointData;
 	}
 
-	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Token;
-		uint8_t  EndpointAddress;
-		bool     DoubleBanked;
-
-		if (PipeNum == MSInterfaceInfo->Config.DataINPipeNumber)
-		{
-			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
-			EndpointAddress = DataINEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_BULK;
-			DoubleBanked    = MSInterfaceInfo->Config.DataINPipeDoubleBank;
-
-			MSInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
-		}
-		else if (PipeNum == MSInterfaceInfo->Config.DataOUTPipeNumber)
-		{
-			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
-			EndpointAddress = DataOUTEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_OUT;
-			Type            = EP_TYPE_BULK;
-			DoubleBanked    = MSInterfaceInfo->Config.DataOUTPipeDoubleBank;
-
-			MSInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
-		}
-		else
-		{
-			continue;
-		}
-
-		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
-		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
-		{
-			return MS_ENUMERROR_PipeConfigurationFailed;
-		}
-	}
+	MSInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
+	MSInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
+	MSInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
+	
+	MSInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+	MSInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
+	MSInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
+	
+	if (!(Pipe_ConfigurePipeTable(&MSInterfaceInfo->Config.DataINPipe, 1)))
+	  return false;
+	
+	if (!(Pipe_ConfigurePipeTable(&MSInterfaceInfo->Config.DataOUTPipe, 1)))
+	  return false;
 
 	MSInterfaceInfo->State.InterfaceNumber = MassStorageInterface->InterfaceNumber;
 	MSInterfaceInfo->State.IsActive = true;
@@ -178,7 +152,7 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 	SCSICommandBlock->Signature = CPU_TO_LE32(MS_CBW_SIGNATURE);
 	SCSICommandBlock->Tag       = cpu_to_le32(MSInterfaceInfo->State.TransactionTag);
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipe.Address);
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t),
@@ -212,7 +186,7 @@ static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInte
 	uint16_t TimeoutMSRem        = MS_COMMAND_DATA_TIMEOUT_MS;
 	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Unfreeze();
 
 	while (!(Pipe_IsINReceived()))
@@ -228,7 +202,7 @@ static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInte
 		}
 
 		Pipe_Freeze();
-		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipe.Address);
 		Pipe_Unfreeze();
 
 		if (Pipe_IsStalled())
@@ -238,7 +212,7 @@ static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInte
 		}
 
 		Pipe_Freeze();
-		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipe.Address);
 		Pipe_Unfreeze();
 
 		if (Pipe_IsStalled())
@@ -251,10 +225,10 @@ static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInte
 		  return PIPE_RWSTREAM_DeviceDisconnected;
 	};
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Freeze();
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipe.Address);
 	Pipe_Freeze();
 
 	return PIPE_RWSTREAM_NoError;
@@ -275,7 +249,7 @@ static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfac
 			return ErrorCode;
 		}
 
-		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipe.Address);
 		Pipe_Unfreeze();
 
 		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
@@ -285,7 +259,7 @@ static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfac
 	}
 	else
 	{
-		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipe.Address);
 		Pipe_Unfreeze();
 
 		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
@@ -313,7 +287,7 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterf
 	if ((ErrorCode = MS_Host_WaitForDataReceived(MSInterfaceInfo)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t),
@@ -349,12 +323,12 @@ uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipe.Address);
 
 	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 
-	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipe.Address);
 
 	if ((ErrorCode = USB_Host_ClearEndpointStall(Pipe_GetBoundEndpointAddress())) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;

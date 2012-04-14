@@ -109,16 +109,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Configure the HID data IN pipe */
-	Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, 1);
 	Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
 
 	/* Check if the HID interface contained an optional OUT data endpoint */
 	if (DataOUTEndpoint)
 	{
 		/* Configure the HID data OUT pipe */
-		Pipe_ConfigurePipe(HID_DATA_OUT_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
-						   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+		Pipe_ConfigurePipe(HID_DATA_OUT_PIPE, EP_TYPE_INTERRUPT, DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, 1);
 	}
 
 	/* Valid data found, return success */

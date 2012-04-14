@@ -89,35 +89,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define _ENDPOINT_GET_MAXSIZE(EPIndex)         _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_MAXSIZE2(EPDetails)      _ENDPOINT_GET_MAXSIZE3(EPDetails)
-			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, Banks) (MaxSize)
-
-			#define _ENDPOINT_GET_BANKS(EPIndex)           _ENDPOINT_GET_BANKS2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_BANKS2(EPDetails)        _ENDPOINT_GET_BANKS3(EPDetails)
-			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)   (Banks)
-
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				#define ENDPOINT_DETAILS_MAXEP             7
-
-				#define ENDPOINT_DETAILS_EP0               64,  1
-				#define ENDPOINT_DETAILS_EP1               256, 2
-				#define ENDPOINT_DETAILS_EP2               64,  2
-				#define ENDPOINT_DETAILS_EP3               64,  2
-				#define ENDPOINT_DETAILS_EP4               64,  2
-				#define ENDPOINT_DETAILS_EP5               64,  2
-				#define ENDPOINT_DETAILS_EP6               64,  2
-			#else
-				#define ENDPOINT_DETAILS_MAXEP             5
-
-				#define ENDPOINT_DETAILS_EP0               64,  1
-				#define ENDPOINT_DETAILS_EP1               64,  1
-				#define ENDPOINT_DETAILS_EP2               64,  1
-				#define ENDPOINT_DETAILS_EP3               64,  2
-				#define ENDPOINT_DETAILS_EP4               64,  2
-			#endif
-
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
 			                                                                       ATTR_ALWAYS_INLINE;
@@ -145,23 +116,6 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** \name Endpoint Bank Mode Masks */
-			//@{
-			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
-			 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
-			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
-			 *  bank at the one time.
-			 */
-			#define ENDPOINT_BANK_SINGLE                    (0 << EPBK0)
-
-			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
-			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
-			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
-			 *  accesses the second bank.
-			 */
-			#define ENDPOINT_BANK_DOUBLE                    (1 << EPBK0)
-			//@}
-
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
 				/** Default size of the default control endpoint's bank, until altered by the control endpoint bank size
 				 *  value in the device descriptor. Not available if the \c FIXED_CONTROL_ENDPOINT_SIZE token is defined.
@@ -169,30 +123,16 @@
 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
 			#endif
 
-			/** Retrieves the maximum bank size in bytes of a given endpoint.
-			 *
-			 *  \attention This macro will only work correctly on endpoint indexes that are compile-time constants
-			 *             defined by the preprocessor.
-			 *
-			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
-			 */
-			#define ENDPOINT_MAX_SIZE(EPIndex)              _ENDPOINT_GET_MAXSIZE(EPIndex)
-
-			/** Retrieves the total number of banks supported by the given endpoint.
-			 *
-			 *  \attention This macro will only work correctly on endpoint indexes that are compile-time constants
-			 *             defined by the preprocessor.
-			 *
-			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
-			 */
-			#define ENDPOINT_BANKS_SUPPORTED(EPIndex)       _ENDPOINT_GET_BANKS(EPIndex)
-
 			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
-				/** Total number of endpoints (including the default control endpoint at address 0) which may
-				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
-				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
-				 */
-				#define ENDPOINT_TOTAL_ENDPOINTS            ENDPOINT_DETAILS_MAXEP
+				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+					#define ENDPOINT_TOTAL_ENDPOINTS        7
+				#else
+					/** Total number of endpoints (including the default control endpoint at address 0) which may
+					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+					 */
+					#define ENDPOINT_TOTAL_ENDPOINTS        5
+				#endif
 			#else
 				#define ENDPOINT_TOTAL_ENDPOINTS            1
 			#endif
@@ -222,28 +162,20 @@
 			};
 
 		/* Inline Functions: */
-			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
-			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
-			 *  on its direction.
+			/** Configures the specified endpoint address with the given endpoint type, bank size and number of hardware
+			 *  banks. Once configured, the endpoint may be read from or written to, depending on its direction.
 			 *
-			 *  \param[in] Number     Endpoint number to configure. This must be more than 0 and less than
-			 *                        \ref ENDPOINT_TOTAL_ENDPOINTS.
+			 *  \param[in] Address    Endpoint address to configure.
 			 *
 			 *  \param[in] Type       Type of endpoint to configure, a \c EP_TYPE_* mask. Not all endpoint types
 			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specification.
-			 *
-			 *  \param[in] Direction  Endpoint data direction, either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
-			 *                        All endpoints (except Control type) are unidirectional - data may only be read
-			 *                        from or written to the endpoint bank based on its direction, not both.
 			 *
 			 *  \param[in] Size       Size of the endpoint's bank, where packets are stored before they are transmitted
 			 *                        to the USB host, or after they have been received from the USB host (depending on
 			 *                        the endpoint's data direction). The bank size must indicate the maximum packet size
 			 *                        that the endpoint can handle.
 			 *
-			 *  \param[in] Banks      Number of banks to use for the endpoint being configured, an \c ENDPOINT_BANK_* mask.
-			 *                        More banks uses more USB DPRAM, but offers better performance. Isochronous type
-			 *                        endpoints <b>must</b> have at least two banks.
+			 *  \param[in] Banks      Number of banks to use for the endpoint being configured.
 			 *
 			 *  \attention When the \c ORDERED_EP_CONFIG compile time option is used, Endpoints <b>must</b> be configured in
 			 *             ascending order, or bank corruption will occur.
@@ -261,19 +193,18 @@
 			 *
 			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
 			 */
-			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Number,
+			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
 			                                              const uint8_t Type,
-			                                              const uint8_t Direction,
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks) ATTR_ALWAYS_INLINE;
-			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Number,
+			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Address,
 			                                              const uint8_t Type,
-			                                              const uint8_t Direction,
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				return Endpoint_ConfigureEndpoint_Prv(Number, ((Type << EPTYPE0) | (Direction ? (1 << EPDIR) : 0)),
-				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
+				return Endpoint_ConfigureEndpoint_Prv((Address & ENDPOINT_EPNUM_MASK),
+				                                      ((Type << EPTYPE0) | ((Address & ENDPOINT_DIR_IN) ? (1 << EPDIR) : 0)),
+				                                      ((1 << ALLOC) | ((Banks > 1) ? (1 << EPBK0) : 0) | Endpoint_BytesToEPSizeMask(Size)));
 			}
 
 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
@@ -294,9 +225,19 @@
 				#endif
 			}
 
+			/** Determines the currently selected endpoint's direction.
+			 *
+			 *  \return The currently selected endpoint's direction, as a \c ENDPOINT_DIR_* mask.
+			 */
+			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_GetEndpointDirection(void)
+			{
+				return (UECFG0X & (1 << EPDIR)) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT;
+			}
+
 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
-			 *  the currently selected endpoint number so that it can be restored after another endpoint has
-			 *  been manipulated.
+			 *  the currently selected endpoint so that it can be restored after another endpoint has been
+			 *  manipulated.
 			 *
 			 *  \return Index of the currently selected endpoint.
 			 */
@@ -304,38 +245,36 @@
 			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
 			{
 				#if !defined(CONTROL_ONLY_DEVICE)
-					return (UENUM & ENDPOINT_EPNUM_MASK);
+					return ((UENUM & ENDPOINT_EPNUM_MASK) | Endpoint_GetEndpointDirection());
 				#else
 					return ENDPOINT_CONTROLEP;
 				#endif
 			}
 
-			/** Selects the given endpoint number. If the address from the device descriptors is used, the
-			 *  value should be masked with the \ref ENDPOINT_EPNUM_MASK constant to extract only the endpoint
-			 *  number (and discarding the endpoint direction bit).
+			/** Selects the given endpoint address.
 			 *
-			 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
+			 *  Any endpoint operations which do not require the endpoint address to be indicated will operate on
 			 *  the currently selected endpoint.
 			 *
-			 *  \param[in] EndpointNumber Endpoint number to select.
+			 *  \param[in] Address Endpoint address to select.
 			 */
-			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
+			static inline void Endpoint_SelectEndpoint(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_SelectEndpoint(const uint8_t Address)
 			{
 				#if !defined(CONTROL_ONLY_DEVICE)
-					UENUM = EndpointNumber;
+					UENUM = (Address & ENDPOINT_EPNUM_MASK);
 				#endif
 			}
 
 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
 			 *  data In and Out pointers to the bank's contents.
 			 *
-			 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
+			 *  \param[in] Address  Endpoint address whose FIFO buffers are to be reset.
 			 */
-			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber)
+			static inline void Endpoint_ResetEndpoint(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ResetEndpoint(const uint8_t Address)
 			{
-				UERST = (1 << EndpointNumber);
+				UERST = (1 << (Address & ENDPOINT_EPNUM_MASK));
 				UERST = 0;
 			}
 
@@ -441,14 +380,14 @@
 			/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
 			 *  endpoints).
 			 *
-			 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested.
+			 *  \param[in] Address  Address of the endpoint whose interrupt flag should be tested.
 			 *
 			 *  \return Boolean \c true if the specified endpoint has interrupted, \c false otherwise.
 			 */
-			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber)
+			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t Address) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t Address)
 			{
-				return ((Endpoint_GetEndpointInterrupts() & (1 << EndpointNumber)) ? true : false);
+				return ((Endpoint_GetEndpointInterrupts() & (1 << (Address & ENDPOINT_EPNUM_MASK))) ? true : false);
 			}
 
 			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.
@@ -574,16 +513,6 @@
 			static inline void Endpoint_ResetDataToggle(void)
 			{
 				UECONX |= (1 << RSTDT);
-			}
-
-			/** Determines the currently selected endpoint's direction.
-			 *
-			 *  \return The currently selected endpoint's direction, as a \c ENDPOINT_DIR_* mask.
-			 */
-			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Endpoint_GetEndpointDirection(void)
-			{
-				return (UECFG0X & (1 << EPDIR)) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT;
 			}
 
 			/** Sets the direction of the currently selected endpoint.
@@ -841,6 +770,20 @@
 			#endif
 
 		/* Function Prototypes: */
+			/** Configures a table of endpoint descriptions, in sequence. This function can be used to configure multiple
+			 *  endpoints at the same time.
+			 *
+			 *  \note Endpoints with a zero address will be ignored, thus this function cannot be used to configure the
+			 *        control endpoint.
+			 *
+			 *  \param[in] Table    Pointer to a table of endpoint descriptions.
+			 *  \param[in] Entries  Number of entries in the endpoint table to configure.
+			 *
+			 *  \return Boolean \c true if all endpoints configured successfully, \c false otherwise.
+			 */
+			bool Endpoint_ConfigureEndpointTable(const USB_Endpoint_Table_t* const Table,
+			                                     const uint8_t Entries);
+
 			/** Completes the status stage of a control transfer on a CONTROL type endpoint automatically,
 			 *  with respect to the data direction. This is a convenience function which can be used to
 			 *  simplify user control request handling.

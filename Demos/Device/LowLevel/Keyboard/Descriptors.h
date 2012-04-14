@@ -59,11 +59,11 @@
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */
-		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
-		#define KEYBOARD_IN_EPNUM         1
+		/** Endpoint address of the Keyboard HID reporting IN endpoint. */
+		#define KEYBOARD_IN_EPADDR        (ENDPOINT_DIR_IN  | 1)
 
-		/** Endpoint number of the Keyboard HID reporting OUT endpoint. */
-		#define KEYBOARD_OUT_EPNUM        2
+		/** Endpoint address of the Keyboard HID reporting OUT endpoint. */
+		#define KEYBOARD_OUT_EPADDR       (ENDPOINT_DIR_OUT | 2)
 
 		/** Size in bytes of the Keyboard HID reporting IN and OUT endpoints. */
 		#define KEYBOARD_EPSIZE           8

@@ -123,20 +123,14 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup first CDC Interface's Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_TX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_RX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, 1);
 
 	/* Setup second CDC Interface's Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_TX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_RX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, 1);
 
 	/* Reset line encoding baud rates so that the host knows to send new values */
 	LineEncoding1.BaudRateBPS = 0;
@@ -224,7 +218,7 @@ void CDC1_Task(void)
 		ActionSent = true;
 
 		/* Select the Serial Tx Endpoint */
-		Endpoint_SelectEndpoint(CDC1_TX_EPNUM);
+		Endpoint_SelectEndpoint(CDC1_TX_EPADDR);
 
 		/* Write the String to the Endpoint */
 		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString), NULL);
@@ -240,7 +234,7 @@ void CDC1_Task(void)
 	}
 
 	/* Select the Serial Rx Endpoint */
-	Endpoint_SelectEndpoint(CDC1_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC1_RX_EPADDR);
 
 	/* Throw away any received data from the host */
 	if (Endpoint_IsOUTReceived())
@@ -257,7 +251,7 @@ void CDC2_Task(void)
 	  return;
 
 	/* Select the Serial Rx Endpoint */
-	Endpoint_SelectEndpoint(CDC2_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC2_RX_EPADDR);
 
 	/* Check to see if any data has been received */
 	if (Endpoint_IsOUTReceived())
@@ -275,7 +269,7 @@ void CDC2_Task(void)
 		Endpoint_ClearOUT();
 
 		/* Select the Serial Tx Endpoint */
-		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
+		Endpoint_SelectEndpoint(CDC2_TX_EPADDR);
 
 		/* Write the received data to the endpoint */
 		Endpoint_Write_Stream_LE(&Buffer, DataLength, NULL);

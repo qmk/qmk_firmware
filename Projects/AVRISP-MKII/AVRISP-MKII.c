@@ -93,12 +93,10 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup AVRISP Data Endpoint(s) */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
 
 	#if defined(LIBUSB_DRIVER_COMPAT)
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
 	#endif
 
 	/* Indicate endpoint configuration success or failure */
@@ -114,7 +112,7 @@ void AVRISP_Task(void)
 
 	V2Params_UpdateParamValues();
 
-	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPADDR);
 
 	/* Check to see if a V2 Protocol command has been received */
 	if (Endpoint_IsOUTReceived())

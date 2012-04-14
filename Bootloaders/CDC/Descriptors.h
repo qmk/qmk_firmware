@@ -92,14 +92,14 @@
 			#error The selected AVR part is not currently supported by this bootloader.
 		#endif
 
-		/** Endpoint number for the CDC control interface event notification endpoint. */
-		#define CDC_NOTIFICATION_EPNUM         2
+		/** Endpoint address for the CDC control interface event notification endpoint. */
+		#define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN | 2)
 
-		/** Endpoint number for the CDC data interface TX (data IN) endpoint. */
-		#define CDC_TX_EPNUM                   3
+		/** Endpoint address for the CDC data interface TX (data IN) endpoint. */
+		#define CDC_TX_EPADDR                  (ENDPOINT_DIR_IN | 3)
 
-		/** Endpoint number for the CDC data interface RX (data OUT) endpoint. */
-		#define CDC_RX_EPNUM                   4
+		/** Endpoint address for the CDC data interface RX (data OUT) endpoint. */
+		#define CDC_RX_EPADDR                  (ENDPOINT_DIR_OUT | 4)
 
 		/** Size of the CDC data interface TX and RX data endpoint banks, in bytes. */
 		#define CDC_TXRX_EPSIZE                16

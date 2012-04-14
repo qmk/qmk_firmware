@@ -85,9 +85,7 @@ static void SetupHardware(void)
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	/* Setup HID Report Endpoint */
-	Endpoint_ConfigureEndpoint(HID_IN_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, HID_IN_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(HID_IN_EPADDR, EP_TYPE_INTERRUPT, HID_IN_EPSIZE, 1);
 }
 
 /** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to

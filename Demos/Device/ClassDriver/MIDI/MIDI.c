@@ -45,14 +45,18 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 		.Config =
 			{
 				.StreamingInterfaceNumber = 1,
-
-				.DataINEndpointNumber      = MIDI_STREAM_IN_EPNUM,
-				.DataINEndpointSize        = MIDI_STREAM_EPSIZE,
-				.DataINEndpointDoubleBank  = false,
-
-				.DataOUTEndpointNumber     = MIDI_STREAM_OUT_EPNUM,
-				.DataOUTEndpointSize       = MIDI_STREAM_EPSIZE,
-				.DataOUTEndpointDoubleBank = false,
+				.DataINEndpoint           =
+					{
+						.Address          = MIDI_STREAM_IN_EPADDR,
+						.Size             = MIDI_STREAM_EPSIZE,
+						.Banks            = 1,
+					},
+				.DataOUTEndpoint          =
+					{
+						.Address          = MIDI_STREAM_OUT_EPADDR,
+						.Size             = MIDI_STREAM_EPSIZE,
+						.Banks            = 1,
+					},
 			},
 	};
 

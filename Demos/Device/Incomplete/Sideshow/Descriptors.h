@@ -39,8 +39,8 @@
 		#include "Sideshow.h"
 
 	/* Macros: */
-		#define SIDESHOW_IN_EPNUM          3
-		#define SIDESHOW_OUT_EPNUM         4
+		#define SIDESHOW_IN_EPADDR         3
+		#define SIDESHOW_OUT_EPADDR        4
 		#define SIDESHOW_IO_EPSIZE         64
 
 	/* Type Defines: */

@@ -57,8 +57,8 @@
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */
-		/** Endpoint number of the Joystick HID reporting IN endpoint. */
-		#define JOYSTICK_EPNUM            1
+		/** Endpoint address of the Joystick HID reporting IN endpoint. */
+		#define JOYSTICK_EPADDR           (ENDPOINT_DIR_IN | 1)
 
 		/** Size in bytes of the Joystick HID reporting IN endpoint. */
 		#define JOYSTICK_EPSIZE           8

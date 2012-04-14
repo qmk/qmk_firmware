@@ -81,13 +81,8 @@
 				{
 					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls. */
 
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incoming MIDI IN data, if available (zero if unused). */
-					uint16_t DataINEndpointSize; /**< Size in bytes of the incoming MIDI IN data endpoint, if available (zero if unused). */
-					bool     DataINEndpointDoubleBank; /**< Indicates if the MIDI interface's IN data endpoint should use double banking. */
-
-					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing MIDI OUT data, if available (zero if unused). */
-					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing MIDI OUT data endpoint, if available (zero if unused). */
-					bool     DataOUTEndpointDoubleBank; /**< Indicates if the MIDI interface's OUT data endpoint should use double banking. */
+					USB_Endpoint_Table_t DataINEndpoint; /**< Data IN endpoint configuration table. */
+					USB_Endpoint_Table_t DataOUTEndpoint; /**< Data OUT endpoint configuration table. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */

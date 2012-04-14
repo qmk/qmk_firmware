@@ -99,19 +99,11 @@
 			{
 				struct
 				{
-					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device. */
-
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint. */
-					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint. */
-					bool     DataINEndpointDoubleBank; /**< Indicates if the CDC interface's IN data endpoint should use double banking. */
-
-					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint. */
-					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint. */
-					bool     DataOUTEndpointDoubleBank; /**< Indicates if the CDC interface's OUT data endpoint should use double banking. */
-
-					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used. */
-					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used. */
-					bool     NotificationEndpointDoubleBank; /**< Indicates if the CDC interface's notification endpoint should use double banking. */
+					uint8_t ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device. */
+					
+					USB_Endpoint_Table_t DataINEndpoint; /**< Data IN endpoint configuration table. */
+					USB_Endpoint_Table_t DataOUTEndpoint; /**< Data OUT endpoint configuration table. */
+					USB_Endpoint_Table_t NotificationEndpoint; /**< Notification IN Endpoint configuration table. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */

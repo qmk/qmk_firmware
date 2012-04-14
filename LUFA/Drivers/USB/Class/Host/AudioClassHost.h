@@ -79,14 +79,8 @@
 			{
 				struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the Audio interface's IN data pipe. If this interface should not
-					                            *   bind to an IN endpoint, this may be set to 0 to disable audio input streaming for
-					                            *   this driver instance.
-					                            */
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Audio interface's OUT data pipe. If this interface should not
-					                            *   bind to an OUT endpoint, this may be set to 0 to disable audio output streaming for
-					                            *   this driver instance.
-					                            */
+					USB_Pipe_Table_t DataINPipe; /**< Data IN Pipe configuration table. */
+					USB_Pipe_Table_t DataOUTPipe; /**< Data OUT Pipe configuration table. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -100,9 +94,6 @@
 					uint8_t StreamingInterfaceNumber; /**< Interface index of the Audio Streaming interface within the attached device. */
 
 					uint8_t EnabledStreamingAltIndex; /**< Alternative setting index of the Audio Streaming interface when the stream is enabled. */
-
-					uint16_t DataINPipeSize; /**< Size in bytes of the Audio interface's IN data pipe. */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Audio interface's OUT data pipe. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
@@ -201,7 +192,7 @@
 
 				bool SampleReceived = false;
 
-				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataINPipeNumber);
+				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataINPipe.Address);
 				Pipe_Unfreeze();
 				SampleReceived = Pipe_IsINReceived();
 				Pipe_Freeze();
@@ -226,7 +217,7 @@
 				if ((USB_HostState != HOST_STATE_Configured) || !(AudioInterfaceInfo->State.IsActive))
 				  return false;
 
-				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataOUTPipeNumber);
+				Pipe_SelectPipe(AudioInterfaceInfo->Config.DataOUTPipe.Address);
 				return Pipe_IsOUTReady();
 			}
 

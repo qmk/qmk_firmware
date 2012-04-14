@@ -94,55 +94,19 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		  DataOUTEndpoint = EndpointData;
 	}
 
-	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Token;
-		uint8_t  EndpointAddress;
-		uint8_t  InterruptPeriod;
-		bool     DoubleBanked;
-
-		if (PipeNum == HIDInterfaceInfo->Config.DataINPipeNumber)
-		{
-			Size            = le16_to_cpu(DataINEndpoint->EndpointSize);
-			EndpointAddress = DataINEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_IN;
-			Type            = EP_TYPE_INTERRUPT;
-			DoubleBanked    = HIDInterfaceInfo->Config.DataINPipeDoubleBank;
-			InterruptPeriod = DataINEndpoint->PollingIntervalMS;
-
-			HIDInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
-		}
-		else if (PipeNum == HIDInterfaceInfo->Config.DataOUTPipeNumber)
-		{
-			if (DataOUTEndpoint == NULL)
-			  continue;
-
-			Size            = le16_to_cpu(DataOUTEndpoint->EndpointSize);
-			EndpointAddress = DataOUTEndpoint->EndpointAddress;
-			Token           = PIPE_TOKEN_OUT;
-			Type            = EP_TYPE_INTERRUPT;
-			DoubleBanked    = HIDInterfaceInfo->Config.DataOUTPipeDoubleBank;
-			InterruptPeriod = DataOUTEndpoint->PollingIntervalMS;
-
-			HIDInterfaceInfo->State.DataOUTPipeSize   = DataOUTEndpoint->EndpointSize;
-			HIDInterfaceInfo->State.DeviceUsesOUTPipe = true;
-		}
-		else
-		{
-			continue;
-		}
-
-		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
-		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
-		{
-			return HID_ENUMERROR_PipeConfigurationFailed;
-		}
-
-		if (InterruptPeriod)
-		  Pipe_SetInterruptPeriod(InterruptPeriod);
-	}
+	HIDInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
+	HIDInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
+	HIDInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_INTERRUPT;
+	
+	HIDInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+	HIDInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
+	HIDInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_INTERRUPT;
+	
+	if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataINPipe, 1)))
+	  return false;
+	
+	if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataOUTPipe, 1)))
+	  return false;
 
 	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;
 	HIDInterfaceInfo->State.HIDReportSize        = LE16_TO_CPU(HIDDescriptor->HIDReportLength);
@@ -227,7 +191,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 
 	uint8_t ErrorCode;
 
-	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Unfreeze();
 
 	uint16_t ReportSize;
@@ -277,7 +241,7 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	{
 		uint8_t ErrorCode;
 
-		Pipe_SelectPipe(HIDInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_SelectPipe(HIDInterfaceInfo->Config.DataOUTPipe.Address);
 		Pipe_Unfreeze();
 
 		if (ReportID)
@@ -320,7 +284,7 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 
 	bool ReportReceived;
 
-	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipe.Address);
 	Pipe_Unfreeze();
 
 	ReportReceived = Pipe_IsINReceived();

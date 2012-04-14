@@ -377,6 +377,36 @@
  *   <td bgcolor="#00EE00">Yes</td>
  *   <td bgcolor="#EE0000">No</td>
  *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA64C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA128C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA192C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA256C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA16C4</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA32C4</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
  *  </table>
  *
  *  \section Sec_XMEGASupport_Boards Supported Atmel Boards

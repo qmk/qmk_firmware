@@ -122,17 +122,12 @@ ISR(TIMER1_OVF_vect, ISR_BLOCK)
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	/* Setup CDC Notification, Rx and Tx Endpoints */
-	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-	                           ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT,
+	                           CDC_NOTIFICATION_EPSIZE, 1);
 
-	Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK,
-	                           ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(CDC_TX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
 
-	Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK,
-	                           ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(CDC_RX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
 }
 
 /** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
@@ -303,7 +298,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 static uint8_t FetchNextCommandByte(void)
 {
 	/* Select the OUT endpoint so that the next data byte can be read */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 	/* If OUT endpoint empty, clear it and wait for the next packet from the host */
 	while (!(Endpoint_IsReadWriteAllowed()))
@@ -329,7 +324,7 @@ static uint8_t FetchNextCommandByte(void)
 static void WriteNextResponseByte(const uint8_t Response)
 {
 	/* Select the IN endpoint so that the next data byte can be written */
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_TX_EPADDR);
 
 	/* If IN endpoint full, clear it and wait until ready for the next packet to the host */
 	if (!(Endpoint_IsReadWriteAllowed()))
@@ -353,7 +348,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 static void CDC_Task(void)
 {
 	/* Select the OUT endpoint */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 	/* Check if endpoint has a command in it sent from the host */
 	if (!(Endpoint_IsOUTReceived()))
@@ -549,7 +544,7 @@ static void CDC_Task(void)
 	}
 
 	/* Select the IN endpoint */
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_TX_EPADDR);
 
 	/* Remember if the endpoint is completely full before clearing it */
 	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
@@ -577,7 +572,7 @@ static void CDC_Task(void)
 	}
 
 	/* Select the OUT endpoint */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 	/* Acknowledge the command from the host */
 	Endpoint_ClearOUT();

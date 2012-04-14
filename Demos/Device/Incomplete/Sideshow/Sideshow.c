@@ -101,10 +101,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup Sideshow Data Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_IN_EPNUM,  EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            SIDESHOW_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            SIDESHOW_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_IN_EPADDR,  EP_TYPE_BULK, SIDESHOW_IO_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_OUT_EPADDR, EP_TYPE_BULK, SIDESHOW_IO_EPSIZE, 1);
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -142,7 +140,7 @@ void SideShow_Task(void)
 	  return;
 
 	/* Select the SideShow data out endpoint */
-	Endpoint_SelectEndpoint(SIDESHOW_OUT_EPNUM);
+	Endpoint_SelectEndpoint(SIDESHOW_OUT_EPADDR);
 
 	/* Check to see if a new SideShow message has been received */
 	if (Endpoint_IsReadWriteAllowed())

@@ -42,11 +42,11 @@
 		#include "MIDIHost.h"
 
 	/* Macros: */
-		/** Pipe number for the MIDI data IN pipe. */
-		#define MIDI_DATA_IN_PIPE              1
+		/** Pipe address for the MIDI data IN pipe. */
+		#define MIDI_DATA_IN_PIPE              (PIPE_DIR_IN  | 1)
 
-		/** Pipe number for the MIDI data OUT pipe. */
-		#define MIDI_DATA_OUT_PIPE             2
+		/** Pipe address for the MIDI data OUT pipe. */
+		#define MIDI_DATA_OUT_PIPE             (PIPE_DIR_OUT | 2)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

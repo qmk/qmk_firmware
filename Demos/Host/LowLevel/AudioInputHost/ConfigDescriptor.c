@@ -130,8 +130,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	StreamingEndpointAddress     = DataINEndpoint->EndpointAddress;
 
 	/* Configure the Audio data IN pipe */
-	Pipe_ConfigurePipe(AUDIO_DATA_IN_PIPE, EP_TYPE_ISOCHRONOUS, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_DOUBLE);
+	Pipe_ConfigurePipe(AUDIO_DATA_IN_PIPE, EP_TYPE_ISOCHRONOUS, DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, 2);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
