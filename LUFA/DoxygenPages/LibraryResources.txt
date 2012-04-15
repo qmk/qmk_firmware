@@ -9,6 +9,7 @@
  *
  *  \section Sec_UnofficialResources Unofficial Resources
  *  Unofficial Russian LUFA documentation translation: http://microsin.ru/Download.cnt/doc/LUFA/ \n
+ *  Tutorial for LUFA USB Control Transfers: http://www.avrbeginners.net/new/tutorials/usb-control-transfers-with-lufa/
  *
  *  \section Sec_ProjectPages LUFA Related Webpages
  *  Project Homepage: http://www.lufa-lib.org \n
@@ -22,8 +23,8 @@
  *
  *  \section Sec_InDevelopment Latest In-Development Source Code
  *  Issue Tracker: http://www.lufa-lib.org/tracker \n
- *  SVN Access: http://www.lufa-lib.org/svn \n
- *  GIT Access: http://www.lufa-lib.org/git \n
+ *  Public SVN Repository: http://www.lufa-lib.org/svn \n
+ *  Public GIT Repository: http://www.lufa-lib.org/git \n
  *  Latest Repository Source Archive: http://www.lufa-lib.org/latest-archive \n
  *  Commit RSS Feed: http://www.lufa-lib.org/rss \n
  *
