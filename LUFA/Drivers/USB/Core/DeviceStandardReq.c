@@ -289,7 +289,6 @@ static void USB_Device_GetStatus(void)
 
 	switch (USB_ControlRequest.bmRequestType)
 	{
-		#if !defined(NO_DEVICE_SELF_POWER) || !defined(NO_DEVICE_REMOTE_WAKEUP)
 		case (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE):
 			#if !defined(NO_DEVICE_SELF_POWER)
 			if (USB_Device_CurrentlySelfPowered)
@@ -301,17 +300,16 @@ static void USB_Device_GetStatus(void)
 			  CurrentStatus |= FEATURE_REMOTE_WAKEUP_ENABLED;
 			#endif
 			break;
-		#endif
-		#if !defined(CONTROL_ONLY_DEVICE)
 		case (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT):
+			#if !defined(CONTROL_ONLY_DEVICE)
 			Endpoint_SelectEndpoint((uint8_t)USB_ControlRequest.wIndex & ENDPOINT_EPNUM_MASK);
 
 			CurrentStatus = Endpoint_IsStalled();
 
 			Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+			#endif
 
 			break;
-		#endif
 		default:
 			return;
 	}
