@@ -99,27 +99,28 @@ int main(void)
 
 		while (RingBuffer_GetCount(&FromHost_Buffer) > 0)
 		{
-			static uint8_t escape_pending = 0;
+			static uint8_t EscapePending = 0;
 			int16_t HD44780Byte = RingBuffer_Remove(&FromHost_Buffer);
 			
 			if (HD44780Byte == COMMAND_ESCAPE)
 			{
-				if (escape_pending)
+				if (EscapePending)
 				{
 					HD44780_WriteData(HD44780Byte);
-					escape_pending = 0;
+					EscapePending = 0;
 				}
 				else
 				{
-					escape_pending = 1;
+					/* Next received character is the command byte */
+					EscapePending = 1;
 				}
 			}
 			else
 			{
-				if (escape_pending)
+				if (EscapePending)
 				{
 					HD44780_WriteCommand(HD44780Byte);
-					escape_pending = 0;
+					EscapePending = 0;
 				}
 				else
 				{
@@ -157,9 +158,7 @@ void SetupHardware(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	bool ConfigSuccess = true;
-
-	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+	CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 }
 
 /** Event handler for the library USB Control Request reception event. */
