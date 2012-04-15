@@ -51,10 +51,10 @@
  *  from PJRC (used with permission). This bootloader is deliberatley non-compatible with the properietary PJRC
  *  HalfKay bootloader GUI; only the command line interface software accompanying this bootloader will work with it.
  *  
- *  Out of the box this bootloader builds for the USB1287, and will fit into 2KB of bootloader space for the
+ *  Out of the box this bootloader builds for the AT90USB1287, and will fit into 2KB of bootloader space for the
  *  Series 2 USB AVRs (ATMEGAxxU2, AT90USBxx2) or 4KB of bootloader space for all other models. If you wish to
- *  enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU values in the
- *  accompanying makefile.
+ *  enlarge this space and/or change the AVR model, you will need to edit the MCU, FLASH_SIZE_KB and
+ *  BOOT_SECTION_SIZE_KB values in the accompanying makefile.
  *
  *  \section Sec_Installation Driver Installation
  *

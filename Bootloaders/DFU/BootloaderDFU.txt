@@ -47,9 +47,9 @@
  *  This bootloader enumerates to the host as a DFU Class device, allowing for DFU-compatible programming
  *  software to load firmware onto the AVR.
  *
- *  Out of the box this bootloader builds for the USB1287, and should fit into 4KB of bootloader space. If
- *  you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
- *  values in the accompanying makefile.
+ *  Out of the box this bootloader builds for the AT90USBUSB1287, and will fit into 4KB of bootloader space.
+ *  If you wish to enlarge this space and/or change the AVR model, you will need to edit the MCU, FLASH_SIZE_KB
+ *  and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
  *
  *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
  *  bootloader from the normal user application.
