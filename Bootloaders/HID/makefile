@@ -95,7 +95,7 @@ F_USB = $(F_CPU)
 # Note that the bootloader size and start address given in AVRStudio is in words and not
 # bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
 FLASH_SIZE_KB        = 128
-BOOT_SECTION_SIZE_KB = 4
+BOOT_SECTION_SIZE_KB = 8
 
 
 # Formulas used to calculate the starting address of the Bootloader section. These formulas
