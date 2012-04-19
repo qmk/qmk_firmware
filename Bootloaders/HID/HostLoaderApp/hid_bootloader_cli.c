@@ -970,13 +970,9 @@ void parse_options(int argc, char **argv)
 			} else if (strncmp(arg, "-mmcu=", 6) == 0) {
 				arg += 6;
 
-				uint8_t valid_prefix = 0;
-
 				if (strncmp(arg, "at90usb", 7) == 0) {
-					valid_prefix = 1;
 					arg += 7;
 				} else if (strncmp(arg, "atmega", 6) == 0) {
-					valid_prefix = 1;
 					arg += 6;
 				} else {
 					die("Unknown MCU type\n");

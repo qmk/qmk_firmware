@@ -27,6 +27,8 @@
   *    - DMA transfers to and from the USB controller are not yet implemented for this release.
   *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
   *      altered USB controller design.
+  *    - The various \c CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
   *  - Architecture Independant
   *    - The HID parser fails for array type elements that have a MIN and MAX usage applied; each element
   *      in the array will receive a unique incrementing usage from the MIN value, up to MAX.
