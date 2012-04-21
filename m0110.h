@@ -55,11 +55,22 @@ POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #define M0110_INQUIRY     0x10
-#define M0110_INSTNAT     0x14
-#define M0110_MODLE       0x16
+#define M0110_INSTANT     0x14
+#define M0110_MODEL       0x16
 #define M0110_TEST        0x36
 
+#define M0110_PAD         0x79
 #define M0110_NULL        0x7B
+#define M0110_TEST_ACK    0x7D
+#define M0110_TEST_NAK    0x77
+
+
+/* scan code offset for keypad and arrow keys */
+#define M0110_KEYPAD_OFFSET 0x40
+#define M0110_ARROW_OFFSET  0x60
+
+/* convert key event raw response into scan code */
+#define M0110_RAW2SCAN(key) ((key&(1<<7)) | ((key&0x7F)>>1))
 
 
 extern uint8_t m0110_error;
