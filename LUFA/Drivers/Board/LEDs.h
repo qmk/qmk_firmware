@@ -80,11 +80,11 @@
  *      // Turn on each of the four LEDs in turn
  *      LEDs_SetAllLEDs(LEDS_LED1);
  *      Delay_MS(500);
- *      LEDs_SetAllLEDs(LEDS_LED1);
+ *      LEDs_SetAllLEDs(LEDS_LED2);
  *      Delay_MS(500);
- *      LEDs_SetAllLEDs(LEDS_LED1);
+ *      LEDs_SetAllLEDs(LEDS_LED3);
  *      Delay_MS(500);
- *      LEDs_SetAllLEDs(LEDS_LED1);
+ *      LEDs_SetAllLEDs(LEDS_LED4);
  *      Delay_MS(500);
  *
  *      // Turn on all LEDs
