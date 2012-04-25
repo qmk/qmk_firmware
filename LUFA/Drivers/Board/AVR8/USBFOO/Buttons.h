@@ -42,6 +42,11 @@
  *
  *  Board specific Buttons driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

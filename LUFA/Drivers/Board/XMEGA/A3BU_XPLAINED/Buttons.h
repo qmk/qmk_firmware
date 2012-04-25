@@ -42,6 +42,13 @@
  *
  *  Board specific Buttons driver header for the Atmel XMEGA A3BU Xplained.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>SW0 Button</td><td>Low</td><td>PORTE.5</td></tr>
+ *    <tr><td>BUTTONS_BUTTON2</td><td>SW1 Button</td><td>Low</td><td>PORTF.1</td></tr>
+ *    <tr><td>BUTTONS_BUTTON3</td><td>SW2 Button</td><td>Low</td><td>PORTF.2</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Adafruit U4 Breakout board (http://ladyada.net/products/atmega32u4breakout).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTE.6</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

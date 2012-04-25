@@ -42,6 +42,11 @@
  *
  *  Board specific Buttons driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTE.2</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

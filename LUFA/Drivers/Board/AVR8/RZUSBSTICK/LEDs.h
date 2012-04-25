@@ -42,6 +42,14 @@
  *
  *  Board specific LED driver header for the Atmel RZUSBSTICK.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Blue</td><td>General Indicator</td><td>High</td><td>PORTD.7</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Red</td><td>General Indicator</td><td>Low</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTE.6</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>General Indicator</td><td>Low</td><td>PORTE.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

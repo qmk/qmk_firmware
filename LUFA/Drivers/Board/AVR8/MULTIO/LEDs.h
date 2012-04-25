@@ -42,6 +42,13 @@
  *
  *  Board specific LED driver header for the Bitwizard Multio (http://www.bitwizard.nl/wiki/index.php/USB-multio).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.0</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTC.2</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

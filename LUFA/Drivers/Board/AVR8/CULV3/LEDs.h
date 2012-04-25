@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>General Indicator</td><td>High</td><td>PORTE.6</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

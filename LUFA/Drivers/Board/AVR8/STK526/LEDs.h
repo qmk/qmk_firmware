@@ -42,6 +42,14 @@
  *
  *  Board specific LED driver header for the Atmel STK526.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.1</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.0</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

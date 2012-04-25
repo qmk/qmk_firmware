@@ -42,6 +42,12 @@
  *
  *  Board specific Dataflash driver header for the Atmel USBKEY board.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Select Pin</th><th>SPI Port</th></tr>
+ *    <tr><td>DATAFLASH_CHIP1</td><td>AT45DB642D (8MB)</td><td>PORTE.0</td><td>SPI0</td></tr>
+ *    <tr><td>DATAFLASH_CHIP2</td><td>AT45DB642D (8MB)</td><td>PORTE.1</td><td>SPI0</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

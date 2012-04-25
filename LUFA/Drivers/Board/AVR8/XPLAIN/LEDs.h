@@ -49,6 +49,11 @@
  *
  *  Board specific LED driver header for the Atmel XPLAIN.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTB.6</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

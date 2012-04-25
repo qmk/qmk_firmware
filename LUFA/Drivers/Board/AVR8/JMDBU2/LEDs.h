@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Mattairtech JM-DB-U2 (http://u2.mattair.net/index.html).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

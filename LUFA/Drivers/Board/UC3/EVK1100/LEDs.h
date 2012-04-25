@@ -42,6 +42,18 @@
  *
  *  Board specific LED driver header for the Atmel EVK1100.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>LED0 LED</td><td>Low</td><td>GPIO51</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>LED1 LED</td><td>Low</td><td>GPIO52</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Green</td><td>LED2 LED</td><td>Low</td><td>GPIO53</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Green</td><td>LED3 LED</td><td>Low</td><td>GPIO54</td></tr>
+ *    <tr><td>LEDS_LED5</td><td>Green</td><td>LED4 LED</td><td>Low</td><td>GPIO59</td></tr>
+ *    <tr><td>LEDS_LED6</td><td>Green</td><td>LED5 LED</td><td>Low</td><td>GPIO60</td></tr>
+ *    <tr><td>LEDS_LED7</td><td>Green</td><td>LED6 LED</td><td>Low</td><td>GPIO61</td></tr>
+ *    <tr><td>LEDS_LED8</td><td>Green</td><td>LED7 LED</td><td>Low</td><td>GPIO62</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

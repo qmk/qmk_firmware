@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Busware TUL (http://www.busware.de/tiki-index.php?page=TUL).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTF.0</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

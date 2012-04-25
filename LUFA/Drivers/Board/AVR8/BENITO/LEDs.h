@@ -42,6 +42,12 @@
  *
  *  Board specific LED driver header for the Tempusdictum Benito (http://dorkbotpdx.org/wiki/benito).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>TX LED</td><td>Low</td><td>PORTC.7</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Red</td><td>RX LED</td><td>Low</td><td>PORTC.6</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

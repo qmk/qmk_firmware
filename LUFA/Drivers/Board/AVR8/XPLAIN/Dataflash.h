@@ -51,6 +51,18 @@
  *
  *  Board specific Dataflash driver header for the Atmel XPLAIN.
  *
+ *  <b>Revision 1 Boards</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Select Pin</th><th>SPI Port</th></tr>
+ *    <tr><td>DATAFLASH_CHIP1</td><td>AT45DB041D (512KB)</td><td>PORTB.5</td><td>SPI0</td></tr>
+ *  </table>
+ *
+ *  <b>Other Board Revisions</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Select Pin</th><th>SPI Port</th></tr>
+ *    <tr><td>DATAFLASH_CHIP1</td><td>AT45DB642D (8MB)</td><td>PORTB.5</td><td>SPI0</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -59,6 +71,7 @@
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
+		
 		#include "../../../Misc/AT45DB642D.h"
 		#include "../../../Peripheral/SPI.h"
 

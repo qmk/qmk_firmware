@@ -42,6 +42,13 @@
  *
  *  Board specific LED driver header for the Bitwizard Big-Multio (http://www.bitwizard.nl/wiki/index.php/Usbbigmultio).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Unknown</td><td>LED0</td><td>High</td><td>PORTF.6</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Unknown</td><td>LED1</td><td>High</td><td>PORTF.7</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Unknown</td><td>LED2</td><td>High</td><td>PORTE.2</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

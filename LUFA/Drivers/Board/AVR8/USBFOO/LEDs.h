@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTD.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

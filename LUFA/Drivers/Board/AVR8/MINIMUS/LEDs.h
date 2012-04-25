@@ -42,6 +42,13 @@
  *
  *  Board specific LED driver header for the Minimus USB (http://www.minimususb.com/).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Red</td><td>General Indicator</td><td>Low</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTD.6</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Blue</td><td>General Indicator</td><td>Low</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -69,11 +76,14 @@
 			/** LED mask for the second LED on the board. */
 			#define LEDS_LED2        (1 << 6)
 
+			/** LED mask for the third LED on the board. */
+			#define LEDS_LED3        (1 << 7)
+
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3)
 
 			/** LED mask for the none of the board LEDs. */
-			#define LEDS_NO_LEDS     1
+			#define LEDS_NO_LEDS     0
 
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)

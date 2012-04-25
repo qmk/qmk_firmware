@@ -42,6 +42,14 @@
  *
  *  Board specific LED driver header for the Atmel EVK1104.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>LED0 LED</td><td>Low</td><td>GPIO67</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>LED1 LED</td><td>Low</td><td>GPIO101</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Green</td><td>LED2 LED</td><td>Low</td><td>GPIO102</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Green</td><td>LED3 LED</td><td>Low</td><td>GPIO105</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

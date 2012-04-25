@@ -42,6 +42,13 @@
  *
  *  Board specific LED driver header for the Busware BUI (http://www.busware.de/tiki-index.php?page=BUI).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Red</td><td>RGB LED</td><td>High</td><td>PORTC.2</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>RGB LED</td><td>High</td><td>PORTC.3</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Blue</td><td>RGB LED</td><td>High</td><td>PORTC.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

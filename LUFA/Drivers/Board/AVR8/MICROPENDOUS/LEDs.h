@@ -56,6 +56,18 @@
  *
  *  Board specific LED driver header for the Micropendous 32U2 (https://code.google.com/p/micropendous/wiki/Micropendous_32U2).
  *
+ *  <b>BOARD_MICROPENDOUS_32U2</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.6</td></tr>
+ *  </table>
+ *
+ *  <b>Other Revisions</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTB.1</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

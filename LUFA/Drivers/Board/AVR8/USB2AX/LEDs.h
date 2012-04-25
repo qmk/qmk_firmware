@@ -51,6 +51,18 @@
  *
  *  Board specific LED driver header for the Paranoid Studio USB2AX (http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX).
  *
+ *  <b>USB2AX</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTC.6</td></tr>
+ *  </table>
+ *
+ *  <b>USB2AX_V3</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTD.1</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

@@ -42,6 +42,11 @@
  *
  *  Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained board.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Select Pin</th><th>SPI Port</th></tr>
+ *    <tr><td>DATAFLASH_CHIP1</td><td>AT45DB642D (8MB)</td><td>PORTD.2</td><td>USARTC0 (In SPI Mode, Remapped)</td></tr>
+ *  </table> 
+ *
  *  @{
  */
 

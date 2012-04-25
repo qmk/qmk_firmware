@@ -42,6 +42,11 @@
  *
  *  Board specific joystick driver header for the Atmel USBKEY.
  *
+ *  <table>
+ *    <tr><th>Left Port Pin</th><th>Up Port Pin</th><th>Right Port Pin</th><th>Down Port Pin</th><th>Press Port Pin</th></tr>
+ *    <tr><td>PORTB.6</td><td>PORTB.7</td><td>PORTE.4</td><td>PORTE.5</td><td>PORTB.5</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

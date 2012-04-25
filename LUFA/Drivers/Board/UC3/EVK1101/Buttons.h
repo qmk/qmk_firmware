@@ -42,6 +42,12 @@
  *
  *  Board specific Buttons driver header for the Atmel EVK1101.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>SW0 Button</td><td>Low</td><td>GPIO34</td></tr>
+ *    <tr><td>BUTTONS_BUTTON2</td><td>SW1 Button</td><td>Low</td><td>GPIO35</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

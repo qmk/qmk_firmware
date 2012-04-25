@@ -42,6 +42,11 @@
  *
  *  Board specific Buttons driver header for the Olimex AVR-USB-162 Development Board (http://www.olimex.com/dev/avr-usb-162.html).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
