@@ -177,8 +177,8 @@ void MIDIHost_Task(void)
 		if (!(Pipe_BytesInPipe()))
 		  Pipe_ClearIN();
 
-		bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
-		bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
+		bool NoteOnEvent  = (MIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_ON));
+		bool NoteOffEvent = (MIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_OFF));
 
 		if (NoteOnEvent || NoteOffEvent)
 		{
@@ -237,8 +237,7 @@ void MIDIHost_Task(void)
 		{
 			MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 				{
-					.CableNumber = 0,
-					.Command     = (MIDICommand >> 4),
+					.Event       = MIDI_EVENT(0, MIDICommand),
 
 					.Data1       = MIDICommand | Channel,
 					.Data2       = MIDIPitch,

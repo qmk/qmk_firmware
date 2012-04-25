@@ -27,6 +27,9 @@
  *      to update their class driver struct instantiation to match the new scheme (see \ref USB_Endpoint_Table_t).
  *    - The \c ENDPOINT_BANKS_SUPPORTED() and \c ENDPOINT_MAX_ENDPOINT_SIZE() macros have been removed, as these do not function correctly with the new addressing
  *      scheme for the endpoint APIs. Please refer to the target device's datasheet for the maximum bank size of each endpoint.
+ *    - The MIDI class driver \ref MIDI_EventPacket_t event packet no longer contains seperate \c CableIndex and \c Command entries; these have been combined
+ *      into a single \c Event element which can be contructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
+ *      element name.
  *
  *  <b>Host Mode</b>
  *    - The Android Accessory Host class driver property strings are now a array of \c char* rather than a struct of named pointers. Existing applications
@@ -38,6 +41,9 @@
  *      calls to use full pipe addresses when required within the device.
  *    - All host mode class drivers have been updated to use a new unified pipe description structure for all pipes; existing applications will need to update
  *      their class driver struct instantiation to match the new scheme (see \ref USB_Pipe_Table_t).
+ *    - The MIDI class driver \ref MIDI_EventPacket_t event packet no longer contains seperate \c CableIndex and \c Command entries; these have been combined
+ *      into a single \c Event element which can be contructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
+ *      element name.
  *
  *  \section Sec_Migration120219 Migrating from 111009 to 120219
  *  <b>USB Core</b>
