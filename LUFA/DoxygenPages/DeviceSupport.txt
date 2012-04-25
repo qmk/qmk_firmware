@@ -106,6 +106,7 @@
  *   - Busware BUI
  *   - Busware CUL V3
  *   - Busware TUL
+ *   - DorkbotPDX Duce
  *   - Fletchtronics Bumble-B (using manufacturer recommended peripheral layout)
  *   - Kernel Concepts USBFOO
  *   - Linnix UDIP

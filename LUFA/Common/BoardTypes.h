@@ -204,6 +204,9 @@
 			/** Selects the Bitwizard Big-Multio specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_BIGMULTIO            46
 
+			/** Selects the DorkbotPDX Duce specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_DUCE                 47
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

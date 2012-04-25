@@ -185,6 +185,8 @@
 			#include "AVR8/MULTIO/LEDs.h"
 		#elif (BOARD == BOARD_BIGMULTIO)
 			#include "AVR8/BIGMULTIO/LEDs.h"
+		#elif (BOARD == BOARD_DUCE)
+			#include "AVR8/DUCE/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif

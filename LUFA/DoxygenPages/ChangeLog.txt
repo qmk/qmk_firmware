@@ -10,6 +10,7 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the BitWizard Multio and Big-Multio boards
+  *   - Added support for the DorkbotPDX Duce board
   *   - Added new Endpoint_ConfigureEndpointTable() function
   *   - Added new Pipe_ConfigurePipeTable() function
   *  - Library Applications:
