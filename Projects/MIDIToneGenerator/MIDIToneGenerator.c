@@ -100,7 +100,7 @@ int main(void)
 		MIDI_EventPacket_t ReceivedMIDIEvent;
 		if (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
 		{
-			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
+			if ((ReceivedMIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_ON)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
 				DDSNoteData* LRUNoteStruct = &NoteData[0];
 
@@ -134,7 +134,7 @@ int main(void)
 				/* Turn on indicator LED to indicate note generation activity */
 				LEDs_SetAllLEDs(LEDS_LED1);
 			}
-			else if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_OFF >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
+			else if ((ReceivedMIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_OFF)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
 				bool FoundActiveNote = false;
 
