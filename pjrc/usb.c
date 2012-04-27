@@ -626,7 +626,7 @@ void usb_remote_wakeup(void)
 //
 ISR(USB_GEN_vect)
 {
-	uint8_t intbits, t, i;
+	uint8_t intbits, t;
 	static uint8_t div4=0;
 
         intbits = UDINT;
@@ -667,13 +667,16 @@ ISR(USB_GEN_vect)
 				usb_keyboard_idle_count++;
 				if (usb_keyboard_idle_count == usb_keyboard_idle_config) {
 					usb_keyboard_idle_count = 0;
+                                        /* TODO: fix keyboard_report inconsistency */
+/* To avoid Mac SET_IDLE behaviour.
 					UEDATX = keyboard_report_prev->mods;
 					UEDATX = 0;
                                         uint8_t keys = usb_keyboard_protocol ? KBD_REPORT_KEYS : 6;
-					for (i=0; i<keys; i++) {
+					for (uint8_t i=0; i<keys; i++) {
 						UEDATX = keyboard_report_prev->keys[i];
 					}
 					UEINTX = 0x3A;
+*/
 				}
 			}
 		}
