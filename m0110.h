@@ -54,23 +54,39 @@ POSSIBILITY OF SUCH DAMAGE.
 #   error "M0110 data port setting is required in config.h"
 #endif
 
-#define M0110_INQUIRY     0x10
-#define M0110_INSTANT     0x14
-#define M0110_MODEL       0x16
-#define M0110_TEST        0x36
+/* Commands */
+#define M0110_INQUIRY       0x10
+#define M0110_INSTANT       0x14
+#define M0110_MODEL         0x16
+#define M0110_TEST          0x36
 
-#define M0110_PAD         0x79
-#define M0110_NULL        0x7B
-#define M0110_TEST_ACK    0x7D
-#define M0110_TEST_NAK    0x77
+/* Response(raw byte from M0110) */
+#define M0110_NULL          0x7B
+#define M0110_KEYPAD        0x79
+#define M0110_TEST_ACK      0x7D
+#define M0110_TEST_NAK      0x77
+#define M0110_SHIFT_MAKE    0x71
+#define M0110_SHIFT_BREAK   0xF1
+#define M0110_ARROW_UP      0x1B
+#define M0110_ARROW_DOWN    0x11
+#define M0110_ARROW_LEFT    0x0D
+#define M0110_ARROW_RIGHT   0x05
 
+/* This inidcates no response. */
+#define M0110_ERROR         0xFF
 
 /* scan code offset for keypad and arrow keys */
 #define M0110_KEYPAD_OFFSET 0x40
-#define M0110_ARROW_OFFSET  0x60
+#define M0110_CALC_OFFSET   0x60
 
 /* convert key event raw response into scan code */
-#define M0110_RAW2SCAN(key) ((key&(1<<7)) | ((key&0x7F)>>1))
+#define M0110_RAW2SCAN(key) ( \
+    (key == M0110_NULL) ?  M0110_NULL : ( \
+        (key == M0110_ERROR) ?  M0110_ERROR : ( \
+            ((key&0x80) | ((key&0x7F)>>1)) \
+        ) \
+    ) \
+)
 
 
 extern uint8_t m0110_error;
@@ -80,5 +96,7 @@ void m0110_init(void);
 uint8_t m0110_send(uint8_t data);
 uint8_t m0110_recv(void);
 uint8_t m0110_recv_key(void);
+uint8_t m0110_inquiry(void);
+uint8_t m0110_instant(void);
 
 #endif

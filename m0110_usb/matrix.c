@@ -93,6 +93,9 @@ uint8_t matrix_scan(void)
 #endif
     if (key == M0110_NULL) {
         return 0;
+    } else if (key == M0110_ERROR) {
+        // TODO: error recovery or reinit
+        return 0;
     } else {
 #ifdef MATRIX_HAS_LOCKING_CAPS    
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {

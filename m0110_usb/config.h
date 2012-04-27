@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* matrix size */
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 14
 #define MATRIX_COLS 8
 
 /* Locking Caps Lock support */
@@ -38,8 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_LCTRL) | MOD_BIT(KB_LALT) | MOD_BIT(KB_LGUI)) || \
-    keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_RSHIFT)) \
+    keyboard_report->mods == (MOD_BIT(KB_LALT) | MOD_BIT(KB_LGUI)) \
 )
 
 

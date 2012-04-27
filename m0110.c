@@ -34,6 +34,7 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
+/* M0110A Support was contributed by skagon@github */
 
 #include <stdbool.h>
 #include <avr/io.h>
@@ -43,6 +44,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "debug.h"
 
 
+static inline uint8_t inquiry(void);
+static inline uint8_t instant(void);
 static inline void clock_lo(void);
 static inline void clock_hi(void);
 static inline bool clock_in(void);
@@ -105,6 +108,23 @@ KEY EVENT:
     Note: On the M0110A, the numpad keys and the arrow keys are preceded by 0x79.
           Moreover, the numpad keys =, /, * and + are preceded by shift-down 0x71 on press and shift-up 0xF1 on release.
           So, the data transferred by nupmad 5 is "79 2F" whereas for numpad + it's "71 79 0D".
+
+ARROW KEYS:
+    Arrow keys and Pad+,*,/,=(Calc keys) share same byte sequence and its preceding byte
+    0x71 and 0xF1 means press and release event of SHIFT. These cause very confusing situation.
+    It is difficult or impossible to tell Calc key from Arrow key with SHIFT in some cases.
+
+    Raw key events:
+            press               release
+            ----------------    ----------------
+    Left:         0x79, 0x0D          0x79, 0x8D
+    Right:        0x79, 0x05          0x79, 0x85
+    Up:           0x79, 0x1B          0x79, 0x9B
+    Down:         0x79, 0x11          0x79, 0x91
+    Pad+:   0x71, 0x79, 0x0D    0xF1, 0x79, 0x8D
+    Pad*:   0x71, 0x79, 0x05    0xF1, 0x79, 0x85
+    Pad/:   0x71, 0x79, 0x1B    0xF1, 0x79, 0x9B
+    Pad=:   0x71, 0x79, 0x11    0xF1, 0x79, 0x91
 
 SCAN CODE:
     m0111_recv_key() function returns follwing scan codes instead of raw key events.
@@ -275,15 +295,62 @@ ERROR:
 
 uint8_t m0110_recv_key(void)
 {
-    uint8_t key;
-    m0110_send(M0110_INQUIRY);
-    key = m0110_recv();
-    if (key == 0xFF || key == M0110_NULL)
-        return M0110_NULL;
-    else 
-        return M0110_RAW2SCAN(key);
+    static uint8_t keybuf = 0x00;
+    uint8_t key, key2, key3;
+
+    if (keybuf) {
+        key = keybuf;
+        keybuf = 0x00;
+        return key;
+    }
+    key = instant();  // Use INSTANT for better response. Should be INQUIRY ?
+    switch (key) {
+        case M0110_KEYPAD:
+            // Pad/Arrow keys
+            return (M0110_RAW2SCAN(instant()) | M0110_KEYPAD_OFFSET);
+            break;
+        case M0110_SHIFT_MAKE:
+        case M0110_SHIFT_BREAK:
+            key2 = instant();
+            if (key2 == M0110_KEYPAD) {
+                key3 = instant();
+                switch (key3) {
+                    case M0110_ARROW_UP:
+                    case M0110_ARROW_DOWN:
+                    case M0110_ARROW_LEFT:
+                    case M0110_ARROW_RIGHT:
+                        // Calc keys
+                        return (M0110_RAW2SCAN(key3) | M0110_CALC_OFFSET);
+                    default:
+                        // Shift + Pad/Arrow keys
+                        keybuf = M0110_RAW2SCAN(key3);
+                        return (M0110_RAW2SCAN(key) | M0110_KEYPAD_OFFSET);
+                }
+            } else {
+                // Shift + other keys
+                keybuf = M0110_RAW2SCAN(key2);
+                return M0110_RAW2SCAN(key);
+            }
+            break;
+        default:
+            // other keys
+            return M0110_RAW2SCAN(key);
+            break;
+    }
 }
 
+
+static inline uint8_t inquiry(void)
+{
+    m0110_send(M0110_INQUIRY);
+    return m0110_recv();
+}
+
+static inline uint8_t instant(void)
+{
+    m0110_send(M0110_INSTANT);
+    return m0110_recv();
+}
 
 static inline void clock_lo()
 {
