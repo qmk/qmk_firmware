@@ -65,8 +65,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #define M0110_KEYPAD        0x79
 #define M0110_TEST_ACK      0x7D
 #define M0110_TEST_NAK      0x77
-#define M0110_SHIFT_MAKE    0x71
-#define M0110_SHIFT_BREAK   0xF1
+#define M0110_SHIFT         0x71
 #define M0110_ARROW_UP      0x1B
 #define M0110_ARROW_DOWN    0x11
 #define M0110_ARROW_LEFT    0x0D

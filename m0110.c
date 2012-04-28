@@ -304,17 +304,16 @@ uint8_t m0110_recv_key(void)
         return key;
     }
     key = instant();  // Use INSTANT for better response. Should be INQUIRY ?
-    switch (key) {
+    switch (key & 0x7F) {
         case M0110_KEYPAD:
             // Pad/Arrow keys
             return (M0110_RAW2SCAN(instant()) | M0110_KEYPAD_OFFSET);
             break;
-        case M0110_SHIFT_MAKE:
-        case M0110_SHIFT_BREAK:
+        case M0110_SHIFT:
             key2 = instant();
             if (key2 == M0110_KEYPAD) {
                 key3 = instant();
-                switch (key3) {
+                switch (key3 & 0x7F) {
                     case M0110_ARROW_UP:
                     case M0110_ARROW_DOWN:
                     case M0110_ARROW_LEFT:
