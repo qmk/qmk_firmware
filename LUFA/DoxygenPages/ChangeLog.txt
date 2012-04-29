@@ -35,11 +35,13 @@
   *   - Pipes are now configured via instances of a new struct USB_Pipe_Table_t in all host mode class drivers, rather than a list of pipe parameters
   *   - Added support for various assert and debugging macros for the UC3 devices
   *   - Changed MIDI event structure MIDI_EventPacket_t to use a single field for the combined virtual cable index and command ID, to prevent bitfield packing issues
-  *     on some architectures (thanks to Darren Gibbs).
+  *     on some architectures (thanks to Darren Gibbs)
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *   - Added additional bootloader API data to expose the bootloader start address and class to the DFU and CDC class bootloaders
   *   - Reverted AVRISP-MKII clone project watchdog based command timeout patch in favour of a hardware timer, to allow for use in devices with WDTRST fuse programmed
+  *   - The library bootloaders will now correctly start the user application after a watchdog-based application start, even if the /HWB line is held low externally
+  *     during the reset phase
   *
   *  <b>Fixed:</b>
   *  - Core:

@@ -52,9 +52,14 @@
 		/** Bootloader special address to start the user application */
 		#define COMMAND_STARTAPPLICATION   0xFFFF
 
+		/** Magic bootloader key to unlock forced application start mode. */
+		#define MAGIC_BOOT_KEY            0xDC42CACA
+		
 	/* Function Prototypes: */
 		static void SetupHardware(void);
 
+		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
+		
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 
