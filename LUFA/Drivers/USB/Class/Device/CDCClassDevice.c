@@ -69,8 +69,12 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			{
 				Endpoint_ClearSETUP();
 
-				while (!(Endpoint_IsOUTReceived()));
-
+				while (!(Endpoint_IsOUTReceived()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
+				
 				CDCInterfaceInfo->State.LineEncoding.BaudRateBPS = Endpoint_Read_32_LE();
 				CDCInterfaceInfo->State.LineEncoding.CharFormat  = Endpoint_Read_8();
 				CDCInterfaceInfo->State.LineEncoding.ParityType  = Endpoint_Read_8();
