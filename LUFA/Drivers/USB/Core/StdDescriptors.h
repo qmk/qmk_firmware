@@ -94,8 +94,8 @@
 			 *
 			 *  \param[in]  x  Version number to encode as a 16-bit little-endian number, as a floating point number.
 			 */
-			#define VERSION_BCD(x)                    CPU_TO_LE16((((VERSION_TENS(x) << 4) | VERSION_ONES(x)) << 8) | \
-			                                          ((VERSION_TENTHS(x) << 4) | VERSION_HUNDREDTHS(x)))
+			#define VERSION_BCD(x)                    CPU_TO_LE16((VERSION_TENS(x) << 12)  | (VERSION_ONES(x) << 8) | \
+			                                                      (VERSION_TENTHS(x) << 4) | (VERSION_HUNDREDTHS(x) << 0) )
 
 			/** String language ID for the English language. Should be used in \ref USB_Descriptor_String_t descriptors
 			 *  to indicate that the English language is supported by the device in its string descriptors.
@@ -722,10 +722,10 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define VERSION_TENS(x)                   (int)((x) / 10)
-			#define VERSION_ONES(x)                   (int)((x) - (10 * VERSION_TENS(x)))
-			#define VERSION_TENTHS(x)                 (int)(((x) - (int)(x)) * 10)
-			#define VERSION_HUNDREDTHS(x)             (int)((((x) - (int)(x)) * 100) - (10 * VERSION_TENTHS(x)))
+			#define VERSION_TENS(x)                   (int)((int)(x) / 10)
+			#define VERSION_ONES(x)                   (int)((int)(x) % 10)
+			#define VERSION_TENTHS(x)                 (int)(((x *  1) - ((int)(x *  1))) * 10)
+			#define VERSION_HUNDREDTHS(x)             (int)(((x * 10) - ((int)(x * 10))) * 10)
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */

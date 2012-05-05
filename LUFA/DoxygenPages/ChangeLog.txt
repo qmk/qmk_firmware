@@ -59,6 +59,8 @@
   *     defined (thanks to Steven Morehouse)
   *   - Fixed AVRISP-MKII programmer project reset line polarity inverted when the generated EEP file is loaded into the USB AVR's EEPROM and avr-dude is used
   *   - Fixed CDC and DFU bootloaders failing to compile when the bootloader section size is 8KB or more (thanks to Georg Glock)
+  *   - Fixed incorrect DFU version number reported to the host in the  DFU bootloader descriptors (thanks to Georg Glock)
+  *   - Fixed incorrect version hundredths value encoding in VERSION_BCD() macro (thanks to Georg Glock)
   *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>
