@@ -105,11 +105,15 @@ void USB_Disable(void)
 
 void USB_ResetInterface(void)
 {
+	#if defined(USB_DEVICE_OPT_FULLSPEED)
 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
 	  CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
 	else
 	  CLK.USBCTRL = (((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp);
-
+	#else
+	CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
+	#endif
+	
 	if (USB_Options & USB_OPT_PLLCLKSRC)
 	  CLK.USBCTRL |= (CLK_USBSRC_PLL_gc   | CLK_USBSEN_bm);
 	else
