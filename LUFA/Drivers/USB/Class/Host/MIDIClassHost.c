@@ -192,18 +192,27 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
+	  
+	bool DataReady = false;
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataINPipe.Address);
+	Pipe_Unfreeze();
 
-	if (!(Pipe_IsReadWriteAllowed()))
-	  return false;
+	if (Pipe_IsINReceived())
+	{
+		if (Pipe_BytesInPipe())
+		{
+			Pipe_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL);
+			DataReady = true;
+		}
 
-	Pipe_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL);
-
-	if (!(Pipe_IsReadWriteAllowed()))
-	  Pipe_ClearIN();
-
-	return true;
+		if (!(Pipe_BytesInPipe()))
+		  Pipe_ClearIN();
+	}
+	
+	Pipe_Freeze();
+	
+	return DataReady;
 }
 
 #endif
