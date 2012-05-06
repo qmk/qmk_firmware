@@ -167,9 +167,9 @@
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				PORTC ^= LEDMask;				
+				PINC  = LEDMask;				
 				#else
-				PORTD ^= LEDMask;
+				PIND  = LEDMask;
 				#endif
 			}
 

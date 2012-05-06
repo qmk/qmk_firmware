@@ -139,8 +139,8 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTF ^= (LEDMask & LEDS_PORTF_LEDS);
-				PORTE ^= (LEDMask & LEDS_PORTE_LEDS);
+				PINF  = (LEDMask & LEDS_PORTF_LEDS);
+				PINE  = (LEDMask & LEDS_PORTE_LEDS);
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

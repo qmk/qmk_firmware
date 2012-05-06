@@ -38,6 +38,7 @@
   *   - Added support for various assert and debugging macros for the UC3 devices
   *   - Changed MIDI event structure MIDI_EventPacket_t to use a single field for the combined virtual cable index and command ID, to prevent bitfield packing issues
   *     on some architectures (thanks to Darren Gibbs)
+  *   - Changed board LED driver implementations of LEDs_ToggleLEDs() for the AVR8 architecture to use the fast PIN register toggle alternative function for speed
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *   - Added additional bootloader API data to expose the bootloader start address and class to the DFU and CDC class bootloaders

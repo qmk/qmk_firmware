@@ -104,6 +104,7 @@
 		#define _BOARD_LED_CONCAT(Reg, Letter)      _BOARD_LED_CONCAT2(Reg, Letter)
 
 		#define _BOARD_LED_PORT                     _BOARD_LED_CONCAT(PORT, _BOARD_LED_PORTLETTER)
+		#define _BOARD_LED_PIN                      _BOARD_LED_CONCAT(PIN,  _BOARD_LED_PORTLETTER)
 		#define _BOARD_LED_DDR                      _BOARD_LED_CONCAT(DDR,  _BOARD_LED_PORTLETTER)
 	#endif
 
@@ -155,7 +156,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				_BOARD_LED_PORT ^= LEDMask;
+				_BOARD_LED_PIN  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
