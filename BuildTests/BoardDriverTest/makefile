@@ -29,7 +29,7 @@ makeboardlist:
 	@grep "BOARD_" $(LUFA_ROOT_PATH)/LUFA/Common/BoardTypes.h | cut -d'#' -f2 | cut -d' ' -f2 | grep "BOARD_" > BoardList.txt
 	
 testboards:
-	echo "%:" > BuildMakefile
+	echo "buildtest:" > BuildMakefile
 	@while read line; \
 	 do \
 	   build_cfg=`grep "$$line " BoardDeviceMap.cfg | cut -d'=' -f2-`; \
@@ -39,13 +39,15 @@ testboards:
 	   build_mcu=`echo $$build_cfg | cut -d':' -f2 | cut -d' ' -f2`; \
 	   \
 	   if ( test -z "$$build_cfg" ); then \
-	     echo "No matching information set for board $$line"; \
+	     echo "No matching information set for board $$build_board"; \
 	   else \
-		 printf "\tmake -f makefile.$$build_arch clean\n" >> BuildMakefile; \
-		 printf "\tmake -f makefile.$$build_arch MCU=$$build_mcu BOARD=$$build_board\n" >> BuildMakefile; \
+	     echo "Found board configuration for $$build_board ($$build_arch, $$build_mcu)"; \
+		 printf "\t@echo Building dummy project for $$build_board...\n" >> BuildMakefile; \
+		 printf "\tmake -s -f makefile.$$build_arch clean\n" >> BuildMakefile; \
+		 printf "\tmake -s -f makefile.$$build_arch MCU=$$build_mcu BOARD=$$build_board\n\n" >> BuildMakefile; \
 	   fi; \
 	 done < BoardList.txt
-	 $(MAKE) -f BuildMakefile all
+	 $(MAKE) -f BuildMakefile buildtest
 
 clean:
 	rm -f BuildMakefile

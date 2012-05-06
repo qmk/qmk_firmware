@@ -36,13 +36,42 @@
 
 int main(void)
 {
+	uint_reg_t Dummy;
+	
+	/* Buttons Compile Check */
+	Buttons_Init();
+	Dummy = Buttons_GetStatus();
+	Buttons_Disable();
+	
+	/* Dataflash Compile Check */
+	Dataflash_Init();
+	Dataflash_TransferByte(0);
+	Dataflash_SendByte(0);
+	Dummy = Dataflash_ReceiveByte();
+	Dummy = Dataflash_GetSelectedChip();
+	Dataflash_SelectChip(0);
+	Dataflash_DeselectChip();
+	Dataflash_SelectChipFromPage(0);
+	Dataflash_ToggleSelectedChipCS();
+	Dataflash_WaitWhileBusy();
+	Dataflash_SendAddressBytes(0, 0);
+
+	/* LEDs Compile Check */
+	LEDs_Init();
+	LEDs_TurnOnLEDs(LEDS_ALL_LEDS);
+	LEDs_TurnOffLEDs(LEDS_ALL_LEDS);
 	LEDs_SetAllLEDs(LEDS_ALL_LEDS);
-	LEDs_SetAllLEDs(LEDS_NO_LEDS);
-	LEDs_SetAllLEDs(LEDS_LED1);
-	LEDs_SetAllLEDs(LEDS_LED2);
-	LEDs_SetAllLEDs(LEDS_LED3);
-	LEDs_SetAllLEDs(LEDS_LED4);
+	LEDs_ChangeLEDs(LEDS_ALL_LEDS, LEDS_NO_LEDS);
 	LEDs_ToggleLEDs(LEDS_ALL_LEDS);
+	Dummy = LEDs_GetLEDs();
+	LEDs_Disable();
+	
+	/* Joystick Compile Check */
+	Joystick_Init();
+	Dummy = Joystick_GetStatus();
+	Joystick_Disable();
+	
+	(void)Dummy;
 }
 
 
