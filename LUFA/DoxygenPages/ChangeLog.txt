@@ -42,6 +42,7 @@
   *   - Reverted AVRISP-MKII clone project watchdog based command timeout patch in favour of a hardware timer, to allow for use in devices with WDTRST fuse programmed
   *   - The library bootloaders will now correctly start the user application after a watchdog-based application start, even if the /HWB line is held low externally
   *     during the reset phase
+  *   - Increased endpoint polling interval for all demos and projects to 5ms, as 1ms was causing some enumeration issues on some machines (thanks to Riku Salminen)
   *
   *  <b>Fixed:</b>
   *  - Core:
