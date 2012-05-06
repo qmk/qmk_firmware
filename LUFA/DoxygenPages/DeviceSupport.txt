@@ -116,6 +116,8 @@
  *   - Microsin AVR-USB162
  *   - Minimus USB
  *   - Olimex AVR-USB-162
+ *   - Olimex AVR-USB-32U4
+ *   - Olimex AVR-USB-T32U4
  *   - Paranoid Studio's US2AX (V1, V2 and V3 hardware revisions)
  *   - PJRC Teensy (1.x and 2.x versions)
  *   - Sparkfun U2 Breakout Board

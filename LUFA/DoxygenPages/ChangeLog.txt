@@ -11,6 +11,8 @@
   *  - Core:
   *   - Added support for the BitWizard Multio and Big-Multio boards
   *   - Added support for the DorkbotPDX Duce board
+  *   - Added support for the Olimex AVR-USB-32U4 board
+  *   - Added support for the Olimex AVR-USB-T32U4 board
   *   - Added new Endpoint_ConfigureEndpointTable() function
   *   - Added new Pipe_ConfigurePipeTable() function
   *  - Library Applications:
