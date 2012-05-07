@@ -230,7 +230,8 @@
 				#define USB_SERIES_B3_XMEGA
 				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_ATxmega128C3__) || defined(__AVR_ATxmega64C3__) || \
-			       defined(__AVR_ATxmega192C3__) || defined(__AVR_ATxmega256C3__))
+			       defined(__AVR_ATxmega192C3__) || defined(__AVR_ATxmega256C3__) || \
+				   defined(__AVR_ATxmega384C3__))
 				#define USB_SERIES_C3_XMEGA
 				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_ATxmega16C4__) || defined(__AVR_ATxmega32C4__))
