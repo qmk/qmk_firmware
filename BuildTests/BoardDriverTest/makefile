@@ -30,6 +30,7 @@ makeboardlist:
 	
 testboards:
 	echo "buildtest:" > BuildMakefile
+	
 	@while read line; \
 	 do \
 	   build_cfg=`grep "$$line " BoardDeviceMap.cfg | sed 's/ //g' | cut -d'=' -f2-`; \
@@ -45,9 +46,10 @@ testboards:
 		 \
 		 printf "\t@echo Building dummy project for $$build_board...\n" >> BuildMakefile; \
 		 printf "\tmake -s -f makefile.%s clean\n" $$build_arch >> BuildMakefile; \
-		 printf "\tmake -s -f makefile.%s MCU=%s BOARD=%s\n\n" $$build_arch $$build_mcu $$build_board >> BuildMakefile; \
+		 printf "\tmake -s -f makefile.%s MCU=%s BOARD=%s elf\n\n" $$build_arch $$build_mcu $$build_board >> BuildMakefile; \
 	   fi; \
 	 done < BoardList.txt
+	 
 	 $(MAKE) -f BuildMakefile buildtest
 
 clean:

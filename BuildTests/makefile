@@ -11,13 +11,8 @@
 # not intended to be modified or compiled by non-developers.
 
 all:
-	$(MAKE) -C ModuleTest all
-	$(MAKE) -C SingleUSBModeTest all
-	$(MAKE) -C StaticAnalysisTest all
-	$(MAKE) -C BoardDriverTest all
-
 %:
+	$(MAKE) -C BoardDriverTest $@
 	$(MAKE) -C ModuleTest $@
 	$(MAKE) -C SingleUSBModeTest $@
 	$(MAKE) -C StaticAnalysisTest $@
-	$(MAKE) -C BoardDriverTest $@
