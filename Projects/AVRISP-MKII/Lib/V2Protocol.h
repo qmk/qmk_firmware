@@ -48,7 +48,8 @@
 		#include "V2ProtocolParams.h"
 		#include "ISP/ISPProtocol.h"
 		#include "XPROG/XPROGProtocol.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL

@@ -52,6 +52,7 @@
 
 		#include "Descriptors.h"
 		#include "Lib/V2Protocol.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

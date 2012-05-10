@@ -65,6 +65,7 @@
 		#include <avr/io.h>
 
 		#include <LUFA/Common/Common.h>
+		#include "Config/AppConfig.h"
 
 	/* Private Interface - For use in library only: */
 		/* Macros: */

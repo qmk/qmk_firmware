@@ -45,7 +45,8 @@
 		#include <LUFA/Drivers/Peripheral/SPI.h>
 
 		#include "../V2ProtocolParams.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL

@@ -42,9 +42,23 @@
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-//	#define NO_BLOCK_SUPPORT
-//	#define NO_EEPROM_BYTE_SUPPORT
-//	#define NO_FLASH_BYTE_SUPPORT
-//	#define NO_LOCK_BYTE_WRITE_SUPPORT
+	#define AUX_LINE_PORT              PORTB
+	#define AUX_LINE_PIN               PINB
+	#define AUX_LINE_DDR               DDRB
+	#define AUX_LINE_MASK              (1 << 4)
+
+	#define ENABLE_ISP_PROTOCOL
+	#define ENABLE_XPROG_PROTOCOL
+
+	#define VTARGET_ADC_CHANNEL        2
+	#define VTARGET_REF_VOLTS          5
+	#define VTARGET_SCALE_FACTOR       1
+//	#define VTARGET_USE_INTERNAL_REF
+//	#define NO_VTARGET_DETECT
+//	#define XCK_RESCUE_CLOCK_ENABLE
+//	#define INVERTED_ISP_MISO
+
+//	#define LIBUSB_DRIVER_COMPAT
+//	#define FIRMWARE_VERSION_MINOR     0x11
 
 #endif

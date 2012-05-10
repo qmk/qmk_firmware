@@ -42,9 +42,15 @@
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-//	#define NO_BLOCK_SUPPORT
-//	#define NO_EEPROM_BYTE_SUPPORT
-//	#define NO_FLASH_BYTE_SUPPORT
-//	#define NO_LOCK_BYTE_WRITE_SUPPORT
+	#define AVR_RESET_LINE_PORT            PORTD
+	#define AVR_RESET_LINE_DDR             DDRD
+	#define AVR_RESET_LINE_MASK            (1 << 4)
+
+	#define AVR_RESET_PULSE_MS             10
+
+	#define TX_RX_LED_PULSE_MS             30
+	#define PING_PONG_LED_PULSE_MS         100
+
+	#define RECEIVE_BUFFER_FLUSH_MS        10
 
 #endif

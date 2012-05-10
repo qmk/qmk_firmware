@@ -68,37 +68,37 @@
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_PORT</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Indicates the PORT register of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_DDR</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Indicates the DDR register of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_MASK</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Indicates the mask of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_PULSE_MS</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Pulse length in milliseconds for the target /RESET pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>TX_RX_LED_PULSE_MS</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Pulse length in milliseconds for the activity Tx/Rx LEDs.</td>
  *   </tr>
  *   <tr>
  *    <td>PING_PONG_LED_PULSE_MS</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Pulse length in milliseconds for the enumeration LED ping-ponging between toggles.</td>
  *   </tr>
  *   <tr>
  *    <td>RECEIVE_BUFFER_FLUSH_MS</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Period between flushings of received data buffer to the attached USB host.</td>
  *   </tr>
  *  </table>

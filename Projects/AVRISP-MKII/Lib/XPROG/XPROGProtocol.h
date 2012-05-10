@@ -46,7 +46,8 @@
 		#include "../V2Protocol.h"
 		#include "XMEGANVM.h"
 		#include "TINYNVM.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			/* On the XPLAIN board, we only need PDI programming

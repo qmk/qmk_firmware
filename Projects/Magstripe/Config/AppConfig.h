@@ -42,9 +42,16 @@
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-//	#define NO_BLOCK_SUPPORT
-//	#define NO_EEPROM_BYTE_SUPPORT
-//	#define NO_FLASH_BYTE_SUPPORT
-//	#define NO_LOCK_BYTE_WRITE_SUPPORT
+	#define MAG_T1_CLOCK         (1 << 0)
+	#define MAG_T1_DATA          (1 << 1)
+	#define MAG_T2_CLOCK         (1 << 2)
+	#define MAG_T2_DATA          (1 << 3)
+	#define MAG_T3_CLOCK         (1 << 4)
+	#define MAG_T3_DATA          (1 << 5)
+	#define MAG_CARDPRESENT      (1 << 6)
+
+	#define MAG_PORT             PORTC
+	#define MAG_PIN              PINC
+	#define MAG_DDR              DDRC
 
 #endif

@@ -46,6 +46,7 @@
 		#include "Descriptors.h"
 		#include "Lib/MagstripeHW.h"
 		#include "Lib/CircularBitBuffer.h"
+		#include "Config/AppConfig.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
