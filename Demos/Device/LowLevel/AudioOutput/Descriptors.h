@@ -42,14 +42,11 @@
 		#include <avr/pgmspace.h>
 
 	/* Macros: */
-		/** Endpoint number of the Audio isochronous streaming data endpoint. */
-		#define AUDIO_STREAM_EPNUM           1
+		/** Endpoint address of the Audio isochronous streaming data OUT endpoint. */
+		#define AUDIO_STREAM_EPADDR          (ENDPOINT_DIR_OUT | 1)
 
-		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
-		 *  at least 192 bytes for correct output, thus the smaller 128 byte maximum endpoint size on some of the smaller
-		 *  USB AVR models will result in unavoidable distorted output.
-		 */
-		#define AUDIO_STREAM_EPSIZE          ENDPOINT_MAX_SIZE(AUDIO_STREAM_EPNUM)
+		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. */
+		#define AUDIO_STREAM_EPSIZE           256
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the

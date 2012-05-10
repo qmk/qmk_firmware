@@ -5,7 +5,7 @@
 #include "diskio.h"
 
 #include <string.h>
-#include <LUFA/Drivers/USB/Class/MassStorage.h>
+#include <LUFA/Drivers/USB/USB.h>
 #include "../DataflashManager.h"
 #include "../../DiskHost.h"
 

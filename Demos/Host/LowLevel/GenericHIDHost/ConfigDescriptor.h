@@ -42,11 +42,11 @@
 		#include "GenericHIDHost.h"
 
 	/* Macros: */
-		/** Pipe number for the HID data IN pipe. */
-		#define HID_DATA_IN_PIPE          1
+		/** Pipe address for the HID data IN pipe. */
+		#define HID_DATA_IN_PIPE          (PIPE_DIR_IN  | 1)
 
-		/** Pipe number for the HID data OUT pipe. */
-		#define HID_DATA_OUT_PIPE         2
+		/** Pipe address for the HID data OUT pipe. */
+		#define HID_DATA_OUT_PIPE         (PIPE_DIR_OUT | 2)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

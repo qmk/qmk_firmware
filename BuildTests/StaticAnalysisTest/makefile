@@ -24,7 +24,8 @@ SUPPRESS_WARNINGS = variableScope     \
                     missingInclude
 
 # Extra paths to search for include files
-INCLUDE_PATHS     = $(LUFA_ROOT_PATH)/LUFA/CodeTemplates/
+INCLUDE_PATHS     = $(LUFA_ROOT_PATH)/LUFA/CodeTemplates/      \
+					$(LUFA_ROOT_PATH)/Projects/AVRISP-MKII/
 
 # Configuration options to pass to cppcheck
 CPPCHECK_OPTIONS  = --template=$(MESSAGE_TEMPLATE) $(INCLUDE_PATHS:%=-I%) $(EXCLUDE_LIST:%=-i%) --inline-suppr --force --error-exitcode=1 --std=c99

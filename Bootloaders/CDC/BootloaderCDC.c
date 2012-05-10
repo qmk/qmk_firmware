@@ -56,6 +56,28 @@ static uint32_t CurrAddress;
  */
 static bool RunBootloader = true;
 
+/** Magic lock for forced application start. If the HWBE fuse is programmed and BOOTRST is unprogrammed, the bootloader
+ *  will start if the /HWB line of the AVR is held low and the system is reset. However, if the /HWB line is still held
+ *  low when the application attempts to start via a watchdog reset, the bootloader will re-start. If set to the value
+ *  \ref MAGIC_BOOT_KEY the special init function \ref Application_Jump_Check() will force the application to start.
+ */
+uint32_t MagicBootKey ATTR_NO_INIT;
+
+
+/** Special startup routine to check if the bootloader was started via a watchdog reset, and if the magic application
+ *  start key has been loaded into \ref MagicBootKey. If the bootloader started via the watchdog and the key is valid,
+ *  this will force the user application to start via a software jump.
+ */
+void Application_Jump_Check(void)
+{
+	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
+	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+	{
+		MagicBootKey = 0;
+		// cppcheck-suppress constStatement
+		((void (*)(void))0x0000)();
+	}
+}
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
  *  runs the bootloader processing routine until instructed to soft-exit, or hard-reset via the watchdog to start
@@ -80,6 +102,9 @@ int main(void)
 
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
 	USB_Detach();
+	
+	/* Unlock the forced application start mode of the bootloader if it is restarted */
+	MagicBootKey = MAGIC_BOOT_KEY;
 
 	/* Enable the watchdog and force a timeout to reset the AVR */
 	wdt_enable(WDTO_250MS);
@@ -122,17 +147,12 @@ ISR(TIMER1_OVF_vect, ISR_BLOCK)
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	/* Setup CDC Notification, Rx and Tx Endpoints */
-	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-	                           ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT,
+	                           CDC_NOTIFICATION_EPSIZE, 1);
 
-	Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK,
-	                           ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(CDC_TX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
 
-	Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK,
-	                           ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	Endpoint_ConfigureEndpoint(CDC_RX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
 }
 
 /** Event handler for the USB_ControlRequest event. This is used to catch and process control requests sent to
@@ -303,7 +323,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 static uint8_t FetchNextCommandByte(void)
 {
 	/* Select the OUT endpoint so that the next data byte can be read */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 	/* If OUT endpoint empty, clear it and wait for the next packet from the host */
 	while (!(Endpoint_IsReadWriteAllowed()))
@@ -329,7 +349,7 @@ static uint8_t FetchNextCommandByte(void)
 static void WriteNextResponseByte(const uint8_t Response)
 {
 	/* Select the IN endpoint so that the next data byte can be written */
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_TX_EPADDR);
 
 	/* If IN endpoint full, clear it and wait until ready for the next packet to the host */
 	if (!(Endpoint_IsReadWriteAllowed()))
@@ -353,7 +373,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 static void CDC_Task(void)
 {
 	/* Select the OUT endpoint */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 	/* Check if endpoint has a command in it sent from the host */
 	if (!(Endpoint_IsOUTReceived()))
@@ -549,7 +569,7 @@ static void CDC_Task(void)
 	}
 
 	/* Select the IN endpoint */
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_TX_EPADDR);
 
 	/* Remember if the endpoint is completely full before clearing it */
 	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
@@ -577,7 +597,7 @@ static void CDC_Task(void)
 	}
 
 	/* Select the OUT endpoint */
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 	/* Acknowledge the command from the host */
 	Endpoint_ClearOUT();

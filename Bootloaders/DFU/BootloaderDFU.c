@@ -92,6 +92,27 @@ static uint16_t StartAddr = 0x0000;
  */
 static uint16_t EndAddr = 0x0000;
 
+/** Magic lock for forced application start. If the HWBE fuse is programmed and BOOTRST is unprogrammed, the bootloader
+ *  will start if the /HWB line of the AVR is held low and the system is reset. However, if the /HWB line is still held
+ *  low when the application attempts to start via a watchdog reset, the bootloader will re-start. If set to the value
+ *  \ref MAGIC_BOOT_KEY the special init function \ref Application_Jump_Check() will force the application to start.
+ */
+uint32_t MagicBootKey ATTR_NO_INIT;
+
+
+/** Special startup routine to check if the bootloader was started via a watchdog reset, and if the magic application
+ *  start key has been loaded into \ref MagicBootKey. If the bootloader started via the watchdog and the key is valid,
+ *  this will force the user application to start via a software jump.
+ */
+void Application_Jump_Check(void)
+{
+	// If the reset source was the bootloader and the key is correct, clear it and jump to the application
+	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+	{
+		MagicBootKey = 0;
+		AppStartPtr();
+	}
+}
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
  *  runs the bootloader processing routine until instructed to soft-exit, or hard-reset via the watchdog to start
@@ -695,6 +716,9 @@ static void ProcessWriteCommand(void)
 		{
 			if (SentCommand.Data[1] == 0x00)                                   // Start via watchdog
 			{
+				/* Unlock the forced application start mode of the bootloader if it is restarted */
+				MagicBootKey = MAGIC_BOOT_KEY;
+
 				/* Start the watchdog to reset the AVR once the communications are finalized */
 				wdt_enable(WDTO_250MS);
 			}

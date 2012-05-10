@@ -171,8 +171,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_INT_Enable(USB_INT_WAKEUPI);
 
 		Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
-		                           ENDPOINT_DIR_OUT, USB_Device_ControlEndpointSize,
-		                           ENDPOINT_BANK_SINGLE);
+		                           USB_Device_ControlEndpointSize, 1);
 
 		#if defined(INTERRUPT_CONTROL_ENDPOINT)
 		USB_INT_Enable(USB_INT_RXSTPI);

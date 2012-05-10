@@ -44,14 +44,21 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 	{
 		.Config =
 			{
-				.DataINPipeNumber           = 1,
-				.DataINPipeDoubleBank       = false,
-
-				.DataOUTPipeNumber          = 2,
-				.DataOUTPipeDoubleBank      = false,
-
-				.NotificationPipeNumber     = 3,
-				.NotificationPipeDoubleBank = false,
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_IN  | 1),
+						.Banks          = 1,
+					},
+				.DataOUTPipe            =
+					{
+						.Address        = (PIPE_DIR_OUT | 2),
+						.Banks          = 1,
+					},
+				.NotificationPipe       =
+					{
+						.Address        = (PIPE_DIR_IN  | 3),
+						.Banks          = 1,
+					},
 			},
 	};
 

@@ -51,11 +51,11 @@
 		/** Interface Protocol value for the Bulk Only transport protocol. */
 		#define MASS_STORE_PROTOCOL            0x50
 
-		/** Pipe number of the Mass Storage data IN pipe. */
-		#define MASS_STORE_DATA_IN_PIPE        1
+		/** Pipe address of the Mass Storage data IN pipe. */
+		#define MASS_STORE_DATA_IN_PIPE        (PIPE_DIR_IN  | 1)
 
-		/** Pipe number of the Mass Storage data OUT pipe. */
-		#define MASS_STORE_DATA_OUT_PIPE       2
+		/** Pipe address of the Mass Storage data OUT pipe. */
+		#define MASS_STORE_DATA_OUT_PIPE       (PIPE_DIR_OUT | 2)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

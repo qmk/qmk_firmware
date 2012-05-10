@@ -57,8 +57,8 @@
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */
-		/** Endpoint number of the Generic HID reporting IN endpoint. */
-		#define GENERIC_IN_EPNUM          1
+		/** Endpoint address of the Generic HID reporting IN endpoint. */
+		#define GENERIC_IN_EPADDR         (ENDPOINT_DIR_IN | 1)
 
 		/** Size in bytes of the Generic HID reporting endpoint. */
 		#define GENERIC_EPSIZE            8

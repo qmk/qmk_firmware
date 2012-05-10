@@ -44,7 +44,10 @@ USB_ClassInfo_Audio_Host_t Microphone_Audio_Interface =
 	{
 		.Config =
 			{
-				.DataINPipeNumber = 1,
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_IN  | 1),
+					},
 			},
 	};
 
@@ -179,7 +182,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	}
 
 	USB_Audio_SampleFreq_t SampleRate = AUDIO_SAMPLE_FREQ(48000);
-	if (Audio_Host_GetSetEndpointProperty(&Microphone_Audio_Interface, Microphone_Audio_Interface.Config.DataINPipeNumber,
+	if (Audio_Host_GetSetEndpointProperty(&Microphone_Audio_Interface, Microphone_Audio_Interface.Config.DataINPipe.Address,
 	                                      AUDIO_REQ_SetCurrent, AUDIO_EPCONTROL_SamplingFreq,
 	                                      sizeof(SampleRate), &SampleRate) != HOST_SENDCONTROL_Successful)
 	{

@@ -44,6 +44,14 @@
  *  third-party board does not include any on-board peripherals, but does have an officially recommended external
  *  peripheral layout for buttons, LEDs and a Joystick.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>N/A</td><td>User Supplied</td><td>High</td><td>PORTB.4</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>N/A</td><td>User Supplied</td><td>High</td><td>PORTB.5</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>N/A</td><td>User Supplied</td><td>High</td><td>PORTB.6</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>N/A</td><td>User Supplied</td><td>High</td><td>PORTB.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -120,7 +128,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTB ^= LEDMask;
+				PINB  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

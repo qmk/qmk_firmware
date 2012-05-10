@@ -42,14 +42,14 @@
 		#include "StillImageHost.h"
 
 	/* Macros: */
-		/** Pipe number of the Still Image data IN pipe. */
-		#define SIMAGE_DATA_IN_PIPE            1
+		/** Pipe address of the Still Image data IN pipe. */
+		#define SIMAGE_DATA_IN_PIPE            (PIPE_DIR_IN  | 1)
 
-		/** Pipe number of the Still Image data OUT pipe. */
-		#define SIMAGE_DATA_OUT_PIPE           2
+		/** Pipe address of the Still Image data OUT pipe. */
+		#define SIMAGE_DATA_OUT_PIPE           (PIPE_DIR_OUT | 2)
 
-		/** Pipe number of the Still Image events pipe. */
-		#define SIMAGE_EVENTS_PIPE             3
+		/** Pipe address of the Still Image events IN pipe. */
+		#define SIMAGE_EVENTS_PIPE             (PIPE_DIR_IN  | 3)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

@@ -131,16 +131,13 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Configure the RNDIS data IN pipe */
-	Pipe_ConfigurePipe(RNDIS_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(RNDIS_DATA_IN_PIPE, EP_TYPE_BULK, DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, 1);
 
 	/* Configure the RNDIS data OUT pipe */
-	Pipe_ConfigurePipe(RNDIS_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(RNDIS_DATA_OUT_PIPE, EP_TYPE_BULK, DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, 1);
 
 	/* Configure the RNDIS notification pipe */
-	Pipe_ConfigurePipe(RNDIS_NOTIFICATION_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-					   NotificationEndpoint->EndpointAddress, NotificationEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(RNDIS_NOTIFICATION_PIPE, EP_TYPE_INTERRUPT, NotificationEndpoint->EndpointAddress, NotificationEndpoint->EndpointSize, 1);
 	Pipe_SetInterruptPeriod(NotificationEndpoint->PollingIntervalMS);
 
 	/* Valid data found, return success */

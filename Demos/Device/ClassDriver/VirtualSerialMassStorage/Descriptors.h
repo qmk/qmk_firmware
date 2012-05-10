@@ -42,14 +42,14 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** Endpoint number of the CDC device-to-host notification IN endpoint. */
-		#define CDC_NOTIFICATION_EPNUM         1
+		/** Endpoint address of the CDC device-to-host notification IN endpoint. */
+		#define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN  | 1)
 
-		/** Endpoint number of the CDC device-to-host data IN endpoint. */
-		#define CDC_TX_EPNUM                   2
+		/** Endpoint address of the CDC device-to-host data IN endpoint. */
+		#define CDC_TX_EPADDR                  (ENDPOINT_DIR_IN  | 2)
 
-		/** Endpoint number of the CDC host-to-device data OUT endpoint. */
-		#define CDC_RX_EPNUM                   3
+		/** Endpoint address of the CDC host-to-device data OUT endpoint. */
+		#define CDC_RX_EPADDR                  (ENDPOINT_DIR_OUT | 3)
 
 		/** Size in bytes of the CDC device-to-host notification IN endpoint. */
 		#define CDC_NOTIFICATION_EPSIZE        8
@@ -57,11 +57,11 @@
 		/** Size in bytes of the CDC data IN and OUT endpoints. */
 		#define CDC_TXRX_EPSIZE                16
 
-		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */
-		#define MASS_STORAGE_IN_EPNUM          4
+		/** Endpoint address of the Mass Storage device-to-host data IN endpoint. */
+		#define MASS_STORAGE_IN_EPADDR         (ENDPOINT_DIR_IN  | 4)
 
-		/** Endpoint number of the Mass Storage host-to-device data OUT endpoint. */
-		#define MASS_STORAGE_OUT_EPNUM         5
+		/** Endpoint address of the Mass Storage host-to-device data OUT endpoint. */
+		#define MASS_STORAGE_OUT_EPADDR        (ENDPOINT_DIR_OUT | 5)
 
 		/** Size in bytes of the Mass Storage data endpoints. */
 		#define MASS_STORAGE_IO_EPSIZE         64

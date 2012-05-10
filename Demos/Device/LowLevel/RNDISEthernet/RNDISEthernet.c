@@ -104,12 +104,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup RNDIS Data Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_TX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_RX_EPADDR, EP_TYPE_BULK, CDC_TXRX_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, 1);
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -170,7 +167,7 @@ void EVENT_USB_Device_ControlRequest(void)
 void RNDIS_Task(void)
 {
 	/* Select the notification endpoint */
-	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
+	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPADDR);
 
 	/* Check if a message response is ready for the host */
 	if (Endpoint_IsINReady() && ResponseReady)
@@ -201,7 +198,7 @@ void RNDIS_Task(void)
 		RNDIS_Packet_Message_t RNDISPacketHeader;
 
 		/* Select the data OUT endpoint */
-		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+		Endpoint_SelectEndpoint(CDC_RX_EPADDR);
 
 		/* Check if the data OUT endpoint contains data, and that the IN buffer is empty */
 		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameLength))
@@ -227,7 +224,7 @@ void RNDIS_Task(void)
 		}
 
 		/* Select the data IN endpoint */
-		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+		Endpoint_SelectEndpoint(CDC_TX_EPADDR);
 
 		/* Check if the data IN endpoint is ready for more data, and that the IN buffer is full */
 		if (Endpoint_IsINReady() && FrameOUT.FrameLength)

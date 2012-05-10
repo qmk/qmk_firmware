@@ -42,6 +42,12 @@
  *
  *  Board specific LED driver header for the Arduino Uno (http://arduino.cc/en/Main/ArduinoBoardUno).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>RX</td><td>Low</td><td>PORTD.4</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Yellow</td><td>TX</td><td>Low</td><td>PORTD.5</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -112,7 +118,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD ^= LEDMask;
+				PIND  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

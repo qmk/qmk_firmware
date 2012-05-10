@@ -48,15 +48,16 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 	
 		if ((InterfaceIndex != AudioInterfaceInfo->Config.ControlInterfaceNumber) &&
 		    (InterfaceIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber))
-		
-		  return;
+		{
+			return;
+		}
 	}
 	else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
 	{
-		uint8_t EndpointIndex = (USB_ControlRequest.wIndex & 0xFF);
+		uint8_t EndpointAddress = (USB_ControlRequest.wIndex & 0xFF);
 	
-		if ((EndpointIndex != (ENDPOINT_DIR_IN  | AudioInterfaceInfo->Config.DataINEndpointNumber)) &&
-		    (EndpointIndex != (ENDPOINT_DIR_OUT | AudioInterfaceInfo->Config.DataOUTEndpointNumber)))
+		if ((EndpointAddress != AudioInterfaceInfo->Config.DataINEndpoint.Address) &&
+		    (EndpointAddress != AudioInterfaceInfo->Config.DataOUTEndpoint.Address))
 		{
 			return;
 		}
@@ -88,7 +89,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 		case AUDIO_REQ_SetMinimum:
 		case AUDIO_REQ_SetMaximum:
 		case AUDIO_REQ_SetResolution:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_ENDPOINT))
+			if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
 			{
 				uint8_t EndpointProperty = USB_ControlRequest.bRequest;
 				uint8_t EndpointAddress  = (uint8_t)USB_ControlRequest.wIndex;
@@ -108,7 +109,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 					                                             EndpointControl, &ValueLength, Value);
 				}
 			}
-			else if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_INTERFACE)
 			{
 				uint8_t  Property  = USB_ControlRequest.bRequest;
 				uint8_t  Entity    = (USB_ControlRequest.wIndex >> 8);
@@ -134,7 +135,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 		case AUDIO_REQ_GetMinimum:
 		case AUDIO_REQ_GetMaximum:
 		case AUDIO_REQ_GetResolution:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_ENDPOINT))
+			if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_ENDPOINT)
 			{
 				uint8_t  EndpointProperty = USB_ControlRequest.bRequest;
 				uint8_t  EndpointAddress  = (uint8_t)USB_ControlRequest.wIndex;
@@ -150,7 +151,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 					Endpoint_ClearOUT();
 				}
 			}
-			else if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			else if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT) == REQREC_INTERFACE)
 			{
 				uint8_t  Property    = USB_ControlRequest.bRequest;
 				uint8_t  Entity      = (USB_ControlRequest.wIndex >> 8);
@@ -174,39 +175,15 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	memset(&AudioInterfaceInfo->State, 0x00, sizeof(AudioInterfaceInfo->State));
+	
+	AudioInterfaceInfo->Config.DataINEndpoint.Type  = EP_TYPE_ISOCHRONOUS;
+	AudioInterfaceInfo->Config.DataOUTEndpoint.Type = EP_TYPE_ISOCHRONOUS;
 
-	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Direction;
-		bool     DoubleBanked;
+	if (!(Endpoint_ConfigureEndpointTable(&AudioInterfaceInfo->Config.DataINEndpoint, 1)))
+	  return false;
 
-		if (EndpointNum == AudioInterfaceInfo->Config.DataINEndpointNumber)
-		{
-			Size         = AudioInterfaceInfo->Config.DataINEndpointSize;
-			Direction    = ENDPOINT_DIR_IN;
-			Type         = EP_TYPE_ISOCHRONOUS;
-			DoubleBanked = true;
-		}
-		else if (EndpointNum == AudioInterfaceInfo->Config.DataOUTEndpointNumber)
-		{
-			Size         = AudioInterfaceInfo->Config.DataOUTEndpointSize;
-			Direction    = ENDPOINT_DIR_OUT;
-			Type         = EP_TYPE_ISOCHRONOUS;
-			DoubleBanked = true;
-		}
-		else
-		{
-			continue;
-		}
-
-		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
-		                                 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-		{
-			return false;
-		}
-	}
+	if (!(Endpoint_ConfigureEndpointTable(&AudioInterfaceInfo->Config.DataOUTEndpoint, 1)))
+	  return false;
 
 	return true;
 }

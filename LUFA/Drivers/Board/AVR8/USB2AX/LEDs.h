@@ -51,6 +51,18 @@
  *
  *  Board specific LED driver header for the Paranoid Studio USB2AX (http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX).
  *
+ *  <b>USB2AX</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTC.6</td></tr>
+ *  </table>
+ *
+ *  <b>USB2AX_V3</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>High</td><td>PORTD.1</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -96,11 +108,11 @@
 			static inline void LEDs_Init(void)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				DDRC  |= LEDS_ALL_LEDS;
-				PORTC |= LEDS_ALL_LEDS;				
+				DDRC  |=  LEDS_ALL_LEDS;
+				PORTC &= ~LEDS_ALL_LEDS;				
 				#else
-				DDRD  |= LEDS_ALL_LEDS;
-				PORTD |= LEDS_ALL_LEDS;				
+				DDRD  |=  LEDS_ALL_LEDS;
+				PORTD &= ~LEDS_ALL_LEDS;				
 				#endif				
 			}
 
@@ -118,27 +130,27 @@
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				PORTC &= ~LEDMask;				
+				PORTC |= LEDMask;				
 				#else
-				PORTD &= ~LEDMask;
+				PORTD |= LEDMask;
 				#endif
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				PORTC |= LEDMask;
+				PORTC &= ~LEDMask;
 				#else
-				PORTD |= LEDMask;
+				PORTD &= ~LEDMask;
 				#endif
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				PORTC = ((PORTC | LEDS_ALL_LEDS) & ~LEDMask);				
+				PORTC = ((PORTC & ~LEDS_ALL_LEDS) | LEDMask);				
 				#else
-				PORTD = ((PORTD | LEDS_ALL_LEDS) & ~LEDMask);
+				PORTD = ((PORTD & ~LEDS_ALL_LEDS) | LEDMask);
 				#endif
 			}
 
@@ -146,18 +158,18 @@
 			                                   const uint8_t ActiveMask)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				PORTC = ((PORTC | LEDMask) & ~ActiveMask);				
+				PORTC = ((PORTC & ~LEDMask) | ActiveMask);				
 				#else
-				PORTD = ((PORTD | LEDMask) & ~ActiveMask);
+				PORTD = ((PORTD & ~LEDMask) | ActiveMask);
 				#endif
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				PORTC ^= LEDMask;				
+				PINC  = LEDMask;				
 				#else
-				PORTD ^= LEDMask;
+				PIND  = LEDMask;
 				#endif
 			}
 
@@ -165,9 +177,9 @@
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
 				#if (BOARD == BOARD_USB2AX)
-				return (~PORTC & LEDS_ALL_LEDS);				
+				return (PORTC & LEDS_ALL_LEDS);				
 				#else
-				return (~PORTD & LEDS_ALL_LEDS);
+				return (PORTD & LEDS_ALL_LEDS);
 				#endif
 			}
 		#endif

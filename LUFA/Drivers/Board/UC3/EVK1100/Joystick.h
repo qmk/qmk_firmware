@@ -42,6 +42,11 @@
  *
  *  Board specific joystick driver header for the Atmel EVK1100.
  *
+ *  <table>
+ *    <tr><th>Left Port Pin</th><th>Up Port Pin</th><th>Right Port Pin</th><th>Down Port Pin</th><th>Press Port Pin</th></tr>
+ *    <tr><td>GPIO25</td><td>GPIO26</td><td>GPIO28</td><td>GPIO27</td><td>GPIO20</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

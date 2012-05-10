@@ -106,6 +106,7 @@
  *   - Busware BUI
  *   - Busware CUL V3
  *   - Busware TUL
+ *   - DorkbotPDX Duce
  *   - Fletchtronics Bumble-B (using manufacturer recommended peripheral layout)
  *   - Kernel Concepts USBFOO
  *   - Linnix UDIP
@@ -115,6 +116,8 @@
  *   - Microsin AVR-USB162
  *   - Minimus USB
  *   - Olimex AVR-USB-162
+ *   - Olimex AVR-USB-32U4
+ *   - Olimex AVR-USB-T32U4
  *   - Paranoid Studio's US2AX (V1, V2 and V3 hardware revisions)
  *   - PJRC Teensy (1.x and 2.x versions)
  *   - Sparkfun U2 Breakout Board
@@ -374,6 +377,41 @@
  *  </tr>
  *  <tr>
  *   <td>ATXMEGA128B1</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA64C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA128C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA192C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA256C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA384C3</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA16C4</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ATXMEGA32C4</td>
  *   <td bgcolor="#00EE00">Yes</td>
  *   <td bgcolor="#EE0000">No</td>
  *  </tr>

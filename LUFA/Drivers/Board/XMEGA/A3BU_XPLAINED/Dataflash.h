@@ -42,6 +42,11 @@
  *
  *  Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained board.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Select Pin</th><th>SPI Port</th></tr>
+ *    <tr><td>DATAFLASH_CHIP1</td><td>AT45DB642D (8MB)</td><td>PORTF.4</td><td>USARTD0 (In SPI Mode)</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -71,10 +76,10 @@
 			#define DATAFLASH_TOTALCHIPS                 1
 
 			/** Mask for no dataflash chip selected. */
-			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
+			#define DATAFLASH_NO_CHIP                    0
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      0
+			#define DATAFLASH_CHIP1                      (1 << 4)
 
 			/** Internal main memory page size for the board's dataflash ICs. */
 			#define DATAFLASH_PAGE_SIZE                  1024
@@ -88,8 +93,10 @@
 			 */
 			static inline void Dataflash_Init(void)
 			{
-				DATAFLASH_CHIPCS_PORT.DIRSET = DATAFLASH_CHIPCS_MASK;
-				DATAFLASH_CHIPCS_PORT.OUTSET = DATAFLASH_CHIPCS_MASK;
+				DATAFLASH_CHIPCS_PORT.DIRSET   = DATAFLASH_CHIPCS_MASK;
+				
+				PORTCFG.MPCMASK                = DATAFLASH_CHIPCS_MASK;
+				DATAFLASH_CHIPCS_PORT.PIN0CTRL = PORT_INVEN_bm;	
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
@@ -143,7 +150,8 @@
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask)
 			{
-				DATAFLASH_CHIPCS_PORT.OUT = ((DATAFLASH_CHIPCS_PORT.OUT & ~DATAFLASH_CHIPCS_MASK) | ChipMask);
+				DATAFLASH_CHIPCS_PORT.OUTCLR = DATAFLASH_CHIPCS_MASK;
+				DATAFLASH_CHIPCS_PORT.OUTSET = ChipMask;
 			}
 
 			/** Deselects the current dataflash chip, so that no dataflash is selected. */

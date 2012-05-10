@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Sparkfun ATMEGA8U2 breakout board (http://www.sparkfun.com/products/10277).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>General Indicator</td><td>Low</td><td>PORTB.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -109,7 +114,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTB ^= LEDMask;
+				PINB  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

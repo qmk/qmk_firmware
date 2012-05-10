@@ -43,20 +43,20 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** Endpoint number of the TMC notification IN endpoint. */
-		#define TMC_NOTIFICATION_EPNUM  2	
+		/** Endpoint address of the TMC notification IN endpoint. */
+		#define TMC_NOTIFICATION_EPADDR  (ENDPOINT_DIR_IN  | 2)
 
-		/** Endpoint number of the TMC device-to-host data IN endpoint. */
-		#define TMC_IN_EPNUM            3	
+		/** Endpoint address of the TMC device-to-host data IN endpoint. */
+		#define TMC_IN_EPADDR            (ENDPOINT_DIR_IN  | 3)
 
-		/** Endpoint number of the TMC host-to-device data OUT endpoint. */
-		#define TMC_OUT_EPNUM           4	
+		/** Endpoint address of the TMC host-to-device data OUT endpoint. */
+		#define TMC_OUT_EPADDR           (ENDPOINT_DIR_OUT | 4)
 
 		/** Size in bytes of the TMC data endpoints. */
-		#define TMC_IO_EPSIZE           64
+		#define TMC_IO_EPSIZE            64
 
 		/** Size in bytes of the TMC notification endpoint. */
-		#define TMC_NOTIFICATION_EPSIZE 8
+		#define TMC_NOTIFICATION_EPSIZE  8
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the

@@ -45,18 +45,24 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
-
-				.DataINEndpointNumber           = CDC_TX_EPNUM,
-				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank       = false,
-
-				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
-				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank      = false,
-
-				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank = false,
+				.DataINEndpoint                 =
+					{
+						.Address                = CDC_TX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.DataOUTEndpoint                =
+					{
+						.Address                = CDC_RX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.NotificationEndpoint           =
+					{
+						.Address                = CDC_NOTIFICATION_EPADDR,
+						.Size                   = CDC_NOTIFICATION_EPSIZE,
+						.Banks                  = 1,
+					},
 			},
 	};
 
@@ -72,11 +78,12 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 		.Config =
 			{
 				.InterfaceNumber                = 2,
-
-				.ReportINEndpointNumber         = MOUSE_EPNUM,
-				.ReportINEndpointSize           = MOUSE_EPSIZE,
-				.ReportINEndpointDoubleBank     = false,
-
+				.ReportINEndpoint               =
+					{
+						.Address                = MOUSE_EPADDR,
+						.Size                   = MOUSE_EPSIZE,
+						.Banks                  = 1,
+					},
 				.PrevReportINBuffer             = PrevMouseHIDReportBuffer,
 				.PrevReportINBufferSize         = sizeof(PrevMouseHIDReportBuffer),
 			},

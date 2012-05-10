@@ -75,38 +75,14 @@ bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 {
 	memset(&MSInterfaceInfo->State, 0x00, sizeof(MSInterfaceInfo->State));
 
-	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
-	{
-		uint16_t Size;
-		uint8_t  Type;
-		uint8_t  Direction;
-		bool     DoubleBanked;
+	MSInterfaceInfo->Config.DataINEndpoint.Type  = EP_TYPE_BULK;
+	MSInterfaceInfo->Config.DataOUTEndpoint.Type = EP_TYPE_BULK;
 
-		if (EndpointNum == MSInterfaceInfo->Config.DataINEndpointNumber)
-		{
-			Size         = MSInterfaceInfo->Config.DataINEndpointSize;
-			Direction    = ENDPOINT_DIR_IN;
-			Type         = EP_TYPE_BULK;
-			DoubleBanked = MSInterfaceInfo->Config.DataINEndpointDoubleBank;
-		}
-		else if (EndpointNum == MSInterfaceInfo->Config.DataOUTEndpointNumber)
-		{
-			Size         = MSInterfaceInfo->Config.DataOUTEndpointSize;
-			Direction    = ENDPOINT_DIR_OUT;
-			Type         = EP_TYPE_BULK;
-			DoubleBanked = MSInterfaceInfo->Config.DataOUTEndpointDoubleBank;
-		}
-		else
-		{
-			continue;
-		}
+	if (!(Endpoint_ConfigureEndpointTable(&MSInterfaceInfo->Config.DataINEndpoint, 1)))
+	  return false;
 
-		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
-		                                 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-		{
-			return false;
-		}
-	}
+	if (!(Endpoint_ConfigureEndpointTable(&MSInterfaceInfo->Config.DataOUTEndpoint, 1)))
+	  return false;
 
 	return true;
 }
@@ -116,14 +92,14 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
+	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpoint.Address);
 
-	if (Endpoint_IsReadWriteAllowed())
+	if (Endpoint_IsOUTReceived())
 	{
 		if (MS_Device_ReadInCommandBlock(MSInterfaceInfo))
 		{
 			if (MSInterfaceInfo->State.CommandBlock.Flags & MS_COMMAND_DIR_DATA_IN)
-			  Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
+			  Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpoint.Address);
 
 			bool SCSICommandResult = CALLBACK_MS_Device_SCSICommandReceived(MSInterfaceInfo);
 
@@ -141,13 +117,13 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 
 	if (MSInterfaceInfo->State.IsMassStoreReset)
 	{
-		Endpoint_ResetEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-		Endpoint_ResetEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
+		Endpoint_ResetEndpoint(MSInterfaceInfo->Config.DataOUTEndpoint.Address);
+		Endpoint_ResetEndpoint(MSInterfaceInfo->Config.DataINEndpoint.Address);
 
-		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
+		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpoint.Address);
 		Endpoint_ClearStall();
 		Endpoint_ResetDataToggle();
-		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
+		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpoint.Address);
 		Endpoint_ClearStall();
 		Endpoint_ResetDataToggle();
 
@@ -159,8 +135,8 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 {
 	uint16_t BytesProcessed;
 
-	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-
+	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpoint.Address);
+	
 	BytesProcessed = 0;
 	while (Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock,
 	                               (sizeof(MS_CommandBlockWrapper_t) - 16), &BytesProcessed) ==
@@ -175,9 +151,9 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 		(MSInterfaceInfo->State.CommandBlock.Flags              & 0x1F)                              ||
 		(MSInterfaceInfo->State.CommandBlock.SCSICommandLength == 0)                                 ||
 		(MSInterfaceInfo->State.CommandBlock.SCSICommandLength >  16))
-	{
+	{		
 		Endpoint_StallTransaction();
-		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
+		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpoint.Address);
 		Endpoint_StallTransaction();
 
 		return false;
@@ -199,7 +175,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 
 static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
-	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
+	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpoint.Address);
 
 	while (Endpoint_IsStalled())
 	{
@@ -211,7 +187,7 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 		  return;
 	}
 
-	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
+	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpoint.Address);
 
 	while (Endpoint_IsStalled())
 	{

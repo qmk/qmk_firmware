@@ -57,7 +57,7 @@ void ISPProtocol_EnterISPMode(void)
 	Endpoint_Read_Stream_LE(&Enter_ISP_Params, sizeof(Enter_ISP_Params), NULL);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t ResponseStatus = STATUS_CMD_FAILED;
@@ -115,7 +115,7 @@ void ISPProtocol_LeaveISPMode(void)
 	Endpoint_Read_Stream_LE(&Leave_ISP_Params, sizeof(Leave_ISP_Params), NULL);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	/* Perform pre-exit delay, release the target /RESET, disable the SPI bus and perform the post-exit delay */
@@ -154,7 +154,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))
 	{
 		Endpoint_ClearOUT();
-		Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+		Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 		Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 		Endpoint_Write_8(V2Command);
@@ -175,7 +175,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	}
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t  ProgrammingStatus = STATUS_CMD_OK;
@@ -295,7 +295,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 	Read_Memory_Params.BytesToRead = SwapEndian_16(Read_Memory_Params.BytesToRead);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_8(V2Command);
@@ -368,7 +368,7 @@ void ISPProtocol_ChipErase(void)
 	Endpoint_Read_Stream_LE(&Erase_Chip_Params, sizeof(Erase_Chip_Params), NULL);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t ResponseStatus = STATUS_CMD_OK;
@@ -404,7 +404,7 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 	Endpoint_Read_Stream_LE(&Read_FuseLockSigOSCCAL_Params, sizeof(Read_FuseLockSigOSCCAL_Params), NULL);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t ResponseBytes[4];
@@ -435,7 +435,7 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 	Endpoint_Read_Stream_LE(&Write_FuseLockSig_Params, sizeof(Write_FuseLockSig_Params), NULL);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	/* Send the Fuse or Lock byte program commands as given by the host to the device */
@@ -463,7 +463,7 @@ void ISPProtocol_SPIMulti(void)
 	Endpoint_Read_Stream_LE(&SPI_Multi_Params.TxData, SPI_Multi_Params.TxBytes, NULL);
 
 	Endpoint_ClearOUT();
-	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_8(CMD_SPI_MULTI);

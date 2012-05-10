@@ -42,6 +42,12 @@
  *
  *  Board specific LED driver header for the Maximus (http://www.avrusb.com/).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>LG</td><td>High</td><td>PORTB.6</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Red</td><td>LR</td><td>High</td><td>PORTB.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -112,7 +118,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTB ^= LEDMask;
+				PINB  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

@@ -48,18 +48,24 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
-
-				.DataINEndpointNumber           = CDC_TX_EPNUM,
-				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank       = true,
-
-				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
-				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank      = true,
-
-				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank = false,
+				.DataINEndpoint                 =
+					{
+						.Address                = CDC_TX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.DataOUTEndpoint                =
+					{
+						.Address                = CDC_RX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.NotificationEndpoint           =
+					{
+						.Address                = CDC_NOTIFICATION_EPADDR,
+						.Size                   = CDC_NOTIFICATION_EPSIZE,
+						.Banks                  = 1,
+					},
 			},
 	};
 
@@ -105,7 +111,7 @@ void AVRISP_Task(void)
 
 	V2Params_UpdateParamValues();
 
-	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPADDR);
 
 	/* Check to see if a V2 Protocol command has been received */
 	if (Endpoint_IsOUTReceived())
@@ -213,12 +219,10 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	}
 	else
 	{
-		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-		                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
+		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
 
 		#if defined(LIBUSB_DRIVER_COMPAT)
-		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-		                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
+		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
 		#endif
 
 		/* Configure the V2 protocol packet handler */

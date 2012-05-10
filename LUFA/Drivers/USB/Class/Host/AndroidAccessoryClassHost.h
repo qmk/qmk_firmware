@@ -85,11 +85,8 @@
 			{
 				struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the AOA interface's IN data pipe. */
-					bool     DataINPipeDoubleBank; /**< Indicates if the AOA interface's IN data pipe should use double banking. */
-
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the AOA interface's OUT data pipe. */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the AOA interface's OUT data pipe should use double banking. */
+					USB_Pipe_Table_t DataINPipe; /**< Data IN Pipe configuration table. */
+					USB_Pipe_Table_t DataOUTPipe; /**< Data OUT Pipe configuration table. */
 					
 					char*    PropertyStrings[AOA_STRING_TOTAL_STRINGS]; /**< Android Accessory property strings, sent to identify the accessory when the
 					                                                     *   Android device is switched into Open Accessory mode. */
@@ -103,9 +100,6 @@
 					                *   Configured state.
 					                */
 					uint8_t  InterfaceNumber; /**< Interface index of the AOA interface within the attached device. */
-
-					uint16_t DataINPipeSize; /**< Size in bytes of the AOA interface's IN data pipe. */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the AOA interface's OUT data pipe. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.

@@ -20,6 +20,7 @@
  *
  *  \li AVR-USB-162, a USBKEY-like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
  *  \li Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
+ *  \li Duce, the sucessor to the Benito #7: http://dorkbotpdx.org/wiki/duce
  *  \li JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
  *  \li Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
  *  \li Microsin AVR-USB162 breakout board, a DIY AT90USB162 development board: http://microsin.ru/content/view/685/44/
@@ -36,6 +37,7 @@
  *  The following are known hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
  *  can be incorporated into many different applications.
  *
+ *  \li Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
  *  \li Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  \li Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
  *  \li AttoBasic AVR BASIC interpreter: http://www.cappels.org/dproj/AttoBasic2_1/AttoBasic_2.1_with_USB_and_Arduino_support.html

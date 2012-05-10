@@ -79,11 +79,6 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
- *    <td>BUFFER_SIZE</td>
- *    <td>LightweightRingBuff.h</td>
- *    <td>Defines the maximum number of bytes which can be buffered in each Ring Buffer when in serial bridge mode.</td>
- *   </tr>
- *   <tr>
  *    <td>LIBUSB_DRIVER_COMPAT</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making

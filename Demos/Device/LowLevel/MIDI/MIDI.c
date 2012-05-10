@@ -94,10 +94,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup MIDI Data Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-	                                            MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -114,7 +112,7 @@ void MIDI_Task(void)
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
+	Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPADDR);
 
 	if (Endpoint_IsINReady())
 	{
@@ -162,8 +160,7 @@ void MIDI_Task(void)
 		{
 			MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 				{
-					.CableNumber = 0,
-					.Command     = (MIDICommand >> 4),
+					.Event       = MIDI_EVENT(0, MIDICommand),
 
 					.Data1       = MIDICommand | Channel,
 					.Data2       = MIDIPitch,
@@ -182,7 +179,7 @@ void MIDI_Task(void)
 	}
 
 	/* Select the MIDI OUT stream */
-	Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPNUM);
+	Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPADDR);
 
 	/* Check if a MIDI command has been received */
 	if (Endpoint_IsOUTReceived())
@@ -193,7 +190,7 @@ void MIDI_Task(void)
 		Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
 
 		/* Check to see if the sent command is a note on message with a non-zero velocity */
-		if ((MIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && (MIDIEvent.Data3 > 0))
+		if ((MIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_ON)) && (MIDIEvent.Data3 > 0))
 		{
 			/* Change LEDs depending on the pitch of the sent note */
 			LEDs_SetAllLEDs(MIDIEvent.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);

@@ -42,6 +42,11 @@
  *
  *  Board specific Buttons driver header for the Mattairtech JM-DB-U2 (http://u2.mattair.net/index.html).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

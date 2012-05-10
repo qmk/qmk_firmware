@@ -42,6 +42,11 @@
  *
  *  Board specific joystick driver header for the Atmel STK525.
  *
+ *  <table>
+ *    <tr><th>Left Port Pin</th><th>Up Port Pin</th><th>Right Port Pin</th><th>Down Port Pin</th><th>Press Port Pin</th></tr>
+ *    <tr><td>PORTB.6</td><td>PORTB.7</td><td>PORTE.4</td><td>PORTE.5</td><td>PORTB.5</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -76,7 +81,7 @@
 			#define JOY_LEFT                  (1 << 6)
 
 			/** Mask for the joystick being pushed in the right direction. */
-			#define JOY_RIGHT                ((1 << 4) >> 1)
+			#define JOY_RIGHT                ((1 << 4) >> JOY_PORTE_MASK_SHIFT)
 
 			/** Mask for the joystick being pushed in the upward direction. */
 			#define JOY_UP                    (1 << 7)

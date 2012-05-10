@@ -204,6 +204,16 @@
 			/** Selects the Bitwizard Big-Multio specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_BIGMULTIO            46
 
+			/** Selects the DorkbotPDX Duce specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_DUCE                 47
+			
+			/** Selects the Olimex AVR-USB-32U4 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_OLIMEX32U4           48
+			
+			/** Selects the Olimex AVR-USB-T32U4 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_OLIMEXT32U4          49
+
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

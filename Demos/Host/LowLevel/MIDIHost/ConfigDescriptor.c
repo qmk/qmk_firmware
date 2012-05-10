@@ -105,12 +105,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Configure the MIDI data IN pipe */
-	Pipe_ConfigurePipe(MIDI_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
-	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(MIDI_DATA_IN_PIPE, EP_TYPE_BULK, DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, 1);
 
 	/* Configure the MIDI data OUT pipe */
-	Pipe_ConfigurePipe(MIDI_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_ConfigurePipe(MIDI_DATA_OUT_PIPE, EP_TYPE_BULK, DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, 1);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

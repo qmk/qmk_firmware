@@ -89,7 +89,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
 
-			EndpointAddress:        (ENDPOINT_DIR_IN | SIDESHOW_IN_EPNUM),
+			EndpointAddress:        SIDESHOW_IN_EPADDR,
 			Attributes:             EP_TYPE_BULK,
 			EndpointSize:           SIDESHOW_IO_EPSIZE,
 			PollingIntervalMS:      0x00
@@ -99,7 +99,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
 
-			EndpointAddress:        (ENDPOINT_DIR_OUT | SIDESHOW_OUT_EPNUM),
+			EndpointAddress:        SIDESHOW_OUT_EPADDR,
 			Attributes:             EP_TYPE_BULK,
 			EndpointSize:           SIDESHOW_IO_EPSIZE,
 			PollingIntervalMS:      0x00

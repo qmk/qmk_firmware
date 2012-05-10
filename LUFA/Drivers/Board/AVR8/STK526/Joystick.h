@@ -42,6 +42,11 @@
  *
  *  Board specific joystick driver header for the Atmel STK526.
  *
+ *  <table>
+ *    <tr><th>Left Port Pin</th><th>Up Port Pin</th><th>Right Port Pin</th><th>Down Port Pin</th><th>Press Port Pin</th></tr>
+ *    <tr><td>PORTB.4</td><td>PORTB.5</td><td>PORTB.6</td><td>PORTB.7</td><td>PORTB.0</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

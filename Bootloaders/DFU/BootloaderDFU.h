@@ -66,6 +66,9 @@
 
 		/** Minor bootloader version number. */
 		#define BOOTLOADER_VERSION_REV   0
+		
+		/** Magic bootloader key to unlock forced application start mode. */
+		#define MAGIC_BOOT_KEY            0xDC42CACA
 
 		/** Complete bootloader version number expressed as a packed byte, constructed from the
 		 *  two individual bootloader version macros.
@@ -206,6 +209,8 @@
 			static void ProcessWriteCommand(void);
 			static void ProcessReadCommand(void);
 		#endif
+		
+		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
 
 #endif
 

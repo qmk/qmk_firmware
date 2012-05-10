@@ -45,18 +45,24 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
-
-				.DataINEndpointNumber           = CDC_TX_EPNUM,
-				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank       = false,
-
-				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
-				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank      = false,
-
-				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank = false,
+				.DataINEndpoint                 =
+					{
+						.Address                = CDC_TX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.DataOUTEndpoint                =
+					{
+						.Address                = CDC_RX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.NotificationEndpoint           =
+					{
+						.Address                = CDC_NOTIFICATION_EPADDR,
+						.Size                   = CDC_NOTIFICATION_EPSIZE,
+						.Banks                  = 1,
+					},
 			},
 	};
 
@@ -69,15 +75,18 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 		.Config =
 			{
 				.InterfaceNumber                = 2,
-
-				.DataINEndpointNumber           = MASS_STORAGE_IN_EPNUM,
-				.DataINEndpointSize             = MASS_STORAGE_IO_EPSIZE,
-				.DataINEndpointDoubleBank       = false,
-
-				.DataOUTEndpointNumber          = MASS_STORAGE_OUT_EPNUM,
-				.DataOUTEndpointSize            = MASS_STORAGE_IO_EPSIZE,
-				.DataOUTEndpointDoubleBank      = false,
-
+				.DataINEndpoint                 =
+					{
+						.Address                = MASS_STORAGE_IN_EPADDR,
+						.Size                   = MASS_STORAGE_IO_EPSIZE,
+						.Banks                  = 1,
+					},
+				.DataOUTEndpoint                =
+					{
+						.Address                = MASS_STORAGE_OUT_EPADDR,
+						.Size                   = MASS_STORAGE_IO_EPSIZE,
+						.Banks                  = 1,
+					},
 				.TotalLUNs                      = TOTAL_LUNS,
 			},
 	};

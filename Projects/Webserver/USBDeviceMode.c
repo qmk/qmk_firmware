@@ -45,19 +45,24 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface_Device =
 		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
-
-				.DataINEndpointNumber           = CDC_TX_EPNUM,
-				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank       = true,
-
-				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
-				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank      = true,
-
-				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank = true,
-
+				.DataINEndpoint                 =
+					{
+						.Address                = CDC_TX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.DataOUTEndpoint                =
+					{
+						.Address                = CDC_RX_EPADDR,
+						.Size                   = CDC_TXRX_EPSIZE,
+						.Banks                  = 1,
+					},
+				.NotificationEndpoint           =
+					{
+						.Address                = CDC_NOTIFICATION_EPADDR,
+						.Size                   = CDC_NOTIFICATION_EPSIZE,
+						.Banks                  = 1,
+					},
 				.AdapterVendorDescription       = "LUFA RNDIS Adapter",
 				.AdapterMACAddress              = {{0x02, 0x00, 0x02, 0x00, 0x02, 0x00}},
 			},
@@ -71,16 +76,19 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber           = 2,
-
-				.DataINEndpointNumber      = MASS_STORAGE_IN_EPNUM,
-				.DataINEndpointSize        = MASS_STORAGE_IO_EPSIZE,
-				.DataINEndpointDoubleBank  = false,
-
-				.DataOUTEndpointNumber     = MASS_STORAGE_OUT_EPNUM,
-				.DataOUTEndpointSize       = MASS_STORAGE_IO_EPSIZE,
-				.DataOUTEndpointDoubleBank = false,
-
+				.InterfaceNumber                = 2,
+				.DataINEndpoint                 =
+					{
+						.Address                = MASS_STORAGE_IN_EPADDR,
+						.Size                   = MASS_STORAGE_IO_EPSIZE,
+						.Banks                  = 1,
+					},
+				.DataOUTEndpoint                =
+					{
+						.Address                = MASS_STORAGE_OUT_EPADDR,
+						.Size                   = MASS_STORAGE_IO_EPSIZE,
+						.Banks                  = 1,
+					},
 				.TotalLUNs                 = 1,
 			},
 	};

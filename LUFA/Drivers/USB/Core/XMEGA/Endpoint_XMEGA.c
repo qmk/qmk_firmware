@@ -48,20 +48,36 @@ volatile uint8_t          USB_Endpoint_SelectedEndpoint;
 volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
 volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
 
-bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Number,
-                                    const uint8_t Direction,
+bool Endpoint_ConfigureEndpointTable(const USB_Endpoint_Table_t* const Table,
+                                     const uint8_t Entries)
+{
+	for (uint8_t i = 0; i < Entries; i++)
+	{
+		if (!(Table[i].Address))
+		  continue;
+	
+		if (!(Endpoint_ConfigureEndpoint(Table[i].Address, Table[i].Type, Table[i].Size, Table[i].Banks)))
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+bool Endpoint_ConfigureEndpoint_PRV(const uint8_t Address,
                                     const uint8_t Config,
                                     const uint8_t Size)
 {
-	Endpoint_SelectEndpoint(Number | Direction);
+	Endpoint_SelectEndpoint(Address);
 
 	USB_Endpoint_SelectedHandle->CTRL    = 0;
-	USB_Endpoint_SelectedHandle->STATUS  = (Direction == ENDPOINT_DIR_IN) ? USB_EP_BUSNACK0_bm : 0;
+	USB_Endpoint_SelectedHandle->STATUS  = (Address & ENDPOINT_DIR_IN) ? USB_EP_BUSNACK0_bm : 0;
 	USB_Endpoint_SelectedHandle->CTRL    = Config;
 	USB_Endpoint_SelectedHandle->CNT     = 0;
 	USB_Endpoint_SelectedHandle->DATAPTR = (intptr_t)USB_Endpoint_SelectedFIFO->Data;
 
-	USB_Endpoint_SelectedFIFO->Length    = (Direction == ENDPOINT_DIR_IN) ? Size : 0;
+	USB_Endpoint_SelectedFIFO->Length    = (Address & ENDPOINT_DIR_IN) ? Size : 0;
 	USB_Endpoint_SelectedFIFO->Position  = 0;
 
 	return true;
@@ -71,8 +87,8 @@ void Endpoint_ClearEndpoints(void)
 {
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
-		USB_EndpointTable.Endpoints[EPNum].IN.CTRL  = 0;
-		USB_EndpointTable.Endpoints[EPNum].OUT.CTRL = 0;
+		((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EPNum].IN.CTRL  = 0;
+		((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EPNum].OUT.CTRL = 0;
 	}
 }
 

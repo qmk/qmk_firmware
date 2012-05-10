@@ -67,6 +67,9 @@
 		/** Eight character bootloader firmware identifier reported to the host when requested */
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
 
+		/** Magic bootloader key to unlock forced application start mode. */
+		#define MAGIC_BOOT_KEY            0xDC42CACA
+		
 	/* Type Defines: */
 		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */
 		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
@@ -74,6 +77,8 @@
 	/* Function Prototypes: */
 		static void CDC_Task(void);
 		static void SetupHardware(void);
+
+		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
 

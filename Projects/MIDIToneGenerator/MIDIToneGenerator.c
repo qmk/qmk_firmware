@@ -45,14 +45,18 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 		.Config =
 			{
 				.StreamingInterfaceNumber = 1,
-
-				.DataINEndpointNumber      = MIDI_STREAM_IN_EPNUM,
-				.DataINEndpointSize        = MIDI_STREAM_EPSIZE,
-				.DataINEndpointDoubleBank  = false,
-
-				.DataOUTEndpointNumber     = MIDI_STREAM_OUT_EPNUM,
-				.DataOUTEndpointSize       = MIDI_STREAM_EPSIZE,
-				.DataOUTEndpointDoubleBank = false,
+				.DataINEndpoint           =
+					{
+						.Address          = MIDI_STREAM_IN_EPADDR,
+						.Size             = MIDI_STREAM_EPSIZE,
+						.Banks            = 1,
+					},
+				.DataOUTEndpoint           =
+					{
+						.Address          = MIDI_STREAM_OUT_EPADDR,
+						.Size             = MIDI_STREAM_EPSIZE,
+						.Banks            = 1,
+					},
 			},
 	};
 
@@ -96,7 +100,7 @@ int main(void)
 		MIDI_EventPacket_t ReceivedMIDIEvent;
 		if (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
 		{
-			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
+			if ((ReceivedMIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_ON)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
 				DDSNoteData* LRUNoteStruct = &NoteData[0];
 
@@ -130,7 +134,7 @@ int main(void)
 				/* Turn on indicator LED to indicate note generation activity */
 				LEDs_SetAllLEDs(LEDS_LED1);
 			}
-			else if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_OFF >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
+			else if ((ReceivedMIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_OFF)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
 				bool FoundActiveNote = false;
 

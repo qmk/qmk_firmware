@@ -10,9 +10,15 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the BitWizard Multio and Big-Multio boards
+  *   - Added support for the DorkbotPDX Duce board
+  *   - Added support for the Olimex AVR-USB-32U4 board
+  *   - Added support for the Olimex AVR-USB-T32U4 board
+  *   - Added new Endpoint_ConfigureEndpointTable() function
+  *   - Added new Pipe_ConfigurePipeTable() function
   *  - Library Applications:
   *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
   *   - Added Dataflash operational checks and aborts to all projects using the Dataflash to ensure it is working correctly before use
+  *   - Added new SerialToLCD user project contributed by Simon Foster
   *
   *  <b>Changed:</b>
   *  - Core:
@@ -20,10 +26,26 @@
   *   - Audio Device Class driver changed to also require the index of the Audio Control interface within the device, for SET/GET/CUR/MIN/MAX/RES property adjustments
   *   - Removed variable axis support from the HID_DESCRIPTOR_JOYSTICK() macro due to OS incompatibilities, replaced with fixed 3-axis joystick report structure
   *   - Removed the old pseudo-scheduler from the library as it was unused and deprecated since the 090810 release
+  *   - Endpoint indexes are now specified as full endpoint addresses within the device in device mode, rather than a logical index
+  *   - The Endpoint_ConfigureEndpoint() function no longer takes an endpoint direction as a parameter, as this is now deduced from the specified full endpoint
+  *     address and type
+  *   - The Endpoint_ConfigureEndpoint() function no longer takes a number of banks as a special mask; the number of banks is now specified as an integer parameter
+  *   - Endpoints are now configured via instances of a new struct USB_Endpoint_Table_t in all device mode class drivers, rather than a list of endpoint parameters
+  *   - Pipe indexes are now specified as full pipe addresses within the host in host mode, rather than a logical index
+  *   - The Pipe_ConfigurePipe() function no longer takes an pipe token as a parameter, as this is now deduced from the specified full pipe address and type
+  *   - The Pipe_ConfigurePipe() function no longer takes a number of banks as a special mask; the number of banks is now specified as an integer parameter
+  *   - Pipes are now configured via instances of a new struct USB_Pipe_Table_t in all host mode class drivers, rather than a list of pipe parameters
+  *   - Added support for various assert and debugging macros for the UC3 devices
+  *   - Changed MIDI event structure MIDI_EventPacket_t to use a single field for the combined virtual cable index and command ID, to prevent bitfield packing issues
+  *     on some architectures (thanks to Darren Gibbs)
+  *   - Changed board LED driver implementations of LEDs_ToggleLEDs() for the AVR8 architecture to use the fast PIN register toggle alternative function for speed
   *  - Library Applications:
   *   - Raised the guard bits in the AVRISP-MKII clone project when in PDI and TPI to 32, to prevent communication errors on low quality connections to a target
   *   - Added additional bootloader API data to expose the bootloader start address and class to the DFU and CDC class bootloaders
   *   - Reverted AVRISP-MKII clone project watchdog based command timeout patch in favour of a hardware timer, to allow for use in devices with WDTRST fuse programmed
+  *   - The library bootloaders will now correctly start the user application after a watchdog-based application start, even if the /HWB line is held low externally
+  *     during the reset phase
+  *   - Increased endpoint polling interval for all demos and projects to 5ms, as 1ms was causing some enumeration issues on some machines (thanks to Riku Salminen)
   *
   *  <b>Fixed:</b>
   *  - Core:
@@ -33,11 +55,19 @@
   *   - Fixed compile error for the UC3 architecture when INTERRUPT_CONTROL_ENDPOINT is specified (thanks to Andrus Aaslaid)
   *   - Fixed compile error if LEDs_Disable() is called and BOARD=NONE is set (thanks to Sam Lin)
   *   - Fixed inverted LED logic in the OLIMEX162 board LED driver
+  *   - Fixed incorrect reponse to GET STATUS requests in device mode if NO_DEVICE_SELF_POWER or NO_DEVICE_REMOTE_WAKEUP tokens are defined (thanks to Georg Glock)
+  *   - Fixed inverted LED logic in the USB2AX board LED driver
+  *   - Fixed possible deadlock in the CDC device driver if the USB connection is dropped while the CDC_REQ_SetLineEncoding control request is being processed by
+  *     the stack (thanks to Jonathan Hudgins)
+  *   - Fixed broken MIDI host driver MIDI_Host_ReceiveEventPacket() function due to not unfreezing the MIDI data IN pipe before use (thanks to Michael Brown)
   *  - Library Applications:
   *   - Fixed error in the AVRISP-MKII programmer when ISP mode is used at 64KHz (thanks to Ben R. Porter)
   *   - Fixed AVRISP-MKII programmer project failing to compile for the U4 chips when VTARGET_ADC_CHANNEL is defined to an invalid channel and NO_VTARGET_DETECT is
   *     defined (thanks to Steven Morehouse)
+  *   - Fixed AVRISP-MKII programmer project reset line polarity inverted when the generated EEP file is loaded into the USB AVR's EEPROM and avr-dude is used
   *   - Fixed CDC and DFU bootloaders failing to compile when the bootloader section size is 8KB or more (thanks to Georg Glock)
+  *   - Fixed incorrect DFU version number reported to the host in the  DFU bootloader descriptors (thanks to Georg Glock)
+  *   - Fixed incorrect version hundredths value encoding in VERSION_BCD() macro (thanks to Georg Glock)
   *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>

@@ -45,14 +45,18 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 		.Config =
 			{
 				.StreamingInterfaceNumber = 1,
-
-				.DataINEndpointNumber      = MIDI_STREAM_IN_EPNUM,
-				.DataINEndpointSize        = MIDI_STREAM_EPSIZE,
-				.DataINEndpointDoubleBank  = false,
-
-				.DataOUTEndpointNumber     = MIDI_STREAM_OUT_EPNUM,
-				.DataOUTEndpointSize       = MIDI_STREAM_EPSIZE,
-				.DataOUTEndpointDoubleBank = false,
+				.DataINEndpoint           =
+					{
+						.Address          = MIDI_STREAM_IN_EPADDR,
+						.Size             = MIDI_STREAM_EPSIZE,
+						.Banks            = 1,
+					},
+				.DataOUTEndpoint          =
+					{
+						.Address          = MIDI_STREAM_OUT_EPADDR,
+						.Size             = MIDI_STREAM_EPSIZE,
+						.Banks            = 1,
+					},
 			},
 	};
 
@@ -74,7 +78,7 @@ int main(void)
 		MIDI_EventPacket_t ReceivedMIDIEvent;
 		while (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
 		{
-			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && (ReceivedMIDIEvent.Data3 > 0))
+			if ((ReceivedMIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_ON)) && (ReceivedMIDIEvent.Data3 > 0))
 			  LEDs_SetAllLEDs(ReceivedMIDIEvent.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);
 			else
 			  LEDs_SetAllLEDs(LEDS_NO_LEDS);
@@ -151,8 +155,7 @@ void CheckJoystickMovement(void)
 	{
 		MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 			{
-				.CableNumber = 0,
-				.Command     = (MIDICommand >> 4),
+				.Event       = MIDI_EVENT(0, MIDICommand),
 
 				.Data1       = MIDICommand | Channel,
 				.Data2       = MIDIPitch,

@@ -42,6 +42,11 @@
  *
  *  Board specific Buttons driver header for the Tempusdictum Benito (http://dorkbotpdx.org/wiki/benito).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

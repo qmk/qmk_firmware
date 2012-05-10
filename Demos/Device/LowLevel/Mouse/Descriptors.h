@@ -41,6 +41,13 @@
 
 		#include <avr/pgmspace.h>
 
+	/* Macros: */
+		/** Endpoint address of the Mouse HID reporting IN endpoint. */
+		#define MOUSE_EPADDR              (ENDPOINT_DIR_IN | 1)
+
+		/** Size in bytes of the Mouse HID reporting IN endpoint. */
+		#define MOUSE_EPSIZE              8
+
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -55,13 +62,6 @@
 			USB_HID_Descriptor_HID_t              HID_MouseHID;
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
-
-	/* Macros: */
-		/** Endpoint number of the Mouse HID reporting IN endpoint. */
-		#define MOUSE_EPNUM               1
-
-		/** Size in bytes of the Mouse HID reporting IN endpoint. */
-		#define MOUSE_EPSIZE              8
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

@@ -40,9 +40,9 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#define BLUETOOTH_DATA_IN_PIPE         1
-		#define BLUETOOTH_DATA_OUT_PIPE        2
-		#define BLUETOOTH_EVENTS_PIPE          3
+		#define BLUETOOTH_DATA_IN_PIPE         (PIPE_DIR_IN  | 1)
+		#define BLUETOOTH_DATA_OUT_PIPE        (PIPE_DIR_OUT | 2)
+		#define BLUETOOTH_EVENTS_PIPE          (PIPE_DIR_IN  | 3)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

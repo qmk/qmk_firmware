@@ -42,6 +42,15 @@
  *
  *  Board specific LED driver header for the Atmel XMEGA B1 Xplained.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>LED0 LED</td><td>High</td><td>PORTB.4</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Yellow</td><td>LED1 LED</td><td>High</td><td>PORTB.5</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Yellow</td><td>LED2 LED</td><td>High</td><td>PORTB.6</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Yellow</td><td>LED3 LED</td><td>High</td><td>PORTB.7</td></tr>
+ *    <tr><td>LEDS_LED5</td><td>Green</td><td>USB LED</td><td>Low</td><td>PORTE.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

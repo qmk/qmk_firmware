@@ -45,19 +45,25 @@ USB_ClassInfo_CDC_Device_t VirtualSerial1_CDC_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber           = 0,
-
-				.DataINEndpointNumber             = CDC1_TX_EPNUM,
-				.DataINEndpointSize               = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank         = false,
-
-				.DataOUTEndpointNumber            = CDC1_RX_EPNUM,
-				.DataOUTEndpointSize              = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank        = false,
-
-				.NotificationEndpointNumber       = CDC1_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize         = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank   = false,
+				.ControlInterfaceNumber   = 0,
+				.DataINEndpoint           =
+					{
+						.Address          = CDC1_TX_EPADDR,
+						.Size             = CDC_TXRX_EPSIZE,
+						.Banks            = 1,
+					},
+				.DataOUTEndpoint =
+					{
+						.Address          = CDC1_RX_EPADDR,
+						.Size             = CDC_TXRX_EPSIZE,
+						.Banks            = 1,
+					},
+				.NotificationEndpoint =
+					{
+						.Address          = CDC1_NOTIFICATION_EPADDR,
+						.Size             = CDC_NOTIFICATION_EPSIZE,
+						.Banks            = 1,
+					},
 			},
 	};
 
@@ -70,19 +76,26 @@ USB_ClassInfo_CDC_Device_t VirtualSerial2_CDC_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber           = 2,
+				.ControlInterfaceNumber   = 2,
+				.DataINEndpoint           =
+					{
+						.Address          = CDC2_TX_EPADDR,
+						.Size             = CDC_TXRX_EPSIZE,
+						.Banks            = 1,
+					},
+				.DataOUTEndpoint =
+					{
+						.Address          = CDC2_RX_EPADDR,
+						.Size             = CDC_TXRX_EPSIZE,
+						.Banks            = 1,
+					},
+				.NotificationEndpoint =
+					{
+						.Address          = CDC2_NOTIFICATION_EPADDR,
+						.Size             = CDC_NOTIFICATION_EPSIZE,
+						.Banks            = 1,
+					},
 
-				.DataINEndpointNumber             = CDC2_TX_EPNUM,
-				.DataINEndpointSize               = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank         = false,
-
-				.DataOUTEndpointNumber            = CDC2_RX_EPNUM,
-				.DataOUTEndpointSize              = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank        = false,
-
-				.NotificationEndpointNumber       = CDC2_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize         = CDC_NOTIFICATION_EPSIZE,
-				.NotificationEndpointDoubleBank   = false,
 			},
 	};
 

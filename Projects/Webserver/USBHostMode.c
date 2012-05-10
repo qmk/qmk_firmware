@@ -44,16 +44,22 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface_Host =
 	{
 		.Config =
 			{
-				.DataINPipeNumber           = 1,
-				.DataINPipeDoubleBank       = false,
-
-				.DataOUTPipeNumber          = 2,
-				.DataOUTPipeDoubleBank      = false,
-
-				.NotificationPipeNumber     = 3,
-				.NotificationPipeDoubleBank = false,
-
-				.HostMaxPacketSize          = UIP_CONF_BUFFER_SIZE,
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_IN  | 1),
+						.Banks          = 1,
+					},
+				.DataOUTPipe            =
+					{
+						.Address        = (PIPE_DIR_OUT | 2),
+						.Banks          = 1,
+					},
+				.NotificationPipe       =
+					{
+						.Address        = (PIPE_DIR_IN  | 3),
+						.Banks          = 1,
+					},
+				.HostMaxPacketSize      = UIP_CONF_BUFFER_SIZE,
 			},
 	};
 

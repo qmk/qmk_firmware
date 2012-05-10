@@ -48,11 +48,12 @@ USB_ClassInfo_HID_Device_t MediaControl_HID_Interface =
 		.Config =
 			{
 				.InterfaceNumber              = 0,
-
-				.ReportINEndpointNumber       = MEDIACONTROL_HID_EPNUM,
-				.ReportINEndpointSize         = MEDIACONTROL_HID_EPSIZE,
-				.ReportINEndpointDoubleBank   = false,
-
+				.ReportINEndpoint             =
+					{
+						.Address              = MEDIACONTROL_HID_EPADDR,
+						.Size                 = MEDIACONTROL_HID_EPSIZE,
+						.Banks                = 1,
+					},
 				.PrevReportINBuffer           = PrevMediaControlHIDReportBuffer,
 				.PrevReportINBufferSize       = sizeof(PrevMediaControlHIDReportBuffer),
 			},

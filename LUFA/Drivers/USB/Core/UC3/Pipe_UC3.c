@@ -43,13 +43,35 @@ uint8_t USB_Host_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 volatile uint32_t USB_Pipe_SelectedPipe = PIPE_CONTROLPIPE;
 volatile uint8_t* USB_Pipe_FIFOPos[PIPE_TOTAL_PIPES];
 
-bool Pipe_ConfigurePipe(const uint8_t Number,
+bool Pipe_ConfigurePipeTable(const USB_Pipe_Table_t* const Table,
+                             const uint8_t Entries)
+{
+	for (uint8_t i = 0; i < Entries; i++)
+	{
+		if (!(Table[i].Address))
+		  continue;
+	
+		if (!(Pipe_ConfigurePipe(Table[i].Address, Table[i].Type, Table[i].EndpointAddress, Table[i].Size, Table[i].Banks)))
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+bool Pipe_ConfigurePipe(const uint8_t Address,
                         const uint8_t Type,
-                        const uint8_t Token,
-                        const uint8_t EndpointNumber,
+                        const uint8_t EndpointAddress,
                         const uint16_t Size,
                         const uint8_t Banks)
 {
+	uint8_t Number = (Address & PIPE_EPNUM_MASK);
+	uint8_t Token  = (Address & PIPE_DIR_IN) ? PIPE_TOKEN_IN : PIPE_TOKEN_OUT;
+	
+	if (Type == EP_TYPE_CONTROL)
+	  Token = PIPE_TOKEN_SETUP;
+
 	USB_Pipe_FIFOPos[Number]     = &AVR32_USBB_SLAVE[Number * 0x10000];
 
 #if defined(ORDERED_EP_CONFIG)
@@ -60,7 +82,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	(&AVR32_USBB.upcfg0)[Number] = (AVR32_USBB_ALLOC_MASK |
 	                                ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
 	                                ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
-	                                ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
+	                                ((Banks > 1) ? AVR32_USBB_PBK_MASK : 0)       |
 	                                Pipe_BytesToEPSizeMask(Size) |
 	                                ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
 
@@ -79,9 +101,9 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 			UPCFG0Temp = (AVR32_USBB_ALLOC_MASK |
 			              ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
 			              ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
-			              ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
+			              ((Banks > 1) ? AVR32_USBB_PBK_MASK : 0)       |
 			              Pipe_BytesToEPSizeMask(Size) |
-			              ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
+			              ((EndpointAddress & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
 		}
 		else
 		{

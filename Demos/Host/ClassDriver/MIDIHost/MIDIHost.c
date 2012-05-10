@@ -44,11 +44,16 @@ USB_ClassInfo_MIDI_Host_t Keyboard_MIDI_Interface =
 	{
 		.Config =
 			{
-				.DataINPipeNumber       = 1,
-				.DataINPipeDoubleBank   = false,
-
-				.DataOUTPipeNumber      = 2,
-				.DataOUTPipeDoubleBank  = false,
+				.DataINPipe             =
+					{
+						.Address        = (PIPE_DIR_IN  | 1),
+						.Banks          = 1,
+					},
+				.DataOUTPipe            =
+					{
+						.Address        = (PIPE_DIR_OUT | 2),
+						.Banks          = 1,
+					},
 			},
 	};
 
@@ -106,8 +111,8 @@ void JoystickHost_Task(void)
 	MIDI_EventPacket_t MIDIEvent;
 	while (MIDI_Host_ReceiveEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent))
 	{
-		bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
-		bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
+		bool NoteOnEvent  = (MIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_ON));
+		bool NoteOffEvent = (MIDIEvent.Event == MIDI_EVENT(0, MIDI_COMMAND_NOTE_OFF));
 
 		/* Display note events from the host */
 		if (NoteOnEvent || NoteOffEvent)
@@ -168,8 +173,7 @@ void CheckJoystickMovement(void)
 	{
 		MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 			{
-				.CableNumber = 0,
-				.Command     = (MIDICommand >> 4),
+				.Event       = MIDI_EVENT(0, MIDICommand),
 
 				.Data1       = MIDICommand | Channel,
 				.Data2       = MIDIPitch,

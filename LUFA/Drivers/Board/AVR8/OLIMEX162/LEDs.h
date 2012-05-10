@@ -42,6 +42,11 @@
  *
  *  Board specific LED driver header for the Olimex AVR-USB-162 (http://www.olimex.com/dev/avr-usb-162.html).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>General Indicator</td><td>High</td><td>PORTD.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -109,7 +114,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD ^= LEDMask;
+				PIND  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

@@ -95,10 +95,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup HID Report Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-	                                            GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPADDR, EP_TYPE_INTERRUPT, GENERIC_EPSIZE, 1);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPADDR, EP_TYPE_INTERRUPT, GENERIC_EPSIZE, 1);
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
@@ -200,7 +198,7 @@ void HID_Task(void)
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
+	Endpoint_SelectEndpoint(GENERIC_OUT_EPADDR);
 
 	/* Check to see if a packet has been sent from the host */
 	if (Endpoint_IsOUTReceived())
@@ -222,7 +220,7 @@ void HID_Task(void)
 		Endpoint_ClearOUT();
 	}
 
-	Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
+	Endpoint_SelectEndpoint(GENERIC_IN_EPADDR);
 
 	/* Check to see if the host is ready to accept another packet */
 	if (Endpoint_IsINReady())

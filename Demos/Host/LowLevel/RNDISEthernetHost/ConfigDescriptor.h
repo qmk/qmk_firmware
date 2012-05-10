@@ -42,14 +42,14 @@
 		#include "RNDISEthernetHost.h"
 
 	/* Macros: */
-		/** Pipe number for the RNDIS data IN pipe. */
-		#define RNDIS_DATA_IN_PIPE             1
+		/** Pipe address for the RNDIS data IN pipe. */
+		#define RNDIS_DATA_IN_PIPE             (PIPE_DIR_IN  | 1)
 
-		/** Pipe number for the RNDIS data OUT pipe. */
-		#define RNDIS_DATA_OUT_PIPE            2
+		/** Pipe address for the RNDIS data OUT pipe. */
+		#define RNDIS_DATA_OUT_PIPE            (PIPE_DIR_OUT | 2)
 
-		/** Pipe number for the RNDIS notification pipe. */
-		#define RNDIS_NOTIFICATION_PIPE        3
+		/** Pipe address for the RNDIS notification IN pipe. */
+		#define RNDIS_NOTIFICATION_PIPE        (PIPE_DIR_IN  | 3)
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */

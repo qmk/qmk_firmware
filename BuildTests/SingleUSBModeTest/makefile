@@ -23,23 +23,23 @@ end:
 	@echo
 
 compile:
-	$(MAKE) -f makefile.avr8 clean -s
-	$(MAKE) -f makefile.avr8 LUFA_OPTS='-D USB_DEVICE_ONLY' -s
-	$(MAKE) -f makefile.avr8 clean -s
-	$(MAKE) -f makefile.avr8 LUFA_OPTS='-D USB_HOST_ONLY' -s
+	$(MAKE) -s -f makefile.avr8 clean
+	$(MAKE) -s -f makefile.avr8 LUFA_OPTS='-D USB_DEVICE_ONLY' elf
+	$(MAKE) -s -f makefile.avr8 clean
+	$(MAKE) -s -f makefile.avr8 LUFA_OPTS='-D USB_HOST_ONLY' elf
 
-	$(MAKE) -f makefile.xmega clean -s
-	$(MAKE) -f makefile.xmega LUFA_OPTS='-D USB_DEVICE_ONLY' -s
-
-	$(MAKE) -f makefile.uc3 clean -s
-	$(MAKE) -f makefile.uc3 LUFA_OPTS='-D USB_DEVICE_ONLY' -s
-	$(MAKE) -f makefile.uc3 clean -s
-	$(MAKE) -f makefile.uc3 LUFA_OPTS='-D USB_HOST_ONLY' -s
+	$(MAKE) -s -f makefile.xmega clean
+	$(MAKE) -s -f makefile.xmega LUFA_OPTS='-D USB_DEVICE_ONLY' elf
+	
+	$(MAKE) -s -f makefile.uc3 clean
+	$(MAKE) -s -f makefile.uc3 LUFA_OPTS='-D USB_DEVICE_ONLY' elf
+	$(MAKE) -s -f makefile.uc3 clean
+	$(MAKE) -s -f makefile.uc3 LUFA_OPTS='-D USB_HOST_ONLY' elf
 
 clean:
-	$(MAKE) -f makefile.avr8 clean -s
-	$(MAKE) -f makefile.xmega clean -s
-	$(MAKE) -f makefile.uc3 clean -s
+	$(MAKE) -s -f makefile.avr8 clean
+	$(MAKE) -s -f makefile.xmega clean
+	$(MAKE) -s -f makefile.uc3 clean
 
 %:
 	

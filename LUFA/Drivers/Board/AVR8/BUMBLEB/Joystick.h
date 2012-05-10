@@ -44,6 +44,11 @@
  *  third-party board does not include any on-board peripherals, but does have an officially recommended external peripheral
  *  layout for buttons, LEDs and a Joystick.
  *
+ *  <table>
+ *    <tr><th>Left Port Pin</th><th>Up Port Pin</th><th>Right Port Pin</th><th>Down Port Pin</th><th>Press Port Pin</th></tr>
+ *    <tr><td>PORTD.2</td><td>PORTD.3</td><td>PORTD.0</td><td>PORTD.1</td><td>PORTD.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

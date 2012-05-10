@@ -42,6 +42,14 @@
  *
  *  Board specific LED driver header for the Linnix UDIP (http://linnix.com/udip/).
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>Bicolor Indicator 1</td><td>High</td><td>PORTB.6</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Red</td><td>Bicolor Indicator 1</td><td>High</td><td>PORTB.5</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Green</td><td>Bicolor Indicator 2</td><td>High</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Red</td><td>Bicolor Indicator 2</td><td>High</td><td>PORTD.4</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -133,8 +141,8 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTB ^= (LEDMask & LEDS_PORTB_LEDS);
-				PORTD ^= ((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
+				PINB  = (LEDMask & LEDS_PORTB_LEDS);
+				PIND  = ((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

@@ -40,15 +40,18 @@ USB_ClassInfo_MS_Device_t DiskDevice_MS_Interface =
 		.Config =
 			{
 				.InterfaceNumber           = 0,
-
-				.DataINEndpointNumber      = MASS_STORAGE_IN_EPNUM,
-				.DataINEndpointSize        = MASS_STORAGE_IO_EPSIZE,
-				.DataINEndpointDoubleBank  = false,
-
-				.DataOUTEndpointNumber     = MASS_STORAGE_OUT_EPNUM,
-				.DataOUTEndpointSize       = MASS_STORAGE_IO_EPSIZE,
-				.DataOUTEndpointDoubleBank = false,
-
+				.DataINEndpoint            =
+					{
+						.Address           = MASS_STORAGE_IN_EPADDR,
+						.Size              = MASS_STORAGE_IO_EPSIZE,
+						.Banks             = 1,
+					},
+				.DataOUTEndpoint            =
+					{
+						.Address           = MASS_STORAGE_OUT_EPADDR,
+						.Size              = MASS_STORAGE_IO_EPSIZE,
+						.Banks             = 1,
+					},
 				.TotalLUNs                 = 1,
 			},
 	};

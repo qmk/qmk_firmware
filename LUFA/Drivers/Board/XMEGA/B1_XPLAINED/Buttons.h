@@ -42,6 +42,14 @@
  *
  *  Board specific Buttons driver header for the Atmel XMEGA B1 Xplained.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>Touch CS0 Button</td><td>Low</td><td>PORTE.0</td></tr>
+ *    <tr><td>BUTTONS_BUTTON2</td><td>Touch CS1 Button</td><td>Low</td><td>PORTE.1</td></tr>
+ *    <tr><td>BUTTONS_BUTTON3</td><td>Touch CS2 Button</td><td>Low</td><td>PORTE.2</td></tr>
+ *    <tr><td>BUTTONS_BUTTON4</td><td>Touch CS3 Button</td><td>Low</td><td>PORTE.3</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

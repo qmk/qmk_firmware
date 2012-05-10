@@ -42,6 +42,7 @@
  *  \li \subpage Page_Donating - Donating to support this project
  *  \li \subpage Page_DeviceSupport - Current Device and Hardware Support
  *  \li \subpage Page_ChangeLog - Project Changelog
+ *  \li \subpage Page_KnownIssues - Known Issues
  *  \li \subpage Page_FutureChanges - Planned Changes to the Library
  *  \li \subpage Page_GettingStarted - Getting started with LUFA
  *  \li \subpage Page_DevelopingWithLUFA - Developing with LUFA

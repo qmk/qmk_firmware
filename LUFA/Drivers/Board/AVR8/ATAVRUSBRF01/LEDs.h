@@ -42,6 +42,12 @@
  *
  *  Board specific LED driver header for the Atmel ATAVRUSBRF01.
  *
+ *  <table>
+ *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>LEDS_LED1</td><td>Green</td><td>RX LED</td><td>High</td><td>PORTD.0</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Red</td><td>TX LED</td><td>High</td><td>PORTD.1</td></tr>
+ *  </table>
+ *
  *  @{
  */
 
@@ -60,15 +66,6 @@
 		#if !defined(__INCLUDE_FROM_LEDS_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
-
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define LEDS_PORTD_LEDS       (LEDS_LED1 | LEDS_LED2)
-			#define LEDS_PORTE_LEDS       (LEDS_LED3 | LEDS_LED4)
-
-			#define LEDS_PORTE_MASK_SHIFT 4
-	#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
@@ -121,7 +118,7 @@
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD ^= LEDMask;
+				PIND  = LEDMask;
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

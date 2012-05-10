@@ -81,6 +81,24 @@
 		#define ENDPOINT_DIR_IN                    0x80
 		//@}
 
+		/** \name Pipe Direction Masks */
+		//@{
+		/** Pipe direction mask, for masking against pipe addresses to retrieve the pipe's
+		 *  direction for comparing with the \c PIPE_DIR_* masks.
+		 */
+		#define PIPE_DIR_MASK                      0x80
+
+		/** Endpoint address direction mask for an OUT direction (Host to Device) endpoint. This may be ORed with
+		 *  the index of the address within a device to obtain the full endpoint address.
+		 */
+		#define PIPE_DIR_OUT                       0x00
+
+		/** Endpoint address direction mask for an IN direction (Device to Host) endpoint. This may be ORed with
+		 *  the index of the address within a device to obtain the full endpoint address.
+		 */
+		#define PIPE_DIR_IN                        0x80
+		//@}
+
 		/** \name Endpoint/Pipe Type Masks */
 		//@{
 		/** Mask for determining the type of an endpoint from an endpoint descriptor. This should then be compared

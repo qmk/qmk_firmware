@@ -174,6 +174,8 @@ void XMEGANVM_DisablePDI(void)
  */
 bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 {
+	*CRCDest = 0;
+
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
 	  return false;

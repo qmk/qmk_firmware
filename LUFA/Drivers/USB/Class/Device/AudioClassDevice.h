@@ -86,19 +86,8 @@
 														*   structure controls.
 														*/
 
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incoming Audio Streaming data, if available
-													*   (zero if unused).
-													*/
-					uint16_t DataINEndpointSize; /**< Size in bytes of the incoming Audio Streaming data endpoint, if available
-												  *   (zero if unused).
-												  */
-
-					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available
-													 *   (zero if unused).
-													 */
-					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available
-												   *   (zero if unused).
-												   */
+					USB_Endpoint_Table_t DataINEndpoint; /**< Data IN endpoint configuration table. */
+					USB_Endpoint_Table_t DataOUTEndpoint; /**< Data OUT endpoint configuration table. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -226,7 +215,7 @@
 				if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))
 				  return false;
 
-				Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber);
+				Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataOUTEndpoint.Address);
 				return Endpoint_IsOUTReceived();
 			}
 
@@ -247,7 +236,7 @@
 				if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))
 				  return false;
 
-				Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber);
+				Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataINEndpoint.Address);
 				return Endpoint_IsINReady();
 			}
 
@@ -341,7 +330,7 @@
 			{
 				Endpoint_Write_8(Sample);
 
-				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
+				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpoint.Size)
 				  Endpoint_ClearIN();
 			}
 
@@ -360,7 +349,7 @@
 			{
 				Endpoint_Write_16_LE(Sample);
 
-				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
+				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpoint.Size)
 				  Endpoint_ClearIN();
 			}
 
@@ -380,7 +369,7 @@
 				Endpoint_Write_16_LE(Sample);
 				Endpoint_Write_8(Sample >> 16);
 
-				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
+				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpoint.Size)
 				  Endpoint_ClearIN();
 			}
 

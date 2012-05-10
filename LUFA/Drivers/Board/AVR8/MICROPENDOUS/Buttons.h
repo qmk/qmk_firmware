@@ -100,6 +100,18 @@
  *
  *  Board specific Buttons driver header for the Micropendous 32U2 (https://code.google.com/p/micropendous/wiki/Micropendous_32U2).
  *
+ *  <b>BOARD_MICROPENDOUS_1 and BOARD_MICROPENDOUS_32U2</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTD.7</td></tr>
+ *  </table>
+ *
+ *  <b>Other Revisions</b>:
+ *  <table>
+ *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
+ *    <tr><td>BUTTONS_BUTTON1</td><td>HWB Button</td><td>Low</td><td>PORTE.2</td></tr>
+ *  </table>
+ *
  *  @{
  */
 

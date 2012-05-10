@@ -199,10 +199,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				{
 					.Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
-					.EndpointAddress     = (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM),
+					.EndpointAddress     = MIDI_STREAM_OUT_EPADDR,
 					.Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 					.EndpointSize        = MIDI_STREAM_EPSIZE,
-					.PollingIntervalMS   = 0x01
+					.PollingIntervalMS   = 0x05
 				},
 
 			.Refresh                  = 0,
@@ -224,10 +224,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				{
 					.Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
-					.EndpointAddress     = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
+					.EndpointAddress     = MIDI_STREAM_IN_EPADDR,
 					.Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 					.EndpointSize        = MIDI_STREAM_EPSIZE,
-					.PollingIntervalMS   = 0x01
+					.PollingIntervalMS   = 0x05
 				},
 
 			.Refresh                  = 0,
