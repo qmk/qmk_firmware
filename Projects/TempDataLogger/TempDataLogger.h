@@ -49,7 +49,8 @@
 		#include "Lib/DataflashManager.h"
 		#include "Lib/FATFs/ff.h"
 		#include "Lib/DS1307.h"
-
+		#include "Config/AppConfig.h"
+		
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Temperature.h>
