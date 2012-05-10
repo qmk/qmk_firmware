@@ -139,7 +139,7 @@
  *   <tr>
  *    <td>SECURE_MODE</td>
  *    <td>BootloaderDFU.h</td>
- *    <td>If defined to true, the bootloader will not accept any memory commands other than a chip erase on start-up, until an
+ *    <td>If defined to \c true, the bootloader will not accept any memory commands other than a chip erase on start-up, until an
  *        erase has been performed. This can be used in conjunction with the AVR's lockbits to prevent the AVRs firmware from
  *        being dumped by unauthorized persons.</td>
  *   </tr>

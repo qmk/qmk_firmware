@@ -29,22 +29,25 @@
 */
 
 /** \file
- *  \brief LUFA Library Configuration Header File
+ *  \brief Application Configuration Header File
  *
  *  This is a header file which is be used to configure LUFA's
  *  compile time options, as an alternative to the compile time
  *  constants supplied through a makefile.
  *
- *  For information on what each token does, refer to the LUFA
- *  manual section "Summary of Compile Tokens".
+ *  For information on what each token does, refer to the 
+ *  \ref Sec_Options section of the application documentation.
  */
 
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-	#define NO_BLOCK_SUPPORT
-	#define NO_EEPROM_BYTE_SUPPORT
-	#define NO_FLASH_BYTE_SUPPORT
-	#define NO_LOCK_BYTE_WRITE_SUPPORT
+//	#define NO_BLOCK_SUPPORT
+
+//	#define NO_EEPROM_BYTE_SUPPORT
+
+//	#define NO_FLASH_BYTE_SUPPORT
+
+//	#define NO_LOCK_BYTE_WRITE_SUPPORT
 
 #endif

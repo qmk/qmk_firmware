@@ -47,6 +47,7 @@
 
 		#include "Descriptors.h"
 		#include "BootloaderAPI.h"
+		#include "Config/AppConfig.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
