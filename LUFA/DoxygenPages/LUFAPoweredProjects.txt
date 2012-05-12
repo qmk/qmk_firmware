@@ -128,9 +128,11 @@
  *
  *  \li Arduino Uno, the official Arduino board: http://www.arduino.cc
  *  \li ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
+ *  \li AsTeRICS assistive technologies project, HID actuator: http://www.asterics.eu
  *  \li CFFA3000, a CompactFlash interface for the Apple II: http://www.dreher.net/CFforAppleII
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
+ *  \li HummingBird Kit, a robotics learning platform: http://www.hummingbirdkit.com/
  *  \li Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  \li PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
  *  \li PIR-4, a USB Connected 4 port IR transmitter: http://promixis.com/pir-4.php
