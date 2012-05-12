@@ -43,6 +43,8 @@
 
 		#include <uip.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		/** TCP listen port for incoming TELNET traffic. */
 		#define TELNET_SERVER_PORT  23

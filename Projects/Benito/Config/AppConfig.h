@@ -31,9 +31,10 @@
 /** \file
  *  \brief Application Configuration Header File
  *
- *  This is a header file which is be used to configure LUFA's
- *  compile time options, as an alternative to the compile time
- *  constants supplied through a makefile.
+ *  This is a header file which is be used to configure some of
+ *  the application's compile time options, as an alternative to
+ *  specifying the compile time constants supplied through a 
+ *  makefile or build system.
  *
  *  For information on what each token does, refer to the 
  *  \ref Sec_Options section of the application documentation.

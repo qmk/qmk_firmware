@@ -62,6 +62,8 @@
 #ifndef __UIPOPT_H__
 #define __UIPOPT_H__
 
+#include "Config/AppConfig.h"
+
 #ifndef UIP_LITTLE_ENDIAN
 #define UIP_LITTLE_ENDIAN  3412
 #endif /* UIP_LITTLE_ENDIAN */

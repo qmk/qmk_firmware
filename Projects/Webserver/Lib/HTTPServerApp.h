@@ -41,6 +41,8 @@
 		#include <string.h>
 
 		#include <LUFA/Version.h>
+		
+		#include "Config/AppConfig.h"
 
 		#include <uip.h>
 		#include <ff.h>

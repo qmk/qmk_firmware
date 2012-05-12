@@ -29,34 +29,36 @@
 */
 
 /** \file
+ *  \brief Application Configuration Header File
  *
- *  Header file for DiskHost.c.
+ *  This is a header file which is be used to configure some of
+ *  the application's compile time options, as an alternative to
+ *  specifying the compile time constants supplied through a 
+ *  makefile or build system.
+ *
+ *  For information on what each token does, refer to the 
+ *  \ref Sec_Options section of the application documentation.
  */
 
-#ifndef _DISK_HOST_H_
-#define _DISK_HOST_H_
+#ifndef _APP_CONFIG_H_
+#define _APP_CONFIG_H_
 
-	/* Includes: */
-		#include <avr/io.h>
+	#define AUX_LINE_PORT              PORTB
+	#define AUX_LINE_PIN               PINB
+	#define AUX_LINE_DDR               DDRB
+	#define AUX_LINE_MASK              (1 << 4)
 
-		#include "Descriptors.h"
-		#include "StandaloneProgrammer.h"
+	#define ENABLE_XPROG_PROTOCOL
 
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
+	#define VTARGET_ADC_CHANNEL        2
+	#define VTARGET_REF_VOLTS          3.3
+	#define VTARGET_SCALE_FACTOR       2
+//	#define VTARGET_USE_INTERNAL_REF
+//	#define NO_VTARGET_DETECT
+//	#define XCK_RESCUE_CLOCK_ENABLE
+//	#define INVERTED_ISP_MISO
 
-	/* External Variables: */
-		#if defined(USB_CAN_BE_HOST)
-		extern USB_ClassInfo_MS_Host_t DiskHost_MS_Interface;
-		#endif
-
-	/* Function Prototypes: */
-		#if defined(USB_CAN_BE_HOST)
-			void DiskHost_USBTask(void);
-
-			void EVENT_USB_Host_DeviceAttached(void);
-			void EVENT_USB_Host_DeviceUnattached(void);
-		#endif
+//	#define LIBUSB_DRIVER_COMPAT
+//	#define FIRMWARE_VERSION_MINOR     0x11
 
 #endif
-

@@ -41,6 +41,8 @@
 		#include <stdbool.h>
 		#include <string.h>
 
+		#include "Config/AppConfig.h"
+		
 		#include <uip.h>
 
 	/* Macros: */

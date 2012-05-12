@@ -41,6 +41,7 @@
 
 		#include <uip.h>
 
+		#include "Config/AppConfig.h"
 		#include "../Webserver.h"
 		#include "DHCPCommon.h"
 

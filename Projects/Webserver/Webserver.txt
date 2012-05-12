@@ -81,18 +81,18 @@
  *   </tr>
  *   <tr>
  *    <td>ENABLE_TELNET_SERVER</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, this enables the TELNET server in addition to the HTTP webserver, which listens for incoming connections
  *        and processes user commands.</td>
  *   </tr>
  *   <tr>
  *    <td>ENABLE_DHCP_CLIENT</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>
  *   </tr>
  *   <tr>
  *    <td>ENABLE_DHCP_SERVER</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, this enables the DHCP server for dynamic IP allocation of the network settings to a DHCP client.</td>
  *   </tr>
  *   <tr>
@@ -113,7 +113,7 @@
  *   </tr>
  *   <tr>
  *    <td>MAX_URI_LENGTH</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AppConfig.h</td>
  *    <td>Maximum length of a URI for the Webserver. This is the maximum file path, including subdirectories and separators.</td>
  *   </tr>
  *  </table>
