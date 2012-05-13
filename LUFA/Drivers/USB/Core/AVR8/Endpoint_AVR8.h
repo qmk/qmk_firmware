@@ -216,9 +216,9 @@
 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_BytesInEndpoint(void)
 			{
-				#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+				#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)) && !defined(__AVR_ATmega32U6__)
 					return UEBCX;
-				#elif defined(USB_SERIES_4_AVR)
+				#elif defined(USB_SERIES_4_AVR) || defined(__AVR_ATmega32U6__)
 					return (((uint16_t)UEBCHX << 8) | UEBCLX);
 				#elif defined(USB_SERIES_2_AVR)
 					return UEBCLX;

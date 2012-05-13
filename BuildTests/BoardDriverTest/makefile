@@ -29,11 +29,11 @@ makeboardlist:
 	@grep "BOARD_" $(LUFA_ROOT_PATH)/LUFA/Common/BoardTypes.h | cut -d'#' -f2 | cut -d' ' -f2 | grep "BOARD_" > BoardList.txt
 	
 testboards:
-	echo "buildtest:" > BuildMakefile
+	@echo "buildtest:" > BuildMakefile
 	
 	@while read line; \
 	 do \
-	   build_cfg=`grep "$$line " BoardDeviceMap.cfg | sed 's/ //g' | cut -d'=' -f2-`; \
+	   build_cfg=`grep "$$line " BoardDeviceMap.cfg | sed 's/ //g' | grep -v "#" | cut -d'=' -f2-`; \
 	   \
 	   build_board=$$line; \
 	   build_arch=`echo $$build_cfg | cut -d':' -f1`; \

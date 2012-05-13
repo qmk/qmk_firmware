@@ -15,6 +15,9 @@
   *   - Added support for the Olimex AVR-USB-T32U4 board
   *   - Added new Endpoint_ConfigureEndpointTable() function
   *   - Added new Pipe_ConfigurePipeTable() function
+  *   - Added build test to verify correct compilation of all board drivers using all driver APIs
+  *   - Added build test to verify correct compilation of all bootloaders using all supported devices  
+  *   - Added build test to verify that there are no detectable errors in the codebase via static analysis 
   *  - Library Applications:
   *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
   *   - Added Dataflash operational checks and aborts to all projects using the Dataflash to ensure it is working correctly before use
