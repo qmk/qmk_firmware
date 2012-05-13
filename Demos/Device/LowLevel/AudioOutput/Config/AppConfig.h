@@ -43,31 +43,7 @@
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-	#define ENABLE_DHCP_CLIENT
-	#define ENABLE_DHCP_SERVER
-	#define ENABLE_TELNET_SERVER
-	#define MAX_URI_LENGTH                50
-
-	#define DEVICE_IP_ADDRESS             (uint8_t[]){ 10,   0,   0,   2}
-	#define DEVICE_NETMASK                (uint8_t[]){255, 255, 255,   0}
-	#define DEVICE_GATEWAY                (uint8_t[]){ 10,   0,   0,   1}
-	#define SERVER_MAC_ADDRESS            (uint8_t[]){  1,   0,   1,   0,   1,   0}
-	
-	#define UIP_CONF_UDP                  (defined(ENABLE_DHCP_CLIENT) || defined(ENABLE_DHCP_SERVER))
-	#define UIP_CONF_BROADCAST            1
-	#define UIP_CONF_TCP                  1
-	#define UIP_CONF_UDP_CONNS            1
-	#define UIP_CONF_MAX_CONNECTIONS      3
-	#define UIP_CONF_MAX_LISTENPORTS      5
-	#define UIP_CONF_BUFFER_SIZE          1514
-	#define UIP_CONF_LL_802154            0
-	#define UIP_CONF_LL_80211             0
-	#define UIP_CONF_ROUTER               0
-	#define UIP_CONF_ICMP6                0
-	#define UIP_CONF_ICMP_DEST_UNREACH    1
-	#define UIP_URGDATA                   0
-	#define UIP_ARCH_CHKSUM               0
-	#define UIP_ARCH_ADD32                0
-	#define UIP_NEIGHBOR_CONF_ADDRTYPE    0
+	#define MICROPHONE_BIASED_TO_HALF_RAIL
+	#define USE_TEST_TONE
 
 #endif

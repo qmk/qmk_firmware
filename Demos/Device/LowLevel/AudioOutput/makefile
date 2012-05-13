@@ -120,15 +120,7 @@ LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options and predefined tokens
-LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
-LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-
-LUFA_OPTS += -D AUDIO_OUT_STEREO
-#LUFA_OPTS += -D AUDIO_OUT_MONO
-#LUFA_OPTS += -D AUDIO_OUT_PORTC
+LUFA_OPTS  = -D USE_LUFA_CONFIG_HEADER
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
@@ -172,7 +164,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/
+EXTRAINCDIRS = $(LUFA_PATH)/ Config/
 
 
 # Compiler flag to set the C Standard level.

@@ -29,41 +29,27 @@
 */
 
 /** \file
+ *  \brief Network Configuration Header File
  *
- *  Header file for uIPManagement.c.
+ *  This header file is used to configure various portions of the
+ *  network stack used by the application.
+ *
+ *  For information on what each token does, refer to the LUFA
+ *  manual section "Summary of Compile Tokens".
  */
 
-#ifndef _UIP_MANAGEMENT_H_
-#define _UIP_MANAGEMENT_H_
+#ifndef _NETWORK_CONFIG_H_
+#define _NETWORK_CONFIG_H_
 
-	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>
+	#define CLIENT_IP_ADDRESS                { 10,     0,    0,    1}
+	#define SERVER_IP_ADDRESS                { 10,     0,    0,    2}
 
-		#include <uip.h>
-		#include <uip_arp.h>
-		#include <uip-split.h>
-		#include <timer.h>
-		
-		#include "Config/AppConfig.h"
-
-		#include "DHCPClientApp.h"
-		#include "DHCPServerApp.h"
-		#include "HTTPServerApp.h"
-		#include "TELNETServerApp.h"
-
-	/* External Variables: */
-		extern struct uip_eth_addr MACAddress;
-
-	/* Function Prototypes: */
-		void uIPManagement_Init(void);
-		void uIPManagement_ManageNetwork(void);
-		void uIPManagement_TCPCallback(void);
-		void uIPManagement_UDPCallback(void);
-
-		#if defined(INCLUDE_FROM_UIPMANAGEMENT_C)
-			static void uIPManagement_ProcessIncomingPacket(void);
-			static void uIPManagement_ManageConnections(void);
-		#endif
+	#define NO_DECODE_ETHERNET
+	#define NO_DECODE_ARP
+	#define NO_DECODE_IP
+	#define NO_DECODE_ICMP
+	#define NO_DECODE_TCP
+	#define NO_DECODE_UDP
+	#define NO_DECODE_DHCP
 
 #endif
-

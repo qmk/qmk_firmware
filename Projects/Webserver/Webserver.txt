@@ -97,17 +97,17 @@
  *   </tr>
  *   <tr>
  *    <td>DEVICE_IP_ADDRESS</td>
- *    <td>Lib/uIPManagement.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>IP address that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_NETMASK</td>
- *    <td>Lib/uIPManagement.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>Netmask that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_GATEWAY</td>
- *    <td>Lib/uIPManagement.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT
  *        is not defined).</td>
  *   </tr>
@@ -115,6 +115,11 @@
  *    <td>MAX_URI_LENGTH</td>
  *    <td>AppConfig.h</td>
  *    <td>Maximum length of a URI for the Webserver. This is the maximum file path, including subdirectories and separators.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SERVER_MAC_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>MAC address of the server used when sending Ethernet packets onto the bus.</td>
  *   </tr>
  *  </table>
  */

@@ -45,6 +45,8 @@
 
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
+		
+		#include "Config/NetworkConfig.h"
 
 	/* Function Prototypes: */
 		void DecodeEthernetFrameHeader(void* InDataStart);
