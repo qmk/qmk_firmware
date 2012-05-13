@@ -64,12 +64,12 @@
  *   </tr>
  *   <tr>
  *    <td>USE_TEST_TONE</td>
- *    <td>Makefile LUFA_OPTS</td>
+ *    <td>AudioOutputHost.h</td>
  *    <td>When defined, this alters the demo to produce a square wave test tone when the first board button is pressed
  *        instead of sampling the board microphone.</td>
  *   </tr>
  *   <tr>
- *    <td>MICROPHONE_BIASED_TO_HALF_RAIL</td>
+ *    <td>AudioOutputHost.h</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, this alters the demo so that the half VCC bias of the microphone input is subtracted.</td>
  *   </tr>

@@ -67,6 +67,12 @@
 		/** Maximum ADC range for the microphone input. */
 		#define ADC_MAX_RANGE             0x3FF
 
+		/** Defined to indicate that the microphone input voltage is biased to half the ADC reference voltage. */
+		#define MICROPHONE_BIASED_TO_HALF_RAIL
+		
+		/** Defined to generate test tone when a button is pressed, rather than use a microphone for audio samples. */
+		#define USE_TEST_TONE
+
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
