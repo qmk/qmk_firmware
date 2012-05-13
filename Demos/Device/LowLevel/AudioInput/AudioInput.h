@@ -52,12 +52,6 @@
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 
 	/* Macros: */
-		/** ADC channel number for the microphone input. */
-		#define MIC_IN_ADC_CHANNEL        2
-
-		/** ADC channel MUX mask for the microphone input. */
-		#define MIC_IN_ADC_MUX_MASK       ADC_CHANNEL2
-
 		/** Maximum audio sample value for the microphone input. */
 		#define SAMPLE_MAX_RANGE          0xFFFF
 

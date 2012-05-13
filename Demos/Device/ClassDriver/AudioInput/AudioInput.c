@@ -94,7 +94,7 @@ void SetupHardware(void)
 	USB_Init();
 
 	/* Start the ADC conversion in free running mode */
-	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_MUX_MASK);
+	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_GET_CHANNEL_MASK(MIC_IN_ADC_CHANNEL));
 }
 
 /** ISR to handle the reloading of the data endpoint with the next sample. */

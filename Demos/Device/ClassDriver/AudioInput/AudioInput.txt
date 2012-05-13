@@ -72,6 +72,11 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
+ *    <td>MIC_IN_ADC_CHANNEL</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Sets the ADC channel used by the demo for the input audio samples from an attached microphone.</td>
+ *   </tr>
+ *   <tr>
  *    <td>USE_TEST_TONE</td>
  *    <td>AppConfig.h</td>
  *    <td>When defined, this alters the demo to produce a square wave test tone when the first board button is pressed

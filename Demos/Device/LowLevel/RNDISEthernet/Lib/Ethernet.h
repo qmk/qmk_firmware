@@ -50,12 +50,6 @@
 		#include "IP.h"
 
 	/* Macros: */
-		/** Physical MAC address of the USB RNDIS network adapter. */
-		#define ADAPTER_MAC_ADDRESS              {0x02, 0x00, 0x02, 0x00, 0x02, 0x00}
-
-		/** Physical MAC address of the virtual server on the network. */
-		#define SERVER_MAC_ADDRESS               {0x00, 0x01, 0x00, 0x01, 0x00, 0x01}
-
 		/** Physical MAC address of the network broadcast address. */
 		#define BROADCAST_MAC_ADDRESS            {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
 

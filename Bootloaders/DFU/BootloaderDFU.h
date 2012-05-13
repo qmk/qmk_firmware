@@ -49,18 +49,12 @@
 
 		#include "Descriptors.h"
 		#include "BootloaderAPI.h"
+		#include "Config/AppConfig.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 
 	/* Macros: */
-		/** Configuration define. Define this token to true to case the bootloader to reject all memory commands
-		 *  until a memory erase has been performed. When used in conjunction with the lockbits of the AVR, this
-		 *  can protect the AVR's firmware from being dumped from a secured AVR. When false, memory operations are
-		 *  allowed at any time.
-		 */
-		#define SECURE_MODE              false
-
 		/** Major bootloader version number. */
 		#define BOOTLOADER_VERSION_MINOR 2
 

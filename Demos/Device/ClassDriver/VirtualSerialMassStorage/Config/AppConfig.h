@@ -43,9 +43,8 @@
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-	#define MIC_IN_ADC_CHANNEL               2
+	#define TOTAL_LUNS                1
 
-	#define MICROPHONE_BIASED_TO_HALF_RAIL
-	#define USE_TEST_TONE
+	#define DISK_READ_ONLY            false
 
 #endif

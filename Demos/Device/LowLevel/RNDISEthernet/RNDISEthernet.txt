@@ -85,47 +85,57 @@
  *   </tr>
  *   <tr>
  *    <td>CLIENT_IP_ADDRESS</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>Configures the IP address given to the client (PC) via the DHCP server.</td>
  *   </tr>
  *   <tr>
- *    <td>HOST_IP_ADDRESS</td>
- *    <td>NetworkConfig.h</td>
- *    <td>Configures the IP address used in the virtual server for communications to/from the client.</td>
+ *    <td>SERVER_IP_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the IP address of the virtual server.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADAPTER_MAC_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the MAC address of the RNDIS adapter on the host (PC) side.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SERVER_MAC_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the MAC address of the virtual server on the network.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_ETHERNET</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received Ethernet headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_ARP</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received ARP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_IP</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received IP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_ICMP</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received ICMP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_TCP</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received TCP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_UDP</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received UDP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_DHCP</td>
- *    <td>NetworkConfig.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>When defined, received DHCP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *  </table>

@@ -29,27 +29,22 @@
 */
 
 /** \file
- *  \brief Network Configuration Header File
+ *  \brief Application Configuration Header File
  *
- *  This header file is used to configure various portions of the
- *  network stack used by the application.
+ *  This is a header file which is be used to configure some of
+ *  the application's compile time options, as an alternative to
+ *  specifying the compile time constants supplied through a 
+ *  makefile or build system.
  *
- *  For information on what each token does, refer to the LUFA
- *  manual section "Summary of Compile Tokens".
+ *  For information on what each token does, refer to the 
+ *  \ref Sec_Options section of the application documentation.
  */
 
-#ifndef _NETWORK_CONFIG_H_
-#define _NETWORK_CONFIG_H_
+#ifndef _APP_CONFIG_H_
+#define _APP_CONFIG_H_
 
-	#define CLIENT_IP_ADDRESS                { 10,     0,    0,    1}
-	#define SERVER_IP_ADDRESS                { 10,     0,    0,    2}
+	#define TOTAL_LUNS                1
 
-	#define NO_DECODE_ETHERNET
-	#define NO_DECODE_ARP
-	#define NO_DECODE_IP
-	#define NO_DECODE_ICMP
-	#define NO_DECODE_TCP
-	#define NO_DECODE_UDP
-	#define NO_DECODE_DHCP
+	#define DISK_READ_ONLY            false
 
 #endif

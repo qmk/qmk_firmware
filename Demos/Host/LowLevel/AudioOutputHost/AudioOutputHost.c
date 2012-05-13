@@ -74,6 +74,9 @@ void SetupHardware(void)
 
 	/* Create a stdio stream for the serial port for stdin and stdout */
 	Serial_CreateStream(NULL);
+
+	/* Start the ADC conversion in free running mode */
+	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_GET_CHANNEL_MASK(MIC_IN_ADC_CHANNEL));	
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and

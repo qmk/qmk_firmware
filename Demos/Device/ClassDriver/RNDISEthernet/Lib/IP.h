@@ -43,7 +43,7 @@
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"
-		#include "Config/NetworkConfig.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
 		/** Protocol IP address of the broadcast address. */

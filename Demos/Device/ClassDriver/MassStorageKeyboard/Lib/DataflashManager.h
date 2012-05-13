@@ -63,6 +63,9 @@
 		/** Total number of blocks of the virtual memory for reporting to the host as the device's total capacity. */
 		#define VIRTUAL_MEMORY_BLOCKS              (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
 
+		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
+		#define LUN_MEDIA_BLOCKS         (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
+
 	/* Function Prototypes: */
 		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 		                                  const uint32_t BlockAddress,

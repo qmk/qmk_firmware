@@ -45,6 +45,7 @@
 		#include <stdbool.h>
 
 		#include "Descriptors.h"
+		#include "Config/AppConfig.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
@@ -75,9 +76,6 @@
 
 		/** Lowest valid MIDI pitch index */
 		#define BASE_PITCH_INDEX           21
-
-		/** Maximum number of MIDI notes that can be played simultaneously */
-		#define MAX_SIMULTANEOUS_NOTES     3
 
 		/** Number of samples in the virtual sample table (can be expanded to lower maximum frequency, but allow for
 		 *  more simultaneous notes due to the reduced amount of processing time needed when the samples are spaced out)

@@ -84,10 +84,14 @@
  *   </tr>
  *   <tr>
  *    <td>TOTAL_LUNS</td>
- *    <td>MassStorage.h</td>
+ *    <td>AppConfig.h</td>
  *    <td>Total number of Logical Units (drives) in the device. The total device capacity is shared equally between each drive -
  *        this can be set to any positive non-zero amount.</td>
  *   </tr>
- *  </table>
+ *   <tr>
+ *    <td>DISK_READ_ONLY</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configuration define, indicating if the disk should be write protected or not.</td>
+ *   </tr>
  */
 
