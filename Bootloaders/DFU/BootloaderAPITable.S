@@ -48,7 +48,15 @@ BootloaderAPI_ReadLock_Trampoline:
 	jmp BootloaderAPI_ReadLock
 BootloaderAPI_WriteLock_Trampoline:
 	jmp BootloaderAPI_WriteLock
-BootloaderAPU_UNUSED:
+BootloaderAPU_UNUSED1:
+	ret
+BootloaderAPU_UNUSED2:
+	ret
+BootloaderAPU_UNUSED3:
+	ret
+BootloaderAPU_UNUSED4:
+	ret
+BootloaderAPU_UNUSED5:
 	ret
 
 ; API function jump table
@@ -62,11 +70,11 @@ BootloaderAPI_JumpTable:
 	rjmp BootloaderAPI_ReadFuse_Trampoline
 	rjmp BootloaderAPI_ReadLock_Trampoline
 	rjmp BootloaderAPI_WriteLock_Trampoline
-	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
-	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
-	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
-	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
-	rjmp BootloaderAPU_UNUSED ; UNUSED ENTRY
+	rjmp BootloaderAPU_UNUSED1 ; UNUSED ENTRY 1
+	rjmp BootloaderAPU_UNUSED2 ; UNUSED ENTRY 2
+	rjmp BootloaderAPU_UNUSED3 ; UNUSED ENTRY 3
+	rjmp BootloaderAPU_UNUSED4 ; UNUSED ENTRY 4
+	rjmp BootloaderAPU_UNUSED5 ; UNUSED ENTRY 5
 
 ; Bootloader table signatures and information
 .org (96 - 8)
