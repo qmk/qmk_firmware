@@ -120,7 +120,7 @@ LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options and predefined tokens
-LUFA_OPTS  = -D USB_LUFA_CONFIG_HEADER
+LUFA_OPTS  = -D USE_LUFA_CONFIG_HEADER
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
