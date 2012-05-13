@@ -15,6 +15,9 @@
   *   - Added support for the Olimex AVR-USB-T32U4 board
   *   - Added new Endpoint_ConfigureEndpointTable() function
   *   - Added new Pipe_ConfigurePipeTable() function
+  *   - Added build test to verify correct compilation of all board drivers using all driver APIs
+  *   - Added build test to verify correct compilation of all bootloaders using all supported devices  
+  *   - Added build test to verify that there are no detectable errors in the codebase via static analysis 
   *  - Library Applications:
   *   - Modified the CDC Host demos to set a default CDC Line Encoding on enumerated devices
   *   - Added Dataflash operational checks and aborts to all projects using the Dataflash to ensure it is working correctly before use
@@ -66,6 +69,7 @@
   *     defined (thanks to Steven Morehouse)
   *   - Fixed AVRISP-MKII programmer project reset line polarity inverted when the generated EEP file is loaded into the USB AVR's EEPROM and avr-dude is used
   *   - Fixed CDC and DFU bootloaders failing to compile when the bootloader section size is 8KB or more (thanks to Georg Glock)
+  *   - Fixed CDC and DFU bootloaders API function offsets incorrect on some devices (thanks to Rod DeMay)
   *   - Fixed incorrect DFU version number reported to the host in the  DFU bootloader descriptors (thanks to Georg Glock)
   *   - Fixed incorrect version hundredths value encoding in VERSION_BCD() macro (thanks to Georg Glock)
   *
