@@ -31,7 +31,7 @@ testbootloaders:
 	 do \
 	   build_cfg=`echo $$line | sed 's/ //g' | grep -v "#"`; \
 	   \
-	   if ( ! test -z "$$build_cfg" ); then \
+	   if ( test -n "$$build_cfg" ); then \
 	     build_bootloader=`echo $$build_cfg | cut -d'=' -f1`; \
 	     build_arch=`echo $$build_cfg | cut -d'=' -f2- | cut -d':' -f1`; \
 	     build_mcu=`echo $$build_cfg | cut -d'=' -f2- | cut -d':' -f2`; \
