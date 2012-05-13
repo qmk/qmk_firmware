@@ -29,32 +29,27 @@
 */
 
 /** \file
+ *  \brief Network Configuration Header File
  *
- *  Header file for ProtocolDecoders.c.
+ *  This header file is used to configure various portions of the
+ *  network stack used by the application.
+ *
+ *  For information on what each token does, refer to the LUFA
+ *  manual section "Summary of Compile Tokens".
  */
 
-#ifndef _PROTOCOL_DECODERS_H_
-#define _PROTOCOL_DECODERS_H_
+#ifndef _NETWORK_CONFIG_H_
+#define _NETWORK_CONFIG_H_
 
-	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/pgmspace.h>
-		#include <stdio.h>
+	#define CLIENT_IP_ADDRESS                { 10,     0,    0,    1}
+	#define SERVER_IP_ADDRESS                { 10,     0,    0,    2}
 
-		#include <LUFA/Drivers/Peripheral/Serial.h>
-
-		#include "EthernetProtocols.h"
-		#include "Ethernet.h"
-		#include "Config/NetworkConfig.h"
-
-	/* Function Prototypes: */
-		void DecodeEthernetFrameHeader(void* InDataStart);
-		void DecodeARPHeader(void* InDataStart);
-		void DecodeIPHeader(void* InDataStart);
-		void DecodeICMPHeader(void* InDataStart);
-		void DecodeTCPHeader(void* InDataStart);
-		void DecodeUDPHeader(void* InDataStart);
-		void DecodeDHCPHeader(void* InDataStart);
+	#define NO_DECODE_ETHERNET
+	#define NO_DECODE_ARP
+	#define NO_DECODE_IP
+	#define NO_DECODE_ICMP
+	#define NO_DECODE_TCP
+	#define NO_DECODE_UDP
+	#define NO_DECODE_DHCP
 
 #endif
-

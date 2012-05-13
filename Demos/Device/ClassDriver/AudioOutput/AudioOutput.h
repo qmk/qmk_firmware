@@ -44,6 +44,7 @@
 		#include <stdlib.h>
 
 		#include "Descriptors.h"
+		#include "Config/AppConfig.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>

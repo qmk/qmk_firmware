@@ -29,32 +29,22 @@
 */
 
 /** \file
+ *  \brief Application Configuration Header File
  *
- *  Header file for ProtocolDecoders.c.
+ *  This is a header file which is be used to configure some of
+ *  the application's compile time options, as an alternative to
+ *  specifying the compile time constants supplied through a 
+ *  makefile or build system.
+ *
+ *  For information on what each token does, refer to the 
+ *  \ref Sec_Options section of the application documentation.
  */
 
-#ifndef _PROTOCOL_DECODERS_H_
-#define _PROTOCOL_DECODERS_H_
+#ifndef _APP_CONFIG_H_
+#define _APP_CONFIG_H_
 
-	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/pgmspace.h>
-		#include <stdio.h>
-
-		#include <LUFA/Drivers/Peripheral/Serial.h>
-
-		#include "EthernetProtocols.h"
-		#include "Ethernet.h"
-		#include "Config/NetworkConfig.h"
-
-	/* Function Prototypes: */
-		void DecodeEthernetFrameHeader(void* InDataStart);
-		void DecodeARPHeader(void* InDataStart);
-		void DecodeIPHeader(void* InDataStart);
-		void DecodeICMPHeader(void* InDataStart);
-		void DecodeTCPHeader(void* InDataStart);
-		void DecodeUDPHeader(void* InDataStart);
-		void DecodeDHCPHeader(void* InDataStart);
+	#define AUDIO_OUT_STEREO
+//	#define AUDIO_OUT_MONO
+//	#define AUDIO_OUT_PORTC
 
 #endif
-
