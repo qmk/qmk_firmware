@@ -43,7 +43,8 @@
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-	#define MICROPHONE_BIASED_TO_HALF_RAIL
-	#define USE_TEST_TONE
+	#define AUDIO_OUT_STEREO
+//	#define AUDIO_OUT_MONO
+//	#define AUDIO_OUT_PORTC
 
 #endif
