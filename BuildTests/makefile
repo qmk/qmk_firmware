@@ -13,7 +13,7 @@
 all:
 %:
 	$(MAKE) -C BoardDriverTest $@
-	$(MAKE) -C BootloaderBuildTest $@
+	$(MAKE) -C BootloaderTest $@
 	$(MAKE) -C ModuleTest $@
 	$(MAKE) -C SingleUSBModeTest $@
 	$(MAKE) -C StaticAnalysisTest $@
