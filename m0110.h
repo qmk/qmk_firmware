@@ -78,15 +78,6 @@ POSSIBILITY OF SUCH DAMAGE.
 #define M0110_KEYPAD_OFFSET 0x40
 #define M0110_CALC_OFFSET   0x60
 
-/* convert key event raw response into scan code */
-#define M0110_RAW2SCAN(key) ( \
-    (key == M0110_NULL) ?  M0110_NULL : ( \
-        (key == M0110_ERROR) ?  M0110_ERROR : ( \
-            ((key&0x80) | ((key&0x7F)>>1)) \
-        ) \
-    ) \
-)
-
 
 extern uint8_t m0110_error;
 

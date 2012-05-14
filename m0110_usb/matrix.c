@@ -32,9 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define CAPS        0x39
-#define CAPS_UP     (CAPS | 0x80)
+#define CAPS_BREAK  (CAPS | 0x80)
 #define ROW(key)    ((key)>>3&0x0F)
 #define COL(key)    ((key)&0x07)
+
+#define ARROW_UP_BREAK      (0x4D | 0x80)
+#define ARROW_DOWN_BREAK    (0x48 | 0x80)
+#define ARROW_LEFT_BREAK    (0x46 | 0x80)
+#define ARROW_RIGHT_BREAK   (0x42 | 0x80)
 
 
 static bool is_modified = false;
@@ -88,14 +93,27 @@ uint8_t matrix_scan(void)
     // Send Caps key up event
     if (matrix_is_on(ROW(CAPS), COL(CAPS))) {
         is_modified = true;
-        register_key(CAPS_UP);
+        register_key(CAPS_BREAK);
     }
 #endif
     if (key == M0110_NULL) {
         return 0;
     } else if (key == M0110_ERROR) {
-        // TODO: error recovery or reinit
         return 0;
+    } else if (key == ARROW_UP_BREAK ||
+               key == ARROW_DOWN_BREAK ||
+               key == ARROW_LEFT_BREAK ||
+               key == ARROW_RIGHT_BREAK) {
+        // WORK AROUND: exceptional handling for M0110A
+        // Unregister both Arrow key and coressponding Calc key when receive Arrow key break.
+        //
+        // Shift + Calc keys(=/*+):
+        //    Send no Shift break(0xF1) when release Calc keys. Can't be desinguished from Arrow keys.
+        //    (press: 0x71, 0x79, 0xXX      release: 0x79, 0xXX)
+        //    See m0110.c for key events and scan codes.
+        is_modified = true;
+        register_key(key);
+        register_key(key|M0110_CALC_OFFSET);
     } else {
 #ifdef MATRIX_HAS_LOCKING_CAPS    
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
@@ -103,11 +121,11 @@ uint8_t matrix_scan(void)
             // Ignore LockingCaps key down event
             if (key == CAPS) return 0;
             // Convert LockingCaps key up event into down event
-            if (key == CAPS_UP) key = CAPS;
+            if (key == CAPS_BREAK) key = CAPS;
         } else {
             // CAPS LOCK off:
             // Ignore LockingCaps key up event
-            if (key == CAPS_UP) return 0;
+            if (key == CAPS_BREAK) return 0;
         }
 #endif        
         is_modified = true;
