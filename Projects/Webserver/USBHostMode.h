@@ -41,6 +41,7 @@
 
 		#include "Webserver.h"
 		#include "Lib/uIPManagement.h"
+		#include "Config/AppConfig.h"
 
 	/* External Variables: */
 		extern USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface_Host;

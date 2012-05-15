@@ -15,6 +15,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "TempDataLogger.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
 		/** Endpoint address of the Mass Storage device-to-host data IN endpoint. */

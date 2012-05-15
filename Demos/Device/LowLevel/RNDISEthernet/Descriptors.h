@@ -41,6 +41,8 @@
 
 		#include <avr/pgmspace.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		/** Endpoint address of the CDC device-to-host data IN endpoint. */
 		#define CDC_TX_EPADDR                  (ENDPOINT_DIR_IN  | 1)

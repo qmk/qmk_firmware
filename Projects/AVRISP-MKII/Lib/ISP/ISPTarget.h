@@ -44,7 +44,8 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
 
-		#include "../V2ProtocolParams.h"
+		#include "../V2Protocol.h"
+		#include "ISPProtocol.h"
 		#include "Config/AppConfig.h"
 		
 	/* Preprocessor Checks: */

@@ -40,6 +40,8 @@
 		#include <avr/io.h>
 		#include <string.h>
 
+		#include "Config/AppConfig.h"
+
 		#include "EthernetProtocols.h"
 		#include "ProtocolDecoders.h"
 		#include "ICMP.h"

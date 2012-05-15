@@ -40,8 +40,6 @@
 		#include <avr/io.h>
 		#include <avr/eeprom.h>
 
-		#include <LUFA/Version.h>
-
 		#if defined(ADC)
 			#include <LUFA/Drivers/Peripheral/ADC.h>
 		#endif

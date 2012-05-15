@@ -41,6 +41,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+		
 	/* Macros: */
 		#if !defined(LIBUSB_DRIVER_COMPAT) || defined(__DOXYGEN__)
 			/** Endpoint address of the AVRISP data OUT endpoint. */

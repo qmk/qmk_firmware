@@ -42,7 +42,6 @@
 		#include <avr/interrupt.h>
 		#include <avr/power.h>
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
 

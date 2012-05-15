@@ -42,6 +42,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+
 		#include "EthernetProtocols.h"
 		#include "ProtocolDecoders.h"
 		#include "ICMP.h"

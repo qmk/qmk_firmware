@@ -42,6 +42,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+		
 	/* Macros: */
 		/** Endpoint address of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPADDR              (ENDPOINT_DIR_IN  | 1)

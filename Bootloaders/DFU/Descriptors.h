@@ -39,6 +39,8 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		/** Descriptor type value for a DFU class functional descriptor. */
 		#define DTYPE_DFUFunctional               0x21

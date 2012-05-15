@@ -50,7 +50,6 @@
 
 		#include "Lib/MassStoreCommands.h"
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>

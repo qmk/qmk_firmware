@@ -50,7 +50,6 @@
 		#include "Lib/SoftUART.h"
 		#include "Config/AppConfig.h"
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Misc/RingBuffer.h>
 		#include <LUFA/Drivers/USB/USB.h>

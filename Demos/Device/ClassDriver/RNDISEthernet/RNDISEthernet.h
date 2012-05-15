@@ -49,8 +49,8 @@
 		#include "Lib/TCP.h"
 		#include "Lib/ARP.h"
 		#include "Lib/Webserver.h"
-
-		#include <LUFA/Version.h>
+		#include "Config/AppConfig.h"
+		
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/USB/USB.h>

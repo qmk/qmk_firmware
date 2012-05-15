@@ -45,7 +45,6 @@
 		#include <stdio.h>
 		#include <inttypes.h>
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Board/LEDs.h>

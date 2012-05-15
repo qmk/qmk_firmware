@@ -46,7 +46,7 @@
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
-		#include "ISP/ISPProtocol.h"
+//		#include "ISP/ISPProtocol.h"
 		#include "XPROG/XPROGProtocol.h"
 		#include "Config/AppConfig.h"
 		

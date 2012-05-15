@@ -41,6 +41,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		/** Endpoint address of the CDC device-to-host notification IN endpoint. */
 		#define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN  | 1)

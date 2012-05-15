@@ -46,7 +46,6 @@
         #include "Descriptors.h"
 		#include "Lib/HD44780.h"
 
-        #include <LUFA/Version.h>
         #include <LUFA/Drivers/Misc/RingBuffer.h>
         #include <LUFA/Drivers/USB/USB.h>
 		

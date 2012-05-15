@@ -41,6 +41,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+		
 	/* Macros: */
 		/** Endpoint address of the Mass Storage device-to-host data IN endpoint. */
 		#define MASS_STORAGE_IN_EPADDR         (ENDPOINT_DIR_IN  | 3)

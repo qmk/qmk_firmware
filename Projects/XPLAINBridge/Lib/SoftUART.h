@@ -44,7 +44,8 @@
 		#include <stdbool.h>
 
 		#include "../XPLAINBridge.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* Macros: */
 		#define SRX        PD0
 		#define SRXPIN     PIND

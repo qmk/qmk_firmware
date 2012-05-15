@@ -40,7 +40,8 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "AudioOutputHost.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* Macros: */
 		/** Pipe address for the Audio data OUT pipe. */
 		#define AUDIO_DATA_OUT_PIPE          (PIPE_DIR_OUT | 1)
