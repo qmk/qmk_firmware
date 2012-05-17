@@ -128,6 +128,44 @@
  *  to the value \c BOOTLOADER_CDC_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes of FLASH
  *  memory starting from address \c BOOTLOADER_ADDRESS_START.
  *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
+ *
  *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

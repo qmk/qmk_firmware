@@ -117,6 +117,44 @@
  *  #define BOOTLOADER_ADDRESS_LENGTH          4
  *  \endcode
  *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
+ *
  *  Bootloaders reporting a device release revision number of 1.00 or greater are bootloader API enabled. From the application
  *  the API support of the bootloader can be detected by reading the FLASH memory bytes located at address \c BOOTLOADER_MAGIC_SIGNATURE_START
  *  and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader can be determined by reading the
