@@ -152,7 +152,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
     LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN1, QUOT,     ENT,     P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           FN3,     P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    LGUI,     PDOT
     ),
     // HHKB & WASD
     KEYMAP(
