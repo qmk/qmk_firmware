@@ -10,7 +10,7 @@
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
  *
  *  \section Sec_Info USB Information:
  *
@@ -35,7 +35,7 @@
  *        PIMA 15740 Specification</td>
  *   </tr>
  *   <tr>
- *    <td><b>Usable Speeds:</b></td>
+ *    <td><b>Supported USB Speeds:</b></td>
  *    <td>Full Speed Mode</td>
  *   </tr>
  *  </table>
