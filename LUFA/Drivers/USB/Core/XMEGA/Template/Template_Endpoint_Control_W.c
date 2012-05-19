@@ -30,6 +30,7 @@
 
 #if defined(TEMPLATE_FUNC_NAME)
 
+// cppcheck-suppress unusedFunction
 uint8_t TEMPLATE_FUNC_NAME (const void* const Buffer,
                             uint16_t Length)
 {
