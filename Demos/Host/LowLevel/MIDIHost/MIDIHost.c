@@ -167,6 +167,7 @@ void MIDIHost_Task(void)
 	  return;
 
 	Pipe_SelectPipe(MIDI_DATA_IN_PIPE);
+	Pipe_Unfreeze();
 
 	if (Pipe_IsINReceived())
 	{
@@ -187,8 +188,11 @@ void MIDIHost_Task(void)
 																				   MIDIEvent.Data2, MIDIEvent.Data3);
 		}
 	}
+	
+	Pipe_Freeze();
 
 	Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
+	Pipe_Unfreeze();
 
 	if (Pipe_IsOUTReady())
 	{
@@ -250,6 +254,8 @@ void MIDIHost_Task(void)
 			/* Send the data in the pipe to the device */
 			Pipe_ClearOUT();
 		}
+
+		Pipe_Freeze();
 
 		/* Save previous joystick value for next joystick change detection */
 		PrevJoystickStatus = JoystickStatus;
