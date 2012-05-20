@@ -43,7 +43,7 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
-		#include "../Descriptors.h"
+		#include "../AVRISPDescriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
 		#include "ISP/ISPProtocol.h"

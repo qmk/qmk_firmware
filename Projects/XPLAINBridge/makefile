@@ -129,7 +129,6 @@ LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
 LUFA_OPTS += -D ORDERED_EP_CONFIG
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=16
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 LUFA_OPTS += -D NO_DEVICE_REMOTE_WAKEUP
 LUFA_OPTS += -D NO_DEVICE_SELF_POWER
@@ -141,6 +140,7 @@ LUFA_OPTS += -D AUX_LINE_MASK="(1 << 4)"
 LUFA_OPTS += -D VTARGET_ADC_CHANNEL=2
 LUFA_OPTS += -D VTARGET_REF_VOLTS=3.3
 LUFA_OPTS += -D VTARGET_SCALE_FACTOR=2
+#LUFA_OPTS += -D RESET_TOGGLES_LIBUSB_COMPAT
 #LUFA_OPTS += -D LIBUSB_DRIVER_COMPAT
 #LUFA_OPTS += -D FIRMWARE_VERSION_MINOR=0x11
 
@@ -150,9 +150,9 @@ include $(LUFA_PATH)/LUFA/makefile
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  AVRISPDescriptors.c                                         \
-	  USARTDescriptors.c                                          \
 	  Lib/SoftUART.c                                              \
+	  USARTDescriptors.c                                          \
+	  $(AVRISP_PATH)/AVRISPDescriptors.c                          \
 	  $(AVRISP_PATH)/Lib/V2Protocol.c                             \
 	  $(AVRISP_PATH)/Lib/V2ProtocolParams.c                       \
 	  $(AVRISP_PATH)/Lib/ISP/ISPProtocol.c                        \

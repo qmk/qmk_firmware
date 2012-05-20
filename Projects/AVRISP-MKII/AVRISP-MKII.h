@@ -50,7 +50,7 @@
 			#include <LUFA/Drivers/Peripheral/ADC.h>
 		#endif
 
-		#include "Descriptors.h"
+		#include "AVRISPDescriptors.h"
 		#include "Lib/V2Protocol.h"
 
 	/* Macros: */
@@ -79,6 +79,12 @@
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
+		
+		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+		                                    const uint8_t wIndex,
+		                                    const void** const DescriptorAddress,
+		                                    uint8_t* const DescriptorMemorySpace)
+		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);		
 
 #endif
 

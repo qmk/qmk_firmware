@@ -35,7 +35,7 @@
  *  the device's capabilities and functions.
  */
 
-#include "Descriptors.h"
+#include "AVRISPDescriptors.h"
 
 #if defined(RESET_TOGGLES_LIBUSB_COMPAT) || defined(__DOXYGEN__)
 	static bool AVRISP_NeedCompatibilitySwitch ATTR_NO_INIT;
@@ -52,7 +52,7 @@
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -79,13 +79,13 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t ConfigurationDescriptor =
+AVRISP_USB_Descriptor_Configuration_t AVRISP_ConfigurationDescriptor =
 {
 	.Config =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
+			.TotalConfigurationSize = sizeof(AVRISP_USB_Descriptor_Configuration_t),
 			.TotalInterfaces        = 1,
 
 			.ConfigurationNumber    = 1,
@@ -141,7 +141,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-const USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM AVRISP_LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -152,7 +152,7 @@ const USB_Descriptor_String_t PROGMEM LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
 
@@ -163,7 +163,7 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
@@ -173,7 +173,7 @@ const USB_Descriptor_String_t PROGMEM ProductString =
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
  *  series of uppercase hexadecimal digits.
  */
-const USB_Descriptor_String_t PROGMEM SerialString =
+const USB_Descriptor_String_t PROGMEM AVRISP_SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
 	
@@ -186,10 +186,10 @@ const USB_Descriptor_String_t PROGMEM SerialString =
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
  */
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-                                    const uint8_t wIndex,
-                                    const void** const DescriptorAddress,
-									uint8_t* DescriptorMemorySpace)
+uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
+                              const uint8_t wIndex,
+                              const void** const DescriptorAddress,
+                              uint8_t* DescriptorMemorySpace)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
@@ -202,36 +202,36 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
-			Address = &DeviceDescriptor;
+			Address = &AVRISP_DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration:
 			*DescriptorMemorySpace = MEMSPACE_RAM;
 			#if defined(RESET_TOGGLES_LIBUSB_COMPAT)			
-				ConfigurationDescriptor.AVRISP_DataInEndpoint.EndpointAddress = AVRISP_CurrDataINEndpointAddress;
+				AVRISP_ConfigurationDescriptor.AVRISP_DataInEndpoint.EndpointAddress = AVRISP_CurrDataINEndpointAddress;
 			#endif
 
-			Address = &ConfigurationDescriptor;
-			Size    = sizeof(USB_Descriptor_Configuration_t);
+			Address = &AVRISP_ConfigurationDescriptor;
+			Size    = sizeof(AVRISP_USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
 				case 0x00:
-					Address = &LanguageString;
-					Size    = pgm_read_byte(&LanguageString.Header.Size);
+					Address = &AVRISP_LanguageString;
+					Size    = pgm_read_byte(&AVRISP_LanguageString.Header.Size);
 					break;
 				case 0x01:
-					Address = &ManufacturerString;
-					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
+					Address = &AVRISP_ManufacturerString;
+					Size    = pgm_read_byte(&AVRISP_ManufacturerString.Header.Size);
 					break;
 				case 0x02:
-					Address = &ProductString;
-					Size    = pgm_read_byte(&ProductString.Header.Size);
+					Address = &AVRISP_ProductString;
+					Size    = pgm_read_byte(&AVRISP_ProductString.Header.Size);
 					break;
 				case 0x03:
-					Address = &SerialString;
-					Size    = pgm_read_byte(&SerialString.Header.Size);
+					Address = &AVRISP_SerialString;
+					Size    = pgm_read_byte(&AVRISP_SerialString.Header.Size);
 					break;
 			}
 

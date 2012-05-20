@@ -176,11 +176,6 @@ void SetupHardware(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
-	/* Hardware Initialization */
-	SoftUART_Init();
-	LEDs_Init();
-	USB_Init();
-
 	/* Disable JTAG debugging */
 	MCUCR |= (1 << JTD);
 	MCUCR |= (1 << JTD);
@@ -195,6 +190,16 @@ void SetupHardware(void)
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);
 	MCUCR &= ~(1 << JTD);
+
+	/* Hardware Initialization */
+	SoftUART_Init();
+	LEDs_Init();
+	#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
+	UpdateCurrentCompatibilityMode();
+	#endif
+	
+	/* USB Stack Initialization */	
+	USB_Init();
 }
 
 /** Event handler for the library USB Configuration Changed event. */
@@ -267,20 +272,22 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
  *
- *  \param[in]  wValue  Descriptor type and index to retrieve
- *  \param[in]  wIndex  Sub-index to retrieve (such as a localized string language)
- *  \param[out] DescriptorAddress  Address of the retrieved descriptor
+ *  \param[in]  wValue                 Descriptor type and index to retrieve
+ *  \param[in]  wIndex                 Sub-index to retrieve (such as a localized string language)
+ *  \param[out] DescriptorAddress      Address of the retrieved descriptor
+ *  \param[out] DescriptorMemorySpace  Memory space that the descriptor is stored in
  *
  *  \return Length of the retrieved descriptor in bytes, or NO_DESCRIPTOR if the descriptor was not found
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
-                                    const void** const DescriptorAddress)
+                                    const void** const DescriptorAddress,
+		                            uint8_t* const DescriptorMemorySpace)
 {
 	/* Return the correct descriptors based on the selected mode */
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
-	  return USART_GetDescriptor(wValue, wIndex, DescriptorAddress);
+	  return USART_GetDescriptor(wValue, wIndex, DescriptorAddress, DescriptorMemorySpace);
 	else
-	  return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress);
+	  return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress, DescriptorMemorySpace);
 }
 
