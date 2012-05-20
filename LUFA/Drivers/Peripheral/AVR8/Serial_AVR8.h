@@ -53,10 +53,10 @@
  *  \code
  *      // Initialize the serial USART driver before first use, with 9600 baud (and no double-speed mode)
  *      Serial_Init(9600, false);
- *
+ *      
  *      // Send a string through the USART
  *      Serial_TxString("Test String\r\n");
- *
+ *      
  *      // Receive a byte through the USART
  *      uint8_t DataByte = Serial_RxByte();
  *  \endcode

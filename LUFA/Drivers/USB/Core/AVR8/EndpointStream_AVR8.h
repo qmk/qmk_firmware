@@ -87,7 +87,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Endpoint_Discard_Stream(512, NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -98,13 +98,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Endpoint_Discard_Stream(512, &BytesProcessed)) == ENDPOINT_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -140,7 +140,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Endpoint_Null_Stream(512, NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -151,13 +151,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Endpoint_Null_Stream(512, &BytesProcessed)) == ENDPOINT_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -199,7 +199,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Endpoint_Write_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                            NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
@@ -276,7 +276,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Endpoint_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                           NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
@@ -289,14 +289,14 @@
 			 *  uint8_t  DataStream[512];
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Endpoint_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                              &BytesProcessed)) == ENDPOINT_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here

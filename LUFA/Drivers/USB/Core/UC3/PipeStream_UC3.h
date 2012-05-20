@@ -85,24 +85,24 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Pipe_Discard_Stream(512, NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
 			 *  }
 			 *  \endcode
-			 *
+			 *  
 			 *  <b>Partial Stream Transfers Example:</b>
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Discard_Stream(512, &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -137,7 +137,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Pipe_Null_Stream(512, NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -148,13 +148,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Null_Stream(512, &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -198,7 +198,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Pipe_Write_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                        NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
@@ -211,14 +211,14 @@
 			 *  uint8_t  DataStream[512];
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Write_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                           &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -279,7 +279,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *
+			 *  
 			 *  if ((ErrorCode = Pipe_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                       NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
@@ -292,14 +292,14 @@
 			 *  uint8_t  DataStream[512];
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *
+			 *  
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                          &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *
+			 *  
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here

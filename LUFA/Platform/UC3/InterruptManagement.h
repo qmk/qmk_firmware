@@ -51,12 +51,12 @@
  *  Usage Example:
  *  \code
  *		#include <LUFA/Platform/UC3/InterruptManagement.h>
- *
+ *      
  *		ISR(USB_Group_IRQ_Handler)
  *		{
  *			// USB group handler code here
  *		}
- *
+ *      
  *		void main(void)
  *		{
  *			INTC_Init();

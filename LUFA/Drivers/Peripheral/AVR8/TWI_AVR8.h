@@ -54,35 +54,35 @@
  *  \code
  *      // Initialize the TWI driver before first use at 200KHz
  *      TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 200000));
- *
+ *      
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10) == TWI_ERROR_NoError)
  *      {
  *          TWI_SendByte(0xDC);
- *
+ *          
  *          TWI_SendByte(0x01);
  *          TWI_SendByte(0x02);
  *          TWI_SendByte(0x03);
- *
+ *          
  *          // Must stop transmission afterwards to release the bus
  *          TWI_StopTransmission();
  *      }
- *
+ *      
  *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
  *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10) == TWI_ERROR_NoError)
  *      {
  *          TWI_SendByte(0xDC);
  *          TWI_StopTransmission();
- *
+ *          
  *          if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_READ, 10) == TWI_ERROR_NoError)
  *          {
  *              uint8_t Byte1, Byte2, Byte3;
- *
+ *              
  *              // Read three bytes, acknowledge after the third byte is received
  *              TWI_ReceiveByte(&Byte1, false);
  *              TWI_ReceiveByte(&Byte2, false);
  *              TWI_ReceiveByte(&Byte3, true);
- *
+ *              
  *              // Must stop transmission afterwards to release the bus
  *              TWI_StopTransmission();
  *          }
@@ -93,18 +93,18 @@
  *  \code
  *      // Initialize the TWI driver before first use at 200KHz
  *      TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 200000));
- *
+ *      
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      uint8_t InternalWriteAddress = 0xDC;
  *      uint8_t WritePacket[3] = {0x01, 0x02, 0x03};
- *
+ *      
  *      TWI_WritePacket(0xA0, 10, &InternalWriteAddress, sizeof(InternalWriteAddress),
  *                      &WritePacket, sizeof(WritePacket);
- *
+ *      
  *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
  *      uint8_t InternalReadAddress = 0xDC;
  *      uint8_t ReadPacket[3];
- *
+ *      
  *      TWI_ReadPacket(0xA0, 10, &InternalReadAddress, sizeof(InternalReadAddress),
  *                     &ReadPacket, sizeof(ReadPacket);
  *  \endcode
