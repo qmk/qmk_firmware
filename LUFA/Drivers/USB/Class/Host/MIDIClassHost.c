@@ -156,14 +156,20 @@ uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 	uint8_t ErrorCode;
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipe.Address);
-
+	Pipe_Unfreeze();
+	
 	if (Pipe_BytesInPipe())
 	{
 		Pipe_ClearOUT();
 
 		if ((ErrorCode = Pipe_WaitUntilReady()) != PIPE_READYWAIT_NoError)
-		  return ErrorCode;
+		{
+			Pipe_Freeze();
+			return ErrorCode;
+		}
 	}
+
+	Pipe_Freeze();
 
 	return PIPE_READYWAIT_NoError;
 }
@@ -177,12 +183,18 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 	uint8_t ErrorCode;
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipe.Address);
-
+	Pipe_Unfreeze();
+	
 	if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
 
 	if (!(Pipe_IsReadWriteAllowed()))
 	  Pipe_ClearOUT();
+
+	Pipe_Freeze();
 
 	return PIPE_RWSTREAM_NoError;
 }

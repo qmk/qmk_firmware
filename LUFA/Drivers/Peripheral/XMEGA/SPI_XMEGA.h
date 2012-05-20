@@ -53,17 +53,17 @@
  *      SPI_Init(&SPIC,
  *               SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
  *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
- *
+ *      
  *      // Send several bytes, ignoring the returned data
  *      SPI_SendByte(&SPIC, 0x01);
  *      SPI_SendByte(&SPIC, 0x02);
  *      SPI_SendByte(&SPIC, 0x03);
- *
+ *      
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SPI_ReceiveByte(&SPIC);
  *      uint8_t Byte2 = SPI_ReceiveByte(&SPIC);
  *      uint8_t Byte3 = SPI_ReceiveByte(&SPIC);
- *
+ *      
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SPI_TransferByte(&SPIC, 0xDC);
  *  \endcode

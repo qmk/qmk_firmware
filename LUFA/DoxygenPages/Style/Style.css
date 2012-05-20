@@ -43,14 +43,11 @@
 		overflow:inherit;
 		width:auto !important;
 	}
-
-	pre.fragment
+	
+	.fragment
 	{
-		overflow:visible;
-		text-wrap:unrestricted;
-		white-space:pre-wrap;
-		word-wrap:break-word;
-	}
+		background-color: #FFFFFF !important;
+	}	
 }
 
 body,table,div,p,dl
@@ -81,9 +78,8 @@ div.contents table.memberdecls,.paramname
 
 h1
 {
-	font-size:30px;
+	font-size:25px;
 	margin-bottom:10px;
-	padding:0 0 20px;
 }
 
 h2
@@ -228,22 +224,55 @@ dl.el
 	margin-left:-1cm;
 }
 
-.fragment
-{
-	font-family:monospace, fixed;
-	font-size:105%;
+pre.fragment {
+        border: 1px solid #C4CFE5;
+        background-color: #FBFCFD;
+        padding: 4px 6px;
+        margin: 4px 8px 4px 2px;
+        overflow: auto;
+        word-wrap: break-word;
+        font-size:  9pt;
+        line-height: 125%;
+        font-family: monospace, fixed;
+        font-size: 105%;
 }
 
-pre.fragment
-{
-	background-color:#F8F8F8;
-	border:1px solid #C1CEE8;
-	font-size:10pt;
-	line-height:125%;
-	margin:4px 8px 4px 20px;
-	overflow:auto;
-	padding:4px 6px;
-	word-wrap:break-word;
+div.fragment {
+	padding: 4px;
+	margin: 4px;
+	background-color: #FBFCFD;
+	border: 1px solid #C4CFE5;
+}
+
+div.line {
+	font-family: monospace, fixed;
+	font-size: 13px;
+	line-height: 1.0;
+	text-wrap: unrestricted;
+	white-space: -moz-pre-wrap; /* Moz */
+	white-space: -pre-wrap;     /* Opera 4-6 */
+	white-space: -o-pre-wrap;   /* Opera 7 */
+	white-space: pre-wrap;      /* CSS3  */
+	word-wrap: break-word;      /* IE 5.5+ */
+	text-indent: -53px;
+	padding-left: 53px;
+	padding-bottom: 0px;
+	margin: 0px;
+}
+
+span.lineno {
+	padding-right: 4px;
+	text-align: right;
+	border-right: 2px solid #0F0;
+	background-color: #E8E8E8;
+	white-space: pre;
+}
+span.lineno a {
+	background-color: #D8D8D8;
+}
+
+span.lineno a:hover {
+	background-color: #C8C8C8;
 }
 
 div.ah

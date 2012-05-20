@@ -55,14 +55,14 @@
  *  \code
  *      // Initialize the ADC driver before first use
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);
- *
+ *      
  *      // Must setup the ADC channel to read beforehand
  *      ADC_SetupChannel(1);
- *
+ *      
  *      // Perform a single conversion of the ADC channel 1
  *      ADC_GetChannelReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_CHANNEL1);
  *      printf("Conversion Result: %d\r\n", ADC_GetResult());
- *
+ *      
  *      // Start reading ADC channel 1 in free running (continuous conversion) mode
  *      ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_CHANNEL1);
  *      for (;;)

@@ -10,7 +10,7 @@
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
  *
  *  \section Sec_Info USB Information:
  *
@@ -34,7 +34,7 @@
  *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
  *   </tr>
  *   <tr>
- *    <td><b>Usable Speeds:</b></td>
+ *    <td><b>Supported USB Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
  *   </tr>
  *  </table>

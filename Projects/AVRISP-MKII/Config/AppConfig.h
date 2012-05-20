@@ -60,6 +60,7 @@
 //	#define INVERTED_ISP_MISO
 
 //	#define LIBUSB_DRIVER_COMPAT
+//	#define RESET_TOGGLES_LIBUSB_COMPAT
 //	#define FIRMWARE_VERSION_MINOR     0x11
 
 #endif

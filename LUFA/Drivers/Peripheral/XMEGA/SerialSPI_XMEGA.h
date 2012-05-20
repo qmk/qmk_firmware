@@ -53,17 +53,17 @@
  *  \code
  *      // Initialize the Master SPI mode USART driver before first use, with 1Mbit baud
  *      SerialSPI_Init(&USARTD0, (USART_SPI_SCK_LEAD_RISING | USART_SPI_SAMPLE_LEADING | USART_SPI_ORDER_MSB_FIRST), 1000000);
- *
+ *      
  *      // Send several bytes, ignoring the returned data
  *      SerialSPI_SendByte(&USARTD0, 0x01);
  *      SerialSPI_SendByte(&USARTD0, 0x02);
  *      SerialSPI_SendByte(&USARTD0, 0x03);
- *
+ *      
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SerialSPI_ReceiveByte(&USARTD);
  *      uint8_t Byte2 = SerialSPI_ReceiveByte(&USARTD);
  *      uint8_t Byte3 = SerialSPI_ReceiveByte(&USARTD);
- *
+ *      
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SerialSPI_TransferByte(&USARTD0, 0xDC);
  *  \endcode

@@ -68,13 +68,13 @@
  *  \code
  *      // Initialize the button driver before first use
  *      Buttons_Init();
- *
+ *      
  *      printf("Waiting for button press...\r\n");
- *
+ *      
  *      // Loop until a board button has been pressed
  *      uint8_t ButtonPress;
  *      while (!(ButtonPress = Buttons_GetStatus())) {};
- *
+ *      
  *      // Display which button was pressed (assuming two board buttons)
  *      printf("Button pressed: %s\r\n", (ButtonPress == BUTTONS_BUTTON1) ? "Button 1" : "Button 2");
  *  \endcode

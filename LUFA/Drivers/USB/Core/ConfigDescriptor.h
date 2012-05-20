@@ -76,7 +76,7 @@
 			 *  uint8_t* CurrDescriptor = &ConfigDescriptor[0]; // Pointing to the configuration header
 			 *  USB_Descriptor_Configuration_Header_t* ConfigHeaderPtr = DESCRIPTOR_PCAST(CurrDescriptor,
 			 *                                                           USB_Descriptor_Configuration_Header_t);
-			 *
+			 *  
 			 *  // Can now access elements of the configuration header struct using the -> indirection operator
 			 *  \endcode
 			 */
@@ -90,7 +90,7 @@
 			 *  uint8_t* CurrDescriptor = &ConfigDescriptor[0]; // Pointing to the configuration header
 			 *  USB_Descriptor_Configuration_Header_t ConfigHeader = DESCRIPTOR_CAST(CurrDescriptor,
 			 *                                                       USB_Descriptor_Configuration_Header_t);
-			 *
+			 *  
 			 *  // Can now access elements of the configuration header struct using the . operator
 			 *  \endcode
 			 */
@@ -231,7 +231,7 @@
 			 *  Usage Example:
 			 *  \code
 			 *  uint8_t EndpointSearcher(void* CurrentDescriptor); // Comparator Prototype
-			 *
+			 *  
 			 *  uint8_t EndpointSearcher(void* CurrentDescriptor)
 			 *  {
 			 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
@@ -239,8 +239,9 @@
 			 *     else
 			 *         return DESCRIPTOR_SEARCH_NotFound;
 			 *  }
-			 *
+			 *  
 			 *  //...
+			 *  
 			 *  // After retrieving configuration descriptor:
 			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &CurrentConfigLoc, EndpointSearcher) ==
 			 *      Descriptor_Search_Comp_Found)

@@ -72,6 +72,11 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
+	#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
+	UpdateCurrentCompatibilityMode();
+	#endif
+
+	/* USB Stack Initialization */
 	USB_Init();
 }
 

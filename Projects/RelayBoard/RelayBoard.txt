@@ -10,7 +10,7 @@
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
- *  - AT90USB1286
+ *  \li AT90USB1286
  *
  *  \section Sec_Info USB Information:
  *
@@ -34,7 +34,7 @@
  *   <td>USB Standards</td>
  *  </tr>
  *  <tr>
- *   <td><b>Usable Speeds:</b></td>
+ *   <td><b>Supported USB Speeds:</b></td>
  *   <td>Low Speed Mode, Full Speed Mode</td>
  *  </tr>
  * </table>

@@ -50,16 +50,16 @@
  *  Usage Example:
  *  \code
  *		#include <LUFA/Platform/UC3/ClockManagement.h>
- *
+ *      
  *		void main(void)
  *		{
  *			// Start the master external oscillator which will be used as the main clock reference
  *			AVR32CLK_StartExternalOscillator(0, EXOSC_MODE_8MHZ_OR_MORE, EXOSC_START_0CLK);
- *
+ *          
  *			// Start the PLL for the CPU clock, switch CPU to it
  *			AVR32CLK_StartPLL(0, CLOCK_SRC_OSC0, 12000000, F_CPU);
  *			AVR32CLK_SetCPUClockSource(CLOCK_SRC_PLL0, F_CPU);
- *
+ *          
  *			// Start the PLL for the USB Generic Clock module
  *			AVR32CLK_StartPLL(1, CLOCK_SRC_OSC0, 12000000, 48000000);
  *		}

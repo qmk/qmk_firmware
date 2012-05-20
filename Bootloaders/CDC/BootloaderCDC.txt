@@ -10,10 +10,10 @@
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - Series 7 USB AVRs (AT90USBxxx7)
- *  - Series 6 USB AVRs (AT90USBxxx6)
- *  - Series 4 USB AVRs (ATMEGAxxU4)
- *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
  *  \section Sec_Info USB Information:
  *
@@ -37,7 +37,7 @@
  *    <td>USBIF CDC Class Standard</td>
  *   </tr>
  *   <tr>
- *    <td><b>Usable Speeds:</b></td>
+ *    <td><b>Supported USB Speeds:</b></td>
  *    <td>Full Speed Mode</td>
  *   </tr>
  *  </table>
@@ -98,7 +98,7 @@
  *  #define BOOTLOADER_API_TABLE_SIZE          32
  *  #define BOOTLOADER_API_TABLE_START         ((FLASHEND + 1UL) - BOOTLOADER_API_TABLE_SIZE)
  *  #define BOOTLOADER_API_CALL(Index)         (void*)((BOOTLOADER_API_TABLE_START + (Index * 2)) / 2)
- *
+ *  
  *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
  *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
  *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
@@ -106,16 +106,54 @@
  *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
  *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
  *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
- *
+ *  
  *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 2))
  *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
- *
+ *  
  *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
  *  #define BOOTLOADER_CDC_SIGNATURE           0xCDC1
- *
+ *  
  *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
  *  #define BOOTLOADER_ADDRESS_LENGTH          4
  *  \endcode
+ *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
  *
  *  Bootloaders reporting a device release revision number of 1.00 or greater are bootloader API enabled. From the application
  *  the API support of the bootloader can be detected by reading the FLASH memory bytes located at address \c BOOTLOADER_MAGIC_SIGNATURE_START

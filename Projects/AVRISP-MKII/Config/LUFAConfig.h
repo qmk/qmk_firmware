@@ -67,7 +67,7 @@
 
 		/* USB Device Mode Driver Related Tokens: */
 //		#define USE_RAM_DESCRIPTORS
-		#define USE_FLASH_DESCRIPTORS
+//		#define USE_FLASH_DESCRIPTORS
 //		#define USE_EEPROM_DESCRIPTORS
 		#define NO_INTERNAL_SERIAL
 		#define FIXED_CONTROL_ENDPOINT_SIZE      16
