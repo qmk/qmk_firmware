@@ -40,19 +40,32 @@
 		#include <avr/pgmspace.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 
-	/* Macros: */
-		#if !defined(LIBUSB_DRIVER_COMPAT) || defined(__DOXYGEN__)
-			/** Endpoint address of the AVRISP data OUT endpoint. */
-			#define AVRISP_DATA_OUT_EPADDR     (ENDPOINT_DIR_OUT | 2)
-
-			/** Endpoint address of the AVRISP data IN endpoint. */
-			#define AVRISP_DATA_IN_EPADDR      (ENDPOINT_DIR_IN  | 2)
-		#else
-			#define AVRISP_DATA_OUT_EPADDR     (ENDPOINT_DIR_OUT | 2)
-			#define AVRISP_DATA_IN_EPADDR      (ENDPOINT_DIR_IN  | 3)
+	/* Preprocessor Checks: */
+		#if defined(LIBUSB_DRIVER_COMPAT) && defined(RESET_TOGGLES_LIBUSB_COMPAT)
+			#error LIBUSB_DRIVER_COMPAT and RESET_TOGGLES_LIBUSB_COMPAT are mutually exclusive.
 		#endif
 
+	/* Macros: */
+		/** Endpoint address of the AVRISP data OUT endpoint. */
+		#define AVRISP_DATA_OUT_EPADDR         (ENDPOINT_DIR_OUT | 2)
+
+		/** Endpoint address of the AVRISP data IN endpoint, when in Jungo driver compatibility mode. */
+		#define AVRISP_DATA_IN_EPADDR_JUNGO    (ENDPOINT_DIR_IN  | 2)
+
+		/** Endpoint address of the AVRISP data IN endpoint, when in LibUSB driver compatibility mode. */
+		#define AVRISP_DATA_IN_EPADDR_LIBUSB   (ENDPOINT_DIR_IN  | 3)
+
+		#if !defined(LIBUSB_DRIVER_COMPAT) || defined(__DOXYGEN__)
+			/** Endpoint address of the AVRISP data IN endpoint. */
+			#define AVRISP_DATA_IN_EPADDR      AVRISP_DATA_IN_EPADDR_JUNGO
+		#elif defined(RESET_TOGGLES_LIBUSB_COMPAT)
+			#define AVRISP_DATA_IN_EPADDR      AVRISP_CurrDataINEndpointAddress
+		#else
+			#define AVRISP_DATA_IN_EPADDR      AVRISP_DATA_IN_EPADDR_LIBUSB
+		#endif
+		
 		/** Size in bytes of the AVRISP data endpoint. */
 		#define AVRISP_DATA_EPSIZE             64
 
@@ -71,11 +84,22 @@
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;
 		} USB_Descriptor_Configuration_t;
 
+	/* External Variables: */
+		#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
+			extern uint8_t AVRISP_CurrDataINEndpointAddress;
+		#endif
+		
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 		                                    const uint8_t wIndex,
-		                                    const void** const DescriptorAddress)
-		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+		                                    const void** const DescriptorAddress,
+											uint8_t* const DescriptorMemorySpace)
+		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);
+
+		#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
+		void CheckExternalReset(void) ATTR_NAKED ATTR_INIT_SECTION(3);
+		void UpdateCurrentCompatibilityMode(void);
+		#endif
 
 #endif
 
