@@ -131,3 +131,24 @@ void AVRISP_Task(void)
 	}
 }
 
+/** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
+ *  documentation) by the application code so that the address and size of a requested descriptor can be given
+ *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
+ *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
+ *  USB host.
+ *
+ *  \param[in]  wValue                 Descriptor type and index to retrieve
+ *  \param[in]  wIndex                 Sub-index to retrieve (such as a localized string language)
+ *  \param[out] DescriptorAddress      Address of the retrieved descriptor
+ *  \param[out] DescriptorMemorySpace  Memory space that the descriptor is stored in
+ *
+ *  \return Length of the retrieved descriptor in bytes, or NO_DESCRIPTOR if the descriptor was not found
+ */
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint8_t wIndex,
+                                    const void** const DescriptorAddress,
+                                    uint8_t* DescriptorMemorySpace)
+{
+	return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress, DescriptorMemorySpace);
+}
+

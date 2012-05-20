@@ -42,8 +42,6 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 
-		#include "Config/AppConfig.h"
-
 	/* Preprocessor Checks: */
 		#if defined(LIBUSB_DRIVER_COMPAT) && defined(RESET_TOGGLES_LIBUSB_COMPAT)
 			#error LIBUSB_DRIVER_COMPAT and RESET_TOGGLES_LIBUSB_COMPAT are mutually exclusive.
@@ -84,7 +82,7 @@
 			USB_Descriptor_Interface_t               AVRISP_Interface;
 			USB_Descriptor_Endpoint_t                AVRISP_DataInEndpoint;
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;
-		} USB_Descriptor_Configuration_t;
+		} AVRISP_USB_Descriptor_Configuration_t;
 
 	/* External Variables: */
 		#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
@@ -92,11 +90,11 @@
 		#endif
 		
 	/* Function Prototypes: */
-		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-		                                    const uint8_t wIndex,
-		                                    const void** const DescriptorAddress,
-											uint8_t* const DescriptorMemorySpace)
-		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);
+		uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
+		                              const uint8_t wIndex,
+		                              const void** const DescriptorAddress,
+		                              uint8_t* const DescriptorMemorySpace)
+		                              ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);
 
 		#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
 		void CheckExternalReset(void) ATTR_NAKED ATTR_INIT_SECTION(3);

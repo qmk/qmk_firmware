@@ -304,6 +304,9 @@
  *        reset externally via the reset pin, the compatibility mode will be toggled. The compatibility mode is preserved between
  *        power cycles and is not toggled via other forms of reset such as Watchdog or Brown Out.
  *
+ *        When this option is enabled, all board LEDs will flash twice on startup for Jungo compatibility mode, and five times for
+ *        libUSB compatibility mode.
+ *
  *        \note This option is incompatible with \c LIBUSB_DRIVER_COMPAT.</td>
  *   </tr>
  *   <tr>

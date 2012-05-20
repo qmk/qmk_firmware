@@ -129,7 +129,7 @@ include $(LUFA_PATH)/LUFA/makefile
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
+	  AVRISPDescriptors.c                                         \
 	  Lib/V2Protocol.c                                            \
 	  Lib/V2ProtocolParams.c                                      \
 	  Lib/ISP/ISPProtocol.c                                       \

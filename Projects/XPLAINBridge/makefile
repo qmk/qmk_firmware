@@ -126,15 +126,16 @@ AVRISP_PATH = ../AVRISP-MKII
 # LUFA library compile-time options and predefined tokens
 LUFA_OPTS  = -D USE_LUFA_CONFIG_HEADER
 
+
 # Create the LUFA source path variables by including the LUFA root makefile
 include $(LUFA_PATH)/LUFA/makefile
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  AVRISPDescriptors.c                                         \
-	  USARTDescriptors.c                                          \
 	  Lib/SoftUART.c                                              \
+	  USARTDescriptors.c                                          \
+	  $(AVRISP_PATH)/AVRISPDescriptors.c                          \
 	  $(AVRISP_PATH)/Lib/V2Protocol.c                             \
 	  $(AVRISP_PATH)/Lib/V2ProtocolParams.c                       \
 	  $(AVRISP_PATH)/Lib/ISP/ISPProtocol.c                        \

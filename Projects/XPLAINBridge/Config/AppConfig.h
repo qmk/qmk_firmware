@@ -48,6 +48,7 @@
 	#define AUX_LINE_DDR               DDRB
 	#define AUX_LINE_MASK              (1 << 4)
 
+//	#define ENABLE_ISP_PROTOCOL
 	#define ENABLE_XPROG_PROTOCOL
 
 	#define VTARGET_ADC_CHANNEL        2
@@ -59,6 +60,7 @@
 //	#define INVERTED_ISP_MISO
 
 //	#define LIBUSB_DRIVER_COMPAT
+//	#define RESET_TOGGLES_LIBUSB_COMPAT
 //	#define FIRMWARE_VERSION_MINOR     0x11
 
 #endif
