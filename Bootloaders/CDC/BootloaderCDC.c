@@ -73,7 +73,13 @@ void Application_Jump_Check(void)
 	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
 	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
 	{
+		/* Turn off the watchdog */
+		MCUSR &= ~(1<<WDRF);
+		wdt_disable(); 
+
+		/* Clear the boot key and jump to the user application */
 		MagicBootKey = 0;
+
 		// cppcheck-suppress constStatement
 		((void (*)(void))0x0000)();
 	}
