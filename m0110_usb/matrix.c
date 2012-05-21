@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,11 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ROW(key)    ((key)>>3&0x0F)
 #define COL(key)    ((key)&0x07)
 
-#define ARROW_UP_BREAK      (0x4D | 0x80)
-#define ARROW_DOWN_BREAK    (0x48 | 0x80)
-#define ARROW_LEFT_BREAK    (0x46 | 0x80)
-#define ARROW_RIGHT_BREAK   (0x42 | 0x80)
-
 
 static bool is_modified = false;
 
@@ -48,9 +43,6 @@ static bool is_modified = false;
 static uint8_t *matrix;
 static uint8_t _matrix0[MATRIX_ROWS];
 
-#ifdef MATRIX_HAS_GHOST
-static bool matrix_has_ghost_in_row(uint8_t row);
-#endif
 static void register_key(uint8_t key);
 
 
@@ -100,20 +92,6 @@ uint8_t matrix_scan(void)
         return 0;
     } else if (key == M0110_ERROR) {
         return 0;
-    } else if (key == ARROW_UP_BREAK ||
-               key == ARROW_DOWN_BREAK ||
-               key == ARROW_LEFT_BREAK ||
-               key == ARROW_RIGHT_BREAK) {
-        // WORK AROUND: exceptional handling for M0110A
-        // Unregister both Arrow key and coressponding Calc key when receive Arrow key break.
-        //
-        // Shift + Calc keys(=/*+):
-        //    Send no Shift break(0xF1) when release Calc keys. Can't be desinguished from Arrow keys.
-        //    (press: 0x71, 0x79, 0xXX      release: 0x79, 0xXX)
-        //    See m0110.c for key events and scan codes.
-        is_modified = true;
-        register_key(key);
-        register_key(key|M0110_CALC_OFFSET);
     } else {
 #ifdef MATRIX_HAS_LOCKING_CAPS    
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
@@ -133,7 +111,7 @@ uint8_t matrix_scan(void)
     }
 
     if (debug_enable) {
-        print("key: "); phex(key); print("\n");
+        print("["); phex(key); print("]\n");
     }
     return 1;
 }
@@ -146,12 +124,6 @@ bool matrix_is_modified(void)
 inline
 bool matrix_has_ghost(void)
 {
-#ifdef MATRIX_HAS_GHOST
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix_has_ghost_in_row(i))
-            return true;
-    }
-#endif
     return false;
 }
 
@@ -185,23 +157,6 @@ uint8_t matrix_key_count(void)
     }
     return count;
 }
-
-#ifdef MATRIX_HAS_GHOST
-inline
-static bool matrix_has_ghost_in_row(uint8_t row)
-{
-    // no ghost exists in case less than 2 keys on
-    if (((matrix[row] - 1) & matrix[row]) == 0)
-        return false;
-
-    // ghost exists in case same state as other row
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix[i] & matrix[row]) == matrix[row])
-            return true;
-    }
-    return false;
-}
-#endif
 
 inline
 static void register_key(uint8_t key)

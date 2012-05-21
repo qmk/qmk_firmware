@@ -105,15 +105,15 @@ You can change keymaps by editing *keymap.c*.
     `---------------------------------------------------------' `---------------'
 #### *HHKB/WASD cursor Layer(Fn0)*
     ,---------------------------------------------------------. ,---------------.
-    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|  =|  /|  *|
+    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|Mb1|Mb3|Mb2|
     |---------------------------------------------------------| |---------------|
-    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |  7|  8|  9|  -|
+    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |MwD|McU|MwU|MwU|
     |-----------------------------------------------------'   | |---------------|
-    |Fn0   |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Return| |  4|  5|  6|  +|
+    |Fn0   |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Return| |McL|McD|McR|MwD|
     |---------------------------------------------------------| |---------------|
-    |Shift   |End|   |PgD|   |VoD|VoU|Mut|End|PgD|Dow|Shif|Up | |  1|  2|  3|   |
-    |---------------------------------------------------------| |-----------|Ent|
-    |Ctrl |Alt    |         Space             |  \|Lft|Rgt|Dn | |      0|  .|   |
+    |Shift   |End|   |PgD|   |VoD|VoU|Mut|End|PgD|Dow|Shif|Up | |MwL|McD|MwR|   |
+    |---------------------------------------------------------| |-----------|Mb2|
+    |Ctrl |Alt    |         Space        |Gui |  \|Lft|Rgt|Dn | |    Mb1|Mb3|   |
     `---------------------------------------------------------' `---------------'
 
 
@@ -124,18 +124,3 @@ You can use [PJRC HID listen](http://www.pjrc.com/teensy/hid_listen.html) to see
 
 The converter has some functions for debug, press `Alt+Gui+H` simultaneously to get help.
 These function is totally undocumented, tentative, inconsistent and buggy.
-
-
-
-Arrow Keys
-----------
-Dedicated arrow keys of the M0110A are transmitting the same scancodes as the keypad but also,
-its [=], [/], [*] and [+] keys (hereafter referred to as "calc" keys) are not assigned new
-scancodes but, instead, transmit a sequence of scancodes which emulates the [Shift] key press,
-followed by the same scancode sequence of the arrow keys!
-The problem with that approach is that, while in most cases it's easy to distinguish between
-a user-generated [Shift] key event (press or release) followed by an arrow or a calc key and
-a simulated [Shift] key event generated upon a calc key event, when the user is typing fairly
-fast, it is possible that the two events become indistinguishable, and produce undesired results
--- nothing major, though, just one or two stray characters or cursor movements; it will NOT
-format your drives, kill your cat or make your wife run away with the pizza boy.
