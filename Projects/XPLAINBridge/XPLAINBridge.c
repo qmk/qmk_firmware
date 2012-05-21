@@ -226,9 +226,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	{
 		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
 
-		#if defined(LIBUSB_DRIVER_COMPAT)
-		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
-		#endif
+		if (AVRISP_DATA_IN_EPADDR != AVRISP_DATA_OUT_EPADDR)
+		  ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPADDR, EP_TYPE_BULK, AVRISP_DATA_EPSIZE, 1);
 
 		/* Configure the V2 protocol packet handler */
 		V2Protocol_Init();
