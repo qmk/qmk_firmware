@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun WAKO <wakojun@gmail.com>
+Copyright 2011,2012 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -82,6 +82,9 @@ static inline void request(void);
     } \
 } while (0)
 
+#define KEY(raw)        ((raw) & 0x7f)
+#define IS_BREAK(raw)   (((raw) & 0x80) == 0x80)
+
 
 uint8_t m0110_error = 0;
 
@@ -92,10 +95,6 @@ void m0110_init(void)
     idle();
     _delay_ms(1000);
 
-    // Model Number
-    // M0110 : 0x09  00001001 : model number 4 (100)
-    // M0110A: 0x0B  00001011 : model number 5 (101)
-    // M0110 & M0120: ???
     m0110_send(M0110_MODEL);
     data = m0110_recv();
     print("m0110_init model: "); phex(data); print("\n");
@@ -153,47 +152,151 @@ ERROR:
     return 0xFF;
 }
 
+/*
+Handling for exceptional case of key combinations for M0110A
+
+Shift and Calc/Arrow key could be operated simultaneously:
+
+    Case Shift   Arrow   Events          Interpret
+    -------------------------------------------------------------------
+    1    Down    Down    71, 79, DD      Calc(d)*a *b
+    2    Down    Up      71, 79, UU      Arrow&Calc(u)*a
+    3    Up      Down    F1, 79, DD      Shift(u) *c
+    4    Up      Up      F1, 79, UU      Shift(u) and Arrow&Calc(u)*a
+
+    Case Shift   Calc    Events          Interpret
+    -------------------------------------------------------------------
+    5(1) Down    Down    71, 71, 79, DD  Shift(d) and Cacl(d)
+    6(2) Down    Up      F1, 71, 79, UU  Shift(u) and Arrow&Calc(u)*a
+    7(1) Up      Down    F1, 71, 79, DD  Shift(u) and Calc(d)
+    8(4) Up      Up      F1, F1, 79, UU  Shift(ux2) and Arrow&Calc(u)*a
+
+During Calc key is hold:
+    Case Shift   Arrow   Events          Interpret
+    -------------------------------------------------------------------
+    A(3) ----    Down    F1, 79, DD      Shift(u) *c
+    B    ----    Up      79, UU          Arrow&Calc(u)*a
+    C    Down    ----    F1, 71          Shift(u) and Shift(d)
+    D    Up      ----    F1              Shift(u)
+    E    Hold    Down    79, DD          Normal
+    F    Hold    Up      79, UU          Arrow&Calc(u)*a
+    G(1) Down    Down    F1, 71, 79, DD  Shift(u)*b and Calc(d)*a
+    H(2) Down    Up      F1, 71, 79, UU  Shift(u) and Arrow&Calc(u)*a
+    I(3) Up      Down    F1, F1, 79, DD  Shift(ux2) *c
+    J(4) Up      Up      F1, 79, UU      Shift(u) and Arrow&Calc(u)*a
+
+    Case Shift   Calc    Events          Interpret
+    -------------------------------------------------------------------
+    K(1) ----    Down    71, 79, DD      Calc(d)*a
+    L(4) ----    Up      F1, 79, UU      Shift(u) and Arrow&Calc(u)*a
+    M(1) Hold    Down    71, 79, DD      Calc(d)*a
+    N    Hold    Up      79, UU          Arrow&Calc(u)*a
+
+    Where DD/UU indicates part of Keypad Down/Up event.
+    *a: Impossible to distinguish btween Arrow and Calc event.
+    *b: Shift(d) event is ignored.
+    *c: Arrow/Calc(d) event is ignored.
+*/
 uint8_t m0110_recv_key(void)
 {
     static uint8_t keybuf = 0x00;
-    uint8_t key, key2, key3;
+    static uint8_t keybuf2 = 0x00;
+    static uint8_t rawbuf = 0x00;
+    uint8_t raw, raw2, raw3;
 
     if (keybuf) {
-        key = keybuf;
+        raw = keybuf;
         keybuf = 0x00;
-        return key;
+        return raw;
     }
-    key = instant();  // Use INSTANT for better response. Should be INQUIRY ?
-    switch (key & 0x7F) {
+    if (keybuf2) {
+        raw = keybuf2;
+        keybuf2 = 0x00;
+        return raw;
+    }
+
+    if (rawbuf) {
+        raw = rawbuf;
+        rawbuf = 0x00;
+    } else {
+        raw = instant();  // Use INSTANT for better response. Should be INQUIRY ?
+    }
+    switch (KEY(raw)) {
         case M0110_KEYPAD:
-            // Pad/Arrow keys
-            return (raw2scan(instant()) | M0110_KEYPAD_OFFSET);
+            raw2 = instant();
+            switch (KEY(raw2)) {
+                case M0110_ARROW_UP:
+                case M0110_ARROW_DOWN:
+                case M0110_ARROW_LEFT:
+                case M0110_ARROW_RIGHT:
+                    if (IS_BREAK(raw2)) {
+                        // Case B,F,N:
+                        keybuf = (raw2scan(raw2) | M0110_CALC_OFFSET); // Calc(u)
+                        return (raw2scan(raw2) | M0110_KEYPAD_OFFSET); // Arrow(u)
+                    }
+                    break;
+            }
+            // Keypad or Arrow
+            return (raw2scan(raw2) | M0110_KEYPAD_OFFSET);
             break;
         case M0110_SHIFT:
-            key2 = instant();
-            if (key2 == M0110_KEYPAD) {
-                key3 = instant();
-                switch (key3 & 0x7F) {
-                    case M0110_ARROW_UP:
-                    case M0110_ARROW_DOWN:
-                    case M0110_ARROW_LEFT:
-                    case M0110_ARROW_RIGHT:
-                        // Calc keys
-                        return (raw2scan(key3) | M0110_CALC_OFFSET);
-                    default:
-                        // Shift + Pad/Arrow keys
-                        keybuf = raw2scan(key3);
-                        return (raw2scan(key) | M0110_KEYPAD_OFFSET);
-                }
-            } else {
-                // Shift + other keys
-                keybuf = raw2scan(key2);
-                return raw2scan(key);
+            raw2 = instant();
+            switch (KEY(raw2)) {
+                case M0110_SHIFT:
+                    // Case: 5-8,C,G,H
+                    rawbuf = raw2;
+                    return raw2scan(raw); // Shift(d/u)
+                    break;
+                case M0110_KEYPAD:
+                    // Shift + Arrow, Calc, or etc.
+                    raw3 = instant();
+                    switch (KEY(raw3)) {
+                        case M0110_ARROW_UP:
+                        case M0110_ARROW_DOWN:
+                        case M0110_ARROW_LEFT:
+                        case M0110_ARROW_RIGHT:
+                            if (IS_BREAK(raw)) {
+                                if (IS_BREAK(raw3)) {
+                                    // Case 4:
+                                    print("(4)\n");
+                                    keybuf2 = raw2scan(raw); // Shift(u)
+                                    keybuf  = (raw2scan(raw3) | M0110_CALC_OFFSET); // Calc(u)
+                                    return (raw2scan(raw3) | M0110_KEYPAD_OFFSET);  // Arrow(u)
+                                } else {
+                                    // Case 3:
+                                    print("(3)\n");
+                                    return (raw2scan(raw)); // Shift(u)
+                                }
+                            } else {
+                                if (IS_BREAK(raw3)) {
+                                    // Case 2:
+                                    print("(2)\n");
+                                    keybuf  = (raw2scan(raw3) | M0110_CALC_OFFSET); // Calc(u)
+                                    return (raw2scan(raw3) | M0110_KEYPAD_OFFSET);  // Arrow(u)
+                                } else {
+                                    // Case 1:
+                                    print("(1)\n");
+                                    return (raw2scan(raw3) | M0110_CALC_OFFSET); // Calc(d)
+                                }
+                            }
+                            break;
+                        default:
+                            // Shift + Keypad
+                            keybuf = (raw2scan(raw3) | M0110_KEYPAD_OFFSET);
+                            return raw2scan(raw);   // Shift(d/u)
+                            break;
+                    }
+                    break;
+                default:
+                    // Shift + Normal keys
+                    keybuf = raw2scan(raw2);
+                    return raw2scan(raw);   // Shift(d/u)
+                    break;
             }
             break;
         default:
-            // other keys
-            return raw2scan(key);
+            // Normal keys
+            return raw2scan(raw);
             break;
     }
 }
@@ -216,10 +319,9 @@ static inline uint8_t inquiry(void)
 static inline uint8_t instant(void)
 {
     m0110_send(M0110_INSTANT);
-    //return m0110_recv();
     uint8_t data = m0110_recv();
-    if (data != 0x7B) {
-        print("data: "); phex(data); print("\n");
+    if (data != M0110_NULL) {
+        phex(data); print(" ");
     }
     return data;
 }
@@ -326,7 +428,7 @@ CLOCK is always from KEYBOARD. DATA are sent with MSB first.
 Protocol
 --------
 COMMAND:
-    Inquiry     0x10    get key event
+    Inquiry     0x10    get key event with block
     Instant     0x12    get key event
     Model       0x14    get model number(M0110 responds with 0x09)
                         bit 7   1 if another device connected(used when keypad exists?)
@@ -341,14 +443,13 @@ KEY EVENT:
     bit 0       always 1
     To get scan code use this: ((bits&(1<<7)) | ((bits&0x7F))>>1).
 
-    Note: On the M0110A, the numpad keys and the arrow keys are preceded by 0x79.
-          Moreover, the numpad keys =, /, * and + are preceded by shift-down 0x71 on press and shift-up 0xF1 on release.
-          So, the data transferred by nupmad 5 is "79 2F" whereas for numpad + it's "71 79 0D".
+    Note: On the M0110A, Keypad keys and Arrow keys are preceded by 0x79.
+          Moreover, some Keypad keys(=, /, * and +) are preceded by 0x71 on press and 0xF1 on release.
 
 ARROW KEYS:
-    Arrow keys and Pad+,*,/,=(Calc keys) share same byte sequence and its preceding byte
-    0x71 and 0xF1 means press and release event of SHIFT. These cause very confusing situation.
-    It is difficult or impossible to tell Calc key from Arrow key with SHIFT in some cases.
+    Arrow keys and Calc keys(+,*,/,= on keypad) share same byte sequence and preceding byte of
+    Calc keys(0x71 and 0xF1) means press and release event of SHIFT. This causes a very confusing situation,
+    it is difficult or impossible to tell Calc key from Arrow key plus SHIFT in some cases.
 
     Raw key events:
             press               release
@@ -362,9 +463,45 @@ ARROW KEYS:
     Pad/:   0x71, 0x79, 0x1B    0xF1, 0x79, 0x9B
     Pad=:   0x71, 0x79, 0x11    0xF1, 0x79, 0x91
 
-SCAN CODE:
-    m0111_recv_key() function returns follwing scan codes instead of raw key events.
-    Scan codes are 1 byte long and bit7 is set when key is released. 
+
+RAW CODE:
+    M0110A
+    ,---------------------------------------------------------. ,---------------.
+    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Bcksp| |Clr|  =|  /|  *|
+    |---------------------------------------------------------| |---------------|
+    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   | |  7|  8|  9|  -|
+    |-----------------------------------------------------'   | |---------------|
+    |CapsLo|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  +|
+    |---------------------------------------------------------| |---------------|
+    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft|Up | |  1|  2|  3|   |
+    |---------------------------------------------------------' |-----------|Ent|
+    |Optio|Mac    |           Space           |  \|Lft|Rgt|Dn | |      0|  .|   |
+    `---------------------------------------------------------' `---------------'
+    ,---------------------------------------------------------. ,---------------.
+    | 65| 25| 27| 29| 2B| 2F| 2D| 35| 39| 33| 3B| 37| 31|   67| |+0F|*11|*1B|*05|
+    |---------------------------------------------------------| |---------------|
+    |   61| 19| 1B| 1D| 1F| 23| 21| 41| 45| 3F| 47| 43| 3D|   | |+33|+37|+39|+1D|
+    |-----------------------------------------------------'   | |---------------|
+    |    73| 01| 03| 05| 07| 0B| 09| 4D| 51| 4B| 53| 4F|    49| |+2D|+2F|+31|*0D|
+    |---------------------------------------------------------| |---------------|
+    |      71| 0D| 0F| 11| 13| 17| 5B| 5D| 27| 5F| 59|  71|+1B| |+27|+29|+2B|   |
+    |---------------------------------------------------------' |-----------|+19|
+    |   75|     6F|            63             | 55|+0D|+05|+11| |    +25|+03|   |
+    `---------------------------------------------------------' `---------------'
+    + 0x79, 0xDD / 0xF1, 0xUU
+    * 0x71, 0x79,DD / 0xF1, 0x79, 0xUU
+
+
+MODEL NUMBER:
+    M0110:           0x09  00001001 : model number 4 (100)
+    M0110A:          0x0B  00001011 : model number 5 (101)
+    M0110 & M0120:   ???
+
+
+Scan Code
+---------
+    m0110_recv_key() function returns following scan codes instead of raw key events.
+    Scan codes are 1 byte long and MSB(bit7) is set when key is released. 
 
     M0110
     ,---------------------------------------------------------.

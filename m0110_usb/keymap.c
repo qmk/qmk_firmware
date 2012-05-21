@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ static const uint8_t PROGMEM fn_keycode[] = {
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 
      * The keymap works with both M0110 and M0110A keyboards. As you can see, the M0110A is a superset
-     * of the M0110 keyboard, with only one exception: the right Alt key(Enter in M0110) does not exist
+     * of the M0110 keyboard, with only one exception: 'Enter' in M0110 does not exist
      * on the M0110A, but since it generates a unique scan code which is not used for some other key in
      * the M0110A, they are totally interchangeable.  In fact, the M0110A is functionally (almost)
      * identical to the combination of the M0110 along with the M0120 keypad. The only difference
@@ -110,18 +110,19 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl |Alt    |         Space         |Gui|  \|Lft|Rgt|Dn | |      0|  .|   |
      * `---------------------------------------------------------' `---------------'
      *
-     * HHKB/WASD cursor Layer(Fn0):
+     * HHKB/WASD/Mouse Layer(Fn0):
      * ,---------------------------------------------------------. ,---------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|  =|  /|  *|
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|Mb1|Mb3|Mb2|
      * |---------------------------------------------------------| |---------------|
-     * |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |  7|  8|  9|  -|
+     * |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |MwD|McU|MwU|MwU|
      * |-----------------------------------------------------'   | |---------------|
-     * |Fn0   |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Return| |  4|  5|  6|  +|
+     * |Fn0   |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Return| |McL|McD|McR|MwD|
      * |---------------------------------------------------------| |---------------|
-     * |Shift   |End|   |PgD|   |VoD|VoU|Mut|End|PgD|Dow|Shif|Up | |  1|  2|  3|   |
-     * |---------------------------------------------------------| |-----------|Ent|
-     * |Ctrl |Alt    |         Space        |Gui |  \|Lft|Rgt|Dn | |      0|  .|   |
+     * |Shift   |End|   |PgD|   |VoD|VoU|Mut|End|PgD|Dow|Shif|Up | |MwL|McD|MwR|   |
+     * |---------------------------------------------------------| |-----------|Mb2|
+     * |Ctrl |Alt    |         Space        |Gui |  \|Lft|Rgt|Dn | |    Mb1|Mb3|   |
      * `---------------------------------------------------------' `---------------'
+     * Mb: Mouse Button / Mc: Mouse Cursor / Mw: Mouse Wheel
      *
      * NOTE: You can register Esc by hitting(press&release) Fn0 quickly.
      * NOTE: Gui between Space and \ is Enter on M0110 not exists on M0110A.
@@ -130,7 +131,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 #ifndef HASU
     KEYMAP(
-    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    LGUI,PEQL,PSLS,PAST,
+    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    LGUI,EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
     FN0, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,     P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          UP,      P1,  P2,  P3,  PENT,
@@ -138,17 +139,17 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // HHKB & WASD
     KEYMAP(
-    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,PEQL,PSLS,PAST,
-    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  INS,          P7,  P8,  P9,  PMNS,
-    FN0, LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     ENT,     P4,  P5,  P6,  PPLS,
-    LSFT,END, NO,  PGDN,NO,  VOLD,VOLU,MUTE,END, PGDN,DOWN,          UP,      P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,BTN1,BTN3,BTN2,
+    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  INS,          WH_D,MS_U,WH_U,WH_U,
+    FN0, LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     ENT,     MS_L,MS_D,MS_R,WH_D,
+    LSFT,END, NO,  PGDN,NO,  VOLD,VOLU,MUTE,END, PGDN,DOWN,          UP,      WH_L,MS_D,WH_R,BTN2,
+    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    BTN1,     BTN3
     ),
 #else
     // hasu's keymap
     // To enable use this 'make' option: make EXTRAFLAGS=-DHASU
     KEYMAP(
-    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    ESC, PEQL,PSLS,PAST,
+    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    LGUI,EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
     LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN1, QUOT,     ENT,     P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           FN3,     P1,  P2,  P3,  PENT,
@@ -156,7 +157,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // HHKB & WASD
     KEYMAP(
-    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,PEQL,PSLS,PAST,
+    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
     CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  INS,          P7,  P8,  P9,  PMNS,
     LCTL,LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     ENT,     P4,  P5,  P6,  PPLS,
     LSFT,END, NO,  PGDN,NO,  VOLD,VOLU,MUTE,END, PGDN,DOWN,          FN3,     P1,  P2,  P3,  PENT,
@@ -164,7 +165,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // vi mousekeys
     KEYMAP(
-    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,PEQL,PSLS,PAST,
+    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
     CAPS,NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,           P7,  P8,  P9,  PMNS,
     NO,  VOLD,VOLU,MUTE,NO,  NO,  MS_L,MS_D,MS_U,MS_R,FN1, NO,       ENT,     P4,  P5,  P6,  PPLS,
     LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,NO,  NO,  NO,            UP,      P1,  P2,  P3,  PENT,
@@ -172,7 +173,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // vi cusorkeys
     KEYMAP(
-    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,PEQL,PSLS,PAST,
+    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
     CAPS,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, NO,  NO,  NO,           P7,  P8,  P9,  PMNS,
     NO,  NO,  NO,  NO,  NO,  NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,     P4,  P5,  P6,  PPLS,
     LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2,           UP,      P1,  P2,  P3,  PENT,
