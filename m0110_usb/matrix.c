@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define CAPS        0x39
-#define CAPS_UP     (CAPS | 0x80)
+#define CAPS_BREAK  (CAPS | 0x80)
 #define ROW(key)    ((key)>>3&0x0F)
 #define COL(key)    ((key)&0x07)
 
@@ -43,9 +43,6 @@ static bool is_modified = false;
 static uint8_t *matrix;
 static uint8_t _matrix0[MATRIX_ROWS];
 
-#ifdef MATRIX_HAS_GHOST
-static bool matrix_has_ghost_in_row(uint8_t row);
-#endif
 static void register_key(uint8_t key);
 
 
@@ -88,10 +85,12 @@ uint8_t matrix_scan(void)
     // Send Caps key up event
     if (matrix_is_on(ROW(CAPS), COL(CAPS))) {
         is_modified = true;
-        register_key(CAPS_UP);
+        register_key(CAPS_BREAK);
     }
 #endif
     if (key == M0110_NULL) {
+        return 0;
+    } else if (key == M0110_ERROR) {
         return 0;
     } else {
 #ifdef MATRIX_HAS_LOCKING_CAPS    
@@ -100,11 +99,11 @@ uint8_t matrix_scan(void)
             // Ignore LockingCaps key down event
             if (key == CAPS) return 0;
             // Convert LockingCaps key up event into down event
-            if (key == CAPS_UP) key = CAPS;
+            if (key == CAPS_BREAK) key = CAPS;
         } else {
             // CAPS LOCK off:
             // Ignore LockingCaps key up event
-            if (key == CAPS_UP) return 0;
+            if (key == CAPS_BREAK) return 0;
         }
 #endif        
         is_modified = true;
@@ -112,7 +111,7 @@ uint8_t matrix_scan(void)
     }
 
     if (debug_enable) {
-        print("key: "); phex(key); print("\n");
+        print("["); phex(key); print("]\n");
     }
     return 1;
 }
@@ -125,12 +124,6 @@ bool matrix_is_modified(void)
 inline
 bool matrix_has_ghost(void)
 {
-#ifdef MATRIX_HAS_GHOST
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix_has_ghost_in_row(i))
-            return true;
-    }
-#endif
     return false;
 }
 
@@ -164,23 +157,6 @@ uint8_t matrix_key_count(void)
     }
     return count;
 }
-
-#ifdef MATRIX_HAS_GHOST
-inline
-static bool matrix_has_ghost_in_row(uint8_t row)
-{
-    // no ghost exists in case less than 2 keys on
-    if (((matrix[row] - 1) & matrix[row]) == 0)
-        return false;
-
-    // ghost exists in case same state as other row
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix[i] & matrix[row]) == matrix[row])
-            return true;
-    }
-    return false;
-}
-#endif
 
 inline
 static void register_key(uint8_t key)
