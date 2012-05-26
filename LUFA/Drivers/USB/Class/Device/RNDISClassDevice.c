@@ -406,8 +406,7 @@ static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDI
 	{
 		case OID_GEN_CURRENT_PACKET_FILTER:
 			RNDISInterfaceInfo->State.CurrPacketFilter = le32_to_cpu(*((uint32_t*)SetData));
-			RNDISInterfaceInfo->State.CurrRNDISState   = le32_to_cpu((RNDISInterfaceInfo->State.CurrPacketFilter) ?
-			                                                         RNDIS_Data_Initialized : RNDIS_Data_Initialized);
+			RNDISInterfaceInfo->State.CurrRNDISState   = (RNDISInterfaceInfo->State.CurrPacketFilter) ? RNDIS_Data_Initialized : RNDIS_Initialized;
 
 			return true;
 		case OID_802_3_MULTICAST_LIST:
