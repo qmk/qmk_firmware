@@ -138,7 +138,7 @@ void USB_ResetInterface(void)
 	else if (USB_CurrentMode == USB_MODE_Host)
 	{
 		#if defined(INVERTED_VBUS_ENABLE_LINE)
-		AVR32_USBB.USBCON.vbuspol = true;
+		AVR32_USBB.USBCON.vbuspo = true;
 		#endif
 		
 		#if defined(USB_CAN_BE_HOST)

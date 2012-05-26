@@ -515,6 +515,7 @@
 			static inline void Pipe_ClearSETUP(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_Pipe_SelectedPipe].txstpic = true;
+				(&AVR32_USBB.UPCON0CLR)[USB_Pipe_SelectedPipe].fifoconc = true;
 				USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[USB_Pipe_SelectedPipe * PIPE_HSB_ADDRESS_SPACE_SIZE];
 			}
 
@@ -676,8 +677,8 @@
 			static inline void Pipe_Write_16_LE(const uint16_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_16_LE(const uint16_t Data)
 			{
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
 				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data & 0xFF);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -690,8 +691,8 @@
 			static inline void Pipe_Write_16_BE(const uint16_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_16_BE(const uint16_t Data)
 			{
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data & 0xFF);
 				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data & 0xFF);
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -755,10 +756,10 @@
 			static inline void Pipe_Write_32_LE(const uint32_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_32_LE(const uint32_t Data)
 			{
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 24);
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 16);
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
 				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data &  0xFF);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 16);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 24);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -771,10 +772,10 @@
 			static inline void Pipe_Write_32_BE(const uint32_t Data) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_32_BE(const uint32_t Data)
 			{
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data &  0xFF);
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
-				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 16);
 				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 24);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 16);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data >> 8);
+				*(USB_Pipe_FIFOPos[USB_Pipe_SelectedPipe]++) = (Data &  0xFF);
 			}
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
