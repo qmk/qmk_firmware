@@ -274,7 +274,10 @@
 			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_BytesInEndpoint(void)
 			{
-				return USB_Endpoint_SelectedFIFO->Position;
+				if (USB_Endpoint_SelectedEndpoint & ENDPOINT_DIR_IN)
+				  return USB_Endpoint_SelectedFIFO->Position;
+				else
+				  return (USB_Endpoint_SelectedFIFO->Length - USB_Endpoint_SelectedFIFO->Position);
 			}
 
 			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
