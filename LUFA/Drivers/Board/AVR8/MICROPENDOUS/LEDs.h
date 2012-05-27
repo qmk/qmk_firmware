@@ -52,7 +52,7 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_MICROPENDOUS_32U2 MICROPENDOUS_32U2
- *  \brief Board specific LED driver header for the Micropendous 32U2.
+ *  \brief Board specific LED driver header for the Micropendous-32U2.
  *
  *  Board specific LED driver header for the Micropendous 32U2 (https://code.google.com/p/micropendous/wiki/Micropendous_32U2).
  *
