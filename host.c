@@ -35,7 +35,9 @@ report_keyboard_t *keyboard_report_prev = &report1;
 
 
 static inline void add_key_byte(uint8_t code);
+static inline void del_key_byte(uint8_t code);
 static inline void add_key_bit(uint8_t code);
+static inline void del_key_bit(uint8_t code);
 
 
 void host_set_driver(host_driver_t *d)
@@ -66,9 +68,25 @@ void host_add_key(uint8_t key)
     add_key_byte(key);
 }
 
+void host_del_key(uint8_t key)
+{
+#ifdef NKRO_ENABLE
+    if (keyboard_nkro) {
+        del_key_bit(key);
+        return;
+    }
+#endif
+    del_key_byte(key);
+}
+
 void host_add_mod_bit(uint8_t mod)
 {
     keyboard_report->mods |= mod;
+}
+
+void host_del_mod_bit(uint8_t mod)
+{
+    keyboard_report->mods &= ~mod;
 }
 
 void host_set_mods(uint8_t mods)
@@ -82,6 +100,15 @@ void host_add_code(uint8_t code)
         host_add_mod_bit(MOD_BIT(code));
     } else {
         host_add_key(code);
+    }
+}
+
+void host_del_code(uint8_t code)
+{
+    if (IS_MOD(code)) {
+        host_del_mod_bit(MOD_BIT(code));
+    } else {
+        host_del_key(code);
     }
 }
 
@@ -180,11 +207,31 @@ static inline void add_key_byte(uint8_t code)
     }
 }
 
+static inline void del_key_byte(uint8_t code)
+{
+    int i = 0;
+    for (; i < REPORT_KEYS; i++) {
+        if (keyboard_report->keys[i] == code) {
+            keyboard_report->keys[i] = 0;
+            break;
+        }
+    }
+}
+
 static inline void add_key_bit(uint8_t code)
 {
     if ((code>>3) < REPORT_KEYS) {
         keyboard_report->keys[code>>3] |= 1<<(code&7);
     } else {
         debug("add_key_bit: can't add: "); phex(code); debug("\n");
+    }
+}
+
+static inline void del_key_bit(uint8_t code)
+{
+    if ((code>>3) < REPORT_KEYS) {
+        keyboard_report->keys[code>>3] &= ~(1<<(code&7));
+    } else {
+        debug("del_key_bit: can't del: "); phex(code); debug("\n");
     }
 }
