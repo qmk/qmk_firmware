@@ -10,21 +10,35 @@
  *
  *  \section Sec_Prerequisites Prerequisites
  *  Before you can compile any of the LUFA library code or demos, you will need a recent distribution of avr-libc (1.6.2+)
- *  and the AVR-GCC (4.2+) compiler. For Windows users, the best way to obtain these is the WinAVR project
- *  (<a>http://winavr.sourceforge.net</a>) as this provides a single-file setup for everything required to compile your
- *  own AVR projects.
+ *  and the AVR-GCC (4.2+) compiler. A standard "coreutils" package for your system is also required for command line
+ *  compilation of LUFA based applications.
+ *
+ *  \subsection SSec_PreqWindows Windows Prerequisites
+ *  On Windows, you will need a copy of the latest Atmel Toolchain, either downloaded and installed as a standalone
+ *  package, or installed as part of Atmel Studio. You will need to ensure that the "bin" directory of the toolchain
+ *  is available in your system's <b>%PATH%</b> environment variable.
+ *
+ *  In addition, you will need to install a ported version of the ZSH or BASH *nix shells, and a standard set of *nix
+ *  utilities such as <i>cut</i>, <i>find</i> and <i>sed</i>. These can be found in the "basic" system package of the
+ *  of the MinGW installer (<a>http://www.mingw.org</a>). Once installed, add the "msys\1.0\bin" of the MinGW installation
+ *  folder is added to your system's <b>%PATH%</b> environment variable.
+ *
+ *  \subsection SSec_PreqLinux Linux Prerequisites
+ *  On Linux systems you will need to install the latest Linux distribution of the standalone Atmel Toolchain from the
+ *  Atmel website for general development, or use the latest avr-libc and avr-gcc packages for your chosen distribution's
+ *  package manager. For full device support, the Atmel standalone package is recommended.
  *
  *  \section Sec_Compiling Compiling a LUFA Application
  *  Compiling the LUFA demos, applications and/or bootloaders is very simple. LUFA comes with makefile scripts for
- *  each individual demo, bootloader and project folder, as well as scripts in the /Demos/, /Bootloaders/, /Projects/
- *  and the LUFA root directory. This means that compilation can be started from any of the above directories, with
- *  a build started from an upper directory in the directory structure executing build of all child directories under it.
- *  This means that while a build inside a particular demo directory will build only that particular demo, a build stated
- *  from the /Demos/ directory will build all LUFA demo projects sequentially.
+ *  each individual demo, bootloader and project folder, as well as scripts in the Demos/, Bootloaders/, Projects/
+ *  and the LUFA root directory. Compilation of projects can be started from any of the above directories, with a build
+ *  started from an upper directory in the directory structure executing build of all child directories under it. This
+ *  means that while a build inside a particular demo directory will build only that particular demo, a build stated from
+ *  the /Demos/ directory will build all LUFA demo projects sequentially.
  *
- *  To build a project from the source via the command line, the command <b>"make all"</b> should be executed from the command line in the directory
- *  of interest. To remove compiled files (including the binary output, all intermediately files and all diagnostic output
- *  files), execute <b>"make clean"</b>. Once a "make all" has been run and no errors were encountered, the resulting binary will
- *  be located in the generated ".HEX" file. If your project makes use of pre-initialized EEPROM variables, the generated ".EEP"
- *  file will contain the project's EEPROM data.
+ *  To build a project from the source via the command line, the command <b>"make all"</b> should be executed from the command
+ *  line in the directory of interest. To remove compiled files (including the binary output, all intermediately files and all
+ *  diagnostic output files), execute <b>"make clean"</b>. Once a "make all" has been run and no errors were encountered, the
+ *  resulting binary will be located in the generated ".HEX" file. If your project makes use of pre-initialized EEPROM
+ *  variables, the generated ".EEP" file will contain the project's EEPROM data.
  */

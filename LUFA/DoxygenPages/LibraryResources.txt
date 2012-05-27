@@ -18,7 +18,7 @@
  *  Development Blog: http://www.fourwalledcubicle.com/blog \n
  *
  *  \section Sec_ProjectHelp Assistance With LUFA
- *  Discussion Group: http://www.lufa-lib.org/support \n
+ *  Support Mailing List: http://www.lufa-lib.org/support \n
  *  Author's Email: dean [at] fourwalledcubicle [dot] com \n
  *
  *  \section Sec_InDevelopment Latest In-Development Source Code
