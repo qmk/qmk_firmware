@@ -37,9 +37,12 @@ uint8_t host_keyboard_leds(void);
 
 /* keyboard report operations */
 void host_add_key(uint8_t key);
+void host_del_key(uint8_t key);
 void host_add_mod_bit(uint8_t mod);
+void host_del_mod_bit(uint8_t mod);
 void host_set_mods(uint8_t mods);
 void host_add_code(uint8_t code);
+void host_del_code(uint8_t code);
 void host_swap_keyboard_report(void);
 void host_clear_keyboard_report(void);
 uint8_t host_has_anykey(void);
