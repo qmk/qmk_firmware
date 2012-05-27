@@ -28,9 +28,9 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 
 # MCU name, you MUST set this to match the board you are using
 # type "make clean" after changing this, so all files will be rebuilt
-MCU = atmega168p
+MCU = atmega328p
 # avrdude doesn't know atmega168p
-AVRDUDE_MCU = atmega168
+AVRDUDE_MCU = $(MCU)
 
 
 # Processor frequency.
