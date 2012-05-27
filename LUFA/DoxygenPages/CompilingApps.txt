@@ -16,12 +16,12 @@
  *  \subsection SSec_PreqWindows Windows Prerequisites
  *  On Windows, you will need a copy of the latest Atmel Toolchain, either downloaded and installed as a standalone
  *  package, or installed as part of Atmel Studio. You will need to ensure that the "bin" directory of the toolchain
- *  is available in your system's <b>%PATH%</b> environment variable.
+ *  is available in your system's <b>PATH</b> environment variable.
  *
  *  In addition, you will need to install a ported version of the ZSH or BASH *nix shells, and a standard set of *nix
  *  utilities such as <i>cut</i>, <i>find</i> and <i>sed</i>. These can be found in the "basic" system package of the
  *  of the MinGW installer (<a>http://www.mingw.org</a>). Once installed, add the "msys\1.0\bin" of the MinGW installation
- *  folder is added to your system's <b>%PATH%</b> environment variable.
+ *  folder is added to your system's <b>PATH</b> environment variable.
  *
  *  \subsection SSec_PreqLinux Linux Prerequisites
  *  On Linux systems you will need to install the latest Linux distribution of the standalone Atmel Toolchain from the
