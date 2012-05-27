@@ -45,6 +45,7 @@
 		#include "../TempDataLogger.h"
 		#include "../Descriptors.h"
 		#include "DataflashManager.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
 		/** Macro to set the current SCSI sense data to the given key, additional sense code and additional sense qualifier. This
