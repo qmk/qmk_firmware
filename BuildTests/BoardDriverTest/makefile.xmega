@@ -303,7 +303,7 @@ EXTMEMOPTS =
 #  -Wl,...:     tell GCC to pass this to linker.
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
-LDFLAGS  = -Wl,-Map=$(TARGET).map,--cref
+#LDFLAGS  = -Wl,-Map=$(TARGET).map,--cref
 LDFLAGS += -Wl,--relax 
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
@@ -427,7 +427,7 @@ LST = $(SRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OB
 
 
 # Compiler flags to generate dependency files.
-GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
+#GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
 
 
 # Combine all necessary flags and optional flags.
