@@ -50,3 +50,6 @@ PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
 include $(COMMON_DIR)/pjrc.mk
 include $(COMMON_DIR)/common.mk
+
+hasu: EXTRAFLAGS += -DHASU
+hasu: all

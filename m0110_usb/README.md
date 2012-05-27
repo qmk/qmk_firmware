@@ -50,7 +50,7 @@ Building Frimware
 To compile firmware you need AVR GCC. You can use [WinAVR](http://winavr.sourceforge.net/) on Windows.
 You can edit *Makefile* and *config.h* to change compile options and pin configuration.
 
-    $ git clone ... (or download source)
+    $ git clone git://github.com/tmk/tmk_keyboard.git (or download source)
     $ cd m0110_usb
     $ make
 
@@ -75,13 +75,11 @@ You can change keymaps by editing *keymap.c*.
     `---------------------------------------------------------'
          |Ctr|Alt |         Space               |Gui |Ctr|
          `-----------------------------------------------'
-    You can register Esc by hitting(press&release) Fn0 quickly.
-
-#### *HHKB/WASD cursor Layer(Fn0)*
+#### *HHKB/WASD Layer*
     ,---------------------------------------------------------.
     |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet|
     |---------------------------------------------------------|
-    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|  \|
+    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |   |Ins|
     |---------------------------------------------------------|
     |Fn0   |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Return|
     |---------------------------------------------------------|
@@ -103,17 +101,17 @@ You can change keymaps by editing *keymap.c*.
     |---------------------------------------------------------| |-----------|Ent|
     |Ctrl |Alt    |         Space             |  \|Lft|Rgt|Dn | |      0|  .|   |
     `---------------------------------------------------------' `---------------'
-#### *HHKB/WASD cursor Layer(Fn0)*
+#### *HHKB/WASD/mousekey  Layer*
     ,---------------------------------------------------------. ,---------------.
     |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|Mb1|Mb3|Mb2|
     |---------------------------------------------------------| |---------------|
-    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |MwD|McU|MwU|MwU|
+    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |   |   | |MwD|McU|MwU|MwU|
     |-----------------------------------------------------'   | |---------------|
     |Fn0   |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Return| |McL|McD|McR|MwD|
     |---------------------------------------------------------| |---------------|
     |Shift   |End|   |PgD|   |VoD|VoU|Mut|End|PgD|Dow|Shif|Up | |MwL|McD|MwR|   |
     |---------------------------------------------------------| |-----------|Mb2|
-    |Ctrl |Alt    |         Space        |Gui |  \|Lft|Rgt|Dn | |    Mb1|Mb3|   |
+    |Ctrl |Alt    |         Space             |Ins|Lft|Rgt|Dn | |    Mb1|Mb3|   |
     `---------------------------------------------------------' `---------------'
 
 

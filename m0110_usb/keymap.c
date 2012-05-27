@@ -55,34 +55,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
+#ifndef HASU
     1,              // Fn0
-    2,              // Fn1
-    3,              // Fn2
-    1,              // Fn3
+    0,              // Fn1
+    0,              // Fn2
+    0,              // Fn3
     0,              // Fn4
     0,              // Fn5
     0,              // Fn6
     0               // Fn7
+#else
+    1,              // Fn0
+    2,              // Fn1
+    3,              // Fn2
+    1,              // Fn3
+    2,              // Fn4
+    0,              // Fn5
+    0,              // Fn6
+    0               // Fn7
+#endif
 };
 
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
 #ifndef HASU
-    KB_ESC,         // Fn0
+    KB_NO,          // Fn0
     KB_NO,          // Fn1
     KB_NO,          // Fn2
     KB_NO,          // Fn3
-#else
-    KB_NO,          // Fn0
-    KB_SCOLON,      // Fn1
-    KB_SLASH,       // Fn2
-    KB_UP,          // Fn3
-#endif
     KB_NO,          // Fn4
     KB_NO,          // Fn5
     KB_NO,          // Fn6
     KB_NO           // Fn7
+#else
+    KB_ENTER,       // Fn0
+    KB_SCOLON,      // Fn1
+    KB_SLASH,       // Fn2
+    KB_UP,          // Fn3
+    KB_NO,          // Fn4
+    KB_NO,          // Fn5
+    KB_NO,          // Fn6
+    KB_NO           // Fn7
+#endif
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -124,7 +139,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------------------------------------------------------' `---------------'
      * Mb: Mouse Button / Mc: Mouse Cursor / Mw: Mouse Wheel
      *
-     * NOTE: You can register Esc by hitting(press&release) Fn0 quickly.
+     * NOTE: M0110 has no arrow and keypad keys.
+     * NOTE: \ is located next to ] on M0110.
      * NOTE: Gui between Space and \ is Enter on M0110 not exists on M0110A.
      * NOTE: LShift and RShift are logically same key. (M0110, M0110A)
      * NOTE: LOption and ROption are logically same key. (M0110)
@@ -140,28 +156,27 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // HHKB & WASD
     KEYMAP(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,BTN1,BTN3,BTN2,
-    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  INS,          WH_D,MS_U,WH_U,WH_U,
+    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,           WH_D,MS_U,WH_U,WH_U,
     FN0, LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     ENT,     MS_L,MS_D,MS_R,WH_D,
     LSFT,END, NO,  PGDN,NO,  VOLD,VOLU,MUTE,END, PGDN,DOWN,          UP,      WH_L,MS_D,WH_R,BTN2,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    BTN1,     BTN3
+    LCTL,LALT,               SPC,                LGUI,INS, LEFT,RGHT,DOWN,    BTN1,     BTN3
     ),
 #else
-    // hasu's keymap
-    // To enable use this 'make' option: make EXTRAFLAGS=-DHASU
+    // hasu's keymap(To enable this use 'make hasu' to add option flag: EXTRAFLAGS=-DHASU)
     KEYMAP(
     ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    LGUI,EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
-    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN1, QUOT,     ENT,     P4,  P5,  P6,  PPLS,
+    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN1, QUOT,     FN0,     P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           FN3,     P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    LGUI,     PDOT
+    FN4, LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    LGUI,     PDOT
     ),
     // HHKB & WASD
     KEYMAP(
     GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
-    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  INS,          P7,  P8,  P9,  PMNS,
-    LCTL,LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     ENT,     P4,  P5,  P6,  PPLS,
+    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,           P7,  P8,  P9,  PMNS,
+    LCTL,LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     FN0,     P4,  P5,  P6,  PPLS,
     LSFT,END, NO,  PGDN,NO,  VOLD,VOLU,MUTE,END, PGDN,DOWN,          FN3,     P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    LCTL,LALT,               SPC,                LGUI,INS, LEFT,RGHT,DOWN,    P0,       PDOT
     ),
     // vi mousekeys
     KEYMAP(
@@ -169,15 +184,15 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CAPS,NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,           P7,  P8,  P9,  PMNS,
     NO,  VOLD,VOLU,MUTE,NO,  NO,  MS_L,MS_D,MS_U,MS_R,FN1, NO,       ENT,     P4,  P5,  P6,  PPLS,
     LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,NO,  NO,  NO,            UP,      P1,  P2,  P3,  PENT,
-    LCTL,LALT,               BTN1,               LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    FN4, LALT,               BTN1,               LGUI,NO,  LEFT,RGHT,DOWN,    P0,       PDOT
     ),
     // vi cusorkeys
     KEYMAP(
     GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
-    CAPS,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, NO,  NO,  NO,           P7,  P8,  P9,  PMNS,
+    CAPS,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, PSCR,SLCK,PAUS,         P7,  P8,  P9,  PMNS,
     NO,  NO,  NO,  NO,  NO,  NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,     P4,  P5,  P6,  PPLS,
     LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2,           UP,      P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    LCTL,LALT,               SPC,                LGUI,INS, LEFT,RGHT,DOWN,    P0,       PDOT
     ),
 #endif
 };
