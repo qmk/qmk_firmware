@@ -28,8 +28,6 @@
   this software.
 */
 
-#if defined(ENABLE_DHCP_SERVER) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  DHCP Server Application. When connected to the uIP stack, this will send IP configuration settings to a
@@ -38,6 +36,8 @@
 
 #define  INCLUDE_FROM_DHCPSERVERAPP_C
 #include "DHCPServerApp.h"
+
+#if defined(ENABLE_DHCP_SERVER) || defined(__DOXYGEN__)
 
 struct uip_conn* BroadcastConnection;
 

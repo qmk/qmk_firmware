@@ -43,6 +43,8 @@
 
 		#include <LUFA/Common/Common.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Function Prototypes: */
 		void    BootloaderAPI_ErasePage(const uint32_t Address);
 		void    BootloaderAPI_WritePage(const uint32_t Address);

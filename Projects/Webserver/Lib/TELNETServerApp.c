@@ -28,8 +28,6 @@
   this software.
 */
 
-#if defined(ENABLE_TELNET_SERVER) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  TELNET Webserver Application. When connected to the uIP stack,
@@ -38,6 +36,8 @@
 
 #define  INCLUDE_FROM_TELNETSERVERAPP_C
 #include "TELNETServerApp.h"
+
+#if defined(ENABLE_TELNET_SERVER) || defined(__DOXYGEN__)
 
 /** Welcome message to send to a TELNET client when a connection is first made. */
 const char PROGMEM WelcomeHeader[] = "********************************************\r\n"

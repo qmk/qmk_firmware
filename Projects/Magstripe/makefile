@@ -120,24 +120,7 @@ LUFA_PATH = ../..
 
 
 # LUFA library compile-time options and predefined tokens
-LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
-LUFA_OPTS += -D ORDERED_EP_CONFIG
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
-LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-
-LUFA_OPTS += -D MAG_T1_CLOCK="(1 << 0)"
-LUFA_OPTS += -D MAG_T1_DATA="(1 << 1)"
-LUFA_OPTS += -D MAG_T2_CLOCK="(1 << 2)"
-LUFA_OPTS += -D MAG_T2_DATA="(1 << 3)"
-LUFA_OPTS += -D MAG_T3_CLOCK="(1 << 4)"
-LUFA_OPTS += -D MAG_T3_DATA="(1 << 5)"
-LUFA_OPTS += -D MAG_CARDPRESENT="(1 << 6)"
-LUFA_OPTS += -D MAG_PIN=PINB
-LUFA_OPTS += -D MAG_DDR=DDRB
-LUFA_OPTS += -D MAG_PORT=PORTB
+LUFA_OPTS  = -D USE_LUFA_CONFIG_HEADER
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
@@ -183,7 +166,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/
+EXTRAINCDIRS = $(LUFA_PATH)/ Config/
 
 
 # Compiler flag to set the C Standard level.

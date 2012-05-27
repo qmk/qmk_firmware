@@ -41,6 +41,8 @@
 
 		#include <avr/pgmspace.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		/** Endpoint address of the MIDI streaming data IN endpoint, for device-to-host data transfers. */
 		#define MIDI_STREAM_IN_EPADDR       (ENDPOINT_DIR_IN  | 2)

@@ -43,14 +43,9 @@
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
-		/** Protocol IP address of the host (client) machine, once assigned by DHCP. */
-		#define CLIENT_IP_ADDRESS                { 10,     0,    0,    1}
-
-		/** Protocol IP address of the virtual server machine. */
-		#define SERVER_IP_ADDRESS                { 10,     0,    0,    2}
-
 		/** Protocol IP address of the broadcast address. */
 		#define BROADCAST_IP_ADDRESS             {0xFF, 0xFF, 0xFF, 0xFF}
 

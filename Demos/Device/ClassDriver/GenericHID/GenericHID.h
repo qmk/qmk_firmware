@@ -44,8 +44,8 @@
 		#include <string.h>
 
 		#include "Descriptors.h"
-
-		#include <LUFA/Version.h>
+		#include "Config/AppConfig.h"
+		
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
 

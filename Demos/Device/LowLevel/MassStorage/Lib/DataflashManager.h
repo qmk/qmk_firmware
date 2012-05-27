@@ -45,7 +45,7 @@
 		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/Dataflash.h>
-
+		
 	/* Preprocessor Checks: */
 		#if (DATAFLASH_PAGE_SIZE % 16)
 			#error Dataflash page size must be a multiple of 16 bytes.
@@ -64,11 +64,6 @@
 		 *  change this value; change VIRTUAL_MEMORY_BYTES instead to alter the media size.
 		 */
 		#define VIRTUAL_MEMORY_BLOCKS               (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
-
-		/** Total number of Logical Units (drives) in the device. The total device capacity is shared equally between
-		 *  each drive - this can be set to any positive non-zero amount.
-		 */
-		#define TOTAL_LUNS                           1
 
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
 		#define LUN_MEDIA_BLOCKS                    (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)

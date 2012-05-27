@@ -44,7 +44,6 @@
 		#include <avr/interrupt.h>
 		#include <stdio.h>
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>
@@ -53,14 +52,9 @@
 		#include <LUFA/Drivers/Board/Buttons.h>
 
 		#include "ConfigDescriptor.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
-		/** ADC channel number for the microphone input. */
-		#define MIC_IN_ADC_CHANNEL        2
-
-		/** ADC channel MUX mask for the microphone input. */
-		#define MIC_IN_ADC_MUX_MASK       ADC_CHANNEL2
-
 		/** Maximum audio sample value for the microphone input. */
 		#define SAMPLE_MAX_RANGE          0xFFFF
 

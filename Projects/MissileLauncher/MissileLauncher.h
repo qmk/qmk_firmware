@@ -45,7 +45,6 @@
 		#include <string.h>
 		#include <stdio.h>
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/Board/Joystick.h>

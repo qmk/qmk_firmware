@@ -12,6 +12,8 @@
 		#include <avr/io.h>
 
 		#include <LUFA/Drivers/Peripheral/TWI.h>
+		
+		#include "Config/AppConfig.h"
 
 	/* Type Defines: */
 		typedef struct
@@ -111,6 +113,7 @@
 		} DS1307_DateTimeRegs_t;
 
 	/* Macros: */
+		/** TWI address of the DS1307 device on the bus. */
 		#define DS1307_ADDRESS       0xD0
 
 	/* Function Prototypes: */

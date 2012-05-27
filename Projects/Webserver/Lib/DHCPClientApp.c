@@ -28,8 +28,6 @@
   this software.
 */
 
-#if defined(ENABLE_DHCP_CLIENT) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  DHCP Client Application. When connected to the uIP stack, this will retrieve IP configuration settings from the
@@ -38,6 +36,8 @@
 
 #define  INCLUDE_FROM_DHCPCLIENTAPP_C
 #include "DHCPClientApp.h"
+
+#if defined(ENABLE_DHCP_CLIENT) || defined(__DOXYGEN__)
 
 /** Initialization function for the DHCP client. */
 void DHCPClientApp_Init(void)

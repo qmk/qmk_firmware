@@ -41,6 +41,7 @@
 
 		#include "../TempDataLogger.h"
 		#include "../Descriptors.h"
+		#include "Config/AppConfig.h"
 
 		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>

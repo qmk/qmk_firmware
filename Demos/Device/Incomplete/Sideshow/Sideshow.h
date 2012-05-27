@@ -40,7 +40,6 @@
 		#include "Descriptors.h"
 		#include "Lib/SideshowCommands.h"
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Peripheral/Serial.h>

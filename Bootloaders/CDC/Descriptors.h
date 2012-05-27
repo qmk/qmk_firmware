@@ -39,6 +39,8 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		#if defined(__AVR_AT90USB1287__)
 			#define AVR_SIGNATURE_1               0x1E

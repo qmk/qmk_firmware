@@ -40,8 +40,6 @@
 		#include <avr/io.h>
 		#include <avr/eeprom.h>
 
-		#include <LUFA/Version.h>
-
 		#if defined(ADC)
 			#include <LUFA/Drivers/Peripheral/ADC.h>
 		#endif
@@ -49,7 +47,8 @@
 		#include "V2Protocol.h"
 		#include "V2ProtocolConstants.h"
 		#include "ISP/ISPTarget.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* Macros: */
 		/** Parameter privilege mask to allow the host PC to read the parameter's value. */
 		#define PARAM_PRIV_READ     (1 << 0)

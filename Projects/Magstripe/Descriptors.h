@@ -42,6 +42,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which

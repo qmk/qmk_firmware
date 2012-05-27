@@ -40,10 +40,11 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "Webserver.h"
-		#include "Lib/uIPManagement.h"
 		#include "Descriptors.h"
+		#include "Lib/uIPManagement.h"
 		#include "Lib/SCSI.h"
-
+		#include "Config/AppConfig.h"
+		
 	/* External Variables: */
 		extern USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface_Device;
 

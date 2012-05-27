@@ -46,8 +46,8 @@
 
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
+		#include "Config/AppConfig.h"
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Dataflash.h>
@@ -67,9 +67,6 @@
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY           LEDS_LED2
-
-		/** Indicates if the disk is write protected or not. */
-		#define DISK_READ_ONLY            false
 
 	/* Global Variables: */
 		extern MS_CommandBlockWrapper_t  CommandBlock;

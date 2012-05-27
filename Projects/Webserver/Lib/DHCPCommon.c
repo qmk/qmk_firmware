@@ -28,14 +28,14 @@
   this software.
 */
 
-#if defined(ENABLE_DHCP_CLIENT) || defined(ENABLE_DHCP_SERVER) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  Common DHCP routines to manage DHCP packet data.
  */
 
 #include "DHCPCommon.h"
+
+#if defined(ENABLE_DHCP_CLIENT) || defined(ENABLE_DHCP_SERVER) || defined(__DOXYGEN__)
 
 /** Sets the given DHCP option in the DHCP packet's option list. This automatically moves the
  *  end of options terminator past the new option in the options list.

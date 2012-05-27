@@ -157,6 +157,10 @@
 //      #define NO_AUTO_VBUS_MANAGEMENT
 //      #define INVERTED_VBUS_ENABLE_LINE
 
+	#else
+
+		#error Unsupported architecture for this LUFA configuration file.
+
 	#endif
 #endif
 

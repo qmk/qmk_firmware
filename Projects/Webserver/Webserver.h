@@ -43,7 +43,6 @@
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Dataflash.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
@@ -51,6 +50,7 @@
 
 		#include "USBDeviceMode.h"
 		#include "USBHostMode.h"
+		#include "Config/AppConfig.h"
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

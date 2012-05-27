@@ -41,6 +41,8 @@
 
 		#include <avr/pgmspace.h>
 
+		#include "Config/AppConfig.h"
+
 	/* Macros: */
 		/** Endpoint address of the Audio isochronous streaming data OUT endpoint. */
 		#define AUDIO_STREAM_EPADDR          (ENDPOINT_DIR_OUT | 1)

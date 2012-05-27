@@ -43,29 +43,13 @@
 		#include <uip_arp.h>
 		#include <uip-split.h>
 		#include <timer.h>
+		
+		#include "Config/AppConfig.h"
 
 		#include "DHCPClientApp.h"
 		#include "DHCPServerApp.h"
 		#include "HTTPServerApp.h"
 		#include "TELNETServerApp.h"
-
-	/* Macros: */
-		/** IP address that the webserver should use once connected to a RNDIS device (when DHCP is disabled). */
-		#define DEVICE_IP_ADDRESS         (uint8_t[]){10, 0, 0, 2}
-
-		/** Netmask that the webserver should once connected to a RNDIS device (when DHCP is disabled). */
-		#define DEVICE_NETMASK            (uint8_t[]){255, 255, 255, 0}
-
-		/** IP address of the default gateway the webserver should use when routing outside the local subnet
-		 *  (when DHCP is disabled).
-		 */
-		#define DEVICE_GATEWAY            (uint8_t[]){10, 0, 0, 1}
-
-		/** Ethernet MAC address of the virtual webserver. When in device RNDIS mode, the virtual webserver requires
-		 *  a unique MAC address that it can use when sending packets to the RNDIS adapter, which contains a seperate
-		 *  MAC address as set in the RNDIS class driver configuration structure.
-		 */
-		#define SERVER_MAC_ADDRESS        (uint8_t[]){1, 0, 1, 0, 1, 0}
 
 	/* External Variables: */
 		extern struct uip_eth_addr MACAddress;
