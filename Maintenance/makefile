@@ -40,16 +40,16 @@ make-as4-projects:
 		source_files="<OTHERFILE>`basename $$project_makefile`<\/OTHERFILE>"; \
 		gcc_source_files=""; \
 		for c_source_file in `find $$target_folder -name *.c`; do \
-		  source_files+="<SOURCEFILE>`basename $$c_source_file`<\/SOURCEFILE>"; \
-		  gcc_source_files+="<Name>`basename $$c_source_file`<\/Name>"; \
+		  source_files="$$source_files<SOURCEFILE>`basename $$c_source_file`<\/SOURCEFILE>"; \
+		  gcc_source_files="$$gcc_source_files<Name>`basename $$c_source_file`<\/Name>"; \
 		done; \
 		for c_header_file in `find $$target_folder -name *.h`; do \
-		  source_files+="<HEADERFILE>`basename $$c_header_file`<\/HEADERFILE>"; \
-		  gcc_source_files+="<Name>`basename $$c_header_file`<\/Name>"; \
+		  source_files="$$source_files<HEADERFILE>`basename $$c_header_file`<\/HEADERFILE>"; \
+		  gcc_source_files="$$gcc_source_files<Name>`basename $$c_header_file`<\/Name>"; \
 		done; \
 		for assembly_file in `find $$target_folder -name *.S`; do \
-		  source_files+="<OTHERFILE>`basename $$assembly_file`<\/OTHERFILE>"; \
-		  gcc_source_files+="<Name>`basename $$assembly_file`<\/Name>"; \
+		  source_files="$$source_files<OTHERFILE>`basename $$assembly_file`<\/OTHERFILE>"; \
+		  gcc_source_files="$$gcc_source_files<Name>`basename $$assembly_file`<\/Name>"; \
 		done; \
 		\
 	    sed "s/%TARGET%/$$target_name/g" AS4Template.aps > $$target_folder/$$target_name.aps.new; \
