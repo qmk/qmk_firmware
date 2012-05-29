@@ -193,6 +193,10 @@ static void ResetHardware(void)
 	/* Shut down the USB and other board hardware drivers */
 	USB_Disable();
 	LEDs_Disable();
+	
+	/* Disable Bootloader active LED toggle timer */
+	TIMSK1 = 0;
+	TCCR1B = 0;
 
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);
