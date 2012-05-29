@@ -68,15 +68,15 @@
 		#include <string.h>
 		#include <stddef.h>
 
-		#if defined(USE_LUFA_CONFIG_HEADER)
-			#include "LUFAConfig.h"
-		#endif
-
 		#include "Architectures.h"
 		#include "BoardTypes.h"
 		#include "ArchitectureSpecific.h"
 		#include "CompilerSpecific.h"
 		#include "Attributes.h"
+
+		#if defined(USE_LUFA_CONFIG_HEADER)
+			#include "LUFAConfig.h"
+		#endif
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
