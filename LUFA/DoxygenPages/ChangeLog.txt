@@ -9,6 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
   *  - Core:
+  *   - Added new, revamped modular build system with new makefile templates
   *   - Added support for the BitWizard Multio and Big-Multio boards
   *   - Added support for the DorkbotPDX Duce board
   *   - Added support for the Olimex AVR-USB-32U4 board

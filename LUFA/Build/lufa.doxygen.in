@@ -1,0 +1,52 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2012.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+
+LUFA_BUILD_MODULES += DOXYGEN
+LUFA_BUILD_TARGETS += doxygen
+
+# -----------------------------------------------------------------------------
+#                 LUFA Doxygen Buildsystem Makefile Module.
+# -----------------------------------------------------------------------------
+# DESCRIPTION:
+#   Provides a set of targets to automatically build Doxygen documentation for
+#   a project (see www.doxygen.org).
+# -----------------------------------------------------------------------------
+# TARGETS:
+#
+#    doxygen                   - Build Doxygen Documentation
+#
+# MANDATORY PARAMETERS:
+#
+#    (None)
+#
+# OPTIONAL PARAMETERS:
+#
+#    DOXYGEN_CONF              - Doxygen configuration filename
+#    DOXYGEN_FAIL_ON_WARNING   - Set to Y to fail the build on Doxygen warnings,
+#                                N to continue even if warnings occur
+#    DOXYGEN_OVERRIDE_PARAMS   - Parameters to override in the doxygen
+#                                configuration file
+# -----------------------------------------------------------------------------
+
+# Output Messages
+MSG_DOXYGEN_CMD   = '  [DOXYGEN] :'
+
+# Default values of user-supplied variables
+DOXYGEN_CONF            ?= Doxygen.conf
+DOXYGEN_FAIL_ON_WARNING ?= Y
+DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES
+
+# Determine Doxygen invocation command
+DOXYGEN_CMD = ( cat Doxygen.conf ; $(DOXYGEN_OVERRIDE_PARAMS:%=echo "%";)) | doxygen -
+ifeq ($(DOXYGEN_FAIL_ON_WARNING), Y)
+    DOXYGEN_CMD = if ( ( cat Doxygen.conf $(DOXYGEN_OVERRIDE_PARAMS:%=; echo "%") ) | doxygen - 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then exit 1; fi;
+endif
+
+doxygen:
+	@echo $(MSG_DOXYGEN_CMD) Configuration file \"$(DOXYGEN_CONF)\" with parameters \"$(DOXYGEN_OVERRIDE_PARAMS)\"
+	$(DOXYGEN_CMD)

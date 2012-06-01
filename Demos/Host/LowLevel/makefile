@@ -14,62 +14,35 @@
 # code.
 
 all:
-	$(MAKE) -C AndroidAccessoryHost clean
-	$(MAKE) -C AndroidAccessoryHost all
-
-	$(MAKE) -C AudioInputHost clean
-	$(MAKE) -C AudioInputHost all
-
-	$(MAKE) -C AudioOutputHost clean
-	$(MAKE) -C AudioOutputHost all
-
-	$(MAKE) -C GenericHIDHost clean
-	$(MAKE) -C GenericHIDHost all
-
-	$(MAKE) -C JoystickHostWithParser clean
-	$(MAKE) -C JoystickHostWithParser all
-
-	$(MAKE) -C KeyboardHost clean
-	$(MAKE) -C KeyboardHost all
-
-	$(MAKE) -C MassStorageHost clean
-	$(MAKE) -C MassStorageHost all
-
-	$(MAKE) -C MIDIHost clean
-	$(MAKE) -C MIDIHost all
-
-	$(MAKE) -C MouseHost clean
-	$(MAKE) -C MouseHost all
-
-	$(MAKE) -C MouseHostWithParser clean
-	$(MAKE) -C MouseHostWithParser all
-
-	$(MAKE) -C PrinterHost clean
-	$(MAKE) -C PrinterHost all
-
-	$(MAKE) -C RNDISEthernetHost clean
-	$(MAKE) -C RNDISEthernetHost all
-
-	$(MAKE) -C StillImageHost clean
-	$(MAKE) -C StillImageHost all
-
-	$(MAKE) -C VirtualSerialHost clean
-	$(MAKE) -C VirtualSerialHost all
+	$(MAKE) -s -C AndroidAccessoryHost clean all
+	$(MAKE) -s -C AudioInputHost clean all
+	$(MAKE) -s -C AudioOutputHost clean all
+	$(MAKE) -s -C GenericHIDHost clean all
+	$(MAKE) -s -C JoystickHostWithParser clean all
+	$(MAKE) -s -C KeyboardHost clean all
+	$(MAKE) -s -C MassStorageHost clean all
+	$(MAKE) -s -C MIDIHost clean all
+	$(MAKE) -s -C MouseHost clean all
+	$(MAKE) -s -C MouseHostWithParser clean all
+	$(MAKE) -s -C PrinterHost clean all
+	$(MAKE) -s -C RNDISEthernetHost clean all
+	$(MAKE) -s -C StillImageHost clean all
+	$(MAKE) -s -C VirtualSerialHost clean all
 
 %:
-	$(MAKE) -C AndroidAccessoryHost $@
-	$(MAKE) -C AudioInputHost $@
-	$(MAKE) -C AudioOutputHost $@
-	$(MAKE) -C GenericHIDHost $@
-	$(MAKE) -C JoystickHostWithParser $@
-	$(MAKE) -C KeyboardHost $@
-	$(MAKE) -C KeyboardHostWithParser $@
-	$(MAKE) -C MassStorageHost $@
-	$(MAKE) -C MIDIHost $@
-	$(MAKE) -C MouseHost $@
-	$(MAKE) -C MouseHostWithParser $@
-	$(MAKE) -C PrinterHost $@
-	$(MAKE) -C RNDISEthernetHost $@
-	$(MAKE) -C StillImageHost $@
-	$(MAKE) -C VirtualSerialHost $@
+	$(MAKE) -s -C AndroidAccessoryHost $@
+	$(MAKE) -s -C AudioInputHost $@
+	$(MAKE) -s -C AudioOutputHost $@
+	$(MAKE) -s -C GenericHIDHost $@
+	$(MAKE) -s -C JoystickHostWithParser $@
+	$(MAKE) -s -C KeyboardHost $@
+	$(MAKE) -s -C KeyboardHostWithParser $@
+	$(MAKE) -s -C MassStorageHost $@
+	$(MAKE) -s -C MIDIHost $@
+	$(MAKE) -s -C MouseHost $@
+	$(MAKE) -s -C MouseHostWithParser $@
+	$(MAKE) -s -C PrinterHost $@
+	$(MAKE) -s -C RNDISEthernetHost $@
+	$(MAKE) -s -C StillImageHost $@
+	$(MAKE) -s -C VirtualSerialHost $@
 

@@ -673,7 +673,7 @@ static void ProcessMemReadCommand(void)
 	{
 		uint32_t CurrFlashAddress = 0;
 
-		while (CurrFlashAddress < BOOT_START_ADDR)
+		while (CurrFlashAddress < (uint32_t)BOOT_START_ADDR)
 		{
 			/* Check if the current byte is not blank */
 			#if (FLASHEND > 0xFFFF)
@@ -745,7 +745,7 @@ static void ProcessWriteCommand(void)
 		uint32_t CurrFlashAddress = 0;
 
 		/* Clear the application section of flash */
-		while (CurrFlashAddress < BOOT_START_ADDR)
+		while (CurrFlashAddress < (uint32_t)BOOT_START_ADDR)
 		{
 			boot_page_erase(CurrFlashAddress);
 			boot_spm_busy_wait();

@@ -14,61 +14,34 @@
 # code.
 
 all:
-	$(MAKE) -C AVRISP-MKII clean
-	$(MAKE) -C AVRISP-MKII all
-
-	$(MAKE) -C Benito clean
-	$(MAKE) -C Benito all
-
-	$(MAKE) -C HIDReportViewer clean
-	$(MAKE) -C HIDReportViewer all
-
-	$(MAKE) -C LEDNotifier clean
-	$(MAKE) -C LEDNotifier all
-
-	$(MAKE) -C Magstripe clean
-	$(MAKE) -C Magstripe all
-
-	$(MAKE) -C MediaController clean
-	$(MAKE) -C MediaController all
-
-	$(MAKE) -C MIDIToneGenerator clean
-	$(MAKE) -C MIDIToneGenerator all
-
-	$(MAKE) -C MissileLauncher clean
-	$(MAKE) -C MissileLauncher all
-
-	$(MAKE) -C RelayBoard clean
-	$(MAKE) -C RelayBoard all
-
-	$(MAKE) -C SerialToLCD clean
-	$(MAKE) -C SerialToLCD all
-
-	$(MAKE) -C TempDataLogger clean
-	$(MAKE) -C TempDataLogger all
-
-	$(MAKE) -C USBtoSerial clean
-	$(MAKE) -C USBtoSerial all
-
-	$(MAKE) -C Webserver clean
-	$(MAKE) -C Webserver all
-
-	$(MAKE) -C XPLAINBridge clean
-	$(MAKE) -C XPLAINBridge all
+	$(MAKE) -s -C AVRISP-MKII clean all
+	$(MAKE) -s -C Benito clean all
+	$(MAKE) -s -C HIDReportViewer clean all
+	$(MAKE) -s -C LEDNotifier clean all
+	$(MAKE) -s -C Magstripe clean all
+	$(MAKE) -s -C MediaController clean all
+	$(MAKE) -s -C MIDIToneGenerator clean all
+	$(MAKE) -s -C MissileLauncher clean all
+	$(MAKE) -s -C RelayBoard clean all
+	$(MAKE) -s -C SerialToLCD clean all
+	$(MAKE) -s -C TempDataLogger clean all
+	$(MAKE) -s -C USBtoSerial clean all
+	$(MAKE) -s -C Webserver clean all
+	$(MAKE) -s -C XPLAINBridge clean all
 
 %:
-	$(MAKE) -C AVRISP-MKII $@
-	$(MAKE) -C Benito $@
-	$(MAKE) -C HIDReportViewer $@	
-	$(MAKE) -C LEDNotifier $@
-	$(MAKE) -C Magstripe $@
-	$(MAKE) -C MediaController $@
-	$(MAKE) -C MIDIToneGenerator $@	
-	$(MAKE) -C MissileLauncher $@
-	$(MAKE) -C RelayBoard $@
-	$(MAKE) -C SerialToLCD $@
-	$(MAKE) -C TempDataLogger $@
-	$(MAKE) -C USBtoSerial $@
-	$(MAKE) -C Webserver $@
-	$(MAKE) -C XPLAINBridge $@
+	$(MAKE) -s -C AVRISP-MKII $@
+	$(MAKE) -s -C Benito $@
+	$(MAKE) -s -C HIDReportViewer $@	
+	$(MAKE) -s -C LEDNotifier $@
+	$(MAKE) -s -C Magstripe $@
+	$(MAKE) -s -C MediaController $@
+	$(MAKE) -s -C MIDIToneGenerator $@	
+	$(MAKE) -s -C MissileLauncher $@
+	$(MAKE) -s -C RelayBoard $@
+	$(MAKE) -s -C SerialToLCD $@
+	$(MAKE) -s -C TempDataLogger $@
+	$(MAKE) -s -C USBtoSerial $@
+	$(MAKE) -s -C Webserver $@
+	$(MAKE) -s -C XPLAINBridge $@
 

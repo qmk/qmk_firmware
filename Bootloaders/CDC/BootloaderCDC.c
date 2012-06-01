@@ -452,7 +452,7 @@ static void CDC_Task(void)
 	else if (Command == 'e')
 	{
 		/* Clear the application section of flash */
-		for (uint32_t CurrFlashAddress = 0; CurrFlashAddress < BOOT_START_ADDR; CurrFlashAddress += SPM_PAGESIZE)
+		for (uint32_t CurrFlashAddress = 0; CurrFlashAddress < (uint32_t)BOOT_START_ADDR; CurrFlashAddress += SPM_PAGESIZE)
 		{
 			boot_page_erase(CurrFlashAddress);
 			boot_spm_busy_wait();

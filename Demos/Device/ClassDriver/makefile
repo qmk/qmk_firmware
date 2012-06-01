@@ -14,69 +14,38 @@
 # code.
 
 all:
-	$(MAKE) -C AudioInput clean
-	$(MAKE) -C AudioInput all
-
-	$(MAKE) -C AudioOutput clean
-	$(MAKE) -C AudioOutput all
-
-	$(MAKE) -C DualVirtualSerial clean
-	$(MAKE) -C DualVirtualSerial all
-
-	$(MAKE) -C GenericHID clean
-	$(MAKE) -C GenericHID all
-
-	$(MAKE) -C Joystick clean
-	$(MAKE) -C Joystick all
-
-	$(MAKE) -C Keyboard clean
-	$(MAKE) -C Keyboard all
-
-	$(MAKE) -C KeyboardMouse clean
-	$(MAKE) -C KeyboardMouse all
-
-	$(MAKE) -C KeyboardMouseMultiReport clean
-	$(MAKE) -C KeyboardMouseMultiReport all
-
-	$(MAKE) -C MassStorage clean
-	$(MAKE) -C MassStorage all
-
-	$(MAKE) -C MassStorageKeyboard clean
-	$(MAKE) -C MassStorageKeyboard all
-
-	$(MAKE) -C MIDI clean
-	$(MAKE) -C MIDI all
-
-	$(MAKE) -C Mouse clean
-	$(MAKE) -C Mouse all
-
-	$(MAKE) -C RNDISEthernet clean
-	$(MAKE) -C RNDISEthernet all
-
-	$(MAKE) -C VirtualSerial clean
-	$(MAKE) -C VirtualSerial all
-
-	$(MAKE) -C VirtualSerialMouse clean
-	$(MAKE) -C VirtualSerialMouse all
-
-	$(MAKE) -C VirtualSerialMassStorage clean
-	$(MAKE) -C VirtualSerialMassStorage all
+	$(MAKE) -s -C AudioInput clean all
+	$(MAKE) -s -C AudioOutput clean all
+	$(MAKE) -s -C DualVirtualSerial clean all
+	$(MAKE) -s -C GenericHID clean all
+	$(MAKE) -s -C Joystick clean all
+	$(MAKE) -s -C Keyboard clean all
+	$(MAKE) -s -C KeyboardMouse clean all
+	$(MAKE) -s -C KeyboardMouseMultiReport clean all
+	$(MAKE) -s -C MassStorage clean all
+	$(MAKE) -s -C MassStorageKeyboard clean all
+	$(MAKE) -s -C MIDI clean all
+	$(MAKE) -s -C Mouse clean all
+	$(MAKE) -s -C RNDISEthernet clean all
+	$(MAKE) -s -C VirtualSerial clean all
+	$(MAKE) -s -C VirtualSerialMouse clean all
+	$(MAKE) -s -C VirtualSerialMassStorage clean all
 
 %:
-	$(MAKE) -C AudioInput $@
-	$(MAKE) -C AudioOutput $@
-	$(MAKE) -C DualVirtualSerial $@
-	$(MAKE) -C GenericHID $@
-	$(MAKE) -C Joystick $@
-	$(MAKE) -C Keyboard $@
-	$(MAKE) -C KeyboardMouse $@
-	$(MAKE) -C KeyboardMouseMultiReport $@
-	$(MAKE) -C MassStorage $@
-	$(MAKE) -C MassStorageKeyboard $@
-	$(MAKE) -C MIDI $@
-	$(MAKE) -C Mouse $@
-	$(MAKE) -C RNDISEthernet $@
-	$(MAKE) -C VirtualSerial $@
-	$(MAKE) -C VirtualSerialMouse $@
-	$(MAKE) -C VirtualSerialMassStorage $@
+	$(MAKE) -s -C AudioInput $@
+	$(MAKE) -s -C AudioOutput $@
+	$(MAKE) -s -C DualVirtualSerial $@
+	$(MAKE) -s -C GenericHID $@
+	$(MAKE) -s -C Joystick $@
+	$(MAKE) -s -C Keyboard $@
+	$(MAKE) -s -C KeyboardMouse $@
+	$(MAKE) -s -C KeyboardMouseMultiReport $@
+	$(MAKE) -s -C MassStorage $@
+	$(MAKE) -s -C MassStorageKeyboard $@
+	$(MAKE) -s -C MIDI $@
+	$(MAKE) -s -C Mouse $@
+	$(MAKE) -s -C RNDISEthernet $@
+	$(MAKE) -s -C VirtualSerial $@
+	$(MAKE) -s -C VirtualSerialMouse $@
+	$(MAKE) -s -C VirtualSerialMassStorage $@
 

@@ -9,16 +9,15 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
-MCU          = at90usb162
+MCU          = at90usb1287
 ARCH         = AVR8
-BOARD        = MINIMUS
-F_CPU        = 16000000
+BOARD        = USBKEY
+F_CPU        = 8000000
 F_USB        = $(F_CPU)
 OPTIMIZATION = s
-TARGET       = SerialToLCD
-SRC          = $(TARGET).c Descriptors.c Lib/HD44780.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
+TARGET       = Target
+SRC          = $(TARGET).c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
 LUFA_PATH    = ../../LUFA/
-C_STANDARD   = gnu99
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
 LD_FLAGS     =
 

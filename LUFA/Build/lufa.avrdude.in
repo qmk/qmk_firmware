@@ -1,0 +1,54 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2012.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+
+LUFA_BUILD_MODULES += AVRDUDE
+LUFA_BUILD_TARGETS += program
+
+# -----------------------------------------------------------------------------
+#               LUFA DFU Bootloader Buildsystem Makefile Module.
+# -----------------------------------------------------------------------------
+# DESCRIPTION:
+#   Provides a set of targets to re-program a device using the open source
+#   avr-dude utility.
+# -----------------------------------------------------------------------------
+# TARGETS:
+#
+#    program                   - Program target with application using avr-dude
+#
+# MANDATORY PARAMETERS:
+#
+#    MCU                       - Microcontroller device model name
+#    TARGET                    - Application name
+#
+# OPTIONAL PARAMETERS:
+#
+#    AVRDUDE_PROGRAMMER        - Name of programming hardware to use
+#    AVRDUDE_PORT              - Name of communication port to use
+#    AVRDUDE_FLAGS             - Flags to pass to avr-dude
+#
+# -----------------------------------------------------------------------------
+
+# Output Messages
+MSG_AVRDUDE_CMD   = '  [AVRDUDE]  :'
+
+# Default values of user-supplied variables
+AVRDUDE_PROGRAMMER  ?= jtagicemkii
+AVRDUDE_PORT        ?= usb
+AVRDUDE_FLAGS       ?= -U flash:w:$(TARGET).hex
+
+# Sanity check the user MCU and TARGET makefile options
+ifeq ($(MCU),)
+   $(error Makefile MCU value not set.)
+endif
+ifeq ($(TARGET),)
+   $(error Makefile TARGET value not set.)
+endif
+
+program: $(TARGET).hex
+	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
+	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_FLAGS)
