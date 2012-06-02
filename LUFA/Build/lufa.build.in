@@ -42,7 +42,11 @@ LUFA_BUILD_TARGETS += size checksource all elf hex clean
 #    C_STANDARD                - C Language Standard to use
 #    CPP_STANDARD              - C++ Language Standard to use
 #    F_CPU                     - Speed of the CPU, in Hz
-#    CC_FLAGS                  - Flags to pass to the compiler
+#    C_FLAGS                   - Flags to pass to the C compiler only
+#    CPP_FLAGS                 - Flags to pass to the C++ compiler only
+#    ASM_FLAGS                 - Flags to pass to the assembler only
+#    CC_FLAGS                  - Common flags to pass to the C/C++ compiler and
+#                                assembler
 #    LD_FLAGS                  - Flags to pass to the linker
 #
 # -----------------------------------------------------------------------------
@@ -83,6 +87,10 @@ OPTIMIZATION  ?= s
 F_CPU         ?=
 C_STANDARD    ?= gnu99
 CPP_STANDARD  ?= gnu++98
+C_FLAGS       ?=
+CPP_FLAGS     ?=
+ASM_FLAGS     ?=
+CC_FLAGS      ?=
 
 # Convert input source file list to differentiate them by type
 C_SOURCE   = $(filter %.c, $(SRC))
@@ -105,13 +113,15 @@ else ifeq ($(ARCH), UC3)
 else
   $(error Unsupported architecture.)
 endif
-CC_FLAGS += -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
-CC_FLAGS += -Wall -Wstrict-prototypes
+CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
 CC_FLAGS += -I. -I$(LUFA_PATH)/..
 CC_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
 ifneq ($(F_CPU),)
    CC_FLAGS += -DF_CPU=$(F_CPU)UL
 endif
+
+# Additional language specific compiler flags
+C_FLAGS   += -Wstrict-prototypes
 
 # Create a list of flags to pass to the linker
 LD_FLAGS += -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections -lm
@@ -162,15 +172,15 @@ lss: $(TARGET).lss
 
 %.o: %.c
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$^\"
-	$(CROSS)gcc -c $(CC_FLAGS) -O$(OPTIMIZATION) -std=$(C_STANDARD) $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) $(C_FLAGS) -O$(OPTIMIZATION) -std=$(C_STANDARD) $< -o $@
 
 %.o: %.cpp
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$^\"
-	$(CROSS)gcc -c $(CC_FLAGS) -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -x c++ $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -x c++ $< -o $@
 	
 %.o: %.S
 	@echo $(MSG_COMPILE_CMD) Assembling \"$^\"
-	$(CROSS)gcc -c $(CC_FLAGS) -x assembler-with-cpp $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) $(ASM_FLAGS) -x assembler-with-cpp $< -o $@
 
 .PRECIOUS : $(OBJECT_FILES)
 %.elf: $(OBJECT_FILES)

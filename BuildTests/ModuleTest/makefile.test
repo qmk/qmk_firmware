@@ -27,8 +27,9 @@ TARGET       = Test
 SRC          = $(TARGET)_C.c $(TARGET)_CPP.cpp Dummy.S $(LUFA_SRC_USB)
 LUFA_PATH    = ../../LUFA/
 
-CC_FLAGS     = -Wextra
-#CC_FLAGS += -Werror # FIXME
+# Generic C/C++ compiler flags
+CC_FLAGS  = -Wextra
+CC_FLAGS += -Werror
 CC_FLAGS += -Wformat=2
 CC_FLAGS += -Winit-self
 CC_FLAGS += -Wswitch-enum
@@ -38,17 +39,19 @@ CC_FLAGS += -Wpointer-arith
 CC_FLAGS += -Wcast-align
 CC_FLAGS += -Wwrite-strings
 CC_FLAGS += -Wlogical-op
-CC_FLAGS += -Wmissing-parameter-type
 CC_FLAGS += -Wmissing-declarations
 CC_FLAGS += -Wmissing-field-initializers
 CC_FLAGS += -Wmissing-format-attribute
-CC_FLAGS += -Wnested-externs
 CC_FLAGS += -Woverlength-strings
 
 # Only enable rendundant declaration warnings for AVR8 target (FIXME)
 ifeq ($(ARCH), AVR8)
 CC_FLAGS += -Wredundant-decls
 endif
+
+# C compiler only flags
+C_FLAGS += -Wmissing-parameter-type
+C_FLAGS += -Wnested-externs
 
 # Potential additional warnings to enable in the future (FIXME)
 #CC_FLAGS += -Wswitch-default
