@@ -153,8 +153,8 @@ size:
 	    avr-size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
 	 fi
 
-.PHONY: begin hex lss end size
-all: begin hex end size
+.PHONY: begin elf hex lss size end
+all: begin elf hex lss size end
 
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
