@@ -6,8 +6,10 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES += AVRDUDE
-LUFA_BUILD_TARGETS += program
+LUFA_BUILD_MODULES        += AVRDUDE
+LUFA_BUILD_TARGETS        += program
+LUFA_BUILD_MANDATORY_VARS += MCU TARGET
+LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 
 # -----------------------------------------------------------------------------
 #               LUFA DFU Bootloader Buildsystem Makefile Module.

@@ -6,8 +6,10 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES += CORE
-LUFA_BUILD_TARGETS += list_targets list_modules help
+LUFA_BUILD_MODULES        += CORE
+LUFA_BUILD_TARGETS        += info help list_targets list_modules list_mandatory list_optional 
+LUFA_BUILD_MANDATORY_VARS += 
+LUFA_BUILD_OPTIONAL_VARS  += 
 
 # -----------------------------------------------------------------------------
 #               LUFA Core Buildsystem Makefile Module.
@@ -21,6 +23,10 @@ LUFA_BUILD_TARGETS += list_targets list_modules help
 #    help                      - Build system help
 #    list_targets              - List all build targets
 #    list_modules              - List all build modules
+#    list_mandatory            - List all mandatory make variables required by
+#                                the included build modules of the application
+#    list_optional             - List all optional make variables required by
+#                                the included build modules of the application
 #
 # MANDATORY PARAMETERS:
 #
@@ -53,14 +59,25 @@ help: info
 	@echo " in your project makefile. Parameters marked as optional will      "
 	@echo " assume a default value in the module if not user-assigned.        "
 	@echo "==================================================================="
-	@echo "  Currently Used Modules in this application:                      "
+	@echo "  Currently used modules in this application:                      "
 	@echo "                                                                   "
 	@echo "    [" $(sort $(LUFA_BUILD_MODULES)) "]"
 	@echo "                                                                   "
 	@echo "                                                                   "
-	@echo "  Currently Available Build Targets in this application:           "
+	@echo "  Currently available build targets in this application:           "
 	@echo "                                                                   "
 	@echo "    [" $(sort $(LUFA_BUILD_TARGETS)) "]"
+	@echo "                                                                   "
+	@echo "                                                                   "
+	@echo "  Mandatory variables required by the selected build Modules:      "
+	@echo "                                                                   "
+	@echo "    [" $(sort $(LUFA_BUILD_MANDATORY_VARS)) "]"
+	@echo "                                                                   "
+	@echo "                                                                   "
+	@echo "  Optional variables required by the selected build Modules:       "
+	@echo "                                                                   "
+	@echo "    [" $(sort $(LUFA_BUILD_OPTIONAL_VARS)) "]"
+	@echo "                                                                   "
 	@echo "==================================================================="
 	@echo "        The LUFA BuildSystem 2.0 - Powered By Unicorns (tm)        "
 	@echo "==================================================================="
@@ -71,3 +88,8 @@ list_targets:
 list_modules:
 	@echo Currently Build Modules: $(sort $(LUFA_BUILD_MODULES))
 
+list_mandatory:
+	@echo Mandatory Variables for Included Modules: $(sort $(LUFA_BUILD_MANDATORY_VARS))
+	
+list_optional:
+	@echo Optional Variables for Included Modules: $(sort $(LUFA_BUILD_OPTIONAL_VARS))

@@ -6,8 +6,10 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES += DOXYGEN
-LUFA_BUILD_TARGETS += doxygen
+LUFA_BUILD_MODULES        += DOXYGEN
+LUFA_BUILD_TARGETS        += doxygen
+LUFA_BUILD_MANDATORY_VARS += 
+LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRIDE_PARAMS
 
 # -----------------------------------------------------------------------------
 #                 LUFA Doxygen Buildsystem Makefile Module.

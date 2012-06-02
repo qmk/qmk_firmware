@@ -6,8 +6,10 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES += SOURCES
-LUFA_BUILD_TARGETS += 
+LUFA_BUILD_MODULES        += SOURCES
+LUFA_BUILD_TARGETS        += 
+LUFA_BUILD_MANDATORY_VARS += LUFA_PATH ARCH
+LUFA_BUILD_OPTIONAL_VARS  += 
 
 # -----------------------------------------------------------------------------
 #               LUFA Sources Buildsystem Makefile Module.

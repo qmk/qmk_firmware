@@ -6,8 +6,10 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES += BUILD
-LUFA_BUILD_TARGETS += size checksource all elf hex clean
+LUFA_BUILD_MODULES        += BUILD
+LUFA_BUILD_TARGETS        += size checksource all elf hex clean
+LUFA_BUILD_MANDATORY_VARS += TARGET ARCH MCU SRC F_USB LUFA_PATH
+LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS
 
 # -----------------------------------------------------------------------------
 #               LUFA Compiler Buildsystem Makefile Module.
