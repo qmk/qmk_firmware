@@ -190,7 +190,7 @@ lss: $(TARGET).lss
 	$(CROSS)objdump -h -S -z $< > $@
 
 clean:
-	@echo $(MSG_REMOVE_CMD) Removing object files \"$(notdir $(OBJECT_FILES))\"
+	@echo $(MSG_REMOVE_CMD) Removing object files \"$(strip $(notdir $(OBJECT_FILES)))\"
 	rm -f $(OBJECT_FILES)
 	@echo $(MSG_REMOVE_CMD) Removing output files \"$(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss\"
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss

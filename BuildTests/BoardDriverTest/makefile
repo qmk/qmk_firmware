@@ -45,7 +45,7 @@ testboards:
 	     echo "Found board configuration for $$build_board - $$build_arch, $$build_mcu";            \
 		                                                                                            \
 		 printf "\t@echo Building dummy project for $$build_board...\n" >> BuildMakefile;           \
-		 printf "\tmake -s -f makefile.test clean elf MCU=%s ARCH=%s BOARD=%s\n\n" $$build_mcu $$build_arch $$build_board >> BuildMakefile; \
+		 printf "\t$(MAKE) -s -f makefile.test clean elf MCU=%s ARCH=%s BOARD=%s\n\n" $$build_mcu $$build_arch $$build_board >> BuildMakefile; \
 	   fi;                                                                                          \
 	 done < BoardList.txt
 	 
