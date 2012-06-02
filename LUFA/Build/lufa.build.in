@@ -93,13 +93,13 @@ ASM_SOURCE = $(filter %.S, $(SRC))
 OBJECT_FILES = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
 
 # Create a list of flags to pass to the compiler
-ifeq ($(ARCH),AVR8)
+ifneq ($(ARCH), AVR8)
  CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
  CROSS     = avr-
-else ifeq ($(ARCH),XMEGA)
+else ifeq ($(ARCH), XMEGA)
  CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
  CROSS     = avr-
-else ifeq ($(ARCH),UC3)
+else ifeq ($(ARCH), UC3)
  CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
  CROSS     = avr32-
 endif
@@ -112,7 +112,10 @@ ifneq ($(F_CPU),)
 endif
 
 # Create a list of flags to pass to the linker
-LD_FLAGS += -Wl,-Map=$(TARGET).map,--cref -Wl,--relax -Wl,--gc-sections -lm
+LD_FLAGS += -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections -lm
+ifneq ($(F_CPU), UC3)
+   LD_FLAGS += -Wl,--relax
+endif
 
 # Create a list of unknown source file types, if any are found throw an error
 UNKNOWN_SOURCE = $(filter-out $(C_SOURCE) $(CPP_SOURCE) $(ASM_SOURCE), $(SRC))
