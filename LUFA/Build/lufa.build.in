@@ -53,17 +53,7 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 #
 # -----------------------------------------------------------------------------
 
-# Output Messages
-MSG_BUILD_BEGIN = Begin compilation of project \"$(TARGET)\"...
-MSG_BUILD_END   = Finished building project \"$(TARGET)\"...
-MSG_COMPILE_CMD = ' [CC]      :'
-MSG_REMOVE_CMD  = ' [RM]      :'
-MSG_LINKER_CMD  = ' [LNK]     :'
-MSG_SIZE_CMD    = ' [SIZE]    :'
-MSG_OBJCPY_CMD  = ' [OBJCPY]  :'
-MSG_OBJDMP_CMD  = ' [OBJDMP]  :'
-
-# Sanity check the user MCU, TARGET, ARCH, SRC, F_USB and LUFA_PATH makefile options
+# Sanity-check values of mandatory user-supplied variables
 MCU            ?= $(error Makefile MCU value not set.)
 TARGET         ?= $(error Makefile TARGET value not set.)
 ARCH           ?= $(error Makefile ARCH value not set.)
@@ -71,7 +61,7 @@ SRC            ?= $(error Makefile SRC value not set.)
 F_USB          ?= $(error Makefile F_USB value not set.)
 LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set.)
 
-# Default values of user-supplied variables
+# Default values of optionally user-supplied variables
 BOARD          ?= NONE
 OPTIMIZATION   ?= s
 F_CPU          ?=
@@ -81,6 +71,16 @@ C_FLAGS        ?=
 CPP_FLAGS      ?=
 ASM_FLAGS      ?=
 CC_FLAGS       ?=
+
+# Output Messages
+MSG_BUILD_BEGIN = Begin compilation of project \"$(TARGET)\"...
+MSG_BUILD_END   = Finished building project \"$(TARGET)\"...
+MSG_COMPILE_CMD = ' [CC]      :'
+MSG_REMOVE_CMD  = ' [RM]      :'
+MSG_LINKER_CMD  = ' [LNK]     :'
+MSG_SIZE_CMD    = ' [SIZE]    :'
+MSG_OBJCPY_CMD  = ' [OBJCPY]  :'
+MSG_OBJDMP_CMD  = ' [OBJDMP]  :'
 
 # Convert input source file list to differentiate them by type
 C_SOURCE   = $(filter %.c, $(SRC))

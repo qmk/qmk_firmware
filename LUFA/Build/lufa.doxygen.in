@@ -35,13 +35,13 @@ LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRI
 #                                configuration file
 # -----------------------------------------------------------------------------
 
-# Output Messages
-MSG_DOXYGEN_CMD          = ' [DOXYGEN] :'
-
-# Default values of user-supplied variables
+# Default values of optionally user-supplied variables
 DOXYGEN_CONF            ?= Doxygen.conf
 DOXYGEN_FAIL_ON_WARNING ?= Y
 DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES
+
+# Output Messages
+MSG_DOXYGEN_CMD          = ' [DOXYGEN] :'
 
 # Determine Doxygen invocation command
 DOXYGEN_CMD = ( cat Doxygen.conf ; $(DOXYGEN_OVERRIDE_PARAMS:%=echo "%";)) | doxygen -

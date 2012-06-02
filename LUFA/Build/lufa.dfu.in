@@ -36,14 +36,14 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 #
 # -----------------------------------------------------------------------------
 
+# Sanity-check values of mandatory user-supplied variables
+MCU            ?= $(error Makefile MCU value not set.)
+TARGET         ?= $(error Makefile TARGET value not set.)
+
 # Output Messages
 MSG_COPY_CMD    = ' [CP]      :'
 MSG_REMOVE_CMD  = ' [RM]      :'
 MSG_DFU_CMD     = ' [DFU]     :'
-
-# Sanity check the user MCU and TARGET makefile options
-MCU            ?= $(error Makefile MCU value not set.)
-TARGET         ?= $(error Makefile TARGET value not set.)
 
 flip: $(TARGET).hex
 	@echo $(MSG_DFU_CMD) Programming FLASH with batchisp using \"$(TARGET).hex\"

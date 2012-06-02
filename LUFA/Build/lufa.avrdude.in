@@ -35,17 +35,17 @@ LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 #
 # -----------------------------------------------------------------------------
 
-# Output Messages
-MSG_AVRDUDE_CMD     = ' [AVRDUDE] :'
+# Sanity-check values of mandatory user-supplied variables
+MCU                ?= $(error Makefile MCU value not set.)
+TARGET             ?= $(error Makefile TARGET value not set.)
 
-# Default values of user-supplied variables
+# Default values of optionally user-supplied variables
 AVRDUDE_PROGRAMMER ?= jtagicemkii
 AVRDUDE_PORT       ?= usb
 AVRDUDE_FLAGS      ?= -U flash:w:$(TARGET).hex
 
-# Sanity check the user MCU and TARGET makefile options
-MCU                ?= $(error Makefile MCU value not set.)
-TARGET             ?= $(error Makefile TARGET value not set.)
+# Output Messages
+MSG_AVRDUDE_CMD     = ' [AVRDUDE] :'
 
 program: $(TARGET).hex
 	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
