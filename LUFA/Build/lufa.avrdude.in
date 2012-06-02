@@ -12,7 +12,7 @@ LUFA_BUILD_MANDATORY_VARS += MCU TARGET
 LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 
 # -----------------------------------------------------------------------------
-#               LUFA DFU Bootloader Buildsystem Makefile Module.
+#             LUFA AVRDUDE Programmer Buildsystem Makefile Module.
 # -----------------------------------------------------------------------------
 # DESCRIPTION:
 #   Provides a set of targets to re-program a device using the open source

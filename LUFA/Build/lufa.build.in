@@ -12,7 +12,7 @@ LUFA_BUILD_MANDATORY_VARS += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS
 
 # -----------------------------------------------------------------------------
-#               LUFA Compiler Buildsystem Makefile Module.
+#               LUFA GCC Compiler Buildsystem Makefile Module.
 # -----------------------------------------------------------------------------
 # DESCRIPTION:
 #   Provides a set of targets to build a C, C++ and/or Assembly application
