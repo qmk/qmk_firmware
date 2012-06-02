@@ -32,7 +32,7 @@ make-as4-projects:
 	@for project_makefile in `find $(LUFA_ROOT)/Demos $(LUFA_ROOT)/Projects $(LUFA_ROOT)/Bootloaders -name makefile*`; do \
 	  target_name=`grep "TARGET *=" $$project_makefile | cut -d'=' -f2 | sed 's/ //g'`; \
 	  target_folder=`dirname $$project_makefile`;                                   \
-	  as4_date=`date "+%e-%b-%Y %H:%M:%S"`;                                         \
+	  as4_date=`date "+%-e-%b-%Y %-H:%-M:%-S"`;                                     \
 	                                                                                \
 	  if ( test -n "$$target_name" ); then                                          \
 	    echo Creating AS4 project for project $$target_name;                        \
