@@ -40,7 +40,7 @@ ARCH           ?= $(error Makefile ARCH value not set.)
 LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set.)
 
 # Allow LUFA_ROOT_PATH to be overridden elsewhere to support legacy LUFA makefiles
-LUFA_ROOT_PATH ?= $(LUFA_PATH)
+LUFA_ROOT_PATH ?= $(patsubst %/,%,$(LUFA_PATH))
 
 # Construct LUFA module source variables
 LUFA_SRC_USB         = $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Device_$(ARCH).c          \

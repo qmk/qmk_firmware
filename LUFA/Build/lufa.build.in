@@ -104,7 +104,7 @@ else
   $(error Unsupported architecture.)
 endif
 CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
-CC_FLAGS += -I. -I$(LUFA_PATH)/..
+CC_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
 CC_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
 ifneq ($(F_CPU),)
    CC_FLAGS += -DF_CPU=$(F_CPU)UL
