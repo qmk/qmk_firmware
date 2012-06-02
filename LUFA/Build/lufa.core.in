@@ -76,7 +76,7 @@ help: info
 	@echo "                                                                   "
 	@echo "  Optional variables required by the selected build Modules:       "
 	@echo "                                                                   "
-	@echo "    [" $(sort $(LUFA_BUILD_OPTIONAL_VARS)) "]"
+	@echo "    [" $(filter-out $(LUFA_BUILD_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS))) "]"
 	@echo "                                                                   "
 	@echo "==================================================================="
 	@echo "        The LUFA BuildSystem 2.0 - Powered By Unicorns (tm)        "
@@ -92,4 +92,4 @@ list_mandatory:
 	@echo Mandatory Variables for Included Modules: $(sort $(LUFA_BUILD_MANDATORY_VARS))
 	
 list_optional:
-	@echo Optional Variables for Included Modules: $(sort $(LUFA_BUILD_OPTIONAL_VARS))
+	@echo Optional Variables for Included Modules: $(filter-out $(LUFA_BUILD_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))

@@ -92,16 +92,16 @@ OBJECT_FILES = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_S
 
 # Create a list of flags to pass to the compiler
 ifeq ($(ARCH), AVR8)
- CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
- CROSS     = avr-
+   CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
+   CROSS     = avr-
 else ifeq ($(ARCH), XMEGA)
- CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
- CROSS     = avr-
+   CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
+   CROSS     = avr-
 else ifeq ($(ARCH), UC3)
- CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
- CROSS     = avr32-
+   CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
+   CROSS     = avr32-
 else
-  $(error Unsupported architecture.)
+    $(error Unsupported architecture.)
 endif
 CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
 CC_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..

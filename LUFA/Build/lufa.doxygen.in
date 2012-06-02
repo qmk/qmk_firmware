@@ -8,7 +8,7 @@
 
 LUFA_BUILD_MODULES        += DOXYGEN
 LUFA_BUILD_TARGETS        += doxygen
-LUFA_BUILD_MANDATORY_VARS += 
+LUFA_BUILD_MANDATORY_VARS += LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRIDE_PARAMS
 
 # -----------------------------------------------------------------------------
@@ -24,7 +24,7 @@ LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRI
 #
 # MANDATORY PARAMETERS:
 #
-#    (None)
+#    LUFA_PATH                 - Path to the LUFA library core
 #
 # OPTIONAL PARAMETERS:
 #
@@ -35,20 +35,23 @@ LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRI
 #                                configuration file
 # -----------------------------------------------------------------------------
 
+# Sanity-check values of mandatory user-supplied variables
+LUFA_PATH               ?= $(error Makefile LUFA_PATH value not set.)
+
 # Default values of optionally user-supplied variables
 DOXYGEN_CONF            ?= Doxygen.conf
 DOXYGEN_FAIL_ON_WARNING ?= Y
-DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES
+DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES HTML_STYLESHEET=$(patsubst %/,%,$(LUFA_PATH))/DoxygenPages/Style/Style.css
 
 # Output Messages
 MSG_DOXYGEN_CMD          = ' [DOXYGEN] :'
 
 # Determine Doxygen invocation command
-BASE_DOXYGEN_CMD = ( cat Doxygen.conf ; $(DOXYGEN_OVERRIDE_PARAMS:%=echo "%") ) | doxygen -
+BASE_DOXYGEN_CMD = ( cat Doxygen.conf $(DOXYGEN_OVERRIDE_PARAMS:%=; echo "%") ) | doxygen -
 ifeq ($(DOXYGEN_FAIL_ON_WARNING), Y)
-    DOXYGEN_CMD = if ( $(BASE_DOXYGEN_CMD) 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then exit 1; fi;
+   DOXYGEN_CMD = if ( $(BASE_DOXYGEN_CMD) 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then exit 1; fi;
 else
-    DOXYGEN_CMD = $(BASE_DOXYGEN_CMD)
+   DOXYGEN_CMD = $(BASE_DOXYGEN_CMD)
 endif
 
 doxygen:
