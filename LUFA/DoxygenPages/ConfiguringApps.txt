@@ -17,8 +17,10 @@
  *  any regular basic text editor such as Notepad or WordPad (ensure that the save format is a pure ASCII text format) the
  *  build configuration settings may be altered.
  *
- *  Inside each makefile, a number of configuration variables are located, with the format "<VARIABLE NAME> = <VALUE>". For
- *  each application, the important variables which should be altered are:
+ *  \section Sec_AppConfigParams The Default Application Template
+ *
+ *  Inside each makefile, a number of configuration variables are listed with the syntax "<VARIABLE NAME> = <VALUE>". For
+ *  each application, the important standard variables which should be altered are:
  *
  *    - <b>MCU</b>, the target processor model
  *    - <b>ARCH</b>, the target microcontroller architecture
@@ -34,21 +36,21 @@
  *
  *  These values should be changed to reflect the build hardware.
  *
- *  \section Sec_MCU The MCU Parameter
+ *  \subsection SSec_MCU The MCU Parameter
  *  This parameter indicates the target microcontroller model for the compiled application. This should be set to the model of the target
  *  microcontroller (such as the AT90USB1287, or the ATMEGA32U4), in all lower-case (e.g. "at90usb1287"). Note that not all demos support all the
  *  microcontroller models and architectures, as they may make use of peripherals or modes only present in some devices.
  *
  *  For supported processor models, see \ref Page_DeviceSupport.
  *
- *  \section Sec_ARCH The ARCH Parameter
+ *  \subsection SSec_ARCH The ARCH Parameter
  *  This parameter indicates the target microcontroller architecture the library is to be compiled for. Different microcontroller
  *  architectures require different source files to be compiled into the final binary, and so this option must be set to the correct
  *  architecture for the selected platform.
  *
  *  For supported processor architectures, see \ref Page_DeviceSupport.
  *
- *  \section Sec_BOARD The BOARD Parameter
+ *  \subsection SSec_BOARD The BOARD Parameter
  *  This parameter indicates the target board hardware for the compiled application. Some LUFA library drivers are board-specific,
  *  such as the LED driver, and the library needs to know the layout of the target board. If you are using one of the board models listed
  *  on the main library page, change this parameter to the board name in all UPPER-case.
@@ -61,37 +63,37 @@
  *
  *  For boards with built in hardware driver support within the LUFA library, see \ref Page_DeviceSupport.
  *
- *  \section Sec_F_CPU The F_CPU Parameter
+ *  \subsection SSec_F_CPU The F_CPU Parameter
  *  This parameter indicates the target microcontroller's main CPU clock frequency, in Hz. This is used by many libraries (and applications) for
  *  timing related purposes, and should reflect the actual CPU speed after any prescaling or adjustments are performed.
  *
- *  \section Sec_F_USB The F_USB Parameter
+ *  \subsection SSec_F_USB The F_USB Parameter
  *  This parameter indicates the raw input clock frequency to the USB module within the microcontroller in Hz. This may be very different on some platforms
  *  to the main CPU clock or other peripheral/bus clocks.
  *
- *  \section Sec_OPTIMIZATION The OPTIMIZATION Parameter
+ *  \subsection SSec_OPTIMIZATION The OPTIMIZATION Parameter
  *  This parameter indicates the level of optimization to use when compiling the application. This will allow you to compile with an optimization level
  *  supported by GCC, from <tt>0</tt> (no optimization) to <tt>3</tt> (fastest runtime optimization) or <tt>s</tt> (smallest size).
  *
- *  \section Sec_TARGET The TARGET Parameter
+ *  \subsection SSec_TARGET The TARGET Parameter
  *  This parameter indicates the application target name, which is used as the base filename for the build binary and debugging files. This will be the
  *  name of the output files once linked together into the final application, ready to load into the target.
  *
- *  \section Sec_SRC The SRC Parameter
+ *  \subsection SSec_SRC The SRC Parameter
  *  This parameter indicates the source files used to compile the application, as a list of C (<tt>*.c</tt>), C++ (<tt>*.cpp</tt>) and Assembly (<tt>*.S</tt>) files. Note that
  *  all assembly files must end in a <b>capital</b> .S extension, as lowercase .s files are reserved for GCC intermediate files.
  *
- *  \section Sec_LUFA_PATH The LUFA_PATH Parameter
+ *  \subsection SSec_LUFA_PATH The LUFA_PATH Parameter
  *  As each LUFA program requires the LUFA library source code to compile correctly, the application must know where the LUFA library is located. This
  *  value specifies the path to the LUFA library core. This path may be relative or absolute, however note than even under Windows based systems the
  *  forward-slash (/) path seperator must be used.
  *
- *  \section Sec_CC_FLAGS The CC_FLAGS Parameter
+ *  \subsection SSec_CC_FLAGS The CC_FLAGS Parameter
  *  This parameter lists the compiler flags passed to the C/C++ compiler, the assembler and the linker. These are used as-is directly to GCC and thus
  *  must match GCC's command line options as given in the GCC manual. This variable may be used to define tokens directly on the command line, enable or
  *  disable warnings, adjust the target-specific tuning parameters or other options.
  *
- *  \section Sec_LD_FLAGS The LD_FLAGS Parameter
+ *  \subsection SSec_LD_FLAGS The LD_FLAGS Parameter
  *  This parameter lists the linker flags passed exclusively to the linker. These are used as-is directly to GCC and thus must match GCC's command line
  *  linker options as given in the GCC manual. This variable may be used to create or relocate custom data sections, or enable linker specific behaviors.
  */
