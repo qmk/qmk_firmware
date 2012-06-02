@@ -239,8 +239,12 @@
 				#define USB_CAN_BE_DEVICE
 			#endif
 
-			#if (defined(USB_CAN_BE_DEVICE) && defined(USB_CAN_BE_HOST))
+			#if   ( defined(USB_CAN_BE_DEVICE) &&  defined(USB_CAN_BE_HOST))
 				#define USB_CAN_BE_BOTH
+			#elif ( defined(USB_CAN_BE_DEVICE) && !defined(USB_CAN_BE_HOST))
+				#define USB_DEVICE_ONLY
+			#elif (!defined(USB_CAN_BE_DEVICE) &&  defined(USB_CAN_BE_HOST))
+				#define USB_HOST_ONLY
 			#endif
 
 			#if defined(USB_HOST_ONLY)

@@ -13,6 +13,8 @@ LUFA_VERSION_NUM        = $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"'
 EXCLUDE_FROM_EXPORT     = Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.bin
 DOXYGEN_OVERRIDE_PARAMS = PROJECT_NUMBER=$(LUFA_VERSION_NUM)
 
+all:
+
 export_tar:
 	@echo Exporting LUFA library to a TAR archive...
 	@tar -cf LUFA_$(LUFA_VERSION_NUM).tar --directory=. $(EXCLUDE_FROM_EXPORT:%=--exclude=%) *
@@ -33,8 +35,6 @@ else
   LUFA_PATH           = .
   ARCH                = {AVR8,UC3,XMEGA}
   
-  all:
-
   clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.lst)
