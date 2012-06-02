@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES        += BUILD
-LUFA_BUILD_TARGETS        += size checksource all elf hex clean
+LUFA_BUILD_TARGETS        += size checksource all elf hex lss gcc_version clean
 LUFA_BUILD_MANDATORY_VARS += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS
 
@@ -25,6 +25,8 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 #    all                       - Build application and list size
 #    elf                       - Build application ELF debug object file
 #    hex                       - Build application HEX object files
+#    lss                       - Build application LSS assembly listing file
+#    gcc_version               - Print version of GCC used
 #    clean                     - Remove output files
 #
 # MANDATORY PARAMETERS:
@@ -72,6 +74,17 @@ CPP_FLAGS      ?=
 ASM_FLAGS      ?=
 CC_FLAGS       ?=
 
+# Determine the utility prefix to use for the selected architecture
+ifeq ($(ARCH), AVR8)
+   CROSS     = avr-
+else ifeq ($(ARCH), XMEGA)
+   CROSS     = avr-
+else ifeq ($(ARCH), UC3)
+   CROSS     = avr32-
+else
+    $(error Unsupported architecture.)
+endif
+
 # Output Messages
 MSG_BUILD_BEGIN = Begin compilation of project \"$(TARGET)\"...
 MSG_BUILD_END   = Finished building project \"$(TARGET)\".
@@ -94,15 +107,10 @@ DEPENDENCY_FILES = $(OBJECT_FILES:%=%.d)
 # Create a list of flags to pass to the compiler
 ifeq ($(ARCH), AVR8)
    CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
-   CROSS     = avr-
 else ifeq ($(ARCH), XMEGA)
    CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
-   CROSS     = avr-
 else ifeq ($(ARCH), UC3)
    CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
-   CROSS     = avr32-
-else
-    $(error Unsupported architecture.)
 endif
 CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
 CC_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
@@ -118,7 +126,7 @@ CPP_FLAGS += -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -MMD -MP -MF $@.d
 # Create a list of flags to pass to the linker
 LD_FLAGS += -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections 
 ifeq ($(ARCH), UC3)
-   LD_FLAGS += --rodata-writable -Wl,--direct-data   
+   LD_FLAGS += --rodata-writable --direct-data   
 else
    LD_FLAGS += -Wl,--relax
 endif
@@ -137,10 +145,15 @@ SIZE_FORMAT_FLAG = $(shell $(CROSS)size --help | grep -- --format=.*avr > /dev/n
 begin:
 	@echo ""
 	@echo $(MSG_BUILD_BEGIN)
+	@echo ""
 	
 end:
+	@echo ""
 	@echo $(MSG_BUILD_END)
 	@echo ""
+
+gcc_version:
+	@$(CROSS)gcc --version
 
 checksource:
 	@for f in $(SRC) $(CPPSRC) $(ASRC); do \
@@ -157,8 +170,8 @@ size:
 	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
 	 fi
 
-.PHONY: begin elf hex lss size end
-all: begin elf hex lss size end
+.PHONY: begin gcc_version elf hex lss size end
+all: begin gcc_version elf hex lss size end
 
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
