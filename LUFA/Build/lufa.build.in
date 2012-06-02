@@ -93,7 +93,7 @@ ASM_SOURCE = $(filter %.S, $(SRC))
 OBJECT_FILES = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
 
 # Create a list of flags to pass to the compiler
-ifneq ($(ARCH), AVR8)
+ifeq ($(ARCH), AVR8)
  CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
  CROSS     = avr-
 else ifeq ($(ARCH), XMEGA)
@@ -102,6 +102,8 @@ else ifeq ($(ARCH), XMEGA)
 else ifeq ($(ARCH), UC3)
  CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
  CROSS     = avr32-
+else
+  $(error Unsupported architecture.)
 endif
 CC_FLAGS += -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
 CC_FLAGS += -Wall -Wstrict-prototypes
