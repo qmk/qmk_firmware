@@ -81,8 +81,8 @@ endif
 BOARD         ?= NONE
 OPTIMIZATION  ?= s
 F_CPU         ?=
-C_STANDARD    ?= c99
-CPP_STANDARD  ?= c++98
+C_STANDARD    ?= gnu99
+CPP_STANDARD  ?= gnu++98
 
 # Convert input source file list to differentiate them by type
 C_SOURCE   = $(filter %.c, $(SRC))
@@ -103,10 +103,9 @@ else ifeq ($(ARCH),UC3)
  CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
  CROSS     = avr32-
 endif
-
 CC_FLAGS += -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
 CC_FLAGS += -Wall -Wstrict-prototypes
-CC_FLAGS += -I. -I$(LUFA_PATH)/.. -pipe
+CC_FLAGS += -I. -I$(LUFA_PATH)/..
 CC_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
 ifneq ($(F_CPU),)
    CC_FLAGS += -DF_CPU=$(F_CPU)UL
@@ -158,11 +157,11 @@ lss: $(TARGET).lss
 
 %.o: %.c
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$^\"
-	$(CROSS)gcc -c $(CC_FLAGS) -O$(OPTIMIZATION) --std=$(C_STANDARD) $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) -O$(OPTIMIZATION) -std=$(C_STANDARD) $< -o $@
 
 %.o: %.cpp
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$^\"
-	$(CROSS)gcc -c $(CC_FLAGS) -O$(OPTIMIZATION) --std=$(CPP_STANDARD) -x c++ $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -x c++ $< -o $@
 	
 %.o: %.S
 	@echo $(MSG_COMPILE_CMD) Assembling \"$^\"

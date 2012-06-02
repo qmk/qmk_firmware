@@ -45,8 +45,7 @@ testboards:
 	     echo "Found board configuration for $$build_board - $$build_arch, $$build_mcu";            \
 		                                                                                            \
 		 printf "\t@echo Building dummy project for $$build_board...\n" >> BuildMakefile;           \
-		 printf "\tmake -s -f makefile.%s clean\n" $$build_arch >> BuildMakefile;                   \
-		 printf "\tmake -s -f makefile.%s MCU=%s BOARD=%s elf\n\n" $$build_arch $$build_mcu $$build_board >> BuildMakefile; \
+		 printf "\tmake -s -f makefile.test clean elf MCU=%s ARCH=%s BOARD=%s\n\n" $$build_mcu $$build_arch $$build_board >> BuildMakefile; \
 	   fi;                                                                                          \
 	 done < BoardList.txt
 	 
@@ -55,9 +54,9 @@ testboards:
 clean:
 	rm -f BuildMakefile
 	rm -f BoardList.txt
-	$(MAKE) -f makefile.avr8 clean
-	$(MAKE) -f makefile.xmega clean
-	$(MAKE) -f makefile.uc3 clean
+	$(MAKE) -s -f makefile.test clean ARCH=AVR8
+	$(MAKE) -s -f makefile.test clean ARCH=XMEGA
+	$(MAKE) -s -f makefile.test clean ARCH=UC3
 
 %:
 	

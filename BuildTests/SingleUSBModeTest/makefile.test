@@ -1,0 +1,34 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2012.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+# --------------------------------------
+#         LUFA Project Makefile.
+# --------------------------------------
+
+MCU          = at90usb1287
+ARCH         = AVR8
+BOARD        = NONE
+F_CPU        = 8000000
+
+ifeq ($(ARCH), AVR8)
+F_USB        = 8000000
+else ifeq ($(ARCH), XMEGA)
+F_USB        = 48000000
+else ifeq ($(ARCH), UC3)
+F_USB        = 48000000
+endif
+
+OPTIMIZATION = 1
+TARGET       = Test
+SRC          = Test.c Dummy.S $(LUFA_SRC_USB)
+LUFA_PATH    = ../../LUFA/
+CC_FLAGS     =
+# TODO: Add warnings and set warnings as errors
+
+# Include LUFA build script makefiles
+include $(LUFA_PATH)/Build/lufa.sources.in
+include $(LUFA_PATH)/Build/lufa.build.in

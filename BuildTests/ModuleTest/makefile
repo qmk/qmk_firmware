@@ -37,21 +37,18 @@ end:
 	@echo
 
 %.avr8:
-	$(MAKE) -s -f makefile.avr8 clean
-	$(MAKE) -s -f makefile.avr8 all MCU=$(@:%.avr8=%) elf
+	$(MAKE) -s -f makefile.test clean elf ARCH=AVR8 MCU=$(@:%.avr8=%)
 
 %.xmega:
-	$(MAKE) -s -f makefile.xmega clean
-	$(MAKE) -s -f makefile.xmega all MCU=$(@:%.xmega=%) elf
+	$(MAKE) -s -f makefile.test clean elf ARCH=XMEGA MCU=$(@:%.xmega=%)
 
 %.uc3:
-	$(MAKE) -s -f makefile.uc3 clean
-	$(MAKE) -s -f makefile.uc3 all MCU=$(@:%.uc3=%) elf
+	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=$(@:%.uc3=%)
 
 clean:
-	$(MAKE) -s -f makefile.avr8 clean
-	$(MAKE) -s -f makefile.xmega clean
-	$(MAKE) -s -f makefile.uc3 clean
+	$(MAKE) -s -f makefile.test clean ARCH=AVR8
+	$(MAKE) -s -f makefile.test clean ARCH=XMEGA
+	$(MAKE) -s -f makefile.test clean ARCH=UC3
 
 %:
 	
