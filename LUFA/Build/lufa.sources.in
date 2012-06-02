@@ -36,12 +36,8 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 # -----------------------------------------------------------------------------
 
 # Sanity check the user LUFA_PATH and ARCH makefile options
-ifeq ($(LUFA_PATH),)
-   $(error Makefile LUFA_PATH value not set.)
-endif
-ifeq ($(ARCH),)
-   $(error Makefile ARCH value not set.)
-endif
+ARCH           ?= $(error Makefile ARCH value not set.)
+LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set.)
 
 # Allow LUFA_ROOT_PATH to be overridden elsewhere to support legacy LUFA makefiles
 LUFA_ROOT_PATH ?= $(LUFA_PATH)

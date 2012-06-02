@@ -36,7 +36,7 @@ LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRI
 # -----------------------------------------------------------------------------
 
 # Output Messages
-MSG_DOXYGEN_CMD   = '  [DOXYGEN] :'
+MSG_DOXYGEN_CMD          = ' [DOXYGEN] :'
 
 # Default values of user-supplied variables
 DOXYGEN_CONF            ?= Doxygen.conf
