@@ -44,7 +44,7 @@ DOXYGEN_FAIL_ON_WARNING ?= Y
 DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES HTML_STYLESHEET=$(patsubst %/,%,$(LUFA_PATH))/DoxygenPages/Style/Style.css
 
 # Output Messages
-MSG_DOXYGEN_CMD          = ' [DOXYGEN] :'
+MSG_DOXYGEN_CMD         := ' [DOXYGEN] :'
 
 # Determine Doxygen invocation command
 BASE_DOXYGEN_CMD = ( cat Doxygen.conf $(DOXYGEN_OVERRIDE_PARAMS:%=; echo "%") ) | doxygen -

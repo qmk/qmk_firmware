@@ -9,8 +9,9 @@
 #  Makefile for the LUFA library itself.
 # ---------------------------------------
 
-LUFA_VERSION_NUM        = $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
-EXCLUDE_FROM_EXPORT     = Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.bin
+LUFA_VERSION_NUM        := $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
+EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.bin
+
 DOXYGEN_OVERRIDE_PARAMS = PROJECT_NUMBER=$(LUFA_VERSION_NUM)
 
 all:

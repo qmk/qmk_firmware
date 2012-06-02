@@ -41,9 +41,9 @@ MCU            ?= $(error Makefile MCU value not set.)
 TARGET         ?= $(error Makefile TARGET value not set.)
 
 # Output Messages
-MSG_COPY_CMD    = ' [CP]      :'
-MSG_REMOVE_CMD  = ' [RM]      :'
-MSG_DFU_CMD     = ' [DFU]     :'
+MSG_COPY_CMD   := ' [CP]      :'
+MSG_REMOVE_CMD := ' [RM]      :'
+MSG_DFU_CMD    := ' [DFU]     :'
 
 flip: $(TARGET).hex
 	@echo $(MSG_DFU_CMD) Programming FLASH with batchisp using \"$(TARGET).hex\"

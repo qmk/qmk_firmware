@@ -48,7 +48,7 @@ AVRDUDE_PORT       ?= usb
 AVRDUDE_FLAGS      ?= 
 
 # Output Messages
-MSG_AVRDUDE_CMD     = ' [AVRDUDE] :'
+MSG_AVRDUDE_CMD    := ' [AVRDUDE] :'
 
 AVRDUDE_FLASH_FLAGS = -U flash:w:$< $(AVRDUDE_FLAGS)
 AVRDUDE_EEP_FLAGS   = -U eeprom:w:$< $(AVRDUDE_FLAGS)

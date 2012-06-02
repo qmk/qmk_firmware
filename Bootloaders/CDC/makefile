@@ -14,14 +14,14 @@
 #
 # Note that the bootloader size and start address given in AVRStudio is in words and not
 # bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
-FLASH_SIZE_KB        = 128
-BOOT_SECTION_SIZE_KB = 8
+FLASH_SIZE_KB        := 128
+BOOT_SECTION_SIZE_KB := 8
 
 # Formulas used to calculate the starting address of the Bootloader section, and the User Application
 # API jump table (for more information on the latter, see the bootloader documentation). These formulas
 # should not need to be altered - modify the FLASH_SIZE_KB and BOOT_SECTION_KB values above instead.
-BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
-BOOT_API_TABLESTART  = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 96)" | bc)
+BOOT_START           := 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
+BOOT_API_TABLESTART  := 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 96)" | bc)
 
 MCU          = at90usb1287
 ARCH         = AVR8

@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES        += CORE
-LUFA_BUILD_TARGETS        += info help list_targets list_modules list_mandatory list_optional 
+LUFA_BUILD_TARGETS        += help list_targets list_modules list_mandatory list_optional 
 LUFA_BUILD_MANDATORY_VARS += 
 LUFA_BUILD_OPTIONAL_VARS  += 
 
@@ -19,7 +19,6 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 # -----------------------------------------------------------------------------
 # TARGETS:
 #
-#    info                      - Build system information
 #    help                      - Build system help
 #    list_targets              - List all build targets
 #    list_modules              - List all build modules
@@ -38,14 +37,17 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 #
 # -----------------------------------------------------------------------------
 
-info:
-	@echo "==================================================================="
-	@echo "                  LUFA Build System 2.0                            "
-	@echo "      (C) Dean Camera { dean @ fourwalledcubicle . com }           "
-	@echo "==================================================================="
+# Build sorted and filtered lists of the included build module data
+SORTED_LUFA_BUILD_MODULES  = $(sort $(LUFA_BUILD_MODULES))
+SORTED_LUFA_BUILD_TARGETS  = $(sort $(LUFA_BUILD_TARGETS))
+SORTED_LUFA_MANDATORY_VARS = $(sort $(LUFA_BUILD_MANDATORY_VARS))
+SORTED_LUFA_OPTIONAL_VARS  = $(filter-out $(SORTED_LUFA_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))
 
-.PHONY: info
-help: info
+help:
+	@echo "==================================================================="
+	@echo "                       LUFA Build System 2.0                       "
+	@echo "      (C) Dean Camera, 2012 { dean @ fourwalledcubicle . com }     "
+	@echo "==================================================================="
 	@echo "DESCRIPTION:                                                       "
 	@echo " This build system is a set of makefile modules for (GNU) Make, to "
 	@echo " provide a simple system for building LUFA powered applications.   "
@@ -61,35 +63,35 @@ help: info
 	@echo "==================================================================="
 	@echo "  Currently used modules in this application:                      "
 	@echo "                                                                   "
-	@echo "    [" $(sort $(LUFA_BUILD_MODULES)) "]"
+	@echo "    [" $(SORTED_LUFA_BUILD_MODULES) "]"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Currently available build targets in this application:           "
 	@echo "                                                                   "
-	@echo "    [" $(sort $(LUFA_BUILD_TARGETS)) "]"
+	@echo "    [" $(SORTED_LUFA_BUILD_TARGETS) "]"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Mandatory variables required by the selected build Modules:      "
 	@echo "                                                                   "
-	@echo "    [" $(sort $(LUFA_BUILD_MANDATORY_VARS)) "]"
+	@echo "    [" $(SORTED_LUFA_MANDATORY_VARS) "]"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Optional variables required by the selected build Modules:       "
 	@echo "                                                                   "
-	@echo "    [" $(filter-out $(LUFA_BUILD_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS))) "]"
+	@echo "    [" $(SORTED_LUFA_OPTIONAL_VARS) "]"
 	@echo "                                                                   "
 	@echo "==================================================================="
 	@echo "        The LUFA BuildSystem 2.0 - Powered By Unicorns (tm)        "
 	@echo "==================================================================="
 	
-list_targets:
-	@echo Currently Available Build Targets: $(sort $(LUFA_BUILD_TARGETS))
-	
 list_modules:
-	@echo Currently Build Modules: $(sort $(LUFA_BUILD_MODULES))
+	@echo Currently Build Modules: $(SORTED_LUFA_BUILD_MODULES)
+
+list_targets:
+	@echo Currently Available Build Targets: $(SORTED_LUFA_BUILD_TARGETS)	
 
 list_mandatory:
-	@echo Mandatory Variables for Included Modules: $(sort $(LUFA_BUILD_MANDATORY_VARS))
+	@echo Mandatory Variables for Included Modules: $(SORTED_LUFA_MANDATORY_VARS)
 	
 list_optional:
-	@echo Optional Variables for Included Modules: $(filter-out $(LUFA_BUILD_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))
+	@echo Optional Variables for Included Modules: $(SORTED_LUFA_OPTIONAL_VARS)

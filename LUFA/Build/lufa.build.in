@@ -76,24 +76,24 @@ CC_FLAGS       ?=
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
-   CROSS     = avr-
+   CROSS       := avr-
 else ifeq ($(ARCH), XMEGA)
-   CROSS     = avr-
+   CROSS       := avr-
 else ifeq ($(ARCH), UC3)
-   CROSS     = avr32-
+   CROSS       := avr32-
 else
     $(error Unsupported architecture.)
 endif
 
 # Output Messages
-MSG_BUILD_BEGIN = Begin compilation of project \"$(TARGET)\"...
-MSG_BUILD_END   = Finished building project \"$(TARGET)\".
-MSG_COMPILE_CMD = ' [CC]      :'
-MSG_REMOVE_CMD  = ' [RM]      :'
-MSG_LINKER_CMD  = ' [LNK]     :'
-MSG_SIZE_CMD    = ' [SIZE]    :'
-MSG_OBJCPY_CMD  = ' [OBJCPY]  :'
-MSG_OBJDMP_CMD  = ' [OBJDMP]  :'
+MSG_BUILD_BEGIN := Begin compilation of project \"$(TARGET)\"...
+MSG_BUILD_END   := Finished building project \"$(TARGET)\".
+MSG_COMPILE_CMD := ' [CC]      :'
+MSG_REMOVE_CMD  := ' [RM]      :'
+MSG_LINKER_CMD  := ' [LNK]     :'
+MSG_SIZE_CMD    := ' [SIZE]    :'
+MSG_OBJCPY_CMD  := ' [OBJCPY]  :'
+MSG_OBJDMP_CMD  := ' [OBJDMP]  :'
 
 # Convert input source file list to differentiate them by type
 C_SOURCE   = $(filter %.c, $(SRC))
@@ -138,8 +138,8 @@ ifneq ($(UNKNOWN_SOURCE),)
 endif
 
 # Determine flags to pass to the size utility based on its reported features
-SIZE_MCU_FLAG    = $(shell $(CROSS)size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
-SIZE_FORMAT_FLAG = $(shell $(CROSS)size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
+SIZE_MCU_FLAG    := $(shell $(CROSS)size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
+SIZE_FORMAT_FLAG := $(shell $(CROSS)size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
 
 
 begin:
