@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES        += AVRDUDE
-LUFA_BUILD_TARGETS        += program
+LUFA_BUILD_TARGETS        += program program_ee
 LUFA_BUILD_MANDATORY_VARS += MCU TARGET
 LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 
@@ -20,7 +20,10 @@ LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 # -----------------------------------------------------------------------------
 # TARGETS:
 #
-#    program                   - Program target with application using avr-dude
+#    program                   - Program target FLASH with application using
+#                                avrdude
+#    program_ee                - Program target EEPROM with application data
+#                                using avrdude
 #
 # MANDATORY PARAMETERS:
 #
@@ -42,11 +45,18 @@ TARGET             ?= $(error Makefile TARGET value not set.)
 # Default values of optionally user-supplied variables
 AVRDUDE_PROGRAMMER ?= jtagicemkii
 AVRDUDE_PORT       ?= usb
-AVRDUDE_FLAGS      ?= -U flash:w:$(TARGET).hex
+AVRDUDE_FLAGS      ?= 
 
 # Output Messages
 MSG_AVRDUDE_CMD     = ' [AVRDUDE] :'
 
+AVRDUDE_FLASH_FLAGS = -U flash:w:$< $(AVRDUDE_FLAGS)
+AVRDUDE_EEP_FLAGS   = -U eeprom:w:$< $(AVRDUDE_FLAGS)
+
 program: $(TARGET).hex
-	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
-	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_FLAGS)
+	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_FLASH_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
+	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_FLASH_FLAGS)
+
+program_ee: $(TARGET).eep
+	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_EEP_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
+	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_EEP_FLAGS)

@@ -161,15 +161,15 @@ hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
 
 %.o: %.c
-	@echo $(MSG_COMPILE_CMD) Compiling C file \"$^\"
+	@echo $(MSG_COMPILE_CMD) Compiling C file \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(C_FLAGS) -O$(OPTIMIZATION) -std=$(C_STANDARD) $< -o $@
 
 %.o: %.cpp
-	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$^\"
+	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -x c++ $< -o $@
 	
 %.o: %.S
-	@echo $(MSG_COMPILE_CMD) Assembling \"$^\"
+	@echo $(MSG_COMPILE_CMD) Assembling \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(ASM_FLAGS) -x assembler-with-cpp $< -o $@
 
 .PRECIOUS : $(OBJECT_FILES)
@@ -178,15 +178,15 @@ lss: $(TARGET).lss
 	$(CROSS)gcc $^ $(CC_FLAGS) $(LD_FLAGS) -o $@
 
 %.hex: %.elf
-	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$@\"
+	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$<\"
 	$(CROSS)objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature $< $@
 
 %.eep: %.elf
-	@echo $(MSG_OBJCPY_CMD) Extracting EEP file data from \"$@\"
+	@echo $(MSG_OBJCPY_CMD) Extracting EEP file data from \"$<\"
 	$(CROSS)objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex $< $@ || exit 0
 
 %.lss: %.elf
-	@echo $(MSG_OBJDMP_CMD) Extracting LSS file data from \"$@\"
+	@echo $(MSG_OBJDMP_CMD) Extracting LSS file data from \"$<\"
 	$(CROSS)objdump -h -S -z $< > $@
 
 clean:
