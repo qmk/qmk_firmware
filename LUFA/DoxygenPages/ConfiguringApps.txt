@@ -25,9 +25,12 @@
  *    - <b>BOARD</b>, the target board hardware
  *    - <b>F_CPU</b>, the target CPU master clock frequency, after any prescaling
  *    - <b>F_USB</b>, the target raw input clock to the USB module of the processor
- *    - <b>CDEFS</b>, the C preprocessor defines which configure options the source code
- *    - <b>LUFA_PATH</b>, the path to the LUFA library source code
- *    - <b>LUFA_OPTS</b>, the compile time LUFA options which configure the library features
+ *    - <b>OPTIMIZATION</b>, the level of optimization to compile with
+ *    - <b>TARGET</b>, the name of the target output binary and other files
+ *    - <b>SRC</b>, the list of source files to compile/assemble/link
+ *    - <b>LUFA_PATH</b>, the path to the LUFA library core source code
+ *    - <b>CC_FLAGS</b>, the common command line flags to pass to the C/C++ compiler, assembler and linker
+ *    - <b>LD_FLAGS</b>, the command line flags to pass to the linker
  *
  *  These values should be changed to reflect the build hardware.
  *
@@ -66,24 +69,29 @@
  *  This parameter indicates the raw input clock frequency to the USB module within the microcontroller in Hz. This may be very different on some platforms
  *  to the main CPU clock or other peripheral/bus clocks.
  *
- *  \section Sec_CDEFS The CDEFS Parameter
- *  Many applications have features which can be controlled by the defining of specially named preprocessor tokens at the point of compilation - for example,
- *  an application might use a compile time token to turn on or off optional or mutually exclusive portions of code. Preprocessor tokens can be
- *  defined here by listing each one with the -D command line switch, and each token can optionally be defined to a specific value. When defined in the
- *  project makefile, these behave as if they were defined in every source file via a normal preprocessor define statement.
+ *  \section Sec_OPTIMIZATION The OPTIMIZATION Parameter
+ *  This parameter indicates the level of optimization to use when compiling the application. This will allow you to compile with an optimization level
+ *  supported by GCC, from <tt>0</tt> (no optimization) to <tt>3</tt> (fastest runtime optimization) or <tt>s</tt> (smallest size).
  *
- *  Most applications will actually have multiple CDEF lines, which are concatenated together with the "+=" operator. This ensures that large
- *  numbers of configuration options remain readable by splitting up groups of options into separate lines.
+ *  \section Sec_TARGET The TARGET Parameter
+ *  This parameter indicates the application target name, which is used as the base filename for the build binary and debugging files. This will be the
+ *  name of the output files once linked together into the final application, ready to load into the target.
+ *
+ *  \section Sec_SRC The SRC Parameter
+ *  This parameter indicates the source files used to compile the application, as a list of C (<tt>*.c</tt>), C++ (<tt>*.cpp</tt>) and Assembly (<tt>*.S</tt>) files. Note that
+ *  all assembly files must end in a <b>capital</b> .S extension, as lowercase .s files are reserved for GCC intermediate files.
  *
  *  \section Sec_LUFA_PATH The LUFA_PATH Parameter
  *  As each LUFA program requires the LUFA library source code to compile correctly, the application must know where the LUFA library is located. This
- *  value specifies the path to the LUFA library base relative to the path of the project makefile.
+ *  value specifies the path to the LUFA library core. This path may be relative or absolute, however note than even under Windows based systems the
+ *  forward-slash (/) path seperator must be used.
  *
- *  \section Sec_LUFA_OPTS The LUFA_OPTS Parameter
- *  This value is similar to the CDEFS parameter listed elsewhere -- indeed, it is simply a convenient place to group LUFA related tokens away from the
- *  application's compile time tokens. Normally, these options do not need to be altered to allow an application to compile and run correctly on a
- *  different board or microcontroller to the current configuration - if the options are incorrect, then the demo is most likely incompatible with the chosen
- *  microcontroller model and cannot be made to function through the altering of the makefile settings alone (or at all). Settings such as the USB mode
- *  (device, host or both), the USB interface speed and other LUFA configuration options can be set here - see \ref Page_TokenSummary documentation for details
- *  on the available LUFA compile time configuration options.
+ *  \section Sec_CC_FLAGS The CC_FLAGS Parameter
+ *  This parameter lists the compiler flags passed to the C/C++ compiler, the assembler and the linker. These are used as-is directly to GCC and thus
+ *  must match GCC's command line options as given in the GCC manual. This variable may be used to define tokens directly on the command line, enable or
+ *  disable warnings, adjust the target-specific tuning parameters or other options.
+ *
+ *  \section Sec_LD_FLAGS The LD_FLAGS Parameter
+ *  This parameter lists the linker flags passed exclusively to the linker. These are used as-is directly to GCC and thus must match GCC's command line
+ *  linker options as given in the GCC manual. This variable may be used to create or relocate custom data sections, or enable linker specific behaviors.
  */

@@ -27,8 +27,11 @@ ifneq ($(LUFA_PATH),)
   LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA/
   include $(LUFA_PATH)/LUFA/Build/lufa.sources.in
 else
-  LUFA_PATH      = .
-  ARCH           = {AVR8,UC3,XMEGA}
+  LUFA_BUILD_MODULES += LIBCORE
+  LUFA_BUILD_TARGETS += export_tar version
+
+  LUFA_PATH           = .
+  ARCH                = {AVR8,UC3,XMEGA}
   
   all:
 
@@ -37,6 +40,7 @@ else
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.lst)
 
   # Include LUFA build script makefiles
+  include Build/lufa.core.in
   include Build/lufa.sources.in
   include Build/lufa.doxygen.in
 endif

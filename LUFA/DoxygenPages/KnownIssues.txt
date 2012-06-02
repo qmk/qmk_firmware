@@ -36,5 +36,7 @@
   *      as the makefile itself.
   *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
   *      and a lengthy USB operation is initiated.
+  *  - Build System
+  *    - No known issues.
   */
 
