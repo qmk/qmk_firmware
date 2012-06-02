@@ -74,7 +74,7 @@ CC_FLAGS       ?=
 
 # Output Messages
 MSG_BUILD_BEGIN = Begin compilation of project \"$(TARGET)\"...
-MSG_BUILD_END   = Finished building project \"$(TARGET)\"...
+MSG_BUILD_END   = Finished building project \"$(TARGET)\".
 MSG_COMPILE_CMD = ' [CC]      :'
 MSG_REMOVE_CMD  = ' [RM]      :'
 MSG_LINKER_CMD  = ' [LNK]     :'
@@ -88,7 +88,8 @@ CPP_SOURCE = $(filter %.cpp, $(SRC))
 ASM_SOURCE = $(filter %.S, $(SRC))
 
 # Convert input source filenames into a list of required output object files
-OBJECT_FILES = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
+OBJECT_FILES     = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
+DEPENDENCY_FILES = $(OBJECT_FILES:%=%.d)
 
 # Create a list of flags to pass to the compiler
 ifeq ($(ARCH), AVR8)
@@ -111,7 +112,8 @@ ifneq ($(F_CPU),)
 endif
 
 # Additional language specific compiler flags
-C_FLAGS   += -Wstrict-prototypes
+C_FLAGS   += -O$(OPTIMIZATION) -std=$(C_STANDARD) -MMD -MP -MF $@.d -Wstrict-prototypes 
+CPP_FLAGS += -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -MMD -MP -MF $@.d
 
 # Create a list of flags to pass to the linker
 LD_FLAGS += -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections 
@@ -164,11 +166,11 @@ lss: $(TARGET).lss
 
 %.o: %.c
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$<\"
-	$(CROSS)gcc -c $(CC_FLAGS) $(C_FLAGS) -O$(OPTIMIZATION) -std=$(C_STANDARD) $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) $(C_FLAGS) $< -o $@
 
 %.o: %.cpp
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$<\"
-	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -x c++ $< -o $@
+	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -x c++ $< -o $@
 	
 %.o: %.S
 	@echo $(MSG_COMPILE_CMD) Assembling \"$<\"
@@ -177,7 +179,7 @@ lss: $(TARGET).lss
 .PRECIOUS : $(OBJECT_FILES)
 %.elf: $(OBJECT_FILES)
 	@echo $(MSG_LINKER_CMD) Linking object files into \"$@\"
-	$(CROSS)gcc $^ $(CC_FLAGS) $(LD_FLAGS) -o $@
+	$(CROSS)gcc $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
 
 %.hex: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$<\"
@@ -194,5 +196,10 @@ lss: $(TARGET).lss
 clean:
 	@echo $(MSG_REMOVE_CMD) Removing object files \"$(strip $(notdir $(OBJECT_FILES)))\"
 	rm -f $(OBJECT_FILES)
+	@echo $(MSG_REMOVE_CMD) Removing dependency files \"$(strip $(notdir $(DEPENDENCY_FILES)))\"
+	rm -f $(DEPENDENCY_FILES)
 	@echo $(MSG_REMOVE_CMD) Removing output files \"$(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss\"
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss
+
+# Include build dependency files
+-include $(DEPENDENCY_FILES)
