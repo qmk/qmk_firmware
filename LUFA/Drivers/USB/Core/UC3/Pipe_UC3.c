@@ -72,7 +72,7 @@ bool Pipe_ConfigurePipe(const uint8_t Address,
 	if (Type == EP_TYPE_CONTROL)
 	  Token = PIPE_TOKEN_SETUP;
 
-	USB_Pipe_FIFOPos[Number]     = &AVR32_USBB_SLAVE[Number * 0x10000];
+	USB_Pipe_FIFOPos[Number]     = &AVR32_USBB_SLAVE[Number * PIPE_HSB_ADDRESS_SPACE_SIZE];
 
 #if defined(ORDERED_EP_CONFIG)
 	Pipe_SelectPipe(Number);

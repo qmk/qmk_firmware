@@ -65,7 +65,7 @@ bool Endpoint_ConfigureEndpointTable(const USB_Endpoint_Table_t* const Table,
 bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint32_t UECFG0Data)
 {
-	USB_Endpoint_FIFOPos[Number] = &AVR32_USBB_SLAVE[Number * 0x10000];
+	USB_Endpoint_FIFOPos[Number] = &AVR32_USBB_SLAVE[Number * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];
 
 #if defined(CONTROL_ONLY_DEVICE) || defined(ORDERED_EP_CONFIG)
 	Endpoint_SelectEndpoint(Number);

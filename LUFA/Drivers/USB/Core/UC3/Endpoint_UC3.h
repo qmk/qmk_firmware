@@ -210,9 +210,9 @@
 			{
 				return Endpoint_ConfigureEndpoint_Prv((Address & ENDPOINT_EPNUM_MASK),
 				                                      (AVR32_USBB_ALLOC_MASK |
-				                                       ((uint32_t)Type      << AVR32_USBB_EPTYPE_OFFSET) |
-				                                       ((uint32_t)(Address & ENDPOINT_DIR_IN) ? AVR32_USBB_UECFG0_EPDIR_MASK : 0) |
-				                                       ((uint32_t)Banks     << AVR32_USBB_EPBK_OFFSET)   |
+				                                       ((uint32_t)Type << AVR32_USBB_EPTYPE_OFFSET) |
+				                                       ((Address & ENDPOINT_DIR_IN) ? AVR32_USBB_UECFG0_EPDIR_MASK : 0) |
+				                                       ((Banks > 1) ? AVR32_USBB_UECFG0_EPBK_SINGLE : AVR32_USBB_UECFG0_EPBK_DOUBLE) |
 				                                       Endpoint_BytesToEPSizeMask(Size)));
 			}
 
