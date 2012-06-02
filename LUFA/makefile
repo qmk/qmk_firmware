@@ -37,6 +37,7 @@ else
   
   clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
+	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o.d)
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.lst)
 
   # Include LUFA build script makefiles

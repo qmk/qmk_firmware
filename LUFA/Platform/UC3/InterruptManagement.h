@@ -41,8 +41,8 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Platform/UC3/InterruptManagement.c
- *    - LUFA/Platform/UC3/Exception.S
+ *    - LUFA/Platform/UC3/InterruptManagement.c <i>(Makefile source module name: LUFA_SRC_PLATFORM)</i>
+ *    - LUFA/Platform/UC3/Exception.S <i>(Makefile source module name: LUFA_SRC_PLATFORM)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Interrupt controller driver for the AVR32 UC3 microcontrollers, for the configuration of interrupt

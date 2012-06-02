@@ -76,9 +76,16 @@ LUFA_SRC_TEMPERATURE = $(LUFA_ROOT_PATH)/Drivers/Board/Temperature.c
 LUFA_SRC_SERIAL      = $(LUFA_ROOT_PATH)/Drivers/Peripheral/$(ARCH)/Serial_$(ARCH).c
 LUFA_SRC_TWI         = $(LUFA_ROOT_PATH)/Drivers/Peripheral/$(ARCH)/TWI_$(ARCH).c
 
+ifeq ($(ARCH), UC3)
+   LUFA_SRC_PLATFORM = $(LUFA_PATH)/Platform/UC3/Exception.S $(LUFA_PATH)/Platform/UC3/InterruptManagement.c
+else
+   LUFA_SRC_PLATFORM =
+endif
+
 # Build a list of all available module sources
 LUFA_SRC_ALL_FILES   = $(LUFA_SRC_USB)            \
                        $(LUFA_SRC_USBCLASS)       \
                        $(LUFA_SRC_TEMPERATURE)    \
                        $(LUFA_SRC_SERIAL)         \
-                       $(LUFA_SRC_TWI)
+                       $(LUFA_SRC_TWI)            \
+					   $(LUFA_SRC_PLATFORM)
