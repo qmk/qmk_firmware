@@ -114,8 +114,10 @@ endif
 C_FLAGS   += -Wstrict-prototypes
 
 # Create a list of flags to pass to the linker
-LD_FLAGS += -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections -lm
-ifneq ($(F_CPU), UC3)
+LD_FLAGS += -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections 
+ifeq ($(ARCH), UC3)
+   LD_FLAGS += --rodata-writable -Wl,--direct-data   
+else
    LD_FLAGS += -Wl,--relax
 endif
 
@@ -126,8 +128,8 @@ ifneq ($(UNKNOWN_SOURCE),)
 endif
 
 # Determine flags to pass to the size utility based on its reported features
-SIZE_MCU_FLAG    = $(shell avr-size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
-SIZE_FORMAT_FLAG = $(shell avr-size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
+SIZE_MCU_FLAG    = $(shell $(CROSS)size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
+SIZE_FORMAT_FLAG = $(shell $(CROSS)size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
 
 
 begin:
@@ -150,7 +152,7 @@ checksource:
 size:
 	@echo $(MSG_SIZE_CMD) Determining size of \"$(TARGET).elf\"
 	@if test -f $(TARGET).elf; then \
-	    avr-size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
+	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
 	 fi
 
 .PHONY: begin elf hex lss size end
