@@ -13,36 +13,10 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
+PROJECT_DIRECTORIES = $(shell ls -d *)
+
 all:
-	$(MAKE) -s -C AndroidAccessoryHost clean all
-	$(MAKE) -s -C AudioInputHost clean all
-	$(MAKE) -s -C AudioOutputHost clean all
-	$(MAKE) -s -C GenericHIDHost clean all
-	$(MAKE) -s -C JoystickHostWithParser clean all
-	$(MAKE) -s -C KeyboardHost clean all
-	$(MAKE) -s -C MassStorageHost clean all
-	$(MAKE) -s -C MIDIHost clean all
-	$(MAKE) -s -C MouseHost clean all
-	$(MAKE) -s -C MouseHostWithParser clean all
-	$(MAKE) -s -C PrinterHost clean all
-	$(MAKE) -s -C RNDISEthernetHost clean all
-	$(MAKE) -s -C StillImageHost clean all
-	$(MAKE) -s -C VirtualSerialHost clean all
+	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
 
 %:
-	$(MAKE) -s -C AndroidAccessoryHost $@
-	$(MAKE) -s -C AudioInputHost $@
-	$(MAKE) -s -C AudioOutputHost $@
-	$(MAKE) -s -C GenericHIDHost $@
-	$(MAKE) -s -C JoystickHostWithParser $@
-	$(MAKE) -s -C KeyboardHost $@
-	$(MAKE) -s -C KeyboardHostWithParser $@
-	$(MAKE) -s -C MassStorageHost $@
-	$(MAKE) -s -C MIDIHost $@
-	$(MAKE) -s -C MouseHost $@
-	$(MAKE) -s -C MouseHostWithParser $@
-	$(MAKE) -s -C PrinterHost $@
-	$(MAKE) -s -C RNDISEthernetHost $@
-	$(MAKE) -s -C StillImageHost $@
-	$(MAKE) -s -C VirtualSerialHost $@
-
+	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)

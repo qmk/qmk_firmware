@@ -13,18 +13,10 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
+PROJECT_DIRECTORIES = $(shell ls -d *)
+
 all:
-	$(MAKE) -C CDC clean
-	$(MAKE) -C CDC all
-
-	$(MAKE) -C HID clean
-	$(MAKE) -C HID all
-
-	$(MAKE) -C DFU clean
-	$(MAKE) -C DFU all
+	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
 
 %:
-	$(MAKE) -C CDC $@
-	$(MAKE) -C DFU $@
-	$(MAKE) -C HID $@
-
+	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)

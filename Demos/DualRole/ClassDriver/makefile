@@ -13,9 +13,12 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
+PROJECT_DIRECTORIES = $(shell ls -d *)
+
 all:
-	$(MAKE) -s -C MouseHostDevice clean all
+	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
 
 %:
-	$(MAKE) -s -C MouseHostDevice $@
+	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)
+
 
