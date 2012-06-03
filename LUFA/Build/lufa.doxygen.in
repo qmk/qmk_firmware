@@ -36,7 +36,7 @@ LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRI
 # -----------------------------------------------------------------------------
 
 # Sanity-check values of mandatory user-supplied variables
-LUFA_PATH               ?= $(error Makefile LUFA_PATH value not set.)
+LUFA_PATH               ?= $(error Makefile LUFA_PATH value not set)
 
 # Default values of optionally user-supplied variables
 DOXYGEN_CONF            ?= Doxygen.conf

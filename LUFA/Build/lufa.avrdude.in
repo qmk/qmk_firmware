@@ -39,8 +39,15 @@ LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 # -----------------------------------------------------------------------------
 
 # Sanity-check values of mandatory user-supplied variables
-MCU                ?= $(error Makefile MCU value not set.)
-TARGET             ?= $(error Makefile TARGET value not set.)
+MCU                ?= $(error Makefile MCU value not set)
+TARGET             ?= $(error Makefile TARGET value not set)
+
+ifeq ($(MCU),)
+   $(error Makefile MCU option cannot be blank)
+endif
+ifeq ($(TARGET),)
+   $(error Makefile TARGET option cannot be blank)
+endif
 
 # Default values of optionally user-supplied variables
 AVRDUDE_PROGRAMMER ?= jtagicemkii

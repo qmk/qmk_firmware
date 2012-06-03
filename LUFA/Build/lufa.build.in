@@ -54,12 +54,25 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 # -----------------------------------------------------------------------------
 
 # Sanity-check values of mandatory user-supplied variables
-MCU            ?= $(error Makefile MCU value not set.)
-TARGET         ?= $(error Makefile TARGET value not set.)
-ARCH           ?= $(error Makefile ARCH value not set.)
-SRC            ?= $(error Makefile SRC value not set.)
-F_USB          ?= $(error Makefile F_USB value not set.)
-LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set.)
+MCU            ?= $(error Makefile MCU value not set)
+TARGET         ?= $(error Makefile TARGET value not set)
+ARCH           ?= $(error Makefile ARCH value not set)
+SRC            ?= $(error Makefile SRC value not set)
+F_USB          ?= $(error Makefile F_USB value not set)
+LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set)
+
+ifeq ($(MCU),)
+   $(error Makefile MCU option cannot be blank)
+endif
+ifeq ($(TARGET),)
+   $(error Makefile TARGET option cannot be blank)
+endif
+ifeq ($(ARCH),)
+   $(error Makefile ARCH option cannot be blank)
+endif
+ifeq ($(F_USB),)
+   $(error Makefile F_USB option cannot be blank)
+endif
 
 # Default values of optionally user-supplied variables
 BOARD          ?= NONE
@@ -80,7 +93,7 @@ else ifeq ($(ARCH), XMEGA)
 else ifeq ($(ARCH), UC3)
    CROSS       := avr32-
 else
-    $(error Unsupported architecture.)
+    $(error Unsupported architecture "$(ARCH)".)
 endif
 
 # Output Messages
