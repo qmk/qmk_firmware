@@ -100,3 +100,6 @@ list_mandatory:
 	
 list_optional:
 	@echo Optional Variables for Included Modules: $(SORTED_LUFA_OPTIONAL_VARS)
+
+# Phony build targets for this module
+.PHONY: help list_modules list_targets list_mandatory list_optional

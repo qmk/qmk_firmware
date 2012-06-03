@@ -71,3 +71,6 @@ dfu-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming EEPROM with dfu-programmer using \"$(TARGET).eep\"
 	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
 	dfu-programmer $(MCU) reset
+	
+# Phony build targets for this module
+.PHONY: flip flip-ee dfu dfu-ee

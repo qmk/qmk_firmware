@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES        += BUILD
-LUFA_BUILD_TARGETS        += size checksource all elf hex lss gcc_version clean
+LUFA_BUILD_TARGETS        += size all elf hex lss clean
 LUFA_BUILD_MANDATORY_VARS += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS
 
@@ -20,13 +20,11 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 # -----------------------------------------------------------------------------
 # TARGETS:
 #
-#    size                      - List application size
-#    checksource               - Check existance of listed input source files
+#    size                      - List built application size
 #    all                       - Build application and list size
 #    elf                       - Build application ELF debug object file
 #    hex                       - Build application HEX object files
 #    lss                       - Build application LSS assembly listing file
-#    gcc_version               - Print version of GCC used
 #    clean                     - Remove output files
 #
 # MANDATORY PARAMETERS:
@@ -155,12 +153,11 @@ end:
 gcc_version:
 	@$(CROSS)gcc --version
 
-checksource:
-	@for f in $(SRC) $(CPPSRC) $(ASRC); do \
-		if [ -f $$f ]; then \
-			echo "Found Source File: $$f" ; \
-		else \
-			echo "Source File Not Found: $$f" ; \
+check_source:
+	@for f in $(SRC); do \
+		if [ ! -f $$f ]; then \
+			echo "Error: Source file not found: $$f"; \
+			exit 1; \
 		fi; \
 	 done
 
@@ -170,8 +167,15 @@ size:
 	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
 	 fi
 
-.PHONY: begin gcc_version elf hex lss size end
-all: begin gcc_version elf hex lss size end
+clean:
+	@echo $(MSG_REMOVE_CMD) Removing object files \"$(strip $(notdir $(OBJECT_FILES)))\"
+	rm -f $(OBJECT_FILES)
+	@echo $(MSG_REMOVE_CMD) Removing dependency files \"$(strip $(notdir $(DEPENDENCY_FILES)))\"
+	rm -f $(DEPENDENCY_FILES)
+	@echo $(MSG_REMOVE_CMD) Removing output files \"$(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss\"
+	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss
+
+all: begin check_source gcc_version elf hex lss size end
 
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
@@ -206,13 +210,8 @@ lss: $(TARGET).lss
 	@echo $(MSG_OBJDMP_CMD) Extracting LSS file data from \"$<\"
 	$(CROSS)objdump -h -S -z $< > $@
 
-clean:
-	@echo $(MSG_REMOVE_CMD) Removing object files \"$(strip $(notdir $(OBJECT_FILES)))\"
-	rm -f $(OBJECT_FILES)
-	@echo $(MSG_REMOVE_CMD) Removing dependency files \"$(strip $(notdir $(DEPENDENCY_FILES)))\"
-	rm -f $(DEPENDENCY_FILES)
-	@echo $(MSG_REMOVE_CMD) Removing output files \"$(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss\"
-	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss
-
 # Include build dependency files
 -include $(DEPENDENCY_FILES)
+
+# Phony build targets for this module
+.PHONY: begin end gcc_version check_source size elf hex lss clean

@@ -50,10 +50,15 @@ MSG_DOXYGEN_CMD         := ' [DOXYGEN] :'
 BASE_DOXYGEN_CMD = ( cat Doxygen.conf $(DOXYGEN_OVERRIDE_PARAMS:%=; echo "%") ) | doxygen -
 ifeq ($(DOXYGEN_FAIL_ON_WARNING), Y)
    DOXYGEN_CMD = if ( $(BASE_DOXYGEN_CMD) 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then exit 1; fi;
-else
+else ifeq ($(DOXYGEN_FAIL_ON_WARNING), N)
    DOXYGEN_CMD = $(BASE_DOXYGEN_CMD)
+else
+	$(error DOXYGEN_FAIL_ON_WARNING must be Y or N.)
 endif
 
 doxygen:
 	@echo $(MSG_DOXYGEN_CMD) Configuration file \"$(DOXYGEN_CONF)\" with parameters \"$(DOXYGEN_OVERRIDE_PARAMS)\"
 	$(DOXYGEN_CMD)
+
+# Phony build targets for this module
+.PHONY: doxygen

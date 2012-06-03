@@ -60,3 +60,6 @@ program: $(TARGET).hex $(MAKEFILE_LIST)
 program-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_EEP_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
 	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_EEP_FLAGS)
+
+# Phony build targets for this module
+.PHONY: program program-ee
