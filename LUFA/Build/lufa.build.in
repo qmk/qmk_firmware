@@ -32,7 +32,7 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 #    TARGET                    - Application name
 #    ARCH                      - Device architecture name
 #    MCU                       - Microcontroller device model name
-#    SRC                       - List of input source files (.c, .cpp/.c++, .S)
+#    SRC                       - List of input source files (*.c, *.cpp, *.S)
 #    F_USB                     - Speed of the input clock of the USB controller
 #                                in Hz
 #    LUFA_PATH                 - Path to the LUFA library core
@@ -75,36 +75,37 @@ ifeq ($(F_USB),)
 endif
 
 # Default values of optionally user-supplied variables
-BOARD          ?= NONE
-OPTIMIZATION   ?= s
-F_CPU          ?=
-C_STANDARD     ?= gnu99
-CPP_STANDARD   ?= gnu++98
-C_FLAGS        ?=
-CPP_FLAGS      ?=
-ASM_FLAGS      ?=
-CC_FLAGS       ?=
+BOARD           ?= NONE
+OPTIMIZATION    ?= s
+F_CPU           ?=
+C_STANDARD      ?= gnu99
+CPP_STANDARD    ?= gnu++98
+C_FLAGS         ?=
+CPP_FLAGS       ?=
+ASM_FLAGS       ?=
+CC_FLAGS        ?=
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
-   CROSS       := avr-
+   CROSS        := avr-
 else ifeq ($(ARCH), XMEGA)
-   CROSS       := avr-
+   CROSS        := avr-
 else ifeq ($(ARCH), UC3)
-   CROSS       := avr32-
+   CROSS        := avr32-
 else
     $(error Unsupported architecture "$(ARCH)".)
 endif
 
 # Output Messages
-MSG_BUILD_BEGIN := Begin compilation of project \"$(TARGET)\"...
-MSG_BUILD_END   := Finished building project \"$(TARGET)\".
-MSG_COMPILE_CMD := ' [CC]      :'
-MSG_REMOVE_CMD  := ' [RM]      :'
-MSG_LINKER_CMD  := ' [LNK]     :'
-MSG_SIZE_CMD    := ' [SIZE]    :'
-MSG_OBJCPY_CMD  := ' [OBJCPY]  :'
-MSG_OBJDMP_CMD  := ' [OBJDMP]  :'
+MSG_BUILD_BEGIN  := Begin compilation of project \"$(TARGET)\"...
+MSG_BUILD_END    := Finished building project \"$(TARGET)\".
+MSG_COMPILE_CMD  := ' [CC]      :'
+MSG_ASSEMBLE_CMD := ' [AS]      :'
+MSG_REMOVE_CMD   := ' [RM]      :'
+MSG_LINKER_CMD   := ' [LNK]     :'
+MSG_SIZE_CMD     := ' [SIZE]    :'
+MSG_OBJCPY_CMD   := ' [OBJCPY]  :'
+MSG_OBJDMP_CMD   := ' [OBJDMP]  :'
 
 # Convert input source file list to differentiate them by type
 C_SOURCE   = $(filter %.c, $(SRC))
@@ -181,11 +182,11 @@ size:
 	 fi
 
 clean:
-	@echo $(MSG_REMOVE_CMD) Removing object files \"$(strip $(notdir $(OBJECT_FILES)))\"
+	@echo $(MSG_REMOVE_CMD) Removing object files of \"$(TARGET)\"
 	rm -f $(OBJECT_FILES)
-	@echo $(MSG_REMOVE_CMD) Removing dependency files \"$(strip $(notdir $(DEPENDENCY_FILES)))\"
+	@echo $(MSG_REMOVE_CMD) Removing dependency files of \"$(TARGET)\"
 	rm -f $(DEPENDENCY_FILES)
-	@echo $(MSG_REMOVE_CMD) Removing output files \"$(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss\"
+	@echo $(MSG_REMOVE_CMD) Removing output files of \"$(TARGET)\"
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss
 
 all: begin check_source gcc_version elf hex lss size end
@@ -203,7 +204,7 @@ lss: $(TARGET).lss
 	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -x c++ $< -o $@
 	
 %.o: %.S $(MAKEFILE_LIST)
-	@echo $(MSG_COMPILE_CMD) Assembling \"$<\"
+	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(ASM_FLAGS) -x assembler-with-cpp $< -o $@
 
 .PRECIOUS : $(OBJECT_FILES)
