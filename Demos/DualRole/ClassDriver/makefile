@@ -16,9 +16,9 @@
 PROJECT_DIRECTORIES = $(shell ls -d *)
 
 all:
-	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
+	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
 
 %:
-	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)
+	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)
 
 

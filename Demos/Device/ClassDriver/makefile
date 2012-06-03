@@ -13,10 +13,10 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
-PROJECT_DIRECTORIES = $(shell ls -d *)
+PROJECT_DIRECTORIES = $(shell ls -d */)
 
 all:
-	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
+	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
 
 %:
-	$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)
+	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)
