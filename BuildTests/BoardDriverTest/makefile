@@ -11,8 +11,8 @@
 # possible board targets using their respective
 # compiler.
 
-# Path to the root of the LUFA tree to scan
-LUFA_ROOT_PATH    = ../..
+# Path to the LUFA library core
+LUFA_PATH         = ../../LUFA/
 
 
 all: begin makeboardlist testboards clean end
@@ -26,7 +26,7 @@ end:
 	@echo
 
 makeboardlist:
-	@grep "BOARD_" $(LUFA_ROOT_PATH)/LUFA/Common/BoardTypes.h | cut -d'#' -f2 | cut -d' ' -f2 | grep "BOARD_" > BoardList.txt
+	@grep "BOARD_" $(patsubst %/,%,$(LUFA_PATH))/Common/BoardTypes.h | cut -d'#' -f2 | cut -d' ' -f2 | grep "BOARD_" > BoardList.txt
 	
 testboards:
 	@echo "buildtest:" > BuildMakefile
@@ -63,4 +63,4 @@ clean:
 .PHONY: all begin end makeboardlist testboards clean
 
 # Include LUFA build script makefiles
-include $(LUFA_ROOT_PATH)/LUFA/Build/lufa.core.in
+include $(LUFA_PATH)/Build/lufa.core.in

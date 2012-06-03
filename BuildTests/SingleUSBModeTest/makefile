@@ -12,6 +12,9 @@
 # all module headers in a simple C and C++
 # application.
 
+# Path to the LUFA library core
+LUFA_PATH         = ../../LUFA/
+
 all: begin compile clean end
 
 begin:
@@ -41,4 +44,4 @@ clean:
 .PHONY: begin end compile clean
 
 # Include LUFA build script makefiles
-include $(LUFA_ROOT_PATH)/LUFA/Build/lufa.core.in
+include $(LUFA_PATH)/Build/lufa.core.in

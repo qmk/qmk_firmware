@@ -12,6 +12,8 @@
 # all module headers in a simple C and C++
 # application.
 
+# Path to the LUFA library core
+LUFA_PATH         = ../../LUFA/
 
 # List of device families per architecture, one device per architecture sub-family
 AVR8_FAMILIES  = at90usb1287 at90usb1286 atmega16u4 atmega16u2 at90usb162
@@ -55,4 +57,4 @@ clean:
 .PHONY: all arch_avr8 arch_xmega arch_uc3 begin end
 
 # Include LUFA build script makefiles
-include $(LUFA_ROOT_PATH)/LUFA/Build/lufa.core.in
+include $(LUFA_PATH)/Build/lufa.core.in
