@@ -103,3 +103,7 @@ list_optional:
 
 # Phony build targets for this module
 .PHONY: help list_modules list_targets list_mandatory list_optional
+
+# Disable default in-built make rules (those that are needed are explicitly
+# defined, and doing so has performance benefits when recursively building)
+.SUFFIXES:
