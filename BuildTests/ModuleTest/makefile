@@ -51,4 +51,8 @@ clean:
 	$(MAKE) -s -f makefile.test clean ARCH=UC3
 
 %:
-	
+
+.PHONY: all arch_avr8 arch_xmega arch_uc3 begin end
+
+# Include LUFA build script makefiles
+include $(LUFA_ROOT_PATH)/LUFA/Build/lufa.core.in

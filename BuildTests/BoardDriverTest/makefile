@@ -59,4 +59,8 @@ clean:
 	$(MAKE) -s -f makefile.test clean ARCH=UC3
 
 %:
-	
+
+.PHONY: all begin end makeboardlist testboards clean
+
+# Include LUFA build script makefiles
+include $(LUFA_ROOT_PATH)/LUFA/Build/lufa.core.in

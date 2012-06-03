@@ -54,4 +54,8 @@ clean:
 	rm -f BuildMakefile
 
 %:
-	
+
+.PHONY: all begin end testbootloaders clean
+
+# Include LUFA build script makefiles
+include $(LUFA_ROOT_PATH)/LUFA/Build/lufa.core.in
