@@ -177,15 +177,15 @@ elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
 
-%.o: %.c
+%.o: %.c $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(C_FLAGS) $< -o $@
 
-%.o: %.cpp
+%.o: %.cpp $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -x c++ $< -o $@
 	
-%.o: %.S
+%.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Assembling \"$<\"
 	$(CROSS)gcc -c $(CC_FLAGS) $(ASM_FLAGS) -x assembler-with-cpp $< -o $@
 

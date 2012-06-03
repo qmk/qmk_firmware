@@ -53,10 +53,10 @@ MSG_AVRDUDE_CMD    := ' [AVRDUDE] :'
 AVRDUDE_FLASH_FLAGS = -U flash:w:$< $(AVRDUDE_FLAGS)
 AVRDUDE_EEP_FLAGS   = -U eeprom:w:$< $(AVRDUDE_FLAGS)
 
-program: $(TARGET).hex
+program: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_FLASH_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
 	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_FLASH_FLAGS)
 
-program-ee: $(TARGET).eep
+program-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" with settings \"$(AVRDUDE_EEP_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
 	avrdude -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) $(AVRDUDE_EEP_FLAGS)

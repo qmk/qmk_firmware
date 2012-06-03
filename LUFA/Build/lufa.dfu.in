@@ -45,13 +45,13 @@ MSG_COPY_CMD   := ' [CP]      :'
 MSG_REMOVE_CMD := ' [RM]      :'
 MSG_DFU_CMD    := ' [DFU]     :'
 
-flip: $(TARGET).hex
+flip: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming FLASH with batchisp using \"$(TARGET).hex\"
 	batchisp -hardware usb -device $(MCU) -operation erase f
 	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
-flip-ee: $(TARGET).eep
+flip-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Copying EEP file to temporary file \"$(TARGET)eep.hex\"
 	cp $(TARGET).eep $(TARGET)eep.hex
 	@echo $(MSG_DFU_CMD) Programming EEPROM with batchisp using \"$(TARGET).eep\"
@@ -61,13 +61,13 @@ flip-ee: $(TARGET).eep
 	@echo $(MSG_DFU_CMD) Removing temporary file \"$(TARGET)eep.hex\"
 	rm $(TARGET)eep.hex
 	
-dfu: $(TARGET).hex
+dfu: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming FLASH with dfu-programmer using \"$(TARGET).hex\"
 	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(TARGET).hex
 	dfu-programmer $(MCU) reset
 
-dfu-ee: $(TARGET).hex $(TARGET).eep
+dfu-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming EEPROM with dfu-programmer using \"$(TARGET).eep\"
 	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
 	dfu-programmer $(MCU) reset
