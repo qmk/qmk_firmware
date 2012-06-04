@@ -1,0 +1,75 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2012.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+
+LUFA_BUILD_MODULES        += ATPROGRAM
+LUFA_BUILD_TARGETS        += atprogram atprogram-ee
+LUFA_BUILD_MANDATORY_VARS += MCU TARGET
+LUFA_BUILD_OPTIONAL_VARS  += ATPROGRAM_PROGRAMMER ATPROGRAM_INTERFACE ATPROGRAM_PORT
+
+# -----------------------------------------------------------------------------
+#             LUFA ATPROGRAM Programmer Buildsystem Makefile Module.
+# -----------------------------------------------------------------------------
+# DESCRIPTION:
+#   Provides a set of targets to re-program a device using the Atmel atprogram
+#   utility in AVR Studio 5.x and Atmel Studio 6.0 onwards.
+# -----------------------------------------------------------------------------
+# TARGETS:
+#
+#    atprogram                 - Program target FLASH with application using
+#                                atprogram
+#    atprogram-ee              - Program target EEPROM with application data
+#                                using atprogram
+#
+# MANDATORY PARAMETERS:
+#
+#    MCU                       - Microcontroller device model name
+#    TARGET                    - Application name
+#
+# OPTIONAL PARAMETERS:
+#
+#    ATPROGRAM_PROGRAMMER      - Name of programming hardware to use
+#    ATPROGRAM_INTERFACE       - Name of programming interface to use
+#    ATPROGRAM_PORT            - Name of communication port to use
+#
+# -----------------------------------------------------------------------------
+
+# Sanity-check values of mandatory user-supplied variables
+MCU                  ?= $(error Makefile MCU value not set)
+TARGET               ?= $(error Makefile TARGET value not set)
+
+ifeq ($(MCU),)
+   $(error Makefile MCU option cannot be blank)
+endif
+ifeq ($(TARGET),)
+   $(error Makefile TARGET option cannot be blank)
+endif
+
+# Default values of optionally user-supplied variables
+ATPROGRAM_PROGRAMMER ?= jtagice3
+ATPROGRAM_INTERFACE  ?= jtag
+ATPROGRAM_PORT       ?= 
+
+# Output Messages
+MSG_ATPROGRAM_CMD    := ' [ATPRGRM] :'
+
+# Construct base atprogram command flags
+BASE_ATPROGRAM_FLAGS := --tool $(ATPROGRAM_PROGRAMMER) --interface $(ATPROGRAM_INTERFACE) --device $(MCU)
+ifneq ($(ATPROGRAM_PORT),)
+   BASE_ATPROGRAM_FLAGS += --port $(ATPROGRAM_PORT)
+endif
+
+atprogram: $(TARGET).hex $(MAKEFILE_LIST)
+	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" FLASH using \"$(ATPROGRAM_PROGRAMMER)\"
+	atprogram $(BASE_ATPROGRAM_FLAGS) program --chiperase --flash --file $(TARGET).hex
+
+atprogram-ee: $(TARGET).eep $(MAKEFILE_LIST)
+	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" EEPROM using \"$(ATPROGRAM_PROGRAMMER)\"
+	atprogram $(BASE_ATPROGRAM_FLAGS) program --eeprom --file $(TARGET).eep
+	
+# Phony build targets for this module
+.PHONY: atprogram atprogram-ee

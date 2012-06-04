@@ -31,6 +31,8 @@ all:
 include $(LUFA_PATH)/Build/lufa.core.in
 include $(LUFA_PATH)/Build/lufa.sources.in
 include $(LUFA_PATH)/Build/lufa.build.in
+include $(LUFA_PATH)/Build/lufa.cppcheck.in
 include $(LUFA_PATH)/Build/lufa.doxygen.in
 include $(LUFA_PATH)/Build/lufa.dfu.in
 include $(LUFA_PATH)/Build/lufa.avrdude.in
+include $(LUFA_PATH)/Build/lufa.atprogram.in

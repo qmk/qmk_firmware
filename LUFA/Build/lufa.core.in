@@ -59,14 +59,14 @@ help:
 	@echo " To execute a rule, define all variables indicated in the desired  "
 	@echo " module as a required parameter before including the build module  "
 	@echo " in your project makefile. Parameters marked as optional will      "
-	@echo " assume a default value in the module if not user-assigned.        "
+	@echo " assume a default value in the modules if not user-assigned.       "
 	@echo "                                                                   "
 	@echo " By default the target output shows both a friendly summary, as    "
 	@echo " well as the actual invoked command. To suppress the output of the "
 	@echo " invoked commands and show only the friendly command output, run   "
 	@echo " make with the \"-s\" switch added before the target(s).           "		
 	@echo "==================================================================="
-	@echo "  Currently used modules in this application:                      "
+	@echo "  Currently used build system modules in this application:         "
 	@echo "                                                                   "
 	@printf " %b" "$(SORTED_LUFA_BUILD_MODULES:%=   - %\n)"
 	@echo "                                                                   "
@@ -90,7 +90,7 @@ help:
 	@echo "==================================================================="
 	
 list_modules:
-	@echo Currently Build Modules: $(SORTED_LUFA_BUILD_MODULES)
+	@echo Currently Used Build System Modules: $(SORTED_LUFA_BUILD_MODULES)
 
 list_targets:
 	@echo Currently Available Build Targets: $(SORTED_LUFA_BUILD_TARGETS)	
@@ -101,9 +101,9 @@ list_mandatory:
 list_optional:
 	@echo Optional Variables for Included Modules: $(SORTED_LUFA_OPTIONAL_VARS)
 
-# Phony build targets for this module
-.PHONY: help list_modules list_targets list_mandatory list_optional
-
 # Disable default in-built make rules (those that are needed are explicitly
 # defined, and doing so has performance benefits when recursively building)
 .SUFFIXES:
+
+# Phony build targets for this module
+.PHONY: help list_modules list_targets list_mandatory list_optional

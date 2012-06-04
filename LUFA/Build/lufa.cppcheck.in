@@ -82,3 +82,6 @@ cppcheck-config:
 cppcheck:
 	@echo $(MSG_CPPCHECK_CMD) Performing cppcheck analysis on path \"$(CPPCHECK_PATH)\"
 	cppcheck $(CPPCHECK_OPTIONS) --enable=$(CPPCHECK_ENABLE) $(CPPCHECK_SUPPRESS:%=--suppress=%) $(CPPCHECK_PATH)
+
+# Phony build targets for this module
+.PHONY: cppcheck-config cppcheck

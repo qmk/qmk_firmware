@@ -18,7 +18,6 @@ OPTIMIZATION = s
 TARGET       = SerialToLCD
 SRC          = $(TARGET).c Descriptors.c Lib/HD44780.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
 LUFA_PATH    = ../../LUFA/
-C_STANDARD   = gnu99
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
 LD_FLAGS     =
 
@@ -29,6 +28,8 @@ all:
 include $(LUFA_PATH)/Build/lufa.core.in
 include $(LUFA_PATH)/Build/lufa.sources.in
 include $(LUFA_PATH)/Build/lufa.build.in
+include $(LUFA_PATH)/Build/lufa.cppcheck.in
 include $(LUFA_PATH)/Build/lufa.doxygen.in
 include $(LUFA_PATH)/Build/lufa.dfu.in
 include $(LUFA_PATH)/Build/lufa.avrdude.in
+include $(LUFA_PATH)/Build/lufa.atprogram.in
