@@ -15,6 +15,13 @@
 
 PROJECT_DIRECTORIES = $(shell ls -d *)
 
+# This makefile is potentially infinitely recursive if something really bad
+# happens when determining the set of project directories - hard-abort if
+# more than 10 levels deep to avoid angry emails.
+ifeq ($(MAKELEVEL), 10)
+   $(error EMERGENCY ABORT: INFINITE RECURSION DETECTED)
+endif
+
 all:
 	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
 
