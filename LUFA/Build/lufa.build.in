@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES        += BUILD
-LUFA_BUILD_TARGETS        += size all elf hex lss clean
+LUFA_BUILD_TARGETS        += size symbol-sizes all elf hex lss clean
 LUFA_BUILD_MANDATORY_VARS += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS
 
@@ -21,6 +21,8 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 # TARGETS:
 #
 #    size                      - List built application size
+#    symbol-sizes              - Print application symbols from the binary ELF
+#                                file as a list sorted by size in bytes
 #    all                       - Build application and list size
 #    elf                       - Build application ELF debug object file
 #    hex                       - Build application HEX object files
@@ -101,6 +103,7 @@ MSG_BUILD_BEGIN  := Begin compilation of project \"$(TARGET)\"...
 MSG_BUILD_END    := Finished building project \"$(TARGET)\".
 MSG_COMPILE_CMD  := ' [CC]      :'
 MSG_ASSEMBLE_CMD := ' [AS]      :'
+MSG_NM_CMD       := ' [NM]      :'
 MSG_REMOVE_CMD   := ' [RM]      :'
 MSG_LINKER_CMD   := ' [LNK]     :'
 MSG_SIZE_CMD     := ' [SIZE]    :'
@@ -175,11 +178,15 @@ check_source:
 		fi; \
 	 done
 
-size:
+size: $(TARGET).elf
 	@echo $(MSG_SIZE_CMD) Determining size of \"$(TARGET).elf\"
 	@if test -f $(TARGET).elf; then \
 	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
 	 fi
+
+symbol-sizes: $(TARGET).elf
+	@echo $(MSG_NM_CMD) Extracting \"$(TARGET).elf\" symbols with decimal byte sizes
+	avr-nm --size-sort --demangle --radix=d $(TARGET).elf
 
 clean:
 	@echo $(MSG_REMOVE_CMD) Removing object files of \"$(TARGET)\"
@@ -228,4 +235,4 @@ lss: $(TARGET).lss
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: begin end gcc_version check_source size elf hex lss clean
+.PHONY: begin end gcc_version check_source size symbol-sizes elf hex lss clean
