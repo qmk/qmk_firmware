@@ -19,6 +19,10 @@
  *
  *  \section Sec_AppConfigParams The Default Application Template
  *
+ *  Below is a copy of the default LUFA application makefile, which can be used as a template for each application.
+ *
+ *  \verbinclude makefile_template
+ *
  *  Inside each makefile, a number of configuration variables are listed with the syntax "<VARIABLE NAME> = <VALUE>". For
  *  each application, the important standard variables which should be altered are:
  *
