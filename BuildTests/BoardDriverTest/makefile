@@ -54,9 +54,9 @@ testboards:
 clean:
 	rm -f BuildMakefile
 	rm -f BoardList.txt
-	$(MAKE) -s -f makefile.test clean ARCH=AVR8
-	$(MAKE) -s -f makefile.test clean ARCH=XMEGA
-	$(MAKE) -s -f makefile.test clean ARCH=UC3
+	$(MAKE) -s -f makefile.test clean ARCH=AVR8 MCU=at90usb1287
+	$(MAKE) -s -f makefile.test clean ARCH=XMEGA MCU=atxmega128a1u
+	$(MAKE) -s -f makefile.test clean ARCH=UC3 MCU=uc3a0256
 
 %:
 

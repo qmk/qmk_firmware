@@ -6,11 +6,10 @@
 #           www.lufa-lib.org
 #
 
-# Makefile for the module build test. This test
-# attempts to build as many modules as possible
-# under all supported architectures, and include
-# all module headers in a simple C and C++
-# application.
+# Makefile for the single USB mode build test.
+# This test attempts to build the USB module
+# under fixed device and fixed host modes under
+# all supported architectures
 
 # Path to the LUFA library core
 LUFA_PATH         = ../../LUFA/
@@ -35,9 +34,9 @@ compile:
 	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=uc3a0256 CCFLAGS='-D USB_HOST_ONLY'
 
 clean:
-	$(MAKE) -s -f makefile.test clean ARCH=AVR8
-	$(MAKE) -s -f makefile.test clean ARCH=XMEGA
-	$(MAKE) -s -f makefile.test clean ARCH=UC3
+	$(MAKE) -s -f makefile.test clean ARCH=AVR8 MCU=at90usb1287
+	$(MAKE) -s -f makefile.test clean ARCH=XMEGA MCU=atxmega128a1u
+	$(MAKE) -s -f makefile.test clean ARCH=UC3 MCU=uc3a0256
 
 %:
 

@@ -48,9 +48,9 @@ end:
 	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=$(@:%.uc3=%)
 
 clean:
-	$(MAKE) -s -f makefile.test clean ARCH=AVR8
-	$(MAKE) -s -f makefile.test clean ARCH=XMEGA
-	$(MAKE) -s -f makefile.test clean ARCH=UC3
+	$(MAKE) -s -f makefile.test clean ARCH=AVR8 MCU=$(firstword $(AVR8_FAMILIES))
+	$(MAKE) -s -f makefile.test clean ARCH=XMEGA MCU=$(firstword $(XMEGA_FAMILIES))
+	$(MAKE) -s -f makefile.test clean ARCH=UC3 MCU=$(firstword $(UC3_FAMILIES))
 
 %:
 

@@ -9,11 +9,11 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
-MCU          = at90usb1287
-ARCH         = AVR8
-BOARD        = NONE
-F_CPU        = 8000000
-F_USB        = $(F_CPU)
+MCU          = 
+ARCH         = 
+BOARD        = 
+F_CPU        = $(F_USB)
+F_USB        = 8000000
 OPTIMIZATION = 1
 TARGET       = Test
 SRC          = $(TARGET).c

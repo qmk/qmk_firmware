@@ -29,6 +29,7 @@ end:
 	@echo
 
 %:
+	
 
 .PHONY: all begin end
 

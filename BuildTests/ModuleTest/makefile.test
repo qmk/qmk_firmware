@@ -9,10 +9,14 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
-MCU          = at90usb1287
-ARCH         = AVR8
+MCU          = 
+ARCH         = 
 BOARD        = NONE
-F_CPU        = 8000000
+F_CPU        = $(F_USB)
+OPTIMIZATION = 1
+TARGET       = Test
+SRC          = $(TARGET)_C.c $(TARGET)_CPP.cpp Dummy.S $(LUFA_SRC_USB)
+LUFA_PATH    = ../../LUFA/
 
 ifeq ($(ARCH), AVR8)
 F_USB        = 8000000
@@ -21,11 +25,6 @@ F_USB        = 48000000
 else ifeq ($(ARCH), UC3)
 F_USB        = 48000000
 endif
-
-OPTIMIZATION = 1
-TARGET       = Test
-SRC          = $(TARGET)_C.c $(TARGET)_CPP.cpp Dummy.S $(LUFA_SRC_USB)
-LUFA_PATH    = ../../LUFA/
 
 # Generic C/C++ compiler flags
 CC_FLAGS  = -Wextra
