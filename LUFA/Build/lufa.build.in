@@ -115,41 +115,43 @@ C_SOURCE   = $(filter %.c, $(SRC))
 CPP_SOURCE = $(filter %.cpp, $(SRC))
 ASM_SOURCE = $(filter %.S, $(SRC))
 
-# Convert input source filenames into a list of required output object files
-OBJECT_FILES     = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
-DEPENDENCY_FILES = $(OBJECT_FILES:%=%.d)
-
-# Create a list of flags to pass to the compiler
-ifeq ($(ARCH), AVR8)
-   CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
-else ifeq ($(ARCH), XMEGA)
-   CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
-else ifeq ($(ARCH), UC3)
-   CC_FLAGS += -mpart=$(MCU) -g3 -masm-addr-pseudos
-endif
-CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
-CC_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
-CC_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
-ifneq ($(F_CPU),)
-   CC_FLAGS += -DF_CPU=$(F_CPU)UL
-endif
-
-# Additional language specific compiler flags
-C_FLAGS   += -O$(OPTIMIZATION) -std=$(C_STANDARD) -MMD -MP -MF $@.d -Wstrict-prototypes 
-CPP_FLAGS += -O$(OPTIMIZATION) -std=$(CPP_STANDARD) -MMD -MP -MF $@.d
-
-# Create a list of flags to pass to the linker
-LD_FLAGS += -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections 
-ifeq ($(ARCH), UC3)
-   LD_FLAGS += --rodata-writable --direct-data   
-else
-   LD_FLAGS += -Wl,--relax
-endif
-
 # Create a list of unknown source file types, if any are found throw an error
 UNKNOWN_SOURCE = $(filter-out $(C_SOURCE) $(CPP_SOURCE) $(ASM_SOURCE), $(SRC))
 ifneq ($(UNKNOWN_SOURCE),)
    $(error Unknown input source formats: $(UNKNOWN_SOURCE))
+endif
+
+# Convert input source filenames into a list of required output object files
+OBJECT_FILES     = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
+DEPENDENCY_FILES = $(OBJECT_FILES:%.o=%.d)
+
+# Create a list of common flags to pass to the compiler/linker/assembler
+BASE_CC_FLAGS    := 
+ifeq ($(ARCH), AVR8)
+   BASE_CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
+else ifeq ($(ARCH), XMEGA)
+   BASE_CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
+else ifeq ($(ARCH), UC3)
+   BASE_CC_FLAGS += -mpart=$(MCU:at32%=%) -g3 -masm-addr-pseudos
+endif
+BASE_CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
+BASE_CC_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
+BASE_CC_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
+ifneq ($(F_CPU),)
+   BASE_CC_FLAGS += -DF_CPU=$(F_CPU)UL
+endif
+
+# Additional language specific compiler flags
+BASE_C_FLAGS   := -x c -O$(OPTIMIZATION) -std=$(C_STANDARD) -Wstrict-prototypes
+BASE_CPP_FLAGS := -x c++ -O$(OPTIMIZATION) -std=$(CPP_STANDARD)
+BASE_ASM_FLAGS := -x assembler-with-cpp
+
+# Create a list of flags to pass to the linker
+BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections 
+ifeq ($(ARCH), UC3)
+   BASE_LD_FLAGS += --rodata-writable --direct-data   
+else
+   BASE_LD_FLAGS += -Wl,--relax
 endif
 
 # Determine flags to pass to the size utility based on its reported features
@@ -179,14 +181,14 @@ check_source:
 	 done
 
 size: $(TARGET).elf
-	@echo $(MSG_SIZE_CMD) Determining size of \"$(TARGET).elf\"
+	@echo $(MSG_SIZE_CMD) Determining size of \"$<\"
 	@if test -f $(TARGET).elf; then \
-	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $(TARGET).elf ; 2>/dev/null; \
+	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $< ; 2>/dev/null; \
 	 fi
 
 symbol-sizes: $(TARGET).elf
-	@echo $(MSG_NM_CMD) Extracting \"$(TARGET).elf\" symbols with decimal byte sizes
-	avr-nm --size-sort --demangle --radix=d $(TARGET).elf
+	@echo $(MSG_NM_CMD) Extracting \"$<\" symbols with decimal byte sizes
+	avr-nm --size-sort --demangle --radix=d $<
 
 clean:
 	@echo $(MSG_REMOVE_CMD) Removing object files of \"$(TARGET)\"
@@ -204,20 +206,20 @@ lss: $(TARGET).lss
 
 %.o: %.c $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$<\"
-	$(CROSS)gcc -c $(CC_FLAGS) $(C_FLAGS) $< -o $@
+	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_C_FLAGS) $(CC_FLAGS) $(C_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 
 %.o: %.cpp $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$<\"
-	$(CROSS)gcc -c $(CC_FLAGS) $(CPP_FLAGS) -x c++ $< -o $@
+	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 	
 %.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$<\"
-	$(CROSS)gcc -c $(CC_FLAGS) $(ASM_FLAGS) -x assembler-with-cpp $< -o $@
+	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
 
 .PRECIOUS : $(OBJECT_FILES)
 %.elf: $(OBJECT_FILES)
 	@echo $(MSG_LINKER_CMD) Linking object files into \"$@\"
-	$(CROSS)gcc $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
+	$(CROSS)gcc $(BASE_CC_FLAGS) $(BASE_LD_FLAGS) $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
 
 %.hex: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$<\"

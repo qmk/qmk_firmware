@@ -10,7 +10,7 @@
 # ---------------------------------------
 
 LUFA_VERSION_NUM        := $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
-EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin *.d *.o.d
+EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin *.d
 
 DOXYGEN_OVERRIDE_PARAMS = PROJECT_NUMBER=$(LUFA_VERSION_NUM)
 
