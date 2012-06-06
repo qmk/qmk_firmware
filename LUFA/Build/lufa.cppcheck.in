@@ -10,7 +10,8 @@ LUFA_BUILD_MODULES        += CPPCHECK
 LUFA_BUILD_TARGETS        += cppcheck cppcheck-config
 LUFA_BUILD_MANDATORY_VARS += 
 LUFA_BUILD_OPTIONAL_VARS  += CPPCHECK_PATH CPPCHECK_INCLUDES CPPCHECK_EXCLUDES CPPCHECK_MSG_TEMPLATE \
-                             CPPCHECK_ENABLE CPPCHECK_SUPPRESS CPPCHECK_FAIL_ON_WARNING CPPCHECK_QUIET
+                             CPPCHECK_ENABLE CPPCHECK_SUPPRESS CPPCHECK_FAIL_ON_WARNING CPPCHECK_QUIET \
+                             CPPCHECK_FLAGS
 
 # -----------------------------------------------------------------------------
 #                LUFA CPPCheck Buildsystem Makefile Module.
@@ -41,6 +42,7 @@ LUFA_BUILD_OPTIONAL_VARS  += CPPCHECK_PATH CPPCHECK_INCLUDES CPPCHECK_EXCLUDES C
 #    CPPCHECK_FAIL_ON_WARNING  - Set to Y to fail the build on cppcheck
 #                                warnings, N to continue even if warnings occur
 #    CPPCHECK_QUIET            - Enable cppcheck verbose or quiet output mode
+#    CPPCHECK_FLAGS            - Additional flags to pass to cppcheck
 #
 # -----------------------------------------------------------------------------
 
@@ -53,23 +55,22 @@ CPPCHECK_ENABLE              ?= all
 CPPCHECK_SUPPRESS            ?= variableScope missingInclude
 CPPCHECK_FAIL_ON_WARNING     ?= Y
 CPPCHECK_QUIET               ?= Y
+CPPCHECK_FLAGS               ?= 
 
 # Build a default argument list for cppcheck
-CPPCHECK_OPTIONS := --template="$(CPPCHECK_MSG_TEMPLATE)" $(CPPCHECK_INCLUDES:%=-I%) $(CPPCHECK_EXCLUDES:%=-i%) --inline-suppr --force --std=c99
+BASE_CPPCHECK_FLAGS := --template="$(CPPCHECK_MSG_TEMPLATE)" $(CPPCHECK_INCLUDES:%=-I%) $(CPPCHECK_EXCLUDES:%=-i%) --inline-suppr --force --std=c99
 
 # Sanity check parameters and construct additional command line arguments to cppcheck
-ifeq ($(CPPCHECK_PATH),)
-   $(error Makefile CPPCHECK_PATH option cannot be blank)
-endif
+
 ifeq ($(CPPCHECK_FAIL_ON_WARNING), Y)
-   CPPCHECK_OPTIONS += --error-exitcode=1
+   BASE_CPPCHECK_FLAGS += --error-exitcode=1
 else ifneq ($(CPPCHECK_FAIL_ON_WARNING), N)
 	$(error CPPCHECK_FAIL_ON_WARNING must be Y or N)
 endif
 ifeq ($(CPPCHECK_QUIET), Y)
-   CPPCHECK_OPTIONS += --quiet
+   BASE_CPPCHECK_FLAGS += --quiet
 else ifneq ($(CPPCHECK_QUIET), N)
-	$(error CPPCHECK_QUIET must be Y or N)
+   $(error CPPCHECK_QUIET must be Y or N)
 endif
 
 # Output Messages
@@ -77,11 +78,11 @@ MSG_CPPCHECK_CMD         := ' [CPPCHECK]:'
 
 cppcheck-config:
 	@echo $(MSG_CPPCHECK_CMD) Checking cppcheck configuration for path \"$(CPPCHECK_PATH)\"
-	cppcheck $(CPPCHECK_OPTIONS) --check-config $(CPPCHECK_PATH)
+	cppcheck $(BASE_CPPCHECK_FLAGS) --check-config $(CPPCHECK_FLAGS) $(CPPCHECK_PATH)
 
 cppcheck:
 	@echo $(MSG_CPPCHECK_CMD) Performing cppcheck analysis on path \"$(CPPCHECK_PATH)\"
-	cppcheck $(CPPCHECK_OPTIONS) --enable=$(CPPCHECK_ENABLE) $(CPPCHECK_SUPPRESS:%=--suppress=%) $(CPPCHECK_PATH)
+	cppcheck $(BASE_CPPCHECK_FLAGS) --enable=$(CPPCHECK_ENABLE) $(CPPCHECK_SUPPRESS:%=--suppress=%) $(CPPCHECK_FLAGS) $(CPPCHECK_PATH)
 
 # Phony build targets for this module
 .PHONY: cppcheck-config cppcheck
