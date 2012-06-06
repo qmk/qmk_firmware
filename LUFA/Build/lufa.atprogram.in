@@ -63,13 +63,27 @@ ifneq ($(ATPROGRAM_PORT),)
    BASE_ATPROGRAM_FLAGS += --port $(ATPROGRAM_PORT)
 endif
 
-atprogram: $(TARGET).hex $(MAKEFILE_LIST)
-	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" FLASH using \"$(ATPROGRAM_PROGRAMMER)\"
-	atprogram $(BASE_ATPROGRAM_FLAGS) program --chiperase --flash --file $(TARGET).hex
+# Construct the flags to use for the various memory spaces
+ifeq ($(ARCH), AVR8)
+   ATPROGRAM_FLASH_FLAGS  := --chiperase --flash
+   ATPROGRAM_EEPROM_FLAGS := --eeprom
+else ifeq ($(ARCH), XMEGA)
+   ATPROGRAM_FLASH_FLAGS  := --erase --flash
+   ATPROGRAM_EEPROM_FLAGS := --eeprom
+else ifeq ($(ARCH), UC3)
+   ATPROGRAM_FLASH_FLAGS  := --erase
+   ATPROGRAM_EEPROM_FLAGS := --eeprom
+else
+   $(error Unsupported architecture "$(ARCH)")
+endif
 
-atprogram-ee: $(TARGET).eep $(MAKEFILE_LIST)
+atprogram: $(TARGET).elf $(MAKEFILE_LIST)
+	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" FLASH using \"$(ATPROGRAM_PROGRAMMER)\"
+	atprogram $(BASE_ATPROGRAM_FLAGS) program $(ATPROGRAM_FLASH_FLAGS) --file $<
+
+atprogram-ee: $(TARGET).elf $(MAKEFILE_LIST)
 	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" EEPROM using \"$(ATPROGRAM_PROGRAMMER)\"
-	atprogram $(BASE_ATPROGRAM_FLAGS) program --eeprom --file $(TARGET).eep
+	atprogram $(BASE_ATPROGRAM_FLAGS) program $(ATPROGRAM_EEPROM_FLAGS) --file $<
 	
 # Phony build targets for this module
 .PHONY: atprogram atprogram-ee
