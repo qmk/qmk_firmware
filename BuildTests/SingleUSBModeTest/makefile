@@ -25,13 +25,13 @@ end:
 	@echo
 
 compile:
-	$(MAKE) -s -f makefile.test clean elf ARCH=AVR8 MCU=at90usb1287 CCFLAGS='-D USB_DEVICE_ONLY'
-	$(MAKE) -s -f makefile.test clean elf ARCH=AVR8 MCU=at90usb1287 CCFLAGS='-D USB_HOST_ONLY'
+	$(MAKE) -s -f makefile.test clean elf ARCH=AVR8 MCU=at90usb1287 CC_FLAGS='-D USB_DEVICE_ONLY'
+	$(MAKE) -s -f makefile.test clean elf ARCH=AVR8 MCU=at90usb1287 CC_FLAGS='-D USB_HOST_ONLY'
 
-	$(MAKE) -s -f makefile.test clean elf ARCH=XMEGA MCU=atxmega128a1u CCFLAGS='-D USB_DEVICE_ONLY'
+	$(MAKE) -s -f makefile.test clean elf ARCH=XMEGA MCU=atxmega128a1u CC_FLAGS='-D USB_DEVICE_ONLY'
 	
-	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=uc3a0256 CCFLAGS='-D USB_DEVICE_ONLY'
-	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=uc3a0256 CCFLAGS='-D USB_HOST_ONLY'
+	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=uc3a0256 CC_FLAGS='-D USB_DEVICE_ONLY'
+	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=uc3a0256 CC_FLAGS='-D USB_HOST_ONLY'
 
 clean:
 	$(MAKE) -s -f makefile.test clean ARCH=AVR8 MCU=at90usb1287
