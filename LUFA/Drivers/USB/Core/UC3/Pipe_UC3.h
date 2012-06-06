@@ -204,7 +204,7 @@
 			static inline uint8_t Pipe_GetPipeDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetPipeDirection(void)
 			{
-				return (((&AVR32_USBB.UPCFG0)[USB_Endpoint_SelectedEndpoint].ptoken == PIPE_TOKEN_OUT) ? PIPE_DIR_OUT : PIPE_DIR_IN);
+				return (((&AVR32_USBB.UPCFG0)[USB_Pipe_SelectedPipe].ptoken == PIPE_TOKEN_OUT) ? PIPE_DIR_OUT : PIPE_DIR_IN);
 			}
 			
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
