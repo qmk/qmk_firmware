@@ -1,8 +1,8 @@
 # Target file name (without extension).
-TARGET = adb_usb
+TARGET = macway
 
 # Directory common source filess exist
-TOP_DIR = ..
+TOP_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -11,8 +11,7 @@ TARGET_DIR = .
 SRC =	main.c \
 	keymap.c \
 	matrix.c \
-	led.c \
-	adb.c
+	led.c
 
 CONFIG_H = config.h
 
@@ -36,7 +35,7 @@ F_CPU = 16000000
 # Build Options
 #   comment out to disable the options.
 #
-#MOUSEKEY_ENABLE = yes	# Mouse keys
+MOUSEKEY_ENABLE = yes	# Mouse keys
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 #NKRO_ENABLE = yes	# USB Nkey Rollover

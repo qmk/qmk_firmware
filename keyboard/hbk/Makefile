@@ -1,25 +1,19 @@
-#
-# Makefile for PJRC Teensy
-#
-
-
 # Target file name (without extension).
-TARGET = terminal_usb_122_pjrc
+TARGET = hbk
 
 # Directory common source filess exist
-TOP_DIR = ..
+TOP_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
 # keyboard dependent files
 SRC =	main.c \
-	keymap_122.c \
+	keymap.c \
 	matrix.c \
-	led.c \
-	ps2.c
+	led.c
 
-CONFIG_H = config_122_pjrc.h
+CONFIG_H = config.h
 
 
 # MCU name, you MUST set this to match the board you are using
@@ -39,16 +33,20 @@ F_CPU = 16000000
 
 
 # Build Options
-#   *Comment out* to disable the options.
+#   comment out to disable the options.
 #
-#MOUSEKEY_ENABLE = yes	# Mouse keys
-#EXTRAKEY_ENABLE = yes	# Audio control and System control
+MOUSEKEY_ENABLE = yes	# Mouse keys
+#PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
+EXTRAKEY_ENABLE = yes	# Audio control and System control
 #NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 
 #---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+#PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+PROGRAM_CMD = /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) erase && \
+	      /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) flash $(TARGET).hex && \
+	      /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) start
 
 
 

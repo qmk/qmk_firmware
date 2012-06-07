@@ -4,22 +4,22 @@
 
 
 # Target file name (without extension).
-TARGET = terminal_usb_102_pjrc
+TARGET = terminal_usb_122_pjrc
 
 # Directory common source filess exist
-TOP_DIR = ..
+TOP_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
 # keyboard dependent files
 SRC =	main.c \
-	keymap_102.c \
+	keymap_122.c \
 	matrix.c \
 	led.c \
 	ps2.c
 
-CONFIG_H = config_102_pjrc.h
+CONFIG_H = config_122_pjrc.h
 
 
 # MCU name, you MUST set this to match the board you are using
@@ -41,9 +41,9 @@ F_CPU = 16000000
 # Build Options
 #   *Comment out* to disable the options.
 #
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-NKRO_ENABLE = yes	# USB Nkey Rollover
+#MOUSEKEY_ENABLE = yes	# Mouse keys
+#EXTRAKEY_ENABLE = yes	# Audio control and System control
+#NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 

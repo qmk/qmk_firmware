@@ -4,10 +4,10 @@
 
 
 # Target file name (without extension).
-TARGET = news_usb_pjrc
+TARGET = x68k_usb_pjrc
 
 # Directory common source filess exist
-TOP_DIR = ..
+TOP_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -17,7 +17,7 @@ SRC =	main.c \
 	keymap.c \
 	matrix.c \
 	led.c \
-	news.c
+	x68k.c
 
 CONFIG_H = config_pjrc.h
 
@@ -48,7 +48,36 @@ NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 #---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+AVRDUDE = avrdude
+# Type: avrdude -c ? to get a full listing.
+AVRDUDE_PROGRAMMER = avr109
+AVRDUDE_PORT = /dev/ttyACM0
+AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
+#AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
+
+# Uncomment the following if you want avrdude's erase cycle counter.
+# Note that this counter needs to be initialized first using -Yn,
+# see avrdude manual.
+#AVRDUDE_ERASE_COUNTER = -y
+
+# Uncomment the following if you do /not/ wish a verification to be
+# performed after programming the device.
+#AVRDUDE_NO_VERIFY = -V
+
+# Increase verbosity level.  Please use this when submitting bug
+# reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude> 
+# to submit bug reports.
+#AVRDUDE_VERBOSE = -v -v
+
+AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
+#AVRDUDE_FLAGS = -p $(MCU) -c $(AVRDUDE_PROGRAMMER)
+AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
+AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
+AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
+
+#PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+#PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+PROGRAM_CMD = dfu-programmer atmega32u4 flash $(TARGET).hex
 
 
 

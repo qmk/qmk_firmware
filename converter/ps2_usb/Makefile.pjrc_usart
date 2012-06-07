@@ -7,7 +7,7 @@
 TARGET = ps2_usb_pjrc_usart
 
 # Directory common source filess exist
-TOP_DIR = ..
+TOP_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
