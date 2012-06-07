@@ -15,9 +15,7 @@
   *  - Code Features
   *      -# Add hub support when in Host mode for multiple devices
   *      -# Investigate virtual hubs when in device mode instead of composite devices
-  *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
-  *      -# Add makefile includes to reduce boilerplate in user makefiles
   *      -# Update stream APIs to use DMA transfers on supported architectures
   *      -# Pull out third party libraries into a separate folder and reference them as required
   *      -# Add a LUFA_YIELD macro for integration into a third-party RTOS
