@@ -33,7 +33,4 @@ ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
 endif
 
 # Search Path
-VPATH += $(COMMON_DIR)
-
-
-include $(COMMON_DIR)/rules.mk
+VPATH += $(TOP_DIR)/common

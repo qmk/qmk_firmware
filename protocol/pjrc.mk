@@ -8,7 +8,7 @@ SRC +=	pjrc.c \
 
 
 # Search Path
-VPATH += $(COMMON_DIR):$(COMMON_DIR)/pjrc
+VPATH += $(TOP_DIR)/protocol/pjrc
 
 
 # Option modules

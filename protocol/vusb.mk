@@ -16,4 +16,4 @@ endif
 
 
 # Search Path
-VPATH += $(COMMON_DIR)/vusb:$(COMMON_DIR)/vusb/usbdrv
+VPATH += $(TOP_DIR)/protocol/vusb:$(TOP_DIR)/protocol/vusb/usbdrv

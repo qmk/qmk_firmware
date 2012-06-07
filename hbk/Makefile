@@ -2,7 +2,7 @@
 TARGET = hbk
 
 # Directory common source filess exist
-COMMON_DIR = ..
+TOP_DIR = ..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -50,5 +50,7 @@ PROGRAM_CMD = /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) erase && \
 
 
 
-include $(COMMON_DIR)/pjrc.mk
-include $(COMMON_DIR)/common.mk
+include $(TOP_DIR)/protocol/pjrc.mk
+include $(TOP_DIR)/protocol.mk
+include $(TOP_DIR)/common.mk
+include $(TOP_DIR)/rules.mk

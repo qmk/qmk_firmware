@@ -7,7 +7,7 @@
 TARGET = x68k_usb_pjrc
 
 # Directory common source filess exist
-COMMON_DIR = ..
+TOP_DIR = ..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -81,5 +81,7 @@ PROGRAM_CMD = dfu-programmer atmega32u4 flash $(TARGET).hex
 
 
 
-include $(COMMON_DIR)/pjrc.mk
-include $(COMMON_DIR)/common.mk
+include $(TOP_DIR)/protocol/pjrc.mk
+include $(TOP_DIR)/protocol.mk
+include $(TOP_DIR)/common.mk
+include $(TOP_DIR)/rules.mk
