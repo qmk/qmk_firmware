@@ -121,7 +121,9 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
-CFLAGS += -include $(CONFIG_H)
+ifdef CONFIG_H
+    CFLAGS += -include $(CONFIG_H)
+endif
 
 
 #---------------- Compiler Options C++ ----------------
@@ -149,7 +151,9 @@ CPPFLAGS += -Wundef
 CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 #CPPFLAGS += $(CSTANDARD)
-CPPFLAGS += -include $(CONFIG_H)
+ifdef CONFIG_H
+    CPPFLAGS += -include $(CONFIG_H)
+endif
 
 
 #---------------- Assembler Options ----------------
@@ -162,7 +166,9 @@ CPPFLAGS += -include $(CONFIG_H)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex 
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS = $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-ASFLAGS += -include $(CONFIG_H)
+ifdef CONFIG_H
+    ASFLAGS += -include $(CONFIG_H)
+endif
 
 
 #---------------- Library Options ----------------

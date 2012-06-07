@@ -7,4 +7,4 @@ SRC +=	iwrap.c \
 
 
 # Search Path
-VPATH += $(COMMON_DIR)/iwrap
+VPATH += $(TOP_DIR)/protocol/iwrap

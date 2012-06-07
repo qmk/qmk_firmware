@@ -7,7 +7,7 @@
 TARGET = ps2_usb_vusb
 
 # Directory common source filess exist
-COMMON_DIR = ..
+TOP_DIR = ..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -86,5 +86,7 @@ PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE
 
 
 
-include $(COMMON_DIR)/vusb.mk
-include $(COMMON_DIR)/common.mk
+include $(TOP_DIR)/protocol/vusb.mk
+include $(TOP_DIR)/protocol.mk
+include $(TOP_DIR)/common.mk
+include $(TOP_DIR)/rules.mk
