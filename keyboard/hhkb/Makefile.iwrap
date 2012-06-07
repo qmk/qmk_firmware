@@ -7,7 +7,7 @@
 TARGET = hhkb_iwrap
 
 # Directory common source filess exist
-TOP_DIR = ..
+TOP_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
