@@ -41,6 +41,8 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		
+		#include "Config/AppConfig.h"
 
 	/* Preprocessor Checks: */
 		#if defined(LIBUSB_DRIVER_COMPAT) && defined(RESET_TOGGLES_LIBUSB_COMPAT)
