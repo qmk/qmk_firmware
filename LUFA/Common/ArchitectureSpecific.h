@@ -65,6 +65,24 @@
 		/* Macros: */
 			#if (ARCH == ARCH_AVR8) || (ARCH == ARCH_XMEGA) || defined(__DOXYGEN__)
 				#if (ARCH == ARCH_AVR8) || defined(__DOXYGEN__)
+					/** Re-enables the AVR's JTAG bus in software, until a system reset. This will re-enable JTAG debugging
+					 *  interface after is has been disbled in software via \ref JTAG_DISABLE().
+					 *
+					 *  \note This macro is not available for all architectures.
+					 */
+					#define JTAG_ENABLE()                  MACROS{                                      \
+																	__asm__ __volatile__ (               \
+																	"in __tmp_reg__,__SREG__" "\n\t"     \
+																	"cli" "\n\t"                         \
+																	"out %1, %0" "\n\t"                  \
+																	"out __SREG__, __tmp_reg__" "\n\t"   \
+																	"out %1, %0" "\n\t"                  \
+																	:                                    \
+																	: "r" (MCUCR & ~(1 << JTD)),         \
+																	  "M" (_SFR_IO_ADDR(MCUCR))          \
+																	: "r0");                             \
+															}MACROE
+
 					/** Disables the AVR's JTAG bus in software, until a system reset. This will override the current JTAG
 					 *  status as set by the JTAGEN fuse, disabling JTAG debugging and reverting the JTAG pins back to GPIO
 					 *  mode.
@@ -79,7 +97,7 @@
 																	"out __SREG__, __tmp_reg__" "\n\t"   \
 																	"out %1, %0" "\n\t"                  \
 																	:                                    \
-																	: "r" (1 << JTD),                    \
+																	: "r" (MCUCR | (1 << JTD)),          \
 																	  "M" (_SFR_IO_ADDR(MCUCR))          \
 																	: "r0");                             \
 															}MACROE

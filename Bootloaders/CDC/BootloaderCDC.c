@@ -70,8 +70,29 @@ uint32_t MagicBootKey ATTR_NO_INIT;
  */
 void Application_Jump_Check(void)
 {
+	bool JumpToApplication = false;
+
+	#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
+		/* Disable JTAG debugging */
+		JTAG_DISABLE();
+
+		/* Enable pull-up on the JTAG TCK pin so we can use it to select the mode */
+		PORTF |= (1 << 4);
+		Delay_MS(10);
+
+		/* If the TCK pin is not jumpered to ground, start the user application instead */
+		JumpToApplication |= ((PINF & (1 << 4)) != 0);
+
+		/* Re-enable JTAG debugging */
+		JTAG_ENABLE();
+	#endif
+
 	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
 	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+	  JumpToApplication |= true;
+
+	/* If a request has been made to jump to the user application, honor it */
+	if (JumpToApplication)
 	{
 		/* Turn off the watchdog */
 		MCUSR &= ~(1<<WDRF);
