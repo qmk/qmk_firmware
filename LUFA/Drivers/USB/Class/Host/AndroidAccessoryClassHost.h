@@ -156,7 +156,7 @@
 			 *
 			 *  \param[in,out] AOAInterfaceInfo  Pointer to a structure containing an AOA Class host configuration and state.
 			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum, or \ref AOA_ERROR_LOGICAL_CMD_FAILED if a logical error occured..
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum, or \ref AOA_ERROR_LOGICAL_CMD_FAILED if a logical error occurred..
 			 */
 			uint8_t AOA_Host_StartAccessoryMode(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 

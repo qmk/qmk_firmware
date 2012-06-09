@@ -57,7 +57,7 @@
 		#define CMD_DISPLAY_ON      0x0C
 
 	/* Function Prototypes: */
-		void HD44780_Initialise(void);
+		void HD44780_Initialize(void);
 		void HD44780_WriteData(const uint8_t c);
 		void HD44780_WriteCommand(const uint8_t c);
 

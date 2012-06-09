@@ -248,7 +248,7 @@
 				#define ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
 
-			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading(). */
+			/** MUX mask define for the internal 1.1V band-gap channel of the ADC. See \ref ADC_StartReading() and \ref ADC_GetChannelReading(). */
 			#define ADC_1100MV_BANDGAP              (0x1E << MUX0)
 
 			/** Retrieves the ADC MUX mask for the given ADC channel number.

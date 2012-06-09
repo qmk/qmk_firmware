@@ -85,7 +85,7 @@ namespace Project1HostApp
 
             if (ConnectionHandle == null)
             {
-                MessageBox.Show("Error: Cannot connect to DataLogger device.");
+                MessageBox.Show("Error: Cannot connect to Datalogger device.");
                 return;
             }
 
@@ -115,7 +115,7 @@ namespace Project1HostApp
 
             if (ConnectionHandle == null)
             {
-                MessageBox.Show("Error: Cannot connect to DataLogger device.");
+                MessageBox.Show("Error: Cannot connect to Datalogger device.");
                 return;
             }
 

@@ -37,7 +37,7 @@
  *  management.
  *
  *  User code may choose to either include this master dispatch header file to include all available platform
- *  driver header files for the current achitecture, or may choose to only include the specific platform driver
+ *  driver header files for the current architecture, or may choose to only include the specific platform driver
  *  modules required for a particular application.
  */
 
@@ -55,7 +55,7 @@
  *  system functions such as clock control and interrupt management.
  *
  *  User code may choose to either include this master dispatch header file to include all available platform
- *  driver header files for the current achitecture, or may choose to only include the specific platform driver
+ *  driver header files for the current architecture, or may choose to only include the specific platform driver
  *  modules required for a particular application.
  *
  *  \note The exact APIs and availability of sub-modules within the platform driver group may vary depending on the

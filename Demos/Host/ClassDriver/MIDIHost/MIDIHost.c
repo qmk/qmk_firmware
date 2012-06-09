@@ -101,7 +101,7 @@ void SetupHardware(void)
 }
 
 /** Task to manage an enumerated USB MIDI device once connected, to display received
- *  note events from the host and send note changes in response to tbe board's joystick.
+ *  note events from the host and send note changes in response to the board's joystick.
  */
 void JoystickHost_Task(void)
 {

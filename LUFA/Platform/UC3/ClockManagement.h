@@ -91,16 +91,16 @@
 				EXOSC_MODE_8MHZ_OR_MORE  = AVR32_PM_OSCCTRL0_MODE_CRYSTAL_G3, /**< External crystal oscillator equal to or faster than 8MHz. */
 			};
 
-			/** Enum for the possible external oscillator statup times. */
+			/** Enum for the possible external oscillator startup times. */
 			enum UC3_Extern_OSC_ClockStartup_t
 			{
 				EXOSC_START_0CLK         = AVR32_PM_OSCCTRL0_STARTUP_0_RCOSC,     /**< Immediate startup, no delay. */
-				EXOSC_START_64CLK        = AVR32_PM_OSCCTRL0_STARTUP_64_RCOSC,    /**< Wait 64 clock cyles before startup for stability. */
-				EXOSC_START_128CLK       = AVR32_PM_OSCCTRL0_STARTUP_128_RCOSC,   /**< Wait 128 clock cyles before startup for stability. */
-				EXOSC_START_2048CLK      = AVR32_PM_OSCCTRL0_STARTUP_2048_RCOSC,  /**< Wait 2048 clock cyles before startup for stability. */
-				EXOSC_START_4096CLK      = AVR32_PM_OSCCTRL0_STARTUP_4096_RCOSC,  /**< Wait 4096 clock cyles before startup for stability. */
-				EXOSC_START_8192CLK      = AVR32_PM_OSCCTRL0_STARTUP_8192_RCOSC,  /**< Wait 8192 clock cyles before startup for stability. */
-				EXOSC_START_16384CLK     = AVR32_PM_OSCCTRL0_STARTUP_16384_RCOSC, /**< Wait 16384 clock cyles before startup for stability. */
+				EXOSC_START_64CLK        = AVR32_PM_OSCCTRL0_STARTUP_64_RCOSC,    /**< Wait 64 clock cycles before startup for stability. */
+				EXOSC_START_128CLK       = AVR32_PM_OSCCTRL0_STARTUP_128_RCOSC,   /**< Wait 128 clock cycles before startup for stability. */
+				EXOSC_START_2048CLK      = AVR32_PM_OSCCTRL0_STARTUP_2048_RCOSC,  /**< Wait 2048 clock cycles before startup for stability. */
+				EXOSC_START_4096CLK      = AVR32_PM_OSCCTRL0_STARTUP_4096_RCOSC,  /**< Wait 4096 clock cycles before startup for stability. */
+				EXOSC_START_8192CLK      = AVR32_PM_OSCCTRL0_STARTUP_8192_RCOSC,  /**< Wait 8192 clock cycles before startup for stability. */
+				EXOSC_START_16384CLK     = AVR32_PM_OSCCTRL0_STARTUP_16384_RCOSC, /**< Wait 16384 clock cycles before startup for stability. */
 			};
 
 			/** Enum for the possible module clock sources. */

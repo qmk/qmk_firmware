@@ -91,7 +91,7 @@
 
 		/* Global Variables: */
 			/** Indicates the currently set configuration number of the attached device. This indicates the currently
-			 *  selected configuration value if one has been set sucessfully, or 0 if no configuration has been selected.
+			 *  selected configuration value if one has been set successfully, or 0 if no configuration has been selected.
 			 *
 			 *  To set a device configuration, call the \ref USB_Host_SetDeviceConfiguration() function.
 			 *

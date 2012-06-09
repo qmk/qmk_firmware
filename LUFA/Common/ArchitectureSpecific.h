@@ -66,7 +66,7 @@
 			#if (ARCH == ARCH_AVR8) || (ARCH == ARCH_XMEGA) || defined(__DOXYGEN__)
 				#if (ARCH == ARCH_AVR8) || defined(__DOXYGEN__)
 					/** Re-enables the AVR's JTAG bus in software, until a system reset. This will re-enable JTAG debugging
-					 *  interface after is has been disbled in software via \ref JTAG_DISABLE().
+					 *  interface after is has been disabled in software via \ref JTAG_DISABLE().
 					 *
 					 *  \note This macro is not available for all architectures.
 					 */

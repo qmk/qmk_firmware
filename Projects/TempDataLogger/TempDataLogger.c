@@ -227,7 +227,7 @@ void EVENT_USB_Device_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
-	/* Close the log file so that the host has exclusive filesystem access */
+	/* Close the log file so that the host has exclusive file system access */
 	CloseLogFile();
 }
 

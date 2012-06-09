@@ -53,7 +53,7 @@
  * statement. While it would be possible to break the uip_process()
  * function into many smaller functions, this would increase the code
  * size because of the overhead of parameter passing and the fact that
- * the optimiser would not be as efficient.
+ * the optimizer would not be as efficient.
  *
  * The principle is that we have a small buffer, called the uip_buf,
  * in which the device driver puts an incoming packet. The TCP/IP
@@ -330,7 +330,7 @@ upper_layer_chksum(u8_t proto)
   upper_layer_len = (((u16_t)(BUF->len[0]) << 8) + BUF->len[1]) - UIP_IPH_LEN;
 #endif /* UIP_CONF_IPV6 */
 
-  /* First sum pseudoheader. */
+  /* First sum pseudo-header. */
 
   /* IP protocol and length fields. This addition cannot carry. */
   sum = upper_layer_len + proto;

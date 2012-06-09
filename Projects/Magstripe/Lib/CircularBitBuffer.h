@@ -71,7 +71,7 @@
 		} BitBuffer_t;
 
 	/* Function Prototypes: */
-		/** Initialises or resets a given bit buffer, ready to store new bits.
+		/** Initializes or resets a given bit buffer, ready to store new bits.
 		 *
 		 *  \param[in,out] Buffer  Bit buffer to initialize
 		 */

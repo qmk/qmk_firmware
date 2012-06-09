@@ -246,7 +246,7 @@
 			uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sets the idle period for the attached HID device to the specified interval. The HID idle period determines the rate
-			 *  at which the device should send a report, when no state changes have ocurred; i.e. on HID keyboards, this sets the
+			 *  at which the device should send a report, when no state changes have occurred; i.e. on HID keyboards, this sets the
 			 *  hardware key repeat interval.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.

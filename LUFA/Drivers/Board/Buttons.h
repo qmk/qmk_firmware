@@ -160,7 +160,7 @@
 		 */
 		static inline void Buttons_Init(void);
 
-		/** Disables the buttons driver, releasing the I/O pins back to their default high-impedence input mode. */
+		/** Disables the buttons driver, releasing the I/O pins back to their default high-impedance input mode. */
 		static inline void Buttons_Disable(void);
 
 		/** Returns a mask indicating which board buttons are currently pressed.

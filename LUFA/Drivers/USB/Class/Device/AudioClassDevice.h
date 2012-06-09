@@ -124,7 +124,7 @@
 			 *
 			 *  When the DataLength parameter is NULL, this callback should only indicate whether the specified operation is valid for
 			 *  the given endpoint index, and should return as fast as possible. When non-NULL, this value may be altered for GET operations
-			 *  to indicate the size of the retreived data.
+			 *  to indicate the size of the retrieved data.
 			 *
 			 *  \note The length of the retrieved data stored into the Data buffer on GET operations should not exceed the initial value
 			 *        of the \c DataLength parameter.
@@ -153,7 +153,7 @@
 			 *
 			 *  When the DataLength parameter is NULL, this callback should only indicate whether the specified operation is valid for
 			 *  the given entity and should return as fast as possible. When non-NULL, this value may be altered for GET operations
-			 *  to indicate the size of the retreived data.
+			 *  to indicate the size of the retrieved data.
 			 *
 			 *  \note The length of the retrieved data stored into the Data buffer on GET operations should not exceed the initial value
 			 *        of the \c DataLength parameter.

@@ -63,7 +63,7 @@
  *
  *  \note To make code as compatible as possible, it is assumed that all boards carry a minimum of four LEDs. If
  *        a board contains less than four LEDs, the remaining LED masks are defined to 0 so as to have no effect.
- *        If other behaviour is desired, either alias the remaining LED masks to existing LED masks via the -D
+ *        If other behavior is desired, either alias the remaining LED masks to existing LED masks via the -D
  *        switch in the project makefile, or alias them to nothing in the makefile to cause compilation errors when
  *        a non-existing LED is referenced in application code. Note that this means that it is possible to make
  *        compatible code for a board with no LEDs by making a board LED driver (see \ref Page_WritingBoardDrivers)
@@ -221,7 +221,7 @@
 		 */
 		static inline void LEDs_Init(void);
 
-		/** Disables the board LED driver, releasing the I/O pins back to their default high-impedence input mode. */
+		/** Disables the board LED driver, releasing the I/O pins back to their default high-impedance input mode. */
 		static inline void LEDs_Disable(void);
 
 		/** Turns on the LEDs specified in the given LED mask.

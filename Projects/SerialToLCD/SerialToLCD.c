@@ -148,7 +148,7 @@ void SetupHardware(void)
 	USB_Init();
 
 	/* Power up the HD44780 Interface */
-	HD44780_Initialise();
+	HD44780_Initialize();
 	HD44780_WriteCommand(CMD_DISPLAY_ON);
 	
 	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */

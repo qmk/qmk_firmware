@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dean Camera")]
-[assembly: AssemblyProduct("Temp DataLogger HostApp")]
+[assembly: AssemblyProduct("Temp Datalogger HostApp")]
 [assembly: AssemblyCopyright("Copyright © Dean Camera 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

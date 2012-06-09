@@ -71,7 +71,7 @@ static uint16_t LastTransferLength = 0;
 static uint8_t NextResponseBuffer[64];
 
 /** Indicates the length of the next response to send */
-static uint8_t NextReponseLen;
+static uint8_t NextResponseLen;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -326,16 +326,16 @@ void ProcessSentMessage(uint8_t* const Data, const uint8_t Length)
 	if (strncmp((char*)Data, "*IDN?", 5) == 0)
 	  strcpy((char*)NextResponseBuffer, "LUFA TMC DEMO");
 
-	NextReponseLen = strlen((char*)NextResponseBuffer);
+	NextResponseLen = strlen((char*)NextResponseBuffer);
 }
 
 uint8_t GetNextMessage(uint8_t* const Data)
 {
 	  strcpy((char*)NextResponseBuffer, "LUFA TMC DEMO");
 
-	NextReponseLen = strlen((char*)NextResponseBuffer);
+	NextResponseLen = strlen((char*)NextResponseBuffer);
 // ---
-	uint8_t DataLen = MIN(NextReponseLen, 64);
+	uint8_t DataLen = MIN(NextResponseLen, 64);
 
 	strlcpy((char*)Data, (char*)NextResponseBuffer, DataLen);
 

@@ -104,7 +104,7 @@ static void HD44780_PowerUp4Bit(void)
 	_delay_us(50);
 }
 
-void HD44780_Initialise(void)
+void HD44780_Initialize(void)
 {
 	PORTD &= ~ALL_BITS;
 	DDRD  |=  ALL_BITS;

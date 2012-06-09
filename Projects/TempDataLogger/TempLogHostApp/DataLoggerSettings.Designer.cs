@@ -157,7 +157,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDataloggerSettings";
-            this.Text = "DataLogger";
+            this.Text = "Datalogger";
             this.Load += new System.EventHandler(this.frmDataloggerSettings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudLogInterval)).EndInit();
             this.ResumeLayout(false);

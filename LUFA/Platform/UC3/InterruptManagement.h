@@ -93,7 +93,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Converts a given interrupt index into its assocated interrupt group.
+			/** Converts a given interrupt index into its associated interrupt group.
 			 *
 			 *  \param[in] IRQIndex  Index of the interrupt request to convert.
 			 *
@@ -101,7 +101,7 @@
 			 */
 			#define INTC_IRQ_GROUP(IRQIndex)  (IRQIndex / 32)
 
-			/** Converts a given interrupt index into its assocated interrupt line.
+			/** Converts a given interrupt index into its associated interrupt line.
 			 *
 			 *  \param[in] IRQIndex  Index of the interrupt request to convert.
 			 *

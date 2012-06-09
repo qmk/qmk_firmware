@@ -88,7 +88,7 @@
 				EXOSC_FREQ_16MHZ_MAX     = OSC_FRQRANGE_12TO16_gc, /**< External crystal oscillator equal to or slower than 16MHz. */
 			};
 
-			/** Enum for the possible external oscillator statup times. */
+			/** Enum for the possible external oscillator startup times. */
 			enum XMEGA_Extern_OSC_ClockStartup_t
 			{
 				EXOSC_START_6CLK         = OSC_XOSCSEL_EXTCLK_gc,      /**< Wait 6 clock cycles before startup (external clock). */
@@ -141,7 +141,7 @@
 			 *  the oscillator is ready for use.
 			 *
 			 *  \param[in] FreqRange  Frequency range of the external oscillator, a value from \ref XMEGA_Extern_OSC_ClockFrequency_t.
-			 *  \param[in] Startup    Statup time of the external oscillator, a value from \ref XMEGA_Extern_OSC_ClockStartup_t.
+			 *  \param[in] Startup    Startup time of the external oscillator, a value from \ref XMEGA_Extern_OSC_ClockStartup_t.
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
@@ -347,7 +347,7 @@
 			 *
 			 *  \param[in] Source      Clock source for the CPU core, a value from \ref XMEGA_System_ClockSource_t.
 			 *
-			 *  \return Boolean \c true if the CPU core clock was sucessfully altered, \c false if invalid parameters specified.
+			 *  \return Boolean \c true if the CPU core clock was successfully altered, \c false if invalid parameters specified.
 			 */
 			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source) ATTR_ALWAYS_INLINE;
 			static inline bool XMEGACLK_SetCPUClockSource(const uint8_t Source)
