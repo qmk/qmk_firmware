@@ -9,17 +9,14 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
-# Starting byte address of the bootloader, as a byte address - computed via the formula
-#   BOOT_START = ((FLASH_SIZE_KB - BOOT_SECTION_SIZE_KB) * 1024)
-#
-# Note that the bootloader size and start address given in AVRStudio is in words and not
-# bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
+# Flash size and bootloader section sizes of the target, in KB. These must
+# match the target's total FLASH size and the bootloader size set in the
+# device's fuses.
 FLASH_SIZE_KB        := 128
 BOOT_SECTION_SIZE_KB := 8
 
-# Formulas used to calculate the starting address of the Bootloader section, and the User Application
-# API jump table (for more information on the latter, see the bootloader documentation). These formulas
-# should not need to be altered - modify the FLASH_SIZE_KB and BOOT_SECTION_KB values above instead.
+# Bootloader address calculations (requires the "bc" unix utility) - do
+# not modify these calculations, but rather modify the depedant values above.
 BOOT_START           := 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
 BOOT_API_TABLESTART  := 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 96)" | bc)
 
