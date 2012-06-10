@@ -16,7 +16,8 @@ CPPCHECK_EXCLUDES = FATFs/            \
                     uip/
 CPPCHECK_INCLUDES = $(patsubst %/,%,$(LUFA_PATH))/CodeTemplates/   \
                     $(patsubst %/,%,$(LUFA_PATH))/../Projects/AVRISP-MKII/
-CPPCHECK_PATH     = $(patsubst %/,%,$(LUFA_PATH))/..
+
+SRC               = $(patsubst %/,%,$(LUFA_PATH))/..
 
 all: begin cppcheck-config cppcheck end
 
