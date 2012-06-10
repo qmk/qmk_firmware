@@ -129,7 +129,8 @@
  
 /**
  *  \page Page_UC3Support Atmel 32-Bit UC3 AVR (UC3)
- *  Note: <i>The AVR32 UC3 device support is currently <b>experimental</b>, and is included for preview purposes only.</i>
+ *
+ *  \warning The AVR32 UC3 device support is currently <b>experimental</b>, and is included for preview purposes only.
  *
  *  \section Sec_UC3Support_Devices Supported Microcontroller Models
  *
@@ -298,7 +299,8 @@
  
 /**
  *  \page Page_XMEGASupport Atmel USB XMEGA AVR (XMEGA)
- *  Note: <i>The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.</i>
+ *
+ *  \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
  *
  *  \section Sec_XMEGASupport_Devices Supported Microcontroller Models
  *

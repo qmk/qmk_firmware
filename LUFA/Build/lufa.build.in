@@ -55,26 +55,9 @@ LUFA_BUILD_OPTIONAL_VARS  += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_
 #
 # -----------------------------------------------------------------------------
 
-# Sanity-check values of mandatory user-supplied variables
-MCU            ?= $(error Makefile MCU value not set)
-TARGET         ?= $(error Makefile TARGET value not set)
-ARCH           ?= $(error Makefile ARCH value not set)
-SRC            ?= $(error Makefile SRC value not set)
-F_USB          ?= $(error Makefile F_USB value not set)
-LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set)
-
-ifeq ($(MCU),)
-   $(error Makefile MCU option cannot be blank)
-endif
-ifeq ($(TARGET),)
-   $(error Makefile TARGET option cannot be blank)
-endif
-ifeq ($(ARCH),)
-   $(error Makefile ARCH option cannot be blank)
-endif
-ifeq ($(F_USB),)
-   $(error Makefile F_USB option cannot be blank)
-endif
+ERROR_IF_UNSET     = $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
+ERROR_IF_EMPTY     = $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
+ERROR_IF_NONBOOL   = $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Default values of optionally user-supplied variables
 BOARD           ?= NONE
@@ -86,6 +69,18 @@ C_FLAGS         ?=
 CPP_FLAGS       ?=
 ASM_FLAGS       ?=
 CC_FLAGS        ?=
+
+# Sanity check user supplied values
+$(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
+$(call ERROR_IF_EMPTY, MCU)
+$(call ERROR_IF_EMPTY, TARGET)
+$(call ERROR_IF_EMPTY, ARCH)
+$(call ERROR_IF_EMPTY, F_USB)
+$(call ERROR_IF_EMPTY, LUFA_PATH)
+$(call ERROR_IF_EMPTY, BOARD)
+$(call ERROR_IF_EMPTY, OPTIMIZATION)
+$(call ERROR_IF_EMPTY, C_STANDARD)
+$(call ERROR_IF_EMPTY, CPP_STANDARD)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)

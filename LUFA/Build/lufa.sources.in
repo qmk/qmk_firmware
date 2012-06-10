@@ -35,13 +35,14 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 #
 # -----------------------------------------------------------------------------
 
-# Sanity-check values of mandatory user-supplied variables
-ARCH           ?= $(error Makefile ARCH value not set)
-LUFA_PATH      ?= $(error Makefile LUFA_PATH value not set)
+ERROR_IF_UNSET   = $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
+ERROR_IF_EMPTY   = $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
+ERROR_IF_NONBOOL = $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
-ifeq ($(ARCH),)
-   $(error Makefile ARCH option cannot be blank)
-endif
+# Sanity check user supplied values
+$(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
+$(call ERROR_IF_EMPTY, LUFA_PATH)
+$(call ERROR_IF_EMPTY, ARCH)
 
 # Allow LUFA_ROOT_PATH to be overridden elsewhere to support legacy LUFA makefiles
 LUFA_ROOT_PATH ?= $(patsubst %/,%,$(LUFA_PATH))

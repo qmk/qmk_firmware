@@ -46,6 +46,10 @@ LUFA_BUILD_OPTIONAL_VARS  += CPPCHECK_PATH CPPCHECK_INCLUDES CPPCHECK_EXCLUDES C
 #
 # -----------------------------------------------------------------------------
 
+ERROR_IF_UNSET   = $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
+ERROR_IF_EMPTY   = $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
+ERROR_IF_NONBOOL = $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
+
 # Default values of optionally user-supplied variables
 CPPCHECK_PATH                ?= .
 CPPCHECK_INCLUDES            ?=
@@ -57,20 +61,23 @@ CPPCHECK_FAIL_ON_WARNING     ?= Y
 CPPCHECK_QUIET               ?= Y
 CPPCHECK_FLAGS               ?= 
 
+# Sanity check user supplied values
+$(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
+$(call ERROR_IF_EMPTY, CPPCHECK_PATH)
+$(call ERROR_IF_EMPTY, CPPCHECK_MSG_TEMPLATE)
+$(call ERROR_IF_EMPTY, CPPCHECK_ENABLE)
+$(call ERROR_IF_NONBOOL, CPPCHECK_FAIL_ON_WARNING)
+$(call ERROR_IF_NONBOOL, CPPCHECK_QUIET)
+
 # Build a default argument list for cppcheck
 BASE_CPPCHECK_FLAGS := --template="$(CPPCHECK_MSG_TEMPLATE)" $(CPPCHECK_INCLUDES:%=-I%) $(CPPCHECK_EXCLUDES:%=-i%) --inline-suppr --force --std=c99
 
 # Sanity check parameters and construct additional command line arguments to cppcheck
-
 ifeq ($(CPPCHECK_FAIL_ON_WARNING), Y)
    BASE_CPPCHECK_FLAGS += --error-exitcode=1
-else ifneq ($(CPPCHECK_FAIL_ON_WARNING), N)
-	$(error CPPCHECK_FAIL_ON_WARNING must be Y or N)
 endif
 ifeq ($(CPPCHECK_QUIET), Y)
    BASE_CPPCHECK_FLAGS += --quiet
-else ifneq ($(CPPCHECK_QUIET), N)
-   $(error CPPCHECK_QUIET must be Y or N)
 endif
 
 # Output Messages
