@@ -17,64 +17,73 @@ Features
 Projects
 --------
 ### converter
-* ps2_usb - PS/2 keyboard to USB
-* adb_usb - ADB keyboard to USB
-* m0110_usb - Machintosh 128K/512K/Plus keyboard to USB
-* terminal_usb - IBM Model M terminal keyboard(PS/2 scancode set3) to USB
-* sony_usb - Sony NEWS keyboard to USB
-* x68k_usb - Sharp X68000 keyboard to USB
+* [ps2_usb][c1] - [PS/2 keyboard to USB][GH_ps2]
+* [adb_usb][c2] - [ADB keyboard to USB][GH_adb]
+* [m0110_usb][c3] - [Machintosh 128K/512K/Plus keyboard to USB][GH_m0110]
+* [terminal_usb][c4] - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
+* [news_usb][c5] - [Sony NEWS keyboard to USB][GH_news]
+* [x68k_usb][c6] - [Sharp X68000 keyboard to USB][GH_x68k]
 
 ### keyboard
-* hhkb - Happy Hacking Keyboard professional
-* macway - Compact keyboard mod
-* hbk - Happy Buckling sprint keyboard(IBM Model M mod)
+* [hhkb][k1] - [Happy Hacking Keyboard professional][GH_hhkb]
+* [macway][k2] - [Compact keyboard mod][GH_macway]
+* [hbkb][k3] - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
 
+[c1]:   converter/ps2_usb/
+[c2]:   converter/adb_usb/
+[c3]:   converter/m0110_usb/
+[c4]:   converter/terminal_usb/
+[c5]:   converter/news_usb/
+[c6]:   converter/x68k_usb/
+[k1]:   keyboard/hhkb
+[k2]:   keyboard/macway
+[k3]:   keyboard/hbkb
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
 [GH_ps2]:       http://geekhack.org/showwiki.php?title=Island:14618
 [GH_adb]:       http://geekhack.org/showwiki.php?title=Island:14290
 [GH_hhkb_bt]:   http://geekhack.org/showwiki.php?title=Island:20851
 [GH_m0110]:     http://geekhack.org/showwiki.php?title=Island:24965
-[GH_sony]:      http://geekhack.org/showwiki.php?title=Island:25759
+[GH_news]:      http://geekhack.org/showwiki.php?title=Island:25759
 [GH_terminal]:  http://geekhack.org/showwiki.php?title=Island:27272
 [GH_x68k]:      http://geekhack.org/showwiki.php?title=Island:29060
-[GH_hbk]:       http://geekhack.org/showwiki.php?title=Island:29483
+[GH_hbkb]:      http://geekhack.org/showwiki.php?title=Island:29483
 
 
 
 Files & Directories
 -------------------
 ### Top
-* common/       common codes
-* protocol/     keyboard protocol support
-* keyboard/     keyboard projects
-* converter/    protocol converter projects
-* doc/          documents
+* [common/](common/)        - common codes
+* [protocol/](protocol/)    - keyboard protocol support
+* [keyboard/](keyboard/)    - keyboard projects
+* [converter/](converter/)  - protocol converter projects
+* [doc/](doc/)              - documents
 
 ### Keyboard Protocols
-* pjrc/         PJRC USB stack
-* vusb/         Objective Development V-USB
-* iwrap/        Bluetooth HID for Bluegiga iWRAP
-* ps2           PS/2 protocol
-* adb           Apple Desktop Bus protocol
-* m0110         Macintosh 128K/512K/Plus keyboard protocol
-* news          Sony NEWS keyboard protocol
-* x68k          Sharp X68000 keyboard protocol
+* [pjrc/](protocol/pjrc/)     - PJRC USB stack
+* [vusb/](protocol/vusb/)     - Objective Development V-USB
+* [iwrap/](protocol/iwrap)    - Bluetooth HID for Bluegiga iWRAP
+* [ps2.c](protocol/ps2.c)     - PS/2 protocol
+* [adb.c](protocol/adb.c)     - Apple Desktop Bus protocol
+* [m0110.c](protocol/m0110.c) - Macintosh 128K/512K/Plus keyboard protocol
+* [news.c](protocol/news.c)   - Sony NEWS keyboard protocol
+* [x68k.c](protocol/x68k.c)   - Sharp X68000 keyboard protocol
 
 
 Build & Program
 ---------------
 ### Build firmware
 To compile you need `AVR GCC`, `AVR Libc` and `GNU make`.
-You can use [WinAVR][1] on Windows and [CrossPack][2] on Mac.
+You can use [WinAVR][winavr] on Windows and [CrossPack][crosspack] on Mac.
 
     $ cd <project>
     $ make
 
-The firmware will be compiled as a file tmk_<project>.hex.
+The firmware will be compiled as a file `tmk_<project>.hex`.
 
-[1]:  http://winavr.sourceforge.net/
-[2]: http://www.obdev.at/products/crosspack/index.html
+[winavr]:       http://winavr.sourceforge.net/
+[crosspack]:    http://www.obdev.at/products/crosspack/index.html
 
 ### Program Controller
 If you have proper program command in Makefile just type this.
