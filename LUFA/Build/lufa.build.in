@@ -87,10 +87,12 @@ ifeq ($(ARCH), AVR8)
    CROSS        := avr-
 else ifeq ($(ARCH), XMEGA)
    CROSS        := avr-
+   $(warning The XMEGA device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 else ifeq ($(ARCH), UC3)
    CROSS        := avr32-
+   $(warning The UC3 device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 else
-    $(error Unsupported architecture "$(ARCH)".)
+   $(error Unsupported architecture "$(ARCH)")
 endif
 
 # Output Messages
