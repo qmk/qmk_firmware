@@ -168,6 +168,10 @@
  *    is through control endpoint requests. Defining this token will remove several features related to the selection and control of device
  *    endpoints internally, saving space. Generally, this is usually only useful in (some) bootloaders and is best avoided.
  *
+ *  - <b>MAX_ENDPOINT_INDEX</b> - (\ref Group_Device) - <i>XMEGA Only</i> \n
+ *    Defining this value to the highest index (not address - this excludes the direction flag) endpoint within the device will restrict the
+ *    number of FIFOs created internally for the endpoint buffers, reducing the total RAM usage.
+ *
  *  - <b>INTERRUPT_CONTROL_ENDPOINT</b> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
  *    Some applications prefer to not call the USB_USBTask() management task regularly while in device mode, as it can complicate code significantly.
  *    Instead, when device mode is used this token can be passed to the library via the -D switch to allow the library to manage the USB control

@@ -90,14 +90,18 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
+			#if (!defined(MAX_ENDPOINT_INDEX) && !defined(CONTROL_ONLY_DEVICE)) || defined(__DOXYGEN__)
 				/** Total number of endpoints (including the default control endpoint at address 0) which may
 				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
 				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
 				 */
 				#define ENDPOINT_TOTAL_ENDPOINTS            16
 			#else
-				#define ENDPOINT_TOTAL_ENDPOINTS            1
+				#if defined(CONTROL_ONLY_DEVICE)
+					#define ENDPOINT_TOTAL_ENDPOINTS        1
+				#else
+					#define ENDPOINT_TOTAL_ENDPOINTS        (MAX_ENDPOINT_INDEX + 1)
+				#endif
 			#endif
 
 	/* Private Interface - For use in library only: */
