@@ -12,8 +12,6 @@
 LUFA_VERSION_NUM        := $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
 EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin *.d
 
-DOXYGEN_OVERRIDE_PARAMS = PROJECT_NUMBER=$(LUFA_VERSION_NUM)
-
 all:
 
 export_tar:
@@ -30,11 +28,9 @@ ifneq ($(LUFA_PATH),)
   LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA/
   include $(LUFA_PATH)/LUFA/Build/lufa.sources.in
 else
-  LUFA_BUILD_MODULES += LIBCORE
-  LUFA_BUILD_TARGETS += export_tar version
-
-  LUFA_PATH           = .
-  ARCH                = {AVR8,UC3,XMEGA}
+  LUFA_PATH               = .
+  ARCH                    = {AVR8,UC3,XMEGA}
+  DOXYGEN_OVERRIDE_PARAMS = QUIET=YES PROJECT_NUMBER=$(LUFA_VERSION_NUM)
   
   clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
