@@ -9,8 +9,8 @@
  *  Once you have built an application, you will need a way to program in the resulting ".HEX" file (and, if your
  *  application uses EEPROM variables with initial values, also a ".EEP" file) into your USB AVR. Normally, the
  *  reprogramming of an AVR device must be performed using a special piece of programming hardware, through one of the
- *  supported AVR programming protocols - ISP, HVSP, HVPP, JTAG or dW. This can be done through a custom programmer,
- *  a third party programmer, or an official Atmel AVR tool - for more information, see the Atmel.com website.
+ *  supported AVR programming protocols - ISP, HVSP, HVPP, JTAG, dW or PDI. This can be done through a custom programmer,
+ *  a third party programmer, or an official Atmel AVR tool - for more information, see the <a>atmel.com</a> website.
  *
  *  Alternatively, you can use the bootloader. From the Atmel factory, each USB AVR comes preloaded with the Atmel
  *  DFU (Device Firmware Update) class bootloader, a small piece of AVR firmware which allows the remainder of the
@@ -19,9 +19,12 @@
  *  or broken without an external programming device. They have disadvantages however; they cannot change the fuses of
  *  the AVR (special configuration settings that control the operation of the chip itself) and a small portion of the
  *  AVR's FLASH program memory must be reserved to contain the bootloader firmware, and thus cannot be used by the
- *  loaded application. Atmel's DFU bootloader is either 4KB (for the smaller USB AVRs) or 8KB (for the larger USB AVRs).
+ *  loaded application.
  *
  *  If you wish to use the DFU bootloader to program in your application, refer to your DFU programmer's documentation.
  *  Atmel provides a free utility called FLIP which is USB AVR compatible, and an open source (Linux compatible)
  *  alternative exists called "dfu-programmer".
+ *
+ *  \see \ref Page_BuildModule_DFU for information on the LUFA build system DFU module, for automatic DFU bootloader
+ *  programming makefile targets.
  */

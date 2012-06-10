@@ -8,20 +8,19 @@
  *
  *  If the target microcontroller model, architecture, clock speed, board or other settings are different from the current
  *  settings, they must be changed and the project recompiled from the source code before being programmed into the microcontroller.
- *  Most project configuration options are located in the "makefile" build script inside each LUFA application's folder, however
- *  some demo or application-specific configuration settings (such as the output format in the AudioOut demo) are located in one or
- *  more of the source files of the project. See each project's individual documentation for application-specific configuration
- *  values.
+ *  Most project configuration options are located in the <tt>makefile</tt> build script inside each LUFA application's folder,
+ *  however some demo or application-specific configuration settings are located in one or more of the source files of the project.
+ *  See each project's individual documentation for application-specific configuration values.
  *
  *  Each project "makefile" contains all the script and configuration data required to compile each project. When opened with
  *  any regular basic text editor such as Notepad or WordPad (ensure that the save format is a pure ASCII text format) the
  *  build configuration settings may be altered.
  *
+ *  \see \ref Page_BuildSystem for information on the LUFA build system.
+ *
  *  \section Sec_AppConfigParams The Default Application Template
  *
  *  Below is a copy of the default LUFA application makefile, which can be used as a template for each application.
- *
- *  \see \ref Page_BuildSystem for information on the LUFA build system.
  *
  *  \verbinclude makefile_template
  *
