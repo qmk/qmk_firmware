@@ -21,6 +21,8 @@
  *
  *  Below is a copy of the default LUFA application makefile, which can be used as a template for each application.
  *
+ *  \see \ref Page_BuildSystem for information on the LUFA build system.
+ *
  *  \verbinclude makefile_template
  *
  *  Inside each makefile, a number of configuration variables are listed with the syntax "<VARIABLE NAME> = <VALUE>". For

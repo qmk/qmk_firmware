@@ -11,6 +11,7 @@
  *  information on compile-time tuning of the library and other developer-related sections.
  *
  *  <b>Subsections:</b>
+ *  \li \subpage Page_BuildSystem - The LUFA Buildsystem
  *  \li \subpage Page_TokenSummary - Summary of Compile Time Tokens
  *  \li \subpage Page_Migration - Migrating from an Older LUFA Version
  *  \li \subpage Page_VIDPID - Allocated USB VID and PID Values

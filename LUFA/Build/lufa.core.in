@@ -12,10 +12,10 @@ LUFA_BUILD_MANDATORY_VARS +=
 LUFA_BUILD_OPTIONAL_VARS  += 
 
 # -----------------------------------------------------------------------------
-#               LUFA Core Buildsystem Makefile Module.
+#               LUFA Core Build System Makefile Module.
 # -----------------------------------------------------------------------------
 # DESCRIPTION:
-#   Provides a set of core build targets for the LUFA buildsystem
+#   Provides a set of core build targets for the LUFA build system
 # -----------------------------------------------------------------------------
 # TARGETS:
 #

@@ -45,4 +45,6 @@
  *  diagnostic output files), execute <b>"make clean"</b>. Once a "make all" has been run and no errors were encountered, the
  *  resulting binary will be located in the generated ".HEX" file. If your project makes use of pre-initialized EEPROM
  *  variables, the generated ".EEP" file will contain the project's EEPROM data.
+ *
+ *  \see \ref Page_BuildSystem for information on the LUFA build system.
  */
