@@ -10,7 +10,7 @@
 # ---------------------------------------
 
 LUFA_VERSION_NUM        := $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
-EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin *.d
+EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.d *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin
 
 all:
 
@@ -26,6 +26,7 @@ version:
 # Check if this is being included from a legacy or non LUFA build system makefile
 ifneq ($(LUFA_PATH),)
   LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA/
+  
   include $(LUFA_PATH)/LUFA/Build/lufa.sources.in
 else
   LUFA_PATH               = .
@@ -34,10 +35,9 @@ else
   
   clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
-	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o.d)
+	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.d)
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.lst)
 
-  # Include LUFA build script makefiles
   include Build/lufa.core.in
   include Build/lufa.sources.in
   include Build/lufa.doxygen.in
