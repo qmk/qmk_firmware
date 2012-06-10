@@ -208,7 +208,12 @@
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				return Endpoint_ConfigureEndpoint_Prv((Address & ENDPOINT_EPNUM_MASK),
+				uint8_t Number = (Address & ENDPOINT_EPNUM_MASK);
+			
+				if (Number >= ENDPOINT_TOTAL_ENDPOINTS)
+				  return false;
+
+				return Endpoint_ConfigureEndpoint_Prv(Number,
 				                                      (AVR32_USBB_ALLOC_MASK |
 				                                       ((uint32_t)Type << AVR32_USBB_EPTYPE_OFFSET) |
 				                                       ((Address & ENDPOINT_DIR_IN) ? AVR32_USBB_UECFG0_EPDIR_MASK : 0) |

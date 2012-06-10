@@ -246,8 +246,12 @@
 			{
 				uint8_t EPConfigMask = (USB_EP_INTDSBL_bm | ((Banks > 1) ? USB_EP_PINGPONG_bm : 0) | Endpoint_BytesToEPSizeMask(Size));
 
+				if ((Address & ENDPOINT_EPNUM_MASK) >= ENDPOINT_TOTAL_ENDPOINTS)
+				  return false;
+
 				// TODO - Fix once limitations are lifted
-				if ((Banks > 1) || (Size > 64))
+				EPConfigMask &= ~USB_EP_PINGPONG_bm;
+				if (Size > 64)
 				  return false;
 
 				switch (Type)

@@ -202,7 +202,12 @@
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				return Endpoint_ConfigureEndpoint_Prv((Address & ENDPOINT_EPNUM_MASK),
+				uint8_t Number = (Address & ENDPOINT_EPNUM_MASK);
+			
+				if (Number >= ENDPOINT_TOTAL_ENDPOINTS)
+				  return false;
+			
+				return Endpoint_ConfigureEndpoint_Prv(Number,
 				                                      ((Type << EPTYPE0) | ((Address & ENDPOINT_DIR_IN) ? (1 << EPDIR) : 0)),
 				                                      ((1 << ALLOC) | ((Banks > 1) ? (1 << EPBK0) : 0) | Endpoint_BytesToEPSizeMask(Size)));
 			}

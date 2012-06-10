@@ -76,7 +76,7 @@ void USB_Init(
 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
 	NVM.CMD  = 0;
 
-	/* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for 8-bit AVR-GCC */
+	/* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for the 8-bit AVR-GCC toochain */
 	USB.EPPTR = ((intptr_t)&USB_EndpointTable[1] & ~(1 << 0));
 	USB.CTRLA = (USB_STFRNUM_bm | ((ENDPOINT_TOTAL_ENDPOINTS - 1) << USB_MAXEP_gp));
 
