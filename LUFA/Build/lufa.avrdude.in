@@ -6,10 +6,12 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES        += AVRDUDE
-LUFA_BUILD_TARGETS        += avrdude avrdude-ee
-LUFA_BUILD_MANDATORY_VARS += MCU TARGET
-LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
+LUFA_BUILD_MODULES         += AVRDUDE
+LUFA_BUILD_TARGETS         += avrdude avrdude-ee
+LUFA_BUILD_MANDATORY_VARS  += MCU TARGET
+LUFA_BUILD_OPTIONAL_VARS   += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
+LUFA_BUILD_PROVIDED_VARS   += 
+LUFA_BUILD_PROVIDED_MACROS += 
 
 # -----------------------------------------------------------------------------
 #             LUFA AVRDUDE Programmer Buildsystem Makefile Module.
@@ -35,6 +37,14 @@ LUFA_BUILD_OPTIONAL_VARS  += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
 #    AVRDUDE_PROGRAMMER        - Name of programming hardware to use
 #    AVRDUDE_PORT              - Name of communication port to use
 #    AVRDUDE_FLAGS             - Flags to pass to avr-dude
+#
+# PROVIDED VARIABLES:
+#
+#    (None)
+#
+# PROVIDED MACROS:
+#
+#    (None)
 #
 # -----------------------------------------------------------------------------
 

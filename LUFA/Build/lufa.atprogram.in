@@ -6,10 +6,12 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES        += ATPROGRAM
-LUFA_BUILD_TARGETS        += atprogram atprogram-ee
-LUFA_BUILD_MANDATORY_VARS += MCU TARGET
-LUFA_BUILD_OPTIONAL_VARS  += ATPROGRAM_PROGRAMMER ATPROGRAM_INTERFACE ATPROGRAM_PORT
+LUFA_BUILD_MODULES         += ATPROGRAM
+LUFA_BUILD_TARGETS         += atprogram atprogram-ee
+LUFA_BUILD_MANDATORY_VARS  += MCU TARGET
+LUFA_BUILD_OPTIONAL_VARS   += ATPROGRAM_PROGRAMMER ATPROGRAM_INTERFACE ATPROGRAM_PORT
+LUFA_BUILD_PROVIDED_VARS   += 
+LUFA_BUILD_PROVIDED_MACROS += 
 
 # -----------------------------------------------------------------------------
 #             LUFA ATPROGRAM Programmer Buildsystem Makefile Module.
@@ -35,6 +37,14 @@ LUFA_BUILD_OPTIONAL_VARS  += ATPROGRAM_PROGRAMMER ATPROGRAM_INTERFACE ATPROGRAM_
 #    ATPROGRAM_PROGRAMMER      - Name of programming hardware to use
 #    ATPROGRAM_INTERFACE       - Name of programming interface to use
 #    ATPROGRAM_PORT            - Name of communication port to use
+#
+# PROVIDED VARIABLES:
+#
+#    (None)
+#
+# PROVIDED MACROS:
+#
+#    (None)
 #
 # -----------------------------------------------------------------------------
 

@@ -6,10 +6,12 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES        += DOXYGEN
-LUFA_BUILD_TARGETS        += doxygen
-LUFA_BUILD_MANDATORY_VARS += LUFA_PATH
-LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRIDE_PARAMS
+LUFA_BUILD_MODULES         += DOXYGEN
+LUFA_BUILD_TARGETS         += doxygen
+LUFA_BUILD_MANDATORY_VARS  += LUFA_PATH
+LUFA_BUILD_OPTIONAL_VARS   += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRIDE_PARAMS
+LUFA_BUILD_PROVIDED_VARS   += 
+LUFA_BUILD_PROVIDED_MACROS += 
 
 # -----------------------------------------------------------------------------
 #                 LUFA Doxygen Buildsystem Makefile Module.
@@ -33,6 +35,14 @@ LUFA_BUILD_OPTIONAL_VARS  += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRI
 #                                N to continue even if warnings occur
 #    DOXYGEN_OVERRIDE_PARAMS   - Parameters to override in the doxygen
 #                                configuration file
+# PROVIDED VARIABLES:
+#
+#    (None)
+#
+# PROVIDED MACROS:
+#
+#    (None)
+#
 # -----------------------------------------------------------------------------
 
 ERROR_IF_UNSET   = $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))

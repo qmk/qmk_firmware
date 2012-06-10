@@ -163,6 +163,22 @@
  *    <td>Flags to pass to the linker, after the automatically generated flags.</td>
  *   </tr>
  *  </table>
+ *
+ *  \section SSec_BuildModule_BUILD_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_BUILD_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
  */
 
 /** \page Page_BuildModule_CORE The CORE build module
@@ -201,6 +217,14 @@
  *    <td><tt>list_optional</tt></td>
  *    <td>List all optional parameters required by the included modules.</td>
  *   </tr>
+ *   <tr>
+ *    <td><tt>list_provided</tt></td>
+ *    <td>List all variables provided by the included modules.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_macros</tt></td>
+ *    <td>List all macros provided by the included modules.</td>
+ *   </tr>
  *  </table>
  *
  *  \section SSec_BuildModule_CORE_MandatoryParams Mandatory Parameters
@@ -212,6 +236,22 @@
  *  </table>
  *
  *  \section SSec_BuildModule_CORE_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CORE_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_CORE_ProvidedMacros Module Provided Macros
  *
  *  <table>
  *   <tr>
@@ -277,6 +317,22 @@
  *    <td>Name of the communication port to use when when programming with a serially connected tool (e.g. <tt>COM2</tt>).</td>
  *   </tr>
  *  </table>
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
  */
 
 /** \page Page_BuildModule_AVRDUDE The AVRDUDE build module
@@ -335,6 +391,22 @@
  *   <tr>
  *    <td><tt>ATPROGRAM_FLAGS</tt></td>
  *    <td>Additional flags to pass to avrdude when programming, applied after the automatically generated flags.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_AVRDUDE_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_AVRDUDE_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
  *   </tr>
  *  </table>
  */
@@ -413,6 +485,22 @@
  *    <td>Extra flags to pass to <tt>cppcheck</tt>, after the automatically generated flags.</td>
  *   </tr>
  *  </table>
+ *
+ *  \section SSec_BuildModule_CPPCHECK_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_CPPCHECK_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
  */
  
  /** \page Page_BuildModule_DFU The DFU build module
@@ -473,6 +561,22 @@
  *    <td><i>None</i></td>
  *   </tr>
  *  </table>
+ *
+ *  \section SSec_BuildModule_DFU_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_DFU_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
  */
  
  /** \page Page_BuildModule_DOXYGEN The DOXYGEN build module
@@ -526,6 +630,22 @@
  *    <td>Extra Doxygen configuration parameters to apply, overriding the corresponding config entry in the project's configuration file (e.g. <tt>QUIET=YES</tt>).</td>
  *   </tr>
  *  </table>
+ *
+ *  \section SSec_BuildModule_DOXYGEN_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_DOXYGEN_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
  */
  
  /** \page Page_BuildModule_SOURCES The SOURCES build module
@@ -565,6 +685,43 @@
  *  </table>
  *
  *  \section SSec_BuildModule_SOURCES_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_SOURCES_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_USB</tt></td>
+ *    <td>List of LUFA USB driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_USBCLASS</tt></td>
+ *    <td>List of LUFA USB Class driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_TEMPERATURE</tt></td>
+ *    <td>List of LUFA temperature sensor driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_SERIAL</tt></td>
+ *    <td>List of LUFA Serial U(S)ART driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_TWI</tt></td>
+ *    <td>List of LUFA TWI driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_PLATFORM</tt></td>
+ *    <td>List of LUFA architecture specific platform management source files.</td>
+ *   </tr> 
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_SOURCES_ProvidedMacros Module Provided Macros
  *
  *  <table>
  *   <tr>

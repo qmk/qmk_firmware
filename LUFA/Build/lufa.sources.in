@@ -6,10 +6,12 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES        += SOURCES
-LUFA_BUILD_TARGETS        += 
-LUFA_BUILD_MANDATORY_VARS += LUFA_PATH ARCH
-LUFA_BUILD_OPTIONAL_VARS  += 
+LUFA_BUILD_MODULES         += SOURCES
+LUFA_BUILD_TARGETS         += 
+LUFA_BUILD_MANDATORY_VARS  += LUFA_PATH ARCH
+LUFA_BUILD_OPTIONAL_VARS   += 
+LUFA_BUILD_PROVIDED_VARS   += LUFA_SRC_USB LUFA_SRC_USBCLASS LUFA_SRC_TEMPERATURE LUFA_SRC_SERIAL LUFA_SRC_TWI LUFA_SRC_PLATFORM
+LUFA_BUILD_PROVIDED_MACROS += 
 
 # -----------------------------------------------------------------------------
 #               LUFA Sources Buildsystem Makefile Module.
@@ -30,6 +32,21 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 #    ARCH                      - Device architecture name
 #
 # OPTIONAL PARAMETERS:
+#
+#    (None)
+#
+# PROVIDED VARIABLES:
+#
+#    LUFA_SRC_USB              - List of LUFA USB driver source files
+#    LUFA_SRC_USBCLASS         - List of LUFA USB Class driver source files
+#    LUFA_SRC_TEMPERATURE      - List of LUFA temperature sensor driver source
+#                                files
+#    LUFA_SRC_SERIAL           - List of LUFA Serial U(S)ART driver source files
+#    LUFA_SRC_TWI              - List of LUFA TWI driver source files
+#    LUFA_SRC_PLATFORM         - List of LUFA architecture specific platform
+#                                management source files
+#
+# PROVIDED MACROS:
 #
 #    (None)
 #

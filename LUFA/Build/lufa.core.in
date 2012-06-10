@@ -6,10 +6,12 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES        += CORE
-LUFA_BUILD_TARGETS        += help list_targets list_modules list_mandatory list_optional 
-LUFA_BUILD_MANDATORY_VARS += 
-LUFA_BUILD_OPTIONAL_VARS  += 
+LUFA_BUILD_MODULES         += CORE
+LUFA_BUILD_TARGETS         += help list_targets list_modules list_mandatory list_optional list_provided list_macros
+LUFA_BUILD_MANDATORY_VARS  += 
+LUFA_BUILD_OPTIONAL_VARS   += 
+LUFA_BUILD_PROVIDED_VARS   += 
+LUFA_BUILD_PROVIDED_MACROS += 
 
 # -----------------------------------------------------------------------------
 #               LUFA Core Build System Makefile Module.
@@ -26,6 +28,10 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 #                                the included build modules of the application
 #    list_optional             - List all optional make variables required by
 #                                the included build modules of the application
+#    list_provided             - List all provided make variables from the
+#                                included build modules of the application
+#    list_macros               - List all provided make macros from the
+#                                included build modules of the application
 #
 # MANDATORY PARAMETERS:
 #
@@ -35,13 +41,23 @@ LUFA_BUILD_OPTIONAL_VARS  +=
 #
 #    (None)
 #
+# PROVIDED VARIABLES:
+#
+#    (None)
+#
+# PROVIDED MACROS:
+#
+#    (None)
+#
 # -----------------------------------------------------------------------------
 
 # Build sorted and filtered lists of the included build module data
-SORTED_LUFA_BUILD_MODULES  = $(sort $(LUFA_BUILD_MODULES))
-SORTED_LUFA_BUILD_TARGETS  = $(sort $(LUFA_BUILD_TARGETS))
-SORTED_LUFA_MANDATORY_VARS = $(sort $(LUFA_BUILD_MANDATORY_VARS))
-SORTED_LUFA_OPTIONAL_VARS  = $(filter-out $(SORTED_LUFA_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))
+SORTED_LUFA_BUILD_MODULES   = $(sort $(LUFA_BUILD_MODULES))
+SORTED_LUFA_BUILD_TARGETS   = $(sort $(LUFA_BUILD_TARGETS))
+SORTED_LUFA_MANDATORY_VARS  = $(sort $(LUFA_BUILD_MANDATORY_VARS))
+SORTED_LUFA_OPTIONAL_VARS   = $(filter-out $(SORTED_LUFA_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))
+SORTED_LUFA_PROVIDED_VARS   = $(sort $(LUFA_BUILD_PROVIDED_VARS))
+SORTED_LUFA_PROVIDED_MACROS = $(sort $(LUFA_BUILD_PROVIDED_MACROS))
 
 help:
 	@echo "==================================================================="
@@ -85,6 +101,16 @@ help:
 	@echo "                                                                   "
 	@printf " %b" "$(SORTED_LUFA_OPTIONAL_VARS:%=   - %\n)"
 	@echo "                                                                   "
+	@echo "                                                                   "
+	@echo "  Variables provided by the selected build Modules:                "
+	@echo "                                                                   "
+	@printf " %b" "$(SORTED_LUFA_PROVIDED_VARS:%=   - %\n)"
+	@echo "                                                                   "
+	@echo "                                                                   "
+	@echo "  Macros provided by the selected build Modules:                   "
+	@echo "                                                                   "
+	@printf " %b" "$(SORTED_LUFA_PROVIDED_MACROS:%=   - %\n)"
+	@echo "                                                                   "
 	@echo "==================================================================="
 	@echo "        The LUFA BuildSystem 2.0 - Powered By Unicorns (tm)        "
 	@echo "==================================================================="
@@ -101,9 +127,15 @@ list_mandatory:
 list_optional:
 	@echo Optional Variables for Included Modules: $(SORTED_LUFA_OPTIONAL_VARS)
 
+list_provided:
+	@echo Variables Provided by the Included Modules $(SORTED_LUFA_PROVIDED_VARS)
+
+list_macros:
+	@echo Macros Provided by the Included Modules $(SORTED_LUFA_PROVIDED_MACROS)
+
 # Disable default in-built make rules (those that are needed are explicitly
 # defined, and doing so has performance benefits when recursively building)
 .SUFFIXES:
 
 # Phony build targets for this module
-.PHONY: help list_modules list_targets list_mandatory list_optional
+.PHONY: help list_modules list_targets list_mandatory list_optional list_provided list_macros

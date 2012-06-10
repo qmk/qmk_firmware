@@ -6,11 +6,13 @@
 #           www.lufa-lib.org
 #
 
-LUFA_BUILD_MODULES        += CPPCHECK
-LUFA_BUILD_TARGETS        += cppcheck cppcheck-config
-LUFA_BUILD_MANDATORY_VARS += SRC
-LUFA_BUILD_OPTIONAL_VARS  += CPPCHECK_INCLUDES CPPCHECK_EXCLUDES CPPCHECK_MSG_TEMPLATE CPPCHECK_ENABLE \
-                             CPPCHECK_SUPPRESS CPPCHECK_FAIL_ON_WARNING CPPCHECK_QUIET CPPCHECK_FLAGS
+LUFA_BUILD_MODULES         += CPPCHECK
+LUFA_BUILD_TARGETS         += cppcheck cppcheck-config
+LUFA_BUILD_MANDATORY_VARS  += SRC
+LUFA_BUILD_OPTIONAL_VARS   += CPPCHECK_INCLUDES CPPCHECK_EXCLUDES CPPCHECK_MSG_TEMPLATE CPPCHECK_ENABLE \
+                              CPPCHECK_SUPPRESS CPPCHECK_FAIL_ON_WARNING CPPCHECK_QUIET CPPCHECK_FLAGS
+LUFA_BUILD_PROVIDED_VARS   += 
+LUFA_BUILD_PROVIDED_MACROS += 
 
 # -----------------------------------------------------------------------------
 #                LUFA CPPCheck Buildsystem Makefile Module.
@@ -41,6 +43,14 @@ LUFA_BUILD_OPTIONAL_VARS  += CPPCHECK_INCLUDES CPPCHECK_EXCLUDES CPPCHECK_MSG_TE
 #                                warnings, N to continue even if warnings occur
 #    CPPCHECK_QUIET            - Enable cppcheck verbose or quiet output mode
 #    CPPCHECK_FLAGS            - Additional flags to pass to cppcheck
+#
+# PROVIDED VARIABLES:
+#
+#    (None)
+#
+# PROVIDED MACROS:
+#
+#    (None)
 #
 # -----------------------------------------------------------------------------
 
