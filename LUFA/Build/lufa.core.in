@@ -59,6 +59,14 @@ SORTED_LUFA_OPTIONAL_VARS   = $(filter-out $(SORTED_LUFA_MANDATORY_VARS), $(sort
 SORTED_LUFA_PROVIDED_VARS   = $(sort $(LUFA_BUILD_PROVIDED_VARS))
 SORTED_LUFA_PROVIDED_MACROS = $(sort $(LUFA_BUILD_PROVIDED_MACROS))
 
+# Create printable versions of the sorted build module data (use "(None)" when no data is available)
+PRINTABLE_LUFA_BUILD_MODULES   = $(if $(strip $(SORTED_LUFA_BUILD_MODULES)), $(SORTED_LUFA_BUILD_MODULES), (None))
+PRINTABLE_LUFA_BUILD_TARGETS   = $(if $(strip $(SORTED_LUFA_BUILD_TARGETS)), $(SORTED_LUFA_BUILD_TARGETS), (None))
+PRINTABLE_LUFA_MANDATORY_VARS  = $(if $(strip $(SORTED_LUFA_MANDATORY_VARS)), $(SORTED_LUFA_MANDATORY_VARS), (None))
+PRINTABLE_LUFA_OPTIONAL_VARS   = $(if $(strip $(SORTED_LUFA_OPTIONAL_VARS)), $(SORTED_LUFA_OPTIONAL_VARS), (None))
+PRINTABLE_LUFA_PROVIDED_VARS   = $(if $(strip $(SORTED_LUFA_PROVIDED_VARS)), $(SORTED_LUFA_PROVIDED_VARS), (None))
+PRINTABLE_LUFA_PROVIDED_MACROS = $(if $(strip $(SORTED_LUFA_PROVIDED_MACROS)), $(SORTED_LUFA_PROVIDED_MACROS), (None))
+
 help:
 	@echo "==================================================================="
 	@echo "                       LUFA Build System 2.0                       "
@@ -84,54 +92,54 @@ help:
 	@echo "==================================================================="
 	@echo "  Currently used build system modules in this application:         "
 	@echo "                                                                   "
-	@printf " %b" "$(SORTED_LUFA_BUILD_MODULES:%=   - %\n)"
+	@printf " %b" "$(PRINTABLE_LUFA_BUILD_MODULES:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Currently available build targets in this application:           "
 	@echo "                                                                   "
-	@printf " %b" "$(SORTED_LUFA_BUILD_TARGETS:%=   - %\n)"
+	@printf " %b" "$(PRINTABLE_LUFA_BUILD_TARGETS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Mandatory variables required by the selected build Modules:      "
 	@echo "                                                                   "
-	@printf " %b" "$(SORTED_LUFA_MANDATORY_VARS:%=   - %\n)"
+	@printf " %b" "$(PRINTABLE_LUFA_MANDATORY_VARS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Optional variables required by the selected build Modules:       "
 	@echo "                                                                   "
-	@printf " %b" "$(SORTED_LUFA_OPTIONAL_VARS:%=   - %\n)"
+	@printf " %b" "$(PRINTABLE_LUFA_OPTIONAL_VARS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Variables provided by the selected build Modules:                "
 	@echo "                                                                   "
-	@printf " %b" "$(SORTED_LUFA_PROVIDED_VARS:%=   - %\n)"
+	@printf " %b" "$(PRINTABLE_LUFA_PROVIDED_VARS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "                                                                   "
 	@echo "  Macros provided by the selected build Modules:                   "
 	@echo "                                                                   "
-	@printf " %b" "$(SORTED_LUFA_PROVIDED_MACROS:%=   - %\n)"
+	@printf " %b" "$(PRINTABLE_LUFA_PROVIDED_MACROS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "==================================================================="
 	@echo "        The LUFA BuildSystem 2.0 - Powered By Unicorns (tm)        "
 	@echo "==================================================================="
 	
 list_modules:
-	@echo Currently Used Build System Modules: $(SORTED_LUFA_BUILD_MODULES)
+	@echo Currently Used Build System Modules: $(PRINTABLE_LUFA_BUILD_MODULES)
 
 list_targets:
-	@echo Currently Available Build Targets: $(SORTED_LUFA_BUILD_TARGETS)	
+	@echo Currently Available Build Targets: $(PRINTABLE_LUFA_BUILD_TARGETS)	
 
 list_mandatory:
-	@echo Mandatory Variables for Included Modules: $(SORTED_LUFA_MANDATORY_VARS)
+	@echo Mandatory Variables for Included Modules: $(PRINTABLE_LUFA_MANDATORY_VARS)
 	
 list_optional:
-	@echo Optional Variables for Included Modules: $(SORTED_LUFA_OPTIONAL_VARS)
+	@echo Optional Variables for Included Modules: $(PRINTABLE_LUFA_OPTIONAL_VARS)
 
 list_provided:
-	@echo Variables Provided by the Included Modules $(SORTED_LUFA_PROVIDED_VARS)
+	@echo Variables Provided by the Included Modules: $(PRINTABLE_LUFA_PROVIDED_VARS)
 
 list_macros:
-	@echo Macros Provided by the Included Modules $(SORTED_LUFA_PROVIDED_MACROS)
+	@echo Macros Provided by the Included Modules: $(PRINTABLE_LUFA_PROVIDED_MACROS)
 
 # Disable default in-built make rules (those that are needed are explicitly
 # defined, and doing so has performance benefits when recursively building)
