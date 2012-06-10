@@ -9,7 +9,7 @@
 LUFA_BUILD_MODULES         += BUILD
 LUFA_BUILD_TARGETS         += size symbol-sizes all elf hex lss clean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
-LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS
+LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR
 LUFA_BUILD_PROVIDED_VARS   += 
 LUFA_BUILD_PROVIDED_MACROS += 
 
@@ -54,6 +54,9 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    CC_FLAGS                  - Common flags to pass to the C/C++ compiler and
 #                                assembler
 #    LD_FLAGS                  - Flags to pass to the linker
+#    OBJDIR                    - Directory for the output object and dependency
+#                                files; if equal to ".", the output files will
+#                                be generated in the same folder as the sources
 #
 # PROVIDED VARIABLES:
 #
@@ -79,6 +82,7 @@ C_FLAGS         ?=
 CPP_FLAGS       ?=
 ASM_FLAGS       ?=
 CC_FLAGS        ?=
+OBJDIR          ?= .
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
@@ -91,6 +95,7 @@ $(call ERROR_IF_EMPTY, BOARD)
 $(call ERROR_IF_EMPTY, OPTIMIZATION)
 $(call ERROR_IF_EMPTY, C_STANDARD)
 $(call ERROR_IF_EMPTY, CPP_STANDARD)
+$(call ERROR_IF_EMPTY, OBJDIR)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
@@ -129,7 +134,14 @@ ifneq ($(UNKNOWN_SOURCE),)
 endif
 
 # Convert input source filenames into a list of required output object files
-OBJECT_FILES     = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
+OBJECT_FILES = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
+ifneq ($(OBJDIR),.)
+   $(shell mkdir $(OBJDIR) 2>&1 | /dev/null)   
+   VPATH           += $(dir $(SRC))
+   
+   OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
+endif
+
 DEPENDENCY_FILES = $(OBJECT_FILES:%.o=%.d)
 
 # Create a list of common flags to pass to the compiler/linker/assembler
@@ -211,15 +223,15 @@ elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
 
-%.o: %.c $(MAKEFILE_LIST)
+$(OBJDIR)/%.o: %.c $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$<\"
 	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_C_FLAGS) $(CC_FLAGS) $(C_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 
-%.o: %.cpp $(MAKEFILE_LIST)
+$(OBJDIR)/%.o: %.cpp $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$<\"
 	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 	
-%.o: %.S $(MAKEFILE_LIST)
+$(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$<\"
 	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
 

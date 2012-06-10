@@ -162,6 +162,11 @@
  *    <td><tt>LD_FLAGS</tt></td>
  *    <td>Flags to pass to the linker, after the automatically generated flags.</td>
  *   </tr>
+ *   <tr>
+ *    <td><tt>OBJDIR</tt></td>
+ *    <td>Directory to place the generated object and dependency files. If set to "." the same folder as the source file will be used.
+ *        \note When this option is enabled, all source filenames must be unique.</td>
+ *   </tr>
  *  </table>
  *
  *  \section SSec_BuildModule_BUILD_ProvideVariables Module Provided Variables
