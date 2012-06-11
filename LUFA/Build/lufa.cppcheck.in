@@ -95,7 +95,7 @@ cppcheck-config:
 	cppcheck $(BASE_CPPCHECK_FLAGS) --check-config $(CPPCHECK_FLAGS) $(SRC)
 
 cppcheck:
-	@echo $(MSG_CPPCHECK_CMD) Performing cppcheck analysis on source files
+	@echo $(MSG_CPPCHECK_CMD) Performing static analysis on source files
 	cppcheck $(BASE_CPPCHECK_FLAGS) --enable=$(CPPCHECK_ENABLE) $(CPPCHECK_SUPPRESS:%=--suppress=%) $(CPPCHECK_FLAGS) $(SRC)
 
 # Phony build targets for this module

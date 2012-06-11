@@ -178,13 +178,12 @@ SIZE_MCU_FLAG    := $(shell $(CROSS)size --help | grep -- --mcu > /dev/null && e
 SIZE_FORMAT_FLAG := $(shell $(CROSS)size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
 
 
-begin:
+build_begin:
 	@echo ""
 	@echo $(MSG_BUILD_BEGIN)
 	@echo ""
 	
-end:
-	@echo ""
+build_end:
 	@echo $(MSG_BUILD_END)
 	@echo ""
 
@@ -201,9 +200,8 @@ check_source:
 
 size: $(TARGET).elf
 	@echo $(MSG_SIZE_CMD) Determining size of \"$<\"
-	@if test -f $(TARGET).elf; then \
-	    $(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $< ; 2>/dev/null; \
-	 fi
+	@echo ""
+	$(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $< ; 2>/dev/null;
 
 symbol-sizes: $(TARGET).elf
 	@echo $(MSG_NM_CMD) Extracting \"$<\" symbols with decimal byte sizes
@@ -215,27 +213,29 @@ clean:
 	@echo $(MSG_REMOVE_CMD) Removing dependency files of \"$(TARGET)\"
 	rm -f $(DEPENDENCY_FILES)
 	@echo $(MSG_REMOVE_CMD) Removing output files of \"$(TARGET)\"
-	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss
+	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym
 
-all: begin check_source gcc_version elf hex lss size end
+all: build_begin check_source gcc_version elf hex lss sym size build_end
 
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
+sym: $(TARGET).sym
 
 $(OBJDIR)/%.o: %.c $(MAKEFILE_LIST)
-	@echo $(MSG_COMPILE_CMD) Compiling C file \"$<\"
+	@echo $(MSG_COMPILE_CMD) Compiling C file \"$(notdir $<)\"
 	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_C_FLAGS) $(CC_FLAGS) $(C_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 
 $(OBJDIR)/%.o: %.cpp $(MAKEFILE_LIST)
-	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$<\"
+	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$(notdir $<)\"
 	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 	
 $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
-	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$<\"
+	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$(notdir $<)\"
 	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
 
-.PRECIOUS : $(OBJECT_FILES)
+.PRECIOUS  : $(OBJECT_FILES)
+.SECONDARY : %.elf
 %.elf: $(OBJECT_FILES)
 	@echo $(MSG_LINKER_CMD) Linking object files into \"$@\"
 	$(CROSS)gcc $(BASE_CC_FLAGS) $(BASE_LD_FLAGS) $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
@@ -252,8 +252,12 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_OBJDMP_CMD) Extracting LSS file data from \"$<\"
 	$(CROSS)objdump -h -S -z $< > $@
 
+%.sym: %.elf
+	@echo $(MSG_NM_CMD) Extracting SYM file data from \"$<\"
+	$(CROSS)nm -n $< > $@
+
 # Include build dependency files
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: begin end gcc_version check_source size symbol-sizes elf hex lss clean
+.PHONY: build_begin build_end gcc_version check_source size symbol-sizes elf hex lss clean

@@ -90,6 +90,7 @@ help:
 	@echo " invoked commands and show only the friendly command output, run   "
 	@echo " make with the \"-s\" switch added before the target(s).           "		
 	@echo "==================================================================="
+	@echo "                                                                   "
 	@echo "  Currently used build system modules in this application:         "
 	@echo "                                                                   "
 	@printf " %b" "$(PRINTABLE_LUFA_BUILD_MODULES:%=   - %\n)"

@@ -29,6 +29,9 @@ ifneq ($(LUFA_PATH),)
   
   include $(LUFA_PATH)/LUFA/Build/lufa.sources.in
 else
+  LUFA_BUILD_MODULES     += MASTER
+  LUFA_BUILD_TARGETS     += export_tar version
+
   LUFA_PATH               = .
   ARCH                    = {AVR8,UC3,XMEGA}
   DOXYGEN_OVERRIDE_PARAMS = QUIET=YES PROJECT_NUMBER=$(LUFA_VERSION_NUM)
