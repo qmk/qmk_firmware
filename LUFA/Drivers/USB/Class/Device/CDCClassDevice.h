@@ -283,6 +283,7 @@
 			 */
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			#if defined(FDEV_SETUP_STREAM) || defined(__DOXYGEN__)
 			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
 			 *  functions in the standard <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf()). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
@@ -314,7 +315,8 @@
 			 */
 			void CDC_Device_CreateBlockingStream(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
 			                                     FILE* const Stream) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-
+			#endif
+			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */

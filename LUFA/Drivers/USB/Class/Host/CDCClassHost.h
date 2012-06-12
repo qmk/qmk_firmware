@@ -271,6 +271,7 @@
 			 */
 			uint8_t CDC_Host_Flush(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			#if defined(FDEV_SETUP_STREAM) || defined(__DOXYGEN__)
 			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
 			 *  functions in the standard \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
@@ -302,7 +303,8 @@
 			 */
 			void CDC_Host_CreateBlockingStream(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                                   FILE* const Stream);
-
+			#endif
+			
 			/** CDC class driver event for a control line state change on a CDC host interface. This event fires each time the device notifies
 			 *  the host of a control line state change (containing the virtual serial control line states, such as DCD) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
