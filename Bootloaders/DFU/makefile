@@ -17,7 +17,6 @@ BOOT_SECTION_SIZE_KB := 8
 
 # Bootloader address calculations (requires the "bc" unix utility) - do
 # not modify these calculations, but rather modify the depedant values above.
-CALC_ADDRESS_HEX      = $(shell echo "obase=16; $(1)" | bc)
 BOOT_START           := 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
 BOOT_API_TABLESTART  := 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 96)" | bc)
 
