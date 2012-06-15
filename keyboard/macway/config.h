@@ -44,6 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 
+/* layer switching */
+#define LAYER_SWITCH_DELAY 100
+#define LAYER_SEND_FN_TERM 300
+
+
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
 #   define MOUSEKEY_DELAY_TIME 192
