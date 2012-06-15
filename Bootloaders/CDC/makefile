@@ -15,10 +15,15 @@
 FLASH_SIZE_KB        := 128
 BOOT_SECTION_SIZE_KB := 8
 
-# Bootloader address calculations (requires the "bc" unix utility) - do
-# not modify these calculations, but rather modify the depedant values above.
+# Bootloader address calculations (requires the "bc" unix utility) and
+# API section start directives - do not modify these macros, but rather
+# modify the depedant values above.
 BOOT_START           := 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
-BOOT_API_TABLESTART  := 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - 96)" | bc)
+BOOT_SEC_OFFSET       = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - $(strip $(1)))" | bc)
+BOOT_SECTION_LD_FLAG  = -Wl,--section-start=.apitable_$(strip $(1))=$(call BOOT_SEC_OFFSET, $(3)) -Wl,--undefined=BootloaderAPI_$(strip $(2))
+BOOT_API_LD_FLAGS    := $(call BOOT_SECTION_LD_FLAG, trampolines, Trampolines, (48 + 32 + 8))
+BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, jumptable,   JumpTable,   (32 + 8))
+BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, signatures,  Signatures,  8)
 
 MCU          = at90usb1287
 ARCH         = AVR8
@@ -30,7 +35,7 @@ TARGET       = BootloaderCDC
 SRC          = $(TARGET).c Descriptors.c BootloaderAPI.c BootloaderAPITable.S $(LUFA_SRC_USB)
 LUFA_PATH    = ../../LUFA/
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/ -DBOOT_START_ADDR=$(BOOT_START)
-LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START) -Wl,--section-start=.apitable=$(BOOT_API_TABLESTART) -Wl,--undefined=BootloaderAPI_JumpTable
+LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START) $(BOOT_API_LD_FLAGS)
 
 # Default target
 all:
