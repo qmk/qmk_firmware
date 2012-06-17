@@ -99,12 +99,12 @@ $(call ERROR_IF_EMPTY, OBJDIR)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
-   CROSS        := avr-
+   CROSS        := avr
 else ifeq ($(ARCH), XMEGA)
-   CROSS        := avr-
+   CROSS        := avr
    $(warning The XMEGA device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 else ifeq ($(ARCH), UC3)
-   CROSS        := avr32-
+   CROSS        := avr32
    $(warning The UC3 device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 else
    $(error Unsupported architecture "$(ARCH)")
@@ -113,8 +113,8 @@ endif
 # Output Messages
 MSG_BUILD_BEGIN  := Begin compilation of project \"$(TARGET)\"...
 MSG_BUILD_END    := Finished building project \"$(TARGET)\".
-MSG_COMPILE_CMD  := ' [CC]      :'
-MSG_ASSEMBLE_CMD := ' [AS]      :'
+MSG_COMPILE_CMD  := ' [GCC]     :'
+MSG_ASSEMBLE_CMD := ' [GAS]     :'
 MSG_NM_CMD       := ' [NM]      :'
 MSG_REMOVE_CMD   := ' [RM]      :'
 MSG_LINKER_CMD   := ' [LNK]     :'
@@ -174,8 +174,8 @@ else
 endif
 
 # Determine flags to pass to the size utility based on its reported features
-SIZE_MCU_FLAG    := $(shell $(CROSS)size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
-SIZE_FORMAT_FLAG := $(shell $(CROSS)size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
+SIZE_MCU_FLAG    := $(shell $(CROSS)-size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
+SIZE_FORMAT_FLAG := $(shell $(CROSS)-size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
 
 
 build_begin:
@@ -188,7 +188,7 @@ build_end:
 	@echo ""
 
 gcc_version:
-	@$(CROSS)gcc --version
+	@$(CROSS)-gcc --version
 
 check_source:
 	@for f in $(SRC); do \
@@ -201,7 +201,7 @@ check_source:
 size: $(TARGET).elf
 	@echo $(MSG_SIZE_CMD) Determining size of \"$<\"
 	@echo ""
-	$(CROSS)size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $< ; 2>/dev/null;
+	$(CROSS)-size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $< ; 2>/dev/null;
 
 symbol-sizes: $(TARGET).elf
 	@echo $(MSG_NM_CMD) Extracting \"$<\" symbols with decimal byte sizes
@@ -224,37 +224,37 @@ sym: $(TARGET).sym
 
 $(OBJDIR)/%.o: %.c $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$(notdir $<)\"
-	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_C_FLAGS) $(CC_FLAGS) $(C_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
+	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_C_FLAGS) $(CC_FLAGS) $(C_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 
 $(OBJDIR)/%.o: %.cpp $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$(notdir $<)\"
-	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
+	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 	
 $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$(notdir $<)\"
-	$(CROSS)gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
+	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
 
 .PRECIOUS  : $(OBJECT_FILES)
 .SECONDARY : %.elf
 %.elf: $(OBJECT_FILES)
 	@echo $(MSG_LINKER_CMD) Linking object files into \"$@\"
-	$(CROSS)gcc $(BASE_CC_FLAGS) $(BASE_LD_FLAGS) $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
+	$(CROSS)-gcc $(BASE_CC_FLAGS) $(BASE_LD_FLAGS) $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
 
 %.hex: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$<\"
-	$(CROSS)objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature $< $@
+	$(CROSS)-objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature $< $@
 
 %.eep: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting EEP file data from \"$<\"
-	$(CROSS)objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex $< $@ || exit 0
+	$(CROSS)-objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex $< $@ || exit 0
 
 %.lss: %.elf
 	@echo $(MSG_OBJDMP_CMD) Extracting LSS file data from \"$<\"
-	$(CROSS)objdump -h -S -z $< > $@
+	$(CROSS)-objdump -h -S -z $< > $@
 
 %.sym: %.elf
 	@echo $(MSG_NM_CMD) Extracting SYM file data from \"$<\"
-	$(CROSS)nm -n $< > $@
+	$(CROSS)-nm -n $< > $@
 
 # Include build dependency files
 -include $(DEPENDENCY_FILES)
