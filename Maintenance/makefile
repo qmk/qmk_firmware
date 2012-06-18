@@ -89,3 +89,6 @@ validate-branch:
 
 # Validate the working branch for general release, check for placeholder documentation then build and test everything
 validate-release: check-documentation-placeholders validate-branch
+
+
+.PHONY: all upgrade-doxygen make-as4-projects check-documentation-placeholders validate-branch

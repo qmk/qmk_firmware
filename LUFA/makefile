@@ -45,3 +45,6 @@ else
   include Build/lufa.sources.in
   include Build/lufa.doxygen.in
 endif
+
+
+.PHONY: all export_tar version clean
