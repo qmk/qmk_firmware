@@ -381,7 +381,6 @@ Keyboard Data(Register0)
     You can read the state from PSW line(active low) however
     the switch has a special scancode 0x7F7F, so you can
     also read from Data line. It uses 0xFFFF for release scancode.
-    Release code seems to delay about some 100ms. Due to Mac soft power?
 
 Keyboard LEDs & state of keys(Register2)
     This register hold current state of three LEDs and nine keys.

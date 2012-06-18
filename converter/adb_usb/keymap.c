@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
+    1,              // Fn0
     0,              // Fn1
     0,              // Fn2
     0,              // Fn3
@@ -109,7 +109,7 @@ static const uint8_t PROGMEM fn_keycode[] = {
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default Layer: plain keymap
      * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.             ,---.
-     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Pwr|
+     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Fn0|
      * `---'   `---------------' `---------------' `---------------' `-----------'             `---'
      * ,-----------------------------------------------------------. ,-----------. ,---------------.
      * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backspa| |Ins|Hom|PgU| |NmL|  =|  /|  *|
@@ -124,12 +124,37 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------' `-----------' `---------------'
      */
     KEYMAP(
-    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    PWR,
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    FN0,
     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NLCK,EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     DEL, END, PGDN,    P7,  P8,  P9,  PMNS,
     CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           P1,  P2,  P3,
     LCTL,LGUI,LALT,          SPC,                                              LEFT,DOWN,RGHT,    P0,       PDOT,PENT
+    ),
+
+    /* Default Layer: plain keymap
+     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.             ,---.
+     * |`  |   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Fn0|
+     * `---'   `---------------' `---------------' `---------------' `-----------'             `---'
+     * ,-----------------------------------------------------------. ,-----------. ,---------------.
+     * |Esc|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Delete | |Ins|Hom|PgU| |NmL|Mb1|Mb2|Mb3|
+     * |-----------------------------------------------------------| |-----------| |---------------|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|PrS|ScL|Pau|Up |Ins|    \| |Del|End|PgD| |MwD|McU|MwU|MwD|
+     * |-----------------------------------------------------------| `-----------' |---------------|
+     * |CapsLo|VoD|VoU|Mut|  F|  G|  H|  J|Hom|PgU|Lef|Rig|Return  |               |McL|McD|McR|MwU|
+     * |-----------------------------------------------------------|     ,---.     |---------------|
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|End|PgD|Dow|Shift     |     |PgU|     |MwL|McD|MwR|   |
+     * |-----------------------------------------------------------| ,-----------. |-----------|Mb3|
+     * |Ctrl |Gui |Alt |         Space           |     |    |      | |Hom|PgD|End| |    Mb1|Mb2|   |
+     * `-----------------------------------------------------------' `-----------' `---------------'
+     */
+    KEYMAP(
+    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    FN0,
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,      INS, HOME,PGUP,    NLCK,BTN1,BTN2,BTN3,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   PSCR,SLCK,PAUS,UP,  INS, BSLS,     DEL, END, PGDN,    WH_D,MS_U,WH_U,WH_D,
+    CAPS,VOLD,VOLU,MUTE,F,   G,   H,   J,   HOME,PGUP,LEFT,RGHT,     ENT,                         MS_L,MS_D,MS_R,WH_U,
+    LSFT,Z,   X,   C,   V,   B,   N,   M,   END, PGDN,DOWN,          RSFT,          PGUP,         WH_L,MS_D,WH_R,
+    LCTL,LGUI,LALT,          SPC,                                              HOME,PGDN,END,     BTN1,     BTN2,BTN3
     ),
 };
 

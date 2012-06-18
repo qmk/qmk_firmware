@@ -100,6 +100,10 @@ uint8_t matrix_scan(void)
     key0 = codes>>8;
     key1 = codes&0xFF;
 
+    if (debug_enable && codes) {
+        print("adb_host_kbd_recv: "); phex16(codes); print("\n");
+    }
+
 #ifdef MATRIX_HAS_LOCKING_CAPS
     // Send Caps key up event
     if (matrix_is_on(ROW(CAPS), COL(CAPS))) {
@@ -135,9 +139,6 @@ uint8_t matrix_scan(void)
             _register_key(key1);
     }
 
-    if (debug_enable) {
-        print("adb_host_kbd_recv: "); phex16(codes); print("\n");
-    }
     return 1;
 }
 
@@ -177,9 +178,9 @@ uint16_t matrix_get_row(uint8_t row)
 void matrix_print(void)
 {
 #if (MATRIX_COLS <= 8)
-    print("\nr/c 01234567\n");
+    print("r/c 01234567\n");
 #else
-    print("\nr/c 0123456789ABCDEF\n");
+    print("r/c 0123456789ABCDEF\n");
 #endif
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         phex(row); print(": ");

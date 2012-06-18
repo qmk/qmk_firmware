@@ -36,7 +36,7 @@ F_CPU = 16000000
 # Build Options
 #   comment out to disable the options.
 #
-#MOUSEKEY_ENABLE = yes	# Mouse keys
+MOUSEKEY_ENABLE = yes	# Mouse keys
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 #NKRO_ENABLE = yes	# USB Nkey Rollover
@@ -52,3 +52,6 @@ include $(TOP_DIR)/protocol/pjrc.mk
 include $(TOP_DIR)/protocol.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
+
+dfu: PROGRAM_CMD = dfu-programmer atmega32u4 flash $(TARGET).hex
+dfu: program
