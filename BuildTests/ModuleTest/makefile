@@ -39,12 +39,15 @@ end:
 	@echo
 
 %.avr8:
+	@echo Building ModuleTest for ARCH=AVR8 MCU=$(@:%.avr8=%)...
 	$(MAKE) -s -f makefile.test clean elf ARCH=AVR8 MCU=$(@:%.avr8=%)
 
 %.xmega:
+	@echo Building ModuleTest for ARCH=XMEGA MCU=$(@:%.xmega=%)...
 	$(MAKE) -s -f makefile.test clean elf ARCH=XMEGA MCU=$(@:%.xmega=%)
 
 %.uc3:
+	@echo Building ModuleTest for ARCH=UC3 MCU=$(@:%.uc3=%)...
 	$(MAKE) -s -f makefile.test clean elf ARCH=UC3 MCU=$(@:%.uc3=%)
 
 clean:
