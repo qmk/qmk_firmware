@@ -145,7 +145,7 @@ endif
 DEPENDENCY_FILES = $(OBJECT_FILES:%.o=%.d)
 
 # Create a list of common flags to pass to the compiler/linker/assembler
-BASE_CC_FLAGS    := 
+BASE_CC_FLAGS    := -pipe
 ifeq ($(ARCH), AVR8)
    BASE_CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
 else ifeq ($(ARCH), XMEGA)
