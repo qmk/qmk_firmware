@@ -38,6 +38,7 @@
  *  \li \subpage Page_BuildModule_CPPCHECK - Static Code Analysis
  *  \li \subpage Page_BuildModule_DFU - Device Programming
  *  \li \subpage Page_BuildModule_DOXYGEN - Automated Source Code Documentation
+ *  \li \subpage Page_BuildModule_HID - Device Programming
  *  \li \subpage Page_BuildModule_SOURCES - LUFA Module Source Code Variables
  */
  
@@ -512,7 +513,8 @@
  *
  *  The DFU programming utility LUFA build system module, providing targets to reprogram an
  *  Atmel processor FLASH and EEPROM memories with a project's compiled binary output files.
- *  This module requires a DFU class bootloader to be running in the target.
+ *  This module requires a DFU class bootloader to be running in the target, compatible with
+ *  the DFU bootloader protocol as published by Atmel.
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
@@ -645,6 +647,75 @@
  *  </table> 
  *
  *  \section SSec_BuildModule_DOXYGEN_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+ 
+ /** \page Page_BuildModule_HID The HID build module
+ *
+ *  The HID programming utility LUFA build system module, providing targets to reprogram an
+ *  Atmel processor's FLASH memory with a project's compiled binary output file. This module
+ *  requires a HID class bootloader to be running in the target, using a protocol compatible
+ *  with the PJRC "HalfKay" protocol (<a>http://www.pjrc.com/teensy/halfkay_protocol.html</a>).
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa.hid.in
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_HID_Requirements Requirements
+ *  This module requires either the <tt>hid_bootloader_cli</tt> utility from the included LUFA HID
+ *  class bootloader API subdirectory, or the <tt>teensy_loader_cli</tt> utility from PJRC
+ *  (<a>http://www.pjrc.com/teensy/loader_cli.html</a>) to be available in your system's <b>PATH</b>
+ *  variable.
+ *
+ *  \section SSec_BuildModule_HID_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>hid</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data using <tt>hid_bootloader_cli</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>hid-teensy</tt></td>
+ *    <td>Program the device EEPROM memory with the application's executable data using <tt>teensy_loader_cli</tt>.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_HID_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>MCU</tt></td>
+ *    <td>Name of the Atmel processor model (e.g. <tt>at90usb1287</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>TARGET</tt></td>
+ *    <td>Name of the application output file prefix (e.g. <tt>TestApplication</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_HID_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_HID_ProvideVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_HID_ProvidedMacros Module Provided Macros
  *
  *  <table>
  *   <tr>
