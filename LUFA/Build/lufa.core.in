@@ -51,6 +51,8 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #
 # -----------------------------------------------------------------------------
 
+SHELL = /bin/sh
+
 # Build sorted and filtered lists of the included build module data
 SORTED_LUFA_BUILD_MODULES   = $(sort $(LUFA_BUILD_MODULES))
 SORTED_LUFA_BUILD_TARGETS   = $(sort $(LUFA_BUILD_TARGETS))
