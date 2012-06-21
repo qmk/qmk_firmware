@@ -682,7 +682,7 @@
  *   </tr>
  *   <tr>
  *    <td><tt>hid-teensy</tt></td>
- *    <td>Program the device EEPROM memory with the application's executable data using <tt>teensy_loader_cli</tt>.</td>
+ *    <td>Program the device FLASH memory with the application's executable data using <tt>teensy_loader_cli</tt>.</td>
  *   </tr>
  *  </table>
  *
