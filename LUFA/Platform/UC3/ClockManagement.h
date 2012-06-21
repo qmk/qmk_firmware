@@ -231,6 +231,12 @@
 			                                              const uint32_t SourceFreq,
 			                                              const uint32_t Frequency)
 			{
+				if (Channel >= AVR32_PM_GCLK_NUM)
+				  return false;
+
+				if (SourceFreq < Frequency)
+				  return false;
+
 				switch (Source)
 				{
 					case CLOCK_SRC_OSC0:
@@ -253,9 +259,6 @@
 						return false;
 				}
 
-				if (SourceFreq < Frequency)
-				  return false;
-
 				AVR32_PM.GCCTRL[Channel].diven = (SourceFreq > Frequency) ? true : false;
 				AVR32_PM.GCCTRL[Channel].div   = (((SourceFreq / Frequency) - 1) / 2);
 				AVR32_PM.GCCTRL[Channel].cen   = true;
@@ -266,11 +269,18 @@
 			/** Stops the given generic clock of the UC3 microcontroller.
 			 *
 			 *  \param[in] Channel  Index of the generic clock to stop.
+			 *
+			 *  \return Boolean \c true if the generic clock was sucessfully stopped, \c false if invalid parameters specified.
 			 */
-			static inline void AVR32CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopGenericClock(const uint8_t Channel)
+			static inline bool AVR32CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
+			static inline bool AVR32CLK_StopGenericClock(const uint8_t Channel)
 			{
+				if (Channel >= AVR32_PM_GCLK_NUM)
+				  return false;
+			
 				AVR32_PM.GCCTRL[Channel].cen = false;
+				
+				return true;
 			}
 
 			/** Sets the clock source for the main microcontroller core. The given clock source should be configured
@@ -288,8 +298,11 @@
 			static inline bool AVR32CLK_SetCPUClockSource(const uint8_t Source,
 			                                              const uint32_t SourceFreq)
 			{
-				AVR32_FLASHC.FCR.fws = (SourceFreq > 30000000) ? true : false;
+				if (SourceFreq > AVR32_PM_CPU_MAX_FREQ)
+				  return false;
 
+				AVR32_FLASHC.FCR.fws = (SourceFreq > AVR32_FLASHC_FWS_0_MAX_FREQ) ? true : false;
+				
 				switch (Source)
 				{
 					#if defined(AVR32_PM_MCCTRL_MCSEL_SLOW)
