@@ -12,7 +12,7 @@
 # all supported architectures
 
 # Path to the LUFA library core
-LUFA_PATH         = ../../LUFA/
+LUFA_PATH := ../../LUFA/
 
 all: begin compile clean end
 

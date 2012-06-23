@@ -12,7 +12,7 @@
 # compiler.
 
 # Path to the LUFA library core
-LUFA_PATH         = ../../LUFA/
+LUFA_PATH := ../../LUFA/
 
 
 all: begin makeboardlist testboards clean end

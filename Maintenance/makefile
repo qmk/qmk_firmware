@@ -10,7 +10,7 @@
 
 
 # Path to the root of the LUFA tree
-LUFA_ROOT = ../
+LUFA_ROOT := ../
 
 all:
 

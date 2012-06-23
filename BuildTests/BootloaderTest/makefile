@@ -11,7 +11,7 @@
 # with all supported device configurations.
 
 # Path to the LUFA library core
-LUFA_PATH         = ../../LUFA/
+LUFA_PATH := ../../LUFA/
 
 
 all: begin testbootloaders clean end
