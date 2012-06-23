@@ -114,8 +114,6 @@ else
 endif
 
 # Output Messages
-MSG_BUILD_BEGIN  := Begin compilation of project \"$(TARGET)\"...
-MSG_BUILD_END    := Finished building project \"$(TARGET)\".
 MSG_COMPILE_CMD  := ' [GCC]     :'
 MSG_ASSEMBLE_CMD := ' [GAS]     :'
 MSG_NM_CMD       := ' [NM]      :'
@@ -184,11 +182,11 @@ SIZE_FORMAT_FLAG := $(shell $(CROSS)-size --help | grep -- --format=.*avr > /dev
 
 build_begin:
 	@echo ""
-	@echo $(MSG_BUILD_BEGIN)
+	@echo Begin compilation of project \"$(TARGET)\"...
 	@echo ""
 	
 build_end:
-	@echo $(MSG_BUILD_END)
+	@echo Finished building project \"$(TARGET)\".
 	@echo ""
 
 gcc_version:
