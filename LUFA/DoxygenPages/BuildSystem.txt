@@ -70,6 +70,10 @@
  *    <td>Display a size-sorted list of symbols from the compiled application, in decimal bytes.</td>
  *   </tr>
  *   <tr>
+ *    <td><tt>lib</tt></td>
+ *    <td>Build and archive all source files into a library A binary file.</td>
+ *   </tr>
+ *   <tr>
  *    <td><tt>all</tt></td>
  *    <td>Build and link the application into ELF debug and HEX binary files.</td>
  *   </tr>

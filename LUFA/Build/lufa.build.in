@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES         += BUILD
-LUFA_BUILD_TARGETS         += size symbol-sizes all elf hex lss clean
+LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf hex lss clean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR
 LUFA_BUILD_PROVIDED_VARS   += 
@@ -26,6 +26,7 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    symbol-sizes              - Print application symbols from the binary ELF
 #                                file as a list sorted by size in bytes
 #    all                       - Build application and list size
+#    lib                       - Build and archive source files into a library
 #    elf                       - Build application ELF debug object file
 #    hex                       - Build application HEX object files
 #    lss                       - Build application LSS assembly listing file
@@ -119,7 +120,8 @@ MSG_COMPILE_CMD  := ' [GCC]     :'
 MSG_ASSEMBLE_CMD := ' [GAS]     :'
 MSG_NM_CMD       := ' [NM]      :'
 MSG_REMOVE_CMD   := ' [RM]      :'
-MSG_LINKER_CMD   := ' [LNK]     :'
+MSG_LINK_CMD     := ' [LNK]     :'
+MSG_ARCHIVE_CMD  := ' [AR]      :'
 MSG_SIZE_CMD     := ' [SIZE]    :'
 MSG_OBJCPY_CMD   := ' [OBJCPY]  :'
 MSG_OBJDMP_CMD   := ' [OBJDMP]  :'
@@ -215,10 +217,11 @@ clean:
 	@echo $(MSG_REMOVE_CMD) Removing dependency files of \"$(TARGET)\"
 	rm -f $(DEPENDENCY_FILES)
 	@echo $(MSG_REMOVE_CMD) Removing output files of \"$(TARGET)\"
-	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym
+	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym $(TARGET).a
 
 all: build_begin check_source gcc_version elf hex lss sym size build_end
 
+lib: $(TARGET).a
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
@@ -237,9 +240,15 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
 
 .PRECIOUS  : $(OBJECT_FILES)
+.SECONDARY : %.a
+%.a: $(OBJECT_FILES)
+	@echo $(MSG_ARCHIVE_CMD) Archiving object files into \"$@\"
+	$(CROSS)-ar rcs $@ $(OBJECT_FILES)
+
+.PRECIOUS  : $(OBJECT_FILES)
 .SECONDARY : %.elf
 %.elf: $(OBJECT_FILES)
-	@echo $(MSG_LINKER_CMD) Linking object files into \"$@\"
+	@echo $(MSG_LINK_CMD) Linking object files into \"$@\"
 	$(CROSS)-gcc $(BASE_CC_FLAGS) $(BASE_LD_FLAGS) $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
 
 %.hex: %.elf
@@ -262,4 +271,4 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: build_begin build_end gcc_version check_source size symbol-sizes elf hex lss clean
+.PHONY: build_begin build_end gcc_version check_source size symbol-sizes lib elf hex lss clean
