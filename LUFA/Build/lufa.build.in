@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES         += BUILD
-LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf hex lss clean
+LUFA_BUILD_TARGETS         += size check-source symbol-sizes all lib elf hex lss clean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR
 LUFA_BUILD_PROVIDED_VARS   += 
@@ -25,6 +25,8 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    size                      - List built application size
 #    symbol-sizes              - Print application symbols from the binary ELF
 #                                file as a list sorted by size in bytes
+#    check-source              - Print a list of SRC source files that cannot
+#                                be found
 #    all                       - Build application and list size
 #    lib                       - Build and archive source files into a library
 #    elf                       - Build application ELF debug object file
@@ -125,18 +127,18 @@ MSG_OBJCPY_CMD   := ' [OBJCPY]  :'
 MSG_OBJDMP_CMD   := ' [OBJDMP]  :'
 
 # Convert input source file list to differentiate them by type
-C_SOURCE   = $(filter %.c, $(SRC))
-CPP_SOURCE = $(filter %.cpp, $(SRC))
-ASM_SOURCE = $(filter %.S, $(SRC))
+C_SOURCE   := $(filter %.c, $(SRC))
+CPP_SOURCE := $(filter %.cpp, $(SRC))
+ASM_SOURCE := $(filter %.S, $(SRC))
 
 # Create a list of unknown source file types, if any are found throw an error
-UNKNOWN_SOURCE = $(filter-out $(C_SOURCE) $(CPP_SOURCE) $(ASM_SOURCE), $(SRC))
+UNKNOWN_SOURCE := $(filter-out $(C_SOURCE) $(CPP_SOURCE) $(ASM_SOURCE), $(SRC))
 ifneq ($(UNKNOWN_SOURCE),)
-   $(error Unknown input source formats: $(UNKNOWN_SOURCE))
+   $(error Unknown input source file formats: $(UNKNOWN_SOURCE))
 endif
 
 # Convert input source filenames into a list of required output object files
-OBJECT_FILES = $(filter %.o, $(C_SOURCE:%.c=%.o) $(CPP_SOURCE:%.cpp=%.o) $(ASM_SOURCE:%.S=%.o))
+OBJECT_FILES := $(addsuffix .o, $(basename $(SRC)))
 ifneq ($(OBJDIR),.)
    $(shell mkdir $(OBJDIR) 2>&1 | /dev/null)   
    VPATH           += $(dir $(SRC))
@@ -144,7 +146,7 @@ ifneq ($(OBJDIR),.)
    OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
 endif
 
-DEPENDENCY_FILES = $(OBJECT_FILES:%.o=%.d)
+DEPENDENCY_FILES := $(OBJECT_FILES:%.o=%.d)
 
 # Create a list of common flags to pass to the compiler/linker/assembler
 BASE_CC_FLAGS    := -pipe
@@ -189,10 +191,10 @@ build_end:
 	@echo Finished building project \"$(TARGET)\".
 	@echo ""
 
-gcc_version:
+gcc-version:
 	@$(CROSS)-gcc --version
 
-check_source:
+check-source:
 	@for f in $(SRC); do \
 		if [ ! -f $$f ]; then \
 			echo "Error: Source file not found: $$f"; \
@@ -217,7 +219,7 @@ clean:
 	@echo $(MSG_REMOVE_CMD) Removing output files of \"$(TARGET)\"
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym $(TARGET).a
 
-all: build_begin check_source gcc_version elf hex lss sym size build_end
+all: build_begin check-source gcc-version elf hex lss sym size build_end
 
 lib: $(TARGET).a
 elf: $(TARGET).elf
@@ -269,4 +271,4 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: build_begin build_end gcc_version check_source size symbol-sizes lib elf hex lss clean
+.PHONY: build_begin build_end gcc-version check-source size symbol-sizes lib elf hex lss clean

@@ -70,6 +70,10 @@
  *    <td>Display a size-sorted list of symbols from the compiled application, in decimal bytes.</td>
  *   </tr>
  *   <tr>
+ *    <td><tt>check-source</tt></td>
+ *    <td>Display a list of input SRC source files which cannot be found (if any).</td>
+ *   </tr>
+ *   <tr>
  *    <td><tt>lib</tt></td>
  *    <td>Build and archive all source files into a library A binary file.</td>
  *   </tr>
