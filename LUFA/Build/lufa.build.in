@@ -140,12 +140,12 @@ endif
 # Convert input source filenames into a list of required output object files
 OBJECT_FILES := $(addsuffix .o, $(basename $(SRC)))
 ifneq ($(OBJDIR),.)
-   $(shell mkdir $(OBJDIR) 2>&1 | /dev/null)   
+   $(shell mkdir $(OBJDIR) 2>&1 > /dev/null)   
    VPATH           += $(dir $(SRC))
-   
    OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
 endif
 
+# Create a list of dependency files from the list of object files
 DEPENDENCY_FILES := $(OBJECT_FILES:%.o=%.d)
 
 # Create a list of common flags to pass to the compiler/linker/assembler
@@ -237,7 +237,7 @@ $(OBJDIR)/%.o: %.cpp $(MAKEFILE_LIST)
 	
 $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$(notdir $<)\"
-	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) $< -o $@
+	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_ASM_FLAGS) $(CC_FLAGS) $(ASM_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
 
 .PRECIOUS  : $(OBJECT_FILES)
 .SECONDARY : %.a
