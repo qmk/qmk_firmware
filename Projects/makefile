@@ -24,8 +24,8 @@ endif
 
 all:
 ifeq ($(OBJDIR),)
-	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) clean all;)
+	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -C $(PROJECT) clean all;)
 endif
 
 %:
-	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -s -C $(PROJECT) $@;)
+	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -C $(PROJECT) $@;)
