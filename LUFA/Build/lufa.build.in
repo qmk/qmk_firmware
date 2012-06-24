@@ -209,7 +209,7 @@ size: $(TARGET).elf
 
 symbol-sizes: $(TARGET).elf
 	@echo $(MSG_NM_CMD) Extracting \"$<\" symbols with decimal byte sizes
-	avr-nm --size-sort --demangle --radix=d $<
+	$(CROSS)-nm --size-sort --demangle --radix=d $<
 
 clean:
 	@echo $(MSG_REMOVE_CMD) Removing object files of \"$(TARGET)\"
