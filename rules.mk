@@ -109,8 +109,10 @@ CFLAGS += -O$(OPT)
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
+CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
+CFLAGS += -fno-strict-aliasing
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 #CFLAGS += -mshort-calls
@@ -230,7 +232,7 @@ EXTMEMOPTS =
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
-#LDFLAGS += -Wl,--relax
+LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
@@ -387,6 +389,30 @@ gccversion :
 program: $(TARGET).hex $(TARGET).eep
 	$(PROGRAM_CMD)
 
+teensy: $(TARGET).hex
+	teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+
+flip: $(TARGET).hex
+	batchisp -hardware usb -device $(MCU) -operation erase f
+	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+
+dfu: $(TARGET).hex
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash $(TARGET).hex
+	dfu-programmer $(MCU) reset
+
+flip-ee: $(TARGET).hex $(TARGET).eep
+	$(COPY) $(TARGET).eep $(TARGET)eep.hex
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(REMOVE) $(TARGET)eep.hex
+
+dfu-ee: $(TARGET).hex $(TARGET).eep
+	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
+	dfu-programmer $(MCU) reset
+
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set 
@@ -488,6 +514,7 @@ extcoff: $(TARGET).elf
 # Compile: create object files from C source files.
 $(OBJDIR)/%.o : %.c
 	@echo
+	mkdir -p $(@D)
 	@echo $(MSG_COMPILING) $<
 	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
 
@@ -538,7 +565,7 @@ clean_list :
 	$(REMOVE) $(OBJ:.o=.s)
 	$(REMOVE) $(OBJ:.o=.i)
 	$(REMOVE) -r .dep
-	$(REMOVEDIR) $(OBJDIR)
+	$(REMOVE) -r $(OBJDIR)
 
 
 # Create object files directory
