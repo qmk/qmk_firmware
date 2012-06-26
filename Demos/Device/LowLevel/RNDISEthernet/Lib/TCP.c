@@ -111,8 +111,8 @@ void TCP_Task(void)
 
 			ConnectionStateTable[CSTableEntry].Info.SequenceNumberOut += PacketSize;
 
-			TCPHeaderOUT->Checksum             = TCP_Checksum16(TCPHeaderOUT, ServerIPAddress,
-			                                                    ConnectionStateTable[CSTableEntry].RemoteAddress,
+			TCPHeaderOUT->Checksum             = TCP_Checksum16(TCPHeaderOUT, &ServerIPAddress,
+			                                                    &ConnectionStateTable[CSTableEntry].RemoteAddress,
 			                                                    (sizeof(TCP_Header_t) + PacketSize));
 
 			PacketSize += sizeof(TCP_Header_t);
@@ -249,7 +249,7 @@ uint8_t TCP_GetPortState(const uint16_t Port)
  *  \return Boolean true if the connection was updated or created, false otherwise (no more space in the connection state table)
  */
 bool TCP_SetConnectionState(const uint16_t Port,
-                            const IP_Address_t RemoteAddress,
+                            const IP_Address_t* RemoteAddress,
                             const uint16_t RemotePort,
                             const uint8_t State)
 {
@@ -259,7 +259,7 @@ bool TCP_SetConnectionState(const uint16_t Port,
 	{
 		/* Find port entry in the table */
 		if ((ConnectionStateTable[CSTableEntry].Port == Port) &&
-		     IP_COMPARE(&ConnectionStateTable[CSTableEntry].RemoteAddress, &RemoteAddress) &&
+		     IP_COMPARE(&ConnectionStateTable[CSTableEntry].RemoteAddress, RemoteAddress) &&
 			 ConnectionStateTable[CSTableEntry].RemotePort == RemotePort)
 		{
 			ConnectionStateTable[CSTableEntry].State = State;
@@ -273,7 +273,7 @@ bool TCP_SetConnectionState(const uint16_t Port,
 		if (ConnectionStateTable[CSTableEntry].State == TCP_Connection_Closed)
 		{
 			ConnectionStateTable[CSTableEntry].Port          = Port;
-			ConnectionStateTable[CSTableEntry].RemoteAddress = RemoteAddress;
+			ConnectionStateTable[CSTableEntry].RemoteAddress = *RemoteAddress;
 			ConnectionStateTable[CSTableEntry].RemotePort    = RemotePort;
 			ConnectionStateTable[CSTableEntry].State         = State;
 			return true;
@@ -292,7 +292,7 @@ bool TCP_SetConnectionState(const uint16_t Port,
  *  \return A value from the \ref TCP_ConnectionStates_t enum
  */
 uint8_t TCP_GetConnectionState(const uint16_t Port,
-                               const IP_Address_t RemoteAddress,
+                               const IP_Address_t* RemoteAddress,
                                const uint16_t RemotePort)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
@@ -301,7 +301,7 @@ uint8_t TCP_GetConnectionState(const uint16_t Port,
 	{
 		/* Find port entry in the table */
 		if ((ConnectionStateTable[CSTableEntry].Port == Port) &&
-		     IP_COMPARE(&ConnectionStateTable[CSTableEntry].RemoteAddress, &RemoteAddress) &&
+		     IP_COMPARE(&ConnectionStateTable[CSTableEntry].RemoteAddress, RemoteAddress) &&
 			 ConnectionStateTable[CSTableEntry].RemotePort == RemotePort)
 
 		{
@@ -321,7 +321,7 @@ uint8_t TCP_GetConnectionState(const uint16_t Port,
  *  \return ConnectionInfo structure of the connection if found, NULL otherwise
  */
 TCP_ConnectionInfo_t* TCP_GetConnectionInfo(const uint16_t Port,
-                                            const IP_Address_t RemoteAddress,
+                                            const IP_Address_t* RemoteAddress,
                                             const uint16_t RemotePort)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
@@ -330,7 +330,7 @@ TCP_ConnectionInfo_t* TCP_GetConnectionInfo(const uint16_t Port,
 	{
 		/* Find port entry in the table */
 		if ((ConnectionStateTable[CSTableEntry].Port == Port) &&
-		     IP_COMPARE(&ConnectionStateTable[CSTableEntry].RemoteAddress, &RemoteAddress) &&
+		     IP_COMPARE(&ConnectionStateTable[CSTableEntry].RemoteAddress, RemoteAddress) &&
 			 ConnectionStateTable[CSTableEntry].RemotePort == RemotePort)
 		{
 			return &ConnectionStateTable[CSTableEntry].Info;
@@ -370,12 +370,12 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 	{
 		/* Detect SYN from host to start a connection */
 		if (TCPHeaderIN->Flags & TCP_FLAG_SYN)
-		  TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort, TCP_Connection_Listen);
+		  TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort, TCP_Connection_Listen);
 
 		/* Detect RST from host to abort existing connection */
 		if (TCPHeaderIN->Flags & TCP_FLAG_RST)
 		{
-			if (TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+			if (TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 			                           TCPHeaderIN->SourcePort, TCP_Connection_Closed))
 			{
 				TCPHeaderOUT->Flags = (TCP_FLAG_RST | TCP_FLAG_ACK);
@@ -385,18 +385,18 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 		else
 		{
 			/* Process the incoming TCP packet based on the current connection state for the sender and port */
-			switch (TCP_GetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort))
+			switch (TCP_GetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort))
 			{
 				case TCP_Connection_Listen:
 					if (TCPHeaderIN->Flags == TCP_FLAG_SYN)
 					{
 						/* SYN connection starts a connection with a peer */
-						if (TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						if (TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 						                           TCPHeaderIN->SourcePort, TCP_Connection_SYNReceived))
 						{
 							TCPHeaderOUT->Flags = (TCP_FLAG_SYN | TCP_FLAG_ACK);
 
-							ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort);
+							ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort);
 
 							ConnectionInfo->SequenceNumberIn  = (SwapEndian_32(TCPHeaderIN->SequenceNumber) + 1);
 							ConnectionInfo->SequenceNumberOut = 0;
@@ -416,10 +416,10 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 					{
 						/* ACK during the connection process completes the connection to a peer */
 
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_Established);
 
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 															   TCPHeaderIN->SourcePort);
 
 						ConnectionInfo->SequenceNumberOut++;
@@ -434,10 +434,10 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 						TCPHeaderOUT->Flags = (TCP_FLAG_FIN | TCP_FLAG_ACK);
 						PacketResponse      = true;
 
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_CloseWait);
 
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 															   TCPHeaderIN->SourcePort);
 
 						ConnectionInfo->SequenceNumberIn++;
@@ -445,7 +445,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 					}
 					else if ((TCPHeaderIN->Flags == TCP_FLAG_ACK) || (TCPHeaderIN->Flags == (TCP_FLAG_ACK | TCP_FLAG_PSH)))
 					{
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 															   TCPHeaderIN->SourcePort);
 
 						/* Check if the buffer is currently in use either by a buffered data to send, or receive */
@@ -491,7 +491,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 
 					break;
 				case TCP_Connection_Closing:
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 															   TCPHeaderIN->SourcePort);
 
 						TCPHeaderOUT->Flags = (TCP_FLAG_ACK | TCP_FLAG_FIN);
@@ -499,14 +499,14 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 
 						ConnectionInfo->Buffer.InUse = false;
 
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_FINWait1);
 
 					break;
 				case TCP_Connection_FINWait1:
 					if (TCPHeaderIN->Flags == (TCP_FLAG_FIN | TCP_FLAG_ACK))
 					{
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 															   TCPHeaderIN->SourcePort);
 
 						TCPHeaderOUT->Flags = TCP_FLAG_ACK;
@@ -515,12 +515,12 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 						ConnectionInfo->SequenceNumberIn++;
 						ConnectionInfo->SequenceNumberOut++;
 
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_Closed);
 					}
 					else if (TCPHeaderIN->Flags == TCP_FLAG_ACK)
 					{
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_FINWait2);
 					}
 
@@ -528,7 +528,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 				case TCP_Connection_FINWait2:
 					if (TCPHeaderIN->Flags == (TCP_FLAG_FIN | TCP_FLAG_ACK))
 					{
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 															   TCPHeaderIN->SourcePort);
 
 						TCPHeaderOUT->Flags = TCP_FLAG_ACK;
@@ -537,7 +537,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 						ConnectionInfo->SequenceNumberIn++;
 						ConnectionInfo->SequenceNumberOut++;
 
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_Closed);
 					}
 
@@ -545,7 +545,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 				case TCP_Connection_CloseWait:
 					if (TCPHeaderIN->Flags == TCP_FLAG_ACK)
 					{
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 											   TCPHeaderIN->SourcePort, TCP_Connection_Closed);
 					}
 
@@ -563,7 +563,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 	/* Check if we need to respond to the sent packet */
 	if (PacketResponse)
 	{
-		ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+		ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, &IPHeaderIN->SourceAddress,
 		                                       TCPHeaderIN->SourcePort);
 
 		TCPHeaderOUT->SourcePort           = TCPHeaderIN->DestinationPort;
@@ -581,8 +581,8 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
 		TCPHeaderOUT->Checksum             = 0;
 		TCPHeaderOUT->Reserved             = 0;
 
-		TCPHeaderOUT->Checksum             = TCP_Checksum16(TCPHeaderOUT, IPHeaderIN->DestinationAddress,
-		                                                    IPHeaderIN->SourceAddress, sizeof(TCP_Header_t));
+		TCPHeaderOUT->Checksum             = TCP_Checksum16(TCPHeaderOUT, &IPHeaderIN->DestinationAddress,
+		                                                    &IPHeaderIN->SourceAddress, sizeof(TCP_Header_t));
 
 		return sizeof(TCP_Header_t);
 	}
@@ -601,8 +601,8 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
  *  \return A 16-bit TCP checksum value
  */
 static uint16_t TCP_Checksum16(void* TCPHeaderOutStart,
-                               const IP_Address_t SourceAddress,
-                               const IP_Address_t DestinationAddress,
+                               const IP_Address_t* SourceAddress,
+                               const IP_Address_t* DestinationAddress,
                                uint16_t TCPOutSize)
 {
 	uint32_t Checksum = 0;
@@ -610,10 +610,10 @@ static uint16_t TCP_Checksum16(void* TCPHeaderOutStart,
 	/* TCP/IP checksums are the addition of the one's compliment of each word including the IP pseudo-header,
 	   complimented */
 
-	Checksum += ((uint16_t*)&SourceAddress)[0];
-	Checksum += ((uint16_t*)&SourceAddress)[1];
-	Checksum += ((uint16_t*)&DestinationAddress)[0];
-	Checksum += ((uint16_t*)&DestinationAddress)[1];
+	Checksum += ((uint16_t*)SourceAddress)[0];
+	Checksum += ((uint16_t*)SourceAddress)[1];
+	Checksum += ((uint16_t*)DestinationAddress)[0];
+	Checksum += ((uint16_t*)DestinationAddress)[1];
 	Checksum += SwapEndian_16(PROTOCOL_TCP);
 	Checksum += SwapEndian_16(TCPOutSize);
 
