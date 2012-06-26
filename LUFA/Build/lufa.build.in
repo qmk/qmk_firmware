@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES         += BUILD
-LUFA_BUILD_TARGETS         += size check-source symbol-sizes all lib elf hex lss clean
+LUFA_BUILD_TARGETS         += size check-source symbol-sizes all lib elf hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR
 LUFA_BUILD_PROVIDED_VARS   += 
@@ -32,7 +32,10 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    elf                       - Build application ELF debug object file
 #    hex                       - Build application HEX object files
 #    lss                       - Build application LSS assembly listing file
-#    clean                     - Remove output files
+#    clean                     - Remove all project intermediatary and binary
+#                                output files
+#    mostlyclean               - Remove intermediatary output files, but
+#                                preserve binaries
 #
 # MANDATORY PARAMETERS:
 #
@@ -211,11 +214,13 @@ symbol-sizes: $(TARGET).elf
 	@echo $(MSG_NM_CMD) Extracting \"$<\" symbols with decimal byte sizes
 	$(CROSS)-nm --size-sort --demangle --radix=d $<
 
-clean:
+mostlyclean:
 	@echo $(MSG_REMOVE_CMD) Removing object files of \"$(TARGET)\"
 	rm -f $(OBJECT_FILES)
 	@echo $(MSG_REMOVE_CMD) Removing dependency files of \"$(TARGET)\"
 	rm -f $(DEPENDENCY_FILES)
+
+clean: mostlyclean
 	@echo $(MSG_REMOVE_CMD) Removing output files of \"$(TARGET)\"
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym $(TARGET).a
 
@@ -271,4 +276,4 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: build_begin build_end gcc-version check-source size symbol-sizes lib elf hex lss clean
+.PHONY: build_begin build_end gcc-version check-source size symbol-sizes lib elf hex lss clean mostlyclean

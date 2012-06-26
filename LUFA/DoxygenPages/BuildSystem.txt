@@ -12,6 +12,9 @@
  *  application makefile. The system is written in GNU Make, and each module is independant of
  *  one-another.
  *
+ *  For details on the prerequisites needed for Linux and Windows machines to be able to use the LUFA
+ *  build system, see \ref Sec_Prerequisites.
+ *
  *  To use a LUFA build system module, simply add an include to your project makefile:
  *  \code
  *  include $(LUFA_PATH)/Build/lufa.core.in
@@ -96,6 +99,10 @@
  *   <tr>
  *    <td><tt>clean</tt></td>
  *    <td>Remove all intermediatary files and binary output files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>mostlyclean</tt></td>
+ *    <td>Remove all intermediatary files but preserve any binary output files.</td>
  *   </tr>
  *  </table>
  *
