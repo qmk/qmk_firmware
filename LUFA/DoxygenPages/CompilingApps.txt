@@ -37,7 +37,7 @@
  *  each individual demo, bootloader and project folder, as well as scripts in the Demos/, Bootloaders/, Projects/
  *  and the LUFA root directory. Compilation of projects can be started from any of the above directories, with a build
  *  started from an upper directory in the directory structure executing build of all child directories under it. This
- *  means that while a build inside a particular demo directory will build only that particular demo, a build stated from
+ *  means that while a build inside a particular demo directory will build only that particular demo, a build started from
  *  the /Demos/ directory will build all LUFA demo projects sequentially.
  *
  *  To build a project from the source via the command line, the command <b>"make all"</b> should be executed from the command
