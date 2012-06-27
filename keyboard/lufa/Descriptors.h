@@ -37,51 +37,48 @@
 #ifndef _DESCRIPTORS_H_
 #define _DESCRIPTORS_H_
 
-	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>
+#include <LUFA/Drivers/USB/USB.h>
+#include <avr/pgmspace.h>
 
-		#include <avr/pgmspace.h>
 
-	/* Type Defines: */
-		/** Type define for the device configuration descriptor structure. This must be defined in the
-		 *  application code, as the configuration descriptor contains several sub-descriptors which
-		 *  vary between devices, and which describe the device's usage to the host.
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Configuration_Header_t Config;
+typedef struct
+{
+    USB_Descriptor_Configuration_Header_t Config;
 
-			// Keyboard HID Interface
-			USB_Descriptor_Interface_t            HID1_KeyboardInterface;
-			USB_HID_Descriptor_HID_t              HID1_KeyboardHID;
-			USB_Descriptor_Endpoint_t             HID1_ReportINEndpoint;
-			USB_Descriptor_Endpoint_t             HID1_ReportOUTEndpoint;
+    // Keyboard HID Interface
+    USB_Descriptor_Interface_t            HID1_KeyboardInterface;
+    USB_HID_Descriptor_HID_t              HID1_KeyboardHID;
+    USB_Descriptor_Endpoint_t             HID1_ReportINEndpoint;
+    USB_Descriptor_Endpoint_t             HID1_ReportOUTEndpoint;
 
-			// Mouse HID Interface
-			USB_Descriptor_Interface_t            HID2_MouseInterface;
-			USB_HID_Descriptor_HID_t              HID2_MouseHID;
-			USB_Descriptor_Endpoint_t             HID2_ReportINEndpoint;
-			USB_Descriptor_Endpoint_t             HID2_ReportOUTEndpoint;
-		} USB_Descriptor_Configuration_t;
+    // Mouse HID Interface
+    USB_Descriptor_Interface_t            HID2_MouseInterface;
+    USB_HID_Descriptor_HID_t              HID2_MouseHID;
+    USB_Descriptor_Endpoint_t             HID2_ReportINEndpoint;
 
-	/* Macros: */
-		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
-		#define KEYBOARD_IN_EPNUM         1
+    // Generic HID Interface
+    USB_Descriptor_Interface_t            HID3_GenericInterface;
+    USB_HID_Descriptor_HID_t              HID3_GenericHID;
+    USB_Descriptor_Endpoint_t             HID3_ReportINEndpoint;
+    USB_Descriptor_Endpoint_t             HID3_ReportOUTEndpoint;
+} USB_Descriptor_Configuration_t;
 
-		/** Endpoint number of the Keyboard HID reporting OUT endpoint. */
-		#define KEYBOARD_OUT_EPNUM        2
 
-		/** Endpoint number of the Mouse HID reporting IN endpoint. */
-		#define MOUSE_IN_EPNUM            3
+// Endopoint number/size
+#define KEYBOARD_IN_EPNUM         1
+#define KEYBOARD_OUT_EPNUM        2
+#define MOUSE_IN_EPNUM            3
+#define GENERIC_IN_EPNUM          4
+#define GENERIC_OUT_EPNUM         5
 
-		/** Size in bytes of each of the HID reporting IN and OUT endpoints. */
-		#define HID_EPSIZE                8
+#define HID_EPSIZE                8
+#define GENERIC_EPSIZE            8
+#define GENERIC_REPORT_SIZE       8
 
-	/* Function Prototypes: */
-		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-		                                    const uint8_t wIndex,
-		                                    const void** const DescriptorAddress)
-		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint8_t wIndex,
+                                    const void** const DescriptorAddress)
+                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif
-
