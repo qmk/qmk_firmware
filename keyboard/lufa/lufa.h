@@ -65,7 +65,7 @@
 		void SetupHardware(void);
 		void Keyboard_ProcessLEDReport(const uint8_t LEDStatus);
 		void Keyboard_HID_Task(void);
-		void Mouse_HID_Task(void);
+		void Generic_HID_Task(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);

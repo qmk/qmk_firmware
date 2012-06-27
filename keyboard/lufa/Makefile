@@ -128,8 +128,7 @@ LSRC = $(TARGET).c                                                 \
 SRC = $(subst $(LUFA_PATH)/LUFA/,,$(LSRC))
 SRC +=	keymap.c \
 	matrix.c \
-	led.c \
-	sendchar_null.c
+	led.c
 CONFIG_H = config.h
 
 
