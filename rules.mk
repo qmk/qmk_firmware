@@ -25,8 +25,23 @@
 #
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
-# make program = Download the hex file to the device, using avrdude.
-#                Please customize the avrdude settings below first!
+# make program = Download the hex file to the device.
+#                Please customize your programmer settings(PROGRAM_CMD)
+#
+# make teensy = Download the hex file to the device, using teensy_loader_cli.
+#               (must have teensy_loader_cli installed).
+#
+# make dfu = Download the hex file to the device, using dfu-programmer (must
+#            have dfu-programmer installed).
+#
+# make flip = Download the hex file to the device, using Atmel FLIP (must
+#             have Atmel FLIP installed).
+#
+# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
+#               (must have dfu-programmer installed).
+#
+# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
+#                (must have Atmel FLIP installed).
 #
 # make debug = Start either simulavr or avarice as specified for debugging, 
 #              with avr-gdb or avr-insight as the front end for debugging.
@@ -567,6 +582,10 @@ clean_list :
 	$(REMOVE) -r .dep
 	$(REMOVE) -r $(OBJDIR)
 
+show_path:
+	@echo VPATH=$(VPATH)
+	@echo SRC=$(SRC)
+
 
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
@@ -579,5 +598,5 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
-clean clean_list program debug gdb-config
-
+clean clean_list debug gdb-config show_path \
+program teensy dfu flip dfu-ee flip-ee

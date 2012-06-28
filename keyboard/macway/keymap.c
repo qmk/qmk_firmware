@@ -59,7 +59,7 @@ static const uint8_t PROGMEM fn_layer[] = {
     3,              // Fn3
     4,              // Fn4
     0,              // Fn5
-    2,              // Fn6
+    3,              // Fn6
     3               // Fn7
 };
 
@@ -94,7 +94,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
            LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,ENT, \
            LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
-           FN7, LGUI,LALT,FN4, RALT,BSLS,GRV, FN6, RCTL),
+           FN7, LGUI,LALT,FN4, RALT,GRV, FN6, FN6, RCTL),
 
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -110,7 +110,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   |Gui |Alt  |                      |Alt  |Gui|   |   |Ctr|
      * `-----------------------------------------------------------'
      */ 
-    KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
+    KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
            CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  NO,  \
            LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
            LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN1, \
@@ -155,7 +155,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            BSLS,WH_L,WH_D,MS_U,WH_U,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,  \
            LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  BSLS, \
            LSFT,NO,  NO,  BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  RSFT,NO, \
-           FN7, LGUI,LALT,BTN1,RALT,NO,  NO,  NO,  NO),
+           FN7, LGUI,LALT,BTN1,RALT,NO,  FN6, FN6, NO),
 
 
     /* Layer 4: Matias half keyboard style (Space)
