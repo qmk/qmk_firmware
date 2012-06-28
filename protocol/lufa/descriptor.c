@@ -130,8 +130,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
 {
-    HID_RI_USAGE_PAGE(16, 0xFF00), /* Vendor Page 0 */
-    HID_RI_USAGE(8, 0x01), /* Vendor Usage 1 */
+    HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
+    HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
     HID_RI_COLLECTION(8, 0x01), /* Application */
         HID_RI_USAGE(8, 0x02), /* Vendor Usage 2 */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
