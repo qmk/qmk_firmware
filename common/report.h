@@ -82,15 +82,14 @@ typedef struct {
     uint8_t mods;
     uint8_t rserved;
     uint8_t keys[REPORT_KEYS];
-} report_keyboard_t;
+} __attribute__ ((packed)) report_keyboard_t;
 
 typedef struct {
-    uint8_t report_id;
     uint8_t buttons;
     int8_t x;
     int8_t y;
     int8_t v;
     int8_t h;
-} report_mouse_t;
+} __attribute__ ((packed)) report_mouse_t;
 
 #endif

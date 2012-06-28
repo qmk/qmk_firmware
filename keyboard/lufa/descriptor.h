@@ -46,20 +46,20 @@ typedef struct
     USB_Descriptor_Configuration_Header_t Config;
 
     // Keyboard HID Interface
-    USB_Descriptor_Interface_t            HID0_KeyboardInterface;
-    USB_HID_Descriptor_HID_t              HID0_KeyboardHID;
-    USB_Descriptor_Endpoint_t             HID0_ReportINEndpoint;
+    USB_Descriptor_Interface_t            Keyboard_Interface;
+    USB_HID_Descriptor_HID_t              Keyboard_HID;
+    USB_Descriptor_Endpoint_t             Keyboard_INEndpoint;
 
     // Mouse HID Interface
-    USB_Descriptor_Interface_t            HID1_MouseInterface;
-    USB_HID_Descriptor_HID_t              HID1_MouseHID;
-    USB_Descriptor_Endpoint_t             HID1_ReportINEndpoint;
+    USB_Descriptor_Interface_t            Mouse_Interface;
+    USB_HID_Descriptor_HID_t              Mouse_HID;
+    USB_Descriptor_Endpoint_t             Mouse_INEndpoint;
 
-    // Generic HID Interface
-    USB_Descriptor_Interface_t            HID2_GenericInterface;
-    USB_HID_Descriptor_HID_t              HID2_GenericHID;
-    USB_Descriptor_Endpoint_t             HID2_ReportINEndpoint;
-    USB_Descriptor_Endpoint_t             HID2_ReportOUTEndpoint;
+    // Console HID Interface
+    USB_Descriptor_Interface_t            Console_Interface;
+    USB_HID_Descriptor_HID_t              Console_HID;
+    USB_Descriptor_Endpoint_t             Console_INEndpoint;
+    USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
 } USB_Descriptor_Configuration_t;
 
 

@@ -111,7 +111,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
     HID_RI_END_COLLECTION(0),
 };
 
-const USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
 {
     HID_RI_USAGE_PAGE(16, 0xFF00), /* Vendor Page 0 */
     HID_RI_USAGE(8, 0x01), /* Vendor Usage 1 */
@@ -180,7 +180,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
         /*
          * Keyboard
          */
-    .HID0_KeyboardInterface =
+    .Keyboard_Interface =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -196,7 +196,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .InterfaceStrIndex      = NO_DESCRIPTOR
         },
 
-    .HID0_KeyboardHID =
+    .Keyboard_HID =
         {
             .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
@@ -207,7 +207,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .HIDReportLength        = sizeof(KeyboardReport)
         },
 
-    .HID0_ReportINEndpoint =
+    .Keyboard_INEndpoint =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -220,7 +220,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
     /*
      * Mouse
      */
-    .HID1_MouseInterface =
+    .Mouse_Interface =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -236,7 +236,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .InterfaceStrIndex      = NO_DESCRIPTOR
         },
 
-    .HID1_MouseHID =
+    .Mouse_HID =
         {
             .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
@@ -247,7 +247,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .HIDReportLength        = sizeof(MouseReport)
         },
 
-    .HID1_ReportINEndpoint =
+    .Mouse_INEndpoint =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -258,9 +258,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
         },
 
     /*
-     * Generic
+     * Console
      */
-    .HID2_GenericInterface =
+    .Console_Interface =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -276,7 +276,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .InterfaceStrIndex      = NO_DESCRIPTOR
         },
 
-    .HID2_GenericHID =
+    .Console_HID =
         {
             .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
@@ -284,10 +284,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .CountryCode            = 0x00,
             .TotalReportDescriptors = 1,
             .HIDReportType          = HID_DTYPE_Report,
-            .HIDReportLength        = sizeof(GenericReport)
+            .HIDReportLength        = sizeof(ConsoleReport)
         },
 
-    .HID2_ReportINEndpoint =
+    .Console_INEndpoint =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -297,7 +297,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .PollingIntervalMS      = 0x01
         },
 
-    .HID2_ReportOUTEndpoint =
+    .Console_OUTEndpoint =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -380,15 +380,15 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
         case HID_DTYPE_HID:
             switch (wIndex) {
             case KEYBOARD_INTERFACE:
-                Address = &ConfigurationDescriptor.HID0_KeyboardHID;
+                Address = &ConfigurationDescriptor.Keyboard_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
             case MOUSE_INTERFACE:
-                Address = &ConfigurationDescriptor.HID1_MouseHID;
+                Address = &ConfigurationDescriptor.Mouse_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
             case GENERIC_INTERFACE:
-                Address = &ConfigurationDescriptor.HID2_GenericHID;
+                Address = &ConfigurationDescriptor.Console_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
             }
@@ -404,8 +404,8 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Size    = sizeof(MouseReport);
                 break;
             case GENERIC_INTERFACE:
-                Address = &GenericReport;
-                Size    = sizeof(GenericReport);
+                Address = &ConsoleReport;
+                Size    = sizeof(ConsoleReport);
                 break;
             }
             break;

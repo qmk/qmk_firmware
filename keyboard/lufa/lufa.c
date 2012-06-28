@@ -68,7 +68,7 @@ static host_driver_t lufa_driver = {
 
 
 static void SetupHardware(void);
-static void Generic_HID_Task(void);
+static void Console_HID_Task(void);
 
 int main(void)
 {
@@ -93,7 +93,7 @@ int main(void)
     while (1) {
         keyboard_proc();
 
-        Generic_HID_Task();
+        Console_HID_Task();
         USB_USBTask();
     }
 }
@@ -110,7 +110,7 @@ void SetupHardware(void)
     USB_Init();
 }
 
-static void Generic_HID_Task(void)
+static void Console_HID_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -126,13 +126,13 @@ static void Generic_HID_Task(void)
 		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Create a temporary buffer to hold the read in report from the host */
-			uint8_t GenericData[GENERIC_REPORT_SIZE];
+			uint8_t ConsoleData[GENERIC_REPORT_SIZE];
 
-			/* Read Generic Report Data */
-			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData), NULL);
+			/* Read Console Report Data */
+			Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
 
-			/* Process Generic Report Data */
-			//ProcessGenericHIDReport(GenericData);
+			/* Process Console Report Data */
+			//ProcessConsoleHIDReport(ConsoleData);
 		}
 
 		/* Finalize the stream transfer to send the last packet */
@@ -175,13 +175,26 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 HID_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-    /* Setup Generic HID Report Endpoints */
+    /* Setup Console HID Report Endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                                 GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
 }
 
+/*
+Appendix G: HID Request Support Requirements
+
+The following table enumerates the requests that need to be supported by various types of HID class devices.
+
+Device type     GetReport   SetReport   GetIdle     SetIdle     GetProtocol SetProtocol
+------------------------------------------------------------------------------------------
+Boot Mouse      Required    Optional    Optional    Optional    Required    Required
+Non-Boot Mouse  Required    Optional    Optional    Optional    Optional    Optional
+Boot Keyboard   Required    Optional    Required    Required    Required    Required
+Non-Boot Keybrd Required    Optional    Required    Required    Optional    Optional
+Other Device    Required    Optional    Optional    Optional    Optional    Optional
+*/
 /** Event handler for the USB_ControlRequest event.
  *  This is fired before passing along unhandled control requests to the library for processing internally.
  */
@@ -288,7 +301,12 @@ static void send_mouse(report_mouse_t *report)
     if (Endpoint_IsReadWriteAllowed())
     {
         /* Write Mouse Report Data */
-        Endpoint_Write_Stream_LE(report, sizeof(report_mouse_t), NULL);
+        /* Mouse report data structure
+         * LUFA: { buttons, x, y }
+         * tmk:  { buttons, x, y, v, h }
+         */
+        //Endpoint_Write_Stream_LE((uint8_t *)report+1, 3, NULL);
+        Endpoint_Write_Stream_LE(report, 3, NULL);
 
         /* Finalize the stream transfer to send the last packet */
         Endpoint_ClearIN();
