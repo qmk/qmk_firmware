@@ -91,23 +91,48 @@ static void send_keyboard(report_keyboard_t *report)
 }
 
 
+typedef struct {
+    uint8_t report_id;
+    report_mouse_t report;
+} __attribute__ ((packed)) vusb_mouse_report_t;
+
 static void send_mouse(report_mouse_t *report)
 {
-    report->report_id = REPORT_ID_MOUSE;
+    vusb_mouse_report_t r = {
+        .report_id = REPORT_ID_MOUSE,
+        .report = *report
+    };
     if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)report, sizeof(*report));
+        usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
     }
 }
 
+/*
+typedef struct {
+    uint8_t report_id;
+    uint8_t data0;
+    uint8_t data1;
+} __attribute__ ((packed)) vusb_system_report_t;
+*/
+
 static void send_system(uint16_t data)
 {
+/*
     // Not need static?
     static uint8_t report[] = { REPORT_ID_SYSTEM, 0, 0 };
     report[1] = data&0xFF;
     report[2] = (data>>8)&0xFF;
+*/
+/*
+    vusb_system_report_t r = {
+        .report_id = REPORT_ID_SYSTEM,
+        .data0 = data&0xFF,
+        .data1 = (data>>8)&0xFF
+    };
     if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&report, sizeof(report));
+        usbSetInterrupt3((void *)&r, sizeof(vusb_system_report_t));
     }
+*/
 }
 
 static void send_consumer(uint16_t data)
