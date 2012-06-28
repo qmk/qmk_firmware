@@ -42,11 +42,15 @@
 #include "keyboard.h"
 #include "sendchar.h"
 #include "debug.h"
+
+#include "descriptor.h"
 #include "lufa.h"
 
 static uint8_t keyboard_led_stats = 0;
-report_keyboard_t keyboard_report_sent;
-report_mouse_t mouse_report_sent;
+
+// TODO: impl Control Request GET_REPORT
+static report_keyboard_t keyboard_report_sent;
+static report_mouse_t mouse_report_sent;
 
 /* Host driver */
 static uint8_t keyboard_leds(void);
@@ -63,6 +67,9 @@ static host_driver_t lufa_driver = {
 };
 
 
+static void SetupHardware(void);
+static void Generic_HID_Task(void);
+
 int main(void)
 {
     SetupHardware();
@@ -74,20 +81,23 @@ int main(void)
     debug_keyboard = true;
     debug_mouse = true;
 
-    _delay_ms(3000);
+/* TODO: can't print here
+    _delay_ms(5000);
+    USB_USBTask();
     print("abcdefg\n");
+    USB_USBTask();
+*/
 
     keyboard_init();
     host_set_driver(&lufa_driver);
     while (1) {
         keyboard_proc();
-        Keyboard_HID_Task();
+
         Generic_HID_Task();
         USB_USBTask();
     }
 }
 
-/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
@@ -100,6 +110,46 @@ void SetupHardware(void)
     USB_Init();
 }
 
+static void Generic_HID_Task(void)
+{
+	/* Device must be connected and configured for the task to run */
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	  return;
+
+        // TODO: impl receivechar()/recvchar()
+	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
+
+	/* Check to see if a packet has been sent from the host */
+	if (Endpoint_IsOUTReceived())
+	{
+		/* Check to see if the packet contains data */
+		if (Endpoint_IsReadWriteAllowed())
+		{
+			/* Create a temporary buffer to hold the read in report from the host */
+			uint8_t GenericData[GENERIC_REPORT_SIZE];
+
+			/* Read Generic Report Data */
+			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData), NULL);
+
+			/* Process Generic Report Data */
+			//ProcessGenericHIDReport(GenericData);
+		}
+
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearOUT();
+	}
+
+        /* IN packet */
+	Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
+        // send IN packet
+	if (Endpoint_IsINReady())
+            Endpoint_ClearIN();
+}
+
+
+/*******************************************************************************
+ * USB Events
+ ******************************************************************************/
 /** Event handler for the USB_Connect event. */
 void EVENT_USB_Device_Connect(void)
 {
@@ -120,18 +170,16 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     /* Setup Keyboard HID Report Endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 HID_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-                                                HID_EPSIZE, ENDPOINT_BANK_SINGLE);
 
     /* Setup Mouse HID Report Endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 HID_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-	/* Setup Generic HID Report Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-	                                            GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup Generic HID Report Endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                                GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
+                                                GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
 }
 
 /** Event handler for the USB_ControlRequest event.
@@ -152,15 +200,17 @@ void EVENT_USB_Device_ControlRequest(void)
 
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
-                case 1: // Keyboard
+                case KEYBOARD_INTERFACE:
+                    // TODO: test/check
                     ReportData = (uint8_t*)&keyboard_report_sent;
                     ReportSize = sizeof(keyboard_report_sent);
                     break;
-                case 2: // Mouse
+                case MOUSE_INTERFACE:
+                    // TODO: test/check
                     ReportData = (uint8_t*)&mouse_report_sent;
                     ReportSize = sizeof(mouse_report_sent);
                     break;
-                case 3: // Generic
+                case GENERIC_INTERFACE:
                     break;
                 }
 
@@ -184,13 +234,14 @@ void EVENT_USB_Device_ControlRequest(void)
 
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
-                case 1: // Keyboard
+                case KEYBOARD_INTERFACE:
+                    // TODO: test/check
                     /* Read in the LED report from the host */
                     keyboard_led_stats = Endpoint_Read_8();
                     break;
-                case 2: // Mouse
+                case MOUSE_INTERFACE:
                     break;
-                case 3: // Generic
+                case GENERIC_INTERFACE:
                     break;
                 }
 
@@ -200,64 +251,6 @@ void EVENT_USB_Device_ControlRequest(void)
 
             break;
     }
-}
-
-/** Keyboard task.
- *  This processes host LED status reports sent to the device via the keyboard OUT reporting endpoint.
- */
-void Keyboard_HID_Task(void)
-{
-	/* Device must be connected and configured for the task to run */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
-
-    /* Select the Keyboard LED Report Endpoint */
-    Endpoint_SelectEndpoint(KEYBOARD_OUT_EPNUM);
-
-    /* Check if Keyboard LED Endpoint Ready for Read/Write */
-    if (Endpoint_IsReadWriteAllowed())
-    {
-        /* Read in the LED report from the host */
-        keyboard_led_stats = Endpoint_Read_8();
-
-        /* Handshake the OUT Endpoint - clear endpoint and ready for next report */
-        Endpoint_ClearOUT();
-    }
-}
-
-void Generic_HID_Task(void)
-{
-	/* Device must be connected and configured for the task to run */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
-
-	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
-
-	/* Check to see if a packet has been sent from the host */
-	if (Endpoint_IsOUTReceived())
-	{
-		/* Check to see if the packet contains data */
-		if (Endpoint_IsReadWriteAllowed())
-		{
-			/* Create a temporary buffer to hold the read in report from the host */
-			uint8_t GenericData[GENERIC_REPORT_SIZE];
-
-			/* Read Generic Report Data */
-			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData), NULL);
-
-			/* Process Generic Report Data */
-			//TODO: ProcessGenericHIDReport(GenericData);
-		}
-
-		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearOUT();
-	}
-
-        /* IN packet */
-	Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
-        // send IN packet
-	if (Endpoint_IsINReady())
-            Endpoint_ClearIN();
 }
 
 /*******************************************************************************
@@ -332,7 +325,6 @@ int8_t sendchar(uint8_t c)
         }
         if (Endpoint_IsStalled())
             return -1;
-        uint16_t currFN = USB_Device_GetFrameNumber();
         if (prevFN != USB_Device_GetFrameNumber()) {
             if (!(timeout--))
                 return -1;

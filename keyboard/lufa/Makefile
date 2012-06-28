@@ -120,12 +120,12 @@ include $(LUFA_PATH)/LUFA/makefile
 
 
 # List C source files here. (C dependencies are automatically generated.)
-LSRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  $(LUFA_SRC_USB)                                             \
+LUFA_SRC = $(TARGET).c \
+	  descriptor.c \
+	  $(LUFA_SRC_USB) \
 	  $(LUFA_SRC_USBCLASS)
 
-SRC = $(subst $(LUFA_PATH)/LUFA/,,$(LSRC))
+SRC = $(subst $(LUFA_PATH)/LUFA/,,$(LUFA_SRC))
 SRC +=	keymap.c \
 	matrix.c \
 	led.c

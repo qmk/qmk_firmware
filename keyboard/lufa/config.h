@@ -21,10 +21,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* controller configuration */
 #include "controller_teensy.h"
 
+
+/* USB Device descriptor */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xBEE1
+#define DEVICE_VER      0x0101
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Macway mod(LUFA)
+
+
+/* message strings */
 #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod(LUFA)
 
 
