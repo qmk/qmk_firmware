@@ -51,9 +51,11 @@ typedef struct
     USB_Descriptor_Endpoint_t             Keyboard_INEndpoint;
 
     // Mouse HID Interface
+#ifdef MOUSE_ENABLE
     USB_Descriptor_Interface_t            Mouse_Interface;
     USB_HID_Descriptor_HID_t              Mouse_HID;
     USB_Descriptor_Endpoint_t             Mouse_INEndpoint;
+#endif
 
     // Console HID Interface
     USB_Descriptor_Interface_t            Console_Interface;
@@ -62,20 +64,35 @@ typedef struct
     USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
 
     // Extra HID Interface
+#ifdef EXTRAKEY_ENABLE
     USB_Descriptor_Interface_t            Extra_Interface;
     USB_HID_Descriptor_HID_t              Extra_HID;
     USB_Descriptor_Endpoint_t             Extra_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 
-/* nubmer of interfaces */
-#define TOTAL_INTERFACES            4
-
 /* index of interface */
 #define KEYBOARD_INTERFACE          0
-#define MOUSE_INTERFACE             1
-#define CONSOLE_INTERFACE           2
-#define EXTRA_INTERFACE             3
+
+#ifdef MOUSE_ENABLE
+#   define MOUSE_INTERFACE          (KEYBOARD_INTERFACE + 1)
+#else
+#   define MOUSE_INTERFACE          KEYBOARD_INTERFACE
+#endif 
+
+#ifdef EXTRAKEY_ENABLE
+#   define EXTRA_INTERFACE          (MOUSE_INTERFACE + 1)
+#else
+#   define EXTRA_INTERFACE          MOUSE_INTERFACE
+#endif 
+
+#define CONSOLE_INTERFACE           (EXTRA_INTERFACE + 1)
+
+
+/* nubmer of interfaces */
+#define TOTAL_INTERFACES            (CONSOLE_INTERFACE + 1)
+
 
 // Endopoint number and size
 #define KEYBOARD_IN_EPNUM           1
