@@ -50,7 +50,9 @@ static uint8_t keyboard_led_stats = 0;
 
 // TODO: impl Control Request GET_REPORT
 static report_keyboard_t keyboard_report_sent;
+#ifdef MOUSE_ENABLE
 static report_mouse_t mouse_report_sent;
+#endif
 
 /* Host driver */
 static uint8_t keyboard_leds(void);
@@ -171,19 +173,23 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
 
+#ifdef MOUSE_ENABLE
     /* Setup Mouse HID Report Endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
+
+#ifdef EXTRAKEY_ENABLE
+    /* Setup Extra HID Report Endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(EXTRA_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                                EXTRA_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 
     /* Setup Console HID Report Endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                                 CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
-
-    /* Setup Extra HID Report Endpoint */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(EXTRA_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                EXTRA_EPSIZE, ENDPOINT_BANK_SINGLE);
 }
 
 /*
@@ -222,14 +228,18 @@ void EVENT_USB_Device_ControlRequest(void)
                     ReportData = (uint8_t*)&keyboard_report_sent;
                     ReportSize = sizeof(keyboard_report_sent);
                     break;
+#ifdef MOUSE_ENABLE
                 case MOUSE_INTERFACE:
                     // TODO: test/check
                     ReportData = (uint8_t*)&mouse_report_sent;
                     ReportSize = sizeof(mouse_report_sent);
                     break;
-                case CONSOLE_INTERFACE:
-                    break;
+#endif
+#ifdef EXTRAKEY_ENABLE
                 case EXTRA_INTERFACE:
+                    break;
+#endif
+                case CONSOLE_INTERFACE:
                     break;
                 }
 
@@ -258,11 +268,15 @@ void EVENT_USB_Device_ControlRequest(void)
                     /* Read in the LED report from the host */
                     keyboard_led_stats = Endpoint_Read_8();
                     break;
+#ifdef MOUSE_ENABLE
                 case MOUSE_INTERFACE:
                     break;
-                case CONSOLE_INTERFACE:
-                    break;
+#endif
+#ifdef EXTRAKEY_ENABLE
                 case EXTRA_INTERFACE:
+                    break;
+#endif
+                case CONSOLE_INTERFACE:
                     break;
                 }
 
@@ -302,6 +316,7 @@ static void send_keyboard(report_keyboard_t *report)
 
 static void send_mouse(report_mouse_t *report)
 {
+#ifdef MOUSE_ENABLE
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
 
@@ -315,6 +330,7 @@ static void send_mouse(report_mouse_t *report)
         Endpoint_ClearIN();
     }
     mouse_report_sent = *report;
+#endif
 }
 
 typedef struct {

@@ -54,8 +54,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
         HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-        HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_REPORT_COUNT(8, 0x08),
+        HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x08),
@@ -69,11 +69,11 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x03),
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(8, 0x65),
         HID_RI_USAGE_PAGE(8, 0x07), /* Keyboard */
         HID_RI_USAGE_MINIMUM(8, 0x00), /* Reserved (no event indicated) */
-        HID_RI_USAGE_MAXIMUM(8, 0x65), /* Keyboard Application */
+        HID_RI_USAGE_MAXIMUM(8, 0xFF), /* Keyboard Application */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
         HID_RI_REPORT_COUNT(8, 0x06),
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
@@ -133,21 +133,22 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
     HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
     HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
     HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_USAGE(8, 0x02), /* Vendor Usage 2 */
+        HID_RI_USAGE(8, 0x75), /* Vendor Usage 0x75 */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
-        HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
+        HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-        HID_RI_USAGE(8, 0x03), /* Vendor Usage 3 */
+        HID_RI_USAGE(8, 0x76), /* Vendor Usage 0x76 */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
-        HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
+        HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
     HID_RI_END_COLLECTION(0),
 };
 
+#ifdef EXTRAKEY_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtraReport[] =
 {
     HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
@@ -176,6 +177,42 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtraReport[] =
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
     HID_RI_END_COLLECTION(0),
 };
+#endif
+
+#ifdef NKRO_ENABLE
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM NKROReport[] =
+{
+    HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+    HID_RI_USAGE(8, 0x06), /* Keyboard */
+    HID_RI_COLLECTION(8, 0x01), /* Application */
+        HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
+        HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
+        HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+        HID_RI_REPORT_COUNT(8, 0x08),
+        HID_RI_REPORT_SIZE(8, 0x01),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+
+        HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
+        HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
+        HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
+        HID_RI_REPORT_COUNT(8, 0x05),
+        HID_RI_REPORT_SIZE(8, 0x01),
+        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+        HID_RI_REPORT_COUNT(8, 0x01),
+        HID_RI_REPORT_SIZE(8, 0x03),
+        HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+
+        HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
+        HID_RI_USAGE_MINIMUM(8, 0x00), /* Keyboard 0 */
+        HID_RI_USAGE_MAXIMUM(8, NKRO_SIZE*8-1), /* Keyboard Right GUI */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+        HID_RI_REPORT_COUNT(8, NKRO_SIZE*8),
+        HID_RI_REPORT_SIZE(8, 0x01),
+};
+#endif
 
 /*******************************************************************************
  * Device Descriptors
@@ -265,6 +302,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
     /*
      * Mouse
      */
+#ifdef MOUSE_ENABLE
     .Mouse_Interface =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
@@ -301,6 +339,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .EndpointSize           = MOUSE_EPSIZE,
             .PollingIntervalMS      = 0x01
         },
+#endif
 
     /*
      * Console
@@ -355,6 +394,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
     /*
      * Extra
      */
+#ifdef EXTRAKEY_ENABLE
     .Extra_Interface =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
@@ -391,6 +431,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .EndpointSize           = EXTRA_EPSIZE,
             .PollingIntervalMS      = 0x01
         },
+#endif
 };
 
 
@@ -468,18 +509,22 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Address = &ConfigurationDescriptor.Keyboard_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
+#ifdef MOUSE_ENABLE
             case MOUSE_INTERFACE:
                 Address = &ConfigurationDescriptor.Mouse_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
+#endif
             case CONSOLE_INTERFACE:
                 Address = &ConfigurationDescriptor.Console_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
+#ifdef EXTRAKEY_ENABLE
             case EXTRA_INTERFACE:
                 Address = &ConfigurationDescriptor.Extra_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
+#endif
             }
             break;
         case HID_DTYPE_Report:
@@ -488,18 +533,22 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Address = &KeyboardReport;
                 Size    = sizeof(KeyboardReport);
                 break;
+#ifdef MOUSE_ENABLE
             case MOUSE_INTERFACE:
                 Address = &MouseReport;
                 Size    = sizeof(MouseReport);
                 break;
+#endif
             case CONSOLE_INTERFACE:
                 Address = &ConsoleReport;
                 Size    = sizeof(ConsoleReport);
                 break;
+#ifdef EXTRAKEY_ENABLE
             case EXTRA_INTERFACE:
                 Address = &ExtraReport;
                 Size    = sizeof(ExtraReport);
                 break;
+#endif
             }
             break;
     }
