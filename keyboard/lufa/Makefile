@@ -128,7 +128,8 @@ LUFA_SRC = $(TARGET).c \
 SRC = $(subst $(LUFA_PATH)/LUFA/,,$(LUFA_SRC))
 SRC +=	keymap.c \
 	matrix.c \
-	led.c
+	led.c \
+	pjrc/bootloader_teensy.c
 CONFIG_H = config.h
 
 
@@ -137,7 +138,7 @@ CONFIG_H = config.h
 #
 MOUSEKEY_ENABLE = yes	# Mouse keys
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
-#EXTRAKEY_ENABLE = yes	# Audio control and System control
+EXTRAKEY_ENABLE = yes	# Audio control and System control
 #NKRO_ENABLE = yes	# USB Nkey Rollover
 
 

@@ -49,6 +49,7 @@ void keyboard_proc(void)
     uint8_t fn_bits = 0;
 #ifdef EXTRAKEY_ENABLE
     uint16_t consumer_code = 0;
+    uint16_t system_code = 0;
 #endif
 
     matrix_scan();
@@ -89,22 +90,13 @@ void keyboard_proc(void)
 #ifdef HOST_PJRC
                 if (suspend && remote_wakeup) {
                     usb_remote_wakeup();
-                } else {
-                    host_system_send(SYSTEM_POWER_DOWN);
                 }
-#else
-                host_system_send(SYSTEM_POWER_DOWN);
 #endif
-                host_system_send(0);
-                _delay_ms(500);
+                system_code = SYSTEM_POWER_DOWN;
             } else if (code == KB_SYSTEM_SLEEP) {
-                host_system_send(SYSTEM_SLEEP);
-                host_system_send(0);
-                _delay_ms(500);
+                system_code = SYSTEM_SLEEP;
             } else if (code == KB_SYSTEM_WAKE) {
-                host_system_send(SYSTEM_WAKE_UP);
-                host_system_send(0);
-                _delay_ms(500);
+                system_code = SYSTEM_WAKE_UP;
             }
             // Consumer Page
             else if (code == KB_AUDIO_MUTE) {
@@ -173,6 +165,7 @@ void keyboard_proc(void)
         host_send_keyboard_report();
 #ifdef EXTRAKEY_ENABLE
         host_consumer_send(consumer_code);
+        host_system_send(system_code);
 #endif
 #ifdef DEBUG_LED
         // LED flash for debug

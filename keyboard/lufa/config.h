@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xBEE1
-#define DEVICE_VER      0x0101
+#define PRODUCT_ID      0xBEE6
+#define DEVICE_VER      0x0202
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Macway mod(LUFA)
 
