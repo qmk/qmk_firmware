@@ -1,22 +1,23 @@
-SRC +=	host.c \
-	keyboard.c \
-	command.c \
-	layer.c \
-	timer.c \
-	print.c \
-	bootloader.c \
-	util.c
+COMMON_DIR = common
+SRC +=	$(COMMON_DIR)/host.c \
+	$(COMMON_DIR)/keyboard.c \
+	$(COMMON_DIR)/command.c \
+	$(COMMON_DIR)/layer.c \
+	$(COMMON_DIR)/timer.c \
+	$(COMMON_DIR)/print.c \
+	$(COMMON_DIR)/bootloader.c \
+	$(COMMON_DIR)/util.c
 
 
 # Option modules
 ifdef MOUSEKEY_ENABLE
-    SRC += mousekey.c
+    SRC += $(COMMON_DIR)/mousekey.c
     OPT_DEFS += -DMOUSEKEY_ENABLE
 endif
 
 ifdef PS2_MOUSE_ENABLE
-    SRC += ps2.c \
-	   ps2_mouse.c
+    SRC += $(COMMON_DIR)/ps2.c \
+           $(COMMON_DIR)/ps2_mouse.c
     OPT_DEFS += -DPS2_MOUSE_ENABLE
 endif
 
