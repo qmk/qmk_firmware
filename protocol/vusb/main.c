@@ -62,11 +62,6 @@ int main(void)
 
     debug("initForUsbConnectivity()\n");
     initForUsbConnectivity();
-    int i;
-    while(--i){         /* To configured */
-        usbPoll();
-        _delay_ms(1);
-    }
 
     debug("main loop\n");
     while (1) {

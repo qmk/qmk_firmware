@@ -117,7 +117,7 @@ static void Console_HID_Task(void)
 	  return;
 
         // TODO: impl receivechar()/recvchar()
-	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
+	Endpoint_SelectEndpoint(CONSOLE_OUT_EPNUM);
 
 	/* Check to see if a packet has been sent from the host */
 	if (Endpoint_IsOUTReceived())
@@ -126,7 +126,7 @@ static void Console_HID_Task(void)
 		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Create a temporary buffer to hold the read in report from the host */
-			uint8_t ConsoleData[GENERIC_REPORT_SIZE];
+			uint8_t ConsoleData[CONSOLE_EPSIZE];
 
 			/* Read Console Report Data */
 			Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
@@ -140,7 +140,7 @@ static void Console_HID_Task(void)
 	}
 
         /* IN packet */
-	Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
+	Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
         // send IN packet
 	if (Endpoint_IsINReady())
             Endpoint_ClearIN();
@@ -169,17 +169,21 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
     /* Setup Keyboard HID Report Endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                HID_EPSIZE, ENDPOINT_BANK_SINGLE);
+                                                KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
 
     /* Setup Mouse HID Report Endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                HID_EPSIZE, ENDPOINT_BANK_SINGLE);
+                                                MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
 
     /* Setup Console HID Report Endpoints */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-                                                GENERIC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                                CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
+                                                CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+
+    /* Setup Extra HID Report Endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(EXTRA_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                                EXTRA_EPSIZE, ENDPOINT_BANK_SINGLE);
 }
 
 /*
@@ -223,7 +227,9 @@ void EVENT_USB_Device_ControlRequest(void)
                     ReportData = (uint8_t*)&mouse_report_sent;
                     ReportSize = sizeof(mouse_report_sent);
                     break;
-                case GENERIC_INTERFACE:
+                case CONSOLE_INTERFACE:
+                    break;
+                case EXTRA_INTERFACE:
                     break;
                 }
 
@@ -254,7 +260,9 @@ void EVENT_USB_Device_ControlRequest(void)
                     break;
                 case MOUSE_INTERFACE:
                     break;
-                case GENERIC_INTERFACE:
+                case CONSOLE_INTERFACE:
+                    break;
+                case EXTRA_INTERFACE:
                     break;
                 }
 
@@ -301,12 +309,7 @@ static void send_mouse(report_mouse_t *report)
     if (Endpoint_IsReadWriteAllowed())
     {
         /* Write Mouse Report Data */
-        /* Mouse report data structure
-         * LUFA: { buttons, x, y }
-         * tmk:  { buttons, x, y, v, h }
-         */
-        //Endpoint_Write_Stream_LE((uint8_t *)report+1, 3, NULL);
-        Endpoint_Write_Stream_LE(report, 3, NULL);
+        Endpoint_Write_Stream_LE(report, sizeof(report_mouse_t), NULL);
 
         /* Finalize the stream transfer to send the last packet */
         Endpoint_ClearIN();
@@ -314,12 +317,35 @@ static void send_mouse(report_mouse_t *report)
     mouse_report_sent = *report;
 }
 
+typedef struct {
+    uint8_t  report_id;
+    uint16_t usage;
+} __attribute__ ((packed)) report_extra_t;
+
 static void send_system(uint16_t data)
 {
+    Endpoint_SelectEndpoint(EXTRA_IN_EPNUM);
+    if (Endpoint_IsReadWriteAllowed()) {
+        report_extra_t r = {
+            .report_id = REPORT_ID_SYSTEM,
+            .usage = data
+        };
+        Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
+        Endpoint_ClearIN();
+    }
 }
 
 static void send_consumer(uint16_t data)
 {
+    Endpoint_SelectEndpoint(EXTRA_IN_EPNUM);
+    if (Endpoint_IsReadWriteAllowed()) {
+        report_extra_t r = {
+            .report_id = REPORT_ID_CONSUMER,
+            .usage = data
+        };
+        Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
+        Endpoint_ClearIN();
+    }
 }
 
 
@@ -331,7 +357,7 @@ int8_t sendchar(uint8_t c)
     if (USB_DeviceState != DEVICE_STATE_Configured)
       return -1;
 
-    Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
+    Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
 
     uint8_t timeout = 10;
     uint16_t prevFN = USB_Device_GetFrameNumber();

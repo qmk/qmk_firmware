@@ -107,32 +107,25 @@ static void send_mouse(report_mouse_t *report)
     }
 }
 
-/*
+
 typedef struct {
-    uint8_t report_id;
-    uint8_t data0;
-    uint8_t data1;
-} __attribute__ ((packed)) vusb_system_report_t;
-*/
+    uint8_t  report_id;
+    uint16_t usage;
+} __attribute__ ((packed)) report_extra_t;
 
 static void send_system(uint16_t data)
 {
-/*
-    // Not need static?
-    static uint8_t report[] = { REPORT_ID_SYSTEM, 0, 0 };
-    report[1] = data&0xFF;
-    report[2] = (data>>8)&0xFF;
-*/
-/*
-    vusb_system_report_t r = {
+    static uint16_t last_data = 0;
+    if (data == last_data) return;
+    last_data = data;
+
+    report_extra_t report = {
         .report_id = REPORT_ID_SYSTEM,
-        .data0 = data&0xFF,
-        .data1 = (data>>8)&0xFF
+        .usage = data
     };
     if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&r, sizeof(vusb_system_report_t));
+        usbSetInterrupt3((void *)&report, sizeof(report));
     }
-*/
 }
 
 static void send_consumer(uint16_t data)
@@ -141,10 +134,10 @@ static void send_consumer(uint16_t data)
     if (data == last_data) return;
     last_data = data;
 
-    // Not need static?
-    static uint8_t report[] = { REPORT_ID_CONSUMER, 0, 0 };
-    report[1] = data&0xFF;
-    report[2] = (data>>8)&0xFF;
+    report_extra_t report = {
+        .report_id = REPORT_ID_CONSUMER,
+        .usage = data
+    };
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
     }

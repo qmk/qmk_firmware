@@ -121,12 +121,12 @@ void mousekey_clear_report(void)
 static void mousekey_debug(void)
 {
     if (!debug_mouse) return;
-    print("mousekey[btn|x y v h]: ");
+    print("mousekey [btn|x y v h]rep: [");
     phex(report.buttons); print("|");
     phex(report.x); print(" ");
     phex(report.y); print(" ");
     phex(report.v); print(" ");
-    phex(report.h);
+    phex(report.h); print("]");
     phex(mousekey_repeat);
     print("\n");
 }

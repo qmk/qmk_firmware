@@ -60,22 +60,34 @@ typedef struct
     USB_HID_Descriptor_HID_t              Console_HID;
     USB_Descriptor_Endpoint_t             Console_INEndpoint;
     USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
+
+    // Extra HID Interface
+    USB_Descriptor_Interface_t            Extra_Interface;
+    USB_HID_Descriptor_HID_t              Extra_HID;
+    USB_Descriptor_Endpoint_t             Extra_INEndpoint;
 } USB_Descriptor_Configuration_t;
 
 
+/* nubmer of interfaces */
+#define TOTAL_INTERFACES            4
+
+/* index of interface */
 #define KEYBOARD_INTERFACE          0
 #define MOUSE_INTERFACE             1
-#define GENERIC_INTERFACE           2
+#define CONSOLE_INTERFACE           2
+#define EXTRA_INTERFACE             3
 
-// Endopoint number/size
+// Endopoint number and size
 #define KEYBOARD_IN_EPNUM           1
 #define MOUSE_IN_EPNUM              2
-#define GENERIC_IN_EPNUM            3
-#define GENERIC_OUT_EPNUM           4
+#define CONSOLE_IN_EPNUM            3
+#define CONSOLE_OUT_EPNUM           4
+#define EXTRA_IN_EPNUM              5
 
-#define HID_EPSIZE                  8
-#define GENERIC_EPSIZE              8
-#define GENERIC_REPORT_SIZE         8
+#define KEYBOARD_EPSIZE             8
+#define MOUSE_EPSIZE                8
+#define CONSOLE_EPSIZE              8
+#define EXTRA_EPSIZE                8
 
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
