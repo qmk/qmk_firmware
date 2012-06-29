@@ -38,12 +38,14 @@
 void BootloaderAPI_ErasePage(const uint32_t Address)
 {
 	boot_page_erase_safe(Address);
+	boot_spm_busy_wait();
 	boot_rww_enable();
 }
 
 void BootloaderAPI_WritePage(const uint32_t Address)
 {
 	boot_page_write_safe(Address);
+	boot_spm_busy_wait();
 	boot_rww_enable();
 }
 

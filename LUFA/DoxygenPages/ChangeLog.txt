@@ -78,6 +78,7 @@
   *   - Fixed incorrect DFU version number reported to the host in the  DFU bootloader descriptors (thanks to Georg Glock)
   *   - Fixed incorrect version hundredths value encoding in VERSION_BCD() macro (thanks to Georg Glock)
   *   - Fixed invalid configuration descriptor in the low level KeyboardMouse device demo (thanks to Jun Wako)
+  *   - Fixed CDC and DFU bootloaders API page erase and write function failures (thanks to Martin Lambert)
   *
   *  \section Sec_ChangeLog120219 Version 120219
   *  <b>New:</b>
