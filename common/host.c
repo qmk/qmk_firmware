@@ -168,13 +168,16 @@ void host_mouse_send(report_mouse_t *report)
 
 void host_system_send(uint16_t data)
 {
+    static uint16_t last_data = 0;
+    if (data == last_data) return;
+    last_data = data;
+
     if (!driver) return;
     (*driver->send_system)(data);
 }
 
 void host_consumer_send(uint16_t data)
 {
-    // TODO: this is needed?
     static uint16_t last_data = 0;
     if (data == last_data) return;
     last_data = data;

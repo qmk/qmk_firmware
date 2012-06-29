@@ -1,3 +1,10 @@
+/* 
+ * Copyright 2012 Jun Wako <wakojun@gmail.com>
+ * This file is based on:
+ *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
+ *     LUFA-120219/Demos/Device/Lowlevel/GenericHID
+ */
+
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2012.
@@ -32,7 +39,6 @@
 #ifndef _LUFA_H_
 #define _LUFA_H_
 
-	/* Includes: */
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/power.h>
@@ -41,5 +47,12 @@
 #include <string.h>
 #include <LUFA/Version.h>
 #include <LUFA/Drivers/USB/USB.h>
+
+
+/* extra report structure */
+typedef struct {
+    uint8_t  report_id;
+    uint16_t usage;
+} __attribute__ ((packed)) report_extra_t;
 
 #endif

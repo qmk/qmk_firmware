@@ -46,13 +46,12 @@
 #include "descriptor.h"
 #include "lufa.h"
 
+static uint8_t idle_duration = 0;
+static uint8_t protocol_report = 1;
 static uint8_t keyboard_led_stats = 0;
 
-// TODO: impl Control Request GET_REPORT
 static report_keyboard_t keyboard_report_sent;
-#ifdef MOUSE_ENABLE
-static report_mouse_t mouse_report_sent;
-#endif
+
 
 /* Host driver */
 static uint8_t keyboard_leds(void);
@@ -83,12 +82,8 @@ int main(void)
     debug_keyboard = true;
     debug_mouse = true;
 
-/* TODO: can't print here
-    _delay_ms(5000);
-    USB_USBTask();
-    print("abcdefg\n");
-    USB_USBTask();
-*/
+    // TODO: can't print here
+    debug("LUFA init\n");
 
     keyboard_init();
     host_set_driver(&lufa_driver);
@@ -228,19 +223,6 @@ void EVENT_USB_Device_ControlRequest(void)
                     ReportData = (uint8_t*)&keyboard_report_sent;
                     ReportSize = sizeof(keyboard_report_sent);
                     break;
-#ifdef MOUSE_ENABLE
-                case MOUSE_INTERFACE:
-                    // TODO: test/check
-                    ReportData = (uint8_t*)&mouse_report_sent;
-                    ReportSize = sizeof(mouse_report_sent);
-                    break;
-#endif
-#ifdef EXTRAKEY_ENABLE
-                case EXTRA_INTERFACE:
-                    break;
-#endif
-                case CONSOLE_INTERFACE:
-                    break;
                 }
 
                 /* Write the report data to the control endpoint */
@@ -252,35 +234,65 @@ void EVENT_USB_Device_ControlRequest(void)
         case HID_REQ_SetReport:
             if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
             {
-                Endpoint_ClearSETUP();
-
-                /* Wait until the LED report has been sent by the host */
-                while (!(Endpoint_IsOUTReceived()))
-                {
-                    if (USB_DeviceState == DEVICE_STATE_Unattached)
-                      return;
-                }
 
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
                 case KEYBOARD_INTERFACE:
-                    // TODO: test/check
-                    /* Read in the LED report from the host */
+                    Endpoint_ClearSETUP();
+
+                    while (!(Endpoint_IsOUTReceived())) {
+                        if (USB_DeviceState == DEVICE_STATE_Unattached)
+                          return;
+                    }
                     keyboard_led_stats = Endpoint_Read_8();
-                    break;
-#ifdef MOUSE_ENABLE
-                case MOUSE_INTERFACE:
-                    break;
-#endif
-#ifdef EXTRAKEY_ENABLE
-                case EXTRA_INTERFACE:
-                    break;
-#endif
-                case CONSOLE_INTERFACE:
+
+                    Endpoint_ClearOUT();
+                    Endpoint_ClearStatusStage();
                     break;
                 }
 
-                Endpoint_ClearOUT();
+            }
+
+            break;
+
+        case HID_REQ_GetProtocol:
+            if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+            {
+                Endpoint_ClearSETUP();
+                while (!(Endpoint_IsINReady()));
+                Endpoint_Write_8(protocol_report);
+                Endpoint_ClearIN();
+                Endpoint_ClearStatusStage();
+            }
+
+            break;
+        case HID_REQ_SetProtocol:
+            if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+            {
+                Endpoint_ClearSETUP();
+                Endpoint_ClearStatusStage();
+
+                protocol_report = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
+            }
+
+            break;
+        case HID_REQ_SetIdle:
+            if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+            {
+                Endpoint_ClearSETUP();
+                Endpoint_ClearStatusStage();
+
+                idle_duration = ((USB_ControlRequest.wValue & 0xFF00) >> 8);
+            }
+
+            break;
+        case HID_REQ_GetIdle:
+            if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+            {
+                Endpoint_ClearSETUP();
+                while (!(Endpoint_IsINReady()));
+                Endpoint_Write_8(idle_duration);
+                Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
             }
 
@@ -329,23 +341,17 @@ static void send_mouse(report_mouse_t *report)
         /* Finalize the stream transfer to send the last packet */
         Endpoint_ClearIN();
     }
-    mouse_report_sent = *report;
 #endif
 }
 
-typedef struct {
-    uint8_t  report_id;
-    uint16_t usage;
-} __attribute__ ((packed)) report_extra_t;
-
 static void send_system(uint16_t data)
 {
+    report_extra_t r = {
+        .report_id = REPORT_ID_SYSTEM,
+        .usage = data
+    };
     Endpoint_SelectEndpoint(EXTRA_IN_EPNUM);
     if (Endpoint_IsReadWriteAllowed()) {
-        report_extra_t r = {
-            .report_id = REPORT_ID_SYSTEM,
-            .usage = data
-        };
         Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
         Endpoint_ClearIN();
     }
@@ -353,12 +359,12 @@ static void send_system(uint16_t data)
 
 static void send_consumer(uint16_t data)
 {
+    report_extra_t r = {
+        .report_id = REPORT_ID_CONSUMER,
+        .usage = data
+    };
     Endpoint_SelectEndpoint(EXTRA_IN_EPNUM);
     if (Endpoint_IsReadWriteAllowed()) {
-        report_extra_t r = {
-            .report_id = REPORT_ID_CONSUMER,
-            .usage = data
-        };
         Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
         Endpoint_ClearIN();
     }
