@@ -1,3 +1,10 @@
+/* 
+ * Copyright 2012 Jun Wako <wakojun@gmail.com>
+ * This file is based on:
+ *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
+ *     LUFA-120219/Demos/Device/Lowlevel/GenericHID
+ */
+
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2012.

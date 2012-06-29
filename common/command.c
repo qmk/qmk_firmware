@@ -138,6 +138,7 @@ static uint8_t command_common(void)
             }
             break;
         case KB_S:
+            print("host_keyboard_leds:"); phex(host_keyboard_leds()); print("\n");
 #ifdef HOST_PJRC
             print("UDCON: "); phex(UDCON); print("\n");
             print("UDIEN: "); phex(UDIEN); print("\n");
