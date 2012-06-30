@@ -13,8 +13,7 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	main.c \
-	keymap_122.c \
+SRC =	keymap_122.c \
 	matrix.c \
 	led.c \
 	ps2.c
@@ -50,6 +49,10 @@ F_CPU = 16000000
 #---------------- Programming Options --------------------------
 PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
+
+# Search Path
+VPATH += $(TARGET_DIR)
+VPATH += $(TOP_DIR)
 
 
 include $(TOP_DIR)/protocol/pjrc.mk

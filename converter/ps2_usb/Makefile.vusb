@@ -13,8 +13,7 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	main.c \
-	keymap.c \
+SRC =	keymap.c \
 	matrix.c \
 	led.c \
 	ps2_usart.c
@@ -84,6 +83,18 @@ AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
 
 PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
+
+# Boot Section Size in bytes
+#   Teensy halfKay   512
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+#   USBasp           2048
+OPT_DEFS += -DBOOT_SIZE=2048
+
+
+# Search Path
+VPATH += $(TARGET_DIR)
+VPATH += $(TOP_DIR)
 
 
 include $(TOP_DIR)/protocol/vusb.mk
