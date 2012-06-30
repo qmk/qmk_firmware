@@ -21,11 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* controller configuration */
 #include "controller_teensy.h"
 
+
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCAFE
+#define PRODUCT_ID      0xCAFF
 #define DEVICE_VER      0x0101
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         HHKB mod
+
+
 #define DESCRIPTION     t.m.k. keyboard firmware for HHKB mod
 
 

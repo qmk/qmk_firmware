@@ -48,8 +48,7 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	protocol/pjrc/main.c \
-	keymap.c \
+SRC =	keymap.c \
 	matrix.c \
 	led.c
 

@@ -2,7 +2,8 @@ PJRC_DIR = protocol/pjrc
 
 OPT_DEFS += -DHOST_PJRC
 
-SRC +=	$(PJRC_DIR)/pjrc.c \
+SRC +=	$(PJRC_DIR)/main.c \
+	$(PJRC_DIR)/pjrc.c \
 	$(PJRC_DIR)/usb_keyboard.c \
 	$(PJRC_DIR)/usb_debug.c \
 	$(PJRC_DIR)/usb.c

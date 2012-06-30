@@ -9,6 +9,7 @@
  * http://www.fourwalledcubicle.com/files/LUFA/Doc/120219/html/_page__software_bootloader_start.html
  */
 
+// TODO: support usbasp
 /* Boot Section Size in bytes
  * Teensy halfKay   512
  * Atmel DFU loader 4096
