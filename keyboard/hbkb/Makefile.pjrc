@@ -1,5 +1,5 @@
 # Target file name (without extension).
-TARGET = macway
+TARGET = hbkb
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -43,7 +43,10 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control
 
 
 #---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+#PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+PROGRAM_CMD = /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) erase && \
+	      /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) flash $(TARGET).hex && \
+	      /opt/dfu-programmer-0.5.2/bin/dfu-programmer $(MCU) start
 
 
 

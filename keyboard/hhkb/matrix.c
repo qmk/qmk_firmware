@@ -68,8 +68,8 @@ static bool matrix_has_ghost_in_row(uint8_t row);
 // key:     on: 0/off: 1
 // prev:    unknown: output previous key state(negated)?
 
-#ifdef HOST_PJRC
-// Ports for Teensy
+#if defined(__AVR_AT90USB1286__)
+// Ports for Teensy++
 // row:     PB0-2
 // col:     PB3-5,6
 // key:     PE6(pull-uped)
@@ -90,7 +90,8 @@ static bool matrix_has_ghost_in_row(uint8_t row);
 #define KEY_PREV_OFF()          (PORTE &= ~(1<<7))
 #define KEY_POWER_ON()
 #define KEY_POWER_OFF()
-#else
+
+#elif defined(__AVR_ATmega328P__)
 // Ports for V-USB
 // key:     PB0(pull-uped)
 // prev:    PB1
@@ -126,6 +127,9 @@ static bool matrix_has_ghost_in_row(uint8_t row);
     DDRC  &= ~0x0F;                     \
     PORTC &= ~0x0F;                     \
 } while (0)
+
+#else
+#   error "define code for matrix scan"
 #endif
 
 
