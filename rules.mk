@@ -25,8 +25,23 @@
 #
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
-# make program = Download the hex file to the device, using avrdude.
-#                Please customize the avrdude settings below first!
+# make program = Download the hex file to the device.
+#                Please customize your programmer settings(PROGRAM_CMD)
+#
+# make teensy = Download the hex file to the device, using teensy_loader_cli.
+#               (must have teensy_loader_cli installed).
+#
+# make dfu = Download the hex file to the device, using dfu-programmer (must
+#            have dfu-programmer installed).
+#
+# make flip = Download the hex file to the device, using Atmel FLIP (must
+#             have Atmel FLIP installed).
+#
+# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
+#               (must have dfu-programmer installed).
+#
+# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
+#                (must have Atmel FLIP installed).
 #
 # make debug = Start either simulavr or avarice as specified for debugging, 
 #              with avr-gdb or avr-insight as the front end for debugging.
@@ -109,8 +124,10 @@ CFLAGS += -O$(OPT)
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
+CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
+CFLAGS += -fno-strict-aliasing
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 #CFLAGS += -mshort-calls
@@ -230,7 +247,7 @@ EXTMEMOPTS =
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
-#LDFLAGS += -Wl,--relax
+LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
@@ -387,6 +404,34 @@ gccversion :
 program: $(TARGET).hex $(TARGET).eep
 	$(PROGRAM_CMD)
 
+teensy: $(TARGET).hex
+	teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+
+flip: $(TARGET).hex
+	batchisp -hardware usb -device $(MCU) -operation erase f
+	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+
+dfu: $(TARGET).hex
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash $(TARGET).hex
+	dfu-programmer $(MCU) reset
+	
+dfu-start:
+	dfu-programmer $(MCU) reset
+	dfu-programmer $(MCU) start
+
+flip-ee: $(TARGET).hex $(TARGET).eep
+	$(COPY) $(TARGET).eep $(TARGET)eep.hex
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(REMOVE) $(TARGET)eep.hex
+
+dfu-ee: $(TARGET).hex $(TARGET).eep
+	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
+	dfu-programmer $(MCU) reset
+
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set 
@@ -488,6 +533,7 @@ extcoff: $(TARGET).elf
 # Compile: create object files from C source files.
 $(OBJDIR)/%.o : %.c
 	@echo
+	mkdir -p $(@D)
 	@echo $(MSG_COMPILING) $<
 	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
 
@@ -538,7 +584,11 @@ clean_list :
 	$(REMOVE) $(OBJ:.o=.s)
 	$(REMOVE) $(OBJ:.o=.i)
 	$(REMOVE) -r .dep
-	$(REMOVEDIR) $(OBJDIR)
+	$(REMOVE) -r $(OBJDIR)
+
+show_path:
+	@echo VPATH=$(VPATH)
+	@echo SRC=$(SRC)
 
 
 # Create object files directory
@@ -552,5 +602,5 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
-clean clean_list program debug gdb-config
-
+clean clean_list debug gdb-config show_path \
+program teensy dfu flip dfu-ee flip-ee dfu-start

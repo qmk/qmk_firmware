@@ -90,10 +90,15 @@ int main(void)
             }
         }
 #endif
-        if (!suspended)
+        if (!suspended) {
             usbPoll();
-        keyboard_proc();
-        if (!suspended)
+
+            // TODO: configuration process is incosistent. it sometime fails.
+            // To prevent failing to configure NOT scan keyboard during configuration
+            if (usbConfiguration && usbInterruptIsReady()) {
+                keyboard_proc();
+            }
             vusb_transfer_keyboard();
+        }
     }
 }

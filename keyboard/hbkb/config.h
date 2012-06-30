@@ -24,7 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xBB00
 #define MANUFACTURER    t.m.k.
+#define DEVICE_VER      0x0100
 #define PRODUCT         Happy Buckling Keyboard
+
+
 #define DESCRIPTION     mod version of IBM Model M keyboard
 
 
