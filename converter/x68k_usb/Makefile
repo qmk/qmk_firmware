@@ -13,8 +13,7 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	main.c \
-	keymap.c \
+SRC =	keymap.c \
 	matrix.c \
 	led.c \
 	x68k.c
@@ -79,6 +78,10 @@ AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
 #PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 PROGRAM_CMD = dfu-programmer atmega32u4 flash $(TARGET).hex
 
+
+# Search Path
+VPATH += $(TARGET_DIR)
+VPATH += $(TOP_DIR)
 
 
 include $(TOP_DIR)/protocol/pjrc.mk

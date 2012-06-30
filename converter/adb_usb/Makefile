@@ -8,8 +8,7 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	main.c \
-	keymap.c \
+SRC =	keymap.c \
 	matrix.c \
 	led.c \
 	adb.c
@@ -42,16 +41,11 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control
 #NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
-
-#---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
-
-
+# Search Path
+VPATH += $(TARGET_DIR)
+VPATH += $(TOP_DIR)
 
 include $(TOP_DIR)/protocol/pjrc.mk
 include $(TOP_DIR)/protocol.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
-
-dfu: PROGRAM_CMD = dfu-programmer atmega32u4 flash $(TARGET).hex
-dfu: program
