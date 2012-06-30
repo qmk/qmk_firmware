@@ -5,8 +5,7 @@ OPT_DEFS += -DHOST_PJRC
 SRC +=	$(PJRC_DIR)/pjrc.c \
 	$(PJRC_DIR)/usb_keyboard.c \
 	$(PJRC_DIR)/usb_debug.c \
-	$(PJRC_DIR)/usb.c \
-	$(PJRC_DIR)/bootloader_teensy.c
+	$(PJRC_DIR)/usb.c
 
 # Option modules
 ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
