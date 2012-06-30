@@ -1,10 +1,12 @@
+VUSB_DIR = protocol/vusb
+
 OPT_DEFS += -DHOST_VUSB
 
-SRC +=	vusb.c \
-	usbdrv.c \
-	usbdrvasm.S \
-	oddebug.c \
-	bootloader_usbasp.c \
+SRC +=	$(VUSB_DIR)/main.c \
+	$(VUSB_DIR)/vusb.c \
+	$(VUSB_DIR)/usbdrv/usbdrv.c \
+	$(VUSB_DIR)/usbdrv/usbdrvasm.S \
+	$(VUSB_DIR)/usbdrv/oddebug.c
 
 
 ifdef NO_UART
