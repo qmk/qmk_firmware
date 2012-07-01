@@ -70,7 +70,7 @@
 #define _XMEGA_CLOCK_MANAGEMENT_H_
 
 	/* Includes: */
-		#include <LUFA/Common/Common.h>
+		#include "../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

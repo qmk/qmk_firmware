@@ -70,10 +70,10 @@
 
 	/* Includes: */
 		#if (ARCH == ARCH_UC3)
-			#include <LUFA/Platform/UC3/ClockManagement.h>
-			#include <LUFA/Platform/UC3/InterruptManagement.h>
+			#include "UC3/ClockManagement.h"
+			#include "UC3/InterruptManagement.h"
 		#elif (ARCH == ARCH_XMEGA)
-			#include <LUFA/Platform/XMEGA/ClockManagement.h>
+			#include "XMEGA/ClockManagement.h"
 		#endif
 
 #endif
