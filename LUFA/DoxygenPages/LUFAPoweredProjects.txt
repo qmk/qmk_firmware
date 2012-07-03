@@ -99,6 +99,7 @@
  *  \li SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
  *  \li SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  \li Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
+ *  \li SNES custom FLASH ROM: http://electrifiedfoolingmachine.co/?page_id=633
  *  \li Smartcard Detective: https://code.google.com/p/smartcarddetective/
  *  \li SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
  *  \li Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
@@ -129,6 +130,7 @@
  *  \li Arduino Uno, the official Arduino board: http://www.arduino.cc
  *  \li ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
  *  \li AsTeRICS assistive technologies project, HID actuator: http://www.asterics.eu
+ *  \li Ceberus, a MadCatz Xbox 360 arcade stick modifier: http://www.phreakmods.com/products/cerberus
  *  \li CFFA3000, a CompactFlash interface for the Apple II: http://www.dreher.net/CFforAppleII
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
@@ -144,6 +146,7 @@
  *  \li RFI21.1EU UHF RFID reader: http://www.metra.cz/rfid/uhf-rfid-ctecky/rfi21-1eu-uhf-rfid-ctecka.htm
  *  \li SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
  *  \li USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
+ *  \li UDS18B20 USB Temperature sensor: http://toughlog.org/uds18b20/
  *  \li VMeter, a USB MIDI touch strip controller: http://www.vmeter.net/
  *  \li XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
  *  \li Zeptoprog, a multifunction AVR programmer: http://www.mattairtech.com/index.php/featured/zeptoprog.html
