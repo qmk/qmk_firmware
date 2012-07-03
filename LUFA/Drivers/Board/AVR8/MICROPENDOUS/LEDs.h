@@ -145,13 +145,13 @@
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				_BOARD_LED_PORT = ((PORTF & ~LEDS_ALL_LEDS) | LEDMask);
+				_BOARD_LED_PORT = ((_BOARD_LED_PORT & ~LEDS_ALL_LEDS) | LEDMask);
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				_BOARD_LED_PORT = ((PORTF & ~LEDMask) | ActiveMask);
+				_BOARD_LED_PORT = ((_BOARD_LED_PORT & ~LEDMask) | ActiveMask);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
