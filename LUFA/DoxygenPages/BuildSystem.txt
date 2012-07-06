@@ -181,11 +181,11 @@
  *   <tr>
  *    <td><tt>OBJDIR</tt></td>
  *    <td>Directory to place the generated object and dependency files. If set to "." the same folder as the source file will be used.
- *        \note When this option is enabled, all source filenames must be unique.</td>
+ *        \note When this option is enabled, all source filenames <b>must</b> be unique.</td>
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_BUILD_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_BUILD_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -264,7 +264,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_CORE_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_CORE_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -339,7 +339,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_ATPROGRAM_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_ATPROGRAM_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -415,7 +415,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_AVRDUDE_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_AVRDUDE_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -507,7 +507,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_CPPCHECK_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_CPPCHECK_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -584,7 +584,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_DFU_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_DFU_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -653,7 +653,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_DOXYGEN_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_DOXYGEN_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -722,7 +722,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_HID_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_HID_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
@@ -783,7 +783,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_BuildModule_SOURCES_ProvideVariables Module Provided Variables
+ *  \section SSec_BuildModule_SOURCES_ProvidedVariables Module Provided Variables
  *
  *  <table>
  *   <tr>
