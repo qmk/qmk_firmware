@@ -69,7 +69,7 @@
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
 
 		/** Magic bootloader key to unlock forced application start mode. */
-		#define MAGIC_BOOT_KEY            0xDC42CACA
+		#define MAGIC_BOOT_KEY               0xDC42
 		
 	/* Type Defines: */
 		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */

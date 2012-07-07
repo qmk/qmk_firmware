@@ -62,7 +62,7 @@
 		#define BOOTLOADER_VERSION_REV   0
 		
 		/** Magic bootloader key to unlock forced application start mode. */
-		#define MAGIC_BOOT_KEY            0xDC42CACA
+		#define MAGIC_BOOT_KEY            0xDC42
 
 		/** Complete bootloader version number expressed as a packed byte, constructed from the
 		 *  two individual bootloader version macros.

@@ -97,7 +97,7 @@ static uint16_t EndAddr = 0x0000;
  *  low when the application attempts to start via a watchdog reset, the bootloader will re-start. If set to the value
  *  \ref MAGIC_BOOT_KEY the special init function \ref Application_Jump_Check() will force the application to start.
  */
-uint32_t MagicBootKey ATTR_NO_INIT;
+uint16_t MagicBootKey ATTR_NO_INIT;
 
 
 /** Special startup routine to check if the bootloader was started via a watchdog reset, and if the magic application
