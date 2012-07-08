@@ -72,7 +72,7 @@ hid-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_OBJCPY_CMD) Converting \"$<\" to a binary file \"InputEEData.bin\"
 	avr-objcopy -I ihex -O binary $< $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/InputEEData.bin
 	@echo $(MSG_MAKE_CMD) Making EEPROM loader application for \"$<\"
-	make -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) hid clean
+	make -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) clean hid
 
 hid-teensy: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_HID_BOOTLOADER_CMD) Programming FLASH with teensy_loader_cli using \"$<\"
@@ -82,7 +82,7 @@ hid-teensy-ee: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_OBJCPY_CMD) Converting \"$<\" to a binary file \"InputEEData.bin\"
 	avr-objcopy -I ihex -O binary $< $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/InputEEData.bin
 	@echo $(MSG_MAKE_CMD) Making EEPROM loader application for \"$<\"
-	make -s -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) hid-teensy clean
+	make -s -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) clean hid-teensy
 	
 # Phony build targets for this module
 .PHONY: hid hid-ee hid-teensy hid-teensy-ee
