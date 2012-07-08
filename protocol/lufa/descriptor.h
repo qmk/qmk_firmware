@@ -110,7 +110,7 @@ typedef struct
 
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
-#define CONSOLE_EPSIZE              8
+#define CONSOLE_EPSIZE              32
 #define EXTRA_EPSIZE                8
 
 

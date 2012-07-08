@@ -69,7 +69,7 @@ static host_driver_t lufa_driver = {
 
 
 static void SetupHardware(void);
-static void Console_HID_Task(void);
+static void Console_Task(void);
 
 int main(void)
 {
@@ -90,8 +90,9 @@ int main(void)
     while (1) {
         keyboard_proc();
 
-        Console_HID_Task();
+#if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
+#endif
     }
 }
 
@@ -105,42 +106,52 @@ void SetupHardware(void)
     clock_prescale_set(clock_div_1);
 
     USB_Init();
+
+    // for Console_Task
+    USB_Device_EnableSOFEvents();
 }
 
-static void Console_HID_Task(void)
+static void Console_Task(void)
 {
-	/* Device must be connected and configured for the task to run */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
+    /* Device must be connected and configured for the task to run */
+    if (USB_DeviceState != DEVICE_STATE_Configured)
+      return;
 
-        // TODO: impl receivechar()/recvchar()
-	Endpoint_SelectEndpoint(CONSOLE_OUT_EPNUM);
+    uint8_t ep = Endpoint_GetCurrentEndpoint();
 
-	/* Check to see if a packet has been sent from the host */
-	if (Endpoint_IsOUTReceived())
-	{
-		/* Check to see if the packet contains data */
-		if (Endpoint_IsReadWriteAllowed())
-		{
-			/* Create a temporary buffer to hold the read in report from the host */
-			uint8_t ConsoleData[CONSOLE_EPSIZE];
+#if 0
+    // TODO: impl receivechar()/recvchar()
+    Endpoint_SelectEndpoint(CONSOLE_OUT_EPNUM);
 
-			/* Read Console Report Data */
-			Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
+    /* Check to see if a packet has been sent from the host */
+    if (Endpoint_IsOUTReceived())
+    {
+        /* Check to see if the packet contains data */
+        if (Endpoint_IsReadWriteAllowed())
+        {
+            /* Create a temporary buffer to hold the read in report from the host */
+            uint8_t ConsoleData[CONSOLE_EPSIZE];
+ 
+            /* Read Console Report Data */
+            Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
+ 
+            /* Process Console Report Data */
+            //ProcessConsoleHIDReport(ConsoleData);
+        }
 
-			/* Process Console Report Data */
-			//ProcessConsoleHIDReport(ConsoleData);
-		}
+        /* Finalize the stream transfer to send the last packet */
+        Endpoint_ClearOUT();
+    }
+#endif
 
-		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearOUT();
-	}
+    /* IN packet */
+    Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
+    // flash senchar packet
+    if (Endpoint_IsINReady()) {
+        Endpoint_ClearIN();
+    }
 
-        /* IN packet */
-	Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
-        // send IN packet
-	if (Endpoint_IsINReady())
-            Endpoint_ClearIN();
+    Endpoint_SelectEndpoint(ep);
 }
 
 
@@ -155,6 +166,16 @@ void EVENT_USB_Device_Connect(void)
 /** Event handler for the USB_Disconnect event. */
 void EVENT_USB_Device_Disconnect(void)
 {
+}
+
+#define CONSOLE_TASK_INTERVAL 50
+void EVENT_USB_Device_StartOfFrame(void)
+{
+    static uint8_t interval;
+    if (++interval == CONSOLE_TASK_INTERVAL) {
+        Console_Task();
+        interval = 0;
+    }
 }
 
 /** Event handler for the USB_ConfigurationChanged event.
@@ -182,7 +203,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
     /* Setup Console HID Report Endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+                                                CONSOLE_EPSIZE, ENDPOINT_BANK_DOUBLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                                 CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
 }
@@ -374,6 +395,7 @@ static void send_consumer(uint16_t data)
 /*******************************************************************************
  * sendchar
  ******************************************************************************/
+#define SEND_TIMEOUT 10
 int8_t sendchar(uint8_t c)
 {
     if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -381,9 +403,9 @@ int8_t sendchar(uint8_t c)
 
     Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
 
-    uint8_t timeout = 10;
+    uint8_t timeout = SEND_TIMEOUT;
     uint16_t prevFN = USB_Device_GetFrameNumber();
-    while (!Endpoint_IsINReady()) {
+    while (!Endpoint_IsReadWriteAllowed()) {
         switch (USB_DeviceState) {
         case DEVICE_STATE_Unattached:
         case DEVICE_STATE_Suspended:
@@ -400,7 +422,7 @@ int8_t sendchar(uint8_t c)
 
     Endpoint_Write_8(c);
 
-    // send when packet is full
+    // send when bank is full
     if (!Endpoint_IsReadWriteAllowed())
         Endpoint_ClearIN();
 
