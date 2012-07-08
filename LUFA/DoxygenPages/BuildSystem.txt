@@ -183,6 +183,10 @@
  *    <td>Directory to place the generated object and dependency files. If set to "." the same folder as the source file will be used.
  *        \note When this option is enabled, all source filenames <b>must</b> be unique.</td>
  *   </tr>
+ *   <tr>
+ *    <td><tt>OBJECT_FILES</tt></td>
+ *    <td>List of additional object files that should be linked into the resulting binary.</td>
+ *   </tr>
  *  </table>
  *
  *  \section SSec_BuildModule_BUILD_ProvidedVariables Module Provided Variables
@@ -696,8 +700,20 @@
  *    <td>Program the device FLASH memory with the application's executable data using <tt>hid_bootloader_cli</tt>.</td>
  *   </tr>
  *   <tr>
+ *    <td><tt>hid-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data using <tt>hid_bootloader_cli</tt> and
+ *        a temporary AVR application programmed into the target's FLASH.
+ *        \note This will erase the currently loaded application in the target.</td>
+ *   </tr>
+ *   <tr>
  *    <td><tt>hid-teensy</tt></td>
  *    <td>Program the device FLASH memory with the application's executable data using <tt>teensy_loader_cli</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>hid-teensy-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data using <tt>teensy_loader_cli</tt> and
+ *        a temporary AVR application programmed into the target's FLASH.
+ *        \note This will erase the currently loaded application in the target.</td>
  *   </tr>
  *  </table>
  *

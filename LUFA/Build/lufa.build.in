@@ -9,7 +9,7 @@
 LUFA_BUILD_MODULES         += BUILD
 LUFA_BUILD_TARGETS         += size check-source symbol-sizes all lib elf hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
-LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR
+LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES
 LUFA_BUILD_PROVIDED_VARS   += 
 LUFA_BUILD_PROVIDED_MACROS += 
 
@@ -63,6 +63,7 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    OBJDIR                    - Directory for the output object and dependency
 #                                files; if equal to ".", the output files will
 #                                be generated in the same folder as the sources
+#    OBJECT_FILES              - Extra object files to link in to the binaries
 #
 # PROVIDED VARIABLES:
 #
@@ -91,6 +92,7 @@ CPP_FLAGS       ?=
 ASM_FLAGS       ?=
 CC_FLAGS        ?=
 OBJDIR          ?= .
+OBJECT_FILES    ?=
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
@@ -141,7 +143,7 @@ ifneq ($(UNKNOWN_SOURCE),)
 endif
 
 # Convert input source filenames into a list of required output object files
-OBJECT_FILES := $(addsuffix .o, $(basename $(SRC)))
+OBJECT_FILES += $(addsuffix .o, $(basename $(SRC)))
 ifneq ($(OBJDIR),.)
    $(shell mkdir $(OBJDIR) 2>&1 > /dev/null)   
    VPATH           += $(dir $(SRC))
