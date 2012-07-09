@@ -145,7 +145,7 @@ endif
 # Convert input source filenames into a list of required output object files
 OBJECT_FILES += $(addsuffix .o, $(basename $(SRC)))
 ifneq ($(OBJDIR),.)
-   $(shell mkdir $(OBJDIR) 2>&1 > /dev/null)   
+   $(shell mkdir $(OBJDIR) 2> /dev/null)   
    VPATH           += $(dir $(SRC))
    OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
 endif
@@ -228,7 +228,7 @@ clean: mostlyclean
 
 all: build_begin check-source gcc-version elf hex lss sym size build_end
 
-lib: $(TARGET).a
+lib: lib$(TARGET).a
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
