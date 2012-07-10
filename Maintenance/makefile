@@ -83,9 +83,9 @@ check-documentation-placeholders:
 
 # Validate the working branch - compile all documentation, demos/projects/examples and run build tests
 validate-branch:
-	make -C $(LUFA_ROOT) doxygen
-	make -C $(LUFA_ROOT) all
-	make -C $(LUFA_ROOT)/BuildTests all
+	$(MAKE) -C $(LUFA_ROOT) doxygen
+	$(MAKE) -C $(LUFA_ROOT) all
+	$(MAKE) -C $(LUFA_ROOT)/BuildTests all
 
 # Validate the working branch for general release, check for placeholder documentation then build and test everything
 validate-release: check-documentation-placeholders validate-branch
