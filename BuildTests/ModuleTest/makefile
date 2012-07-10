@@ -15,6 +15,9 @@
 # Path to the LUFA library core
 LUFA_PATH := ../../LUFA/
 
+# Build test cannot be run with multiple parallel jobs
+.NOTPARALLEL:
+
 # List of device families per architecture, one device per architecture sub-family
 AVR8_FAMILIES   := at90usb1287 at90usb1286 atmega16u4 atmega16u2 at90usb162
 XMEGA_FAMILIES  := atxmega128a1u atxmega128a3u atxmega256a3bu atxmega128a4u atxmega128b1 atxmega128b3 atxmega128c3 atxmega32c4
