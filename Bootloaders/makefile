@@ -22,10 +22,23 @@ ifeq ($(MAKELEVEL), 10)
    $(error EMERGENCY ABORT: INFINITE RECURSION DETECTED)
 endif
 
-all:
+# If building without a per-project object directory, we can't build in parallel
 ifeq ($(OBJDIR),)
-	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -C $(PROJECT) clean all;)
+   .NOTPARALLEL:
+
+   # Ensure projects are pre-cleaned if the target is the default or "all"
+   ifeq ($(MAKECMDGOALS),)
+      MAKECMDGOALS := clean all
+   endif
+   ifneq ($(findstring all, $(MAKECMDGOALS)),)
+      MAKECMDGOALS := clean $(MAKECMDGOALS)
+   endif
 endif
 
-%:
-	@$(foreach PROJECT, $(PROJECT_DIRECTORIES), $(MAKE) -C $(PROJECT) $@;)
+%: $(PROJECT_DIRECTORIES)
+	@echo . > /dev/null
+
+$(PROJECT_DIRECTORIES):
+	@$(MAKE) -C $@ $(MAKECMDGOALS)
+    
+.PHONY: $(PROJECT_DIRECTORIES)
