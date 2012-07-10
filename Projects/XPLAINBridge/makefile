@@ -12,7 +12,7 @@
 AVRISP_PATH  = ../AVRISP-MKII/
 
 # FIXME - object directories do not currently work for this project
-override OBJDIR =
+override OBJDIR = .
 
 MCU          = at90usb1287
 ARCH         = AVR8
