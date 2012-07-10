@@ -19,7 +19,7 @@ CPPCHECK_INCLUDES := $(patsubst %/,%,$(LUFA_PATH))/CodeTemplates/               
 
 SRC               := $(patsubst %/,%,$(LUFA_PATH))/..
 
-all: begin cppcheck-config cppcheck end
+all: begin cppcheck end
 
 begin:
 	@echo Executing build test "StaticAnalysisTest".
