@@ -148,6 +148,11 @@ ifneq ($(OBJDIR),.)
    $(shell mkdir $(OBJDIR) 2> /dev/null)   
    VPATH           += $(dir $(SRC))
    OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
+   
+   # Check if any object file (without path) appears more than once in the object file list
+   ifneq ($(words $(sort $(OBJECT_FILES))), $(words $(OBJECT_FILES)))
+       $(error Cannot build with OBJDIR parameter set - one or more object file name is not unique)
+   endif
 endif
 
 # Create a list of dependency files from the list of object files
