@@ -41,7 +41,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/Core/ConfigDescriptor.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/ConfigDescriptors.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/Core/DeviceStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/Core/Events.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/Core/HostStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
@@ -382,7 +382,7 @@
 		#include "Core/USBTask.h"
 		#include "Core/Events.h"
 		#include "Core/StdDescriptors.h"
-		#include "Core/ConfigDescriptor.h"
+		#include "Core/ConfigDescriptors.h"
 		#include "Core/USBController.h"
 		#include "Core/USBInterrupt.h"
 

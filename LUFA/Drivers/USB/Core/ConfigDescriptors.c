@@ -29,7 +29,7 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "ConfigDescriptor.h"
+#include "ConfigDescriptors.h"
 
 #if defined(USB_CAN_BE_HOST)
 uint8_t USB_Host_GetDeviceConfigDescriptor(const uint8_t ConfigNumber,

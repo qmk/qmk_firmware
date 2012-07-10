@@ -75,7 +75,7 @@ LUFA_SRC_USB         := $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Device_$(ARCH
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/USBInterrupt_$(ARCH).c    \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/EndpointStream_$(ARCH).c  \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/PipeStream_$(ARCH).c      \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/ConfigDescriptor.c                \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/ConfigDescriptors.c               \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/DeviceStandardReq.c               \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/Events.c                          \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Core/HostStandardReq.c                 \

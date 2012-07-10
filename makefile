@@ -14,6 +14,7 @@
 # "make help" for additional target build information within a specific project.
 
 all:
+
 %:
 	@echo Executing \"make $@\" on all LUFA library elements.
 	@echo

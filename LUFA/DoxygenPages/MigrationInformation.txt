@@ -44,6 +44,9 @@
  *    - The MIDI class driver \ref MIDI_EventPacket_t event packet no longer contains seperate \c CableIndex and \c Command entries; these have been combined
  *      into a single \c Event element which can be contructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
  *      element name.
+ *    - The library "LUFA/Drivers/USB/Core/ConfigDescriptor.c" source file has been renamed "LUFA/Drivers/USB/Core/ConfigDescriptors.c" as this was clashing with
+ *      files in some low level host mode demo applications, preventing parallel project builds. If you are referencing the project source files directly instead
+ *      of using the makefile module names, you will need to adjust your project makefile.
  *
  *  \section Sec_Migration120219 Migrating from 111009 to 120219
  *  <b>USB Core</b>

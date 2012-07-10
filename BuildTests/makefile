@@ -11,6 +11,7 @@
 # not intended to be modified or compiled by non-developers.
 
 all:
+
 %:
 	@echo Executing \"make $@\" on all LUFA build tests.
 	@echo
