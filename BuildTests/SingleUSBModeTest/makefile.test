@@ -15,17 +15,17 @@ BOARD        = NONE
 F_CPU        = $(F_USB)
 
 ifeq ($(ARCH), AVR8)
-F_USB        = 8000000
+   F_USB     = 8000000
 else ifeq ($(ARCH), XMEGA)
-F_USB        = 48000000
+   F_USB     = 48000000
 else ifeq ($(ARCH), UC3)
-F_USB        = 48000000
+   F_USB     = 48000000
 endif
 
 OPTIMIZATION = 1
 TARGET       = Test
 SRC          = Test.c Dummy.S $(LUFA_SRC_USB)
-LUFA_PATH    = ../../LUFA/
+LUFA_PATH    = ../../LUFA
 CC_FLAGS     =
 # TODO: Add warnings and set warnings as errors
 

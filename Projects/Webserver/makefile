@@ -20,7 +20,7 @@ SRC          = $(TARGET).c Descriptors.c USBDeviceMode.c USBHostMode.c Lib/SCSI.
                Lib/uIPManagement.c Lib/DHCPCommon.c Lib/DHCPClientApp.c Lib/DHCPServerApp.c Lib/HTTPServerApp.c \
                Lib/TELNETServerApp.c Lib/uip/uip.c Lib/uip/uip_arp.c Lib/uip/timer.c Lib/uip/clock.c \
                Lib/uip/uip-split.c Lib/FATFs/diskio.c Lib/FATFs/ff.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
-LUFA_PATH    = ../../LUFA/
+LUFA_PATH    = ../../LUFA
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/ -ILib/uip/ -ILib/FATFs/
 LD_FLAGS     =
 

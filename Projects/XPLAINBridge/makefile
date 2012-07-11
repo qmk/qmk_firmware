@@ -9,10 +9,7 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
-AVRISP_PATH  = ../AVRISP-MKII/
-
-# FIXME - object directories do not currently work for this project
-override OBJDIR = .
+AVRISP_PATH  = ../AVRISP-MKII
 
 MCU          = at90usb1287
 ARCH         = AVR8
@@ -25,8 +22,7 @@ SRC          = $(TARGET).c Lib/SoftUART.c USARTDescriptors.c $(AVRISP_PATH)/AVRI
                $(AVRISP_PATH)/Lib/V2ProtocolParams.c $(AVRISP_PATH)/Lib/ISP/ISPProtocol.c $(AVRISP_PATH)/Lib/ISP/ISPTarget.c \
                $(AVRISP_PATH)/Lib/XPROG/XPROGProtocol.c $(AVRISP_PATH)/Lib/XPROG/XPROGTarget.c $(AVRISP_PATH)/Lib/XPROG/XMEGANVM.c \
                $(AVRISP_PATH)/Lib/XPROG/TINYNVM.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
-
-LUFA_PATH    = ../../LUFA/
+LUFA_PATH    = ../../LUFA
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/ -I$(AVRISP_PATH)
 LD_FLAGS     =
 

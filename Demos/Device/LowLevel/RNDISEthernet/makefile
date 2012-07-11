@@ -18,7 +18,7 @@ OPTIMIZATION = s
 TARGET       = RNDISEthernet
 SRC          = $(TARGET).c Descriptors.c Lib/Ethernet.c Lib/ProtocolDecoders.c Lib/RNDIS.c Lib/ICMP.c Lib/TCP.c Lib/UDP.c \
                Lib/DHCP.c Lib/ARP.c Lib/IP.c Lib/Webserver.c $(LUFA_SRC_USB) $(LUFA_SRC_SERIAL)
-LUFA_PATH    = ../../../../LUFA/
+LUFA_PATH    = ../../../../LUFA
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
 LD_FLAGS     =
 

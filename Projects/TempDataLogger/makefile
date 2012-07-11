@@ -18,7 +18,7 @@ OPTIMIZATION = s
 TARGET       = TempDataLogger
 SRC          = $(TARGET).c Descriptors.c Lib/DataflashManager.c Lib/DS1307.c Lib/SCSI.c Lib/FATFs/diskio.c Lib/FATFs/ff.c \
                $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS) $(LUFA_SRC_SERIAL) $(LUFA_SRC_TWI) $(LUFA_SRC_TEMPERATURE)
-LUFA_PATH    = ../../LUFA/
+LUFA_PATH    = ../../LUFA
 CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
 LD_FLAGS     =
 
