@@ -15,18 +15,22 @@ ifdef MOUSEKEY_ENABLE
     OPT_DEFS += -DMOUSEKEY_ENABLE
 endif
 
-ifdef PS2_MOUSE_ENABLE
-    SRC += $(COMMON_DIR)/ps2.c \
-           $(COMMON_DIR)/ps2_mouse.c
-    OPT_DEFS += -DPS2_MOUSE_ENABLE
-endif
-
 ifdef EXTRAKEY_ENABLE
     OPT_DEFS += -DEXTRAKEY_ENABLE
 endif
 
+ifdef CONSOLE_ENABLE
+    OPT_DEFS += -DCONSOLE_ENABLE
+endif
+
 ifdef NKRO_ENABLE
     OPT_DEFS += -DNKRO_ENABLE
+endif
+
+ifdef PS2_MOUSE_ENABLE
+    SRC += $(COMMON_DIR)/ps2.c \
+           $(COMMON_DIR)/ps2_mouse.c
+    OPT_DEFS += -DPS2_MOUSE_ENABLE
 endif
 
 ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)

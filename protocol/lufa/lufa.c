@@ -111,6 +111,7 @@ void SetupHardware(void)
     USB_Device_EnableSOFEvents();
 }
 
+#ifdef CONSOLE_ENABLE
 static void Console_Task(void)
 {
     /* Device must be connected and configured for the task to run */
@@ -146,6 +147,11 @@ static void Console_Task(void)
 
     /* IN packet */
     Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
+
+    // fill empty bank
+    while (Endpoint_IsReadWriteAllowed())
+        Endpoint_Write_8(0);
+
     // flash senchar packet
     if (Endpoint_IsINReady()) {
         Endpoint_ClearIN();
@@ -153,6 +159,11 @@ static void Console_Task(void)
 
     Endpoint_SelectEndpoint(ep);
 }
+#else
+static void Console_Task(void)
+{
+}
+#endif
 
 
 /*******************************************************************************
@@ -168,14 +179,9 @@ void EVENT_USB_Device_Disconnect(void)
 {
 }
 
-#define CONSOLE_TASK_INTERVAL 50
 void EVENT_USB_Device_StartOfFrame(void)
 {
-    static uint8_t interval;
-    if (++interval == CONSOLE_TASK_INTERVAL) {
-        Console_Task();
-        interval = 0;
-    }
+    Console_Task();
 }
 
 /** Event handler for the USB_ConfigurationChanged event.
@@ -197,15 +203,17 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 #ifdef EXTRAKEY_ENABLE
     /* Setup Extra HID Report Endpoint */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(EXTRA_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                EXTRA_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(EXTRAKEY_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                                EXTRAKEY_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
+#ifdef CONSOLE_ENABLE
     /* Setup Console HID Report Endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                                 CONSOLE_EPSIZE, ENDPOINT_BANK_DOUBLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                                 CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 }
 
 /*
@@ -371,7 +379,7 @@ static void send_system(uint16_t data)
         .report_id = REPORT_ID_SYSTEM,
         .usage = data
     };
-    Endpoint_SelectEndpoint(EXTRA_IN_EPNUM);
+    Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
     if (Endpoint_IsReadWriteAllowed()) {
         Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
         Endpoint_ClearIN();
@@ -384,7 +392,7 @@ static void send_consumer(uint16_t data)
         .report_id = REPORT_ID_CONSUMER,
         .usage = data
     };
-    Endpoint_SelectEndpoint(EXTRA_IN_EPNUM);
+    Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
     if (Endpoint_IsReadWriteAllowed()) {
         Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
         Endpoint_ClearIN();
@@ -395,12 +403,14 @@ static void send_consumer(uint16_t data)
 /*******************************************************************************
  * sendchar
  ******************************************************************************/
-#define SEND_TIMEOUT 10
+#ifdef CONSOLE_ENABLE
+#define SEND_TIMEOUT 5
 int8_t sendchar(uint8_t c)
 {
     if (USB_DeviceState != DEVICE_STATE_Configured)
       return -1;
 
+    uint8_t ep = Endpoint_GetCurrentEndpoint();
     Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
 
     uint8_t timeout = SEND_TIMEOUT;
@@ -411,11 +421,15 @@ int8_t sendchar(uint8_t c)
         case DEVICE_STATE_Suspended:
             return -1;
         }
-        if (Endpoint_IsStalled())
+        if (Endpoint_IsStalled()) {
+            Endpoint_SelectEndpoint(ep);
             return -1;
+        }
         if (prevFN != USB_Device_GetFrameNumber()) {
-            if (!(timeout--))
+            if (!(timeout--)) {
+                Endpoint_SelectEndpoint(ep);
                 return -1;
+            }
             prevFN = USB_Device_GetFrameNumber();
         }
     }
@@ -426,5 +440,12 @@ int8_t sendchar(uint8_t c)
     if (!Endpoint_IsReadWriteAllowed())
         Endpoint_ClearIN();
 
+    Endpoint_SelectEndpoint(ep);
     return 0;
 }
+#else
+int8_t sendchar(uint8_t c)
+{
+    return 0;
+}
+#endif
