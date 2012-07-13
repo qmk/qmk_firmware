@@ -57,24 +57,26 @@ typedef struct
     USB_HID_Descriptor_HID_t              Keyboard_HID;
     USB_Descriptor_Endpoint_t             Keyboard_INEndpoint;
 
-    // Mouse HID Interface
 #ifdef MOUSE_ENABLE
+    // Mouse HID Interface
     USB_Descriptor_Interface_t            Mouse_Interface;
     USB_HID_Descriptor_HID_t              Mouse_HID;
     USB_Descriptor_Endpoint_t             Mouse_INEndpoint;
 #endif
 
+#ifdef EXTRAKEY_ENABLE
+    // Extrakey HID Interface
+    USB_Descriptor_Interface_t            Extrakey_Interface;
+    USB_HID_Descriptor_HID_t              Extrakey_HID;
+    USB_Descriptor_Endpoint_t             Extrakey_INEndpoint;
+#endif
+
+#ifdef CONSOLE_ENABLE
     // Console HID Interface
     USB_Descriptor_Interface_t            Console_Interface;
     USB_HID_Descriptor_HID_t              Console_HID;
     USB_Descriptor_Endpoint_t             Console_INEndpoint;
     USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
-
-    // Extra HID Interface
-#ifdef EXTRAKEY_ENABLE
-    USB_Descriptor_Interface_t            Extra_Interface;
-    USB_HID_Descriptor_HID_t              Extra_HID;
-    USB_Descriptor_Endpoint_t             Extra_INEndpoint;
 #endif
 } USB_Descriptor_Configuration_t;
 
@@ -89,12 +91,16 @@ typedef struct
 #endif 
 
 #ifdef EXTRAKEY_ENABLE
-#   define EXTRA_INTERFACE          (MOUSE_INTERFACE + 1)
+#   define EXTRAKEY_INTERFACE       (MOUSE_INTERFACE + 1)
 #else
-#   define EXTRA_INTERFACE          MOUSE_INTERFACE
+#   define EXTRAKEY_INTERFACE       MOUSE_INTERFACE
 #endif 
 
-#define CONSOLE_INTERFACE           (EXTRA_INTERFACE + 1)
+#ifdef CONSOLE_ENABLE
+#   define CONSOLE_INTERFACE        (EXTRAKEY_INTERFACE + 1)
+#else
+#   define CONSOLE_INTERFACE        EXTRAKEY_INTERFACE
+#endif
 
 
 /* nubmer of interfaces */
@@ -103,15 +109,29 @@ typedef struct
 
 // Endopoint number and size
 #define KEYBOARD_IN_EPNUM           1
-#define MOUSE_IN_EPNUM              2
-#define CONSOLE_IN_EPNUM            3
-#define CONSOLE_OUT_EPNUM           4
-#define EXTRA_IN_EPNUM              5
+
+#ifdef MOUSE_ENABLE
+#   define MOUSE_IN_EPNUM           (KEYBOARD_IN_EPNUM + 1) 
+#else
+#   define MOUSE_IN_EPNUM           KEYBOARD_IN_EPNUM
+#endif
+
+#ifdef EXTRAKEY_ENABLE
+#   define EXTRAKEY_IN_EPNUM        (MOUSE_IN_EPNUM + 1)
+#else
+#   define EXTRAKEY_IN_EPNUM        MOUSE_IN_EPNUM 
+#endif
+
+#ifdef CONSOLE_ENABLE
+#   define CONSOLE_IN_EPNUM         (EXTRAKEY_IN_EPNUM + 1)
+#   define CONSOLE_OUT_EPNUM        (EXTRAKEY_IN_EPNUM + 2)
+#endif
+
 
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
+#define EXTRAKEY_EPSIZE             8
 #define CONSOLE_EPSIZE              32
-#define EXTRA_EPSIZE                8
 
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

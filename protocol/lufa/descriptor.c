@@ -80,6 +80,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
     HID_RI_END_COLLECTION(0),
 };
 
+#ifdef MOUSE_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 {
     HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
@@ -127,29 +128,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
         HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
 };
-
-const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
-{
-    HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
-    HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_USAGE(8, 0x75), /* Vendor Usage 0x75 */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
-        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-        HID_RI_USAGE(8, 0x76), /* Vendor Usage 0x76 */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
-        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-    HID_RI_END_COLLECTION(0),
-};
+#endif
 
 #ifdef EXTRAKEY_ENABLE
-const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtraReport[] =
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtrakeyReport[] =
 {
     HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
     HID_RI_USAGE(8, 0x80), /* System Control */
@@ -175,6 +157,28 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtraReport[] =
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+    HID_RI_END_COLLECTION(0),
+};
+#endif
+
+#ifdef CONSOLE_ENABLE
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
+{
+    HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
+    HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
+    HID_RI_COLLECTION(8, 0x01), /* Application */
+        HID_RI_USAGE(8, 0x75), /* Vendor Usage 0x75 */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
+        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
+        HID_RI_REPORT_SIZE(8, 0x08),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_USAGE(8, 0x76), /* Vendor Usage 0x76 */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
+        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
+        HID_RI_REPORT_SIZE(8, 0x08),
+        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
     HID_RI_END_COLLECTION(0),
 };
 #endif
@@ -342,8 +346,51 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 #endif
 
     /*
+     * Extra
+     */
+#ifdef EXTRAKEY_ENABLE
+    .Extrakey_Interface =
+        {
+            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+
+            .InterfaceNumber        = EXTRAKEY_INTERFACE,
+            .AlternateSetting       = 0x00,
+
+            .TotalEndpoints         = 1,
+
+            .Class                  = HID_CSCP_HIDClass,
+            .SubClass               = HID_CSCP_NonBootSubclass,
+            .Protocol               = HID_CSCP_NonBootProtocol,
+
+            .InterfaceStrIndex      = NO_DESCRIPTOR
+        },
+
+    .Extrakey_HID =
+        {
+            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+
+            .HIDSpec                = VERSION_BCD(01.11),
+            .CountryCode            = 0x00,
+            .TotalReportDescriptors = 1,
+            .HIDReportType          = HID_DTYPE_Report,
+            .HIDReportLength        = sizeof(ExtrakeyReport)
+        },
+
+    .Extrakey_INEndpoint =
+        {
+            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+            .EndpointAddress        = (ENDPOINT_DIR_IN | EXTRAKEY_IN_EPNUM),
+            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+            .EndpointSize           = EXTRAKEY_EPSIZE,
+            .PollingIntervalMS      = 0x01
+        },
+#endif
+
+    /*
      * Console
      */
+#ifdef CONSOLE_ENABLE
     .Console_Interface =
         {
             .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
@@ -388,47 +435,6 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .EndpointAddress        = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM),
             .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
             .EndpointSize           = CONSOLE_EPSIZE,
-            .PollingIntervalMS      = 0x01
-        },
-
-    /*
-     * Extra
-     */
-#ifdef EXTRAKEY_ENABLE
-    .Extra_Interface =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
-
-            .InterfaceNumber        = EXTRA_INTERFACE,
-            .AlternateSetting       = 0x00,
-
-            .TotalEndpoints         = 1,
-
-            .Class                  = HID_CSCP_HIDClass,
-            .SubClass               = HID_CSCP_NonBootSubclass,
-            .Protocol               = HID_CSCP_NonBootProtocol,
-
-            .InterfaceStrIndex      = NO_DESCRIPTOR
-        },
-
-    .Extra_HID =
-        {
-            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
-
-            .HIDSpec                = VERSION_BCD(01.11),
-            .CountryCode            = 0x00,
-            .TotalReportDescriptors = 1,
-            .HIDReportType          = HID_DTYPE_Report,
-            .HIDReportLength        = sizeof(ExtraReport)
-        },
-
-    .Extra_INEndpoint =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-
-            .EndpointAddress        = (ENDPOINT_DIR_IN | EXTRA_IN_EPNUM),
-            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-            .EndpointSize           = EXTRA_EPSIZE,
             .PollingIntervalMS      = 0x01
         },
 #endif
@@ -515,13 +521,15 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
 #endif
-            case CONSOLE_INTERFACE:
-                Address = &ConfigurationDescriptor.Console_HID;
+#ifdef EXTRAKEY_ENABLE
+            case EXTRAKEY_INTERFACE:
+                Address = &ConfigurationDescriptor.Extrakey_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
-#ifdef EXTRAKEY_ENABLE
-            case EXTRA_INTERFACE:
-                Address = &ConfigurationDescriptor.Extra_HID;
+#endif
+#ifdef CONSOLE_ENABLE
+            case CONSOLE_INTERFACE:
+                Address = &ConfigurationDescriptor.Console_HID;
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
 #endif
@@ -539,14 +547,16 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Size    = sizeof(MouseReport);
                 break;
 #endif
+#ifdef EXTRAKEY_ENABLE
+            case EXTRAKEY_INTERFACE:
+                Address = &ExtrakeyReport;
+                Size    = sizeof(ExtrakeyReport);
+                break;
+#endif
+#ifdef CONSOLE_ENABLE
             case CONSOLE_INTERFACE:
                 Address = &ConsoleReport;
                 Size    = sizeof(ConsoleReport);
-                break;
-#ifdef EXTRAKEY_ENABLE
-            case EXTRA_INTERFACE:
-                Address = &ExtraReport;
-                Size    = sizeof(ExtraReport);
                 break;
 #endif
             }
