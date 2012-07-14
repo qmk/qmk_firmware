@@ -60,4 +60,4 @@ clean:
 .PHONY: all begin end testbootloaders clean
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.core.in
+include $(LUFA_PATH)/Build/lufa_core.mk

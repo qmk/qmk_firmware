@@ -53,4 +53,4 @@ clean:
 .PHONY: begin end compile clean
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.core.in
+include $(LUFA_PATH)/Build/lufa_core.mk

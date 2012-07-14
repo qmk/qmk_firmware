@@ -35,5 +35,5 @@ end:
 .PHONY: all begin end
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.core.in
-include $(LUFA_PATH)/Build/lufa.cppcheck.in
+include $(LUFA_PATH)/Build/lufa_core.mk
+include $(LUFA_PATH)/Build/lufa_cppcheck.mk

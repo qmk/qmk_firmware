@@ -21,4 +21,4 @@ LUFA_PATH    = ../../LUFA
 CC_FLAGS     = -Werror
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.build.in
+include $(LUFA_PATH)/Build/lufa_build.mk

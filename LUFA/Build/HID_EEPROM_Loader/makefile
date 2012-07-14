@@ -33,8 +33,8 @@ InputEEData.o: InputEEData.bin $(TARGET).o $(MAKEFILE_LIST)
 	avr-objcopy -I binary -O elf32-avr -B $(call FIND_AVR_SUBARCH) --rename-section .data=.progmem.data,contents,alloc,readonly,data $< $@
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.core.in
-include $(LUFA_PATH)/Build/lufa.build.in
-include $(LUFA_PATH)/Build/lufa.cppcheck.in
-include $(LUFA_PATH)/Build/lufa.doxygen.in
-include $(LUFA_PATH)/Build/lufa.hid.in
+include $(LUFA_PATH)/Build/lufa_core.mk
+include $(LUFA_PATH)/Build/lufa_build.mk
+include $(LUFA_PATH)/Build/lufa_cppcheck.mk
+include $(LUFA_PATH)/Build/lufa_doxygen.mk
+include $(LUFA_PATH)/Build/lufa_hid.mk

@@ -187,9 +187,9 @@ else
    BASE_LD_FLAGS += -Wl,--relax
 endif
 
-# Determine flags to pass to the size utility based on its reported features
-SIZE_MCU_FLAG    := $(shell $(CROSS)-size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
-SIZE_FORMAT_FLAG := $(shell $(CROSS)-size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
+# Determine flags to pass to the size utility based on its reported features (only invoke if size target required)
+size: SIZE_MCU_FLAG    := $(shell $(CROSS)-size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
+size: SIZE_FORMAT_FLAG := $(shell $(CROSS)-size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
 
 
 build_begin:

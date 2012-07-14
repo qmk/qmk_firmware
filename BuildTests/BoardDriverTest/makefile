@@ -65,4 +65,4 @@ clean:
 .PHONY: all begin end makeboardlist testboards clean
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.core.in
+include $(LUFA_PATH)/Build/lufa_core.mk

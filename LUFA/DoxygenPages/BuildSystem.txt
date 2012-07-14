@@ -17,7 +17,7 @@
  *
  *  To use a LUFA build system module, simply add an include to your project makefile:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.core.in
+ *  include $(LUFA_PATH)/Build/lufa_core.mk
  *  \endcode
  *
  *  And the associated build module targets will be added to your project's build makefile automatically.
@@ -53,7 +53,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.build.in
+ *  include $(LUFA_PATH)/Build/lufa_build.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_BUILD_Requirements Requirements
@@ -212,7 +212,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.core.in
+ *  include $(LUFA_PATH)/Build/lufa_core.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_CORE_Requirements Requirements
@@ -292,7 +292,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.atprogram.in
+ *  include $(LUFA_PATH)/Build/lufa_atprogram.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_ATPROGRAM_Requirements Requirements
@@ -367,7 +367,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.avrdude.in
+ *  include $(LUFA_PATH)/Build/lufa_avrdude.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_AVRDUDE_Requirements Requirements
@@ -443,7 +443,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.cppcheck.in
+ *  include $(LUFA_PATH)/Build/lufa_cppcheck.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_CPPCHECK_Requirements Requirements
@@ -537,7 +537,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.dfu.in
+ *  include $(LUFA_PATH)/Build/lufa_dfu.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_DFU_Requirements Requirements
@@ -613,7 +613,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.doxygen.in
+ *  include $(LUFA_PATH)/Build/lufa_doxygen.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_DOXYGEN_Requirements Requirements
@@ -683,7 +683,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.hid.in
+ *  include $(LUFA_PATH)/Build/lufa_hid.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_HID_Requirements Requirements
@@ -764,7 +764,7 @@
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
- *  include $(LUFA_PATH)/Build/lufa.sources.in
+ *  include $(LUFA_PATH)/Build/lufa_sources.mk
  *  \endcode
  *
  *  \section SSec_BuildModule_SOURCES_Requirements Requirements

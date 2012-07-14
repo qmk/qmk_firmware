@@ -61,5 +61,5 @@ C_FLAGS += -Wnested-externs
 #CC_FLAGS += -pedantic
 
 # Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa.sources.in
-include $(LUFA_PATH)/Build/lufa.build.in
+include $(LUFA_PATH)/Build/lufa_sources.mk
+include $(LUFA_PATH)/Build/lufa_build.mk
