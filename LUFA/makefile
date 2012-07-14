@@ -41,9 +41,9 @@ else
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.d)
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.lst)
 
-  include Build/lufa.core.in
-  include Build/lufa.sources.in
-  include Build/lufa.doxygen.in
+  include Build/lufa_core.mk
+  include Build/lufa_sources.mk
+  include Build/lufa_doxygen.mk
 endif
 
 
