@@ -57,11 +57,13 @@
  *  \li Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
  *  \li "Fingerlicking Wingdinger" (WARNING: Bad language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  \li Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
+ *  \li FootJoy, a 22 button, 6-axis josystick with keyboard and mouse modes: https://bitbucket.org/sirbrialliance/foot-joy/
  *  \li Gamecube controller to USB adapter: https://www.facebook.com/media/set/?set=a.10150202447076304.310536.688776303&l=df53851c50 
  *  \li Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  \li Generic HID Device Creator: http://generichid.sourceforge.net/
  *  \li Generic HID Open Source Framework: http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows
  *  \li Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
+ *  \li GPS enabled lap timer for vehicles: http://www.assembla.com/code/ironlung/subversion/nodes/trunk/LapTimer
  *  \li Hardware Volume Control: https://github.com/davidk/hw-volume-control
  *  \li Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
  *  \li Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
@@ -81,6 +83,7 @@
  *  \li Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
  *  \li Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
  *  \li Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
+ *  \li Nehebkau, Laptop Controlled Keyboard and Mouse: http://www.frank-zhao.com/cache/nehebkau.php
  *  \li NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
  *  \li NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  \li Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
