@@ -13,7 +13,7 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
-PROJECT_DIRECTORIES = $(shell ls -d */)
+PROJECT_DIRECTORIES := $(shell ls -d */)
 
 # This makefile is potentially infinitely recursive if something really bad
 # happens when determining the set of project directories - hard-abort if
