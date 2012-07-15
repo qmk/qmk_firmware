@@ -19,6 +19,7 @@ TARGET       = Test
 SRC          = $(TARGET).c
 LUFA_PATH    = ../../LUFA
 CC_FLAGS     = -Werror
+DEBUG_LEVEL  = 0
 
 # Include LUFA build script makefiles
 include $(LUFA_PATH)/Build/lufa_build.mk

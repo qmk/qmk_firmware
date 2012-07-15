@@ -13,6 +13,7 @@ MCU          =
 ARCH         = 
 BOARD        = NONE
 F_CPU        = $(F_USB)
+DEBUG_LEVEL  = 0
 
 ifeq ($(ARCH), AVR8)
    F_USB     = 8000000

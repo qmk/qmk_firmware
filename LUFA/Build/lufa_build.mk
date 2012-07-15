@@ -9,7 +9,7 @@
 LUFA_BUILD_MODULES         += BUILD
 LUFA_BUILD_TARGETS         += size check-source symbol-sizes all lib elf hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
-LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES
+LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL
 LUFA_BUILD_PROVIDED_VARS   += 
 LUFA_BUILD_PROVIDED_MACROS += 
 
@@ -64,6 +64,10 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #                                files; if equal to ".", the output files will
 #                                be generated in the same folder as the sources
 #    OBJECT_FILES              - Extra object files to link in to the binaries
+#    DEBUG_FORMAT              - Format of the debugging information to
+#                                generate in the compiled object files
+#    DEBUG_LEVEL               - Level the debugging information to generate in
+#                                the compiled object files
 #
 # PROVIDED VARIABLES:
 #
@@ -93,6 +97,8 @@ ASM_FLAGS       ?=
 CC_FLAGS        ?=
 OBJDIR          ?= .
 OBJECT_FILES    ?=
+DEBUG_FORMAT    ?= dwarf-2
+DEBUG_LEVEL     ?= 3
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
@@ -106,6 +112,8 @@ $(call ERROR_IF_EMPTY, OPTIMIZATION)
 $(call ERROR_IF_EMPTY, C_STANDARD)
 $(call ERROR_IF_EMPTY, CPP_STANDARD)
 $(call ERROR_IF_EMPTY, OBJDIR)
+$(call ERROR_IF_EMPTY, DEBUG_FORMAT)
+$(call ERROR_IF_EMPTY, DEBUG_LEVEL)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
@@ -159,13 +167,13 @@ endif
 DEPENDENCY_FILES := $(OBJECT_FILES:%.o=%.d)
 
 # Create a list of common flags to pass to the compiler/linker/assembler
-BASE_CC_FLAGS    := -pipe
+BASE_CC_FLAGS    := -pipe -g$(DEBUG_FORMAT) -g$(DEBUG_LEVEL)
 ifeq ($(ARCH), AVR8)
-   BASE_CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
+   BASE_CC_FLAGS += -mmcu=$(MCU) -fshort-enums -fno-inline-small-functions -fpack-struct
 else ifeq ($(ARCH), XMEGA)
-   BASE_CC_FLAGS += -mmcu=$(MCU) -gdwarf-2 -fshort-enums -fno-inline-small-functions -fpack-struct
+   BASE_CC_FLAGS += -mmcu=$(MCU) -fshort-enums -fno-inline-small-functions -fpack-struct
 else ifeq ($(ARCH), UC3)
-   BASE_CC_FLAGS += -mpart=$(MCU:at32%=%) -g3 -masm-addr-pseudos
+   BASE_CC_FLAGS += -mpart=$(MCU:at32%=%) -masm-addr-pseudos
 endif
 BASE_CC_FLAGS += -Wall -fno-strict-aliasing -funsigned-char -funsigned-bitfields -ffunction-sections
 BASE_CC_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
@@ -180,11 +188,13 @@ BASE_CPP_FLAGS := -x c++ -O$(OPTIMIZATION) -std=$(CPP_STANDARD)
 BASE_ASM_FLAGS := -x assembler-with-cpp
 
 # Create a list of flags to pass to the linker
-BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections 
-ifeq ($(ARCH), UC3)
-   BASE_LD_FLAGS += --rodata-writable --direct-data   
-else
-   BASE_LD_FLAGS += -Wl,--relax
+BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections -Wl,--relax 
+ifeq ($(ARCH), AVR8)
+   BASE_LD_FLAGS += -mmcu=$(MCU)
+else ifeq ($(ARCH), XMEGA)
+   BASE_LD_FLAGS += -mmcu=$(MCU)
+else ifeq ($(ARCH), UC3)
+   BASE_LD_FLAGS += -mpart=$(MCU:at32%=%) --rodata-writable --direct-data
 endif
 
 # Determine flags to pass to the size utility based on its reported features (only invoke if size target required)
@@ -261,7 +271,7 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 .SECONDARY : %.elf
 %.elf: $(OBJECT_FILES)
 	@echo $(MSG_LINK_CMD) Linking object files into \"$@\"
-	$(CROSS)-gcc $(BASE_CC_FLAGS) $(BASE_LD_FLAGS) $(CC_FLAGS) $(LD_FLAGS) $^ -o $@
+	$(CROSS)-gcc $(BASE_LD_FLAGS) $(LD_FLAGS) $^ -o $@
 
 %.hex: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$<\"

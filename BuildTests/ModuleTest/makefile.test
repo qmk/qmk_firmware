@@ -17,6 +17,7 @@ OPTIMIZATION = 1
 TARGET       = Test
 SRC          = $(TARGET)_C.c $(TARGET)_CPP.cpp Dummy.S $(LUFA_SRC_USB)
 LUFA_PATH    = ../../LUFA
+DEBUG_LEVEL  = 0 
 
 ifeq ($(ARCH), AVR8)
 F_USB        = 8000000
