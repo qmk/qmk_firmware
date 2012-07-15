@@ -336,8 +336,8 @@
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
-			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
-			 *  finalize the transfer via the \ref Endpoint_ClearOUT() macro.
+			 *  in both failure and success states; the user is responsible for manually clearing the status OUT packet
+			 *  to finalize the transfer's status stage via the \ref Endpoint_ClearOUT() macro.
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -358,8 +358,8 @@
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in big endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
-			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
-			 *  finalize the transfer via the \ref Endpoint_ClearOUT() macro.
+			 *  in both failure and success states; the user is responsible for manually clearing the status OUT packet
+			 *  to finalize the transfer's status stage via the \ref Endpoint_ClearOUT() macro.
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -381,7 +381,7 @@
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
-			 *  setup IN to finalize the transfer via the \ref Endpoint_ClearIN() macro.
+			 *  status IN packet to finalize the transfer's status stage via the \ref Endpoint_ClearIN() macro.
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -403,7 +403,7 @@
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in big endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
-			 *  setup IN to finalize the transfer via the \ref Endpoint_ClearIN() macro.
+			 *  status IN packet to finalize the transfer's status stage via the \ref Endpoint_ClearIN() macro.
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.

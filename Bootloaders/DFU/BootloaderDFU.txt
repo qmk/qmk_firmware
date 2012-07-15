@@ -38,7 +38,8 @@
  *  </tr>
  *  <tr>
  *   <td><b>Supported USB Speeds:</b></td>
- *   <td>Full Speed Mode</td>
+ *   <td>Low Speed Mode \n
+ *       Full Speed Mode</td>
  *  </tr>
  * </table>
  *

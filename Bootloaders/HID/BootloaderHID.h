@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for TeensyHID.c.
+ *  Header file for BootloaderHID.c.
  */
 
-#ifndef _TEENSYHID_H_
-#define _TEENSYHID_H_
+#ifndef _BOOTLOADERHID_H_
+#define _BOOTLOADERHID_H_
 
 	/* Includes: */
 		#include <avr/io.h>
