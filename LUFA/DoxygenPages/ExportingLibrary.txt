@@ -33,10 +33,10 @@
  *  \subsection SSec_AutomaticExport Automatic Export
  *  If desired, the steps indicated in \ref SSec_ManualExport may be automatically performed, by running the
  *  command <b><code>make export_tar</code></b> from the command line. This will generate two .tar files in the
- *  current directory, named <code>LUFA_XXXXXX.tar</code> and <code>LUFA_XXXXXX_Code_Templates.tar</code> (where "XXXXXX" is
- *  the version of the library being exported). The first archive contains the exported LUFA core with the
- *  non-required files removed, while the second contains an archived copy of the code template files for the
- *  current LUFA version.
+ *  current directory, named <code>LUFA_YYMMDD.tar</code> and <code>LUFA_YYMMDD_Code_Templates.tar</code> (where
+ *  "YYMMDD" is the version of the library being exported). The first archive contains the exported LUFA core
+ *  with the non-required files removed, while the second contains an archived copy of the code template files 
+ *  for the current LUFA version.
  *
  *  The resulting archived copy of the library may then be extracted to your chosen IDE project source directory
  *  and imported according to the instructions shown in \ref Sec_LibraryImport.

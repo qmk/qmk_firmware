@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog120730 Version 120730 (BETA)
   *  <b>New:</b>
   *  - Core:
   *   - Added new, revamped modular build system with new makefile templates
