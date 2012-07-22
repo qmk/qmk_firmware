@@ -315,7 +315,7 @@ uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 	memcpy(&SetMessageData.ContiguousBuffer, Buffer, Length);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(RNDISInterfaceInfo, &SetMessageData,
-	                                               SetMessageData.SetMessage.MessageLength)) != HOST_SENDCONTROL_Successful)
+	                                               (sizeof(RNDIS_Set_Message_t) + Length))) != HOST_SENDCONTROL_Successful)
 	{
 		return ErrorCode;
 	}
@@ -424,7 +424,7 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 
 	*PacketLength = (uint16_t)le32_to_cpu(DeviceMessage.DataLength);
 
-	Pipe_Discard_Stream(DeviceMessage.DataOffset -
+	Pipe_Discard_Stream(le32_to_cpu(DeviceMessage.DataOffset) -
 	                    (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
 	                    NULL);
 

@@ -87,7 +87,7 @@ bool Pipe_ConfigurePipe(const uint8_t Address,
 	                                ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
 	                                ((Banks > 1) ? AVR32_USBB_PBK_MASK : 0)       |
 	                                Pipe_BytesToEPSizeMask(Size) |
-	                                ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
+	                                ((uint32_t)Number << AVR32_USBB_PEPNUM_OFFSET));
 
 	Pipe_SetInfiniteINRequests();
 
