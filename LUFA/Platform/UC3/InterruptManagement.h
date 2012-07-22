@@ -110,10 +110,8 @@
 			#define INTC_IRQ_LINE(IRQIndex)   (IRQIndex % 32)
 
 		/* Function Prototypes: */
-			/** Initializes the interrupt controller, nulling out all interrupt handlers ready for new registration. This
-			 *  function should be called once on startup to ensure the interrupt controller is ready for use.
-			 */
-			void INTC_Init(void);
+			void INTC_Init(void);			
+			InterruptHandlerPtr_t INTC_GetInterruptHandler(const uint_reg_t InterruptLevel);
 
 		/* Inline Functions: */
 			/** Registers a handler for a given interrupt group. On the AVR32 UC3 devices, interrupts are grouped by
