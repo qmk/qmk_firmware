@@ -67,15 +67,46 @@ make-as4-projects:
 	  fi; \
 	done;
 	@echo AVR Studio 4 project generation complete.
+
+# Make all possible bootloaders for all targets and configurations as set by the BootloaderTest build test
+# and store them in a seperate directory called "Bootloaders"
+make_bootloaders:
+	@echo "build_bootloaders:" > BuildMakefile
+	@printf "\t-mkdir Bootloaders 2>/dev/null\n\n" >> BuildMakefile
 	
+	@while read line;                                         \
+	 do                                                       \
+	   build_cfg=`echo $$line | grep -v "#" | sed 's/ //g'`;  \
+	                                                          \
+	   if ( test -n "$$build_cfg" ); then                     \
+	     build_bootloader=`echo $$build_cfg | cut -d'=' -f1`; \
+		 build_cfg=`echo $$build_cfg | cut -d'=' -f2-`;       \
+		                                                      \
+	     build_arch=`echo $$build_cfg | cut -d':' -f1`;       \
+	     build_mcu=`echo $$build_cfg | cut -d':' -f2`;        \
+	     build_board=`echo $$build_cfg | cut -d':' -f3`;      \
+	     build_flashsize=`echo $$build_cfg | cut -d':' -f4`;  \
+	     build_bootsize=`echo $$build_cfg | cut -d':' -f5`;   \
+	                                                          \
+	     printf "Found '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s / %4s, BOARD: %s\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch $$build_board; \
+	                                                          \
+	     printf "\t@echo Building '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s / %4s, BOARD: %s\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch $$build_board >> BuildMakefile; \
+	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/ clean hex ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s DEBUG_LEVEL=0\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize >> BuildMakefile; \
+		 printf "\tmv $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/Bootloader%s.hex Bootloaders/%s-%s-%s-BOARD_%s-BOOT_%sKB.hex\n\n" $$build_bootloader $$build_bootloader $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_bootsize >> BuildMakefile; \
+	   fi;                                                    \
+	 done < $(patsubst %/,%,$(LUFA_ROOT))/BuildTests/BootloaderTest/BootloaderDeviceMap.cfg
+
+	 $(MAKE) -f BuildMakefile build_bootloaders
+	 rm -f BuildMakefile
+
 # Check the working branch documentation, ensure no placeholder values
 check-documentation-placeholders:
 	@echo Checking for release suitability...
-	@if ( grep "XXXXXX" $(LUFA_ROOT)/LUFA/DoxygenPages/*.txt > /dev/null ;); then \
+	@if ( grep "XXXXXX" $(patsubst %/,%,$(LUFA_ROOT))/LUFA/DoxygenPages/*.txt > /dev/null ;); then \
 	  echo "  ERROR: Doxygen documentation has not been updated for release!";    \
 	  exit 1;                                                                     \
 	fi;
-	@if ( grep "000000" $(LUFA_ROOT)/LUFA/Version.h > /dev/null ;); then          \
+	@if ( grep "000000" $(patsubst %/,%,$(LUFA_ROOT))/LUFA/Version.h > /dev/null ;); then          \
 	  echo "  ERROR: Version header has not been updated for release!";           \
 	  exit 1;                                                                     \
 	fi;
@@ -83,12 +114,12 @@ check-documentation-placeholders:
 
 # Validate the working branch - compile all documentation, demos/projects/examples and run build tests
 validate-branch:
-	$(MAKE) -C $(LUFA_ROOT) doxygen
-	$(MAKE) -C $(LUFA_ROOT) all DEBUG_LEVEL=0
-	$(MAKE) -C $(LUFA_ROOT)/BuildTests all
+	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT)) doxygen
+	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT)) all DEBUG_LEVEL=0
+	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/BuildTests all
 
 # Validate the working branch for general release, check for placeholder documentation then build and test everything
 validate-release: check-documentation-placeholders validate-branch
 
 
-.PHONY: all upgrade-doxygen make-as4-projects check-documentation-placeholders validate-branch
+.PHONY: all upgrade-doxygen make-as4-projects make_bootloaders check-documentation-placeholders validate-branch
