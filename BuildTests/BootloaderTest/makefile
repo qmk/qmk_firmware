@@ -43,9 +43,9 @@ testbootloaders:
 	     build_flashsize=`echo $$build_cfg | cut -d':' -f4`;  \
 	     build_bootsize=`echo $$build_cfg | cut -d':' -f5`;   \
 	                                                          \
-	     printf "Found '%s' bootloader configuration (FLASH: %3s KB | BOOT: %3s KB | MCU: %12s / %4s)\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch; \
+	     printf "Found '%s' bootloader configuration (FLASH: %3s KB | BOOT: %3s KB | MCU: %12s / %4s | BOARD: %s)\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch $$build_board; \
 	                                                          \
-	     printf "\t@echo Building bootloader %s - %s - FLASH: %s KB, BOOT: %s KB\n" $$build_bootloader $$build_mcu $$build_flashsize $$build_bootsize >> BuildMakefile; \
+	     printf "\t@echo Building bootloader %s - %s - FLASH: %s KB, BOOT: %s KB, BOARD: %s\n" $$build_bootloader $$build_mcu $$build_flashsize $$build_bootsize $$build_board >> BuildMakefile; \
 	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_PATH))/../Bootloaders/%s/ clean elf ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s DEBUG_LEVEL=0\n\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize >> BuildMakefile; \
 	   fi;                                                    \
 	 done < BootloaderDeviceMap.cfg
