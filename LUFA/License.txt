@@ -1,3 +1,10 @@
+                  LUFA Library
+        Copyright (C) Dean Camera, 2012.
+
+     dean [at] fourwalledcubicle [dot] com
+                www.lufa-lib.org
+
+
 Permission to use, copy, modify, and distribute this software
 and its documentation for any purpose is hereby granted without
 fee, provided that the above copyright notice appear in all

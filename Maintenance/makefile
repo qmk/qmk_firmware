@@ -97,6 +97,7 @@ make_bootloaders:
 	 done < $(patsubst %/,%,$(LUFA_ROOT))/BuildTests/BootloaderTest/BootloaderDeviceMap.cfg
 
 	 $(MAKE) -f BuildMakefile build_bootloaders
+	 cp $(patsubst %/,%,$(LUFA_ROOT))/LUFA/License.txt Bootloaders
 	 rm -f BuildMakefile
 
 # Check the working branch documentation, ensure no placeholder values
