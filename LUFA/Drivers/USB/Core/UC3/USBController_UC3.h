@@ -84,6 +84,16 @@
 			#error F_USB is not defined. You must define F_USB to the frequency of the clock input to the USB module.
 		#endif
 
+		#if (defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR))
+			#if ((F_USB < 12000000) || (F_USB % 12000000))
+				#error Invalid F_USB specified. F_USB must be a multiple of 12MHz for UC3A3 and UC3A4 devices.
+			#endif		
+		#else
+			#if ((F_USB < 48000000) || (F_USB % 48000000))
+				#error Invalid F_USB specified. F_USB must be a multiple of 48MHz for UC3A and UC3B devices.
+			#endif		
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name USB Controller Option Masks */

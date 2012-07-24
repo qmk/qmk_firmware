@@ -102,6 +102,11 @@
 		 */
 		#define USB_SERIES_UC3A3_AVR
 
+		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3A4 Series USB controller
+		 *  (i.e. AT32UC3A4*) when defined.
+		 */
+		#define USB_SERIES_UC3A4_AVR
+		
 		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3B0 Series USB controller
 		 *  (i.e. AT32UC3B0*) when defined.
 		 */
