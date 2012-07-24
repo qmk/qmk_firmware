@@ -70,6 +70,9 @@ make-as4-projects:
 
 # Make all possible bootloaders for all targets and configurations as set by the BootloaderTest build test
 # and store them in a seperate directory called "Bootloaders"
+#
+# FIXME: Currently ignores the architecture when deciding on F_USB choices; when more architectures are
+#        avaliable as bootloaders, add some additional entries to the bootloader map for F_USB.
 make_bootloaders:
 	@echo "build_bootloaders:" > BuildMakefile
 	@printf "\t-mkdir Bootloaders 2>/dev/null\n\n" >> BuildMakefile
@@ -90,9 +93,13 @@ make_bootloaders:
 	                                                          \
 	     printf "Found '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s / %4s, BOARD: %s\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch $$build_board; \
 	                                                          \
-	     printf "\t@echo Building '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s / %4s, BOARD: %s\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch $$build_board >> BuildMakefile; \
-	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/ clean hex ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s DEBUG_LEVEL=0\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize >> BuildMakefile; \
-		 printf "\tmv $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/Bootloader%s.hex Bootloaders/%s-%s-%s-BOARD_%s-BOOT_%sKB.hex\n\n" $$build_bootloader $$build_bootloader $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_bootsize >> BuildMakefile; \
+	     printf "\t@echo Building '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s, F_USB: 8MHz, BOARD: %s\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_board >> BuildMakefile; \
+	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/ clean hex F_USB=8000000 ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s DEBUG_LEVEL=0\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize >> BuildMakefile; \
+		 printf "\tmv $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/Bootloader%s.hex Bootloaders/%s-%s-%s-BOARD_%s-BOOT_%sKB_8MHz.hex\n\n" $$build_bootloader $$build_bootloader $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_bootsize >> BuildMakefile; \
+	                                                          \
+	     printf "\t@echo Building '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s, F_USB: 16MHz, BOARD: %s\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_board >> BuildMakefile; \
+	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/ clean hex F_USB=16000000 ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s DEBUG_LEVEL=0\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize >> BuildMakefile; \
+		 printf "\tmv $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/Bootloader%s.hex Bootloaders/%s-%s-%s-BOARD_%s-BOOT_%sKB_16MHz.hex\n\n" $$build_bootloader $$build_bootloader $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_bootsize >> BuildMakefile; \
 	   fi;                                                    \
 	 done < $(patsubst %/,%,$(LUFA_ROOT))/BuildTests/BootloaderTest/BootloaderDeviceMap.cfg
 
