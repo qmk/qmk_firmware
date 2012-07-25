@@ -91,9 +91,10 @@ make_bootloaders:
 	                                                          \
 	     printf "Found '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s / %4s, BOARD: %s, F_USB: %sMHz\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_arch $$build_board $$build_fusb; \
 	                                                          \
+	     printf "\t-mkdir Bootloaders/%s 2>/dev/null\n" $$build_bootloader >> BuildMakefile; \
 	     printf "\t@echo Building '%s' with FLASH: %3s KB, BOOT: %3s KB, MCU: %12s, BOARD: %s, F_USB: %sMHz\n" $$build_bootloader $$build_flashsize $$build_bootsize $$build_mcu $$build_board $$build_fusb >> BuildMakefile; \
 	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/ clean hex ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s F_USB=%s000000 DEBUG_LEVEL=0\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize $$build_fusb >> BuildMakefile; \
-		 printf "\tmv $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/Bootloader%s.hex Bootloaders/%s-%s-%s-BOARD_%s-BOOT_%sKB-%sMHz.hex\n\n" $$build_bootloader $$build_bootloader $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_bootsize $$build_fusb >> BuildMakefile; \
+		 printf "\tmv $(patsubst %/,%,$(LUFA_ROOT))/Bootloaders/%s/Bootloader%s.hex Bootloaders/%s/%s-%s-%s-BOARD_%s-BOOT_%sKB-%sMHz.hex\n\n" $$build_bootloader $$build_bootloader $$build_bootloader $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_bootsize $$build_fusb >> BuildMakefile; \
 	   fi;                                                    \
 	 done < $(patsubst %/,%,$(LUFA_ROOT))/BuildTests/BootloaderTest/BootloaderDeviceMap.cfg
 
