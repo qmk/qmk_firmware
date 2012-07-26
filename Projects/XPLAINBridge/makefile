@@ -29,6 +29,14 @@ LD_FLAGS     =
 # Default target
 all:
 
+# Since this project borrows files from the AVRISP-MKII project which may also have an
+# identical OBJDIR directory, we need to enforce the use of this project's object file
+# directory as the one where the build object files are to be stored by pre-pending the
+# absolute path of the current project to the OBJDIR variable.
+ifneq ($(OBJDIR),)
+  override OBJDIR:=$(shell pwd)/$(OBJDIR)
+endif
+
 # Include LUFA build script makefiles
 include $(LUFA_PATH)/Build/lufa_core.mk
 include $(LUFA_PATH)/Build/lufa_sources.mk
