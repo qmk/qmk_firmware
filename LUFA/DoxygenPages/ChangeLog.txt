@@ -14,6 +14,7 @@
   *   - Added support for the DorkbotPDX Duce board
   *   - Added support for the Olimex AVR-USB-32U4 board
   *   - Added support for the Olimex AVR-USB-T32U4 board
+  *   - Added support for the Olimex AVR-ISP-MK2 board
   *   - Added new Endpoint_ConfigureEndpointTable() function
   *   - Added new Pipe_ConfigurePipeTable() function
   *   - Added build test to verify correct compilation of all board drivers using all driver APIs

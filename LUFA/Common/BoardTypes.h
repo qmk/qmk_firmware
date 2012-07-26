@@ -212,6 +212,9 @@
 			
 			/** Selects the Olimex AVR-USB-T32U4 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_OLIMEXT32U4          49
+			
+			/** Selects the Olimex AVR-ISP-MK2 specific board drivers, including the Button and LED drivers. */
+			#define BOARD_OLIMEXISPMK2         50
 
 
 			#if !defined(__DOXYGEN__)
