@@ -107,11 +107,11 @@
 
 			static inline void LEDs_Disable(void)
 			{
-				DDRB  &=  LEDS_PORTB_LEDS;
+				DDRB  &= ~LEDS_PORTB_LEDS;
 				PORTB &= ~LEDS_PORTB_LEDS;
-				DDRD  &=  LEDS_PORTD_LEDS;
+				DDRD  &= ~LEDS_PORTD_LEDS;
 				PORTD &= ~LEDS_PORTD_LEDS;
-				DDRE  &=  LEDS_PORTE_LEDS;
+				DDRE  &= ~LEDS_PORTE_LEDS;
 				PORTE &= ~LEDS_PORTE_LEDS;
 			}
 
