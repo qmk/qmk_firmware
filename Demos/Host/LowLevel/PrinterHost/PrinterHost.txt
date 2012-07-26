@@ -34,8 +34,11 @@
  *    <td>USBIF Printer Class Specification \n
  *        PCL Language Specification</td>
  *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
  *    <td>Low Speed Mode \n
  *        Full Speed Mode</td>
+ *   </tr>
  *  </table>
  *
  *  \section Sec_Description Project Description:
