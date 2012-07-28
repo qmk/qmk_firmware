@@ -1,3 +1,5 @@
+http://en.sourceforge.jp/projects/sfnet_libhidnet/
+
 This library has been tested on Windows Vista 32bit, Windows Vista 64bit,
 Windows XP 32bit and Debian (Lenny) AMD64 but should work on any version of
 Windows that can run the .NET framework 2.0 and any other operating system
