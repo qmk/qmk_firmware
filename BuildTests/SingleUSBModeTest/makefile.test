@@ -16,11 +16,11 @@ F_CPU        = $(F_USB)
 DEBUG_LEVEL  = 0
 
 ifeq ($(ARCH), AVR8)
-   F_USB     = 8000000
+  F_USB      = 8000000
 else ifeq ($(ARCH), XMEGA)
-   F_USB     = 48000000
+  F_USB      = 48000000
 else ifeq ($(ARCH), UC3)
-   F_USB     = 48000000
+  F_USB      = 48000000
 endif
 
 OPTIMIZATION = 1
@@ -47,7 +47,7 @@ CC_FLAGS += -Woverlength-strings
 
 # Only enable rendundant declaration warnings for AVR8 target (FIXME)
 ifeq ($(ARCH), AVR8)
-CC_FLAGS += -Wredundant-decls
+  CC_FLAGS += -Wredundant-decls
 endif
 
 # C compiler only flags
