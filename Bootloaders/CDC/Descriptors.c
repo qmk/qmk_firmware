@@ -57,8 +57,8 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 	.ProductID              = 0x204A,
 	.ReleaseNumber          = VERSION_BCD(01.00),
 
-	.ManufacturerStrIndex   = NO_DESCRIPTOR,
-	.ProductStrIndex        = 0x01,
+	.ManufacturerStrIndex   = 0x01,
+	.ProductStrIndex        = 0x02,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
@@ -185,15 +185,26 @@ const USB_Descriptor_String_t LanguageString =
 	.UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
+/** Manufacturer descriptor string. This is a Unicode string containing the manufacturer's details in human readable
+ *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
+ *  Descriptor.
+ */
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
+{
+	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
+
+	.UnicodeString          = L"Dean Camera"
+};
+
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
 const USB_Descriptor_String_t ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(19), .Type = DTYPE_String},
 
-	.UnicodeString          = L"AVR CDC Bootloader"
+	.UnicodeString          = L"LUFA CDC Bootloader"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see LUFA library "USB Descriptors"
@@ -228,7 +239,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 				Address = &LanguageString;
 				Size    = LanguageString.Header.Size;
 			}
-			else
+			else if (DescriptorNumber == 0x01)
+			{
+				Address = &ManufacturerString;
+				Size    = ManufacturerString.Header.Size;
+			}
+			else if (DescriptorNumber == 0x02)
 			{
 				Address = &ProductString;
 				Size    = ProductString.Header.Size;

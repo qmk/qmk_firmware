@@ -143,9 +143,9 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 const USB_Descriptor_String_t ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(19), .Type = DTYPE_String},
 
-	.UnicodeString          = L"AVR DFU Bootloader"
+	.UnicodeString          = L"LUFA DFU Bootloader"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
