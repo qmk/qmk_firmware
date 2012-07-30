@@ -9,7 +9,7 @@
   *  issues in the library. Most of these issues should be corrected in the future release - see
   *  \ref Page_FutureChanges for a list of planned changes in future releases.
   *
-  *  \section Sec_KnownIssues120730 Version 120730 (BETA)
+  *  \section Sec_KnownIssues120730 Version 120730
   *  - AVR8 Architecture
   *    - No known issues.
   *  - UC3 Architecture

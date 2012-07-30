@@ -10,7 +10,7 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- *  \section Sec_Migration120730 Migrating from 120219 to 120730 (BETA)
+ *  \section Sec_Migration120730 Migrating from 120219 to 120730
  *  <b>Device Mode</b>
  *    - The device mode Audio Class driver now requires an additional configuration parameter, the Audio Control interface index. Existing applications should
  *      be adjusted to specify the additional configuration parameter.
