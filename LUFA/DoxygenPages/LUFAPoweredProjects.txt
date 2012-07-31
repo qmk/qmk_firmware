@@ -38,6 +38,7 @@
  *  can be incorporated into many different applications.
  *
  *  \li Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
+ *  \li AERY development platform for the AVR32 devices: http://www.aery32.com/
  *  \li Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  \li Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
  *  \li AttoBasic AVR BASIC interpreter: http://www.cappels.org/dproj/AttoBasic2_1/AttoBasic_2.1_with_USB_and_Arduino_support.html
@@ -119,6 +120,7 @@
  *  \li USB MIDI to DMX controller: http://github.com/hanshuebner/miDiMX
  *  \li USB powered Geiger Counter: http://uhrheber.wordpress.com/2011/04/28/a-usb-powered-geiger-counter-for-the-z2-and-other-computers/
  *  \li Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
+ *  \li Wii Classic Controller to USB converter: https://github.com/crazyiop/wii-classic-2-usb
  *  \li Wireless MIDI Guitar system: http://www.ise.pw.edu.pl/~wzab/wireless_guitar_system/
  *  \li Xnormidi, a C MIDI library: http://x37v.info/projects/xnormidi
  *  \li XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
