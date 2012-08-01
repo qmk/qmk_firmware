@@ -98,7 +98,7 @@ CC_FLAGS        ?=
 OBJDIR          ?= .
 OBJECT_FILES    ?=
 DEBUG_FORMAT    ?= dwarf-2
-DEBUG_LEVEL     ?= 3
+DEBUG_LEVEL     ?= 2
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
