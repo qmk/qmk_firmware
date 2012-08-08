@@ -392,7 +392,7 @@
  *    <td>Program the device FLASH memory with the application's executable data.</td>
  *   </tr>
  *   <tr>
- *    <td><tt>avrdude</tt></td>
+ *    <td><tt>avrdude-ee</tt></td>
  *    <td>Program the device EEPROM memory with the application's EEPROM data.</td>
  *   </tr>
  *  </table>
@@ -418,11 +418,11 @@
  *    <td>Name of the programmer or debugger tool to communicate with (e.g. <tt>jtagicemkii</tt>).</td>
  *   </tr>
  *   <tr>
- *    <td><tt>ATPROGRAM_PORT</tt></td>
+ *    <td><tt>AVRDUDE_PORT</tt></td>
  *    <td>Name of the communication port to use when when programming with the connected tool (e.g. <tt>COM2</tt>, <tt>/dev/ttyUSB0</tt> or <tt>usb</tt>).</td>
  *   </tr>
  *   <tr>
- *    <td><tt>ATPROGRAM_FLAGS</tt></td>
+ *    <td><tt>AVRDUDE_FLAGS</tt></td>
  *    <td>Additional flags to pass to avrdude when programming, applied after the automatically generated flags.</td>
  *   </tr>
  *  </table>
