@@ -53,21 +53,25 @@ LUFA_BUILD_PROVIDED_MACROS +=
 
 SHELL = /bin/sh
 
+# Converts a given input to a printable output using "(None)" if no items are in the list
+CONVERT_TO_PRINTABLE           = $(if $(strip $(1)), $(1), (None))
+
+
 # Build sorted and filtered lists of the included build module data
-SORTED_LUFA_BUILD_MODULES   = $(sort $(LUFA_BUILD_MODULES))
-SORTED_LUFA_BUILD_TARGETS   = $(sort $(LUFA_BUILD_TARGETS))
-SORTED_LUFA_MANDATORY_VARS  = $(sort $(LUFA_BUILD_MANDATORY_VARS))
-SORTED_LUFA_OPTIONAL_VARS   = $(filter-out $(SORTED_LUFA_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))
-SORTED_LUFA_PROVIDED_VARS   = $(sort $(LUFA_BUILD_PROVIDED_VARS))
-SORTED_LUFA_PROVIDED_MACROS = $(sort $(LUFA_BUILD_PROVIDED_MACROS))
+SORTED_LUFA_BUILD_MODULES      = $(sort $(LUFA_BUILD_MODULES))
+SORTED_LUFA_BUILD_TARGETS      = $(sort $(LUFA_BUILD_TARGETS))
+SORTED_LUFA_MANDATORY_VARS     = $(sort $(LUFA_BUILD_MANDATORY_VARS))
+SORTED_LUFA_OPTIONAL_VARS      = $(filter-out $(SORTED_LUFA_MANDATORY_VARS), $(sort $(LUFA_BUILD_OPTIONAL_VARS)))
+SORTED_LUFA_PROVIDED_VARS      = $(sort $(LUFA_BUILD_PROVIDED_VARS))
+SORTED_LUFA_PROVIDED_MACROS    = $(sort $(LUFA_BUILD_PROVIDED_MACROS))
 
 # Create printable versions of the sorted build module data (use "(None)" when no data is available)
-PRINTABLE_LUFA_BUILD_MODULES   = $(if $(strip $(SORTED_LUFA_BUILD_MODULES)), $(SORTED_LUFA_BUILD_MODULES), (None))
-PRINTABLE_LUFA_BUILD_TARGETS   = $(if $(strip $(SORTED_LUFA_BUILD_TARGETS)), $(SORTED_LUFA_BUILD_TARGETS), (None))
-PRINTABLE_LUFA_MANDATORY_VARS  = $(if $(strip $(SORTED_LUFA_MANDATORY_VARS)), $(SORTED_LUFA_MANDATORY_VARS), (None))
-PRINTABLE_LUFA_OPTIONAL_VARS   = $(if $(strip $(SORTED_LUFA_OPTIONAL_VARS)), $(SORTED_LUFA_OPTIONAL_VARS), (None))
-PRINTABLE_LUFA_PROVIDED_VARS   = $(if $(strip $(SORTED_LUFA_PROVIDED_VARS)), $(SORTED_LUFA_PROVIDED_VARS), (None))
-PRINTABLE_LUFA_PROVIDED_MACROS = $(if $(strip $(SORTED_LUFA_PROVIDED_MACROS)), $(SORTED_LUFA_PROVIDED_MACROS), (None))
+PRINTABLE_LUFA_BUILD_MODULES   = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_BUILD_MODULES))
+PRINTABLE_LUFA_BUILD_TARGETS   = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_BUILD_TARGETS))
+PRINTABLE_LUFA_MANDATORY_VARS  = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_MANDATORY_VARS))
+PRINTABLE_LUFA_OPTIONAL_VARS   = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_OPTIONAL_VARS))
+PRINTABLE_LUFA_PROVIDED_VARS   = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_PROVIDED_VARS))
+PRINTABLE_LUFA_PROVIDED_MACROS = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_PROVIDED_MACROS))
 
 help:
 	@echo "==================================================================="
@@ -90,7 +94,11 @@ help:
 	@echo " By default the target output shows both a friendly summary, as    "
 	@echo " well as the actual invoked command. To suppress the output of the "
 	@echo " invoked commands and show only the friendly command output, run   "
-	@echo " make with the \"-s\" switch added before the target(s).           "		
+	@echo " make with the \"-s\" switch added before the target(s).           "
+	@echo "                                                                   "
+	@echo "SEE ALSO:                                                          "	
+	@echo " For more information, see the 'Build System' chapter of the LUFA  "
+	@echo " project documentation.                                            "
 	@echo "==================================================================="
 	@echo "                                                                   "
 	@echo "  Currently used build system modules in this application:         "
@@ -123,7 +131,7 @@ help:
 	@printf " %b" "$(PRINTABLE_LUFA_PROVIDED_MACROS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "==================================================================="
-	@echo "        The LUFA BuildSystem 2.0 - Powered By Unicorns (tm)        "
+	@echo "        The LUFA BuildSystem 2.0 - Powered By Duct Tape (tm)       "
 	@echo "==================================================================="
 	
 list_modules:
