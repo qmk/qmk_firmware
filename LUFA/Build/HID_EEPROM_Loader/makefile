@@ -9,6 +9,8 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
+# Run "make help" for target help.
+
 MCU          = at90usb1287
 ARCH         = AVR8
 F_CPU        = 1000000

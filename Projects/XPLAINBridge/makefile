@@ -9,6 +9,8 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
+# Run "make help" for target help.
+
 AVRISP_PATH  = ../AVRISP-MKII
 
 MCU          = at90usb1287

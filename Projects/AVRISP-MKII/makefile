@@ -9,6 +9,8 @@
 #         LUFA Project Makefile.
 # --------------------------------------
 
+# Run "make help" for target help.
+
 MCU          = at90usb162
 ARCH         = AVR8
 BOARD        = USBTINYMKII
