@@ -77,6 +77,8 @@
 			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
 			 *  inline function variant.
 			 *
+			 *  \hideinitializer
+			 *
 			 *  \ingroup Group_ByteSwapping
 			 *
 			 *  \param[in] x  16-bit value whose byte ordering is to be swapped.
@@ -89,6 +91,8 @@
 			 *  of dynamic values computed at runtime- use \ref SwapEndian_32() instead. The result of this macro can be used
 			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
 			 *  inline function variant.
+			 *
+			 *  \hideinitializer
 			 *
 			 *  \ingroup Group_ByteSwapping
 			 *
