@@ -131,17 +131,17 @@
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTB = ((PORTB & ~LEDS_PORTB_LEDS) |  (LEDMask & LEDS_PORTB_LEDS));
-				PORTD = ((PORTD & ~LEDS_PORTD_LEDS) |  (LEDMask & LEDS_PORTD_LEDS));
-				PORTC = ((PORTC |  LEDS_PORTC_LEDS) & ~(LEDMask & LEDS_PORTC_LEDS));
+				PORTB = ((PORTB |  LEDS_PORTB_LEDS) & ~(LEDMask & LEDS_PORTB_LEDS));
+				PORTD = ((PORTD |  LEDS_PORTD_LEDS) & ~(LEDMask & LEDS_PORTD_LEDS));
+				PORTC = ((PORTC & ~LEDS_PORTC_LEDS) |  (LEDMask & LEDS_PORTC_LEDS));
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTB = ((PORTB & ~(LEDMask & LEDS_PORTB_LEDS)) |  (ActiveMask & LEDS_PORTB_LEDS));
-				PORTD = ((PORTD & ~(LEDMask & LEDS_PORTD_LEDS)) |  (ActiveMask & LEDS_PORTD_LEDS));
-				PORTC = ((PORTC |  (LEDMask & LEDS_PORTC_LEDS)) | ~(ActiveMask & LEDS_PORTC_LEDS));
+				PORTB = ((PORTB |  (LEDMask & LEDS_PORTB_LEDS)) & ~(ActiveMask & LEDS_PORTB_LEDS));
+				PORTD = ((PORTD |  (LEDMask & LEDS_PORTD_LEDS)) & ~(ActiveMask & LEDS_PORTD_LEDS));
+				PORTC = ((PORTC & ~(LEDMask & LEDS_PORTC_LEDS)) |  (ActiveMask & LEDS_PORTC_LEDS));
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
