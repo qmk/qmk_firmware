@@ -59,13 +59,13 @@
 		/** Endpoint address of the AVRISP data IN endpoint, when in LibUSB driver compatibility mode. */
 		#define AVRISP_DATA_IN_EPADDR_LIBUSB   (ENDPOINT_DIR_IN  | 3)
 
-		#if !defined(LIBUSB_DRIVER_COMPAT) || defined(__DOXYGEN__)
+		#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
+			#define AVRISP_DATA_IN_EPADDR      AVRISP_CurrDataINEndpointAddress
+		#elif defined(LIBUSB_DRIVER_COMPAT)
+			#define AVRISP_DATA_IN_EPADDR      AVRISP_DATA_IN_EPADDR_LIBUSB
+		#else
 			/** Endpoint address of the AVRISP data IN endpoint. */
 			#define AVRISP_DATA_IN_EPADDR      AVRISP_DATA_IN_EPADDR_JUNGO
-		#elif defined(RESET_TOGGLES_LIBUSB_COMPAT)
-			#define AVRISP_DATA_IN_EPADDR      AVRISP_CurrDataINEndpointAddress
-		#else
-			#define AVRISP_DATA_IN_EPADDR      AVRISP_DATA_IN_EPADDR_LIBUSB
 		#endif
 		
 		/** Size in bytes of the AVRISP data endpoint. */

@@ -7,7 +7,23 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  - No Changes.
+  *  <b>New:</b>
+  *  - Core:
+  *   - <i>None</i>
+  *  - Library Applications:
+  *   - <i>None</i>
+  *
+  *  <b>Changed:</b>
+  *  - Core:
+  *   - <i>None</i>
+  *  - Library Applications:
+  *   - <i>None</i>
+  *
+  *  <b>Fixed:</b>
+  *  - Core:
+  *   - <i>None</i>
+  *  - Library Applications:
+  *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *
   *  \section Sec_ChangeLog120730 Version 120730
   *  <b>New:</b>
