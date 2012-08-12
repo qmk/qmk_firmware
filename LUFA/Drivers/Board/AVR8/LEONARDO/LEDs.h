@@ -73,7 +73,7 @@
 		/* Macros: */
 			#define LEDS_PORTB_LEDS       (LEDS_LED1)
 			#define LEDS_PORTD_LEDS       (LEDS_LED2)
-			#define LEDS_PORTE_LEDS       (LEDS_LED3)
+			#define LEDS_PORTC_LEDS       (LEDS_LED3)
 	#endif
 	
 	/* Public Interface - May be used in end-application: */
@@ -85,7 +85,7 @@
 			#define LEDS_LED2        (1 << 0)
 
 			/** LED mask for the third LED on the board. */
-			#define LEDS_LED3        (1 << 6)
+			#define LEDS_LED3        (1 << 7)
 			
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3)
@@ -98,11 +98,11 @@
 			static inline void LEDs_Init(void)
 			{
 				DDRB  |=  LEDS_PORTB_LEDS;
-				PORTB &= ~LEDS_PORTB_LEDS;
+				PORTB |=  LEDS_PORTB_LEDS;
 				DDRD  |=  LEDS_PORTD_LEDS;
-				PORTD &= ~LEDS_PORTD_LEDS;
-				DDRE  |=  LEDS_PORTE_LEDS;
-				PORTE &= ~LEDS_PORTE_LEDS;
+				PORTD |=  LEDS_PORTD_LEDS;
+				DDRC  |=  LEDS_PORTC_LEDS;
+				PORTC &= ~LEDS_PORTC_LEDS;
 			}
 
 			static inline void LEDs_Disable(void)
@@ -111,50 +111,50 @@
 				PORTB &= ~LEDS_PORTB_LEDS;
 				DDRD  &= ~LEDS_PORTD_LEDS;
 				PORTD &= ~LEDS_PORTD_LEDS;
-				DDRE  &= ~LEDS_PORTE_LEDS;
-				PORTE &= ~LEDS_PORTE_LEDS;
+				DDRC  &= ~LEDS_PORTC_LEDS;
+				PORTC &= ~LEDS_PORTC_LEDS;
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTB |= (LEDMask & LEDS_PORTB_LEDS);
-				PORTD |= (LEDMask & LEDS_PORTD_LEDS);
-				PORTE |= (LEDMask & LEDS_PORTE_LEDS);
+				PORTB &= ~(LEDMask & LEDS_PORTB_LEDS);
+				PORTD &= ~(LEDMask & LEDS_PORTD_LEDS);
+				PORTC |=  (LEDMask & LEDS_PORTC_LEDS);
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTB &= ~(LEDMask & LEDS_PORTB_LEDS);
-				PORTD &= ~(LEDMask & LEDS_PORTD_LEDS);
-				PORTE &= ~(LEDMask & LEDS_PORTE_LEDS);
+				PORTB |=  (LEDMask & LEDS_PORTB_LEDS);
+				PORTD |=  (LEDMask & LEDS_PORTD_LEDS);
+				PORTC &= ~(LEDMask & LEDS_PORTC_LEDS);
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTB = ((PORTB & ~LEDS_PORTB_LEDS) | (LEDMask & LEDS_PORTB_LEDS));
-				PORTD = ((PORTD & ~LEDS_PORTD_LEDS) | (LEDMask & LEDS_PORTD_LEDS));
-				PORTE = ((PORTE & ~LEDS_PORTE_LEDS) | (LEDMask & LEDS_PORTE_LEDS));
+				PORTB = ((PORTB & ~LEDS_PORTB_LEDS) |  (LEDMask & LEDS_PORTB_LEDS));
+				PORTD = ((PORTD & ~LEDS_PORTD_LEDS) |  (LEDMask & LEDS_PORTD_LEDS));
+				PORTC = ((PORTC |  LEDS_PORTC_LEDS) & ~(LEDMask & LEDS_PORTC_LEDS));
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTB = ((PORTB & ~(LEDMask & LEDS_PORTB_LEDS)) | (ActiveMask & LEDS_PORTB_LEDS));
-				PORTD = ((PORTD & ~(LEDMask & LEDS_PORTD_LEDS)) | (ActiveMask & LEDS_PORTD_LEDS));
-				PORTE = ((PORTE & ~(LEDMask & LEDS_PORTE_LEDS)) | (ActiveMask & LEDS_PORTE_LEDS));
+				PORTB = ((PORTB & ~(LEDMask & LEDS_PORTB_LEDS)) |  (ActiveMask & LEDS_PORTB_LEDS));
+				PORTD = ((PORTD & ~(LEDMask & LEDS_PORTD_LEDS)) |  (ActiveMask & LEDS_PORTD_LEDS));
+				PORTC = ((PORTC |  (LEDMask & LEDS_PORTC_LEDS)) | ~(ActiveMask & LEDS_PORTC_LEDS));
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
 				PINB  = (LEDMask & LEDS_PORTB_LEDS);
 				PIND  = (LEDMask & LEDS_PORTD_LEDS);
-				PINE  = (LEDMask & LEDS_PORTE_LEDS);
+				PINC  = (LEDMask & LEDS_PORTC_LEDS);
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return ((PORTB & LEDS_PORTB_LEDS) | (PORTD & LEDS_PORTD_LEDS) | (PORTE & LEDS_PORTE_LEDS));
+				return ((PORTB & LEDS_PORTB_LEDS) | (PORTD & LEDS_PORTD_LEDS) | (~PORTC & LEDS_PORTC_LEDS));
 			}
 		#endif
 

@@ -44,10 +44,10 @@
  *
  *  <table>
  *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
- *    <tr><td>LEDS_LED1</td><td>Red</td><td>Bicolor Indicator 1</td><td>Low</td><td>PORTD.4</td></tr>
- *    <tr><td>LEDS_LED2</td><td>Green</td><td>Bicolor Indicator 1</td><td>Low</td><td>PORTD.5</td></tr>
- *    <tr><td>LEDS_LED3</td><td>Red</td><td>Bicolor Indicator 2</td><td>Low</td><td>PORTD.6</td></tr>
- *    <tr><td>LEDS_LED4</td><td>Green</td><td>Bicolor Indicator 2</td><td>Low</td><td>PORTD.7</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Red</td><td>Bicolor Indicator 1</td><td>High</td><td>PORTD.4</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Green</td><td>Bicolor Indicator 1</td><td>High</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Red</td><td>Bicolor Indicator 2</td><td>High</td><td>PORTD.6</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Green</td><td>Bicolor Indicator 2</td><td>High</td><td>PORTD.7</td></tr>
  *  </table>
  *
  *  @{
