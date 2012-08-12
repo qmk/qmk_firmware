@@ -29,31 +29,31 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Olimex AVR-USB-T32U4.
- *  \copydetails Group_LEDs_OLIMEXT32U4
+ *  \brief Board specific LED driver header for the Arduino Leondardo board.
+ *  \copydetails Group_LEDs_LEONDARDO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  \defgroup Group_LEDs_OLIMEXT32U4 OLIMEXT32U4
- *  \brief Board specific LED driver header for the Olimex AVR-USB-T32U4.
+ *  \defgroup Group_LEDs_LEONDARDO LEONDARDO
+ *  \brief Board specific LED driver header for the Arduino Leondardo board.
  *
- *  Board specific LED driver header for the Olimex AVR-USB-T32U4 (http://www.olimex.com/dev/avr-t32u4.html).
+ *  Board specific LED driver header for the Arduino Leondardo board (http://arduino.cc/en/Main/arduinoBoardLeonardo).
  *
  *  <table>
  *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
- *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>RX</td><td>High</td><td>PORTB.0</td></tr>
- *    <tr><td>LEDS_LED2</td><td>Green</td><td>TX</td><td>High</td><td>PORTD.5</td></tr>
- *    <tr><td>LEDS_LED3</td><td>N/A</td><td>General Indicator (Not Mounted)</td><td>High</td><td>PORTE.6</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>RX</td><td>Low</td><td>PORTB.0</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Yellow</td><td>TX</td><td>Low</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>General Indicator</td><td>High</td><td>PORTC.7</td></tr>
  *  </table>
  *
  *  @{
  */
 
-#ifndef __LEDS_OLIMEXT32U4_H__
-#define __LEDS_OLIMEXT32U4_H__
+#ifndef __LEDS_LEONDARDO_H__
+#define __LEDS_LEONDARDO_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"

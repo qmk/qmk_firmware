@@ -188,11 +188,13 @@
 		#elif (BOARD == BOARD_DUCE)
 			#include "AVR8/DUCE/LEDs.h"
 		#elif (BOARD == BOARD_OLIMEX32U4)
-			#include "AVR8/OLIMEX32U4/LEDs.h"		
+			#include "AVR8/OLIMEX32U4/LEDs.h"
 		#elif (BOARD == BOARD_OLIMEXT32U4)
-			#include "AVR8/OLIMEXT32U4/LEDs.h"		
+			#include "AVR8/OLIMEXT32U4/LEDs.h"
 		#elif (BOARD == BOARD_OLIMEXISPMK2)
-			#include "AVR8/OLIMEXISPMK2/LEDs.h"		
+			#include "AVR8/OLIMEXISPMK2/LEDs.h"
+		#elif (BOARD == BOARD_LEONDARDO)
+			#include "AVR8/LEONARDO/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif

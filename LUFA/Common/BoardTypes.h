@@ -216,7 +216,9 @@
 			/** Selects the Olimex AVR-ISP-MK2 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_OLIMEXISPMK2         50
 
-
+			/** Selects the Arduino Leonardo specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_LEONARDO             51
+			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

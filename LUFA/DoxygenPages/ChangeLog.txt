@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
   *  - Core:
-  *   - <i>None</i>
+  *   - Added support for the Arduino Leonardo board
   *  - Library Applications:
   *   - <i>None</i>
   *

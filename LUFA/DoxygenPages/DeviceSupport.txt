@@ -102,6 +102,7 @@
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Adafruit U4 Breakout Board
  *   - Arduino Uno
+ *   - Arduino Leonardo
  *   - Bitwizard Multio and Big-Multio
  *   - Busware BUI
  *   - Busware CUL V3
@@ -115,9 +116,7 @@
  *   - Micropendous Boards (Micropendous-32U2, Micropendous-1, Micropendous-2)
  *   - Microsin AVR-USB162
  *   - Minimus USB
- *   - Olimex AVR-USB-162
- *   - Olimex AVR-USB-32U4
- *   - Olimex AVR-USB-T32U4
+ *   - Olimex AVR-USB-162, AVR-USB-32U4 and AVR-USB-T32U4 Boards
  *   - Olimex AVR-ISP-MK2
  *   - Paranoid Studio's US2AX (V1, V2 and V3 hardware revisions)
  *   - PJRC Teensy (1.x and 2.x versions)
