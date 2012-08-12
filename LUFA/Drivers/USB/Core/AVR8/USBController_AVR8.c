@@ -63,6 +63,13 @@ void USB_Init(
 	USB_Options = Options;
 	#endif
 
+	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+	/* Workaround for AVR8 bootloaders that fail to turn off the OTG pad before running
+	 * the loaded application. This causes VBUS detection to fail unless we first force
+	 * it off to reset it. */
+	USB_OTGPAD_Off();
+	#endif
+
 	if (!(USB_Options & USB_OPT_REG_DISABLED))
 	  USB_REG_On();
 	else
