@@ -158,6 +158,10 @@ CPPFLAGS += -funsigned-bitfields
 CPPFLAGS += -fpack-struct
 CPPFLAGS += -fshort-enums
 CPPFLAGS += -fno-exceptions
+CPPFLAGS += -ffunction-sections
+CPPFLAGS += -fdata-sections
+# to supress "warning: only initialized variables can be placed into program memory area"
+CPPFLAGS += -w
 CPPFLAGS += -Wall
 CPPFLAGS += -Wundef
 #CPPFLAGS += -mshort-calls
@@ -541,6 +545,7 @@ $(OBJDIR)/%.o : %.c
 # Compile: create object files from C++ source files.
 $(OBJDIR)/%.o : %.cpp
 	@echo
+	mkdir -p $(@D)
 	@echo $(MSG_COMPILING_CPP) $<
 	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
 
