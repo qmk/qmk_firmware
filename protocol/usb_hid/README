@@ -1,0 +1,9 @@
+Third party Libraries
+---------------------
+USB_Host_Shield_2.0
+    Circuits@Home repository is git-submoduled. Do git submodule init & update to get the content.
+    https://github.com/felis/USB_Host_Shield_2.0
+
+arduino-1.0.1
+    Arduino files copied from:
+    https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
