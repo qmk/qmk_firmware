@@ -54,7 +54,7 @@ ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(s
 # Default values of optionally user-supplied variables
 DOXYGEN_CONF            ?= Doxygen.conf
 DOXYGEN_FAIL_ON_WARNING ?= Y
-DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES HTML_STYLESHEET=$(patsubst %/,%,$(LUFA_PATH))/DoxygenPages/Style/Style.css
+DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES HTML_EXTRA_STYLESHEET=$(patsubst %/,%,$(LUFA_PATH))/DoxygenPages/Style/Style.css
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))

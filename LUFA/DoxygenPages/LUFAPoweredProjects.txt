@@ -86,7 +86,7 @@
  *  \li Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
  *  \li Nehebkau, Laptop Controlled Keyboard and Mouse: http://www.frank-zhao.com/cache/nehebkau.php
  *  \li NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
- *  \li NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
+ *  \li NES Controller USB modification: https://github.com/nfd/nes_adapter
  *  \li Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
  *  \li Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
