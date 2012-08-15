@@ -15,14 +15,15 @@
  *  For details on the prerequisites needed for Linux and Windows machines to be able to use the LUFA
  *  build system, see \ref Sec_Prerequisites.
  *
- *  To use a LUFA build system module, simply add an include to your project makefile:
+ *  To use a LUFA build system module, simply add an include to your project makefile. All user projects
+ *  should at a minimum include \ref Page_BuildModule_CORE for base functionality:
  *  \code
  *  include $(LUFA_PATH)/Build/lufa_core.mk
  *  \endcode
  *
- *  And the associated build module targets will be added to your project's build makefile automatically.
- *  To call a build target, run <tt>make {TARGET_NAME}</tt> from the command line, substituting in
- *  the appropriate target name.
+ *  Once included in your project makefile, the associated build module targets will be added to your
+ *  project's build makefile targets automatically. To call a build target, run <tt>make {TARGET_NAME}</tt>
+ *  from the command line, substituting in the appropriate target name.
  *
  *  \see \ref Sec_AppConfigParams for a copy of the sample LUFA project makefile.
  *
@@ -49,7 +50,7 @@
  *
  *  The BUILD LUFA build system module, providing targets for the compilation,
  *  assembling and linking of an application from source code into binary files
- *  suitable for programming into a target device.
+ *  suitable for programming into a target device, using the GCC compiler.
  *
  *  To use this module in your application makefile, add the following code:
  *  \code
@@ -57,7 +58,7 @@
  *  \endcode
  *
  *  \section SSec_BuildModule_BUILD_Requirements Requirements
- *  This module requires the the architecture appropriate binaries of the GCC compiler are  available in your
+ *  This module requires the the architecture appropriate binaries of the GCC compiler are available in your
  *  system's <b>PATH</b> variable. The GCC compiler and associated toolchain is distributed in Atmel AVR Studio
  *  5.x and Atmel Studio 6.x installation directories, as well as in many third party distribution packages.
  *
@@ -381,7 +382,7 @@
  *  \section SSec_BuildModule_AVRDUDE_Requirements Requirements
  *  This module requires the <tt>avrdude</tt> utility to be available in your system's <b>PATH</b>
  *  variable. The <tt>avrdude</tt> utility is distributed in the old WinAVR project releases for
- *  Windows (<a>winavr.sourceforge.net</a>) or can be installed on *nix systems via the project's
+ *  Windows (<a>http://winavr.sourceforge.net</a>) or can be installed on *nix systems via the project's
  *  source code (<a>https://savannah.nongnu.org/projects/avrdude</a>) or through the package manager.
  *
  *  \section SSec_BuildModule_AVRDUDE_Targets Targets

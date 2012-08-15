@@ -113,4 +113,4 @@ LUFA_SRC_ALL_FILES   := $(LUFA_SRC_USB)            \
                         $(LUFA_SRC_TEMPERATURE)    \
                         $(LUFA_SRC_SERIAL)         \
                         $(LUFA_SRC_TWI)            \
-					    $(LUFA_SRC_PLATFORM)
+                        $(LUFA_SRC_PLATFORM)
