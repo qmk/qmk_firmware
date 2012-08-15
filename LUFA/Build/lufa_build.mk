@@ -152,15 +152,20 @@ endif
 
 # Convert input source filenames into a list of required output object files
 OBJECT_FILES += $(addsuffix .o, $(basename $(SRC)))
+
+# Check if an output object file directory was specified instead of the input file location
 ifneq ($(OBJDIR),.)
-   $(shell mkdir $(OBJDIR) 2> /dev/null)   
-   VPATH           += $(dir $(SRC))
+   # Prefix all the object filenames with the output object file directory path
    OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
    
    # Check if any object file (without path) appears more than once in the object file list
    ifneq ($(words $(sort $(OBJECT_FILES))), $(words $(OBJECT_FILES)))
        $(error Cannot build with OBJDIR parameter set - one or more object file name is not unique)
    endif
+
+   # Create the output object file directory if it does not exist and add it to the virtual path list
+   $(shell mkdir $(OBJDIR) 2> /dev/null)   
+   VPATH           += $(dir $(SRC))
 endif
 
 # Create a list of dependency files from the list of object files
