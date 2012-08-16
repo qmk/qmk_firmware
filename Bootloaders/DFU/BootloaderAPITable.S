@@ -87,5 +87,5 @@ BootloaderAPI_JumpTable:
 BootloaderAPI_Signatures:
 
 	.long BOOT_START_ADDR ; Start address of the bootloader
-	.word 0xDFB1 ; Signature for the DFU class bootloader, V1
+	.word 0xDF10 ; Signature for the DFU class bootloader, V1
 	.word 0xDCFB ; Signature for a LUFA class bootloader
