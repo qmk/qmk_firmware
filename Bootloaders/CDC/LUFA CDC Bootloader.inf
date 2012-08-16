@@ -44,6 +44,9 @@ HKR,,EnumPropPages32,,"msports.dll,SerialPortPropPageProvider"
 [DeviceList]
 %DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_204A
 
+[DeviceList.NTx86]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_204A
+
 [DeviceList.NTamd64]
 %DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_204A
 
