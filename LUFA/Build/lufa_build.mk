@@ -129,6 +129,7 @@ else
 endif
 
 # Output Messages
+MSG_INFO_MESSAGE := ' [INFO]    :'
 MSG_COMPILE_CMD  := ' [GCC]     :'
 MSG_ASSEMBLE_CMD := ' [GAS]     :'
 MSG_NM_CMD       := ' [NM]      :'
@@ -206,18 +207,13 @@ endif
 size: SIZE_MCU_FLAG    := $(shell $(CROSS)-size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
 size: SIZE_FORMAT_FLAG := $(shell $(CROSS)-size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
 
-
 build_begin:
+	@echo $(MSG_INFO_MESSAGE) Begin compilation of project \"$(TARGET)\"...
 	@echo ""
-	@echo Begin compilation of project \"$(TARGET)\"...
-	@echo ""
+	@$(CROSS)-gcc --version
 	
 build_end:
-	@echo Finished building project \"$(TARGET)\".
-	@echo ""
-
-gcc-version:
-	@$(CROSS)-gcc --version
+	@echo $(MSG_INFO_MESSAGE) Finished building project \"$(TARGET)\".
 
 check-source:
 	@for f in $(SRC); do \
@@ -246,13 +242,21 @@ clean: mostlyclean
 	@echo $(MSG_REMOVE_CMD) Removing output files of \"$(TARGET)\"
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym $(TARGET).a
 
-all: build_begin check-source gcc-version elf hex lss sym size build_end
+all: build_begin check-source elf hex lss sym size build_end
 
 lib: lib$(TARGET).a
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
 lss: $(TARGET).lss
 sym: $(TARGET).sym
+
+%.s: %.c $(MAKEFILE_LIST)
+	@echo $(MSG_COMPILE_CMD) Generating assembly from C file \"$(notdir $<)\"
+	$(CROSS)-gcc -S $(BASE_CC_FLAGS) $(BASE_C_FLAGS) $(CC_FLAGS) $(C_FLAGS) $< -o $@
+
+%.s: %.cpp $(MAKEFILE_LIST)
+	@echo $(MSG_COMPILE_CMD) Generating assembly from C++ file \"$(notdir $<)\"
+	$(CROSS)-gcc -S $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) $< -o $@
 
 $(OBJDIR)/%.o: %.c $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C file \"$(notdir $<)\"
@@ -298,4 +302,4 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: build_begin build_end gcc-version check-source size symbol-sizes lib elf hex lss clean mostlyclean
+.PHONY: build_begin build_end check-source size symbol-sizes lib elf hex lss clean mostlyclean
