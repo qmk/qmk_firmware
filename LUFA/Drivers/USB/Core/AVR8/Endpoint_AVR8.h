@@ -124,13 +124,13 @@
 			#endif
 
 			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
-				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-					#define ENDPOINT_TOTAL_ENDPOINTS        7
-				#else
+				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 					/** Total number of endpoints (including the default control endpoint at address 0) which may
 					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
 					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
 					 */
+					#define ENDPOINT_TOTAL_ENDPOINTS        7
+				#else
 					#define ENDPOINT_TOTAL_ENDPOINTS        5
 				#endif
 			#else

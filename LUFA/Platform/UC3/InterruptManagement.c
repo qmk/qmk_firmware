@@ -43,17 +43,11 @@ ISR(Unhandled_Interrupt)
 	for (;;);
 }
 
-/** Retrieves the associated interrupt handler for the interrupt group currently being fired. This
- *  is called directly from the exception handler routine before dispatching to the ISR.
- */
 InterruptHandlerPtr_t INTC_GetInterruptHandler(const uint_reg_t InterruptLevel)
 {
 	return InterruptHandlers[AVR32_INTC.icr[AVR32_INTC_INT3 - InterruptLevel]];
 }
 
-/** Initializes the interrupt controller ready to handle interrupts. This must be called at the
- *  start of the user program before any interrupts are registered or enabled.
- */
 void INTC_Init(void)
 {
 	for (uint8_t InterruptGroup = 0; InterruptGroup < AVR32_INTC_NUM_INT_GRPS; InterruptGroup++)

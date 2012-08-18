@@ -110,7 +110,18 @@
 			#define INTC_IRQ_LINE(IRQIndex)   (IRQIndex % 32)
 
 		/* Function Prototypes: */
+			/** Initializes the interrupt controller ready to handle interrupts. This must be called at the
+			 *  start of the user program before any interrupts are registered or enabled.
+			 */
 			void INTC_Init(void);			
+			
+			/** Retrieves the associated interrupt handler for the interrupt group currently being fired. This
+			 *  is called directly from the exception handler routine before dispatching to the ISR.
+			 *
+			 *  \param[in] InterruptLevel  Priority level of the interrupt.
+			 *
+			 *  \return Pointer to the associated interrupt handler function, or NULL if no handler set.
+			 */
 			InterruptHandlerPtr_t INTC_GetInterruptHandler(const uint_reg_t InterruptLevel);
 
 		/* Inline Functions: */
