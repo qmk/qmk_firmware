@@ -3,7 +3,7 @@
 /----------------------------------------------------------------------------/
 / FatFs module is a generic FAT file system module for small embedded systems.
 / This is a free software that opened for education, research and commercial
-/ developments under license policy of following trems.
+/ developments under license policy of following terms.
 /
 /  Copyright (C) 2011, ChaN, all right reserved.
 /
@@ -191,7 +191,7 @@ typedef enum {
 	FR_NO_FILESYSTEM,		/* (13) There is no valid FAT volume on the physical drive */
 	FR_MKFS_ABORTED,		/* (14) The f_mkfs() aborted due to any parameter error */
 	FR_TIMEOUT,				/* (15) Could not get a grant to access the volume within defined period */
-	FR_LOCKED,				/* (16) The operation is rejected according to the file shareing policy */
+	FR_LOCKED,				/* (16) The operation is rejected according to the file sharing policy */
 	FR_NOT_ENOUGH_CORE,		/* (17) LFN working buffer could not be allocated */
 	FR_TOO_MANY_OPEN_FILES	/* (18) Number of open files > _FS_SHARE */
 } FRESULT;
@@ -215,8 +215,8 @@ FRESULT f_truncate (FIL*);							/* Truncate file */
 FRESULT f_sync (FIL*);								/* Flush cached data of a writing file */
 FRESULT f_unlink (const TCHAR*);					/* Delete an existing file or directory */
 FRESULT	f_mkdir (const TCHAR*);						/* Create a new directory */
-FRESULT f_chmod (const TCHAR*, BYTE, BYTE);			/* Change attriburte of the file/dir */
-FRESULT f_utime (const TCHAR*, const FILINFO*);		/* Change timestamp of the file/dir */
+FRESULT f_chmod (const TCHAR*, BYTE, BYTE);			/* Change attribute of the file/dir */
+FRESULT f_utime (const TCHAR*, const FILINFO*);		/* Change time-stamp of the file/dir */
 FRESULT f_rename (const TCHAR*, const TCHAR*);		/* Rename/Move a file or directory */
 FRESULT f_forward (FIL*, UINT(*)(const BYTE*,UINT), UINT, UINT*);	/* Forward data to the stream */
 FRESULT f_mkfs (BYTE, BYTE, UINT);					/* Create a file system on the drive */

@@ -130,7 +130,7 @@
 #define	ABORT(fs, res)		{ fp->flag |= FA__ERROR; LEAVE_FF(fs, res); }
 
 
-/* File shareing feature */
+/* File sharing feature */
 #if _FS_SHARE
 #if _FS_READONLY
 #error _FS_SHARE must be 0 on read-only cfg.
@@ -417,7 +417,7 @@ typedef struct {
 #define BPB_FSVer			42	/* File system version (2) */
 #define BPB_RootClus		44	/* Root dir first cluster (4) */
 #define BPB_FSInfo			48	/* Offset of FSInfo sector (2) */
-#define BPB_BkBootSec		50	/* Offset of backup boot sectot (2) */
+#define BPB_BkBootSec		50	/* Offset of backup boot sector (2) */
 #define BS_DrvNum32			64	/* Physical drive number (2) */
 #define BS_BootSig32		66	/* Extended boot signature (1) */
 #define BS_VolID32			67	/* Volume serial number (4) */
@@ -448,7 +448,7 @@ typedef struct {
 #define	LDIR_FstClusLO		26	/* Filled by zero (0) */
 #define	SZ_DIR				32		/* Size of a directory entry */
 #define	LLE					0x40	/* Last long entry flag in LDIR_Ord */
-#define	DDE					0xE5	/* Deleted directory enrty mark in DIR_Name[0] */
+#define	DDE					0xE5	/* Deleted directory entry mark in DIR_Name[0] */
 #define	NDDE				0x05	/* Replacement of a character collides with DDE */
 
 
@@ -593,7 +593,7 @@ void unlock_fs (
 
 
 /*-----------------------------------------------------------------------*/
-/* File shareing control functions                                       */
+/* File sharing control functions                                       */
 /*-----------------------------------------------------------------------*/
 #if _FS_SHARE
 
@@ -819,7 +819,7 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, Else:Cluster status 
 	BYTE *p;
 
 
-	if (clst < 2 || clst >= fs->n_fatent)	/* Chack range */
+	if (clst < 2 || clst >= fs->n_fatent)	/* Check range */
 		return 1;
 
 	switch (fs->fs_type) {
@@ -1040,7 +1040,7 @@ DWORD clmt_clust (	/* <2:Error, >=2:Cluster number */
 	tbl = fp->cltbl + 1;	/* Top of CLMT */
 	cl = ofs / SS(fp->fs) / fp->fs->csize;	/* Cluster order from top of the file */
 	for (;;) {
-		ncl = *tbl++;			/* Number of cluters in the fragment */
+		ncl = *tbl++;			/* Number of clusters in the fragment */
 		if (!ncl) return 0;		/* End of table? (error) */
 		if (cl < ncl) break;	/* In this fragment? */
 		cl -= ncl; tbl++;		/* Next fragment */
@@ -1941,7 +1941,7 @@ FRESULT follow_path (	/* FR_OK(0): successful, !=0: error code */
 			res = dir_find(dj);				/* Find it */
 			ns = *(dj->fn+NS);
 			if (res != FR_OK) {				/* Failed to find the object */
-				if (res != FR_NO_FILE) break;	/* Abort if any hard error occured */
+				if (res != FR_NO_FILE) break;	/* Abort if any hard error occurred */
 				/* Object not found */
 				if (_FS_RPATH && (ns & NS_DOT)) {	/* If dot entry is not exit */
 					dj->sclust = 0; dj->dir = 0;	/* It is the root dir */
@@ -2059,7 +2059,7 @@ FRESULT chk_mounted (	/* FR_OK(0): successful, !=0: any error occurred */
 	if (chk_wp && (stat & STA_PROTECT))	/* Check disk write protection if needed */
 		return FR_WRITE_PROTECTED;
 #endif
-	/* Search FAT partition on the drive. Supports only generic partitionings, FDISK and SFD. */
+	/* Search FAT partition on the drive. Supports only generic partitioning, FDISK and SFD. */
 	fmt = check_fs(fs, bsect = 0);		/* Check sector 0 if it is a VBR */
 	if (fmt == 1) {						/* Not an FAT-VBR, the disk may be partitioned */
 		/* Check the partition listed in top of the partition table */
@@ -2950,7 +2950,7 @@ FRESULT f_lseek (
 
 #if _FS_MINIMIZE <= 1
 /*-----------------------------------------------------------------------*/
-/* Create a Directroy Object                                             */
+/* Create a Directory Object                                             */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_opendir (
@@ -2990,7 +2990,7 @@ FRESULT f_opendir (
 
 
 /*-----------------------------------------------------------------------*/
-/* Read Directory Entry in Sequense                                      */
+/* Read Directory Entry in Sequence                                      */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_readdir (
@@ -3297,7 +3297,7 @@ FRESULT f_mkdir (
 					mem_set(dir, 0, SS(dj.fs));
 				}
 			}
-			if (res == FR_OK) res = dir_register(&dj);	/* Register the object to the directoy */
+			if (res == FR_OK) res = dir_register(&dj);	/* Register the object to the directory */
 			if (res != FR_OK) {
 				remove_chain(dj.fs, dcl);			/* Could not register, remove cluster chain */
 			} else {
@@ -3361,7 +3361,7 @@ FRESULT f_chmod (
 
 
 /*-----------------------------------------------------------------------*/
-/* Change Timestamp                                                      */
+/* Change Time-stamp                                                      */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_utime (
@@ -3633,9 +3633,9 @@ FRESULT f_mkfs (
 		return FR_MKFS_ABORTED;
 
 	/* Create partition table if required */
-	if (sfd) {	/* No patition table (SFD) */
+	if (sfd) {	/* No partition table (SFD) */
 		md = 0xF0;
-	} else {	/* With patition table (FDISK) */
+	} else {	/* With partition table (FDISK) */
 		DWORD n_disk = b_vol + n_vol;
 
 		mem_set(fs->win, 0, SS(fs));
@@ -3785,18 +3785,18 @@ TCHAR* f_gets (
 #if _LFN_UNICODE					/* Read a character in UTF-8 encoding */
 		if (c >= 0x80) {
 			if (c < 0xC0) continue;	/* Skip stray trailer */
-			if (c < 0xE0) {			/* Two-byte sequense */
+			if (c < 0xE0) {			/* Two-byte sequence */
 				f_read(fil, s, 1, &rc);
 				if (rc != 1) break;
 				c = ((c & 0x1F) << 6) | (s[0] & 0x3F);
 				if (c < 0x80) c = '?';
 			} else {
-				if (c < 0xF0) {		/* Three-byte sequense */
+				if (c < 0xF0) {		/* Three-byte sequence */
 					f_read(fil, s, 2, &rc);
 					if (rc != 2) break;
 					c = (c << 12) | ((s[0] & 0x3F) << 6) | (s[1] & 0x3F);
 					if (c < 0x800) c = '?';
-				} else {			/* Reject four-byte sequense */
+				} else {			/* Reject four-byte sequence */
 					c = '?';
 				}
 			}
@@ -3945,7 +3945,7 @@ int f_printf (
 		case 'D' :					/* Signed decimal */
 		case 'U' :					/* Unsigned decimal */
 			r = 10; break;
-		case 'X' :					/* Hexdecimal */
+		case 'X' :					/* Hexadecimal */
 			r = 16; break;
 		default:					/* Unknown type (passthrough) */
 			cc = f_putc(c, fil); continue;

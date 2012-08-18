@@ -119,7 +119,7 @@
 			 *
 			 *  \param[in] Channel  Index of the external oscillator to start.
 			 *  \param[in] Type     Type of clock attached to the given oscillator channel, a value from \ref UC3_Extern_OSC_ClockTypes_t.
-			 *  \param[in] Startup  Statup time of the external oscillator, a value from \ref UC3_Extern_OSC_ClockStartup_t.
+			 *  \param[in] Startup  Startup time of the external oscillator, a value from \ref UC3_Extern_OSC_ClockStartup_t.
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
@@ -270,7 +270,7 @@
 			 *
 			 *  \param[in] Channel  Index of the generic clock to stop.
 			 *
-			 *  \return Boolean \c true if the generic clock was sucessfully stopped, \c false if invalid parameters specified.
+			 *  \return Boolean \c true if the generic clock was successfully stopped, \c false if invalid parameters specified.
 			 */
 			static inline bool AVR32CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
 			static inline bool AVR32CLK_StopGenericClock(const uint8_t Channel)
@@ -291,7 +291,7 @@
 			 *  \param[in] Source      Clock source for the CPU core, a value from \ref UC3_System_ClockSource_t.
 			 *  \param[in] SourceFreq  Frequency of the CPU core's clock source, in Hz.
 			 *
-			 *  \return Boolean \c true if the CPU core clock was sucessfully altered, \c false if invalid parameters specified.
+			 *  \return Boolean \c true if the CPU core clock was successfully altered, \c false if invalid parameters specified.
 			 */
 			static inline bool AVR32CLK_SetCPUClockSource(const uint8_t Source,
 			                                              const uint32_t SourceFreq) ATTR_ALWAYS_INLINE;

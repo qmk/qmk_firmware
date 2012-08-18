@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Arduino Leondardo board.
+ *  \brief Board specific LED driver header for the Arduino Leonardo board.
  *  \copydetails Group_LEDs_LEONDARDO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
@@ -38,9 +38,9 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_LEONDARDO LEONDARDO
- *  \brief Board specific LED driver header for the Arduino Leondardo board.
+ *  \brief Board specific LED driver header for the Arduino Leonardo board.
  *
- *  Board specific LED driver header for the Arduino Leondardo board (http://arduino.cc/en/Main/arduinoBoardLeonardo).
+ *  Board specific LED driver header for the Arduino Leonardo board (http://arduino.cc/en/Main/arduinoBoardLeonardo).
  *
  *  <table>
  *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>

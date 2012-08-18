@@ -130,7 +130,7 @@
 #define	ABORT(fs, res)		{ fp->flag |= FA__ERROR; LEAVE_FF(fs, res); }
 
 
-/* File shareing feature */
+/* File sharing feature */
 #if _FS_SHARE
 #if _FS_READONLY
 #error _FS_SHARE must be 0 on read-only cfg.
@@ -417,7 +417,7 @@ typedef struct {
 #define BPB_FSVer			42	/* File system version (2) */
 #define BPB_RootClus		44	/* Root dir first cluster (4) */
 #define BPB_FSInfo			48	/* Offset of FSInfo sector (2) */
-#define BPB_BkBootSec		50	/* Offset of backup boot sectot (2) */
+#define BPB_BkBootSec		50	/* Offset of backup boot sector (2) */
 #define BS_DrvNum32			64	/* Physical drive number (2) */
 #define BS_BootSig32		66	/* Extended boot signature (1) */
 #define BS_VolID32			67	/* Volume serial number (4) */
@@ -448,7 +448,7 @@ typedef struct {
 #define	LDIR_FstClusLO		26	/* Filled by zero (0) */
 #define	SZ_DIR				32		/* Size of a directory entry */
 #define	LLE					0x40	/* Last long entry flag in LDIR_Ord */
-#define	DDE					0xE5	/* Deleted directory enrty mark in DIR_Name[0] */
+#define	DDE					0xE5	/* Deleted directory entry mark in DIR_Name[0] */
 #define	NDDE				0x05	/* Replacement of a character collides with DDE */
 
 
@@ -2059,7 +2059,7 @@ FRESULT chk_mounted (	/* FR_OK(0): successful, !=0: any error occurred */
 	if (chk_wp && (stat & STA_PROTECT))	/* Check disk write protection if needed */
 		return FR_WRITE_PROTECTED;
 #endif
-	/* Search FAT partition on the drive. Supports only generic partitionings, FDISK and SFD. */
+	/* Search FAT partition on the drive. Supports only generic partitioning, FDISK and SFD. */
 	fmt = check_fs(fs, bsect = 0);		/* Check sector 0 if it is a VBR */
 	if (fmt == 1) {						/* Not an FAT-VBR, the disk may be partitioned */
 		/* Check the partition listed in top of the partition table */
@@ -2950,7 +2950,7 @@ FRESULT f_lseek (
 
 #if _FS_MINIMIZE <= 1
 /*-----------------------------------------------------------------------*/
-/* Create a Directroy Object                                             */
+/* Create a Directory Object                                             */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_opendir (
@@ -2990,7 +2990,7 @@ FRESULT f_opendir (
 
 
 /*-----------------------------------------------------------------------*/
-/* Read Directory Entry in Sequense                                      */
+/* Read Directory Entry in Sequence                                      */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_readdir (
@@ -3633,9 +3633,9 @@ FRESULT f_mkfs (
 		return FR_MKFS_ABORTED;
 
 	/* Create partition table if required */
-	if (sfd) {	/* No patition table (SFD) */
+	if (sfd) {	/* No partition table (SFD) */
 		md = 0xF0;
-	} else {	/* With patition table (FDISK) */
+	} else {	/* With partition table (FDISK) */
 		DWORD n_disk = b_vol + n_vol;
 
 		mem_set(fs->win, 0, SS(fs));
@@ -3785,18 +3785,18 @@ TCHAR* f_gets (
 #if _LFN_UNICODE					/* Read a character in UTF-8 encoding */
 		if (c >= 0x80) {
 			if (c < 0xC0) continue;	/* Skip stray trailer */
-			if (c < 0xE0) {			/* Two-byte sequense */
+			if (c < 0xE0) {			/* Two-byte sequence */
 				f_read(fil, s, 1, &rc);
 				if (rc != 1) break;
 				c = ((c & 0x1F) << 6) | (s[0] & 0x3F);
 				if (c < 0x80) c = '?';
 			} else {
-				if (c < 0xF0) {		/* Three-byte sequense */
+				if (c < 0xF0) {		/* Three-byte sequence */
 					f_read(fil, s, 2, &rc);
 					if (rc != 2) break;
 					c = (c << 12) | ((s[0] & 0x3F) << 6) | (s[1] & 0x3F);
 					if (c < 0x800) c = '?';
-				} else {			/* Reject four-byte sequense */
+				} else {			/* Reject four-byte sequence */
 					c = '?';
 				}
 			}
@@ -3945,9 +3945,9 @@ int f_printf (
 		case 'D' :					/* Signed decimal */
 		case 'U' :					/* Unsigned decimal */
 			r = 10; break;
-		case 'X' :					/* Hexdecimal */
+		case 'X' :					/* Hexadecimal */
 			r = 16; break;
-		default:					/* Unknown type (passthrough) */
+		default:					/* Unknown type (pass-through) */
 			cc = f_putc(c, fil); continue;
 		}
 

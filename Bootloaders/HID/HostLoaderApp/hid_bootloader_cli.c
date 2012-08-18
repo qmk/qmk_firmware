@@ -712,7 +712,7 @@ int teensy_write(void *buf, int len, double timeout)
 {
 	int r;
 
-	// TODO: imeplement timeout... how??
+	// TODO: implement timeout... how??
 	r = write(uhid_teensy_fd, buf, len);
 	if (r == len) return 1;
 	return 0;
@@ -807,7 +807,7 @@ int read_intel_hex(const char *filename)
 
 /* parses a line of intel hex code, stores the data in bytes[] */
 /* and the beginning address in addr, and returns a 1 if the */
-/* line was valid, or a 0 if an error occured.  The variable */
+/* line was valid, or a 0 if an error occurred.  The variable */
 /* num gets the number of bytes that were stored into bytes[] */
 
 
