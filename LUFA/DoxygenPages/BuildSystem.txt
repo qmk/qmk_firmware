@@ -106,7 +106,7 @@
  *    <td>Remove all intermediatary files but preserve any binary output files.</td>
  *   </tr>
  *   <tr>
- *    <td><tt><filename>.s</tt></td>
+ *    <td><tt><i>&lt;filename&gt;</i>.s</tt></td>
  *    <td>Create an assembly listing of a given input C/C++ source file.</td>
  *   </tr>
  *  </table>
