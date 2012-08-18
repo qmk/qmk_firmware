@@ -73,6 +73,7 @@ else
    DOXYGEN_CMD := $(BASE_DOXYGEN_CMD)
 endif
 
+# Builds the project documentation using the specified configuration file and the DOXYGEN tool
 doxygen:
 	@echo $(MSG_DOXYGEN_CMD) Configuration file \"$(DOXYGEN_CONF)\" with parameters \"$(DOXYGEN_OVERRIDE_PARAMS)\"
 	$(DOXYGEN_CMD)

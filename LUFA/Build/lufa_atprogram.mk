@@ -89,10 +89,12 @@ else
    $(error Unsupported architecture "$(ARCH)")
 endif
 
+# Programs in the target FLASH memory using ATPROGRAM
 atprogram: $(TARGET).elf $(MAKEFILE_LIST)
 	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" FLASH using \"$(ATPROGRAM_PROGRAMMER)\"
 	atprogram $(BASE_ATPROGRAM_FLAGS) program $(ATPROGRAM_FLASH_FLAGS) --file $<
 
+# Programs in the target EEPROM memory using ATPROGRAM
 atprogram-ee: $(TARGET).elf $(MAKEFILE_LIST)
 	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" EEPROM using \"$(ATPROGRAM_PROGRAMMER)\"
 	atprogram $(BASE_ATPROGRAM_FLAGS) program $(ATPROGRAM_EEPROM_FLAGS) --file $<

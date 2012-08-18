@@ -133,22 +133,28 @@ help:
 	@echo "==================================================================="
 	@echo "        The LUFA BuildSystem 2.0 - Powered By Duct Tape (tm)       "
 	@echo "==================================================================="
-	
+
+# Lists build modules included by the project makefile, in alphabetical order
 list_modules:
 	@echo Currently Used Build System Modules: $(PRINTABLE_LUFA_BUILD_MODULES)
 
+# Lists build targets included by the project makefile, in alphabetical order
 list_targets:
 	@echo Currently Available Build Targets: $(PRINTABLE_LUFA_BUILD_TARGETS)	
 
+# Lists mandatory variables that must be set by the project makefile, in alphabetical order
 list_mandatory:
 	@echo Mandatory Variables for Included Modules: $(PRINTABLE_LUFA_MANDATORY_VARS)
 	
+# Lists optional variables that must be set by the project makefile, in alphabetical order
 list_optional:
 	@echo Optional Variables for Included Modules: $(PRINTABLE_LUFA_OPTIONAL_VARS)
 
+# Lists variables provided by the included build modules, in alphabetical order
 list_provided:
 	@echo Variables Provided by the Included Modules: $(PRINTABLE_LUFA_PROVIDED_VARS)
 
+# Lists macros provided by the included build modules, in alphabetical order
 list_macros:
 	@echo Macros Provided by the Included Modules: $(PRINTABLE_LUFA_PROVIDED_MACROS)
 

@@ -64,20 +64,24 @@ MSG_HID_BOOTLOADER_CMD := ' [HID]     :'
 MSG_OBJCPY_CMD         := ' [OBJCPY]  :'
 MSG_MAKE_CMD           := ' [MAKE]    :'
 
+# Programs in the target FLASH memory using the HID_BOOTLOADER_CLI tool
 hid: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_HID_BOOTLOADER_CMD) Programming FLASH with hid_bootloader_cli using \"$<\"
 	hid_bootloader_cli -mmcu=$(MCU) -v $<
 
+# Programs in the target EEPROM memory using the HID_BOOTLOADER_CLI tool (note: clears target FLASH memory)
 hid-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_OBJCPY_CMD) Converting \"$<\" to a binary file \"InputEEData.bin\"
 	avr-objcopy -I ihex -O binary $< $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/InputEEData.bin
 	@echo $(MSG_MAKE_CMD) Making EEPROM loader application for \"$<\"
 	make -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) clean hid
 
+# Programs in the target FLASH memory using the TEENSY_BOOTLOADER_CLI tool
 teensy: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_HID_BOOTLOADER_CMD) Programming FLASH with teensy_loader_cli using \"$<\"
 	teensy_loader_cli -mmcu=$(MCU) -v $<
 
+# Programs in the target EEPROM memory using the TEENSY_BOOTLOADER_CLI tool (note: clears target FLASH memory)
 teensy-ee: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_OBJCPY_CMD) Converting \"$<\" to a binary file \"InputEEData.bin\"
 	avr-objcopy -I ihex -O binary $< $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/InputEEData.bin
