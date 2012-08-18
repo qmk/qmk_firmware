@@ -136,27 +136,33 @@ help:
 
 # Lists build modules included by the project makefile, in alphabetical order
 list_modules:
-	@echo Currently Used Build System Modules: $(PRINTABLE_LUFA_BUILD_MODULES)
+	@echo Currently Used Build System Modules:
+	@printf " %b" "$(PRINTABLE_LUFA_BUILD_MODULES:%=   - %\n)"
 
 # Lists build targets included by the project makefile, in alphabetical order
 list_targets:
-	@echo Currently Available Build Targets: $(PRINTABLE_LUFA_BUILD_TARGETS)	
+	@echo Currently Available Build Targets:
+	@printf " %b" "$(PRINTABLE_LUFA_BUILD_TARGETS:%=   - %\n)"
 
 # Lists mandatory variables that must be set by the project makefile, in alphabetical order
 list_mandatory:
-	@echo Mandatory Variables for Included Modules: $(PRINTABLE_LUFA_MANDATORY_VARS)
+	@echo Mandatory Variables for Included Modules:
+	@printf " %b" "$(PRINTABLE_LUFA_MANDATORY_VARS:%=   - %\n)"
 	
 # Lists optional variables that must be set by the project makefile, in alphabetical order
 list_optional:
-	@echo Optional Variables for Included Modules: $(PRINTABLE_LUFA_OPTIONAL_VARS)
+	@echo Optional Variables for Included Modules:
+	@printf " %b" "$(PRINTABLE_LUFA_OPTIONAL_VARS:%=   - %\n)"
 
 # Lists variables provided by the included build modules, in alphabetical order
 list_provided:
-	@echo Variables Provided by the Included Modules: $(PRINTABLE_LUFA_PROVIDED_VARS)
+	@echo Variables Provided by the Included Modules:
+	@printf " %b" "$(PRINTABLE_LUFA_PROVIDED_VARS:%=   - %\n)"
 
 # Lists macros provided by the included build modules, in alphabetical order
 list_macros:
-	@echo Macros Provided by the Included Modules: $(PRINTABLE_LUFA_PROVIDED_MACROS)
+	@echo Macros Provided by the Included Modules:
+	@printf " %b" "$(PRINTABLE_LUFA_PROVIDED_MACROS:%=   - %\n)"
 
 # Disable default in-built make rules (those that are needed are explicitly
 # defined, and doing so has performance benefits when recursively building)

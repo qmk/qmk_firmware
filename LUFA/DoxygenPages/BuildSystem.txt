@@ -631,9 +631,9 @@
  *
  *  \section SSec_BuildModule_DOXYGEN_Requirements Requirements
  *  This module requires the <tt>doxygen</tt> utility from the Doxygen website
- *  (<a>http://www.stack.nl/~dimitri/doxygen/</a>) to be available in your system's <b>PATH</b>
- *  variable. On *nix systems the <tt>doxygen</tt> utility can be installed via the project's source
- *  code or through the package manager.
+ *  (<a>http://www.doxygen.org/</a>) to be available in your system's <b>PATH</b> variable. On *nix
+ *  systems the <tt>doxygen</tt> utility can be installed via the project's source code or through
+ *  the package manager.
  *
  *  \section SSec_BuildModule_DOXYGEN_Targets Targets
  *
@@ -641,6 +641,14 @@
  *   <tr>
  *    <td><tt>doxygen</tt></td>
  *    <td>Generate project documentation.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>doxygen_create</tt></td>
+ *    <td>Create a new Doxygen configuration file using the latest template.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>doxygen_upgrade</tt></td>
+ *    <td>Upgrade an existing Doxygen configuration file to the latest template</td>
  *   </tr>
  *  </table>
  *

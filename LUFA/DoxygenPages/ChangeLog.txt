@@ -10,6 +10,7 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the Arduino Leonardo board
+  *   - Added new doxygen_upgrade and doxygen_create targets to the DOXYGEN build system module
   *  - Library Applications:
   *   - <i>None</i>
   *

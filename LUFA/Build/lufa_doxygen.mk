@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES         += DOXYGEN
-LUFA_BUILD_TARGETS         += doxygen
+LUFA_BUILD_TARGETS         += doxygen doxygen_upgrade doxygen_create
 LUFA_BUILD_MANDATORY_VARS  += LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRIDE_PARAMS
 LUFA_BUILD_PROVIDED_VARS   += 
@@ -23,6 +23,10 @@ LUFA_BUILD_PROVIDED_MACROS +=
 # TARGETS:
 #
 #    doxygen                   - Build Doxygen Documentation
+#    doxygen_create            - Create a new Doxygen configuration file using
+#                                the latest template
+#    doxygen_upgrade           - Upgrade an existing Doxygen configuration file
+#                                to the latest template
 #
 # MANDATORY PARAMETERS:
 #
@@ -73,10 +77,24 @@ else
    DOXYGEN_CMD := $(BASE_DOXYGEN_CMD)
 endif
 
+# Error if the specified Doxygen configuration file does not exist
+$(DOXYGEN_CONF):
+	$(error Doxygen configuration file $@ does not exist)
+
 # Builds the project documentation using the specified configuration file and the DOXYGEN tool
-doxygen:
+doxygen: $(DOXYGEN_CONF)
 	@echo $(MSG_DOXYGEN_CMD) Configuration file \"$(DOXYGEN_CONF)\" with parameters \"$(DOXYGEN_OVERRIDE_PARAMS)\"
 	$(DOXYGEN_CMD)
 
+# Upgrades an existing Doxygen configuration file to the latest Doxygen template, preserving settings
+doxygen_upgrade: $(DOXYGEN_CONF)
+	@echo $(MSG_DOXYGEN_CMD) Upgrading configuration file \"$(DOXYGEN_CONF)\" with latest template
+	doxygen -u $(DOXYGEN_CONF) > /dev/null
+
+# Creates a new Doxygen configuration file with the set file name
+doxygen_create:
+	@echo $(MSG_DOXYGEN_CMD) Creating new configuration file \"$(DOXYGEN_CONF)\" with latest template
+	doxygen -g $(DOXYGEN_CONF) > /dev/null
+
 # Phony build targets for this module
-.PHONY: doxygen
+.PHONY: doxygen doxygen_upgrade doxygen_create

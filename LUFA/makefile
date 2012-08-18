@@ -12,14 +12,17 @@
 LUFA_VERSION_NUM        := $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
 EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.d *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin
 
+# Default target - no default action when attempting to build the core directly
 all:
 
+# Export the library core as a TAR archive for importing into an IDE
 export_tar:
 	@echo Exporting LUFA library to a TAR archive...
 	@tar -cf LUFA_$(LUFA_VERSION_NUM).tar --directory=. $(EXCLUDE_FROM_EXPORT:%=--exclude=%) *
 	@tar -cf LUFA_$(LUFA_VERSION_NUM)_Code_Templates.tar CodeTemplates
 	@echo Export LUFA_$(LUFA_VERSION_NUM).tar complete.
 
+# Display the LUFA version of this library copy
 version:
 	@echo "LUFA $(LUFA_VERSION_NUM)"
 
@@ -36,6 +39,7 @@ else
   ARCH                    = {AVR8,UC3,XMEGA}
   DOXYGEN_OVERRIDE_PARAMS = QUIET=YES PROJECT_NUMBER=$(LUFA_VERSION_NUM)
   
+  # Remove all object and associated files from the LUFA library core
   clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.d)
@@ -45,6 +49,5 @@ else
   include Build/lufa_sources.mk
   include Build/lufa_doxygen.mk
 endif
-
 
 .PHONY: all export_tar version clean
