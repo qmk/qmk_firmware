@@ -55,10 +55,13 @@
  *      Serial_Init(9600, false);
  *      
  *      // Send a string through the USART
- *      Serial_TxString("Test String\r\n");
+ *      Serial_SendString("Test String\r\n");
+ *
+ *      // Send a raw byte through the USART
+ *      Serial_SendByte(0xDC);
  *      
- *      // Receive a byte through the USART
- *      uint8_t DataByte = Serial_RxByte();
+ *      // Receive a byte through the USART (or -1 if no data received)
+ *      int16_t DataByte = Serial_ReceiveByte();
  *  \endcode
  *
  *  @{
@@ -116,13 +119,13 @@
 			#define SERIAL_2X_UBBRVAL(Baud) ((((F_CPU / 8) + (Baud / 2)) / (Baud)) - 1)
 
 		/* Function Prototypes: */
-			/** Transmits a given string located in program space (FLASH) through the USART.
+			/** Transmits a given NUL terminated string located in program space (FLASH) through the USART.
 			 *
 			 *  \param[in] FlashStringPtr  Pointer to a string located in program space.
 			 */
 			void Serial_SendString_P(const char* FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Transmits a given string located in SRAM memory through the USART.
+			/** Transmits a given NUL terminated string located in SRAM memory through the USART.
 			 *
 			 *  \param[in] StringPtr  Pointer to a string located in SRAM space.
 			 */
