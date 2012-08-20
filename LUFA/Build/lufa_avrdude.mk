@@ -74,12 +74,12 @@ BASE_AVRDUDE_FLAGS := -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 
 # Programs in the target FLASH memory using AVRDUDE
 avrdude: $(TARGET).hex $(MAKEFILE_LIST)
-	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" FLASH with settings \"$(AVRDUDE_FLASH_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
+	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" FLASH using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
 	avrdude $(BASE_AVRDUDE_FLAGS) -U flash:w:$< $(AVRDUDE_FLAGS)
 
 # Programs in the target EEPROM memory using AVRDUDE
 avrdude-ee: $(TARGET).eep $(MAKEFILE_LIST)
-	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" EEPROM with settings \"$(AVRDUDE_EEP_FLAGS)\" using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
+	@echo $(MSG_AVRDUDE_CMD) Programming device \"$(MCU)\" EEPROM using \"$(AVRDUDE_PROGRAMMER)\" on port \"$(AVRDUDE_PORT)\"
 	avrdude $(BASE_AVRDUDE_FLAGS) -U eeprom:w:$< $(AVRDUDE_FLAGS)
 
 # Phony build targets for this module
