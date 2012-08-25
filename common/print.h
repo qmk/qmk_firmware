@@ -29,11 +29,17 @@
 #include <avr/pgmspace.h>
 
 
-extern bool print_enable;
-
+// avoid collision with arduino/Print.h
+#ifndef __cplusplus
 // this macro allows you to write print("some text") and
 // the string is automatically placed into flash memory :)
 #define print(s) print_P(PSTR(s))
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern bool print_enable;
 
 void print_S(const char *s);
 void print_P(const char *s);
@@ -41,5 +47,8 @@ void phex(unsigned char c);
 void phex16(unsigned int i);
 void pbin(unsigned char c);
 void pbin_reverse(unsigned char c);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

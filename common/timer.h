@@ -23,10 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TIMER_PRESCALER
 #   if F_CPU > 16000000
 #       define TIMER_PRESCALER      256
-#   elif F_CPU >= 4000000
+#   elif F_CPU > 2000000
 #       define TIMER_PRESCALER      64
-#   else
+#   elif F_CPU > 250000
 #       define TIMER_PRESCALER      8
+#   else
+#       define TIMER_PRESCALER      1
 #   endif
 #endif
 #define TIMER_RAW_FREQ      (F_CPU/TIMER_PRESCALER)
@@ -42,6 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TIMER_DIFF_MS(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern volatile uint16_t timer_count;
 
 
@@ -49,5 +54,8 @@ void timer_init(void);
 void timer_clear(void);
 uint16_t timer_read(void);
 uint16_t timer_elapsed(uint16_t last);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

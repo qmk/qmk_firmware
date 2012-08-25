@@ -23,6 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef NKRO_ENABLE
 extern bool keyboard_nkro;
 #endif
@@ -53,5 +57,9 @@ void host_send_keyboard_report(void);
 void host_mouse_send(report_mouse_t *report);
 void host_system_send(uint16_t data);
 void host_consumer_send(uint16_t data);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
