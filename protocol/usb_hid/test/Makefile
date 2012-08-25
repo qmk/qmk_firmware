@@ -39,7 +39,9 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = usbkbd
+TARGET = usb_hid_test
+
+TOP_DIR = ../../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -63,79 +65,62 @@ F_CPU = 16000000
 
 
 
+#
+# LUFA specific
+#
+# Target architecture (see library "Board Types" documentation).
+ARCH = AVR8
+# Input clock frequency.
+#     This will define a symbol, F_USB, in all source code files equal to the
+#     input clock frequency (before any prescaling is performed) in Hz. This value may
+#     differ from F_CPU if prescaling is used on the latter, and is required as the
+#     raw input clock is fed directly to the PLL sections of the AVR for high speed
+#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
+#     at the end, this will be done automatically to create a 32-bit value in your
+#     source code.
+#
+#     If no clock division is performed on the input clock inside the AVR (via the
+#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
+F_USB = $(F_CPU)
+# Interrupt driven control endpoint task
+OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-ARDUINO_DIR = arduino-1.0.1/cores
-ARDUINO_SRC = \
-	arduino/Print.cpp \
-	arduino/Stream.cpp \
-	arduino/wiring.c
 
-#	arduino/main.cpp \
-#	arduino/USBCore.cpp \
-#	arduino/CDC.cpp \
-#	arduino/HID.cpp \
-#	arduino/HardwareSerial.cpp \
-#	arduino/IPAddress.cpp \
-#	arduino/Tone.cpp \
-#	arduino/WMath.cpp \
-#	arduino/WInterrupts.c \
-#	arduino/wiring_analog.c \
-#	arduino/wiring_pulse.c \
-#	arduino/wiring_shift.c
-#	arduino/wiring_digital.c \
-#	arduino/WString.cpp \
-#	arduino/new.cpp \
 
-USB_HOST_DIR = ./USB_Host_Shield_2.0
-USB_HOST_SRC = \
-	Usb.cpp \
-	cdcacm.cpp \
-	cdcftdi.cpp \
-	cdcprolific.cpp \
-	hid.cpp \
-	hidboot.cpp \
-	hiduniversal.cpp \
-	hidusagetitlearrays.cpp \
-	hidescriptorparser.cpp \
-	message.cpp \
-	parsetools.cpp
+# Build Options
+#   comment out to disable the options.
+#
+# Console for debug
+OPT_DEFS += -DCONSOLE_ENABLE
 
-	#PS3BT.cpp \
-	#PS3USB.cpp \
-	#RFCOMM.cpp \
-	#XBOXUSB.cpp \
-	#adk.cpp \
-	#masstorage.cpp \
-	#max_LCD.cpp \
-	#usbhub.cpp
+# Boot Section Size in bytes
+#   Teensy halfKay   512
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+#OPT_DEFS += -DBOOT_SIZE=4096
 
-#SRC =  host_kbd.cpp
-SRC =  main.cpp
-SRC +=  parser.cpp
-SRC +=  NullSerial.cpp
-SRC += $(USB_HOST_SRC)
-SRC += $(ARDUINO_SRC)
 
-OPT_DEFS = -DARDUINO=101 -DUSB_VID=0x2341 -DUSB_PID=0x8036
+
+SRC =  test.cpp
+SRC += common/debug.c
+SRC += common/print.c
+
+CONFIG_H = config.h
+
+
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(USB_HOST_DIR)
-VPATH += $(ARDUINO_DIR)
-# for Arduino.h
-VPATH += arduino-1.0.1/cores/arduino
-# for pins_arduino.h
-VPATH += arduino-1.0.1/variants/leonardo
+VPATH += $(TOP_DIR)
+VPATH += $(TOP_DIR)/common
 
-
-# Ad hoc workaround to override original arduino/USBAPI.h with our own USBAPI.h.
-# Obsolete but needed in order to remove directory including the current input file from search list.
-# Option -iquote can't replace -I- for this purpose.
-EXTRAFLAGS += -I-
 
 
 # program Leonardo
-PROGRAM_CMD = avrdude -patmega32u4 -cavr109 -P$(DEV) -b57600 -Uflash:w:$(TARGET).hex
+PROGRAM_CMD = avrdude -p$(MCU) -cavr109 -P$(DEV) -b57600 -Uflash:w:$(TARGET).hex
 
 
-include ../../rules.mk
+
+include $(TOP_DIR)/protocol/usb_hid.mk
+include $(TOP_DIR)/protocol/lufa.mk
+include $(TOP_DIR)/rules.mk

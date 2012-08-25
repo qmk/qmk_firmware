@@ -1,3 +1,8 @@
+USB HID protocol
+================
+Host side of USB HID keyboard protocol implementation.
+Only standard HID Boot mode is supported at this time. This means most of normal keyboards are supported while proprietary >6KRO and NKRO is not.
+
 Third party Libraries
 ---------------------
 USB_Host_Shield_2.0
@@ -7,3 +12,17 @@ USB_Host_Shield_2.0
 arduino-1.0.1
     Arduino files copied from:
     https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
+
+
+Test build
+----------
+In test directory;
+    $ make
+    $ DEV=/dev/ttyACM0 make program
+
+You can see HID keyboard reports on debug output.
+
+
+Restriction and Bug
+-------------------
+Not statble yet.

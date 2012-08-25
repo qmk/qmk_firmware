@@ -108,7 +108,6 @@ unsigned long micros() {
 
 void delay(unsigned long ms)
 {
-//PORTB &= ~(1<<0);
 	uint16_t start = (uint16_t)micros();
 
 	while (ms > 0) {
@@ -117,7 +116,6 @@ void delay(unsigned long ms)
 			start += 1000;
 		}
 	}
-//PORTB |= (1<<0);
 }
 
 /* Delay for the given number of microseconds.  Assumes a 8 or 16 MHz clock. */
