@@ -339,8 +339,9 @@
 			 *  in both failure and success states; the user is responsible for manually clearing the status OUT packet
 			 *  to finalize the transfer's status stage via the \ref Endpoint_ClearOUT() macro.
 			 *
-			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
-			 *        to clear the status stage when using this routine in a control transaction.
+			 *  \note This function automatically sends the last packet in the data stage of the transaction; when the
+			 *        function returns, the user is responsible for clearing the <b>status</b> stage of the transaction.
+			 *        Note that the status stage packet is sent or received in the opposite direction of the data flow.
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
@@ -361,8 +362,9 @@
 			 *  in both failure and success states; the user is responsible for manually clearing the status OUT packet
 			 *  to finalize the transfer's status stage via the \ref Endpoint_ClearOUT() macro.
 			 *
-			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
-			 *        to clear the status stage when using this routine in a control transaction.
+			 *  \note This function automatically sends the last packet in the data stage of the transaction; when the
+			 *        function returns, the user is responsible for clearing the <b>status</b> stage of the transaction.
+			 *        Note that the status stage packet is sent or received in the opposite direction of the data flow.
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
@@ -383,8 +385,9 @@
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
 			 *  status IN packet to finalize the transfer's status stage via the \ref Endpoint_ClearIN() macro.
 			 *
-			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
-			 *        to clear the status stage when using this routine in a control transaction.
+			 *  \note This function automatically sends the last packet in the data stage of the transaction; when the
+			 *        function returns, the user is responsible for clearing the <b>status</b> stage of the transaction.
+			 *        Note that the status stage packet is sent or received in the opposite direction of the data flow.
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
@@ -405,8 +408,9 @@
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
 			 *  status IN packet to finalize the transfer's status stage via the \ref Endpoint_ClearIN() macro.
 			 *
-			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
-			 *        to clear the status stage when using this routine in a control transaction.
+			 *  \note This function automatically sends the last packet in the data stage of the transaction; when the
+			 *        function returns, the user is responsible for clearing the <b>status</b> stage of the transaction.
+			 *        Note that the status stage packet is sent or received in the opposite direction of the data flow.
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
