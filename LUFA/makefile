@@ -30,7 +30,7 @@ version:
 ifneq ($(LUFA_PATH),)
   LUFA_ROOT_PATH = $(patsubst %/,%,$(LUFA_PATH))/LUFA/
   
-  include $(patsubst %/,%,$(LUFA_PATH))/LUFA/Build/lufa.sources.in
+  include $(patsubst %/,%,$(LUFA_PATH))/LUFA/Build/lufa_sources.mk
 else
   LUFA_BUILD_MODULES     += MASTER
   LUFA_BUILD_TARGETS     += export_tar version
