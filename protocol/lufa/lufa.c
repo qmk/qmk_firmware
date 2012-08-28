@@ -344,14 +344,14 @@ static void send_keyboard(report_keyboard_t *report)
     Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
 
     /* Check if Keyboard Endpoint Ready for Read/Write */
-    if (Endpoint_IsReadWriteAllowed())
-    {
-        /* Write Keyboard Report Data */
-        Endpoint_Write_Stream_LE(report, sizeof(report_keyboard_t), NULL);
+    while (!Endpoint_IsReadWriteAllowed()) ;
 
-        /* Finalize the stream transfer to send the last packet */
-        Endpoint_ClearIN();
-    }
+    /* Write Keyboard Report Data */
+    Endpoint_Write_Stream_LE(report, sizeof(report_keyboard_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
+    Endpoint_ClearIN();
+
     keyboard_report_sent = *report;
 }
 
@@ -362,14 +362,13 @@ static void send_mouse(report_mouse_t *report)
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
 
     /* Check if Mouse Endpoint Ready for Read/Write */
-    if (Endpoint_IsReadWriteAllowed())
-    {
-        /* Write Mouse Report Data */
-        Endpoint_Write_Stream_LE(report, sizeof(report_mouse_t), NULL);
+    while (!Endpoint_IsReadWriteAllowed()) ;
 
-        /* Finalize the stream transfer to send the last packet */
-        Endpoint_ClearIN();
-    }
+    /* Write Mouse Report Data */
+    Endpoint_Write_Stream_LE(report, sizeof(report_mouse_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
+    Endpoint_ClearIN();
 #endif
 }
 
@@ -380,10 +379,9 @@ static void send_system(uint16_t data)
         .usage = data
     };
     Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
-    if (Endpoint_IsReadWriteAllowed()) {
-        Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
-        Endpoint_ClearIN();
-    }
+    while (!Endpoint_IsReadWriteAllowed()) ;
+    Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
+    Endpoint_ClearIN();
 }
 
 static void send_consumer(uint16_t data)
@@ -393,10 +391,9 @@ static void send_consumer(uint16_t data)
         .usage = data
     };
     Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
-    if (Endpoint_IsReadWriteAllowed()) {
-        Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
-        Endpoint_ClearIN();
-    }
+    while (!Endpoint_IsReadWriteAllowed()) ;
+    Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
+    Endpoint_ClearIN();
 }
 
 
