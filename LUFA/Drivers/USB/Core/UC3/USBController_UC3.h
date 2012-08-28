@@ -178,8 +178,10 @@
 			 *  Calling this function when the USB interface is already initialized will cause a complete USB
 			 *  interface reset and re-enumeration.
 			 *
-			 *  \param[in] Mode     This is a mask indicating what mode the USB interface is to be initialized to, a value
+			 *  \param[in] Mode     Mask indicating what mode the USB interface is to be initialized to, a value
 			 *                      from the \ref USB_Modes_t enum.
+			 *                      \note This parameter does not exist on devices with only one supported USB
+			 *                            mode (device or host).
 			 *
 			 *  \param[in] Options  Mask indicating the options which should be used when initializing the USB
 			 *                      interface to control the USB interface's behavior. This should be comprised of
@@ -230,7 +232,7 @@
 			void USB_ResetInterface(void);
 
 		/* Global Variables: */
-			#if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY)) || defined(__DOXYGEN__)
+			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 				/** Indicates the mode that the USB interface is currently initialized to, a value from the
 				 *  \ref USB_Modes_t enum.
 				 *
@@ -245,9 +247,9 @@
 				 *        USB interface is not initialized.
 				 */
 				extern volatile uint8_t USB_CurrentMode;
-			#elif defined(USB_HOST_ONLY)
+			#elif defined(USB_CAN_BE_HOST)
 				#define USB_CurrentMode USB_MODE_Host
-			#elif defined(USB_DEVICE_ONLY)
+			#elif defined(USB_CAN_BE_DEVICE)
 				#define USB_CurrentMode USB_MODE_Device
 			#endif
 

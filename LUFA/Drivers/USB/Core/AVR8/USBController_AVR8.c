@@ -35,7 +35,7 @@
 #define  __INCLUDE_FROM_USB_CONTROLLER_C
 #include "../USBController.h"
 
-#if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY))
+#if defined(USB_CAN_BE_BOTH)
 volatile uint8_t USB_CurrentMode = USB_MODE_None;
 #endif
 

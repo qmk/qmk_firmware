@@ -35,7 +35,7 @@
 #define  __INCLUDE_FROM_USB_CONTROLLER_C
 #include "../USBController.h"
 
-#if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY))
+#if defined(USB_CAN_BE_BOTH)
 volatile uint8_t USB_CurrentMode = USB_MODE_None;
 #endif
 
@@ -43,7 +43,7 @@ volatile uint8_t USB_CurrentMode = USB_MODE_None;
 volatile uint8_t USB_Options;
 #endif
 
-/* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for 8-bit AVR-GCC */
+/* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for the 8-bit AVR-GCC toolchain */
 uint8_t USB_EndpointTable[sizeof(USB_EndpointTable_t) + 1];
 
 void USB_Init(
@@ -66,8 +66,6 @@ void USB_Init(
 	USB_Options = Options;
 	#endif
 
-	USB_IsInitialized = true;
-
 	uint_reg_t CurrentGlobalInt = GetGlobalInterruptMask();
 	GlobalInterruptDisable();
 
@@ -89,6 +87,12 @@ void USB_Init(
 
 	SetGlobalInterruptMask(CurrentGlobalInt);
 
+	#if defined(USB_CAN_BE_BOTH)
+	USB_CurrentMode = Mode;
+	#endif
+	
+	USB_IsInitialized = true;
+	
 	USB_ResetInterface();
 }
 

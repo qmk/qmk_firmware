@@ -25,6 +25,8 @@
   *  - Core:
   *   - Fixed inverted LEDs_GetLEDs() function implementation for the Benito, Minimus and Arduino UNO boards
   *   - Fixed missing Win-32bit compatibility sections in the LUFA INF driver files (thanks to Christan Beharrell)
+  *   - Fixed logic hole breaking USB operations on a USB controller with only one supported USB mode and no USB_DEVICE_ONLY or USB_HOST_ONLY
+  *     configuration token set
   *  - Library Applications:
   *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *   - Fixed incompatibility in the CDC class bootloader on some systems (thanks to Sylvain Munaut)

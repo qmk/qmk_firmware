@@ -156,6 +156,12 @@
 			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
 			 *  1 second) when a transaction is waiting to be processed by the device will prevent break communications
 			 *  and cause the host to reset the USB bus.
+			 *
+			 *  \note This event only exists on microcontrollers that supports USB host mode.
+			 *        \n\n
+			 *
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Host_DeviceEnumerationComplete(void);
 

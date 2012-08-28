@@ -244,34 +244,28 @@
 				#define USB_CAN_BE_DEVICE
 			#endif
 
-			#if (defined(USB_CAN_BE_DEVICE) && defined(USB_CAN_BE_HOST))
-				#define USB_CAN_BE_BOTH
-			#endif
-
-			#if defined(USB_HOST_ONLY)
+			#if (defined(USB_HOST_ONLY) && defined(USB_DEVICE_ONLY))
+				#error USB_HOST_ONLY and USB_DEVICE_ONLY are mutually exclusive.
+			#elif defined(USB_HOST_ONLY)
 				#if !defined(USB_CAN_BE_HOST)
 					#error USB_HOST_ONLY is not available for the currently selected microcontroller model.
 				#else
 					#undef USB_CAN_BE_DEVICE
-					#undef USB_CAN_BE_BOTH
 				#endif
-			#endif
-
-			#if defined(USB_DEVICE_ONLY)
+			#elif defined(USB_DEVICE_ONLY)
 				#if !defined(USB_CAN_BE_DEVICE)
 					#error USB_DEVICE_ONLY is not available for the currently selected microcontroller model.
 				#else
 					#undef USB_CAN_BE_HOST
-					#undef USB_CAN_BE_BOTH
 				#endif
 			#endif
 
-			#if (defined(USB_HOST_ONLY) && defined(USB_DEVICE_ONLY))
-				#error USB_HOST_ONLY and USB_DEVICE_ONLY are mutually exclusive.
+			#if (defined(USB_CAN_BE_DEVICE) && defined(USB_CAN_BE_HOST))
+				#define USB_CAN_BE_BOTH
 			#endif
 
 			#if (!defined(USB_CAN_BE_DEVICE) && !defined(USB_CAN_BE_HOST))
-				#error The currently selected device or architecture is not supported under the USB component of the library.
+				#error The currently selected device, USB mode or architecture is not supported.
 			#endif
 	#endif
 
