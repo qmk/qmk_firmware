@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES         += BUILD
-LUFA_BUILD_TARGETS         += size check-source symbol-sizes all lib elf hex lss clean mostlyclean
+LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL
 LUFA_BUILD_PROVIDED_VARS   += 
@@ -25,8 +25,6 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    size                      - List built application size
 #    symbol-sizes              - Print application symbols from the binary ELF
 #                                file as a list sorted by size in bytes
-#    check-source              - Print a list of SRC source files that cannot
-#                                be found
 #    all                       - Build application and list size
 #    lib                       - Build and archive source files into a library
 #    elf                       - Build application ELF debug object file
@@ -219,20 +217,11 @@ build_begin:
 build_end:
 	@echo $(MSG_INFO_MESSAGE) Finished building project \"$(TARGET)\".
 
-# Checks all target source files and provides information on whether they exist or not
-check-source:
-	@for f in $(SRC); do \
-		if [ ! -f $$f ]; then \
-			echo "Error: Source file not found: $$f"; \
-			exit 1; \
-		fi; \
-	 done
-
 # Prints size information of a compiled application (FLASH, RAM and EEPROM usages)
 size: $(TARGET).elf
 	@echo $(MSG_SIZE_CMD) Determining size of \"$<\"
 	@echo ""
-	$(CROSS)-size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $< ; 2>/dev/null;
+	$(CROSS)-size $(SIZE_MCU_FLAG) $(SIZE_FORMAT_FLAG) $<
 
 # Prints size information on the symbols within a compiled application in decimal bytes
 symbol-sizes: $(TARGET).elf
@@ -262,7 +251,7 @@ lss: $(TARGET).lss
 sym: $(TARGET).sym
 
 # Default target to *create* the user application's specified source files; if this rule is executed by
-# make, the input source file doens't exist and an error needs to be presented to the user
+# make, the input source file doesn't exist and an error needs to be presented to the user
 $(SRC):
 	$(error Source file does not exist: $@)
 
@@ -330,4 +319,4 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 -include $(DEPENDENCY_FILES)
 
 # Phony build targets for this module
-.PHONY: build_begin build_end check-source size symbol-sizes lib elf hex lss clean mostlyclean
+.PHONY: build_begin build_end size symbol-sizes lib elf hex lss clean mostlyclean

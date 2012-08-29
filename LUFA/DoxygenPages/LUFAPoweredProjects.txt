@@ -97,6 +97,7 @@
  *  \li Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
  *  \li PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  \li PS/2 to USB adapter: https://github.com/makestuff/p2ukbd
+ *  \li RaspiFace, an Arduino platform bridge for the Raspberry Pi: http://www.raspiface.com/
  *  \li Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  \li RFPirate, a RF experimentation platform: https://github.com/ebuller/RF-Pirate
  *  \li RF Transciever using the MRF49XA: http://alternet.us.com/?page_id=1494
