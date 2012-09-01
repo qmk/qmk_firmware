@@ -39,6 +39,7 @@
 
 /** \ingroup Group_USBClassDrivers
  *  \defgroup Group_USBClassSI Still Image Class Driver
+ *  \brief USB class driver for the USB-IF Still Image (PIMA-compliant) class standard.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

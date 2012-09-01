@@ -39,6 +39,7 @@
 
 /** \ingroup Group_USBClassDrivers
  *  \defgroup Group_USBClassCDC CDC-ACM (Virtual Serial) Class Driver
+ *  \brief USB class driver for the USB-IF CDC-ACM (Virtual Serial) class standard.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

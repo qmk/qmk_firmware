@@ -39,6 +39,7 @@
 
 /** \ingroup Group_USBClassDrivers
  *  \defgroup Group_USBClassAudio Audio 1.0 Class Driver
+ *  \brief USB class driver for the USB-IF Audio 1.0 class standard.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

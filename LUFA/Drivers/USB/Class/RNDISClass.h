@@ -39,6 +39,7 @@
 
 /** \ingroup Group_USBClassDrivers
  *  \defgroup Group_USBClassRNDIS RNDIS (Networking) Class Driver
+ *  \brief USB class driver for the Microsoft Remote Network Driver Interface Specification (RNDIS) class standard.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
