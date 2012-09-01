@@ -71,9 +71,11 @@
  *  \li Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
  *  \li IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  \li Jukebox panic button: http://thinkl33t.co.uk/the-panic-button
+ *  \li Kinesis replacement firmware: https://github.com/chrisandreae/kinesis-firmware
  *  \li LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
  *  \li Linux Secure Storage Dongle: http://github.com/TomMD/teensy
  *  \li LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
+ *  \li Macintosh SIMM ROM Programmer: https://code.google.com/p/mac-rom-simm-programmer/
  *  \li MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  \li MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
  *  \li MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
