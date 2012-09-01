@@ -60,17 +60,17 @@ void USB_USBTask(void)
 #if defined(USB_CAN_BE_DEVICE)
 static void USB_DeviceTask(void)
 {
-	if (USB_DeviceState != DEVICE_STATE_Unattached)
-	{
-		uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
+	if (USB_DeviceState == DEVICE_STATE_Unattached)
+	  return;
 
-		Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
 
-		if (Endpoint_IsSETUPReceived())
-		  USB_Device_ProcessControlRequest();
+	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 
-		Endpoint_SelectEndpoint(PrevEndpoint);
-	}
+	if (Endpoint_IsSETUPReceived())
+	  USB_Device_ProcessControlRequest();
+
+	Endpoint_SelectEndpoint(PrevEndpoint);
 }
 #endif
 
