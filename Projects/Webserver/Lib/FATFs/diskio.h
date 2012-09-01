@@ -2,10 +2,12 @@
 /  Low level disk interface module include file
 /-----------------------------------------------------------------------*/
 
-#ifndef _DISKIO
+#ifndef _DISKIO_DEFINED
+#define _DISKIO_DEFINED
 
-#define _READONLY	0	/* 1: Read-only mode */
-#define _USE_IOCTL	0
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "integer.h"
 #include "ff.h"
@@ -32,9 +34,7 @@ typedef enum {
 DSTATUS disk_initialize (BYTE);
 DSTATUS disk_status (BYTE);
 DRESULT disk_read (BYTE, BYTE*, DWORD, BYTE);
-#if	_READONLY == 0
 DRESULT disk_write (BYTE, const BYTE*, DWORD, BYTE);
-#endif
 DRESULT disk_ioctl (BYTE, BYTE, void*);
 
 
@@ -45,6 +45,8 @@ DRESULT disk_ioctl (BYTE, BYTE, void*);
 #define STA_PROTECT		0x04	/* Write protected */
 
 
-#define _DISKIO
+#ifdef __cplusplus
+}
 #endif
 
+#endif
