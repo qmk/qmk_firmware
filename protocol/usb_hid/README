@@ -26,3 +26,11 @@ You can see HID keyboard reports on debug output.
 Restriction and Bug
 -------------------
 Not statble yet.
+
+Can't bus-reset a keyboard which already attached on bus properly.
+    Slow start up of Leonardo's bootloader causes this?
+    Need to unplug/plug a keyboard after firmware starts up.
+    MAX3421E doesn't work SAMPLEBUS well to know whether device connected or not.
+
+Keyboard with other endpoints than boot keyboard may go wrong.
+    On my keyboard with mouse key the converter locks up when using mouse key function.

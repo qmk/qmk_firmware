@@ -8,11 +8,11 @@
 
 unsigned long millis()
 {
-    return timer_read();
+    return timer_read32();
 }
 unsigned long micros()
 {
-    return timer_read() * 1000UL;
+    return timer_read32() * 1000UL;
 }
 void delay(unsigned long ms)
 {
