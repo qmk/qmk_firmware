@@ -174,7 +174,7 @@ const USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
  *  series of uppercase hexadecimal digits.
  */
-const USB_Descriptor_String_t PROGMEM AVRISP_SerialString =
+USB_Descriptor_String_t AVRISP_SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
 	
@@ -233,7 +233,12 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 					break;
 				case 0x03:
 					Address = &AVRISP_SerialString;
-					Size    = pgm_read_byte(&AVRISP_SerialString.Header.Size);
+					Size    = AVRISP_SerialString.Header.Size;
+					
+					/* Update serial number to have a different serial based on the current endpoint address */
+					((uint16_t*)&AVRISP_SerialString.UnicodeString)[6] = cpu_to_le16('0' + (AVRISP_DATA_IN_EPADDR & ENDPOINT_EPNUM_MASK));
+					
+					*DescriptorMemorySpace = MEMSPACE_RAM;
 					break;
 			}
 
