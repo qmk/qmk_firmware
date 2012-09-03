@@ -6,7 +6,7 @@
 
 /** \mainpage AVRISP MKII Programmer Project
  *
- *  \section Sec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
@@ -15,7 +15,7 @@
  *  \li Series 4 USB AVRs (ATMEGAxxU4)
  *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2) - <i>8KB versions with reduced features only</i>
  *
- *  \section Sec_Info USB Information:
+ *  \section Sec_Info USB Information
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -42,28 +42,55 @@
  *  </tr>
  * </table>
  *
- *  \section Sec_Description Project Description:
+ *  \section Sec_Description Project Description
  *
- *  Firmware for an Atmel Studio/AVRStudio compatible AVRISP-MKII clone programmer. This project will enable the USB
+ *  Firmware for an Atmel Studio/AVR Studio compatible AVRISP-MKII clone programmer. This project will enable the USB
  *  AVR series of microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within
- *  Atmel Studio/AVRStudio or with any software capable of driving a real Atmel AVRISP-MKII programmer. In its most
- *  basic form, it allows for the programming of AVRs at the programmer's VCC voltage from within Atmel Studio/AVRStudio
- *  with no special hardware other than the USB AVR and the parts needed for the USB interface. If the user desires, more
- *  advanced circuits incorporating level conversion can be made to allow for the programming of 3.3V AVR designs.
+ *  Atmel Studio/AVR Studio or with any software capable of driving a real Atmel AVRISP-MKII programmer. In its most
+ *  basic form, it allows for the programming of AVR TINY, MEGA and XMEGA devices aat the programmer's VCC voltage from
+ *  within Atmel Studio/AVR Studio with no special hardware other than the USB AVR and the parts needed for the USB
+ *  interface. If the user desires, more advanced circuits incorporating level conversion can be made to allow for the
+ *  programming of target AVRs running at a different voltage to the programmer.
  *
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
- *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with Atmel Studio/AVRStudio.
+ *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with Atmel Studio/AVR Studio.
  *
  *  Note that this design currently has the following limitations:
  *    - No reversed/shorted target connector detection and notification
  *    - A separate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
  *
- *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the \c VTARGET_ADC_CHANNEL token should be
- *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
- *  without an ADC converter, VTARGET will report a fixed 3.3V level at all times.
+ *  On AVR models with an ADC converter, the USB AVR's AVCC pin should be tied to 5V (e.g. VBUS) and the
+ *  \c VTARGET_ADC_CHANNEL token should be set to an appropriate ADC channel number in the project makefile for VTARGET
+ *  detection to operate correctly. On models without an ADC converter, VTARGET will report a fixed 3.3V level at all times
+ *  which should allow the programmer to remain compatible at the protocol level with all AVR devices.
  *
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
- *  of FLASH is required. On 8KB devices, ISP or PDI/TPI programming support can be disabled to reduce program size.
+ *  of FLASH is required. On 8KB devices, ISP or PDI/TPI protocol programming support can be disabled to reduce program size.
+ *
+ *  \section Sec_Installation Installation
+ *  The programmer supports multiple platforms, both Windows and Linux.
+ *
+ *  \subsection SSec_LinuxInstallation Linux Installation
+ *  On Linux systems, the programmer should be usable out of the box with no special setup other than (on some systems)
+ *  editing of the system permissions to allow the programmer to be used from a non-elevated (root) context. The programmer
+ *  is compatible with the free open source AVRDude programming software project.
+ *
+ *  \subsection SSec_WindowsInstallation Windows Installation
+ *  On Windows systems, due to an unfortunate limitation of the USB AVR devices and the driver used in the official AVR
+ *  Studio/Atmel Studio platform, the programmer cannot be made compatible with AVRDude and AVR Studio/Atmel Studio at the
+ *  same time. Instead, the programmer will be compatible with the official Atmel software by default, with a recompilation
+ *  with the \c LIBUSB_DRIVER_COMPAT token (see \ref Sec_Options) being required to use the alternative libUSB driver
+ *  compatibility mode that will allow the programmer to work under AVRDude on Windows.
+ *
+ *  If compiled for Atmel Studio/AVR Studio compatibility, install the Jungo device drivers that ship with the Atmel software.
+ *  If compiled in the alternative libUSB compatibility mode for AVRDude use, install the libUSB drivers that are included
+ *  with your compiled copy of AVRDude, or create them using the libUSB-Win32 (http://sourceforge.net/projects/libusb-win32)
+ *  project.
+ *
+ *  For convenience, the programmer will report two different serial numbers depending on the firmware compatibity mode, so
+ *  that the correct driver can be installed for the matching firmware. If the \c RESET_TOGGLES_LIBUSB_COMPAT compile option
+ *  is used (see \ref Sec_Options) this allows for an easy way to automatically switch device drivers along with the firmware
+ *  compatibility mode.
  *
  *  \section Sec_ISP ISP Connections
  *  Connections to the device for SPI programming (when enabled):
@@ -292,8 +319,8 @@
  *   <tr>
  *    <td>LIBUSB_DRIVER_COMPAT</td>
  *    <td>AppConfig.h</td>
- *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
- *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
+ *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with Atmel Studio/AVR Studio under Windows but
+ *        making the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
  *
  *        \note This option is incompatible with \c RESET_TOGGLES_LIBUSB_COMPAT.</td>
  *   </tr>

@@ -12,7 +12,8 @@
   *   - Added support for the Arduino Leonardo board
   *   - Added new doxygen_upgrade and doxygen_create targets to the DOXYGEN build system module
   *  - Library Applications:
-  *   - <i>None</i>
+  *   - Added a different device serial number when the AVRISP-MKII Clone project is in libUSB compatibility mode, so that
+  *     both the libUSB and Jungo drivers can be installed at the same time
   *
   *  <b>Changed:</b>
   *  - Core:
