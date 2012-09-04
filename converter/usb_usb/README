@@ -1,0 +1,35 @@
+USB to USB keyboard protocol converter
+======================================
+
+Hardware requirement
+--------------------
+Arduino Leonardo
+    http://arduino.cc/en/Main/ArduinoBoardLeonardo 
+
+Circuit@Home USB Host Sheild 2.0
+    http://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino
+
+
+Build firmware
+--------------
+    $ git clone git://github.com/tmk/tmk_keyboard.git
+    $ cd tmk_keyboard
+    $ git checkout usb_hid
+    $ git submodule init
+    $ git submodule update
+
+and download LUFA and unzip under protocol/lufa and edit LUFA_PATH in protocol/lufa.mk. Then,
+
+    $ cd converter/usb_usb
+    $ make
+
+You will get usb_usb.hex if you are lucky.
+Program your Leonardo with avrdude(or easy-going Arduino IDE):
+
+    $ avrdude -patmega32u4 -cavr109 -PCOM17 -b57600 -Uflash:w:usb_usb.hex
+
+
+Limitation
+----------
+Only supports 'HID Boot protocol'.
+Not support keyboard LED yet.
