@@ -23,10 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TIMER_PRESCALER
 #   if F_CPU > 16000000
 #       define TIMER_PRESCALER      256
-#   elif F_CPU >= 4000000
+#   elif F_CPU > 2000000
 #       define TIMER_PRESCALER      64
-#   else
+#   elif F_CPU > 250000
 #       define TIMER_PRESCALER      8
+#   else
+#       define TIMER_PRESCALER      1
 #   endif
 #endif
 #define TIMER_RAW_FREQ      (F_CPU/TIMER_PRESCALER)
@@ -38,16 +40,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define TIMER_DIFF(a, b, max)   ((a) >= (b) ?  (a) - (b) : (max) - (b) + (a))
-#define TIMER_DIFF_RAW(a, b)    TIMER_DIFF(a, b, UINT8_MAX)
-#define TIMER_DIFF_MS(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
+#define TIMER_DIFF_8(a, b)      TIMER_DIFF(a, b, UINT8_MAX)
+#define TIMER_DIFF_16(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
+#define TIMER_DIFF_32(a, b)     TIMER_DIFF(a, b, UINT32_MAX)
+#define TIMER_DIFF_RAW(a, b)    TIMER_DIFF_8(a, b)
 
 
-extern volatile uint16_t timer_count;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern volatile uint32_t timer_count;
 
 
 void timer_init(void);
 void timer_clear(void);
 uint16_t timer_read(void);
+uint32_t timer_read32(void);
 uint16_t timer_elapsed(uint16_t last);
+uint32_t timer_elapsed32(uint32_t last);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -59,7 +59,7 @@ static void send_keyboard(report_keyboard_t *report);
 static void send_mouse(report_mouse_t *report);
 static void send_system(uint16_t data);
 static void send_consumer(uint16_t data);
-static host_driver_t lufa_driver = {
+host_driver_t lufa_driver = {
     keyboard_leds,
     send_keyboard,
     send_mouse,
@@ -68,49 +68,9 @@ static host_driver_t lufa_driver = {
 };
 
 
-static void SetupHardware(void);
-static void Console_Task(void);
-
-int main(void)
-{
-    SetupHardware();
-    sei();
-
-    print_enable = true;
-    debug_enable = true;
-    debug_matrix = true;
-    debug_keyboard = true;
-    debug_mouse = true;
-
-    // TODO: can't print here
-    debug("LUFA init\n");
-
-    keyboard_init();
-    host_set_driver(&lufa_driver);
-    while (1) {
-        keyboard_proc();
-
-#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-        USB_USBTask();
-#endif
-    }
-}
-
-void SetupHardware(void)
-{
-    /* Disable watchdog if enabled by bootloader/fuses */
-    MCUSR &= ~(1 << WDRF);
-    wdt_disable();
-
-    /* Disable clock division */
-    clock_prescale_set(clock_div_1);
-
-    USB_Init();
-
-    // for Console_Task
-    USB_Device_EnableSOFEvents();
-}
-
+/*******************************************************************************
+ * Console
+ ******************************************************************************/
 #ifdef CONSOLE_ENABLE
 static void Console_Task(void)
 {
@@ -446,3 +406,51 @@ int8_t sendchar(uint8_t c)
     return 0;
 }
 #endif
+
+
+/*******************************************************************************
+ * main
+ ******************************************************************************/
+static void SetupHardware(void)
+{
+    /* Disable watchdog if enabled by bootloader/fuses */
+    MCUSR &= ~(1 << WDRF);
+    wdt_disable();
+
+    /* Disable clock division */
+    clock_prescale_set(clock_div_1);
+
+    // Leonardo needs. Without this USB device is not recognized.
+    USB_Disable();
+
+    USB_Init();
+
+    // for Console_Task
+    USB_Device_EnableSOFEvents();
+}
+
+int main(void)  __attribute__ ((weak));
+int main(void)
+{
+    SetupHardware();
+    sei();
+
+    print_enable = true;
+    debug_enable = true;
+    debug_matrix = true;
+    debug_keyboard = true;
+    debug_mouse = true;
+
+    // TODO: can't print here
+    debug("LUFA init\n");
+
+    keyboard_init();
+    host_set_driver(&lufa_driver);
+    while (1) {
+        keyboard_proc();
+
+#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+        USB_USBTask();
+#endif
+    }
+}

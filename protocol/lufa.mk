@@ -1,18 +1,20 @@
 LUFA_DIR = protocol/lufa
 
 # Path to the LUFA library
-LUFA_PATH = $(TOP_DIR)/protocol/lufa/LUFA-120219
+LUFA_PATH = protocol/lufa/LUFA-120219
 
 # Create the LUFA source path variables by including the LUFA root makefile
-include $(LUFA_PATH)/LUFA/makefile
+include $(TOP_DIR)/$(LUFA_PATH)/LUFA/makefile
 
 LUFA_SRC = $(LUFA_DIR)/lufa.c \
 	   $(LUFA_DIR)/descriptor.c \
 	   $(LUFA_SRC_USB)
-SRC += $(subst $(LUFA_PATH)/,,$(LUFA_SRC))
+
+SRC += $(LUFA_SRC)
 
 # Search Path
-VPATH += $(LUFA_PATH)
+VPATH += $(TOP_DIR)/$(LUFA_DIR)
+VPATH += $(TOP_DIR)/$(LUFA_PATH)
 
 # Option modules
 #ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)

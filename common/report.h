@@ -78,6 +78,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define REPORT_KEYS 6
 #endif
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     uint8_t mods;
     uint8_t rserved;
@@ -91,5 +96,9 @@ typedef struct {
     int8_t v;
     int8_t h;
 } __attribute__ ((packed)) report_mouse_t;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

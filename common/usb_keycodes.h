@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define IS_ERROR(code)           (KB_ROLL_OVER <= (code) && (code) <= KB_UNDEFINED)
+#define IS_ANY(code)             (KB_A         <= (code))
 #define IS_KEY(code)             (KB_A         <= (code) && (code) <= KB_EXSEL)
 #define IS_MOD(code)             (KB_LCTRL     <= (code) && (code) <= KB_RGUI)
 #define IS_FN(code)              (KB_FN0       <= (code) && (code) <= KB_FN7)

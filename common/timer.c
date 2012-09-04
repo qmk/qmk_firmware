@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // counter resolution 1ms
-volatile uint16_t timer_count = 0;
+volatile uint32_t timer_count = 0;
 
 void timer_init(void)
 {
@@ -59,7 +59,20 @@ void timer_clear(void)
 inline
 uint16_t timer_read(void)
 {
-    uint16_t t;
+    uint32_t t;
+
+    uint8_t sreg = SREG;
+    cli();
+    t = timer_count;
+    SREG = sreg;
+
+    return (t & 0xFFFF);
+}
+
+inline
+uint32_t timer_read32(void)
+{
+    uint32_t t;
 
     uint8_t sreg = SREG;
     cli();
@@ -72,14 +85,27 @@ uint16_t timer_read(void)
 inline
 uint16_t timer_elapsed(uint16_t last)
 {
-    uint16_t t;
+    uint32_t t;
 
     uint8_t sreg = SREG;
     cli();
     t = timer_count;
     SREG = sreg;
 
-    return TIMER_DIFF_MS(t, last);
+    return TIMER_DIFF_16((t & 0xFFFF), last);
+}
+
+inline
+uint32_t timer_elapsed32(uint32_t last)
+{
+    uint32_t t;
+
+    uint8_t sreg = SREG;
+    cli();
+    t = timer_count;
+    SREG = sreg;
+
+    return TIMER_DIFF_32(t, last);
 }
 
 // excecuted once per 1ms.(excess for just timer count?)

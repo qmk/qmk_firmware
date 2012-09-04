@@ -21,7 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* transmit a character.  return 0 on success, -1 on error. */
 int8_t sendchar(uint8_t c);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
