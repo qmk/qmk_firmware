@@ -27,6 +27,11 @@ Restriction and Bug
 -------------------
 Not statble yet.
 
+Switching power on VBUS:
+    To power reset device.
+    http://www.circuitsathome.com/camera-control/simulating-cable-disconnect-on-usb-host-shield-2-0
+    This is needed for a device which are not initilized with 'USB Bus Reset'(long SE0)
+
 Can't bus-reset a keyboard which already attached on bus properly.
     Slow start up of Leonardo's bootloader causes this?
     Need to unplug/plug a keyboard after firmware starts up.
@@ -34,3 +39,8 @@ Can't bus-reset a keyboard which already attached on bus properly.
 
 Keyboard with other endpoints than boot keyboard may go wrong.
     On my keyboard with mouse key the converter locks up when using mouse key function.
+
+Can't compile on Windows filesystem.
+    On Linux no problem.
+    Windows doesn't know difference between common/print.h and arduino/Print.h.
+    Change file name common/print.h to console.h ?

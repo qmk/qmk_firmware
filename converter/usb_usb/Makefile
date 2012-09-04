@@ -116,7 +116,6 @@ CONFIG_H = config.h
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
-#VPATH += $(TOP_DIR)/common
 
 
 
