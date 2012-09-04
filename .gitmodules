@@ -1,0 +1,3 @@
+[submodule "protocol/usb_hid/USB_Host_Shield_2.0"]
+	path = protocol/usb_hid/USB_Host_Shield_2.0
+	url = git@github.com:tmk/USB_Host_Shield_2.0.git

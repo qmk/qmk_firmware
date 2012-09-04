@@ -21,8 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 void keyboard_init(void);
 void keyboard_proc(void);
 void keyboard_set_leds(uint8_t leds);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

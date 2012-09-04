@@ -47,7 +47,18 @@
 #include <string.h>
 #include <LUFA/Version.h>
 #include <LUFA/Drivers/USB/USB.h>
+#include "host.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern host_driver_t lufa_driver;
+
+#ifdef __cplusplus
+}
+#endif
 
 /* extra report structure */
 typedef struct {
