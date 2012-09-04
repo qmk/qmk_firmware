@@ -25,7 +25,8 @@ You can see HID keyboard reports on debug output.
 
 Restriction and Bug
 -------------------
-Not statble yet.
+Not supported/confirmed yet.
+    Hub, suspend, keyboard LED
 
 Switching power on VBUS:
     To power reset device.
