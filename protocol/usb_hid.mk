@@ -65,3 +65,9 @@ VPATH += $(TOP_DIR)/$(ARDUINO_CORES_DIR)
 
 # for #include "pins_arduino.h"
 VPATH += $(TOP_DIR)/$(ARDUINO_DIR)/variants/leonardo
+
+# ad hoc workaround for compile problem on Windows:
+#    Windows doesn't know difference between common/print.h and arduino/Print.h.
+#    On Linux no problem.
+#    Change file name common/print.h to console.h ?
+VPATH := $(TOP_DIR)/common $(VPATH)

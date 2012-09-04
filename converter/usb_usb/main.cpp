@@ -2,7 +2,6 @@
 #include <avr/wdt.h>
 #include <avr/power.h>
 #include <util/delay.h>
-#include <Arduino.h>
 
 // USB HID host
 #include "Usb.h"
@@ -13,6 +12,7 @@
 // LUFA
 #include "lufa.h"
 
+#include "timer.h"
 #include "debug.h"
 #include "keyboard.h"
 
@@ -71,19 +71,31 @@ int main(void)
     LUFA_setup();
     sei();
 
+uint8_t ret;
     // wait for startup of sendchar routine
     while (USB_DeviceState != DEVICE_STATE_Configured) ;
     if (debug_enable) {
         _delay_ms(1000);
     }
 
+    debug("init: start\n");
     HID_setup();
     
     debug("init: done\n");
+
+uint16_t timer;
+// to see loop pulse with oscillo scope
+DDRF = (1<<7);
     for (;;) {
+PORTF ^= (1<<7);
         keyboard_proc();
 
+timer = timer_read();
         usb_host.Task();
+timer = timer_elapsed(timer);
+if (timer > 100) {
+    debug("host.Task: "); debug_hex16(timer);  debug("\n");
+}
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         // LUFA Task for control request

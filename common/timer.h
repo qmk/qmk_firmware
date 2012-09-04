@@ -43,11 +43,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TIMER_DIFF_8(a, b)      TIMER_DIFF(a, b, UINT8_MAX)
 #define TIMER_DIFF_16(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
 #define TIMER_DIFF_32(a, b)     TIMER_DIFF(a, b, UINT32_MAX)
+#define TIMER_DIFF_RAW(a, b)    TIMER_DIFF_8(a, b)
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 extern volatile uint32_t timer_count;
 
 
@@ -57,6 +59,7 @@ uint16_t timer_read(void);
 uint32_t timer_read32(void);
 uint16_t timer_elapsed(uint16_t last);
 uint32_t timer_elapsed32(uint32_t last);
+
 #ifdef __cplusplus
 }
 #endif
