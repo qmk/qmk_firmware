@@ -76,7 +76,7 @@ static void Console_Task(void)
 {
     /* Device must be connected and configured for the task to run */
     if (USB_DeviceState != DEVICE_STATE_Configured)
-      return;
+        return;
 
     uint8_t ep = Endpoint_GetCurrentEndpoint();
 
@@ -107,6 +107,10 @@ static void Console_Task(void)
 
     /* IN packet */
     Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
+    if (!Endpoint_IsEnabled() || !Endpoint_IsConfigured()) {
+        Endpoint_SelectEndpoint(ep);
+        return;
+    }
 
     // fill empty bank
     while (Endpoint_IsReadWriteAllowed())
@@ -299,12 +303,14 @@ static uint8_t keyboard_leds(void)
 
 static void send_keyboard(report_keyboard_t *report)
 {
+    uint8_t timeout = 0;
+
     // TODO: handle NKRO report
     /* Select the Keyboard Report Endpoint */
     Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
 
     /* Check if Keyboard Endpoint Ready for Read/Write */
-    while (!Endpoint_IsReadWriteAllowed()) ;
+    while (--timeout && !Endpoint_IsReadWriteAllowed()) ;
 
     /* Write Keyboard Report Data */
     Endpoint_Write_Stream_LE(report, sizeof(report_keyboard_t), NULL);
@@ -318,11 +324,13 @@ static void send_keyboard(report_keyboard_t *report)
 static void send_mouse(report_mouse_t *report)
 {
 #ifdef MOUSE_ENABLE
+    uint8_t timeout = 0;
+
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
 
     /* Check if Mouse Endpoint Ready for Read/Write */
-    while (!Endpoint_IsReadWriteAllowed()) ;
+    while (--timeout && !Endpoint_IsReadWriteAllowed()) ;
 
     /* Write Mouse Report Data */
     Endpoint_Write_Stream_LE(report, sizeof(report_mouse_t), NULL);
@@ -334,24 +342,28 @@ static void send_mouse(report_mouse_t *report)
 
 static void send_system(uint16_t data)
 {
+    uint8_t timeout = 0;
+
     report_extra_t r = {
         .report_id = REPORT_ID_SYSTEM,
         .usage = data
     };
     Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
-    while (!Endpoint_IsReadWriteAllowed()) ;
+    while (--timeout && !Endpoint_IsReadWriteAllowed()) ;
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
 }
 
 static void send_consumer(uint16_t data)
 {
+    uint8_t timeout = 0;
+
     report_extra_t r = {
         .report_id = REPORT_ID_CONSUMER,
         .usage = data
     };
     Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
-    while (!Endpoint_IsReadWriteAllowed()) ;
+    while (--timeout && !Endpoint_IsReadWriteAllowed()) ;
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
 }
@@ -364,11 +376,26 @@ static void send_consumer(uint16_t data)
 #define SEND_TIMEOUT 5
 int8_t sendchar(uint8_t c)
 {
+    // Not wait once timeouted.
+    // Because sendchar() is called so many times, waiting each call causes big lag.
+    static bool timeouted = false;
+
     if (USB_DeviceState != DEVICE_STATE_Configured)
-      return -1;
+        return -1;
 
     uint8_t ep = Endpoint_GetCurrentEndpoint();
     Endpoint_SelectEndpoint(CONSOLE_IN_EPNUM);
+    if (!Endpoint_IsEnabled() || !Endpoint_IsConfigured()) {
+        Endpoint_SelectEndpoint(ep);
+        return -1;
+    }
+
+    if (timeouted && !Endpoint_IsReadWriteAllowed()) {
+        Endpoint_SelectEndpoint(ep);
+        return - 1;
+    }
+
+    timeouted = false;
 
     uint8_t timeout = SEND_TIMEOUT;
     uint16_t prevFN = USB_Device_GetFrameNumber();
@@ -384,6 +411,7 @@ int8_t sendchar(uint8_t c)
         }
         if (prevFN != USB_Device_GetFrameNumber()) {
             if (!(timeout--)) {
+                timeouted = true;
                 Endpoint_SelectEndpoint(ep);
                 return -1;
             }
