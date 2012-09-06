@@ -93,9 +93,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,PAUS,
     ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NLCK,PSLS,PAST,PMNS,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     DEL, END, PGDN,    P7,  P8,  P9,
-    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN0, QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
+    FN2, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN0, QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN1,           RSFT,          UP,           P1,  P2,  P3,
-    FN2, LGUI,LALT,          SPC,                     RALT,FN2, FN2, GRV,      LEFT,DOWN,RGHT,    P0,       PDOT,PENT
+    LCTL,LGUI,LALT,          SPC,                     RALT,FN2, FN2, GRV,      LEFT,DOWN,RGHT,    P0,       PDOT,PENT
     ),
 
     /* 1: plain Qwerty without layer switching
@@ -205,9 +205,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,PAUS,
     GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F8,  F10, F11, F12, DEL,      INS, HOME,PGUP,    NLCK,PSLS,PAST,PMNS,
     CAPS,NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,PSCR,SLCK,PAUS,INS,      DEL, END, PGDN,    P7,  P8,  P9,
-    LCTL,VOLD,VOLU,MUTE,NO,  NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,       ENT,                         P4,  P5,  P6,  PPLS,
+    FN2, VOLD,VOLU,MUTE,NO,  NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,       ENT,                         P4,  P5,  P6,  PPLS,
     LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,NO,  NO,  NO,            RSFT,          UP,           P1,  P2,  P3,
-    FN2, LGUI,LALT,          BTN1,                    RALT,FN2, FN2, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT,PENT
+    LCTL,LGUI,LALT,          BTN1,                    RALT,FN2, FN2, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT,PENT
     ),
 
     /* 6: Cursor keys
