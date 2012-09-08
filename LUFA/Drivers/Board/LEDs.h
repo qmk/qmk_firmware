@@ -195,6 +195,8 @@
 			#include "AVR8/OLIMEXISPMK2/LEDs.h"
 		#elif (BOARD == BOARD_LEONARDO)
 			#include "AVR8/LEONARDO/LEDs.h"
+		#elif (BOARD == BOARD_UC3A3_XPLAINED)
+			#include "UC3/UC3A3_XPLAINED/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
@@ -222,6 +224,8 @@
 	#if defined(__DOXYGEN__)
 		/** Initializes the board LED driver so that the LEDs can be controlled. This sets the appropriate port
 		 *  I/O pins as outputs, and sets the LEDs to default to off.
+		 *
+		 *  This must be called before any LED driver functions are used.
 		 */
 		static inline void LEDs_Init(void);
 
@@ -265,7 +269,7 @@
 		/** Returns the status of all the board LEDs; set LED masks in the return value indicate that the
 		 *  corresponding LED is on.
 		 *
-		 *  \return Mask of the board LEDs which are currently turned on.
+		 *  \return Mask of \c LEDS_LED* constants indicating which of the board LEDs are currently turned on.
 		 */
 		static inline uint_reg_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 	#endif

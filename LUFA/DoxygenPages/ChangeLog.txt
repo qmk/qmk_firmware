@@ -10,6 +10,7 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the Arduino Leonardo board
+  *   - Added support for the Atmel UC3-A3 Xplained board
   *   - Added new doxygen_upgrade and doxygen_create targets to the DOXYGEN build system module
   *  - Library Applications:
   *   - Added a different device serial number when the AVRISP-MKII Clone project is in libUSB compatibility mode, so that

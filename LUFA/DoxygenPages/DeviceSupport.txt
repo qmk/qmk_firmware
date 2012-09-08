@@ -290,6 +290,7 @@
  *   - EVK1100
  *   - EVK1101
  *   - EVK1104
+ *   - UC3-A3 Xplained
  *
  *  \section Sec_UC3Support_ThirdParty Supported Third Party Models
  *

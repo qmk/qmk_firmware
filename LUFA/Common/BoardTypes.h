@@ -219,6 +219,9 @@
 			/** Selects the Arduino Leonardo specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_LEONARDO             51
 			
+			/** Selects the UC3-A3 Xplained specific board drivers, including the Button and LED drivers. */
+			#define BOARD_UC3A3_XPLAINED       52
+			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

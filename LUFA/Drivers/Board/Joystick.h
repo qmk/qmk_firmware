@@ -123,6 +123,8 @@
 	#if defined(__DOXYGEN__)
 		/** Initializes the joystick driver so that the joystick position can be read. This sets the appropriate
 		 *  I/O pins to inputs with their pull-ups enabled.
+		 *
+		 *  This must be called before any Joystick driver functions are used.
 		 */
 		static inline void Joystick_Init(void);
 
@@ -132,8 +134,7 @@
 		/** Returns the current status of the joystick, as a mask indicating the direction the joystick is
 		 *  currently facing in (multiple bits can be set).
 		 *
-		 *  \return Mask indicating the joystick direction - see corresponding board specific Joystick.h file
-		 *          for direction masks.
+		 *  \return Mask of \c JOYSTICK_* constants indicating the current joystick direction(s).
 		 */
 		static inline uint_reg_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 	#endif
