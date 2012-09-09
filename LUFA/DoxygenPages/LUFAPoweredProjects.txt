@@ -40,6 +40,7 @@
  *  \li Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
  *  \li AD9833 based USB Function Generator: http://tuomasnylund.fi/drupal6/content/ad9833-based-usb-function-generator
  *  \li AERY development platform for the AVR32 devices: http://www.aery32.com/
+ *  \li AM Radio transmitter: http://amcinnes.info/2012/uc_am_xmit/
  *  \li Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  \li Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
  *  \li AttoBasic AVR BASIC interpreter: http://www.cappels.org/dproj/AttoBasic2_1/AttoBasic_2.1_with_USB_and_Arduino_support.html
@@ -69,6 +70,7 @@
  *  \li Hardware Volume Control: https://github.com/davidk/hw-volume-control
  *  \li Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
  *  \li Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
+ *  \li IR electricity meter monitor: http://sourceforge.net/projects/irmetermon/
  *  \li IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  \li Jukebox panic button: http://thinkl33t.co.uk/the-panic-button
  *  \li Kinesis replacement firmware: https://github.com/chrisandreae/kinesis-firmware
@@ -119,6 +121,7 @@
  *  \li UDFS, a BBC Micro USB disk filing system: https://github.com/makestuff/udfs
  *  \li Universal USB AVR Module: http://usbavr.bplaced.net/
  *  \li USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
+ *  \li USB Function Generator: http://tuomasnylund.fi/drupal6/content/ad9833-based-usb-function-generator
  *  \li USB Infrared Receiver/Transmitter: http://vaton4.web2001.cz/
  *  \li USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  \li USB MIDI to DMX controller: http://github.com/hanshuebner/miDiMX

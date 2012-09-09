@@ -57,7 +57,7 @@
  *  for the storage of large amounts of data into the Dataflash's non-volatile memory.
  *
  *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
- *  directory. Otherwise, it will include the appropriate built in board driver header file.
+ *  directory. Otherwise, it will include the appropriate built-in board driver header file.
  *
  *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
