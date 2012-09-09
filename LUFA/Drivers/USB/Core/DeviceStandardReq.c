@@ -109,6 +109,9 @@ void USB_Device_ProcessControlRequest(void)
 				  USB_Device_SetConfiguration();
 
 				break;
+
+			default:
+				break;
 		}
 	}
 

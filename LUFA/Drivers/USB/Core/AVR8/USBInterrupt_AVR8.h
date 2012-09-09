@@ -139,6 +139,8 @@
 						OTGIEN |= (1 << SRPE);
 						break;
 					#endif
+					default:
+						break;
 				}
 			}
 
@@ -197,6 +199,8 @@
 						OTGIEN &= ~(1 << SRPE);
 						break;
 					#endif
+					default:
+						break;
 				}
 			}
 
@@ -255,6 +259,8 @@
 						OTGINT &= ~(1 << SRPI);
 						break;
 					#endif
+					default:
+						break;
 				}
 			}
 
@@ -299,9 +305,9 @@
 					case USB_INT_SRPI:
 						return (OTGIEN & (1 << SRPE));
 					#endif
+					default:
+						return false;
 				}
-
-				return false;
 			}
 
 			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
@@ -345,9 +351,9 @@
 					case USB_INT_SRPI:
 						return (OTGINT & (1 << SRPI));
 					#endif
+					default:
+						return false;
 				}
-
-				return false;
 			}
 
 		/* Includes: */

@@ -180,6 +180,9 @@ void USB_Host_ProcessNextHostState(void)
 
 			EVENT_USB_Host_DeviceEnumerationComplete();
 			break;
+			
+		default:
+			break;
 	}
 
 	if ((ErrorCode != HOST_ENUMERROR_NoError) && (USB_HostState != HOST_STATE_Unattached))

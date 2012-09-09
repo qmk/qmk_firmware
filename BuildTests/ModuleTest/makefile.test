@@ -45,6 +45,7 @@ CC_FLAGS += -Wmissing-declarations
 CC_FLAGS += -Wmissing-field-initializers
 CC_FLAGS += -Wmissing-format-attribute
 CC_FLAGS += -Woverlength-strings
+CC_FLAGS += -Wswitch-default
 
 # Only enable rendundant declaration warnings for AVR8 target (FIXME)
 ifeq ($(ARCH), AVR8)
@@ -56,7 +57,6 @@ C_FLAGS += -Wmissing-parameter-type
 C_FLAGS += -Wnested-externs
 
 # Potential additional warnings to enable in the future (FIXME)
-#CC_FLAGS += -Wswitch-default
 #CC_FLAGS += -Wc++-compat
 #CC_FLAGS += -Wcast-qual
 #CC_FLAGS += -Wconversion

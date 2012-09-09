@@ -53,7 +53,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 	while (ReportSize)
 	{
 		uint8_t  HIDReportItem  = *ReportData;
-		uint32_t ReportItemData = 0;
+		uint32_t ReportItemData;
 
 		ReportData++;
 		ReportSize--;
@@ -66,15 +66,21 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 				ReportSize     -= 4;
 				ReportData     += 4;
 				break;
+
 			case HID_RI_DATA_BITS_16:
 				ReportItemData  = (((uint16_t)ReportData[1] << 8) | (ReportData[0]));
 				ReportSize     -= 2;
 				ReportData     += 2;
 				break;
+
 			case HID_RI_DATA_BITS_8:
 				ReportItemData  = ReportData[0];
 				ReportSize     -= 1;
 				ReportData     += 1;
+				break;
+
+			default:
+				ReportItemData  = 0;
 				break;
 		}
 
@@ -268,6 +274,9 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 					  ParserData->TotalReportItems++;
 				}
 
+				break;
+			
+			default:
 				break;
 		}
 
