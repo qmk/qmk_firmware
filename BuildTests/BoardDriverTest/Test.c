@@ -38,16 +38,23 @@ int main(void)
 {
 	uint_reg_t Dummy;
 	
-	/* Buttons Compile Check */
+	/* =============================
+	 *     Buttons Compile Check
+	 * ============================= */	
 	Buttons_Init();
+	// cppcheck-suppress redundantAssignment
 	Dummy = Buttons_GetStatus();
 	Buttons_Disable();
 	
-	/* Dataflash Compile Check */
+	/* =============================
+	 *    Dataflash Compile Check
+	 * ============================= */	
 	Dataflash_Init();
 	Dataflash_TransferByte(0);
 	Dataflash_SendByte(0);
+	// cppcheck-suppress redundantAssignment
 	Dummy = Dataflash_ReceiveByte();
+	// cppcheck-suppress redundantAssignment
 	Dummy = Dataflash_GetSelectedChip();
 	Dataflash_SelectChip(0);
 	Dataflash_DeselectChip();
@@ -56,18 +63,24 @@ int main(void)
 	Dataflash_WaitWhileBusy();
 	Dataflash_SendAddressBytes(0, 0);
 
-	/* LEDs Compile Check */
+	/* =============================
+	 *       LEDs Compile Check
+	 * ============================= */	
 	LEDs_Init();
 	LEDs_TurnOnLEDs(LEDS_ALL_LEDS);
 	LEDs_TurnOffLEDs(LEDS_ALL_LEDS);
 	LEDs_SetAllLEDs(LEDS_ALL_LEDS);
 	LEDs_ChangeLEDs(LEDS_ALL_LEDS, LEDS_NO_LEDS);
 	LEDs_ToggleLEDs(LEDS_ALL_LEDS);
+	// cppcheck-suppress redundantAssignment
 	Dummy = LEDs_GetLEDs();
 	LEDs_Disable();
 	
-	/* Joystick Compile Check */
+	/* =============================
+	 *     Joystick Compile Check
+	 * ============================= */	
 	Joystick_Init();
+	// cppcheck-suppress redundantAssignment
 	Dummy = Joystick_GetStatus();
 	Joystick_Disable();
 	
