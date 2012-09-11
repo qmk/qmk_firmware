@@ -308,7 +308,7 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 # Creates an assembly listing file from an input project ELF file, containing interleaved assembly and source data
 %.lss: %.elf
 	@echo $(MSG_OBJDMP_CMD) Extracting LSS file data from \"$<\"
-	$(CROSS)-objdump -h -S -z $< > $@
+	$(CROSS)-objdump -h -d -S -z $< > $@
 
 # Creates a symbol file listing the loadable and discarded symbols from an input project ELF file
 %.sym: %.elf
