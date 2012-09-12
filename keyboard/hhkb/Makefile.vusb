@@ -13,7 +13,7 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	main.c \
+SRC =	\
 	keymap.c \
 	matrix.c \
 	led.c
@@ -83,9 +83,9 @@ PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE
 
 
 # Search Path
-VPATH = $(TARGET_DIR)
+VPATH  = $(TARGET_DIR)
+VPATH += $(TOP_DIR)
 
 include $(TOP_DIR)/protocol/vusb.mk
-include $(TOP_DIR)/protocol.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
