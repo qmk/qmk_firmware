@@ -724,8 +724,8 @@
 		/* Macros: */
 			#define VERSION_TENS(x)                   (int)((int)(x) / 10)
 			#define VERSION_ONES(x)                   (int)((int)(x) % 10)
-			#define VERSION_TENTHS(x)                 (int)(((x *  1) - ((int)(x *  1))) * 10)
-			#define VERSION_HUNDREDTHS(x)             (int)(((x * 10) - ((int)(x * 10))) * 10)
+			#define VERSION_TENTHS(x)                 (int)((x - (int)x) * 10)
+			#define VERSION_HUNDREDTHS(x)             (int)((x * 100) - ((int)(x * 10) * 10))
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */
