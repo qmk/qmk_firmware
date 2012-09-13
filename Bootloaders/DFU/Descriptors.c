@@ -130,7 +130,7 @@ const USB_Descriptor_String_t LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
