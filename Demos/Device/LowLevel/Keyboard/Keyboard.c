@@ -294,13 +294,10 @@ void SendNextReport(void)
 {
 	static USB_KeyboardReport_Data_t PrevKeyboardReportData;
 	USB_KeyboardReport_Data_t        KeyboardReportData;
-	bool                             SendReport = true;
+	bool                             SendReport = false;
 
 	/* Create the next keyboard report for transmission to the host */
 	CreateKeyboardReport(&KeyboardReportData);
-
-	/* Check to see if the report data has changed - if so a report MUST be sent */
-	SendReport = (memcmp(&PrevKeyboardReportData, &KeyboardReportData, sizeof(USB_KeyboardReport_Data_t)) != 0);
 
 	/* Check if the idle period is set and has elapsed */
 	if (IdleCount && (!(IdleMSRemaining)))
@@ -310,6 +307,11 @@ void SendNextReport(void)
 
 		/* Idle period is set and has elapsed, must send a report to the host */
 		SendReport = true;
+	}
+	else
+	{
+		/* Check to see if the report data has changed - if so a report MUST be sent */
+		SendReport = (memcmp(&PrevKeyboardReportData, &KeyboardReportData, sizeof(USB_KeyboardReport_Data_t)) != 0);	
 	}
 
 	/* Select the Keyboard Report Endpoint */
