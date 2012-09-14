@@ -158,6 +158,9 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 	/* Set the sample rate on the streaming interface endpoint */
 	if ((ErrorCode = USB_Host_SendControlRequest(&SampleRate)) != HOST_SENDCONTROL_Successful)
 	{
+		printf_P(PSTR(ESC_FG_RED "Could not set requested Audio sample rate.\r\n"
+		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 		USB_Host_SetDeviceConfiguration(0);
 		return;
