@@ -657,6 +657,11 @@ int hard_reboot(void)
 #include <dev/usb/usb_ioctl.h>
 #endif
 
+#ifndef USB_GET_DEVICEINFO
+# define USB_GET_DEVICEINFO 0
+# error The USB_GET_DEVICEINFO ioctl() value is not defined for your system.
+#endif
+
 int open_usb_device(int vid, int pid)
 {
 	int r, fd;

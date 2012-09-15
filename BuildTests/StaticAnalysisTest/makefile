@@ -14,8 +14,11 @@ LUFA_PATH := ../../LUFA/
 CPPCHECK_EXCLUDES := FATFs/            \
                      PetiteFATFs/      \
                      uip/
+
 CPPCHECK_INCLUDES := $(patsubst %/,%,$(LUFA_PATH))/CodeTemplates/               \
                      $(patsubst %/,%,$(LUFA_PATH))/../Projects/AVRISP-MKII/
+
+CPPCHECK_FLAGS    := -U TEMPLATE_FUNC_NAME
 
 SRC               := $(patsubst %/,%,$(LUFA_PATH))/..
 
