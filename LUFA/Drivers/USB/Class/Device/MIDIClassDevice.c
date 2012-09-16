@@ -59,7 +59,10 @@ void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 	  return;
 
 	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
-	MIDI_Device_Flush(MIDIInterfaceInfo);
+	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpoint.Address);
+	
+	if (Endpoint_IsINReady())
+	  MIDI_Device_Flush(MIDIInterfaceInfo);
 	#endif
 }
 

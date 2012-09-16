@@ -138,7 +138,10 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 	  return;
 
 	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
-	CDC_Device_Flush(CDCInterfaceInfo);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpoint.Address);
+	
+	if (Endpoint_IsINReady())
+	  CDC_Device_Flush(CDCInterfaceInfo);
 	#endif
 }
 
