@@ -82,17 +82,17 @@ $(DOXYGEN_CONF):
 	$(error Doxygen configuration file $@ does not exist)
 
 # Builds the project documentation using the specified configuration file and the DOXYGEN tool
-doxygen: $(DOXYGEN_CONF)
+doxygen: $(DOXYGEN_CONF) $(MAKEFILE_LIST)
 	@echo $(MSG_DOXYGEN_CMD) Configuration file \"$(DOXYGEN_CONF)\" with parameters \"$(DOXYGEN_OVERRIDE_PARAMS)\"
 	$(DOXYGEN_CMD)
 
 # Upgrades an existing Doxygen configuration file to the latest Doxygen template, preserving settings
-doxygen_upgrade: $(DOXYGEN_CONF)
+doxygen_upgrade: $(DOXYGEN_CONF) $(MAKEFILE_LIST)
 	@echo $(MSG_DOXYGEN_CMD) Upgrading configuration file \"$(DOXYGEN_CONF)\" with latest template
 	doxygen -u $(DOXYGEN_CONF) > /dev/null
 
 # Creates a new Doxygen configuration file with the set file name
-doxygen_create:
+doxygen_create: $(MAKEFILE_LIST)
 	@echo $(MSG_DOXYGEN_CMD) Creating new configuration file \"$(DOXYGEN_CONF)\" with latest template
 	doxygen -g $(DOXYGEN_CONF) > /dev/null
 

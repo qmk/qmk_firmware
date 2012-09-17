@@ -93,12 +93,12 @@ endif
 MSG_CPPCHECK_CMD         := ' [CPPCHECK]:'
 
 # Checks the CPPCheck configuration as used in the user project, to determine if any paths are missing or invalid
-cppcheck-config:
+cppcheck-config: $(MAKEFILE_LIST)
 	@echo $(MSG_CPPCHECK_CMD) Checking cppcheck configuration check on source files
 	cppcheck $(BASE_CPPCHECK_FLAGS) --check-config $(CPPCHECK_FLAGS) $(SRC)
 
 # Runs a static analysis using CPPCheck to determine if there are any issues
-cppcheck:
+cppcheck: $(MAKEFILE_LIST)
 	@echo $(MSG_CPPCHECK_CMD) Performing static analysis on source files
 	cppcheck $(BASE_CPPCHECK_FLAGS) --enable=$(CPPCHECK_ENABLE) $(CPPCHECK_SUPPRESS:%=--suppress=%) $(CPPCHECK_FLAGS) $(SRC)
 
