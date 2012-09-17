@@ -14,6 +14,7 @@ Feature
 History
 =======
 - 2012.09.17 First Release
+- 2012.09.17 CapsLock support
 
 Build
 =====
@@ -30,11 +31,12 @@ PJRC Teensy
 	-5,6(D2,D3  for bluetooth in future)
 1. Bypass 31 pin(from board) to E4(Teensy)
 2. Bypass 30 pin(from board) to F2(Teensy)
-3. Refer doc directory
+3. Bypass 6  pin(from board) to A0(Teensy)
+4. Refer doc directory
 
 To Do
 =====
-0. Caps Lock connect
+0. When DEBOUNCE defined, there is a errors.
 1. Layer Change by toggling Clear Key
 2. Eject Key add. (following files should be modified.)
 		common/usb_keycodes.h
