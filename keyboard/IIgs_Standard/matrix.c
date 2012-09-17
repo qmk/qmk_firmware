@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
+#include "led.h"
 
 
 #if (MATRIX_COLS > 16)
@@ -86,10 +87,13 @@ void matrix_init(void)
     DDRE &= ~0b00000010;
     PORTE |= 0b00000010;
 	// modifier	B3/4,F4/5,E4	always input
-    DDRB |=  0b00011000;
-    PORTB &= 0b00011000;
-    DDRF |= ~0b00110000;
-    PORTF &= 0b00110000;
+	// 			A0
+    //DDRA |=  0b00000001;
+    //PORTA &= 0b00000001;
+    //DDRB |=  0b00011000;
+    //PORTB &= 0b00011000;
+    //DDRF |= ~0b00110000;
+    //PORTF &= 0b00110000;
     //DDRB &= ~0b00011000;
     //PORTB |= 0b00011000;
     //DDRF &= ~0b00110000;
@@ -116,14 +120,26 @@ uint8_t matrix_scan(void)
         unselect_rows();
         select_row(i);
         _delay_us(30);  // without this wait read unstable value.
-        if (matrix[i] != (uint8_t)~read_col(i)) {
-            matrix[i] = (uint8_t)~read_col(i);
-            if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); print("\n");
-            }
-            debouncing = DEBOUNCE;
-        }
-    }
+		if ( i == ( MATRIX_ROWS - 1 ) ) {							// CHECK CAPS LOCK
+       		if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {		// CAPS LOCK is ON on HOST
+				if ( ~read_col(i) & (1<< 4) ) { 							// CAPS LOCK is still DOWN ( 0bXXX1_XXXX)	
+					matrix[i]        = ~read_col(i) & 0b11101111;				// change CAPS LOCK as released
+				} else {													// CAPS LOCK in UP
+					matrix[i] = ~read_col(i) | 0b00010000;						// send fake caps lock down
+				}
+			} else {													// CAPS LOCK is OFF on HOST
+				matrix[i] = ~read_col(i);								
+			}
+		} else {
+        	if (matrix[i] != (uint8_t)~read_col(i)) {
+           		matrix[i] = (uint8_t)~read_col(i);
+			}
+		}
+        if (debouncing) {
+        	debug("bounce!: "); debug_hex(debouncing); print("\n");
+		}
+       	debouncing = DEBOUNCE;
+	}
     unselect_rows();
 
     if (debouncing) {
@@ -159,7 +175,17 @@ bool matrix_has_ghost(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & (1<<col));
+//	if ( row == ( MATRIX_ROWS - 1 ) && col == 4) {							// CHECK CAPS LOCK
+//    	if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {		// CAPS LOCK is ON on HOST
+//			if ((matrix_prev[row] & 0b00010000) && (~matrix[row] & 0b00010000)) {
+//				debug("CapsLock Reverse:");debug_hex(matrix[row]);
+//				matrix[row] |= 0b00010000;
+//				matrix_prev[row] &= ~0b00010000;
+//				debug("->");debug_hex(matrix[row]);debug("\n");
+//			}
+//		} 
+//	}
+   	return (matrix[row] & (1<<col));
 }
 
 inline
@@ -229,11 +255,12 @@ static uint8_t read_col(uint8_t row)
 	// Modifier would be copied to report->mods except E4(CAPSLOCK)
 	uint8_t tmp;
 	if ( row == 10 ) {
-		tmp = 0xF0;
+		tmp = 0xE0;
 		tmp |= (PINB >> 3 ) & 0b00000011;	// LEFT CTRL  is 0bit in modifier (HID Spec)
 											// LEFT SHIFT is 1bit in modifier (HID Spec)
 		tmp |= (PINF >> 3 ) & 0b00000100;	// LEFT ALT   is 2bit in modifier (HID Spec)
 		tmp |= (PINF >> 1 ) & 0b00001000;	// LEFT GUI   is 3bit in modifier (HID Spec)
+		tmp |= (PINA << 4 ) & 0b00010000;	// 
 		//tmp |= (PINE << 1 ) & 0b00010000;	// Caps Lock(Should not be in modifier
 	} else {
 		tmp = 0x00;
@@ -257,6 +284,8 @@ static void unselect_rows(void)
     DDRF  &= ~0b11000111; // PF: 7,6,2,1,0 
     PORTF &= ~0b11000111;
 	// to unselect virtual row(modifier), set port to output with low
+    DDRA  |=  0b00000001; // PA: 0
+    PORTA &= ~0b00000001;
     DDRB  |=  0b00011000; // PB: 3,4 for modifier(row10)
     PORTB &= ~0b00011000;
     DDRF  |=  0b00110000; // PF: 4,5 for modifier
@@ -314,6 +343,8 @@ static void select_row(uint8_t row)
 		case 10:
 			// modifier has no row enable
 			// to select virtual row, set port as input
+		    DDRA &= ~0b00000001;
+		    PORTA |= 0b00000001;
 		    DDRB &= ~0b00011000;
 		    PORTB |= 0b00011000;
 		    DDRF &= ~0b00110000;
