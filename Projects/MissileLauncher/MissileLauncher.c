@@ -98,7 +98,7 @@ int main(void)
 	CmdState = CMD_STOP;
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

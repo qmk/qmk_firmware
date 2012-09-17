@@ -48,7 +48,7 @@ int main(void)
 	Webserver_Init();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

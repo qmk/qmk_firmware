@@ -153,7 +153,7 @@ int main(void)
 	OpenLogFile();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

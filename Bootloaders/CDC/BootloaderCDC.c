@@ -119,7 +119,7 @@ int main(void)
 	LEDs_SetAllLEDs(LEDS_LED1);
 
 	/* Enable global interrupts so that the USB stack can function */
-	sei();
+	GlobalInterruptEnable();
 
 	while (RunBootloader)
 	{

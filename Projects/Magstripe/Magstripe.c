@@ -79,7 +79,7 @@ int main(void)
 	for (uint8_t Buffer = 0; Buffer < TOTAL_TRACKS; Buffer++)
 	  BitBuffer_Init(&TrackDataBuffers[Buffer]);
 
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

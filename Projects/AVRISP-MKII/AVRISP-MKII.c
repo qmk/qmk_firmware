@@ -45,7 +45,7 @@ int main(void)
 	V2Protocol_Init();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

@@ -83,7 +83,7 @@ int main(void)
 
 	RingBuffer_InitBuffer(&FromHost_Buffer, FromHost_Buffer_Data, sizeof(FromHost_Buffer_Data));
 
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

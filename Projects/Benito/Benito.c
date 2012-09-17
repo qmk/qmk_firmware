@@ -93,7 +93,7 @@ int main(void)
 
 	RingBuffer_InitBuffer(&USARTtoUSB_Buffer, USARTtoUSB_Buffer_Data, sizeof(USARTtoUSB_Buffer_Data));
 
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

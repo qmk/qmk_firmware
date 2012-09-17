@@ -45,7 +45,7 @@ int main(void)
 {
 	SetupHardware();
 
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	  USB_USBTask();

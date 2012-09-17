@@ -71,9 +71,9 @@ int main(void)
 	SetupHardware();
 
 	puts_P(PSTR(ESC_FG_CYAN "Mouse Host Demo running.\r\n" ESC_FG_WHITE));
-	sei();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

@@ -114,7 +114,7 @@ int main(void)
 	/* Create a regular blocking character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateBlockingStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
-	sei();
+	GlobalInterruptEnable();
 
 	for (;;)
 	{

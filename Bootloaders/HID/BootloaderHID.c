@@ -73,7 +73,7 @@ int main(void)
 	SetupHardware();
 
 	/* Enable global interrupts so that the USB stack can function */
-	sei();
+	GlobalInterruptEnable();
 
 	while (RunBootloader)
 	  USB_USBTask();
