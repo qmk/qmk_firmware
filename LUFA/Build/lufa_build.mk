@@ -204,8 +204,11 @@ else ifeq ($(ARCH), UC3)
 endif
 
 # Determine flags to pass to the size utility based on its reported features (only invoke if size target required)
+# and on an architecture where this non-standard patch is available
+ifneq ($(ARCH), UC3)
 size: SIZE_MCU_FLAG    := $(shell $(CROSS)-size --help | grep -- --mcu > /dev/null && echo --mcu=$(MCU) )
 size: SIZE_FORMAT_FLAG := $(shell $(CROSS)-size --help | grep -- --format=.*avr > /dev/null && echo --format=avr )
+endif
 
 # Pre-build informational target, to give compiler and project name information when building
 build_begin:
