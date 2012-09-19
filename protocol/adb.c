@@ -38,6 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdbool.h>
 #include <util/delay.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "adb.h"
 
 
@@ -85,8 +86,13 @@ uint16_t adb_host_kbd_recv(void)
         return 0;               // No data to send
     if (!read_bit())            // Startbit(1)
         return -2;
+
+    // ad hoc fix: without block inerrupt read wrong bit occasionally and get keys stuck
+    cli();
     data = read_byte();
     data = (data<<8) | read_byte();
+    sei();
+
     if (read_bit())             // Stopbit(0)
         return -3;
     return data;
