@@ -54,14 +54,14 @@
  *		void main(void)
  *		{
  *			// Start the master external oscillator which will be used as the main clock reference
- *			AVR32CLK_StartExternalOscillator(0, EXOSC_MODE_8MHZ_OR_MORE, EXOSC_START_0CLK);
+ *			UC3CLK_StartExternalOscillator(0, EXOSC_MODE_8MHZ_OR_MORE, EXOSC_START_0CLK);
  *          
  *			// Start the PLL for the CPU clock, switch CPU to it
- *			AVR32CLK_StartPLL(0, CLOCK_SRC_OSC0, 12000000, F_CPU);
- *			AVR32CLK_SetCPUClockSource(CLOCK_SRC_PLL0, F_CPU);
+ *			UC3CLK_StartPLL(0, CLOCK_SRC_OSC0, 12000000, F_CPU);
+ *			UC3CLK_SetCPUClockSource(CLOCK_SRC_PLL0, F_CPU);
  *          
  *			// Start the PLL for the USB Generic Clock module
- *			AVR32CLK_StartPLL(1, CLOCK_SRC_OSC0, 12000000, 48000000);
+ *			UC3CLK_StartPLL(1, CLOCK_SRC_OSC0, 12000000, 48000000);
  *		}
  *  \endcode
  *
@@ -123,12 +123,12 @@
 			 *
 			 *  \return Boolean \c true if the external oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                    const uint8_t Type,
-			                                                    const uint8_t Startup) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartExternalOscillator(const uint8_t Channel,
-			                                                    const uint8_t Type,
-			                                                    const uint8_t Startup)
+			static inline bool UC3CLK_StartExternalOscillator(const uint8_t Channel,
+			                                                  const uint8_t Type,
+			                                                  const uint8_t Startup) ATTR_ALWAYS_INLINE;
+			static inline bool UC3CLK_StartExternalOscillator(const uint8_t Channel,
+			                                                  const uint8_t Type,
+			                                                  const uint8_t Startup)
 			{
 				switch (Channel)
 				{
@@ -154,8 +154,8 @@
 			 *
 			 *  \param[in] Channel  Index of the external oscillator to stop.
 			 */
-			static inline void AVR32CLK_StopExternalOscillator(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopExternalOscillator(const uint8_t Channel)
+			static inline void UC3CLK_StopExternalOscillator(const uint8_t Channel) ATTR_ALWAYS_INLINE;
+			static inline void UC3CLK_StopExternalOscillator(const uint8_t Channel)
 			{
 				AVR32_PM.mcctrl &= ~(1 << (AVR32_PM_MCCTRL_OSC0EN_OFFSET + Channel));
 			}
@@ -171,14 +171,14 @@
 			 *
 			 *  \return Boolean \c true if the PLL was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StartPLL(const uint8_t Channel,
-			                                     const uint8_t Source,
-			                                     const uint32_t SourceFreq,
-			                                     const uint32_t Frequency) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartPLL(const uint8_t Channel,
-			                                     const uint8_t Source,
-			                                     const uint32_t SourceFreq,
-			                                     const uint32_t Frequency)
+			static inline bool UC3CLK_StartPLL(const uint8_t Channel,
+			                                   const uint8_t Source,
+			                                   const uint32_t SourceFreq,
+			                                   const uint32_t Frequency) ATTR_ALWAYS_INLINE;
+			static inline bool UC3CLK_StartPLL(const uint8_t Channel,
+			                                   const uint8_t Source,
+			                                   const uint32_t SourceFreq,
+			                                   const uint32_t Frequency)
 			{
 				if (SourceFreq > Frequency)
 				  return false;
@@ -207,8 +207,8 @@
 			 *
 			 *  \param[in] Channel  Index of the PLL to stop.
 			 */
-			static inline void AVR32CLK_StopPLL(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline void AVR32CLK_StopPLL(const uint8_t Channel)
+			static inline void UC3CLK_StopPLL(const uint8_t Channel) ATTR_ALWAYS_INLINE;
+			static inline void UC3CLK_StopPLL(const uint8_t Channel)
 			{
 				AVR32_PM.PLL[Channel].pllen = false;
 			}
@@ -222,14 +222,14 @@
 			 *
 			 *  \return Boolean \c true if the Generic Clock was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StartGenericClock(const uint8_t Channel,
-			                                              const uint8_t Source,
-			                                              const uint32_t SourceFreq,
-			                                              const uint32_t Frequency) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StartGenericClock(const uint8_t Channel,
-			                                              const uint8_t Source,
-			                                              const uint32_t SourceFreq,
-			                                              const uint32_t Frequency)
+			static inline bool UC3CLK_StartGenericClock(const uint8_t Channel,
+			                                            const uint8_t Source,
+			                                            const uint32_t SourceFreq,
+			                                            const uint32_t Frequency) ATTR_ALWAYS_INLINE;
+			static inline bool UC3CLK_StartGenericClock(const uint8_t Channel,
+			                                            const uint8_t Source,
+			                                            const uint32_t SourceFreq,
+			                                            const uint32_t Frequency)
 			{
 				if (Channel >= AVR32_PM_GCLK_NUM)
 				  return false;
@@ -272,8 +272,8 @@
 			 *
 			 *  \return Boolean \c true if the generic clock was successfully stopped, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_StopGenericClock(const uint8_t Channel)
+			static inline bool UC3CLK_StopGenericClock(const uint8_t Channel) ATTR_ALWAYS_INLINE;
+			static inline bool UC3CLK_StopGenericClock(const uint8_t Channel)
 			{
 				if (Channel >= AVR32_PM_GCLK_NUM)
 				  return false;
@@ -293,10 +293,10 @@
 			 *
 			 *  \return Boolean \c true if the CPU core clock was successfully altered, \c false if invalid parameters specified.
 			 */
-			static inline bool AVR32CLK_SetCPUClockSource(const uint8_t Source,
-			                                              const uint32_t SourceFreq) ATTR_ALWAYS_INLINE;
-			static inline bool AVR32CLK_SetCPUClockSource(const uint8_t Source,
-			                                              const uint32_t SourceFreq)
+			static inline bool UC3CLK_SetCPUClockSource(const uint8_t Source,
+			                                            const uint32_t SourceFreq) ATTR_ALWAYS_INLINE;
+			static inline bool UC3CLK_SetCPUClockSource(const uint8_t Source,
+			                                            const uint32_t SourceFreq)
 			{
 				if (SourceFreq > AVR32_PM_CPU_MAX_FREQ)
 				  return false;
