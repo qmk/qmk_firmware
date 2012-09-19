@@ -67,7 +67,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define DATAFLASH_CHIPCS_MASK                ((1 << 1) | (1 << 0))
+			#define DATAFLASH_CHIPCS_MASK                (DATAFLASH_CHIP1 | DATAFLASH_CHIP2)
 			#define DATAFLASH_CHIPCS_DDR                 DDRE
 			#define DATAFLASH_CHIPCS_PORT                PORTE
 	#endif
@@ -78,13 +78,13 @@
 			#define DATAFLASH_TOTALCHIPS                 2
 
 			/** Mask for no dataflash chip selected. */
-			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
+			#define DATAFLASH_NO_CHIP                    0
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      (1 << 1)
+			#define DATAFLASH_CHIP1                      (1 << 0)
 
 			/** Mask for the second dataflash chip selected. */
-			#define DATAFLASH_CHIP2                      (1 << 0)
+			#define DATAFLASH_CHIP2                      (1 << 1)
 
 			/** Internal main memory page size for the board's dataflash ICs. */
 			#define DATAFLASH_PAGE_SIZE                  1024
@@ -137,12 +137,12 @@
 			/** Determines the currently selected dataflash chip.
 			 *
 			 *  \return Mask of the currently selected Dataflash chip, either \ref DATAFLASH_NO_CHIP if no chip is selected
-			 *  or a DATAFLASH_CHIPn mask (where n is the chip number).
+			 *          or a DATAFLASH_CHIPn mask (where n is the chip number).
 			 */
 			static inline uint8_t Dataflash_GetSelectedChip(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_GetSelectedChip(void)
 			{
-				return (DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK);
+				return (~DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK);
 			}
 
 			/** Selects the given dataflash chip.
@@ -153,7 +153,7 @@
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask)
 			{
-				DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT & ~DATAFLASH_CHIPCS_MASK) | ChipMask);
+				DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT | DATAFLASH_CHIPCS_MASK) & ~ChipMask);
 			}
 
 			/** Deselects the current dataflash chip, so that no dataflash is selected. */

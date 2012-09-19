@@ -66,13 +66,13 @@
 			#define DATAFLASH_TOTALCHIPS                 1 // TODO: Replace with the number of Dataflashes on the board, max 2
 
 			/** Mask for no dataflash chip selected. */
-			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
+			#define DATAFLASH_NO_CHIP                    0
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      // TODO: Replace with mask to hold /CS of first Dataflash low, and all others high
+			#define DATAFLASH_CHIP1                      // TODO: Replace with mask with the pin attached to the first Dataflash /CS set
 
 			/** Mask for the second dataflash chip selected. */
-			#define DATAFLASH_CHIP2                      // TODO: Replace with mask to hold /CS of second Dataflash low, and all others high
+			#define DATAFLASH_CHIP2                      // TODO: Replace with mask with the pin attached to the second Dataflash /CS set
 
 			/** Internal main memory page size for the board's dataflash ICs. */
 			#define DATAFLASH_PAGE_SIZE                  // TODO: Replace with the page size for the Dataflash ICs
@@ -130,7 +130,7 @@
 			static inline uint8_t Dataflash_GetSelectedChip(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_GetSelectedChip(void)
 			{
-				return (DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK);
+				return (~DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK);
 			}
 
 			/** Selects the given dataflash chip.
@@ -141,7 +141,7 @@
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask)
 			{
-				DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT & ~DATAFLASH_CHIPCS_MASK) | ChipMask);
+				DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT | DATAFLASH_CHIPCS_MASK) & ~ChipMask);
 			}
 
 			/** Deselects the current dataflash chip, so that no dataflash is selected. */

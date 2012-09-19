@@ -31,6 +31,7 @@
   *   - Fixed logic hole breaking USB operations on a USB controller with only one supported USB mode and no USB_DEVICE_ONLY or USB_HOST_ONLY
   *     configuration token set
   *   - Fixed possible rounding in the VERSION_BCD() macros for some 0.01 step increments (thanks to Oliver Zander)
+  *   - Fixed incorrect Dataflash functionality in the USBKEY board if the driver is modified for a single Dataflash chip (thanks to Jonathan Oakley)
   *  - Library Applications:
   *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *   - Fixed incompatibility in the CDC class bootloader on some systems (thanks to Sylvain Munaut)
