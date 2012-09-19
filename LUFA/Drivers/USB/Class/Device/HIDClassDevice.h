@@ -102,8 +102,8 @@
 					uint8_t  PrevReportINBufferSize; /**< Size in bytes of the given input report buffer. This is used to create a
 					                                  *  second buffer of the same size within the driver so that subsequent reports
 					                                  *  can be compared. If the user app is to determine when reports are to be sent
-					                                  *  exclusively (i.e. \ref PrevReportINBuffer is \c NULL) this value must still be
-													  *  set to the size of the largest report the device can issue to the host.
+					                                  *  exclusively (i.e. \c PrevReportINBuffer is \c NULL) this value must still be
+					                                  *  set to the size of the largest report the device can issue to the host.
 					                                  */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
@@ -114,7 +114,7 @@
 					uint16_t PrevFrameNum; /**< Frame number of the previous HID report packet opportunity. */
 					uint16_t IdleCount; /**< Report idle period, in milliseconds, set by the host. */
 					uint16_t IdleMSRemaining; /**< Total number of milliseconds remaining before the idle period elapsed - this
-											   *   should be decremented by the user application if non-zero each millisecond. */
+				                               *   should be decremented by the user application if non-zero each millisecond. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */

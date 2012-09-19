@@ -39,6 +39,8 @@
 
 /** \defgroup Group_USB USB Core - LUFA/Drivers/USB/USB.h
  *
+ *  \brief Core driver for the microcontroller hardware USB module
+ *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Core/ConfigDescriptors.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
@@ -72,6 +74,8 @@
  */
 
 /** \defgroup Group_USBClassDrivers USB Class Drivers
+ *
+ *  \brief Drivers for the various standardized USB device classes
  *
  *  Drivers for both host and device mode of the standard USB classes, for rapid application development.
  *  Class drivers give a framework which sits on top of the low level library API, allowing for standard
