@@ -38,6 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifndef ADB_H
 #define ADB_H
 
+#include <stdint.h>
 #include <stdbool.h>
 
 #if !(defined(ADB_PORT) && \
@@ -46,6 +47,10 @@ POSSIBILITY OF SUCH DAMAGE.
       defined(ADB_DATA_BIT))
 #   error "ADB port setting is required in config.h"
 #endif
+
+#define ADB_POWER       0x7F
+#define ADB_CAPS        0x39
+
 
 // ADB host
 void     adb_host_init(void);

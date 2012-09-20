@@ -38,27 +38,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   error "MATRIX_ROWS must not exceed 255"
 #endif
 
-#define CAPS        0x39
-#define CAPS_UP     (CAPS | 0x80)
-#define ROW(key)    ((key)>>3&0x0F)
-#define COL(key)    ((key)&0x07)
+#define ADB_CAPS_UP     (ADB_CAPS | 0x80)
 
 
-static bool _matrix_is_modified = false;
+static bool is_modified = false;
 
 // matrix state buffer(1:on, 0:off)
 #if (MATRIX_COLS <= 8)
-static uint8_t *matrix;
-static uint8_t _matrix0[MATRIX_ROWS];
+static uint8_t matrix[MATRIX_ROWS];
 #else
-static uint16_t *matrix;
-static uint16_t _matrix0[MATRIX_ROWS];
+static uint16_t matrix[MATRIX_ROWS];
 #endif
 
 #ifdef MATRIX_HAS_GHOST
 static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
-static void _register_key(uint8_t key);
+static void register_key(uint8_t key);
 
 
 inline
@@ -78,8 +73,7 @@ void matrix_init(void)
     adb_host_init();
 
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
-    matrix = _matrix0;
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
     print_enable = true;
     debug_enable = true;
@@ -95,48 +89,53 @@ uint8_t matrix_scan(void)
     uint16_t codes;
     uint8_t key0, key1;
 
-    _matrix_is_modified = false;
+    is_modified = false;
     codes = adb_host_kbd_recv();
     key0 = codes>>8;
     key1 = codes&0xFF;
 
-    if (debug_enable && codes) {
+    if (debug_matrix && codes) {
         print("adb_host_kbd_recv: "); phex16(codes); print("\n");
     }
 
 #ifdef MATRIX_HAS_LOCKING_CAPS
     // Send Caps key up event
-    if (matrix_is_on(ROW(CAPS), COL(CAPS))) {
-        _matrix_is_modified = true;
-        _register_key(CAPS_UP);
+    if (matrix_is_on(MATRIX_ROW(ADB_CAPS), MATRIX_COL(ADB_CAPS))) {
+        register_key(ADB_CAPS_UP);
     }
 #endif
     if (codes == 0) {                           // no keys
         return 0;
-    } else if (key0 == 0xFF && key1 != 0xFF) {  // error
-        return codes&0xFF;
+    } else if (codes == 0x7F7F) {   // power key press
+        register_key(0x7F);
+    } else if (codes == 0xFFFF) {   // power key release
+        register_key(0xFF);
+    } else if (key0 == 0xFF) {      // error
+        if (debug_matrix) print("adb_host_kbd_recv: ERROR(matrix cleared.)\n");
+        // clear matrix to unregister all keys
+        for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
+        return key1;
     } else {
 #ifdef MATRIX_HAS_LOCKING_CAPS    
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
             // Ignore LockingCaps key down event when CAPS LOCK is on
-            if (key0 == CAPS && (key1 == CAPS || key1 == 0xFF)) return 0;
-            if (key0 == CAPS) key0 = key1;
-            if (key1 == CAPS) key1 = 0xFF;
+            if (key0 == ADB_CAPS && (key1 == ADB_CAPS || key1 == 0xFF)) return 0;
+            if (key0 == ADB_CAPS) key0 = key1;
+            if (key1 == ADB_CAPS) key1 = 0xFF;
             // Convert LockingCaps key up event into down event
-            if (key0 == CAPS_UP) key0 = CAPS;
-            if (key1 == CAPS_UP) key1 = CAPS;
+            if (key0 == ADB_CAPS_UP) key0 = ADB_CAPS;
+            if (key1 == ADB_CAPS_UP) key1 = ADB_CAPS;
         } else {
-            // CAPS LOCK off:
-            // Ignore LockingCaps key up event when CAPS LOCK is off
-            if (key0 == CAPS_UP && (key1 == CAPS_UP || key1 == 0xFF)) return 0;
-            if (key0 == CAPS_UP) key0 = key1;
-            if (key1 == CAPS_UP) key1 = 0xFF;
+            // ADB_CAPS LOCK off:
+            // Ignore LockingCaps key up event when ADB_CAPS LOCK is off
+            if (key0 == ADB_CAPS_UP && (key1 == ADB_CAPS_UP || key1 == 0xFF)) return 0;
+            if (key0 == ADB_CAPS_UP) key0 = key1;
+            if (key1 == ADB_CAPS_UP) key1 = 0xFF;
         }
 #endif        
-        _matrix_is_modified = true;
-        _register_key(key0);
+        register_key(key0);
         if (key1 != 0xFF)       // key1 is 0xFF when no second key.
-            _register_key(key1);
+            register_key(key1);
     }
 
     return 1;
@@ -144,7 +143,7 @@ uint8_t matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
-    return _matrix_is_modified;
+    return is_modified;
 }
 
 inline
@@ -177,6 +176,7 @@ uint16_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
+    if (!debug_matrix) return;
 #if (MATRIX_COLS <= 8)
     print("r/c 01234567\n");
 #else
@@ -229,7 +229,7 @@ static bool matrix_has_ghost_in_row(uint8_t row)
 #endif
 
 inline
-static void _register_key(uint8_t key)
+static void register_key(uint8_t key)
 {
     uint8_t col, row;
     col = key&0x07;
@@ -239,4 +239,5 @@ static void _register_key(uint8_t key)
     } else {
         matrix[row] |=  (1<<col);
     }
+    is_modified = true;
 }
