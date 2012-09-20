@@ -1,34 +1,39 @@
 ADB to USB keyboard converter
 =============================
-http://geekhack.org/showwiki.php?title=Island:14290
-
 This firmware converts ADB keyboard protocol to USB.
+You can use PJRC Teensy for this converter, though, other USB AVR(ATMega32U4, AT90USB64/128 or etc) should work.
+But binary size is about 10KB or more it doesn't fit into 8K flash like ATMega8U2.
+
+Discuss: http://geekhack.org/showwiki.php?title=Island:14290
 
 
 Build
 -----
-0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data).
-   You need a external pull-up resistor on DATA line in most case,
-   in particular when you want to use a long or coiled cable.
-   This converter uses AVR's internal pull-up, but it seems to be too weak.
-   The external pull-up resistor is strongly recommended.
-   PSW line is optional. See ADB.txt for details.
-1. Define following macros for ADB connection in config.h:
-   ADB_PORT
-   ADB_PIN
-   ADB_DDR
-   ADB_DATA_BIT
-   ADB_PSW_BIT
+0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data). By default Data line uses port F0.
+   This converter uses AVR's internal pull-up, but it seems to be too weak, in particular when you want to use a long or coiled cable.
+   The external pull-up resistor(1K-10K Ohm) on Data is strongly recommended.
+1. Define following macros for ADB connection in config.h if you use other than port F0.
+   ADB_PORT, ADB_PIN, ADB_DDR, ADB_DATA_BIT
 2. make
-3. program Teensy.
+3. program Teensy
+
+
+LOCKING CAPSLOCK
+----------------
+Many old ADB keyboards have mechanical push-lock switch for Capslock key. This converter support the locking Capslock key by default.
+This feature will prevent you from remaping as normal key. You can disable the feature by *commenting out* a macro in config.h like this:
+
+    //#define MATRIX_HAS_LOCKING_CAPS
+
+Also you may want to remove locking pin from the push-lock switch to use capslock as a normal momentary switch.
+http://www.youtube.com/watch?v=9wqnt2mGJ2Y
 
 
 Keymap
 ------
 You can change a keymap by editing code of keymap.c like following.
 This is a keymap for AEK, however, also used for other keyboards.
-How to define the keymap is probably obvious. You can find  key
-symbols in usb_keycodes.h.
+How to define the keymap is probably obvious. You can find key symbols in usb_keycodes.h.
 If you want to define some keymaps than just one, see hhkb/keymap.c and
 macway/keymap.c as examples. Keymap(layer) switching may needs a bit of
 effort at this time.
@@ -59,6 +64,11 @@ effort at this time.
     ),
 
 
+Magic command
+-------------
+To get help press `h` holding Magic key. Magic key is `Power key`.
+
+
 Notes
 -----
 Many ADB keyboards has no discrimination between right modifier and left one,
@@ -66,5 +76,6 @@ you will always see left control even if you press right control key.
 Apple Extended Keyboard and Apple Extended Keyboard II are the examples.
 Though ADB protocol itsef has the ability of distinction between right and left.
 And most ADB keyboard has no NKRO functionality, though ADB protocol itsef has that. 
+See protocol/adb.c for more info.
 
 EOF

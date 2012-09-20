@@ -96,7 +96,7 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_NO,          // Fn0
+    KB_BSLS,        // Fn0
     KB_NO,          // Fn1
     KB_NO,          // Fn2
     KB_NO,          // Fn3
@@ -109,7 +109,7 @@ static const uint8_t PROGMEM fn_keycode[] = {
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default Layer: plain keymap
      * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.             ,---.
-     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Fn0|
+     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Pwr|
      * `---'   `---------------' `---------------' `---------------' `-----------'             `---'
      * ,-----------------------------------------------------------. ,-----------. ,---------------.
      * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backspa| |Ins|Hom|PgU| |NmL|  =|  /|  *|
@@ -124,9 +124,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------' `-----------' `---------------'
      */
     KEYMAP(
-    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    FN0,
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    NO,
     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NLCK,EQL, PSLS,PAST,
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     DEL, END, PGDN,    P7,  P8,  P9,  PMNS,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,FN0,      DEL, END, PGDN,    P7,  P8,  P9,  PMNS,
     CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           P1,  P2,  P3,
     LCTL,LGUI,LALT,          SPC,                                              LEFT,DOWN,RGHT,    P0,       PDOT,PENT
@@ -134,12 +134,12 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Default Layer: plain keymap
      * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.             ,---.
-     * |`  |   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Fn0|
+     * |`  |   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Pwr|
      * `---'   `---------------' `---------------' `---------------' `-----------'             `---'
      * ,-----------------------------------------------------------. ,-----------. ,---------------.
      * |Esc|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Delete | |Ins|Hom|PgU| |NmL|Mb1|Mb2|Mb3|
      * |-----------------------------------------------------------| |-----------| |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|PrS|ScL|Pau|Up |Ins|    \| |Del|End|PgD| |MwD|McU|MwU|MwD|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|PrS|ScL|Pau|Up |Ins|  Fn0| |Del|End|PgD| |MwD|McU|MwU|MwD|
      * |-----------------------------------------------------------| `-----------' |---------------|
      * |CapsLo|VoD|VoU|Mut|  F|  G|  H|  J|Hom|PgU|Lef|Rig|Return  |               |McL|McD|McR|MwU|
      * |-----------------------------------------------------------|     ,---.     |---------------|
@@ -149,9 +149,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------' `-----------' `---------------'
      */
     KEYMAP(
-    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    FN0,
+    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    NO, 
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,      INS, HOME,PGUP,    NLCK,BTN1,BTN2,BTN3,
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   PSCR,SLCK,PAUS,UP,  INS, BSLS,     DEL, END, PGDN,    WH_D,MS_U,WH_U,WH_D,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   PSCR,SLCK,PAUS,UP,  INS, FN0,      DEL, END, PGDN,    WH_D,MS_U,WH_U,WH_D,
     CAPS,VOLD,VOLU,MUTE,F,   G,   H,   J,   HOME,PGUP,LEFT,RGHT,     ENT,                         MS_L,MS_D,MS_R,WH_U,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   END, PGDN,DOWN,          RSFT,          PGUP,         WH_L,MS_D,WH_R,
     LCTL,LGUI,LALT,          SPC,                                              HOME,PGDN,END,     BTN1,     BTN2,BTN3
