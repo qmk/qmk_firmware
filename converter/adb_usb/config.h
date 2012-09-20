@@ -35,30 +35,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking Caps Lock support */
 #define MATRIX_HAS_LOCKING_CAPS
 
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_LCTRL) | MOD_BIT(KB_LALT) | MOD_BIT(KB_LGUI)) || \
-    keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_RSHIFT)) \
-)
+#define MATRIX_ROW(code)    ((code)>>3&0x0F)
+#define MATRIX_COL(code)    ((code)&0x07)
 
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
 #   define MOUSEKEY_DELAY_TIME 192
-#endif
-
-
-/* PS/2 mouse */
-#ifdef PS2_MOUSE_ENABLE
-#   define PS2_CLOCK_PORT  PORTF
-#   define PS2_CLOCK_PIN   PINF
-#   define PS2_CLOCK_DDR   DDRF
-#   define PS2_CLOCK_BIT   0
-#   define PS2_DATA_PORT   PORTF
-#   define PS2_DATA_PIN    PINF
-#   define PS2_DATA_DDR    DDRF
-#   define PS2_DATA_BIT    1
 #endif
 
 
@@ -68,5 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ADB_DDR         DDRF
 #define ADB_DATA_BIT    0
 //#define ADB_PSW_BIT     1       // optional
+
+/* key combination for command */
+#include "adb.h"
+#define IS_COMMAND() ( \
+    matrix_is_on(MATRIX_ROW(ADB_POWER), MATRIX_COL(ADB_POWER)) \
+)
 
 #endif
