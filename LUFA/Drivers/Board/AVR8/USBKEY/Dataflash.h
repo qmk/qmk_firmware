@@ -179,10 +179,14 @@
 				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
 				  return;
 
-				if (PageAddress & 0x01)
-				  Dataflash_SelectChip(DATAFLASH_CHIP2);
-				else
-				  Dataflash_SelectChip(DATAFLASH_CHIP1);
+				#if (DATAFLASH_TOTALCHIPS == 2)
+					if (PageAddress & 0x01)
+					  Dataflash_SelectChip(DATAFLASH_CHIP2);
+					else
+					  Dataflash_SelectChip(DATAFLASH_CHIP1);
+				#else
+					Dataflash_SelectChip(DATAFLASH_CHIP1);
+				#endif
 			}
 
 			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive
@@ -216,8 +220,10 @@
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
 			                                              const uint16_t BufferByte)
 			{
-				PageAddress >>= 1;
-
+				#if (DATAFLASH_TOTALCHIPS == 2)
+					PageAddress >>= 1;
+				#endif
+				
 				Dataflash_SendByte(PageAddress >> 5);
 				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
