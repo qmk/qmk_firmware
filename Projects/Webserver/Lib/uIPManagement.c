@@ -189,6 +189,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 	}
 
 	/* If the packet contains an Ethernet frame, process it */
+	// cppcheck-suppress redundantOperationIn
 	if (uip_len > 0)
 	{
 		switch (((struct uip_eth_hdr*)uip_buf)->type)
