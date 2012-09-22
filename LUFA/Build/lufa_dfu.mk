@@ -65,8 +65,7 @@ MSG_DFU_CMD    := ' [DFU]     :'
 # Programs in the target FLASH memory using BATCHISP, the command line tool used by FLIP
 flip: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming FLASH with batchisp using \"$<\"
-	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $< program
+	batchisp -hardware usb -device $(MCU) -operation erase f loadbuffer $< program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
 # Programs in the target EEPROM memory using BATCHISP, the command line tool used by FLIP
@@ -74,7 +73,6 @@ flip-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_COPY_CMD) Copying EEP file to temporary file \"$<.hex\"
 	cp $< $<.hex
 	@echo $(MSG_DFU_CMD) Programming EEPROM with batchisp using \"$<.hex\"
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $<.hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 	@echo $(MSG_REMOVE_CMD) Removing temporary file \"$<.hex\"
