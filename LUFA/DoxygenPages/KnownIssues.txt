@@ -38,6 +38,7 @@
   *      in the array will receive a unique incrementing usage from the MIN value, up to MAX.
   *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
   *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
   *  - Build System
   *    - No known issues.
   *
