@@ -26,48 +26,6 @@ upgrade-doxygen:
 	done;
 	@echo Doxygen configuration update complete.
 
-# Generate AVR Studio 4 project files for each project from a template
-make-as4-projects:
-	@echo Creating AVR Studio 4 project files for Demos...
-	@for project_makefile in `find $(LUFA_ROOT)/Demos $(LUFA_ROOT)/Projects $(LUFA_ROOT)/Bootloaders -name makefile*`; do \
-	  target_name=`grep "TARGET *=" $$project_makefile | cut -d'=' -f2 | sed 's/ //g'`; \
-	  target_folder=`dirname $$project_makefile`;                                   \
-	  as4_date=`date "+%-e-%b-%Y %-H:%-M:%-S"`;                                     \
-	                                                                                \
-	  if ( test -n "$$target_name" ); then                                          \
-	    echo Creating AS4 project for project $$target_name;                        \
-	                                                                                \
-	    source_files="<OTHERFILE>`basename $$project_makefile`<\/OTHERFILE>";       \
-	    gcc_source_files="";                                                        \
-	    for c_source_file in `find $$target_folder -name *.c`; do                   \
-	      source_filename=`basename $$c_source_file`;                               \
-	                                                                                \
-	      source_files="$$source_files<SOURCEFILE>$$source_filename<\/SOURCEFILE>"; \
-	      gcc_source_files="$$gcc_source_files<Name>$$source_filename<\/Name>";     \
-	    done;                                                                       \
-	    for c_header_file in `find $$target_folder -name *.h`; do                   \
-	      source_filename=`basename $$c_header_file`;                               \
-	                                                                                \
-	      source_files="$$source_files<HEADERFILE>$$source_filename<\/HEADERFILE>"; \
-	      gcc_source_files="$$gcc_source_files<Name>$$source_filename<\/Name>";     \
-	    done;                                                                       \
-	    for assembly_file in `find $$target_folder -name *.S`; do                   \
-	      source_filename=`basename $$assembly_file`;                               \
-	                                                                                \
-	      source_files="$$source_files<OTHERFILE>$$source_filename<\/OTHERFILE>";   \
-	      gcc_source_files="$$gcc_source_files<Name>$$source_filename<\/Name>";     \
-	    done;                                                                       \
-	                                                                                \
-	    sed "s/%TARGET%/$$target_name/g" AS4Template.aps > $$target_folder/$$target_name.aps.new;                                     \
-	    sed "s/%CREATED%/$$as4_date/g" $$target_folder/$$target_name.aps.new > $$target_folder/$$target_name.aps.new2;                \
-	    sed "s/%FILE_LIST%/$$source_files/g" $$target_folder/$$target_name.aps.new2 > $$target_folder/$$target_name.aps.new3;         \
-	    sed "s/%GCC_FILE_LIST%/$$gcc_source_files/g" $$target_folder/$$target_name.aps.new3 > $$target_folder/$$target_name.aps.new4; \
-	    mv $$target_folder/$$target_name.aps.new4 $$target_folder/$$target_name.aps;                                                  \
-	    rm $$target_folder/$$target_name.aps.new $$target_folder/$$target_name.aps.new2 $$target_folder/$$target_name.aps.new3;       \
-	  fi; \
-	done;
-	@echo AVR Studio 4 project generation complete.
-
 # Make all possible bootloaders for all targets and configurations as set by the BootloaderTest build test
 # and store them in a seperate directory called "Bootloaders"
 make_bootloaders:

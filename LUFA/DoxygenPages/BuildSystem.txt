@@ -25,7 +25,7 @@
  *  project's build makefile targets automatically. To call a build target, run <tt>make {TARGET_NAME}</tt>
  *  from the command line, substituting in the appropriate target name.
  *
- *  \see \ref Sec_AppConfigParams for a copy of the sample LUFA project makefile.
+ *  \see \ref Sec_AppMakefileParams for a copy of the sample LUFA project makefile.
  *
  *  Each build module may have one or more mandatory parameters (GNU Make variables) which <i>must</i>
  *  be supplied in the project makefile for the module to work, and one or more optional parameters which

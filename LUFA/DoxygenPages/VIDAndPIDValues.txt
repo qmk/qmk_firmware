@@ -17,402 +17,177 @@
  *  demos share the same VID/PID value.
  *
  *  <table>
- *
  *   <tr>
- *    <td>
- *     <b>VID</b>
- *    </td>
- *    <td>
- *     <b>PID</b>
- *    </td>
- *    <td>
- *     <b>Usage</b>
- *    </td>
+ *    <th>VID</th>
+ *    <th>PID</th>
+ *    <th>Usage</th>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2040
- *    </td>
- *    <td>
- *     Test VID/PID (See below)
- *    </td>
- *
- *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2041
- *    </td>
- *    <td>
- *     Mouse Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2040</td>
+ *    <td>Test VID/PID (See \ref Sec_Test_VIDPID)</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2042
- *    </td>
- *    <td>
- *     Keyboard Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2041</td>
+ *    <td>Mouse Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2043
- *    </td>
- *    <td>
- *     Joystick Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2042</td>
+ *    <td>Keyboard Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2044
- *    </td>
- *    <td>
- *     CDC Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2043</td>
+ *    <td>Joystick Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2045
- *    </td>
- *    <td>
- *     Mass Storage Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2044</td>
+ *    <td>CDC Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2046
- *    </td>
- *    <td>
- *     Audio Output Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2045</td>
+ *    <td>Mass Storage Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2047
- *    </td>
- *    <td>
- *     Audio Input Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2046</td>
+ *    <td>Audio Output Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2048
- *    </td>
- *    <td>
- *     MIDI Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2047</td>
+ *    <td>Audio Input Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2049
- *    </td>
- *    <td>
- *     MagStripe Project
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2048</td>
+ *    <td>MIDI Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x204A
- *    </td>
- *    <td>
- *     CDC Bootloader
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2049</td>
+ *    <td>MagStripe Project</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x204B
- *    </td>
- *    <td>
- *     USB to Serial Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x204A</td>
+ *    <td>CDC Bootloader</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x204C
- *    </td>
- *    <td>
- *     RNDIS Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x204B</td>
+ *    <td>USB to Serial Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x204D
- *    </td>
- *    <td>
- *     Combined Keyboard and Mouse Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x204C</td>
+ *    <td>RNDIS Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x204E
- *    </td>
- *    <td>
- *     Dual CDC Demo Application
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x204D</td>
+ *    <td>Combined Keyboard and Mouse Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x204E</td>
+ *    <td>Dual CDC Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
  *    <td>
  *     0x204F
  *    </td>
- *    <td>
- *     Generic HID Demo Application
- *    </td>
+ *    <td>Generic HID Demo Application</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2060
- *    </td>
- *    <td>
- *     Benito Programmer Project
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2060</td>
+ *    <td>Benito Programmer Project</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2061
- *    </td>
- *    <td>
- *     Combined Mass Storage and Keyboard Demo
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2061</td>
+ *    <td>Combined Mass Storage and Keyboard Demo</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2062
- *    </td>
- *    <td>
- *     Combined CDC and Mouse Demo
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2062</td>
+ *    <td>Combined CDC and Mouse Demo</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2063
- *    </td>
- *    <td>
- *     Mass Storage/HID Interface Datalogger Project
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2063</td>
+ *    <td>Mass Storage/HID Interface Datalogger Project</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2064
- *    </td>
- *    <td>
- *     Interfaceless Control-Only LUFA Devices
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2064</td>
+ *    <td>Interfaceless Control-Only LUFA Devices</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2065
- *    </td>
- *    <td>
- *     Test and Measurement Demo
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2065</td>
+ *    <td>Test and Measurement Demo</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
+ *    <td>0x03EB</td>
  *    <td>
  *     0x2066
  *    </td>
- *    <td>
- *     Multiple Report Keyboard/Mouse HID Demo
- *    </td>
+ *    <td>Multiple Report Keyboard/Mouse HID Demo</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2067
- *    </td>
- *    <td>
- *     HID Class Bootloader
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2067</td>
+ *    <td>HID Class Bootloader</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x2068
- *    </td>
- *    <td>
- *     Virtual Serial/Mass Storage Demo
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x2068</td>
+ *    <td>Virtual Serial/Mass Storage Demo</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
+ *    <td>0x03EB</td>
  *    <td>
  *     0x2069
  *    </td>
- *    <td>
- *     Webserver Project
- *    </td>
+ *    <td>Webserver Project</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x206A
- *    </td>
- *    <td>
- *     Media Control Project
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x206A</td>
+ *    <td>Media Control Project</td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x206B
- *    </td>
- *    <td>
- *     <i>Currently Unallocated</i>
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x206B</td>
+ *    <td><i>Currently Unallocated</i></td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x206C
- *    </td>
- *    <td>
- *     <i>Currently Unallocated</i>
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x206C</td>
+ *    <td><i>Currently Unallocated</i></td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x206D
- *    </td>
- *    <td>
- *     <i>Currently Unallocated</i>
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x206D</td>
+ *    <td><i>Currently Unallocated</i></td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x206E
- *    </td>
- *    <td>
- *     <i>Currently Unallocated</i>
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x206E</td>
+ *    <td><i>Currently Unallocated</i></td>
  *   </tr>
- *
  *   <tr>
- *    <td>
- *     0x03EB
- *    </td>
- *    <td>
- *     0x206F
- *    </td>
- *    <td>
- *     <i>Currently Unallocated</i>
- *    </td>
+ *    <td>0x03EB</td>
+ *    <td>0x206F</td>
+ *    <td><i>Currently Unallocated</i></td>
  *   </tr>
- *
  *  </table>
  *
  *  \section Sec_Test_VIDPID The Test VID/PID Combination

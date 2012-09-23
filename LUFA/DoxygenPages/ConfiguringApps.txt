@@ -18,7 +18,7 @@
  *
  *  \see \ref Page_BuildSystem for information on the LUFA build system.
  *
- *  \section Sec_AppConfigParams The Default Application Template
+ *  \section Sec_AppMakefileParams The Default Application Makefile Template
  *
  *  Below is a copy of the default LUFA application makefile, which can be used as a template for each application.
  *
