@@ -148,6 +148,7 @@
  *  \li CFFA3000, a CompactFlash interface for the Apple II: http://www.dreher.net/CFforAppleII
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
+ *  \li Flysight, a GPS logger for wingsuit pilots: http://flysight.ca/
  *  \li HummingBird Kit, a robotics learning platform: http://www.hummingbirdkit.com/
  *  \li Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  \li PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
@@ -160,6 +161,7 @@
  *  \li Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
  *  \li RFI21.1EU UHF RFID reader: http://www.metra.cz/rfid/uhf-rfid-ctecky/rfi21-1eu-uhf-rfid-ctecka.htm
  *  \li SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
+ *  \li TimelapsePlus, a digital camera time lapse tool: https://github.com/timelapseplus/TimelapsePlus-Firmware
  *  \li USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
  *  \li UDS18B20 USB Temperature sensor: http://toughlog.org/uds18b20/
  *  \li VMeter, a USB MIDI touch strip controller: http://www.vmeter.net/

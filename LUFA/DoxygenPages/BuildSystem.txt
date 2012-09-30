@@ -188,6 +188,13 @@
  *    <td>Flags to pass to the linker, after the automatically generated flags.</td>
  *   </tr>
  *   <tr>
+ *    <td><tt>LINKER_RELAXATIONS</tt></td>
+ *    <td>Enables or disables linker relaxations when linking the application binary. This can reduce the total size
+ *        of the application by replacing full \c CALL instructions with smaller \c RCALL instructions where possible.
+ *        \note On some unpatched versions of binutils, this can cause link failures in some circumstances. If you
+ *              receive a link error <tt>relocation truncated to fit: R_AVR_13_PCREL</tt>, disable this setting.</td>
+ *   </tr>
+ *   <tr>
  *    <td><tt>OBJDIR</tt></td>
  *    <td>Directory to place the generated object and dependency files. If set to "." the same folder as the source file will be used.
  *        \note When this option is enabled, all source filenames <b>must</b> be unique.</td>

@@ -9,7 +9,7 @@
 LUFA_BUILD_MODULES         += BUILD
 LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
-LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL
+LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS
 LUFA_BUILD_PROVIDED_VARS   += 
 LUFA_BUILD_PROVIDED_MACROS += 
 
@@ -60,6 +60,9 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    CC_FLAGS                  - Common flags to pass to the C/C++ compiler and
 #                                assembler
 #    LD_FLAGS                  - Flags to pass to the linker
+#    LINKER_RELAXATIONS        - Enable or disable linker relaxations to
+#                                decrease binary size (note: can cause link
+#                                failures on systems with an unpatched binutils)
 #    OBJDIR                    - Directory for the output object and dependency
 #                                files; if equal to ".", the output files will
 #                                be generated in the same folder as the sources
@@ -86,19 +89,20 @@ ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $
 ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Default values of optionally user-supplied variables
-BOARD           ?= NONE
-OPTIMIZATION    ?= s
-F_CPU           ?=
-C_STANDARD      ?= gnu99
-CPP_STANDARD    ?= gnu++98
-C_FLAGS         ?=
-CPP_FLAGS       ?=
-ASM_FLAGS       ?=
-CC_FLAGS        ?=
-OBJDIR          ?= .
-OBJECT_FILES    ?=
-DEBUG_FORMAT    ?= dwarf-2
-DEBUG_LEVEL     ?= 2
+BOARD              ?= NONE
+OPTIMIZATION       ?= s
+F_CPU              ?=
+C_STANDARD         ?= gnu99
+CPP_STANDARD       ?= gnu++98
+C_FLAGS            ?=
+CPP_FLAGS          ?=
+ASM_FLAGS          ?=
+CC_FLAGS           ?=
+OBJDIR             ?= .
+OBJECT_FILES       ?=
+DEBUG_FORMAT       ?= dwarf-2
+DEBUG_LEVEL        ?= 2
+LINKER_RELAXATIONS ?= Y
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
@@ -114,6 +118,7 @@ $(call ERROR_IF_EMPTY, CPP_STANDARD)
 $(call ERROR_IF_EMPTY, OBJDIR)
 $(call ERROR_IF_EMPTY, DEBUG_FORMAT)
 $(call ERROR_IF_EMPTY, DEBUG_LEVEL)
+$(call ERROR_IF_NONBOOL, LINKER_RELAXATIONS)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
@@ -194,7 +199,10 @@ BASE_CPP_FLAGS := -x c++ -O$(OPTIMIZATION) -std=$(CPP_STANDARD)
 BASE_ASM_FLAGS := -x assembler-with-cpp
 
 # Create a list of flags to pass to the linker
-BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections -Wl,--relax 
+BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections
+ifeq ($(LINKER_RELAXATIONS), Y)
+   BASE_LD_FLAGS += -Wl,--relax
+endif
 ifeq ($(ARCH), AVR8)
    BASE_LD_FLAGS += -mmcu=$(MCU)
 else ifeq ($(ARCH), XMEGA)
