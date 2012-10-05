@@ -123,6 +123,7 @@
  *  \li UDFS, a BBC Micro USB disk filing system: https://github.com/makestuff/udfs
  *  \li Universal USB AVR Module: http://usbavr.bplaced.net/
  *  \li USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
+ *  \li USB Business Card: http://www.limpkin.fr/index.php?post/2012/09/15/My-new-business-card
  *  \li USB Function Generator: http://tuomasnylund.fi/drupal6/content/ad9833-based-usb-function-generator
  *  \li USB Infrared Receiver/Transmitter: http://vaton4.web2001.cz/
  *  \li USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
