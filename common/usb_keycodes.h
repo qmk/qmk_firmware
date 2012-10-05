@@ -33,8 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_MOUSEKEY_BUTTON(code) (KB_MS_BTN1   <= (code) && (code) <= KB_MS_BTN5)
 #define IS_MOUSEKEY_WHEEL(code)  (KB_MS_WH_UP  <= (code) && (code) <= KB_MS_WH_RIGHT)
 
-#define MOD_BIT(code) (1<<((code) & 0x07))
-#define FN_BIT(code)  (1<<((code) - KB_FN0))
+#define MOD_BIT(code)   (1<<((code) & 0x07))
+#define FN_BIT(code)    (1<<((code) - KB_FN0))
+#define FN_INDEX(code)  ((code) - KB_FN0)
 
 
 /* Short names */

@@ -475,7 +475,7 @@ int main(void)
     keyboard_init();
     host_set_driver(&lufa_driver);
     while (1) {
-        keyboard_proc();
+        keyboard_task();
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();

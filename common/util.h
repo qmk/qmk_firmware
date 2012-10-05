@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define XSTR(s) #s
 
 
-int bitpop(uint8_t bits);
-int biton(uint8_t bits);
+uint8_t bitpop(uint8_t bits);
+uint8_t biton(uint8_t bits);
 
 #endif

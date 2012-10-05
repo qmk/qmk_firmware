@@ -17,19 +17,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "util.h"
 
-// bit population
-int bitpop(uint8_t bits)
+// bit population - return number of on-bit
+uint8_t bitpop(uint8_t bits)
 {
-    int c;
+    uint8_t c;
     for (c = 0; bits; c++)
         bits &= bits -1;
     return c;
+/*
+    const uint8_t bit_count[] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 };
+    return bit_count[bits>>4] + bit_count[bits&0x0F]
+*/
 }
 
-// most significant on-bit
-int biton(uint8_t bits)
+// most significant on-bit - return highest location of on-bit
+uint8_t biton(uint8_t bits)
 {
-    int n = 0;
+    uint8_t n = 0;
     if (bits >> 4) { bits >>= 4; n += 4;}
     if (bits >> 2) { bits >>= 2; n += 2;}
     if (bits >> 1) { bits >>= 1; n += 1;}

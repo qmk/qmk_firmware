@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 static report_mouse_t report;
-static report_mouse_t report_prev;
 
 static uint8_t mousekey_repeat =  0;
 
@@ -38,84 +37,111 @@ static void mousekey_debug(void);
  * see wikipedia http://en.wikipedia.org/wiki/Mouse_keys
  */
 #ifndef MOUSEKEY_DELAY_TIME
-#   define MOUSEKEY_DELAY_TIME 255
+#   define MOUSEKEY_DELAY_TIME 20
 #endif
 
+#define MOUSEKEY_MOVE_INIT      5
+#define MOUSEKEY_WHEEL_INIT     1
+#define MOUSEKEY_MOVE_ACCEL     5
+#define MOUSEKEY_WHEEL_ACCEL    1
+
+static uint16_t last_timer = 0;
+
 // acceleration parameters
-uint8_t mousekey_move_unit = 2;
-uint8_t mousekey_resolution = 5;
+//uint8_t mousekey_move_unit = 2;
+//uint8_t mousekey_resolution = 5;
 
 
 static inline uint8_t move_unit(void)
 {
-    uint16_t unit = 5 + mousekey_repeat*2;
+    uint16_t unit = 5 + mousekey_repeat*4;
     return (unit > 63 ? 63 : unit);
 }
 
-void mousekey_decode(uint8_t code)
+void mousekey_task(void)
 {
-    if      (code == KB_MS_UP)      report.y = -move_unit();
-    else if (code == KB_MS_DOWN)    report.y = move_unit();
-    else if (code == KB_MS_LEFT)    report.x = -move_unit();
-    else if (code == KB_MS_RIGHT)   report.x = move_unit();
-    else if (code == KB_MS_BTN1)    report.buttons |= MOUSE_BTN1;
-    else if (code == KB_MS_BTN2)    report.buttons |= MOUSE_BTN2;
-    else if (code == KB_MS_BTN3)    report.buttons |= MOUSE_BTN3;
-    else if (code == KB_MS_BTN4)    report.buttons |= MOUSE_BTN4;
-    else if (code == KB_MS_BTN5)    report.buttons |= MOUSE_BTN5;
-    else if (code == KB_MS_WH_UP)   report.v += move_unit()/4;
-    else if (code == KB_MS_WH_DOWN) report.v -= move_unit()/4;
-    else if (code == KB_MS_WH_LEFT) report.h -= move_unit()/4;
-    else if (code == KB_MS_WH_RIGHT)report.h += move_unit()/4;
-}
-
-bool mousekey_changed(void)
-{
-    return (report.buttons != report_prev.buttons ||
-            report.x || report.y || report.v || report.h);
-}
-
-void mousekey_send(void)
-{
-    static uint16_t last_timer = 0;
-
-    if (!mousekey_changed()) {
-        mousekey_repeat = 0;
-        mousekey_clear_report();
+    if (timer_elapsed(last_timer) < MOUSEKEY_DELAY_TIME)
         return;
-    }
 
-    // send immediately when buttun state is changed
-    if (report.buttons == report_prev.buttons) {
-        if (timer_elapsed(last_timer) < 100) {
-            mousekey_clear_report();
-            return;
-        }
-    }
+    if (report.x == 0 && report.y == 0 && report.v == 0 && report.h == 0)
+        return;
 
-    if (mousekey_repeat != 0xFF) {
+    if (mousekey_repeat != UINT8_MAX)
         mousekey_repeat++;
-    }
+
+
+    if (report.x > 0) report.x = move_unit();
+    if (report.x < 0) report.x = move_unit() * -1;
+    if (report.y > 0) report.y = move_unit();
+    if (report.y < 0) report.y = move_unit() * -1;
 
     if (report.x && report.y) {
         report.x *= 0.7;
         report.y *= 0.7;
     }
 
-    mousekey_debug();
-    host_mouse_send(&report);
-    report_prev = report;
-    last_timer = timer_read();
-    mousekey_clear_report();
+    if (report.v > 0) report.v = move_unit();
+    if (report.v < 0) report.v = move_unit() * -1;
+    if (report.h > 0) report.h = move_unit();
+    if (report.h < 0) report.h = move_unit() * -1;
+
+    mousekey_send();
 }
 
-void mousekey_clear_report(void)
+void mousekey_on(uint8_t code)
 {
+    if      (code == KB_MS_UP)       report.y = MOUSEKEY_MOVE_INIT * -1;
+    else if (code == KB_MS_DOWN)     report.y = MOUSEKEY_MOVE_INIT;
+    else if (code == KB_MS_LEFT)     report.x = MOUSEKEY_MOVE_INIT * -1;
+    else if (code == KB_MS_RIGHT)    report.x = MOUSEKEY_MOVE_INIT;
+    else if (code == KB_MS_WH_UP)    report.v = MOUSEKEY_WHEEL_INIT;
+    else if (code == KB_MS_WH_DOWN)  report.v = MOUSEKEY_WHEEL_INIT * -1;
+    else if (code == KB_MS_WH_LEFT)  report.h = MOUSEKEY_WHEEL_INIT * -1;
+    else if (code == KB_MS_WH_RIGHT) report.h = MOUSEKEY_WHEEL_INIT;
+    else if (code == KB_MS_BTN1)     report.buttons |= MOUSE_BTN1;
+    else if (code == KB_MS_BTN2)     report.buttons |= MOUSE_BTN2;
+    else if (code == KB_MS_BTN3)     report.buttons |= MOUSE_BTN3;
+    else if (code == KB_MS_BTN4)     report.buttons |= MOUSE_BTN4;
+    else if (code == KB_MS_BTN5)     report.buttons |= MOUSE_BTN5;
+}
+
+void mousekey_off(uint8_t code)
+{
+    if      (code == KB_MS_UP    && report.y < 0) report.y = 0;
+    else if (code == KB_MS_DOWN  && report.y > 0) report.y = 0;
+    else if (code == KB_MS_LEFT  && report.x < 0) report.x = 0;
+    else if (code == KB_MS_RIGHT && report.x > 0) report.x = 0;
+    else if (code == KB_MS_WH_UP    && report.v > 0) report.v = 0;
+    else if (code == KB_MS_WH_DOWN  && report.v < 0) report.v = 0;
+    else if (code == KB_MS_WH_LEFT  && report.h < 0) report.h = 0;
+    else if (code == KB_MS_WH_RIGHT && report.h > 0) report.h = 0;
+    else if (code == KB_MS_BTN1) report.buttons &= ~MOUSE_BTN1;
+    else if (code == KB_MS_BTN2) report.buttons &= ~MOUSE_BTN2;
+    else if (code == KB_MS_BTN3) report.buttons &= ~MOUSE_BTN3;
+    else if (code == KB_MS_BTN4) report.buttons &= ~MOUSE_BTN4;
+    else if (code == KB_MS_BTN5) report.buttons &= ~MOUSE_BTN5;
+
+    if (report.x == 0 && report.y == 0 && report.v == 0 && report.h == 0)
+        mousekey_repeat = 0;
+}
+
+void mousekey_send(void)
+{
+    mousekey_debug();
+    host_mouse_send(&report);
+    last_timer = timer_read();
+}
+
+void mousekey_clear(void)
+{
+    report = (report_mouse_t){};
+/*
     report.buttons = 0;
     report.x = 0;
     report.y = 0;
     report.v = 0;
     report.h = 0;
+*/
 }
 
 static void mousekey_debug(void)
