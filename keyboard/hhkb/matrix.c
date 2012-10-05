@@ -43,22 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // matrix state buffer(1:on, 0:off)
-#if (MATRIX_COLS <= 8)
-static uint8_t *matrix;
-static uint8_t *matrix_prev;
-static uint8_t _matrix0[MATRIX_ROWS];
-static uint8_t _matrix1[MATRIX_ROWS];
-#else
-static uint16_t *matrix;
-static uint16_t *matrix_prev;
-static uint16_t _matrix0[MATRIX_ROWS];
-static uint16_t _matrix1[MATRIX_ROWS];
-#endif
-
-// HHKB has no ghost and no bounce.
-#ifdef MATRIX_HAS_GHOST
-static bool matrix_has_ghost_in_row(uint8_t row);
-#endif
+static matrix_row_t *matrix;
+static matrix_row_t *matrix_prev;
+static matrix_row_t _matrix0[MATRIX_ROWS];
+static matrix_row_t _matrix1[MATRIX_ROWS];
 
 
 // Matrix I/O ports
@@ -192,6 +180,8 @@ uint8_t matrix_scan(void)
             }
 
             // Ignore if this code region execution time elapses more than 20us.
+            // MEMO: 20[us] * (TIMER_RAW_FREQ / 1000000)[count per us]
+            // MEMO: then change above using this rule: a/(b/c) = a*1/(b/c) = a*(c/b)
             if (TIMER_DIFF_RAW(TIMER_RAW, last) > 20/(1000000/TIMER_RAW_FREQ)) {
                 matrix[row] = matrix_prev[row];
             }
@@ -219,12 +209,6 @@ bool matrix_is_modified(void)
 inline
 bool matrix_has_ghost(void)
 {
-#ifdef MATRIX_HAS_GHOST
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix_has_ghost_in_row(i))
-            return true;
-    }
-#endif
     return false;
 }
 
@@ -258,11 +242,6 @@ void matrix_print(void)
 #else
         pbin_reverse16(matrix_get_row(row));
 #endif
-#ifdef MATRIX_HAS_GHOST
-        if (matrix_has_ghost_in_row(row)) {
-            print(" <ghost");
-        }
-#endif
         print("\n");
     }
 }
@@ -279,20 +258,3 @@ uint8_t matrix_key_count(void)
     }
     return count;
 }
-
-#ifdef MATRIX_HAS_GHOST
-inline
-static bool matrix_has_ghost_in_row(uint8_t row)
-{
-    // no ghost exists in case less than 2 keys on
-    if (((matrix[row] - 1) & matrix[row]) == 0)
-        return false;
-
-    // ghost exists in case same state as other row
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix[i] & matrix[row]) == matrix[row])
-            return true;
-    }
-    return false;
-}
-#endif

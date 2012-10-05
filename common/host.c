@@ -56,6 +56,19 @@ uint8_t host_keyboard_leds(void)
     return (*driver->keyboard_leds)();
 }
 
+/* new interface */
+void host_register_key(uint8_t key)
+{
+    host_add_key(key);
+    host_send_keyboard_report();
+}
+
+void host_unregister_key(uint8_t key)
+{
+    host_del_key(key);
+    host_send_keyboard_report();
+}
+
 /* keyboard report operations */
 void host_add_key(uint8_t key)
 {
@@ -158,6 +171,14 @@ void host_send_keyboard_report(void)
 {
     if (!driver) return;
     (*driver->send_keyboard)(keyboard_report);
+
+    if (debug_keyboard) {
+        print("keys: ");
+        for (int i = 0; i < REPORT_KEYS; i++) {
+            phex(keyboard_report->keys[i]); print(" ");
+        }
+        print(" mods: "); phex(keyboard_report->mods); print("\n");
+    }
 }
 
 void host_mouse_send(report_mouse_t *report)
@@ -216,7 +237,6 @@ static inline void del_key_byte(uint8_t code)
     for (; i < REPORT_KEYS; i++) {
         if (keyboard_report->keys[i] == code) {
             keyboard_report->keys[i] = 0;
-            break;
         }
     }
 }

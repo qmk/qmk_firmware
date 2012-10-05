@@ -21,9 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "host.h"
 
-void mousekey_decode(uint8_t code);
-bool mousekey_changed(void);
+void mousekey_task(void);
+void mousekey_on(uint8_t code);
+void mousekey_off(uint8_t code);
+void mousekey_clear(void);
 void mousekey_send(void);
-void mousekey_clear_report(void);
 
 #endif

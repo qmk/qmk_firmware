@@ -39,6 +39,10 @@ void host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
 uint8_t host_keyboard_leds(void);
 
+/* new interface */
+void host_register_key(uint8_t key);
+void host_unregister_key(uint8_t key);
+
 /* keyboard report operations */
 void host_add_key(uint8_t key);
 void host_del_key(uint8_t key);
