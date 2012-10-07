@@ -163,7 +163,7 @@ static void unregister_code(uint8_t code)
  * Event/State|IDLE             DELAYING[f]     WAITING[f,k]        PRESSING
  * -----------+------------------------------------------------------------------
  * Fn  Down   |IDLE(L+)         WAITING(Sk)     WAITING(Sk)         -
- *     Up     |IDLE(L-)         IDLE(L-)        IDLE(L-)            IDLE(L-)  
+ *     Up     |IDLE(L-)         IDLE(L-)        IDLE(L-)            IDLE(L-)
  * Fnk Down   |DELAYING(Sf)     WAITING(Sk)     WAINTING(Sk)        PRESSING(Rf)
  *     Up     |IDLE(L-)         IDLE(Rf,Uf)     IDLE(Rf,Ps,Uf)*3    PRESSING(Uf)
  * Key Down   |PRESSING(Rk)     WAITING(Sk)     WAITING(Sk)         PRESSING(Rk)
@@ -208,7 +208,6 @@ static void unregister_code(uint8_t code)
 
 static inline void process_key(keyevent_t event)
 {
-    
     /* TODO: ring buffer
     static keyrecord_t waiting_keys[5];
     static uint8_t waiting_keys_head = 0;
@@ -220,12 +219,12 @@ static inline void process_key(keyevent_t event)
 
     uint8_t tmp_mods;
 
-    //debug("kbdstate: "); debug_hex(kbdstate);
     debug("state: "); print_P(state_str(kbdstate));
     debug(" kind: "); debug_hex(kind);
     debug(" code: "); debug_hex(code);
     if (event.pressed) { debug("d"); } else { debug("u"); }
     debug("\n");
+
     switch (kbdstate) {
         case IDLE:
             switch (kind) {
@@ -236,9 +235,20 @@ static inline void process_key(keyevent_t event)
                     layer_switch_off(code);
                     break;
                 case FNK_DOWN:
-                    // store event
-                    delayed_fn = (keyrecord_t) { .event = event, .code = code, .mods = keyboard_report->mods, .time = timer_read() };
-                    NEXT(DELAYING);
+                    // repeat Fn alt key when press Fn key down, up then down again quickly
+                    if (KEYEQ(delayed_fn.event.key, event.key) &&
+                            timer_elapsed(delayed_fn.time) < LAYER_DELAY) {
+                        register_code(keymap_fn_keycode(FN_INDEX(code)));
+                        NEXT(PRESSING);
+                    } else {
+                        delayed_fn = (keyrecord_t) {
+                            .event = event,
+                            .code = code,
+                            .mods = keyboard_report->mods,
+                            .time = timer_read()
+                        };
+                        NEXT(DELAYING);
+                    }
                     break;
                 case FNK_UP:
                     layer_switch_off(code);
@@ -298,7 +308,12 @@ static inline void process_key(keyevent_t event)
                 case FNK_DOWN:
                 case KEY_DOWN:
                 case MOUSEKEY_DOWN:
-                    waiting_key = (keyrecord_t) { .event = event, .code = code, .mods = keyboard_report->mods, .time = timer_read() };
+                    waiting_key = (keyrecord_t) {
+                        .event = event,
+                        .code = code,
+                        .mods = keyboard_report->mods,
+                        .time = timer_read()
+                    };
                     NEXT(WAITING);
                     break;
                 case MOD_DOWN:
