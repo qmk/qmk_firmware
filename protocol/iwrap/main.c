@@ -166,7 +166,7 @@ int main(void)
         if (host_get_driver() == vusb_driver())
             usbPoll();
 #endif
-        keyboard_proc();
+        keyboard_task();
 #ifdef HOST_VUSB
         if (host_get_driver() == vusb_driver())
             vusb_transfer_keyboard();
