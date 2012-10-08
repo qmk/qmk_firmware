@@ -86,6 +86,8 @@ void matrix_init(void)
     PORTC |= 0b01111111;
     DDRE &= ~0b00000010;
     PORTE |= 0b00000010;
+	//DDRB &= ~0b00000100;
+	//PORTB |= 0b00000100;
 	// modifier	B3/4,F4/5,E4	always input
 	// 			A0
     //DDRA |=  0b00000001;
@@ -255,12 +257,13 @@ static uint8_t read_col(uint8_t row)
 	// Modifier would be copied to report->mods except E4(CAPSLOCK)
 	uint8_t tmp;
 	if ( row == 10 ) {
-		tmp = 0xE0;
+		tmp = 0xC0;
 		tmp |= (PINB >> 3 ) & 0b00000011;	// LEFT CTRL  is 0bit in modifier (HID Spec)
 											// LEFT SHIFT is 1bit in modifier (HID Spec)
 		tmp |= (PINF >> 3 ) & 0b00000100;	// LEFT ALT   is 2bit in modifier (HID Spec)
 		tmp |= (PINF >> 1 ) & 0b00001000;	// LEFT GUI   is 3bit in modifier (HID Spec)
-		tmp |= (PINA << 4 ) & 0b00010000;	// 
+		tmp |= (PINA << 4 ) & 0b00010000;	// CAPSLOCK
+		tmp |= (PINB << 3 ) & 0b00100000;	// POWER 	 
 		//tmp |= (PINE << 1 ) & 0b00010000;	// Caps Lock(Should not be in modifier
 	} else {
 		tmp = 0x00;
@@ -284,10 +287,10 @@ static void unselect_rows(void)
     DDRF  &= ~0b11000111; // PF: 7,6,2,1,0 
     PORTF &= ~0b11000111;
 	// to unselect virtual row(modifier), set port to output with low
-    DDRA  |=  0b00000001; // PA: 0
+    DDRA  |=  0b00000001; // PA: 0 for CAPSLOCK
     PORTA &= ~0b00000001;
-    DDRB  |=  0b00011000; // PB: 3,4 for modifier(row10)
-    PORTB &= ~0b00011000;
+    DDRB  |=  0b00011100; // PB: 3,4 for modifier(row10)
+    PORTB &= ~0b00011100; // PB: 2 for power
     DDRF  |=  0b00110000; // PF: 4,5 for modifier
     PORTF &= ~0b00110000;
 }
@@ -345,8 +348,8 @@ static void select_row(uint8_t row)
 			// to select virtual row, set port as input
 		    DDRA &= ~0b00000001;
 		    PORTA |= 0b00000001;
-		    DDRB &= ~0b00011000;
-		    PORTB |= 0b00011000;
+		    DDRB &= ~0b00011100;
+		    PORTB |= 0b00011100;
 		    DDRF &= ~0b00110000;
 		    PORTF |= 0b00110000;
             break;
