@@ -130,17 +130,23 @@ uint8_t matrix_scan(void)
 					matrix[i] = ~read_col(i) | 0b00010000;						// send fake caps lock down
 				}
 			} else {													// CAPS LOCK is OFF on HOST
-				matrix[i] = ~read_col(i);								
+        		if (matrix[i] != (uint8_t)~read_col(i)) {
+           			matrix[i] = (uint8_t)~read_col(i);
+        			if (debouncing) {
+        				debug("bounce!: "); debug_hex(debouncing); print("\n");
+					}
+       				debouncing = DEBOUNCE;
+				}
 			}
 		} else {
         	if (matrix[i] != (uint8_t)~read_col(i)) {
            		matrix[i] = (uint8_t)~read_col(i);
+        		if (debouncing) {
+        			debug("bounce!: "); debug_hex(debouncing); print("\n");
+				}
+       			debouncing = DEBOUNCE;
 			}
 		}
-        if (debouncing) {
-        	debug("bounce!: "); debug_hex(debouncing); print("\n");
-		}
-       	debouncing = DEBOUNCE;
 	}
     unselect_rows();
 
@@ -264,7 +270,6 @@ static uint8_t read_col(uint8_t row)
 		tmp |= (PINF >> 1 ) & 0b00001000;	// LEFT GUI   is 3bit in modifier (HID Spec)
 		tmp |= (PINA << 4 ) & 0b00010000;	// CAPSLOCK
 		tmp |= (PINB << 3 ) & 0b00100000;	// POWER 	 
-		//tmp |= (PINE << 1 ) & 0b00010000;	// Caps Lock(Should not be in modifier
 	} else {
 		tmp = 0x00;
 		tmp = (PINE >> 1)&0b00000001; 
