@@ -78,8 +78,6 @@ static uint8_t command_common(void)
             help();
             break;
         case KC_B:
-            host_clear_keyboard_report();
-            host_send_keyboard_report();
             print("jump to bootloader... ");
             _delay_ms(1000);
             bootloader_jump(); // not return
@@ -157,9 +155,6 @@ static uint8_t command_common(void)
             break;
 #ifdef NKRO_ENABLE
         case KC_N:
-            // send empty report before change
-            host_clear_keyboard_report();
-            host_send_keyboard_report();
             keyboard_nkro = !keyboard_nkro;
             if (keyboard_nkro)
                 print("NKRO: enabled\n");
@@ -169,8 +164,6 @@ static uint8_t command_common(void)
 #endif
 #ifdef EXTRAKEY_ENABLE
         case KC_ESC:
-            host_clear_keyboard_report();
-            host_send_keyboard_report();
 #ifdef HOST_PJRC
             if (suspend && remote_wakeup) {
                 usb_remote_wakeup();

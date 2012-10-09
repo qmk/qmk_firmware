@@ -81,17 +81,37 @@ static inline keykind_t get_keykind(uint8_t code, bool pressed)
     return  NONE;
 }
 
+static void clear_keyboard(void)
+{
+    host_clear_keys();
+    host_clear_mods();
+    host_send_keyboard_report();
+
+    host_system_send(0);
+    host_consumer_send(0);
+
+    mousekey_clear();
+    mousekey_send();
+}
+
+static void clear_keyboard_but_mods(void)
+{
+    host_clear_keys();
+    host_send_keyboard_report();
+
+    host_system_send(0);
+    host_consumer_send(0);
+
+    mousekey_clear();
+    mousekey_send();
+}
+
 static void layer_switch_on(uint8_t code)
 {
     if (!IS_FN(code)) return;
     fn_state_bits |= FN_BIT(code);
     if (current_layer != keymap_fn_layer(FN_INDEX(code))) {
-        // clear all key execpt Mod key
-        host_clear_all_keys_but_mods();
-        host_system_send(0);
-        host_consumer_send(0);
-        mousekey_clear();
-        mousekey_send();
+        clear_keyboard_but_mods();
 
         debug("Layer Switch(on): "); debug_hex(current_layer);
         current_layer = keymap_fn_layer(FN_INDEX(code));
@@ -104,22 +124,12 @@ static void layer_switch_off(uint8_t code)
     if (!IS_FN(code)) return;
     fn_state_bits &= ~FN_BIT(code);
     if (current_layer != keymap_fn_layer(biton(fn_state_bits))) {
-        // clear all key execpt Mod key
-        host_clear_all_keys_but_mods();
-        host_system_send(0);
-        host_consumer_send(0);
-        mousekey_clear();
-        mousekey_send();
+        clear_keyboard_but_mods();
 
         debug("Layer Switch(off): "); debug_hex(current_layer);
         current_layer = keymap_fn_layer(biton(fn_state_bits));
         debug(" -> "); debug_hex(current_layer); debug("\n");
     }
-}
-
-static inline uint8_t get_keycode(key_t key)
-{
-    return keymap_get_keycode(current_layer, key.row, key.col);
 }
 
 // whether any key except modifier is down or not
@@ -129,7 +139,7 @@ static inline bool is_anykey_down(void)
         matrix_row_t matrix_row = matrix_get_row(r);
         for (int c = 0; c < MATRIX_COLS; c++) {
             if (matrix_row && (1<<c)) {
-                if (IS_KEY(get_keycode((key_t){ .row = r, .col = c }))) {
+                if (IS_KEY(keymap_get_keycode(current_layer, r, c))) {
                     return true;
                 }
             }
@@ -140,7 +150,6 @@ static inline bool is_anykey_down(void)
 
 static void register_code(uint8_t code)
 {
-debug("register_code\n");
     if IS_KEY(code) {
         host_add_key(code);
         host_send_keyboard_report();
@@ -154,7 +163,6 @@ debug("register_code\n");
         mousekey_send();
     }
     else if IS_CONSUMER(code) {
-debug("consumer\n");
         uint16_t usage = 0;
         switch (code) {
             case KC_AUDIO_MUTE:
@@ -212,7 +220,6 @@ debug("consumer\n");
                 usage = AC_BOOKMARKS;
                 break;
         }
-debug("usage: "); phex16(usage); debug("\n");
         host_consumer_send(usage);
     }
     else if IS_SYSTEM(code) {
@@ -293,9 +300,9 @@ static void unregister_code(uint8_t code)
  *      Sk: store key
  *      Sf: store Fn
  *      Ps: play stored key(Interpret stored key and transit state)
- *      L+: Switch to new layer(*retain* Modifiers only)
- *      L-: Switch back to last layer(*clear* stored key/Fn, *unregister* all Modifier/key)
- *      Ld: Switch back to default layer(*clear* stored key/Fn, *unregister* all Modifier/key)
+ *      L+: Switch to new layer(*unregister* all keys but modifiers)
+ *      L-: Switch back to last layer(*unregister* all keys but modifiers)
+ *      Ld: Switch back to default layer(*unregister* all keys but modifiers)
  */
 #define NEXT(state)     do { \
     debug("NEXT: "); print_P(state_str(kbdstate)); \
@@ -305,13 +312,7 @@ static void unregister_code(uint8_t code)
 
 static inline void process_key(keyevent_t event)
 {
-    /* TODO: ring buffer
-    static keyrecord_t waiting_keys[5];
-    static uint8_t waiting_keys_head = 0;
-    static uint8_t waiting_keys_tail = 0;
-    */
-
-    uint8_t code = get_keycode(event.key);
+    uint8_t code = keymap_get_keycode(current_layer, event.key.row, event.key.col);
     keykind_t kind = get_keykind(code, event.pressed);
 
     uint8_t tmp_mods;
@@ -502,8 +503,6 @@ static inline void process_key(keyevent_t event)
             }
             break;
     }
-
-    // TODO: FAIL SAFE: unregister all keys when no key down
 }
 
 void keyboard_init(void)
@@ -526,11 +525,11 @@ void keyboard_task(void)
     matrix_scan();
     if (command_proc()) {
         debug("COMMAND\n");
-        // TODO: clear all keys
-        host_clear_keyboard_report();
-        host_send_keyboard_report();
+        // TODO: COMMAND state?
+        clear_keyboard();
         return;
     }
+
     for (int r = 0; r < MATRIX_ROWS; r++) {
         matrix_row = matrix_get_row(r);
         matrix_change = matrix_row ^ matrix_prev[r];
@@ -552,7 +551,6 @@ void keyboard_task(void)
         }
     }
     MATRIX_LOOP_END:
-    // TODO: FAIL SAFE: clear all key if no key down
 
     // layer switch when delay term elapses
     if (kbdstate == DELAYING || kbdstate == WAITING) {
@@ -575,6 +573,18 @@ void keyboard_task(void)
     // mousekey repeat & acceleration
     mousekey_task();
 
+    // FAIL SAFE: clear all key if no key down
+    if (matrix_change) {
+        matrix_row_t is_matrix_on = 0;
+        for (int r = 0; r < MATRIX_ROWS; r++) {
+            is_matrix_on |= matrix_get_row(r);
+        }
+        if (!is_matrix_on) {
+            debug("FAIL SAFE: clear all keys.\n");
+            clear_keyboard();
+        }
+    }
+    
     return;
 }
 
