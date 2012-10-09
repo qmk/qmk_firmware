@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap.h"
 #include "host.h"
 #include "led.h"
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "timer.h"
 #include "print.h"
 #include "debug.h"
@@ -157,58 +157,58 @@ debug("register_code\n");
 debug("consumer\n");
         uint16_t usage = 0;
         switch (code) {
-            case KB_AUDIO_MUTE:
+            case KC_AUDIO_MUTE:
                 usage = AUDIO_MUTE;
                 break;
-            case KB_AUDIO_VOL_UP:
+            case KC_AUDIO_VOL_UP:
                 usage = AUDIO_VOL_UP;
                 break;
-            case KB_AUDIO_VOL_DOWN:
+            case KC_AUDIO_VOL_DOWN:
                 usage = AUDIO_VOL_DOWN;
                 break;
-            case KB_MEDIA_NEXT_TRACK:
+            case KC_MEDIA_NEXT_TRACK:
                 usage = TRANSPORT_NEXT_TRACK;
                 break;
-            case KB_MEDIA_PREV_TRACK:
+            case KC_MEDIA_PREV_TRACK:
                 usage = TRANSPORT_PREV_TRACK;
                 break;
-            case KB_MEDIA_STOP:
+            case KC_MEDIA_STOP:
                 usage = TRANSPORT_STOP;
                 break;
-            case KB_MEDIA_PLAY_PAUSE:
+            case KC_MEDIA_PLAY_PAUSE:
                 usage = TRANSPORT_PLAY_PAUSE;
                 break;
-            case KB_MEDIA_SELECT:
+            case KC_MEDIA_SELECT:
                 usage = AL_CC_CONFIG;
                 break;
-            case KB_MAIL:
+            case KC_MAIL:
                 usage = AL_EMAIL;
                 break;
-            case KB_CALCULATOR:
+            case KC_CALCULATOR:
                 usage = AL_CALCULATOR;
                 break;
-            case KB_MY_COMPUTER:
+            case KC_MY_COMPUTER:
                 usage = AL_LOCAL_BROWSER;
                 break;
-            case KB_WWW_SEARCH:
+            case KC_WWW_SEARCH:
                 usage = AC_SEARCH;
                 break;
-            case KB_WWW_HOME:
+            case KC_WWW_HOME:
                 usage = AC_HOME;
                 break;
-            case KB_WWW_BACK:
+            case KC_WWW_BACK:
                 usage = AC_BACK;
                 break;
-            case KB_WWW_FORWARD:
+            case KC_WWW_FORWARD:
                 usage = AC_FORWARD;
                 break;
-            case KB_WWW_STOP:
+            case KC_WWW_STOP:
                 usage = AC_STOP;
                 break;
-            case KB_WWW_REFRESH:
+            case KC_WWW_REFRESH:
                 usage = AC_REFRESH;
                 break;
-            case KB_WWW_FAVORITES:
+            case KC_WWW_FAVORITES:
                 usage = AC_BOOKMARKS;
                 break;
         }
@@ -218,13 +218,13 @@ debug("usage: "); phex16(usage); debug("\n");
     else if IS_SYSTEM(code) {
         uint16_t usage = 0;
         switch (code) {
-            case KB_SYSTEM_POWER:
+            case KC_SYSTEM_POWER:
                 usage = SYSTEM_POWER_DOWN;
                 break;
-            case KB_SYSTEM_SLEEP:
+            case KC_SYSTEM_SLEEP:
                 usage = SYSTEM_SLEEP;
                 break;
-            case KB_SYSTEM_WAKE:
+            case KC_SYSTEM_WAKE:
                 usage = SYSTEM_WAKE_UP;
                 break;
         }

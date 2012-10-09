@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <util/delay.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "host.h"
 #include "print.h"
 #include "debug.h"
@@ -74,10 +74,10 @@ uint8_t command_extra(void)
 static uint8_t command_common(void)
 {
     switch (host_get_first_key()) {
-        case KB_H:
+        case KC_H:
             help();
             break;
-        case KB_B:
+        case KC_B:
             host_clear_keyboard_report();
             host_send_keyboard_report();
             print("jump to bootloader... ");
@@ -85,7 +85,7 @@ static uint8_t command_common(void)
             bootloader_jump(); // not return
             print("not supported.\n");
             break;
-        case KB_D:
+        case KC_D:
             debug_enable = !debug_enable;
             if (debug_enable) {
                 last_print_enable = true;
@@ -101,34 +101,34 @@ static uint8_t command_common(void)
                 debug_mouse = false;
             }
             break;
-        case KB_X: // debug matrix toggle
+        case KC_X: // debug matrix toggle
             debug_matrix = !debug_matrix;
             if (debug_matrix)
                 print("debug matrix enabled.\n");
             else
                 print("debug matrix disabled.\n");
             break;
-        case KB_K: // debug keyboard toggle
+        case KC_K: // debug keyboard toggle
             debug_keyboard = !debug_keyboard;
             if (debug_keyboard)
                 print("debug keyboard enabled.\n");
             else
                 print("debug keyboard disabled.\n");
             break;
-        case KB_M: // debug mouse toggle
+        case KC_M: // debug mouse toggle
             debug_mouse = !debug_mouse;
             if (debug_mouse)
                 print("debug mouse enabled.\n");
             else
                 print("debug mouse disabled.\n");
             break;
-        case KB_V: // print version & information
+        case KC_V: // print version & information
             print(STR(DESCRIPTION) "\n");
             break;
-        case KB_T: // print timer
+        case KC_T: // print timer
             print("timer: "); phex16(timer_count); print("\n");
             break;
-        case KB_P: // print toggle
+        case KC_P: // print toggle
             if (last_print_enable) {
                 print("print disabled.\n");
                 last_print_enable = false;
@@ -137,7 +137,7 @@ static uint8_t command_common(void)
                 print("print enabled.\n");
             }
             break;
-        case KB_S:
+        case KC_S:
             print("host_keyboard_leds:"); phex(host_keyboard_leds()); print("\n");
 #ifdef HOST_PJRC
             print("UDCON: "); phex(UDCON); print("\n");
@@ -156,7 +156,7 @@ static uint8_t command_common(void)
 #endif
             break;
 #ifdef NKRO_ENABLE
-        case KB_N:
+        case KC_N:
             // send empty report before change
             host_clear_keyboard_report();
             host_send_keyboard_report();
@@ -168,7 +168,7 @@ static uint8_t command_common(void)
             break;
 #endif
 #ifdef EXTRAKEY_ENABLE
-        case KB_ESC:
+        case KC_ESC:
             host_clear_keyboard_report();
             host_send_keyboard_report();
 #ifdef HOST_PJRC
@@ -186,23 +186,23 @@ static uint8_t command_common(void)
 #endif
             break;
 #endif
-        case KB_BSPC:
+        case KC_BSPC:
             matrix_init();
             print("clear matrix\n");
             break;
-        case KB_0:
+        case KC_0:
             switch_layer(0);
             break;
-        case KB_1:
+        case KC_1:
             switch_layer(1);
             break;
-        case KB_2:
+        case KC_2:
             switch_layer(2);
             break;
-        case KB_3:
+        case KC_3:
             switch_layer(3);
             break;
-        case KB_4:
+        case KC_4:
             switch_layer(4);
             break;
         default:
