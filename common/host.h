@@ -35,30 +35,31 @@ extern report_keyboard_t *keyboard_report;
 extern report_keyboard_t *keyboard_report_prev;
 
 
+/* host driver */
 void host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
+
 uint8_t host_keyboard_leds(void);
 
-/* new interface */
-void host_register_key(uint8_t key);
-void host_unregister_key(uint8_t key);
-void host_clear_all_keys_but_mods(void);
 
 /* keyboard report operations */
+/* key */
 void host_add_key(uint8_t key);
 void host_del_key(uint8_t key);
+void host_clear_keys(void);
+/* modifier */
 void host_add_mod_bit(uint8_t mod);
 void host_del_mod_bit(uint8_t mod);
 void host_set_mods(uint8_t mods);
-void host_add_code(uint8_t code);
-void host_del_code(uint8_t code);
-void host_swap_keyboard_report(void);
-void host_clear_keyboard_report(void);
+void host_clear_mods(void);
+/* query */
 uint8_t host_has_anykey(void);
 uint8_t host_get_first_key(void);
-
-
+/* send report */
 void host_send_keyboard_report(void);
+
+
+/* send report: mouse, system contorl and consumer page */ 
 void host_mouse_send(report_mouse_t *report);
 void host_system_send(uint16_t data);
 void host_consumer_send(uint16_t data);

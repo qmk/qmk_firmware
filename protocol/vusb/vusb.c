@@ -164,8 +164,8 @@ usbRequest_t    *rq = (void *)data;
         if(rq->bRequest == USBRQ_HID_GET_REPORT){
             debug("GET_REPORT:");
             /* we only have one report type, so don't look at wValue */
-            usbMsgPtr = (void *)keyboard_report_prev;
-            return sizeof(*keyboard_report_prev);
+            usbMsgPtr = (void *)keyboard_report;
+            return sizeof(*keyboard_report);
         }else if(rq->bRequest == USBRQ_HID_GET_IDLE){
             debug("GET_IDLE: ");
             //debug_hex(vusb_idle_rate);

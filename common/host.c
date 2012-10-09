@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,10 +28,7 @@ bool keyboard_nkro = false;
 #endif
 
 static host_driver_t *driver;
-static report_keyboard_t report0;
-static report_keyboard_t report1;
-report_keyboard_t *keyboard_report = &report0;
-report_keyboard_t *keyboard_report_prev = &report1;
+report_keyboard_t *keyboard_report = &(report_keyboard_t){};
 
 
 static inline void add_key_byte(uint8_t code);
@@ -54,27 +51,6 @@ uint8_t host_keyboard_leds(void)
 {
     if (!driver) return 0;
     return (*driver->keyboard_leds)();
-}
-
-/* new interface */
-void host_register_key(uint8_t key)
-{
-    host_add_key(key);
-    host_send_keyboard_report();
-}
-
-void host_unregister_key(uint8_t key)
-{
-    host_del_key(key);
-    host_send_keyboard_report();
-}
-
-void host_clear_all_keys_but_mods(void)
-{
-    for (int8_t i = 0; i < REPORT_KEYS; i++) {
-        keyboard_report->keys[i] = 0;
-    }
-    host_send_keyboard_report();
 }
 
 /* keyboard report operations */
@@ -100,6 +76,13 @@ void host_del_key(uint8_t key)
     del_key_byte(key);
 }
 
+void host_clear_keys(void)
+{
+    for (int8_t i = 0; i < REPORT_KEYS; i++) {
+        keyboard_report->keys[i] = 0;
+    }
+}
+
 void host_add_mod_bit(uint8_t mod)
 {
     keyboard_report->mods |= mod;
@@ -115,40 +98,9 @@ void host_set_mods(uint8_t mods)
     keyboard_report->mods = mods;
 }
 
-void host_add_code(uint8_t code)
-{
-    if (IS_MOD(code)) {
-        host_add_mod_bit(MOD_BIT(code));
-    } else {
-        host_add_key(code);
-    }
-}
-
-void host_del_code(uint8_t code)
-{
-    if (IS_MOD(code)) {
-        host_del_mod_bit(MOD_BIT(code));
-    } else {
-        host_del_key(code);
-    }
-}
-
-void host_swap_keyboard_report(void)
-{
-    uint8_t sreg = SREG;
-    cli();
-    report_keyboard_t *tmp = keyboard_report_prev;
-    keyboard_report_prev = keyboard_report;
-    keyboard_report = tmp;
-    SREG = sreg;
-}
-
-void host_clear_keyboard_report(void)
+void host_clear_mods(void)
 {
     keyboard_report->mods = 0;
-    for (int8_t i = 0; i < REPORT_KEYS; i++) {
-        keyboard_report->keys[i] = 0;
-    }
 }
 
 uint8_t host_has_anykey(void)
@@ -174,7 +126,6 @@ uint8_t host_get_first_key(void)
     return keyboard_report->keys[0];
 }
 
-
 void host_send_keyboard_report(void)
 {
     if (!driver) return;
@@ -187,6 +138,14 @@ void host_send_keyboard_report(void)
         }
         print(" mods: "); phex(keyboard_report->mods); print("\n");
     }
+}
+
+
+/* send report */
+void host_keyboard_send(report_keyboard_t *report)
+{
+    if (!driver) return;
+    (*driver->send_keyboard)(report);
 }
 
 void host_mouse_send(report_mouse_t *report)
@@ -218,17 +177,13 @@ void host_consumer_send(uint16_t data)
 
 static inline void add_key_byte(uint8_t code)
 {
-    // TODO: fix ugly code
     int8_t i = 0;
     int8_t empty = -1;
     for (; i < REPORT_KEYS; i++) {
-        if (keyboard_report_prev->keys[i] == code) {
-            keyboard_report->keys[i] = code;
+        if (keyboard_report->keys[i] == code) {
             break;
         }
-        if (empty == -1 &&
-                keyboard_report_prev->keys[i] == 0 &&
-                keyboard_report->keys[i] == 0) {
+        if (empty == -1 && keyboard_report->keys[i] == 0) {
             empty = i;
         }
     }
