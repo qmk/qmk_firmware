@@ -41,8 +41,6 @@ typedef enum keykind {
     FNK_DOWN, FNK_UP,
     KEY_DOWN, KEY_UP,
     MOD_DOWN, MOD_UP,
-    MOUSEKEY_DOWN, MOUSEKEY_UP,
-    DELAY
 } keykind_t;
 
 typedef enum { IDLE, DELAYING, WAITING, PRESSING } kbdstate_t;
@@ -69,15 +67,17 @@ static const char *state_str(kbdstate_t state)
 
 static inline keykind_t get_keykind(uint8_t code, bool pressed)
 {
-    if IS_KEY(code) return (pressed ? KEY_DOWN      : KEY_UP);
-    if IS_MOD(code) return (pressed ? MOD_DOWN      : MOD_UP);
+    if IS_KEY(code)         return (pressed ? KEY_DOWN : KEY_UP);
+    if IS_MOD(code)         return (pressed ? MOD_DOWN : MOD_UP);
     if IS_FN(code) {
         if (keymap_fn_keycode(FN_INDEX(code)))
             return (pressed ? FNK_DOWN : FNK_UP);
         else
             return (pressed ? FN_DOWN : FN_UP);
     }
-    if IS_MOUSEKEY(code)    return (pressed ? MOUSEKEY_DOWN : MOUSEKEY_UP);
+    if IS_MOUSEKEY(code)    return (pressed ? KEY_DOWN : KEY_UP);
+    if IS_SYSTEM(code)      return (pressed ? KEY_DOWN : KEY_UP);
+    if IS_CONSUMER(code)    return (pressed ? KEY_DOWN : KEY_UP);
     return  NONE;
 }
 
@@ -86,7 +86,13 @@ static void layer_switch_on(uint8_t code)
     if (!IS_FN(code)) return;
     fn_state_bits |= FN_BIT(code);
     if (current_layer != keymap_fn_layer(FN_INDEX(code))) {
-        //TODO: clear all key execpt Mod key
+        // clear all key execpt Mod key
+        host_clear_all_keys_but_mods();
+        host_system_send(0);
+        host_consumer_send(0);
+        mousekey_clear();
+        mousekey_send();
+
         debug("Layer Switch(on): "); debug_hex(current_layer);
         current_layer = keymap_fn_layer(FN_INDEX(code));
         debug(" -> "); debug_hex(current_layer); debug("\n");
@@ -98,7 +104,13 @@ static void layer_switch_off(uint8_t code)
     if (!IS_FN(code)) return;
     fn_state_bits &= ~FN_BIT(code);
     if (current_layer != keymap_fn_layer(biton(fn_state_bits))) {
-        //TODO: clear all key execpt Mod key
+        // clear all key execpt Mod key
+        host_clear_all_keys_but_mods();
+        host_system_send(0);
+        host_consumer_send(0);
+        mousekey_clear();
+        mousekey_send();
+
         debug("Layer Switch(off): "); debug_hex(current_layer);
         current_layer = keymap_fn_layer(biton(fn_state_bits));
         debug(" -> "); debug_hex(current_layer); debug("\n");
@@ -128,6 +140,7 @@ static inline bool is_anykey_down(void)
 
 static void register_code(uint8_t code)
 {
+debug("register_code\n");
     if IS_KEY(code) {
         host_add_key(code);
         host_send_keyboard_report();
@@ -140,6 +153,84 @@ static void register_code(uint8_t code)
         mousekey_on(code);
         mousekey_send();
     }
+    else if IS_CONSUMER(code) {
+debug("consumer\n");
+        uint16_t usage = 0;
+        switch (code) {
+            case KB_AUDIO_MUTE:
+                usage = AUDIO_MUTE;
+                break;
+            case KB_AUDIO_VOL_UP:
+                usage = AUDIO_VOL_UP;
+                break;
+            case KB_AUDIO_VOL_DOWN:
+                usage = AUDIO_VOL_DOWN;
+                break;
+            case KB_MEDIA_NEXT_TRACK:
+                usage = TRANSPORT_NEXT_TRACK;
+                break;
+            case KB_MEDIA_PREV_TRACK:
+                usage = TRANSPORT_PREV_TRACK;
+                break;
+            case KB_MEDIA_STOP:
+                usage = TRANSPORT_STOP;
+                break;
+            case KB_MEDIA_PLAY_PAUSE:
+                usage = TRANSPORT_PLAY_PAUSE;
+                break;
+            case KB_MEDIA_SELECT:
+                usage = AL_CC_CONFIG;
+                break;
+            case KB_MAIL:
+                usage = AL_EMAIL;
+                break;
+            case KB_CALCULATOR:
+                usage = AL_CALCULATOR;
+                break;
+            case KB_MY_COMPUTER:
+                usage = AL_LOCAL_BROWSER;
+                break;
+            case KB_WWW_SEARCH:
+                usage = AC_SEARCH;
+                break;
+            case KB_WWW_HOME:
+                usage = AC_HOME;
+                break;
+            case KB_WWW_BACK:
+                usage = AC_BACK;
+                break;
+            case KB_WWW_FORWARD:
+                usage = AC_FORWARD;
+                break;
+            case KB_WWW_STOP:
+                usage = AC_STOP;
+                break;
+            case KB_WWW_REFRESH:
+                usage = AC_REFRESH;
+                break;
+            case KB_WWW_FAVORITES:
+                usage = AC_BOOKMARKS;
+                break;
+        }
+debug("usage: "); phex16(usage); debug("\n");
+        host_consumer_send(usage);
+    }
+    else if IS_SYSTEM(code) {
+        uint16_t usage = 0;
+        switch (code) {
+            case KB_SYSTEM_POWER:
+                usage = SYSTEM_POWER_DOWN;
+                break;
+            case KB_SYSTEM_SLEEP:
+                usage = SYSTEM_SLEEP;
+                break;
+            case KB_SYSTEM_WAKE:
+                usage = SYSTEM_WAKE_UP;
+                break;
+        }
+        host_system_send(usage);
+    }
+
 }
 
 static void unregister_code(uint8_t code)
@@ -155,6 +246,12 @@ static void unregister_code(uint8_t code)
     else if IS_MOUSEKEY(code) {
         mousekey_off(code);
         mousekey_send();
+    }
+    else if IS_CONSUMER(code) {
+        host_consumer_send(0x0000);
+    }
+    else if IS_SYSTEM(code) {
+        host_system_send(0x0000);
     }
 }
 
@@ -254,7 +351,6 @@ static inline void process_key(keyevent_t event)
                     layer_switch_off(code);
                     break;
                 case KEY_DOWN:
-                case MOUSEKEY_DOWN:
                     register_code(code);
                     NEXT(PRESSING);
                     break;
@@ -262,7 +358,6 @@ static inline void process_key(keyevent_t event)
                     register_code(code);
                     break;
                 case KEY_UP:
-                case MOUSEKEY_UP:
                 case MOD_UP:
                     unregister_code(code);
                     break;
@@ -283,16 +378,16 @@ static inline void process_key(keyevent_t event)
                     register_code(keymap_fn_keycode(FN_INDEX(code)));
                     break;
                 case FNK_UP:
+                    // can't know whether layer switched or not
+                    layer_switch_off(code);
                     unregister_code(keymap_fn_keycode(FN_INDEX(code)));
                     break;
                 case KEY_DOWN:
                 case MOD_DOWN:
-                case MOUSEKEY_DOWN:
                     register_code(code);
                     break;
                 case KEY_UP:
                 case MOD_UP:
-                case MOUSEKEY_UP:
                     unregister_code(code);
                     // no key registered? mousekey, mediakey, systemkey
                     if (!host_has_anykey())
@@ -307,7 +402,6 @@ static inline void process_key(keyevent_t event)
                 case FN_DOWN:
                 case FNK_DOWN:
                 case KEY_DOWN:
-                case MOUSEKEY_DOWN:
                     waiting_key = (keyrecord_t) {
                         .event = event,
                         .code = code,
@@ -339,7 +433,6 @@ static inline void process_key(keyevent_t event)
                     }
                     break;
                 case KEY_UP:
-                case MOUSEKEY_UP:
                     unregister_code(code);
                     NEXT(IDLE);
                     break;
@@ -355,7 +448,6 @@ static inline void process_key(keyevent_t event)
                 case FN_DOWN:
                 case FNK_DOWN:
                 case KEY_DOWN:
-                case MOUSEKEY_DOWN:
                     tmp_mods = keyboard_report->mods;
                     host_set_mods(delayed_fn.mods);
                     register_code(keymap_fn_keycode(FN_INDEX(delayed_fn.code)));
@@ -389,7 +481,6 @@ static inline void process_key(keyevent_t event)
                     }
                     break;
                 case KEY_UP:
-                case MOUSEKEY_UP:
                     if (code == waiting_key.code) {
                         layer_switch_on(delayed_fn.code);
                         NEXT(IDLE);
@@ -444,7 +535,6 @@ void keyboard_task(void)
         matrix_row = matrix_get_row(r);
         matrix_change = matrix_row ^ matrix_prev[r];
         if (matrix_change) {
-            // TODO: print once per scan
             if (debug_matrix) matrix_print();
 
             for (int c = 0; c < MATRIX_COLS; c++) {

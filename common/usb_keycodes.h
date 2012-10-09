@@ -24,14 +24,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define IS_ERROR(code)           (KB_ROLL_OVER <= (code) && (code) <= KB_UNDEFINED)
-#define IS_ANY(code)             (KB_A         <= (code))
+#define IS_ANY(code)             (KB_A         <= (code) && (code) <= 0xFF)
 #define IS_KEY(code)             (KB_A         <= (code) && (code) <= KB_EXSEL)
 #define IS_MOD(code)             (KB_LCTRL     <= (code) && (code) <= KB_RGUI)
+
 #define IS_FN(code)              (KB_FN0       <= (code) && (code) <= KB_FN7)
 #define IS_MOUSEKEY(code)        (KB_MS_UP     <= (code) && (code) <= KB_MS_WH_RIGHT)
 #define IS_MOUSEKEY_MOVE(code)   (KB_MS_UP     <= (code) && (code) <= KB_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KB_MS_BTN1   <= (code) && (code) <= KB_MS_BTN5)
 #define IS_MOUSEKEY_WHEEL(code)  (KB_MS_WH_UP  <= (code) && (code) <= KB_MS_WH_RIGHT)
+
+#define IS_SPECIAL(code)         ((0xB0 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
+#define IS_CONSUMER(code)        (KB_MUTE      <= (code) && (code) <= KB_WFAV)
+#define IS_SYSTEM(code)          (KB_POWER     <= (code) && (code) <= KB_WAKE)
 
 #define MOD_BIT(code)   (1<<((code) & 0x07))
 #define FN_BIT(code)    (1<<((code) - KB_FN0))
@@ -137,14 +142,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Special keycode */
+/* NOTE: 0xA5-DF and 0xE8-FF can be used for internal special purpose */
 enum special_keycodes {
     /* System Control */
-    KB_SYSTEM_POWER = 0xB0,
+    KB_SYSTEM_POWER = 0xA5,
     KB_SYSTEM_SLEEP,
-    KB_SYSTEM_WAKE,
+    KB_SYSTEM_WAKE,     /* 0xA7 */
+                        /* 0xA8-AF */
 
     /* Consumer Page */
-    KB_AUDIO_MUTE,
+    KB_AUDIO_MUTE = 0xB0,
     KB_AUDIO_VOL_UP,
     KB_AUDIO_VOL_DOWN,
     KB_MEDIA_NEXT_TRACK,
@@ -157,13 +164,14 @@ enum special_keycodes {
     KB_MY_COMPUTER,
     KB_WWW_SEARCH,
     KB_WWW_HOME,
-    KB_WWW_BACK,        /* 0xC0 */
+    KB_WWW_BACK,
     KB_WWW_FORWARD,
     KB_WWW_STOP,
-    KB_WWW_REFRESH,
-    KB_WWW_FAVORITES,
+    KB_WWW_REFRESH,     /* 0xC0 */
+    KB_WWW_FAVORITES,   /* 0xC1 */
+                        /* 0xC2-DF vacant for future use */
 
-    /* reserve 0xE0-E7 for Modifiers */
+    /* 0xE0-E7 for Modifiers. DO NOT USE. */
 
     /* Layer Switching */
     KB_FN0 = 0xE8,
@@ -173,7 +181,7 @@ enum special_keycodes {
     KB_FN4,
     KB_FN5,
     KB_FN6,
-    KB_FN7,
+    KB_FN7,             /* 0xEF */
 
     /* Mousekey */
     KB_MS_UP = 0xF0,
@@ -189,11 +197,13 @@ enum special_keycodes {
     KB_MS_WH_UP,
     KB_MS_WH_DOWN,
     KB_MS_WH_LEFT,
-    KB_MS_WH_RIGHT,
+    KB_MS_WH_RIGHT,     /* 0xFC */
+                        /* 0xFD-FF vacant for future use */
 };
 
+/* USB HID Keyboard/Keypad Usage(0x07) */
 enum keycodes {
-    KB_NO = 0,
+    KB_NO               = 0x00,
     KB_ROLL_OVER,
     KB_POST_FAIL,
     KB_UNDEFINED,
@@ -357,9 +367,10 @@ enum keycodes {
     KB_OPER,
     KB_CLEAR_AGAIN,
     KB_CRSEL,
-    KB_EXSEL,
+    KB_EXSEL,           /* 0xA4 */
 
-    /* NOTE: 0xB0-DF are used as special_keycodes */
+    /* NOTE: 0xA5-DF are used for internal special purpose */
+
 #if 0
     KB_KP_00 = 0xB0,
     KB_KP_000,
@@ -406,7 +417,7 @@ enum keycodes {
     KB_KP_BINARY,
     KB_KP_OCTAL,
     KB_KP_DECIMAL,
-    KB_KP_HEXADECIMAL,
+    KB_KP_HEXADECIMAL,  /* 0xDD */
 #endif
 
     /* Modifiers */
@@ -419,7 +430,7 @@ enum keycodes {
     KB_RALT,
     KB_RGUI,
 
-    /* NOTE: 0xE8-FF are used as special_keycodes */
+    /* NOTE: 0xE8-FF are used for internal special purpose */ 
 };
 
 #endif /* USB_KEYCODES_H */

@@ -135,13 +135,6 @@ void mousekey_send(void)
 void mousekey_clear(void)
 {
     report = (report_mouse_t){};
-/*
-    report.buttons = 0;
-    report.x = 0;
-    report.y = 0;
-    report.v = 0;
-    report.h = 0;
-*/
 }
 
 static void mousekey_debug(void)
