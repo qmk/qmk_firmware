@@ -42,6 +42,7 @@ uint8_t host_keyboard_leds(void);
 /* new interface */
 void host_register_key(uint8_t key);
 void host_unregister_key(uint8_t key);
+void host_clear_all_keys_but_mods(void);
 
 /* keyboard report operations */
 void host_add_key(uint8_t key);

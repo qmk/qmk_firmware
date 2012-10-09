@@ -69,6 +69,14 @@ void host_unregister_key(uint8_t key)
     host_send_keyboard_report();
 }
 
+void host_clear_all_keys_but_mods(void)
+{
+    for (int8_t i = 0; i < REPORT_KEYS; i++) {
+        keyboard_report->keys[i] = 0;
+    }
+    host_send_keyboard_report();
+}
+
 /* keyboard report operations */
 void host_add_key(uint8_t key)
 {
