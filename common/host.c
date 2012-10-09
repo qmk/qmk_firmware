@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <avr/interrupt.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "host.h"
 #include "util.h"
 #include "debug.h"
