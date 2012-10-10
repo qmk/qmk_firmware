@@ -37,7 +37,7 @@ static void mousekey_debug(void);
  * see wikipedia http://en.wikipedia.org/wiki/Mouse_keys
  */
 #ifndef MOUSEKEY_DELAY_TIME
-#   define MOUSEKEY_DELAY_TIME 20
+#   define MOUSEKEY_DELAY_TIME 100
 #endif
 
 #define MOUSEKEY_MOVE_INIT      5
@@ -54,8 +54,14 @@ static uint16_t last_timer = 0;
 
 static inline uint8_t move_unit(void)
 {
-    uint16_t unit = 5 + mousekey_repeat*4;
+    uint16_t unit = MOUSEKEY_MOVE_INIT + MOUSEKEY_MOVE_ACCEL * mousekey_repeat;
     return (unit > 63 ? 63 : unit);
+}
+
+static inline uint8_t wheel_unit(void)
+{
+    uint16_t unit = MOUSEKEY_WHEEL_INIT + MOUSEKEY_WHEEL_ACCEL * mousekey_repeat;
+    return (unit > 15 ? 15 : unit);
 }
 
 void mousekey_task(void)
@@ -80,10 +86,10 @@ void mousekey_task(void)
         report.y *= 0.7;
     }
 
-    if (report.v > 0) report.v = move_unit();
-    if (report.v < 0) report.v = move_unit() * -1;
-    if (report.h > 0) report.h = move_unit();
-    if (report.h < 0) report.h = move_unit() * -1;
+    if (report.v > 0) report.v = wheel_unit();
+    if (report.v < 0) report.v = wheel_unit() * -1;
+    if (report.h > 0) report.h = wheel_unit();
+    if (report.h < 0) report.h = wheel_unit() * -1;
 
     mousekey_send();
 }
@@ -107,19 +113,19 @@ void mousekey_on(uint8_t code)
 
 void mousekey_off(uint8_t code)
 {
-    if      (code == KC_MS_UP    && report.y < 0) report.y = 0;
-    else if (code == KC_MS_DOWN  && report.y > 0) report.y = 0;
-    else if (code == KC_MS_LEFT  && report.x < 0) report.x = 0;
-    else if (code == KC_MS_RIGHT && report.x > 0) report.x = 0;
+    if      (code == KC_MS_UP       && report.y < 0) report.y = 0;
+    else if (code == KC_MS_DOWN     && report.y > 0) report.y = 0;
+    else if (code == KC_MS_LEFT     && report.x < 0) report.x = 0;
+    else if (code == KC_MS_RIGHT    && report.x > 0) report.x = 0;
     else if (code == KC_MS_WH_UP    && report.v > 0) report.v = 0;
     else if (code == KC_MS_WH_DOWN  && report.v < 0) report.v = 0;
     else if (code == KC_MS_WH_LEFT  && report.h < 0) report.h = 0;
     else if (code == KC_MS_WH_RIGHT && report.h > 0) report.h = 0;
-    else if (code == KC_MS_BTN1) report.buttons &= ~MOUSE_BTN1;
-    else if (code == KC_MS_BTN2) report.buttons &= ~MOUSE_BTN2;
-    else if (code == KC_MS_BTN3) report.buttons &= ~MOUSE_BTN3;
-    else if (code == KC_MS_BTN4) report.buttons &= ~MOUSE_BTN4;
-    else if (code == KC_MS_BTN5) report.buttons &= ~MOUSE_BTN5;
+    else if (code == KC_MS_BTN1)                     report.buttons &= ~MOUSE_BTN1;
+    else if (code == KC_MS_BTN2)                     report.buttons &= ~MOUSE_BTN2;
+    else if (code == KC_MS_BTN3)                     report.buttons &= ~MOUSE_BTN3;
+    else if (code == KC_MS_BTN4)                     report.buttons &= ~MOUSE_BTN4;
+    else if (code == KC_MS_BTN5)                     report.buttons &= ~MOUSE_BTN5;
 
     if (report.x == 0 && report.y == 0 && report.v == 0 && report.h == 0)
         mousekey_repeat = 0;
