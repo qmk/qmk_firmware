@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 192
+#   define MOUSEKEY_DELAY_TIME 100
 #endif
 
 

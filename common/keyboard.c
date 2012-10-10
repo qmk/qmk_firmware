@@ -90,8 +90,10 @@ static void clear_keyboard(void)
     host_system_send(0);
     host_consumer_send(0);
 
+#ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
+#endif
 }
 
 static void clear_keyboard_but_mods(void)
@@ -102,8 +104,10 @@ static void clear_keyboard_but_mods(void)
     host_system_send(0);
     host_consumer_send(0);
 
+#ifdef MOUSEKEY_ENABLE
     mousekey_clear();
     mousekey_send();
+#endif
 }
 
 static void layer_switch_on(uint8_t code)
@@ -159,8 +163,10 @@ static void register_code(uint8_t code)
         host_send_keyboard_report();
     }
     else if IS_MOUSEKEY(code) {
+#ifdef MOUSEKEY_ENABLE
         mousekey_on(code);
         mousekey_send();
+#endif
     }
     else if IS_CONSUMER(code) {
         uint16_t usage = 0;
@@ -251,8 +257,10 @@ static void unregister_code(uint8_t code)
         host_send_keyboard_report();
     }
     else if IS_MOUSEKEY(code) {
+#ifdef MOUSEKEY_ENABLE
         mousekey_off(code);
         mousekey_send();
+#endif
     }
     else if IS_CONSUMER(code) {
         host_consumer_send(0x0000);
@@ -390,7 +398,7 @@ static inline void process_key(keyevent_t event)
                 case KEY_UP:
                 case MOD_UP:
                     unregister_code(code);
-                    // no key registered? mousekey, mediakey, systemkey
+                    // TODO: no key registered? mousekey, mediakey, systemkey
                     if (!host_has_anykey())
                         NEXT(IDLE);
                     break;
@@ -570,8 +578,10 @@ void keyboard_task(void)
         }
     }
 
+#ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration
     mousekey_task();
+#endif
 
     // FAIL SAFE: clear all key if no key down
     if (matrix_change) {
