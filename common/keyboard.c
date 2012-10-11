@@ -110,6 +110,12 @@ static void clear_keyboard_but_mods(void)
 #endif
 }
 
+static bool anykey_sent_to_host(void)
+{
+    return (host_has_anykey() || host_mouse_in_use() ||
+            host_last_sysytem_report() || host_last_consumer_report());
+}
+
 static void layer_switch_on(uint8_t code)
 {
     if (!IS_FN(code)) return;
@@ -123,9 +129,9 @@ static void layer_switch_on(uint8_t code)
     }
 }
 
-static void layer_switch_off(uint8_t code)
+static bool layer_switch_off(uint8_t code)
 {
-    if (!IS_FN(code)) return;
+    if (!IS_FN(code)) return false;
     fn_state_bits &= ~FN_BIT(code);
     if (current_layer != keymap_fn_layer(biton(fn_state_bits))) {
         clear_keyboard_but_mods();
@@ -133,21 +139,7 @@ static void layer_switch_off(uint8_t code)
         debug("Layer Switch(off): "); debug_hex(current_layer);
         current_layer = keymap_fn_layer(biton(fn_state_bits));
         debug(" -> "); debug_hex(current_layer); debug("\n");
-    }
-}
-
-// whether any key except modifier is down or not
-static inline bool is_anykey_down(void)
-{
-    for (int r = 0; r < MATRIX_ROWS; r++) {
-        matrix_row_t matrix_row = matrix_get_row(r);
-        for (int c = 0; c < MATRIX_COLS; c++) {
-            if (matrix_row && (1<<c)) {
-                if (IS_KEY(keymap_get_keycode(current_layer, r, c))) {
-                    return true;
-                }
-            }
-        }
+        return true;
     }
     return false;
 }
@@ -160,6 +152,10 @@ static void register_code(uint8_t code)
     }
     else if IS_MOD(code) {
         host_add_mod_bit(MOD_BIT(code));
+        host_send_keyboard_report();
+    }
+    else if IS_FN(code) {
+        host_add_key(keymap_fn_keycode(FN_INDEX(code)));
         host_send_keyboard_report();
     }
     else if IS_MOUSEKEY(code) {
@@ -256,6 +252,10 @@ static void unregister_code(uint8_t code)
         host_del_mod_bit(MOD_BIT(code));
         host_send_keyboard_report();
     }
+    else if IS_FN(code) {
+        host_del_key(keymap_fn_keycode(FN_INDEX(code)));
+        host_send_keyboard_report();
+    }
     else if IS_MOUSEKEY(code) {
 #ifdef MOUSEKEY_ENABLE
         mousekey_off(code);
@@ -272,24 +272,31 @@ static void unregister_code(uint8_t code)
 
 /*
  *
- * Event/State|IDLE             DELAYING[f]     WAITING[f,k]        PRESSING
+ * Event/State|IDLE          PRESSING      DELAYING[f]      WAITING[f,k]         
  * -----------+------------------------------------------------------------------
- * Fn  Down   |IDLE(L+)         WAITING(Sk)     WAITING(Sk)         -
- *     Up     |IDLE(L-)         IDLE(L-)        IDLE(L-)            IDLE(L-)
- * Fnk Down   |DELAYING(Sf)     WAITING(Sk)     WAINTING(Sk)        PRESSING(Rf)
- *     Up     |IDLE(L-)         IDLE(Rf,Uf)     IDLE(Rf,Ps,Uf)*3    PRESSING(Uf)
- * Key Down   |PRESSING(Rk)     WAITING(Sk)     WAITING(Sk)         PRESSING(Rk)
- *     Up     |IDLE(Uk)         DELAYING(Uk)    IDLE(L+,Ps,Uk)      IDLE(Uk)*4
- * Delay      |-                IDLE(L+)        IDLE(L+,Ps)         -
+ * Fn  Down   |(L+)          -*1           WAITING(Sk)      IDLE(Rf,Ps)*7        
+ *     Up     |(L-)          IDLE(L-)*8    IDLE(L-)*8       IDLE(L-)*8           
+ * Fnk Down   |DELAYING(Sf)* (Rf)          WAITING(Sk)      IDLE(Rf,Ps,Rf)       
+ *     Up     |(L-)          IDLE(L-/Uf)*8 IDLE(Rf,Uf/L-)*3 IDLE(Rf,Ps,Uf/L-)*3  
+ * Key Down   |PRESSING(Rk)  (Rk)          WAITING(Sk)      IDLE(Rf,Ps,Rk)       
+ *     Up     |(Uk)          IDLE(Uk)*4    (Uk)             IDLE(L+,Ps,Pk)/(Uk)*a
  *            |
- * No key Down|IDLE(Ld)         IDLE(Ld)        IDLE(Ld)            IDLE(Ld)
+ * Delay      |-             -             IDLE(L+)         IDLE(L+,Ps)          
+ * Magic Key  |COMMAND*5
  *
+ * *1: ignore Fn if other key is down.
  * *2: register Fnk if any key is pressing
- * *3: when Fnk == Stored Fnk, if not ignore.
- * *4: when no registered key any more
+ * *3: register/unregister delayed Fnk and move to IDLE if code == delayed Fnk, else *8
+ * *4: if no keys registered to host
+ * *5: unregister all keys
+ * *6: only if no keys down
+ * *7: ignore Fn because Fnk key and stored key are down.
+ * *8: move to IDLE if layer switch(off) occurs, else stay at current state
+ * *9: repeat key if pressing Fnk twice quickly(move to PRESSING)
+ * *a: layer switch and process waiting key and code if code == wainting key, else unregister key
  *
  * States:
- *      IDLE:
+ *      IDLE: No key is down except modifiers
  *      DELAYING: delay layer switch after pressing Fn with alt keycode
  *      WAITING: key is pressed during DELAYING
  *
@@ -297,17 +304,20 @@ static void unregister_code(uint8_t code)
  *      Fn: Fn key without alternative keycode
  *      Fnk: Fn key with alternative keycode
  *      -: ignore
+ *      Delay: layer switch delay term is elapsed
  *
  * Actions:
  *      Rk: register key
  *      Uk: unregister key
- *      Rf: register stored Fn(alt keycode)
- *      Uf: unregister stored Fn(alt keycode)
+ *      Rf: register Fn(alt keycode)
+ *      Uf: unregister Fn(alt keycode)
  *      Rs: register stored key
  *      Us: unregister stored key
- *      Sk: store key
- *      Sf: store Fn
- *      Ps: play stored key(Interpret stored key and transit state)
+ *      Sk: Store key(waiting Key)
+ *      Sf: Store Fn(delayed Fn)
+ *      Ps: Process stored key
+ *      Ps: Process key
+ *      Is: Interpret stored keys in current layer
  *      L+: Switch to new layer(*unregister* all keys but modifiers)
  *      L-: Switch back to last layer(*unregister* all keys but modifiers)
  *      Ld: Switch back to default layer(*unregister* all keys but modifiers)
@@ -344,7 +354,7 @@ static inline void process_key(keyevent_t event)
                     // repeat Fn alt key when press Fn key down, up then down again quickly
                     if (KEYEQ(delayed_fn.event.key, event.key) &&
                             timer_elapsed(delayed_fn.time) < LAYER_DELAY) {
-                        register_code(keymap_fn_keycode(FN_INDEX(code)));
+                        register_code(code);
                         NEXT(PRESSING);
                     } else {
                         delayed_fn = (keyrecord_t) {
@@ -380,16 +390,20 @@ static inline void process_key(keyevent_t event)
                     // ignored when any key is pressed
                     break;
                 case FN_UP:
-                    layer_switch_off(code);
-                    NEXT(IDLE);
+                    if (layer_switch_off(code))
+                        NEXT(IDLE);
                     break;
                 case FNK_DOWN:
-                    register_code(keymap_fn_keycode(FN_INDEX(code)));
+                    register_code(code);
                     break;
                 case FNK_UP:
-                    // can't know whether layer switched or not
-                    layer_switch_off(code);
-                    unregister_code(keymap_fn_keycode(FN_INDEX(code)));
+                    if (layer_switch_off(code)) {
+                        NEXT(IDLE);
+                    } else {
+                        unregister_code(code);
+                        if (!anykey_sent_to_host())
+                            NEXT(IDLE);
+                    }
                     break;
                 case KEY_DOWN:
                 case MOD_DOWN:
@@ -398,8 +412,7 @@ static inline void process_key(keyevent_t event)
                 case KEY_UP:
                 case MOD_UP:
                     unregister_code(code);
-                    // TODO: no key registered? mousekey, mediakey, systemkey
-                    if (!host_has_anykey())
+                    if (!anykey_sent_to_host())
                         NEXT(IDLE);
                     break;
                 default:
@@ -423,8 +436,8 @@ static inline void process_key(keyevent_t event)
                     register_code(code);
                     break;
                 case FN_UP:
-                    layer_switch_off(code);
-                    NEXT(IDLE);
+                    if (layer_switch_off(code))
+                        NEXT(IDLE);
                     break;
                 case FNK_UP:
                     if (code == delayed_fn.code) {
@@ -432,19 +445,16 @@ static inline void process_key(keyevent_t event)
                         // restore the mod status at the time of pressing Fn key
                         tmp_mods = keyboard_report->mods;
                         host_set_mods(delayed_fn.mods);
-                        register_code(keymap_fn_keycode(FN_INDEX(delayed_fn.code)));
-                        unregister_code(keymap_fn_keycode(FN_INDEX(delayed_fn.code)));
+                        register_code(delayed_fn.code);
+                        unregister_code(delayed_fn.code);
                         host_set_mods(tmp_mods);
                         NEXT(IDLE);
                     } else {
-                        layer_switch_off(code);
-                        NEXT(IDLE);
+                        if (layer_switch_off(code))
+                            NEXT(IDLE);
                     }
                     break;
                 case KEY_UP:
-                    unregister_code(code);
-                    NEXT(IDLE);
-                    break;
                 case MOD_UP:
                     unregister_code(code);
                     break;
@@ -459,34 +469,40 @@ static inline void process_key(keyevent_t event)
                 case KEY_DOWN:
                     tmp_mods = keyboard_report->mods;
                     host_set_mods(delayed_fn.mods);
-                    register_code(keymap_fn_keycode(FN_INDEX(delayed_fn.code)));
+                    register_code(delayed_fn.code);
                     host_set_mods(waiting_key.mods);
                     register_code(waiting_key.code);
                     host_set_mods(tmp_mods);
-                    register_code(code);
+                    if (kind == FN_DOWN) {
+                        // ignore Fn
+                    } else if (kind == FNK_DOWN) {
+                        register_code(code);
+                    } else if (kind == KEY_DOWN) {
+                        register_code(code);
+                    }
                     NEXT(IDLE);
                     break;
                 case MOD_DOWN:
                     register_code(code);
                     break;
                 case FN_UP:
-                    layer_switch_off(code);
-                    NEXT(IDLE);
+                    if (layer_switch_off(code))
+                        NEXT(IDLE);
                     break;
                 case FNK_UP:
                     if (code == delayed_fn.code) {
                         // alt down, key down, alt up
                         tmp_mods = keyboard_report->mods;
                         host_set_mods(delayed_fn.mods);
-                        register_code(keymap_fn_keycode(FN_INDEX(delayed_fn.code)));
+                        register_code(delayed_fn.code);
                         host_set_mods(waiting_key.mods);
                         register_code(waiting_key.code);
-                        unregister_code(keymap_fn_keycode(FN_INDEX(delayed_fn.code)));
+                        unregister_code(delayed_fn.code);
                         host_set_mods(tmp_mods);
                         NEXT(IDLE);
                     } else {
-                        layer_switch_off(code);
-                        NEXT(IDLE);
+                        if (layer_switch_off(code))
+                            NEXT(IDLE);
                     }
                     break;
                 case KEY_UP:

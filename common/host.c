@@ -27,9 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool keyboard_nkro = false;
 #endif
 
-static host_driver_t *driver;
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
+report_mouse_t mouse_report = {};
 
+
+static host_driver_t *driver;
+static uint16_t last_system_report = 0;
+static uint16_t last_consumer_report = 0;
 
 static inline void add_key_byte(uint8_t code);
 static inline void del_key_byte(uint8_t code);
@@ -52,8 +56,48 @@ uint8_t host_keyboard_leds(void)
     if (!driver) return 0;
     return (*driver->keyboard_leds)();
 }
+/* send report */
+void host_keyboard_send(report_keyboard_t *report)
+{
+    if (!driver) return;
+    (*driver->send_keyboard)(report);
 
-/* keyboard report operations */
+    if (debug_keyboard) {
+        print("keys: ");
+        for (int i = 0; i < REPORT_KEYS; i++) {
+            phex(keyboard_report->keys[i]); print(" ");
+        }
+        print(" mods: "); phex(keyboard_report->mods); print("\n");
+    }
+}
+
+void host_mouse_send(report_mouse_t *report)
+{
+    if (!driver) return;
+    (*driver->send_mouse)(report);
+}
+
+void host_system_send(uint16_t report)
+{
+    if (report == last_system_report) return;
+    last_system_report = report;
+
+    if (!driver) return;
+    (*driver->send_system)(report);
+}
+
+void host_consumer_send(uint16_t report)
+{
+    if (report == last_consumer_report) return;
+    last_consumer_report = report;
+
+    if (!driver) return;
+    (*driver->send_consumer)(report);
+}
+
+
+
+/* keyboard report utils */
 void host_add_key(uint8_t key)
 {
 #ifdef NKRO_ENABLE
@@ -113,6 +157,11 @@ uint8_t host_has_anykey(void)
     return cnt;
 }
 
+uint8_t host_has_anymod(void)
+{
+    return bitpop(keyboard_report->mods);
+}
+
 uint8_t host_get_first_key(void)
 {
 #ifdef NKRO_ENABLE
@@ -129,51 +178,23 @@ uint8_t host_get_first_key(void)
 void host_send_keyboard_report(void)
 {
     if (!driver) return;
-    (*driver->send_keyboard)(keyboard_report);
-
-    if (debug_keyboard) {
-        print("keys: ");
-        for (int i = 0; i < REPORT_KEYS; i++) {
-            phex(keyboard_report->keys[i]); print(" ");
-        }
-        print(" mods: "); phex(keyboard_report->mods); print("\n");
-    }
+    host_keyboard_send(keyboard_report);
 }
 
-
-/* send report */
-void host_keyboard_send(report_keyboard_t *report)
+uint8_t host_mouse_in_use(void)
 {
-    if (!driver) return;
-    (*driver->send_keyboard)(report);
+    return (mouse_report.buttons | mouse_report.x | mouse_report.y | mouse_report.v | mouse_report.h);
 }
 
-void host_mouse_send(report_mouse_t *report)
+uint16_t host_last_sysytem_report(void)
 {
-    if (!driver) return;
-    (*driver->send_mouse)(report);
+    return last_system_report;
 }
 
-void host_system_send(uint16_t data)
+uint16_t host_last_consumer_report(void)
 {
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
-
-    if (!driver) return;
-    (*driver->send_system)(data);
+    return last_consumer_report;
 }
-
-void host_consumer_send(uint16_t data)
-{
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
-
-    if (!driver) return;
-    (*driver->send_consumer)(data);
-}
-
 
 static inline void add_key_byte(uint8_t code)
 {
