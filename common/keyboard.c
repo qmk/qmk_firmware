@@ -46,8 +46,13 @@ typedef enum keykind {
 typedef enum { IDLE, DELAYING, WAITING, PRESSING } kbdstate_t;
 
 
-uint8_t current_layer = 0;
+#ifdef KEYMAP_DEFAULT_LAYER
+uint8_t default_layer = KEYMAP_DEFAULT_LAYER;
+uint8_t current_layer = KEYMAP_DEFAULT_LAYER;
+#else
 uint8_t default_layer = 0;
+uint8_t current_layer = 0;
+#endif
 
 /* keyboard internal states */
 static kbdstate_t kbdstate = IDLE;
@@ -120,12 +125,13 @@ static void layer_switch_on(uint8_t code)
 {
     if (!IS_FN(code)) return;
     fn_state_bits |= FN_BIT(code);
-    if (current_layer != keymap_fn_layer(FN_INDEX(code))) {
-        clear_keyboard_but_mods();
-
+    uint8_t new_layer = (fn_state_bits ? keymap_fn_layer(biton(fn_state_bits)) : default_layer);
+    if (current_layer != new_layer) {
         debug("Layer Switch(on): "); debug_hex(current_layer);
-        current_layer = keymap_fn_layer(FN_INDEX(code));
-        debug(" -> "); debug_hex(current_layer); debug("\n");
+        debug(" -> "); debug_hex(new_layer); debug("\n");
+
+        clear_keyboard_but_mods();
+        current_layer = new_layer;
     }
 }
 
@@ -133,12 +139,13 @@ static bool layer_switch_off(uint8_t code)
 {
     if (!IS_FN(code)) return false;
     fn_state_bits &= ~FN_BIT(code);
-    if (current_layer != keymap_fn_layer(biton(fn_state_bits))) {
-        clear_keyboard_but_mods();
-
+    uint8_t new_layer = (fn_state_bits ? keymap_fn_layer(biton(fn_state_bits)) : default_layer);
+    if (current_layer != new_layer) {
         debug("Layer Switch(off): "); debug_hex(current_layer);
-        current_layer = keymap_fn_layer(biton(fn_state_bits));
-        debug(" -> "); debug_hex(current_layer); debug("\n");
+        debug(" -> "); debug_hex(new_layer); debug("\n");
+
+        clear_keyboard_but_mods();
+        current_layer = new_layer;
         return true;
     }
     return false;
@@ -606,8 +613,9 @@ void keyboard_task(void)
             is_matrix_on |= matrix_get_row(r);
         }
         if (!is_matrix_on) {
-            debug("FAIL SAFE: clear all keys.\n");
+            debug("FAIL SAFE: clear all keys(default layer).\n");
             clear_keyboard();
+            current_layer = default_layer;
         }
     }
     
