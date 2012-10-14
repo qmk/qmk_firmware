@@ -22,7 +22,7 @@
   *   - Added workaround for broken VBUS detection on AVR8 devices when a bootloader starts the application
   *     via a software jump without first turning off the OTG pad (thanks to Simon Inns)
   *  - Library Applications:
-  *   - <i>None</i>
+  *   -  <i>None</i>
   *
   *  <b>Fixed:</b>
   *  - Core:
@@ -32,8 +32,9 @@
   *     configuration token set
   *   - Fixed possible rounding in the VERSION_BCD() macros for some 0.01 step increments (thanks to Oliver Zander)
   *   - Fixed incorrect Dataflash functionality in the USBKEY board if the driver is modified for a single Dataflash chip (thanks to Jonathan Oakley)
-  *   - Fixed incorrect definitions of \c  HID_KEYBOARD_LED_KANA, \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN and \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN_AS400
+  *   - Fixed incorrect definitions of \c HID_KEYBOARD_LED_KANA, \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN and \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN_AS400
   *     and added a missing definition for \c HID_KEYBOARD_SC_APPLICATION (thanks to David Monro)
+  *   - Fixed maximum allowed keyboard key code usage of \c 0x65 rather than \c 0xFF for the \c HID_DESCRIPTOR_KEYBOARD() macro (thanks to David Monro)
   *  - Library Applications:
   *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *   - Fixed incompatibility in the CDC class bootloader on some systems (thanks to Sylvain Munaut)
