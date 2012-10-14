@@ -18,9 +18,12 @@ CPPCHECK_EXCLUDES := FATFs/            \
 CPPCHECK_INCLUDES := $(patsubst %/,%,$(LUFA_PATH))/CodeTemplates/               \
                      $(patsubst %/,%,$(LUFA_PATH))/../Projects/AVRISP-MKII/
 
-CPPCHECK_FLAGS    := -U TEMPLATE_FUNC_NAME
+CPPCHECK_FLAGS    := -U TEMPLATE_FUNC_NAME -U __GNUC__ -U __DOXYGEN__
 
 SRC               := $(patsubst %/,%,$(LUFA_PATH))/..
+
+# Build test cannot be run with multiple parallel jobs
+.NOTPARALLEL:
 
 all: begin cppcheck end
 

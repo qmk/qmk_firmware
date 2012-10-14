@@ -59,6 +59,7 @@ void Application_Jump_Check(void)
 	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
 	{
 		MagicBootKey = 0;
+		
 		// cppcheck-suppress constStatement
 		((void (*)(void))0x0000)();
 	}

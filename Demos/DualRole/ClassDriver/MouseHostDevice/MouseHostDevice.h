@@ -70,6 +70,8 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		
+		void EVENT_USB_UIDChange(void);
 
 #endif
 
