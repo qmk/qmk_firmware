@@ -1,8 +1,3 @@
-#
-# Makefile for V-USB
-#
-
-
 # Target file name (without extension).
 TARGET = ps2_usb_vusb
 
@@ -15,15 +10,18 @@ TARGET_DIR = .
 # keyboard dependent files
 SRC =	keymap.c \
 	matrix.c \
-	led.c \
-	ps2_usart.c
+	led.c
 
-CONFIG_H = config_vusb.h
+# Use USART for PS/2. With V-USB INT and BUSYWAIT code is not useful.
+SRC += protocol/ps2_usart.c
+OPT_DEFS += -DPS2_USE_USART
+
+CONFIG_H = config.h
 
 
 # V-USB debug level: To use ps2_usart.c level must be 0
 # ps2_usart.c requires USART to receive PS/2 signal.
-OPT_DEFS = -DDEBUG_LEVEL=0
+OPT_DEFS += -DDEBUG_LEVEL=0
 
 
 # MCU name, you MUST set this to match the board you are using

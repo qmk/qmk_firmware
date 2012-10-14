@@ -89,8 +89,9 @@ uint8_t ps2_error = PS2_ERR_NONE;
 
 void ps2_host_init(void)
 {
-#ifdef PS2_INT_ENABLE
-    PS2_INT_ENABLE();
+#ifdef PS2_USE_INT
+    PS2_INT_INIT();
+    PS2_INT_ON();
     idle();
 #else
     inhibit();
@@ -103,8 +104,8 @@ uint8_t ps2_host_send(uint8_t data)
     uint8_t res = 0;
     bool parity = true;
     ps2_error = PS2_ERR_NONE;
-#ifdef PS2_INT_DISABLE
-    PS2_INT_DISABLE();
+#ifdef PS2_USE_INT
+    PS2_INT_OFF();
 #endif
     /* terminate a transmission if we have */
     inhibit();
@@ -144,8 +145,8 @@ uint8_t ps2_host_send(uint8_t data)
 
     res = ps2_host_recv_response();
 ERROR:
-#ifdef PS2_INT_ENABLE
-    PS2_INT_ENABLE();
+#ifdef PS2_USE_INT
+    PS2_INT_ON();
     idle();
 #else
     inhibit();
@@ -173,7 +174,7 @@ uint8_t ps2_host_recv_response(void)
     return data;
 }
 
-#ifndef PS2_INT_VECT
+#ifndef PS2_USE_INT
 uint8_t ps2_host_recv(void)
 {
     return ps2_host_recv_response();
