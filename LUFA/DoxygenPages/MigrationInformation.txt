@@ -11,7 +11,17 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 120730 to XXXXXX
- *   - No Migration Information.
+ *  <b>Device Mode</b>
+ *    - The \ref HID_KEYBOARD_LED_KANA macro was previously misspelled as \c HID_KEYBOARD_LED_KATANA, and had an incorrect value. User applications requiring this
+ *      constant should use the new name, and remove any workarounds for the previously incorrect macro definition.
+ *    - The \c HID_KEYBOARD_SC_EQUAL_SIGN macro has been renamed to \ref HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN, and the previous definition of
+ *      \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN has been renamed \ref HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN_AS400 to conform to the definitions in the HID specification.
+ *
+ *  <b>Host Mode</b>
+ *    - The \ref HID_KEYBOARD_LED_KANA macro was previously misspelled as \c HID_KEYBOARD_LED_KATANA, and had an incorrect value. User applications requiring this
+ *      constant should use the new name, and remove any workarounds for the previously incorrect macro definition.
+ *    - The \c HID_KEYBOARD_SC_EQUAL_SIGN macro has been renamed to \ref HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN, and the previous definition of
+ *      \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN has been renamed \ref HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN_AS400 to conform to the definitions in the HID specification.
  *
  *  \section Sec_Migration120730 Migrating from 120219 to 120730
  *  <b>Device Mode</b>

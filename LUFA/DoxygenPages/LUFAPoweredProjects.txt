@@ -132,6 +132,7 @@
  *  \li Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  \li Wii Classic Controller to USB converter: https://github.com/crazyiop/wii-classic-2-usb
  *  \li Wireless MIDI Guitar system: http://www.ise.pw.edu.pl/~wzab/wireless_guitar_system/
+ *  \li XBOX 360 Statup Sound Changer: http://www.homebrew-connection.org/change-your-xbox-360-startup-sounds-yourself/
  *  \li Xnormidi, a C MIDI library: http://x37v.info/projects/xnormidi
  *  \li XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
  *  \li Zeus, a touch screen computer for music manipulation: http://www.benbengler.com/developments_zeus.html

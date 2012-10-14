@@ -12,10 +12,10 @@
   *   - Added support for the Arduino Leonardo board
   *   - Added support for the Atmel UC3-A3 Xplained board
   *   - Added support for the Xevelabs USB2AX revision 3.1 board
-  *   - Added new doxygen_upgrade and doxygen_create targets to the DOXYGEN build system module
+  *   - Added new \c doxygen_upgrade and \c doxygen_create targets to the DOXYGEN build system module
   *  - Library Applications:
   *   - Added a different device serial number when the AVRISP-MKII Clone project is in libUSB compatibility mode, so that
-  *     both the libUSB and Jungo drivers can be installed at the same time
+  *     both the libUSB and Jungo drivers can be installed at the same time without having to use a filter driver
   *
   *  <b>Changed:</b>
   *  - Core:
@@ -32,6 +32,8 @@
   *     configuration token set
   *   - Fixed possible rounding in the VERSION_BCD() macros for some 0.01 step increments (thanks to Oliver Zander)
   *   - Fixed incorrect Dataflash functionality in the USBKEY board if the driver is modified for a single Dataflash chip (thanks to Jonathan Oakley)
+  *   - Fixed incorrect definitions of \c  HID_KEYBOARD_LED_KANA, \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN and \c HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN_AS400
+  *     and added a missing definition for \c HID_KEYBOARD_SC_APPLICATION (thanks to David Monro)
   *  - Library Applications:
   *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *   - Fixed incompatibility in the CDC class bootloader on some systems (thanks to Sylvain Munaut)

@@ -103,8 +103,11 @@
 		/** Constant for a keyboard output report LED byte, indicating that the host's SCROLL LOCK mode is currently set. */
 		#define HID_KEYBOARD_LED_SCROLLLOCK                       (1 << 2)
 
-		/** Constant for a keyboard output report LED byte, indicating that the host's KATANA mode is currently set. */
-		#define HID_KEYBOARD_LED_KATANA                           (1 << 3)
+		/** Constant for a keyboard output report LED byte, indicating that the host's COMPOSE mode is currently set. */
+		#define HID_KEYBOARD_LED_COMPOSE                          (1 << 3)
+
+		/** Constant for a keyboard output report LED byte, indicating that the host's KANA mode is currently set. */
+		#define HID_KEYBOARD_LED_KANA                             (1 << 4)
 		//@}
 
 		/** \name Keyboard Standard Report Key Scan-codes */
@@ -209,8 +212,9 @@
 		#define HID_KEYBOARD_SC_KEYPAD_0_AND_INSERT               0x62
 		#define HID_KEYBOARD_SC_KEYPAD_DOT_AND_DELETE             0x63
 		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64
+		#define HID_KEYBOARD_SC_APPLICATION                       0x65
 		#define HID_KEYBOARD_SC_POWER                             0x66
-		#define HID_KEYBOARD_SC_EQUAL_SIGN                        0x67
+		#define HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN                 0x67
 		#define HID_KEYBOARD_SC_F13                               0x68
 		#define HID_KEYBOARD_SC_F14                               0x69
 		#define HID_KEYBOARD_SC_F15                               0x6A
@@ -241,7 +245,7 @@
 		#define HID_KEYBOARD_SC_LOCKING_NUM_LOCK                  0x83
 		#define HID_KEYBOARD_SC_LOCKING_SCROLL_LOCK               0x84
 		#define HID_KEYBOARD_SC_KEYPAD_COMMA                      0x85
-		#define HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN                 0x86
+		#define HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN_AS400           0x86
 		#define HID_KEYBOARD_SC_INTERNATIONAL1                    0x87
 		#define HID_KEYBOARD_SC_INTERNATIONAL2                    0x88
 		#define HID_KEYBOARD_SC_INTERNATIONAL3                    0x89
