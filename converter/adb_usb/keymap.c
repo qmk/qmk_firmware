@@ -59,31 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KB_NO,    KB_##K71, KB_##K72, KB_##K73, KB_##K74, KB_##K75, KB_##K76, KB_##K77 }, \
     { KB_##K78, KB_##K79, KB_##K7A, KB_##K7B, KB_NO,    KB_NO,    KB_NO,    KB_##K7F }  \
 }
-/* plain keymap
-    {
-        { KB_A,   KB_S,   KB_D,   KB_F,   KB_H,   KB_G,   KB_Z,   KB_X   }, // 00-07
-        { KB_C,   KB_V,   KB_NO,  KB_B,   KB_Q,   KB_W,   KB_E,   KB_R   }, // 08-0F
-        { KB_Y,   KB_T,   KB_1,   KB_2,   KB_3,   KB_4,   KB_6,   KB_5   }, // 10-17
-        { KB_EQL, KB_9,   KB_7,   KB_MINS,KB_8,   KB_0,   KB_RBRC,KB_O   }, // 18-1F
-        { KB_U,   KB_LBRC,KB_I,   KB_P,   KB_ENT, KB_L,   KB_J,   KB_QUOT}, // 20-27
-        { KB_K,   KB_SCLN,KB_BSLS,KB_COMM,KB_SLSH,KB_N,   KB_M,   KB_DOT }, // 28-2F
-        { KB_TAB, KB_SPC, KB_GRV, KB_BSPC,KB_NO,  KB_ESC, KB_LCTL,KB_LGUI}, // 30-37
-        { KB_LSFT,KB_CAPS,KB_LALT,KB_LEFT,KB_RGHT,KB_DOWN,KB_UP,  KB_NO  }, // 38-3F
-        { KB_NO,  KB_PDOT,KB_NO,  KB_PAST,KB_NO,  KB_PPLS,KB_NO,  KB_NLCK}, // 40-47
-        { KB_NO,  KB_NO,  KB_NO,  KB_PSLS,KB_PENT,KB_NO,  KB_PMNS,KB_NO  }, // 48-4F
-        { KB_NO,  KB_PEQL,KB_P0,  KB_P1,  KB_P2,  KB_P3,  KB_P4,  KB_P5  }, // 50-57
-        { KB_P6,  KB_P7,  KB_NO,  KB_P8,  KB_P9,  KB_NO,  KB_NO,  KB_NO  }, // 58-5F
-        { KB_F5,  KB_F6,  KB_F7,  KB_F3,  KB_F8,  KB_F9,  KB_NO,  KB_F11 }, // 60-67
-        { KB_NO,  KB_PSCR,KB_NO,  KB_SLCK,KB_NO,  KB_F10, KB_NO,  KB_F12 }, // 68-6F
-        { KB_NO,  KB_BRK, KB_INS, KB_HOME,KB_PGUP,KB_DEL, KB_F4,  KB_END }, // 70-77
-        { KB_F2,  KB_PGDN,KB_F1,  KB_RSFT,KB_NO,  KB_NO,  KB_NO,  KB_PWR }, // 78-7F
-    },
-*/
 
 
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
-    1,              // Fn0
+    0,              // Fn0
     0,              // Fn1
     0,              // Fn2
     0,              // Fn3
@@ -96,7 +76,7 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_BSLS,        // Fn0
+    KB_NO,          // Fn0
     KB_NO,          // Fn1
     KB_NO,          // Fn2
     KB_NO,          // Fn3
@@ -124,37 +104,12 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------' `-----------' `---------------'
      */
     KEYMAP(
-    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    NO,
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,PAUS,                   PWR,
     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NLCK,EQL, PSLS,PAST,
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,FN0,      DEL, END, PGDN,    P7,  P8,  P9,  PMNS,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     DEL, END, PGDN,    P7,  P8,  P9,  PMNS,
     CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           P1,  P2,  P3,
     LCTL,LGUI,LALT,          SPC,                                              LEFT,DOWN,RGHT,    P0,       PDOT,PENT
-    ),
-
-    /* Default Layer: plain keymap
-     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.             ,---.
-     * |`  |   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|             |Pwr|
-     * `---'   `---------------' `---------------' `---------------' `-----------'             `---'
-     * ,-----------------------------------------------------------. ,-----------. ,---------------.
-     * |Esc|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Delete | |Ins|Hom|PgU| |NmL|Mb1|Mb2|Mb3|
-     * |-----------------------------------------------------------| |-----------| |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|PrS|ScL|Pau|Up |Ins|  Fn0| |Del|End|PgD| |MwD|McU|MwU|MwD|
-     * |-----------------------------------------------------------| `-----------' |---------------|
-     * |CapsLo|VoD|VoU|Mut|  F|  G|  H|  J|Hom|PgU|Lef|Rig|Return  |               |McL|McD|McR|MwU|
-     * |-----------------------------------------------------------|     ,---.     |---------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|End|PgD|Dow|Shift     |     |PgU|     |MwL|McD|MwR|   |
-     * |-----------------------------------------------------------| ,-----------. |-----------|Mb3|
-     * |Ctrl |Gui |Alt |         Space           |     |    |      | |Hom|PgD|End| |    Mb1|Mb2|   |
-     * `-----------------------------------------------------------' `-----------' `---------------'
-     */
-    KEYMAP(
-    GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    NO, 
-    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,      INS, HOME,PGUP,    NLCK,BTN1,BTN2,BTN3,
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   PSCR,SLCK,PAUS,UP,  INS, FN0,      DEL, END, PGDN,    WH_D,MS_U,WH_U,WH_D,
-    CAPS,VOLD,VOLU,MUTE,F,   G,   H,   J,   HOME,PGUP,LEFT,RGHT,     ENT,                         MS_L,MS_D,MS_R,WH_U,
-    LSFT,Z,   X,   C,   V,   B,   N,   M,   END, PGDN,DOWN,          RSFT,          PGUP,         WH_L,MS_D,WH_R,
-    LCTL,LGUI,LALT,          SPC,                                              HOME,PGDN,END,     BTN1,     BTN2,BTN3
     ),
 };
 
