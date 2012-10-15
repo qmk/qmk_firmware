@@ -66,7 +66,7 @@ void bootloader_jump(void) {
     //
     //USBasp
     //
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P)
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
     // This makes custom USBasploader come up.
     MCUSR = 0;
 
