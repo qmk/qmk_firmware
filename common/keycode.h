@@ -29,10 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_MOD(code)             (KC_LCTRL     <= (code) && (code) <= KC_RGUI)
 
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN7)
-#define IS_MOUSEKEY(code)        (KC_MS_UP     <= (code) && (code) <= KC_MS_WH_RIGHT)
+#define IS_MOUSEKEY(code)        (KC_MS_UP     <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code)   (KC_MS_UP     <= (code) && (code) <= KC_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1   <= (code) && (code) <= KC_MS_BTN5)
 #define IS_MOUSEKEY_WHEEL(code)  (KC_MS_WH_UP  <= (code) && (code) <= KC_MS_WH_RIGHT)
+#define IS_MOUSEKEY_ACCEL(code)  (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL2)
 
 #define IS_SPECIAL(code)         ((0xB0 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_WFAV)
@@ -120,6 +121,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WH_D KC_MS_WH_DOWN
 #define KC_WH_L KC_MS_WH_LEFT
 #define KC_WH_R KC_MS_WH_RIGHT
+#define KC_ACL0 KC_MS_ACCEL0
+#define KC_ACL1 KC_MS_ACCEL1
+#define KC_ACL2 KC_MS_ACCEL2
 /* Sytem Control */
 #define KC_PWR  KC_SYSTEM_POWER
 #define KC_SLEP KC_SYSTEM_SLEEP
@@ -429,13 +433,16 @@ enum internal_special_keycodes {
     KC_MS_BTN2,
     KC_MS_BTN3,
     KC_MS_BTN4,
-    KC_MS_BTN5,
+    KC_MS_BTN5,         /* 0xF8 */
     /* Mousekey wheel */
     KC_MS_WH_UP,
     KC_MS_WH_DOWN,
     KC_MS_WH_LEFT,
     KC_MS_WH_RIGHT,     /* 0xFC */
-                        /* 0xFD-FF vacant for future use */
+    /* Mousekey accel */
+    KC_MS_ACCEL0,
+    KC_MS_ACCEL1,
+    KC_MS_ACCEL2        /* 0xFF */
 };
 
 #endif /* KEYCODE_H */
