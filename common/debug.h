@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define debug(s)             if(debug_enable) print_P(PSTR(s))
+#define debug_P(s)           if(debug_enable) print_P(s)
+#define debug_S(s)           if(debug_enable) print_S(s)
 #define debug_hex(c)         if(debug_enable) phex(c)
 #define debug_hex16(i)       if(debug_enable) phex16(i)
 #define debug_bin(c)         if(debug_enable) pbin(c)

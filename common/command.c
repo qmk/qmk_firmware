@@ -24,9 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "timer.h"
 #include "keyboard.h"
-#include "matrix.h"
 #include "bootloader.h"
 #include "command.h"
+#ifdef MOUSEKEY_ENABLE
+#include "mousekey.h"
+#endif
 
 #ifdef HOST_PJRC
 #   include "usb_keyboard.h"
@@ -40,44 +42,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-static uint8_t command_common(void);
+static bool command_common(uint8_t code);
 static void help(void);
 static void switch_layer(uint8_t layer);
+static void clear_keyboard(void);
 
 static bool last_print_enable;
 
-uint8_t command_proc(void)
+
+bool command_proc(uint8_t code)
 {
-    uint8_t processed = 0;
-    last_print_enable = print_enable;
-
     if (!IS_COMMAND())
-        return 0;
+        return false;
 
+    last_print_enable = print_enable;
     print_enable = true;
-    if (command_extra() || command_common()) {
-        processed = 1;
+    if (command_extra(code) || command_common(code)) {
         _delay_ms(500);
+        return true;
     }
     print_enable = last_print_enable;
-    return processed;
+    return false;
 }
 
 /* This allows to define extra commands. return 0 when not processed. */
-uint8_t command_extra(void) __attribute__ ((weak));
-uint8_t command_extra(void)
+bool command_extra(uint8_t code) __attribute__ ((weak));
+bool command_extra(uint8_t code)
 {
-    return 0;
+    return false;
 }
 
 
-static uint8_t command_common(void)
+static bool command_common(uint8_t code)
 {
-    switch (host_get_first_key()) {
+    switch (code) {
         case KC_H:
             help();
             break;
-        case KC_B:
+        case KC_DEL:
+            clear_keyboard();
             print("jump to bootloader... ");
             _delay_ms(1000);
             bootloader_jump(); // not return
@@ -179,34 +182,34 @@ static uint8_t command_common(void)
 #endif
             break;
 #endif
-        case KC_BSPC:
-            matrix_init();
-            print("clear matrix\n");
-            break;
         case KC_0:
+        case KC_F10:
             switch_layer(0);
             break;
         case KC_1:
+        case KC_F1:
             switch_layer(1);
             break;
         case KC_2:
+        case KC_F2:
             switch_layer(2);
             break;
         case KC_3:
+        case KC_F3:
             switch_layer(3);
             break;
         case KC_4:
+        case KC_F4:
             switch_layer(4);
             break;
         default:
-            return 0;
+            return false;
     }
-    return 1;
+    return true;
 }
 
 static void help(void)
 {
-    print("b: jump to bootloader\n");
     print("d: toggle debug enable\n");
     print("x: toggle matrix debug\n");
     print("k: toggle keyboard debug\n");
@@ -215,16 +218,16 @@ static void help(void)
     print("v: print version\n");
     print("t: print timer count\n");
     print("s: print status\n");
+    print("ESC: power down/wake up\n");
+    print("0/F10: switch to Layer0 \n");
+    print("1/F1: switch to Layer1 \n");
+    print("2/F2: switch to Layer2 \n");
+    print("3/F3: switch to Layer3 \n");
+    print("4/F4: switch to Layer4 \n");
 #ifdef NKRO_ENABLE
     print("n: toggle NKRO\n");
 #endif
-    print("Backspace: clear matrix\n");
-    print("ESC: power down/wake up\n");
-    print("0: switch to Layer0 \n");
-    print("1: switch to Layer1 \n");
-    print("2: switch to Layer2 \n");
-    print("3: switch to Layer3 \n");
-    print("4: switch to Layer4 \n");
+    print("DEL: jump to bootloader\n");
 }
 
 static void switch_layer(uint8_t layer)
@@ -234,4 +237,18 @@ static void switch_layer(uint8_t layer)
     current_layer = layer;
     default_layer = layer;
     print("switch to Layer: "); phex(layer); print("\n");
+}
+
+static void clear_keyboard(void)
+{
+    host_clear_keys();
+    host_send_keyboard_report();
+
+    host_system_send(0);
+    host_consumer_send(0);
+
+#ifdef MOUSEKEY_ENABLE
+    mousekey_clear();
+    mousekey_send();
+#endif
 }

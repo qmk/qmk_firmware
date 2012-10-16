@@ -54,7 +54,7 @@ matrix_row_t  matrix_get_row(uint8_t row);
 /* count keys pressed */
 uint8_t matrix_key_count(void);
 /* print matrix for debug */
-void matrix_print(void);
+void matrix_debug(void);
 
 
 #endif
