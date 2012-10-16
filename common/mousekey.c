@@ -103,7 +103,7 @@ static uint8_t wheel_unit(void)
     if (mousekey_repeat > mk_time_to_max) {
         unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
     } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_time_to_max;
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
     }
     if (unit == 0) return 1;
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : unit);

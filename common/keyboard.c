@@ -28,9 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
-#ifdef EXTRAKEY_ENABLE
-#include <util/delay.h>
-#endif
 
 
 #define LAYER_DELAY     250
@@ -154,8 +151,12 @@ static bool layer_switch_off(uint8_t code)
 static void register_code(uint8_t code)
 {
     if IS_KEY(code) {
-        host_add_key(code);
-        host_send_keyboard_report();
+        if (command_proc(code)) {
+            //clear_keyboard();
+        } else {
+            host_add_key(code);
+            host_send_keyboard_report();
+        }
     }
     else if IS_MOD(code) {
         host_add_mod_bit(MOD_BIT(code));
@@ -330,9 +331,9 @@ static void unregister_code(uint8_t code)
  *      Ld: Switch back to default layer(*unregister* all keys but modifiers)
  */
 #define NEXT(state)     do { \
-    debug("NEXT: "); print_P(state_str(kbdstate)); \
+    debug("NEXT: "); debug_P(state_str(kbdstate)); \
     kbdstate = state; \
-    debug(" -> "); print_P(state_str(kbdstate)); debug("\n"); \
+    debug(" -> "); debug_P(state_str(kbdstate)); debug("\n"); \
 } while (0)
 
 static inline void process_key(keyevent_t event)
@@ -342,7 +343,7 @@ static inline void process_key(keyevent_t event)
 
     uint8_t tmp_mods;
 
-    debug("state: "); print_P(state_str(kbdstate));
+    debug("state: "); debug_P(state_str(kbdstate));
     debug(" kind: "); debug_hex(kind);
     debug(" code: "); debug_hex(code);
     if (event.pressed) { debug("d"); } else { debug("u"); }
@@ -554,18 +555,11 @@ void keyboard_task(void)
     matrix_row_t matrix_change = 0;
 
     matrix_scan();
-    if (command_proc()) {
-        debug("COMMAND\n");
-        // TODO: COMMAND state?
-        clear_keyboard();
-        return;
-    }
-
     for (int r = 0; r < MATRIX_ROWS; r++) {
         matrix_row = matrix_get_row(r);
         matrix_change = matrix_row ^ matrix_prev[r];
         if (matrix_change) {
-            if (debug_matrix) matrix_print();
+            matrix_debug();
 
             for (int c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & (1<<c)) {
@@ -618,7 +612,7 @@ void keyboard_task(void)
             current_layer = default_layer;
         }
     }
-    
+
     return;
 }
 
