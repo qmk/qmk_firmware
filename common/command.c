@@ -43,29 +43,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 static bool command_common(uint8_t code);
-static void help(void);
+static void command_common_help(void);
+static bool command_console(uint8_t code);
+static void command_console_help(void);
+static bool mousekey_console(uint8_t code);
+static void mousekey_console_help(void);
+
+static uint8_t kc2int(uint8_t code);
 static void switch_layer(uint8_t layer);
 static void clear_keyboard(void);
 
-static bool last_print_enable;
+
+typedef enum { ONESHOT, CONSOLE, MOUSEKEY } cmdstate_t;
+static cmdstate_t state = ONESHOT;
 
 
 bool command_proc(uint8_t code)
 {
-    if (!IS_COMMAND())
-        return false;
-
-    last_print_enable = print_enable;
-    print_enable = true;
-    if (command_extra(code) || command_common(code)) {
-        _delay_ms(500);
-        return true;
+    switch (state) {
+        case ONESHOT:
+            if (!IS_COMMAND())
+                return false;
+            return (command_extra(code) || command_common(code));
+        case CONSOLE:
+            command_console(code);
+            break;
+        case MOUSEKEY:
+            mousekey_console(code);
+            break;
+        default:
+            state = ONESHOT;
+            return false;
     }
-    print_enable = last_print_enable;
-    return false;
+    return true;
 }
 
-/* This allows to define extra commands. return 0 when not processed. */
+/* This allows to define extra commands. return false when not processed. */
 bool command_extra(uint8_t code) __attribute__ ((weak));
 bool command_extra(uint8_t code)
 {
@@ -73,72 +86,122 @@ bool command_extra(uint8_t code)
 }
 
 
+/***********************************************************
+ * Command common
+ ***********************************************************/
+static void command_common_help(void)
+{
+    print_enable = true;
+    print("\n\n----- Command Help -----\n");
+    print("c:	enter console mode\n");
+    print("d:	toggle debug enable\n");
+    print("x:	toggle matrix debug\n");
+    print("k:	toggle keyboard debug\n");
+    print("m:	toggle mouse debug\n");
+    print("p:	toggle print enable\n");
+    print("v:	print device version & info\n");
+    print("t:	print timer count\n");
+    print("s:	print status\n");
+#ifdef NKRO_ENABLE
+    print("n:	toggle NKRO\n");
+#endif
+    print("0/F10:	switch to Layer0 \n");
+    print("1/F1:	switch to Layer1 \n");
+    print("2/F2:	switch to Layer2 \n");
+    print("3/F3:	switch to Layer3 \n");
+    print("4/F4:	switch to Layer4 \n");
+    print("PScr:	power down/remote wake-up\n");
+    print("Paus:	jump to bootloader\n");
+}
+
 static bool command_common(uint8_t code)
 {
     switch (code) {
         case KC_H:
-            help();
+        case KC_SLASH: /* ? */
+            command_common_help();
             break;
-        case KC_DEL:
+        case KC_C:
+            print_enable = true;
+            debug_matrix   = false;
+            debug_keyboard = false;
+            debug_mouse    = false;
+            debug_enable   = false;
+            command_console_help();
+            print("\nEnter Console Mode\n");
+            print("C> ");
+            state = CONSOLE;
+            break;
+        case KC_PAUSE:
             clear_keyboard();
-            print("jump to bootloader... ");
+            print("\n\nJump to bootloader... ");
             _delay_ms(1000);
             bootloader_jump(); // not return
             print("not supported.\n");
             break;
         case KC_D:
-            debug_enable = !debug_enable;
             if (debug_enable) {
-                last_print_enable = true;
-                print("debug enabled.\n");
-                debug_matrix = true;
-                debug_keyboard = true;
-                debug_mouse = true;
-            } else {
-                print("debug disabled.\n");
-                last_print_enable = false;
-                debug_matrix = false;
+                print("\nDEBUG: disabled.\n");
+                debug_matrix   = false;
                 debug_keyboard = false;
-                debug_mouse = false;
+                debug_mouse    = false;
+                debug_enable   = false;
+            } else {
+                print("\nDEBUG: enabled.\n");
+                debug_matrix   = true;
+                debug_keyboard = true;
+                debug_mouse    = true;
+                debug_enable   = true;
             }
             break;
         case KC_X: // debug matrix toggle
             debug_matrix = !debug_matrix;
-            if (debug_matrix)
-                print("debug matrix enabled.\n");
-            else
-                print("debug matrix disabled.\n");
+            if (debug_matrix) {
+                print("\nDEBUG: matrix enabled.\n");
+                debug_enable = true;
+            } else {
+                print("\nDEBUG: matrix disabled.\n");
+            }
             break;
         case KC_K: // debug keyboard toggle
             debug_keyboard = !debug_keyboard;
-            if (debug_keyboard)
-                print("debug keyboard enabled.\n");
-            else
-                print("debug keyboard disabled.\n");
+            if (debug_keyboard) {
+                print("\nDEBUG: keyboard enabled.\n");
+                debug_enable = true;
+            } else {
+                print("\nDEBUG: keyboard disabled.\n");
+            }
             break;
         case KC_M: // debug mouse toggle
             debug_mouse = !debug_mouse;
-            if (debug_mouse)
-                print("debug mouse enabled.\n");
-            else
-                print("debug mouse disabled.\n");
+            if (debug_mouse) {
+                print("\nDEBUG: mouse enabled.\n");
+                debug_enable = true;
+            } else {
+                print("\nDEBUG: mouse disabled.\n");
+            }
             break;
         case KC_V: // print version & information
+            print("\n\n----- Version -----\n");
             print(STR(DESCRIPTION) "\n");
+            print(STR(MANUFACTURER) "(" STR(VENDOR_ID) ")/");
+            print(STR(PRODUCT) "(" STR(PRODUCT_ID) ") ");
+            print("VERSION: " STR(DEVICE_VER) "\n");
             break;
         case KC_T: // print timer
-            print("timer: "); phex16(timer_count); print("\n");
+            print("timer: "); phex16(timer_count>>16); phex16(timer_count); print("\n");
             break;
         case KC_P: // print toggle
-            if (last_print_enable) {
+            if (print_enable) {
                 print("print disabled.\n");
-                last_print_enable = false;
+                print_enable = false;
             } else {
-                last_print_enable = true;
+                print_enable = true;
                 print("print enabled.\n");
             }
             break;
         case KC_S:
+            print("\n\n----- Status -----\n");
             print("host_keyboard_leds:"); phex(host_keyboard_leds()); print("\n");
 #ifdef HOST_PJRC
             print("UDCON: "); phex(UDCON); print("\n");
@@ -166,7 +229,8 @@ static bool command_common(uint8_t code)
             break;
 #endif
 #ifdef EXTRAKEY_ENABLE
-        case KC_ESC:
+        case KC_PSCREEN:
+            // TODO: Power key should take this feature? otherwise any key during suspend.
 #ifdef HOST_PJRC
             if (suspend && remote_wakeup) {
                 usb_remote_wakeup();
@@ -203,31 +267,269 @@ static bool command_common(uint8_t code)
             switch_layer(4);
             break;
         default:
+            print("?");
             return false;
     }
     return true;
 }
 
-static void help(void)
+
+/***********************************************************
+ * Command console
+ ***********************************************************/
+static void command_console_help(void)
 {
-    print("d: toggle debug enable\n");
-    print("x: toggle matrix debug\n");
-    print("k: toggle keyboard debug\n");
-    print("m: toggle mouse debug\n");
-    print("p: toggle print enable\n");
-    print("v: print version\n");
-    print("t: print timer count\n");
-    print("s: print status\n");
-    print("ESC: power down/wake up\n");
-    print("0/F10: switch to Layer0 \n");
-    print("1/F1: switch to Layer1 \n");
-    print("2/F2: switch to Layer2 \n");
-    print("3/F3: switch to Layer3 \n");
-    print("4/F4: switch to Layer4 \n");
-#ifdef NKRO_ENABLE
-    print("n: toggle NKRO\n");
+    print_enable = true;
+    print("\n\n----- Console Help -----\n");
+    print("ESC/q:	quit\n");
+#ifdef MOUSEKEY_ENABLE
+    print("m:	mousekey\n");
 #endif
-    print("DEL: jump to bootloader\n");
+}
+
+static bool command_console(uint8_t code)
+{
+    switch (code) {
+        case KC_H:
+        case KC_SLASH: /* ? */
+            command_console_help();
+            break;
+        case KC_Q:
+        case KC_ESC:
+            print("\nQuit Console Mode\n");
+            state = ONESHOT;
+            return false;
+#ifdef MOUSEKEY_ENABLE
+        case KC_M:
+            mousekey_console_help();
+            print("\nEnter Mousekey Console\n");
+            print("M0>");
+            state = MOUSEKEY;
+            return true;
+#endif
+        default:
+            print("?");
+            return false;
+    }
+    print("C> ");
+    return true;
+}
+
+
+#ifdef MOUSEKEY_ENABLE
+/***********************************************************
+ * Mousekey console
+ ***********************************************************/
+static uint8_t mousekey_param = 0;
+
+static void mousekey_param_print(void)
+{
+    print("\n\n----- Mousekey Parameters -----\n");
+    print("1: mk_delay(*10ms): "); pdec(mk_delay); print("\n");
+    print("2: mk_interval(ms): "); pdec(mk_interval); print("\n");
+    print("3: mk_max_speed: "); pdec(mk_max_speed); print("\n");
+    print("4: mk_time_to_max: "); pdec(mk_time_to_max); print("\n");
+    print("5: mk_wheel_max_speed: "); pdec(mk_wheel_max_speed); print("\n");
+    print("6: mk_wheel_time_to_max: "); pdec(mk_wheel_time_to_max); print("\n");
+}
+
+static void mousekey_param_inc(uint8_t param, uint8_t inc)
+{
+    switch (param) {
+        case 1:
+            if (mk_delay + inc < UINT8_MAX)
+                mk_delay += inc;
+            else
+                mk_delay = UINT8_MAX;
+            print("mk_delay = "); pdec(mk_delay); print("\n");
+            break;
+        case 2:
+            if (mk_interval + inc < UINT8_MAX)
+                mk_interval += inc;
+            else
+                mk_interval = UINT8_MAX;
+            print("mk_interval = "); pdec(mk_interval); print("\n");
+            break;
+        case 3:
+            if (mk_max_speed + inc < UINT8_MAX)
+                mk_max_speed += inc;
+            else
+                mk_max_speed = UINT8_MAX;
+            print("mk_max_speed = "); pdec(mk_max_speed); print("\n");
+            break;
+        case 4:
+            if (mk_time_to_max + inc < UINT8_MAX)
+                mk_time_to_max += inc;
+            else
+                mk_time_to_max = UINT8_MAX;
+            print("mk_time_to_max = "); pdec(mk_time_to_max); print("\n");
+            break;
+        case 5:
+            if (mk_wheel_max_speed + inc < UINT8_MAX)
+                mk_wheel_max_speed += inc;
+            else
+                mk_wheel_max_speed = UINT8_MAX;
+            print("mk_wheel_max_speed = "); pdec(mk_wheel_max_speed); print("\n");
+            break;
+        case 6:
+            if (mk_wheel_time_to_max + inc < UINT8_MAX)
+                mk_wheel_time_to_max += inc;
+            else
+                mk_wheel_time_to_max = UINT8_MAX;
+            print("mk_wheel_time_to_max = "); pdec(mk_wheel_time_to_max); print("\n");
+            break;
+    }
+}
+
+static void mousekey_param_dec(uint8_t param, uint8_t dec)
+{
+    switch (param) {
+        case 1:
+            if (mk_delay > dec)
+                mk_delay -= dec;
+            else
+                mk_delay = 0;
+            print("mk_delay = "); pdec(mk_delay); print("\n");
+            break;
+        case 2:
+            if (mk_interval > dec)
+                mk_interval -= dec;
+            else
+                mk_interval = 0;
+            print("mk_interval = "); pdec(mk_interval); print("\n");
+            break;
+        case 3:
+            if (mk_max_speed > dec)
+                mk_max_speed -= dec;
+            else
+                mk_max_speed = 0;
+            print("mk_max_speed = "); pdec(mk_max_speed); print("\n");
+            break;
+        case 4:
+            if (mk_time_to_max > dec)
+                mk_time_to_max -= dec;
+            else
+                mk_time_to_max = 0;
+            print("mk_time_to_max = "); pdec(mk_time_to_max); print("\n");
+            break;
+        case 5:
+            if (mk_wheel_max_speed > dec)
+                mk_wheel_max_speed -= dec;
+            else
+                mk_wheel_max_speed = 0;
+            print("mk_wheel_max_speed = "); pdec(mk_wheel_max_speed); print("\n");
+            break;
+        case 6:
+            if (mk_wheel_time_to_max > dec)
+                mk_wheel_time_to_max -= dec;
+            else
+                mk_wheel_time_to_max = 0;
+            print("mk_wheel_time_to_max = "); pdec(mk_wheel_time_to_max); print("\n");
+            break;
+    }
+}
+
+static void mousekey_console_help(void)
+{
+    print("\n\n----- Mousekey Parameters Help -----\n");
+    print("ESC/q:	quit\n");
+    print("1:	select mk_delay(*10ms)\n");
+    print("2:	select mk_interval(ms)\n");
+    print("3:	select mk_max_speed\n");
+    print("4:	select mk_time_to_max\n");
+    print("5:	select mk_wheel_max_speed\n");
+    print("6:	select mk_wheel_time_to_max\n");
+    print("p:	print prameters\n");
+    print("d:	set default values\n");
+    print("up:	increase prameters(+1)\n");
+    print("down:	decrease prameters(-1)\n");
+    print("pgup:	increase prameters(+10)\n");
+    print("pgdown:	decrease prameters(-10)\n");
+    print("\nspeed = delta * max_speed * (repeat / time_to_max)\n");
+    print("where delta: cursor="); pdec(MOUSEKEY_MOVE_DELTA);
+    print(", wheel="); pdec(MOUSEKEY_WHEEL_DELTA); print("\n");
+    print("See http://en.wikipedia.org/wiki/Mouse_keys\n");
+}
+
+static bool mousekey_console(uint8_t code)
+{
+    switch (code) {
+        case KC_H:
+        case KC_SLASH: /* ? */
+            mousekey_console_help();
+            break;
+        case KC_Q:
+        case KC_ESC:
+            mousekey_param = 0;
+            print("\nQuit Mousekey Console\n");
+            print("C> ");
+            state = CONSOLE;
+            return false;
+        case KC_P:
+            mousekey_param_print();
+            break;
+        case KC_1:
+        case KC_2:
+        case KC_3:
+        case KC_4:
+        case KC_5:
+        case KC_6:
+        case KC_7:
+        case KC_8:
+        case KC_9:
+        case KC_0:
+            mousekey_param = kc2int(code);
+            print("selected parameter: "); pdec(mousekey_param); print("\n");
+            break;
+        case KC_UP:
+            mousekey_param_inc(mousekey_param, 1);
+            break;
+        case KC_DOWN:
+            mousekey_param_dec(mousekey_param, 1);
+            break;
+        case KC_PGUP:
+            mousekey_param_inc(mousekey_param, 10);
+            break;
+        case KC_PGDN:
+            mousekey_param_dec(mousekey_param, 10);
+            break;
+        case KC_D:
+            mk_delay = MOUSEKEY_DELAY/10;
+            mk_interval = MOUSEKEY_INTERVAL;
+            mk_max_speed = MOUSEKEY_MAX_SPEED;
+            mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
+            mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
+            mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+            print("set default values.\n");
+            break;
+        default:
+            print("?");
+            return false;
+    }
+    print("M"); pdec(mousekey_param); print("> ");
+    return true;
+}
+#endif
+
+
+/***********************************************************
+ * Utilities
+ ***********************************************************/
+static uint8_t kc2int(uint8_t code)
+{
+    switch (code) {
+        case KC_1: return 1;
+        case KC_2: return 2;
+        case KC_3: return 3;
+        case KC_4: return 4;
+        case KC_5: return 5;
+        case KC_6: return 6;
+        case KC_7: return 7;
+        case KC_8: return 8;
+        case KC_9: return 9;
+        case KC_0: return 0;
+    }
+    return 0;
 }
 
 static void switch_layer(uint8_t layer)
@@ -242,6 +544,7 @@ static void switch_layer(uint8_t layer)
 static void clear_keyboard(void)
 {
     host_clear_keys();
+    host_clear_mods();
     host_send_keyboard_report();
 
     host_system_send(0);
