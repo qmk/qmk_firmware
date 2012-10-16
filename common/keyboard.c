@@ -30,6 +30,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+#define Kdebug(s)       do { if (debug_keyboard) debug(s); } while(0)
+#define Kdebug_P(s)     do { if (debug_keyboard) debug_P(s); } while(0)
+#define Kdebug_hex(s)   do { if (debug_keyboard) debug_hex(s); } while(0)
+
 #define LAYER_DELAY     250
 
 typedef enum keykind {
@@ -124,8 +128,8 @@ static void layer_switch_on(uint8_t code)
     fn_state_bits |= FN_BIT(code);
     uint8_t new_layer = (fn_state_bits ? keymap_fn_layer(biton(fn_state_bits)) : default_layer);
     if (current_layer != new_layer) {
-        debug("Layer Switch(on): "); debug_hex(current_layer);
-        debug(" -> "); debug_hex(new_layer); debug("\n");
+        Kdebug("Layer Switch(on): "); Kdebug_hex(current_layer);
+        Kdebug(" -> "); Kdebug_hex(new_layer); Kdebug("\n");
 
         clear_keyboard_but_mods();
         current_layer = new_layer;
@@ -138,8 +142,8 @@ static bool layer_switch_off(uint8_t code)
     fn_state_bits &= ~FN_BIT(code);
     uint8_t new_layer = (fn_state_bits ? keymap_fn_layer(biton(fn_state_bits)) : default_layer);
     if (current_layer != new_layer) {
-        debug("Layer Switch(off): "); debug_hex(current_layer);
-        debug(" -> "); debug_hex(new_layer); debug("\n");
+        Kdebug("Layer Switch(off): "); Kdebug_hex(current_layer);
+        Kdebug(" -> "); Kdebug_hex(new_layer); Kdebug("\n");
 
         clear_keyboard_but_mods();
         current_layer = new_layer;
@@ -151,9 +155,7 @@ static bool layer_switch_off(uint8_t code)
 static void register_code(uint8_t code)
 {
     if IS_KEY(code) {
-        if (command_proc(code)) {
-            //clear_keyboard();
-        } else {
+        if (!command_proc(code)) {
             host_add_key(code);
             host_send_keyboard_report();
         }
@@ -163,8 +165,10 @@ static void register_code(uint8_t code)
         host_send_keyboard_report();
     }
     else if IS_FN(code) {
-        host_add_key(keymap_fn_keycode(FN_INDEX(code)));
-        host_send_keyboard_report();
+        if (!command_proc(keymap_fn_keycode(FN_INDEX(code)))) {
+            host_add_key(keymap_fn_keycode(FN_INDEX(code)));
+            host_send_keyboard_report();
+        }
     }
     else if IS_MOUSEKEY(code) {
 #ifdef MOUSEKEY_ENABLE
@@ -331,9 +335,9 @@ static void unregister_code(uint8_t code)
  *      Ld: Switch back to default layer(*unregister* all keys but modifiers)
  */
 #define NEXT(state)     do { \
-    debug("NEXT: "); debug_P(state_str(kbdstate)); \
+    Kdebug("NEXT: "); Kdebug_P(state_str(kbdstate)); \
     kbdstate = state; \
-    debug(" -> "); debug_P(state_str(kbdstate)); debug("\n"); \
+    Kdebug(" -> "); Kdebug_P(state_str(kbdstate)); Kdebug("\n"); \
 } while (0)
 
 static inline void process_key(keyevent_t event)
@@ -343,11 +347,11 @@ static inline void process_key(keyevent_t event)
 
     uint8_t tmp_mods;
 
-    debug("state: "); debug_P(state_str(kbdstate));
-    debug(" kind: "); debug_hex(kind);
-    debug(" code: "); debug_hex(code);
-    if (event.pressed) { debug("d"); } else { debug("u"); }
-    debug("\n");
+    Kdebug("state: "); Kdebug_P(state_str(kbdstate));
+    Kdebug(" kind: "); Kdebug_hex(kind);
+    Kdebug(" code: "); Kdebug_hex(code);
+    if (event.pressed) { Kdebug("d"); } else { Kdebug("u"); }
+    Kdebug("\n");
 
     switch (kbdstate) {
         case IDLE:
@@ -607,7 +611,7 @@ void keyboard_task(void)
             is_matrix_on |= matrix_get_row(r);
         }
         if (!is_matrix_on) {
-            debug("FAIL SAFE: clear all keys(default layer).\n");
+            Kdebug("FAIL SAFE: clear all keys(default layer).\n");
             clear_keyboard();
             current_layer = default_layer;
         }
