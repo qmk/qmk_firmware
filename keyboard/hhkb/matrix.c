@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "print.h"
+#include "debug.h"
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
@@ -107,7 +107,7 @@ static matrix_row_t _matrix1[MATRIX_ROWS];
 #define KEY_POWER_ON()          do {    \
     KEY_INIT();                         \
     PORTB &= ~(1<<5);                   \
-    _delay_us(200);                     \
+    _delay_ms(1);                       \
 } while (0)
 #define KEY_POWER_OFF()         do {    \
     DDRB  &= ~0x3F;                     \
@@ -228,21 +228,24 @@ uint16_t matrix_get_row(uint8_t row)
     return matrix[row];
 }
 
-void matrix_print(void)
+void matrix_debug(void)
 {
+    if (!debug_matrix)
+        return;
+
 #if (MATRIX_COLS <= 8)
-    print("\nr/c 01234567\n");
+    debug("\nr/c 01234567\n");
 #else
-    print("\nr/c 0123456789ABCDEF\n");
+    debug("\nr/c 0123456789ABCDEF\n");
 #endif
     for (uint8_t row = 0; row < matrix_rows(); row++) {
-        phex(row); print(": ");
+        debug_hex(row); debug(": ");
 #if (MATRIX_COLS <= 8)
-        pbin_reverse(matrix_get_row(row));
+        debug_bin_reverse(matrix_get_row(row));
 #else
-        pbin_reverse16(matrix_get_row(row));
+        debug_bin_reverse16(matrix_get_row(row));
 #endif
-        print("\n");
+        debug("\n");
     }
 }
 
