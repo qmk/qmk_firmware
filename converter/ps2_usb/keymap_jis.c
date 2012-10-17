@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -51,38 +51,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K90, KBA, KB8, KB0,      /* WWW Search, Home, Back, Forward */                          \
     KA8, KA0, K98            /* WWW Stop, Refresh, Favorites */                             \
 ) { \
-    { KB_NO,    KB_##K01, KB_NO,    KB_##K03, KB_##K04, KB_##K05, KB_##K06, KB_##K07 }, \
-    { KB_##K08, KB_##K09, KB_##K0A, KB_##K0B, KB_##K0C, KB_##K0D, KB_##K0E, KB_NO    }, \
-    { KB_##K10, KB_##K11, KB_##K12, KB_##K13, KB_##K14, KB_##K15, KB_##K16, KB_NO    }, \
-    { KB_##K18, KB_NO,    KB_##K1A, KB_##K1B, KB_##K1C, KB_##K1D, KB_##K1E, KB_NO    }, \
-    { KB_##K20, KB_##K21, KB_##K22, KB_##K23, KB_##K24, KB_##K25, KB_##K26, KB_NO    }, \
-    { KB_##K28, KB_##K29, KB_##K2A, KB_##K2B, KB_##K2C, KB_##K2D, KB_##K2E, KB_NO    }, \
-    { KB_##K30, KB_##K31, KB_##K32, KB_##K33, KB_##K34, KB_##K35, KB_##K36, KB_NO    }, \
-    { KB_##K38, KB_NO,    KB_##K3A, KB_##K3B, KB_##K3C, KB_##K3D, KB_##K3E, KB_NO    }, \
-    { KB_##K40, KB_##K41, KB_##K42, KB_##K43, KB_##K44, KB_##K45, KB_##K46, KB_NO    }, \
-    { KB_##K48, KB_##K49, KB_##K4A, KB_##K4B, KB_##K4C, KB_##K4D, KB_##K4E, KB_NO    }, \
-    { KB_##K50, KB_##K51, KB_##K52, KB_NO,    KB_##K54, KB_##K55, KB_NO,    KB_##K57 }, \
-    { KB_##K58, KB_##K59, KB_##K5A, KB_##K5B, KB_NO,    KB_##K5D, KB_NO,    KB_##K5F }, \
-    { KB_NO,    KB_##K61, KB_NO,    KB_NO,    KB_##K64, KB_NO,    KB_##K66, KB_##K67 }, \
-    { KB_NO,    KB_##K69, KB_##K6A, KB_##K6B, KB_##K6C, KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_##K70, KB_##K71, KB_##K72, KB_##K73, KB_##K74, KB_##K75, KB_##K76, KB_##K77 }, \
-    { KB_##K78, KB_##K79, KB_##K7A, KB_##K7B, KB_##K7C, KB_##K7D, KB_##K7E, KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_NO,    KB_##K83, KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_##K90, KB_##K91, KB_NO,    KB_NO,    KB_##K94, KB_##K95, KB_NO,    KB_NO    }, \
-    { KB_##K98, KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_##K9F }, \
-    { KB_##KA0, KB_##KA1, KB_NO,    KB_##KA3, KB_NO,    KB_NO,    KB_NO,    KB_##KA7 }, \
-    { KB_##KA8, KB_NO,    KB_NO,    KB_##KAB, KB_NO,    KB_NO,    KB_NO,    KB_##KAF }, \
-    { KB_##KB0, KB_NO,    KB_##KB2, KB_NO,    KB_##KB4, KB_NO,    KB_NO,    KB_##KB7 }, \
-    { KB_##KB8, KB_NO,    KB_##KBA, KB_##KBB, KB_NO,    KB_NO,    KB_NO,    KB_##KBF }, \
-    { KB_##KC0, KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_##KC8, KB_NO,    KB_##KCA, KB_NO,    KB_NO,    KB_##KCD, KB_NO,    KB_NO    }, \
-    { KB_##KD0, KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_##KDA, KB_NO,    KB_NO,    KB_NO,    KB_##KDE, KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_##KE9, KB_NO,    KB_##KEB, KB_##KEC, KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_##KF0, KB_##KF1, KB_##KF2, KB_NO,    KB_##KF4, KB_##KF5, KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_##KFA, KB_NO,    KB_##KFC, KB_##KFD, KB_##KFE, KB_NO    }, \
+    { KC_NO,    KC_##K01, KC_NO,    KC_##K03, KC_##K04, KC_##K05, KC_##K06, KC_##K07 }, \
+    { KC_##K08, KC_##K09, KC_##K0A, KC_##K0B, KC_##K0C, KC_##K0D, KC_##K0E, KC_NO    }, \
+    { KC_##K10, KC_##K11, KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_NO    }, \
+    { KC_##K18, KC_NO,    KC_##K1A, KC_##K1B, KC_##K1C, KC_##K1D, KC_##K1E, KC_NO    }, \
+    { KC_##K20, KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_NO    }, \
+    { KC_##K28, KC_##K29, KC_##K2A, KC_##K2B, KC_##K2C, KC_##K2D, KC_##K2E, KC_NO    }, \
+    { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_NO    }, \
+    { KC_##K38, KC_NO,    KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E, KC_NO    }, \
+    { KC_##K40, KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_NO    }, \
+    { KC_##K48, KC_##K49, KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E, KC_NO    }, \
+    { KC_##K50, KC_##K51, KC_##K52, KC_NO,    KC_##K54, KC_##K55, KC_NO,    KC_##K57 }, \
+    { KC_##K58, KC_##K59, KC_##K5A, KC_##K5B, KC_NO,    KC_##K5D, KC_NO,    KC_##K5F }, \
+    { KC_NO,    KC_##K61, KC_NO,    KC_NO,    KC_##K64, KC_NO,    KC_##K66, KC_##K67 }, \
+    { KC_NO,    KC_##K69, KC_##K6A, KC_##K6B, KC_##K6C, KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_##K77 }, \
+    { KC_##K78, KC_##K79, KC_##K7A, KC_##K7B, KC_##K7C, KC_##K7D, KC_##K7E, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_##K83, KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_##K90, KC_##K91, KC_NO,    KC_NO,    KC_##K94, KC_##K95, KC_NO,    KC_NO    }, \
+    { KC_##K98, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K9F }, \
+    { KC_##KA0, KC_##KA1, KC_NO,    KC_##KA3, KC_NO,    KC_NO,    KC_NO,    KC_##KA7 }, \
+    { KC_##KA8, KC_NO,    KC_NO,    KC_##KAB, KC_NO,    KC_NO,    KC_NO,    KC_##KAF }, \
+    { KC_##KB0, KC_NO,    KC_##KB2, KC_NO,    KC_##KB4, KC_NO,    KC_NO,    KC_##KB7 }, \
+    { KC_##KB8, KC_NO,    KC_##KBA, KC_##KBB, KC_NO,    KC_NO,    KC_NO,    KC_##KBF }, \
+    { KC_##KC0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_##KC8, KC_NO,    KC_##KCA, KC_NO,    KC_NO,    KC_##KCD, KC_NO,    KC_NO    }, \
+    { KC_##KD0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KDA, KC_NO,    KC_NO,    KC_NO,    KC_##KDE, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_##KE9, KC_NO,    KC_##KEB, KC_##KEC, KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_##KF0, KC_##KF1, KC_##KF2, KC_NO,    KC_##KF4, KC_##KF5, KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KFA, KC_NO,    KC_##KFC, KC_##KFD, KC_##KFE, KC_NO    }, \
 }
 
 /* JIS layout */
@@ -155,19 +155,19 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_SCLN,        // Fn0
-    KB_SLSH,        // Fn1
-    KB_BSPC,        // Fn2
-    KB_NO,          // Fn3
-    KB_NO,          // Fn4
-    KB_SPC,         // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_SCLN,        // Fn0
+    KC_SLSH,        // Fn1
+    KC_BSPC,        // Fn2
+    KC_NO,          // Fn3
+    KC_NO,          // Fn4
+    KC_SPC,         // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 };
 
 
 // The keymap is a 32*8 byte array which convert a PS/2 scan code into a USB keycode.
-// See usb_keycodes.h for USB keycodes. You should omit a 'KB_' prefix of USB keycodes in keymap macro.
+// See keycode.h for USB keycodes. You should omit a 'KC_' prefix of USB keycodes in keymap macro.
 // Use KEYMAP_ISO() or KEYMAP_JIS() instead of KEYMAP() if your keyboard is ISO or JIS.
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: JIS LAYOUT

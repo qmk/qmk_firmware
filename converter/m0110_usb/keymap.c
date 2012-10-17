@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "usb_keyboard.h"
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -36,20 +36,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,        K4D,  K53,K54,K55,K4C, \
     K3A,K37,            K31,            K34,K2A,K46,K42,K48,  K52,    K41      \
 ) { \
-    { KB_##K00, KB_##K01, KB_##K02, KB_##K03, KB_##K04, KB_##K05, KB_##K06, KB_##K07 }, \
-    { KB_##K08, KB_##K09, KB_NO,    KB_##K0B, KB_##K0C, KB_##K0D, KB_##K0E, KB_##K0F }, \
-    { KB_##K10, KB_##K11, KB_##K12, KB_##K13, KB_##K14, KB_##K15, KB_##K16, KB_##K17 }, \
-    { KB_##K18, KB_##K19, KB_##K1A, KB_##K1B, KB_##K1C, KB_##K1D, KB_##K1E, KB_##K1F }, \
-    { KB_##K20, KB_##K21, KB_##K22, KB_##K23, KB_##K24, KB_##K25, KB_##K26, KB_##K27 }, \
-    { KB_##K28, KB_##K29, KB_##K2A, KB_##K2B, KB_##K2C, KB_##K2D, KB_##K2E, KB_##K2F }, \
-    { KB_##K30, KB_##K31, KB_##K32, KB_##K33, KB_##K34, KB_NO,    KB_NO,    KB_##K37 }, \
-    { KB_##K38, KB_##K39, KB_##K3A, KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_##K41, KB_##K42, KB_NO,    KB_NO,    KB_NO,    KB_##K46, KB_##K47 }, \
-    { KB_##K48, KB_NO,    KB_NO,    KB_NO,    KB_##K4C, KB_##K4D, KB_##K4E, KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_##K52, KB_##K53, KB_##K54, KB_##K55, KB_##K56, KB_##K57 }, \
-    { KB_##K58, KB_##K59, KB_NO,    KB_##K5B, KB_##K5C, KB_NO,    KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_##K62, KB_NO,    KB_NO,    KB_NO,    KB_##K66, KB_NO    }, \
-    { KB_##K68, KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_##K6D, KB_NO,    KB_NO    }, \
+    { KC_##K00, KC_##K01, KC_##K02, KC_##K03, KC_##K04, KC_##K05, KC_##K06, KC_##K07 }, \
+    { KC_##K08, KC_##K09, KC_NO,    KC_##K0B, KC_##K0C, KC_##K0D, KC_##K0E, KC_##K0F }, \
+    { KC_##K10, KC_##K11, KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_##K17 }, \
+    { KC_##K18, KC_##K19, KC_##K1A, KC_##K1B, KC_##K1C, KC_##K1D, KC_##K1E, KC_##K1F }, \
+    { KC_##K20, KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_##K27 }, \
+    { KC_##K28, KC_##K29, KC_##K2A, KC_##K2B, KC_##K2C, KC_##K2D, KC_##K2E, KC_##K2F }, \
+    { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_NO,    KC_NO,    KC_##K37 }, \
+    { KC_##K38, KC_##K39, KC_##K3A, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_##K41, KC_##K42, KC_NO,    KC_NO,    KC_NO,    KC_##K46, KC_##K47 }, \
+    { KC_##K48, KC_NO,    KC_NO,    KC_NO,    KC_##K4C, KC_##K4D, KC_##K4E, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K52, KC_##K53, KC_##K54, KC_##K55, KC_##K56, KC_##K57 }, \
+    { KC_##K58, KC_##K59, KC_NO,    KC_##K5B, KC_##K5C, KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K62, KC_NO,    KC_NO,    KC_NO,    KC_##K66, KC_NO    }, \
+    { KC_##K68, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K6D, KC_NO,    KC_NO    }, \
 }
 
 
@@ -80,23 +80,23 @@ static const uint8_t PROGMEM fn_layer[] = {
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
 #ifndef HASU
-    KB_NO,          // Fn0
-    KB_NO,          // Fn1
-    KB_NO,          // Fn2
-    KB_NO,          // Fn3
-    KB_NO,          // Fn4
-    KB_NO,          // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_NO,          // Fn0
+    KC_NO,          // Fn1
+    KC_NO,          // Fn2
+    KC_NO,          // Fn3
+    KC_NO,          // Fn4
+    KC_NO,          // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 #else
-    KB_ENTER,       // Fn0
-    KB_SCOLON,      // Fn1
-    KB_SLASH,       // Fn2
-    KB_UP,          // Fn3
-    KB_NO,          // Fn4
-    KB_NO,          // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_ENTER,       // Fn0
+    KC_SCOLON,      // Fn1
+    KC_SLASH,       // Fn2
+    KC_UP,          // Fn3
+    KC_NO,          // Fn4
+    KC_NO,          // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 #endif
 };
 

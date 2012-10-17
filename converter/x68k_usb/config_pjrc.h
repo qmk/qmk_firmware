@@ -35,8 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KB_LALT) | MOD_BIT(KB_RALT)) || \
-    keyboard_report->mods == (MOD_BIT(KB_LCTRL) | MOD_BIT(KB_RSHIFT)) \
+    keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
+    keyboard_report->mods == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSHIFT)) \
 )
 
 

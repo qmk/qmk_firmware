@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -45,9 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { R5C0, R5C1,  R5C2,  R5C3,  R5C4, R5C5,  R5C6,  R5C7 }, \
     { R6C0, R6C1,  R6C2,  R6C3,  R6C4, R6C5,  R6C6,  R6C7 }, \
     { R7C0, R7C1,  R7C2,  R7C3,  R7C4, R7C5,  R7C6,  R7C7 }, \
-    { R8C0, R8C1,  KB_NO, KB_NO, KB_NO,KB_NO, KB_NO, KB_NO }, \
+    { R8C0, R8C1,  KC_NO, KC_NO, KC_NO,KC_NO, KC_NO, KC_NO }, \
     { R9C0, R9C1,  R9C2,  R9C3,  R9C4, R9C5,  R9C6,  R9C7 }, \
-	{ R10C0,R10C1, R10C2, R10C3, R10C4,R10C5, KB_NO, KB_NO} \
+	{ R10C0,R10C1, R10C2, R10C3, R10C4,R10C5, KC_NO, KC_NO} \
 }
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
@@ -68,14 +68,14 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_NO,          // Fn0
-    KB_NO,          // Fn1
-    KB_SLSH,        // Fn2
-    KB_SCLN,        // Fn3
-    KB_SPC,         // Fn4
-    KB_NO,          // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_NO,          // Fn0
+    KC_NO,          // Fn1
+    KC_SLSH,        // Fn2
+    KC_SCLN,        // Fn3
+    KC_SPC,         // Fn4
+    KC_NO,          // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -94,12 +94,12 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |CAPS|Alt |Gui  |`  |SPC               |BSLS  |LFT|RGT|DN|UP| |   0   | . | T |
      * `-----------------------------------------------------------' |---------------'
      */
-    KEYMAP(							KB_PWR,
-		   KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,    KB_MINS,KB_EQL, KB_BSPC,	KB_FN1, KB_PEQL, KB_PSLS,  KB_PAST, \
-           KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,    KB_LBRC,KB_RBRC,			KB_P7,   KB_P8,   KB_P9,   KB_PPLS, \
-           KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   KB_SCLN, KB_QUOT,KB_ENT,				KB_P4,   KB_P5,   KB_P6,   KB_PMNS, \
-           KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH,								KB_P1,   KB_P2,   KB_P3, \
-           KB_CAPS,KB_LALT,KB_LGUI,KB_GRV, KB_SPC, KB_BSLS,KB_LEFT,KB_RGHT,KB_DOWN,KB_UP,										KB_P0,   KB_PDOT, KB_PENT),
+    KEYMAP(							KC_PWR,
+		   KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,KC_EQL, KC_BSPC,	KC_FN1, KC_PEQL, KC_PSLS,  KC_PAST, \
+           KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_LBRC,KC_RBRC,			KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
+           KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_QUOT,KC_ENT,				KC_P4,   KC_P5,   KC_P6,   KC_PMNS, \
+           KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,								KC_P1,   KC_P2,   KC_P3, \
+           KC_CAPS,KC_LALT,KC_LGUI,KC_GRV, KC_SPC, KC_BSLS,KC_LEFT,KC_RGHT,KC_DOWN,KC_UP,										KC_P0,   KC_PDOT, KC_PENT),
 
 
     /* Layer 1: Tenkey use Layer
@@ -117,12 +117,12 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |CAPS|Alt |Gui  |`  |SPC               |BSLS  |LFT|RGT|DN|UP| |   0   | . | T |
      * `-----------------------------------------------------------' `---------------'
      */
-    KEYMAP(						KB_PWR, \
-		   KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,    KB_MINS,KB_EQL, KB_BSPC, KB_FN1,   KB_PEQL, KB_PSLS, KB_MUTE, \
-           KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,    KB_LBRC,KB_RBRC,         KB_INS,   KB_P8,   KB_PGUP,   KB_VOLU, \
-           KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   KB_SCLN, KB_QUOT,KB_ENT,          KB_DEL,   KB_UP,   KB_PGDN,   KB_VOLD, \
-           KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH, 						 KB_LEFT,  KB_DOWN,   KB_RIGHT, \
-           KB_CAPS,KB_LALT,KB_LGUI,KB_GRV, KB_SPC, KB_BSLS,KB_LEFT,KB_RGHT,KB_DOWN,KB_UP,                                    KB_P0,    KB_PDOT, KB_PENT),
+    KEYMAP(						KC_PWR, \
+		   KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,KC_EQL, KC_BSPC, KC_FN1,   KC_PEQL, KC_PSLS, KC_MUTE, \
+           KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_LBRC,KC_RBRC,         KC_INS,   KC_P8,   KC_PGUP,   KC_VOLU, \
+           KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_QUOT,KC_ENT,          KC_DEL,   KC_UP,   KC_PGDN,   KC_VOLD, \
+           KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, 						 KC_LEFT,  KC_DOWN,   KC_RIGHT, \
+           KC_CAPS,KC_LALT,KC_LGUI,KC_GRV, KC_SPC, KC_BSLS,KC_LEFT,KC_RGHT,KC_DOWN,KC_UP,                                    KC_P0,    KC_PDOT, KC_PENT),
 };
 
 

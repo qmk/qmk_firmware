@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "suart.h"
 #include "timer.h"
 #include "debug.h"
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "command.h"
 
 
@@ -320,59 +320,59 @@ static uint8_t console_command(uint8_t c)
 static uint8_t key2asc(uint8_t key)
 {
     switch (key) {
-        case KB_A: return 'a';
-        case KB_B: return 'b';
-        case KB_C: return 'c';
-        case KB_D: return 'd';
-        case KB_E: return 'e';
-        case KB_F: return 'f';
-        case KB_G: return 'g';
-        case KB_H: return 'h';
-        case KB_I: return 'i';
-        case KB_J: return 'j';
-        case KB_K: return 'k';
-        case KB_L: return 'l';
-        case KB_M: return 'm';
-        case KB_N: return 'n';
-        case KB_O: return 'o';
-        case KB_P: return 'p';
-        case KB_Q: return 'q';
-        case KB_R: return 'r';
-        case KB_S: return 's';
-        case KB_T: return 't';
-        case KB_U: return 'u';
-        case KB_V: return 'v';
-        case KB_W: return 'w';
-        case KB_X: return 'x';
-        case KB_Y: return 'y';
-        case KB_Z: return 'z';
-        case KB_1: return '1';
-        case KB_2: return '2';
-        case KB_3: return '3';
-        case KB_4: return '4';
-        case KB_5: return '5';
-        case KB_6: return '6';
-        case KB_7: return '7';
-        case KB_8: return '8';
-        case KB_9: return '9';
-        case KB_0: return '0';
-        case KB_ENTER: return '\n';
-        case KB_ESCAPE: return 0x1B;
-        case KB_BSPACE: return '\b';
-        case KB_TAB: return '\t';
-        case KB_SPACE: return ' ';
-        case KB_MINUS: return '-';
-        case KB_EQUAL: return '=';
-        case KB_LBRACKET: return '[';
-        case KB_RBRACKET: return ']';
-        case KB_BSLASH: return '\\';
-        case KB_NONUS_HASH: return '\\';
-        case KB_SCOLON: return ';';
-        case KB_QUOTE: return '\'';
-        case KB_GRAVE: return '`';
-        case KB_COMMA: return ',';
-        case KB_DOT: return '.';
-        case KB_SLASH: return '/';
+        case KC_A: return 'a';
+        case KC_B: return 'b';
+        case KC_C: return 'c';
+        case KC_D: return 'd';
+        case KC_E: return 'e';
+        case KC_F: return 'f';
+        case KC_G: return 'g';
+        case KC_H: return 'h';
+        case KC_I: return 'i';
+        case KC_J: return 'j';
+        case KC_K: return 'k';
+        case KC_L: return 'l';
+        case KC_M: return 'm';
+        case KC_N: return 'n';
+        case KC_O: return 'o';
+        case KC_P: return 'p';
+        case KC_Q: return 'q';
+        case KC_R: return 'r';
+        case KC_S: return 's';
+        case KC_T: return 't';
+        case KC_U: return 'u';
+        case KC_V: return 'v';
+        case KC_W: return 'w';
+        case KC_X: return 'x';
+        case KC_Y: return 'y';
+        case KC_Z: return 'z';
+        case KC_1: return '1';
+        case KC_2: return '2';
+        case KC_3: return '3';
+        case KC_4: return '4';
+        case KC_5: return '5';
+        case KC_6: return '6';
+        case KC_7: return '7';
+        case KC_8: return '8';
+        case KC_9: return '9';
+        case KC_0: return '0';
+        case KC_ENTER: return '\n';
+        case KC_ESCAPE: return 0x1B;
+        case KC_BSPACE: return '\b';
+        case KC_TAB: return '\t';
+        case KC_SPACE: return ' ';
+        case KC_MINUS: return '-';
+        case KC_EQUAL: return '=';
+        case KC_LBRACKET: return '[';
+        case KC_RBRACKET: return ']';
+        case KC_BSLASH: return '\\';
+        case KC_NONUS_HASH: return '\\';
+        case KC_SCOLON: return ';';
+        case KC_QUOTE: return '\'';
+        case KC_GRAVE: return '`';
+        case KC_COMMA: return ',';
+        case KC_DOT: return '.';
+        case KC_SLASH: return '/';
         default: return 0x00;
     }
 }

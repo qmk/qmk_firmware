@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "usb_hid.h"
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "util.h"
 #include "print.h"
 #include "debug.h"
