@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "debug.h"
+#include "print.h"
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
@@ -228,24 +228,21 @@ uint16_t matrix_get_row(uint8_t row)
     return matrix[row];
 }
 
-void matrix_debug(void)
+void matrix_print(void)
 {
-    if (!debug_matrix)
-        return;
-
 #if (MATRIX_COLS <= 8)
-    debug("\nr/c 01234567\n");
+    print("\nr/c 01234567\n");
 #else
-    debug("\nr/c 0123456789ABCDEF\n");
+    print("\nr/c 0123456789ABCDEF\n");
 #endif
     for (uint8_t row = 0; row < matrix_rows(); row++) {
-        debug_hex(row); debug(": ");
+        phex(row); print(": ");
 #if (MATRIX_COLS <= 8)
-        debug_bin_reverse(matrix_get_row(row));
+        pbin_reverse(matrix_get_row(row));
 #else
-        debug_bin_reverse16(matrix_get_row(row));
+        pbin_reverse16(matrix_get_row(row));
 #endif
-        debug("\n");
+        print("\n");
     }
 }
 

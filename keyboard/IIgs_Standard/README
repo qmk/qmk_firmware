@@ -39,7 +39,7 @@ To Do
 0. When DEBOUNCE defined, there is a errors.
 1. Layer Change by toggling Clear Key
 2. Eject Key add. (following files should be modified.)
-		common/usb_keycodes.h
+		common/keycode.h
 		common/keyboard.c
 3. Use bluetooth
 EOF

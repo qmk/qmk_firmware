@@ -23,7 +23,7 @@
 
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "usb_keyboard.h"
 #include "print.h"
 #include "debug.h"
