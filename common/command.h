@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef COMMAND_H
 #define COMMAND
 
-uint8_t command_proc(void);
+bool command_proc(uint8_t code);
 /* This allows to extend commands. Return 0 when command is not processed. */
-uint8_t command_extra(void);
+bool command_extra(uint8_t code);
 
 #endif

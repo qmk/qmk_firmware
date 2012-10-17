@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -37,15 +37,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K67, K16, K26, K36, K46, K47, K57, K56, K66, K76, K87, K32, K35, \
     K75, K22, K00, K07, K21, K04, K37, K27, K17 \
 ) { \
-    { KB_##K00, KB_##K01, KB_##K02, KB_NO,    KB_##K04, KB_NO,    KB_##K06, KB_##K07 }, \
-    { KB_##K10, KB_##K11, KB_##K12, KB_##K13, KB_##K14, KB_##K15, KB_##K16, KB_##K17 }, \
-    { KB_##K20, KB_##K21, KB_##K22, KB_##K23, KB_##K24, KB_NO,    KB_##K26, KB_##K27 }, \
-    { KB_##K30, KB_NO,    KB_##K32, KB_##K33, KB_##K34, KB_##K35, KB_##K36, KB_##K37 }, \
-    { KB_##K40, KB_##K41, KB_##K42, KB_##K43, KB_##K44, KB_##K45, KB_##K46, KB_##K47 }, \
-    { KB_##K50, KB_##K51, KB_##K52, KB_##K53, KB_##K54, KB_##K55, KB_##K56, KB_##K57 }, \
-    { KB_##K60, KB_##K61, KB_##K62, KB_##K63, KB_##K64, KB_NO,    KB_##K66, KB_##K67 }, \
-    { KB_##K70, KB_NO,    KB_NO,    KB_##K73, KB_##K74, KB_##K75, KB_##K76, KB_NO    }, \
-    { KB_##K80, KB_##K81, KB_##K82, KB_##K83, KB_##K84, KB_##K85, KB_NO,    KB_##K87 } \
+    { KC_##K00, KC_##K01, KC_##K02, KC_NO,    KC_##K04, KC_NO,    KC_##K06, KC_##K07 }, \
+    { KC_##K10, KC_##K11, KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_##K17 }, \
+    { KC_##K20, KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_NO,    KC_##K26, KC_##K27 }, \
+    { KC_##K30, KC_NO,    KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_##K37 }, \
+    { KC_##K40, KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_##K47 }, \
+    { KC_##K50, KC_##K51, KC_##K52, KC_##K53, KC_##K54, KC_##K55, KC_##K56, KC_##K57 }, \
+    { KC_##K60, KC_##K61, KC_##K62, KC_##K63, KC_##K64, KC_NO,    KC_##K66, KC_##K67 }, \
+    { KC_##K70, KC_NO,    KC_NO,    KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    }, \
+    { KC_##K80, KC_##K81, KC_##K82, KC_##K83, KC_##K84, KC_##K85, KC_NO,    KC_##K87 } \
 }
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
@@ -66,14 +66,14 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_NO,          // Fn0
-    KB_NO,          // Fn1
-    KB_SLSH,        // Fn2
-    KB_SCLN,        // Fn3
-    KB_SPC,         // Fn4
-    KB_NO,          // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_NO,          // Fn0
+    KC_NO,          // Fn1
+    KC_SLSH,        // Fn2
+    KC_SCLN,        // Fn3
+    KC_SPC,         // Fn4
+    KC_NO,          // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

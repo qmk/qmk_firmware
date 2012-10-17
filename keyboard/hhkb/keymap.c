@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "host.h"
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -39,14 +39,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          K35, K36,           K37,                K57, K56 \
 ) \
 { \
-    { KB_##K00, KB_##K01, KB_##K02, KB_##K03, KB_##K04, KB_##K05, KB_##K06, KB_##K07 }, \
-    { KB_##K10, KB_##K11, KB_##K12, KB_##K13, KB_##K14, KB_##K15, KB_##K16, KB_##K17 }, \
-    { KB_##K20, KB_##K21, KB_##K22, KB_##K23, KB_##K24, KB_##K25, KB_##K26, KB_NO    }, \
-    { KB_##K30, KB_##K31, KB_##K32, KB_##K33, KB_##K34, KB_##K35, KB_##K36, KB_##K37 }, \
-    { KB_##K40, KB_##K41, KB_##K42, KB_##K43, KB_##K44, KB_##K45, KB_##K46, KB_NO    }, \
-    { KB_##K50, KB_##K51, KB_##K52, KB_##K53, KB_##K54, KB_##K55, KB_##K56, KB_##K57 }, \
-    { KB_##K60, KB_##K61, KB_##K62, KB_##K63, KB_##K64, KB_##K65, KB_##K66, KB_NO    }, \
-    { KB_##K70, KB_##K71, KB_##K72, KB_##K73, KB_##K74, KB_##K75, KB_##K76, KB_NO    } \
+    { KC_##K00, KC_##K01, KC_##K02, KC_##K03, KC_##K04, KC_##K05, KC_##K06, KC_##K07 }, \
+    { KC_##K10, KC_##K11, KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_##K17 }, \
+    { KC_##K20, KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_NO    }, \
+    { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_##K37 }, \
+    { KC_##K40, KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_NO    }, \
+    { KC_##K50, KC_##K51, KC_##K52, KC_##K53, KC_##K54, KC_##K55, KC_##K56, KC_##K57 }, \
+    { KC_##K60, KC_##K61, KC_##K62, KC_##K63, KC_##K64, KC_##K65, KC_##K66, KC_NO    }, \
+    { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    } \
 }
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
@@ -59,7 +59,7 @@ static const uint8_t PROGMEM fn_layer[] = {
     2,              // Fn2
     3,              // Fn3
     3,              // Fn4
-    4,              // Fn5
+    5,              // Fn5
     0,              // Fn6
     0               // Fn7
 };
@@ -67,14 +67,14 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_NO,          // Fn0
-    KB_NO,          // Fn1
-    KB_SLSH,        // Fn2
-    KB_SCLN,        // Fn3
-    KB_NO,          // Fn4
-    KB_SPC,         // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_NO,          // Fn0
+    KC_NO,          // Fn1
+    KC_SLSH,        // Fn2
+    KC_SCLN,        // Fn3
+    KC_NO,          // Fn4
+    KC_SPC,         // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -95,7 +95,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,ENT, \
            LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
-                LGUI,LALT,          SPC,                RALT,FN4),
+                LGUI,LALT,          FN5,                RALT,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -151,10 +151,10 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 #ifdef HOST_IWRAP
 // iWRAP does not support mouse wheel, use these keycodes to remap as wheel
-#define KB_KPPL KB_KP_PLUS
-#define KB_KPMI KB_KP_MINUS
-#define KB_KPAS KB_KP_ASTERISK
-#define KB_KPSL KB_KP_SLASH
+#define KC_KPPL KC_KP_PLUS
+#define KC_KPMI KC_KP_MINUS
+#define KC_KPAS KC_KP_ASTERISK
+#define KC_KPSL KC_KP_SLASH
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, KPAS,KPPL,MS_U,KPMI,KPSL,KPAS,KPPL,KPMI,KPSL,NO,  NO,  NO,  BSPC, \
            LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
@@ -162,9 +162,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 LGUI,LALT,          BTN1,               RALT,FN4),
 #else
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, WH_L,WH_U,MS_U,WH_D,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
-           LSFT,BTN4,BTN5,BTN1,BTN2,BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
+           TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
+           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
+           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
                 LGUI,LALT,          BTN1,               RALT,FN4),
 #endif
 
@@ -181,14 +181,13 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *      |Gui |Alt  |xxxxxxxxxxxxxxxxxxxxxxx|Alt  |Gui|
      *      `--------------------------------------------'
      */
-/*
     KEYMAP(MINS,0,   9,   8,   7,   6,   5,   4,   3,   2,   1,   NO,  NO,  NO,  ESC, \
            BSPC,P,   O,   I,   U,   Y,   T,   R,   E,   W,   Q,   NO,  NO,  TAB, \
            LCTL,SCLN,L,   K,   J,   H,   G,   F,   D,   S,   A,   RCTL,RCTL, \
            LSFT,SLSH,DOT, COMM,M,   N,   B,   V,   C,   X,   Z,   RSFT,NO, \
-                LGUI,LALT,          FN5,                RALT,RGUI)
-*/
-    /* Mouse mode (Space) */
+                LGUI,LALT,          FN5,                RALT,RGUI),
+
+    /* Layer5: another Mouse mode (Space) */
 #ifdef HOST_IWRAP
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, KPAS,KPPL,MS_U,KPMI,KPSL,KPAS,KPPL,KPMI,KPSL,NO,  NO,  NO,  BSPC, \
@@ -197,9 +196,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 LGUI,LALT,          FN5,                RALT,RGUI),
 #else
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, WH_L,WH_U,MS_U,WH_D,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
-           LSFT,BTN4,BTN5,BTN1,BTN2,BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
+           TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
+           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
+           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
                 LGUI,LALT,          FN5,                RALT,RGUI),
 #endif
 };
@@ -210,12 +209,12 @@ uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
     return KEYCODE(layer, row, col);
 }
 
-uint8_t keymap_fn_layer(uint8_t fn_bits)
+uint8_t keymap_fn_layer(uint8_t index)
 {
-    return pgm_read_byte(&fn_layer[biton(fn_bits)]);
+    return pgm_read_byte(&fn_layer[index]);
 }
 
-uint8_t keymap_fn_keycode(uint8_t fn_bits)
+uint8_t keymap_fn_keycode(uint8_t index)
 {
-    return pgm_read_byte(&fn_keycode[(biton(fn_bits))]);
+    return pgm_read_byte(&fn_keycode[index]);
 }

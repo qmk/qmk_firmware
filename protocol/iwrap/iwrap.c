@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "suart.h"
 #include "uart.h"
 #include "report.h"

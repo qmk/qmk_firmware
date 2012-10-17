@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keycodes.h"
+#include "keycode.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -50,23 +50,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K12,K13,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,    K51,K59,      K63,      K69,K72,K7A,K79, \
     K11,    K19,            K29,                    K39,    K58,  K61,K60,K6A,  K68,K70,K71,K78  \
 ) { \
-    { KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_##K07 }, \
-    { KB_##K08, KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_##K0D, KB_##K0E, KB_##K0F }, \
-    { KB_NO,    KB_##K11, KB_##K12, KB_##K13, KB_##K14, KB_##K15, KB_##K16, KB_##K17 }, \
-    { KB_NO,    KB_##K19, KB_##K1A, KB_##K1B, KB_##K1C, KB_##K1D, KB_##K1E, KB_##K1F }, \
-    { KB_NO,    KB_##K21, KB_##K22, KB_##K23, KB_##K24, KB_##K25, KB_##K26, KB_##K27 }, \
-    { KB_NO,    KB_##K29, KB_##K2A, KB_##K2B, KB_##K2C, KB_##K2D, KB_##K2E, KB_##K2F }, \
-    { KB_NO,    KB_##K31, KB_##K32, KB_##K33, KB_##K34, KB_##K35, KB_##K36, KB_##K37 }, \
-    { KB_NO,    KB_##K39, KB_##K3A, KB_##K3B, KB_##K3C, KB_##K3D, KB_##K3E, KB_##K3F }, \
-    { KB_NO,    KB_##K41, KB_##K42, KB_##K43, KB_##K44, KB_##K45, KB_##K46, KB_##K47 }, \
-    { KB_NO,    KB_##K49, KB_##K4A, KB_##K4B, KB_##K4C, KB_##K4D, KB_##K4E, KB_##K4F }, \
-    { KB_NO,    KB_##K51, KB_##K52, KB_##K53, KB_##K54, KB_##K55, KB_##K56, KB_##K57 }, \
-    { KB_##K58, KB_##K59, KB_##K5A, KB_##K5B, KB_##K5C, KB_##K5D, KB_##K5E, KB_##K5F }, \
-    { KB_##K60, KB_##K61, KB_##K62, KB_##K63, KB_##K64, KB_##K65, KB_##K66, KB_##K67 }, \
-    { KB_##K68, KB_##K69, KB_##K6A, KB_##K6B, KB_##K6C, KB_##K6D, KB_##K6E, KB_##K6F }, \
-    { KB_##K70, KB_##K71, KB_##K72, KB_##K73, KB_##K74, KB_##K75, KB_##K76, KB_##K77 }, \
-    { KB_##K78, KB_##K79, KB_##K7A, KB_##K7B, KB_##K7C, KB_##K7D, KB_##K7E, KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_##K84, KB_NO,    KB_NO,    KB_NO,   }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K07 }, \
+    { KC_##K08, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K0D, KC_##K0E, KC_##K0F }, \
+    { KC_NO,    KC_##K11, KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_##K17 }, \
+    { KC_NO,    KC_##K19, KC_##K1A, KC_##K1B, KC_##K1C, KC_##K1D, KC_##K1E, KC_##K1F }, \
+    { KC_NO,    KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_##K27 }, \
+    { KC_NO,    KC_##K29, KC_##K2A, KC_##K2B, KC_##K2C, KC_##K2D, KC_##K2E, KC_##K2F }, \
+    { KC_NO,    KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_##K37 }, \
+    { KC_NO,    KC_##K39, KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E, KC_##K3F }, \
+    { KC_NO,    KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_##K47 }, \
+    { KC_NO,    KC_##K49, KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E, KC_##K4F }, \
+    { KC_NO,    KC_##K51, KC_##K52, KC_##K53, KC_##K54, KC_##K55, KC_##K56, KC_##K57 }, \
+    { KC_##K58, KC_##K59, KC_##K5A, KC_##K5B, KC_##K5C, KC_##K5D, KC_##K5E, KC_##K5F }, \
+    { KC_##K60, KC_##K61, KC_##K62, KC_##K63, KC_##K64, KC_##K65, KC_##K66, KC_##K67 }, \
+    { KC_##K68, KC_##K69, KC_##K6A, KC_##K6B, KC_##K6C, KC_##K6D, KC_##K6E, KC_##K6F }, \
+    { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_##K77 }, \
+    { KC_##K78, KC_##K79, KC_##K7A, KC_##K7B, KC_##K7C, KC_##K7D, KC_##K7E, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K84, KC_NO,    KC_NO,    KC_NO,   }, \
 }
 
 
@@ -85,14 +85,14 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_SCLN,        // Fn0
-    KB_SLSH,        // Fn1
-    KB_ESC,         // Fn2
-    KB_NO,          // Fn3
-    KB_NO,          // Fn4
-    KB_NO,          // Fn5
-    KB_NO,          // Fn6
-    KB_NO           // Fn7
+    KC_SCLN,        // Fn0
+    KC_SLSH,        // Fn1
+    KC_ESC,         // Fn2
+    KC_NO,          // Fn3
+    KC_NO,          // Fn4
+    KC_NO,          // Fn5
+    KC_NO,          // Fn6
+    KC_NO           // Fn7
 };
 
 

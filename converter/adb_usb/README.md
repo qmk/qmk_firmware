@@ -33,7 +33,7 @@ Keymap
 ------
 You can change a keymap by editing code of keymap.c like following.
 This is a keymap for AEK, however, also used for other keyboards.
-How to define the keymap is probably obvious. You can find key symbols in usb_keycodes.h.
+How to define the keymap is probably obvious. You can find key symbols in keycode.h.
 If you want to define some keymaps than just one, see hhkb/keymap.c and
 macway/keymap.c as examples. Keymap(layer) switching may needs a bit of
 effort at this time.

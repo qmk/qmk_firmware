@@ -35,16 +35,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
 
 /* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_RSHIFT))) 
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 192
+#   define MOUSEKEY_DELAY_TIME 100
 #endif
 
 

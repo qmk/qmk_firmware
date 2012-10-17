@@ -86,6 +86,6 @@ int main(void)
 
     host_set_driver(pjrc_driver());
     while (1) {
-       keyboard_proc(); 
+       keyboard_task(); 
     }
 }

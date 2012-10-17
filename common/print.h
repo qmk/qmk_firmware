@@ -45,6 +45,7 @@ void print_S(const char *s);
 void print_P(const char *s);
 void phex(unsigned char c);
 void phex16(unsigned int i);
+void pdec(uint8_t i);
 void pbin(unsigned char c);
 void pbin_reverse(unsigned char c);
 #ifdef __cplusplus
