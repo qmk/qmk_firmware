@@ -31,32 +31,40 @@ extern "C" {
 extern bool keyboard_nkro;
 #endif
 
+/* report */
 extern report_keyboard_t *keyboard_report;
-extern report_keyboard_t *keyboard_report_prev;
+extern report_mouse_t mouse_report;
 
 
+/* host driver */
 void host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
+
+/* host driver interface */
 uint8_t host_keyboard_leds(void);
-
-/* keyboard report operations */
-void host_add_key(uint8_t key);
-void host_del_key(uint8_t key);
-void host_add_mod_bit(uint8_t mod);
-void host_del_mod_bit(uint8_t mod);
-void host_set_mods(uint8_t mods);
-void host_add_code(uint8_t code);
-void host_del_code(uint8_t code);
-void host_swap_keyboard_report(void);
-void host_clear_keyboard_report(void);
-uint8_t host_has_anykey(void);
-uint8_t host_get_first_key(void);
-
-
-void host_send_keyboard_report(void);
+void host_keyboard_send(report_keyboard_t *report);
 void host_mouse_send(report_mouse_t *report);
 void host_system_send(uint16_t data);
 void host_consumer_send(uint16_t data);
+
+/* keyboard report utils */
+void host_add_key(uint8_t key);
+void host_del_key(uint8_t key);
+void host_clear_keys(void);
+void host_add_mod_bit(uint8_t mod);
+void host_del_mod_bit(uint8_t mod);
+void host_set_mods(uint8_t mods);
+void host_clear_mods(void);
+uint8_t host_has_anykey(void);
+uint8_t host_has_anymod(void);
+uint8_t host_get_first_key(void);
+void host_send_keyboard_report(void);
+
+/* mouse report utils */
+uint8_t host_mouse_in_use(void);
+
+uint16_t host_last_sysytem_report(void);
+uint16_t host_last_consumer_report(void);
 
 #ifdef __cplusplus
 }

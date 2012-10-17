@@ -75,6 +75,14 @@ void phex16(unsigned int i)
 	phex(i);
 }
 
+void pdec(uint8_t i)
+{
+    if (!print_enable) return;
+    if (i/100) sendchar('0' + (i/100));
+    if (i/100 || i%100/10) sendchar('0' + (i%100/10));
+    sendchar('0' + (i%10));
+}
+
 
 void pbin(unsigned char c)
 {

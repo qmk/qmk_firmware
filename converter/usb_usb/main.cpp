@@ -88,7 +88,7 @@ uint16_t timer;
 DDRF = (1<<7);
     for (;;) {
 PORTF ^= (1<<7);
-        keyboard_proc();
+        keyboard_task();
 
 timer = timer_read();
         usb_host.Task();

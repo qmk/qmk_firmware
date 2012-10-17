@@ -42,12 +42,12 @@ void vusb_transfer_keyboard(void)
     if (usbInterruptIsReady()) {
         if (kbuf_head != kbuf_tail) {
             usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-            if (!debug_keyboard) {
-                print("keys: ");
-                for (int i = 0; i < REPORT_KEYS; i++) { phex(kbuf[kbuf_tail].keys[i]); print(" "); }
-                print(" mods: "); phex((kbuf[kbuf_tail]).mods); print("\n");
-            }
             kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+            if (debug_keyboard) {
+                print("V-USB: kbuf["); pdec(kbuf_tail); print("->"); pdec(kbuf_head); print("](");
+                phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                print(")\n");
+            }
         }
     }
 }
@@ -164,8 +164,8 @@ usbRequest_t    *rq = (void *)data;
         if(rq->bRequest == USBRQ_HID_GET_REPORT){
             debug("GET_REPORT:");
             /* we only have one report type, so don't look at wValue */
-            usbMsgPtr = (void *)keyboard_report_prev;
-            return sizeof(*keyboard_report_prev);
+            usbMsgPtr = (void *)keyboard_report;
+            return sizeof(*keyboard_report);
         }else if(rq->bRequest == USBRQ_HID_GET_IDLE){
             debug("GET_IDLE: ");
             //debug_hex(vusb_idle_rate);
