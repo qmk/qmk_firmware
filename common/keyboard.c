@@ -563,7 +563,7 @@ void keyboard_task(void)
         matrix_row = matrix_get_row(r);
         matrix_change = matrix_row ^ matrix_prev[r];
         if (matrix_change) {
-            matrix_debug();
+            if (debug_matrix) matrix_print();
 
             for (int c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & (1<<c)) {

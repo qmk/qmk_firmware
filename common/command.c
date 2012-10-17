@@ -46,10 +46,12 @@ static bool command_common(uint8_t code);
 static void command_common_help(void);
 static bool command_console(uint8_t code);
 static void command_console_help(void);
+#ifdef MOUSEKEY_ENABLE
 static bool mousekey_console(uint8_t code);
 static void mousekey_console_help(void);
+#endif
 
-static uint8_t kc2int(uint8_t code);
+static uint8_t numkey2num(uint8_t code);
 static void switch_layer(uint8_t layer);
 static void clear_keyboard(void);
 
@@ -68,9 +70,11 @@ bool command_proc(uint8_t code)
         case CONSOLE:
             command_console(code);
             break;
+#ifdef MOUSEKEY_ENABLE
         case MOUSEKEY:
             mousekey_console(code);
             break;
+#endif
         default:
             state = ONESHOT;
             return false;
@@ -111,12 +115,24 @@ static void command_common_help(void)
     print("3/F3:	switch to Layer3 \n");
     print("4/F4:	switch to Layer4 \n");
     print("PScr:	power down/remote wake-up\n");
+    print("Caps:	Lock Keyboard(Child Proof)\n");
     print("Paus:	jump to bootloader\n");
 }
 
 static bool command_common(uint8_t code)
 {
+    static host_driver_t *host_driver = 0;
     switch (code) {
+        case KC_CAPSLOCK:
+            if (host_get_driver()) {
+                host_driver = host_get_driver();
+                host_set_driver(0);
+                print("Locked.\n");
+            } else {
+                host_set_driver(host_driver);
+                print("Unlocked.\n");
+            }
+            break;
         case KC_H:
         case KC_SLASH: /* ? */
             command_common_help();
@@ -241,6 +257,7 @@ static bool command_common(uint8_t code)
             }
 #else
             host_system_send(SYSTEM_POWER_DOWN);
+            _delay_ms(100);
             host_system_send(0);
             _delay_ms(500);
 #endif
@@ -478,7 +495,7 @@ static bool mousekey_console(uint8_t code)
         case KC_8:
         case KC_9:
         case KC_0:
-            mousekey_param = kc2int(code);
+            mousekey_param = numkey2num(code);
             print("selected parameter: "); pdec(mousekey_param); print("\n");
             break;
         case KC_UP:
@@ -515,7 +532,7 @@ static bool mousekey_console(uint8_t code)
 /***********************************************************
  * Utilities
  ***********************************************************/
-static uint8_t kc2int(uint8_t code)
+static uint8_t numkey2num(uint8_t code)
 {
     switch (code) {
         case KC_1: return 1;
