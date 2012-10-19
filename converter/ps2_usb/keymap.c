@@ -368,12 +368,12 @@ uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
     return pgm_read_byte(&keymaps[(layer)][(row)][(col)]);
 }
 
-uint8_t keymap_fn_layer(uint8_t fn_bits)
+uint8_t keymap_fn_layer(uint8_t index)
 {
-    return pgm_read_byte(&fn_layer[biton(fn_bits)]);
+    return pgm_read_byte(&fn_layer[index]);
 }
 
-uint8_t keymap_fn_keycode(uint8_t fn_bits)
+uint8_t keymap_fn_keycode(uint8_t index)
 {
-    return pgm_read_byte(&fn_keycode[(biton(fn_bits))]);
+    return pgm_read_byte(&fn_keycode[index]);
 }
