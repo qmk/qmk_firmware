@@ -18,11 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-/* controller configuration */
-#include "controller_teensy.h"
-
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x3333
+#define DEVICE_VER      0x0100
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Sun keyboard converter
 #define DESCRIPTION     converts Sun keyboard protocol into USB
@@ -36,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSHIFT)) \
+    keyboard_report->mods == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
 
@@ -44,18 +43,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *     asynchronous, negative logic, 1200baud, no flow control
  *     1-start bit, 8-data bit, non parity, 1-stop bit
  */
-#ifdef __AVR_ATmega32U4__
-#   define SERIAL_RX_VECT        USART1_RX_vect
-#   define SERIAL_RX_DATA        UDR1
-#   define SERIAL_RX_BAUD        1200
-#   define SERIAL_RX_UBBR        ((F_CPU/(16UL*SERIAL_RX_BAUD))-1)
-#   define SERIAL_RX_INIT()      do { \
-        UBRR1L = (uint8_t) SERIAL_RX_UBBR; \
-        UBRR1H = (uint8_t) (SERIAL_RX_UBBR>>8); \
-        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1); \
-    } while(0)
-#else
-#   error "Serial(USART) configuration is needed."
-#endif
+#define SERIAL_NEGATIVE_LOGIC
+#define SERIAL_BAUD 1200
+#define SERIAL_RXD_DDR  DDRD
+#define SERIAL_RXD_PORT PORTD
+#define SERIAL_RXD_PIN  PIND
+#define SERIAL_RXD_BIT  2
+#define SERIAL_RXD_VECT INT2_vect
+#define SERIAL_RXD_INIT()  do { \
+    /* pin configuration: input with pull-up */ \
+    SERIAL_RXD_DDR &= ~(1<<SERIAL_RXD_BIT);     \
+    SERIAL_RXD_PORT |= (1<<SERIAL_RXD_BIT);     \
+    /* enable interrupt: INT2(rising edge) */   \
+    EICRA |= ((1<<ISC21)|(1<<ISC20));           \
+    EIMSK |= (1<<INT2);                         \
+} while (0)
+#define SERIAL_RXD_INT_ENTER()
+#define SERIAL_RXD_INT_EXIT() do {  \
+    /* clear interrupt  flag */     \
+    EIFR = (1<<INTF2);              \
+} while (0)
 
 #endif

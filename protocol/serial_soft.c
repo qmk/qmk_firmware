@@ -38,12 +38,19 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdbool.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include "serial.h"
 
+/*
+ *  Stupid Inefficient Busy-wait Software Serial
+ *  is still useful for negative logic signal like Sun protocol not supported by hardware USART.
+ */
+
+#define WAIT_US     (1000000/SERIAL_BAUD)
 
 void serial_init(void)
 {
-    SERIAL_RX_INIT();
+    SERIAL_RXD_INIT();
 }
 
 // RX ring buffer
@@ -64,12 +71,44 @@ uint8_t serial_recv(void)
     return data;
 }
 
-// USART RX complete interrupt
-ISR(SERIAL_RX_VECT)
+//ISR(INT2_vect)
+ISR(SERIAL_RXD_VECT)
 {
+    SERIAL_RXD_INT_ENTER()
+
+    uint8_t data = 0;
+#ifdef SERIAL_BIT_ORDER_MSB
+    uint8_t pos = 0x80;
+#else
+    uint8_t pos = 0x01;
+#endif
+    // to center of start bit
+    _delay_us(WAIT_US/2);
+    do {
+        // to center of next bit
+        _delay_us(WAIT_US);
+
+        if (SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT)) {
+            data |= pos;
+        }
+#ifdef SERIAL_BIT_ORDER_MSB
+        pos >>= 1;
+#else
+        pos <<= 1;
+#endif
+    } while (pos);
+    // to center of stop bit
+    _delay_us(WAIT_US);
+
+#ifdef SERIAL_NEGATIVE_LOGIC
+    data = ~data;
+#endif
+
     uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
     if (next != rbuf_tail) {
-        rbuf[rbuf_head] = SERIAL_RX_DATA;
+        rbuf[rbuf_head] = data;
         rbuf_head = next;
     }
+
+    SERIAL_RXD_INT_EXIT();
 }
