@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
-#include "serial.h"
 #include "matrix.h"
 #include "debug.h"
+#include "protocol/serial.h"
 
 
 /*
@@ -41,39 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  E|70 ... 77|
  *  F|78 ... 7F|
  *   +---------+
- *
- * Command From System To Keyboard
- * 0x01 Reset
- * 0x02 Bell On
- * 0x03 Bell Off
- * 0x0A Click On
- * 0x0B Click Off
- * 0x0E LED
- * 0x0F Layout
- *
- * Command From Keyboard To System
- * 0x7F Idle
- * 0xFE Layout Response
- * 0xFF Reset Response(followed by 0x04)
- *
- * bit: 3       2       1       0
- * LED: CapsLk  ScrLk   Compose NumLk
- *      
- * Connector
- *   8Pin mini DIN
- *      8  7  6
- *     5    4  3
- *       2   1
- *     receptacle
- *
- * 1: GND
- * 2: GND
- * 3: 5V
- * 4: RX/TX(Mouse)
- * 5: RX
- * 6: TX
- * 7: GND
- * 8: 5V
  */
 static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      ((code>>3)&0xF)
@@ -113,14 +80,26 @@ uint8_t matrix_scan(void)
 
     uint8_t code;
     code = serial_recv();
-    if (code == 0) {
-        return 0;
+    if (!code) return 0;
+
+    debug_hex(code); debug(" ");
+
+    switch (code) {
+        case 0x7E:  // reset fail
+        case 0xFE:  // layout
+        case 0xFF:  // reset success
+            _delay_ms(500);
+            // ignore response byte
+            debug("(response ignored:");
+            while ((code = serial_recv())) { debug(" "); debug_hex(code); }
+            debug(") ");
+            // FALL THROUGH
+        case 0x7F:
+            // all keys up
+            for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
+            return 0;
     }
 
-    phex(code); print("(");
-    code = ~code;
-    phex(code); print(")");
-return 0;
     if (code&0x80) {
         // break code
         if (matrix_is_on(ROW(code), COL(code))) {

@@ -1,20 +1,15 @@
 Sun to USB keyboard protocol converter
 ======================================
-
-TODO
-----
-AVR UART engine expect positive logic while Sun keyboard signal is inverted serial.
-To use AVR UART engine you need inverter in front of RX and TX pin.
-Otherwise you can software serial routine to communicate the keyboard.
-
-
-Hardware
---------
 Target MCU is ATMega32u4 but other USB capable AVR will also work.
-You can use PJRC Teensy as dev board.
-    http://www.pjrc.com/teensy/
+Supported keyboards: Sun Type 5 Keyboard, CTCSP SHORT TYPE KEYBOARD(CKUB)
+
+CTCSP SHORT TYPE KEYBOARD: http://imgur.com/a/QIv6p
+
+
+
 
 Connector
+---------
   8Pin mini DIN
      ___ ___
     /  |_|  \
@@ -24,118 +19,61 @@ Connector
      \_____/  
    (receptacle)
 
-Wiring:
-Pin mini DIN        Teensy
-----------------------------------
-1   GND             GND
-2   GND             GND
-3   5V
-4   RX/TX(Mouse)
-5   RX              PD2
-6   TX              PD3
-7   GND             GND
-8   5V              VCC
+    Wiring:
+    Pin mini DIN        MCU
+    ----------------------------------
+    1   GND             GND
+    2   GND             GND
+    3   5V
+    4   RX/TX(Mouse)
+    5   RX              PD3
+    6   TX              PD2
+    7   GND             GND
+    8   5V              VCC
 
 
-
-Firmware
+Protocol
 --------
-Build:
+Singnal: Asynchronous, Negative logic, 1200baud, No Flow control
+Frame format: 1-Start bit, 8-Data bits, No-Parity, 1-Stop bit
+
+    AVR USART engine expects positive logic while Sun keyboard signal is negative.
+    To use AVR UART engine you need exteral inverter in front of RX and TX pin.
+    Otherwise you can software serial routine to communicate the keyboard.
+
+This converter uses software method, you doesn't need any inverter part.
+
+
+Commands From System To Keyboard
+    0x01 Reset
+            Keyboard responds with following byte sequence:
+            Success: 0xFF 0x04 0x7F
+            Fail:    0x7E 0x01 0x7F
+    0x02 Bell On
+    0x03 Bell Off
+    0x0A Click On
+    0x0B Click Off
+    0x0E LED
+            followed by LED status byte:
+            bit: 3       2       1       0
+            LED: CapsLk  ScrLk   Compose NumLk
+    0x0F Layout
+            Keyboard responds with 'Layout Response' 0xFE 0xXX
+
+Commands From Keyboard To System
+    0x7F Idle
+            means no keys pressed.
+    0xFE Layout Response
+    0xFF Reset Response(followed by 0x04)
+     
+Reference
+    http://kentie.net/article/sunkbd/page2.htm
+    http://kentie.net/article/sunkbd/KBD.pdf
+
+
+Build Firmware
+--------------
+Just use 'make'
     $ cd sun_usb
     $ make
-
-And load the binary to MCU with your favorite programmer.
-If you use Teensy you can load with PJRC Teensy Loader tool.
-    http://www.pjrc.com/teensy/loader.html
-
-
-*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *
-
-
-X68000 Keyboard Protocol
-========================
-http://kyoutan.jpn.org/uts/pc/pic/x68key/
-
-
-Connector
----------
-Mini DIN 7pin(female connector on computer side)
-       7 6 5
-       o o o
-    4 o  =  o 3
-        o o
-        2 1
-
-    Mini-DIN
-    -------------
-    pin1   +5V
-    pin2   MOUSE
-    pin3   RXD
-    pin4   TXD
-    pin5   READY
-    pin6   REMOTE
-    pin7   GND
-
-
-Signaling
----------
-- TXD,RXD
-    Asynchronous, 2400baud, 1-startbit(L), 8-databit, 1-stopbit(H)
-
-- READY
-    ready/not ready(1/0)
-
-
-Data from keyboard
-------------------
-bit 7       make/break flag(0/1)
-bit 6-0     following scan code
-
-
-Data from computer
-------------------
-- LED contorol ON/OFF(0/1)
-    bit 7   1(fixed)
-    bit 6   全角
-    bit 5   ひらがな
-    bit 4   INS
-    bit 3   CAPS
-    bit 2   コード入力
-    bit 1   ローマ字
-    bit 0   かな
-
-- Repeat delay
-    bit 7   0(fixed)
-    bit 6   1(fixed)
-    bit 5   1(fixed)
-    bit 4   0(fixed)
-    bit 3-0 delay
-    REPEAT_DELAY = 200+delay*100 ms
-    default: 500ms
- 
--  Repeat time
-    bit 7   0(fixed)
-    bit 6   1(fixed)
-    bit 5   1(fixed)
-    bit 4   1(fixed)
-    bit 3-0 time
-    REPEAT_TIME = 30+time^2*5 ms
-    default: 110ms
-
-
-Scan Codes
-----------
-,---. ,---.    ,-------------------,    ,-------------------.  ,-----------. ,---------------.
-| 61| | 62|    | 63| 64| 65| 66| 67|    | 68| 69| 6A| 6B| 6C|  | 5A| 5B| 5C| | 5D| 52| 53| 54|
-`---' `---'    `-------------------'    `-------------------'  `-----------' `---------------'
-,-----------------------------------------------------------.  ,-----------. ,---------------.
-| 01| 02| 03| 04| 05| 06| 07| 08| 09| 0A| 0B| 0C| 0D| 0E| 0F|  | 36| 5E| 37| | 3F| 40| 41| 42|
-|-----------------------------------------------------------|  |------------ |---------------|
-|  10 | 11| 12| 13| 14| 15| 16| 17| 18| 19| 1A| 1B| 1C|     |  | 38| 39| 3A| | 43| 44| 45| 46|
-|------------------------------------------------------. 1D |  `---=====---' |---------------|
-|  71  | 1E| 1F| 20| 21| 2l| 23| 24| 25| 26| 27| 28| 29|    |   ___| 3C|___  | 47| 48| 49| 4A|
-|-----------------------------------------------------------|  | 3B|---| 3D| |-----------|---|
-|  70    | 2A| 2B| 2C| 2D| 2E| 2F| 30| 31| 32| 33| 34|   70 |  `---| 3E|---' | 4B| 4C| 4D|   |
-`-----------------------------------------------------------|  .---=====---. |-----------| 4E|
-       | 5F| 55 | 56 |     35     | 57 | 58 | 59 | 60|         |  72 |  73 | | 4F| 50| 51|   |
-       `---------------------------------------------'         `-----------' `---------------'
+Then, load the binary to MCU with your favorite programmer.
