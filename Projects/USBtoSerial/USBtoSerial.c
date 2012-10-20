@@ -106,17 +106,14 @@ int main(void)
 
 		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
 		uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
-		if ((TIFR0 & (1 << TOV0)) || (BufferCount > (uint8_t)(sizeof(USARTtoUSB_Buffer_Data) * .75)))
+		if (BufferCount)
 		{
 			Endpoint_SelectEndpoint(VirtualSerial_CDC_Interface.Config.DataINEndpoint.Address);
-			
+
 			/* Check if a packet is already enqueued to the host - if so, we shouldn't try to send more data
 			 * until it completes as there is a chance nothing is listening and a lengthy timeout could occur */
 			if (Endpoint_IsINReady())
 			{
-				/* Clear flush timer expiry flag */
-				TIFR0 |= (1 << TOV0);
-			
 				/* Never send more than one bank size less one byte to the host at a time, so that we don't block
 				 * while a Zero Length Packet (ZLP) to terminate the transfer is sent if the host isn't listening */
 				uint8_t BytesToSend = MIN(BufferCount, (CDC_TXRX_EPSIZE - 1));
@@ -159,9 +156,6 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-
-	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
-	TCCR0B = (1 << CS02);
 }
 
 /** Event handler for the library USB Connection event. */

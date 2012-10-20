@@ -22,7 +22,7 @@
   *   - Added workaround for broken VBUS detection on AVR8 devices when a bootloader starts the application
   *     via a software jump without first turning off the OTG pad (thanks to Simon Inns)
   *  - Library Applications:
-  *   -  <i>None</i>
+  *   -  Increased throughput in the USBtoSerial project now that data transmission is non-blocking (thanks to Joseph Lacerte)
   *
   *  <b>Fixed:</b>
   *  - Core:
