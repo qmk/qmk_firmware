@@ -96,7 +96,7 @@ void Application_Jump_Check(void)
 	{
 		/* Turn off the watchdog */
 		MCUSR &= ~(1<<WDRF);
-		wdt_disable(); 
+		wdt_disable();
 
 		/* Clear the boot key and jump to the user application */
 		MagicBootKey = 0;
@@ -129,7 +129,7 @@ int main(void)
 
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
 	USB_Detach();
-	
+
 	/* Unlock the forced application start mode of the bootloader if it is restarted */
 	MagicBootKey = MAGIC_BOOT_KEY;
 
@@ -442,7 +442,7 @@ static void CDC_Task(void)
 	}
 	else if (Command == AVR109_COMMAND_SetCurrentAddress)
 	{
-		/* Set the current address to that given by the host */
+		/* Set the current address to that given by the host (translate 16-bit word address to byte address) */
 		CurrAddress   = (FetchNextCommandByte() << 9);
 		CurrAddress  |= (FetchNextCommandByte() << 1);
 
@@ -460,7 +460,7 @@ static void CDC_Task(void)
 		for (uint8_t CurrByte = 0; CurrByte < 7; CurrByte++)
 		  WriteNextResponseByte(SOFTWARE_IDENTIFIER[CurrByte]);
 	}
-	else if (Command == AVR109_COMMAND_ReadBootloaderVersion)
+	else if (Command == AVR109_COMMAND_ReadBootloaderSWVersion)
 	{
 		WriteNextResponseByte('0' + BOOTLOADER_VERSION_MAJOR);
 		WriteNextResponseByte('0' + BOOTLOADER_VERSION_MINOR);

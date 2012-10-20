@@ -70,7 +70,7 @@
 
 		/** Magic bootloader key to unlock forced application start mode. */
 		#define MAGIC_BOOT_KEY               0xDC42
-	
+
 	/* Enums: */
 		/** Possible memory types that can be addressed via the bootloader. */
 		enum AVR109_Memories
@@ -78,7 +78,7 @@
 			MEMORY_TYPE_FLASH  = 'F',
 			MEMORY_TYPE_EEPROM = 'E',
 		};
-		
+
 		/** Possible commands that can be issued to the bootloader. */
 		enum AVR109_Commands
 		{
@@ -99,7 +99,8 @@
 			AVR109_COMMAND_WriteLockbits            = 'l',
 			AVR109_COMMAND_EraseFLASH               = 'e',
 			AVR109_COMMAND_ReadSignature            = 's',
-			AVR109_COMMAND_ReadBootloaderVersion    = 'V',
+			AVR109_COMMAND_ReadBootloaderSWVersion  = 'V',
+			AVR109_COMMAND_ReadBootloaderHWVersion  = 'v',
 			AVR109_COMMAND_ReadBootloaderIdentifier = 'S',
 			AVR109_COMMAND_ReadBootloaderInterface  = 'p',
 			AVR109_COMMAND_SetCurrentAddress        = 'A',
@@ -112,7 +113,7 @@
 			AVR109_COMMAND_ClearLED                 = 'y',
 			AVR109_COMMAND_ExitBootloader           = 'E',
 		};
-		
+
 	/* Type Defines: */
 		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */
 		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
