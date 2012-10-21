@@ -11,6 +11,7 @@ TARGET_DIR = .
 SRC =	keymap.c \
 	matrix.c \
 	led.c \
+	command_extra.c \
 	protocol/serial_soft.c
 
 CONFIG_H = config.h
