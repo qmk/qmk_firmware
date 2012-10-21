@@ -51,9 +51,10 @@ POSSIBILITY OF SUCH DAMAGE.
 void serial_init(void)
 {
     SERIAL_RXD_INIT();
+    SERIAL_TXD_INIT();
 }
 
-// RX ring buffer
+/* RX ring buffer */
 #define RBUF_SIZE   8
 static uint8_t rbuf[RBUF_SIZE];
 static uint8_t rbuf_head = 0;
@@ -71,38 +72,62 @@ uint8_t serial_recv(void)
     return data;
 }
 
-//ISR(INT2_vect)
+void serial_send(uint8_t data)
+{
+    /* signal state: IDLE: ON, START: OFF, STOP: ON, DATA0: OFF, DATA1: ON */
+    /* start bit */
+    SERIAL_TXD_OFF();
+    _delay_us(WAIT_US);
+
+#ifdef SERIAL_BIT_ORDER_MSB
+    uint8_t mask = 0x80;
+#else
+    uint8_t mask = 0x01;
+#endif
+    while (mask) {
+        if (data&mask) { SERIAL_TXD_ON(); } else { SERIAL_TXD_OFF(); }
+        _delay_us(WAIT_US);
+
+#ifdef SERIAL_BIT_ORDER_MSB
+        mask >>= 1;
+#else
+        mask <<= 1;
+#endif
+    }
+
+    /* stop bit */
+    SERIAL_TXD_ON();
+    _delay_us(WAIT_US);
+}
+
+/* detect edge of start bit */
 ISR(SERIAL_RXD_VECT)
 {
     SERIAL_RXD_INT_ENTER()
 
     uint8_t data = 0;
 #ifdef SERIAL_BIT_ORDER_MSB
-    uint8_t pos = 0x80;
+    uint8_t mask = 0x80;
 #else
-    uint8_t pos = 0x01;
+    uint8_t mask = 0x01;
 #endif
-    // to center of start bit
+    /* to center of start bit */
     _delay_us(WAIT_US/2);
     do {
-        // to center of next bit
+        /* to center of next bit */
         _delay_us(WAIT_US);
 
-        if (SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT)) {
-            data |= pos;
+        if (SERIAL_RXD_READ()) {
+            data |= mask;
         }
 #ifdef SERIAL_BIT_ORDER_MSB
-        pos >>= 1;
+        mask >>= 1;
 #else
-        pos <<= 1;
+        mask <<= 1;
 #endif
-    } while (pos);
-    // to center of stop bit
+    } while (mask);
+    /* to center of stop bit */
     _delay_us(WAIT_US);
-
-#ifdef SERIAL_NEGATIVE_LOGIC
-    data = ~data;
-#endif
 
     uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
     if (next != rbuf_tail) {

@@ -41,5 +41,6 @@ POSSIBILITY OF SUCH DAMAGE.
 /* host role */
 void serial_init(void);
 uint8_t serial_recv(void);
+void serial_send(uint8_t data);
 
 #endif
