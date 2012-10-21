@@ -555,6 +555,7 @@ void keyboard_init(void)
 void keyboard_task(void)
 {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
+    static uint8_t led_status = 0;
     matrix_row_t matrix_row = 0;
     matrix_row_t matrix_change = 0;
 
@@ -615,6 +616,12 @@ void keyboard_task(void)
             clear_keyboard();
             current_layer = default_layer;
         }
+    }
+
+    // update LED
+    if (led_status != host_keyboard_leds()) {
+        led_status = host_keyboard_leds();
+        keyboard_set_leds(led_status);
     }
 
     return;
