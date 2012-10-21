@@ -43,8 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *     asynchronous, negative logic, 1200baud, no flow control
  *     1-start bit, 8-data bit, non parity, 1-stop bit
  */
-#define SERIAL_NEGATIVE_LOGIC
 #define SERIAL_BAUD 1200
+
 #define SERIAL_RXD_DDR  DDRD
 #define SERIAL_RXD_PORT PORTD
 #define SERIAL_RXD_PIN  PIND
@@ -62,6 +62,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_RXD_INT_EXIT() do {  \
     /* clear interrupt  flag */     \
     EIFR = (1<<INTF2);              \
+} while (0)
+#define SERIAL_RXD_READ()    (~SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT))
+
+#define SERIAL_TXD_DDR  DDRD
+#define SERIAL_TXD_PORT PORTD
+#define SERIAL_TXD_PIN  PIND
+#define SERIAL_TXD_BIT  3
+/* negative logic */
+#define SERIAL_TXD_ON()     do { SERIAL_TXD_PORT &= ~(1<<SERIAL_TXD_BIT); } while (0)
+#define SERIAL_TXD_OFF()    do { SERIAL_TXD_PORT |=  (1<<SERIAL_TXD_BIT); } while (0)
+#define SERIAL_TXD_INIT()   do { \
+    /* pin configuration: output */         \
+    SERIAL_TXD_DDR |= (1<<SERIAL_TXD_BIT);  \
+    /* idle */                              \
+    SERIAL_TXD_ON();                        \
 } while (0)
 
 #endif
