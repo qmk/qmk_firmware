@@ -1,3 +1,4 @@
+/* Copyright 2012 Jun Wako <wakojun@gmail.com> */
 /* Very basic print functions, intended to be used with usb_debug_only.c
  * http://www.pjrc.com/teensy/
  * Copyright (c) 2008 PJRC.COM, LLC
@@ -36,18 +37,57 @@
 #define print(s) print_P(PSTR(s))
 #endif
 
+#define println(s)          print_P(PSTR(s "\n"))
+
+#define phex(data)              print_hex8(data)
+#define phex16(data)            print_hex16(data)
+#define pdec(data)              print_dec8(data)
+#define pdec16(data)            print_dec16(data)
+#define pbin(data)              print_bin8(data)
+#define pbin16(data)            print_bin16(data)
+#define pbin_reverse(data)      print_bin_reverse8(data)
+#define pbin_reverse16(data)    print_bin_reverse16(data)
+
+
+/* print value utility */
+#define pv_hex8(v)          do { print_P(PSTR(#v ": ")); print_hex8(v);  print_P(PSTR("\n")); } while (0)
+#define pv_hex16(v)         do { print_P(PSTR(#v ": ")); print_hex16(v); print_P(PSTR("\n")); } while (0)
+#define pv_hex32(v)         do { print_P(PSTR(#v ": ")); print_hex32(v); print_P(PSTR("\n")); } while (0)
+#define pv_dec8(v)          do { print_P(PSTR(#v ": ")); print_dec8(v);  print_P(PSTR("\n")); } while (0)
+#define pv_dec16(v)         do { print_P(PSTR(#v ": ")); print_dec16(v); print_P(PSTR("\n")); } while (0)
+#define pv_dec32(v)         do { print_P(PSTR(#v ": ")); print_dec32(v); print_P(PSTR("\n")); } while (0)
+#define pv_bin8(v)          do { print_P(PSTR(#v ": ")); print_bin8(v);  print_P(PSTR("\n")); } while (0)
+#define pv_bin16(v)         do { print_P(PSTR(#v ": ")); print_bin16(v); print_P(PSTR("\n")); } while (0)
+#define pv_bin32(v)         do { print_P(PSTR(#v ": ")); print_bin32(v); print_P(PSTR("\n")); } while (0)
+#define pv_bin_reverse8(v)  do { print_P(PSTR(#v ": ")); print_bin_reverse8(v);  print_P(PSTR("\n")); } while (0)
+#define pv_bin_reverse16(v) do { print_P(PSTR(#v ": ")); print_bin_reverse16(v); print_P(PSTR("\n")); } while (0)
+#define pv_bin_reverse32(v) do { print_P(PSTR(#v ": ")); print_bin_reverse32(v); print_P(PSTR("\n")); } while (0)
+
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* function pointer of sendchar to be used by print utility */
+extern int8_t (*print_sendchar_func)(uint8_t);
 extern bool print_enable;
 
+/* print string stored in data memory(SRAM) */
 void print_S(const char *s);
+/* print string stored in program memory(FLASH) */
 void print_P(const char *s);
-void phex(unsigned char c);
-void phex16(unsigned int i);
-void pdec(uint8_t i);
-void pbin(unsigned char c);
-void pbin_reverse(unsigned char c);
+
+void print_hex8(uint8_t data);
+void print_hex16(uint16_t data);
+void print_hex32(uint32_t data);
+void print_dec8(uint8_t data);
+void print_dec16(uint16_t data);
+void print_bin8(uint8_t data);
+void print_bin16(uint16_t data);
+void print_bin_reverse8(uint8_t data);
+void print_bin_reverse16(uint16_t data);
+
 #ifdef __cplusplus
 }
 #endif
