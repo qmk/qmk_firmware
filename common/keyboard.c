@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "command.h"
 #include "util.h"
+#include "sendchar.h"
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
@@ -544,6 +545,9 @@ static inline void process_key(keyevent_t event)
 void keyboard_init(void)
 {
     debug_keyboard = true;
+
+    // TODO: configuration of sendchar impl
+    print_sendchar_func = sendchar;
 
     timer_init();
     matrix_init();
