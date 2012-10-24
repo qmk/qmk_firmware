@@ -22,15 +22,17 @@
  * THE SOFTWARE.
  */
 
-#include <stdio.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include "print.h"
+
+
 #define sendchar(c)    do { if (print_enable && print_sendchar_func) (print_sendchar_func)(c); } while (0)
 
 
-int8_t (*print_sendchar_func)(uint8_t) = NULL;
+int8_t (*print_sendchar_func)(uint8_t) = 0;
 bool print_enable = false;
+
 
 /* print string stored in data memory(SRAM)
  *     print_P("hello world");
@@ -62,6 +64,55 @@ void print_P(const char *s)
     }
 }
 
+void print_CRLF(void)
+{
+    sendchar('\r'); sendchar('\n');
+}
+
+
+#define SIGNED  0x80
+#define BIN     2
+#define OCT     8
+#define DEC     10
+#define HEX     16
+
+static inline
+char itoc(uint8_t i)
+{
+    return (i < 10 ? '0' + i : 'A' + i - 10);
+}
+
+static inline
+void print_int(uint16_t data, uint8_t base)
+{
+    char buf[7] = {'\0'};
+    char *p = &buf[6];
+    if ((base & SIGNED) && (data & 0x8000)) {
+        data = -data;
+        buf[0] = '-';
+    }
+    base &= ~SIGNED;
+    uint16_t n;
+    do {
+        n = data;
+        data /= base;
+        *(--p) = itoc(n - data*base);
+    } while (data);
+    if (buf[0]) *(--p) = buf[0];
+    print_S(p);
+}
+
+void print_dec(uint16_t data)
+{
+    print_int(data, DEC);
+}
+
+void print_decs(int16_t data)
+{
+    print_int(data, DEC|SIGNED);
+}
+
+
 static inline
 void print_hex4(uint8_t data)
 {
@@ -86,22 +137,6 @@ void print_hex32(uint32_t data)
     print_hex16(data);
 }
 
-void print_dec8(uint8_t data)
-{
-    if (data/100) sendchar('0' + (data/100));
-    if (data/100 || data%100/10) sendchar('0' + (data%100/10));
-    sendchar('0' + (data%10));
-}
-
-void print_dec16(uint16_t data)
-{
-    // TODO
-}
-
-void print_dec32(uint32_t data)
-{
-    // TODO
-}
 
 void print_bin(uint8_t data)
 {

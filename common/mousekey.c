@@ -187,10 +187,10 @@ static void mousekey_debug(void)
     if (!debug_mouse) return;
     print("mousekey [btn|x y v h](rep/acl): [");
     phex(mouse_report.buttons); print("|");
-    phex(mouse_report.x); print(" ");
-    phex(mouse_report.y); print(" ");
-    phex(mouse_report.v); print(" ");
-    phex(mouse_report.h); print("](");
-    phex(mousekey_repeat); print("/");
-    phex(mousekey_accel); print(")\n");
+    print_decs(mouse_report.x); print(" ");
+    print_decs(mouse_report.y); print(" ");
+    print_decs(mouse_report.v); print(" ");
+    print_decs(mouse_report.h); print("](");
+    print_dec(mousekey_repeat); print("/");
+    print_dec(mousekey_accel); print(")\n");
 }

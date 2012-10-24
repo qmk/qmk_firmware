@@ -164,9 +164,6 @@ static bool command_common(uint8_t code)
                 debug_enable   = false;
             } else {
                 print("\nDEBUG: enabled.\n");
-                debug_matrix   = true;
-                debug_keyboard = true;
-                debug_mouse    = true;
                 debug_enable   = true;
             }
             break;
@@ -205,7 +202,7 @@ static bool command_common(uint8_t code)
             print("VERSION: " STR(DEVICE_VER) "\n");
             break;
         case KC_T: // print timer
-            pv_hex32(timer_count);
+            print_val_hex32(timer_count);
             break;
         case KC_P: // print toggle
             if (print_enable) {
@@ -218,20 +215,20 @@ static bool command_common(uint8_t code)
             break;
         case KC_S:
             print("\n\n----- Status -----\n");
-            pv_hex8(host_keyboard_leds());
+            print_val_hex8(host_keyboard_leds());
 #ifdef HOST_PJRC
-            pv_hex8(UDCON);
-            pv_hex8(UDIEN);
-            pv_hex8(UDINT);
-            pv_hex8(usb_keyboard_leds);
-            pv_hex8(usb_keyboard_protocol);
-            pv_hex8(usb_keyboard_idle_config);
-            pv_hex8(usb_keyboard_idle_count);
+            print_val_hex8(UDCON);
+            print_val_hex8(UDIEN);
+            print_val_hex8(UDINT);
+            print_val_hex8(usb_keyboard_leds);
+            print_val_hex8(usb_keyboard_protocol);
+            print_val_hex8(usb_keyboard_idle_config);
+            print_val_hex8(usb_keyboard_idle_count);
 #endif
 
 #ifdef HOST_VUSB
 #   if USB_COUNT_SOF
-            pv_hex8(usbSofCount);
+            print_val_hex8(usbSofCount);
 #   endif
 #endif
             break;
@@ -350,7 +347,7 @@ static void mousekey_param_print(void)
     print("6: mk_wheel_time_to_max: "); pdec(mk_wheel_time_to_max); print("\n");
 }
 
-#define PRINT_SET_VAL(v)  print(#v " = "); print_dec8(v); print("\n");
+#define PRINT_SET_VAL(v)  print(#v " = "); print_dec(v); print("\n");
 static void mousekey_param_inc(uint8_t param, uint8_t inc)
 {
     switch (param) {
@@ -552,11 +549,11 @@ static uint8_t numkey2num(uint8_t code)
 
 static void switch_layer(uint8_t layer)
 {
-    pv_hex8(current_layer);
-    pv_hex8(default_layer);
+    print_val_hex8(current_layer);
+    print_val_hex8(default_layer);
     current_layer = layer;
     default_layer = layer;
-    print("switch to "); pv_hex8(layer);
+    print("switch to "); print_val_hex8(layer);
 }
 
 static void clear_keyboard(void)
