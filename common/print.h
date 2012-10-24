@@ -34,15 +34,16 @@
 #ifndef __cplusplus
 // this macro allows you to write print("some text") and
 // the string is automatically placed into flash memory :)
-#define print(s) print_P(PSTR(s))
+#define print(s)                print_P(PSTR(s))
 #endif
 
-#define println(s)          print_P(PSTR(s "\n"))
+#define println(s)              print_P(PSTR(s "\n"))
 
+/* for old name */
+#define pdec(data)              print_dec(data)
+#define pdec16(data)            print_dec(data)
 #define phex(data)              print_hex8(data)
 #define phex16(data)            print_hex16(data)
-#define pdec(data)              print_dec8(data)
-#define pdec16(data)            print_dec16(data)
 #define pbin(data)              print_bin8(data)
 #define pbin16(data)            print_bin16(data)
 #define pbin_reverse(data)      print_bin_reverse8(data)
@@ -50,18 +51,19 @@
 
 
 /* print value utility */
-#define pv_hex8(v)          do { print_P(PSTR(#v ": ")); print_hex8(v);  print_P(PSTR("\n")); } while (0)
-#define pv_hex16(v)         do { print_P(PSTR(#v ": ")); print_hex16(v); print_P(PSTR("\n")); } while (0)
-#define pv_hex32(v)         do { print_P(PSTR(#v ": ")); print_hex32(v); print_P(PSTR("\n")); } while (0)
-#define pv_dec8(v)          do { print_P(PSTR(#v ": ")); print_dec8(v);  print_P(PSTR("\n")); } while (0)
-#define pv_dec16(v)         do { print_P(PSTR(#v ": ")); print_dec16(v); print_P(PSTR("\n")); } while (0)
-#define pv_dec32(v)         do { print_P(PSTR(#v ": ")); print_dec32(v); print_P(PSTR("\n")); } while (0)
-#define pv_bin8(v)          do { print_P(PSTR(#v ": ")); print_bin8(v);  print_P(PSTR("\n")); } while (0)
-#define pv_bin16(v)         do { print_P(PSTR(#v ": ")); print_bin16(v); print_P(PSTR("\n")); } while (0)
-#define pv_bin32(v)         do { print_P(PSTR(#v ": ")); print_bin32(v); print_P(PSTR("\n")); } while (0)
-#define pv_bin_reverse8(v)  do { print_P(PSTR(#v ": ")); print_bin_reverse8(v);  print_P(PSTR("\n")); } while (0)
-#define pv_bin_reverse16(v) do { print_P(PSTR(#v ": ")); print_bin_reverse16(v); print_P(PSTR("\n")); } while (0)
-#define pv_bin_reverse32(v) do { print_P(PSTR(#v ": ")); print_bin_reverse32(v); print_P(PSTR("\n")); } while (0)
+#define print_val_dec(v)          do { print_P(PSTR(#v ": ")); print_dec(v);  print_P(PSTR("\n")); } while (0)
+#define print_val_decs(v)          do { print_P(PSTR(#v ": ")); print_decs(v);  print_P(PSTR("\n")); } while (0)
+
+#define print_val_hex8(v)          do { print_P(PSTR(#v ": ")); print_hex8(v);  print_P(PSTR("\n")); } while (0)
+#define print_val_hex16(v)         do { print_P(PSTR(#v ": ")); print_hex16(v); print_P(PSTR("\n")); } while (0)
+#define print_val_hex32(v)         do { print_P(PSTR(#v ": ")); print_hex32(v); print_P(PSTR("\n")); } while (0)
+
+#define print_val_bin8(v)          do { print_P(PSTR(#v ": ")); print_bin8(v);  print_P(PSTR("\n")); } while (0)
+#define print_val_bin16(v)         do { print_P(PSTR(#v ": ")); print_bin16(v); print_P(PSTR("\n")); } while (0)
+#define print_val_bin32(v)         do { print_P(PSTR(#v ": ")); print_bin32(v); print_P(PSTR("\n")); } while (0)
+#define print_val_bin_reverse8(v)  do { print_P(PSTR(#v ": ")); print_bin_reverse8(v);  print_P(PSTR("\n")); } while (0)
+#define print_val_bin_reverse16(v) do { print_P(PSTR(#v ": ")); print_bin_reverse16(v); print_P(PSTR("\n")); } while (0)
+#define print_val_bin_reverse32(v) do { print_P(PSTR(#v ": ")); print_bin_reverse32(v); print_P(PSTR("\n")); } while (0)
 
 
 
@@ -78,15 +80,24 @@ void print_S(const char *s);
 /* print string stored in program memory(FLASH) */
 void print_P(const char *s);
 
+void print_CRLF(void);
+
+/* decimal */
+void print_dec(uint16_t data);
+void print_decs(int16_t data);
+
+/* hex */
 void print_hex8(uint8_t data);
 void print_hex16(uint16_t data);
 void print_hex32(uint32_t data);
-void print_dec8(uint8_t data);
-void print_dec16(uint16_t data);
+
+/* binary */
 void print_bin8(uint8_t data);
 void print_bin16(uint16_t data);
+void print_bin32(uint32_t data);
 void print_bin_reverse8(uint8_t data);
 void print_bin_reverse16(uint16_t data);
+void print_bin_reverse32(uint32_t data);
 
 #ifdef __cplusplus
 }
