@@ -57,33 +57,6 @@ int main(void)
     while (!usb_configured()) /* wait */ ;
 
     keyboard_init();
-    matrix_scan();
-    if (matrix_key_count() >= 3) {
-#ifdef DEBUG_LED
-        for (int i = 0; i < 6; i++) {
-            DEBUG_LED_CONFIG;
-            DEBUG_LED_ON;
-            _delay_ms(500);
-            DEBUG_LED_OFF;
-            _delay_ms(500);
-        }
-#else
-        _delay_ms(5000);
-#endif
-        print_enable = true;
-        debug_enable = true;
-        debug_matrix = true;
-        debug_keyboard = true;
-        debug_mouse = true;
-        print("debug enabled.\n");
-    }
-    if (matrix_key_count() >= 4) {
-        print("jump to bootloader...\n");
-        _delay_ms(1000);
-        bootloader_jump(); // not return
-    }
-
-
     host_set_driver(pjrc_driver());
     while (1) {
        keyboard_task(); 
