@@ -46,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define debug_bin_reverse16(data) do { if (debug_enable) print_bin_reverse16(data); } while (0)
 #define debug_bin_reverse32(data) do { if (debug_enable) print_bin_reverse32(data); } while (0)
 
-#define debug_dec(data)           debug_dec(data)
 #define debug_hex(data)           debug_hex8(data)
 #define debug_bin(data)           debug_bin8(data)
 #define debug_bin_reverse(data)   debug_bin8(data)

@@ -544,7 +544,7 @@ static inline void process_key(keyevent_t event)
 
 void keyboard_init(void)
 {
-    debug_keyboard = true;
+    // TODO: to enable debug print magic key bind on boot time
 
     // TODO: configuration of sendchar impl
     print_sendchar_func = sendchar;

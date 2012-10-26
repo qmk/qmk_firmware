@@ -53,10 +53,6 @@ int main(void)
     uart_init(UART_BAUD_RATE);
 #endif
 
-    debug_enable = true;
-    print_enable = true;
-
-    debug("keyboard_init()\n");
     keyboard_init();
     host_set_driver(vusb_driver());
 

@@ -131,9 +131,6 @@ int main(void)
     //pullup_pins();
     //set_prr();
 
-    print_enable = true;
-    debug_enable = false;
-
 #ifdef HOST_VUSB
     disable_vusb();
 #endif

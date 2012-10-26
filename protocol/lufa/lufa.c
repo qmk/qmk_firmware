@@ -461,19 +461,12 @@ int main(void)  __attribute__ ((weak));
 int main(void)
 {
     SetupHardware();
+    keyboard_init();
+    host_set_driver(&lufa_driver);
     sei();
-
-    print_enable = true;
-    debug_enable = true;
-    debug_matrix = true;
-    debug_keyboard = true;
-    debug_mouse = true;
 
     // TODO: can't print here
     debug("LUFA init\n");
-
-    keyboard_init();
-    host_set_driver(&lufa_driver);
     while (1) {
         keyboard_task();
 

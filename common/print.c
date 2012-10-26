@@ -31,7 +31,7 @@
 
 
 int8_t (*print_sendchar_func)(uint8_t) = 0;
-bool print_enable = false;
+bool print_enable = true;
 
 
 /* print string stored in data memory(SRAM)
