@@ -164,9 +164,6 @@ static bool command_common(uint8_t code)
                 debug_enable   = false;
             } else {
                 print("\nDEBUG: enabled.\n");
-                debug_matrix   = true;
-                debug_keyboard = true;
-                debug_mouse    = true;
                 debug_enable   = true;
             }
             break;
@@ -205,7 +202,7 @@ static bool command_common(uint8_t code)
             print("VERSION: " STR(DEVICE_VER) "\n");
             break;
         case KC_T: // print timer
-            print("timer: "); phex16(timer_count>>16); phex16(timer_count); print("\n");
+            print_val_hex32(timer_count);
             break;
         case KC_P: // print toggle
             if (print_enable) {
@@ -218,20 +215,20 @@ static bool command_common(uint8_t code)
             break;
         case KC_S:
             print("\n\n----- Status -----\n");
-            print("host_keyboard_leds:"); phex(host_keyboard_leds()); print("\n");
+            print_val_hex8(host_keyboard_leds());
 #ifdef HOST_PJRC
-            print("UDCON: "); phex(UDCON); print("\n");
-            print("UDIEN: "); phex(UDIEN); print("\n");
-            print("UDINT: "); phex(UDINT); print("\n");
-            print("usb_keyboard_leds:"); phex(usb_keyboard_leds); print("\n");
-            print("usb_keyboard_protocol: "); phex(usb_keyboard_protocol); print("\n");
-            print("usb_keyboard_idle_config:"); phex(usb_keyboard_idle_config); print("\n");
-            print("usb_keyboard_idle_count:"); phex(usb_keyboard_idle_count); print("\n");
+            print_val_hex8(UDCON);
+            print_val_hex8(UDIEN);
+            print_val_hex8(UDINT);
+            print_val_hex8(usb_keyboard_leds);
+            print_val_hex8(usb_keyboard_protocol);
+            print_val_hex8(usb_keyboard_idle_config);
+            print_val_hex8(usb_keyboard_idle_count);
 #endif
 
 #ifdef HOST_VUSB
 #   if USB_COUNT_SOF
-            print("usbSofCount: "); phex(usbSofCount); print("\n");
+            print_val_hex8(usbSofCount);
 #   endif
 #endif
             break;
@@ -350,6 +347,7 @@ static void mousekey_param_print(void)
     print("6: mk_wheel_time_to_max: "); pdec(mk_wheel_time_to_max); print("\n");
 }
 
+#define PRINT_SET_VAL(v)  print(#v " = "); print_dec(v); print("\n");
 static void mousekey_param_inc(uint8_t param, uint8_t inc)
 {
     switch (param) {
@@ -358,42 +356,42 @@ static void mousekey_param_inc(uint8_t param, uint8_t inc)
                 mk_delay += inc;
             else
                 mk_delay = UINT8_MAX;
-            print("mk_delay = "); pdec(mk_delay); print("\n");
+            PRINT_SET_VAL(mk_delay);
             break;
         case 2:
             if (mk_interval + inc < UINT8_MAX)
                 mk_interval += inc;
             else
                 mk_interval = UINT8_MAX;
-            print("mk_interval = "); pdec(mk_interval); print("\n");
+            PRINT_SET_VAL(mk_interval);
             break;
         case 3:
             if (mk_max_speed + inc < UINT8_MAX)
                 mk_max_speed += inc;
             else
                 mk_max_speed = UINT8_MAX;
-            print("mk_max_speed = "); pdec(mk_max_speed); print("\n");
+            PRINT_SET_VAL(mk_max_speed);
             break;
         case 4:
             if (mk_time_to_max + inc < UINT8_MAX)
                 mk_time_to_max += inc;
             else
                 mk_time_to_max = UINT8_MAX;
-            print("mk_time_to_max = "); pdec(mk_time_to_max); print("\n");
+            PRINT_SET_VAL(mk_time_to_max);
             break;
         case 5:
             if (mk_wheel_max_speed + inc < UINT8_MAX)
                 mk_wheel_max_speed += inc;
             else
                 mk_wheel_max_speed = UINT8_MAX;
-            print("mk_wheel_max_speed = "); pdec(mk_wheel_max_speed); print("\n");
+            PRINT_SET_VAL(mk_wheel_max_speed);
             break;
         case 6:
             if (mk_wheel_time_to_max + inc < UINT8_MAX)
                 mk_wheel_time_to_max += inc;
             else
                 mk_wheel_time_to_max = UINT8_MAX;
-            print("mk_wheel_time_to_max = "); pdec(mk_wheel_time_to_max); print("\n");
+            PRINT_SET_VAL(mk_wheel_time_to_max);
             break;
     }
 }
@@ -406,42 +404,42 @@ static void mousekey_param_dec(uint8_t param, uint8_t dec)
                 mk_delay -= dec;
             else
                 mk_delay = 0;
-            print("mk_delay = "); pdec(mk_delay); print("\n");
+            PRINT_SET_VAL(mk_delay);
             break;
         case 2:
             if (mk_interval > dec)
                 mk_interval -= dec;
             else
                 mk_interval = 0;
-            print("mk_interval = "); pdec(mk_interval); print("\n");
+            PRINT_SET_VAL(mk_interval);
             break;
         case 3:
             if (mk_max_speed > dec)
                 mk_max_speed -= dec;
             else
                 mk_max_speed = 0;
-            print("mk_max_speed = "); pdec(mk_max_speed); print("\n");
+            PRINT_SET_VAL(mk_max_speed);
             break;
         case 4:
             if (mk_time_to_max > dec)
                 mk_time_to_max -= dec;
             else
                 mk_time_to_max = 0;
-            print("mk_time_to_max = "); pdec(mk_time_to_max); print("\n");
+            PRINT_SET_VAL(mk_time_to_max);
             break;
         case 5:
             if (mk_wheel_max_speed > dec)
                 mk_wheel_max_speed -= dec;
             else
                 mk_wheel_max_speed = 0;
-            print("mk_wheel_max_speed = "); pdec(mk_wheel_max_speed); print("\n");
+            PRINT_SET_VAL(mk_wheel_max_speed);
             break;
         case 6:
             if (mk_wheel_time_to_max > dec)
                 mk_wheel_time_to_max -= dec;
             else
                 mk_wheel_time_to_max = 0;
-            print("mk_wheel_time_to_max = "); pdec(mk_wheel_time_to_max); print("\n");
+            PRINT_SET_VAL(mk_wheel_time_to_max);
             break;
     }
 }
@@ -551,11 +549,11 @@ static uint8_t numkey2num(uint8_t code)
 
 static void switch_layer(uint8_t layer)
 {
-    print("current_layer: "); phex(current_layer); print("\n");
-    print("default_layer: "); phex(default_layer); print("\n");
+    print_val_hex8(current_layer);
+    print_val_hex8(default_layer);
     current_layer = layer;
     default_layer = layer;
-    print("switch to Layer: "); phex(layer); print("\n");
+    print("switch to "); print_val_hex8(layer);
 }
 
 static void clear_keyboard(void)

@@ -1,3 +1,4 @@
+/* Copyright 2012 Jun Wako <wakojun@gmail.com> */
 /* Very basic print functions, intended to be used with usb_debug_only.c
  * http://www.pjrc.com/teensy/
  * Copyright (c) 2008 PJRC.COM, LLC
@@ -24,78 +25,157 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include "print.h"
-#include "sendchar.h"
 
 
+#define sendchar(c)    do { if (print_enable && print_sendchar_func) (print_sendchar_func)(c); } while (0)
+
+
+int8_t (*print_sendchar_func)(uint8_t) = 0;
 bool print_enable = false;
 
+
+/* print string stored in data memory(SRAM)
+ *     print_P("hello world");
+ * This consumes precious SRAM memory space for string.
+ */
 void print_S(const char *s)
 {
-	if (!print_enable) return;
-	char c;
-
-	while (1) {
-		c = *s++;
-		if (!c) break;
-		if (c == '\n') sendchar('\r');
-		sendchar(c);
-	}
+    uint8_t c;
+    while (1) {
+        c = *s++;
+        if (!c) break;
+        if (c == '\n') sendchar('\r');
+        sendchar(c);
+    }
 }
 
+/* print string stored in program memory(FLASH)
+ *     print_P(PSTR("hello world");
+ * This consumes relatively abundant FLASH memory area not SRAM.
+ */
 void print_P(const char *s)
 {
-	if (!print_enable) return;
-	char c;
-
-	while (1) {
-		c = pgm_read_byte(s++);
-		if (!c) break;
-		if (c == '\n') sendchar('\r');
-		sendchar(c);
-	}
+    uint8_t c;
+    while (1) {
+        c = pgm_read_byte(s++);
+        if (!c) break;
+        if (c == '\n') sendchar('\r');
+        sendchar(c);
+    }
 }
 
-void phex1(unsigned char c)
+void print_CRLF(void)
 {
-	if (!print_enable) return;
-	sendchar(c + ((c < 10) ? '0' : 'A' - 10));
-}
-
-void phex(unsigned char c)
-{
-	if (!print_enable) return;
-	phex1(c >> 4);
-	phex1(c & 15);
-}
-
-void phex16(unsigned int i)
-{
-	if (!print_enable) return;
-	phex(i >> 8);
-	phex(i);
-}
-
-void pdec(uint8_t i)
-{
-    if (!print_enable) return;
-    if (i/100) sendchar('0' + (i/100));
-    if (i/100 || i%100/10) sendchar('0' + (i%100/10));
-    sendchar('0' + (i%10));
+    sendchar('\r'); sendchar('\n');
 }
 
 
-void pbin(unsigned char c)
+#define SIGNED  0x80
+#define BIN     2
+#define OCT     8
+#define DEC     10
+#define HEX     16
+
+static inline
+char itoc(uint8_t i)
 {
-    if (!print_enable) return;
+    return (i < 10 ? '0' + i : 'A' + i - 10);
+}
+
+static inline
+void print_int(uint16_t data, uint8_t base)
+{
+    char buf[7] = {'\0'};
+    char *p = &buf[6];
+    if ((base & SIGNED) && (data & 0x8000)) {
+        data = -data;
+        buf[0] = '-';
+    }
+    base &= ~SIGNED;
+    uint16_t n;
+    do {
+        n = data;
+        data /= base;
+        *(--p) = itoc(n - data*base);
+    } while (data);
+    if (buf[0]) *(--p) = buf[0];
+    print_S(p);
+}
+
+void print_dec(uint16_t data)
+{
+    print_int(data, DEC);
+}
+
+void print_decs(int16_t data)
+{
+    print_int(data, DEC|SIGNED);
+}
+
+
+static inline
+void print_hex4(uint8_t data)
+{
+    sendchar(data + ((data < 10) ? '0' : 'A' - 10));
+}
+
+void print_hex8(uint8_t data)
+{
+    print_hex4(data>>4);
+    print_hex4(data&0x0F);
+}
+
+void print_hex16(uint16_t data)
+{
+    print_hex8(data>>8);
+    print_hex8(data);
+}
+
+void print_hex32(uint32_t data)
+{
+    print_hex16(data>>16);
+    print_hex16(data);
+}
+
+
+void print_bin(uint8_t data)
+{
     for (int i = 7; i >= 0; i--) {
-        sendchar((c & (1<<i)) ? '1' : '0');
+        sendchar((data & (1<<i)) ? '1' : '0');
     }
 }
 
-void pbin_reverse(unsigned char c)
+void print_bin16(uint16_t data)
 {
-    if (!print_enable) return;
+    print_bin8(data>>8);
+    print_bin8(data);
+}
+
+void print_bin32(uint32_t data)
+{
+    print_bin8(data>>24);
+    print_bin8(data>>16);
+    print_bin8(data>>8);
+    print_bin8(data);
+}
+
+void print_bin_reverse8(uint8_t data)
+{
     for (int i = 0; i < 8; i++) {
-        sendchar((c & (1<<i)) ? '1' : '0');
+        sendchar((data & (1<<i)) ? '1' : '0');
     }
+}
+
+void print_bin_reverse16(uint16_t data)
+{
+    print_bin_reverse8(data);
+    print_bin_reverse8(data>>8);
+}
+
+void print_bin_reverse32(uint32_t data)
+{
+    print_bin_reverse8(data);
+    print_bin_reverse8(data>>8);
+    print_bin_reverse8(data>>16);
+    print_bin_reverse8(data>>24);
 }

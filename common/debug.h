@@ -22,13 +22,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 
 
-#define debug(s)             if(debug_enable) print_P(PSTR(s))
-#define debug_P(s)           if(debug_enable) print_P(s)
-#define debug_S(s)           if(debug_enable) print_S(s)
-#define debug_hex(c)         if(debug_enable) phex(c)
-#define debug_hex16(i)       if(debug_enable) phex16(i)
-#define debug_bin(c)         if(debug_enable) pbin(c)
-#define debug_bin_reverse(c) if(debug_enable) pbin_reverse(c)
+#define debug(s)                  do { if (debug_enable) print(s); } while (0)
+#define debugln(s)                do { if (debug_enable) println(s); } while (0)
+#define debug_S(s)                do { if (debug_enable) print_S(s); } while (0)
+#define debug_P(s)                do { if (debug_enable) print_P(s); } while (0)
+#define debug_msg(s)              do { \
+    if (debug_enable) { \
+        print(__FILE__); print(" at "); print_dec(__LINE__); print(" in "); print(": "); print(s); \
+    } \
+} while (0)
+
+    
+
+#define debug_dec(data)           do { if (debug_enable) print_dec(data); } while (0)
+#define debug_decs(data)          do { if (debug_enable) print_decs(data); } while (0)
+#define debug_hex8(data)          do { if (debug_enable) print_hex8(data); } while (0)
+#define debug_hex16(data)         do { if (debug_enable) print_hex16(data); } while (0)
+#define debug_hex32(data)         do { if (debug_enable) print_hex32(data); } while (0)
+#define debug_bin8(data)          do { if (debug_enable) print_bin8(data); } while (0)
+#define debug_bin16(data)         do { if (debug_enable) print_bin16(data); } while (0)
+#define debug_bin32(data)         do { if (debug_enable) print_bin32(data); } while (0)
+#define debug_bin_reverse8(data)  do { if (debug_enable) print_bin_reverse8(data); } while (0)
+#define debug_bin_reverse16(data) do { if (debug_enable) print_bin_reverse16(data); } while (0)
+#define debug_bin_reverse32(data) do { if (debug_enable) print_bin_reverse32(data); } while (0)
+
+#define debug_dec(data)           debug_dec(data)
+#define debug_hex(data)           debug_hex8(data)
+#define debug_bin(data)           debug_bin8(data)
+#define debug_bin_reverse(data)   debug_bin8(data)
 
 
 #ifdef __cplusplus
