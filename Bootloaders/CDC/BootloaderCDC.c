@@ -237,7 +237,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 	uint16_t BlockSize;
 	char     MemoryType;
 
-	bool     HighByte = false;
+	uint8_t  HighByte = 0;
 	uint8_t  LowByte  = 0;
 
 	BlockSize  = (FetchNextCommandByte() << 8);
