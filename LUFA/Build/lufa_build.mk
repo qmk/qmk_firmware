@@ -10,8 +10,8 @@ LUFA_BUILD_MODULES         += BUILD
 LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS
-LUFA_BUILD_PROVIDED_VARS   += 
-LUFA_BUILD_PROVIDED_MACROS += 
+LUFA_BUILD_PROVIDED_VARS   +=
+LUFA_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #               LUFA GCC Compiler Buildsystem Makefile Module.
@@ -163,14 +163,14 @@ OBJECT_FILES += $(addsuffix .o, $(basename $(SRC)))
 ifneq ($(OBJDIR),.)
    # Prefix all the object filenames with the output object file directory path
    OBJECT_FILES    := $(addprefix $(patsubst %/,%,$(OBJDIR))/, $(notdir $(OBJECT_FILES)))
-   
+
    # Check if any object file (without path) appears more than once in the object file list
    ifneq ($(words $(sort $(OBJECT_FILES))), $(words $(OBJECT_FILES)))
        $(error Cannot build with OBJDIR parameter set - one or more object file name is not unique)
    endif
 
    # Create the output object file directory if it does not exist and add it to the virtual path list
-   $(shell mkdir $(OBJDIR) 2> /dev/null)   
+   $(shell mkdir $(OBJDIR) 2> /dev/null)
    VPATH           += $(dir $(SRC))
 endif
 
@@ -223,7 +223,7 @@ build_begin:
 	@echo $(MSG_INFO_MESSAGE) Begin compilation of project \"$(TARGET)\"...
 	@echo ""
 	@$(CROSS)-gcc --version
-	
+
 # Post-build informational target, to project name information when building has completed
 build_end:
 	@echo $(MSG_INFO_MESSAGE) Finished building project \"$(TARGET)\".
@@ -239,7 +239,7 @@ symbol-sizes: $(TARGET).elf
 	@echo $(MSG_NM_CMD) Extracting \"$<\" symbols with decimal byte sizes
 	$(CROSS)-nm --size-sort --demangle --radix=d $<
 
-# Cleans intermediatary build files, leaving only the compiled application files
+# Cleans intermediary build files, leaving only the compiled application files
 mostlyclean:
 	@echo $(MSG_REMOVE_CMD) Removing object files of \"$(TARGET)\"
 	rm -f $(OBJECT_FILES)
@@ -285,7 +285,7 @@ $(OBJDIR)/%.o: %.c $(MAKEFILE_LIST)
 $(OBJDIR)/%.o: %.cpp $(MAKEFILE_LIST)
 	@echo $(MSG_COMPILE_CMD) Compiling C++ file \"$(notdir $<)\"
 	$(CROSS)-gcc -c $(BASE_CC_FLAGS) $(BASE_CPP_FLAGS) $(CC_FLAGS) $(CPP_FLAGS) -MMD -MP -MF $(@:%.o=%.d) $< -o $@
-	
+
 # Assembles an input ASM source file and generates a linkable object file for it
 $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 	@echo $(MSG_ASSEMBLE_CMD) Assembling \"$(notdir $<)\"
