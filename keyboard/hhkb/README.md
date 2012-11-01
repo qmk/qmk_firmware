@@ -86,11 +86,14 @@ See **keymap.c**.
 
 ###Teensy++ installation
 Angled USB mini B adapter is used to install Teensy++ laterally.
-![Teensy install](hhkb/doc/HHKB_img/teensy_install.jpg)
+
+![Image of Teensy install](hhkb/doc/HHKB_img/teensy_install.jpg)
 
 Bread baord wires are used to connect Teensy++.
-![Teensy wiring](hhkb/doc/HHKB_img/teensy_wiring.jpg)
-![Connector](hhkb/doc/HHKB_img/connector_contact.jpg)
+
+![Image of Teensy wiring](hhkb/doc/HHKB_img/teensy_wiring.jpg)
+
+![Image of Connector](hhkb/doc/HHKB_img/connector_contact.jpg)
 
 
 ###PJRC Teensy++ 2.0 connection
