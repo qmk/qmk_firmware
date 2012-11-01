@@ -1,0 +1,32 @@
+
+iWRAP
+-----
+                        +---------------+        WT12
+              5V        |   ATmega168   | 5V/3.3V~~~~
+              +-----+---|Vcc,AVCC    PC4|---/--->iWRAP(RxD)
+USB           |     C3  |            PC5|<--/----iWRAP(TxD)
+~~~           |     +   |               | 
+5V <--BATT    +    GND  |               |        HHKB
+              R1        |               |        ~~~~
+D- <----+-----+--R2-----|INT1      PB2-4|------->ROW(6-8)
+D+ <----|---+----R3-----|INT0      PC0-2|------->COL(9-11)
+        Z1  Z2          |            PC3|------->ENABLE(12)
+GND<----+---+-----------|GND         PB0|<-------KEY(4)
+                        |            PB1|------->PREV(5)
+                        |               |
+            GND+-C2--+--|XTAL1       RXD|------->Debug Console
+                     X1 |            TXD|<-------Debug Console
+            GND+-C3--+--|XTAL2       RST|---SW--+GND
+                        +---------------+
+
+R1:     1.5K Ohm
+R2,R3:  68 Ohm
+Z1,Z2:  Zener 3.6V
+C1,C2:  22pF
+C3:     0.1uF
+X1:     Crystal 12MHz
+SW:     Push Switch(Optional)
+BATT:   Li-Po Battery, Battery Charger and Voltage Regulator(5V and 3.3V).
+
+
+

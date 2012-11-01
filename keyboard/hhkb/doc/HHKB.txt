@@ -1,67 +1,16 @@
-Alternative Controller for HHKB pro
-===================================
-I want to add vi cursor and mouse keys to HHKB. Original HHKB controller is not programmable and
-firmware source code is not open. So, customizing HHKB needs to replace original controller with programmable one.
-I used Teensy++ as alternative controller. Though a Teensy has enough ports to drive HHKB,
-Teensy++ has clean pinout and it makes programing and wiring easier.
+Internal of HHKB pro
+=====================
+HHKB pro has MCU and some chips on separate two PCBs.
 
-This is just a proof of concept for replacing controller of HHKB, not a complete firmware.
-
-My prototype firmware source tree is here:
-    github(http://github.com/tmk/tmk_keyboard)
-This firmware is a port of my previous project:
-    HHKB style Mod(http://geekhack.org/showwiki.php?title=Island:11930)
-PJRC:
-    Teensy++/Teensy(http://www.pjrc.com/teensy/)
-
-
-Pros:
-    * without pattern cutting, case mod  and soldering
-    * can keep original controller intact
-    * can change HHKB behaviour as you like(by C programming)
-
-Cons:
-    * void your warranty
-    * unavailability of Teensy++/Teensy(because of PS3 cracking boom?)
-
-Features:
-    * customized keymap
-    * more keymap layers
-    * mouse keys for minimum mouse operation(never comfortable for normal use)
-    * and more...(in the future)
-
-Any suggestions or ideas are welcome.
-
-
-NOTE:
-    My HHKB is just "Professional". This means followings may not be applied to "Professional2".
-
-DISCLAIMER:
-    I'm not a professional for electronics and MCU programming. This may damage your HHKB.
-    And my English writing is poor, I'm not sure I can convey my notions accurately.
-
-
-Teensy++ installation
----------------------
-Angled USB mini B adapter is used to install Teensy++ laterally.
-(teensy_install.jpg)
-
-Bread baord wires are used to connect Teensy++.
-(teensy_wiring.jpg)
-(connector_contact.jpg)
-
-
-HHKB internal
--------------
-HHKB pro has some chips on separate two PCBs.
-
-Controller PCB:
+Controller PCB
+--------------
     M38K07M4    Renesas MCU with USB function
                 http://documentation.renesas.com/eng/products/mpumcu/rej03b0192_38k0ds.pdf
 
     (HHKB_controller.jpg)
 
-Keyswitch PCB:
+Keyswitch PCB
+-------------
     HC4051      Analog Multiplexer: select a row line.
                 http://www.alldatasheet.com/datasheet-pdf/pdf/203989/KODENSHI/KK74HC4051A.html
     LS145       BCD Decoder: select a column line.
@@ -76,13 +25,16 @@ Keyswitch PCB:
     (HHKB_TP1684.jpg)
 
 
-Two PCBs are connected by 15 lines. Vcc and GND use 3 lines each, other 9 lines are for keyboard signaling.
+Connector Cable
+---------------
+Two PCBs are connected by 15 lines(13 in case of Pro2).
+Vcc and GND use 3(2) lines each, other 9 lines are for keyboard signaling.
 
     Keyswitch PCB connector                                 Teensy++ pins
     -------------------------------------------------------------------------------
-     1  Vcc(5V)                                             5V
-     2  Vcc(5V)
-     3  Vcc(5V)
+     1  Vcc(5V)   Not exist on Pro2                         5V
+     2  Vcc(5V)                                             5V
+     3  Vcc(5V)                                             5V
      4  TP1684    KEY: Low(0) when key pressed              PE6 input(with pullup)
      5  TP1684    KEY_PREV: assert previous key state???    PE7 output
      6  HC4051    A(bit0) select 8 rows(0 to 7)             PB0 output
@@ -92,9 +44,11 @@ Two PCBs are connected by 15 lines. Vcc and GND use 3 lines each, other 9 lines 
     10  LS145     B(bit1)                                   PB4 output
     11  LS145     C(bit2)                                   PB5 output
     12  LS145     D(enable) Low(0) enable selected column   PB6 output
-    13  GND
-    14  GND
-    15  GND                                                 GND
+    13  GND                                                 GND
+    14  GND                                                 GND
+    15  GND       Not exist on Pro2                         GND
+
+    NOTE: guessing pin5(KEY_PREV) may work for hysteresis of capacitive sensing.
 
     (HHKB_connector.jpg)
 
@@ -103,19 +57,20 @@ Keyswitch matrix
 ----------------
 60 keyswitches in 8*8 matrix. It is ghost-free and bounce-free.
 
-  COL 0     1       2       3       4       5       6       7
-ROW ---------------------------------------------------------------
-  0|  2     q       w       s       a       z       x       c
-  1|  3     4       r       e       d       f       v       b
-  2|  5     6       y       t       g       h       n       _NONE_
-  3|  1     Esc     Tab     Control LShift  LAlt    LMeta   Space
-  4|  7     8       u       i       k       j       m       _NONE_
-  5|  \     `       Delete  Return  Fn      RShift  RAlt    RMeta
-  6|  9     0       o       p       ;       l       ,       _NONE_
-  7|  -     +       ]       [       '       /       .       _NONE_
+      COL 0     1       2       3       4       5       6       7
+    ROW ---------------------------------------------------------------
+      0|  2     q       w       s       a       z       x       c
+      1|  3     4       r       e       d       f       v       b
+      2|  5     6       y       t       g       h       n       _NONE_
+      3|  1     Esc     Tab     Control LShift  LAlt    LMeta   Space
+      4|  7     8       u       i       k       j       m       _NONE_
+      5|  \     `       Delete  Return  Fn      RShift  RAlt    RMeta
+      6|  9     0       o       p       ;       l       ,       _NONE_
+      7|  -     +       ]       [       '       /       .       _NONE_
 
 
 Matrix diagram:
+
              +-------------------------+-+-+-+-+-+-+-+     Vcc
              |bias control?            - - - - - - - -     ---
              |                  3.9K*8 R R R R R R R R      |
@@ -141,7 +96,8 @@ Matrix diagram:
                     to controller
                                     
 
-Signals charts:
+Signals charts
+--------------
     While pressing space bar, watched HHKB original controller signals by logic analyzer.
     Row and column is looping between 0-7 each for selecting a key.
     A key is scaned every about 15ms, so scan rate is 66Hz.
@@ -157,7 +113,8 @@ Signals charts:
     (HHKB_chart2.jpg)
 
 
-Matrix scan pseudo code:
+Matrix scan pseudo code
+-----------------------
     for (row: 0-7) {
         SELECT_ROW(row);        // set HC4051(A,B,C)
 
@@ -190,10 +147,5 @@ Matrix scan pseudo code:
     }
 
 
-Keymap layers
--------------
-Followings are added layers with additional Fn keys.
-
-see keymap.c
 
 EOF
