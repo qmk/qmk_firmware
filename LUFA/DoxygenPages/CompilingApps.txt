@@ -23,10 +23,6 @@
  *  of the MinGW installer (<a>http://www.mingw.org</a>). Once installed, add the "msys\1.0\bin" of the MinGW installation
  *  folder is added to your system's <b>PATH</b> environment variable.
  *
- *  The bootloaders currently also require the \c bc command line application, which can be installed from
- *  <a>http://gnuwin32.sourceforge.net/downlinks/bc.php</a>. Once installed add the "GnuWin32\bin" path of the GnuWin32
- *  installation folder to your system's <b>PATH</b> environment variable.
- *
  *  \subsection SSec_PreqLinux Linux Prerequisites
  *  On Linux systems you will need to install the latest Linux distribution of the standalone Atmel Toolchain from the
  *  Atmel website (<a>http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx</a>), or use the latest avr-libc and avr-gcc packages

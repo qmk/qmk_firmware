@@ -31,8 +31,9 @@ BOOT_SECTION_SIZE_KB  = 8
 
 # Bootloader address calculation formulas (requires the "bc" unix utility)
 # Do not modify these macros, but rather modify the depedant values above.
-BOOT_START_OFFSET     = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
-BOOT_SEC_OFFSET       = 0x$(shell echo "obase=16; (($(FLASH_SIZE_KB) * 1024) - $(strip $(1)))" | bc)
+CALC_ADDRESS_IN_HEX   = $(shell printf "0x%X" $$(( $(1) )) )
+BOOT_START_OFFSET     = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024 )
+BOOT_SEC_OFFSET       = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) * 1024) - $(strip $(1)) )
 
 # Bootloader linker section flags for relocating the API table sections to
 # known FLASH addresses - these should not normally be user-edited.
@@ -43,7 +44,7 @@ BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, signatures,  Signatures,  8
 
 # Default target
 all:
-
+	
 # Include LUFA build script makefiles
 include $(LUFA_PATH)/Build/lufa_core.mk
 include $(LUFA_PATH)/Build/lufa_sources.mk
