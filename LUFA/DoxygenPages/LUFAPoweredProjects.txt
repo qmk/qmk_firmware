@@ -67,6 +67,7 @@
  *  \li Generic HID Open Source Framework: http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows
  *  \li Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
  *  \li GPS enabled lap timer for vehicles: http://www.assembla.com/code/ironlung/subversion/nodes/trunk/LapTimer
+ *  \li Gumbi, a Python library and USB GPIO controller: https://code.google.com/p/gumbi/
  *  \li Hardware Volume Control: https://github.com/davidk/hw-volume-control
  *  \li Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
  *  \li Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
@@ -119,6 +120,7 @@
  *  \li Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  \li Stylophone, with USB MIDI connectivity: http://www.waitingforfriday.com/index.php/Stylophone_Studio_5
  *  \li Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
+ *  \li Touch It (Fabulously), presumably art: http://touch.it.fa.bulo.us/ly/
  *  \li Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
  *  \li UDFS, a BBC Micro USB disk filing system: https://github.com/makestuff/udfs
  *  \li Universal USB AVR Module: http://usbavr.bplaced.net/
