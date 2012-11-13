@@ -19,7 +19,7 @@
 
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#   define DEBOUNCE	0
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
@@ -30,8 +30,6 @@ static matrix_row_t _matrix0[MATRIX_ROWS];
 static matrix_row_t _matrix1[MATRIX_ROWS];
 
 
-#define NROW 18
-#define NCOL 8
 #define _DDRA (uint8_t *const)&DDRA
 #define _DDRB (uint8_t *const)&DDRB
 #define _DDRC (uint8_t *const)&DDRC
@@ -64,35 +62,39 @@ static matrix_row_t _matrix1[MATRIX_ROWS];
 
 /* Specifies the ports and pin numbers for the rows */
 static
-uint8_t *const  row_ddr[NROW] = {                                 _DDRB,                  _DDRB,
-				                                                  _DDRC,  _DDRC,
-				  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,
-				  _DDRF,  _DDRF,                  _DDRF,  _DDRF,  _DDRF,  _DDRF};
+uint8_t *const row_ddr[MATRIX_ROWS] = {
+                                           _DDRB,                  _DDRB,
+                                                           _DDRC,  _DDRC,
+           _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD,
+           _DDRF,  _DDRF,                  _DDRF,  _DDRF,  _DDRF,  _DDRF};
 
 static
-uint8_t *const row_port[NROW] = {                                _PORTB,                 _PORTB,
-				 _PORTC, _PORTC,
-				 _PORTD, _PORTD, _PORTD, _PORTD, _PORTD, _PORTD, _PORTD, _PORTD,
-				 _PORTF, _PORTF,                 _PORTF, _PORTF, _PORTF, _PORTF};
+uint8_t *const row_port[MATRIX_ROWS] = {
+                                          _PORTB,                 _PORTB,
+                                                          _PORTC, _PORTC,
+          _PORTD, _PORTD, _PORTD, _PORTD, _PORTD, _PORTD, _PORTD, _PORTD,
+          _PORTF, _PORTF,                 _PORTF, _PORTF, _PORTF, _PORTF};
 
 static
-uint8_t *const  row_pin[NROW] = {                                 _PINB,                  _PINB,
-				  _PINC,  _PINC,
-				  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,
-				  _PINF,  _PINF,                  _PINF,  _PINF,  _PINF,  _PINF};
+uint8_t *const row_pin[MATRIX_ROWS] = {
+                                           _PINB,                  _PINB,
+                                                           _PINC,  _PINC,
+           _PIND,  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,  _PIND,
+           _PINF,  _PINF,                  _PINF,  _PINF,  _PINF,  _PINF};
 
 static
-const uint8_t   row_bit[NROW] = {                                 _BIT4,                  _BIT7,
-				                                                  _BIT6,  _BIT7,
-				  _BIT0,  _BIT1,  _BIT2,  _BIT3,  _BIT4,  _BIT5,  _BIT6,  _BIT7,
-				  _BIT0,  _BIT1,                  _BIT4,  _BIT5,  _BIT6,  _BIT7};
+const uint8_t row_bit[MATRIX_ROWS] = {
+                                           _BIT4,                  _BIT7,
+                                                           _BIT6,  _BIT7,
+           _BIT0,  _BIT1,  _BIT2,  _BIT3,  _BIT4,  _BIT5,  _BIT6,  _BIT7,
+           _BIT0,  _BIT1,                  _BIT4,  _BIT5,  _BIT6,  _BIT7};
 
 static
 const uint8_t mask = 0x0E;
 
 /* Specifies the ports and pin numbers for the columns */
 static
-const uint8_t   col_bit[NCOL] = {  0x00,   0x02,   0x04,   0x06,   0x08,   0x0A,   0x0C,   0x0E};
+const uint8_t   col_bit[MATRIX_COLS] = {  0x00,   0x02,   0x04,   0x06,   0x08,   0x0A,   0x0C,   0x0E};
 
 static
 inline void pull_column(int col) {
@@ -110,7 +112,7 @@ void setup_io_pins(void) {
   uint8_t row;
   DDRB  |=  0x0E;
   PORTB &= ~0x0E;
-  for(row = 0; row < NROW; row++) {
+  for(row = 0; row < MATRIX_ROWS; row++) {
     *row_ddr[row]  &= ~row_bit[row];
     *row_port[row] &= ~row_bit[row];
   }
@@ -140,7 +142,7 @@ void matrix_init(void)
     // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
-
+	
     // initialize row and col
     setup_io_pins();
     setup_leds();
@@ -160,10 +162,10 @@ uint8_t matrix_scan(void)
         matrix = tmp;
     }
 
-    for (uint8_t col = 0; col < NCOL; col++) {  // 0-7
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {  // 0-7
         pull_column(col);   // output hi on theline
-        _delay_us(1);       // without this wait it won't read stable value.
-        for (uint8_t row = 0; row < NROW; row++) {  // 0-17
+        _delay_us(3);       // without this wait it won't read stable value.
+        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {  // 0-17
             bool prev_bit = matrix[row] & (1<<col);
             bool curr_bit = *row_pin[row] & row_bit[row];
             if (prev_bit != curr_bit) {
