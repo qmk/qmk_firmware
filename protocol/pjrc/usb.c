@@ -128,7 +128,7 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 // spec and relevant portions of any USB class specifications!
 
 
-static uint8_t PROGMEM device_descriptor[] = {
+static const uint8_t PROGMEM device_descriptor[] = {
 	18,					// bLength
 	1,					// bDescriptorType
 	0x00, 0x02,				// bcdUSB
@@ -146,7 +146,7 @@ static uint8_t PROGMEM device_descriptor[] = {
 };
 
 // Keyboard Protocol 1, HID 1.11 spec, Appendix B, page 59-60
-static uint8_t PROGMEM keyboard_hid_report_desc[] = {
+static const uint8_t PROGMEM keyboard_hid_report_desc[] = {
         0x05, 0x01,          // Usage Page (Generic Desktop),
         0x09, 0x06,          // Usage (Keyboard),
         0xA1, 0x01,          // Collection (Application),
@@ -181,7 +181,7 @@ static uint8_t PROGMEM keyboard_hid_report_desc[] = {
         0xc0                 // End Collection
 };
 #ifdef NKRO_ENABLE
-static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
+static const uint8_t PROGMEM keyboard2_hid_report_desc[] = {
         0x05, 0x01,                     // Usage Page (Generic Desktop),
         0x09, 0x06,                     // Usage (Keyboard),
         0xA1, 0x01,                     // Collection (Application),
@@ -222,7 +222,7 @@ static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
 // http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
 // http://www.keil.com/forum/15671/
 // http://www.microsoft.com/whdc/device/input/wheel.mspx
-static uint8_t PROGMEM mouse_hid_report_desc[] = {
+static const uint8_t PROGMEM mouse_hid_report_desc[] = {
     /* mouse */
     0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
     0x09, 0x02,                    // USAGE (Mouse)
@@ -273,7 +273,7 @@ static uint8_t PROGMEM mouse_hid_report_desc[] = {
 };
 #endif
 
-static uint8_t PROGMEM debug_hid_report_desc[] = {
+static const uint8_t PROGMEM debug_hid_report_desc[] = {
 	0x06, 0x31, 0xFF,			// Usage Page 0xFF31 (vendor defined)
 	0x09, 0x74,				// Usage 0x74
 	0xA1, 0x53,				// Collection 0x53
@@ -289,7 +289,7 @@ static uint8_t PROGMEM debug_hid_report_desc[] = {
 #ifdef EXTRAKEY_ENABLE
 // audio controls & system controls
 // http://www.microsoft.com/whdc/archive/w2kbd.mspx
-static uint8_t PROGMEM extra_hid_report_desc[] = {
+static const uint8_t PROGMEM extra_hid_report_desc[] = {
     /* system control */
     0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
     0x09, 0x80,                    // USAGE (System Control)
@@ -348,7 +348,7 @@ static uint8_t PROGMEM extra_hid_report_desc[] = {
 
 #define NUM_INTERFACES                  (KBD2_HID_DESC_NUM + 1)
 #define CONFIG1_DESC_SIZE               (9+(9+9+7)*NUM_INTERFACES)
-static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
+static const uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
 	2,					// bDescriptorType;
@@ -515,17 +515,17 @@ struct usb_string_descriptor_struct {
 	uint8_t bDescriptorType;
 	int16_t wString[];
 };
-static struct usb_string_descriptor_struct PROGMEM string0 = {
+static const struct usb_string_descriptor_struct PROGMEM string0 = {
 	4,
 	3,
 	{0x0409}
 };
-static struct usb_string_descriptor_struct PROGMEM string1 = {
+static const struct usb_string_descriptor_struct PROGMEM string1 = {
 	sizeof(STR_MANUFACTURER),
 	3,
 	STR_MANUFACTURER
 };
-static struct usb_string_descriptor_struct PROGMEM string2 = {
+static const struct usb_string_descriptor_struct PROGMEM string2 = {
 	sizeof(STR_PRODUCT),
 	3,
 	STR_PRODUCT
@@ -533,7 +533,7 @@ static struct usb_string_descriptor_struct PROGMEM string2 = {
 
 // This table defines which descriptor data is sent for each specific
 // request from the host (in wValue and wIndex).
-static struct descriptor_list_struct {
+static const struct descriptor_list_struct {
 	uint16_t	wValue;     // descriptor type
 	uint16_t	wIndex;
 	const uint8_t	*addr;
