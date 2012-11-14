@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "news.h"
 #include "matrix.h"
+#include "debug.h"
 
 
 /*
@@ -63,6 +64,9 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+    print_enable = true;
+    debug_enable = true;
+    debug_matrix = true;
     news_init();
 
     // initialize matrix state: all keys off
