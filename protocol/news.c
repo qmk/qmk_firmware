@@ -99,11 +99,11 @@ Pinouts
     2 BZ(Speaker)
     3 Keyboard Data(from keyboard MCU TxD)
     4 NC
-    5 FG
+    5 GND
     6 Unknown Input(to keyboard MCU RxD via schmitt trigger)
     7 Mouse Data(from Mouse Ext connector)
     8 Unknown Input(to Keyboard MCU Input via diode and buffer)
-    9 GND
+    9 FG
     NOTE: Two LED on keyboard are controlled by pin 6,8?
 
     EIA 232 male connector from NWP-411A
@@ -115,11 +115,11 @@ Pinouts
     2 BZ(Speaker)
     3 Keyboard Data(from keyboard MCU TxD)
     4 NC
-    5 FG
+    5 GND
     6 NC
     7 Mouse Data(from Mouse Ext connector)
     8 NC
-    9 GND
+    9 FG
     NOTE: These are just from my guess and not confirmed.
 
 
