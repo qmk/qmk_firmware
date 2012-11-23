@@ -138,7 +138,7 @@ void print_hex32(uint32_t data)
 }
 
 
-void print_bin(uint8_t data)
+void print_bin8(uint8_t data)
 {
     for (int i = 7; i >= 0; i--) {
         sendchar((data & (1<<i)) ? '1' : '0');
