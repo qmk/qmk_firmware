@@ -234,6 +234,7 @@ static bool command_common(uint8_t code)
             break;
 #ifdef NKRO_ENABLE
         case KC_N:
+            clear_keyboard(); //Prevents stuck keys.
             keyboard_nkro = !keyboard_nkro;
             if (keyboard_nkro)
                 print("NKRO: enabled\n");

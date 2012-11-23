@@ -564,20 +564,20 @@ void keyboard_task(void)
     matrix_row_t matrix_change = 0;
 
     matrix_scan();
-    for (int r = 0; r < MATRIX_ROWS; r++) {
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         matrix_row = matrix_get_row(r);
         matrix_change = matrix_row ^ matrix_prev[r];
         if (matrix_change) {
             if (debug_matrix) matrix_print();
 
-            for (int c = 0; c < MATRIX_COLS; c++) {
-                if (matrix_change & (1<<c)) {
+            for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+                if (matrix_change & ((matrix_row_t)1<<c)) {
                     process_key((keyevent_t){
                         .key = (key_t){ .row = r, .col = c },
-                        .pressed = (matrix_row & (1<<c))
+                        .pressed = (matrix_row & ((matrix_row_t)1<<c))
                     });
                     // record a processed key
-                    matrix_prev[r] ^= (1<<c);
+                    matrix_prev[r] ^= ((matrix_row_t)1<<c);
                     // process a key per task call
                     goto MATRIX_LOOP_END;
                 }
