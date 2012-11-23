@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = hid_phantom_pjrc
+TARGET = phantom_pjrc
 
 # Directory common source filess exist
 TOP_DIR = ../..

@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = hid_phantom_lufa
+TARGET = phantom_lufa
 
 # Directory common source filess exist
 TOP_DIR = ../..

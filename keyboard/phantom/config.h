@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xB919
+#define PRODUCT_ID      0x6057
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Phantom
