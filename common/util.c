@@ -22,12 +22,20 @@ uint8_t bitpop(uint8_t bits)
 {
     uint8_t c;
     for (c = 0; bits; c++)
-        bits &= bits -1;
+        bits &= bits - 1;
     return c;
 /*
     const uint8_t bit_count[] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 };
     return bit_count[bits>>4] + bit_count[bits&0x0F]
 */
+}
+
+uint8_t bitpop16(uint16_t bits)
+{
+    uint8_t c;
+    for (c = 0; bits; c++)
+        bits &= bits - 1;
+    return c;
 }
 
 // most significant on-bit - return highest location of on-bit

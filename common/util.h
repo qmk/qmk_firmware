@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef UTIL_H
-#define UTIL_H 1
+#define UTIL_H
 
 #include <stdint.h>
 
@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 uint8_t bitpop(uint8_t bits);
+uint8_t bitpop16(uint16_t bits);
 uint8_t biton(uint8_t bits);
 
 #endif
