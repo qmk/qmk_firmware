@@ -28,7 +28,7 @@ In this pic:
 3. `DATA`(Green)
 4. `+5V`(Yellow)
 
-Not that wire colors may vary in your cable.
+Note that wire colors may vary in your cable.
 
 
 ### Pinout
