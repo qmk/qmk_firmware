@@ -36,10 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking Caps Lock support */
 //#define MATRIX_HAS_LOCKING_CAPS
 
-/* Backspace for command key */
-#define BACKSPACE_CODE  0x33
+/* magic key */
 #define IS_COMMAND() ( \
-    matrix_is_on((BACKSPACE_CODE>>3)&0x0F, BACKSPACE_CODE&0x07) \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)) || \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL)) \
 )
 
 
