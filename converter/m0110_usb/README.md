@@ -120,5 +120,7 @@ Debug
 -----
 You can use [PJRC HID listen](http://www.pjrc.com/teensy/hid_listen.html) to see debug output.
 
-The converter has some functions for debug, press `Alt+Gui+H` simultaneously to get help.
+The converter has some functions for debug, press `<magickey>+H` simultaneously to get help.
 These function is totally undocumented, tentative, inconsistent and buggy.
+
+magickey: Shift+Option+Command(Shift+Alt+Gui or Shift+Alt+Control)
