@@ -199,24 +199,48 @@ static inline bool read_bit(void)
 {
     // ADB Bit Cells
     //
-    // bit0: ______~~~
-    //       65    :35us
-    //
-    // bit1: ___~~~~~~
-    //       35 :65us
-    //
-    // bit0 low time: 60-70% of bit cell(42-91us)
-    // bit1 low time: 30-40% of bit cell(21-52us)
     // bit cell time: 70-130us
-    // [from Apple IIgs Hardware Reference Second Edition]
+    // low part of bit0: 60-70% of bit cell
+    // low part of bit1: 30-40% of bit cell
     //
-    // After 55us if data line is low/high then bit is 0/1.
-    // Too simple to rely on?
+    //    bit cell time         70us        130us
+    //    --------------------------------------------
+    //    low  part of bit0     42-49       78-91
+    //    high part of bit0     21-28       39-52
+    //    low  part of bit1     21-28       39-52
+    //    high part of bit1     42-49       78-91
+    //
+    //
+    // bit0:
+    //    70us bit cell:
+    //      ____________~~~~~~
+    //      42-49        21-28  
+    //
+    //    130us bit cell:
+    //      ____________~~~~~~
+    //      78-91        39-52  
+    //
+    // bit1:
+    //    70us bit cell:
+    //      ______~~~~~~~~~~~~
+    //      21-28        42-49
+    //
+    //    130us bit cell:
+    //      ______~~~~~~~~~~~~
+    //      39-52        78-91
+    //
+    // read:
+    //      ________|~~~~~~~~~
+    //              55us
+    // Read data line after 55us. If data line is low/high then bit is 0/1.
+    // This method might not work at <90us bit cell time.
+    //
+    // [from Apple IIgs Hardware Reference Second Edition]
     bool bit;
-    wait_data_lo(75);   // wait the beginning of bit cell
+    wait_data_lo(75);   // wait the start of bit cell at least 130ms(55+0+75)
     _delay_us(55);
     bit = data_in();
-    wait_data_hi(36);   // wait high part of bit cell
+    wait_data_hi(36);   // wait high part of bit cell at least 91ms(55+36)
     return bit;
 }
 
@@ -258,7 +282,7 @@ Resources
 ---------
 ADB - The Untold Story: Space Aliens Ate My Mouse
     http://developer.apple.com/legacy/mac/library/#technotes/hw/hw_01.html
-Apple IIgs Hardware Reference Second Edition [p80(Chapter6 p121)]
+Apple IIgs Hardware Reference Second Edition [Chapter6 p121]
     ftp://ftp.apple.asimov.net/pub/apple_II/documentation/Apple%20IIgs%20Hardware%20Reference.pdf
 ADB Keycode
     http://72.0.193.250/Documentation/macppc/adbkeycodes/
@@ -376,9 +400,9 @@ Communication
     Global reset:
     Host asserts low in 2.8-5.2ms. All devices are forced to reset.
 
-    Send request from device(Srq):
+    Service request from device(Srq):
     Device can request to send at commad(Global only?) stop bit.
-    keep low for 300us to request.
+    Requesting device keeps low for 140-260us at stop bit of command.
 
 
 Keyboard Data(Register0)
