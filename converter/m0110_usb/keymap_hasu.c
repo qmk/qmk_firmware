@@ -115,10 +115,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
     1,              // Fn0
-    0,              // Fn1
-    0,              // Fn2
-    0,              // Fn3
-    0,              // Fn4
+    2,              // Fn1
+    3,              // Fn2
+    1,              // Fn3
+    2,              // Fn4
     0,              // Fn5
     0,              // Fn6
     0               // Fn7
@@ -127,10 +127,10 @@ static const uint8_t PROGMEM fn_layer[] = {
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
 // See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_NO,          // Fn2
-    KC_NO,          // Fn3
+    KC_ENTER,       // Fn0
+    KC_SCOLON,      // Fn1
+    KC_SLASH,       // Fn2
+    KC_UP,          // Fn3
     KC_NO,          // Fn4
     KC_NO,          // Fn5
     KC_NO,          // Fn6
@@ -139,44 +139,49 @@ static const uint8_t PROGMEM fn_keycode[] = {
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default:
+     * M0110                                                       M0120
      * ,---------------------------------------------------------. ,---------------.
-     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Ctl|  =|  /|  *|
+     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Gui|  -|  +|  *|
      * |---------------------------------------------------------| |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   | |  7|  8|  9|  -|
-     * |-----------------------------------------------------'   | |---------------|
-     * |Fn0   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  +|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \| |  7|  8|  9|  /|
      * |---------------------------------------------------------| |---------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft|Up | |  1|  2|  3|   |
-     * |---------------------------------------------------------| |-----------|Ent|
-     * |Alt  |Gui    |         Space         |Ctl|  \|Lft|Rgt|Dn | |      0|  .|   |
-     * `---------------------------------------------------------' `---------------'
+     * |Ctrl  |  A|  S|  D|  F|  G|  H|  J|  K|  L| Fn|  '|Return| |  4|  5|  6|  ,|
+     * |---------------------------------------------------------| |---------------|
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,| Fn|Shift   | |  1|  2|  3|   |
+     * `---------------------------------------------------------' |-----------|Ent|
+     *      |Fn |alt |         Space               |Gui |Fn |      |      0|  .|   |
+     *      `-----------------------------------------------'      `---------------'
      */
     KEYMAP(
-    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    LCTL,EQL, PSLS,PAST,
+    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    NLCK,EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
-    FN0, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,     P4,  P5,  P6,  PPLS,
-    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          UP,      P1,  P2,  P3,  PENT,
-    LALT,LGUI,               SPC,                LCTL,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN1, QUOT,     FN0,     P4,  P5,  P6,  PPLS,
+    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           FN3,     P1,  P2,  P3,  PENT,
+    FN4, LALT,               SPC,                LGUI,BSLS,LGUI,RCTL,RCTL,    LGUI,     PDOT
     ),
-    /* Cursor Layer(WASD, IJKL)
-     * ,---------------------------------------------------------. ,---------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|  =|  /|  *|
-     * |---------------------------------------------------------| |---------------|
-     * |Caps |Hom| Up|PgU|   |   |   |PgU| Up|Hom|Psc|Slk|Pau|   | |  7|  8|  9|  -|
-     * |-----------------------------------------------------'   | |---------------|
-     * |Fn0   |Lef|Dow|Rig|   |   |   |Lef|Dow|Rig|   |   |Return| |  4|  5|  6|  +|
-     * |---------------------------------------------------------| |---------------|
-     * |Shift   |End|   |PgD|   |   |   |PgD|   |End|   |Shif|PgU| |  1|  2|  3|   |
-     * |---------------------------------------------------------| |-----------|Ent|
-     * |Alt  |Gui    |         Space        |Gui |Ins|Hom|End|PgD| |      0|  .|   |
-     * `---------------------------------------------------------' `---------------'
-     */
+    // HHKB & WASD
     KEYMAP(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
-    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  PGUP,UP,  HOME,PSCR,SLCK,PAUS,         P7,  P8,  P9,  PMNS,
-    FN0, LEFT,DOWN,RGHT,NO,  NO,  NO,  LEFT,DOWN,RGHT,NO,  NO,       ENT,     P4,  P5,  P6,  PPLS,
-    LSFT,END, NO,  PGDN,NO,  NO,  NO,  PGDN,NO,  END, NO,            PGUP,    P1,  P2,  P3,  PENT,
-    LALT,LGUI,               SPC,                LCTL,INS, HOME,END, PGDN,    P0,       PDOT
+    CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,           P7,  P8,  P9,  PMNS,
+    LCTL,VOLD,VOLU,MUTE,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     FN0,     P4,  P5,  P6,  PPLS,
+    LSFT,NO,  NO,  NO,  NO,  NO,  NO,  NO,  END, PGDN,DOWN,          FN3,     P1,  P2,  P3,  PENT,
+    LCTL,LALT,               SPC,                LGUI,INS, LGUI,RCTL,RCTL,    P0,       PDOT
+    ),
+    // vi mousekeys
+    KEYMAP(
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
+    CAPS,NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,PSCR,SLCK,PAUS,         P7,  P8,  P9,  PMNS,
+    LCTL,VOLD,VOLU,MUTE,NO,  NO,  MS_L,MS_D,MS_U,MS_R,FN1, NO,       ENT,     P4,  P5,  P6,  PPLS,
+    LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,NO,  NO,  NO,            NO,      P1,  P2,  P3,  PENT,
+    FN4, LALT,               BTN1,               LGUI,NO,  LGUI,RCTL,RCTL,    P0,       PDOT
+    ),
+    // vi cusorkeys
+    KEYMAP(
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
+    CAPS,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, PSCR,SLCK,PAUS,         P7,  P8,  P9,  PMNS,
+    LCTL,NO,  NO,  NO,  NO,  NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,     P4,  P5,  P6,  PPLS,
+    LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2,           NO,      P1,  P2,  P3,  PENT,
+    LCTL,LALT,               SPC,                LGUI,INS, LGUI,RCTL,RCTL,    P0,       PDOT
     ),
 };
 

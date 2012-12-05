@@ -60,13 +60,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    print_enable = true;
-    debug_enable = true;
-    debug_matrix = false;
-    debug_keyboard = false;
-    debug_mouse = false;
-    print("debug enabled.\n");
-
     m0110_init();
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
