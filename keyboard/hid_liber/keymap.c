@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     KG7, KG5, KH5, KJ5, KI5, KI7, KK7, KK5, KL5, KA5, KC5, KC7, KL7, KD6, KQ7, KN7, KM7, \
     KG6, KG3, KH3, KJ3, KI3, KI6, KK6, KK3, KL3, KA3, KC3, KC6, KL6, KD4, KP7, KN5, KM5, \
     KH6, KG4, KH4, KJ4, KI4, KI1, KK1, KK4, KL4, KA4, KC4, KC1, KD0,                     \
-    KF6, KQ0, KG0, KH0, KJ0, KI0, KI2, KK2, KK0, KL0, KA0, KC2, KF4,           KN1,      \
+    KF6, KH1, KG0, KH0, KJ0, KI0, KI2, KK2, KK0, KL0, KA0, KC2, KF4,           KN1,      \
     KO7, KE6, KB1,           KP1,                     KB2, KR4, KA2, KO0, KN2, KP2, KQ2  \
 ) { \
 /*             0         1         2         3         4         5         6         7     */ \
@@ -45,8 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* D */   { KC_##KD0, KC_##KD1, KC_##KD2, KC_NO   , KC_##KD4, KC_##KD5, KC_##KD6, KC_##KD7 }, \
 /* E */   { KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_##KE6, KC_NO    }, \
 /* F */   { KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_##KF4, KC_NO   , KC_##KF6, KC_NO    }, \
-/* G */   { KC_##KG0, KC_##KG1, KC_NO   , KC_##KG3, KC_##KG4, KC_##KG5, KC_##KG6, KC_##KG7  }, \
-/* H */   { KC_##KH0, KC_NO   , KC_NO   , KC_##KH3, KC_##KH4, KC_##KH5, KC_##KH6, KC_##KH7 }, \
+/* G */   { KC_##KG0, KC_##KG1, KC_NO   , KC_##KG3, KC_##KG4, KC_##KG5, KC_##KG6, KC_##KG7 }, \
+/* H */   { KC_##KH0, KC_##KH1, KC_NO   , KC_##KH3, KC_##KH4, KC_##KH5, KC_##KH6, KC_##KH7 }, \
 /* I */   { KC_##KI0, KC_##KI1, KC_##KI2, KC_##KI3, KC_##KI4, KC_##KI5, KC_##KI6, KC_##KI7 }, \
 /* J */   { KC_##KJ0, KC_##KJ1, KC_NO   , KC_##KJ3, KC_##KJ4, KC_##KJ5, KC_##KJ6, KC_##KJ7 }, \
 /* K */   { KC_##KK0, KC_##KK1, KC_##KK2, KC_##KK3, KC_##KK4, KC_##KK5, KC_##KK6, KC_##KK7 }, \
@@ -88,9 +88,10 @@ static const uint8_t PROGMEM fn_keycode[] = {
 };
 
 /*
- * Tenkeyless keyboard default layout, ISO & ANSI (ISO is next to right shift,
- * not present on ANSI, other ISO switches move from ANSI layout but are same
- * switch
+ * Tenkeyless keyboard default layout, ISO & ANSI (ISO is between Left Shift
+ * and Z, and the ANSI \ key above Return/Enter is used for the additional ISO
+ * switch in the ASD row next to enter.  Use NUBS as keycode for the first and
+ * NUHS as the keycode for the second.
  *
  * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
  * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
@@ -135,8 +136,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GRV,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0, MINS,  EQL, BSPC,  INS, HOME, PGUP, \
     TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P, LBRC, RBRC, BSLS,  DEL,  END, PGDN, \
     FN1,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,                   \
-    LSFT, 0,  Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH,      RSFT,         UP,       \
+    LSFT, NO,   Z,   X,   C,   V,   B,   N,   M, COMM, DOT, SLSH,      RSFT,         UP,       \
     LCTL, LGUI, LALT,             SPC,                RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
+
+/*  EXAMPLE ISO keymap, see the NUBS and NUHS keycodes 
+ *  KEYMAP(\
+ *    ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, PSCR, SLCK, BRK, \
+ *    GRV, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, MINS, EQL, BSPC, INS, HOME, PGUP, \
+ *    TAB, Q, W, E, R, T, Y, U, I, O, P, LBRC, RBRC, NUHS, DEL, END, PGDN, \
+ *    CAPS, A, S, D, F, G, H, J, K, L, SCLN, QUOT, ENT, \
+ *    LSFT, NUBS, Z, X, C, V, B, N, M, COMM, DOT, SLSH, RSFT, UP, \
+ *    LCTL, FN1, LALT, SPC, RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
+ */
 
 
 /*  
