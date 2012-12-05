@@ -19,7 +19,7 @@
 
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	0
+#   define DEBOUNCE 0
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
@@ -142,7 +142,7 @@ void matrix_init(void)
     // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
-	
+
     // initialize row and col
     setup_io_pins();
     setup_leds();
@@ -164,7 +164,7 @@ uint8_t matrix_scan(void)
 
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {  // 0-7
         pull_column(col);   // output hi on theline
-        _delay_us(3);       // without this wait it won't read stable value.
+        _delay_us(5);       // without this wait it won't read stable value.
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {  // 0-17
             bool prev_bit = matrix[row] & (1<<col);
             bool curr_bit = *row_pin[row] & row_bit[row];
@@ -173,6 +173,7 @@ uint8_t matrix_scan(void)
                 if (debouncing) {
                     debug("bounce!: "); debug_hex(debouncing); print("\n");
                 }
+                _delay_ms(1); // improved affect on bouncing
                 debouncing = DEBOUNCE;
             }
         }
