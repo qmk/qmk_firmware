@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if need no debouncing */
-#define DEBOUNCE    7
+#define DEBOUNCE    8
 
 
 /* key combination for command */
