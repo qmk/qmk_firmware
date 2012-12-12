@@ -56,6 +56,7 @@ POSSIBILITY OF SUCH DAMAGE.
 void     adb_host_init(void);
 bool     adb_host_psw(void);
 uint16_t adb_host_kbd_recv(void);
+void     adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l);
 void     adb_host_kbd_led(uint8_t led);
 
 #endif

@@ -67,6 +67,12 @@ void adb_host_init(void)
 #ifdef ADB_PSW_BIT
     psw_hi();
 #endif
+
+    // Enable keyboard left/right modifier distinction
+    // Addr:Keyboard(0010), Cmd:Listen(10), Register3(11)
+    // upper byte: reserved bits 0000, device address 0010
+    // lower byte: device handler 00000011
+    adb_host_listen(0x2B,0x02,0x03);
 }
 
 #ifdef ADB_PSW_BIT
@@ -98,17 +104,25 @@ uint16_t adb_host_kbd_recv(void)
     return data;
 }
 
-// send state of LEDs
-void adb_host_kbd_led(uint8_t led)
+void adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l)
 {
     attention();
-    send_byte(0x2A);            // Addr:Keyboard(0010), Cmd:Listen(10), Register2(10)
+    send_byte(cmd);
     place_bit0();               // Stopbit(0)
     _delay_us(200);             // Tlt/Stop to Start
     place_bit1();               // Startbit(1)
-    send_byte(0);               // send upper byte (not used)
-    send_byte(led&0x07);        // send lower byte (bit2: ScrollLock, bit1: CapsLock, bit0: NumLock)
+    send_byte(data_h); 
+    send_byte(data_l);
     place_bit0();               // Stopbit(0);
+}
+
+// send state of LEDs
+void adb_host_kbd_led(uint8_t led)
+{
+    // Addr:Keyboard(0010), Cmd:Listen(10), Register2(10)
+    // send upper byte (not used)
+    // send lower byte (bit2: ScrollLock, bit1: CapsLock, bit0:
+    adb_host_listen(0x2A,0,led&0x07);
 }
 
 
