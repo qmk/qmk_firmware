@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "util.h"
+#include "action.h"
 #include "keymap.h"
 
 
@@ -49,33 +50,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    } \
 }
 
-#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
 
-
-// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
-static const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
-    1,              // Fn1
-    2,              // Fn2
-    3,              // Fn3
-    3,              // Fn4
-    5,              // Fn5
-    0,              // Fn6
-    0               // Fn7
+static const action_t PROGMEM fn_actions[] = {
+    ACTION_LAYER(0),                    // Fn0
+    ACTION_LAYER(1),                    // Fn1
+    ACTION_LAYER_KEY(2, KC_SLASH),      // Fn2
+    ACTION_LAYER_KEY(3, KC_SCLN),       // Fn3
+    ACTION_LAYER(3),                    // Fn3
+    ACTION_LAYER_KEY(5, KC_SPC),        // Fn5
+    NO_ACTION,                          // Fn6
+    NO_ACTION,                          // Fn7
 };
 
-// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
-// See layer.c for details.
-static const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_SLSH,        // Fn2
-    KC_SCLN,        // Fn3
-    KC_NO,          // Fn4
-    KC_SPC,         // Fn5
-    KC_NO,          // Fn6
-    KC_NO           // Fn7
-};
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
@@ -149,24 +135,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *      `--------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
-#ifdef HOST_IWRAP
-// iWRAP does not support mouse wheel, use these keycodes to remap as wheel
-#define KC_KPPL KC_KP_PLUS
-#define KC_KPMI KC_KP_MINUS
-#define KC_KPAS KC_KP_ASTERISK
-#define KC_KPSL KC_KP_SLASH
-    KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, KPAS,KPPL,MS_U,KPMI,KPSL,KPAS,KPPL,KPMI,KPSL,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
-           LSFT,BTN4,BTN5,BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  RSFT,NO, \
-                LGUI,LALT,          BTN1,               RALT,FN4),
-#else
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
            LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
                 LGUI,LALT,          BTN1,               RALT,FN4),
-#endif
 
     /* Layer 4: Matias half keyboard style (Space)
      * ,-----------------------------------------------------------.
@@ -188,33 +161,61 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 LGUI,LALT,          FN5,                RALT,RGUI),
 
     /* Layer5: another Mouse mode (Space) */
-#ifdef HOST_IWRAP
-    KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, KPAS,KPPL,MS_U,KPMI,KPSL,KPAS,KPPL,KPMI,KPSL,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
-           LSFT,BTN4,BTN5,BTN1,BTN2,BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
-                LGUI,LALT,          FN5,                RALT,RGUI),
-#else
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
            LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
                 LGUI,LALT,          FN5,                RALT,RGUI),
-#endif
 };
 
+#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
 
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
-{
-    return KEYCODE(layer, row, col);
+
+/* legacy interface */
+uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col) { return 0; }
+uint8_t keymap_fn_layer(uint8_t fn_bits) { return 0; }
+uint8_t keymap_fn_keycode(uint8_t fn_bits) { return 0; }
+
+
+action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
+    /* convert from legacy keycode to action */
+    uint8_t key = KEYCODE(layer, row, col);
+    action_t action;
+    switch (key) {
+        case KC_A ... KC_EXSEL:
+            action = (action_t)ACTION_KEY(key);
+            break;
+        case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
+            action = (action_t)ACTION_USAGE_SYSTEM(key2system(key));
+            break;
+        case KC_AUDIO_MUTE ... KC_WWW_FAVORITES:
+            action = (action_t)ACTION_USAGE_CONSUMER(key2consumer(key));
+            break;
+        case KC_MS_UP ... KC_MS_ACCEL2:
+            action = (action_t)ACTION_MOUSEKEY(key);
+            break;
+        case KC_LCTRL ... KC_LGUI:
+            action = (action_t)ACTION_LMODS(MOD_BIT(key));
+            break;
+        case KC_RCTRL ... KC_RGUI:
+            action = (action_t)ACTION_RMODS(MOD_BIT(key)>>4);
+            break;
+        case KC_FN0 ... KC_FN7:
+            action = (action_t)pgm_read_word(&fn_actions[FN_INDEX(key)]);
+            break;
+        case KC_NO ... KC_UNDEFINED:
+        default:
+            action = (action_t)NO_ACTION;
+            break;
+    }
+    debug("action: "); debug_hex16(action.code); debug("\n");
+    return action;
 }
 
-uint8_t keymap_fn_layer(uint8_t index)
-{
-    return pgm_read_byte(&fn_layer[index]);
-}
 
-uint8_t keymap_fn_keycode(uint8_t index)
+uint8_t keymap_process_event(keyevent_t event)
 {
-    return pgm_read_byte(&fn_keycode[index]);
+    action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
+    action_exec(action, event);
+    return 0;
 }

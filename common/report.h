@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REPORT_H
 
 #include <stdint.h>
+#include <keycode.h>
 
 
 /* report id */
@@ -96,6 +97,86 @@ typedef struct {
     int8_t v;
     int8_t h;
 } __attribute__ ((packed)) report_mouse_t;
+
+
+static uint16_t key2system(uint8_t key)
+{
+    uint16_t usage = 0;
+    switch (key) {
+        case KC_SYSTEM_POWER:
+            usage = SYSTEM_POWER_DOWN;
+            break;
+        case KC_SYSTEM_SLEEP:
+            usage = SYSTEM_SLEEP;
+            break;
+        case KC_SYSTEM_WAKE:
+            usage = SYSTEM_WAKE_UP;
+            break;
+    }
+    return usage;
+}
+
+static uint16_t key2consumer(uint8_t key)
+{
+    uint16_t usage = 0;
+    switch (key) {
+        case KC_AUDIO_MUTE:
+            usage = AUDIO_MUTE;
+            break;
+        case KC_AUDIO_VOL_UP:
+            usage = AUDIO_VOL_UP;
+            break;
+        case KC_AUDIO_VOL_DOWN:
+            usage = AUDIO_VOL_DOWN;
+            break;
+        case KC_MEDIA_NEXT_TRACK:
+            usage = TRANSPORT_NEXT_TRACK;
+            break;
+        case KC_MEDIA_PREV_TRACK:
+            usage = TRANSPORT_PREV_TRACK;
+            break;
+        case KC_MEDIA_STOP:
+            usage = TRANSPORT_STOP;
+            break;
+        case KC_MEDIA_PLAY_PAUSE:
+            usage = TRANSPORT_PLAY_PAUSE;
+            break;
+        case KC_MEDIA_SELECT:
+            usage = AL_CC_CONFIG;
+            break;
+        case KC_MAIL:
+            usage = AL_EMAIL;
+            break;
+        case KC_CALCULATOR:
+            usage = AL_CALCULATOR;
+            break;
+        case KC_MY_COMPUTER:
+            usage = AL_LOCAL_BROWSER;
+            break;
+        case KC_WWW_SEARCH:
+            usage = AC_SEARCH;
+            break;
+        case KC_WWW_HOME:
+            usage = AC_HOME;
+            break;
+        case KC_WWW_BACK:
+            usage = AC_BACK;
+            break;
+        case KC_WWW_FORWARD:
+            usage = AC_FORWARD;
+            break;
+        case KC_WWW_STOP:
+            usage = AC_STOP;
+            break;
+        case KC_WWW_REFRESH:
+            usage = AC_REFRESH;
+            break;
+        case KC_WWW_FAVORITES:
+            usage = AC_BOOKMARKS;
+            break;
+    }
+    return usage;
+}
 
 #ifdef __cplusplus
 }
