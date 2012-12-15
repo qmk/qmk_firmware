@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "print.h"
+#include "debug.h"
 #include "util.h"
 #include "timer.h"
 #include "matrix.h"
@@ -135,6 +136,12 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+#ifdef DEBUG
+    print_enable = true;
+    debug_enable = true;
+    debug_keyboard = true;
+#endif
+
     KEY_INIT();
 
     // initialize matrix state: all keys off

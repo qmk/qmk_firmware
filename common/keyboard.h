@@ -29,10 +29,10 @@ extern "C" {
 typedef struct {
     uint8_t row;
     uint8_t col;
-} key_t;
+} keypos_t;
 
 typedef struct {
-    key_t    key;
+    keypos_t key;
     bool     pressed;
 } keyevent_t;
 
@@ -44,7 +44,6 @@ typedef struct {
 } keyrecord_t;
 
 #define KEYEQ(keya, keyb)     (keya.row == keyb.row && keya.col == keyb.col)
-
 
 extern uint8_t current_layer;
 extern uint8_t default_layer;
