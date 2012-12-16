@@ -415,89 +415,6 @@ static void register_code(uint8_t code)
         host_add_mods(MOD_BIT(code));
         host_send_keyboard_report();
     }
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY(code) {
-        mousekey_on(code);
-        mousekey_send();
-    }
-#endif
-#ifdef EXTRAKEY_ENABLE
-    else if IS_CONSUMER(code) {
-        uint16_t usage = 0;
-        switch (code) {
-            case KC_AUDIO_MUTE:
-                usage = AUDIO_MUTE;
-                break;
-            case KC_AUDIO_VOL_UP:
-                usage = AUDIO_VOL_UP;
-                break;
-            case KC_AUDIO_VOL_DOWN:
-                usage = AUDIO_VOL_DOWN;
-                break;
-            case KC_MEDIA_NEXT_TRACK:
-                usage = TRANSPORT_NEXT_TRACK;
-                break;
-            case KC_MEDIA_PREV_TRACK:
-                usage = TRANSPORT_PREV_TRACK;
-                break;
-            case KC_MEDIA_STOP:
-                usage = TRANSPORT_STOP;
-                break;
-            case KC_MEDIA_PLAY_PAUSE:
-                usage = TRANSPORT_PLAY_PAUSE;
-                break;
-            case KC_MEDIA_SELECT:
-                usage = AL_CC_CONFIG;
-                break;
-            case KC_MAIL:
-                usage = AL_EMAIL;
-                break;
-            case KC_CALCULATOR:
-                usage = AL_CALCULATOR;
-                break;
-            case KC_MY_COMPUTER:
-                usage = AL_LOCAL_BROWSER;
-                break;
-            case KC_WWW_SEARCH:
-                usage = AC_SEARCH;
-                break;
-            case KC_WWW_HOME:
-                usage = AC_HOME;
-                break;
-            case KC_WWW_BACK:
-                usage = AC_BACK;
-                break;
-            case KC_WWW_FORWARD:
-                usage = AC_FORWARD;
-                break;
-            case KC_WWW_STOP:
-                usage = AC_STOP;
-                break;
-            case KC_WWW_REFRESH:
-                usage = AC_REFRESH;
-                break;
-            case KC_WWW_FAVORITES:
-                usage = AC_BOOKMARKS;
-                break;
-        }
-        host_consumer_send(usage);
-    }
-    else if IS_SYSTEM(code) {
-        uint16_t usage = 0;
-        switch (code) {
-            case KC_SYSTEM_POWER:
-                usage = SYSTEM_POWER_DOWN;
-                break;
-            case KC_SYSTEM_SLEEP:
-                usage = SYSTEM_SLEEP;
-                break;
-            case KC_SYSTEM_WAKE:
-                usage = SYSTEM_WAKE_UP;
-                break;
-        }
-        host_system_send(usage);
-    }
-#endif
 }
 
 static void unregister_code(uint8_t code)
@@ -510,20 +427,6 @@ static void unregister_code(uint8_t code)
         host_del_mods(MOD_BIT(code));
         host_send_keyboard_report();
     }
-#ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY(code) {
-        mousekey_off(code);
-        mousekey_send();
-    }
-#endif
-#ifdef EXTRAKEY_ENABLE
-    else if IS_CONSUMER(code) {
-        host_consumer_send(0x0000);
-    }
-    else if IS_SYSTEM(code) {
-        host_system_send(0x0000);
-    }
-#endif
 }
 
 static void register_mods(uint8_t mods)

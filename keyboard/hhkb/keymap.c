@@ -186,10 +186,10 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
             action = (action_t)ACTION_KEY(key);
             break;
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
-            action = (action_t)ACTION_USAGE_SYSTEM(key2system(key));
+            action = (action_t)ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(key));
             break;
         case KC_AUDIO_MUTE ... KC_WWW_FAVORITES:
-            action = (action_t)ACTION_USAGE_CONSUMER(key2consumer(key));
+            action = (action_t)ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(key));
             break;
         case KC_MS_UP ... KC_MS_ACCEL2:
             action = (action_t)ACTION_MOUSEKEY(key);

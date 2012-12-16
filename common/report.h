@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REPORT_H
 
 #include <stdint.h>
-#include <keycode.h>
+#include "keycode.h"
 
 
 /* report id */
@@ -34,8 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSE_BTN4 (1<<3)
 #define MOUSE_BTN5 (1<<4)
 
-// Consumer Page(0x0C)
-// following are supported by Windows: http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
+/* Consumer Page(0x0C)
+ * following are supported by Windows: http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
+ */
 #define AUDIO_MUTE              0x00E2
 #define AUDIO_VOL_UP            0x00E9
 #define AUDIO_VOL_DOWN          0x00EA
@@ -43,10 +44,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRANSPORT_PREV_TRACK    0x00B6
 #define TRANSPORT_STOP          0x00B7
 #define TRANSPORT_PLAY_PAUSE    0x00CD
+/* application launch */
 #define AL_CC_CONFIG            0x0183
 #define AL_EMAIL                0x018A
 #define AL_CALCULATOR           0x0192
 #define AL_LOCAL_BROWSER        0x0194
+/* application control */
 #define AC_SEARCH               0x0221
 #define AC_HOME                 0x0223
 #define AC_BACK                 0x0224
@@ -54,20 +57,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AC_STOP                 0x0226
 #define AC_REFRESH              0x0227
 #define AC_BOOKMARKS            0x022A
-// supplement for Bluegiga iWRAP HID(not supported by Windows?)
+/* supplement for Bluegiga iWRAP HID(not supported by Windows?) */
 #define AL_LOCK                 0x019E
 #define TRANSPORT_RECORD        0x00B2
 #define TRANSPORT_REWIND        0x00B4
 #define TRANSPORT_EJECT         0x00B8
 #define AC_MINIMIZE             0x0206
 
-// Generic Desktop Page(0x01)
+/* Generic Desktop Page(0x01) - system power control */
 #define SYSTEM_POWER_DOWN       0x0081
 #define SYSTEM_SLEEP            0x0082
 #define SYSTEM_WAKE_UP          0x0083
 
 
-// key report size(NKRO or boot mode)
+/* key report size(NKRO or boot mode) */
 #if defined(HOST_PJRC)
 #   include "usb.h"
 #   if defined(KBD2_REPORT_KEYS) && KBD2_REPORT_KEYS > KBD_REPORT_KEYS
@@ -99,84 +102,32 @@ typedef struct {
 } __attribute__ ((packed)) report_mouse_t;
 
 
-static uint16_t key2system(uint8_t key)
-{
-    uint16_t usage = 0;
-    switch (key) {
-        case KC_SYSTEM_POWER:
-            usage = SYSTEM_POWER_DOWN;
-            break;
-        case KC_SYSTEM_SLEEP:
-            usage = SYSTEM_SLEEP;
-            break;
-        case KC_SYSTEM_WAKE:
-            usage = SYSTEM_WAKE_UP;
-            break;
-    }
-    return usage;
-}
+/* keycode to system usage */
+#define KEYCODE2SYSTEM(key) \
+    (key == KC_SYSTEM_POWER ? SYSTEM_POWER_DOWN : \
+    (key == KC_SYSTEM_SLEEP ? SYSTEM_SLEEP : \
+    (key == KC_SYSTEM_WAKE  ? SYSTEM_WAKE_UP : 0)))
 
-static uint16_t key2consumer(uint8_t key)
-{
-    uint16_t usage = 0;
-    switch (key) {
-        case KC_AUDIO_MUTE:
-            usage = AUDIO_MUTE;
-            break;
-        case KC_AUDIO_VOL_UP:
-            usage = AUDIO_VOL_UP;
-            break;
-        case KC_AUDIO_VOL_DOWN:
-            usage = AUDIO_VOL_DOWN;
-            break;
-        case KC_MEDIA_NEXT_TRACK:
-            usage = TRANSPORT_NEXT_TRACK;
-            break;
-        case KC_MEDIA_PREV_TRACK:
-            usage = TRANSPORT_PREV_TRACK;
-            break;
-        case KC_MEDIA_STOP:
-            usage = TRANSPORT_STOP;
-            break;
-        case KC_MEDIA_PLAY_PAUSE:
-            usage = TRANSPORT_PLAY_PAUSE;
-            break;
-        case KC_MEDIA_SELECT:
-            usage = AL_CC_CONFIG;
-            break;
-        case KC_MAIL:
-            usage = AL_EMAIL;
-            break;
-        case KC_CALCULATOR:
-            usage = AL_CALCULATOR;
-            break;
-        case KC_MY_COMPUTER:
-            usage = AL_LOCAL_BROWSER;
-            break;
-        case KC_WWW_SEARCH:
-            usage = AC_SEARCH;
-            break;
-        case KC_WWW_HOME:
-            usage = AC_HOME;
-            break;
-        case KC_WWW_BACK:
-            usage = AC_BACK;
-            break;
-        case KC_WWW_FORWARD:
-            usage = AC_FORWARD;
-            break;
-        case KC_WWW_STOP:
-            usage = AC_STOP;
-            break;
-        case KC_WWW_REFRESH:
-            usage = AC_REFRESH;
-            break;
-        case KC_WWW_FAVORITES:
-            usage = AC_BOOKMARKS;
-            break;
-    }
-    return usage;
-}
+/* keycode to consumer usage */
+#define KEYCODE2CONSUMER(key) \
+    (key == KC_AUDIO_MUTE       ?  AUDIO_MUTE : \
+    (key == KC_AUDIO_VOL_UP     ?  AUDIO_VOL_UP : \
+    (key == KC_AUDIO_VOL_DOWN   ?  AUDIO_VOL_DOWN : \
+    (key == KC_MEDIA_NEXT_TRACK ?  TRANSPORT_NEXT_TRACK : \
+    (key == KC_MEDIA_PREV_TRACK ?  TRANSPORT_PREV_TRACK : \
+    (key == KC_MEDIA_STOP       ?  TRANSPORT_STOP : \
+    (key == KC_MEDIA_PLAY_PAUSE ?  TRANSPORT_PLAY_PAUSE : \
+    (key == KC_MEDIA_SELECT     ?  AL_CC_CONFIG : \
+    (key == KC_MAIL             ?  AL_EMAIL : \
+    (key == KC_CALCULATOR       ?  AL_CALCULATOR : \
+    (key == KC_MY_COMPUTER      ?  AL_LOCAL_BROWSER : \
+    (key == KC_WWW_SEARCH       ?  AC_SEARCH : \
+    (key == KC_WWW_HOME         ?  AC_HOME : \
+    (key == KC_WWW_BACK         ?  AC_BACK : \
+    (key == KC_WWW_FORWARD      ?  AC_FORWARD : \
+    (key == KC_WWW_STOP         ?  AC_STOP : \
+    (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
+    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0))))))))))))))))))
 
 #ifdef __cplusplus
 }
