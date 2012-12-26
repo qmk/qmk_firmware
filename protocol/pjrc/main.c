@@ -44,9 +44,6 @@
 
 int main(void)
 {
-    DEBUG_LED_CONFIG;
-    DEBUG_LED_OFF;
-
     // set for 16 MHz clock
     CPU_PRESCALE(0);
 
