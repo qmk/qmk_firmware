@@ -619,6 +619,10 @@ void keyboard_task(void)
             Kdebug("FAIL SAFE: clear all keys(default layer).\n");
             clear_keyboard();
             current_layer = default_layer;
+            fn_state_bits = 0;
+            delayed_fn = (keyrecord_t){};
+            waiting_key = (keyrecord_t){};
+            NEXT(IDLE);
         }
     }
 
