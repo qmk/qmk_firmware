@@ -82,7 +82,7 @@ uint8_t matrix_scan(void)
         unselect_rows();
         select_row(i);
         _delay_us(1);  // without this wait read unstable value.
-        uint16_t cols = ~read_cols();
+        uint16_t cols = read_cols();
         if (matrix[i] != cols) {
             matrix[i] = cols;
             if (debouncing) {
@@ -132,7 +132,7 @@ uint16_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
-    print("\nr/c 01234567\n");
+    print("\nr/c 01234567890ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
         pbin_reverse16(matrix_get_row(row));
@@ -170,20 +170,20 @@ static void  init_cols(void)
 
 static uint16_t read_cols(void)
 {
-    return (PINF&(1<<0) ? (1<<0)  : 0) |
-           (PINF&(1<<1) ? (1<<1)  : 0) |
-           (PINE&(1<<6) ? (1<<2)  : 0) |
-           (PINC&(1<<7) ? (1<<3)  : 0) |
-           (PINC&(1<<6) ? (1<<4)  : 0) |
-           (PINB&(1<<6) ? (1<<5)  : 0) |
-           (PIND&(1<<4) ? (1<<6)  : 0) |
-           (PINB&(1<<1) ? (1<<7)  : 0) |
-           (PINB&(1<<0) ? (1<<8)  : 0) |
-           (PINB&(1<<5) ? (1<<9)  : 0) |
-           (PINB&(1<<4) ? (1<<10) : 0) |
-           (PIND&(1<<7) ? (1<<11) : 0) |
-           (PIND&(1<<6) ? (1<<12) : 0) |
-           (PINB&(1<<3) ? (1<<13) : 0);
+    return (PINF&(1<<0) ? 0 : (1<<0)) |
+           (PINF&(1<<1) ? 0 : (1<<1)) |
+           (PINE&(1<<6) ? 0 : (1<<2)) |
+           (PINC&(1<<7) ? 0 : (1<<3)) |
+           (PINC&(1<<6) ? 0 : (1<<4)) |
+           (PINB&(1<<6) ? 0 : (1<<5)) |
+           (PIND&(1<<4) ? 0 : (1<<6)) |
+           (PINB&(1<<1) ? 0 : (1<<7)) |
+           (PINB&(1<<0) ? 0 : (1<<8)) |
+           (PINB&(1<<5) ? 0 : (1<<9)) |
+           (PINB&(1<<4) ? 0 : (1<<10)) |
+           (PIND&(1<<7) ? 0 : (1<<11)) |
+           (PIND&(1<<6) ? 0 : (1<<12)) |
+           (PINB&(1<<3) ? 0 : (1<<13));
 }
 
 /* Row pin configuration

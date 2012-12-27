@@ -24,6 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap.h"
 
 
+/* GH60 keymap definition macro 
+ * K2C, K31 and  K3C are extra keys for ISO
+ */
 #define KEYMAP( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
@@ -38,6 +41,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K40, KC_##K41, KC_##K42, KC_NO,    KC_NO,    KC_##K45, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D }  \
 }
 
+/* ANSI valiant. No extra keys for ISO */
+#define KEYMAP_ANSI( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D, \
+    K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D, \
+    K40, K41, K42,           K45,                     K4A, K4B, K4C, K4D  \
+) KEYMAP( \ 
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, NO,  K2D, \
+    K30, NO,  K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, NO,  K3D, \
+    K40, K41, K42,           K45,                     K4A, K4B, K4C, K4D  \
+)
+
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
 
 
@@ -47,10 +65,10 @@ static const uint8_t PROGMEM fn_layer[] = {
     1,              // Fn1
     2,              // Fn2
     3,              // Fn3
-    4,              // Fn4
+    3,              // Fn4
     0,              // Fn5
-    3,              // Fn6
-    3               // Fn7
+    0,              // Fn6
+    0               // Fn7
 };
 
 // Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
@@ -60,13 +78,14 @@ static const uint8_t PROGMEM fn_keycode[] = {
     KC_NO,          // Fn1
     KC_SLSH,        // Fn2
     KC_SCLN,        // Fn3
-    KC_SPC,         // Fn4
+    KC_NO,          // Fn4
     KC_NO,          // Fn5
     KC_NO,          // Fn6
     KC_NO           // Fn7
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef PLAIN_MAP
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
      * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
@@ -75,7 +94,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|    Shift |
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |
      * |-----------------------------------------------------------|
      * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
      * `-----------------------------------------------------------'
@@ -84,89 +103,85 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
            CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,NO,  ENT,  \
            LSFT,NO,  Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,NO,  RSFT, \
-           LCTL,LGUI,LALT,          SPC,                     RALT,GRV, FN6, RCTL),
-
-
-#if 0
-    /* Layer 1: HHKB mode (HHKB Fn)
+           LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
+#else
+    /* Layer 0: Default Layer
+     * ,-----------------------------------------------------------.
+     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
+     * |-----------------------------------------------------------|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|
+     * |-----------------------------------------------------------|
+     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
+     * |-----------------------------------------------------------|
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift     |
+     * |-----------------------------------------------------------|
+     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |Fn4 |Fn1 |
+     * `-----------------------------------------------------------'
+     */
+    KEYMAP_ANSI(
+        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
+        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
+        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,     ENT,  \
+        LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           RSFT, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,FN4, FN1),
+    /* Layer 1: HHKB mode
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
      * |-----------------------------------------------------------|
-     * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |     |
-     * |-----------------------------------------------------'     |
+     * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Inser|
+     * |-----------------------------------------------------------|
      * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
+     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift     |
      * |-----------------------------------------------------------|
-     * |   |Gui |Alt  |                      |Alt  |Gui|   |   |Ctr|
+     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |xxx |
      * `-----------------------------------------------------------'
      */ 
-    KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
-           CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  INS, NLCK,\
-           LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN1, \
-           NO,  LGUI,LALT,SPC, RALT,NO,  NO,  NO,  RCTL),
-
-
-    /* Layer 2: Vi mode (Quote/Rmeta)
+    KEYMAP_ANSI(
+        PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,  \
+        CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  INS,  \
+        LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,     ENT,  \
+        LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,          RSFT, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN1),
+    /* Layer 2: Vi mode (Slash)
      * ,-----------------------------------------------------------.
-     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   `   |
+     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
-     * |  \  |Hom|PgD|Up |PgU|End|Hom|PgD|PgU|End|   |   |   |     |
-     * |-----------------------------------------------------'     |
-     * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |   \    |
+     * |Tab  |Hom|PgD|Up |PgU|End|Hom|PgD|PgU|End|   |   |   |     |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|xxx|Shift |   |
+     * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |Return  |
      * |-----------------------------------------------------------|
-     * |   |Gui |Alt  |Space                 |Alt  |Gui|Fn6|Fn6|Ctr|
+     * |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|xxx|Shift     |
+     * |-----------------------------------------------------------|
+     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
      * `-----------------------------------------------------------'
      */
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
-           BSLS,HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO,  \
-           LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  BSLS, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT,NO, \
-           NO,  LGUI,LALT,SPC, RALT,RGUI,FN6, FN6, RCTL),
-
-
-    /* Layer 3: Mouse mode (Semicolon)
+    KEYMAP_ANSI(
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
+        TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO,   \
+        LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,  \
+        LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2,           RSFT, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
+    /* Layer 3: Mouse mode (Semicolon/App)
      * ,-----------------------------------------------------------.
-     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   `   |
+     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
-     * |  \  |MwL|MwD|McU|MwU|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
-     * |-----------------------------------------------------'     |
-     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |   \    |
+     * |Tab  |MwL|MwD|McU|MwU|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |Mb1|Mb2|Mb3|Mb2|Mb1|   |   |   |Shift |   |
+     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |Return  |
      * |-----------------------------------------------------------|
-     * |xxx|Gui |Alt  |Mb1                   |Alt  |   |   |   |   |
+     * |Shift   |   |   |Mb1|Mb2|Mb3|Mb2|Mb1|   |   |   |Shift     |
+     * |-----------------------------------------------------------|
+     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |xxx |Ctrl|
      * `-----------------------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
-           BSLS,WH_L,WH_D,MS_U,WH_U,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,  \
-           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  BSLS, \
-           LSFT,NO,  NO,  BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  RSFT,NO, \
-           FN7, LGUI,LALT,BTN1,RALT,NO,  FN6, FN6, NO),
-
-
-    /* Layer 4: Matias half keyboard style (Space)
-     * ,-----------------------------------------------------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
-     * |-----------------------------------------------------------|
-     * |Backs|  P|  O|  I|  U|  Y|  T|  R|  E|  W|  Q|Tab|Tab|     |
-     * |-----------------------------------------------------'     |
-     * |Contro|  ;|  L|  K|  J|  H|  G|  F|  D|  S|  A|Con|Control |
-     * |-----------------------------------------------------------|
-     * |Shift   |  /|  .|  ,|  M|  N|  B|  V|  C|  X|  Z|Shift |   |
-     * |-----------------------------------------------------------|
-     * |   |Gui |Alt  |xxxxxxxxxxxxxxxxxxxxxx|Alt  |Gui|   |   |Ctr|
-     * `-----------------------------------------------------------'
-     */
-    KEYMAP(MINS,0,   9,   8,   7,   6,   5,   4,   3,   2,   1,   NO,  NO,  ESC, \
-           BSPC,P,   O,   I,   U,   Y,   T,   R,   E,   W,   Q,   TAB, TAB, TAB, \
-           LCTL,SCLN,L,   K,   J,   H,   G,   F,   D,   S,   A,   RCTL,RCTL, \
-           LSFT,SLSH,DOT, COMM,M,   N,   B,   V,   C,   X,   Z,   RSFT,NO, \
-           NO,  LGUI,LALT,FN4, RALT,RGUI,NO,  NO,  RCTL),
+    KEYMAP_ANSI(
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
+        TAB, WH_L,WH_D,MS_U,WH_U,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,   \
+        LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,       ENT,  \
+        LSFT,NO,  BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  NO,            RSFT, \
+        LCTL,LGUI,LALT,          BTN1,                    RALT,RGUI,FN4, RCTL),
 #endif
 };
 
