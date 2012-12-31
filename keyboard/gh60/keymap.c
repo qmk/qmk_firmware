@@ -115,7 +115,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift     |
      * |-----------------------------------------------------------|
-     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |Fn4 |Fn1 |
+     * |Ctrl|Gui |Alt |      Space             |Alt |Fn4 |Fn4 |Fn1 |
      * `-----------------------------------------------------------'
      */
     KEYMAP_ANSI(
@@ -123,7 +123,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,     ENT,  \
         LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           RSFT, \
-        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,FN4, FN1),
+        LCTL,LGUI,LALT,          SPC,                     RALT,FN4, FN4, FN1),
     /* Layer 1: HHKB mode
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
@@ -166,22 +166,22 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
-     * |Tab  |MwL|MwD|McU|MwU|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
+     * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |   |   |     |
      * |-----------------------------------------------------------|
-     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |Return  |
+     * |Contro|   |Ac0|Ac1|Ac1|   |McL|McD|McU|McR|xxx|   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |Mb1|Mb2|Mb3|Mb2|Mb1|   |   |   |Shift     |
+     * |Shift   |   |   |   |   |Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift     |
      * |-----------------------------------------------------------|
-     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |xxx |Ctrl|
+     * |Ctrl|Gui |Alt |      Space             |    |xxx |xxx |    |
      * `-----------------------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
     KEYMAP_ANSI(
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
-        TAB, WH_L,WH_D,MS_U,WH_U,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,   \
-        LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,       ENT,  \
-        LSFT,NO,  BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  NO,            RSFT, \
-        LCTL,LGUI,LALT,          BTN1,                    RALT,RGUI,FN4, RCTL),
+        TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,   \
+        LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,       ENT,  \
+        LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,            RSFT, \
+        LCTL,LGUI,LALT,          BTN1,                    NO,  FN4, FN4, NO  ),
 #endif
 };
 
