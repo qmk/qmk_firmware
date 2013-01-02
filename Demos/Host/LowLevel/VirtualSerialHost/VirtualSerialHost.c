@@ -148,7 +148,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 		                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-		return;	
+		return;
 	}
 
 	puts_P(PSTR("CDC Device Enumerated.\r\n"));
