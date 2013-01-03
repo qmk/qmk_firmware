@@ -1,0 +1,18 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2012.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<board id="lufa.drivers.board.none" vendor="N/A" caption="NONE">
+			<device-support value="avr"/>
+			<build type="define" name="BOARD" value="BOARD_NONE"/>
+		</board>
+	</asf>
+</lufa>

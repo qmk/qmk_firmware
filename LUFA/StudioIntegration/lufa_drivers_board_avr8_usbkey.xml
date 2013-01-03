@@ -1,0 +1,26 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2012.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<board id="lufa.drivers.board.usbkey" vendor="Atmel" caption="USBKEY">
+			<device-support value="at90usb1287"/>
+
+			<require idref="lufa.drivers.misc.at45db642d"/>
+
+			<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Buttons.h"/>
+			<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Dataflash.h"/>
+			<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Joystick.h"/>
+			<build type="header-file" value="Drivers/Board/AVR8/USBKEY/LEDs.h"/>
+
+			<build type="define" name="BOARD" value="BOARD_USBKEY"/>
+		</board>
+	</asf>
+</lufa>

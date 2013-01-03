@@ -10,7 +10,7 @@
 # ---------------------------------------
 
 LUFA_VERSION_NUM        := $(shell grep LUFA_VERSION_STRING Version.h | cut -d'"' -f2)
-EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build *.conf *.tar *.o *.d *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin
+EXCLUDE_FROM_EXPORT     := Documentation DoxygenPages CodeTemplates Build StudioIntegration *.conf *.tar *.o *.d *.lss *.lst *.hex *.elf *.hex *.eep *.map *.bin
 
 # Default target - no default action when attempting to build the core directly
 all:
@@ -29,7 +29,7 @@ version:
 # Check if this is being included from a legacy or non LUFA build system makefile
 ifneq ($(LUFA_PATH),)
   LUFA_ROOT_PATH = $(patsubst %/,%,$(LUFA_PATH))/LUFA/
-  
+
   include $(patsubst %/,%,$(LUFA_PATH))/LUFA/Build/lufa_sources.mk
 else
   LUFA_BUILD_MODULES     += MASTER
@@ -38,7 +38,7 @@ else
   LUFA_PATH               = .
   ARCH                    = {AVR8,UC3,XMEGA}
   DOXYGEN_OVERRIDE_PARAMS = QUIET=YES PROJECT_NUMBER=$(LUFA_VERSION_NUM)
-  
+
   # Remove all object and associated files from the LUFA library core
   clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
