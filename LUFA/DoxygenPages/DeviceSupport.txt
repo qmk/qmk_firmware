@@ -93,7 +93,7 @@
  *   - STK526
  *   - XPLAIN (Original green board, <i>not</i> the newer blue XPLAINED family boards)
  *
- *  \section Sec_AVR8Support_ThirdParty Supported Third Party Models
+ *  \section Sec_AVR8Support_ThirdParty Supported Third Party Boards
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Adafruit U4 Breakout Board
  *   - Arduino Uno
@@ -277,7 +277,7 @@
  *   - EVK1104
  *   - UC3-A3 Xplained
  *
- *  \section Sec_UC3Support_ThirdParty Supported Third Party Models
+ *  \section Sec_UC3Support_ThirdParty Supported Third Party Boards
  *
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
@@ -410,7 +410,7 @@
  *   - XMEGA A3BU Xplained
  *   - XMEGA B1 Xplained
  *
- *  \section Sec_XMEGASupport_ThirdParty Supported Third Party Models
+ *  \section Sec_XMEGASupport_ThirdParty Supported Third Party Boards
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
  *   - Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
