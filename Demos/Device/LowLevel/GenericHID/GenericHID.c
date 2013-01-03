@@ -161,13 +161,13 @@ void ProcessGenericHIDReport(uint8_t* DataArray)
 	  NewLEDMask |= LEDS_LED1;
 
 	if (DataArray[1])
-	  NewLEDMask |= LEDS_LED1;
+	  NewLEDMask |= LEDS_LED2;
 
 	if (DataArray[2])
-	  NewLEDMask |= LEDS_LED1;
+	  NewLEDMask |= LEDS_LED3;
 
 	if (DataArray[3])
-	  NewLEDMask |= LEDS_LED1;
+	  NewLEDMask |= LEDS_LED4;
 
 	LEDs_SetAllLEDs(NewLEDMask);
 }

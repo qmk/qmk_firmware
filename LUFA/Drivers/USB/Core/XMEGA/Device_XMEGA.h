@@ -208,6 +208,12 @@
 				USB.ADDR = Address;
 			}
 
+			static inline void USB_Device_EnableDeviceAddress(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_EnableDeviceAddress(void)
+			{
+				/* No implementation for XMEGA architecture */
+			}
+
 			static inline bool USB_Device_IsAddressSet(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline bool USB_Device_IsAddressSet(void)
 			{

@@ -177,13 +177,13 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 	  NewLEDMask |= LEDS_LED1;
 
 	if (Data[1])
-	  NewLEDMask |= LEDS_LED1;
+	  NewLEDMask |= LEDS_LED2;
 
 	if (Data[2])
-	  NewLEDMask |= LEDS_LED1;
+	  NewLEDMask |= LEDS_LED3;
 
 	if (Data[3])
-	  NewLEDMask |= LEDS_LED1;
+	  NewLEDMask |= LEDS_LED4;
 
 	LEDs_SetAllLEDs(NewLEDMask);
 }
