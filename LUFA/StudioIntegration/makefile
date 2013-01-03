@@ -38,17 +38,17 @@ $(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML)
 
 generate_xml: $(TEMP_MANIFEST_XML)
 	@echo "Processing asf.xml file..."
-	@xsltproc lufa_module_transform.xslt $< | xsltproc lufa_indent_transform.xslt - > $(MODULE_OUTPUT_XML)
+	@xsltproc XSLT/lufa_module_transform.xslt $< | xsltproc XSLT/lufa_indent_transform.xslt - > $(MODULE_OUTPUT_XML)
 	@echo "Atmel Studio asf.xml file generated."
 
 	@echo "Processing extension.xml file..."
-	@xsltproc lufa_extension_transform.xslt $< | xsltproc lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
+	@xsltproc XSLT/lufa_extension_transform.xslt $< | xsltproc XSLT/lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
 	@echo "Atmel Studio extension.xml file generated."
 
 	@rm $(TEMP_MANIFEST_XML)
 
-check_filenames:  $(TEMP_MANIFEST_XML)
-	@for i in `xsltproc lufa_filelist_transform.xslt manifest.xml | grep -v "^<" | sed -e "/^$$/d"`; do \
+check_filenames: $(TEMP_MANIFEST_XML)
+	@for i in `xsltproc XSLT/lufa_filelist_transform.xslt $< | grep -v "^<" | sed -e "/^$$/d"`; do \
 		if ( ! test -f "$(LUFA_ROOT)/$$i" ); then \
 			echo "Source file $$i does not exist!"; \
 		fi; \
