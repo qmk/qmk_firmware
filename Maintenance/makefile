@@ -76,6 +76,7 @@ check-documentation-placeholders:
 # Validate the working branch - compile all documentation, demos/projects/examples and run build tests
 validate-branch:
 	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT)) doxygen
+	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/LUFA/StudioIntegration all
 	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT)) all DEBUG_LEVEL=0
 	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/BuildTests all
 
