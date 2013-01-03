@@ -8,6 +8,9 @@
 
 <!-- Atmel Studio framework Extension XML transform file -->
 
+<!-- Creates an extension.xml document from a given manifest list of XML files,
+     and adds appropriate documentation base URI entries and version
+     information. -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output method="xml" omit-xml-declaration="yes"/>
 

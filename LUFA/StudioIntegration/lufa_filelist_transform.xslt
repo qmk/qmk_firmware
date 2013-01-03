@@ -8,6 +8,8 @@
 
 <!-- Atmel Studio framework Module XML transform file -->
 
+<!-- Outputs a flat file list of all source files referenced in all modules of
+     the input manifest XML file, so that they can be checked for existence. -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output method="xml" omit-xml-declaration="yes"/>
 
