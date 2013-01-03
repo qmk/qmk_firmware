@@ -55,14 +55,14 @@
  *  \code
  *      // Initialize the ADC driver before first use
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);
- *      
+ *
  *      // Must setup the ADC channel to read beforehand
  *      ADC_SetupChannel(1);
- *      
+ *
  *      // Perform a single conversion of the ADC channel 1
  *      ADC_GetChannelReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_CHANNEL1);
  *      printf("Conversion Result: %d\r\n", ADC_GetResult());
- *      
+ *
  *      // Start reading ADC channel 1 in free running (continuous conversion) mode
  *      ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_CHANNEL1);
  *      for (;;)
@@ -93,8 +93,7 @@
 
 		#if !(defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
 		      defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
-			  defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || \
-			  defined(__AVR_ATmega32U6__))
+			  defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
 			#error The ADC peripheral driver is not currently available for your selected microcontroller model.
 		#endif
 
@@ -276,8 +275,7 @@
 			static inline void ADC_SetupChannel(const uint8_t ChannelIndex)
 			{
 				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
-					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
-					 defined(__AVR_ATmega32U6__))
+					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__))
 				DDRF  &= ~(1 << ChannelIndex);
 				DIDR0 |=  (1 << ChannelIndex);
 				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
@@ -318,8 +316,7 @@
 			static inline void ADC_DisableChannel(const uint8_t ChannelIndex)
 			{
 				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
-					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
-					 defined(__AVR_ATmega32U6__))
+					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__))
 				DDRF  &= ~(1 << ChannelIndex);
 				DIDR0 &= ~(1 << ChannelIndex);
 				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))

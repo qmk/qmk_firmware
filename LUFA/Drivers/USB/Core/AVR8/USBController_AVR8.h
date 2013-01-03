@@ -91,7 +91,7 @@
 				#define USB_PLL_PSC                0
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                0
-			#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32U6__))
+			#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__))
 				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
 			#elif (defined(__AVR_AT90USB647__)  || defined(__AVR_AT90USB1287__))
 				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
@@ -103,7 +103,7 @@
 				#define USB_PLL_PSC                (1 << PLLP0)
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                (1 << PINDIV)
-			#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
+			#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__))
 				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP1))
 			#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
 				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))

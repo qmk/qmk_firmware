@@ -106,7 +106,7 @@
 		 *  (i.e. AT32UC3A4*) when defined.
 		 */
 		#define USB_SERIES_UC3A4_AVR
-		
+
 		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3B0 Series USB controller
 		 *  (i.e. AT32UC3B0*) when defined.
 		 */
@@ -175,7 +175,7 @@
 			#elif (defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega16U4__))
 				#define USB_SERIES_4_AVR
 				#define USB_CAN_BE_DEVICE
-			#elif (defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
+			#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
 				#define USB_SERIES_6_AVR
 				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__))
