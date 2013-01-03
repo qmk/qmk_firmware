@@ -117,7 +117,7 @@ LUFA_SRC_USBCLASS_HOST   := $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/AndroidAcce
                             $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/RNDISClassHost.c            \
                             $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/StillImageClassHost.c
 
-LUFA_SRC_USB             := $(LUFA_SRC_USB_COMMON) $(LUFA_SRC_USB_HOST) $(LUFA_SRC_USB_DEVICE)
+LUFA_SRC_USB             := $(sort $(LUFA_SRC_USB_COMMON) $(LUFA_SRC_USB_HOST) $(LUFA_SRC_USB_DEVICE))
 
 LUFA_SRC_USBCLASS        := $(LUFA_SRC_USBCLASS_DEVICE) $(LUFA_SRC_USBCLASS_HOST)
 
