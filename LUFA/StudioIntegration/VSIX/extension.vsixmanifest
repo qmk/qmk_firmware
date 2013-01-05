@@ -4,18 +4,19 @@
 	<Identifier Id="FourWalledCubicle.LUFA.0e160d5c-e331-48d9-850b-e0387912171b">
 		<Name>LUFA Library</Name>
 		<Author>Dean Camera</Author>
-		<Version>00.00.00</Version>
+		<Version>0</Version>
 		<MoreInfoUrl>http://www.lufa-lib.org</MoreInfoUrl>
 		<Description xml:space="preserve">LUFA USB Framework</Description>
 
+		<License>LUFA\License.txt</License>
 		<Icon>LUFA\DoxygenPages\Images\LUFA_thumb.png</Icon>
 		<PreviewImage>LUFA\DoxygenPages\Images\LUFA.png</PreviewImage>
 
 		<SupportedProducts>
 			<IsolatedShell Version="6.1">AtmelStudio</IsolatedShell>
 		</SupportedProducts>
-		<SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
 
+		<SupportedFrameworkRuntimeEdition MinVersion="4.0" />
 		<Locale>1033</Locale>
 	</Identifier>
 
