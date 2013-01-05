@@ -61,12 +61,13 @@
  *  \li "Fingerlicking Wingdinger" (WARNING: Bad language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  \li Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
  *  \li FootJoy, a 22 button, 6-axis josystick with keyboard and mouse modes: https://bitbucket.org/sirbrialliance/foot-joy/
- *  \li Gamecube controller to USB adapter: https://www.facebook.com/media/set/?set=a.10150202447076304.310536.688776303&l=df53851c50 
+ *  \li Gamecube controller to USB adapter: https://www.facebook.com/media/set/?set=a.10150202447076304.310536.688776303&l=df53851c50
  *  \li Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  \li Generic HID Device Creator: http://generichid.sourceforge.net/
  *  \li Generic HID Open Source Framework: http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows
  *  \li Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
  *  \li GPS enabled lap timer for vehicles: http://www.assembla.com/code/ironlung/subversion/nodes/trunk/LapTimer
+ *  \li GSynth, an 8-bit sound synthesizer: https://github.com/gcielniak/GSynth
  *  \li Gumbi, a Python library and USB GPIO controller: https://code.google.com/p/gumbi/
  *  \li Hardware Volume Control: https://github.com/davidk/hw-volume-control
  *  \li Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
@@ -80,6 +81,7 @@
  *  \li LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
  *  \li Macintosh SIMM ROM Programmer: https://code.google.com/p/mac-rom-simm-programmer/
  *  \li MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
+ *  \li Mec64,a Commodore 64 keyboard: http://deskthority.net/workshop-f7/mec64-keyboard-t4522.html
  *  \li MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
  *  \li MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
  *  \li MIDI interface hack of a toy Guitar: http://blog.x37v.info/2011/06/26/toy-guitar-hacked-midi-conroller
@@ -87,6 +89,7 @@
  *  \li MiXley, a port of the Teacup 3D printer firmware for the USB AVRs: http://codaset.com/michielh/mixley
  *  \li Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  \li Moco, a native Arduino Uno MIDI replacement firmware: http://web.mac.com/kuwatay/morecat_lab./MocoLUFA.html
+ *  \li Monash ECSE Smart Packet Radio Testbed: http://www.ecse.monash.edu.au/twiki/bin/view/WSRNLab/SmartPacketRadio
  *  \li Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
  *  \li Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
  *  \li Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
@@ -107,11 +110,12 @@
  *  \li Reflow oven controller: http://danstrother.com/2011/01/15/reflow-oven-controller/
  *  \li Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  \li RFPirate, a RF experimentation platform: https://github.com/ebuller/RF-Pirate
- *  \li RF Transciever using the MRF49XA: http://alternet.us.com/?page_id=1494
+ *  \li RF Transceiver using the MRF49XA: http://alternet.us.com/?page_id=1494
  *  \li SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  \li SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
  *  \li SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  \li Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
+ *  \li Simple USB LED Controller (SULC): https://github.com/scottbez1/sulc
  *  \li SNES custom FLASH ROM: http://electrifiedfoolingmachine.co/?page_id=633
  *  \li Smartcard Detective: https://code.google.com/p/smartcarddetective/
  *  \li SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
@@ -155,11 +159,13 @@
  *  \li Flysight, a GPS logger for wingsuit pilots: http://flysight.ca/
  *  \li HummingBird Kit, a robotics learning platform: http://www.hummingbirdkit.com/
  *  \li Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
+ *  \li PhatIO, a filesystem based I/O interface: http://www.phatio.com/
  *  \li PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
  *  \li PIR-4, a USB Connected 4 port IR transmitter: http://promixis.com/pir-4.php
  *  \li KeyGlove, an alternative input system: http://www.keyglove.net/
  *  \li Many of Busware's Products: http://www.busware.de/
  *  \li MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
+ *  \li MIDI USB Arduino Shield: http://openpipe.cc/products/midi-usb-shield/
  *  \li Norduino, a wireless Arduino: http://norduino.robomotic.com/norduino-is-now-usb-hid/
  *  \li Olimex AVR-ISP-MK2, an AVRISP-MKII Clone AVR Programmer: https://www.olimex.com/dev/avr-isp-mk2.html
  *  \li Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
