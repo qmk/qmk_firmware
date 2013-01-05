@@ -9,7 +9,7 @@
 #  Makefile for the LUFA Atmel Studio Integration.
 # ---------------------------------------
 
-LUFA_ROOT            := ../
+LUFA_ROOT            := ..
 DOXYGEN_TAG_FILE_XML := $(LUFA_ROOT)/Documentation/lufa_doc_tags.xml
 TEMP_MANIFEST_XML    := manifest.xml
 EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
@@ -17,7 +17,7 @@ MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
 XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
 LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
 
-all: check_filenames generate_xml
+all: check_filenames generate_xml generate_vsix
 
 clean:
 	@rm $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML)
@@ -46,6 +46,10 @@ generate_xml: $(TEMP_MANIFEST_XML)
 	@echo "Atmel Studio extension.xml file generated."
 
 	@rm $(TEMP_MANIFEST_XML)
+
+generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
+	cp VSIX/* $(LUFA_ROOT)/../
+	cd $(LUFA_ROOT)/../; zip LUFA_AS_Extension.vsix -r --exclude=*StudioIntegration* *
 
 check_filenames: $(TEMP_MANIFEST_XML)
 	@for i in `xsltproc XSLT/lufa_filelist_transform.xslt $< | grep -v "^<" | sed -e "/^$$/d"`; do \

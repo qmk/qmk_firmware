@@ -1,0 +1,22 @@
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="vsixmanifest" ContentType="text/xml"/>
+
+  <Default Extension="jpg" ContentType="image/jpg"/>
+  <Default Extension="png" ContentType="application/octet-stream"/>
+  <Default Extension="bmp" ContentType="application/octet-stream"/>
+
+  <Default Extension="c" ContentType="application/octet-stream"/>
+  <Default Extension="h" ContentType="application/octet-stream"/>
+  <Default Extension="S" ContentType="application/octet-stream"/>
+
+  <Default Extension="txt" ContentType="text/plain"/>
+
+  <Default Extension="conf" ContentType="application/octet-stream"/>
+  <Default Extension="inf" ContentType="application/octet-stream"/>
+
+  <Default Extension="xml" ContentType="text/xml"/>
+
+  <Default Extension="css" ContentType="application/octet-stream"/>
+  <Default Extension="html" ContentType="text/html"/>
+  <Default Extension="js" ContentType="application/octet-stream"/>
+</Types>
