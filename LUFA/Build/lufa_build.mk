@@ -304,7 +304,7 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 .SECONDARY : %.elf
 %.elf: $(OBJECT_FILES)
 	@echo $(MSG_LINK_CMD) Linking object files into \"$@\"
-	$(CROSS)-gcc $(BASE_LD_FLAGS) $(LD_FLAGS) $^ -o $@
+	$(CROSS)-gcc $^ -o $@ $(BASE_LD_FLAGS) $(LD_FLAGS)
 
 # Extracts out the loadable FLASH memory data from the project ELF file, and creates an Intel HEX format file of it
 %.hex: %.elf
