@@ -8,8 +8,8 @@
 		<MoreInfoUrl>http://www.lufa-lib.org</MoreInfoUrl>
 		<Description xml:space="preserve">LUFA USB Framework</Description>
 
-	    <Icon>LUFA\DoxygenPages\Images\LUFA_thumb.png</Icon>
-	    <PreviewImage>LUFA\DoxygenPages\Images\LUFA.png</PreviewImage>
+		<Icon>LUFA\DoxygenPages\Images\LUFA_thumb.png</Icon>
+		<PreviewImage>LUFA\DoxygenPages\Images\LUFA.png</PreviewImage>
 
 		<SupportedProducts>
 			<IsolatedShell Version="6.1">AtmelStudio</IsolatedShell>
