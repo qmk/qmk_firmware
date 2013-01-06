@@ -27,11 +27,11 @@ upgrade-doxygen:
 	@echo Doxygen configuration update complete.
 
 # Make all possible bootloaders for all targets and configurations as set by the BootloaderTest build test
-# and store them in a seperate directory called "Bootloaders"
+# and store them in a separate directory called "Bootloaders"
 make_bootloaders:
 	@echo "build_bootloaders:" > BuildMakefile
 	@printf "\t-mkdir Bootloaders 2>/dev/null\n\n" >> BuildMakefile
-	
+
 	@while read line;                                         \
 	 do                                                       \
 	   build_cfg=`echo $$line | grep -v "#" | sed 's/ //g'`;  \
@@ -84,4 +84,4 @@ validate-branch:
 validate-release: check-documentation-placeholders validate-branch
 
 
-.PHONY: all upgrade-doxygen make-as4-projects make_bootloaders check-documentation-placeholders validate-branch
+.PHONY: all upgrade-doxygen make_bootloaders check-documentation-placeholders validate-branch

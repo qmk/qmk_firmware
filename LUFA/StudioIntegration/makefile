@@ -54,7 +54,7 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" XSLT/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
-	@cd $(LUFA_ROOT)/../ && zip LUFA_AS_Extension.vsix -q -9 -r --exclude=*StudioIntegration* *
+	@cd $(LUFA_ROOT)/../ && zip LUFA_AS_Extension.vsix -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* *
 	@echo "Atmel Studio VSIX Extension file generated."
 
 check_filenames: $(TEMP_MANIFEST_XML)
