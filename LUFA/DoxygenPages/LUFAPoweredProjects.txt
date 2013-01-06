@@ -200,5 +200,6 @@
  *
  *  \li NXP's official "nxpusblib" LUFA fork, for LPC devices: http://www.lpcware.com/content/project/nxpusblib
  *  \li Kevin Mehall's LUFA port to the NXP LPC13xx: https://github.com/kevinmehall/LUFA-LPC13xx
+ *  \li Mark Ding's port for the Silabs SiM3U1xx: https://www.github.com/MarkDing/USB_CDC
  *
  */
