@@ -18,12 +18,12 @@
 			<license caption="LUFA license" path="LUFA/License.txt"/>
 			<release-notes caption="LUFA Information" url="http://www.lufa-lib.org"/>
 			<online-help>
-				<index-page caption="LUFA Documentation" url="http://www.lufa-lib.org/documentation"/>
-				<module-help-page scheme="append" baseurl="http://www.fourwalledcubicle.com/files/LUFA/Doc/"/>
-				<module-guide-page scheme="append" baseurl="http://www.fourwalledcubicle.com/files/LUFA/Doc/"/>
+				<index-page caption="LUFA Documentation" url="http://www.lufa-lib.org/documentation/"/>
+				<module-help-page scheme="append" baseurl="http://www.lufa-lib.org/documentation/"/>
+				<module-guide-page scheme="append" baseurl="http://www.lufa-lib.org/documentation/"/>
 			</online-help>
 			<offline-help>
-				<index-page caption="LUFA Documentation" path="Documentation/html/index.htm"/>
+				<index-page caption="LUFA Documentation" path="Documentation/html/"/>
 				<module-help-page scheme="append" basepath="Documentation/html/"/>
 				<module-guide-page scheme="append" basepath="Documentation/html/"/>
 			</offline-help>

@@ -49,7 +49,7 @@
 
 	<!-- Update the extension online help URLs to the version of LUFA being
 	     used -->
-	<xsl:template match="online-help/*/@baseurl">
+	<xsl:template match="online-help/*/@baseurl | online-help/index-page/@url">
 		<xsl:attribute name="baseurl">
 			<xsl:value-of select="current()"/>
 			<xsl:value-of select="$lufa-version"/>

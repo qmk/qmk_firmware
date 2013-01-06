@@ -46,10 +46,12 @@ generate_xml: $(TEMP_MANIFEST_XML)
 	@xsltproc XSLT/lufa_extension_transform.xslt $< | xsltproc XSLT/lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
 	@echo "Atmel Studio extension.xml file generated."
 
+	@rm $(TEMP_MANIFEST_XML)
+
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@echo "Creating VSIX Dependencies..."
 	@cp "VSIX/[Content_Types].xml" $(LUFA_ROOT)/../
-	@xsltproc --stringparam extension-version $(EXT_VERSION_NUM) XSLT/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
+	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" XSLT/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
 	@cd $(LUFA_ROOT)/../ && zip LUFA_AS_Extension.vsix -q -9 -r --exclude=*StudioIntegration* *
@@ -62,4 +64,4 @@ check_filenames: $(TEMP_MANIFEST_XML)
 		fi; \
 	done;
 
-.PHONY: all clean check_filenames generate_xml
+.PHONY: all clean generate_xml generate_vsix check_filenames
