@@ -49,12 +49,19 @@ generate_xml: $(TEMP_MANIFEST_XML)
 	@rm $(TEMP_MANIFEST_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
+	@echo "Archiving Content..."
+	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects extension.xml README.txt
+
 	@echo "Creating VSIX Dependencies..."
+	@cp $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png $(LUFA_ROOT)/../PreviewThumb.png
+	@cp $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png $(LUFA_ROOT)/../Preview.png
+	@cp $(LUFA_ROOT)/License.txt $(LUFA_ROOT)/../
 	@cp "VSIX/[Content_Types].xml" $(LUFA_ROOT)/../
 	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" XSLT/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
+	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" XSLT/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
-	@cd $(LUFA_ROOT)/../ && zip LUFA_AS_Extension.vsix -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* *
+	@cd $(LUFA_ROOT)/../ && zip LUFA.vsix -q contents.zip License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml
 	@echo "Atmel Studio VSIX Extension file generated."
 
 check_filenames: $(TEMP_MANIFEST_XML)

@@ -8,9 +8,9 @@
 		<MoreInfoUrl>http://www.lufa-lib.org</MoreInfoUrl>
 		<Description xml:space="preserve">LUFA USB Framework</Description>
 
-		<License>LUFA\License.txt</License>
-		<Icon>LUFA\DoxygenPages\Images\LUFA_thumb.png</Icon>
-		<PreviewImage>LUFA\DoxygenPages\Images\LUFA.png</PreviewImage>
+		<License>License.txt</License>
+		<Icon>PreviewThumb.png</Icon>
+		<PreviewImage>Preview.png</PreviewImage>
 
 		<SupportedProducts>
 			<IsolatedShell Version="6.1">AtmelStudio</IsolatedShell>
@@ -18,8 +18,13 @@
 
 		<SupportedFrameworkRuntimeEdition MinVersion="4.0" />
 		<Locale>1033</Locale>
+
+	    <AllUsers>true</AllUsers>
 	</Identifier>
 
 	<References/>
-	<Content/>
+
+	<Content>
+		<CustomExtension Type="asf-manifest">asf-manifest.xml</CustomExtension>
+	</Content>
 </Vsix>
