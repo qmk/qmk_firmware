@@ -29,6 +29,13 @@
 			<build type="header-file" value="Common/BoardTypes.h"/>
 			<build type="header-file" value="Common/CompilerSpecific.h"/>
 			<build type="header-file" value="Common/Endianness.h"/>
+
+			<require idref="lufa.common.dummyboard"/>
+			<require idref="lufa.drivers.board"/>
 		</module>
+
+		<board id="lufa.common.dummyboard" vendor="LUFA" caption="NONE">
+			<device-support value="avr"/>
+		</board>
 	</asf>
 </lufa>

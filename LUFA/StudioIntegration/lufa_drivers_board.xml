@@ -75,5 +75,48 @@
 			<build type="include-path" value=".."/>
 			<build type="header-file"  subtype="api" value="Drivers/Board/Temperature.h"/>
 		</module>
+
+		<select-by-config id="lufa.drivers.board" name="lufa.drivers.board.name" default="none" caption="LUFA Board Support">
+			<module id="lufa.drivers.board#none" name="None">
+				<device-support value="avr"/>
+
+				<build type="define" name="BOARD" value="BOARD_NONE"/>
+			</module>
+
+			<module id="lufa.drivers.board#usbkey" name="USBKEY">
+				<device-support value="at90usb1287"/>
+
+				<require idref="lufa.drivers.misc.at45db642d"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Buttons.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Dataflash.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Joystick.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_USBKEY"/>
+			</module>
+
+			<module id="lufa.drivers.board#xplain_rev1" name="XPLAIN (HW Rev 1)">
+				<device-support value="at90usb1287"/>
+
+				<require idref="lufa.drivers.misc.at45db642d"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/Dataflash.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_XPLAIN_REV1"/>
+			</module>
+
+			<module id="lufa.drivers.board#xplain" name="XPLAIN (HW Rev 2+)">
+				<device-support value="at90usb1287"/>
+
+				<require idref="lufa.drivers.misc.at45db642d"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/Dataflash.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_XPLAIN"/>
+			</module>
+		</select-by-config>
 	</asf>
 </lufa>
