@@ -77,13 +77,13 @@
 		</module>
 
 		<select-by-config id="lufa.drivers.board" name="lufa.drivers.board.name" default="none" caption="LUFA Board Support">
-			<module id="lufa.drivers.board#none" name="None">
+			<module type="driver" id="lufa.drivers.board#none" caption="None">
 				<device-support value="avr"/>
 
 				<build type="define" name="BOARD" value="BOARD_NONE"/>
 			</module>
 
-			<module id="lufa.drivers.board#usbkey" name="USBKEY">
+			<module type="driver" id="lufa.drivers.board#usbkey" caption="USBKEY">
 				<device-support value="at90usb1287"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -96,7 +96,7 @@
 				<build type="define" name="BOARD" value="BOARD_USBKEY"/>
 			</module>
 
-			<module id="lufa.drivers.board#xplain_rev1" name="XPLAIN (HW Rev 1)">
+			<module type="driver" id="lufa.drivers.board#xplain_rev1" caption="XPLAIN (HW Rev 1)">
 				<device-support value="at90usb1287"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -107,7 +107,7 @@
 				<build type="define" name="BOARD" value="BOARD_XPLAIN_REV1"/>
 			</module>
 
-			<module id="lufa.drivers.board#xplain" name="XPLAIN (HW Rev 2+)">
+			<module type="driver" id="lufa.drivers.board#xplain" caption="XPLAIN (HW Rev 2+)">
 				<device-support value="at90usb1287"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>

@@ -18,6 +18,7 @@
 			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Endpoint_Control_R.c"/>
 			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Endpoint_Control_W.c"/>
 			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Endpoint_RW.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Pipe_RW.c"/>
 			<build type="c-source"    value="Drivers/USB/Core/UC3/Device_UC3.c"/>
 			<build type="header-file" value="Drivers/USB/Core/UC3/Device_UC3.h"/>
 			<build type="c-source"    value="Drivers/USB/Core/UC3/Endpoint_UC3.c"/>

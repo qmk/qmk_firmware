@@ -18,6 +18,7 @@
 			<build type="c-source"    value="Drivers/USB/Core/AVR8/Template/Template_Endpoint_Control_R.c"/>
 			<build type="c-source"    value="Drivers/USB/Core/AVR8/Template/Template_Endpoint_Control_W.c"/>
 			<build type="c-source"    value="Drivers/USB/Core/AVR8/Template/Template_Endpoint_RW.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/AVR8/Template/Template_Pipe_RW.c"/>
 			<build type="c-source"    value="Drivers/USB/Core/AVR8/Device_AVR8.c"/>
 			<build type="header-file" value="Drivers/USB/Core/AVR8/Device_AVR8.h"/>
 			<build type="c-source"    value="Drivers/USB/Core/AVR8/Endpoint_AVR8.c"/>
