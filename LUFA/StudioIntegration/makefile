@@ -48,7 +48,12 @@ generate_xml: $(TEMP_MANIFEST_XML)
 
 	@rm $(TEMP_MANIFEST_XML)
 
-generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
+generate_caches: $(EXTENSION_OUTPUT_XML)
+	@echo "Generating ASF cache files..."
+	@python generate_caches.py $(LUFA_ROOT)/../
+	@echo "ASF cache files generated."
+
+generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML) generate_caches
 	@echo "Archiving Content..."
 	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects extension.xml README.txt
 
@@ -61,7 +66,7 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" XSLT/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
-	@cd $(LUFA_ROOT)/../ && zip LUFA.vsix -q contents.zip License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml
+	@cd $(LUFA_ROOT)/../ && zip LUFA.vsix -q contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml
 	@echo "Atmel Studio VSIX Extension file generated."
 
 check_filenames: $(TEMP_MANIFEST_XML)
@@ -71,4 +76,4 @@ check_filenames: $(TEMP_MANIFEST_XML)
 		fi; \
 	done;
 
-.PHONY: all clean generate_xml generate_vsix check_filenames
+.PHONY: all clean generate_xml check_filenames generate_caches generate_vsix
