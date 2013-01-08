@@ -1,0 +1,41 @@
+<asf xmlversion="1.0">
+	<project caption="Virtual Serial CDC and Mass Storage Device Demo (Class Driver APIs)" id="lufa.demos.device.class.cdc_ms.example">
+		<require idref="lufa.demos.device.class.cdc_ms"/>
+		<generator value="as5_8"/>
+
+		<device-support value="at90usb1287"/>
+		<config name="lufa.drivers.board.name" value="usbkey"/>
+
+		<build type="define" name="F_CPU" value="8000000UL"/>
+		<build type="define" name="F_USB" value="8000000UL"/>
+	</project>
+
+	<module type="application" id="lufa.demos.device.class.cdc_ms" caption="Virtual Serial CDC and Mass Storage Device Demo (Class Driver APIs)">
+		<info type="description" value="summary">
+		Virtual Serial and Mass Storage device demo, implementing a virtual serial channel between the host PC and the device, and a basic USB storage disk using a Dataflash memory IC.
+		</info>
+
+		<device-support-alias value="lufa_avr8"/>
+		<device-support-alias value="lufa_xmega"/>
+		<device-support-alias value="lufa_uc3"/>
+
+		<build type="c-source" value="VirtualSerialMassStorage.c"/>
+		<build type="c-source" value="Lib/DataflashManager.c"/>
+		<build type="c-source" value="Lib/SCSI.c"/>
+		<build type="c-source" value="Descriptors.c"/>
+		<build type="header-file" value="VirtualSerialMassStorage.h"/>
+		<build type="header-file" value="Descriptors.h"/>
+		<build type="header-file" value="Lib/DataflashManager.h"/>
+		<build type="header-file" value="Lib/SCSI.h"/>
+
+		<build type="module-config" subtype="path" value="Config"/>
+		<build type="header-file" value="Config/AppConfig.h"/>
+		<build type="header-file" value="Config/LUFAConfig.h"/>
+
+		<require idref="lufa.common"/>
+		<require idref="lufa.platform"/>
+		<require idref="lufa.drivers.usb"/>
+		<require idref="lufa.drivers.board.leds"/>
+		<require idref="lufa.drivers.board.joystick"/>
+	</module>
+</asf>
