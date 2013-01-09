@@ -65,9 +65,10 @@ void keyboard_task(void)
 
             for (int c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & (1<<c)) {
-                    keymap_process_event((keyevent_t){
+                    action_exec((keyevent_t){
                         .key = (keypos_t){ .row = r, .col = c },
-                        .pressed = (matrix_row & (1<<c))
+                        .pressed = (matrix_row & (1<<c)),
+                        .time = timer_read()
                     });
                     // record a processed key
                     matrix_prev[r] ^= (1<<c);

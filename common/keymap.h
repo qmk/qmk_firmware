@@ -35,6 +35,5 @@ uint8_t keymap_fn_keycode(uint8_t fn_bits);
  * new keymap interface: action
  */
 action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col);
-uint8_t keymap_process_event(keyevent_t event);
 
 #endif

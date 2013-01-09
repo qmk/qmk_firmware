@@ -1,6 +1,6 @@
 #include "host.h"
 #include "timer.h"
-//#include "keymap.h"
+#include "keymap.h"
 #include "keycode.h"
 #include "keyboard.h"
 #include "mousekey.h"
@@ -78,8 +78,6 @@ typedef enum { IDLE, DELAYING, WAITING, PRESSING } kbdstate_t;
 
 static kbdstate_t kbdstate = IDLE;
 static uint8_t fn_state_bits = 0;
-static keyrecord_t delayed_fn = {};
-static keyrecord_t waiting_key = {};
 
 static const char *state_str(kbdstate_t state)
 {
@@ -96,17 +94,6 @@ static bool anykey_sent_to_host(void)
 }
 
 
-
-/*
-static void layer_switch_on(uint8_t code);
-static void layer_switch_off(uint8_t code);
-static void key_action(uint8_t code, keyevent_t event);
-static void key_pressed(uint8_t code, keyevent_t event);
-static void key_released(uint8_t code, keyevent_t event);
-static void mod_pressed(uint8_t code, keyevent_t event);
-static void mod_released(uint8_t code, keyevent_t event);
-*/
-
 static void register_code(uint8_t code);
 static void unregister_code(uint8_t code);
 static void register_mods(uint8_t mods);
@@ -118,6 +105,7 @@ static void layer_switch(uint8_t new_layer);
 
 /* tap */
 #define TAP_TIME    200
+#define LAYER_DELAY 200
 static keyevent_t last_event = {};
 static uint16_t last_event_time = 0;
 static uint8_t tap_count = 0;
@@ -125,10 +113,10 @@ static uint8_t tap_count = 0;
 /* layer */
 uint8_t default_layer = 0;
 uint8_t current_layer = 0;
-uint8_t waiting_layer = 0;
+keyrecord_t delaying_layer = {};
 
 
-void action_exec(action_t action, keyevent_t event)
+void action_exec(keyevent_t event)
 {
     /* count tap when key is up */
     if (KEYEQ(event.key, last_event.key) && timer_elapsed(last_event_time) < TAP_TIME) {
@@ -136,6 +124,20 @@ void action_exec(action_t action, keyevent_t event)
     } else {
         tap_count = 0;
     }
+
+    /* layer switch after LAYER_DELAY */
+    if (delaying_layer.action.code && timer_elapsed(delaying_layer.event.time) > LAYER_DELAY) {
+        switch (delaying_layer.action.kind.id) {
+            case ACT_LAYER_PRESSED:
+                layer_switch(delaying_layer.action.layer.opt);
+                break;
+            case ACT_LAYER_BIT:
+                layer_switch(current_layer | delaying_layer.action.layer.opt);
+                break;
+        }
+        delaying_layer = (keyrecord_t){};
+    }
+    action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
 
     debug("action: "); debug_hex16(action.code); debug("\n");
     debug("kind.id: "); debug_hex(action.kind.id); debug("\n");
@@ -145,6 +147,7 @@ void action_exec(action_t action, keyevent_t event)
 
     switch (action.kind.id) {
         case ACT_LMODS:
+            // normal key or key plus mods
             if (event.pressed) {
                 register_mods(action.key.mods);
                 register_code(action.key.code);
@@ -162,60 +165,9 @@ void action_exec(action_t action, keyevent_t event)
                 unregister_mods(action.key.mods<<4);
             }
             break;
-        case ACT_LAYER:
-            switch (action.layer_key.code) {
-                case 0x00:  // Momentary switch
-                    // TODO: history of layer switch
-                    if (event.pressed) {
-                        layer_switch(action.layer_key.layer);
-                    } else {
-                        layer_switch(default_layer);
-                    }
-                    break;
-                case 0x01:  // Oneshot switch
-                    // TODO:
-                    break;
-                case 0x02:  // reserved
-                case 0x03:  // reserved
-                    break;
-                case 0xF0 ... 0xF7: // Tap to enable/disable
-                case 0xF8 ... 0xFF: // Tap to toggle layer
-                    // TODO:
-                    break;
-                default:    // with keycode for tap
-                    debug("tap: "); debug_hex(tap_count); debug("\n");
-                    // TODO: layer switch
-                    // TODO: in case tap is interrupted by other key
-
-                    
-                    if (event.pressed) {
-                        // when any key down
-                        if (host_has_anykey()) {
-                            if (tap_count == 0)
-                            register_code(action.layer_key.code);
-                        } else {
-                        }
-
-                        if (tap_count == 0) {
-                            if (host_has_anykey()) {
-                                register_code(action.layer_key.code);
-                            } else {
-                                waiting_layer = action.layer_key.layer;
-                            }
-                        }
-                        // register key when press after a tap
-                        if (tap_count > 0) {
-                            register_code(action.layer_key.code);
-                        }
-                    } else {
-                        // type key after tap
-                        if (tap_count == 1) {
-                            register_code(action.layer_key.code);
-                        }
-                        unregister_code(action.layer_key.code);
-                    }
-                    break;
-            }
+        case ACT_LMOD_TAP:
+            break;
+        case ACT_RMOD_TAP:
             break;
         case ACT_USAGE:
 #ifdef EXTRAKEY_ENABLE
@@ -248,8 +200,172 @@ void action_exec(action_t action, keyevent_t event)
             }
 #endif
             break;
-        case ACT_LMOD_TAP:
-        case ACT_RMOD_TAP:
+        case ACT_LAYER_PRESSED:
+            // layer action when pressed
+            switch (action.layer.code) {
+                case 0x00:
+                    if (event.pressed) {
+                        layer_switch(action.layer.opt);
+                    }
+                    break;
+                case 0xF0:
+                    // TODO: tap toggle
+                    break;
+                case 0xFF:
+                    if (event.pressed) {
+                        default_layer = action.layer.opt;
+                        layer_switch(default_layer);
+                    }
+                    break;
+                default:
+                    // with tap key
+                    debug("tap: "); debug_hex(tap_count); debug("\n");
+                    if (event.pressed) {
+                        if (tap_count == 0) {
+                            if (host_has_anykey()) {
+                                register_code(action.layer.code);
+                            } else {
+                                delaying_layer = (keyrecord_t){
+                                    .event = event,
+                                    .action = action,
+                                    .mods = keyboard_report->mods
+                                };
+                            }
+                        } else if (tap_count > 0) {
+                            register_code(action.layer.code);
+                        }
+                    } else {
+                        // type key after tap
+                        if (tap_count == 1) {
+                            delaying_layer = (keyrecord_t){};
+                            register_code(action.layer.code);
+                        }
+                        unregister_code(action.layer.code);
+                    }
+                    break;
+            }
+            break;
+        case ACT_LAYER_RELEASED:
+            switch (action.layer.code) {
+                case 0x00:
+                    if (event.pressed) {
+                        layer_switch(action.layer.opt);
+                    }
+                    break;
+                case 0xF0:
+                    // Ignored. LAYER_RELEASED with tap toggle is invalid action.
+                    break;
+                case 0xFF:
+                    if (!event.pressed) {
+                        default_layer = action.layer.opt;
+                        layer_switch(default_layer);
+                    }
+                    break;
+                default:
+                    // Ignored. LAYER_RELEASED with tap key is invalid action.
+                    break;
+            }
+            break;
+        case ACT_LAYER_BIT:
+            switch (action.layer.code) {
+                case 0x00:
+                    if (event.pressed) {
+                        layer_switch(current_layer | action.layer.opt);
+                    } else {
+                        layer_switch(current_layer & ~action.layer.opt);
+                    }
+                    break;
+                case 0xF0:
+                    // TODO: tap toggle
+                    break;
+                case 0xFF:
+                    // change default layer
+                    if (event.pressed) {
+                        default_layer = current_layer | action.layer.opt;
+                        layer_switch(default_layer);
+                    } else {
+                        default_layer = current_layer & ~action.layer.opt;
+                        layer_switch(default_layer);
+                    }
+                    break;
+                default:
+                    // with tap key
+                    debug("tap: "); debug_hex(tap_count); debug("\n");
+                    if (event.pressed) {
+                        if (tap_count == 0) {
+                            if (host_has_anykey()) {
+                                register_code(action.layer.code);
+                            } else {
+                                delaying_layer = (keyrecord_t){
+                                    .event = event,
+                                    .action = action,
+                                    .mods = keyboard_report->mods
+                                };
+                            }
+                        } else if (tap_count > 0) {
+                            register_code(action.layer.code);
+                        }
+                    } else {
+                        if (tap_count == 0) {
+                            // no tap
+                            layer_switch(current_layer & ~action.layer.opt);
+                        } else if (tap_count == 1) {
+                            // tap
+                            register_code(action.layer.code);
+                        }
+                        unregister_code(action.layer.code);
+                    }
+                    break;
+            }
+        case ACT_LAYER_EXT:
+            switch (action.layer.opt) {
+                case 0x00:
+                    // set default layer when pressed
+                    switch (action.layer.code) {
+                        case 0x00:
+                            if (event.pressed) {
+                                layer_switch(default_layer);
+                            }
+                            break;
+                        case 0xF0:
+                            // TODO: tap toggle
+                            break;
+                        case 0xFF:
+                            if (event.pressed) {
+                                default_layer = current_layer;
+                                layer_switch(default_layer);
+                            }
+                            break;
+                        default:
+                            // TODO: tap key
+                            break;
+                    }
+                    break;
+                case 0x01:
+                    // set default layer when released
+                    switch (action.layer.code) {
+                        case 0x00:
+                            if (!event.pressed) {
+                                layer_switch(default_layer);
+                            }
+                            break;
+                        case 0xFF:
+                            if (!event.pressed) {
+                                default_layer = current_layer;
+                                layer_switch(default_layer);
+                            }
+                            break;
+                        case 0xF0:
+                        default:
+                            // Ignore tap.
+                            if (!event.pressed) {
+                                layer_switch(default_layer);
+                            }
+                            break;
+                    }
+                    break;
+            }
+            break;
         case ACT_MACRO:
         case ACT_COMMAND:
         case ACT_FUNCTION:
@@ -261,142 +377,6 @@ void action_exec(action_t action, keyevent_t event)
     last_event = event;
     last_event_time = timer_read();
 }
-
-
-#if 0
-/* Key Action */
-inline
-static void key_action(uint8_t code, keyevent_t event)
-{
-    if (event.pressed)
-        key_pressed(code, event);
-    else
-        key_released(code, event);
-}
-
-void fn_action(uint8_t code, keyevent_t event)
-{
-}
-
-/* Key */
-inline static void key_pressed(uint8_t code, keyevent_t event)
-{
-    uint8_t tmp_mods;
-    switch (kbdstate) {
-        case IDLE:
-            register_code(code);
-            NEXT(PRESSING);
-            break;
-        case PRESSING:
-            register_code(code);
-            break;
-        case DELAYING:
-            waiting_key = (keyrecord_t) {
-                .event = event,
-                .code = code,
-                .mods = keyboard_report->mods,
-                .time = timer_read()
-            };
-            NEXT(WAITING);
-            break;
-        case WAITING:
-            // play back key stroke
-            tmp_mods = keyboard_report->mods;
-            host_set_mods(delayed_fn.mods);
-            register_code(delayed_fn.code);
-            host_set_mods(waiting_key.mods);
-            register_code(waiting_key.code);
-            host_set_mods(tmp_mods);
-            register_code(code);
-            NEXT(IDLE);
-            break;
-    }
-}
-inline static void key_released(uint8_t code, keyevent_t event)
-{
-    uint8_t tmp_mods;
-    switch (kbdstate) {
-        case IDLE:
-            unregister_code(code);
-            break;
-        case PRESSING:
-            unregister_code(code);
-            if (!anykey_sent_to_host())
-                NEXT(IDLE);
-            break;
-        case DELAYING:
-            unregister_code(code);
-            break;
-        case WAITING:
-            if (code == waiting_key.code) {
-                layer_switch_on(delayed_fn.code);
-                NEXT(IDLE);
-                // process waiting_key
-                tmp_mods = keyboard_report->mods;
-                host_set_mods(waiting_key.mods);
-                keymap_process_event(waiting_key.event);
-                host_set_mods(tmp_mods);
-                keymap_process_event(event);
-            } else {
-                unregister_code(code);
-            }
-            break;
-    }
-}
-
-/* layer switch momentary */
-inline static void layerkey_pressed(uint8_t code, keyevent_t event)
-{
-    uint8_t tmp_mods;
-    switch (kbdstate) {
-        case IDLE:
-            layer_switch_on(code);
-            break;
-        case PRESSING:
-            // ignore
-            break;
-        case DELAYING:
-            waiting_key = (keyrecord_t) {
-                .event = event,
-                .code = code,
-                .mods = keyboard_report->mods,
-                .time = timer_read()
-            };
-            NEXT(WAITING);
-            break;
-        case WAITING:
-            tmp_mods = keyboard_report->mods;
-            host_set_mods(delayed_fn.mods);
-            register_code(delayed_fn.code);
-            host_set_mods(waiting_key.mods);
-            register_code(waiting_key.code);
-            host_set_mods(tmp_mods);
-            if (kind == FN_DOWN) {
-                // ignore Fn
-            } else if (kind == FNK_DOWN) {
-                register_code(code);
-            } else if (kind == KEY_DOWN) {
-                register_code(code);
-            }
-            NEXT(IDLE);
-            break;
-    }
-}
-inline static void layerkey_released(uint8_t code, keyevent_t event)
-{
-    switch (kbdstate) {
-        case IDLE:
-            layer_switch_off(code);
-            break;
-        case PRESSING:
-        case DELAYING:
-        case WAITING:
-            if (layer_switch_off(code))
-                NEXT(IDLE);
-            break;
-    }
-}
-#endif
 
 
 static void register_code(uint8_t code)

@@ -34,14 +34,8 @@ typedef struct {
 typedef struct {
     keypos_t key;
     bool     pressed;
+    uint16_t time;
 } keyevent_t;
-
-typedef struct {
-    keyevent_t  event;
-    uint8_t     code;
-    uint8_t     mods;
-    uint16_t    time;
-} keyrecord_t;
 
 #define KEYEQ(keya, keyb)     (keya.row == keyb.row && keya.col == keyb.col)
 
