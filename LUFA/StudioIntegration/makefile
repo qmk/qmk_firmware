@@ -53,7 +53,7 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@python generate_caches.py $(LUFA_ROOT)/../
 
 	@echo "Archiving Content..."
-	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects extension.xml README.txt
+	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* --exclude=*Maintenance* LUFA Bootloaders Demos Projects extension.xml README.txt
 
 	@echo "Creating VSIX Dependencies..."
 	@cp $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png $(LUFA_ROOT)/../PreviewThumb.png
