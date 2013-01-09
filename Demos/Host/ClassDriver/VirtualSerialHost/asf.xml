@@ -1,5 +1,5 @@
 <asf xmlversion="1.0">
-	<project caption="Virtual Serial Host Demo (Class Driver APIs)" id="lufa.demos.host.class.cdc.example">
+	<project caption="Virtual Serial CDC Host Demo (Class Driver APIs)" id="lufa.demos.host.class.cdc.example">
 		<require idref="lufa.demos.host.class.cdc"/>
 		<generator value="as5_8"/>
 
@@ -10,7 +10,7 @@
 		<build type="define" name="F_USB" value="8000000UL"/>
 	</project>
 
-	<module type="application" id="lufa.demos.host.class.cdc" caption="Virtual Serial Host Demo (Class Driver APIs)">
+	<module type="application" id="lufa.demos.host.class.cdc" caption="Virtual Serial CDC Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
 		Virtual Serial Host demo, implementing a CDC host that can send and receive data to and from an attached device.
 		</info>
