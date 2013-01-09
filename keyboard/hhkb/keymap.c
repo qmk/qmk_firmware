@@ -51,15 +51,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 
+/*
 static const action_t PROGMEM fn_actions[] = {
-    ACTION_LAYER(0),                    // Fn0
-    ACTION_LAYER(1),                    // Fn1
-    ACTION_LAYER_KEY(2, KC_SLASH),      // Fn2
-    ACTION_LAYER_KEY(3, KC_SCLN),       // Fn3
-    ACTION_LAYER(3),                    // Fn3
-    ACTION_LAYER_KEY(5, KC_SPC),        // Fn5
-    NO_ACTION,                          // Fn6
-    NO_ACTION,                          // Fn7
+    ACTION_LAYER_TO_DEFAULT_ON_RELEASED,    // Fn0
+    ACTION_LAYER_SET_ON_PRESSED(1),         // Fn1
+    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),  // Fn2
+    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),   // Fn3
+    ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
+    ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
+    ACTION_NO,                              // Fn6
+    ACTION_NO,                              // Fn7
+};
+*/
+static const uint16_t PROGMEM fn_actions[] = {
+    ACTION_LAYER_TO_DEFAULT_ON_RELEASED,    // Fn0
+    ACTION_LAYER_SET_ON_PRESSED(1),         // Fn1
+    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),  // Fn2
+    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),   // Fn3
+    ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
+    ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
+    ACTION_NO,                              // Fn6
+    ACTION_NO,                              // Fn7
 };
 
 
@@ -91,7 +103,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
+     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |Fn0|
      * `-----------------------------------------------------------'
      *      |Gui |Alt  |Space                  |Alt  |xxx|
      *      `--------------------------------------------'
@@ -99,8 +111,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  BSPC, \
            LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN1, \
-                LGUI,LALT,          SPC,                RALT,FN7),
+           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN0, \
+                LGUI,LALT,          SPC,                RALT,RGUI),
 
     /* Layer 2: Vi mode (Slash)
      * ,-----------------------------------------------------------.
@@ -110,7 +122,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |Hom|PgD|PgUlEnd|xxx|Shift |   |
+     * |Shift   |   |   |   |   |   |Hom|PgD|PgUlEnd|Fn0|Shift |   |
      * `-----------------------------------------------------------'
      *       |Gui|Alt  |Space                  |Alt  |Gui|
      *       `-------------------------------------------'
@@ -118,7 +130,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  BSPC, \
            LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT,NO, \
+           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN0, RSFT,NO, \
                 LGUI,LALT,          SPC,                RALT,RGUI),
 
     /* Layer 3: Mouse mode (Semicolon)
@@ -127,19 +139,19 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Tab  |MwL|MwU|McU|MwD|MwR|MwL|MwD|MwU|MwR|   |   |   |Backs|
      * |-----------------------------------------------------------|
-     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |Return  |
+     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|Fn0|   |Return  |
      * |-----------------------------------------------------------|
      * |Shift   |Mb4|Mb5|Mb1|Mb2|Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift |   |
      * `-----------------------------------------------------------'
-     *      |Gui |Alt  |Mb1                    |Alt  |Gui|
+     *      |Gui |Alt  |Mb1                    |Alt  |Fn0|
      *      `--------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
+           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
-                LGUI,LALT,          BTN1,               RALT,FN4),
+                LGUI,LALT,          BTN1,               RALT,FN0),
 
     /* Layer 4: Matias half keyboard style (Space)
      * ,-----------------------------------------------------------.
@@ -151,21 +163,21 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |  /|  .|  ,|  M|  N|  B|  V|  C|  X|  Z|Shift |   |
      * `-----------------------------------------------------------'
-     *      |Gui |Alt  |xxxxxxxxxxxxxxxxxxxxxxx|Alt  |Gui|
+     *      |Gui |Alt  |          Fn0          |Alt  |Gui|
      *      `--------------------------------------------'
      */
     KEYMAP(MINS,0,   9,   8,   7,   6,   5,   4,   3,   2,   1,   NO,  NO,  NO,  ESC, \
            BSPC,P,   O,   I,   U,   Y,   T,   R,   E,   W,   Q,   NO,  NO,  TAB, \
            LCTL,SCLN,L,   K,   J,   H,   G,   F,   D,   S,   A,   RCTL,RCTL, \
            LSFT,SLSH,DOT, COMM,M,   N,   B,   V,   C,   X,   Z,   RSFT,NO, \
-                LGUI,LALT,          FN5,                RALT,RGUI),
+                LGUI,LALT,          FN0,                RALT,RGUI),
 
     /* Layer5: another Mouse mode (Space) */
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  ENT, \
+           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
-                LGUI,LALT,          FN5,                RALT,RGUI),
+                LGUI,LALT,          FN0,                RALT,RGUI),
 };
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
@@ -183,39 +195,31 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
     action_t action;
     switch (key) {
         case KC_A ... KC_EXSEL:
-            action = (action_t)ACTION_KEY(key);
+            action.code = ACTION_KEY(key);
             break;
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
-            action = (action_t)ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(key));
+            action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(key));
             break;
         case KC_AUDIO_MUTE ... KC_WWW_FAVORITES:
-            action = (action_t)ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(key));
+            action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(key));
             break;
         case KC_MS_UP ... KC_MS_ACCEL2:
-            action = (action_t)ACTION_MOUSEKEY(key);
+            action.code = ACTION_MOUSEKEY(key);
             break;
         case KC_LCTRL ... KC_LGUI:
-            action = (action_t)ACTION_LMODS(MOD_BIT(key));
+            action.code = ACTION_LMODS(MOD_BIT(key));
             break;
         case KC_RCTRL ... KC_RGUI:
-            action = (action_t)ACTION_RMODS(MOD_BIT(key)>>4);
+            action.code = ACTION_RMODS(MOD_BIT(key)>>4);
             break;
         case KC_FN0 ... KC_FN7:
-            action = (action_t)pgm_read_word(&fn_actions[FN_INDEX(key)]);
+            action.code = pgm_read_word(&fn_actions[FN_INDEX(key)]);
             break;
         case KC_NO ... KC_UNDEFINED:
         default:
-            action = (action_t)NO_ACTION;
+            action.code = ACTION_NO;
             break;
     }
     debug("action: "); debug_hex16(action.code); debug("\n");
     return action;
-}
-
-
-uint8_t keymap_process_event(keyevent_t event)
-{
-    action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
-    action_exec(action, event);
-    return 0;
 }
