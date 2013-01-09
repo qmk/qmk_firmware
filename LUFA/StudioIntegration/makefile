@@ -48,12 +48,10 @@ generate_xml: $(TEMP_MANIFEST_XML)
 
 	@rm $(TEMP_MANIFEST_XML)
 
-generate_caches: $(EXTENSION_OUTPUT_XML)
+generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@echo "Generating ASF cache files..."
 	@python generate_caches.py $(LUFA_ROOT)/../
-	@echo "ASF cache files generated."
 
-generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML) generate_caches
 	@echo "Archiving Content..."
 	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -9 -r --exclude=*$(notdir $(DOXYGEN_TAG_FILE_XML)) --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects extension.xml README.txt
 
@@ -76,4 +74,4 @@ check_filenames: $(TEMP_MANIFEST_XML)
 		fi; \
 	done;
 
-.PHONY: all clean generate_xml check_filenames generate_caches generate_vsix
+.PHONY: all clean generate_xml check_filenames generate_vsix
