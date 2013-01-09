@@ -30,9 +30,7 @@
 		<build type="c-source" value="Lib/TCP.c"/>
 		<build type="c-source" value="Lib/UDP.c"/>
 		<build type="c-source" value="Lib/Webserver.c"/>
-		<build type="header-file" value="RNDIS.h"/>
-		<build type="header-file" value="Descriptors.h"/>
-		<build type="header-file" value="RNDIS.h"/>
+		<build type="header-file" value="RNDISEthernet.h"/>
 		<build type="header-file" value="Descriptors.h"/>
 		<build type="header-file" value="Lib/ARP.h"/>
 		<build type="header-file" value="Lib/DHCP.h"/>
@@ -54,5 +52,6 @@
 		<require idref="lufa.drivers.usb"/>
 		<require idref="lufa.drivers.board.leds"/>
 		<require idref="lufa.drivers.peripheral.usart"/>
+		<require idref="lufa.drivers.misc.ansi"/>
 	</module>
 </asf>
