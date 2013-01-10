@@ -50,6 +50,8 @@ generate_xml: $(TEMP_MANIFEST_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@echo "Generating ASF cache files..."
+	@rm -f $(LUFA_ROOT)/../content.xml.cache
+	@rm -f $(LUFA_ROOT)/../ExampleProjects.xml
 	@python generate_caches.py $(LUFA_ROOT)/../
 
 	@echo "Archiving Content..."
@@ -74,4 +76,4 @@ check_filenames: $(TEMP_MANIFEST_XML)
 		fi; \
 	done;
 
-.PHONY: all clean generate_xml check_filenames generate_vsix
+.PHONY: all clean generate_xml generate_vsix check_filenames

@@ -30,8 +30,8 @@
 		<require idref="lufa.common"/>
 		<require idref="lufa.platform"/>
 		<require idref="lufa.drivers.usb"/>
-		<require idref="lufa.drivers.buttons"/>
-		<require idref="lufa.drivers.joystick"/>
-		<require idref="lufa.drivers.leds"/>
+		<require idref="lufa.drivers.board.buttons"/>
+		<require idref="lufa.drivers.board.joystick"/>
+		<require idref="lufa.drivers.board.leds"/>
 	</module>
 </asf>
