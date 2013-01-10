@@ -16,7 +16,7 @@ def main():
 		from asf_avrstudio5_interface import PythonFacade
 	except ImportError:
 		print "Fatal Error: The ASF project generator is missing."
-		sys.exit()
+		return 1
 
 	p = PythonFacade(os.path.abspath(__file__))
 
@@ -29,6 +29,7 @@ def main():
 	p.generate_extension_cache_files(sys.argv[1])
 
 	print "[Project Generator] Cache files created."
+	return 0
 
 
 if __name__ == "__main__":

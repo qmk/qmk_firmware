@@ -25,7 +25,6 @@
 		<build type="header-file" value="Descriptors.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
-		<build type="header-file" value="Config/AppConfig.h"/>
 		<build type="header-file" value="Config/LUFAConfig.h"/>
 
 		<require idref="lufa.common"/>

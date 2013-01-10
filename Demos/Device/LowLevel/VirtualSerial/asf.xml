@@ -1,6 +1,6 @@
 <asf xmlversion="1.0">
-	<project caption="Virtual Serial CDC Device Demo (Class Driver APIs)" id="lufa.demos.device.class.cdc.example">
-		<require idref="lufa.demos.device.class.cdc"/>
+	<project caption="Virtual Serial CDC Device Demo (Low Level APIs)" id="lufa.demos.device.lowlevel.cdc.example">
+		<require idref="lufa.demos.device.lowlevel.cdc"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
@@ -10,7 +10,7 @@
 		<build type="define" name="F_USB" value="8000000UL"/>
 	</project>
 
-	<module type="application" id="lufa.demos.device.class.cdc" caption="Virtual Serial CDC Device Demo (Class Driver APIs)">
+	<module type="application" id="lufa.demos.device.lowlevel.cdc" caption="Virtual Serial CDC Device Demo (Low Level APIs)">
 		<info type="description" value="summary">
 		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device.
 		</info>

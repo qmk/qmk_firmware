@@ -47,6 +47,7 @@
 		<build type="c-source" value="Lib/uIPManagement.c"/>
 		<build type="header-file" value="Lib/uIPManagement.h"/>
 
+		<build type="include-path" value="Lib/FATFs/"/>
 		<build type="c-source" value="Lib/FATFs/ff.c"/>
 		<build type="header-file" value="Lib/FATFs/ff.h"/>
 		<build type="c-source" value="Lib/FATFs/diskio.c"/>
@@ -54,6 +55,7 @@
 		<build type="header-file" value="Lib/FATFs/ffconf.h"/>
 		<build type="header-file" value="Lib/FATFs/integer.h"/>
 
+		<build type="include-path" value="Lib/uip/"/>
 		<build type="c-source" value="Lib/uip/clock.c"/>
 		<build type="header-file" value="Lib/uip/clock.h"/>
 		<build type="c-source" value="Lib/uip/timer.c"/>

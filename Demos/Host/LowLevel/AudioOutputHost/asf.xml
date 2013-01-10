@@ -1,6 +1,6 @@
 <asf xmlversion="1.0">
-	<project caption="Audio Output Host Demo (Class Driver APIs)" id="lufa.demos.host.class.audio_output.example">
-		<require idref="lufa.demos.host.class.audio_output"/>
+	<project caption="Audio Output Host Demo (Low Level APIs)" id="lufa.demos.host.lowlevel.audio_output.example">
+		<require idref="lufa.demos.host.lowlevel.audio_output"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
@@ -10,7 +10,7 @@
 		<build type="define" name="F_USB" value="8000000UL"/>
 	</project>
 
-	<module type="application" id="lufa.demos.host.class.audio_output" caption="Audio Output Host Demo (Class Driver APIs)">
+	<module type="application" id="lufa.demos.host.lowlevel.audio_output" caption="Audio Output Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
 		Audio Output Host demo, implementing a basic USB audio source that can output audio data to an attached device.
 		</info>
@@ -20,7 +20,9 @@
 		<device-support-alias value="lufa_uc3"/>
 
 		<build type="c-source" value="AudioOutputHost.c"/>
+		<build type="c-source" value="ConfigDescriptor.c"/>
 		<build type="header-file" value="AudioOutputHost.h"/>
+		<build type="header-file" value="ConfigDescriptor.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
 		<build type="header-file" value="Config/AppConfig.h"/>

@@ -34,6 +34,7 @@
 		<build type="c-source" value="Lib/DS1307.c"/>
 		<build type="header-file" value="Lib/DS1307.h"/>
 
+		<build type="include-path" value="Lib/FATFs/"/>
 		<build type="c-source" value="Lib/FATFs/ff.c"/>
 		<build type="header-file" value="Lib/FATFs/ff.h"/>
 		<build type="c-source" value="Lib/FATFs/diskio.c"/>

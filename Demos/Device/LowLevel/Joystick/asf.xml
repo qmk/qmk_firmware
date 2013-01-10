@@ -1,6 +1,6 @@
 <asf xmlversion="1.0">
-	<project caption="Virtual Serial CDC Device Demo (Class Driver APIs)" id="lufa.demos.device.class.cdc.example">
-		<require idref="lufa.demos.device.class.cdc"/>
+	<project caption="Joystick HID Device Demo (Low Level APIs)" id="lufa.demos.device.lowlevel.joystick.example">
+		<require idref="lufa.demos.device.lowlevel.joystick"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
@@ -10,20 +10,18 @@
 		<build type="define" name="F_USB" value="8000000UL"/>
 	</project>
 
-	<module type="application" id="lufa.demos.device.class.cdc" caption="Virtual Serial CDC Device Demo (Class Driver APIs)">
+	<module type="application" id="lufa.demos.device.lowlevel.joystick" caption="Joystick HID Device Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device.
+		Joystick HID device demo, implementing a basic USB joystick that can send movement information to the host.
 		</info>
 
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
-		<build type="distribute" subtype="user-file" value="LUFA VirtualSerial.inf"/>
-
-		<build type="c-source" value="VirtualSerial.c"/>
+		<build type="c-source" value="Joystick.c"/>
 		<build type="c-source" value="Descriptors.c"/>
-		<build type="header-file" value="VirtualSerial.h"/>
+		<build type="header-file" value="Joystick.h"/>
 		<build type="header-file" value="Descriptors.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
@@ -33,7 +31,6 @@
 		<require idref="lufa.platform"/>
 		<require idref="lufa.drivers.usb"/>
 		<require idref="lufa.drivers.board.leds"/>
-		<require idref="lufa.drivers.board.buttons"/>
 		<require idref="lufa.drivers.board.joystick"/>
 	</module>
 </asf>
