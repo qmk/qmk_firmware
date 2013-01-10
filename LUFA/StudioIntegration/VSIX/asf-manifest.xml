@@ -8,7 +8,7 @@
   </Identifier>
   <AsfContent Type="zip" Path="contents.zip">
     <Content>
-      <Version></Version>
+      <Version>0</Version>
       <HelpURL/>
       <Locator/>
       <DbXMLPath>content.xml.cache</DbXMLPath>

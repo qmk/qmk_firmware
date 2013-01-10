@@ -15,7 +15,7 @@ def main():
 	try:
 		from asf_avrstudio5_interface import PythonFacade
 	except ImportError:
-		print "The ASF project generator is missing."
+		print "Fatal Error: The ASF project generator is missing."
 		sys.exit()
 
 	p = PythonFacade(os.path.abspath(__file__))

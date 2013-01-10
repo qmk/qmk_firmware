@@ -1,6 +1,6 @@
 <asf xmlversion="1.0">
-	<project caption="Mass Storage Device Demo (Class Driver APIs)" id="lufa.demos.device.class.mass_storage.example">
-		<require idref="lufa.demos.device.class.mass_storage"/>
+	<project caption="Benito Programmer" id="lufa.projects.benito.avr8">
+		<require idref="lufa.projects.benito"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
@@ -10,23 +10,21 @@
 		<build type="define" name="F_USB" value="8000000UL"/>
 	</project>
 
-	<module type="application" id="lufa.demos.device.class.mass_storage" caption="Mass Storage Device Demo (Class Driver APIs)">
+	<module type="application" id="lufa.projects.benito" caption="Benito Programmer">
 		<info type="description" value="summary">
-		Mass Storage device demo, implementing a basic USB storage disk using a Dataflash memory IC.
+		Benito AVR programmer.
 		</info>
 
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
-		<build type="c-source" value="MassStorage.c"/>
+		<build type="distribute" subtype="user-file" value="Benito Programmer.inf"/>
+
+		<build type="c-source" value="Benito.c"/>
 		<build type="c-source" value="Descriptors.c"/>
-		<build type="c-source" value="Lib/DataflashManager.c"/>
-		<build type="c-source" value="Lib/SCSI.c"/>
-		<build type="header-file" value="MassStorage.h"/>
+		<build type="header-file" value="Bentio.h"/>
 		<build type="header-file" value="Descriptors.h"/>
-		<build type="header-file" value="Lib/DataflashManager.h"/>
-		<build type="header-file" value="Lib/SCSI.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
 		<build type="header-file" value="Config/AppConfig.h"/>
@@ -35,7 +33,8 @@
 		<require idref="lufa.common"/>
 		<require idref="lufa.platform"/>
 		<require idref="lufa.drivers.usb"/>
+		<require idref="lufa.drivers.peripheral.usart"/>
+		<require idref="lufa.drivers.misc.ringbuffer"/>
 		<require idref="lufa.drivers.board.leds"/>
-		<require idref="lufa.drivers.board.dataflash"/>
 	</module>
 </asf>

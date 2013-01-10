@@ -38,5 +38,6 @@
 		<require idref="lufa.drivers.board.leds"/>
 		<require idref="lufa.drivers.board.buttons"/>
 		<require idref="lufa.drivers.board.joystick"/>
+		<require idref="lufa.drivers.board.dataflash"/>
 	</module>
 </asf>
