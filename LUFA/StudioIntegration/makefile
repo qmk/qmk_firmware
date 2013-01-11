@@ -73,6 +73,7 @@ check_filenames: $(TEMP_MANIFEST_XML)
 	@for i in `xsltproc XSLT/lufa_filelist_transform.xslt $< | grep -v "^<" | sed -e "/^$$/d"`; do \
 		if ( ! test -f "$(LUFA_ROOT)/$$i" ); then \
 			echo "Source file $$i does not exist!"; \
+			exit 1; \
 		fi; \
 	done;
 

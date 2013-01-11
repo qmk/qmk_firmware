@@ -86,7 +86,7 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_DUCE"/>
 
-				<build type="header-file" value="Drivers/Board/AVR8/CULV3/LEDs.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/DUCE/LEDs.h"/>
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#evk527" caption="EVK527">
@@ -106,8 +106,8 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_JMDBU2"/>
 
-				<build type="header-file" value="Drivers/Board/AVR8/EVK527/Buttons.h"/>
-				<build type="header-file" value="Drivers/Board/AVR8/EVK527/LEDs.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/JMDBU2/Buttons.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/JMDBU2/LEDs.h"/>
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#leonardo" caption="LEONARDO">
@@ -233,8 +233,8 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEXISPMK2"/>
 
-				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX32U4/LEDs.h"/>
-				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX32U4/Buttons.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXISPMK2/LEDs.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXISPMK2/Buttons.h"/>
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#olimex_t32u4" caption="OLIMEX_T32U4">
