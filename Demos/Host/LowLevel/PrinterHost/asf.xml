@@ -19,6 +19,8 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="PrinterHost.txt"/>
+
 		<build type="c-source" value="PrinterHost.c"/>
 		<build type="c-source" value="ConfigDescriptor.c"/>
 		<build type="header-file" value="PrinterHost.h"/>

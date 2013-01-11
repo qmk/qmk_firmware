@@ -57,6 +57,8 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="AVRISP-MKII.txt"/>
+
 		<build type="c-source" value="AVRISP-MKII.c"/>
 		<build type="c-source" value="AVRISPDescriptors.c"/>
 		<build type="header-file" value="AVRISP-MKII.h"/>

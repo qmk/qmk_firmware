@@ -19,6 +19,7 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="Benito.txt"/>
 		<build type="distribute" subtype="user-file" value="Benito Programmer.inf"/>
 
 		<build type="c-source" value="Benito.c"/>

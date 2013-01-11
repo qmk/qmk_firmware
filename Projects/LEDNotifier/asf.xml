@@ -19,6 +19,7 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="LEDNotifier.txt"/>
 		<build type="distribute" subtype="user-file" value="LUFA LED Notifier.inf"/>
 
 		<build type="c-source" value="LEDNotifier.c"/>
