@@ -89,6 +89,7 @@
 		<require idref="lufa.drivers.usb"/>
 		<require idref="lufa.drivers.peripheral.adc"/>
 		<require idref="lufa.drivers.peripheral.spi"/>
+		<require idref="lufa.drivers.board"/>
 		<require idref="lufa.drivers.board.leds"/>
 	</module>
 </asf>

@@ -30,6 +30,7 @@
 		<require idref="lufa.drivers.usb"/>
 		<require idref="lufa.drivers.peripheral.usart"/>
 		<require idref="lufa.drivers.misc.ansi"/>
+		<require idref="lufa.drivers.board"/>
 		<require idref="lufa.drivers.board.leds"/>
 	</module>
 </asf>

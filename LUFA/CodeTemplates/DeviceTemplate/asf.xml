@@ -30,5 +30,6 @@
 		<require idref="lufa.common"/>
 		<require idref="lufa.platform"/>
 		<require idref="lufa.drivers.usb"/>
+		<require idref="lufa.drivers.board"/>
 	</module>
 </asf>

@@ -19,7 +19,7 @@
 		<SupportedFrameworkRuntimeEdition MinVersion="4.0" />
 		<Locale>1033</Locale>
 
-	    <AllUsers>true</AllUsers>
+	    <AllUsers>false</AllUsers>
 	</Identifier>
 
 	<References/>

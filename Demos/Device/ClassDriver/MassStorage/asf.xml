@@ -35,6 +35,7 @@
 		<require idref="lufa.common"/>
 		<require idref="lufa.platform"/>
 		<require idref="lufa.drivers.usb"/>
+		<require idref="lufa.drivers.board"/>
 		<require idref="lufa.drivers.board.leds"/>
 		<require idref="lufa.drivers.board.dataflash"/>
 	</module>
