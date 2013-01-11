@@ -72,12 +72,12 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 check_filenames: $(MODULE_OUTPUT_XML)
 	@echo Verifying referenced filenames of ASF.xml modules...
 	@for f in `find $(LUFA_ROOT)/../ -name "asf.xml"`; do \
-		for i in `xsltproc XSLT/lufa_filelist_transform.xslt $$f | grep -v "^<" | sed -e "/^$$/d"`; do \
+		xsltproc XSLT/lufa_filelist_transform.xslt $$f | grep -v "^<" | sed -e "/^$$/d" | while read -r i; do \
 			if ( ! test -f "`dirname $$f`/$$i" ); then \
-				echo "Source file $$i referenced in $$f does not exist!"; \
+				echo "Source file \"$$i\" referenced in $$f does not exist!"; \
 				exit 1; \
 			fi; \
-		done; \
+		done || exit 1; \
 	done;
 	@echo Verified referenced filenames of ASF.xml modules.
 

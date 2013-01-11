@@ -28,7 +28,7 @@
 	</xsl:template>
 
 	<!-- Match source file nodes, output filename -->
-	<xsl:template match="build[@type='c-source']|build[@type='header-file']">
+	<xsl:template match="build[@type='c-source']|build[@type='header-file']|build[@type='distribute']">
 		<xsl:value-of select="@value"/>
 		<xsl:text>&#xA;</xsl:text>
 	</xsl:template>
