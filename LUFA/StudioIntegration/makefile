@@ -18,7 +18,7 @@ XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
 LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
 EXT_VERSION_NUM      := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
 
-all: check_filenames generate_xml generate_vsix
+all: generate_xml check_filenames generate_vsix
 
 clean:
 	@rm $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML)
@@ -69,12 +69,16 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@cd $(LUFA_ROOT)/../ && zip LUFA.vsix -q contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml
 	@echo "Atmel Studio VSIX Extension file generated."
 
-check_filenames: $(TEMP_MANIFEST_XML)
-	@for i in `xsltproc XSLT/lufa_filelist_transform.xslt $< | grep -v "^<" | sed -e "/^$$/d"`; do \
-		if ( ! test -f "$(LUFA_ROOT)/$$i" ); then \
-			echo "Source file $$i does not exist!"; \
-			exit 1; \
-		fi; \
+check_filenames: $(MODULE_OUTPUT_XML)
+	@echo Verifying referenced filenames of ASF.xml modules...
+	@for f in `find $(LUFA_ROOT)/../ -name "asf.xml"`; do \
+		for i in `xsltproc XSLT/lufa_filelist_transform.xslt $$f | grep -v "^<" | sed -e "/^$$/d"`; do \
+			if ( ! test -f "`dirname $$f`/$$i" ); then \
+				echo "Source file $$i referenced in $$f does not exist!"; \
+				exit 1; \
+			fi; \
+		done; \
 	done;
+	@echo Verified referenced filenames of ASF.xml modules.
 
 .PHONY: all clean generate_xml generate_vsix check_filenames

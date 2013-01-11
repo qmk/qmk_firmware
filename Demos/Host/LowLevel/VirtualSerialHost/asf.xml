@@ -20,9 +20,9 @@
 		<device-support-alias value="lufa_uc3"/>
 
 		<build type="c-source" value="VirtualSerialHost.c"/>
-		<build type="c-source" value="ConfigDescriptors.c"/>
+		<build type="c-source" value="ConfigDescriptor.c"/>
 		<build type="header-file" value="VirtualSerialHost.h"/>
-		<build type="header-file" value="ConfigDescriptors.h"/>
+		<build type="header-file" value="ConfigDescriptor.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
 		<build type="header-file" value="Config/LUFAConfig.h"/>

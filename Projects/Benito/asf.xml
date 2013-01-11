@@ -23,7 +23,7 @@
 
 		<build type="c-source" value="Benito.c"/>
 		<build type="c-source" value="Descriptors.c"/>
-		<build type="header-file" value="Bentio.h"/>
+		<build type="header-file" value="Benito.h"/>
 		<build type="header-file" value="Descriptors.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
