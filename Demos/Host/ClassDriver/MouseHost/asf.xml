@@ -12,7 +12,13 @@
 
 	<module type="application" id="lufa.demos.host.class.mouse" caption="Mouse HID Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Keyboard HID Host demo, implementing a basic USB mouse host that can display movement data on the board LEDs.
+		Mouse HID Host demo, implementing a basic USB mouse host that can display movement data on the board LEDs.
+		</info>
+
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="HID Class"/>
 		</info>
 
 		<device-support-alias value="lufa_avr8"/>

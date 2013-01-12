@@ -15,6 +15,12 @@
 		Generic HID Host demo, implementing a basic USB HID device that can send and receive data to and from an attached device.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Low Level APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="HID Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

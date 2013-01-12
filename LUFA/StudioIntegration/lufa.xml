@@ -12,7 +12,7 @@
 	<fdk>
 		<extension uuid="0e160d5c-e331-48d9-850b-e0387912171b" org="FourWalledCubicle" shortname="LUFA" version="" fullname="Lightweight USB Framework for AVRs (LUFA)">
 			<author name="Dean Camera" website="http://www.lufa-lib.org/" email="dean@fourwalledcubicle.com"/>
-			<description/>
+			<description>Lightweight USB Framework for AVRs (LUFA), a USB software stack/framework.</description>
 			<icon-image path="LUFA/DoxygenPages/Images/LUFA_thumb.png"/>
 			<preview-image path="LUFA/DoxygenPages/Images/LUFA.png"/>
 			<license caption="LUFA license" path="LUFA/License.txt"/>

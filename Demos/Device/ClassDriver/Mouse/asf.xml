@@ -15,6 +15,12 @@
 		Mouse device demo, implementing a basic USB mouse device that can send movement information to the host.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Device"/>
+			<keyword value="HID Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

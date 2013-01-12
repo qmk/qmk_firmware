@@ -15,6 +15,12 @@
 		Joystick HID device demo, implementing a basic USB joystick that can send movement information to the host.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Low Level APIs"/>
+			<keyword value="USB Device"/>
+			<keyword value="HID Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

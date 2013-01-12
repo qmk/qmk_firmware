@@ -15,6 +15,12 @@
 		Android Accessory Host demo, implementing a basic USB device whose LEDs can be controlled via an Android device.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="Android Accessory Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

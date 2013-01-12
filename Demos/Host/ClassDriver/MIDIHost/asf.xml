@@ -15,6 +15,12 @@
 		MIDI Host demo, capable of sending and receiving MIDI messages to and from an attached device.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="MIDI Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

@@ -15,6 +15,13 @@
 		Virtual Serial and Mouse device demo, implementing a virtual serial channel between the host PC and the device, and a USB mouse.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Device"/>
+			<keyword value="CDC Class"/>
+			<keyword value="HID Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

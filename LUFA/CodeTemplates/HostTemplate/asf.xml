@@ -15,6 +15,11 @@
 		Template for a LUFA USB host mode application.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="USB Host"/>
+			<keyword value="Template Projects"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

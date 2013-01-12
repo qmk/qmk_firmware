@@ -15,6 +15,12 @@
 		Printer Host demo, implementing a basic USB printer host that can send raw printer control data to an attached device.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Low Level APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="Printer Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>

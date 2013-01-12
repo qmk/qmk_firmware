@@ -15,6 +15,12 @@
 		Mass Storage Host demo, capable of reading and writing raw 512 byte segments to the device's serial port.
 		</info>
 
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="Mass Storage Class"/>
+		</info>
+
 		<device-support-alias value="lufa_avr8"/>
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
