@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Printer Host Demo (Low Level APIs)" id="lufa.demos.host.lowlevel.printer.example">
 		<require idref="lufa.demos.host.lowlevel.printer"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

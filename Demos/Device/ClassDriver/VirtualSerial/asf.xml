@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Virtual Serial CDC Device Demo (Class Driver APIs)" id="lufa.demos.device.class.cdc.example">
 		<require idref="lufa.demos.device.class.cdc"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Audio Output Device Demo (Class Driver APIs)" id="lufa.demos.device.class.audio_output.example">
 		<require idref="lufa.demos.device.class.audio_output"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

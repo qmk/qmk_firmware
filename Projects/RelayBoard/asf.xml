@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Relay Board Controller" id="lufa.projects.relay_board.avr8">
 		<require idref="lufa.projects.relay_board"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

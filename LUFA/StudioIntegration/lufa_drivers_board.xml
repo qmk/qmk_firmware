@@ -10,6 +10,12 @@
 
 <lufa>
 	<asf>
+		<board id="lufa.boards.dummy" vendor="LUFA" caption="LUFA">
+			<device-support value="avr"/>
+
+			<require idref="lufa.drivers.board"/>
+		</board>
+
 		<module type="driver" id="lufa.drivers.board.leds" caption="LUFA Board LED Driver">
 			<device-support-alias value="lufa_avr8"/>
 			<device-support-alias value="lufa_xmega"/>

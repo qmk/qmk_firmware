@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Mass Storage Device Demo (Low Level APIs)" id="lufa.demos.device.lowlevel.mass_storage.example">
 		<require idref="lufa.demos.device.lowlevel.mass_storage"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="USB Device Template" id="lufa.templates.device.project">
 		<require idref="lufa.templates.device"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8_template"/>
 
 		<device-support value="at90usb1287"/>

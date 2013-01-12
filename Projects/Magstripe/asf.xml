@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Magnetic Strip Card Reader" id="lufa.projects.magstripe.avr8">
 		<require idref="lufa.projects.magstripe"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

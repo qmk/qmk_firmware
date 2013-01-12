@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Keyboard and Mouse HID (Multi Report) Device Demo (Class Driver APIs)" id="lufa.demos.device.class.keyboard_mouse_mr.example">
 		<require idref="lufa.demos.device.class.keyboard_mouse_mr"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

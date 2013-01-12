@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Benito Programmer" id="lufa.projects.benito.avr8">
 		<require idref="lufa.projects.benito"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

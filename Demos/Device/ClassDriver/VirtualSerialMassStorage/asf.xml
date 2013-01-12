@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Virtual Serial CDC and Mass Storage Device Demo (Class Driver APIs)" id="lufa.demos.device.class.cdc_ms.example">
 		<require idref="lufa.demos.device.class.cdc_ms"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

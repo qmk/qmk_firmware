@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="LED Notifier Widget" id="lufa.projects.led_notifier.avr8">
 		<require idref="lufa.projects.led_notifier"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

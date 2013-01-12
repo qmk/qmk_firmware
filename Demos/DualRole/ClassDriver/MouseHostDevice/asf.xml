@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Mouse HID Dual USB Mode Demo (Class Driver APIs)" id="lufa.demos.dualrole.class.mouse.example">
 		<require idref="lufa.demos.dualrole.class.mouse"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

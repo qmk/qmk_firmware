@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Keyboard HID (with parser) Host Demo (Class Driver APIs)" id="lufa.demos.host.class.keyboard_parser.example">
 		<require idref="lufa.demos.host.class.keyboard_parser"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

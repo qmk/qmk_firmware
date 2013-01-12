@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Audio Input Host Demo (Class Driver APIs)" id="lufa.demos.host.class.audio_input.example">
 		<require idref="lufa.demos.host.class.audio_input"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

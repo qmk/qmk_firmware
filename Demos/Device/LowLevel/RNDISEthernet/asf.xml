@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="RNDIS Ethernet Device Demo (Low Level APIs)" id="lufa.demos.device.lowlevel.rndis.example">
 		<require idref="lufa.demos.device.lowlevel.rndis"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

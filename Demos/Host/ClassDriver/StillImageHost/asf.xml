@@ -1,6 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Still Image Host Demo (Class Driver APIs)" id="lufa.demos.host.class.si.example">
 		<require idref="lufa.demos.host.class.si"/>
+		<require idref="lufa.boards.dummy"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
