@@ -48,7 +48,7 @@
 		#include "V2ProtocolConstants.h"
 		#include "ISP/ISPTarget.h"
 		#include "Config/AppConfig.h"
-		
+
 	/* Macros: */
 		/** Parameter privilege mask to allow the host PC to read the parameter's value. */
 		#define PARAM_PRIV_READ     (1 << 0)
@@ -58,7 +58,7 @@
 
 		/** Total number of parameters in the parameter table */
 		#define TABLE_PARAM_COUNT   (sizeof(ParameterTable) / sizeof(ParameterTable[0]))
-		
+
 		#if (!defined(FIRMWARE_VERSION_MINOR) || defined(__DOXYGEN__))
 			/** Minor firmware version, reported to the host on request; must match the version
 			 *  the host is expecting, or it (may) reject further communications with the programmer. */
@@ -84,7 +84,7 @@
 		                                   const uint8_t Value);
 
 		#if defined(INCLUDE_FROM_V2PROTOCOL_PARAMS_C)
-			static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID);
+			static ParameterItem_t* const V2Params_GetParamFromTable(const uint8_t ParamID);
 		#endif
 
 #endif

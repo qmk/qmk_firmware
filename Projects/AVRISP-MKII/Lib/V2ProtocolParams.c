@@ -37,7 +37,10 @@
 #include "V2ProtocolParams.h"
 
 /* Non-Volatile Parameter Values for EEPROM storage */
-static uint8_t EEMEM EEPROM_Reset_Polarity = 0x01;
+static uint8_t  EEMEM EEPROM_Reset_Polarity = 0x01;
+
+/* Non-Volatile Parameter Values for EEPROM storage */
+static uint8_t  EEMEM EEPROM_SCK_Duration   = 0x06;
 
 /* Volatile Parameter Values for RAM storage */
 static ParameterItem_t ParameterTable[] =
@@ -87,8 +90,17 @@ static ParameterItem_t ParameterTable[] =
 /** Loads saved non-volatile parameter values from the EEPROM into the parameter table, as needed. */
 void V2Params_LoadNonVolatileParamValues(void)
 {
-	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM */
-	V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = eeprom_read_byte(&EEPROM_Reset_Polarity);
+	/* Read parameter values that are stored in non-volatile EEPROM */
+	uint8_t ResetPolarity = eeprom_read_byte(&EEPROM_Reset_Polarity);
+	uint8_t SCKDuration   = eeprom_read_byte(&EEPROM_SCK_Duration);
+
+	/* Update current parameter table if the EEPROM contents was not blank */
+	if (ResetPolarity != 0xFF)
+	  V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = ResetPolarity;
+
+	/* Update current parameter table if the EEPROM contents was not blank */
+	if (SCKDuration != 0xFF)
+	  V2Params_GetParamFromTable(PARAM_SCK_DURATION)->ParamValue   = SCKDuration;
 }
 
 /** Updates any parameter values that are sourced from hardware rather than explicitly set by the host, such as
@@ -112,7 +124,7 @@ void V2Params_UpdateParamValues(void)
  */
 uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
 {
-	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
+	ParameterItem_t* const ParamInfo = V2Params_GetParamFromTable(ParamID);
 
 	if (ParamInfo == NULL)
 	  return 0;
@@ -132,7 +144,7 @@ uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
  */
 uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
 {
-	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
+	ParameterItem_t* const ParamInfo = V2Params_GetParamFromTable(ParamID);
 
 	if (ParamInfo == NULL)
 	  return 0;
@@ -154,7 +166,7 @@ uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
 void V2Params_SetParameterValue(const uint8_t ParamID,
                                 const uint8_t Value)
 {
-	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
+	ParameterItem_t* const ParamInfo = V2Params_GetParamFromTable(ParamID);
 
 	if (ParamInfo == NULL)
 	  return;
@@ -164,6 +176,10 @@ void V2Params_SetParameterValue(const uint8_t ParamID,
 	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
 	if (ParamID == PARAM_RESET_POLARITY)
 	  eeprom_update_byte(&EEPROM_Reset_Polarity, Value);
+
+	/* The target SCK line period is a non-volatile parameter, save to EEPROM when changed */
+	if (ParamID == PARAM_SCK_DURATION)
+	  eeprom_update_byte(&EEPROM_SCK_Duration, Value);
 }
 
 /** Retrieves a parameter entry (including ID, value and privileges) from the parameter table that matches the given
@@ -173,7 +189,7 @@ void V2Params_SetParameterValue(const uint8_t ParamID,
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */
-static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID)
+static ParameterItem_t* const V2Params_GetParamFromTable(const uint8_t ParamID)
 {
 	ParameterItem_t* CurrTableItem = ParameterTable;
 
