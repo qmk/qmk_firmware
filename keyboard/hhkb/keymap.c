@@ -149,8 +149,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
+           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, QUOT,ENT, \
+           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,SLSH,RSFT,NO, \
                 LGUI,LALT,          BTN1,               RALT,FN0),
 
     /* Layer 4: Matias half keyboard style (Space)
@@ -195,6 +195,8 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
     action_t action;
     switch (key) {
         case KC_A ... KC_EXSEL:
+        case KC_LCTRL ... KC_LGUI:
+        case KC_RCTRL ... KC_RGUI:
             action.code = ACTION_KEY(key);
             break;
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
@@ -206,12 +208,14 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(key);
             break;
+/*
         case KC_LCTRL ... KC_LGUI:
             action.code = ACTION_LMODS(MOD_BIT(key));
             break;
         case KC_RCTRL ... KC_RGUI:
             action.code = ACTION_RMODS(MOD_BIT(key)>>4);
             break;
+*/
         case KC_FN0 ... KC_FN7:
             action.code = pgm_read_word(&fn_actions[FN_INDEX(key)]);
             break;
