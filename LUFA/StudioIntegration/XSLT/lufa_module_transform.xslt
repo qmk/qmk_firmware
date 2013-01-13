@@ -54,12 +54,6 @@
 			    <xsl:value-of select="$filename"/>
   			</xsl:attribute>
   		</build>
-
-		<build type="offline-help" subtype="module-help-page-append">
-		 	<xsl:attribute name="value">
-				<xsl:value-of select="$filename"/>
-  			</xsl:attribute>
-  		</build>
 	</xsl:template>
 
 </xsl:stylesheet>

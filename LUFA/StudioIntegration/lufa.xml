@@ -22,11 +22,6 @@
 				<module-help-page scheme="append" baseurl="http://www.lufa-lib.org/documentation/"/>
 				<module-guide-page scheme="append" baseurl="http://www.lufa-lib.org/documentation/"/>
 			</online-help>
-			<offline-help>
-				<index-page caption="LUFA Documentation" path="Documentation/html/"/>
-				<module-help-page scheme="append" basepath="Documentation/html/"/>
-				<module-guide-page scheme="append" basepath="Documentation/html/"/>
-			</offline-help>
 			<dependencies/>
 		</extension>
 	</fdk>
