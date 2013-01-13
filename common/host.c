@@ -127,6 +127,11 @@ void host_clear_keys(void)
     }
 }
 
+uint8_t host_get_mods(void)
+{
+    return keyboard_report->mods;
+}
+
 void host_add_mods(uint8_t mods)
 {
     keyboard_report->mods |= mods;

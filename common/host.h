@@ -51,10 +51,13 @@ void host_consumer_send(uint16_t data);
 void host_add_key(uint8_t key);
 void host_del_key(uint8_t key);
 void host_clear_keys(void);
+
+uint8_t host_get_mods(void);
 void host_add_mods(uint8_t mods);
 void host_del_mods(uint8_t mods);
 void host_set_mods(uint8_t mods);
 void host_clear_mods(void);
+
 uint8_t host_has_anykey(void);
 uint8_t host_has_anymod(void);
 uint8_t host_get_first_key(void);

@@ -68,7 +68,7 @@ void keyboard_task(void)
                     action_exec((keyevent_t){
                         .key = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & (1<<c)),
-                        .time = timer_read()
+                        .time = (timer_read() | 1) /* NOTE: 0 means no event */
                     });
                     // record a processed key
                     matrix_prev[r] ^= (1<<c);
