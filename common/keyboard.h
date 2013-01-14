@@ -37,7 +37,14 @@ typedef struct {
     uint16_t time;
 } keyevent_t;
 
-#define KEYEQ(keya, keyb)     (keya.row == keyb.row && keya.col == keyb.col)
+#define KEYEQ(keya, keyb)       (keya.row == keyb.row && keya.col == keyb.col)
+#define IS_NOEVENT(event)       (event.time == 0)
+#define NOEVENT                 (keyevent_t) {      \
+    .key = (keypos_t){ .row = 255, .col = 255 },    \
+    .pressed = false,                               \
+    .time = 0,                                      \
+}
+
 
 extern uint8_t current_layer;
 extern uint8_t default_layer;

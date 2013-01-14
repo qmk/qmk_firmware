@@ -78,7 +78,14 @@ void keyboard_task(void)
             }
         }
     }
-    MATRIX_LOOP_END:
+    // call to update delaying layer when no real event
+    action_exec((keyevent_t) {
+        .key = (keypos_t){ .row = 255, .col = 255 }, // assume this key doesn't exist
+        .pressed = false,
+        .time = 0,
+    });
+
+MATRIX_LOOP_END:
 
 #ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration
