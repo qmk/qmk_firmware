@@ -172,7 +172,8 @@ void XMEGANVM_DisablePDI(void)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
+bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand,
+                           uint32_t* const CRCDest)
 {
 	*CRCDest = 0;
 
@@ -222,7 +223,9 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
+bool XMEGANVM_ReadMemory(const uint32_t ReadAddress,
+                         uint8_t* ReadBuffer,
+                         uint16_t ReadSize)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
@@ -257,7 +260,9 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t Byte)
+bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand,
+                              const uint32_t WriteAddress,
+                              const uint8_t Byte)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
@@ -288,9 +293,13 @@ bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAd
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
-                              const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
-                              const uint8_t* WriteBuffer, uint16_t WriteSize)
+bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand,
+                              const uint8_t EraseBuffCommand,
+                              const uint8_t WritePageCommand,
+                              const uint8_t PageMode,
+                              const uint32_t WriteAddress,
+                              const uint8_t* WriteBuffer,
+                              uint16_t WriteSize)
 {
 	if (PageMode & XPRG_PAGEMODE_ERASE)
 	{
@@ -361,7 +370,8 @@ bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t Eras
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
+bool XMEGANVM_EraseMemory(const uint8_t EraseCommand,
+                          const uint32_t Address)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))

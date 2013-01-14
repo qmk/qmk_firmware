@@ -134,7 +134,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 			TCCR1B = 0;
 			TIFR1  = (1 << OCF1A);
 		}
-		
+
 		if (PINB & (1 << 3))
 		  SoftSPI_Data |= (1 << 0);
 	}
@@ -309,7 +309,7 @@ void ISPTarget_LoadExtendedAddress(void)
 {
 	ISPTarget_SendByte(LOAD_EXTENDED_ADDRESS_CMD);
 	ISPTarget_SendByte(0x00);
-	ISPTarget_SendByte((CurrentAddress & 0x00FF0000) >> 16);
+	ISPTarget_SendByte(CurrentAddress >> 16);
 	ISPTarget_SendByte(0x00);
 }
 
