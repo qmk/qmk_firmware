@@ -224,6 +224,5 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
             action.code = ACTION_NO;
             break;
     }
-    debug("action: "); debug_hex16(action.code); debug("\n");
     return action;
 }
