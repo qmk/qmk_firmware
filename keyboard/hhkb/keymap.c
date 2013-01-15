@@ -51,18 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 
-/*
-static const action_t PROGMEM fn_actions[] = {
-    ACTION_LAYER_TO_DEFAULT_ON_RELEASED,    // Fn0
-    ACTION_LAYER_SET_ON_PRESSED(1),         // Fn1
-    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),  // Fn2
-    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),   // Fn3
-    ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
-    ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
-    ACTION_NO,                              // Fn6
-    ACTION_NO,                              // Fn7
-};
-*/
 static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_TO_DEFAULT_ON_RELEASED,    // Fn0
     ACTION_LAYER_SET_ON_PRESSED(1),         // Fn1
@@ -70,8 +58,8 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),   // Fn3
     ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
     ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
-    ACTION_NO,                              // Fn6
-    ACTION_NO,                              // Fn7
+    ACTION_LMODS_TAP(MOD_BIT(KC_LCTL), KC_BSPC), // Fn6
+    ACTION_RMODS_TAP(MOD_BIT(KC_RCTL), KC_ENT), // Fn7
 };
 
 
@@ -91,7 +79,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
-           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,ENT, \
+           FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
            LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
                 LGUI,LALT,          FN5,                RALT,FN4),
 
