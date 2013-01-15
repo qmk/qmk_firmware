@@ -10,11 +10,12 @@
 #include "action.h"
 
 
-
-
 static void process(keyevent_t event, action_t action);
 static void register_code(uint8_t code);
 static void unregister_code(uint8_t code);
+static void add_mods(uint8_t mods);
+static void del_mods(uint8_t mods);
+static void set_mods(uint8_t mods);
 static void clear_keyboard(void);
 static void clear_keyboard_but_mods(void);
 static bool sending_anykey(void);
@@ -24,7 +25,6 @@ static void layer_switch(uint8_t new_layer);
 /* tap */
 #define TAP_TIME    200
 static keyevent_t last_event = {};
-static uint16_t last_event_time = 0;
 static uint8_t tap_count = 0;
 
 /* layer */
@@ -32,6 +32,7 @@ uint8_t default_layer = 0;
 uint8_t current_layer = 0;
 keyrecord_t delaying_layer = {};
 
+/* waiting keys buffer */
 #define WAITING_KEYS_BUFFER 3
 static keyrecord_t waiting_keys[WAITING_KEYS_BUFFER] = {};
 static uint8_t waiting_keys_head = 0;
@@ -75,16 +76,87 @@ static void waiting_keys_process_in_current_layer(void)
 }
 
 
+void action_exec(keyevent_t event)
+{
+    /* When delaying layer switch */
+    if (delaying_layer.action.code) {
+        /* Layer switch when tap time elapses or waiting key is released */
+        if ((timer_elapsed(delaying_layer.event.time) > TAP_TIME) ||
+            (!event.pressed && waiting_keys_has(event.key))) {
+            /* layer switch */
+            switch (delaying_layer.action.kind.id) {
+                case ACT_LAYER_PRESSED:
+                    layer_switch(delaying_layer.action.layer.opt);
+                    break;
+                case ACT_LAYER_BIT:
+                    layer_switch(current_layer | delaying_layer.action.layer.opt);
+                    break;
+            }
+            delaying_layer = (keyrecord_t){};
+
+            /* Process waiting keys in new layer */
+            waiting_keys_process_in_current_layer();
+        }
+        /* when delaying layer key is released within delay term */
+        else if (!event.pressed && KEYEQ(event.key, delaying_layer.event.key)) {
+            /* tap key down */
+            debug("tap[delaying_layer](register): fist\n");
+            uint8_t tmp_mods = host_get_mods();
+            host_set_mods(delaying_layer.mods);
+            register_code(delaying_layer.action.layer.code);
+            delaying_layer = (keyrecord_t){};
+            host_set_mods(tmp_mods);
+
+            /* process waiting keys */
+            waiting_keys_process_in_current_layer();
+        }
+    }
+
+    // not real event. event just to update delaying layer.
+    if (IS_NOEVENT(event)) {
+        return;
+    }
+
+    /* count tap when key is up */
+    if (KEYEQ(event.key, last_event.key) && timer_elapsed(last_event.time) <= TAP_TIME) {
+        if (!event.pressed) tap_count++;
+    } else {
+        tap_count = 0;
+    }
+
+    action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
+
+    // TODO: all key events(pressed, released) should be recorded?
+    /* postpone key-down events while delaying layer */
+    if (delaying_layer.action.code) {
+        if (event.pressed) {
+            waiting_keys_enqueue(event, action);
+        } else {
+            process(event, action);
+        }
+    } else {
+        process(event, action);
+    }
+
+    /* last event */
+    last_event = event;
+}
+
+
 static void process(keyevent_t event, action_t action)
 {
     //action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
-    debug("action: "); debug_hex16(action.code); debug("\n");
-
+    debug("action: "); debug_hex16(action.code);
+    if (event.pressed) debug("[down]\n"); else debug("[up]\n");
 
     switch (action.kind.id) {
         /* Key and Mods */
         case ACT_LMODS:
-            // normal key or key plus mods
+            //               |pressed                          |released
+            // --------------+---------------------------------+------------
+            // key           |down(key)                        |up(key)
+            // mods          |add(mods)                        |del(mods)
+            // key with mods |add(mods), down(key), unset(mods)|up(key)
             if (event.pressed) {
                 uint8_t tmp_mods = host_get_mods();
                 if (action.key.mods) {
@@ -105,6 +177,11 @@ static void process(keyevent_t event, action_t action)
             }
             break;
         case ACT_RMODS:
+            //               |pressed                          |released
+            // --------------+---------------------------------+------------
+            // key           |down(key)                        |up(key)
+            // mods          |add(mods)                        |del(mods)
+            // key with mods |add(mods), down(key), unset(mods)|up(key)
             if (event.pressed) {
                 uint8_t tmp_mods = host_get_mods();
                 if (action.key.mods) {
@@ -124,9 +201,49 @@ static void process(keyevent_t event, action_t action)
                 unregister_code(action.key.code);
             }
             break;
-        case ACT_LMOD_TAP:
+        case ACT_LMODS_TAP:
+            if (event.pressed) {
+                if (tap_count == 0) {
+                    add_mods(action.key.mods);
+                } else {
+                    debug("tap[lmods](register): "); debug_hex(tap_count); debug("\n");
+                    register_code(action.key.code);
+                }
+            } else {
+                if (tap_count == 0) {
+                    del_mods(action.key.mods);
+                } else if (tap_count == 1) {
+                    debug("tap[lmods](register/unregister): "); debug_hex(tap_count); debug("\n");
+                    del_mods(action.key.mods);
+                    register_code(action.key.code);
+                    unregister_code(action.key.code);
+                } else {
+                    debug("tap[lmods](unregister): "); debug_hex(tap_count); debug("\n");
+                    unregister_code(action.key.code);
+                }
+            }
             break;
-        case ACT_RMOD_TAP:
+        case ACT_RMODS_TAP:
+            if (event.pressed) {
+                if (tap_count == 0) {
+                    add_mods(action.key.mods<<4);
+                } else {
+                    debug("tap[rmods](register): "); debug_hex(tap_count); debug("\n");
+                    register_code(action.key.code);
+                }
+            } else {
+                if (tap_count == 0) {
+                    del_mods(action.key.mods<<4);
+                } else if (tap_count == 1) {
+                    debug("tap[rmods](register/unregister): "); debug_hex(tap_count); debug("\n");
+                    del_mods(action.key.mods<<4);
+                    register_code(action.key.code);
+                    unregister_code(action.key.code);
+                } else {
+                    debug("tap[rmods](unregister): "); debug_hex(tap_count); debug("\n");
+                    unregister_code(action.key.code);
+                }
+            }
             break;
 
         /* other HID usage */
@@ -186,6 +303,7 @@ static void process(keyevent_t event, action_t action)
                     // with tap key
                     if (event.pressed) {
                         if (tap_count == 0) {
+                            // not tapping yet
                             if (host_has_anykey()) {
                                 register_code(action.layer.code);
                             } else {
@@ -197,22 +315,14 @@ static void process(keyevent_t event, action_t action)
                                 };
                             }
                         } else if (tap_count > 0) {
-                            debug("tap: "); debug_hex(tap_count); debug("\n");
+                            // pressed after tapping
+                            debug("tap[layer](register): "); debug_hex(tap_count); debug("\n");
                             register_code(action.layer.code);
                         }
                     } else {
-                        // tap key
-                        if (KEYEQ(event.key, delaying_layer.event.key) &&
-                                timer_elapsed(delaying_layer.event.time) <= TAP_TIME) {
-                            uint8_t tmp_mods = host_get_mods();
-                            host_set_mods(delaying_layer.mods);
-                            register_code(delaying_layer.action.layer.code);
-                            host_set_mods(tmp_mods);
-                            unregister_code(delaying_layer.action.layer.code);
-                        } else {
-                            unregister_code(action.layer.code);
-                        }
-                        delaying_layer = (keyrecord_t){};
+                        // released after tapping
+                        debug("tap[layer](unregister): "); debug_hex(tap_count); debug("\n");
+                        unregister_code(action.layer.code);
                     }
                     break;
             }
@@ -220,7 +330,7 @@ static void process(keyevent_t event, action_t action)
         case ACT_LAYER_RELEASED:
             switch (action.layer.code) {
                 case 0x00:
-                    if (event.pressed) {
+                    if (!event.pressed) {
                         layer_switch(action.layer.opt);
                     }
                     break;
@@ -274,7 +384,7 @@ static void process(keyevent_t event, action_t action)
                                 };
                             }
                         } else if (tap_count > 0) {
-                            debug("tap: "); debug_hex(tap_count); debug("\n");
+                            debug("tap[layer_bit](register): "); debug_hex(tap_count); debug("\n");
                             register_code(action.layer.code);
                         }
                     } else {
@@ -348,77 +458,6 @@ static void process(keyevent_t event, action_t action)
     }
 }
 
-void action_exec(keyevent_t event)
-{
-/*
-    debug("key["); debug_hex8(event.key.row); debug(":"); debug_hex8(event.key.col);
-    if (event.pressed) debug("]down\n"); else debug("]up\n");
-*/
-
-    /* When delaying layer switch */
-    if (delaying_layer.action.code) {
-        /* Layer switch when tap time elapses or waiting key is released */
-        if ((timer_elapsed(delaying_layer.event.time) > TAP_TIME) ||
-            (!event.pressed && waiting_keys_has(event.key))) {
-            /* layer switch */
-            switch (delaying_layer.action.kind.id) {
-                case ACT_LAYER_PRESSED:
-                    layer_switch(delaying_layer.action.layer.opt);
-                    break;
-                case ACT_LAYER_BIT:
-                    layer_switch(current_layer | delaying_layer.action.layer.opt);
-                    break;
-            }
-            delaying_layer = (keyrecord_t){};
-
-            /* Process waiting keys in new layer */
-            waiting_keys_process_in_current_layer();
-        }
-        /* when delaying layer key is released within delay term */
-        else if (!event.pressed && KEYEQ(event.key, delaying_layer.event.key)) {
-            /* tap key down */
-            uint8_t tmp_mods = host_get_mods();
-            host_set_mods(delaying_layer.mods);
-            register_code(delaying_layer.action.layer.code);
-            delaying_layer = (keyrecord_t){};
-            host_set_mods(tmp_mods);
-
-            /* process waiting keys */
-            waiting_keys_process_in_current_layer();
-        }
-    }
-
-    // not real event. event just to update delaying layer.
-    if (IS_NOEVENT(event)) {
-        return;
-    }
-
-    /* count tap when key is up */
-    if (KEYEQ(event.key, last_event.key) && timer_elapsed(last_event.time) <= TAP_TIME) {
-        if (!event.pressed) tap_count++;
-    } else {
-        tap_count = 0;
-    }
-
-    action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
-
-    // TODO: all key events(pressed, released) should be recorded?
-    /* postpone key-down events while delaying layer */
-    if (delaying_layer.action.code) {
-        if (event.pressed) {
-            waiting_keys_enqueue(event, action);
-        } else {
-            process(event, action);
-        }
-    } else {
-        process(event, action);
-    }
-
-    /* last event */
-    last_event = event;
-}
-
-
 static void register_code(uint8_t code)
 {
     if (code == KC_NO) {
@@ -447,6 +486,28 @@ static void unregister_code(uint8_t code)
         host_del_mods(MOD_BIT(code));
         host_send_keyboard_report();
     }
+}
+
+static void add_mods(uint8_t mods)
+{
+    if (mods) {
+        host_add_mods(mods);
+        host_send_keyboard_report();
+    }
+}
+
+static void del_mods(uint8_t mods)
+{
+    if (mods) {
+        host_del_mods(mods);
+        host_send_keyboard_report();
+    }
+}
+
+static void set_mods(uint8_t mods)
+{
+    host_set_mods(mods);
+    host_send_keyboard_report();
 }
 
 static void clear_keyboard(void)

@@ -5,55 +5,57 @@
 
 
 /* Key Action(16bit code)
- 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
-------------------------------------------------
-ACT_LMODS(0000)
-  0  0  0  0| 0  0  0  0| 0  0  0  0  0  0| 0  0    No action
-  0  0  0  0| 0  0  0  0|     keycode(8)            Key
-  0  0  0  0|  mods(4)  | 0  0  0  0  0  0| 0  0    Lmods Momentary
-  0  0  0  0|  mods(4)  | 0  0  0  0  0  0| 0  1    Lmods OneShot
-  0  0  0  0|  mods(4)  | 0  0  0  0  0  0| 1  0    (reserved)
-  0  0  0  0|  mods(4)  | 0  0  0  0  0  0| 1  1    (reserved)
-  0  0  0  0|  mods(4)  |     keycode(8)            Key+Lmods
 
-ACT_RMODS(0001)
-  0  0  0  1| 0  0  0  0| 0  0  0  0  0  0  0  0    No action(not used)
-  0  0  0  1| 0  0  0  0|     keycode(8)            Key(not used)
-  0  0  0  1|  mods(4)  | 0  0  0  0  0  0| 0  0    Rmods Momentary
-  0  0  0  1|  mods(4)  | 0  0  0  0  0  0| 0  1    Rmods OneShot
-  0  0  0  1|  mods(4)  | 0  0  0  0  0  0| 1  0    (reserved)
-  0  0  0  1|  mods(4)  | 0  0  0  0  0  0| 1  1    (reserved)
-  0  0  0  1|  mods(4)  |     keycode(8)            Key+Rmod
+Keyboard Keys
+-------------
+ACT_LMODS(0000):
+0000|0000|000000|00    No action
+0000|mods|000000|00    Left mods Momentary
+0000|mods|000000|01    Left mods OneShot
+0000|mods|000000|10    (reserved)
+0000|mods|000000|11    (reserved)
+0000|0000| keycode     Key
+0000|mods| keycode     Key+Left mods
 
-ACT_LMODS_TAP(0010)
-  0  0  1  0| 0  0  0  0| X  X  X  X  X  X  X  X    (reserved)[00-FF]
-  0  0  1  0|  mods(4)  | 0  0  0  0  0  0| X  X    (reserved)
-  0  0  1  0|  mods(4)  |     keycode(8)            Lmods+tap Key
-  0  0  1  0|  mods(4)  | 1  1  1  1| X  X  X  X    (reserved)[F0-FF]
+ACT_RMODS(0001):
+0001|0000|000000|00    No action
+0001|mods|000000|00    Right mods Momentary
+0001|mods|000000|01    Right mods OneShot
+0001|mods|000000|10    (reserved)
+0001|mods|000000|11    (reserved)
+0001|0000| keycode     Key
+0001|mods| keycode     Key+Right mods
 
-ACT_RMODS_TAP(0011)
-  0  0  1  1| 0  0  0  0| X  X  X  X  X  X  X  X    (reserved)[00-FF]
-  0  0  1  1|  mods(4)  | 0  0  0  0  0  0| X  X    (reserved)
-  0  0  1  1|  mods(4)  |     keycode(8)            Rmods+tap Key
-  0  0  1  1|  mods(4)  | 1  1  1  1| X  X  X  X    (reserved)[F0-FF]
+ACT_LMODS_TAP(0010):
+0010|mods| keycode     Left mods+tap Key
+
+ACT_RMODS_TAP(0011):
+0011|mods| keycode     Right mods+tap Key
  
-ACT_USAGE - other HID usage than keyboard
-  0  1  0  0| 0  0|         usage(10)               System usage
-  0  1  0  0| 0  1|         usage(10)               Consumer usage
-  0  1  0  0| 1  0|         usage(10)               (reserved)
-  0  1  0  0| 1  1|         usage(10)               (reserved)
 
-ACT_MOUSEKEY(0110)
-  0  1  0  1| X  X  X  X|        keycode(8)         Mouse key
-??? TODO: refactor
-  0  1  0  1| 0  0  X  X|  accel(5)    |cursor(3)   Mouse key
-  0  1  0  1| 0  1  X  X|  accel(5)    |wheel(3)    Mouse key
-  0  1  0  1| 1  0  X  X|        button(8)          Mouse key
-  0  1  0  1| 1  1  X  X|        button(8)          Mouse key
-???
+Other HID Usage
+---------------
+This action handles other usages than keyboard.
+ACT_USAGE(0100):
+0100|00| usage(10)     System control(0x80) - General Desktop page(0x01)
+0100|01| usage(10)     Consumer control(0x01) - Consumer page(0x0C)
+0100|10| usage(10)     (reserved)
+0100|11| usage(10)     (reserved)
 
-Layer Action
-------------
+
+Mouse Keys
+----------
+ACT_MOUSEKEY(0110):
+0101|XXXX| keycode     Mouse key
+
+
+Layer Actions
+-------------
+ACT_LAYER_PRESSED(1000):    Set layer on key pressed
+ACT_LAYER_RELEASED(1001):   Set layer on key released
+ACT_LAYER_BIT(1010):        On/Off layer bit
+ACT_LAYER_EXT(1011):        Extentions
+
 1000|LLLL|0000 0000   set layer L when pressed
 1001|LLLL|0000 0000   set layer L when released
 1010|BBBB|0000 0000   on/off bit B when pressed/released
@@ -79,16 +81,19 @@ Layer Action
 1011|0001| keyocde    set default layer when released[tap is ignored/not used]
  
 
-ACT_MACRO(1100)
-  1  1  0  0| option(4) |     macro-table id(8)     Macro play(Flash)
-  1  1  0  0| option(4) |     macro-table id(8)     Macro play(EEPROM)
-  1  1  0  0| 1  1  1  1|     macro-table id(8)     Macro record
+Extensions(11XX)
+----------------
+NOTE: NOT FIXED
 
-ACT_COMMAND(1110)
-  1  1  1  0| option(4) |     comamnd id(8)         Built-in Command exec
+ACT_MACRO(1100):
+1100|opt | id(8)      Macro play
+1100|1111| id(8)      Macro record
 
-ACT_FUNCTION(1111)
-  1  1  1  1|   function address(4K range)          Function
+ACT_COMMAND(1110):
+1110|opt | id(8)      Built-in Command exec
+
+ACT_FUNCTION(1111):
+1111| address(12)     Function
                                                     Macro record(dynamicly)
                                                     Macro play(dynamicly)
 TODO: modifier + [tap key /w mod]
@@ -98,19 +103,22 @@ TODO: modifier + [tap key /w mod]
 */
 
 enum action_id {
-    ACT_LMODS    = 0b0000,
-    ACT_RMODS    = 0b0001,
-    ACT_LMOD_TAP = 0b0010,
-    ACT_RMOD_TAP = 0b0011,
-    ACT_USAGE    = 0b0100,
-    ACT_MOUSEKEY = 0b0101,
-    ACT_LAYER_PRESSED  = 0b1000,
-    ACT_LAYER_RELEASED = 0b1001,
-    ACT_LAYER_BIT      = 0b1010,
-    ACT_LAYER_EXT      = 0b1011,
-    ACT_MACRO    = 0b1100,
-    ACT_COMMAND  = 0b1110,
-    ACT_FUNCTION = 0b1111
+    ACT_LMODS           = 0b0000,
+    ACT_RMODS           = 0b0001,
+    ACT_LMODS_TAP       = 0b0010,
+    ACT_RMODS_TAP       = 0b0011,
+
+    ACT_USAGE           = 0b0100,
+    ACT_MOUSEKEY        = 0b0101,
+
+    ACT_LAYER_PRESSED   = 0b1000,
+    ACT_LAYER_RELEASED  = 0b1001,
+    ACT_LAYER_BIT       = 0b1010,
+    ACT_LAYER_EXT       = 0b1011,
+
+    ACT_MACRO           = 0b1100,
+    ACT_COMMAND         = 0b1110,
+    ACT_FUNCTION        = 0b1111
 };
 
 // TODO: not portable across compiler/endianness?
@@ -169,20 +177,13 @@ typedef struct {
 
 
 void action_exec(keyevent_t event);
-/*
-void key_action(uint8_t code, keyevent_t event);
-void mod_action(uint8_t code, keyevent_t event);
-void fn_action(uint8_t code, keyevent_t event);
-*/
 
 
+// TODO: proper names
 /* action_t utility */
-/*
-#define ACTION_NO                       { .code = 0 }
-#define ACTION(kind, param)             { .code = ((kind)<<12 | (param)) }
-*/
 #define ACTION_NO                       0
 #define ACTION(kind, param)             ((kind)<<12 | (param))
+#define MOD_BITS(mods)                  (((mods)>>4 | (mods)) & 0x0F)
 
 /* Key & Mods */
 #define ACTION_KEY(key)                 ACTION(ACT_LMODS,    key)
@@ -197,8 +198,8 @@ void fn_action(uint8_t code, keyevent_t event);
 #define ACTION_RMODS_SWITCH(mods, tap)  ACTION(ACT_RMODS,    (mods)<<8 | 0xF0 | (tap))
 #define ACTION_RMODS_TOGGLE(mods, tap)  ACTION(ACT_RMODS,    (mods)<<8 | 0xF1 | (tap))
 /* Mods + Tap key */
-#define ACTION_LMODS_TAP(mods, key)     ACTION(ACT_LMODS_TAP,(mods)<<8 | (key))
-#define ACTION_RMODS_TAP(mods, key)     ACTION(ACT_RMODS_TAP,(mods)<<8 | (key))
+#define ACTION_LMODS_TAP(mods, key)     ACTION(ACT_LMODS_TAP, MOD_BITS(mods)<<8 | (key))
+#define ACTION_RMODS_TAP(mods, key)     ACTION(ACT_RMODS_TAP, MOD_BITS(mods)<<8 | (key))
 
 /* Layer Switch */
 #define ACTION_LAYER_SET_ON_PRESSED(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0x00)
