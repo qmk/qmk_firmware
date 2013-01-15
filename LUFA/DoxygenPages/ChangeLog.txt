@@ -40,7 +40,7 @@
   *   - Fixed hardware race condition that could cause failed device enumerations for AVR8 and UC3 architectures (thanks to Mike Beyhs)
   *   - Fixed incorrect Minimus board LED definitions (thanks to Joonas Lahtinen)
   *   - Fixed incorrect ordering of the linker options in the build system causing link failures in some cases
-  *   - Fixed bug in the TWI peripheral driver for the AVR8 devices causing incorrect failure codes to be returned in some cases (thanks to )
+  *   - Fixed bug in the TWI peripheral driver for the AVR8 devices causing incorrect failure codes to be returned in some cases (thanks to Peter K)
   *  - Library Applications:
   *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *   - Fixed incompatibility in the CDC class bootloader on some systems (thanks to Sylvain Munaut)
