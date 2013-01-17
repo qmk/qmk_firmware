@@ -47,7 +47,7 @@ static uint8_t waiting_keys_head = 0;
 static bool waiting_keys_enqueue(keyevent_t event)
 {
     debug("waiting_keys["); debug_dec(waiting_keys_head); debug("] = ");
-    debug_hex8(event.key.row); debug_hex8(event.key.col); debug("\n"); // TODO event.key.raw
+    debug_hex16(event.key.raw); debug("\n");
     if (waiting_keys_head < WAITING_KEYS_BUFFER) {
         waiting_keys[waiting_keys_head++] = (keyrecord_t){ .event = event,
                                                            .mods = host_get_mods() };
@@ -59,7 +59,7 @@ static void waiting_keys_clear(void)
 {
     waiting_keys_head = 0;
 }
-static bool waiting_keys_has(keypos_t key)
+static bool waiting_keys_has(key_t key)
 {
     for (uint8_t i = 0; i < waiting_keys_head; i++) {
         if KEYEQ(key, waiting_keys[i].event.key) return true;
@@ -71,7 +71,6 @@ static void waiting_keys_process_in_current_layer(void)
     // TODO: in case of including layer key in waiting keys
     for (uint8_t i = 0; i < waiting_keys_head; i++) {
         debug("waiting_keys_process_in_current_layer["); debug_dec(i); debug("]\n");
-        // TODO: no need action in waiting_keys? should get_action() in process()?
         process(waiting_keys[i].event);
     }
     waiting_keys_clear();
@@ -80,6 +79,12 @@ static void waiting_keys_process_in_current_layer(void)
 
 void action_exec(keyevent_t event)
 {
+    if (!IS_NOEVENT(event)) {
+        debug("event: "); debug_hex16(event.key.raw);
+        debug("[");
+        if (event.pressed) debug("down"); else debug("up");
+        debug("]\n");
+    }
     if (IS_TAPPING) {
         /* when tap time elapses or waiting key is released */
         if ((timer_elapsed(tapping_key.event.time) > TAP_TIME) ||
@@ -136,7 +141,7 @@ void action_exec(keyevent_t event)
 
 static void process(keyevent_t event)
 {
-    action_t action = keymap_get_action(current_layer, event.key.row, event.key.col);
+    action_t action = keymap_get_action(current_layer, event.key.pos.row, event.key.pos.col);
     debug("action: "); debug_hex16(action.code);
     if (event.pressed) debug("[down]\n"); else debug("[up]\n");
 

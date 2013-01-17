@@ -66,7 +66,7 @@ void keyboard_task(void)
             for (int c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & (1<<c)) {
                     action_exec((keyevent_t){
-                        .key = (keypos_t){ .row = r, .col = c },
+                        .key.pos  = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & (1<<c)),
                         .time = (timer_read() | 1) /* NOTE: 0 means no event */
                     });
@@ -80,7 +80,7 @@ void keyboard_task(void)
     }
     // call to update delaying layer when no real event
     action_exec((keyevent_t) {
-        .key = (keypos_t){ .row = 255, .col = 255 }, // assume this key doesn't exist
+        .key.pos = (keypos_t){ .row = 255, .col = 255 }, // assume this key doesn't exist
         .pressed = false,
         .time = 0,
     });

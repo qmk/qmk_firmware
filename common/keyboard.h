@@ -26,19 +26,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-// TODO: union {raw = row:col}
 typedef struct {
-    uint8_t row;
     uint8_t col;
+    uint8_t row;
 } keypos_t;
 
+typedef union {
+    uint16_t raw;
+    keypos_t pos;
+} key_t;
+
 typedef struct {
-    keypos_t key;
+    key_t key;
     bool     pressed;
     uint16_t time;
 } keyevent_t;
 
-#define KEYEQ(keya, keyb)       (keya.row == keyb.row && keya.col == keyb.col)
+#define KEYEQ(keya, keyb)       (keya.raw == keyb.raw)
 #define IS_NOEVENT(event)       (event.time == 0)
 #define NOEVENT                 (keyevent_t) {      \
     .key = (keypos_t){ .row = 255, .col = 255 },    \
