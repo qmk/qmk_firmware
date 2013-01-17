@@ -3,7 +3,7 @@
     <Org>FourWalledCubicle</Org>
     <ShortName>LUFA</ShortName>
     <Author>Dean Camera</Author>
-    <Description></Description>
+    <Description/>
     <FollowFolderStructure>True</FollowFolderStructure>
   </Identifier>
   <AsfContent Type="zip" Path="contents.zip">
