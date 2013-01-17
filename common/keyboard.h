@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+// TODO: union {raw = row:col}
 typedef struct {
     uint8_t row;
     uint8_t col;
