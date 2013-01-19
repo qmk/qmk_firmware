@@ -116,6 +116,7 @@
  *   - Paranoid Studio's US2AX (V1, V2 and V3 hardware revisions)
  *   - PJRC Teensy (1.x and 2.x versions)
  *   - Sparkfun U2 Breakout Board
+ *   - Stange ISP Programmer Board
  *   - TCNISO Blackcat USB JTAG
  *   - Tempusdictum Benito
  *   - Tom's USBTINY-MKII (all revisions and versions)

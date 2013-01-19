@@ -151,6 +151,8 @@
 			#include "AVR8/OLIMEXISPMK2/Buttons.h"
 		#elif (BOARD == BOARD_UC3A3_XPLAINED)
 			#include "UC3/UC3A3_XPLAINED/Buttons.h"
+		#elif (BOARD == BOARD_STANGE_ISP)
+			#include "AVR8/STANGE_ISP/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

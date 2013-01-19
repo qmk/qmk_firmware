@@ -197,6 +197,8 @@
 			#include "AVR8/LEONARDO/LEDs.h"
 		#elif (BOARD == BOARD_UC3A3_XPLAINED)
 			#include "UC3/UC3A3_XPLAINED/LEDs.h"
+		#elif (BOARD == BOARD_STANGE_ISP)
+			#include "AVR8/STANGE_ISP/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif

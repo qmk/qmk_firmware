@@ -12,6 +12,7 @@
   *   - Added support for the Arduino Leonardo board
   *   - Added support for the Atmel UC3-A3 Xplained board
   *   - Added support for the Xevelabs USB2AX revision 3.1 board
+  *   - Added support for the Dimex Stange-ISP board (thanks to Gerhard Wesser)
   *   - Added new \c doxygen_upgrade and \c doxygen_create targets to the DOXYGEN build system module
   *  - Library Applications:
   *   - Added a different device serial number when the AVRISP-MKII Clone project is in libUSB compatibility mode, so that

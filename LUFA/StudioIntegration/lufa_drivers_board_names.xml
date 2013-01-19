@@ -463,6 +463,15 @@
 
 				<build type="define" name="BOARD" value="BOARD_UC3A3_XPLAINED"/>
 			</module>
+
+			<module type="driver" id="lufa.drivers.board#stange_isp" caption="STANGE_ISP">
+				<device-support value="at90usb162"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/STANGE_ISP/Buttons.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/STANGE_ISP/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_STANGE_ISP"/>
+			</module>
 		</select-by-config>
 	</asf>
 </lufa>

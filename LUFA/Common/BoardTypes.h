@@ -225,6 +225,9 @@
 			/** Selects the USB2AX version 3.1 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_USB2AX_V31           53
 
+			/** Selects the Stange-ISP specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_STANGE_ISP           54
+			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 
