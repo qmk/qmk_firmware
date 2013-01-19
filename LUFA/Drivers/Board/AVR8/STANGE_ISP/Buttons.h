@@ -40,7 +40,7 @@
  *  \defgroup Group_Buttons_STANGE_ISP STANGE_ISP
  *  \brief Board specific Buttons driver header for the Dimex Stange-ISP.
  *
- *  Board specific Buttons driver header for the Dimex Stange-ISP board (http://www.diamex.de/dxshop/USB-ISP-Programmer-fuer-AVR-STM32-NXP-Cortex).
+ *  Board specific Buttons driver header for the Dimex Stange-ISP board (http://www.diamex.de/dxshop/USB-ISP-Programmer-fuer-Atmel-AVR).
  *
  *  <table>
  *    <tr><th>Name</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>

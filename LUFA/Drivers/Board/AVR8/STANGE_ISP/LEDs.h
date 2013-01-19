@@ -40,7 +40,7 @@
  *  \defgroup Group_LEDs_STANGE_ISP STANGE_ISP
  *  \brief Board specific LED driver header for the Dimex Stange-ISP board.
  *
- *  Board specific LED driver header for the Dimex Stange-ISP board (http://www.diamex.de/dxshop/USB-ISP-Programmer-fuer-AVR-STM32-NXP-Cortex).
+ *  Board specific LED driver header for the Dimex Stange-ISP board (http://www.diamex.de/dxshop/USB-ISP-Programmer-fuer-Atmel-AVR).
  *
  *  <table>
  *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
