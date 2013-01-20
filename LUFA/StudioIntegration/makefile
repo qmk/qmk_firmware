@@ -24,7 +24,7 @@ clean:
 	@rm $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML)
 
 $(DOXYGEN_TAG_FILE_XML):
-	make -C ../ doxygen
+	$(MAKE) -C ../ doxygen
 
 $(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML)
 	@echo "Generating Manifest XML..."

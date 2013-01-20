@@ -19,10 +19,6 @@ upgrade-doxygen:
 	@echo Upgrading Doxygen.conf files...
 	@for doxygen_conf in `find $(LUFA_ROOT) -name Doxygen.conf`; do                                       \
 	  doxygen -u $$doxygen_conf;                                                                          \
-	  sed "s/MARKDOWN_SUPPORT *= *YES/MARKDOWN_SUPPORT       = NO/1" $$doxygen_conf > $$doxygen_conf.new; \
-	  sed "s/DISABLE_INDEX *= *NO/DISABLE_INDEX       = YES/1" $$doxygen_conf.new > $$doxygen_conf.new2;  \
-	  mv -u $$doxygen_conf.new2 $$doxygen_conf;                                                           \
-	  rm $$doxygen_conf.new;                                                                              \
 	done;
 	@echo Doxygen configuration update complete.
 
