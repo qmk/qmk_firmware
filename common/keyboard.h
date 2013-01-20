@@ -37,7 +37,7 @@ typedef union {
 } key_t;
 
 typedef struct {
-    key_t key;
+    key_t    key;
     bool     pressed;
     uint16_t time;
 } keyevent_t;
