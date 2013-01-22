@@ -40,6 +40,17 @@ void keyboard_init(void)
 
     timer_init();
     matrix_init();
+
+    /* boot magic keys goes here */
+    matrix_scan();
+#ifdef IS_BOOTMAGIC_BOOTLOADER
+    /* kick up bootloader */
+    if (IS_BOOTMAGIC_BOOTLOADER()) bootloader_jump();
+#endif
+#ifdef IS_BOOTMAGIC_DEBUG
+    if (IS_BOOTMAGIC_DEBUG()) debug_enable = true;
+#endif
+
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
