@@ -44,10 +44,10 @@ typedef struct {
 
 #define KEYEQ(keya, keyb)       (keya.raw == keyb.raw)
 #define IS_NOEVENT(event)       (event.time == 0)
-#define NOEVENT                 (keyevent_t){       \
-    .key = (keypos_t){ .row = 255, .col = 255 },    \
-    .pressed = false,                               \
-    .time = 0                                       \
+#define NOEVENT                 (keyevent_t){           \
+    .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
+    .pressed = false,                                   \
+    .time = 0                                           \
 }
 
 
