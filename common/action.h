@@ -3,8 +3,30 @@
 
 #include "keyboard.h"
 
+extern uint8_t tap_count;
+extern keyevent_t tapping_event;
 
-/* Key Action(16bit code)
+
+/*
+ * Utilities for actions.
+ */
+void register_code(uint8_t code);
+void unregister_code(uint8_t code);
+void add_mods(uint8_t mods);
+void del_mods(uint8_t mods);
+void set_mods(uint8_t mods);
+void clear_keyboard(void);
+void clear_keyboard_but_mods(void);
+bool sending_anykey(void);
+void layer_switch(uint8_t new_layer);
+bool is_tap_key(keyevent_t event);
+
+
+
+
+/*
+Action codes
+16bit code: action_kind(4bit) + action_parameter(12bit)
 
 Keyboard Keys
 -------------
@@ -94,6 +116,7 @@ ACT_COMMAND(1110):
 
 ACT_FUNCTION(1111):
 1111| address(12)     Function
+1111|opt | id(8)      Function
                                                     Macro record(dynamicly)
                                                     Macro play(dynamicly)
 TODO: modifier + [tap key /w mod]
@@ -160,6 +183,11 @@ typedef union {
         uint16_t option :4;
         uint16_t kind   :4;
     } command;
+    struct action_function {
+        uint8_t  id     :8;
+        uint8_t  opt    :4;
+        uint8_t  kind   :4;
+    } func;
 } action_t;
 
 
@@ -169,14 +197,20 @@ enum stroke_cmd {
     STROKE_ALLUP, /* release all keys in reverse order */
 };
 
+// TODO: not needed?
 typedef struct {
     keyevent_t  event;
     action_t    action;
     uint8_t     mods;
 } keyrecord_t;
 
+/* action function */
+typedef void (*action_func_t)(keyevent_t event, uint8_t opt);
 
+
+// TODO: legacy keymap support
 void action_exec(keyevent_t event);
+void action_call_function(keyevent_t event, uint8_t id);
 
 
 // TODO: proper names
@@ -234,7 +268,7 @@ void action_exec(keyevent_t event);
 /* Command */
 #define ACTION_COMMAND(opt, id)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
 /* Function */
-#define ACTION_FUNCTION(addr)           ACTION(ACT_FUNCTION, addr)
+#define ACTION_FUNCTION(id, opt)        ACTION(ACT_FUNCTION, (opt)<<8 | id)
 
 
 /* helpers for readability */
