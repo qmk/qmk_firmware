@@ -89,7 +89,8 @@ void keyboard_task(void)
             }
         }
     }
-    // call to update delaying layer when no real event
+    // call with not real event to update state of aciton
+    // TODO: use NOEVENT macro
     action_exec((keyevent_t) {
         .key.pos = (keypos_t){ .row = 255, .col = 255 }, // assume this key doesn't exist
         .pressed = false,

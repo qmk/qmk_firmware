@@ -11,47 +11,26 @@
 
 
 static void process(keyevent_t event);
-static void register_code(uint8_t code);
-static void unregister_code(uint8_t code);
-static void add_mods(uint8_t mods);
-static void del_mods(uint8_t mods);
-static void set_mods(uint8_t mods);
-static void clear_keyboard(void);
-static void clear_keyboard_but_mods(void);
-static bool sending_anykey(void);
-static void layer_switch(uint8_t new_layer);
 
-
-/* tap */
-#define TAP_TIME    300
-/* This counts up when tap occurs */
-static uint8_t tap_count = 0;
-static bool is_tap_key(keyevent_t event)
+void test_func(keyevent_t event, uint8_t opt)
 {
-    action_t action = keymap_get_action(current_layer, event.key.pos.row, event.key.pos.col);
-    switch (action.kind.id) {
-        case ACT_LMODS_TAP:
-        case ACT_RMODS_TAP:
-            return true;
-        case ACT_LAYER_PRESSED:
-        case ACT_LAYER_BIT:
-            switch (action.layer.code) {
-                case 0x00:
-                case 0xF1 ... 0xFF:
-                    return false;
-                case 0xF0:
-                default:
-                    return true;
-            }
-            return false;
+    if (event.pressed) {
+        debug("test_func:pressed: "); debug_hex(opt); debug("\n");
+    } else {
+        debug("test_func:released: "); debug_hex(opt); debug("\n");
     }
-    return false;
 }
 
 /* layer */
 uint8_t default_layer = 0;
 uint8_t current_layer = 0;
-static keyevent_t tapping_event = {};
+
+/* tap term(ms) */
+#define TAP_TIME    200
+
+/* This counts up when tap occurs */
+uint8_t tap_count = 0;
+keyevent_t tapping_event = {};
 
 /* TAPPING: This indicates that whether tap or not is not decided yet. */
 // NOTE:  keyevent_t.time 0 means no event.
@@ -61,26 +40,41 @@ static keyevent_t tapping_event = {};
 #define WAITING_KEYS_BUFFER 8
 static keyevent_t waiting_events[WAITING_KEYS_BUFFER] = {};
 static uint8_t waiting_events_head = 0;
+static uint8_t waiting_events_tail = 0;
+
 static bool waiting_events_enqueue(keyevent_t event)
 {
     if (IS_NOEVENT(event)) { return true; }
 
-    if (waiting_events_head < WAITING_KEYS_BUFFER) {
-        debug("waiting_events["); debug_dec(waiting_events_head); debug("] = ");
-        debug_hex16(event.key.raw); debug("\n");
-        waiting_events[waiting_events_head++] = event;
-        return true;
+    if ((waiting_events_head + 1) % WAITING_KEYS_BUFFER == waiting_events_tail) {
+        debug("waiting_events_enqueue: Over flow.\n");
+        return false;
     }
-    debug("waiting_events_enqueue: Over flow.\n");
-    return false;
+
+    debug("waiting_events["); debug_dec(waiting_events_head); debug("] = ");
+    debug_hex16(event.key.raw); debug("\n");
+
+    waiting_events[waiting_events_head] = event;
+    waiting_events_head = (waiting_events_head + 1)% WAITING_KEYS_BUFFER;
+    return true;
+}
+static keyevent_t waiting_events_dequeue(void)
+{
+    if (waiting_events_head == waiting_events_tail) {
+        return (keyevent_t){};
+    }
+    uint8_t tail = waiting_events_tail;
+    waiting_events_tail = waiting_events_tail + 1 % WAITING_KEYS_BUFFER;
+    return waiting_events[tail];
 }
 static void waiting_events_clear(void)
 {
     waiting_events_head = 0;
+    waiting_events_tail = 0;
 }
 static bool waiting_events_has(key_t key)
 {
-    for (uint8_t i = 0; i < waiting_events_head; i++) {
+    for (uint8_t i = waiting_events_tail; i != waiting_events_head; i = (i + 1) % WAITING_KEYS_BUFFER) {
         if KEYEQ(key, waiting_events[i].key) return true;
     }
     return false;
@@ -88,7 +82,7 @@ static bool waiting_events_has(key_t key)
 static void waiting_events_process_in_current_layer(void)
 {
     // TODO: in case of including tap key in waiting keys
-    for (uint8_t i = 0; i < waiting_events_head; i++) {
+    for (uint8_t i = waiting_events_tail; i != waiting_events_head; i = (i + 1) % WAITING_KEYS_BUFFER) {
         debug("waiting_events_process_in_current_layer["); debug_dec(i); debug("]\n");
         process(waiting_events[i]);
     }
@@ -96,7 +90,7 @@ static void waiting_events_process_in_current_layer(void)
 }
 static bool waiting_events_has_anykey_pressed(void)
 {
-    for (uint8_t i = 0; i < waiting_events_head; i++) {
+    for (uint8_t i = waiting_events_tail; i != waiting_events_head; i = (i + 1) % WAITING_KEYS_BUFFER) {
         if (waiting_events[i].pressed) return true;
     }
     return false;
@@ -137,7 +131,7 @@ void action_exec(keyevent_t event)
                 tap_count = 0;
                 tapping_event = (keyevent_t){};
             } else {
-                //debug("Tapping: pressing tap key.\n");
+                if (!IS_NOEVENT(event)) debug("Tapping: other key while tapping.\n");
                 if (tap_count == 0) {
                     // store event
                     waiting_events_enqueue(event);
@@ -146,14 +140,22 @@ void action_exec(keyevent_t event)
                 process(event);
             }
         } else {
-            //debug("Tapping after releasing tap.\n");
-            // Sequential tap
+            // Waiting for sequential tap
             if (tap_count && event.pressed && KEYEQ(tapping_event.key, event.key)) {
                 tap_count++;
                 tapping_event = event;
                 debug("Tapping: Sequential tap("); debug_hex(tap_count); debug(")\n");
+                process(event);
+            } else if (event.pressed && is_tap_key(event)) {
+                // Sequential tap can be interfered with other tap key.
+                debug("Tapping: Start with interfering other tap.\n");
+                tapping_event = event;
+                tap_count = 0;
+                waiting_events_clear();
+            } else {
+                if (!IS_NOEVENT(event)) debug("Tapping: other key just after tap.\n");
+                process(event);
             }
-            process(event);
         }
     }
     // Not in tapping term
@@ -162,7 +164,7 @@ void action_exec(keyevent_t event)
             if (tapping_event.pressed) {
                 if (tap_count == 0) {
                     // Not tap, holding down normal key.
-                    debug("Not tap.\n");
+                    debug("Tapping: End. Not tap(time out).\n");
                     process(tapping_event);
                     waiting_events_process_in_current_layer();
 
@@ -170,15 +172,27 @@ void action_exec(keyevent_t event)
                     tapping_event = (keyevent_t){};
                     process(event);
                 } else {
-                    // Holding down last tap key.
-                    //debug("Time out with holding last tap.\n");
-                    process(event);
+                    // Holding down last tap key. waiting for releasing last tap key.
                     if (!event.pressed && KEYEQ(tapping_event.key, event.key)) {
-                        debug("Tapping: End(Release holding last tap).\n");
+                        debug("Tapping: End. Release holding last tap(time out).\n");
+                        process(event);
                         // clear after release last tap key
                         tap_count = 0;
                         tapping_event = (keyevent_t){};
                         waiting_events_clear();
+                    } else if (event.pressed && is_tap_key(event)) {
+                        debug("Tapping: Start with forcing to release last tap(time out).\n");
+                        process((keyevent_t){
+                                .key = tapping_event.key,
+                                .time = event.time,
+                                .pressed = false });
+
+                        tap_count = 0;
+                        tapping_event = event;
+                        waiting_events_clear();
+                    } else {
+                        if (!IS_NOEVENT(event)) debug("Tapping: other key while waiting for release of last tap(time out).\n");
+                        process(event);
                     }
                 }
             } else {
@@ -205,7 +219,6 @@ void action_exec(keyevent_t event)
 
     }
 }
-
 
 static void process(keyevent_t event)
 {
@@ -354,6 +367,20 @@ static void process(keyevent_t event)
                 default:
                     // with tap key
                     if (event.pressed) {
+                        if (IS_TAPPING(event.key)) {
+                           if (tap_count > 0) {
+                                debug("LAYER_PRESSED: Tap: register_code\n");
+                                register_code(action.layer.code);
+                           } else {
+                                debug("LAYER_PRESSED: No tap: layer_switch\n");
+                                layer_switch(action.layer.opt);
+                           }
+                        } else {
+                            // TODO: while other key tapping
+                                debug("LAYER_PRESSED: No tap: layer_switch\n");
+                                layer_switch(action.layer.opt);
+                        }
+/*
                         if (IS_TAPPING(event.key) && tap_count > 0) {
                             debug("LAYER_PRESSED: Tap: register_code\n");
                             register_code(action.layer.code);
@@ -361,6 +388,7 @@ static void process(keyevent_t event)
                             debug("LAYER_PRESSED: No tap: layer_switch\n");
                             layer_switch(action.layer.opt);
                         }
+*/
                     } else {
                         if (IS_TAPPING(event.key) && tap_count > 0) {
                             debug("LAYER_PRESSED: Tap: unregister_code\n");
@@ -488,14 +516,23 @@ static void process(keyevent_t event)
 
         /* Extentions */
         case ACT_MACRO:
+            break;
         case ACT_COMMAND:
+            break;
         case ACT_FUNCTION:
+            action_call_function(event, action.func.id);
+            //test_func(event, action.func.opt);
+            break;
         default:
             break;
     }
 }
 
-static void register_code(uint8_t code)
+
+/*
+ * Utilities for actions.
+ */
+void register_code(uint8_t code)
 {
     if (code == KC_NO) {
         return;
@@ -513,7 +550,7 @@ static void register_code(uint8_t code)
     }
 }
 
-static void unregister_code(uint8_t code)
+void unregister_code(uint8_t code)
 {
     if IS_KEY(code) {
         host_del_key(code);
@@ -525,7 +562,7 @@ static void unregister_code(uint8_t code)
     }
 }
 
-static void add_mods(uint8_t mods)
+void add_mods(uint8_t mods)
 {
     if (mods) {
         host_add_mods(mods);
@@ -533,7 +570,7 @@ static void add_mods(uint8_t mods)
     }
 }
 
-static void del_mods(uint8_t mods)
+void del_mods(uint8_t mods)
 {
     if (mods) {
         host_del_mods(mods);
@@ -541,19 +578,19 @@ static void del_mods(uint8_t mods)
     }
 }
 
-static void set_mods(uint8_t mods)
+void set_mods(uint8_t mods)
 {
     host_set_mods(mods);
     host_send_keyboard_report();
 }
 
-static void clear_keyboard(void)
+void clear_keyboard(void)
 {
     host_clear_mods();
     clear_keyboard_but_mods();
 }
 
-static void clear_keyboard_but_mods(void)
+void clear_keyboard_but_mods(void)
 {
     host_clear_keys();
     host_send_keyboard_report();
@@ -567,13 +604,13 @@ static void clear_keyboard_but_mods(void)
 #endif
 }
 
-static bool sending_anykey(void)
+bool sending_anykey(void)
 {
     return (host_has_anykey() || host_mouse_in_use() ||
             host_last_sysytem_report() || host_last_consumer_report());
 }
 
-static void layer_switch(uint8_t new_layer)
+void layer_switch(uint8_t new_layer)
 {
     if (current_layer != new_layer) {
         debug("Layer Switch: "); debug_hex(current_layer);
@@ -583,4 +620,31 @@ static void layer_switch(uint8_t new_layer)
         clear_keyboard_but_mods(); // To avoid stuck keys
         // TODO: update mods with full scan of matrix? if modifier changes between layers
     }
+}
+
+bool is_tap_key(keyevent_t event)
+{
+    action_t action = keymap_get_action(current_layer, event.key.pos.row, event.key.pos.col);
+    switch (action.kind.id) {
+        case ACT_LMODS_TAP:
+        case ACT_RMODS_TAP:
+            return true;
+        case ACT_LAYER_PRESSED:
+        case ACT_LAYER_BIT:
+            switch (action.layer.code) {
+                case 0x00:
+                case 0xF1 ... 0xFF:
+                    return false;
+                case 0xF0:
+                default:
+                    return true;
+            }
+            return false;
+        case ACT_FUNCTION:
+            if (action.func.opt & 0x1) {
+                return true;
+            }
+            return false;
+    }
+    return false;
 }

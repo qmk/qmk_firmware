@@ -56,7 +56,8 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_SET_ON_PRESSED(1),         // Fn1
     ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),  // Fn2
     ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),   // Fn3
-    ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
+    //ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
+    ACTION_FUNCTION(0x01, 0xA), // Fn4
     ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
     ACTION_LMODS_TAP(MOD_BIT(KC_LCTL), KC_BSPC), // Fn6
     ACTION_RMODS_TAP(MOD_BIT(KC_RCTL), KC_ENT), // Fn7
@@ -196,7 +197,7 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(key);
             break;
-/*
+/* TODO
         case KC_LCTRL ... KC_LGUI:
             action.code = ACTION_LMODS(MOD_BIT(key));
             break;
@@ -213,4 +214,19 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
             break;
     }
     return action;
+}
+
+// TODO: how to define action function
+void action_call_function(keyevent_t event, uint8_t id)
+{
+    // '(' Shift+9
+    if (event.pressed) {
+        register_code(KC_LSHIFT);
+        register_code(KC_9);
+        debug("action_call_function: pressed: id: "); debug_hex(id); debug("\n");
+    } else {
+        unregister_code(KC_9);
+        unregister_code(KC_LSHIFT);
+        debug("action_call_function: released: id: "); debug_hex(id); debug("\n");
+    }
 }
