@@ -50,7 +50,7 @@
 			<device-support value="atxmega128a3u"/>
 			<device-support value="atxmega192a3u"/>
 			<device-support value="atxmega256a3u"/>
-			<device-support value="atxmega256a3b"/>
+			<device-support value="atxmega256a3bu"/>
 			<device-support value="atxmega128a1u"/>
 			<device-support value="atxmega64b3"/>
 			<device-support value="atxmega128b3"/>
