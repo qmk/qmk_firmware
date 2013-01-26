@@ -42,12 +42,17 @@ typedef struct {
     uint16_t time;
 } keyevent_t;
 
-#define KEYEQ(keya, keyb)       (keya.raw == keyb.raw)
-#define IS_NOEVENT(event)       (event.time == 0)
+#define KEYEQ(keya, keyb)       ((keya).raw == (keyb).raw)
+#define IS_NOEVENT(event)       ((event).key.pos.row == 255 && (event).key.pos.col == 255)
 #define NOEVENT                 (keyevent_t){           \
     .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
     .pressed = false,                                   \
     .time = 0                                           \
+}
+#define TICK                    (keyevent_t){           \
+    .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
+    .pressed = false,                                   \
+    .time = timer_read()                                \
 }
 
 

@@ -80,7 +80,7 @@ void keyboard_task(void)
                     action_exec((keyevent_t){
                         .key.pos  = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & (1<<c)),
-                        .time = (timer_read() | 1) /* NOTE: 0 means no event */
+                        .time = timer_read()
                     });
                     // record a processed key
                     matrix_prev[r] ^= ((matrix_row_t)1<<c);
@@ -90,8 +90,8 @@ void keyboard_task(void)
             }
         }
     }
-    // call with not real event to update state of aciton
-    action_exec(NOEVENT);
+    // call with pseudo tick event when no real key event.
+    action_exec(TICK);
 
 MATRIX_LOOP_END:
 

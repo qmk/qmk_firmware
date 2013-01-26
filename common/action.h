@@ -19,7 +19,7 @@ void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
 bool sending_anykey(void);
 void layer_switch(uint8_t new_layer);
-bool is_tap_key(keyevent_t event);
+bool is_tap_key(key_t key);
 
 
 
@@ -197,11 +197,9 @@ enum stroke_cmd {
     STROKE_ALLUP, /* release all keys in reverse order */
 };
 
-// TODO: not needed?
 typedef struct {
     keyevent_t  event;
-    action_t    action;
-    uint8_t     mods;
+    uint8_t     tap_count;
 } keyrecord_t;
 
 /* action function */
