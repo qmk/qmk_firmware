@@ -14,6 +14,7 @@
   *   - Added support for the Xevelabs USB2AX revision 3.1 board
   *   - Added support for the Dimex Stange-ISP board (thanks to Gerhard Wesser)
   *   - Added new \c doxygen_upgrade and \c doxygen_create targets to the DOXYGEN build system module
+  *   - Added new Board Hardware Information board driver
   *  - Library Applications:
   *   - Added a different device serial number when the AVRISP-MKII Clone project is in libUSB compatibility mode, so that
   *     both the libUSB and Jungo drivers can be installed at the same time without having to use a filter driver

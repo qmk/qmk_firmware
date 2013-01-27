@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Micropendous-32U2.
+ *  \brief Board specific LED driver header for the Micropendous series boards.
  *  \copydetails Group_LEDs_MICROPENDOUS_32U2
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
@@ -99,7 +99,7 @@
 			#define _BOARD_LED1_MASK                (1 << 1)
 			#define _BOARD_LED_PORTLETTER           B
 		#endif
-		
+
 		#define _BOARD_LED_CONCAT2(Reg, Letter)     Reg ## Letter
 		#define _BOARD_LED_CONCAT(Reg, Letter)      _BOARD_LED_CONCAT2(Reg, Letter)
 
