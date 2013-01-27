@@ -61,6 +61,8 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
     ACTION_LMODS_TAP(MOD_BIT(KC_LCTL), KC_BSPC), // Fn6
     ACTION_RMODS_TAP(MOD_BIT(KC_RCTL), KC_ENT), // Fn7
+
+    ACTION_LMODS_TAP(MOD_BIT(KC_LSFT), ONE_SHOT),   // Fn8
 };
 
 
@@ -81,7 +83,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
-           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
+           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
                 LGUI,LALT,          FN5,                RALT,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -205,8 +207,12 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
             action.code = ACTION_RMODS(MOD_BIT(key)>>4);
             break;
 */
-        case KC_FN0 ... KC_FN7:
-            action.code = pgm_read_word(&fn_actions[FN_INDEX(key)]);
+        case KC_FN0 ... FN_MAX:
+            if (FN_INDEX(key) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
+                action.code = pgm_read_word(&fn_actions[FN_INDEX(key)]);
+            } else {
+                action.code = ACTION_NO;
+            }
             break;
         case KC_NO ... KC_UNDEFINED:
         default:
