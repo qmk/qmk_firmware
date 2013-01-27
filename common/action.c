@@ -12,15 +12,7 @@
 
 static void process(keyrecord_t *record);
 
-void test_func(keyevent_t event, uint8_t opt)
-{
-    if (event.pressed) {
-        debug("test_func:pressed: "); debug_hex(opt); debug("\n");
-    } else {
-        debug("test_func:released: "); debug_hex(opt); debug("\n");
-    }
-}
-
+// TODO
 /* layer */
 uint8_t default_layer = 0;
 uint8_t current_layer = 0;
@@ -570,7 +562,6 @@ static void process(keyrecord_t *record)
             break;
         case ACT_FUNCTION:
             action_call_function(event, action.func.id);
-            //test_func(event, action.func.opt);
             break;
         default:
             break;
