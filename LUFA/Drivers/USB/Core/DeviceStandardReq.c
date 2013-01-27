@@ -117,8 +117,8 @@ void USB_Device_ProcessControlRequest(void)
 
 	if (Endpoint_IsSETUPReceived())
 	{
-		Endpoint_StallTransaction();
 		Endpoint_ClearSETUP();
+		Endpoint_StallTransaction();
 	}
 }
 
