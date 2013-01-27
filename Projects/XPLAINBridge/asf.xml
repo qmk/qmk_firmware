@@ -1,7 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="XPLAIN Bridge" id="lufa.projects.xplain_bridge.avr8">
 		<require idref="lufa.projects.xplain_bridge"/>
-		<require idref="lufa.boards.dummy"/>
+		<require idref="lufa.boards.dummy.avr8"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

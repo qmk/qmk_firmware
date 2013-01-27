@@ -1,7 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Audio Output Host Demo (Low Level APIs)" id="lufa.demos.host.lowlevel.audio_output.example">
 		<require idref="lufa.demos.host.lowlevel.audio_output"/>
-		<require idref="lufa.boards.dummy"/>
+		<require idref="lufa.boards.dummy.avr8"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

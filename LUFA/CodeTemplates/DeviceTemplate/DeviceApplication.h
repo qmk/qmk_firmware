@@ -34,13 +34,14 @@
  */
 
 #ifndef _USB_DEVICE_APPLICATION_H_
-#define _USB_DEVICE_APPLICATION_
+#define _USB_DEVICE_APPLICATION_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
 
+		#include <LUFA/Platform/Platform.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "Descriptors.h"

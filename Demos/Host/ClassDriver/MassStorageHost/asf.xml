@@ -1,7 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Mass Storage Host Demo (Class Driver APIs)" id="lufa.demos.host.class.ms.example">
 		<require idref="lufa.demos.host.class.ms"/>
-		<require idref="lufa.boards.dummy"/>
+		<require idref="lufa.boards.dummy.avr8"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

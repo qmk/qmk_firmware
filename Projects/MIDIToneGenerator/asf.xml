@@ -1,7 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="MIDI Tone Generator" id="lufa.projects.midi_tone_gen.avr8">
 		<require idref="lufa.projects.midi_tone_gen"/>
-		<require idref="lufa.boards.dummy"/>
+		<require idref="lufa.boards.dummy.avr8"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

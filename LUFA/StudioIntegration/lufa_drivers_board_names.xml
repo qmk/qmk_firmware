@@ -25,6 +25,9 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_ADAFRUITU4"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/ADAFRUITU4/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/ADAFRUITU4/LEDs.h"/>
 			</module>
 
@@ -32,6 +35,10 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_ATAVRUSBRF01"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/ATAVRUSBRF01/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/ATAVRUSBRF01/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/ATAVRUSBRF01/LEDs.h"/>
 			</module>
@@ -40,6 +47,10 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_BENITO"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/BENITO/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BENITO/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BENITO/LEDs.h"/>
 			</module>
@@ -48,6 +59,9 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_BIGMULTIO"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/BIGMULTIO/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BIGMULTIO/LEDs.h"/>
 			</module>
 
@@ -55,6 +69,9 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_BLACKCAT"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/BLACKCAT/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BLACKCAT/LEDs.h"/>
 			</module>
 
@@ -62,6 +79,9 @@
 				<device-support value="at90usb646"/>
 				<build type="define" name="BOARD" value="BOARD_BUI"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/BUI/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BUI/LEDs.h"/>
 			</module>
 
@@ -69,6 +89,11 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_BUMBLEB"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.joystick"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/BUMBLEB/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BUMBLEB/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BUMBLEB/Joystick.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/BUMBLEB/LEDs.h"/>
@@ -78,6 +103,10 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_CULV3"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/CULV3/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/CULV3/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/CULV3/LEDs.h"/>
 			</module>
@@ -86,6 +115,9 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_DUCE"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/DUCE/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/DUCE/LEDs.h"/>
 			</module>
 
@@ -95,7 +127,12 @@
 
 				<require idref="lufa.drivers.misc.at45db321c"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.joystick"/>
+				<require idref="lufa.drivers.board.leds"/>
 
+				<build type="header-file" value="Drivers/Board/AVR8/EVK527/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/EVK527/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/EVK527/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/EVK527/Joystick.h"/>
@@ -106,6 +143,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_JMDBU2"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/JMDBU2/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/JMDBU2/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/JMDBU2/LEDs.h"/>
 			</module>
@@ -114,6 +155,9 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_LEONARDO"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/LEONARDO/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/LEONARDO/LEDs.h"/>
 			</module>
 
@@ -121,6 +165,9 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_MAXIMUS"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MAXIMUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MAXIMUS/LEDs.h"/>
 			</module>
 
@@ -128,6 +175,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_32U2"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
@@ -136,6 +187,9 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_A"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
 
@@ -143,6 +197,9 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_1"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
 
@@ -150,6 +207,9 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_2"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
 
@@ -157,6 +217,9 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_3"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
 
@@ -164,6 +227,9 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_4"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
 
@@ -171,6 +237,9 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_DIP"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
 
@@ -178,6 +247,10 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_REV1"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
@@ -186,6 +259,10 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_REV2"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROPENDOUS/Buttons.h"/>
 			</module>
@@ -194,6 +271,10 @@
 				<device-support value="atmega162"/>
 				<build type="define" name="BOARD" value="BOARD_MICROSIN162"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICROSIN162/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROSIN162/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MICROSIN162/Buttons.h"/>
 			</module>
@@ -202,6 +283,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_MINIMUS"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MINIMUS/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MINIMUS/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MINIMUS/Buttons.h"/>
 			</module>
@@ -210,6 +295,9 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_MULTIO"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MULTIO/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/MULTIO/LEDs.h"/>
 			</module>
 
@@ -217,6 +305,10 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEX162"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX162/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX162/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX162/Buttons.h"/>
 			</module>
@@ -225,6 +317,10 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEX32U4"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX32U4/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX32U4/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEX32U4/Buttons.h"/>
 			</module>
@@ -233,6 +329,10 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEXISPMK2"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXISPMK2/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXISPMK2/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXISPMK2/Buttons.h"/>
 			</module>
@@ -241,6 +341,10 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEXT32U4"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+				<require idref="lufa.drivers.board.buttons"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXT32U4/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXT32U4/LEDs.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/OLIMEXT32U4/Buttons.h"/>
 			</module>
@@ -249,6 +353,9 @@
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_RZUSBSTICK"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/RZUSBSTICK/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/RZUSBSTICK/LEDs.h"/>
 			</module>
 
@@ -256,6 +363,9 @@
 				<device-support value="atmega8u2"/>
 				<build type="define" name="BOARD" value="BOARD_SPARKFUN8U2"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/SPARKFUN8U2/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/SPARKFUN8U2/LEDs.h"/>
 			</module>
 
@@ -265,7 +375,12 @@
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.joystick"/>
+				<require idref="lufa.drivers.board.leds"/>
 
+				<build type="header-file" value="Drivers/Board/AVR8/STK525/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STK525/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STK525/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STK525/Joystick.h"/>
@@ -278,7 +393,12 @@
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.joystick"/>
+				<require idref="lufa.drivers.board.leds"/>
 
+				<build type="header-file" value="Drivers/Board/AVR8/STK526/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STK526/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STK526/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STK526/Joystick.h"/>
@@ -289,6 +409,9 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_TEENSY"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/TEENSY/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/TEENSY/LEDs.h"/>
 			</module>
 
@@ -296,6 +419,9 @@
 				<device-support value="at90usb646"/>
 				<build type="define" name="BOARD" value="BOARD_TEENSY2"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/TEENSY/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/TEENSY/LEDs.h"/>
 			</module>
 
@@ -303,6 +429,10 @@
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_TUL"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/TUL/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/TUL/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/TUL/LEDs.h"/>
 			</module>
@@ -311,6 +441,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_UDIP"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/UDIP/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/UDIP/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/UDIP/LEDs.h"/>
 			</module>
@@ -320,6 +454,9 @@
 				<device-support value="atmega16u2"/>
 				<build type="define" name="BOARD" value="BOARD_UNO"/>
 
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/UNO/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/UNO/LEDs.h"/>
 			</module>
 
@@ -327,6 +464,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_USB2AX"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/LEDs.h"/>
 			</module>
@@ -335,6 +476,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_USB2AX_V3"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/LEDs.h"/>
 			</module>
@@ -343,6 +488,10 @@
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_USB2AX_V31"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USB2AX/LEDs.h"/>
 			</module>
@@ -351,6 +500,10 @@
 				<device-support value="atmega162"/>
 				<build type="define" name="BOARD" value="BOARD_USBFOO"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USBFOO/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBFOO/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBFOO/LEDs.h"/>
 			</module>
@@ -362,6 +515,12 @@
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.joystick"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBKEY/Joystick.h"/>
@@ -372,6 +531,10 @@
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_USBTINYMKII"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/USBTINYMKII/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBTINYMKII/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/USBTINYMKII/LEDs.h"/>
 			</module>
@@ -381,7 +544,10 @@
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.leds"/>
 
+				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/LEDs.h"/>
 
@@ -393,7 +559,10 @@
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.leds"/>
 
+				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/XPLAIN/LEDs.h"/>
 
@@ -406,6 +575,11 @@
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.usart_spi"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/XMEGA/A3BU_XPLAINED/Board.h"/>
 				<build type="header-file" value="Drivers/Board/XMEGA/A3BU_XPLAINED/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/XMEGA/A3BU_XPLAINED/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/XMEGA/A3BU_XPLAINED/LEDs.h"/>
@@ -418,7 +592,11 @@
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
 				<require idref="lufa.drivers.peripheral.usart_spi"/>
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.dataflash"/>
+				<require idref="lufa.drivers.board.leds"/>
 
+				<build type="header-file" value="Drivers/Board/XMEGA/B1_XPLAINED/Board.h"/>
 				<build type="header-file" value="Drivers/Board/XMEGA/B1_XPLAINED/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/XMEGA/B1_XPLAINED/Dataflash.h"/>
 				<build type="header-file" value="Drivers/Board/XMEGA/B1_XPLAINED/LEDs.h"/>
@@ -429,6 +607,11 @@
 			<module type="driver" id="lufa.drivers.board#evk1100" caption="EVK1100">
 				<device-support value="at32uc3a0512"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.joystick"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/UC3/EVK1100/Board.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1100/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1100/Joystick.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1100/LEDs.h"/>
@@ -439,6 +622,11 @@
 			<module type="driver" id="lufa.drivers.board#evk1101" caption="EVK1101">
 				<device-support value="at32uc3b0256"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.joystick"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/UC3/EVK1101/Board.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1101/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1101/Joystick.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1101/LEDs.h"/>
@@ -449,6 +637,10 @@
 			<module type="driver" id="lufa.drivers.board#evk1104" caption="EVK1101">
 				<device-support value="at32uc3a3256"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/UC3/EVK1104/Board.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1104/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/EVK1104/LEDs.h"/>
 
@@ -458,6 +650,10 @@
 			<module type="driver" id="lufa.drivers.board#uc3a3_xplained" caption="UC3A3_XPLAINED">
 				<device-support value="at32uc3a3256"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/UC3/UC3A3_XPLAINED/Board.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/UC3A3_XPLAINED/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/UC3/UC3A3_XPLAINED/LEDs.h"/>
 
@@ -467,6 +663,10 @@
 			<module type="driver" id="lufa.drivers.board#stange_isp" caption="STANGE_ISP">
 				<device-support value="at90usb162"/>
 
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/STANGE_ISP/Board.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STANGE_ISP/Buttons.h"/>
 				<build type="header-file" value="Drivers/Board/AVR8/STANGE_ISP/LEDs.h"/>
 

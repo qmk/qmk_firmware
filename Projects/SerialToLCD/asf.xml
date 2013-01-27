@@ -1,7 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="USB Serial to LCD Display" id="lufa.projects.serial_to_lcd.avr8">
 		<require idref="lufa.projects.serial_to_lcd"/>
-		<require idref="lufa.boards.dummy"/>
+		<require idref="lufa.boards.dummy.avr8"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>

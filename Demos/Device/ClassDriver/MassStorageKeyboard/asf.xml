@@ -1,7 +1,7 @@
 <asf xmlversion="1.0">
 	<project caption="Mass Storage and HID Keyboard Device Demo (Class Driver APIs)" id="lufa.demos.device.class.mass_storage_keyboard.example">
 		<require idref="lufa.demos.device.class.mass_storage_keyboard"/>
-		<require idref="lufa.boards.dummy"/>
+		<require idref="lufa.boards.dummy.avr8"/>
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
