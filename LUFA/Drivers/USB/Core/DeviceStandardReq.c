@@ -134,7 +134,7 @@ static void USB_Device_SetAddress(void)
 
 	while (!(Endpoint_IsINReady()));
 
-	USB_Device_EnableDeviceAddress();
+	USB_Device_EnableDeviceAddress(DeviceAddress);
 
 	USB_DeviceState = (DeviceAddress) ? DEVICE_STATE_Addressed : DEVICE_STATE_Default;
 }

@@ -205,13 +205,13 @@
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)
 			{
-				USB.ADDR = Address;
+				/* No implementation for XMEGA architecture */
 			}
 
-			static inline void USB_Device_EnableDeviceAddress(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_Device_EnableDeviceAddress(void)
+			static inline void USB_Device_EnableDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_EnableDeviceAddress(const uint8_t Address)
 			{
-				/* No implementation for XMEGA architecture */
+				USB.ADDR = Address;
 			}
 
 			static inline bool USB_Device_IsAddressSet(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
