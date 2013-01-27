@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FN_BIT(code)    (1<<FN_INDEX(code))
 #define FN_INDEX(code)  ((code) - KC_FN0)
 #define FN_MIN          KC_FN0
-#define FN_MAX          KC_FN7
+#define FN_MAX          KC_FN31
 
 
 /*
@@ -390,11 +390,10 @@ enum internal_special_keycodes {
     /* System Control */
     KC_SYSTEM_POWER     = 0xA5,
     KC_SYSTEM_SLEEP,
-    KC_SYSTEM_WAKE,     /* 0xA7 */
-                        /* 0xA8-AF */
+    KC_SYSTEM_WAKE,
 
     /* Consumer Page */
-    KC_AUDIO_MUTE       = 0xB0,
+    KC_AUDIO_MUTE,
     KC_AUDIO_VOL_UP,
     KC_AUDIO_VOL_DOWN,
     KC_MEDIA_NEXT_TRACK,
@@ -410,21 +409,47 @@ enum internal_special_keycodes {
     KC_WWW_BACK,
     KC_WWW_FORWARD,
     KC_WWW_STOP,
-    KC_WWW_REFRESH,     /* 0xC0 */
-    KC_WWW_FAVORITES,   /* 0xC1 */
-                        /* 0xC2-DF vacant for future use */
-
-    /* 0xE0-E7 for Modifiers. DO NOT USE. */
+    KC_WWW_REFRESH,
+    KC_WWW_FAVORITES,   /* 0xB9 */
 
     /* Layer Switching */
-    KC_FN0              = 0xE8,
+    KC_FN0              = 0xC0,
     KC_FN1,
     KC_FN2,
     KC_FN3,
     KC_FN4,
     KC_FN5,
     KC_FN6,
-    KC_FN7,             /* 0xEF */
+    KC_FN7,
+    KC_FN8,
+    KC_FN9,
+    KC_FN10,
+    KC_FN11,
+    KC_FN12,
+    KC_FN13,
+    KC_FN14,
+    KC_FN15,
+
+    KC_FN16             = 0xD0,
+    KC_FN17,
+    KC_FN18,
+    KC_FN19,
+    KC_FN20,
+    KC_FN21,
+    KC_FN22,
+    KC_FN23,
+    KC_FN24,
+    KC_FN25,
+    KC_FN26,
+    KC_FN27,
+    KC_FN28,
+    KC_FN29,
+    KC_FN30,
+    KC_FN31,            /* 0xDF */
+
+    /**************************************/
+    /* 0xE0-E7 for Modifiers. DO NOT USE. */
+    /**************************************/
 
     /* Mousekey */
     KC_MS_UP            = 0xF0,
