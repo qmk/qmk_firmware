@@ -97,6 +97,40 @@ static void waiting_buffer_process(void)
 {
 }
 
+/* Oneshot modifier
+ *
+ * Problem: Want to capitalize like 'The' but the result tends to be 'THe'.
+ * Solution: Oneshot modifier have its effect on only one key coming next.
+ *           Tap Shift, then type 't', 'h' and 'e'. Not need to hold Shift key.
+ *
+ *  Hold:       works as normal modifier.
+ *  Tap:        one shot modifier.
+ *  2 Tap:      cancel one shot modifier.
+ *  5-Tap:      toggles enable/disable oneshot feature.
+ */
+static struct {
+    uint8_t mods;
+    uint8_t time;
+    bool    ready;
+    bool    disabled;
+}   oneshot_state;
+static void oneshot_start(uint8_t mods, uint16_t time)
+{
+    oneshot_state.mods = mods;
+    oneshot_state.time = time;
+    oneshot_state.ready = true;
+}
+static void oneshot_cancel(void)
+{
+    oneshot_state.mods = 0;
+    oneshot_state.time = 0;
+    oneshot_state.ready = false;
+}
+static void oneshot_toggle(void)
+{
+    oneshot_state.disabled = !oneshot_state.disabled;
+}
+
 
 /*
  * Rule to judge tap:
@@ -271,83 +305,102 @@ static void process(keyrecord_t *record)
     switch (action.kind.id) {
         /* Key and Mods */
         case ACT_LMODS:
-            //               |pressed                          |released
-            // --------------+---------------------------------+------------
-            // key           |down(key)                        |up(key)
-            // mods          |add(mods)                        |del(mods)
-            // key with mods |add(mods), down(key), unset(mods)|up(key)
-            if (event.pressed) {
-                uint8_t tmp_mods = host_get_mods();
-                if (action.key.mods) {
-                    host_add_mods(action.key.mods);
-                    host_send_keyboard_report();
-                }
-                register_code(action.key.code);
-                if (action.key.mods && action.key.code) {
-                    host_set_mods(tmp_mods);
-                    host_send_keyboard_report();
-                }
-            } else {
-                if (action.key.mods && !action.key.code) {
-                    host_del_mods(action.key.mods);
-                    host_send_keyboard_report();
-                }
-                unregister_code(action.key.code);
-            }
-            break;
         case ACT_RMODS:
-            //               |pressed                          |released
-            // --------------+---------------------------------+------------
-            // key           |down(key)                        |up(key)
-            // mods          |add(mods)                        |del(mods)
-            // key with mods |add(mods), down(key), unset(mods)|up(key)
-            if (event.pressed) {
-                uint8_t tmp_mods = host_get_mods();
-                if (action.key.mods) {
-                    host_add_mods(action.key.mods<<4);
-                    host_send_keyboard_report();
+            {
+                uint8_t mods = (action.kind.id == ACT_LMODS) ?  action.key.mods :
+                                                                action.key.mods<<4;
+                if (event.pressed) {
+                    uint8_t tmp_mods = host_get_mods();
+                    if (mods) {
+                        host_add_mods(mods);
+                        host_send_keyboard_report();
+                    }
+                    register_code(action.key.code);
+                    if (mods && action.key.code) {
+                        host_set_mods(tmp_mods);
+                        host_send_keyboard_report();
+                    }
+                } else {
+                    if (mods && !action.key.code) {
+                        host_del_mods(mods);
+                        host_send_keyboard_report();
+                    }
+                    unregister_code(action.key.code);
                 }
-                register_code(action.key.code);
-                if (action.key.mods && action.key.code) {
-                    host_set_mods(tmp_mods);
-                    host_send_keyboard_report();
-                }
-            } else {
-                if (action.key.mods && !action.key.code) {
-                    host_del_mods(action.key.mods<<4);
-                    host_send_keyboard_report();
-                }
-                unregister_code(action.key.code);
             }
             break;
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
             {
-                uint8_t tmp_mods = (action.kind.id == ACT_LMODS_TAP) ?  action.key.mods :
-                                                                        action.key.mods<<4;
-                if (event.pressed) {
-                    if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
-                        if (waiting_buffer_has_anykey_pressed()) {
-                            debug("MODS_TAP: Tap: Cancel: add_mods\n");
-                            // ad hoc: set 0 to cancel tap
-                            record->tap_count = 0;
-                            add_mods(tmp_mods);
+                uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ?  action.key.mods :
+                                                                    action.key.mods<<4;
+                switch (action.layer.code) {
+                    case 0x00:
+                        // Oneshot modifier
+                        if (event.pressed) {
+                            if (tap_count == 0) {
+                                debug("MODS_TAP: Oneshot: add_mods\n");
+                                add_mods(mods);
+                            }
+                            else if (tap_count == 1) {
+                                debug("MODS_TAP: Oneshot: start\n");
+                                oneshot_start(mods, event.time);
+                            }
+                            else if (tap_count == 5) {
+                                debug("MODS_TAP: Oneshot: toggle\n");
+                                oneshot_toggle();
+                            }
+                            else {
+                                debug("MODS_TAP: Oneshot: cancel&add_mods\n");
+                                // double tap cancels oneshot and works as normal modifier.
+                                oneshot_cancel();
+                                add_mods(mods);
+                            }
                         } else {
-                            debug("MODS_TAP: Tap: register_code\n");
-                            register_code(action.key.code);
+                            if (tap_count == 0) {
+                                debug("MODS_TAP: Oneshot: cancel/del_mods\n");
+                                // cancel oneshot by holding.
+                                oneshot_cancel();
+                                del_mods(mods);
+                            }
+                            else if (tap_count == 1) {
+                                debug("MODS_TAP: Oneshot: del_mods\n");
+                                // retain Oneshot
+                                del_mods(mods);
+                            }
+                            else {
+                                debug("MODS_TAP: Oneshot: del_mods\n");
+                                // cancel Mods
+                                del_mods(mods);
+                            }
                         }
-                    } else {
-                        debug("MODS_TAP: No tap: add_mods\n");
-                        add_mods(tmp_mods);
-                    }
-                } else {
-                    if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
-                        debug("MODS_TAP: Tap: unregister_code\n");
-                        unregister_code(action.key.code);
-                    } else {
-                        debug("MODS_TAP: No tap: add_mods\n");
-                        del_mods(tmp_mods);
-                    }
+                        break;
+                    default:
+                        if (event.pressed) {
+                            if (tap_count > 0) {
+                                if (waiting_buffer_has_anykey_pressed()) {
+                                    debug("MODS_TAP: Tap: Cancel: add_mods\n");
+                                    // ad hoc: set 0 to cancel tap
+                                    record->tap_count = 0;
+                                    add_mods(mods);
+                                } else {
+                                    debug("MODS_TAP: Tap: register_code\n");
+                                    register_code(action.key.code);
+                                }
+                            } else {
+                                debug("MODS_TAP: No tap: add_mods\n");
+                                add_mods(mods);
+                            }
+                        } else {
+                            if (tap_count > 0) {
+                                debug("MODS_TAP: Tap: unregister_code\n");
+                                unregister_code(action.key.code);
+                            } else {
+                                debug("MODS_TAP: No tap: add_mods\n");
+                                del_mods(mods);
+                            }
+                        }
+                        break;
                 }
             }
             break;
@@ -579,7 +632,17 @@ void register_code(uint8_t code)
     }
     else if IS_KEY(code) {
         // TODO: should push command_proc out of this block?
-        if (!command_proc(code)) {
+        if (command_proc(code)) return;
+
+        if (oneshot_state.mods && oneshot_state.ready && !oneshot_state.disabled) {
+            uint8_t tmp_mods = host_get_mods();
+            host_add_mods(oneshot_state.mods);
+            host_add_key(code);
+            host_send_keyboard_report();
+
+            host_set_mods(tmp_mods);
+            oneshot_state.ready = false;
+        } else {
             host_add_key(code);
             host_send_keyboard_report();
         }
