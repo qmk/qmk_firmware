@@ -31,7 +31,7 @@
 			<require idref="lufa.drivers.board.info"/>
 		</board>
 
-		<module type="driver" id="lufa.drivers.board.info" caption="LUFA Board Information Driver">
+		<module type="driver" id="lufa.drivers.board.info" caption="LUFA Board Hardware Information Driver">
 			<device-support-alias value="lufa_avr8"/>
 			<device-support-alias value="lufa_xmega"/>
 			<device-support-alias value="lufa_uc3"/>
