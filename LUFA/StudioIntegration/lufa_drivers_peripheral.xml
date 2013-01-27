@@ -17,6 +17,7 @@
 				<build type="doxygen-entry-point" value="Group_Serial"/>
 
 				<require idref="lufa.common"/>
+				<require idref="lufa.drivers.misc.ansi"/>
 
 				<build type="c-source"    value="Drivers/Peripheral/AVR8/Serial_AVR8.c"/>
 				<build type="header-file" value="Drivers/Peripheral/AVR8/Serial_AVR8.h"/>
@@ -30,6 +31,7 @@
 				<build type="doxygen-entry-point" value="Group_Serial"/>
 
 				<require idref="lufa.common"/>
+				<require idref="lufa.drivers.misc.ansi"/>
 
 				<build type="c-source"    value="Drivers/Peripheral/XMEGA/Serial_XMEGA.c"/>
 				<build type="header-file" value="Drivers/Peripheral/XMEGA/Serial_XMEGA.h"/>
@@ -43,6 +45,7 @@
 				<build type="doxygen-entry-point" value="Group_Serial"/>
 
 				<require idref="lufa.common"/>
+				<require idref="lufa.drivers.misc.ansi"/>
 
 				<info type="gui-flag" value="hidden"/>
 			</module>
