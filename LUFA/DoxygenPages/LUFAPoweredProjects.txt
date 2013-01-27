@@ -38,6 +38,7 @@
  *  can be incorporated into many different applications.
  *
  *  \li Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
+ *  \li Adjacent Reality Motion Tracker: http://www.adjacentreality.org/
  *  \li AD9833 based USB Function Generator: http://tuomasnylund.fi/drupal6/content/ad9833-based-usb-function-generator
  *  \li AERY development platform for the AVR32 devices: http://www.aery32.com/
  *  \li AM Radio transmitter: http://amcinnes.info/2012/uc_am_xmit/

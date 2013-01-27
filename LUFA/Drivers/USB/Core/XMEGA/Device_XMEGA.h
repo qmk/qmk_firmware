@@ -205,6 +205,8 @@
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)
 			{
+				(void)Address;
+
 				/* No implementation for XMEGA architecture */
 			}
 
