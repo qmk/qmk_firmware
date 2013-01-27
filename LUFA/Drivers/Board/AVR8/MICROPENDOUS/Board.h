@@ -123,7 +123,7 @@
 			     (BOARD == BOARD_MICROPENDOUS_1)    || (BOARD == BOARD_MICROPENDOUS_2) || \
 			     (BOARD == BOARD_MICROPENDOUS_3)    || (BOARD == BOARD_MICROPENDOUS_4) || \
 			     (BOARD == BOARD_MICROPENDOUS_REV1) || (BOARD == BOARD_MICROPENDOUS_REV2) || \
-			     (BOARD == BOARD_MICROPENDOUS_DIP) || definied(__DOXYGEN__))
+			     (BOARD == BOARD_MICROPENDOUS_DIP) || defined(__DOXYGEN__))
 				#include "../../Buttons.h"
 
 				/** Indicates the board has a hardware Buttons mounted. */
@@ -131,7 +131,7 @@
 			#endif
 
 			#if ((BOARD == BOARD_MICROPENDOUS_REV1) || (BOARD == BOARD_MICROPENDOUS_REV2) || \
-			     (BOARD == BOARD_MICROPENDOUS_32U2) || definied(__DOXYGEN__))
+			     (BOARD == BOARD_MICROPENDOUS_32U2) || defined(__DOXYGEN__))
 				#include "../../LEDs.h"
 
 				/** Indicates the board has a hardware LEDs mounted. */

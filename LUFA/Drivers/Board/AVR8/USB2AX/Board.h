@@ -45,7 +45,7 @@
 
 /** \ingroup Group_BoardInfo
  *  \defgroup Group_BoardInfo_USB2AX_V3 USB2AX_V3
- *  \briefBoard specific information header for the Xevelabs USB2AX revision 3.
+ *  \brief Board specific information header for the Xevelabs USB2AX revision 3.
  *
  *  See \ref Group_BoardInfo_USB2AX for more details.
  */
