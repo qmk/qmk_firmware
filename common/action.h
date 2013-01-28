@@ -1,3 +1,19 @@
+/*
+Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #ifndef ACTION_H
 #define ACTION_H
 
@@ -9,7 +25,7 @@
  * In avr-gcc bit field seems to be assigned from LSB(bit0) to MSB(bit15). 
  * AVR looks like a little endian in avr-gcc.
  *
- * TODO: not portable across compiler/endianness?
+ * NOTE: not portable across compiler/endianness?
  * Byte order and bit order of 0x1234:
  * Big endian:     15 ...  8 7 ... 210
  *                |  0x12   |  0x34   |
@@ -51,29 +67,17 @@ typedef union {
     } func;
 } action_t;
 
-/* Action record. For internal use. */
+/* Struct to record action and tap count  */
 typedef struct {
     keyevent_t  event;
     uint8_t     tap_count;
 } keyrecord_t;
 
 
-/* Tap count: Tap is comprised of press and release within TAP_TERM.
- * 0    means no tap.
- * >1   means tap.
- */
-extern uint8_t tap_count;
-
-/* current tap key event */
-extern keyevent_t tapping_event;
-
-
-/* action function */
-typedef void (*action_func_t)(keyevent_t event, uint8_t opt);
-
-// TODO: legacy keymap support
+/* execute action per keyevent */
 void action_exec(keyevent_t event);
-void action_call_function(keyevent_t event, uint8_t id);
+typedef void (*action_func_t)(keyevent_t event, uint8_t opt); // TODO:no need?
+void action_call_function(keyevent_t event, uint8_t id);    // TODO: action function
 
 
 /*
@@ -194,7 +198,6 @@ TODO: modifier + function by tap?
     for example: LShift + '('[Shift+9] and RShift + ')'[Shift+0]
     http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478.html#p90052
  */
-
 enum action_kind_id {
     ACT_LMODS           = 0b0000,
     ACT_RMODS           = 0b0001,

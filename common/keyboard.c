@@ -1,5 +1,5 @@
 /*
-Copyright 2011,2012 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012,2013 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,8 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void keyboard_init(void)
 {
-    // TODO: to enable debug print magic key bind on boot time
-
     // TODO: configuration of sendchar impl
     print_sendchar_func = sendchar;
 
@@ -80,7 +78,7 @@ void keyboard_task(void)
                     action_exec((keyevent_t){
                         .key.pos  = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & (1<<c)),
-                        .time = timer_read()
+                        .time = (timer_read() | 1) /* time should not be 0 */
                     });
                     // record a processed key
                     matrix_prev[r] ^= ((matrix_row_t)1<<c);
@@ -94,19 +92,15 @@ void keyboard_task(void)
     action_exec(TICK);
 
 MATRIX_LOOP_END:
-
 #ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration
     mousekey_task();
 #endif
-
     // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
         keyboard_set_leds(led_status);
     }
-
-    return;
 }
 
 void keyboard_set_leds(uint8_t leds)
