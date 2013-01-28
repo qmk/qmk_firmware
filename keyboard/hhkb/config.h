@@ -59,6 +59,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define MOUSEKEY_DELAY_TIME 100
 #endif
 
+/* period of tapping(ms) */
+#define TAPPING_TERM    200
+/* tap count needed for toggling a feature */
+#define TAPPING_TOGGLE  5
 
 /* PS/2 mouse */
 #ifdef PS2_MOUSE_ENABLE

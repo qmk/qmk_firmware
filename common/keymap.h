@@ -22,6 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "action.h"
 
+
+/* layer used currently */
+extern uint8_t current_layer;
+/* layer to return or start with */
+extern uint8_t default_layer;
+
 /* 
  * legacy keymap interface: keycode
  */

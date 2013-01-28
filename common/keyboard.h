@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2012,2013 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+/* key matrix position */
 typedef struct {
     uint8_t col;
     uint8_t row;
@@ -36,28 +37,32 @@ typedef union {
     keypos_t pos;
 } key_t;
 
+/* key event */
 typedef struct {
     key_t    key;
     bool     pressed;
     uint16_t time;
 } keyevent_t;
 
+/* equivalent test of key_t */
 #define KEYEQ(keya, keyb)       ((keya).raw == (keyb).raw)
-#define IS_NOEVENT(event)       ((event).key.pos.row == 255 && (event).key.pos.col == 255)
+
+/* (time == 0) means no event and assumes matrix has no 255 line. */
+#define IS_NOEVENT(event)       ((event).time == 0 || ((event).key.pos.row == 255 && (event).key.pos.col == 255))
+
 #define NOEVENT                 (keyevent_t){           \
     .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
     .pressed = false,                                   \
     .time = 0                                           \
 }
+
+/* tick event */
 #define TICK                    (keyevent_t){           \
     .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
     .pressed = false,                                   \
-    .time = timer_read()                                \
+    .time = (timer_read() | 1)                          \
 }
 
-
-extern uint8_t current_layer;
-extern uint8_t default_layer;
 
 void keyboard_init(void);
 void keyboard_task(void);
