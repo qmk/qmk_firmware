@@ -63,6 +63,8 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_RMODS_TAP(MOD_BIT(KC_RCTL), KC_ENT), // Fn7
 
     ACTION_LMODS_TAP(MOD_BIT(KC_LSFT), ONE_SHOT),   // Fn8
+    ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(1),                     // Fn9
+    ACTION_LAYER_BIT_TAP_TOGGLE(1),                 // Fn10
 };
 
 
@@ -83,7 +85,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
-           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
+           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN10, \
                 LGUI,LALT,          FN5,                RALT,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -102,7 +104,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  BSPC, \
            LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN0, \
+           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN10, \
                 LGUI,LALT,          SPC,                RALT,RGUI),
 
     /* Layer 2: Vi mode (Slash)

@@ -157,10 +157,10 @@ ACT_LAYER_EXT(1011):        Extentions
 1011|0001|0000 0000   set default layer when released
 
 1000|LLLL|1111 0000   set layer L when pressed + tap toggle
-1001|LLLL|1111 0000   set layer L when released[tap is ignored/not used]
+1001|LLLL|1111 0000   set layer L when released + tap toggle
 1010|BBBB|1111 0000   on/off bit B when pressed/released + tap toggle
 1011|0000|1111 0000   set default layer when pressed + tap toggle
-1011|0001|1111 0000   set default layer when released[tap is ignored/not used]
+1011|0001|1111 0000   set default layer when released + tap toggle
 
 1000|LLLL|1111 1111   set L to default layer when pressed
 1001|LLLL|1111 1111   set L to default layer when released
@@ -169,10 +169,10 @@ ACT_LAYER_EXT(1011):        Extentions
 1011|0001|1111 1111   set current to default layer when released
 
 1000|LLLL| keycode    set layer L when pressed + tap key
-1001|LLLL| keyocde    set layer L when released[tap is ignored/not used]
+1001|LLLL| keyocde    set layer L when released + tap key
 1010|BBBB| keyocde    on/off bit B when pressed/released + tap key
 1011|0000| keyocde    set default layer when pressed + tap key
-1011|0001| keyocde    set default layer when released[tap is ignored/not used]
+1011|0001| keyocde    set default layer when released + tap key
  
 
 Extensions(11XX)
@@ -235,27 +235,29 @@ enum acion_param {
 #define ACTION_LMODS_TAP(mods, key)     ACTION(ACT_LMODS_TAP, MOD_BITS(mods)<<8 | (key))
 #define ACTION_LMODS_ONESHOT(mods)      ACTION(ACT_LMODS_TAP, MOD_BITS(mods)<<8 | ONE_SHOT)
 #define ACTION_RMODS_TAP(mods, key)     ACTION(ACT_RMODS_TAP, MOD_BITS(mods)<<8 | (key))
+#define ACTION_RMODS_ONESHOT(mods)      ACTION(ACT_RMODS_TAP, MOD_BITS(mods)<<8 | ONE_SHOT)
 
-/* Layer Switch */
+/* Switch current layer */
 #define ACTION_LAYER_SET_ON_PRESSED(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0x00)
 #define ACTION_LAYER_SET_ON_RELEASED(layer)  ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0x00)
 #define ACTION_LAYER_BIT(bits)               ACTION(ACT_LAYER_BIT,      (layer)<<8 | 0x00)
 #define ACTION_LAYER_TO_DEFAULT_ON_PRESSED   ACTION(ACT_LAYER_EXT,      0x0<<8     | 0x00)
 #define ACTION_LAYER_TO_DEFAULT_ON_RELEASED  ACTION(ACT_LAYER_EXT,      0x1<<8     | 0x00)
-
-#define ACTION_LAYER_TAP_TOGGLE(layer)      ACTION(ACT_LAYER_PRESSED, (layer)<<8 | 0xF0)
-#define ACTION_LAYER_BIT_TAP_TOGGLE(layer)  ACTION(ACT_LAYER_BIT,     (layer)<<8 | 0xF0)
-#define ACTION_LAYER_DEFAULT_TAP_TOGGLE     ACTION(ACT_LAYER_EXT,     0x0<<8     | 0xF0)
-
-#define ACTION_LAYER_DEFAULT_SET_ON_PRESSED(layer)   ACTION(ACT_LAYER_PRESSED, (layer)<<8 | 0xFF)
+/* Switch default layer */
+#define ACTION_LAYER_DEFAULT_SET_ON_PRESSED(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xFF)
 #define ACTION_LAYER_DEFAULT_SET_ON_RELEASED(layer)  ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0xFF)
 #define ACTION_LAYER_DEFAULT_BIT(bits)               ACTION(ACT_LAYER_BIT, (bits)<<8 | 0xFF)
 #define ACTION_LAYER_DEFAULT_SET_CURRENT_ON_PRESSED  ACTION(ACT_LAYER_EXT, 0x0<<8    | 0xFF)
 #define ACTION_LAYER_DEFAULT_SET_CURRENT_ON_RELEASED ACTION(ACT_LAYER_EXT, 0x1<<8    | 0xFF)
-
+/* Layer switch with tap key */
 #define ACTION_LAYER_SET_TAP_KEY(layer, key)  ACTION(ACT_LAYER_PRESSED, (layer)<<8 | (key))
 #define ACTION_LAYER_BIT_TAP_KEY(bits, key)   ACTION(ACT_LAYER_BIT,     (layer)<<8 | (key))
 #define ACTION_LAYER_DEFAULT_SET_TAP_KEY(key) ACTION(ACT_LAYER_EXT,     0x0<<8     | (key))
+/* with tap toggle */
+#define ACTION_LAYER_SET_ON_PRESSED_TAP_TOGGLE(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xF0)
+#define ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(layer)  ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0xF0)
+#define ACTION_LAYER_BIT_TAP_TOGGLE(layer)  ACTION(ACT_LAYER_BIT,     (layer)<<8 | 0xF0)
+#define ACTION_LAYER_DEFAULT_TAP_TOGGLE     ACTION(ACT_LAYER_EXT,     0x0<<8     | 0xF0)
 
 /* HID Usage */
 #define ACTION_USAGE_PAGE_SYSTEM        0
