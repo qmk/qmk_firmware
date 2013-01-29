@@ -87,11 +87,13 @@ void print_dec(uint16_t data);
 void print_decs(int16_t data);
 
 /* hex */
+void print_hex4(uint8_t data);
 void print_hex8(uint8_t data);
 void print_hex16(uint16_t data);
 void print_hex32(uint32_t data);
 
 /* binary */
+void print_bin4(uint8_t data);
 void print_bin8(uint8_t data);
 void print_bin16(uint16_t data);
 void print_bin32(uint32_t data);
