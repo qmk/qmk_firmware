@@ -29,6 +29,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static bool process_tapping(keyrecord_t *record);
 static void process_action(keyrecord_t *record);
 
+static void debug_event(keyevent_t event)
+{
+    debug_hex16(event.key.raw);
+    if (event.pressed) debug("d("); else debug("u(");
+    debug_dec(event.time); debug(")");
+}
+static void debug_record(keyrecord_t record)
+{
+    debug_event(record.event); debug(":"); debug_dec(record.tap_count);
+}
+static void debug_action(action_t action)
+{
+    switch (action.kind.id) {
+        case ACT_LMODS:             debug("ACT_LMODS");             break;
+        case ACT_RMODS:             debug("ACT_RMODS");             break;
+        case ACT_LMODS_TAP:         debug("ACT_LMODS_TAP");         break;
+        case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
+        case ACT_USAGE:             debug("ACT_USAGE");             break;
+        case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
+        case ACT_LAYER_PRESSED:     debug("ACT_LAYER_PRESSED");     break;
+        case ACT_LAYER_RELEASED:    debug("ACT_LAYER_RELEASED");    break;
+        case ACT_LAYER_BIT:         debug("ACT_LAYER_BIT");         break;
+        case ACT_LAYER_EXT:         debug("ACT_LAYER_EXT");         break;
+        case ACT_MACRO:             debug("ACT_MACRO");             break;
+        case ACT_COMMAND:           debug("ACT_COMMAND");           break;
+        case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
+        default:                    debug("UNKNOWN");               break;
+    }
+    debug("[");
+    debug_hex4(action.kind.param>>8);
+    debug(":");
+    debug_hex8(action.kind.param & 0xff);
+    debug("]");
+}
+
 
 /*
  * Tapping
@@ -67,6 +102,14 @@ static uint8_t waiting_buffer_head = 0;
 /* point to the oldest data cell to deq */
 static uint8_t waiting_buffer_tail = 0;
 
+static void debug_waiting_buffer(void)
+{
+    debug("{ ");
+    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
+        debug("["); debug_dec(i); debug("]="); debug_record(waiting_buffer[i]); debug(" ");
+    }
+    debug("}\n");
+}
 static bool waiting_buffer_enq(keyrecord_t record)
 {
     if (IS_NOEVENT(record.event)) {
@@ -78,11 +121,10 @@ static bool waiting_buffer_enq(keyrecord_t record)
         return false;
     }
 
-    debug("waiting_buffer_enq["); debug_dec(waiting_buffer_head); debug("] = ");
-    debug_hex16(record.event.key.raw); debug("\n");
-
     waiting_buffer[waiting_buffer_head] = record;
     waiting_buffer_head = (waiting_buffer_head + 1) % WAITING_BUFFER_SIZE;
+
+    debug("waiting_buffer_enq: "); debug_waiting_buffer();
     return true;
 }
 /*
@@ -162,21 +204,18 @@ static void oneshot_toggle(void)
 void action_exec(keyevent_t event)
 {
     if (!IS_NOEVENT(event)) {
-        debug("event: "); 
-        debug_hex16(event.time); debug(": ");
-        debug_hex16(event.key.raw);
-        debug("[");
-        if (event.pressed) debug("down"); else debug("up");
-        debug("]\n");
+        debug("\n---- action_exec: start -----\n");
+        debug("EVENT: "); debug_event(event); debug("\n");
     }
 
     keyrecord_t record = { .event = event };
 
     // pre-process on tapping
     if (process_tapping(&record)) {
-        if (!IS_NOEVENT(record.event)) debug("processed.\n");
+        if (!IS_NOEVENT(record.event)) {
+            debug("processed: "); debug_record(record); debug("\n");
+        }
     } else {
-        if (!IS_NOEVENT(record.event)) debug("enqueued.\n");
         // enqueue
         if (!waiting_buffer_enq(record)) {
             // clear all in case of overflow.
@@ -187,13 +226,19 @@ void action_exec(keyevent_t event)
     }
 
     // process waiting_buffer
+    if (!IS_NOEVENT(event) && waiting_buffer_head != waiting_buffer_tail) {
+        debug("---- action_exec: process waiting_buffer -----\n");
+    }
     for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
         if (process_tapping(&waiting_buffer[waiting_buffer_tail])) {
             debug("processed: waiting_buffer["); debug_dec(waiting_buffer_tail); debug("] = ");
-            debug_hex16(waiting_buffer[waiting_buffer_tail].event.key.raw); debug("\n");
+            debug_record(waiting_buffer[waiting_buffer_tail]); debug("\n\n");
         } else {
             break;
         }
+    }
+    if (!IS_NOEVENT(event)) {
+        debug("\n");
     }
 }
 
@@ -205,8 +250,8 @@ static void process_action(keyrecord_t *record)
     if (IS_NOEVENT(event)) { return; }
 
     action_t action = keymap_get_action(current_layer, event.key.pos.row, event.key.pos.col);
-    debug("action: "); debug_hex16(action.code);
-    if (event.pressed) debug("[down]\n"); else debug("[up]\n");
+    //debug("action: "); debug_hex16(action.code); if (event.pressed) debug("d\n"); else debug("u\n");
+    debug("ACTION: "); debug_action(action); debug("\n");
 
     switch (action.kind.id) {
         /* Key and Mods */
@@ -635,8 +680,8 @@ static bool process_tapping(keyrecord_t *keyp)
             if (tapping_key.tap_count == 0) {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     // first tap!
-                    debug("Tapping: First tap.\n");
                     tapping_key.tap_count = 1;
+                    debug("Tapping: First tap: tapping_key="); debug_record(tapping_key); debug("\n");
                     process_action(&tapping_key);
 
                     // enqueue
@@ -644,7 +689,7 @@ static bool process_tapping(keyrecord_t *keyp)
                     return false;
                 } else if (!event.pressed && waiting_buffer_typed(event)) {
                     // other key typed. not tap.
-                    debug("Tapping: End(No tap. Interfered by typing key).\n");
+                    debug("Tapping: End. No tap. Interfered by typing key: tapping_key={}\n");
                     process_action(&tapping_key);
                     tapping_key = (keyrecord_t){};
 
@@ -654,15 +699,19 @@ static bool process_tapping(keyrecord_t *keyp)
                     // other key events shall be stored till tapping state settles.
                     return false;
                 }
-            } else {
+            }
+            // tap_count > 0
+            else {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     keyp->tap_count = tapping_key.tap_count;
-                    debug("Tapping: tap release("); debug_dec(keyp->tap_count); debug(")\n");
+                    debug("Tapping: Tap release: tapping_key="); debug_record(*keyp); debug("\n");
                     tapping_key = *keyp;
                     return false;
                 }
                 else if (is_tap_key(keyp->event.key) && event.pressed) {
-                    debug("Tapping: Start with forcing to release last tap.\n");
+                    debug("Tapping: Start with forcing to release last tap: tapping_key=");
+                    debug_record(*keyp); debug("\n");
+// TODO: need only when tap > 1?
                     process_action(&(keyrecord_t){
                             .tap_count = tapping_key.tap_count,
                             .event.key = tapping_key.event.key,
@@ -673,7 +722,10 @@ static bool process_tapping(keyrecord_t *keyp)
                     return false;
                 }
                 else {
-                    if (!IS_NOEVENT(keyp->event)) debug("Tapping: key event while tap.\n");
+                    if (!IS_NOEVENT(keyp->event)) {
+                        debug("Tapping: key event while tap: tapping_key=");
+                        debug_record(tapping_key); debug("\n");
+                    }
                     process_action(keyp);
                     return true;
                 }
@@ -683,7 +735,7 @@ static bool process_tapping(keyrecord_t *keyp)
         else {
             if (tapping_key.tap_count == 0) {
                 // timeout. not tap.
-                debug("Tapping: End. Not tap(time out).\n");
+                debug("Tapping: End. Not tap(time out): tapping_key={}: "); debug_record(*keyp); debug("\n");
                 process_action(&tapping_key);
                 tapping_key = (keyrecord_t){};
                 return false;
@@ -731,6 +783,7 @@ static bool process_tapping(keyrecord_t *keyp)
         if (event.pressed && is_tap_key(event.key)) {
             debug("Tapping: Start(Press tap key).\n");
             tapping_key = *keyp;
+            debug("tapping_key="); debug_record(*keyp); debug("\n");
             return true;
         } else {
             process_action(keyp);
