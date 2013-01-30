@@ -452,9 +452,9 @@ static void process_action(keyrecord_t *record)
             switch (action.layer.code) {
                 case 0x00:
                     if (event.pressed) {
-                        layer_switch(current_layer | action.layer.opt);
+                        layer_switch(current_layer ^ action.layer.opt);
                     } else {
-                        layer_switch(current_layer & ~action.layer.opt);
+                        layer_switch(current_layer ^ action.layer.opt);
                     }
                     break;
                 case 0xF0:
@@ -462,25 +462,22 @@ static void process_action(keyrecord_t *record)
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
                             debug("LAYER_BIT: tap toggle(press).\n");
-                            layer_switch(current_layer | action.layer.opt);
+                            layer_switch(current_layer ^ action.layer.opt);
                         }
                     } else {
-                        if (tap_count < TAPPING_TOGGLE) {
+                        if (tap_count <= TAPPING_TOGGLE) {
                             debug("LAYER_BIT: tap toggle(release).\n");
-                            layer_switch(current_layer & ~action.layer.opt);
-                        } else {
-                            debug("LAYER_BIT: tap toggle.\n");
-                            layer_switch(current_layer | action.layer.opt);
+                            layer_switch(current_layer ^ action.layer.opt);
                         }
                     }
                     break;
                 case 0xFF:
                     // change default layer
                     if (event.pressed) {
-                        default_layer = current_layer | action.layer.opt;
+                        default_layer = current_layer ^ action.layer.opt;
                         layer_switch(default_layer);
                     } else {
-                        default_layer = current_layer & ~action.layer.opt;
+                        default_layer = current_layer ^ action.layer.opt;
                         layer_switch(default_layer);
                     }
                     break;
@@ -492,7 +489,7 @@ static void process_action(keyrecord_t *record)
                             register_code(action.layer.code);
                         } else {
                             debug("LAYER_BIT: No tap: layer_switch(bit on)\n");
-                            layer_switch(current_layer | action.layer.opt);
+                            layer_switch(current_layer ^ action.layer.opt);
                         }
                     } else {
                         if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
@@ -500,7 +497,7 @@ static void process_action(keyrecord_t *record)
                             unregister_code(action.layer.code);
                         } else {
                             debug("LAYER_BIT: No tap: layer_switch(bit off)\n");
-                            layer_switch(current_layer & ~action.layer.opt);
+                            layer_switch(current_layer ^ action.layer.opt);
                         }
                     }
                     break;
