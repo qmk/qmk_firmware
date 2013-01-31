@@ -358,6 +358,10 @@ static void process_action(keyrecord_t *record)
                     if (event.pressed) {
                         layer_switch(action.layer.opt);
                     }
+//TODO: this is ok?
+                    else {
+                        layer_switch(default_layer);
+                    }
                     break;
                 case 0xF0:
                     // tap toggle
@@ -394,7 +398,10 @@ static void process_action(keyrecord_t *record)
                             debug("LAYER_PRESSED: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            debug("LAYER_PRESSED: No tap: NO ACTION\n");
+                            //debug("LAYER_PRESSED: No tap: NO ACTION\n");
+//TODO: this is ok?
+                            debug("LAYER_PRESSED: No tap: return to default layer\n");
+                            layer_switch(default_layer);
                         }
                     }
                     break;

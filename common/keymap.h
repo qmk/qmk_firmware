@@ -28,18 +28,22 @@ extern uint8_t current_layer;
 /* layer to return or start with */
 extern uint8_t default_layer;
 
-/* 
- * legacy keymap interface: keycode
- */
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col);
-/* layer to move during press Fn key */
-uint8_t keymap_fn_layer(uint8_t fn_bits);
-/* keycode to send when release Fn key without using */
-uint8_t keymap_fn_keycode(uint8_t fn_bits);
 
 /* 
  * new keymap interface: action
  */
 action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col);
+
+
+#ifndef NO_LEGACY_KEYMAP_SUPPORT
+/* keycode of key */
+uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col);
+
+/* layer to move during press Fn key */
+uint8_t keymap_fn_layer(uint8_t fn_bits);
+
+/* keycode to send when release Fn key without using */
+uint8_t keymap_fn_keycode(uint8_t fn_bits);
+#endif
 
 #endif
