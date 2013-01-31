@@ -772,8 +772,7 @@ static bool process_tapping(keyrecord_t *keyp)
             debug_event(event); debug("\n");
             tapping_key = (keyrecord_t){};
             debug_tapping_key();
-            process_action(keyp);
-            return true;
+            return false;
         }
     }
     // not tapping satate
