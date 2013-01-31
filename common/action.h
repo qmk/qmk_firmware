@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ACTION_H
 
 #include "keyboard.h"
+#include "keycode.h"
 
 
 /* Action struct.
@@ -107,28 +108,28 @@ Keyboard Keys
 ACT_LMODS(0000):
 0000|0000|000000|00    No action
 0000|0000| keycode     Key
-0010|mods|000000|00    Left mods Momentary
-0000|mods| keycode     Key+Left mods
+0000|mods|000000|00    Left mods
+0000|mods| keycode     Key & Left mods
 
 ACT_RMODS(0001):
 0001|0000|000000|00    No action
 0001|0000| keycode     Key(no used)
-0001|mods|000000|00    Right mods Momentary
-0001|mods| keycode     Key+Right mods
+0001|mods|000000|00    Right mods
+0001|mods| keycode     Key & Right mods
 
 ACT_LMODS_TAP(0010):
 0010|mods|000000|00    Left mods OneShot
 0010|mods|000000|01    (reserved)
 0010|mods|000000|10    (reserved)
 0010|mods|000000|11    (reserved)
-0010|mods| keycode     Left mods+tap Key
+0010|mods| keycode     Left mods + tap Key
 
 ACT_RMODS_TAP(0011):
 0011|mods|000000|00    Right mods OneShot
 0011|mods|000000|01    (reserved)
 0011|mods|000000|10    (reserved)
 0011|mods|000000|11    (reserved)
-0011|mods| keycode     Right mods+tap Key
+0011|mods| keycode     Right mods + tap Key
  
 
 Other HID Usage
@@ -143,12 +144,20 @@ ACT_USAGE(0100):
 
 Mouse Keys
 ----------
+TODO: can be combined with 'Other HID Usage'? to save action kind id.
 ACT_MOUSEKEY(0110):
 0101|XXXX| keycode     Mouse key
 
 
 Layer Actions
 -------------
+TODO: reconsider layer methods.
+1   momemtary + tap key                 up: L,     down: default
+1   bitwise   + tap key                 up: xor B, down: xor B
+3   momemtary go + tap key?             up: X,     down:
+3   toggle(mementary back) + tap key?   up:        down: Y
+3   no tap                              up: X,     down: Y
+
 ACT_LAYER_PRESSED(1000):    Set layer on key pressed
 ACT_LAYER_RELEASED(1001):   Set layer on key released
 ACT_LAYER_BIT(1010):        On/Off layer bit
@@ -222,57 +231,77 @@ enum acion_param {
 };
 
 
-/* action_t utility */
+/* action utility */
 #define ACTION_NO                       0
 #define ACTION(kind, param)             ((kind)<<12 | (param))
+#define MODS4(mods)                     (((mods)>>4 | (mods)) & 0x0F)
 
-/* Key & Mods */
+/* Key */
 #define ACTION_KEY(key)                 ACTION(ACT_LMODS,    key)
+/* Mods & key */
 #define ACTION_LMODS(mods)              ACTION(ACT_LMODS,    (mods)<<8 | 0x00)
 #define ACTION_LMODS_KEY(mods, key)     ACTION(ACT_LMODS,    (mods)<<8 | (key))
 #define ACTION_RMODS(mods)              ACTION(ACT_RMODS,    (mods)<<8 | 0x00)
 #define ACTION_RMODS_KEY(mods, key)     ACTION(ACT_RMODS,    (mods)<<8 | (key))
+/* Mod & key */
+#define ACTION_LMOD(mod)                ACTION(ACT_LMODS,    MODS4(MOD_BIT(mod))<<8 | 0x00)
+#define ACTION_LMOD_KEY(mod, key)       ACTION(ACT_LMODS,    MODS4(MOD_BIT(mod))<<8 | (key))
+#define ACTION_RMOD(mod)                ACTION(ACT_RMODS,    MODS4(MOD_BIT(mod))<<8 | 0x00)
+#define ACTION_RMOD_KEY(mod, key)       ACTION(ACT_RMODS,    MODS4(MOD_BIT(mod))<<8 | (key))
 
 /* Mods + Tap key */
-#define MODS4(mods)                     (((mods)>>4 | (mods)) & 0x0F)
-#define ACTION_LMODS_TAP(mods, key)     ACTION(ACT_LMODS_TAP, MODS4(mods)<<8 | (key))
+#define ACTION_LMODS_TAP_KEY(mods, key) ACTION(ACT_LMODS_TAP, MODS4(mods)<<8 | (key))
 #define ACTION_LMODS_ONESHOT(mods)      ACTION(ACT_LMODS_TAP, MODS4(mods)<<8 | ONE_SHOT)
-#define ACTION_RMODS_TAP(mods, key)     ACTION(ACT_RMODS_TAP, MODS4(mods)<<8 | (key))
+#define ACTION_RMODS_TAP_KEY(mods, key) ACTION(ACT_RMODS_TAP, MODS4(mods)<<8 | (key))
 #define ACTION_RMODS_ONESHOT(mods)      ACTION(ACT_RMODS_TAP, MODS4(mods)<<8 | ONE_SHOT)
+/* Mod + Tap key */
+#define ACTION_LMOD_TAP_KEY(mod, key)   ACTION(ACT_LMODS_TAP, MODS4(MOD_BIT(mod))<<8 | (key))
+#define ACTION_LMOD_ONESHOT(mod)        ACTION(ACT_LMODS_TAP, MODS4(MOD_BIT(mod))<<8 | ONE_SHOT)
+#define ACTION_RMOD_TAP_KEY(mod, key)   ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | (key))
+#define ACTION_RMOD_ONESHOT(mod)        ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | ONE_SHOT)
 
+// TODO: contemplate about layer action
 /* Switch current layer */
-#define ACTION_LAYER_SET_ON_PRESSED(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0x00)
-#define ACTION_LAYER_SET_ON_RELEASED(layer)  ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0x00)
-#define ACTION_LAYER_BIT(bits)               ACTION(ACT_LAYER_BIT,      (bits)<<8 | 0x00)
-#define ACTION_LAYER_TO_DEFAULT_ON_PRESSED   ACTION(ACT_LAYER_EXT,      0x0<<8     | 0x00)
-#define ACTION_LAYER_TO_DEFAULT_ON_RELEASED  ACTION(ACT_LAYER_EXT,      0x1<<8     | 0x00)
+#define ACTION_LAYER_SET(layer)                        ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0x00)
+#define ACTION_LAYER_SET_ON_PRESSED(layer)             ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0x00)
+#define ACTION_LAYER_SET_ON_RELEASED(layer)            ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0x00)
+#define ACTION_LAYER_BIT(bits)                         ACTION(ACT_LAYER_BIT,      (bits)<<8 | 0x00)
+#define ACTION_LAYER_SET_DEFAULT                       ACTION(ACT_LAYER_EXT,      0x0<<8     | 0x00)
+#define ACTION_LAYER_RETURN_DEFAULT                    ACTION(ACT_LAYER_EXT,      0x1<<8     | 0x00)
+#define ACTION_LAYER_SET_DEFAULT_ON_PRESSED            ACTION(ACT_LAYER_EXT,      0x0<<8     | 0x00)
+#define ACTION_LAYER_SET_DEFAULT_ON_RELEASED           ACTION(ACT_LAYER_EXT,      0x1<<8     | 0x00)
 /* Switch default layer */
-#define ACTION_LAYER_DEFAULT_SET_ON_PRESSED(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xFF)
-#define ACTION_LAYER_DEFAULT_SET_ON_RELEASED(layer)  ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0xFF)
-#define ACTION_LAYER_DEFAULT_BIT(bits)               ACTION(ACT_LAYER_BIT, (bits)<<8 | 0xFF)
-#define ACTION_LAYER_DEFAULT_SET_CURRENT_ON_PRESSED  ACTION(ACT_LAYER_EXT, 0x0<<8    | 0xFF)
-#define ACTION_LAYER_DEFAULT_SET_CURRENT_ON_RELEASED ACTION(ACT_LAYER_EXT, 0x1<<8    | 0xFF)
+#define ACTION_LAYER_DEFAULT_SET(layer)                ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xFF)
+#define ACTION_LAYER_DEFAULT_SET_ON_PRESSED(layer)     ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xFF)
+#define ACTION_LAYER_DEFAULT_SET_ON_RELEASED(layer)    ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0xFF)
+#define ACTION_LAYER_DEFAULT_BIT(bits)                 ACTION(ACT_LAYER_BIT, (bits)<<8 | 0xFF)
+#define ACTION_LAYER_DEFAULT_SET_CURRENT_ON_PRESSED    ACTION(ACT_LAYER_EXT, 0x0<<8    | 0xFF)
+#define ACTION_LAYER_DEFAULT_SET_CURRENT_ON_RELEASED   ACTION(ACT_LAYER_EXT, 0x1<<8    | 0xFF)
 /* Layer switch with tap key */
-#define ACTION_LAYER_SET_TAP_KEY(layer, key)  ACTION(ACT_LAYER_PRESSED, (layer)<<8 | (key))
-#define ACTION_LAYER_BIT_TAP_KEY(bits, key)   ACTION(ACT_LAYER_BIT,     (bits)<<8 | (key))
-#define ACTION_LAYER_DEFAULT_SET_TAP_KEY(key) ACTION(ACT_LAYER_EXT,     0x0<<8     | (key))
-/* with tap toggle */
-#define ACTION_LAYER_SET_ON_PRESSED_TAP_TOGGLE(layer)   ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xF0)
-#define ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(layer)  ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0xF0)
-#define ACTION_LAYER_BIT_TAP_TOGGLE(layer)  ACTION(ACT_LAYER_BIT,     (layer)<<8 | 0xF0)
-#define ACTION_LAYER_DEFAULT_TAP_TOGGLE     ACTION(ACT_LAYER_EXT,     0x0<<8     | 0xF0)
+#define ACTION_LAYER_SET_TAP_KEY(layer, key)           ACTION(ACT_LAYER_PRESSED, (layer)<<8 | (key))
+#define ACTION_LAYER_BIT_TAP_KEY(bits, key)            ACTION(ACT_LAYER_BIT,     (bits)<<8 | (key))
+#define ACTION_LAYER_DEFAULT_SET_TAP_KEY(key)          ACTION(ACT_LAYER_EXT,     0x0<<8     | (key))
+/* Layer switch with tap toggle */
+#define ACTION_LAYER_SET_ON_PRESSED_TAP_TOGGLE(layer)  ACTION(ACT_LAYER_PRESSED,  (layer)<<8 | 0xF0)
+#define ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(layer) ACTION(ACT_LAYER_RELEASED, (layer)<<8 | 0xF0)
+#define ACTION_LAYER_BIT_TAP_TOGGLE(layer)             ACTION(ACT_LAYER_BIT,     (layer)<<8 | 0xF0)
+#define ACTION_LAYER_DEFAULT_TAP_TOGGLE                ACTION(ACT_LAYER_EXT,     0x0<<8     | 0xF0)
 
 /* HID Usage */
 #define ACTION_USAGE_PAGE_SYSTEM        0
 #define ACTION_USAGE_PAGE_CONSUMER      1
 #define ACTION_USAGE_SYSTEM(id)         ACTION(ACT_USAGE,    ACTION_USAGE_PAGE_SYSTEM<<10 | (id))
 #define ACTION_USAGE_CONSUMER(id)       ACTION(ACT_USAGE,    ACTION_USAGE_PAGE_CONSUMER<<10 | (id))
+
 /* Mousekey */
 #define ACTION_MOUSEKEY(key)            ACTION(ACT_MOUSEKEY, key)
+
 /* Macro */
 #define ACTION_MACRO(opt, id)           ACTION(ACT_FUNCTION, (opt)<<8 | (addr))
+
 /* Command */
 #define ACTION_COMMAND(opt, id)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
+
 /* Function */
 #define ACTION_FUNCTION(id, opt)        ACTION(ACT_FUNCTION, (opt)<<8 | id)
 
