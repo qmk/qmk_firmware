@@ -32,6 +32,7 @@ typedef struct {
     uint8_t row;
 } keypos_t;
 
+// TODO: need raw? keypos_t -> key_t?
 typedef union {
     uint16_t raw;
     keypos_t pos;

@@ -21,6 +21,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 
 
+/* Execute action per keyevent */
+void action_exec(keyevent_t event);
+
+
+/* Struct to record event and tap count  */
+typedef struct {
+    keyevent_t  event;
+    uint8_t     tap_count;
+} keyrecord_t;
+
 /* Action struct.
  *
  * In avr-gcc bit field seems to be assigned from LSB(bit0) to MSB(bit15). 
@@ -48,7 +58,7 @@ typedef union {
     } key;
     struct action_layer {
         uint16_t code   :8;
-        uint16_t opt    :4;
+        uint16_t val    :4;
         uint16_t kind   :4;
     } layer;
     struct action_usage {
@@ -58,7 +68,7 @@ typedef union {
     } usage;
     struct action_command {
         uint16_t id     :8;
-        uint16_t option :4;
+        uint16_t opt    :4;
         uint16_t kind   :4;
     } command;
     struct action_function {
@@ -67,18 +77,6 @@ typedef union {
         uint8_t  kind   :4;
     } func;
 } action_t;
-
-/* Struct to record action and tap count  */
-typedef struct {
-    keyevent_t  event;
-    uint8_t     tap_count;
-} keyrecord_t;
-
-
-/* execute action per keyevent */
-void action_exec(keyevent_t event);
-typedef void (*action_func_t)(keyevent_t event, uint8_t opt); // TODO:no need?
-void action_call_function(keyevent_t event, uint8_t id);    // TODO: action function
 
 
 /*
@@ -94,6 +92,7 @@ void clear_keyboard_but_mods(void);
 bool sending_anykey(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_key(key_t key);
+bool waiting_buffer_has_anykey_pressed(void);
 
 
 
@@ -203,9 +202,6 @@ ACT_FUNCTION(1111):
 1111| address(12)     Function?
 1111|opt | id(8)      Function?
 
-TODO: modifier + function by tap?
-    for example: LShift + '('[Shift+9] and RShift + ')'[Shift+0]
-    http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478.html#p90052
  */
 enum action_kind_id {
     ACT_LMODS           = 0b0000,
@@ -226,8 +222,12 @@ enum action_kind_id {
     ACT_FUNCTION        = 0b1111
 };
 
-enum acion_param {
-    ONE_SHOT            = 0x00,
+enum params {
+    P_ONESHOT           = 0x00,
+};
+
+enum options {
+    O_TAP               = 0x8,
 };
 
 
@@ -251,14 +251,14 @@ enum acion_param {
 
 /* Mods + Tap key */
 #define ACTION_LMODS_TAP_KEY(mods, key) ACTION(ACT_LMODS_TAP, MODS4(mods)<<8 | (key))
-#define ACTION_LMODS_ONESHOT(mods)      ACTION(ACT_LMODS_TAP, MODS4(mods)<<8 | ONE_SHOT)
+#define ACTION_LMODS_ONESHOT(mods)      ACTION(ACT_LMODS_TAP, MODS4(mods)<<8 | P_ONESHOT)
 #define ACTION_RMODS_TAP_KEY(mods, key) ACTION(ACT_RMODS_TAP, MODS4(mods)<<8 | (key))
-#define ACTION_RMODS_ONESHOT(mods)      ACTION(ACT_RMODS_TAP, MODS4(mods)<<8 | ONE_SHOT)
+#define ACTION_RMODS_ONESHOT(mods)      ACTION(ACT_RMODS_TAP, MODS4(mods)<<8 | P_ONESHOT)
 /* Mod + Tap key */
 #define ACTION_LMOD_TAP_KEY(mod, key)   ACTION(ACT_LMODS_TAP, MODS4(MOD_BIT(mod))<<8 | (key))
-#define ACTION_LMOD_ONESHOT(mod)        ACTION(ACT_LMODS_TAP, MODS4(MOD_BIT(mod))<<8 | ONE_SHOT)
+#define ACTION_LMOD_ONESHOT(mod)        ACTION(ACT_LMODS_TAP, MODS4(MOD_BIT(mod))<<8 | P_ONESHOT)
 #define ACTION_RMOD_TAP_KEY(mod, key)   ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | (key))
-#define ACTION_RMOD_ONESHOT(mod)        ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | ONE_SHOT)
+#define ACTION_RMOD_ONESHOT(mod)        ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | P_ONESHOT)
 
 // TODO: contemplate about layer action
 /* Switch current layer */
@@ -304,5 +304,6 @@ enum acion_param {
 
 /* Function */
 #define ACTION_FUNCTION(id, opt)        ACTION(ACT_FUNCTION, (opt)<<8 | id)
+#define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, O_TAP<<8 | id)
 
 #endif  /* ACTION_H */
