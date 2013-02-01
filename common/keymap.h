@@ -29,10 +29,12 @@ extern uint8_t current_layer;
 extern uint8_t default_layer;
 
 
-/* 
- * new keymap interface: action
- */
+/* action for key */
+// TODO: should use struct key_t?
 action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col);
+
+/* user defined special function */
+void keymap_call_function(keyrecord_t *record, uint8_t id);
 
 
 #ifndef NO_LEGACY_KEYMAP_SUPPORT

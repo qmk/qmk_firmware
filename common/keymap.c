@@ -68,6 +68,6 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col)
 #endif
 
 __attribute__ ((weak))
-void action_call_function(keyevent_t event, uint8_t id)
+void keymap_call_function(keyrecord_t *event, uint8_t id)
 {
 }

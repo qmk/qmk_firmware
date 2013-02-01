@@ -51,23 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 
-static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_LAYER_TO_DEFAULT_ON_RELEASED,    // Fn0
-    ACTION_LAYER_SET_ON_PRESSED(1),         // Fn1
-    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),  // Fn2
-    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),   // Fn3
-    //ACTION_LAYER_SET_ON_PRESSED(3),         // Fn4
-    ACTION_FUNCTION(0x01, 0xA), // Fn4
-    ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),    // Fn5
-    ACTION_LMODS_TAP(MOD_BIT(KC_LCTL), KC_BSPC), // Fn6
-    ACTION_RMODS_TAP(MOD_BIT(KC_RCTL), KC_ENT), // Fn7
-
-    ACTION_LMODS_TAP(MOD_BIT(KC_LSFT), ONE_SHOT),   // Fn8
-    ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(1),                     // Fn9
-    ACTION_LAYER_BIT_TAP_TOGGLE(1),                 // Fn10
-};
-
-
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
@@ -85,7 +68,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
-           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN10, \
+           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN10, \
                 LGUI,LALT,          FN5,                RALT,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -173,24 +156,127 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 LGUI,LALT,          FN0,                RALT,RGUI),
 };
 
-#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
 
 
-/* legacy interface */
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col) { return 0; }
-uint8_t keymap_fn_layer(uint8_t fn_bits) { return 0; }
-uint8_t keymap_fn_keycode(uint8_t fn_bits) { return 0; }
+/* id for user defined functions */
+enum function_id {
+    LSHIFT_LPAREN,
+    RSHIFT_RPAREN,
+};
 
+/*
+ * Fn action definition
+ */
+static const uint16_t PROGMEM fn_actions[] = {
+    ACTION_LAYER_RETURN_DEFAULT,                    // FN0
+    ACTION_LAYER_SET(1),                            // FN1
+    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),          // FN2
+    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),           // FN3
+    ACTION_LAYER_SET(3),                            // FN4
+    ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),            // FN5
+    ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),          // FN6
+    ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),           // FN7
+    ACTION_LMOD_ONESHOT(KC_LSFT),                   // FN8    Oneshot Shift
+    ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(1),     // FN9
+    ACTION_LAYER_BIT_TAP_KEY(1, KC_GRV),            // FN10
+    //ACTION_LAYER_BIT(1),                          // FN10
+    //ACTION_LAYER_BIT_TAP_TOGGLE(1),               // FN10
+    ACTION_FUNCTION_TAP(LSHIFT_LPAREN),             // FN11
+    ACTION_FUNCTION_TAP(RSHIFT_RPAREN),             // FN12
+};
 
+/*
+ * user defined action function
+ */
+void keymap_call_function(keyrecord_t *record, uint8_t id)
+{
+    keyevent_t event = record->event;
+    uint8_t tap_count = record->tap_count;
+
+    debug("action_call_function: ");
+    if (event.pressed) debug("pressed"); else debug("released");
+    debug(" id: "); debug_hex(id);
+    debug(" tap_count: "); debug_dec(tap_count);
+    debug("\n");
+
+    switch (id) {
+        case LSHIFT_LPAREN:
+            // LShft + tap '('
+            if (event.pressed) {
+                if (tap_count == 0) {
+                    add_mods(MOD_BIT(KC_LSHIFT));
+                } else {
+                    if (waiting_buffer_has_anykey_pressed()) {
+                        // ad hoc: set 0 to cancel tap
+                        record->tap_count = 0;
+                        add_mods(MOD_BIT(KC_LSHIFT));
+                    } else {
+                        // NOTE to avoid conflicting command key bind(LShift+RShift)
+                        //register_code(KC_LSHIFT);
+                        //register_code(KC_9);
+                        host_add_mods(MOD_BIT(KC_LSHIFT));
+                        host_add_key(KC_9);
+                        host_send_keyboard_report();
+                    }
+                }
+            } else {
+                if (tap_count == 0) {
+                    del_mods(MOD_BIT(KC_LSHIFT));
+                } else {
+                    //unregister_code(KC_9);
+                    //unregister_code(KC_LSHIFT);
+                    host_del_mods(MOD_BIT(KC_LSHIFT));
+                    host_del_key(KC_9);
+                    host_send_keyboard_report();
+                }
+            }
+            break;
+        case RSHIFT_RPAREN:
+            // RShift + tap ')'
+            if (event.pressed) {
+                if (tap_count == 0) {
+                    add_mods(MOD_BIT(KC_RSHIFT));
+                } else {
+                    if (waiting_buffer_has_anykey_pressed()) {
+                        // ad hoc: set 0 to cancel tap
+                        record->tap_count = 0;
+                        add_mods(MOD_BIT(KC_RSHIFT));
+                    } else {
+                        //register_code(KC_RSHIFT);
+                        //register_code(KC_0);
+                        host_add_mods(MOD_BIT(KC_RSHIFT));
+                        host_add_key(KC_0);
+                        host_send_keyboard_report();
+                    }
+                }
+            } else {
+                if (tap_count == 0) {
+                    del_mods(MOD_BIT(KC_RSHIFT));
+                } else {
+                    //unregister_code(KC_0);
+                    //unregister_code(KC_RSHIFT);
+                    host_del_mods(MOD_BIT(KC_RSHIFT));
+                    host_del_key(KC_0);
+                    host_send_keyboard_report();
+                }
+            }
+            break;
+    }
+}
+
+/* convert keycode to action */
 action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
-    /* convert from legacy keycode to action */
-    uint8_t key = KEYCODE(layer, row, col);
+    uint8_t key = (pgm_read_byte(&keymaps[(layer)][(row)][(col)]));
     action_t action;
     switch (key) {
         case KC_A ... KC_EXSEL:
-        case KC_LCTRL ... KC_LGUI:
-        case KC_RCTRL ... KC_RGUI:
             action.code = ACTION_KEY(key);
+            break;
+        case KC_LCTRL ... KC_LGUI:
+            action.code = ACTION_LMOD(key);
+            break;
+        case KC_RCTRL ... KC_RGUI:
+            action.code = ACTION_RMOD(key);
             break;
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(key));
@@ -201,15 +287,7 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(key);
             break;
-/* TODO
-        case KC_LCTRL ... KC_LGUI:
-            action.code = ACTION_LMODS(MOD_BIT(key));
-            break;
-        case KC_RCTRL ... KC_RGUI:
-            action.code = ACTION_RMODS(MOD_BIT(key)>>4);
-            break;
-*/
-        case KC_FN0 ... FN_MAX:
+        case KC_FN0 ... KC_FN31:
             if (FN_INDEX(key) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
                 action.code = pgm_read_word(&fn_actions[FN_INDEX(key)]);
             } else {
@@ -222,19 +300,4 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
             break;
     }
     return action;
-}
-
-// TODO: how to define action function
-void action_call_function(keyevent_t event, uint8_t id)
-{
-    // '(' Shift+9
-    if (event.pressed) {
-        register_code(KC_LSHIFT);
-        register_code(KC_9);
-        debug("action_call_function: pressed: id: "); debug_hex(id); debug("\n");
-    } else {
-        unregister_code(KC_9);
-        unregister_code(KC_LSHIFT);
-        debug("action_call_function: released: id: "); debug_hex(id); debug("\n");
-    }
 }
