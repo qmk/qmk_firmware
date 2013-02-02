@@ -19,7 +19,7 @@
 				<require idref="lufa.common"/>
 				<require idref="lufa.drivers.misc.ansi"/>
 
-				<build type="c-source"    value="Drivers/Peripheral/AVR8/Serial_AVR8.c"/>
+				<build type="c-source" value="Drivers/Peripheral/AVR8/Serial_AVR8.c"/>
 				<build type="header-file" value="Drivers/Peripheral/AVR8/Serial_AVR8.h"/>
 				<build type="include-path" value=".."/>
 				<build type="header-file" subtype="api" value="Drivers/Peripheral/Serial.h"/>
@@ -33,7 +33,7 @@
 				<require idref="lufa.common"/>
 				<require idref="lufa.drivers.misc.ansi"/>
 
-				<build type="c-source"    value="Drivers/Peripheral/XMEGA/Serial_XMEGA.c"/>
+				<build type="c-source" value="Drivers/Peripheral/XMEGA/Serial_XMEGA.c"/>
 				<build type="header-file" value="Drivers/Peripheral/XMEGA/Serial_XMEGA.h"/>
 				<build type="include-path" value=".."/>
 				<build type="header-file" subtype="api" value="Drivers/Peripheral/Serial.h"/>
@@ -131,7 +131,7 @@
 
 				<require idref="lufa.common"/>
 
-				<build type="c-source"    value="Drivers/Peripheral/AVR8/TWI_AVR8.c"/>
+				<build type="c-source" value="Drivers/Peripheral/AVR8/TWI_AVR8.c"/>
 				<build type="header-file" value="Drivers/Peripheral/AVR8/TWI_AVR8.h"/>
 				<build type="include-path" value=".."/>
 				<build type="header-file" subtype="api" value="Drivers/Peripheral/TWI.h"/>

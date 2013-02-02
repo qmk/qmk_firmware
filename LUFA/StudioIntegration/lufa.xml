@@ -9,7 +9,7 @@
 <!-- Atmel Studio framework integration file -->
 
 <lufa>
-	<fdk>
+	<extension-container>
 		<extension uuid="0e160d5c-e331-48d9-850b-e0387912171b" org="FourWalledCubicle" shortname="LUFA" version="" fullname="Lightweight USB Framework for AVRs (LUFA)">
 			<author name="Dean Camera" website="http://www.lufa-lib.org/" email="dean@fourwalledcubicle.com"/>
 			<description>Lightweight USB Framework for AVRs (LUFA), a USB software stack/framework.</description>
@@ -24,7 +24,7 @@
 			</online-help>
 			<dependencies/>
 		</extension>
-	</fdk>
+	</extension-container>
 
 	<asf>
 		<device-alias-map name="lufa_avr8">
