@@ -264,6 +264,7 @@ ADB Keycode
     http://72.0.193.250/Documentation/macppc/adbkeycodes/
     http://m0115.web.fc2.com/m0115.jpg
     [Inside Macintosh volume V, pages 191-192]
+    http://www.opensource.apple.com/source/IOHIDFamily/IOHIDFamily-421.18.3/IOHIDFamily/Cosmo_USB2ADB.c
 ADB Signaling
     http://kbdbabel.sourceforge.net/doc/kbd_signaling_pcxt_ps2_adb.pdf
 ADB Overview & History
