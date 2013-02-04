@@ -21,12 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "host.h"
 #include "keycode.h"
-#include "print.h"
-#include "debug.h"
-#include "util.h"
 #include "action.h"
+#include "action_macro.h"
+#include "host.h"
+#include "debug.h"
 #include "keymap.h"
 
 
@@ -69,7 +68,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
            FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN10, \
-                LGUI,LALT,          FN5,                RALT,FN4),
+                LGUI,LALT,          FN5,                FN13,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -162,6 +161,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum function_id {
     LSHIFT_LPAREN,
     RSHIFT_RPAREN,
+    MACRO                   = 0xff
 };
 
 /*
@@ -172,7 +172,8 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_SET(1),                            // FN1
     ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),          // FN2
     ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),           // FN3
-    ACTION_LAYER_SET(3),                            // FN4
+    //ACTION_LAYER_SET(3),                            // FN4
+    ACTION_FUNCTION(MACRO, 0),                      // FN4
     ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),            // FN5
     ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),          // FN6
     ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),           // FN7
@@ -183,12 +184,36 @@ static const uint16_t PROGMEM fn_actions[] = {
     //ACTION_LAYER_BIT_TAP_TOGGLE(1),               // FN10
     ACTION_FUNCTION_TAP(LSHIFT_LPAREN),             // FN11
     ACTION_FUNCTION_TAP(RSHIFT_RPAREN),             // FN12
+    ACTION_FUNCTION(MACRO, 1),                      // FN13
 };
+
+
+/*
+ * Macro definition
+ */
+#define MACRO(...) ({ static prog_macro_t _m[] PROGMEM = { __VA_ARGS__ }; _m; })
+#define MACRO_NONE  0
+static const prog_macro_t *get_macro(uint8_t id, bool pressed)
+{
+    switch (id) {
+        case 0:
+            return (pressed ?
+                    MACRO( MD(LSHIFT), D(D), END ) :
+                    MACRO( U(D), MU(LSHIFT), END ) );
+        case 1:
+            return (pressed ?
+                    MACRO( I(255), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
+                    MACRO_NONE );
+    }
+    return 0;
+}
+
+
 
 /*
  * user defined action function
  */
-void keymap_call_function(keyrecord_t *record, uint8_t id)
+void keymap_call_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     keyevent_t event = record->event;
     uint8_t tap_count = record->tap_count;
@@ -260,6 +285,9 @@ void keymap_call_function(keyrecord_t *record, uint8_t id)
                     host_send_keyboard_report();
                 }
             }
+            break;
+        case MACRO:
+            action_macro_play(get_macro(opt, event.pressed));
             break;
     }
 }

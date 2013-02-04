@@ -49,27 +49,27 @@ typedef union {
     uint16_t code;
     struct action_kind {
         uint16_t param  :12;
-        uint16_t id     :4;
+        uint8_t  id     :4;
     } kind;
     struct action_key {
-        uint16_t code   :8;
-        uint16_t mods   :4;
-        uint16_t kind   :4;
+        uint8_t  code   :8;
+        uint8_t  mods   :4;
+        uint8_t  kind   :4;
     } key;
     struct action_layer {
-        uint16_t code   :8;
-        uint16_t val    :4;
-        uint16_t kind   :4;
+        uint8_t  code   :8;
+        uint8_t  val    :4;
+        uint8_t  kind   :4;
     } layer;
     struct action_usage {
         uint16_t code   :10;
-        uint16_t page   :2;
-        uint16_t kind   :4;
+        uint8_t  page   :2;
+        uint8_t  kind   :4;
     } usage;
     struct action_command {
-        uint16_t id     :8;
-        uint16_t opt    :4;
-        uint16_t kind   :4;
+        uint8_t  id     :8;
+        uint8_t  opt    :4;
+        uint8_t  kind   :4;
     } command;
     struct action_function {
         uint8_t  id     :8;
