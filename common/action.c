@@ -620,7 +620,7 @@ static void process_action(keyrecord_t *record)
             break;
         case ACT_FUNCTION:
             // TODO
-            keymap_call_function(record, action.func.id);
+            keymap_call_function(record, action.func.id, action.func.opt);
             break;
         default:
             break;

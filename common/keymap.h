@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 
 
+// TODO: move to action.h?
 /* layer used currently */
 extern uint8_t current_layer;
 /* layer to return or start with */
@@ -34,7 +35,7 @@ extern uint8_t default_layer;
 action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col);
 
 /* user defined special function */
-void keymap_call_function(keyrecord_t *record, uint8_t id);
+void keymap_call_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 
 
 #ifndef NO_LEGACY_KEYMAP_SUPPORT
