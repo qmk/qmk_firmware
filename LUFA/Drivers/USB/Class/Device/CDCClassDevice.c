@@ -332,7 +332,6 @@ static int CDC_Device_getchar_Blocking(FILE* Stream)
 }
 #endif
 
-// cppcheck-suppress unusedFunction
 void CDC_Device_Event_Stub(void)
 {
 

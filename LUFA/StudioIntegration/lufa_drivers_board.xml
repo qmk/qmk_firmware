@@ -11,21 +11,21 @@
 <lufa>
 	<asf>
 		<board id="lufa.boards.dummy.avr8" vendor="LUFA" caption="AVR8 Architecture">
-			<device-support value="lufa_avr8"/>
+			<device-support value="mega"/>
 
 			<require idref="lufa.drivers.board"/>
 			<require idref="lufa.drivers.board.info"/>
 		</board>
 
 		<board id="lufa.boards.dummy.xmega" vendor="LUFA" caption="XMEGA Architecture">
-			<device-support value="lufa_xmega"/>
+			<device-support value="xmega"/>
 
 			<require idref="lufa.drivers.board"/>
 			<require idref="lufa.drivers.board.info"/>
 		</board>
 
 		<board id="lufa.boards.dummy.uc3" vendor="LUFA" caption="UC3 Architecture">
-			<device-support value="lufa_uc3"/>
+			<device-support value="uc3"/>
 
 			<require idref="lufa.drivers.board"/>
 			<require idref="lufa.drivers.board.info"/>

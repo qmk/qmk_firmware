@@ -20,6 +20,8 @@ CPPCHECK_INCLUDES := $(patsubst %/,%,$(LUFA_PATH))/CodeTemplates/               
 
 CPPCHECK_FLAGS    := -U TEMPLATE_FUNC_NAME -U __GNUC__ -U __DOXYGEN__
 
+CPPCHECK_SUPPRESS := variableScope missingInclude unusedFunction
+
 SRC               := $(patsubst %/,%,$(LUFA_PATH))/..
 
 # Build test cannot be run with multiple parallel jobs

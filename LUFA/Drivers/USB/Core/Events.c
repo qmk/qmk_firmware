@@ -32,7 +32,6 @@
 #define  __INCLUDE_FROM_USB_DRIVER
 #include "Events.h"
 
-// cppcheck-suppress unusedFunction
 void USB_Event_Stub(void)
 {
 

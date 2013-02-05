@@ -188,7 +188,6 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioIn
 	return true;
 }
 
-// cppcheck-suppress unusedFunction
 void Audio_Device_Event_Stub(void)
 {
 
