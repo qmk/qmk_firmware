@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap.h"
 
 
-// Convert physical keyboard layout to matrix array.
-// This is a macro to define keymap easily in keyboard layout form.
 #define KEYMAP( \
     K31, K30, K00, K10, K11, K20, K21, K40, K41, K60, K61, K70, K71, K50, K51, \
     K32, K01, K02, K13, K12, K23, K22, K42, K43, K62, K63, K73, K72, K52, \
@@ -50,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 
+// TODO: use [1] = KEYMAP(...) to prevent from changing index of element?
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
@@ -57,17 +56,17 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Backs|
      * |-----------------------------------------------------------|
-     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
+     * |Fn6   |  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift |Fn1|
+     * |Fn8     |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Fn12  |Fn1|
      * `-----------------------------------------------------------'
-     *       |Gui|Alt  |Fn5                    |Alt  |Fn4|
+     *       |Gui|Alt  |          Fn5          |Alt  |Fn4|
      *       `-------------------------------------------'
      */
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
-           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN10, \
+           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN9, \
                 LGUI,LALT,          FN5,                FN13,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -80,13 +79,13 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |Fn0|
      * `-----------------------------------------------------------'
-     *      |Gui |Alt  |Space                  |Alt  |xxx|
-     *      `--------------------------------------------'
+     *       |Gui|Alt  |         Space         |Alt  |Gui|
+     *       `-------------------------------------------'
      */ 
     KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  BSPC, \
+           CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS, UP,  NO,  BSPC, \
            LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN10, \
+           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN0, \
                 LGUI,LALT,          SPC,                RALT,RGUI),
 
     /* Layer 2: Vi mode (Slash)
@@ -99,7 +98,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |   |Hom|PgD|PgUlEnd|Fn0|Shift |   |
      * `-----------------------------------------------------------'
-     *       |Gui|Alt  |Space                  |Alt  |Gui|
+     *       |Gui|Alt  |          Space        |Alt  |Gui|
      *       `-------------------------------------------'
      */
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
@@ -112,13 +111,13 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
-     * |Tab  |MwL|MwU|McU|MwD|MwR|MwL|MwD|MwU|MwR|   |   |   |Backs|
+     * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |   |   |Backs|
      * |-----------------------------------------------------------|
-     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|Fn0|   |Return  |
+     * |Contro|   |   |   |   |   |McL|McD|McU|McR|Fn0|   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |Mb4|Mb5|Mb1|Mb2|Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift |   |
+     * |Shift   |   |   |   |   |Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift |   |
      * `-----------------------------------------------------------'
-     *      |Gui |Alt  |Mb1                    |Alt  |Fn0|
+     *      |Gui |Alt  |          Mb1          |Alt  |Fn0|
      *      `--------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
@@ -147,10 +146,23 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LSFT,SLSH,DOT, COMM,M,   N,   B,   V,   C,   X,   Z,   RSFT,NO, \
                 LGUI,LALT,          FN0,                RALT,RGUI),
 
-    /* Layer5: another Mouse mode (Space) */
+    /* Layer5: another Mouse mode (Space)
+     * ,-----------------------------------------------------------.
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
+     * |-----------------------------------------------------------|
+     * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |   |   |Backs|
+     * |-----------------------------------------------------------|
+     * |Contro|   |   |   |   |   |McL|McD|McU|McR|Fn0|   |Return  |
+     * |-----------------------------------------------------------|
+     * |Shift   |   |   |   |   |Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift |   |
+     * `-----------------------------------------------------------'
+     *      |Gui |Alt  |          Fn0          |Alt  |Fn0|
+     *      `--------------------------------------------'
+     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
+     */
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,  ENT, \
+           LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,NO,  NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
                 LGUI,LALT,          FN0,                RALT,RGUI),
 };
@@ -164,27 +176,32 @@ enum function_id {
     MACRO                   = 0xff
 };
 
+
 /*
  * Fn action definition
  */
+// TODO: use [1] = KEYMAP(...) to prevent from changing index of element?
 static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_LAYER_RETURN_DEFAULT,                    // FN0
+    ACTION_LAYER_DEFAULT,                           // FN0
     ACTION_LAYER_SET(1),                            // FN1
-    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),          // FN2
-    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),           // FN3
-    //ACTION_LAYER_SET(3),                            // FN4
-    ACTION_FUNCTION(MACRO, 0),                      // FN4
+    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),          // FN2  Layer with Slash
+    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),           // FN3  Layer with Semicolon
+
+    ACTION_LAYER_SET(3),                            // FN4
+//  ACTION_LAYER_SET_TOGGLE(3),                     // FN4
+//  ACTION_FUNCTION(MACRO, 0),                      // FN4
     ACTION_LAYER_SET_TAP_KEY(5, KC_SPC),            // FN5
-    ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),          // FN6
-    ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),           // FN7
-    ACTION_LMOD_ONESHOT(KC_LSFT),                   // FN8    Oneshot Shift
-    ACTION_LAYER_SET_ON_RELEASED_TAP_TOGGLE(1),     // FN9
-    ACTION_LAYER_BIT_TAP_KEY(1, KC_GRV),            // FN10
+//  ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),          // FN6  Control with tap Backspace
+    ACTION_LMOD_TAP_KEY(KC_LCTL, KC_ESC),           // FN6  Control with tap Backspace
+    ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),           // FN7  Control with tap Enter
+    ACTION_LMOD_ONESHOT(KC_LSFT),                   // FN8  Oneshot Shift
+    ACTION_LAYER_SET_TAP_TOGGLE(1),                 // FN9
+    ACTION_LAYER_BIT_TAP_KEY(1, KC_GRV),            // FN10 Layer with Grave
     //ACTION_LAYER_BIT(1),                          // FN10
     //ACTION_LAYER_BIT_TAP_TOGGLE(1),               // FN10
-    ACTION_FUNCTION_TAP(LSHIFT_LPAREN),             // FN11
-    ACTION_FUNCTION_TAP(RSHIFT_RPAREN),             // FN12
-    ACTION_FUNCTION(MACRO, 1),                      // FN13
+    ACTION_FUNCTION_TAP(LSHIFT_LPAREN),             // FN11 Function: LShift with tap '('
+    ACTION_FUNCTION_TAP(RSHIFT_RPAREN),             // FN12 Function: RShift with tap ')'
+    ACTION_FUNCTION(MACRO, 1),                      // FN13 Macro:
 };
 
 
