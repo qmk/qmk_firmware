@@ -816,18 +816,18 @@ bool is_tap_key(key_t key)
         case ACT_LAYER:
         case ACT_LAYER_BIT:
             switch (action.layer.code) {
-                case 0x00:
-                case 0xF1 ... 0xFF:
+                case LAYER_MOMENTARY:
+                case LAYER_ON_PRESS:
+                case LAYER_ON_RELEASE:
+                case LAYER_DEFAULT:
                     return false;
-                case 0xF0:
-                default:
+                case LAYER_TAP_TOGGLE:
+                default:    /* tap key */
                     return true;
             }
             return false;
         case ACT_FUNCTION:
-            if (action.func.opt & FUNC_TAP) {
-                return true;
-            }
+            if (action.func.opt & FUNC_TAP) { return true; }
             return false;
     }
     return false;
