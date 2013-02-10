@@ -323,7 +323,7 @@ enum usage_pages {
 
 /* Function */
 enum function_opts {
-    FUNC_TAP        = 0x8,
+    FUNC_TAP        = 0x8,      /* indciates function is tappable */
 };
 #define ACTION_FUNCTION(id, opt)        ACTION(ACT_FUNCTION, (opt)<<8 | id)
 #define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | id)
