@@ -392,7 +392,7 @@ enum internal_special_keycodes {
     KC_SYSTEM_SLEEP,
     KC_SYSTEM_WAKE,
 
-    /* Consumer Page */
+    /* Media Control */
     KC_AUDIO_MUTE,
     KC_AUDIO_VOL_UP,
     KC_AUDIO_VOL_DOWN,
@@ -412,7 +412,7 @@ enum internal_special_keycodes {
     KC_WWW_REFRESH,
     KC_WWW_FAVORITES,   /* 0xB9 */
 
-    /* Layer Switching */
+    /* Fn key */
     KC_FN0              = 0xC0,
     KC_FN1,
     KC_FN2,
