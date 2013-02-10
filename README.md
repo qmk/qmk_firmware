@@ -289,8 +289,7 @@ See `common/keycode.h`. Keycode is 8bit internal code to inidicate action perfor
 
  **`KC_FNnn`** are `Fn` keys which not given any action at the beginning unlike most of keycodes has its own action. To use these keys in `KEYMAP` you need to assign action you want at first. Action of `Fn` is defined in `fn_actions[]` and index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` designates action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
 
- See keycode table or `keycode.h` for other keycodes.
- ***TODO: Keycode table link here.*** 
+ See [keycode table](doc/keycode.txt) in `doc/keycode.txt`  or `common/keycode.h` for other keycodes.
 
  In regard to implementation side most of keycodes are identical with [HID usage] sent to host for real and some virtual keycodes are defined to support special actions.
 [HID usage]: http://www.usb.org/developers/devclass_docs/Hut1_11.pdf
@@ -520,7 +519,28 @@ Files & Directories
 * rules.mk      - Makefile for build rules
 
 ### Common
-***TODO***
+* action.[ch]
+* action_macro.[ch]
+* bootloader.[ch]
+* command.[ch]
+* controller_teensy.h
+* debug.[ch]
+* host.[ch]
+* host_driver.h
+* keyboard.[ch]
+* keycode.h
+* keymap.[ch]
+* led.h
+* matrix.h
+* mousekey.[ch]
+* print.[ch]
+* report.h
+* sendchar.h
+* sendchar_null.c
+* sendchar_uart.c
+* timer.[ch]
+* uart.[ch]
+* util.[ch]
 
 ### Keyboard Protocols
 * lufa/     - LUFA USB stack
