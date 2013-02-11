@@ -151,32 +151,41 @@ void EVENT_USB_Device_StartOfFrame(void)
 /** Event handler for the USB_ConfigurationChanged event.
  * This is fired when the host sets the current configuration of the USB device after enumeration.
  */
+#if LUFA_VERSION_INTEGER < 0x120730
+    /* old API 120219 */
+    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint(epnum, eptype, epdir, epsize, epbank)
+#else
+    /* new API >= 120730 */
+    #define ENDPOINT_BANK_SINGLE 1
+    #define ENDPOINT_BANK_DOUBLE 2
+    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint((epdir) | (epnum) , eptype, epsize, epbank)
+#endif
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
     bool ConfigSuccess = true;
 
     /* Setup Keyboard HID Report Endpoints */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 #ifdef MOUSE_ENABLE
     /* Setup Mouse HID Report Endpoint */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 #ifdef EXTRAKEY_ENABLE
     /* Setup Extra HID Report Endpoint */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(EXTRAKEY_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                EXTRAKEY_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(EXTRAKEY_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     EXTRAKEY_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 #ifdef CONSOLE_ENABLE
     /* Setup Console HID Report Endpoints */
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                                CONSOLE_EPSIZE, ENDPOINT_BANK_DOUBLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-                                                CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     CONSOLE_EPSIZE, ENDPOINT_BANK_DOUBLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
+                                     CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 }
 

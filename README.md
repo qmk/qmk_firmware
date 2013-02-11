@@ -659,4 +659,4 @@ Files & Directories
 License
 -------
 Under `GPL` 2 or later. Some protocol files are under `Modified BSD License`.
-PJRC stack has its own license.
+LUFA and PJRC stack have their own license respectively.
