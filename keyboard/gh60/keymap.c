@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap.h"
 
 
-/* GH60 keymap definition macro 
+/* GH60 keymap definition macro
  * K2C, K31 and  K3C are extra keys for ISO
  */
 #define KEYMAP( \
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D, \
     K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,           K3D, \
     K40, K41, K42,           K45,                     K4A, K4B, K4C, K4D  \
-) KEYMAP( \ 
+) KEYMAP( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, NO,  K2D, \
@@ -136,7 +136,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |xxx |
      * `-----------------------------------------------------------'
-     */ 
+     */
     KEYMAP_ANSI(
         PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,  \
         CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  INS,  \
@@ -174,7 +174,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Ctrl|Gui |Alt |      Space             |    |xxx |xxx |    |
      * `-----------------------------------------------------------'
-     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
+     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     KEYMAP_ANSI(
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \

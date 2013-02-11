@@ -47,4 +47,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* 
+ * Boot magic keys
+ * call some function by pressing key when pluging cable or powering on.
+ */
+/* key position on matrix(ROW:COL) */
+#define KEY_FN          0x4A
+#define KEY_D           0x23
+#define KEY_IS_ON(key)  matrix_is_on((key)>>4, (key)&0xF)
+/* kick up bootloader */
+#define IS_BOOTMAGIC_BOOTLOADER()       KEY_IS_ON(KEY_FN)
+/* debug on */
+#define IS_BOOTMAGIC_DEBUG()            KEY_IS_ON(KEY_D)
+
 #endif
