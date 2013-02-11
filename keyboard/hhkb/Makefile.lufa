@@ -121,3 +121,6 @@ VPATH += $(TOP_DIR)
 include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
+
+debug-on: EXTRAFLAGS += -DDEBUG
+debug-on: all

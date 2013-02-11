@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "keycode.h"
 #include "host.h"
+#include "keymap.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -53,7 +54,6 @@ static void mousekey_console_help(void);
 
 static uint8_t numkey2num(uint8_t code);
 static void switch_layer(uint8_t layer);
-static void clear_keyboard(void);
 
 
 typedef enum { ONESHOT, CONSOLE, MOUSEKEY } cmdstate_t;
@@ -555,19 +555,4 @@ static void switch_layer(uint8_t layer)
     current_layer = layer;
     default_layer = layer;
     print("switch to "); print_val_hex8(layer);
-}
-
-static void clear_keyboard(void)
-{
-    host_clear_keys();
-    host_clear_mods();
-    host_send_keyboard_report();
-
-    host_system_send(0);
-    host_consumer_send(0);
-
-#ifdef MOUSEKEY_ENABLE
-    mousekey_clear();
-    mousekey_send();
-#endif
 }

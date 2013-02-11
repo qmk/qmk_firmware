@@ -37,6 +37,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 8
 
 
+/* 
+ * Boot magic keys
+ * call some function by pressing key when pluging cable or powering on.
+ */
+/* key position on matrix(ROW:COL) */
+#define KEY_FN          0x54
+#define KEY_D           0x14
+#define KEY_IS_ON(key)  matrix_is_on((key)>>4, (key)&0xF)
+/* kick up bootloader */
+#define IS_BOOTMAGIC_BOOTLOADER()       KEY_IS_ON(KEY_FN)
+/* debug on */
+#define IS_BOOTMAGIC_DEBUG()            KEY_IS_ON(KEY_D)
+
+
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 
 
@@ -45,6 +59,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define MOUSEKEY_DELAY_TIME 100
 #endif
 
+/* period of tapping(ms) */
+#define TAPPING_TERM    200
+/* tap count needed for toggling a feature */
+#define TAPPING_TOGGLE  5
 
 /* PS/2 mouse */
 #ifdef PS2_MOUSE_ENABLE

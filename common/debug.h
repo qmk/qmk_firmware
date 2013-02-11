@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define debug_dec(data)           do { if (debug_enable) print_dec(data); } while (0)
 #define debug_decs(data)          do { if (debug_enable) print_decs(data); } while (0)
+#define debug_hex4(data)          do { if (debug_enable) print_hex4(data); } while (0)
 #define debug_hex8(data)          do { if (debug_enable) print_hex8(data); } while (0)
 #define debug_hex16(data)         do { if (debug_enable) print_hex16(data); } while (0)
 #define debug_hex32(data)         do { if (debug_enable) print_hex32(data); } while (0)
