@@ -1,10 +1,16 @@
 LUFA_DIR = protocol/lufa
 
 # Path to the LUFA library
-LUFA_PATH = protocol/lufa/LUFA-120219
+LUFA_PATH ?= protocol/lufa/LUFA-120730
 
-# Create the LUFA source path variables by including the LUFA root makefile
-include $(TOP_DIR)/$(LUFA_PATH)/LUFA/makefile
+# Create the LUFA source path variables by including the LUFA makefile
+ifneq (, $(wildcard $(TOP_DIR)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
+    # New build system from 20120730
+    LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
+    include $(TOP_DIR)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk 
+else
+    include $(TOP_DIR)/$(LUFA_PATH)/LUFA/makefile
+endif
 
 LUFA_SRC = $(LUFA_DIR)/lufa.c \
 	   $(LUFA_DIR)/descriptor.c \
