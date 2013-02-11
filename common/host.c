@@ -127,14 +127,19 @@ void host_clear_keys(void)
     }
 }
 
-void host_add_mod_bit(uint8_t mod)
+uint8_t host_get_mods(void)
 {
-    keyboard_report->mods |= mod;
+    return keyboard_report->mods;
 }
 
-void host_del_mod_bit(uint8_t mod)
+void host_add_mods(uint8_t mods)
 {
-    keyboard_report->mods &= ~mod;
+    keyboard_report->mods |= mods;
+}
+
+void host_del_mods(uint8_t mods)
+{
+    keyboard_report->mods &= ~mods;
 }
 
 void host_set_mods(uint8_t mods)

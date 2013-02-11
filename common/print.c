@@ -113,7 +113,6 @@ void print_decs(int16_t data)
 }
 
 
-static inline
 void print_hex4(uint8_t data)
 {
     sendchar(data + ((data < 10) ? '0' : 'A' - 10));
@@ -137,6 +136,12 @@ void print_hex32(uint32_t data)
     print_hex16(data);
 }
 
+void print_bin4(uint8_t data)
+{
+    for (int i = 4; i >= 0; i--) {
+        sendchar((data & (1<<i)) ? '1' : '0');
+    }
+}
 
 void print_bin8(uint8_t data)
 {
