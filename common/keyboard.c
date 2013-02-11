@@ -14,6 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <stdint.h>
+#include <util/delay.h>
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -40,8 +42,15 @@ void keyboard_init(void)
     timer_init();
     matrix_init();
 
-    /* boot magic keys goes here */
+    /* matrix scan for boot magic keys */
+#ifdef DEBOUNCE
+    uint8_t scan = DEBOUNCE * 2;
+    while (scan--) { matrix_scan(); _delay_ms(1); }
+#else
     matrix_scan();
+#endif
+
+    /* boot magic keys */
 #ifdef IS_BOOTMAGIC_BOOTLOADER
     /* kick up bootloader */
     if (IS_BOOTMAGIC_BOOTLOADER()) bootloader_jump();

@@ -131,7 +131,7 @@ uint16_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
-    print("\nr/c 01234567890ABCDEF\n");
+    print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
         pbin_reverse16(matrix_get_row(row));
