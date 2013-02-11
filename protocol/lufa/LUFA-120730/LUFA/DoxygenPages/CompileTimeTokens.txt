@@ -1,0 +1,223 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_TokenSummary Summary of Compile Tokens
+ *
+ *  The following lists all the possible tokens which can be defined in a project makefile, and passed to the
+ *  compiler via the -D switch, to alter the LUFA library code. These tokens may alter the library behaviour,
+ *  or remove features unused by a given application in order to save flash space.
+ *
+ *  \note If the \c USE_LUFA_CONFIG_HEADER token is defined, the library will include a header file named \c LUFAConfig.h located
+ *        in the user directory where the below compile time tokens may be defined. This allows for an alternative to makefile
+ *        defined tokens for configuring the library.
+ *
+ *  \section Sec_SummaryNonUSBTokens Non USB Related Tokens
+ *  This section describes compile tokens which affect non-USB sections of the LUFA library.
+ *
+ *  - <b>DISABLE_TERMINAL_CODES</b> - (\ref Group_Terminal) - <i>All Architectures</i> \n
+ *    If an application contains ANSI terminal control codes listed in TerminalCodes.h, it might be desired to remove them
+ *    at compile time for use with a terminal which is non-ANSI control code aware, without modifying the source code. If
+ *    this token is defined, all ANSI control codes in the application code from the TerminalCodes.h header are removed from
+ *    the source code at compile time.
+ *
+ *
+ *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
+ *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
+ *
+ *  - <b>HID_HOST_BOOT_PROTOCOL_ONLY</b> - (\ref Group_USBClassHIDHost) - <i>All Architectures</i> \n
+ *    By default, the USB HID Host class driver is designed to work with HID devices using either the Boot or Report HID
+ *    communication protocols. On devices where the Report protocol is not used (i.e. in applications where only basic
+ *    Mouse or Keyboard operation is desired, using boot compatible devices), the code responsible for the Report protocol
+ *    mode can be removed to save space in the compiled application by defining this token. When defined, it is still necessary
+ *    to explicitly put the attached device into Boot protocol mode via a call to \ref HID_Host_SetBootProtocol().
+ *
+ *  - <b>HID_STATETABLE_STACK_DEPTH</b>=<i>x</i> - (\ref Group_HIDParser) - <i>All Architectures</i> \n
+ *    HID reports may contain PUSH and POP elements, to store and retrieve the current HID state table onto a stack. This
+ *    allows for reports to save the state table before modifying it slightly for a data item, and then restore the previous
+ *    state table in a compact manner. This token may be defined to a non-zero 8-bit value to give the maximum depth of the state
+ *    table stack. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
+ *  - <b>HID_USAGE_STACK_DEPTH</b>=<i>x</i> - (\ref Group_HIDParser) - <i>All Architectures</i> \n
+ *    HID reports generally contain many USAGE elements, which are assigned to INPUT, OUTPUT and FEATURE items in succession
+ *    when multiple items are defined at once (via REPORT COUNT elements). This allows for several items to be defined with
+ *    different usages in a compact manner. This token may be defined to a non-zero 8-bit value to set the maximum depth of the
+ *    usage stack, indicating the maximum number of USAGE items which can be stored temporarily until the next INPUT, OUTPUT
+ *    and FEATURE item. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
+ *  - <b>HID_MAX_COLLECTIONS</b>=<i>x</i> - (\ref Group_HIDParser) - <i>All Architectures</i> \n
+ *    HID reports generally contain several COLLECTION elements, used to group related data items together. Collection information
+ *    is stored separately in the processed usage structure (and referred to by the data elements in the structure) to save space.
+ *    This token may be defined to a non-zero 8-bit value to set the maximum number of COLLECTION items which can be processed by the
+ *    parser into the resultant processed report structure. If not defined, this defaults to the value indicated in the HID.h file
+ *    documentation.
+ *
+ *  - <b>HID_MAX_REPORTITEMS</b>=<i>x</i> - (\ref Group_HIDParser) - <i>All Architectures</i> \n
+ *    All HID reports contain one or more INPUT, OUTPUT and/or FEATURE items describing the data which can be sent to and from the HID
+ *    device. Each item has associated usages, bit offsets in the item reports and other associated data indicating the manner in which
+ *    the report data should be interpreted by the host. This token may be defined to a non-zero 8-bit value to set the maximum number of
+ *    data elements which can be stored in the processed HID report structure, including INPUT, OUTPUT and (if enabled) FEATURE items.
+ *    If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed separately in the
+ *    processed HID report table. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
+ *  - <b>HID_MAX_REPORT_IDS</b>=<i>x</i> - (\ref Group_HIDParser) - <i>All Architectures</i> \n
+ *    HID reports may contain several report IDs, to logically distinguish grouped device data from one another - for example, a combination
+ *    keyboard and mouse might use report IDs to separate the keyboard reports from the mouse reports. In order to determine the size of each
+ *    report, and thus know how many bytes must be read or written, the size of each report (IN, OUT and FEATURE) must be calculated and
+ *    stored. This token may be defined to a non-zero 8-bit value to set the maximum number of report IDs in a device which can be processed
+ *    and their sizes calculated/stored into the resultant processed report structure. If not defined, this defaults to the value indicated in
+ *    the HID.h file documentation.
+ *
+ *  - <b>NO_CLASS_DRIVER_AUTOFLUSH</b> - (\ref Group_USBClassDrivers) - <i>All Architectures</i> \n
+ *    Many of the device and host mode class drivers automatically flush any data waiting to be written to an interface, when the corresponding
+ *    USB management task is executed. This is usually desirable to ensure that any queued data is sent as soon as possible once and new data is
+ *    constructed in the main program loop. However, if flushing is to be controlled manually by the user application via the *_Flush() commands,
+ *    the compile time token may be defined in the application's makefile to disable automatic flushing during calls to the class driver USB
+ *    management tasks.
+ *
+ *
+ *  \section Sec_SummaryUSBTokens General USB Driver Related Tokens
+ *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
+ *
+ *  - <b>ORDERED_EP_CONFIG</b> - (\ref Group_EndpointManagement , \ref Group_PipeManagement) - <i>AVR8, UC3</i> \n
+ *    The USB AVRs do not allow for Endpoints and Pipes to be configured out of order; they <i>must</i> be configured in an ascending order to
+ *    prevent data corruption issues. However, by default LUFA employs a workaround to allow for unordered Endpoint/Pipe initialization. This compile
+ *    time token may be used to restrict the initialization order to ascending indexes only in exchange for a smaller compiled binary size. Use
+ *    caution when applied to applications using the library USB Class drivers; the user application must ensure that all endpoints and pipes are
+ *    allocated sequentially.
+ *
+ *  - <b>USE_STATIC_OPTIONS</b>=<i>x</i> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
+ *    By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
+ *    voltage regulator is enabled, and the device speed when in device mode. By defining this token to a mask comprised of the USB options
+ *    mask defines usually passed as the Options parameter to USB_Init(), the resulting compiled binary can be decreased in size by removing
+ *    the dynamic options code, and replacing it with the statically set options. When defined, the USB_Init() function no longer accepts an
+ *    Options parameter.
+ *
+ *  - <b>USB_DEVICE_ONLY</b> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
+ *    For the USB AVR models supporting both device and host USB modes, the USB_Init() function contains a Mode parameter which specifies the
+ *    mode the library should be initialized to. If only device mode is required, the code for USB host mode can be removed from the binary to
+ *    save space. When defined, the USB_Init() function no longer accepts a Mode parameter. This define is irrelevant on smaller USB AVRs which
+ *    do not support host mode.
+ *
+ *  - <b>USB_HOST_ONLY</b> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
+ *    Same as USB_DEVICE_ONLY, except the library is fixed to USB host mode rather than USB device mode. Not available on some USB AVR models.
+ *
+ *  - <b>USB_STREAM_TIMEOUT_MS</b>=<i>x</i> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
+ *    When endpoint and/or pipe stream functions are used, by default there is a timeout between each transfer which the connected device or host
+ *    must satisfy, or the stream function aborts the remaining data transfer. This token may be defined to a non-zero 16-bit value to set the timeout
+ *    period for stream transfers, specified in milliseconds. If not defined, the default value specified in LowLevel.h is used instead.
+ *
+ *  - <b>NO_LIMITED_CONTROLLER_CONNECT</b> - (\ref Group_Events) - <i>AVR8 Only</i> \n
+ *    On the smaller USB AVRs, the USB controller lacks VBUS events to determine the physical connection state of the USB bus to a host. In lieu of
+ *    VBUS events, the library attempts to determine the connection state via the bus suspension and wake up events instead. This however may be
+ *    slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
+ *    required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_DeviceState global
+ *    can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the RAISE_EVENT macro.
+ *    When defined, this token disables the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
+ *
+ *  - <b>NO_SOF_EVENTS</b> - (\ref Group_Events) - <i>All Architectures</i> \n
+ *    By default, there exists a LUFA application event for the start of each USB frame while the USB bus is not suspended in either host or device mode.
+ *    This event can be selectively enabled or disabled by calling the appropriate device or host mode function. When this compile time token is defined,
+ *    the ability to receive USB Start of Frame events via the \ref EVENT_USB_Device_StartOfFrame() or \ref EVENT_USB_Host_StartOfFrame() events is removed,
+ *    reducing the compiled program's binary size.
+ *
+ *
+ *  \section Sec_SummaryUSBDeviceTokens USB Device Mode Driver Related Tokens
+ *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Device mode.
+ *
+ *  - <b>USE_RAM_DESCRIPTORS</b> - (\ref Group_StdDescriptors) - <i>AVR8 Only</i> \n
+ *    Define this token to indicate to the USB driver that all device descriptors are stored in RAM, rather than being located in any one
+ *    of the AVR's memory spaces. RAM descriptors may be desirable in applications where the descriptors need to be modified at runtime.
+ *
+ *  - <b>USE_FLASH_DESCRIPTORS</b> - (\ref Group_StdDescriptors) - <i>AVR8 Only</i> \n
+ *    Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's FLASH memory rather than RAM.
+ *
+ *  - <b>USE_EEPROM_DESCRIPTORS</b> - (\ref Group_StdDescriptors) - <i>AVR8 Only</i> \n
+ *    Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's EEPROM memory rather than RAM.
+ *
+ *  - <b>NO_INTERNAL_SERIAL</b> - (\ref Group_StdDescriptors) - <i>All Architectures</i> \n
+ *    Some AVR models contain a unique serial number which can be used as the device serial number, while in device mode. This allows
+ *    the host to uniquely identify the device regardless of if it is moved between USB ports on the same computer, allowing allocated
+ *    resources (such as drivers, COM Port number allocations) to be preserved. This is not needed in many apps, and so the code that
+ *    performs this task can be disabled by defining this option and passing it to the compiler via the -D switch.
+ *
+ *  - <b>FIXED_CONTROL_ENDPOINT_SIZE</b>=<i>x</i> - (\ref Group_EndpointManagement) - <i>All Architectures</i> \n
+ *    By default, the library determines the size of the control endpoint (when in device mode) by reading the device descriptor.
+ *    Normally this reduces the amount of configuration required for the library, allows the value to change dynamically (if
+ *    descriptors are stored in EEPROM or RAM rather than flash memory) and reduces code maintenance. However, this token can be
+ *    defined to a non-zero value instead to give the size in bytes of the control endpoint, to reduce the size of the compiled
+ *    binary.
+ *
+ *  - <b>DEVICE_STATE_AS_GPIOR</b> - (\ref Group_Device) - <i>AVR8 Only</i> \n
+ *    One of the most frequently used global variables in the stack is the USB_DeviceState global, which indicates the current state of
+ *    the Device State Machine. To reduce the amount of code and time required to access and modify this global in an application, this token
+ *    may be defined to a value between 0 and 2 to fix the state variable into one of the three general purpose IO registers inside the AVR
+ *    reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
+ *    implicitly via the library APIs.
+ *
+ *  - <b>FIXED_NUM_CONFIGURATIONS</b>=<i>x</i> - (\ref Group_Device) - <i>All Architectures</i> \n
+ *    By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
+ *    the amount of configuration required to set up the library, and allows the value to change dynamically (if descriptors are stored in
+ *    EEPROM or RAM rather than flash memory) and reduces code maintenance. However, this value may be fixed via this token in the project
+ *    makefile to reduce the compiled size of the binary at the expense of flexibility.
+ *
+ *  - <b>CONTROL_ONLY_DEVICE</b> - (\ref Group_Device) - <i>All Architectures</i> \n
+ *    In some limited USB device applications, there are no device endpoints other than the control endpoint; i.e. all device communication
+ *    is through control endpoint requests. Defining this token will remove several features related to the selection and control of device
+ *    endpoints internally, saving space. Generally, this is usually only useful in (some) bootloaders and is best avoided.
+ *
+ *  - <b>MAX_ENDPOINT_INDEX</b> - (\ref Group_Device) - <i>XMEGA Only</i> \n
+ *    Defining this value to the highest index (not address - this excludes the direction flag) endpoint within the device will restrict the
+ *    number of FIFOs created internally for the endpoint buffers, reducing the total RAM usage.
+ *
+ *  - <b>INTERRUPT_CONTROL_ENDPOINT</b> - (\ref Group_USBManagement) - <i>All Architectures</i> \n
+ *    Some applications prefer to not call the USB_USBTask() management task regularly while in device mode, as it can complicate code significantly.
+ *    Instead, when device mode is used this token can be passed to the library via the -D switch to allow the library to manage the USB control
+ *    endpoint entirely via USB controller interrupts asynchronously to the user application. When defined, USB_USBTask() does not need to be called
+ *    when in USB device mode.
+ *
+ *  - <b>NO_DEVICE_REMOTE_WAKEUP</b> - (\ref Group_Device) - <i>All Architectures</i> \n
+ *    Many devices do not require the use of the Remote Wakeup features of USB, used to wake up the USB host when suspended. On these devices,
+ *    the code required to manage device Remote Wakeup can be disabled by defining this token and passing it to the library via the -D switch.
+ *
+ *  - <b>NO_DEVICE_SELF_POWER</b> - (\ref Group_Device) - <i>All Architectures</i> \n
+ *    USB devices may be bus powered, self powered, or a combination of both. When a device can be both bus powered and self powered, the host may
+ *    query the device to determine the current power source, via \ref USB_Device_CurrentlySelfPowered. For solely bus powered devices, this global
+ *    and the code required to manage it may be disabled by passing this token to the library via the -D switch.
+ *
+ *
+ *  \section Sec_SummaryUSBHostTokens USB Host Mode Driver Related Tokens
+ *
+ *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Host mode.
+ *
+ *  - <b>HOST_STATE_AS_GPIOR</b> - (\ref Group_Host) - <i>AVR8 Only</i> \n
+ *    One of the most frequently used global variables in the stack is the USB_HostState global, which indicates the current state of
+ *    the Host State Machine. To reduce the amount of code and time required to access and modify this global in an application, this token
+ *    may be defined to a value between 0 and 2 to fix the state variable into one of the three general purpose IO registers inside the AVR
+ *    reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
+ *    implicitly via the library APIs.
+ *
+ *  - <b>USB_HOST_TIMEOUT_MS</b>=<i>x</i> - (\ref Group_Host) - <i>All Architectures</i> \n
+ *    When a control transfer is initiated in host mode to an attached device, a timeout is used to abort the transfer if the attached
+ *    device fails to respond within the timeout period. This token may be defined to a non-zero 16-bit value to set the timeout period for
+ *    control transfers, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
+ *
+ *  - <b>HOST_DEVICE_SETTLE_DELAY_MS</b>=<i>x</i> - (\ref Group_Host) - <i>All Architectures</i> \n
+ *    Some devices require a delay of up to 5 seconds after they are connected to VBUS before the enumeration process can be started, or
+ *    they will fail to enumerate correctly. By placing a delay before the enumeration process, it can be ensured that the bus has settled
+ *    back to a known idle state before communications occur with the device. This token may be defined to a 16-bit value to set the device
+ *    settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
+ *
+ *  - <b>INVERTED_VBUS_ENABLE_LINE</b> - (\ref Group_Host) - <i>All Architectures</i> \n
+ *    If enabled, this will indicate that the USB target VBUS line polarity is inverted; i.e. it should be pulled low to enable VBUS to the
+ *    target, and pulled high to stop the target VBUS generation.
+ *
+ *    \attention On AVR8 architecture devices, this compile time option requires \c NO_AUTO_VBUS_MANAGEMENT to be set.
+ *
+ *  - <b>NO_AUTO_VBUS_MANAGEMENT</b> - (\ref Group_Host) - <i>All Architectures</i> \n
+ *    Disables the automatic management of VBUS to the target, i.e. automatic shut down in the even of an overcurrent situation. When enabled, VBUS
+ *    is enabled while the USB controller is initialized in USB Host mode.
+ */
+
