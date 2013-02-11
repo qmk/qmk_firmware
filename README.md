@@ -208,7 +208,7 @@ Keymap
 Many of existent projects offer keymap framework to define your own keymap easily. The following will explain how you can define keymap using this framework.
  Instead, you can also implement your own `keymap_get_action()` to return action code for each key if you want.
 
-This is keymap example for [HHKB](http://en.wikipedia.org/wiki/Happy_Hacking_Keyboard) keyboard. Keyamp is defined in `keymaps[]` array.
+This is keymap example for [HHKB](http://en.wikipedia.org/wiki/Happy_Hacking_Keyboard) keyboard. Keymap is defined in `keymaps[]` array.
 
     static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* Layer 0: Default Layer
@@ -279,17 +279,44 @@ This is keymap example for [HHKB](http://en.wikipedia.org/wiki/Happy_Hacking_Key
 
 
 ### 1. Keycode
-See `common/keycode.h`. Keycode is 8bit internal code to inidicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like 'KC_A' have simple action register key on press and unregister on release, on the other some of keycodes has some special actions like Fn keys, Media contorl keys, System control keys and Mouse keys.
+See `common/keycode.h`. Keycode is 8bit internal code to inidicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like `KC_A` have simple action register key on press and unregister on release, on the other some of keycodes has some special actions like Fn keys, Media contorl keys, System control keys and Mouse keys.
 
  ***In `KEYMAP` definition you need to omit prefix part `KC_` of keycode to keep keymap compact.*** For example, just use `A` instead you place `KC_A` in `KEYMAP`. Some keycodes has 4-letter short name in addition to descriptive name, you'll prefer short one in `KEYMAP`.
 
- **`KC_NO`** indicates the key has no keycode to transmit.
+#### 1.1 Normal key
+- `KC_NO` for no aciton
+- `KC_A` to `KC_Z`, `KC_1` to `KC_0` for alpha numeric key
+- `KC_MINS`, `KC_EQL`, `KC_GRV`, `KC_RBRC`, `KC_LBRC`, `KC_COMM`, `KC_DOT`, `KC_BSLS`, `KC_SLSH`, `KC_SCLN`, `KC_QUOT`
+- `KC_ESC`, `KC_TAB`, `KC_SPC`, `KC_BSPC`, `KC_ENT`, `KC_DEL`, `KC_INS`
+- `KC_UP`, `KC_DOWN`, `KC_RGHT`, `KC_LEFT`, `KC_PGUP`, `KC_PGDN`, `KC_HOME`, `KC_END`
+- `KC_CAPS`, `KC_NLCK`, `KC_SLCK`, `KC_PSCR`, `KC_PAUS`, `KC_APP`, `KC_F1` to `KC_F24`
+- `KC_P1` to `KC_P0`, `KC_PDOT`, `KC_PCMM`, `KC_PSLS`, `KC_PAST`, `KC_PMNS`, `KC_PPLS`, `KC_PEQL`, `KC_PENT` for keypad.
 
- **`KC_LGUI`** and **`KC_RGUI`** are windows key or command key in Mac.
+#### 1.2 Modifier
+There are 8 modifiers which has discrimination between left and right. 
 
+- `KC_LCTL` and `KC_RCTL` for Control
+- `KC_LSFT` and `KC_RSFT` for Shift
+- `KC_LALT` and `KC_RALT` for Alt
+- `KC_LGUI` and `KC_RGUI` for Windows key or Command key in Mac
+
+#### 1.3 Fn key
  **`KC_FNnn`** are `Fn` keys which not given any action at the beginning unlike most of keycodes has its own action. To use these keys in `KEYMAP` you need to assign action you want at first. Action of `Fn` is defined in `fn_actions[]` and index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` designates action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
 
- See [keycode table](doc/keycode.txt) in `doc/keycode.txt`  or `common/keycode.h` for other keycodes.
+#### 1.4 Mousekey
+- `KC_MS_U`, `KC_MS_D`, `KC_MS_L`, `KC_MS_R` for mouse cursor
+- `KC_WH_U`, `KC_WH_D`, `KC_WH_L`, `KC_WH_R` for mouse wheel
+- `KC_BTN1`, `KC_BTN2`, `KC_BTN3`, `KC_BTN4`, `KC_BTN5` for mouse buttons
+
+#### 1.5 System & Media key
+- `KC_PWR`, `KC_SLEP`, `KC_WAKE` for Power, Sleep, Wake
+- `KC_MUTE`, `KC_VOLU`, `KC_VOLD` for audio volume control
+- `KC_MNXT`, `KC_MPRV`, `KC_MSTP`, `KC_MPLY`, `KC_MSEL` for media control
+- `KC_MAIL`, `KC_CALC`, `KC_MYCM` for application launch
+- `KC_WSCH`, `KC_WHOM`, `KC_WBAK`, `KC_WFWD`, `KC_WSTP`, `KC_WREF`, `KC_WFAV` for web browser operation
+
+#### Keycode Table
+ See [keycode table](doc/keycode.txt) in `doc/keycode.txt`  or `common/keycode.h` for the detail or other keycodes.
 
  In regard to implementation side most of keycodes are identical with [HID usage] sent to host for real and some virtual keycodes are defined to support special actions.
 [HID usage]: http://www.usb.org/developers/devclass_docs/Hut1_11.pdf
@@ -299,22 +326,23 @@ See `common/keycode.h`. Keycode is 8bit internal code to inidicate action perfor
 ### 2. Action
 See `common/action.h`. Action is a 16bit code and defines function to perform on events of a key like press, release, hold and tap. You can define various actions to use various action codes.
 
-Most of keys just register 8bit keycode as HID usage(or scan code) to host, but to support other complex functions needs 16bit extended action codes internally. But using 16bit action codes with keymap results in double size in memory against keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP` to define instead of action codes. ***Keycodes can be considered as subset of action codes.*** Like `KC_A`(0x04) is equal to a `Key` action(0x0004) that transmit keycode of `A`.
+Most of keys just register 8bit keycode as HID usage(or scan code) to host, but to support other complex features needs 16bit extended action codes internally. But using 16bit action codes in keymap results in double size in memory against keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP` to define instead of action codes. ***Keycodes can be considered as subset of action codes.*** Like `KC_A`(0x04) is equal to a `Key` action(0x0004) that transmit keycode of *'A'*.
 
 #### 2.1 Key action
 Key is simple action that registers keycode on press of key and unregister on release.
-You can define `Key` action on `A` with:
+You can define `Key` action on *'A'* key with:
 
     ACTION_KEY(KC_A)
 
-But you won't need to use this expression directly because you can just put symbol like `A` in `KEYMAP`.
+But you don't need to use this expression directly because you can just put symbol `A` in `KEYMAP` definition.
 
- Say you want to assign a key to `Shift + 1` to get *!* or `Alt + Tab` to switch windows.
+ Say you want to assign a key to `Shift + 1` to get charactor *'!'* or `Alt + Tab` to switch windows.
 
     ACTION_MOD_KEY(KC_LSHIFT, KC_1)
     ACTION_MOD_KEY(KC_LALT, KC_TAB)
 
-`Alt,Shift + Tab`
+Or `Alt,Shift + Tab` can be defined.
+
     ACTION_MODS_KEY((MOD_BIT(KC_LALT) | MOD_BIT(KC_LSHIFT)), KC_TAB)
 
 These actions are comprised of strokes of modifiers and a key. `Macro` action is needed if you want more complex key strokes.
@@ -344,12 +372,73 @@ These acitons change `default layer`.
 
 
 #### 2.3 Macro action
-`Macro` action indicates complex key strokes. ***TODO***
+***NOT FIXED***
+`Macro` action indicates complex key strokes.
+ 
+    MACRO( MD(LSHIFT), D(D), END )
+    MACRO( U(D), MU(LSHIFT), END )
+    MACRO( I(255), T(H), T(E), T(L), T(L), W(255), T(O), END )
+
+##### 2.3.1 Normal mode
+- **I()**   change interavl of stroke.
+- **D()**   press key
+- **U()**   release key
+- **T()**   type key(press and release)
+- **W()**   wait
+- **MD()**  modifier down
+- **MU()**  modifier up
+- **END**   end mark
+
+##### 2.3.2 Extended mode
+
+***TODO: sample impl***
+See `keyboard/hhkb/keymap.c` for sample.
 
 
 #### 2.4 Function action
-`Function` action can be defined freely in C function. ***TODO***
-`Function` action is implemented in `keymap_call_function()`
+***NOT FIXED***
+There are two type of action, normal `Function` and tappable `Function`.
+These actions call user defined function with `id`, `opt`, and key event information as arguments.
+
+##### 2.4.1 Function
+To define normal `Function` action in keymap use this.
+
+    ACTION_FUNCTION(id, opt)
+
+##### 2.4.2 Function with tap
+To define tappable `Function` action in keymap use this.
+
+    ACTION_FUNCTION_TAP(id, opt)
+
+##### 2.4.3 Implement user function
+`Function` actions can be defined freely with C by user in callback function:
+
+    void keymap_call_function(keyrecord_t *event, uint8_t id, uint8_t opt)
+
+This C function is called every time key is operated, argument `id` selects action to be performed and `opt` can be used for option. Functon `id` can be 0-255 and `opt` can be 0-15.
+
+ `keyrecord_t` is comprised of key event and tap count. `keyevent_t` indicates which and when key is pressed or released. From `tap_count` you can know tap state, 0 means no tap. These information will be used in user function to decide how action of key is performed.
+
+    typedef struct {
+        keyevent_t  event;
+        uint8_t     tap_count;
+    } keyrecord_t;
+
+    typedef struct {
+        key_t    key;
+        bool     pressed;
+        uint16_t time;
+    } keyevent_t;
+
+    typedef struct {
+        uint8_t col;
+        uint8_t row;
+    } key_t;
+
+***TODO: sample impl***
+See `keyboard/hhkb/keymap.c` for sample.
+
+
 
 
 
@@ -370,7 +459,7 @@ There are two kind of layer switch action `Layer Set` and `Layer Bit` and two ty
 Momentary switching changes layer only while holding Fn key.
 
 ##### 4.1.1 Momentary Set
-This `Layer Set` action sets new layer(`Layer 1`) to `current layer` on key press event.
+This `Layer Set` action sets new layer `Layer 1` to `current layer` on key press event.
 
     ACTION_LAYER_SET(1)
 
@@ -379,7 +468,7 @@ It switches to destination layer immediately when key is pressed, after that act
     ACTION_LAYER_DEFAULT
 
 ##### 4.1.2 Momentary Bit
-This `Layer Bit` action performs XOR(`1`) with `current layer` on both press and release event. If you are on `Layer 0` now next layer to switch will be `Layer 1`. To come back to previous layer you need to place same action on destination layer.
+This `Layer Bit` action performs XOR `1` with `current layer` on both press and release event. If you are on `Layer 0` now next layer to switch will be `Layer 1`. To come back to previous layer you need to place same action on destination layer.
 
     ACTION_LAYER_BIT(1)
 
@@ -498,6 +587,17 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
     PScr:   power down/remote wake-up
     Caps:   Lock Keyboard(Child Proof)
     Paus:   jump to bootloader
+
+### Boot Magic
+Magic commands are executed when boot time. Press `Magic` command key then pulgin.
+
+Define these macros in config.h.
+
+    IS_BOOTMAGIC_DEBUG
+    IS_BOOTMAGIC_BOOTLOADER
+
+***TODO: sample impl***
+See `keyboard/hhkb/config.h` for sample.
 
 
 
