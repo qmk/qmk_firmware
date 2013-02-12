@@ -358,6 +358,7 @@ static void process_action(keyrecord_t *record)
                         layer_switch(action.layer.val);
                     }
                     else {
+                        // NOTE: This is needed by legacy keymap support
                         layer_switch(default_layer);
                     }
                     break;
@@ -421,7 +422,7 @@ static void process_action(keyrecord_t *record)
                             unregister_code(action.layer.code);
                         } else {
                             //debug("LAYER_PRESSED: No tap: NO ACTION\n");
-//TODO: this is ok?
+                            // NOTE: This is needed by legacy keymap support
                             debug("LAYER_PRESSED: No tap: return to default layer\n");
                             layer_switch(default_layer);
                         }
