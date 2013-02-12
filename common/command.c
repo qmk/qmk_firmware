@@ -263,23 +263,16 @@ static bool command_common(uint8_t code)
 #endif
         case KC_0:
         case KC_F10:
+            clear_keyboard();
             switch_layer(0);
             break;
-        case KC_1:
-        case KC_F1:
-            switch_layer(1);
+        case KC_1 ... KC_9:
+            clear_keyboard();
+            switch_layer((code - KC_1) + 1);
             break;
-        case KC_2:
-        case KC_F2:
-            switch_layer(2);
-            break;
-        case KC_3:
-        case KC_F3:
-            switch_layer(3);
-            break;
-        case KC_4:
-        case KC_F4:
-            switch_layer(4);
+        case KC_F1 ... KC_F9:
+            clear_keyboard();
+            switch_layer((code - KC_F1) + 1);
             break;
         default:
             print("?");
