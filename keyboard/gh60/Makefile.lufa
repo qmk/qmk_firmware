@@ -119,5 +119,8 @@ include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
 
-plain: OPT_DEFS += -DPLAIN_MAP
+plain: OPT_DEFS += -DKEYMAP_PLAIN
 plain: all
+
+poker: OPT_DEFS += -DKEYMAP_POKER
+poker: all
