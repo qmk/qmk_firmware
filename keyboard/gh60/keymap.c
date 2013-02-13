@@ -166,12 +166,6 @@ static const uint16_t PROGMEM fn_actions[] = {
 action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
     uint8_t key = (pgm_read_byte(&keymaps[(layer)][(row)][(col)]));
 
-    // TODO: move to action.c ?
-    /* Transparently use default layer */
-    if (key == KC_TRANSPARENT) {
-        key = (pgm_read_byte(&keymaps[(default_layer)][(row)][(col)]));
-    }
-
     action_t action;
     switch (key) {
         case KC_A ... KC_EXSEL:
@@ -199,7 +193,9 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
                 action.code = ACTION_NO;
             }
             break;
-        case KC_NO ... KC_UNDEFINED:
+        case KC_TRNS:
+            action.code = ACTION_TRANSPARENT;
+            break;
         default:
             action.code = ACTION_NO;
             break;

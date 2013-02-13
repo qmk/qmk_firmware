@@ -106,12 +106,14 @@ Keyboard Keys
 -------------
 ACT_LMODS(0000):
 0000|0000|000000|00    No action
+0000|0000|000000|01    Transparent
 0000|0000| keycode     Key
 0000|mods|000000|00    Left mods
 0000|mods| keycode     Key & Left mods
 
 ACT_RMODS(0001):
-0001|0000|000000|00    No action
+0001|0000|000000|00    No action(not used)
+0001|0000|000000|01    Transparent(not used)
 0001|0000| keycode     Key(no used)
 0001|mods|000000|00    Right mods
 0001|mods| keycode     Key & Right mods
@@ -207,6 +209,7 @@ enum action_kind_id {
 
 /* action utility */
 #define ACTION_NO                       0
+#define ACTION_TRANSPARENT              1
 #define ACTION(kind, param)             ((kind)<<12 | (param))
 #define MODS4(mods)                     (((mods)>>4 | (mods)) & 0x0F)
 
