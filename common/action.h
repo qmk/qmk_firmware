@@ -106,12 +106,14 @@ Keyboard Keys
 -------------
 ACT_LMODS(0000):
 0000|0000|000000|00    No action
+0000|0000|000000|01    Transparent
 0000|0000| keycode     Key
 0000|mods|000000|00    Left mods
 0000|mods| keycode     Key & Left mods
 
 ACT_RMODS(0001):
-0001|0000|000000|00    No action
+0001|0000|000000|00    No action(not used)
+0001|0000|000000|01    Transparent(not used)
 0001|0000| keycode     Key(no used)
 0001|mods|000000|00    Right mods
 0001|mods| keycode     Key & Right mods
@@ -157,7 +159,7 @@ ACT_LAYER_BIT(1001):        Bit-op layer
 1000|LLLL|0000 0001   set L to layer on press
 1000|LLLL|0000 0010   set L to layer on release
 1000|----|0000 0011   set default to layer on both(return to default layer)
-1000|LLLL|xxxx xxxx   set L to layer while hold and send key on tap
+1000|LLLL| keycode    set L to layer while hold and send key on tap
 1000|LLLL|1111 0000   set L to layer while hold and toggle on several taps
 1000|LLLL|1111 1111   set L to default and layer(on press)
 
@@ -165,7 +167,7 @@ ACT_LAYER_BIT(1001):        Bit-op layer
 1001|BBBB|0000 0001   bit-xor layer with B on press
 1001|BBBB|0000 0010   bit-xor layer with B on release
 1001|BBBB|0000 0011   bit-xor layer with B on both(momentary)
-1001|BBBB|xxxx xxxx   bit-xor layer with B while hold and send key on tap
+1001|BBBB| keycode    bit-xor layer with B while hold and send key on tap
 1001|BBBB|1111 0000   bit-xor layer with B while hold and toggle on several taps
 1001|BBBB|1111 1111   bit-xor default with B and set layer(on press)
 
@@ -207,16 +209,17 @@ enum action_kind_id {
 
 /* action utility */
 #define ACTION_NO                       0
+#define ACTION_TRANSPARENT              1
 #define ACTION(kind, param)             ((kind)<<12 | (param))
 #define MODS4(mods)                     (((mods)>>4 | (mods)) & 0x0F)
 
 /* Key */
 #define ACTION_KEY(key)                 ACTION(ACT_LMODS,    key)
 /* Mods & key */
-#define ACTION_LMODS(mods)              ACTION(ACT_LMODS,    (mods)<<8 | 0x00)
-#define ACTION_LMODS_KEY(mods, key)     ACTION(ACT_LMODS,    (mods)<<8 | (key))
-#define ACTION_RMODS(mods)              ACTION(ACT_RMODS,    (mods)<<8 | 0x00)
-#define ACTION_RMODS_KEY(mods, key)     ACTION(ACT_RMODS,    (mods)<<8 | (key))
+#define ACTION_LMODS(mods)              ACTION(ACT_LMODS,    MODS4(mods)<<8 | 0x00)
+#define ACTION_LMODS_KEY(mods, key)     ACTION(ACT_LMODS,    MODS4(mods)<<8 | (key))
+#define ACTION_RMODS(mods)              ACTION(ACT_RMODS,    MODS4(mods)<<8 | 0x00)
+#define ACTION_RMODS_KEY(mods, key)     ACTION(ACT_RMODS,    MODS4(mods)<<8 | (key))
 /* Mod & key */
 #define ACTION_LMOD(mod)                ACTION(ACT_LMODS,    MODS4(MOD_BIT(mod))<<8 | 0x00)
 #define ACTION_LMOD_KEY(mod, key)       ACTION(ACT_LMODS,    MODS4(MOD_BIT(mod))<<8 | (key))
@@ -268,8 +271,9 @@ enum layer_vals_default {
 /*
  * Set layer
  */
-/* set layer on press and set default on release */
-#define ACTION_LAYER_SET(layer)                 ACTION_LAYER_SET_MOMENTARY(layer)
+/* set layer on press and none on release */
+#define ACTION_LAYER_SET(layer)                 ACTION_LAYER_SET_P(layer)
+/* set layer on press and set default on release (This is needed by legacy keymap support.) */
 #define ACTION_LAYER_SET_MOMENTARY(layer)       ACTION(ACT_LAYER, (layer)<<8 | LAYER_MOMENTARY)
 /* set layer on press and none on release */
 #define ACTION_LAYER_SET_TOGGLE(layer)          ACTION_LAYER_SET_R(layer)
