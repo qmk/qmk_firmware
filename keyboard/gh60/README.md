@@ -12,23 +12,28 @@ Move to this directory then just run `make` like:
 
    $ make -f Makfile.[pjrc|lufa]
 
+Use `Makefile.pjrc` if you want to use PJRC stack or use `Makefile.lufa` for LUFA stack.
+
 
 ## Boot Magic
+Plugin pressing these `Boot Magic` key.
+
 - `Fn` key for bootloader kick up.
 - `D` key for Debug enable.
 
 
 ## Keymap
-Two version of keymap are available. `Plan` and `Funky`.
+Two version of keymap are available. `Plan`, `Poker` and `Funky`(default).
 See keymap.c to define your own favourite keymap.
+
+    $ make -f Makefile.[pjrc|lufa] [plain|poker]
 
 ### 1. Plain keymap
 This will be useful if you want to use key mapping tool like AHK.
-To get this plain keymap do `make`:
 
-    $ make -f Makefile.[pjrc|lufa] plain
+See [keymap_plain.h](keymap_plain.h) for detail.
 
-### Layer 0
+#### 1.0 Plain Default Layer
     ,-----------------------------------------------------------.
     |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
     |-----------------------------------------------------------|
@@ -41,12 +46,71 @@ To get this plain keymap do `make`:
     |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
     `-----------------------------------------------------------'
 
+### 2  Poker keymap
+Poker layer emulation without Esc/grave bug :)
 
-### 2. Funky layers.
+See [keymap_poker.h](keymap_poker.h) for detail.
 
-    $ make -f Makefile.[pjrc|lufa]
+#### 2.0 Poker Default Layer
+    ,-----------------------------------------------------------.
+    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
+    |-----------------------------------------------------------|
+    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|
+    |-----------------------------------------------------------|
+    |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
+    |-----------------------------------------------------------|
+    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |
+    |-----------------------------------------------------------|
+    |Ctrl|Gui |Alt |      Space             |Fn  |Gui |App |Ctrl|
+    `-----------------------------------------------------------'
 
-#### Layer 0: Default Layer
+#### 2.1 Poker Arrow Layer
+    ,-----------------------------------------------------------.
+    |   |   |   |   |   |   |   |   |   |   |   |   |   |       |
+    |-----------------------------------------------------------|
+    |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
+    |-----------------------------------------------------------|
+    |      |   |   |   |   |   |   |   |   |   |   |   |        |
+    |-----------------------------------------------------------|
+    |        |   |   |   |   |   |   |   |   |   |   |  Up      |
+    |-----------------------------------------------------------|
+    |    |    |    |                        |Fn  |Left|Down|Righ|
+    `-----------------------------------------------------------'
+
+#### 2.2 Poker Esc Layer
+    ,-----------------------------------------------------------.
+    |Esc|   |   |   |   |   |   |   |   |   |   |   |   |       |
+    |-----------------------------------------------------------|
+    |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
+    |-----------------------------------------------------------|
+    |      |   |   |   |   |   |   |   |   |   |   |   |        |
+    |-----------------------------------------------------------|
+    |        |   |   |   |   |   |   |   |   |   |   |          |
+    |-----------------------------------------------------------|
+    |    |    |    |                        |Fn  |    |    |    |
+    `-----------------------------------------------------------'
+
+#### 2.1 Poker Fn Layer
+    ,-----------------------------------------------------------.
+    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       |
+    |-----------------------------------------------------------|
+    |     |FnQ| Up|   |   |   |   |   |   |Cal|   |Hom|Ins|     |
+    |-----------------------------------------------------------|
+    |      |Lef|Dow|Rig|   |   |Psc|Slk|Pau|   |Tsk|End|        |
+    |-----------------------------------------------------------|
+    |        |Del|   |Web|Mut|VoU|VoD|   |PgU|PgD|Del|          |
+    |-----------------------------------------------------------|
+    |    |    |    |         FnS            |Fn  |    |    |    |
+    `-----------------------------------------------------------'
+
+
+
+### 3. Funky keymap
+This is my keymap(default) with HHKB, Vi cursor and Mousekey layer.
+
+See [keymap.h](keymap.h) for detail.
+
+#### 3.0 Funky Default Layer
     ,-----------------------------------------------------------.
     |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
     |-----------------------------------------------------------|
@@ -59,7 +123,7 @@ To get this plain keymap do `make`:
     |Ctrl|Gui |Alt |      Space             |Alt |*L3 |*L3 |*L1 |
     `-----------------------------------------------------------'
 
-#### Layer 1: HHKB mode
+#### 3.1 Funky HHKB mode
     ,-----------------------------------------------------------.
     |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
     |-----------------------------------------------------------|
@@ -72,7 +136,7 @@ To get this plain keymap do `make`:
     |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |*L0 |
     `-----------------------------------------------------------'
 
-#### Layer 2: Vi mode
+#### 3.2 Funky Vi mode
     ,-----------------------------------------------------------.
     |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
     |-----------------------------------------------------------|
@@ -85,7 +149,7 @@ To get this plain keymap do `make`:
     |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
     `-----------------------------------------------------------'
 
-#### Layer 3: Mouse mode
+#### 3.3 Funky Mouse mode
     ,-----------------------------------------------------------.
     |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
     |-----------------------------------------------------------|
@@ -98,4 +162,3 @@ To get this plain keymap do `make`:
     |Ctrl|Gui |Alt |      Space             |Alt |*L0 |*L0 |Ctrl|
     `-----------------------------------------------------------'
     Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
-

@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,9 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "keycode.h"
+#include "action.h"
+#include "action_macro.h"
+#include "report.h"
+#include "host.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
 #include "keymap.h"
 
 
@@ -56,55 +59,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K40, K41, K42,           K45,                     K4A, K4B, K4C, K4D  \
 )
 
-#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
 
-
-// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
-static const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
-    1,              // Fn1
-    2,              // Fn2
-    3,              // Fn3
-    3,              // Fn4
-    0,              // Fn5
-    0,              // Fn6
-    0               // Fn7
-};
-
-// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
-// See layer.c for details.
-static const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_SLSH,        // Fn2
-    KC_SCLN,        // Fn3
-    KC_NO,          // Fn4
-    KC_NO,          // Fn5
-    KC_NO,          // Fn6
-    KC_NO           // Fn7
-};
-
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#ifdef PLAIN_MAP
-    /* Layer 0: Default Layer
-     * ,-----------------------------------------------------------.
-     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
-     * |-----------------------------------------------------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|
-     * |-----------------------------------------------------------|
-     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
-     * |-----------------------------------------------------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |
-     * |-----------------------------------------------------------|
-     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
-     * `-----------------------------------------------------------'
-     */
-    KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
-           TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
-           CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,NO,  ENT,  \
-           LSFT,NO,  Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,NO,  RSFT, \
-           LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
+#if defined(KEYMAP_PLAIN)
+    #include "keymap_plain.h"
+#elif defined(KEYMAP_POKER)
+    #include "keymap_poker.h"
 #else
+static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /*
+     * Funky
+     */
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
      * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
@@ -134,7 +98,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift     |
      * |-----------------------------------------------------------|
-     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |xxx |
+     * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Fn0 |
      * `-----------------------------------------------------------'
      */
     KEYMAP_ANSI(
@@ -142,7 +106,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  INS,  \
         LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,     ENT,  \
         LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,          RSFT, \
-        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN1),
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN0),
     /* Layer 2: Vi mode (Slash)
      * ,-----------------------------------------------------------.
      * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
@@ -151,7 +115,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|xxx|Shift     |
+     * |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|Fn0|Shift     |
      * |-----------------------------------------------------------|
      * |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
      * `-----------------------------------------------------------'
@@ -160,7 +124,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
         TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO,   \
         LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,  \
-        LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2,           RSFT, \
+        LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN0,           RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
     /* Layer 3: Mouse mode (Semicolon/App)
      * ,-----------------------------------------------------------.
@@ -168,35 +132,65 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |   |   |     |
      * |-----------------------------------------------------------|
-     * |Contro|   |Ac0|Ac1|Ac1|   |McL|McD|McU|McR|xxx|   |Return  |
+     * |Contro|   |Ac0|Ac1|Ac1|   |McL|McD|McU|McR|Fn0|   |Return  |
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift     |
      * |-----------------------------------------------------------|
-     * |Ctrl|Gui |Alt |      Space             |    |xxx |xxx |    |
+     * |Ctrl|Gui |Alt |      Space             |    |Fn0 |Fn0 |    |
      * `-----------------------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     KEYMAP_ANSI(
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
         TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,   \
-        LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,       ENT,  \
+        LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,       ENT,  \
         LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,            RSFT, \
-        LCTL,LGUI,LALT,          BTN1,                    NO,  FN4, FN4, NO  ),
-#endif
+        LCTL,LGUI,LALT,          BTN1,                    NO,  FN0, FN0, NO  ),
 };
 
+/*
+ * Fn action definition
+ */
+static const uint16_t PROGMEM fn_actions[] = {
+    ACTION_LAYER_DEFAULT,                           // FN0
+    ACTION_LAYER_SET(1),                            // FN1
+    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),          // FN2  Layer with Slash
+    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),           // FN3  Layer with Semicolon
+    ACTION_LAYER_SET(3),                            // FN4
+};
+#endif
 
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
+
+
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return KEYCODE(layer, row, col);
+    return pgm_read_byte(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
 }
 
-uint8_t keymap_fn_layer(uint8_t index)
+/* translates Fn index to action */
+action_t keymap_fn_to_action(uint8_t keycode)
 {
-    return pgm_read_byte(&fn_layer[index]);
+    action_t action;
+    if (FN_INDEX(keycode) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
+        action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
+    } else {
+        action.code = ACTION_NO;
+    }
+    return action;
 }
 
-uint8_t keymap_fn_keycode(uint8_t index)
+/* convert key to action */
+action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col)
 {
-    return pgm_read_byte(&fn_keycode[index]);
+    key_t key;
+    key.pos.row = row;
+    key.pos.col = col;
+    uint8_t keycode = keymap_key_to_keycode(layer, key);
+    switch (keycode) {
+        case KC_FN0 ... KC_FN31:
+            return keymap_fn_to_action(keycode);
+        default:
+            return keymap_keycode_to_action(keycode);
+    }
 }

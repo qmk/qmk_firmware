@@ -201,6 +201,19 @@ void action_exec(keyevent_t event)
     }
 }
 
+static action_t get_action(key_t key)
+{
+    action_t action = keymap_get_action(current_layer, key.pos.row, key.pos.col);
+
+    /* Transparently use default layer */
+    if (action.code == ACTION_TRANSPARENT) {
+        // TODO: layer stacking
+        action = keymap_get_action(default_layer, key.pos.row, key.pos.col);
+        debug("TRNASPARENT: "); debug_hex16(action.code); debug("\n");
+    }
+    return action;
+}
+
 static void process_action(keyrecord_t *record)
 {
     keyevent_t event = record->event;
@@ -208,8 +221,7 @@ static void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
-    action_t action = keymap_get_action(current_layer, event.key.pos.row, event.key.pos.col);
-    //debug("action: "); debug_hex16(action.code); if (event.pressed) debug("d\n"); else debug("u\n");
+    action_t action = get_action(event.key);
     debug("ACTION: "); debug_action(action); debug("\n");
 
     switch (action.kind.id) {
@@ -358,6 +370,7 @@ static void process_action(keyrecord_t *record)
                         layer_switch(action.layer.val);
                     }
                     else {
+                        // NOTE: This is needed by legacy keymap support
                         layer_switch(default_layer);
                     }
                     break;
@@ -421,7 +434,7 @@ static void process_action(keyrecord_t *record)
                             unregister_code(action.layer.code);
                         } else {
                             //debug("LAYER_PRESSED: No tap: NO ACTION\n");
-//TODO: this is ok?
+                            // NOTE: This is needed by legacy keymap support
                             debug("LAYER_PRESSED: No tap: return to default layer\n");
                             layer_switch(default_layer);
                         }
@@ -808,7 +821,8 @@ void layer_switch(uint8_t new_layer)
 
 bool is_tap_key(key_t key)
 {
-    action_t action = keymap_get_action(current_layer, key.pos.row, key.pos.col);
+    action_t action = get_action(key);
+
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
