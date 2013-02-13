@@ -72,7 +72,7 @@ void USB_Init(
 	NVM.CMD  = NVM_CMD_READ_CALIB_ROW_gc;
 	USB.CAL0 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL0));
 	USB.CAL1 = pgm_read_byte(offsetof(NVM_PROD_SIGNATURES_t, USBCAL1));
-	NVM.CMD  = 0;
+	NVM.CMD  = NVM_CMD_NO_OPERATION_gc;
 
 	/* Ugly workaround to ensure an aligned table, since __BIGGEST_ALIGNMENT__ == 1 for the 8-bit AVR-GCC toolchain */
 	USB.EPPTR = ((intptr_t)&USB_EndpointTable[1] & ~(1 << 0));
@@ -90,9 +90,9 @@ void USB_Init(
 	#if defined(USB_CAN_BE_BOTH)
 	USB_CurrentMode = Mode;
 	#endif
-	
+
 	USB_IsInitialized = true;
-	
+
 	USB_ResetInterface();
 }
 
@@ -117,7 +117,7 @@ void USB_ResetInterface(void)
 	#else
 	CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
 	#endif
-	
+
 	if (USB_Options & USB_OPT_PLLCLKSRC)
 	  CLK.USBCTRL |= (CLK_USBSRC_PLL_gc   | CLK_USBSEN_bm);
 	else
