@@ -28,16 +28,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_KEY(code)             (KC_A         <= (code) && (code) <= KC_EXSEL)
 #define IS_MOD(code)             (KC_LCTRL     <= (code) && (code) <= KC_RGUI)
 
+
+#define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
+#define IS_SYSTEM(code)          (KC_POWER     <= (code) && (code) <= KC_WAKE)
+#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_WFAV)
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN31)
 #define IS_MOUSEKEY(code)        (KC_MS_UP     <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code)   (KC_MS_UP     <= (code) && (code) <= KC_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1   <= (code) && (code) <= KC_MS_BTN5)
 #define IS_MOUSEKEY_WHEEL(code)  (KC_MS_WH_UP  <= (code) && (code) <= KC_MS_WH_RIGHT)
 #define IS_MOUSEKEY_ACCEL(code)  (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL2)
-
-#define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
-#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_WFAV)
-#define IS_SYSTEM(code)          (KC_POWER     <= (code) && (code) <= KC_WAKE)
 
 #define MOD_BIT(code)   (1<<MOD_INDEX(code))
 #define MOD_INDEX(code) ((code) & 0x07)
@@ -149,6 +149,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WSTP KC_WWW_STOP
 #define KC_WREF KC_WWW_REFRESH
 #define KC_WFAV KC_WWW_FAVORITES
+/* Transparent */
+#define KC_TRANSPARENT  1
+#define KC_TRNS KC_TRANSPARENT
+
 
 
 /* USB HID Keyboard/Keypad Usage(0x07) */

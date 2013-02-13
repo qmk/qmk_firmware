@@ -7,7 +7,7 @@ Source code is available here: <http://github.com/tmk/tmk_keyboard>
 
 Features
 --------
-* Multi-layer keymap    - Multiple keyboard layouts with layer switching.
+* Multi-layer Keymap  - Multiple keyboard layouts with layer switching.
 * Mouse key           - Mouse control with keyboard
 * System Control Key  - Power Down, Sleep, Wake Up and USB Remote Wake up
 * Media Control Key   - Volume Down/Up, Mute, Next/Prev track, Play, Stop and etc
@@ -283,8 +283,11 @@ See `common/keycode.h`. Keycode is 8bit internal code to inidicate action perfor
 
  ***In `KEYMAP` definition you need to omit prefix part `KC_` of keycode to keep keymap compact.*** For example, just use `A` instead you place `KC_A` in `KEYMAP`. Some keycodes has 4-letter short name in addition to descriptive name, you'll prefer short one in `KEYMAP`.
 
-#### 1.1 Normal key
+#### 1.0 Other key
 - `KC_NO` for no aciton
+- `KC_TRNS` for transparent layer
+
+#### 1.1 Normal key
 - `KC_A` to `KC_Z`, `KC_1` to `KC_0` for alpha numeric key
 - `KC_MINS`, `KC_EQL`, `KC_GRV`, `KC_RBRC`, `KC_LBRC`, `KC_COMM`, `KC_DOT`, `KC_BSLS`, `KC_SLSH`, `KC_SCLN`, `KC_QUOT`
 - `KC_ESC`, `KC_TAB`, `KC_SPC`, `KC_BSPC`, `KC_ENT`, `KC_DEL`, `KC_INS`
@@ -301,7 +304,7 @@ There are 8 modifiers which has discrimination between left and right.
 - `KC_LGUI` and `KC_RGUI` for Windows key or Command key in Mac
 
 #### 1.3 Fn key
- **`KC_FNnn`** are `Fn` keys which not given any action at the beginning unlike most of keycodes has its own action. To use these keys in `KEYMAP` you need to assign action you want at first. Action of `Fn` is defined in `fn_actions[]` and index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` designates action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
+`KC_FNnn` are `Fn` keys which not given any action at the beginning unlike most of keycodes has its own action. To use these keys in `KEYMAP` you need to assign action you want at first. Action of `Fn` is defined in `fn_actions[]` and index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` designates action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
 
 #### 1.4 Mousekey
 - `KC_MS_U`, `KC_MS_D`, `KC_MS_L`, `KC_MS_R` for mouse cursor
@@ -359,7 +362,7 @@ This sets `default layer` into `current layer`. With this action you can return 
     ACTION_LAYER_SET_TAP_KEY(layer, key)
     ACTION_LAYER_SET_TAP_TOGGLE(layer)
 
-`Layer Bit` action XOR bits with `current layer`. `Layer Bit` action can take 0 to 8 as argument. 
+`Layer Bit` action XOR given bits with `current layer`. `Layer Bit` action can take 0 to 15 as argument. 
 
     ACTION_LAYER_BIT(bits)
     ACTION_LAYER_BIT_TOGGLE(bits)
@@ -659,4 +662,4 @@ Files & Directories
 License
 -------
 Under `GPL` 2 or later. Some protocol files are under `Modified BSD License`.
-LUFA and PJRC stack have their own license respectively.
+LUFA, PJRC and V-USB stack have their own license respectively.
