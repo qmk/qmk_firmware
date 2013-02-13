@@ -26,6 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 
 
+/* default layer indicates base layer */
+uint8_t default_layer = 0;
+/* current layer indicates active layer at this time */
+uint8_t current_layer = 0;
+
+
 static void process_action(keyrecord_t *record);
 static bool process_tapping(keyrecord_t *record);
 static void waiting_buffer_scan_tap(void);
@@ -203,12 +209,12 @@ void action_exec(keyevent_t event)
 
 static action_t get_action(key_t key)
 {
-    action_t action = keymap_get_action(current_layer, key.pos.row, key.pos.col);
+    action_t action = action_for_key(current_layer, key);
 
     /* Transparently use default layer */
     if (action.code == ACTION_TRANSPARENT) {
         // TODO: layer stacking
-        action = keymap_get_action(default_layer, key.pos.row, key.pos.col);
+        action = action_for_key(default_layer, key);
         debug("TRNASPARENT: "); debug_hex16(action.code); debug("\n");
     }
     return action;
@@ -509,12 +515,12 @@ static void process_action(keyrecord_t *record)
 
         /* Extentions */
         case ACT_MACRO:
+            // TODO
             break;
         case ACT_COMMAND:
             break;
         case ACT_FUNCTION:
-            // TODO
-            keymap_call_function(record, action.func.id, action.func.opt);
+            action_function(record, action.func.id, action.func.opt);
             break;
         default:
             break;
@@ -853,7 +859,7 @@ bool is_tap_key(key_t key)
  */
 static void debug_event(keyevent_t event)
 {
-    debug_hex16(event.key.raw);
+    debug_hex16((event.key.row<<8) | event.key.col);
     if (event.pressed) debug("d("); else debug("u(");
     debug_dec(event.time); debug(")");
 }

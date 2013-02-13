@@ -314,7 +314,7 @@ void keymap_call_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 /* translates key to keycode */
 uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return pgm_read_byte(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
+    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
 /* translates Fn index to action */
@@ -330,11 +330,8 @@ action_t keymap_fn_to_action(uint8_t keycode)
 }
 
 /* convert key to action */
-action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col)
+action_t action_for_key(uint8_t layer, key_t key)
 {
-    key_t key;
-    key.pos.row = row;
-    key.pos.col = col;
     uint8_t keycode = keymap_key_to_keycode(layer, key);
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
