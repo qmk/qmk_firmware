@@ -162,43 +162,35 @@ static const uint16_t PROGMEM fn_actions[] = {
 
 
 
-/* convert keycode to action */
-action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col) {
-    uint8_t key = (pgm_read_byte(&keymaps[(layer)][(row)][(col)]));
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
+{
+    return pgm_read_byte(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
+}
 
+/* translates Fn index to action */
+action_t keymap_fn_to_action(uint8_t keycode)
+{
     action_t action;
-    switch (key) {
-        case KC_A ... KC_EXSEL:
-            action.code = ACTION_KEY(key);
-            break;
-        case KC_LCTRL ... KC_LGUI:
-            action.code = ACTION_LMOD(key);
-            break;
-        case KC_RCTRL ... KC_RGUI:
-            action.code = ACTION_RMOD(key);
-            break;
-        case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
-            action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(key));
-            break;
-        case KC_AUDIO_MUTE ... KC_WWW_FAVORITES:
-            action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(key));
-            break;
-        case KC_MS_UP ... KC_MS_ACCEL2:
-            action.code = ACTION_MOUSEKEY(key);
-            break;
-        case KC_FN0 ... KC_FN31:
-            if (FN_INDEX(key) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
-                action.code = pgm_read_word(&fn_actions[FN_INDEX(key)]);
-            } else {
-                action.code = ACTION_NO;
-            }
-            break;
-        case KC_TRNS:
-            action.code = ACTION_TRANSPARENT;
-            break;
-        default:
-            action.code = ACTION_NO;
-            break;
+    if (FN_INDEX(keycode) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
+        action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
+    } else {
+        action.code = ACTION_NO;
     }
     return action;
+}
+
+/* convert key to action */
+action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col)
+{
+    key_t key;
+    key.pos.row = row;
+    key.pos.col = col;
+    uint8_t keycode = keymap_key_to_keycode(layer, key);
+    switch (keycode) {
+        case KC_FN0 ... KC_FN31:
+            return keymap_fn_to_action(keycode);
+        default:
+            return keymap_keycode_to_action(keycode);
+    }
 }
