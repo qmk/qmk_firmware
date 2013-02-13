@@ -20,11 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 
 
-/* layer */
-uint8_t default_layer = 0;
-uint8_t current_layer = 0;
-
-
 action_t keymap_keycode_to_action(uint8_t keycode)
 {
     action_t action;
@@ -60,10 +55,10 @@ action_t keymap_keycode_to_action(uint8_t keycode)
 #ifndef NO_LEGACY_KEYMAP_SUPPORT
 /* legacy support with weak reference */
 __attribute__ ((weak))
-action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col)
+action_t action_for_key(uint8_t layer, key_t key)
 {
     /* convert from legacy keycode to action */
-    uint8_t keycode = keymap_get_keycode(layer, row, col);
+    uint8_t keycode = keymap_get_keycode(layer, key.pos.row, key.pos.col);
     action_t action;
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
@@ -84,6 +79,6 @@ action_t keymap_get_action(uint8_t layer, uint8_t row, uint8_t col)
 #endif
 
 __attribute__ ((weak))
-void keymap_call_function(keyrecord_t *event, uint8_t id, uint8_t opt)
+void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
 }

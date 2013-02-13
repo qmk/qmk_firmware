@@ -21,10 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 
 
-/* Execute action per keyevent */
-void action_exec(keyevent_t event);
-
-
 /* Struct to record event and tap count  */
 typedef struct {
     keyevent_t  event;
@@ -33,7 +29,7 @@ typedef struct {
 
 /* Action struct.
  *
- * In avr-gcc bit field seems to be assigned from LSB(bit0) to MSB(bit15). 
+ * In avr-gcc bit field seems to be assigned from LSB(bit0) to MSB(bit15).
  * AVR looks like a little endian in avr-gcc.
  *
  * NOTE: not portable across compiler/endianness?
@@ -79,6 +75,21 @@ typedef union {
 } action_t;
 
 
+
+/* layer used currently */
+extern uint8_t current_layer;
+/* layer to return or start with */
+extern uint8_t default_layer;
+
+/* Execute action per keyevent */
+void action_exec(keyevent_t event);
+
+/* action for key */
+action_t action_for_key(uint8_t layer, key_t key);
+
+/* user defined special function */
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
+
 /*
  * Utilities for actions.
  */
@@ -96,98 +107,97 @@ bool waiting_buffer_has_anykey_pressed(void);
 
 
 
-
 /*
  * Action codes
  * ============
  * 16bit code: action_kind(4bit) + action_parameter(12bit)
  *
-Keyboard Keys
--------------
-ACT_LMODS(0000):
-0000|0000|000000|00    No action
-0000|0000|000000|01    Transparent
-0000|0000| keycode     Key
-0000|mods|000000|00    Left mods
-0000|mods| keycode     Key & Left mods
-
-ACT_RMODS(0001):
-0001|0000|000000|00    No action(not used)
-0001|0000|000000|01    Transparent(not used)
-0001|0000| keycode     Key(no used)
-0001|mods|000000|00    Right mods
-0001|mods| keycode     Key & Right mods
-
-ACT_LMODS_TAP(0010):
-0010|mods|000000|00    Left mods OneShot
-0010|mods|000000|01    (reserved)
-0010|mods|000000|10    (reserved)
-0010|mods|000000|11    (reserved)
-0010|mods| keycode     Left mods + tap Key
-
-ACT_RMODS_TAP(0011):
-0011|mods|000000|00    Right mods OneShot
-0011|mods|000000|01    (reserved)
-0011|mods|000000|10    (reserved)
-0011|mods|000000|11    (reserved)
-0011|mods| keycode     Right mods + tap Key
- 
-
-Other HID Usage
----------------
-This action handles other usages than keyboard.
-ACT_USAGE(0100):
-0100|00| usage(10)     System control(0x80) - General Desktop page(0x01)
-0100|01| usage(10)     Consumer control(0x01) - Consumer page(0x0C)
-0100|10| usage(10)     (reserved)
-0100|11| usage(10)     (reserved)
-
-
-Mouse Keys
-----------
-TODO: can be combined with 'Other HID Usage'? to save action kind id.
-ACT_MOUSEKEY(0110):
-0101|XXXX| keycode     Mouse key
-
-
-Layer Actions
--------------
-ACT_LAYER(1000):            Set layer
-ACT_LAYER_BIT(1001):        Bit-op layer
-
-1000|LLLL|0000 0000   set L to layer on press and set default on release(momentary)
-1000|LLLL|0000 0001   set L to layer on press
-1000|LLLL|0000 0010   set L to layer on release
-1000|----|0000 0011   set default to layer on both(return to default layer)
-1000|LLLL| keycode    set L to layer while hold and send key on tap
-1000|LLLL|1111 0000   set L to layer while hold and toggle on several taps
-1000|LLLL|1111 1111   set L to default and layer(on press)
-
-1001|BBBB|0000 0000   (not used)
-1001|BBBB|0000 0001   bit-xor layer with B on press
-1001|BBBB|0000 0010   bit-xor layer with B on release
-1001|BBBB|0000 0011   bit-xor layer with B on both(momentary)
-1001|BBBB| keycode    bit-xor layer with B while hold and send key on tap
-1001|BBBB|1111 0000   bit-xor layer with B while hold and toggle on several taps
-1001|BBBB|1111 1111   bit-xor default with B and set layer(on press)
-
-
-
-Extensions(11XX)
-----------------
-NOTE: NOT FIXED
-
-ACT_MACRO(1100):
-1100|opt | id(8)      Macro play?
-1100|1111| id(8)      Macro record?
-
-ACT_COMMAND(1110):
-1110|opt | id(8)      Built-in Command exec
-
-ACT_FUNCTION(1111):
-1111| address(12)     Function?
-1111|opt | id(8)      Function?
-
+ * Keyboard Keys
+ * -------------
+ * ACT_LMODS(0000):
+ * 0000|0000|000000|00    No action
+ * 0000|0000|000000|01    Transparent
+ * 0000|0000| keycode     Key
+ * 0000|mods|000000|00    Left mods
+ * 0000|mods| keycode     Key & Left mods
+ *
+ * ACT_RMODS(0001):
+ * 0001|0000|000000|00    No action(not used)
+ * 0001|0000|000000|01    Transparent(not used)
+ * 0001|0000| keycode     Key(no used)
+ * 0001|mods|000000|00    Right mods
+ * 0001|mods| keycode     Key & Right mods
+ *
+ * ACT_LMODS_TAP(0010):
+ * 0010|mods|000000|00    Left mods OneShot
+ * 0010|mods|000000|01    (reserved)
+ * 0010|mods|000000|10    (reserved)
+ * 0010|mods|000000|11    (reserved)
+ * 0010|mods| keycode     Left mods + tap Key
+ *
+ * ACT_RMODS_TAP(0011):
+ * 0011|mods|000000|00    Right mods OneShot
+ * 0011|mods|000000|01    (reserved)
+ * 0011|mods|000000|10    (reserved)
+ * 0011|mods|000000|11    (reserved)
+ * 0011|mods| keycode     Right mods + tap Key
+ *
+ *
+ * Other HID Usage
+ * ---------------
+ * This action handles other usages than keyboard.
+ * ACT_USAGE(0100):
+ * 0100|00| usage(10)     System control(0x80) - General Desktop page(0x01)
+ * 0100|01| usage(10)     Consumer control(0x01) - Consumer page(0x0C)
+ * 0100|10| usage(10)     (reserved)
+ * 0100|11| usage(10)     (reserved)
+ *
+ *
+ * Mouse Keys
+ * ----------
+ * TODO: can be combined with 'Other HID Usage'? to save action kind id.
+ * ACT_MOUSEKEY(0110):
+ * 0101|XXXX| keycode     Mouse key
+ *
+ *
+ * Layer Actions
+ * -------------
+ * ACT_LAYER(1000):            Set layer
+ * ACT_LAYER_BIT(1001):        Bit-op layer
+ *
+ * 1000|LLLL|0000 0000   set L to layer on press and set default on release(momentary)
+ * 1000|LLLL|0000 0001   set L to layer on press
+ * 1000|LLLL|0000 0010   set L to layer on release
+ * 1000|----|0000 0011   set default to layer on both(return to default layer)
+ * 1000|LLLL| keycode    set L to layer while hold and send key on tap
+ * 1000|LLLL|1111 0000   set L to layer while hold and toggle on several taps
+ * 1000|LLLL|1111 1111   set L to default and layer(on press)
+ *
+ * 1001|BBBB|0000 0000   (not used)
+ * 1001|BBBB|0000 0001   bit-xor layer with B on press
+ * 1001|BBBB|0000 0010   bit-xor layer with B on release
+ * 1001|BBBB|0000 0011   bit-xor layer with B on both(momentary)
+ * 1001|BBBB| keycode    bit-xor layer with B while hold and send key on tap
+ * 1001|BBBB|1111 0000   bit-xor layer with B while hold and toggle on several taps
+ * 1001|BBBB|1111 1111   bit-xor default with B and set layer(on press)
+ *
+ *
+ *
+ * Extensions(11XX)
+ * ----------------
+ * NOTE: NOT FIXED
+ *
+ * ACT_MACRO(1100):
+ * 1100|opt | id(8)      Macro play?
+ * 1100|1111| id(8)      Macro record?
+ *
+ * ACT_COMMAND(1110):
+ * 1110|opt | id(8)      Built-in Command exec
+ *
+ * ACT_FUNCTION(1111):
+ * 1111| address(12)     Function?
+ * 1111|opt | id(8)      Function?
+ *
  */
 enum action_kind_id {
     ACT_LMODS           = 0b0000,
@@ -241,7 +251,7 @@ enum mods_codes {
 #define ACTION_RMOD_ONESHOT(mod)        ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | MODS_ONESHOT)
 
 
-/* 
+/*
  * Switch layer
  */
 enum layer_codes {
@@ -258,7 +268,7 @@ enum layer_vals_default {
     DEFAULT_ON_BOTH = 3,
 };
 
-/* 
+/*
  * return to default layer
  */
 #define ACTION_LAYER_DEFAULT                    ACTION_LAYER_DEFAULT_R
@@ -288,7 +298,7 @@ enum layer_vals_default {
 /* set default layer on both press and release */
 #define ACTION_LAYER_SET_DEFAULT(layer)         ACTION(ACT_LAYER, (layer)<<8 | LAYER_CHANGE_DEFAULT)
 
-/* 
+/*
  * Bit-op layer
  */
 /* bit-xor on both press and release */
