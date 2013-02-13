@@ -859,7 +859,7 @@ bool is_tap_key(key_t key)
  */
 static void debug_event(keyevent_t event)
 {
-    debug_hex16(event.key.raw);
+    debug_hex16((event.key.row<<8) | event.key.col);
     if (event.pressed) debug("d("); else debug("u(");
     debug_dec(event.time); debug(")");
 }

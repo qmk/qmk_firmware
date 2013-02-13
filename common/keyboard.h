@@ -30,12 +30,6 @@ extern "C" {
 typedef struct {
     uint8_t col;
     uint8_t row;
-} keypos_t;
-
-// TODO: need raw? keypos_t -> key_t?
-typedef union {
-    uint16_t raw;
-    keypos_t pos;
 } key_t;
 
 /* key event */
@@ -46,20 +40,20 @@ typedef struct {
 } keyevent_t;
 
 /* equivalent test of key_t */
-#define KEYEQ(keya, keyb)       ((keya).raw == (keyb).raw)
+#define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
 /* (time == 0) means no event and assumes matrix has no 255 line. */
-#define IS_NOEVENT(event)       ((event).time == 0 || ((event).key.pos.row == 255 && (event).key.pos.col == 255))
+#define IS_NOEVENT(event)       ((event).time == 0 || ((event).key.row == 255 && (event).key.col == 255))
 
 #define NOEVENT                 (keyevent_t){           \
-    .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
+    .key = (key_t){ .row = 255, .col = 255 },           \
     .pressed = false,                                   \
     .time = 0                                           \
 }
 
 /* tick event */
 #define TICK                    (keyevent_t){           \
-    .key.pos = (keypos_t){ .row = 255, .col = 255 },    \
+    .key = (key_t){ .row = 255, .col = 255 },           \
     .pressed = false,                                   \
     .time = (timer_read() | 1)                          \
 }

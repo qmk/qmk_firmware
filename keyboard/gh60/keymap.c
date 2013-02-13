@@ -165,7 +165,7 @@ static const uint16_t PROGMEM fn_actions[] = {
 /* translates key to keycode */
 uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return pgm_read_byte(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
+    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
 /* translates Fn index to action */
