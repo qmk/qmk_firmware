@@ -58,7 +58,7 @@ __attribute__ ((weak))
 action_t action_for_key(uint8_t layer, key_t key)
 {
     /* convert from legacy keycode to action */
-    uint8_t keycode = keymap_get_keycode(layer, key.pos.row, key.pos.col);
+    uint8_t keycode = keymap_get_keycode(layer, key.row, key.col);
     action_t action;
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
