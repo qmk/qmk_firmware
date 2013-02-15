@@ -47,7 +47,7 @@ See [keymap_plain.h](keymap_plain.h) for detail.
     `-----------------------------------------------------------'
 
 ### 2  Poker keymap
-Poker layer emulation without Esc/grave bug :)
+Poker layer emulation
 
 See [keymap_poker.h](keymap_poker.h) for detail.
 

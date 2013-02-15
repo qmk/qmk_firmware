@@ -46,21 +46,49 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          UP,   \
-        TRNS,TRNS,TRNS,          TRNS,                    FN0, LEFT,DOWN,RGHT),
+        TRNS,TRNS,TRNS,          TRNS,                    FN1, LEFT,DOWN,RGHT),
     /* Layer 5: Poker with Esc */
     KEYMAP_ANSI(
         ESC, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,                    FN0, TRNS,TRNS,TRNS),
-    /* Layer 6: Poker Fn'd */
+        TRNS,TRNS,TRNS,          TRNS,                    FN2, TRNS,TRNS,TRNS),
+    /* Layer 6: Poker with Arrow and Esc */
+    KEYMAP_ANSI(
+        ESC, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          UP,   \
+        TRNS,TRNS,TRNS,          TRNS,                    FN3, LEFT,DOWN,RGHT),
+    /* Layer 7: Poker Fn'd */
     KEYMAP_ANSI(
         ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS, \
-        TRNS,FN2, UP,  TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, TRNS, \
-        TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,PSCR,SLCK,PAUS,TRNS,FN3, END,      TRNS, \
+        TRNS,FN6, UP,  TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, TRNS, \
+        TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,PSCR,SLCK,PAUS,TRNS,FN8, END,      TRNS, \
         TRNS,DEL, TRNS,WHOM,MUTE,VOLU,VOLD,TRNS,PGUP,PGDN,DEL,           TRNS, \
-        TRNS,TRNS,TRNS,          FN1,                     FN0, TRNS,TRNS,TRNS),
+        TRNS,TRNS,TRNS,          FN5,                     FN4, TRNS,TRNS,TRNS),
+    /* Layer 8: Poker Fn'd arrow */
+    KEYMAP_ANSI(
+        ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS, \
+        TRNS,FN7, UP,  TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, TRNS, \
+        TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,PSCR,SLCK,PAUS,TRNS,FN8, END,      TRNS, \
+        TRNS,DEL, TRNS,WHOM,MUTE,VOLU,VOLD,TRNS,PGUP,PGDN,DEL,           PGUP, \
+        TRNS,TRNS,TRNS,          FN4,                     FN5, HOME,PGDN,END),
+    /* Layer 9: Poker Fn'd Esc */
+    KEYMAP_ANSI(
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS, \
+        TRNS,FN4, UP,  TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, TRNS, \
+        TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,PSCR,SLCK,PAUS,TRNS,FN8, END,      TRNS, \
+        TRNS,DEL, TRNS,WHOM,MUTE,VOLU,VOLD,TRNS,PGUP,PGDN,DEL,           TRNS, \
+        TRNS,TRNS,TRNS,          FN7,                     FN6, TRNS,TRNS,TRNS),
+    /* Layer 10: Poker Fn'd Arrow + Esc */
+    KEYMAP_ANSI(
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS, \
+        TRNS,FN5, UP,  TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, TRNS, \
+        TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,PSCR,SLCK,PAUS,TRNS,FN8, END,      TRNS, \
+        TRNS,DEL, TRNS,WHOM,MUTE,VOLU,VOLD,TRNS,PGUP,PGDN,DEL,           PGUP, \
+        TRNS,TRNS,TRNS,          FN6,                     FN7, HOME,PGDN,END),
 };
 
 /*
@@ -68,8 +96,15 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 static const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
-    [0] = ACTION_LAYER_SWITCH_MOMENTARY(6),  // FN0 switch to Fn
-    [1] = ACTION_LAYER_SWITCH_TOGGLE(4),     // FN1 toggle arrow
-    [2] = ACTION_LAYER_SWITCH_TOGGLE(5),     // FN2 toggle Esc
-    [3] = ACTION_RMODS_KEY(MOD_BIT(KC_RCTL)|MOD_BIT(KC_RSFT), KC_ESC), // FN3 Task(RControl,RShift+Esc)
+    [0] = ACTION_LAYER_SET_P(7),     // FN0 move to Fn'd             when press
+    [1] = ACTION_LAYER_SET_P(8),     // FN1 move to Fn'd arrow       when press
+    [2] = ACTION_LAYER_SET_P(9),     // FN2 move to Fn'd Esc         when press
+    [3] = ACTION_LAYER_SET_P(10),    // FN3 move to Fn'd arrow + Esc when press
+
+    [4] = ACTION_LAYER_SET_R(0),     // FN4 move to default          when release
+    [5] = ACTION_LAYER_SET_R(4),     // FN5 move to arrow            when release
+    [6] = ACTION_LAYER_SET_R(5),     // FN6 move to Esc              when release
+    [7] = ACTION_LAYER_SET_R(6),     // FN7 move to arrow + Esc      when release
+
+    [8] = ACTION_RMODS_KEY(MOD_BIT(KC_RCTL)|MOD_BIT(KC_RSFT), KC_ESC), // FN8 Task(RControl,RShift+Esc)
 };
