@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "keyboard.h"
 #include "bootloader.h"
+#include "layer_switch.h"
 #include "command.h"
-#include "layer_stack.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
@@ -543,12 +543,9 @@ static uint8_t numkey2num(uint8_t code)
 
 static void switch_default_layer(uint8_t layer)
 {
-    print_val_hex8(current_layer);
-    print_val_hex8(default_layer);
-    print("switch to "); print_val_hex8(layer);
-
+    // TODO check existence of layer or whether it can be used as default layer
+    print("switch_default_layer: "); print_dec(default_layer); print(" to "); print_dec(layer); 
     default_layer = layer;
-    current_layer = 0;  /* 0 means default_layer */
-    layer_stack_clear();
+    layer_switch_clear();
     clear_keyboard();
 }
