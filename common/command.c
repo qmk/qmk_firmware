@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "keyboard.h"
 #include "bootloader.h"
+#include "layer_switch.h"
 #include "command.h"
-#include "layer_stack.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
@@ -549,6 +549,6 @@ static void switch_default_layer(uint8_t layer)
 
     default_layer = layer;
     current_layer = 0;  /* 0 means default_layer */
-    layer_stack_clear();
+    layer_switch_clear();
     clear_keyboard();
 }
