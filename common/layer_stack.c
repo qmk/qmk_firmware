@@ -9,13 +9,23 @@ static uint8_t top_layer = 0;
 /* [0] always works as sentinel and not used for store.*/
 static layer_item_t layer_stack[LAYER_STACK_SIZE] = {};
 
+
+void layer_stack_clear(void)
+{
+    for (uint8_t i = 0; i < LAYER_STACK_SIZE; i++) {
+        layer_stack[i] = (layer_item_t){ .layer = 0,
+                                         .next = 0,
+                                         .used = false };
+    }
+}
+
 bool layer_stack_push(uint8_t layer)
 {
     for (uint8_t i = 1; i < LAYER_STACK_SIZE; i++) {
         if (!layer_stack[i].used) {
             layer_stack[i] = (layer_item_t){ .layer = layer,
-                                              .next = top_layer,
-                                              .used = true };
+                                             .next = top_layer,
+                                             .used = true };
             top_layer = i;
             return true;
         }
@@ -73,13 +83,11 @@ void layer_stack_debug(void)
     layer_item_t item = layer_stack[top_layer];
     while (item.used) {
         debug_dec(item.layer);
-        debug("["); debug_dec(item.next); debug("]");
+        debug("["); debug_dec(item.next); debug("] ");
         item = layer_stack[item.next];
     }
     debug("\n");
 }
-
-
 
 action_t layer_stack_get_action(key_t key)
 {

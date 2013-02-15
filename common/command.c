@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "bootloader.h"
 #include "command.h"
+#include "layer_stack.h"
+
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
@@ -53,7 +55,7 @@ static void mousekey_console_help(void);
 #endif
 
 static uint8_t numkey2num(uint8_t code);
-static void switch_layer(uint8_t layer);
+static void switch_default_layer(uint8_t layer);
 
 
 typedef enum { ONESHOT, CONSOLE, MOUSEKEY } cmdstate_t;
@@ -264,16 +266,13 @@ static bool command_common(uint8_t code)
         case KC_ESC:
         case KC_GRV:
         case KC_0:
-            clear_keyboard();
-            switch_layer(0);
+            switch_default_layer(0);
             break;
         case KC_1 ... KC_9:
-            clear_keyboard();
-            switch_layer((code - KC_1) + 1);
+            switch_default_layer((code - KC_1) + 1);
             break;
         case KC_F1 ... KC_F12:
-            clear_keyboard();
-            switch_layer((code - KC_F1) + 1);
+            switch_default_layer((code - KC_F1) + 1);
             break;
         default:
             print("?");
@@ -542,11 +541,14 @@ static uint8_t numkey2num(uint8_t code)
     return 0;
 }
 
-static void switch_layer(uint8_t layer)
+static void switch_default_layer(uint8_t layer)
 {
     print_val_hex8(current_layer);
     print_val_hex8(default_layer);
-    default_layer = layer;
-    current_layer = 0;
     print("switch to "); print_val_hex8(layer);
+
+    default_layer = layer;
+    current_layer = 0;  /* 0 means default_layer */
+    layer_stack_clear();
+    clear_keyboard();
 }
