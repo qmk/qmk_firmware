@@ -289,6 +289,7 @@ void action_exec(keyevent_t event)
 static action_t get_action(key_t key)
 {
     action_t action;
+    action.code = ACTION_NO;
 
     /* layer stack */
     for (layer_item_t i = layer_stack[top_layer]; i.used; i = layer_stack[i.next]) {
@@ -301,14 +302,18 @@ static action_t get_action(key_t key)
         debug("layer_stack: through. "); debug_dec(i.layer); debug("\n");
     }
 
-    /* current layer */
-    action = action_for_key(current_layer, key);
+    /* current layer: 0 means default layer */
+    if (current_layer) {
+        action = action_for_key(current_layer, key);
+        if (action.code != ACTION_TRANSPARENT) {
+            debug("current layer: used. "); debug_dec(current_layer); debug("\n");
+            return action;
+        }
+    }
 
     /* default layer */
-    if (action.code == ACTION_TRANSPARENT) {
-        debug("TRNASPARENT: "); debug_hex16(action.code); debug("\n");
-        action = action_for_key(default_layer, key);
-    }
+    debug("default layer: used. \n");
+    action = action_for_key(default_layer, key);
     return action;
 }
 
@@ -469,7 +474,7 @@ static void process_action(keyrecord_t *record)
                     }
                     else {
                         // NOTE: This is needed by legacy keymap support
-                        layer_switch(default_layer);
+                        layer_switch(0);
                     }
                     break;
                 case LAYER_ON_PRESS:
@@ -500,18 +505,18 @@ static void process_action(keyrecord_t *record)
                 case LAYER_SET_DEFAULT_ON_PRESS:
                     if (event.pressed) {
                         default_layer = action.layer.val;
-                        layer_switch(default_layer);
+                        layer_switch(0);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_RELEASE:
                     if (!event.pressed) {
                         default_layer = action.layer.val;
-                        layer_switch(default_layer);
+                        layer_switch(0);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_BOTH:
                     default_layer = action.layer.val;
-                    layer_switch(default_layer);
+                    layer_switch(0);
                     break;
                 default:
                     /* tap key */
@@ -530,7 +535,7 @@ static void process_action(keyrecord_t *record)
                         } else {
                             // NOTE: This is needed by legacy keymap support
                             debug("LAYER_SET: No tap: return to default layer(on release)\n");
-                            layer_switch(default_layer);
+                            layer_switch(0);
                         }
                     }
                     break;
@@ -573,19 +578,19 @@ static void process_action(keyrecord_t *record)
                     break;
                 case LAYER_SET_DEFAULT_ON_PRESS:
                     if (event.pressed) {
-                        default_layer = current_layer ^ action.layer.val;
-                        layer_switch(default_layer);
+                        default_layer = default_layer ^ action.layer.val;
+                        layer_switch(0);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_RELEASE:
                     if (!event.pressed) {
-                        default_layer = current_layer ^ action.layer.val;
-                        layer_switch(default_layer);
+                        default_layer = default_layer ^ action.layer.val;
+                        layer_switch(0);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_BOTH:
-                    default_layer = current_layer ^ action.layer.val;
-                    layer_switch(default_layer);
+                    default_layer = default_layer ^ action.layer.val;
+                    layer_switch(0);
                     break;
                 default:
                     // tap key

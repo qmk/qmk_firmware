@@ -261,8 +261,9 @@ static bool command_common(uint8_t code)
 #endif
             break;
 #endif
+        case KC_ESC:
+        case KC_GRV:
         case KC_0:
-        case KC_F10:
             clear_keyboard();
             switch_layer(0);
             break;
@@ -270,7 +271,7 @@ static bool command_common(uint8_t code)
             clear_keyboard();
             switch_layer((code - KC_1) + 1);
             break;
-        case KC_F1 ... KC_F9:
+        case KC_F1 ... KC_F12:
             clear_keyboard();
             switch_layer((code - KC_F1) + 1);
             break;
@@ -545,7 +546,7 @@ static void switch_layer(uint8_t layer)
 {
     print_val_hex8(current_layer);
     print_val_hex8(default_layer);
-    current_layer = layer;
     default_layer = layer;
+    current_layer = 0;
     print("switch to "); print_val_hex8(layer);
 }
