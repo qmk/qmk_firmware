@@ -76,11 +76,6 @@ typedef union {
 
 
 
-/* layer used currently */
-extern uint8_t current_layer;
-/* layer to return or start with */
-extern uint8_t default_layer;
-
 /* Execute action per keyevent */
 void action_exec(keyevent_t event);
 
@@ -155,14 +150,14 @@ bool waiting_buffer_has_anykey_pressed(void);
  *
  * Mouse Keys
  * ----------
- * TODO: can be combined with 'Other HID Usage'? to save action kind id.
+ * NOTE: can be combined with 'Other HID Usage'? to save action kind id.
  * ACT_MOUSEKEY(0110):
  * 0101|XXXX| keycode     Mouse key
  *
  *
  * Layer Actions
  * -------------
- * ACT_LAYER(1000):             Set layer
+ * ACT_LAYER_SET(1000):         Set layer
  * 1000|LLLL|0000 0000   set current layer on press and return to default on release(momentary)
  * 1000|LLLL|0000 0001   set current layer on press
  * 1000|LLLL|0000 0010   set current layer on release
@@ -216,7 +211,7 @@ enum action_kind_id {
     ACT_USAGE           = 0b0100,
     ACT_MOUSEKEY        = 0b0101,
 
-    ACT_LAYER           = 0b1000,
+    ACT_LAYER_SET       = 0b1000,
     ACT_LAYER_BIT       = 0b1001,
     ACT_LAYER_SWITCH    = 0b1011,
 
@@ -277,14 +272,14 @@ enum layer_codes {
  */
 /* set default layer */
 #define ACTION_LAYER_SET_DEFAULT(layer)         ACTION_LAYER_SET_DEFAULT_R(layer)
-#define ACTION_LAYER_SET_DEFAULT_P(layer)       ACTION(ACT_LAYER, (layer)<<8 | LAYER_SET_DEFAULT_ON_PRESS)
-#define ACTION_LAYER_SET_DEFAULT_R(layer)       ACTION(ACT_LAYER, (layer)<<8 | LAYER_SET_DEFAULT_ON_RELEASE)
-#define ACTION_LAYER_SET_DEFAULT_B(layer)       ACTION(ACT_LAYER, (layer)<<8 | LAYER_SET_DEFAULT_ON_BOTH)
+#define ACTION_LAYER_SET_DEFAULT_P(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_SET_DEFAULT_ON_PRESS)
+#define ACTION_LAYER_SET_DEFAULT_R(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_SET_DEFAULT_ON_RELEASE)
+#define ACTION_LAYER_SET_DEFAULT_B(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_SET_DEFAULT_ON_BOTH)
 /* bit-xor default layer */
 #define ACTION_LAYER_BIT_DEFAULT(bits)          ACTION_LAYER_BIT_DEFAULT_R(bits)
-#define ACTION_LAYER_BIT_DEFAULT_P(bits)        ACTION(ACT_LAYER, (bits)<<8 | LAYER_SET_DEFAULT_ON_PRESS)
-#define ACTION_LAYER_BIT_DEFAULT_R(bits)        ACTION(ACT_LAYER, (bits)<<8 | LAYER_SET_DEFAULT_ON_RELEASE)
-#define ACTION_LAYER_BIT_DEFAULT_B(bits)        ACTION(ACT_LAYER, (bits)<<8 | LAYER_SET_DEFAULT_ON_BOTH)
+#define ACTION_LAYER_BIT_DEFAULT_P(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_SET_DEFAULT_ON_PRESS)
+#define ACTION_LAYER_BIT_DEFAULT_R(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_SET_DEFAULT_ON_RELEASE)
+#define ACTION_LAYER_BIT_DEFAULT_B(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_SET_DEFAULT_ON_BOTH)
 /*
  * Current layer: Return to default layer
  */
@@ -296,13 +291,13 @@ enum layer_codes {
  * Current layer: Set
  */
 #define ACTION_LAYER_SET(layer)                 ACTION_LAYER_SET_P(layer)
-#define ACTION_LAYER_SET_MOMENTARY(layer)       ACTION(ACT_LAYER, (layer)<<8 | LAYER_MOMENTARY)
+#define ACTION_LAYER_SET_MOMENTARY(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_MOMENTARY)
 #define ACTION_LAYER_SET_TOGGLE(layer)          ACTION_LAYER_SET_R(layer)
-#define ACTION_LAYER_SET_P(layer)               ACTION(ACT_LAYER, (layer)<<8 | LAYER_ON_PRESS)
-#define ACTION_LAYER_SET_R(layer)               ACTION(ACT_LAYER, (layer)<<8 | LAYER_ON_RELEASE)
-#define ACTION_LAYER_SET_B(layer)               ACTION(ACT_LAYER, (layer)<<8 | LAYER_ON_BOTH)
-#define ACTION_LAYER_SET_TAP_TOGGLE(layer)      ACTION(ACT_LAYER, (layer)<<8 | LAYER_TAP_TOGGLE)
-#define ACTION_LAYER_SET_TAP_KEY(layer, key)    ACTION(ACT_LAYER, (layer)<<8 | (key))
+#define ACTION_LAYER_SET_P(layer)               ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_ON_PRESS)
+#define ACTION_LAYER_SET_R(layer)               ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_ON_RELEASE)
+#define ACTION_LAYER_SET_B(layer)               ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_ON_BOTH)
+#define ACTION_LAYER_SET_TAP_TOGGLE(layer)      ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_TAP_TOGGLE)
+#define ACTION_LAYER_SET_TAP_KEY(layer, key)    ACTION(ACT_LAYER_SET, (layer)<<8 | (key))
 /*
  * Current layer: Bit-op
  */
