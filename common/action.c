@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "debug.h"
 #include "action.h"
-#include "layer_stack.h"
+#include "layer_switch.h"
 
 
 /* default layer indicates base layer */
@@ -213,8 +213,8 @@ static action_t get_action(key_t key)
     action_t action;
     action.code = ACTION_NO;
 
-    /* layer stack */
-    action = layer_stack_get_action(key);
+    /* layer_switch */
+    action = layer_switch_get_action(key);
     if (action.code != ACTION_TRANSPARENT) {
         return action;
     }
@@ -531,45 +531,38 @@ static void process_action(keyrecord_t *record)
                     break;
             }
             break;
-        case ACT_LAYER_STACK:
+        case ACT_LAYER_SWITCH:
             switch (action.layer.code) {
                 case LAYER_MOMENTARY:  /* momentary */
                     if (event.pressed) {
-                        layer_stack_remove_then_push(action.layer.val);
-                        layer_stack_debug();
+                        layer_switch_on(action.layer.val);
                     } else {
-                        layer_stack_remove(action.layer.val);
-                        layer_stack_debug();
+                        layer_switch_off(action.layer.val);
                     }
                     break;
                 case LAYER_ON_PRESS:
                     if (event.pressed) {
-                        layer_stack_remove_or_push(action.layer.val);
-                        layer_stack_debug();
+                        layer_switch_inv(action.layer.val);
                     }
                     break;
                 case LAYER_ON_RELEASE:
                     if (!event.pressed) {
-                        layer_stack_remove_or_push(action.layer.val);
-                        layer_stack_debug();
+                        layer_switch_inv(action.layer.val);
                     }
                     break;
                 case LAYER_ON_BOTH:
-                    layer_stack_remove_or_push(action.layer.val);
-                    layer_stack_debug();
+                    layer_switch_inv(action.layer.val);
                     break;
                 case LAYER_TAP_TOGGLE:  /* switch on hold and toggle on several taps */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
-                            debug("LAYER_STACK: tap toggle(press).\n");
-                            layer_stack_remove_or_push(action.layer.val);
-                            layer_stack_debug();
+                            debug("LAYER_SWITCH: tap toggle(press).\n");
+                            layer_switch_inv(action.layer.val);
                         }
                     } else {
                         if (tap_count <= TAPPING_TOGGLE) {
-                            debug("LAYER_STACK: tap toggle(release).\n");
-                            layer_stack_remove_or_push(action.layer.val);
-                            layer_stack_debug();
+                            debug("LAYER_SWITCH: tap toggle(release).\n");
+                            layer_switch_inv(action.layer.val);
                         }
                     }
                     break;
@@ -577,21 +570,19 @@ static void process_action(keyrecord_t *record)
                     // tap key
                     if (event.pressed) {
                         if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
-                            debug("LAYER_STACK: Tap: register_code\n");
+                            debug("LAYER_SWITCH: Tap: register_code\n");
                             register_code(action.layer.code);
                         } else {
-                            debug("LAYER_STACK: No tap: layer_stack(on press)\n");
-                            layer_stack_remove_or_push(action.layer.val);
-                            layer_stack_debug();
+                            debug("LAYER_SWITCH: No tap: layer_switch(on press)\n");
+                            layer_switch_inv(action.layer.val);
                         }
                     } else {
                         if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
-                            debug("LAYER_STACK: Tap: unregister_code\n");
+                            debug("LAYER_SWITCH: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            debug("LAYER_STACK: No tap: layer_stack(on release)\n");
-                            layer_stack_remove_or_push(action.layer.val);
-                            layer_stack_debug();
+                            debug("LAYER_SWITCH: No tap: layer_switch(on release)\n");
+                            layer_switch_inv(action.layer.val);
                         }
                     }
                     break;
@@ -898,6 +889,7 @@ bool sending_anykey(void)
             host_last_sysytem_report() || host_last_consumer_report());
 }
 
+// TODO: rename or reinpl with new layer_switch.c
 void layer_switch(uint8_t new_layer)
 {
     if (current_layer != new_layer) {
@@ -966,7 +958,7 @@ static void debug_action(action_t action)
         case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
         case ACT_LAYER:             debug("ACT_LAYER");             break;
         case ACT_LAYER_BIT:         debug("ACT_LAYER_BIT");         break;
-        case ACT_LAYER_STACK:       debug("ACT_LAYER_STACK");       break;
+        case ACT_LAYER_SWITCH:      debug("ACT_LAYER_SWITCH");     break;
         case ACT_MACRO:             debug("ACT_MACRO");             break;
         case ACT_COMMAND:           debug("ACT_COMMAND");           break;
         case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;

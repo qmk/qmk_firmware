@@ -70,8 +70,8 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 static const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
-    [0] = ACTION_LAYER_STACK_TOGGLE(1),              // FN0 Poker Arrow toggle(Space)
-    [1] = ACTION_LAYER_STACK_TOGGLE(2),              // FN1 Poker Esc toggle(Q)
-    [2] = ACTION_LAYER_STACK(3),                     // FN2 Poker Fn
+    [0] = ACTION_LAYER_SWITCH_TOGGLE(1),              // FN0 Poker Arrow toggle(Space)
+    [1] = ACTION_LAYER_SWITCH_TOGGLE(2),              // FN1 Poker Esc toggle(Q)
+    [2] = ACTION_LAYER_SWITCH(3),                     // FN2 Poker Fn
     [3] = ACTION_RMODS_KEY(MOD_BIT(KC_RCTL)|MOD_BIT(KC_RSFT), KC_ESC), // FN3 Task(RControl,RShift+Esc)
 };

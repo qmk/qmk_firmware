@@ -163,9 +163,6 @@ bool waiting_buffer_has_anykey_pressed(void);
  * Layer Actions
  * -------------
  * ACT_LAYER(1000):             Set layer
- * ACT_LAYER_BIT(1001):         Bit-op layer
- * ACT_LAYER_STACK:             Layer stack
- *
  * 1000|LLLL|0000 0000   set current layer on press and return to default on release(momentary)
  * 1000|LLLL|0000 0001   set current layer on press
  * 1000|LLLL|0000 0010   set current layer on release
@@ -175,6 +172,7 @@ bool waiting_buffer_has_anykey_pressed(void);
  * 1000|DDDD|1111 1111   set default layer on press
  * L: 0 means default layer
  *
+ * ACT_LAYER_BIT(1001):         Bit-op layer
  * 1001|BBBB|0000 0000   bit-on current layer on press and bit-off on release(momentary)
  * 1001|BBBB|0000 0001   bit-xor current layer on press
  * 1001|BBBB|0000 0010   bit-xor current layer on release
@@ -183,12 +181,13 @@ bool waiting_buffer_has_anykey_pressed(void);
  * 1001|BBBB|1111 0000   bit-xor current layer on hold and toggle on several taps
  * 1001|BBBB|1111 1111   bit-xor default layer on both
  *
- * 1011|LLLL|0000 0000   push on press and remove on release(momentary)
- * 1011|LLLL|0000 0001   push or remove on press
- * 1011|LLLL|0000 0010   push or remove on release
- * 1011|LLLL|0000 0011   push or remove on both
- * 1011|LLLL| keycode    push or remove on hold and send key on tap
- * 1011|LLLL|1111 0000   push or remove on hold and toggle on several taps
+ * ACT_LAYER_SWITCH:            Switch
+ * 1011|LLLL|0000 0000   On on press and Off on release(momentary)
+ * 1011|LLLL|0000 0001   Invert on press
+ * 1011|LLLL|0000 0010   Invert on release
+ * 1011|LLLL|0000 0011   Invert on both
+ * 1011|LLLL| keycode    Invert on hold and send key on tap
+ * 1011|LLLL|1111 0000   Invert on hold and toggle on several taps
  * 1011|LLLL|1111 1111   (not used)
  *
  *
@@ -219,7 +218,7 @@ enum action_kind_id {
 
     ACT_LAYER           = 0b1000,
     ACT_LAYER_BIT       = 0b1001,
-    ACT_LAYER_STACK     = 0b1011,
+    ACT_LAYER_SWITCH    = 0b1011,
 
     ACT_MACRO           = 0b1100,
     ACT_COMMAND         = 0b1110,
@@ -233,7 +232,7 @@ enum action_kind_id {
 #define ACTION(kind, param)             ((kind)<<12 | (param))
 #define MODS4(mods)                     (((mods)>>4 | (mods)) & 0x0F)
 
-/* 
+/*
  * Key
  */
 #define ACTION_KEY(key)                 ACTION(ACT_LMODS,    key)
@@ -316,17 +315,17 @@ enum layer_codes {
 #define ACTION_LAYER_BIT_TAP_TOGGLE(bits)       ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_TAP_TOGGLE)
 #define ACTION_LAYER_BIT_TAP_KEY(bits, key)     ACTION(ACT_LAYER_BIT, (bits)<<8 | (key))
 /*
- * Layer Stack
+ * Layer SWITCH
  */
 /* momentary */
-#define ACTION_LAYER_STACK(layer)               ACTION_LAYER_STACK_MOMENTARY(layer)
-#define ACTION_LAYER_STACK_MOMENTARY(layer)     ACTION(ACT_LAYER_STACK, (layer)<<8 | LAYER_MOMENTARY)
-#define ACTION_LAYER_STACK_TOGGLE(layer)        ACTION_LAYER_STACK_R(layer)
-#define ACTION_LAYER_STACK_P(layer)             ACTION(ACT_LAYER_STACK, (layer)<<8 | LAYER_ON_PRESS)
-#define ACTION_LAYER_STACK_R(layer)             ACTION(ACT_LAYER_STACK, (layer)<<8 | LAYER_ON_RELEASE)
-#define ACTION_LAYER_STACK_B(layer)             ACTION(ACT_LAYER_STACK, (layer)<<8 | LAYER_ON_BOTH)
-#define ACTION_LAYER_STACK_TAP_TOGGLE(layer)    ACTION(ACT_LAYER_STACK, (layer)<<8 | LAYER_TAP_TOGGLE)
-#define ACTION_LAYER_STACK_TAP_KEY(layer, key)  ACTION(ACT_LAYER_STACK, (layer)<<8 | (key))
+#define ACTION_LAYER_SWITCH(layer)              ACTION_LAYER_SWITCH_MOMENTARY(layer)
+#define ACTION_LAYER_SWITCH_MOMENTARY(layer)    ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_MOMENTARY)
+#define ACTION_LAYER_SWITCH_TOGGLE(layer)       ACTION_LAYER_SWITCH_R(layer)
+#define ACTION_LAYER_SWITCH_P(layer)            ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_ON_PRESS)
+#define ACTION_LAYER_SWITCH_R(layer)            ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_ON_RELEASE)
+#define ACTION_LAYER_SWITCH_B(layer)            ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_ON_BOTH)
+#define ACTION_LAYER_SWITCH_TAP_TOGGLE(layer)   ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_TAP_TOGGLE)
+#define ACTION_LAYER_SWITCH_TAP_KEY(layer, key) ACTION(ACT_LAYER_SWITCH, (layer)<<8 | (key))
 
 
 /*

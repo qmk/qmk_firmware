@@ -14,32 +14,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef LAYER_STACK_H
-#define LAYER_STACK_H
+#ifndef LAYER_SWITCH_H
+#define LAYER_SWITCH_H
 
 #include <stdint.h>
+#include "keyboard.h"
 #include "action.h"
 
+uint16_t layer_switch_stat;
 
-/*
- * Layer stack
- */
-#define LAYER_STACK_SIZE 8
-typedef struct {
-    uint8_t layer:4;
-    uint8_t next:3;
-    bool    used;
-} layer_item_t;
-
-
-void layer_stack_clear(void);
-bool layer_stack_push(uint8_t layer);
-bool layer_stack_pop(void);
-bool layer_stack_remove(uint8_t layer);
-bool layer_stack_remove_then_push(uint8_t layer);
-bool layer_stack_remove_or_push(uint8_t layer);
-void layer_stack_debug(void);
-action_t layer_stack_get_action(key_t key);
+uint16_t layer_switch_stat_get(void);
+void layer_switch_stat_set(uint16_t stat);
+void layer_switch_clear(void);
+void layer_switch_on(uint8_t layer);
+void layer_switch_off(uint8_t layer);
+/* invert state */
+void layer_switch_inv(uint8_t layer);
+void layer_switch_debug(void);
+action_t layer_switch_get_action(key_t key);
 
 #endif
-
