@@ -27,12 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "layer_switch.h"
 
 
-/* default layer indicates base layer */
-uint8_t default_layer = 0;
-/* current layer indicates active layer at this time */
-uint8_t current_layer = 0;
-
-
 static void process_action(keyrecord_t *record);
 static bool process_tapping(keyrecord_t *record);
 static void waiting_buffer_scan_tap(void);
@@ -219,17 +213,8 @@ static action_t get_action(key_t key)
         return action;
     }
 
-    /* current layer: 0 means default layer */
-    if (current_layer) {
-        action = action_for_key(current_layer, key);
-        if (action.code != ACTION_TRANSPARENT) {
-            debug("current layer: used. "); debug_dec(current_layer); debug("\n");
-            return action;
-        }
-    }
-
     /* default layer */
-    debug("default layer: used. \n");
+    //debug("get_aciton: default layer: "); debug_dec(default_layer); debug("\n");
     action = action_for_key(default_layer, key);
     return action;
 }
@@ -242,7 +227,8 @@ static void process_action(keyrecord_t *record)
     if (IS_NOEVENT(event)) { return; }
 
     action_t action = get_action(event.key);
-    debug("ACTION: "); debug_action(action); debug("\n");
+    debug("ACTION: "); debug_action(action); debug(" ");
+    layer_switch_debug(); debug("["); debug_dec(default_layer); debug("]\n");
 
     switch (action.kind.id) {
         /* Key and Mods */
@@ -383,57 +369,57 @@ static void process_action(keyrecord_t *record)
             break;
 
         /* Layer key */
-        case ACT_LAYER:
+        case ACT_LAYER_SET:
             switch (action.layer.code) {
                 case LAYER_MOMENTARY:  /* momentary */
                     if (event.pressed) {
-                        layer_switch(action.layer.val);
+                        layer_switch_move(action.layer.val);
                     }
                     else {
                         // NOTE: This is needed by legacy keymap support
-                        layer_switch(0);
+                        layer_switch_move(0);
                     }
                     break;
                 case LAYER_ON_PRESS:
                     if (event.pressed) {
-                        layer_switch(action.layer.val);
+                        layer_switch_move(action.layer.val);
                     }
                     break;
                 case LAYER_ON_RELEASE:
                     if (!event.pressed) {
-                        layer_switch(action.layer.val);
+                        layer_switch_move(action.layer.val);
                     }
                     break;
                 case LAYER_ON_BOTH:
-                    layer_switch(action.layer.val);
+                    layer_switch_move(action.layer.val);
                     break;
                 case LAYER_TAP_TOGGLE:  /* switch on hold and toggle on several taps */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
-                            layer_switch(action.layer.val);
+                            layer_switch_move(action.layer.val);
                         }
                     } else {
                         if (tap_count >= TAPPING_TOGGLE) {
                             debug("LAYER_PRESSED: tap toggle.\n");
-                            layer_switch(action.layer.val);
+                            layer_switch_move(action.layer.val);
                         }
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_PRESS:
                     if (event.pressed) {
                         default_layer = action.layer.val;
-                        layer_switch(0);
+                        layer_switch_move(0);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_RELEASE:
                     if (!event.pressed) {
                         default_layer = action.layer.val;
-                        layer_switch(0);
+                        layer_switch_move(0);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_BOTH:
                     default_layer = action.layer.val;
-                    layer_switch(0);
+                    layer_switch_move(0);
                     break;
                 default:
                     /* tap key */
@@ -443,7 +429,7 @@ static void process_action(keyrecord_t *record)
                              register_code(action.layer.code);
                         } else {
                              debug("LAYER_SET: No tap: layer_set(on press)\n");
-                             layer_switch(action.layer.val);
+                             layer_switch_move(action.layer.val);
                         }
                     } else {
                         if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
@@ -452,7 +438,7 @@ static void process_action(keyrecord_t *record)
                         } else {
                             // NOTE: This is needed by legacy keymap support
                             debug("LAYER_SET: No tap: return to default layer(on release)\n");
-                            layer_switch(0);
+                            layer_switch_move(0);
                         }
                     }
                     break;
@@ -462,52 +448,52 @@ static void process_action(keyrecord_t *record)
             switch (action.layer.code) {
                 case LAYER_MOMENTARY:  /* momentary */
                     if (event.pressed) {
-                        layer_switch(current_layer | action.layer.val);
+                        layer_switch_move(layer_switch_get_layer() | action.layer.val);
                     } else {
-                        layer_switch(current_layer & ~action.layer.val);
+                        layer_switch_move(layer_switch_get_layer() & ~action.layer.val);
                     }
                     break;
                 case LAYER_ON_PRESS:
                     if (event.pressed) {
-                        layer_switch(current_layer ^ action.layer.val);
+                        layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                     }
                     break;
                 case LAYER_ON_RELEASE:
                     if (!event.pressed) {
-                        layer_switch(current_layer ^ action.layer.val);
+                        layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                     }
                     break;
                 case LAYER_ON_BOTH:
-                    layer_switch(current_layer ^ action.layer.val);
+                    layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                     break;
                 case LAYER_TAP_TOGGLE:  /* switch on hold and toggle on several taps */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
                             debug("LAYER_BIT: tap toggle(press).\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                         }
                     } else {
                         if (tap_count <= TAPPING_TOGGLE) {
                             debug("LAYER_BIT: tap toggle(release).\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                         }
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_PRESS:
                     if (event.pressed) {
                         default_layer = default_layer ^ action.layer.val;
-                        layer_switch(0);
+                        layer_switch_move(default_layer);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_RELEASE:
                     if (!event.pressed) {
                         default_layer = default_layer ^ action.layer.val;
-                        layer_switch(0);
+                        layer_switch_move(default_layer);
                     }
                     break;
                 case LAYER_SET_DEFAULT_ON_BOTH:
                     default_layer = default_layer ^ action.layer.val;
-                    layer_switch(0);
+                    layer_switch_move(default_layer);
                     break;
                 default:
                     // tap key
@@ -517,7 +503,7 @@ static void process_action(keyrecord_t *record)
                             register_code(action.layer.code);
                         } else {
                             debug("LAYER_BIT: No tap: layer_bit(on press)\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                         }
                     } else {
                         if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
@@ -525,7 +511,7 @@ static void process_action(keyrecord_t *record)
                             unregister_code(action.layer.code);
                         } else {
                             debug("LAYER_BIT: No tap: layer_bit(on release)\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            layer_switch_move(layer_switch_get_layer() ^ action.layer.val);
                         }
                     }
                     break;
@@ -542,27 +528,27 @@ static void process_action(keyrecord_t *record)
                     break;
                 case LAYER_ON_PRESS:
                     if (event.pressed) {
-                        layer_switch_inv(action.layer.val);
+                        layer_switch_invert(action.layer.val);
                     }
                     break;
                 case LAYER_ON_RELEASE:
                     if (!event.pressed) {
-                        layer_switch_inv(action.layer.val);
+                        layer_switch_invert(action.layer.val);
                     }
                     break;
                 case LAYER_ON_BOTH:
-                    layer_switch_inv(action.layer.val);
+                    layer_switch_invert(action.layer.val);
                     break;
                 case LAYER_TAP_TOGGLE:  /* switch on hold and toggle on several taps */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
                             debug("LAYER_SWITCH: tap toggle(press).\n");
-                            layer_switch_inv(action.layer.val);
+                            layer_switch_invert(action.layer.val);
                         }
                     } else {
                         if (tap_count <= TAPPING_TOGGLE) {
                             debug("LAYER_SWITCH: tap toggle(release).\n");
-                            layer_switch_inv(action.layer.val);
+                            layer_switch_invert(action.layer.val);
                         }
                     }
                     break;
@@ -573,16 +559,16 @@ static void process_action(keyrecord_t *record)
                             debug("LAYER_SWITCH: Tap: register_code\n");
                             register_code(action.layer.code);
                         } else {
-                            debug("LAYER_SWITCH: No tap: layer_switch(on press)\n");
-                            layer_switch_inv(action.layer.val);
+                            debug("LAYER_SWITCH: No tap: layer_switch on press\n");
+                            layer_switch_invert(action.layer.val);
                         }
                     } else {
                         if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
                             debug("LAYER_SWITCH: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            debug("LAYER_SWITCH: No tap: layer_switch(on release)\n");
-                            layer_switch_inv(action.layer.val);
+                            debug("LAYER_SWITCH: No tap: layer_switch on release\n");
+                            layer_switch_invert(action.layer.val);
                         }
                     }
                     break;
@@ -889,19 +875,6 @@ bool sending_anykey(void)
             host_last_sysytem_report() || host_last_consumer_report());
 }
 
-// TODO: rename or reinpl with new layer_switch.c
-void layer_switch(uint8_t new_layer)
-{
-    if (current_layer != new_layer) {
-        debug("Layer Switch: "); debug_hex(current_layer);
-        debug(" -> "); debug_hex(new_layer); debug("\n");
-
-        current_layer = new_layer;
-        clear_keyboard_but_mods(); // To avoid stuck keys
-        // NOTE: update mods with full scan of matrix? if modifier changes between layers
-    }
-}
-
 bool is_tap_key(key_t key)
 {
     action_t action = get_action(key);
@@ -910,7 +883,7 @@ bool is_tap_key(key_t key)
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
             return true;
-        case ACT_LAYER:
+        case ACT_LAYER_SET:
         case ACT_LAYER_BIT:
             switch (action.layer.code) {
                 case LAYER_MOMENTARY:
@@ -956,9 +929,9 @@ static void debug_action(action_t action)
         case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
         case ACT_USAGE:             debug("ACT_USAGE");             break;
         case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
-        case ACT_LAYER:             debug("ACT_LAYER");             break;
+        case ACT_LAYER_SET:         debug("ACT_LAYER_SET");         break;
         case ACT_LAYER_BIT:         debug("ACT_LAYER_BIT");         break;
-        case ACT_LAYER_SWITCH:      debug("ACT_LAYER_SWITCH");     break;
+        case ACT_LAYER_SWITCH:      debug("ACT_LAYER_SWITCH");      break;
         case ACT_MACRO:             debug("ACT_MACRO");             break;
         case ACT_COMMAND:           debug("ACT_COMMAND");           break;
         case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
