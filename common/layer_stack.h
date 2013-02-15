@@ -32,6 +32,7 @@ typedef struct {
 } layer_item_t;
 
 
+void layer_stack_clear(void);
 bool layer_stack_push(uint8_t layer);
 bool layer_stack_pop(void);
 bool layer_stack_remove(uint8_t layer);
