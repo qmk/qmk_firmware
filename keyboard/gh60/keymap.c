@@ -64,6 +64,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "keymap_plain.h"
 #elif defined(KEYMAP_POKER)
     #include "keymap_poker.h"
+#elif defined(KEYMAP_POKER_STACK)
+    #include "keymap_poker_stack.h"
 #else
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
