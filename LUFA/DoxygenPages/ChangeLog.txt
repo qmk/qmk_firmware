@@ -32,7 +32,7 @@
   *  - Core:
   *   - Fixed incorrectly issuing STALL response to unsupported control request SETUP packets, rather than in the data/status stage
   *   - Fixed inverted LEDs_GetLEDs() function implementation for the Benito, Minimus and Arduino UNO boards
-  *   - Fixed missing Win-32bit compatibility sections in the LUFA INF driver files (thanks to Christan Beharrell)
+  *   - Fixed missing Windows 32-bit compatibility sections in the LUFA INF driver files (thanks to Christan Beharrell)
   *   - Fixed logic hole breaking USB operations on a USB controller with only one supported USB mode and no USB_DEVICE_ONLY or USB_HOST_ONLY
   *     configuration token set
   *   - Fixed possible rounding in the VERSION_BCD() macros for some 0.01 step increments (thanks to Oliver Zander)
@@ -44,6 +44,7 @@
   *   - Fixed incorrect Minimus board LED definitions (thanks to Joonas Lahtinen)
   *   - Fixed incorrect ordering of the linker options in the build system causing link failures in some cases
   *   - Fixed bug in the TWI peripheral driver for the AVR8 devices causing incorrect failure codes to be returned in some cases (thanks to Peter K)
+  *   - Fixed swapped LED3 and LED4 masks for the Olimex-32U4 development board LED driver
   *  - Library Applications:
   *   - Fixed broken RESET_TOGGLES_LIBUSB_COMPAT compile time option in the AVRISP-MKII project
   *   - Fixed incompatibility in the CDC class bootloader on some systems (thanks to Sylvain Munaut)
