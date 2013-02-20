@@ -125,8 +125,8 @@ plain: all
 poker: OPT_DEFS += -DKEYMAP_POKER
 poker: all
 
-poker_bit: OPT_DEFS += -DKEYMAP_POKER_SET
-poker_bit: all
+poker_set: OPT_DEFS += -DKEYMAP_POKER_SET
+poker_set: all
 
 poker_bit: OPT_DEFS += -DKEYMAP_POKER_BIT
 poker_bit: all

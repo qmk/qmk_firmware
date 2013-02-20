@@ -41,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if need no debouncing */
 #define DEBOUNCE    5
 
+/* To use new keymap framework */
+#define USE_KEYMAP_V2
 
 /* key combination for command */
 #define IS_COMMAND() ( \

@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 #include "action_macro.h"
+#include "layer_switch.h"
 #include "report.h"
 #include "host.h"
 #include "print.h"
@@ -73,7 +74,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * Funky
      */
-    /* Layer 0: Default Layer
+    /* Keymap 0: Default Layer
      * ,-----------------------------------------------------------.
      * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
      * |-----------------------------------------------------------|
@@ -92,7 +93,34 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,     ENT,  \
         LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2,           RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,FN4, FN4, FN1),
-    /* Layer 1: HHKB mode
+    /* Keymap 1: colemak */
+    KEYMAP_ANSI(
+        GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
+        TAB, Q,   W,   F,   P,   G,   J,   L,   U,   Y,   SCLN,LBRC,RBRC,BSLS, \
+        BSPC,A,   R,   S,   T,   D,   H,   N,   E,   I,   O,   QUOT,     ENT,  \
+        LSFT,Z,   X,   C,   V,   B,   K,   M,   COMM,DOT, SLSH,          RSFT, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN1),
+    /* Keymap 2: dvorak */
+    KEYMAP_ANSI(
+        GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   LBRC,RBRC,BSPC, \
+        TAB, QUOT,COMM,DOT, P,   Y,   F,   G,   C,   R,   L,   SLSH,EQL, BSLS, \
+        CAPS,A,   O,   E,   U,   I,   D,   H,   T,   N,   S,   MINS,     ENT,  \
+        LSFT,SCLN,Q,   J,   K,   X,   B,   M,   W,   V,   Z,             RSFT, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN1),
+    /* Keymap: workman */
+    KEYMAP_ANSI(
+        GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
+        TAB, Q,   D,   R,   W,   B,   J,   F,   U,   P,   SCLN,LBRC,RBRC,BSLS, \
+        BSPC,A,   S,   H,   T,   G,   Y,   N,   E,   O,   I,   QUOT,     ENT,  \
+        LSFT,Z,   X,   M,   C,   V,   K,   L,   COMM,DOT, SLSH,          RSFT, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN1),
+};
+
+static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
+    /*
+     * Funky
+     */
+    /* Overlay 0: HHKB mode
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
      * |-----------------------------------------------------------|
@@ -107,11 +135,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP_ANSI(
         PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,  \
-        CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  INS,  \
-        LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,     ENT,  \
-        LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,          RSFT, \
+        CAPS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS,UP,  TRNS,INS,  \
+        LCTL,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,     ENT,  \
+        LSFT,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS,END, PGDN,DOWN,          RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN0),
-    /* Layer 2: Vi mode (Slash)
+    /* Overlay 1: Vi mode (Slash)
      * ,-----------------------------------------------------------.
      * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
@@ -126,11 +154,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP_ANSI(
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
-        TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO,   \
-        LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,  \
-        LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN0,           RSFT, \
+        TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, TRNS,TRNS,TRNS,TRNS, \
+        LCTL,TRNS,LEFT,DOWN,RGHT,TRNS,LEFT,DOWN,UP,  RGHT,TRNS,TRNS,     ENT,  \
+        LSFT,TRNS,TRNS,TRNS,TRNS,TRNS,HOME,PGDN,PGUP,END, FN0,           RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
-    /* Layer 3: Mouse mode (Semicolon/App)
+    /* Overlay 2: Mouse mode (Semicolon/App)
      * ,-----------------------------------------------------------.
      * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
@@ -146,10 +174,10 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP_ANSI(
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, BSPC, \
-        TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO,   \
-        LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, NO,       ENT,  \
-        LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,            RSFT, \
-        LCTL,LGUI,LALT,          BTN1,                    NO,  FN0, FN0, NO  ),
+        TAB, TRNS,TRNS,TRNS,TRNS,TRNS,WH_L,WH_D,WH_U,WH_R,TRNS,TRNS,TRNS,TRNS, \
+        LCTL,TRNS,ACL0,ACL1,ACL2,TRNS,MS_L,MS_D,MS_U,MS_R,FN0, TRNS,     ENT,  \
+        LSFT,TRNS,TRNS,TRNS,TRNS,BTN3,BTN2,BTN1,BTN4,BTN5,TRNS,          RSFT, \
+        LCTL,LGUI,LALT,          BTN1,                    TRNS,FN0, FN0, RCTL),
 };
 
 /*
@@ -157,41 +185,52 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 static const uint16_t PROGMEM fn_actions[] = {
     ACTION_LAYER_DEFAULT,                           // FN0
-    ACTION_LAYER_SET(1),                            // FN1
-    ACTION_LAYER_SET_TAP_KEY(2, KC_SLASH),          // FN2  Layer with Slash
-    ACTION_LAYER_SET_TAP_KEY(3, KC_SCLN),           // FN3  Layer with Semicolon
-    ACTION_LAYER_SET(3),                            // FN4
+    ACTION_LAYER_SET(0),                            // FN1
+    ACTION_LAYER_SET_TAP_KEY(1, KC_SLASH),          // FN2
+    ACTION_LAYER_SET_TAP_KEY(2, KC_SCLN),           // FN3
+    ACTION_LAYER_SET(2),                            // FN4
 };
 #endif
 
 
 
+#define KEYMAPS_SIZE    (sizeof(keymaps) / sizeof(keymaps[0]))
+#define OVERLAYS_SIZE   (sizeof(overlays) / sizeof(overlays[0]))
+#define FN_ACTIONS_SIZE (sizeof(fn_actions) / sizeof(fn_actions[0]))
+
 /* translates key to keycode */
 uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+    /* Overlay: 16-31(OVERLAY_BIT(0x10) | overlay_layer) */
+    if (layer & OVERLAY_BIT) {
+        layer &= OVERLAY_MASK;
+        if (layer < OVERLAYS_SIZE) {
+            return pgm_read_byte(&overlays[(layer)][(key.row)][(key.col)]);
+        } else {
+            debug("key_to_keycode: overlay "); debug_dec(layer); debug(" is invalid.\n");
+            return KC_TRANSPARENT;
+        }
+    } 
+    /* Keymap: 0-15 */
+    else {
+        if (layer < KEYMAPS_SIZE) {
+            return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+        } else {
+            // fall back to layer 0
+            debug("key_to_keycode: base "); debug_dec(layer); debug(" is invalid.\n");
+            return pgm_read_byte(&keymaps[0][(key.row)][(key.col)]);
+        }
+    }
 }
 
-/* translates Fn index to action */
+/* translates Fn keycode to action */
 action_t keymap_fn_to_action(uint8_t keycode)
 {
     action_t action;
-    if (FN_INDEX(keycode) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
+    if (FN_INDEX(keycode) < FN_ACTIONS_SIZE) {
         action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
     } else {
         action.code = ACTION_NO;
     }
     return action;
-}
-
-/* convert key to action */
-action_t action_for_key(uint8_t layer, key_t key)
-{
-    uint8_t keycode = keymap_key_to_keycode(layer, key);
-    switch (keycode) {
-        case KC_FN0 ... KC_FN31:
-            return keymap_fn_to_action(keycode);
-        default:
-            return keymap_keycode_to_action(keycode);
-    }
 }
