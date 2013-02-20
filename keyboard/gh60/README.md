@@ -47,9 +47,10 @@ See [keymap_plain.h](keymap_plain.h) for detail.
     `-----------------------------------------------------------'
 
 ### 2  Poker keymap
-Poker layer emulation
 
-See [keymap_poker.h](keymap_poker.h) for detail.
+See [keymap_poker.h](keymap_poker.h) for Poker layer emulation, [keymap_poker_bit.h](keymap_poker_bit.h) and [keymap_poker_set.h](keymap_poker_set.h) for better support of Esc and arrow.
+
+ These keymap supports Colemak, Dvorak and Workmans, use `Magic` + {`1`, `2`, `3`} to switch and `Magic` + `0` to return to Qwerty.
 
 #### 2.0 Poker Default Layer
     ,-----------------------------------------------------------.
@@ -108,7 +109,7 @@ See [keymap_poker.h](keymap_poker.h) for detail.
 ### 3. Funky keymap
 This is my keymap(default) with HHKB, Vi cursor and Mousekey layer.
 
-See [keymap.h](keymap.h) for detail.
+See [keymap.c](keymap.c) for detail.
 
 #### 3.0 Funky Default Layer
     ,-----------------------------------------------------------.
