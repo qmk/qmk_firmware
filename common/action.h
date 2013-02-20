@@ -157,8 +157,8 @@ bool waiting_buffer_has_anykey_pressed(void);
  * Layer Actions
  * -------------
  * ACT_KEYMAP:
- * 1000|LLLL|0000 0000   Reset default layer
- * 1000|LLLL|0000 00xx   Reset default layer and clear overlay
+ * 1000|--xx|0000 0000   Clear keyamp and overlay
+ * 1000|LLLL|0000 00xx   Reset default layer and clear keymap and overlay
  * 1000|LLLL| keycode    Invert with tap key
  * 1000|LLLL|1111 0000   Invert with tap toggle
  * 1000|LLLL|1111 00xx   Invert[^= L]
@@ -274,22 +274,25 @@ enum layer_params {
     OP_SET   = 0xFC,
 };
 
-/*
+/* 
  * Default Layer
  */
-#define ACTION_KEYMAP(layer)                     ACTION_KEYMAP_MOMENTARY(layer)
-#define ACTION_KEYMAP_MOMENTARY(layer)           ACTION_KEYMAP_INV_B(layer)
-#define ACTION_KEYMAP_TOGGLE(layer)              ACTION_KEYMAP_INV_R(layer)
-/* Set default layer */
+#define ACTION_DEFAULT_LAYER                      ACTION(ACT_KEYMAP, 0<<8 | OP_RESET | 0)
 #define ACTION_SET_DEFAULT_LAYER(layer)           ACTION_KEYMAP_RESET(layer)
 #define ACTION_SET_DEFAULT_LAYER_P(layer)         ACTION_KEYMAP_RESET_P(layer)
 #define ACTION_SET_DEFAULT_LAYER_R(layer)         ACTION_KEYMAP_RESET_R(layer)
 #define ACTION_SET_DEFAULT_LAYER_B(layer)         ACTION_KEYMAP_RESET_B(layer)
+/*
+ * Keymap Layer
+ */
+#define ACTION_KEYMAP(layer)                     ACTION_KEYMAP_MOMENTARY(layer)
+#define ACTION_KEYMAP_MOMENTARY(layer)           ACTION_KEYMAP_ON_OFF(layer)
+#define ACTION_KEYMAP_TOGGLE(layer)              ACTION_KEYMAP_INV_R(layer)
 /* Keymap Set and clear overaly */
-#define ACTION_KEYMAP_RESET(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | 0)
+#define ACTION_KEYMAP_RESET(layer)               ACTION_KEYMAP_RESET_R(layer)
 #define ACTION_KEYMAP_RESET_P(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_PRESS)
-#define ACTION_KEYMAP_RESET_R(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_PRESS)
-#define ACTION_KEYMAP_RESET_B(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_PRESS)
+#define ACTION_KEYMAP_RESET_R(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_RELEASE)
+#define ACTION_KEYMAP_RESET_B(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_BOTH)
 /* Keymap Invert */
 #define ACTION_KEYMAP_INV(layer)                 ACTION_KEYMAP_INV_B(layer)
 #define ACTION_KEYMAP_TAP_TOGGLE(layer)          ACTION(ACT_KEYMAP, (layer)<<8 | OP_INV | 0)
