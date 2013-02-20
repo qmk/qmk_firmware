@@ -14,13 +14,71 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <avr/pgmspace.h>
 #include "keymap.h"
 #include "report.h"
 #include "keycode.h"
+#include "layer_switch.h"
 #include "action.h"
+#include "debug.h"
 
 
-action_t keymap_keycode_to_action(uint8_t keycode)
+static action_t keycode_to_action(uint8_t keycode);
+
+#ifdef USE_KEYMAP_V2
+/* converts key to action */
+action_t action_for_key(uint8_t layer, key_t key)
+{
+    uint8_t keycode = keymap_key_to_keycode(layer, key);
+    switch (keycode) {
+        case KC_FN0 ... KC_FN31:
+            return keymap_fn_to_action(keycode);
+        default:
+            return keycode_to_action(keycode);
+    }
+}
+
+__attribute__ ((weak))
+void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
+{
+}
+#else
+/* 
+ * legacy keymap support
+ */
+/* translation for legacy keymap */
+action_t action_for_key(uint8_t layer, key_t key)
+{
+    /* convert from legacy keycode to action */
+    /* layer 16-31 indicate 'overlay' but not supported in legacy keymap */
+    uint8_t keycode = keymap_get_keycode((layer & OVERLAY_MASK), key.row, key.col);
+    action_t action;
+    switch (keycode) {
+        case KC_FN0 ... KC_FN31:
+            {
+                uint8_t layer = keymap_fn_layer(FN_INDEX(keycode));
+                uint8_t key = keymap_fn_keycode(FN_INDEX(keycode));
+                if (key) {
+                    action.code = ACTION_KEYMAP_TAP_KEY(layer, key);
+                } else {
+                    action.code = ACTION_KEYMAP_MOMENTARY(layer);
+                }
+            }
+            return action;
+        default:
+            return keycode_to_action(keycode);
+    }
+}
+/* not used for legacy keymap */
+void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
+{
+}
+#endif
+
+
+
+/* translates keycode to action */
+static action_t keycode_to_action(uint8_t keycode)
 {
     action_t action;
     switch (keycode) {
@@ -50,35 +108,4 @@ action_t keymap_keycode_to_action(uint8_t keycode)
             break;
     }
     return action;
-}
-
-#ifndef NO_LEGACY_KEYMAP_SUPPORT
-/* legacy support with weak reference */
-__attribute__ ((weak))
-action_t action_for_key(uint8_t layer, key_t key)
-{
-    /* convert from legacy keycode to action */
-    uint8_t keycode = keymap_get_keycode(layer, key.row, key.col);
-    action_t action;
-    switch (keycode) {
-        case KC_FN0 ... KC_FN31:
-            {
-                uint8_t layer = keymap_fn_layer(FN_INDEX(keycode));
-                uint8_t key = keymap_fn_keycode(FN_INDEX(keycode));
-                if (key) {
-                    action.code = ACTION_LAYER_SET_TAP_KEY(layer, key);
-                } else {
-                    action.code = ACTION_LAYER_SET_MOMENTARY(layer);
-                }
-            }
-            return action;
-        default:
-            return keymap_keycode_to_action(keycode);
-    }
-}
-#endif
-
-__attribute__ ((weak))
-void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
-{
 }

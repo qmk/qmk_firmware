@@ -22,36 +22,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 
 
+/* overlays are asigned at layer 16-31 */
+#define OVERLAY_BIT      0x10
+#define OVERLAY_MASK     0x0F
+
+
+/*
+ * Default Layer
+ */
 /* base layer to fall back */
 extern uint8_t default_layer;
+void default_layer_set(uint8_t layer);
 
-/* layer status */
-extern uint16_t layer_switch_stat;
 
-/* return layer status */
-uint16_t layer_switch_get_stat(void);
+/*
+ * Keymap Layer
+ */
+extern uint16_t keymap_stat;
 /* return current active layer */
-uint8_t layer_switch_get_layer(void);
+uint8_t keymap_get_layer(void);
+void keymap_clear(void);
+void keymap_set(uint16_t stat);
+void keymap_move(uint8_t layer);
+void keymap_on(uint8_t layer);
+void keymap_off(uint8_t layer);
+void keymap_invert(uint8_t layer);
+/* bitwise operation */
+void keymap_or(uint16_t stat);
+void keymap_and(uint16_t stat);
+void keymap_xor(uint16_t stat);
+void keymap_debug(void);
 
-/* switch off all layers */
-void layer_switch_clear(void);
-/* set layer status */
-void layer_switch_set(uint16_t stat);
-/* move to layer */
-void layer_switch_move(uint8_t layer);
-/* switch on layer */
-void layer_switch_on(uint8_t layer);
-/* switch off layer */
-void layer_switch_off(uint8_t layer);
-/* switch state of layer */
-void layer_switch_invert(uint8_t layer);
 
-/* bitwise operation against layer status */
-void layer_switch_or(uint16_t stat);
-void layer_switch_and(uint16_t stat);
-void layer_switch_xor(uint16_t stat);
+/*
+ * Overlay Layer
+ */
+extern uint16_t overlay_stat;
+/* return current active layer */
+uint8_t overlay_get_layer(void);
+void overlay_clear(void);
+void overlay_set(uint16_t stat);
+void overlay_move(uint8_t layer);
+void overlay_on(uint8_t layer);
+void overlay_off(uint8_t layer);
+void overlay_invert(uint8_t layer);
+/* bitwise operation */
+void overlay_or(uint16_t stat);
+void overlay_and(uint16_t stat);
+void overlay_xor(uint16_t stat);
+void overlay_debug(void);
 
-void layer_switch_debug(void);
+
 
 /* return action depending on current layer status */
 action_t layer_switch_get_action(key_t key);
