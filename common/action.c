@@ -355,26 +355,50 @@ static void process_action(keyrecord_t *record)
 
         case ACT_KEYMAP:
             switch (action.layer.code) {
-                /* Keymap Reset */
+                /* Keymap clear */
                 case OP_RESET:
-                    default_layer_set(action.layer.val);
+                    switch (action.layer.val & 0x03) {
+                        case 0:
+                            overlay_clear();
+                            keymap_clear();
+                            break;
+                        case ON_PRESS:
+                            if (event.pressed) {
+                                overlay_clear();
+                                keymap_clear();
+                            }
+                            break;
+                        case ON_RELEASE:
+                            if (!event.pressed) {
+                                overlay_clear();
+                                keymap_clear();
+                            }
+                            break;
+                        case ON_BOTH:
+                            overlay_clear();
+                            keymap_clear();
+                            break;
+                    }
                     break;
                 /* Keymap Reset default layer */
                 case (OP_RESET | ON_PRESS):
                     if (event.pressed) {
-                        default_layer_set(action.layer.val);
                         overlay_clear();
+                        keymap_clear();
+                        default_layer_set(action.layer.val);
                     }
                     break;
                 case (OP_RESET | ON_RELEASE):
                     if (!event.pressed) {
-                        default_layer_set(action.layer.val);
                         overlay_clear();
+                        keymap_clear();
+                        default_layer_set(action.layer.val);
                     }
                     break;
                 case (OP_RESET | ON_BOTH):
-                    default_layer_set(action.layer.val);
                     overlay_clear();
+                    keymap_clear();
+                    default_layer_set(action.layer.val);
                     break;
 
                 /* Keymap Bit invert */

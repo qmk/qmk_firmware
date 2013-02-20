@@ -39,7 +39,7 @@ action_t action_for_key(uint8_t layer, key_t key)
 }
 
 __attribute__ ((weak))
-void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 }
 #else
@@ -70,7 +70,7 @@ action_t action_for_key(uint8_t layer, key_t key)
     }
 }
 /* not used for legacy keymap */
-void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 }
 #endif
