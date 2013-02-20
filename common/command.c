@@ -543,9 +543,8 @@ static uint8_t numkey2num(uint8_t code)
 
 static void switch_default_layer(uint8_t layer)
 {
-    // TODO check existence of layer or whether it can be used as default layer
-    print("switch_default_layer: "); print_dec(default_layer); print(" to "); print_dec(layer); 
-    default_layer = layer;
-    layer_switch_clear();
+    print("switch_default_layer: "); print_dec(default_layer); print(" to "); print_dec(layer); print("\n");
+    default_layer_set(layer);
+    overlay_clear();
     clear_keyboard();
 }

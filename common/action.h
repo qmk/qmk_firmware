@@ -150,40 +150,41 @@ bool waiting_buffer_has_anykey_pressed(void);
  *
  * Mouse Keys
  * ----------
- * NOTE: can be combined with 'Other HID Usage'? to save action kind id.
  * ACT_MOUSEKEY(0110):
  * 0101|XXXX| keycode     Mouse key
  *
  *
  * Layer Actions
  * -------------
- * ACT_LAYER_SET(1000):         Set layer
- * 1000|LLLL|0000 0000   set current layer on press and return to default on release(momentary)
- * 1000|LLLL|0000 0001   set current layer on press
- * 1000|LLLL|0000 0010   set current layer on release
- * 1000|LLLL|0000 0011   set current layer on both
- * 1000|LLLL| keycode    set current layer on hold and send key on tap
- * 1000|LLLL|1111 0000   set current layer on hold and toggle on several taps
- * 1000|DDDD|1111 1111   set default layer on press
- * L: 0 means default layer
+ * ACT_KEYMAP:
+ * 1000|LLLL|0000 0000   Reset default layer
+ * 1000|LLLL|0000 00xx   Reset default layer and clear overlay
+ * 1000|LLLL| keycode    Invert with tap key
+ * 1000|LLLL|1111 0000   Invert with tap toggle
+ * 1000|LLLL|1111 00xx   Invert[^= L]
+ * 1000|LLLL|1111 0100   On/Off
+ * 1000|LLLL|1111 01xx   On[|= L]
+ * 1000|LLLL|1111 1000   Off/On
+ * 1000|LLLL|1111 10xx   Off[&= ~L]
+ * 1000|LLLL|1111 1100   Set/Set(0)
+ * 1000|LLLL|1111 11xx   Set[= L]
+ * default layer: 0-15(4bit)
+ * xx: On {00:for special use, 01:press, 10:release, 11:both}
  *
- * ACT_LAYER_BIT(1001):         Bit-op layer
- * 1001|BBBB|0000 0000   bit-on current layer on press and bit-off on release(momentary)
- * 1001|BBBB|0000 0001   bit-xor current layer on press
- * 1001|BBBB|0000 0010   bit-xor current layer on release
- * 1001|BBBB|0000 0011   bit-xor current layer on both
- * 1001|BBBB| keycode    bit-xor current layer on hold and send key on tap
- * 1001|BBBB|1111 0000   bit-xor current layer on hold and toggle on several taps
- * 1001|BBBB|1111 1111   bit-xor default layer on both
- *
- * ACT_LAYER_SWITCH:            Switch
- * 1011|LLLL|0000 0000   On on press and Off on release(momentary)
- * 1011|LLLL|0000 0001   Invert on press
- * 1011|LLLL|0000 0010   Invert on release
- * 1011|LLLL|0000 0011   Invert on both
- * 1011|LLLL| keycode    Invert on hold and send key on tap
- * 1011|LLLL|1111 0000   Invert on hold and toggle on several taps
- * 1011|LLLL|1111 1111   (not used)
+ * ACT_OVERLAY:
+ * 1011|0000|0000 0000   Clear overlay
+ * 1011|LLLL|0000 00ss   Invert 4-bit chunk [^= L<<(4*ss)]
+ * 1011|LLLL| keycode    Invert with tap key
+ * 1011|LLLL|1111 0000   Invert with tap toggle
+ * 1011|LLLL|1111 00xx   Invert[^= 1<<L]
+ * 1011|LLLL|1111 0100   On/Off(momentary)
+ * 1011|LLLL|1111 01xx   On[|= 1<<L]
+ * 1011|LLLL|1111 1000   Off/On
+ * 1011|LLLL|1111 10xx   Off[&= ~1<<L]
+ * 1011|LLLL|1111 1100   Set[= 1<<L]/Clear
+ * 1011|LLLL|1111 11xx   Set[= 1<<L]
+ * overlays: 16-layer on/off status(16bit)
+ * xx: On {00:for special use, 01:press, 10:release, 11:both}
  *
  *
  * Extensions(11XX)
@@ -211,9 +212,8 @@ enum action_kind_id {
     ACT_USAGE           = 0b0100,
     ACT_MOUSEKEY        = 0b0101,
 
-    ACT_LAYER_SET       = 0b1000,
-    ACT_LAYER_BIT       = 0b1001,
-    ACT_LAYER_SWITCH    = 0b1011,
+    ACT_KEYMAP          = 0b1000,
+    ACT_OVERLAY         = 0b1001,
 
     ACT_MACRO           = 0b1100,
     ACT_COMMAND         = 0b1110,
@@ -254,73 +254,108 @@ enum mods_codes {
 #define ACTION_RMOD_ONESHOT(mod)        ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | MODS_ONESHOT)
 
 
-/*
- * Layer switching
+/* Layer Operation:
+ *      Invert  layer ^= (1<<layer)
+ *      On      layer |= (1<<layer)
+ *      Off     layer &= ~(1<<layer)
+ *      Set     layer = (1<<layer)
+ *      Clear   layer = 0
  */
-enum layer_codes {
-    LAYER_MOMENTARY = 0,
-    LAYER_ON_PRESS = 1,
-    LAYER_ON_RELEASE = 2,
-    LAYER_ON_BOTH =3,
-    LAYER_TAP_TOGGLE = 0xF0,
-    LAYER_SET_DEFAULT_ON_PRESS = 0xFD,
-    LAYER_SET_DEFAULT_ON_RELEASE = 0xFE,
-    LAYER_SET_DEFAULT_ON_BOTH = 0xFF
+enum layer_params {
+    ON_PRESS    = 1,
+    ON_RELEASE  = 2,
+    ON_BOTH     = 3,
+
+    OP_RESET  = 0x00,
+    OP_INV4  = 0x00,
+    OP_INV   = 0xF0,
+    OP_ON    = 0xF4,
+    OP_OFF   = 0xF8,
+    OP_SET   = 0xFC,
 };
+
 /*
- * Default layer
+ * Default Layer
  */
-/* set default layer */
-#define ACTION_LAYER_SET_DEFAULT(layer)         ACTION_LAYER_SET_DEFAULT_R(layer)
-#define ACTION_LAYER_SET_DEFAULT_P(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_SET_DEFAULT_ON_PRESS)
-#define ACTION_LAYER_SET_DEFAULT_R(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_SET_DEFAULT_ON_RELEASE)
-#define ACTION_LAYER_SET_DEFAULT_B(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_SET_DEFAULT_ON_BOTH)
-/* bit-xor default layer */
-#define ACTION_LAYER_BIT_DEFAULT(bits)          ACTION_LAYER_BIT_DEFAULT_R(bits)
-#define ACTION_LAYER_BIT_DEFAULT_P(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_SET_DEFAULT_ON_PRESS)
-#define ACTION_LAYER_BIT_DEFAULT_R(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_SET_DEFAULT_ON_RELEASE)
-#define ACTION_LAYER_BIT_DEFAULT_B(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_SET_DEFAULT_ON_BOTH)
+#define ACTION_KEYMAP(layer)                     ACTION_KEYMAP_MOMENTARY(layer)
+#define ACTION_KEYMAP_MOMENTARY(layer)           ACTION_KEYMAP_INV_B(layer)
+#define ACTION_KEYMAP_TOGGLE(layer)              ACTION_KEYMAP_INV_R(layer)
+/* Set default layer */
+#define ACTION_SET_DEFAULT_LAYER(layer)           ACTION_KEYMAP_RESET(layer)
+#define ACTION_SET_DEFAULT_LAYER_P(layer)         ACTION_KEYMAP_RESET_P(layer)
+#define ACTION_SET_DEFAULT_LAYER_R(layer)         ACTION_KEYMAP_RESET_R(layer)
+#define ACTION_SET_DEFAULT_LAYER_B(layer)         ACTION_KEYMAP_RESET_B(layer)
+/* Keymap Set and clear overaly */
+#define ACTION_KEYMAP_RESET(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | 0)
+#define ACTION_KEYMAP_RESET_P(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_PRESS)
+#define ACTION_KEYMAP_RESET_R(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_PRESS)
+#define ACTION_KEYMAP_RESET_B(layer)             ACTION(ACT_KEYMAP, (layer)<<8 | OP_RESET | ON_PRESS)
+/* Keymap Invert */
+#define ACTION_KEYMAP_INV(layer)                 ACTION_KEYMAP_INV_B(layer)
+#define ACTION_KEYMAP_TAP_TOGGLE(layer)          ACTION(ACT_KEYMAP, (layer)<<8 | OP_INV | 0)
+#define ACTION_KEYMAP_INV_P(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_INV | ON_PRESS)
+#define ACTION_KEYMAP_INV_R(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_INV | ON_RELEASE)
+#define ACTION_KEYMAP_INV_B(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_INV | ON_BOTH)
+/* Keymap On */
+#define ACTION_KEYMAP_ON(layer)                  ACTION_KEYMAP_ON_OFF(layer)
+#define ACTION_KEYMAP_ON_OFF(layer)              ACTION(ACT_KEYMAP, (layer)<<8 | OP_ON  | 0)
+#define ACTION_KEYMAP_ON_P(layer)                ACTION(ACT_KEYMAP, (layer)<<8 | OP_ON  | ON_PRESS)
+#define ACTION_KEYMAP_ON_R(layer)                ACTION(ACT_KEYMAP, (layer)<<8 | OP_ON  | ON_RELEASE)
+#define ACTION_KEYMAP_ON_B(layer)                ACTION(ACT_KEYMAP, (layer)<<8 | OP_ON  | ON_BOTH)
+/* Keymap Off */
+#define ACTION_KEYMAP_OFF(layer)                 ACTION_KEYMAP_OFF_ON(layer)
+#define ACTION_KEYMAP_OFF_ON(layer)              ACTION(ACT_KEYMAP, (layer)<<8 | OP_OFF | 0)
+#define ACTION_KEYMAP_OFF_P(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_OFF | ON_PRESS)
+#define ACTION_KEYMAP_OFF_R(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_OFF | ON_RELEASE)
+#define ACTION_KEYMAP_OFF_B(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_OFF | ON_BOTH)
+/* Keymap Set */
+#define ACTION_KEYMAP_SET(layer)                 ACTION_KEYMAP_SET_CLEAR(layer)
+#define ACTION_KEYMAP_SET_CLEAR(layer)           ACTION(ACT_KEYMAP, (layer)<<8 | OP_SET | 0)
+#define ACTION_KEYMAP_SET_P(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_SET | ON_PRESS)
+#define ACTION_KEYMAP_SET_R(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_SET | ON_RELEASE)
+#define ACTION_KEYMAP_SET_B(layer)               ACTION(ACT_KEYMAP, (layer)<<8 | OP_SET | ON_BOTH)
+/* Keymap Invert with tap key */
+#define ACTION_KEYMAP_TAP_KEY(layer, key)        ACTION(ACT_KEYMAP, (layer)<<8 | (key))
+
 /*
- * Current layer: Return to default layer
+ * Overlay Layer
  */
-#define ACTION_LAYER_DEFAULT                    ACTION_LAYER_DEFAULT_R
-#define ACTION_LAYER_DEFAULT_P                  ACTION_LAYER_SET_P(0)
-#define ACTION_LAYER_DEFAULT_R                  ACTION_LAYER_SET_R(0)
-#define ACTION_LAYER_DEFAULT_B                  ACTION_LAYER_SET_B(0)
-/*
- * Current layer: Set
- */
-#define ACTION_LAYER_SET(layer)                 ACTION_LAYER_SET_P(layer)
-#define ACTION_LAYER_SET_MOMENTARY(layer)       ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_MOMENTARY)
-#define ACTION_LAYER_SET_TOGGLE(layer)          ACTION_LAYER_SET_R(layer)
-#define ACTION_LAYER_SET_P(layer)               ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_ON_PRESS)
-#define ACTION_LAYER_SET_R(layer)               ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_ON_RELEASE)
-#define ACTION_LAYER_SET_B(layer)               ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_ON_BOTH)
-#define ACTION_LAYER_SET_TAP_TOGGLE(layer)      ACTION(ACT_LAYER_SET, (layer)<<8 | LAYER_TAP_TOGGLE)
-#define ACTION_LAYER_SET_TAP_KEY(layer, key)    ACTION(ACT_LAYER_SET, (layer)<<8 | (key))
-/*
- * Current layer: Bit-op
- */
-#define ACTION_LAYER_BIT(bits)                  ACTION_LAYER_BIT_MOMENTARY(bits)
-#define ACTION_LAYER_BIT_MOMENTARY(bits)        ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_MOMENTARY)
-#define ACTION_LAYER_BIT_TOGGLE(bits)           ACTION_LAYER_BIT_R(bits)
-#define ACTION_LAYER_BIT_P(bits)                ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_ON_PRESS)
-#define ACTION_LAYER_BIT_R(bits)                ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_ON_RELEASE)
-#define ACTION_LAYER_BIT_B(bits)                ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_ON_BOTH)
-#define ACTION_LAYER_BIT_TAP_TOGGLE(bits)       ACTION(ACT_LAYER_BIT, (bits)<<8 | LAYER_TAP_TOGGLE)
-#define ACTION_LAYER_BIT_TAP_KEY(bits, key)     ACTION(ACT_LAYER_BIT, (bits)<<8 | (key))
-/*
- * Layer SWITCH
- */
-/* momentary */
-#define ACTION_LAYER_SWITCH(layer)              ACTION_LAYER_SWITCH_MOMENTARY(layer)
-#define ACTION_LAYER_SWITCH_MOMENTARY(layer)    ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_MOMENTARY)
-#define ACTION_LAYER_SWITCH_TOGGLE(layer)       ACTION_LAYER_SWITCH_R(layer)
-#define ACTION_LAYER_SWITCH_P(layer)            ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_ON_PRESS)
-#define ACTION_LAYER_SWITCH_R(layer)            ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_ON_RELEASE)
-#define ACTION_LAYER_SWITCH_B(layer)            ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_ON_BOTH)
-#define ACTION_LAYER_SWITCH_TAP_TOGGLE(layer)   ACTION(ACT_LAYER_SWITCH, (layer)<<8 | LAYER_TAP_TOGGLE)
-#define ACTION_LAYER_SWITCH_TAP_KEY(layer, key) ACTION(ACT_LAYER_SWITCH, (layer)<<8 | (key))
+#define ACTION_OVERLAY(layer)                     ACTION_OVERLAY_MOMENTARY(layer)
+#define ACTION_OVERLAY_MOMENTARY(layer)           ACTION_OVERLAY_ON_OFF(layer)
+#define ACTION_OVERLAY_TOGGLE(layer)              ACTION_OVERLAY_INV_R(layer)
+/* Overlay Clear */
+#define ACTION_OVERLAY_CLEAR                      ACTION(ACT_OVERLAY, 0<<8 | OP_INV4 | 0)
+#define ACTION_OVERLAY_CLEAR_P                    ACTION(ACT_OVERLAY, 0<<8 | OP_INV4 | ON_PRESS)
+#define ACTION_OVERLAY_CLEAR_R                    ACTION(ACT_OVERLAY, 0<<8 | OP_INV4 | ON_RELEASE)
+#define ACTION_OVERLAY_CLEAR_B                    ACTION(ACT_OVERLAY, 0<<8 | OP_INV4 | ON_BOTH)
+/* Overlay Invert 4-bit chunk */
+#define ACTION_OVERLAY_INV4(bits, shift)          ACTION(ACT_OVERLAY, (bits)<<8 | OP_INV4 | shift)
+/* Overlay Invert */
+#define ACTION_OVERLAY_INV(layer)                 ACTION_OVERLAY_INV_B(layer)
+#define ACTION_OVERLAY_TAP_TOGGLE(layer)          ACTION(ACT_OVERLAY, (layer)<<8 | OP_INV | 0)
+#define ACTION_OVERLAY_INV_P(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_INV | ON_PRESS)
+#define ACTION_OVERLAY_INV_R(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_INV | ON_RELEASE)
+#define ACTION_OVERLAY_INV_B(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_INV | ON_BOTH)
+/* Overlay On */
+#define ACTION_OVERLAY_ON(layer)                  ACTION_OVERLAY_ON_OFF(layer)
+#define ACTION_OVERLAY_ON_OFF(layer)              ACTION(ACT_OVERLAY, (layer)<<8 | OP_ON  | 0)
+#define ACTION_OVERLAY_ON_P(layer)                ACTION(ACT_OVERLAY, (layer)<<8 | OP_ON  | ON_PRESS)
+#define ACTION_OVERLAY_ON_R(layer)                ACTION(ACT_OVERLAY, (layer)<<8 | OP_ON  | ON_RELEASE)
+#define ACTION_OVERLAY_ON_B(layer)                ACTION(ACT_OVERLAY, (layer)<<8 | OP_ON  | ON_BOTH)
+/* Overlay Off */
+#define ACTION_OVERLAY_OFF(layer)                 ACTION_OVERLAY_OFF_ON(layer)
+#define ACTION_OVERLAY_OFF_ON(layer)              ACTION(ACT_OVERLAY, (layer)<<8 | OP_OFF | 0)
+#define ACTION_OVERLAY_OFF_P(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_OFF | ON_PRESS)
+#define ACTION_OVERLAY_OFF_R(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_OFF | ON_RELEASE)
+#define ACTION_OVERLAY_OFF_B(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_OFF | ON_BOTH)
+/* Overlay Set */
+#define ACTION_OVERLAY_SET(layer)                 ACTION_OVERLAY_SET_CLEAR(layer)
+#define ACTION_OVERLAY_SET_CLEAR(layer)           ACTION(ACT_OVERLAY, (layer)<<8 | OP_SET | 0)
+#define ACTION_OVERLAY_SET_P(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_SET | ON_PRESS)
+#define ACTION_OVERLAY_SET_R(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_SET | ON_RELEASE)
+#define ACTION_OVERLAY_SET_B(layer)               ACTION(ACT_OVERLAY, (layer)<<8 | OP_SET | ON_BOTH)
+/* Overlay Invert with tap key */
+#define ACTION_OVERLAY_TAP_KEY(layer, key)        ACTION(ACT_OVERLAY, (layer)<<8 | (key))
 
 
 /*

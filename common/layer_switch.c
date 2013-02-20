@@ -6,84 +6,168 @@
 #include "layer_switch.h"
 
 
+/* 
+ * Default Layer (0-15)
+ */
 uint8_t default_layer = 0;
 
-uint16_t layer_switch_stat = 0;
-
-
-uint16_t layer_switch_get_stat(void)
+void default_layer_set(uint8_t layer)
 {
-    return layer_switch_stat;
-}
+    debug("default_layer_set: ");
+    debug_dec(default_layer); debug(" to ");
 
-/* return highest layer whose state is on */
-uint8_t layer_switch_get_layer(void)
-{
-    return biton16(layer_switch_stat);
-}
+    default_layer = layer;
 
-static inline void stat_set(uint16_t stat)
-{
-    debug("layer_switch: ");
-    layer_switch_debug(); debug(" to ");
-
-    layer_switch_stat = stat;
-
-    layer_switch_debug(); debug("\n");
+    debug_dec(default_layer); debug("\n");
 
     clear_keyboard_but_mods(); // To avoid stuck keys
 }
 
-void layer_switch_clear(void)
+
+/* 
+ * Keymap Layer (0-15)
+ */
+uint16_t keymap_stat = 0;
+
+/* return highest layer whose state is on */
+uint8_t keymap_get_layer(void)
 {
-    stat_set(0);
+    return biton16(keymap_stat);
+}
+
+static void keymap_stat_set(uint16_t stat)
+{
+    debug("keymap: ");
+    keymap_debug(); debug(" to ");
+
+    keymap_stat = stat;
+
+    keymap_debug(); debug("\n");
+
+    clear_keyboard_but_mods(); // To avoid stuck keys
+}
+
+void keymap_clear(void)
+{
+    keymap_stat_set(0);
 }
 
 
-void layer_switch_set(uint16_t stat)
+void keymap_set(uint16_t stat)
 {
-    stat_set(stat);
+    keymap_stat_set(stat);
 }
 
-void layer_switch_move(uint8_t layer)
+void keymap_move(uint8_t layer)
 {
-    if (layer)
-        stat_set(1<<layer);
-    else
-        stat_set(0);    // fall back to default layer
+    keymap_stat_set(1<<layer);
 }
 
-void layer_switch_on(uint8_t layer)
+void keymap_on(uint8_t layer)
 {
-    stat_set(layer_switch_stat | (1<<layer));
+    keymap_stat_set(keymap_stat | (1<<layer));
 }
 
-void layer_switch_off(uint8_t layer)
+void keymap_off(uint8_t layer)
 {
-    stat_set(layer_switch_stat & ~(1<<layer));
+    keymap_stat_set(keymap_stat & ~(1<<layer));
 }
 
-void layer_switch_invert(uint8_t layer)
+void keymap_invert(uint8_t layer)
 {
-    stat_set(layer_switch_stat ^ (1<<layer));
+    keymap_stat_set(keymap_stat ^ (1<<layer));
 }
 
-void layer_switch_or(uint16_t stat)
+void keymap_or(uint16_t stat)
 {
-    stat_set(layer_switch_stat | stat);
+    keymap_stat_set(keymap_stat | stat);
 }
-void layer_switch_and(uint16_t stat)
+void keymap_and(uint16_t stat)
 {
-    stat_set(layer_switch_stat & stat);
+    keymap_stat_set(keymap_stat & stat);
 }
-void layer_switch_xor(uint16_t stat)
+void keymap_xor(uint16_t stat)
 {
-    stat_set(layer_switch_stat ^ stat);
+    keymap_stat_set(keymap_stat ^ stat);
 }
 
-void layer_switch_debug(void)
+void keymap_debug(void)
 {
-    debug_hex16(layer_switch_stat); debug("("); debug_dec(layer_switch_get_layer()); debug(")");
+    debug_hex16(keymap_stat); debug("("); debug_dec(keymap_get_layer()); debug(")");
+}
+
+
+
+/* 
+ * Overlay Layer (16-31 = 0-15|0x10)
+ */
+uint16_t overlay_stat = 0;
+
+/* return highest layer whose state is on */
+uint8_t overlay_get_layer(void)
+{
+    return biton16(overlay_stat);
+}
+
+static void overlay_stat_set(uint16_t stat)
+{
+    debug("overlay: ");
+    overlay_debug(); debug(" to ");
+
+    overlay_stat = stat;
+
+    overlay_debug(); debug("\n");
+
+    clear_keyboard_but_mods(); // To avoid stuck keys
+}
+
+void overlay_clear(void)
+{
+    overlay_stat_set(0);
+}
+
+
+void overlay_set(uint16_t stat)
+{
+    overlay_stat_set(stat);
+}
+
+void overlay_move(uint8_t layer)
+{
+    overlay_stat_set(1<<layer);
+}
+
+void overlay_on(uint8_t layer)
+{
+    overlay_stat_set(overlay_stat | (1<<layer));
+}
+
+void overlay_off(uint8_t layer)
+{
+    overlay_stat_set(overlay_stat & ~(1<<layer));
+}
+
+void overlay_invert(uint8_t layer)
+{
+    overlay_stat_set(overlay_stat ^ (1<<layer));
+}
+
+void overlay_or(uint16_t stat)
+{
+    overlay_stat_set(overlay_stat | stat);
+}
+void overlay_and(uint16_t stat)
+{
+    overlay_stat_set(overlay_stat & stat);
+}
+void overlay_xor(uint16_t stat)
+{
+    overlay_stat_set(overlay_stat ^ stat);
+}
+
+void overlay_debug(void)
+{
+    debug_hex16(overlay_stat); debug("("); debug_dec(overlay_get_layer()); debug(")");
 }
 
 action_t layer_switch_get_action(key_t key)
@@ -91,14 +175,27 @@ action_t layer_switch_get_action(key_t key)
     action_t action;
     action.code = ACTION_TRANSPARENT;
 
-    /* higher layer first */
+    /* overlay: top layer first */
     for (int8_t i = 15; i >= 0; i--) {
-        if (layer_switch_stat & (1<<i)) {
+        if (overlay_stat & (1<<i)) {
+            action = action_for_key(i | OVERLAY_BIT, key);
+            if (action.code != ACTION_TRANSPARENT) {
+                return action;
+            }
+        }
+    }
+
+    /* keymap: top layer first */
+    for (int8_t i = 15; i >= 0; i--) {
+        if (keymap_stat & (1<<i)) {
             action = action_for_key(i, key);
             if (action.code != ACTION_TRANSPARENT) {
                 return action;
             }
         }
     }
+
+    /* default layer */
+    action = action_for_key(default_layer, key);
     return action;
 }
