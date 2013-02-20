@@ -499,20 +499,20 @@ static void process_action(keyrecord_t *record)
                 /* Keymap Bit invert with tap key */
                 default:
                     if (event.pressed) {
-                        if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
+                        if (tap_count > 0) {
                             debug("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer.code);
                         } else {
-                            debug("KEYMAP_TAP_KEY: No tap: invert on press\n");
-                            keymap_invert(action.layer.val);
+                            debug("KEYMAP_TAP_KEY: No tap: On on press\n");
+                            keymap_on(action.layer.val);
                         }
                     } else {
-                        if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
+                        if (tap_count > 0) {
                             debug("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            debug("KEYMAP_TAP_KEY: No tap: invert on release\n");
-                            keymap_invert(action.layer.val);
+                            debug("KEYMAP_TAP_KEY: No tap: Off on release\n");
+                            keymap_off(action.layer.val);
                         }
                     }
                     break;
@@ -649,20 +649,20 @@ static void process_action(keyrecord_t *record)
                 /* Overlay Bit invert with tap key */
                 default:
                     if (event.pressed) {
-                        if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
+                        if (tap_count > 0) {
                             debug("OVERLAY_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer.code);
                         } else {
-                            debug("OVERLAY_TAP_KEY: No tap: invert on press\n");
-                            overlay_invert(action.layer.val);
+                            debug("OVERLAY_TAP_KEY: No tap: On on press\n");
+                            overlay_on(action.layer.val);
                         }
                     } else {
-                        if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
+                        if (tap_count > 0) {
                             debug("OVERLAY_TAP_KEY: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            debug("OVERLAY_TAP_KEY: No tap: invert on release\n");
-                            overlay_invert(action.layer.val);
+                            debug("OVERLAY_TAP_KEY: No tap: Off on release\n");
+                            overlay_off(action.layer.val);
                         }
                     }
                     break;
