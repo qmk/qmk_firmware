@@ -106,11 +106,19 @@ ISR(SERIAL_RXD_VECT)
     SERIAL_RXD_INT_ENTER()
 
     uint8_t data = 0;
+
 #ifdef SERIAL_BIT_ORDER_MSB
     uint8_t mask = 0x80;
 #else
     uint8_t mask = 0x01;
 #endif
+
+#ifdef SERIAL_PARITY_ODD
+    uint8_t parity = 0;
+#else
+    uint8_t parity = 1;
+#endif
+
     /* to center of start bit */
     _delay_us(WAIT_US/2);
     do {
@@ -119,6 +127,7 @@ ISR(SERIAL_RXD_VECT)
 
         if (SERIAL_RXD_READ()) {
             data |= mask;
+            parity ^= 1;
         }
 #ifdef SERIAL_BIT_ORDER_MSB
         mask >>= 1;
@@ -126,11 +135,18 @@ ISR(SERIAL_RXD_VECT)
         mask <<= 1;
 #endif
     } while (mask);
+
+    /* to center of parity bit */
+    _delay_us(WAIT_US);
+    parity ^= SERIAL_RXD_READ();
+
     /* to center of stop bit */
     _delay_us(WAIT_US);
+    _delay_us(WAIT_US/2);
 
+    parity = 1;
     uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
-    if (next != rbuf_tail) {
+    if (parity && next != rbuf_tail) {
         rbuf[rbuf_head] = data;
         rbuf_head = next;
     }
