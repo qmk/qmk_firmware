@@ -73,6 +73,8 @@ void matrix_init(void)
     PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
     PC98_RTY_PORT |= (1<<PC98_RTY_BIT);
 
+    DDRD |= 1<<7;
+
 
     serial_init();
 
@@ -82,6 +84,9 @@ void matrix_init(void)
     PC98_RST_PORT |= (1<<PC98_RST_BIT);
     _delay_us(13);
     PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
+
+    // PC98 ready
+    PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
@@ -96,6 +101,7 @@ uint8_t matrix_scan(void)
 
     uint8_t code;
     PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
+    _delay_us(30);
     code = serial_recv();
     PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
     if (!code) return 0;
