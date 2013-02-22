@@ -65,6 +65,7 @@ void matrix_init(void)
 {
     print_enable = true;
     debug_enable = true;
+    //debug_matrix = true;
 
     PC98_RST_DDR |= (1<<PC98_RST_BIT);
     PC98_RDY_DDR |= (1<<PC98_RDY_BIT);
@@ -99,31 +100,14 @@ uint8_t matrix_scan(void)
 {
     is_modified = false;
 
-    uint8_t code;
+    uint16_t code;
     PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
     _delay_us(30);
-    code = serial_recv();
+    code = serial_recv2();
     PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
-    if (!code) return 0;
+    if (code == -1) return 0;
 
     debug_hex(code); debug(" ");
-
-/*
-    switch (code) {
-        case 0x7E:  // reset fail
-        case 0xFE:  // layout
-        case 0xFF:  // reset success
-            _delay_ms(500);
-            // ignore response byte
-            debug("(response ignored:");
-            while ((code = serial_recv())) { debug(" "); debug_hex(code); }
-            debug(") ");
-            // FALL THROUGH
-        case 0x7F:
-            // all keys up
-            for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
-            return 0;
-    }
 
     if (code&0x80) {
         // break code
@@ -138,7 +122,6 @@ uint8_t matrix_scan(void)
             is_modified = true;
         }
     }
-*/
     return code;
 }
 
