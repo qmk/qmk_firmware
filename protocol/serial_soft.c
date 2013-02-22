@@ -48,6 +48,23 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #define WAIT_US     (1000000/SERIAL_BAUD)
 
+#if 1
+#define WAIT_TICK     (1000000/SERIAL_BAUD)
+#define WAIT4(tick) _delay_us(tick)
+#else
+#define WAIT_TICK   ((16000000/SERIAL_BAUD)/4 - 5)
+static inline void  WAIT4(uint8_t tick)
+{
+	__asm__ __volatile__ (
+		"1: dec %0" "\n\t"
+                "nop"       "\n\t"
+		"brne 1b"
+		: 
+		: "r" (tick)
+	);
+}
+#endif
+
 void serial_init(void)
 {
     SERIAL_RXD_INIT();
@@ -59,6 +76,7 @@ void serial_init(void)
 static uint8_t rbuf[RBUF_SIZE];
 static uint8_t rbuf_head = 0;
 static uint8_t rbuf_tail = 0;
+
 
 uint8_t serial_recv(void)
 {
@@ -103,6 +121,7 @@ void serial_send(uint8_t data)
 /* detect edge of start bit */
 ISR(SERIAL_RXD_VECT)
 {
+PORTD ^= 1<<7;
     SERIAL_RXD_INT_ENTER()
 
     uint8_t data = 0;
@@ -120,11 +139,15 @@ ISR(SERIAL_RXD_VECT)
 #endif
 
     /* to center of start bit */
-    _delay_us(WAIT_US/2);
+    //_delay_us(WAIT_US/2);
+    WAIT4(WAIT_TICK/2);
+PORTD ^= 1<<7;
     do {
         /* to center of next bit */
-        _delay_us(WAIT_US);
+        //_delay_us(WAIT_US);
+        WAIT4(WAIT_TICK);
 
+PORTD ^= 1<<7;
         if (SERIAL_RXD_READ()) {
             data |= mask;
             parity ^= 1;
@@ -137,19 +160,22 @@ ISR(SERIAL_RXD_VECT)
     } while (mask);
 
     /* to center of parity bit */
-    _delay_us(WAIT_US);
-    parity ^= SERIAL_RXD_READ();
+    //_delay_us(WAIT_US);
+    WAIT4(WAIT_TICK);
+    if (SERIAL_RXD_READ()) { parity ^= 1; }
+PORTD ^= 1<<7;
 
     /* to center of stop bit */
-    _delay_us(WAIT_US);
-    _delay_us(WAIT_US/2);
+    //_delay_us(WAIT_US);
+    WAIT4(WAIT_TICK);
 
-    parity = 1;
     uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
-    if (parity && next != rbuf_tail) {
+    //if (parity && next != rbuf_tail) {
+    if (next != rbuf_tail) {
         rbuf[rbuf_head] = data;
         rbuf_head = next;
     }
 
     SERIAL_RXD_INT_EXIT();
+PORTD ^= 1<<7;
 }

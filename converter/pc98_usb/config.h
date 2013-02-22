@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SERIAL_BAUD 19200
 #define SERIAL_PARITY_ODD
-#define SERIAL_BIT_ORDER_MSB
+#define SERIAL_BIT_ORDER_LSB
 
 #define SERIAL_RXD_DDR  DDRD
 #define SERIAL_RXD_PORT PORTD
@@ -67,7 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     SERIAL_RXD_DDR &= ~(1<<SERIAL_RXD_BIT);     \
     SERIAL_RXD_PORT |= (1<<SERIAL_RXD_BIT);     \
     /* enable interrupt: INT2(rising edge) */   \
-    EICRA |= ((1<<ISC21)|(1<<ISC20));           \
+    /*EICRA |= ((1<<ISC21)|(1<<ISC20));*/           \
+    /* enable interrupt: INT2(falling edge) */  \
+    EICRA |= ((1<<ISC21)|(0<<ISC20));           \
     EIMSK |= (1<<INT2);                         \
 } while (0)
 #define SERIAL_RXD_INT_ENTER()
@@ -75,7 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     /* clear interrupt  flag */     \
     EIFR = (1<<INTF2);              \
 } while (0)
-#define SERIAL_RXD_READ()    (~SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT))
+//#define SERIAL_RXD_READ()    (~SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT))
+#define SERIAL_RXD_READ()    ((SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT)))
 
 #define SERIAL_TXD_DDR  DDRD
 #define SERIAL_TXD_PORT PORTD
