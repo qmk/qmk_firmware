@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_H
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3333
+#define PRODUCT_ID      0x9898
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         PC98 keyboard converter
@@ -38,36 +38,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* PC98 control */
-#define PC98_RST_DDR    DDRD
-#define PC98_RST_PORT   PORTD
-#define PC98_RST_BIT    1
-#define PC98_RDY_DDR    DDRD
-#define PC98_RDY_PORT   PORTD
-#define PC98_RDY_BIT    4
-#define PC98_RTY_DDR    DDRD
-#define PC98_RTY_PORT   PORTD
-#define PC98_RTY_BIT    5
 
-/* Serial(USART) configuration
- *     asynchronous, negative logic, 19200baud, no flow control
+/* PC98 Serial(USART) configuration
+ *     asynchronous, positive logic, 19200baud, bit order: LSB first
  *     1-start bit, 8-data bit, odd parity, 1-stop bit
  */
 #define SERIAL_BAUD 19200
 #define SERIAL_PARITY_ODD
 #define SERIAL_BIT_ORDER_LSB
 
+/* PC98 Reset Port */
+#define PC98_RST_DDR    DDRD
+#define PC98_RST_PORT   PORTD
+#define PC98_RST_BIT    1
+/* PC98 Ready Port */
+#define PC98_RDY_DDR    DDRD
+#define PC98_RDY_PORT   PORTD
+#define PC98_RDY_BIT    4
+/* PC98 Retry Port */
+#define PC98_RTY_DDR    DDRD
+#define PC98_RTY_PORT   PORTD
+#define PC98_RTY_BIT    5
+
+/* RXD Port */
 #define SERIAL_RXD_DDR  DDRD
 #define SERIAL_RXD_PORT PORTD
 #define SERIAL_RXD_PIN  PIND
 #define SERIAL_RXD_BIT  2
+#define SERIAL_RXD_READ()       (SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT))
+/* RXD Interupt */
 #define SERIAL_RXD_VECT INT2_vect
 #define SERIAL_RXD_INIT()  do { \
     /* pin configuration: input with pull-up */ \
     SERIAL_RXD_DDR &= ~(1<<SERIAL_RXD_BIT);     \
     SERIAL_RXD_PORT |= (1<<SERIAL_RXD_BIT);     \
-    /* enable interrupt: INT2(rising edge) */   \
-    /*EICRA |= ((1<<ISC21)|(1<<ISC20));*/           \
     /* enable interrupt: INT2(falling edge) */  \
     EICRA |= ((1<<ISC21)|(0<<ISC20));           \
     EIMSK |= (1<<INT2);                         \
@@ -77,9 +81,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     /* clear interrupt  flag */     \
     EIFR = (1<<INTF2);              \
 } while (0)
-//#define SERIAL_RXD_READ()    (~SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT))
-#define SERIAL_RXD_READ()    ((SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT)))
 
+/* TXD Port: Not used */
 #define SERIAL_TXD_DDR  DDRD
 #define SERIAL_TXD_PORT PORTD
 #define SERIAL_TXD_PIN  PIND
