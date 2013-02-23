@@ -161,13 +161,13 @@ bool waiting_buffer_has_anykey_pressed(void);
  * 1000|LLLL|0000 00xx   Reset default layer and clear keymap and overlay
  * 1000|LLLL| keycode    Invert with tap key
  * 1000|LLLL|1111 0000   Invert with tap toggle
- * 1000|LLLL|1111 00xx   Invert[^= L]
+ * 1000|LLLL|1111 00xx   Invert[^=  1<<L]
  * 1000|LLLL|1111 0100   On/Off
- * 1000|LLLL|1111 01xx   On[|= L]
+ * 1000|LLLL|1111 01xx   On[|= 1<<L]
  * 1000|LLLL|1111 1000   Off/On
- * 1000|LLLL|1111 10xx   Off[&= ~L]
- * 1000|LLLL|1111 1100   Set/Set(0)
- * 1000|LLLL|1111 11xx   Set[= L]
+ * 1000|LLLL|1111 10xx   Off[&= ~(1<<L)]
+ * 1000|LLLL|1111 1100   Set/Clear
+ * 1000|LLLL|1111 11xx   Set[= 1<<L]
  * default layer: 0-15(4bit)
  * xx: On {00:for special use, 01:press, 10:release, 11:both}
  *
@@ -180,8 +180,8 @@ bool waiting_buffer_has_anykey_pressed(void);
  * 1011|LLLL|1111 0100   On/Off(momentary)
  * 1011|LLLL|1111 01xx   On[|= 1<<L]
  * 1011|LLLL|1111 1000   Off/On
- * 1011|LLLL|1111 10xx   Off[&= ~1<<L]
- * 1011|LLLL|1111 1100   Set[= 1<<L]/Clear
+ * 1011|LLLL|1111 10xx   Off[&= ~(1<<L)]
+ * 1011|LLLL|1111 1100   Set/Clear
  * 1011|LLLL|1111 11xx   Set[= 1<<L]
  * overlays: 16-layer on/off status(16bit)
  * xx: On {00:for special use, 01:press, 10:release, 11:both}
