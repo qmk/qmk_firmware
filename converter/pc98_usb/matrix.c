@@ -89,7 +89,6 @@ RETRY:
     while (!(code = serial_recv())) ;
     print("PC98: send 70: "); print_hex8(code); print("\n");
     if (code != 0xFA) goto RETRY;
-
 }
 
 void matrix_init(void)
