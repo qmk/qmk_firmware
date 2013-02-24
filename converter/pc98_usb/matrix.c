@@ -61,11 +61,42 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+static void pc98_inhibit_repeat(void)
+{
+    uint8_t code;
+
+    while (serial_recv()) ;
+RETRY:
+    PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
+    _delay_ms(500);
+    serial_send(0x9C);
+
+    PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
+    _delay_ms(100);
+    while (!(code = serial_recv())) ;
+    print("PC98: send 9C: "); print_hex8(code); print("\n");
+    if (code != 0xFA) goto RETRY;
+
+
+
+    PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
+    _delay_ms(100);
+    serial_send(0x70);
+
+    PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
+    _delay_ms(100);
+    //code = serial_recv();
+    while (!(code = serial_recv())) ;
+    print("PC98: send 70: "); print_hex8(code); print("\n");
+    if (code != 0xFA) goto RETRY;
+
+}
+
 void matrix_init(void)
 {
     print_enable = true;
-    debug_enable = true;
-    //debug_matrix = true;
+//    debug_enable = true;
+//    debug_matrix = true;
 
     PC98_RST_DDR |= (1<<PC98_RST_BIT);
     PC98_RDY_DDR |= (1<<PC98_RDY_BIT);
@@ -74,17 +105,21 @@ void matrix_init(void)
     PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
     PC98_RTY_PORT |= (1<<PC98_RTY_BIT);
 
-    DDRD |= 1<<7;
-
 
     serial_init();
 
     // PC98 reset
+/*
     PC98_RST_PORT &= ~(1<<PC98_RST_BIT);
     _delay_us(15);
     PC98_RST_PORT |= (1<<PC98_RST_BIT);
     _delay_us(13);
-    PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
+    PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
+*/
+
+    _delay_ms(500);
+    pc98_inhibit_repeat();
+
 
     // PC98 ready
     PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
@@ -107,7 +142,20 @@ uint8_t matrix_scan(void)
     PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
     if (code == -1) return 0;
 
-    debug_hex(code); debug(" ");
+if (code == 0x60) {
+    pc98_inhibit_repeat();
+
+/*
+    PC98_RDY_PORT |= (1<<PC98_RDY_BIT);
+    _delay_ms(100);
+    serial_send(0x96);
+    PC98_RDY_PORT &= ~(1<<PC98_RDY_BIT);
+*/
+
+    return 0;
+}
+
+    print_hex8(code); print(" ");
 
     if (code&0x80) {
         // break code
