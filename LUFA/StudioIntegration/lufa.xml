@@ -58,7 +58,7 @@
 			<device-support value="atxmega128b1"/>
 			<device-support value="atxmega64c3"/>
 			<device-support value="atxmega128c3"/>
-			<!-- <device-support value="atxmega192c3"/> NOT SUPPORTED IN ASF -->
+			<!-- <device-support value="atxmega192c3"/> Wait for ASFP-3339 merge and release before enabling -->
 			<device-support value="atxmega256c3"/>
 			<device-support value="atxmega384c3"/>
 			<device-support value="atxmega16c4"/>
