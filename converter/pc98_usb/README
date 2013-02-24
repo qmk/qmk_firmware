@@ -60,6 +60,11 @@ http://davy.nyacom.net/kbd98usb/
 
 PC98 to PS/2
 http://www.tsp.ne.jp/~sawada/mago/c_gka98at.htm
+http://www.tsp.ne.jp/~sawada/mago/src/gka98at.asm
 
 PC98 keyboard commands
 http://www.webtech.co.jp/company/doc/undocumented_mem/io_kb.txt
+
+
+Inhibit repeating key:
+0x9C, 0x70
