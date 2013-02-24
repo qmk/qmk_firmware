@@ -64,13 +64,13 @@ uint8_t AOA_Host_ConfigurePipes(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return AOA_ENUMERROR_InvalidConfigDescriptor;
-	
+
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 	                              DCOMP_AOA_Host_NextAndroidAccessoryInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return AOA_ENUMERROR_NoCompatibleInterfaceFound;
 	}
-	
+
 	AOAInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
@@ -92,14 +92,14 @@ uint8_t AOA_Host_ConfigurePipes(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo
 	AOAInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
 	AOAInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
 	AOAInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
-	
+
 	AOAInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 	AOAInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
 	AOAInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&AOAInterfaceInfo->Config.DataINPipe, 1)))
 	  return false;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&AOAInterfaceInfo->Config.DataOUTPipe, 1)))
 	  return false;
 
@@ -162,7 +162,7 @@ void AOA_Host_USBTask(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo)
 uint8_t AOA_Host_StartAccessoryMode(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo)
 {
 	uint8_t ErrorCode;
-	
+
 	uint16_t AccessoryProtocol;
 	if ((ErrorCode = AOA_Host_GetAccessoryProtocol(&AccessoryProtocol)) != HOST_WAITERROR_Successful)
 	  return ErrorCode;
@@ -186,7 +186,7 @@ uint8_t AOA_Host_StartAccessoryMode(USB_ClassInfo_AOA_Host_t* const AOAInterface
 	};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-	return USB_Host_SendControlRequest(NULL);	
+	return USB_Host_SendControlRequest(NULL);
 }
 
 static uint8_t AOA_Host_GetAccessoryProtocol(uint16_t* const Protocol)
@@ -206,9 +206,9 @@ static uint8_t AOA_Host_GetAccessoryProtocol(uint16_t* const Protocol)
 
 static uint8_t AOA_Host_SendPropertyString(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo,
                                            const uint8_t StringIndex)
-{	
+{
 	const char* String = AOAInterfaceInfo->Config.PropertyStrings[StringIndex];
-	
+
 	if (String == NULL)
 	  String = "";
 
@@ -226,7 +226,7 @@ static uint8_t AOA_Host_SendPropertyString(USB_ClassInfo_AOA_Host_t* const AOAIn
 }
 
 uint8_t AOA_Host_SendData(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo,
-                          const uint8_t* const Buffer,
+                          const void* const Buffer,
                           const uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(AOAInterfaceInfo->State.IsActive))

@@ -24,7 +24,7 @@ upgrade-doxygen:
 
 # Make all possible bootloaders for all targets and configurations as set by the BootloaderTest build test
 # and store them in a separate directory called "Bootloaders"
-make_bootloaders:
+bootloaders:
 	@echo "build_bootloaders:" > BuildMakefile
 	@printf "\t-mkdir Bootloaders 2>/dev/null\n\n" >> BuildMakefile
 
@@ -79,4 +79,4 @@ validate-branch:
 validate-release: check-documentation-placeholders validate-branch
 
 
-.PHONY: all upgrade-doxygen make_bootloaders check-documentation-placeholders validate-branch
+.PHONY: all upgrade-doxygen bootloaders check-documentation-placeholders validate-branch

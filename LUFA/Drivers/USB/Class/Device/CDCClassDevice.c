@@ -74,7 +74,7 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 					if (USB_DeviceState == DEVICE_STATE_Unattached)
 					  return;
 				}
-				
+
 				CDCInterfaceInfo->State.LineEncoding.BaudRateBPS = Endpoint_Read_32_LE();
 				CDCInterfaceInfo->State.LineEncoding.CharFormat  = Endpoint_Read_8();
 				CDCInterfaceInfo->State.LineEncoding.ParityType  = Endpoint_Read_8();
@@ -139,7 +139,7 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 
 	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpoint.Address);
-	
+
 	if (Endpoint_IsINReady())
 	  CDC_Device_Flush(CDCInterfaceInfo);
 	#endif
@@ -156,7 +156,7 @@ uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo
 }
 
 uint8_t CDC_Device_SendData(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
-                            const char* const Buffer,
+                            const void* const Buffer,
                             const uint16_t Length)
 {
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS))

@@ -88,11 +88,11 @@ void Serial_SendString(USART_t* const USART,
 }
 
 void Serial_SendData(USART_t* const USART,
-                     const uint8_t* Buffer,
+                     const void* Buffer,
                      uint16_t Length)
 {
 	while (Length--)
-	  Serial_SendByte(USART, *(Buffer++));
+	  Serial_SendByte(USART, *((uint8_t*)Buffer++));
 }
 
 void Serial_CreateStream(FILE* Stream)

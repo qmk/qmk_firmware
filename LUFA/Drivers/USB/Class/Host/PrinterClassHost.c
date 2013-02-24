@@ -81,16 +81,16 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 	PRNTInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
 	PRNTInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
 	PRNTInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
-	
+
 	PRNTInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 	PRNTInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
 	PRNTInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&PRNTInterfaceInfo->Config.DataINPipe, 1)))
 	  return false;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&PRNTInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;	
+	  return false;
 
 	PRNTInterfaceInfo->State.InterfaceNumber  = PrinterInterface->InterfaceNumber;
 	PRNTInterfaceInfo->State.AlternateSetting = PrinterInterface->AlternateSetting;
@@ -275,7 +275,7 @@ uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 }
 
 uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-                           void* Buffer,
+                           const void* Buffer,
                            const uint16_t Length)
 {
 	uint8_t ErrorCode;

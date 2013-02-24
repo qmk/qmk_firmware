@@ -27,6 +27,7 @@
   *   - Increased throughput in the USBtoSerial project now that data transmission is non-blocking (thanks to Joseph Lacerte)
   *   - Updated bootloader makefiles to remove dependency on the \c bc command line calculator tool
   *   - Updated AVRISP-MKII Clone Programmer project so that the SCK clock period is saved in EEPROM (thanks to Gerhard Wesser)
+  *   - Changed all *_SendByte() function prototypes to accept a void pointer for the input buffer (thanks to Simon Küppers)
   *
   *  <b>Fixed:</b>
   *  - Core:

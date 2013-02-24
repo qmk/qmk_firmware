@@ -102,18 +102,18 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	CDCInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
 	CDCInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
 	CDCInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
-	
+
 	CDCInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 	CDCInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
 	CDCInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
-	
+
 	CDCInterfaceInfo->Config.NotificationPipe.Size = le16_to_cpu(NotificationEndpoint->EndpointSize);
 	CDCInterfaceInfo->Config.NotificationPipe.EndpointAddress = NotificationEndpoint->EndpointAddress;
 	CDCInterfaceInfo->Config.NotificationPipe.Type = EP_TYPE_INTERRUPT;
 
 	if (!(Pipe_ConfigurePipeTable(&CDCInterfaceInfo->Config.DataINPipe, 1)))
 	  return false;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&CDCInterfaceInfo->Config.DataOUTPipe, 1)))
 	  return false;
 
@@ -277,7 +277,7 @@ uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 }
 
 uint8_t CDC_Host_SendData(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
-                          const uint8_t* const Buffer,
+                          const void* const Buffer,
                           const uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
