@@ -46,7 +46,7 @@ POSSIBILITY OF SUCH DAMAGE.
  *  is still useful for negative logic signal like Sun protocol not supported by hardware USART.
  */
 
-#define WAIT_US     (1000000/SERIAL_BAUD)
+#define WAIT_US     (1000000L/SERIAL_BAUD)
 
 /* debug for signal timing, see debug pin with oscilloscope */
 #ifdef SERIAL_SOFT_DEBUG
@@ -100,18 +100,33 @@ int16_t serial_recv2(void)
 void serial_send(uint8_t data)
 {
     /* signal state: IDLE: ON, START: OFF, STOP: ON, DATA0: OFF, DATA1: ON */
-    /* start bit */
-    SERIAL_TXD_OFF();
-    _delay_us(WAIT_US);
 
 #ifdef SERIAL_BIT_ORDER_MSB
     uint8_t mask = 0x80;
 #else
     uint8_t mask = 0x01;
 #endif
+
+#ifdef SERIAL_PARITY_ODD
+    uint8_t parity = 1;
+#elif defined(SERIAL_PARITY_EVEN)
+    uint8_t parity = 0;
+#endif
+
+    /* start bit */
+    SERIAL_TXD_OFF();
+    _delay_us(WAIT_US-2);
+
     while (mask) {
-        if (data&mask) { SERIAL_TXD_ON(); } else { SERIAL_TXD_OFF(); }
-        _delay_us(WAIT_US);
+        if (data&mask) {
+            SERIAL_TXD_ON();
+#if defined(SERIAL_PARITY_EVEN) || defined(SERIAL_PARITY_ODD)
+            parity ^= 1;
+#endif
+        } else {
+            SERIAL_TXD_OFF();
+        }
+        _delay_us(WAIT_US-2);
 
 #ifdef SERIAL_BIT_ORDER_MSB
         mask >>= 1;
@@ -120,9 +135,19 @@ void serial_send(uint8_t data)
 #endif
     }
 
+#if defined(SERIAL_PARITY_EVEN) || defined(SERIAL_PARITY_ODD)
+    /* to center of parity bit */
+    if (parity) {
+        SERIAL_TXD_ON();
+    } else {
+        SERIAL_TXD_OFF();
+    }
+    _delay_us(WAIT_US-2);
+#endif
+
     /* stop bit */
     SERIAL_TXD_ON();
-    _delay_us(WAIT_US);
+    _delay_us(WAIT_US-2);
 }
 
 /* detect edge of start bit */
