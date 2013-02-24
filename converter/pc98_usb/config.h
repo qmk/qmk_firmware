@@ -69,11 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_SOFT_RXD_PORT            PORTD
 #define SERIAL_SOFT_RXD_PIN             PIND
 #define SERIAL_SOFT_RXD_BIT             2
-#ifdef SERIAL_SOFT_LOGIC_NEGATIVE
-    #define SERIAL_SOFT_RXD_READ()      ~(SERIAL_SOFT_RXD_PIN&(1<<SERIAL_SOFT_RXD_BIT))
-#else
-    #define SERIAL_SOFT_RXD_READ()      (SERIAL_SOFT_RXD_PIN&(1<<SERIAL_SOFT_RXD_BIT))
-#endif
+#define SERIAL_SOFT_RXD_READ()          (SERIAL_SOFT_RXD_PIN&(1<<SERIAL_SOFT_RXD_BIT))
 /* RXD Interupt */
 #define SERIAL_SOFT_RXD_VECT            INT2_vect
 #define SERIAL_SOFT_RXD_INIT()          do { \
@@ -95,21 +91,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_SOFT_TXD_PORT            PORTD
 #define SERIAL_SOFT_TXD_PIN             PIND
 #define SERIAL_SOFT_TXD_BIT             3
-#ifdef SERIAL_SOFT_LOGIC_NEGATIVE
-    #define SERIAL_SOFT_TXD_ON()        do { \
-        SERIAL_SOFT_TXD_PORT &= ~(1<<SERIAL_SOFT_TXD_BIT); \
-    } while (0)
-    #define SERIAL_SOFT_TXD_OFF()       do { \
-        SERIAL_SOFT_TXD_PORT |=  (1<<SERIAL_SOFT_TXD_BIT); \
-    } while (0)
-#else
-    #define SERIAL_SOFT_TXD_ON()        do { \
-        SERIAL_SOFT_TXD_PORT |=  (1<<SERIAL_SOFT_TXD_BIT); \
-    } while (0)
-    #define SERIAL_SOFT_TXD_OFF()       do { \
-        SERIAL_SOFT_TXD_PORT &= ~(1<<SERIAL_SOFT_TXD_BIT); \
-    } while (0)
-#endif
+#define SERIAL_SOFT_TXD_HI()            do { SERIAL_SOFT_TXD_PORT |=  (1<<SERIAL_SOFT_TXD_BIT); } while (0)
+#define SERIAL_SOFT_TXD_LO()            do { SERIAL_SOFT_TXD_PORT &= ~(1<<SERIAL_SOFT_TXD_BIT); } while (0)
 #define SERIAL_SOFT_TXD_INIT()          do { \
     /* pin configuration: output */ \
     SERIAL_SOFT_TXD_DDR |= (1<<SERIAL_SOFT_TXD_BIT); \
