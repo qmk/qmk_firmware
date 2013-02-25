@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keyboard.h"
 #include "keycode.h"
+#include "action_macro.h"
 
 
 /* Struct to record event and tap count  */
@@ -82,6 +83,9 @@ void action_exec(keyevent_t event);
 /* action for key */
 action_t action_for_key(uint8_t layer, key_t key);
 
+/* macro */
+const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
+
 /* user defined special function */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 
@@ -107,8 +111,8 @@ bool waiting_buffer_has_anykey_pressed(void);
  * ============
  * 16bit code: action_kind(4bit) + action_parameter(12bit)
  *
- * Keyboard Keys
- * -------------
+ * Keyboard Keys(00XX)
+ * -------------------
  * ACT_LMODS(0000):
  * 0000|0000|000000|00    No action
  * 0000|0000|000000|01    Transparent
@@ -138,8 +142,8 @@ bool waiting_buffer_has_anykey_pressed(void);
  * 0011|mods| keycode     Right mods + tap Key
  *
  *
- * Other HID Usage
- * ---------------
+ * Other keys(01XX)
+ * --------------------
  * This action handles other usages than keyboard.
  * ACT_USAGE(0100):
  * 0100|00| usage(10)     System control(0x80) - General Desktop page(0x01)
@@ -147,15 +151,12 @@ bool waiting_buffer_has_anykey_pressed(void);
  * 0100|10| usage(10)     (reserved)
  * 0100|11| usage(10)     (reserved)
  *
- *
- * Mouse Keys
- * ----------
  * ACT_MOUSEKEY(0110):
  * 0101|XXXX| keycode     Mouse key
  *
  *
- * Layer Actions
- * -------------
+ * Layer Actions(10XX)
+ * -------------------
  * ACT_KEYMAP:
  * 1000|--xx|0000 0000   Clear keyamp and overlay
  * 1000|LLLL|0000 00xx   Reset default layer and clear keymap and overlay
@@ -189,8 +190,6 @@ bool waiting_buffer_has_anykey_pressed(void);
  *
  * Extensions(11XX)
  * ----------------
- * NOTE: NOT FIXED
- *
  * ACT_MACRO(1100):
  * 1100|opt | id(8)      Macro play?
  * 1100|1111| id(8)      Macro record?
@@ -253,8 +252,20 @@ enum mods_codes {
 #define ACTION_RMOD_TAP_KEY(mod, key)   ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | (key))
 #define ACTION_RMOD_ONESHOT(mod)        ACTION(ACT_RMODS_TAP, MODS4(MOD_BIT(mod))<<8 | MODS_ONESHOT)
 
+/* HID Usage */
+enum usage_pages {
+    PAGE_SYSTEM,
+    PAGE_CONSUMER
+};
+#define ACTION_USAGE_SYSTEM(id)         ACTION(ACT_USAGE, PAGE_SYSTEM<<10 | (id))
+#define ACTION_USAGE_CONSUMER(id)       ACTION(ACT_USAGE, PAGE_CONSUMER<<10 | (id))
 
-/* Layer Operation:
+/* Mousekey */
+#define ACTION_MOUSEKEY(key)            ACTION(ACT_MOUSEKEY, key)
+
+
+
+/* Layer Actions:
  *      Invert  layer ^= (1<<layer)
  *      On      layer |= (1<<layer)
  *      Off     layer &= ~(1<<layer)
@@ -362,23 +373,14 @@ enum layer_params {
 
 
 /*
- * HID Usage
+ * Extensions
  */
-enum usage_pages {
-    PAGE_SYSTEM,
-    PAGE_CONSUMER
-};
-#define ACTION_USAGE_SYSTEM(id)         ACTION(ACT_USAGE, PAGE_SYSTEM<<10 | (id))
-#define ACTION_USAGE_CONSUMER(id)       ACTION(ACT_USAGE, PAGE_CONSUMER<<10 | (id))
-
-/* Mousekey */
-#define ACTION_MOUSEKEY(key)            ACTION(ACT_MOUSEKEY, key)
-
 /* Macro */
-#define ACTION_MACRO(opt, id)           ACTION(ACT_FUNCTION, (opt)<<8 | (addr))
+#define ACTION_MACRO(id)                ACTION(ACT_MACRO, (id))
+#define ACTION_MACRO_OPT(id, opt)       ACTION(ACT_MACRO, (opt)<<8 | (id))
 
 /* Command */
-#define ACTION_COMMAND(opt, id)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
+#define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
 
 /* Function */
 enum function_opts {

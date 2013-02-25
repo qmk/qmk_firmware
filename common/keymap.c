@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "layer_switch.h"
 #include "action.h"
+#include "action_macro.h"
 #include "debug.h"
 
 
@@ -39,9 +40,10 @@ action_t action_for_key(uint8_t layer, key_t key)
 }
 
 __attribute__ ((weak))
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-}
+const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { return MACRO_NONE; }
+
+__attribute__ ((weak))
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {}
 #else
 /* 
  * legacy keymap support
