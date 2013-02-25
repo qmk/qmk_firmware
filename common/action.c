@@ -23,8 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "util.h"
 #include "debug.h"
-#include "action.h"
 #include "layer_switch.h"
+#include "action_macro.h"
+#include "action.h"
 
 
 static void process_action(keyrecord_t *record);
@@ -671,7 +672,7 @@ static void process_action(keyrecord_t *record)
 
         /* Extentions */
         case ACT_MACRO:
-            // TODO
+            action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
         case ACT_COMMAND:
             break;
