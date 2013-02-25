@@ -64,10 +64,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
     { KC_NO,    KC_##K51, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_NO,    KC_NO,    KC_##K5A, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_##K58, KC_##K59, KC_##K5A, KC_##K5B, KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
     { KC_##K60, KC_##K61, KC_##K62, KC_##K63, KC_##K64, KC_##K65, KC_##K66, KC_##K67 }, \
     { KC_##K68, KC_##K69, KC_##K6A, KC_##K6B, KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_##K70, KC_NO,    KC_NO,    KC_##K73, KC_##K74, KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_##K70, KC_##K71, KC_NO,    KC_##K73, KC_##K74, KC_NO,    KC_NO,    KC_NO    }, \
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }  \
 }
 
@@ -91,11 +91,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           `-----------------------------------------------'
     */
     KEYMAP(
-  CANCEL,COPY,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10, F11, F12, F13, F14,
-      ESC,    1,   2,   3,   4,   5,    NO, NO,     6,   7,   8,   9,   0,   BSPC,
+  CANCEL,COPY,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10, F11, F12, F13, FN6,
+      ESC,    1,   2,   3,   4,   5,   FN4, FN5,    6,   7,   8,   9,   0,   BSPC,
       TAB,    Q,   W,   E,   R,   T,      UP,       Y,   U,   I,   O,   P,   ENT,
       LCTL,  A,   S,   D,   F,   G,  MINS,  EQL,     H,   J,   K,   L, FN2,
-      LSFT, Z,   X,   C,   V,   B, INS, DOWN,  DEL,   N,   M,COMM, DOT, FN1,
+      LSFT, Z,   X,   C,   V,   B, GRV, BSLS, QUOT,   N,   M,COMM, DOT, FN1,
               LGUI, LALT, LCTL, LSFT,      SPC,      SPC,   RALT
     ),
     KEYMAP(
@@ -115,15 +115,67 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               LGUI, LALT, LCTL, LSFT,      SPC,      SPC,   RALT
     ),
 };
-
 static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {};
 
+/*
+ * Macro definition
+ */
+enum macro_id {
+    LBRACKET,
+    RBRACKET,
+    DUMMY,
+};
+
+const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    keyevent_t event = record->event;
+    //uint8_t tap_count = record->tap_count;
+
+    switch (id) {
+        case LBRACKET:
+            return (event.pressed ?
+                    MACRO( T(LBRC), END ) :
+                    MACRO( T(LBRC), END ) );
+        case RBRACKET:
+            return (event.pressed ?
+                    MACRO( T(RBRC), END ) :
+                    MACRO( T(RBRC), END ) );
+    }
+    return MACRO_NONE;
+}
+
+/*
+ * Action function
+ */
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+/*
+    keyevent_t event = record->event;
+    uint8_t tap_count = record->tap_count;
+    switch (id) {
+        case 0xFF:
+            action_macro_play(get_macro(opt, event.pressed));
+            break;
+    }
+*/
+}
+
+
+/*
+ * Fn actions
+ */
 static const uint16_t PROGMEM fn_actions[] = {
     ACTION_KEYMAP_TAP_TOGGLE(0),                 // FN0
     ACTION_KEYMAP_TAP_KEY(1, KC_SLASH),          // FN1
     ACTION_KEYMAP_TAP_KEY(2, KC_SCLN),           // FN2
     ACTION_KEYMAP(2),                            // FN3
+    ACTION_MACRO(LBRACKET),                      // FN4
+    ACTION_MACRO(RBRACKET),                      // FN5
+    ACTION_MACRO(DUMMY),                         // FN6
 };
+
+
+
 
 
 
