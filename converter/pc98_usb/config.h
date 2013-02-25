@@ -27,30 +27,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* matrix size */
-#define MATRIX_ROWS 16
-#define MATRIX_COLS 8
+#define MATRIX_ROWS     16
+#define MATRIX_COLS     8
 
+/* To use new keymap framework */
+#define USE_KEYMAP_V2
 
 /* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+#define IS_COMMAND()    ( \
+    host_get_first_key() == KC_CANCEL \
 )
 
 
-/* PC98 Serial(USART) configuration
- *     asynchronous, positive logic, 19200baud, bit order: LSB first
- *     1-start bit, 8-data bit, odd parity, 1-stop bit
- */
-#define SERIAL_BAUD 19200
-#define SERIAL_PARITY_ODD
-#define SERIAL_BIT_ORDER_LSB
-
-/* PC98 Reset Port */
+/* PC98 Reset Port shared with TXD */
 #define PC98_RST_DDR    DDRD
 #define PC98_RST_PORT   PORTD
-#define PC98_RST_BIT    1
+#define PC98_RST_BIT    3
 /* PC98 Ready Port */
 #define PC98_RDY_DDR    DDRD
 #define PC98_RDY_PORT   PORTD
@@ -60,41 +52,75 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PC98_RTY_PORT   PORTD
 #define PC98_RTY_BIT    5
 
+/*
+ * PC98 Serial(USART) configuration
+ *     asynchronous, positive logic, 19200baud, bit order: LSB first
+ *     1-start bit, 8-data bit, odd parity, 1-stop bit
+ */
+/*
+ * Software Serial
+ */
+#define SERIAL_SOFT_BAUD                19200
+#define SERIAL_SOFT_PARITY_ODD
+#define SERIAL_SOFT_BIT_ORDER_LSB
+#define SERIAL_SOFT_LOGIC_POSITIVE
 /* RXD Port */
-#define SERIAL_RXD_DDR  DDRD
-#define SERIAL_RXD_PORT PORTD
-#define SERIAL_RXD_PIN  PIND
-#define SERIAL_RXD_BIT  2
-#define SERIAL_RXD_READ()       (SERIAL_RXD_PIN&(1<<SERIAL_RXD_BIT))
+#define SERIAL_SOFT_RXD_DDR             DDRD
+#define SERIAL_SOFT_RXD_PORT            PORTD
+#define SERIAL_SOFT_RXD_PIN             PIND
+#define SERIAL_SOFT_RXD_BIT             2
+#define SERIAL_SOFT_RXD_READ()          (SERIAL_SOFT_RXD_PIN&(1<<SERIAL_SOFT_RXD_BIT))
 /* RXD Interupt */
-#define SERIAL_RXD_VECT INT2_vect
-#define SERIAL_RXD_INIT()  do { \
+#define SERIAL_SOFT_RXD_VECT            INT2_vect
+#define SERIAL_SOFT_RXD_INIT()          do { \
     /* pin configuration: input with pull-up */ \
-    SERIAL_RXD_DDR &= ~(1<<SERIAL_RXD_BIT);     \
-    SERIAL_RXD_PORT |= (1<<SERIAL_RXD_BIT);     \
-    /* enable interrupt: INT2(falling edge) */  \
-    EICRA |= ((1<<ISC21)|(0<<ISC20));           \
-    EIMSK |= (1<<INT2);                         \
+    SERIAL_SOFT_RXD_DDR &= ~(1<<SERIAL_SOFT_RXD_BIT); \
+    SERIAL_SOFT_RXD_PORT |= (1<<SERIAL_SOFT_RXD_BIT); \
+    /* enable interrupt: INT2(falling edge) */ \
+    EICRA |= ((1<<ISC21)|(0<<ISC20)); \
+    EIMSK |= (1<<INT2); \
+    sei(); \
 } while (0)
-#define SERIAL_RXD_INT_ENTER()
-#define SERIAL_RXD_INT_EXIT() do {  \
-    /* clear interrupt  flag */     \
-    EIFR = (1<<INTF2);              \
+#define SERIAL_SOFT_RXD_INT_ENTER()
+#define SERIAL_SOFT_RXD_INT_EXIT()      do { \
+    /* clear interrupt  flag */ \
+    EIFR = (1<<INTF2); \
+} while (0)
+/* TXD Port */
+#define SERIAL_SOFT_TXD_DDR             DDRD
+#define SERIAL_SOFT_TXD_PORT            PORTD
+#define SERIAL_SOFT_TXD_PIN             PIND
+#define SERIAL_SOFT_TXD_BIT             3
+#define SERIAL_SOFT_TXD_HI()            do { SERIAL_SOFT_TXD_PORT |=  (1<<SERIAL_SOFT_TXD_BIT); } while (0)
+#define SERIAL_SOFT_TXD_LO()            do { SERIAL_SOFT_TXD_PORT &= ~(1<<SERIAL_SOFT_TXD_BIT); } while (0)
+#define SERIAL_SOFT_TXD_INIT()          do { \
+    /* pin configuration: output */ \
+    SERIAL_SOFT_TXD_DDR |= (1<<SERIAL_SOFT_TXD_BIT); \
+    /* idle */ \
+    SERIAL_SOFT_TXD_ON(); \
 } while (0)
 
-/* TXD Port: Not used */
-#define SERIAL_TXD_DDR  DDRD
-#define SERIAL_TXD_PORT PORTD
-#define SERIAL_TXD_PIN  PIND
-#define SERIAL_TXD_BIT  3
-/* negative logic */
-#define SERIAL_TXD_ON()     do { SERIAL_TXD_PORT &= ~(1<<SERIAL_TXD_BIT); } while (0)
-#define SERIAL_TXD_OFF()    do { SERIAL_TXD_PORT |=  (1<<SERIAL_TXD_BIT); } while (0)
-#define SERIAL_TXD_INIT()   do { \
-    /* pin configuration: output */         \
-    SERIAL_TXD_DDR |= (1<<SERIAL_TXD_BIT);  \
-    /* idle */                              \
-    SERIAL_TXD_ON();                        \
-} while (0)
+
+/*
+ * Hardware Serial(UART)
+ */
+#ifdef __AVR_ATmega32U4__
+    #define SERIAL_UART_BAUD       19200
+    #define SERIAL_UART_DATA       UDR1
+    #define SERIAL_UART_UBRR       ((F_CPU/(16UL*SERIAL_UART_BAUD))-1)
+    #define SERIAL_UART_RXD_VECT   USART1_RX_vect
+    #define SERIAL_UART_TXD_READY  (UCSR1A&(1<<UDRE1))
+    #define SERIAL_UART_INIT()     do { \
+        UBRR1L = (uint8_t) SERIAL_UART_UBRR;       /* baud rate */ \
+        UBRR1H = (uint8_t) (SERIAL_UART_UBRR>>8);  /* baud rate */ \
+        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1); /* RX interrupt, RX: enable */ \
+        UCSR1B |= (0<<TXCIE1) | (1<<TXEN1); /* TX interrupt, TX: enable */ \
+        UCSR1C |= (1<<UPM11) | (1<<UPM10);  /* parity: none(00), even(01), odd(11) */ \
+        sei(); \
+    } while(0)
+#else
+    #error "USART configuration is needed."
+#endif
+
 
 #endif
