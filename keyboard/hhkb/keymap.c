@@ -65,9 +65,9 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
-           FN6, A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
-           FN8, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN9, \
-                LGUI,LALT,          FN5,                FN13,FN4),
+           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
+           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN9, \
+                LGUI,LALT,          FN5,                FN14,FN4),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -173,7 +173,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum function_id {
     LSHIFT_LPAREN,
     RSHIFT_RPAREN,
-    MACRO                   = 0xff
+};
+
+enum macro_id {
+    SHIFT_D,
+    HELLO,
 };
 
 
@@ -198,28 +202,30 @@ static const uint16_t PROGMEM fn_actions[] = {
     [9]  = ACTION_KEYMAP_TAP_TOGGLE(1),                 // FN9
     [11] = ACTION_FUNCTION_TAP(LSHIFT_LPAREN),             // FN11 Function: LShift with tap '('
     [12] = ACTION_FUNCTION_TAP(RSHIFT_RPAREN),             // FN12 Function: RShift with tap ')'
-    [13] = ACTION_FUNCTION(MACRO, 1),                      // FN13 Macro:
+    [13] = ACTION_MACRO(SHIFT_D),                           
+    [14] = ACTION_MACRO(HELLO),                             
 };
 
 
 /*
  * Macro definition
  */
-#define MACRO(...) ({ static prog_macro_t _m[] PROGMEM = { __VA_ARGS__ }; _m; })
-#define MACRO_NONE  0
-static const prog_macro_t *get_macro(uint8_t id, bool pressed)
+const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+    keyevent_t event = record->event;
+    //uint8_t tap_count = record->tap_count;
+
     switch (id) {
-        case 0:
-            return (pressed ?
+        case SHIFT_D:
+            return (event.pressed ?
                     MACRO( MD(LSHIFT), D(D), END ) :
                     MACRO( U(D), MU(LSHIFT), END ) );
-        case 1:
-            return (pressed ?
-                    MACRO( I(255), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
+        case HELLO:
+            return (event.pressed ?
+                    MACRO( I(0), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
                     MACRO_NONE );
     }
-    return 0;
+    return MACRO_NONE;
 }
 
 
@@ -299,9 +305,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
                     host_send_keyboard_report();
                 }
             }
-            break;
-        case MACRO:
-            action_macro_play(get_macro(opt, event.pressed));
             break;
     }
 }
