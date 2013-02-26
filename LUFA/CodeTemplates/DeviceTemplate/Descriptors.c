@@ -42,7 +42,7 @@
  *  and the number of device configurations. The descriptor is read out by the
  *  USB host when the enumeration process begins.
  */
-const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
