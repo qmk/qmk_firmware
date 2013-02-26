@@ -23,9 +23,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Struct to record event and tap count  */
+typedef union {
+    struct {
+        bool    interrupted :1;
+        bool    reserved2   :1;
+        bool    reserved1   :1;
+        bool    reserved0   :1;
+        uint8_t count       :4;
+    };
+} tap_t;
+
 typedef struct {
     keyevent_t  event;
-    uint8_t     tap_count;
+    tap_t tap;
 } keyrecord_t;
 
 /* Action struct.
@@ -377,6 +387,7 @@ enum layer_params {
  */
 /* Macro */
 #define ACTION_MACRO(id)                ACTION(ACT_MACRO, (id))
+#define ACTION_MACRO_TAP(id)            ACTION(ACT_MACRO, FUNC_TAP<<8 | (id))
 #define ACTION_MACRO_OPT(id, opt)       ACTION(ACT_MACRO, (opt)<<8 | (id))
 
 /* Command */
@@ -386,7 +397,8 @@ enum layer_params {
 enum function_opts {
     FUNC_TAP        = 0x8,      /* indciates function is tappable */
 };
-#define ACTION_FUNCTION(id, opt)        ACTION(ACT_FUNCTION, (opt)<<8 | id)
-#define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | id)
+#define ACTION_FUNCTION(id)             ACTION(ACT_FUNCTION, (id))
+#define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | (id))
+#define ACTION_FUNCTION_OPT(id, opt)    ACTION(ACT_FUNCTION, (opt)<<8 | (id))
 
 #endif  /* ACTION_H */

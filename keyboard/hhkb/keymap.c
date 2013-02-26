@@ -56,18 +56,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Backs|
      * |-----------------------------------------------------------|
-     * |Fn6   |  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
+     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Fn4     |
      * |-----------------------------------------------------------|
-     * |Fn8     |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Fn12  |Fn1|
+     * |Fn5     |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift |Fn1|
      * `-----------------------------------------------------------'
-     *       |Gui|Alt  |          Fn5          |Alt  |Fn4|
+     *       |Gui|Alt  |         Fn6           |Alt  |Fn7|
      *       `-------------------------------------------'
      */
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
-           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN7, \
-           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN12,FN9, \
-                LGUI,LALT,          FN5,                FN14,FN4),
+           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN4, \
+            FN5,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
+                LGUI,LALT,          FN6,                RALT,FN7),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -77,7 +77,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |Fn0|
+     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |   |
      * `-----------------------------------------------------------'
      *       |Gui|Alt  |         Space         |Alt  |Gui|
      *       `-------------------------------------------'
@@ -127,7 +127,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,SLSH,RSFT,NO, \
                 LGUI,LALT,          BTN1,               RALT,TRNS),
 
-    /* Layer 4: Matias half keyboard style (Space)
+    /* Layer 4: Matias half-qwerty keyboard style (Space)
      * ,-----------------------------------------------------------.
      * |  -|  0|  9|  8|  7|  6|  5|  4|  3|  2|  1|   |   |   |Esc|
      * |-----------------------------------------------------------|
@@ -176,7 +176,8 @@ enum function_id {
 };
 
 enum macro_id {
-    SHIFT_D,
+    LSHIFT_PAREN,
+    RSHIFT_PAREN,
     HELLO,
 };
 
@@ -184,26 +185,26 @@ enum macro_id {
 /*
  * Fn action definition
  */
-// TODO: use [1] = KEYMAP(...) to prevent from changing index of element?
 static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_DEFAULT_LAYER,                           // FN0
-    ACTION_KEYMAP(1),                            // FN1
-    ACTION_KEYMAP_TAP_KEY(2, KC_SLASH),          // FN2  Layer with Slash
-    ACTION_KEYMAP_TAP_KEY(3, KC_SCLN),           // FN3  Layer with Semicolon
+    [0] = ACTION_DEFAULT_LAYER,                        // Default layer(not used)
+//  [1] = ACTION_KEYMAP(1),                            // HHKB layer
+    [1] = ACTION_KEYMAP_TAP_TOGGLE(1),                 // HHKB layer(toggle with 5 taps)
+    [2] = ACTION_KEYMAP_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
+    [3] = ACTION_KEYMAP_TAP_KEY(3, KC_SCLN),           // Mousekey layer with Semicolon*
+    [4] = ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),        // RControl with tap Enter*
+    [5] = ACTION_LMOD_ONESHOT(KC_LSFT),                // Oneshot Shift*
+//  [6] = ACTION_KEYMAP_TAP_KEY(4, KC_SPC),            // Half-qwerty layer with Space
+    [6] = ACTION_KEYMAP_TAP_KEY(5, KC_SPC),            // Mousekey layer with Space
+//  [7] = ACTION_KEYMAP(3),                            // Mousekey layer
+    [7] = ACTION_KEYMAP_TOGGLE(3),                     // Mousekey layer(toggle)
 
-    ACTION_KEYMAP(3),                            // FN4
-//  ACTION_KEYMAP_TOGGLE(3),                     // FN4
-//  ACTION_FUNCTION(MACRO, 0),                      // FN4
-    ACTION_KEYMAP_TAP_KEY(5, KC_SPC),            // FN5
-//  ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),          // FN6  Control with tap Backspace
-    ACTION_LMOD_TAP_KEY(KC_LCTL, KC_ESC),           // FN6  Control with tap Backspace
-    ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),           // FN7  Control with tap Enter
-    ACTION_LMOD_ONESHOT(KC_LSFT),                   // FN8  Oneshot Shift
-    [9]  = ACTION_KEYMAP_TAP_TOGGLE(1),                 // FN9
-    [11] = ACTION_FUNCTION_TAP(LSHIFT_LPAREN),             // FN11 Function: LShift with tap '('
-    [12] = ACTION_FUNCTION_TAP(RSHIFT_RPAREN),             // FN12 Function: RShift with tap ')'
-    [13] = ACTION_MACRO(SHIFT_D),                           
-    [14] = ACTION_MACRO(HELLO),                             
+//  [8] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),       // LControl with tap Backspace
+//  [9] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_ESC),        // LControl with tap Esc
+//  [11] = ACTION_FUNCTION_TAP(LSHIFT_LPAREN),         // Function: LShift with tap '('
+//  [12] = ACTION_FUNCTION_TAP(RSHIFT_RPAREN),         // Function: RShift with tap ')'
+//  [13] = ACTION_MACRO_TAP(LSHIFT_PAREN),             // Macro: LShift with tap '('
+//  [14] = ACTION_MACRO_TAP(RSHIFT_PAREN),             // Macro: RShift with tap ')'
+//  [15] = ACTION_MACRO(HELLO),                        // Macro: say hello
 };
 
 
@@ -213,13 +214,25 @@ static const uint16_t PROGMEM fn_actions[] = {
 const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     keyevent_t event = record->event;
-    //uint8_t tap_count = record->tap_count;
+    tap_t tap = record->tap;
 
     switch (id) {
-        case SHIFT_D:
-            return (event.pressed ?
-                    MACRO( MD(LSHIFT), D(D), END ) :
-                    MACRO( U(D), MU(LSHIFT), END ) );
+        case LSHIFT_PAREN:
+            if (tap.count > 0 && !tap.interrupted) {
+                return (event.pressed ?
+                        MACRO( MD(LSHIFT), D(9), U(9), MU(LSHIFT), END ) : MACRO_NONE);
+            } else {
+                return (event.pressed ?
+                        MACRO( MD(LSHIFT), END ) : MACRO( MU(LSHIFT), END ) );
+            }
+        case RSHIFT_PAREN:
+            if (tap.count > 0 && !tap.interrupted) {
+                return (event.pressed ?
+                        MACRO( MD(RSHIFT), D(0), U(0), MU(RSHIFT), END ) : MACRO_NONE);
+            } else {
+                return (event.pressed ?
+                        MACRO( MD(RSHIFT), END ) : MACRO( MU(RSHIFT), END ) );
+            }
         case HELLO:
             return (event.pressed ?
                     MACRO( I(0), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
@@ -236,73 +249,45 @@ const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t op
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     keyevent_t event = record->event;
-    uint8_t tap_count = record->tap_count;
-
-    debug("action_call_function: ");
-    if (event.pressed) debug("pressed"); else debug("released");
-    debug(" id: "); debug_hex(id);
-    debug(" tap_count: "); debug_dec(tap_count);
-    debug("\n");
+    tap_t tap = record->tap;
 
     switch (id) {
         case LSHIFT_LPAREN:
             // LShft + tap '('
+            // NOTE: cant use register_code to avoid conflicting with magic key bind
             if (event.pressed) {
-                if (tap_count == 0) {
+                if (tap.count == 0 || tap.interrupted) {
                     add_mods(MOD_BIT(KC_LSHIFT));
                 } else {
-                    if (waiting_buffer_has_anykey_pressed()) {
-                        // ad hoc: set 0 to cancel tap
-                        record->tap_count = 0;
-                        add_mods(MOD_BIT(KC_LSHIFT));
-                    } else {
-                        // NOTE to avoid conflicting command key bind(LShift+RShift)
-                        //register_code(KC_LSHIFT);
-                        //register_code(KC_9);
-                        host_add_mods(MOD_BIT(KC_LSHIFT));
-                        host_add_key(KC_9);
-                        host_send_keyboard_report();
-                    }
-                }
-            } else {
-                if (tap_count == 0) {
-                    del_mods(MOD_BIT(KC_LSHIFT));
-                } else {
-                    //unregister_code(KC_9);
-                    //unregister_code(KC_LSHIFT);
+                    host_add_mods(MOD_BIT(KC_LSHIFT));
+                    host_add_key(KC_9);
+                    host_send_keyboard_report();
                     host_del_mods(MOD_BIT(KC_LSHIFT));
                     host_del_key(KC_9);
                     host_send_keyboard_report();
+                }
+            } else {
+                if (tap.count == 0 || tap.interrupted) {
+                    del_mods(MOD_BIT(KC_LSHIFT));
                 }
             }
             break;
         case RSHIFT_RPAREN:
             // RShift + tap ')'
             if (event.pressed) {
-                if (tap_count == 0) {
+                if (tap.count == 0 || tap.interrupted) {
                     add_mods(MOD_BIT(KC_RSHIFT));
                 } else {
-                    if (waiting_buffer_has_anykey_pressed()) {
-                        // ad hoc: set 0 to cancel tap
-                        record->tap_count = 0;
-                        add_mods(MOD_BIT(KC_RSHIFT));
-                    } else {
-                        //register_code(KC_RSHIFT);
-                        //register_code(KC_0);
-                        host_add_mods(MOD_BIT(KC_RSHIFT));
-                        host_add_key(KC_0);
-                        host_send_keyboard_report();
-                    }
-                }
-            } else {
-                if (tap_count == 0) {
-                    del_mods(MOD_BIT(KC_RSHIFT));
-                } else {
-                    //unregister_code(KC_0);
-                    //unregister_code(KC_RSHIFT);
+                    host_add_mods(MOD_BIT(KC_RSHIFT));
+                    host_add_key(KC_0);
+                    host_send_keyboard_report();
                     host_del_mods(MOD_BIT(KC_RSHIFT));
                     host_del_key(KC_0);
                     host_send_keyboard_report();
+                }
+            } else {
+                if (tap.count == 0 || tap.interrupted) {
+                    del_mods(MOD_BIT(KC_RSHIFT));
                 }
             }
             break;
