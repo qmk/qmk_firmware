@@ -384,21 +384,15 @@ static void process_action(keyrecord_t *record)
                 /* Keymap Reset default layer */
                 case (OP_RESET | ON_PRESS):
                     if (event.pressed) {
-                        overlay_clear();
-                        keymap_clear();
                         default_layer_set(action.layer.val);
                     }
                     break;
                 case (OP_RESET | ON_RELEASE):
                     if (!event.pressed) {
-                        overlay_clear();
-                        keymap_clear();
                         default_layer_set(action.layer.val);
                     }
                     break;
                 case (OP_RESET | ON_BOTH):
-                    overlay_clear();
-                    keymap_clear();
                     default_layer_set(action.layer.val);
                     break;
 

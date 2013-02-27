@@ -470,7 +470,7 @@ See `keyboard/hhkb/keymap.c` for sample.
 ### 3. Layer
  Layer is key-action map to assign action to every physical key. You can define multiple layers in keymap and make layers active out of keymap during operation at will.
 
- First layer is indexed by `0` which usually become **`default layer`** and active in initial state.
+ First layer is indexed by `0` which usually become `default layer` and active in initial state.
 
 You can define **16 layers** at most in each keymaps[] and overlays[].
 

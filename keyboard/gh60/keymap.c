@@ -107,20 +107,15 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CAPS,A,   O,   E,   U,   I,   D,   H,   T,   N,   S,   MINS,     ENT,  \
         LSFT,SCLN,Q,   J,   K,   X,   B,   M,   W,   V,   Z,             RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN0),
-    /* Keymap: workman */
+    /* Keymap 3: workman */
     KEYMAP_ANSI(
         GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
         TAB, Q,   D,   R,   W,   B,   J,   F,   U,   P,   SCLN,LBRC,RBRC,BSLS, \
         BSPC,A,   S,   H,   T,   G,   Y,   N,   E,   O,   I,   QUOT,     ENT,  \
         LSFT,Z,   X,   M,   C,   V,   K,   L,   COMM,DOT, SLSH,          RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, FN0),
-};
 
-static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     * Funky
-     */
-    /* Overlay 0: HHKB mode
+    /* Overlay 4: HHKB mode
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
      * |-----------------------------------------------------------|
@@ -134,12 +129,12 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     KEYMAP_ANSI(
-        PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,  \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,  \
         CAPS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS,UP,  TRNS,INS,  \
         LCTL,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,     ENT,  \
         LSFT,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS,END, PGDN,DOWN,          RSFT, \
-        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, TRNS),
-    /* Overlay 1: Vi mode (Slash)
+        LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,FN4, TRNS),
+    /* Overlay 5: Vi mode (Slash)
      * ,-----------------------------------------------------------.
      * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
@@ -158,7 +153,7 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL,TRNS,LEFT,DOWN,RGHT,TRNS,LEFT,DOWN,UP,  RGHT,TRNS,TRNS,     ENT,  \
         LSFT,TRNS,TRNS,TRNS,TRNS,TRNS,HOME,PGDN,PGUP,END, TRNS,          RSFT, \
         LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
-    /* Overlay 2: Mouse mode (Semicolon/App)
+    /* Overlay 6: Mouse mode (Semicolon/App)
      * ,-----------------------------------------------------------.
      * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
      * |-----------------------------------------------------------|
@@ -178,16 +173,46 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL,TRNS,ACL0,ACL1,ACL2,TRNS,MS_L,MS_D,MS_U,MS_R,TRNS,TRNS,     ENT,  \
         LSFT,TRNS,TRNS,TRNS,TRNS,BTN3,BTN2,BTN1,BTN4,BTN5,TRNS,          RSFT, \
         LCTL,LGUI,LALT,          BTN1,                    TRNS,TRNS,TRNS,RCTL),
+    /* Overlay 7: Layout selector
+     * ,-----------------------------------------------------------.
+     * | Lq| Lc| Ld| Lw|   |   |   |   |   |   |   |   |   |       |
+     * |-----------------------------------------------------------|
+     * |     |Lq |Lw |   |   |   |   |   |   |   |   |   |   |     |
+     * |-----------------------------------------------------------|
+     * |      |   |   |Ld |   |   |   |   |   |   |   |   |        |
+     * |-----------------------------------------------------------|
+     * |        |   |   |Lc |   |   |   |   |   |   |   |          |
+     * |-----------------------------------------------------------|
+     * |    |    |    |                        |    |    |    |    |
+     * `-----------------------------------------------------------'
+     * Lq: set Qwerty layout
+     * Lc: set Colemak layout
+     * Ld: set Dvorak layout
+     * Lw: set Workman layout
+     */
+    KEYMAP_ANSI(
+        FN5, FN6, FN7, FN8, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,FN5, FN8, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,FN7, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS, \
+        TRNS,TRNS,TRNS,FN6, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          TRNS, \
+        TRNS,TRNS,TRNS,          TRNS,                    TRNS,TRNS,TRNS,TRNS),
 };
+
+static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {};
 
 /*
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_OVERLAY_TAP_TOGGLE(0),                 // FN0
-    ACTION_OVERLAY_TAP_KEY(1, KC_SLASH),          // FN1
-    ACTION_OVERLAY_TAP_KEY(2, KC_SCLN),           // FN2
-    ACTION_OVERLAY(2),                            // FN3
+    [0] = ACTION_KEYMAP(4),                 // FN0
+    [1] = ACTION_KEYMAP_TAP_KEY(5, KC_SLASH),          // FN1
+    [2] = ACTION_KEYMAP_TAP_KEY(6, KC_SCLN),           // FN2
+    [3] = ACTION_KEYMAP(6),                            // FN3
+    [4] = ACTION_KEYMAP(7),             // to Layout selector
+    [5] = ACTION_SET_DEFAULT_LAYER(0),  // set qwerty layout
+    [6] = ACTION_SET_DEFAULT_LAYER(1),  // set colemak layout
+    [7] = ACTION_SET_DEFAULT_LAYER(2),  // set dvorak layout
+    [8] = ACTION_SET_DEFAULT_LAYER(3),  // set workman layout
 };
 #endif
 
