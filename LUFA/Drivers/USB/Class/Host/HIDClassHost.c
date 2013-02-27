@@ -57,7 +57,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_HID_Host_NextHIDInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			if (DataINEndpoint || DataOUTEndpoint)
+			if (DataINEndpoint)
 			  break;
 
 			do
@@ -97,16 +97,19 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	HIDInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
 	HIDInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
 	HIDInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_INTERRUPT;
-	
-	HIDInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
-	HIDInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
-	HIDInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_INTERRUPT;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataINPipe, 1)))
 	  return false;
-	
-	if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+
+	if (DataOUTEndpoint)
+	{
+		HIDInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
+		HIDInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
+		HIDInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_INTERRUPT;
+
+		if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataOUTPipe, 1)))
+		  return false;
+	}
 
 	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;
 	HIDInterfaceInfo->State.HIDReportSize        = LE16_TO_CPU(HIDDescriptor->HIDReportLength);
