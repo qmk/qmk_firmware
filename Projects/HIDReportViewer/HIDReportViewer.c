@@ -89,7 +89,7 @@ int main(void)
  */
 void RetrieveDeviceData(void)
 {
-	if (USB_CurrentMode != USB_MODE_Host)
+	if (USB_HostState != HOST_STATE_Configured)
 	  return;
 
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);

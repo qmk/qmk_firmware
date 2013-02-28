@@ -53,6 +53,7 @@
   *   - Fixed lengthy timeouts in the USBtoSerial project if no application on the host is consuming data (thanks to Nicolas Saugnier)
   *   - Fixed lengthy automatic data flushing in the CDC and MIDI device class drivers
   *   - Fixed incorrect LED masks for received data display in the Device GenericHID demos (thanks to Denys Berkovskyy)
+  *   - Fixed incorrect output in the HIDReportViewer project when no device is connected (thanks to Pavel Kuzmin)
   *
   *  \section Sec_ChangeLog120730 Version 120730
   *  <b>New:</b>
