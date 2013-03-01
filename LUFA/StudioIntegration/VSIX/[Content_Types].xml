@@ -1,8 +1,8 @@
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
-  <Default Extension="vsixmanifest" ContentType="text/xml"/>
-  <Default Extension="cache" ContentType="text/xml"/>
-  <Default Extension="png" ContentType="application/octet-stream"/>
-  <Default Extension="txt" ContentType="text/plain"/>
-  <Default Extension="xml" ContentType="text/xml"/>
-  <Default Extension="zip" ContentType="application/octet-stream"/>
+	<Default Extension="vsixmanifest" ContentType="text/xml"/>
+	<Default Extension="cache" ContentType="text/xml"/>
+	<Default Extension="png" ContentType="application/octet-stream"/>
+	<Default Extension="txt" ContentType="text/plain"/>
+	<Default Extension="xml" ContentType="text/xml"/>
+	<Default Extension="zip" ContentType="application/octet-stream"/>
 </Types>

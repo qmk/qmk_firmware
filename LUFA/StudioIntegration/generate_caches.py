@@ -7,30 +7,32 @@
 """
 
 import sys
-import os
 sys.path.append("ProjectGenerator")
 
 
-def main():
+def show_message(message):
+	print "[Project Generator] %s" % message
+	sys.stdout.flush()
+
+
+def main(lufa_root_path):
 	try:
 		from asf_avrstudio5_interface import PythonFacade
 	except ImportError:
 		print "Fatal Error: The ASF project generator is missing."
 		return 1
 
-	p = PythonFacade(os.path.abspath(__file__))
+	p = PythonFacade(lufa_root_path)
 
-	print "[Project Generator] Checking database sanity..."
-	sys.stdout.flush()
-	p.check_extension_database_sanity(sys.argv[1])
+	show_message("Checking database sanity...")
+	p.check_extension_database_sanity(lufa_root_path)
 
-	print "[Project Generator] Building cache files..."
-	sys.stdout.flush()
-	p.generate_extension_cache_files(sys.argv[1])
+	show_message("Building cache files...")
+	p.generate_extension_cache_files(lufa_root_path)
 
-	print "[Project Generator] Cache files created."
+	show_message("Cache files created.")
 	return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1]))
