@@ -21,7 +21,7 @@ EXT_VERSION_NUM      := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
 all: generate_xml check_filenames generate_vsix
 
 clean:
-	@rm $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML)
+	@rm -f $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML)
 
 $(DOXYGEN_TAG_FILE_XML):
 	$(MAKE) -C ../ doxygen

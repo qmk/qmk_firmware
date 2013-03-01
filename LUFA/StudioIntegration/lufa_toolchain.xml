@@ -22,7 +22,7 @@
 				<toolchain-config name="avrgcc.compiler.warnings.AllWarnings" value="True" toolchain="avrgcc"/>
 				<toolchain-config name="avrgcc.compiler.miscellaneous.OtherFlags" value="-std=gnu99 -fno-strict-aliasing" toolchain="avrgcc"/>
 				<toolchain-config name="avrgcc.linker.optimization.GarbageCollectUnusedSections" value="True" toolchain="avrgcc"/>
-				<toolchain-config name="avrgcc.linker.miscellaneous.LinkerFlags" value="-Wl,--relax" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.linker.optimization.RelaxBranches" value="True" toolchain="avrgcc"/>
 			</module>
 		</select-by-device>
 
@@ -37,7 +37,7 @@
 			<toolchain-config name="avr32gcc.compiler.warnings.AllWarnings" value="True" toolchain="avr32gcc"/>
 			<toolchain-config name="avr32gcc.compiler.miscellaneous.OtherFlags" value="-std=gnu99 -fno-strict-aliasing -mno-cond-exec-before-reload" toolchain="avr32gcc"/>
 			<toolchain-config name="avr32gcc.linker.optimization.GarbageCollectUnusedSections" value="True" toolchain="avr32gcc"/>
-			<toolchain-config name="avr32gcc.linker.miscellaneous.LinkerFlags" value="-Wl,--relax" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.linker.optimization.RelaxBranches" value="True" toolchain="avr32gcc"/>
 		</module>
 	</asf>
 </lufa>
