@@ -113,6 +113,7 @@ static uint8_t HexToDecimal(const char Byte)
  */
 static void ParseIntelHEXByte(const char ReadCharacter)
 {
+	/* Reset the line parser while waiting for a new line to start */
 	if ((HEXParser.ParserState == HEX_PARSE_STATE_WAIT_LINE) || (ReadCharacter == ':'))
 	{
 		HEXParser.Checksum     = 0;
@@ -120,21 +121,28 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 		HEXParser.ParserState  = HEX_PARSE_STATE_WAIT_LINE;
 		HEXParser.ReadMSB      = false;
 
+		/* ASCII ':' indicates the start of a new HEX record */
 		if (ReadCharacter == ':')
 		  HEXParser.ParserState = HEX_PARSE_STATE_BYTE_COUNT;
 
 		return;
 	}
 
+	/* Only allow ASCII HEX encoded digits, ignore all other characters */
 	if (!IsHex(ReadCharacter))
 	  return;
 
+	/* Read and convert the next nibble of data from the current character */
 	HEXParser.Data    = (HEXParser.Data << 4) | HexToDecimal(ReadCharacter);
 	HEXParser.ReadMSB = !HEXParser.ReadMSB;
 
+	/* Only process further when a full byte (two nibbles) have been read */
 	if (HEXParser.ReadMSB)
 	  return;
 
+	/* Intel HEX checksum is for all fields except starting character and the
+	 * checksum itself
+	 */
 	if (HEXParser.ParserState != HEX_PARSE_STATE_CHECKSUM)
 	  HEXParser.Checksum += HEXParser.Data;
 
@@ -161,8 +169,10 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 			break;
 
 		case HEX_PARSE_STATE_READ_DATA:
+			/* Track the number of read data bytes in the record */
 			HEXParser.DataRem--;
 
+			/* Wait for a machine word (two bytes) of data to be read */
 			if (HEXParser.DataRem & 0x01)
 			{
 				HEXParser.PrevData = HEXParser.Data;
@@ -172,6 +182,9 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 			switch (HEXParser.RecordType)
 			{
 				case HEX_RECORD_TYPE_Data:
+					/* If we are writing to a new page, we need to erase it
+					 * first
+					 */
 					if (!(PageDirty))
 					{
 						boot_page_erase(HEXParser.PageStartAddress);
@@ -180,9 +193,11 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 						PageDirty = true;
 					}
 
+					/* Fill the FLASH memory buffer with the new word of data */
 					boot_page_fill(HEXParser.CurrAddress, ((uint16_t)HEXParser.Data << 8) | HEXParser.PrevData);
 					HEXParser.CurrAddress += 2;
 
+					/* Flush the FLASH page to physical memory if we are crossing a page boundary */
 					uint32_t NewPageStartAddress = (HEXParser.CurrAddress & ~(SPM_PAGESIZE - 1));
 					if (PageDirty && (HEXParser.PageStartAddress != NewPageStartAddress))
 					{
@@ -196,6 +211,7 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 					break;
 
 				case HEX_RECORD_TYPE_ExtendedLinearAddress:
+					/* Extended address data - store the upper 16-bits of the new address */
 					HEXParser.CurrAddress |= (uint32_t)HEXParser.Data << (HEXParser.DataRem ? 24 : 16);
 					break;
 			}
@@ -205,9 +221,11 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 			break;
 
 		case HEX_PARSE_STATE_CHECKSUM:
+			/* Verify checksum of the completed record */
 			if (HEXParser.Data != ((~HEXParser.Checksum + 1) & 0xFF))
 			  break;
 
+			/* Flush the FLASH page to physical memory if we are crossing a page boundary */
 			uint32_t NewPageStartAddress = (HEXParser.CurrAddress & ~(SPM_PAGESIZE - 1));
 			if (PageDirty && (HEXParser.PageStartAddress != NewPageStartAddress))
 			{

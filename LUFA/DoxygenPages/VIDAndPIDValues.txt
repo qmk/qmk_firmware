@@ -75,7 +75,7 @@
  *   <tr>
  *    <td>0x03EB</td>
  *    <td>0x204A</td>
- *    <td>CDC Bootloader</td>
+ *    <td>CDC Class Bootloader</td>
  *   </tr>
  *   <tr>
  *    <td>0x03EB</td>
@@ -166,7 +166,7 @@
  *   <tr>
  *    <td>0x03EB</td>
  *    <td>0x206B</td>
- *    <td><i>Currently Unallocated</i></td>
+ *    <td>Printer Class Bootloader</td>
  *   </tr>
  *   <tr>
  *    <td>0x03EB</td>
