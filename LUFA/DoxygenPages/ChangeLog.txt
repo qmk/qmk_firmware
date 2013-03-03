@@ -7,7 +7,9 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  No changes.
+  *  <b>New:</b>
+  *  - Library Applications:
+  *   - Added new Printer class bootloader
   *
   *  \section Sec_ChangeLog130303 Version 130303
   *  <b>New:</b>
