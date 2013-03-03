@@ -10,6 +10,11 @@
  *  it is possible to export the library into a form suitable for drop-in use inside of an
  *  IDE.
  *
+ *  \note <b>LUFA is also available as a native Atmel Studio 6.1 extension</b>, which integrates LUFA into
+ *        Atmel Studio including all demos and projects. If you are running Atmel Studio 6.1 or later, the
+ *        below instructions are not required; download and install the native LUFA extension from the
+ *        <a href="http://gallery.atmel.com">Atmel Gallery</a> instead.
+ *
  *  \section Sec_LibraryExport Exporting the Library
  *  An export of the library is at its most basic, a direct copy of the main "LUFA" source folder from the
  *  root download folder; this contains the library core which can be re-used within external projects.
@@ -35,7 +40,7 @@
  *  command <b><code>make export_tar</code></b> from the command line. This will generate two .tar files in the
  *  current directory, named <code>LUFA_YYMMDD.tar</code> and <code>LUFA_YYMMDD_Code_Templates.tar</code> (where
  *  "YYMMDD" is the version of the library being exported). The first archive contains the exported LUFA core
- *  with the non-required files removed, while the second contains an archived copy of the code template files 
+ *  with the non-required files removed, while the second contains an archived copy of the code template files
  *  for the current LUFA version.
  *
  *  The resulting archived copy of the library may then be extracted to your chosen IDE project source directory
@@ -47,7 +52,7 @@
  *
  *  Specific instructions for importing an exported version of LUFA into various IDEs are listed below.
  *
- *  \subsection SSec_AS56_Import Importing into AVRStudio 5/Atmel Studio 6
+ *  \subsection SSec_AS56_Import Importing into AVRStudio 5.x/Atmel Studio 6.0
  *  To import LUFA into a new or existing project, the following steps must be followed.
  *
  *  \subsubsection SSSec_AS56_Import_Step1 Copy over the exported library
@@ -80,7 +85,7 @@
  *  assembler and linker options.
  *
  *  \image html Images/AS5_AS6_Import/AS5_AS6_Import_Step4.png
- * 
+ *
  *  Click the "Toolchain" tab on the left side of the Project Properties window.
  *
  *  \subsubsection SSSec_AS56_Import_Step5 Configure Project Toolchain Properties
