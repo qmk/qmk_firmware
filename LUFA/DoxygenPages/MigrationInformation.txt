@@ -10,6 +10,9 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
+ *  \section Sec_MigrationXXXXXX Migrating from 130303 to XXXXXX
+ *  There is no migration information for this version.
+ *
  *  \section Sec_Migration130303 Migrating from 120730 to 130303
  *  <b>Device Mode</b>
  *    - The \ref HID_KEYBOARD_LED_KANA macro was previously misspelled as \c HID_KEYBOARD_LED_KATANA, and had an incorrect value. User applications requiring this
