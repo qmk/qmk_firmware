@@ -59,6 +59,8 @@ struct
 	uint8_t  Checksum;
 	/** Starting address of the last addressed FLASH page. */
 	uint32_t PageStartAddress;
+	/** Current 32-bit byte extended base address in FLASH being targeted. */
+	uint32_t CurrBaseAddress;
 	/** Current 32-bit byte address in FLASH being targeted. */
 	uint32_t CurrAddress;
 } HEXParser =
@@ -117,7 +119,7 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 	if ((HEXParser.ParserState == HEX_PARSE_STATE_WAIT_LINE) || (ReadCharacter == ':'))
 	{
 		HEXParser.Checksum     = 0;
-		HEXParser.CurrAddress &= ~0xFFFF;
+		HEXParser.CurrAddress  = HEXParser.CurrBaseAddress;
 		HEXParser.ParserState  = HEX_PARSE_STATE_WAIT_LINE;
 		HEXParser.ReadMSB      = false;
 
@@ -154,12 +156,12 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 			break;
 
 		case HEX_PARSE_STATE_ADDRESS_HIGH:
-			HEXParser.CurrAddress |= ((uint16_t)HEXParser.Data << 8);
+			HEXParser.CurrAddress += ((uint16_t)HEXParser.Data << 8);
 			HEXParser.ParserState  = HEX_PARSE_STATE_ADDRESS_LOW;
 			break;
 
 		case HEX_PARSE_STATE_ADDRESS_LOW:
-			HEXParser.CurrAddress |= HEXParser.Data;
+			HEXParser.CurrAddress += HEXParser.Data;
 			HEXParser.ParserState  = HEX_PARSE_STATE_RECORD_TYPE;
 			break;
 
@@ -171,6 +173,14 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 		case HEX_PARSE_STATE_READ_DATA:
 			/* Track the number of read data bytes in the record */
 			HEXParser.DataRem--;
+
+			/* Protect the bootloader against being written to */
+			if (HEXParser.CurrAddress >= BOOT_START_ADDR)
+			{
+				HEXParser.ParserState = HEX_PARSE_STATE_WAIT_LINE;
+				PageDirty = false;
+				return;
+			}
 
 			/* Wait for a machine word (two bytes) of data to be read */
 			if (HEXParser.DataRem & 0x01)
@@ -210,9 +220,14 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 					}
 					break;
 
+				case HEX_RECORD_TYPE_ExtendedSegmentAddress:
+					/* Extended address data - store the upper 12-bits of the new address */
+					HEXParser.CurrBaseAddress = (((uint32_t)HEXParser.PrevData << 8) | HEXParser.Data) << 4;
+					break;
+
 				case HEX_RECORD_TYPE_ExtendedLinearAddress:
 					/* Extended address data - store the upper 16-bits of the new address */
-					HEXParser.CurrAddress |= (uint32_t)HEXParser.Data << (HEXParser.DataRem ? 24 : 16);
+					HEXParser.CurrBaseAddress = (((uint32_t)HEXParser.PrevData << 8) | HEXParser.Data) << 16;
 					break;
 			}
 
