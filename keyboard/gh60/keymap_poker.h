@@ -92,13 +92,13 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 static const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
-    [0] = ACTION_OVERLAY(2),            // to Fn overlay
+    [0] = ACTION_OVERLAY_MOMENTARY(2),  // to Fn overlay
     [1] = ACTION_OVERLAY_TOGGLE(0),     // toggle arrow overlay
     [2] = ACTION_OVERLAY_TOGGLE(1),     // toggle Esc overlay
     [3] = ACTION_RMODS_KEY(MOD_BIT(KC_RCTL)|MOD_BIT(KC_RSFT), KC_ESC), // Task(RControl,RShift+Esc)
-    [4] = ACTION_OVERLAY(3),            // to Layout selector
-    [5] = ACTION_SET_DEFAULT_LAYER(0),  // set qwerty layout
-    [6] = ACTION_SET_DEFAULT_LAYER(1),  // set colemak layout
-    [7] = ACTION_SET_DEFAULT_LAYER(2),  // set dvorak layout
-    [8] = ACTION_SET_DEFAULT_LAYER(3),  // set workman layout
+    [4] = ACTION_OVERLAY_MOMENTARY(3),  // to Layout selector
+    [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
+    [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
+    [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
+    [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
 };

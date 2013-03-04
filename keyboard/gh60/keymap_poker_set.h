@@ -67,15 +67,15 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 static const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
-    [0] = ACTION_OVERLAY_SET_P(3),     // FN0 move to Fn'd             when press
-    [1] = ACTION_OVERLAY_SET_P(4),     // FN1 move to Fn'd arrow       when press
-    [2] = ACTION_OVERLAY_SET_P(5),     // FN2 move to Fn'd Esc         when press
-    [3] = ACTION_OVERLAY_SET_P(6),     // FN3 move to Fn'd arrow + Esc when press
+    [0] = ACTION_OVERLAY_SET(3, ON_PRESS),     // FN0 move to Fn'd             when press
+    [1] = ACTION_OVERLAY_SET(4, ON_PRESS),     // FN1 move to Fn'd arrow       when press
+    [2] = ACTION_OVERLAY_SET(5, ON_PRESS),     // FN2 move to Fn'd Esc         when press
+    [3] = ACTION_OVERLAY_SET(6, ON_PRESS),     // FN3 move to Fn'd arrow + Esc when press
 
-    [4] = ACTION_OVERLAY_CLEAR,        // FN4 clear overlay            when release
-    [5] = ACTION_OVERLAY_SET_R(0),     // FN5 move to arrow            when release
-    [6] = ACTION_OVERLAY_SET_R(1),     // FN6 move to Esc              when release
-    [7] = ACTION_OVERLAY_SET_R(2),     // FN7 move to arrow + Esc      when release
+    [4] = ACTION_OVERLAY_CLEAR(ON_RELEASE),    // FN4 clear overlay            when release
+    [5] = ACTION_OVERLAY_SET(0, ON_RELEASE),   // FN5 move to arrow            when release
+    [6] = ACTION_OVERLAY_SET(1, ON_RELEASE),   // FN6 move to Esc              when release
+    [7] = ACTION_OVERLAY_SET(2, ON_RELEASE),   // FN7 move to arrow + Esc      when release
 
     [8] = ACTION_RMODS_KEY(MOD_BIT(KC_RCTL)|MOD_BIT(KC_RSFT), KC_ESC), // FN8 Task(RControl,RShift+Esc)
 };
