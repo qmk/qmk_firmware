@@ -98,7 +98,7 @@
  *  #define BOOTLOADER_API_TABLE_SIZE          32
  *  #define BOOTLOADER_API_TABLE_START         ((FLASHEND + 1UL) - BOOTLOADER_API_TABLE_SIZE)
  *  #define BOOTLOADER_API_CALL(Index)         (void*)((BOOTLOADER_API_TABLE_START + (Index * 2)) / 2)
- *  
+ *
  *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
  *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
  *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
@@ -106,13 +106,13 @@
  *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
  *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
  *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
- *  
+ *
  *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 2))
  *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
- *  
+ *
  *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
- *  #define BOOTLOADER_CDC_SIGNATURE           0xCDC1
- *  
+ *  #define BOOTLOADER_CDC_SIGNATURE           0xDF20
+ *
  *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
  *  #define BOOTLOADER_ADDRESS_LENGTH          4
  *  \endcode
