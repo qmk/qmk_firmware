@@ -25,23 +25,23 @@ Projects
 You can find some keyboard specific projects under `converter` and `keyboard` directory.
 
 ### converter
-* [ps2_usb](converter/ps2_usb/)       - [PS/2 keyboard to USB][GH_ps2]
-* adb_usb       - [ADB keyboard to USB][GH_adb]
-* m0110_usb     - [Machintosh 128K/512K/Plus keyboard to USB][GH_m0110]
-* terminal_usb  - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
-* news_usb      - [Sony NEWS keyboard to USB][GH_news]
-* x68k_usb      - [Sharp X68000 keyboard to USB][GH_x68k]
-* sun_usb       - Sun to USB(type4, 5 and 3?)
-* usb_usb       - USB to USB(experimental)
+* [ps2_usb](converter/ps2_usb/)             - [PS/2 keyboard to USB][GH_ps2]
+* [adb_usb](converter/adb_usb/)             - [ADB keyboard to USB][GH_adb]
+* [m0110_usb](converter/m0110_usb)          - [Machintosh 128K/512K/Plus keyboard to USB][GH_m0110]
+* [terminal_usb](converter/terminal_usb/)   - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
+* [news_usb](converter/news_usb/)           - [Sony NEWS keyboard to USB][GH_news]
+* [x68k_usb](converter/x68k_usb/)           - [Sharp X68000 keyboard to USB][GH_x68k]
+* [sun_usb](converter/sun_usb/)             - Sun to USB(type4, 5 and 3?)
+* [usb_usb](converter/usb_usb/)             - USB to USB(experimental)
 
 ### keyboard
-* hhkb          - [Happy Hacking Keyboard professional][GH_hhkb]
-* macway        - [Compact keyboard mod][GH_macway]
-* hbkb          - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
-* IIgs_Standard - Apple IIGS keyboard mod(by JeffreySung)
-* hid_liber     - [HID liberation controller][HID_liber](by alaricljs)
-* phantom       - [Phantom keyboard][PHANTOM] (by Tranquilite)
-* gh60          - [GH60 keyboard][GH60]
+* [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard professional][GH_hhkb]
+* [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway]
+* [hbkb](keyboard/hbkb/)                    - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
+* [IIgs_Standard](keyboard/IIgs_Standard/)  - Apple IIGS keyboard mod(by JeffreySung)
+* [hid_liber](keyboard/hid_liber/)          - [HID liberation controller][HID_liber](by alaricljs)
+* [phantom](keyboard/phantom/)              - [Phantom keyboard][PHANTOM] (by Tranquilite)
+* [gh60](keyboard/gh60/)                    - [GH60 keyboard][GH60]
 
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047

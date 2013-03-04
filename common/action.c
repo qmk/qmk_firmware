@@ -360,6 +360,7 @@ static void process_action(keyrecord_t *record)
                 case OP_RESET:
                     switch (action.layer.val & 0x03) {
                         case 0:
+                            // NOTE: reserved
                             overlay_clear();
                             keymap_clear();
                             break;
@@ -379,6 +380,7 @@ static void process_action(keyrecord_t *record)
                             overlay_clear();
                             keymap_clear();
                             break;
+                        /* NOTE: 4-7 rserved */
                     }
                     break;
                 /* Keymap Reset default layer */
@@ -519,6 +521,7 @@ static void process_action(keyrecord_t *record)
                 // Overlay Invert bit4
                 case OP_INV4 | 0:
                     if (action.layer.val == 0) {
+                        // NOTE: reserved for future use
                         overlay_clear();
                     } else {
                         overlay_set(overlay_stat ^ action.layer.val);
@@ -526,6 +529,7 @@ static void process_action(keyrecord_t *record)
                     break;
                 case OP_INV4 | 1:
                     if (action.layer.val == 0) {
+                        // on pressed
                         if (event.pressed) overlay_clear();
                     } else {
                         overlay_set(overlay_stat ^ action.layer.val<<4);
@@ -533,6 +537,7 @@ static void process_action(keyrecord_t *record)
                     break;
                 case OP_INV4 | 2:
                     if (action.layer.val == 0) {
+                        // on released
                         if (!event.pressed) overlay_clear();
                     } else {
                         overlay_set(overlay_stat ^ action.layer.val<<8);
@@ -540,6 +545,7 @@ static void process_action(keyrecord_t *record)
                     break;
                 case OP_INV4 | 3:
                     if (action.layer.val == 0) {
+                        // on both
                         overlay_clear();
                     } else {
                         overlay_set(overlay_stat ^ action.layer.val<<12);

@@ -2,7 +2,7 @@ Keymap framework - how to define your keymap
 ============================================
 ***NOTE: This is not final version, may be inconsistent with source code and changed occasionally for a while.***
 
-## Keymap
+## 0. Keymap and layers
 **Keymap** is comprised of multiple layers of key layout, you can define **16** layers at most.
 **Layer** is an array of **keycodes** to define **actions** on each physical keys.
 respective layers can be validated simultaneously. Layers are indexed with 0 to 15 and higher layer has precedence.
@@ -22,7 +22,7 @@ respective layers can be validated simultaneously. Layers are indexed with 0 to 
        0 /___________/  V low           0 `--------------------------
                             
 
-### Keymap status
+### 0.1 Keymap status
 Keymap has its state in two parameters:
 **`default_layer`** indicates a base keymap layer(0-15) which is always valid and to be referred, **`keymap_stat`** is 16bit variable which has current on/off status of layers on its each bit.
 
@@ -63,15 +63,15 @@ On the other hand, you shall change `keymap_state` to overlay base layer with so
          keymap_stat   = 0x6002 <-----'
 
     
-### Layer Precedence and Transparency
+### 0.2 Layer Precedence and Transparency
 Note that ***higher layer has higher priority on stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`**(transparent) on a layer it stops searching and lower layers aren't referred.
 
 You can place `KC_TRNS` on overlay layer changes just part of layout to fall back on lower or base layer.
-Key with `KC_TRANS` doen't has its own keycode and refers to its lower layers for keycode, instead.
-See layer 1 or 2 below for example.
+Key with `KC_TRANS` doen't has its own keycode and refers to lower valid layers for keycode, instead.
+See example below.
 
 
-### Keymap Example
+### 0.3 Keymap Example
 Keymap is **`keymaps[]`** C array in fact and you can define layers in it with **`KEYMAP()`** C macro and keycodes. To use complex actions you need to define `Fn` keycode in **`fn_actions[]`** array.
 
 This is a keymap example for [HHKB](http://en.wikipedia.org/wiki/Happy_Hacking_Keyboard) keyboard.
@@ -145,7 +145,7 @@ You can find other keymap definitions in file `keymap.c` located on project dire
     };
 
     static const uint16_t PROGMEM fn_actions[] = {
-        ACTION_KEYMAP(1),                            // FN0
+        ACTION_KEYMAP_MOMENTARY(1),                  // FN0
         ACTION_KEYMAP_TAP_KEY(2, KC_SCLN),           // FN1
         ACTION_KEYMAP_TOGGLE(2),                     // FN2
     };
@@ -154,7 +154,7 @@ You can find other keymap definitions in file `keymap.c` located on project dire
 
 
 ## 1. Keycode
-See [`common/keycode.h`](common/keycode.h) or keycode table below. Keycode is internal **8bit code** to inidicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like `KC_A` have simple action registers key to host on press and unregister on release, while some of other keycodes has some special actions like `Fn` keys, Media contorl keys, System control keys and Mousekeys.
+See [`common/keycode.h`](../common/keycode.h) or keycode table below for the detail. Keycode is internal **8bit code** to inidicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like `KC_A` have simple action registers key to host on press and unregister on release, while some of other keycodes has some special actions like `Fn` keys, Media contorl keys, System control keys and Mousekeys.
 
  ***In `KEYMAP()` macro you should omit prefix part `KC_` of keycode to keep keymap compact.*** For example, just use `A` instead you place `KC_A` in `KEYMAP()`. Some keycodes has 4-letter **short name** in addition to descriptive name, you'll prefer short one in `KEYMAP()`.
 
@@ -194,7 +194,7 @@ There are 8 modifiers which has discrimination between left and right.
 `KC_FNnn` are keycodes for `Fn` key which not given any actions at the beginning unlike most of keycodes has its own inborn action. To use these keycodes in `KEYMAP` you need to assign action you want at first. Action of `Fn` key is defined in `fn_actions[]` and its index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` keyocde indicates the action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
 
 ### 1.6 Keycode Table
- See keycode table in [`doc/keycode.txt`](doc/keycode.txt) for description of keycodes.
+ See keycode table in [`doc/keycode.txt`](./keycode.txt) for description of keycodes.
 
  In regard to implementation side most of keycodes are identical with [HID usage][HID_usage](pdf) sent to host for real and some virtual keycodes are defined to support special actions.
 [HID_usage]: http://www.usb.org/developers/devclass_docs/Hut1_11.pdf
@@ -202,7 +202,7 @@ There are 8 modifiers which has discrimination between left and right.
 
 
 ## 2. Action
-See [`common/action.h`](common/action.h). Action is a **16bit code** and defines function to perform on events of a key like press, release, holding and tapping.
+See [`common/action.h`](../common/action.h). Action is a **16bit code** and defines function to perform on events of a key like press, release, holding and tapping.
 
 Most of keys just register 8bit scancode to host, but to support other complex features needs 16bit extended action codes internally. However, using 16bit action codes in keymap results in double size in memory against using jsut keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP` instead of action codes.
 
@@ -233,48 +233,51 @@ Or `Alt,Shift + Tab` can be defined. `ACTION_LMODS_KEY()` requires **4-bit modif
 
 
 
-### 2.2 Layer Actions
+### 2.2 Layer Action
+These actions operate layers of keymap.
+
+Parameters:
+- layer: 0-15
+- on: { press | release | both }
+
 
 #### 2.2.0 Default Layer
-`default_layer` is layer which always is on and refered to when actions is not defined on other layers.
+`default_layer` is layer which always is valid and referred to when actions is not defined on other layers.
 
 ##### Return to Default Layer
-Turns on `default layer` only with clearing other all layers.
+Turns on only `default layer` with clearing other all layers.
 
     ACTION_DEFAULT_LAYER
 
 ##### Set Default Layer
-Sets 'default layer' to layer and turn it on without clear any other layers.
+Sets 'default layer' to layer and turn it on.
 
-    ACTION_DEFAULT_LAYER_SET(layer)
-
-This does it on { press | release | both }.
-
+    ACTION_DEFAULT_LAYER_SET_TO(layer)
     ACTION_DEFAULT_LAYER_SET(layer, on)
 
 
 #### 2.2.1 Keymap
-These actions operate given layer argument which ranges from 0 to 15.
+These actions operate layer status of keymap.
 
-##### Switch to layer
+##### Momentary Switch
 Turns on layer momentary while holding, in other words turn on when key is pressed and off when released.
 
     ACTION_KEYMAP_MOMENTARY(layer)
 
 
-##### Toggle layer
+##### Toggle Switch
 Turns on layer on first type and turns off on next.
 
     ACTION_KEYMAP_TOGGLE(layer)
 
 
-##### Switch to layer with tap key
+##### Momentary Switch with tap key
 Turns on layer momentary while holding but registers key on tap.
 
     ACTION_KEYMAP_TAP_KEY(layer, key)
 
 
-##### Switch to layer with tap toggle
+##### Momentary Switch with tap toggle
 Turns on layer momentary while holding but toggles it with serial taps.
 
     ACTION_KEYMAP_TAP_TOGGLE(layer)
@@ -323,6 +326,7 @@ Invert 4bits out of 16bits of overlay status on both press and release.
 `overlay_stat = (overlay_stat ^ bits<<(shift*4)) [bits: 0-15, shift: 0-3]`
 
     ACTION_OVERLAY_INV4(bits, shift)
+
 
 
 ### 2.3 Macro action
@@ -398,93 +402,80 @@ See `keyboard/hhkb/keymap.c` for sample.
 
 
 
-## 3. Layer
- Layer is key-action map to assign action to every physical key. You can define multiple layers in keymap and make layers active out of keymap during operation at will.
-
- First layer is indexed by `0` which usually become `default layer` and active in initial state.
-
-You can define **16 layers** at most in each keymaps and overlays.
-
-            ____________
-           /           /
-          /           //
-      15 /___________///
-      14 /___________//_
-      13 /___________/ /
-          /: : : : :  //
-       3 /___________///
-       2 /___________///
-       1 /___________//
-    .->0 /___________/ 
-    `--- default_layer = 0
-
- you can define a layer with placing keycode symbols separated with `comma` in `KEYMAP`, which is formed with resemblance to physical keyboard layout so as you can easily put keycode on place you want to map. ***You can define most of keys with just using keycodes*** except for `Fn` key serving special actions.
-
-### 3.0 Transparency
-With KC_TRNS you can define transparent key which itself doesn't have action but refer to lower valid layer. Transparent key is useful when you want to change part of layout not over all.
-
-
-
-## 4. Layer switching
-You can have some ways to switch layer with these actions.
-There are two kind of layer switch action `Layer Set` and `Layer Bit` and two type of switching behaviour **Momentary** and **Toggle**.
+## 4. Layer switching Example
+There are some ways to switch layer with 'Layer' actions.
 
 ### 4.1 Momentary switching
 Momentary switching changes layer only while holding Fn key.
 
-#### 4.1.1 Momentary Set
-This action makes `Layer 1` active on key press event and inactive on release event..
+This action makes 'Layer 1' active(valid) on key press event and inactive on release event. Namely you can overlay a layer on base layer temporarily with this.
 
     ACTION_KEYMAP_MOMENTARY(1)
 
 
-It switches to destination layer immediately when key is pressed, after that actions on keymap of destination layer is perfomed. ***Thus you shall need to place action to come back on destination layer***, or you will be stuck in destination layer without way to get back. To get back to `default layer` you can use this action.
+After switch actions of destination layer are perfomed.
+***Thus you shall need to place action to come back on destination layer***, or you will be stuck in destination layer without way to get back. Usually you need to palce same action or 'KC_TRNS` on destination layer to get back.
 
-    ACTION_LAYER_DEFAULT
-
-#### 4.1.2 Momentary Bit
-This `Layer Bit` action performs XOR `1` with `current layer` on both press and release event. If you are on `Layer 0` now next layer to switch will be `Layer 1`. To come back to previous layer you need to place same action on destination layer.
-
-    ACTION_LAYER_BIT(1)
 
 ### 4.2 Toggle switching
-Toggle switching changes layer after press then release. You keep being on the layer until you press key to return.
+Toggle switching changes layer after press then release. With this you can keep staying on the layer until you press the key again to return.
 
-#### 4.2.1 Toggle Set
-This `Layer Set Toggle` action is to set `Layer 1` to `current layer` on release and do none on press.
+This is toggle action of 'Layer 2'.
 
-    ACTION_LAYER_SET_TOGGLE(1)
+    ACTION_KEYMAP_TOGGLE(2)
 
-To get back to `default layer` you can use this action.
-
-    ACTION_LAYER_DEFAULT
-
-#### 4.2.2 Toggle Bit
-This `Layer Bit Toggle` action is to XOR `1` with `current layer` on release and do none on press. If you are on `Layer 2` you'll switch to `Layer 3` on press. To come back to previous layer you need to place same action on destination layer.
-
-    ACTION_LAYER_BIT_TOGGLE(1)
 
 
 ### 4.3 Momentary switching with Tap key
-These actions switch to layer only while holding `Fn` key and register key on tap. **Tap** means to press and release key quickly.
+These actions switch layer only while holding `Fn` key and register key on tap. **Tap** means to press and release key quickly.
 
-    ACTION_LAYER_SET_TAP_KEY(2, KC_SCLN)
-    ACTION_LAYER_SET_BIT_KEY(2, KC_SCLN)
+    ACTION_KEYMAP_TAP_KEY(2, KC_SCLN)
 
-With these you can place layer switching function on normal alphabet key like `;` without losing its original register function.
+With this you can place layer switching function on normal key like ';' without losing its original key register function.
+
+
 
 ### 4.4 Momentary switching with Tap Toggle
-This changes layer only while holding `Fn` key and toggle layer after several taps. **Tap** means to press and release key quickly.
+This switches layer only while holding `Fn` key and toggle layer after several taps. **Tap** means to press and release key quickly.
 
-    ACTION_LAYER_SET_TAP_TOGGLE(layer)
-    ACTION_LAYER_BIT_TAP_TOGGLE(layer)
+    ACTION_KEYMAP_TAP_TOGGLE(1)
 
 Number of taps can be defined with `TAPPING_TOGGLE` in `config.h`, `5` by default.
 
 
+
 ## Tapping
+Tapping is to press and release key quickly. Tapping speed is determined with setting of `TAPPING_TERM`, which can be defined in `config.h`, 200ms by default.
+
 ### Tap Key
+This is feature to assign normal key action and modifier including `Fn` to just one physical key. This is a kind of [Dual role modifier][dual_role]. It works as modifier or `Fn` when holding a key but registers normal key when tapping.
+
+Action for modifier with tap key.
+
+    ACTION_LMODS_TAP_KEY(mods, key)
+
+Action for `Fn` with tap key.
+
+    ACTION_KEYMAP_TAP_KEY(layer, key)
+
+[dual_role]: http://en.wikipedia.org/wiki/Modifier_key#Dual-role_modifier_keys
+
+
+### Tap Toggle
+This is feature to assign both toggle layer and momentary switch layer action to just one physical key. It works as mementary switch when holding a key but toggle switch when tapping.
+
+    ACTION_KEYMAP_TAP_TOGGLE(layer)
+
+
 ### One Shot Modifier
+This adds oneshot feature to modifier key. 'One Shot Modifier' is one time modifier which has effect only on following one alpha key.
+It works as normal modifier key when holding but oneshot modifier when tapping.
+
+    ACTION_LMODS_ONESHOT(mods)
+
+Say you want to type 'The', you have to push and hold Shift before type 't' then release Shift before type 'h' and 'e' or you'll get 'THe'. With One Shot Modifier you can tap Shift then type 't', 'h' and 'e' normally, you don't need to holding Shift key properly  here.
+
+
 
 
 ## Legacy Keymap

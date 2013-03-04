@@ -204,15 +204,15 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {};
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_KEYMAP(4),                 // FN0
-    [1] = ACTION_KEYMAP_TAP_KEY(5, KC_SLASH),          // FN1
-    [2] = ACTION_KEYMAP_TAP_KEY(6, KC_SCLN),           // FN2
-    [3] = ACTION_KEYMAP(6),                            // FN3
-    [4] = ACTION_KEYMAP(7),             // to Layout selector
-    [5] = ACTION_SET_DEFAULT_LAYER(0),  // set qwerty layout
-    [6] = ACTION_SET_DEFAULT_LAYER(1),  // set colemak layout
-    [7] = ACTION_SET_DEFAULT_LAYER(2),  // set dvorak layout
-    [8] = ACTION_SET_DEFAULT_LAYER(3),  // set workman layout
+    [0] = ACTION_KEYMAP_MOMENTARY(4),
+    [1] = ACTION_KEYMAP_TAP_KEY(5, KC_SLASH),
+    [2] = ACTION_KEYMAP_TAP_KEY(6, KC_SCLN),
+    [3] = ACTION_KEYMAP_MOMENTARY(6),
+    [4] = ACTION_KEYMAP_MOMENTARY(7),   // to Layout selector
+    [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
+    [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
+    [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
+    [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
 };
 #endif
 
