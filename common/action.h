@@ -299,6 +299,10 @@ enum layer_params {
  * Default Layer
  */
 #define ACTION_DEFAULT_LAYER                      ACTION(ACT_KEYMAP, 0<<8 | OP_RESET | 0)
+#define ACTION_DEFAULT_LAYER_SET(layer)           ACTION_KEYMAP_RESET(layer)
+#define ACTION_DEFAULT_LAYER_SET_P(layer)         ACTION_KEYMAP_RESET_P(layer)
+#define ACTION_DEFAULT_LAYER_SET_R(layer)         ACTION_KEYMAP_RESET_R(layer)
+#define ACTION_DEFAULT_LAYER_SET_B(layer)         ACTION_KEYMAP_RESET_B(layer)
 #define ACTION_SET_DEFAULT_LAYER(layer)           ACTION_KEYMAP_RESET(layer)
 #define ACTION_SET_DEFAULT_LAYER_P(layer)         ACTION_KEYMAP_RESET_P(layer)
 #define ACTION_SET_DEFAULT_LAYER_R(layer)         ACTION_KEYMAP_RESET_R(layer)
