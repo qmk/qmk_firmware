@@ -168,7 +168,7 @@ static const uint16_t PROGMEM fn_actions[] = {
     ACTION_KEYMAP_TAP_TOGGLE(0),                 // FN0
     ACTION_KEYMAP_TAP_KEY(1, KC_SLASH),          // FN1
     ACTION_KEYMAP_TAP_KEY(2, KC_SCLN),           // FN2
-    ACTION_KEYMAP(2),                            // FN3
+    ACTION_KEYMAP_MOMENTARY(2),                  // FN3
     ACTION_MACRO(LBRACKET),                      // FN4
     ACTION_MACRO(RBRACKET),                      // FN5
     ACTION_MACRO(DUMMY),                         // FN6

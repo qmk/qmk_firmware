@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keyboard.h"
 #include "keycode.h"
 #include "print.h"
 #include "debug.h"
@@ -148,7 +147,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------| |---------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft|Up | |  1|  2|  3|   |
      * |---------------------------------------------------------| |-----------|Ent|
-     * |Alt  |Gui    |         Space         |Ctl|  \|Lft|Rgt|Dn | |      0|  .|   |
+     * |Ctl  |Alt    |         Space         |Gui|  \|Lft|Rgt|Dn | |      0|  .|   |
      * `---------------------------------------------------------' `---------------'
      */
     KEYMAP(
@@ -156,7 +155,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
     FN0, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,     P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          UP,      P1,  P2,  P3,  PENT,
-    LALT,LGUI,               SPC,                LCTL,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
     ),
     /* Cursor Layer(WASD, IJKL)
      * ,---------------------------------------------------------. ,---------------.
@@ -168,7 +167,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------| |---------------|
      * |Shift   |End|   |PgD|   |   |   |PgD|   |End|   |Shif|PgU| |  1|  2|  3|   |
      * |---------------------------------------------------------| |-----------|Ent|
-     * |Alt  |Gui    |         Space        |Gui |Ins|Hom|End|PgD| |      0|  .|   |
+     * |Ctl  |Alt    |         Space        |Gui |Ins|Hom|End|PgD| |      0|  .|   |
      * `---------------------------------------------------------' `---------------'
      */
     KEYMAP(
@@ -176,7 +175,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  PGUP,UP,  HOME,PSCR,SLCK,PAUS,         P7,  P8,  P9,  PMNS,
     FN0, LEFT,DOWN,RGHT,NO,  NO,  NO,  LEFT,DOWN,RGHT,NO,  NO,       ENT,     P4,  P5,  P6,  PPLS,
     LSFT,END, NO,  PGDN,NO,  NO,  NO,  PGDN,NO,  END, NO,            PGUP,    P1,  P2,  P3,  PENT,
-    LALT,LGUI,               SPC,                LCTL,INS, HOME,END, PGDN,    P0,       PDOT
+    LCTL,LALT,               SPC,                LGUI,INS, HOME,END, PGDN,    P0,       PDOT
     ),
 };
 
