@@ -39,9 +39,20 @@ uint8_t bitpop16(uint16_t bits)
 }
 
 // most significant on-bit - return highest location of on-bit
+// NOTE: return 0 when bit0 is on or all bits are off
 uint8_t biton(uint8_t bits)
 {
     uint8_t n = 0;
+    if (bits >> 4) { bits >>= 4; n += 4;}
+    if (bits >> 2) { bits >>= 2; n += 2;}
+    if (bits >> 1) { bits >>= 1; n += 1;}
+    return n;
+}
+
+uint8_t biton16(uint16_t bits)
+{
+    uint8_t n = 0;
+    if (bits >> 8) { bits >>= 8; n += 8;}
     if (bits >> 4) { bits >>= 4; n += 4;}
     if (bits >> 2) { bits >>= 2; n += 2;}
     if (bits >> 1) { bits >>= 1; n += 1;}

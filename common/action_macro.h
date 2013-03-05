@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/pgmspace.h>
 
 
+#define MACRO_NONE  0
+#define MACRO(...) ({ static prog_macro_t _m[] PROGMEM = { __VA_ARGS__ }; _m; })
+
+
 typedef uint8_t macro_t;
 typedef macro_t prog_macro_t PROGMEM;
 

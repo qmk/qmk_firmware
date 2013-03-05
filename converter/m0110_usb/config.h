@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0110
+#define DEVICE_VER      0x0100
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         M0110 keyboard converter
 #define DESCRIPTION     convert M0110 keyboard to USB

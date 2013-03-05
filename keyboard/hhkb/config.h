@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 
+/* To use new keymap framework */
+#define USE_KEYMAP_V2
 
 /* 
  * Boot magic keys
