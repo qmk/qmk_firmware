@@ -20,7 +20,8 @@ respective layers can be validated simultaneously. Layers are indexed with 0 to 
        2 /___________// |               2 `--------------------------
        1 /___________// |               1 `--------------------------
        0 /___________/  V low           0 `--------------------------
-                            
+
+
 
 ### 0.1 Keymap status
 Keymap has its state in two parameters:
@@ -43,7 +44,6 @@ To change `default_layer` will be useful when you want to switch key layout comp
     |                               |                               
     `--- default_layer = 0          `--- default_layer = 1          
          keymap_stat   = 0x0001          keymap_stat   = 0x0002     
-    
 
 On the other hand, you shall change `keymap_state` to overlay base layer with some layers for feature such as navigation keys, function key(F1-F12), media keys or special actions.
 
@@ -62,7 +62,8 @@ On the other hand, you shall change `keymap_state` to overlay base layer with so
     `--- default_layer = 1            |
          keymap_stat   = 0x6002 <-----'
 
-    
+
+
 ### 0.2 Layer Precedence and Transparency
 Note that ***higher layer has higher priority on stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`**(transparent) on a layer it stops searching and lower layers aren't referred.
 
