@@ -45,8 +45,6 @@ void matrix_init(void);
 uint8_t matrix_scan(void);
 /* whether modified from previous scan. used after matrix_scan. */
 bool matrix_is_modified(void);
-/* whether ghosting occur on matrix. */
-bool matrix_has_ghost(void);
 /* whether a swtich is on */
 bool matrix_is_on(uint8_t row, uint8_t col);
 /* matrix state on row */
