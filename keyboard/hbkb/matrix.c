@@ -148,18 +148,6 @@ bool matrix_is_modified(void)
 }
 
 inline
-bool matrix_has_ghost(void)
-{
-#ifdef MATRIX_HAS_GHOST
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix_has_ghost_in_row(i))
-            return true;
-    }
-#endif
-    return false;
-}
-
-inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
     return (matrix[row] & (1<<col));
@@ -194,19 +182,6 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-#if (MATRIX_COLS <= 8)
-        count += bitpop(matrix[i]);
-#else
-        count += bitpop16(matrix[i]);
-#endif
-    }
-    return count;
-}
-
 #ifdef MATRIX_HAS_GHOST
 inline
 static bool matrix_has_ghost_in_row(uint8_t row)
@@ -217,7 +192,7 @@ static bool matrix_has_ghost_in_row(uint8_t row)
 
     // ghost exists in case same state as other row
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix[i] & matrix[row]) == matrix[row])
+        if (i != row && (matrix[i] & matrix[row]))
             return true;
     }
     return false;
