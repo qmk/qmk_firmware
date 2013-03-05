@@ -49,8 +49,6 @@ bool matrix_is_modified(void);
 bool matrix_is_on(uint8_t row, uint8_t col);
 /* matrix state on row */
 matrix_row_t  matrix_get_row(uint8_t row);
-/* count keys pressed */
-uint8_t matrix_key_count(void);
 /* print matrix for debug */
 void matrix_print(void);
 
