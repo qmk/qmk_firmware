@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,22 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
-
-#include <stdint.h>
-
-// convert to L string
-#define LSTR(s) XLSTR(s)
-#define XLSTR(s) L ## #s
-// convert to string
-#define STR(s) XSTR(s)
-#define XSTR(s) #s
+#include "stdint.h"
+#include "serial.h"
+#include "led.h"
 
 
-uint8_t bitpop(uint8_t bits);
-uint8_t bitpop16(uint16_t bits);
-uint8_t biton(uint8_t bits);
-uint8_t biton16(uint16_t bits);
+void led_set(uint8_t usb_led)
+{
+    uint8_t sun_led = 0;
+    if (usb_led & (1<<USB_LED_NUM_LOCK))    sun_led |= (1<<0);
+    if (usb_led & (1<<USB_LED_COMPOSE))     sun_led |= (1<<1);
+    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) sun_led |= (1<<2);
+    if (usb_led & (1<<USB_LED_CAPS_LOCK))   sun_led |= (1<<3);
 
-#endif
+    serial_send(0x0E);
+    serial_send(sun_led);
+}

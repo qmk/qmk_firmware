@@ -23,13 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "util.h"
 #include "debug.h"
+#include "layer_switch.h"
+#include "action_macro.h"
 #include "action.h"
-
-
-/* default layer indicates base layer */
-uint8_t default_layer = 0;
-/* current layer indicates active layer at this time */
-uint8_t current_layer = 0;
 
 
 static void process_action(keyrecord_t *record);
@@ -207,28 +203,18 @@ void action_exec(keyevent_t event)
     }
 }
 
-static action_t get_action(key_t key)
-{
-    action_t action = action_for_key(current_layer, key);
-
-    /* Transparently use default layer */
-    if (action.code == ACTION_TRANSPARENT) {
-        // TODO: layer stacking
-        action = action_for_key(default_layer, key);
-        debug("TRNASPARENT: "); debug_hex16(action.code); debug("\n");
-    }
-    return action;
-}
-
 static void process_action(keyrecord_t *record)
 {
     keyevent_t event = record->event;
-    uint8_t tap_count = record->tap_count;
+    uint8_t tap_count = record->tap.count;
 
     if (IS_NOEVENT(event)) { return; }
 
-    action_t action = get_action(event.key);
-    debug("ACTION: "); debug_action(action); debug("\n");
+    action_t action = layer_switch_get_action(event.key);
+    debug("ACTION: "); debug_action(action);
+    debug(" overlays: "); overlay_debug();
+    debug(" keymaps: "); keymap_debug();
+    debug(" default_layer: "); debug_dec(default_layer); debug("\n");
 
     switch (action.kind.id) {
         /* Key and Mods */
@@ -287,7 +273,7 @@ static void process_action(keyrecord_t *record)
                         } else {
                             if (tap_count == 0) {
                                 debug("MODS_TAP: Oneshot: cancel/del_mods\n");
-                                // cancel oneshot by holding.
+                                // cancel oneshot on hold
                                 oneshot_cancel();
                                 del_mods(mods);
                             }
@@ -309,7 +295,7 @@ static void process_action(keyrecord_t *record)
                                 if (waiting_buffer_has_anykey_pressed()) {
                                     debug("MODS_TAP: Tap: Cancel: add_mods\n");
                                     // ad hoc: set 0 to cancel tap
-                                    record->tap_count = 0;
+                                    record->tap.count = 0;
                                     add_mods(mods);
                                 } else {
                                     debug("MODS_TAP: Tap: register_code\n");
@@ -368,145 +354,316 @@ static void process_action(keyrecord_t *record)
 #endif
             break;
 
-        /* Layer key */
-        case ACT_LAYER:
+        case ACT_KEYMAP:
             switch (action.layer.code) {
-                case LAYER_MOMENTARY:  /* momentary */
-                    if (event.pressed) {
-                        layer_switch(action.layer.val);
-                    }
-                    else {
-                        // NOTE: This is needed by legacy keymap support
-                        layer_switch(default_layer);
-                    }
-                    break;
-                case LAYER_ON_PRESS:
-                    if (event.pressed) {
-                        layer_switch(action.layer.val);
-                    }
-                    break;
-                case LAYER_ON_RELEASE:
-                    if (!event.pressed) {
-                        layer_switch(action.layer.val);
-                    }
-                    break;
-                case LAYER_DEFAULT:  /* default layer */
-                    switch (action.layer.val) {
-                        case DEFAULT_ON_BOTH:
-                            layer_switch(default_layer);
+                /* Keymap clear */
+                case OP_RESET:
+                    switch (action.layer.val & 0x03) {
+                        case 0:
+                            // NOTE: reserved
+                            overlay_clear();
+                            keymap_clear();
                             break;
-                        case DEFAULT_ON_PRESS:
+                        case ON_PRESS:
                             if (event.pressed) {
-                                layer_switch(default_layer);
+                                overlay_clear();
+                                keymap_clear();
                             }
                             break;
-                        case DEFAULT_ON_RELEASE:
+                        case ON_RELEASE:
                             if (!event.pressed) {
-                                layer_switch(default_layer);
+                                overlay_clear();
+                                keymap_clear();
                             }
                             break;
+                        case ON_BOTH:
+                            overlay_clear();
+                            keymap_clear();
+                            break;
+                        /* NOTE: 4-7 rserved */
                     }
                     break;
-                case LAYER_TAP_TOGGLE:  /* switch on hold and toggle on several taps */
+                /* Keymap Reset default layer */
+                case (OP_RESET | ON_PRESS):
+                    if (event.pressed) {
+                        default_layer_set(action.layer.val);
+                    }
+                    break;
+                case (OP_RESET | ON_RELEASE):
+                    if (!event.pressed) {
+                        default_layer_set(action.layer.val);
+                    }
+                    break;
+                case (OP_RESET | ON_BOTH):
+                    default_layer_set(action.layer.val);
+                    break;
+
+                /* Keymap Bit invert */
+                case OP_INV:
+                    /* with tap toggle */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
-                            layer_switch(action.layer.val);
+                            debug("KEYMAP_INV: tap toggle(press).\n");
+                            keymap_invert(action.layer.val);
                         }
                     } else {
-                        if (tap_count >= TAPPING_TOGGLE) {
-                            debug("LAYER_PRESSED: tap toggle.\n");
-                            layer_switch(action.layer.val);
+                        if (tap_count <= TAPPING_TOGGLE) {
+                            debug("KEYMAP_INV: tap toggle(release).\n");
+                            keymap_invert(action.layer.val);
                         }
                     }
                     break;
-                case LAYER_CHANGE_DEFAULT:  /* change default layer */
+                case (OP_INV | ON_PRESS):
                     if (event.pressed) {
-                        default_layer = action.layer.val;
-                        layer_switch(default_layer);
+                        keymap_invert(action.layer.val);
                     }
                     break;
-                default:    /* switch layer on hold and key on tap*/
+                case (OP_INV | ON_RELEASE):
+                    if (!event.pressed) {
+                        keymap_invert(action.layer.val);
+                    }
+                    break;
+                case (OP_INV | ON_BOTH):
+                    keymap_invert(action.layer.val);
+                    break;
+
+                /* Keymap Bit on */
+                case OP_ON:
                     if (event.pressed) {
-                       if (tap_count > 0) {
-                            debug("LAYER_PRESSED: Tap: register_code\n");
+                        keymap_on(action.layer.val);
+                    } else {
+                        keymap_off(action.layer.val);
+                    }
+                    break;
+                case (OP_ON | ON_PRESS):
+                    if (event.pressed) {
+                        keymap_on(action.layer.val);
+                    }
+                    break;
+                case (OP_ON | ON_RELEASE):
+                    if (!event.pressed) {
+                        keymap_on(action.layer.val);
+                    }
+                    break;
+                case (OP_ON | ON_BOTH):
+                    keymap_on(action.layer.val);
+                    break;
+
+                /* Keymap Bit off */
+                case OP_OFF:
+                    if (event.pressed) {
+                        keymap_off(action.layer.val);
+                    } else {
+                        keymap_on(action.layer.val);
+                    }
+                    break;
+                case (OP_OFF | ON_PRESS):
+                    if (event.pressed) {
+                        keymap_off(action.layer.val);
+                    }
+                    break;
+                case (OP_OFF | ON_RELEASE):
+                    if (!event.pressed) {
+                        keymap_off(action.layer.val);
+                    }
+                    break;
+                case (OP_OFF | ON_BOTH):
+                    keymap_off(action.layer.val);
+                    break;
+
+                /* Keymap Bit set */
+                case OP_SET:
+                    if (event.pressed) {
+                        keymap_set(action.layer.val);
+                    } else {
+                        keymap_clear();
+                    }
+                    break;
+                case (OP_SET | ON_PRESS):
+                    if (event.pressed) {
+                        keymap_set(action.layer.val);
+                    }
+                    break;
+                case (OP_SET | ON_RELEASE):
+                    if (!event.pressed) {
+                        keymap_set(action.layer.val);
+                    }
+                    break;
+                case (OP_SET | ON_BOTH):
+                    keymap_set(action.layer.val);
+                    break;
+
+                /* Keymap Bit invert with tap key */
+                default:
+                    if (event.pressed) {
+                        if (tap_count > 0) {
+                            debug("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer.code);
-                       } else {
-                            debug("LAYER_PRESSED: No tap: layer_switch\n");
-                            layer_switch(action.layer.val);
-                       }
+                        } else {
+                            debug("KEYMAP_TAP_KEY: No tap: On on press\n");
+                            keymap_on(action.layer.val);
+                        }
                     } else {
                         if (tap_count > 0) {
-                            debug("LAYER_PRESSED: Tap: unregister_code\n");
+                            debug("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            //debug("LAYER_PRESSED: No tap: NO ACTION\n");
-                            // NOTE: This is needed by legacy keymap support
-                            debug("LAYER_PRESSED: No tap: return to default layer\n");
-                            layer_switch(default_layer);
+                            debug("KEYMAP_TAP_KEY: No tap: Off on release\n");
+                            keymap_off(action.layer.val);
                         }
                     }
                     break;
             }
             break;
-        case ACT_LAYER_BIT:
+
+        case ACT_OVERLAY:
             switch (action.layer.code) {
-                case LAYER_MOMENTARY:  /* momentary */
-                    if (event.pressed) {
-                        layer_switch(current_layer ^ action.layer.val);
+                // Overlay Invert bit4
+                case OP_INV4 | 0:
+                    if (action.layer.val == 0) {
+                        // NOTE: reserved for future use
+                        overlay_clear();
                     } else {
-                        layer_switch(current_layer ^ action.layer.val);
+                        overlay_set(overlay_stat ^ action.layer.val);
                     }
                     break;
-                case LAYER_ON_PRESS:
-                    if (event.pressed) {
-                        layer_switch(current_layer ^ action.layer.val);
+                case OP_INV4 | 1:
+                    if (action.layer.val == 0) {
+                        // on pressed
+                        if (event.pressed) overlay_clear();
+                    } else {
+                        overlay_set(overlay_stat ^ action.layer.val<<4);
                     }
                     break;
-                case LAYER_ON_RELEASE:
-                    if (!event.pressed) {
-                        layer_switch(current_layer ^ action.layer.val);
+                case OP_INV4 | 2:
+                    if (action.layer.val == 0) {
+                        // on released
+                        if (!event.pressed) overlay_clear();
+                    } else {
+                        overlay_set(overlay_stat ^ action.layer.val<<8);
                     }
                     break;
-                case LAYER_TAP_TOGGLE:  /* switch on hold and toggle on several taps */
+                case OP_INV4 | 3:
+                    if (action.layer.val == 0) {
+                        // on both
+                        overlay_clear();
+                    } else {
+                        overlay_set(overlay_stat ^ action.layer.val<<12);
+                    }
+                    break;
+
+                /* Overlay Bit invert */
+                case OP_INV:
+                    /* with tap toggle */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
-                            debug("LAYER_BIT: tap toggle(press).\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            debug("OVERLAY_INV: tap toggle(press).\n");
+                            overlay_invert(action.layer.val);
                         }
                     } else {
                         if (tap_count <= TAPPING_TOGGLE) {
-                            debug("LAYER_BIT: tap toggle(release).\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            debug("OVERLAY_INV: tap toggle(release).\n");
+                            overlay_invert(action.layer.val);
                         }
                     }
                     break;
-                case 0xFF:
-                    // change default layer
+                case (OP_INV | ON_PRESS):
                     if (event.pressed) {
-                        default_layer = current_layer ^ action.layer.val;
-                        layer_switch(default_layer);
-                    } else {
-                        default_layer = current_layer ^ action.layer.val;
-                        layer_switch(default_layer);
+                        overlay_invert(action.layer.val);
                     }
                     break;
-                default:
-                    // with tap key
+                case (OP_INV | ON_RELEASE):
+                    if (!event.pressed) {
+                        overlay_invert(action.layer.val);
+                    }
+                    break;
+                case (OP_INV | ON_BOTH):
+                    overlay_invert(action.layer.val);
+                    break;
+
+                /* Overlay Bit on */
+                case OP_ON:
                     if (event.pressed) {
-                        if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
-                            debug("LAYER_BIT: Tap: register_code\n");
+                        overlay_on(action.layer.val);
+                    } else {
+                        overlay_off(action.layer.val);
+                    }
+                    break;
+                case (OP_ON | ON_PRESS):
+                    if (event.pressed) {
+                        overlay_on(action.layer.val);
+                    }
+                    break;
+                case (OP_ON | ON_RELEASE):
+                    if (!event.pressed) {
+                        overlay_on(action.layer.val);
+                    }
+                    break;
+                case (OP_ON | ON_BOTH):
+                    overlay_on(action.layer.val);
+                    break;
+
+                /* Overlay Bit off */
+                case OP_OFF:
+                    if (event.pressed) {
+                        overlay_off(action.layer.val);
+                    } else {
+                        overlay_on(action.layer.val);
+                    }
+                    break;
+                case (OP_OFF | ON_PRESS):
+                    if (event.pressed) {
+                        overlay_off(action.layer.val);
+                    }
+                    break;
+                case (OP_OFF | ON_RELEASE):
+                    if (!event.pressed) {
+                        overlay_off(action.layer.val);
+                    }
+                    break;
+                case (OP_OFF | ON_BOTH):
+                    overlay_off(action.layer.val);
+                    break;
+
+                /* Overlay Bit set */
+                case OP_SET:
+                    if (event.pressed) {
+                        overlay_move(action.layer.val);
+                    } else {
+                        overlay_clear();
+                    }
+                    break;
+                case (OP_SET | ON_PRESS):
+                    if (event.pressed) {
+                        overlay_move(action.layer.val);
+                    }
+                    break;
+                case (OP_SET | ON_RELEASE):
+                    if (!event.pressed) {
+                        overlay_move(action.layer.val);
+                    }
+                    break;
+                case (OP_SET | ON_BOTH):
+                    overlay_move(action.layer.val);
+                    break;
+
+                /* Overlay Bit invert with tap key */
+                default:
+                    if (event.pressed) {
+                        if (tap_count > 0) {
+                            debug("OVERLAY_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer.code);
                         } else {
-                            debug("LAYER_BIT: No tap: layer_switch(bit on)\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            debug("OVERLAY_TAP_KEY: No tap: On on press\n");
+                            overlay_on(action.layer.val);
                         }
                     } else {
-                        if (IS_TAPPING_KEY(event.key) && tap_count > 0) {
-                            debug("LAYER_BIT: Tap: unregister_code\n");
+                        if (tap_count > 0) {
+                            debug("OVERLAY_TAP_KEY: Tap: unregister_code\n");
                             unregister_code(action.layer.code);
                         } else {
-                            debug("LAYER_BIT: No tap: layer_switch(bit off)\n");
-                            layer_switch(current_layer ^ action.layer.val);
+                            debug("OVERLAY_TAP_KEY: No tap: Off on release\n");
+                            overlay_off(action.layer.val);
                         }
                     }
                     break;
@@ -515,7 +672,7 @@ static void process_action(keyrecord_t *record)
 
         /* Extentions */
         case ACT_MACRO:
-            // TODO
+            action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
         case ACT_COMMAND:
             break;
@@ -540,16 +697,17 @@ static bool process_tapping(keyrecord_t *keyp)
     // if tapping
     if (IS_TAPPING_PRESSED()) {
         if (WITHIN_TAPPING_TERM(event)) {
-            if (tapping_key.tap_count == 0) {
+            if (tapping_key.tap.count == 0) {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     // first tap!
                     debug("Tapping: First tap(0->1).\n");
-                    tapping_key.tap_count = 1;
+                    tapping_key.tap.count = 1;
+                    tapping_key.tap.interrupted  = (waiting_buffer_has_anykey_pressed() ? true : false);
                     debug_tapping_key();
                     process_action(&tapping_key);
 
                     // enqueue
-                    keyp->tap_count = tapping_key.tap_count;
+                    keyp->tap = tapping_key.tap;
                     return false;
                 }
 #if TAPPING_TERM >= 500
@@ -573,19 +731,19 @@ static bool process_tapping(keyrecord_t *keyp)
             // tap_count > 0
             else {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
-                    debug("Tapping: Tap release("); debug_dec(tapping_key.tap_count); debug(")\n");
-                    keyp->tap_count = tapping_key.tap_count;
+                    debug("Tapping: Tap release("); debug_dec(tapping_key.tap.count); debug(")\n");
+                    keyp->tap = tapping_key.tap;
                     process_action(keyp);
                     tapping_key = *keyp;
                     debug_tapping_key();
                     return true;
                 }
                 else if (is_tap_key(keyp->event.key) && event.pressed) {
-                    if (tapping_key.tap_count > 1) {
+                    if (tapping_key.tap.count > 1) {
                         debug("Tapping: Start new tap with releasing last tap(>1).\n");
                         // unregister key
                         process_action(&(keyrecord_t){
-                                .tap_count = tapping_key.tap_count,
+                                .tap = tapping_key.tap,
                                 .event.key = tapping_key.event.key,
                                 .event.time = event.time,
                                 .event.pressed = false
@@ -609,7 +767,7 @@ static bool process_tapping(keyrecord_t *keyp)
         }
         // after TAPPING_TERM
         else {
-            if (tapping_key.tap_count == 0) {
+            if (tapping_key.tap.count == 0) {
                 debug("Tapping: End. Timeout. Not tap(0): ");
                 debug_event(event); debug("\n");
                 process_action(&tapping_key);
@@ -619,17 +777,17 @@ static bool process_tapping(keyrecord_t *keyp)
             }  else {
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     debug("Tapping: End. last timeout tap release(>0).");
-                    keyp->tap_count = tapping_key.tap_count;
+                    keyp->tap = tapping_key.tap;
                     process_action(keyp);
                     tapping_key = (keyrecord_t){};
                     return true;
                 }
                 else if (is_tap_key(keyp->event.key) && event.pressed) {
-                    if (tapping_key.tap_count > 1) {
+                    if (tapping_key.tap.count > 1) {
                         debug("Tapping: Start new tap with releasing last timeout tap(>1).\n");
                         // unregister key
                         process_action(&(keyrecord_t){
-                                .tap_count = tapping_key.tap_count,
+                                .tap = tapping_key.tap,
                                 .event.key = tapping_key.event.key,
                                 .event.time = event.time,
                                 .event.pressed = false
@@ -653,10 +811,11 @@ static bool process_tapping(keyrecord_t *keyp)
         }
     } else if (IS_TAPPING_RELEASED()) {
         if (WITHIN_TAPPING_TERM(event)) {
-            if (tapping_key.tap_count > 0 && IS_TAPPING_KEY(event.key) && event.pressed) {
+            if (tapping_key.tap.count > 0 && IS_TAPPING_KEY(event.key) && event.pressed) {
                 // sequential tap.
-                keyp->tap_count = tapping_key.tap_count + 1;
-                debug("Tapping: Tap press("); debug_dec(keyp->tap_count); debug(")\n");
+                keyp->tap = tapping_key.tap;
+                keyp->tap.count += 1;
+                debug("Tapping: Tap press("); debug_dec(keyp->tap.count); debug(")\n");
                 process_action(keyp);
                 tapping_key = *keyp;
                 debug_tapping_key();
@@ -701,16 +860,16 @@ static bool process_tapping(keyrecord_t *keyp)
 static void waiting_buffer_scan_tap(void)
 {
     // tapping already is settled
-    if (tapping_key.tap_count > 0) return;
-    // invalid state: tapping_key released && tap_count == 0
+    if (tapping_key.tap.count > 0) return;
+    // invalid state: tapping_key released && tap.count == 0
     if (!tapping_key.event.pressed) return;
 
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
         if (IS_TAPPING_KEY(waiting_buffer[i].event.key) &&
                 !waiting_buffer[i].event.pressed &&
                 WITHIN_TAPPING_TERM(waiting_buffer[i].event)) {
-            tapping_key.tap_count = 1;
-            waiting_buffer[i].tap_count = 1;
+            tapping_key.tap.count = 1;
+            waiting_buffer[i].tap.count = 1;
             process_action(&tapping_key);
 
             debug("waiting_buffer_scan_tap: found at ["); debug_dec(i); debug("]\n");
@@ -813,39 +972,24 @@ bool sending_anykey(void)
             host_last_sysytem_report() || host_last_consumer_report());
 }
 
-void layer_switch(uint8_t new_layer)
-{
-    if (current_layer != new_layer) {
-        debug("Layer Switch: "); debug_hex(current_layer);
-        debug(" -> "); debug_hex(new_layer); debug("\n");
-
-        current_layer = new_layer;
-        clear_keyboard_but_mods(); // To avoid stuck keys
-        // NOTE: update mods with full scan of matrix? if modifier changes between layers
-    }
-}
-
 bool is_tap_key(key_t key)
 {
-    action_t action = get_action(key);
+    action_t action = layer_switch_get_action(key);
 
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
             return true;
-        case ACT_LAYER:
-        case ACT_LAYER_BIT:
+        case ACT_KEYMAP:
+        case ACT_OVERLAY:
             switch (action.layer.code) {
-                case LAYER_MOMENTARY:
-                case LAYER_ON_PRESS:
-                case LAYER_ON_RELEASE:
-                case LAYER_DEFAULT:
-                    return false;
-                case LAYER_TAP_TOGGLE:
-                default:    /* tap key */
+                case 0x04 ... 0xEF:    /* tap key */
+                case OP_INV:
                     return true;
+                default:
+                    return false;
             }
-            return false;
+        case ACT_MACRO:
         case ACT_FUNCTION:
             if (action.func.opt & FUNC_TAP) { return true; }
             return false;
@@ -865,7 +1009,8 @@ static void debug_event(keyevent_t event)
 }
 static void debug_record(keyrecord_t record)
 {
-    debug_event(record.event); debug(":"); debug_dec(record.tap_count);
+    debug_event(record.event); debug(":"); debug_dec(record.tap.count);
+    if (record.tap.interrupted) debug("-");
 }
 static void debug_action(action_t action)
 {
@@ -876,8 +1021,8 @@ static void debug_action(action_t action)
         case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
         case ACT_USAGE:             debug("ACT_USAGE");             break;
         case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
-        case ACT_LAYER:             debug("ACT_LAYER");     break;
-        case ACT_LAYER_BIT:         debug("ACT_LAYER_BIT");         break;
+        case ACT_KEYMAP:            debug("ACT_KEYMAP");            break;
+        case ACT_OVERLAY:           debug("ACT_OVERLAY");           break;
         case ACT_MACRO:             debug("ACT_MACRO");             break;
         case ACT_COMMAND:           debug("ACT_COMMAND");           break;
         case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;

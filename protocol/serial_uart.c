@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun WAKO <wakojun@gmail.com>
+Copyright 2013 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -35,13 +35,59 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SERIAL_H
-#define SERIAL_H
+#include <stdbool.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include "serial.h"
 
-/* host role */
-void serial_init(void);
-uint8_t serial_recv(void);
-int16_t serial_recv2(void);
-void serial_send(uint8_t data);
 
-#endif
+void serial_init(void)
+{
+    SERIAL_UART_INIT();
+}
+
+// RX ring buffer
+#define RBUF_SIZE   8
+static uint8_t rbuf[RBUF_SIZE];
+static uint8_t rbuf_head = 0;
+static uint8_t rbuf_tail = 0;
+
+uint8_t serial_recv(void)
+{
+    uint8_t data = 0;
+    if (rbuf_head == rbuf_tail) {
+        return 0;
+    }
+
+    data = rbuf[rbuf_tail];
+    rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
+    return data;
+}
+
+int16_t serial_recv2(void)
+{
+    uint8_t data = 0;
+    if (rbuf_head == rbuf_tail) {
+        return -1;
+    }
+
+    data = rbuf[rbuf_tail];
+    rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
+    return data;
+}
+
+void serial_send(uint8_t data)
+{
+    while (!SERIAL_UART_TXD_READY) ;
+    SERIAL_UART_DATA = data;
+}
+
+// USART RX complete interrupt
+ISR(SERIAL_UART_RXD_VECT)
+{
+    uint8_t next = (rbuf_head + 1) % RBUF_SIZE;
+    if (next != rbuf_tail) {
+        rbuf[rbuf_head] = SERIAL_UART_DATA;
+        rbuf_head = next;
+    }
+}

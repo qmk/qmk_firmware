@@ -41,7 +41,6 @@ void action_macro_play(const prog_macro_t *macro_p)
             case MODS_DOWN:
                 MACRO_READ();
                 debug("MODS_DOWN("); debug_hex(macro); debug(")\n");
-                debug("MODS_UP("); debug_hex(macro); debug(")\n");
                 add_mods(macro);
                 break;
             case MODS_UP:

@@ -7,7 +7,7 @@ Source code is available here: <http://github.com/tmk/tmk_keyboard>
 
 Features
 --------
-* Multi-layer Keymap  - Multiple keyboard layouts with layer switching.
+* Multi-layer Keymap  - Multiple keyboard layouts with layer switching
 * Mouse key           - Mouse control with keyboard
 * System Control Key  - Power Down, Sleep, Wake Up and USB Remote Wake up
 * Media Control Key   - Volume Down/Up, Mute, Next/Prev track, Play, Stop and etc
@@ -22,24 +22,27 @@ Features
 
 Projects
 --------
+You can find some keyboard specific projects under `converter` and `keyboard` directory.
+
 ### converter
-* ps2_usb       - [PS/2 keyboard to USB][GH_ps2]
-* adb_usb       - [ADB keyboard to USB][GH_adb]
-* m0110_usb     - [Machintosh 128K/512K/Plus keyboard to USB][GH_m0110]
-* terminal_usb  - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
-* news_usb      - [Sony NEWS keyboard to USB][GH_news]
-* x68k_usb      - [Sharp X68000 keyboard to USB][GH_x68k]
-* sun_usb       - Sun to USB(type4, 5 and 3?)
-* usb_usb       - USB to USB(experimental)
+* [ps2_usb](converter/ps2_usb/)             - [PS/2 keyboard to USB][GH_ps2]
+* [adb_usb](converter/adb_usb/)             - [ADB keyboard to USB][GH_adb]
+* [m0110_usb](converter/m0110_usb)          - [Machintosh 128K/512K/Plus keyboard to USB][GH_m0110]
+* [terminal_usb](converter/terminal_usb/)   - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
+* [news_usb](converter/news_usb/)           - [Sony NEWS keyboard to USB][GH_news]
+* [x68k_usb](converter/x68k_usb/)           - [Sharp X68000 keyboard to USB][GH_x68k]
+* [sun_usb](converter/sun_usb/)             - [Sun] to USB(type4, 5 and 3?)
+* [pc98_usb](converter/pc98_usb/)           - [PC98] to USB
+* [usb_usb](converter/usb_usb/)             - USB to USB(experimental)
 
 ### keyboard
-* hhkb          - [Happy Hacking Keyboard professional][GH_hhkb]
-* macway        - [Compact keyboard mod][GH_macway]
-* hbkb          - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
-* IIgs_Standard - Apple IIGS keyboard mod(by JeffreySung)
-* hid_liber     - [HID liberation controller][HID_liber](by alaricljs)
-* phantom       - [Phantom keyboard][PHANTOM] (by Tranquilite)
-* gh60          - [GH60 keyboard][GH60]
+* [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard professional][GH_hhkb]
+* [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway]
+* [hbkb](keyboard/hbkb/)                    - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
+* [IIgs_Standard](keyboard/IIgs/)           - Apple [IIGS] keyboard mod(by JeffreySung)
+* [hid_liber](keyboard/hid_liber/)          - [HID liberation controller][HID_liber](by alaricljs)
+* [phantom](keyboard/phantom/)              - [Phantom keyboard][PHANTOM] (by Tranquilite)
+* [gh60](keyboard/gh60/)                    - [GH60 keyboard][GH60]
 
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
@@ -54,6 +57,9 @@ Projects
 [HID_liber]:    http://deskthority.net/wiki/HID_Liberation_Device_-_DIY_Instructions
 [PHANTOM]:      http://geekhack.org/index.php?topic=26742
 [GH60]:         http://geekhack.org/index.php?topic=34959
+[PC98]:         http://en.wikipedia.org/wiki/NEC_PC-9801
+[Sun]:          http://en.wikipedia.org/wiki/Sun-3
+[IIGS]:         http://en.wikipedia.org/wiki/Apple_IIGS
 
 
 
@@ -203,334 +209,10 @@ Config.h Options
     #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_RSHIFT))) 
 
 
-Keymap
-------
-Many of existent projects offer keymap framework to define your own keymap easily. The following will explain how you can define keymap using this framework.
- Instead, you can also implement your own `keymap_get_action()` to return action code for each key if you want.
+Change your keymap
+------------------
+[keymap.md](doc/keymap.md)
 
-This is keymap example for [HHKB](http://en.wikipedia.org/wiki/Happy_Hacking_Keyboard) keyboard. Keymap is defined in `keymaps[]` array.
-
-    static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-        /* Layer 0: Default Layer
-         * ,-----------------------------------------------------------.
-         * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|  `|
-         * |-----------------------------------------------------------|
-         * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Backs|
-         * |-----------------------------------------------------------|
-         * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter   |
-         * |-----------------------------------------------------------|
-         * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn1|
-         * `-----------------------------------------------------------'
-         *       |Gui|Alt  |Space                  |Alt  |Fn2|
-         *       `-------------------------------------------'
-         */
-        KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
-               TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
-               LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN2, QUOT,ENT, \
-               LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT,FN1, \
-                    LGUI,LALT,          SPC,                RALT,FN3),
-
-        /* Layer 1: HHKB mode (HHKB Fn)
-         * ,-----------------------------------------------------------.
-         * |Pwr| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
-         * |-----------------------------------------------------------|
-         * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Backs|
-         * |-----------------------------------------------------------|
-         * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
-         * |-----------------------------------------------------------|
-         * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |Fn1|
-         * `-----------------------------------------------------------'
-         *      |Gui |Alt  |Space                  |Alt  |Gui|
-         *      `--------------------------------------------'
-         */ 
-        KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-               CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  BSPC, \
-               LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
-               LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,FN0, \
-                    LGUI,LALT,          SPC,                RALT,RGUI),
-        /* Layer 2: Mouse mode (Semicolon)
-         * ,-----------------------------------------------------------.
-         * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
-         * |-----------------------------------------------------------|
-         * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |   |   |Backs|
-         * |-----------------------------------------------------------|
-         * |Contro|   |   |   |   |   |McL|McD|McU|McR|Fn0|   |Return  |
-         * |-----------------------------------------------------------|
-         * |Shift   |   |   |   |   |Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift |   |
-         * `-----------------------------------------------------------'
-         *      |Gui |Alt  |Mb1                    |Alt  |Fn0|
-         *      `--------------------------------------------'
-         * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
-         */
-        KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-               TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
-               LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,FN0, QUOT,ENT, \
-               LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,SLSH,RSFT,NO, \
-                    LGUI,LALT,          BTN1,               RALT,FN0),
-    };
-
-    static const uint16_t PROGMEM fn_actions[] = {
-        ACTION_LAYER_DEFAULT,                           // FN0
-        ACTION_LAYER_SET(1),                            // FN1
-        ACTION_LAYER_SET_TAP_KEY(2, KC_SCLN),           // FN2
-        ACTION_LAYER_BIT_TOGGLE(2),                     // FN3
-    };
-
-
-
-### 1. Keycode
-See `common/keycode.h`. Keycode is 8bit internal code to inidicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like `KC_A` have simple action register key on press and unregister on release, on the other some of keycodes has some special actions like Fn keys, Media contorl keys, System control keys and Mouse keys.
-
- ***In `KEYMAP` definition you need to omit prefix part `KC_` of keycode to keep keymap compact.*** For example, just use `A` instead you place `KC_A` in `KEYMAP`. Some keycodes has 4-letter short name in addition to descriptive name, you'll prefer short one in `KEYMAP`.
-
-#### 1.0 Other key
-- `KC_NO` for no aciton
-- `KC_TRNS` for transparent layer
-
-#### 1.1 Normal key
-- `KC_A` to `KC_Z`, `KC_1` to `KC_0` for alpha numeric key
-- `KC_MINS`, `KC_EQL`, `KC_GRV`, `KC_RBRC`, `KC_LBRC`, `KC_COMM`, `KC_DOT`, `KC_BSLS`, `KC_SLSH`, `KC_SCLN`, `KC_QUOT`
-- `KC_ESC`, `KC_TAB`, `KC_SPC`, `KC_BSPC`, `KC_ENT`, `KC_DEL`, `KC_INS`
-- `KC_UP`, `KC_DOWN`, `KC_RGHT`, `KC_LEFT`, `KC_PGUP`, `KC_PGDN`, `KC_HOME`, `KC_END`
-- `KC_CAPS`, `KC_NLCK`, `KC_SLCK`, `KC_PSCR`, `KC_PAUS`, `KC_APP`, `KC_F1` to `KC_F24`
-- `KC_P1` to `KC_P0`, `KC_PDOT`, `KC_PCMM`, `KC_PSLS`, `KC_PAST`, `KC_PMNS`, `KC_PPLS`, `KC_PEQL`, `KC_PENT` for keypad.
-
-#### 1.2 Modifier
-There are 8 modifiers which has discrimination between left and right. 
-
-- `KC_LCTL` and `KC_RCTL` for Control
-- `KC_LSFT` and `KC_RSFT` for Shift
-- `KC_LALT` and `KC_RALT` for Alt
-- `KC_LGUI` and `KC_RGUI` for Windows key or Command key in Mac
-
-#### 1.3 Fn key
-`KC_FNnn` are `Fn` keys which not given any action at the beginning unlike most of keycodes has its own action. To use these keys in `KEYMAP` you need to assign action you want at first. Action of `Fn` is defined in `fn_actions[]` and index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` designates action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
-
-#### 1.4 Mousekey
-- `KC_MS_U`, `KC_MS_D`, `KC_MS_L`, `KC_MS_R` for mouse cursor
-- `KC_WH_U`, `KC_WH_D`, `KC_WH_L`, `KC_WH_R` for mouse wheel
-- `KC_BTN1`, `KC_BTN2`, `KC_BTN3`, `KC_BTN4`, `KC_BTN5` for mouse buttons
-
-#### 1.5 System & Media key
-- `KC_PWR`, `KC_SLEP`, `KC_WAKE` for Power, Sleep, Wake
-- `KC_MUTE`, `KC_VOLU`, `KC_VOLD` for audio volume control
-- `KC_MNXT`, `KC_MPRV`, `KC_MSTP`, `KC_MPLY`, `KC_MSEL` for media control
-- `KC_MAIL`, `KC_CALC`, `KC_MYCM` for application launch
-- `KC_WSCH`, `KC_WHOM`, `KC_WBAK`, `KC_WFWD`, `KC_WSTP`, `KC_WREF`, `KC_WFAV` for web browser operation
-
-#### Keycode Table
- See [keycode table](doc/keycode.txt) in `doc/keycode.txt`  or `common/keycode.h` for the detail or other keycodes.
-
- In regard to implementation side most of keycodes are identical with [HID usage] sent to host for real and some virtual keycodes are defined to support special actions.
-[HID usage]: http://www.usb.org/developers/devclass_docs/Hut1_11.pdf
-
-
-
-### 2. Action
-See `common/action.h`. Action is a 16bit code and defines function to perform on events of a key like press, release, hold and tap. You can define various actions to use various action codes.
-
-Most of keys just register 8bit keycode as HID usage(or scan code) to host, but to support other complex features needs 16bit extended action codes internally. But using 16bit action codes in keymap results in double size in memory against keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP` to define instead of action codes. ***Keycodes can be considered as subset of action codes.*** Like `KC_A`(0x04) is equal to a `Key` action(0x0004) that transmit keycode of *'A'*.
-
-#### 2.1 Key action
-Key is simple action that registers keycode on press of key and unregister on release.
-You can define `Key` action on *'A'* key with:
-
-    ACTION_KEY(KC_A)
-
-But you don't need to use this expression directly because you can just put symbol `A` in `KEYMAP` definition.
-
- Say you want to assign a key to `Shift + 1` to get charactor *'!'* or `Alt + Tab` to switch windows.
-
-    ACTION_MOD_KEY(KC_LSHIFT, KC_1)
-    ACTION_MOD_KEY(KC_LALT, KC_TAB)
-
-Or `Alt,Shift + Tab` can be defined.
-
-    ACTION_MODS_KEY((MOD_BIT(KC_LALT) | MOD_BIT(KC_LSHIFT)), KC_TAB)
-
-These actions are comprised of strokes of modifiers and a key. `Macro` action is needed if you want more complex key strokes.
-
-#### 2.2 Layer Actions
-This sets `default layer` into `current layer`. With this action you can return to `default layer`.
-
-    ACTION_LAYER_DEFAULT
-
-`Layer Set` action sets given layer argument to `current layer`. `Layer Set` action can take 0 to 15 as argument.
-
-    ACTION_LAYER_SET(layer)
-    ACTION_LAYER_SET_TOGGLE(layer)
-    ACTION_LAYER_SET_TAP_KEY(layer, key)
-    ACTION_LAYER_SET_TAP_TOGGLE(layer)
-
-`Layer Bit` action XOR given bits with `current layer`. `Layer Bit` action can take 0 to 15 as argument. 
-
-    ACTION_LAYER_BIT(bits)
-    ACTION_LAYER_BIT_TOGGLE(bits)
-    ACTION_LAYER_BIT_TAP_KEY(bits, key)
-    ACTION_LAYER_BIT_TAP_TOGGLE(bits)
-
-These acitons change `default layer`.
-    ACTION_LAYER_SET_DEFAULT(layer)
-    ACTION_LAYER_BIT_DEFAULT(bits)
-
-
-#### 2.3 Macro action
-***NOT FIXED***
-`Macro` action indicates complex key strokes.
- 
-    MACRO( MD(LSHIFT), D(D), END )
-    MACRO( U(D), MU(LSHIFT), END )
-    MACRO( I(255), T(H), T(E), T(L), T(L), W(255), T(O), END )
-
-##### 2.3.1 Normal mode
-- **I()**   change interavl of stroke.
-- **D()**   press key
-- **U()**   release key
-- **T()**   type key(press and release)
-- **W()**   wait
-- **MD()**  modifier down
-- **MU()**  modifier up
-- **END**   end mark
-
-##### 2.3.2 Extended mode
-
-***TODO: sample impl***
-See `keyboard/hhkb/keymap.c` for sample.
-
-
-#### 2.4 Function action
-***NOT FIXED***
-There are two type of action, normal `Function` and tappable `Function`.
-These actions call user defined function with `id`, `opt`, and key event information as arguments.
-
-##### 2.4.1 Function
-To define normal `Function` action in keymap use this.
-
-    ACTION_FUNCTION(id, opt)
-
-##### 2.4.2 Function with tap
-To define tappable `Function` action in keymap use this.
-
-    ACTION_FUNCTION_TAP(id, opt)
-
-##### 2.4.3 Implement user function
-`Function` actions can be defined freely with C by user in callback function:
-
-    void keymap_call_function(keyrecord_t *event, uint8_t id, uint8_t opt)
-
-This C function is called every time key is operated, argument `id` selects action to be performed and `opt` can be used for option. Functon `id` can be 0-255 and `opt` can be 0-15.
-
- `keyrecord_t` is comprised of key event and tap count. `keyevent_t` indicates which and when key is pressed or released. From `tap_count` you can know tap state, 0 means no tap. These information will be used in user function to decide how action of key is performed.
-
-    typedef struct {
-        keyevent_t  event;
-        uint8_t     tap_count;
-    } keyrecord_t;
-
-    typedef struct {
-        key_t    key;
-        bool     pressed;
-        uint16_t time;
-    } keyevent_t;
-
-    typedef struct {
-        uint8_t col;
-        uint8_t row;
-    } key_t;
-
-***TODO: sample impl***
-See `keyboard/hhkb/keymap.c` for sample.
-
-
-
-
-
-### 3. Layer
- Layer is key-action map to assign action to every physical key. You can define multiple layers in keymap and select a layer out of keymap during operation at will.
-
- First layer is indexed by `Layer 0` which usually become **`default layer`** and active in initial state. **`current layer`** is active layer at that time and can be changed with user interaction. You can define **16 layers** at most in default keymap framework.
-
- you can define a layer with placing keycode symbols separated with `comma` in `KEYMAP`, which is formed with resemblance to physical keyboard layout so as you can easily put keycode on place you want to map. ***You can define most of keys with just using keycodes*** except for `Fn` key serving special actions.
-
-
-
-### 4. Layer switching
-You can have some ways to switch layer with these actions.
-There are two kind of layer switch action `Layer Set` and `Layer Bit` and two type of switching behaviour **Momentary** and **Toggle**.
-
-#### 4.1 Momentary switching
-Momentary switching changes layer only while holding Fn key.
-
-##### 4.1.1 Momentary Set
-This `Layer Set` action sets new layer `Layer 1` to `current layer` on key press event.
-
-    ACTION_LAYER_SET(1)
-
-It switches to destination layer immediately when key is pressed, after that actions on keymap of destination layer is perfomed. ***Thus you shall need to place action to come back on destination layer***, or you will be stuck in destination layer without way to get back. To get back to `default layer` you can use this action.
-
-    ACTION_LAYER_DEFAULT
-
-##### 4.1.2 Momentary Bit
-This `Layer Bit` action performs XOR `1` with `current layer` on both press and release event. If you are on `Layer 0` now next layer to switch will be `Layer 1`. To come back to previous layer you need to place same action on destination layer.
-
-    ACTION_LAYER_BIT(1)
-
-#### 4.2 Toggle switching
-Toggle switching changes layer after press then release. You keep being on the layer until you press key to return.
-
-##### 4.2.1 Toggle Set
-This `Layer Set Toggle` action is to set `Layer 1` to `current layer` on release and do none on press.
-
-    ACTION_LAYER_SET_TOGGLE(1)
-
-To get back to `default layer` you can use this action.
-
-    ACTION_LAYER_DEFAULT
-
-##### 4.2.2 Toggle Bit
-This `Layer Bit Toggle` action is to XOR `1` with `current layer` on release and do none on press. If you are on `Layer 2` you'll switch to `Layer 3` on press. To come back to previous layer you need to place same action on destination layer.
-
-    ACTION_LAYER_BIT_TOGGLE(1)
-
-
-#### 4.3 Momentary switching with Tap key
-These actions switch to layer only while holding `Fn` key and register key on tap. **Tap** means to press and release key quickly.
-
-    ACTION_LAYER_SET_TAP_KEY(2, KC_SCLN)
-    ACTION_LAYER_SET_BIT_KEY(2, KC_SCLN)
-
-With these you can place layer switching function on normal alphabet key like `;` without losing its original register function.
-
-#### 4.4 Momentary switching with Tap Toggle
-This changes layer only while holding `Fn` key and toggle layer after several taps. **Tap** means to press and release key quickly.
-
-    ACTION_LAYER_SET_TAP_TOGGLE(layer)
-    ACTION_LAYER_BIT_TAP_TOGGLE(layer)
-
-Number of taps can be defined with `TAPPING_TOGGLE` in `config.h`, `5` by default.
-
-
-
-
-Legacy Keymap
--------------
-This was used in prior version and still works due to legacy support code in `common/keymap.c`. Legacy keymap doesn't support many of features that new keymap offers.
-
-In comparison with new keymap how to define Fn key is different. It uses two arrays `fn_layer[]` and `fn_keycode[]`. The index of arrays corresponds with postfix number of `Fn` key. Array `fn_layer[]` indicates destination layer to switch and `fn_keycode[]` has keycodes to send when tapping `Fn` key.
-
-In following setting example, `Fn0`, `Fn1` and `Fn2` switch layer to 1, 2 and 2 respectively. `Fn2` registers `Space` key when tap while `Fn0` and `Fn1` doesn't send any key.
-
-    static const uint8_t PROGMEM fn_layer[] = {
-        1,              // Fn0
-        2,              // Fn1
-        2,              // Fn2
-    };
-
-    static const uint8_t PROGMEM fn_keycode[] = {
-        KC_NO,          // Fn0
-        KC_NO,          // Fn1
-        KC_SPC,         // Fn2
-    };
 
 
 
