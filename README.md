@@ -7,7 +7,7 @@ Source code is available here: <http://github.com/tmk/tmk_keyboard>
 
 Features
 --------
-* Multi-layer Keymap  - Multiple keyboard layouts with layer switching.
+* Multi-layer Keymap  - Multiple keyboard layouts with layer switching
 * Mouse key           - Mouse control with keyboard
 * System Control Key  - Power Down, Sleep, Wake Up and USB Remote Wake up
 * Media Control Key   - Volume Down/Up, Mute, Next/Prev track, Play, Stop and etc
@@ -31,14 +31,15 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [terminal_usb](converter/terminal_usb/)   - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
 * [news_usb](converter/news_usb/)           - [Sony NEWS keyboard to USB][GH_news]
 * [x68k_usb](converter/x68k_usb/)           - [Sharp X68000 keyboard to USB][GH_x68k]
-* [sun_usb](converter/sun_usb/)             - Sun to USB(type4, 5 and 3?)
+* [sun_usb](converter/sun_usb/)             - [Sun] to USB(type4, 5 and 3?)
+* [pc98_usb](converter/pc98_usb/)           - [PC98] to USB
 * [usb_usb](converter/usb_usb/)             - USB to USB(experimental)
 
 ### keyboard
 * [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard professional][GH_hhkb]
 * [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway]
 * [hbkb](keyboard/hbkb/)                    - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
-* [IIgs_Standard](keyboard/IIgs_Standard/)  - Apple IIGS keyboard mod(by JeffreySung)
+* [IIgs_Standard](keyboard/IIgs_Standard/)  - Apple [IIGS] keyboard mod(by JeffreySung)
 * [hid_liber](keyboard/hid_liber/)          - [HID liberation controller][HID_liber](by alaricljs)
 * [phantom](keyboard/phantom/)              - [Phantom keyboard][PHANTOM] (by Tranquilite)
 * [gh60](keyboard/gh60/)                    - [GH60 keyboard][GH60]
@@ -56,6 +57,9 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [HID_liber]:    http://deskthority.net/wiki/HID_Liberation_Device_-_DIY_Instructions
 [PHANTOM]:      http://geekhack.org/index.php?topic=26742
 [GH60]:         http://geekhack.org/index.php?topic=34959
+[PC98]:         http://en.wikipedia.org/wiki/NEC_PC-9801
+[Sun]:          http://en.wikipedia.org/wiki/Sun-3
+[IIGS]:         http://en.wikipedia.org/wiki/Apple_IIGS
 
 
 
