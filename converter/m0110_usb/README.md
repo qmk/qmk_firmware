@@ -53,7 +53,8 @@ You can edit *Makefile* and *config.h* to change compile options and pin configu
 
     $ git clone git://github.com/tmk/tmk_keyboard.git (or download source)
     $ cd m0110_usb
-    $ make
+    $ make -f Makefile.lufa clean
+    $ make -f Makefile.lufa
 
 and program your Teensy with [PJRC Teensy loader](http://www.pjrc.com/teensy/loader.html).
 
@@ -74,7 +75,7 @@ You can change keymaps by editing *keymap.c*.
     |---------------------------------------------------------| |---------------|
     |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift   | |  1|  2|  3|   |
     `---------------------------------------------------------' |-----------|Ent|
-         |Alt|Gui |         Space               |Ctl |Alt|      |      0|  .|   |
+         |Ctl|Alt |         Space               |Gui |Ctl|      |      0|  .|   |
          `-----------------------------------------------'      `---------------'
 #### *HHKB/WASD Layer(WASD/IJKL)*
     ,---------------------------------------------------------. ,---------------.
@@ -86,7 +87,7 @@ You can change keymaps by editing *keymap.c*.
     |---------------------------------------------------------| |---------------|
     |Shift   |End|   |PgD|   |   |   |PgD|   |End|   |Shift   | |  1|  2|  3|   |
     `---------------------------------------------------------' |-----------|Ent|
-         |Alt|Gui |         Space               |Ctl |Alt|      |      0|  .|   |
+         |Ctl|Alt |         Space               |Gui |Ctl|      |      0|  .|   |
          `-----------------------------------------------'      `---------------'
 
 ### M0110A

@@ -39,7 +39,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard professional][GH_hhkb]
 * [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway]
 * [hbkb](keyboard/hbkb/)                    - [Happy Buckling sprint keyboard(IBM Model M mod)][GH_hbkb]
-* [IIgs_Standard](keyboard/IIgs_Standard/)  - Apple [IIGS] keyboard mod(by JeffreySung)
+* [IIgs_Standard](keyboard/IIgs/)           - Apple [IIGS] keyboard mod(by JeffreySung)
 * [hid_liber](keyboard/hid_liber/)          - [HID liberation controller][HID_liber](by alaricljs)
 * [phantom](keyboard/phantom/)              - [Phantom keyboard][PHANTOM] (by Tranquilite)
 * [gh60](keyboard/gh60/)                    - [GH60 keyboard][GH60]

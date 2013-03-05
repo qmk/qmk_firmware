@@ -88,6 +88,10 @@ static void send_keyboard(report_keyboard_t *report)
     } else {
         debug("kbuf: full\n");
     }
+
+    // NOTE: send key strokes of Macro
+    usbPoll();
+    vusb_transfer_keyboard();
 }
 
 
