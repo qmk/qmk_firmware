@@ -189,6 +189,9 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 				break;
 			}
 
+			/* Convert the last two received data bytes into a 16-bit word */
+			uint16_t NewDataWord = ((uint16_t)HEXParser.Data << 8) | HEXParser.PrevData;
+
 			switch (HEXParser.RecordType)
 			{
 				case HEX_RECORD_TYPE_Data:
@@ -204,7 +207,7 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 					}
 
 					/* Fill the FLASH memory buffer with the new word of data */
-					boot_page_fill(HEXParser.CurrAddress, ((uint16_t)HEXParser.Data << 8) | HEXParser.PrevData);
+					boot_page_fill(HEXParser.CurrAddress, NewDataWord);
 					HEXParser.CurrAddress += 2;
 
 					/* Flush the FLASH page to physical memory if we are crossing a page boundary */
@@ -222,12 +225,12 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 
 				case HEX_RECORD_TYPE_ExtendedSegmentAddress:
 					/* Extended address data - store the upper 12-bits of the new address */
-					HEXParser.CurrBaseAddress = (((uint32_t)HEXParser.PrevData << 8) | HEXParser.Data) << 4;
+					HEXParser.CurrBaseAddress = ((uint32_t)NewDataWord << 4);
 					break;
 
 				case HEX_RECORD_TYPE_ExtendedLinearAddress:
 					/* Extended address data - store the upper 16-bits of the new address */
-					HEXParser.CurrBaseAddress = (((uint32_t)HEXParser.PrevData << 8) | HEXParser.Data) << 16;
+					HEXParser.CurrBaseAddress = ((uint32_t)NewDataWord << 16);
 					break;
 			}
 
