@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
+#include "eeconfig.h"
 
 
 #ifdef MATRIX_HAS_GHOST
@@ -59,6 +60,9 @@ void keyboard_init(void)
 
     timer_init();
     matrix_init();
+#ifdef PS2_MOUSE_ENABLE
+    ps2_mouse_init();
+#endif
 
     /* matrix scan for boot magic keys */
 #ifdef DEBOUNCE
@@ -74,12 +78,25 @@ void keyboard_init(void)
     if (IS_BOOTMAGIC_BOOTLOADER()) bootloader_jump();
 #endif
 #ifdef IS_BOOTMAGIC_DEBUG
-    if (IS_BOOTMAGIC_DEBUG()) debug_enable = true;
+    if (IS_BOOTMAGIC_DEBUG()) {
+        eeconfig_write_debug(eeconfig_read_debug() ^ EECONFIG_DEBUG_ENABLE);
+    }
+#endif
+#ifdef IS_BOOTMAGIC_EEPROM_CLEAR
+    if (IS_BOOTMAGIC_EEPROM_CLEAR()) eeconfig_init();
 #endif
 
-#ifdef PS2_MOUSE_ENABLE
-    ps2_mouse_init();
-#endif
+    if (eeconfig_initialized()) {
+        uint8_t config;
+        config = eeconfig_read_debug();
+        debug_enable = (config & EECONFIG_DEBUG_ENABLE);
+        debug_matrix = (config & EECONFIG_DEBUG_MATRIX);
+        debug_keyboard = (config & EECONFIG_DEBUG_KEYBOARD);
+        debug_mouse = (config & EECONFIG_DEBUG_MOUSE);
+    } else {
+        eeconfig_init();
+    }
+
 }
 
 /*
