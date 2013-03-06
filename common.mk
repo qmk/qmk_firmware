@@ -10,6 +10,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/bootloader.c \
+	$(COMMON_DIR)/eeconfig.c \
 	$(COMMON_DIR)/util.c
 
 

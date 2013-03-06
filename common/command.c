@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "bootloader.h"
 #include "layer_switch.h"
+#include "eeconfig.h"
 #include "command.h"
 
 #ifdef MOUSEKEY_ENABLE
@@ -108,6 +109,7 @@ static void command_common_help(void)
     print("v:	print device version & info\n");
     print("t:	print timer count\n");
     print("s:	print status\n");
+    print("e:	print eeprom config\n");
 #ifdef NKRO_ENABLE
     print("n:	toggle NKRO\n");
 #endif
@@ -121,10 +123,30 @@ static void command_common_help(void)
     print("Paus:	jump to bootloader\n");
 }
 
+static void print_eeprom_config(void)
+{
+    uint8_t eebyte;
+    
+    print("magic: "); print_hex16(eeprom_read_word((uint16_t)0)); print("\n");
+
+    eebyte = eeconfig_read_debug();
+    print("debug: "); print_hex8(eebyte); print("\n");
+
+    eebyte = eeconfig_read_defalt_layer();
+    print("defalt_layer: "); print_hex8(eebyte); print("\n");
+
+    eebyte = eeconfig_read_modifier();
+    print("modifiers: "); print_hex8(eebyte); print("\n");
+}
+
 static bool command_common(uint8_t code)
 {
     static host_driver_t *host_driver = 0;
     switch (code) {
+        case KC_E:
+            print("eeprom config\n");
+            print_eeprom_config();
+            break;
         case KC_CAPSLOCK:
             if (host_get_driver()) {
                 host_driver = host_get_driver();
