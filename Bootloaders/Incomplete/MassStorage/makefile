@@ -20,20 +20,27 @@ OPTIMIZATION = s
 TARGET       = MassStorage
 SRC          = $(TARGET).c Descriptors.c Lib/SCSI.c Lib/VirtualFAT.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
 LUFA_PATH    = ../../../LUFA
-CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
-LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START_OFFSET)
+CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/ -DBOOT_START_ADDR=$(BOOT_START_OFFSET)
+LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START_OFFSET) $(BOOT_API_LD_FLAGS)
 
 # Flash size and bootloader section sizes of the target, in KB. These must
 # match the target's total FLASH size and the bootloader size set in the
 # device's fuses.
-FLASH_SIZE_KB        := 128
-BOOT_SECTION_SIZE_KB := 8
+FLASH_SIZE_KB         = 128
+BOOT_SECTION_SIZE_KB  = 8
 
 # Bootloader address calculation formulas
 # Do not modify these macros, but rather modify the dependent values above.
 CALC_ADDRESS_IN_HEX   = $(shell printf "0x%X" $$(( $(1) )) )
 BOOT_START_OFFSET     = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024 )
 BOOT_SEC_OFFSET       = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) * 1024) - $(strip $(1)) )
+
+# Bootloader linker section flags for relocating the API table sections to
+# known FLASH addresses - these should not normally be user-edited.
+BOOT_SECTION_LD_FLAG  = -Wl,--section-start=.apitable_$(strip $(1))=$(call BOOT_SEC_OFFSET, $(3)) -Wl,--undefined=BootloaderAPI_$(strip $(2))
+BOOT_API_LD_FLAGS     = $(call BOOT_SECTION_LD_FLAG, trampolines, Trampolines, 96)
+BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, jumptable,   JumpTable,   32)
+BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, signatures,  Signatures,  8)
 
 # Default target
 all:
