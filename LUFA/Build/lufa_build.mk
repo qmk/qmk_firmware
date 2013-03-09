@@ -252,12 +252,13 @@ clean: mostlyclean
 	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).eep $(TARGET).map $(TARGET).lss $(TARGET).sym $(TARGET).a
 
 # Performs a complete build of the user application and prints size information afterwards
-all: build_begin elf hex lss sym size build_end
+all: build_begin elf hex bin lss sym size build_end
 
 # Helper targets, to build a specific type of output file without having to know the project target name
 lib: lib$(TARGET).a
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
+bin: $(TARGET).bin $(TARGET).eep
 lss: $(TARGET).lss
 sym: $(TARGET).sym
 
@@ -310,6 +311,11 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 %.hex: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting HEX file data from \"$<\"
 	$(CROSS)-objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature $< $@
+
+# Extracts out the loadable FLASH memory data from the project ELF file, and creates an Binary format file of it
+%.bin: %.elf
+	@echo $(MSG_OBJCPY_CMD) Extracting BIN file data from \"$<\"
+	$(CROSS)-objcopy -O binary -R .eeprom -R .fuse -R .lock -R .signature $< $@
 
 # Extracts out the loadable EEPROM memory data from the project ELF file, and creates an Intel HEX format file of it
 %.eep: %.elf
