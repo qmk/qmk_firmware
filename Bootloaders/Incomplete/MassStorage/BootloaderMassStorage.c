@@ -34,7 +34,7 @@
  *  the demo and is responsible for the initial application hardware configuration.
  */
 
-#include "MassStorage.h"
+#include "BootloaderMassStorage.h"
 
 /** LUFA Mass Storage Class driver interface configuration and state information. This structure is
  *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
@@ -95,8 +95,6 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-	Serial_Init(9600, false);
-	Serial_CreateStream(NULL);
 	USB_Init();
 }
 

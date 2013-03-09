@@ -101,7 +101,6 @@ static void WriteBlock(const uint16_t BlockNumber)
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
-	printf("WRITE %d\r\n", BlockNumber);
 	// TODO: Write to FLASH
 }
 
@@ -139,14 +138,8 @@ static void ReadBlock(const uint16_t BlockNumber)
 		default:
 			if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
 			{
-//				printf("<D>\r\n");
-
 				for (uint16_t i = 0; i < 512; i++)
 				  BlockBuffer[i] = 'A' + (i % 26);
-			}
-			else
-			{
-				printf("INVALID %d\r\n", BlockNumber);
 			}
 
 			break;
