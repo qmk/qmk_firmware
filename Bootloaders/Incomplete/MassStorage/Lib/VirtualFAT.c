@@ -64,10 +64,33 @@ static FATDirectoryEntry_t FirmwareFileEntry =
 		.CreationTime    = FAT_TIME(1, 1, 0),
 		.CreationDate    = FAT_DATE(14, 2, 1989),
 		.StartingCluster = 2,
-		.FileSizeBytes   = 2049,
+		.FileSizeBytes   = FIRMWARE_FILE_SIZE,
 	};
 
-static void WriteBlock(uint16_t BlockNumber)
+
+static void UpdateFAT12ClusterEntry(uint8_t* FATTable,
+                                    const uint16_t Index,
+                                    const uint16_t ChainEntry)
+{
+	/* Calculate the starting offset of the cluster entry in the FAT12 table */
+	uint8_t FATOffset   =   (Index * 3) / 2;
+	bool    UpperNibble = (((Index * 3) % 2) != 0);
+
+	/* Check if the start of the entry is at an upper nibble of the byte, fill
+	 * out FAT12 entry as required */
+	if (UpperNibble)
+	{
+		FATTable[FATOffset]     = (FATTable[FATOffset] & 0x0F) | ((ChainEntry & 0x0F) << 4);
+		FATTable[FATOffset + 1] = (ChainEntry >> 4);
+	}
+	else
+	{
+		FATTable[FATOffset]     = ChainEntry;
+		FATTable[FATOffset + 1] = (FATTable[FATOffset] & 0xF0) | (ChainEntry >> 8);
+	}
+}
+
+static void WriteBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[512];
 
@@ -82,67 +105,48 @@ static void WriteBlock(uint16_t BlockNumber)
 	// TODO: Write to FLASH
 }
 
-void WriteFAT12ClusterEntry(uint8_t* FATTable, uint8_t Index, uint16_t NextEntry)
-{
-	uint8_t StartOffset = ((uint16_t)Index * 3) / 2;
-
-	/* Check if the start of the entry is at an upper nibble of the byte */
-	if (((uint16_t)Index * 3) % 2)
-	{
-		FATTable[StartOffset]     |= ((NextEntry & 0x0F) << 4);
-		FATTable[StartOffset + 1]  =  (NextEntry >> 4);
-	}
-	else
-	{
-		FATTable[StartOffset]      =  NextEntry;
-		FATTable[StartOffset + 1]  = (NextEntry >> 8);
-	}
-}
-
-static void ReadBlock(uint16_t BlockNumber)
+static void ReadBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[512];
 	memset(BlockBuffer, 0x00, sizeof(BlockBuffer));
-
-	printf("READ %d", BlockNumber);
 
 	switch (BlockNumber)
 	{
 		case 0:
 			memcpy(BlockBuffer, &BootBlock, sizeof(FATBootBlock_t));
-			printf(" <B>\r\n");
 			break;
 
 		case 1:
 		case 2:
-			printf(" <F>\r\n");
-
 			/* Cluster 0: Media type/Reserved */
-			WriteFAT12ClusterEntry(BlockBuffer, 0, 0xF00 | BootBlock.MediaDescriptor);
+			UpdateFAT12ClusterEntry(BlockBuffer, 0, 0xF00 | BootBlock.MediaDescriptor);
 
 			/* Cluster 1: Reserved */
-			WriteFAT12ClusterEntry(BlockBuffer, 1, 0xFFF);
+			UpdateFAT12ClusterEntry(BlockBuffer, 1, 0xFFF);
 
 			/* Cluster 2 onwards: Cluster chain of FIRMWARE.BIN */
-			for (uint16_t i = 0; i < FILE_CLUSTERS(2049); i++)
-			  WriteFAT12ClusterEntry(BlockBuffer, i+2, i+3);
+			for (uint16_t i = 0; i < FILE_CLUSTERS(FIRMWARE_FILE_SIZE); i++)
+			  UpdateFAT12ClusterEntry(BlockBuffer, i+2, i+3);
 
 			/* Mark last cluster as end of file */
-			WriteFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(2049) + 1, 0xFFF);
+			UpdateFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(FIRMWARE_FILE_SIZE) + 1, 0xFFF);
 			break;
 
 		case 3:
-			printf("<R>\r\n");
 			memcpy(BlockBuffer, &FirmwareFileEntry, sizeof(FATDirectoryEntry_t));
 			break;
 
 		default:
-			if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_CLUSTERS(FIRMWARE_FILE_SIZE))))
+			if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
 			{
-				printf("<D>\r\n");
+//				printf("<D>\r\n");
 
 				for (uint16_t i = 0; i < 512; i++)
-				  BlockBuffer[i] = '0' + BlockNumber; //A' + (i % 26);
+				  BlockBuffer[i] = 'A' + (i % 26);
+			}
+			else
+			{
+				printf("INVALID %d\r\n", BlockNumber);
 			}
 
 			break;
