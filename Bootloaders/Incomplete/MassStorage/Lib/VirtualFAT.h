@@ -39,11 +39,11 @@
 
 	/* Macros: */
 		#define FIRMWARE_FILE_SIZE     (FLASHEND + 1UL)
-		#define FILE_CLUSTERS(size)    ((size / CLUSTER_SIZE_BYTES) + ((size % CLUSTER_SIZE_BYTES) ? 1 : 0))
 
 		#define SECTOR_SIZE_BYTES      512
 		#define SECTOR_PER_CLUSTER     4
 		#define CLUSTER_SIZE_BYTES     (SECTOR_PER_CLUSTER * SECTOR_SIZE_BYTES)
+		#define FILE_CLUSTERS(size)    ((size / CLUSTER_SIZE_BYTES) + ((size % CLUSTER_SIZE_BYTES) ? 1 : 0))
 
 		#define LUN_MEDIA_BLOCKS       ((FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES) + 32)
 

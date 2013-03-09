@@ -114,7 +114,7 @@ static void ReadBlock(uint16_t BlockNumber)
 			}
 
 			/* Mark last cluster as end of file */
-			((uint16_t*)&BlockBuffer)[FILE_CLUSTERS(2049) + 3] = 0xFFFF;
+			((uint16_t*)&BlockBuffer)[FILE_CLUSTERS(2049) + 1] = 0xFFFF;
 			break;
 
 		case 3:
