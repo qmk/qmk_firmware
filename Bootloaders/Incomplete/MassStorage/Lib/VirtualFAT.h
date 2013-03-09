@@ -39,26 +39,28 @@
 
 	/* Macros: */
 		#define VIRTUAL_MEMORY_BLOCK_SIZE 512
-		#define ALLOCATION_UNIT_BLOCKS    4
-		#define LUN_MEDIA_BLOCKS          ((FLASHEND + 1) / VIRTUAL_MEMORY_BLOCK_SIZE) + 16
+
+		#define FIRMWARE_FILE_SIZE        (FLASHEND + 1UL)
+
+		#define LUN_MEDIA_BLOCKS          ((FIRMWARE_FILE_SIZE / VIRTUAL_MEMORY_BLOCK_SIZE) + 32)
 
 	/* Type Definitions: */
 		typedef struct
 		{
 			uint8_t  Bootstrap[3];
 			uint8_t  Description[8];
-			uint16_t BlockSize;
-			uint8_t  BlocksPerAllocationUnit;
-			uint16_t ReservedBlocks;
+			uint16_t SectorSize;
+			uint8_t  SectorsPerCluster;
+			uint16_t ReservedSectors;
 			uint8_t  FATCopies;
 			uint16_t RootDirectoryEntries;
-			uint16_t TotalBlocks16;
+			uint16_t TotalSectors16;
 			uint8_t  MediaDescriptor;
-			uint16_t BlocksPerFAT;
-			uint16_t BlocksPerTrack;
+			uint16_t SectorsPerFAT;
+			uint16_t SectorsPerTrack;
 			uint16_t Heads;
-			uint32_t HiddenBlocks;
-			uint32_t TotalBlocks32;
+			uint32_t HiddenSectors;
+			uint32_t TotalSectors32;
 			uint16_t PhysicalDriveNum;
 			uint8_t  ExtendedBootRecordSig;
 			uint32_t VolumeSerialNumber;
@@ -70,14 +72,14 @@
 
 		typedef struct
 		{
-			uint8_t Filename[8];
-			uint8_t Extension[3];
-			uint8_t Attributes;
-			uint8_t Reserved[10];
+			uint8_t  Filename[8];
+			uint8_t  Extension[3];
+			uint8_t  Attributes;
+			uint8_t  Reserved[10];
 			uint16_t CreationTime;
 			uint16_t CreationDate;
 			uint16_t StartingCluster;
-			uint32_t FileSize;
+			uint32_t FileSizeBytes;
 		} FATDirectoryEntry_t;
 
 	/* Function Prototypes: */

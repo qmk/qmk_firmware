@@ -30,22 +30,31 @@
 
 #include "VirtualFAT.h"
 
+#define FAT_TIME(h, m, s)      ((h << 11) | (m << 5) | (s >> 1))
+#define FAT_DATE(d, m, y)      (((y - 1980) << 9) | (m << 5) | (d << 0))
+
+#define SECTOR_SIZE_BYTES      VIRTUAL_MEMORY_BLOCK_SIZE
+#define SECTOR_PER_CLUSTER     4
+#define CLUSTER_SIZE_BYTES     (SECTOR_PER_CLUSTER * SECTOR_SIZE_BYTES)
+
+#define FILE_CLUSTERS(size)    (size / CLUSTER_SIZE_BYTES)
+
 static const FATBootBlock_t BootBlock =
 	{
 		.Bootstrap               = {0xEB, 0x3C, 0x90},
 		.Description             = "mkdosfs",
-		.BlockSize               = VIRTUAL_MEMORY_BLOCK_SIZE,
-		.BlocksPerAllocationUnit = ALLOCATION_UNIT_BLOCKS,
-		.ReservedBlocks          = 1,
+		.SectorSize              = SECTOR_SIZE_BYTES,
+		.SectorsPerCluster       = SECTOR_PER_CLUSTER,
+		.ReservedSectors         = 1,
 		.FATCopies               = 2,
-		.RootDirectoryEntries    = 512,
-		.TotalBlocks16           = LUN_MEDIA_BLOCKS,
+		.RootDirectoryEntries    = SECTOR_SIZE_BYTES / sizeof(FATDirectoryEntry_t),
+		.TotalSectors16          = LUN_MEDIA_BLOCKS,
 		.MediaDescriptor         = 0xF8,
-		.BlocksPerFAT            = 1,
-		.BlocksPerTrack          = 32,
+		.SectorsPerFAT           = 1,
+		.SectorsPerTrack         = 32,
 		.Heads                   = 64,
-		.HiddenBlocks            = 0,
-		.TotalBlocks32           = 0,
+		.HiddenSectors           = 0,
+		.TotalSectors32          = 0,
 		.PhysicalDriveNum        = 0,
 		.ExtendedBootRecordSig   = 0x29,
 		.VolumeSerialNumber      = 0x12345678,
@@ -57,14 +66,14 @@ static const FATBootBlock_t BootBlock =
 
 static FATDirectoryEntry_t FirmwareFileEntry =
 	{
-		.Filename        = "Firmware",
-		.Extension       = "bin",
+		.Filename        = "FIRMWARE",
+		.Extension       = "BIN",
 		.Attributes      = 0,
 		.Reserved        = {0},
-		.CreationTime    = (1 << 11) | (1 << 5),
-		.CreationDate    = (9 << 9)  | (2 << 5) | (14 << 0),
-		.StartingCluster = 4,
-		.FileSize        = (FLASHEND + 1UL),
+		.CreationTime    = FAT_TIME(1, 1, 0),
+		.CreationDate    = FAT_DATE(14, 2, 1989),
+		.StartingCluster = 2,
+		.FileSizeBytes   = 2049,
 	};
 
 static void WriteBlock(uint16_t BlockNumber)
@@ -78,6 +87,7 @@ static void WriteBlock(uint16_t BlockNumber)
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
+	printf("WRITE %d\r\n", BlockNumber);
 	// TODO: Write to FLASH
 }
 
@@ -86,41 +96,49 @@ static void ReadBlock(uint16_t BlockNumber)
 	uint8_t BlockBuffer[512];
 	memset(BlockBuffer, 0x00, sizeof(BlockBuffer));
 
+	printf("READ %d", BlockNumber);
+
 	switch (BlockNumber)
 	{
 		case 0:
 			memcpy(BlockBuffer, &BootBlock, sizeof(FATBootBlock_t));
+			printf(" <B>\r\n");
 			break;
 
 		case 1:
 		case 2:
+			printf(" <F>\r\n");
+
 			/* Cluster 0: Media type/Reserved */
 			((uint16_t*)&BlockBuffer)[0] = 0xFF00 | BootBlock.MediaDescriptor;
 
 			/* Cluster 1: Reserved */
 			((uint16_t*)&BlockBuffer)[1] = 0xFFFF;
 
-			/* Cluster 2: Reserved */
-			((uint16_t*)&BlockBuffer)[2] = 0xFFFF;
-
-			/* Cluster 3: FIRMWARE.BIN File Entry */
-			((uint16_t*)&BlockBuffer)[3] = 0xFFFF;
-
-			/* Cluster 4 onwards: Cluster chain of FIRMWARE.BIN */
-			for (uint16_t i = 0; i < ((FLASHEND + 1) / (VIRTUAL_MEMORY_BLOCK_SIZE * ALLOCATION_UNIT_BLOCKS)); i++)
+			/* Cluster 2 onwards: Cluster chain of FIRMWARE.BIN */
+			for (uint16_t i = 0; i < FILE_CLUSTERS(2049); i++)
 			{
-				((uint16_t*)&BlockBuffer)[i + 4] = i + 5;
+				((uint16_t*)&BlockBuffer)[i + 2] = i + 3;
 			}
 
 			/* Mark last cluster as end of file */
-			((uint16_t*)&BlockBuffer)[((FLASHEND + 1) / (VIRTUAL_MEMORY_BLOCK_SIZE * ALLOCATION_UNIT_BLOCKS)) + 4] = 0xFFFF;
+			((uint16_t*)&BlockBuffer)[FILE_CLUSTERS(2049) + 3] = 0xFFFF;
 			break;
 
 		case 3:
+			printf("<R>\r\n");
 			memcpy(BlockBuffer, &FirmwareFileEntry, sizeof(FATDirectoryEntry_t));
 			break;
 
 		default:
+			if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_CLUSTERS(FIRMWARE_FILE_SIZE))))
+			{
+				printf("<D>\r\n");
+
+				for (uint16_t i = 0; i < 512; i++)
+				  BlockBuffer[i] = '0' + BlockNumber; //A' + (i % 26);
+			}
+
 			break;
 	}
 
