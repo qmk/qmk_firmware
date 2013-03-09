@@ -30,8 +30,7 @@
 
 /** \file
  *
- *  Main source file for the MassStorage demo. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  Main source file for the Mass Storage class bootloader. This file contains the complete bootloader logic.
  */
 
 #include "BootloaderMassStorage.h"
@@ -96,6 +95,16 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
+
+	/* Bootloader active LED toggle timer initialization */
+	TIMSK1 = (1 << TOIE1);
+	TCCR1B = ((1 << CS11) | (1 << CS10));
+}
+
+/** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
+ISR(TIMER1_OVF_vect, ISR_BLOCK)
+{
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
 /** Event handler for the library USB Connection event. */

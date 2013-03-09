@@ -57,14 +57,14 @@ static const FATBootBlock_t BootBlock =
 
 static FATDirectoryEntry_t FirmwareFileEntry =
 	{
-		.Filename        = "FIRMWARE",
-		.Extension       = "BIN",
-		.Attributes      = 0,
-		.Reserved        = {0},
-		.CreationTime    = FAT_TIME(1, 1, 0),
-		.CreationDate    = FAT_DATE(14, 2, 1989),
-		.StartingCluster = 2,
-		.FileSizeBytes   = FIRMWARE_FILE_SIZE,
+		.Filename               = "FIRMWARE",
+		.Extension              = "BIN",
+		.Attributes             = 0,
+		.Reserved               = {0},
+		.CreationTime           = FAT_TIME(1, 1, 0),
+		.CreationDate           = FAT_DATE(14, 2, 1989),
+		.StartingCluster        = 2,
+		.FileSizeBytes          = FIRMWARE_FILE_SIZE,
 	};
 
 
@@ -94,10 +94,7 @@ static void WriteBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 
-	/* Wait until endpoint is ready before continuing */
-	if (Endpoint_WaitUntilReady())
-	  return;
-
+	/* Buffer the entire block to be written from the host */
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
@@ -139,12 +136,12 @@ static void ReadBlock(const uint16_t BlockNumber)
 
 	switch (BlockNumber)
 	{
-		case 0:
+		case 0: /* Block 0: Boot block sector */
 			memcpy(BlockBuffer, &BootBlock, sizeof(FATBootBlock_t));
 			break;
 
-		case 1:
-		case 2:
+		case 1: /* Block 1: First FAT12 cluster chain copy */
+		case 2: /* Block 2: Second FAT12 cluster chain copy */
 			/* Cluster 0: Media type/Reserved */
 			UpdateFAT12ClusterEntry(BlockBuffer, 0, 0xF00 | BootBlock.MediaDescriptor);
 
@@ -159,11 +156,11 @@ static void ReadBlock(const uint16_t BlockNumber)
 			UpdateFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(FIRMWARE_FILE_SIZE) + 1, 0xFFF);
 			break;
 
-		case 3:
+		case 3: /* Block 3: Root file entries */
 			memcpy(BlockBuffer, &FirmwareFileEntry, sizeof(FATDirectoryEntry_t));
 			break;
 
-		default:
+		default: /* Blocks 4 onwards: Data allocation section */
 			if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
 			{
 				uint32_t ReadFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
@@ -175,10 +172,7 @@ static void ReadBlock(const uint16_t BlockNumber)
 			break;
 	}
 
-	/* Wait until endpoint is ready before continuing */
-	if (Endpoint_WaitUntilReady())
-	  return;
-
+	/* Write the entire read block Buffer to the host */
 	Endpoint_Write_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearIN();
 }
@@ -190,7 +184,7 @@ void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 	uint16_t CurrentBlock = (uint16_t)BlockAddress;
 
 	/* Emulated FAT is performed per-block, pass each requested block index
-	 * to the emulation function */
+	 * to the emulated FAT block write function */
 	while (TotalBlocks--)
 	  WriteBlock(CurrentBlock++);
 }
@@ -202,7 +196,7 @@ void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 	uint16_t CurrentBlock = (uint16_t)BlockAddress;
 
 	/* Emulated FAT is performed per-block, pass each requested block index
-	 * to the emulation function */
+	 * to the emulated FAT block read function */
 	while (TotalBlocks--)
 	  ReadBlock(CurrentBlock++);
 }
