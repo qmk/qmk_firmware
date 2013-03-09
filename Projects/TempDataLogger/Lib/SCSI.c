@@ -116,6 +116,7 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 		case SCSI_CMD_MODE_SENSE_6:
 			CommandSuccess = SCSI_Command_ModeSense_6(MSInterfaceInfo);
 			break;
+		case SCSI_CMD_START_STOP_UNIT:
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		case SCSI_CMD_VERIFY_10:

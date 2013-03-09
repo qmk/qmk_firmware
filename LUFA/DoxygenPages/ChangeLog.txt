@@ -10,6 +10,16 @@
   *  <b>New:</b>
   *  - Library Applications:
   *   - Added new Printer class bootloader
+  *   - Added new Mass Storage class bootloader
+  *
+  *  <b>Changed:</b>
+  *  - Core:
+  *   - Updated the BUILD build system module to produce binary BIN files in addition to Intel HEX files
+  *
+  *  <b>Fixed:</b>
+  *  - Library Applications:
+  *   - Added handler for SCSI_CMD_START_STOP_UNIT in demos using the Mass Storage class, to prevent ejection errors on *nix systems due to an
+  *     unknown SCSI command
   *
   *  \section Sec_ChangeLog130303 Version 130303
   *  <b>New:</b>

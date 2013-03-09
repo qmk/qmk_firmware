@@ -90,6 +90,9 @@
 		/** SCSI Command Code for a READ CAPACITY (10) command. */
 		#define SCSI_CMD_READ_CAPACITY_10                      0x25
 
+		/** SCSI Command Code for a START STOP UNIT command. */
+		#define SCSI_CMD_START_STOP_UNIT                       0x1B
+
 		/** SCSI Command Code for a SEND DIAGNOSTIC command. */
 		#define SCSI_CMD_SEND_DIAGNOSTIC                       0x1D
 
