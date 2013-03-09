@@ -30,15 +30,6 @@
 
 #include "VirtualFAT.h"
 
-#define FAT_TIME(h, m, s)      ((h << 11) | (m << 5) | (s >> 1))
-#define FAT_DATE(d, m, y)      (((y - 1980) << 9) | (m << 5) | (d << 0))
-
-#define SECTOR_SIZE_BYTES      VIRTUAL_MEMORY_BLOCK_SIZE
-#define SECTOR_PER_CLUSTER     4
-#define CLUSTER_SIZE_BYTES     (SECTOR_PER_CLUSTER * SECTOR_SIZE_BYTES)
-
-#define FILE_CLUSTERS(size)    (size / CLUSTER_SIZE_BYTES)
-
 static const FATBootBlock_t BootBlock =
 	{
 		.Bootstrap               = {0xEB, 0x3C, 0x90},
@@ -47,7 +38,7 @@ static const FATBootBlock_t BootBlock =
 		.SectorsPerCluster       = SECTOR_PER_CLUSTER,
 		.ReservedSectors         = 1,
 		.FATCopies               = 2,
-		.RootDirectoryEntries    = SECTOR_SIZE_BYTES / sizeof(FATDirectoryEntry_t),
+		.RootDirectoryEntries    = (SECTOR_SIZE_BYTES / sizeof(FATDirectoryEntry_t)),
 		.TotalSectors16          = LUN_MEDIA_BLOCKS,
 		.MediaDescriptor         = 0xF8,
 		.SectorsPerFAT           = 1,
@@ -75,6 +66,7 @@ static FATDirectoryEntry_t FirmwareFileEntry =
 		.StartingCluster = 2,
 		.FileSizeBytes   = 2049,
 	};
+
 
 static void WriteBlock(uint16_t BlockNumber)
 {
@@ -156,6 +148,8 @@ void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 {
 	uint16_t CurrentBlock = (uint16_t)BlockAddress;
 
+	/* Emulated FAT is performed per-block, pass each requested block index
+	 * to the emulation function */
 	while (TotalBlocks--)
 	  WriteBlock(CurrentBlock++);
 }
@@ -166,6 +160,8 @@ void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 {
 	uint16_t CurrentBlock = (uint16_t)BlockAddress;
 
+	/* Emulated FAT is performed per-block, pass each requested block index
+	 * to the emulation function */
 	while (TotalBlocks--)
 	  ReadBlock(CurrentBlock++);
 }

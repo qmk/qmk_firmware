@@ -38,11 +38,17 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#define VIRTUAL_MEMORY_BLOCK_SIZE 512
+		#define FIRMWARE_FILE_SIZE     (FLASHEND + 1UL)
+		#define FILE_CLUSTERS(size)    ((size / CLUSTER_SIZE_BYTES) + ((size % CLUSTER_SIZE_BYTES) ? 1 : 0))
 
-		#define FIRMWARE_FILE_SIZE        (FLASHEND + 1UL)
+		#define SECTOR_SIZE_BYTES      512
+		#define SECTOR_PER_CLUSTER     4
+		#define CLUSTER_SIZE_BYTES     (SECTOR_PER_CLUSTER * SECTOR_SIZE_BYTES)
 
-		#define LUN_MEDIA_BLOCKS          ((FIRMWARE_FILE_SIZE / VIRTUAL_MEMORY_BLOCK_SIZE) + 32)
+		#define LUN_MEDIA_BLOCKS       ((FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES) + 32)
+
+		#define FAT_TIME(h, m, s)      ((h << 11) | (m << 5) | (s >> 1))
+		#define FAT_DATE(d, m, y)      (((y - 1980) << 9) | (m << 5) | (d << 0))
 
 	/* Type Definitions: */
 		typedef struct

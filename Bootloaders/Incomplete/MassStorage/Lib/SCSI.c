@@ -214,7 +214,7 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterf
 static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint32_t LastBlockAddressInLUN = (LUN_MEDIA_BLOCKS - 1);
-	uint32_t MediaBlockSize        = VIRTUAL_MEMORY_BLOCK_SIZE;
+	uint32_t MediaBlockSize        = SECTOR_SIZE_BYTES;
 
 	Endpoint_Write_Stream_BE(&LastBlockAddressInLUN, sizeof(LastBlockAddressInLUN), NULL);
 	Endpoint_Write_Stream_BE(&MediaBlockSize, sizeof(MediaBlockSize), NULL);
@@ -292,7 +292,7 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 	  VirtualFAT_WriteBlocks(MSInterfaceInfo, BlockAddress, TotalBlocks);
 
 	/* Update the bytes transferred counter and succeed the command */
-	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * SECTOR_SIZE_BYTES);
 
 	return true;
 }
