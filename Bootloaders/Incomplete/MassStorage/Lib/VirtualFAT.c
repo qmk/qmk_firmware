@@ -138,8 +138,10 @@ static void ReadBlock(const uint16_t BlockNumber)
 		default:
 			if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
 			{
-				for (uint16_t i = 0; i < 512; i++)
-				  BlockBuffer[i] = 'A' + (i % 26);
+				uint32_t ReadFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
+
+				for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
+				  BlockBuffer[i] = pgm_read_byte_far(ReadFlashAddress++);
 			}
 
 			break;
