@@ -109,7 +109,7 @@ static void command_common_help(void)
     print("v:	print device version & info\n");
     print("t:	print timer count\n");
     print("s:	print status\n");
-    print("e:	print eeprom config\n");
+    print("e:	print eeprom boot config\n");
 #ifdef NKRO_ENABLE
     print("n:	toggle NKRO\n");
 #endif
@@ -127,8 +127,6 @@ static void print_eeprom_config(void)
 {
     uint8_t eebyte;
     
-    print("magic: "); print_hex16(eeprom_read_word((uint16_t)0)); print("\n");
-
     eebyte = eeconfig_read_debug();
     print("debug: "); print_hex8(eebyte); print("\n");
 
