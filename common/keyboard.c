@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "util.h"
 #include "sendchar.h"
-#include "bootloader.h"
+#include "bootmagic.h"
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
@@ -64,27 +64,7 @@ void keyboard_init(void)
     ps2_mouse_init();
 #endif
 
-    /* matrix scan for boot magic keys */
-#ifdef DEBOUNCE
-    uint8_t scan = DEBOUNCE * 2;
-    while (scan--) { matrix_scan(); _delay_ms(1); }
-#else
-    matrix_scan();
-#endif
-
-    /* boot magic keys */
-#ifdef IS_BOOTMAGIC_BOOTLOADER
-    /* kick up bootloader */
-    if (IS_BOOTMAGIC_BOOTLOADER()) bootloader_jump();
-#endif
-#ifdef IS_BOOTMAGIC_DEBUG
-    if (IS_BOOTMAGIC_DEBUG()) {
-        eeconfig_write_debug(eeconfig_read_debug() ^ EECONFIG_DEBUG_ENABLE);
-    }
-#endif
-#ifdef IS_BOOTMAGIC_EEPROM_CLEAR
-    if (IS_BOOTMAGIC_EEPROM_CLEAR()) eeconfig_init();
-#endif
+    bootmagic();
 
     if (eeconfig_initialized()) {
         uint8_t config;
@@ -96,7 +76,6 @@ void keyboard_init(void)
     } else {
         eeconfig_init();
     }
-
 }
 
 /*
