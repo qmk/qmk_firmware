@@ -42,15 +42,15 @@ static const FATBootBlock_t BootBlock =
 		.TotalSectors16          = LUN_MEDIA_BLOCKS,
 		.MediaDescriptor         = 0xF8,
 		.SectorsPerFAT           = 1,
-		.SectorsPerTrack         = 32,
-		.Heads                   = 64,
+		.SectorsPerTrack         = LUN_MEDIA_BLOCKS % 64,
+		.Heads                   = LUN_MEDIA_BLOCKS / 64,
 		.HiddenSectors           = 0,
 		.TotalSectors32          = 0,
 		.PhysicalDriveNum        = 0,
 		.ExtendedBootRecordSig   = 0x29,
 		.VolumeSerialNumber      = 0x12345678,
 		.VolumeLabel             = "LUFA BOOT  ",
-		.FilesystemIdentifier    = "FAT16   ",
+		.FilesystemIdentifier    = "FAT12   ",
 		.BootstrapProgram        = {0},
 		.MagicSignature          = 0xAA55,
 	};
@@ -67,7 +67,6 @@ static FATDirectoryEntry_t FirmwareFileEntry =
 		.FileSizeBytes   = 2049,
 	};
 
-
 static void WriteBlock(uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[512];
@@ -81,6 +80,23 @@ static void WriteBlock(uint16_t BlockNumber)
 
 	printf("WRITE %d\r\n", BlockNumber);
 	// TODO: Write to FLASH
+}
+
+void WriteFAT12ClusterEntry(uint8_t* FATTable, uint8_t Index, uint16_t NextEntry)
+{
+	uint8_t StartOffset = ((uint16_t)Index * 3) / 2;
+
+	/* Check if the start of the entry is at an upper nibble of the byte */
+	if (((uint16_t)Index * 3) % 2)
+	{
+		FATTable[StartOffset]     |= ((NextEntry & 0x0F) << 4);
+		FATTable[StartOffset + 1]  =  (NextEntry >> 4);
+	}
+	else
+	{
+		FATTable[StartOffset]      =  NextEntry;
+		FATTable[StartOffset + 1]  = (NextEntry >> 8);
+	}
 }
 
 static void ReadBlock(uint16_t BlockNumber)
@@ -102,19 +118,17 @@ static void ReadBlock(uint16_t BlockNumber)
 			printf(" <F>\r\n");
 
 			/* Cluster 0: Media type/Reserved */
-			((uint16_t*)&BlockBuffer)[0] = 0xFF00 | BootBlock.MediaDescriptor;
+			WriteFAT12ClusterEntry(BlockBuffer, 0, 0xF00 | BootBlock.MediaDescriptor);
 
 			/* Cluster 1: Reserved */
-			((uint16_t*)&BlockBuffer)[1] = 0xFFFF;
+			WriteFAT12ClusterEntry(BlockBuffer, 1, 0xFFF);
 
 			/* Cluster 2 onwards: Cluster chain of FIRMWARE.BIN */
 			for (uint16_t i = 0; i < FILE_CLUSTERS(2049); i++)
-			{
-				((uint16_t*)&BlockBuffer)[i + 2] = i + 3;
-			}
+			  WriteFAT12ClusterEntry(BlockBuffer, i+2, i+3);
 
 			/* Mark last cluster as end of file */
-			((uint16_t*)&BlockBuffer)[FILE_CLUSTERS(2049) + 1] = 0xFFFF;
+			WriteFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(2049) + 1, 0xFFF);
 			break;
 
 		case 3:
