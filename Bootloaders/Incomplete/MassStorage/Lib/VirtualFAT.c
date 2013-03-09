@@ -92,7 +92,7 @@ static void UpdateFAT12ClusterEntry(uint8_t* FATTable,
 
 static void WriteBlock(const uint16_t BlockNumber)
 {
-	uint8_t BlockBuffer[512];
+	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 
 	/* Wait until endpoint is ready before continuing */
 	if (Endpoint_WaitUntilReady())
@@ -101,12 +101,40 @@ static void WriteBlock(const uint16_t BlockNumber)
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
-	// TODO: Write to FLASH
+	if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
+	{
+		uint32_t WriteFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
+
+		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i += 2)
+		{
+			/* Disallow writing to the bootloader section */
+			if (WriteFlashAddress > BOOT_START_ADDR)
+			  continue;
+
+			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
+			{
+				/* Erase the given FLASH page, ready to be programmed */
+				boot_page_erase(WriteFlashAddress);
+				boot_spm_busy_wait();
+			}
+
+			/* Write the next data word to the FLASH page */
+			boot_page_fill(WriteFlashAddress, (BlockBuffer[i + 1] << 8) | BlockBuffer[i]);
+			WriteFlashAddress += 2;
+
+			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
+			{
+				/* Write the filled FLASH page to memory */
+				boot_page_write(WriteFlashAddress - SPM_PAGESIZE);
+				boot_spm_busy_wait();
+			}
+		}
+	}
 }
 
 static void ReadBlock(const uint16_t BlockNumber)
 {
-	uint8_t BlockBuffer[512];
+	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 	memset(BlockBuffer, 0x00, sizeof(BlockBuffer));
 
 	switch (BlockNumber)
