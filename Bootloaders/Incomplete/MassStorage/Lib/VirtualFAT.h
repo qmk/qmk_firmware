@@ -80,7 +80,7 @@
 		 *
 		 *  \return Given time encoded as a FAT filesystem timestamp
 		 */
-		#define FAT_TIME(h, m, s)         ((hh << 11) | (mm << 5) | (ss >> 1))
+		#define FAT_TIME(hh, mm, ss)      ((hh << 11) | (mm << 5) | (ss >> 1))
 
 		/** Converts a given date in DD/MM/YYYY format to a FAT filesystem date.
 		 *
@@ -90,7 +90,7 @@
 		 *
 		 *  \return Given date encoded as a FAT filesystem datestamp
 		 */
-		#define FAT_DATE(d, m, y)         (((yyyy - 1980) << 9) | (mm << 5) | (dd << 0))
+		#define FAT_DATE(dd, mm, yyyy)    (((yyyy - 1980) << 9) | (mm << 5) | (dd << 0))
 
 	/* Type Definitions: */
 		/** FAT boot block structure definition, used to identify the core
