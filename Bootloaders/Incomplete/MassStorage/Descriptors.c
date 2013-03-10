@@ -162,12 +162,10 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
-			switch (DescriptorNumber)
+			if (!(DescriptorNumber))
 			{
-				case 0x00:
 					Address = &LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
-					break;
 			}
 
 			break;

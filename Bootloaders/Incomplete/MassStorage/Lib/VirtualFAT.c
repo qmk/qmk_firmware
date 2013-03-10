@@ -28,8 +28,26 @@
   this software.
 */
 
+/** \file
+ *
+ *  Virtualized FAT12 filesystem implementation, to perform self-programming
+ *  in response to read and write requests to the virtual filesystem by the
+ *  host PC.
+ */
+
+#define  INCLUDE_FROM_VIRTUAL_FAT_C
 #include "VirtualFAT.h"
 
+/** FAT filesystem boot sector block, must be the first sector on the physical
+ *  disk so that the host can identify the presence of a FAT filesystem. This
+ *  block is truncated; normally a large bootstrap section is located near the
+ *  end of the block for booting purposes however as this is not meant to be a
+ *  bootable disk it is omitted for space reasons.
+ *
+ *  \note When returning the boot block to the host, the magic signature 0xAA55
+ *        must be added to the very end of the block to identify it as a boot
+ *        block.
+ */
 static const FATBootBlock_t BootBlock =
 	{
 		.Bootstrap               = {0xEB, 0x3C, 0x90},
@@ -42,8 +60,8 @@ static const FATBootBlock_t BootBlock =
 		.TotalSectors16          = LUN_MEDIA_BLOCKS,
 		.MediaDescriptor         = 0xF8,
 		.SectorsPerFAT           = 1,
-		.SectorsPerTrack         = LUN_MEDIA_BLOCKS % 64,
-		.Heads                   = LUN_MEDIA_BLOCKS / 64,
+		.SectorsPerTrack         = (LUN_MEDIA_BLOCKS % 64),
+		.Heads                   = (LUN_MEDIA_BLOCKS / 64),
 		.HiddenSectors           = 0,
 		.TotalSectors32          = 0,
 		.PhysicalDriveNum        = 0,
@@ -53,6 +71,7 @@ static const FATBootBlock_t BootBlock =
 		.FilesystemIdentifier    = "FAT12   ",
 	};
 
+/** FAT 8.3 style directory entry, for the virtual FLASH contents file. */
 static FATDirectoryEntry_t FirmwareFileEntry =
 	{
 		.Filename               = "FIRMWARE",
@@ -62,11 +81,22 @@ static FATDirectoryEntry_t FirmwareFileEntry =
 		.CreationTime           = FAT_TIME(1, 1, 0),
 		.CreationDate           = FAT_DATE(14, 2, 1989),
 		.StartingCluster        = 2,
-		.FileSizeBytes          = FIRMWARE_FILE_SIZE,
+		.FileSizeBytes          = FIRMWARE_FILE_SIZE_BYTES,
 	};
 
 
-static void UpdateFAT12ClusterEntry(uint8_t* FATTable,
+/** Updates a FAT12 cluster entry in the FAT file table with the specified next
+ *  chain index. If the cluster is the last in the file chain, the magic value
+ *  0xFFF is used.
+ *
+ *  \note FAT data cluster indexes are offset by 2, so that cluster 2 is the
+ *        first file data cluster on the disk. See the FAT specification.
+ *
+ *  \param[out]  FATTable    Pointer to the FAT12 allocation table
+ *  \param[in]   Index       Index of the cluster entry to update
+ *  \param[in]   ChainEntry  Next cluster index in the file chain
+ */
+static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
                                     const uint16_t Index,
                                     const uint16_t ChainEntry)
 {
@@ -88,7 +118,12 @@ static void UpdateFAT12ClusterEntry(uint8_t* FATTable,
 	}
 }
 
-static void WriteBlock(const uint16_t BlockNumber)
+/** Writes a block of data to the virtual FAT filesystem, from the USB Mass
+ *  Storage interface.
+ *
+ *  \param[in]  BlockNumber  Index of the block to write.
+ */
+static void WriteVirtualBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 
@@ -96,16 +131,12 @@ static void WriteBlock(const uint16_t BlockNumber)
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
-	if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
+	if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES))))
 	{
 		uint32_t WriteFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
 
 		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i += 2)
 		{
-			/* Disallow writing to the bootloader section */
-			if (WriteFlashAddress > BOOT_START_ADDR)
-			  continue;
-
 			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
 			{
 				/* Erase the given FLASH page, ready to be programmed */
@@ -127,7 +158,12 @@ static void WriteBlock(const uint16_t BlockNumber)
 	}
 }
 
-static void ReadBlock(const uint16_t BlockNumber)
+/** Reads a block of data from the virtual FAT filesystem, and sends it to the
+ *  host via the USB Mass Storage interface.
+ *
+ *  \param[in]  BlockNumber  Index of the block to read.
+ */
+static void ReadVirtualBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 	memset(BlockBuffer, 0x00, sizeof(BlockBuffer));
@@ -151,11 +187,11 @@ static void ReadBlock(const uint16_t BlockNumber)
 			UpdateFAT12ClusterEntry(BlockBuffer, 1, 0xFFF);
 
 			/* Cluster 2 onwards: Cluster chain of FIRMWARE.BIN */
-			for (uint16_t i = 0; i < FILE_CLUSTERS(FIRMWARE_FILE_SIZE); i++)
+			for (uint16_t i = 0; i < FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES); i++)
 			  UpdateFAT12ClusterEntry(BlockBuffer, i+2, i+3);
 
 			/* Mark last cluster as end of file */
-			UpdateFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(FIRMWARE_FILE_SIZE) + 1, 0xFFF);
+			UpdateFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES) + 1, 0xFFF);
 			break;
 
 		case 3: /* Block 3: Root file entries */
@@ -163,7 +199,7 @@ static void ReadBlock(const uint16_t BlockNumber)
 			break;
 
 		default: /* Blocks 4 onwards: Data allocation section */
-			if ((BlockNumber >= 4) && (BlockNumber < (4 + (FIRMWARE_FILE_SIZE / SECTOR_SIZE_BYTES))))
+			if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES))))
 			{
 				uint32_t ReadFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
 
@@ -179,6 +215,13 @@ static void ReadBlock(const uint16_t BlockNumber)
 	Endpoint_ClearIN();
 }
 
+/** Writes a number of blocks to the virtual FAT file system, from the host
+ *  PC via the USB Mass Storage interface.
+ *
+ *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
+ *  \param[in] BlockAddress  Data block starting address for the write sequence
+ *  \param[in] TotalBlocks   Number of blocks of data to write
+ */
 void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
                             const uint32_t BlockAddress,
                             uint16_t TotalBlocks)
@@ -188,9 +231,16 @@ void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 	/* Emulated FAT is performed per-block, pass each requested block index
 	 * to the emulated FAT block write function */
 	while (TotalBlocks--)
-	  WriteBlock(CurrentBlock++);
+	  WriteVirtualBlock(CurrentBlock++);
 }
 
+/** Reads a number of blocks from the virtual FAT file system, and sends them
+ *  to the host PC via the USB Mass Storage interface.
+ *
+ *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
+ *  \param[in] BlockAddress  Data block starting address for the read sequence
+ *  \param[in] TotalBlocks   Number of blocks of data to read
+ */
 void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
                            const uint32_t BlockAddress,
                            uint16_t TotalBlocks)
@@ -200,6 +250,6 @@ void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 	/* Emulated FAT is performed per-block, pass each requested block index
 	 * to the emulated FAT block read function */
 	while (TotalBlocks--)
-	  ReadBlock(CurrentBlock++);
+	  ReadVirtualBlock(CurrentBlock++);
 }
 

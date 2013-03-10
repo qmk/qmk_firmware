@@ -335,7 +335,7 @@ void EVENT_USB_Device_Connect(void)
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs and stops the Mass Storage management task.
+ *  the status LEDs and stops the Printer management task.
  */
 void EVENT_USB_Device_Disconnect(void)
 {

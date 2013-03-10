@@ -61,8 +61,8 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	};
 
 
-/** Main program entry point. This routine contains the overall program flow, including initial
- *  setup of all components and the main program loop.
+/** Main program entry point. This routine configures the hardware required by the application, then
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {
@@ -107,15 +107,19 @@ ISR(TIMER1_OVF_vect, ISR_BLOCK)
 	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
-/** Event handler for the library USB Connection event. */
+/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
 void EVENT_USB_Device_Connect(void)
 {
+	/* Indicate USB enumerating */
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
-/** Event handler for the library USB Disconnection event. */
+/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
+ *  the status LEDs and stops the Mass Storage management task.
+ */
 void EVENT_USB_Device_Disconnect(void)
 {
+	/* Indicate USB not ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
@@ -124,8 +128,10 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
 
+	/* Setup Mass Storage Data Endpoints */
 	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 
+	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 

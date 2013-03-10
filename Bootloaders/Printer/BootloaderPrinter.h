@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for Printer.c.
+ *  Header file for BootloaderPrinter.c.
  */
 
-#ifndef _PRINTER_H_
-#define _PRINTER_H_
+#ifndef _BOOTLOADER_PRINTER_H_
+#define _BOOTLOADER_PRINTER_H_
 
 	/* Includes: */
 		#include <avr/io.h>

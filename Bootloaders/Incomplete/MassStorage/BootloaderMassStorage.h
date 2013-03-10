@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for MassStorage.c.
+ *  Header file for BootloaderMassStorage.c.
  */
 
-#ifndef _MASS_STORAGE_H_
-#define _MASS_STORAGE_H_
+#ifndef _BOOTLOADER_MASS_STORAGE_H_
+#define _BOOTLOADER_MASS_STORAGE_H_
 
 	/* Includes: */
 		#include <avr/io.h>
