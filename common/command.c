@@ -133,8 +133,8 @@ static void print_eeprom_config(void)
     eebyte = eeconfig_read_defalt_layer();
     print("defalt_layer: "); print_hex8(eebyte); print("\n");
 
-    eebyte = eeconfig_read_modifier();
-    print("modifiers: "); print_hex8(eebyte); print("\n");
+    eebyte = eeconfig_read_keyconf();
+    print("keyconf: "); print_hex8(eebyte); print("\n");
 }
 
 static bool command_common(uint8_t code)
