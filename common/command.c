@@ -135,6 +135,15 @@ static void print_eeprom_config(void)
 
     eebyte = eeconfig_read_keyconf();
     print("keyconf: "); print_hex8(eebyte); print("\n");
+
+    keyconf kc = (keyconf){ .raw = eebyte };
+    print("keyconf.swap_control_capslock: "); print_hex8(kc.swap_control_capslock); print("\n");
+    print("keyconf.capslock_to_control: "); print_hex8(kc.capslock_to_control); print("\n");
+    print("keyconf.swap_lalt_lgui: "); print_hex8(kc.swap_lalt_lgui); print("\n");
+    print("keyconf.swap_ralt_rgui: "); print_hex8(kc.swap_ralt_rgui); print("\n");
+    print("keyconf.no_gui: "); print_hex8(kc.no_gui); print("\n");
+    print("keyconf.swap_grave_esc: "); print_hex8(kc.swap_grave_esc); print("\n");
+    print("keyconf.swap_backslash_backspace: "); print_hex8(kc.swap_backslash_backspace); print("\n");
 }
 
 static bool command_common(uint8_t code)
