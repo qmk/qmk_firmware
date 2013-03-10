@@ -51,8 +51,6 @@ static const FATBootBlock_t BootBlock =
 		.VolumeSerialNumber      = 0x12345678,
 		.VolumeLabel             = "LUFA BOOT  ",
 		.FilesystemIdentifier    = "FAT12   ",
-		.BootstrapProgram        = {0},
-		.MagicSignature          = 0xAA55,
 	};
 
 static FATDirectoryEntry_t FirmwareFileEntry =
@@ -138,6 +136,10 @@ static void ReadBlock(const uint16_t BlockNumber)
 	{
 		case 0: /* Block 0: Boot block sector */
 			memcpy(BlockBuffer, &BootBlock, sizeof(FATBootBlock_t));
+
+			/* Add the magic signature to the end of the block */
+			BlockBuffer[SECTOR_SIZE_BYTES - 2] = 0x55;
+			BlockBuffer[SECTOR_SIZE_BYTES - 1] = 0xAA;
 			break;
 
 		case 1: /* Block 1: First FAT12 cluster chain copy */

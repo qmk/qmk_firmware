@@ -72,8 +72,6 @@
 			uint32_t VolumeSerialNumber;
 			uint8_t  VolumeLabel[11];
 			uint8_t  FilesystemIdentifier[8];
-			uint8_t  BootstrapProgram[448];
-			uint16_t MagicSignature;
 		} FATBootBlock_t;
 
 		typedef struct

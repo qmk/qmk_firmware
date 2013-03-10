@@ -58,8 +58,8 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 	.ProductID              = 0x2045,
 	.ReleaseNumber          = VERSION_BCD(00.01),
 
-	.ManufacturerStrIndex   = 0x01,
-	.ProductStrIndex        = 0x02,
+	.ManufacturerStrIndex   = NO_DESCRIPTOR,
+	.ProductStrIndex        = NO_DESCRIPTOR,
 	.SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
@@ -135,28 +135,6 @@ const USB_Descriptor_String_t LanguageString =
 	.UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
-/** Manufacturer descriptor string. This is a Unicode string containing the manufacturer's details in human readable
- *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
- *  Descriptor.
- */
-const USB_Descriptor_String_t ManufacturerString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
-
-	.UnicodeString          = L"Dean Camera"
-};
-
-/** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
- *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
- *  Descriptor.
- */
-const USB_Descriptor_String_t ProductString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(15), .Type = DTYPE_String},
-
-	.UnicodeString          = L"LUFA Bootloader"
-};
-
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
  *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
@@ -189,14 +167,6 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 				case 0x00:
 					Address = &LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
-					break;
-				case 0x01:
-					Address = &ManufacturerString;
-					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
-					break;
-				case 0x02:
-					Address = &ProductString;
-					Size    = pgm_read_byte(&ProductString.Header.Size);
 					break;
 			}
 
