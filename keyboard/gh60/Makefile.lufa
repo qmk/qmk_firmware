@@ -107,6 +107,9 @@ CONSOLE_ENABLE = yes	# Console for debug(+400)
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
 
 
+# Optimize size but this may cause error "relocation truncated to fit"
+EXTRALDFLAGS = -Wl,--relax
+
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
