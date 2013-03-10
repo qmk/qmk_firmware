@@ -11,15 +11,16 @@
 #endif
 
 
-/* Boot Section Size in bytes
- * Teensy halfKay   512
- * Atmel DFU loader 4096
- * LUFA bootloader  4096
+/* Boot Section Size in *BYTEs*
+ * Teensy   halfKay     512
+ * Teensy++ halfKay     1024
+ * Atmel DFU loader     4096
+ * LUFA bootloader      4096
  */
 #ifndef BOOT_SIZE
 #define BOOT_SIZE 512
 #endif
-#define FLASH_SIZE          (FLASHEND + 1)
+#define FLASH_SIZE          (FLASHEND + 1L)
 #define BOOTLOADER_START    (FLASH_SIZE - BOOT_SIZE)
 
 
@@ -58,13 +59,15 @@ void bootloader_jump_after_watchdog_reset(void) __attribute__ ((used, naked, sec
 void bootloader_jump_after_watchdog_reset(void)
 {
     if ((MCUSR & (1<<WDRF)) && reset_key == BOOTLOADER_RESET_KEY) {
-
-        #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
-        // This makes custom USBasploader come up.
-        MCUSR = 0;
-        #endif
-
         reset_key = 0;
+
+        // My custom USBasploader requires this to come up.
+        MCUSR = 0;
+
+        // Seems like Teensy halfkay loader requires clearing WDRF and disabling watchdog.
+        MCUSR &= ~(1<<WDRF);
+        wdt_disable();
+
         ((void (*)(void))BOOTLOADER_START)();
     }
 }
@@ -138,4 +141,4 @@ void bootloader_jump(void) {
     // start Bootloader
     ((void (*)(void))BOOTLOADER_START)();
 }
-#endif     
+#endif
