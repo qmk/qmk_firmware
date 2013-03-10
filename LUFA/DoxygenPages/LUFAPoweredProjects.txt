@@ -105,6 +105,7 @@
  *  \li PPM signal generator over USB: https://github.com/G33KatWork/USBPPM
  *  \li Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
  *  \li Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
+ *  \li Project Surface, a touch interface controller for Windows 8: https://code.google.com/p/project-surface/
  *  \li PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  \li PS/2 to USB adapter: https://github.com/makestuff/p2ukbd
  *  \li RaspiFace, an Arduino platform bridge for the Raspberry Pi: http://www.raspiface.com/
