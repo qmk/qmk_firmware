@@ -72,16 +72,34 @@ static const FATBootBlock_t BootBlock =
 	};
 
 /** FAT 8.3 style directory entry, for the virtual FLASH contents file. */
-static FATDirectoryEntry_t FirmwareFileEntry =
+static FATDirectoryEntry_t FirmwareFileEntries[2] =
 	{
-		.Filename               = "FIRMWARE",
-		.Extension              = "BIN",
-		.Attributes             = 0,
-		.Reserved               = {0},
-		.CreationTime           = FAT_TIME(1, 1, 0),
-		.CreationDate           = FAT_DATE(14, 2, 1989),
-		.StartingCluster        = 2,
-		.FileSizeBytes          = FIRMWARE_FILE_SIZE_BYTES,
+		/* Root volume label entry; disk label is contained in the Filename and
+		 * Extension fields (concantenated) with a special attribute flag - other
+		 * fields are ignored. Should be the same as the label in the boot block.
+		 */
+		{
+			.Filename               = "LUFA BOO",
+			.Extension              = "T  ",
+			.Attributes             = (1 << 3),
+			.Reserved               = {0},
+			.CreationTime           = 0,
+			.CreationDate           = 0,
+			.StartingCluster        = 0,
+			.FileSizeBytes          = 0,
+		},
+
+		/* File entry for the virtual Firmware image. */
+		{
+			.Filename               = "FIRMWARE",
+			.Extension              = "BIN",
+			.Attributes             = 0,
+			.Reserved               = {0},
+			.CreationTime           = FAT_TIME(1, 1, 0),
+			.CreationDate           = FAT_DATE(14, 2, 1989),
+			.StartingCluster        = 2,
+			.FileSizeBytes          = FIRMWARE_FILE_SIZE_BYTES,
+		},
 	};
 
 
@@ -101,8 +119,8 @@ static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
                                     const uint16_t ChainEntry)
 {
 	/* Calculate the starting offset of the cluster entry in the FAT12 table */
-	uint8_t FATOffset   =   (Index * 3) / 2;
-	bool    UpperNibble = (((Index * 3) % 2) != 0);
+	uint8_t FATOffset   = (Index + (Index >> 1));
+	bool    UpperNibble = ((Index & 1) != 0);
 
 	/* Check if the start of the entry is at an upper nibble of the byte, fill
 	 * out FAT12 entry as required */
@@ -195,7 +213,7 @@ static void ReadVirtualBlock(const uint16_t BlockNumber)
 			break;
 
 		case 3: /* Block 3: Root file entries */
-			memcpy(BlockBuffer, &FirmwareFileEntry, sizeof(FATDirectoryEntry_t));
+			memcpy(BlockBuffer, FirmwareFileEntries, sizeof(FirmwareFileEntries));
 			break;
 
 		default: /* Blocks 4 onwards: Data allocation section */

@@ -39,7 +39,7 @@
 
 	/* Macros: */
 		/** Size of the virtual FIRMWARE.BIN file in bytes. */
-		#define FIRMWARE_FILE_SIZE_BYTES  (FLASHEND - (FLASHEND - BOOT_START_ADDR) + 1UL)
+		#define FIRMWARE_FILE_SIZE_BYTES  (FLASHEND - (FLASHEND - BOOT_START_ADDR))
 
 		/** Number of sectors that comprise a single logical disk cluster. */
 		#define SECTOR_PER_CLUSTER        4

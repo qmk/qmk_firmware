@@ -57,7 +57,7 @@
  *
  *  \section Sec_Installation Driver Installation
  *
- *  This bootloader uses the Mass Storage printer drivers inbuilt into all modern operating systems, thus no additional
+ *  This bootloader uses the Mass Storage drivers inbuilt into all modern operating systems, thus no additional
  *  drivers need to be supplied for correct operation.
  *
  *  \section Sec_HostApp Host Controller Application
