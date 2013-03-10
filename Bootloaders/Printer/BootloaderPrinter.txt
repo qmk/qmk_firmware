@@ -104,7 +104,7 @@
  *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
  *
  *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
- *  #define BOOTLOADER_PRINTER_SIGNATURE       0xCDC1
+ *  #define BOOTLOADER_PRINTER_SIGNATURE       0xDF20
  *
  *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
  *  #define BOOTLOADER_ADDRESS_LENGTH          4
@@ -151,7 +151,7 @@
  *  Bootloaders reporting a device release revision number of 1.00 or greater are bootloader API enabled. From the application
  *  the API support of the bootloader can be detected by reading the FLASH memory bytes located at address \c BOOTLOADER_MAGIC_SIGNATURE_START
  *  and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader can be determined by reading the
- *  FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them to the value \c BOOTLOADER_CDC_SIGNATURE.
+ *  FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them to the value \c BOOTLOADER_PRINTER_SIGNATURE.
  *  The start address of the bootloader can be retrieved by reading the bytes of FLASH memory starting from address \c BOOTLOADER_ADDRESS_START.
  *
  *  \section Sec_Options Project Options
