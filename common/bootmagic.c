@@ -27,6 +27,28 @@ void bootmagic(void)
     if (bootmagic_scan_keycode(BOOTMAGIC_EEPROM_CLEAR_KEY)) {
         eeconfig_init();
     }
+
+    if (bootmagic_scan_keycode(BOOTMAGIC_SWAP_CONTROL_CPASLOCK)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_SWAP_CONTROL_CAPSLOCK);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_CAPSLOCK_TO_CONTROL)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_CAPSLOCK_TO_CONTROL);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_SWAP_LALT_LGUI)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_SWAP_LALT_LGUI);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_SWAP_RALT_RGUI)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_SWAP_RALT_RGUI);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_NO_GUI)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_NO_GUI);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_SWAP_GRAVE_ESC)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_SWAP_GRAVE_ESC);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_SWAP_BACKSLASH_BACKSPACE)) {
+        eeconfig_write_keyconf(eeconfig_read_keyconf() ^ EECONFIG_KEYCONF_SWAP_BACKSLASH_BACKSPACE);
+    }
 }
 
 bool bootmagic_scan_keycode(uint8_t keycode)
