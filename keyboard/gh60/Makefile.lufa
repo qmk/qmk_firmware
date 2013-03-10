@@ -107,13 +107,6 @@ CONSOLE_ENABLE = yes	# Console for debug(+400)
 #PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
 
 
-# Boot Section Size in bytes
-#   Teensy halfKay   512
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-OPT_DEFS += -DBOOT_SIZE=4096
-
-
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)

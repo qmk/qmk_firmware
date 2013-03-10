@@ -49,15 +49,6 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control
 #NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
-# Boot Section Size in *BYTEs*
-#   Teensy   halfKay    512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-OPT_DEFS += -DBOOT_SIZE=2048
-
-
 
 #---------------- Programming Options --------------------------
 AVRDUDE = avrdude
