@@ -34,14 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mousekey.h"
 #endif
 
-#ifdef HOST_PJRC
+#ifdef PROTOCOL_PJRC
 #   include "usb_keyboard.h"
 #   ifdef EXTRAKEY_ENABLE
 #       include "usb_extra.h"
 #   endif
 #endif
 
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
 #   include "usbdrv.h"
 #endif
 
@@ -238,7 +238,7 @@ static bool command_common(uint8_t code)
         case KC_S:
             print("\n\n----- Status -----\n");
             print_val_hex8(host_keyboard_leds());
-#ifdef HOST_PJRC
+#ifdef PROTOCOL_PJRC
             print_val_hex8(UDCON);
             print_val_hex8(UDIEN);
             print_val_hex8(UDINT);
@@ -248,7 +248,7 @@ static bool command_common(uint8_t code)
             print_val_hex8(usb_keyboard_idle_count);
 #endif
 
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_PJRC
 #   if USB_COUNT_SOF
             print_val_hex8(usbSofCount);
 #   endif
@@ -267,7 +267,7 @@ static bool command_common(uint8_t code)
 #ifdef EXTRAKEY_ENABLE
         case KC_PSCREEN:
             // TODO: Power key should take this feature? otherwise any key during suspend.
-#ifdef HOST_PJRC
+#ifdef PROTOCOL_PJRC
             if (suspend && remote_wakeup) {
                 usb_remote_wakeup();
             } else {
