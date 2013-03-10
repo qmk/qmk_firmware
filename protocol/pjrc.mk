@@ -19,7 +19,4 @@ endif
 VPATH += $(TOP_DIR)/$(PJRC_DIR)
 
 # This indicates using LUFA stack
-# TODO: remove HOST_PJRC
-OPT_DEFS += -DHOST_PJRC
 OPT_DEFS += -DPROTOCOL_PJRC
-
