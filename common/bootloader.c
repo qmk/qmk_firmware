@@ -12,16 +12,18 @@
 
 
 /* Boot Section Size in *BYTEs*
- * Teensy   halfKay     512
- * Teensy++ halfKay     1024
- * Atmel DFU loader     4096
- * LUFA bootloader      4096
+ *   Teensy   halfKay    512
+ *   Teensy++ halfKay    1024
+ *   Atmel DFU loader    4096
+ *   LUFA bootloader     4096
+ *   USBaspLoader        2048
  */
-#ifndef BOOT_SIZE
-#define BOOT_SIZE 512
+#ifndef BOOTLOADER_SIZE
+#warn To use bootloader_jump() you need to define BOOTLOADER_SIZE in config.h.
 #endif
+
 #define FLASH_SIZE          (FLASHEND + 1L)
-#define BOOTLOADER_START    (FLASH_SIZE - BOOT_SIZE)
+#define BOOTLOADER_START    (FLASH_SIZE - BOOTLOADER_SIZE)
 
 
 /* 
