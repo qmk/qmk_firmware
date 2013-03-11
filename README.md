@@ -18,6 +18,7 @@ Features
 * Macro               - Very primitive at this time
 * Keyboard Tricks     - Oneshot modifier and modifier with tapping feature
 * Debug Console       - Messages for debug and interaction with firmware
+* Virtual DIP Switch  - Configurations stored EEPROM(Boot Magic)
 
 
 Projects
@@ -164,13 +165,15 @@ Makefile Options
 ### 2. Features
 Note that ***comment out*** to disable them.
 
-    MOUSEKEY_ENABLE = yes	# Mouse keys
-    PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
-    EXTRAKEY_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
-    NKRO_ENABLE = yes		# USB Nkey Rollover
+    BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
+    MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+    EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+    CONSOLE_ENABLE = yes        # Console for debug(+400)
+    #NKRO_ENABLE = yes          # USB Nkey Rollover - not yet supported in LUFA
+    #PS2_MOUSE_ENABLE = yes     # PS/2 mouse(TrackPoint) support
 
 ### 3. Programmer
-Optional. Set proper command for your controller, bootloader and programmer.
+Optional. Set proper command for your controller, bootloader and programmer. This command can be used with `make program`.
 
     # for PJRC Teensy
     PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
@@ -273,16 +276,24 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
     Caps:   Lock Keyboard(Child Proof)
     Paus:   jump to bootloader
 
-### Boot Magic
-Magic commands are executed when boot time. Press `Magic` command key then pulgin.
+**TBD**
 
-Define these macros in config.h.
+### Conguration with Boot Magic
+Boot Magic are executed during boot up time. Press Magic key below then pulgin keyboard cable.
+These settings are stored in EEPROM.
 
-    IS_BOOTMAGIC_DEBUG
-    IS_BOOTMAGIC_BOOTLOADER
+- Clear configuration stored in EEPROM(`Backspace`)
+- Kick up Bootloader(`B`)
+- Debug enable(`D`)
+- Swap Control and CapsLock(`Left Control`)
+- Change CapsLock to Control(`Casp Lock`)
+- Swap LeftAlt and Gui(`Left Alt`)
+- Swap RightAlt and Gui(`Right Alt`)
+- Disable Gui(`Left Gui`)
+- Swap Grave and Escape(`Grave`)
+- Swap BackSlash and BackSpace(`Back Slash`)
 
-***TODO: sample impl***
-See `keyboard/hhkb/config.h` for sample.
+**TBD**
 
 
 
