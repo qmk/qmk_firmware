@@ -231,7 +231,8 @@ uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
         if (layer < OVERLAYS_SIZE) {
             return pgm_read_byte(&overlays[(layer)][(key.row)][(key.col)]);
         } else {
-            debug("key_to_keycode: overlay "); debug_dec(layer); debug(" is invalid.\n");
+            // XXX: this may cuaes bootlaoder_jump incositent fail.
+            //debug("key_to_keycode: overlay "); debug_dec(layer); debug(" is invalid.\n");
             return KC_TRANSPARENT;
         }
     } 
@@ -240,8 +241,9 @@ uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
         if (layer < KEYMAPS_SIZE) {
             return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
         } else {
+            // XXX: this may cuaes bootlaoder_jump incositent fail.
+            //debug("key_to_keycode: base "); debug_dec(layer); debug(" is invalid.\n");
             // fall back to layer 0
-            debug("key_to_keycode: base "); debug_dec(layer); debug(" is invalid.\n");
             return pgm_read_byte(&keymaps[0][(key.row)][(key.col)]);
         }
     }

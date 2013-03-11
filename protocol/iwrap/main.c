@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "host.h"
 #include "iwrap.h"
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
 #   include "vusb.h"
 #   include "usbdrv.h"
 #endif
@@ -78,7 +78,7 @@ static void pullup_pins(void)
 */
 
 
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
 static void disable_vusb(void)
 {
     // disable interrupt & disconnect to prevent host from enumerating
@@ -131,7 +131,7 @@ int main(void)
     //pullup_pins();
     //set_prr();
 
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
     disable_vusb();
 #endif
     uart_init(115200);
@@ -159,12 +159,12 @@ int main(void)
 
     last_timer = timer_read();
     while (true) {
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
         if (host_get_driver() == vusb_driver())
             usbPoll();
 #endif
         keyboard_task();
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
         if (host_get_driver() == vusb_driver())
             vusb_transfer_keyboard();
 #endif
@@ -258,7 +258,7 @@ static uint8_t console_command(uint8_t c)
             print("r: reset. software reset by watchdog\n");
             print("i: insomniac. prevent KB from sleeping\n");
             print("c: iwrap_call. CALL for BT connection.\n");
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
             print("u: USB mode. switch to USB.\n");
             print("w: BT mode. switch to Bluetooth.\n");
 #endif
@@ -281,7 +281,7 @@ static uint8_t console_command(uint8_t c)
             print("iwrap_call()\n");
             iwrap_call();
             return 1;
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
         case 'u':
             print("USB mode\n");
             init_vusb();

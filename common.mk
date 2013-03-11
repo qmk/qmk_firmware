@@ -14,6 +14,12 @@ SRC +=	$(COMMON_DIR)/host.c \
 
 
 # Option modules
+ifdef BOOTMAGIC_ENABLE
+    SRC += $(COMMON_DIR)/bootmagic.c
+    SRC += $(COMMON_DIR)/eeconfig.c
+    OPT_DEFS += -DBOOTMAGIC_ENABLE
+endif
+
 ifdef MOUSEKEY_ENABLE
     SRC += $(COMMON_DIR)/mousekey.c
     OPT_DEFS += -DMOUSEKEY_ENABLE

@@ -1,6 +1,6 @@
 VUSB_DIR = protocol/vusb
 
-OPT_DEFS += -DHOST_VUSB
+OPT_DEFS += -DPROTOCOL_VUSB
 
 SRC +=	$(VUSB_DIR)/main.c \
 	$(VUSB_DIR)/vusb.c \

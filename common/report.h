@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* key report size(NKRO or boot mode) */
-#if defined(HOST_PJRC)
+#if defined(PROTOCOL_PJRC)
 #   include "usb.h"
 #   if defined(KBD2_REPORT_KEYS) && KBD2_REPORT_KEYS > KBD_REPORT_KEYS
 #       define REPORT_KEYS KBD2_REPORT_KEYS
