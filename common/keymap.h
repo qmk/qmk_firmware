@@ -23,24 +23,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 
 
-#ifdef USE_KEYMAP_V2
-/* translates key to keycode
- *      layer:  0-15 for base layers
- *              16-31 for overlays
- */
+/* translates key to keycode */
 uint8_t keymap_key_to_keycode(uint8_t layer, key_t key);
+
 /* translates Fn keycode to action */
 action_t keymap_fn_to_action(uint8_t keycode);
-#else
-#warning "You are using LEGACY KEYAMP. Consider using NEW KEYMAP."
+
+
+
+#ifdef USE_LEGACY_KEYMAP
 /* 
- * legacy keymap support
+ * Legacy keymap
+ *      Consider using new keymap API above instead.
  */
 /* keycode of key */
+__attribute__ ((deprecated))
 uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col);
+
 /* layer to move during press Fn key */
+__attribute__ ((deprecated))
 uint8_t keymap_fn_layer(uint8_t fn_bits);
+
 /* keycode to send when release Fn key without using */
+__attribute__ ((deprecated))
 uint8_t keymap_fn_keycode(uint8_t fn_bits);
 #endif
 

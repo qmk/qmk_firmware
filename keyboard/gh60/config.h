@@ -25,19 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    geekhack
 #define PRODUCT         GH60
-/* message strings */
 #define DESCRIPTION     t.m.k. keyboard firmware for GH60
-
-
-/* Boot Section Size in *BYTEs*
- *   Teensy   halfKay    512
- *   Teensy++ halfKay    1024
- *   Atmel DFU loader    4096
- *   LUFA bootloader     4096
- *   USBaspLoader        2048
- */
-#define BOOTLOADER_SIZE 4096
-
 
 /* matrix size */
 #define MATRIX_ROWS 5
@@ -49,13 +37,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if need no debouncing */
 #define DEBOUNCE    5
 
-/* To use new keymap framework */
-#define USE_KEYMAP_V2
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+/* Boot Section Size in *BYTEs*
+ *   Teensy   halfKay    512
+ *   Teensy++ halfKay    1024
+ *   Atmel DFU loader    4096
+ *   LUFA bootloader     4096
+ *   USBaspLoader        2048
+ */
+#define BOOTLOADER_SIZE 4096
 
 /* 
  * Boot magic keys
