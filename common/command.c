@@ -123,6 +123,7 @@ static void command_common_help(void)
     print("Paus:	jump to bootloader\n");
 }
 
+#ifdef BOOTMAGIC_ENABLE
 static void print_eeprom_config(void)
 {
     uint8_t eebyte;
@@ -145,15 +146,18 @@ static void print_eeprom_config(void)
     print("keyconf.swap_grave_esc: "); print_hex8(kc.swap_grave_esc); print("\n");
     print("keyconf.swap_backslash_backspace: "); print_hex8(kc.swap_backslash_backspace); print("\n");
 }
+#endif
 
 static bool command_common(uint8_t code)
 {
     static host_driver_t *host_driver = 0;
     switch (code) {
+#ifdef BOOTMAGIC_ENABLE
         case KC_E:
             print("eeprom config\n");
             print_eeprom_config();
             break;
+#endif
         case KC_CAPSLOCK:
             if (host_get_driver()) {
                 host_driver = host_get_driver();

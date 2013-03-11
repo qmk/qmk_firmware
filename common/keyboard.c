@@ -29,10 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "sendchar.h"
 #include "bootmagic.h"
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey.h"
-#endif
 #include "eeconfig.h"
+#include "mousekey.h"
 
 
 #ifdef MATRIX_HAS_GHOST
@@ -64,6 +62,7 @@ void keyboard_init(void)
     ps2_mouse_init();
 #endif
 
+#ifdef BOOTMAGIC_ENABLE
     bootmagic();
 
     if (eeconfig_is_enabled()) {
@@ -77,6 +76,7 @@ void keyboard_init(void)
     } else {
         eeconfig_init();
     }
+#endif
 }
 
 /*
