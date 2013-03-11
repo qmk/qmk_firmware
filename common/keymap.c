@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static action_t keycode_to_action(uint8_t keycode);
 
-#ifdef USE_KEYMAP_V2
+
 /* converts key to action */
 action_t action_for_key(uint8_t layer, key_t key)
 {
@@ -38,42 +38,20 @@ action_t action_for_key(uint8_t layer, key_t key)
             return keycode_to_action(keycode);
     }
 }
-#else
-/* 
- * legacy keymap support
- */
-/* translation for legacy keymap */
-action_t action_for_key(uint8_t layer, key_t key)
+
+
+/* Macro */
+__attribute__ ((weak))
+const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    /* convert from legacy keycode to action */
-    /* layer 16-31 indicate 'overlay' but not supported in legacy keymap */
-    uint8_t keycode = keymap_get_keycode((layer & OVERLAY_MASK), key.row, key.col);
-    action_t action;
-    switch (keycode) {
-        case KC_FN0 ... KC_FN31:
-            {
-                uint8_t layer = keymap_fn_layer(FN_INDEX(keycode));
-                uint8_t key = keymap_fn_keycode(FN_INDEX(keycode));
-                if (key) {
-                    action.code = ACTION_KEYMAP_TAP_KEY(layer, key);
-                } else {
-                    action.code = ACTION_KEYMAP_MOMENTARY(layer);
-                }
-            }
-            return action;
-        default:
-            return keycode_to_action(keycode);
-    }
+    return MACRO_NONE;
 }
-#endif
 
-
+/* Function */
 __attribute__ ((weak))
-const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { return MACRO_NONE; }
-
-__attribute__ ((weak))
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {}
-
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+}
 
 
 
@@ -83,13 +61,8 @@ static action_t keycode_to_action(uint8_t keycode)
     action_t action;
     switch (keycode) {
         case KC_A ... KC_EXSEL:
+        case KC_LCTRL ... KC_RGUI:
             action.code = ACTION_KEY(keycode);
-            break;
-        case KC_LCTRL ... KC_LGUI:
-            action.code = ACTION_LMOD(keycode);
-            break;
-        case KC_RCTRL ... KC_RGUI:
-            action.code = ACTION_RMOD(keycode);
             break;
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
@@ -109,3 +82,40 @@ static action_t keycode_to_action(uint8_t keycode)
     }
     return action;
 }
+
+
+
+#ifdef USE_LEGACY_KEYMAP
+/*
+ * Legacy keymap support
+ *      Consider using new keymap API instead.
+ */
+__attribute__ ((weak))
+uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
+{
+    return keymap_get_keycode(layer, key.row, key.col);
+}
+
+
+/* Legacy keymap support */
+__attribute__ ((weak))
+action_t keymap_fn_to_action(uint8_t keycode)
+{
+    action_t action = { .code = ACTION_NO };
+    switch (keycode) {
+        case KC_FN0 ... KC_FN31:
+            {
+                uint8_t layer = keymap_fn_layer(FN_INDEX(keycode));
+                uint8_t key = keymap_fn_keycode(FN_INDEX(keycode));
+                if (key) {
+                    action.code = ACTION_KEYMAP_TAP_KEY(layer, key);
+                } else {
+                    action.code = ACTION_KEYMAP_MOMENTARY(layer);
+                }
+            }
+            return action;
+        default:
+            return action;
+    }
+}
+#endif

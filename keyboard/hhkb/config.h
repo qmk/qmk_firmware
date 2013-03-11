@@ -27,17 +27,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0103
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         HHKB mod
-
-
 #define DESCRIPTION     t.m.k. keyboard firmware for HHKB mod
+
+
+/* Boot Section Size in *BYTEs*
+ *   Teensy   halfKay    512
+ *   Teensy++ halfKay    1024
+ *   Atmel DFU loader    4096
+ *   LUFA bootloader     4096
+ *   USBaspLoader        2048
+ */
+#define BOOTLOADER_SIZE 1024
 
 
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
-
-/* To use new keymap framework */
-#define USE_KEYMAP_V2
 
 /* 
  * Boot magic keys

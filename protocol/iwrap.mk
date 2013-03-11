@@ -1,6 +1,6 @@
 IWRAP_DIR = protocol/iwrap
 
-OPT_DEFS += -DHOST_IWRAP
+OPT_DEFS += -DPROTOCOL_IWRAP
 
 SRC +=	$(IWRAP_DIR)/iwrap.c \
 	$(IWRAP_DIR)/suart.S \

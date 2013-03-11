@@ -27,20 +27,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "bootloader.h"
 #include "layer_switch.h"
+#include "eeconfig.h"
 #include "command.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
 
-#ifdef HOST_PJRC
+#ifdef PROTOCOL_PJRC
 #   include "usb_keyboard.h"
 #   ifdef EXTRAKEY_ENABLE
 #       include "usb_extra.h"
 #   endif
 #endif
 
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_VUSB
 #   include "usbdrv.h"
 #endif
 
@@ -108,6 +109,7 @@ static void command_common_help(void)
     print("v:	print device version & info\n");
     print("t:	print timer count\n");
     print("s:	print status\n");
+    print("e:	print eeprom boot config\n");
 #ifdef NKRO_ENABLE
     print("n:	toggle NKRO\n");
 #endif
@@ -121,10 +123,41 @@ static void command_common_help(void)
     print("Paus:	jump to bootloader\n");
 }
 
+#ifdef BOOTMAGIC_ENABLE
+static void print_eeprom_config(void)
+{
+    uint8_t eebyte;
+    
+    eebyte = eeconfig_read_debug();
+    print("debug: "); print_hex8(eebyte); print("\n");
+
+    eebyte = eeconfig_read_defalt_layer();
+    print("defalt_layer: "); print_hex8(eebyte); print("\n");
+
+    eebyte = eeconfig_read_keyconf();
+    print("keyconf: "); print_hex8(eebyte); print("\n");
+
+    keyconf kc = (keyconf){ .raw = eebyte };
+    print("keyconf.swap_control_capslock: "); print_hex8(kc.swap_control_capslock); print("\n");
+    print("keyconf.capslock_to_control: "); print_hex8(kc.capslock_to_control); print("\n");
+    print("keyconf.swap_lalt_lgui: "); print_hex8(kc.swap_lalt_lgui); print("\n");
+    print("keyconf.swap_ralt_rgui: "); print_hex8(kc.swap_ralt_rgui); print("\n");
+    print("keyconf.no_gui: "); print_hex8(kc.no_gui); print("\n");
+    print("keyconf.swap_grave_esc: "); print_hex8(kc.swap_grave_esc); print("\n");
+    print("keyconf.swap_backslash_backspace: "); print_hex8(kc.swap_backslash_backspace); print("\n");
+}
+#endif
+
 static bool command_common(uint8_t code)
 {
     static host_driver_t *host_driver = 0;
     switch (code) {
+#ifdef BOOTMAGIC_ENABLE
+        case KC_E:
+            print("eeprom config\n");
+            print_eeprom_config();
+            break;
+#endif
         case KC_CAPSLOCK:
             if (host_get_driver()) {
                 host_driver = host_get_driver();
@@ -218,7 +251,7 @@ static bool command_common(uint8_t code)
         case KC_S:
             print("\n\n----- Status -----\n");
             print_val_hex8(host_keyboard_leds());
-#ifdef HOST_PJRC
+#ifdef PROTOCOL_PJRC
             print_val_hex8(UDCON);
             print_val_hex8(UDIEN);
             print_val_hex8(UDINT);
@@ -228,7 +261,7 @@ static bool command_common(uint8_t code)
             print_val_hex8(usb_keyboard_idle_count);
 #endif
 
-#ifdef HOST_VUSB
+#ifdef PROTOCOL_PJRC
 #   if USB_COUNT_SOF
             print_val_hex8(usbSofCount);
 #   endif
@@ -247,7 +280,7 @@ static bool command_common(uint8_t code)
 #ifdef EXTRAKEY_ENABLE
         case KC_PSCREEN:
             // TODO: Power key should take this feature? otherwise any key during suspend.
-#ifdef HOST_PJRC
+#ifdef PROTOCOL_PJRC
             if (suspend && remote_wakeup) {
                 usb_remote_wakeup();
             } else {

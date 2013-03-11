@@ -25,11 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Sun keyboard converter
 #define DESCRIPTION     converts Sun keyboard protocol into USB
 
-
 /* matrix size */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 8
-
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -37,6 +35,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
+
+/* Boot Section Size in *BYTEs*
+ *   Teensy   halfKay    512
+ *   Teensy++ halfKay    1024
+ *   Atmel DFU loader    4096
+ *   LUFA bootloader     4096
+ *   USBaspLoader        2048
+ */
+#define BOOTLOADER_SIZE 4096
 
 
 /* Serial(USART) configuration

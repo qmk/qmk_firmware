@@ -28,10 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "util.h"
 #include "sendchar.h"
-#include "bootloader.h"
-#ifdef MOUSEKEY_ENABLE
+#include "bootmagic.h"
+#include "eeconfig.h"
 #include "mousekey.h"
-#endif
 
 
 #ifdef MATRIX_HAS_GHOST
@@ -59,26 +58,24 @@ void keyboard_init(void)
 
     timer_init();
     matrix_init();
-
-    /* matrix scan for boot magic keys */
-#ifdef DEBOUNCE
-    uint8_t scan = DEBOUNCE * 2;
-    while (scan--) { matrix_scan(); _delay_ms(1); }
-#else
-    matrix_scan();
-#endif
-
-    /* boot magic keys */
-#ifdef IS_BOOTMAGIC_BOOTLOADER
-    /* kick up bootloader */
-    if (IS_BOOTMAGIC_BOOTLOADER()) bootloader_jump();
-#endif
-#ifdef IS_BOOTMAGIC_DEBUG
-    if (IS_BOOTMAGIC_DEBUG()) debug_enable = true;
-#endif
-
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
+#endif
+
+#ifdef BOOTMAGIC_ENABLE
+    bootmagic();
+
+    if (eeconfig_is_enabled()) {
+        uint8_t config;
+        config = eeconfig_read_debug();
+        // ignored if debug is enabled by program before.
+        if (!debug_enable)   debug_enable   = (config & EECONFIG_DEBUG_ENABLE);
+        if (!debug_matrix)   debug_matrix   = (config & EECONFIG_DEBUG_MATRIX);
+        if (!debug_keyboard) debug_keyboard = (config & EECONFIG_DEBUG_KEYBOARD);
+        if (!debug_mouse)    debug_mouse    = (config & EECONFIG_DEBUG_MOUSE);
+    } else {
+        eeconfig_init();
+    }
 #endif
 }
 
