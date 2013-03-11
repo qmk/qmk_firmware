@@ -19,7 +19,8 @@
  *   USBaspLoader        2048
  */
 #ifndef BOOTLOADER_SIZE
-#warn To use bootloader_jump() you need to define BOOTLOADER_SIZE in config.h.
+#warning To use bootloader_jump() you need to define BOOTLOADER_SIZE in config.h.
+#define BOOTLOADER_SIZE     4096
 #endif
 
 #define FLASH_SIZE          (FLASHEND + 1L)
