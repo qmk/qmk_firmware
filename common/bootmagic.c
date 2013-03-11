@@ -10,11 +10,11 @@
 
 void bootmagic(void)
 {
+    if (!BOOTMAGIC_IS_ENABLED()) { return; }
+
     /* do scans in case of bounce */
     uint8_t scan = 100;
     while (scan--) { matrix_scan(); _delay_ms(1); }
-
-    if (!BOOTMAGIC_IS_ENABLE()) { return; }
 
     if (bootmagic_scan_keycode(BOOTMAGIC_BOOTLOADER_KEY)) {
         bootloader_jump();
