@@ -81,6 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_APP  KC_APPLICATION
 #define KC_NUHS KC_NONUS_HASH
 #define KC_NUBS KC_NONUS_BSLASH
+#define KC_LCAP KC_LOCKING_CAPS
 #define KC_ERAS KC_ALT_ERASE,
 #define KC_CLR  KC_CLEAR
 /* Japanese specific */
