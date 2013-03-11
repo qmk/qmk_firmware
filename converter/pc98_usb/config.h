@@ -30,9 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS     16
 #define MATRIX_COLS     8
 
-/* To use new keymap framework */
-#define USE_KEYMAP_V2
-
 /* key combination for command */
 #define IS_COMMAND()    ( \
     host_get_first_key() == KC_CANCEL \
