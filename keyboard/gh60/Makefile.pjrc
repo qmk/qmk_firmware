@@ -47,7 +47,7 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
-# keyboard dependent files
+# project specific files
 SRC =	keymap.c \
 	matrix.c \
 	led.c
@@ -57,10 +57,8 @@ CONFIG_H = config.h
 
 # MCU name, you MUST set this to match the board you are using
 # type "make clean" after changing this, so all files will be rebuilt
-#MCU = at90usb162       # Teensy 1.0
-MCU = atmega32u4       # Teensy 2.0
-#MCU = at90usb646       # Teensy++ 1.0
-#MCU = at90usb1286      # Teensy++ 2.0
+MCU = atmega32u4
+#MCU = at90usb1286
 
 
 # Processor frequency.
@@ -79,6 +77,7 @@ OPT_DEFS += -DBOOT_SIZE=4096
 # Build Options
 #   comment out to disable the options.
 #
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes	# Mouse keys(+5000)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+600)
 NKRO_ENABLE = yes	# USB Nkey Rollover(+500)
