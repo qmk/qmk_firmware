@@ -2,8 +2,8 @@
 #define BOOTMAGIC_H
 
 
-#ifndef BOOTMAGIC_IS_ENABLE
-#define BOOTMAGIC_IS_ENABLE()           true
+#ifndef BOOTMAGIC_IS_ENABLED
+#define BOOTMAGIC_IS_ENABLED()          true
 #endif
 
 /* kick up bootloader */

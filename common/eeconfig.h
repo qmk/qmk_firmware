@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
+#ifndef EECONFIG_IS_ENABLED
+#define EECONFIG_IS_ENABLED()       true
+#endif
+
 #define EECONFIG_MAGIC_NUMBER                   (uint16_t)0xFEED
 
 /* eeprom parameteter address */
@@ -61,9 +65,13 @@ typedef union {
     };
 } keyconf;
 
-bool eeconfig_initialized(void);
+bool eeconfig_is_enabled(void);
 
 void eeconfig_init(void);
+
+void eeconfig_enable(void);
+
+void eeconfig_disable(void);
 
 uint8_t eeconfig_read_debug(void);
 void eeconfig_write_debug(uint8_t val);

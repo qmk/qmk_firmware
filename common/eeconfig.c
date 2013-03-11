@@ -13,9 +13,19 @@ void eeconfig_init(void)
     eeprom_write_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
 }
 
-bool eeconfig_initialized(void)
+void eeconfig_enable(void)
 {
-    return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
+    eeprom_write_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
+}
+
+void eeconfig_disable(void)
+{
+    eeprom_write_word(EECONFIG_MAGIC, 0xFFFF);
+}
+
+bool eeconfig_is_enabled(void)
+{
+    return EECONFIG_IS_ENABLED() && (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
 }
 
 uint8_t eeconfig_read_debug(void)      { return eeprom_read_byte(EECONFIG_DEBUG); }
