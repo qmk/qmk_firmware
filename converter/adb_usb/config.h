@@ -32,11 +32,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 16  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
 
-/* Locking Caps Lock support */
-#define MATRIX_HAS_LOCKING_CAPS
-
 #define MATRIX_ROW(code)    ((code)>>3&0x0F)
 #define MATRIX_COL(code)    ((code)&0x07)
+
+
+/* Locking Caps Lock support */
+//#define MATRIX_HAS_LOCKING_CAPS
+/* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
+#define CAPSLOCK_LOCKING_ENABLE
+/* Locking CapsLock resynchronize hack */
+#define CAPSLOCK_LOCKING_RESYNC_ENABLE
+
+
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
 
 
 /* mouse keys */
