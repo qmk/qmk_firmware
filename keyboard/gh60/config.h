@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
 #define CAPSLOCK_LOCKING_ENABLE
-/* Locking CapsLock resynchronize hack, which won't work on Linux */
+/* Locking CapsLock resynchronize hack */
 #define CAPSLOCK_LOCKING_RESYNC_ENABLE
 
 /* key combination for command */

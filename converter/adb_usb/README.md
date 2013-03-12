@@ -20,10 +20,7 @@ Build
 
 LOCKING CAPSLOCK
 ----------------
-Many old ADB keyboards have mechanical push-lock switch for Capslock key. This converter support the locking Capslock key by default.
-This feature will prevent you from remaping as normal key. You can disable the feature by *commenting out* a macro in config.h like this:
-
-    //#define MATRIX_HAS_LOCKING_CAPS
+Many of old ADB keyboards have mechanical push-lock switch for Capslock key and this converter supports the locking Capslock key by default. See README in top directory for more detail about this feature.
 
 Also you may want to remove locking pin from the push-lock switch to use capslock as a normal momentary switch.
 http://www.youtube.com/watch?v=9wqnt2mGJ2Y
@@ -58,7 +55,7 @@ effort at this time.
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,                    PWR,
     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NLCK,EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     DEL, END, PGDN,    P7,  P8,  P9,  PMNS,
-    CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
+    LCAP,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           P1,  P2,  P3,
     LCTL,LGUI,LALT,          SPC,                                              LEFT,DOWN,RGHT,    P0,       PDOT,PENT
     ),
