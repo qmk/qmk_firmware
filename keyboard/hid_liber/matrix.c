@@ -173,7 +173,6 @@ uint8_t matrix_scan(void)
                 if (debouncing) {
                     debug("bounce!: "); debug_hex(debouncing); print("\n");
                 }
-                _delay_ms(1); // improved affect on bouncing
                 debouncing = DEBOUNCE;
             }
         }
@@ -181,6 +180,7 @@ uint8_t matrix_scan(void)
     }
 
     if (debouncing) {
+        _delay_ms(1);
         debouncing--;
     }
 
