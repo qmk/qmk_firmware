@@ -19,6 +19,7 @@ Features
 * Keyboard Tricks     - Oneshot modifier and modifier with tapping feature
 * Debug Console       - Messages for debug and interaction with firmware
 * Virtual DIP Switch  - Configurations stored EEPROM(Boot Magic)
+* Locking CapsLock    - Mechanical switch support for CapsLock
 
 
 Projects
@@ -295,6 +296,13 @@ These settings are stored in EEPROM.
 
 **TBD**
 
+
+Mechanical Locking support for CapsLock
+---------------------------------------
+To enable this feature define these two macros in `config.h` and use `KC_LCAP` for locking CapsLock in keymap instead of normal `KC_CAPS`. Resync option tries to keep lock switch state consistent with keyboard LED state.
+ 
+    #define CAPSLOCK_LOCKING_ENABLE
+    #define CAPSLOCK_LOCKING_RESYNC_ENABLE
 
 
 Start Your Own Project
