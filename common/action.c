@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "util.h"
 #include "debug.h"
+#include "led.h"
 #include "layer_switch.h"
 #include "action_macro.h"
 #include "action.h"
@@ -889,6 +890,18 @@ void register_code(uint8_t code)
     if (code == KC_NO) {
         return;
     }
+#ifdef CAPSLOCK_LOCKING_ENABLE
+    else if (KC_LOCKING_CAPS == code) {
+#ifdef CAPSLOCK_LOCKING_RESYNC_ENABLE
+        // Resync: ignore if caps lock already is on
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) return;
+#endif
+        host_add_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+        host_del_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+    }
+#endif
     else if IS_KEY(code) {
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
@@ -914,7 +927,22 @@ void register_code(uint8_t code)
 
 void unregister_code(uint8_t code)
 {
-    if IS_KEY(code) {
+    if (code == KC_NO) {
+        return;
+    }
+#ifdef CAPSLOCK_LOCKING_ENABLE
+    else if (KC_LOCKING_CAPS == code) {
+#ifdef CAPSLOCK_LOCKING_RESYNC_ENABLE
+        // Resync: ignore if caps lock already is off
+        if (!(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) return;
+#endif
+        host_add_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+        host_del_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+    }
+#endif
+    else if IS_KEY(code) {
         host_del_key(code);
         host_send_keyboard_report();
     }

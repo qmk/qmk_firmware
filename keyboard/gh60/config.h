@@ -27,15 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         GH60
 #define DESCRIPTION     t.m.k. keyboard firmware for GH60
 
-/* matrix size */
+/* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-/* Set 0 if need no debouncing */
+/* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
+
+/* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
+#define CAPSLOCK_LOCKING_ENABLE
+/* Locking CapsLock resynchronize hack, which won't work on Linux */
+#define CAPSLOCK_LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -51,20 +56,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define BOOTLOADER_SIZE 4096
 
-/* 
- * Boot magic keys
- * call some function by pressing key when pluging cable or powering on.
- */
-/* key position on matrix(ROW:COL) */
-#define KEY_FN          0x4A
-#define KEY_D           0x23
-#define KEY_ESC         0x00
-#define KEY_IS_ON(key)  matrix_is_on((key)>>4, (key)&0xF)
-/* kick up bootloader */
-#define IS_BOOTMAGIC_BOOTLOADER()       KEY_IS_ON(KEY_FN)
-/* debug on */
-#define IS_BOOTMAGIC_DEBUG()            KEY_IS_ON(KEY_D)
-/* eeprom clear */
-#define IS_BOOTMAGIC_EEPROM_CLEAR()     KEY_IS_ON(KEY_ESC)
 
 #endif
