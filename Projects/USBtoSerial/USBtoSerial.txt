@@ -69,14 +69,9 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Define Name:</b></td>
- *    <td><b>Location:</b></td>
- *    <td><b>Description:</b></td>
- *   </tr>
- *   <tr>
- *    <td>BUFF_STATICSIZE</td>
- *    <td>RingBuff.h</td>
- *    <td>Defines the maximum number of bytes which can be buffered in each Ring Buffer.</td>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

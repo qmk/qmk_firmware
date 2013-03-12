@@ -39,6 +39,7 @@
 
 		<require idref="lufa.common"/>
 		<require idref="lufa.platform"/>
+		<require idref="lufa.drivers.peripheral.usart"/>
 		<require idref="lufa.drivers.usb"/>
 		<require idref="lufa.drivers.misc.ringbuffer"/>
 	</module>
