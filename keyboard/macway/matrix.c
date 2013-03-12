@@ -37,27 +37,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	0
+#   define DEBOUNCE	5
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
 // matrix state buffer(1:on, 0:off)
-#if (MATRIX_COLS <= 8)
-static uint8_t *matrix;
-static uint8_t *matrix_prev;
-static uint8_t _matrix0[MATRIX_ROWS];
-static uint8_t _matrix1[MATRIX_ROWS];
-#else
-static uint16_t *matrix;
-static uint16_t *matrix_prev;
-static uint16_t _matrix0[MATRIX_ROWS];
-static uint16_t _matrix1[MATRIX_ROWS];
-#endif
+static matrix_row_t *matrix;
+static matrix_row_t *matrix_debouncing;
+static matrix_row_t matrix0[MATRIX_ROWS];
+static matrix_row_t matrix1[MATRIX_ROWS];
 
 #ifdef MATRIX_HAS_GHOST
 static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
-static uint8_t read_col(void);
+static matrix_row_t read_col(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
@@ -83,26 +76,22 @@ void matrix_init(void)
     PORTB = 0xFF;
 
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
-    matrix = _matrix0;
-    matrix_prev = _matrix1;
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix0[i] = 0;
+        matrix1[i] = 0;
+    }
+    matrix = matrix0;
+    matrix_debouncing = matrix1;
 }
 
 uint8_t matrix_scan(void)
 {
-    if (!debouncing) {
-        uint8_t *tmp = matrix_prev;
-        matrix_prev = matrix;
-        matrix = tmp;
-    }
-
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         unselect_rows();
         select_row(i);
         _delay_us(30);  // without this wait read unstable value.
-        if (matrix[i] != (uint8_t)~read_col()) {
-            matrix[i] = (uint8_t)~read_col();
+        if (matrix[i] != read_col()) {
+            matrix[i] = read_col();
             if (debouncing) {
                 debug("bounce!: "); debug_hex(debouncing); print("\n");
             }
@@ -112,7 +101,14 @@ uint8_t matrix_scan(void)
     unselect_rows();
 
     if (debouncing) {
-        debouncing--;
+        if (--debouncing) {
+            _delay_ms(1);
+        } else {
+            matrix_row_t *tmp = matrix;
+            matrix = matrix_debouncing;
+            matrix_debouncing = tmp;
+        }
+
     }
 
     return 1;
@@ -121,24 +117,7 @@ uint8_t matrix_scan(void)
 bool matrix_is_modified(void)
 {
     if (debouncing) return false;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] != matrix_prev[i]) {
-            return true;
-        }
-    }
-    return false;
-}
-
-inline
-bool matrix_has_ghost(void)
-{
-#ifdef MATRIX_HAS_GHOST
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix_has_ghost_in_row(i))
-            return true;
-    }
-#endif
-    return false;
+    return true;
 }
 
 inline
@@ -148,11 +127,7 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 }
 
 inline
-#if (MATRIX_COLS <= 8)
-uint8_t matrix_get_row(uint8_t row)
-#else
-uint16_t matrix_get_row(uint8_t row)
-#endif
+matrix_row_t matrix_get_row(uint8_t row)
 {
     return matrix[row];
 }
@@ -207,9 +182,9 @@ static bool matrix_has_ghost_in_row(uint8_t row)
 #endif
 
 inline
-static uint8_t read_col(void)
+static matrix_row_t read_col(void)
 {
-    return PINB;
+    return ~PINB;
 }
 
 inline

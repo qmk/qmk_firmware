@@ -26,10 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Phantom
 
-
 /* message strings */
 #define DESCRIPTION     t.m.k. keyboard firmware for Phantom
-
 
 /* matrix size */
 #define MATRIX_ROWS 6
@@ -41,11 +39,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if need no debouncing */
 #define DEBOUNCE    7
 
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
 
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+/* Boot Section Size in *BYTEs*
+ *   Teensy   halfKay    512
+ *   Teensy++ halfKay    1024
+ *   Atmel DFU loader    4096
+ *   LUFA bootloader     4096
+ *   USBaspLoader        2048
+ */
+#define BOOTLOADER_SIZE 4096
 
 // TODO: configurable
 #define DEBUG_LED 0
