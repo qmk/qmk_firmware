@@ -134,5 +134,6 @@ MATRIX_LOOP_END:
 
 void keyboard_set_leds(uint8_t leds)
 {
+    if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }
     led_set(leds);
 }
