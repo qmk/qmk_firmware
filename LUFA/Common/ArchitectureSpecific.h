@@ -70,7 +70,7 @@
 					 *
 					 *  \note This macro is not available for all architectures.
 					 */
-					#define JTAG_ENABLE()                  MACROS{                                      \
+					#define JTAG_ENABLE()                  MACROS{                                       \
 																	__asm__ __volatile__ (               \
 																	"in __tmp_reg__,__SREG__" "\n\t"     \
 																	"cli" "\n\t"                         \
@@ -136,7 +136,7 @@
 				 *
 				 *  \param[in] Condition  Condition that will be evaluated,
 				 */
-				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) {                                             \
+				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(Condition)) {                                     \
 				                                                     printf_P(PSTR("%s: Function \"%s\", Line %d: "     \
 				                                                                   "Assertion \"%s\" failed.\r\n"),     \
 				                                                                   __FILE__, __func__, __LINE__, #Condition); } }MACROE
@@ -160,7 +160,7 @@
 				#define JTAG_DEBUG_POINT()              __asm__ __volatile__ ("nop" ::)
 				#define JTAG_DEBUG_BREAK()              __asm__ __volatile__ ("breakpoint" ::)
 				#define JTAG_ASSERT(Condition)          MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
-				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) {                                      \
+				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(Condition)) {                              \
 				                                                     printf("%s: Function \"%s\", Line %d: "     \
 				                                                            "Assertion \"%s\" failed.\r\n"),     \
 				                                                            __FILE__, __func__, __LINE__, #Condition); } }MACROE
