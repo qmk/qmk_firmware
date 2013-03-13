@@ -67,7 +67,7 @@
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
 	/* Function Prototypes: */
-		void SetupHardware(void);
+		static void SetupHardware(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);

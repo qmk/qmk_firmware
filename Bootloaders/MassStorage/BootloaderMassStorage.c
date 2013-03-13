@@ -79,7 +79,7 @@ int main(void)
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
-void SetupHardware(void)
+static void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -155,4 +155,3 @@ bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSI
 
 	return CommandSuccess;
 }
-
