@@ -133,14 +133,27 @@ static void Console_Task(void)
 /*******************************************************************************
  * USB Events
  ******************************************************************************/
-/** Event handler for the USB_Connect event. */
+#include "led.h"
 void EVENT_USB_Device_Connect(void)
 {
 }
 
-/** Event handler for the USB_Disconnect event. */
 void EVENT_USB_Device_Disconnect(void)
 {
+}
+
+void EVENT_USB_Device_Reset(void)
+{
+}
+
+void EVENT_USB_Device_Suspend()
+{
+    led_set(1<<USB_LED_CAPS_LOCK);
+}
+
+void EVENT_USB_Device_WakeUp()
+{
+    led_set(0);
 }
 
 void EVENT_USB_Device_StartOfFrame(void)
@@ -466,6 +479,17 @@ static void SetupHardware(void)
     USB_Device_EnableSOFEvents();
 }
 
+
+#include "matrix.h"
+static bool wakeup_condition(void)
+{
+    matrix_scan();
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+        if (matrix_get_row(r)) return true;
+    }
+    return false;
+}
+
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
@@ -474,9 +498,17 @@ int main(void)
     host_set_driver(&lufa_driver);
     sei();
 
-    // TODO: can't print here
-    debug("LUFA init\n");
     while (1) {
+        while (USB_DeviceState == DEVICE_STATE_Suspended) {
+            // TODO: power saving
+
+            if (USB_Device_RemoteWakeupEnabled) {
+                if (wakeup_condition()) {
+                    USB_Device_SendRemoteWakeup();
+                }
+            }
+        }
+
         keyboard_task();
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
