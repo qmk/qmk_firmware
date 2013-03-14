@@ -133,7 +133,15 @@ static void Console_Task(void)
 /*******************************************************************************
  * USB Events
  ******************************************************************************/
+/*
+ * Event Order of Plug in:
+ * 0) EVENT_USB_Device_Connect
+ * 1) EVENT_USB_Device_Suspend
+ * 2) EVENT_USB_Device_Reset
+ * 3) EVENT_USB_Device_Wake
+*/
 #include "led.h"
+#include "matrix.h"
 void EVENT_USB_Device_Connect(void)
 {
 }
@@ -148,11 +156,16 @@ void EVENT_USB_Device_Reset(void)
 
 void EVENT_USB_Device_Suspend()
 {
-    led_set(1<<USB_LED_CAPS_LOCK);
 }
 
+#include "action.h"
 void EVENT_USB_Device_WakeUp()
 {
+    // initialize
+    matrix_init();
+    clear_keyboard();
+
+    // turn off LED
     led_set(0);
 }
 
@@ -490,6 +503,24 @@ static bool wakeup_condition(void)
     return false;
 }
 
+#include <avr/sleep.h>
+#include <avr/wdt.h>
+#define wdt_intr_enable(value)   \
+__asm__ __volatile__ (  \
+    "in __tmp_reg__,__SREG__" "\n\t"    \
+    "cli" "\n\t"    \
+    "wdr" "\n\t"    \
+    "sts %0,%1" "\n\t"  \
+    "out __SREG__,__tmp_reg__" "\n\t"   \
+    "sts %0,%2" "\n\t" \
+    : /* no outputs */  \
+    : "M" (_SFR_MEM_ADDR(_WD_CONTROL_REG)), \
+    "r" (_BV(_WD_CHANGE_BIT) | _BV(WDE)), \
+    "r" ((uint8_t) ((value & 0x08 ? _WD_PS3_MASK : 0x00) | \
+        _BV(WDIE) | (value & 0x07)) ) \
+    : "r0"  \
+)
+
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
@@ -499,9 +530,36 @@ int main(void)
     sei();
 
     while (1) {
+        // while suspend
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
-            // TODO: power saving
+            // Enable watchdog to wake from MCU sleep
+            cli();
+            wdt_reset();
 
+            // Watchdog Interrupt and System Reset Mode
+            //wdt_enable(WDTO_1S);
+            //WDTCSR |= _BV(WDIE);
+            
+            // Watchdog Interrupt Mode
+            wdt_intr_enable(WDTO_120MS);
+            
+            // TODO: more power saving
+            // See PicoPower application note
+            // - I/O port input with pullup
+            // - prescale clock
+            // - BOD disable
+            // - Power Reduction Register PRR
+            // sleep in power down mode
+            set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+            sleep_enable();
+            sei();
+            sleep_cpu();
+            sleep_disable();
+
+            // Disable watchdog after sleep
+            wdt_disable();
+
+            // Send request of USB Wakeup from Suspend to host
             if (USB_Device_RemoteWakeupEnabled) {
                 if (wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();
@@ -514,5 +572,17 @@ int main(void)
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
 #endif
+    }
+}
+
+/* watchdog timeout during sleep */
+ISR(WDT_vect)
+{
+    // blink LED
+    static uint8_t led_state = 0;
+    static uint8_t led_count = 0;
+    led_count++;
+    if ((led_count & 0x07) == 0) {
+        led_set((led_state ^= (1<<USB_LED_CAPS_LOCK)));
     }
 }
