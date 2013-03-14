@@ -75,7 +75,7 @@ static const FATBootBlock_t BootBlock =
 static FATDirectoryEntry_t FirmwareFileEntries[2] =
 	{
 		/* Root volume label entry; disk label is contained in the Filename and
-		 * Extension fields (concantenated) with a special attribute flag - other
+		 * Extension fields (concatenated) with a special attribute flag - other
 		 * fields are ignored. Should be the same as the label in the boot block.
 		 */
 		{

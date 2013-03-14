@@ -93,7 +93,7 @@
 			/** Turns on inverse so that any following text is printed to the terminal in inverted colours. */
 			#define ESC_INVERSE_ON                  ANSI_ESCAPE_SEQUENCE("7m")
 
-			/** Turns on strikethrough so that any following text is printed to the terminal with a line through the
+			/** Turns on strike-through so that any following text is printed to the terminal with a line through the
 			 *  center.
 			 */
 			#define ESC_STRIKETHROUGH_ON            ANSI_ESCAPE_SEQUENCE("9m")
@@ -110,7 +110,7 @@
 			/** Turns off inverse so that any following text is printed to the terminal in non inverted colours. */
 			#define ESC_INVERSE_OFF                 ANSI_ESCAPE_SEQUENCE("27m")
 
-			/** Turns off strikethrough so that any following text is printed to the terminal without a line through
+			/** Turns off strike-through so that any following text is printed to the terminal without a line through
 			 *  the center.
 			 */
 			#define ESC_STRIKETHROUGH_OFF           ANSI_ESCAPE_SEQUENCE("29m")
