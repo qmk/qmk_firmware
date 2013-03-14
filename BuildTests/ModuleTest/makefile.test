@@ -11,15 +11,15 @@
 
 # Run "make help" for target help.
 
-MCU          = 
-ARCH         = 
+MCU          =
+ARCH         =
 BOARD        = NONE
 F_CPU        = $(F_USB)
 OPTIMIZATION = 1
 TARGET       = Test
 SRC          = $(TARGET)_C.c $(TARGET)_CPP.cpp Dummy.S $(LUFA_SRC_USB)
 LUFA_PATH    = ../../LUFA
-DEBUG_LEVEL  = 0 
+DEBUG_LEVEL  = 0
 
 ifeq ($(ARCH), AVR8)
   F_USB        = 8000000
@@ -55,7 +55,7 @@ ifneq ($(ARCH), UC3)
   CC_FLAGS += -Wdouble-promotion
 endif
 
-# Only enable rendundant declaration warnings for AVR8 target (FIXME)
+# Only enable redundant declaration warnings for AVR8 target (FIXME)
 ifeq ($(ARCH), AVR8)
   CC_FLAGS += -Wredundant-decls
 endif
@@ -74,8 +74,10 @@ ifneq ($(ARCH), UC3)
   C_FLAGS += -Wjump-misses-init
 endif
 
+# Only check C++ compatibility on the build files, to ensure headers are C++ compatible
+Test_C.c Test_CPP.c: CC_FLAGS += -Wc++-compat
+
 # Potential additional warnings to enable in the future (FIXME)
-#C_FLAGS += -Wc++-compat
 #CC_FLAGS += -Wcast-qual
 #CC_FLAGS += -Wconversion
 #CC_FLAGS += -Wsign-conversion
