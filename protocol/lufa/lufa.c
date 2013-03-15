@@ -36,12 +36,20 @@
   this software.
 */
 
+#include <avr/sleep.h>
+#include <avr/wdt.h>
 #include "report.h"
 #include "host.h"
 #include "host_driver.h"
 #include "keyboard.h"
+#include "action.h"
+#include "matrix.h"
+#include "led.h"
 #include "sendchar.h"
 #include "debug.h"
+#ifdef SLEEP_LED_ENABLE
+#include "sleep_led.h"
+#endif
 
 #include "descriptor.h"
 #include "lufa.h"
@@ -140,10 +148,9 @@ static void Console_Task(void)
  * 2) EVENT_USB_Device_Reset
  * 3) EVENT_USB_Device_Wake
 */
-#include "led.h"
-#include "matrix.h"
 void EVENT_USB_Device_Connect(void)
 {
+    led_set(0x1f);  // all on
 }
 
 void EVENT_USB_Device_Disconnect(void)
@@ -156,17 +163,21 @@ void EVENT_USB_Device_Reset(void)
 
 void EVENT_USB_Device_Suspend()
 {
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_enable();
+#endif
 }
 
-#include "action.h"
 void EVENT_USB_Device_WakeUp()
 {
     // initialize
     matrix_init();
     clear_keyboard();
 
-    // turn off LED
-    led_set(0);
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_disable();
+#endif
+    led_set(host_keyboard_leds());
 }
 
 void EVENT_USB_Device_StartOfFrame(void)
@@ -493,7 +504,6 @@ static void SetupHardware(void)
 }
 
 
-#include "matrix.h"
 static bool wakeup_condition(void)
 {
     matrix_scan();
@@ -503,8 +513,6 @@ static bool wakeup_condition(void)
     return false;
 }
 
-#include <avr/sleep.h>
-#include <avr/wdt.h>
 #define wdt_intr_enable(value)   \
 __asm__ __volatile__ (  \
     "in __tmp_reg__,__SREG__" "\n\t"    \
@@ -527,11 +535,15 @@ int main(void)
     SetupHardware();
     keyboard_init();
     host_set_driver(&lufa_driver);
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_init();
+#endif
     sei();
 
     while (1) {
         // while suspend
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
+#ifndef NO_SUSPEND_POWER_DOWN
             // Enable watchdog to wake from MCU sleep
             cli();
             wdt_reset();
@@ -558,6 +570,7 @@ int main(void)
 
             // Disable watchdog after sleep
             wdt_disable();
+#endif
 
             // Send request of USB Wakeup from Suspend to host
             if (USB_Device_RemoteWakeupEnabled) {
@@ -575,9 +588,12 @@ int main(void)
     }
 }
 
-/* watchdog timeout during sleep */
+#ifndef NO_SUSPEND_POWER_DOWN
+/* watchdog timeout */
 ISR(WDT_vect)
 {
+    /* wakeup from MCU sleep mode */
+/*
     // blink LED
     static uint8_t led_state = 0;
     static uint8_t led_count = 0;
@@ -585,4 +601,6 @@ ISR(WDT_vect)
     if ((led_count & 0x07) == 0) {
         led_set((led_state ^= (1<<USB_LED_CAPS_LOCK)));
     }
+*/
 }
+#endif

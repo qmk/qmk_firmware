@@ -47,5 +47,11 @@ ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
     OPT_DEFS += -DMOUSE_ENABLE
 endif
 
+ifdef SLEEP_LED_ENABLE
+    SRC += $(COMMON_DIR)/sleep_led.c
+    OPT_DEFS += -DSLEEP_LED_ENABLE
+endif
+
+
 # Search Path
 VPATH += $(TOP_DIR)/common
