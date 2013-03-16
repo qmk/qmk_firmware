@@ -45,29 +45,40 @@ void sleep_led_disable(void)
     TIMSK1 &= ~_BV(OCIE1A);
 }
 
+void sleep_led_toggle(void)
+{
+    /* Disable Compare Match Interrupt */
+    TIMSK1 ^= _BV(OCIE1A);
+}
+
 
 /* Breathing Sleep LED brighness(PWM On period) table
- * (32[steps] * 8[duration]) / 64[PWM periods/s] = 4 second breath cycle
+ * (64[steps] * 4[duration]) / 64[PWM periods/s] = 4 second breath cycle
+ *
+ * http://www.wolframalpha.com/input/?i=%28sin%28+x%2F64*pi%29**8+*+255%2C+x%3D0+to+63
+ * (0..63).each {|x| p ((sin(x/64.0*PI)**8)*255).to_i }
  */
-static const uint8_t breathing_table[32] PROGMEM = {
-    0, 0, 0, 2, 9, 21, 37, 56, 78, 127, 151, 175, 197, 216, 232, 244,
-    254, 244, 216, 197, 175, 151, 127, 78, 56, 37, 21, 9, 2, 0, 0, 0
+static const uint8_t breathing_table[64] PROGMEM = {
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 6, 10,
+15, 23, 32, 44, 58, 74, 93, 113, 135, 157, 179, 199, 218, 233, 245, 252,
+255, 252, 245, 233, 218, 199, 179, 157, 135, 113, 93, 74, 58, 44, 32, 23,
+15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 ISR(TIMER1_COMPA_vect)
 {
     /* Software PWM
      * timer:1111 1111 1111 1111
-     *       \----/\-/ \-------/+---  count(0-255)
-     *         |    +---------------  duration of step(8)
-     *         +--------------------  index of step table(0-31)
+     *       \_____/\/ \_______/____  count(0-255)
+     *          \    \______________  duration of step(4)
+     *           \__________________  index of step table(0-63)
      */
     static union {
         uint16_t row;
         struct {
             uint8_t count:8;
-            uint8_t duration:3;
-            uint8_t index:5;
+            uint8_t duration:2;
+            uint8_t index:6;
         } pwm;
     } timer = { .row = 0 };
 
