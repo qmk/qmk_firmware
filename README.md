@@ -20,6 +20,7 @@ Features
 * Debug Console       - Messages for debug and interaction with firmware
 * Virtual DIP Switch  - Configurations stored EEPROM(Boot Magic)
 * Locking CapsLock    - Mechanical switch support for CapsLock
+* Breathing Sleep LED - Sleep indicator with charm during USB suspend
 
 
 Projects
@@ -170,6 +171,7 @@ Note that ***comment out*** to disable them.
     MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
     EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
     CONSOLE_ENABLE = yes        # Console for debug(+400)
+    SLEEP_LED_ENABLE = yes      # Breathing sleep LED during USB suspend
     #NKRO_ENABLE = yes          # USB Nkey Rollover - not yet supported in LUFA
     #PS2_MOUSE_ENABLE = yes     # PS/2 mouse(TrackPoint) support
 
@@ -307,6 +309,7 @@ To enable this feature define these two macros in `config.h` and use `KC_LCAP` f
 
 Start Your Own Project
 -----------------------
+**TBD**
 
 
 
