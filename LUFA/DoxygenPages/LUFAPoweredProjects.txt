@@ -151,7 +151,8 @@
  *  solutions with no source code given. Those companies which have purchased a Commercial License to LUFA (see \ref Page_LicenseInfo)
  *  are not listed here unless specifically requested.
  *
- *  \li Arduino Uno, the official Arduino board: http://www.arduino.cc
+ *  \li Alphasphere, a MIDI input sphere device for music creation: http://www.alphasphere.com/
+ *  \li Arduino Uno and Leonardo, official Arduino boards: http://www.arduino.cc
  *  \li ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
  *  \li AsTeRICS assistive technologies project, HID actuator: http://www.asterics.eu
  *  \li Ceberus, a MadCatz Xbox 360 arcade stick modifier: http://www.phreakmods.com/products/cerberus
