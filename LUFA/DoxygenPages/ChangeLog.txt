@@ -20,6 +20,8 @@
   *  - Library Applications:
   *   - Added handler for SCSI_CMD_START_STOP_UNIT in demos using the Mass Storage class, to prevent ejection errors on *nix systems due to an
   *     unknown SCSI command
+  *   - Fixed incorrect HID report descriptor generated for 16-bit axis ranges by the HID_DESCRIPTOR_MOUSE() and HID_DESCRIPTOR_JOYSTICK()
+  *     macros (thanks to Guillaume Germaine)
   *
   *  \section Sec_ChangeLog130303 Version 130303
   *  <b>New:</b>
