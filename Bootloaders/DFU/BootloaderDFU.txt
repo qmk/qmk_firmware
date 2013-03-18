@@ -12,8 +12,8 @@
  *
  *  \li Series 7 USB AVRs (AT90USBxxx7)
  *  \li Series 6 USB AVRs (AT90USBxxx6)
- *  \li Series 4 USB AVRs (ATMEGAxxU4)
- *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4) - <i>See \ref SSec_Aux_Space</i>
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2) - <i>See \ref SSec_Aux_Space</i>
  *
  *  \section Sec_Info USB Information:
  *
@@ -150,6 +150,16 @@
  *  |                            |
  *  |                            |
  *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_AUX_SECTION_SIZE
+ *  | Booloader Start Trampoline |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - (BOOT_AUX_SECTION_SIZE - 4)
+ *  |                            |
+ *  |     Auxillery Bootloader   |
+ *  |  Space for Smaller Devices |
+ *  | (Not User App. Accessible) |
+ *  |                            |
  *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
  *  |                            |
  *  |   Bootloader Application   |
@@ -166,6 +176,10 @@
  *  |   (User App. Accessible)   |
  *  +----------------------------+ FLASHEND
  *  \endverbatim
+ *
+ *  \subsection SSec_Aux_Space Auxiliary Bootloader Section
+ *  To make the bootloader function on smaller devices (those with a physical
+ *  bootloader section of smaller than 6KB)
  *
  *  \section Sec_Options Project Options
  *

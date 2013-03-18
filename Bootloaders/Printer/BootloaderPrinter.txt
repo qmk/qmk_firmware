@@ -110,6 +110,12 @@
  *  #define BOOTLOADER_ADDRESS_LENGTH          4
  *  \endcode
  *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_PRINTER_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes of FLASH
+ *  memory starting from address \c BOOTLOADER_ADDRESS_START.
+ *
  *  \subsection SSec_API_MemLayout Device Memory Map
  *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
  *
@@ -147,12 +153,6 @@
  *  |   (User App. Accessible)   |
  *  +----------------------------+ FLASHEND
  *  \endverbatim
- *
- *  Bootloaders reporting a device release revision number of 1.00 or greater are bootloader API enabled. From the application
- *  the API support of the bootloader can be detected by reading the FLASH memory bytes located at address \c BOOTLOADER_MAGIC_SIGNATURE_START
- *  and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader can be determined by reading the
- *  FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them to the value \c BOOTLOADER_PRINTER_SIGNATURE.
- *  The start address of the bootloader can be retrieved by reading the bytes of FLASH memory starting from address \c BOOTLOADER_ADDRESS_START.
  *
  *  \section Sec_Options Project Options
  *
