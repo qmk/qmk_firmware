@@ -67,7 +67,7 @@ static void XMEGANVM_SendNVMRegAddress(const uint8_t Register)
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read or CRC
  *  calculation.
  *
- *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ *  \return Boolean \c true if the NVM controller became ready within the timeout period, \c false otherwise
  */
 bool XMEGANVM_WaitWhileNVMBusBusy(void)
 {
@@ -92,7 +92,7 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 /** Waits while the target's NVM controller is busy performing an operation, exiting if the
  *  timeout period expires.
  *
- *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ *  \return Boolean \c true if the NVM controller became ready within the timeout period, \c false otherwise
  */
 bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 {
@@ -120,7 +120,7 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 
 /** Enables the physical PDI interface on the target and enables access to the internal NVM controller.
  *
- *  \return Boolean true if the PDI interface was enabled successfully, false otherwise
+ *  \return Boolean \c true if the PDI interface was enabled successfully, \c false otherwise
  */
 bool XMEGANVM_EnablePDI(void)
 {
@@ -170,7 +170,7 @@ void XMEGANVM_DisablePDI(void)
  *  \param[in]  CRCCommand  NVM CRC command to issue to the target
  *  \param[out] CRCDest     CRC Destination when read from the target
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand,
                            uint32_t* const CRCDest)
@@ -221,7 +221,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand,
  *  \param[out] ReadBuffer   Buffer to store read data into
  *  \param[in]  ReadSize     Number of bytes to read
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool XMEGANVM_ReadMemory(const uint32_t ReadAddress,
                          uint8_t* ReadBuffer,
@@ -258,7 +258,7 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress,
  *  \param[in]  WriteAddress  Address to write to within the target's address space
  *  \param[in]  Byte          Byte to write to the target
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand,
                               const uint32_t WriteAddress,
@@ -291,7 +291,7 @@ bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand,
  *  \param[in]  WriteBuffer       Buffer to source data from
  *  \param[in]  WriteSize         Number of bytes to write
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand,
                               const uint8_t EraseBuffCommand,
@@ -368,7 +368,7 @@ bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand,
  *  \param[in] EraseCommand  NVM erase command to send to the device
  *  \param[in] Address       Address inside the memory space to erase
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool XMEGANVM_EraseMemory(const uint8_t EraseCommand,
                           const uint32_t Address)

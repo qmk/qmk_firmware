@@ -196,7 +196,7 @@ static uint16_t DHCPServerApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader,
  *
  *  \pre The IP address must be within the same /24 subnet as the virtual webserver.
  *
- *  \return Boolean true if the IP has already been leased to a client, false otherwise.
+ *  \return Boolean \c true if the IP has already been leased to a client, \c false otherwise.
  */
 static bool DHCPServerApp_CheckIfIPLeased(const uip_ipaddr_t* const IPAddress)
 {

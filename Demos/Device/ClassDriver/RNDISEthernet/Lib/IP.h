@@ -59,7 +59,7 @@
 		 *  \param[in] IP1  First IP address
 		 *  \param[in] IP2  Second IP address
 		 *
-		 *  \return True if the addresses match, false otherwise
+		 *  \return True if the addresses match, \c false otherwise
 		 */
 		#define IP_COMPARE(IP1, IP2)             (memcmp(IP1, IP2, sizeof(IP_Address_t)) == 0)
 

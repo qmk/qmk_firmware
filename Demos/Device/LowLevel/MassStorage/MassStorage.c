@@ -222,7 +222,7 @@ void MassStorage_Task(void)
 /** Function to read in a command block from the host, via the bulk data OUT endpoint. This function reads in the next command block
  *  if one has been issued, and performs validation to ensure that the block command is valid.
  *
- *  \return Boolean true if a valid command block has been read in from the endpoint, false otherwise
+ *  \return Boolean \c true if a valid command block has been read in from the endpoint, \c false otherwise
  */
 static bool ReadInCommandBlock(void)
 {

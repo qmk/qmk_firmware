@@ -246,7 +246,7 @@ uint8_t SImage_ReadData(void* const Buffer,
 
 /** Function to test if a PIMA event block is waiting to be read in from the attached device.
  *
- *  \return True if an event is waiting to be read in from the device, false otherwise
+ *  \return True if an event is waiting to be read in from the device, \c false otherwise
  */
 bool SImage_IsEventReceived(void)
 {

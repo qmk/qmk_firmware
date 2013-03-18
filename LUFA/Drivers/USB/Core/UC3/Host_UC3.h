@@ -233,7 +233,7 @@
 			}
 
 			/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
-			 *  that the host resume the USB bus and wake up the device, false otherwise.
+			 *  that the host resume the USB bus and wake up the device, \c false otherwise.
 			 *
 			 *  \return Boolean \c true if the attached device has sent a Remote Wakeup request, \c false otherwise.
 			 */

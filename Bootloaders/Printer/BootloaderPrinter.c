@@ -80,7 +80,7 @@ static bool PageDirty = false;
  *
  * \param[in] Byte  ASCII byte of data to check
  *
- * \return Boolean \c true if the input data is ASCII encoded HEX, false otherwise.
+ * \return Boolean \c true if the input data is ASCII encoded HEX, \c false otherwise.
  */
 static bool IsHex(const char Byte)
 {

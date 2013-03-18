@@ -501,7 +501,7 @@
 				(&AVR32_USBB.UECON0CLR)[USB_Endpoint_SelectedEndpoint].stallrqc = true;
 			}
 
-			/** Determines if the currently selected endpoint is stalled, false otherwise.
+			/** Determines if the currently selected endpoint is stalled, \c false otherwise.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_UC3
 			 *

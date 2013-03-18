@@ -227,7 +227,7 @@ void EVENT_USB_Device_ControlRequest(void)
  *  \param[in,out] Data                Pointer to a location where the parameter data is stored for SET operations, or where
  *                                     the retrieved data is to be stored for GET operations.
  *
- *  \return Boolean true if the property get/set was successful, false otherwise
+ *  \return Boolean \c true if the property get/set was successful, \c false otherwise
  */
 bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
                                                   const uint8_t EndpointProperty,

@@ -237,7 +237,7 @@ void ProcessRNDISControlMessage(void)
  *  \param[out] ResponseData  Pointer to the start of the query response inside the RNDIS message buffer
  *  \param[out] ResponseSize  Pointer to the size in bytes of the response data being sent to the host
  *
- *  \return Boolean true if the query was handled, false otherwise
+ *  \return Boolean \c true if the query was handled, \c false otherwise
  */
 static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t QuerySize,
                              void* ResponseData, uint16_t* ResponseSize)
@@ -367,7 +367,7 @@ static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t Query
  *  \param[in] SetData  Pointer to the parameter value in the RNDIS message buffer
  *  \param[in] SetSize  Size in bytes of the parameter value being sent by the host
  *
- *  \return Boolean true if the set was handled, false otherwise
+ *  \return Boolean \c true if the set was handled, \c false otherwise
  */
 static bool ProcessNDISSet(uint32_t OId, void* SetData, uint16_t SetSize)
 {

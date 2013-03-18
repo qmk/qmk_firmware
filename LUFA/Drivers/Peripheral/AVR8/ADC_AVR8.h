@@ -369,7 +369,7 @@
 
 			/** Indicates if the current ADC conversion is completed, or still in progress.
 			 *
-			 *  \return Boolean false if the reading is still taking place, or true if the conversion is
+			 *  \return Boolean \c false if the reading is still taking place, or true if the conversion is
 			 *          complete and ready to be read out with \ref ADC_GetResult().
 			 */
 			static inline bool ADC_IsReadingComplete(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;

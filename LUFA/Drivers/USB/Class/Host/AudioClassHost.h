@@ -131,7 +131,7 @@
 			 *  send and/or received.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class host configuration and state.
-			 *  \param[in]     EnableStreaming     Boolean true to enable streaming of the specified interface, false to disable
+			 *  \param[in]     EnableStreaming     Boolean true to enable streaming of the specified interface, \c false to disable
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */

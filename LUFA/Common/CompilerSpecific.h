@@ -82,7 +82,7 @@
 				 *
 				 *  \param[in] x  Value to check compile-time constantness of.
 				 *
-				 *  \return Boolean true if the given value is known to be a compile time constant, false otherwise.
+				 *  \return Boolean \c true if the given value is known to be a compile time constant, \c false otherwise.
 				 */
 				#define GCC_IS_COMPILE_CONST(x)               __builtin_constant_p(x)
 			#else

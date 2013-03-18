@@ -88,7 +88,7 @@ void Webserver_Init(void)
  *  \param[in] RequestHeader  HTTP request made by the host
  *  \param[in] Command        HTTP command to compare the request to
  *
- *  \return Boolean true if the command matches the request, false otherwise
+ *  \return Boolean \c true if the command matches the request, \c false otherwise
  */
 static bool IsHTTPCommand(uint8_t* RequestHeader,
                           char* Command)

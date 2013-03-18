@@ -72,7 +72,7 @@ uint8_t DHCPCommon_SetOption(uint8_t* DHCPOptionList,
  *  \param[in]     Option          DHCP option to retrieve to the list
  *  \param[out]    Destination     Buffer where the option's data is to be written to if found
  *
- *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
+ *  \return Boolean \c true if the option was found in the DHCP packet's options list, \c false otherwise
  */
 bool DHCPCommon_GetOption(const uint8_t* DHCPOptionList,
                           const uint8_t Option,

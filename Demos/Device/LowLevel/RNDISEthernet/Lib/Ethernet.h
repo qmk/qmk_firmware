@@ -60,7 +60,7 @@
 		 *  \param[in] MAC1  First MAC address
 		 *  \param[in] MAC2  Second MAC address
 		 *
-		 *  \return True if the addresses match, false otherwise
+		 *  \return True if the addresses match, \c false otherwise
 		 */
 		#define MAC_COMPARE(MAC1, MAC2)          (memcmp(MAC1, MAC2, sizeof(MAC_Address_t)) == 0)
 

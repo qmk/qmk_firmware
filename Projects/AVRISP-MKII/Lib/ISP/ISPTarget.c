@@ -263,7 +263,7 @@ uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte)
 /** Asserts or deasserts the target's reset line, using the correct polarity as set by the host using a SET PARAM command.
  *  When not asserted, the line is tristated so as not to interfere with normal device operation.
  *
- *  \param[in] ResetTarget  Boolean true when the target should be held in reset, false otherwise
+ *  \param[in] ResetTarget  Boolean true when the target should be held in reset, \c false otherwise
  */
 void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
 {

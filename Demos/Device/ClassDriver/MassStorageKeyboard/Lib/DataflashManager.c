@@ -501,7 +501,7 @@ void DataflashManager_ResetDataflashProtections(void)
 
 /** Performs a simple test on the attached Dataflash IC(s) to ensure that they are working.
  *
- *  \return Boolean true if all media chips are working, false otherwise
+ *  \return Boolean \c true if all media chips are working, \c false otherwise
  */
 bool DataflashManager_CheckDataflashOperation(void)
 {

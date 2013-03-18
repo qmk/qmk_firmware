@@ -501,7 +501,7 @@
 				UECONX |= (1 << STALLRQC);
 			}
 
-			/** Determines if the currently selected endpoint is stalled, false otherwise.
+			/** Determines if the currently selected endpoint is stalled, \c false otherwise.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *

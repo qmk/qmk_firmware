@@ -136,7 +136,7 @@ void EVENT_USB_Device_StartOfFrame(void)
  *  \param[out]    ReportData  Pointer to a buffer where the created report should be stored
  *  \param[out]    ReportSize  Number of bytes written in the report (or zero if no report is to be sent)
  *
- *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
+ *  \return Boolean \c true to force the sending of the report, \c false to let the library determine if it needs to be sent
  */
 bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
                                          uint8_t* const ReportID,

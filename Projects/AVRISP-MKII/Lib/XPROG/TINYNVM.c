@@ -72,7 +72,7 @@ static void TINYNVM_SendWriteNVMRegister(const uint8_t Address)
 
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read.
  *
- *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ *  \return Boolean \c true if the NVM controller became ready within the timeout period, \c false otherwise
  */
 bool TINYNVM_WaitWhileNVMBusBusy(void)
 {
@@ -97,7 +97,7 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 /** Waits while the target's NVM controller is busy performing an operation, exiting if the
  *  timeout period expires.
  *
- *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ *  \return Boolean \c true if the NVM controller became ready within the timeout period, \c false otherwise
  */
 bool TINYNVM_WaitWhileNVMControllerBusy(void)
 {
@@ -121,7 +121,7 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 
 /** Enables the physical TPI interface on the target and enables access to the internal NVM controller.
  *
- *  \return Boolean true if the TPI interface was enabled successfully, false otherwise
+ *  \return Boolean \c true if the TPI interface was enabled successfully, \c false otherwise
  */
 bool TINYNVM_EnableTPI(void)
 {
@@ -165,7 +165,7 @@ void TINYNVM_DisableTPI(void)
  *  \param[out] ReadBuffer   Buffer to store read data into
  *  \param[in]  ReadSize     Length of the data to read from the device
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool TINYNVM_ReadMemory(const uint16_t ReadAddress,
                         uint8_t* ReadBuffer,
@@ -198,7 +198,7 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress,
  *  \param[in] WriteBuffer   Buffer to source data from
  *  \param[in] WriteLength   Total number of bytes to write to the device (must be an integer multiple of 2)
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
                          uint8_t* WriteBuffer,
@@ -245,7 +245,7 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
  *  \param[in] EraseCommand  NVM erase command to send to the device
  *  \param[in] Address       Address inside the memory space to erase
  *
- *  \return Boolean true if the command sequence complete successfully
+ *  \return Boolean \c true if the command sequence complete successfully
  */
 bool TINYNVM_EraseMemory(const uint8_t EraseCommand,
                          const uint16_t Address)

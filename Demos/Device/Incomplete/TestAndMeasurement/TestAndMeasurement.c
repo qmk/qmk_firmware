@@ -407,7 +407,7 @@ void TMC_Task(void)
  *
  *  \param[out] MessageHeader  Pointer to a location where the read header (if any) should be stored
  *
- *  \return Boolean true if a header was read, false otherwise
+ *  \return Boolean \c true if a header was read, \c false otherwise
  */
 bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 {

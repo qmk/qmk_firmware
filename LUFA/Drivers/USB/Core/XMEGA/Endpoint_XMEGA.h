@@ -495,7 +495,7 @@
 				USB_Endpoint_SelectedHandle->CTRL &= ~USB_EP_STALL_bm;
 			}
 
-			/** Determines if the currently selected endpoint is stalled, false otherwise.
+			/** Determines if the currently selected endpoint is stalled, \c false otherwise.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
 			 *

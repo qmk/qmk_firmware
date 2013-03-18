@@ -91,7 +91,7 @@
 		 *
 		 *  \param[in] Buffer  Application buffer to check
 		 *
-		 *  \return Boolean true if the buffer contains a packet from the host, false otherwise
+		 *  \return Boolean \c true if the buffer contains a packet from the host, \c false otherwise
 		 */
 		#define TCP_APP_HAS_RECEIVED_PACKET(Buffer)  (Buffer->Ready && (Buffer->Direction == TCP_PACKETDIR_IN))
 
@@ -99,7 +99,7 @@
 		 *
 		 *  \param[in] Buffer  Application buffer to check
 		 *
-		 *  \return Boolean true if the buffer has been captured by the application for device-to-host transmissions, false otherwise
+		 *  \return Boolean \c true if the buffer has been captured by the application for device-to-host transmissions, \c false otherwise
 		 */
 		#define TCP_APP_HAVE_CAPTURED_BUFFER(Buffer) (!(Buffer->Ready) && Buffer->InUse && \
 		                                              (Buffer->Direction == TCP_PACKETDIR_OUT))
@@ -108,7 +108,7 @@
 		 *
 		 *  \param[in] Buffer  Application buffer to check
 		 *
-		 *  \return Boolean true if the buffer may be captured by the application for device-to-host transmissions, false otherwise
+		 *  \return Boolean \c true if the buffer may be captured by the application for device-to-host transmissions, \c false otherwise
 		 */
 		#define TCP_APP_CAN_CAPTURE_BUFFER(Buffer)   Buffer->InUse
 

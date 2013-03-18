@@ -37,7 +37,7 @@
 
 #include "Keyboard.h"
 
-/** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
+/** Indicates what report mode the host has requested, true for normal HID reporting mode, \c false for special boot
  *  protocol reporting mode.
  */
 static bool UsingReportProtocol = true;

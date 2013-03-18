@@ -134,7 +134,7 @@ void EVENT_USB_Device_ControlRequest(void)
  *
  *  \param[out] ReportData  Pointer to a HID report data structure to be filled
  *
- *  \return Boolean true if the new report differs from the last report, false otherwise
+ *  \return Boolean \c true if the new report differs from the last report, \c false otherwise
  */
 bool GetNextReport(USB_JoystickReport_Data_t* const ReportData)
 {

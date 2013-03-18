@@ -172,7 +172,7 @@ void TCP_Init(void)
  *  \param[in] State    New state of the port, a value from the \ref TCP_PortStates_t enum
  *  \param[in] Handler  Application callback handler for the port
  *
- *  \return Boolean true if the port state was set, false otherwise (no more space in the port state table)
+ *  \return Boolean \c true if the port state was set, \c false otherwise (no more space in the port state table)
  */
 bool TCP_SetPortState(const uint16_t Port,
                       const uint8_t State,
@@ -246,7 +246,7 @@ uint8_t TCP_GetPortState(const uint16_t Port)
  *  \param[in] RemotePort     TCP port of the remote device in the connection, specified in big endian
  *  \param[in] State          TCP connection state, a value from the \ref TCP_ConnectionStates_t enum
  *
- *  \return Boolean true if the connection was updated or created, false otherwise (no more space in the connection state table)
+ *  \return Boolean \c true if the connection was updated or created, \c false otherwise (no more space in the connection state table)
  */
 bool TCP_SetConnectionState(const uint16_t Port,
                             const IP_Address_t* RemoteAddress,
