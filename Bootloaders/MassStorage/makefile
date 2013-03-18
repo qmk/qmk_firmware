@@ -27,20 +27,33 @@ LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START_OFFSET) $(BOOT_API_LD_FLAG
 # match the target's total FLASH size and the bootloader size set in the
 # device's fuses.
 FLASH_SIZE_KB         = 128
-BOOT_SECTION_SIZE_KB  = 8
+BOOT_SECTION_SIZE_KB  = 4
 
 # Bootloader address calculation formulas
 # Do not modify these macros, but rather modify the dependent values above.
 CALC_ADDRESS_IN_HEX   = $(shell printf "0x%X" $$(( $(1) )) )
 BOOT_START_OFFSET     = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024 )
-BOOT_SEC_OFFSET       = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) * 1024) - $(strip $(1)) )
+BOOT_SEC_OFFSET       = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) * 1024) - ($(strip $(1))) )
 
 # Bootloader linker section flags for relocating the API table sections to
 # known FLASH addresses - these should not normally be user-edited.
-BOOT_SECTION_LD_FLAG  = -Wl,--section-start=.apitable_$(strip $(1))=$(call BOOT_SEC_OFFSET, $(3)) -Wl,--undefined=BootloaderAPI_$(strip $(2))
-BOOT_API_LD_FLAGS     = $(call BOOT_SECTION_LD_FLAG, trampolines, Trampolines, 96)
-BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, jumptable,   JumpTable,   32)
-BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, signatures,  Signatures,  8)
+BOOT_SECTION_LD_FLAG  = -Wl,--section-start=$(strip $(1))=$(call BOOT_SEC_OFFSET, $(3)) -Wl,--undefined=$(strip $(2))
+BOOT_API_LD_FLAGS     = $(call BOOT_SECTION_LD_FLAG, .apitable_trampolines, BootloaderAPI_Trampolines, 96)
+BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, .apitable_jumptable,   BootloaderAPI_JumpTable,   32)
+BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, .apitable_signatures,  BootloaderAPI_Signatures,  8)
+
+# Check if the bootloader needs an AUX section, located before the real bootloader section to store some of the
+# bootloader code. This is required for 32KB and smaller devices, where the actual bootloader is 6KB but the maximum
+# bootloader section size is 4KB. The actual usable application space will be reduced by 6KB for these devices.
+ifeq ($(BOOT_SECTION_SIZE_KB),8)
+  CC_FLAGS           += -DAUX_BOOT_SECTION='' -DAUX_BOOT_SECTION_SIZE=0
+else
+  AUX_BOOT_SECTION_KB = (6 - $(BOOT_SECTION_SIZE_KB))
+
+  CC_FLAGS           += -DAUX_BOOT_SECTION='__attribute__((section(".boot_aux")))' -DAUX_BOOT_SECTION_SIZE='($(AUX_BOOT_SECTION_KB) * 1024)'
+  LD_FLAGS           += -Wl,--section-start=.boot_aux=$(call BOOT_SEC_OFFSET, (($(BOOT_SECTION_SIZE_KB) + $(AUX_BOOT_SECTION_KB)) * 1024 - 16))
+  LD_FLAGS           += $(call BOOT_SECTION_LD_FLAG, .boot_aux_trampoline, Boot_AUX_Trampoline, ($(BOOT_SECTION_SIZE_KB) + $(AUX_BOOT_SECTION_KB)) * 1024)
+endif
 
 # Default target
 all:

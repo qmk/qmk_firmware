@@ -39,7 +39,6 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
-		#include <avr/power.h>
 		#include <avr/interrupt.h>
 		#include <string.h>
 
@@ -67,14 +66,18 @@
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
 	/* Function Prototypes: */
-		static void SetupHardware(void);
+		int main(void) AUX_BOOT_SECTION;
 
-		void EVENT_USB_Device_Connect(void);
-		void EVENT_USB_Device_Disconnect(void);
-		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_ControlRequest(void);
+		static void SetupHardware(void) AUX_BOOT_SECTION;
 
-		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
+
+		void EVENT_USB_Device_Connect(void) AUX_BOOT_SECTION;
+		void EVENT_USB_Device_Disconnect(void) AUX_BOOT_SECTION;
+		void EVENT_USB_Device_ConfigurationChanged(void) AUX_BOOT_SECTION;
+		void EVENT_USB_Device_ControlRequest(void) AUX_BOOT_SECTION;
+
+		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) AUX_BOOT_SECTION;
 
 #endif
 

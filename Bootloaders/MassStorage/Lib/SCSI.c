@@ -104,9 +104,6 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 		case SCSI_CMD_READ_CAPACITY_10:
 			CommandSuccess = SCSI_Command_Read_Capacity_10(MSInterfaceInfo);
 			break;
-		case SCSI_CMD_SEND_DIAGNOSTIC:
-			CommandSuccess = SCSI_Command_Send_Diagnostic(MSInterfaceInfo);
-			break;
 		case SCSI_CMD_WRITE_10:
 			CommandSuccess = SCSI_Command_ReadWrite_10(MSInterfaceInfo, DATA_WRITE);
 			break;
@@ -116,6 +113,7 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 		case SCSI_CMD_MODE_SENSE_6:
 			CommandSuccess = SCSI_Command_ModeSense_6(MSInterfaceInfo);
 			break;
+		case SCSI_CMD_SEND_DIAGNOSTIC:
 		case SCSI_CMD_START_STOP_UNIT:
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
@@ -223,33 +221,6 @@ static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInt
 
 	/* Succeed the command and update the bytes transferred counter */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= 8;
-
-	return true;
-}
-
-/** Command processing for an issued SCSI SEND DIAGNOSTIC command. This command performs a quick check of the Dataflash ICs on the
- *  board, and indicates if they are present and functioning correctly. Only the Self-Test portion of the diagnostic command is
- *  supported.
- *
- *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
- *
- *  \return Boolean true if the command completed successfully, false otherwise.
- */
-static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
-{
-	/* Check to see if the SELF TEST bit is not set */
-	if (!(MSInterfaceInfo->State.CommandBlock.SCSICommandData[1] & (1 << 2)))
-	{
-		/* Only self-test supported - update SENSE key and fail the command */
-		SCSI_SET_SENSE(SCSI_SENSE_KEY_ILLEGAL_REQUEST,
-		               SCSI_ASENSE_INVALID_FIELD_IN_CDB,
-		               SCSI_ASENSEQ_NO_QUALIFIER);
-
-		return false;
-	}
-
-	/* Succeed the command and update the bytes transferred counter */
-	MSInterfaceInfo->State.CommandBlock.DataTransferLength = 0;
 
 	return true;
 }

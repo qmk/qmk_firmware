@@ -28,6 +28,19 @@
   this software.
 */
 
+#if AUX_BOOT_SECTION_SIZE > 0
+
+#warning Using a AUX bootloader section in addition to the defined bootloader space (see documentation).
+
+; Trampoline to jump over the AUX bootloader section to the start of the bootloader,
+; on devices where an AUX bootloader section is used.
+.section .boot_aux_trampoline, "ax"
+.global Boot_AUX_Trampoline
+Boot_AUX_Trampoline:
+	jmp BOOT_START_ADDR
+
+#endif
+
 ; Trampolines to actual API implementations if the target address is outside the
 ; range of a rjmp instruction (can happen with large bootloader sections)
 .section .apitable_trampolines, "ax"

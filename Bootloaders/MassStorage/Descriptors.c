@@ -60,7 +60,7 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 
 	.ManufacturerStrIndex   = NO_DESCRIPTOR,
 	.ProductStrIndex        = NO_DESCRIPTOR,
-	.SerialNumStrIndex      = USE_INTERNAL_SERIAL,
+	.SerialNumStrIndex      = NO_DESCRIPTOR,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
@@ -124,17 +124,6 @@ const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 		}
 };
 
-/** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
- *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
- *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
- */
-const USB_Descriptor_String_t LanguageString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-
-	.UnicodeString          = {LANGUAGE_ID_ENG}
-};
-
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
  *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
@@ -145,30 +134,21 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
                                     const void** const DescriptorAddress)
 {
-	const uint8_t  DescriptorType   = (wValue >> 8);
-	const uint8_t  DescriptorNumber = (wValue & 0xFF);
+	const uint8_t DescriptorType = (wValue >> 8);
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
 
-	switch (DescriptorType)
+	/* If/Else If chain compiles slightly smaller than a switch case */
+	if (DescriptorType == DTYPE_Device)
 	{
-		case DTYPE_Device:
-			Address = &DeviceDescriptor;
-			Size    = sizeof(USB_Descriptor_Device_t);
-			break;
-		case DTYPE_Configuration:
-			Address = &ConfigurationDescriptor;
-			Size    = sizeof(USB_Descriptor_Configuration_t);
-			break;
-		case DTYPE_String:
-			if (!(DescriptorNumber))
-			{
-					Address = &LanguageString;
-					Size    = pgm_read_byte(&LanguageString.Header.Size);
-			}
-
-			break;
+		Address = &DeviceDescriptor;
+		Size    = sizeof(USB_Descriptor_Device_t);
+	}
+	else if (DescriptorType == DTYPE_Configuration)
+	{
+		Address = &ConfigurationDescriptor;
+		Size    = sizeof(USB_Descriptor_Configuration_t);
 	}
 
 	*DescriptorAddress = Address;

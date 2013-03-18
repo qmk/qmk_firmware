@@ -151,26 +151,28 @@ static void WriteVirtualBlock(const uint16_t BlockNumber)
 
 	if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES))))
 	{
+		#if (FLASHEND > 0xFFFF)
 		uint32_t WriteFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
+		#else
+		uint16_t WriteFlashAddress = (uint16_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
+		#endif
 
 		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i += 2)
 		{
 			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
 			{
 				/* Erase the given FLASH page, ready to be programmed */
-				boot_page_erase(WriteFlashAddress);
-				boot_spm_busy_wait();
+				BootloaderAPI_ErasePage(WriteFlashAddress);
 			}
 
 			/* Write the next data word to the FLASH page */
-			boot_page_fill(WriteFlashAddress, (BlockBuffer[i + 1] << 8) | BlockBuffer[i]);
+			BootloaderAPI_FillWord(WriteFlashAddress, (BlockBuffer[i + 1] << 8) | BlockBuffer[i]);
 			WriteFlashAddress += 2;
 
 			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
 			{
 				/* Write the filled FLASH page to memory */
-				boot_page_write(WriteFlashAddress - SPM_PAGESIZE);
-				boot_spm_busy_wait();
+				BootloaderAPI_WritePage(WriteFlashAddress - SPM_PAGESIZE);
 			}
 		}
 	}
@@ -219,10 +221,17 @@ static void ReadVirtualBlock(const uint16_t BlockNumber)
 		default: /* Blocks 4 onwards: Data allocation section */
 			if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES))))
 			{
+				#if (FLASHEND > 0xFFFF)
 				uint32_t ReadFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
 
 				for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
 				  BlockBuffer[i] = pgm_read_byte_far(ReadFlashAddress++);
+				#else
+				uint16_t ReadFlashAddress = (uint16_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
+
+				for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
+				  BlockBuffer[i] = pgm_read_byte(ReadFlashAddress++);
+				#endif
 			}
 
 			break;
@@ -237,8 +246,8 @@ static void ReadVirtualBlock(const uint16_t BlockNumber)
  *  PC via the USB Mass Storage interface.
  *
  *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
- *  \param[in] BlockAddress  Data block starting address for the write sequence
- *  \param[in] TotalBlocks   Number of blocks of data to write
+ *  \param[in] BlockAddress     Data block starting address for the write sequence
+ *  \param[in] TotalBlocks      Number of blocks of data to write
  */
 void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
                             const uint32_t BlockAddress,
@@ -256,8 +265,8 @@ void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
  *  to the host PC via the USB Mass Storage interface.
  *
  *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
- *  \param[in] BlockAddress  Data block starting address for the read sequence
- *  \param[in] TotalBlocks   Number of blocks of data to read
+ *  \param[in] BlockAddress     Data block starting address for the read sequence
+ *  \param[in] TotalBlocks      Number of blocks of data to read
  */
 void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
                            const uint32_t BlockAddress,

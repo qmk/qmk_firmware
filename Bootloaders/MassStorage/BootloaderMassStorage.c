@@ -61,6 +61,25 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	};
 
 
+void Application_Jump_Check(void)
+{
+	bool JumpToApplication = false;
+
+	#if (BOARD == BOARD_LEONARDO)
+		/* Enable pull-up on the IO13 pin so we can use it to select the mode */
+		PORTC |=  (1 << 7);
+		Delay_MS(10);
+		JumpToApplication |= ((PINC & (1 << 7)) != 0);
+		PORTC &= ~(1 << 7);
+	#endif
+
+	if (JumpToApplication)
+	{
+		// cppcheck-suppress constStatement
+		((void (*)(void))0x0000)();
+	}
+}
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -84,9 +103,6 @@ static void SetupHardware(void)
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
-
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
 
 	/* Relocate the interrupt vector table to the bootloader section */
 	MCUCR = (1 << IVCE);

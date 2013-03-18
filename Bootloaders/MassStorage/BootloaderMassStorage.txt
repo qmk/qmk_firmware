@@ -12,6 +12,8 @@
  *
  *  \li Series 7 USB AVRs (AT90USBxxx7)
  *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4) - <i>See \ref SSec_Aux_Space</i>
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2) - <i>See \ref SSec_Aux_Space</i>
  *
  *  \section Sec_Info USB Information:
  *
@@ -49,7 +51,7 @@
  *  firmware image file, to load firmware onto the AVR.
  *
  *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
- *  into 8KB of bootloader space. If you wish to alter this size and/or change the AVR model, you will need to
+ *  into 6KB of bootloader space. If you wish to alter this size and/or change the AVR model, you will need to
  *  edit the MCU, FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
  *
  *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
@@ -100,6 +102,22 @@
  *  #define BOOTLOADER_ADDRESS_LENGTH          4
  *  \endcode
  *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_MASS_STORAGE_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes
+ *  of FLASH memory starting from address \c BOOTLOADER_ADDRESS_START.
+ *
+ *  \subsection SSec_Aux_Space Auxiliary Bootloader Section
+ *  To make the bootloader function on smaller devices (those with a physical bootloader section of smaller than 6KB) a second
+ *  section of memory (called the <i>Auxiliary Bootloader Section</i>) is added before the start of the real bootloader section,
+ *  and is filled with a portion of the bootloader code. This allows smaller devices to run the bootloader, at the cost of an
+ *  additional portion of the device's FLASH (the bootloader section size in KB subtracted from the 6KB total size). A small
+ *  trampoline is inserted at the start of the auxiliary section so that the bootloader will run normally in the case of a blank
+ *  application section.
+ *
+ *  On devices supporting a 8KB bootloader section size, the AUX section is not created in the final binary.
+ *
  *  \subsection SSec_API_MemLayout Device Memory Map
  *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
  *
@@ -121,6 +139,16 @@
  *  |                            |
  *  |                            |
  *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE - BOOT_AUX_SECTION_SIZE
+ *  | Booloader Start Trampoline |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE - BOOT_AUX_SECTION_SIZE + 4
+ *  |                            |
+ *  |     Auxiliary Bootloader   |
+ *  |  Space for Smaller Devices |
+ *  | (Not User App. Accessible) |
+ *  |                            |
  *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
  *  |                            |
  *  |   Bootloader Application   |
@@ -137,12 +165,6 @@
  *  |   (User App. Accessible)   |
  *  +----------------------------+ FLASHEND
  *  \endverbatim
- *
- *  Bootloaders reporting a device release revision number of 1.00 or greater are bootloader API enabled. From the application
- *  the API support of the bootloader can be detected by reading the FLASH memory bytes located at address \c BOOTLOADER_MAGIC_SIGNATURE_START
- *  and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader can be determined by reading the
- *  FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MASS_STORAGE_SIGNATURE.
- *  The start address of the bootloader can be retrieved by reading the bytes of FLASH memory starting from address \c BOOTLOADER_ADDRESS_START.
  *
  *  \section Sec_Options Project Options
  *

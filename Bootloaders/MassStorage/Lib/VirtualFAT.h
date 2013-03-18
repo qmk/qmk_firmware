@@ -37,9 +37,11 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "../BootloaderAPI.h"
+
 	/* Macros: */
 		/** Size of the virtual FIRMWARE.BIN file in bytes. */
-		#define FIRMWARE_FILE_SIZE_BYTES  (FLASHEND - (FLASHEND - BOOT_START_ADDR))
+		#define FIRMWARE_FILE_SIZE_BYTES  (FLASHEND - (FLASHEND - BOOT_START_ADDR) - AUX_BOOT_SECTION_SIZE)
 
 		/** Number of sectors that comprise a single logical disk cluster. */
 		#define SECTOR_PER_CLUSTER        4
@@ -144,16 +146,16 @@
 		#if defined(INCLUDE_FROM_VIRTUAL_FAT_C)
 			static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
 			                                    const uint16_t Index,
-			                                    const uint16_t ChainEntry);
-			static void WriteVirtualBlock(const uint16_t BlockNumber);
-			static void ReadVirtualBlock(const uint16_t BlockNumber);
+			                                    const uint16_t ChainEntry) AUX_BOOT_SECTION;
+			static void WriteVirtualBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
+			static void ReadVirtualBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
 		#endif
 
 		void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 		                            const uint32_t BlockAddress,
-		                            uint16_t TotalBlocks);
+		                            uint16_t TotalBlocks) AUX_BOOT_SECTION;
 
 		void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 		                           const uint32_t BlockAddress,
-		                           uint16_t TotalBlocks);
+		                           uint16_t TotalBlocks) AUX_BOOT_SECTION;
 #endif
