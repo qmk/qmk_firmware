@@ -104,6 +104,9 @@ static void SetupHardware(void)
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
+	/* Disable clock division */
+	clock_prescale_set(clock_div_1);
+
 	/* Relocate the interrupt vector table to the bootloader section */
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
