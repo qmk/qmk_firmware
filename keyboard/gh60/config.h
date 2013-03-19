@@ -61,6 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable print */
 //#define NO_PRINT
 
+#define NO_ACTION_KEYMAP
 #define NO_ACTION_OVERLAY
 #define NO_ACTION_TAPPING
 #define NO_ACTION_MACRO

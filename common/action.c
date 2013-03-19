@@ -369,6 +369,7 @@ static void process_action(keyrecord_t *record)
             break;
 #endif
 
+#ifndef NO_ACTION_KEYMAP
         case ACT_KEYMAP:
             switch (action.layer.code) {
                 /* Keymap clear */
@@ -530,6 +531,7 @@ static void process_action(keyrecord_t *record)
                     break;
             }
             break;
+#endif
 
 #ifndef NO_ACTION_OVERLAY
         case ACT_OVERLAY:
