@@ -56,5 +56,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define BOOTLOADER_SIZE 4096
 
+/* disable debug print */
+//#define NO_DEBUG
+
+/* disable print */
+//#define NO_PRINT
 
 #endif

@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 
 
+#ifndef NO_DEBUG
+
 #define debug(s)                  do { if (debug_enable) print(s); } while (0)
 #define debugln(s)                do { if (debug_enable) println(s); } while (0)
 #define debug_S(s)                do { if (debug_enable) print_S(s); } while (0)
@@ -31,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         print(__FILE__); print(" at "); print_dec(__LINE__); print(" in "); print(": "); print(s); \
     } \
 } while (0)
-
-    
-
 #define debug_dec(data)           do { if (debug_enable) print_dec(data); } while (0)
 #define debug_decs(data)          do { if (debug_enable) print_decs(data); } while (0)
 #define debug_hex4(data)          do { if (debug_enable) print_hex4(data); } while (0)
@@ -46,10 +45,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define debug_bin_reverse8(data)  do { if (debug_enable) print_bin_reverse8(data); } while (0)
 #define debug_bin_reverse16(data) do { if (debug_enable) print_bin_reverse16(data); } while (0)
 #define debug_bin_reverse32(data) do { if (debug_enable) print_bin_reverse32(data); } while (0)
-
 #define debug_hex(data)           debug_hex8(data)
 #define debug_bin(data)           debug_bin8(data)
 #define debug_bin_reverse(data)   debug_bin8(data)
+
+#else
+
+#define debug(s)
+#define debugln(s)
+#define debug_S(s)
+#define debug_P(s)
+#define debug_msg(s)
+#define debug_dec(data)
+#define debug_decs(data)
+#define debug_hex4(data)
+#define debug_hex8(data)
+#define debug_hex16(data)
+#define debug_hex32(data)
+#define debug_bin8(data)
+#define debug_bin16(data)
+#define debug_bin32(data)
+#define debug_bin_reverse8(data)
+#define debug_bin_reverse16(data)
+#define debug_bin_reverse32(data)
+#define debug_hex(data)
+#define debug_bin(data)
+#define debug_bin_reverse(data)
+
+#endif
 
 
 #ifdef __cplusplus
