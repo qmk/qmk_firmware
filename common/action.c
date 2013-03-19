@@ -30,14 +30,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 static void process_action(keyrecord_t *record);
+#ifndef NO_ACTION_TAPPING
 static bool process_tapping(keyrecord_t *record);
 static void waiting_buffer_scan_tap(void);
+#endif
 
 static void debug_event(keyevent_t event);
 static void debug_record(keyrecord_t record);
 static void debug_action(action_t action);
+#ifndef NO_ACTION_TAPPING
 static void debug_tapping_key(void);
 static void debug_waiting_buffer(void);
+#endif
 
 
 /*
@@ -53,6 +57,7 @@ static void debug_waiting_buffer(void);
 #define TAPPING_TOGGLE  5
 #endif
 
+#ifndef NO_ACTION_TAPPING
 /* stores a key event of current tap. */
 static keyrecord_t tapping_key = {};
 
@@ -158,7 +163,7 @@ static void oneshot_toggle(void)
 {
     oneshot_state.disabled = !oneshot_state.disabled;
 }
-
+#endif
 
 
 void action_exec(keyevent_t event)
@@ -170,6 +175,7 @@ void action_exec(keyevent_t event)
 
     keyrecord_t record = { .event = event };
 
+#ifndef NO_ACTION_TAPPING
     // pre-process on tapping
     if (process_tapping(&record)) {
         if (!IS_NOEVENT(record.event)) {
@@ -202,6 +208,12 @@ void action_exec(keyevent_t event)
     if (!IS_NOEVENT(event)) {
         debug("\n");
     }
+#else
+    process_action(&record);
+    if (!IS_NOEVENT(record.event)) {
+        debug("processed: "); debug_record(record); debug("\n");
+    }
+#endif
 }
 
 static void process_action(keyrecord_t *record)
@@ -244,6 +256,7 @@ static void process_action(keyrecord_t *record)
                 }
             }
             break;
+#ifndef NO_ACTION_TAPPING
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
             {
@@ -319,10 +332,11 @@ static void process_action(keyrecord_t *record)
                 }
             }
             break;
+#endif
 
+#ifdef EXTRAKEY_ENABLE
         /* other HID usage */
         case ACT_USAGE:
-#ifdef EXTRAKEY_ENABLE
             switch (action.usage.page) {
                 case PAGE_SYSTEM:
                     if (event.pressed) {
@@ -339,12 +353,12 @@ static void process_action(keyrecord_t *record)
                     }
                     break;
             }
-#endif
             break;
+#endif
 
+#ifdef MOUSEKEY_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
-#ifdef MOUSEKEY_ENABLE
             if (event.pressed) {
                 mousekey_on(action.key.code);
                 mousekey_send();
@@ -352,8 +366,8 @@ static void process_action(keyrecord_t *record)
                 mousekey_off(action.key.code);
                 mousekey_send();
             }
-#endif
             break;
+#endif
 
         case ACT_KEYMAP:
             switch (action.layer.code) {
@@ -687,6 +701,7 @@ static void process_action(keyrecord_t *record)
     }
 }
 
+#ifndef NO_ACTION_TAPPING
 /* Tapping
  *
  * Rule: Tap key is typed(pressed and released) within TAPPING_TERM.
@@ -881,6 +896,7 @@ static void waiting_buffer_scan_tap(void)
         }
     }
 }
+#endif
 
 
 
@@ -908,6 +924,7 @@ void register_code(uint8_t code)
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
+#ifndef NO_ACTION_TAPPING
         if (oneshot_state.mods && oneshot_state.ready && !oneshot_state.disabled) {
             uint8_t tmp_mods = host_get_mods();
             host_add_mods(oneshot_state.mods);
@@ -916,7 +933,9 @@ void register_code(uint8_t code)
 
             host_set_mods(tmp_mods);
             oneshot_state.ready = false;
-        } else {
+        } else 
+#endif
+        {
             host_add_key(code);
             host_send_keyboard_report();
         }
@@ -1064,6 +1083,7 @@ static void debug_action(action_t action)
     debug_hex8(action.kind.param & 0xff);
     debug("]");
 }
+#ifndef NO_ACTION_TAPPING
 static void debug_tapping_key(void)
 {
     debug("TAPPING_KEY="); debug_record(tapping_key); debug("\n");
@@ -1076,3 +1096,4 @@ static void debug_waiting_buffer(void)
     }
     debug("}\n");
 }
+#endif

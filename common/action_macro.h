@@ -28,7 +28,11 @@ typedef uint8_t macro_t;
 typedef macro_t prog_macro_t PROGMEM;
 
 
+#ifndef NO_ACTION_MACRO
 void action_macro_play(const prog_macro_t *macro);
+#else
+#define action_macro_play(macro)
+#endif
 
 
 

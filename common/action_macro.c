@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 
 
+#ifndef NO_ACTION_MACRO
+
 #define MACRO_READ()  (macro = pgm_read_byte(macro_p++))
 void action_macro_play(const prog_macro_t *macro_p)
 {
@@ -64,3 +66,4 @@ void action_macro_play(const prog_macro_t *macro_p)
         { uint8_t ms = interval; while (ms--) _delay_ms(1); }
     }
 }
+#endif
