@@ -31,6 +31,9 @@ endif
 
 ifdef CONSOLE_ENABLE
     OPT_DEFS += -DCONSOLE_ENABLE
+else
+    OPT_DEFS += -DNO_PRINT
+    OPT_DEFS += -DNO_DEBUG
 endif
 
 ifdef NKRO_ENABLE

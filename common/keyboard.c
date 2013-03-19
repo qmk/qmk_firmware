@@ -54,7 +54,7 @@ static bool has_ghost_in_row(uint8_t row)
 void keyboard_init(void)
 {
     // TODO: configuration of sendchar impl
-    print_sendchar_func = sendchar;
+    print_set_sendchar(sendchar);
 
     timer_init();
     matrix_init();
