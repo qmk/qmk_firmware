@@ -688,14 +688,18 @@ static void process_action(keyrecord_t *record)
 #endif
 
         /* Extentions */
+#ifndef NO_ACTION_MACRO
         case ACT_MACRO:
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
+#endif
         case ACT_COMMAND:
             break;
+#ifndef NO_ACTION_FUNCTION
         case ACT_FUNCTION:
             action_function(record, action.func.id, action.func.opt);
             break;
+#endif
         default:
             break;
     }
