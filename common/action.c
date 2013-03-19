@@ -517,6 +517,7 @@ static void process_action(keyrecord_t *record)
             }
             break;
 
+#ifndef NO_ACTION_OVERLAY
         case ACT_OVERLAY:
             switch (action.layer.code) {
                 // Overlay Invert bit4
@@ -670,6 +671,7 @@ static void process_action(keyrecord_t *record)
                     break;
             }
             break;
+#endif
 
         /* Extentions */
         case ACT_MACRO:
