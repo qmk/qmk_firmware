@@ -192,6 +192,9 @@ BASE_CC_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
 ifneq ($(F_CPU),)
    BASE_CC_FLAGS += -DF_CPU=$(F_CPU)UL
 endif
+ifeq ($(LINKER_RELAXATIONS), Y)
+BASE_CC_FLAGS += -mrelax
+endif
 
 # Additional language specific compiler flags
 BASE_C_FLAGS   := -x c -O$(OPTIMIZATION) -std=$(C_STANDARD) -Wstrict-prototypes
