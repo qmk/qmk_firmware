@@ -212,11 +212,8 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterf
  */
 static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
-	uint32_t LastBlockAddressInLUN = (LUN_MEDIA_BLOCKS - 1);
-	uint32_t MediaBlockSize        = SECTOR_SIZE_BYTES;
-
-	Endpoint_Write_Stream_BE(&LastBlockAddressInLUN, sizeof(LastBlockAddressInLUN), NULL);
-	Endpoint_Write_Stream_BE(&MediaBlockSize, sizeof(MediaBlockSize), NULL);
+	Endpoint_Write_32_BE(LUN_MEDIA_BLOCKS - 1);
+	Endpoint_Write_32_BE(SECTOR_SIZE_BYTES);
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
@@ -237,7 +234,7 @@ static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInt
 static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
                                       const bool IsDataRead)
 {
-	uint32_t BlockAddress;
+	uint16_t BlockAddress;
 	uint16_t TotalBlocks;
 
 	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
@@ -259,9 +256,9 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 
 	/* Determine if the packet is a READ (10) or WRITE (10) command, call appropriate function */
 	if (IsDataRead == DATA_READ)
-	  VirtualFAT_ReadBlocks(MSInterfaceInfo, BlockAddress, TotalBlocks);
+	  VirtualFAT_ReadBlocks(BlockAddress, TotalBlocks);
 	else
-	  VirtualFAT_WriteBlocks(MSInterfaceInfo, BlockAddress, TotalBlocks);
+	  VirtualFAT_WriteBlocks(BlockAddress, TotalBlocks);
 
 	/* Update the bytes transferred counter and succeed the command */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * SECTOR_SIZE_BYTES);

@@ -245,12 +245,10 @@ static void ReadVirtualBlock(const uint16_t BlockNumber)
 /** Writes a number of blocks to the virtual FAT file system, from the host
  *  PC via the USB Mass Storage interface.
  *
- *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
  *  \param[in] BlockAddress     Data block starting address for the write sequence
  *  \param[in] TotalBlocks      Number of blocks of data to write
  */
-void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
-                            const uint32_t BlockAddress,
+void VirtualFAT_WriteBlocks(const uint16_t BlockAddress,
                             uint16_t TotalBlocks)
 {
 	uint16_t CurrentBlock = (uint16_t)BlockAddress;
@@ -264,12 +262,10 @@ void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 /** Reads a number of blocks from the virtual FAT file system, and sends them
  *  to the host PC via the USB Mass Storage interface.
  *
- *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
  *  \param[in] BlockAddress     Data block starting address for the read sequence
  *  \param[in] TotalBlocks      Number of blocks of data to read
  */
-void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
-                           const uint32_t BlockAddress,
+void VirtualFAT_ReadBlocks(const uint16_t BlockAddress,
                            uint16_t TotalBlocks)
 {
 	uint16_t CurrentBlock = (uint16_t)BlockAddress;

@@ -151,11 +151,9 @@
 			static void ReadVirtualBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
 		#endif
 
-		void VirtualFAT_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
-		                            const uint32_t BlockAddress,
+		void VirtualFAT_WriteBlocks(const uint16_t BlockAddress,
 		                            uint16_t TotalBlocks) AUX_BOOT_SECTION;
 
-		void VirtualFAT_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
-		                           const uint32_t BlockAddress,
+		void VirtualFAT_ReadBlocks(const uint16_t BlockAddress,
 		                           uint16_t TotalBlocks) AUX_BOOT_SECTION;
 #endif
