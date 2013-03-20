@@ -69,11 +69,13 @@ void Application_Jump_Check(void)
 		/* Enable pull-up on the IO13 pin so we can use it to select the mode */
 		PORTC |=  (1 << 7);
 		Delay_MS(10);
-		JumpToApplication |= ((PINC & (1 << 7)) != 0);
-		PORTC &= ~(1 << 7);
-	#endif
 
-	#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
+		/* If IO13 is not jumpered to ground, start the user application instead */
+		JumpToApplication |= ((PINC & (1 << 7)) != 0);
+
+		/* Disable pull-up after the check has completed */
+		PORTC &= ~(1 << 7);
+	#elif ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 		/* Disable JTAG debugging */
 		JTAG_DISABLE();
 
