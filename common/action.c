@@ -31,20 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 static void process_action(keyrecord_t *record);
-#ifndef NO_ACTION_TAPPING
-static bool process_tapping(keyrecord_t *record);
-static void waiting_buffer_scan_tap(void);
-#endif
-
 static void debug_event(keyevent_t event);
 static void debug_record(keyrecord_t record);
 static void debug_action(action_t action);
+
 #ifndef NO_ACTION_TAPPING
-static void debug_tapping_key(void);
-static void debug_waiting_buffer(void);
-#endif
-
-
 /*
  * Tapping
  */
@@ -58,7 +49,6 @@ static void debug_waiting_buffer(void);
 #define TAPPING_TOGGLE  5
 #endif
 
-#ifndef NO_ACTION_TAPPING
 /* stores a key event of current tap. */
 static keyrecord_t tapping_key = {};
 
@@ -76,57 +66,23 @@ static keyrecord_t tapping_key = {};
  */
 #define WAITING_BUFFER_SIZE 8
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
-
 /* point to empty cell to enq */
 static uint8_t waiting_buffer_head = 0;
-
 /* point to the oldest data cell to deq */
 static uint8_t waiting_buffer_tail = 0;
 
-static bool waiting_buffer_enq(keyrecord_t record)
-{
-    if (IS_NOEVENT(record.event)) {
-        return true;
-    }
 
-    if ((waiting_buffer_head + 1) % WAITING_BUFFER_SIZE == waiting_buffer_tail) {
-        debug("waiting_buffer_enq: Over flow.\n");
-        return false;
-    }
-
-    waiting_buffer[waiting_buffer_head] = record;
-    waiting_buffer_head = (waiting_buffer_head + 1) % WAITING_BUFFER_SIZE;
-
-    debug("waiting_buffer_enq: "); debug_waiting_buffer();
-    return true;
-}
-
-static void waiting_buffer_clear(void)
-{
-    waiting_buffer_head = 0;
-    waiting_buffer_tail = 0;
-}
-
+static bool process_tapping(keyrecord_t *record);
+static bool waiting_buffer_enq(keyrecord_t record);
+static void waiting_buffer_clear(void);
 #if TAPPING_TERM >= 500
-static bool waiting_buffer_typed(keyevent_t event)
-{
-    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        if (KEYEQ(event.key, waiting_buffer[i].event.key) && event.pressed !=  waiting_buffer[i].event.pressed) {
-            return true;
-        }
-    }
-    return false;
-}
+static bool waiting_buffer_typed(keyevent_t event);
+#endif
+static void waiting_buffer_scan_tap(void);
+static void debug_tapping_key(void);
+static void debug_waiting_buffer(void);
 #endif
 
-bool waiting_buffer_has_anykey_pressed(void)
-{
-    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        if (waiting_buffer[i].event.pressed) return true;
-    }
-    return false;
-}
-#endif
 
 
 void action_exec(keyevent_t event)
@@ -139,13 +95,11 @@ void action_exec(keyevent_t event)
     keyrecord_t record = { .event = event };
 
 #ifndef NO_ACTION_TAPPING
-    // pre-process on tapping
     if (process_tapping(&record)) {
         if (!IS_NOEVENT(record.event)) {
             debug("processed: "); debug_record(record); debug("\n");
         }
     } else {
-        // enqueue
         if (!waiting_buffer_enq(record)) {
             // clear all in case of overflow.
             debug("OVERFLOW: CLEAR ALL STATES\n");
@@ -159,7 +113,6 @@ void action_exec(keyevent_t event)
     if (!IS_NOEVENT(event) && waiting_buffer_head != waiting_buffer_tail) {
         debug("---- action_exec: process waiting_buffer -----\n");
     }
-
     for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
         if (process_tapping(&waiting_buffer[waiting_buffer_tail])) {
             debug("processed: waiting_buffer["); debug_dec(waiting_buffer_tail); debug("] = ");
@@ -298,7 +251,6 @@ static void process_action(keyrecord_t *record)
             }
             break;
 #endif
-
 #ifdef EXTRAKEY_ENABLE
         /* other HID usage */
         case ACT_USAGE:
@@ -320,7 +272,6 @@ static void process_action(keyrecord_t *record)
             }
             break;
 #endif
-
 #ifdef MOUSEKEY_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
@@ -333,7 +284,6 @@ static void process_action(keyrecord_t *record)
             }
             break;
 #endif
-
 #ifndef NO_ACTION_KEYMAP
         case ACT_KEYMAP:
             switch (action.layer.code) {
@@ -497,7 +447,6 @@ static void process_action(keyrecord_t *record)
             }
             break;
 #endif
-
 #ifndef NO_ACTION_OVERLAY
         case ACT_OVERLAY:
             switch (action.layer.code) {
@@ -653,7 +602,6 @@ static void process_action(keyrecord_t *record)
             }
             break;
 #endif
-
         /* Extentions */
 #ifndef NO_ACTION_MACRO
         case ACT_MACRO:
@@ -671,6 +619,198 @@ static void process_action(keyrecord_t *record)
             break;
     }
 }
+
+
+
+
+/*
+ * Utilities for actions.
+ */
+void register_code(uint8_t code)
+{
+    if (code == KC_NO) {
+        return;
+    }
+#ifdef CAPSLOCK_LOCKING_ENABLE
+    else if (KC_LOCKING_CAPS == code) {
+#ifdef CAPSLOCK_LOCKING_RESYNC_ENABLE
+        // Resync: ignore if caps lock already is on
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) return;
+#endif
+        host_add_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+        host_del_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+    }
+#endif
+    else if IS_KEY(code) {
+        // TODO: should push command_proc out of this block?
+        if (command_proc(code)) return;
+
+#ifndef NO_ACTION_ONESHOT
+        if (oneshot_state.mods && !oneshot_state.disabled) {
+            uint8_t tmp_mods = host_get_mods();
+            host_add_mods(oneshot_state.mods);
+
+            host_add_key(code);
+            host_send_keyboard_report();
+
+            host_set_mods(tmp_mods);
+            oneshot_cancel();
+        } else 
+#endif
+        {
+            host_add_key(code);
+            host_send_keyboard_report();
+        }
+    }
+    else if IS_MOD(code) {
+        host_add_mods(MOD_BIT(code));
+        host_send_keyboard_report();
+    }
+}
+
+void unregister_code(uint8_t code)
+{
+    if (code == KC_NO) {
+        return;
+    }
+#ifdef CAPSLOCK_LOCKING_ENABLE
+    else if (KC_LOCKING_CAPS == code) {
+#ifdef CAPSLOCK_LOCKING_RESYNC_ENABLE
+        // Resync: ignore if caps lock already is off
+        if (!(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) return;
+#endif
+        host_add_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+        host_del_key(KC_CAPSLOCK);
+        host_send_keyboard_report();
+    }
+#endif
+    else if IS_KEY(code) {
+        host_del_key(code);
+        host_send_keyboard_report();
+    }
+    else if IS_MOD(code) {
+        host_del_mods(MOD_BIT(code));
+        host_send_keyboard_report();
+    }
+}
+
+void add_mods(uint8_t mods)
+{
+    if (mods) {
+        host_add_mods(mods);
+        host_send_keyboard_report();
+    }
+}
+
+void del_mods(uint8_t mods)
+{
+    if (mods) {
+        host_del_mods(mods);
+        host_send_keyboard_report();
+    }
+}
+
+void set_mods(uint8_t mods)
+{
+    host_set_mods(mods);
+    host_send_keyboard_report();
+}
+
+void clear_keyboard(void)
+{
+    host_clear_mods();
+    clear_keyboard_but_mods();
+}
+
+void clear_keyboard_but_mods(void)
+{
+    host_clear_keys();
+    host_send_keyboard_report();
+#ifdef MOUSEKEY_ENABLE
+    mousekey_clear();
+    mousekey_send();
+#endif
+#ifdef EXTRAKEY_ENABLE
+    host_system_send(0);
+    host_consumer_send(0);
+#endif
+}
+
+bool sending_anykey(void)
+{
+    return (host_has_anykey() || host_mouse_in_use() ||
+            host_last_sysytem_report() || host_last_consumer_report());
+}
+
+bool is_tap_key(key_t key)
+{
+    action_t action = layer_switch_get_action(key);
+
+    switch (action.kind.id) {
+        case ACT_LMODS_TAP:
+        case ACT_RMODS_TAP:
+            return true;
+        case ACT_KEYMAP:
+        case ACT_OVERLAY:
+            switch (action.layer.code) {
+                case 0x04 ... 0xEF:    /* tap key */
+                case OP_INV:
+                    return true;
+                default:
+                    return false;
+            }
+        case ACT_MACRO:
+        case ACT_FUNCTION:
+            if (action.func.opt & FUNC_TAP) { return true; }
+            return false;
+    }
+    return false;
+}
+
+
+/*
+ * debug print
+ */
+static void debug_event(keyevent_t event)
+{
+    debug_hex16((event.key.row<<8) | event.key.col);
+    if (event.pressed) debug("d("); else debug("u(");
+    debug_dec(event.time); debug(")");
+}
+
+static void debug_record(keyrecord_t record)
+{
+    debug_event(record.event); debug(":"); debug_dec(record.tap.count);
+    if (record.tap.interrupted) debug("-");
+}
+
+static void debug_action(action_t action)
+{
+    switch (action.kind.id) {
+        case ACT_LMODS:             debug("ACT_LMODS");             break;
+        case ACT_RMODS:             debug("ACT_RMODS");             break;
+        case ACT_LMODS_TAP:         debug("ACT_LMODS_TAP");         break;
+        case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
+        case ACT_USAGE:             debug("ACT_USAGE");             break;
+        case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
+        case ACT_KEYMAP:            debug("ACT_KEYMAP");            break;
+        case ACT_OVERLAY:           debug("ACT_OVERLAY");           break;
+        case ACT_MACRO:             debug("ACT_MACRO");             break;
+        case ACT_COMMAND:           debug("ACT_COMMAND");           break;
+        case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
+        default:                    debug("UNKNOWN");               break;
+    }
+    debug("[");
+    debug_hex4(action.kind.param>>8);
+    debug(":");
+    debug_hex8(action.kind.param & 0xff);
+    debug("]");
+}
+
+
 
 #ifndef NO_ACTION_TAPPING
 /* Tapping
@@ -845,6 +985,53 @@ static bool process_tapping(keyrecord_t *keyp)
     }
 }
 
+
+/*
+ * Waiting buffer
+ */
+static bool waiting_buffer_enq(keyrecord_t record)
+{
+    if (IS_NOEVENT(record.event)) {
+        return true;
+    }
+
+    if ((waiting_buffer_head + 1) % WAITING_BUFFER_SIZE == waiting_buffer_tail) {
+        debug("waiting_buffer_enq: Over flow.\n");
+        return false;
+    }
+
+    waiting_buffer[waiting_buffer_head] = record;
+    waiting_buffer_head = (waiting_buffer_head + 1) % WAITING_BUFFER_SIZE;
+
+    debug("waiting_buffer_enq: "); debug_waiting_buffer();
+    return true;
+}
+
+static void waiting_buffer_clear(void)
+{
+    waiting_buffer_head = 0;
+    waiting_buffer_tail = 0;
+}
+
+#if TAPPING_TERM >= 500
+static bool waiting_buffer_typed(keyevent_t event)
+{
+    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
+        if (KEYEQ(event.key, waiting_buffer[i].event.key) && event.pressed !=  waiting_buffer[i].event.pressed) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif
+
+bool waiting_buffer_has_anykey_pressed(void)
+{
+    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
+        if (waiting_buffer[i].event.pressed) return true;
+    }
+    return false;
+}
 /* scan buffer for tapping */
 static void waiting_buffer_scan_tap(void)
 {
@@ -867,199 +1054,16 @@ static void waiting_buffer_scan_tap(void)
         }
     }
 }
-#endif
-
-
-
-/*
- * Utilities for actions.
- */
-void register_code(uint8_t code)
-{
-    if (code == KC_NO) {
-        return;
-    }
-#ifdef CAPSLOCK_LOCKING_ENABLE
-    else if (KC_LOCKING_CAPS == code) {
-#ifdef CAPSLOCK_LOCKING_RESYNC_ENABLE
-        // Resync: ignore if caps lock already is on
-        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) return;
-#endif
-        host_add_key(KC_CAPSLOCK);
-        host_send_keyboard_report();
-        host_del_key(KC_CAPSLOCK);
-        host_send_keyboard_report();
-    }
-#endif
-    else if IS_KEY(code) {
-        // TODO: should push command_proc out of this block?
-        if (command_proc(code)) return;
-
-#ifndef NO_ACTION_ONESHOT
-        if (oneshot_state.mods && !oneshot_state.disabled) {
-            uint8_t tmp_mods = host_get_mods();
-            host_add_mods(oneshot_state.mods);
-
-            host_add_key(code);
-            host_send_keyboard_report();
-
-            host_set_mods(tmp_mods);
-            oneshot_cancel();
-        } else 
-#endif
-        {
-            host_add_key(code);
-            host_send_keyboard_report();
-        }
-    }
-    else if IS_MOD(code) {
-        host_add_mods(MOD_BIT(code));
-        host_send_keyboard_report();
-    }
-}
-
-void unregister_code(uint8_t code)
-{
-    if (code == KC_NO) {
-        return;
-    }
-#ifdef CAPSLOCK_LOCKING_ENABLE
-    else if (KC_LOCKING_CAPS == code) {
-#ifdef CAPSLOCK_LOCKING_RESYNC_ENABLE
-        // Resync: ignore if caps lock already is off
-        if (!(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) return;
-#endif
-        host_add_key(KC_CAPSLOCK);
-        host_send_keyboard_report();
-        host_del_key(KC_CAPSLOCK);
-        host_send_keyboard_report();
-    }
-#endif
-    else if IS_KEY(code) {
-        host_del_key(code);
-        host_send_keyboard_report();
-    }
-    else if IS_MOD(code) {
-        host_del_mods(MOD_BIT(code));
-        host_send_keyboard_report();
-    }
-}
-
-void add_mods(uint8_t mods)
-{
-    if (mods) {
-        host_add_mods(mods);
-        host_send_keyboard_report();
-    }
-}
-
-void del_mods(uint8_t mods)
-{
-    if (mods) {
-        host_del_mods(mods);
-        host_send_keyboard_report();
-    }
-}
-
-void set_mods(uint8_t mods)
-{
-    host_set_mods(mods);
-    host_send_keyboard_report();
-}
-
-void clear_keyboard(void)
-{
-    host_clear_mods();
-    clear_keyboard_but_mods();
-}
-
-void clear_keyboard_but_mods(void)
-{
-    host_clear_keys();
-    host_send_keyboard_report();
-#ifdef MOUSEKEY_ENABLE
-    mousekey_clear();
-    mousekey_send();
-#endif
-#ifdef EXTRAKEY_ENABLE
-    host_system_send(0);
-    host_consumer_send(0);
-#endif
-}
-
-bool sending_anykey(void)
-{
-    return (host_has_anykey() || host_mouse_in_use() ||
-            host_last_sysytem_report() || host_last_consumer_report());
-}
-
-bool is_tap_key(key_t key)
-{
-    action_t action = layer_switch_get_action(key);
-
-    switch (action.kind.id) {
-        case ACT_LMODS_TAP:
-        case ACT_RMODS_TAP:
-            return true;
-        case ACT_KEYMAP:
-        case ACT_OVERLAY:
-            switch (action.layer.code) {
-                case 0x04 ... 0xEF:    /* tap key */
-                case OP_INV:
-                    return true;
-                default:
-                    return false;
-            }
-        case ACT_MACRO:
-        case ACT_FUNCTION:
-            if (action.func.opt & FUNC_TAP) { return true; }
-            return false;
-    }
-    return false;
-}
 
 
 /*
  * debug print
  */
-static void debug_event(keyevent_t event)
-{
-    debug_hex16((event.key.row<<8) | event.key.col);
-    if (event.pressed) debug("d("); else debug("u(");
-    debug_dec(event.time); debug(")");
-}
-static void debug_record(keyrecord_t record)
-{
-    debug_event(record.event); debug(":"); debug_dec(record.tap.count);
-    if (record.tap.interrupted) debug("-");
-}
-static void debug_action(action_t action)
-{
-    switch (action.kind.id) {
-        case ACT_LMODS:             debug("ACT_LMODS");             break;
-        case ACT_RMODS:             debug("ACT_RMODS");             break;
-        case ACT_LMODS_TAP:         debug("ACT_LMODS_TAP");         break;
-        case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
-        case ACT_USAGE:             debug("ACT_USAGE");             break;
-        case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
-        case ACT_KEYMAP:            debug("ACT_KEYMAP");            break;
-        case ACT_OVERLAY:           debug("ACT_OVERLAY");           break;
-        case ACT_MACRO:             debug("ACT_MACRO");             break;
-        case ACT_COMMAND:           debug("ACT_COMMAND");           break;
-        case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
-        default:                    debug("UNKNOWN");               break;
-    }
-    debug("[");
-    debug_hex4(action.kind.param>>8);
-    debug(":");
-    debug_hex8(action.kind.param & 0xff);
-    debug("]");
-}
-#ifndef NO_ACTION_TAPPING
 static void debug_tapping_key(void)
 {
     debug("TAPPING_KEY="); debug_record(tapping_key); debug("\n");
 }
+
 static void debug_waiting_buffer(void)
 {
     debug("{ ");
