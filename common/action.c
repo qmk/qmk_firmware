@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "led.h"
 #include "layer_switch.h"
+#include "action_oneshot.h"
 #include "action_macro.h"
 #include "action.h"
 
@@ -124,44 +125,6 @@ bool waiting_buffer_has_anykey_pressed(void)
         if (waiting_buffer[i].event.pressed) return true;
     }
     return false;
-}
-
-
-/* Oneshot modifier
- *
- * Problem: Want to capitalize like 'The' but the result tends to be 'THe'.
- * Solution: Oneshot modifier have its effect on only one key coming next.
- *           Tap Shift, then type 't', 'h' and 'e'. Not need to hold Shift key.
- *
- *  Hold:       works as normal modifier.
- *  Tap:        one shot modifier.
- *  2 Tap:      cancel one shot modifier.
- *  5-Tap:      toggles enable/disable oneshot feature.
- */
-static struct {
-    uint8_t mods;
-    uint8_t time;
-    bool    ready;
-    bool    disabled;
-}   oneshot_state;
-
-static void oneshot_start(uint8_t mods, uint16_t time)
-{
-    oneshot_state.mods = mods;
-    oneshot_state.time = time;
-    oneshot_state.ready = true;
-}
-
-static void oneshot_cancel(void)
-{
-    oneshot_state.mods = 0;
-    oneshot_state.time = 0;
-    oneshot_state.ready = false;
-}
-
-static void oneshot_toggle(void)
-{
-    oneshot_state.disabled = !oneshot_state.disabled;
 }
 #endif
 
@@ -263,6 +226,7 @@ static void process_action(keyrecord_t *record)
                 uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ?  action.key.mods :
                                                                     action.key.mods<<4;
                 switch (action.layer.code) {
+    #ifndef NO_ACTION_ONESHOT
                     case 0x00:
                         // Oneshot modifier
                         if (event.pressed) {
@@ -272,7 +236,7 @@ static void process_action(keyrecord_t *record)
                             }
                             else if (tap_count == 1) {
                                 debug("MODS_TAP: Oneshot: start\n");
-                                oneshot_start(mods, event.time);
+                                oneshot_start(mods);
                             }
                             else if (tap_count == TAPPING_TOGGLE) {
                                 debug("MODS_TAP: Oneshot: toggle\n");
@@ -303,6 +267,7 @@ static void process_action(keyrecord_t *record)
                             }
                         }
                         break;
+    #endif
                     default:
                         if (event.pressed) {
                             if (tap_count > 0) {
@@ -930,15 +895,16 @@ void register_code(uint8_t code)
         // TODO: should push command_proc out of this block?
         if (command_proc(code)) return;
 
-#ifndef NO_ACTION_TAPPING
-        if (oneshot_state.mods && oneshot_state.ready && !oneshot_state.disabled) {
+#ifndef NO_ACTION_ONESHOT
+        if (oneshot_state.mods && !oneshot_state.disabled) {
             uint8_t tmp_mods = host_get_mods();
             host_add_mods(oneshot_state.mods);
+
             host_add_key(code);
             host_send_keyboard_report();
 
             host_set_mods(tmp_mods);
-            oneshot_state.ready = false;
+            oneshot_cancel();
         } else 
 #endif
         {
