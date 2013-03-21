@@ -44,8 +44,11 @@ F_CPU = 12000000
 # Build Options
 #   comment out to disable the options.
 #
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = yes	# Console for debug
+COMMAND_ENABLE = yes    # Commands for debug and configuration
 #NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
@@ -83,7 +86,7 @@ PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE
 
 
 # Search Path
-VPATH = $(TARGET_DIR)
+VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 
 #include $(TOP_DIR)/protocol/iwrap.mk
