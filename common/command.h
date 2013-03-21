@@ -18,8 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef COMMAND_H
 #define COMMAND
 
+#ifdef COMMAND_ENABLE
 bool command_proc(uint8_t code);
 /* This allows to extend commands. Return 0 when command is not processed. */
 bool command_extra(uint8_t code);
+#else
+#define command_proc(code)      false
+#endif
 
 #endif
