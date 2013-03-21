@@ -2,10 +2,10 @@ COMMON_DIR = common
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
+	$(COMMON_DIR)/action_oneshot.c \
 	$(COMMON_DIR)/action_macro.c \
 	$(COMMON_DIR)/layer_switch.c \
 	$(COMMON_DIR)/keymap.c \
-	$(COMMON_DIR)/command.c \
 	$(COMMON_DIR)/timer.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
@@ -31,6 +31,14 @@ endif
 
 ifdef CONSOLE_ENABLE
     OPT_DEFS += -DCONSOLE_ENABLE
+else
+    OPT_DEFS += -DNO_PRINT
+    OPT_DEFS += -DNO_DEBUG
+endif
+
+ifdef COMMAND_ENABLE
+    SRC += $(COMMON_DIR)/command.c
+    OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
 ifdef NKRO_ENABLE

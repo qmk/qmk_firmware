@@ -98,7 +98,6 @@ bool command_extra(uint8_t code)
  ***********************************************************/
 static void command_common_help(void)
 {
-    print_enable = true;
     print("\n\n----- Command Help -----\n");
     print("c:	enter console mode\n");
     print("d:	toggle debug enable\n");
@@ -137,7 +136,8 @@ static void print_eeprom_config(void)
     eebyte = eeconfig_read_keyconf();
     print("keyconf: "); print_hex8(eebyte); print("\n");
 
-    keyconf kc = (keyconf){ .raw = eebyte };
+    keyconf kc;
+    kc = (keyconf){ .raw = eebyte };
     print("keyconf.swap_control_capslock: "); print_hex8(kc.swap_control_capslock); print("\n");
     print("keyconf.capslock_to_control: "); print_hex8(kc.capslock_to_control); print("\n");
     print("keyconf.swap_lalt_lgui: "); print_hex8(kc.swap_lalt_lgui); print("\n");
@@ -173,7 +173,6 @@ static bool command_common(uint8_t code)
             command_common_help();
             break;
         case KC_C:
-            print_enable = true;
             debug_matrix   = false;
             debug_keyboard = false;
             debug_mouse    = false;
@@ -238,15 +237,6 @@ static bool command_common(uint8_t code)
             break;
         case KC_T: // print timer
             print_val_hex32(timer_count);
-            break;
-        case KC_P: // print toggle
-            if (print_enable) {
-                print("print disabled.\n");
-                print_enable = false;
-            } else {
-                print_enable = true;
-                print("print enabled.\n");
-            }
             break;
         case KC_S:
             print("\n\n----- Status -----\n");
@@ -320,7 +310,6 @@ static bool command_common(uint8_t code)
  ***********************************************************/
 static void command_console_help(void)
 {
-    print_enable = true;
     print("\n\n----- Console Help -----\n");
     print("ESC/q:	quit\n");
 #ifdef MOUSEKEY_ENABLE

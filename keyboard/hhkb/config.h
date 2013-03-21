@@ -71,18 +71,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* tap count needed for toggling a feature */
 #define TAPPING_TOGGLE  5
 
-/* PS/2 mouse */
-#ifdef PS2_MOUSE_ENABLE
+
 /*
-#   define PS2_CLOCK_PORT  PORTF
-#   define PS2_CLOCK_PIN   PINF
-#   define PS2_CLOCK_DDR   DDRF
-#   define PS2_CLOCK_BIT   0
-#   define PS2_DATA_PORT   PORTF
-#   define PS2_DATA_PIN    PINF
-#   define PS2_DATA_DDR    DDRF
-#   define PS2_DATA_BIT    1
-*/
-#endif
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
+
+/* disable debug print */
+//#define NO_DEBUG
+
+/* disable print */
+//#define NO_PRINT
+
+/* disable action features */
+//#define NO_ACTION_KEYMAP
+//#define NO_ACTION_OVERLAY
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 #endif

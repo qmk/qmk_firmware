@@ -24,6 +24,7 @@ void default_layer_set(uint8_t layer)
 }
 
 
+#ifndef NO_ACTION_KEYMAP
 /* 
  * Keymap Layer (0-15)
  */
@@ -95,9 +96,11 @@ void keymap_debug(void)
 {
     debug_hex16(keymap_stat); debug("("); debug_dec(keymap_get_layer()); debug(")");
 }
+#endif
 
 
 
+#ifndef NO_ACTION_OVERLAY
 /* 
  * Overlay Layer (16-31 = 0-15|0x10)
  */
@@ -169,12 +172,14 @@ void overlay_debug(void)
 {
     debug_hex16(overlay_stat); debug("("); debug_dec(overlay_get_layer()); debug(")");
 }
+#endif
 
 action_t layer_switch_get_action(key_t key)
 {
     action_t action;
     action.code = ACTION_TRANSPARENT;
 
+#ifndef NO_ACTION_OVERLAY
     /* overlay: top layer first */
     for (int8_t i = 15; i >= 0; i--) {
         if (overlay_stat & (1<<i)) {
@@ -184,7 +189,9 @@ action_t layer_switch_get_action(key_t key)
             }
         }
     }
+#endif
 
+#ifndef NO_ACTION_KEYMAP
     /* keymap: top layer first */
     for (int8_t i = 15; i >= 0; i--) {
         if (keymap_stat & (1<<i)) {
@@ -194,6 +201,7 @@ action_t layer_switch_get_action(key_t key)
             }
         }
     }
+#endif
 
     /* default layer */
     action = action_for_key(default_layer, key);
