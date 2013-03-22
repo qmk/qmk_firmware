@@ -181,6 +181,20 @@
  *  To make the bootloader function on smaller devices (those with a physical
  *  bootloader section of smaller than 6KB)
  *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par On Linux machines, the DFU bootloader is inaccessible.
+ *  On many Linux systems, non-root users do not have automatic access to newly
+ *  inserted DFU devices. Root privileges or a UDEV rule is required to gain
+ *  access.
+ *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
+ *
  *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage HID Class USB AVR Bootloader
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -28,7 +28,7 @@
  *   <td><b>USB Class:</b></td>
  *   <td>Human Interface Device Class (HID)</td>
  *  </tr>
- *  <tr> 
+ *  <tr>
  *   <td><b>USB Subclass:</b></td>
  *   <td>N/A</td>
  *  </tr>
@@ -44,13 +44,13 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  This bootloader enumerates to the host as a HID Class device, allowing for device FLASH programming through
  *  the supplied command line software, which is a modified version of Paul's TeensyHID Command Line loader code
  *  from PJRC (used with permission). This bootloader is deliberatley non-compatible with the properietary PJRC
  *  HalfKay bootloader GUI; only the command line interface software accompanying this bootloader will work with it.
- *  
+ *
  *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
  *  into 2KB of bootloader space for the Series 2 USB AVRs (ATMEGAxxU2, AT90USBxx2) or 4KB of bootloader space for
  *  all other models. If you wish to alter this size and/or change the AVR model, you will need to edit the MCU,
@@ -73,6 +73,14 @@
  *  \code
  *  hid_bootloader_cli -mmcu=at90usb1287 Mouse.hex
  *  \endcode
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
  *
  *  \section SSec_Options Project Options
  *

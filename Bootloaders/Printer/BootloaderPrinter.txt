@@ -154,6 +154,21 @@
  *  +----------------------------+ FLASHEND
  *  \endverbatim
  *
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par On Linux machines, new firmware fails to be sent to the device via CUPS.
+ *  Only a limited subset of normal printer functionality is exposed via the
+ *  bootloader, causing CUPS to reject print requests from applications that
+ *  are unable to handle true plain-text printing. For best results, the low
+ *  level \c lpr command should be used to print new firmware to the bootloader.
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
+ *
  *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

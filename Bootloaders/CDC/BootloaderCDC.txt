@@ -161,6 +161,26 @@
  *  +----------------------------+ FLASHEND
  *  \endverbatim
  *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par On Linux machines, the CDC bootloader is unstable or inaccessible.
+ *  A change to the \c ModemManager module in many Linux distributions causes
+ *  this module to try to take control over inserted CDC devices, corrupting the
+ *  datastream. A UDEV rule is required to prevent this.
+ *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
+ *
+ *  \par On Linux machines, the CDC bootloader is inaccessible.
+ *  On many Linux systems, non-root users do not have automatic access to newly
+ *  inserted CDC devices. Root privileges or a UDEV rule is required to gain
+ *  access.
+ *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
+ *
  *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
