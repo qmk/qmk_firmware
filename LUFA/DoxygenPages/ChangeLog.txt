@@ -17,6 +17,8 @@
   *   - Updated the BUILD build system module to produce binary BIN files in addition to Intel HEX files
   *
   *  <b>Fixed:</b>
+  *  - Core:
+  *   - Fixed Low Speed USB devices broken when using the library HID Class driver (thanks to Michael)
   *  - Library Applications:
   *   - Added handler for SCSI_CMD_START_STOP_UNIT in demos using the Mass Storage class, to prevent ejection errors on *nix systems due to an
   *     unknown SCSI command

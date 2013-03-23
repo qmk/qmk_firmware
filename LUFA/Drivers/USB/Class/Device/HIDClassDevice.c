@@ -144,8 +144,8 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 	HIDInterfaceInfo->Config.ReportINEndpoint.Type = EP_TYPE_INTERRUPT;
 
 	if (!(Endpoint_ConfigureEndpointTable(&HIDInterfaceInfo->Config.ReportINEndpoint, 1)))
-	  return false;	
-	
+	  return false;
+
 	return true;
 }
 
@@ -155,8 +155,15 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 	  return;
 
 	if (HIDInterfaceInfo->State.PrevFrameNum == USB_Device_GetFrameNumber())
-	  return;
-	  
+	{
+		#if defined(USB_DEVICE_OPT_LOWSPEED)
+		if (!(USB_Options & USB_DEVICE_OPT_LOWSPEED))
+		  return;
+		#else
+		return;
+		#endif
+	}
+
 	Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpoint.Address);
 
 	if (Endpoint_IsReadWriteAllowed())
@@ -191,7 +198,7 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 
 			Endpoint_ClearIN();
 		}
-		
+
 		HIDInterfaceInfo->State.PrevFrameNum = USB_Device_GetFrameNumber();
 	}
 }
