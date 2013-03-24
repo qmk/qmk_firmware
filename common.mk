@@ -10,6 +10,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/bootloader.c \
+	$(COMMON_DIR)/suspend.c \
 	$(COMMON_DIR)/util.c
 
 
@@ -58,6 +59,7 @@ endif
 ifdef SLEEP_LED_ENABLE
     SRC += $(COMMON_DIR)/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
+    OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
 
