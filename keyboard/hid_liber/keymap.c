@@ -22,9 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "keycode.h"
+#include "action.h"
+#include "action_macro.h"
+#include "layer_switch.h"
+#include "report.h"
+#include "host.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
 #include "keymap.h"
 
 
@@ -59,34 +63,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* R */   { KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_##KR4, KC_NO   , KC_NO   , KC_NO    }  \
 }
 
-#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
-
-
-// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
-static const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
-    1,              // Fn1
-    2,              // Fn2
-    3,              // Fn3
-    4,              // Fn4
-    5,              // Fn5
-    6,              // Fn6
-    7               // Fn7
-};
-
-// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
-// See layer.c for details.
-static const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_NO,          // Fn2
-    KC_NO,          // Fn3
-    KC_NO,          // Fn4
-    KC_NO,          // Fn5
-    KC_NO,          // Fn6
-    KC_NO           // Fn7
-};
-
+/*
+ * Add custom layouts. If no custom layout is defined the default layout is used.
+*/
+#if defined(KEYMAP_CUSTOM)
+    #include "keymap_custom.h"
+#else
 /*
  * Tenkeyless keyboard default layout, ISO & ANSI (ISO is between Left Shift
  * and Z, and the ANSI \ key above Return/Enter is used for the additional ISO
@@ -178,18 +160,63 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {};
 
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
+/*
+ * Fn action definition
+ */
+static const uint16_t PROGMEM fn_actions[] = { 
+    [0] = ACTION_DEFAULT_LAYER_SET(0),
+    [1] = ACTION_DEFAULT_LAYER_SET(1),
+    [2] = ACTION_DEFAULT_LAYER_SET(2),
+    [3] = ACTION_DEFAULT_LAYER_SET(3),
+    [4] = ACTION_DEFAULT_LAYER_SET(4),
+    [5] = ACTION_DEFAULT_LAYER_SET(5),
+    [6] = ACTION_DEFAULT_LAYER_SET(6),
+    [7] = ACTION_DEFAULT_LAYER_SET(7),
+    [8] = ACTION_DEFAULT_LAYER_SET(8),
+};
+#endif 
+
+#define KEYMAPS_SIZE    (sizeof(keymaps) / sizeof(keymaps[0]))
+#define OVERLAYS_SIZE   (sizeof(overlays) / sizeof(overlays[0]))
+#define FN_ACTIONS_SIZE (sizeof(fn_actions) / sizeof(fn_actions[0]))
+
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return KEYCODE(layer, row, col);
+    /* Overlay: 16-31(OVERLAY_BIT(0x10) | overlay_layer) */
+    if (layer & OVERLAY_BIT) {
+        layer &= OVERLAY_MASK;
+        if (layer < OVERLAYS_SIZE) {
+            return pgm_read_byte(&overlays[(layer)][(key.row)][(key.col)]);
+        } else {
+            // XXX: this may cuaes bootlaoder_jump incositent fail.
+            //debug("key_to_keycode: overlay "); debug_dec(layer); debug(" is invalid.\n");
+            return KC_TRANSPARENT;
+        }
+    } 
+    /* Keymap: 0-15 */
+    else {
+        if (layer < KEYMAPS_SIZE) {
+            return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+        } else {
+            // XXX: this may cuaes bootlaoder_jump incositent fail.
+            //debug("key_to_keycode: base "); debug_dec(layer); debug(" is invalid.\n");
+            // fall back to layer 0
+            return pgm_read_byte(&keymaps[0][(key.row)][(key.col)]);
+        }
+    }
 }
 
-uint8_t keymap_fn_layer(uint8_t index)
+/* translates Fn keycode to action */
+action_t keymap_fn_to_action(uint8_t keycode)
 {
-    return pgm_read_byte(&fn_layer[index]);
-}
-
-uint8_t keymap_fn_keycode(uint8_t index)
-{
-    return pgm_read_byte(&fn_keycode[index]);
+    action_t action;
+    if (FN_INDEX(keycode) < FN_ACTIONS_SIZE) {
+        action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
+    } else {
+        action.code = ACTION_NO;
+    }
+    return action;
 }
