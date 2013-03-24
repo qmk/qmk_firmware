@@ -71,14 +71,23 @@ MCU = atmega32u4       # Teensy 2.0
 F_CPU = 16000000
 
 
+# Boot Section Size in bytes
+#   Teensy halfKay   512
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+OPT_DEFS += -DBOOT_SIZE=4096
+
+
 # Build Options
 #   comment out to disable the options.
 #
-#MOUSEKEY_ENABLE = yes	# Mouse keys
-#PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-NKRO_ENABLE = yes	# USB Nkey Rollover
-CONSOLE_ENABLE = yes    # Console for debug
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
+#MOUSEKEY_ENABLE = yes      # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+NKRO_ENABLE = yes           # USB Nkey Rollover - not yet supported in LUFA
+#PS2_MOUSE_ENABLE = yes     # PS/2 mouse(TrackPoint) support
 
 
 # Search Path
@@ -88,3 +97,6 @@ VPATH += $(TOP_DIR)
 include $(TOP_DIR)/protocol/pjrc.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
+
+custom: OPT_DEFS += -DKEYMAP_CUSTOM
+custom: all
