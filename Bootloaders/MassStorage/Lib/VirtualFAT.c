@@ -72,33 +72,68 @@ static const FATBootBlock_t BootBlock =
 	};
 
 /** FAT 8.3 style directory entry, for the virtual FLASH contents file. */
-static FATDirectoryEntry_t FirmwareFileEntries[2] =
+static FATDirectoryEntry_t FirmwareFileEntries[] =
 	{
 		/* Root volume label entry; disk label is contained in the Filename and
 		 * Extension fields (concatenated) with a special attribute flag - other
 		 * fields are ignored. Should be the same as the label in the boot block.
 		 */
 		{
-			.Filename               = "LUFA BOO",
-			.Extension              = "T  ",
-			.Attributes             = (1 << 3),
-			.Reserved               = {0},
-			.CreationTime           = 0,
-			.CreationDate           = 0,
-			.StartingCluster        = 0,
-			.FileSizeBytes          = 0,
+			.MSDOS =
+				{
+					.Filename        = "LUFA BOO",
+					.Extension       = "T  ",
+					.Attributes      = FAT_FLAG_VOLUME_NAME,
+					.Reserved        = {0},
+					.CreationTime    = 0,
+					.CreationDate    = 0,
+					.StartingCluster = 0,
+					.FileSizeBytes   = 0,
+				}
 		},
 
-		/* File entry for the virtual Firmware image. */
+		/* VFAT Long File Name entry for the virtual firmware file; required to
+		 * prevent corruption of systems that are unable to detect the device
+		 * as being a legacy MSDOS style FAT12 volume to prevent corruption. */
 		{
-			.Filename               = "FIRMWARE",
-			.Extension              = "BIN",
-			.Attributes             = 0,
-			.Reserved               = {0},
-			.CreationTime           = FAT_TIME(1, 1, 0),
-			.CreationDate           = FAT_DATE(14, 2, 1989),
-			.StartingCluster        = 2,
-			.FileSizeBytes          = FIRMWARE_FILE_SIZE_BYTES,
+			.VFAT =
+				{
+					.Ordinal         = FAT_ORDINAL_LAST_ENTRY | 1,
+					.Attribute       = FAT_FLAG_LONG_FILE_NAME,
+					.Reserved1       = 0,
+					.Reserved2       = 0,
+
+					.Checksum        = 0x57,
+
+					.Unicode1        = 'F',
+					.Unicode2        = 'I',
+					.Unicode3        = 'R',
+					.Unicode4        = 'M',
+					.Unicode5        = 'W',
+					.Unicode6        = 'A',
+					.Unicode7        = 'R',
+					.Unicode8        = 'E',
+					.Unicode9        = '.',
+					.Unicode10       = 'B',
+					.Unicode11       = 'I',
+					.Unicode12       = 'N',
+					.Unicode13       = 0,
+				}
+		},
+
+		/* MSDOS file entry for the virtual Firmware image. */
+		{
+			.MSDOS =
+				{
+					.Filename        = "FIRMWARE",
+					.Extension       = "BIN",
+					.Attributes      = 0,
+					.Reserved        = {0},
+					.CreationTime    = FAT_TIME(1, 1, 0),
+					.CreationDate    = FAT_DATE(14, 2, 1989),
+					.StartingCluster = 2,
+					.FileSizeBytes   = FIRMWARE_FILE_SIZE_BYTES,
+				}
 		},
 	};
 

@@ -94,6 +94,33 @@
 		 */
 		#define FAT_DATE(dd, mm, yyyy)    (((yyyy - 1980) << 9) | (mm << 5) | (dd << 0))
 
+		/** \name FAT Filesystem Flags */
+		//@{
+		/** FAT attribute flag to indicate a read-only file. */
+		#define FAT_FLAG_READONLY         (1 << 0)
+
+		/** FAT attribute flag to indicate a hidden file. */
+		#define FAT_FLAG_HIDDEN           (1 << 1)
+
+		/** FAT attribute flag to indicate a system file. */
+		#define FAT_FLAG_SYSTEM           (1 << 2)
+
+		/** FAT attribute flag to indicate a Volume name entry. */
+		#define FAT_FLAG_VOLUME_NAME      (1 << 3)
+
+		/** FAT attribute flag to indicate a directory entry. */
+		#define FAT_FLAG_DIRECTORY        (1 << 4)
+
+		/** FAT attribute flag to indicate a file ready for archiving. */
+		#define FAT_FLAG_ARCHIVE          (1 << 5)
+
+		/** FAT pseudo-attribute flag to indicate a Long File Name entry. */
+		#define FAT_FLAG_LONG_FILE_NAME   0x0F
+
+		/** Ordinal flag marker for FAT Long File Name entries to mark the last entry. */
+		#define FAT_ORDINAL_LAST_ENTRY    (1 << 6)
+		//@}
+
 	/* Type Definitions: */
 		/** FAT boot block structure definition, used to identify the core
 		 *  parameters of a FAT filesystem stored on a disk.
@@ -130,16 +157,41 @@
 		/** FAT legacy 8.3 style directory entry structure definition, used to
 		 *  identify the files and folders of FAT filesystem stored on a disk.
 		 */
-		typedef struct
+		typedef union
 		{
-			uint8_t  Filename[8];
-			uint8_t  Extension[3];
-			uint8_t  Attributes;
-			uint8_t  Reserved[10];
-			uint16_t CreationTime;
-			uint16_t CreationDate;
-			uint16_t StartingCluster;
-			uint32_t FileSizeBytes;
+			struct
+			{
+				uint8_t  Ordinal;
+				uint16_t Unicode1;
+				uint16_t Unicode2;
+				uint16_t Unicode3;
+				uint16_t Unicode4;
+				uint16_t Unicode5;
+				uint8_t  Attribute;
+				uint8_t  Reserved1;
+				uint8_t  Checksum;
+				uint16_t Unicode6;
+				uint16_t Unicode7;
+				uint16_t Unicode8;
+				uint16_t Unicode9;
+				uint16_t Unicode10;
+				uint16_t Unicode11;
+				uint16_t Reserved2;
+				uint16_t Unicode12;
+				uint16_t Unicode13;
+			} VFAT;
+
+			struct
+			{
+				uint8_t  Filename[8];
+				uint8_t  Extension[3];
+				uint8_t  Attributes;
+				uint8_t  Reserved[10];
+				uint16_t CreationTime;
+				uint16_t CreationDate;
+				uint16_t StartingCluster;
+				uint32_t FileSizeBytes;
+			} MSDOS;
 		} FATDirectoryEntry_t;
 
 	/* Function Prototypes: */
