@@ -79,16 +79,15 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 		 * fields are ignored. Should be the same as the label in the boot block.
 		 */
 		{
-			.MSDOS =
+			.MSDOS_Directory =
 				{
-					.Filename        = "LUFA BOO",
-					.Extension       = "T  ",
+					.Name            = "LUFA BOOT  ",
 					.Attributes      = FAT_FLAG_VOLUME_NAME,
 					.Reserved        = {0},
 					.CreationTime    = 0,
 					.CreationDate    = 0,
 					.StartingCluster = 0,
-					.FileSizeBytes   = 0,
+					.Reserved2       = 0,
 				}
 		},
 
@@ -96,7 +95,7 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 		 * prevent corruption of systems that are unable to detect the device
 		 * as being a legacy MSDOS style FAT12 volume to prevent corruption. */
 		{
-			.VFAT =
+			.VFAT_LongFileName =
 				{
 					.Ordinal         = FAT_ORDINAL_LAST_ENTRY | 1,
 					.Attribute       = FAT_FLAG_LONG_FILE_NAME,
@@ -123,7 +122,7 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 
 		/* MSDOS file entry for the virtual Firmware image. */
 		{
-			.MSDOS =
+			.MSDOS_File =
 				{
 					.Filename        = "FIRMWARE",
 					.Extension       = "BIN",

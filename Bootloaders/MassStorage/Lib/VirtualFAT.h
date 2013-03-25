@@ -154,11 +154,12 @@
 			/* uint16_t MagicSignature; */
 		} FATBootBlock_t;
 
-		/** FAT legacy 8.3 style directory entry structure definition, used to
-		 *  identify the files and folders of FAT filesystem stored on a disk.
+		/** FAT directory entry structure, for the various kinds of File and
+		 *  directory descriptors on a FAT disk.
 		 */
 		typedef union
 		{
+			/** FAT Long File Name directory entry. */
 			struct
 			{
 				uint8_t  Ordinal;
@@ -179,8 +180,9 @@
 				uint16_t Reserved2;
 				uint16_t Unicode12;
 				uint16_t Unicode13;
-			} VFAT;
+			} VFAT_LongFileName;
 
+			/** FAT MSDOS 8.3 legacy file entry. */
 			struct
 			{
 				uint8_t  Filename[8];
@@ -191,7 +193,19 @@
 				uint16_t CreationDate;
 				uint16_t StartingCluster;
 				uint32_t FileSizeBytes;
-			} MSDOS;
+			} MSDOS_File;
+
+			/** FAT MSDOS (sub-)directory entry. */
+			struct
+			{
+				uint8_t  Name[11];
+				uint8_t  Attributes;
+				uint8_t  Reserved[10];
+				uint16_t CreationTime;
+				uint16_t CreationDate;
+				uint16_t StartingCluster;
+				uint32_t Reserved2;
+			} MSDOS_Directory;
 		} FATDirectoryEntry_t;
 
 	/* Function Prototypes: */
