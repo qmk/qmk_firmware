@@ -44,8 +44,27 @@ bool suspend_wakeup_condition(void)
     return false;
 }
 
+// run immediately after wakeup
 void suspend_wakeup_init(void)
 {
+    // clear matrix and keyboard state
     matrix_init();
     clear_keyboard();
 }
+
+#ifndef NO_SUSPEND_POWER_DOWN
+/* watchdog timeout */
+ISR(WDT_vect)
+{
+    /* wakeup from MCU sleep mode */
+/*
+    // blink LED
+    static uint8_t led_state = 0;
+    static uint8_t led_count = 0;
+    led_count++;
+    if ((led_count & 0x07) == 0) {
+        led_set((led_state ^= (1<<USB_LED_CAPS_LOCK)));
+    }
+*/
+}
+#endif

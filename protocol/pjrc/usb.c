@@ -33,6 +33,8 @@
 #include "usb_extra.h"
 #include "print.h"
 #include "util.h"
+#include "sleep_led.h"
+#include "suspend.h"
 
 
 /**************************************************************************
@@ -595,7 +597,8 @@ void usb_init(void)
         USB_CONFIG();				// start USB clock
         UDCON = 0;				// enable attach resistor
 	usb_configuration = 0;
-        UDIEN = (1<<EORSTE)|(1<<SOFE)|(1<<SUSPE);
+        suspend = false;
+        UDIEN = (1<<EORSTE)|(1<<SOFE)|(1<<SUSPE)|(1<<WAKEUPE);
 	sei();
 }
 
@@ -631,9 +634,23 @@ ISR(USB_GEN_vect)
 
         intbits = UDINT;
         UDINT = 0;
-        if (intbits & (1<<SUSPI)) {
+        if ((intbits & (1<<SUSPI)) && (UDIEN & (1<<SUSPE)) && usb_configuration) {
+#ifdef SLEEP_LED_ENABLE
+            sleep_led_enable();
+#endif
+            UDIEN &= ~(1<<SUSPE);
+            UDIEN |= (1<<WAKEUPE);
             suspend = true;
-        } else {
+        }
+        if ((intbits & (1<<WAKEUPI)) && (UDIEN & (1<<WAKEUPE)) && usb_configuration) {
+            suspend_wakeup_init();
+#ifdef SLEEP_LED_ENABLE
+            sleep_led_disable();
+#endif
+            led_set(host_keyboard_leds());
+
+            UDIEN |= (1<<SUSPE);
+            UDIEN &= ~(1<<WAKEUPE);
             suspend = false;
         }
         if (intbits & (1<<EORSTI)) {
