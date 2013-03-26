@@ -92,8 +92,8 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 		},
 
 		/* VFAT Long File Name entry for the virtual firmware file; required to
-		 * prevent corruption of systems that are unable to detect the device
-		 * as being a legacy MSDOS style FAT12 volume to prevent corruption. */
+		 * prevent corruption from systems that are unable to detect the device
+		 * as being a legacy MSDOS style FAT12 volume. */
 		{
 			.VFAT_LongFileName =
 				{
