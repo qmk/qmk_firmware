@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bootloader.h"
 #include "layer_switch.h"
 #include "eeconfig.h"
+#include "sleep_led.h"
+#include "led.h"
 #include "command.h"
 
 #ifdef MOUSEKEY_ENABLE
@@ -152,6 +154,12 @@ static bool command_common(uint8_t code)
 {
     static host_driver_t *host_driver = 0;
     switch (code) {
+        case KC_Z:
+            // test breathing sleep LED
+            print("Sleep LED test\n");
+            sleep_led_toggle();
+            led_set(host_keyboard_leds());
+            break;
 #ifdef BOOTMAGIC_ENABLE
         case KC_E:
             print("eeprom config\n");
