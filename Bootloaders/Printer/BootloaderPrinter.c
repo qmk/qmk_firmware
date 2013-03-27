@@ -380,6 +380,13 @@ void EVENT_USB_Device_ControlRequest(void)
 					"CLS:PRINTER";
 
 				Endpoint_ClearSETUP();
+
+				while (!(Endpoint_IsINReady()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
+
 				Endpoint_Write_16_BE(sizeof(PrinterIDString));
 				Endpoint_Write_Control_Stream_LE(PrinterIDString, strlen(PrinterIDString));
 				Endpoint_ClearStatusStage();
@@ -390,6 +397,13 @@ void EVENT_USB_Device_ControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+
+				while (!(Endpoint_IsINReady()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
+
 				Endpoint_Write_8(PRNT_PORTSTATUS_NOTERROR | PRNT_PORTSTATUS_SELECT);
 				Endpoint_ClearStatusStage();
 			}

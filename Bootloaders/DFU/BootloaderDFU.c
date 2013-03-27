@@ -132,7 +132,7 @@ void Application_Jump_Check(void)
 	{
 		/* Turn off the watchdog */
 		MCUSR &= ~(1<<WDRF);
-		wdt_disable(); 
+		wdt_disable();
 
 		/* Clear the boot key and jump to the user application */
 		MagicBootKey = 0;
@@ -197,7 +197,7 @@ static void ResetHardware(void)
 	/* Shut down the USB and other board hardware drivers */
 	USB_Disable();
 	LEDs_Disable();
-	
+
 	/* Disable Bootloader active LED toggle timer */
 	TIMSK1 = 0;
 	TCCR1B = 0;
@@ -489,6 +489,12 @@ void EVENT_USB_Device_ControlRequest(void)
 		case DFU_REQ_GETSTATUS:
 			Endpoint_ClearSETUP();
 
+			while (!(Endpoint_IsINReady()))
+			{
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
+
 			/* Write 8-bit status value */
 			Endpoint_Write_8(DFU_Status);
 
@@ -516,6 +522,12 @@ void EVENT_USB_Device_ControlRequest(void)
 			break;
 		case DFU_REQ_GETSTATE:
 			Endpoint_ClearSETUP();
+
+			while (!(Endpoint_IsINReady()))
+			{
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
 
 			/* Write the current device state to the endpoint */
 			Endpoint_Write_8(DFU_State);

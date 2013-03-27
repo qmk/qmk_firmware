@@ -24,6 +24,7 @@
   *     unknown SCSI command
   *   - Fixed incorrect HID report descriptor generated for 16-bit axis ranges by the HID_DESCRIPTOR_MOUSE() and HID_DESCRIPTOR_JOYSTICK()
   *     macros (thanks to Armory)
+  *   - Fixed race condition in the DFU class bootloader causing failed device reprogramming in some circumstances (thanks to Luis Mendes)
   *
   *  \section Sec_ChangeLog130303 Version 130303
   *  <b>New:</b>
