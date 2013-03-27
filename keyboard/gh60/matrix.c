@@ -34,10 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t *matrix;
-static matrix_row_t *matrix_debouncing;
-static matrix_row_t matrix0[MATRIX_ROWS];
-static matrix_row_t matrix1[MATRIX_ROWS];
+static matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static matrix_row_t read_cols(void);
 static void init_cols(void);
@@ -64,8 +62,6 @@ void matrix_init(void)
     init_cols();
 
     // initialize matrix state: all keys off
-    matrix = matrix0;
-    matrix_debouncing = matrix1;
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
@@ -92,9 +88,9 @@ uint8_t matrix_scan(void)
         if (--debouncing) {
             _delay_ms(1);
         } else {
-            matrix_row_t *tmp = matrix;
-            matrix = matrix_debouncing;
-            matrix_debouncing = tmp;
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
+            }
         }
     }
 

@@ -97,11 +97,12 @@ F_USB = $(F_CPU)
 # Build Options
 #   comment out to disable the options.
 #
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
+COMMAND_ENABLE = yes    # Commands for debug and configuration
 #NKRO_ENABLE = yes	# USB Nkey Rollover
-#PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
 
 
 # Boot Section Size in bytes

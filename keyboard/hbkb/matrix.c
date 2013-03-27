@@ -37,16 +37,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
-// matrix state buffer(1:on, 0:off)
-static uint8_t *matrix;
-static uint8_t *matrix_debouncing;
-static uint8_t matrix0[MATRIX_ROWS];
-static uint8_t matrix1[MATRIX_ROWS];
+/* matrix state(1:on, 0:off) */
+static matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #ifdef MATRIX_HAS_GHOST
 static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
-static uint8_t read_col(void);
+static matrix_row_t read_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
@@ -65,13 +63,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    print_enable = true;
-    debug_enable = true;
-    debug_matrix = true;
-    debug_keyboard = false;
-    debug_mouse = false;
-    print("debug enabled.\n");
-
     // JTAG disable for PORT F. write JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
@@ -84,10 +75,10 @@ void matrix_init(void)
     PORTD = 0xFF;
 
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix0[i] = 0x00;
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix1[i] = 0x00;
-    matrix = matrix0;
-    matrix_debouncing = matrix1;
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+        matrix_debouncing[i] = 0;
+    }
 }
 
 uint8_t matrix_scan(void)
@@ -95,8 +86,9 @@ uint8_t matrix_scan(void)
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
         _delay_us(30);  // without this wait read unstable value.
-        if (matrix_debouncing[i] != read_col()) {
-            matrix_debouncing[i] = read_col();
+        matrix_row_t cols = read_cols();
+        if (matrix_debouncing[i] != cols) {
+            matrix_debouncing[i] = cols;
             if (debouncing) {
                 debug("bounce!: "); debug_hex(debouncing); debug("\n");
             }
@@ -109,9 +101,9 @@ uint8_t matrix_scan(void)
         if (--debouncing) {
             _delay_ms(1);
         } else {
-            uint8_t *tmp = matrix;
-            matrix = matrix_debouncing;
-            matrix_debouncing = tmp;
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
+            }
         }
     }
 
@@ -127,15 +119,11 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & (1<<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
-#if (MATRIX_COLS <= 8)
-uint8_t matrix_get_row(uint8_t row)
-#else
-uint16_t matrix_get_row(uint8_t row)
-#endif
+matrix_row_t matrix_get_row(uint8_t row)
 {
     return matrix[row];
 }
@@ -145,11 +133,7 @@ void matrix_print(void)
     print("\nr/c 01234567\n");
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         phex(row); print(": ");
-#if (MATRIX_COLS <= 8)
         pbin_reverse(matrix_get_row(row));
-#else
-        pbin_reverse16(matrix_get_row(row));
-#endif
 #ifdef MATRIX_HAS_GHOST
         if (matrix_has_ghost_in_row(row)) {
             print(" <ghost");
@@ -177,7 +161,7 @@ static bool matrix_has_ghost_in_row(uint8_t row)
 #endif
 
 inline
-static uint8_t read_col(void)
+static matrix_row_t read_cols(void)
 {
     return ~PIND;
 }
