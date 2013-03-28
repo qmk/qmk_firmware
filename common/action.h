@@ -17,25 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ACTION_H
 #define ACTION_H
 
+#include <stdint.h>
+#include <stdbool.h>
 #include "keyboard.h"
 #include "keycode.h"
 #include "action_macro.h"
 
 
-/* Struct to record event and tap count  */
-typedef union {
+typedef struct {
+    keyevent_t  event;
+#ifndef NO_ACTION_TAPPING
+    /* tapping count and state */
     struct {
         bool    interrupted :1;
         bool    reserved2   :1;
         bool    reserved1   :1;
         bool    reserved0   :1;
         uint8_t count       :4;
-    };
-} tap_t;
-
-typedef struct {
-    keyevent_t  event;
-    tap_t tap;
+    } tap;
+#endif
 } keyrecord_t;
 
 /* Action struct.
@@ -99,9 +99,8 @@ const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t op
 /* user defined special function */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 
-/*
- * Utilities for actions.
- */
+/* Utilities for actions.  */
+void process_action(keyrecord_t *record);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
 void add_mods(uint8_t mods);
@@ -112,7 +111,11 @@ void clear_keyboard_but_mods(void);
 bool sending_anykey(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_key(key_t key);
-bool waiting_buffer_has_anykey_pressed(void);
+
+/* debug */
+void debug_event(keyevent_t event);
+void debug_record(keyrecord_t record);
+void debug_action(action_t action);
 
 
 
