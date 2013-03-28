@@ -7,7 +7,7 @@
 #
 
 LUFA_BUILD_MODULES         += BUILD
-LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf hex lss clean mostlyclean
+LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf bin hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
 LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS
 LUFA_BUILD_PROVIDED_VARS   +=
@@ -28,7 +28,8 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    all                       - Build application and list size
 #    lib                       - Build and archive source files into a library
 #    elf                       - Build application ELF debug object file
-#    hex                       - Build application HEX object files
+#    bin                       - Build application BIN binary object file
+#    hex                       - Build application HEX object file
 #    lss                       - Build application LSS assembly listing file
 #    clean                     - Remove all project intermediatary and binary
 #                                output files
@@ -261,7 +262,7 @@ all: build_begin elf hex bin lss sym size build_end
 lib: lib$(TARGET).a
 elf: $(TARGET).elf
 hex: $(TARGET).hex $(TARGET).eep
-bin: $(TARGET).bin $(TARGET).eep
+bin: $(TARGET).bin
 lss: $(TARGET).lss
 sym: $(TARGET).sym
 
@@ -323,7 +324,7 @@ $(OBJDIR)/%.o: %.S $(MAKEFILE_LIST)
 # Extracts out the loadable EEPROM memory data from the project ELF file, and creates an Intel HEX format file of it
 %.eep: %.elf
 	@echo $(MSG_OBJCPY_CMD) Extracting EEP file data from \"$<\"
-	$(CROSS)-objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex $< $@ || exit 0
+	$(CROSS)-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings $< $@ || exit 0
 
 # Creates an assembly listing file from an input project ELF file, containing interleaved assembly and source data
 %.lss: %.elf

@@ -88,6 +88,10 @@
  *    <td>Build and link the application into an ELF debug file.</td>
  *   </tr>
  *   <tr>
+ *    <td><tt>bin</tt></td>
+ *    <td>Build and link the application and produce a BIN binary file.</td>
+ *   </tr>
+ *   <tr>
  *    <td><tt>hex</tt></td>
  *    <td>Build and link the application and produce HEX and EEP binary files.</td>
  *   </tr>
@@ -916,7 +920,7 @@
  *    <td>Error &quot;<b><tt>Cannot build with OBJDIR parameter set - one or more object file name is not unique</tt></b>&quot; shown when compiling.</td>
  *    <td>When a project is built with a non-empty <tt>OBJDIR</tt> object directory name set, all input source files must have unique names, excluding extension and path.
  *        This means that input files that are named identically and differ only by their path or extension are invalid when this mode is used.</td>
- *   </tr> 
+ *   </tr>
  *   <tr>
  *    <td>Error &quot;<b><tt>Source file does not exist: <i>{X}</i></tt></b>&quot; shown when compiling.</td>
  *    <td>The nominated input source file, specified in the user project's <tt>SRC</tt> parameter, could not be found. Ensure the source file exists and the absolute or
