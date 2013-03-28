@@ -11,6 +11,7 @@
   *  - Library Applications:
   *   - Added new Printer class bootloader
   *   - Added new Mass Storage class bootloader
+  *   - Added additional MIDI command definitions to the MIDI class driver (thanks to Daniel Dreibrodt)
   *
   *  <b>Changed:</b>
   *  - Core:
