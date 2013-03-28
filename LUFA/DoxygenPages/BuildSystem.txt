@@ -939,17 +939,6 @@
  *        upgrade to the latest AVR-GCC. If the option is a valid linker option, use the prefix "-Wl," to ensure it is passed to the linker correctly.</td>
  *   </tr>
  *   <tr>
- *    <td>Error &quot;<b><tt>avr-gcc: error: unrecognized option '<i>{X}</i>'</tt></b>&quot; shown when compiling.</td>
- *    <td>An unrecognised option was supplied to the compiler, usually in the <tt>C_FLAGS</tt>, <tt>CPP_FLAGS</tt>, <tt>ASM_FLAGS</tt> or <tt>CC_FLAGS</tt> configuration
- *        options. The nominated compiler switch may be invalid, or unsupported by the version of AVR-GCC on the host system. Remove the unrecognised flag if invalid, or
- *        upgrade to the latest AVR-GCC. If the option is a valid linker option, use the prefix "-Wl," to ensure it is passed to the linker correctly.</td>
- *   </tr>
- *   <tr>
- *    <td>Error &quot;<b><tt>makefile:{X}: {Y}.mk: No such file or directory</tt></b>&quot; shown when make is invoked.</td>
- *    <td>The path to the nominated makefile module was incorrect. This usually indicates that the makefile <tt>LUFA_PATH</tt> option is not set to a valid relative or
- *        absolute path to the LUFA library core.</td>
- *   </tr>
- *   <tr>
  *    <td>Error &quot;<b><tt>makefile:{X}: {Y}.mk: No such file or directory</tt></b>&quot; shown when make is invoked.</td>
  *    <td>The path to the nominated makefile module was incorrect. This usually indicates that the makefile <tt>LUFA_PATH</tt> option is not set to a valid relative or
  *        absolute path to the LUFA library core.</td>
@@ -970,11 +959,6 @@
  *    <td>Error &quot;<b><tt>unknown MCU '<i>{X}</i>' specified</tt></b>&quot; shown when compiling.</td>
  *    <td>The specified micocontroller device model name set in the user application's makefile as the <tt>MCU</tt> parameter is incorrect, or unsupported by the
  *        version of the compiler being used. Make sure the model name is correct, or upgrade to the latest Atmel Toolchain to obtain newer device support.</td>
- *   </tr>
- *   <tr>
- *    <td>Error &quot;<b><tt>error: invalid suffix "x" on integer constant</tt></b>&quot; shown when compiling a bootloader.</td>
- *    <td>This is usually caused by the <tt>bc.exe</tt> application not being found in the system's <tt>PATH</tt> variable. Make sure you have the <tt>bc.exe</tt> tool
- *        installed correctly (see \ref Sec_Prerequisites).</td>
  *   </tr>
  *   <tr>
  *    <td>Error &quot;<b><tt>undefined reference to `<i>{X}</i>'</tt></b>&quot; shown when compiling.</td>
