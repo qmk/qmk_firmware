@@ -72,7 +72,7 @@ static const FATBootBlock_t BootBlock =
 	};
 
 /** FAT 8.3 style directory entry, for the virtual FLASH contents file. */
-FATDirectoryEntry_t FirmwareFileEntries[] =
+static FATDirectoryEntry_t FirmwareFileEntries[] =
 	{
 		/* Root volume label entry; disk label is contained in the Filename and
 		 * Extension fields (concatenated) with a special attribute flag - other
@@ -143,7 +143,7 @@ FATDirectoryEntry_t FirmwareFileEntries[] =
  *  are (usually?) replaced using the original file's physical sectors. On Linux
  *  file replacements are performed with an offset.
  */
-uint16_t FileStartBlock = DISK_BLOCK_DataStartBlock;
+static uint16_t FileStartBlock = DISK_BLOCK_DataStartBlock;
 
 
 /** Updates a FAT12 cluster entry in the FAT file table with the specified next
@@ -252,19 +252,30 @@ void VirtualFAT_WriteBlock(const uint16_t BlockNumber)
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
-	if (BlockNumber == DISK_BLOCK_RootFilesBlock)
+	switch (BlockNumber)
 	{
-		/* Copy over the updated directory entries */
-		memcpy(FirmwareFileEntries, BlockBuffer, sizeof(FirmwareFileEntries));
+		case DISK_BLOCK_BootBlock:
+		case DISK_BLOCK_FATBlock1:
+		case DISK_BLOCK_FATBlock2:
+			/* Ignore writes to the boot and FAT blocks */
 
-		/* Save the new firmware file block offset so the written and read file
-		 * contents can be correctly mapped to the device's FLASH pages */
-		FileStartBlock = DISK_BLOCK_DataStartBlock +
-		                 (FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster - 2) * SECTOR_PER_CLUSTER;
-	}
-	else
-	{
-		ReadWriteFirmwareFileBlock(BlockNumber, BlockBuffer, false);
+			break;
+
+		case DISK_BLOCK_RootFilesBlock:
+			/* Copy over the updated directory entries */
+			memcpy(FirmwareFileEntries, BlockBuffer, sizeof(FirmwareFileEntries));
+
+			/* Save the new firmware file block offset so the written and read file
+			 * contents can be correctly mapped to the device's FLASH pages */
+			FileStartBlock = DISK_BLOCK_DataStartBlock +
+			                 (FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster - 2) * SECTOR_PER_CLUSTER;
+
+			break;
+
+		default:
+			ReadWriteFirmwareFileBlock(BlockNumber, BlockBuffer, false);
+
+			break;
 	}
 }
 
@@ -317,7 +328,7 @@ void VirtualFAT_ReadBlock(const uint16_t BlockNumber)
 
 			break;
 
-		default: /* Blocks 4 onwards: Data allocation section */
+		default:
 			ReadWriteFirmwareFileBlock(BlockNumber, BlockBuffer, true);
 
 			break;
