@@ -255,14 +255,12 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 	}
 
 	/* Determine if the packet is a READ (10) or WRITE (10) command, call appropriate function */
-	while (TotalBlocks--)
+	for (uint16_t i = 0; i < TotalBlocks; i++)
 	{
 		if (IsDataRead == DATA_READ)
-		  VirtualFAT_ReadBlock(BlockAddress);
+		  VirtualFAT_ReadBlock(BlockAddress + i);
 		else
-		  VirtualFAT_WriteBlock(BlockAddress);
-
-		BlockAddress++;
+		  VirtualFAT_WriteBlock(BlockAddress + i);
 	}
 
 	/* Update the bytes transferred counter and succeed the command */

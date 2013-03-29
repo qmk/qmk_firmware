@@ -139,15 +139,15 @@
 		enum
 		{
 			/** Boot sector disk block. */
-			DISK_BLOCK_BootBlock        = 0,
+			DISK_BLOCK_BootBlock          = 0,
 			/** First copy of the FAT table block. */
-			DISK_BLOCK_FATBlock1        = 1,
+			DISK_BLOCK_FATBlock1          = 1,
 			/** Second copy of the FAT table block. */
-			DISK_BLOCK_FATBlock2        = 2,
+			DISK_BLOCK_FATBlock2          = 2,
 			/** Root file and directory entries block. */
-			DISK_BLOCK_RootFilesBlock   = 3,
+			DISK_BLOCK_RootFilesBlock     = 3,
 			/** Start block of the disk data section. */
-			DISK_BLOCK_DataStartBlock   = 4,
+			DISK_BLOCK_DataStartBlock     = 4,
 		};
 
 	/* Type Definitions: */
