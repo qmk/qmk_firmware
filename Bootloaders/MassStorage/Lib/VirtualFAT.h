@@ -122,29 +122,41 @@
 		//@}
 
 	/* Enums: */
+		/** Enum for the Root FAT file entry indexes on the disk. This can be used
+		 *  to retrieve the current contents of a known directory entry.
+		 */
 		enum
 		{
+			/** Volume ID directory entry, giving the name of the virtual disk. */
 			DISK_FILE_ENTRY_VolumeID      = 0,
+			/** Long File Name FAT file entry of the virtual firmware image file. */
 			DISK_FILE_ENTRY_FirmwareLFN   = 1,
+			/** Legacy MSDOS FAT file entry of the virtual firmware image file. */
 			DISK_FILE_ENTRY_FirmwareMSDOS = 2,
 		};
 
+		/** Enum for the physical disk blocks of the virtual disk. */
 		enum
 		{
+			/** Boot sector disk block. */
 			DISK_BLOCK_BootBlock        = 0,
+			/** First copy of the FAT table block. */
 			DISK_BLOCK_FATBlock1        = 1,
+			/** Second copy of the FAT table block. */
 			DISK_BLOCK_FATBlock2        = 2,
+			/** Root file and directory entries block. */
 			DISK_BLOCK_RootFilesBlock   = 3,
+			/** Start block of the disk data section. */
 			DISK_BLOCK_DataStartBlock   = 4,
 		};
 
 	/* Type Definitions: */
 		/** FAT boot block structure definition, used to identify the core
-		 *  parameters of a FAT filesystem stored on a disk.
+		 *  parameters of a FAT file system stored on a disk.
 		 *
 		 *  \note This definition is truncated to save space; the magic signature
-		 *        0xAA55 must be appended to the very end of the block for it to
-		 *        be detected by the host as a valid boot block.
+		 *        \c 0xAA55 must be appended to the very end of the block for it
+		 *        to be detected by the host as a valid boot block.
 		 */
 		typedef struct
 		{
@@ -176,7 +188,7 @@
 		 */
 		typedef union
 		{
-			/** FAT Long File Name directory entry. */
+			/** VFAT Long File Name file entry. */
 			struct
 			{
 				uint8_t  Ordinal;
@@ -199,7 +211,7 @@
 				uint16_t Unicode13;
 			} VFAT_LongFileName;
 
-			/** FAT MSDOS 8.3 legacy file entry. */
+			/** Legacy FAT MSDOS 8.3 file entry. */
 			struct
 			{
 				uint8_t  Filename[8];
@@ -212,7 +224,7 @@
 				uint32_t FileSizeBytes;
 			} MSDOS_File;
 
-			/** FAT MSDOS (sub-)directory entry. */
+			/** Legacy FAT MSDOS (sub-)directory entry. */
 			struct
 			{
 				uint8_t  Name[11];

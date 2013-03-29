@@ -171,15 +171,8 @@
  *  \par In some cases, the application is not fully loaded into the device.
  *  Write-caching on some operating systems may interfere with the normal
  *  operation of the bootloader. Write caching should be disabled when using the
- *  Mass Storage bootloader, or the filesystem synced via an appropriate command
+ *  Mass Storage bootloader, or the file system synced via an appropriate command
  *  (such as the OS's normal disk ejection command) before disconnecting the device.
- *
- *  \par On Linux machines, written data may be corrupted.
- *  Linux systems appear to attempt a full filesystem re-write when the virtual
- *  firmware file of the bootloader is written to normally, causing corrupt
- *  device programming. On Linux systems, new firmware should be copied over
- *  in-place via the \c dd command on the virtual file to ensure the filesystem
- *  is left intact.
  *
  *  \par After loading an application, it is not run automatically on startup.
  *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
