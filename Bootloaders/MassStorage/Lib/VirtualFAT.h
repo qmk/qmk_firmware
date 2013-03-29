@@ -121,6 +121,23 @@
 		#define FAT_ORDINAL_LAST_ENTRY    (1 << 6)
 		//@}
 
+	/* Enums: */
+		enum
+		{
+			DISK_FILE_ENTRY_VolumeID      = 0,
+			DISK_FILE_ENTRY_FirmwareLFN   = 1,
+			DISK_FILE_ENTRY_FirmwareMSDOS = 2,
+		};
+
+		enum
+		{
+			DISK_BLOCK_BootBlock        = 0,
+			DISK_BLOCK_FATBlock1        = 1,
+			DISK_BLOCK_FATBlock2        = 2,
+			DISK_BLOCK_RootFilesBlock   = 3,
+			DISK_BLOCK_DataStartBlock   = 4,
+		};
+
 	/* Type Definitions: */
 		/** FAT boot block structure definition, used to identify the core
 		 *  parameters of a FAT filesystem stored on a disk.
@@ -213,13 +230,13 @@
 			static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
 			                                    const uint16_t Index,
 			                                    const uint16_t ChainEntry) AUX_BOOT_SECTION;
-			static void WriteVirtualBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
-			static void ReadVirtualBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
+
+			static void ReadWriteFirmwareFileBlock(const uint16_t BlockNumber,
+			                                       uint8_t* BlockBuffer,
+			                                       const bool Read) AUX_BOOT_SECTION;
 		#endif
 
-		void VirtualFAT_WriteBlocks(const uint16_t BlockAddress,
-		                            uint16_t TotalBlocks) AUX_BOOT_SECTION;
+		void VirtualFAT_WriteBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
+		void VirtualFAT_ReadBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
 
-		void VirtualFAT_ReadBlocks(const uint16_t BlockAddress,
-		                           uint16_t TotalBlocks) AUX_BOOT_SECTION;
 #endif

@@ -72,12 +72,13 @@ static const FATBootBlock_t BootBlock =
 	};
 
 /** FAT 8.3 style directory entry, for the virtual FLASH contents file. */
-static FATDirectoryEntry_t FirmwareFileEntries[] =
+FATDirectoryEntry_t FirmwareFileEntries[] =
 	{
 		/* Root volume label entry; disk label is contained in the Filename and
 		 * Extension fields (concatenated) with a special attribute flag - other
 		 * fields are ignored. Should be the same as the label in the boot block.
 		 */
+		[DISK_FILE_ENTRY_VolumeID] =
 		{
 			.MSDOS_Directory =
 				{
@@ -94,6 +95,7 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 		/* VFAT Long File Name entry for the virtual firmware file; required to
 		 * prevent corruption from systems that are unable to detect the device
 		 * as being a legacy MSDOS style FAT12 volume. */
+		[DISK_FILE_ENTRY_FirmwareLFN] =
 		{
 			.VFAT_LongFileName =
 				{
@@ -121,6 +123,7 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 		},
 
 		/* MSDOS file entry for the virtual Firmware image. */
+		[DISK_FILE_ENTRY_FirmwareMSDOS] =
 		{
 			.MSDOS_File =
 				{
@@ -135,6 +138,12 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 				}
 		},
 	};
+
+/** Starting block of the virtual firmware file image on disk. On Windows, files
+ *  are (usually?) replaced using the original file's physical sectors. On Linux
+ *  file replacements are performed with an offset.
+ */
+uint16_t FileStartBlock = DISK_BLOCK_DataStartBlock;
 
 
 /** Updates a FAT12 cluster entry in the FAT file table with the specified next
@@ -170,12 +179,72 @@ static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
 	}
 }
 
+/** Reads or writes a block of data from/to the physical device FLASH using a
+ *  block buffer stored in RAM, if the requested block is within the virtual
+ *  firmware file's sector ranges in the emulated FAT file system.
+ *
+ *  \param[in]      BlockNumber  Physical disk block to read from
+ *  \param[in,out]  BlockBuffer  Pointer to the start of the block buffer in RAM
+ *  \param[in]      Read         If \c true, the requested block is read, if
+ *                               \c false, the requested block is written
+ */
+static void ReadWriteFirmwareFileBlock(const uint16_t BlockNumber,
+                                       uint8_t* BlockBuffer,
+                                       const bool Read)
+{
+	/* Range check the write request - abort if requested block is not within the
+	 * virtual firmware file sector range */
+	if (!((BlockNumber >= FileStartBlock) && (BlockNumber < (FileStartBlock + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES)))))
+	  return;
+
+	#if (FLASHEND > 0xFFFF)
+	uint32_t FlashAddress = (uint32_t)(BlockNumber - FileStartBlock) * SECTOR_SIZE_BYTES;
+	#else
+	uint16_t FlashAddress = (uint16_t)(BlockNumber - FileStartBlock) * SECTOR_SIZE_BYTES;
+	#endif
+
+	if (Read)
+	{
+		/* Read out the mapped block of data from the device's FLASH */
+		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
+		{
+			#if (FLASHEND > 0xFFFF)
+			  BlockBuffer[i] = pgm_read_byte_far(FlashAddress++);
+			#else
+			  BlockBuffer[i] = pgm_read_byte(FlashAddress++);
+			#endif
+		}
+	}
+	else
+	{
+		/* Write out the mapped block of data to the device's FLASH */
+		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i += 2)
+		{
+			if ((FlashAddress % SPM_PAGESIZE) == 0)
+			{
+				/* Erase the given FLASH page, ready to be programmed */
+				BootloaderAPI_ErasePage(FlashAddress);
+			}
+
+			/* Write the next data word to the FLASH page */
+			BootloaderAPI_FillWord(FlashAddress, (BlockBuffer[i + 1] << 8) | BlockBuffer[i]);
+			FlashAddress += 2;
+
+			if ((FlashAddress % SPM_PAGESIZE) == 0)
+			{
+				/* Write the filled FLASH page to memory */
+				BootloaderAPI_WritePage(FlashAddress - SPM_PAGESIZE);
+			}
+		}
+	}
+}
+
 /** Writes a block of data to the virtual FAT filesystem, from the USB Mass
  *  Storage interface.
  *
  *  \param[in]  BlockNumber  Index of the block to write.
  */
-static void WriteVirtualBlock(const uint16_t BlockNumber)
+void VirtualFAT_WriteBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 
@@ -183,32 +252,19 @@ static void WriteVirtualBlock(const uint16_t BlockNumber)
 	Endpoint_Read_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearOUT();
 
-	if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES))))
+	if (BlockNumber == DISK_BLOCK_RootFilesBlock)
 	{
-		#if (FLASHEND > 0xFFFF)
-		uint32_t WriteFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
-		#else
-		uint16_t WriteFlashAddress = (uint16_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
-		#endif
+		/* Copy over the updated directory entries */
+		memcpy(FirmwareFileEntries, BlockBuffer, sizeof(FirmwareFileEntries));
 
-		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i += 2)
-		{
-			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
-			{
-				/* Erase the given FLASH page, ready to be programmed */
-				BootloaderAPI_ErasePage(WriteFlashAddress);
-			}
-
-			/* Write the next data word to the FLASH page */
-			BootloaderAPI_FillWord(WriteFlashAddress, (BlockBuffer[i + 1] << 8) | BlockBuffer[i]);
-			WriteFlashAddress += 2;
-
-			if ((WriteFlashAddress % SPM_PAGESIZE) == 0)
-			{
-				/* Write the filled FLASH page to memory */
-				BootloaderAPI_WritePage(WriteFlashAddress - SPM_PAGESIZE);
-			}
-		}
+		/* Save the new firmware file block offset so the written and read file
+		 * contents can be correctly mapped to the device's FLASH pages */
+		FileStartBlock = DISK_BLOCK_DataStartBlock +
+		                 (FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster - 2) * SECTOR_PER_CLUSTER;
+	}
+	else
+	{
+		ReadWriteFirmwareFileBlock(BlockNumber, BlockBuffer, false);
 	}
 }
 
@@ -217,23 +273,24 @@ static void WriteVirtualBlock(const uint16_t BlockNumber)
  *
  *  \param[in]  BlockNumber  Index of the block to read.
  */
-static void ReadVirtualBlock(const uint16_t BlockNumber)
+void VirtualFAT_ReadBlock(const uint16_t BlockNumber)
 {
 	uint8_t BlockBuffer[SECTOR_SIZE_BYTES];
 	memset(BlockBuffer, 0x00, sizeof(BlockBuffer));
 
 	switch (BlockNumber)
 	{
-		case 0: /* Block 0: Boot block sector */
+		case DISK_BLOCK_BootBlock:
 			memcpy(BlockBuffer, &BootBlock, sizeof(FATBootBlock_t));
 
 			/* Add the magic signature to the end of the block */
 			BlockBuffer[SECTOR_SIZE_BYTES - 2] = 0x55;
 			BlockBuffer[SECTOR_SIZE_BYTES - 1] = 0xAA;
+
 			break;
 
-		case 1: /* Block 1: First FAT12 cluster chain copy */
-		case 2: /* Block 2: Second FAT12 cluster chain copy */
+		case DISK_BLOCK_FATBlock1:
+		case DISK_BLOCK_FATBlock2:
 			/* Cluster 0: Media type/Reserved */
 			UpdateFAT12ClusterEntry(BlockBuffer, 0, 0xF00 | BootBlock.MediaDescriptor);
 
@@ -241,32 +298,27 @@ static void ReadVirtualBlock(const uint16_t BlockNumber)
 			UpdateFAT12ClusterEntry(BlockBuffer, 1, 0xFFF);
 
 			/* Cluster 2 onwards: Cluster chain of FIRMWARE.BIN */
-			for (uint16_t i = 0; i < FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES); i++)
-			  UpdateFAT12ClusterEntry(BlockBuffer, i+2, i+3);
+			for (uint16_t i = 0; i <= FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES); i++)
+			{
+				uint16_t CurrentCluster = FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster + i;
+				uint16_t NextCluster    = CurrentCluster + 1;
 
-			/* Mark last cluster as end of file */
-			UpdateFAT12ClusterEntry(BlockBuffer, FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES) + 1, 0xFFF);
+				/* Mark last cluster as end of file */
+				if (i == FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES))
+				  NextCluster = 0xFFF;
+
+				UpdateFAT12ClusterEntry(BlockBuffer, CurrentCluster, NextCluster);
+			}
+
 			break;
 
-		case 3: /* Block 3: Root file entries */
+		case DISK_BLOCK_RootFilesBlock:
 			memcpy(BlockBuffer, FirmwareFileEntries, sizeof(FirmwareFileEntries));
+
 			break;
 
 		default: /* Blocks 4 onwards: Data allocation section */
-			if ((BlockNumber >= 4) && (BlockNumber < (4 + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES))))
-			{
-				#if (FLASHEND > 0xFFFF)
-				uint32_t ReadFlashAddress = (uint32_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
-
-				for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
-				  BlockBuffer[i] = pgm_read_byte_far(ReadFlashAddress++);
-				#else
-				uint16_t ReadFlashAddress = (uint16_t)(BlockNumber - 4) * SECTOR_SIZE_BYTES;
-
-				for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
-				  BlockBuffer[i] = pgm_read_byte(ReadFlashAddress++);
-				#endif
-			}
+			ReadWriteFirmwareFileBlock(BlockNumber, BlockBuffer, true);
 
 			break;
 	}
@@ -275,38 +327,3 @@ static void ReadVirtualBlock(const uint16_t BlockNumber)
 	Endpoint_Write_Stream_LE(BlockBuffer, sizeof(BlockBuffer), NULL);
 	Endpoint_ClearIN();
 }
-
-/** Writes a number of blocks to the virtual FAT file system, from the host
- *  PC via the USB Mass Storage interface.
- *
- *  \param[in] BlockAddress     Data block starting address for the write sequence
- *  \param[in] TotalBlocks      Number of blocks of data to write
- */
-void VirtualFAT_WriteBlocks(const uint16_t BlockAddress,
-                            uint16_t TotalBlocks)
-{
-	uint16_t CurrentBlock = (uint16_t)BlockAddress;
-
-	/* Emulated FAT is performed per-block, pass each requested block index
-	 * to the emulated FAT block write function */
-	while (TotalBlocks--)
-	  WriteVirtualBlock(CurrentBlock++);
-}
-
-/** Reads a number of blocks from the virtual FAT file system, and sends them
- *  to the host PC via the USB Mass Storage interface.
- *
- *  \param[in] BlockAddress     Data block starting address for the read sequence
- *  \param[in] TotalBlocks      Number of blocks of data to read
- */
-void VirtualFAT_ReadBlocks(const uint16_t BlockAddress,
-                           uint16_t TotalBlocks)
-{
-	uint16_t CurrentBlock = (uint16_t)BlockAddress;
-
-	/* Emulated FAT is performed per-block, pass each requested block index
-	 * to the emulated FAT block read function */
-	while (TotalBlocks--)
-	  ReadVirtualBlock(CurrentBlock++);
-}
-
