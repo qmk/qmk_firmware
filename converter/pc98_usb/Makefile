@@ -69,7 +69,7 @@ CONSOLE_ENABLE = yes	# Console for debug
 #   Teensy halfKay   512
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
-OPT_DEFS += -DBOOT_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Search Path
