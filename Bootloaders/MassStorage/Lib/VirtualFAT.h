@@ -40,8 +40,11 @@
 		#include "../BootloaderAPI.h"
 
 	/* Macros: */
-		/** Size of the virtual FIRMWARE.BIN file in bytes. */
-		#define FIRMWARE_FILE_SIZE_BYTES  (FLASHEND - (FLASHEND - BOOT_START_ADDR) - AUX_BOOT_SECTION_SIZE)
+		/** Size of the virtual FLASH.BIN file in bytes. */
+		#define FLASH_FILE_SIZE_BYTES     (FLASHEND - (FLASHEND - BOOT_START_ADDR) - AUX_BOOT_SECTION_SIZE)
+
+		/** Size of the virtual EEPROM.BIN file in bytes. */
+		#define EEPROM_FILE_SIZE_BYTES    E2END
 
 		/** Number of sectors that comprise a single logical disk cluster. */
 		#define SECTOR_PER_CLUSTER        4
@@ -69,7 +72,7 @@
 		#define FILE_CLUSTERS(size)       ((size / CLUSTER_SIZE_BYTES) + ((size % CLUSTER_SIZE_BYTES) ? 1 : 0))
 
 		/** Total number of logical sectors/blocks on the disk. */
-		#define LUN_MEDIA_BLOCKS          (FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES) + 32)
+		#define LUN_MEDIA_BLOCKS          (FILE_SECTORS(FLASH_FILE_SIZE_BYTES) + FILE_SECTORS(EEPROM_FILE_SIZE_BYTES) + 32)
 
 		/** Converts a given time in HH:MM:SS format to a FAT filesystem time.
 		 *
@@ -93,6 +96,34 @@
 		 *  \return Given date encoded as a FAT filesystem datestamp
 		 */
 		#define FAT_DATE(dd, mm, yyyy)    (((yyyy - 1980) << 9) | (mm << 5) | (dd << 0))
+
+		/** Bit-rotates a given 8-bit value once to the right.
+		 *
+		 *  \param x  Value to rotate right once
+		 *
+		 *  \return Bit-rotated input value, rotated once to the right.
+		 */
+		#define _ROT8(x)                  ((((x) & 0xFE) >> 1) | (((x) & 1) ? 0x80 : 0x00))
+
+		/** Computes the LFN entry checksum of a MSDOS 8.3 format file entry,
+		 *  to associate a LFN entry with its short file entry.
+		 *
+		 *  \param n0  MSDOS Filename character 1
+		 *  \param n1  MSDOS Filename character 2
+		 *  \param n2  MSDOS Filename character 3
+		 *  \param n3  MSDOS Filename character 4
+		 *  \param n4  MSDOS Filename character 5
+		 *  \param n5  MSDOS Filename character 6
+		 *  \param n6  MSDOS Filename character 7
+		 *  \param n7  MSDOS Filename character 8
+		 *  \param e0  MSDOS Extension character 1
+		 *  \param e1  MSDOS Extension character 2
+		 *  \param e2  MSDOS Extension character 3
+		 *
+		 *  \return LFN checksum of the given MSDOS 8.3 filename.
+		 */
+		#define FAT_CHECKSUM(n0, n1, n2, n3, n4, n5, n6, n7, e0, e1, e2) \
+		   (uint8_t)(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(n0)+n1)+n2)+n3)+n4)+n5)+n6)+n7)+e0)+e1)+e2)
 
 		/** \name FAT Filesystem Flags */
 		//@{
@@ -129,10 +160,14 @@
 		{
 			/** Volume ID directory entry, giving the name of the virtual disk. */
 			DISK_FILE_ENTRY_VolumeID      = 0,
-			/** Long File Name FAT file entry of the virtual firmware image file. */
-			DISK_FILE_ENTRY_FirmwareLFN   = 1,
-			/** Legacy MSDOS FAT file entry of the virtual firmware image file. */
-			DISK_FILE_ENTRY_FirmwareMSDOS = 2,
+			/** Long File Name FAT file entry of the virtual FLASH.BIN image file. */
+			DISK_FILE_ENTRY_FLASH_LFN     = 1,
+			/** Legacy MSDOS FAT file entry of the virtual FLASH.BIN image file. */
+			DISK_FILE_ENTRY_FLASH_MSDOS   = 2,
+			/** Long File Name FAT file entry of the virtual EEPROM.BIN image file. */
+			DISK_FILE_ENTRY_EEPROM_LFN    = 3,
+			/** Legacy MSDOS FAT file entry of the virtual EEPROM.BIN image file. */
+			DISK_FILE_ENTRY_EEPROM_MSDOS  = 4,
 		};
 
 		/** Enum for the physical disk blocks of the virtual disk. */
@@ -243,9 +278,17 @@
 			                                    const uint16_t Index,
 			                                    const uint16_t ChainEntry) AUX_BOOT_SECTION;
 
-			static void ReadWriteFirmwareFileBlock(const uint16_t BlockNumber,
-			                                       uint8_t* BlockBuffer,
-			                                       const bool Read) AUX_BOOT_SECTION;
+			static void UpdateFAT12ClusterChain(uint8_t* const FATTable,
+			                                    const uint16_t StartIndex,
+			                                    const uint16_t ChainLength) AUX_BOOT_SECTION;
+
+			static void ReadWriteFLASHFileBlock(const uint16_t BlockNumber,
+			                                    uint8_t* BlockBuffer,
+			                                    const bool Read) AUX_BOOT_SECTION;
+
+			static void ReadWriteEEPROMFileBlock(const uint16_t BlockNumber,
+			                                     uint8_t* BlockBuffer,
+			                                     const bool Read) AUX_BOOT_SECTION;
 		#endif
 
 		void VirtualFAT_WriteBlock(const uint16_t BlockNumber) AUX_BOOT_SECTION;
