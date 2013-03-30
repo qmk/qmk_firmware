@@ -139,11 +139,12 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
 		},
 	};
 
-/** Starting block of the virtual firmware file image on disk. On Windows, files
- *  are (usually?) replaced using the original file's physical sectors. On Linux
- *  file replacements are performed with an offset.
+/** Starting cluster of the virtual firmware file on disk, tracked so that the
+ *  offset from the start of the data sector can be determined. On Windows
+ *  systems files are usually replaced using the original file's disk clusters,
+ *  while Linux appears to overwrite with an offset which must be compensated for.
  */
-static uint16_t FileStartBlock = DISK_BLOCK_DataStartBlock;
+static uint16_t* FileStartCluster = &FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster;
 
 
 /** Updates a FAT12 cluster entry in the FAT file table with the specified next
@@ -192,9 +193,12 @@ static void ReadWriteFirmwareFileBlock(const uint16_t BlockNumber,
                                        uint8_t* BlockBuffer,
                                        const bool Read)
 {
+	uint16_t FileStartBlock = DISK_BLOCK_DataStartBlock + (*FileStartCluster - 2) * SECTOR_PER_CLUSTER;
+	uint16_t FileEndBlock   = FileStartBlock + (FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES) - 1);
+
 	/* Range check the write request - abort if requested block is not within the
 	 * virtual firmware file sector range */
-	if (!((BlockNumber >= FileStartBlock) && (BlockNumber < (FileStartBlock + FILE_SECTORS(FIRMWARE_FILE_SIZE_BYTES)))))
+	if (!((BlockNumber >= FileStartBlock) && (BlockNumber <= FileEndBlock)))
 	  return;
 
 	#if (FLASHEND > 0xFFFF)
@@ -265,11 +269,6 @@ void VirtualFAT_WriteBlock(const uint16_t BlockNumber)
 			/* Copy over the updated directory entries */
 			memcpy(FirmwareFileEntries, BlockBuffer, sizeof(FirmwareFileEntries));
 
-			/* Save the new firmware file block offset so the written and read file
-			 * contents can be correctly mapped to the device's FLASH pages */
-			FileStartBlock = DISK_BLOCK_DataStartBlock +
-			                 (FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster - 2) * SECTOR_PER_CLUSTER;
-
 			break;
 
 		default:
@@ -311,7 +310,7 @@ void VirtualFAT_ReadBlock(const uint16_t BlockNumber)
 			/* Cluster 2 onwards: Cluster chain of FIRMWARE.BIN */
 			for (uint16_t i = 0; i <= FILE_CLUSTERS(FIRMWARE_FILE_SIZE_BYTES); i++)
 			{
-				uint16_t CurrentCluster = FirmwareFileEntries[DISK_FILE_ENTRY_FirmwareMSDOS].MSDOS_File.StartingCluster + i;
+				uint16_t CurrentCluster = *FileStartCluster + i;
 				uint16_t NextCluster    = CurrentCluster + 1;
 
 				/* Mark last cluster as end of file */
