@@ -186,15 +186,50 @@ static FATDirectoryEntry_t FirmwareFileEntries[] =
  *  systems files are usually replaced using the original file's disk clusters,
  *  while Linux appears to overwrite with an offset which must be compensated for.
  */
-static uint16_t* FLASHFileStartCluster  = &FirmwareFileEntries[DISK_FILE_ENTRY_FLASH_MSDOS].MSDOS_File.StartingCluster;
+static const uint16_t* FLASHFileStartCluster  = &FirmwareFileEntries[DISK_FILE_ENTRY_FLASH_MSDOS].MSDOS_File.StartingCluster;
 
 /** Starting cluster of the virtual EEPROM.BIN file on disk, tracked so that the
  *  offset from the start of the data sector can be determined. On Windows
  *  systems files are usually replaced using the original file's disk clusters,
  *  while Linux appears to overwrite with an offset which must be compensated for.
  */
-static uint16_t* EEPROMFileStartCluster = &FirmwareFileEntries[DISK_FILE_ENTRY_EEPROM_MSDOS].MSDOS_File.StartingCluster;
+static const uint16_t* EEPROMFileStartCluster = &FirmwareFileEntries[DISK_FILE_ENTRY_EEPROM_MSDOS].MSDOS_File.StartingCluster;
 
+/** Reads a byte of EEPROM out from the EEPROM memory space.
+ *
+ *  \note This function is required as the avr-libc EEPROM functions do not cope
+ *        with linker relaxations, and a jump longer than 4K of FLASH on the
+ *        larger USB AVRs will break the linker. This function is marked as
+ *        never inlinable and placed into the normal text segment so that the
+ *        call to the EEPROM function will be short even if the AUX boot section
+ *        is used.
+ *
+ *  \param[in]  Address   Address of the EEPROM location to read from
+ *
+ *  \return Read byte of EEPROM data.
+ */
+static uint8_t ReadEEPROMByte(const uint8_t* const Address)
+{
+	return eeprom_read_byte(Address);
+}
+
+/** Writes a byte of EEPROM out to the EEPROM memory space.
+ *
+ *  \note This function is required as the avr-libc EEPROM functions do not cope
+ *        with linker relaxations, and a jump longer than 4K of FLASH on the
+ *        larger USB AVRs will break the linker. This function is marked as
+ *        never inlinable and placed into the normal text segment so that the
+ *        call to the EEPROM function will be short even if the AUX boot section
+ *        is used.
+ *
+ *  \param[in]  Address   Address of the EEPROM location to write to
+ *  \param[in]  Data      New data to write to the EEPROM location
+ */
+static void WriteEEPROMByte(uint8_t* const Address,
+                            const uint8_t Data)
+{
+	 eeprom_update_byte(Address, Data);
+}
 
 /** Updates a FAT12 cluster entry in the FAT file table with the specified next
  *  chain index. If the cluster is the last in the file chain, the magic value
@@ -241,9 +276,9 @@ static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
  */
 static void UpdateFAT12ClusterChain(uint8_t* const FATTable,
                                     const uint16_t Index,
-                                    const uint16_t ChainLength)
+                                    const uint8_t ChainLength)
 {
-	for (uint16_t i = 0; i < ChainLength; i++)
+	for (uint8_t i = 0; i < ChainLength; i++)
 	{
 		uint16_t CurrentCluster = Index + i;
 		uint16_t NextCluster    = CurrentCluster + 1;
@@ -346,13 +381,13 @@ static void ReadWriteEEPROMFileBlock(const uint16_t BlockNumber,
 	{
 		/* Read out the mapped block of data from the device's EEPROM */
 		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
-		  BlockBuffer[i] = eeprom_read_byte((void*)EEPROMAddress++);
+		  BlockBuffer[i] = ReadEEPROMByte((uint8_t*)EEPROMAddress++);
 	}
 	else
 	{
 		/* Write out the mapped block of data to the device's EEPROM */
 		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
-		  eeprom_update_byte((void*)EEPROMAddress++, BlockBuffer[i]);
+		 WriteEEPROMByte((uint8_t*)EEPROMAddress++, BlockBuffer[i]);
 	}
 }
 

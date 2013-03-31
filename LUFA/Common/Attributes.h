@@ -90,6 +90,11 @@
 				 */
 				#define ATTR_NO_INLINE               __attribute__ ((noinline))
 
+				/** Forces the compiler to never inline the specified function. When applied, the given function will be
+				 *  always be called explicitly under all circumstances.
+				 */
+				#define ATTR_NEVER_INLINE            __attribute__ ((noinline))
+
 				/** Forces the compiler to inline the specified function. When applied, the given function will be
 				 *  in-lined under all circumstances.
 				 */
