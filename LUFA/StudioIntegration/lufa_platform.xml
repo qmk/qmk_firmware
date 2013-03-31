@@ -34,6 +34,8 @@
 				<build type="include-path" value=".."/>
 				<build type="header-file" subtype="api" value="Platform/Platform.h"/>
 
+				<build type="distribute" value="Platform/XMEGA/XMEGAExperimentalInfo.txt" subtype="license"/>
+
 				<require idref="lufa.platform.xmega"/>
 				<require idref="lufa.common"/>
 			</module>
@@ -47,6 +49,8 @@
 
 				<build type="include-path" value=".."/>
 				<build type="header-file" subtype="api" value="Platform/Platform.h"/>
+
+				<build type="distribute" value="Platform/UC3/UC3ExperimentalInfo.txt" subtype="license"/>
 
 				<require idref="lufa.platform.uc3"/>
 				<require idref="lufa.common"/>
