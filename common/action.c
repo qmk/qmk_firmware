@@ -56,7 +56,6 @@ void process_action(keyrecord_t *record)
 
     action_t action = layer_switch_get_action(event.key);
     debug("ACTION: "); debug_action(action);
-    debug(" overlays: "); overlay_debug();
     debug(" keymaps: "); keymap_debug();
     debug(" default_layer: "); debug_dec(default_layer); debug("\n");
 
@@ -199,31 +198,28 @@ void process_action(keyrecord_t *record)
             }
             break;
 #endif
-#ifndef NO_ACTION_KEYMAP
-        case ACT_KEYMAP:
+#ifndef NO_ACTION_LAYER
+        case ACT_LAYER:
+        case ACT_LAYER1:
             switch (action.layer.code) {
                 /* Keymap clear */
                 case OP_RESET:
                     switch (action.layer.val & 0x03) {
                         case 0:
                             // NOTE: reserved
-                            overlay_clear();
                             keymap_clear();
                             break;
                         case ON_PRESS:
                             if (event.pressed) {
-                                overlay_clear();
                                 keymap_clear();
                             }
                             break;
                         case ON_RELEASE:
                             if (!event.pressed) {
-                                overlay_clear();
                                 keymap_clear();
                             }
                             break;
                         case ON_BOTH:
-                            overlay_clear();
                             keymap_clear();
                             break;
                         /* NOTE: 4-7 rserved */
@@ -356,161 +352,6 @@ void process_action(keyrecord_t *record)
                         } else {
                             debug("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             keymap_off(action.layer.val);
-                        }
-                    }
-                    break;
-            }
-            break;
-#endif
-#ifndef NO_ACTION_OVERLAY
-        case ACT_OVERLAY:
-            switch (action.layer.code) {
-                // Overlay Invert bit4
-                case OP_INV4 | 0:
-                    if (action.layer.val == 0) {
-                        // NOTE: reserved for future use
-                        overlay_clear();
-                    } else {
-                        overlay_set(overlay_stat ^ action.layer.val);
-                    }
-                    break;
-                case OP_INV4 | 1:
-                    if (action.layer.val == 0) {
-                        // on pressed
-                        if (event.pressed) overlay_clear();
-                    } else {
-                        overlay_set(overlay_stat ^ action.layer.val<<4);
-                    }
-                    break;
-                case OP_INV4 | 2:
-                    if (action.layer.val == 0) {
-                        // on released
-                        if (!event.pressed) overlay_clear();
-                    } else {
-                        overlay_set(overlay_stat ^ action.layer.val<<8);
-                    }
-                    break;
-                case OP_INV4 | 3:
-                    if (action.layer.val == 0) {
-                        // on both
-                        overlay_clear();
-                    } else {
-                        overlay_set(overlay_stat ^ action.layer.val<<12);
-                    }
-                    break;
-
-                /* Overlay Bit invert */
-                case OP_INV:
-                    /* with tap toggle */
-                    if (event.pressed) {
-                        if (tap_count < TAPPING_TOGGLE) {
-                            debug("OVERLAY_INV: tap toggle(press).\n");
-                            overlay_invert(action.layer.val);
-                        }
-                    } else {
-                        if (tap_count <= TAPPING_TOGGLE) {
-                            debug("OVERLAY_INV: tap toggle(release).\n");
-                            overlay_invert(action.layer.val);
-                        }
-                    }
-                    break;
-                case (OP_INV | ON_PRESS):
-                    if (event.pressed) {
-                        overlay_invert(action.layer.val);
-                    }
-                    break;
-                case (OP_INV | ON_RELEASE):
-                    if (!event.pressed) {
-                        overlay_invert(action.layer.val);
-                    }
-                    break;
-                case (OP_INV | ON_BOTH):
-                    overlay_invert(action.layer.val);
-                    break;
-
-                /* Overlay Bit on */
-                case OP_ON:
-                    if (event.pressed) {
-                        overlay_on(action.layer.val);
-                    } else {
-                        overlay_off(action.layer.val);
-                    }
-                    break;
-                case (OP_ON | ON_PRESS):
-                    if (event.pressed) {
-                        overlay_on(action.layer.val);
-                    }
-                    break;
-                case (OP_ON | ON_RELEASE):
-                    if (!event.pressed) {
-                        overlay_on(action.layer.val);
-                    }
-                    break;
-                case (OP_ON | ON_BOTH):
-                    overlay_on(action.layer.val);
-                    break;
-
-                /* Overlay Bit off */
-                case OP_OFF:
-                    if (event.pressed) {
-                        overlay_off(action.layer.val);
-                    } else {
-                        overlay_on(action.layer.val);
-                    }
-                    break;
-                case (OP_OFF | ON_PRESS):
-                    if (event.pressed) {
-                        overlay_off(action.layer.val);
-                    }
-                    break;
-                case (OP_OFF | ON_RELEASE):
-                    if (!event.pressed) {
-                        overlay_off(action.layer.val);
-                    }
-                    break;
-                case (OP_OFF | ON_BOTH):
-                    overlay_off(action.layer.val);
-                    break;
-
-                /* Overlay Bit set */
-                case OP_SET:
-                    if (event.pressed) {
-                        overlay_move(action.layer.val);
-                    } else {
-                        overlay_clear();
-                    }
-                    break;
-                case (OP_SET | ON_PRESS):
-                    if (event.pressed) {
-                        overlay_move(action.layer.val);
-                    }
-                    break;
-                case (OP_SET | ON_RELEASE):
-                    if (!event.pressed) {
-                        overlay_move(action.layer.val);
-                    }
-                    break;
-                case (OP_SET | ON_BOTH):
-                    overlay_move(action.layer.val);
-                    break;
-
-                /* Overlay Bit invert with tap key */
-                default:
-                    if (event.pressed) {
-                        if (tap_count > 0) {
-                            debug("OVERLAY_TAP_KEY: Tap: register_code\n");
-                            register_code(action.layer.code);
-                        } else {
-                            debug("OVERLAY_TAP_KEY: No tap: On on press\n");
-                            overlay_on(action.layer.val);
-                        }
-                    } else {
-                        if (tap_count > 0) {
-                            debug("OVERLAY_TAP_KEY: Tap: unregister_code\n");
-                            unregister_code(action.layer.code);
-                        } else {
-                            debug("OVERLAY_TAP_KEY: No tap: Off on release\n");
-                            overlay_off(action.layer.val);
                         }
                     }
                     break;
@@ -668,8 +509,7 @@ bool is_tap_key(key_t key)
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
             return true;
-        case ACT_KEYMAP:
-        case ACT_OVERLAY:
+        case ACT_LAYER:
             switch (action.layer.code) {
                 case 0x04 ... 0xEF:    /* tap key */
                 case OP_INV:
@@ -714,8 +554,8 @@ void debug_action(action_t action)
         case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
         case ACT_USAGE:             debug("ACT_USAGE");             break;
         case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
-        case ACT_KEYMAP:            debug("ACT_KEYMAP");            break;
-        case ACT_OVERLAY:           debug("ACT_OVERLAY");           break;
+        case ACT_LAYER:             debug("ACT_LAYER");             break;
+        case ACT_LAYER_BITOP:       debug("ACT_LAYER_BITOP");       break;
         case ACT_MACRO:             debug("ACT_MACRO");             break;
         case ACT_COMMAND:           debug("ACT_COMMAND");           break;
         case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
