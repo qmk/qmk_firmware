@@ -43,6 +43,13 @@
 
 		#include <LUFA/Common/Common.h>
 
+	/* Macros: */
+		#if AUX_BOOT_SECTION_SIZE > 0
+			#define AUX_BOOT_SECTION       __attribute__((section(".boot_aux")))
+		#else
+			#define AUX_BOOT_SECTION
+		#endif
+
 	/* Function Prototypes: */
 		void    BootloaderAPI_ErasePage(const uint32_t Address);
 		void    BootloaderAPI_WritePage(const uint32_t Address);

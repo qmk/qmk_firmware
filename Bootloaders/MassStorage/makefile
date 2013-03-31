@@ -46,11 +46,11 @@ BOOT_API_LD_FLAGS    += $(call BOOT_SECTION_LD_FLAG, .apitable_signatures,  Boot
 # bootloader code. This is required for 32KB and smaller devices, where the actual bootloader is 6KB but the maximum
 # bootloader section size is 4KB. The actual usable application space will be reduced by 6KB for these devices.
 ifeq ($(BOOT_SECTION_SIZE_KB),8)
-  CC_FLAGS           += -DAUX_BOOT_SECTION='' -DAUX_BOOT_SECTION_SIZE=0
+  CC_FLAGS           += -DAUX_BOOT_SECTION_SIZE=0
 else
   AUX_BOOT_SECTION_SIZE_KB = (6 - $(BOOT_SECTION_SIZE_KB))
 
-  CC_FLAGS           += -DAUX_BOOT_SECTION='__attribute__((section(".boot_aux")))' -DAUX_BOOT_SECTION_SIZE='($(AUX_BOOT_SECTION_SIZE_KB) * 1024)'
+  CC_FLAGS           += -DAUX_BOOT_SECTION_SIZE='($(AUX_BOOT_SECTION_SIZE_KB) * 1024)'
   LD_FLAGS           += -Wl,--section-start=.boot_aux=$(call BOOT_SEC_OFFSET, (($(BOOT_SECTION_SIZE_KB) + $(AUX_BOOT_SECTION_SIZE_KB)) * 1024 - 16))
   LD_FLAGS           += $(call BOOT_SECTION_LD_FLAG, .boot_aux_trampoline, Boot_AUX_Trampoline, ($(BOOT_SECTION_SIZE_KB) + $(AUX_BOOT_SECTION_SIZE_KB)) * 1024)
 endif
