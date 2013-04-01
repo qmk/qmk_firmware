@@ -35,6 +35,7 @@
 		<build type="header-file" value="Descriptors.h"/>
 
 		<build type="module-config" subtype="path" value="Config"/>
+		<build type="module-config" subtype="required-header-file" value="AppConfig.h"/>
 		<build type="header-file" value="Config/AppConfig.h"/>
 		<build type="header-file" value="Config/LUFAConfig.h"/>
 
