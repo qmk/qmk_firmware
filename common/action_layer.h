@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef LAYER_SWITCH_H
-#define LAYER_SWITCH_H
+#ifndef ACTION_LAYER_H
+#define ACTION_LAYER_H
 
 #include <stdint.h>
 #include "keyboard.h"

@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap.h"
 #include "report.h"
 #include "keycode.h"
-#include "layer_switch.h"
+#include "action_layer.h"
 #include "action.h"
 #include "action_macro.h"
 #include "debug.h"

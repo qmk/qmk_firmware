@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "keyboard.h"
 #include "bootloader.h"
-#include "layer_switch.h"
+#include "action_layer.h"
 #include "eeconfig.h"
 #include "sleep_led.h"
 #include "led.h"
