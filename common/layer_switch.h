@@ -25,42 +25,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Default Layer
  */
-/* base layer to fall back */
-extern uint8_t default_layer;
+extern uint32_t default_layer_state;
+void default_layer_debug(void);
 void default_layer_set(uint8_t layer);
+
+#ifndef NO_ACTION_LAYER
+/* bitwise operation */
+void default_layer_or(uint32_t state);
+void default_layer_and(uint32_t state);
+void default_layer_xor(uint32_t state);
+#else
+#define default_layer_or(state)
+#define default_layer_and(state)
+#define default_layer_xor(state)
+#endif
 
 
 /*
  * Keymap Layer
  */
 #ifndef NO_ACTION_LAYER
-extern uint16_t keymap_stat;
-/* return current active layer */
-uint8_t keymap_get_layer(void);
-void keymap_clear(void);
-void keymap_set(uint16_t stat);
-void keymap_move(uint8_t layer);
-void keymap_on(uint8_t layer);
-void keymap_off(uint8_t layer);
-void keymap_invert(uint8_t layer);
+extern uint32_t layer_state;
+void layer_debug(void);
+void layer_clear(void);
+void layer_move(uint8_t layer);
+void layer_on(uint8_t layer);
+void layer_off(uint8_t layer);
+void layer_invert(uint8_t layer);
 /* bitwise operation */
-void keymap_or(uint16_t stat);
-void keymap_and(uint16_t stat);
-void keymap_xor(uint16_t stat);
-void keymap_debug(void);
+void layer_or(uint32_t state);
+void layer_and(uint32_t state);
+void layer_xor(uint32_t state);
 #else
-#define keymap_stat             0
-#define keymap_get_layer()
-#define keymap_clear()
-#define keymap_set(stat)
-#define keymap_move(layer)
-#define keymap_on(layer)
-#define keymap_off(layer)
-#define keymap_invert(layer)
-#define keymap_or(stat)
-#define keymap_and(stat)
-#define keymap_xor(stat)
-#define keymap_debug()
+#define layer_state             0
+#define layer_clear()
+#define layer_move(layer)
+#define layer_on(layer)
+#define layer_off(layer)
+#define layer_invert(layer)
+
+#define layer_or(state)
+#define layer_and(state)
+#define layer_xor(state)
+#define layer_debug()
 #endif
 
 

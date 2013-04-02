@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ACTION_TAPPING_H
 
 
-#ifndef NO_ACTION_TAPPING
 
 /* period of tapping(ms) */
 #ifndef TAPPING_TERM
@@ -33,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WAITING_BUFFER_SIZE 8
 
 
+#ifndef NO_ACTION_TAPPING
 void action_tapping_process(keyrecord_t record);
-
 #endif
 
 #endif
