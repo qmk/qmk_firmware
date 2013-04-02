@@ -93,10 +93,6 @@ RETRY:
 
 void matrix_init(void)
 {
-    print_enable = true;
-//    debug_enable = true;
-//    debug_matrix = true;
-
     PC98_RST_DDR |= (1<<PC98_RST_BIT);
     PC98_RDY_DDR |= (1<<PC98_RDY_BIT);
     PC98_RTY_DDR |= (1<<PC98_RTY_BIT);

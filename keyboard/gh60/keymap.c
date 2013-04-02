@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 #include "action_macro.h"
-#include "layer_switch.h"
 #include "report.h"
 #include "host.h"
 #include "print.h"
