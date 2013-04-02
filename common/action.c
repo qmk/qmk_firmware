@@ -50,14 +50,19 @@ void action_exec(keyevent_t event)
 void process_action(keyrecord_t *record)
 {
     keyevent_t event = record->event;
+#ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
+#endif
 
     if (IS_NOEVENT(event)) { return; }
 
     action_t action = layer_switch_get_action(event.key);
     debug("ACTION: "); debug_action(action);
-    debug(" keymaps: "); keymap_debug();
-    debug(" default_layer: "); debug_dec(default_layer); debug("\n");
+#ifndef NO_ACTION_LAYER
+    debug(" layer_state: "); layer_debug();
+    debug(" default_layer_state: "); default_layer_debug();
+#endif
+    debug("\n");
 
     switch (action.kind.id) {
         /* Key and Mods */
@@ -92,7 +97,7 @@ void process_action(keyrecord_t *record)
             {
                 uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ?  action.key.mods :
                                                                     action.key.mods<<4;
-                switch (action.layer.code) {
+                switch (action.layer_tap.code) {
     #ifndef NO_ACTION_ONESHOT
                     case 0x00:
                         // Oneshot modifier
@@ -200,163 +205,86 @@ void process_action(keyrecord_t *record)
 #endif
 #ifndef NO_ACTION_LAYER
         case ACT_LAYER:
-        case ACT_LAYER1:
-            switch (action.layer.code) {
-                /* Keymap clear */
-                case OP_RESET:
-                    switch (action.layer.val & 0x03) {
-                        case 0:
-                            // NOTE: reserved
-                            keymap_clear();
-                            break;
-                        case ON_PRESS:
-                            if (event.pressed) {
-                                keymap_clear();
-                            }
-                            break;
-                        case ON_RELEASE:
-                            if (!event.pressed) {
-                                keymap_clear();
-                            }
-                            break;
-                        case ON_BOTH:
-                            keymap_clear();
-                            break;
-                        /* NOTE: 4-7 rserved */
+            if (action.layer_bitop.on == 0) {
+                /* Default Layer Bitwise Operation */
+                if (!event.pressed) {
+                    uint8_t shift = action.layer_bitop.part*4;
+                    uint32_t bits = ((uint32_t)action.layer_bitop.bits)<<shift;
+                    uint32_t mask = (action.layer_bitop.xbit) ? ~(((uint32_t)0xf)<<shift) : 0;
+                    switch (action.layer_bitop.op) {
+                        case OP_BIT_AND: default_layer_and(bits | mask); break;
+                        case OP_BIT_OR:  default_layer_or(bits | mask);  break;
+                        case OP_BIT_XOR: default_layer_xor(bits | mask); break;
+                        case OP_BIT_SET: default_layer_and(mask); default_layer_or(bits); break;
                     }
-                    break;
-                /* Keymap Reset default layer */
-                case (OP_RESET | ON_PRESS):
-                    if (event.pressed) {
-                        default_layer_set(action.layer.val);
+                }
+            } else {
+                /* Layer Bitwise Operation */
+                if (event.pressed ? (action.layer_bitop.on & ON_PRESS) :
+                                    (action.layer_bitop.on & ON_RELEASE)) {
+                    uint8_t shift = action.layer_bitop.part*4;
+                    uint32_t bits = ((uint32_t)action.layer_bitop.bits)<<shift;
+                    uint32_t mask = (action.layer_bitop.xbit) ? ~(((uint32_t)0xf)<<shift) : 0;
+                    switch (action.layer_bitop.op) {
+                        case OP_BIT_AND: layer_and(bits | mask); break;
+                        case OP_BIT_OR:  layer_or(bits | mask);  break;
+                        case OP_BIT_XOR: layer_xor(bits | mask); break;
+                        case OP_BIT_SET: layer_and(mask); layer_or(bits); break;
                     }
-                    break;
-                case (OP_RESET | ON_RELEASE):
-                    if (!event.pressed) {
-                        default_layer_set(action.layer.val);
-                    }
-                    break;
-                case (OP_RESET | ON_BOTH):
-                    default_layer_set(action.layer.val);
-                    break;
-
-                /* Keymap Bit invert */
-                case OP_INV:
-                    /* with tap toggle */
+                }
+            }
+            break;
+    #ifndef NO_ACTION_TAPPING
+        case ACT_LAYER_TAP:
+        case ACT_LAYER_TAP1:
+            switch (action.layer_tap.code) {
+                case OP_TAP_TOGGLE:
+                    /* tap toggle */
                     if (event.pressed) {
                         if (tap_count < TAPPING_TOGGLE) {
-                            debug("KEYMAP_INV: tap toggle(press).\n");
-                            keymap_invert(action.layer.val);
+                            layer_invert(action.layer_tap.val);
                         }
                     } else {
                         if (tap_count <= TAPPING_TOGGLE) {
-                            debug("KEYMAP_INV: tap toggle(release).\n");
-                            keymap_invert(action.layer.val);
+                            layer_invert(action.layer_tap.val);
                         }
                     }
                     break;
-                case (OP_INV | ON_PRESS):
-                    if (event.pressed) {
-                        keymap_invert(action.layer.val);
-                    }
+                case OP_ON_OFF:
+                    event.pressed ? layer_on(action.layer_tap.val) :
+                                    layer_off(action.layer_tap.val);
                     break;
-                case (OP_INV | ON_RELEASE):
-                    if (!event.pressed) {
-                        keymap_invert(action.layer.val);
-                    }
+                case OP_OFF_ON:
+                    event.pressed ? layer_off(action.layer_tap.val) :
+                                    layer_on(action.layer_tap.val);
                     break;
-                case (OP_INV | ON_BOTH):
-                    keymap_invert(action.layer.val);
+                case OP_SET_CLEAR:
+                    event.pressed ? layer_move(action.layer_tap.val) :
+                                    layer_clear();
                     break;
-
-                /* Keymap Bit on */
-                case OP_ON:
-                    if (event.pressed) {
-                        keymap_on(action.layer.val);
-                    } else {
-                        keymap_off(action.layer.val);
-                    }
-                    break;
-                case (OP_ON | ON_PRESS):
-                    if (event.pressed) {
-                        keymap_on(action.layer.val);
-                    }
-                    break;
-                case (OP_ON | ON_RELEASE):
-                    if (!event.pressed) {
-                        keymap_on(action.layer.val);
-                    }
-                    break;
-                case (OP_ON | ON_BOTH):
-                    keymap_on(action.layer.val);
-                    break;
-
-                /* Keymap Bit off */
-                case OP_OFF:
-                    if (event.pressed) {
-                        keymap_off(action.layer.val);
-                    } else {
-                        keymap_on(action.layer.val);
-                    }
-                    break;
-                case (OP_OFF | ON_PRESS):
-                    if (event.pressed) {
-                        keymap_off(action.layer.val);
-                    }
-                    break;
-                case (OP_OFF | ON_RELEASE):
-                    if (!event.pressed) {
-                        keymap_off(action.layer.val);
-                    }
-                    break;
-                case (OP_OFF | ON_BOTH):
-                    keymap_off(action.layer.val);
-                    break;
-
-                /* Keymap Bit set */
-                case OP_SET:
-                    if (event.pressed) {
-                        keymap_set(action.layer.val);
-                    } else {
-                        keymap_clear();
-                    }
-                    break;
-                case (OP_SET | ON_PRESS):
-                    if (event.pressed) {
-                        keymap_set(action.layer.val);
-                    }
-                    break;
-                case (OP_SET | ON_RELEASE):
-                    if (!event.pressed) {
-                        keymap_set(action.layer.val);
-                    }
-                    break;
-                case (OP_SET | ON_BOTH):
-                    keymap_set(action.layer.val);
-                    break;
-
-                /* Keymap Bit invert with tap key */
                 default:
+                    /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
                             debug("KEYMAP_TAP_KEY: Tap: register_code\n");
-                            register_code(action.layer.code);
+                            register_code(action.layer_tap.code);
                         } else {
                             debug("KEYMAP_TAP_KEY: No tap: On on press\n");
-                            keymap_on(action.layer.val);
+                            layer_on(action.layer_tap.val);
                         }
                     } else {
                         if (tap_count > 0) {
                             debug("KEYMAP_TAP_KEY: Tap: unregister_code\n");
-                            unregister_code(action.layer.code);
+                            unregister_code(action.layer_tap.code);
                         } else {
                             debug("KEYMAP_TAP_KEY: No tap: Off on release\n");
-                            keymap_off(action.layer.val);
+                            layer_off(action.layer_tap.val);
                         }
                     }
                     break;
             }
             break;
+    #endif
 #endif
         /* Extentions */
 #ifndef NO_ACTION_MACRO
@@ -508,15 +436,9 @@ bool is_tap_key(key_t key)
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
+        case ACT_LAYER_TAP:
+        case ACT_LAYER_TAP1:
             return true;
-        case ACT_LAYER:
-            switch (action.layer.code) {
-                case 0x04 ... 0xEF:    /* tap key */
-                case OP_INV:
-                    return true;
-                default:
-                    return false;
-            }
         case ACT_MACRO:
         case ACT_FUNCTION:
             if (action.func.opt & FUNC_TAP) { return true; }
@@ -555,7 +477,8 @@ void debug_action(action_t action)
         case ACT_USAGE:             debug("ACT_USAGE");             break;
         case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
         case ACT_LAYER:             debug("ACT_LAYER");             break;
-        case ACT_LAYER_BITOP:       debug("ACT_LAYER_BITOP");       break;
+        case ACT_LAYER_TAP:         debug("ACT_LAYER_TAP");         break;
+        case ACT_LAYER_TAP1:        debug("ACT_LAYER_TAP1");        break;
         case ACT_MACRO:             debug("ACT_MACRO");             break;
         case ACT_COMMAND:           debug("ACT_COMMAND");           break;
         case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
