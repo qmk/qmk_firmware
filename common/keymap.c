@@ -108,9 +108,9 @@ action_t keymap_fn_to_action(uint8_t keycode)
                 uint8_t layer = keymap_fn_layer(FN_INDEX(keycode));
                 uint8_t key = keymap_fn_keycode(FN_INDEX(keycode));
                 if (key) {
-                    action.code = ACTION_KEYMAP_TAP_KEY(layer, key);
+                    action.code = ACTION_LAYER_TAP_KEY(layer, key);
                 } else {
-                    action.code = ACTION_KEYMAP_MOMENTARY(layer);
+                    action.code = ACTION_LAYER_MOMENTARY(layer);
                 }
             }
             return action;
