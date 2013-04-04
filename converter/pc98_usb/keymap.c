@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 #include "action_macro.h"
-#include "layer_switch.h"
 #include "util.h"
 #include "keymap.h"
 
@@ -165,10 +164,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
  * Fn actions
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    ACTION_KEYMAP_TAP_TOGGLE(0),                 // FN0
-    ACTION_KEYMAP_TAP_KEY(1, KC_SLASH),          // FN1
-    ACTION_KEYMAP_TAP_KEY(2, KC_SCLN),           // FN2
-    ACTION_KEYMAP_MOMENTARY(2),                  // FN3
+    ACTION_LAYER_TAP_TOGGLE(0),                  // FN0
+    ACTION_LAYER_TAP_KEY(1, KC_SLASH),           // FN1
+    ACTION_LAYER_TAP_KEY(2, KC_SCLN),            // FN2
+    ACTION_LAYER_MOMENTARY(2),                   // FN3
     ACTION_MACRO(LBRACKET),                      // FN4
     ACTION_MACRO(RBRACKET),                      // FN5
     ACTION_MACRO(DUMMY),                         // FN6
@@ -183,29 +182,16 @@ static const uint16_t PROGMEM fn_actions[] = {
  * No need to edit.
  */
 #define KEYMAPS_SIZE    (sizeof(keymaps) / sizeof(keymaps[0]))
-#define OVERLAYS_SIZE   (sizeof(overlays) / sizeof(overlays[0]))
 #define FN_ACTIONS_SIZE (sizeof(fn_actions) / sizeof(fn_actions[0]))
 
 /* translates key to keycode */
 uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    /* Overlay: 16-31(OVERLAY_BIT(0x10) | overlay_layer) */
-    if (layer & OVERLAY_BIT) {
-        layer &= OVERLAY_MASK;
-        if (layer < OVERLAYS_SIZE) {
-            return pgm_read_byte(&overlays[(layer)][(key.row)][(key.col)]);
-        } else {
-            return KC_TRANSPARENT;
-        }
-    } 
-    /* Keymap: 0-15 */
-    else {
-        if (layer < KEYMAPS_SIZE) {
-            return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
-        } else {
-            // fall back to layer 0
-            return pgm_read_byte(&keymaps[0][(key.row)][(key.col)]);
-        }
+    if (layer < KEYMAPS_SIZE) {
+        return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+    } else {
+        // fall back to layer 0
+        return pgm_read_byte(&keymaps[0][(key.row)][(key.col)]);
     }
 }
 
