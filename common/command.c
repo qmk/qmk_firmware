@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "keyboard.h"
 #include "bootloader.h"
-#include "layer_switch.h"
+#include "action_layer.h"
 #include "eeconfig.h"
 #include "sleep_led.h"
 #include "led.h"
@@ -573,8 +573,8 @@ static uint8_t numkey2num(uint8_t code)
 
 static void switch_default_layer(uint8_t layer)
 {
-    print("switch_default_layer: "); print_dec(default_layer); print(" to "); print_dec(layer); print("\n");
+    print("switch_default_layer: "); print_dec(biton32(default_layer_state));
+    print(" to "); print_dec(layer); print("\n");
     default_layer_set(layer);
-    overlay_clear();
     clear_keyboard();
 }
