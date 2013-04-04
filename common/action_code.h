@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Other Keys(01xx)
  * ----------------
- * ACT_USAGE(0100):
+ * ACT_USAGE(0100): TODO: Not needed?
  * 0100|00| usage(10)     System control(0x80) - General Desktop page(0x01)
  * 0100|01| usage(10)     Consumer control(0x01) - Consumer page(0x0C)
  * 0100|10| usage(10)     (reserved)
@@ -66,6 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *   ee:    on event(00:default layer, 01:press, 10:release, 11:both)
  *
  * 1001|xxxx|xxxx xxxx   (reserved)
+ * 1001|oopp|BBBB BBBB   8-bit Bitwise Operation???
  *
  * ACT_LAYER_TAP(101x):
  * 101E|LLLL| keycode    Invert with tap key
@@ -240,8 +241,10 @@ enum layer_pram_tap_op {
 };
 #define ACTION_LAYER_BITOP(op, part, bits, on)      (ACT_LAYER<<12 | (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
 #define ACTION_LAYER_TAP(layer, key)                (ACT_LAYER_TAP<<12 | (layer)<<8 | (key))
+/* Default Layer */
+#define ACTION_DEFAULT_LAYER_SET(layer)             ACTION_DEFAULT_LAYER_BIT_SET((layer)/4, 1<<((layer)%4))
 /* Layer Operation */
-#define ACTION_LAYER_CLEAR(on)                      ACTION_LAYER_AND(0x1f, (on))
+#define ACTION_LAYER_CLEAR(on)                      ACTION_LAYER_BIT_AND(0, 0, (on))
 #define ACTION_LAYER_MOMENTARY(layer)               ACTION_LAYER_ON_OFF(layer)
 #define ACTION_LAYER_TOGGLE(layer)                  ACTION_LAYER_INVERT(layer, ON_RELEASE)
 #define ACTION_LAYER_INVERT(layer, on)              ACTION_LAYER_BIT_XOR((layer)/4,   1<<((layer)%4),  (on))
@@ -251,21 +254,19 @@ enum layer_pram_tap_op {
 #define ACTION_LAYER_ON_OFF(layer)                  ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
+/* With Tapping */
+#define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
+#define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
 /* Bitwise Operation */
 #define ACTION_LAYER_BIT_AND(part, bits, on)        ACTION_LAYER_BITOP(OP_BIT_AND, (part), (bits), (on))
 #define ACTION_LAYER_BIT_OR( part, bits, on)        ACTION_LAYER_BITOP(OP_BIT_OR,  (part), (bits), (on))
 #define ACTION_LAYER_BIT_XOR(part, bits, on)        ACTION_LAYER_BITOP(OP_BIT_XOR, (part), (bits), (on))
 #define ACTION_LAYER_BIT_SET(part, bits, on)        ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), (on))
-/* Default Layer */
-#define ACTION_DEFAULT_LAYER_SET(layer)             ACTION_DEFAULT_LAYER_BIT_SET((layer)/4, 1<<((layer)%4))
 /* Default Layer Bitwise Operation */
 #define ACTION_DEFAULT_LAYER_BIT_AND(part, bits)    ACTION_LAYER_BITOP(OP_BIT_AND, (part), (bits), 0)
 #define ACTION_DEFAULT_LAYER_BIT_OR( part, bits)    ACTION_LAYER_BITOP(OP_BIT_OR,  (part), (bits), 0)
 #define ACTION_DEFAULT_LAYER_BIT_XOR(part, bits)    ACTION_LAYER_BITOP(OP_BIT_XOR, (part), (bits), 0)
 #define ACTION_DEFAULT_LAYER_BIT_SET(part, bits)    ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), 0)
-/* With Tapping */
-#define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
-#define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
 
 
 /*
