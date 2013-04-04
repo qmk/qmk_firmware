@@ -72,22 +72,17 @@ void process_action(keyrecord_t *record)
                 uint8_t mods = (action.kind.id == ACT_LMODS) ?  action.key.mods :
                                                                 action.key.mods<<4;
                 if (event.pressed) {
-                    uint8_t tmp_mods = host_get_mods();
                     if (mods) {
                         host_add_mods(mods);
                         host_send_keyboard_report();
                     }
                     register_code(action.key.code);
-                    if (mods && action.key.code) {
-                        host_set_mods(tmp_mods);
-                        host_send_keyboard_report();
-                    }
                 } else {
-                    if (mods && !action.key.code) {
+                    unregister_code(action.key.code);
+                    if (mods) {
                         host_del_mods(mods);
                         host_send_keyboard_report();
                     }
-                    unregister_code(action.key.code);
                 }
             }
             break;

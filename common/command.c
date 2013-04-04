@@ -574,7 +574,7 @@ static uint8_t numkey2num(uint8_t code)
 static void switch_default_layer(uint8_t layer)
 {
     print("switch_default_layer: "); print_dec(biton32(default_layer_state));
+    print(" to "); print_dec(layer); print("\n");
     default_layer_set(layer);
-    print(" to "); print_dec(biton32(default_layer_state)); print("\n");
     clear_keyboard();
 }
