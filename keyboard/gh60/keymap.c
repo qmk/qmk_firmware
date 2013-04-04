@@ -210,7 +210,7 @@ static const uint16_t PROGMEM fn_actions[] = {
     [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
     [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
     [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
-    [9] = ACTION_RMOD_TAP_KEY(KC_RSFT, KC_GRV),
+    [9] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_GRV),
 };
 #endif
 
