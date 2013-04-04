@@ -63,6 +63,9 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY           LEDS_LED2
 
+		/** Magic bootloader key to unlock forced application start mode. */
+		#define MAGIC_BOOT_KEY             0xDC42
+
 	/* Enums: */
 		/** Intel HEX parser state machine states. */
 		enum HEX_Parser_States_t

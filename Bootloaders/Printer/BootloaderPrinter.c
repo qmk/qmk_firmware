@@ -73,6 +73,37 @@ struct
  */
 static bool PageDirty = false;
 
+
+/** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
+ *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
+ *  started via a forced watchdog reset.
+ */
+static bool RunBootloader = true;
+
+/** Magic lock for forced application start. If the HWBE fuse is programmed and BOOTRST is unprogrammed, the bootloader
+ *  will start if the /HWB line of the AVR is held low and the system is reset. However, if the /HWB line is still held
+ *  low when the application attempts to start via a watchdog reset, the bootloader will re-start. If set to the value
+ *  \ref MAGIC_BOOT_KEY the special init function \ref Application_Jump_Check() will force the application to start.
+ */
+uint16_t MagicBootKey ATTR_NO_INIT;
+
+
+/** Special startup routine to check if the bootloader was started via a watchdog reset, and if the magic application
+ *  start key has been loaded into \ref MagicBootKey. If the bootloader started via the watchdog and the key is valid,
+ *  this will force the user application to start via a software jump.
+ */
+void Application_Jump_Check(void)
+{
+	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
+	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+	{
+		MagicBootKey = 0;
+
+		// cppcheck-suppress constStatement
+		((void (*)(void))0x0000)();
+	}
+}
+
 /**
  * Determines if a given input byte of data is an ASCII encoded HEX value.
  *
@@ -255,6 +286,10 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 				PageDirty = false;
 			}
 
+			/* If end of the HEX file reached, the bootloader should exit at next opportunity */
+			if (HEXParser.RecordType == HEX_RECORD_TYPE_EndOfFile)
+			  RunBootloader = false;
+
 			break;
 
 		default:
@@ -273,7 +308,7 @@ int main(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	GlobalInterruptEnable();
 
-	for (;;)
+	while (RunBootloader)
 	{
 		USB_USBTask();
 
@@ -296,6 +331,17 @@ int main(void)
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 		}
 	}
+
+	/* Disconnect from the host - USB interface will be reset later along with the AVR */
+	USB_Detach();
+
+	/* Unlock the forced application start mode of the bootloader if it is restarted */
+	MagicBootKey = MAGIC_BOOT_KEY;
+
+	/* Enable the watchdog and force a timeout to reset the AVR */
+	wdt_enable(WDTO_250MS);
+
+	for (;;);
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
