@@ -203,15 +203,21 @@ There are 8 modifiers which has discrimination between left and right.
 
 
 ## 2. Action
-See [`common/action.h`](../common/action.h). Action is a **16bit code** and defines function to perform on events of a key like press, release, holding and tapping.
+See [`common/action_code.h`](../common/action_code.h). Action is a **16bit code** and defines function to perform on events of a key like press, release, holding and tapping.
 
 Most of keys just register 8bit scancode to host, but to support other complex features needs 16bit extended action codes internally. However, using 16bit action codes in keymap results in double size in memory compared to using jsut keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP()` instead of action codes.
 
 ***You can just use keycodes of `Normal key`, `Modifier`, `Mousekey` and `System & Media key` in keymap*** to indicate corresponding actions instead of using action codes. While ***to use other special actions you should use keycode of `Fn` key defined in `fn_actions[]`.***
 
 
-### 2.1 Key action
+### 2.1 Key Action
 This is a simple action that registers scancodes(HID usage in fact) to host on press event of key and unregister on release.
+
+#### Parameters
++ **mods**: { ` MOD_LCTL`, ` MOD_LSFT`, ` MOD_LALT`, ` MOD_LGUI`,
+              ` MOD_RCTL`, ` MOD_RSFT`, ` MOD_RALT`, ` MOD_RGUI` }
++ **key**: keycode
+
 
 #### 2.1.1 Normal key and Modifier
 ***This action usually won't be used expressly in keymap*** because you can just use keycodes in `KEYMAP()` instead.
@@ -226,67 +232,72 @@ This action is comprised of strokes of modifiers and a key. `Macro` action is ne
 
 Say you want to assign a key to `Shift + 1` to get charactor *'!'* or `Alt + Tab` to switch application windows.
 
-    ACTION_MOD_KEY(KC_LSFT, KC_1)
-    ACTION_MOD_KEY(KC_LALT, KC_TAB)
+    ACTION_MODS_KEY(MOD_LSFT, KC_1)
+    ACTION_MODS_KEY(MOD_LALT, KC_TAB)
 
-Or `Alt,Shift + Tab` can be defined. `ACTION_LMODS_KEY()` requires **4-bit modifier state** and a **keycode** as arguments. See `keycode.h` for `MOD_BIT()` macro.
+Or `Alt,Shift + Tab` can be defined. `ACTION_MODS_KEY(mods, key)` requires **4-bit modifier state** and a **keycode** as arguments. See `keycode.h` for `MOD_BIT()` macro.
 
-    ACTION_MODS_KEY((MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)), KC_TAB)
+    ACTION_MODS_KEY(MOD_LALT | MOD_LSFT, KC_TAB)
 
 #### 2.1.3 Multiple Modifiers
-Registers multiple modifiers with a key.
+Registers multiple modifiers with pressing a key. To specify multiple modifiers use `|`.
 
-    ACTION_MODS(MOD_BIT(KC_ALT) | MOD_BIT(KC_LSFT))
+    ACTION_MODS(MOD_ALT | MOD_LSFT)
 
 #### 2.1.3 Modifier with tap key
+Works as a modifier key while holding, but registers a key on tap(press and release quickly).
 
-    ACTION_MODS_TAP_KEY(KC_RSFT, KC_GRV)
+
+    ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT)
 
 
 
 ### 2.2 Layer Action
 These actions operate layers of keymap.
 
-**Parameters:**
+#### Parameters
+You can specify a **target layer** of action and **when the action is executed**. Some actions take a **bit value** for bitwise operation.
 
-+ **layer**: 0-31
-+ **on**: { press | release | both }
+
++ **layer**: `0`-`31`
++ **on**: { `ON_PRESS` | `ON_RELEASE` | `ON_BOTH` }
++ **bits**: 4-bit value and 1-bit mask bit
 
 
 #### 2.2.1 Default Layer
-`default_layer` is layer which always is valid and referred to when actions is not defined on other overlay layers.
+Default Layer is a layer which always is valid and referred to when actions is not defined on other overlay layers.
 
-Sets `default_layer` to given parameter `layer` and turn it on.
+This sets Default Layer to given parameter `layer` and activate it.
 
     ACTION_DEFAULT_LAYER(layer)
 
 
 #### 2.2.2 Momentary Switch
-Turns on `layer` momentarily while holding, in other words turn on when key is pressed and off when released.
+Turns on `layer` momentarily while holding, in other words it activates when key is pressed and deactivate when released.
 
     ACTION_LAYER_MOMENTARY(layer)
 
 
 #### 2.2.3 Toggle Switch
-Turns on layer on first type and turns off on next.
+Turns on `layer` with first type(press and release) and turns off with next.
 
     ACTION_LAYER_TOGGLE(layer)
 
 
 #### 2.2.4 Momentary Switch with tap key
-Turns on layer momentary while holding but registers key on tap.
+Turns on `layer` momentary while holding, but registers key on tap(press and release quickly).
 
     ACTION_LAYER_TAP_KEY(layer, key)
 
 
 #### 2.2.5 Momentary Switch with tap toggle
-Turns on layer momentary while holding but toggles it with serial taps.
+Turns on `layer` momentary while holding and toggles it with serial taps.
 
     ACTION_LAYER_TAP_TOGGLE(layer)
 
 
 #### 2.2.6 Invert state of layer
-Inverts current layer state. If the layer is on it becomes off with this action.
+Inverts current state of `layer`. If the layer is on it becomes off with this action.
 
     ACTION_LAYER_INVERT(layer, on)
 
@@ -320,6 +331,30 @@ Turn on layer only.
 Turns on layer only and clear all layer on release..
 
     ACTION_LAYER_SET_CLEAR(layer)
+
+
+#### 2.2.10 Bitwise operation
+
+**part** indicates which part of 32bit layer state(0-7). **bits** is 5-bit value. **on** indicates when the action is executed.
+
+    ACTION_LAYER_BIT_AND(part, bits, on)
+    ACTION_LAYER_BIT_OR(part, bits, on)
+    ACTION_LAYER_BIT_XOR(part, bits, on)
+    ACTION_LAYER_BIT_SET(part, bits, on)
+
+These actions works with prameters as following code.
+
+    uint8_t shift = part*4;
+    uint32_t mask = (bits&0x10) ? ~(0xf<<shift) : 0;
+    uint32_t layer_state = layer_state <bitop> ((bits<<shift)|mask);
+
+
+Default Layer also has bitwise operations, they are executed when key is released.
+
+    ACTION_DEFAULT_LAYER_BIT_AND(part, bits)
+    ACTION_DEFAULT_LAYER_BIT_OR(part, bits)
+    ACTION_DEFAULT_LAYER_BIT_XOR(part, bits)
+    ACTION_DEFAULT_LAYER_BIT_SET(part, bits)
 
 
 
@@ -403,72 +438,72 @@ There are some ways to switch layer with 'Layer' actions.
 ### 3.1 Momentary switching
 Momentary switching changes layer only while holding Fn key.
 
-This action makes 'Layer 1' active(valid) on key press event and inactive on release event. Namely you can overlay a layer on base layer temporarily with this.
+This action makes 'Layer 1' active(valid) on key press event and inactive on release event. Namely you can overlay a layer on lower layers or default layer temporarily with this action.
 
     ACTION_LAYER_MOMENTARY(1)
 
 
-After switch actions of destination layer are perfomed.
-***Thus you shall need to place action to come back on destination layer***, or you will be stuck in destination layer without way to get back. Usually you need to palce same action or 'KC_TRNS` on destination layer to get back.
+Note that after switching on press the actions on destinaton layer(Layer 1) are perfomed.
+***Thus you shall need to place an action to go back on destination layer***, or you will be stuck in destination layer without way to get back. Usually you need to palce same action or 'KC_TRNS` on destination layer to get back.
 
 
 ### 3.2 Toggle switching
-Toggle switching changes layer after press then release. With this you can keep staying on the layer until you press the key again to return.
+Toggle switching performed after releasing a key. With this action you can keep staying on the destination layer until you type the key again to return.
 
-This is toggle action of 'Layer 2'.
+This performs toggle switching action of 'Layer 2'.
 
     ACTION_LAYER_TOGGLE(2)
 
 
 
 ### 3.3 Momentary switching with Tap key
-These actions switch layer only while holding `Fn` key and register key on tap. **Tap** means to press and release key quickly.
+These actions switch a layer only while holding a key but register the key on tap. **Tap** means to press and release a key quickly.
 
     ACTION_LAYER_TAP_KEY(2, KC_SCLN)
 
-With this you can place layer switching function on normal key like ';' without losing its original key register function.
+With this you can place a layer switching action on normal key like ';' without losing its original key register function. This action allows you to have layer switchig action without necessity of a dedicated key. It means you can have it even on home row of keyboard.
 
 
 
 ### 3.4 Momentary switching with Tap Toggle
-This switches layer only while holding `Fn` key and toggle layer after several taps. **Tap** means to press and release key quickly.
+This switches layer only while holding a key but toggle layer with several taps. **Tap** means to press and release key quickly.
 
     ACTION_LAYER_TAP_TOGGLE(1)
 
-Number of taps can be defined with `TAPPING_TOGGLE` in `config.h`, `5` by default.
+Number of taps can be configured with `TAPPING_TOGGLE` in `config.h`, `5` by default.
 
 
 
 ## 4. Tapping
-Tapping is to press and release key quickly. Tapping speed is determined with setting of `TAPPING_TERM`, which can be defined in `config.h`, 200ms by default.
+Tapping is to press and release a key quickly. Tapping speed is determined with setting of `TAPPING_TERM`, which can be defined in `config.h`, 200ms by default.
 
 ### 4.1 Tap Key
-This is feature to assign normal key action and modifier including `Fn` to just one physical key. This is a kind of [Dual role modifier][dual_role]. It works as modifier or `Fn` when holding a key but registers normal key when tapping.
+This is a feature to assign normal key action and modifier including layer switching to just same one physical key. This is a kind of [Dual role modifier][dual_role]. It works as modifier when holding the key but registers normal key when tapping.
 
-Action for modifier with tap key.
+Modifier with tap key:
 
-    ACTION_LMODS_TAP_KEY(mods, key)
+    ACTION_MODS_TAP_KEY(MOD_RSFT, KC_GRV)
 
-Action for `Fn` with tap key.
+Layer switching with tap key:
 
-    ACTION_LAYER_TAP_KEY(layer, key)
+    ACTION_LAYER_TAP_KEY(2, KC_SCLN)
 
 [dual_role]: http://en.wikipedia.org/wiki/Modifier_key#Dual-role_modifier_keys
 
 
 ### 4.2 Tap Toggle
-This is feature to assign both toggle layer and momentary switch layer action to just one physical key. It works as mementary switch when holding a key but toggle switch when tapping.
+This is a feature to assign both toggle layer and momentary switch layer action to just same one physical key. It works as mementary layer switch when holding a key but toggle switch with several taps.
 
-    ACTION_LAYER_TAP_TOGGLE(layer)
+    ACTION_LAYER_TAP_TOGGLE(1)
 
 
 ### 4.3 One Shot Modifier
-This adds oneshot feature to modifier key. 'One Shot Modifier' is one time modifier which has effect only on following one alpha key.
+This adds oneshot feature to modifier key. 'One Shot Modifier' is one time modifier which has effect only on following just one key.
 It works as normal modifier key when holding but oneshot modifier when tapping.
 
-    ACTION_LMODS_ONESHOT(mods)
+    ACTION_MODS_ONESHOT(MOD_LSFT)
 
-Say you want to type 'The', you have to push and hold Shift before type 't' then release Shift before type 'h' and 'e' or you'll get 'THe'. With One Shot Modifier you can tap Shift then type 't', 'h' and 'e' normally, you don't need to holding Shift key properly  here.
+Say you want to type 'The', you have to push and hold Shift before type 't' then release Shift before type 'h' and 'e' or you'll get 'THe'. With One Shot Modifier you can tap Shift then type 't', 'h' and 'e' normally, you don't need to holding Shift key properly here.
 
 
 
