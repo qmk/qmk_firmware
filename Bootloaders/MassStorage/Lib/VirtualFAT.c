@@ -387,7 +387,7 @@ static void ReadWriteEEPROMFileBlock(const uint16_t BlockNumber,
 	{
 		/* Write out the mapped block of data to the device's EEPROM */
 		for (uint16_t i = 0; i < SECTOR_SIZE_BYTES; i++)
-		 WriteEEPROMByte((uint8_t*)EEPROMAddress++, BlockBuffer[i]);
+		  WriteEEPROMByte((uint8_t*)EEPROMAddress++, BlockBuffer[i]);
 	}
 }
 

@@ -120,9 +120,9 @@
 											    */
 					} ControlLineStates; /**< Current states of the virtual serial port's control lines between the device and host. */
 
-					CDC_LineEncoding_t LineEncoding; /** Line encoding used in the virtual serial port, for the device's information.
-					                                  *  This is generally only used if the virtual serial port data is to be
-					                                  *  reconstructed on a physical UART.
+					CDC_LineEncoding_t LineEncoding; /**< Line encoding used in the virtual serial port, for the device's information.
+					                                  *   This is generally only used if the virtual serial port data is to be
+					                                  *   reconstructed on a physical UART.
 					                                  */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
@@ -157,7 +157,7 @@
 			/** CDC class driver event for a line encoding change on a CDC interface. This event fires each time the host requests a
 			 *  line encoding change (containing the serial parity, baud and other configuration information) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new line encoding
-			 *  settings are available in the LineEncoding structure inside the CDC interface structure passed as a parameter.
+			 *  settings are available in the \c LineEncoding structure inside the CDC interface structure passed as a parameter.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
@@ -293,7 +293,7 @@
 			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
 			 *  line buffering.
 			 *
-			 *  \note The created stream can be given as \c stdout if desired to direct the standard output from all <stdio.h> functions
+			 *  \note The created stream can be given as \c stdout if desired to direct the standard output from all \c <stdio.h> functions
 			 *        to the given CDC interface.
 			 *        \n\n
 			 *
