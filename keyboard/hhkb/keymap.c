@@ -186,17 +186,14 @@ enum macro_id {
  * Fn action definition
  */
 static const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_DEFAULT_LAYER,                        // Default layer(not used)
-//  [1] = ACTION_KEYMAP(1),                            // HHKB layer
-    [1] = ACTION_KEYMAP_TAP_TOGGLE(1),                 // HHKB layer(toggle with 5 taps)
-    [2] = ACTION_KEYMAP_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
-    [3] = ACTION_KEYMAP_TAP_KEY(3, KC_SCLN),           // Mousekey layer with Semicolon*
-    [4] = ACTION_RMOD_TAP_KEY(KC_RCTL, KC_ENT),        // RControl with tap Enter*
-    [5] = ACTION_LMOD_ONESHOT(KC_LSFT),                // Oneshot Shift*
-//  [6] = ACTION_KEYMAP_TAP_KEY(4, KC_SPC),            // Half-qwerty layer with Space
-    [6] = ACTION_KEYMAP_TAP_KEY(5, KC_SPC),            // Mousekey layer with Space
-//  [7] = ACTION_KEYMAP(3),                            // Mousekey layer
-    [7] = ACTION_KEYMAP_TOGGLE(3),                     // Mousekey layer(toggle)
+    [0] = ACTION_DEFAULT_LAYER_SET(0),                // Default layer(not used)
+    [1] = ACTION_LAYER_TAP_TOGGLE(1),                 // HHKB layer(toggle with 5 taps)
+    [2] = ACTION_LAYER_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
+    [3] = ACTION_LAYER_TAP_KEY(3, KC_SCLN),           // Mousekey layer with Semicolon*
+    [4] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT),      // RControl with tap Enter*
+    [5] = ACTION_MODS_ONESHOT(MOD_LSFT),              // Oneshot Shift*
+    [6] = ACTION_LAYER_TAP_KEY(5, KC_SPC),            // Mousekey layer with Space
+    [7] = ACTION_LAYER_TOGGLE(3),                     // Mousekey layer(toggle)
 
 //  [8] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),       // LControl with tap Backspace
 //  [9] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_ESC),        // LControl with tap Esc
