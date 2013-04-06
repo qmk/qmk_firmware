@@ -86,7 +86,7 @@
 
 	<module type="application" id="lufa.bootloaders.hid" caption="HID Bootloader">
 		<info type="description" value="summary">
-		HID Class Bootloader.
+		HID Class Bootloader, capable of reprogramming a device via a custom cross-platform command line utility when plugged into a host.
 		</info>
 
 		<device-support-alias value="lufa_avr8"/>
@@ -97,10 +97,6 @@
 			<keyword value="Bootloaders"/>
 			<keyword value="USB Device"/>
 		</info>
-
-		<device-support-alias value="lufa_avr8"/>
-		<device-support-alias value="lufa_xmega"/>
-		<device-support-alias value="lufa_uc3"/>
 
 		<build type="include-path" value="."/>
 		<build type="c-source" value="BootloaderHID.c"/>

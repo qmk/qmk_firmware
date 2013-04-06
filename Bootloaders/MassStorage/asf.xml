@@ -111,7 +111,7 @@
 
 	<module type="application" id="lufa.bootloaders.mass_storage" caption="Mass Storage Bootloader">
 		<info type="description" value="summary">
-		Mass Storage Class Bootloader.
+		Mass Storage Class Bootloader, capable of reprogramming a device via binary BIN files copied to the virtual FAT12 file-system it creates when plugged into a host.
 		</info>
 
 		<device-support-alias value="lufa_avr8"/>
@@ -122,10 +122,6 @@
 			<keyword value="Bootloaders"/>
 			<keyword value="USB Device"/>
 		</info>
-
-		<device-support-alias value="lufa_avr8"/>
-		<device-support-alias value="lufa_xmega"/>
-		<device-support-alias value="lufa_uc3"/>
 
 		<build type="include-path" value="."/>
 		<build type="c-source" value="BootloaderMassStorage.c"/>

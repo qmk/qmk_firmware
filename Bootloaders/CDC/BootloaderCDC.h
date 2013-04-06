@@ -54,7 +54,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__OPTIMIZE_SIZE__)
-			#error This bootloader requires that it be compiled for size, not speed for it to fit into the target device.
+			#error This bootloader requires that it be compiled for size, not speed, to fit into the target device.
 		#endif
 
 	/* Macros: */

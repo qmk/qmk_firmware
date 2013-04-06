@@ -121,7 +121,7 @@
 
 	<module type="application" id="lufa.bootloaders.cdc" caption="CDC Bootloader">
 		<info type="description" value="summary">
-		CDC Class Bootloader.
+		CDC Class Bootloader, capable of reprogramming a device using avrdude or other AVR109 protocol compliant software when plugged into a host.
 		</info>
 
 		<device-support-alias value="lufa_avr8"/>
@@ -132,10 +132,6 @@
 			<keyword value="Bootloaders"/>
 			<keyword value="USB Device"/>
 		</info>
-
-		<device-support-alias value="lufa_avr8"/>
-		<device-support-alias value="lufa_xmega"/>
-		<device-support-alias value="lufa_uc3"/>
 
 		<build type="include-path" value="."/>
 		<build type="c-source" value="BootloaderCDC.c"/>
