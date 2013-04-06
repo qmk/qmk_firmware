@@ -18,6 +18,12 @@ XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
 LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
 EXT_VERSION_NUM      := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
 
+ifeq ($(LUFA_VERSION_NUM),000000)
+  EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d.%H%M%S")
+
+  $(warning No LUFA version set - assuming a test version should be created.)
+endif
+
 all: generate_xml check_filenames generate_vsix
 
 clean:
