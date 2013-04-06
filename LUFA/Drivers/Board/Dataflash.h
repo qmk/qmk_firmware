@@ -70,44 +70,44 @@
  *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
  *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
  *      Dataflash_Init();
- *      
+ *
  *      uint8_t WriteBuffer[DATAFLASH_PAGE_SIZE];
  *      uint8_t ReadBuffer[DATAFLASH_PAGE_SIZE];
- *      
+ *
  *      // Fill page write buffer with a repeating pattern
  *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
  *        WriteBuffer[i] = (i & 0xFF);
- *      
+ *
  *      // Must select the chip of interest first before operating on it
  *      Dataflash_SelectChip(DATAFLASH_CHIP1);
- *      
+ *
  *      // Write to the Dataflash's first internal memory buffer
  *      printf("Writing data to first dataflash buffer:\r\n");
  *      Dataflash_SendByte(DF_CMD_BUFF1WRITE);
  *      Dataflash_SendAddressBytes(0, 0);
- *      
+ *
  *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
  *        Dataflash_SendByte(WriteBuffer[i]);
- *      
+ *
  *      // Commit the Dataflash's first memory buffer to the non-volatile FLASH memory
  *      printf("Committing page to non-volatile memory page index 5:\r\n");
  *      Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
  *      Dataflash_SendAddressBytes(5, 0);
  *      Dataflash_WaitWhileBusy();
- *      
+ *
  *      // Read the page from non-volatile FLASH memory into the Dataflash's second memory buffer
  *      printf("Reading data into second dataflash buffer:\r\n");
  *      Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF2);
  *      Dataflash_SendAddressBytes(5, 0);
  *      Dataflash_WaitWhileBusy();
- *      
+ *
  *      // Read the Dataflash's second internal memory buffer
  *      Dataflash_SendByte(DF_CMD_BUFF2READ);
  *      Dataflash_SendAddressBytes(0, 0);
- *      
+ *
  *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
  *        ReadBuffer[i] = Dataflash_ReceiveByte();
- *      
+ *
  *      // Deselect the chip after use
  *      Dataflash_DeselectChip();
  *  \endcode
@@ -131,18 +131,16 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			#if !defined(__DOXYGEN__)
-				#define __GET_DATAFLASH_MASK2(x, y) x ## y
-				#define __GET_DATAFLASH_MASK(x)     __GET_DATAFLASH_MASK2(DATAFLASH_CHIP,x)
-			#endif
-
 			/** Retrieves the Dataflash chip select mask for the given Dataflash chip index.
 			 *
-			 *  \param[in] index  Index of the dataflash chip mask to retrieve
+			 *  \attention This macro will only work correctly on chip index numbers that are compile-time
+			 *             constants defined by the preprocessor.
+			 *
+			 *  \param[in] index  Index of the dataflash chip mask to retrieve.
 			 *
 			 *  \return Mask for the given Dataflash chip's /CS pin
 			 */
-			#define DATAFLASH_CHIP_MASK(index)      __GET_DATAFLASH_MASK(index)
+			#define DATAFLASH_CHIP_MASK(index)      CONCAT_EXPANDED(DATAFLASH_CHIP, index)
 
 		/* Inline Functions: */
 			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.

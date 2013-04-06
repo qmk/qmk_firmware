@@ -61,13 +61,13 @@
 			#define HID_RI_DATA_BITS_8                      0x01
 			#define HID_RI_DATA_BITS_16                     0x02
 			#define HID_RI_DATA_BITS_32                     0x03
-			#define HID_RI_DATA_BITS(DataBits)              HID_RI_DATA_BITS_ ## DataBits
+			#define HID_RI_DATA_BITS(DataBits)              CONCAT_EXPANDED(HID_RI_DATA_BITS_, DataBits)
 
 			#define _HID_RI_ENCODE_0(Data)
 			#define _HID_RI_ENCODE_8(Data)                  , (Data & 0xFF)
 			#define _HID_RI_ENCODE_16(Data)                 _HID_RI_ENCODE_8(Data)  _HID_RI_ENCODE_8(Data >> 8)
 			#define _HID_RI_ENCODE_32(Data)                 _HID_RI_ENCODE_16(Data) _HID_RI_ENCODE_16(Data >> 16)
-			#define _HID_RI_ENCODE(DataBits, ...)           _HID_RI_ENCODE_ ## DataBits(__VA_ARGS__)
+			#define _HID_RI_ENCODE(DataBits, ...)           CONCAT_EXPANDED(_HID_RI_ENCODE_, DataBits(__VA_ARGS__))
 
 			#define _HID_RI_ENTRY(Type, Tag, DataBits, ...) (Type | Tag | HID_RI_DATA_BITS(DataBits)) _HID_RI_ENCODE(DataBits, (__VA_ARGS__))
 	#endif

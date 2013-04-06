@@ -112,9 +112,7 @@
 					 */
 					extern volatile uint8_t USB_HostState;
 				#else
-					#define _GET_HOST_GPIOR_NAME2(y) GPIOR ## y
-					#define _GET_HOST_GPIOR_NAME(x)  _GET_HOST_GPIOR_NAME2(x)
-					#define USB_HostState            _GET_HOST_GPIOR_NAME(HOST_STATE_AS_GPIOR)
+					#define USB_HostState            CONCAT_EXPANDED(GPIOR, HOST_STATE_AS_GPIOR)
 				#endif
 			#endif
 
@@ -145,9 +143,7 @@
 					 */
 					extern volatile uint8_t USB_DeviceState;
 				#else
-					#define _GET_DEVICE_GPIOR_NAME2(y) GPIOR ## y
-					#define _GET_DEVICE_GPIOR_NAME(x)  _GET_DEVICE_GPIOR_NAME2(x)
-					#define USB_DeviceState            _GET_DEVICE_GPIOR_NAME(DEVICE_STATE_AS_GPIOR)
+					#define USB_DeviceState            CONCAT_EXPANDED(GPIOR, DEVICE_STATE_AS_GPIOR)
 				#endif
 			#endif
 

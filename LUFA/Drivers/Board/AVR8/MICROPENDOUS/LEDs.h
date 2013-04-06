@@ -100,12 +100,9 @@
 			#define _BOARD_LED_PORTLETTER           B
 		#endif
 
-		#define _BOARD_LED_CONCAT2(Reg, Letter)     Reg ## Letter
-		#define _BOARD_LED_CONCAT(Reg, Letter)      _BOARD_LED_CONCAT2(Reg, Letter)
-
-		#define _BOARD_LED_PORT                     _BOARD_LED_CONCAT(PORT, _BOARD_LED_PORTLETTER)
-		#define _BOARD_LED_PIN                      _BOARD_LED_CONCAT(PIN,  _BOARD_LED_PORTLETTER)
-		#define _BOARD_LED_DDR                      _BOARD_LED_CONCAT(DDR,  _BOARD_LED_PORTLETTER)
+		#define _BOARD_LED_PORT                     CONCAT_EXPANDED(PORT, _BOARD_LED_PORTLETTER)
+		#define _BOARD_LED_PIN                      CONCAT_EXPANDED(PIN,  _BOARD_LED_PORTLETTER)
+		#define _BOARD_LED_DDR                      CONCAT_EXPANDED(DDR,  _BOARD_LED_PORTLETTER)
 	#endif
 
 	/* Public Interface - May be used in end-application: */

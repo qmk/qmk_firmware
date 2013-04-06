@@ -56,14 +56,14 @@
  *
  *  See \ref Group_Buttons_MICROPENDOUS_32U2 for more details.
  */
- 
+
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_MICROPENDOUS_3 MICROPENDOUS_3
  *  \brief Board specific Button driver header for the Micropendous 3 (https://code.google.com/p/micropendous/wiki/Micropendous3).
  *
  *  See \ref Group_Buttons_MICROPENDOUS_32U2 for more details.
  */
- 
+
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_MICROPENDOUS_4 MICROPENDOUS_4
  *  \brief Board specific Button driver header for the Micropendous 4 (https://code.google.com/p/micropendous/wiki/Micropendous4).
@@ -161,19 +161,16 @@
 			#define _BOARD_BUTTON1_MASK             (1 << 2)
 			#define _BOARD_BUTTON_PORTLETTER        E
 		#endif
-		
-		#define _BOARD_BUTTON_CONCAT2(Reg, Letter)  Reg ## Letter
-		#define _BOARD_BUTTON_CONCAT(Reg, Letter)   _BOARD_BUTTON_CONCAT2(Reg, Letter)
 
-		#define _BOARD_BUTTON_PORT                 _BOARD_BUTTON_CONCAT(PORT, _BOARD_BUTTON_PORTLETTER)
-		#define _BOARD_BUTTON_PIN                  _BOARD_BUTTON_CONCAT(PIN,  _BOARD_BUTTON_PORTLETTER)
-		#define _BOARD_BUTTON_DDR                  _BOARD_BUTTON_CONCAT(DDR,  _BOARD_BUTTON_PORTLETTER)
+		#define _BOARD_BUTTON_PORT                  CONCAT_EXPANDED(PORT, _BOARD_BUTTON_PORTLETTER)
+		#define _BOARD_BUTTON_PIN                   CONCAT_EXPANDED(PIN,  _BOARD_BUTTON_PORTLETTER)
+		#define _BOARD_BUTTON_DDR                   CONCAT_EXPANDED(DDR,  _BOARD_BUTTON_PORTLETTER)
 	#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Button mask for the first button on the board. */
-			#define BUTTONS_BUTTON1                _BOARD_BUTTON1_MASK
+			#define BUTTONS_BUTTON1     _BOARD_BUTTON1_MASK
 
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)

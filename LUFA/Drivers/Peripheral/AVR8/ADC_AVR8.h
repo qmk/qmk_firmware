@@ -97,13 +97,6 @@
 			#error The ADC peripheral driver is not currently available for your selected microcontroller model.
 		#endif
 
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define _ADC_GET_MUX_MASK2(y)           ADC_CHANNEL ## y
-			#define _ADC_GET_MUX_MASK(y)            _ADC_GET_MUX_MASK2(y)
-	#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name ADC Reference Configuration Masks */
@@ -257,7 +250,7 @@
 			 *
 			 *  \param[in] Channel  Index of the ADC channel whose MUX mask is to be retrieved.
 			 */
-			#define ADC_GET_CHANNEL_MASK(Channel)   _ADC_GET_MUX_MASK(Channel)
+			#define ADC_GET_CHANNEL_MASK(Channel)   CONCAT_EXPANDED(ADC_CHANNEL, Channel)
 			//@}
 
 		/* Inline Functions: */
