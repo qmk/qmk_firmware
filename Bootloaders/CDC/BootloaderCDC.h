@@ -52,6 +52,11 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 
+	/* Preprocessor Checks: */
+		#if !defined(__OPTIMIZE_SIZE__)
+			#error This bootloader requires that it be compiled for size, not speed for it to fit into the target device.
+		#endif
+
 	/* Macros: */
 		/** Version major of the CDC bootloader. */
 		#define BOOTLOADER_VERSION_MAJOR     0x01

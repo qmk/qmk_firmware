@@ -50,6 +50,11 @@
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
+	/* Preprocessor Checks: */
+		#if !defined(__OPTIMIZE_SIZE__)
+			#error This bootloader requires that it be compiled for size, not speed for it to fit into the target device.
+		#endif
+
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

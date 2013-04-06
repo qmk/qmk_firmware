@@ -54,13 +54,18 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 
+	/* Preprocessor Checks: */
+		#if !defined(__OPTIMIZE_SIZE__)
+			#error This bootloader requires that it be compiled for size, not speed for it to fit into the target device.
+		#endif
+
 	/* Macros: */
 		/** Major bootloader version number. */
 		#define BOOTLOADER_VERSION_MINOR 2
 
 		/** Minor bootloader version number. */
 		#define BOOTLOADER_VERSION_REV   0
-		
+
 		/** Magic bootloader key to unlock forced application start mode. */
 		#define MAGIC_BOOT_KEY            0xDC42
 
@@ -203,7 +208,7 @@
 			static void ProcessWriteCommand(void);
 			static void ProcessReadCommand(void);
 		#endif
-		
+
 		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
 
 #endif
