@@ -15,7 +15,7 @@
 			<description>Lightweight USB Framework for AVRs (LUFA), a USB software stack/framework.</description>
 			<icon-image path="LUFA/DoxygenPages/Images/LUFA_thumb.png"/>
 			<preview-image path="LUFA/DoxygenPages/Images/LUFA.png"/>
-			<license caption="LUFA license" path="LUFA/License.txt"/>
+			<license caption="LUFA License" path="LUFA/License.txt"/>
 			<release-notes caption="LUFA Information" url="http://www.lufa-lib.org"/>
 			<online-help>
 				<index-page caption="LUFA Documentation" url="http://www.lufa-lib.org/documentation/"/>

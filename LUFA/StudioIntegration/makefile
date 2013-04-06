@@ -16,10 +16,13 @@ EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
 MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
 XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
 LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
-EXT_VERSION_NUM      := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
 
-ifeq ($(LUFA_VERSION_NUM),000000)
+ifneq ($(LUFA_VERSION_NUM),000000)
+  EXT_VERSION_NUM    := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
+  EXT_VSIX_NAME      := LUFA-RELEASE-$(LUFA_VERSION_NUM).vsix
+else
   EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d.%H%M%S")
+  EXT_VSIX_NAME      := LUFA-TESTING-$(shell date +"%y.%m.%d.%H.%M.%S").vsix
 
   $(warning No LUFA version set - assuming a test version should be created.)
 endif
@@ -72,7 +75,7 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" XSLT/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
-	@cd $(LUFA_ROOT)/../ && zip LUFA-$(LUFA_VERSION_NUM).vsix -q -9 contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml
+	@cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml
 	@echo "Atmel Studio VSIX Extension file generated."
 
 check_filenames: $(MODULE_OUTPUT_XML)
