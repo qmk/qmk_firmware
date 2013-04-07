@@ -110,7 +110,7 @@ static void command_common_help(void)
     print("v:	print device version & info\n");
     print("t:	print timer count\n");
     print("s:	print status\n");
-    print("e:	print eeprom boot config\n");
+    print("e:	print eeprom config\n");
 #ifdef NKRO_ENABLE
     print("n:	toggle NKRO\n");
 #endif
@@ -125,28 +125,28 @@ static void command_common_help(void)
 }
 
 #ifdef BOOTMAGIC_ENABLE
-static void print_eeprom_config(void)
+static void print_eeconfig(void)
 {
-    uint8_t eebyte;
-    
-    eebyte = eeconfig_read_debug();
-    print("debug: "); print_hex8(eebyte); print("\n");
+    print("default_layer: "); print_dec(eeconfig_read_defalt_layer()); print("\n");
 
-    eebyte = eeconfig_read_defalt_layer();
-    print("defalt_layer: "); print_hex8(eebyte); print("\n");
+    debug_config_t dc;
+    dc.raw = eeconfig_read_debug();
+    print("debug_config.raw: "); print_hex8(dc.raw); print("\n");
+    print(".enable: "); print_dec(dc.enable); print("\n");
+    print(".matrix: "); print_dec(dc.matrix); print("\n");
+    print(".keyboard: "); print_dec(dc.keyboard); print("\n");
+    print(".mouse: "); print_dec(dc.mouse); print("\n");
 
-    eebyte = eeconfig_read_keyconf();
-    print("keyconf: "); print_hex8(eebyte); print("\n");
-
-    keyconf kc;
-    kc = (keyconf){ .raw = eebyte };
-    print("keyconf.swap_control_capslock: "); print_hex8(kc.swap_control_capslock); print("\n");
-    print("keyconf.capslock_to_control: "); print_hex8(kc.capslock_to_control); print("\n");
-    print("keyconf.swap_lalt_lgui: "); print_hex8(kc.swap_lalt_lgui); print("\n");
-    print("keyconf.swap_ralt_rgui: "); print_hex8(kc.swap_ralt_rgui); print("\n");
-    print("keyconf.no_gui: "); print_hex8(kc.no_gui); print("\n");
-    print("keyconf.swap_grave_esc: "); print_hex8(kc.swap_grave_esc); print("\n");
-    print("keyconf.swap_backslash_backspace: "); print_hex8(kc.swap_backslash_backspace); print("\n");
+    keymap_config_t kc;
+    kc.raw = eeconfig_read_keymap();
+    print("keymap_config.raw: "); print_hex8(kc.raw); print("\n");
+    print(".swap_control_capslock: "); print_dec(kc.swap_control_capslock); print("\n");
+    print(".capslock_to_control: "); print_dec(kc.capslock_to_control); print("\n");
+    print(".swap_lalt_lgui: "); print_dec(kc.swap_lalt_lgui); print("\n");
+    print(".swap_ralt_rgui: "); print_dec(kc.swap_ralt_rgui); print("\n");
+    print(".no_gui: "); print_dec(kc.no_gui); print("\n");
+    print(".swap_grave_esc: "); print_dec(kc.swap_grave_esc); print("\n");
+    print(".swap_backslash_backspace: "); print_dec(kc.swap_backslash_backspace); print("\n");
 }
 #endif
 
@@ -162,8 +162,8 @@ static bool command_common(uint8_t code)
             break;
 #ifdef BOOTMAGIC_ENABLE
         case KC_E:
-            print("eeprom config\n");
-            print_eeprom_config();
+            print("eeconfig:\n");
+            print_eeconfig();
             break;
 #endif
         case KC_CAPSLOCK:

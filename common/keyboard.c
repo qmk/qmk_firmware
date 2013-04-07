@@ -64,18 +64,6 @@ void keyboard_init(void)
 
 #ifdef BOOTMAGIC_ENABLE
     bootmagic();
-
-    if (eeconfig_is_enabled()) {
-        uint8_t config;
-        config = eeconfig_read_debug();
-        // ignored if debug is enabled by program before.
-        if (!debug_enable)   debug_enable   = (config & EECONFIG_DEBUG_ENABLE);
-        if (!debug_matrix)   debug_matrix   = (config & EECONFIG_DEBUG_MATRIX);
-        if (!debug_keyboard) debug_keyboard = (config & EECONFIG_DEBUG_KEYBOARD);
-        if (!debug_mouse)    debug_mouse    = (config & EECONFIG_DEBUG_MOUSE);
-    } else {
-        eeconfig_init();
-    }
 #endif
 }
 

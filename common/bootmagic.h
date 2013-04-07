@@ -2,71 +2,45 @@
 #define BOOTMAGIC_H
 
 
-#ifndef BOOTMAGIC_IS_ENABLED
-#define BOOTMAGIC_IS_ENABLED()          true
+#ifndef BOOTMAGIC_KEY_SKIP
+#define BOOTMAGIC_KEY_SKIP              KC_ESC
+#endif
+
+/* eeprom clear */
+#ifndef BOOTMAGIC_KEY_EEPROM_CLEAR
+#define BOOTMAGIC_KEY_EEPROM_CLEAR      KC_BSPACE
 #endif
 
 /* kick up bootloader */
-#ifndef BOOTMAGIC_BOOTLOADER_KEY
-#define BOOTMAGIC_BOOTLOADER_KEY        KC_B
-#endif
-/* debug enable */
-#ifndef BOOTMAGIC_DEBUG_ENABLE_KEY
-#define BOOTMAGIC_DEBUG_ENABLE_KEY      KC_D
-#endif
-/* eeprom clear */
-#ifndef BOOTMAGIC_EEPROM_CLEAR_KEY
-#define BOOTMAGIC_EEPROM_CLEAR_KEY      KC_BSPACE
+#ifndef BOOTMAGIC_KEY_BOOTLOADER
+#define BOOTMAGIC_KEY_BOOTLOADER        KC_B
 #endif
 
+/* debug enable */
+#define BOOTMAGIC_KEY_DEBUG_ENABLE      KC_D
+#define BOOTMAGIC_KEY_DEBUG_MATRIX      KC_X
+#define BOOTMAGIC_KEY_DEBUG_KEYBOARD    KC_K
+#define BOOTMAGIC_KEY_DEBUG_MOUSE       KC_M
+
 /*
- * key configure
+ * keymap config
  */
-/* swap control and capslock */
-#ifndef BOOTMAGIC_SWAP_CONTROL_CPASLOCK
-#define BOOTMAGIC_SWAP_CONTROL_CPASLOCK     KC_LCTRL
-#endif
-/* capslock to control */
-#ifndef BOOTMAGIC_CAPSLOCK_TO_CONTROL
-#define BOOTMAGIC_CAPSLOCK_TO_CONTROL       KC_CAPSLOCK
-#endif
-/* swap alt and gui */
-#ifndef BOOTMAGIC_SWAP_LALT_LGUI
-#define BOOTMAGIC_SWAP_LALT_LGUI            KC_LALT
-#endif
-/* swap alt and gui */
-#ifndef BOOTMAGIC_SWAP_RALT_RGUI
-#define BOOTMAGIC_SWAP_RALT_RGUI            KC_RALT
-#endif
-/* no gui */
-#ifndef BOOTMAGIC_NO_GUI
-#define BOOTMAGIC_NO_GUI                    KC_LGUI
-#endif
-/* swap esc and grave */
-#ifndef BOOTMAGIC_SWAP_GRAVE_ESC
-#define BOOTMAGIC_SWAP_GRAVE_ESC            KC_GRAVE
-#endif
-/* swap backslash and backspace */
-#ifndef BOOTMAGIC_SWAP_BACKSLASH_BACKSPACE
-#define BOOTMAGIC_SWAP_BACKSLASH_BACKSPACE  KC_BSLASH
-#endif
+#define BOOTMAGIC_KEY_SWAP_CONTROL_CPASLOCK     KC_LCTRL
+#define BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL       KC_CAPSLOCK
+#define BOOTMAGIC_KEY_SWAP_LALT_LGUI            KC_LALT
+#define BOOTMAGIC_KEY_SWAP_RALT_RGUI            KC_RALT
+#define BOOTMAGIC_KEY_NO_GUI                    KC_LGUI
+#define BOOTMAGIC_KEY_SWAP_GRAVE_ESC            KC_GRAVE
+#define BOOTMAGIC_KEY_SWAP_BACKSLASH_BACKSPACE  KC_BSLASH
 
 
 /*
  * change default layer
  */
-#ifndef BOOTMAGIC_DEFAULT_LAYER_0_KEY
-#define BOOTMAGIC_DEFAULT_LAYER_0_KEY   KC_0
-#endif
-#ifndef BOOTMAGIC_DEFAULT_LAYER_1_KEY
-#define BOOTMAGIC_DEFAULT_LAYER_1_KEY   KC_1
-#endif
-#ifndef BOOTMAGIC_DEFAULT_LAYER_2_KEY
-#define BOOTMAGIC_DEFAULT_LAYER_2_KEY   KC_2
-#endif
-#ifndef BOOTMAGIC_DEFAULT_LAYER_3_KEY
-#define BOOTMAGIC_DEFAULT_LAYER_3_KEY   KC_3
-#endif
+#define BOOTMAGIC_KEY_DEFAULT_LAYER_0   KC_0
+#define BOOTMAGIC_KEY_DEFAULT_LAYER_1   KC_1
+#define BOOTMAGIC_KEY_DEFAULT_LAYER_2   KC_2
+#define BOOTMAGIC_KEY_DEFAULT_LAYER_3   KC_3
 
 
 void bootmagic(void);
