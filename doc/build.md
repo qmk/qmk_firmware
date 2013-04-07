@@ -160,5 +160,20 @@ Config.h Options
     /* Locking CapsLock resynchronize hack */
     #define CAPSLOCK_LOCKING_RESYNC_ENABLE
 
+### 3. Disable Debug and Print
 
+    /* disable debug print */
+    #define NO_DEBUG
 
+    /* disable print */
+    #define NO_PRINT
+
+### 4. Disable Action Features
+
+    #define NO_ACTION_LAYER
+    #define NO_ACTION_TAPPING
+    #define NO_ACTION_ONESHOT
+    #define NO_ACTION_MACRO
+    #define NO_ACTION_FUNCTION
+
+***TBD***

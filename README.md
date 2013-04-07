@@ -273,6 +273,12 @@ Files and Directories
 
 
 
+Conding Style
+-------------
+- Doesn't use Tab to indent, use 4-spaces instead.
+
+
+
 Other Keyboard Firmware Projects
 ------------------
 See [doc/other_projects.md](doc/other_projects.md).
