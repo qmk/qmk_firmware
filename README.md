@@ -106,6 +106,8 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
     v:      print device version & info
     t:      print timer count
     s:      print status
+    e:	    print eeprom config
+    n:	    toggle NKRO
     0/F10:  switch to Layer0
     1/F1:   switch to Layer1
     2/F2:   switch to Layer2
@@ -117,13 +119,24 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
 
 **TBD**
 
-### Conguration with Boot Magic
+### Boot Magic Configuration - Virtual DIP Switch
 Boot Magic are executed during boot up time. Press Magic key below then pulgin keyboard cable.
-These settings are stored in EEPROM.
+Note that you must use keys of **Layer 0** as Magic keys. These settings are stored in EEPROM so that retain your configure over power cycles.
 
+#### EEPROM
+- Skip reading EEPROM(`ESC`)
 - Clear configuration stored in EEPROM(`Backspace`)
+
+#### Bootloader
 - Kick up Bootloader(`B`)
+
+#### Debug
 - Debug enable(`D`)
+- Debug matrix enable(`D`+`X`)
+- Debug keyboard enable(`D`+`K`)
+- Debug mouse enable(`D`+`M`)
+
+#### Keymap
 - Swap Control and CapsLock(`Left Control`)
 - Change CapsLock to Control(`Casp Lock`)
 - Swap LeftAlt and Gui(`Left Alt`)
@@ -131,6 +144,12 @@ These settings are stored in EEPROM.
 - Disable Gui(`Left Gui`)
 - Swap Grave and Escape(`Grave`)
 - Swap BackSlash and BackSpace(`Back Slash`)
+
+#### Default Layer
+- Set Default Layer to 0(`0`)
+- Set Default Layer to 0(`1`)
+- Set Default Layer to 0(`2`)
+- Set Default Layer to 0(`3`)
 
 **TBD**
 

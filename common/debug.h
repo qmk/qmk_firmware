@@ -79,10 +79,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-extern bool debug_enable;
-extern bool debug_matrix;
-extern bool debug_keyboard;
-extern bool debug_mouse;
+
+/* NOTE: Not portable. Bit field order depends on implementation */
+typedef union {
+    uint8_t raw;
+    struct {
+        bool enable:1;
+        bool matrix:1;
+        bool keyboard:1;
+        bool mouse:1;
+        uint8_t reserved:4;
+    };
+} debug_config_t;
+debug_config_t debug_config;
+
+/* for backward compatibility */
+#define debug_enable    (debug_config.enable)
+#define debug_matrix    (debug_config.matrix)
+#define debug_keyboard  (debug_config.keyboard)
+#define debug_mouse     (debug_config.mouse)
+
 
 #ifdef __cplusplus
 }
