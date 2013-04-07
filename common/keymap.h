@@ -23,6 +23,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 
 
+#ifdef BOOTMAGIC_ENABLE
+/* NOTE: Not portable. Bit field order depends on implementation */
+typedef union {
+    uint8_t raw;
+    struct {
+        bool swap_control_capslock:1;
+        bool capslock_to_control:1;
+        bool swap_lalt_lgui:1;
+        bool swap_ralt_rgui:1;
+        bool no_gui:1;
+        bool swap_grave_esc:1;
+        bool swap_backslash_backspace:1;
+        bool reserved:1;
+    };
+} keymap_config_t;
+keymap_config_t keymap_config;
+#endif
+
+
 /* translates key to keycode */
 uint8_t keymap_key_to_keycode(uint8_t layer, key_t key);
 
