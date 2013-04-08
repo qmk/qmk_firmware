@@ -11,6 +11,7 @@
 
 LUFA_ROOT            := ..
 DOXYGEN_TAG_FILE_XML := $(LUFA_ROOT)/Documentation/lufa_doc_tags.xml
+DOXYGEN_COMBINED_XML := $(LUFA_ROOT)/Documentation/xml/lufa_doc.xml
 TEMP_MANIFEST_XML    := manifest.xml
 EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
 MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
@@ -21,7 +22,7 @@ ifneq ($(LUFA_VERSION_NUM),000000)
   EXT_VERSION_NUM    := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
   EXT_VSIX_NAME      := LUFA-RELEASE-$(LUFA_VERSION_NUM).vsix
 else
-  EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d.%H%M%S")
+  EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d-%H%M%S")
   EXT_VSIX_NAME      := LUFA-TESTING-$(shell date +"%y.%m.%d.%H.%M.%S").vsix
 
   $(warning No LUFA version set - assuming a test version should be created.)
@@ -30,15 +31,18 @@ endif
 all: generate_xml check_filenames generate_vsix
 
 clean:
-	@rm -f $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML)
+	@rm -f $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML) $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 
 $(DOXYGEN_TAG_FILE_XML):
-	$(MAKE) -C ../ doxygen
+	$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_XML=yes"
 
-$(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML)
+$(DOXYGEN_COMBINED_XML): $(DOXYGEN_TAG_FILE_XML)
+	@xsltproc $(dir $@)/combine.xslt $(dir $@)/index.xml > $(DOXYGEN_COMBINED_XML)
+
+$(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 	@echo "Generating Manifest XML..."
 
-	@printf "<lufa-manifest version=\"%s\" tagfile=\"%s\">\n" $(LUFA_VERSION_NUM) $(DOXYGEN_TAG_FILE_XML) > $@
+	@printf "<lufa-manifest version=\"%s\" tagfile=\"%s\" docfile=\"%s\">\n" $(LUFA_VERSION_NUM) $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML) > $@
 	@for i in $(XML_FILES); do \
 		printf "\t<xml-source filename=\"%s\"/>\n" $$i >> $@; \
 	done;
