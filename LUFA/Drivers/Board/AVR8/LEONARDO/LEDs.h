@@ -30,14 +30,14 @@
 
 /** \file
  *  \brief Board specific LED driver header for the Arduino Leonardo board.
- *  \copydetails Group_LEDs_LEONDARDO
+ *  \copydetails Group_LEDs_LEONARDO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  \defgroup Group_LEDs_LEONDARDO LEONDARDO
+ *  \defgroup Group_LEDs_LEONARDO LEONARDO
  *  \brief Board specific LED driver header for the Arduino Leonardo board.
  *
  *  Board specific LED driver header for the Arduino Leonardo board (http://arduino.cc/en/Main/arduinoBoardLeonardo).
@@ -52,8 +52,8 @@
  *  @{
  */
 
-#ifndef __LEDS_LEONDARDO_H__
-#define __LEDS_LEONDARDO_H__
+#ifndef __LEDS_LEONARDO_H__
+#define __LEDS_LEONARDO_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -75,7 +75,7 @@
 			#define LEDS_PORTD_LEDS       (LEDS_LED2)
 			#define LEDS_PORTC_LEDS       (LEDS_LED3)
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
@@ -86,7 +86,7 @@
 
 			/** LED mask for the third LED on the board. */
 			#define LEDS_LED3        (1 << 7)
-			
+
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3)
 

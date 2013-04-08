@@ -30,14 +30,14 @@
 
 /** \file
  *  \brief Board specific information header for the Arduino Leonardo board.
- *  \copydetails Group_BoardInfo_LEONDARDO
+ *  \copydetails Group_BoardInfo_LEONARDO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Board driver
  *        dispatch header located in LUFA/Drivers/Board/Board.h.
  */
 
 /** \ingroup Group_BoardInfo
- *  \defgroup Group_BoardInfo_LEONDARDO LEONDARDO
+ *  \defgroup Group_BoardInfo_LEONARDO LEONARDO
  *  \brief Board specific information header for the Arduino Leonardo board.
  *
  *  Board specific information header for the Arduino Leonardo board (http://arduino.cc/en/Main/arduinoBoardLeonardo).
@@ -45,8 +45,8 @@
  *  @{
  */
 
-#ifndef __BOARD_LEONDARDO_H__
-#define __BOARD_LEONDARDO_H__
+#ifndef __BOARD_LEONARDO_H__
+#define __BOARD_LEONARDO_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
