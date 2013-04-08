@@ -58,12 +58,16 @@ generate_xml: $(TEMP_MANIFEST_XML)
 	@rm $(TEMP_MANIFEST_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
+	@echo "Cleaning all projects..."
+	@make -C $(LUFA_ROOT)/../ clean
+
 	@echo "Generating ASF cache files..."
 	@rm -f $(LUFA_ROOT)/../content.xml.cache
 	@rm -f $(LUFA_ROOT)/../ExampleProjects.xml
 	@python generate_caches.py $(LUFA_ROOT)/../
 
 	@echo "Archiving Content..."
+	@rm -f contents.zip
 	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -0 -r --exclude=*Documentation* --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects extension.xml README.txt
 
 	@echo "Creating VSIX Dependencies..."
