@@ -22,8 +22,8 @@ ifneq ($(LUFA_VERSION_NUM),000000)
   EXT_VERSION_NUM    := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
   EXT_VSIX_NAME      := LUFA-RELEASE-$(LUFA_VERSION_NUM).vsix
 else
-  EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d-%H%M%S")
-  EXT_VSIX_NAME      := LUFA-TESTING-$(shell date +"%y.%m.%d.%H.%M.%S").vsix
+  EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d.%H%M%S")
+  EXT_VSIX_NAME      := LUFA-TESTING-$(shell date +"%y.%m.%d-%H.%M.%S").vsix
 
   $(warning No LUFA version set - assuming a test version should be created.)
 endif

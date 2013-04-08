@@ -22,6 +22,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#adafruit_u4" caption="ADAFRUITU4">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_ADAFRUITU4"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_ADAFRUITU4"/>
 
@@ -32,6 +34,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#atavrusbrf01" caption="ATAVRUSBRF01">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_ATAVRUSBRF01"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_ATAVRUSBRF01"/>
 
@@ -44,6 +48,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#benito" caption="BENITO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_BENITO"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_BENITO"/>
 
@@ -56,6 +62,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#big_multio" caption="BIGMULTIO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_BIGMULTIO"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_BIGMULTIO"/>
 
@@ -66,6 +74,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#blackcat" caption="BLACKCAT">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_BLACKCAT"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_BLACKCAT"/>
 
@@ -76,6 +86,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#bui" caption="BUI">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_BUI"/>
+
 				<device-support value="at90usb646"/>
 				<build type="define" name="BOARD" value="BOARD_BUI"/>
 
@@ -86,6 +98,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#bumbleb" caption="BUMBLEB">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_BUMBLEB"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_BUMBLEB"/>
 
@@ -100,6 +114,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#culv3" caption="CULV3">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_CULV3"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_CULV3"/>
 
@@ -112,6 +128,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#duce" caption="DUCE">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_DUCE"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_DUCE"/>
 
@@ -122,6 +140,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#evk527" caption="EVK527">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_EVK527"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_EVK527"/>
 
@@ -140,6 +160,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#jm_db_u2" caption="JMDBU2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_JMDBU2"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_JMDBU2"/>
 
@@ -152,6 +174,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#leonardo" caption="LEONARDO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_LEONARDO"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_LEONARDO"/>
 
@@ -162,6 +186,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#maximus" caption="MAXIMUS">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MAXIMUS"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_MAXIMUS"/>
 
@@ -172,6 +198,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_32u2" caption="MICROPENDOUS_32U2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_32U2"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_32U2"/>
 
@@ -184,6 +212,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_a" caption="MICROPENDOUS_A">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_A"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_A"/>
 
@@ -194,6 +224,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_1" caption="MICROPENDOUS_1">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_1"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_1"/>
 
@@ -204,6 +236,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_2" caption="MICROPENDOUS_2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_2"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_2"/>
 
@@ -214,6 +248,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_3" caption="MICROPENDOUS_3">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_3"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_3"/>
 
@@ -224,6 +260,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_4" caption="MICROPENDOUS_4">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_4"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_4"/>
 
@@ -234,6 +272,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_dip" caption="MICROPENDOUS_DIP">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_DIP"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_DIP"/>
 
@@ -244,6 +284,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_rev1" caption="MICROPENDOUS_REV1">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_REV1"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_REV1"/>
 
@@ -256,6 +298,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#micropendous_rev2" caption="MICROPENDOUS_REV2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROPENDOUS_REV2"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_MICROPENDOUS_REV2"/>
 
@@ -268,6 +312,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#microsin_162" caption="MICROSIN162">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICROSIN162"/>
+
 				<device-support value="atmega162"/>
 				<build type="define" name="BOARD" value="BOARD_MICROSIN162"/>
 
@@ -280,6 +326,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#minimus" caption="MINIMUS">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MINIMUS"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_MINIMUS"/>
 
@@ -292,6 +340,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#multio" caption="MULTIO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MULTIO"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_MULTIO"/>
 
@@ -302,6 +352,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#olimex_162" caption="OLIMEX162">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_OLIMEX162"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEX162"/>
 
@@ -314,6 +366,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#olimex_32u4" caption="OLIMEX32U4">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_OLIMEX32U4"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEX32U4"/>
 
@@ -326,6 +380,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#olimex_isp_mkii" caption="OLIMEXISPMK2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_OLIMEXISPMK2"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEXISPMK2"/>
 
@@ -338,6 +394,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#olimex_t32u4" caption="OLIMEX_T32U4">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_OLIMEXT32U4"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_OLIMEXT32U4"/>
 
@@ -350,6 +408,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#rzusbstick" caption="RZUSBSTICK">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_RZUSBSTICK"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_RZUSBSTICK"/>
 
@@ -360,6 +420,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#sparkfun_8u2" caption="SPARKFUN8U2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_SPARKFUN8U2"/>
+
 				<device-support value="atmega8u2"/>
 				<build type="define" name="BOARD" value="BOARD_SPARKFUN8U2"/>
 
@@ -370,6 +432,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#stk525" caption="STK525">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_STK525"/>
+
 				<device-support value="at90usb647"/>
 				<build type="define" name="BOARD" value="BOARD_STK525"/>
 
@@ -388,6 +452,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#stk526" caption="STK526">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_STK526"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_STK526"/>
 
@@ -406,6 +472,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#teensy" caption="TEENSY">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_TEENSY"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_TEENSY"/>
 
@@ -416,6 +484,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#teensy2" caption="TEENSY2">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_TEENSY2"/>
+
 				<device-support value="at90usb646"/>
 				<build type="define" name="BOARD" value="BOARD_TEENSY2"/>
 
@@ -426,6 +496,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#tul" caption="TUL">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_TUL"/>
+
 				<device-support value="atmega32u4"/>
 				<build type="define" name="BOARD" value="BOARD_TUL"/>
 
@@ -438,6 +510,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#udip" caption="UDIP">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_UDIP"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_UDIP"/>
 
@@ -450,6 +524,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#uno" caption="UNO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_UNO"/>
+
 				<device-support value="atmega8u2"/>
 				<device-support value="atmega16u2"/>
 				<build type="define" name="BOARD" value="BOARD_UNO"/>
@@ -461,6 +537,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#usb2ax" caption="USB2AX">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_USB2AX"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_USB2AX"/>
 
@@ -473,6 +551,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#usb2ax_v3" caption="USB2AX_V3">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_USB2AX_V3"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_USB2AX_V3"/>
 
@@ -485,6 +565,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#usb2ax_v3_1" caption="USB2AX_V31">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_USB2AX_V31"/>
+
 				<device-support value="atmega32u2"/>
 				<build type="define" name="BOARD" value="BOARD_USB2AX_V31"/>
 
@@ -497,6 +579,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#usbfoo" caption="USBFOO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_USBFOO"/>
+
 				<device-support value="atmega162"/>
 				<build type="define" name="BOARD" value="BOARD_USBFOO"/>
 
@@ -509,6 +593,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#usbkey" caption="USBKEY">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_USBKEY"/>
+
 				<device-support value="at90usb1287"/>
 				<build type="define" name="BOARD" value="BOARD_USBKEY"/>
 
@@ -528,6 +614,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#usbtiny_mkii" caption="USBTINYMKII">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_USBTINYMKII"/>
+
 				<device-support value="at90usb162"/>
 				<build type="define" name="BOARD" value="BOARD_USBTINYMKII"/>
 
@@ -540,6 +628,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#xplain_rev1" caption="XPLAIN (HW Rev 1)">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_XPLAIN_REV1"/>
+
 				<device-support value="at90usb1287"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -555,6 +645,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#xplain" caption="XPLAIN (HW Rev 2+)">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_XPLAIN"/>
+
 				<device-support value="at90usb1287"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -570,6 +662,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#a3bu_xplained" caption="A3BU_XPLAINED">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_A3BU_XPLAINED"/>
+
 				<device-support value="atxmega256a3bu"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -588,6 +682,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#b1_xplained" caption="B1_XPLAINED">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_B1_XPLAINED"/>
+
 				<device-support value="atxmega128b1"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -605,6 +701,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#evk1100" caption="EVK1100">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_EVK1100"/>
+
 				<device-support value="at32uc3a0512"/>
 
 				<require idref="lufa.drivers.board.buttons"/>
@@ -620,6 +718,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#evk1101" caption="EVK1101">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_EVK1101"/>
+
 				<device-support value="at32uc3b0256"/>
 
 				<require idref="lufa.drivers.board.buttons"/>
@@ -634,7 +734,9 @@
 				<build type="define" name="BOARD" value="BOARD_EVK1101"/>
 			</module>
 
-			<module type="driver" id="lufa.drivers.board#evk1104" caption="EVK1101">
+			<module type="driver" id="lufa.drivers.board#evk1104" caption="EVK1104">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_EVK1104"/>
+
 				<device-support value="at32uc3a3256"/>
 
 				<require idref="lufa.drivers.board.buttons"/>
@@ -648,6 +750,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#uc3a3_xplained" caption="UC3A3_XPLAINED">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_UC3_A3_XPLAINED"/>
+
 				<device-support value="at32uc3a3256"/>
 
 				<require idref="lufa.drivers.board.buttons"/>
@@ -661,6 +765,8 @@
 			</module>
 
 			<module type="driver" id="lufa.drivers.board#stange_isp" caption="STANGE_ISP">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_STANGE_ISP"/>
+
 				<device-support value="at90usb162"/>
 
 				<require idref="lufa.drivers.board.buttons"/>

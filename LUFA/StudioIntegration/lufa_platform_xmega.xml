@@ -15,6 +15,8 @@
 
 			<info type="gui-flag" value="hidden"/>
 
+			<build type="doxygen-entry-point" value="Group_PlatformDrivers_XMEGA"/>
+
 			<build type="header-file" value="Platform/XMEGA/ClockManagement.h"/>
 		</module>
 	</asf>
