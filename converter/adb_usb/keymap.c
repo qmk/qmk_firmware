@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keyboard.h"
 #include "keycode.h"
 #include "print.h"
 #include "debug.h"
