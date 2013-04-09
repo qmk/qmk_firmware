@@ -71,7 +71,6 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
-    print_enable = true;
     debug_enable = true;
     debug_matrix = true;
     debug_keyboard = true;
