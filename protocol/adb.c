@@ -63,7 +63,6 @@ static inline uint8_t wait_data_hi(uint8_t us);
 
 void adb_host_init(void)
 {
-DDRF |= (1<<1);
     data_hi();
 #ifdef ADB_PSW_BIT
     psw_hi();
