@@ -31,6 +31,7 @@
 #include "usb_mouse.h"
 #include "usb_debug.h"
 #include "usb_extra.h"
+#include "led.h"
 #include "print.h"
 #include "util.h"
 #include "sleep_led.h"

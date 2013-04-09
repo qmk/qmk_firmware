@@ -57,12 +57,13 @@ static inline void place_bit1(void);
 static inline void send_byte(uint8_t data);
 static inline bool read_bit(void);
 static inline uint8_t read_byte(void);
-static inline uint8_t wait_data_lo(uint8_t us);
+static inline uint8_t wait_data_lo(uint16_t us);
 static inline uint8_t wait_data_hi(uint8_t us);
 
 
 void adb_host_init(void)
 {
+DDRF |= (1<<1);
     data_hi();
 #ifdef ADB_PSW_BIT
     psw_hi();
@@ -88,19 +89,24 @@ uint16_t adb_host_kbd_recv(void)
     attention();
     send_byte(0x2C);            // Addr:Keyboard(0010), Cmd:Talk(11), Register0(00)
     place_bit0();               // Stopbit(0)
-    if (!wait_data_lo(0xFF))    // Tlt/Stop to Start(140-260us)
+    if (!wait_data_lo(500)) {   // Tlt/Stop to Start(140-260us)
         return 0;               // No data to send
-    if (!read_bit())            // Startbit(1)
+    }
+    if (!read_bit()) {          // Startbit(1)
+        // Service Request
         return -2;
+    }
 
     // ad hoc fix: without block inerrupt read wrong bit occasionally and get keys stuck
     cli();
     data = read_byte();
     data = (data<<8) | read_byte();
+    uint8_t stop = read_bit();  // Stopbit(0)
     sei();
 
-    if (read_bit())             // Stopbit(0)
+    if (stop) {
         return -3;
+    }
     return data;
 }
 
@@ -199,24 +205,48 @@ static inline bool read_bit(void)
 {
     // ADB Bit Cells
     //
-    // bit0: ______~~~
-    //       65    :35us
-    //
-    // bit1: ___~~~~~~
-    //       35 :65us
-    //
-    // bit0 low time: 60-70% of bit cell(42-91us)
-    // bit1 low time: 30-40% of bit cell(21-52us)
     // bit cell time: 70-130us
-    // [from Apple IIgs Hardware Reference Second Edition]
+    // low part of bit0: 60-70% of bit cell
+    // low part of bit1: 30-40% of bit cell
     //
-    // After 55us if data line is low/high then bit is 0/1.
-    // Too simple to rely on?
+    //    bit cell time         70us        130us
+    //    --------------------------------------------
+    //    low  part of bit0     42-49       78-91
+    //    high part of bit0     21-28       39-52
+    //    low  part of bit1     21-28       39-52
+    //    high part of bit1     42-49       78-91
+    //
+    //
+    // bit0:
+    //    70us bit cell:
+    //      ____________~~~~~~
+    //      42-49        21-28  
+    //
+    //    130us bit cell:
+    //      ____________~~~~~~
+    //      78-91        39-52  
+    //
+    // bit1:
+    //    70us bit cell:
+    //      ______~~~~~~~~~~~~
+    //      21-28        42-49
+    //
+    //    130us bit cell:
+    //      ______~~~~~~~~~~~~
+    //      39-52        78-91
+    //
+    // read:
+    //      ________|~~~~~~~~~
+    //              55us
+    // Read data line after 55us. If data line is low/high then bit is 0/1.
+    // This method might not work at <90us bit cell time.
+    //
+    // [from Apple IIgs Hardware Reference Second Edition]
     bool bit;
-    wait_data_lo(75);   // wait the beginning of bit cell
+    wait_data_lo(75);   // wait the start of bit cell at least 130ms(55+0+75)
     _delay_us(55);
     bit = data_in();
-    wait_data_hi(36);   // wait high part of bit cell
+    wait_data_hi(36);   // wait high part of bit cell at least 91ms(55+36)
     return bit;
 }
 
@@ -231,7 +261,7 @@ static inline uint8_t read_byte(void)
     return data;
 }
 
-static inline uint8_t wait_data_lo(uint8_t us)
+static inline uint8_t wait_data_lo(uint16_t us)
 {
     while (data_in() && us) {
         _delay_us(1);
@@ -258,7 +288,10 @@ Resources
 ---------
 ADB - The Untold Story: Space Aliens Ate My Mouse
     http://developer.apple.com/legacy/mac/library/#technotes/hw/hw_01.html
-Apple IIgs Hardware Reference Second Edition [p80(Chapter6 p121)]
+ADB Manager
+    http://developer.apple.com/legacy/mac/library/documentation/mac/pdf/Devices/ADB_Manager.pdf
+    Service request(5-17)
+Apple IIgs Hardware Reference Second Edition [Chapter6 p121]
     ftp://ftp.apple.asimov.net/pub/apple_II/documentation/Apple%20IIgs%20Hardware%20Reference.pdf
 ADB Keycode
     http://72.0.193.250/Documentation/macppc/adbkeycodes/
@@ -376,9 +409,9 @@ Communication
     Global reset:
     Host asserts low in 2.8-5.2ms. All devices are forced to reset.
 
-    Send request from device(Srq):
+    Service request from device(Srq):
     Device can request to send at commad(Global only?) stop bit.
-    keep low for 300us to request.
+    Requesting device keeps low for 140-260us at stop bit of command.
 
 
 Keyboard Data(Register0)
