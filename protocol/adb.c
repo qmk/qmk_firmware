@@ -57,12 +57,13 @@ static inline void place_bit1(void);
 static inline void send_byte(uint8_t data);
 static inline bool read_bit(void);
 static inline uint8_t read_byte(void);
-static inline uint8_t wait_data_lo(uint8_t us);
+static inline uint8_t wait_data_lo(uint16_t us);
 static inline uint8_t wait_data_hi(uint8_t us);
 
 
 void adb_host_init(void)
 {
+DDRF |= (1<<1);
     data_hi();
 #ifdef ADB_PSW_BIT
     psw_hi();
@@ -88,19 +89,24 @@ uint16_t adb_host_kbd_recv(void)
     attention();
     send_byte(0x2C);            // Addr:Keyboard(0010), Cmd:Talk(11), Register0(00)
     place_bit0();               // Stopbit(0)
-    if (!wait_data_lo(0xFF))    // Tlt/Stop to Start(140-260us)
+    if (!wait_data_lo(500)) {   // Tlt/Stop to Start(140-260us)
         return 0;               // No data to send
-    if (!read_bit())            // Startbit(1)
+    }
+    if (!read_bit()) {          // Startbit(1)
+        // Service Request
         return -2;
+    }
 
     // ad hoc fix: without block inerrupt read wrong bit occasionally and get keys stuck
     cli();
     data = read_byte();
     data = (data<<8) | read_byte();
+    uint8_t stop = read_bit();  // Stopbit(0)
     sei();
 
-    if (read_bit())             // Stopbit(0)
+    if (stop) {
         return -3;
+    }
     return data;
 }
 
@@ -255,7 +261,7 @@ static inline uint8_t read_byte(void)
     return data;
 }
 
-static inline uint8_t wait_data_lo(uint8_t us)
+static inline uint8_t wait_data_lo(uint16_t us)
 {
     while (data_in() && us) {
         _delay_us(1);
@@ -282,6 +288,9 @@ Resources
 ---------
 ADB - The Untold Story: Space Aliens Ate My Mouse
     http://developer.apple.com/legacy/mac/library/#technotes/hw/hw_01.html
+ADB Manager
+    http://developer.apple.com/legacy/mac/library/documentation/mac/pdf/Devices/ADB_Manager.pdf
+    Service request(5-17)
 Apple IIgs Hardware Reference Second Edition [Chapter6 p121]
     ftp://ftp.apple.asimov.net/pub/apple_II/documentation/Apple%20IIgs%20Hardware%20Reference.pdf
 ADB Keycode
