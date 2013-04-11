@@ -172,6 +172,8 @@
 			 *  \param[in] DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate.
 			 */
 			static inline void Serial_Init(const uint32_t BaudRate,
+			                               const bool DoubleSpeed);
+			static inline void Serial_Init(const uint32_t BaudRate,
 			                               const bool DoubleSpeed)
 			{
 				UBRR1  = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
@@ -185,6 +187,7 @@
 			}
 
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
+			static inline void Serial_Disable(void);
 			static inline void Serial_Disable(void)
 			{
 				UCSR1B = 0;

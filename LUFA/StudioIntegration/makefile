@@ -34,7 +34,7 @@ clean:
 	@rm -f $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML) $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 
 $(DOXYGEN_TAG_FILE_XML):
-	$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_XML=yes"
+	$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_HTML=no GENERATE_XML=yes"
 
 $(DOXYGEN_COMBINED_XML): $(DOXYGEN_TAG_FILE_XML)
 	@xsltproc $(dir $@)/combine.xslt $(dir $@)/index.xml > $(DOXYGEN_COMBINED_XML)
