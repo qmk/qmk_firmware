@@ -95,7 +95,7 @@ void Serial_SendData(USART_t* const USART,
 	  Serial_SendByte(USART, *((uint8_t*)Buffer++));
 }
 
-void Serial_CreateStream(FILE* Stream)
+void Serial_CreateStream(FILE* const Stream)
 {
 	if (!(Stream))
 	{
@@ -107,7 +107,7 @@ void Serial_CreateStream(FILE* Stream)
 	*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar, _FDEV_SETUP_RW);
 }
 
-void Serial_CreateBlockingStream(FILE* Stream)
+void Serial_CreateBlockingStream(FILE* const Stream)
 {
 	if (!(Stream))
 	{

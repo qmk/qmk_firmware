@@ -53,17 +53,17 @@
  *      SPI_Init(&SPIC,
  *               SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
  *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
- *      
+ *
  *      // Send several bytes, ignoring the returned data
  *      SPI_SendByte(&SPIC, 0x01);
  *      SPI_SendByte(&SPIC, 0x02);
  *      SPI_SendByte(&SPIC, 0x03);
- *      
+ *
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SPI_ReceiveByte(&SPIC);
  *      uint8_t Byte2 = SPI_ReceiveByte(&SPIC);
  *      uint8_t Byte3 = SPI_ReceiveByte(&SPIC);
- *      
+ *
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SPI_TransferByte(&SPIC, 0xDC);
  *  \endcode
@@ -164,6 +164,8 @@
 			 *                             \c SPI_SCK_*, \c SPI_SAMPLE_*, \c SPI_ORDER_* and \c SPI_MODE_* masks.
 			 */
 			static inline void SPI_Init(SPI_t* const SPI,
+			                            const uint8_t SPIOptions) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void SPI_Init(SPI_t* const SPI,
 			                            const uint8_t SPIOptions)
 			{
 				SPI->CTRL = (SPIOptions | SPI_ENABLE_bm);
@@ -173,6 +175,7 @@
 			 *
 			 *  \param[in,out] SPI   Pointer to the base of the SPI peripheral within the device.
 			 */
+			static inline void SPI_Disable(SPI_t* const SPI) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void SPI_Disable(SPI_t* const SPI)
 			{
 				SPI->CTRL &= ~SPI_ENABLE_bm;
@@ -184,7 +187,7 @@
 			 *
 			 *  \return \ref SPI_MODE_MASTER if the interface is currently in SPI Master mode, \ref SPI_MODE_SLAVE otherwise
 			 */
-			static inline uint8_t SPI_GetCurrentMode(SPI_t* const SPI) ATTR_ALWAYS_INLINE;
+			static inline uint8_t SPI_GetCurrentMode(SPI_t* const SPI) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline uint8_t SPI_GetCurrentMode(SPI_t* const SPI)
 			{
 				return (SPI->CTRL & SPI_MASTER_bm);
@@ -198,7 +201,7 @@
 			 *  \return Response byte from the attached SPI device.
 			 */
 			static inline uint8_t SPI_TransferByte(SPI_t* const SPI,
-			                                       const uint8_t Byte) ATTR_ALWAYS_INLINE;
+			                                       const uint8_t Byte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline uint8_t SPI_TransferByte(SPI_t* const SPI,
 			                                       const uint8_t Byte)
 			{
@@ -214,7 +217,7 @@
 			 *  \param[in]     Byte  Byte to send through the SPI interface.
 			 */
 			static inline void SPI_SendByte(SPI_t* const SPI,
-			                                const uint8_t Byte) ATTR_ALWAYS_INLINE;
+			                                const uint8_t Byte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void SPI_SendByte(SPI_t* const SPI,
 			                                const uint8_t Byte)
 			{
@@ -229,7 +232,7 @@
 			 *
 			 *  \return The response byte from the attached SPI device.
 			 */
-			static inline uint8_t SPI_ReceiveByte(SPI_t* const SPI) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t SPI_ReceiveByte(SPI_t* const SPI) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			static inline uint8_t SPI_ReceiveByte(SPI_t* const SPI)
 			{
 				SPI->DATA = 0;

@@ -53,17 +53,17 @@
  *  \code
  *      // Initialize the Master SPI mode USART driver before first use, with 1Mbit baud
  *      SerialSPI_Init(&USARTD0, (USART_SPI_SCK_LEAD_RISING | USART_SPI_SAMPLE_LEADING | USART_SPI_ORDER_MSB_FIRST), 1000000);
- *      
+ *
  *      // Send several bytes, ignoring the returned data
  *      SerialSPI_SendByte(&USARTD0, 0x01);
  *      SerialSPI_SendByte(&USARTD0, 0x02);
  *      SerialSPI_SendByte(&USARTD0, 0x03);
- *      
+ *
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SerialSPI_ReceiveByte(&USARTD);
  *      uint8_t Byte2 = SerialSPI_ReceiveByte(&USARTD);
  *      uint8_t Byte3 = SerialSPI_ReceiveByte(&USARTD);
- *      
+ *
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SerialSPI_TransferByte(&USARTD0, 0xDC);
  *  \endcode
@@ -118,10 +118,10 @@
 
 			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define USART_SPI_ORDER_LSB_FIRST      USART_UDORD_bm
-			//@}			
+			//@}
 
 		/* Inline Functions: */
-			/** Initialize the USART module in Master SPI mode. 
+			/** Initialize the USART module in Master SPI mode.
 			 *
 			 *  \param[in,out] USART        Pointer to the base of the USART peripheral within the device.
 			 *  \param[in]     SPIOptions   USART SPI Options, a mask consisting of one of each of the \c USART_SPI_SCK_*,
@@ -130,28 +130,32 @@
 			 */
 			static inline void SerialSPI_Init(USART_t* const USART,
 			                                  const uint8_t SPIOptions,
+			                                  const uint32_t BaudRate) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void SerialSPI_Init(USART_t* const USART,
+			                                  const uint8_t SPIOptions,
 			                                  const uint32_t BaudRate)
 			{
 				uint16_t BaudValue = SERIAL_SPI_UBBRVAL(BaudRate);
-			
+
 				USART->BAUDCTRLB = (BaudValue >> 8);
 				USART->BAUDCTRLA = (BaudValue & 0xFF);
-			
+
 				USART->CTRLC = (USART_CMODE_MSPI_gc | SPIOptions);
 				USART->CTRLB = (USART_RXEN_bm | USART_TXEN_bm);
 			}
-			
+
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration.
 			 *
 			 *  \param[in,out] USART  Pointer to the base of the USART peripheral within the device.
 			 */
+			static inline void SerialSPI_Disable(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void SerialSPI_Disable(USART_t* const USART)
 			{
 				USART->CTRLA = 0;
 				USART->CTRLB = 0;
 				USART->CTRLC = 0;
 			}
-			
+
 			/** Sends and receives a byte through the USART SPI interface, blocking until the transfer is complete.
 			 *
 			 *  \param[in,out] USART     Pointer to the base of the USART peripheral within the device.
@@ -159,6 +163,8 @@
 			 *
 			 *  \return Response byte from the attached SPI device.
 			 */
+			static inline uint8_t SerialSPI_TransferByte(USART_t* const USART,
+			                                             const uint8_t DataByte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline uint8_t SerialSPI_TransferByte(USART_t* const USART,
 			                                             const uint8_t DataByte)
 			{
@@ -175,6 +181,8 @@
 			 *  \param[in]     DataByte  Byte to send through the USART SPI interface.
 			 */
 			static inline void SerialSPI_SendByte(USART_t* const USART,
+			                                      const uint8_t DataByte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1)
+			static inline void SerialSPI_SendByte(USART_t* const USART,
 			                                      const uint8_t DataByte)
 			{
 				SerialSPI_TransferByte(USART, DataByte);
@@ -187,11 +195,12 @@
 			 *
 			 *  \return The response byte from the attached SPI device.
 			 */
+			static inline uint8_t SerialSPI_ReceiveByte(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			static inline uint8_t SerialSPI_ReceiveByte(USART_t* const USART)
 			{
 				return SerialSPI_TransferByte(USART, 0);
 			}
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

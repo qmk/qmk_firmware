@@ -139,7 +139,8 @@
 			 *  \param[in]     Length  Length of the data to send, in bytes.
 			 */
 			void Serial_SendData(USART_t* const USART,
-			                     const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			                     const void* Buffer,
+			                     uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Creates a standard character stream from the USART so that it can be used with all the regular functions
 			 *  in the avr-libc \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
@@ -155,7 +156,7 @@
 			 *
 			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
 			 */
-			void Serial_CreateStream(FILE* Stream);
+			void Serial_CreateStream(FILE* const Stream);
 
 			/** Identical to \ref Serial_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer.
@@ -165,7 +166,7 @@
 			 *
 			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
 			 */
-			void Serial_CreateBlockingStream(FILE* Stream);
+			void Serial_CreateBlockingStream(FILE* const Stream);
 
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
@@ -175,6 +176,9 @@
 			 *  \param[in]     BaudRate     Serial baud rate, in bits per second.
 			 *  \param[in]     DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate.
 			 */
+			static inline void Serial_Init(USART_t* const USART,
+			                               const uint32_t BaudRate,
+			                               const bool DoubleSpeed) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void Serial_Init(USART_t* const USART,
 			                               const uint32_t BaudRate,
 			                               const bool DoubleSpeed)
@@ -192,6 +196,7 @@
 			 *
 			 *  \param[in,out] USART  Pointer to the base of the USART peripheral within the device.
 			 */
+			static inline void Serial_Disable(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void Serial_Disable(USART_t* const USART)
 			{
 				USART->CTRLA = 0;
@@ -205,7 +210,7 @@
 			 *
 			 *  \return Boolean \c true if a character has been received, \c false otherwise.
 			 */
-			static inline bool Serial_IsCharReceived(USART_t* const USART) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Serial_IsCharReceived(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			static inline bool Serial_IsCharReceived(USART_t* const USART)
 			{
 				return ((USART->STATUS & USART_RXCIF_bm) ? true : false);
@@ -217,7 +222,7 @@
 			 *  \param[in]     DataByte  Byte to transmit through the USART.
 			 */
 			static inline void Serial_SendByte(USART_t* const USART,
-			                                   const char DataByte) ATTR_ALWAYS_INLINE;
+			                                   const char DataByte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void Serial_SendByte(USART_t* const USART,
 			                                   const char DataByte)
 			{
@@ -231,7 +236,7 @@
 			 *
 			 *  \return Next byte received from the USART, or a negative value if no byte has been received.
 			 */
-			static inline int16_t Serial_ReceiveByte(USART_t* const USART) ATTR_ALWAYS_INLINE;
+			static inline int16_t Serial_ReceiveByte(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline int16_t Serial_ReceiveByte(USART_t* const USART)
 			{
 				if (!(Serial_IsCharReceived(USART)))

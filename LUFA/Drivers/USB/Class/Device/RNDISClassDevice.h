@@ -137,7 +137,7 @@
 			 *
 			 *  \return Boolean \c true if a packet is waiting to be read in by the host, \c false otherwise.
 			 */
-			bool RNDIS_Device_IsPacketReceived(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
+			bool RNDIS_Device_IsPacketReceived(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Retrieves the next pending packet from the device, discarding the remainder of the RNDIS packet header to leave
 			 *  only the packet contents for processing by the device in the nominated buffer.
@@ -153,7 +153,7 @@
 			 */
 			uint8_t RNDIS_Device_ReadPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
 											void* Buffer,
-											uint16_t* const PacketLength);
+											uint16_t* const PacketLength) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends the given packet to the attached RNDIS device, after adding a RNDIS packet message header.
 			 *
@@ -168,7 +168,7 @@
 			 */
 			uint8_t RNDIS_Device_SendPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
 											void* Buffer,
-											const uint16_t PacketLength);
+											const uint16_t PacketLength) ATTR_NON_NULL_PTR_ARG(1);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

@@ -50,13 +50,13 @@
  *  Usage Example:
  *  \code
  *   	#include <LUFA/Platform/XMEGA/ClockManagement.h>
- *      
+ *
  *   	void main(void)
  *   	{
  *   		// Start the PLL to multiply the 2MHz RC oscillator to F_CPU and switch the CPU core to run from it
  *   		XMEGACLK_StartPLL(CLOCK_SRC_INT_RC2MHZ, 2000000, F_CPU);
  *   		XMEGACLK_SetCPUClockSource(CLOCK_SRC_PLL);
- *          
+ *
  *   		// Start the 32MHz internal RC oscillator and start the DFLL to increase it to F_USB using the USB SOF as a reference
  *   		XMEGACLK_StartInternalOscillator(CLOCK_SRC_INT_RC32MHZ);
  *   		XMEGACLK_StartDFLL(CLOCK_SRC_INT_RC32MHZ, DFLL_REF_INT_USBSOF, F_USB);
@@ -123,7 +123,7 @@
 			 *  \param[in] Address  Address to write to, a memory address protected by the CCP mechanism
 			 *  \param[in] Value    Value to write to the protected location
 			 */
-			static inline void XMEGACLK_CCP_Write(volatile void* Address, const uint8_t Value) ATTR_ALWAYS_INLINE;
+			static inline void XMEGACLK_CCP_Write(volatile void* Address, const uint8_t Value) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void XMEGACLK_CCP_Write(volatile void* Address, const uint8_t Value)
 			{
 				__asm__ __volatile__ (
@@ -134,7 +134,7 @@
 					: /* No output operands */
 					: /* Input operands: */ "m" (RAMPZ), "e" (Address), "m" (CCP), "r" (CCP_IOREG_gc), "r" (Value)
 					: /* Clobbered registers: */ "r30", "r31"
-				); 
+				);
 			}
 
 			/** Starts the external oscillator of the XMEGA microcontroller, with the given options. This routine blocks until
@@ -239,7 +239,7 @@
 
 				if (SourceFreq > Frequency)
 				  return false;
-				  
+
 				if (MulFactor > 31)
 				  return false;
 

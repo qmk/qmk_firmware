@@ -56,17 +56,17 @@
  *      // Initialize the SPI driver before first use
  *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
  *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
- *      
+ *
  *      // Send several bytes, ignoring the returned data
  *      SPI_SendByte(0x01);
  *      SPI_SendByte(0x02);
  *      SPI_SendByte(0x03);
- *      
+ *
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SPI_ReceiveByte();
  *      uint8_t Byte2 = SPI_ReceiveByte();
  *      uint8_t Byte3 = SPI_ReceiveByte();
- *      
+ *
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SPI_TransferByte(0xDC);
  *  \endcode
@@ -165,6 +165,7 @@
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the \c SPI_SPEED_*,
 			 *                         \c SPI_SCK_*, \c SPI_SAMPLE_*, \c SPI_ORDER_* and \c SPI_MODE_* masks.
 			 */
+			static inline void SPI_Init(const uint8_t SPIOptions);
 			static inline void SPI_Init(const uint8_t SPIOptions)
 			{
 				/* Prevent high rise times on PB.0 (/SS) from forcing a change to SPI slave mode */
@@ -187,6 +188,7 @@
 			}
 
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */
+			static inline void SPI_Disable(void);
 			static inline void SPI_Disable(void)
 			{
 				DDRB  &= ~((1 << 1) | (1 << 2));

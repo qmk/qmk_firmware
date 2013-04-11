@@ -201,8 +201,10 @@
 			 *  \param[in] Prescale   Prescaler to use when determining the bus frequency, a \c TWI_BIT_PRESCALE_* value.
 			 *  \param[in] BitLength  Length of the bits sent on the bus.
 			 */
-			static inline void TWI_Init(const uint8_t Prescale, const uint8_t BitLength) ATTR_ALWAYS_INLINE;
-			static inline void TWI_Init(const uint8_t Prescale, const uint8_t BitLength)
+			static inline void TWI_Init(const uint8_t Prescale,
+			                            const uint8_t BitLength) ATTR_ALWAYS_INLINE;
+			static inline void TWI_Init(const uint8_t Prescale,
+			                            const uint8_t BitLength)
 			{
 				TWCR |= (1 << TWEN);
 				TWSR  = Prescale;

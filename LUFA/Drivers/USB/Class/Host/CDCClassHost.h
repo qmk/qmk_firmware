@@ -199,7 +199,7 @@
 			 */
 			uint8_t CDC_Host_SendData(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                          const void* const Buffer,
-			                          const uint16_t Length);
+			                          const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a given null-terminated string to the attached USB device, if connected. If a device is not connected when the
 			 *  function is called, the string is discarded. Bytes will be queued for transmission to the device until either the pipe
@@ -291,7 +291,7 @@
 			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed.
 			 */
 			void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
-			                           FILE* const Stream);
+			                           FILE* const Stream) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Identical to \ref CDC_Host_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
@@ -302,7 +302,7 @@
 			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed.
 			 */
 			void CDC_Host_CreateBlockingStream(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
-			                                   FILE* const Stream);
+			                                   FILE* const Stream) ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(2);
 			#endif
 
 			/** CDC class driver event for a control line state change on a CDC host interface. This event fires each time the device notifies
