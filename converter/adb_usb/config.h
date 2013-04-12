@@ -36,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL(code)    ((code)&0x07)
 
 
-/* Locking Caps Lock support */
-//#define MATRIX_HAS_LOCKING_CAPS
 /* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
 #define CAPSLOCK_LOCKING_ENABLE
 /* Locking CapsLock resynchronize hack */
