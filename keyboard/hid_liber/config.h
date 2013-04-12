@@ -46,10 +46,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-// TODO: configurable
-#define DEBUG_LED 0
-#define DEBUG_LED_CONFIG
-#define DEBUG_LED_ON
-#define DEBUG_LED_OFF
-
 #endif
