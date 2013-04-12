@@ -74,31 +74,11 @@ uint8_t matrix_scan(void)
     is_modified = false;
     key = m0110_recv_key();
 
-#ifdef MATRIX_HAS_LOCKING_CAPS
-    // Send Caps key up event
-    if (matrix_is_on(ROW(CAPS), COL(CAPS))) {
-        is_modified = true;
-        register_key(CAPS_BREAK);
-    }
-#endif
     if (key == M0110_NULL) {
         return 0;
     } else if (key == M0110_ERROR) {
         return 0;
     } else {
-#ifdef MATRIX_HAS_LOCKING_CAPS    
-        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-            // CAPS LOCK on:
-            // Ignore LockingCaps key down event
-            if (key == CAPS) return 0;
-            // Convert LockingCaps key up event into down event
-            if (key == CAPS_BREAK) key = CAPS;
-        } else {
-            // CAPS LOCK off:
-            // Ignore LockingCaps key up event
-            if (key == CAPS_BREAK) return 0;
-        }
-#endif        
         is_modified = true;
         register_key(key);
     }
