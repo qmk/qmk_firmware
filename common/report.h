@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRANSPORT_NEXT_TRACK    0x00B5
 #define TRANSPORT_PREV_TRACK    0x00B6
 #define TRANSPORT_STOP          0x00B7
+#define TRANSPORT_STOP_EJECT    0x00CC
 #define TRANSPORT_PLAY_PAUSE    0x00CD
 /* application launch */
 #define AL_CC_CONFIG            0x0183
@@ -116,6 +117,7 @@ typedef struct {
     (key == KC_MEDIA_NEXT_TRACK ?  TRANSPORT_NEXT_TRACK : \
     (key == KC_MEDIA_PREV_TRACK ?  TRANSPORT_PREV_TRACK : \
     (key == KC_MEDIA_STOP       ?  TRANSPORT_STOP : \
+    (key == KC_MEDIA_EJECT      ?  TRANSPORT_STOP_EJECT : \
     (key == KC_MEDIA_PLAY_PAUSE ?  TRANSPORT_PLAY_PAUSE : \
     (key == KC_MEDIA_SELECT     ?  AL_CC_CONFIG : \
     (key == KC_MAIL             ?  AL_EMAIL : \
@@ -127,7 +129,7 @@ typedef struct {
     (key == KC_WWW_FORWARD      ?  AC_FORWARD : \
     (key == KC_WWW_STOP         ?  AC_STOP : \
     (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
-    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0))))))))))))))))))
+    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))
 
 #ifdef __cplusplus
 }
