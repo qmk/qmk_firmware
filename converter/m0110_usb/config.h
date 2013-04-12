@@ -34,20 +34,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8
 
-/* Locking Caps Lock support */
-//#define MATRIX_HAS_LOCKING_CAPS
+
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
+
+
+/* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
+#define CAPSLOCK_LOCKING_ENABLE
+/* Locking CapsLock resynchronize hack */
+#define CAPSLOCK_LOCKING_RESYNC_ENABLE
+
 
 /* magic key */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)) || \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL)) \
 )
-
-
-/* mouse keys */
-#ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 192
-#endif
 
 
 /* ports */
