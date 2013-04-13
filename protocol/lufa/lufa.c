@@ -347,6 +347,9 @@ static void send_keyboard(report_keyboard_t *report)
 {
     uint8_t timeout = 0;
 
+    if (USB_DeviceState != DEVICE_STATE_Configured)
+        return;
+
     // TODO: handle NKRO report
     /* Select the Keyboard Report Endpoint */
     Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
@@ -368,6 +371,9 @@ static void send_mouse(report_mouse_t *report)
 #ifdef MOUSE_ENABLE
     uint8_t timeout = 0;
 
+    if (USB_DeviceState != DEVICE_STATE_Configured)
+        return;
+
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
 
@@ -386,6 +392,9 @@ static void send_system(uint16_t data)
 {
     uint8_t timeout = 0;
 
+    if (USB_DeviceState != DEVICE_STATE_Configured)
+        return;
+
     report_extra_t r = {
         .report_id = REPORT_ID_SYSTEM,
         .usage = data
@@ -399,6 +408,9 @@ static void send_system(uint16_t data)
 static void send_consumer(uint16_t data)
 {
     uint8_t timeout = 0;
+
+    if (USB_DeviceState != DEVICE_STATE_Configured)
+        return;
 
     report_extra_t r = {
         .report_id = REPORT_ID_CONSUMER,
