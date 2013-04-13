@@ -5,4 +5,6 @@
 	<Default Extension="txt" ContentType="text/plain"/>
 	<Default Extension="xml" ContentType="text/xml"/>
 	<Default Extension="zip" ContentType="application/octet-stream"/>
+	<Default Extension="dll" ContentType="application/octet-stream" />
+	<Default Extension="pkgdef" ContentType="text/plain" />
 </Types>
