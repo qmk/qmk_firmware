@@ -103,7 +103,11 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 #else
         0,                                                                  // 2
 #endif
+#ifdef CONSOLE_ENABLE
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
+#else
+        0,
+#endif
 #ifdef EXTRAKEY_ENABLE
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
 #else
@@ -332,8 +336,12 @@ static const uint8_t PROGMEM extra_hid_report_desc[] = {
 #   define MOUSE_HID_DESC_NUM           (KBD_HID_DESC_NUM + 0)
 #endif
 
+#ifdef CONSOLE_ENABLE
 #define DEBUG_HID_DESC_NUM              (MOUSE_HID_DESC_NUM + 1)
 #define DEBUG_HID_DESC_OFFSET           (9+(9+9+7)*DEBUG_HID_DESC_NUM+9)
+#else
+#   define DEBUG_HID_DESC_NUM           (MOUSE_HID_DESC_NUM + 0)
+#endif
 
 #ifdef EXTRAKEY_ENABLE
 #   define EXTRA_HID_DESC_NUM           (DEBUG_HID_DESC_NUM + 1)
@@ -424,6 +432,7 @@ static const uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	1,					// bInterval
 #endif
 
+#ifdef CONSOLE_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
@@ -450,6 +459,7 @@ static const uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bmAttributes (0x03=intr)
 	DEBUG_TX_SIZE, 0,			// wMaxPacketSize
 	1,					// bInterval
+#endif
 
 #ifdef EXTRAKEY_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
@@ -553,8 +563,10 @@ static const struct descriptor_list_struct {
 	{0x2100, MOUSE_INTERFACE, config1_descriptor+MOUSE_HID_DESC_OFFSET, 9},
 	{0x2200, MOUSE_INTERFACE, mouse_hid_report_desc, sizeof(mouse_hid_report_desc)},
 #endif
+#ifdef CONSOLE_ENABLE
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
+#endif
 #ifdef EXTRAKEY_ENABLE
 	{0x2100, EXTRA_INTERFACE, config1_descriptor+EXTRA_HID_DESC_OFFSET, 9},
 	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},

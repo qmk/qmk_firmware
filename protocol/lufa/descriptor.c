@@ -230,8 +230,9 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
     .SubClass               = USB_CSCP_NoDeviceSubclass,
     .Protocol               = USB_CSCP_NoDeviceProtocol,
 
-    .Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
+    .Endpoint0Size          = 8,
 
+    /* specified in config.h */
     .VendorID               = VENDOR_ID,
     .ProductID              = PRODUCT_ID,
     .ReleaseNumber          = DEVICE_VER,
@@ -240,7 +241,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
     .ProductStrIndex        = 0x02,
     .SerialNumStrIndex      = NO_DESCRIPTOR,
 
-    .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
+    .NumberOfConfigurations = 1
 };
 
 /*******************************************************************************
@@ -453,14 +454,16 @@ const USB_Descriptor_String_t PROGMEM LanguageString =
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
-    .Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
+    /* subtract 1 for null terminator */
+    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(MANUFACTURER))-1), .Type = DTYPE_String},
 
     .UnicodeString          = LSTR(MANUFACTURER)
 };
 
 const USB_Descriptor_String_t PROGMEM ProductString =
 {
-    .Header                 = {.Size = USB_STRING_LEN(28), .Type = DTYPE_String},
+    /* subtract 1 for null terminator */
+    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(PRODUCT))-1), .Type = DTYPE_String},
 
     .UnicodeString          = LSTR(PRODUCT)
 };
