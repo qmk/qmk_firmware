@@ -192,24 +192,7 @@
 			 *
 			 *  \param[in] Address  Endpoint address to select.
 			 */
-			static inline void Endpoint_SelectEndpoint(const uint8_t Address);
-			static inline void Endpoint_SelectEndpoint(const uint8_t Address)
-			{
-				uint8_t EndpointNumber = (Address & ENDPOINT_EPNUM_MASK);
-
-				USB_Endpoint_SelectedEndpoint = Address;
-
-				if (Address & ENDPOINT_DIR_IN)
-				{
-					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].IN;
-					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].IN;
-				}
-				else
-				{
-					USB_Endpoint_SelectedFIFO   = &USB_Endpoint_FIFOs[EndpointNumber].OUT;
-					USB_Endpoint_SelectedHandle = &((USB_EndpointTable_t*)USB.EPPTR)->Endpoints[EndpointNumber].OUT;
-				}
-			}
+			void Endpoint_SelectEndpoint(const uint8_t Address);
 
 			/** Configures the specified endpoint address with the given endpoint type, direction, bank size
 			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
@@ -369,13 +352,7 @@
 			 *
 			 *  \return Boolean \c true if the current endpoint is ready for an IN packet, \c false otherwise.
 			 */
-			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool Endpoint_IsINReady(void)
-			{
-				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
-
-				return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
-			}
+			bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT;
 
 			/** Determines if the selected OUT endpoint has received new packet from the host.
 			 *
@@ -383,19 +360,7 @@
 			 *
 			 *  \return Boolean \c true if current endpoint is has received an OUT packet, \c false otherwise.
 			 */
-			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool Endpoint_IsOUTReceived(void)
-			{
-				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
-
-				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
-				{
-					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
-					return true;
-				}
-
-				return false;
-			}
+			bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT;
 
 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
 			 *
@@ -403,19 +368,7 @@
 			 *
 			 *  \return Boolean \c true if the selected endpoint has received a SETUP packet, \c false otherwise.
 			 */
-			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool Endpoint_IsSETUPReceived(void)
-			{
-				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
-
-				if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_SETUP_bm)
-				{
-					USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
-					return true;
-				}
-
-				return false;
-			}
+			bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT;
 
 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
 			 *  endpoint for the next packet.
@@ -424,43 +377,21 @@
 			 *
 			 *  \note This is not applicable for non CONTROL type endpoints.
 			 */
-			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_ClearSETUP(void)
-			{
-				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
-				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
-				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
-				USB_Endpoint_SelectedFIFO->Position  = 0;
-
-				Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
-				USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
-				USB_Endpoint_SelectedFIFO->Position  = 0;
-			}
+			void Endpoint_ClearSETUP(void);
 
 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
 			 *  next packet and switching to the alternative endpoint bank if double banked.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
 			 */
-			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_ClearIN(void)
-			{
-				USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
-				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
-				USB_Endpoint_SelectedFIFO->Position  = 0;
-			}
+			void Endpoint_ClearIN(void);
 
 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
 			 *  for the next packet and switching to the alternative endpoint bank if double banked.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
 			 */
-			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_ClearOUT(void)
-			{
-				USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
-				USB_Endpoint_SelectedFIFO->Position  = 0;
-			}
+			void Endpoint_ClearOUT(void);
 
 			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
 			 *  indicated endpoint and that the current transfer sequence should be aborted. This provides a
@@ -473,17 +404,7 @@
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_XMEGA
 			 */
-			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_StallTransaction(void)
-			{
-				USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
-
-				if ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) == USB_EP_TYPE_CONTROL_gc)
-				{
-					Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint ^ ENDPOINT_DIR_IN);
-					USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
-				}
-			}
+			void Endpoint_StallTransaction(void);
 
 			/** Clears the STALL condition on the currently selected endpoint.
 			 *
@@ -530,11 +451,7 @@
 			 *
 			 *  \return Next byte in the currently selected endpoint's FIFO buffer.
 			 */
-			static inline uint8_t Endpoint_Read_8(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline uint8_t Endpoint_Read_8(void)
-			{
-				return USB_Endpoint_SelectedFIFO->Data[USB_Endpoint_SelectedFIFO->Position++];
-			}
+			uint8_t Endpoint_Read_8(void) ATTR_WARN_UNUSED_RESULT;
 
 			/** Writes one byte to the currently selected endpoint's bank, for IN direction endpoints.
 			 *
@@ -542,11 +459,7 @@
 			 *
 			 *  \param[in] Data  Data to write into the the currently selected endpoint's FIFO buffer.
 			 */
-			static inline void Endpoint_Write_8(const uint8_t Data) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_Write_8(const uint8_t Data)
-			{
-				USB_Endpoint_SelectedFIFO->Data[USB_Endpoint_SelectedFIFO->Position++] = Data;
-			}
+			void Endpoint_Write_8(const uint8_t Data);
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *

@@ -48,6 +48,106 @@ volatile uint8_t          USB_Endpoint_SelectedEndpoint;
 volatile USB_EP_t*        USB_Endpoint_SelectedHandle;
 volatile Endpoint_FIFO_t* USB_Endpoint_SelectedFIFO;
 
+bool Endpoint_IsINReady(void)
+{
+	Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+
+	return ((USB_Endpoint_SelectedHandle->STATUS & USB_EP_BUSNACK0_bm) ? true : false);
+}
+
+bool Endpoint_IsOUTReceived(void)
+{
+	Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+
+	if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_TRNCOMPL0_bm)
+	{
+		USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+		return true;
+	}
+
+	return false;
+}
+
+bool Endpoint_IsSETUPReceived(void)
+{
+	Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+
+	if (USB_Endpoint_SelectedHandle->STATUS & USB_EP_SETUP_bm)
+	{
+		USB_Endpoint_SelectedFIFO->Length = USB_Endpoint_SelectedHandle->CNT;
+		return true;
+	}
+
+	return false;
+}
+
+void Endpoint_ClearSETUP(void)
+{
+	Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint & ~ENDPOINT_DIR_IN);
+	USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_SETUP_bm | USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
+	USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+	USB_Endpoint_SelectedFIFO->Position  = 0;
+
+	Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint | ENDPOINT_DIR_IN);
+	USB_Endpoint_SelectedHandle->STATUS |= USB_EP_TOGGLE_bm;
+	USB_Endpoint_SelectedFIFO->Position  = 0;
+}
+
+void Endpoint_ClearIN(void)
+{
+	USB_Endpoint_SelectedHandle->CNT     = USB_Endpoint_SelectedFIFO->Position;
+	USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
+	USB_Endpoint_SelectedFIFO->Position  = 0;
+}
+
+void Endpoint_ClearOUT(void)
+{
+	USB_Endpoint_SelectedHandle->STATUS &= ~(USB_EP_TRNCOMPL0_bm | USB_EP_BUSNACK0_bm | USB_EP_OVF_bm);
+	USB_Endpoint_SelectedFIFO->Position  = 0;
+}
+
+void Endpoint_StallTransaction(void)
+{
+	USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
+
+	if ((USB_Endpoint_SelectedHandle->CTRL & USB_EP_TYPE_gm) == USB_EP_TYPE_CONTROL_gc)
+	{
+		Endpoint_SelectEndpoint(USB_Endpoint_SelectedEndpoint ^ ENDPOINT_DIR_IN);
+		USB_Endpoint_SelectedHandle->CTRL |= USB_EP_STALL_bm;
+	}
+}
+
+uint8_t Endpoint_Read_8(void)
+{
+	return USB_Endpoint_SelectedFIFO->Data[USB_Endpoint_SelectedFIFO->Position++];
+}
+
+void Endpoint_Write_8(const uint8_t Data)
+{
+	USB_Endpoint_SelectedFIFO->Data[USB_Endpoint_SelectedFIFO->Position++] = Data;
+}
+
+void Endpoint_SelectEndpoint(const uint8_t Address)
+{
+	uint8_t EndpointNumber = (Address & ENDPOINT_EPNUM_MASK);
+
+	USB_Endpoint_SelectedEndpoint = Address;
+
+	Endpoint_FIFOPair_t* EndpointFIFOPair = &USB_Endpoint_FIFOs[EndpointNumber];
+	USB_EndpointTable_t* EndpointTable    = (USB_EndpointTable_t*)USB.EPPTR;
+
+	if (Address & ENDPOINT_DIR_IN)
+	{
+		USB_Endpoint_SelectedFIFO   = &EndpointFIFOPair->IN;
+		USB_Endpoint_SelectedHandle = &EndpointTable->Endpoints[EndpointNumber].IN;
+	}
+	else
+	{
+		USB_Endpoint_SelectedFIFO   = &EndpointFIFOPair->OUT;
+		USB_Endpoint_SelectedHandle = &EndpointTable->Endpoints[EndpointNumber].OUT;
+	}
+}
+
 bool Endpoint_ConfigureEndpointTable(const USB_Endpoint_Table_t* const Table,
                                      const uint8_t Entries)
 {
@@ -55,13 +155,13 @@ bool Endpoint_ConfigureEndpointTable(const USB_Endpoint_Table_t* const Table,
 	{
 		if (!(Table[i].Address))
 		  continue;
-	
+
 		if (!(Endpoint_ConfigureEndpoint(Table[i].Address, Table[i].Type, Table[i].Size, Table[i].Banks)))
 		{
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
