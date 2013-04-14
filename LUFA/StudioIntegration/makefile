@@ -52,11 +52,11 @@ $(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 
 generate_xml: $(TEMP_MANIFEST_XML)
 	@echo "Processing asf.xml file..."
-	@xsltproc XSLT/lufa_module_transform.xslt $< | xsltproc XSLT/lufa_indent_transform.xslt - > $(MODULE_OUTPUT_XML)
+	@xsltproc XDK/lufa_module_transform.xslt $< | xsltproc XDK/lufa_indent_transform.xslt - > $(MODULE_OUTPUT_XML)
 	@echo "Atmel Studio asf.xml file generated."
 
 	@echo "Processing extension.xml file..."
-	@xsltproc XSLT/lufa_extension_transform.xslt $< | xsltproc XSLT/lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
+	@xsltproc XDK/lufa_extension_transform.xslt $< | xsltproc XDK/lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
 	@echo "Atmel Studio extension.xml file generated."
 
 	@rm $(TEMP_MANIFEST_XML)
@@ -81,8 +81,8 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@cp "VSIX/[Content_Types].xml" $(LUFA_ROOT)/../
 	@cp "Blob/LUFA.dll" $(LUFA_ROOT)/../
 	@cp "Blob/LUFA.pkgdef" $(LUFA_ROOT)/../
-	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" XSLT/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
-	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" XSLT/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
+	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" VSIX/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
+	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" VSIX/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
 	@cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" extension.vsixmanifest asf-manifest.xml extension.xml LUFA.dll LUFA.pkgdef
@@ -93,7 +93,7 @@ check_filenames: $(MODULE_OUTPUT_XML)
 	@for f in `find $(LUFA_ROOT)/../ -name "asf.xml"`; do \
 		echo "Checking $$f..."; \
 		asf_file_dir=`dirname $$f`; \
-		xsltproc XSLT/lufa_filelist_transform.xslt $$f | sed -e "/^$$/d" | while read -r i; do \
+		xsltproc XDK/lufa_filelist_transform.xslt $$f | sed -e "/^$$/d" | while read -r i; do \
 			if ( ! test -f "$$asf_file_dir/$$i" ); then \
 				echo "Source file \"$$i\" referenced in $$f does not exist!"; \
 				exit 1; \
