@@ -18,7 +18,7 @@
  *  \section Sec_LibraryExport Exporting the Library
  *  An export of the library is at its most basic, a direct copy of the main "LUFA" source folder from the
  *  root download folder; this contains the library core which can be re-used within external projects.
- *  However, as many IDEs attempt to automatically compile all included source files, it is neccesary to
+ *  However, as many IDEs attempt to automatically compile all included source files, it is necessary to
  *  exclude some directories and files from the library core export to allow for easier integration into
  *  an IDE project.
  *

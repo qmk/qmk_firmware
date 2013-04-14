@@ -43,8 +43,8 @@
  *      to update their class driver struct instantiation to match the new scheme (see \ref USB_Endpoint_Table_t).
  *    - The \c ENDPOINT_BANKS_SUPPORTED() and \c ENDPOINT_MAX_ENDPOINT_SIZE() macros have been removed, as these do not function correctly with the new addressing
  *      scheme for the endpoint APIs. Please refer to the target device's datasheet for the maximum bank size of each endpoint.
- *    - The MIDI class driver \ref MIDI_EventPacket_t event packet no longer contains seperate \c CableIndex and \c Command entries; these have been combined
- *      into a single \c Event element which can be contructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
+ *    - The MIDI class driver \ref MIDI_EventPacket_t event packet no longer contains separate \c CableIndex and \c Command entries; these have been combined
+ *      into a single \c Event element which can be constructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
  *      element name.
  *
  *  <b>Host Mode</b>
@@ -58,7 +58,7 @@
  *    - All host mode class drivers have been updated to use a new unified pipe description structure for all pipes; existing applications will need to update
  *      their class driver struct instantiation to match the new scheme (see \ref USB_Pipe_Table_t).
  *    - The MIDI class driver \ref MIDI_EventPacket_t event packet no longer contains seperate \c CableIndex and \c Command entries; these have been combined
- *      into a single \c Event element which can be contructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
+ *      into a single \c Event element which can be constructed using the new macro \ref MIDI_EVENT(). Existing applications should use the new macro and structure
  *      element name.
  *    - The library "LUFA/Drivers/USB/Core/ConfigDescriptor.c" source file has been renamed "LUFA/Drivers/USB/Core/ConfigDescriptors.c" as this was clashing with
  *      files in some low level host mode demo applications, preventing parallel project builds. If you are referencing the project source files directly instead
@@ -144,7 +144,7 @@
  *      these functions should replace the previous function names with the new function names.
  *    - The \c Pipe_*_DWord() functions have been renamed Pipe_*_32() to ensure they are correct across all architectures. Existing code using
  *      these functions should replace the previous function names with the new function names.
- *    - The \c USB_Host_ClearPipeStall() function has been renamed to USB_Host_ClearEndpointStall(), as it operates on a full endpoing address
+ *    - The \c USB_Host_ClearPipeStall() function has been renamed to USB_Host_ClearEndpointStall(), as it operates on a full endpoint address
  *      within the attached device and not a pipe within the host. Existing code using the old function name should update the function calls and
  *      check for correct usage.
  *

@@ -9,9 +9,9 @@
  *
  *  The LUFA library is currently released under the MIT license, included below.
  *
- *  \section Sec_LicenseForHumans License Sumary for Human Beings
+ *  \section Sec_LicenseForHumans License Summary for Human Beings
  *  Everyone is free to use LUFA without payment - even in commercial applications
- *  where the product source code is not publically disclosed. However, use of the
+ *  where the product source code is not publicly disclosed. However, use of the
  *  library must be in accordance with the library license conditions.
  *
  *  If you wish to use LUFA without payment, you <b>must</b> include a copy of the
@@ -23,7 +23,7 @@
  *
  *  \section Sec_CommercialLicenses Commercial Licensing
  *  In some instances the small requirement for public disclosure of LUFA within a
- *  product is unwanted; in these instances a commecial license is offered up as an
+ *  product is unwanted; in these instances a commercial license is offered up as an
  *  alternative to the standard LUFA license.
  *
  *  Commercial entities can opt out of the public disclosure clause in this license

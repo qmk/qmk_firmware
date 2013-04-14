@@ -6,7 +6,7 @@
 
 /** \page Page_BuildLibrary Building as a Linkable Library
  *
- *  The LUFA library can be built as a proper linkable library (with the extention .a) under AVR-GCC, so that
+ *  The LUFA library can be built as a proper linkable library (with the extension .a) under AVR-GCC, so that
  *  the library does not need to be recompiled with each revision of a user project. Instructions for creating
  *  a library from a given source tree can be found in the AVR-GCC user manual included in the WinAVR install
  *  /Docs/ directory.
