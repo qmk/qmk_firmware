@@ -7,4 +7,5 @@
 	<Default Extension="zip" ContentType="application/octet-stream"/>
 	<Default Extension="dll" ContentType="application/octet-stream" />
 	<Default Extension="pkgdef" ContentType="text/plain" />
+	<Default Extension="htm" ContentType="text/html" />
 </Types>
