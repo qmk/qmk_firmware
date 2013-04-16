@@ -83,13 +83,14 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@cp "VSIX/ASFWizard.png" $(LUFA_ROOT)/../
 	@cp "VSIX/NewExampleWizard.png" $(LUFA_ROOT)/../
 	@cp "VSIX/GettingStarted.htm" $(LUFA_ROOT)/../
+	@cp "Blob/Atmel.Studio.Services.Interfaces.dll" $(LUFA_ROOT)/../
 	@cp "Blob/LUFA.dll" $(LUFA_ROOT)/../
 	@cp "Blob/LUFA.pkgdef" $(LUFA_ROOT)/../
 	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" VSIX/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
 	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" VSIX/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
-	@cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" ASFExplorer.png ASFWizard.png NewExampleWizard.png GettingStarted.htm extension.vsixmanifest asf-manifest.xml extension.xml LUFA.dll LUFA.pkgdef
+	@cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" ASFExplorer.png ASFWizard.png NewExampleWizard.png GettingStarted.htm extension.vsixmanifest asf-manifest.xml extension.xml LUFA.dll LUFA.pkgdef Atmel.Studio.Services.Interfaces.dll
 	@echo "Atmel Studio VSIX Extension file generated."
 
 check_filenames: $(MODULE_OUTPUT_XML)

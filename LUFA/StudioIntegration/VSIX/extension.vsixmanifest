@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
-	<Identifier Id="FourWalledCubicle.LUFA.0e160d5c-e331-48d9-850b-e0387912171b">
+	<Identifier Id="2cfcbce0-84cb-45dc-8315-cad3f82b9467">
 		<Name>LUFA Library</Name>
 		<Author>Dean Camera</Author>
 		<Version>0</Version>
