@@ -75,7 +75,7 @@ $(EXTENSION_OUTPUT_XML): $(TEMP_MANIFEST_XML)
 generate_xml: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
-	@echo "Cleaning all projects..."
+	@echo "Cleaning all Projects..."
 	@make -C $(LUFA_ROOT)/../ clean
 
 	@echo "Generating ASF cache files..."

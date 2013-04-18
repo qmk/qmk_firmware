@@ -98,6 +98,7 @@
  *  \li NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
  *  \li NES Controller USB modification: https://github.com/nfd/nes_adapter
  *  \li Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
+ *  \li Nintendo Four-Score, USB NES 4-player controller adapter: http://www.waitingforfriday.com/index.php/Nintendo_Four_Score_USB
  *  \li Numpad keyboard: http://tuomasnylund.fi/drupal6/content/usb-cherry-mx-numpad
  *  \li Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
