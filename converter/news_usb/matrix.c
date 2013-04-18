@@ -64,9 +64,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    print_enable = true;
-    debug_enable = true;
-    debug_matrix = true;
     news_init();
 
     // initialize matrix state: all keys off
