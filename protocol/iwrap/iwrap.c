@@ -334,7 +334,7 @@ static void send_keyboard(report_keyboard_t *report)
     // HID raw mode header
     xmit(0x9f);
     xmit(0x0a); // Length
-    xmit(0xa1); // keyboard report
+    xmit(0xa1); // DATA(Input)
     xmit(0x01);
     xmit(report->mods);
     xmit(0x00); // reserved byte(always 0)
@@ -355,9 +355,16 @@ static void send_mouse(report_mouse_t *report)
     // HID raw mode header
     xmit(0x9f);
     xmit(0x05); // Length
-    xmit(0xa1); // mouse report
+    xmit(0xa1); // DATA(Input)
     xmit(0x02);
-    xmit(report->buttons);
+    /* vertical wheel support */
+    int8_t wheel = report->v;
+    if (wheel < -15) {
+        wheel = -15;
+    } else if (wheel > 15) {
+        wheel = 15;
+    }
+    xmit(((wheel&0x1f)<<3) | (report->buttons&0x07));
     xmit(report->x);
     xmit(report->y);
     MUX_FOOTER(0x01);
@@ -457,7 +464,7 @@ static void send_consumer(uint16_t data)
     MUX_HEADER(0x01, 0x07);
     xmit(0x9f);
     xmit(0x05); // Length
-    xmit(0xa1); // consumer report
+    xmit(0xa1); // DATA(Input)
     xmit(0x03);
     xmit(bits1);
     xmit(bits2);

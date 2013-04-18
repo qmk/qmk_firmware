@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "matrix.h"
 #include "host.h"
+#include "action.h"
 #include "iwrap.h"
 #ifdef PROTOCOL_VUSB
 #   include "vusb.h"
@@ -40,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static void sleep(uint8_t term);
 static bool console(void);
-static uint8_t console_command(uint8_t c);
+static bool console_command(uint8_t c);
 static uint8_t key2asc(uint8_t key);
 
 
@@ -108,10 +109,13 @@ static void init_vusb(void)
 
 void change_driver(host_driver_t *driver)
 {
+    /*
     host_clear_keyboard_report();
     host_swap_keyboard_report();
     host_clear_keyboard_report();
     host_send_keyboard_report();
+    */
+    clear_keyboard();
     _delay_ms(1000);
     host_set_driver(driver);
 }
@@ -168,6 +172,7 @@ int main(void)
         if (host_get_driver() == vusb_driver())
             vusb_transfer_keyboard();
 #endif
+        // TODO: depricated
         if (matrix_is_modified() || console()) {
             last_timer = timer_read();
             sleeping = false;
@@ -176,6 +181,7 @@ int main(void)
             iwrap_check_connection();
         }
 
+        // TODO: suspend.h
         if (host_get_driver() == iwrap_driver()) {
             if (sleeping && !insomniac) {
                 _delay_ms(1);   // wait for UART to send
@@ -199,11 +205,6 @@ static void sleep(uint8_t term)
     sleep_disable();
 
     WD_SET(WD_OFF);
-}
-
-ISR(WDT_vect)
-{
-    // wake up
 }
 
 static bool console(void)
@@ -244,12 +245,12 @@ static bool console(void)
         }
 }
 
-uint8_t command_extra()
+bool command_extra(uint8_t code)
 {
-    return console_command(key2asc(host_get_first_key()));
+    return console_command(key2asc(code));
 }
 
-static uint8_t console_command(uint8_t c)
+static bool console_command(uint8_t c)
 {
     switch (c) {
         case 'h':
