@@ -9,14 +9,14 @@
 		<Description xml:space="preserve">LUFA USB Framework</Description>
 
 		<License>License.txt</License>
-		<Icon>PreviewThumb.png</Icon>
-		<PreviewImage>Preview.png</PreviewImage>
+		<Icon>LUFA_thumb.png</Icon>
+		<PreviewImage>LUFA.png</PreviewImage>
 
 		<SupportedProducts>
 			<IsolatedShell Version="6.1">AtmelStudio</IsolatedShell>
 		</SupportedProducts>
 
-		<SupportedFrameworkRuntimeEdition MinVersion="4.0" />
+		<SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.5"/>
 		<Locale>1033</Locale>
 
 	    <AllUsers>false</AllUsers>

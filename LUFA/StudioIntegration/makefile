@@ -10,13 +10,24 @@
 # ---------------------------------------
 
 LUFA_ROOT            := ..
+LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
 DOXYGEN_TAG_FILE_XML := $(LUFA_ROOT)/Documentation/lufa_doc_tags.xml
 DOXYGEN_COMBINED_XML := $(LUFA_ROOT)/Documentation/xml/lufa_doc.xml
 TEMP_MANIFEST_XML    := manifest.xml
 EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
 MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
 XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
-LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
+VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png \
+                        $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png       \
+                        $(LUFA_ROOT)/License.txt                        \
+                        VSIX/"[Content_Types].xml"                      \
+                        VSIX/ASFExplorer.png                            \
+                        VSIX/ASFWizard.png                              \
+                        VSIX/NewExampleWizard.png                       \
+                        VSIX/GettingStarted.htm                         \
+                        Blob/Atmel.Studio.Services.Interfaces.dll       \
+                        Blob/LUFA.dll                                   \
+                        Blob/LUFA.pkgdef
 
 ifneq ($(LUFA_VERSION_NUM),000000)
   EXT_VERSION_NUM    := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
@@ -34,7 +45,7 @@ clean:
 	@rm -f $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML) $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 
 $(DOXYGEN_TAG_FILE_XML):
-	$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_HTML=no GENERATE_XML=yes"
+	@$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_HTML=no GENERATE_XML=yes"
 
 $(DOXYGEN_COMBINED_XML): $(DOXYGEN_TAG_FILE_XML)
 	@xsltproc $(dir $@)/combine.xslt $(dir $@)/index.xml > $(DOXYGEN_COMBINED_XML)
@@ -50,16 +61,18 @@ $(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 
 	@echo "Manifest XML file generated."
 
-generate_xml: $(TEMP_MANIFEST_XML)
+$(MODULE_OUTPUT_XML): $(TEMP_MANIFEST_XML)
 	@echo "Processing asf.xml file..."
 	@xsltproc XDK/lufa_module_transform.xslt $< | xsltproc XDK/lufa_indent_transform.xslt - > $(MODULE_OUTPUT_XML)
 	@echo "Atmel Studio asf.xml file generated."
 
+$(EXTENSION_OUTPUT_XML): $(TEMP_MANIFEST_XML)
 	@echo "Processing extension.xml file..."
 	@xsltproc XDK/lufa_extension_transform.xslt $< | xsltproc XDK/lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
 	@echo "Atmel Studio extension.xml file generated."
 
-	@rm $(TEMP_MANIFEST_XML)
+
+generate_xml: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 	@echo "Cleaning all projects..."
@@ -72,25 +85,15 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 
 	@echo "Archiving Content..."
 	@rm -f contents.zip
-	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -0 -r --exclude=*Documentation* --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects extension.xml README.txt
+	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -0 -r --exclude=*Documentation* --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects README.txt
 
 	@echo "Creating VSIX Dependencies..."
-	@cp $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png $(LUFA_ROOT)/../PreviewThumb.png
-	@cp $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png $(LUFA_ROOT)/../Preview.png
-	@cp $(LUFA_ROOT)/License.txt $(LUFA_ROOT)/../
-	@cp "VSIX/[Content_Types].xml" $(LUFA_ROOT)/../
-	@cp "VSIX/ASFExplorer.png" $(LUFA_ROOT)/../
-	@cp "VSIX/ASFWizard.png" $(LUFA_ROOT)/../
-	@cp "VSIX/NewExampleWizard.png" $(LUFA_ROOT)/../
-	@cp "VSIX/GettingStarted.htm" $(LUFA_ROOT)/../
-	@cp "Blob/Atmel.Studio.Services.Interfaces.dll" $(LUFA_ROOT)/../
-	@cp "Blob/LUFA.dll" $(LUFA_ROOT)/../
-	@cp "Blob/LUFA.pkgdef" $(LUFA_ROOT)/../
+	@cp $(VSIX_ASSETS) $(LUFA_ROOT)/..
 	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" VSIX/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
 	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" VSIX/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
 
 	@echo "Generating Atmel Studio VSIX Extension file..."
-	@cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache License.txt Preview.png PreviewThumb.png "[Content_Types].xml" ASFExplorer.png ASFWizard.png NewExampleWizard.png GettingStarted.htm extension.vsixmanifest asf-manifest.xml extension.xml LUFA.dll LUFA.pkgdef Atmel.Studio.Services.Interfaces.dll
+	cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache extension.vsixmanifest asf-manifest.xml extension.xml $(notdir $(VSIX_ASSETS))
 	@echo "Atmel Studio VSIX Extension file generated."
 
 check_filenames: $(MODULE_OUTPUT_XML)
