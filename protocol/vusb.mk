@@ -10,10 +10,10 @@ SRC +=	$(VUSB_DIR)/main.c \
 
 
 ifdef NO_UART
-SRC +=	sendchar_null.c
+SRC +=	$(COMMON_DIR)/sendchar_null.c
 else
-SRC +=	sendchar_uart.c \
-	uart.c
+SRC +=	$(COMMON_DIR)/sendchar_uart.c \
+	$(COMMON_DIR)/uart.c
 endif
 
 
