@@ -335,7 +335,7 @@ static void send_keyboard(report_keyboard_t *report)
     xmit(0x9f);
     xmit(0x0a); // Length
     xmit(0xa1); // DATA(Input)
-    xmit(0x01);
+    xmit(0x01); // Report ID
     xmit(report->mods);
     xmit(0x00); // reserved byte(always 0)
     xmit(report->keys[0]);
@@ -351,22 +351,17 @@ static void send_mouse(report_mouse_t *report)
 {
 #if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
     if (!iwrap_connected() && !iwrap_check_connection()) return;
-    MUX_HEADER(0x01, 0x07);
+    MUX_HEADER(0x01, 0x09);
     // HID raw mode header
     xmit(0x9f);
-    xmit(0x05); // Length
+    xmit(0x07); // Length
     xmit(0xa1); // DATA(Input)
-    xmit(0x02);
-    /* vertical wheel support */
-    int8_t wheel = report->v;
-    if (wheel < -15) {
-        wheel = -15;
-    } else if (wheel > 15) {
-        wheel = 15;
-    }
-    xmit(((wheel&0x1f)<<3) | (report->buttons&0x07));
+    xmit(0x02); // Report ID
+    xmit(report->buttons);
     xmit(report->x);
     xmit(report->y);
+    xmit(report->v);
+    xmit(report->h);
     MUX_FOOTER(0x01);
 #endif
 }
@@ -465,7 +460,7 @@ static void send_consumer(uint16_t data)
     xmit(0x9f);
     xmit(0x05); // Length
     xmit(0xa1); // DATA(Input)
-    xmit(0x03);
+    xmit(0x03); // Report ID
     xmit(bits1);
     xmit(bits2);
     xmit(bits3);
