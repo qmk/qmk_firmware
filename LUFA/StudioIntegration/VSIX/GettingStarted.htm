@@ -1,7 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>LUFA</title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 
 		<style media="screen" type="text/css">
 			/* Reset */
@@ -42,6 +44,14 @@
 			#header span
 			{
 				color: #998
+			}
+
+			#footer
+			{
+				text-align: center;
+				font: normal 1em Georgia, sans-serif;
+				color: #CCB;
+				padding: 20px;
 			}
 
 			#content
@@ -95,7 +105,7 @@
 				   wizard from the <tt>File->New</tt> menu. Expand out the <em>FourWalledCubicle</em> node, then the <em>Dean Camera - LUFA</em> node to see a list
 				   of LUFA projects.</p>
 
-				   <img width="700px" src="NewExampleWizard.png"/>
+				   <img width="700px" src="NewExampleWizard.png" alt="Atmel Studio New Example Wizard" />
 
 				<h1>Configure LUFA</h1>
 				<p>The LUFA Atmel Studio extension is fully integrated into the Atmel Studio IDE, including the LUFA sub-modules. Open the
@@ -103,14 +113,14 @@
 					the LUFA library as the extension to configure from the <em>Available Modules</em> portion of the wizard. Here you can
 					add and remove LUFA modules to and from your project as you need them.</p>
 
-				   <img width="700px" src="ASFWizard.png"/>
+				   <img width="700px" src="ASFWizard.png" alt="Atmel ASF Module Wizard" />
 
 				<h1>Find the Module APIs</h1>
 				<p>You can view your project's included LUFA modules any time you need to from the <em>ASF Explorer</em> window, accessible from
 					the <tt>ASF->ASF Explorer</tt> menu.</p> Here you can find a link to the module's corresponding API documentation in the LUFA
 					manual, as well as a direct link to the module's API header.
 
-				   <img src="ASFExplorer.png"/>
+				   <img src="ASFExplorer.png" alt="Atmel ASF Explorer Tool Window" />
 
 				<h1>Get Help</h1>
 				<p>First and foremost, remember to consult the <a href="http://www.lufa-lib.org/documentation">LUFA documentation</a>
@@ -127,6 +137,6 @@
 				</p>
 			</div>
 		</div>
-		<br/>
+		<div id="footer"><p>LUFA - <em>the Lightweight USB Framework for AVRs</em></p></div>
 	</body>
 </html>

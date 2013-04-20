@@ -43,6 +43,7 @@ all: generate_xml check_filenames generate_vsix
 
 clean:
 	@rm -f $(TEMP_MANIFEST_XML) $(MODULE_OUTPUT_XML) $(EXTENSION_OUTPUT_XML) $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
+	@cd $(LUFA_ROOT)/.. && rm -f contents.zip exampleProjects.xml content.xml.cache extension.vsixmanifest asf-manifest.xml extension.xml $(notdir $(VSIX_ASSETS)) LUFA-*.vsix
 
 $(DOXYGEN_TAG_FILE_XML):
 	@$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_HTML=no GENERATE_XML=yes"
@@ -75,9 +76,6 @@ $(EXTENSION_OUTPUT_XML): $(TEMP_MANIFEST_XML)
 generate_xml: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
-	@echo "Cleaning all Projects..."
-	@make -C $(LUFA_ROOT)/../ clean
-
 	@echo "Generating ASF cache files..."
 	@rm -f $(LUFA_ROOT)/../content.xml.cache
 	@rm -f $(LUFA_ROOT)/../ExampleProjects.xml
