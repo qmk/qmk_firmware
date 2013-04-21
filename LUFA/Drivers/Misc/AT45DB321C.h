@@ -34,7 +34,7 @@
  */
 
 /** \ingroup Group_MiscDrivers
- *  \defgroup Group_AT45DB321C Atmel AT45DB321C Dataflash Commands
+ *  \defgroup Group_AT45DB321C Atmel AT45DB321C Dataflash Commands - LUFA/Drivers/Misc/AT45DB321C.h
  *  \brief Command constants for the Atmel AT45DB321C Dataflash.
  *
  *  Dataflash command constants for the Atmel AT45DB321C Dataflash IC.

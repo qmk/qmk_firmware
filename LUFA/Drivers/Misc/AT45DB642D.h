@@ -34,7 +34,7 @@
  */
 
 /** \ingroup Group_MiscDrivers
- *  \defgroup Group_AT45DB642D Atmel AT45DB642D Dataflash Commands
+ *  \defgroup Group_AT45DB642D Atmel AT45DB642D Dataflash Commands - LUFA/Drivers/Misc/AT45DB642D.h
  *  \brief Command constants for the Atmel AT45DB642D Dataflash.
  *
  *  Dataflash command constants for the Atmel AT45DB642D Dataflash IC.
