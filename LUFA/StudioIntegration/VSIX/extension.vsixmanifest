@@ -27,6 +27,7 @@
 	<Content>
 		<VsPackage>LUFA.pkgdef</VsPackage>
 	    <CustomExtension Type="GettingStarted">GettingStarted.htm</CustomExtension>
+	    <CustomExtension Type="MSHelp">helpcontentsetup.msha</CustomExtension>
 		<CustomExtension Type="asf-manifest">asf-manifest.xml</CustomExtension>
 	</Content>
 </Vsix>
