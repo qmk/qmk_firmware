@@ -22,9 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "keycode.h"
+#include "action.h"
+#include "action_macro.h"
+#include "report.h"
+#include "host.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
 #include "keymap.h"
 
 
@@ -46,34 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* 4 */   { KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E, KC_##K4F, KC_##K4G, KC_##K4H, KC_##K4I, KC_##K4J, KC_##K4K, KC_##K4L, KC_NO   , KC_##K4N, KC_##K4O, KC_##K4P, KC_##K4Q}, \
 /* 5 */   { KC_##K5A, KC_##K5B, KC_##K5C, KC_##K5D, KC_##K5E, KC_##K5F, KC_##K5G, KC_##K5H, KC_##K5I, KC_##K5J, KC_##K5K, KC_##K5L, KC_##K5M, KC_##K5N, KC_##K5O, KC_##K5P, KC_##K5Q}, \
 }
-
-#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
-
-
-// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
-static const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
-    1,              // Fn1
-    2,              // Fn2
-    3,              // Fn3
-    4,              // Fn4
-    5,              // Fn5
-    6,              // Fn6
-    7               // Fn7
-};
-
-// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
-// See layer.c for details.
-static const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_NO,          // Fn2
-    KC_NO,          // Fn3
-    KC_NO,          // Fn4
-    KC_NO,          // Fn5
-    KC_NO,          // Fn6
-    KC_NO           // Fn7
-};
 
 /*
  * Phantom keyboard layout with winkeys and 7bit style editing block. I am
@@ -122,7 +97,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10,  F11,  F12,       PSCR, SLCK,  BRK, \
     GRV,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0, MINS,  EQL, BSPC,  INS, HOME, PGUP, \
     TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P, LBRC, RBRC, BSLS,  DEL,  END, PGDN, \
-    FN1,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,    0,    0,    0, \
+    FN0,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,    0,    0,    0, \
     LSFT,       Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH,      RSFT,   0,   UP,    0, \
     LCTL, LGUI, LALT,             SPC,                RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
 
@@ -148,25 +123,40 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10,  F11,  F12,       PSCR, SLCK, SLEP, \
     GRV,   1,   2,   3,   4,   5,   6,   7,   8,   9,MUTE, VOLD, VOLU, BSPC,  INS, HOME, PGUP, \
     TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,MSTP,MPLY, MPRV, MNXT, MSEL,  DEL,  END, PGDN, \
-    FN1,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,    0,    0,    0, \
+    FN0,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,    0,    0,    0, \
     LSFT,       Z,   X,CALC,   V,   B,   N,   M, COMM, DOT, SLSH,      CAPS,    0,   UP,    0, \
     LCTL, LGUI, LALT,             SPC,                RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
-
-
 };
 
+/*
+ * Fn action definition
+ */
+static const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_LAYER_MOMENTARY(1)
+};
 
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
+#define KEYMAPS_SIZE    (sizeof(keymaps) / sizeof(keymaps[0]))
+#define FN_ACTIONS_SIZE (sizeof(fn_actions) / sizeof(fn_actions[0]))
+
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return KEYCODE(layer, row, col);
+    if (layer < KEYMAPS_SIZE) {
+        return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+    } else {
+        // fall back to layer 0
+        return pgm_read_byte(&keymaps[0][(key.row)][(key.col)]);
+    }
 }
 
-uint8_t keymap_fn_layer(uint8_t index)
+/* translates Fn keycode to action */
+action_t keymap_fn_to_action(uint8_t keycode)
 {
-    return pgm_read_byte(&fn_layer[index]);
-}
-
-uint8_t keymap_fn_keycode(uint8_t index)
-{
-    return pgm_read_byte(&fn_keycode[index]);
+    action_t action;
+    if (FN_INDEX(keycode) < FN_ACTIONS_SIZE) {
+        action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
+    } else {
+        action.code = ACTION_NO;
+    }
+    return action;
 }
