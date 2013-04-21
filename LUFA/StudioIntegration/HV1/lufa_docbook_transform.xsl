@@ -38,10 +38,12 @@
 				<xsl:value-of select="$book.title"/>
 			</title>
 
+			<!-- Add index chapter -->
 			<xsl:call-template name="generate.top.level.page">
 				<xsl:with-param name="top.level.page" select="compounddef[@kind = 'page' and contains(@id, 'index')]"/>
 			</xsl:call-template>
 
+			<!-- Add free-floating chapters -->
 			<xsl:for-each select="compounddef[@kind = 'page' and not(contains(@id, 'index'))]">
 				<xsl:if test="not(//innerpage[@refid = current()/@id])">
 					<xsl:call-template name="generate.top.level.page">
@@ -49,6 +51,16 @@
 					</xsl:call-template>
 				</xsl:if>
 			</xsl:for-each>
+
+			<!-- Add Module chapter -->
+			<chapter>
+				<title>Modules</title>
+				<xsl:for-each select="compounddef[@kind = 'group']">
+					<xsl:if test="not(//innergroup[@refid = current()/@id])">
+						<xsl:apply-templates select="current()"/>
+					</xsl:if>
+				</xsl:for-each>
+			</chapter>
 		</book>
 	</xsl:template>
 
@@ -76,6 +88,139 @@
 
 			<xsl:for-each select="innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
+			</xsl:for-each>
+		</section>
+	</xsl:template>
+
+	<xsl:template match="compounddef[@kind = 'group']">
+		<section id="{@id}">
+			<title>
+				<xsl:value-of select="title"/>
+			</title>
+
+			<xsl:variable name="book.title">
+				<xsl:call-template name="generate.book.title"/>
+			</xsl:variable>
+
+			<xsl:variable name="name">
+				<xsl:choose>
+					<xsl:when test="contains(compoundname, '_')">
+						<xsl:value-of select="translate(compoundname, '_', '/')"/>
+						<xsl:text>.h</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="compoundname"/>
+						<xsl:text>.h</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+			<xsl:variable name="name.escaped">
+				<xsl:choose>
+					<xsl:when test="contains(compoundname, '_')">
+						<xsl:value-of select="translate(compoundname, '_', '.')"/>
+						<xsl:text>.h</xsl:text>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="compoundname"/>
+						<xsl:text>.h</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+
+			<indexterm id="{$keyword.namespace}.{$name.escaped}">
+				<primary>Header</primary>
+				<secondary>
+					<xsl:value-of select="$name"/>
+				</secondary>
+			</indexterm>
+			<indexterm>
+				<primary>
+					<xsl:value-of select="$book.title"/>
+				</primary>
+				<secondary>
+					<xsl:value-of select="$name"/>
+				</secondary>
+			</indexterm>
+			<indexterm>
+				<primary>
+					<xsl:value-of select="$name"/>
+				</primary>
+			</indexterm>
+
+			<xsl:apply-templates/>
+			<xsl:for-each select="innerclass">
+				<xsl:apply-templates select="ancestor::*/compounddef[@id = current()/@refid]"/>
+			</xsl:for-each>
+
+			<xsl:for-each select="innergroup">
+				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'group' and @id = current()/@refid]"/>
+			</xsl:for-each>
+		</section>
+	</xsl:template>
+
+	<xsl:template match="compounddef[@kind = 'struct' or @kind = 'union']">
+		<xsl:variable name="name" select="compoundname"/>
+		<xsl:variable name="book.title">
+			<xsl:call-template name="generate.book.title"/>
+		</xsl:variable>
+		<xsl:variable name="book.id">
+			<xsl:call-template name="generate.book.id">
+				<xsl:with-param name="book.title" select="$book.title"/>
+			</xsl:call-template>
+		</xsl:variable>
+
+		<section id="{@id}" xreflabel="{$name}">
+			<title>
+				<xsl:value-of select="@kind"/>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="$name"/>
+			</title>
+
+			<indexterm id="{$keyword.namespace}.{$name}">
+				<primary>
+					<xsl:value-of select="$book.title"/>
+				</primary>
+				<secondary>
+					<xsl:value-of select="$name"/>
+				</secondary>
+			</indexterm>
+
+			<xsl:apply-templates select="detaileddescription"/>
+			<xsl:for-each select="sectiondef[@kind='public-attrib']">
+				<table abstyle="striped">
+					<title>
+						<xsl:value-of select="$name"/>
+					</title>
+					<tgroup cols="3">
+						<colspec colnum="1" colname="start.col"/>
+						<colspec colnum="3" colname="stop.col"/>
+						<spanspec spanname="full" namest="start.col" nameend="stop.col"/>
+						<thead>
+							<row>
+								<entry>Data type</entry>
+								<entry>Field name</entry>
+								<entry>Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<xsl:for-each select="memberdef">
+								<row id="{@id}" xreflabel="{name}">
+									<entry>
+										<xsl:apply-templates select="type"/>
+									</entry>
+									<entry>
+										<xsl:value-of select="name"/>
+										<indexterm id="{$keyword.namespace}.{$name}.{name}"/>
+									</entry>
+									<entry>
+										<xsl:apply-templates select="detaileddescription"/>
+									</entry>
+								</row>
+							</xsl:for-each>
+						</tbody>
+					</tgroup>
+				</table>
 			</xsl:for-each>
 		</section>
 	</xsl:template>

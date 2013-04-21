@@ -42,7 +42,7 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png \
                         Blob/LUFA.pkgdef
 MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"            \
                        --stringparam chunk.quietly "1"                  \
-                       --stringparam chunk.section.depth "2"            \
+                       --stringparam chunk.section.depth "3"            \
                        --stringparam chunk.first.sections "1"
 
 all: generate_xml check_filenames generate_vsix
