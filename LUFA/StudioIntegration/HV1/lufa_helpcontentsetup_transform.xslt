@@ -24,18 +24,7 @@
 		</xsl:copy>
 	</xsl:template>
 
-	<!-- Update the LUFA version to the version passed as a parameter -->
-	<xsl:template match="xhtml:title | xhtml:div[@class='details']/xhtml:span[@class='name']">
-		<xsl:copy>
-			<xsl:copy-of select="@*"/>
-
-			<xsl:value-of select="."/>
-			<xsl:text> (</xsl:text>
-			<xsl:value-of select="$extension-version"/>
-			<xsl:text>)</xsl:text>
-		</xsl:copy>
-	</xsl:template>
-
+	<!-- Update the LUFA help package file name -->
 	<xsl:template match="xhtml:div[@class='package']/xhtml:a">
 		<xsl:copy>
 			<xsl:copy-of select="@class"/>
