@@ -3,7 +3,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:import href="transform_base.xsl"/>
 
-	<xsl:output method="xml" indent="yes"/>
+	<xsl:output method="xml" indent="no"/>
 
 	<xsl:param name="keyword.namespace" select="'Atmel.Language.C'"/>
 
@@ -21,6 +21,27 @@
 				<xsl:value-of select="translate($book.title, ' ','')"/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="generate.index.id">
+		<xsl:param name="name"/>
+		<xsl:variable name="book.title">
+			<xsl:call-template name="generate.book.title"/>
+		</xsl:variable>
+		<xsl:variable name="book.id">
+			<xsl:call-template name="generate.book.id">
+				<xsl:with-param name="book.title" select="$book.title"/>
+			</xsl:call-template>
+		</xsl:variable>
+
+		<indexterm id="{$keyword.namespace}.{$name}">
+			<primary>
+				<xsl:value-of select="$book.title"/>
+			</primary>
+			<secondary>
+				<xsl:value-of select="$name"/>
+			</secondary>
+		</indexterm>
 	</xsl:template>
 
 	<xsl:template match="doxygen">
@@ -66,13 +87,11 @@
 
 	<xsl:template name="generate.top.level.page">
 		<xsl:param name="top.level.page"/>
-
 		<chapter id="{$top.level.page/@id}">
 			<title>
 				<xsl:value-of select="$top.level.page/title"/>
 			</title>
 			<xsl:apply-templates select="$top.level.page/detaileddescription"/>
-
 			<xsl:for-each select="$top.level.page/innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
 			</xsl:for-each>
@@ -85,7 +104,6 @@
 				<xsl:value-of select="title"/>
 			</title>
 			<xsl:apply-templates select="detaileddescription"/>
-
 			<xsl:for-each select="innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
 			</xsl:for-each>
@@ -147,7 +165,6 @@
 					<xsl:value-of select="$name"/>
 				</primary>
 			</indexterm>
-
 			<xsl:apply-templates/>
 			<xsl:for-each select="innerclass">
 				<xsl:apply-templates select="ancestor::*/compounddef[@id = current()/@refid]"/>
@@ -161,14 +178,6 @@
 
 	<xsl:template match="compounddef[@kind = 'struct' or @kind = 'union']">
 		<xsl:variable name="name" select="compoundname"/>
-		<xsl:variable name="book.title">
-			<xsl:call-template name="generate.book.title"/>
-		</xsl:variable>
-		<xsl:variable name="book.id">
-			<xsl:call-template name="generate.book.id">
-				<xsl:with-param name="book.title" select="$book.title"/>
-			</xsl:call-template>
-		</xsl:variable>
 
 		<section id="{@id}" xreflabel="{$name}">
 			<title>
@@ -177,16 +186,12 @@
 				<xsl:value-of select="$name"/>
 			</title>
 
-			<indexterm id="{$keyword.namespace}.{$name}">
-				<primary>
-					<xsl:value-of select="$book.title"/>
-				</primary>
-				<secondary>
-					<xsl:value-of select="$name"/>
-				</secondary>
-			</indexterm>
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
 
 			<xsl:apply-templates select="detaileddescription"/>
+
 			<xsl:for-each select="sectiondef[@kind='public-attrib']">
 				<table abstyle="striped">
 					<title>
@@ -225,6 +230,151 @@
 		</section>
 	</xsl:template>
 
+	<xsl:template match="memberdef[@kind = 'function']">
+		<xsl:variable name="name" select="name"/>
+
+		<section id="{@id}" xreflabel="{name}">
+			<title>
+				<xsl:text>Function </xsl:text>
+				<xsl:value-of select="name"/>
+				<xsl:text>()</xsl:text>
+			</title>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+
+			<para>
+				<emphasis role="italic">
+					<xsl:value-of select="briefdescription"/>
+				</emphasis>
+			</para>
+
+			<programlisting language="c">
+				<xsl:value-of select="definition"/>
+				<xsl:text> </xsl:text>
+				<xsl:apply-templates select="argsstring"/>
+			</programlisting>
+
+			<xsl:apply-templates select="detaileddescription"/>
+		</section>
+	</xsl:template>
+
+	<xsl:template match="memberdef[@kind = 'enum']">
+		<xsl:variable name="name" select="name"/>
+
+		<section id="{@id}" xreflabel="{name}">
+			<title>
+				<xsl:text>Enum </xsl:text>
+				<xsl:value-of select="name"/>
+			</title>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+
+			<xsl:apply-templates select="detaileddescription"/>
+
+			<informaltable tabstyle="striped">
+				<tgroup cols="2">
+					<thead>
+						<row>
+							<entry>Enum Value</entry>
+							<entry>Description</entry>
+						</row>
+					</thead>
+					<tbody>
+						<xsl:for-each select="enumvalue">
+							<row>
+								<entry>
+									<para id="{@id}" xreflabel="{name}">
+										<xsl:value-of select="name"/>
+									</para>
+								</entry>
+								<entry>
+									<xsl:apply-templates select="detaileddescription"/>
+								</entry>
+							</row>
+						</xsl:for-each>
+					</tbody>
+				</tgroup>
+			</informaltable>
+		</section>
+	</xsl:template>
+
+	<xsl:template match="memberdef[@kind = 'define']">
+		<xsl:variable name="name" select="name"/>
+
+		<section id="{@id}" xreflabel="{name}">
+			<title>
+				<xsl:text>Macro </xsl:text>
+				<xsl:value-of select="name"/>
+			</title>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+
+			<programlisting language="c">
+				<xsl:text>#define </xsl:text>
+				<xsl:value-of select="name"/>
+				<xsl:if test="count(param) &gt; 0">
+					<xsl:text>(</xsl:text>
+					<xsl:for-each select="param/defname">
+						<xsl:if test="position() &gt; 1">
+							<xsl:text>,</xsl:text>
+						</xsl:if>
+						<xsl:value-of select="."/>
+					</xsl:for-each>
+					<xsl:text>)</xsl:text>
+				</xsl:if>
+
+				<xsl:text> </xsl:text>
+
+				<!-- Split long macro definitions across multiple lines -->
+				<xsl:if test="(string-length(initializer) &gt; 50) or (count(param) &gt; 0)">
+					<xsl:text>\</xsl:text>
+				</xsl:if>
+
+				<xsl:value-of select="initializer"/>
+			</programlisting>
+
+			<xsl:apply-templates select="detaileddescription"/>
+		</section>
+	</xsl:template>
+
+	<xsl:template match="memberdef[@kind = 'variable' or @kind = 'typedef']">
+		<xsl:variable name="name" select="name"/>
+
+		<section id="{@id}" xreflabel="{name}">
+			<title>
+				<!-- Doxygen gets confused and thinks function pointer type definitions
+		are variables, so we need to map them to this common section and
+		check the definition to see which of the two it is. -->
+				<xsl:choose>
+					<xsl:when test="contains(definition,'typedef')">
+						<xsl:text>Type </xsl:text>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>Variable </xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+
+				<xsl:value-of select="name"/>
+			</title>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+
+			<programlisting language="c">
+				<xsl:value-of select="definition"/>
+			</programlisting>
+
+			<xsl:apply-templates select="detaileddescription"/>
+		</section>
+	</xsl:template>
+
 	<xsl:template match="linebreak">
 		<xsl:text>&#10;</xsl:text>
 	</xsl:template>
@@ -260,7 +410,6 @@
 			<title>
 				<xsl:value-of select="title"/>
 			</title>
-
 			<xsl:apply-templates/>
 		</section>
 	</xsl:template>
