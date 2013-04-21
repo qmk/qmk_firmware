@@ -40,6 +40,10 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png \
                         Blob/Atmel.Studio.Services.Interfaces.dll       \
                         Blob/LUFA.dll                                   \
                         Blob/LUFA.pkgdef
+MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"            \
+                       --stringparam chunk.quietly "1"                  \
+                       --stringparam chunk.section.depth "2"            \
+                       --stringparam chunk.first.sections "1"
 
 all: generate_xml check_filenames generate_vsix
 
@@ -79,11 +83,11 @@ $(MSHELP_OUTPUT_XML): $(DOXYGEN_COMBINED_XML)
 	@echo Converting Doxygen XML to Docbook...
 	@-mkdir mshelp 2> /dev/null
 	@xsltproc HV1/lufa_docbook_transform.xsl $(DOXYGEN_COMBINED_XML) > mshelp/lufa_docbook.xml
-	@cd mshelp && xsltproc ../Docbook/mshelp/docbook.xsl lufa_docbook.xml
+	@cd mshelp && xsltproc $(MSHELP_GEN_PARAMS) ../Docbook/mshelp/docbook.xsl lufa_docbook.xml
 
 	@echo Copying help assets...
 	@-mkdir mshelp/images 2> /dev/null
-	@cp -r $(LUFA_ROOT)/DoxygenPages/Images/* mshelp/images
+	@cp `find $(LUFA_ROOT)/DoxygenPages/Images -type f` mshelp/images
 
 	@echo Archiving help content...
 	@cd mshelp && zip ../$(MSHELP_OUTPUT_XML) -q -0  -r *.html images
