@@ -7,7 +7,7 @@
   version="1.0">
 
   <xsl:output
-    method="xml" indent="yes"
+    method="xml" indent="no"
     doctype-public="-//OASIS//DTD DocBook XML V4.5//EN"
     doctype-system="http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"/>
 
@@ -40,11 +40,11 @@
         </section>
       </xsl:if>
 
-      <xsl:if test="count(ancestor::*/sectiondef[memberdef/@kind = 'define' or @kind = 'define']) > 0">
+      <xsl:if test="count(ancestor::*/sectiondef[memberdef/@kind = 'define']) > 0">
         <section>
           <title>Macro Definitions</title>
 
-          <xsl:for-each select="ancestor::*/sectiondef[memberdef/@kind = 'define' or @kind = 'define']">
+          <xsl:for-each select="ancestor::*/sectiondef[memberdef/@kind = 'define']">
             <section>
               <title>
                 <xsl:value-of select="header"/>
@@ -106,7 +106,9 @@
       <xsl:apply-templates select="detaileddescription"/>
 
       <xsl:for-each select="sectiondef[@kind = 'public-attrib']">
-        <informaltable tabstyle="striped">
+        <table tabstyle="striped">
+          <title>Members</title>
+
           <tgroup cols="3">
             <thead>
               <row>
@@ -134,7 +136,7 @@
               </xsl:for-each>
             </tbody>
           </tgroup>
-        </informaltable>
+        </table>
         <para>&#xa0;</para>
       </xsl:for-each>
     </section>
@@ -151,9 +153,34 @@
       </para>
 
       <programlisting language="c">
-        <xsl:value-of select="definition"/>
-        <xsl:text>&#10;&#9;&#9;</xsl:text>
-        <xsl:apply-templates select="argsstring"/>
+        <emphasis role="keyword">
+          <xsl:value-of select="type"/>
+        </emphasis>
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="name"/>
+        <xsl:text>(</xsl:text>
+
+        <xsl:choose>
+          <xsl:when test="argsstring = '(void)'">
+            <emphasis role="keyword">void</emphasis>
+          </xsl:when>
+
+          <xsl:otherwise>
+            <xsl:for-each select="param">
+              <xsl:if test="position() > 1">
+                <xsl:text>,</xsl:text>
+              </xsl:if>
+              <xsl:text>&#10;&#9;&#9;</xsl:text>
+              <emphasis role="keyword">
+                <xsl:value-of select="type"/>
+              </emphasis>
+              <xsl:text> </xsl:text>
+              <xsl:value-of select="declname"/>
+            </xsl:for-each>
+          </xsl:otherwise>
+        </xsl:choose>
+
+        <xsl:text>)</xsl:text>
       </programlisting>
 
       <xsl:apply-templates select="detaileddescription"/>
@@ -168,11 +195,12 @@
 
       <xsl:apply-templates select="detaileddescription"/>
 
-      <informaltable tabstyle="striped">
+      <table tabstyle="striped">
+        <title>Members</title>
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Enum Value</entry>
+              <entry>Enum value</entry>
               <entry>Description</entry>
             </row>
           </thead>
@@ -191,7 +219,7 @@
             </xsl:for-each>
           </tbody>
         </tgroup>
-      </informaltable>
+      </table>
 
       <para>&#xa0;</para>
     </section>
@@ -202,26 +230,29 @@
       <title> Macro <xsl:value-of select="name"/> </title>
 
       <programlisting language="c">
-        <xsl:text>#define </xsl:text>
-        <xsl:value-of select="name"/>
-        <xsl:if test="count(param) > 0">
-          <xsl:text>(</xsl:text>
-          <xsl:for-each select="param/defname">
-            <xsl:if test="position() > 1">
-              <xsl:text>, </xsl:text>
-            </xsl:if>
-            <xsl:value-of select="."/>
-          </xsl:for-each>
-          <xsl:text>)</xsl:text>
-        </xsl:if>
+        <emphasis role="preprocessor">
+          <xsl:text>#define </xsl:text>
+          <xsl:value-of select="name"/>
+          <xsl:if test="count(param) > 0">
+            <xsl:text>(</xsl:text>
+            <xsl:for-each select="param/defname">
+              <xsl:if test="position() > 1">
+                <xsl:text>, </xsl:text>
+              </xsl:if>
+              <xsl:value-of select="."/>
+            </xsl:for-each>
+            <xsl:text>)</xsl:text>
+          </xsl:if>
+          <xsl:text> </xsl:text>
+
+          <!-- Split long macro definitions across multiple lines -->
+          <xsl:if test="(string-length(initializer) > 50) or (count(param) > 0)">
+            <xsl:text>\&#10;&#09;&#9;</xsl:text>
+          </xsl:if>
+
+          <xsl:value-of select="initializer"/>
+        </emphasis>
         <xsl:text> </xsl:text>
-
-        <!-- Split long macro definitions across multiple lines -->
-        <xsl:if test="(string-length(initializer) > 50) or (count(param) > 0)">
-          <xsl:text>\&#10;&#09;&#9;</xsl:text>
-        </xsl:if>
-
-        <xsl:value-of select="initializer"/>
       </programlisting>
 
       <xsl:apply-templates select="detaileddescription"/>
@@ -232,26 +263,37 @@
 
   <xsl:template match="memberdef[@kind = 'variable' or @kind = 'typedef']">
     <section id="{@id}" xreflabel="{name}">
-      <title>
-        <!-- Doxygen gets confused and thinks function pointer type definitions
-             are variables, so we need to map them to this common section and
-             check the definition to see which of the two it is. -->
-        <xsl:choose>
-          <xsl:when test="contains(definition,'typedef')">
-            <xsl:text>Type </xsl:text>
-          </xsl:when>
+      <!-- Doxygen gets confused and thinks function pointer type definitions
+           are variables, so we need to map them to this common section and
+           check the definition to see which of the two it is. -->
+      <xsl:choose>
+        <xsl:when test="contains(definition,'typedef')">
+          <title> Type <xsl:value-of select="name"/></title>
 
-          <xsl:otherwise>
-            <xsl:text>Variable </xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
+          <programlisting language="c">
+            <emphasis role="keyword">
+              <xsl:text>typedef </xsl:text>
+              <xsl:value-of select="type"/>
+            </emphasis>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="name"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="argsstring"/>
+          </programlisting>
+        </xsl:when>
 
-        <xsl:value-of select="name"/>
-      </title>
+        <xsl:otherwise>
+          <title> Variable <xsl:value-of select="name"/></title>
 
-      <programlisting language="c">
-        <xsl:value-of select="definition"/>
-      </programlisting>
+          <programlisting language="c">
+            <emphasis role="keyword">
+              <xsl:value-of select="type"/>
+            </emphasis>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="name"/>
+          </programlisting>
+        </xsl:otherwise>
+      </xsl:choose>
 
       <xsl:apply-templates select="detaileddescription"/>
 
@@ -269,7 +311,7 @@
 
   <xsl:template match="simplesect" mode="struct">
     <footnote>
-      <xsl:apply-templates select="para"/>
+      <xsl:apply-templates/>
     </footnote>
   </xsl:template>
 
@@ -324,8 +366,8 @@
               <title>To Do</title>
             </xsl:when>
 
-            <xsl:when test="$note.prefix = 'TIP:'">
-              <xsl:attribute name="role">tip</xsl:attribute>
+            <xsl:when test="$note.prefix = 'TIPS:'">
+              <xsl:attribute name="role">tips</xsl:attribute>
               <title>Tip</title>
             </xsl:when>
 
@@ -370,7 +412,7 @@
         <xsl:value-of select="$note.content"/>
       </xsl:when>
 
-      <xsl:when test="$note.prefix = 'TIP:'">
+      <xsl:when test="$note.prefix = 'TIPS:'">
         <xsl:value-of select="$note.content"/>
       </xsl:when>
 
@@ -402,8 +444,8 @@
       <tgroup cols="3">
         <thead>
           <row>
-            <entry>Data Direction</entry>
-            <entry>Parameter Name</entry>
+            <entry>Data direction</entry>
+            <entry>Parameter name</entry>
             <entry>Description</entry>
           </row>
         </thead>
@@ -424,7 +466,7 @@
       <tgroup cols="2">
         <thead>
           <row>
-            <entry>Return Value</entry>
+            <entry>Return value</entry>
             <entry>Description</entry>
           </row>
         </thead>
@@ -549,6 +591,18 @@
     <xsl:text>&#8482;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="superscript">
+    <superscript>
+      <xsl:value-of select="."/>
+    </superscript>
+  </xsl:template>
+
+  <xsl:template match="subscript">
+    <subscript>
+      <xsl:value-of select="."/>
+    </subscript>
+  </xsl:template>
+
   <xsl:template match="ref">
     <xsl:choose>
       <!-- Don't show links inside program listings -->
@@ -558,9 +612,18 @@
 
       <!-- Show links outside program listings -->
       <xsl:otherwise>
-        <link linkend="{@refid}" xrefstyle="nopage">
-          <xsl:value-of select="text()"/>
-        </link>
+        <xsl:choose>
+          <!-- Use hard links for anchors to make the reference
+               look correct for figure and table references -->
+          <xsl:when test="//anchor[@id = current()/@refid]">
+            <xref linkend="{@refid}" xrefstyle="select: label title"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <link linkend="{@refid}">
+              <xsl:value-of select="text()"/>
+            </link>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -578,7 +641,9 @@
   <xsl:template match="table">
     <xsl:choose>
       <xsl:when test="caption">
-        <table tabstyle="striped">
+        <!-- Fetch the ID using a preceding doxygen \anchor to be
+             able to reference tables -->
+        <table tabstyle="striped" id="{preceding-sibling::anchor[last()]/@id}">
           <title>
             <xsl:value-of select="caption"/>
           </title>
@@ -640,6 +705,11 @@
 
   <xsl:template match="programlisting">
     <programlisting language="c">
+      <!-- Only allow really long code segments to split across pages -->
+      <xsl:if test="count(codeline) > 30">
+        <xsl:processing-instruction name="dbfo">keep-together="auto"</xsl:processing-instruction>
+      </xsl:if>
+
       <xsl:for-each select="codeline[position() > 1 or highlight]">
         <xsl:apply-templates select="."/>
         <xsl:text>&#10;</xsl:text>
@@ -648,10 +718,7 @@
   </xsl:template>
 
   <xsl:template match="highlight">
-    <emphasis>
-      <xsl:attribute name="role">
-        <xsl:value-of select="@class"/>
-      </xsl:attribute>
+    <emphasis role="{@class}">
       <xsl:apply-templates/>
     </emphasis>
   </xsl:template>
@@ -660,7 +727,7 @@
     <xsl:choose>
       <!-- Need to check if this is the first part of the line - if so we may
            need to strip off any leading <sp/> element indentation -->
-      <xsl:when test="ancestor::highlight = ancestor::codeline/highlight[1]">
+      <xsl:when test="count(../preceding-sibling::highlight) = 0">
         <!-- Doxygen retains a level of indentation in some code fragments - obtain
              the base indentation level by counting the leading <sp/> elements of the
              first code line, and use that to remove the indentation on the rest -->
@@ -678,7 +745,9 @@
   </xsl:template>
 
   <xsl:template match="image">
-    <figure>
+    <!-- Fetch the ID using a preceding doxygen \anchor to be
+         able to reference figures -->
+    <figure id="{preceding-sibling::anchor[last()]/@id}">
       <title>
         <xsl:value-of select="."/>
       </title>
@@ -686,7 +755,10 @@
       <mediaobject>
         <imageobject>
           <imagedata scalefit="1" width="{@width}">
-            <xsl:attribute name="fileref">html/<xsl:value-of select="@name"/></xsl:attribute>
+            <xsl:attribute name="fileref">
+              <xsl:text>html/</xsl:text>
+              <xsl:value-of select="@name"/>
+            </xsl:attribute>
           </imagedata>
         </imageobject>
       </mediaobject>
@@ -694,20 +766,44 @@
   </xsl:template>
 
   <xsl:template match="anchor">
-    <anchor id="{@id}"/>
+    <!-- Remove anchors from the PDF output, as these are used for referencing
+         images and tables. -->
   </xsl:template>
 
   <xsl:template match="dot">
+    <!-- Fetch the ID using a preceding doxygen \anchor to be able to reference
+         figures -->
+    <xsl:variable name="dot.id" select="preceding-sibling::anchor[last()]/@id" />
+
+    <xsl:choose>
+      <!-- If the DOT graph has an ID, use that for the filename -->
+      <xsl:when test="$dot.id">
+        <xsl:call-template name="write.dot.content">
+          <xsl:with-param name="dot.filename" select="$dot.id"/>
+          <xsl:with-param name="dot.id" select="$dot.id"/>
+        </xsl:call-template>
+      </xsl:when>
+
+      <!-- Otherwise use the auto-generated ID for it in the document -->
+      <xsl:otherwise>
+        <xsl:call-template name="write.dot.content"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="write.dot.content">
+    <xsl:param name="dot.filename" select="generate-id(.)"/>
+    <xsl:param name="dot.id" select="''"/>
+
     <!-- We get raw DOT syntax rather than a rendered image: write the DOT code
-         to a new unique file, and make a image reference to a SVG version of
-         that file. The build system should then call dot to render all generated
+         to a external file, and make a image reference to a SVG version of that
+         file. The build system should then call dot to render all generated
          DOT files into their SVG equivalents before rendering the PDF. -->
-    <xsl:variable name="filename" select="generate-id(.)" />
-    <exsl:document href="{$filename}.dot" method="text">
+    <exsl:document href="{$dot.filename}.dot" method="text">
       <xsl:value-of select="." />
     </exsl:document>
 
-    <figure>
+    <figure id="{$dot.id}">
       <title>
         <xsl:value-of select="ancestor::*/title"/>
       </title>
@@ -715,7 +811,7 @@
         <imageobject>
           <imagedata format="SVG">
             <xsl:attribute name="fileref">
-                <xsl:value-of select="$filename" />
+                <xsl:value-of select="$dot.filename" />
                 <xsl:text>.svg</xsl:text>
             </xsl:attribute>
           </imagedata>
@@ -724,14 +820,4 @@
     </figure>
   </xsl:template>
 
-  <xsl:template match="argsstring" name="split.functions.args">
-    <xsl:param name="text" select="."/>
-    <xsl:value-of select="substring-before(concat($text,','),',')"/>
-    <xsl:if test="contains($text,',')">
-      <xsl:text>,&#10;&#09;&#9;</xsl:text>
-      <xsl:call-template name="split.functions.args">
-        <xsl:with-param name="text" select="substring-after($text,',')"/>
-      </xsl:call-template>
-    </xsl:if>
-  </xsl:template>
 </xsl:stylesheet>
