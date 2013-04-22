@@ -152,20 +152,21 @@
 					<xsl:value-of select="$name"/>
 				</secondary>
 			</indexterm>
-			<indexterm>
-				<primary>
-					<xsl:value-of select="$book.title"/>
-				</primary>
-				<secondary>
-					<xsl:value-of select="$name"/>
-				</secondary>
-			</indexterm>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+
 			<indexterm>
 				<primary>
 					<xsl:value-of select="$name"/>
 				</primary>
 			</indexterm>
-			<xsl:apply-templates/>
+
+			<xsl:apply-templates select="detaileddescription" />
+
+			<xsl:apply-templates select="sectiondef" />
+
 			<xsl:for-each select="innerclass">
 				<xsl:apply-templates select="ancestor::*/compounddef[@id = current()/@refid]"/>
 			</xsl:for-each>
@@ -410,6 +411,7 @@
 			<title>
 				<xsl:value-of select="title"/>
 			</title>
+
 			<xsl:apply-templates/>
 		</section>
 	</xsl:template>
@@ -420,11 +422,7 @@
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template match="compoundname"/>
-
 	<xsl:template match="title"/>
-
-	<xsl:template match="indexterm"/>
 
 	<xsl:template match="indexentry">
 		<xsl:variable name="prim">
