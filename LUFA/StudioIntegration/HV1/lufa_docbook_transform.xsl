@@ -182,8 +182,14 @@
 
 		<section id="{@id}" xreflabel="{$name}">
 			<title>
-				<xsl:value-of select="@kind"/>
-				<xsl:text> </xsl:text>
+				<xsl:choose>
+					<xsl:when test="@kind = 'struct'">
+						<xsl:text>Struct </xsl:text>
+					</xsl:when>
+					<xsl:when test="@kind = 'union'">
+						<xsl:text>Union </xsl:text>
+					</xsl:when>
+				</xsl:choose>
 				<xsl:value-of select="$name"/>
 			</title>
 
@@ -194,7 +200,7 @@
 			<xsl:apply-templates select="detaileddescription"/>
 
 			<xsl:for-each select="sectiondef[@kind='public-attrib']">
-				<table abstyle="striped">
+				<table tabstyle="striped">
 					<title>
 						<xsl:value-of select="$name"/>
 					</title>
@@ -204,8 +210,8 @@
 						<spanspec spanname="full" namest="start.col" nameend="stop.col"/>
 						<thead>
 							<row>
-								<entry>Data type</entry>
-								<entry>Field name</entry>
+								<entry>Type</entry>
+								<entry>Name</entry>
 								<entry>Description</entry>
 							</row>
 						</thead>
@@ -217,6 +223,9 @@
 									</entry>
 									<entry>
 										<xsl:value-of select="name"/>
+										<xsl:if test="starts-with(argsstring, '[')">
+											<xsl:text>[]</xsl:text>
+										</xsl:if>
 										<indexterm id="{$keyword.namespace}.{$name}.{name}"/>
 									</entry>
 									<entry>
@@ -252,9 +261,34 @@
 			</para>
 
 			<programlisting language="c">
-				<xsl:value-of select="definition"/>
-				<xsl:text> </xsl:text>
-				<xsl:apply-templates select="argsstring"/>
+				<emphasis role="keyword">
+				  <xsl:value-of select="type"/>
+				</emphasis>
+						<xsl:text> </xsl:text>
+				<xsl:value-of select="name"/>
+				<xsl:text>(</xsl:text>
+
+				<xsl:choose>
+				  <xsl:when test="argsstring = '(void)'">
+					<emphasis role="keyword">void</emphasis>
+				  </xsl:when>
+
+				  <xsl:otherwise>
+					<xsl:for-each select="param">
+					  <xsl:if test="position() > 1">
+						<xsl:text>,</xsl:text>
+					  </xsl:if>
+					  <xsl:text>&#10;&#9;&#9;</xsl:text>
+					  <emphasis role="keyword">
+						<xsl:value-of select="type"/>
+					  </emphasis>
+					  <xsl:text> </xsl:text>
+					  <xsl:value-of select="declname"/>
+					</xsl:for-each>
+				  </xsl:otherwise>
+				</xsl:choose>
+
+				<xsl:text>)</xsl:text>
 			</programlisting>
 
 			<xsl:apply-templates select="detaileddescription"/>
@@ -276,7 +310,8 @@
 
 			<xsl:apply-templates select="detaileddescription"/>
 
-			<informaltable tabstyle="striped">
+			<table tabstyle="striped">
+				<title>Members</title>
 				<tgroup cols="2">
 					<thead>
 						<row>
@@ -299,7 +334,7 @@
 						</xsl:for-each>
 					</tbody>
 				</tgroup>
-			</informaltable>
+			</table>
 		</section>
 	</xsl:template>
 
@@ -317,27 +352,29 @@
 			</xsl:call-template>
 
 			<programlisting language="c">
-				<xsl:text>#define </xsl:text>
-				<xsl:value-of select="name"/>
-				<xsl:if test="count(param) &gt; 0">
-					<xsl:text>(</xsl:text>
-					<xsl:for-each select="param/defname">
-						<xsl:if test="position() &gt; 1">
-							<xsl:text>,</xsl:text>
-						</xsl:if>
-						<xsl:value-of select="."/>
-					</xsl:for-each>
-					<xsl:text>)</xsl:text>
-				</xsl:if>
+				<emphasis role="preprocessor">
+					<xsl:text>#define </xsl:text>
+					<xsl:value-of select="name"/>
+					<xsl:if test="count(param) > 0">
+						<xsl:text>(</xsl:text>
+						<xsl:for-each select="param/defname">
+							<xsl:if test="position() > 1">
+								<xsl:text>,</xsl:text>
+							</xsl:if>
+							<xsl:value-of select="."/>
+						</xsl:for-each>
+						<xsl:text>)</xsl:text>
+					</xsl:if>
+					<xsl:text> </xsl:text>
 
+					<!-- Split long macro definitions across multiple lines -->
+					<xsl:if test="(string-length(initializer) > 50) or (count(param) > 0)">
+						<xsl:text>\&#10;&#09;&#9;</xsl:text>
+					</xsl:if>
+
+					<xsl:value-of select="initializer"/>
+				</emphasis>
 				<xsl:text> </xsl:text>
-
-				<!-- Split long macro definitions across multiple lines -->
-				<xsl:if test="(string-length(initializer) &gt; 50) or (count(param) &gt; 0)">
-					<xsl:text>\</xsl:text>
-				</xsl:if>
-
-				<xsl:value-of select="initializer"/>
 			</programlisting>
 
 			<xsl:apply-templates select="detaileddescription"/>
@@ -348,29 +385,51 @@
 		<xsl:variable name="name" select="name"/>
 
 		<section id="{@id}" xreflabel="{name}">
-			<title>
-				<!-- Doxygen gets confused and thinks function pointer type definitions
-		are variables, so we need to map them to this common section and
-		check the definition to see which of the two it is. -->
-				<xsl:choose>
-					<xsl:when test="contains(definition,'typedef')">
+			<!-- Doxygen gets confused and thinks function pointer type definitions
+				 are variables, so we need to map them to this common section and
+				 check the definition to see which of the two it is. -->
+			<xsl:choose>
+				<xsl:when test="contains(definition,'typedef')">
+					<title>
 						<xsl:text>Type </xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
+						<xsl:value-of select="name"/>
+					</title>
+
+					<xsl:call-template name="generate.index.id">
+						<xsl:with-param name="name" select="$name"/>
+					</xsl:call-template>
+
+					<programlisting language="c">
+						<emphasis role="keyword">
+							<xsl:text>typedef </xsl:text>
+							<xsl:value-of select="type"/>
+						</emphasis>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="name"/>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="argsstring"/>
+					</programlisting>
+				</xsl:when>
+
+				<xsl:otherwise>
+					<title>
 						<xsl:text>Variable </xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
+						<xsl:value-of select="name"/>
+					</title>
 
-				<xsl:value-of select="name"/>
-			</title>
+					<xsl:call-template name="generate.index.id">
+						<xsl:with-param name="name" select="$name"/>
+					</xsl:call-template>
 
-			<xsl:call-template name="generate.index.id">
-				<xsl:with-param name="name" select="$name"/>
-			</xsl:call-template>
-
-			<programlisting language="c">
-				<xsl:value-of select="definition"/>
-			</programlisting>
+					<programlisting language="c">
+					<emphasis role="keyword">
+						<xsl:value-of select="type"/>
+					</emphasis>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="name"/>
+					</programlisting>
+				</xsl:otherwise>
+			</xsl:choose>
 
 			<xsl:apply-templates select="detaileddescription"/>
 		</section>
