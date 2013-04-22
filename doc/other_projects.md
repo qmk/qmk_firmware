@@ -56,3 +56,6 @@ Great resourse of vintage keyboard protocol information and code
 A lots of vintage keyboard protocol supports
 
 - <http://gitorious.org/kiibohd-controller>
+
+## Kinesis ergonomic keyboard firmware replacement[V-USB][LUFA][Ergo]
+- <https://github.com/chrisandreae/kinesis-firmware>
