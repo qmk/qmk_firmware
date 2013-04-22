@@ -123,9 +123,9 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
 Boot Magic are executed during boot up time. Press Magic key below then pulgin keyboard cable.
 Note that you must use keys of **Layer 0** as Magic keys. These settings are stored in EEPROM so that retain your configure over power cycles.
 
-#### EEPROM
-- Skip reading EEPROM(`ESC`)
-- Clear configuration stored in EEPROM(`Backspace`)
+#### General
+- Skip reading EEPROM to start with default configuration(`ESC`)
+- Clear configuration stored in EEPROM to reset configuration(`Backspace`)
 
 #### Bootloader
 - Kick up Bootloader(`B`)
@@ -147,9 +147,9 @@ Note that you must use keys of **Layer 0** as Magic keys. These settings are sto
 
 #### Default Layer
 - Set Default Layer to 0(`0`)
-- Set Default Layer to 0(`1`)
-- Set Default Layer to 0(`2`)
-- Set Default Layer to 0(`3`)
+- Set Default Layer to 1(`1`)
+- Set Default Layer to 2(`2`)
+- Set Default Layer to 3(`3`)
 
 **TBD**
 
