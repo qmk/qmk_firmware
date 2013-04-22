@@ -39,13 +39,14 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png \
                         VSIX/GettingStarted.htm                         \
                         Blob/Atmel.Studio.Services.Interfaces.dll       \
                         Blob/LUFA.dll                                   \
-                        Blob/LUFA.pkgdef
+                        Blob/LUFA.pkgdef                                \
 
 MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"            \
                        --stringparam chunk.quietly "1"                  \
                        --stringparam chunk.section.depth "3"            \
                        --stringparam chunk.first.sections "1"           \
-                       --stringparam chapter.autolabel "0"
+                       --stringparam chapter.autolabel "0"              \
+                       --stringparam html.stylesheet "lufa_studio_help_styling.css"
 
 all: generate_xml check_filenames generate_vsix
 
@@ -88,11 +89,12 @@ $(MSHELP_OUTPUT_XML): $(DOXYGEN_COMBINED_XML)
 	@cd mshelp && xsltproc $(MSHELP_GEN_PARAMS) ../Docbook/mshelp/docbook.xsl lufa_docbook.xml
 
 	@echo Copying help assets...
+	@cp HV1/lufa_studio_help_styling.css mshelp
 	@-mkdir mshelp/images 2> /dev/null
 	@cp `find $(LUFA_ROOT)/DoxygenPages/Images -type f` mshelp/images
 
 	@echo Archiving help content...
-	@cd mshelp && zip ../$(MSHELP_OUTPUT_XML) -q -0  -r *.html images
+	@cd mshelp && zip ../$(MSHELP_OUTPUT_XML) -q -0  -r *.html *.css images
 
 
 generate_xml: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)

@@ -1,0 +1,45 @@
+.programlisting {
+ 	display: block;
+ 	margin-left: 15px;
+ 	padding: 10px;
+ 	background-color: #f0f0f0;
+ 	border: 1px solid #aaaaaa;
+ 	font-family: "Consolas", "Courier New", sans-serif;
+ }
+
+ code {
+ 	background-color: #f0f0f0;
+ 	font-family: "Consolas", "Courier New", sans-serif;
+ }
+
+.note {
+	display: block;
+ 	margin-left: 15px;
+ 	padding-left: 10px;
+ 	padding-bottom: 5px;
+ 	background-color: #f0f0f0;
+ 	border: 1px solid #aaaaaa;
+}
+
+table {
+	border: 1px solid #aaaaaa;
+	border-collapse: collapse;
+	margin-left: 15px;
+	font-size: 10pt;
+}
+
+table thead * {
+ 	background-color: #f0f0f0;
+}
+
+table thead th {
+	padding: 5px;
+}
+
+table th, td {
+	padding: 5px;
+}
+
+ul {
+	padding-left: 20px;
+}
