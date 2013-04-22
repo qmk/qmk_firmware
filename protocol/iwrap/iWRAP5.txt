@@ -7,42 +7,44 @@ MTU         Maximum Transmission Unit
 
 
 
-HID Protocol Messages
-=====================
+HID Protocol
+============
 3 of HID_SPEC_V11.pdf
 
+Channel
+-------
 Control channel     PSM=0x0011
 Interrupt channel   PSM=0x0013
 
+Message
+-------
 HANDSHAKE(0)
 HID_CONTROL(1)
-GET_REPORT(4)
--------------
-Host requests report(DATA payload on Control channel) from Device
 
-            Size    Desc
-------------------------------------------------------------------------------
-HIDP-Hdr    1       7..4: HIDP Message TYpe(4: GET_REPORT)
-                    3: Size(1:2-octed buffer size, 0:size of the report)
-                    2: 0
-                    1..0: Report Type(1:input, 2:output, 3: feature)
-ReportID    1       Optional
-BufferSize  2       Optional(specified when Size=1)
+GET_REPORT(4)
+    Host requests report(DATA payload on Control channel) from Device
+                Size    Desc
+    ------------------------------------------------------------------------------
+    HIDP-Hdr    1       7..4: HIDP Message TYpe(4: GET_REPORT)
+                        3: Size(1:2-octed buffer size, 0:size of the report)
+                        2: 0
+                        1..0: Report Type(1:input, 2:output, 3: feature)
+    ReportID    1       Optional
+    BufferSize  2       Optional(specified when Size=1)
 
 SET_REPORT(5)
 GET_PROTOCOL(6)
 SET_PROTOCOL(7)
-DATA(A)
--------
-Input/Output Report: All DATA payloads flow on Interrupt channel.
-Other: flows on Control channel.
 
-            Size    Desc
-------------------------------------------------------------------------------
-HIDP-Hdr    1       7..4    0xA
-                    3..2    Reserved(0)
-                    1..0    Report Type(0:Other, 1:Input, 2:Output, 3:Feature)
-Payload     N               Data
+DATA(A)
+    Input/Output Report: All DATA payloads flow on Interrupt channel.
+    Other: flows on Control channel.
+                Size    Desc
+    ------------------------------------------------------------------------------
+    HIDP-Hdr    1       7..4    0xA
+                        3..2    Reserved(0)
+                        1..0    Report Type(0:Other, 1:Input, 2:Output, 3:Feature)
+    Payload     N               Data
 
 
 
@@ -84,11 +86,11 @@ attributes(3.3.2)
 ----------
 HIDDeviceSubclass
     which type is supported in Boot Protocol Mode
-7 6
----
-0 1 Keyboard
-1 0 Pointing device
-1 1 Combo keyboard/pointing device
+    7 6
+    ---
+    0 1 Keyboard
+    1 0 Pointing device
+    1 1 Combo keyboard/pointing device
 
 HIDBootDevice
     TRUE
@@ -103,70 +105,52 @@ http://phys.sci.hokudai.ac.jp/LABS/yts/pic/GB002/Bluetooth_assigned_numbers_base
 0x0005C0        Keyboard and Pointing deivce(combo)
 
 
-23      16 15       8 7         0
----------------------------------
-Service      |Major  |Minor   |Format
+    23      16 15       8 7         0
+    ---------------------------------
+    Service      |Major  |Minor   |Format
 
-Format type
-1 0
----
-0 0
+    Format type
+    1 0
+    ---
+    0 0
 
-Minor Device Class of Peripheral Major
-7 6
----
-0 1 Keyboard
-1 0 Pointing device
-1 1 Combo keyboard/pointing device
-
-
-Major device classes
-12 11 10  9  8
---------------
- 0  0  0  0  0  Miscellaneous
- 0  0  0  0  1  Computer
- 0  0  0  1  0  Phone
- 0  0  0  1  1  LAN /Network Access point
- 0  0  1  0  0  Audio/Video (headset,speaker,stereo, video display, vcr.....
- 0  0  1  0  1 *Peripheral (mouse, joystick, keyboards, ..... )
- 0  0  1  1  0  Imaging (printing, scanner, camera, display, ...)
- 1  1  1  1  1  Uncategorized, specific device code not specified
- X  X  X  X  X  All other values reserved
+    Minor Device Class of Peripheral Major
+    7 6
+    ---
+    0 1 Keyboard
+    1 0 Pointing device
+    1 1 Combo keyboard/pointing device
 
 
-Major service classes
-bit
---------------------------------------
-13 Limited Discoverable Mode [Ref #1]
-14 (reserved)
-15 (reserved)
-16 Positioning (Location identification)
-17 Networking (LAN, Ad hoc, ...)
-18 Rendering (Printing, Speaker, ...) 
-19 Capturing (Scanner, Microphone, ...)
-20 Object Transfer (v-Inbox, v-Folder, ...)
-21 Audio (Speaker, Microphone, Headset service, ...)
-22 Telephony (Cordless telephony, Modem, Headset service, ...)
-23 Information (WEB-server, WAP-server, ...)
+    Major device classes
+    12 11 10  9  8
+    --------------
+     0  0  0  0  0  Miscellaneous
+     0  0  0  0  1  Computer
+     0  0  0  1  0  Phone
+     0  0  0  1  1  LAN /Network Access point
+     0  0  1  0  0  Audio/Video (headset,speaker,stereo, video display, vcr.....
+     0  0  1  0  1 *Peripheral (mouse, joystick, keyboards, ..... )
+     0  0  1  1  0  Imaging (printing, scanner, camera, display, ...)
+     1  1  1  1  1  Uncategorized, specific device code not specified
+     X  X  X  X  X  All other values reserved
 
 
+    Major service classes
+    bit
+    --------------------------------------
+    13 Limited Discoverable Mode [Ref #1]
+    14 (reserved)
+    15 (reserved)
+    16 Positioning (Location identification)
+    17 Networking (LAN, Ad hoc, ...)
+    18 Rendering (Printing, Speaker, ...) 
+    19 Capturing (Scanner, Microphone, ...)
+    20 Object Transfer (v-Inbox, v-Folder, ...)
+    21 Audio (Speaker, Microphone, Headset service, ...)
+    22 Telephony (Cordless telephony, Modem, Headset service, ...)
+    23 Information (WEB-server, WAP-server, ...)
 
-
-SET PROFILE HID 0d  c0 100 0 en 0409 HHKB pro Bluetooth keyboard
-
-{function bit}  uint8
-{subclass}      uint8
-{version}       uint16
-{country}       uint8
-{BTlang}        char[2]
-{USBlang}       uint16
-{name}          string
-
-
-SET PROFILE HID 0f c0 100 0 en 0409 TMK Bluetooth keyboard
-
-// composite device: keyboard and mouse
-SET BT CLASS 005c0
 
 
 
@@ -230,6 +214,26 @@ SET BT SNIFF 100 20 1 8
 # Report Descriptor
 # combo keyboard + mouse + consumer
 HID SET d2 05010906a1010507850119e029e715002501750195088102950175088101950575010508850119012905910295017503910395067508150025650507190029658100c005010902a1010901a1008502050919012908150025017501950881020501093009311581257f750895028106093895018106050c0a380295018106c0c0050c0901a1018503050c1500250109e909ea09e209cd19b529b87501950881020a8a010a21020a2a021a23022a27027501950881020a83010a96010a92010a9e010a94010a060209b209b4750195088102c0
+
+
+
+SET PROFILE HID
+---------------
+    SET PROFILE HID 0d  c0 100 0 en 0409 HHKB pro Bluetooth keyboard
+    {function bit}  uint8
+    {subclass}      uint8
+    {version}       uint16
+    {country}       uint8
+    {BTlang}        char[2]
+    {USBlang}       uint16
+    {name}          string
+
+
+SET BT CLASS
+------------
+    See Class of Device
+    composite device: keyboard and mouse
+    SET BT CLASS 005c0
 
 
 
