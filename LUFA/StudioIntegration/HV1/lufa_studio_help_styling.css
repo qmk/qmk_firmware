@@ -20,7 +20,7 @@
  	font-family: "Consolas", "Courier New", sans-serif;
  }
 
-.note {
+.note, .warning, .tip {
 	display: block;
  	margin-left: 15px;
  	padding-left: 10px;

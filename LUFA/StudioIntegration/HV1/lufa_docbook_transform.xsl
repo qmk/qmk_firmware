@@ -53,7 +53,7 @@
 			</xsl:call-template>
 		</xsl:variable>
 
-		<book name="{$book.id}">
+		<book id="{$book.id}">
 			<title>
 				<xsl:value-of select="$book.title"/>
 			</title>
@@ -747,22 +747,16 @@
 	</xsl:template>
 
 	<xsl:template match="image">
-		<figure>
-			<title>
-				<xsl:value-of select="."/>
-			</title>
-
-			<mediaobject>
-				<imageobject>
-					<imagedata>
-						<xsl:attribute name="fileref">
-							<xsl:text>images/</xsl:text>
-							<xsl:value-of select="@name"/>
-						</xsl:attribute>
-					</imagedata>
-				</imageobject>
-			</mediaobject>
-		</figure>
+		<mediaobject>
+			<imageobject>
+				<imagedata>
+					<xsl:attribute name="fileref">
+						<xsl:text>images/</xsl:text>
+						<xsl:value-of select="@name"/>
+					</xsl:attribute>
+				</imagedata>
+			</imageobject>
+		</mediaobject>
 	</xsl:template>
 
 	<xsl:template match="detaileddescription">
