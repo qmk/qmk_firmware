@@ -181,7 +181,7 @@
 			 *  \param[in]     DataByte  Byte to send through the USART SPI interface.
 			 */
 			static inline void SerialSPI_SendByte(USART_t* const USART,
-			                                      const uint8_t DataByte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1)
+			                                      const uint8_t DataByte) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void SerialSPI_SendByte(USART_t* const USART,
 			                                      const uint8_t DataByte)
 			{
