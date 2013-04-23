@@ -16,6 +16,8 @@
 		Mass Storage Host demo, capable of reading and writing raw 512 byte segments to the device's serial port.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Host"/>

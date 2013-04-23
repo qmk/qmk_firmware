@@ -16,6 +16,8 @@
 		Mass Storage and Keyboard device demo, implementing a basic USB storage disk using a Dataflash memory IC, and a basic HID keyboard.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Device"/>

@@ -16,6 +16,8 @@
 		Keyboard and Mouse HID device demo, implementing a basic USB keyboard and mouse using a pair of HID interfaces.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Class Driver APIs"/>
 			<keyword value="USB Device"/>

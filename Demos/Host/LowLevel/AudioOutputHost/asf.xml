@@ -16,6 +16,8 @@
 		Audio Output Host demo, implementing a basic USB audio source that can output audio data to an attached device.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Host"/>

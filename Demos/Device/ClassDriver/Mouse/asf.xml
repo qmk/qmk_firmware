@@ -16,6 +16,8 @@
 		Mouse device demo, implementing a basic USB mouse device that can send movement information to the host.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Class Driver APIs"/>
 			<keyword value="USB Device"/>

@@ -16,6 +16,8 @@
 		Audio 1.0 Input device demo, implementing a basic USB microphone.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Device"/>

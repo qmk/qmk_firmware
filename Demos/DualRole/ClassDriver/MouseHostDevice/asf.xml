@@ -16,6 +16,8 @@
 		Mouse host and device dual role demo, implementing a basic mouse device and host.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Class Driver APIs"/>
 			<keyword value="USB Dual Role"/>

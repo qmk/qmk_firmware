@@ -120,14 +120,16 @@
 		DFU Class Bootloader, capable of reprogramming a device using the Atmel FLIP or other AVR DFU programming software when plugged into a host.
 		</info>
 
-		<device-support-alias value="lufa_avr8"/>
-		<device-support-alias value="lufa_xmega"/>
-		<device-support-alias value="lufa_uc3"/>
+ 		<info type="gui-flag" value="move-to-root"/>
 
 		<info type="keyword" value="Technology">
 			<keyword value="Bootloaders"/>
 			<keyword value="USB Device"/>
 		</info>
+
+ 		<device-support-alias value="lufa_avr8"/>
+		<device-support-alias value="lufa_xmega"/>
+		<device-support-alias value="lufa_uc3"/>
 
 		<build type="include-path" value="."/>
 		<build type="c-source" value="BootloaderDFU.c"/>

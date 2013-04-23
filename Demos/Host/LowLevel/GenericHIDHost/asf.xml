@@ -16,6 +16,8 @@
 		Generic HID Host demo, implementing a basic USB HID device that can send and receive data to and from an attached device.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Host"/>

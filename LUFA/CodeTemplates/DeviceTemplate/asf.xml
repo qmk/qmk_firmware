@@ -28,6 +28,8 @@
 		Template for a LUFA USB device mode application.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="USB Device"/>
 			<keyword value="Template Projects"/>

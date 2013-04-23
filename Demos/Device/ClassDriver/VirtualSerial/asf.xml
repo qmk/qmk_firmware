@@ -16,6 +16,8 @@
 		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Class Driver APIs"/>
 			<keyword value="USB Device"/>

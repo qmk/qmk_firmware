@@ -16,6 +16,8 @@
 		Keyboard HID Host demo, implementing a basic USB keyboard host that can display key press data on the board LEDs.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Host"/>

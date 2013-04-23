@@ -16,6 +16,8 @@
 		Generic HID device demo, implementing a device whose LEDs can be controlled via HID messages from the host.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Low Level APIs"/>
 			<keyword value="USB Device"/>

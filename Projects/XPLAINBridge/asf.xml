@@ -16,6 +16,8 @@
 		Bridge firmware for the original (green) XPLAIN board, for programming and USB virtual serial communications.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Class Driver APIs"/>
 			<keyword value="USB Device"/>

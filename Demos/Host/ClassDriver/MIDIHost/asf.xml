@@ -16,6 +16,8 @@
 		MIDI Host demo, capable of sending and receiving MIDI messages to and from an attached device.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="Class Driver APIs"/>
 			<keyword value="USB Host"/>

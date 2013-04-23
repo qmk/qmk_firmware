@@ -16,6 +16,8 @@
 		Template for a LUFA USB host mode application.
 		</info>
 
+ 		<info type="gui-flag" value="move-to-root"/>
+
 		<info type="keyword" value="Technology">
 			<keyword value="USB Host"/>
 			<keyword value="Template Projects"/>
