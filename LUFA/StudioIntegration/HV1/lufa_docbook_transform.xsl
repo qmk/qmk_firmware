@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:import href="transform_base.xsl"/>
 
 	<xsl:output method="xml" indent="no"/>
 
@@ -87,15 +86,22 @@
 
 	<xsl:template name="generate.top.level.page">
 		<xsl:param name="top.level.page"/>
+
 		<chapter id="{$top.level.page/@id}">
 			<title>
 				<xsl:value-of select="$top.level.page/title"/>
 			</title>
+
 			<xsl:apply-templates select="$top.level.page/detaileddescription"/>
+
 			<xsl:for-each select="$top.level.page/innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
 			</xsl:for-each>
 		</chapter>
+	</xsl:template>
+
+	<xsl:template match="compounddef">
+		<!-- Discard compounddef elements unless a later template matches -->
 	</xsl:template>
 
 	<xsl:template match="compounddef[@kind = 'page']">
@@ -103,7 +109,9 @@
 			<title>
 				<xsl:value-of select="title"/>
 			</title>
+
 			<xsl:apply-templates select="detaileddescription"/>
+
 			<xsl:for-each select="innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
 			</xsl:for-each>
@@ -246,7 +254,7 @@
 		<section id="{@id}" xreflabel="{name}">
 			<title>
 				<xsl:text>Function </xsl:text>
-				<xsl:value-of select="name"/>
+				<xsl:value-of select="$name"/>
 				<xsl:text>()</xsl:text>
 			</title>
 
@@ -262,30 +270,30 @@
 
 			<programlisting language="c">
 				<emphasis role="keyword">
-				  <xsl:value-of select="type"/>
+					<xsl:value-of select="type"/>
 				</emphasis>
-						<xsl:text> </xsl:text>
+				<xsl:text> </xsl:text>
 				<xsl:value-of select="name"/>
 				<xsl:text>(</xsl:text>
 
 				<xsl:choose>
-				  <xsl:when test="argsstring = '(void)'">
-					<emphasis role="keyword">void</emphasis>
-				  </xsl:when>
+					<xsl:when test="argsstring = '(void)'">
+						<emphasis role="keyword">void</emphasis>
+					</xsl:when>
 
-				  <xsl:otherwise>
-					<xsl:for-each select="param">
-					  <xsl:if test="position() > 1">
-						<xsl:text>,</xsl:text>
-					  </xsl:if>
-					  <xsl:text>&#10;&#9;&#9;</xsl:text>
-					  <emphasis role="keyword">
-						<xsl:value-of select="type"/>
-					  </emphasis>
-					  <xsl:text> </xsl:text>
-					  <xsl:value-of select="declname"/>
-					</xsl:for-each>
-				  </xsl:otherwise>
+					<xsl:otherwise>
+						<xsl:for-each select="param">
+							<xsl:if test="position() > 1">
+								<xsl:text>,</xsl:text>
+							</xsl:if>
+							<xsl:text>&#10;&#9;&#9;</xsl:text>
+							<emphasis role="keyword">
+								<xsl:value-of select="type"/>
+							</emphasis>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="declname"/>
+						</xsl:for-each>
+					</xsl:otherwise>
 				</xsl:choose>
 
 				<xsl:text>)</xsl:text>
@@ -301,7 +309,7 @@
 		<section id="{@id}" xreflabel="{name}">
 			<title>
 				<xsl:text>Enum </xsl:text>
-				<xsl:value-of select="name"/>
+				<xsl:value-of select="$name"/>
 			</title>
 
 			<xsl:call-template name="generate.index.id">
@@ -325,6 +333,7 @@
 								<entry>
 									<para id="{@id}" xreflabel="{name}">
 										<xsl:value-of select="name"/>
+										<indexterm id="{$keyword.namespace}.{$name}.{name}"/>
 									</para>
 								</entry>
 								<entry>
@@ -422,11 +431,11 @@
 					</xsl:call-template>
 
 					<programlisting language="c">
-					<emphasis role="keyword">
-						<xsl:value-of select="type"/>
-					</emphasis>
-					<xsl:text> </xsl:text>
-					<xsl:value-of select="name"/>
+						<emphasis role="keyword">
+							<xsl:value-of select="type"/>
+						</emphasis>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="name"/>
 					</programlisting>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -436,7 +445,305 @@
 	</xsl:template>
 
 	<xsl:template match="linebreak">
-		<xsl:text>&#10;</xsl:text>
+		<literallayout>
+		</literallayout>
+	</xsl:template>
+
+	<xsl:template match="verbatim">
+		<programlisting>
+			<xsl:apply-templates/>
+		</programlisting>
+	</xsl:template>
+
+	<xsl:template match="sectiondef">
+		<para>
+			<xsl:value-of select="description"/>
+		</para>
+
+		<xsl:apply-templates select="memberdef"/>
+	</xsl:template>
+
+	<xsl:template match="simplesect" mode="struct">
+		<footnote>
+			<xsl:apply-templates/>
+		</footnote>
+	</xsl:template>
+
+	<xsl:template match="simplesect">
+		<xsl:choose>
+			<xsl:when test="@kind = 'warning'">
+				<warning>
+					<title>Warning</title>
+					<xsl:apply-templates select="para"/>
+				</warning>
+			</xsl:when>
+
+			<xsl:when test="@kind = 'return'">
+				<note>
+					<title>Returns</title>
+					<xsl:apply-templates select="para"/>
+				</note>
+			</xsl:when>
+
+			<xsl:when test="@kind = 'pre'">
+				<note>
+					<title>Precondition</title>
+					<xsl:apply-templates select="para"/>
+				</note>
+			</xsl:when>
+
+			<xsl:when test="@kind = 'par'">
+				<note>
+					<title>
+						<xsl:value-of select="title"/>
+					</title>
+					<xsl:apply-templates select="para"/>
+				</note>
+			</xsl:when>
+
+			<xsl:when test="@kind = 'see'">
+				<note>
+					<title>See also</title>
+					<xsl:apply-templates select="para"/>
+				</note>
+			</xsl:when>
+
+			<xsl:when test="@kind = 'note'">
+				<note>
+					<title>Note</title>
+					<xsl:apply-templates select="para"/>
+				</note>
+			</xsl:when>
+
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="parameterlist[@kind = 'param']">
+		<table tabstyle="striped">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<thead>
+					<row>
+						<entry>Data Direction</entry>
+						<entry>Parameter Name</entry>
+						<entry>Description</entry>
+					</row>
+				</thead>
+				<tbody>
+					<xsl:for-each select="parameteritem">
+						<row>
+							<xsl:apply-templates select="."/>
+						</row>
+					</xsl:for-each>
+				</tbody>
+			</tgroup>
+		</table>
+	</xsl:template>
+
+	<xsl:template match="parameterlist[@kind = 'retval']">
+		<table tabstyle="striped">
+			<title>Return Values</title>
+			<tgroup cols="2">
+				<thead>
+					<row>
+						<entry>Return Value</entry>
+						<entry>Description</entry>
+					</row>
+				</thead>
+				<tbody>
+					<xsl:for-each select="parameteritem">
+						<row>
+							<xsl:apply-templates select="."/>
+						</row>
+					</xsl:for-each>
+				</tbody>
+			</tgroup>
+		</table>
+	</xsl:template>
+
+	<xsl:template match="parameteritem">
+		<xsl:if test="parent::parameterlist/@kind = 'param'">
+			<entry>
+				<para>
+					<xsl:choose>
+						<xsl:when test="not(descendant::parametername/@direction)">
+							<emphasis role="italic">?</emphasis>
+						</xsl:when>
+						<xsl:otherwise>
+							<emphasis role="bold">
+								[<xsl:value-of select="descendant::parametername/@direction"/>]
+							</emphasis>
+						</xsl:otherwise>
+					</xsl:choose>
+				</para>
+			</entry>
+		</xsl:if>
+
+		<entry>
+			<para>
+				<xsl:value-of select="parameternamelist/parametername"/>
+			</para>
+		</entry>
+
+		<entry>
+			<xsl:apply-templates select="parameterdescription"/>
+		</entry>
+	</xsl:template>
+
+	<xsl:template match="type">
+		<xsl:apply-templates/>
+	</xsl:template>
+
+	<xsl:template match="para">
+		<para>
+			<xsl:apply-templates/>
+		</para>
+	</xsl:template>
+
+	<xsl:template match="bold">
+		<emphasis role="bold">
+			<xsl:value-of select="."/>
+		</emphasis>
+	</xsl:template>
+
+	<xsl:template match="emphasis">
+		<emphasis role="italic">
+			<xsl:value-of select="."/>
+		</emphasis>
+	</xsl:template>
+
+	<xsl:template match="computeroutput">
+		<computeroutput>
+			<xsl:value-of select="."/>
+		</computeroutput>
+	</xsl:template>
+
+	<xsl:template match="ulink">
+		<ulink url="{@url}">
+			<xsl:value-of select="."/>
+		</ulink>
+	</xsl:template>
+
+	<xsl:template match="registered">
+		<xsl:text>&#174;</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="copy">
+		<xsl:text>&#169;</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="trademark">
+		<xsl:text>&#8482;</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="superscript">
+		<superscript>
+			<xsl:value-of select="."/>
+		</superscript>
+	</xsl:template>
+
+	<xsl:template match="subscript">
+		<subscript>
+			<xsl:value-of select="."/>
+		</subscript>
+	</xsl:template>
+
+	<xsl:template match="ref">
+		<xsl:choose>
+			<!-- Don't show links inside program listings -->
+			<xsl:when test="ancestor::programlisting">
+				<xsl:value-of select="."/>
+			</xsl:when>
+
+			<!-- Show links outside program listings -->
+			<xsl:otherwise>
+				<link linkend="{@refid}">
+					<xsl:value-of select="text()"/>
+				</link>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="table">
+		<xsl:choose>
+			<xsl:when test="caption">
+				<table tabstyle="striped">
+					<title>
+						<xsl:value-of select="caption"/>
+					</title>
+					<xsl:call-template name="write.table.content"/>
+				</table>
+			</xsl:when>
+			<xsl:otherwise>
+				<informaltable tabstyle="striped">
+					<xsl:call-template name="write.table.content"/>
+				</informaltable>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="write.table.content">
+		<tgroup cols="{@cols}">
+			<thead>
+				<xsl:for-each select="row[1]">
+					<row>
+						<xsl:for-each select="entry">
+							<entry>
+								<xsl:apply-templates select="."/>
+							</entry>
+						</xsl:for-each>
+					</row>
+				</xsl:for-each>
+			</thead>
+			<tbody>
+				<xsl:for-each select="row[position() != 1]">
+					<row>
+						<xsl:for-each select="entry">
+							<entry>
+								<xsl:apply-templates select="."/>
+							</entry>
+						</xsl:for-each>
+					</row>
+				</xsl:for-each>
+			</tbody>
+		</tgroup>
+	</xsl:template>
+
+	<xsl:template match="itemizedlist">
+		<itemizedlist>
+			<xsl:apply-templates select="listitem"/>
+		</itemizedlist>
+	</xsl:template>
+
+	<xsl:template match="orderedlist">
+		<orderedlist>
+			<xsl:apply-templates select="listitem"/>
+		</orderedlist>
+	</xsl:template>
+
+	<xsl:template match="listitem">
+		<listitem>
+			<xsl:apply-templates/>
+		</listitem>
+	</xsl:template>
+
+	<xsl:template match="programlisting">
+		<programlisting language="c">
+			<xsl:for-each select="codeline[position() > 1 or highlight]">
+				<xsl:apply-templates select="."/>
+				<xsl:text>&#10;</xsl:text>
+			</xsl:for-each>
+		</programlisting>
+	</xsl:template>
+
+	<xsl:template match="highlight">
+		<emphasis role="{@class}">
+			<xsl:apply-templates/>
+		</emphasis>
+	</xsl:template>
+
+	<xsl:template match="sp[ancestor::codeline]">
+		<xsl:text> </xsl:text>
 	</xsl:template>
 
 	<xsl:template match="image">
@@ -448,7 +755,10 @@
 			<mediaobject>
 				<imageobject>
 					<imagedata>
-						<xsl:attribute name="fileref">images/<xsl:value-of select="@name"/></xsl:attribute>
+						<xsl:attribute name="fileref">
+							<xsl:text>images/</xsl:text>
+							<xsl:value-of select="@name"/>
+						</xsl:attribute>
 					</imagedata>
 				</imageobject>
 			</mediaobject>
@@ -483,67 +793,4 @@
 
 	<xsl:template match="title"/>
 
-	<xsl:template match="indexentry">
-		<xsl:variable name="prim">
-			<xsl:choose>
-				<xsl:when test="contains(primaryie, ',')">
-					<xsl:value-of select="normalize-space(substring-before(primaryie, ','))"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="primaryie"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-
-		<xsl:variable name="sec">
-			<xsl:choose>
-				<xsl:when test="contains(primaryie, ',')">
-					<xsl:value-of select="normalize-space(substring-after(primaryie, ','))"/>
-				</xsl:when>
-				<xsl:when test="seondariye">
-					<xsl:value-of select="secondaryie"/>
-				</xsl:when>
-				<xsl:otherwise/>
-			</xsl:choose>
-		</xsl:variable>
-
-		<xsl:variable name="tert">
-			<xsl:choose>
-				<xsl:when test="contains(primaryie, ',')">
-					<xsl:choose>
-						<xsl:when test="secondaryie">
-							<xsl:value-of select="secondaryie"/>
-						</xsl:when>
-					</xsl:choose>
-				</xsl:when>
-				<xsl:when test="tertiaryie">
-					<xsl:value-of select="tertiaryie"/>
-				</xsl:when>
-				<xsl:otherwise/>
-			</xsl:choose>
-		</xsl:variable>
-
-		<indexterm>
-			<xsl:if test="@id">
-				<xsl:attribute name="id">
-					<xsl:value-of select="@id"/>
-				</xsl:attribute>
-			</xsl:if>
-			<xsl:if test="$prim">
-				<primary>
-					<xsl:value-of select="$prim"/>
-				</primary>
-			</xsl:if>
-			<xsl:if test="$sec">
-				<secondary>
-					<xsl:value-of select="$sec"/>
-				</secondary>
-			</xsl:if>
-			<xsl:if test="$tert">
-				<tertiary>
-					<xsl:value-of select="$tert"/>
-				</tertiary>
-			</xsl:if>
-		</indexterm>
-	</xsl:template>
 </xsl:stylesheet>
