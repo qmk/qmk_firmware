@@ -85,10 +85,10 @@ $(EXTENSION_OUTPUT_XML): $(TEMP_MANIFEST_XML)
 $(MSHELP_OUTPUT_XML): $(DOXYGEN_COMBINED_XML)
 	@echo Converting Doxygen XML to Docbook...
 	@-mkdir mshelp 2> /dev/null
-	@xsltproc HV1/lufa_docbook_transform.xsl $(DOXYGEN_COMBINED_XML) > mshelp/lufa_docbook.xml
+	@xsltproc HV1/lufa_docbook_transform.xslt $(DOXYGEN_COMBINED_XML) > mshelp/lufa_docbook.xml
 
-	@echo Converting Docbook to Microsoft Help 1.0...
-	@cd mshelp && xsltproc $(MSHELP_GEN_PARAMS) ../Docbook/mshelp/docbook.xsl lufa_docbook.xml
+	@echo Converting Docbook XML to Microsoft Help 1.0...
+	@cd mshelp && xsltproc $(MSHELP_GEN_PARAMS) ../HV1/lufa_hv1_transform.xslt lufa_docbook.xml
 
 	@echo Copying help assets...
 	@cp HV1/lufa_studio_help_styling.css mshelp
