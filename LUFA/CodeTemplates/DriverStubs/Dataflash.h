@@ -81,6 +81,7 @@
 			#define DATAFLASH_PAGES                      // TODO: Replace with the total number of pages inside one of the Dataflash ICs
 
 		/* Inline Functions: */
+		#if !defined(__DOXYGEN__)
 			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *  The microcontroller's SPI driver MUST be initialized before any of the dataflash commands are used.
 			 */
@@ -205,7 +206,8 @@
 			 *  \param[in] PageAddress  Page address within the selected dataflash IC
 			 *  \param[in] BufferByte   Address within the dataflash's buffer
 			 */
-			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
+			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
+			                                              const uint16_t BufferByte)
 			{
 				#if (DATAFLASH_TOTALCHIPS == 2)
 					PageAddress >>= 1;
@@ -215,6 +217,7 @@
 				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
 			}
+		#endif
 
 #endif
 

@@ -14,36 +14,32 @@
 
 	<xsl:output method="xml" indent="no"/>
 
-<!--
 	<xsl:template match="emphasis[@role = 'keyword' or @role = 'keywordtype' or @role = 'keywordflow']">
-		<span class="hl-keyword" style="color: #0079C1; display:inline-block">
+		<span class="hl-keyword" style="color: #0079C1">
 			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
 
 	<xsl:template match="emphasis[@role = 'stringliteral' or @role = 'charliteral']">
-		<span class="hl-string" style="color: #800000; display:inline-block">
+		<span class="hl-string" style="color: #800000">
 			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
 
 	<xsl:template match="emphasis[@role = 'comment']">
-		<span class="hl-comment" style="color: #008000; display:inline-block">
+		<em class="hl-comment" style="color: #008000">
 			<xsl:apply-templates/>
-		</span>
+		</em>
 	</xsl:template>
 
 	<xsl:template match="emphasis[@role = 'preprocessor']">
-		<span class="hl-preprocessor" style="color: #A000A0; display:inline-block">
+		<span class="hl-preprocessor" style="color: #A000A0">
 			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
 
 	<xsl:template match="emphasis[@role = 'normal' and ancestor::programlisting]">
-		<span>
-			<xsl:apply-templates/>
-		</span>
+		<xsl:apply-templates />
 	</xsl:template>
--->
 
 </xsl:stylesheet>
