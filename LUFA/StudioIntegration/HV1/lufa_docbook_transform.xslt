@@ -285,7 +285,7 @@
 							<xsl:if test="position() > 1">
 								<xsl:text>,</xsl:text>
 							</xsl:if>
-							<xsl:text>&#10;&#9;&#9;</xsl:text>
+							<xsl:text>&#10;&#9;</xsl:text>
 							<emphasis role="keyword">
 								<xsl:value-of select="type"/>
 							</emphasis>
@@ -375,7 +375,7 @@
 
 					<!-- Split long macro definitions across multiple lines -->
 					<xsl:if test="(string-length(initializer) > 50) or (count(param) > 0)">
-						<xsl:text>\&#10;&#09;&#9;</xsl:text>
+						<xsl:text>\&#10;&#9;</xsl:text>
 					</xsl:if>
 
 					<xsl:value-of select="initializer"/>
@@ -739,9 +739,9 @@
 	</xsl:template>
 
 	<xsl:template match="highlight">
-<!--		<emphasis role="{@class}"> -->
+		<emphasis role="{@class}">
 			<xsl:apply-templates/>
-<!--		</emphasis> -->
+		</emphasis>
 	</xsl:template>
 
 	<xsl:template match="sp[ancestor::codeline]">

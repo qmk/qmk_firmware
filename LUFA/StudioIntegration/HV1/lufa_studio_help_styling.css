@@ -10,13 +10,13 @@
  	display: block;
  	margin-left: 15px;
  	padding: 10px;
- 	background-color: #f0f0f0;
+ 	background-color: #f4f4f4;
  	border: 1px solid #aaaaaa;
  	font-family: "Consolas", "Courier New", sans-serif;
  }
 
  code {
- 	background-color: #f0f0f0;
+ 	background-color: #f4f4f4;
  	font-family: "Consolas", "Courier New", sans-serif;
  }
 
@@ -25,7 +25,7 @@
  	margin-left: 15px;
  	padding-left: 10px;
  	padding-bottom: 5px;
- 	background-color: #f0f0f0;
+ 	background-color: #f4f4f4;
  	border: 1px solid #aaaaaa;
 }
 
@@ -37,7 +37,7 @@ table {
 }
 
 table thead * {
- 	background-color: #f0f0f0;
+ 	background-color: #f4f4f4;
 }
 
 table thead th {
