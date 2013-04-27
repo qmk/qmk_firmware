@@ -289,7 +289,7 @@
  *    <td>NO_VTARGET_DETECT</td>
  *    <td>AppConfig.h</td>
  *    <td>Define to disable VTARGET sampling and reporting on AVR models with an ADC converter. This will cause the programmer
- *        to report a fixed 3.3V target voltage to the host regardless of the real target voltage. 
+ *        to report a fixed 3.3V target voltage to the host regardless of the real target voltage.
  *        \n \n <i>Ignored when compiled for targets lacking an ADC.</i></td>
  *   </tr>
  *   <tr>

@@ -62,7 +62,7 @@
 		#if (!defined(FIRMWARE_VERSION_MINOR) || defined(__DOXYGEN__))
 			/** Minor firmware version, reported to the host on request; must match the version
 			 *  the host is expecting, or it (may) reject further communications with the programmer. */
-			#define FIRMWARE_VERSION_MINOR   0x14
+			#define FIRMWARE_VERSION_MINOR   0x16
 		#endif
 
 	/* Type Defines: */
