@@ -62,6 +62,7 @@
 			<!-- Add index chapter -->
 			<xsl:call-template name="generate.top.level.page">
 				<xsl:with-param name="top.level.page" select="compounddef[@kind = 'page' and @id = 'indexpage']"/>
+				<xsl:with-param name="top.level.page.title" select="'Library Information'"/>
 			</xsl:call-template>
 
 			<!-- Add free-floating chapters -->
@@ -87,10 +88,11 @@
 
 	<xsl:template name="generate.top.level.page">
 		<xsl:param name="top.level.page"/>
+		<xsl:param name="top.level.page.title" select="$top.level.page/title"/>
 
 		<chapter id="{$top.level.page/@id}">
 			<title>
-				<xsl:value-of select="$top.level.page/title"/>
+				<xsl:value-of select="$top.level.page.title"/>
 			</title>
 
 			<xsl:apply-templates select="$top.level.page/detaileddescription"/>
