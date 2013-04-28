@@ -27,91 +27,10 @@ static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-
-#define _DDRA (uint8_t *const)&DDRA
-#define _DDRB (uint8_t *const)&DDRB
-#define _DDRC (uint8_t *const)&DDRC
-#define _DDRD (uint8_t *const)&DDRD
-#define _DDRE (uint8_t *const)&DDRE
-#define _DDRF (uint8_t *const)&DDRF
-
-#define _PINA (uint8_t *const)&PINA
-#define _PINB (uint8_t *const)&PINB
-#define _PINC (uint8_t *const)&PINC
-#define _PIND (uint8_t *const)&PIND
-#define _PINE (uint8_t *const)&PINE
-#define _PINF (uint8_t *const)&PINF
-
-#define _PORTA (uint8_t *const)&PORTA
-#define _PORTB (uint8_t *const)&PORTB
-#define _PORTC (uint8_t *const)&PORTC
-#define _PORTD (uint8_t *const)&PORTD
-#define _PORTE (uint8_t *const)&PORTE
-#define _PORTF (uint8_t *const)&PORTF
-
-#define _BIT0 0x01
-#define _BIT1 0x02
-#define _BIT2 0x04
-#define _BIT3 0x08
-#define _BIT4 0x10
-#define _BIT5 0x20
-#define _BIT6 0x40
-#define _BIT7 0x80
-
-/* Specifies the ports and pin numbers for the rows */
-static
-uint8_t *const row_ddr[MATRIX_ROWS] = {_DDRB,  _DDRB,  _DDRB,  _DDRB,  _DDRB,  _DDRB};
-
-static
-uint8_t *const row_port[MATRIX_ROWS] = {_PORTB, _PORTB, _PORTB, _PORTB, _PORTB, _PORTB};
-
-static
-uint8_t *const row_pin[MATRIX_ROWS] = {_PINB,  _PINB,  _PINB,  _PINB,  _PINB,  _PINB};
-
-static
-const uint8_t row_bit[MATRIX_ROWS] = { _BIT0,  _BIT1,  _BIT2,  _BIT3,  _BIT4,  _BIT5};
-
-/* Specifies the ports and pin numbers for the columns */
-static
-uint8_t *const  col_ddr[MATRIX_COLS] = { _DDRD,  _DDRC,  _DDRC,  _DDRD,  _DDRD,  _DDRE,
-				  _DDRF,  _DDRF,  _DDRF,  _DDRF,  _DDRF,  _DDRF,
-				  _DDRD,  _DDRD,  _DDRD,  _DDRD,  _DDRD};
-
-static
-uint8_t *const col_port[MATRIX_COLS] = {_PORTD, _PORTC, _PORTC, _PORTD, _PORTD, _PORTE,
-				 _PORTF, _PORTF, _PORTF, _PORTF, _PORTF, _PORTF,
-				 _PORTD, _PORTD, _PORTD, _PORTD, _PORTD};
-
-static
-const uint8_t   col_bit[MATRIX_COLS] = {  _BIT5,  _BIT7,  _BIT6,  _BIT4,  _BIT0,  _BIT6,
-				  _BIT0,  _BIT1,  _BIT4,  _BIT5,  _BIT6,  _BIT7,
-				  _BIT7,  _BIT6,  _BIT1,  _BIT2,  _BIT3};
-
-static
-inline void pull_column(int col) {
-  *col_port[col] &= ~col_bit[col];
-}
-
-static
-inline void release_column(int col) {
-  *col_port[col] |=  col_bit[col];
-}
-
-/* PORTB is set as input with pull-up resistors
-   PORTC,D,E,F are set to high output */
-
-static
-void setup_io_pins(void) {
-  uint8_t row, col;
-  for(row = 0; row < MATRIX_ROWS; row++) {
-    *row_ddr[row]  &= ~row_bit[row];
-    *row_port[row] |=  row_bit[row];
-  }
-  for(col = 0; col < MATRIX_COLS; col++) {
-    *col_ddr[col]  |= col_bit[col];
-    *col_port[col] |= col_bit[col];
-  }
-}
+static uint8_t read_rows(void);
+static void init_rows(void);
+static void unselect_cols(void);
+static void select_col(uint8_t col);
 
 /* LEDs are on output compare pins OC1B OC1C
    This activates fast PWM mode on them.
@@ -158,7 +77,8 @@ void matrix_init(void)
     MCUCR |= (1<<JTD);
 	
     // initialize row and col
-    setup_io_pins();
+    unselect_cols();
+    init_rows();
     setup_leds();
 
     // initialize matrix state: all keys off
@@ -171,11 +91,12 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {  // 0-16
-        pull_column(col);   // output hi on theline
+        select_col(col);
         _delay_us(3);       // without this wait it won't read stable value.
+        uint8_t rows = read_rows();
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {  // 0-5
             bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
-            bool curr_bit = !(*row_pin[row] & row_bit[row]);
+            bool curr_bit = rows & (1<<row);
             if (prev_bit != curr_bit) {
                 matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
                 if (debouncing) {
@@ -184,7 +105,7 @@ uint8_t matrix_scan(void)
                 debouncing = DEBOUNCE;
             }
         }
-        release_column(col);
+        unselect_cols();
     }
 
     if (debouncing) {
@@ -202,7 +123,7 @@ uint8_t matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
-    // NOTE: no longer used
+    if (debouncing) return false;
     return true;
 }
 
@@ -232,10 +153,120 @@ uint8_t matrix_key_count(void)
 {
     uint8_t count = 0;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        for (uint8_t j = 0; j < MATRIX_COLS; j++) {
-            if (matrix_is_on(i, j))
-                count++;
-        }
+        count += bitpop32(matrix[i]);
     }
     return count;
+}
+
+/* Row pin configuration
+ * row: 0   1   2   3   4   5
+ * pin: B0  B1  B2  B3  B4  B5
+ */
+static void init_rows(void)
+{
+    // Input with pull-up(DDR:0, PORT:1)
+    DDRB  &= ~0b00111111;
+    PORTB |= 0b00111111;
+}
+
+static uint8_t read_rows(void)
+{
+    return (PINB&(1<<0) ? 0 : (1<<0)) |
+           (PINB&(1<<1) ? 0 : (1<<1)) |
+           (PINB&(1<<2) ? 0 : (1<<2)) |
+           (PINB&(1<<3) ? 0 : (1<<3)) |
+           (PINB&(1<<4) ? 0 : (1<<4)) |
+           (PINB&(1<<5) ? 0 : (1<<5));
+}
+
+/* Column pin configuration
+ * col: 0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+ * pin: D5  C7  C6  D4  D0  E6  F0  F1  F4  F5  F6  F7  D7  D6  D1  D2  D3
+ */
+static void unselect_cols(void)
+{
+    // Hi-Z(DDR:0, PORT:0) to unselect
+    DDRC  |= 0b11000000; // PC: 7 6
+    PORTC |= 0b11000000;
+    DDRD  |= 0b11111111; // PD: 7 6 5 4 3 2 1 0
+    PORTD |= 0b11111111;
+    DDRE  |= 0b01000000; // PE: 6
+    PORTE |= 0b01000000;
+    DDRF  |= 0b11110011; // PF: 7 6 5 4 1 0
+    PORTF |= 0b11110011;
+}
+
+static void select_col(uint8_t col)
+{
+    // Output low(DDR:1, PORT:0) to select
+    switch (col) {
+        case 0:
+            DDRD  |= (1<<5);
+            PORTD &= ~(1<<5);
+            break;
+        case 1:
+            DDRC  |= (1<<7);
+            PORTC &= ~(1<<7);
+            break;
+        case 2:
+            DDRC  |= (1<<6);
+            PORTC &= ~(1<<6);
+            break;
+        case 3:
+            DDRD  |= (1<<4);
+            PORTD &= ~(1<<4);
+            break;
+        case 4:
+            DDRD  |= (1<<0);
+            PORTD &= ~(1<<0);
+            break;
+        case 5:
+            DDRE  |= (1<<6);
+            PORTE &= ~(1<<6);
+            break;
+        case 6:
+            DDRF  |= (1<<0);
+            PORTF &= ~(1<<0);
+            break;
+        case 7:
+            DDRF  |= (1<<1);
+            PORTF &= ~(1<<1);
+            break;
+        case 8:
+            DDRF  |= (1<<4);
+            PORTF &= ~(1<<4);
+            break;
+        case 9:
+            DDRF  |= (1<<5);
+            PORTF &= ~(1<<5);
+            break;
+        case 10:
+            DDRF  |= (1<<6);
+            PORTF &= ~(1<<6);
+            break;
+        case 11:
+            DDRF  |= (1<<7);
+            PORTF &= ~(1<<7);
+            break;
+        case 12:
+            DDRD  |= (1<<7);
+            PORTD &= ~(1<<7);
+            break;
+        case 13:
+            DDRD  |= (1<<6);
+            PORTD &= ~(1<<6);
+            break;
+        case 14:
+            DDRD  |= (1<<1);
+            PORTD &= ~(1<<1);
+            break;
+        case 15:
+            DDRD  |= (1<<2);
+            PORTD &= ~(1<<2);
+            break;
+        case 16:
+            DDRD  |= (1<<3);
+            PORTD &= ~(1<<3);
+            break;
+    }
 }
