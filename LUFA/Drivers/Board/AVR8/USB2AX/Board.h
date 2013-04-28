@@ -82,7 +82,7 @@
 			    defined(__DOXYGEN__)
 				#include "../../Buttons.h"
 
-				/** Indicates the board has a hardware Buttons mounted. */
+				/** Indicates the board has hardware Buttons mounted. */
 				#define BOARD_HAS_BUTTONS
 			#endif
 
@@ -90,7 +90,7 @@
 			     (BOARD == BOARD_USB2AX_V31) || defined(__DOXYGEN__))
 				#include "../../LEDs.h"
 
-				/** Indicates the board has a hardware LEDs mounted. */
+				/** Indicates the board has hardware LEDs mounted. */
 				#define BOARD_HAS_LEDS
 			#endif
 

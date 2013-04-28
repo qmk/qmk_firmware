@@ -71,7 +71,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Indicates the board has a hardware LEDs mounted. */
+			/** Indicates the board has hardware LEDs mounted. */
 			#define BOARD_HAS_LEDS
 
 	/* Disable C linkage for C++ Compilers: */

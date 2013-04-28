@@ -75,7 +75,7 @@
 			/** Indicates the board has a hardware Dataflash mounted. */
 			#define BOARD_HAS_DATAFLASH
 
-			/** Indicates the board has a hardware LEDs mounted. */
+			/** Indicates the board has hardware LEDs mounted. */
 			#define BOARD_HAS_LEDS
 
 	/* Disable C linkage for C++ Compilers: */

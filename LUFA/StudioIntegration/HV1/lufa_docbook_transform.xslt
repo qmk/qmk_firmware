@@ -529,7 +529,7 @@
 				<tbody>
 					<xsl:for-each select="parameteritem">
 						<row>
-							<xsl:apply-templates/>
+							<xsl:apply-templates select="."/>
 						</row>
 					</xsl:for-each>
 				</tbody>
@@ -550,7 +550,7 @@
 				<tbody>
 					<xsl:for-each select="parameteritem">
 						<row>
-							<xsl:apply-templates/>
+							<xsl:apply-templates select="."/>
 						</row>
 					</xsl:for-each>
 				</tbody>
@@ -626,18 +626,6 @@
 		</ulink>
 	</xsl:template>
 
-	<xsl:template match="registered">
-		<xsl:text>&#174;</xsl:text>
-	</xsl:template>
-
-	<xsl:template match="copy">
-		<xsl:text>&#169;</xsl:text>
-	</xsl:template>
-
-	<xsl:template match="trademark">
-		<xsl:text>&#8482;</xsl:text>
-	</xsl:template>
-
 	<xsl:template match="superscript">
 		<superscript>
 			<xsl:apply-templates/>
@@ -697,7 +685,7 @@
 					<row>
 						<xsl:for-each select="entry">
 							<entry>
-								<xsl:apply-templates/>
+								<xsl:apply-templates select="."/>
 							</entry>
 						</xsl:for-each>
 					</row>
@@ -708,7 +696,7 @@
 					<row>
 						<xsl:for-each select="entry">
 							<entry>
-								<xsl:apply-templates/>
+								<xsl:apply-templates select="."/>
 							</entry>
 						</xsl:for-each>
 					</row>
@@ -738,7 +726,7 @@
 	<xsl:template match="programlisting">
 		<programlisting language="c">
 			<xsl:for-each select="codeline[position() > 1 or highlight]">
-				<xsl:apply-templates/>
+				<xsl:apply-templates select="."/>
 				<xsl:text>&#10;</xsl:text>
 			</xsl:for-each>
 		</programlisting>

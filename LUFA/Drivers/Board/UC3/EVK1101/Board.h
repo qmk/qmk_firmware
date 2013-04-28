@@ -66,13 +66,13 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Indicates the board has a hardware Buttons mounted. */
+			/** Indicates the board has hardware Buttons mounted. */
 			#define BOARD_HAS_BUTTONS
 
 			/** Indicates the board has a hardware Joystick mounted. */
 			#define BOARD_HAS_JOYSTICK
 
-			/** Indicates the board has a hardware LEDs mounted. */
+			/** Indicates the board has hardware LEDs mounted. */
 			#define BOARD_HAS_LEDS
 
 	/* Disable C linkage for C++ Compilers: */
