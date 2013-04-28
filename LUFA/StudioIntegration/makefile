@@ -35,12 +35,12 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png \
                         VSIX/"[Content_Types].xml"                      \
                         VSIX/ASFExplorer.png                            \
                         VSIX/ASFWizard.png                              \
+                        VSIX/LUFAHelpMenu.png                           \
                         VSIX/NewExampleWizard.png                       \
                         VSIX/GettingStarted.htm                         \
                         Blob/Atmel.Studio.Services.Interfaces.dll       \
                         Blob/LUFA.dll                                   \
-                        Blob/LUFA.pkgdef                                \
-
+                        Blob/LUFA.pkgdef
 MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"            \
                        --stringparam chunk.quietly "1"                  \
                        --stringparam chunk.section.depth "3"            \

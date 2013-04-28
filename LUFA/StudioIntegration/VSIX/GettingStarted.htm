@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>LUFA</title>
+		<title>Getting Started with LUFA</title>
 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 
@@ -20,7 +20,7 @@
 
 			body
 			{
-				background-color: #353530;
+				background-color: #353535;
 			}
 
 			#container
@@ -49,7 +49,7 @@
 			#footer
 			{
 				text-align: center;
-				font: normal 1em Georgia, sans-serif;
+				font: normal 1em "Georgia", sans-serif;
 				color: #CCB;
 				padding: 20px;
 			}
@@ -64,12 +64,17 @@
 			{
 				line-height: 1.4em;
 				padding: 0.2em 0 1.2em;
-				font: normal 1em Georgia, sans-serif;
+				font: normal 1em "Georgia", sans-serif;
+			}
+
+			#content tt
+			{
+				font: normal 1em "Consolas", sans-serif;
 			}
 
 			#content h1
 			{
-				font: bold 1.3em Georgia, sans-serif;
+				font: bold 1.3em "Georgia", sans-serif;
 				color: #3D3229;
 				margin-top: 2em;
 				margin-bottom: 0.2em;
@@ -85,8 +90,15 @@
 				display: block;
 				margin-left: auto;
 				margin-right: auto;
+				margin-top: .5em;
+				margin-bottom: 1em;
 			}
 
+			#installedinfo
+			{
+				text-align: center;
+				font: italic 1.1em "Georgia", sans-serif !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -96,39 +108,51 @@
 			</div>
 
 			<div id="content">
-				<p>The LUFA extension is now installed into Atmel Studio, and
-				   is ready for use. To get started, read the information below.</p>
+				<p id="installedinfo">The LUFA extension is now installed into Atmel Studio, and
+				   is ready for use.
+				</p>
 
 				<h1>Create an Example Project</h1>
 				<p>LUFA comes with a variety of example projects, showing off several of the library features. Also included is a number of
 				   bootloaders, full LUFA powered projects, and several user-contributed projects. To see these, open the <em>New Example Project</em>
-				   wizard from the <tt>File->New</tt> menu. Expand out the <em>FourWalledCubicle</em> node, then the <em>Dean Camera - LUFA</em> node to see a list
-				   of LUFA projects.</p>
+				   wizard from the <tt>File&rarr;New</tt> menu. Expand out the <em>FourWalledCubicle</em> node, then the <em>Dean Camera - LUFA</em> node to see a list
+				   of LUFA projects.
+				</p>
 
 				   <img width="700px" src="NewExampleWizard.png" alt="Atmel Studio New Example Wizard" />
 
 				<h1>Configure LUFA</h1>
 				<p>The LUFA Atmel Studio extension is fully integrated into the Atmel Studio IDE, including the LUFA sub-modules. Open the
-					<em>ASF Wizard</em> from the <tt>ASF->ASF Wizard</tt> menu, choose your project from your current solution, then choose
+					<em>ASF Wizard</em> from the <tt>ASF&rarr;ASF Wizard</tt> menu, choose your project from your current solution, then choose
 					the LUFA library as the extension to configure from the <em>Available Modules</em> portion of the wizard. Here you can
-					add and remove LUFA modules to and from your project as you need them.</p>
+					add and remove LUFA modules to and from your project as you need them.
+				</p>
 
 				   <img width="700px" src="ASFWizard.png" alt="Atmel ASF Module Wizard" />
 
 				<h1>Find the Module APIs</h1>
 				<p>You can view your project's included LUFA modules any time you need to from the <em>ASF Explorer</em> window, accessible from
-					the <tt>ASF->ASF Explorer</tt> menu. Here you can find a link to the module's corresponding API documentation in the LUFA
-					manual, as well as a direct link to the module's API header.</p>
+					the <tt>ASF&rarr;ASF Explorer</tt> menu. Here you can find a link to the module's corresponding API documentation in the LUFA
+					manual, as well as a direct link to the module's API header.
+				</p>
 
 				   <img src="ASFExplorer.png" alt="Atmel ASF Explorer Tool Window" />
 
 				<h1>Get Help</h1>
-				<p>First and foremost, remember to consult the <a href="http://www.lufa-lib.org/documentation">LUFA documentation</a>
-				   if you want to learn how to use LUFA in your project.
+				<p>If you installed the integrated help package, you can view the LUFA manual from the <tt>Help&rarr;View Help</tt> menu, or just
+				   jump directly to the relevant documentation for a function, variable, type or other LUFA symbol in your code by first selecting
+				   it and pressing the <tt>F1</tt> key. If the integrated Help package fails to instal, you can re-try from the
+				   <tt>Help&rarr;LUFA Help&rarr;Reinstall LUFA Help</tt> menu entry.
+				</p>
+
+				   <img width="700px" src="LUFAHelpMenu.png" alt="Atmel ASF Module Wizard" />
+
+				<p>The latest LUFA manual is also available for viewing <a href="http://www.lufa-lib.org/documentation">online</a>, if you
+				   do not wish to use the integrated help.
 				</p>
 				<p>
-					If you are still stuck and need help, please sign up and post on the <a href="http://www.lufa-lib.org/support">LUFA Mailing List</a>
-					- or just search the archives to see if your question has already been answered.
+					If you are still stuck and need help, please post on the <a href="http://www.lufa-lib.org/support">LUFA Mailing List</a>
+					- or just search the mailing list archives to see if your question has already been answered.
 				</p>
 
 				<h1>Read About the Latest Developments</h1>
