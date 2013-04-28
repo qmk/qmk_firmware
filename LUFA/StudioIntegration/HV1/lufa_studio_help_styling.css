@@ -44,7 +44,7 @@ table thead th {
 	padding: 5px;
 }
 
-table th, td {
+table tbody td {
 	padding: 5px;
 }
 

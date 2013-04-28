@@ -529,7 +529,7 @@
 				<tbody>
 					<xsl:for-each select="parameteritem">
 						<row>
-							<xsl:apply-templates select="."/>
+							<xsl:apply-templates/>
 						</row>
 					</xsl:for-each>
 				</tbody>
@@ -550,7 +550,7 @@
 				<tbody>
 					<xsl:for-each select="parameteritem">
 						<row>
-							<xsl:apply-templates select="."/>
+							<xsl:apply-templates/>
 						</row>
 					</xsl:for-each>
 				</tbody>
@@ -600,19 +600,23 @@
 
 	<xsl:template match="bold">
 		<emphasis role="bold">
-			<xsl:value-of select="."/>
+			<xsl:apply-templates/>
 		</emphasis>
 	</xsl:template>
 
 	<xsl:template match="emphasis">
 		<emphasis role="italic">
-			<xsl:value-of select="."/>
+			<xsl:apply-templates/>
 		</emphasis>
+	</xsl:template>
+
+	<xsl:template match="small">
+		<xsl:apply-templates/>
 	</xsl:template>
 
 	<xsl:template match="computeroutput">
 		<computeroutput>
-			<xsl:value-of select="."/>
+			<xsl:apply-templates/>
 		</computeroutput>
 	</xsl:template>
 
@@ -636,13 +640,13 @@
 
 	<xsl:template match="superscript">
 		<superscript>
-			<xsl:value-of select="."/>
+			<xsl:apply-templates/>
 		</superscript>
 	</xsl:template>
 
 	<xsl:template match="subscript">
 		<subscript>
-			<xsl:value-of select="."/>
+			<xsl:apply-templates/>
 		</subscript>
 	</xsl:template>
 
@@ -693,7 +697,7 @@
 					<row>
 						<xsl:for-each select="entry">
 							<entry>
-								<xsl:apply-templates select="."/>
+								<xsl:apply-templates/>
 							</entry>
 						</xsl:for-each>
 					</row>
@@ -704,7 +708,7 @@
 					<row>
 						<xsl:for-each select="entry">
 							<entry>
-								<xsl:apply-templates select="."/>
+								<xsl:apply-templates/>
 							</entry>
 						</xsl:for-each>
 					</row>
@@ -734,7 +738,7 @@
 	<xsl:template match="programlisting">
 		<programlisting language="c">
 			<xsl:for-each select="codeline[position() > 1 or highlight]">
-				<xsl:apply-templates select="."/>
+				<xsl:apply-templates/>
 				<xsl:text>&#10;</xsl:text>
 			</xsl:for-each>
 		</programlisting>
@@ -753,7 +757,7 @@
 	<xsl:template match="image">
 		<mediaobject>
 			<imageobject>
-				<imagedata>
+				<imagedata align="center">
 					<xsl:attribute name="fileref">
 						<xsl:text>images/</xsl:text>
 						<xsl:value-of select="@name"/>
