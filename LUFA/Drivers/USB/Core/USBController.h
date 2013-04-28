@@ -131,6 +131,20 @@
 		#define EP_TYPE_INTERRUPT                  0x03
 		//@}
 
+	/* Enums: */
+		/** Enum for the possible USB controller modes, for initialization via \ref USB_Init() and indication back to the
+		 *  user application via \ref USB_CurrentMode.
+		 */
+		enum USB_Modes_t
+		{
+			USB_MODE_None   = 0, /**< Indicates that the controller is currently not initialized in any specific USB mode. */
+			USB_MODE_Device = 1, /**< Indicates that the controller is currently initialized in USB Device mode. */
+			USB_MODE_Host   = 2, /**< Indicates that the controller is currently initialized in USB Host mode. */
+			USB_MODE_UID    = 3, /**< Indicates that the controller should determine the USB mode from the UID pin of the
+			                      *   USB connector.
+			                      */
+		};
+
 	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/USBController_AVR8.h"

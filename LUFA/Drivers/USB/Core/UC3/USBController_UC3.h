@@ -87,13 +87,13 @@
 		#if (defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR))
 			#if ((F_USB < 12000000) || (F_USB % 12000000))
 				#error Invalid F_USB specified. F_USB must be a multiple of 12MHz for UC3A3 and UC3A4 devices.
-			#endif		
+			#endif
 		#else
 			#if ((F_USB < 48000000) || (F_USB % 48000000))
 				#error Invalid F_USB specified. F_USB must be a multiple of 48MHz for UC3A and UC3B devices.
-			#endif		
+			#endif
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name USB Controller Option Masks */
@@ -264,20 +264,6 @@
 			#elif defined(USE_STATIC_OPTIONS)
 				#define USB_Options USE_STATIC_OPTIONS
 			#endif
-
-		/* Enums: */
-			/** Enum for the possible USB controller modes, for initialization via \ref USB_Init() and indication back to the
-			 *  user application via \ref USB_CurrentMode.
-			 */
-			enum USB_Modes_t
-			{
-				USB_MODE_None   = 0, /**< Indicates that the controller is currently not initialized in any specific USB mode. */
-				USB_MODE_Device = 1, /**< Indicates that the controller is currently initialized in USB Device mode. */
-				USB_MODE_Host   = 2, /**< Indicates that the controller is currently initialized in USB Host mode. */
-				USB_MODE_UID    = 3, /**< Indicates that the controller should determine the USB mode from the UID pin of the
-				                      *   USB connector.
-				                      */
-			};
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
