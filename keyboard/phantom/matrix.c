@@ -220,10 +220,10 @@ matrix_row_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
-    print("\nr/c 01234567\n");
+    print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
-        pbin_reverse(matrix_get_row(row));
+        print_bin_reverse32(matrix_get_row(row));
         print("\n");
     }
 }
