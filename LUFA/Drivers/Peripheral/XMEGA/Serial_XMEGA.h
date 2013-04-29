@@ -156,7 +156,7 @@
 			 *
 			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
 			 */
-			void Serial_CreateStream(FILE* const Stream);
+			void Serial_CreateStream(FILE* Stream);
 
 			/** Identical to \ref Serial_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer.
@@ -166,7 +166,7 @@
 			 *
 			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
 			 */
-			void Serial_CreateBlockingStream(FILE* const Stream);
+			void Serial_CreateBlockingStream(FILE* Stream);
 
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
