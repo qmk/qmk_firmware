@@ -113,6 +113,7 @@
  *  \li Reflow oven controller: http://danstrother.com/2011/01/15/reflow-oven-controller/
  *  \li Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  \li RFPirate, a RF experimentation platform: https://github.com/ebuller/RF-Pirate
+ *  \li RF Power Meter, based on the AD8307 log amp: https://sites.google.com/site/lofturj/ad8307-power-meter
  *  \li RF Transceiver using the MRF49XA: http://alternet.us.com/?page_id=1494
  *  \li SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  \li SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
@@ -137,6 +138,7 @@
  *  \li USB Infrared Receiver/Transmitter: http://vaton4.web2001.cz/
  *  \li USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  \li USB MIDI to DMX controller: http://github.com/hanshuebner/miDiMX
+ *  \li USB Mood Light: https://github.com/hsbp/usb_moodlight
  *  \li USB powered Geiger Counter: http://uhrheber.wordpress.com/2011/04/28/a-usb-powered-geiger-counter-for-the-z2-and-other-computers/
  *  \li Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  \li Wii Classic Controller to USB converter: https://github.com/crazyiop/wii-classic-2-usb
