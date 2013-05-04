@@ -181,7 +181,7 @@ uint8_t ps2_host_recv(void)
 }
 #else
 /* ring buffer to store ps/2 key data */
-#define PBUF_SIZE 8
+#define PBUF_SIZE 32
 static uint8_t pbuf[PBUF_SIZE];
 static uint8_t pbuf_head = 0;
 static uint8_t pbuf_tail = 0;
