@@ -66,20 +66,12 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    print_enable = true;
     debug_enable = true;
     //debug_matrix = true;
     //debug_keyboard = true;
     //debug_mouse = false;
 
     ps2_host_init();
-    // Make and Break code without Typematic
-    while (ps2_host_send(0xF8) != 0xFA) {
-        debug("send F8: failed\n");
-        _delay_ms(500);
-    }
-    debug("send F8: OK\n");
-
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
@@ -92,46 +84,90 @@ uint8_t matrix_scan(void)
 
     // scan code reading states
     static enum {
-        INIT,
+        RESET,
+        RESET_RESPONSE,
+        KBD_ID0,
+        KBD_ID1,
+        CONFIG,
+        READY,
         F0,
-    } state = INIT;
-
+    } state = RESET;
 
     is_modified = false;
 
     uint8_t code;
-    while ((code = ps2_host_recv())) {
-        debug_hex(code);
-        switch (state) {
-            case INIT:
-                switch (code) {
-                    case 0xF0:
-                        state = F0;
-                        debug(" ");
-                        break;
-                    default:    // normal key make
-                        if (code < 0x88) {
-                            matrix_make(code);
-                        } else {
-                            debug("unexpected scan code at INIT: "); debug_hex(code); debug("\n");
-                        }
-                        state = INIT;
-                        debug("\n");
-                }
-                break;
-            case F0:    // Break code
-                switch (code) {
-                    default:
+    if ((code = ps2_host_recv())) {
+        debug("r"); debug_hex(code); debug(" ");
+    }
+
+    switch (state) {
+        case RESET:
+            debug("wFF ");
+            if (ps2_host_send(0xFF) == 0xFA) {
+                debug("[ack]\nRESET_RESPONSE: ");
+                state = RESET_RESPONSE;
+            }
+            break;
+        case RESET_RESPONSE:
+            if (code == 0xAA) {
+                debug("[ok]\nKBD_ID: ");
+                state = KBD_ID0;
+            } else if (code) {
+                debug("err\nRESET: ");
+                state = RESET;
+            }
+            break;
+        // after reset receive keyboad ID(2 bytes)
+        case KBD_ID0:
+            if (code) {
+                state = KBD_ID1;
+            }
+            break;
+        case KBD_ID1:
+            if (code) {
+                debug("\nCONFIG: ");
+                state = CONFIG;
+            }
+            break;
+        case CONFIG:
+            debug("wF8 ");
+            if (ps2_host_send(0xF8) == 0xFA) {
+                debug("[ack]\nREADY\n");
+                state = READY;
+            }
+            break;
+        case READY:
+            switch (code) {
+                case 0x00:
+                    break;
+                case 0xF0:
+                    state = F0;
+                    debug(" ");
+                    break;
+                default:    // normal key make
+                    if (code < 0x88) {
+                        matrix_make(code);
+                    } else {
+                        debug("unexpected scan code at READY: "); debug_hex(code); debug("\n");
+                    }
+                    state = READY;
+                    debug("\n");
+            }
+            break;
+        case F0:    // Break code
+            switch (code) {
+                case 0x00:
+                    break;
+                default:
                     if (code < 0x88) {
                         matrix_break(code);
                     } else {
                         debug("unexpected scan code at F0: "); debug_hex(code); debug("\n");
                     }
-                    state = INIT;
+                    state = READY;
                     debug("\n");
-                }
-                break;
-        }
+            }
+            break;
     }
     return 1;
 }
