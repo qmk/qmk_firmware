@@ -103,10 +103,6 @@
 		</chapter>
 	</xsl:template>
 
-	<xsl:template match="compounddef">
-		<!-- Discard compounddef elements unless a later template matches -->
-	</xsl:template>
-
 	<xsl:template match="compounddef[@kind = 'page']">
 		<section id="{@id}">
 			<title>
@@ -305,16 +301,14 @@
 	</xsl:template>
 
 	<xsl:template match="memberdef[@kind = 'enum']">
-		<xsl:variable name="name" select="name"/>
-
 		<section id="{@id}" xreflabel="{name}">
 			<title>
 				<xsl:text>Enum </xsl:text>
-				<xsl:value-of select="$name"/>
+				<xsl:value-of select="name"/>
 			</title>
 
 			<xsl:call-template name="generate.index.id">
-				<xsl:with-param name="name" select="$name"/>
+				<xsl:with-param name="name" select="name"/>
 			</xsl:call-template>
 
 			<xsl:apply-templates select="detaileddescription"/>
@@ -334,7 +328,7 @@
 								<entry>
 									<para id="{@id}" xreflabel="{name}">
 										<xsl:value-of select="name"/>
-										<indexterm id="{$keyword.namespace}.{$name}.{name}"/>
+										<indexterm id="{$keyword.namespace}.{name}"/>
 									</para>
 								</entry>
 								<entry>
@@ -588,14 +582,14 @@
 		</entry>
 	</xsl:template>
 
-	<xsl:template match="type">
-		<xsl:apply-templates/>
-	</xsl:template>
-
-	<xsl:template match="para">
+	<xsl:template match="parameterdescription">
 		<para>
 			<xsl:apply-templates/>
 		</para>
+	</xsl:template>
+
+	<xsl:template match="type">
+		<xsl:apply-templates/>
 	</xsl:template>
 
 	<xsl:template match="bold">
@@ -614,10 +608,18 @@
 		<xsl:apply-templates/>
 	</xsl:template>
 
-	<xsl:template match="computeroutput">
+	<xsl:template match="mdash | ndash">
+		<xsl:text>--</xsl:text>
+	</xsl:template>
+
+	<xsl:template match="computeroutput | preformatted">
 		<computeroutput>
 			<xsl:apply-templates/>
 		</computeroutput>
+	</xsl:template>
+
+	<xsl:template match="codeline">
+			<xsl:apply-templates/>
 	</xsl:template>
 
 	<xsl:template match="ulink">
@@ -636,6 +638,12 @@
 		<subscript>
 			<xsl:apply-templates/>
 		</subscript>
+	</xsl:template>
+
+	<xsl:template match="para">
+		<para>
+			<xsl:apply-templates/>
+		</para>
 	</xsl:template>
 
 	<xsl:template match="ref">
@@ -657,6 +665,12 @@
 				</link>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="entry">
+		<entry>
+			<xsl:apply-templates/>
+		</entry>
 	</xsl:template>
 
 	<xsl:template match="table">
@@ -683,22 +697,14 @@
 			<thead>
 				<xsl:for-each select="row[1]">
 					<row>
-						<xsl:for-each select="entry">
-							<entry>
-								<xsl:apply-templates select="."/>
-							</entry>
-						</xsl:for-each>
+						<xsl:apply-templates select="entry"/>
 					</row>
 				</xsl:for-each>
 			</thead>
 			<tbody>
 				<xsl:for-each select="row[position() != 1]">
 					<row>
-						<xsl:for-each select="entry">
-							<entry>
-								<xsl:apply-templates select="."/>
-							</entry>
-						</xsl:for-each>
+						<xsl:apply-templates select="entry"/>
 					</row>
 				</xsl:for-each>
 			</tbody>
@@ -782,5 +788,9 @@
 	</xsl:template>
 
 	<xsl:template match="title"/>
+
+	<xsl:template match="*">
+		<xsl:message>NO XSL TEMPLATE MATCH: <xsl:value-of select="name()"/></xsl:message>
+	</xsl:template>
 
 </xsl:stylesheet>
