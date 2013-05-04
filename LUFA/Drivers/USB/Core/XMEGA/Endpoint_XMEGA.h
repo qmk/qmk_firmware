@@ -194,9 +194,8 @@
 			 */
 			void Endpoint_SelectEndpoint(const uint8_t Address);
 
-			/** Configures the specified endpoint address with the given endpoint type, direction, bank size
-			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
-			 *  on its direction.
+			/** Configures the specified endpoint address with the given endpoint type, bank size and number of hardware
+			 *  banks. Once configured, the endpoint may be read from or written to, depending on its direction.
 			 *
 			 *  \param[in] Address    Endpoint address to configure.
 			 *

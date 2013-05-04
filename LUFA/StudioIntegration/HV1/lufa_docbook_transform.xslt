@@ -74,7 +74,7 @@
 				</xsl:if>
 			</xsl:for-each>
 
-			<!-- Add Module chapter -->
+			<!-- Add Modules chapter -->
 			<chapter>
 				<title>Modules</title>
 				<xsl:for-each select="compounddef[@kind = 'group']">
@@ -226,7 +226,7 @@
 							<xsl:for-each select="memberdef">
 								<row id="{@id}" xreflabel="{name}">
 									<entry>
-										<xsl:apply-templates select="type"/>
+										<xsl:value-of select="type"/>
 									</entry>
 									<entry>
 										<xsl:value-of select="name"/>
@@ -435,7 +435,7 @@
 		</section>
 	</xsl:template>
 
-	<xsl:template match="linebreak">
+	<xsl:template match="linebreak | simplesectsep">
 		<literallayout>
 		</literallayout>
 	</xsl:template>
@@ -467,42 +467,42 @@
 					<title>
 						<xsl:value-of select="title"/>
 					</title>
-					<xsl:apply-templates select="para"/>
+					<xsl:apply-templates/>
 				</note>
 			</xsl:when>
 
 			<xsl:when test="@kind = 'return'">
 				<note>
 					<title>Returns</title>
-					<xsl:apply-templates select="para"/>
+					<xsl:apply-templates/>
 				</note>
 			</xsl:when>
 
 			<xsl:when test="@kind = 'warning'">
 				<warning>
 					<title>Warning</title>
-					<xsl:apply-templates select="para"/>
+					<xsl:apply-templates/>
 				</warning>
 			</xsl:when>
 
 			<xsl:when test="@kind = 'pre'">
 				<note>
 					<title>Precondition</title>
-					<xsl:apply-templates select="para"/>
+					<xsl:apply-templates/>
 				</note>
 			</xsl:when>
 
 			<xsl:when test="@kind = 'see'">
 				<note>
 					<title>See also</title>
-					<xsl:apply-templates select="para"/>
+					<xsl:apply-templates/>
 				</note>
 			</xsl:when>
 
 			<xsl:when test="@kind = 'note'">
 				<note>
 					<title>Note</title>
-					<xsl:apply-templates select="para"/>
+					<xsl:apply-templates/>
 				</note>
 			</xsl:when>
 
@@ -680,6 +680,7 @@
 					<title>
 						<xsl:value-of select="caption"/>
 					</title>
+
 					<xsl:call-template name="write.table.content"/>
 				</table>
 			</xsl:when>

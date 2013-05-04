@@ -167,9 +167,8 @@
 			};
 
 		/* Inline Functions: */
-			/** Configures the specified endpoint address with the given endpoint type, direction, bank size
-			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
-			 *  on its direction.
+			/** Configures the specified endpoint address with the given endpoint type, bank size and number of hardware
+			 *  banks. Once configured, the endpoint may be read from or written to, depending on its direction.
 			 *
 			 *  \param[in] Address    Endpoint address to configure.
 			 *
@@ -209,7 +208,7 @@
 			                                              const uint8_t Banks)
 			{
 				uint8_t Number = (Address & ENDPOINT_EPNUM_MASK);
-			
+
 				if (Number >= ENDPOINT_TOTAL_ENDPOINTS)
 				  return false;
 
@@ -277,7 +276,7 @@
 			static inline void Endpoint_ResetEndpoint(const uint8_t Address)
 			{
 				uint32_t EndpointNumber = (Address & ENDPOINT_EPNUM_MASK);
-			
+
 				AVR32_USBB.uerst |=  (AVR32_USBB_EPRST0_MASK << EndpointNumber);
 				AVR32_USBB.uerst &= ~(AVR32_USBB_EPRST0_MASK << EndpointNumber);
 				USB_Endpoint_FIFOPos[EndpointNumber] = &AVR32_USBB_SLAVE[EndpointNumber * ENDPOINT_HSB_ADDRESS_SPACE_SIZE];

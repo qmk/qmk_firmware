@@ -206,7 +206,7 @@
 			{
 				return (((&AVR32_USBB.UPCFG0)[USB_Pipe_SelectedPipe].ptoken == PIPE_TOKEN_OUT) ? PIPE_DIR_OUT : PIPE_DIR_IN);
 			}
-			
+
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
 			 *  currently selected pipe number so that it can be restored after another pipe has been manipulated.
 			 *
@@ -817,12 +817,12 @@
 			 *  \param[in] Entries  Number of entries in the pipe table to configure.
 			 *
 			 *  \return Boolean \c true if all pipes configured successfully, \c false otherwise.
-			 */			
+			 */
 			bool Pipe_ConfigurePipeTable(const USB_Pipe_Table_t* const Table,
 			                             const uint8_t Entries);
 
-			/** Configures the specified pipe address with the given pipe type, endpoint address within the attached device, bank size
-			 *  and number of hardware banks.
+			/** Configures the specified pipe address with the given pipe type, endpoint address within the attached device,
+			 *  bank size and number of hardware banks.
 			 *
 			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze()
 			 *  before being used. Pipes should be kept frozen unless waiting for data from a device while in IN mode, or
