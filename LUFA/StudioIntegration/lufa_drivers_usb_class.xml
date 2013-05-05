@@ -114,6 +114,8 @@
 
 			<build type="header-file" value="Drivers/USB/Class/PrinterClass.h"/>
 			<build type="header-file" value="Drivers/USB/Class/Common/PrinterClassCommon.h"/>
+			<build type="header-file" value="Drivers/USB/Class/Device/PrinterClassDevice.h"/>
+			<build type="c-source"    value="Drivers/USB/Class/Device/PrinterClassDevice.c"/>
 			<build type="header-file" value="Drivers/USB/Class/Host/PrinterClassHost.h"/>
 			<build type="c-source"    value="Drivers/USB/Class/Host/PrinterClassHost.c"/>
 		</module>
