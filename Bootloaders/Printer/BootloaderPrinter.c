@@ -134,37 +134,23 @@ void Application_Jump_Check(void)
 }
 
 /**
- * Determines if a given input byte of data is an ASCII encoded HEX value.
- *
- * \note Input HEX bytes are expected to be in uppercase only.
- *
- * \param[in] Byte  ASCII byte of data to check
- *
- * \return Boolean \c true if the input data is ASCII encoded HEX, \c false otherwise.
- */
-static bool IsHex(const char Byte)
-{
-	return ((Byte >= 'A') && (Byte <= 'F')) ||
-	       ((Byte >= '0') && (Byte <= '9'));
-}
-
-/**
  * Converts a given input byte of data from an ASCII encoded HEX value to an integer value.
  *
  * \note Input HEX bytes are expected to be in uppercase only.
  *
  * \param[in] Byte  ASCII byte of data to convert
  *
- * \return Integer converted value of the input ASCII encoded HEX byte of data.
+ * \return Integer converted value of the input ASCII encoded HEX byte of data, or -1 if the
+ *         input is not valid ASCII encoded HEX.
  */
-static uint8_t HexToDecimal(const char Byte)
+static int8_t HexToDecimal(const char Byte)
 {
 	if ((Byte >= 'A') && (Byte <= 'F'))
 	  return (10 + (Byte - 'A'));
 	else if ((Byte >= '0') && (Byte <= '9'))
 	  return (Byte - '0');
 
-	return 0;
+	return -1;
 }
 
 /**
@@ -180,7 +166,6 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 	{
 		HEXParser.Checksum     = 0;
 		HEXParser.CurrAddress  = HEXParser.CurrBaseAddress;
-		HEXParser.ParserState  = HEX_PARSE_STATE_WAIT_LINE;
 		HEXParser.ReadMSB      = false;
 
 		/* ASCII ':' indicates the start of a new HEX record */
@@ -191,11 +176,12 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 	}
 
 	/* Only allow ASCII HEX encoded digits, ignore all other characters */
-	if (!IsHex(ReadCharacter))
+	int8_t ReadCharacterDec = HexToDecimal(ReadCharacter);
+	if (ReadCharacterDec < 0)
 	  return;
 
 	/* Read and convert the next nibble of data from the current character */
-	HEXParser.Data    = (HEXParser.Data << 4) | HexToDecimal(ReadCharacter);
+	HEXParser.Data    = (HEXParser.Data << 4) | ReadCharacterDec;
 	HEXParser.ReadMSB = !HEXParser.ReadMSB;
 
 	/* Only process further when a full byte (two nibbles) have been read */
