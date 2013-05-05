@@ -36,7 +36,7 @@
 
 void USB_INT_DisableAllInterrupts(void)
 {
-	USB.INTCTRLA    &= ~USB_INTLVL_gm;
+	USB.INTCTRLA    &= USB_INTLVL_gm;
 	USB.INTCTRLB     = 0;
 }
 
