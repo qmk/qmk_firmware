@@ -125,6 +125,14 @@
 			 */
 			void PRNT_Device_USBTask(USB_ClassInfo_PRNT_Device_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Printer class driver event for a soft reset request on a Printer interface. This event fires each time the host
+			 *  requests a reset of the printer interface's internal state, and may be hooked in the user program by declaring a
+			 *  handler function with the same name and parameters listed here.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class configuration and state.
+			 */
+			void EVENT_PRNT_Device_SoftReset(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+
 			/** Sends a given data buffer to the attached USB host, if connected. If a host is not connected when the function is
 			 *  called, the string is discarded. Bytes will be queued for transmission to the host until either the endpoint bank
 			 *  becomes full, or the \ref PRNT_Device_Flush() function is called to flush the pending data to the host. This allows
