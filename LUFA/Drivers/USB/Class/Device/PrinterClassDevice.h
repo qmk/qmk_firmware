@@ -87,14 +87,20 @@
 					USB_Endpoint_Table_t DataOUTEndpoint; /**< Data OUT endpoint configuration table. */
 
 					char* IEEE1284String; /**< IEEE 1284 identification string, sent to the host during enumeration
-					                       *   to identify the printer model, manufacturer and other characteristics. */
+					                       *   to identify the printer model, manufacturer and other characteristics.
+					                       */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
 				struct
 				{
 					uint8_t PortStatus; /**< Current status of the Printer virtual port, a collection of \c PRNT_PORTSTATUS_*
-					                     *   bitmask values. */
+					                     *   bitmask values.
+					                     */
+
+					volatile bool IsPrinterReset; /**< Flag indicating that the host has requested that the Printer interface be reset
+											       *   and that all current Mass Storage operations should immediately abort.
+											       */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
@@ -131,7 +137,7 @@
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class configuration and state.
 			 */
-			void EVENT_PRNT_Device_SoftReset(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			void EVENT_PRNT_Device_SoftReset(USB_ClassInfo_PRNT_Device_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a given data buffer to the attached USB host, if connected. If a host is not connected when the function is
 			 *  called, the string is discarded. Bytes will be queued for transmission to the host until either the endpoint bank

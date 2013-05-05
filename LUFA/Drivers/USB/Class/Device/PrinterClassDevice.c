@@ -59,7 +59,7 @@ void PRNT_Device_ProcessControlRequest(USB_ClassInfo_PRNT_Device_t* const PRNTIn
 				}
 
 				uint16_t IEEEStringLen = strlen(PRNTInterfaceInfo->Config.IEEE1284String);
-				Endpoint_Write_16_BE(IEEEStringLen + 1);
+				Endpoint_Write_16_BE(IEEEStringLen);
 				Endpoint_Write_Control_Stream_LE(PRNTInterfaceInfo->Config.IEEE1284String, IEEEStringLen);
 				Endpoint_ClearStatusStage();
 			}
@@ -86,6 +86,8 @@ void PRNT_Device_ProcessControlRequest(USB_ClassInfo_PRNT_Device_t* const PRNTIn
 			{
 				Endpoint_ClearSETUP();
 				Endpoint_ClearStatusStage();
+
+				PRNTInterfaceInfo->State.IsPrinterReset = true;
 
 				EVENT_PRNT_Device_SoftReset(PRNTInterfaceInfo);
 			}
@@ -122,6 +124,21 @@ void PRNT_Device_USBTask(USB_ClassInfo_PRNT_Device_t* const PRNTInterfaceInfo)
 	if (Endpoint_IsINReady())
 	  PRNT_Device_Flush(PRNTInterfaceInfo);
 	#endif
+
+	if (PRNTInterfaceInfo->State.IsPrinterReset)
+	{
+		Endpoint_ResetEndpoint(PRNTInterfaceInfo->Config.DataOUTEndpoint.Address);
+		Endpoint_ResetEndpoint(PRNTInterfaceInfo->Config.DataINEndpoint.Address);
+
+		Endpoint_SelectEndpoint(PRNTInterfaceInfo->Config.DataOUTEndpoint.Address);
+		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
+		Endpoint_SelectEndpoint(PRNTInterfaceInfo->Config.DataINEndpoint.Address);
+		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
+
+		PRNTInterfaceInfo->State.IsPrinterReset = false;
+	}
 }
 
 uint8_t PRNT_Device_SendString(USB_ClassInfo_PRNT_Device_t* const PRNTInterfaceInfo,
