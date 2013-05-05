@@ -127,8 +127,8 @@
  *  </tr>
  *  <tr>
  *   <td>Printer</td>
- *   <td bgcolor="#EE0000">No</td>
-*    <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
  *   <td>RNDIS</td>
@@ -193,7 +193,7 @@
  *  void EVENT_USB_Device_ConfigurationChanged(void)
  *  {
  *      LEDs_SetAllLEDs(LEDMASK_USB_READY);
- *      
+ *
  *      if (!(Audio_Device_ConfigureEndpoints(&My_Audio_Interface)))
  *          LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
  *  }
@@ -209,14 +209,14 @@
  *  int main(void)
  *  {
  *      SetupHardware();
- *      
+ *
  *      LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
- *      
+ *
  *      for (;;)
  *      {
  *          if (USB_DeviceState != DEVICE_STATE_Configured)
  *            Create_And_Process_Samples();
- *          
+ *
  *          Audio_Device_USBTask(&My_Audio_Interface);
  *          USB_USBTask();
  *      }
@@ -297,30 +297,30 @@
  *  void EVENT_USB_Host_DeviceEnumerationComplete(void)
  *  {
  *      LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
- *      
+ *
  *      uint16_t ConfigDescriptorSize;
  *      uint8_t  ConfigDescriptorData[512];
- *      
+ *
  *      if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
  *                                             sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
  *      {
  *          LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
  *          return;
  *      }
- *      
+ *
  *      if (MIDI_Host_ConfigurePipes(&Keyboard_MIDI_Interface,
  *                                   ConfigDescriptorSize, ConfigDescriptorData) != MIDI_ENUMERROR_NoError)
  *      {
  *          LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
  *          return;
  *      }
- *      
+ *
  *      if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
  *      {
  *          LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
  *          return;
  *      }
- *      
+ *
  *      LEDs_SetAllLEDs(LEDMASK_USB_READY);
  *  }
  *  \endcode
@@ -333,7 +333,7 @@
  *  the configuration will fail.
  *
  *  To complete the device enumeration after binding the host mode Class Drivers to the attached device, a call to
- *  \c USB_Host_SetDeviceConfiguration() must be made. If the device configuration is not set within the 
+ *  \c USB_Host_SetDeviceConfiguration() must be made. If the device configuration is not set within the
  *  \c EVENT_USB_Host_DeviceEnumerationComplete() event, the host still will assume the device enumeration has failed.
  *
  *  Once initialized, it is important to maintain the class driver's state by repeatedly calling the Class Driver's
@@ -346,14 +346,14 @@
  *  int main(void)
  *  {
  *      SetupHardware();
- *      
+ *
  *      LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
- *      
+ *
  *      for (;;)
  *      {
  *          if (USB_HostState != HOST_STATE_Configured)
  *              Create_And_Process_Samples();
- *          
+ *
  *          MIDI_Host_USBTask(&My_Audio_Interface);
  *          USB_USBTask();
  *      }

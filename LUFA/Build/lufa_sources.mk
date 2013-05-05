@@ -105,6 +105,7 @@ LUFA_SRC_USBCLASS_DEVICE := $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/AudioClas
                             $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/HIDClassDevice.c          \
                             $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MassStorageClassDevice.c  \
                             $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/MIDIClassDevice.c         \
+                            $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/PrinterClassDevice.c      \
                             $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/RNDISClassDevice.c        \
 
 LUFA_SRC_USBCLASS_HOST   := $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/AndroidAccessoryClassHost.c \

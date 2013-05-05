@@ -13,6 +13,7 @@
   *   - Added new Mass Storage class bootloader
   *   - Added additional MIDI command definitions to the MIDI class driver (thanks to Daniel Dreibrodt)
   *   - Added new CONCAT() and CONCAT_EXPANDED() convenience macros
+  *   - Added new Printer Device Class driver
   *
   *  <b>Changed:</b>
   *  - Core:

@@ -43,6 +43,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Host/PrinterClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/PrinterClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Sec_ModDescription Module Description
@@ -67,6 +68,10 @@
 
 	/* Includes: */
 		#include "../Core/USBMode.h"
+
+		#if defined(USB_CAN_BE_DEVICE)
+			#include "Device/PrinterClassDevice.h"
+		#endif
 
 		#if defined(USB_CAN_BE_HOST)
 			#include "Host/PrinterClassHost.h"
