@@ -8,16 +8,18 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
-  *  - Library Applications:
-  *   - Added new Printer class bootloader
-  *   - Added new Mass Storage class bootloader
+  *  - Core:
   *   - Added additional MIDI command definitions to the MIDI class driver (thanks to Daniel Dreibrodt)
   *   - Added new CONCAT() and CONCAT_EXPANDED() convenience macros
   *   - Added new Printer Device Class driver
+  *  - Library Applications:
+  *   - Added new Printer class bootloader
+  *   - Added new Mass Storage class bootloader
   *
   *  <b>Changed:</b>
   *  - Core:
   *   - Updated the BUILD build system module to produce binary BIN files in addition to Intel HEX files
+  *   - Updated the Android Accessory Class to accept version 2 protocol devices (with version 1 functionality)
   *
   *  <b>Fixed:</b>
   *  - Core:

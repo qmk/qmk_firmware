@@ -104,16 +104,17 @@
 			AOA_STRING_Version              = 3, /**< Index of the Version Number property string. */
 			AOA_STRING_URI                  = 4, /**< Index of the URI Information property string. */
 			AOA_STRING_Serial               = 5, /**< Index of the Serial Number property string. */
-			
+
 			#if !defined(__DOXYGEN__)
 			AOA_STRING_TOTAL_STRINGS
 			#endif
 		};
-		
+
 		/** Enum for the possible Android Open Accessory protocol versions. */
 		enum AOA_Protocols_t
 		{
 			AOA_PROTOCOL_AccessoryV1        = 0x0001, /**< Android Open Accessory version 1. */
+			AOA_PROTOCOL_AccessoryV2        = 0x0002, /**< Android Open Accessory version 2. */
 		};
 
 	/* Disable C linkage for C++ Compilers: */
