@@ -92,16 +92,12 @@ struct
 	uint32_t CurrBaseAddress;
 	/** Current 32-bit byte address in FLASH being targeted. */
 	uint32_t CurrAddress;
-} HEXParser =
-	{
-		.ParserState = HEX_PARSE_STATE_WAIT_LINE
-	};
+} HEXParser;
 
 /** Indicates if there is data waiting to be written to a physical page of
  *  memory in FLASH.
  */
 static bool PageDirty = false;
-
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
@@ -151,6 +147,31 @@ static int8_t HexToDecimal(const char Byte)
 	  return (Byte - '0');
 
 	return -1;
+}
+
+/**
+ * Flushes a partially written page of data to physical FLASH, if a page
+ * boundary has been crossed.
+ *
+ * \note If a page flush occurs the global HEX parser state is updated.
+ */
+static void FlushPageIfRequired(void)
+{
+	/* Abort if no data has been buffered for writing to the current page */
+	if (!PageDirty)
+	  return;
+
+	/* Flush the FLASH page to physical memory if we are crossing a page boundary */
+	uint32_t NewPageStartAddress = (HEXParser.CurrAddress & ~(SPM_PAGESIZE - 1));
+	if (HEXParser.PageStartAddress != NewPageStartAddress)
+	{
+		boot_page_write(HEXParser.PageStartAddress);
+		boot_spm_busy_wait();
+
+		HEXParser.PageStartAddress = NewPageStartAddress;
+
+		PageDirty = false;
+	}
 }
 
 /**
@@ -241,9 +262,7 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 			switch (HEXParser.RecordType)
 			{
 				case HEX_RECORD_TYPE_Data:
-					/* If we are writing to a new page, we need to erase it
-					 * first
-					 */
+					/* If we are writing to a new page, we need to erase it first */
 					if (!(PageDirty))
 					{
 						boot_page_erase(HEXParser.PageStartAddress);
@@ -257,16 +276,7 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 					HEXParser.CurrAddress += 2;
 
 					/* Flush the FLASH page to physical memory if we are crossing a page boundary */
-					uint32_t NewPageStartAddress = (HEXParser.CurrAddress & ~(SPM_PAGESIZE - 1));
-					if (PageDirty && (HEXParser.PageStartAddress != NewPageStartAddress))
-					{
-						boot_page_write(HEXParser.PageStartAddress);
-						boot_spm_busy_wait();
-
-						HEXParser.PageStartAddress = NewPageStartAddress;
-
-						PageDirty = false;
-					}
+					FlushPageIfRequired();
 					break;
 
 				case HEX_RECORD_TYPE_ExtendedSegmentAddress:
@@ -290,16 +300,7 @@ static void ParseIntelHEXByte(const char ReadCharacter)
 			  break;
 
 			/* Flush the FLASH page to physical memory if we are crossing a page boundary */
-			uint32_t NewPageStartAddress = (HEXParser.CurrAddress & ~(SPM_PAGESIZE - 1));
-			if (PageDirty && (HEXParser.PageStartAddress != NewPageStartAddress))
-			{
-				boot_page_write(HEXParser.PageStartAddress);
-				boot_spm_busy_wait();
-
-				HEXParser.PageStartAddress = NewPageStartAddress;
-
-				PageDirty = false;
-			}
+			FlushPageIfRequired();
 
 			/* If end of the HEX file reached, the bootloader should exit at next opportunity */
 			if (HEXParser.RecordType == HEX_RECORD_TYPE_EndOfFile)
@@ -412,6 +413,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	/* Setup Printer Data Endpoints */
 	ConfigSuccess &= PRNT_Device_ConfigureEndpoints(&TextOnly_Printer_Interface);
+
+	/* Reset the HEX parser upon successful connection to a host */
+	HEXParser.ParserState = HEX_PARSE_STATE_WAIT_LINE;
 
 	/* Indicate endpoint configuration success or failure */
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
