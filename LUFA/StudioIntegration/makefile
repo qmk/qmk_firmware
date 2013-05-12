@@ -29,23 +29,25 @@ EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
 MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
 MSHELP_OUTPUT_XML    := $(LUFA_ROOT)/../lufa_help_$(EXT_VERSION_NUM).mshc
 XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
-VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png \
-                        $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png       \
-                        $(LUFA_ROOT)/License.txt                        \
-                        VSIX/"[Content_Types].xml"                      \
-                        VSIX/ASFExplorer.png                            \
-                        VSIX/ASFWizard.png                              \
-                        VSIX/LUFAHelpMenu.png                           \
-                        VSIX/NewExampleWizard.png                       \
-                        VSIX/GettingStarted.htm                         \
-                        Blob/Atmel.Studio.Services.Interfaces.dll       \
-                        Blob/LUFA.dll                                   \
+VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png    \
+                        $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png          \
+                        $(LUFA_ROOT)/License.txt                           \
+                        VSIX/"[Content_Types].xml"                         \
+                        VSIX/ASFExplorer.png                               \
+                        VSIX/ASFWizard.png                                 \
+                        VSIX/LUFAHelpMenu.png                              \
+                        VSIX/NewExampleWizard.png                          \
+                        VSIX/GettingStarted.htm                            \
+                        Blob/LUFA.dll                                      \
                         Blob/LUFA.pkgdef
-MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"            \
-                       --stringparam chunk.quietly "1"                  \
-                       --stringparam chunk.section.depth "3"            \
-                       --stringparam chunk.first.sections "1"           \
-                       --stringparam chapter.autolabel "0"              \
+MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"               \
+                       --stringparam chunk.quietly "1"                     \
+                       --stringparam chunk.section.depth "3"               \
+                       --stringparam chunk.first.sections "1"              \
+                       --stringparam chapter.autolabel "0"                 \
+                       --stringparam product.name "LUFA"                   \
+                       --stringparam product.version "$(LUFA_VERSION_NUM)" \
+                       --stringparam root.filename "LUFA"                  \
                        --stringparam html.stylesheet "lufa_studio_help_styling.css"
 
 all: generate_xml check_filenames generate_vsix
