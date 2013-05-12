@@ -435,7 +435,10 @@
 			                                  *   a value from the \ref Audio_CSInterface_AS_SubTypes_t enum.
 			                                  */
 
-			uint16_t                ACSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version. */
+			uint16_t                ACSpecification; /**< Binary Coded Decimal value, indicating the supported Audio Class specification version.
+			                                          *
+			                                          *   \see \ref VERSION_BCD() utility macro.
+			                                          */
 			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 
 			uint8_t                 InCollection; /**< Total number of Audio Streaming interfaces linked to this Audio Control interface (must be 1). */
@@ -464,7 +467,10 @@
 			                             *   a value from the \ref Audio_CSInterface_AS_SubTypes_t enum.
 			                             */
 
-			uint16_t bcdADC; /**< Binary coded decimal value, indicating the supported Audio Class specification version. */
+			uint16_t bcdADC; /**< Binary coded decimal value, indicating the supported Audio Class specification version.
+			                  *
+			                  *   \see \ref VERSION_BCD() utility macro.
+			                  */
 			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 
 			uint8_t  bInCollection; /**< Total number of Audio Streaming interfaces linked to this Audio Control interface (must be 1). */

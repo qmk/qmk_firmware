@@ -242,6 +242,8 @@
 			                                  */
 			uint16_t                CDCSpecification; /**< Version number of the CDC specification implemented by the device,
 			                                           *   encoded in BCD format.
+			                                           *
+			                                           *   \see \ref VERSION_BCD() utility macro.
 			                                           */
 		} ATTR_PACKED USB_CDC_Descriptor_FunctionalHeader_t;
 
@@ -265,7 +267,10 @@
 			uint8_t  bDescriptorSubType; /**< Sub type value used to distinguish between CDC class-specific descriptors,
 			                              *   must be \ref CDC_DSUBTYPE_CSInterface_Header.
 			                              */
-			uint16_t bcdCDC; /**< Version number of the CDC specification implemented by the device, encoded in BCD format. */
+			uint16_t bcdCDC; /**< Version number of the CDC specification implemented by the device, encoded in BCD format.
+			                  *
+			                  *   \see \ref VERSION_BCD() utility macro.
+			                  */
 		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalHeader_t;
 
 		/** \brief CDC class-specific Functional ACM Descriptor (LUFA naming conventions).

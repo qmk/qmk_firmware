@@ -586,7 +586,10 @@
 		{
 			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
 
-			uint16_t                HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to. */
+			uint16_t                HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to.
+			                                  *
+			                                  *   \see \ref VERSION_BCD() utility macro.
+			                                  */
 			uint8_t                 CountryCode; /**< Country code of the localized device, or zero if universal. */
 
 			uint8_t                 TotalReportDescriptors; /**< Total number of HID report descriptors for the interface. */
@@ -612,7 +615,10 @@
 			                           *   given by the specific class.
 			                           */
 
-			uint16_t bcdHID; /**< BCD encoded version that the HID descriptor and device complies to. */
+			uint16_t bcdHID; /**< BCD encoded version that the HID descriptor and device complies to.
+			                  *
+			                  *   \see \ref VERSION_BCD() utility macro.
+			                  */
 			uint8_t  bCountryCode; /**< Country code of the localized device, or zero if universal. */
 
 			uint8_t  bNumDescriptors; /**< Total number of HID report descriptors for the interface. */

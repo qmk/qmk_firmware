@@ -163,6 +163,8 @@
 
 			uint16_t                AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class
 			                                             *   specification version.
+			                                             *
+			                                             *   \see \ref VERSION_BCD() utility macro.
 			                                             */
 			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 		} ATTR_PACKED USB_MIDI_Descriptor_AudioInterface_AS_t;
@@ -187,7 +189,10 @@
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint16_t bcdMSC; /**< Binary coded decimal value, indicating the supported MIDI Class specification version. */
+			uint16_t bcdMSC; /**< Binary coded decimal value, indicating the supported MIDI Class specification version.
+			                  *
+			                  *   \see \ref VERSION_BCD() utility macro.
+			                  */
 			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 		} ATTR_PACKED USB_MIDI_StdDescriptor_AudioInterface_AS_t;
 
