@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <usb-accessory manufacturer="Dean Camera" model="LUFA Android Demo" version="1.0" />
+</resources>
