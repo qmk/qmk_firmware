@@ -76,7 +76,7 @@
  *  \code
  *      // Initialize the board LED driver before first use
  *      LEDs_Init();
- *      
+ *
  *      // Turn on each of the four LEDs in turn
  *      LEDs_SetAllLEDs(LEDS_LED1);
  *      Delay_MS(500);
@@ -86,11 +86,11 @@
  *      Delay_MS(500);
  *      LEDs_SetAllLEDs(LEDS_LED4);
  *      Delay_MS(500);
- *      
+ *
  *      // Turn on all LEDs
  *      LEDs_SetAllLEDs(LEDS_ALL_LEDS);
  *      Delay_MS(1000);
- *      
+ *
  *      // Turn on LED 1, turn off LED 2, leaving LEDs 3 and 4 in their current state
  *      LEDs_ChangeLEDs((LEDS_LED1 | LEDS_LED2), LEDS_LED1);
  *  \endcode
@@ -205,6 +205,14 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__DOXYGEN__)
+			#if !defined(LEDS_NO_LEDS)
+				#define LEDS_NO_LEDS   0
+			#endif
+
+			#if !defined(LEDS_ALL_LEDS)
+				#define LEDS_ALL_LEDS  (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
+			#endif
+
 			#if !defined(LEDS_LED1)
 				#define LEDS_LED1      0
 			#endif
