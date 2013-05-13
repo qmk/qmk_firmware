@@ -45,8 +45,6 @@ MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"               \
                        --stringparam chunk.section.depth "3"               \
                        --stringparam chunk.first.sections "1"              \
                        --stringparam chapter.autolabel "0"                 \
-                       --stringparam product.name "LUFA"                   \
-                       --stringparam product.version "$(LUFA_VERSION_NUM)" \
                        --stringparam root.filename "LUFA"                  \
                        --stringparam html.stylesheet "lufa_studio_help_styling.css"
 
