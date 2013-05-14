@@ -28,6 +28,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
+#include "xprintf.h"
+#include "util.h"
 
 
 // this macro allows you to write print("some text") and
@@ -49,17 +51,17 @@
 #define pbin_reverse16(data)    print_bin_reverse16(data)
 
 /* print value utility */
-#define print_val_dec(v)           do { print_P(PSTR(#v ": ")); print_dec(v);  print_P(PSTR("\n")); } while (0)
-#define print_val_decs(v)          do { print_P(PSTR(#v ": ")); print_decs(v);  print_P(PSTR("\n")); } while (0)
-#define print_val_hex8(v)          do { print_P(PSTR(#v ": ")); print_hex8(v);  print_P(PSTR("\n")); } while (0)
-#define print_val_hex16(v)         do { print_P(PSTR(#v ": ")); print_hex16(v); print_P(PSTR("\n")); } while (0)
-#define print_val_hex32(v)         do { print_P(PSTR(#v ": ")); print_hex32(v); print_P(PSTR("\n")); } while (0)
-#define print_val_bin8(v)          do { print_P(PSTR(#v ": ")); print_bin8(v);  print_P(PSTR("\n")); } while (0)
-#define print_val_bin16(v)         do { print_P(PSTR(#v ": ")); print_bin16(v); print_P(PSTR("\n")); } while (0)
-#define print_val_bin32(v)         do { print_P(PSTR(#v ": ")); print_bin32(v); print_P(PSTR("\n")); } while (0)
-#define print_val_bin_reverse8(v)  do { print_P(PSTR(#v ": ")); print_bin_reverse8(v);  print_P(PSTR("\n")); } while (0)
-#define print_val_bin_reverse16(v) do { print_P(PSTR(#v ": ")); print_bin_reverse16(v); print_P(PSTR("\n")); } while (0)
-#define print_val_bin_reverse32(v) do { print_P(PSTR(#v ": ")); print_bin_reverse32(v); print_P(PSTR("\n")); } while (0)
+#define print_val_dec(v)           xprintf(#v ": %u\n", v)
+#define print_val_decs(v)          xprintf(#v ": %d\n", v)
+#define print_val_hex8(v)          xprintf(#v ": %X\n", v)
+#define print_val_hex16(v)         xprintf(#v ": %02X\n", v)
+#define print_val_hex32(v)         xprintf(#v ": %04lX\n", v)
+#define print_val_bin8(v)          xprintf(#v ": %08b\n", v)
+#define print_val_bin16(v)         xprintf(#v ": %016b\n", v)
+#define print_val_bin32(v)         xprintf(#v ": %032lb\n", v)
+#define print_val_bin_reverse8(v)  xprintf(#v ": %08b\n", bitrev(v))
+#define print_val_bin_reverse16(v) xprintf(#v ": %016b\n", bitrev16(v))
+#define print_val_bin_reverse32(v) xprintf(#v ": %032lb\n", bitrev32(v))
 
 
 
@@ -68,34 +70,46 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /* function pointer of sendchar to be used by print utility */
 void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
-/* print string stored in data memory(SRAM) */
+/* print string stored in data memory(SRAM)
+ *     print_S("hello world");
+ * This consumes precious SRAM memory space for string.
+ */
 void print_S(const char *s);
-/* print string stored in program memory(FLASH) */
-void print_P(const char *s);
 
-void print_CRLF(void);
+void print_lf(void);
+void print_crlf(void);
+
+
+/* print string stored in program memory(FLASH)
+ *     print_P(PSTR("hello world");
+ * This consumes relatively abundant FLASH memory area not SRAM.
+ */
+#define print_P(s)          xputs(s)
 
 /* decimal */
-void print_dec(uint16_t data);
-void print_decs(int16_t data);
+#define print_dec(i)        xprintf("%u", i)
+#define print_decs(i)       xprintf("%d", i)
 
 /* hex */
-void print_hex4(uint8_t data);
-void print_hex8(uint8_t data);
-void print_hex16(uint16_t data);
-void print_hex32(uint32_t data);
+#define print_hex4(i)       xprintf("%X", i)
+#define print_hex8(i)       xprintf("%02X", i)
+#define print_hex16(i)      xprintf("%04X", i)
+#define print_hex32(i)      xprintf("%08lX", i)
 
 /* binary */
-void print_bin4(uint8_t data);
-void print_bin8(uint8_t data);
-void print_bin16(uint16_t data);
-void print_bin32(uint32_t data);
-void print_bin_reverse8(uint8_t data);
-void print_bin_reverse16(uint16_t data);
-void print_bin_reverse32(uint32_t data);
+#define print_bin4(i)       xprintf("%04b", i)
+#define print_bin8(i)       xprintf("%08b", i)
+#define print_bin16(i)      xprintf("%016b", i)
+#define print_bin32(i)      xprintf("%032lb", i)
+
+#define print_bin_reverse8(i)   xprintf("%08b", bitrev(i))
+#define print_bin_reverse16(i)  xprintf("%016b", bitrev16(i))
+#define print_bin_reverse32(i)  xprintf("%032lb", bitrev32(i))
+
 #ifdef __cplusplus
 }
 #endif
@@ -105,7 +119,6 @@ void print_bin_reverse32(uint32_t data);
 #define print_set_sendchar(func)
 #define print_S(s)
 #define print_P(s)
-#define print_CRLF()
 #define print_dec(data)
 #define print_decs(data)
 #define print_hex4(data)

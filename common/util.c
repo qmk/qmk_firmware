@@ -77,3 +77,25 @@ uint8_t biton32(uint32_t bits)
     if (bits >> 1) { bits >>= 1; n += 1;}
     return n;
 }
+
+
+
+uint8_t bitrev(uint8_t bits)
+{
+    bits = (bits & 0x0f)<<4 | (bits & 0xf0)>>4;
+    bits = (bits & 0b00110011)<<2 | (bits & 0b11001100)>>2;
+    bits = (bits & 0b01010101)<<1 | (bits & 0b10101010)>>1;
+    return bits;
+}
+
+uint16_t bitrev16(uint16_t bits)
+{
+    bits = bitrev(bits & 0x00ff)<<8 | bitrev((bits & 0xff00)>>8);
+    return bits;
+}
+
+uint32_t bitrev32(uint32_t bits)
+{
+    bits = (uint32_t)bitrev16(bits & 0x0000ffff)<<16 | bitrev16((bits & 0xffff0000)>>16);
+    return bits;
+}
