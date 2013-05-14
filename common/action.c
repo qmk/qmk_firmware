@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "mousekey.h"
 #include "command.h"
-#include "debug.h"
 #include "led.h"
 #include "action_layer.h"
 #include "action_tapping.h"
@@ -27,12 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "action.h"
 
+#ifdef DEBUG_ACTION
+#include "debug.h"
+#else
+#include "nodebug.h"
+#endif
+
 
 void action_exec(keyevent_t event)
 {
     if (!IS_NOEVENT(event)) {
-        debug("\n---- action_exec: start -----\n");
-        debug("EVENT: "); debug_event(event); debug("\n");
+        dprint("\n---- action_exec: start -----\n");
+        dprint("EVENT: "); debug_event(event); dprintln();
     }
 
     keyrecord_t record = { .event = event };
@@ -42,7 +47,7 @@ void action_exec(keyevent_t event)
 #else
     process_action(&record);
     if (!IS_NOEVENT(record.event)) {
-        debug("processed: "); debug_record(record); debug("\n");
+        dprint("processed: "); debug_record(record); dprintln();
     }
 #endif
 }
@@ -57,12 +62,12 @@ void process_action(keyrecord_t *record)
     if (IS_NOEVENT(event)) { return; }
 
     action_t action = layer_switch_get_action(event.key);
-    debug("ACTION: "); debug_action(action);
+    dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
-    debug(" layer_state: "); layer_debug();
-    debug(" default_layer_state: "); default_layer_debug();
+    dprint(" layer_state: "); layer_debug();
+    dprint(" default_layer_state: "); default_layer_debug();
 #endif
-    debug("\n");
+    dprintln();
 
     switch (action.kind.id) {
         /* Key and Mods */
@@ -98,37 +103,37 @@ void process_action(keyrecord_t *record)
                         // Oneshot modifier
                         if (event.pressed) {
                             if (tap_count == 0) {
-                                debug("MODS_TAP: Oneshot: add_mods\n");
+                                dprint("MODS_TAP: Oneshot: add_mods\n");
                                 add_mods(mods);
                             }
                             else if (tap_count == 1) {
-                                debug("MODS_TAP: Oneshot: start\n");
+                                dprint("MODS_TAP: Oneshot: start\n");
                                 oneshot_start(mods);
                             }
                             else if (tap_count == TAPPING_TOGGLE) {
-                                debug("MODS_TAP: Oneshot: toggle\n");
+                                dprint("MODS_TAP: Oneshot: toggle\n");
                                 oneshot_toggle();
                             }
                             else {
-                                debug("MODS_TAP: Oneshot: cancel&add_mods\n");
+                                dprint("MODS_TAP: Oneshot: cancel&add_mods\n");
                                 // double tap cancels oneshot and works as normal modifier.
                                 oneshot_cancel();
                                 add_mods(mods);
                             }
                         } else {
                             if (tap_count == 0) {
-                                debug("MODS_TAP: Oneshot: cancel/del_mods\n");
+                                dprint("MODS_TAP: Oneshot: cancel/del_mods\n");
                                 // cancel oneshot on hold
                                 oneshot_cancel();
                                 del_mods(mods);
                             }
                             else if (tap_count == 1) {
-                                debug("MODS_TAP: Oneshot: del_mods\n");
+                                dprint("MODS_TAP: Oneshot: del_mods\n");
                                 // retain Oneshot
                                 del_mods(mods);
                             }
                             else {
-                                debug("MODS_TAP: Oneshot: del_mods\n");
+                                dprint("MODS_TAP: Oneshot: del_mods\n");
                                 // cancel Mods
                                 del_mods(mods);
                             }
@@ -139,24 +144,24 @@ void process_action(keyrecord_t *record)
                         if (event.pressed) {
                             if (tap_count > 0) {
                                 if (record->tap.interrupted) {
-                                    debug("MODS_TAP: Tap: Cancel: add_mods\n");
+                                    dprint("MODS_TAP: Tap: Cancel: add_mods\n");
                                     // ad hoc: set 0 to cancel tap
                                     record->tap.count = 0;
                                     add_mods(mods);
                                 } else {
-                                    debug("MODS_TAP: Tap: register_code\n");
+                                    dprint("MODS_TAP: Tap: register_code\n");
                                     register_code(action.key.code);
                                 }
                             } else {
-                                debug("MODS_TAP: No tap: add_mods\n");
+                                dprint("MODS_TAP: No tap: add_mods\n");
                                 add_mods(mods);
                             }
                         } else {
                             if (tap_count > 0) {
-                                debug("MODS_TAP: Tap: unregister_code\n");
+                                dprint("MODS_TAP: Tap: unregister_code\n");
                                 unregister_code(action.key.code);
                             } else {
-                                debug("MODS_TAP: No tap: add_mods\n");
+                                dprint("MODS_TAP: No tap: add_mods\n");
                                 del_mods(mods);
                             }
                         }
@@ -261,18 +266,18 @@ void process_action(keyrecord_t *record)
                     /* tap key */
                     if (event.pressed) {
                         if (tap_count > 0) {
-                            debug("KEYMAP_TAP_KEY: Tap: register_code\n");
+                            dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer_tap.code);
                         } else {
-                            debug("KEYMAP_TAP_KEY: No tap: On on press\n");
+                            dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
                         }
                     } else {
                         if (tap_count > 0) {
-                            debug("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                            dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             unregister_code(action.layer_tap.code);
                         } else {
-                            debug("KEYMAP_TAP_KEY: No tap: Off on release\n");
+                            dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
                         }
                     }
@@ -448,40 +453,33 @@ bool is_tap_key(key_t key)
  */
 void debug_event(keyevent_t event)
 {
-    debug_hex16((event.key.row<<8) | event.key.col);
-    if (event.pressed) debug("d("); else debug("u(");
-    debug_dec(event.time); debug(")");
+    dprintf("%04X%c(%u)", (event.key.row<<8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time);
 }
 
 void debug_record(keyrecord_t record)
 {
     debug_event(record.event);
 #ifndef NO_ACTION_TAPPING
-    debug(":"); debug_dec(record.tap.count);
-    if (record.tap.interrupted) debug("-");
+    dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
 #endif
 }
 
 void debug_action(action_t action)
 {
     switch (action.kind.id) {
-        case ACT_LMODS:             debug("ACT_LMODS");             break;
-        case ACT_RMODS:             debug("ACT_RMODS");             break;
-        case ACT_LMODS_TAP:         debug("ACT_LMODS_TAP");         break;
-        case ACT_RMODS_TAP:         debug("ACT_RMODS_TAP");         break;
-        case ACT_USAGE:             debug("ACT_USAGE");             break;
-        case ACT_MOUSEKEY:          debug("ACT_MOUSEKEY");          break;
-        case ACT_LAYER:             debug("ACT_LAYER");             break;
-        case ACT_LAYER_TAP:         debug("ACT_LAYER_TAP");         break;
-        case ACT_LAYER_TAP1:        debug("ACT_LAYER_TAP1");        break;
-        case ACT_MACRO:             debug("ACT_MACRO");             break;
-        case ACT_COMMAND:           debug("ACT_COMMAND");           break;
-        case ACT_FUNCTION:          debug("ACT_FUNCTION");          break;
-        default:                    debug("UNKNOWN");               break;
+        case ACT_LMODS:             dprint("ACT_LMODS");             break;
+        case ACT_RMODS:             dprint("ACT_RMODS");             break;
+        case ACT_LMODS_TAP:         dprint("ACT_LMODS_TAP");         break;
+        case ACT_RMODS_TAP:         dprint("ACT_RMODS_TAP");         break;
+        case ACT_USAGE:             dprint("ACT_USAGE");             break;
+        case ACT_MOUSEKEY:          dprint("ACT_MOUSEKEY");          break;
+        case ACT_LAYER:             dprint("ACT_LAYER");             break;
+        case ACT_LAYER_TAP:         dprint("ACT_LAYER_TAP");         break;
+        case ACT_LAYER_TAP1:        dprint("ACT_LAYER_TAP1");        break;
+        case ACT_MACRO:             dprint("ACT_MACRO");             break;
+        case ACT_COMMAND:           dprint("ACT_COMMAND");           break;
+        case ACT_FUNCTION:          dprint("ACT_FUNCTION");          break;
+        default:                    dprint("UNKNOWN");               break;
     }
-    debug("[");
-    debug_hex4(action.kind.param>>8);
-    debug(":");
-    debug_hex8(action.kind.param & 0xff);
-    debug("]");
+    dprintf("[%X:%02X]", action.kind.param>>8, action.kind.param&0xff);
 }
