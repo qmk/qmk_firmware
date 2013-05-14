@@ -18,14 +18,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DEBUG_H
 #define DEBUG_H 1
 
-#include <stdbool.h>
 #include "print.h"
+#include "debug_config.h"
 
 
 #ifndef NO_DEBUG
 
+#define dprint(s)           do { if (debug_enable) print(s); } while (0)
+#define dprintln()          do { if (debug_enable) print_crlf(); } while (0)
+#define dprintf(fmt, ...)   do { if (debug_enable) __xprintf(PSTR(fmt), ##__VA_ARGS__); } while (0)
+#define dmsg(s)             dprintf("%s at %s: %S\n", __FILE__, __LINE__, PSTR(s))
+
+/* DO NOT USE these anymore */
 #define debug(s)                  do { if (debug_enable) print(s); } while (0)
-#define debugln(s)                do { if (debug_enable) println(s); } while (0)
+#define debugln(s)                do { if (debug_enable) print_crlf(); } while (0)
 #define debug_S(s)                do { if (debug_enable) print_S(s); } while (0)
 #define debug_P(s)                do { if (debug_enable) print_P(s); } while (0)
 #define debug_msg(s)              do { \
@@ -50,58 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define debug_bin_reverse(data)   debug_bin8(data)
 
 #else
-
-#define debug(s)
-#define debugln(s)
-#define debug_S(s)
-#define debug_P(s)
-#define debug_msg(s)
-#define debug_dec(data)
-#define debug_decs(data)
-#define debug_hex4(data)
-#define debug_hex8(data)
-#define debug_hex16(data)
-#define debug_hex32(data)
-#define debug_bin8(data)
-#define debug_bin16(data)
-#define debug_bin32(data)
-#define debug_bin_reverse8(data)
-#define debug_bin_reverse16(data)
-#define debug_bin_reverse32(data)
-#define debug_hex(data)
-#define debug_bin(data)
-#define debug_bin_reverse(data)
-
-#endif
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-/* NOTE: Not portable. Bit field order depends on implementation */
-typedef union {
-    uint8_t raw;
-    struct {
-        bool enable:1;
-        bool matrix:1;
-        bool keyboard:1;
-        bool mouse:1;
-        uint8_t reserved:4;
-    };
-} debug_config_t;
-debug_config_t debug_config;
-
-/* for backward compatibility */
-#define debug_enable    (debug_config.enable)
-#define debug_matrix    (debug_config.matrix)
-#define debug_keyboard  (debug_config.keyboard)
-#define debug_mouse     (debug_config.mouse)
-
-
-#ifdef __cplusplus
-}
+#include "nodebug.h"
 #endif
 
 #endif

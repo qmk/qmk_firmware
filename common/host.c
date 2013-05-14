@@ -63,11 +63,11 @@ void host_keyboard_send(report_keyboard_t *report)
     (*driver->send_keyboard)(report);
 
     if (debug_keyboard) {
-        print("keys: ");
+        dprint("keys: ");
         for (int i = 0; i < REPORT_KEYS; i++) {
-            phex(keyboard_report->keys[i]); print(" ");
+            dprintf("%02X ", keyboard_report->keys[i]);
         }
-        print(" mods: "); phex(keyboard_report->mods); print("\n");
+        dprintf(" mods: %02X\n", keyboard_report->mods);
     }
 }
 
@@ -235,7 +235,7 @@ static inline void add_key_bit(uint8_t code)
     if ((code>>3) < REPORT_KEYS) {
         keyboard_report->keys[code>>3] |= 1<<(code&7);
     } else {
-        debug("add_key_bit: can't add: "); phex(code); debug("\n");
+        dprintf("add_key_bit: can't add: %02X\n", code);
     }
 }
 
@@ -244,6 +244,6 @@ static inline void del_key_bit(uint8_t code)
     if ((code>>3) < REPORT_KEYS) {
         keyboard_report->keys[code>>3] &= ~(1<<(code&7));
     } else {
-        debug("del_key_bit: can't del: "); phex(code); debug("\n");
+        dprintf("del_key_bit: can't del: %02X\n", code);
     }
 }
