@@ -15,9 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <util/delay.h>
-#include "debug.h"
 #include "action.h"
 #include "action_macro.h"
+
+#ifdef DEBUG_ACTION
+#include "debug.h"
+#else
+#include "nodebug.h"
+#endif
 
 
 #ifndef NO_ACTION_MACRO

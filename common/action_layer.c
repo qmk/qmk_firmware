@@ -1,9 +1,14 @@
 #include <stdint.h>
 #include "keyboard.h"
 #include "action.h"
-#include "debug.h"
 #include "util.h"
 #include "action_layer.h"
+
+#ifdef DEBUG_ACTION
+#include "debug.h"
+#else
+#include "nodebug.h"
+#endif
 
 
 /* 
@@ -22,8 +27,7 @@ static void default_layer_state_set(uint32_t state)
 
 void default_layer_debug(void)
 {
-    debug_hex32(default_layer_state);
-    debug("("); debug_dec(biton32(default_layer_state)); debug(")");
+    dprintf("%08lX(%u)", default_layer_state, biton32(default_layer_state));
 }
 
 void default_layer_set(uint8_t layer)
@@ -55,10 +59,10 @@ uint32_t layer_state = 0;
 
 static void layer_state_set(uint32_t state)
 {
-    debug("layer_state: ");
-    layer_debug(); debug(" to ");
+    dprint("layer_state: ");
+    layer_debug(); dprint(" to ");
     layer_state = state;
-    layer_debug(); debug("\n");
+    layer_debug(); dprintln();
     clear_keyboard_but_mods(); // To avoid stuck keys
 }
 
@@ -102,8 +106,7 @@ void layer_xor(uint32_t state)
 
 void layer_debug(void)
 {
-    debug_hex32(layer_state);
-    debug("("); debug_dec(biton32(layer_state)); debug(")");
+    dprintf("%08lX(%u)", layer_state, biton32(layer_state));
 }
 #endif
 

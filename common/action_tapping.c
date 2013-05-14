@@ -3,8 +3,12 @@
 #include "action.h"
 #include "action_tapping.h"
 #include "timer.h"
-#include "debug.h"
 
+#ifdef DEBUG_ACTION
+#include "debug.h"
+#else
+#include "nodebug.h"
+#endif
 
 #ifndef NO_ACTION_TAPPING
 
