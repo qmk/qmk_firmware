@@ -323,7 +323,7 @@
 				uint8_t UPCFG0X_Temp = UPCFG0X;
 
 				return (((UPCFG0X_Temp >> PEPNUM0) & PIPE_EPNUM_MASK) |
-				        ((UPCFG0X_Temp & PTOKEN1) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT));
+				        ((UPCFG0X_Temp & (1 << PTOKEN1)) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT));
 			}
 
 			/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.
