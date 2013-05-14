@@ -11,6 +11,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/bootloader.c \
 	$(COMMON_DIR)/suspend.c \
+	$(COMMON_DIR)/xprintf.S \
 	$(COMMON_DIR)/util.c
 
 
