@@ -38,7 +38,7 @@
 #include "Descriptors.h"
 
 
-/** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
+/** Device descriptor structure. This descriptor, located in SRAM memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.

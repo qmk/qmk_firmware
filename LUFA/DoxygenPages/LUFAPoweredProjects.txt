@@ -64,6 +64,7 @@
  *  \li FootJoy, a 22 button, 6-axis josystick with keyboard and mouse modes: https://bitbucket.org/sirbrialliance/foot-joy/
  *  \li Gamecube controller to USB adapter: https://www.facebook.com/media/set/?set=a.10150202447076304.310536.688776303&l=df53851c50
  *  \li Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
+ *  \li Geiger Counter with USB interface: http://www.hforsten.com/i-made-a-geiger-counter.html
  *  \li Generic HID Device Creator: http://generichid.sourceforge.net/
  *  \li Generic HID Open Source Framework: http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows
  *  \li Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/

@@ -57,7 +57,7 @@ const USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 	HID_RI_END_COLLECTION(0),
 };
 
-/** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
+/** Device descriptor structure. This descriptor, located in SRAM memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
@@ -84,7 +84,7 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
-/** Configuration descriptor structure. This descriptor, located in FLASH memory, describes the usage
+/** Configuration descriptor structure. This descriptor, located in SRAM memory, describes the usage
  *  of the device in one of its supported configurations, including information about any device interfaces
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
