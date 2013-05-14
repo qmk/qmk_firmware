@@ -35,13 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   error "Timer resolution(>20us) is not enough for HHKB matrix scan tweak on V-USB."
 #endif
 
-#if (MATRIX_COLS > 16)
-#   error "MATRIX_COLS must not exceed 16"
-#endif
-#if (MATRIX_ROWS > 255)
-#   error "MATRIX_ROWS must not exceed 255"
-#endif
-
 
 // matrix state buffer(1:on, 0:off)
 static matrix_row_t *matrix;
@@ -226,42 +219,15 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 }
 
 inline
-#if (MATRIX_COLS <= 8)
-uint8_t matrix_get_row(uint8_t row)
-#else
-uint16_t matrix_get_row(uint8_t row)
-#endif
+matrix_row_t matrix_get_row(uint8_t row)
 {
     return matrix[row];
 }
 
 void matrix_print(void)
 {
-#if (MATRIX_COLS <= 8)
     print("\nr/c 01234567\n");
-#else
-    print("\nr/c 0123456789ABCDEF\n");
-#endif
     for (uint8_t row = 0; row < matrix_rows(); row++) {
-        phex(row); print(": ");
-#if (MATRIX_COLS <= 8)
-        pbin_reverse(matrix_get_row(row));
-#else
-        pbin_reverse16(matrix_get_row(row));
-#endif
-        print("\n");
+        xprintf("%02X: %08b\n", row, bitrev(matrix_get_row(row)));
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-#if (MATRIX_COLS <= 8)
-        count += bitpop(matrix[i]);
-#else
-        count += bitpop16(matrix[i]);
-#endif
-    }
-    return count;
 }
