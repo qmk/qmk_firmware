@@ -102,7 +102,6 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
     x:      toggle matrix debug
     k:      toggle keyboard debug
     m:      toggle mouse debug
-    p:      toggle print enable
     v:      print device version & info
     t:      print timer count
     s:      print status
@@ -202,29 +201,7 @@ Debuging
 --------
 Use PJRC's `hid_listen` to see debug messages. You can use the tool for debug even if firmware use LUFA stack.
 
-You will see output from firmware like this.
-
-    r/c 01234567
-    00: 00000000
-    01: 00000000
-    02: 00000000
-    03: 00000000
-    04: 00000000
-    05: 00000000
-    06: 00000000
-    07: 00000000
-
-    ---- action_exec: start -----
-    EVENT: 0307u(22511)
-    Tapping: Tap release(2)
-    ACTION: ACT_LAYER[5:2C]
-    LAYER_PRESSED: Tap: unregister_code
-    TAPPING_KEY=0307u(22511):2
-    processed: 0307u(22511):2
-
-    Tapping: End(Timeout after releasing last tap): FFFFu(22715)
-    TAPPING_KEY=0000u(0):0
-
+You can use xprintf() to display debug info on `hid_listen`, see `common/xprintf.h`.
 
 
 
