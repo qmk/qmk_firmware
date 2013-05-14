@@ -106,7 +106,6 @@ static void command_common_help(void)
     print("x:	toggle matrix debug\n");
     print("k:	toggle keyboard debug\n");
     print("m:	toggle mouse debug\n");
-    print("p:	toggle print enable\n");
     print("v:	print device version & info\n");
     print("t:	print timer count\n");
     print("s:	print status\n");
