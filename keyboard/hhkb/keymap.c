@@ -67,7 +67,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN4, \
             FN5,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
-                LGUI,LALT,          FN6,                RALT,FN7),
+                LGUI,LALT,          FN6,                RALT,NO),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -150,7 +150,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
-     * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |   |   |Backs|
+     * |Tab  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |Wbk|Wfr|Close|
      * |-----------------------------------------------------------|
      * |Contro|   |   |   |   |   |McL|McD|McU|McR|Fn0|   |Return  |
      * |-----------------------------------------------------------|
@@ -161,7 +161,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  BSPC, \
+           TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,WSTP,WBAK,WFWD,FN8, \
            LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,NO,  NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,BTN4,BTN5,NO,  RSFT,NO, \
                 LGUI,LALT,          TRNS,               RALT,RGUI),
@@ -194,6 +194,7 @@ static const uint16_t PROGMEM fn_actions[] = {
     [5] = ACTION_MODS_ONESHOT(MOD_LSFT),              // Oneshot Shift*
     [6] = ACTION_LAYER_TAP_KEY(5, KC_SPC),            // Mousekey layer with Space
     [7] = ACTION_LAYER_TOGGLE(3),                     // Mousekey layer(toggle)
+    [8] = ACTION_MODS_KEY(MOD_LCTL, KC_W),            // Close Tab
 
 //  [8] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),       // LControl with tap Backspace
 //  [9] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_ESC),        // LControl with tap Esc
