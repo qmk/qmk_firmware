@@ -58,8 +58,8 @@ const USB_Descriptor_Device_t PROGMEM USART_DeviceDescriptor =
 	.ProductID              = 0x204B,
 	.ReleaseNumber          = VERSION_BCD(00.01),
 
-	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
-	.ProductStrIndex        = STRING_ID_Product,
+	.ManufacturerStrIndex   = USART_STRING_ID_Manufacturer,
+	.ProductStrIndex        = USART_STRING_ID_Product,
 	.SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
@@ -237,15 +237,15 @@ uint16_t USART_GetDescriptor(const uint16_t wValue,
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
-				case STRING_ID_Language:
+				case USART_STRING_ID_Language:
 					Address = &USART_LanguageString;
 					Size    = pgm_read_byte(&USART_LanguageString.Header.Size);
 					break;
-				case STRING_ID_Manufacturer:
+				case USART_STRING_ID_Manufacturer:
 					Address = &USART_ManufacturerString;
 					Size    = pgm_read_byte(&USART_ManufacturerString.Header.Size);
 					break;
-				case STRING_ID_Product:
+				case USART_STRING_ID_Product:
 					Address = &USART_ProductString;
 					Size    = pgm_read_byte(&USART_ProductString.Header.Size);
 					break;

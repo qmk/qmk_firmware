@@ -68,9 +68,9 @@ const USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 	.ProductID              = 0x2104,
 	.ReleaseNumber          = VERSION_BCD(02.00),
 
-	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
-	.ProductStrIndex        = STRING_ID_Product,
-	.SerialNumStrIndex      = STRING_ID_Serial,
+	.ManufacturerStrIndex   = AVRISP_STRING_ID_Manufacturer,
+	.ProductStrIndex        = AVRISP_STRING_ID_Product,
+	.SerialNumStrIndex      = AVRISP_STRING_ID_Serial,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
@@ -219,19 +219,19 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
-				case STRING_ID_Language:
+				case AVRISP_STRING_ID_Language:
 					Address = &AVRISP_LanguageString;
 					Size    = pgm_read_byte(&AVRISP_LanguageString.Header.Size);
 					break;
-				case STRING_ID_Manufacturer:
+				case AVRISP_STRING_ID_Manufacturer:
 					Address = &AVRISP_ManufacturerString;
 					Size    = pgm_read_byte(&AVRISP_ManufacturerString.Header.Size);
 					break;
-				case STRING_ID_Product:
+				case AVRISP_STRING_ID_Product:
 					Address = &AVRISP_ProductString;
 					Size    = pgm_read_byte(&AVRISP_ProductString.Header.Size);
 					break;
-				case STRING_ID_Serial:
+				case AVRISP_STRING_ID_Serial:
 					Address = &AVRISP_SerialString;
 					Size    = AVRISP_SerialString.Header.Size;
 

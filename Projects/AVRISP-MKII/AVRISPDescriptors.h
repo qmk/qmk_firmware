@@ -90,12 +90,12 @@
 		 *  have a unique ID index associated with it, which can be used to refer to the string from
 		 *  other descriptors.
 		 */
-		enum StringDescriptors_t
+		enum AVRISP_StringDescriptors_t
 		{
-		    STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
-		    STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
-		    STRING_ID_Product       = 2, /**< Product string ID */
-		    STRING_ID_Serial        = 3, /**< Serial number string ID */
+		    AVRISP_STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
+		    AVRISP_STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
+		    AVRISP_STRING_ID_Product       = 2, /**< Product string ID */
+		    AVRISP_STRING_ID_Serial        = 3, /**< Serial number string ID */
 		};
 
 	/* External Variables: */
