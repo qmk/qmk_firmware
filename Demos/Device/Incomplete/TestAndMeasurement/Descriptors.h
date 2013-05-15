@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2013.
-              
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
@@ -10,13 +10,13 @@
   Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Peter Lawrence (majbthrd [at] gmail [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaims all warranties with regard to this
@@ -33,7 +33,7 @@
  *
  *  Header file for Descriptors.c.
  */
- 
+
 #ifndef _DESCRIPTORS_H_
 #define _DESCRIPTORS_H_
 
@@ -66,13 +66,24 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			
+
 			// Test and Measurement Interface
 			USB_Descriptor_Interface_t            TM_Interface;
 			USB_Descriptor_Endpoint_t             TM_DataOutEndpoint;
 			USB_Descriptor_Endpoint_t             TM_DataInEndpoint;
 			USB_Descriptor_Endpoint_t             TM_NotificationEndpoint;
 		} USB_Descriptor_Configuration_t;
+
+		/** Enum for the device string descriptor IDs within the device. Each string descriptor should
+		 *  have a unique ID index associated with it, which can be used to refer to the string from
+		 *  other descriptors.
+		 */
+		enum StringDescriptors_t
+		{
+		    STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
+		    STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
+		    STRING_ID_Product       = 2, /**< Product string ID */
+		};
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

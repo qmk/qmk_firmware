@@ -42,7 +42,7 @@
 		#include <avr/pgmspace.h>
 
 		#include "Config/AppConfig.h"
-		
+
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -58,6 +58,17 @@
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 	        USB_Descriptor_Endpoint_t             HID_ReportOUTEndpoint;
 		} USB_Descriptor_Configuration_t;
+
+		/** Enum for the device string descriptor IDs within the device. Each string descriptor should
+		 *  have a unique ID index associated with it, which can be used to refer to the string from
+		 *  other descriptors.
+		 */
+		enum StringDescriptors_t
+		{
+		    STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
+		    STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
+		    STRING_ID_Product       = 2, /**< Product string ID */
+		};
 
 	/* Macros: */
 		/** Endpoint address of the Generic HID reporting IN endpoint. */

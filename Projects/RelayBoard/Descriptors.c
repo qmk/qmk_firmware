@@ -58,9 +58,9 @@ const USB_Descriptor_Device_t PROGMEM RelayBoard_DeviceDescriptor =
 	.ProductID              = 0xFD11,
 	.ReleaseNumber          = VERSION_BCD(02.00),
 
-	.ManufacturerStrIndex   = 0x01,
-	.ProductStrIndex        = 0x02,
-	.SerialNumStrIndex      = 0x03,
+	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
+	.ProductStrIndex        = STRING_ID_Product,
+	.SerialNumStrIndex      = STRING_ID_Serial,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
@@ -176,19 +176,19 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
-				case 0x00:
+				case STRING_ID_Language:
 					Address = &RelayBoard_LanguageString;
 					Size    = pgm_read_byte(&RelayBoard_LanguageString.Header.Size);
 					break;
-				case 0x01:
+				case STRING_ID_Manufacturer:
 					Address = &RelayBoard_ManufacturerString;
 					Size    = pgm_read_byte(&RelayBoard_ManufacturerString.Header.Size);
 					break;
-				case 0x02:
+				case STRING_ID_Product:
 					Address = &RelayBoard_ProductString;
 					Size    = pgm_read_byte(&RelayBoard_ProductString.Header.Size);
 					break;
-				case 0x03:
+				case STRING_ID_Serial:
 					Address = &RelayBoard_SerialString;
 					Size    = pgm_read_byte(&RelayBoard_SerialString.Header.Size);
 					break;

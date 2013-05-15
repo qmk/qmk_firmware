@@ -41,7 +41,7 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		
+
 		#include "Config/AppConfig.h"
 
 	/* Preprocessor Checks: */
@@ -67,7 +67,7 @@
 			/** Endpoint address of the AVRISP data IN endpoint. */
 			#define AVRISP_DATA_IN_EPADDR      AVRISP_DATA_IN_EPADDR_JUNGO
 		#endif
-		
+
 		/** Size in bytes of the AVRISP data endpoint. */
 		#define AVRISP_DATA_EPSIZE             64
 
@@ -86,11 +86,23 @@
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;
 		} AVRISP_USB_Descriptor_Configuration_t;
 
+		/** Enum for the device string descriptor IDs within the device. Each string descriptor should
+		 *  have a unique ID index associated with it, which can be used to refer to the string from
+		 *  other descriptors.
+		 */
+		enum StringDescriptors_t
+		{
+		    STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
+		    STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
+		    STRING_ID_Product       = 2, /**< Product string ID */
+		    STRING_ID_Serial        = 3, /**< Serial number string ID */
+		};
+
 	/* External Variables: */
 		#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
 			extern uint8_t AVRISP_CurrDataINEndpointAddress;
 		#endif
-		
+
 	/* Function Prototypes: */
 		uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 		                              const uint8_t wIndex,

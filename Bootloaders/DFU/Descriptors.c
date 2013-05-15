@@ -57,8 +57,8 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 	.ProductID              = PRODUCT_ID_CODE,
 	.ReleaseNumber          = VERSION_BCD(00.00),
 
-	.ManufacturerStrIndex   = 0x01,
-	.ProductStrIndex        = 0x02,
+	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
+	.ProductStrIndex        = STRING_ID_Product,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
@@ -175,17 +175,17 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
-			if (!(DescriptorNumber))
+			if (DescriptorNumber == STRING_ID_Language)
 			{
 				Address = &LanguageString;
 				Size    = LanguageString.Header.Size;
 			}
-			else if (DescriptorNumber == 0x01)
+			else if (DescriptorNumber == STRING_ID_Manufacturer)
 			{
 				Address = &ManufacturerString;
 				Size    = ManufacturerString.Header.Size;
 			}
-			else if (DescriptorNumber == 0x02)
+			else if (DescriptorNumber == STRING_ID_Product)
 			{
 				Address = &ProductString;
 				Size    = ProductString.Header.Size;

@@ -40,7 +40,7 @@
 		#include <avr/pgmspace.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		
+
 		#include "Config/AppConfig.h"
 
 	/* Type Defines: */
@@ -57,6 +57,17 @@
 			USB_HID_Descriptor_HID_t              HID_GenericHID;
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
+
+		/** Enum for the device string descriptor IDs within the device. Each string descriptor should
+		 *  have a unique ID index associated with it, which can be used to refer to the string from
+		 *  other descriptors.
+		 */
+		enum StringDescriptors_t
+		{
+		    STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
+		    STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
+		    STRING_ID_Product       = 2, /**< Product string ID */
+		};
 
 	/* Macros: */
 		/** Endpoint address of the Generic HID reporting IN endpoint. */

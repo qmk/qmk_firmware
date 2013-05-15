@@ -43,7 +43,7 @@
 
 	/** Current AVRISP data IN endpoint address. */
 	uint8_t AVRISP_CurrDataINEndpointAddress;
-	
+
 	/** Saved AVRISP data IN endpoint address in EEPROM. */
 	uint8_t AVRISP_CurrDataINEndpointAddress_EEPROM EEMEM;
 #endif
@@ -68,9 +68,9 @@ const USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 	.ProductID              = 0x2104,
 	.ReleaseNumber          = VERSION_BCD(02.00),
 
-	.ManufacturerStrIndex   = 0x01,
-	.ProductStrIndex        = 0x02,
-	.SerialNumStrIndex      = 0x03,
+	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
+	.ProductStrIndex        = STRING_ID_Product,
+	.SerialNumStrIndex      = STRING_ID_Serial,
 
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
@@ -177,7 +177,7 @@ const USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
 USB_Descriptor_String_t AVRISP_SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
-	
+
 	.UnicodeString          = L"000200012345\0" // Note: Real AVRISP-MKII has the embedded NUL byte, bug in firmware?
 };
 
@@ -199,7 +199,7 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 	uint16_t    Size    = NO_DESCRIPTOR;
 
 	*DescriptorMemorySpace = MEMSPACE_FLASH;
-	
+
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
@@ -219,25 +219,25 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
-				case 0x00:
+				case STRING_ID_Language:
 					Address = &AVRISP_LanguageString;
 					Size    = pgm_read_byte(&AVRISP_LanguageString.Header.Size);
 					break;
-				case 0x01:
+				case STRING_ID_Manufacturer:
 					Address = &AVRISP_ManufacturerString;
 					Size    = pgm_read_byte(&AVRISP_ManufacturerString.Header.Size);
 					break;
-				case 0x02:
+				case STRING_ID_Product:
 					Address = &AVRISP_ProductString;
 					Size    = pgm_read_byte(&AVRISP_ProductString.Header.Size);
 					break;
-				case 0x03:
+				case STRING_ID_Serial:
 					Address = &AVRISP_SerialString;
 					Size    = AVRISP_SerialString.Header.Size;
-					
+
 					/* Update serial number to have a different serial based on the current endpoint address */
 					((uint16_t*)&AVRISP_SerialString.UnicodeString)[6] = cpu_to_le16('0' + (AVRISP_DATA_IN_EPADDR & ENDPOINT_EPNUM_MASK));
-					
+
 					*DescriptorMemorySpace = MEMSPACE_RAM;
 					break;
 			}
@@ -259,7 +259,7 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
  *  change.
  */
 void CheckExternalReset(void)
-{	
+{
 	/* If an external reset occurred, we need to change compatibility mode */
 	AVRISP_NeedCompatibilitySwitch = (MCUSR == (1 << EXTRF));
 
@@ -277,7 +277,7 @@ void UpdateCurrentCompatibilityMode(void)
 {
 	/* Load the current IN endpoint address stored in EEPROM */
 	AVRISP_CurrDataINEndpointAddress = eeprom_read_byte(&AVRISP_CurrDataINEndpointAddress_EEPROM);
-	
+
 	/* Check if we need to switch compatibility modes */
 	if (AVRISP_NeedCompatibilitySwitch)
 	{
@@ -303,7 +303,7 @@ void UpdateCurrentCompatibilityMode(void)
 			{
 				LEDs_ToggleLEDs(LEDS_ALL_LEDS);
 				Delay_MS(100);
-			}		
+			}
 			break;
 		case AVRISP_DATA_IN_EPADDR_LIBUSB:
 			/* Five flashes for libUSB compatibility mode */
@@ -314,7 +314,7 @@ void UpdateCurrentCompatibilityMode(void)
 			}
 			break;
 	}
-	
+
 	Delay_MS(500);
 }
 #endif
