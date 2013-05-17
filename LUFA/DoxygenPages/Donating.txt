@@ -18,7 +18,9 @@
  *  \ref Page_LicenseInfo for more details (<b>Note: Please do NOT pay this in advance through the donation link below -
  *  contact author for payment details.</b>).
  *
- *  \image html "http://www.pledgie.com/campaigns/6927.png?skin_name=chrome"
+ *  \htmlonly
+ *    \image html "http://www.pledgie.com/campaigns/6927.png"
+ *  \endhtmlonly
  *  <a href="http://www.lufa-lib.org/donate">Donate to this project via PayPal</a> - Thanks in Advance!
  */
 

@@ -67,7 +67,7 @@
 
 			<!-- Add free-floating chapters -->
 			<xsl:for-each select="compounddef[@kind = 'page' and not(@id = 'indexpage')]">
-				<xsl:if test="not(//innerpage[@refid = current()/@id])">
+				<xsl:if test="not(//innerpage/@refid = current()/@id)">
 					<xsl:call-template name="generate.top.level.page">
 						<xsl:with-param name="top.level.page" select="current()"/>
 					</xsl:call-template>
@@ -78,7 +78,7 @@
 			<chapter>
 				<title>Modules</title>
 				<xsl:for-each select="compounddef[@kind = 'group']">
-					<xsl:if test="not(//innergroup[@refid = current()/@id])">
+					<xsl:if test="not(//innergroup/@refid = current()/@id)">
 						<xsl:apply-templates select="current()"/>
 					</xsl:if>
 				</xsl:for-each>
@@ -124,31 +124,13 @@
 			</title>
 
 			<xsl:variable name="name">
-				<xsl:choose>
-					<xsl:when test="contains(compoundname, '_')">
-						<xsl:value-of select="translate(compoundname, '_', '/')"/>
-						<xsl:text>.h</xsl:text>
-					</xsl:when>
-
-					<xsl:otherwise>
-						<xsl:value-of select="compoundname"/>
-						<xsl:text>.h</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:value-of select="translate(compoundname, '_', '/')"/>
+				<xsl:text>.h</xsl:text>
 			</xsl:variable>
 
 			<xsl:variable name="name.escaped">
-				<xsl:choose>
-					<xsl:when test="contains(compoundname, '_')">
-						<xsl:value-of select="translate(compoundname, '_', '.')"/>
-						<xsl:text>.h</xsl:text>
-					</xsl:when>
-
-					<xsl:otherwise>
-						<xsl:value-of select="compoundname"/>
-						<xsl:text>.h</xsl:text>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:value-of select="translate(compoundname, '_', '.')"/>
+				<xsl:text>.h</xsl:text>
 			</xsl:variable>
 
 			<indexterm id="{$keyword.namespace}.{$name.escaped}">
@@ -168,9 +150,9 @@
 				</primary>
 			</indexterm>
 
-			<xsl:apply-templates select="detaileddescription" />
+			<xsl:apply-templates select="detaileddescription"/>
 
-			<xsl:apply-templates select="sectiondef" />
+			<xsl:apply-templates select="sectiondef"/>
 
 			<xsl:for-each select="innerclass">
 				<xsl:apply-templates select="ancestor::*/compounddef[@id = current()/@refid]"/>
@@ -789,6 +771,8 @@
 	</xsl:template>
 
 	<xsl:template match="title"/>
+
+	<xsl:template match="htmlonly"/>
 
 	<xsl:template match="*">
 		<xsl:message>NO XSL TEMPLATE MATCH: <xsl:value-of select="name()"/></xsl:message>
