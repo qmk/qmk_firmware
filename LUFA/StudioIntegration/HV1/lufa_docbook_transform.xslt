@@ -274,7 +274,7 @@
 				<xsl:text>(</xsl:text>
 
 				<xsl:choose>
-					<xsl:when test="argsstring = '(void)'">
+					<xsl:when test="not(param[1]/declname)">
 						<emphasis role="keyword">void</emphasis>
 					</xsl:when>
 
