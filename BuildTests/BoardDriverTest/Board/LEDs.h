@@ -57,17 +57,19 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
 
+		#define BOARD_DUMMY_LEDS_IMPLEMENTATION
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
 			#define LEDS_LED1        (1 << 0)
-			
+
 			/** LED mask for the second LED on the board. */
 			#define LEDS_LED2        (1 << 1)
 
 			/** LED mask for the third LED on the board. */
 			#define LEDS_LED3        (1 << 2)
-			
+
 			/** LED mask for the fourth LED on the board. */
 			#define LEDS_LED4        (1 << 3)
 
@@ -81,37 +83,37 @@
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				
+
 			}
 
 			static inline void LEDs_Disable(void)
 			{
-				
+
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				
+
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				
+
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				
+
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask)
 			{
-				
+
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				
+
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;

@@ -57,33 +57,35 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Joystick.h instead.
 		#endif
 
+		#define BOARD_DUMMY_JOYSTICK_IMPLEMENTATION
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for the joystick being pushed in the left direction. */
-			#define JOY_LEFT                  // TODO: Add mask to indicate joystick left position here
+			#define JOY_LEFT                  0
 
 			/** Mask for the joystick being pushed in the right direction. */
-			#define JOY_RIGHT                 // TODO: Add mask to indicate joystick right position here
+			#define JOY_RIGHT                 0
 
 			/** Mask for the joystick being pushed in the upward direction. */
-			#define JOY_UP                    // TODO: Add mask to indicate joystick up position here
+			#define JOY_UP                    0
 
 			/** Mask for the joystick being pushed in the downward direction. */
-			#define JOY_DOWN                  // TODO: Add mask to indicate joystick down position here
+			#define JOY_DOWN                  0
 
 			/** Mask for the joystick being pushed inward. */
-			#define JOY_PRESS                 // TODO: Add mask to indicate joystick pressed position here
+			#define JOY_PRESS                 0
 
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
 			{
-				
+
 			}
 
 			static inline void Joystick_Disable(void)
 			{
-				
+
 			}
 
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;

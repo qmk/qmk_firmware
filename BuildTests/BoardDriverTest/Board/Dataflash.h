@@ -52,33 +52,35 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Dataflash.h instead.
 		#endif
 
+		#define BOARD_DUMMY_DATAFLASH_IMPLEMENTATION
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define DATAFLASH_CHIPCS_MASK                // TODO: Replace this with a mask of all the /CS pins of all Dataflashes
-			#define DATAFLASH_CHIPCS_DDR                 // TODO: Replace with the DDR register name for the board's Dataflash ICs
-			#define DATAFLASH_CHIPCS_PORT                // TODO: Replace with the PORT register name for the board's Dataflash ICs
+			#define DATAFLASH_CHIPCS_MASK                0
+			#define DATAFLASH_CHIPCS_DDR                 0
+			#define DATAFLASH_CHIPCS_PORT                0
 	#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Constant indicating the total number of dataflash ICs mounted on the selected board. */
-			#define DATAFLASH_TOTALCHIPS                 1 // TODO: Replace with the number of Dataflashes on the board, max 2
+			#define DATAFLASH_TOTALCHIPS                 1
 
 			/** Mask for no dataflash chip selected. */
 			#define DATAFLASH_NO_CHIP                    0
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      // TODO: Replace with mask with the pin attached to the first Dataflash /CS set
+			#define DATAFLASH_CHIP1                      0
 
 			/** Mask for the second dataflash chip selected. */
-			#define DATAFLASH_CHIP2                      // TODO: Replace with mask with the pin attached to the second Dataflash /CS set
+			#define DATAFLASH_CHIP2                      0
 
 			/** Internal main memory page size for the board's dataflash ICs. */
-			#define DATAFLASH_PAGE_SIZE                  // TODO: Replace with the page size for the Dataflash ICs
+			#define DATAFLASH_PAGE_SIZE                  0
 
 			/** Total number of pages inside each of the board's dataflash ICs. */
-			#define DATAFLASH_PAGES                      // TODO: Replace with the total number of pages inside one of the Dataflash ICs
+			#define DATAFLASH_PAGES                      0
 
 		/* Inline Functions: */
 			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
@@ -140,14 +142,14 @@
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask)
 			{
-				
+
 			}
 
 			/** Deselects the current dataflash chip, so that no dataflash is selected. */
 			static inline void Dataflash_DeselectChip(void) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_DeselectChip(void)
 			{
-				
+
 			}
 
 			/** Selects a dataflash IC from the given page number, which should range from 0 to
@@ -161,7 +163,7 @@
 			 */
 			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress)
 			{
-				
+
 			}
 
 			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive
@@ -169,7 +171,7 @@
 			 */
 			static inline void Dataflash_ToggleSelectedChipCS(void)
 			{
-				
+
 			}
 
 			/** Spin-loops while the currently selected dataflash is busy executing a command, such as a main
@@ -177,7 +179,7 @@
 			 */
 			static inline void Dataflash_WaitWhileBusy(void)
 			{
-				
+
 			}
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
@@ -188,7 +190,7 @@
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
 			{
-				
+
 			}
 
 #endif

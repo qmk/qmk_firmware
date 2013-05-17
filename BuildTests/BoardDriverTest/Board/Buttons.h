@@ -57,6 +57,8 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
 		#endif
 
+		#define BOARD_DUMMY_BUTTONS_IMPLEMENTATION
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Button mask for the first button on the board. */
