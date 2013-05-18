@@ -98,6 +98,7 @@ $(MSHELP_OUTPUT_XML): $(DOXYGEN_COMBINED_XML)
 	@echo Archiving help content...
 	@cd mshelp && zip ../$(MSHELP_OUTPUT_XML) -q -0  -r *.html *.css images
 
+generate_help: $(MSHELP_OUTPUT_XML)
 
 generate_xml: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 
@@ -138,4 +139,4 @@ check_filenames: $(MODULE_OUTPUT_XML)
 sanity_check:
 	python ProjectGenerator/project_generator.py -b $(LUFA_ROOT)/../ --main-ext-uuid=0e160d5c-e331-48d9-850b-e0387912171b CHECK
 
-.PHONY: all clean generate_xml generate_vsix check_filenames sanity_check
+.PHONY: all clean generate_help generate_xml generate_vsix check_filenames sanity_check
