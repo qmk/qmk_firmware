@@ -60,53 +60,35 @@
 			</title>
 
 			<!-- Add index chapter -->
-			<xsl:call-template name="generate.top.level.page">
-				<xsl:with-param name="top.level.page" select="compounddef[@kind = 'page' and @id = 'indexpage']"/>
-				<xsl:with-param name="top.level.page.title" select="'Library Information'"/>
-			</xsl:call-template>
+			<xsl:apply-templates select="compounddef[@kind = 'page' and @id = 'indexpage']">
+				<xsl:with-param name="element.type" select="'chapter'"/>
+				<xsl:with-param name="page.title"   select="'Library Information'"/>
+			</xsl:apply-templates>
 
 			<!-- Add free-floating chapters -->
-			<xsl:for-each select="compounddef[@kind = 'page' and not(@id = 'indexpage')]">
-				<xsl:if test="not(//innerpage/@refid = current()/@id)">
-					<xsl:call-template name="generate.top.level.page">
-						<xsl:with-param name="top.level.page" select="current()"/>
-					</xsl:call-template>
-				</xsl:if>
-			</xsl:for-each>
+			<xsl:apply-templates select="compounddef[@kind = 'page' and not(@id = 'indexpage') and not(//innerpage/@refid = @id)]">
+				<xsl:with-param name="element.type" select="'chapter'"/>
+			</xsl:apply-templates>
 
 			<!-- Add Modules chapter -->
 			<chapter>
 				<title>Modules</title>
-				<xsl:for-each select="compounddef[@kind = 'group']">
-					<xsl:if test="not(//innergroup/@refid = current()/@id)">
-						<xsl:apply-templates select="current()"/>
-					</xsl:if>
-				</xsl:for-each>
+				<xsl:apply-templates select="compounddef[@kind = 'group' and not(//innergroup/@refid = @id)]"/>
 			</chapter>
 		</book>
 	</xsl:template>
 
-	<xsl:template name="generate.top.level.page">
-		<xsl:param name="top.level.page"/>
-		<xsl:param name="top.level.page.title" select="$top.level.page/title"/>
-
-		<chapter id="{$top.level.page/@id}">
-			<title>
-				<xsl:value-of select="$top.level.page.title"/>
-			</title>
-
-			<xsl:apply-templates select="$top.level.page/detaileddescription"/>
-
-			<xsl:for-each select="$top.level.page/innerpage">
-				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
-			</xsl:for-each>
-		</chapter>
-	</xsl:template>
-
 	<xsl:template match="compounddef[@kind = 'page']">
-		<section id="{@id}">
+		<xsl:param name="element.type" select="'section'"/>
+		<xsl:param name="page.title"   select="title"/>
+
+		<xsl:element name="{$element.type}">
+			<xsl:attribute name="id">
+				<xsl:value-of select="@id"/>
+			</xsl:attribute>
+
 			<title>
-				<xsl:value-of select="title"/>
+				<xsl:value-of select="$page.title"/>
 			</title>
 
 			<xsl:apply-templates select="detaileddescription"/>
@@ -114,7 +96,7 @@
 			<xsl:for-each select="innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
 			</xsl:for-each>
-		</section>
+		</xsl:element>
 	</xsl:template>
 
 	<xsl:template match="compounddef[@kind = 'group']">
