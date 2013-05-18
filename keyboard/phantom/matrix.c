@@ -100,7 +100,7 @@ uint8_t matrix_scan(void)
             if (prev_bit != curr_bit) {
                 matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
                 if (debouncing) {
-                    debug("bounce!: "); debug_hex(debouncing); print("\n");
+                    dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
                 }
                 debouncing = DEBOUNCE;
             }
@@ -143,9 +143,7 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        print_bin_reverse32(matrix_get_row(row));
-        print("\n");
+        xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
     }
 }
 
