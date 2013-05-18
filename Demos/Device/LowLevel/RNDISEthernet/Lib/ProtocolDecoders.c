@@ -61,7 +61,6 @@ void DecodeEthernetFrameHeader(void* InDataStart)
 	printf_P(PSTR("\r\n"));
 
 	printf_P(PSTR("  ETHERNET\r\n"));
-	printf_P(PSTR("  + Frame Size: %u\r\n"), FrameIN.FrameLength);
 
 	if (!(MAC_COMPARE(&FrameHeader->Destination, &ServerMACAddress)) &&
 	    !(MAC_COMPARE(&FrameHeader->Destination, &BroadcastMACAddress)))
