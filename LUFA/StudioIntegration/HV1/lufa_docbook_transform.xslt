@@ -88,7 +88,7 @@
 			</xsl:attribute>
 
 			<xsl:variable name="name">
-				<xsl:text>LUFA.Page.</xsl:text>
+				<xsl:text>LUFA.</xsl:text>
 				<xsl:value-of select="translate(compoundname, '_', '/')"/>
 			</xsl:variable>
 
@@ -115,7 +115,7 @@
 			</title>
 
 			<xsl:variable name="name">
-				<xsl:text>LUFA.Group.</xsl:text>
+				<xsl:text>LUFA.</xsl:text>
 				<xsl:value-of select="translate(compoundname, '_', '/')"/>
 			</xsl:variable>
 
@@ -188,7 +188,16 @@
 										<xsl:if test="starts-with(argsstring, '[')">
 											<xsl:text>[]</xsl:text>
 										</xsl:if>
-										<indexterm id="{$keyword.namespace}.{$name}.{name}"/>
+
+										<xsl:variable name="struct.element.name">
+											<xsl:value-of select="$name"/>
+											<xsl:text>.</xsl:text>
+											<xsl:value-of select="name"/>
+										</xsl:variable>
+
+										<xsl:call-template name="generate.index.id">
+											<xsl:with-param name="name" select="$struct.element.name"/>
+										</xsl:call-template>
 									</entry>
 									<entry>
 										<xsl:apply-templates select="detaileddescription"/>
@@ -283,7 +292,10 @@
 								<entry>
 									<para id="{@id}" xreflabel="{name}">
 										<xsl:value-of select="name"/>
-										<indexterm id="{$keyword.namespace}.{name}"/>
+
+										<xsl:call-template name="generate.index.id">
+											<xsl:with-param name="name" select="name"/>
+										</xsl:call-template>
 									</para>
 								</entry>
 								<entry>
