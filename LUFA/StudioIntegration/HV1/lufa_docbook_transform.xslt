@@ -87,6 +87,15 @@
 				<xsl:value-of select="@id"/>
 			</xsl:attribute>
 
+			<xsl:variable name="name">
+				<xsl:text>LUFA.Page.</xsl:text>
+				<xsl:value-of select="translate(compoundname, '_', '/')"/>
+			</xsl:variable>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="$name"/>
+			</xsl:call-template>
+
 			<title>
 				<xsl:value-of select="$page.title"/>
 			</title>
@@ -106,31 +115,13 @@
 			</title>
 
 			<xsl:variable name="name">
+				<xsl:text>LUFA.Group.</xsl:text>
 				<xsl:value-of select="translate(compoundname, '_', '/')"/>
-				<xsl:text>.h</xsl:text>
 			</xsl:variable>
-
-			<xsl:variable name="name.escaped">
-				<xsl:value-of select="translate(compoundname, '_', '.')"/>
-				<xsl:text>.h</xsl:text>
-			</xsl:variable>
-
-			<indexterm id="{$keyword.namespace}.{$name.escaped}">
-				<primary>Header</primary>
-				<secondary>
-					<xsl:value-of select="$name"/>
-				</secondary>
-			</indexterm>
 
 			<xsl:call-template name="generate.index.id">
 				<xsl:with-param name="name" select="$name"/>
 			</xsl:call-template>
-
-			<indexterm>
-				<primary>
-					<xsl:value-of select="$name"/>
-				</primary>
-			</indexterm>
 
 			<xsl:apply-templates select="detaileddescription"/>
 
