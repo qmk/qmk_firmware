@@ -166,10 +166,8 @@
 					<title>
 						<xsl:value-of select="$name"/>
 					</title>
+
 					<tgroup cols="3">
-						<colspec colnum="1" colname="start.col"/>
-						<colspec colnum="3" colname="stop.col"/>
-						<spanspec spanname="full" namest="start.col" nameend="stop.col"/>
 						<thead>
 							<row>
 								<entry>Type</entry>
@@ -177,6 +175,7 @@
 								<entry>Description</entry>
 							</row>
 						</thead>
+
 						<tbody>
 							<xsl:for-each select="memberdef">
 								<row id="{@id}" xreflabel="{name}">
@@ -286,6 +285,7 @@
 							<entry>Description</entry>
 						</row>
 					</thead>
+
 					<tbody>
 						<xsl:for-each select="enumvalue">
 							<row>
@@ -350,59 +350,58 @@
 		</section>
 	</xsl:template>
 
-	<xsl:template match="memberdef[@kind = 'variable' or @kind = 'typedef']">
+	<xsl:template match="memberdef[@kind = 'typedef']">
 		<section id="{@id}" xreflabel="{name}">
-			<!-- Doxygen gets confused and thinks function pointer type definitions
-				 are variables, so we need to map them to this common section and
-				 check the definition to see which of the two it is. -->
-			<xsl:choose>
-				<xsl:when test="contains(definition, 'typedef')">
-					<title>
-						<xsl:text>Type </xsl:text>
-						<xsl:value-of select="name"/>
-					</title>
+			<title>
+				<xsl:text>Type </xsl:text>
+				<xsl:value-of select="name"/>
+			</title>
 
-					<xsl:call-template name="generate.index.id">
-						<xsl:with-param name="name" select="name"/>
-					</xsl:call-template>
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="name"/>
+			</xsl:call-template>
 
-					<programlisting language="c">
-						<emphasis role="keyword">
-							<xsl:text>typedef </xsl:text>
-							<xsl:value-of select="type"/>
-						</emphasis>
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="name"/>
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="argsstring"/>
-					</programlisting>
-				</xsl:when>
+			<programlisting language="c">
+				<emphasis role="keyword">
+					<xsl:text>typedef </xsl:text>
+					<xsl:value-of select="type"/>
+				</emphasis>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="name"/>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="argsstring"/>
+			</programlisting>
 
-				<xsl:otherwise>
-					<title>
-						<xsl:text>Variable </xsl:text>
-						<xsl:value-of select="name"/>
-					</title>
+			<xsl:apply-templates select="detaileddescription"/>
+		</section>
+	</xsl:template>
 
-					<xsl:call-template name="generate.index.id">
-						<xsl:with-param name="name" select="name"/>
-					</xsl:call-template>
 
-					<programlisting language="c">
-						<emphasis role="keyword">
-							<xsl:value-of select="type"/>
-						</emphasis>
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="name"/>
-					</programlisting>
-				</xsl:otherwise>
-			</xsl:choose>
+	<xsl:template match="memberdef[@kind = 'variable']">
+		<section id="{@id}" xreflabel="{name}">
+			<title>
+				<xsl:text>Variable </xsl:text>
+				<xsl:value-of select="name"/>
+			</title>
+
+			<xsl:call-template name="generate.index.id">
+				<xsl:with-param name="name" select="name"/>
+			</xsl:call-template>
+
+			<programlisting language="c">
+				<emphasis role="keyword">
+					<xsl:value-of select="type"/>
+				</emphasis>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="name"/>
+			</programlisting>
 
 			<xsl:apply-templates select="detaileddescription"/>
 		</section>
 	</xsl:template>
 
 	<xsl:template match="linebreak | simplesectsep">
+		<!-- MUST be on two separate lines, as this is a *literal* newline -->
 		<literallayout>
 		</literallayout>
 	</xsl:template>
@@ -576,6 +575,8 @@
 	</xsl:template>
 
 	<xsl:template match="mdash | ndash">
+		<!-- Doxygen bug; double dashed are replaced with single HTML dash
+		     entities, even in verbatim-like <tt> sections -->
 		<xsl:text>--</xsl:text>
 	</xsl:template>
 
@@ -669,6 +670,7 @@
 					</row>
 				</xsl:for-each>
 			</thead>
+
 			<tbody>
 				<xsl:for-each select="row[position() != 1]">
 					<row>

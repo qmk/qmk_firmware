@@ -95,7 +95,7 @@
 					                                  *   is not used.
 													  *
 					                                  *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined,
-					                                  *        this method is unavailable.
+					                                  *        this field is unavailable.
 					                                  */
 					#endif
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
