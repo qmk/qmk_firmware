@@ -67,22 +67,22 @@
  *  \code
  *      // Initialize the board Joystick driver before first use
  *      Joystick_Init();
- *      
+ *
  *      printf("Waiting for joystick movement...\r\n");
- *      
+ *
  *      // Loop until a the joystick has been moved
  *      uint8_t JoystickMovement;
  *      while (!(JoystickMovement = Joystick_GetStatus())) {};
- *      
+ *
  *      // Display which direction the joystick was moved in
  *      printf("Joystick moved:\r\n");
- *      
+ *
  *      if (JoystickMovement & (JOY_UP | JOY_DOWN))
  *        printf("%s ", (JoystickMovement & JOY_UP) ? "Up" : "Down");
- *      
+ *
  *      if (JoystickMovement & (JOY_LEFT | JOY_RIGHT))
  *        printf("%s ", (JoystickMovement & JOY_LEFT) ? "Left" : "Right");
- *      
+ *
  *      if (JoystickMovement & JOY_PRESS)
  *        printf("Pressed");
  *  \endcode
@@ -100,7 +100,13 @@
 		#include "../../Common/Common.h"
 
 		#if (BOARD == BOARD_NONE)
-			#error The Board Joystick driver cannot be used if the makefile BOARD option is not set.
+			#define JOY_UP           0
+			#define JOY_DOWN         0
+			#define JOY_LEFT         0
+			#define JOY_RIGHT        0
+			#define JOY_PRESS        0
+			static inline void       Joystick_Init(void) {};
+			static inline uint_reg_t Joystick_GetStatus(void) { return 0; };
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/Joystick.h"
 		#elif (BOARD == BOARD_STK525)

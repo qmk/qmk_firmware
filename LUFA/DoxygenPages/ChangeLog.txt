@@ -15,11 +15,13 @@
   *  - Library Applications:
   *   - Added new Printer class bootloader
   *   - Added new Mass Storage class bootloader
+  *   - Added XMEGA support for class driver device demos (where applicable)
   *
   *  <b>Changed:</b>
   *  - Core:
   *   - Updated the BUILD build system module to produce binary BIN files in addition to Intel HEX files
   *   - Updated the Android Accessory Class to accept version 2 protocol devices (with version 1 functionality)
+  *   - All board drivers now implement dummy functions and constants when BOARD is set to NONE
   *
   *  <b>Fixed:</b>
   *  - Core:
