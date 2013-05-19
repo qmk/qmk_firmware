@@ -45,6 +45,5 @@
 		<require idref="lufa.drivers.usb"/>
 		<require idref="lufa.drivers.board"/>
 		<require idref="lufa.drivers.board.leds"/>
-		<require idref="lufa.drivers.board.buttons"/>
 	</module>
 </asf>
