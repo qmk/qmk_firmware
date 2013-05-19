@@ -29,6 +29,7 @@
  *   - Documentation/
  *   - DoxygenPages/
  *   - CodeTemplates/
+ *   - StudioIntegration/
  *
  *  If required, files from the CodeTemplates/ subdirectory may be copied to your IDE project as needed.
  *
