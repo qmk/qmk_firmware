@@ -29,23 +29,25 @@ EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
 MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
 MSHELP_OUTPUT_XML    := $(LUFA_ROOT)/../lufa_help_$(EXT_VERSION_NUM).mshc
 XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
-VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png    \
-                        $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png          \
-                        $(LUFA_ROOT)/License.txt                           \
-                        VSIX/"[Content_Types].xml"                         \
-                        VSIX/ASFExplorer.png                               \
-                        VSIX/ASFWizard.png                                 \
-                        VSIX/LUFAHelpMenu.png                              \
-                        VSIX/NewExampleWizard.png                          \
-                        VSIX/GettingStarted.htm                            \
-                        Blob/LUFA.dll                                      \
+VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png     \
+                        $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png           \
+                        $(LUFA_ROOT)/License.txt                            \
+                        VSIX/"[Content_Types].xml"                          \
+                        VSIX/ASFExplorer.png                                \
+                        VSIX/ASFWizard.png                                  \
+                        VSIX/LUFAHelpMenu.png                               \
+                        VSIX/NewExampleWizard.png                           \
+                        VSIX/GettingStarted.htm                             \
+                        Blob/LUFA.dll                                       \
                         Blob/LUFA.pkgdef
-MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"               \
-                       --stringparam chunk.quietly "1"                     \
-                       --stringparam chunk.section.depth "3"               \
-                       --stringparam chunk.first.sections "1"              \
-                       --stringparam chapter.autolabel "0"                 \
-                       --stringparam root.filename "LUFA"                  \
+VSIX_GEN_PARAMS     := --stringparam extension-version "$(EXT_VERSION_NUM)" \
+                       --stringparam lufa-version "$(LUFA_VERSION_NUM)"
+MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"                \
+                       --stringparam chunk.quietly "1"                      \
+                       --stringparam chunk.section.depth "3"                \
+                       --stringparam chunk.first.sections "1"               \
+                       --stringparam chapter.autolabel "0"                  \
+                       --stringparam root.filename "LUFA"                   \
                        --stringparam html.stylesheet "lufa_studio_help_styling.css"
 
 all: generate_xml check_filenames generate_vsix
@@ -114,9 +116,9 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML) $(MSHELP_OUTPUT_XML)
 
 	@echo "Creating VSIX dependencies..."
 	@cp $(VSIX_ASSETS) $(LUFA_ROOT)/..
-	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" VSIX/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
-	@xsltproc --stringparam lufa-version "$(LUFA_VERSION_NUM)" VSIX/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
-	@xsltproc --stringparam extension-version "$(EXT_VERSION_NUM)" HV1/lufa_helpcontentsetup_transform.xslt HV1/helpcontentsetup.msha > $(LUFA_ROOT)/../helpcontentsetup.msha
+	@xsltproc $(VSIX_GEN_PARAMS) VSIX/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
+	@xsltproc $(VSIX_GEN_PARAMS) VSIX/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
+	@xsltproc $(VSIX_GEN_PARAMS) HV1/lufa_helpcontentsetup_transform.xslt HV1/helpcontentsetup.msha > $(LUFA_ROOT)/../helpcontentsetup.msha
 
 	@echo "Generating Atmel Studio VSIX file..."
 	cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache extension.vsixmanifest asf-manifest.xml extension.xml helpcontentsetup.msha $(notdir $(MSHELP_OUTPUT_XML)) $(notdir $(VSIX_ASSETS))
