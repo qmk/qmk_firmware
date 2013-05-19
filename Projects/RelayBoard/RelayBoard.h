@@ -47,6 +47,7 @@
 
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 	/* Macros: */
 		#define RELAY1      (1 << 7)

@@ -29,7 +29,7 @@
   this software.
 */
 
-/** \file 
+/** \file
  *
  *  Main source file for the SerialToLCD program. This file contains the main tasks of
  *  the project and is responsible for the initial application hardware configuration.
@@ -101,7 +101,7 @@ int main(void)
 		{
 			static uint8_t EscapePending = 0;
 			int16_t HD44780Byte = RingBuffer_Remove(&FromHost_Buffer);
-			
+
 			if (HD44780Byte == COMMAND_ESCAPE)
 			{
 				if (EscapePending)
@@ -137,12 +137,14 @@ int main(void)
 /** Configures the board hardware and chip peripherals for the application's functionality. */
 void SetupHardware(void)
 {
+#if (ARCH == ARCH_AVR8)
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
+#endif
 
 	/* Hardware Initialization */
 	USB_Init();
@@ -150,7 +152,7 @@ void SetupHardware(void)
 	/* Power up the HD44780 Interface */
 	HD44780_Initialize();
 	HD44780_WriteCommand(CMD_DISPLAY_ON);
-	
+
 	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
 	TCCR0B = (1 << CS02);
 }

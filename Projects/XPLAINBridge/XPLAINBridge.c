@@ -169,12 +169,14 @@ void UARTBridge_Task(void)
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
+#if (ARCH == ARCH_AVR8)
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
+#endif
 
 	/* Disable JTAG debugging */
 	MCUCR |= (1 << JTD);
@@ -197,8 +199,8 @@ void SetupHardware(void)
 	#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
 	UpdateCurrentCompatibilityMode();
 	#endif
-	
-	/* USB Stack Initialization */	
+
+	/* USB Stack Initialization */
 	USB_Init();
 }
 

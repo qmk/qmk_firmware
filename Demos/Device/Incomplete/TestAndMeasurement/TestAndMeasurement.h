@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2013.
-              
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaims all warranties with regard to this
@@ -39,8 +39,9 @@
 
 		#include "Descriptors.h"
 
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -54,7 +55,7 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR                    (LEDS_LED1 | LEDS_LED3)
-		
+
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY                      LEDS_LED2
 
@@ -66,14 +67,14 @@
 		#define Req_CheckClearStatus                  0x06
 		#define Req_GetCapabilities                   0x07
 		#define Req_IndicatorPulse                    0x40
-		
+
 		#define TMC_STATUS_SUCCESS                    0x01
 		#define TMC_STATUS_PENDING                    0x02
 		#define TMC_STATUS_FAILED                     0x80
 		#define TMC_STATUS_TRANSFER_NOT_IN_PROGRESS   0x81
 		#define TMC_STATUS_SPLIT_NOT_IN_PROGRESS      0x82
 		#define TMC_STATUS_SPLIT_IN_PROGRESS          0x83
-		
+
 		#define TMC_MESSAGEID_DEV_DEP_MSG_OUT         0x01
 		#define TMC_MESSAGEID_DEV_DEP_MSG_IN          0x02
 		#define TMC_MESSAGEID_DEV_VENDOR_OUT          0x7E
@@ -86,7 +87,7 @@
 			uint8_t  Reserved;
 
 			uint16_t TMCVersion;
-			
+
 			struct
 			{
 				unsigned ListenOnly             : 1;
@@ -94,17 +95,17 @@
 				unsigned PulseIndicateSupported : 1;
 				unsigned Reserved               : 5;
 			} Interface;
-			
+
 			struct
 			{
 				unsigned SupportsAbortINOnMatch : 1;
 				unsigned Reserved               : 7;
 			} Device;
-			
+
 			uint8_t Reserved2[6];
-			uint8_t Reserved3[12];			
+			uint8_t Reserved3[12];
 		} TMC_Capabilities_t;
-		
+
 		typedef struct
 		{
 			uint8_t LastMessageTransaction;
@@ -125,7 +126,7 @@
 			uint8_t  InverseTag;
 			uint8_t  Reserved;
 			uint32_t TransferSize;
-			
+
 			union
 			{
 				TMC_DevOUTMessageHeader_t DeviceOUT;
