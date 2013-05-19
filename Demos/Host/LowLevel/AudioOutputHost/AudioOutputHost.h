@@ -50,6 +50,7 @@
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Platform/Platform.h>
 
 		#include "ConfigDescriptor.h"
 		#include "Config/AppConfig.h"
