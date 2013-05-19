@@ -29,18 +29,18 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained.
- *  \copydetails Group_Dataflash_B1_XPLAINED
+ *  \brief Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained.
+ *  \copydetails Group_Dataflash_A3BU_XPLAINED
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
 
 /** \ingroup Group_Dataflash
- *  \defgroup Group_Dataflash_B1_XPLAINED B1_XPLAINED
- *  \brief Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained.
+ *  \defgroup Group_Dataflash_A3BU_XPLAINED A3BU_XPLAINED
+ *  \brief Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained.
  *
- *  Board specific Dataflash driver header for the Atmel XMEGA B1 Xplained board.
+ *  Board specific Dataflash driver header for the Atmel XMEGA A3BU Xplained board.
  *
  *  <table>
  *    <tr><th>Name</th><th>Info</th><th>Select Pin</th><th>SPI Port</th></tr>
@@ -50,8 +50,8 @@
  *  @{
  */
 
-#ifndef __DATAFLASH_B1_XPLAINED_H__
-#define __DATAFLASH_B1_XPLAINED_H__
+#ifndef __DATAFLASH_A3BU_XPLAINED_H__
+#define __DATAFLASH_A3BU_XPLAINED_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -94,9 +94,9 @@
 			static inline void Dataflash_Init(void)
 			{
 				DATAFLASH_CHIPCS_PORT.DIRSET   = DATAFLASH_CHIPCS_MASK;
-				
+
 				PORTCFG.MPCMASK                = DATAFLASH_CHIPCS_MASK;
-				DATAFLASH_CHIPCS_PORT.PIN0CTRL = PORT_INVEN_bm;	
+				DATAFLASH_CHIPCS_PORT.PIN0CTRL = PORT_INVEN_bm;
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.

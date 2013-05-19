@@ -12,6 +12,7 @@
   *   - Added additional MIDI command definitions to the MIDI class driver (thanks to Daniel Dreibrodt)
   *   - Added new CONCAT() and CONCAT_EXPANDED() convenience macros
   *   - Added new Printer Device Class driver
+  *   - Added support for the XMEGA C3 Xplained board
   *  - Library Applications:
   *   - Added new Printer class bootloader
   *   - Added new Mass Storage class bootloader
