@@ -18,10 +18,10 @@
  *  <table>
  *  <tr>
  *   <th width="200px">USB Class</th>
- *   <th width="200px">Android</th>
- *   <th width="200px">Windows</th>
- *   <th width="200px">Linux</th>
- *   <th width="200px">OS X</th>
+ *   <th width="150px">Android</th>
+ *   <th width="150px">Windows</th>
+ *   <th width="150px">Linux</th>
+ *   <th width="150px">OS X</th>
  *  </tr>
  *  <tr>
  *   <td>Android Open Accessory</td>
@@ -90,7 +90,7 @@
  *
  *  \section Sec_WinINFTemplates Windows INF Drivers
  *  Windows uses INF driver files to associate a USB device of a specific class,
- *  Vendor and Product ID, compatibility ID or other characteristic to a kernel
+ *  VID/PID ID pair, Windows Compatibility ID or other characteristic to a kernel
  *  driver. In most cases these files are build into the operating system, and
  *  no special user action or driver files are required for a device using a
  *  standard USB class to enumerate. However, for some classes, a specific INF
@@ -105,7 +105,7 @@
  *  \verbinclude WindowsINF/CDC-ACM.inf
  *
  *  \subsection SSec_WinINF_RNDIS Windows RNDIS INF Template
- *  This template is required for all CDC-RNDIS devices on Windows XP or newer.
+ *  This template is required for all RNDIS devices on Windows XP or newer.
  *  \verbinclude WindowsINF/RNDIS.inf
  */
 
