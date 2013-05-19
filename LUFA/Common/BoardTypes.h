@@ -206,28 +206,31 @@
 
 			/** Selects the DorkbotPDX Duce specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_DUCE                 47
-			
+
 			/** Selects the Olimex AVR-USB-32U4 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_OLIMEX32U4           48
-			
+
 			/** Selects the Olimex AVR-USB-T32U4 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_OLIMEXT32U4          49
-			
+
 			/** Selects the Olimex AVR-ISP-MK2 specific board drivers, including the Button and LED drivers. */
 			#define BOARD_OLIMEXISPMK2         50
 
 			/** Selects the Arduino Leonardo specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_LEONARDO             51
-			
+
 			/** Selects the UC3-A3 Xplained specific board drivers, including the Button and LED drivers. */
 			#define BOARD_UC3A3_XPLAINED       52
-			
+
 			/** Selects the USB2AX version 3.1 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_USB2AX_V31           53
 
 			/** Selects the Stange-ISP specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_STANGE_ISP           54
-			
+
+			/** Selects the XMEGA C3 XPLAINED specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_C3_XPLAINED          55
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 
