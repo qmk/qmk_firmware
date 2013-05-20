@@ -32,6 +32,7 @@ static void init_rows(void);
 static void unselect_cols(void);
 static void select_col(uint8_t col);
 
+#ifndef SLEEP_LED_ENABLE
 /* LEDs are on output compare pins OC1B OC1C
    This activates fast PWM mode on them.
    Prescaler 256 and 8-bit counter results in
@@ -51,12 +52,13 @@ void setup_leds(void)
     TCCR1B |=      // Timer control register 1B
         (1<<WGM12) | // Fast PWM 8-bit
         (1<<CS12);   // Prescaler 256
-    OCR1B = 250;    // Output compare register 1B
-    OCR1C = 250;    // Output compare register 1C
+    OCR1B = LED_BRIGHTNESS;    // Output compare register 1B
+    OCR1C = LED_BRIGHTNESS;    // Output compare register 1C
     // LEDs: LED_A -> PORTB6, LED_B -> PORTB7
-    DDRB  &= 0x3F;
-    PORTB &= 0x3F;
+    DDRB  |= (1<<6) | (1<<7);
+    PORTB  &= ~((1<<6) | (1<<7));
 }
+#endif
 
 inline
 uint8_t matrix_rows(void)
@@ -79,7 +81,9 @@ void matrix_init(void)
     // initialize row and col
     unselect_cols();
     init_rows();
+#ifndef SLEEP_LED_ENABLE
     setup_leds();
+#endif
 
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++)  {
