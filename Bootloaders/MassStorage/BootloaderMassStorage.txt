@@ -71,6 +71,11 @@
  *
  *  The current device firmware can be read from the device by reading a file from the virtual FAT filesystem.
  *
+ *  \warning This bootloader is currently <b>incompatible with the Apple MacOS X OS Finder GUI</b>, due to the
+ *           large amount of meta files this OS attempts to write to the disk along with the new binaries. On
+ *           this platform, firmwares must be copied to the disk via the Terminal application only to prevent
+ *           firmware corruption.
+ *
  *  \section Sec_API User Application API
  *
  *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
