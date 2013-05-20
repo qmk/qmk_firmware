@@ -80,7 +80,7 @@ xputc:
 ;---------------------------------------------------------------------------
 ; Direct ROM string output
 ;
-;Prototype: void xputs (const prog_char *str // rom string to be output
+;Prototype: void xputs (const char *str_p // rom string to be output
 ;			);
 
 .func xputs
@@ -179,9 +179,9 @@ xitoa:
 ; Formatted string output (16/32bit version)
 ;
 ;Prototype:
-; void xprintf (const prog_char *format, ...);
-; void xsprintf(char*, const prog_char *format, ...);
-; void xfprintf(void(*func)(char), const prog_char *format, ...);
+; void __xprintf (const char *format_p, ...);
+; void __xsprintf(char*, const char *format_p, ...);
+; void __xfprintf(void(*func)(char), const char *format_p, ...);
 ;
 
 #if USE_XPRINTF

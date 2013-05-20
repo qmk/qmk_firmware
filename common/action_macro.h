@@ -21,15 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define MACRO_NONE  0
-#define MACRO(...) ({ static prog_macro_t _m[] PROGMEM = { __VA_ARGS__ }; _m; })
+#define MACRO(...) ({ static const macro_t __m[] PROGMEM = { __VA_ARGS__ }; &__m[0]; })
 
 
 typedef uint8_t macro_t;
-typedef macro_t prog_macro_t PROGMEM;
 
 
 #ifndef NO_ACTION_MACRO
-void action_macro_play(const prog_macro_t *macro);
+void action_macro_play(const macro_t *macro_p);
 #else
 #define action_macro_play(macro)
 #endif

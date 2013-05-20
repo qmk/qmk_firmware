@@ -50,7 +50,7 @@ void action_exec(keyevent_t event);
 action_t action_for_key(uint8_t layer, key_t key);
 
 /* macro */
-const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
 
 /* user defined special function */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
