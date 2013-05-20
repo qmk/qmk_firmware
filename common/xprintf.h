@@ -23,7 +23,7 @@ void xputc(char chr);
 
 
 /*-----------------------------------------------------------------------------*/
-void xputs(const prog_char *string);
+void xputs(const char *string_p);
 
 /*  The string placed in the ROM is forwarded to xputc() directly.
 */
@@ -51,9 +51,9 @@ void xitoa(long value, char radix, char width);
 #define xsprintf(str, format, ...)      __xsprintf(str, PSTR(format), ##__VA_ARGS__)
 #define xfprintf(func, format, ...)     __xfprintf(func, PSTR(format), ##__VA_ARGS__)
 
-void __xprintf(const prog_char *format, ...);	/* Send formatted string to the registered device */
-void __xsprintf(char*, const prog_char *format, ...);	/* Put formatted string to the memory */
-void __xfprintf(void(*func)(uint8_t), const prog_char *format, ...); /* Send formatted string to the specified device */
+void __xprintf(const char *format_p, ...);	/* Send formatted string to the registered device */
+void __xsprintf(char*, const char *format_p, ...);	/* Put formatted string to the memory */
+void __xfprintf(void(*func)(uint8_t), const char *format_p, ...); /* Send formatted string to the specified device */
 
 /* Format string is placed in the ROM. The format flags is similar to printf().
 

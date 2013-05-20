@@ -106,7 +106,7 @@ action_t action_for_key(uint8_t layer, key_t key)
 
 /* Macro */
 __attribute__ ((weak))
-const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     return MACRO_NONE;
 }

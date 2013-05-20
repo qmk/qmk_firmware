@@ -209,7 +209,7 @@ static const uint16_t PROGMEM fn_actions[] = {
 /*
  * Macro definition
  */
-const prog_macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     keyevent_t event = record->event;
     tap_t tap = record->tap;
