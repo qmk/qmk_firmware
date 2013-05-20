@@ -220,7 +220,23 @@
 
 		/* Includes: */
 			#if (BOARD == BOARD_NONE)
-				#error The Board Dataflash driver cannot be used if the makefile BOARD option is not set.
+				#define DATAFLASH_TOTALCHIPS  0
+				#define DATAFLASH_NO_CHIP     0
+				#define DATAFLASH_CHIP1       0
+				#define DATAFLASH_PAGE_SIZE   0
+				#define DATAFLASH_PAGES       0
+				static inline void    Dataflash_Init(void) {};
+				static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) { return 0; };
+				static inline void    Dataflash_SendByte(const uint8_t Byte) {};
+				static inline uint8_t Dataflash_ReceiveByte(void) { return 0; };
+				static inline uint8_t Dataflash_GetSelectedChip(void) { return 0; };
+				static inline void    Dataflash_SelectChip(const uint8_t ChipMask) {};
+				static inline void    Dataflash_DeselectChip(void) {};
+				static inline void    Dataflash_SelectChipFromPage(const uint16_t PageAddress) {};
+				static inline void    Dataflash_ToggleSelectedChipCS(void) {};
+				static inline void    Dataflash_WaitWhileBusy(void) {};
+				static inline void    Dataflash_SendAddressBytes(uint16_t PageAddress,
+				                                                 const uint16_t BufferByte) {};
 			#elif (BOARD == BOARD_USBKEY)
 				#include "AVR8/USBKEY/Dataflash.h"
 			#elif (BOARD == BOARD_STK525)

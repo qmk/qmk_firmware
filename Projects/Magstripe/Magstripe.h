@@ -49,6 +49,7 @@
 		#include "Config/AppConfig.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 	/* Macros: */
 		/** Total number of tracks which can be read from the card, between 1 and 3. */

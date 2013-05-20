@@ -9,8 +9,8 @@
 
 		<config name="config.compiler.optimization.level" value="size"/>
 
-		<build type="define" name="F_CPU" value="8000000UL"/>
-		<build type="define" name="F_USB" value="8000000UL"/>
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
 
 		<build type="define" name="BOOT_START_ADDR" value="0x1F000"/>
 		<build type="linker-config" subtype="flags" value="--section-start=.text=0x1F000"/>
@@ -33,8 +33,8 @@
 
 		<config name="config.compiler.optimization.level" value="size"/>
 
-		<build type="define" name="F_CPU" value="8000000UL"/>
-		<build type="define" name="F_USB" value="8000000UL"/>
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
 
 		<build type="define" name="BOOT_START_ADDR" value="0xF000"/>
 		<build type="linker-config" subtype="flags" value="--section-start=.text=0xF000"/>
@@ -57,8 +57,8 @@
 
 		<config name="config.compiler.optimization.level" value="size"/>
 
-		<build type="define" name="F_CPU" value="8000000UL"/>
-		<build type="define" name="F_USB" value="8000000UL"/>
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
 
 		<build type="define" name="BOOT_START_ADDR" value="0x7000"/>
 		<build type="linker-config" subtype="flags" value="--section-start=.text=0x7000"/>
@@ -79,8 +79,8 @@
 		<device-support value="atmega16u2"/>
 		<config name="lufa.drivers.board.name" value="none"/>
 
-		<build type="define" name="F_CPU" value="8000000UL"/>
-		<build type="define" name="F_USB" value="8000000UL"/>
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
 
 		<build type="define" name="BOOT_START_ADDR" value="0x3000"/>
 		<build type="linker-config" subtype="flags" value="--section-start=.text=0x3000"/>
@@ -101,8 +101,8 @@
 		<device-support value="atmega8u2"/>
 		<config name="lufa.drivers.board.name" value="none"/>
 
-		<build type="define" name="F_CPU" value="8000000UL"/>
-		<build type="define" name="F_USB" value="8000000UL"/>
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
 
 		<build type="define" name="BOOT_START_ADDR" value="0x1000"/>
 		<build type="linker-config" subtype="flags" value="--section-start=.text=0x1000"/>

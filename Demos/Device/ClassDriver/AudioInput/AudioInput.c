@@ -79,12 +79,14 @@ int main(void)
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
+#if (ARCH == ARCH_AVR8)
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
+#endif
 
 	/* Hardware Initialization */
 	LEDs_Init();
@@ -265,7 +267,7 @@ bool CALLBACK_Audio_Device_GetSetInterfaceProperty(USB_ClassInfo_Audio_Device_t*
                                                    const uint8_t EntityAddress,
                                                    const uint16_t Parameter,
                                                    uint16_t* const DataLength,
-                                                   uint8_t* Data) 
+                                                   uint8_t* Data)
 {
 	/* No audio interface entities in the device descriptor, thus no properties to get or set. */
 	return false;

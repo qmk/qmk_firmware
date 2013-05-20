@@ -46,6 +46,7 @@
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 		#include "Descriptors.h"
 		#include "Config/AppConfig.h"
@@ -76,7 +77,7 @@
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_ControlRequest(void);
-		
+
 		bool CALLBACK_Audio_Device_GetSetEndpointProperty(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 		                                                  const uint8_t EndpointProperty,
 		                                                  const uint8_t EndpointAddress,

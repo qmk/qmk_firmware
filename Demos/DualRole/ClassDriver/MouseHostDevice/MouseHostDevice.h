@@ -50,6 +50,7 @@
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 		#include "Descriptors.h"
 		#include "DeviceFunctions.h"
@@ -70,7 +71,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		
+
 		void EVENT_USB_UIDChange(void);
 
 #endif

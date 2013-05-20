@@ -111,12 +111,14 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
+#if (ARCH == ARCH_AVR8)
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
+#endif
 
 	/* Hardware Initialization */
 	Serial_Init(9600, false);
@@ -128,9 +130,9 @@ void SetupHardware(void)
 
 	/* Create a stdio stream for the serial port for stdin and stdout */
 	Serial_CreateStream(NULL);
-	
+
 	/* Start the ADC conversion in free running mode */
-	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_GET_CHANNEL_MASK(MIC_IN_ADC_CHANNEL));	
+	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | ADC_GET_CHANNEL_MASK(MIC_IN_ADC_CHANNEL));
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and

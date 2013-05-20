@@ -49,6 +49,7 @@
 
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 	/* Preprocessor Checks: */
 		#if !defined(__OPTIMIZE_SIZE__)

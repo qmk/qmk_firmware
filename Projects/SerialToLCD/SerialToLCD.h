@@ -49,7 +49,8 @@
         #include <LUFA/Version.h>
         #include <LUFA/Drivers/Misc/RingBuffer.h>
         #include <LUFA/Drivers/USB/USB.h>
-		
+		#include <LUFA/Platform/Platform.h>
+
 	/* Macros: */
 		#define COMMAND_ESCAPE     0x1B
 

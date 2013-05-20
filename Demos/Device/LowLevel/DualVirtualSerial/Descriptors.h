@@ -58,7 +58,7 @@
 		#define CDC2_RX_EPADDR                 (ENDPOINT_DIR_OUT | 5)
 
 		/** Endpoint address of the second CDC interface's device-to-host notification IN endpoint. */
-		#define CDC2_NOTIFICATION_EPADDR       (ENDPOINT_DIR_IN | 6)
+		#define CDC2_NOTIFICATION_EPADDR       (ENDPOINT_DIR_IN  | 6)
 
 		/** Size in bytes of the CDC device-to-host notification IN endpoints. */
 		#define CDC_NOTIFICATION_EPSIZE        8

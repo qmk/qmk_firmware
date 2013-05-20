@@ -50,11 +50,12 @@
 		#include "Lib/FATFs/ff.h"
 		#include "Lib/DS1307.h"
 		#include "Config/AppConfig.h"
-		
+
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Temperature.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Platform/Platform.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
