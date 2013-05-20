@@ -106,6 +106,9 @@ static void command_common_help(void)
     print("x:	toggle matrix debug\n");
     print("k:	toggle keyboard debug\n");
     print("m:	toggle mouse debug\n");
+#ifdef SLEEP_LED_ENABLE
+    print("z:	toggle sleep LED test\n");
+#endif
     print("v:	print device version & info\n");
     print("t:	print timer count\n");
     print("s:	print status\n");
@@ -153,12 +156,14 @@ static bool command_common(uint8_t code)
 {
     static host_driver_t *host_driver = 0;
     switch (code) {
+#ifdef SLEEP_LED_ENABLE
         case KC_Z:
             // test breathing sleep LED
             print("Sleep LED test\n");
             sleep_led_toggle();
             led_set(host_keyboard_leds());
             break;
+#endif
 #ifdef BOOTMAGIC_ENABLE
         case KC_E:
             print("eeconfig:\n");
