@@ -1,5 +1,5 @@
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Layer 0: Default Layer
+/* Keymap 0: Default Keymap
  *
  * ANSI:
  *
@@ -15,7 +15,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------|     ,---.    
  * |Shft|iso|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |    
  * |-----------------------------------------------------------| ,-----------.
- * |Ctl|Gui|Alt|          Space                |Alt|Gui|FN0|Ctl| |Lef|Dow|Rig|
+ * |Ctl|Gui|Alt|          Space                |Alt|Gui|FN1|Ctl| |Lef|Dow|Rig|
  * `-----------------------------------------------------------' `-----------'
  */
 
@@ -25,15 +25,10 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TAB,    Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P, LBRC, RBRC, BSLS,  DEL,  END, PGDN, \
      CAPS,    A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN, QUOT,        ENT,                   \
      LSFT, NUBS,    Z,    X,    C,    V,    B,    N,    M, COMM,  DOT, SLSH,       RSFT,         UP,       \
-     LCTL, LGUI, LALT,              SPC,                         RALT, RGUI,  FN0, RCTL, LEFT, DOWN, RGHT),
+     LCTL, LGUI, LALT,              SPC,                         RALT, RGUI,  FN1, RCTL, LEFT, DOWN, RGHT),
 
-
-
-};
-
-static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
 /* 
- * Layer 1: Media Keys
+ * Keymap 1: Media Keys
  *
  * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
  * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
@@ -47,19 +42,19 @@ static const uint8_t PROGMEM overlays[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------|     ,---.    
  * |Shft|iso|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Ply|    
  * |-----------------------------------------------------------| ,-----------.
- * |Ctl|Gui|Alt|          Space                |Alt|Gui|FN0|Ctl| |Prv|Stp|Nxt|
+ * |Ctl|Gui|Alt|          Space                |Alt|Gui|FN1|Ctl| |Prv|Stp|Nxt|
  * `-----------------------------------------------------------' `-----------'
  */
 
  KEYMAP(
      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       TRNS, TRNS, TRNS, \
-     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, MSEL, VOLU, \
+     TRNS,   P1,   P2,   P3,   P4,   P5,   P6,   P7,   P8,   P9,   P0, TRNS, TRNS, TRNS, TRNS, MSEL, VOLU, \
      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, MUTE, VOLD, \
      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       TRNS,                   \
      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       TRNS,       MPLY,       \
-     TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS,  FN0, TRNS, MPRV, MSTP, MNXT),
+     TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS,  FN1, TRNS, MPRV, MSTP, MNXT),
 };
 
 static const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_OVERLAY_MOMENTARY(0),		// activate LAYER1 when FN0 pressed
+	[1] = ACTION_LAYER_MOMENTARY(1),		// activate Keymap 1 when FN1 pressed
 };
