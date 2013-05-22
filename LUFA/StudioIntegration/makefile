@@ -33,11 +33,6 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png     \
                         $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png           \
                         $(LUFA_ROOT)/License.txt                            \
                         VSIX/"[Content_Types].xml"                          \
-                        VSIX/ASFExplorer.png                                \
-                        VSIX/ASFWizard.png                                  \
-                        VSIX/LUFAHelpMenu.png                               \
-                        VSIX/NewExampleWizard.png                           \
-                        VSIX/GettingStarted.htm                             \
                         Blob/LUFA.dll                                       \
                         Blob/LUFA.pkgdef
 VSIX_GEN_PARAMS     := --stringparam extension-version "$(EXT_VERSION_NUM)" \
