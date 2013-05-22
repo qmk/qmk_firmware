@@ -114,7 +114,7 @@
 
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
-		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
+		 *  a single \c typedef \c struct. A macro is used instead so that functional descriptors can be created
 		 *  easily by specifying the size of the payload. This allows \c sizeof() to work correctly.
 		 *
 		 *  \param[in] DataSize  Size in bytes of the CDC functional descriptor's data payload.
@@ -176,11 +176,11 @@
 		/** Enum for the CDC class specific notification requests that can be issued by a CDC device to a host. */
 		enum CDC_ClassNotifications_t
 		{
-			CDC_NOTIF_SerialState               = 0x20, /**< Notification type constant for a change in the virtual serial port
-			                                             *   handshake line states, for use with a \ref USB_Request_Header_t
-			                                             *   notification structure when sent to the host via the CDC notification
-			                                             *   endpoint.
-			                                             */
+			CDC_NOTIF_SerialState = 0x20, /**< Notification type constant for a change in the virtual serial port
+			                               *   handshake line states, for use with a \ref USB_Request_Header_t
+			                               *   notification structure when sent to the host via the CDC notification
+			                               *   endpoint.
+			                               */
 		};
 
 		/** Enum for the CDC class specific interface descriptor subtypes. */
