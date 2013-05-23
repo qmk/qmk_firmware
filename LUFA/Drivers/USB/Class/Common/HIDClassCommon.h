@@ -382,7 +382,7 @@
 				HID_RI_REPORT_SIZE(8, 0x01),                \
 				HID_RI_REPORT_COUNT(8, Buttons),            \
 				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
-				HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
+				HID_RI_REPORT_SIZE(8, (Buttons % 8) ? (8 - (Buttons % 8)) : 0), \
 				HID_RI_REPORT_COUNT(8, 0x01),               \
 				HID_RI_INPUT(8, HID_IOF_CONSTANT),          \
 			HID_RI_END_COLLECTION(0)
@@ -476,7 +476,7 @@
 					HID_RI_REPORT_SIZE(8, 0x01),            \
 					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
 					HID_RI_REPORT_COUNT(8, 0x01),           \
-					HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
+					HID_RI_REPORT_SIZE(8, (Buttons % 8) ? (8 - (Buttons % 8)) : 0), \
 					HID_RI_INPUT(8, HID_IOF_CONSTANT),      \
 					HID_RI_USAGE_PAGE(8, 0x01),             \
 					HID_RI_USAGE(8, 0x30),                  \
