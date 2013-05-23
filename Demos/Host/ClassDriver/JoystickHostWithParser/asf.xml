@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.joystick_parser" caption="Joystick HID (with parser) Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Joystick HID Host demo with HID parser, implementing a basic USB joystick host that can display movement data on the board LEDs.
+		Joystick HID Host demo with HID parser, implementing a basic USB joystick host that can display movement data on the board LEDs. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

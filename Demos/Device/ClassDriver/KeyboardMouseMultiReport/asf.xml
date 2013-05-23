@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.keyboard_mouse_mr" caption="Keyboard and Mouse HID (Multi Report) Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Keyboard and Mouse HID device demo, implementing a basic USB keyboard and mouse using a single HID interface and multiple logical reports.
+		Keyboard and Mouse HID device demo, implementing a basic USB keyboard and mouse using a single HID interface and multiple logical reports. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

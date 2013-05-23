@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.printer" caption="Printer Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Printer Host demo, implementing a basic USB printer host that can send raw printer control data to an attached device.
+		Printer Host demo, implementing a basic USB printer host that can send raw printer control data to an attached device. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

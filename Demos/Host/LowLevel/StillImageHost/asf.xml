@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.si" caption="Still Image Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Still Image Host demo, implementing a Still Image host that can send and receive PIMA data to and from an attached device.
+		Still Image Host demo, implementing a Still Image host that can send and receive PIMA data to and from an attached device. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

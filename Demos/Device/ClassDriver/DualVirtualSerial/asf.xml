@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.dual_cdc" caption="Dual Virtual Serial Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Dual Virtual Serial (CDC) demo, implementing a pair of virtual serial port interfaces.
+		Dual Virtual Serial (CDC) demo, implementing a pair of virtual serial port interfaces. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

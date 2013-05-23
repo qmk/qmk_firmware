@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.lowlevel.keyboard" caption="Keyboard HID Device Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Keyboard HID device demo, implementing a basic USB keyboard that can send key press information to the host.
+		Keyboard HID device demo, implementing a basic USB keyboard that can send key press information to the host. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

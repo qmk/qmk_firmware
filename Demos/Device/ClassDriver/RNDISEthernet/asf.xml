@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.rndis" caption="RNDIS Ethernet Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Microsoft RNDIS Ethernet networking device demo, implementing a basic HTTP webserver.
+		Microsoft RNDIS Ethernet networking device demo, implementing a basic HTTP webserver. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.cdc" caption="Virtual Serial CDC Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Virtual Serial Host demo, implementing a CDC host that can send and receive data to and from an attached device.
+		Virtual Serial Host demo, implementing a CDC host that can send and receive data to and from an attached device. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.lowlevel.midi" caption="MIDI Device Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		MIDI device demo, implementing a basic USB MIDI device that can send messages to the host.
+		MIDI device demo, implementing a basic USB MIDI device that can send messages to the host. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

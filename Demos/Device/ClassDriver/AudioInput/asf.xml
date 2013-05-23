@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.device.class.audio_input" caption="Audio Input Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Audio 1.0 Input device demo, implementing a basic USB microphone.
+		Audio 1.0 Input device demo, implementing a basic USB microphone. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

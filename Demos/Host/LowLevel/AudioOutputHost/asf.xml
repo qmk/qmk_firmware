@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.audio_output" caption="Audio Output Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Audio Output Host demo, implementing a basic USB audio source that can output audio data to an attached device.
+		Audio Output Host demo, implementing a basic USB audio source that can output audio data to an attached device. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

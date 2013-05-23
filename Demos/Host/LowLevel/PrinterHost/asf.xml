@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.printer" caption="Printer Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Printer Host demo, implementing a basic USB printer host that can send raw printer control data to an attached device.
+		Printer Host demo, implementing a basic USB printer host that can send raw printer control data to an attached device. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

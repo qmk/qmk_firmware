@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.cdc" caption="Virtual Serial CDC Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Virtual Serial Host demo, implementing a CDC host that can send and receive data to and from an attached device.
+		Virtual Serial Host demo, implementing a CDC host that can send and receive data to and from an attached device. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

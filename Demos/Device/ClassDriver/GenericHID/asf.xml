@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.generic_hid" caption="Generic HID Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Generic HID device demo, implementing a device whose LEDs can be controlled via HID messages from the host.
+		Generic HID device demo, implementing a device whose LEDs can be controlled via HID messages from the host. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

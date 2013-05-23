@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.keyboard" caption="Keyboard HID Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Keyboard HID Host demo, implementing a basic USB keyboard host that can display key press data on the board LEDs.
+		Keyboard HID Host demo, implementing a basic USB keyboard host that can display key press data on the board LEDs. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

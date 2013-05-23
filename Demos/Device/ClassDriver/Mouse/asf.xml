@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.mouse" caption="Mouse HID Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Mouse device demo, implementing a basic USB mouse device that can send movement information to the host.
+		Mouse device demo, implementing a basic USB mouse device that can send movement information to the host. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

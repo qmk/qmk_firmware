@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.device.lowlevel.audio_input" caption="Audio Input Device Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Audio 1.0 Input device demo, implementing a basic USB microphone.
+		Audio 1.0 Input device demo, implementing a basic USB microphone. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

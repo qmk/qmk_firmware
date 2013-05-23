@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.keyboard_parser" caption="Keyboard HID (with parser) Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Keyboard HID Host demo with HID parser, implementing a basic USB keyboard host that can display key press data on the board LEDs.
+		Keyboard HID Host demo with HID parser, implementing a basic USB keyboard host that can display key press data on the board LEDs. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

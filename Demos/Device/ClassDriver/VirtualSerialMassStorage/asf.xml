@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.cdc_ms" caption="Virtual Serial CDC and Mass Storage Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Virtual Serial and Mass Storage device demo, implementing a virtual serial channel between the host PC and the device, and a basic USB storage disk using a Dataflash memory IC.
+		Virtual Serial and Mass Storage device demo, implementing a virtual serial channel between the host PC and the device, and a basic USB storage disk using a Dataflash memory IC. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

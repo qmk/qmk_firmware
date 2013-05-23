@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.lowlevel.cdc" caption="Virtual Serial CDC Device Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device.
+		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

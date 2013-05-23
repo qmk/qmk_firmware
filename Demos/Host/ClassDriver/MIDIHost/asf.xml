@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.midi" caption="MIDI Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		MIDI Host demo, capable of sending and receiving MIDI messages to and from an attached device.
+		MIDI Host demo, capable of sending and receiving MIDI messages to and from an attached device. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

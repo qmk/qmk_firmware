@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.audio_input" caption="Audio Input Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Audio Input Host demo, implementing a basic USB audio sink that can output incoming audio data to a speaker.
+		Audio Input Host demo, implementing a basic USB audio sink that can output incoming audio data to a speaker. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

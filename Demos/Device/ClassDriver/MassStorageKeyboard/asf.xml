@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.mass_storage_keyboard" caption="Mass Storage and HID Keyboard Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Mass Storage and Keyboard device demo, implementing a basic USB storage disk using a Dataflash memory IC, and a basic HID keyboard.
+		Mass Storage and Keyboard device demo, implementing a basic USB storage disk using a Dataflash memory IC, and a basic HID keyboard. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

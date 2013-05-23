@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.cdc" caption="Virtual Serial CDC Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device.
+		Virtual Serial device demo, implementing a virtual serial channel between the host PC and the device. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

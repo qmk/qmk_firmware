@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.ms" caption="Mass Storage Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Mass Storage Host demo, capable of reading and writing raw 512 byte segments to the device's serial port.
+		Mass Storage Host demo, capable of reading and writing raw 512 byte segments to the device's serial port. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

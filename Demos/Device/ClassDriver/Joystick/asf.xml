@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.joystick" caption="Joystick HID Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Joystick HID device demo, implementing a basic USB joystick that can send movement information to the host.
+		Joystick HID device demo, implementing a basic USB joystick that can send movement information to the host. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

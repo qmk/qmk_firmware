@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.mass_storage" caption="Mass Storage Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Mass Storage device demo, implementing a basic USB storage disk using a Dataflash memory IC.
+		Mass Storage device demo, implementing a basic USB storage disk using a Dataflash memory IC. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.class.si" caption="Still Image Host Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Still Image Host demo, implementing a Still Image host that can send and receive PIMA data to and from an attached device.
+		Still Image Host demo, implementing a Still Image host that can send and receive PIMA data to and from an attached device. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

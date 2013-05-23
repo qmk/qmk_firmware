@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.dualrole.class.mouse" caption="Mouse HID Dual USB Mode Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		Mouse host and device dual role demo, implementing a basic mouse device and host.
+		Mouse host and device dual role demo, implementing a basic mouse device and host. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

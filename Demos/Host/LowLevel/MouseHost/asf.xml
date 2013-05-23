@@ -13,7 +13,7 @@
 
 	<module type="application" id="lufa.demos.host.lowlevel.mouse" caption="Mouse HID Host Demo (Low Level APIs)">
 		<info type="description" value="summary">
-		Keyboard HID Host demo, implementing a basic USB mouse host that can display movement data on the board LEDs.
+		Keyboard HID Host demo, implementing a basic USB mouse host that can display movement data on the board LEDs. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>

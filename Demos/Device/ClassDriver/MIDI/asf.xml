@@ -25,7 +25,7 @@
 
 	<module type="application" id="lufa.demos.device.class.midi" caption="MIDI Device Demo (Class Driver APIs)">
 		<info type="description" value="summary">
-		MIDI device demo, implementing a basic USB MIDI device that can send messages to the host.
+		MIDI device demo, implementing a basic USB MIDI device that can send messages to the host. This demo uses the user-friendly USB Class Driver APIs to provide a simple, abstracted interface into the USB stack.
 		</info>
 
  		<info type="gui-flag" value="move-to-root"/>
