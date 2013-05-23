@@ -15,6 +15,8 @@
 			<device-support-alias value="lufa_xmega"/>
 			<device-support-alias value="lufa_uc3"/>
 
+			<build type="doxygen-entry-point" value="Group_USBManagement"/>
+
 			<info type="gui-flag" value="hidden"/>
 
 			<build type="header-file" value="Drivers/USB/Core/Device.h"/>
@@ -51,6 +53,8 @@
 
 				<info type="gui-flag" value="hidden"/>
 
+				<build type="doxygen-entry-point" value="Group_USBManagement_AVR8"/>
+
 				<require idref="lufa.drivers.usb.core.common"/>
 				<require idref="lufa.drivers.usb.core.avr8"/>
 			</module>
@@ -60,6 +64,8 @@
 
 				<info type="gui-flag" value="hidden"/>
 
+				<build type="doxygen-entry-point" value="Group_USBManagement_XMEGA"/>
+
 				<require idref="lufa.drivers.usb.core.common"/>
 				<require idref="lufa.drivers.usb.core.xmega"/>
 			</module>
@@ -68,6 +74,8 @@
 				<device-support-alias value="lufa_uc3"/>
 
 				<info type="gui-flag" value="hidden"/>
+
+				<build type="doxygen-entry-point" value="Group_USBManagement_UC3"/>
 
 				<require idref="lufa.drivers.usb.core.common"/>
 				<require idref="lufa.drivers.usb.core.uc3"/>
