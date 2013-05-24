@@ -140,6 +140,21 @@
 
 			<xsl:apply-templates select="detaileddescription"/>
 
+			<xsl:if test="count(innergroup)">
+				<para>
+					<emphasis role="bold">Subgroups:</emphasis>
+					<itemizedlist>
+						<xsl:for-each select="innergroup">
+							<listitem>
+								<link linkend="{@refid}">
+									<xsl:value-of select="text()"/>
+								</link>
+							</listitem>
+						</xsl:for-each>
+					</itemizedlist>
+				</para>
+			</xsl:if>
+
 			<xsl:apply-templates select="sectiondef"/>
 
 			<xsl:for-each select="innerclass">
