@@ -102,6 +102,21 @@
 
 			<xsl:apply-templates select="detaileddescription"/>
 
+			<xsl:if test="not(innerpage) and count(detaileddescription//sect1)">
+				<para>
+					<emphasis role="bold">Subsections:</emphasis>
+					<itemizedlist>
+						<xsl:for-each select="detaileddescription//sect1">
+							<listitem>
+								<link linkend="{@id}">
+									<xsl:value-of select="title"/>
+								</link>
+							</listitem>
+						</xsl:for-each>
+					</itemizedlist>
+				</para>
+			</xsl:if>
+
 			<xsl:for-each select="innerpage">
 				<xsl:apply-templates select="ancestor::*/compounddef[@kind = 'page' and @id = current()/@refid]"/>
 			</xsl:for-each>
