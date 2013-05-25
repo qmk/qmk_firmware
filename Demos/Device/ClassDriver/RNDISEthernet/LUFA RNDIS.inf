@@ -4,7 +4,7 @@
 [Version]
 Signature="$Windows NT$"
 Class=Net
-ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+ClassGuid={4d36e972-e325-11ce-bfc1-08002be10318}
 Provider=%MFGNAME%
 DriverVer=7/1/2012,10.0.0.0
 
