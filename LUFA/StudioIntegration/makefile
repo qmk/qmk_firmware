@@ -33,8 +33,8 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png     \
                         $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png           \
                         $(LUFA_ROOT)/License.txt                            \
                         VSIX/"[Content_Types].xml"                          \
-                        Blob/LUFA.dll                                       \
-                        Blob/LUFA.pkgdef
+                        VSIX/LUFA.dll                                       \
+                        VSIX/LUFA.pkgdef
 VSIX_GEN_PARAMS     := --stringparam extension-version "$(EXT_VERSION_NUM)" \
                        --stringparam lufa-version "$(LUFA_VERSION_NUM)"
 MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"                \
@@ -59,7 +59,7 @@ $(DOXYGEN_COMBINED_XML): $(DOXYGEN_TAG_FILE_XML)
 	@xsltproc $(dir $@)/combine.xslt $(dir $@)/index.xml > $(DOXYGEN_COMBINED_XML)
 
 $(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
-	@echo "Generating Manifest XML..."
+	@echo Generating temporary module manifest XML...
 
 	@printf "<lufa-manifest version=\"%s\" tagfile=\"%s\" docfile=\"%s\">\n" $(LUFA_VERSION_NUM) $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML) > $@
 	@for i in $(XML_FILES); do \
@@ -67,24 +67,20 @@ $(TEMP_MANIFEST_XML): $(DOXYGEN_TAG_FILE_XML) $(DOXYGEN_COMBINED_XML)
 	done;
 	@echo '</lufa-manifest>' >> $@
 
-	@echo "Manifest XML file generated."
-
 $(MODULE_OUTPUT_XML): $(TEMP_MANIFEST_XML)
-	@echo "Processing asf.xml file..."
+	@echo Generating library core XDK module manifest file...
 	@xsltproc XDK/lufa_module_transform.xslt $< | xsltproc XDK/lufa_indent_transform.xslt - > $(MODULE_OUTPUT_XML)
-	@echo "Atmel Studio asf.xml file generated."
 
 $(EXTENSION_OUTPUT_XML): $(TEMP_MANIFEST_XML)
-	@echo "Processing extension.xml file..."
+	@echo Generating library XDK extension manifest file...
 	@xsltproc XDK/lufa_extension_transform.xslt $< | xsltproc XDK/lufa_indent_transform.xslt - > $(EXTENSION_OUTPUT_XML)
-	@echo "Atmel Studio extension.xml file generated."
 
 $(MSHELP_OUTPUT_XML): $(DOXYGEN_COMBINED_XML)
-	@echo Converting Doxygen XML to Docbook...
+	@echo Converting Doxygen XML to DocBook...
 	@-mkdir mshelp 2> /dev/null
 	@xsltproc HV1/lufa_docbook_transform.xslt $(DOXYGEN_COMBINED_XML) > mshelp/lufa_docbook.xml
 
-	@echo Converting Docbook XML to Microsoft Help 1.0...
+	@echo Converting DocBook XML to Microsoft Help 1.0...
 	@cd mshelp && xsltproc $(MSHELP_GEN_PARAMS) ../HV1/lufa_hv1_transform.xslt lufa_docbook.xml
 
 	@echo Copying help assets...
@@ -95,32 +91,35 @@ $(MSHELP_OUTPUT_XML): $(DOXYGEN_COMBINED_XML)
 	@echo Archiving help content...
 	@cd mshelp && zip ../$(MSHELP_OUTPUT_XML) -q -0  -r *.html *.css images
 
+	@echo Generating HV1 manifest...
+	@xsltproc $(VSIX_GEN_PARAMS) HV1/lufa_helpcontentsetup_transform.xslt HV1/helpcontentsetup.msha > $(LUFA_ROOT)/../helpcontentsetup.msha
+
 generate_help: $(MSHELP_OUTPUT_XML)
 
 generate_xml: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML)
 
 generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML) $(MSHELP_OUTPUT_XML)
-	@echo "Generating ASF cache files..."
+	@echo Generating XDK cache files...
 	@rm -f $(LUFA_ROOT)/../content.xml.cache
 	@rm -f $(LUFA_ROOT)/../ExampleProjects.xml
 	@python VSIX/generate_caches.py $(LUFA_ROOT)/../
 
-	@echo "Archiving ASF content..."
+	@echo Archiving XDK content...
 	@rm -f contents.zip
 	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -0 -r --exclude=*Documentation* --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects README.txt
 
-	@echo "Creating VSIX dependencies..."
+	@echo Creating VSIX dependencies...
 	@cp $(VSIX_ASSETS) $(LUFA_ROOT)/..
 	@xsltproc $(VSIX_GEN_PARAMS) VSIX/lufa_vsmanifest_transform.xslt VSIX/extension.vsixmanifest > $(LUFA_ROOT)/../extension.vsixmanifest
 	@xsltproc $(VSIX_GEN_PARAMS) VSIX/lufa_asfmanifest_transform.xslt VSIX/asf-manifest.xml > $(LUFA_ROOT)/../asf-manifest.xml
-	@xsltproc $(VSIX_GEN_PARAMS) HV1/lufa_helpcontentsetup_transform.xslt HV1/helpcontentsetup.msha > $(LUFA_ROOT)/../helpcontentsetup.msha
 
-	@echo "Generating Atmel Studio VSIX file..."
+	@echo Generating Atmel Studio VSIX file...
 	cd $(LUFA_ROOT)/../ && zip $(EXT_VSIX_NAME) -q -9 contents.zip exampleProjects.xml content.xml.cache extension.vsixmanifest asf-manifest.xml extension.xml helpcontentsetup.msha $(notdir $(MSHELP_OUTPUT_XML)) $(notdir $(VSIX_ASSETS))
-	@echo "Atmel Studio VSIX Extension file generated."
+
+	@echo "Atmel Studio VSIX extension file generated."
 
 check_filenames: $(MODULE_OUTPUT_XML)
-	@echo Verifying referenced filenames of ASF.xml modules...
+	@echo Verifying referenced filenames of XDK modules...
 	@for f in `find $(LUFA_ROOT)/../ -name "asf.xml"`; do \
 		echo "Checking $$f..."; \
 		asf_file_dir=`dirname $$f`; \
@@ -131,7 +130,6 @@ check_filenames: $(MODULE_OUTPUT_XML)
 			fi; \
 		done || exit 1; \
 	done;
-	@echo Verified referenced filenames of ASF.xml modules.
 
 sanity_check:
 	python ProjectGenerator/project_generator.py -b $(LUFA_ROOT)/../ --main-ext-uuid=0e160d5c-e331-48d9-850b-e0387912171b CHECK
