@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Convert physical keyboard layout to matrix array.
 // This is a macro to define keymap easily in keyboard layout form.
-// Use this for 7bit layout.
 #define KEYMAP( \
     K5A, K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M, K5N, K5O, K5P, K5Q, K5R, \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, K4N, K4O, K4P, K4Q, K4R, \
@@ -113,68 +112,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K0A, K0B, K0C, NO,       NO,  K0G, NO,            NO,  K0L, K0M, K0N,      K0P, K0Q, K0R  \
 )
 
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Layer 0: Default Layer
-     *
-     * ANSI:
-     *
-     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
-     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
-     * `---'   `---------------' `---------------' `---------------' `-----------'
-     * ,-----------------------------------------------------------. ,-----------.
-     * |~  |  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp | |Ins|Hom|PgU|
-     * |-----------------------------------------------------------| |-----------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \| |Del|End|PgD|
-     * |-----------------------------------------------------------| '-----------'
-     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
-     * |-----------------------------------------------------------|     ,---.
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |
-     * |-----------------------------------------------------------| ,-----------.
-     * |Ctl|Gui|Alt|             Space             |Alt|Gui|App|Ctl| |Lef|Dow|Rig|
-     * `-----------------------------------------------------------' `-----------'
-     */
-
-    KEYMAP_ANSI(\
-        ESC,      F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,       PSCR,SLCK,BRK,  \
-        GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,      INS, HOME,PGUP, \
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,      DEL, END, PGDN, \
-        FN0, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                       \
-        LSFT,     Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     RSFT,           UP,        \
-        LCTL,LGUI,LALT,               SPC,                RALT,RGUI,APP, RCTL,      LEFT,DOWN,RGHT),
-
-    /* Overlay 1
-     *
-     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
-     * |   |   |   |   |   |   | |   |   |   |   | |   |   |   |   | |   |   |Slp|
-     * `---'   `---------------' `---------------' `---------------' `-----------'
-     * ,-----------------------------------------------------------. ,-----------.
-     * |   |   |   |   |   |   |   |   |   |   |Mut|V- |V+ |       | |   |   |   |
-     * |-----------------------------------------------------------| |-----------|
-     * |     |   |   |   |   |   |   |   |   |MSt|Ply|Prv|Nxt|Media| |   |   |   |
-     * |-----------------------------------------------------------| '-----------'
-     * |      |   |   |   |   |   |   |   |   |   |   |   |        |
-     * |-----------------------------------------------------------|     ,---.
-     * |        |   |   |Clc|   |   |   |   |   |   |   |Caps      |     |   |
-     * |-----------------------------------------------------------| ,-----------.
-     * |   |   |   |                               |   |   |   |   | |   |   |   |
-     * `-----------------------------------------------------------' `-----------'
-     */
-
-    KEYMAP_ANSI(\
-        TRNS,     TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,      TRNS,TRNS,SLEP, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,MUTE,VOLD,VOLU,TRNS,      TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,MSTP,MPLY,MPRV,MNXT,MSEL,      TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,                      \
-        TRNS,     TRNS,TRNS,CALC,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     CAPS,           TRNS,      \
-        TRNS,TRNS,TRNS,               TRNS,               TRNS,TRNS,TRNS,TRNS,      TRNS,TRNS,TRNS)
-};
-
-/*
- * Fn action definition
- */
-static const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1)
-};
+#if defined(LAYOUT_7BIT)
+    #include "keymap_7bit.h"
+#elif defined(LAYOUT_ISO_150)
+    #include "keymap_iso_150.h"
+#elif defined(LAYOUT_ISO)
+    #include "keymap_iso.h"
+#elif defined(LAYOUT_ANSI_150)
+    #include "keymap_ansi_150.h"
+#else
+    #include "keymap_ansi.h"
+#endif
 
 #define KEYMAPS_SIZE    (sizeof(keymaps) / sizeof(keymaps[0]))
 #define FN_ACTIONS_SIZE (sizeof(fn_actions) / sizeof(fn_actions[0]))
