@@ -120,3 +120,18 @@ VPATH += $(TOP_DIR)
 include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
+
+ansi: OPT_DEFS += -DLAYOUT_ANSI
+ansi: all
+
+ansi_150: OPT_DEFS += -DLAYOUT_ANSI_150
+ansi_150: all
+
+iso: OPT_DEFS += -DLAYOUT_ISO
+iso: all
+
+iso_150: OPT_DEFS += -DLAYOUT_ISO_150
+iso_150: all
+
+7bit: OPT_DEFS += -DLAYOUT_7BIT
+7bit: all
