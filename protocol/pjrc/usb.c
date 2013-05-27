@@ -34,7 +34,9 @@
 #include "led.h"
 #include "print.h"
 #include "util.h"
+#ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
+#endif
 #include "suspend.h"
 
 
