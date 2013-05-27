@@ -32,6 +32,7 @@ static void init_rows(void);
 static void unselect_cols(void);
 static void select_col(uint8_t col);
 
+#ifndef SLEEP_LED_ENABLE
 /* LEDs are on output compare pins OC1B OC1C
    This activates fast PWM mode on them.
    Prescaler 256 and 8-bit counter results in
@@ -51,12 +52,13 @@ void setup_leds(void)
     TCCR1B |=      // Timer control register 1B
         (1<<WGM12) | // Fast PWM 8-bit
         (1<<CS12);   // Prescaler 256
-    OCR1B = 250;    // Output compare register 1B
-    OCR1C = 250;    // Output compare register 1C
+    OCR1B = LED_BRIGHTNESS;    // Output compare register 1B
+    OCR1C = LED_BRIGHTNESS;    // Output compare register 1C
     // LEDs: LED_A -> PORTB6, LED_B -> PORTB7
-    DDRB  &= 0x3F;
-    PORTB &= 0x3F;
+    DDRB  |= (1<<6) | (1<<7);
+    PORTB  &= ~((1<<6) | (1<<7));
 }
+#endif
 
 inline
 uint8_t matrix_rows(void)
@@ -79,7 +81,9 @@ void matrix_init(void)
     // initialize row and col
     unselect_cols();
     init_rows();
+#ifndef SLEEP_LED_ENABLE
     setup_leds();
+#endif
 
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++)  {
@@ -100,7 +104,7 @@ uint8_t matrix_scan(void)
             if (prev_bit != curr_bit) {
                 matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
                 if (debouncing) {
-                    debug("bounce!: "); debug_hex(debouncing); print("\n");
+                    dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
                 }
                 debouncing = DEBOUNCE;
             }
@@ -143,9 +147,7 @@ void matrix_print(void)
 {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
-        print_bin_reverse32(matrix_get_row(row));
-        print("\n");
+        xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
     }
 }
 
@@ -160,7 +162,7 @@ uint8_t matrix_key_count(void)
 
 /* Row pin configuration
  * row: 0   1   2   3   4   5
- * pin: B0  B1  B2  B3  B4  B5
+ * pin: B5  B4  B3  B2  B1  B0
  */
 static void init_rows(void)
 {
@@ -171,12 +173,12 @@ static void init_rows(void)
 
 static uint8_t read_rows(void)
 {
-    return (PINB&(1<<0) ? 0 : (1<<0)) |
-           (PINB&(1<<1) ? 0 : (1<<1)) |
-           (PINB&(1<<2) ? 0 : (1<<2)) |
-           (PINB&(1<<3) ? 0 : (1<<3)) |
-           (PINB&(1<<4) ? 0 : (1<<4)) |
-           (PINB&(1<<5) ? 0 : (1<<5));
+    return (PINB&(1<<5) ? 0 : (1<<0)) |
+           (PINB&(1<<4) ? 0 : (1<<1)) |
+           (PINB&(1<<3) ? 0 : (1<<2)) |
+           (PINB&(1<<2) ? 0 : (1<<3)) |
+           (PINB&(1<<1) ? 0 : (1<<4)) |
+           (PINB&(1<<0) ? 0 : (1<<5));
 }
 
 /* Column pin configuration
