@@ -23,6 +23,7 @@ These features can be used in your keyboard.
 * Virtual DIP Switch  - Configurations stored EEPROM(Boot Magic)
 * Locking CapsLock    - Mechanical switch support for CapsLock
 * Breathing Sleep LED - Sleep indicator with charm during USB suspend
+* Backlight           - Control backlight levels
 
 
 Projects
