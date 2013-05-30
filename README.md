@@ -49,6 +49,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [phantom](keyboard/phantom/)              - [Phantom] keyboard (by Tranquilite)
 * [IIgs_Standard](keyboard/IIgs/)           - Apple [IIGS] keyboard mod(by JeffreySung)
 * [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway] [retired]
+* [KMAC](keyboard/kmac/)                    - Korean custom keyboard
 
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
