@@ -85,6 +85,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1100|opt | id(8)      Macro play?
  * 1100|1111| id(8)      Macro record?
  *
+ * ACT_BACKLIGHT(1101):
+ * 1110|xxxx| id(8)      Backlight commands
+ *
  * ACT_COMMAND(1110):
  * 1110|opt | id(8)      Built-in Command exec
  *
@@ -109,6 +112,7 @@ enum action_kind_id {
     ACT_LAYER_TAP1      = 0b1011,
     /* Extensions */
     ACT_MACRO           = 0b1100,
+    ACT_BACKLIGHT       = 0b1101,
     ACT_COMMAND         = 0b1110,
     ACT_FUNCTION        = 0b1111
 };
@@ -157,6 +161,9 @@ typedef union {
         uint8_t  page   :2;
         uint8_t  kind   :4;
     } usage;
+    struct action_backlight {
+        uint8_t  id     :8;
+    } backlight;
     struct action_command {
         uint8_t  id     :8;
         uint8_t  opt    :4;
@@ -272,10 +279,21 @@ enum layer_pram_tap_op {
 /*
  * Extensions
  */
+enum backlight_id {
+    BACKLIGHT_INCREASE = 0,
+    BACKLIGHT_DECREASE = 1,
+    BACKLIGHT_TOGGLE   = 2,
+    BACKLIGHT_STEP     = 3,
+};
 /* Macro */
 #define ACTION_MACRO(id)                ACTION(ACT_MACRO, (id))
 #define ACTION_MACRO_TAP(id)            ACTION(ACT_MACRO, FUNC_TAP<<8 | (id))
 #define ACTION_MACRO_OPT(id, opt)       ACTION(ACT_MACRO, (opt)<<8 | (id))
+/* Backlight */
+#define ACTION_BACKLIGHT_INCREASE()     ACTION(ACT_BACKLIGHT, BACKLIGHT_INCREASE)
+#define ACTION_BACKLIGHT_DECREASE()     ACTION(ACT_BACKLIGHT, BACKLIGHT_DECREASE)
+#define ACTION_BACKLIGHT_TOGGLE()       ACTION(ACT_BACKLIGHT, BACKLIGHT_TOGGLE)
+#define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP)
 /* Command */
 #define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
 /* Function */

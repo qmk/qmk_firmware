@@ -63,6 +63,11 @@ ifdef SLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
+ifdef BACKLIGHT_ENABLE
+    SRC += $(COMMON_DIR)/backlight.c
+    OPT_DEFS += -DBACKLIGHT_ENABLE
+endif
+
 
 # Search Path
 VPATH += $(TOP_DIR)/common
