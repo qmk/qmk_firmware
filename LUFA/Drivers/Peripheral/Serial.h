@@ -42,11 +42,11 @@
  *  \defgroup Group_Serial Serial USART Driver - LUFA/Drivers/Peripheral/Serial.h
  *  \brief Hardware Serial USART driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_Serial_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/Peripheral/<i>ARCH</i>/Serial_<i>ARCH</i>.c <i>(Makefile source module name: LUFA_SRC_SERIAL)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Serial_ModDescription Module Description
  *  Hardware serial USART driver. This module provides an easy to use driver for the setup and transfer
  *  of data over the selected architecture and microcontroller model's USART port.
  *

@@ -40,7 +40,7 @@
 /** \ingroup Group_USBClassAOA
  *  \defgroup Group_USBClassAOACommon  Common Class Definitions
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassAOACommon_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  Android Open Accessory Class.
  *

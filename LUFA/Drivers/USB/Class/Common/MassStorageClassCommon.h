@@ -40,7 +40,7 @@
 /** \ingroup Group_USBClassMS
  *  \defgroup Group_USBClassMSCommon  Common Class Definitions
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassMSCommon_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  Mass Storage Class.
  *

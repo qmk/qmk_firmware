@@ -41,12 +41,12 @@
  *  \defgroup Group_USBClassAudio Audio 1.0 Class Driver
  *  \brief USB class driver for the USB-IF Audio 1.0 class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassAudio_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/AudioClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/AudioClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassAudio_ModDescription Module Description
  *  Audio 1.0 Class Driver module. This module contains an internal implementation of the USB Audio 1.0 Class, for both
  *  Device and Host USB modes. User applications can use this class driver instead of implementing the Audio 1.0 class
  *  manually via the low-level LUFA APIs.

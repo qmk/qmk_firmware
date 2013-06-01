@@ -40,11 +40,11 @@
 /** \ingroup Group_USBClassMS
  *  \defgroup Group_USBClassMSDevice Mass Storage Class Device Mode Driver
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassMSDevice_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/MassStorageClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassMSDevice_ModDescription Module Description
  *  Device Mode USB Class driver framework interface, for the Mass Storage USB Class driver.
  *
  *  @{

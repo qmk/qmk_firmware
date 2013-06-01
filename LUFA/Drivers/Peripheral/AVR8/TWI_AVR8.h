@@ -40,13 +40,13 @@
 /** \ingroup Group_TWI
  *  \defgroup Group_TWI_AVR8 TWI Peripheral Driver (AVR8)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_TWI_AVR8_ModDescription Module Description
  *  Master mode TWI driver for the 8-bit AVR microcontrollers which contain a hardware TWI module.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the TWI driver
  *        dispatch header located in LUFA/Drivers/Peripheral/TWI.h.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_TWI_AVR8_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

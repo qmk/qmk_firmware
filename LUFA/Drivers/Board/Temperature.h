@@ -38,17 +38,17 @@
  *  \defgroup Group_Temperature Temperature Sensor Driver - LUFA/Drivers/Board/Temperature.h
  *  \brief NTC Temperature Sensor board hardware driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_Temperature_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/Board/Temperature.c <i>(Makefile source module name: LUFA_SRC_TEMPERATURE)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Temperature_ModDescription Module Description
  *  Temperature sensor driver. This provides an easy to use interface for the hardware temperature sensor located
  *  on many boards. It provides an interface to configure the sensor and appropriate ADC channel, plus read out the
  *  current temperature in degrees C. It is designed for and will only work with the temperature sensor located on the
  *  official Atmel USB AVR boards, as each sensor has different characteristics.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_Temperature_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *
@@ -56,7 +56,7 @@
  *      // Initialize the ADC and board temperature sensor drivers before first use
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
  *      Temperature_Init();
- *      
+ *
  *      // Display converted temperature in degrees Celsius
  *      printf("Current Temperature: %d Degrees\r\n", Temperature_GetTemperature());
  *  \endcode
@@ -75,7 +75,7 @@
 		     (BOARD == BOARD_STK526) || (BOARD == BOARD_EVK527))
 			#define TEMPERATURE_SENSOR_DRIVER_COMPATIBLE
 		#endif
-		
+
 		#if !defined(__INCLUDE_FROM_TEMPERATURE_C) && !defined(TEMPERATURE_SENSOR_DRIVER_COMPATIBLE)
 			#error The selected board does not contain a compatible temperature sensor.
 		#endif
@@ -140,7 +140,7 @@
 		#endif
 
 	#endif
-	
+
 #endif
 
 /** @} */

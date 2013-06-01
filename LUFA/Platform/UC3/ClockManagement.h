@@ -39,27 +39,27 @@
  *  \defgroup Group_PlatformDrivers_UC3Clocks Clock Management Driver - LUFA/Platform/UC3/ClockManagement.h
  *  \brief Module Clock Driver for the AVR32 UC3 microcontrollers.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_PlatformDrivers_UC3Clocks_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_PlatformDrivers_UC3Clocks_ModDescription Module Description
  *  Clock management driver for the AVR32 UC3 microcontrollers. This driver allows for the configuration
  *  of the various clocks within the device to clock the various peripherals.
  *
  *  Usage Example:
  *  \code
  *		#include <LUFA/Platform/UC3/ClockManagement.h>
- *      
+ *
  *		void main(void)
  *		{
  *			// Start the master external oscillator which will be used as the main clock reference
  *			UC3CLK_StartExternalOscillator(0, EXOSC_MODE_8MHZ_OR_MORE, EXOSC_START_0CLK);
- *          
+ *
  *			// Start the PLL for the CPU clock, switch CPU to it
  *			UC3CLK_StartPLL(0, CLOCK_SRC_OSC0, 12000000, F_CPU);
  *			UC3CLK_SetCPUClockSource(CLOCK_SRC_PLL0, F_CPU);
- *          
+ *
  *			// Start the PLL for the USB Generic Clock module
  *			UC3CLK_StartPLL(1, CLOCK_SRC_OSC0, 12000000, 48000000);
  *		}
@@ -277,9 +277,9 @@
 			{
 				if (Channel >= AVR32_PM_GCLK_NUM)
 				  return false;
-			
+
 				AVR32_PM.GCCTRL[Channel].cen = false;
-				
+
 				return true;
 			}
 
@@ -302,7 +302,7 @@
 				  return false;
 
 				AVR32_FLASHC.FCR.fws = (SourceFreq > AVR32_FLASHC_FWS_0_MAX_FREQ) ? true : false;
-				
+
 				switch (Source)
 				{
 					#if defined(AVR32_PM_MCCTRL_MCSEL_SLOW)

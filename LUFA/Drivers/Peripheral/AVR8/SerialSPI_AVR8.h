@@ -40,30 +40,30 @@
 /** \ingroup Group_SerialSPI
  *  \defgroup Group_SerialSPI_AVR8 Master SPI Mode Serial USART Peripheral Driver (AVR8)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_SerialSPI_AVR8_ModDescription Module Description
  *  On-chip serial USART driver for the 8-bit AVR8 microcontrollers.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the SPI Master
  *        driver dispatch header located in LUFA/Drivers/Peripheral/SerialSPI.h.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_SerialSPI_AVR8_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *
  *  \code
  *      // Initialize the Master SPI mode USART driver before first use, with 1Mbit baud
  *      SerialSPI_Init((USART_SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_ORDER_MSB_FIRST), 1000000);
- *      
+ *
  *      // Send several bytes, ignoring the returned data
  *      SerialSPI_SendByte(0x01);
  *      SerialSPI_SendByte(0x02);
  *      SerialSPI_SendByte(0x03);
- *      
+ *
  *      // Receive several bytes, sending a dummy 0x00 byte each time
  *      uint8_t Byte1 = SerialSPI_ReceiveByte();
  *      uint8_t Byte2 = SerialSPI_ReceiveByte();
  *      uint8_t Byte3 = SerialSPI_ReceiveByte();
- *      
+ *
  *      // Send a byte, and store the received byte from the same transaction
  *      uint8_t ResponseByte = SerialSPI_TransferByte(0xDC);
  *  \endcode
@@ -121,10 +121,10 @@
 
 			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out LSB first. */
 			#define USART_SPI_ORDER_LSB_FIRST            (1 << UDORD)
-			//@}			
+			//@}
 
 		/* Inline Functions: */
-			/** Initialize the USART module in Master SPI mode. 
+			/** Initialize the USART module in Master SPI mode.
 			 *
 			 *  \param[in]     SPIOptions   USART SPI Options, a mask consisting of one of each of the \c USART_SPI_SCK_*,
 			 *                              \c USART_SPI_SAMPLE_* and \c USART_SPI_ORDER_* masks.
@@ -139,7 +139,7 @@
 				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));
 
 				DDRD  |= (1 << 3);
-				PORTD |= (1 << 2);				
+				PORTD |= (1 << 2);
 			}
 
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
@@ -154,7 +154,7 @@
 				DDRD  &= ~(1 << 3);
 				PORTD &= ~(1 << 2);
 			}
-			
+
 			/** Sends and receives a byte through the USART SPI interface, blocking until the transfer is complete.
 			 *
 			 *  \param[in] DataByte  Byte to send through the USART SPI interface.
@@ -188,7 +188,7 @@
 			{
 				return SerialSPI_TransferByte(0);
 			}
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

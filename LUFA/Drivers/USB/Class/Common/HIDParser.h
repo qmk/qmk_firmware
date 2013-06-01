@@ -40,11 +40,11 @@
  *  \defgroup Group_HIDParser HID Report Parser
  *  \brief USB Human Interface Device (HID) Class report descriptor parser.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_HIDParser_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_HIDParser_ModDescription Module Description
  *  Human Interface Device (HID) class report descriptor parser. This module implements a parser than is
  *  capable of processing a complete HID report descriptor, and outputting a flat structure containing the
  *  contents of the report in an a more friendly format. The parsed data may then be further processed and used

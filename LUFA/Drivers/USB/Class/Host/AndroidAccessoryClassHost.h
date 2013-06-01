@@ -40,11 +40,11 @@
 /** \ingroup Group_USBClassAOA
  *  \defgroup Group_USBClassAndroidAccessoryHost Android Open Accessory Class Host Mode Driver
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassAndroidAccessoryHost_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/AndroidAccessoryClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassAndroidAccessoryHost_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the Android Open Accessory USB Class driver.
  *
  *  @{

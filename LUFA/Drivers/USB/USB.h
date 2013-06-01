@@ -41,7 +41,7 @@
  *
  *  \brief Core driver for the microcontroller hardware USB module
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USB_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Core/ConfigDescriptors.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/Core/DeviceStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
@@ -58,7 +58,7 @@
  *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/USBInterrupt_<i>ARCH</i>.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/Class/Common/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USB_ModDescription Module Description
  *  Driver and framework for the USB controller of the selected architecture and microcontroller model. This module
  *  consists of many submodules, and is designed to provide an easy way to configure and control USB host, device
  *  or OTG mode USB applications.
@@ -143,13 +143,13 @@
  *  </table>
  *
  *
- *  \section Sec_UsingClassDrivers Using the Class Drivers
+ *  \section Sec_USB_UsingClassDrivers Using the Class Drivers
  *  To make the Class drivers easy to integrate into a user application, they all implement a standardized
  *  design with similarly named/used function, enums, defines and types. The two different modes are implemented
  *  slightly differently, and thus will be explained separately. For information on a specific class driver, read
  *  the class driver's module documentation.
  *
- *  \subsection Sec_ClassDriverDevice Device Mode Class Drivers
+ *  \subsection Sec_USB_ClassDriverDevice Device Mode Class Drivers
  *  Implementing a Device Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
  *  the module configuration and state structure must be added to the project source. These structures are named in a
  *  similar manner between classes, that of <tt>USB_ClassInfo_<i>{Class Name}</i>_Device_t</tt>, and are used to hold the
@@ -249,7 +249,7 @@
  *  read and write routines. See each driver's individual documentation for more information on the
  *  class-specific functions.
  *
- *  \subsection Sec_ClassDriverHost Host Mode Class Drivers
+ *  \subsection Sec_USB_ClassDriverHost Host Mode Class Drivers
  *  Implementing a Host Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
  *  the module configuration and state structure must be added to the project source. These structures are named in a
  *  similar manner between classes, that of <tt>USB_ClassInfo_<b>{Class Name}</b>_Host_t</tt>, and are used to hold the

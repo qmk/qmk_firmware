@@ -47,11 +47,11 @@
  *  \defgroup Group_Joystick Joystick Driver - LUFA/Drivers/Board/Joystick.h
  *  \brief Digital joystick board hardware driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_Joystick_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Joystick_ModDescription Module Description
  *  Hardware Joystick driver. This module provides an easy to use interface to control the hardware digital Joystick
  *  located on many boards.
  *
@@ -60,7 +60,7 @@
  *
  *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_Joystick_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

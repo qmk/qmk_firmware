@@ -39,24 +39,24 @@
  *  \defgroup Group_PlatformDrivers_UC3Interrupts Interrupt Controller Driver - LUFA/Platform/UC3/InterruptManagement.h
  *  \brief Interrupt Controller Driver for the AVR32 UC3 microcontrollers.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_PlatformDrivers_UC3Interrupts_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Platform/UC3/InterruptManagement.c <i>(Makefile source module name: LUFA_SRC_PLATFORM)</i>
  *    - LUFA/Platform/UC3/Exception.S <i>(Makefile source module name: LUFA_SRC_PLATFORM)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_PlatformDrivers_UC3Interrupts_ModDescription Module Description
  *  Interrupt controller driver for the AVR32 UC3 microcontrollers, for the configuration of interrupt
  *  handlers within the device.
  *
  *  Usage Example:
  *  \code
  *		#include <LUFA/Platform/UC3/InterruptManagement.h>
- *      
+ *
  *		ISR(USB_Group_IRQ_Handler)
  *		{
  *			// USB group handler code here
  *		}
- *      
+ *
  *		void main(void)
  *		{
  *			INTC_Init();
@@ -113,8 +113,8 @@
 			/** Initializes the interrupt controller ready to handle interrupts. This must be called at the
 			 *  start of the user program before any interrupts are registered or enabled.
 			 */
-			void INTC_Init(void);			
-			
+			void INTC_Init(void);
+
 			/** Retrieves the associated interrupt handler for the interrupt group currently being fired. This
 			 *  is called directly from the exception handler routine before dispatching to the ISR.
 			 *

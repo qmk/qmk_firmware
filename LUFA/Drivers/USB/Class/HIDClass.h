@@ -41,13 +41,13 @@
  *  \defgroup Group_USBClassHID HID Class Driver
  *  \brief USB class driver for the USB-IF Human Interface Device (HID) class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassHID_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/HIDClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/HIDClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassHID_ModDescription Module Description
  *  HID Class Driver module. This module contains an internal implementation of the USB HID Class, for both Device
  *  and Host USB modes. User applications can use this class driver instead of implementing the HID class manually
  *  via the low-level LUFA APIs.

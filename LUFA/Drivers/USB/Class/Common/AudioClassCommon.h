@@ -40,7 +40,7 @@
 /** \ingroup Group_USBClassAudio
  *  \defgroup Group_USBClassAudioCommon  Common Class Definitions
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassAudioCommon_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
  *  Audio 1.0 Class.
  *

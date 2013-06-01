@@ -41,14 +41,14 @@
 /** \ingroup Group_ADC
  *  \defgroup Group_ADC_AVR8 ADC Peripheral Driver (AVR8)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_ADC_AVR8_ModDescription Module Description
  *  On-chip Analogue-to-Digital converter (ADC) driver for supported U4, U6 and U7 model AVRs that contain an ADC
  *  peripheral internally.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
  *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_ADC_AVR8_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

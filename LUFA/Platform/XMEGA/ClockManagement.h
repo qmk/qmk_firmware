@@ -39,11 +39,11 @@
  *  \defgroup Group_PlatformDrivers_XMEGAClocks Clock Management Driver - LUFA/Platform/XMEGA/ClockManagement.h
  *  \brief Module Clock Driver for the AVR USB XMEGA microcontrollers.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_PlatformDrivers_XMEGAClocks_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_PlatformDrivers_XMEGAClocks_ModDescription Module Description
  *  Clock management driver for the AVR USB XMEGA microcontrollers. This driver allows for the configuration
  *  of the various clocks within the device to clock the various peripherals.
  *

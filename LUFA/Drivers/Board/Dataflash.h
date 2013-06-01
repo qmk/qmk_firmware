@@ -48,11 +48,11 @@
  *  \defgroup Group_Dataflash Dataflash Driver - LUFA/Drivers/Board/Dataflash.h
  *  \brief Atmel Dataflash storage IC board hardware driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_Dataflash_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Dataflash_ModDescription Module Description
  *  Dataflash driver. This module provides an easy to use interface for the Dataflash ICs located on many boards,
  *  for the storage of large amounts of data into the Dataflash's non-volatile memory.
  *
@@ -61,7 +61,7 @@
  *
  *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_Dataflash_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

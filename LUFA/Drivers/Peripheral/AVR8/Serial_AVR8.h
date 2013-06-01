@@ -40,13 +40,13 @@
 /** \ingroup Group_Serial
  *  \defgroup Group_Serial_AVR8 Serial USART Peripheral Driver (AVR8)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Serial_AVR8_ModDescription Module Description
  *  On-chip serial USART driver for the 8-bit AVR microcontrollers.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USART driver
  *        dispatch header located in LUFA/Drivers/Peripheral/Serial.h.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_Serial_AVR8_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

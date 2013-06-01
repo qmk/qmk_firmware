@@ -47,11 +47,11 @@
  *  \defgroup Group_Buttons Buttons Driver - LUFA/Drivers/Board/Buttons.h
  *  \brief Digital button board hardware driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_Buttons_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Buttons_ModDescription Module Description
  *  Hardware buttons driver. This provides an easy to use driver for the hardware buttons present on many boards.
  *  It provides a way to easily configure and check the status of all the buttons on the board so that appropriate
  *  actions can be taken.
@@ -61,7 +61,7 @@
  *
  *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_Buttons_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

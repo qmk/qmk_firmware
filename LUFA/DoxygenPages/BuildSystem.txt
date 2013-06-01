@@ -6,14 +6,14 @@
 
 /** \page Page_BuildSystem The LUFA Build System
  *
- *  \section Sec_BuildSystemOverview Overview of the LUFA Build System
+ *  \section Sec_BuildSystem_Overview Overview of the LUFA Build System
  *  The LUFA build system is an attempt at making a set of re-usable, modular build make files which
  *  can be referenced in a LUFA powered project, to minimize the amount of code required in an
  *  application makefile. The system is written in GNU Make, and each module is independent of
  *  one-another.
  *
  *  For details on the prerequisites needed for Linux and Windows machines to be able to use the LUFA
- *  build system, see \ref Sec_Prerequisites.
+ *  build system, see \ref Sec_CompilingApps_Prerequisites.
  *
  *  To use a LUFA build system module, simply add an include to your project makefile. All user projects
  *  should at a minimum include \ref Page_BuildModule_CORE for base functionality:
@@ -25,13 +25,13 @@
  *  project's build makefile targets automatically. To call a build target, run <tt>make {TARGET_NAME}</tt>
  *  from the command line, substituting in the appropriate target name.
  *
- *  \see \ref Sec_AppMakefileParams for a copy of the sample LUFA project makefile.
+ *  \see \ref Sec_ConfiguringApps_AppMakefileParams for a copy of the sample LUFA project makefile.
  *
  *  Each build module may have one or more mandatory parameters (GNU Make variables) which <i>must</i>
  *  be supplied in the project makefile for the module to work, and one or more optional parameters which
  *  may be defined and which will assume a sensible default if not.
  *
- *  \section SSec_BuildSystemModules Available Modules
+ *  \section SSec_BuildSystem_Modules Available Modules
  *
  *  The following modules are included in this LUFA release:
  *

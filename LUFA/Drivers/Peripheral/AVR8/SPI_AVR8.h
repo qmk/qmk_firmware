@@ -40,7 +40,7 @@
 /** \ingroup Group_SPI
  *  \defgroup Group_SPI_AVR8 SPI Peripheral Driver (AVR8)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_SPI_AVR8_ModDescription Module Description
  *  Driver for the hardware SPI port available on most 8-bit AVR microcontroller models. This
  *  module provides an easy to use driver for the setup and transfer of data over the
  *  AVR's SPI port.
@@ -48,7 +48,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the SPI driver
  *        dispatch header located in LUFA/Drivers/Peripheral/SPI.h.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_SPI_AVR8_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

@@ -40,13 +40,13 @@
 /** \ingroup Group_Serial
  *  \defgroup Group_Serial_XMEGA Serial USART Peripheral Driver (XMEGA)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_Serial_XMEGA_ModDescription Module Description
  *  On-chip serial USART driver for the XMEGA AVR microcontrollers.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USART driver
  *        dispatch header located in LUFA/Drivers/Peripheral/Serial.h.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_Serial_XMEGA_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

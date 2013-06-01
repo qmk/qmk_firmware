@@ -41,11 +41,11 @@
  *  \defgroup Group_USBClassAOA Android Open Accessory Class Driver
  *  \brief USB class driver for the Google Android Open Accessory class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassAOA_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/AndroidAccessoryClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassAOA_ModDescription Module Description
  *  Android Open Accessory Class Driver module. This module contains an internal implementation of the USB Android Open Accessory
  *  Class, for Host USB mode. User applications can use this class driver instead of implementing the Android Open Accessory Class
  *  manually via the low-level LUFA APIs.

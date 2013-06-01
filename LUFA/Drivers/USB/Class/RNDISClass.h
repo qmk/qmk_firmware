@@ -41,12 +41,12 @@
  *  \defgroup Group_USBClassRNDIS RNDIS (Networking) Class Driver
  *  \brief USB class driver for the Microsoft Remote Network Driver Interface Specification (RNDIS) class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassRNDIS_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/RNDISClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/RNDISClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassRNDIS_ModDescription Module Description
  *  RNDIS Class Driver module. This module contains an internal implementation of the Microsoft USB RNDIS Networking
  *  Class, for both Device and Host USB modes. User applications can use this class driver instead of implementing the
  *  RNDIS class manually via the low-level LUFA APIs.

@@ -8,12 +8,12 @@
  *
  *  The following details how to compile the included LUFA demos, applications and bootloaders using AVR-GCC.
  *
- *  \section Sec_Prerequisites Prerequisites
+ *  \section Sec_CompilingApps_Prerequisites Prerequisites
  *  Before you can compile any of the LUFA library code or demos, you will need a recent distribution of avr-libc (1.6.2+)
  *  and the AVR-GCC (4.2+) compiler. A standard "coreutils" package for your system is also required for command line
  *  compilation of LUFA based applications.
  *
- *  \subsection SSec_PreqWindows Windows Prerequisites
+ *  \subsection SSec_CompilingApps_PreqWindows Windows Prerequisites
  *  On Windows, you will need a copy of the latest Atmel Toolchain (<a>http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORWINDOWS.aspx</a>),
  *  either downloaded and installed as a standalone package, or installed as part of Atmel Studio. You will need to ensure
  *  that the "bin" directory of the toolchain is available in your system's <b>PATH</b> environment variable.
@@ -23,12 +23,12 @@
  *  of the MinGW installer (<a>http://www.mingw.org</a>). Once installed, add the "msys\1.0\bin" of the MinGW installation
  *  folder is added to your system's <b>PATH</b> environment variable.
  *
- *  \subsection SSec_PreqLinux Linux Prerequisites
+ *  \subsection SSec_CompilingApps_PreqLinux Linux Prerequisites
  *  On Linux systems you will need to install the latest Linux distribution of the standalone Atmel Toolchain from the
  *  Atmel website (<a>http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx</a>), or use the latest avr-libc and avr-gcc packages
  *  for your chosen distribution's package manager. For full device support, the Atmel standalone Toolchain package is recommended.
  *
- *  \section Sec_Compiling Compiling a LUFA Application
+ *  \section Sec_CompilingApps_Compiling Compiling a LUFA Application
  *  Compiling the LUFA demos, applications and/or bootloaders is very simple. LUFA comes with makefile scripts for
  *  each individual demo, bootloader and project folder, as well as scripts in the Demos/, Bootloaders/, Projects/
  *  and the LUFA root directory. Compilation of projects can be started from any of the above directories, with a build

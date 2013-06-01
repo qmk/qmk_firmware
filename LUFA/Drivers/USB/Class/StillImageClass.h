@@ -41,11 +41,11 @@
  *  \defgroup Group_USBClassSI Still Image Class Driver
  *  \brief USB class driver for the USB-IF Still Image (PIMA-compliant) class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassSI_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/StillImageClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassSI_ModDescription Module Description
  *  Still Image Class Driver module. This module contains an internal implementation of the USB Still Image Class,
  *  for USB Host mode only. User applications can use this class driver instead of implementing the Still Image class
  *  manually via the low-level LUFA APIs.

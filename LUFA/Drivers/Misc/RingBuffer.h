@@ -44,11 +44,11 @@
  *  \defgroup Group_RingBuff Generic Byte Ring Buffer - LUFA/Drivers/Misc/RingBuffer.h
  *  \brief Lightweight ring buffer, for fast insertion/deletion of bytes.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_RingBuff_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_RingBuff_ModDescription Module Description
  *  Lightweight ring buffer, for fast insertion/deletion. Multiple buffers can be created of
  *  different sizes to suit different needs.
  *
@@ -57,7 +57,7 @@
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
  *  operating occurring at the same point in time, atomic (mutex) locking should be used.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_RingBuff_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *
@@ -65,23 +65,23 @@
  *      // Create the buffer structure and its underlying storage array
  *      RingBuffer_t Buffer;
  *      uint8_t      BufferData[128];
- *      
+ *
  *      // Initialize the buffer with the created storage array
  *      RingBuffer_InitBuffer(&Buffer, BufferData, sizeof(BufferData));
- *      
+ *
  *      // Insert some data into the buffer
  *      RingBuffer_Insert(Buffer, 'H');
  *      RingBuffer_Insert(Buffer, 'E');
  *      RingBuffer_Insert(Buffer, 'L');
  *      RingBuffer_Insert(Buffer, 'L');
  *      RingBuffer_Insert(Buffer, 'O');
- *      
+ *
  *      // Cache the number of stored bytes in the buffer
  *      uint16_t BufferCount = RingBuffer_GetCount(&Buffer);
- *      
+ *
  *      // Printer stored data length
  *      printf("Buffer Length: %d, Buffer Data: \r\n", BufferCount);
- *      
+ *
  *      // Print contents of the buffer one character at a time
  *      while (BufferCount--)
  *        putc(RingBuffer_Remove(&Buffer));

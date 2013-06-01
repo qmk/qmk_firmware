@@ -40,11 +40,11 @@
 /** \ingroup Group_USBClassSI
  *  \defgroup Group_USBClassStillImageHost Still Image Class Host Mode Driver
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassStillImageHost_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/StillImageClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassStillImageHost_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the Still Image USB Class driver.
  *
  *  @{

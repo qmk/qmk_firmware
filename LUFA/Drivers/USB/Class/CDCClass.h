@@ -41,12 +41,12 @@
  *  \defgroup Group_USBClassCDC CDC-ACM (Virtual Serial) Class Driver
  *  \brief USB class driver for the USB-IF CDC-ACM (Virtual Serial) class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassCDC_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/CDCClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/CDCClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassCDC_ModDescription Module Description
  *  CDC Class Driver module. This module contains an internal implementation of the USB CDC-ACM class Virtual Serial
  *  Ports, for both Device and Host USB modes. User applications can use this class driver instead of implementing the
  *  CDC class manually via the low-level LUFA APIs.

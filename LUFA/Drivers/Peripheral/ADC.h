@@ -42,11 +42,11 @@
  *  \defgroup Group_ADC ADC Driver - LUFA/Drivers/Peripheral/ADC.h
  *  \brief Hardware Analogue-to-Digital converter driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_ADC_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_ADC_ModDescription Module Description
  *  Hardware ADC driver. This module provides an easy to use driver for the hardware ADC
  *  present on many microcontrollers, for the conversion of analogue signals into the
  *  digital domain.

@@ -40,7 +40,7 @@
 /** \ingroup Group_SPI
  *  \defgroup Group_SPI_XMEGA SPI Peripheral Driver (XMEGA)
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_SPI_XMEGA_ModDescription Module Description
  *  Driver for the hardware SPI port(s) available on XMEGA AVR microcontroller models. This
  *  module provides an easy to use driver for the setup and transfer of data over the AVR's
  *  SPI ports.

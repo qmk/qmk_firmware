@@ -41,12 +41,12 @@
  *  \defgroup Group_USBClassPrinter Printer Class Driver
  *  \brief USB class driver for the USB-IF Printer class standard.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassPrinter_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/PrinterClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/PrinterClassHost.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassPrinter_ModDescription Module Description
  *  Printer Class Driver module. This module contains an internal implementation of the USB Printer Class, for the base
  *  USB Printer transport layer for USB Host mode only. Note that printers are free to implement whatever printer language
  *  they choose on top of this (e.g. Postscript), and so this driver exposes low level data transport functions only rather

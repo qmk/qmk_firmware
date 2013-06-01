@@ -42,11 +42,11 @@
  *  \defgroup Group_SPI SPI Driver - LUFA/Drivers/Peripheral/SPI.h
  *  \brief Hardware Serial Peripheral Interface driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_SPI_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_SPI_ModDescription Module Description
  *  Hardware SPI driver. This module provides an easy to use driver for the setup and transfer of data over
  *  the selected architecture and microcontroller model's SPI port.
  *

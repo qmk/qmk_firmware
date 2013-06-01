@@ -14,7 +14,7 @@
  *        in the user directory where the below compile time tokens may be defined. This allows for an alternative to makefile
  *        defined tokens for configuring the library.
  *
- *  \section Sec_SummaryNonUSBTokens Non USB Related Tokens
+ *  \section Sec_TokenSummary_NonUSBTokens Non USB Related Tokens
  *  This section describes compile tokens which affect non-USB sections of the LUFA library.
  *
  *  \li <b>DISABLE_TERMINAL_CODES</b> - (\ref Group_Terminal) - <i>All Architectures</i> \n
@@ -24,7 +24,7 @@
  *      the source code at compile time.
  *
  *
- *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
+ *  \section Sec_TokenSummary_USBClassTokens USB Class Driver Related Tokens
  *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
  *
  *  \li <b>HID_HOST_BOOT_PROTOCOL_ONLY</b> - (\ref Group_USBClassHIDHost) - <i>All Architectures</i> \n
@@ -78,7 +78,7 @@
  *      management tasks.
  *
  *
- *  \section Sec_SummaryUSBTokens General USB Driver Related Tokens
+ *  \section Sec_TokenSummary_USBTokens General USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
  *
  *  \li <b>ORDERED_EP_CONFIG</b> - (\ref Group_EndpointManagement , \ref Group_PipeManagement) - <i>AVR8, UC3</i> \n
@@ -124,7 +124,7 @@
  *      reducing the compiled program's binary size.
  *
  *
- *  \section Sec_SummaryUSBDeviceTokens USB Device Mode Driver Related Tokens
+ *  \section Sec_TokenSummary_USBDeviceTokens USB Device Mode Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Device mode.
  *
  *  \li <b>USE_RAM_DESCRIPTORS</b> - (\ref Group_StdDescriptors) - <i>AVR8 Only</i> \n
@@ -188,7 +188,7 @@
  *      and the code required to manage it may be disabled by passing this token to the library via the -D switch.
  *
  *
- *  \section Sec_SummaryUSBHostTokens USB Host Mode Driver Related Tokens
+ *  \section Sec_TokenSummary_USBHostTokens USB Host Mode Driver Related Tokens
  *
  *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Host mode.
  *

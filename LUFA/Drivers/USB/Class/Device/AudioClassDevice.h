@@ -40,11 +40,11 @@
 /** \ingroup Group_USBClassAudio
  *  \defgroup Group_USBClassAudioDevice Audio 1.0 Class Device Mode Driver
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_USBClassAudioDevice_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/AudioClassDevice.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_USBClassAudioDevice_ModDescription Module Description
  *  Device Mode USB Class driver framework interface, for the Audio 1.0 USB Class driver.
  *
  *  @{

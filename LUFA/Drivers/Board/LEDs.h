@@ -47,11 +47,11 @@
  *  \defgroup Group_LEDs LEDs Driver - LUFA/Drivers/Board/LEDs.h
  *  \brief LED board hardware driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_LEDs_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_LEDs_ModDescription Module Description
  *  Hardware LEDs driver. This provides an easy to use driver for the hardware LEDs present on many boards. It
  *  provides an interface to configure, test and change the status of all the board LEDs.
  *
@@ -69,7 +69,7 @@
  *        compatible code for a board with no LEDs by making a board LED driver (see \ref Page_WritingBoardDrivers)
  *        which contains only stub functions and defines no LEDs.
  *
- *  \section Sec_ExampleUsage Example Usage
+ *  \section Sec_LEDs_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *

@@ -42,11 +42,11 @@
  *  \defgroup Group_SerialSPI Master SPI Mode Serial USART Driver - LUFA/Drivers/Peripheral/SerialSPI.h
  *  \brief Hardware SPI Master Mode Serial USART driver.
  *
- *  \section Sec_Dependencies Module Source Dependencies
+ *  \section Sec_SerialSPI_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Sec_ModDescription Module Description
+ *  \section Sec_SerialSPI_ModDescription Module Description
  *  Hardware SPI Master Mode serial USART driver. This module provides an easy to use driver for the setup and transfer
  *  of data over the selected architecture and microcontroller model's USART port, using a SPI framing format.
  *
