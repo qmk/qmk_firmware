@@ -792,7 +792,7 @@
 	<xsl:template match="htmlonly"/>
 
 	<xsl:template match="*">
-		<xsl:message>NO XSL TEMPLATE MATCH: <xsl:value-of select="name()"/></xsl:message>
+		<xsl:message>NO XSL TEMPLATE MATCH: <xsl:value-of select="local-name()"/></xsl:message>
 	</xsl:template>
 
 </xsl:stylesheet>

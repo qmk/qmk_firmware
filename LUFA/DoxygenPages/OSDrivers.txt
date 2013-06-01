@@ -46,7 +46,7 @@
  *  </tr>
  *  <tr>
  *   <td>HID</td>
- *   <td>N/A</td>
+ *   <td>3.?+</td>
  *   <td>XP+</td>
  *   <td>2.6.?+</td>
  *   <td>10.?+</td>
