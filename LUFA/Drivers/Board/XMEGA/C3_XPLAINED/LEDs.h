@@ -46,6 +46,8 @@
  *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
  *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>LED0 LED</td><td>Low</td><td>PORTR.0</td></tr>
  *    <tr><td>LEDS_LED2</td><td>Yellow</td><td>LED1 LED</td><td>Low</td><td>PORTR.1</td></tr>
+ *    <tr><td>LEDS_LED3</td><td>Red</td><td>Status Bicolour Red LED</td><td>Low</td><td>PORTD.4</td></tr>
+ *    <tr><td>LEDS_LED4</td><td>Green</td><td>Status Bicolour Green LED</td><td>High</td><td>PORTD.5</td></tr>
  *  </table>
  *
  *  @{
@@ -67,6 +69,13 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
 
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define LEDS_PORTR_LEDS       (LEDS_LED1 | LEDS_LED2)
+			#define LEDS_PORTD_LEDS       (LEDS_LED3 | LEDS_LED4)
+	#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
@@ -75,8 +84,14 @@
 			/** LED mask for the second LED on the board. */
 			#define LEDS_LED2        (1 << 1)
 
+			/** LED mask for the third LED on the board. */
+			#define LEDS_LED3        (1 << 4)
+
+			/** LED mask for the fourth LED on the board. */
+			#define LEDS_LED4        (1 << 5)
+
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
 
 			/** LED mask for none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
@@ -85,51 +100,66 @@
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				PORTR.DIRSET    = LEDS_ALL_LEDS;
-				PORTR.OUTCLR    = LEDS_ALL_LEDS;
+				PORTR.DIRSET    = LEDS_PORTR_LEDS;
+				PORTR.OUTCLR    = LEDS_PORTR_LEDS;
 
-				PORTCFG.MPCMASK = LEDS_ALL_LEDS;
+				PORTCFG.MPCMASK = LEDS_PORTR_LEDS;
 				PORTR.PIN0CTRL  = PORT_INVEN_bm;
+
+				PORTD.DIRSET    = LEDS_PORTD_LEDS;
+				PORTD.OUTCLR    = LEDS_PORTD_LEDS;
+
+				PORTD.PIN4CTRL  = PORT_INVEN_bm;
 			}
 
 			static inline void LEDs_Disable(void)
 			{
-				PORTR.DIRCLR    = LEDS_ALL_LEDS;
-				PORTR.OUTCLR    = LEDS_ALL_LEDS;
+				PORTR.DIRCLR    = LEDS_PORTR_LEDS;
+				PORTR.OUTCLR    = LEDS_PORTR_LEDS;
 
 				PORTCFG.MPCMASK = 0;
-				PORTR.PIN0CTRL  = LEDS_ALL_LEDS;
+				PORTR.PIN0CTRL  = LEDS_PORTR_LEDS;
+
+				PORTD.DIRCLR    = LEDS_PORTD_LEDS;
+				PORTD.OUTCLR    = LEDS_PORTD_LEDS;
+
+				PORTD.PIN4CTRL  = 0;
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUTSET = LEDMask;
+				PORTR_OUTSET = LEDMask & LEDS_PORTR_LEDS;
+				PORTD_OUTSET = LEDMask & LEDS_PORTD_LEDS;
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUTCLR = LEDMask;
+				PORTR_OUTCLR = LEDMask & LEDS_PORTR_LEDS;
+				PORTD_OUTCLR = LEDMask & LEDS_PORTD_LEDS;
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUT = (PORTR.OUT & ~LEDS_ALL_LEDS) | LEDMask;
+				PORTR_OUT = ((PORTR.OUT & ~LEDS_PORTR_LEDS) | (LEDMask & LEDS_PORTR_LEDS));
+				PORTD_OUT = ((PORTD.OUT & ~LEDS_PORTD_LEDS) | (LEDMask & LEDS_PORTD_LEDS));
 			}
 
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask)
 			{
-				PORTR_OUT = (PORTR.OUT & ~LEDMask) | ActiveMask;
+				PORTR_OUT = (PORTR.OUT & ~(LEDMask & LEDS_PORTR_LEDS)) | (Active & LEDS_PORTR_LEDS);
+				PORTD_OUT = (PORTD.OUT & ~(LEDMask & LEDS_PORTD_LEDS)) | (Active & LEDS_PORTD_LEDS);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUTTGL = LEDMask;
+				PORTR_OUTTGL = (LEDMask & LEDS_PORTR_LEDS);
+				PORTD_OUTTGL = (LEDMask & LEDS_PORTD_LEDS);
 			}
 
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return (PORTR_OUT & LEDS_ALL_LEDS);
+				return ((PORTR_OUT & LEDS_PORTR_LEDS) | (PORTD_OUT & LEDS_PORTD_LEDS));
 			}
 		#endif
 

@@ -23,6 +23,7 @@
   *   - Updated the BUILD build system module to produce binary BIN files in addition to Intel HEX files
   *   - Updated the Android Accessory Class to accept version 2 protocol devices (with version 1 functionality)
   *   - All board drivers now implement dummy functions and constants when BOARD is set to NONE
+  *   - Added missing LEDs to the XMEGA A3BU Xplained board LED driver (thanks to Michael Janssen)
   *
   *  <b>Fixed:</b>
   *  - Core:
