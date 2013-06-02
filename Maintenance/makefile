@@ -14,6 +14,10 @@ LUFA_ROOT := ../
 
 all:
 
+# Print a list of all filenames and line numbers that exceed an allowed threshold
+line-lengths:
+	awk '{ if (length > 150) { print FILENAME, ":", FNR, "[", length, "]" } }' `find $(LUFA_ROOT) -name *.[ch]`
+
 # Generate a header containing all library functions
 function-list:
 	$(MAKE) -C $(patsubst %/,%,$(LUFA_ROOT))/LUFA doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_HTML=no GENERATE_XML=yes"
