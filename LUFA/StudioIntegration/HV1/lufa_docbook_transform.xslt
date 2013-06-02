@@ -89,7 +89,7 @@
 
 			<xsl:variable name="name">
 				<xsl:text>LUFA.</xsl:text>
-				<xsl:value-of select="translate(compoundname, '_', '/')"/>
+				<xsl:value-of select="translate(compoundname, '_', '.')"/>
 			</xsl:variable>
 
 			<xsl:call-template name="generate.index.id">
@@ -131,7 +131,7 @@
 
 			<xsl:variable name="name">
 				<xsl:text>LUFA.</xsl:text>
-				<xsl:value-of select="translate(compoundname, '_', '/')"/>
+				<xsl:value-of select="translate(compoundname, '_', '.')"/>
 			</xsl:variable>
 
 			<xsl:call-template name="generate.index.id">
@@ -192,7 +192,7 @@
 			<xsl:apply-templates select="detaileddescription"/>
 
 			<xsl:for-each select="sectiondef[@kind = 'public-attrib']">
-				<table tabstyle="striped">
+				<table>
 					<title>
 						<xsl:value-of select="$name"/>
 					</title>
@@ -306,7 +306,7 @@
 
 			<xsl:apply-templates select="detaileddescription"/>
 
-			<table tabstyle="striped">
+			<table>
 				<title>Members</title>
 				<tgroup cols="2">
 					<thead>
@@ -506,7 +506,7 @@
 	</xsl:template>
 
 	<xsl:template match="parameterlist[@kind = 'param']">
-		<table tabstyle="striped">
+		<table>
 			<title>Parameters</title>
 			<tgroup cols="3">
 				<thead>
@@ -528,7 +528,7 @@
 	</xsl:template>
 
 	<xsl:template match="parameterlist[@kind = 'retval']">
-		<table tabstyle="striped">
+		<table>
 			<title>Return Values</title>
 			<tgroup cols="2">
 				<thead>
@@ -671,44 +671,42 @@
 		</entry>
 	</xsl:template>
 
-	<xsl:template match="table">
-		<xsl:choose>
-			<xsl:when test="caption">
-				<table tabstyle="striped">
-					<title>
-						<xsl:value-of select="caption"/>
-					</title>
+	<xsl:template match="table[caption]">
+		<table>
+			<title>
+				<xsl:value-of select="caption"/>
+			</title>
 
-					<xsl:call-template name="write.table.content"/>
-				</table>
-			</xsl:when>
+			<tgroup cols="{@cols}">
+				<thead>
+					<xsl:apply-templates select="row[entry/@thead = 'yes']"/>
+				</thead>
 
-			<xsl:otherwise>
-				<informaltable tabstyle="striped">
-					<xsl:call-template name="write.table.content"/>
-				</informaltable>
-			</xsl:otherwise>
-		</xsl:choose>
+				<tbody>
+					<xsl:apply-templates select="row[entry/@thead != 'yes']"/>
+				</tbody>
+			</tgroup>
+		</table>
 	</xsl:template>
 
-	<xsl:template name="write.table.content">
-		<tgroup cols="{@cols}">
-			<thead>
-				<xsl:for-each select="row[1]">
-					<row>
-						<xsl:apply-templates select="entry"/>
-					</row>
-				</xsl:for-each>
-			</thead>
+	<xsl:template match="table[not(caption)]">
+		<informaltable>
+			<tgroup cols="{@cols}">
+				<thead>
+					<xsl:apply-templates select="row[entry/@thead = 'yes']"/>
+				</thead>
 
-			<tbody>
-				<xsl:for-each select="row[position() != 1]">
-					<row>
-						<xsl:apply-templates select="entry"/>
-					</row>
-				</xsl:for-each>
-			</tbody>
-		</tgroup>
+				<tbody>
+					<xsl:apply-templates select="row[entry/@thead != 'yes']"/>
+				</tbody>
+			</tgroup>
+		</informaltable>
+	</xsl:template>
+
+	<xsl:template match="row">
+		<row>
+			<xsl:apply-templates/>
+		</row>
 	</xsl:template>
 
 	<xsl:template match="itemizedlist">
