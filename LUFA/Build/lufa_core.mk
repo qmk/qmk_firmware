@@ -8,10 +8,10 @@
 
 LUFA_BUILD_MODULES         += CORE
 LUFA_BUILD_TARGETS         += help list_targets list_modules list_mandatory list_optional list_provided list_macros
-LUFA_BUILD_MANDATORY_VARS  += 
-LUFA_BUILD_OPTIONAL_VARS   += 
-LUFA_BUILD_PROVIDED_VARS   += 
-LUFA_BUILD_PROVIDED_MACROS += 
+LUFA_BUILD_MANDATORY_VARS  +=
+LUFA_BUILD_OPTIONAL_VARS   +=
+LUFA_BUILD_PROVIDED_VARS   +=
+LUFA_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #               LUFA Core Build System Makefile Module.
@@ -85,7 +85,7 @@ help:
 	@echo " to expose the build rules documented in the comments at the top of"
 	@echo " each build module.                                                "
 	@echo "                                                                   "
-	@echo "USAGE:                                                             "	
+	@echo "USAGE:                                                             "
 	@echo " To execute a rule, define all variables indicated in the desired  "
 	@echo " module as a required parameter before including the build module  "
 	@echo " in your project makefile. Parameters marked as optional will      "
@@ -96,7 +96,7 @@ help:
 	@echo " invoked commands and show only the friendly command output, run   "
 	@echo " make with the \"-s\" switch added before the target(s).           "
 	@echo "                                                                   "
-	@echo "SEE ALSO:                                                          "	
+	@echo "SEE ALSO:                                                          "
 	@echo " For more information, see the 'Build System' chapter of the LUFA  "
 	@echo " project documentation.                                            "
 	@echo "==================================================================="
@@ -148,7 +148,7 @@ list_targets:
 list_mandatory:
 	@echo Mandatory Variables for Included Modules:
 	@printf " %b" "$(PRINTABLE_LUFA_MANDATORY_VARS:%=   - %\n)"
-	
+
 # Lists optional variables that must be set by the project makefile, in alphabetical order
 list_optional:
 	@echo Optional Variables for Included Modules:
@@ -166,6 +166,9 @@ list_macros:
 
 # Disable default in-built make rules (those that are needed are explicitly
 # defined, and doing so has performance benefits when recursively building)
+ifeq ($(filter -r,$(MAKEFLAGS)),)
+  MAKEFLAGS += -r
+endif
 .SUFFIXES:
 
 # Phony build targets for this module
