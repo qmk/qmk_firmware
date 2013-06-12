@@ -11,7 +11,8 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 130303 to XXXXXX
- *  There is no migration information for this version.
+ *  <b>Non-USB Library Components</b>
+ *    - The Board Dataflash \c Dataflash_Init() function now automatically configures the appropriate communication interface.
  *
  *  \section Sec_Migration130303 Migrating from 120730 to 130303
  *  <b>Device Mode</b>

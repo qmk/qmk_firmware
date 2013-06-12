@@ -89,7 +89,7 @@
 
 		/* Inline Functions: */
 			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
-			 *  The microcontroller's SPI driver MUST be initialized before any of the dataflash commands are used.
+			 *  The appropriate SPI interface will be automatically configured.
 			 */
 			static inline void Dataflash_Init(void)
 			{
@@ -98,7 +98,12 @@
 				PORTCFG.MPCMASK                = DATAFLASH_CHIPCS_MASK;
 				DATAFLASH_CHIPCS_PORT.PIN0CTRL = PORT_INVEN_bm;
 
-				PORTC.REMAP |= PORT_USART0_bm;
+				SerialSPI_Init(&USARTC0, (USART_SPI_SCK_LEAD_RISING | USART_SPI_SAMPLE_LEADING | USART_SPI_ORDER_MSB_FIRST), (F_CPU / 2));
+
+				PORTC.REMAP   |= PORT_USART0_bm;
+				PORTC.DIRSET   = PIN7_bm | PIN5_bm;
+				PORTC.DIRCLR   = PIN6_bm;
+				PORTC.PIN6CTRL = PORT_OPC_PULLUP_gc;
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.

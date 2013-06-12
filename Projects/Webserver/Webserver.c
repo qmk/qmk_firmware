@@ -70,7 +70,6 @@ void SetupHardware(void)
 #endif
 
 	/* Hardware Initialization */
-	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
 	Dataflash_Init();
 	LEDs_Init();
 	USB_Init(USB_MODE_UID);

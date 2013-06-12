@@ -108,7 +108,7 @@
 			#define USART_SPI_SAMPLE_LEADING       0
 
 			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should be sampled on the trailing edge. */
-			#define USART_SPI_SAMPLE_TRAILING      USART_UPCHA_bm
+			#define USART_SPI_SAMPLE_TRAILING      (1 << 1)
 			//@}
 
 			/** \name SPI Data Ordering Configuration Masks */
@@ -117,7 +117,7 @@
 			#define USART_SPI_ORDER_MSB_FIRST      0
 
 			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out LSB first. */
-			#define USART_SPI_ORDER_LSB_FIRST      USART_UDORD_bm
+			#define USART_SPI_ORDER_LSB_FIRST      (1 << 2)
 			//@}
 
 		/* Inline Functions: */
