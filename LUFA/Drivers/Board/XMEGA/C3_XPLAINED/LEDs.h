@@ -140,14 +140,21 @@
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTR_OUT = ((PORTR.OUT & ~LEDS_PORTR_LEDS) | (LEDMask & LEDS_PORTR_LEDS));
-				PORTD_OUT = ((PORTD.OUT & ~LEDS_PORTD_LEDS) | (LEDMask & LEDS_PORTD_LEDS));
+				PORTR_OUTCLR = LEDS_PORTR_LEDS;
+				PORTD_OUTCLR = LEDS_PORTD_LEDS;
+
+				PORTR_OUTSET = (LEDMask & LEDS_PORTR_LEDS);
+				PORTD_OUTSET = (LEDMask & LEDS_PORTD_LEDS);
 			}
 
-			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask)
+			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
+			                                   const uint8_t ActiveMask)
 			{
-				PORTR_OUT = (PORTR.OUT & ~(LEDMask & LEDS_PORTR_LEDS)) | (Active & LEDS_PORTR_LEDS);
-				PORTD_OUT = (PORTD.OUT & ~(LEDMask & LEDS_PORTD_LEDS)) | (Active & LEDS_PORTD_LEDS);
+				PORTR_OUTCLR = (LEDMask & LEDS_PORTR_LEDS);
+				PORTD_OUTCLR = (LEDMask & LEDS_PORTD_LEDS);
+
+				PORTR_OUTSET = (ActiveMask & LEDS_PORTR_LEDS);
+				PORTD_OUTSET = (ActiveMask & LEDS_PORTD_LEDS);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)

@@ -192,10 +192,11 @@
  *  \li Elektor Magazine, "USB is Cool/Sucks" by Jerry Jacobs and Chris Vossen (minor mention), January 2010 Issue
  *  \li Elektor Magazine, "20 x Open Source" by Jens Nickel, March 2010 Issue
  *  \li Circuit Cellar Magazine, "Advanced USB Design Debugging" by Collin O'Flynn, August 2010 Issue
+ *  \li "Some Assembly Required: Assembly Language Programming with the AVR Microcontroller" by Timothy S. Margush
  *  \li Elektor Magazine, "Taming the Beast (2)" by Clemens Valens/Raymond Vermeulen, January 2013 Issue
  *
  *  \section Sec_LUFANotableMentions Other Notable Mentions of LUFA
- *  The following are non-magazine but notable mentions of the LUFA library.
+ *  The following are non-print but notable mentions of the LUFA library.
  *
  *  \li Adafruit "Ask an Engineer", 7th November 2010
  *  \li Arduino 2010 Keynote speech
