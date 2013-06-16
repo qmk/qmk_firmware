@@ -54,8 +54,8 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Signal:</b></td>
- *    <td><b>AVR Port:</b></td>
+ *    <th><b>Signal:</b></th>
+ *    <th><b>AVR Port:</b></th>
  *   </tr>
  *   <tr>
  *    <td>Track 1 Data</td>
@@ -99,9 +99,9 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Define Name:</b></td>
- *    <td><b>Location:</b></td>
- *    <td><b>Description:</b></td>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
  *   </tr>
  *   <tr>
  *    <td>MAX_BITS</td>

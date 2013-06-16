@@ -50,7 +50,7 @@
  *  basic USB Audio 1.0 drivers in all modern OSes (i.e. no special drivers
  *  required).
  *
- *  On start-up the system will automatically enumerate and function as a 
+ *  On start-up the system will automatically enumerate and function as a
  *  USB microphone. By default, the demo will produce a square wave test tone
  *  when the board button is pressed. If USE_TEST_TONE is not defined in the
  *  project makefile, incoming audio from the ADC channel 1 will be sampled
@@ -67,9 +67,9 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Define Name:</b></td>
- *    <td><b>Location:</b></td>
- *    <td><b>Description:</b></td>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
  *   </tr>
  *   <tr>
  *    <td>USE_TEST_TONE</td>
