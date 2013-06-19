@@ -37,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
