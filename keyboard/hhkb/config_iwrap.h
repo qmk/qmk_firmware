@@ -51,4 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBUG_LED_OFF       (PORTD |= (1<<4))
 #define DEBUG_LED_ON        (PORTD &= ~(1<<4))
 
+/* period of tapping(ms) */
+#define TAPPING_TERM    300
+/* tap count needed for toggling a feature */
+#define TAPPING_TOGGLE  5
+
 #endif
