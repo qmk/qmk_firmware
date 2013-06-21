@@ -41,6 +41,7 @@ POSSIBILITY OF SUCH DAMAGE.
 /* host role */
 void x68k_init(void);
 uint8_t x68k_recv(void);
+void x68k_send(uint8_t d);
 
 /* device role */
 

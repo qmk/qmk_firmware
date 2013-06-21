@@ -64,6 +64,12 @@ uint8_t x68k_recv(void)
     return data;
 }
 
+void x68k_send(uint8_t d)
+{
+    while (!(UCSR1A&(1<<UDRE1)));
+    UDR1 = d;
+}
+
 // USART RX complete interrupt
 ISR(KBD_RX_VECT)
 {
