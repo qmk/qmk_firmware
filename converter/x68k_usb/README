@@ -5,6 +5,7 @@ http://en.wikipedia.org/wiki/Sharp_X68000
 
 X68000 keyboard has ALPS linear switches.
 - DSETK0016CE01   green linear
+- DSETK0022CE02   yellow linear
 - DSETK0023CE03   yellow linear
 
 
@@ -127,3 +128,24 @@ Scan Codes
 `-----------------------------------------------------------|  .---=====---. |-----------| 4E|
        | 5F| 55 | 56 |     35     | 57 | 58 | 59 | 60|         |  72 |  73 | | 4F| 50| 51|   |
        `---------------------------------------------'         `-----------' `---------------'
+
+
+
+LED Special Functions
+---------------------
+http://homepage2.nifty.com/m_kamada/docs/unlistedx68k.htm#keyboard
+
+1. Random Illumination
+    Plug in with pressing F1, F2 and F3.
+
+2. Sequential Illumination
+    Plug in with pressing 記号入力(52), 登録(53) and HELP.
+
+3. Scan code Display
+    Plug in with pressing かな(5A), ローマ字(5B) and コード入力(5C).
+    You can see its scan code on LEDs by pressing a key.
+   +---------------------------------------------------+
+   |bit|6   |5       |4  |3   |2         |1       |0   |
+   |---+----+--------+---+----+----------+--------+----|
+   |LED|全角|ひらがな|INS|CAPS|コード入力|ローマ字|かな|
+   +---------------------------------------------------+
