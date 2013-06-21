@@ -113,13 +113,23 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            | 5F| 55 | 56 |     35     | 57 | 58 | 59 | 60|         |  72 |  73 | | 4F| 50| 51|   |
            `---------------------------------------------'         `-----------' `---------------'
 */
+    /* ANSI */
     KEYMAP(
-    NO,  NO,  F1,  F2,  F3,  F4,  F5,       F6,  F7,  F8,  F9,  F10,              PSCR,SLCK,PAUS,     CAPS,NO,  NO,  NO,
-    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,BSPC,   INS, HOME,PGUP,     NLCK,PSLS,PAST,PMNS,
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     ENT,    DEL, END, PGDN,     P7,  P8,  P9,  PPLS,
-    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,                   UP,            P4,  P5,  P6,  PEQL,
+    F16, F17,     F1,  F2,  F3,  F4,  F5,   F6,  F7,  F8,  F9,  F10,              PSCR,SLCK,PAUS,     CAPS,F11, F12, F13,
+    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,BSPC,   HOME,INS, DEL,      NLCK,PSLS,PAST,PMNS,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     ENT,    PGDN,PGUP,END,      P7,  P8,  P9,  PPLS,
+    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,F18,                   UP,            P4,  P5,  P6,  PEQL,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,GRV,                   LEFT,DOWN,RGHT,     P1,  P2,  P3,  PENT,
-         LGUI,LALT,NO,       SPC,      RALT,RGUI,RCTL,APP,                        NO,       NO,       P0,  PCMM,PDOT
+         F19, LGUI,LALT,     SPC,      RALT,RGUI,RCTL,APP,                        F14,      F15,      P0,  PCMM,PDOT
+    ),
+    /* JIS */
+    KEYMAP(
+    F16, F17,     F1,  F2,  F3,  F4,  F5,   F6,  F7,  F8,  F9,  F10,              PSCR,SLCK,PAUS,     CAPS,F11, F12, F13,
+    ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, JYEN,BSPC,   HOME,INS, DEL,      NLCK,PSLS,PAST,PMNS,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     ENT,    PGDN,PGUP,END,      P7,  P8,  P9,  PPLS,
+    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,NUHS,                  UP,            P4,  P5,  P6,  PEQL,
+    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RO,                    LEFT,DOWN,RGHT,     P1,  P2,  P3,  PENT,
+         LGUI,LALT,MHEN,     SPC,      HENK,KANA,APP, ZKHK,                       F14,      F15,      P0,  PCMM,PDOT
     ),
 };
 
