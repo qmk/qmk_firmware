@@ -34,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSHIFT)) \
+    keyboard_report->mods == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
+    keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) \
 )
 
 /* legacy keymap support */
@@ -45,17 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *     asynchronous, 2400baud, 8-data bit, non parity, 1-stop bit, no flow control
  */
 #ifdef __AVR_ATmega32U4__
-#   define KBD_RX_VECT        USART1_RX_vect
-#   define KBD_RX_DATA        UDR1
-#   define KBD_RX_BAUD        2400
-#   define KBD_RX_UBBR        ((F_CPU/(16UL*KBD_RX_BAUD))-1)
-#   define KBD_RX_INIT()      do { \
-        UBRR1L = (uint8_t) KBD_RX_UBBR; \
-        UBRR1H = (uint8_t) (KBD_RX_UBBR>>8); \
-        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1) | (1<<TXEN1); \
-    } while(0)
-
-
     #define SERIAL_UART_BAUD       2400
     #define SERIAL_UART_DATA       UDR1
     #define SERIAL_UART_UBRR       ((F_CPU/(16UL*SERIAL_UART_BAUD))-1)
@@ -66,8 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         UBRR1H = (uint8_t) (SERIAL_UART_UBRR>>8);  /* baud rate */ \
         UCSR1B = (1<<RXCIE1) | (1<<RXEN1) | /* RX: interrupt, RX: enable */ \
                  (1<<TXEN1);                /* TX: enable */ \
-        UCSR1C = (1<<UPM11) | (1<<UPM10) | /* parity: none(00), even(01), odd(11) */ \
-                 (0<<UCSZ12) | (1<<UCSZ11) | (1<<UCSZ10); /* 8bit-data(011) */ \
+        UCSR1C = (0<<UPM11) | (0<<UPM10) | /* parity: none(00), even(01), odd(11) */ \
+                 (0<<UCSZ12) | (1<<UCSZ11) | (1<<UCSZ10); /* data-8bit(011) */ \
         sei(); \
     } while(0)
 #else
