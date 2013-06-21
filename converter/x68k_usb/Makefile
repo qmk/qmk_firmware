@@ -16,8 +16,7 @@ TARGET_DIR = .
 SRC =	keymap.c \
 	matrix.c \
 	led.c \
-	protocol/x68k.c
-#	protocol/serial_uart.c
+	protocol/serial_uart.c
 
 CONFIG_H = config_pjrc.h
 

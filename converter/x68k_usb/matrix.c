@@ -21,8 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
-#include "x68k.h"
+#include "serial.h"
 #include "matrix.h"
+#include "debug.h"
 
 
 /*
@@ -63,7 +64,7 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    x68k_init();
+    serial_init();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
@@ -75,13 +76,13 @@ uint8_t matrix_scan(void)
 {
     is_modified = false;
 
-    uint8_t code;
-    code = x68k_recv();
-    if (code == 0) {
+    uint16_t code;
+    code = serial_recv2();
+    if (code == -1) {
         return 0;
     }
 
-    phex(code); print(" ");
+    dprintf("%02X\n", code);
     if (code&0x80) {
         // break code
         if (matrix_is_on(ROW(code), COL(code))) {
