@@ -151,6 +151,8 @@
 			#include "AVR8/STANGE_ISP/Board.h"
 		#elif (BOARD == BOARD_C3_XPLAINED)
 			#include "XMEGA/C3_XPLAINED/Board.h"
+		#elif (BOARD == BOARD_U2S)
+			#include "AVR8/U2S/Board.h"
 		#else
 			#include "Board/Board.h"
 		#endif

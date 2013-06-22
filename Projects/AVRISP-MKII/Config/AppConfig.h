@@ -46,7 +46,11 @@
 	#define AUX_LINE_PORT              PORTB
 	#define AUX_LINE_PIN               PINB
 	#define AUX_LINE_DDR               DDRB
-	#define AUX_LINE_MASK              (1 << 4)
+  #if (BOARD == BOARD_U2S)
+	#define AUX_LINE_MASK              (1 << 0)
+  #else
+  #define AUX_LINE_MASK              (1 << 4)
+  #endif
 
 	#define ENABLE_ISP_PROTOCOL
 	#define ENABLE_XPROG_PROTOCOL

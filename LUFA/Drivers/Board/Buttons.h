@@ -157,6 +157,8 @@
 			#include "AVR8/STANGE_ISP/Buttons.h"
 		#elif (BOARD == BOARD_C3_XPLAINED)
 			#include "XMEGA/C3_XPLAINED/Buttons.h"
+		#elif (BOARD == BOARD_U2S)
+			#include "AVR8/U2S/Buttons.h"
 		#else
 			#include "Board/Buttons.h"
 		#endif

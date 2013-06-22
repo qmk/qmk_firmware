@@ -201,6 +201,8 @@
 			#include "AVR8/STANGE_ISP/LEDs.h"
 		#elif (BOARD == BOARD_C3_XPLAINED)
 			#include "XMEGA/C3_XPLAINED/LEDs.h"
+		#elif (BOARD == BOARD_U2S)
+			#include "AVR8/U2S/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
