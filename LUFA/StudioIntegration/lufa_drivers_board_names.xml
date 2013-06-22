@@ -778,6 +778,21 @@
 
 				<build type="define" name="BOARD" value="BOARD_STANGE_ISP"/>
 			</module>
+
+			<module type="driver" id="lufa.drivers.board#u2s" caption="Board Support - U2S">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_U2S"/>
+
+				<device-support value="atmega32u2"/>
+
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/U2S/Board.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/U2S/Buttons.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/U2S/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_U2S"/>
+			</module>
 		</select-by-config>
 	</asf>
 </lufa>
