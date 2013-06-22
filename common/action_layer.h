@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 extern uint32_t default_layer_state;
 void default_layer_debug(void);
-void default_layer_set(uint8_t layer);
+void default_layer_set(uint32_t state);
 
 #ifndef NO_ACTION_LAYER
 /* bitwise operation */

@@ -74,6 +74,24 @@ void bootmagic(void)
         keymap_config.swap_backslash_backspace = !keymap_config.swap_backslash_backspace;
     }
     eeconfig_write_keymap(keymap_config.raw);
+
+    /* default layer */
+    uint8_t default_layer = 0;
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_0)) { default_layer |= (1<<0); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_1)) { default_layer |= (1<<1); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_2)) { default_layer |= (1<<2); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_3)) { default_layer |= (1<<3); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_4)) { default_layer |= (1<<4); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_5)) { default_layer |= (1<<5); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_6)) { default_layer |= (1<<6); }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) { default_layer |= (1<<7); }
+    if (default_layer) {
+        eeconfig_write_default_layer(default_layer);
+        default_layer_set((uint32_t)default_layer);
+    } else {
+        default_layer = eeconfig_read_default_layer();
+        default_layer_set((uint32_t)default_layer);
+    }
 }
 
 bool bootmagic_scan_keycode(uint8_t keycode)

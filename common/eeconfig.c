@@ -30,8 +30,8 @@ bool eeconfig_is_enabled(void)
 uint8_t eeconfig_read_debug(void)      { return eeprom_read_byte(EECONFIG_DEBUG); }
 void eeconfig_write_debug(uint8_t val) { eeprom_write_byte(EECONFIG_DEBUG, val); }
 
-uint8_t eeconfig_read_defalt_layer(void)      { return eeprom_read_byte(EECONFIG_DEFAULT_LAYER); }
-void eeconfig_write_defalt_layer(uint8_t val) { eeprom_write_byte(EECONFIG_DEFAULT_LAYER, val); }
+uint8_t eeconfig_read_default_layer(void)      { return eeprom_read_byte(EECONFIG_DEFAULT_LAYER); }
+void eeconfig_write_default_layer(uint8_t val) { eeprom_write_byte(EECONFIG_DEFAULT_LAYER, val); }
 
 uint8_t eeconfig_read_keymap(void)      { return eeprom_read_byte(EECONFIG_KEYMAP); }
 void eeconfig_write_keymap(uint8_t val) { eeprom_write_byte(EECONFIG_KEYMAP, val); }

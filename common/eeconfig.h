@@ -58,8 +58,8 @@ void eeconfig_disable(void);
 uint8_t eeconfig_read_debug(void);
 void eeconfig_write_debug(uint8_t val);
 
-uint8_t eeconfig_read_defalt_layer(void);
-void eeconfig_write_defalt_layer(uint8_t val);
+uint8_t eeconfig_read_default_layer(void);
+void eeconfig_write_default_layer(uint8_t val);
 
 uint8_t eeconfig_read_keymap(void);
 void eeconfig_write_keymap(uint8_t val);

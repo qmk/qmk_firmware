@@ -149,6 +149,15 @@ Note that you must use keys of **Layer 0** as Magic keys. These settings are sto
 - Set Default Layer to 1(`1`)
 - Set Default Layer to 2(`2`)
 - Set Default Layer to 3(`3`)
+- Set Default Layer to 4(`4`)
+- Set Default Layer to 5(`5`)
+- Set Default Layer to 6(`6`)
+- Set Default Layer to 7(`7`)
+
+#### Caution
+Unintentional use of this feature will cause user confusion.
+
+TODO: Magic key combination to avoid unintentional press during plug in
 
 **TBD**
 

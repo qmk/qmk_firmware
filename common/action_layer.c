@@ -30,9 +30,9 @@ void default_layer_debug(void)
     dprintf("%08lX(%u)", default_layer_state, biton32(default_layer_state));
 }
 
-void default_layer_set(uint8_t layer)
+void default_layer_set(uint32_t state)
 {
-    default_layer_state_set(1UL<<layer);
+    default_layer_state_set(state);
 }
 
 #ifndef NO_ACTION_LAYER
