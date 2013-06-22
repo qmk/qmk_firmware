@@ -231,6 +231,9 @@
 			/** Selects the XMEGA C3 XPLAINED specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_C3_XPLAINED          55
 
+			/** Selects the U2S specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_U2S                  56
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 
