@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_BoardInfo
- *  \defgroup Group_BoardInfo_U2S
+ *  \defgroup Group_BoardInfo_U2S U2S
  *  \brief Board specific information header for the U2S.
  *
  *  Board specific information header for the U2S (http://sites.google.com/site/megau2s/).
