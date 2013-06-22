@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1100|1111| id(8)      Macro record?
  *
  * ACT_BACKLIGHT(1101):
- * 1110|xxxx| id(8)      Backlight commands
+ * 1101|xxxx| id(8)      Backlight commands
  *
  * ACT_COMMAND(1110):
  * 1110|opt | id(8)      Built-in Command exec
