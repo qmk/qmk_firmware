@@ -779,6 +779,21 @@
 				<build type="define" name="BOARD" value="BOARD_STANGE_ISP"/>
 			</module>
 
+			<module type="driver" id="lufa.drivers.board#c3_xplained" caption="Board Support - C3_XPLAINED">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_C3_XPLAINED"/>
+
+				<device-support value="atxmega384c3"/>
+
+				<require idref="lufa.drivers.board.buttons"/>
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/XMEGA/C3_XPLAINED/Board.h"/>
+				<build type="header-file" value="Drivers/Board/XMEGA/C3_XPLAINED/Buttons.h"/>
+				<build type="header-file" value="Drivers/Board/XMEGA/C3_XPLAINED/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_C3_XPLAINED"/>
+			</module>
+
 			<module type="driver" id="lufa.drivers.board#u2s" caption="Board Support - U2S">
 				<build type="doxygen-entry-point" value="Group_BoardInfo_U2S"/>
 
