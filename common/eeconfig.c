@@ -10,7 +10,9 @@ void eeconfig_init(void)
     eeprom_write_byte(EECONFIG_DEFAULT_LAYER,  0);
     eeprom_write_byte(EECONFIG_KEYMAP,         0);
     eeprom_write_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
+#ifdef BACKLIGHT_ENABLE
     eeprom_write_byte(EECONFIG_BACKLIGHT,      0);
+#endif
 }
 
 void eeconfig_enable(void)
@@ -37,5 +39,7 @@ void eeconfig_write_default_layer(uint8_t val) { eeprom_write_byte(EECONFIG_DEFA
 uint8_t eeconfig_read_keymap(void)      { return eeprom_read_byte(EECONFIG_KEYMAP); }
 void eeconfig_write_keymap(uint8_t val) { eeprom_write_byte(EECONFIG_KEYMAP, val); }
 
+#ifdef BACKLIGHT_ENABLE
 uint8_t eeconfig_read_backlight(void)      { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
 void eeconfig_write_backlight(uint8_t val) { eeprom_write_byte(EECONFIG_BACKLIGHT, val); }
+#endif
