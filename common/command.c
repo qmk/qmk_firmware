@@ -151,11 +151,13 @@ static void print_eeconfig(void)
     print(".swap_grave_esc: "); print_dec(kc.swap_grave_esc); print("\n");
     print(".swap_backslash_backspace: "); print_dec(kc.swap_backslash_backspace); print("\n");
 
+#ifdef BACKLIGHT_ENABLE
     backlight_config_t bc;
     bc.raw = eeconfig_read_backlight();
     print("backlight_config.raw: "); print_hex8(bc.raw); print("\n");
     print(".enable: "); print_dec(bc.enable); print("\n");
     print(".level: "); print_dec(bc.level); print("\n");
+#endif
 }
 #endif
 
