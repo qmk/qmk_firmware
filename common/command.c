@@ -129,7 +129,7 @@ static void command_common_help(void)
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
-    print("default_layer: "); print_dec(eeconfig_read_defalt_layer()); print("\n");
+    print("default_layer: "); print_dec(eeconfig_read_default_layer()); print("\n");
 
     debug_config_t dc;
     dc.raw = eeconfig_read_debug();
@@ -579,6 +579,6 @@ static void switch_default_layer(uint8_t layer)
 {
     print("switch_default_layer: "); print_dec(biton32(default_layer_state));
     print(" to "); print_dec(layer); print("\n");
-    default_layer_set(layer);
+    default_layer_set(1UL<<layer);
     clear_keyboard();
 }
