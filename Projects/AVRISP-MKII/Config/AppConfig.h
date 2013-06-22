@@ -33,10 +33,10 @@
  *
  *  This is a header file which is be used to configure some of
  *  the application's compile time options, as an alternative to
- *  specifying the compile time constants supplied through a 
+ *  specifying the compile time constants supplied through a
  *  makefile or build system.
  *
- *  For information on what each token does, refer to the 
+ *  For information on what each token does, refer to the
  *  \ref Sec_Options section of the application documentation.
  */
 
@@ -46,11 +46,11 @@
 	#define AUX_LINE_PORT              PORTB
 	#define AUX_LINE_PIN               PINB
 	#define AUX_LINE_DDR               DDRB
-  #if (BOARD == BOARD_U2S)
-	#define AUX_LINE_MASK              (1 << 0)
-  #else
-  #define AUX_LINE_MASK              (1 << 4)
-  #endif
+	#if (BOARD == BOARD_U2S)
+		#define AUX_LINE_MASK          (1 << 0)
+	#else
+		#define AUX_LINE_MASK          (1 << 4)
+	#endif
 
 	#define ENABLE_ISP_PROTOCOL
 	#define ENABLE_XPROG_PROTOCOL
