@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bootmagic.h"
 #include "eeconfig.h"
 #include "mousekey.h"
+#include "backlight.h"
 
 
 #ifdef MATRIX_HAS_GHOST
@@ -64,6 +65,10 @@ void keyboard_init(void)
 
 #ifdef BOOTMAGIC_ENABLE
     bootmagic();
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+    backlight_init();
 #endif
 }
 
