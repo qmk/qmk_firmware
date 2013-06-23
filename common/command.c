@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sleep_led.h"
 #include "led.h"
 #include "command.h"
+#include "backlight.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
@@ -149,6 +150,14 @@ static void print_eeconfig(void)
     print(".no_gui: "); print_dec(kc.no_gui); print("\n");
     print(".swap_grave_esc: "); print_dec(kc.swap_grave_esc); print("\n");
     print(".swap_backslash_backspace: "); print_dec(kc.swap_backslash_backspace); print("\n");
+
+#ifdef BACKLIGHT_ENABLE
+    backlight_config_t bc;
+    bc.raw = eeconfig_read_backlight();
+    print("backlight_config.raw: "); print_hex8(bc.raw); print("\n");
+    print(".enable: "); print_dec(bc.enable); print("\n");
+    print(".level: "); print_dec(bc.level); print("\n");
+#endif
 }
 #endif
 

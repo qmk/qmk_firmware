@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 
 #define EECONFIG_MAGIC_NUMBER                       (uint16_t)0xFEED
@@ -29,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_DEFAULT_LAYER                      (uint8_t *)3
 #define EECONFIG_KEYMAP                             (uint8_t *)4
 #define EECONFIG_MOUSEKEY_ACCEL                     (uint8_t *)5
+#define EECONFIG_BACKLIGHT                          (uint8_t *)6
 
 
 /* debug bit */
@@ -63,5 +65,10 @@ void eeconfig_write_default_layer(uint8_t val);
 
 uint8_t eeconfig_read_keymap(void);
 void eeconfig_write_keymap(uint8_t val);
+
+#ifdef BACKLIGHT_ENABLE
+uint8_t eeconfig_read_backlight(void);
+void eeconfig_write_backlight(uint8_t val);
+#endif
 
 #endif

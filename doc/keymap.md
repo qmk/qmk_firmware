@@ -430,6 +430,27 @@ See `keyboard/hhkb/keymap.c` for sample.
 
 
 
+### 2.5 Backlight Action
+These actions control the backlight.
+
+#### 2.5.1 Change backlight level
+Increase backlight level.
+
+    ACTION_BACKLIGHT_INCREASE()
+
+Decrease backlight level.
+
+    ACTION_BACKLIGHT_DECREASE()
+
+Step through backlight levels.
+
+    ACTION_BACKLIGHT_STEP()
+
+#### 2.5.2 Turn on / off backlight
+Turn the backlight on and off without changing level.
+
+    ACTION_BACKLIGHT_TOGGLE()
+
 
 
 ## 3. Layer switching Example
