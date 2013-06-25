@@ -24,10 +24,8 @@
 static uint8_t debouncing = DEBOUNCE;
 
 // bit array of key state(1:on, 0:off)
-static matrix_row_t *matrix;
-static matrix_row_t *matrix_debounced;
-static matrix_row_t _matrix0[MATRIX_ROWS];
-static matrix_row_t _matrix1[MATRIX_ROWS];
+static matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 
 #define _DDRA (uint8_t *const)&DDRA
@@ -148,30 +146,24 @@ void matrix_init(void)
     setup_leds();
 
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
-    matrix = _matrix0;
-    matrix_debounced = _matrix1;
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+        matrix_debouncing[i] = 0;
+    }
 }
 
 uint8_t matrix_scan(void)
 {
-    if (!debouncing) {
-        uint8_t *tmp = matrix_debounced;
-        matrix_debounced = matrix;
-        matrix = tmp;
-    }
-
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {  // 0-7
         pull_column(col);   // output hi on theline
         _delay_us(5);       // without this wait it won't read stable value.
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {  // 0-17
-            bool prev_bit = matrix[row] & (1<<col);
+            bool prev_bit = matrix_debouncing[row] & (1<<col);
             bool curr_bit = *row_pin[row] & row_bit[row];
             if (prev_bit != curr_bit) {
-                matrix[row] ^= (1<<col);
+                matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
                 if (debouncing) {
-                    debug("bounce!: "); debug_hex(debouncing); print("\n");
+                    dprintf("bounce!: %02X\n", debouncing);
                 }
                 debouncing = DEBOUNCE;
             }
@@ -180,8 +172,13 @@ uint8_t matrix_scan(void)
     }
 
     if (debouncing) {
-        _delay_ms(1);
-        debouncing--;
+        if (--debouncing) {
+            _delay_ms(1);
+        } else {
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
+            }
+        }
     }
 
     return 1;
@@ -202,13 +199,13 @@ bool matrix_has_ghost(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix_debounced[row] & (1<<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
-    return matrix_debounced[row];
+    return matrix[row];
 }
 
 void matrix_print(void)
