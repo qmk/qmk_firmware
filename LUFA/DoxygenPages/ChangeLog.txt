@@ -26,6 +26,9 @@
   *   - All board drivers now implement dummy functions and constants when BOARD is set to NONE
   *   - Added missing LEDs to the XMEGA A3BU Xplained board LED driver (thanks to Michael Janssen)
   *   - Changed board Dataflash drivers to automatically configure the appropriate SPI interface for the selected board
+  *  - Library Applications:
+  *   - Re-added Set Control Line State request handling to the CDC class bootloader to prevent issues with the .NET serial
+  *     class (thanks to Erik Lins)
   *
   *  <b>Fixed:</b>
   *  - Core:

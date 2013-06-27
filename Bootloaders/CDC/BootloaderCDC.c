@@ -223,6 +223,14 @@ void EVENT_USB_Device_ControlRequest(void)
 			}
 
 			break;
+        case CDC_REQ_SetControlLineState:
+	        if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+	        {
+	            Endpoint_ClearSETUP();
+	            Endpoint_ClearStatusStage();
+	        }
+
+	        break;
 	}
 }
 
