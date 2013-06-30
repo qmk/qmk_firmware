@@ -48,6 +48,7 @@ Each layout have their own keymap file.
 *Note that only the ANSI keymap is tested on actual hardware.*
 
 To customize a keymap:
+
 1. Edit the file that corresponds to your layout.
 2. Specify your layout when building.
 
