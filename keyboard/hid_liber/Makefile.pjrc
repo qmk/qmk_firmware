@@ -98,5 +98,14 @@ include $(TOP_DIR)/protocol/pjrc.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
 
-custom: OPT_DEFS += -DKEYMAP_CUSTOM
+ansi: OPT_DEFS += -DLAYOUT_ANSI
+ansi: all
+
+iso: OPT_DEFS += -DLAYOUT_ISO
+iso: all
+
+custom: OPT_DEFS += -DLAYOUT_CUSTOM
 custom: all
+
+alaricljs: OPT_DEFS += -DLAYOUT_ALARICLJS
+alaricljs: all
