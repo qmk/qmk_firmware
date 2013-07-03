@@ -73,6 +73,32 @@ static matrix_row_t _matrix1[MATRIX_ROWS];
 #define KEY_POWER_ON()
 #define KEY_POWER_OFF()
 
+#elif defined(__AVR_ATmega32U4__)
+// Ports for my designed Alt Controller PCB
+// row:     PB0-2
+// col:     PB3-5,6
+// key:     PD7(pull-uped)
+// prev:    PB7
+#define KEY_INIT()              do {    \
+    DDRB  = 0xFF;                       \
+    PORTB = 0x00;                       \
+    DDRD  &= ~0x80;                     \
+    PORTD |= 0x80;                      \
+    KEY_UNABLE();                       \
+    KEY_PREV_OFF();                     \
+} while (0)
+#define KEY_SELECT(ROW, COL)    (PORTB = (PORTB & 0xC0) |       \
+                                         (((COL) & 0x07)<<3) |    \
+                                         ((ROW) & 0x07))
+#define KEY_ENABLE()            (PORTB &= ~(1<<6))
+#define KEY_UNABLE()            (PORTB |=  (1<<6))
+#define KEY_STATE()             (PIND & (1<<7))
+#define KEY_PREV_ON()           (PORTB |=  (1<<7))
+#define KEY_PREV_OFF()          (PORTB &= ~(1<<7))
+#define KEY_POWER_ON()
+#define KEY_POWER_OFF()
+
+
 #elif defined(__AVR_ATmega328P__)
 // Ports for V-USB
 // key:     PB0(pull-uped)
@@ -130,7 +156,6 @@ uint8_t matrix_cols(void)
 void matrix_init(void)
 {
 #ifdef DEBUG
-    print_enable = true;
     debug_enable = true;
     debug_keyboard = true;
 #endif
@@ -172,7 +197,14 @@ uint8_t matrix_scan(void)
             KEY_ENABLE();
             // Wait for KEY_STATE outputs its value.
             // 1us was ok on one HHKB, but not worked on another.
-            _delay_us(10);
+            // no   wait doesn't work on Teensy++ with pro(1us works)
+            // no   wait does    work on tmk PCB(8MHz) with pro2
+            // 1us  wait does    work on both of above
+            // 10us wait does    work on Teensy++ with pro
+            // 10us wait does    work on 328p+iwrap with pro
+            // 10us wait doesn't work on tmk PCB(8MHz) with pro2(very lagged scan)
+            _delay_us(1);
+//            _delay_us(10);
             if (KEY_STATE()) {
                 matrix[row] &= ~(1<<col);
             } else {
