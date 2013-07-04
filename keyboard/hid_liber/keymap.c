@@ -63,12 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 /*
- * Add custom layouts. If no custom layout is defined the default layout is used.
-*/
-#if defined(KEYMAP_CUSTOM)
-    #include "keymap_custom.h"
-#else
-/*
  * Tenkeyless keyboard default layout, ISO & ANSI (ISO is between Left Shift
  * and Z, and the ANSI \ key above Return/Enter is used for the additional ISO
  * switch in the ASD row next to enter.  Use NUBS as keycode for the first and
@@ -90,90 +84,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------------------------------' `-----------'
  */
 
-
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Layer 0: Default Layer
- *
- * ANSI:
- *
- * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
- * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
- * `---'   `---------------' `---------------' `---------------' `-----------'
- * ,-----------------------------------------------------------. ,-----------.
- * |~  |  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp | |Ins|Hom|PgU|
- * |-----------------------------------------------------------| |-----------|
- * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \| |Del|End|PgD|
- * |-----------------------------------------------------------| `-----------'
- * |FN1   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |              
- * |-----------------------------------------------------------|     ,---.    
- * |Shft|iso|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |    
- * |-----------------------------------------------------------| ,-----------.
- * |Ctl|Gui|Alt|          Space                |Alt|Gui|App|Ctl| |Lef|Dow|Rig|
- * `-----------------------------------------------------------' `-----------'
- */
-
-  KEYMAP(\
-    ESC,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10,  F11,  F12,       PSCR, SLCK,  BRK, \
-    GRV,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0, MINS,  EQL, BSPC,  INS, HOME, PGUP, \
-    TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P, LBRC, RBRC, BSLS,  DEL,  END, PGDN, \
-    FN1,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,                   \
-    LSFT, NUBS, Z,   X,   C,   V,   B,   N,   M, COMM, DOT, SLSH,      RSFT,         UP,       \
-    LCTL, LGUI, LALT,             SPC,                RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
-
-/*  EXAMPLE ISO keymap, see the NUBS and NUHS keycodes 
- *  KEYMAP(\
- *    ESC, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, PSCR, SLCK, BRK, \
- *    GRV, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, MINS, EQL, BSPC, INS, HOME, PGUP, \
- *    TAB, Q, W, E, R, T, Y, U, I, O, P, LBRC, RBRC, NUHS, DEL, END, PGDN, \
- *    CAPS, A, S, D, F, G, H, J, K, L, SCLN, QUOT, ENT, \
- *    LSFT, NUBS, Z, X, C, V, B, N, M, COMM, DOT, SLSH, RSFT, UP, \
- *    LCTL, FN1, LALT, SPC, RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
- */
-
-
-/*  
- * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
- * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Slp|
- * `---'   `---------------' `---------------' `---------------' `-----------'
- * ,-----------------------------------------------------------. ,-----------.
- * |~  |  1|  2|  3|  4|  5|  6|  7|  8|  9|Mut|V- |V+ |Backsp | |Ins|Hom|PgU|
- * |-----------------------------------------------------------| |-----------|
- * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|MSt|Ply|Prv|Nxt|Media| |Del|End|PgD|
- * |-----------------------------------------------------------| `-----------'
- * |FN1   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |              
- * |-----------------------------------------------------------|     ,---.    
- * |Shft|iso|  Z|  X|Clc|  V|  B|  N|  M|  ,|  .|  /|Caps      |     |Up |    
- * |-----------------------------------------------------------| ,-----------.
- * |Ctl|Gui|Alt|          Space                |Alt|Gui|App|Ctl| |Lef|Dow|Rig|
- * `-----------------------------------------------------------' `-----------'
- */
-
- KEYMAP(\
-    ESC,  F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10,  F11,  F12,       PSCR, SLCK, SLEP, \
-    GRV,   1,   2,   3,   4,   5,   6,   7,   8,   9,MUTE, VOLD, VOLU, BSPC,  INS, HOME, PGUP, \
-    TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,MSTP,MPLY, MPRV, MNXT, MSEL,  DEL,  END, PGDN, \
-    FN1,   A,   S,   D,   F,   G,   H,   J,   K,   L, SCLN, QUOT,       ENT,                   \
-    LSFT, NUBS, Z,   X,CALC,   V,   B,   N,   M, COMM, DOT, SLSH,      CAPS,         UP,       \
-    LCTL, LGUI, LALT,             SPC,                RALT, RGUI, APP, RCTL, LEFT, DOWN, RGHT),
-
-
-};
-
 /*
- * Fn action definition
- */
-static const uint16_t PROGMEM fn_actions[] = { 
-    [0] = ACTION_LAYER_MOMENTARY(0),
-    [1] = ACTION_LAYER_MOMENTARY(1),
-    [2] = ACTION_LAYER_MOMENTARY(2),
-    [3] = ACTION_LAYER_MOMENTARY(3),
-    [4] = ACTION_LAYER_MOMENTARY(4),
-    [5] = ACTION_LAYER_MOMENTARY(5),
-    [6] = ACTION_LAYER_MOMENTARY(6),
-    [7] = ACTION_LAYER_MOMENTARY(7),
-    [8] = ACTION_LAYER_MOMENTARY(8),
-};
-#endif 
+ * Add different layouts. If no layout is defined the default layout will be set to ANSI.
+*/
+#if defined(LAYOUT_CUSTOM)
+    #include "keymap_custom.h"
+#elif defined(LAYOUT_ALARICLJS)
+    #include "keymap_alaricljs.h"
+#elif defined(LAYOUT_ISO)
+    #include "keymap_iso.h"
+#elif defined(LAYOUT_ANSI)
+    #include "keymap_ansi.h"
+#else
+    #include "keymap_ansi.h"
+#endif
 
 #define KEYMAPS_SIZE    (sizeof(keymaps) / sizeof(keymaps[0]))
 #define FN_ACTIONS_SIZE (sizeof(fn_actions) / sizeof(fn_actions[0]))
