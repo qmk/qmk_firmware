@@ -44,6 +44,7 @@
 		#include <string.h>
 
 		#include "Descriptors.h"
+		#include "Config/AppConfig.h"
 
 		#include "Lib/SCSI.h"
 
@@ -72,10 +73,14 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 
+		/** Magic bootloader key to unlock forced application start mode. */
+		#define MAGIC_BOOT_KEY             0xDC42
+
+	/* Global Variables: */
+		extern bool RunBootloader;
+
 	/* Function Prototypes: */
 		int main(void) AUX_BOOT_SECTION;
-
-		static void SetupHardware(void) AUX_BOOT_SECTION;
 
 		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
 
@@ -85,6 +90,10 @@
 		void EVENT_USB_Device_ControlRequest(void) AUX_BOOT_SECTION;
 
 		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) AUX_BOOT_SECTION;
+
+		#if defined(INCLUDE_FROM_BOOTLOADER_MASSSTORAGE_C)
+			static void SetupHardware(void) AUX_BOOT_SECTION;
+		#endif
 
 #endif
 

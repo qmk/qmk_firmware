@@ -131,7 +131,7 @@ help:
 	@printf " %b" "$(PRINTABLE_LUFA_PROVIDED_MACROS:%=   - %\n)"
 	@echo "                                                                   "
 	@echo "==================================================================="
-	@echo "        The LUFA BuildSystem 2.0 - Powered By Duct Tape (tm)       "
+	@echo "   The LUFA BuildSystem 2.0 - Powered By Positive Thinking (tm)    "
 	@echo "==================================================================="
 
 # Lists build modules included by the project makefile, in alphabetical order

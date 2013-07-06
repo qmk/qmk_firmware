@@ -42,6 +42,7 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
+		#include "../BootloaderMassStorage.h"
 		#include "../Descriptors.h"
 		#include "VirtualFAT.h"
 

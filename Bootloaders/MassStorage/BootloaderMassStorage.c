@@ -33,6 +33,7 @@
  *  Main source file for the Mass Storage class bootloader. This file contains the complete bootloader logic.
  */
 
+#define  INCLUDE_FROM_BOOTLOADER_MASSSTORAGE_C
 #include "BootloaderMassStorage.h"
 
 /** LUFA Mass Storage Class driver interface configuration and state information. This structure is
@@ -60,7 +61,30 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 			},
 	};
 
+/** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
+ *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
+ *  started via a forced watchdog reset.
+ */
+bool RunBootloader = true;
 
+/** Magic lock for forced application start. If the HWBE fuse is programmed and BOOTRST is unprogrammed, the bootloader
+ *  will start if the /HWB line of the AVR is held low and the system is reset. However, if the /HWB line is still held
+ *  low when the application attempts to start via a watchdog reset, the bootloader will re-start. If set to the value
+ *  \ref MAGIC_BOOT_KEY the special init function \ref Application_Jump_Check() will force the application to start.
+ */
+uint16_t MagicBootKey ATTR_NO_INIT;
+
+/** Indicates if the bootloader is allowed to exit immediately if \ref RunBootloader is \c false. During shutdown all
+ *  pending commands must be processed before jumping to the user-application, thus this tracks the main program loop
+ *  iterations since a SCSI command from the host was received.
+ */
+static uint8_t TicksSinceLastCommand = 0;
+
+
+/** Special startup routine to check if the bootloader was started via a watchdog reset, and if the magic application
+ *  start key has been loaded into \ref MagicBootKey. If the bootloader started via the watchdog and the key is valid,
+ *  this will force the user application to start via a software jump.
+ */
 void Application_Jump_Check(void)
 {
 	bool JumpToApplication = false;
@@ -90,6 +114,13 @@ void Application_Jump_Check(void)
 		JTAG_ENABLE();
 	#endif
 
+	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
+	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+	{
+		MagicBootKey      = 0;
+		JumpToApplication = true;
+	}
+
 	if (JumpToApplication)
 	{
 		// cppcheck-suppress constStatement
@@ -107,11 +138,22 @@ int main(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	GlobalInterruptEnable();
 
-	for (;;)
+	while (RunBootloader || TicksSinceLastCommand++ < 0xFF)
 	{
 		MS_Device_USBTask(&Disk_MS_Interface);
 		USB_USBTask();
 	}
+
+	/* Disconnect from the host - USB interface will be reset later along with the AVR */
+	USB_Detach();
+
+	/* Unlock the forced application start mode of the bootloader if it is restarted */
+	MagicBootKey = MAGIC_BOOT_KEY;
+
+	/* Enable the watchdog and force a timeout to reset the AVR */
+	wdt_enable(WDTO_250MS);
+
+	for (;;);
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
@@ -188,6 +230,9 @@ bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSI
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 	CommandSuccess = SCSI_DecodeSCSICommand(MSInterfaceInfo);
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Signal that a command was processed, must not exit bootloader yet */
+	TicksSinceLastCommand = 0;
 
 	return CommandSuccess;
 }

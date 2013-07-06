@@ -191,9 +191,15 @@
  *
  *  <table>
  *   <tr>
- *    <td>
- *     None
- *    </td>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_APP_START_ON_EJECT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable automatic start of the loaded application when the virtual
+ *        Mass Storage disk is ejected on the host.</td>
  *   </tr>
  *  </table>
  */
