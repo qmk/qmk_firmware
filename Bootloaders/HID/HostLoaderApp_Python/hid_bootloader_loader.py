@@ -23,19 +23,20 @@ import sys
 import pywinusb.hid as hid
 from intelhex import IntelHex
 
+
 # Device information table
 device_info_map = dict()
 device_info_map['at90usb1287'] = {'page_size': 256, 'flash_kb': 128}
 device_info_map['at90usb1286'] = {'page_size': 256, 'flash_kb': 128}
-device_info_map['at90usb647']  = {'page_size': 256, 'flash_kb': 64}
-device_info_map['at90usb646']  = {'page_size': 256, 'flash_kb': 64}
-device_info_map['atmega32u4']  = {'page_size': 128, 'flash_kb': 32}
-device_info_map['atmega32u2']  = {'page_size': 128, 'flash_kb': 32}
-device_info_map['atmega16u4']  = {'page_size': 128, 'flash_kb': 16}
-device_info_map['atmega16u2']  = {'page_size': 128, 'flash_kb': 16}
-device_info_map['at90usb162']  = {'page_size': 128, 'flash_kb': 16}
-device_info_map['atmega8u2']   = {'page_size': 128, 'flash_kb': 8}
-device_info_map['at90usb82']   = {'page_size': 128, 'flash_kb': 8}
+device_info_map['at90usb647'] = {'page_size': 256, 'flash_kb': 64}
+device_info_map['at90usb646'] = {'page_size': 256, 'flash_kb': 64}
+device_info_map['atmega32u4'] = {'page_size': 128, 'flash_kb': 32}
+device_info_map['atmega32u2'] = {'page_size': 128, 'flash_kb': 32}
+device_info_map['atmega16u4'] = {'page_size': 128, 'flash_kb': 16}
+device_info_map['atmega16u2'] = {'page_size': 128, 'flash_kb': 16}
+device_info_map['at90usb162'] = {'page_size': 128, 'flash_kb': 16}
+device_info_map['atmega8u2']  = {'page_size': 128, 'flash_kb': 8}
+device_info_map['at90usb82']  = {'page_size': 128, 'flash_kb': 8}
 
 
 def get_hid_device_handle():
@@ -51,6 +52,9 @@ def get_hid_device_handle():
 
 
 def send_page_data(hid_device, address, data):
+    # Bootloader page data should be the HID Report ID (always zero) followed
+    # by the starting address to program, then one device's flash page worth
+    # of data
     output_report_data = [0]
     output_report_data.extend([address & 0xFF, address >> 8])
     output_report_data.extend(data)
@@ -58,7 +62,7 @@ def send_page_data(hid_device, address, data):
     hid_device.send_output_report(output_report_data)
 
 
-def main(hex_filename, device_info):
+def program_device(hex_data, device_info):
     hid_device = get_hid_device_handle()
 
     if hid_device is None:
@@ -67,21 +71,30 @@ def main(hex_filename, device_info):
 
     try:
         hid_device.open()
-
         print("Connected to bootloader.")
 
-        hex_data = IntelHex(hex_filename)
-
+        # Program in all data from the loaded HEX file, in a number of device
+        # page sized chunks
         for addr in range(0, hex_data.maxaddr(), device_info['page_size']):
-            page_data = [hex_data[i] for i in range(addr, addr+device_info['page_size'])]
+            # Compute the address range of the current page in the device
+            current_page_range = range(addr, addr+device_info['page_size'])
 
-            print("Writing address 0x%04X-0x%04X" % (addr, addr+device_info['page_size']))
+            # Extract the data from the hex file at the specified start page
+            # address and convert it to a regular list of bytes
+            page_data = [hex_data[i] for i in current_page_range]
 
+            print("Writing address 0x%04X-0x%04X" % (current_page_range[0], current_page_range[-1]))
+
+            # Devices with more than 64KB of flash should shift down the page
+            # address so that it is 16-bit (page size is guaranteed to be
+            # >= 256 bytes so no non-zero address bits are discarded)
             if device_info['flash_kb'] < 64:
                 send_page_data(hid_device, addr, page_data)
             else:
                 send_page_data(hid_device, addr >> 8, page_data)
 
+        # Once programming is complete, start the application via a dummy page
+        # program to the page address 0xFFFF
         print("Programming complete, starting application.")
         send_page_data(hid_device, 0xFFFF, [0] * device_info['page_size'])
 
@@ -90,12 +103,18 @@ def main(hex_filename, device_info):
 
 
 if __name__ == '__main__':
-    hex_filename = sys.argv[2]
+    # Load the specified HEX file
+    try:
+        hex_data = IntelHex(sys.argv[2])
+    except:
+        print("Could not open the specified HEX file.")
+        sys.exit(1)
 
+    # Retrieve the device information entry for the specified device
     try:
         device_info = device_info_map[sys.argv[1]]
     except:
         print("Unknown device name specified.")
         sys.exit(1)
 
-    main(hex_filename, device_info)
+    program_device(hex_data, device_info)
