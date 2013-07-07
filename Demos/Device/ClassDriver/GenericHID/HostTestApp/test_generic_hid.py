@@ -19,9 +19,17 @@ import sys
 from time import sleep
 import pywinusb.hid as hid
 
+# Generic HID device VID, PID and report payload length (length is increased
+# by one to account for the Report ID byte that must be pre-pended)
+device_vid = 0x03EB
+device_pid = 0x204F
+report_length = 1 + 8
 
-def get_hid_device_handle(VID, PID):
-    hid_device_filter = hid.HidDeviceFilter(vendor_id = VID, product_id = PID)
+
+def get_hid_device_handle():
+    hid_device_filter = hid.HidDeviceFilter(vendor_id=device_vid,
+                                            product_id=device_pid)
+
     valid_hid_devices = hid_device_filter.get_devices()
 
     if len(valid_hid_devices) is 0:
@@ -31,16 +39,12 @@ def get_hid_device_handle(VID, PID):
 
 
 def send_led_pattern(device, led1, led2, led3, led4):
-    # Length of the report: one byte for the report ID, remainder is the
-    # payload length as set in the demo
-    generic_report_size = 1 + 8
-
     # Report data for the demo is the report ID (always zero) followed by the
     # LED on/off data
     report_data = [0, led1, led2, led3, led4]
 
     # Zero-extend the array to the length the report should be
-    report_data.extend([0] * (generic_report_size - len(report_data)))
+    report_data.extend([0] * (report_length - len(report_data)))
 
     # Send the generated report to the device
     device.send_output_report(report_data)
@@ -53,7 +57,7 @@ def received_led_pattern(report_data):
 
 
 def main():
-    hid_device = get_hid_device_handle(VID=0x03EB, PID=0x204F)
+    hid_device = get_hid_device_handle()
 
     if hid_device is None:
         print("No valid HID device found.")
