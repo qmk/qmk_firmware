@@ -37,7 +37,7 @@ void led_set(uint8_t usb_led)
     if (usb_led & (1<<USB_LED_SCROLL_LOCK))
     {
         // Output high.
-        DDRB &= ~(1<<7);
+        DDRB |= (1<<7);
         PORTB |= (1<<7);
     }
     else
