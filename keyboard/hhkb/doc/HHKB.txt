@@ -30,25 +30,27 @@ Connector Cable
 Two PCBs are connected by 15 lines(13 in case of Pro2).
 Vcc and GND use 3(2) lines each, other 9 lines are for keyboard signaling.
 
-    Keyswitch PCB connector                                 Teensy++ pins
-    -------------------------------------------------------------------------------
-     1  Vcc(5V)   Not exist on Pro2                         5V
-     2  Vcc(5V)                                             5V
-     3  Vcc(5V)                                             5V
-     4  TP1684    KEY: Low(0) when key pressed              PE6 input(with pullup)
-     5  TP1684    KEY_PREV: assert previous key state???    PE7 output
-     6  HC4051    A(bit0) select 8 rows(0 to 7)             PB0 output
-     7  HC4051    B(bit1)                                   PB1 output
-     8  HC4051    C(bit2)                                   PB2 output
-     9  LS145     A(bit0) select 8 columns(0 to 7)          PB3 output
-    10  LS145     B(bit1)                                   PB4 output
-    11  LS145     C(bit2)                                   PB5 output
-    12  LS145     D(enable) Low(0) enable selected column   PB6 output
-    13  GND                                                 GND
-    14  GND                                                 GND
-    15  GND       Not exist on Pro2                         GND
+    Keyswitch connector
+    pro  pro2           Description                               Teensy++ pins
+    --------------------------------------------------------------------------------------------
+     1       Vcc(5V)    Not exist on Pro2                         5V
+     2   1   Vcc(5V)                                              5V
+     3   2   Vcc(5V)                                              5V
+     4   3   TP1684     KEY: Low(0) when key pressed              PE6 input(with pullup)
+     5   4   TP1684     KEY_PREV: make threshold                  PE7 output
+     6   5   HC4051     A(bit0)\                                  PB0 output
+     7   6   HC4051     B(bit1) > select row(0 to 7)              PB1 output
+     8   7   HC4051     C(bit2)/                                  PB2 output
+     9   8   LS145      A(bit0)\                                  PB3 output
+    10   9   LS145      B(bit1) > select column(0 to 7)           PB4 output
+    11  10   LS145      C(bit2)/                                  PB5 output
+    12  11   LS145      D(enable) Low(0) enables selected column  PB6 output
+    13  12   GND                                                  GND
+    14  13   GND                                                  GND
+    15       GND        Not exist on Pro2                         GND
 
     NOTE: guessing pin5(KEY_PREV) may work for hysteresis of capacitive sensing.
+    NOTE: 1KOhm didn't work as pullup resistor on KEY. AVR internal pullup or 10KOhm resistor was OK.
 
     (HHKB_connector.jpg)
 
