@@ -1,0 +1,48 @@
+HHKB Power consumption
+----------------------
+
+**Power consumption
+    board   clock/prescaler     keyswitch   power ctrl      current
+    --------------------------------------------------------------------------
+    tmk     16MHz               no          no              26.4mA
+    tmk     16MHz               pro1        no              45.1mA
+    tmk     16MHz/2             no          no              18.1mA
+    tmk     16MHz/2             pro1        no              37.3mA
+    tmk     8MHz                no          no              18.9mA
+    tmk     8MHz                pro2        no(w/o FET)     32.1mA
+    tmk     8MHz                pro2        no(w FET)       32.1mA withou POWER_ON/FF
+    tmk     8MHz                pro2        no(w FET)       32.6mA with POWR_ON/OFF
+    tmk     8MHz                pro2        15ms(w FET)     21.3mA with POWR_ON/OFF, enumerated but error -32
+    tmk     8MHz                pro2        60ms(w FET)     13.3mA with POWR_ON/OFF, not enumerated
+
+    gh60    16MHz                                           25.8mA
+    gh60    16MHz               USB suspend w LED breathing 17.6-29.1mA
+    gh60    16MHz               USB suspend w/o LED         0.2mA(0.231-0.276mA)
+    Poker                                                    5.6mA
+    Poker                       USB suspend                  0.3mA(0.301mA)
+    gh60    16MHz               stock firmware by komar     26.8mA
+
+
+    HHKB pro2 Over All                                     139.4mA
+    HHKB pro2 Controller                                   115.1mA
+    HHKB pro1 Controller                                    25.9mA
+
+
+keyswitch power consumption:
+pro1: 45.1-26.4=18.7mA
+      37.3-18.1=19.2mA
+pro2: 32.1-18.9=13.2mA
+
+
+
+
+
+**Low Freq Crystal or Prescaler?
+No advantage of Low Freq Crystal against Prescaled.
+
+Clock routing
+X'tal --+---->Prescaler-------> System Clock
+        |
+        +---------------------> USB PLL
+
+Design Decision: Install 16MHz crystal on board with using clock rescaler.
