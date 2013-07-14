@@ -20,7 +20,7 @@
 """
 
 import sys
-import pywinusb.hid as hid
+from pywinusb import hid
 from intelhex import IntelHex
 
 
@@ -28,15 +28,15 @@ from intelhex import IntelHex
 device_info_map = dict()
 device_info_map['at90usb1287'] = {'page_size': 256, 'flash_kb': 128}
 device_info_map['at90usb1286'] = {'page_size': 256, 'flash_kb': 128}
-device_info_map['at90usb647'] = {'page_size': 256, 'flash_kb': 64}
-device_info_map['at90usb646'] = {'page_size': 256, 'flash_kb': 64}
-device_info_map['atmega32u4'] = {'page_size': 128, 'flash_kb': 32}
-device_info_map['atmega32u2'] = {'page_size': 128, 'flash_kb': 32}
-device_info_map['atmega16u4'] = {'page_size': 128, 'flash_kb': 16}
-device_info_map['atmega16u2'] = {'page_size': 128, 'flash_kb': 16}
-device_info_map['at90usb162'] = {'page_size': 128, 'flash_kb': 16}
-device_info_map['atmega8u2']  = {'page_size': 128, 'flash_kb': 8}
-device_info_map['at90usb82']  = {'page_size': 128, 'flash_kb': 8}
+device_info_map['at90usb647']  = {'page_size': 256, 'flash_kb': 64}
+device_info_map['at90usb646']  = {'page_size': 256, 'flash_kb': 64}
+device_info_map['atmega32u4']  = {'page_size': 128, 'flash_kb': 32}
+device_info_map['atmega32u2']  = {'page_size': 128, 'flash_kb': 32}
+device_info_map['atmega16u4']  = {'page_size': 128, 'flash_kb': 16}
+device_info_map['atmega16u2']  = {'page_size': 128, 'flash_kb': 16}
+device_info_map['at90usb162']  = {'page_size': 128, 'flash_kb': 16}
+device_info_map['atmega8u2']   = {'page_size': 128, 'flash_kb': 8}
+device_info_map['at90usb82']   = {'page_size': 128, 'flash_kb': 8}
 
 
 def get_hid_device_handle():
