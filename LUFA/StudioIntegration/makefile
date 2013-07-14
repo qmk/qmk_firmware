@@ -131,7 +131,7 @@ check_filenames: $(MODULE_OUTPUT_XML)
 		done || exit 1; \
 	done;
 
-sanity_check:
+check_database:
 	python ProjectGenerator/project_generator.py -b $(LUFA_ROOT)/../ --main-ext-uuid=0e160d5c-e331-48d9-850b-e0387912171b CHECK
 
-.PHONY: all clean generate_help generate_xml generate_vsix check_filenames sanity_check
+.PHONY: all clean generate_help generate_xml generate_vsix check_filenames check_database

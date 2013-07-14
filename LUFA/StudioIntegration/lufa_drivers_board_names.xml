@@ -11,6 +11,13 @@
 <lufa>
 	<asf>
 		<select-by-config id="lufa.drivers.board" name="lufa.drivers.board.name" default="none" caption="LUFA Board Support">
+			<info type="description" value="summary">
+				Board hardware (LEDs, Buttons, etc.) drivers for the preconfigured LUFA boards. Note that only the boards
+				compatible with the currently selected device will be shown.
+
+				To disable all hardware drivers silently, use NONE. To supply customer drivers, use USER (see manual).
+			</info>
+
 			<module type="driver" id="lufa.drivers.board#none" caption="Board Support - None">
 				<device-support value="avr"/>
 				<build type="define" name="BOARD" value="BOARD_NONE"/>
