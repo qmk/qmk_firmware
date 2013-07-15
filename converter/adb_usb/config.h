@@ -58,10 +58,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define ADB_PSW_BIT     1       // optional
 
 /* key combination for command */
+#ifndef __ASSEMBLER__
 #include "adb.h"
 #include "matrix.h"
 #define IS_COMMAND() ( \
     matrix_is_on(MATRIX_ROW(ADB_POWER), MATRIX_COL(ADB_POWER)) \
 )
+#endif
 
 #endif
