@@ -150,7 +150,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		if (USB_Device_ConfigurationNumber)
 		  USB_DeviceState = DEVICE_STATE_Configured;
 		else
-		  USB_DeviceState = (USB_Device_IsAddressSet()) ? DEVICE_STATE_Configured : DEVICE_STATE_Powered;
+		  USB_DeviceState = (USB_Device_IsAddressSet()) ? DEVICE_STATE_Addressed : DEVICE_STATE_Powered;
 
 		#if defined(USB_SERIES_2_AVR) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
 		EVENT_USB_Device_Connect();
