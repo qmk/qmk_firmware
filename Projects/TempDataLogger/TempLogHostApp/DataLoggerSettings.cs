@@ -31,12 +31,12 @@ namespace Project1HostApp
             {
                 Byte[] Report = new Byte[7];
 
-                Report[0] = this.Day;
-                Report[1] = this.Month;
-                Report[2] = this.Year;
-                Report[3] = this.Hour;
-                Report[4] = this.Minute;
-                Report[5] = this.Second;
+                Report[0] = this.Hour;
+                Report[1] = this.Minute;
+                Report[2] = this.Second;
+                Report[3] = this.Day;
+                Report[4] = this.Month;
+                Report[5] = this.Year;
                 Report[6] = this.LogInterval500MS;
 
                 return Report;
@@ -44,12 +44,12 @@ namespace Project1HostApp
 
             public void FromReport(Byte[] Report)
             {
-                this.Day = Report[0];
-                this.Month = Report[1];
-                this.Year = Report[2];
-                this.Hour = Report[3];
-                this.Minute = Report[4];
-                this.Second = Report[5];
+                this.Hour = Report[0];
+                this.Minute = Report[1];
+                this.Second = Report[2];
+                this.Day = Report[3];
+                this.Month = Report[4];
+                this.Year = Report[5];
                 this.LogInterval500MS = Report[6];
             }
         };
@@ -127,14 +127,15 @@ namespace Project1HostApp
 
                 ConnectionHandle.Read(0x00, Report);
                 DeviceReport.FromReport(Report);
+                String msgText = "Device parameters retrieved successfully.";
 
                 try
                 {
                     dtpDate.Value = new DateTime(
                         (2000 + DeviceReport.Year),
                         DeviceReport.Month,
-                        DeviceReport.Day); 
-                    
+                        DeviceReport.Day);
+
                     dtpTime.Value = new DateTime(
                         DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
                         DeviceReport.Hour,
@@ -143,6 +144,12 @@ namespace Project1HostApp
                 }
                 catch (Exception ex)
                 {
+                    msgText = "Problem reading device:\n" +
+                        ex.Message +
+                        "\nY:" + DeviceReport.Year.ToString() +
+                        " M:" + DeviceReport.Month.ToString() +
+                        " D:" + DeviceReport.Day.ToString() +
+                        "\n\nUsing current date and time.";
                     dtpDate.Value = DateTime.Now;
                     dtpTime.Value = DateTime.Now;
                 }
@@ -156,7 +163,7 @@ namespace Project1HostApp
                     nudLogInterval.Value = nudLogInterval.Minimum;
                 }
 
-                MessageBox.Show("Device parameters retrieved successfully.");
+                MessageBox.Show(msgText);
             }
             catch (Exception ex)
             {

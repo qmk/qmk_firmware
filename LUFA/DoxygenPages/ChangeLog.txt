@@ -47,6 +47,7 @@
   *   - Fixed incorrect HID report descriptor generated for button multiples of 8 by the HID_DESCRIPTOR_MOUSE() and HID_DESCRIPTOR_JOYSTICK()
   *     macros
   *   - Fixed race condition in the DFU class bootloader causing failed device reprogramming in some circumstances (thanks to Luis Mendes)
+  *   - Fixed incorrect time/date configuration data order in the TempDataLogger host application (thanks to David Lazarus)
   *
   *  \section Sec_ChangeLog130303 Version 130303
   *  <b>New:</b>
