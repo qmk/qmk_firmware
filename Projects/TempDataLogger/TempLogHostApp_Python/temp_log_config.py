@@ -53,7 +53,7 @@ def configure_temp_log_device(device, time_date, log_interval_500ms):
     # Followed by the time/date data
     report_data.extend([time_date.hour, time_date.minute,
                         time_date.second, time_date.day,
-                        time_date.month, time_date.year])
+                        time_date.month, time_date.year - 2000])
 
     # Lastly the log interval in 500ms units of time
     report_data.extend([log_interval_500ms])
