@@ -48,7 +48,7 @@
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
 		#include "Lib/FATFs/ff.h"
-		#include "Lib/DS1307.h"
+		#include "Lib/RTC.h"
 		#include "Config/AppConfig.h"
 
 		#include <LUFA/Drivers/Board/LEDs.h>

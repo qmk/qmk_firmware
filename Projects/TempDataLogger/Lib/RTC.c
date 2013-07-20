@@ -5,7 +5,7 @@
            www.lufa-lib.org
 */
 
-#include "DS1307.h"
+#include "RTC.h"
 
 #if defined(DUMMY_RTC)
 
