@@ -78,8 +78,8 @@
  *   <tr>
  *    <td>DUMMY_RTC</td>
  *    <td>AppConfig.h</td>
- *    <td>When a DS1307 RTC chip is not fitted, this token can be defined to make the demo assume a 1/1/1 01:01:01 date/time
- *        stamp at all times, effectively transforming the project into a basic data logger with no specified sample times.</td>
+ *    <td>When a DS1307 RTC chip is not fitted, this token can be defined to make the demo use a dummy software RTC using the system
+ *        clock. This is less accurate and does not store the set time and date into non-volatile memory.</td>
  *   </tr>
  *  </table>
  */

@@ -85,7 +85,7 @@ DWORD get_fattime (void)
 {
 	TimeDate_t CurrTimeDate;
 
-	DS1307_GetTimeDate(&CurrTimeDate);
+	RTC_GetTimeDate(&CurrTimeDate);
 
 
 	return ((DWORD)(20 + CurrTimeDate.Year) << 25) |

@@ -103,7 +103,8 @@ static FIL TempLogFile;
 /** ISR to handle the 500ms ticks for sampling and data logging */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
-	uint8_t LEDMask = LEDs_GetLEDs();
+	/* Signal a 500ms tick has elapsed to the RTC */
+	RTC_Tick500ms();
 
 	/* Check to see if the logging interval has expired */
 	if (++CurrentLoggingTicks < LoggingInterval500MS_SRAM)
@@ -112,13 +113,14 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	/* Reset log tick counter to prepare for next logging interval */
 	CurrentLoggingTicks = 0;
 
+	uint8_t LEDMask = LEDs_GetLEDs();
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 	/* Only log when not connected to a USB host */
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
 	{
 		TimeDate_t CurrentTimeDate;
-		DS1307_GetTimeDate(&CurrentTimeDate);
+		RTC_GetTimeDate(&CurrentTimeDate);
 
 		char     LineBuffer[100];
 		uint16_t BytesWritten;
@@ -170,7 +172,7 @@ void OpenLogFile(void)
 
 	/* Get the current date for the filename as "DDMMYY.csv" */
 	TimeDate_t CurrentTimeDate;
-	DS1307_GetTimeDate(&CurrentTimeDate);
+	RTC_GetTimeDate(&CurrentTimeDate);
 	sprintf(LogFileName, "%02d%02d%02d.csv", CurrentTimeDate.Day, CurrentTimeDate.Month, CurrentTimeDate.Year);
 
 	/* Mount the storage device, open the file */
@@ -206,6 +208,7 @@ void SetupHardware(void)
 	Dataflash_Init();
 	USB_Init();
 	TWI_Init(TWI_BIT_PRESCALE_4, TWI_BITLENGTH_FROM_FREQ(4, 50000));
+	RTC_Init();
 
 	/* 500ms logging interval timer configuration */
 	OCR1A   = (((F_CPU / 1024) / 2) - 1);
@@ -292,7 +295,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
 
-	DS1307_GetTimeDate(&ReportParams->TimeDate);
+	RTC_GetTimeDate(&ReportParams->TimeDate);
 
 	ReportParams->LogInterval500MS = LoggingInterval500MS_SRAM;
 
@@ -316,7 +319,7 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
 
-	DS1307_SetTimeDate(&ReportParams->TimeDate);
+	RTC_SetTimeDate(&ReportParams->TimeDate);
 
 	/* If the logging interval has changed from its current value, write it to EEPROM */
 	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)

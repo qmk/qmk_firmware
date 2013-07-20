@@ -31,6 +31,7 @@
   *  - Library Applications:
   *   - Re-added Set Control Line State request handling to the CDC class bootloader to prevent issues with the .NET serial
   *     class (thanks to Erik Lins)
+  *   - TemperatureDataLogger project dummy RTC mode now tracks real time (thanks to David Lazarus)
   *
   *  <b>Fixed:</b>
   *  - Core:

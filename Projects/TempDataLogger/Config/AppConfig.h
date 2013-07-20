@@ -33,16 +33,16 @@
  *
  *  This is a header file which is be used to configure some of
  *  the application's compile time options, as an alternative to
- *  specifying the compile time constants supplied through a 
+ *  specifying the compile time constants supplied through a
  *  makefile or build system.
  *
- *  For information on what each token does, refer to the 
+ *  For information on what each token does, refer to the
  *  \ref Sec_Options section of the application documentation.
  */
 
 #ifndef _APP_CONFIG_H_
 #define _APP_CONFIG_H_
 
-//	#define DUMMY_RTC
+	#define DUMMY_RTC
 
 #endif

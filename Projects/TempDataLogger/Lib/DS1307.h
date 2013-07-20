@@ -5,14 +5,14 @@
            www.lufa-lib.org
 */
 
-#ifndef _DS1307_H_
-#define _DS1307_H_
+#ifndef _RTC_H_
+#define _RTC_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 
 		#include <LUFA/Drivers/Peripheral/TWI.h>
-		
+
 		#include "Config/AppConfig.h"
 
 	/* Type Defines: */
@@ -117,8 +117,10 @@
 		#define DS1307_ADDRESS       0xD0
 
 	/* Function Prototypes: */
-		bool DS1307_SetTimeDate(const TimeDate_t* NewTimeDate);
-		bool DS1307_GetTimeDate(TimeDate_t* const TimeDate);
+		void RTC_Init(void);
+		void RTC_Tick500ms(void);
+		bool RTC_SetTimeDate(const TimeDate_t* NewTimeDate);
+		bool RTC_GetTimeDate(TimeDate_t* const TimeDate);
 
 #endif
 
