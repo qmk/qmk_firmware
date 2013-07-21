@@ -237,7 +237,7 @@ void process_action(keyrecord_t *record)
             break;
     #ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
-        case ACT_LAYER_TAP1:
+        case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
                 case OP_TAP_TOGGLE:
                     /* tap toggle */
@@ -458,7 +458,7 @@ bool is_tap_key(key_t key)
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
         case ACT_LAYER_TAP:
-        case ACT_LAYER_TAP1:
+        case ACT_LAYER_TAP_EXT:
             return true;
         case ACT_MACRO:
         case ACT_FUNCTION:
@@ -496,7 +496,7 @@ void debug_action(action_t action)
         case ACT_MOUSEKEY:          dprint("ACT_MOUSEKEY");          break;
         case ACT_LAYER:             dprint("ACT_LAYER");             break;
         case ACT_LAYER_TAP:         dprint("ACT_LAYER_TAP");         break;
-        case ACT_LAYER_TAP1:        dprint("ACT_LAYER_TAP1");        break;
+        case ACT_LAYER_TAP_EXT:     dprint("ACT_LAYER_TAP_EXT");     break;
         case ACT_MACRO:             dprint("ACT_MACRO");             break;
         case ACT_COMMAND:           dprint("ACT_COMMAND");           break;
         case ACT_FUNCTION:          dprint("ACT_FUNCTION");          break;
