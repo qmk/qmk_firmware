@@ -62,8 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1000|ooee|pppE BBBB   Layer Bitwise Operation
  *   oo:    operation(00:AND, 01:OR, 10:XOR, 11:SET)
  *   ppp:   4-bit chunk part(0-7)
- *   eBBBB: bits and extra bit
- *   ee:    on event(00:default layer, 01:press, 10:release, 11:both)
+ *   EBBBB: bits and extra bit
+ *   ee:    on event(01:press, 10:release, 11:both)
  *
  * 1001|xxxx|xxxx xxxx   (reserved)
  * 1001|oopp|BBBB BBBB   8-bit Bitwise Operation???
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 101E|LLLL|1111 0010   Off/On
  * 101E|LLLL|1111 0011   Set/Clear
  * 101E|LLLL|1111 xxxx   Reserved(0xF4-FF)
- *   ELLLL: layer(0-31)
+ *   ELLLL: layer 0-31(E: extra bit for layer 16-31)
  *
  *
  * Extensions(11xx)
@@ -108,8 +108,8 @@ enum action_kind_id {
     ACT_MOUSEKEY        = 0b0101,
     /* Layer Actions */
     ACT_LAYER           = 0b1000,
-    ACT_LAYER_TAP       = 0b1010,
-    ACT_LAYER_TAP1      = 0b1011,
+    ACT_LAYER_TAP       = 0b1010, /* Layer  0-15 */
+    ACT_LAYER_TAP_EXT   = 0b1011, /* Layer 16-31 */
     /* Extensions */
     ACT_MACRO           = 0b1100,
     ACT_BACKLIGHT       = 0b1101,
