@@ -36,31 +36,31 @@ void action_macro_play(const macro_t *macro_p)
     if (!macro_p) return;
     while (true) {
         switch (MACRO_READ()) {
-            case INTERVAL:
-                interval = MACRO_READ();
-                debug("INTERVAL("); debug_dec(interval); debug(")\n");
+            case KEY_DOWN:
+                MACRO_READ();
+                dprintf("KEY_DOWN(%02X)\n", macro);
+                register_code(macro);
+                break;
+            case KEY_UP:
+                MACRO_READ();
+                dprintf("KEY_UP(%02X)\n", macro);
+                unregister_code(macro);
                 break;
             case WAIT:
                 MACRO_READ();
-                debug("WAIT("); debug_dec(macro); debug(")\n");
+                dprintf("WAIT(%u)\n", macro);
                 { uint8_t ms = macro; while (ms--) _delay_ms(1); }
                 break;
-            case MODS_DOWN:
-                MACRO_READ();
-                debug("MODS_DOWN("); debug_hex(macro); debug(")\n");
-                add_mods(macro);
-                break;
-            case MODS_UP:
-                MACRO_READ();
-                debug("MODS_UP("); debug_hex(macro); debug(")\n");
-                del_mods(macro);
+            case INTERVAL:
+                interval = MACRO_READ();
+                dprintf("INTERVAL(%u)\n", interval);
                 break;
             case 0x04 ... 0x73:
-                debug("DOWN("); debug_hex(macro); debug(")\n");
+                dprintf("DOWN(%02X)\n", macro);
                 register_code(macro);
                 break;
             case 0x84 ... 0xF3:
-                debug("UP("); debug_hex(macro); debug(")\n");
+                dprintf("UP(%02X)\n", macro);
                 unregister_code(macro&0x7F);
                 break;
             case END:
