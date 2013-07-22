@@ -363,21 +363,19 @@ Default Layer also has bitwise operations, they are executed when key is release
 
 `Macro` action indicates complex key strokes.
  
-    MACRO( MD(LSHIFT), D(D), END )
-    MACRO( U(D), MU(LSHIFT), END )
+    MACRO( D(LSHIFT), D(D), END )
+    MACRO( U(D), U(LSHIFT), END )
     MACRO( I(255), T(H), T(E), T(L), T(L), W(255), T(O), END )
 
-#### 2.3.1 Normal mode
+#### 2.3.1 Macro Commands
 - **I()**   change interavl of stroke.
 - **D()**   press key
 - **U()**   release key
 - **T()**   type key(press and release)
 - **W()**   wait
-- **MD()**  modifier down
-- **MU()**  modifier up
 - **END**   end mark
 
-#### 2.3.2 Extended mode
+#### 2.3.2 Examples
 
 ***TODO: sample impl***
 See `keyboard/hhkb/keymap.c` for sample.

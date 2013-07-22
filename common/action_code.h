@@ -33,9 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *   r: Left/Right flag(Left:0, Right:1)
  *
  * ACT_MODS_TAP(001r):
- * 0010|mods|0000 0000    Modifiers with OneShot
- * 0010|mods|0000 00xx    (reserved)
- * 0010|mods| keycode     Modifiers with Tap Key
+ * 001r|mods|0000 0000    Modifiers with OneShot
+ * 001r|mods|0000 00xx    (reserved)
+ * 001r|mods| keycode     Modifiers with Tap Key
  *
  *
  * Other Keys(01xx)
