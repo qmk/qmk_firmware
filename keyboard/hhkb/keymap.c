@@ -67,7 +67,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN4, \
             FN5,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
-                LGUI,LALT,          FN6,                RALT,NO),
+                LGUI,LALT,          FN6,                RALT,RGUI),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -179,6 +179,7 @@ enum macro_id {
     LSHIFT_PAREN,
     RSHIFT_PAREN,
     HELLO,
+    VOLUP,
 };
 
 
@@ -203,6 +204,7 @@ static const uint16_t PROGMEM fn_actions[] = {
 //  [13] = ACTION_MACRO_TAP(LSHIFT_PAREN),             // Macro: LShift with tap '('
 //  [14] = ACTION_MACRO_TAP(RSHIFT_PAREN),             // Macro: RShift with tap ')'
 //  [15] = ACTION_MACRO(HELLO),                        // Macro: say hello
+//  [9] = ACTION_MACRO(VOLUP),                         // Macro: media key
 };
 
 
@@ -218,22 +220,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case LSHIFT_PAREN:
             if (tap.count > 0 && !tap.interrupted) {
                 return (event.pressed ?
-                        MACRO( MD(LSHIFT), D(9), U(9), MU(LSHIFT), END ) : MACRO_NONE);
+                        MACRO( D(LSHIFT), D(9), U(9), U(LSHIFT), END ) : MACRO_NONE);
             } else {
                 return (event.pressed ?
-                        MACRO( MD(LSHIFT), END ) : MACRO( MU(LSHIFT), END ) );
+                        MACRO( D(LSHIFT), END ) : MACRO( U(LSHIFT), END ) );
             }
         case RSHIFT_PAREN:
             if (tap.count > 0 && !tap.interrupted) {
                 return (event.pressed ?
-                        MACRO( MD(RSHIFT), D(0), U(0), MU(RSHIFT), END ) : MACRO_NONE);
+                        MACRO( D(RSHIFT), D(0), U(0), U(RSHIFT), END ) : MACRO_NONE);
             } else {
                 return (event.pressed ?
-                        MACRO( MD(RSHIFT), END ) : MACRO( MU(RSHIFT), END ) );
+                        MACRO( D(RSHIFT), END ) : MACRO( U(RSHIFT), END ) );
             }
         case HELLO:
             return (event.pressed ?
                     MACRO( I(0), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
+                    MACRO_NONE );
+        case VOLUP:
+            return (event.pressed ?
+                    MACRO( D(VOLU), U(VOLU), END ) :
                     MACRO_NONE );
     }
     return MACRO_NONE;
