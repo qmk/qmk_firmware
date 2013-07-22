@@ -35,80 +35,68 @@ void action_macro_play(const macro_t *macro_p);
 
 
 
-/* TODO: NOT FINISHED 
-normal mode command:
-    key(down):      0x04-7f/73(F24)
-    key(up):        0x84-ff
-command:        0x00-03, 0x80-83(0x74-7f, 0xf4-ff)
-    mods down   0x00
-    mods up     0x01
-    wait        0x02
-    interval    0x03
-    extkey down 0x80
-    extkey up   0x81
-    ext commad  0x82
-    ext mode    0x83
-    end         0xff
-
-extension mode command: NOT IMPLEMENTED
-    key down            0x00
-    key up              0x01
-    key down + wait
-    key up   + wait
-    mods push
-    mods pop
-    wait
-    interval
-    if
-    loop
-    push
-    pop
-    all up
-    end
-*/
+/* Macro commands
+ *   code(0x04-73)                      // key down(1byte)
+ *   code(0x04-73) | 0x80               // key up(1byte)
+ *   { KEY_DOWN, code(0x04-0xff) }      // key down(2bytes)
+ *   { KEY_UP,   code(0x04-0xff) }      // key up(2bytes)
+ *   WAIT                               // wait milli-seconds
+ *   INTERVAL                           // set interval between macro commands
+ *   END                                // stop macro execution
+ *
+ * Ideas(Not implemented):
+ *   modifiers
+ *   system usage
+ *   consumer usage
+ *   unicode usage
+ *   function call
+ *   conditionals
+ *   loop
+ */
 enum macro_command_id{
     /* 0x00 - 0x03 */
     END                 = 0x00,
-    MODS_DOWN           = 0x01,
-    MODS_UP             = 0x02,
-    MODS_SET,
-    MODS_PUSH,
-    MODS_POP,
+    KEY_DOWN,
+    KEY_UP,
 
+    /* 0x04 - 0x73 (reserved for keycode down) */
+
+    /* 0x74 - 0x83 */
     WAIT                = 0x74,
     INTERVAL,
-    /* 0x74 - 0x7f */
-    /* 0x80 - 0x84 */
 
-    EXT_DOWN,
-    EXT_UP,
-    EXT_WAIT,
-    EXT_INTERVAL,
-    COMPRESSION_MODE,
+    /* 0x84 - 0xf3 (reserved for keycode up) */
 
-    EXTENSION_MODE      = 0xff,
+    /* 0xf4 - 0xff */
 };
 
 
-/* normal mode */
-#define DOWN(key)       (key)
-#define UP(key)         ((key) | 0x80)
-#define TYPE(key)       (key), (key | 0x80)
-#define MODS_DOWN(mods) MODS_DOWN, (mods)
-#define MODS_UP(mods)   MODS_UP, (mods)
+/* TODO: keycode:0x04-0x73 can be handled by 1byte command  else 2bytes are needed
+ * if keycode between 0x04 and 0x73
+ *      keycode / (keycode|0x80)
+ * else
+ *      {KEY_DOWN, keycode} / {KEY_UP, keycode}
+*/
+#define DOWN(key)       KEY_DOWN, (key)
+#define UP(key)         KEY_UP, (key)
+#define TYPE(key)       DOWN(key), UP(key)
 #define WAIT(ms)        WAIT, (ms)
 #define INTERVAL(ms)    INTERVAL, (ms)
 
+/* key down */
 #define D(key)          DOWN(KC_##key)
+/* key up */
 #define U(key)          UP(KC_##key)
+/* key type */
 #define T(key)          TYPE(KC_##key)
-#define MD(key)         MODS_DOWN(MOD_BIT(KC_##key))
-#define MU(key)         MODS_UP(MOD_BIT(KC_##key))
+/* wait */
 #define W(ms)           WAIT(ms)
+/* interval */
 #define I(ms)           INTERVAL(ms)
 
-
-/* extension mode */
+/* for backward comaptibility */
+#define MD(key)         DOWN(KC_##key)
+#define MU(key)         UP(KC_##key)
 
 
 #endif /* ACTION_MACRO_H */
