@@ -9,10 +9,10 @@ Discuss: http://geekhack.org/showwiki.php?title=Island:14290
 
 Build
 -----
-0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data). By default Data line uses port F0.
+0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data). By default Data line uses port D0.
    This converter uses AVR's internal pull-up, but it seems to be too weak, in particular when you want to use a long or coiled cable.
    The external pull-up resistor(1K-10K Ohm) on Data is strongly recommended.
-1. Define following macros for ADB connection in config.h if you use other than port F0.
+1. Define following macros for ADB connection in config.h if you use other than port D0.
    ADB_PORT, ADB_PIN, ADB_DDR, ADB_DATA_BIT
 2. make
 3. program Teensy
