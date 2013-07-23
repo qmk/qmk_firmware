@@ -124,6 +124,8 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
 Boot Magic are executed during boot up time. Press Magic key below then pulgin keyboard cable.
 Note that you must use keys of **Layer 0** as Magic keys. These settings are stored in EEPROM so that retain your configure over power cycles.
 
+To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be pressed along with the following configuration keys. The salt key is configurable in `config.h`. See [common/bootmagic.h](common/bootmagic.h).
+
 #### General
 - Skip reading EEPROM to start with default configuration(`ESC`)
 - Clear configuration stored in EEPROM to reset configuration(`Backspace`)
