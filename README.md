@@ -164,12 +164,12 @@ TODO: Magic key combination to avoid unintentional press during plug in
 **TBD**
 
 
-Mechanical Locking support for CapsLock
----------------------------------------
-To enable this feature define these two macros in `config.h` and use `KC_LCAP` for locking CapsLock in keymap instead of normal `KC_CAPS`. Resync option tries to keep lock switch state consistent with keyboard LED state.
+Mechanical Locking support
+--------------------------
+This feature makes it possible for you to use mechanical switch for `CapsLock`, `NumLock` or `ScrollLock`. To enable this feature define these macros in `config.h` and use `KC_LCAP`, `KC_LNUM` or `KC_LSCR` in keymap for locking key instead of normal `KC_CAPS`, `KC_NLCK` or `KC_SLCK`. Resync option tries to keep lock switch state consistent with keyboard LED state.
  
-    #define CAPSLOCK_LOCKING_ENABLE
-    #define CAPSLOCK_LOCKING_RESYNC_ENABLE
+    #define LOCKING_SUPPORT_ENABLE
+    #define LOCKING_RESYNC_ENABLE
 
 
 Start Your Own Project

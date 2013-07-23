@@ -34,10 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL(code)    ((code)&0x07)
 
 
-/* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
-#define CAPSLOCK_LOCKING_ENABLE
-/* Locking CapsLock resynchronize hack */
-#define CAPSLOCK_LOCKING_RESYNC_ENABLE
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
 
 
 /* legacy keymap support */
@@ -51,9 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* ADB port setting */
-#define ADB_PORT        PORTF
-#define ADB_PIN         PINF
-#define ADB_DDR         DDRF
+#define ADB_PORT        PORTD
+#define ADB_PIN         PIND
+#define ADB_DDR         DDRD
 #define ADB_DATA_BIT    0
 //#define ADB_PSW_BIT     1       // optional
 
