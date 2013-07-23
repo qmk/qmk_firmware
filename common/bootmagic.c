@@ -5,6 +5,7 @@
 #include "bootloader.h"
 #include "debug.h"
 #include "keymap.h"
+#include "action_layer.h"
 #include "eeconfig.h"
 #include "bootmagic.h"
 
@@ -94,7 +95,7 @@ void bootmagic(void)
     }
 }
 
-bool bootmagic_scan_keycode(uint8_t keycode)
+static bool scan_keycode(uint8_t keycode)
 {
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         matrix_row_t matrix_row = matrix_get_row(r);
@@ -107,4 +108,11 @@ bool bootmagic_scan_keycode(uint8_t keycode)
         }
     }
     return false;
+}
+
+bool bootmagic_scan_keycode(uint8_t keycode)
+{
+    if (!scan_keycode(BOOTMAGIC_KEY_SALT)) return false;
+
+    return scan_keycode(keycode);
 }
