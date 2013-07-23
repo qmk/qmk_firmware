@@ -60,10 +60,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_DEL  KC_DELETE
 #define KC_INS  KC_INSERT
 #define KC_CAPS KC_CAPSLOCK
+#define KC_CLCK KC_CAPSLOCK
 #define KC_RGHT KC_RIGHT
 #define KC_PGDN KC_PGDOWN
 #define KC_PSCR KC_PSCREEN
-#define KC_SLCK KC_SCKLOCK
+#define KC_SLCK KC_SCROLLLOCK
 #define KC_PAUS KC_PAUSE
 #define KC_BRK  KC_PAUSE
 #define KC_NLCK KC_NUMLOCK
@@ -82,6 +83,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_NUHS KC_NONUS_HASH
 #define KC_NUBS KC_NONUS_BSLASH
 #define KC_LCAP KC_LOCKING_CAPS
+#define KC_LNUM KC_LOCKING_NUM
+#define KC_LSCR KC_LOCKING_SCROLL
 #define KC_ERAS KC_ALT_ERASE,
 #define KC_CLR  KC_CLEAR
 /* Japanese specific */
@@ -230,7 +233,7 @@ enum hid_keyboard_keypad_usage {
     KC_F11,
     KC_F12,
     KC_PSCREEN,
-    KC_SCKLOCK,
+    KC_SCROLLLOCK,
     KC_PAUSE,
     KC_INSERT,
     KC_HOME,
