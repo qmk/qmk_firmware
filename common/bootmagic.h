@@ -2,6 +2,12 @@
 #define BOOTMAGIC_H
 
 
+/* bootmagic salt key */
+#ifndef BOOTMAGIC_KEY_SALT
+#define BOOTMAGIC_KEY_SALT              KC_SPACE
+#endif
+
+/* skip bootmagic and eeconfig */
 #ifndef BOOTMAGIC_KEY_SKIP
 #define BOOTMAGIC_KEY_SKIP              KC_ESC
 #endif
