@@ -181,7 +181,7 @@
        *  \param[in] twi        The TWI Peripheral to use
 			 *  \param[in] Baud       Value of the BAUD register of the TWI Master.
 			 */
-			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud) ATTR_ALWAYS_INLINE;
+			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud)
 			{
         twi->MASTER.BAUD = Baud;
@@ -193,7 +193,7 @@
        *
        *  \param[in] twi        The TWI Peripheral to use
 			 */
-			static inline void TWI_Disable(TWI_t *twi) ATTR_ALWAYS_INLINE;
+			static inline void TWI_Disable(TWI_t *twi) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void TWI_Disable(TWI_t *twi)
 			{
         twi->MASTER.CTRLA &= ~TWI_MASTER_ENABLE_bm;
@@ -203,7 +203,7 @@
        *
        *  \param[in] twi        The TWI Peripheral to use
        */
-			static inline void TWI_StopTransmission(TWI_t *twi) ATTR_ALWAYS_INLINE;
+			static inline void TWI_StopTransmission(TWI_t *twi) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void TWI_StopTransmission(TWI_t *twi)
 			{
         twi->MASTER.CTRLC = TWI_MASTER_CMD_STOP_gc;
@@ -220,7 +220,7 @@
 			 */
 			uint8_t TWI_StartTransmission(TWI_t *twi,
                                     const uint8_t SlaveAddress,
-			                              const uint8_t TimeoutMS);
+			                              const uint8_t TimeoutMS) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a byte to the currently addressed device on the TWI bus.
 			 *
@@ -229,7 +229,7 @@
 			 *
 			 *  \return Boolean \c true if the recipient ACKed the byte, \c false otherwise
 			 */
-			bool TWI_SendByte(TWI_t *twi, const uint8_t Byte);
+			bool TWI_SendByte(TWI_t *twi, const uint8_t Byte) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Receives a byte from the currently addressed device on the TWI bus.
 			 *
@@ -240,7 +240,7 @@
 			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise.
 			 */
 			bool TWI_ReceiveByte(TWI_t *twi, uint8_t* const Byte,
-			                     const bool LastByte) ATTR_NON_NULL_PTR_ARG(1);
+			                     const bool LastByte) ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			/** High level function to perform a complete packet transfer over the TWI bus to the specified
 			 *  device.
@@ -261,7 +261,7 @@
 			                       const uint8_t* InternalAddress,
 			                       uint8_t InternalAddressLen,
 			                       uint8_t* Buffer,
-			                       uint8_t Length) ATTR_NON_NULL_PTR_ARG(3);
+			                       uint8_t Length) ATTR_NON_NULL_PTR_ARG(1, 4);
 
 			/** High level function to perform a complete packet transfer over the TWI bus from the specified
 			 *  device.
@@ -282,7 +282,7 @@
 			                        const uint8_t* InternalAddress,
 			                        uint8_t InternalAddressLen,
 			                        const uint8_t* Buffer,
-			                        uint8_t Length) ATTR_NON_NULL_PTR_ARG(3);
+			                        uint8_t Length) ATTR_NON_NULL_PTR_ARG(1, 4);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
