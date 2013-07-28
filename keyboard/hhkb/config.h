@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCAFE
-#define DEVICE_VER      0x0103
+#define DEVICE_VER      0x0104
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         HHKB mod
 #define DESCRIPTION     t.m.k. keyboard firmware for HHKB mod
@@ -31,27 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 
-/* 
- * Boot magic keys
- * call some function by pressing key when pluging cable or powering on.
- */
-/* key position on matrix(ROW:COL) */
-#define KEY_FN          0x54
-#define KEY_D           0x14
-#define KEY_IS_ON(key)  matrix_is_on((key)>>4, (key)&0xF)
-/* kick up bootloader */
-#define IS_BOOTMAGIC_BOOTLOADER()       KEY_IS_ON(KEY_FN)
-/* debug on */
-#define IS_BOOTMAGIC_DEBUG()            KEY_IS_ON(KEY_D)
-
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 
 
-/* mouse keys */
-#ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 100
-#endif
 
 /* period of tapping(ms) */
 #define TAPPING_TERM    300
@@ -62,11 +45,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Boot Magic salt key: Space */
 #define BOOTMAGIC_KEY_SALT      KC_FN6
 
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
-
 /* disable debug print */
 //#define NO_DEBUG
 

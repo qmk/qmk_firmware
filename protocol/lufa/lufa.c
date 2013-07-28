@@ -220,6 +220,12 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                      CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
+
+#ifdef NKRO_ENABLE
+    /* Setup NKRO HID Report Endpoints */
+    ConfigSuccess &= ENDPOINT_CONFIG(NKRO_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     NKRO_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 }
 
 /*
@@ -350,15 +356,31 @@ static void send_keyboard(report_keyboard_t *report)
     if (USB_DeviceState != DEVICE_STATE_Configured)
         return;
 
-    // TODO: handle NKRO report
     /* Select the Keyboard Report Endpoint */
-    Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+#ifdef NKRO_ENABLE
+    if (keyboard_nkro) {
+        Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
+    }
+    else
+#endif
+    {
+        Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+    }
 
     /* Check if Keyboard Endpoint Ready for Read/Write */
     while (--timeout && !Endpoint_IsReadWriteAllowed()) ;
 
     /* Write Keyboard Report Data */
-    Endpoint_Write_Stream_LE(report, sizeof(report_keyboard_t), NULL);
+#ifdef NKRO_ENABLE
+    if (keyboard_nkro) {
+        Endpoint_Write_Stream_LE(report, NKRO_EPSIZE, NULL);
+    }
+    else
+#endif
+    {
+        /* boot mode */
+        Endpoint_Write_Stream_LE(report, KEYBOARD_EPSIZE, NULL);
+    }
 
     /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
