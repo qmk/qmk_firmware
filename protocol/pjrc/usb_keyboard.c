@@ -57,12 +57,12 @@ int8_t usb_keyboard_send_report(report_keyboard_t *report)
 
 #ifdef NKRO_ENABLE
     if (keyboard_nkro)
-        result = send_report(report, KBD2_ENDPOINT, 0, KBD2_REPORT_KEYS);
+        result = send_report(report, KBD2_ENDPOINT, 0, KBD2_SIZE);
     else
 #endif
     {
         if (usb_keyboard_protocol)
-            result = send_report(report, KBD_ENDPOINT, 0, KBD_REPORT_KEYS);
+            result = send_report(report, KBD_ENDPOINT, 0, KBD_SIZE);
         else
             result = send_report(report, KBD_ENDPOINT, 0, 6);
     }
@@ -104,15 +104,8 @@ static inline int8_t send_report(report_keyboard_t *report, uint8_t endpoint, ui
             cli();
             UENUM = endpoint;
     }
-    UEDATX = report->mods;
-#ifdef NKRO_ENABLE
-    if (!keyboard_nkro)
-        UEDATX = 0;
-#else
-    UEDATX = 0;
-#endif
     for (uint8_t i = keys_start; i < keys_end; i++) {
-            UEDATX = report->keys[i];
+            UEDATX = report->raw[i];
     }
     UEINTX = 0x3A;
     SREG = intr_state;

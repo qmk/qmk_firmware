@@ -37,8 +37,10 @@ static uint16_t last_consumer_report = 0;
 
 static inline void add_key_byte(uint8_t code);
 static inline void del_key_byte(uint8_t code);
+#ifdef NKRO_ENABLE
 static inline void add_key_bit(uint8_t code);
 static inline void del_key_bit(uint8_t code);
+#endif
 
 
 void host_set_driver(host_driver_t *d)
@@ -63,11 +65,11 @@ void host_keyboard_send(report_keyboard_t *report)
     (*driver->send_keyboard)(report);
 
     if (debug_keyboard) {
-        dprint("keys: ");
-        for (int i = 0; i < REPORT_KEYS; i++) {
-            dprintf("%02X ", keyboard_report->keys[i]);
+        dprint("keyboard_report: ");
+        for (uint8_t i = 0; i < REPORT_SIZE; i++) {
+            dprintf("%02X ", keyboard_report->raw[i]);
         }
-        dprintf(" mods: %02X\n", keyboard_report->mods);
+        dprint("\n");
     }
 }
 
@@ -122,8 +124,9 @@ void host_del_key(uint8_t key)
 
 void host_clear_keys(void)
 {
-    for (int8_t i = 0; i < REPORT_KEYS; i++) {
-        keyboard_report->keys[i] = 0;
+    // not clea  mods
+    for (int8_t i = 1; i < REPORT_SIZE; i++) {
+        keyboard_report->raw[i] = 0;
     }
 }
 
@@ -155,8 +158,8 @@ void host_clear_mods(void)
 uint8_t host_has_anykey(void)
 {
     uint8_t cnt = 0;
-    for (int i = 0; i < REPORT_KEYS; i++) {
-        if (keyboard_report->keys[i])
+    for (uint8_t i = 1; i < REPORT_SIZE; i++) {
+        if (keyboard_report->raw[i])
             cnt++;
     }
     return cnt;
@@ -172,9 +175,9 @@ uint8_t host_get_first_key(void)
 #ifdef NKRO_ENABLE
     if (keyboard_nkro) {
         uint8_t i = 0;
-        for (; i < REPORT_KEYS && !keyboard_report->keys[i]; i++)
+        for (; i < REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
             ;
-        return i<<3 | biton(keyboard_report->keys[i]);
+        return i<<3 | biton(keyboard_report->nkro.bits[i]);
     }
 #endif
     return keyboard_report->keys[0];
@@ -222,18 +225,18 @@ static inline void add_key_byte(uint8_t code)
 
 static inline void del_key_byte(uint8_t code)
 {
-    int i = 0;
-    for (; i < REPORT_KEYS; i++) {
+    for (uint8_t i = 0; i < REPORT_KEYS; i++) {
         if (keyboard_report->keys[i] == code) {
             keyboard_report->keys[i] = 0;
         }
     }
 }
 
+#ifdef NKRO_ENABLE
 static inline void add_key_bit(uint8_t code)
 {
-    if ((code>>3) < REPORT_KEYS) {
-        keyboard_report->keys[code>>3] |= 1<<(code&7);
+    if ((code>>3) < REPORT_BITS) {
+        keyboard_report->nkro.bits[code>>3] |= 1<<(code&7);
     } else {
         dprintf("add_key_bit: can't add: %02X\n", code);
     }
@@ -241,9 +244,10 @@ static inline void add_key_bit(uint8_t code)
 
 static inline void del_key_bit(uint8_t code)
 {
-    if ((code>>3) < REPORT_KEYS) {
-        keyboard_report->keys[code>>3] &= ~(1<<(code&7));
+    if ((code>>3) < REPORT_BITS) {
+        keyboard_report->nkro.bits[code>>3] &= ~(1<<(code&7));
     } else {
         dprintf("del_key_bit: can't del: %02X\n", code);
     }
 }
+#endif
