@@ -57,7 +57,9 @@ CONFIG_H = config.h
 
 
 # MCU name
+# PJRC Teensy++ 2.0
 #MCU = at90usb1286
+# TMK Alt Controller or PJRC Teensy 2.0
 MCU = atmega32u4
 
 # Processor frequency.
@@ -100,7 +102,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
 #   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
+#   Atmel DFU loader 4096	(TMK Alt Controller)
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
