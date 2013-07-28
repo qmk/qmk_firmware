@@ -8,7 +8,6 @@ See [this thread][AltController] in geekhack.org.
 
 [HHKB]: http://www.pfu.fujitsu.com/hhkeyboard/
 [AltController]: http://geekhack.org/index.php?topic=12047.0
-[Teensy]: http://www.pjrc.com/teensy/
 
 
 ##Features
@@ -22,8 +21,8 @@ See README of [tmk_keyboard] for more.
 [tmk_keyboard]: http://github.com/tmk/tmk_keyboard
  
 ###Pros
-* No risk: Everything is all reversible
-* Without PCB trace cutting, case mod or any destructives
+* No risks: Everything is all reversible
+* No need for PCB trace patching, case cutting or any other destructive mod
 * Can keep original controller intact
 * Can change all HHKB behaviour as you like
 
@@ -41,61 +40,35 @@ See [doc/HHKB.txt](doc/HHKB.txt) and files under [doc/](doc/) for internal of HH
 
 
 ##Build Firmware & Program
-You can choose some combination of hardware and USB protocol stack([LUFA], [PJRC]).
+See [this document](../../doc/build.md) first.
 
-### Install Tools
-See [this document](../../doc/build.md).
+### Configuration
+Set `MCU`, `BOOTLOADER_SIZE` and other build options in `Makefile` and `config.h`.
 
-### TMK Alt Controller Board
-    $ make -f Makefile.tmk
+### Build 
+Just run make after intall tools.
 
-This programs the controller with [dfu-programmer] if the tool is intalled and configured properly.
+    $ make
 
-    $ make -f Makefile.tmk dfu
-
-Push reset button and program with [FLIP]. The tool should be intalled and configured properly.
-
-    $ make -f Makefile.tmk flip
-
-Or you can also program with FLIP GUI.
-
-[dfu-programmer]: http://dfu-programmer.sourceforge.net/
-[FLIP]: http://www.atmel.com/tools/FLIP.aspx
-
-
-### PJRC Teensy++
-Build with [LUFA] USB stack:
-
-    $ make -f Makefile.lufa
-
-or with [PJRC] USB stack:
+Use `Makefile.pjrc` if you want to use PJRC stack instead of LUFA.(LUFA is recommended.)
 
     $ make -f Makefile.pjrc
 
-Push reset button and program with [Teensy Loader(command line)]. The tool should be intalled and configured properly.
-
-    $  make -f Makefile.lufa teensy
-    $  make -f Makefile.pjrc teensy
-
-Or you can also program with [Teensy Loader(GUI)].
-
-[LUFA]: http://www.fourwalledcubicle.com/LUFA.php
-[PJRC]: http://www.pjrc.com/teensy/usb_keyboard.html
-[Teensy Loader(command line)]: http://www.pjrc.com/teensy/loader_cli.html
-[Teensy Loader(GUI)]: http://www.pjrc.com/teensy/loader.html
-
-
-###AVR Mega with [V-USB]
-Build:
+Use `Makefile.vusb` for [V-USB] controller.(not supported actively any more.)
     $ make -f Makefile.vusb
 
-Program [USBaspLoader] on MCU with AVR programmer like [AVRISPmkII] and tool like [avrdude].
+### Program
+First, push reset button on board to start bootloader.
 
-You can programs with [avrdude] once you have programmed [USBaspLoader] on MCU.
-    $  make -f Makefile.vusb program
+This command programs the controller with [dfu-programmer] if the tool is intalled and configured properly.
 
-[AVRISPmkII]: http://www.atmel.com/tools/AVRISPMKII.aspx
-[avrdude]: http://www.nongnu.org/avrdude/
+    $ make dfu
+
+Or you can also use [FLIP] command to program. Also the tool should be intalled and configured properly. FLIP GUI app is also available.
+
+    $ make flip
+
+Use [Teensy Loader] if your controller is Teensy/Teensy++.
 
 
 ##How to Customize
@@ -103,7 +76,7 @@ See [tmk_keyboard] documents.
 
 
 ##Hardware
-You have some options for hardware. Development boards with USB AVR family(ATMega32U4, AT90USB1286) like Teensy will work while MegaAVR with V-USB library is also cheapear option for DIY.
+You have some options for hardware. Development boards with USB AVR family(ATMega32U4, AT90USB1286) like Teensy will work while MegaAVR with [V-USB] library is also cheapear option for DIY.
 
 ###1. TMK Alt Controller Board
 TMK designed [Keyboard Controller Board for HHKB Pro2(KiCad project)](https://github.com/tmk/HHKB_controller).
@@ -127,7 +100,6 @@ See [this post](http://geekhack.org/index.php?topic=12047.msg948923#msg948923).
     +---------------+
 
 - NOTE: PJRC [Teensy](http://www.pjrc.com/teensy/)
-[Teensy Loader]: http://www.pjrc.com/teensy/loader.html
 
 ###3. V-USB connection
                     +---+   +---------------+
@@ -156,5 +128,11 @@ See [this post](http://geekhack.org/index.php?topic=12047.msg948923#msg948923).
 - NOTE: See [V-USB] documentation for more detail of hardware and the USB stack.
 - NOTE: [USBaspLoader] is very useful for firmware update.
 
+
+[LUFA]: http://www.fourwalledcubicle.com/LUFA.php
+[PJRC]: http://www.pjrc.com/teensy/usb_keyboard.html
+[dfu-programmer]: http://dfu-programmer.sourceforge.net/
+[FLIP]: http://www.atmel.com/tools/FLIP.aspx
+[Teensy Loader]: http://www.pjrc.com/teensy/loader.html
 [V-USB]: http://www.obdev.at/products/vusb/index.html
 [USBaspLoader]: http://www.obdev.at/products/vusb/usbasploader.html
