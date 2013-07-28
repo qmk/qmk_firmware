@@ -1,5 +1,5 @@
 /* 
- * Copyright 2012 Jun Wako <wakojun@gmail.com>
+ * Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
  *     LUFA-120219/Demos/Device/Lowlevel/GenericHID
@@ -78,6 +78,13 @@ typedef struct
     USB_Descriptor_Endpoint_t             Console_INEndpoint;
     USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
 #endif
+
+#ifdef NKRO_ENABLE
+    // NKRO HID Interface
+    USB_Descriptor_Interface_t            NKRO_Interface;
+    USB_HID_Descriptor_HID_t              NKRO_HID;
+    USB_Descriptor_Endpoint_t             NKRO_INEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 
@@ -102,9 +109,15 @@ typedef struct
 #   define CONSOLE_INTERFACE        EXTRAKEY_INTERFACE
 #endif
 
+#ifdef NKRO_ENABLE
+#   define NKRO_INTERFACE           (CONSOLE_INTERFACE + 1)
+#else
+#   define NKRO_INTERFACE           CONSOLE_INTERFACE
+#endif
+
 
 /* nubmer of interfaces */
-#define TOTAL_INTERFACES            (CONSOLE_INTERFACE + 1)
+#define TOTAL_INTERFACES            (NKRO_INTERFACE + 1)
 
 
 // Endopoint number and size
@@ -125,6 +138,12 @@ typedef struct
 #ifdef CONSOLE_ENABLE
 #   define CONSOLE_IN_EPNUM         (EXTRAKEY_IN_EPNUM + 1)
 #   define CONSOLE_OUT_EPNUM        (EXTRAKEY_IN_EPNUM + 2)
+#else
+#   define CONSOLE_OUT_EPNUM        EXTRAKEY_IN_EPNUM
+#endif
+
+#ifdef NKRO_ENABLE
+#   define NKRO_IN_EPNUM            (CONSOLE_OUT_EPNUM + 1)
 #endif
 
 
@@ -132,6 +151,7 @@ typedef struct
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
 #define CONSOLE_EPSIZE              32
+#define NKRO_EPSIZE                 16
 
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

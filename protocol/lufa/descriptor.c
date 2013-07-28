@@ -57,9 +57,11 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
         HID_RI_REPORT_COUNT(8, 0x08),
         HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_INPUT(8, HID_IOF_CONSTANT),
+        HID_RI_INPUT(8, HID_IOF_CONSTANT),  /* reserved */
+
         HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
         HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
         HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
@@ -69,6 +71,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x03),
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+
         HID_RI_USAGE_PAGE(8, 0x07), /* Keyboard */
         HID_RI_USAGE_MINIMUM(8, 0x00), /* Reserved (no event indicated) */
         HID_RI_USAGE_MAXIMUM(8, 0xFF), /* Keyboard Application */
@@ -210,11 +213,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM NKROReport[] =
 
         HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
         HID_RI_USAGE_MINIMUM(8, 0x00), /* Keyboard 0 */
-        HID_RI_USAGE_MAXIMUM(8, NKRO_SIZE*8-1), /* Keyboard Right GUI */
+        HID_RI_USAGE_MAXIMUM(8, (NKRO_EPSIZE-1)*8-1), /* Keyboard Right GUI */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-        HID_RI_REPORT_COUNT(8, NKRO_SIZE*8),
+        HID_RI_REPORT_COUNT(8, (NKRO_EPSIZE-1)*8),
         HID_RI_REPORT_SIZE(8, 0x01),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    HID_RI_END_COLLECTION(0),
 };
 #endif
 
@@ -439,6 +444,48 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .PollingIntervalMS      = 0x01
         },
 #endif
+
+    /*
+     * NKRO
+     */
+#ifdef NKRO_ENABLE
+    .NKRO_Interface =
+        {
+            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+
+            .InterfaceNumber        = NKRO_INTERFACE,
+            .AlternateSetting       = 0x00,
+
+            .TotalEndpoints         = 1,
+
+            .Class                  = HID_CSCP_HIDClass,
+            .SubClass               = HID_CSCP_NonBootSubclass,
+            .Protocol               = HID_CSCP_NonBootProtocol,
+
+            .InterfaceStrIndex      = NO_DESCRIPTOR
+        },
+
+    .NKRO_HID =
+        {
+            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+
+            .HIDSpec                = VERSION_BCD(01.11),
+            .CountryCode            = 0x00,
+            .TotalReportDescriptors = 1,
+            .HIDReportType          = HID_DTYPE_Report,
+            .HIDReportLength        = sizeof(NKROReport)
+        },
+
+    .NKRO_INEndpoint =
+        {
+            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+            .EndpointAddress        = (ENDPOINT_DIR_IN | NKRO_IN_EPNUM),
+            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+            .EndpointSize           = NKRO_EPSIZE,
+            .PollingIntervalMS      = 0x01
+        },
+#endif
 };
 
 
@@ -536,6 +583,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
 #endif
+#ifdef NKRO_ENABLE
+            case NKRO_INTERFACE:
+                Address = &ConfigurationDescriptor.NKRO_HID;
+                Size    = sizeof(USB_HID_Descriptor_HID_t);
+                break;
+#endif
             }
             break;
         case HID_DTYPE_Report:
@@ -560,6 +613,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
             case CONSOLE_INTERFACE:
                 Address = &ConsoleReport;
                 Size    = sizeof(ConsoleReport);
+                break;
+#endif
+#ifdef NKRO_ENABLE
+            case NKRO_INTERFACE:
+                Address = &NKROReport;
+                Size    = sizeof(NKROReport);
                 break;
 #endif
             }
