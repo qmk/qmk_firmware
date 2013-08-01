@@ -50,17 +50,17 @@ uint8_t TWI_StartTransmission(TWI_t *twi,
       // Case 1: Arbitration lost.  Try again. (or error)
       twi->MASTER.ADDR = SlaveAddress;
     }
-    else if (twi->STATUS & (TWI_MASTER_WIF_bm | TWI_MASTER_RXACK_bm))
+    else if (twi->MASTER.STATUS & (TWI_MASTER_WIF_bm | TWI_MASTER_RXACK_bm))
     {
       // Case 2: No response from slave.
       return TWI_ERROR_SlaveResponseTimeout;
     }
-    else if (twi->STATUS & (TWI_MASTER_WIF_bm))
+    else if (twi->MASTER.STATUS & (TWI_MASTER_WIF_bm))
     {
       // Case 3: Slave ACK the Write. Ready!
       return TWI_ERROR_NoError;
     }
-    else if (twi->STATUS & (TWI_MASTER_RIF_bm))
+    else if (twi->MASTER.STATUS & (TWI_MASTER_RIF_bm))
     {
       // Case 4: Slave ACK the Read. Ready! (a byte will be read)
       return TWI_ERROR_NoError;
@@ -73,10 +73,10 @@ uint8_t TWI_StartTransmission(TWI_t *twi,
   if (!(TimeoutRemaining)) {
     if (twi->MASTER.STATUS & TWI_MASTER_CLKHOLD_bm) {
       // Release the bus if we're holding it.
-      twi->CTRLC = TWI_MASTER_CMD_STOP_gc;
+      twi->MASTER.CTRLC = TWI_MASTER_CMD_STOP_gc;
     }
-    return TWI_ERROR_BusCaptureTimeout;
   }
+  return TWI_ERROR_BusCaptureTimeout;
 }
 
 bool TWI_SendByte(TWI_t *twi, const uint8_t Byte)
@@ -87,7 +87,7 @@ bool TWI_SendByte(TWI_t *twi, const uint8_t Byte)
   return (twi->MASTER.STATUS & TWI_MASTER_WIF_bm) & !(twi->MASTER.STATUS & TWI_MASTER_RXACK_bm);
 }
 
-bool TWI_ReceiveByte(uint8_t* const Byte,
+bool TWI_ReceiveByte(TWI_t *twi, uint8_t* const Byte,
 					 const bool LastByte)
 {
   // If we're here, we should already be reading.  Wait if we haven't read yet.
@@ -95,7 +95,7 @@ bool TWI_ReceiveByte(uint8_t* const Byte,
     return false;
   }
   while (!(twi->MASTER.STATUS & TWI_MASTER_RIF_bm));
-  *byte = twi->MASTER.DATA;
+  *Byte = twi->MASTER.DATA;
   if (LastByte)
     twi->MASTER.CTRLC = TWI_MASTER_ACKACT_bm | TWI_MASTER_CMD_RECVTRANS_gc;
   else
