@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0110
-#define DEVICE_VER      0x0100
+#define DEVICE_VER      0x0101
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         M0110 keyboard converter
 #define DESCRIPTION     convert M0110 keyboard to USB
@@ -50,13 +50,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* ports */
-#define M0110_CLOCK_PORT        PORTF
-#define M0110_CLOCK_PIN         PINF
-#define M0110_CLOCK_DDR         DDRF
+#define M0110_CLOCK_PORT        PORTD
+#define M0110_CLOCK_PIN         PIND
+#define M0110_CLOCK_DDR         DDRD
 #define M0110_CLOCK_BIT         0
-#define M0110_DATA_PORT         PORTF
-#define M0110_DATA_PIN          PINF
-#define M0110_DATA_DDR          DDRF
+#define M0110_DATA_PORT         PORTD
+#define M0110_DATA_PIN          PIND
+#define M0110_DATA_DDR          DDRD
 #define M0110_DATA_BIT          1
 
 #endif

@@ -11,10 +11,16 @@ you can use other board with USB AVR like `ATmega32U4` and `AT90USB`.
 
 
 
+Update
+------
+- 2013/08   Change port for signals PF to PD
+
+
+
 Connection
 ----------
 You need 4P4C plug and cable to connect Teensy or other AVR dev board into the keyboard.
-Teensy port `PF0` is assigned for `CLOCK` line and `PF1` for `DATA` by default,
+Teensy port `PD0` is assigned for `CLOCK` line and `PD1` for `DATA` by default,
 you can change pin configuration with editing *config.h*.
 
 You can find 4P4C plugs on telephone handset cable. Note that it is *crossover* connection
@@ -53,8 +59,8 @@ You can edit *Makefile* and *config.h* to change compile options and pin configu
 
     $ git clone git://github.com/tmk/tmk_keyboard.git (or download source)
     $ cd m0110_usb
-    $ make -f Makefile.lufa clean
-    $ make -f Makefile.lufa
+    $ make -f Makefile clean
+    $ make -f Makefile
 
 and program your Teensy with [PJRC Teensy loader](http://www.pjrc.com/teensy/loader.html).
 
