@@ -184,8 +184,11 @@
 			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud)
 			{
+        twi->CTRL = 0x00;
         twi->MASTER.BAUD = Baud;
-        twi->MASTER.CTRLA |= TWI_MASTER_ENABLE_bm;
+        twi->MASTER.CTRLA = TWI_MASTER_ENABLE_bm;
+        twi->MASTER.CTRLB = 0;
+        twi->MASTER.STATUS = TWI_MASTER_BUSSTATE_IDLE_gc;
 			}
 
 			/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to
@@ -206,7 +209,7 @@
 			static inline void TWI_StopTransmission(TWI_t *twi) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void TWI_StopTransmission(TWI_t *twi)
 			{
-        twi->MASTER.CTRLC = TWI_MASTER_CMD_STOP_gc;
+        twi->MASTER.CTRLC = TWI_MASTER_ACKACT_bm | TWI_MASTER_CMD_STOP_gc;
 			}
 
 		/* Function Prototypes: */
