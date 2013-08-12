@@ -40,6 +40,7 @@
   *   - Fixed Pipe_GetBoundEndpointAddress() returning invalid endpoint directions on AVR8 architecture devices (thanks to decerri)
   *     under some circumstances
   *   - Fixed incorrect USB device state set when a suspended LUFA device is woken while addressed but not configured (thanks to Balaji Krishnan)
+  *   - Fixed broken USART SPI driver for the AVR8 architecture due to incorrect initialization
   *  - Library Applications:
   *   - Added handler for SCSI_CMD_START_STOP_UNIT in demos using the Mass Storage class, to prevent ejection errors on *nix systems due to an
   *     unknown SCSI command

@@ -133,13 +133,13 @@
 			static inline void SerialSPI_Init(const uint8_t SPIOptions,
 			                                  const uint32_t BaudRate)
 			{
-				UBRR1  = SERIAL_SPI_UBBRVAL(BaudRate);
+				DDRD  |= ((1 << 3) | (1 << 5));
+				PORTD |= (1 << 2);
 
 				UCSR1C = ((1 << UMSEL11) | (1 << UMSEL10) | SPIOptions);
 				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));
 
-				DDRD  |= (1 << 3);
-				PORTD |= (1 << 2);
+				UBRR1  = SERIAL_SPI_UBBRVAL(BaudRate);
 			}
 
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
@@ -151,7 +151,7 @@
 
 				UBRR1  = 0;
 
-				DDRD  &= ~(1 << 3);
+				DDRD  &= ~((1 << 3) | (1 << 5));
 				PORTD &= ~(1 << 2);
 			}
 
