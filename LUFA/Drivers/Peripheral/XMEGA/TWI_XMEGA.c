@@ -34,83 +34,77 @@
 #define  __INCLUDE_FROM_TWI_C
 #include "../TWI.h"
 
-static inline bool bitmask_is_set(uint8_t byte, uint8_t mask) {
-  return (byte & mask) == mask;
-}
-
-uint8_t TWI_StartTransmission(TWI_t *twi,
+uint8_t TWI_StartTransmission(TWI_t* const TWI,
                               const uint8_t SlaveAddress,
                               const uint8_t TimeoutMS)
 {
-  uint16_t TimeoutRemaining;
+	uint16_t TimeoutRemaining;
 
-  twi->MASTER.ADDR = SlaveAddress;
+	TWI->MASTER.ADDR = SlaveAddress;
 
-  TimeoutRemaining = (TimeoutMS * 100);
-  while (TimeoutRemaining)
-  {
-    uint8_t status = twi->MASTER.STATUS;
-    if (bitmask_is_set(status, TWI_MASTER_WIF_bm | TWI_MASTER_ARBLOST_bm))
-    {
-      // Case 1: Arbitration lost.  Try again. (or error)
-      twi->MASTER.ADDR = SlaveAddress;
-    }
-    else if (bitmask_is_set(status, TWI_MASTER_WIF_bm | TWI_MASTER_RXACK_bm))
-    {
-      // Case 2: No response from slave.
-      // We need to release the bus.
-      TWI_StopTransmission(twi);
-      return TWI_ERROR_SlaveResponseTimeout;
-    }
-    else if (status & TWI_MASTER_WIF_bm)
-    {
-      // Case 3: Slave ACK the Write. Ready!
-      return TWI_ERROR_NoError;
-    }
-    else if (status & TWI_MASTER_RIF_bm)
-    {
-      // Case 4: Slave ACK the Read. Ready! (a byte will be read)
-      return TWI_ERROR_NoError;
-    }
-    // Still waiting..
-    _delay_us(10);
-    TimeoutRemaining--;
-  }
+	TimeoutRemaining = (TimeoutMS * 100);
+	while (TimeoutRemaining)
+	{
+		uint8_t status = TWI->MASTER.STATUS;
 
-  if (!(TimeoutRemaining)) {
-    if (twi->MASTER.STATUS & TWI_MASTER_CLKHOLD_bm) {
-      // Release the bus if we're holding it.
-      TWI_StopTransmission(twi);
-    }
-  }
-  return TWI_ERROR_BusCaptureTimeout;
+		if ((status & (TWI_MASTER_WIF_bm | TWI_MASTER_ARBLOST_bm)) == (TWI_MASTER_WIF_bm | TWI_MASTER_ARBLOST_bm))
+		{
+			TWI->MASTER.ADDR = SlaveAddress;
+		}
+		else if ((status & (TWI_MASTER_WIF_bm | TWI_MASTER_RXACK_bm)) == (TWI_MASTER_WIF_bm | TWI_MASTER_RXACK_bm))
+		{
+			TWI_StopTransmission(twi);
+			return TWI_ERROR_SlaveResponseTimeout;
+		}
+		else if (status & (TWI_MASTER_WIF_bm | TWI_MASTER_RIF_bm))
+		{
+			return TWI_ERROR_NoError;
+		}
+
+		_delay_us(10);
+		TimeoutRemaining--;
+	}
+
+	if (!(TimeoutRemaining)) {
+		if (TWI->MASTER.STATUS & TWI_MASTER_CLKHOLD_bm) {
+			TWI_StopTransmission(twi);
+		}
+	}
+
+	return TWI_ERROR_BusCaptureTimeout;
 }
 
-bool TWI_SendByte(TWI_t *twi, const uint8_t Byte)
+bool TWI_SendByte(TWI_t* const TWI,
+                  const uint8_t Byte)
 {
-  // We assume we're ready to write!
-  twi->MASTER.DATA = Byte;
-  while (!(twi->MASTER.STATUS & TWI_MASTER_WIF_bm));
-  return (twi->MASTER.STATUS & TWI_MASTER_WIF_bm) && !(twi->MASTER.STATUS & TWI_MASTER_RXACK_bm);
+	TWI->MASTER.DATA = Byte;
+
+	while (!(TWI->MASTER.STATUS & TWI_MASTER_WIF_bm));
+
+	return (TWI->MASTER.STATUS & TWI_MASTER_WIF_bm) && !(TWI->MASTER.STATUS & TWI_MASTER_RXACK_bm);
 }
 
-bool TWI_ReceiveByte(TWI_t *twi, uint8_t* const Byte,
-					 const bool LastByte)
+bool TWI_ReceiveByte(TWI_t* const TWI,
+                     uint8_t* const Byte,
+                     const bool LastByte)
 {
-  // If we're here, we should already be reading.  Wait if we haven't read yet.
-  if (bitmask_is_set(twi->MASTER.STATUS, TWI_MASTER_BUSERR_bm | TWI_MASTER_ARBLOST_bm)) {
-    return false;
-  }
-  while (!(twi->MASTER.STATUS & TWI_MASTER_RIF_bm));
-  *Byte = twi->MASTER.DATA;
-  if (LastByte)
-    twi->MASTER.CTRLC = TWI_MASTER_ACKACT_bm | TWI_MASTER_CMD_STOP_gc;
-  else
-    twi->MASTER.CTRLC = TWI_MASTER_CMD_RECVTRANS_gc;
-  return true;
+	if ((TWI->MASTER.STATUS & (TWI_MASTER_BUSERR_bm | TWI_MASTER_ARBLOST_bm)) == (TWI_MASTER_BUSERR_bm | TWI_MASTER_ARBLOST_bm)) {
+		return false;
+	}
+
+	while (!(TWI->MASTER.STATUS & TWI_MASTER_RIF_bm));
+
+	*Byte = TWI->MASTER.DATA;
+
+	if (LastByte)
+	  TWI->MASTER.CTRLC = TWI_MASTER_ACKACT_bm | TWI_MASTER_CMD_STOP_gc;
+	else
+	  TWI->MASTER.CTRLC = TWI_MASTER_CMD_RECVTRANS_gc;
+
+	return true;
 }
 
-uint8_t TWI_ReadPacket(TWI_t *twi,
+uint8_t TWI_ReadPacket(TWI_t* const TWI,
                        const uint8_t SlaveAddress,
                        const uint8_t TimeoutMS,
                        const uint8_t* InternalAddress,
@@ -133,7 +127,7 @@ uint8_t TWI_ReadPacket(TWI_t *twi,
 		}
 
 		if ((ErrorCode = TWI_StartTransmission(twi, (SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_READ,
-											   TimeoutMS)) == TWI_ERROR_NoError)
+		                                       TimeoutMS)) == TWI_ERROR_NoError)
 		{
 			while (Length--)
 			{
@@ -143,15 +137,15 @@ uint8_t TWI_ReadPacket(TWI_t *twi,
 					break;
 				}
 			}
-
 		}
-    TWI_StopTransmission(twi);
+
+		TWI_StopTransmission(twi);
 	}
 
 	return ErrorCode;
 }
 
-uint8_t TWI_WritePacket(TWI_t *twi,
+uint8_t TWI_WritePacket(TWI_t* const twi,
                         const uint8_t SlaveAddress,
                         const uint8_t TimeoutMS,
                         const uint8_t* InternalAddress,
@@ -160,6 +154,7 @@ uint8_t TWI_WritePacket(TWI_t *twi,
                         uint8_t Length)
 {
 	uint8_t ErrorCode;
+
 	if ((ErrorCode = TWI_StartTransmission(twi, (SlaveAddress & TWI_DEVICE_ADDRESS_MASK) | TWI_ADDRESS_WRITE,
 	                                       TimeoutMS)) == TWI_ERROR_NoError)
 	{

@@ -178,77 +178,81 @@
 			 *  \attention The value of the \c BitLength parameter should not be set below 10 or invalid bus conditions may
 			 *             occur, as indicated in the XMEGA microcontroller datasheet.
 			 *
-       *  \param[in] twi        The TWI Peripheral to use
-			 *  \param[in] Baud       Value of the BAUD register of the TWI Master.
+			 *  \param[in] TWI   Pointer to the base of the TWI peripheral within the device.
+			 *  \param[in] Baud  Value of the BAUD register of the TWI Master.
 			 */
-			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
-			static inline void TWI_Init(TWI_t *twi, const uint8_t Baud)
+			static inline void TWI_Init(TWI_t* const TWI,
+			                            const uint8_t Baud) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
+			static inline void TWI_Init(TWI_t* const TWI,
+			                            const uint8_t Baud)
 			{
-        twi->CTRL = 0x00;
-        twi->MASTER.BAUD = Baud;
-        twi->MASTER.CTRLA = TWI_MASTER_ENABLE_bm;
-        twi->MASTER.CTRLB = 0;
-        twi->MASTER.STATUS = TWI_MASTER_BUSSTATE_IDLE_gc;
+				TWI->CTRL          = 0x00;
+				TWI->MASTER.BAUD   = Baud;
+				TWI->MASTER.CTRLA  = TWI_MASTER_ENABLE_bm;
+				TWI->MASTER.CTRLB  = 0;
+				TWI->MASTER.STATUS = TWI_MASTER_BUSSTATE_IDLE_gc;
 			}
 
 			/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to
 			 *  \ref TWI_Init() before the TWI can be used again.
-       *
-       *  \param[in] twi        The TWI Peripheral to use
+	   		 *
+			 *  \param[in] TWI  Pointer to the base of the TWI peripheral within the device.
 			 */
-			static inline void TWI_Disable(TWI_t *twi) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
-			static inline void TWI_Disable(TWI_t *twi)
+			static inline void TWI_Disable(TWI_t* const TWI) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
+			static inline void TWI_Disable(TWI_t* const TWI)
 			{
-        twi->MASTER.CTRLA &= ~TWI_MASTER_ENABLE_bm;
+				TWI->MASTER.CTRLA &= ~TWI_MASTER_ENABLE_bm;
 			}
 
-			/** Sends a TWI STOP onto the TWI bus, terminating communication with the currently addressed device. 
-       *
-       *  \param[in] twi        The TWI Peripheral to use
-       */
-			static inline void TWI_StopTransmission(TWI_t *twi) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
-			static inline void TWI_StopTransmission(TWI_t *twi)
+			/** Sends a TWI STOP onto the TWI bus, terminating communication with the currently addressed device.
+			 *
+			 *  \param[in] TWI  Pointer to the base of the TWI peripheral within the device.
+			 */
+			static inline void TWI_StopTransmission(TWI_t* const TWI) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
+			static inline void TWI_StopTransmission(TWI_t* const TWI)
 			{
-        twi->MASTER.CTRLC = TWI_MASTER_ACKACT_bm | TWI_MASTER_CMD_STOP_gc;
+				TWI->MASTER.CTRLC = TWI_MASTER_ACKACT_bm | TWI_MASTER_CMD_STOP_gc;
 			}
 
 		/* Function Prototypes: */
 			/** Begins a master mode TWI bus communication with the given slave device address.
 			 *
-       *  \param[in] twi                 The TWI Peripheral to use
+			 *  \param[in] TWI           Pointer to the base of the TWI peripheral within the device.
 			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with.
 			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds.
 			 *
 			 *  \return A value from the \ref TWI_ErrorCodes_t enum.
 			 */
-			uint8_t TWI_StartTransmission(TWI_t *twi,
-                                    const uint8_t SlaveAddress,
+			uint8_t TWI_StartTransmission(TWI_t* const TWI,
+			                              const uint8_t SlaveAddress,
 			                              const uint8_t TimeoutMS) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a byte to the currently addressed device on the TWI bus.
 			 *
-       *  \param[in] twi                 The TWI Peripheral to use
+			 *  \param[in] TWI   Pointer to the base of the TWI peripheral within the device.
 			 *  \param[in] Byte  Byte to send to the currently addressed device
 			 *
 			 *  \return Boolean \c true if the recipient ACKed the byte, \c false otherwise
 			 */
-			bool TWI_SendByte(TWI_t *twi, const uint8_t Byte) ATTR_NON_NULL_PTR_ARG(1);
+			bool TWI_SendByte(TWI_t* const TWI,
+			                  const uint8_t Byte) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Receives a byte from the currently addressed device on the TWI bus.
 			 *
-       *  \param[in] twi                 The TWI Peripheral to use
+			 *  \param[in] TWI       Pointer to the base of the TWI peripheral within the device.
 			 *  \param[in] Byte      Location where the read byte is to be stored.
 			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true.
 			 *
 			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise.
 			 */
-			bool TWI_ReceiveByte(TWI_t *twi, uint8_t* const Byte,
+			bool TWI_ReceiveByte(TWI_t* const TWI,
+			                     uint8_t* const Byte,
 			                     const bool LastByte) ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			/** High level function to perform a complete packet transfer over the TWI bus to the specified
 			 *  device.
 			 *
-       *  \param[in] twi                 The TWI Peripheral to use
+			 *  \param[in] TWI                 Pointer to the base of the TWI peripheral within the device.
 			 *  \param[in] SlaveAddress        Base address of the TWI slave device to communicate with.
 			 *  \param[in] TimeoutMS           Timeout for bus capture and slave START ACK, in milliseconds.
 			 *  \param[in] InternalAddress     Pointer to a location where the internal slave read start address is stored.
@@ -258,8 +262,8 @@
 			 *
 			 *  \return A value from the \ref TWI_ErrorCodes_t enum.
 			 */
-			uint8_t TWI_ReadPacket(TWI_t *twi,
-                             const uint8_t SlaveAddress,
+			uint8_t TWI_ReadPacket(TWI_t* const TWI,
+			                       const uint8_t SlaveAddress,
 			                       const uint8_t TimeoutMS,
 			                       const uint8_t* InternalAddress,
 			                       uint8_t InternalAddressLen,
@@ -269,7 +273,7 @@
 			/** High level function to perform a complete packet transfer over the TWI bus from the specified
 			 *  device.
 			 *
-       *  \param[in] twi                 The TWI Peripheral to use
+			 *  \param[in] TWI                 Pointer to the base of the TWI peripheral within the device.
 			 *  \param[in] SlaveAddress        Base address of the TWI slave device to communicate with
 			 *  \param[in] TimeoutMS           Timeout for bus capture and slave START ACK, in milliseconds
 			 *  \param[in] InternalAddress     Pointer to a location where the internal slave write start address is stored
@@ -279,8 +283,8 @@
 			 *
 			 *  \return A value from the \ref TWI_ErrorCodes_t enum.
 			 */
-			uint8_t TWI_WritePacket(TWI_t *twi,
-                              const uint8_t SlaveAddress,
+			uint8_t TWI_WritePacket(TWI_t* const TWI,
+			                        const uint8_t SlaveAddress,
 			                        const uint8_t TimeoutMS,
 			                        const uint8_t* InternalAddress,
 			                        uint8_t InternalAddressLen,
