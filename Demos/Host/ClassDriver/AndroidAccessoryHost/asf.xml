@@ -29,6 +29,7 @@
 		<device-support-alias value="lufa_uc3"/>
 
 		<build type="distribute" subtype="user-file" value="AndroidAccessoryHost.txt"/>
+		<build type="distribute" subtype="directory" value="AndroidHostApp"/>
 
 		<build type="c-source" value="AndroidAccessoryHost.c"/>
 		<build type="header-file" value="AndroidAccessoryHost.h"/>

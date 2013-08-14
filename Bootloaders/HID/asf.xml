@@ -110,6 +110,8 @@
 		<build type="header-file" value="Config/LUFAConfig.h"/>
 
 		<build type="distribute" subtype="user-file" value="BootloaderHID.txt"/>
+		<build type="distribute" subtype="directory" value="HostLoaderApp"/>
+		<build type="distribute" subtype="directory" value="HostLoaderApp_Python"/>
 
 		<require idref="lufa.common"/>
 		<require idref="lufa.platform"/>

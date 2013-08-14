@@ -124,7 +124,7 @@ check_filenames: $(MODULE_OUTPUT_XML)
 		echo "Checking $$f..."; \
 		asf_file_dir=`dirname $$f`; \
 		xsltproc XDK/lufa_filelist_transform.xslt $$f | sed -e "/^$$/d" | while read -r i; do \
-			if ( ! test -f "$$asf_file_dir/$$i" ); then \
+			if ( ( ! test -f "$$asf_file_dir/$$i" ) && ( ! test -d "$$asf_file_dir/$$i" ) ); then \
 				echo "Source file \"$$i\" referenced in $$f does not exist!"; \
 				exit 1; \
 			fi; \

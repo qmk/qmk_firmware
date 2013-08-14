@@ -30,6 +30,8 @@
 		<device-support-alias value="lufa_uc3"/>
 
 		<build type="distribute" subtype="user-file" value="TemperatureDataLogger.txt"/>
+		<build type="distribute" subtype="directory" value="TempLogHostApp"/>
+		<build type="distribute" subtype="directory" value="TempLogHostApp_Python"/>
 
 		<build type="c-source" value="TempDataLogger.c"/>
 		<build type="c-source" value="Descriptors.c"/>
@@ -64,5 +66,6 @@
 		<require idref="lufa.drivers.board.temperature"/>
 		<require idref="lufa.drivers.board.dataflash"/>
 		<require idref="lufa.drivers.peripheral.adc"/>
+		<require idref="lufa.drivers.peripheral.twi"/>
 	</module>
 </asf>

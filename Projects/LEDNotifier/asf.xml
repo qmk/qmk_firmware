@@ -30,6 +30,8 @@
 
 		<build type="distribute" subtype="user-file" value="LEDNotifier.txt"/>
 		<build type="distribute" subtype="user-file" value="LUFA LED Notifier.inf"/>
+		<build type="distribute" subtype="directory" value="CPUUsageApp"/>
+		<build type="distribute" subtype="directory" value="LEDMixerApp"/>
 
 		<build type="c-source" value="LEDNotifier.c"/>
 		<build type="c-source" value="Descriptors.c"/>
