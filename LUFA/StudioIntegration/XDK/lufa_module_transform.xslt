@@ -44,17 +44,23 @@
 	     nodes instead and add descriptions, so that they show up as links in
 	     Studio correctly -->
 	<xsl:template match="build[@type='doxygen-entry-point']">
-		<build type="online-help" subtype="module-help-page-append">
-		 	<xsl:attribute name="value">
-		 		<!-- Extract filename of the HTML file that contains the documentation for this module from the Doxgen tag file -->
-			    <xsl:value-of select="document($lufa-doxygen-tagfile)/tagfile/compound[name=current()/@value]/filename"/>
-  			</xsl:attribute>
-  		</build>
+		<!-- select-by-config entries should not have a help link -->
+		<xsl:if test="not(parent::select-by-config)">
+			<build type="online-help" subtype="module-help-page-append">
+			 	<xsl:attribute name="value">
+			 		<!-- Extract filename of the HTML file that contains the documentation for this module from the Doxgen tag file -->
+				    <xsl:value-of select="document($lufa-doxygen-tagfile)/tagfile/compound[name=current()/@value]/filename"/>
+	  			</xsl:attribute>
+	  		</build>
+	  	</xsl:if>
 
-		<info type="description" value="summary">
-		 	<!-- Extract brief description of the module from the Doxygen combined XML documentation file -->
-			<xsl:value-of select="document($lufa-doxygen-docfile)/doxygen/compounddef[compoundname=current()/@value]/briefdescription/para"/>
-		</info>
+		<!-- Modules inside a select-by-config entries should not have a help link -->
+		<xsl:if test="not(parent::module and ../parent::select-by-config)">
+			<info type="description" value="summary">
+			 	<!-- Extract brief description of the module from the Doxygen combined XML documentation file -->
+				<xsl:value-of select="document($lufa-doxygen-docfile)/doxygen/compounddef[compoundname=current()/@value]/briefdescription/para"/>
+			</info>
+	  	</xsl:if>
 	</xsl:template>
 
 </xsl:stylesheet>
