@@ -20,7 +20,7 @@
   *    - DMA transfers to and from the USB controller are not yet implemented for this release.
   *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
   *      altered USB controller design.
-  *    - The various \c CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
   *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
   *  - XMEGA Architecture
   *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
@@ -32,8 +32,6 @@
   *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
   *      relating to the USB controller.
   *  - Architecture Independent
-  *    - The HID parser fails for array type elements that have a MIN and MAX usage applied; each element
-  *      in the array will receive a unique incrementing usage from the MIN value, up to MAX.
   *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
   *      and a lengthy USB operation is initiated.
   *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
@@ -65,8 +63,6 @@
   *    - Early revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
   *      relating to the USB controller.
   *  - Architecture Independent
-  *    - The HID parser fails for array type elements that have a MIN and MAX usage applied; each element
-  *      in the array will receive a unique incrementing usage from the MIN value, up to MAX.
   *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
   *      and a lengthy USB operation is initiated.
   *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
@@ -98,8 +94,6 @@
   *    - Early revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
   *      relating to the USB controller.
   *  - Architecture Independent
-  *    - The HID parser fails for array type elements that have a MIN and MAX usage applied; each element
-  *      in the array will receive a unique incrementing usage from the MIN value, up to MAX.
   *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
   *      and a lengthy USB operation is initiated.
   *  - Build System
