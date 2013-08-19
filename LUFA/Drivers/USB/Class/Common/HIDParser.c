@@ -96,42 +96,53 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 
 				CurrStateTable++;
 				break;
+
 			case HID_RI_POP(0):
 				if (CurrStateTable == &StateTable[0])
 				  return HID_PARSE_HIDStackUnderflow;
 
 				CurrStateTable--;
 				break;
+
 			case HID_RI_USAGE_PAGE(0):
 				if ((HIDReportItem & HID_RI_DATA_SIZE_MASK) == HID_RI_DATA_BITS_32)
 				  CurrStateTable->Attributes.Usage.Page = (ReportItemData >> 16);
 
 				CurrStateTable->Attributes.Usage.Page       = ReportItemData;
 				break;
+
 			case HID_RI_LOGICAL_MINIMUM(0):
 				CurrStateTable->Attributes.Logical.Minimum  = ReportItemData;
 				break;
+
 			case HID_RI_LOGICAL_MAXIMUM(0):
 				CurrStateTable->Attributes.Logical.Maximum  = ReportItemData;
 				break;
+
 			case HID_RI_PHYSICAL_MINIMUM(0):
 				CurrStateTable->Attributes.Physical.Minimum = ReportItemData;
 				break;
+
 			case HID_RI_PHYSICAL_MAXIMUM(0):
 				CurrStateTable->Attributes.Physical.Maximum = ReportItemData;
 				break;
+
 			case HID_RI_UNIT_EXPONENT(0):
 				CurrStateTable->Attributes.Unit.Exponent    = ReportItemData;
 				break;
+
 			case HID_RI_UNIT(0):
 				CurrStateTable->Attributes.Unit.Type        = ReportItemData;
 				break;
+
 			case HID_RI_REPORT_SIZE(0):
 				CurrStateTable->Attributes.BitSize          = ReportItemData;
 				break;
+
 			case HID_RI_REPORT_COUNT(0):
 				CurrStateTable->ReportCount                 = ReportItemData;
 				break;
+
 			case HID_RI_REPORT_ID(0):
 				CurrStateTable->ReportID                    = ReportItemData;
 
@@ -162,18 +173,22 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 
 				CurrReportIDInfo->ReportID = CurrStateTable->ReportID;
 				break;
+
 			case HID_RI_USAGE(0):
 				if (UsageListSize == HID_USAGE_STACK_DEPTH)
 				  return HID_PARSE_UsageListOverflow;
 
 				UsageList[UsageListSize++] = ReportItemData;
 				break;
+
 			case HID_RI_USAGE_MINIMUM(0):
 				UsageMinMax.Minimum = ReportItemData;
 				break;
+
 			case HID_RI_USAGE_MAXIMUM(0):
 				UsageMinMax.Maximum = ReportItemData;
 				break;
+
 			case HID_RI_COLLECTION(0):
 				if (CurrCollectionPath == NULL)
 				{
@@ -203,8 +218,8 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 				{
 					CurrCollectionPath->Usage.Usage = UsageList[0];
 
-					for (uint8_t i = 0; i < UsageListSize; i++)
-					  UsageList[i] = UsageList[i + 1];
+					for (uint8_t i = 1; i < UsageListSize; i++)
+					  UsageList[i - 1] = UsageList[i];
 
 					UsageListSize--;
 				}
@@ -214,12 +229,14 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 				}
 
 				break;
+
 			case HID_RI_END_COLLECTION(0):
 				if (CurrCollectionPath == NULL)
 				  return HID_PARSE_UnexpectedEndCollection;
 
 				CurrCollectionPath = CurrCollectionPath->Parent;
 				break;
+
 			case HID_RI_INPUT(0):
 			case HID_RI_OUTPUT(0):
 			case HID_RI_FEATURE(0):
@@ -239,8 +256,8 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 					{
 						NewReportItem.Attributes.Usage.Usage = UsageList[0];
 
-						for (uint8_t i = 0; i < UsageListSize; i++)
-						  UsageList[i] = UsageList[i + 1];
+						for (uint8_t i = 1; i < UsageListSize; i++)
+						  UsageList[i - 1] = UsageList[i];
 
 						UsageListSize--;
 					}
@@ -275,7 +292,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 				}
 
 				break;
-			
+
 			default:
 				break;
 		}
