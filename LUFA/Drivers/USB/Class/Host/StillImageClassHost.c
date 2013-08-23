@@ -302,7 +302,7 @@ bool SI_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipe.Address);
 	Pipe_Unfreeze();
 
-	if (Pipe_BytesInPipe())
+	if (Pipe_IsINReceived())
 	  IsEventReceived = true;
 
 	Pipe_Freeze();
