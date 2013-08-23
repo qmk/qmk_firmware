@@ -729,19 +729,11 @@
 
 	<xsl:template match="programlisting">
 		<programlisting language="c">
-			<xsl:apply-templates/>
+			<xsl:for-each select="codeline[position() > 1 or highlight]">
+				<xsl:apply-templates select="."/>
+				<xsl:text>&#10;</xsl:text>
+			</xsl:for-each>
 		</programlisting>
-	</xsl:template>
-
-	<xsl:template match="codeline">
-		<xsl:apply-templates/>
-		<xsl:text>&#10;</xsl:text>
-	</xsl:template>
-
-	<xsl:template match="codeline[last()]">
-		<xsl:if test="text() != '*'">
-			<xsl:apply-templates/>
-		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="highlight">
