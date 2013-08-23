@@ -37,12 +37,12 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
                              HID_ReportInfo_t* const ParserData)
 {
 	HID_StateTable_t      StateTable[HID_STATETABLE_STACK_DEPTH];
-	HID_StateTable_t*     CurrStateTable          = &StateTable[0];
-	HID_CollectionPath_t* CurrCollectionPath      = NULL;
-	HID_ReportSizeInfo_t* CurrReportIDInfo        = &ParserData->ReportIDSizes[0];
+	HID_StateTable_t*     CurrStateTable     = &StateTable[0];
+	HID_CollectionPath_t* CurrCollectionPath = NULL;
+	HID_ReportSizeInfo_t* CurrReportIDInfo   = &ParserData->ReportIDSizes[0];
 	uint16_t              UsageList[HID_USAGE_STACK_DEPTH];
-	uint8_t               UsageListSize           = 0;
-	HID_MinMax_t          UsageMinMax             = {0, 0};
+	uint8_t               UsageListSize      = 0;
+	HID_MinMax_t          UsageMinMax        = {0, 0};
 
 	memset(ParserData,       0x00, sizeof(HID_ReportInfo_t));
 	memset(CurrStateTable,   0x00, sizeof(HID_StateTable_t));
