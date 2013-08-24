@@ -164,6 +164,7 @@
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
  *  \li Flysight, a GPS logger for wingsuit pilots: http://flysight.ca/
+ *  \li Goldilocks, an Arduino compatible clone: http://feilipu.me/2013/03/08/goldilocks-1284p-arduino-uno-clone/
  *  \li HummingBird Kit, a robotics learning platform: http://www.hummingbirdkit.com/
  *  \li Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  \li PhatIO, a filesystem based I/O interface: http://www.phatio.com/
