@@ -1,6 +1,9 @@
 ;     Windows LUFA CDC ACM Setup File
 ; Copyright (c) 2000 Microsoft Corporation
 
+[DefaultInstall]
+CopyINF="LUFA CDC-ACM.inf"
+
 [Version]
 Signature="$Windows NT$"
 Class=Ports

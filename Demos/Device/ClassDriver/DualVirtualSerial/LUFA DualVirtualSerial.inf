@@ -3,6 +3,9 @@
 ; Copyright (c) 2000 Microsoft Corporation
 ;************************************************************
 
+[DefaultInstall]
+CopyINF="LUFA DualVirtualSerial.inf"
+
 [Version]
 Signature="$Windows NT$"
 Class=Ports

@@ -1,6 +1,9 @@
 ;     Windows LUFA RNDIS Setup File
 ; Copyright (c) 2000 Microsoft Corporation
 
+[DefaultInstall]
+CopyINF="LUFA Webserver RNDIS.inf"
+
 [Version]
 Signature="$Windows NT$"
 Class=Net
