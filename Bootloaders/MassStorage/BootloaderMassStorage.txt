@@ -57,6 +57,9 @@
  *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
  *  bootloader from the normal user application.
  *
+ *  \warning <b>THIS BOOTLOADER IS NOT SECURE.</b> Malicious entities can recover written data, even if the device
+ *           lockbits are set.
+ *
  *  \section Sec_Installation Driver Installation
  *
  *  This bootloader uses the Mass Storage drivers inbuilt into all modern operating systems, thus no additional

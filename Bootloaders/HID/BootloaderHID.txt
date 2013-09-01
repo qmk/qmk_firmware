@@ -56,6 +56,9 @@
  *  all other models. If you wish to alter this size and/or change the AVR model, you will need to edit the MCU,
  *  FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
  *
+ *  \warning <b>THIS BOOTLOADER IS NOT SECURE.</b> Malicious entities can recover written data, even if the device
+ *           lockbits are set.
+ *
  *  \section Sec_Installation Driver Installation
  *
  *  This bootloader uses the HID class driver inbuilt into all modern operating systems, thus no additional drivers
