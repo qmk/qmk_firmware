@@ -102,10 +102,10 @@
  *
  *  \subsection SSec_WinINF_CDC Windows CDC INF Template
  *  This template is required for all CDC-ACM devices on Windows XP or newer.
- *  \verbinclude WindowsINF/CDC-ACM.inf
+ *  \verbinclude "WindowsINF/LUFA CDC-ACM.inf"
  *
  *  \subsection SSec_WinINF_RNDIS Windows RNDIS INF Template
  *  This template is required for all RNDIS devices on Windows XP or newer.
- *  \verbinclude WindowsINF/RNDIS.inf
+ *  \verbinclude "WindowsINF/LUFA RNDIS.inf"
  */
 
