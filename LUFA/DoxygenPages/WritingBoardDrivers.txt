@@ -32,16 +32,16 @@
  *  \subsection SSec_BoardTemplates_Board Template for USER <Board/Board.h>
  *  \include "DriverStubs/Board.h"
  *
- *  \subsection SSec_BoardTemplates_Board Template for USER <Board/Buttons.h>
+ *  \subsection SSec_BoardTemplates_Buttons Template for USER <Board/Buttons.h>
  *  \include "DriverStubs/Buttons.h"
  *
- *  \subsection SSec_BoardTemplates_Board Template for USER <Board/Dataflash.h>
+ *  \subsection SSec_BoardTemplates_Dataflash Template for USER <Board/Dataflash.h>
  *  \include "DriverStubs/Dataflash.h"
  *
- *  \subsection SSec_BoardTemplates_Board Template for USER <Board/Joystick.h>
+ *  \subsection SSec_BoardTemplates_Joystick Template for USER <Board/Joystick.h>
  *  \include "DriverStubs/Joystick.h"
  *
- *  \subsection SSec_BoardTemplates_Board Template for USER <Board/LEDs.h>
+ *  \subsection SSec_BoardTemplates_LEDs Template for USER <Board/LEDs.h>
  *  \include "DriverStubs/LEDs.h"
  */
 
