@@ -47,7 +47,7 @@
 	/* Includes: */
 		// TODO: Add any required includes here
 
-/* Enable C linkage for C++ Compilers: */
+	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
