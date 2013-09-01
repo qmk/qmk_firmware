@@ -159,7 +159,7 @@
   *   - Fixed compile error for the UC3 architecture when INTERRUPT_CONTROL_ENDPOINT is specified (thanks to Andrus Aaslaid)
   *   - Fixed compile error if LEDs_Disable() is called and BOARD=NONE is set (thanks to Sam Lin)
   *   - Fixed inverted LED logic in the OLIMEX162 board LED driver
-  *   - Fixed incorrect reponse to GET STATUS requests in device mode if NO_DEVICE_SELF_POWER or NO_DEVICE_REMOTE_WAKEUP tokens are defined (thanks to Georg Glock)
+  *   - Fixed incorrect response to GET STATUS requests in device mode if NO_DEVICE_SELF_POWER or NO_DEVICE_REMOTE_WAKEUP tokens are defined (thanks to Georg Glock)
   *   - Fixed inverted LED logic in the USB2AX board LED driver
   *   - Fixed possible deadlock in the CDC device driver if the USB connection is dropped while the CDC_REQ_SetLineEncoding control request is being processed by
   *     the stack (thanks to Jonathan Hudgins)
@@ -211,7 +211,7 @@
   *   - Altered the Mass Storage Host class driver so that SCSI data STALLs from the attached device can be recovered from automatically without
   *     having to reset the Mass Storage interface
   *   - USB_CONFIG_ATTR_BUSPOWERED constant renamed to USB_CONFIG_ATTR_RESERVED, as this was misnamed (thanks to NXP Semiconductors)
-  *   - Reordered board name definition indexes so that a mispelled BOARD compile option will default to BOARD_USER rather than BOARD_USBKEY
+  *   - Reordered board name definition indexes so that a misspelled BOARD compile option will default to BOARD_USER rather than BOARD_USBKEY
   *   - Altered the HID class driver to only try to construct at maximum one packet per USB frame, to reduce CPU usage
   *   - All USB Class Driver configuration struct values are now non-const, to allow for run-time modifications if required before configuring an instance
   *  - Library Applications:
@@ -758,7 +758,7 @@
   *  - Added new RNDIS Ethernet Host ClassDriver demo
   *  - Added CDC_Host_Flush() function to the CDC Host Class driver to flush sent data to the attached device
   *  - Added PDI programming support for XMEGA devices to the AVRISP programmer project (thanks to Justin Mattair)
-  *  - Added support for the XPLAIN board Dataflash, with new XPLAIN_REV1 board target for the different dataflash used
+  *  - Added support for the XPLAIN board Dataflash, with new XPLAIN_REV1 board target for the different Dataflash used
   *    on the first revision boards compared to the one mounted on later revisions
   *  - Added new HID_ALIGN_DATA() macro to return the pre-retrieved value of a HID report item, left-aligned to a given datatype
   *  - Added new PreviousValue to the HID Report Parser report item structure, for easy monitoring of previous report item values
@@ -1076,7 +1076,7 @@
   *    Pipe_ClearSetupSent() macro is no longer applicable and should be removed - changes made to compliment the new endpoint and pipe
   *    bank management API
   *  - Updated all demos, bootloaders and projects to use the new endpoint and pipe management APIs (thanks to Roman Thiel from Curetis AG)
-  *  - Updated library doxygen documentation, added groups, changed documentation macro functions to real functions for clarity
+  *  - Updated library Doxygen documentation, added groups, changed documentation macro functions to real functions for clarity
   *  - Removed old endpoint and pipe aliased read/write/discard routines which did not have an explicit endian specifier for clarity
   *  - Removed the ButtLoadTag.h header file, as no one used for its intended purpose anyway
   *  - Renamed the main Drivers/AT90USBXXX directory to Drivers/Peripheral, renamed the Serial_Stream driver to SerialStream
@@ -1292,7 +1292,7 @@
   *  - All HID demos now pass the USB.org automated HID compliance tests
   *  - Polling interval of the interrupt endpoint in the CDC based demos changed to 0xFF to fix problems on Linux systems
   *  - Changed stream functions to accept a new callback function, with NO_STREAM_CALLBACKS used to disable all callbacks
-  *  - Mass Storage demo dataflash management routines changed to use the endpoint stream functions
+  *  - Mass Storage demo Dataflash management routines changed to use the endpoint stream functions
   *  - Added AVRStudio project files for each demo in addition to the existing Programmer's Notepad master project file
   *  - Re-added call to ReconfigureUSART() in USBtoSerial SetLineCoding request, so that baud rate changes
   *    are reflected in the hardware (change was previously lost)
@@ -1348,7 +1348,7 @@
   *    size bits not required for the routines (improves compatibility with devices)
   *  - Fixed AudioInput demo - now correctly sends sampled audio to the host PC
   *  - Fixed AudioOutput demo once more -- apparently Windows requires endpoint packets to be >=192 bytes
-  *  - Shrunk round-robbin scheduler code slightly via the use of struct pointers rather than array indexes
+  *  - Shrunk round-robin scheduler code slightly via the use of struct pointers rather than array indexes
   *  - Fixed off-by-one error when determining if the Usage Stack is full inside the HID Report parser
   *  - Renamed Magstripe.h to MagstripeHW.h and moved driver out of the library and into the MagStripe demo folder
   *  - Added preprocessor checks to enable C linkage on the library components when used with a C++ compiler
@@ -1490,7 +1490,7 @@
   *  - Added support for custom board drivers to be supplied by selecting the board type as BOARD_USER, and
   *    placing board drivers in {Application Directory}/Board/
   *  - PLL is now stopped and USB clock is frozen when detached from host in device mode, to save power
-  *  - Joystick defines are now in synch with the schematics - orientation will be rotated for the USBKEY
+  *  - Joystick defines are now in sync with the schematics - orientation will be rotated for the USBKEY
   *  - Fixed USB_DEV_IsUSBSuspended() - now checks the correct register
   *  - Fixed data transfers to devices when in host mode
   *  - Renamed USB_DEV_OPT_HIGHSPEED to USB_DEV_OPT_FULLSPEED and USB_HOST_IsDeviceHighSpeed() to
@@ -1525,7 +1525,7 @@
   *  - AVR_HOST_GetDeviceConfigDescriptor routine no longer modifies ConfigSizePtr if a valid buffer
   *    pointer is passed
   *  - Added ALLOCABLE_BYTES to DynAlloc, and added code to make the size of key storage variables
-  *    dependant on size of memory parameters passed in via the user project's makefile
+  *    dependent on size of memory parameters passed in via the user project's makefile
   *  - Fixed incorrect device reset routine being called in USBTask
   *  - Devices which do not connect within the standard 300mS are now supported
   *  - Removed incorrect ATTR_PURE from Scheduler_SetTaskMode(), which was preventing tasks from being

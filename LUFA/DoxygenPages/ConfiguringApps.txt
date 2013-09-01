@@ -91,7 +91,7 @@
  *  \subsection SSec_ConfiguringApps_LUFA_PATH The LUFA_PATH Parameter
  *  As each LUFA program requires the LUFA library source code to compile correctly, the application must know where the LUFA library is located. This
  *  value specifies the path to the LUFA library core. This path may be relative or absolute, however note than even under Windows based systems the
- *  forward-slash (/) path seperator must be used.
+ *  forward-slash (/) path separator must be used.
  *
  *  \subsection SSec_ConfiguringApps_CC_FLAGS The CC_FLAGS Parameter
  *  This parameter lists the compiler flags passed to the C/C++ compiler, the assembler and the linker. These are used as-is directly to GCC and thus

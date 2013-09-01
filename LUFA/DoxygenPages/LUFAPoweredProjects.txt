@@ -20,7 +20,7 @@
  *
  *  \li AVR-USB-162, a USBKEY-like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
  *  \li Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
- *  \li Duce, the sucessor to the Benito #7: http://dorkbotpdx.org/wiki/duce
+ *  \li Duce, the successor to the Benito #7: http://dorkbotpdx.org/wiki/duce
  *  \li JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
  *  \li Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
  *  \li Microsin AVR-USB162 breakout board, a DIY AT90USB162 development board: http://microsin.ru/content/view/685/44/
@@ -51,6 +51,7 @@
  *  \li Bus Ninja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
  *  \li CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  \li CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
+ *  \li ChipWhisperer, a signal capture device: https://www.assembla.com/spaces/chipwhisperer/wiki/ChipWhisperer_Rev2_Capture_Hardware
  *  \li ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
  *  \li Collection of alternative Arduino Uno firmwares: http://hunt.net.nz/users/darran/
  *  \li Computer controlled LED matrix (Russian): http://we.easyelectronics.ru/AVR/nebolshoy-primer-s-lufa-hidapi.html
@@ -104,6 +105,7 @@
  *  \li Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  \li Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
+ *  \li Password keyring: http://owlsan.blogspot.no/2013/06/keyring-project-version-10.html
  *  \li PPM signal generator over USB: https://github.com/G33KatWork/USBPPM
  *  \li Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
  *  \li Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
@@ -144,7 +146,7 @@
  *  \li Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  \li Wii Classic Controller to USB converter: https://github.com/crazyiop/wii-classic-2-usb
  *  \li Wireless MIDI Guitar system: http://www.ise.pw.edu.pl/~wzab/wireless_guitar_system/
- *  \li XBOX 360 Statup Sound Changer: http://www.homebrew-connection.org/change-your-xbox-360-startup-sounds-yourself/
+ *  \li XBOX 360 Startup Sound Changer: http://www.homebrew-connection.org/change-your-xbox-360-startup-sounds-yourself/
  *  \li Xnormidi, a C MIDI library: http://x37v.info/projects/xnormidi
  *  \li XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
  *  \li Zeus, a touch screen computer for music manipulation: http://www.benbengler.com/developments_zeus.html

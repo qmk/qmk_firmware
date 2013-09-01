@@ -320,7 +320,7 @@
  *  \section SSec_BuildModule_ATPROGRAM_Requirements Requirements
  *  This module requires the <tt>atprogram.exe</tt> utility to be available in your system's <b>PATH</b>
  *  variable. The <tt>atprogram.exe</tt> utility is distributed in Atmel AVR Studio 5.x and Atmel Studio 6.x
- *  inside the application install folder's "\avrdbg" subdirectory.
+ *  inside the application install folder's "\atbackend" subdirectory.
  *
  *  \section SSec_BuildModule_ATPROGRAM_Targets Targets
  *
@@ -789,7 +789,7 @@
  *
  *  The SOURCES LUFA build system module, providing variables listing the various LUFA source files
  *  required to be build by a project for a given LUFA module. This module gives a way to reference
- *  LUFA source files symbollically, so that changes to the library structure do not break the library
+ *  LUFA source files symbolically, so that changes to the library structure do not break the library
  *  makefile.
  *
  *  To use this module in your application makefile, add the following code:
@@ -909,7 +909,7 @@
  *   <tr>
  *    <td>Error &quot;<b><tt>Makefile <i>{X}</i> option must be Y or N</tt></b>&quot; shown when compiling.</td>
  *    <td>The specified Makefile value was configured in your project's makefile or on the command line, but was set to a value other than a Y (for "Yes") or "N" (for "No").
- *        This configuration option is required to be one of the aformentioned boolean values, and other values are invalid. Set this option to either Y or N and try again.</td>
+ *        This configuration option is required to be one of the aforementioned boolean values, and other values are invalid. Set this option to either Y or N and try again.</td>
  *   </tr>
  *   <tr>
  *    <td>Error &quot;<b><tt>Unknown input source file formats: <i>{X}</i></tt></b>&quot; shown when compiling.</td>
@@ -957,7 +957,7 @@
  *   </tr>
  *   <tr>
  *    <td>Error &quot;<b><tt>unknown MCU '<i>{X}</i>' specified</tt></b>&quot; shown when compiling.</td>
- *    <td>The specified micocontroller device model name set in the user application's makefile as the <tt>MCU</tt> parameter is incorrect, or unsupported by the
+ *    <td>The specified microcontroller device model name set in the user application's makefile as the <tt>MCU</tt> parameter is incorrect, or unsupported by the
  *        version of the compiler being used. Make sure the model name is correct, or upgrade to the latest Atmel Toolchain to obtain newer device support.</td>
  *   </tr>
  *   <tr>
