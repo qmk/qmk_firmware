@@ -119,6 +119,10 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
+# keymap section
+EXTRALDFLAGS = -Wl,-Tld_keymap_avr5.x
+OPT_DEFS += -DKEYMAP_SECTION
+
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
@@ -128,4 +132,5 @@ include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
 
 debug-on: EXTRAFLAGS += -DDEBUG
+#debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
