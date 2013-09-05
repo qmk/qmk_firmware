@@ -36,7 +36,7 @@ table {
 	font-size: 10pt;
 }
 
-table thead * {
+table thead {
  	background-color: #f4f4f4;
 }
 
