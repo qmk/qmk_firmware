@@ -235,8 +235,10 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *  \param[in]     Data    Data element to insert into the buffer.
 		 */
-		static inline void RingBuffer_Insert(RingBuffer_t* Buffer, const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
-		static inline void RingBuffer_Insert(RingBuffer_t* Buffer, const uint8_t Data)
+		static inline void RingBuffer_Insert(RingBuffer_t* Buffer,
+		                                     const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
+		static inline void RingBuffer_Insert(RingBuffer_t* Buffer,
+		                                     const uint8_t Data)
 		{
 			GCC_FORCE_POINTER_ACCESS(Buffer);
 
