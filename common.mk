@@ -69,5 +69,9 @@ ifdef BACKLIGHT_ENABLE
 endif
 
 
+# Version string
+OPT_DEFS += -DVERSION=$(shell (git describe --dirty || echo 'unknown') 2> /dev/null)
+
+
 # Search Path
 VPATH += $(TOP_DIR)/common
