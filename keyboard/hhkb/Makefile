@@ -111,12 +111,13 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-NKRO_ENABLE = yes	# USB Nkey Rollover
+BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes		# Mouse keys
+EXTRAKEY_ENABLE = yes		# Audio control and System control
+CONSOLE_ENABLE = yes		# Console for debug
+COMMAND_ENABLE = yes    	# Commands for debug and configuration
+NKRO_ENABLE = yes		# USB Nkey Rollover
+KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
 
 
 # Search Path
@@ -128,4 +129,5 @@ include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
 
 debug-on: EXTRAFLAGS += -DDEBUG
+#debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
