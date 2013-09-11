@@ -252,9 +252,10 @@ static bool command_common(uint8_t code)
         case KC_V: // print version & information
             print("\n\n----- Version -----\n");
             print(STR(DESCRIPTION) "\n");
-            print(STR(MANUFACTURER) "(" STR(VENDOR_ID) ")/");
-            print(STR(PRODUCT) "(" STR(PRODUCT_ID) ") ");
-            print("VERSION: " STR(DEVICE_VER) "\n");
+            print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") VER: " STR(DEVICE_VER) "\n");
+            print("SRC: " STR(VERSION) "\n");
+            print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__) "\n");
+            print("AVR-LIBC: " __AVR_LIBC_VERSION_STRING__ "\n");
             break;
         case KC_T: // print timer
             print_val_hex32(timer_count);
