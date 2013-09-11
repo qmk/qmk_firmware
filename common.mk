@@ -68,6 +68,10 @@ ifdef BACKLIGHT_ENABLE
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 
+ifdef KEYMAP_SECTION_ENABLE
+    OPT_DEFS += -DKEYMAP_SECTION
+    EXTRALDFLAGS = -Wl,-L$(TOP_DIR),-Tldscript_keymap_avr5.x
+endif
 
 # Version string
 OPT_DEFS += -DVERSION=$(shell (git describe --dirty || echo 'unknown') 2> /dev/null)
