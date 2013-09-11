@@ -48,8 +48,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    } \
 }
 
-
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef KEYMAP_SECTION
+const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] __attribute__ ((section (".keymap.keymaps"))) = {
+#else
+static const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+#endif
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
      * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|  `|
@@ -186,7 +189,11 @@ enum macro_id {
 /*
  * Fn action definition
  */
-static const uint16_t PROGMEM fn_actions[] = {
+#ifdef KEYMAP_SECTION
+const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
+#else
+static const uint16_t fn_actions[] PROGMEM = {
+#endif
     [0] = ACTION_DEFAULT_LAYER_SET(0),                // Default layer(not used)
     [1] = ACTION_LAYER_TAP_TOGGLE(1),                 // HHKB layer(toggle with 5 taps)
     [2] = ACTION_LAYER_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
@@ -310,10 +317,6 @@ uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 action_t keymap_fn_to_action(uint8_t keycode)
 {
     action_t action;
-    if (FN_INDEX(keycode) < sizeof(fn_actions) / sizeof(fn_actions[0])) {
-        action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
-    } else {
-        action.code = ACTION_NO;
-    }
+    action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
     return action;
 }
