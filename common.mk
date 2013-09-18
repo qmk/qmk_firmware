@@ -69,7 +69,7 @@ ifdef BACKLIGHT_ENABLE
 endif
 
 ifdef KEYMAP_SECTION_ENABLE
-    OPT_DEFS += -DKEYMAP_SECTION
+    OPT_DEFS += -DKEYMAP_SECTION_ENABLE
     EXTRALDFLAGS = -Wl,-L$(TOP_DIR),-Tldscript_keymap_avr5.x
 endif
 
