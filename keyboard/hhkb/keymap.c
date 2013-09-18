@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    } \
 }
 
-#ifdef KEYMAP_SECTION
+#ifdef KEYMAP_SECTION_ENABLE
 const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] __attribute__ ((section (".keymap.keymaps"))) = {
 #else
 static const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
@@ -189,7 +189,7 @@ enum macro_id {
 /*
  * Fn action definition
  */
-#ifdef KEYMAP_SECTION
+#ifdef KEYMAP_SECTION_ENABLE
 const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
 #else
 static const uint16_t fn_actions[] PROGMEM = {

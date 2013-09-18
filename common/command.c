@@ -251,11 +251,48 @@ static bool command_common(uint8_t code)
             break;
         case KC_V: // print version & information
             print("\n\n----- Version -----\n");
-            print(STR(DESCRIPTION) "\n");
-            print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") VER: " STR(DEVICE_VER) "\n");
-            print("SRC: " STR(VERSION) "\n");
-            print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__) "\n");
-            print("AVR-LIBC: " __AVR_LIBC_VERSION_STRING__ "\n");
+            print("DESC: " STR(DESCRIPTION) "\n");
+            print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
+                  "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
+                  "VER: " STR(DEVICE_VER) "\n");
+            print("BUILD: " STR(VERSION) " (" __TIME__ " " __DATE__ ")\n");
+            /* build options */
+            print("OPTIONS:"
+#ifdef PROTOCOL_PJRC
+            " PJRC"
+#endif
+#ifdef PROTOCOL_LUFA
+            " LUFA"
+#endif
+#ifdef PROTOCOL_VUSB
+            " VUSB"
+#endif
+#ifdef BOOTMAGIC_ENABLE
+            " BOOTMAGIC"
+#endif
+#ifdef MOUSEKEY_ENABLE
+            " MOUSEKEY"
+#endif
+#ifdef EXTRAKEY_ENABLE
+            " EXTRAKEY"
+#endif
+#ifdef CONSOLE_ENABLE
+            " CONSOLE"
+#endif
+#ifdef COMMAND_ENABLE
+            " COMMAND"
+#endif
+#ifdef NKRO_ENABLE
+            " NKRO"
+#endif
+#ifdef KEYMAP_SECTION_ENABLE
+            " KEYMAP_SECTION"
+#endif
+            " " STR(BOOTLOADER_SIZE) "\n");
+
+            print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__) 
+                  " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
+                  " AVR_ARCH: avr" STR(__AVR_ARCH__) "\n");
             break;
         case KC_T: // print timer
             print_val_hex32(timer_count);
