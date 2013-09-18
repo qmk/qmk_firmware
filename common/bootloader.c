@@ -71,7 +71,8 @@ void bootloader_jump_after_watchdog_reset(void)
         MCUSR &= ~(1<<WDRF);
         wdt_disable();
 
-        ((void (*)(void))BOOTLOADER_START)();
+        // This is compled into 'icall', address should be in word unit, not byte.
+        ((void (*)(void))(BOOTLOADER_START/2))();
     }
 }
 
@@ -141,7 +142,7 @@ void bootloader_jump(void) {
     ADCSRA = 0; TWCR = 0; UCSR0B = 0;
 #endif
 
-    // start Bootloader
-    ((void (*)(void))BOOTLOADER_START)();
+    // This is compled into 'icall', address should be in word unit, not byte.
+    ((void (*)(void))(BOOTLOADER_START/2))();
 }
 #endif
