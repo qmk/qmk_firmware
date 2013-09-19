@@ -27,9 +27,7 @@ static uint8_t waiting_buffer_tail = 0;
 static bool process_tapping(keyrecord_t *record);
 static bool waiting_buffer_enq(keyrecord_t record);
 static void waiting_buffer_clear(void);
-#if TAPPING_TERM >= 500
 static bool waiting_buffer_typed(keyevent_t event);
-#endif
 static bool waiting_buffer_has_anykey_pressed(void);
 static void waiting_buffer_scan_tap(void);
 static void debug_tapping_key(void);
@@ -109,6 +107,13 @@ bool process_tapping(keyrecord_t *keyp)
                     return false;
                 }
 #endif
+                /* release a key pressed before tapping */
+                else if (!event.pressed && !waiting_buffer_typed(event)) {
+                    /* Unexpected repeating occurs unless this event is processed immedately. */
+                    debug("Tapping: release a key pressed before tapping\n");
+                    process_action(keyp);
+                    return true;
+                }
                 else {
                     // set interrupted flag when other key preesed during tapping
                     if (event.pressed) {
@@ -289,7 +294,6 @@ void waiting_buffer_clear(void)
     waiting_buffer_tail = 0;
 }
 
-#if TAPPING_TERM >= 500
 bool waiting_buffer_typed(keyevent_t event)
 {
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
@@ -299,7 +303,6 @@ bool waiting_buffer_typed(keyevent_t event)
     }
     return false;
 }
-#endif
 
 bool waiting_buffer_has_anykey_pressed(void)
 {
