@@ -53,10 +53,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define M0110_CLOCK_PORT        PORTD
 #define M0110_CLOCK_PIN         PIND
 #define M0110_CLOCK_DDR         DDRD
-#define M0110_CLOCK_BIT         0
+#define M0110_CLOCK_BIT         1
 #define M0110_DATA_PORT         PORTD
 #define M0110_DATA_PIN          PIND
 #define M0110_DATA_DDR          DDRD
-#define M0110_DATA_BIT          1
+#define M0110_DATA_BIT          0
 
 #endif
