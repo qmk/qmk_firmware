@@ -18,8 +18,10 @@ void bootmagic(void)
     }
 
     /* do scans in case of bounce */
+    print("boogmagic scan: ... ");
     uint8_t scan = 100;
     while (scan--) { matrix_scan(); _delay_ms(10); }
+    print("done.\n");
 
     /* bootmagic skip */
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_SKIP)) {
@@ -53,7 +55,7 @@ void bootmagic(void)
 
     /* keymap config */
     keymap_config.raw = eeconfig_read_keymap();
-    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_SWAP_CONTROL_CPASLOCK)) {
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK)) {
         keymap_config.swap_control_capslock = !keymap_config.swap_control_capslock;
     }
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL)) {
