@@ -1,10 +1,12 @@
 M0110/M0110A to USB keyboard converter
 ======================================
-This firmware converts the protocol of Apple Macintosh keyboard M0110/M0110A into USB.
-Target board of this project is [PJRC Teensy](http://www.pjrc.com/teensy/), though,
-you can use other board with USB AVR like `ATmega32U4` and `AT90USB`.
+This firmware converts the protocol of Apple Macintosh keyboard **M0110**, **M0110A** and **M0120** into USB. Target of this project is USB AVR controller **ATmega32U4**. Using this converter you can revive these retro keyboards with modern computer.
 
-![M0110](https://raw.github.com/tmk/tmk_keyboard/master/converter/m0110_usb/doc/m0110.jpg)
+Pics of **M0110 + M0120** and **M0110A**.
+
+![M0110+M0120](http://i.imgur.com/dyvXb2Tm.jpg)
+![M0110A](http://i.imgur.com/HuHOEoHm.jpg)
+
 
 - M0110A support was contributed by [skagon@github](https://github.com/skagon).
 - M0120 also is supported. keys(+ * / and ,) on M0120 are recognized as cursor keys.
@@ -13,49 +15,42 @@ you can use other board with USB AVR like `ATmega32U4` and `AT90USB`.
 
 Update
 ------
-- 2013/08   Change port for signals PF to PD
+- 2013/08: Change port for signals `PF` to `PD`
+- 2013/09: Change port again, it uses inversely `PD0` for data and `PD1` for clock line now.
 
 
 
-Connection
-----------
-You need 4P4C plug and cable to connect Teensy or other AVR dev board into the keyboard.
-Teensy port `PD0` is assigned for `CLOCK` line and `PD1` for `DATA` by default,
-you can change pin configuration with editing *config.h*.
+Building Hardware
+-----------------
+You need **4P4C** cable and **ATMega32U4** board like PJRC [Teensy]. Port of the MCU `PD1` is assigned to `CLOCK` line and `PD0` to `DATA` by default, you can change pin configuration with editing `config.h`.
 
-You can find 4P4C plugs on telephone handset cable. Note that it is *crossover* connection
-while Macintosh keyboard cable is *straight*.
+[![M0110 Converter](http://i.imgur.com/4G2ZOegm.jpg)](http://i.imgur.com/4G2ZOeg.jpg)
 
-[![Conection](https://raw.github.com/tmk/tmk_keyboard/master/converter/m0110_usb/doc/teensy.jpg)]
+### 4P4C phone handset cable
+Note that original cable used with Mac is **straight** while phone handset cable is **crossover**.
 
-In this pic:
+<http://en.wikipedia.org/wiki/Modular_connector#4P4C>
 
-1. `GND`(Black)
-2. `CLOCK`(Red)
-3. `DATA`(Green)
-4. `+5V`(Yellow)
+Close-up pic of handset cable. You can see one end of plug has reverse color codes against the other. Click to enlarge.
+[![4P4C cable](http://i.imgur.com/3S9P1mYm.jpg?1)](http://i.imgur.com/3S9P1mY.jpg?1)
 
-Note that wire colors may vary in your cable.
+[Teensy]: http://www.pjrc.com/teensy/
 
 
-### Pinout
+### Socket Pinout
 - <http://pinouts.ru/Inputs/MacKeyboard_pinout.shtml>
-- <http://en.wikipedia.org/wiki/Modular_connector#4P4C>
 
 ![Jack fig](http://www.kbdbabel.org/conn/kbd_connector_macplus.png)
 
 
 ### Pull-up Registor
-You may need pull-up registors on signal lines(`CLOCK`, `DATA`) in particular
-when you have long or coiled cable. 1k-10k Ohm will be OK for this purpose.
-In some cases MCU can't read signal from keyboard correctly without pull-up resistors.
+You may need pull-up registors on signal lines(`CLOCK`, `DATA`) in particular when you have long or coiled cable. **1k-10k Ohm** will be OK for this purpose. In that case the converter may not read signal from keyboard correctly without pull-up resistors.
 
 
 
 Building Frimware
 -----------------
-To compile firmware you need AVR GCC. You can use [WinAVR](http://winavr.sourceforge.net/) on Windows.
-You can edit *Makefile* and *config.h* to change compile options and pin configuration.
+To compile firmware you need AVR GCC. You can edit *Makefile* and *config.h* to change compile options and pin configuration.
 
     $ git clone git://github.com/tmk/tmk_keyboard.git (or download source)
     $ cd m0110_usb
@@ -71,64 +66,69 @@ Keymap
 You can change keymaps by editing *keymap.c*.
 
 ### M0110 & M0120
-#### *Default*
-    ,---------------------------------------------------------. ,---------------.
-    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Ctl|  -|Lft|Rgt|
-    |---------------------------------------------------------| |---------------|
-    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \| |  7|  8|  9| Up|
-    |---------------------------------------------------------| |---------------|
-    |Fn0   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6| Dn|
-    |---------------------------------------------------------| |---------------|
-    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift   | |  1|  2|  3|   |
-    `---------------------------------------------------------' |-----------|Ent|
-         |Ctl|Alt |         Space               |Gui |Ctl|      |      0|  .|   |
-         `-----------------------------------------------'      `---------------'
-#### *HHKB/WASD Layer(WASD/IJKL)*
-    ,---------------------------------------------------------. ,---------------.
-    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|  -|Lft|Rgt|
-    |---------------------------------------------------------| |---------------|
-    |Caps |Hom| Up|PgU|   |   |   |PgU| Up|Hom|Psc|Slk|Pau|Ins| |  7|  8|  9| Up|
-    |---------------------------------------------------------| |---------------|
-    |Fn0   |Lef|Dow|Rig|   |   |   |Lef|Dow|Rig|   |   |Return| |  4|  5|  6| Dn|
-    |---------------------------------------------------------| |---------------|
-    |Shift   |End|   |PgD|   |   |   |PgD|   |End|   |Shift   | |  1|  2|  3|   |
-    `---------------------------------------------------------' |-----------|Ent|
-         |Ctl|Alt |         Space               |Gui |Ctl|      |      0|  .|   |
-         `-----------------------------------------------'      `---------------'
+#### *Default Layer*
+    ,---------------------------------------------------------.     ,---------------.
+    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs|     |Clr|  -|Lft|Rgt|
+    |---------------------------------------------------------|     |---------------|
+    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \|     |  7|  8|  9| Up|
+    |---------------------------------------------------------|     |---------------|
+    |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter |     |  4|  5|  6| Dn|
+    |---------------------------------------------------------|     |---------------|
+    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift   |     |  1|  2|  3|   |
+    `---------------------------------------------------------'     |-----------|Ent|
+         |Ctl|Gui |         Space               |Alt |Ctl|          |      0|  .|   |
+         `-----------------------------------------------'          `---------------'
+
+- `Space` and  `Enter` also work as `Fn` layer switch key when holding down.
+
+#### *Function Layer(WASD/HHKB)*
+    ,---------------------------------------------------------.     ,---------------.
+    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet|     |Nlk|  -|Lft|Rgt|
+    |---------------------------------------------------------|     |---------------|
+    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|  \|     |  7|  8|  9| Up|
+    |---------------------------------------------------------|     |---------------|
+    |Caps  |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Enter |     |  4|  5|  6| Dn|
+    |---------------------------------------------------------|     |---------------|
+    |Shift   |End|   |PgD|   |   |   |   |End|PgD|Dow|Shift   |     |  1|  2|  3|   |
+    `---------------------------------------------------------'     |-----------|Ent|
+         |Ctl|Gui |         Space               |Alt |Ctl|          |      0|  .|   |
+         `-----------------------------------------------'          `---------------'
+
 
 ### M0110A
-#### *Default*
+#### *Default Layer*
     ,---------------------------------------------------------. ,---------------.
-    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Ctl|  =|  /|  *|
+    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Clr|  =|  /|  *|
     |---------------------------------------------------------| |---------------|
     |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   | |  7|  8|  9|  -|
     |-----------------------------------------------------'   | |---------------|
-    |Fn0   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  +|
+    |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter | |  4|  5|  6|  +|
     |---------------------------------------------------------| |---------------|
     |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft| Up| |  1|  2|  3|   |
     |---------------------------------------------------------| |-----------|Ent|
-    |Alt  |Gui    |         Space             |  \|Lft|Rgt| Dn| |      0|  .|   |
+    |Ctrl |Gui    |         Space             |  \|Lft|Rgt|Dwn| |      0|  .|   |
     `---------------------------------------------------------' `---------------'
-#### *Cursor  Layer(WASD/IJKL)*
+
+- `Space` and  `Enter` also work as `Fn` layer switch key when holding down.
+- `Backslash(\)` also works as `Alt` when holding down.
+
+#### *Function Layer(WASD/HHKB)*
     ,---------------------------------------------------------. ,---------------.
     |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|  =|  /|  *|
     |---------------------------------------------------------| |---------------|
-    |Caps |Hom| Up|PgU|   |   |   |PgU| Up|Hom|Psc|Slk|Pau|   | |  7|  8|  9|  -|
+    |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |  7|  8|  9|  -|
     |-----------------------------------------------------'   | |---------------|
-    |Fn0   |Lef|Dow|Rig|   |   |   |Lef|Dow|Rig|   |   |Return| |  4|  5|  6|  +|
+    |Caps  |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Enter | |  4|  5|  6|  +|
     |---------------------------------------------------------| |---------------|
-    |Shift   |End|   |PgD|   |   |   |PgD|   |End|   |Shif|PgU| |  1|  2|  3|   |
+    |Shift   |End|   |PgD|   |   |   |   |End|PgD|Dow|Shif|PgU| |  1|  2|  3|   |
     |---------------------------------------------------------| |-----------|Ent|
-    |Alt  |Gui    |         Space             |Ins|Hom|End|PgD| |      0|  .|   |
+    |Ctrl |Gui    |         Space             |  \|Hom|End|PgD| |      0|  .|   |
     `---------------------------------------------------------' `---------------'
 
 
 
 Debug
 -----
-You can use [PJRC HID listen](http://www.pjrc.com/teensy/hid_listen.html) to see debug output.
+You can use [PJRC HID listen](http://www.pjrc.com/teensy/hid_listen.html) to see debug output. The converter has some functions for debug, press `<Command>+H` simultaneously to get help.
 
-The converter has some functions for debug, press `<magickey>+H` simultaneously to get help.
-These function is totally undocumented, tentative, inconsistent and buggy.
-
-magickey: Shift+Option+Command(Shift+Alt+Gui or Shift+Alt+Control)
+- Command: `Shift+Option+Command`(`Shift+Alt+Gui` or `Shift+Alt+Control`)
