@@ -531,19 +531,24 @@ static void SetupHardware(void)
 
     // for Console_Task
     USB_Device_EnableSOFEvents();
+    print_set_sendchar(sendchar);
 }
 
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
     SetupHardware();
+    sei();
+    while (USB_DeviceState != DEVICE_STATE_Configured) ;
+    print("USB configured.\n");
+
     keyboard_init();
     host_set_driver(&lufa_driver);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
-    sei();
 
+    print("Keyboard start.\n");
     while (1) {
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             suspend_power_down();
