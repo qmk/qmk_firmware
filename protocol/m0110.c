@@ -91,10 +91,11 @@ uint8_t m0110_error = 0;
 
 void m0110_init(void)
 {
-    uint8_t data;
     idle();
     _delay_ms(1000);
 
+/* Not needed to initialize in fact.
+    uint8_t data;
     m0110_send(M0110_MODEL);
     data = m0110_recv();
     print("m0110_init model: "); phex(data); print("\n");
@@ -102,6 +103,7 @@ void m0110_init(void)
     m0110_send(M0110_TEST);
     data = m0110_recv();
     print("m0110_init test: "); phex(data); print("\n");
+*/
 }
 
 uint8_t m0110_send(uint8_t data)
