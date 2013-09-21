@@ -36,10 +36,11 @@ action_t action_for_key(uint8_t layer, key_t key)
             return keymap_fn_to_action(keycode);
 #ifdef BOOTMAGIC_ENABLE
         case KC_CAPSLOCK:
+        case KC_LOCKING_CAPS:
             if (keymap_config.swap_control_capslock || keymap_config.capslock_to_control) {
                 return keycode_to_action(KC_LCTL);
             }
-            return keycode_to_action(KC_CAPS);
+            return keycode_to_action(keycode);
         case KC_LCTL:
             if (keymap_config.swap_control_capslock) {
                 return keycode_to_action(KC_CAPSLOCK);
