@@ -51,8 +51,7 @@ bool suspend_wakeup_condition(void)
 // run immediately after wakeup
 void suspend_wakeup_init(void)
 {
-    // clear matrix and keyboard state
-    matrix_init();
+    // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
