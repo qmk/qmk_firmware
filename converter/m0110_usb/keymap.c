@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |---------------------------------------------------------| |---------------|
  * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   | |  7|  8|  9|  -|
  * |-----------------------------------------------------'   | |---------------|
- * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  +|
+ * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter | |  4|  5|  6|  +|
  * |---------------------------------------------------------| |---------------|
  * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft|Up | |  1|  2|  3|   |
  * |---------------------------------------------------------' |-----------|Ent|
@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |---------------------------------------------------------| |---------------|
  * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \| |  7|  8|  9|  /|
  * |---------------------------------------------------------| |---------------|
- * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  ,|
+ * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter | |  4|  5|  6|  ,|
  * |---------------------------------------------------------| |---------------|
  * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift   | |  1|  2|  3|   |
  * `---------------------------------------------------------' |-----------|Ent|
@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |---------------------------------------------------------| |---------------|
  * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   | |  7|  8|  9|  -|
  * |-----------------------------------------------------'   | |---------------|
- * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  +|
+ * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter | |  4|  5|  6|  +|
  * |---------------------------------------------------------| |---------------|
  * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft|Up | |  1|  2|  3|   |
  * |---------------------------------------------------------| |-----------|Ent|
@@ -108,89 +108,79 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K68, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K6D, KC_NO,    KC_NO    }, \
 }
 
-#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
-
-
-// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
-static const uint8_t PROGMEM fn_layer[] = {
-    1,              // Fn0
-    0,              // Fn1
-    0,              // Fn2
-    0,              // Fn3
-    0,              // Fn4
-    0,              // Fn5
-    0,              // Fn6
-    0               // Fn7
-};
-
-// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
-// See layer.c for details.
-static const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_NO,          // Fn2
-    KC_NO,          // Fn3
-    KC_NO,          // Fn4
-    KC_NO,          // Fn5
-    KC_NO,          // Fn6
-    KC_NO           // Fn7
-};
-
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef KEYMAP_SECTION_ENABLE
+const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] __attribute__ ((section (".keymap.keymaps"))) = {
+#else
+static const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+#endif
     /* Default:
      * ,---------------------------------------------------------. ,---------------.
-     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Ctl|  =|  /|  *|
+     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backs| |Clr|  =|  /|  *|
      * |---------------------------------------------------------| |---------------|
      * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   | |  7|  8|  9|  -|
      * |-----------------------------------------------------'   | |---------------|
-     * |Fn0   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return| |  4|  5|  6|  +|
+     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter | |  4|  5|  6|  +|
      * |---------------------------------------------------------| |---------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shft|Up | |  1|  2|  3|   |
      * |---------------------------------------------------------| |-----------|Ent|
-     * |Ctl  |Alt    |         Space         |Gui|  \|Lft|Rgt|Dn | |      0|  .|   |
+     * |Ctl  |Gui    |         Space         |Alt|  \|Lft|Rgt|Dn | |      0|  .|   |
      * `---------------------------------------------------------' `---------------'
      */
     KEYMAP(
-    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    LCTL,EQL, PSLS,PAST,
+    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,    CLR, EQL, PSLS,PAST,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,         P7,  P8,  P9,  PMNS,
-    FN0, A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,     P4,  P5,  P6,  PPLS,
+    LCAP,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     FN1,     P4,  P5,  P6,  PPLS,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          UP,      P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,BSLS,LEFT,RGHT,DOWN,    P0,       PDOT
+    LCTL,LGUI,               FN0,                LALT,FN2, LEFT,RGHT,DOWN,    P0,       PDOT
     ),
     /* Cursor Layer(WASD, IJKL)
      * ,---------------------------------------------------------. ,---------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delet| |Nlk|  =|  /|  *|
      * |---------------------------------------------------------| |---------------|
-     * |Caps |Hom| Up|PgU|   |   |   |PgU| Up|Hom|Psc|Slk|Pau|   | |  7|  8|  9|  -|
+     * |Caps |Hom| Up|PgU|   |   |   |   |Psc|Slk|Pau|Up |Ins|   | |  7|  8|  9|  -|
      * |-----------------------------------------------------'   | |---------------|
-     * |Fn0   |Lef|Dow|Rig|   |   |   |Lef|Dow|Rig|   |   |Return| |  4|  5|  6|  +|
+     * |Caps  |Lef|Dow|Rig|   |   |   |   |Hom|PgU|Lef|Rig|Enter | |  4|  5|  6|  +|
      * |---------------------------------------------------------| |---------------|
-     * |Shift   |End|   |PgD|   |   |   |PgD|   |End|   |Shif|PgU| |  1|  2|  3|   |
+     * |Shift   |End|   |PgD|   |   |   |   |End|PgD|Dow|Shif|PgU| |  1|  2|  3|   |
      * |---------------------------------------------------------| |-----------|Ent|
-     * |Ctl  |Alt    |         Space        |Gui |Ins|Hom|End|PgD| |      0|  .|   |
+     * |Ctl  |Gui    |         Space        |Alt |  \|Hom|End|PgD| |      0|  .|   |
      * `---------------------------------------------------------' `---------------'
      */
     KEYMAP(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,     NLCK,EQL, PSLS,PAST,
-    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  PGUP,UP,  HOME,PSCR,SLCK,PAUS,         P7,  P8,  P9,  PMNS,
-    FN0, LEFT,DOWN,RGHT,NO,  NO,  NO,  LEFT,DOWN,RGHT,NO,  NO,       ENT,     P4,  P5,  P6,  PPLS,
-    LSFT,END, NO,  PGDN,NO,  NO,  NO,  PGDN,NO,  END, NO,            PGUP,    P1,  P2,  P3,  PENT,
-    LCTL,LALT,               SPC,                LGUI,INS, HOME,END, PGDN,    P0,       PDOT
+    CAPS,HOME,UP,  PGUP,NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  INS,          P7,  P8,  P9,  PMNS,
+    LCAP,LEFT,DOWN,RGHT,NO,  NO,  NO,  NO,  HOME,PGUP,LEFT,RGHT,     FN1,     P4,  P5,  P6,  PPLS,
+    LSFT,END, NO,  PGDN,NO,  NO,  NO,  NO,  END, PGDN,DOWN,          PGUP,    P1,  P2,  P3,  PENT,
+    LCTL,LGUI,               FN0,                LALT,FN2, HOME,END, PGDN,    P0,       PDOT
     ),
 };
 
 
-uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
+/*
+ * Fn action definition
+ */
+#ifdef KEYMAP_SECTION_ENABLE
+const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
+#else
+static const uint16_t fn_actions[] PROGMEM = {
+#endif
+    [0] = ACTION_LAYER_TAP_KEY(1, KC_SPACE),        // Layer switch with Tap key Space
+    [1] = ACTION_LAYER_TAP_KEY(1, KC_ENTER),        // Layer switch with Tap key Enter
+    [2] = ACTION_MODS_TAP_KEY(MOD_LALT, KC_BSLS),   // LALT with Tap key Backslash
+};
+
+
+
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
 {
-    return KEYCODE(layer, row, col);
+    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
-uint8_t keymap_fn_layer(uint8_t index)
+/* translates Fn index to action */
+action_t keymap_fn_to_action(uint8_t keycode)
 {
-    return pgm_read_byte(&fn_layer[index]);
-}
-
-uint8_t keymap_fn_keycode(uint8_t index)
-{
-    return pgm_read_byte(&fn_keycode[index]);
+    action_t action;
+    action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
+    return action;
 }
