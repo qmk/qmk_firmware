@@ -539,7 +539,9 @@ int main(void)
 {
     SetupHardware();
     sei();
+#if defined(INTERRUPT_CONTROL_ENDPOINT)
     while (USB_DeviceState != DEVICE_STATE_Configured) ;
+#endif
     print("USB configured.\n");
 
     keyboard_init();
