@@ -31,9 +31,9 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #    bin                       - Build application BIN binary object file
 #    hex                       - Build application HEX object file
 #    lss                       - Build application LSS assembly listing file
-#    clean                     - Remove all project intermediatary and binary
+#    clean                     - Remove all project intermediary and binary
 #                                output files
-#    mostlyclean               - Remove intermediatary output files, but
+#    mostlyclean               - Remove intermediary output files, but
 #                                preserve binaries
 #    <filename>.s              - Compile C/C++ source file into an assembly file
 #                                for manual code inspection

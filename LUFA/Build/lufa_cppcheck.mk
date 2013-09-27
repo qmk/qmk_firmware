@@ -11,15 +11,16 @@ LUFA_BUILD_TARGETS         += cppcheck cppcheck-config
 LUFA_BUILD_MANDATORY_VARS  += SRC
 LUFA_BUILD_OPTIONAL_VARS   += CPPCHECK_INCLUDES CPPCHECK_EXCLUDES CPPCHECK_MSG_TEMPLATE CPPCHECK_ENABLE \
                               CPPCHECK_SUPPRESS CPPCHECK_FAIL_ON_WARNING CPPCHECK_QUIET CPPCHECK_FLAGS
-LUFA_BUILD_PROVIDED_VARS   += 
-LUFA_BUILD_PROVIDED_MACROS += 
+LUFA_BUILD_PROVIDED_VARS   +=
+LUFA_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #                LUFA CPPCheck Buildsystem Makefile Module.
 # -----------------------------------------------------------------------------
 # DESCRIPTION:
 #   Provides a set of targets to scan a project with the free "cppcheck" static
-#   analysis tool, to check for code errors at runtime (see http://cppcheck.sourceforge.net).
+#   analysis tool, to check for code errors at runtime
+#   (see http://cppcheck.sourceforge.net).
 # -----------------------------------------------------------------------------
 # TARGETS:
 #
@@ -68,7 +69,7 @@ CPPCHECK_ENABLE              ?= all
 CPPCHECK_SUPPRESS            ?= variableScope missingInclude
 CPPCHECK_FAIL_ON_WARNING     ?= Y
 CPPCHECK_QUIET               ?= Y
-CPPCHECK_FLAGS               ?= 
+CPPCHECK_FLAGS               ?=
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
