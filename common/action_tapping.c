@@ -1,7 +1,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "action.h"
+#include "action_layer.h"
 #include "action_tapping.h"
+#include "keycode.h"
 #include "timer.h"
 
 #ifdef DEBUG_ACTION
@@ -95,22 +97,40 @@ bool process_tapping(keyrecord_t *keyp)
                     return false;
                 }
 #if TAPPING_TERM >= 500
-                /* This can settle mod/fn state fast but may prevent from typing fast. */
-                else if (!event.pressed && waiting_buffer_typed(event)) {
-                    // other key typed. not tap.
+                /* Process a key typed within TAPPING_TERM
+                 * This can register the key before settlement of tapping,
+                 * useful for long TAPPING_TERM but may prevent fast typing.
+                 */
+                else if (IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_action(&tapping_key);
                     tapping_key = (keyrecord_t){};
                     debug_tapping_key();
-
                     // enqueue
                     return false;
                 }
 #endif
-                /* release a key pressed before tapping */
-                else if (!event.pressed && !waiting_buffer_typed(event)) {
-                    /* Unexpected repeating occurs unless this event is processed immedately. */
-                    debug("Tapping: release a key pressed before tapping\n");
+                /* Process release event of a key pressed before tapping starts
+                 * Without this unexpected repeating will occur with having fast repeating setting
+                 * https://github.com/tmk/tmk_keyboard/issues/60
+                 */
+                else if (IS_RELEASED(event) && !waiting_buffer_typed(event)) {
+                    // Modifier should be retained till end of this tapping.
+                    action_t action = layer_switch_get_action(event.key);
+                    switch (action.kind.id) {
+                        case ACT_LMODS:
+                        case ACT_RMODS:
+                            if (action.key.mods && !action.key.code) return false;
+                            if (IS_MOD(action.key.code)) return false;
+                            break;
+                        case ACT_LMODS_TAP:
+                        case ACT_RMODS_TAP:
+                            if (action.key.mods && keyp->tap.count == 0) return false;
+                            if (IS_MOD(action.key.code)) return false;
+                            break;
+                    }
+                    // Release of key should be process immediately.
+                    debug("Tapping: release event of a key pressed before tapping\n");
                     process_action(keyp);
                     return true;
                 }
