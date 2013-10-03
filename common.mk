@@ -74,7 +74,7 @@ ifdef KEYMAP_SECTION_ENABLE
 endif
 
 # Version string
-OPT_DEFS += -DVERSION=$(shell (git describe --dirty || echo 'unknown') 2> /dev/null)
+OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
 
 
 # Search Path
