@@ -29,13 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 000r|0000|0000 0001    Transparent code
  * 000r|0000| keycode     Key
  * 000r|mods|0000 0000    Modifiers
- * 000r|mods| keycode     Key and Modifiers
+ * 000r|mods| keycode     Modifiers+Key(Modified key)
  *   r: Left/Right flag(Left:0, Right:1)
  *
  * ACT_MODS_TAP(001r):
  * 001r|mods|0000 0000    Modifiers with OneShot
  * 001r|mods|0000 00xx    (reserved)
- * 001r|mods| keycode     Modifiers with Tap Key
+ * 001r|mods| keycode     Modifiers with Tap Key(Dual role)
  *
  *
  * Other Keys(01xx)
@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1001|oopp|BBBB BBBB   8-bit Bitwise Operation???
  *
  * ACT_LAYER_TAP(101x):
- * 101E|LLLL| keycode    Invert with tap key
+ * 101E|LLLL| keycode    On/Off with tap key
  * 101E|LLLL|1110 xxxx   Reserved(0xE0-EF)
  * 101E|LLLL|1111 0000   Invert with tap toggle(0xF0)
  * 101E|LLLL|1111 0001   On/Off
