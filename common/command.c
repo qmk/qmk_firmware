@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyboard.h"
 #include "bootloader.h"
 #include "action_layer.h"
+#include "action_util.h"
 #include "eeconfig.h"
 #include "sleep_led.h"
 #include "led.h"
