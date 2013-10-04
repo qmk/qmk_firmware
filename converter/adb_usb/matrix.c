@@ -100,9 +100,7 @@ uint8_t matrix_scan(void)
     } else if (codes == 0xFFFF) {   // power key release
         register_key(0xFF);
     } else if (key0 == 0xFF) {      // error
-        if (debug_matrix) print("adb_host_kbd_recv: ERROR(matrix cleared.)\n");
-        // clear matrix to unregister all keys
-        for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
+        xprintf("adb_host_kbd_recv: ERROR(%02X)\n", codes);
         return key1;
     } else {
         register_key(key0);
