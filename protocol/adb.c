@@ -40,6 +40,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "adb.h"
+#include "debug.h"
 
 
 static inline void data_lo(void);
@@ -93,6 +94,7 @@ uint16_t adb_host_kbd_recv(void)
     }
     if (!read_bit()) {          // Startbit(1)
         // Service Request
+        dprintf("Startbit ERROR\n");
         return -2;
     }
 
@@ -104,6 +106,7 @@ uint16_t adb_host_kbd_recv(void)
     sei();
 
     if (stop) {
+        dprintf("Stopbit ERROR\n");
         return -3;
     }
     return data;
