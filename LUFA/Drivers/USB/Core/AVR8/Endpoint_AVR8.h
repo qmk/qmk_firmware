@@ -314,7 +314,7 @@
 			}
 
 			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queued for
-			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgement via the
+			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgment via the
 			 *  \ref Endpoint_ClearOUT() command.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement_AVR8

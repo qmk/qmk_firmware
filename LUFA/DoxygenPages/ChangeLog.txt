@@ -7,7 +7,9 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *   No changes.
+  *  <b>Changed:</b>
+  *  - Library Applications:
+  *   - Refactored out USB interface IDs in the demo applications into enums (thanks to Laszlo Monda)
   *
   *  \section Sec_ChangeLog130901 Version 130901
   *  <b>New:</b>
