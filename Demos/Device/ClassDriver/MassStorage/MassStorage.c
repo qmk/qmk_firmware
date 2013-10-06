@@ -44,7 +44,7 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber           = 0,
+				.InterfaceNumber           = INTERFACE_ID_MassStorage,
 				.DataINEndpoint            =
 					{
 						.Address           = MASS_STORAGE_IN_EPADDR,

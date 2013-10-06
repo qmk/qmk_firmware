@@ -170,7 +170,7 @@
 			dfuMANIFEST                  = 7,
 			dfuMANIFEST_WAIT_RESET       = 8,
 			dfuUPLOAD_IDLE               = 9,
-			dfuERROR	                 = 10
+			dfuERROR                     = 10
 		};
 
 		/** DFU command status error codes. Refer to the DFU class specification for information on each error code. */
@@ -191,7 +191,7 @@
 			errUSBR                      = 12,
 			errPOR                       = 13,
 			errUNKNOWN                   = 14,
-			errSTALLEDPKT	             = 15
+			errSTALLEDPKT                = 15
 		};
 
 	/* Function Prototypes: */

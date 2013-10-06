@@ -51,7 +51,7 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber              = 0,
+				.InterfaceNumber              = INTERFACE_ID_Keyboard,
 				.ReportINEndpoint             =
 					{
 						.Address              = KEYBOARD_IN_EPADDR,
@@ -72,7 +72,7 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber              = 1,
+				.InterfaceNumber              = INTERFACE_ID_Mouse,
 				.ReportINEndpoint             =
 					{
 						.Address              = MOUSE_IN_EPADDR,

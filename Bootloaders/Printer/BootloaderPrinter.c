@@ -43,7 +43,7 @@ USB_ClassInfo_PRNT_Device_t TextOnly_Printer_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber          = 0,
+				.InterfaceNumber          = INTERFACE_ID_Printer,
 				.DataINEndpoint           =
 					{
 						.Address          = PRINTER_IN_EPADDR,
