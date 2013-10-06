@@ -105,7 +105,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 0,
+			.InterfaceNumber        = INTERFACE_ID_CDC_CCI,
 			.AlternateSetting       = 0,
 
 			.TotalEndpoints         = 1,
@@ -156,7 +156,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 1,
+			.InterfaceNumber        = INTERFACE_ID_CDC_DCI,
 			.AlternateSetting       = 0,
 
 			.TotalEndpoints         = 2,
@@ -192,7 +192,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 2,
+			.InterfaceNumber        = INTERFACE_ID_MassStorage,
 			.AlternateSetting       = 0,
 
 			.TotalEndpoints         = 2,

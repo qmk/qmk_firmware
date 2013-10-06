@@ -44,7 +44,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber         = 0,
+				.ControlInterfaceNumber         = INTERFACE_ID_CDC_CCI,
 				.DataINEndpoint                 =
 					{
 						.Address                = CDC_TX_EPADDR,
@@ -74,7 +74,7 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber                = 2,
+				.InterfaceNumber                = INTERFACE_ID_MassStorage,
 				.DataINEndpoint                 =
 					{
 						.Address                = MASS_STORAGE_IN_EPADDR,

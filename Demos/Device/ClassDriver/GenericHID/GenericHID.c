@@ -47,7 +47,7 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber              = 0,
+				.InterfaceNumber              = INTERFACE_ID_GenericHID,
 				.ReportINEndpoint             =
 					{
 						.Address              = GENERIC_IN_EPADDR,

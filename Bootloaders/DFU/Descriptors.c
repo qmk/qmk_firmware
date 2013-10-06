@@ -90,7 +90,7 @@ const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 0,
+			.InterfaceNumber        = INTERFACE_ID_DFU,
 			.AlternateSetting       = 0,
 
 			.TotalEndpoints         = 0,

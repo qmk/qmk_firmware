@@ -44,7 +44,7 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber         = 0,
+				.ControlInterfaceNumber         = INTERFACE_ID_CDC_CCI,
 				.DataINEndpoint                 =
 					{
 						.Address                = CDC_TX_EPADDR,

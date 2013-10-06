@@ -37,28 +37,28 @@
 #ifndef _SERIALTOLCD_H_
 #define _SERIALTOLCD_H_
 
-    /* Includes: */
-        #include <avr/io.h>
-        #include <avr/wdt.h>
-        #include <avr/interrupt.h>
-        #include <avr/power.h>
+	/* Includes: */
+		#include <avr/io.h>
+		#include <avr/wdt.h>
+		#include <avr/interrupt.h>
+		#include <avr/power.h>
 
-        #include "Descriptors.h"
+		#include "Descriptors.h"
 		#include "Lib/HD44780.h"
 
-        #include <LUFA/Version.h>
-        #include <LUFA/Drivers/Misc/RingBuffer.h>
-        #include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Misc/RingBuffer.h>
+		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Platform/Platform.h>
 
 	/* Macros: */
 		#define COMMAND_ESCAPE     0x1B
 
-    /* Function Prototypes: */
-        void SetupHardware(void);
+	/* Function Prototypes: */
+		void SetupHardware(void);
 
-        void EVENT_USB_Device_ConfigurationChanged(void);
-        void EVENT_USB_Device_ControlRequest(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_ControlRequest(void);
 
 #endif
 

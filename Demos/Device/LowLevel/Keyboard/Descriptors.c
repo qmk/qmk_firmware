@@ -133,7 +133,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 0x00,
+			.InterfaceNumber        = INTERFACE_ID_Keyboard,
 			.AlternateSetting       = 0x00,
 
 			.TotalEndpoints         = 2,

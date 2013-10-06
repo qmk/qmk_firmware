@@ -47,7 +47,7 @@ USB_ClassInfo_HID_Device_t MediaControl_HID_Interface =
  	{
 		.Config =
 			{
-				.InterfaceNumber              = 0,
+				.InterfaceNumber              = INTERFACE_ID_HID,
 				.ReportINEndpoint             =
 					{
 						.Address              = MEDIACONTROL_HID_EPADDR,

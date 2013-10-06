@@ -90,7 +90,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber          = 0,
+			.InterfaceNumber          = INTERFACE_ID_AudioControl,
 			.AlternateSetting         = 0,
 
 			.TotalEndpoints           = 0,
@@ -150,7 +150,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber          = 1,
+			.InterfaceNumber          = INTERFACE_ID_AudioStream,
 			.AlternateSetting         = 0,
 
 			.TotalEndpoints           = 0,
@@ -166,7 +166,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber          = 1,
+			.InterfaceNumber          = INTERFACE_ID_AudioStream,
 			.AlternateSetting         = 1,
 
 			.TotalEndpoints           = 1,

@@ -86,16 +86,25 @@
 			USB_Descriptor_Endpoint_t                AVRISP_DataOutEndpoint;
 		} AVRISP_USB_Descriptor_Configuration_t;
 
+		/** Enum for the device interface descriptor IDs within the device. Each interface descriptor
+		 *  should have a unique ID index associated with it, which can be used to refer to the
+		 *  interface from other descriptors.
+		 */
+		enum InterfaceDescriptors_t
+		{
+			INTERFACE_ID_AVRISP = 0, /**< AVRISP interface descriptor ID */
+		};
+
 		/** Enum for the device string descriptor IDs within the device. Each string descriptor should
 		 *  have a unique ID index associated with it, which can be used to refer to the string from
 		 *  other descriptors.
 		 */
 		enum AVRISP_StringDescriptors_t
 		{
-		    AVRISP_STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
-		    AVRISP_STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
-		    AVRISP_STRING_ID_Product       = 2, /**< Product string ID */
-		    AVRISP_STRING_ID_Serial        = 3, /**< Serial number string ID */
+			AVRISP_STRING_ID_Language     = 0, /**< Supported Languages string descriptor ID (must be zero) */
+			AVRISP_STRING_ID_Manufacturer = 1, /**< Manufacturer string ID */
+			AVRISP_STRING_ID_Product      = 2, /**< Product string ID */
+			AVRISP_STRING_ID_Serial       = 3, /**< Serial number string ID */
 		};
 
 	/* External Variables: */

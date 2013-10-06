@@ -81,22 +81,32 @@
 			USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
 		} USART_USB_Descriptor_Configuration_t;
 
+		/** Enum for the device interface descriptor IDs within the device. Each interface descriptor
+		 *  should have a unique ID index associated with it, which can be used to refer to the
+		 *  interface from other descriptors.
+		 */
+		enum USART_InterfaceDescriptors_t
+		{
+			INTERFACE_ID_CDC_CCI = 0, /**< CDC CCI interface descriptor ID */
+			INTERFACE_ID_CDC_DCI = 1, /**< CDC DCI interface descriptor ID */
+		};
+
 		/** Enum for the device string descriptor IDs within the device. Each string descriptor should
 		 *  have a unique ID index associated with it, which can be used to refer to the string from
 		 *  other descriptors.
 		 */
 		enum USART_StringDescriptors_t
 		{
-		    USART_STRING_ID_Language      = 0, /**< Supported Languages string descriptor ID (must be zero) */
-		    USART_STRING_ID_Manufacturer  = 1, /**< Manufacturer string ID */
-		    USART_STRING_ID_Product       = 2, /**< Product string ID */
+			USART_STRING_ID_Language     = 0, /**< Supported Languages string descriptor ID (must be zero) */
+			USART_STRING_ID_Manufacturer = 1, /**< Manufacturer string ID */
+			USART_STRING_ID_Product      = 2, /**< Product string ID */
 		};
 
 	/* Function Prototypes: */
 		uint16_t USART_GetDescriptor(const uint16_t wValue,
 		                             const uint8_t wIndex,
 		                             const void** const DescriptorAddress,
-									 uint8_t* const DescriptorMemorySpace);
+		                             uint8_t* const DescriptorMemorySpace);
 
 #endif
 

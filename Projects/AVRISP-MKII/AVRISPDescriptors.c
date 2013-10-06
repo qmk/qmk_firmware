@@ -101,7 +101,7 @@ AVRISP_USB_Descriptor_Configuration_t AVRISP_ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 0,
+			.InterfaceNumber        = INTERFACE_ID_AVRISP,
 			.AlternateSetting       = 0,
 
 			.TotalEndpoints         = 2,

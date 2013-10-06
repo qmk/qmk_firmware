@@ -47,7 +47,7 @@ USB_ClassInfo_HID_Device_t Device_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber              = 0,
+				.InterfaceNumber              = INTERFACE_ID_KeyboardAndMouse,
 				.ReportINEndpoint             =
 					{
 						.Address              = HID_IN_EPADDR,
