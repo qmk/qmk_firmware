@@ -128,6 +128,8 @@ include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
 
-debug-on: EXTRAFLAGS += -DDEBUG
-#debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
+debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
+
+debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
+debug-off: all

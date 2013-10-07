@@ -100,40 +100,29 @@ void process_action(keyrecord_t *record)
                                                                     action.key.mods<<4;
                 switch (action.layer_tap.code) {
     #ifndef NO_ACTION_ONESHOT
-                    case 0x00:
+                    case MODS_ONESHOT:
                         // Oneshot modifier
                         if (event.pressed) {
                             if (tap_count == 0) {
-                                dprint("MODS_TAP: Oneshot: add_mods\n");
                                 register_mods(mods);
                             }
                             else if (tap_count == 1) {
                                 dprint("MODS_TAP: Oneshot: start\n");
                                 set_oneshot_mods(mods);
                             }
-                            else if (tap_count == TAPPING_TOGGLE) {
-                                dprint("MODS_TAP: Oneshot: toggle\n");
-                                oneshot_toggle();
-                            }
                             else {
-                                dprint("MODS_TAP: Oneshot: cancel&add_mods\n");
-                                // double tap cancels oneshot and works as normal modifier.
-                                clear_oneshot_mods();
                                 register_mods(mods);
                             }
                         } else {
                             if (tap_count == 0) {
-                                dprint("MODS_TAP: Oneshot: cancel/del_mods\n");
-                                // cancel oneshot on hold
                                 clear_oneshot_mods();
                                 unregister_mods(mods);
                             }
                             else if (tap_count == 1) {
-                                // Oneshot
+                                // Retain Oneshot mods
                             }
                             else {
-                                dprint("MODS_TAP: Oneshot: del_mods\n");
-                                // cancel Mods
+                                clear_oneshot_mods();
                                 unregister_mods(mods);
                             }
                         }

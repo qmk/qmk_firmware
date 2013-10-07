@@ -40,7 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM    300
 /* tap count needed for toggling a feature */
 #define TAPPING_TOGGLE  5
-
+/* Oneshot timeout(ms) */
+#define ONESHOT_TIMEOUT 300
 
 /* Boot Magic salt key: Space */
 #define BOOTMAGIC_KEY_SALT      KC_FN6

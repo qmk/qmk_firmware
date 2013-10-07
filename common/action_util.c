@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "debug.h"
 #include "action_util.h"
+#include "timer.h"
 
 static inline void add_key_byte(uint8_t code);
 static inline void del_key_byte(uint8_t code);
@@ -35,17 +36,28 @@ static uint8_t weak_mods = 0;
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
 
 #ifndef NO_ACTION_ONESHOT
-static bool oneshot_enabled = true;
 static int8_t oneshot_mods = 0;
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+static int16_t oneshot_time = 0;
 #endif
+#endif
+
 
 void send_keyboard_report(void) {
     keyboard_report->mods  = real_mods;
     keyboard_report->mods |= weak_mods;
 #ifndef NO_ACTION_ONESHOT
-    keyboard_report->mods |= oneshot_mods;
-    if (has_anykey()) {
-        clear_oneshot_mods();
+    if (oneshot_mods) {
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        if (TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT) {
+            dprintf("Oneshot: timeout\n");
+            clear_oneshot_mods();
+        }
+#endif
+        keyboard_report->mods |= oneshot_mods;
+        if (has_anykey()) {
+            clear_oneshot_mods();
+        }
     }
 #endif
     host_keyboard_send(keyboard_report);
@@ -99,11 +111,20 @@ void clear_weak_mods(void) { weak_mods = 0; }
 
 /* Oneshot modifier */
 #ifndef NO_ACTION_ONESHOT
-void set_oneshot_mods(uint8_t mods) { oneshot_mods = mods; }
-void clear_oneshot_mods(void) { oneshot_mods = 0; }
-void oneshot_toggle(void) { oneshot_enabled = !oneshot_enabled; }
-void oneshot_enable(void) { oneshot_enabled = true; }
-void oneshot_disable(void) { oneshot_enabled = false; }
+void set_oneshot_mods(uint8_t mods)
+{
+    oneshot_mods = mods;
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_time = timer_read();
+#endif
+}
+void clear_oneshot_mods(void)
+{
+    oneshot_mods = 0;
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_time = 0;
+#endif
+}
 #endif
 
 
