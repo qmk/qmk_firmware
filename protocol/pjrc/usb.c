@@ -38,6 +38,7 @@
 #include "sleep_led.h"
 #endif
 #include "suspend.h"
+#include "action_util.h"
 
 
 /**************************************************************************
