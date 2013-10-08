@@ -85,6 +85,7 @@ uint8_t matrix_scan(void)
     uint8_t key0, key1;
 
     is_modified = false;
+    _delay_ms(16);  // delay for preventing overload of poor ADB keyboard controller
     codes = adb_host_kbd_recv();
     key0 = codes>>8;
     key1 = codes&0xFF;
