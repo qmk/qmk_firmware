@@ -85,9 +85,11 @@ bool adb_host_psw(void)
 
 /*
  * Don't call this in a row without the delay, otherwise it makes some of poor controllers
- * overloaded and misses strokes. Recommended delay is 16ms.
+ * overloaded and misses strokes. Recommended interval is 12ms.
  *
- * Thanks a lot, blargg! <http://geekhack.org/index.php?topic=14290.msg1068919#msg1068919>
+ * Thanks a lot, blargg!
+ * <http://geekhack.org/index.php?topic=14290.msg1068919#msg1068919>
+ * <http://geekhack.org/index.php?topic=14290.msg1070139#msg1070139>
  */
 uint16_t adb_host_kbd_recv(void)
 {
