@@ -72,7 +72,7 @@
 		 */
 		enum InterfaceDescriptors_t
 		{
-			INTERFACE_ID_Printer      = 0, /**< Printer interface descriptor ID */
+			INTERFACE_ID_Printer = 0, /**< Printer interface descriptor ID */
 		};
 
 		/** Enum for the device string descriptor IDs within the device. Each string descriptor should

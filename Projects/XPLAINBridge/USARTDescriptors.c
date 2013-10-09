@@ -124,8 +124,8 @@ const USART_USB_Descriptor_Configuration_t PROGMEM USART_ConfigurationDescriptor
 			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
 			.Subtype                = CDC_DSUBTYPE_CSInterface_Union,
 
-			.MasterInterfaceNumber  = 0,
-			.SlaveInterfaceNumber   = 1,
+			.MasterInterfaceNumber  = INTERFACE_ID_CDC_CCI,
+			.SlaveInterfaceNumber   = INTERFACE_ID_CDC_DCI,
 		},
 
 	.CDC_NotificationEndpoint =

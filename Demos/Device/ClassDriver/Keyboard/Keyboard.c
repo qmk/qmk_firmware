@@ -44,7 +44,7 @@ static uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
  *  within a device can be differentiated from one another.
  */
 USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
- 	{
+	{
 		.Config =
 			{
 				.InterfaceNumber              = INTERFACE_ID_Keyboard,
@@ -57,7 +57,7 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 				.PrevReportINBuffer           = PrevKeyboardHIDReportBuffer,
 				.PrevReportINBufferSize       = sizeof(PrevKeyboardHIDReportBuffer),
 			},
-    };
+	};
 
 
 /** Main program entry point. This routine contains the overall program flow, including initial
