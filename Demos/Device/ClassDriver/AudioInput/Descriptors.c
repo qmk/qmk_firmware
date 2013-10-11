@@ -113,7 +113,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			                             sizeof(USB_Audio_Descriptor_OutputTerminal_t)),
 
 			.InCollection             = 1,
-			.InterfaceNumber          = 1,
+			.InterfaceNumber          = INTERFACE_ID_AudioStream,
 		},
 
 	.Audio_InputTerminal =
