@@ -110,7 +110,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
 
-			.FirstInterfaceIndex    = 0,
+			.FirstInterfaceIndex    = INTERFACE_ID_CDC_CCI,
 			.TotalInterfaces        = 2,
 
 			.Class                  = CDC_CSCP_CDCClass,
@@ -157,8 +157,8 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
 			.Subtype                = CDC_DSUBTYPE_CSInterface_Union,
 
-			.MasterInterfaceNumber  = 0,
-			.SlaveInterfaceNumber   = 1,
+			.MasterInterfaceNumber  = INTERFACE_ID_CDC_CCI,
+			.SlaveInterfaceNumber   = INTERFACE_ID_CDC_DCI,
 		},
 
 	.CDC_NotificationEndpoint =
