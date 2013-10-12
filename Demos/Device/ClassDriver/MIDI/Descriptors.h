@@ -83,8 +83,8 @@
 		 */
 		enum InterfaceDescriptors_t
 		{
-			INTERFACE_ID_MidiAudioControl   = 0, /**< MIDI audio control interface descriptor ID */
-			INTERFACE_ID_MidiAudioStreaming = 1, /**< MIDI audio streaming interface descriptor ID */
+			INTERFACE_ID_AudioControl = 0, /**< Audio control interface descriptor ID */
+			INTERFACE_ID_AudioStream  = 1, /**< Audio streaming interface descriptor ID */
 		};
 
 		/** Enum for the device string descriptor IDs within the device. Each string descriptor should

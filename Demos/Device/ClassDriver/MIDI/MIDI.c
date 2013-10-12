@@ -44,7 +44,7 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 	{
 		.Config =
 			{
-				.StreamingInterfaceNumber = INTERFACE_ID_MidiAudioStreaming,
+				.StreamingInterfaceNumber = INTERFACE_ID_AudioStream,
 				.DataINEndpoint           =
 					{
 						.Address          = MIDI_STREAM_IN_EPADDR,
