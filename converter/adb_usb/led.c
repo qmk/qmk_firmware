@@ -15,12 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "stdint.h"
+#include <stdint.h>
+#include <util/delay.h>
 #include "adb.h"
 #include "led.h"
 
 
 void led_set(uint8_t usb_led)
 {
+    // need a wait to send command without miss
+    _delay_ms(100);
     adb_host_kbd_led(~usb_led);
 }
