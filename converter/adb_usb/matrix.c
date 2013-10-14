@@ -67,6 +67,13 @@ uint8_t matrix_cols(void)
 void matrix_init(void)
 {
     adb_host_init();
+    // wait for keyboard to boot up and receive command
+    _delay_ms(1000);
+    // Enable keyboard left/right modifier distinction
+    // Addr:Keyboard(0010), Cmd:Listen(10), Register3(11)
+    // upper byte: reserved bits 0000, device address 0010
+    // lower byte: device handler 00000011
+    adb_host_listen(0x2B,0x02,0x03);
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
