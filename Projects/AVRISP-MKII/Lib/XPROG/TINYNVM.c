@@ -55,8 +55,8 @@ static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
 static void TINYNVM_SendReadNVMRegister(const uint8_t Address)
 {
 	/* The TPI command for reading from the I/O space uses strange addressing, where the I/O address's upper
-	 * two bits of the 6-bit address are shifted left once */
-	XPROGTarget_SendByte(TPI_CMD_SIN | ((Address & 0x30) << 1) | (Address & 0x0F));
+	 * two bits of the 6-bit address are shifted left once - use function to reduce code size */
+	XPROGTarget_SendByte(TPI_CMD_SIN(Address));
 }
 
 /** Sends a SOUT command to the target with the specified I/O address, ready for the data byte to be read.
@@ -66,8 +66,8 @@ static void TINYNVM_SendReadNVMRegister(const uint8_t Address)
 static void TINYNVM_SendWriteNVMRegister(const uint8_t Address)
 {
 	/* The TPI command for reading from the I/O space uses strange addressing, where the I/O address's upper
-	 * two bits of the 6-bit address are shifted left once */
-	XPROGTarget_SendByte(TPI_CMD_SOUT | ((Address & 0x30) << 1) | (Address & 0x0F));
+	 * two bits of the 6-bit address are shifted left once - use function to reduce code size */
+	XPROGTarget_SendByte(TPI_CMD_SOUT(Address));
 }
 
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read.
@@ -80,7 +80,7 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 	for (;;)
 	{
 		/* Send the SLDCS command to read the TPI STATUS register to see the NVM bus is active */
-		XPROGTarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
+		XPROGTarget_SendByte(TPI_CMD_SLDCS(TPI_REG_STATUS));
 
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
@@ -129,7 +129,7 @@ bool TINYNVM_EnableTPI(void)
 	XPROGTarget_EnableTargetTPI();
 
 	/* Lower direction change guard time to 32 USART bits */
-	XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
+	XPROGTarget_SendByte(TPI_CMD_SSTCS(TPI_REG_CTRL));
 	XPROGTarget_SendByte(0x02);
 
 	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
@@ -149,11 +149,11 @@ void TINYNVM_DisableTPI(void)
 	do
 	{
 		/* Clear the NVMEN bit in the TPI STATUS register to disable TPI mode */
-		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_STATUS_REG);
+		XPROGTarget_SendByte(TPI_CMD_SSTCS(TPI_REG_STATUS));
 		XPROGTarget_SendByte(0x00);
 
 		/* Read back the STATUS register, check to see if it took effect */
-		XPROGTarget_SendByte(TPI_CMD_SLDCS | PDI_RESET_REG);
+		XPROGTarget_SendByte(TPI_CMD_SLDCS(TPI_REG_STATUS));
 	} while (XPROGTarget_ReceiveByte() != 0x00);
 
 	XPROGTarget_DisableTargetTPI();
@@ -185,7 +185,7 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress,
 	while (ReadSize-- && TimeoutTicksRemaining)
 	{
 		/* Read the byte of data from the target */
-		XPROGTarget_SendByte(TPI_CMD_SLD | TPI_POINTER_INDIRECT_PI);
+		XPROGTarget_SendByte(TPI_CMD_SLD(TPI_POINTER_INDIRECT_PI));
 		*(ReadBuffer++) = XPROGTarget_ReceiveByte();
 	}
 
@@ -226,11 +226,11 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
 		  return false;
 
 		/* Write the low byte of data to the target */
-		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
+		XPROGTarget_SendByte(TPI_CMD_SST(TPI_POINTER_INDIRECT_PI));
 		XPROGTarget_SendByte(*(WriteBuffer++));
 
 		/* Write the high byte of data to the target */
-		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
+		XPROGTarget_SendByte(TPI_CMD_SST(TPI_POINTER_INDIRECT_PI));
 		XPROGTarget_SendByte(*(WriteBuffer++));
 
 		/* Need to decrement the write length twice, since we wrote a whole two-byte word */
@@ -260,7 +260,7 @@ bool TINYNVM_EraseMemory(const uint8_t EraseCommand,
 
 	/* Write to a high byte location within the target address space to start the erase process */
 	TINYNVM_SendPointerAddress(Address | 0x0001);
-	XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT);
+	XPROGTarget_SendByte(TPI_CMD_SST(TPI_POINTER_INDIRECT));
 	XPROGTarget_SendByte(0x00);
 
 	/* Wait until the NVM controller is no longer busy */

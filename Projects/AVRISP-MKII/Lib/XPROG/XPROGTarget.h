@@ -62,18 +62,21 @@
 		/** Total number of bits in a single USART frame. */
 		#define BITS_IN_USART_FRAME        12
 
-		#define PDI_CMD_LDS                0x00
-		#define PDI_CMD_LD                 0x20
-		#define PDI_CMD_STS                0x40
-		#define PDI_CMD_ST                 0x60
-		#define PDI_CMD_LDCS               0x80
-		#define PDI_CMD_REPEAT             0xA0
-		#define PDI_CMD_STCS               0xC0
-		#define PDI_CMD_KEY                0xE0
+ 		/** \name PDI Related Constants
+ 		 * @{
+ 		 */
+		#define PDI_CMD_LDS(AddressSize, DataSize)  (0x00 | (  AddressSize << 2) | DataSize)
+		#define PDI_CMD_LD(PointerAccess, DataSize) (0x20 | (PointerAccess << 2) | DataSize)
+		#define PDI_CMD_STS(AddressSize, DataSize)  (0x40 | (  AddressSize << 2) | DataSize)
+		#define PDI_CMD_ST(PointerAccess, DataSize) (0x60 | (PointerAccess << 2) | DataSize)
+		#define PDI_CMD_LDCS(PDIReg)                (0x80 | PDIReg)
+		#define PDI_CMD_REPEAT(DataSize)            (0xA0 | DataSize)
+		#define PDI_CMD_STCS(PDIReg)                (0xC0 | PDIReg)
+		#define PDI_CMD_KEY                         0xE0
 
-		#define PDI_STATUS_REG             0
-		#define PDI_RESET_REG              1
-		#define PDI_CTRL_REG               2
+		#define PDI_REG_STATUS             0
+		#define PDI_REG_RESET              1
+		#define PDI_REG_CTRL               2
 
 		#define PDI_STATUS_NVM             (1 << 1)
 
@@ -88,19 +91,23 @@
 		#define PDI_POINTER_INDIRECT       0
 		#define PDI_POINTER_INDIRECT_PI    1
 		#define PDI_POINTER_DIRECT         2
+ 		/** @} */
 
-		#define TPI_CMD_SLD                0x20
-		#define TPI_CMD_SST                0x60
+ 		/** \name TPI Related Constants
+ 		 * @{
+ 		 */
+ 		#define TPI_CMD_SLD(PointerAccess) (0x20 | PointerAccess)
+		#define TPI_CMD_SST(PointerAccess) (0x60 | PointerAccess)
 		#define TPI_CMD_SSTPR              0x68
-		#define TPI_CMD_SIN                0x10
-		#define TPI_CMD_SOUT               0x90
-		#define TPI_CMD_SLDCS              0x80
-		#define TPI_CMD_SSTCS              0xC0
+		#define TPI_CMD_SIN(Address)       (0x10 | ((Address & 0x30) << 1) | (Address & 0x0F))
+		#define TPI_CMD_SOUT(Address)      (0x90 | ((Address & 0x30) << 1) | (Address & 0x0F))
+		#define TPI_CMD_SLDCS(TPIReg)      (0x80 | TPIReg)
+		#define TPI_CMD_SSTCS(TPIReg)      (0xC0 | TPIReg)
 		#define TPI_CMD_SKEY               0xE0
 
-		#define TPI_STATUS_REG             0x00
-		#define TPI_CTRL_REG               0x02
-		#define TPI_ID_REG                 0x0F
+		#define TPI_REG_STATUS             0x00
+		#define TPI_REG_CTRL               0x02
+		#define TPI_REG_ID                 0x0F
 
 		#define TPI_STATUS_NVM             (1 << 1)
 
@@ -108,6 +115,7 @@
 
 		#define TPI_POINTER_INDIRECT       0
 		#define TPI_POINTER_INDIRECT_PI    4
+ 		/** @} */
 
 	/* Function Prototypes: */
 		void    XPROGTarget_EnableTargetPDI(void);
