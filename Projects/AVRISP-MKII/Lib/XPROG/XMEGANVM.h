@@ -116,7 +116,8 @@
 		bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand,
 			                       uint32_t* const CRCDest);
 		bool XMEGANVM_ReadMemory(const uint32_t ReadAddress,
-		                         uint8_t* ReadBuffer, uint16_t ReadSize);
+		                         uint8_t* ReadBuffer,
+		                         uint16_t ReadSize);
 		bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand,
 		                              const uint32_t WriteAddress,
 		                              const uint8_t Byte);

@@ -83,10 +83,10 @@
 		#define PDI_RESET_KEY              0x59
 		#define PDI_NVMENABLE_KEY          (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
 
-		#define PDI_DATSIZE_1BYTE          0
-		#define PDI_DATSIZE_2BYTES         1
-		#define PDI_DATSIZE_3BYTES         2
-		#define PDI_DATSIZE_4BYTES         3
+		#define PDI_DATASIZE_1BYTE         0
+		#define PDI_DATASIZE_2BYTES        1
+		#define PDI_DATASIZE_3BYTES        2
+		#define PDI_DATASIZE_4BYTES        3
 
 		#define PDI_POINTER_INDIRECT       0
 		#define PDI_POINTER_INDIRECT_PI    1

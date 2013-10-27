@@ -47,7 +47,7 @@
 		#include "XMEGANVM.h"
 		#include "TINYNVM.h"
 		#include "Config/AppConfig.h"
-		
+
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			/* On the XPLAIN board, we only need PDI programming
@@ -62,55 +62,55 @@
 		#endif
 
 	/* Macros: */
-		#define XPRG_CMD_ENTER_PROGMODE             0x01
-		#define XPRG_CMD_LEAVE_PROGMODE             0x02
-		#define XPRG_CMD_ERASE                      0x03
-		#define XPRG_CMD_WRITE_MEM                  0x04
-		#define XPRG_CMD_READ_MEM                   0x05
-		#define XPRG_CMD_CRC                        0x06
-		#define XPRG_CMD_SET_PARAM                  0x07
+		#define XPROG_CMD_ENTER_PROGMODE             0x01
+		#define XPROG_CMD_LEAVE_PROGMODE             0x02
+		#define XPROG_CMD_ERASE                      0x03
+		#define XPROG_CMD_WRITE_MEM                  0x04
+		#define XPROG_CMD_READ_MEM                   0x05
+		#define XPROG_CMD_CRC                        0x06
+		#define XPROG_CMD_SET_PARAM                  0x07
 
-		#define XPRG_MEM_TYPE_APPL                  1
-		#define XPRG_MEM_TYPE_BOOT                  2
-		#define XPRG_MEM_TYPE_EEPROM                3
-		#define XPRG_MEM_TYPE_FUSE                  4
-		#define XPRG_MEM_TYPE_LOCKBITS              5
-		#define XPRG_MEM_TYPE_USERSIG               6
-		#define XPRG_MEM_TYPE_FACTORY_CALIBRATION   7
+		#define XPROG_MEM_TYPE_APPL                  1
+		#define XPROG_MEM_TYPE_BOOT                  2
+		#define XPROG_MEM_TYPE_EEPROM                3
+		#define XPROG_MEM_TYPE_FUSE                  4
+		#define XPROG_MEM_TYPE_LOCKBITS              5
+		#define XPROG_MEM_TYPE_USERSIG               6
+		#define XPROG_MEM_TYPE_FACTORY_CALIBRATION   7
 
-		#define XPRG_ERASE_CHIP                     1
-		#define XPRG_ERASE_APP                      2
-		#define XPRG_ERASE_BOOT                     3
-		#define XPRG_ERASE_EEPROM                   4
-		#define XPRG_ERASE_APP_PAGE                 5
-		#define XPRG_ERASE_BOOT_PAGE                6
-		#define XPRG_ERASE_EEPROM_PAGE              7
-		#define XPRG_ERASE_USERSIG                  8
+		#define XPROG_ERASE_CHIP                     1
+		#define XPROG_ERASE_APP                      2
+		#define XPROG_ERASE_BOOT                     3
+		#define XPROG_ERASE_EEPROM                   4
+		#define XPROG_ERASE_APP_PAGE                 5
+		#define XPROG_ERASE_BOOT_PAGE                6
+		#define XPROG_ERASE_EEPROM_PAGE              7
+		#define XPROG_ERASE_USERSIG                  8
 
-		#define XPRG_MEM_WRITE_ERASE                0
-		#define XPRG_MEM_WRITE_WRITE                1
+		#define XPROG_MEM_WRITE_ERASE                0
+		#define XPROG_MEM_WRITE_WRITE                1
 
-		#define XPRG_CRC_APP                        1
-		#define XPRG_CRC_BOOT                       2
-		#define XPRG_CRC_FLASH                      3
+		#define XPROG_CRC_APP                        1
+		#define XPROG_CRC_BOOT                       2
+		#define XPROG_CRC_FLASH                      3
 
-		#define XPRG_ERR_OK                         0
-		#define XPRG_ERR_FAILED                     1
-		#define XPRG_ERR_COLLISION                  2
-		#define XPRG_ERR_TIMEOUT                    3
+		#define XPROG_ERR_OK                         0
+		#define XPROG_ERR_FAILED                     1
+		#define XPROG_ERR_COLLISION                  2
+		#define XPROG_ERR_TIMEOUT                    3
 
-		#define XPRG_PARAM_NVMBASE                  0x01
-		#define XPRG_PARAM_EEPPAGESIZE              0x02
-		#define XPRG_PARAM_NVMCMD_REG               0x03
-		#define XPRG_PARAM_NVMCSR_REG               0x04
-		#define XPRG_PARAM_UNKNOWN_1                0x05
+		#define XPROG_PARAM_NVMBASE                  0x01
+		#define XPROG_PARAM_EEPPAGESIZE              0x02
+		#define XPROG_PARAM_NVMCMD_REG               0x03
+		#define XPROG_PARAM_NVMCSR_REG               0x04
+		#define XPROG_PARAM_UNKNOWN_1                0x05
 
-		#define XPRG_PROTOCOL_PDI                   0x00
-		#define XPRG_PROTOCOL_JTAG                  0x01
-		#define XPRG_PROTOCOL_TPI                   0x02
+		#define XPROG_PROTOCOL_PDI                   0x00
+		#define XPROG_PROTOCOL_JTAG                  0x01
+		#define XPROG_PROTOCOL_TPI                   0x02
 
-		#define XPRG_PAGEMODE_WRITE                 (1 << 1)
-		#define XPRG_PAGEMODE_ERASE                 (1 << 0)
+		#define XPROG_PAGEMODE_WRITE                 (1 << 1)
+		#define XPROG_PAGEMODE_ERASE                 (1 << 0)
 
 	/* External Variables: */
 		extern uint32_t XPROG_Param_NVMBase;

@@ -50,7 +50,7 @@ uint8_t  XPROG_Param_NVMCMDRegAddr = 0x33;
 uint8_t  XPROG_Param_NVMCSRRegAddr = 0x32;
 
 /** Currently selected XPROG programming protocol */
-uint8_t  XPROG_SelectedProtocol    = XPRG_PROTOCOL_PDI;
+uint8_t  XPROG_SelectedProtocol    = XPROG_PROTOCOL_PDI;
 
 /** Handler for the CMD_XPROG_SETMODE command, which sets the programmer-to-target protocol used for PDI/TPI
  *  programming.
@@ -71,7 +71,7 @@ void XPROGProtocol_SetMode(void)
 	XPROG_SelectedProtocol = SetMode_XPROG_Params.Protocol;
 
 	Endpoint_Write_8(CMD_XPROG_SETMODE);
-	Endpoint_Write_8((SetMode_XPROG_Params.Protocol != XPRG_PROTOCOL_JTAG) ? STATUS_CMD_OK : STATUS_CMD_FAILED);
+	Endpoint_Write_8((SetMode_XPROG_Params.Protocol != XPROG_PROTOCOL_JTAG) ? STATUS_CMD_OK : STATUS_CMD_FAILED);
 	Endpoint_ClearIN();
 }
 
@@ -84,25 +84,25 @@ void XPROGProtocol_Command(void)
 
 	switch (XPROGCommand)
 	{
-		case XPRG_CMD_ENTER_PROGMODE:
+		case XPROG_CMD_ENTER_PROGMODE:
 			XPROGProtocol_EnterXPROGMode();
 			break;
-		case XPRG_CMD_LEAVE_PROGMODE:
+		case XPROG_CMD_LEAVE_PROGMODE:
 			XPROGProtocol_LeaveXPROGMode();
 			break;
-		case XPRG_CMD_ERASE:
+		case XPROG_CMD_ERASE:
 			XPROGProtocol_Erase();
 			break;
-		case XPRG_CMD_WRITE_MEM:
+		case XPROG_CMD_WRITE_MEM:
 			XPROGProtocol_WriteMemory();
 			break;
-		case XPRG_CMD_READ_MEM:
+		case XPROG_CMD_READ_MEM:
 			XPROGProtocol_ReadMemory();
 			break;
-		case XPRG_CMD_CRC:
+		case XPROG_CMD_CRC:
 			XPROGProtocol_ReadCRC();
 			break;
-		case XPRG_CMD_SET_PARAM:
+		case XPROG_CMD_SET_PARAM:
 			XPROGProtocol_SetParam();
 			break;
 	}
@@ -117,14 +117,14 @@ static void XPROGProtocol_EnterXPROGMode(void)
 
 	bool NVMBusEnabled = false;
 
-	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	if (XPROG_SelectedProtocol == XPROG_PROTOCOL_PDI)
 	  NVMBusEnabled = XMEGANVM_EnablePDI();
-	else if (XPROG_SelectedProtocol == XPRG_PROTOCOL_TPI)
+	else if (XPROG_SelectedProtocol == XPROG_PROTOCOL_TPI)
 	  NVMBusEnabled = TINYNVM_EnableTPI();
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_ENTER_PROGMODE);
-	Endpoint_Write_8(NVMBusEnabled ? XPRG_ERR_OK : XPRG_ERR_FAILED);
+	Endpoint_Write_8(XPROG_CMD_ENTER_PROGMODE);
+	Endpoint_Write_8(NVMBusEnabled ? XPROG_ERR_OK : XPROG_ERR_FAILED);
 	Endpoint_ClearIN();
 }
 
@@ -137,7 +137,7 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	if (XPROG_SelectedProtocol == XPROG_PROTOCOL_PDI)
 	  XMEGANVM_DisablePDI();
 	else
 	  TINYNVM_DisableTPI();
@@ -149,15 +149,15 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	#endif
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_LEAVE_PROGMODE);
-	Endpoint_Write_8(XPRG_ERR_OK);
+	Endpoint_Write_8(XPROG_CMD_LEAVE_PROGMODE);
+	Endpoint_Write_8(XPROG_ERR_OK);
 	Endpoint_ClearIN();
 }
 
 /** Handler for the XPRG ERASE command to erase a specific memory address space in the attached device. */
 static void XPROGProtocol_Erase(void)
 {
-	uint8_t ReturnStatus = XPRG_ERR_OK;
+	uint8_t ReturnStatus = XPROG_ERR_OK;
 
 	struct
 	{
@@ -174,33 +174,33 @@ static void XPROGProtocol_Erase(void)
 
 	uint8_t EraseCommand;
 
-	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	if (XPROG_SelectedProtocol == XPROG_PROTOCOL_PDI)
 	{
 		/* Determine which NVM command to send to the device depending on the memory to erase */
 		switch (Erase_XPROG_Params.MemoryType)
 		{
-			case XPRG_ERASE_CHIP:
+			case XPROG_ERASE_CHIP:
 				EraseCommand = XMEGA_NVM_CMD_CHIPERASE;
 				break;
-			case XPRG_ERASE_APP:
+			case XPROG_ERASE_APP:
 				EraseCommand = XMEGA_NVM_CMD_ERASEAPPSEC;
 				break;
-			case XPRG_ERASE_BOOT:
+			case XPROG_ERASE_BOOT:
 				EraseCommand = XMEGA_NVM_CMD_ERASEBOOTSEC;
 				break;
-			case XPRG_ERASE_EEPROM:
+			case XPROG_ERASE_EEPROM:
 				EraseCommand = XMEGA_NVM_CMD_ERASEEEPROM;
 				break;
-			case XPRG_ERASE_APP_PAGE:
+			case XPROG_ERASE_APP_PAGE:
 				EraseCommand = XMEGA_NVM_CMD_ERASEAPPSECPAGE;
 				break;
-			case XPRG_ERASE_BOOT_PAGE:
+			case XPROG_ERASE_BOOT_PAGE:
 				EraseCommand = XMEGA_NVM_CMD_ERASEBOOTSECPAGE;
 				break;
-			case XPRG_ERASE_EEPROM_PAGE:
+			case XPROG_ERASE_EEPROM_PAGE:
 				EraseCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGE;
 				break;
-			case XPRG_ERASE_USERSIG:
+			case XPROG_ERASE_USERSIG:
 				EraseCommand = XMEGA_NVM_CMD_ERASEUSERSIG;
 				break;
 			default:
@@ -210,22 +210,22 @@ static void XPROGProtocol_Erase(void)
 
 		/* Erase the target memory, indicate timeout if occurred */
 		if (!(XMEGANVM_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
-		  ReturnStatus = XPRG_ERR_TIMEOUT;
+		  ReturnStatus = XPROG_ERR_TIMEOUT;
 	}
 	else
 	{
-		if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_CHIP)
+		if (Erase_XPROG_Params.MemoryType == XPROG_ERASE_CHIP)
 		  EraseCommand = TINY_NVM_CMD_CHIPERASE;
 		else
 		  EraseCommand = TINY_NVM_CMD_SECTIONERASE;
 
 		/* Erase the target memory, indicate timeout if occurred */
 		if (!(TINYNVM_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
-		  ReturnStatus = XPRG_ERR_TIMEOUT;
+		  ReturnStatus = XPROG_ERR_TIMEOUT;
 	}
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_ERASE);
+	Endpoint_Write_8(XPROG_CMD_ERASE);
 	Endpoint_Write_8(ReturnStatus);
 	Endpoint_ClearIN();
 }
@@ -233,7 +233,7 @@ static void XPROGProtocol_Erase(void)
 /** Handler for the XPROG WRITE_MEMORY command to write to a specific memory space within the attached device. */
 static void XPROGProtocol_WriteMemory(void)
 {
-	uint8_t ReturnStatus = XPRG_ERR_OK;
+	uint8_t ReturnStatus = XPROG_ERR_OK;
 
 	struct
 	{
@@ -263,7 +263,7 @@ static void XPROGProtocol_WriteMemory(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPADDR);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	if (XPROG_SelectedProtocol == XPROG_PROTOCOL_PDI)
 	{
 		/* Assume FLASH page programming by default, as it is the common case */
 		uint8_t WriteCommand     = XMEGA_NVM_CMD_WRITEFLASHPAGE;
@@ -273,25 +273,25 @@ static void XPROGProtocol_WriteMemory(void)
 
 		switch (WriteMemory_XPROG_Params.MemoryType)
 		{
-			case XPRG_MEM_TYPE_APPL:
+			case XPROG_MEM_TYPE_APPL:
 				WriteCommand     = XMEGA_NVM_CMD_WRITEAPPSECPAGE;
 				break;
-			case XPRG_MEM_TYPE_BOOT:
+			case XPROG_MEM_TYPE_BOOT:
 				WriteCommand     = XMEGA_NVM_CMD_WRITEBOOTSECPAGE;
 				break;
-			case XPRG_MEM_TYPE_EEPROM:
+			case XPROG_MEM_TYPE_EEPROM:
 				WriteCommand     = XMEGA_NVM_CMD_ERASEWRITEEEPROMPAGE;
 				WriteBuffCommand = XMEGA_NVM_CMD_LOADEEPROMPAGEBUFF;
 				EraseBuffCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGEBUFF;
 				break;
-			case XPRG_MEM_TYPE_USERSIG:
+			case XPROG_MEM_TYPE_USERSIG:
 				WriteCommand     = XMEGA_NVM_CMD_WRITEUSERSIG;
 				break;
-			case XPRG_MEM_TYPE_FUSE:
+			case XPROG_MEM_TYPE_FUSE:
 				WriteCommand     = XMEGA_NVM_CMD_WRITEFUSE;
 				PagedMemory      = false;
 				break;
-			case XPRG_MEM_TYPE_LOCKBITS:
+			case XPROG_MEM_TYPE_LOCKBITS:
 				WriteCommand     = XMEGA_NVM_CMD_WRITELOCK;
 				PagedMemory      = false;
 				break;
@@ -304,7 +304,7 @@ static void XPROGProtocol_WriteMemory(void)
 		   (!PagedMemory && !(XMEGANVM_WriteByteMemory(WriteCommand, WriteMemory_XPROG_Params.Address,
 													   WriteMemory_XPROG_Params.ProgData[0]))))
 		{
-			ReturnStatus = XPRG_ERR_TIMEOUT;
+			ReturnStatus = XPROG_ERR_TIMEOUT;
 		}
 	}
 	else
@@ -313,12 +313,12 @@ static void XPROGProtocol_WriteMemory(void)
 		if (!(TINYNVM_WriteMemory(WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData,
 		      WriteMemory_XPROG_Params.Length)))
 		{
-			ReturnStatus = XPRG_ERR_TIMEOUT;
+			ReturnStatus = XPROG_ERR_TIMEOUT;
 		}
 	}
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_WRITE_MEM);
+	Endpoint_Write_8(XPROG_CMD_WRITE_MEM);
 	Endpoint_Write_8(ReturnStatus);
 	Endpoint_ClearIN();
 }
@@ -328,7 +328,7 @@ static void XPROGProtocol_WriteMemory(void)
  */
 static void XPROGProtocol_ReadMemory(void)
 {
-	uint8_t ReturnStatus = XPRG_ERR_OK;
+	uint8_t ReturnStatus = XPROG_ERR_OK;
 
 	struct
 	{
@@ -347,24 +347,24 @@ static void XPROGProtocol_ReadMemory(void)
 
 	uint8_t ReadBuffer[256];
 
-	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	if (XPROG_SelectedProtocol == XPROG_PROTOCOL_PDI)
 	{
 		/* Read the PDI target's memory, indicate timeout if occurred */
 		if (!(XMEGANVM_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
-		  ReturnStatus = XPRG_ERR_TIMEOUT;
+		  ReturnStatus = XPROG_ERR_TIMEOUT;
 	}
 	else
 	{
 		/* Read the TPI target's memory, indicate timeout if occurred */
 		if (!(TINYNVM_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
-		  ReturnStatus = XPRG_ERR_TIMEOUT;
+		  ReturnStatus = XPROG_ERR_TIMEOUT;
 	}
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_READ_MEM);
+	Endpoint_Write_8(XPROG_CMD_READ_MEM);
 	Endpoint_Write_8(ReturnStatus);
 
-	if (ReturnStatus == XPRG_ERR_OK)
+	if (ReturnStatus == XPROG_ERR_OK)
 	  Endpoint_Write_Stream_LE(ReadBuffer, ReadMemory_XPROG_Params.Length, NULL);
 
 	Endpoint_ClearIN();
@@ -375,7 +375,7 @@ static void XPROGProtocol_ReadMemory(void)
  */
 static void XPROGProtocol_ReadCRC(void)
 {
-	uint8_t ReturnStatus = XPRG_ERR_OK;
+	uint8_t ReturnStatus = XPROG_ERR_OK;
 
 	struct
 	{
@@ -390,17 +390,17 @@ static void XPROGProtocol_ReadCRC(void)
 
 	uint32_t MemoryCRC;
 
-	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	if (XPROG_SelectedProtocol == XPROG_PROTOCOL_PDI)
 	{
 		uint8_t CRCCommand;
 
 		/* Determine which NVM command to send to the device depending on the memory to CRC */
 		switch (ReadCRC_XPROG_Params.CRCType)
 		{
-			case XPRG_CRC_APP:
+			case XPROG_CRC_APP:
 				CRCCommand = XMEGA_NVM_CMD_APPCRC;
 				break;
-			case XPRG_CRC_BOOT:
+			case XPROG_CRC_BOOT:
 				CRCCommand = XMEGA_NVM_CMD_BOOTCRC;
 				break;
 			default:
@@ -410,19 +410,19 @@ static void XPROGProtocol_ReadCRC(void)
 
 		/* Perform and retrieve the memory CRC, indicate timeout if occurred */
 		if (!(XMEGANVM_GetMemoryCRC(CRCCommand, &MemoryCRC)))
-		  ReturnStatus = XPRG_ERR_TIMEOUT;
+		  ReturnStatus = XPROG_ERR_TIMEOUT;
 	}
 	else
 	{
 		/* TPI does not support memory CRC */
-		ReturnStatus = XPRG_ERR_FAILED;
+		ReturnStatus = XPROG_ERR_FAILED;
 	}
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_CRC);
+	Endpoint_Write_8(XPROG_CMD_CRC);
 	Endpoint_Write_8(ReturnStatus);
 
-	if (ReturnStatus == XPRG_ERR_OK)
+	if (ReturnStatus == XPROG_ERR_OK)
 	{
 		Endpoint_Write_8(MemoryCRC >> 16);
 		Endpoint_Write_16_LE(MemoryCRC & 0xFFFF);
@@ -436,33 +436,33 @@ static void XPROGProtocol_ReadCRC(void)
  */
 static void XPROGProtocol_SetParam(void)
 {
-	uint8_t ReturnStatus = XPRG_ERR_OK;
+	uint8_t ReturnStatus = XPROG_ERR_OK;
 
 	uint8_t XPROGParam = Endpoint_Read_8();
 
 	/* Determine which parameter is being set, store the new parameter value */
 	switch (XPROGParam)
 	{
-		case XPRG_PARAM_NVMBASE:
+		case XPROG_PARAM_NVMBASE:
 			XPROG_Param_NVMBase       = Endpoint_Read_32_BE();
 			break;
-		case XPRG_PARAM_EEPPAGESIZE:
+		case XPROG_PARAM_EEPPAGESIZE:
 			XPROG_Param_EEPageSize    = Endpoint_Read_16_BE();
 			break;
-		case XPRG_PARAM_NVMCMD_REG:
+		case XPROG_PARAM_NVMCMD_REG:
 			XPROG_Param_NVMCMDRegAddr = Endpoint_Read_8();
 			break;
-		case XPRG_PARAM_NVMCSR_REG:
+		case XPROG_PARAM_NVMCSR_REG:
 			XPROG_Param_NVMCSRRegAddr = Endpoint_Read_8();
 			break;
-		case XPRG_PARAM_UNKNOWN_1:
+		case XPROG_PARAM_UNKNOWN_1:
 			/* TODO: Undocumented parameter added in AVRStudio 5.1, purpose unknown. Must ACK and discard or
 			         the communication with AVRStudio 5.1 will fail.
 			*/
 			Endpoint_Discard_16();
 			break;
 		default:
-			ReturnStatus = XPRG_ERR_FAILED;
+			ReturnStatus = XPROG_ERR_FAILED;
 			break;
 	}
 
@@ -471,7 +471,7 @@ static void XPROGProtocol_SetParam(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_8(CMD_XPROG);
-	Endpoint_Write_8(XPRG_CMD_SET_PARAM);
+	Endpoint_Write_8(XPROG_CMD_SET_PARAM);
 	Endpoint_Write_8(ReturnStatus);
 	Endpoint_ClearIN();
 }
