@@ -240,9 +240,12 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress,
 	XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
 	XMEGANVM_SendAddress(ReadAddress);
 
-	/* Send the REPEAT command with the specified number of bytes to read */
-	XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
-	XPROGTarget_SendByte(ReadSize - 1);
+	if (ReadSize > 1)
+	{
+		/* Send the REPEAT command with the specified number of bytes to read */
+		XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
+		XPROGTarget_SendByte(ReadSize - 1);
+	}
 
 	/* Send a LD command with indirect access and post-increment to read out the bytes */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
