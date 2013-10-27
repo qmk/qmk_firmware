@@ -236,21 +236,28 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress,
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
 	XPROGTarget_SendByte(XMEGA_NVM_CMD_READNVM);
 
-	/* Load the PDI pointer register with the start address we want to read from */
-	XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
-	XMEGANVM_SendAddress(ReadAddress);
-
 	if (ReadSize > 1)
 	{
+		/* Load the PDI pointer register with the start address we want to read from */
+		XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
+		XMEGANVM_SendAddress(ReadAddress);
+
 		/* Send the REPEAT command with the specified number of bytes to read */
 		XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 		XPROGTarget_SendByte(ReadSize - 1);
-	}
 
-	/* Send a LD command with indirect access and post-increment to read out the bytes */
-	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-	while (ReadSize-- && TimeoutTicksRemaining)
-	  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
+		/* Send a LD command with indirect access and post-increment to read out the bytes */
+		XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
+		while (ReadSize-- && TimeoutTicksRemaining)
+		  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
+	}
+	else
+	{
+		/* Send a LDS command with the read address to read out the requested byte */
+		XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+		XMEGANVM_SendAddress(ReadAddress);
+		*(ReadBuffer++) = XPROGTarget_ReceiveByte();
+	}
 
 	return (TimeoutTicksRemaining > 0);
 }
