@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Tempusdictum Benito.
+ *  \brief Board specific LED driver header for the U2S.
  *  \copydetails Group_LEDs_U2S
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver

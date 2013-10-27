@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the Mattairtech JM-DB-U2.
+ *  \brief Board specific Buttons driver header for the U2S.
  *  \copydetails Group_Buttons_U2S
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
