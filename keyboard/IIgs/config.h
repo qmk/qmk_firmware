@@ -56,4 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_SEND_FN_TERM 300
 
 
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
+
+
 #endif
