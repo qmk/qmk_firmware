@@ -56,10 +56,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_SEND_FN_TERM 300
 
 
-/* mouse keys */
-#ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 192
-#endif
-
-
 #endif
