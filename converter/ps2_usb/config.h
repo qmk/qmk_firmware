@@ -39,6 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 
+/* legacy keymap support */
+#define USE_LEGACY_KEYMAP
+
+
 #ifdef PS2_USE_USART
 #if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
 /* XCK for clock line and RXD for data line */
