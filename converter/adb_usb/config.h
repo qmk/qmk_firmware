@@ -44,12 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_LEGACY_KEYMAP
 
 
-/* mouse keys */
-#ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 192
-#endif
-
-
 /* ADB port setting */
 #define ADB_PORT        PORTD
 #define ADB_PIN         PIND

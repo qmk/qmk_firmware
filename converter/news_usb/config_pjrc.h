@@ -42,12 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 
-/* mouse keys */
-#ifdef MOUSEKEY_ENABLE
-#   define MOUSEKEY_DELAY_TIME 255
-#endif
-
-
 /* Asynchronous USART
  * 8-data bit, non parity, 1-stop bit, no flow control
  */
