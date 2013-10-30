@@ -41,6 +41,7 @@
 		<device-support-alias value="lufa_uc3"/>
 
 		<build type="distribute" subtype="user-file" value="GenericHID.txt"/>
+		<build type="distribute" subtype="directory" value="HostTestApp"/>
 
 		<build type="c-source" value="GenericHID.c"/>
 		<build type="c-source" value="Descriptors.c"/>
