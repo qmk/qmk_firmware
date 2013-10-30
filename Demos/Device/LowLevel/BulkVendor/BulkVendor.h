@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Header file for MassStorage.c.
+ *  Header file for BulkVendor.c.
  */
 
 #ifndef _BULK_VENDOR_H_
