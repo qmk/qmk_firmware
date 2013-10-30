@@ -7,6 +7,10 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  <b>New:</b>
+  *  - Library Applications:
+  *   - Added new Bulk Vendor low level device demo
+  *
   *  <b>Changed:</b>
   *  - Library Applications:
   *   - Refactored out USB interface IDs in the demo applications into enums (thanks to Laszlo Monda)

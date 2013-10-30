@@ -171,7 +171,7 @@
  *   <tr>
  *    <td>0x03EB</td>
  *    <td>0x206C</td>
- *    <td><i>Currently Unallocated</i></td>
+ *    <td>Bulk Vendor Demo</td>
  *   </tr>
  *   <tr>
  *    <td>0x03EB</td>
