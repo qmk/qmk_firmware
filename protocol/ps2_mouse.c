@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2011,2013 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,27 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define phex16(h)
 #endif
 
-// disable when errors occur 255 times.
-#define ERROR_RETURN() do { \
-    if (ps2_error) { \
-        if (ps2_mouse_error_count < 255) { \
-            ps2_mouse_error_count++; \
-        } else { \
-            ps2_mouse_error_count = 0; \
-            ps2_mouse_enable = false; \
-        } \
-        return ps2_error; \
-    } \
-} while (0)
 
-
-/*
-TODO
-----
-- Stream mode
-- Tracpoint command support: needed
-- Middle button + move = Wheel traslation
-*/
 bool ps2_mouse_enable = true;
 uint8_t ps2_mouse_x = 0;
 uint8_t ps2_mouse_y = 0;
@@ -69,85 +49,50 @@ uint8_t ps2_mouse_init(void) {
 
     ps2_host_init();
 
-    // Reset
+    // Not reliable: sometime fail to initialize mouse
+
+    // send Reset
+    _delay_ms(1000);    // wait for powering up
     rcv = ps2_host_send(0xFF);
-    print("ps2_mouse_init: send 0xFF: ");
-    phex(ps2_error); print("\n");
-    ERROR_RETURN();
-
-    // ACK
-    rcv = ps2_host_recv();
-    print("ps2_mouse_init: read ACK: ");
+    print("ps2_mouse_init: send Reset: ");
     phex(rcv); phex(ps2_error); print("\n");
-    ERROR_RETURN();
 
-    // BAT takes some time
-    _delay_ms(100);
+    // read completion code of BAT
+    //_delay_ms(1000);    // wait for Basic Assurance Test
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read BAT: ");
     phex(rcv); phex(ps2_error); print("\n");
-    ERROR_RETURN();
 
-    // Device ID
+    // read Device ID
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read DevID: ");
     phex(rcv); phex(ps2_error); print("\n");
-    ERROR_RETURN();
 
-    // Enable data reporting
-    ps2_host_send(0xF4);
+    // send Enable Data Reporting
+    rcv = ps2_host_send(0xF4);
     print("ps2_mouse_init: send 0xF4: ");
-    phex(ps2_error); print("\n");
-    ERROR_RETURN();
-
-    // ACK
-    rcv = ps2_host_recv();
-    print("ps2_mouse_init: read ACK: ");
     phex(rcv); phex(ps2_error); print("\n");
-    ERROR_RETURN();
 
-    // Set Remote mode
-    ps2_host_send(0xF0);
+    // send Set Remote mode
+    rcv = ps2_host_send(0xF0);
     print("ps2_mouse_init: send 0xF0: ");
-    phex(ps2_error); print("\n");
-    ERROR_RETURN();
-
-    // ACK
-    rcv = ps2_host_recv();
-    print("ps2_mouse_init: read ACK: ");
     phex(rcv); phex(ps2_error); print("\n");
-    ERROR_RETURN();
 
     return 0;
 }
 
-/*
-Data format:
-    bit: 7       6       5       4       3       2       1       0
------------------------------------------------------------------------
-0   btn: Yovflw  Xovflw  Ysign   Xsign   1       Middle  Right   Left
-1   x:   X movement(0-255)
-2   y:   Y movement(0-255)
-*/
 uint8_t ps2_mouse_read(void)
 {
     uint8_t rcv;
 
     if (!ps2_mouse_enable) return 1;
 
-    ps2_host_send(0xEB);
-    ERROR_RETURN();
-
-    rcv=ps2_host_recv();
-    ERROR_RETURN();
+    rcv = ps2_host_send(0xEB);
 
     if(rcv==0xFA) {
-        ps2_mouse_btn = ps2_host_recv();
-        ERROR_RETURN();
-        ps2_mouse_x = ps2_host_recv();
-        ERROR_RETURN();
-        ps2_mouse_y = ps2_host_recv();
-        ERROR_RETURN();
+        ps2_mouse_btn = ps2_host_recv_response();
+        ps2_mouse_x = ps2_host_recv_response();
+        ps2_mouse_y = ps2_host_recv_response();
     }
     return 0;
 }
@@ -216,3 +161,36 @@ void ps2_mouse_print(void)
     phex(ps2_mouse_x); print(" ");
     phex(ps2_mouse_y); print("\n");
 }
+
+
+/* PS/2 Mouse Synopsis
+ * http://www.computer-engineering.org/ps2mouse/
+ *
+ * Command:
+ * 0xFF: Reset
+ * 0xF6: Set Defaults Sampling; rate=100, resolution=4cnt/mm, scaling=1:1, reporting=disabled
+ * 0xF5: Disable Data Reporting
+ * 0xF4: Enable Data Reporting
+ * 0xF3: Set Sample Rate
+ * 0xF2: Get Device ID
+ * 0xF0: Set Remote Mode
+ * 0xEB: Read Data
+ * 0xEA: Set Stream Mode
+ * 0xE9: Status Request
+ * 0xE8: Set Resolution
+ * 0xE7: Set Scaling 2:1
+ * 0xE6: Set Scaling 1:1
+ *
+ * Mode:
+ * Stream Mode: devices sends the data when it changs its state
+ * Remote Mode: host polls the data periodically
+ *
+ * This code uses Remote Mode and polls the data with Read Data(0xEB).
+ *
+ * Data format:
+ * byte|7       6       5       4       3       2       1       0
+ * ----+--------------------------------------------------------------
+ *    0|Yovflw  Xovflw  Ysign   Xsign   1       Middle  Right   Left
+ *    1|                    X movement(0-255)
+ *    2|                    Y movement(0-255)
+ */
