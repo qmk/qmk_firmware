@@ -109,12 +109,12 @@ uint8_t ps2_host_send(uint8_t data)
 #endif
     /* terminate a transmission if we have */
     inhibit();
-    _delay_us(100);
+    _delay_us(200); // at least 100us
 
     /* start bit [1] */
     data_lo();
     clock_hi();
-    WAIT(clock_lo, 15000, 1);
+    WAIT(clock_lo, 20000, 10);   // may take 15ms at most until device starts clocking
     /* data [2-9] */
     for (uint8_t i = 0; i < 8; i++) {
         _delay_us(15);
@@ -167,7 +167,7 @@ uint8_t ps2_host_recv_response(void)
     idle();
 
     /* wait start bit */
-    wait_clock_lo(2000);
+    wait_clock_lo(25000);    // command response may take 20 ms at most
     data = recv_data();
 
     inhibit();
