@@ -15,6 +15,7 @@
   *  - Library Applications:
   *   - Refactored out USB interface IDs in the demo applications into enums (thanks to Laszlo Monda)
   *   - AVRISP-MKII Clone Project PDI/TPI frequency increased from 250KHz to 2MHz as it is now stable
+  *   - Fixed incorrect signature bytes returned in the DFU bootloader
   *
   *  \section Sec_ChangeLog130901 Version 130901
   *  <b>New:</b>

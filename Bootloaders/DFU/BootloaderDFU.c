@@ -785,13 +785,20 @@ static void ProcessWriteCommand(void)
 static void ProcessReadCommand(void)
 {
 	const uint8_t BootloaderInfo[3] = {BOOTLOADER_VERSION, BOOTLOADER_ID_BYTE1, BOOTLOADER_ID_BYTE2};
-	const uint8_t SignatureInfo[3]  = {AVR_SIGNATURE_1,    AVR_SIGNATURE_2,     AVR_SIGNATURE_3};
+	const uint8_t SignatureInfo[4]  = {0x58, AVR_SIGNATURE_1, AVR_SIGNATURE_2, AVR_SIGNATURE_3};
 
 	uint8_t DataIndexToRead = SentCommand.Data[1];
 
-	if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x00))                         // Read bootloader info
-	  ResponseByte = BootloaderInfo[DataIndexToRead];
+	if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x00))                        // Read bootloader info
+	{
+		ResponseByte = BootloaderInfo[DataIndexToRead];
+	}
 	else if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x01))                    // Read signature byte
-	  ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
+	{
+		if (DataIndexToRead < 0x60)
+		  ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
+		else
+		  ResponseByte = SignatureInfo[DataIndexToRead - 0x60 + 3];
+	}
 }
 
