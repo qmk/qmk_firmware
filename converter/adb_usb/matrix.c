@@ -79,9 +79,9 @@ void matrix_init(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
     debug_enable = true;
-    debug_matrix = true;
-    debug_keyboard = true;
-    debug_mouse = true;
+    //debug_matrix = true;
+    //debug_keyboard = true;
+    //debug_mouse = true;
     print("debug enabled.\n");
     return;
 }
@@ -108,7 +108,7 @@ uint8_t matrix_scan(void)
     } else if (codes == 0xFFFF) {   // power key release
         register_key(0xFF);
     } else if (key0 == 0xFF) {      // error
-        xprintf("adb_host_kbd_recv: ERROR(%02X)\n", codes);
+        xprintf("adb_host_kbd_recv: ERROR(%d)\n", codes);
         return key1;
     } else {
         register_key(key0);
