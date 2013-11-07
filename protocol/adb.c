@@ -41,7 +41,6 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "adb.h"
-#include "debug.h"
 
 
 // GCC doesn't inline functions normally
@@ -125,16 +124,15 @@ bool adb_host_psw(void)
 uint16_t adb_host_kbd_recv(void)
 {
     uint16_t data = 0;
+    cli();
     attention();
     send_byte(0x2C);            // Addr:Keyboard(0010), Cmd:Talk(11), Register0(00)
     place_bit0();               // Stopbit(0)
     if (!wait_data_lo(500)) {   // Tlt/Stop to Start(140-260us)
+        sei();
         return 0;               // No data to send
     }
     
-    // ad hoc fix: without block inerrupt read wrong bit occasionally and get keys stuck
-    // TODO: is this needed anymore with improved timing?
-    //cli();
     uint8_t n = 17; // start bit + 16 data bits
     do {
         uint8_t lo = (uint8_t) wait_data_hi(130);
@@ -153,10 +151,8 @@ uint16_t adb_host_kbd_recv(void)
             data |= 1;
         }
         else if (n == 17) {
-            // Service Request
-            dprintf("Startbit ERROR\n");
             sei();
-            return -2;
+            return -20;
         }
     }
     while ( --n );
@@ -164,21 +160,20 @@ uint16_t adb_host_kbd_recv(void)
     // Stop bit can't be checked normally since it could have service request lenghtening
     // and its high state never goes low.
     if (!wait_data_hi(351) || wait_data_lo(91)) {
-        dprintf("Stopbit ERROR\n");
         sei();
-        return -3;
+        return -21;
     }
     sei();
     return data;
 
 error:
-    dprintf("Bit ERROR\n");
     sei();
-    return -4;
+    return -n;
 }
 
 void adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l)
 {
+    cli();
     attention();
     send_byte(cmd);
     place_bit0();               // Stopbit(0)
@@ -187,6 +182,7 @@ void adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l)
     send_byte(data_h); 
     send_byte(data_l);
     place_bit0();               // Stopbit(0);
+    sei();
 }
 
 // send state of LEDs
