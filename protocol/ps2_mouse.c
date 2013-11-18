@@ -49,16 +49,14 @@ uint8_t ps2_mouse_init(void) {
 
     ps2_host_init();
 
-    // Not reliable: sometime fail to initialize mouse
+    _delay_ms(1000);    // wait for powering up
 
     // send Reset
-    _delay_ms(1000);    // wait for powering up
     rcv = ps2_host_send(0xFF);
     print("ps2_mouse_init: send Reset: ");
     phex(rcv); phex(ps2_error); print("\n");
 
     // read completion code of BAT
-    //_delay_ms(1000);    // wait for Basic Assurance Test
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read BAT: ");
     phex(rcv); phex(ps2_error); print("\n");
