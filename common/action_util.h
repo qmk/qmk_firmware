@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ACTION_UTIL_H
 
 #include <stdint.h>
+#include "report.h"
 
 extern report_keyboard_t *keyboard_report;
 
