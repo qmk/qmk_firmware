@@ -526,6 +526,12 @@ Say you want to type 'The', you have to push and hold Shift key before type 't' 
 Oneshot effect is cancel unless following key is pressed down within `ONESHOT_TIMEOUT` of `config.h`. No timeout when it is `0` or not defined.
 
 
+### 4.4 Tap Toggle Mods
+Similar to layer tap toggle, this works as a momentary modifier when holding, but toggles on with several taps. A single tap will 'unstick' the modifier again.
+
+    ACTION_MODS_TAP_TOGGLE(MOD_LSFT)
+
+
 
 
 ## 5. Legacy Keymap

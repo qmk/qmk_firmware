@@ -128,6 +128,17 @@ void process_action(keyrecord_t *record)
                         }
                         break;
     #endif
+                    case MODS_TAP_TOGGLE:
+                        if (event.pressed) {
+                            if (tap_count <= TAPPING_TOGGLE) {
+                                register_mods(mods);
+                            }
+                        } else {
+                            if (tap_count < TAPPING_TOGGLE) {
+                                unregister_mods(mods);
+                            }
+                        }
+                        break;
                     default:
                         if (event.pressed) {
                             if (tap_count > 0) {
