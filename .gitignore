@@ -9,5 +9,6 @@
 *.map
 *.bak
 *.class
+Documentation/
 LUFA/StudioIntegration/ProjectGenerator/*
 LUFA/StudioIntegration/DocBook/*
