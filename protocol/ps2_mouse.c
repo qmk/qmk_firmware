@@ -47,18 +47,13 @@ uint8_t ps2_mouse_init(void) {
     phex(rcv); phex(ps2_error); print("\n");
 
     // read completion code of BAT
-    rcv = ps2_host_recv();
+    rcv = ps2_host_recv_response();
     print("ps2_mouse_init: read BAT: ");
     phex(rcv); phex(ps2_error); print("\n");
 
     // read Device ID
-    rcv = ps2_host_recv();
+    rcv = ps2_host_recv_response();
     print("ps2_mouse_init: read DevID: ");
-    phex(rcv); phex(ps2_error); print("\n");
-
-    // send Enable Data Reporting
-    rcv = ps2_host_send(0xF4);
-    print("ps2_mouse_init: send 0xF4: ");
     phex(rcv); phex(ps2_error); print("\n");
 
     // send Set Remote mode
