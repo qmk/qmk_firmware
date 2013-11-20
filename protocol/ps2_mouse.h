@@ -20,6 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdbool.h>
 
+#define PS2_MOUSE_READ_DATA     0xEB
+
+/*
+ * Data format:
+ * byte|7       6       5       4       3       2       1       0
+ * ----+--------------------------------------------------------------
+ *    0|Yovflw  Xovflw  Ysign   Xsign   1       Middle  Right   Left
+ *    1|                    X movement(0-255)
+ *    2|                    Y movement(0-255)
+ */
 #define PS2_MOUSE_BTN_MASK      0x07
 #define PS2_MOUSE_BTN_LEFT      0
 #define PS2_MOUSE_BTN_RIGHT     1
@@ -29,16 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_MOUSE_X_OVFLW       6
 #define PS2_MOUSE_Y_OVFLW       7
 
-bool ps2_mouse_enable;
-extern uint8_t ps2_mouse_x;
-extern uint8_t ps2_mouse_y;
-extern uint8_t ps2_mouse_btn;
-extern uint8_t ps2_mouse_error_count;
-
 uint8_t ps2_mouse_init(void);
-uint8_t ps2_mouse_read(void);
-bool ps2_mouse_changed(void);
-void ps2_mouse_usb_send(void);
-void ps2_mouse_print(void);
+void ps2_mouse_task(void);
 
 #endif

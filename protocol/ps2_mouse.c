@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include<util/delay.h>
 #include "ps2.h"
 #include "ps2_mouse.h"
-#include "usb_mouse.h"
+#include "report.h"
+#include "host.h"
 
 #define PS2_MOUSE_DEBUG
 #ifdef PS2_MOUSE_DEBUG
@@ -33,19 +34,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-bool ps2_mouse_enable = true;
-uint8_t ps2_mouse_x = 0;
-uint8_t ps2_mouse_y = 0;
-uint8_t ps2_mouse_btn = 0;
-uint8_t ps2_mouse_error_count = 0;
-
-static uint8_t ps2_mouse_btn_prev = 0;
+static report_mouse_t mouse_report = {};
 
 
+static void ps2_mouse_print_raw_data(void);
+static void ps2_mouse_print_usb_data(void);
+
+
+/* supports only 3 button mouse at this time */
 uint8_t ps2_mouse_init(void) {
     uint8_t rcv;
-
-    if (!ps2_mouse_enable) return 1;
 
     ps2_host_init();
 
@@ -79,85 +77,119 @@ uint8_t ps2_mouse_init(void) {
     return 0;
 }
 
-uint8_t ps2_mouse_read(void)
-{
-    uint8_t rcv;
-
-    if (!ps2_mouse_enable) return 1;
-
-    rcv = ps2_host_send(0xEB);
-
-    if(rcv==0xFA) {
-        ps2_mouse_btn = ps2_host_recv_response();
-        ps2_mouse_x = ps2_host_recv_response();
-        ps2_mouse_y = ps2_host_recv_response();
-    }
-    return 0;
-}
-
-bool ps2_mouse_changed(void)
-{
-    return (ps2_mouse_x || ps2_mouse_y || (ps2_mouse_btn & PS2_MOUSE_BTN_MASK) != ps2_mouse_btn_prev);
-}
-
+/* scroll support 
+ * TODO: should be build option
+ */
 #define PS2_MOUSE_SCROLL_BUTTON 0x04
-void ps2_mouse_usb_send(void)
+#define X_IS_NEG  (mouse_report.buttons & (1<<PS2_MOUSE_X_SIGN))
+#define Y_IS_NEG  (mouse_report.buttons & (1<<PS2_MOUSE_Y_SIGN))
+#define X_IS_OVF  (mouse_report.buttons & (1<<PS2_MOUSE_X_OVFLW))
+#define Y_IS_OVF  (mouse_report.buttons & (1<<PS2_MOUSE_Y_OVFLW))
+void ps2_mouse_task(void)
 {
-    static bool scrolled = false;
+    enum { SCROLL_NONE, SCROLL_BTN, SCROLL_SENT };
+    static uint8_t scroll_state = SCROLL_NONE;
+    static uint8_t buttons_prev = 0;
 
-    if (!ps2_mouse_enable) return;
-
-    if (ps2_mouse_changed()) {
-        int8_t x, y, v, h;
-        x = y = v = h = 0;
-
-        // convert scale of X, Y: PS/2(-256/255) -> USB(-127/127)
-        if (ps2_mouse_btn & (1<<PS2_MOUSE_X_SIGN))
-            x = ps2_mouse_x > 128 ? (int8_t)ps2_mouse_x : -127;
-        else
-            x = ps2_mouse_x < 128 ? (int8_t)ps2_mouse_x : 127;
-
-        if (ps2_mouse_btn & (1<<PS2_MOUSE_Y_SIGN))
-            y = ps2_mouse_y > 128 ? (int8_t)ps2_mouse_y : -127;
-        else
-            y = ps2_mouse_y < 128 ? (int8_t)ps2_mouse_y : 127;
-
-        // Y is needed to reverse
-        y = -y;
-
-        if (ps2_mouse_btn & PS2_MOUSE_SCROLL_BUTTON) {
-            // scroll
-            if (x > 0 || x < 0) h = (x > 64 ? 64 : (x < -64 ? -64 :x));
-            if (y > 0 || y < 0) v = (y > 64 ? 64 : (y < -64 ? -64 :y));
-            if (h || v) {
-                scrolled = true;
-                usb_mouse_send(0,0, -v/16, h/16, 0);
-                _delay_ms(100);
-            }
-        } else if (!scrolled && (ps2_mouse_btn_prev & PS2_MOUSE_SCROLL_BUTTON)) {
-            usb_mouse_send(0,0,0,0, PS2_MOUSE_SCROLL_BUTTON);
-            _delay_ms(100);
-            usb_mouse_send(0,0,0,0, 0);
-        } else { 
-            scrolled = false;
-            usb_mouse_send(x, y, 0, 0, ps2_mouse_btn & PS2_MOUSE_BTN_MASK);
-        }
-
-        ps2_mouse_btn_prev = (ps2_mouse_btn & PS2_MOUSE_BTN_MASK);
-        ps2_mouse_print();
+    /* receives packet from mouse */
+    uint8_t rcv;
+    rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
+    if (rcv == PS2_ACK) {
+        mouse_report.buttons = ps2_host_recv_response();
+        mouse_report.x = ps2_host_recv_response();
+        mouse_report.y = ps2_host_recv_response();
+    } else {
+        if (!debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
+        return;
     }
-    ps2_mouse_x = 0;
-    ps2_mouse_y = 0;
-    ps2_mouse_btn = 0;
+
+    /* if mouse moves or buttons state changes */
+    if (mouse_report.x || mouse_report.y ||
+            ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
+
+        ps2_mouse_print_raw_data();
+
+        buttons_prev = mouse_report.buttons;
+
+        // PS/2 mouse data is '9-bit integer'(-256 to 255) which is comprised of sign-bit and 8-bit value.
+        // bit: 8    7 ... 0
+        //      sign \8-bit/
+        //
+        // Meanwhile USB HID mouse indicates 8bit data(-127 to 127), note that -128 is not used.
+        //
+        // This converts PS/2 data into HID value. Use only -127-127 out of PS/2 9-bit.
+        mouse_report.x = X_IS_NEG ?
+                          ((!X_IS_OVF && -127 <= mouse_report.x && mouse_report.x <= -1) ?  mouse_report.x : -127) :
+                          ((!X_IS_OVF && 0 <= mouse_report.x && mouse_report.x <= 127) ? mouse_report.x : 127);
+        mouse_report.y = Y_IS_NEG ?
+                          ((!Y_IS_OVF && -127 <= mouse_report.y && mouse_report.y <= -1) ?  mouse_report.y : -127) :
+                          ((!Y_IS_OVF && 0 <= mouse_report.y && mouse_report.y <= 127) ? mouse_report.y : 127);
+
+        // remove sign and overflow flags
+        mouse_report.buttons &= PS2_MOUSE_BTN_MASK;
+
+        // invert coordinate of y to conform to USB HID mouse
+        mouse_report.y = -mouse_report.y;
+
+
+        if ((mouse_report.buttons & PS2_MOUSE_SCROLL_BUTTON) == PS2_MOUSE_SCROLL_BUTTON) {
+            if (scroll_state == SCROLL_NONE) scroll_state = SCROLL_BTN;
+
+            // doesn't send Scroll Button
+            mouse_report.buttons &= ~PS2_MOUSE_SCROLL_BUTTON;
+
+            if (mouse_report.x || mouse_report.y) {
+                scroll_state = SCROLL_SENT;
+
+                mouse_report.v = -mouse_report.y/2;
+                mouse_report.h =  mouse_report.x/2;
+                mouse_report.x = 0;
+                mouse_report.y = 0;
+                host_mouse_send(&mouse_report);
+            }
+        } else if (scroll_state == SCROLL_BTN &&
+                (mouse_report.buttons & PS2_MOUSE_SCROLL_BUTTON) == 0) {
+            scroll_state = SCROLL_NONE;
+
+            // send Scroll Button(down and up at once) when not scrolled
+            mouse_report.buttons |= PS2_MOUSE_SCROLL_BUTTON;
+            host_mouse_send(&mouse_report);
+            _delay_ms(100);
+            mouse_report.buttons &= ~PS2_MOUSE_SCROLL_BUTTON;
+            host_mouse_send(&mouse_report);
+        } else { 
+            scroll_state = SCROLL_NONE;
+
+            host_mouse_send(&mouse_report);
+        }
+        ps2_mouse_print_usb_data();
+    }
+    // clear report
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+    mouse_report.v = 0;
+    mouse_report.h = 0;
+    mouse_report.buttons = 0;
 }
 
-void ps2_mouse_print(void)
+static void ps2_mouse_print_raw_data(void)
 {
     if (!debug_mouse) return;
-    print("ps2_mouse[btn|x y]: ");
-    phex(ps2_mouse_btn); print("|");
-    phex(ps2_mouse_x); print(" ");
-    phex(ps2_mouse_y); print("\n");
+    print("ps2_mouse raw [btn|x y]: [");
+    phex(mouse_report.buttons); print("|");
+    print_hex8((uint8_t)mouse_report.x); print(" ");
+    print_hex8((uint8_t)mouse_report.y); print("]\n");
+}
+
+static void ps2_mouse_print_usb_data(void)
+{
+    if (!debug_mouse) return;
+    print("ps2_mouse usb [btn|x y v h]: [");
+    phex(mouse_report.buttons); print("|");
+    print_hex8((uint8_t)mouse_report.x); print(" ");
+    print_hex8((uint8_t)mouse_report.y); print(" ");
+    print_hex8((uint8_t)mouse_report.v); print(" ");
+    print_hex8((uint8_t)mouse_report.h); print("]\n");
 }
 
 
@@ -189,6 +221,6 @@ void ps2_mouse_print(void)
  * byte|7       6       5       4       3       2       1       0
  * ----+--------------------------------------------------------------
  *    0|Yovflw  Xovflw  Ysign   Xsign   1       Middle  Right   Left
- *    1|                    X movement(0-255)
- *    2|                    Y movement(0-255)
+ *    1|                    X movement
+ *    2|                    Y movement
  */
