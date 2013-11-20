@@ -22,23 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ps2_mouse.h"
 #include "report.h"
 #include "host.h"
-
-#define PS2_MOUSE_DEBUG
-#ifdef PS2_MOUSE_DEBUG
-#   include "print.h"
-#   include "debug.h"
-#else
-#   define print(s)
-#   define phex(h)
-#   define phex16(h)
-#endif
+#include "timer.h"
+#include "print.h"
+#include "debug.h"
 
 
 static report_mouse_t mouse_report = {};
 
 
-static void ps2_mouse_print_raw_data(void);
-static void ps2_mouse_print_usb_data(void);
+static void print_usb_data(void);
 
 
 /* supports only 3 button mouse at this time */
@@ -77,10 +69,6 @@ uint8_t ps2_mouse_init(void) {
     return 0;
 }
 
-/* scroll support 
- * TODO: should be build option
- */
-#define PS2_MOUSE_SCROLL_BUTTON 0x04
 #define X_IS_NEG  (mouse_report.buttons & (1<<PS2_MOUSE_X_SIGN))
 #define Y_IS_NEG  (mouse_report.buttons & (1<<PS2_MOUSE_Y_SIGN))
 #define X_IS_OVF  (mouse_report.buttons & (1<<PS2_MOUSE_X_OVFLW))
@@ -107,7 +95,12 @@ void ps2_mouse_task(void)
     if (mouse_report.x || mouse_report.y ||
             ((mouse_report.buttons ^ buttons_prev) & PS2_MOUSE_BTN_MASK)) {
 
-        ps2_mouse_print_raw_data();
+#ifdef PS2_MOUSE_DEBUG
+        print("ps2_mouse raw: [");
+        phex(mouse_report.buttons); print("|");
+        print_hex8((uint8_t)mouse_report.x); print(" ");
+        print_hex8((uint8_t)mouse_report.y); print("]\n");
+#endif
 
         buttons_prev = mouse_report.buttons;
 
@@ -132,37 +125,47 @@ void ps2_mouse_task(void)
         mouse_report.y = -mouse_report.y;
 
 
-        if ((mouse_report.buttons & PS2_MOUSE_SCROLL_BUTTON) == PS2_MOUSE_SCROLL_BUTTON) {
-            if (scroll_state == SCROLL_NONE) scroll_state = SCROLL_BTN;
+#if PS2_MOUSE_SCROLL_BTN_MASK
+        static uint16_t scroll_button_time = 0;
+        if ((mouse_report.buttons & (PS2_MOUSE_SCROLL_BTN_MASK)) == (PS2_MOUSE_SCROLL_BTN_MASK)) {
+            if (scroll_state == SCROLL_NONE) {
+                scroll_button_time = timer_read();
+                scroll_state = SCROLL_BTN;
+            }
 
             // doesn't send Scroll Button
-            mouse_report.buttons &= ~PS2_MOUSE_SCROLL_BUTTON;
+            //mouse_report.buttons &= ~(PS2_MOUSE_SCROLL_BTN_MASK);
 
             if (mouse_report.x || mouse_report.y) {
                 scroll_state = SCROLL_SENT;
 
-                mouse_report.v = -mouse_report.y/2;
-                mouse_report.h =  mouse_report.x/2;
+                mouse_report.v = -mouse_report.y/(PS2_MOUSE_SCROLL_DIVISOR_V);
+                mouse_report.h =  mouse_report.x/(PS2_MOUSE_SCROLL_DIVISOR_H);
                 mouse_report.x = 0;
                 mouse_report.y = 0;
-                host_mouse_send(&mouse_report);
+                //host_mouse_send(&mouse_report);
             }
-        } else if (scroll_state == SCROLL_BTN &&
-                (mouse_report.buttons & PS2_MOUSE_SCROLL_BUTTON) == 0) {
-            scroll_state = SCROLL_NONE;
-
-            // send Scroll Button(down and up at once) when not scrolled
-            mouse_report.buttons |= PS2_MOUSE_SCROLL_BUTTON;
-            host_mouse_send(&mouse_report);
-            _delay_ms(100);
-            mouse_report.buttons &= ~PS2_MOUSE_SCROLL_BUTTON;
-            host_mouse_send(&mouse_report);
-        } else { 
-            scroll_state = SCROLL_NONE;
-
-            host_mouse_send(&mouse_report);
         }
-        ps2_mouse_print_usb_data();
+        else if ((mouse_report.buttons & (PS2_MOUSE_SCROLL_BTN_MASK)) == 0) {
+#if PS2_MOUSE_SCROLL_BTN_SEND
+            if (scroll_state == SCROLL_BTN &&
+                    TIMER_DIFF_16(timer_read(), scroll_button_time) < PS2_MOUSE_SCROLL_BTN_SEND) {
+                // send Scroll Button(down and up at once) when not scrolled
+                mouse_report.buttons |= (PS2_MOUSE_SCROLL_BTN_MASK);
+                host_mouse_send(&mouse_report);
+                _delay_ms(100);
+                mouse_report.buttons &= ~(PS2_MOUSE_SCROLL_BTN_MASK);
+            }
+#endif
+            scroll_state = SCROLL_NONE;
+        }
+        // doesn't send Scroll Button
+        mouse_report.buttons &= ~(PS2_MOUSE_SCROLL_BTN_MASK);
+#endif
+
+
+        host_mouse_send(&mouse_report);
+        print_usb_data();
     }
     // clear report
     mouse_report.x = 0;
@@ -172,19 +175,10 @@ void ps2_mouse_task(void)
     mouse_report.buttons = 0;
 }
 
-static void ps2_mouse_print_raw_data(void)
+static void print_usb_data(void)
 {
     if (!debug_mouse) return;
-    print("ps2_mouse raw [btn|x y]: [");
-    phex(mouse_report.buttons); print("|");
-    print_hex8((uint8_t)mouse_report.x); print(" ");
-    print_hex8((uint8_t)mouse_report.y); print("]\n");
-}
-
-static void ps2_mouse_print_usb_data(void)
-{
-    if (!debug_mouse) return;
-    print("ps2_mouse usb [btn|x y v h]: [");
+    print("ps2_mouse usb: [");
     phex(mouse_report.buttons); print("|");
     print_hex8((uint8_t)mouse_report.x); print(" ");
     print_hex8((uint8_t)mouse_report.y); print(" ");

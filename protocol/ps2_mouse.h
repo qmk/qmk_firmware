@@ -39,6 +39,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_MOUSE_X_OVFLW       6
 #define PS2_MOUSE_Y_OVFLW       7
 
+
+/*
+ * Scroll by mouse move with pressing button
+ */
+/* mouse button to start scrolling; set 0 to disable scroll */
+#ifndef PS2_MOUSE_SCROLL_BTN_MASK
+#define PS2_MOUSE_SCROLL_BTN_MASK       (1<<PS2_MOUSE_BTN_MIDDLE)
+#endif
+/* send button event when button is released within this value(ms); set 0 to disable  */
+#ifndef PS2_MOUSE_SCROLL_BTN_SEND
+#define PS2_MOUSE_SCROLL_BTN_SEND       300
+#endif
+/* divide virtical and horizontal mouse move by this to convert to scroll move */
+#ifndef PS2_MOUSE_SCROLL_DIVISOR_V
+#define PS2_MOUSE_SCROLL_DIVISOR_V      2
+#endif
+#ifndef PS2_MOUSE_SCROLL_DIVISOR_H
+#define PS2_MOUSE_SCROLL_DIVISOR_H      2
+#endif
+
+
 uint8_t ps2_mouse_init(void);
 void ps2_mouse_task(void);
 
