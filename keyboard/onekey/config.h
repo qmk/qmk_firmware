@@ -69,7 +69,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* PS/2 mouse */
-#define PS2_MOUSE_DEBUG
 #ifdef PS2_USE_BUSYWAIT
 #   define PS2_CLOCK_PORT  PORTD
 #   define PS2_CLOCK_PIN   PIND
