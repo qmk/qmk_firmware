@@ -110,7 +110,7 @@ int main(void)
 					/* Check if the note is unused */
 					if (!(NoteData[i].Pitch))
 					{
-						/* If a note is unused, it's age is essentially infinite - always prefer unused not entries */
+						/* If a note is unused, it's age is essentially infinite - always prefer unused note entries */
 						LRUNoteStruct = &NoteData[i];
 						break;
 					}
