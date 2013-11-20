@@ -123,9 +123,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef PS2_MOUSE_ENABLE
-    if (ps2_mouse_read() == 0) {
-        ps2_mouse_usb_send();
-    }
+    ps2_mouse_task();
 #endif
 
     // update LED

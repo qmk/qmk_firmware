@@ -485,12 +485,6 @@ void clear_keyboard_but_mods(void)
 #endif
 }
 
-bool sending_anykey(void)
-{
-    return (has_anykey() || host_mouse_in_use() ||
-            host_last_sysytem_report() || host_last_consumer_report());
-}
-
 bool is_tap_key(key_t key)
 {
     action_t action = layer_switch_get_action(key);
