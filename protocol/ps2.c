@@ -1,5 +1,5 @@
 /*
-Copyright 2010,2011 Jun WAKO <wakojun@gmail.com>
+Copyright 2010,2011,2012,2013 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -43,7 +43,9 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "debug.h"
 
 
+#ifndef PS2_USE_INT
 static uint8_t recv_data(void);
+#endif
 static inline void clock_lo(void);
 static inline void clock_hi(void);
 static inline bool clock_in(void);
@@ -143,6 +145,9 @@ uint8_t ps2_host_send(uint8_t data)
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
+#ifdef PS2_USE_INT
+    PS2_INT_ON();
+#endif
     res = ps2_host_recv_response();
 ERROR:
 #ifdef PS2_USE_INT
@@ -154,11 +159,15 @@ ERROR:
     return res;
 }
 
+#ifndef PS2_USE_INT
 /* receive data when host want else inhibit communication */
 uint8_t ps2_host_recv_response(void)
 {
     uint8_t data = 0;
 
+#ifdef PS2_USE_INT
+    PS2_INT_OFF();
+#endif
     /* terminate a transmission if we have */
     inhibit();
     _delay_us(100);
@@ -173,6 +182,7 @@ uint8_t ps2_host_recv_response(void)
     inhibit();
     return data;
 }
+#endif
 
 #ifndef PS2_USE_INT
 uint8_t ps2_host_recv(void)
@@ -187,9 +197,6 @@ static uint8_t pbuf_head = 0;
 static uint8_t pbuf_tail = 0;
 static inline void pbuf_enqueue(uint8_t data)
 {
-    if (!data)
-        return;
-
     uint8_t sreg = SREG;
     cli();
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
@@ -215,6 +222,21 @@ static inline uint8_t pbuf_dequeue(void)
 
     return val;
 }
+static inline bool pbuf_has_data(void)
+{
+    uint8_t sreg = SREG;
+    cli();
+    bool has_data = (pbuf_head != pbuf_tail);
+    SREG = sreg;
+    return has_data;
+}
+static inline void pbuf_clear(void)
+{
+    uint8_t sreg = SREG;
+    cli();
+    pbuf_head = pbuf_tail = 0;
+    SREG = sreg;
+}
 
 /* get data received by interrupt */
 uint8_t ps2_host_recv(void)
@@ -229,13 +251,12 @@ uint8_t ps2_host_recv(void)
     return pbuf_dequeue();
 }
 
-#if 0
-#define DEBUGP_INIT() do { DDRC = 0xFF; } while (0)
-#define DEBUGP(x) do { PORTC = x; } while (0)
-#else
-#define DEBUGP_INIT()
-#define DEBUGP(x)
-#endif
+uint8_t ps2_host_recv_response(void)
+{
+    while (!pbuf_has_data()) ;
+    return pbuf_dequeue();
+}
+
 ISR(PS2_INT_VECT)
 {
     static enum {
@@ -256,7 +277,6 @@ ISR(PS2_INT_VECT)
     }
 
     state++;
-    DEBUGP(state);
     switch (state) {
         case START:
             if (data_in())
@@ -289,6 +309,7 @@ ISR(PS2_INT_VECT)
             if (!data_in())
                 goto ERROR;
             pbuf_enqueue(data);
+//phex(data);
             goto DONE;
             break;
         default:
@@ -296,7 +317,6 @@ ISR(PS2_INT_VECT)
     }
     goto RETURN;
 ERROR:
-    DEBUGP(0x0F);
     inhibit();
     ps2_error = state;
 DONE:
@@ -309,11 +329,6 @@ RETURN:
 #endif
 
 
-static void ps2_reset(void)
-{
-    ps2_host_send(0xFF);
-}
-
 /* send LED state to keyboard */
 void ps2_host_set_led(uint8_t led)
 {
@@ -322,6 +337,7 @@ void ps2_host_set_led(uint8_t led)
 }
 
 
+#ifndef PS2_USE_INT
 /* called after start bit comes */
 static uint8_t recv_data(void)
 {
@@ -361,6 +377,7 @@ static uint8_t recv_data(void)
 ERROR:
     return 0;
 }
+#endif
 
 static inline void clock_lo()
 {
