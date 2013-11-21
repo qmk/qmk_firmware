@@ -73,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define PS2_CLOCK_PORT  PORTD
 #   define PS2_CLOCK_PIN   PIND
 #   define PS2_CLOCK_DDR   DDRD
-#   define PS2_CLOCK_BIT   1
+#   define PS2_CLOCK_BIT   5
 #   define PS2_DATA_PORT   PORTD
 #   define PS2_DATA_PIN    PIND
 #   define PS2_DATA_DDR    DDRD
@@ -81,12 +81,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+/* PS/2 mouse interrupt version */
 #ifdef PS2_USE_INT
 /* uses INT1 for clock line(ATMega32U4) */
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
 #define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   1
+#define PS2_CLOCK_BIT   5
 #define PS2_DATA_PORT   PORTD
 #define PS2_DATA_PIN    PIND
 #define PS2_DATA_DDR    DDRD
@@ -106,6 +107,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+/* PS/2 mouse USART version */
 #ifdef PS2_USE_USART
 #if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
 /* XCK for clock line and RXD for data line */
