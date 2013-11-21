@@ -46,7 +46,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
-	.USBSpecification       = VERSION_BCD(01.10),
+	.USBSpecification       = VERSION_BCD(1,1,0),
 	.Class                  = USB_CSCP_NoDeviceClass,
 	.SubClass               = USB_CSCP_NoDeviceSubclass,
 	.Protocol               = USB_CSCP_NoDeviceProtocol,
@@ -55,7 +55,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2047,
-	.ReleaseNumber          = VERSION_BCD(00.02),
+	.ReleaseNumber          = VERSION_BCD(0,0,2),
 
 	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
 	.ProductStrIndex        = STRING_ID_Product,
@@ -107,7 +107,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
 
-			.ACSpecification          = VERSION_BCD(01.00),
+			.ACSpecification          = VERSION_BCD(1,0,0),
 			.TotalLength              = (sizeof(USB_Audio_Descriptor_Interface_AC_t) +
 			                             sizeof(USB_Audio_Descriptor_InputTerminal_t) +
 			                             sizeof(USB_Audio_Descriptor_OutputTerminal_t)),

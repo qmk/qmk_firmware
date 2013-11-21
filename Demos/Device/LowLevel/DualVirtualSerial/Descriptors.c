@@ -47,7 +47,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
-	.USBSpecification       = VERSION_BCD(01.10),
+	.USBSpecification       = VERSION_BCD(1,1,0),
 	.Class                  = USB_CSCP_IADDeviceClass,
 	.SubClass               = USB_CSCP_IADDeviceSubclass,
 	.Protocol               = USB_CSCP_IADDeviceProtocol,
@@ -56,7 +56,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x204E,
-	.ReleaseNumber          = VERSION_BCD(00.01),
+	.ReleaseNumber          = VERSION_BCD(0,0,1),
 
 	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
 	.ProductStrIndex        = STRING_ID_Product,
@@ -122,7 +122,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
 			.Subtype                = CDC_DSUBTYPE_CSInterface_Header,
 
-			.CDCSpecification       = VERSION_BCD(01.10),
+			.CDCSpecification       = VERSION_BCD(1,1,0),
 		},
 
 	.CDC1_Functional_ACM =
@@ -223,7 +223,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
 			.Subtype                = CDC_DSUBTYPE_CSInterface_Header,
 
-			.CDCSpecification       = VERSION_BCD(01.10),
+			.CDCSpecification       = VERSION_BCD(1,1,0),
 		},
 
 	.CDC2_Functional_ACM =

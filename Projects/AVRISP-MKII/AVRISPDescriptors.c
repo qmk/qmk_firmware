@@ -57,7 +57,7 @@ const USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
-	.USBSpecification       = VERSION_BCD(01.10),
+	.USBSpecification       = VERSION_BCD(1,1,0),
 	.Class                  = USB_CSCP_VendorSpecificClass,
 	.SubClass               = USB_CSCP_NoDeviceSubclass,
 	.Protocol               = USB_CSCP_NoDeviceProtocol,
@@ -66,7 +66,7 @@ const USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2104,
-	.ReleaseNumber          = VERSION_BCD(02.00),
+	.ReleaseNumber          = VERSION_BCD(2,0,0),
 
 	.ManufacturerStrIndex   = AVRISP_STRING_ID_Manufacturer,
 	.ProductStrIndex        = AVRISP_STRING_ID_Product,

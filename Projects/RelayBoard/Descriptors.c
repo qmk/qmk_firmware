@@ -47,7 +47,7 @@ const USB_Descriptor_Device_t PROGMEM RelayBoard_DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
-	.USBSpecification       = VERSION_BCD(01.10),
+	.USBSpecification       = VERSION_BCD(1,1,0),
 	.Class                  = USB_CSCP_VendorSpecificClass,
 	.SubClass               = USB_CSCP_NoDeviceSubclass,
 	.Protocol               = USB_CSCP_NoDeviceProtocol,
@@ -56,7 +56,7 @@ const USB_Descriptor_Device_t PROGMEM RelayBoard_DeviceDescriptor =
 
 	.VendorID               = 0x04B4,
 	.ProductID              = 0xFD11,
-	.ReleaseNumber          = VERSION_BCD(02.00),
+	.ReleaseNumber          = VERSION_BCD(2,0,0),
 
 	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
 	.ProductStrIndex        = STRING_ID_Product,
