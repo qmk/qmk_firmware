@@ -16,7 +16,7 @@
   *  - Library Applications:
   *   - Refactored out USB interface IDs in the demo applications into enums (thanks to Laszlo Monda)
   *   - AVRISP-MKII Clone Project PDI/TPI frequency increased from 250KHz to 2MHz as it is now stable
-  *   - Increased TPI/PDI handshake delay to 1ms from 1us to support targets with high amounts of capacitance on their
+  *   - Increased TPI/PDI handshake delay to 100us from 1us to support targets with high amounts of capacitance on their
   *     /RESET lines (thanks to Paul Duke)
   *
   *  <b>Fixed:</b>
