@@ -10,28 +10,20 @@ DIY compact keyboard designed and run by komar007 and Geekhack community.
 ## Build
 Move to this directory then just run `make` like:
 
-   $ make -f Makfile.[pjrc|lufa]
+    $ make
 
-Use `Makefile.pjrc` if you want to use PJRC stack or use `Makefile.lufa` for LUFA stack.
-
-
-## Boot Magic
-Plugin pressing these `Boot Magic` key.
-
-- `Fn` key for bootloader kick up.
-- `D` key for Debug enable.
+Use `make -f Makefile.pjrc` if you want to use PJRC stack but I find no reason to do so now.
 
 
 ## Keymap
-Two version of keymap are available. `Plan`, `Poker` and `Funky`(default).
-See keymap.c to define your own favourite keymap.
+Several version of keymap are available; `plain`, `poker_bit`, `poker_set`, `hasu` and `poker`(default). See keymap document(you can find in README.md of top) and `keymap_*.c` to define your own favourite keymap.
 
-    $ make -f Makefile.[pjrc|lufa] [plain|poker]
+    $ make KEYMAP=[poker|plain|poker_set|poker_bit|hasu]
 
 ### 1. Plain keymap
-This will be useful if you want to use key mapping tool like AHK.
+Even without any Fn layer. This will be useful if you want to use key mapping tool like AHK.
 
-See [keymap_plain.h](keymap_plain.h) for detail.
+See [keymap_plain.c](keymap_plain.c) for detail.
 
 #### 1.0 Plain Default Layer
     ,-----------------------------------------------------------.
@@ -48,9 +40,13 @@ See [keymap_plain.h](keymap_plain.h) for detail.
 
 ### 2  Poker keymap
 
-See [keymap_poker.h](keymap_poker.h) for Poker layer emulation, [keymap_poker_bit.h](keymap_poker_bit.h) and [keymap_poker_set.h](keymap_poker_set.h) for better support of Esc and arrow.
+[keymap_poker.c](keymap_poker.c) emulates original Poker layer emulation.
+[keymap_poker_bit.c](keymap_poker_bit.c) and [keymap_poker_set.c](keymap_poker_set.c) offers better support of Esc and arrow like:
 
- These keymap supports Colemak, Dvorak and Workmans, use `Magic` + {`1`, `2`, `3`} to switch and `Magic` + `0` to return to Qwerty.
+    Fn + Esc = `
+    Fn + {left, down, up, right}  = {home, pgdown, pgup, end}
+
+ `poker` keymap supports Colemak, Dvorak and Workmans, use `Magic` + {`1`, `2`, `3`} to switch and `Magic` + `0` to return to Qwerty, where `Magic` is `LShift` + `RShift`.
 
 #### 2.0 Poker Default Layer
     ,-----------------------------------------------------------.
@@ -65,32 +61,6 @@ See [keymap_poker.h](keymap_poker.h) for Poker layer emulation, [keymap_poker_bi
     |Ctrl|Gui |Alt |      Space             |Fn  |Gui |App |Ctrl|
     `-----------------------------------------------------------'
 
-#### 2.1 Poker Arrow Layer
-    ,-----------------------------------------------------------.
-    |   |   |   |   |   |   |   |   |   |   |   |   |   |       |
-    |-----------------------------------------------------------|
-    |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
-    |-----------------------------------------------------------|
-    |      |   |   |   |   |   |   |   |   |   |   |   |        |
-    |-----------------------------------------------------------|
-    |        |   |   |   |   |   |   |   |   |   |   |  Up      |
-    |-----------------------------------------------------------|
-    |    |    |    |                        |Fn  |Left|Down|Righ|
-    `-----------------------------------------------------------'
-
-#### 2.2 Poker Esc Layer
-    ,-----------------------------------------------------------.
-    |Esc|   |   |   |   |   |   |   |   |   |   |   |   |       |
-    |-----------------------------------------------------------|
-    |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
-    |-----------------------------------------------------------|
-    |      |   |   |   |   |   |   |   |   |   |   |   |        |
-    |-----------------------------------------------------------|
-    |        |   |   |   |   |   |   |   |   |   |   |          |
-    |-----------------------------------------------------------|
-    |    |    |    |                        |Fn  |    |    |    |
-    `-----------------------------------------------------------'
-
 #### 2.1 Poker Fn Layer
     ,-----------------------------------------------------------.
     |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       |
@@ -99,17 +69,15 @@ See [keymap_poker.h](keymap_poker.h) for Poker layer emulation, [keymap_poker_bi
     |-----------------------------------------------------------|
     |      |Lef|Dow|Rig|   |   |Psc|Slk|Pau|   |Tsk|End|        |
     |-----------------------------------------------------------|
-    |        |Del|   |Web|Mut|VoU|VoD|   |PgU|PgD|Del|          |
+    |        |Del|   |Web|Mut|VoU|VoD|   |PgU|PgD|Del|   Up     |
     |-----------------------------------------------------------|
-    |    |    |    |         FnS            |Fn  |    |    |    |
+    |    |    |    |         FnS            |Fn  |Left|Down|Righ|
     `-----------------------------------------------------------'
 
 
 
-### 3. Funky keymap
-This is my keymap(default) with HHKB, Vi cursor and Mousekey layer.
-
-See [keymap.c](keymap.c) for detail.
+### 3. Hasu keymap
+This is my keymap with HHKB, Vi cursor and Mousekey layer. See [keymap_hasu.c](keymap_hasu.c) for detail.
 
 #### 3.0 Funky Default Layer
     ,-----------------------------------------------------------.

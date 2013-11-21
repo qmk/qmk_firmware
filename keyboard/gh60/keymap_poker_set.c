@@ -1,7 +1,9 @@
+#include "keymap_common.h"
+
 // Poker fix with set(state transition)
 // Fn + Esc = `
 // Fn + {left, down, up, right}  = {home, pgdown, pgup, end}
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty */
     KEYMAP_ANSI(
         GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
@@ -63,7 +65,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Fn action definition
  */
-static const uint16_t PROGMEM fn_actions[] = {
+const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
     [0] = ACTION_LAYER_SET(4, ON_PRESS),     // FN0 move to Fn'd             when press
     [1] = ACTION_LAYER_SET(5, ON_PRESS),     // FN1 move to Fn'd arrow       when press

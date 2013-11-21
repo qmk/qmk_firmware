@@ -1,7 +1,9 @@
+#include "keymap_common.h"
+
 // Poker fix with toggle and bit operation
 // Fn + Esc = `
 // Fn + {left, down, up, right}  = {home, pgdown, pgup, end}
-static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty */
     KEYMAP_ANSI(
         GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
@@ -38,7 +40,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          UP,   \
         TRNS,TRNS,TRNS,          TRNS,                    TRNS,LEFT,DOWN,RGHT),
 };
-static const uint16_t PROGMEM fn_actions[] = {
+const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
     [0] = ACTION_LAYER_BIT_XOR(1, 0b0101, ON_BOTH),   // Poker Fn(with fix for Esc)
     [1] = ACTION_LAYER_TOGGLE(5),                     // Poker Arrow toggle
