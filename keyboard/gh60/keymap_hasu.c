@@ -1,9 +1,9 @@
 #include "keymap_common.h"
 
+/*
+ * Hasu
+ */
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     * Hasu
-     */
     /* Keymap 0: Default Layer
      * ,-----------------------------------------------------------.
      * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |

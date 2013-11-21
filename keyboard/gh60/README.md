@@ -16,9 +16,9 @@ Use `make -f Makefile.pjrc` if you want to use PJRC stack but I find no reason t
 
 
 ## Keymap
-Several version of keymap are available; `plain`, `poker_bit`, `poker_set`, `hasu` and `poker`(default). See keymap document(you can find in README.md of top) and `keymap_*.c` to define your own favourite keymap.
+Several version of keymap are available; `plain`, `poker_bit`, `poker_set`, `hasu`, `spacefn`  and `poker`(default). See keymap document(you can find in README.md of top) and `keymap_*.c` to define your own favourite keymap.
 
-    $ make KEYMAP=[poker|plain|poker_set|poker_bit|hasu]
+    $ make KEYMAP=[poker|plain|poker_set|poker_bit|hasu|spacefn]
 
 ### 1. Plain keymap
 Even without any Fn layer. This will be useful if you want to use key mapping tool like AHK.
@@ -75,59 +75,38 @@ See [keymap_plain.c](keymap_plain.c) for detail.
     `-----------------------------------------------------------'
 
 
-
 ### 3. Hasu keymap
 This is my keymap with HHKB, Vi cursor and Mousekey layer. See [keymap_hasu.c](keymap_hasu.c) for detail.
 
-#### 3.0 Funky Default Layer
+
+### 4. SpaceFN keymap
+See [keymap_spacefn.c](keymap_spacefn.c) and [SpaceFN discussion](http://geekhack.org/index.php?topic=51069.0).
+
+#### 4.0 SpaceFN Default Layer
     ,-----------------------------------------------------------.
     |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
     |-----------------------------------------------------------|
     |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|
     |-----------------------------------------------------------|
-    |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|*L3|  '|Return  |
+    |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
     |-----------------------------------------------------------|
-    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|*L2|Shift     |
+    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |
     |-----------------------------------------------------------|
-    |Ctrl|Gui |Alt |      Space             |Alt |*L3 |*L3 |*L1 |
+    |Ctrl|Gui |Alt |      Space/Fn          |Alt |Gui |App |Ctrl|
     `-----------------------------------------------------------'
-
-#### 3.1 Funky HHKB mode
+    
+#### 4.1 SpaceFN
     ,-----------------------------------------------------------.
-    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
+    |`  | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
     |-----------------------------------------------------------|
-    |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Inser|
+    |     |   |   |   |   |   |   |Hom|Up |End|Psc|Slk|Pau|Ins  |
     |-----------------------------------------------------------|
-    |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
+    |      |   |   |   |   |   |PgU|Lef|Dow|Rig|   |   |        |
     |-----------------------------------------------------------|
-    |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift     |
+    |        |   |   |   |   |Spc|PgD|`  |~  |   |   |          |
     |-----------------------------------------------------------|
-    |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |*L0 |
+    |    |    |    |            Fn          |    |    |    |    |
     `-----------------------------------------------------------'
+    
 
-#### 3.2 Funky Vi mode
-    ,-----------------------------------------------------------.
-    |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
-    |-----------------------------------------------------------|
-    |Tab  |Hom|PgD|Up |PgU|End|Hom|PgD|PgU|End|   |   |   |     |
-    |-----------------------------------------------------------|
-    |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |Return  |
-    |-----------------------------------------------------------|
-    |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|*L0|Shift     |
-    |-----------------------------------------------------------|
-    |Ctrl|Gui |Alt |      Space             |Alt |Gui |App |Ctrl|
-    `-----------------------------------------------------------'
 
-#### 3.3 Funky Mouse mode
-    ,-----------------------------------------------------------.
-    |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Backsp |
-    |-----------------------------------------------------------|
-    |Tab  |MwL|MwD|McU|MwU|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
-    |-----------------------------------------------------------|
-    |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|*L0|   |Return  |
-    |-----------------------------------------------------------|
-    |Shift   |   |   |Mb1|Mb2|Mb3|Mb2|Mb1|   |   |   |Shift     |
-    |-----------------------------------------------------------|
-    |Ctrl|Gui |Alt |      Space             |Alt |*L0 |*L0 |Ctrl|
-    `-----------------------------------------------------------'
-    Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
