@@ -1,5 +1,5 @@
 /*
-Copyright 2010,2011 Jun WAKO <wakojun@gmail.com>
+Copyright 2010,2011,2012,2013 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -64,14 +64,6 @@ http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
 #include "debug.h"
 
 
-#if 0
-#define DEBUGP_INIT() do { DDRC = 0xFF; } while (0)
-#define DEBUGP(x) do { PORTC = x; } while (0)
-#else
-#define DEBUGP_INIT()
-#define DEBUGP(x)
-#endif
-
 #define WAIT(stat, us, err) do { \
     if (!wait_##stat(us)) { \
         ps2_error = err; \
@@ -97,12 +89,12 @@ static inline void idle(void);
 static inline void inhibit(void);
 static inline uint8_t pbuf_dequeue(void);
 static inline void pbuf_enqueue(uint8_t data);
+static inline bool pbuf_has_data(void);
+static inline void pbuf_clear(void);
 
 
 void ps2_host_init(void)
 {
-    DEBUGP_INIT();
-    DEBUGP(0x1);
     idle();
     PS2_USART_INIT();
     PS2_USART_RX_INT_ON();
@@ -114,7 +106,6 @@ uint8_t ps2_host_send(uint8_t data)
     bool parity = true;
     ps2_error = PS2_ERR_NONE;
 
-    DEBUGP(0x6);
     PS2_USART_OFF();
 
     /* terminate a transmission if we have */
@@ -153,6 +144,8 @@ uint8_t ps2_host_send(uint8_t data)
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
+    PS2_USART_INIT();
+    PS2_USART_RX_INT_ON();
     res = ps2_host_recv_response();
 ERROR:
     idle();
@@ -164,15 +157,10 @@ ERROR:
 // Do polling data from keyboard to get response to last command.
 uint8_t ps2_host_recv_response(void)
 {
-    uint8_t data = 0;
-    PS2_USART_INIT();
-    PS2_USART_RX_POLL_ON();
-    while (!PS2_USART_RX_READY)
-        ;
-    data = PS2_USART_RX_DATA;
-    PS2_USART_OFF();
-    DEBUGP(0x9);
-    return data;
+    while (!pbuf_has_data()) {
+        _delay_ms(1);   // without this delay it seems to fall into deadlock
+    }
+    return pbuf_dequeue();
 }
 
 uint8_t ps2_host_recv(void)
@@ -182,15 +170,11 @@ uint8_t ps2_host_recv(void)
 
 ISR(PS2_USART_RX_VECT)
 {
-    DEBUGP(0x7);
     uint8_t error = PS2_USART_ERROR;
     uint8_t data = PS2_USART_RX_DATA;
-    if (error) {
-        DEBUGP(error>>2);
-    } else {
+    if (!error) {
         pbuf_enqueue(data);
     }
-    DEBUGP(0x8);
 }
 
 /* send LED state to keyboard */
@@ -293,9 +277,6 @@ static uint8_t pbuf_head = 0;
 static uint8_t pbuf_tail = 0;
 static inline void pbuf_enqueue(uint8_t data)
 {
-    if (!data)
-        return;
-
     uint8_t sreg = SREG;
     cli();
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
@@ -321,4 +302,19 @@ static inline uint8_t pbuf_dequeue(void)
     SREG = sreg;
 
     return val;
+}
+static inline bool pbuf_has_data(void)
+{
+    uint8_t sreg = SREG;
+    cli();
+    bool has_data = (pbuf_head != pbuf_tail);
+    SREG = sreg;
+    return has_data;
+}
+static inline void pbuf_clear(void)
+{
+    uint8_t sreg = SREG;
+    cli();
+    pbuf_head = pbuf_tail = 0;
+    SREG = sreg;
 }

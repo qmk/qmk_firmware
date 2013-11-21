@@ -59,6 +59,7 @@ void matrix_init(void)
 {
     debug_enable = true;
     debug_matrix = true;
+    debug_mouse = true;
     // initialize row and col
     unselect_rows();
     init_cols();

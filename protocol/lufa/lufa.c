@@ -539,11 +539,18 @@ int main(void)
 {
     SetupHardware();
     sei();
+
+    /* wait for USB startup & debug output */
+    while (USB_DeviceState != DEVICE_STATE_Configured) {
 #if defined(INTERRUPT_CONTROL_ENDPOINT)
-    while (USB_DeviceState != DEVICE_STATE_Configured) ;
+        ;
+#else
+        USB_USBTask();
 #endif
+    }
     print("USB configured.\n");
 
+    /* init modules */
     keyboard_init();
     host_set_driver(&lufa_driver);
 #ifdef SLEEP_LED_ENABLE

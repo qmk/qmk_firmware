@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+static report_mouse_t mouse_report = {};
 static uint8_t mousekey_repeat =  0;
 static uint8_t mousekey_accel = 0;
 

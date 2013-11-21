@@ -32,9 +32,6 @@ extern "C" {
 extern bool keyboard_nkro;
 #endif
 
-/* report */
-extern report_mouse_t mouse_report;
-
 
 /* host driver */
 void host_set_driver(host_driver_t *driver);
@@ -46,9 +43,6 @@ void host_keyboard_send(report_keyboard_t *report);
 void host_mouse_send(report_mouse_t *report);
 void host_system_send(uint16_t data);
 void host_consumer_send(uint16_t data);
-
-/* mouse report utils */
-uint8_t host_mouse_in_use(void);
 
 uint16_t host_last_sysytem_report(void);
 uint16_t host_last_consumer_report(void);
