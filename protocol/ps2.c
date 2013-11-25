@@ -91,6 +91,9 @@ uint8_t ps2_error = PS2_ERR_NONE;
 
 void ps2_host_init(void)
 {
+    // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
+    _delay_ms(2500);
+
 #ifdef PS2_USE_INT
     PS2_INT_INIT();
     PS2_INT_ON();
@@ -163,23 +166,11 @@ ERROR:
 /* receive data when host want else inhibit communication */
 uint8_t ps2_host_recv_response(void)
 {
+    // Command might take 20ms to response([3]p.21)
+    // TrackPoint might take 25ms ([5]2.7)
     uint8_t data = 0;
-
-#ifdef PS2_USE_INT
-    PS2_INT_OFF();
-#endif
-    /* terminate a transmission if we have */
-    inhibit();
-    _delay_us(100);
-
-    /* release lines(idle state) */
-    idle();
-
-    /* wait start bit */
-    wait_clock_lo(25000);    // command response may take 20 ms at most
-    data = recv_data();
-
-    inhibit();
+    uint8_t try = 200;
+    while (try-- && (data = ps2_host_recv())) ;
     return data;
 }
 #endif
@@ -187,7 +178,17 @@ uint8_t ps2_host_recv_response(void)
 #ifndef PS2_USE_INT
 uint8_t ps2_host_recv(void)
 {
-    return ps2_host_recv_response();
+    uint8_t data = 0;
+
+    /* release lines(idle state) */
+    idle();
+
+    /* wait start bit */
+    wait_clock_lo(100); // TODO: this is enough?
+    data = recv_data();
+
+    inhibit();
+    return data;
 }
 #else
 /* ring buffer to store ps/2 key data */
@@ -241,13 +242,6 @@ static inline void pbuf_clear(void)
 /* get data received by interrupt */
 uint8_t ps2_host_recv(void)
 {
-    if (ps2_error) {
-        print("x");
-        phex(ps2_error);
-        ps2_host_send(0xFE);    // request to resend
-        ps2_error = PS2_ERR_NONE;
-    }
-    idle();
     return pbuf_dequeue();
 }
 
@@ -450,3 +444,26 @@ static inline void inhibit(void)
     clock_lo();
     data_hi();
 }
+
+
+/* PS/2 Resources
+ *
+ * [1] The PS/2 Mouse/Keyboard Protocol
+ * http://www.computer-engineering.org/ps2protocol/
+ * Concise and thorough primer of PS/2 protocol.
+ *
+ * [2] Keyboard and Auxiliary Device Controller
+ * http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
+ * Signal Timing and Format
+ *
+ * [3] Keyboards(101- and 102-key)
+ * http://www.mcamafia.de/pdf/ibm_hitrc11.pdf
+ * Keyboard Layout, Scan Code Set, POR, and Commands.
+ *
+ * [4] PS/2 Reference Manuals
+ * http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
+ * Collection of IBM Personal System/2 documents.
+ *
+ * [5] TrackPoint Engineering Specifications for version 3E
+ * https://web.archive.org/web/20100526161812/http://wwwcssrv.almaden.ibm.com/trackpoint/download.html
+ */
