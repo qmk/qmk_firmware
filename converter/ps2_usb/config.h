@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6512
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         PS/2 keyboard converter
 #define DESCRIPTION     convert PS/2 keyboard to USB
@@ -37,10 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) || \
     keyboard_report->mods == (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RSHIFT)) \
 )
-
-
-/* legacy keymap support */
-#define USE_LEGACY_KEYMAP
 
 
 #ifdef PS2_USE_USART
@@ -136,7 +133,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
 #define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   1
+#define PS2_CLOCK_BIT   5
 #define PS2_DATA_PORT   PORTD
 #define PS2_DATA_PIN    PIND
 #define PS2_DATA_DDR    DDRD
@@ -157,14 +154,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef PS2_USE_BUSYWAIT
-#define PS2_CLOCK_PORT  PORTF
-#define PS2_CLOCK_PIN   PINF
-#define PS2_CLOCK_DDR   DDRF
-#define PS2_CLOCK_BIT   0
-#define PS2_DATA_PORT   PORTF
-#define PS2_DATA_PIN    PINF
-#define PS2_DATA_DDR    DDRF
-#define PS2_DATA_BIT    1
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
+#define PS2_CLOCK_BIT   5
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
+#define PS2_DATA_BIT    2
 #endif
 
 #endif
