@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "action.h"
 #include "print.h"
 #include "util.h"
 #include "debug.h"
@@ -185,8 +186,8 @@ uint8_t matrix_scan(void)
         matrix_break(PAUSE);
     }
 
-    uint8_t code;
-    while ((code = ps2_host_recv())) {
+    uint8_t code = ps2_host_recv();
+    if (!ps2_error) {
         switch (state) {
             case INIT:
                 switch (code) {
@@ -207,11 +208,17 @@ uint8_t matrix_scan(void)
                         matrix_make(PRINT_SCREEN);
                         state = INIT;
                         break;
+                    case 0x00:  // Overrun [3]p.25
+                        print("Overrun\n");
+                        clear_keyboard();
+                        state = INIT;
+                        break;
                     default:    // normal key make
                         if (code < 0x80) {
                             matrix_make(code);
                         } else {
-                            debug("unexpected scan code at INIT: "); debug_hex(code); debug("\n");
+                            printf("unexpected scan code at INIT: %02X\n", code);
+                            clear_keyboard();
                         }
                         state = INIT;
                 }
@@ -232,7 +239,8 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_make(code|0x80);
                         } else {
-                            debug("unexpected scan code at E0: "); debug_hex(code); debug("\n");
+                            printf("unexpected scan code at E0: %02X\n", code);
+                            clear_keyboard();
                         }
                         state = INIT;
                 }
@@ -251,7 +259,8 @@ uint8_t matrix_scan(void)
                     if (code < 0x80) {
                         matrix_break(code);
                     } else {
-                        debug("unexpected scan code at F0: "); debug_hex(code); debug("\n");
+                        printf("unexpected scan code at F0: %02X\n", code);
+                        clear_keyboard();
                     }
                     state = INIT;
                 }
@@ -266,7 +275,8 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_break(code|0x80);
                         } else {
-                            debug("unexpected scan code at E0_F0: "); debug_hex(code); debug("\n");
+                            printf("unexpected scan code at E0_F0: %02X\n", code);
+                            clear_keyboard();
                         }
                         state = INIT;
                 }
@@ -357,7 +367,11 @@ uint8_t matrix_scan(void)
             default:
                 state = INIT;
         }
-        phex(code);
+    }
+
+    if (ps2_error > PS2_ERR_STARTBIT3) {
+        uint8_t ret = ps2_host_send(PS2_RESEND);
+        printf("Resend: %02X\n", ret);
     }
     return 1;
 }
