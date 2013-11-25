@@ -40,6 +40,10 @@
 #endif
 #define println(s)              print_P(PSTR(s "\n"))
 
+#ifndef AVR_LIBC_PRINTF
+#define printf(f, ...)          xprintf(f, ##__VA_ARGS__)
+#endif
+
 /* for old name */
 #define pdec(data)              print_dec(data)
 #define pdec16(data)            print_dec(data)
