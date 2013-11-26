@@ -104,6 +104,7 @@ uint8_t ps2_host_send(uint8_t data)
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
+    inhibit();
     res = ps2_host_recv_response();
 ERROR:
     inhibit();
@@ -113,12 +114,14 @@ ERROR:
 /* receive data when host want else inhibit communication */
 uint8_t ps2_host_recv_response(void)
 {
-    // TODO:
     // Command might take 20ms to response([3]p.21)
     // TrackPoint might take 25ms ([5]2.7)
+    // 250 * 100us(wait for start bit in ps2_host_recv)
     uint8_t data = 0;
-    uint8_t try = 200;
-    while (try-- && (data = ps2_host_recv())) ;
+    uint8_t try = 250;
+    do {
+        data = ps2_host_recv();
+    } while (try-- && ps2_error);
     return data;
 }
 
@@ -172,7 +175,7 @@ uint8_t ps2_host_recv(void)
     return data;
 ERROR:
     if (ps2_error > PS2_ERR_STARTBIT3) {
-        printf("x%02X\n", ps2_error);
+        xprintf("x%02X\n", ps2_error);
     }
     inhibit();
     return 0;

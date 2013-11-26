@@ -217,7 +217,7 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_make(code);
                         } else {
-                            printf("unexpected scan code at INIT: %02X\n", code);
+                            xprintf("unexpected scan code at INIT: %02X\n", code);
                             clear_keyboard();
                         }
                         state = INIT;
@@ -239,7 +239,7 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_make(code|0x80);
                         } else {
-                            printf("unexpected scan code at E0: %02X\n", code);
+                            xprintf("unexpected scan code at E0: %02X\n", code);
                             clear_keyboard();
                         }
                         state = INIT;
@@ -259,7 +259,7 @@ uint8_t matrix_scan(void)
                     if (code < 0x80) {
                         matrix_break(code);
                     } else {
-                        printf("unexpected scan code at F0: %02X\n", code);
+                        xprintf("unexpected scan code at F0: %02X\n", code);
                         clear_keyboard();
                     }
                     state = INIT;
@@ -275,7 +275,7 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_break(code|0x80);
                         } else {
-                            printf("unexpected scan code at E0_F0: %02X\n", code);
+                            xprintf("unexpected scan code at E0_F0: %02X\n", code);
                             clear_keyboard();
                         }
                         state = INIT;
@@ -371,7 +371,7 @@ uint8_t matrix_scan(void)
 
     if (ps2_error > PS2_ERR_STARTBIT3) {
         uint8_t ret = ps2_host_send(PS2_RESEND);
-        printf("Resend: %02X\n", ret);
+        xprintf("Resend: %02X\n", ret);
     }
     return 1;
 }
