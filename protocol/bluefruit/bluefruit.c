@@ -45,14 +45,14 @@ void bluefruit_keyboard_print_report(report_keyboard_t *report)
 #ifdef BLUEFRUIT_TRACE_SERIAL
 static void bluefruit_trace_header()
 {
-	dprintf("+------------------------------------+\n");
-	dprintf("| HID report to Bluefruit via serial |\n");
-	dprintf("+------------------------------------+\n|");
+    dprintf("+------------------------------------+\n");
+    dprintf("| HID report to Bluefruit via serial |\n");
+    dprintf("+------------------------------------+\n|");
 }
 
 static void bluefruit_trace_footer()
 {
-	dprintf("|\n+------------------------------------+\n\n");
+    dprintf("|\n+------------------------------------+\n\n");
 }
 #endif
 
@@ -103,7 +103,7 @@ static void send_keyboard(report_keyboard_t *report)
         bluefruit_serial_send(report->raw[i]);
     }
 #ifdef BLUEFRUIT_TRACE_SERIAL   
-    bluefruit_trace_footer();	
+    bluefruit_trace_footer();   
 #endif
 }
 
