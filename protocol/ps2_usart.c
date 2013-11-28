@@ -40,11 +40,10 @@ POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <stdbool.h>
-#include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "ps2.h"
-#include "debug.h"
+#include "print.h"
 
 
 #define WAIT(stat, us, err) do { \
@@ -188,7 +187,7 @@ static inline void pbuf_enqueue(uint8_t data)
         pbuf[pbuf_head] = data;
         pbuf_head = next;
     } else {
-        debug("pbuf: full\n");
+        print("pbuf: full\n");
     }
     SREG = sreg;
 }
