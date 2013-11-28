@@ -88,12 +88,26 @@ void matrix_init(void)
 
 uint8_t matrix_scan(void)
 {
+    /* extra_key is volatile and more convoluted than necessary because gcc refused
+    to generate valid code otherwise. Making extra_key uint8_t and constructing codes
+    here via codes = extra_key<<8 | 0xFF; would consistently fail to even LOAD
+    extra_key from memory, and leave garbage in the high byte of codes. I tried
+    dozens of code variations and it kept generating broken assembly output. So
+    beware if attempting to make extra_key code more logical and efficient. */
+    static volatile uint16_t extra_key = 0xFFFF;
     uint16_t codes;
     uint8_t key0, key1;
 
     is_modified = false;
-    _delay_ms(12);  // delay for preventing overload of poor ADB keyboard controller
-    codes = adb_host_kbd_recv();
+
+    codes = extra_key;
+    extra_key = 0xFFFF;
+
+    if ( codes == 0xFFFF )
+    {
+        _delay_ms(12);  // delay for preventing overload of poor ADB keyboard controller
+        codes = adb_host_kbd_recv();
+    }
     key0 = codes>>8;
     key1 = codes&0xFF;
 
@@ -113,7 +127,7 @@ uint8_t matrix_scan(void)
     } else {
         register_key(key0);
         if (key1 != 0xFF)       // key1 is 0xFF when no second key.
-            register_key(key1);
+            extra_key = key1<<8 | 0xFF; // process in a separate call
     }
 
     return 1;
