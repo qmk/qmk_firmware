@@ -8,12 +8,12 @@ ifdef PS2_MOUSE_ENABLE
 endif
 
 ifdef PS2_USE_BUSYWAIT
-    SRC += protocol/ps2.c
+    SRC += protocol/ps2_busywait.c
     OPT_DEFS += -DPS2_USE_BUSYWAIT
 endif
 
 ifdef PS2_USE_INT
-    SRC += protocol/ps2.c
+    SRC += protocol/ps2_interrupt.c
     OPT_DEFS += -DPS2_USE_INT
 endif
 

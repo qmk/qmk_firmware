@@ -36,7 +36,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*
- * PS/2 protocol USART version
+ * PS/2 protocol Pin interrupt version
  */
 
 #include <stdbool.h>
@@ -65,9 +65,9 @@ static inline void pbuf_clear(void);
 
 void ps2_host_init(void)
 {
-    idle(); // without this many USART errors occur when cable is disconnected
-    PS2_USART_INIT();
-    PS2_USART_RX_INT_ON();
+    idle();
+    PS2_INT_INIT();
+    PS2_INT_ON();
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
     //_delay_ms(2500);
 }
@@ -77,11 +77,11 @@ uint8_t ps2_host_send(uint8_t data)
     bool parity = true;
     ps2_error = PS2_ERR_NONE;
 
-    PS2_USART_OFF();
+    PS2_INT_OFF();
 
     /* terminate a transmission if we have */
     inhibit();
-    _delay_us(100); // [4]p.13
+    _delay_us(100); // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
@@ -120,13 +120,11 @@ uint8_t ps2_host_send(uint8_t data)
     WAIT(data_hi, 50, 9);
 
     idle();
-    PS2_USART_INIT();
-    PS2_USART_RX_INT_ON();
+    PS2_INT_ON();
     return ps2_host_recv_response();
 ERROR:
     idle();
-    PS2_USART_INIT();
-    PS2_USART_RX_INT_ON();
+    PS2_INT_ON();
     return 0;
 }
 
@@ -140,6 +138,7 @@ uint8_t ps2_host_recv_response(void)
     return pbuf_dequeue();
 }
 
+/* get data received by interrupt */
 uint8_t ps2_host_recv(void)
 {
     if (pbuf_has_data()) {
@@ -151,16 +150,72 @@ uint8_t ps2_host_recv(void)
     }
 }
 
-ISR(PS2_USART_RX_VECT)
+ISR(PS2_INT_VECT)
 {
-    // TODO: request RESEND when error occurs?
-    uint8_t error = PS2_USART_ERROR;    // USART error should be read before data
-    uint8_t data = PS2_USART_RX_DATA;
-    if (!error) {
-        pbuf_enqueue(data);
-    } else {
-        xprintf("PS2 USART error: %02X data: %02X\n", error, data);
+    static enum {
+        INIT,
+        START,
+        BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7,
+        PARITY,
+        STOP,
+    } state = INIT;
+    static uint8_t data = 0;
+    static uint8_t parity = 1;
+
+    // TODO: abort if elapse 100us from previous interrupt
+
+    // return unless falling edge
+    if (clock_in()) {
+        goto RETURN;
     }
+
+    state++;
+    switch (state) {
+        case START:
+            if (data_in())
+                goto ERROR;
+            break;
+        case BIT0:
+        case BIT1:
+        case BIT2:
+        case BIT3:
+        case BIT4:
+        case BIT5:
+        case BIT6:
+        case BIT7:
+            data >>= 1;
+            if (data_in()) {
+                data |= 0x80;
+                parity++;
+            }
+            break;
+        case PARITY:
+            if (data_in()) {
+                if (!(parity & 0x01))
+                    goto ERROR;
+            } else {
+                if (parity & 0x01)
+                    goto ERROR;
+            }
+            break;
+        case STOP:
+            if (!data_in())
+                goto ERROR;
+            pbuf_enqueue(data);
+            goto DONE;
+            break;
+        default:
+            goto ERROR;
+    }
+    goto RETURN;
+ERROR:
+    ps2_error = state;
+DONE:
+    state = INIT;
+    data = 0;
+    parity = 1;
+RETURN:
+    return;
 }
 
 /* send LED state to keyboard */
@@ -220,3 +275,4 @@ static inline void pbuf_clear(void)
     pbuf_head = pbuf_tail = 0;
     SREG = sreg;
 }
+

@@ -1,5 +1,5 @@
 /*
-Copyright 2010,2011 Jun WAKO <wakojun@gmail.com>
+Copyright 2010,2011,2012,2013 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -37,12 +37,62 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef PS2_H
 #define PS2_H
+
+#include <stdbool.h>
+#include <util/delay.h>
+#include <avr/io.h>
+
 /*
  * Primitive PS/2 Library for AVR
+ *
+ * PS/2 Resources
+ * --------------
+ * [1] The PS/2 Mouse/Keyboard Protocol
+ * http://www.computer-engineering.org/ps2protocol/
+ * Concise and thorough primer of PS/2 protocol.
+ *
+ * [2] Keyboard and Auxiliary Device Controller
+ * http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
+ * Signal Timing and Format
+ *
+ * [3] Keyboards(101- and 102-key)
+ * http://www.mcamafia.de/pdf/ibm_hitrc11.pdf
+ * Keyboard Layout, Scan Code Set, POR, and Commands.
+ *
+ * [4] PS/2 Reference Manuals
+ * http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
+ * Collection of IBM Personal System/2 documents.
+ *
+ * [5] TrackPoint Engineering Specifications for version 3E
+ * https://web.archive.org/web/20100526161812/http://wwwcssrv.almaden.ibm.com/trackpoint/download.html
  */
+#define PS2_ACK         0xFA
+#define PS2_RESEND      0xFE
+#define PS2_SET_LED     0xED
+
+// TODO: error numbers
+#define PS2_ERR_NONE        0
+#define PS2_ERR_STARTBIT1   1
+#define PS2_ERR_STARTBIT2   2
+#define PS2_ERR_STARTBIT3   3
+#define PS2_ERR_PARITY      0x10
+#define PS2_ERR_NODATA      0x20
+
+#define PS2_LED_SCROLL_LOCK 0
+#define PS2_LED_NUM_LOCK    1
+#define PS2_LED_CAPS_LOCK   2
 
 
-/* port settings for clock and data line */
+extern uint8_t ps2_error;
+
+void ps2_host_init(void);
+uint8_t ps2_host_send(uint8_t data);
+uint8_t ps2_host_recv_response(void);
+uint8_t ps2_host_recv(void);
+void ps2_host_set_led(uint8_t usb_led);
+
+
+/* Check port settings for clock and data line */
 #if !(defined(PS2_CLOCK_PORT) && \
       defined(PS2_CLOCK_PIN) && \
       defined(PS2_CLOCK_DDR) && \
@@ -57,27 +107,79 @@ POSSIBILITY OF SUCH DAMAGE.
 #   error "PS/2 data port setting is required in config.h"
 #endif
 
-#define PS2_ACK         0xFA
-#define PS2_RESEND      0xFE
-#define PS2_SET_LED     0xED
+/*--------------------------------------------------------------------
+ * static functions
+ *------------------------------------------------------------------*/
+static inline void clock_lo(void)
+{
+    PS2_CLOCK_PORT &= ~(1<<PS2_CLOCK_BIT);
+    PS2_CLOCK_DDR  |=  (1<<PS2_CLOCK_BIT);
+}
+static inline void clock_hi(void)
+{
+    /* input with pull up */
+    PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
+    PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
+}
+static inline bool clock_in(void)
+{
+    PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
+    PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
+    _delay_us(1);
+    return PS2_CLOCK_PIN&(1<<PS2_CLOCK_BIT);
+}
+static inline void data_lo(void)
+{
+    PS2_DATA_PORT &= ~(1<<PS2_DATA_BIT);
+    PS2_DATA_DDR  |=  (1<<PS2_DATA_BIT);
+}
+static inline void data_hi(void)
+{
+    /* input with pull up */
+    PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
+    PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
+}
+static inline bool data_in(void)
+{
+    PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
+    PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
+    _delay_us(1);
+    return PS2_DATA_PIN&(1<<PS2_DATA_BIT);
+}
 
-#define PS2_ERR_NONE    0
-#define PS2_ERR_PARITY  0x10
+static inline uint16_t wait_clock_lo(uint16_t us)
+{
+    while (clock_in()  && us) { asm(""); _delay_us(1); us--; }
+    return us;
+}
+static inline uint16_t wait_clock_hi(uint16_t us)
+{
+    while (!clock_in() && us) { asm(""); _delay_us(1); us--; }
+    return us;
+}
+static inline uint16_t wait_data_lo(uint16_t us)
+{
+    while (data_in() && us)  { asm(""); _delay_us(1); us--; }
+    return us;
+}
+static inline uint16_t wait_data_hi(uint16_t us)
+{
+    while (!data_in() && us)  { asm(""); _delay_us(1); us--; }
+    return us;
+}
 
-#define PS2_LED_SCROLL_LOCK 0
-#define PS2_LED_NUM_LOCK    1
-#define PS2_LED_CAPS_LOCK   2
+/* idle state that device can send */
+static inline void idle(void)
+{
+    clock_hi();
+    data_hi();
+}
 
-
-extern uint8_t ps2_error;
-
-/* host role */
-void ps2_host_init(void);
-uint8_t ps2_host_send(uint8_t data);
-uint8_t ps2_host_recv_response(void);
-uint8_t ps2_host_recv(void);
-void ps2_host_set_led(uint8_t usb_led);
-
-/* device role */
+/* inhibit device to send */
+static inline void inhibit(void)
+{
+    clock_lo();
+    data_hi();
+}
 
 #endif
