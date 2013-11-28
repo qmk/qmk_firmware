@@ -36,7 +36,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*
- * PS/2 protocol busywait version
+ * PS/2 protocol Pin interrupt version
  */
 
 #include <stdbool.h>
@@ -56,18 +56,27 @@ POSSIBILITY OF SUCH DAMAGE.
 uint8_t ps2_error = PS2_ERR_NONE;
 
 
+static inline uint8_t pbuf_dequeue(void);
+static inline void pbuf_enqueue(uint8_t data);
+static inline bool pbuf_has_data(void);
+static inline void pbuf_clear(void);
+
+
 void ps2_host_init(void)
 {
+    idle();
+    PS2_INT_INIT();
+    PS2_INT_ON();
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
-    _delay_ms(2500);
-
-    inhibit();
+    //_delay_ms(2500);
 }
 
 uint8_t ps2_host_send(uint8_t data)
 {
     bool parity = true;
     ps2_error = PS2_ERR_NONE;
+
+    PS2_INT_OFF();
 
     /* terminate a transmission if we have */
     inhibit();
@@ -78,7 +87,7 @@ uint8_t ps2_host_send(uint8_t data)
     clock_hi();
     WAIT(clock_lo, 10000, 10);   // 10ms [5]p.50
 
-    /* Data bit */
+    /* Data bit[2-9] */
     for (uint8_t i = 0; i < 8; i++) {
         _delay_us(15);
         if (data&(1<<i)) {
@@ -109,72 +118,103 @@ uint8_t ps2_host_send(uint8_t data)
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
-    inhibit();
+    idle();
+    PS2_INT_ON();
     return ps2_host_recv_response();
 ERROR:
-    inhibit();
+    idle();
+    PS2_INT_ON();
     return 0;
 }
 
-/* receive data when host want else inhibit communication */
 uint8_t ps2_host_recv_response(void)
 {
     // Command may take 25ms/20ms at most([5]p.46, [3]p.21)
-    // 250 * 100us(wait for start bit in ps2_host_recv)
-    uint8_t data = 0;
-    uint8_t try = 250;
-    do {
-        data = ps2_host_recv();
-    } while (try-- && ps2_error);
-    return data;
+    uint8_t retry = 25;
+    while (retry-- && !pbuf_has_data()) {
+        _delay_ms(1);
+    }
+    return pbuf_dequeue();
 }
 
-/* called after start bit comes */
+/* get data received by interrupt */
 uint8_t ps2_host_recv(void)
 {
-    uint8_t data = 0;
-    bool parity = true;
-    ps2_error = PS2_ERR_NONE;
+    if (pbuf_has_data()) {
+        ps2_error = PS2_ERR_NONE;
+        return pbuf_dequeue();
+    } else {
+        ps2_error = PS2_ERR_NODATA;
+        return 0;
+    }
+}
 
-    /* release lines(idle state) */
-    idle();
+ISR(PS2_INT_VECT)
+{
+    static enum {
+        INIT,
+        START,
+        BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7,
+        PARITY,
+        STOP,
+    } state = INIT;
+    static uint8_t data = 0;
+    static uint8_t parity = 1;
 
-    /* start bit [1] */
-    WAIT(clock_lo, 100, 1); // TODO: this is enough?
-    WAIT(data_lo, 1, 2);
-    WAIT(clock_hi, 50, 3);
+    // TODO: abort if elapse 100us from previous interrupt
 
-    /* data [2-9] */
-    for (uint8_t i = 0; i < 8; i++) {
-        WAIT(clock_lo, 50, 4);
-        if (data_in()) {
-            parity = !parity;
-            data |= (1<<i);
-        }
-        WAIT(clock_hi, 50, 5);
+    // return unless falling edge
+    if (clock_in()) {
+        goto RETURN;
     }
 
-    /* parity [10] */
-    WAIT(clock_lo, 50, 6);
-    if (data_in() != parity) {
-        ps2_error = PS2_ERR_PARITY;
-        goto ERROR;
+    state++;
+    switch (state) {
+        case START:
+            if (data_in())
+                goto ERROR;
+            break;
+        case BIT0:
+        case BIT1:
+        case BIT2:
+        case BIT3:
+        case BIT4:
+        case BIT5:
+        case BIT6:
+        case BIT7:
+            data >>= 1;
+            if (data_in()) {
+                data |= 0x80;
+                parity++;
+            }
+            break;
+        case PARITY:
+            if (data_in()) {
+                if (!(parity & 0x01))
+                    goto ERROR;
+            } else {
+                if (parity & 0x01)
+                    goto ERROR;
+            }
+            break;
+        case STOP:
+            if (!data_in())
+                goto ERROR;
+            pbuf_enqueue(data);
+            goto DONE;
+            break;
+        default:
+            goto ERROR;
     }
-    WAIT(clock_hi, 50, 7);
-
-    /* stop bit [11] */
-    WAIT(clock_lo, 50, 8);
-    WAIT(data_hi, 1, 9);
-    WAIT(clock_hi, 50, 10);
-
-    inhibit();
-    return data;
+    goto RETURN;
 ERROR:
-    if (ps2_error > PS2_ERR_STARTBIT3) {
-        xprintf("x%02X\n", ps2_error);
-    }
-    inhibit();
-    return 0;
+    ps2_error = state;
+DONE:
+    state = INIT;
+    data = 0;
+    parity = 1;
+RETURN:
+    return;
 }
 
 /* send LED state to keyboard */
@@ -183,3 +223,55 @@ void ps2_host_set_led(uint8_t led)
     ps2_host_send(0xED);
     ps2_host_send(led);
 }
+
+
+/*--------------------------------------------------------------------
+ * Ring buffer to store scan codes from keyboard
+ *------------------------------------------------------------------*/
+#define PBUF_SIZE 32
+static uint8_t pbuf[PBUF_SIZE];
+static uint8_t pbuf_head = 0;
+static uint8_t pbuf_tail = 0;
+static inline void pbuf_enqueue(uint8_t data)
+{
+    uint8_t sreg = SREG;
+    cli();
+    uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
+    if (next != pbuf_tail) {
+        pbuf[pbuf_head] = data;
+        pbuf_head = next;
+    } else {
+        debug("pbuf: full\n");
+    }
+    SREG = sreg;
+}
+static inline uint8_t pbuf_dequeue(void)
+{
+    uint8_t val = 0;
+
+    uint8_t sreg = SREG;
+    cli();
+    if (pbuf_head != pbuf_tail) {
+        val = pbuf[pbuf_tail];
+        pbuf_tail = (pbuf_tail + 1) % PBUF_SIZE;
+    }
+    SREG = sreg;
+
+    return val;
+}
+static inline bool pbuf_has_data(void)
+{
+    uint8_t sreg = SREG;
+    cli();
+    bool has_data = (pbuf_head != pbuf_tail);
+    SREG = sreg;
+    return has_data;
+}
+static inline void pbuf_clear(void)
+{
+    uint8_t sreg = SREG;
+    cli();
+    pbuf_head = pbuf_tail = 0;
+    SREG = sreg;
+}
+
