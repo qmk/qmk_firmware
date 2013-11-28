@@ -139,29 +139,29 @@ uint8_t matrix_key_count(void)
 
 /* Column pin configuration
  * col: 0
- * pin: D0
+ * pin: B0
  */
 static void  init_cols(void)
 {
     // Input with pull-up(DDR:0, PORT:1)
-    DDRD  &= ~(1<<0);
-    PORTD |=  (1<<0);
+    DDRB  &= ~(1<<0);
+    PORTB |=  (1<<0);
 }
 
 static matrix_row_t read_cols(void)
 {
-    return (PIND&(1<<0) ? 0 : (1<<0));
+    return (PINB&(1<<0) ? 0 : (1<<0));
 }
 
 /* Row pin configuration
  * row: 0
- * pin: D1
+ * pin: B1
  */
 static void unselect_rows(void)
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRD  &= ~0b00000010;
-    PORTD &= ~0b00000010;
+    DDRB  &= ~0b00000010;
+    PORTB &= ~0b00000010;
 }
 
 static void select_row(uint8_t row)
@@ -169,8 +169,8 @@ static void select_row(uint8_t row)
     // Output low(DDR:1, PORT:0) to select
     switch (row) {
         case 0:
-            DDRD  |= (1<<1);
-            PORTD &= ~(1<<1);
+            DDRB  |= (1<<1);
+            PORTB &= ~(1<<1);
             break;
     }
 }
