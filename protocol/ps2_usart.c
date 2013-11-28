@@ -82,13 +82,14 @@ uint8_t ps2_host_send(uint8_t data)
 
     /* terminate a transmission if we have */
     inhibit();
-    _delay_us(100);
+    _delay_us(100); // [4]p.13
 
-    /* start bit [1] */
+    /* 'Request to Send' and Start bit */
     data_lo();
     clock_hi();
-    WAIT(clock_lo, 15000, 1);
-    /* data [2-9] */
+    WAIT(clock_lo, 10000, 10);   // 10ms [5]p.50
+
+    /* Data bit[2-9] */
     for (uint8_t i = 0; i < 8; i++) {
         _delay_us(15);
         if (data&(1<<i)) {
@@ -100,15 +101,18 @@ uint8_t ps2_host_send(uint8_t data)
         WAIT(clock_hi, 50, 2);
         WAIT(clock_lo, 50, 3);
     }
-    /* parity [10] */
+
+    /* Parity bit */
     _delay_us(15);
     if (parity) { data_hi(); } else { data_lo(); }
     WAIT(clock_hi, 50, 4);
     WAIT(clock_lo, 50, 5);
-    /* stop bit [11] */
+
+    /* Stop bit */
     _delay_us(15);
     data_hi();
-    /* ack [12] */
+
+    /* Ack */
     WAIT(data_lo, 50, 6);
     WAIT(clock_lo, 50, 7);
 
@@ -127,12 +131,12 @@ ERROR:
     return 0;
 }
 
-// Do polling data from keyboard to get response to last command.
 uint8_t ps2_host_recv_response(void)
 {
+    // Command may take 25ms/20ms at most([5]p.46, [3]p.21)
     uint8_t retry = 25;
     while (retry-- && !pbuf_has_data()) {
-        _delay_ms(1);   // without this delay it seems to fall into deadlock
+        _delay_ms(1);
     }
     return pbuf_dequeue();
 }
@@ -188,7 +192,6 @@ static inline void pbuf_enqueue(uint8_t data)
     }
     SREG = sreg;
 }
-
 static inline uint8_t pbuf_dequeue(void)
 {
     uint8_t val = 0;
