@@ -36,26 +36,9 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 /*
-Primitive PS/2 Library for AVR
-==============================
-Host side is only supported now.
-Synchronous USART is used to receive data by hardware process
-rather than interrupt. During V-USB interrupt runs, CLOCK interrupt
-cannot interpose. In the result it is prone to lost CLOCK edge.
+ * PS/2 protocol USART version
+ */
 
-
-I/O control
------------
-High state is asserted by internal pull-up.
-If you have a signaling problem, you may need to have
-external pull-up resisters on CLOCK and DATA line.
-
-
-PS/2 References
----------------
-http://www.computer-engineering.org/ps2protocol/
-http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
-*/
 #include <stdbool.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -75,18 +58,6 @@ http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
 uint8_t ps2_error = PS2_ERR_NONE;
 
 
-static inline void clock_lo(void);
-static inline void clock_hi(void);
-static inline bool clock_in(void);
-static inline void data_lo(void);
-static inline void data_hi(void);
-static inline bool data_in(void);
-static inline uint16_t wait_clock_lo(uint16_t us);
-static inline uint16_t wait_clock_hi(uint16_t us);
-static inline uint16_t wait_data_lo(uint16_t us);
-static inline uint16_t wait_data_hi(uint16_t us);
-static inline void idle(void);
-static inline void inhibit(void);
 static inline uint8_t pbuf_dequeue(void);
 static inline void pbuf_enqueue(uint8_t data);
 static inline bool pbuf_has_data(void);
@@ -95,14 +66,15 @@ static inline void pbuf_clear(void);
 
 void ps2_host_init(void)
 {
-    idle();
+    idle(); // without this many USART errors occur when cable is disconnected
     PS2_USART_INIT();
     PS2_USART_RX_INT_ON();
+    // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
+    //_delay_ms(2500);
 }
 
 uint8_t ps2_host_send(uint8_t data)
 {
-    uint8_t res = 0;
     bool parity = true;
     ps2_error = PS2_ERR_NONE;
 
@@ -144,20 +116,22 @@ uint8_t ps2_host_send(uint8_t data)
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
+    idle();
     PS2_USART_INIT();
     PS2_USART_RX_INT_ON();
-    res = ps2_host_recv_response();
+    return ps2_host_recv_response();
 ERROR:
     idle();
     PS2_USART_INIT();
     PS2_USART_RX_INT_ON();
-    return res;
+    return 0;
 }
 
 // Do polling data from keyboard to get response to last command.
 uint8_t ps2_host_recv_response(void)
 {
-    while (!pbuf_has_data()) {
+    uint8_t retry = 25;
+    while (retry-- && !pbuf_has_data()) {
         _delay_ms(1);   // without this delay it seems to fall into deadlock
     }
     return pbuf_dequeue();
@@ -165,106 +139,32 @@ uint8_t ps2_host_recv_response(void)
 
 uint8_t ps2_host_recv(void)
 {
-    return pbuf_dequeue();
+    if (pbuf_has_data()) {
+        ps2_error = PS2_ERR_NONE;
+        return pbuf_dequeue();
+    } else {
+        ps2_error = PS2_ERR_NODATA;
+        return 0;
+    }
 }
 
 ISR(PS2_USART_RX_VECT)
 {
-    uint8_t error = PS2_USART_ERROR;
+    // TODO: request RESEND when error occurs?
+    uint8_t error = PS2_USART_ERROR;    // USART error should be read before data
     uint8_t data = PS2_USART_RX_DATA;
     if (!error) {
         pbuf_enqueue(data);
+    } else {
+        xprintf("PS2 USART error: %02X data: %02X\n", error, data);
     }
 }
 
 /* send LED state to keyboard */
 void ps2_host_set_led(uint8_t led)
 {
-    // send 0xED then keyboard keeps waiting for next LED data
-    // and keyboard does not send any scan codes during waiting.
-    // If fail to send LED data keyboard looks like being freezed.
-    uint8_t retry = 3;
-    while (retry-- && ps2_host_send(PS2_SET_LED) != PS2_ACK)
-        ;
-    retry = 3;
-    while (retry-- && ps2_host_send(led) != PS2_ACK)
-        ;
-}
-
-
-/*--------------------------------------------------------------------
- * static functions
- *------------------------------------------------------------------*/
-static inline void clock_lo()
-{
-    PS2_CLOCK_PORT &= ~(1<<PS2_CLOCK_BIT);
-    PS2_CLOCK_DDR  |=  (1<<PS2_CLOCK_BIT);
-}
-static inline void clock_hi()
-{
-    /* input with pull up */
-    PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
-    PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
-}
-static inline bool clock_in()
-{
-    PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
-    PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
-    _delay_us(1);
-    return PS2_CLOCK_PIN&(1<<PS2_CLOCK_BIT);
-}
-static inline void data_lo()
-{
-    PS2_DATA_PORT &= ~(1<<PS2_DATA_BIT);
-    PS2_DATA_DDR  |=  (1<<PS2_DATA_BIT);
-}
-static inline void data_hi()
-{
-    /* input with pull up */
-    PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
-    PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
-}
-static inline bool data_in()
-{
-    PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
-    PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
-    _delay_us(1);
-    return PS2_DATA_PIN&(1<<PS2_DATA_BIT);
-}
-
-static inline uint16_t wait_clock_lo(uint16_t us)
-{
-    while (clock_in()  && us) { asm(""); _delay_us(1); us--; }
-    return us;
-}
-static inline uint16_t wait_clock_hi(uint16_t us)
-{
-    while (!clock_in() && us) { asm(""); _delay_us(1); us--; }
-    return us;
-}
-static inline uint16_t wait_data_lo(uint16_t us)
-{
-    while (data_in() && us)  { asm(""); _delay_us(1); us--; }
-    return us;
-}
-static inline uint16_t wait_data_hi(uint16_t us)
-{
-    while (!data_in() && us)  { asm(""); _delay_us(1); us--; }
-    return us;
-}
-
-/* idle state that device can send */
-static inline void idle(void)
-{
-    clock_hi();
-    data_hi();
-}
-
-/* inhibit device to send */
-static inline void inhibit(void)
-{
-    clock_lo();
-    data_hi();
+    ps2_host_send(0xED);
+    ps2_host_send(led);
 }
 
 

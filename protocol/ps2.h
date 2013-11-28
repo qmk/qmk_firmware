@@ -70,11 +70,13 @@ POSSIBILITY OF SUCH DAMAGE.
 #define PS2_RESEND      0xFE
 #define PS2_SET_LED     0xED
 
+// TODO: error numbers
 #define PS2_ERR_NONE        0
 #define PS2_ERR_STARTBIT1   1
 #define PS2_ERR_STARTBIT2   2
 #define PS2_ERR_STARTBIT3   3
 #define PS2_ERR_PARITY      0x10
+#define PS2_ERR_NODATA      0x20
 
 #define PS2_LED_SCROLL_LOCK 0
 #define PS2_LED_NUM_LOCK    1
