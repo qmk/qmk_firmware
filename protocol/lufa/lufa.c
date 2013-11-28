@@ -148,7 +148,6 @@ static void Console_Task(void)
 */
 void EVENT_USB_Device_Connect(void)
 {
-    led_set(0x1f);  // all on
 }
 
 void EVENT_USB_Device_Disconnect(void)
@@ -172,8 +171,9 @@ void EVENT_USB_Device_WakeUp()
 
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
-#endif
+    // NOTE: converters may not accept this
     led_set(host_keyboard_leds());
+#endif
 }
 
 void EVENT_USB_Device_StartOfFrame(void)

@@ -662,8 +662,9 @@ ISR(USB_GEN_vect)
             suspend_wakeup_init();
 #ifdef SLEEP_LED_ENABLE
             sleep_led_disable();
-#endif
+            // NOTE: converters may not accept this
             led_set(host_keyboard_leds());
+#endif
 
             UDIEN |= (1<<SUSPE);
             UDIEN &= ~(1<<WAKEUPE);
