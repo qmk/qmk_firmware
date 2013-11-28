@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static void matrix_make(uint8_t code);
 static void matrix_break(uint8_t code);
+static void matrix_clear(void);
 #ifdef MATRIX_HAS_GHOST
 static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
@@ -84,6 +85,7 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+    debug_enable = true;
     ps2_host_init();
 
     // initialize matrix state: all keys off
@@ -209,16 +211,18 @@ uint8_t matrix_scan(void)
                         state = INIT;
                         break;
                     case 0x00:  // Overrun [3]p.25
-                        print("Overrun\n");
+                        matrix_clear();
                         clear_keyboard();
+                        print("Overrun\n");
                         state = INIT;
                         break;
                     default:    // normal key make
                         if (code < 0x80) {
                             matrix_make(code);
                         } else {
-                            xprintf("unexpected scan code at INIT: %02X\n", code);
+                            matrix_clear();
                             clear_keyboard();
+                            xprintf("unexpected scan code at INIT: %02X\n", code);
                         }
                         state = INIT;
                 }
@@ -239,8 +243,9 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_make(code|0x80);
                         } else {
-                            xprintf("unexpected scan code at E0: %02X\n", code);
+                            matrix_clear();
                             clear_keyboard();
+                            xprintf("unexpected scan code at E0: %02X\n", code);
                         }
                         state = INIT;
                 }
@@ -255,12 +260,18 @@ uint8_t matrix_scan(void)
                         matrix_break(PRINT_SCREEN);
                         state = INIT;
                         break;
+                    case 0xF0:
+                        matrix_clear();
+                        clear_keyboard();
+                        xprintf("unexpected scan code at F0: F0(clear and cont.)\n");
+                        break;
                     default:
                     if (code < 0x80) {
                         matrix_break(code);
                     } else {
-                        xprintf("unexpected scan code at F0: %02X\n", code);
+                        matrix_clear();
                         clear_keyboard();
+                        xprintf("unexpected scan code at F0: %02X\n", code);
                     }
                     state = INIT;
                 }
@@ -275,8 +286,9 @@ uint8_t matrix_scan(void)
                         if (code < 0x80) {
                             matrix_break(code|0x80);
                         } else {
-                            xprintf("unexpected scan code at E0_F0: %02X\n", code);
+                            matrix_clear();
                             clear_keyboard();
+                            xprintf("unexpected scan code at E0_F0: %02X\n", code);
                         }
                         state = INIT;
                 }
@@ -369,10 +381,13 @@ uint8_t matrix_scan(void)
         }
     }
 
-    if (ps2_error > PS2_ERR_STARTBIT3) {
+    // TODO: request RESEND when error occurs?
+/*
+    if (PS2_IS_FAILED(ps2_error)) {
         uint8_t ret = ps2_host_send(PS2_RESEND);
         xprintf("Resend: %02X\n", ret);
     }
+*/
     return 1;
 }
 
@@ -463,4 +478,10 @@ static void matrix_break(uint8_t code)
         matrix[ROW(code)] &= ~(1<<COL(code));
         is_modified = true;
     }
+}
+
+inline
+static void matrix_clear(void)
+{
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 }
