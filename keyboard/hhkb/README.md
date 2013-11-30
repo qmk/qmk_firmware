@@ -1,8 +1,8 @@
 Alternative Controller for HHKB Pro
 ===================================
-I wanted to add some features like vi cursor and mouse keys to my [HHKB][HHKB] but its controller is not programmable and
-firmware source code is not open, of course. This means customizing this keyboard needs to replace original 
-controller with programmable one. This controller can work with HHKB Professional and Professional 2 model.
+I wanted to add some features like vi cursor and mouse keys to my [HHKB][HHKB] but its controller is not programmable and firmware source code is not open, of course. This means customizing this keyboard needs to replace original controller with programmable one.
+
+This controller can work with HHKB **Professional**, **Professional** 2 and **Type-S**.
 
 See [this thread][AltController] in geekhack.org.
 
@@ -46,16 +46,10 @@ See [this document](../../doc/build.md) first.
 Set `MCU`, `BOOTLOADER_SIZE` and other build options in `Makefile` and `config.h`.
 
 ### Build 
-Just run make after intall tools.
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. Just `make` with `KEYMAP` option like:
 
-    $ make
+    $ make KEYMAP=[hasu|hhkb|spacefn|<name>]
 
-Use `Makefile.pjrc` if you want to use PJRC stack instead of LUFA.(LUFA is recommended.)
-
-    $ make -f Makefile.pjrc
-
-Use `Makefile.vusb` for [V-USB] controller.(not supported actively any more.)
-    $ make -f Makefile.vusb
 
 ### Program
 First, push reset button on board to start bootloader.
@@ -71,8 +65,8 @@ Or you can also use [FLIP] command to program. Also the tool should be intalled 
 Use [Teensy Loader] if your controller is Teensy/Teensy++.
 
 
-##How to Customize
-See [tmk_keyboard] documents.
+##Keymap
+To define your own keymap create file named `keymap_<name>.c` and see keymap document(you can find in top README.md) and existent keymap files.
 
 
 ##Hardware
@@ -83,7 +77,7 @@ TMK designed [Keyboard Controller Board for HHKB Pro2(KiCad project)](https://gi
 See [this post](http://geekhack.org/index.php?topic=12047.msg948923#msg948923).
 
 
-###2. PJRC Teensy++ 2.0 connection
+###2. PJRC Teensy++ 2.0 version
     +---------------+
     |   Teensy++    |
     |               |
@@ -101,32 +95,8 @@ See [this post](http://geekhack.org/index.php?topic=12047.msg948923#msg948923).
 
 - NOTE: PJRC [Teensy](http://www.pjrc.com/teensy/)
 
-###3. V-USB connection
-                    +---+   +---------------+
-    USB            GND  |   |   ATmega328p  |
-    ~~~                 C3  |               |
-    5V <-------+--------+---|Vcc,AVCC       |               HHKB pro    pro2
-               R1           |               |               ~~~~~~~~    ~~~~
-    D- <----+--+-----R2-----|INT1      PB2-4|------->ROW    (6-8)       (5-7)
-    D+ <----|---+----R3-----|INT0      PC0-2|------->COL    (9-11)      (8-10)
-            Z1  Z2          |            PC3|------->ENABLE (12)        (11)
-    GND<----+---+-----------|GND         PB0|<-------KEY    (4)         (3)
-                            |            PB1|------->PREV   (5)         (4)
-                            |               |
-                GND+-C2--+--|XTAL1       RXD|------->Debug Console
-                         X1 |            TXD|<-------Debug Console
-                GND+-C3--+--|XTAL2       RST|---SW--+GND
-                            +---------------+
-    R1:     1.5K Ohm
-    R2,R3:  68 Ohm
-    Z1,Z2:  Zener 3.6V
-    C1,C2:  22pF
-    C3:     0.1uF
-    X1:     Crystal 12MHz
-    SW:     Push Switch(for bootloader)
-
-- NOTE: See [V-USB] documentation for more detail of hardware and the USB stack.
-- NOTE: [USBaspLoader] is very useful for firmware update.
+###3. V-USB version
+See [V-USB controller for HHKB](doc/V-USB.md)
 
 
 [LUFA]: http://www.fourwalledcubicle.com/LUFA.php
@@ -135,4 +105,3 @@ See [this post](http://geekhack.org/index.php?topic=12047.msg948923#msg948923).
 [FLIP]: http://www.atmel.com/tools/FLIP.aspx
 [Teensy Loader]: http://www.pjrc.com/teensy/loader.html
 [V-USB]: http://www.obdev.at/products/vusb/index.html
-[USBaspLoader]: http://www.obdev.at/products/vusb/usbasploader.html
