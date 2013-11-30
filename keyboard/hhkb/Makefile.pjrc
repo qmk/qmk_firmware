@@ -13,9 +13,15 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =   keymap.c \
+SRC =   keymap_common.c \
 	matrix.c \
 	led.c
+
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_hasu.c $(SRC)
+endif
 
 CONFIG_H = config.h
 
