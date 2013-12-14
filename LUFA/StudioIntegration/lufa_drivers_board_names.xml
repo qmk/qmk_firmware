@@ -441,7 +441,10 @@
 			<module type="driver" id="lufa.drivers.board#stk525" caption="Board Support - STK525">
 				<build type="doxygen-entry-point" value="Group_BoardInfo_STK525"/>
 
+				<device-support value="at90usb1287"/>
+				<device-support value="at90usb1286"/>
 				<device-support value="at90usb647"/>
+				<device-support value="at90usb646"/>
 				<build type="define" name="BOARD" value="BOARD_STK525"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
@@ -462,6 +465,10 @@
 				<build type="doxygen-entry-point" value="Group_BoardInfo_STK526"/>
 
 				<device-support value="at90usb162"/>
+				<device-support value="at90usb82"/>
+				<device-support value="atmega32u2"/>
+				<device-support value="atmega16u2"/>
+				<device-support value="atmega8u2"/>
 				<build type="define" name="BOARD" value="BOARD_STK526"/>
 
 				<require idref="lufa.drivers.misc.at45db642d"/>
