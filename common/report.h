@@ -94,6 +94,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+/*
+ * keyboard report is 8-byte array retains state of 8 modifiers and 6 keys.
+ *
+ * byte |0       |1       |2       |3       |4       |5       |6       |7
+ * -----+--------+--------+--------+--------+--------+--------+--------+--------
+ * desc |mods    |reserved|keys[0] |keys[1] |keys[2] |keys[3] |keys[4] |keys[5]
+ *
+ * It is exended to 16 bytes to retain 120keys+8mods when NKRO mode.
+ *
+ * byte |0       |1       |2       |3       |4       |5       |6       |7        ... |15
+ * -----+--------+--------+--------+--------+--------+--------+--------+--------     +--------
+ * desc |mods    |bits[0] |bits[1] |bits[2] |bits[3] |bits[4] |bits[5] |bits[6]  ... |bit[14]
+ *
+ * mods retains state of 8 modifiers.
+ *
+ *  bit |0       |1       |2       |3       |4       |5       |6       |7
+ * -----+--------+--------+--------+--------+--------+--------+--------+--------
+ * desc |Lcontrol|Lshift  |Lalt    |Lgui    |Rcontrol|Rshift  |Ralt    |Rgui
+ *
+ */
 typedef union {
     uint8_t raw[REPORT_SIZE];
     struct {
