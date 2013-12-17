@@ -40,7 +40,7 @@ Move to project directory in the firmware source.
 Build firmware using GNU `make` command. You'll see `<project>_<variant>.hex` file in that directory unless something unexpected occurs in build process.
 
 
-    mkae -f Makefile.<variant> clean
+    make -f Makefile.<variant> clean
     make -f Makefile.<variant>
 
 
