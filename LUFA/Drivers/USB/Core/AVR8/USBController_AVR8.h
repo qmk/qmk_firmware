@@ -133,6 +133,14 @@
 			 */
 			#define USB_OPT_REG_ENABLED                (0 << 1)
 
+			/** Option mask for \ref USB_Init() to keep regulator enabled at all times. Indicates that \ref USB_Disable()
+			 *  should not disable the regulator as it would otherwise. Has no effect if regulator is disabled using
+			 *  \ref USB_OPT_REG_DISABLED.
+			 *
+			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
+			 */
+			#define USB_OPT_REG_KEEP_ENABLED           (1 << 3)
+
 			/** Manual PLL control option mask for \ref USB_Init(). This indicates to the library that the user application
 			 *  will take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
 			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.

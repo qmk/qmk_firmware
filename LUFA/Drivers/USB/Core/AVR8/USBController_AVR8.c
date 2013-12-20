@@ -112,7 +112,8 @@ void USB_Disable(void)
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	  USB_PLL_Off();
 
-	USB_REG_Off();
+	if (!(USB_Options & USB_OPT_REG_KEEP_ENABLED))
+	  USB_REG_Off();
 
 	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USB_OTGPAD_Off();
