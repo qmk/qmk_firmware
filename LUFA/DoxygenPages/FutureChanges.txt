@@ -24,6 +24,7 @@
   *      -# Make HOST_DEVICE_SETTLE_DELAY_MS a global variable that can be changed
   *      -# Add MANDATORY_EVENT_FUNCTIONS compile time option
   *      -# Add watchdog support to the library and apps/bootloaders
+  *      -# Limit the maximum size of control transfers
   *  - Testing/Verification
   *      -# Re-run USBIF test suite on all classes to formally verify operation
   *      -# Implement automated functional testing of all demos
