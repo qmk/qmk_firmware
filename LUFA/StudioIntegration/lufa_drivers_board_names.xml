@@ -447,7 +447,7 @@
 				<device-support value="at90usb646"/>
 				<build type="define" name="BOARD" value="BOARD_STK525"/>
 
-				<require idref="lufa.drivers.misc.at45db642d"/>
+				<require idref="lufa.drivers.misc.at45db321c"/>
 				<require idref="lufa.drivers.peripheral.spi"/>
 				<require idref="lufa.drivers.board.buttons"/>
 				<require idref="lufa.drivers.board.dataflash"/>
