@@ -66,20 +66,20 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 			},
 	};
 
-/** Counter for the software PWM */
+/** Counter for the software PWM. */
 static volatile uint8_t SoftPWM_Count;
 
-/** Duty cycle for the first software PWM channel */
+/** Duty cycle for the first software PWM channel. */
 static volatile uint8_t SoftPWM_Channel1_Duty;
 
-/** Duty cycle for the second software PWM channel */
+/** Duty cycle for the second software PWM channel. */
 static volatile uint8_t SoftPWM_Channel2_Duty;
 
-/** Duty cycle for the third software PWM channel */
+/** Duty cycle for the third software PWM channel. */
 static volatile uint8_t SoftPWM_Channel3_Duty;
 
 /** Standard file stream for the CDC interface when set up, so that the virtual CDC COM port can be
- *  used like any regular character stream in the C APIs
+ *  used like any regular character stream in the C APIs.
  */
 static FILE USBSerialStream;
 

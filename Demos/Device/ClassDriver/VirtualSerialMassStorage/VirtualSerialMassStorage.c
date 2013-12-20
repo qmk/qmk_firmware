@@ -92,7 +92,7 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	};
 
 /** Standard file stream for the CDC interface when set up, so that the virtual CDC COM port can be
- *  used like any regular character stream in the C APIs
+ *  used like any regular character stream in the C APIs.
  */
 static FILE USBSerialStream;
 
