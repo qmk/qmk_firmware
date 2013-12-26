@@ -106,6 +106,7 @@
  *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  \li Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
  *  \li Password keyring: http://owlsan.blogspot.no/2013/06/keyring-project-version-10.html
+ *  \li Picade alternative firmware, a retro Arcade controller/cabinet: https://github.com/rktrlng/picade_lufa
  *  \li PPM signal generator over USB: https://github.com/G33KatWork/USBPPM
  *  \li Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
  *  \li Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
@@ -160,6 +161,7 @@
  *  \li Arduino Uno and Leonardo, official Arduino boards: http://www.arduino.cc
  *  \li ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
  *  \li AsTeRICS assistive technologies project, HID actuator: http://www.asterics.eu
+ *  \li BitFury, a Bitcoin ASIC miner: https://github.com/aauer1/LUFA-BitFury/tree/master/Projects/BitfuryBTC
  *  \li Ceberus, a MadCatz Xbox 360 arcade stick modifier: http://www.phreakmods.com/products/cerberus
  *  \li CFFA3000, a CompactFlash interface for the Apple II: http://www.dreher.net/CFforAppleII
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
@@ -171,6 +173,7 @@
  *  \li PhatIO, a filesystem based I/O interface: http://www.phatio.com/
  *  \li PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
  *  \li PIR-4, a USB Connected 4 port IR transmitter: http://promixis.com/pir-4.php
+ *  \li PortPilot, a USB device charger with power meter: http://portpilot.net/
  *  \li KeyGlove, an alternative input system: http://www.keyglove.net/
  *  \li Many of Busware's Products: http://www.busware.de/
  *  \li MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/

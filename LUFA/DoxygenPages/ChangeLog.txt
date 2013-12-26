@@ -10,7 +10,7 @@
   *  <b>New:</b>
   *  - Library Applications:
   *   - Added new Bulk Vendor low level device demo
-  *   - Added new libUSB host Python and NodeJS application examples for the class driver GenericHID demo (thanks to Laszlo Monda)
+  *   - Added new libUSB host Python and NodeJS application examples for the Class driver GenericHID demo (thanks to Laszlo Monda)
   *   - Added new AVR8 USB option to keep 3.3V regulator enabled (thanks to Michael Hanselmann)
   *
   *  <b>Changed:</b>
@@ -19,6 +19,7 @@
   *   - AVRISP-MKII Clone Project PDI/TPI frequency increased from 250KHz to 2MHz as it is now stable
   *   - Increased TPI/PDI handshake delay to 100us from 1us to support targets with high amounts of capacitance on their
   *     /RESET lines (thanks to Paul Duke)
+  *   - Changed the VERSION_BCD() macro to accept the major/minor/revision values as separate parameters
   *
   *  <b>Fixed:</b>
   *  - Core:
