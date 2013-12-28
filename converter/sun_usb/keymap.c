@@ -77,12 +77,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K63,   K64,K65,K66,K67,K68,K69,K6A,K6B,K6C,K6D, K0D,K14,K6E, \
     K77,K13, K78,             K79,      K7A,K43,K62,K18,K1B,K1C  \
 ) KEYMAP( \
-         HELP,           K05,K06,K08,K0A,    K0C,K0E,K10,K11,    K12,K07,K09,K0B,  PSCR,SLCK,PAUS,  MUTE,VOLD,VOLU,PWR,  \
+         HELP,           K05,K06,K08,K0A,    K0C,K0E,K10,K11,    K12,K07,K09,K0B,  PSCR,SLCK,PAUS,  MUTE,VOLD,VOLU,K30,  \
     K01,    AGAIN,   K1D,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K28,K29,K58,K2A,  K2C, K34, K60,   K62, PSLS,PAST,PMNS, \
     MENU,   UNDO,    K35, K36,K37,K38,K39,K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,   K2B,  K42, K4A, K7B,   P7,  P8, P9,  PPLS,  \
-    SELECT, COPY,    K4C,  K4D,K4E,K4F,K50,K51,K52,K53,K54,K55,K56,K57,      K59,                   P4,  P5, P6,         \
-    EXECUTE,PASTE,   K63,   K64,K65,K66,K67,K68,K69,K6A,K6B,K6C,K6D,         K6E,       K14,        P1,  P2, P3,  PENT,  \
-    FIND,   CUT,     K77,K13, K78, HENK,       K79,      MHEN, KANA, K7A,K43,K0D,  K18, K1B, K1C,   P0,      PDOT        \
+    SELECT, K33,     K4C,  K4D,K4E,K4F,K50,K51,K52,K53,K54,K55,K56,K57,      K59,                   P4,  P5, P6,         \
+    EXECUTE,K49,     K63,   K64,K65,K66,K67,K68,K69,K6A,K6B,K6C,K6D,         K6E,       K14,        P1,  P2, P3,  PENT,  \
+    FIND,   K61,     K77,K13, K78, HENK,       K79,      MHEN, KANA, K7A,K43,K0D,  K18, K1B, K1C,   P0,      PDOT        \
 )
 
 
