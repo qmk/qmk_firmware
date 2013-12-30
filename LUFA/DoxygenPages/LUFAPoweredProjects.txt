@@ -50,6 +50,7 @@
  *  \li Bluetooth Explorerbot: http://code.google.com/p/bluetooth-explorerbot/
  *  \li Bus Ninja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
  *  \li CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
+ *  \li ChameleonMini, a smart card emulator: https://github.com/skuep/ChameleonMini
  *  \li CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  \li ChipWhisperer, a signal capture device: https://www.assembla.com/spaces/chipwhisperer/wiki/ChipWhisperer_Rev2_Capture_Hardware
  *  \li ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
