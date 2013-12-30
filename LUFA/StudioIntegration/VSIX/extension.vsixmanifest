@@ -6,7 +6,7 @@
 		<Author>Dean Camera</Author>
 		<Version>0</Version>
 		<MoreInfoUrl>http://www.lufa-lib.org</MoreInfoUrl>
-		<Description xml:space="preserve">LUFA USB Framework</Description>
+		<Description xml:space="preserve">LUFA, the Lightweight USB Framework for AVRs.</Description>
 
 		<License>License.txt</License>
 		<Icon>LUFA_thumb.png</Icon>
