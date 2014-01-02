@@ -28,6 +28,11 @@ Limitation
 
 
 
-Scan code
----------
-ASCII code(0x01-7F)
+TRS-80 model 100
+----------------
+Use TELCOM program with setting: 19200bps/8bit/odd parity/1stop bit
+To set this configuration push Stat(F3) and input '9801D,10'. Then push Term(F4) to connect.
+
+
+
+
