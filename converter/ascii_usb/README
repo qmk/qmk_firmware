@@ -1,0 +1,33 @@
+ASCII to USB keyboard protocol converter
+========================================
+This converts serial console terminal into USB keyboard, tested with TRS-80 model 100 TELCOM application.
+Target MCU is ATMega32u4 but other USB capable AVR will also work.
+
+
+Hardware
+--------
+Connect RX, TX and GND to UART pin of AVR. Note that you may need line drvier/level shfiter like MAX232 to interface high voltage of RS-232C.
+
+
+
+Build Firmware
+--------------
+Configure UART setting and Just use 'make'
+
+    $ cd ascii_usb
+    $ make
+
+Then, load the binary to MCU with your favorite programmer.
+
+
+
+Limitation
+----------
+- This cannot see key up event, you cannot hold a key.
+- Alt, Gui(Win/Mac) modifier key are not available.
+
+
+
+Scan code
+---------
+ASCII code(0x01-7F)
