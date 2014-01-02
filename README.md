@@ -40,6 +40,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [sun_usb](converter/sun_usb/)             - [Sun] to USB(type4, 5 and 3?)
 * [pc98_usb](converter/pc98_usb/)           - [PC98] to USB
 * [usb_usb](converter/usb_usb/)             - USB to USB(experimental)
+* [ascii_usb](converter/ascii_usb/)         - ASCII(Serial console terminal) to USB
 
 ### keyboard
 * [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] **my main board**
