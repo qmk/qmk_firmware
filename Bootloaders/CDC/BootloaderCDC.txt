@@ -171,7 +171,8 @@
  *  this module to try to take control over inserted CDC devices, corrupting the
  *  datastream. A UDEV rule is required to prevent this.
  *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
- *  If the issue still persists then uninstall modemmanager by executing \c sudo \c apt-get \c remove \c modemmanager
+ *  If the issue still persists then uninstall modemmanager by executing <tt>sudo apt-get remove modemmanager</tt>, or
+ *  the equivalent using your chosen distribution's package manager.
  *
  *  \par On Linux machines, the CDC bootloader is inaccessible.
  *  On many Linux systems, non-root users do not have automatic access to newly
