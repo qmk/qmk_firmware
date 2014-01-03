@@ -68,7 +68,7 @@ On the other hand, you shall change `layer_state` to overlay base layer with som
 Note that ***higher layer has higher priority on stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`**(transparent) on a layer it stops searching and lower layers aren't referred.
 
 You can place `KC_TRNS` on overlay layer changes just part of layout to fall back on lower or base layer.
-Key with `KC_TRANS` doen't has its own keycode and refers to lower valid layers for keycode, instead.
+Key with `KC_TRANS` doesn't has its own keycode and refers to lower valid layers for keycode, instead.
 See example below.
 
 
@@ -155,12 +155,12 @@ You can find other keymap definitions in file `keymap.c` located on project dire
 
 
 ## 1. Keycode
-See [`common/keycode.h`](../common/keycode.h) or keycode table below for the detail. Keycode is internal **8bit code** to inidicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like `KC_A` have simple action registers key to host on press and unregister on release, while some of other keycodes has some special actions like `Fn` keys, Media contorl keys, System control keys and Mousekeys.
+See [`common/keycode.h`](../common/keycode.h) or keycode table below for the detail. Keycode is internal **8bit code** to indicate action performed on key in keymap. Keycode has `KC_` prefixed symbol respectively. Most of keycodes like `KC_A` have simple action registers key to host on press and unregister on release, while some of other keycodes has some special actions like `Fn` keys, Media control keys, System control keys and Mousekeys.
 
  ***In `KEYMAP()` macro you should omit prefix part `KC_` of keycode to keep keymap compact.*** For example, just use `A` instead you place `KC_A` in `KEYMAP()`. Some keycodes has 4-letter **short name** in addition to descriptive name, you'll prefer short one in `KEYMAP()`.
 
 ### 1.0 Other key
-- `KC_NO` for no aciton
+- `KC_NO` for no action
 - `KC_TRNS` for layer transparency (See above)
 
 ### 1.1 Normal key
@@ -192,7 +192,7 @@ There are 8 modifiers which has discrimination between left and right.
 - `KC_WSCH`, `KC_WHOM`, `KC_WBAK`, `KC_WFWD`, `KC_WSTP`, `KC_WREF`, `KC_WFAV` for web browser operation
 
 ### 1.5 Fn key
-`KC_FNnn` are keycodes for `Fn` key which not given any actions at the beginning unlike most of keycodes has its own inborn action. To use these keycodes in `KEYMAP()` you need to assign action you want at first. Action of `Fn` key is defined in `fn_actions[]` and its index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` keyocde indicates the action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
+`KC_FNnn` are keycodes for `Fn` key which not given any actions at the beginning unlike most of keycodes has its own inborn action. To use these keycodes in `KEYMAP()` you need to assign action you want at first. Action of `Fn` key is defined in `fn_actions[]` and its index of the array is identical with number part of `KC_FNnn`. Thus `KC_FN0` keycode indicates the action defined in first element of the array. ***32 `Fn` keys can be defined at most.***
 
 ### 1.6 Keycode Table
  See keycode table in [`doc/keycode.txt`](./keycode.txt) for description of keycodes.
@@ -205,7 +205,7 @@ There are 8 modifiers which has discrimination between left and right.
 ## 2. Action
 See [`common/action_code.h`](../common/action_code.h). Action is a **16bit code** and defines function to perform on events of a key like press, release, holding and tapping.
 
-Most of keys just register 8bit scancode to host, but to support other complex features needs 16bit extended action codes internally. However, using 16bit action codes in keymap results in double size in memory compared to using jsut keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP()` instead of action codes.
+Most of keys just register 8bit scancode to host, but to support other complex features needs 16bit extended action codes internally. However, using 16bit action codes in keymap results in double size in memory compared to using just keycodes. To avoid this waste 8bit keycodes are used in `KEYMAP()` instead of action codes.
 
 ***You can just use keycodes of `Normal key`, `Modifier`, `Mousekey` and `System & Media key` in keymap*** to indicate corresponding actions instead of using action codes. While ***to use other special actions you should use keycode of `Fn` key defined in `fn_actions[]`.***
 
@@ -230,7 +230,7 @@ You can define these actions on *'A'* key and *'left shift'* modifier with:
 #### 2.1.2 Modified key
 This action is comprised of strokes of modifiers and a key. `Macro` action is needed if you want more complex key strokes.
 
-Say you want to assign a key to `Shift + 1` to get charactor *'!'* or `Alt + Tab` to switch application windows.
+Say you want to assign a key to `Shift + 1` to get character *'!'* or `Alt + Tab` to switch application windows.
 
     ACTION_MODS_KEY(MOD_LSFT, KC_1)
     ACTION_MODS_KEY(MOD_LALT, KC_TAB)
@@ -272,7 +272,7 @@ This sets Default Layer to given parameter `layer` and activate it.
     ACTION_DEFAULT_LAYER(layer)
 
 
-#### 2.2.2 Momentary Switch
+#### 2.2.2 Momentary 
 Turns on `layer` momentarily while holding, in other words it activates when key is pressed and deactivate when released.
 
     ACTION_LAYER_MOMENTARY(layer)
@@ -342,7 +342,7 @@ Turns on layer only and clear all layer on release..
     ACTION_LAYER_BIT_XOR(part, bits, on)
     ACTION_LAYER_BIT_SET(part, bits, on)
 
-These actions works with prameters as following code.
+These actions works with parameters as following code.
 
     uint8_t shift = part*4;
     uint32_t mask = (bits&0x10) ? ~(0xf<<shift) : 0;
@@ -368,7 +368,7 @@ Default Layer also has bitwise operations, they are executed when key is release
     MACRO( I(255), T(H), T(E), T(L), T(L), W(255), T(O), END )
 
 #### 2.3.1 Macro Commands
-- **I()**   change interavl of stroke.
+- **I()**   change interval of stroke.
 - **D()**   press key
 - **U()**   release key
 - **T()**   type key(press and release)
@@ -377,7 +377,7 @@ Default Layer also has bitwise operations, they are executed when key is release
 
 #### 2.3.2 Examples
 
-***TODO: sample impl***
+***TODO: sample implementation***
 See `keyboard/hhkb/keymap.c` for sample.
 
 
@@ -403,7 +403,7 @@ To define tappable `Function` action in keymap use this.
 
     void keymap_call_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 
-This C function is called every time key is operated, argument `id` selects action to be performed and `opt` can be used for option. Functon `id` can be 0-255 and `opt` can be 0-15.
+This C function is called every time key is operated, argument `id` selects action to be performed and `opt` can be used for option. Function `id` can be 0-255 and `opt` can be 0-15.
 
  `keyrecord_t` is comprised of key event and tap count. `keyevent_t` indicates which and when key is pressed or released. From `tap_count` you can know tap state, 0 means no tap. These information will be used in user function to decide how action of key is performed.
 
@@ -423,7 +423,7 @@ This C function is called every time key is operated, argument `id` selects acti
         uint8_t row;
     } key_t;
 
-***TODO: sample impl***
+***TODO: sample implementation***
 See `keyboard/hhkb/keymap.c` for sample.
 
 
@@ -462,8 +462,8 @@ This action makes 'Layer 1' active(valid) on key press event and inactive on rel
     ACTION_LAYER_MOMENTARY(1)
 
 
-Note that after switching on press the actions on destinaton layer(Layer 1) are perfomed.
-***Thus you shall need to place an action to go back on destination layer***, or you will be stuck in destination layer without way to get back. Usually you need to palce same action or 'KC_TRNS` on destination layer to get back.
+Note that after switching on press the actions on destination layer(Layer 1) are performed.
+***Thus you shall need to place an action to go back on destination layer***, or you will be stuck in destination layer without way to get back. Usually you need to place same action or 'KC_TRNS` on destination layer to get back.
 
 
 ### 3.2 Toggle switching
@@ -480,7 +480,7 @@ These actions switch a layer only while holding a key but register the key on ta
 
     ACTION_LAYER_TAP_KEY(2, KC_SCLN)
 
-With this you can place a layer switching action on normal key like ';' without losing its original key register function. This action allows you to have layer switchig action without necessity of a dedicated key. It means you can have it even on home row of keyboard.
+With this you can place a layer switching action on normal key like ';' without losing its original key register function. This action allows you to have layer switching action without necessity of a dedicated key. It means you can have it even on home row of keyboard.
 
 
 
@@ -511,17 +511,17 @@ Layer switching with tap key:
 
 
 ### 4.2 Tap Toggle
-This is a feature to assign both toggle layer and momentary switch layer action to just same one physical key. It works as mementary layer switch when holding a key but toggle switch with several taps.
+This is a feature to assign both toggle layer and momentary switch layer action to just same one physical key. It works as momentary layer switch when holding a key but toggle switch with several taps.
 
     ACTION_LAYER_TAP_TOGGLE(1)
 
 
 ### 4.3 Oneshot Modifier
-This runs onetime effect swhich modify only on just one following key. It works as normal modifier key when holding down while oneshot modifier when tapping.
+This runs onetime effects which modify only on just one following key. It works as normal modifier key when holding down while oneshot modifier when tapping.
 
     ACTION_MODS_ONESHOT(MOD_LSFT)
 
-Say you want to type 'The', you have to push and hold Shift key before type 't' then release it before type 'h' and 'e', otherwise you'll get 'THe' or 'the' unintentionally. With Oneshot Modifier you can tap Shift then type 't', 'h' and 'e' normally, you don't need to holding Shift key properly here. This mean you can realease Shift before 't' is pressed down.
+Say you want to type 'The', you have to push and hold Shift key before type 't' then release it before type 'h' and 'e', otherwise you'll get 'THe' or 'the' unintentionally. With Oneshot Modifier you can tap Shift then type 't', 'h' and 'e' normally, you don't need to holding Shift key properly here. This mean you can release Shift before 't' is pressed down.
 
 Oneshot effect is cancel unless following key is pressed down within `ONESHOT_TIMEOUT` of `config.h`. No timeout when it is `0` or not defined.
 

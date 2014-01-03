@@ -71,14 +71,14 @@ Or to program with `dfu-programmer` run:
 #### FLIP GUI tutorial
 1. On menu bar click Device -> Select, then. `ATmega32u4`.
 2. On menu bar click Settings -> Communication -> USB, then click 'Open' button on 'USB Port Connection' dialog.
-At this point you'll see greyouted widgets on the app get colored and ready.
+At this point you'll see grey-outed widgets on the app get colored and ready.
 
 3. On menu bar click File -> Load HEX File, then select your firmware hex file on File Selector dialog.
 4. On 'Operations Flow' panel click 'Run' button to load the firmware binary to the chip. Note that you should keep 'Erase', 'Blank Check', 'Program' and 'Verify' check boxes selected.
 5. Re-plug USB cord or click 'Start Application' button to restart your controller.
 Done.
 
-See also these instaructions if you need.
+See also these instructions if you need.
 
 - <http://code.google.com/p/micropendous/wiki/LoadingFirmwareWithFLIP>
 - <http://www.atmel.com/Images/doc7769.pdf>
@@ -95,7 +95,7 @@ Or use this command if you have command line version of Teensy Loader installed.
 
 
 ### 4. Program with Other programmer
-You may want to use other programmer like `avrdude` with AVRISPmkII, Aruduino or USBasp. In that case you can still use make target `program` for build with configuring `PROGRAM_CMD` in Makefile.
+You may want to use other programmer like `avrdude` with AVRISPmkII, Arduino or USBasp. In that case you can still use make target `program` for build with configuring `PROGRAM_CMD` in Makefile.
 
     $ make -f Makefile.<variant> program
 
@@ -135,7 +135,7 @@ Optional. Note that ***comment out*** to disable them.
     #BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 
 ### 3. Programmer
-Optional. Set proper command for your controller, bootloader and programmer. This command can be used with `make program`. Not needed if you use `FLIP`, `dfu-programmer` or `Teesy Loader`.
+Optional. Set proper command for your controller, bootloader and programmer. This command can be used with `make program`. Not needed if you use `FLIP`, `dfu-programmer` or `Teensy Loader`.
 
     # avrdude with AVRISPmkII
     PROGRAM_CMD = avrdude -p $(MCU) -c avrispmkII -P USB -U flash:w:$(TARGET).hex
@@ -158,7 +158,7 @@ Config.h Options
 
     /* Mechanical locking CapsLock support. Use KC_LCAP instead of KC_CAPS in keymap */
     #define CAPSLOCK_LOCKING_ENABLE
-    /* Locking CapsLock resynchronize hack */
+    /* Locking CapsLock re-synchronize hack */
     #define CAPSLOCK_LOCKING_RESYNC_ENABLE
 
 ### 3. Disable Debug and Print
