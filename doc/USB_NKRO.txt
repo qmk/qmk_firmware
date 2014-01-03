@@ -14,7 +14,7 @@ dfj's NKRO(2010/06)
     http://geekhack.org/showthread.php?p=204389#post204389
 
 
-Terminogy
+Terminology
 ---------
 NKRO
 ghost
@@ -26,7 +26,7 @@ membrane
 OS Support Status
 -----------------
 USB NKRO is possible *without* a custom driver.
-At least following OSes supports.
+At least following OS's supports.
     Windows7 64bit
     WindowsXP
     Windows2000 SP4
@@ -37,7 +37,7 @@ At least following OSes supports.
 Custom Driver for USB NKRO
 --------------------------
 NOT NEEDED
-at least when using fllowing report formats on Windows, Linux or MacOSX.
+at least when using following report formats on Windows, Linux or MacOSX.
 
 
 USB NKRO methods
@@ -47,8 +47,8 @@ USB NKRO methods
     If the keyboard has 2 virtual keyboard with Standard report(6KRO), it gets 12KRO.
     Using this method means the keyboard is a composite device.
 
-2. Exteded report
-    It needs large report size for this method to achive NKRO.
+2. Extended report
+    It needs large report size for this method to achieve NKRO.
     If a keyboard has 101keys, it needs 103byte report. It seems to be inefficient.
 
 3. Bitmap report
@@ -122,8 +122,8 @@ Considerations
 Compatibility
     boot protocol
     minor/old system
-        Some BIOS doesn't send SET_PROTCOL request, a keyboard can't switch to boot protocol mode.
-        This may cuase a problem on a keyboard which uses other report than Standard.
+        Some BIOS doesn't send SET_PROTOCOL request, a keyboard can't switch to boot protocol mode.
+        This may cause a problem on a keyboard which uses other report than Standard.
 Reactivity
     USB polling time
     OS/Driver processing time
