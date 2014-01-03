@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -25,10 +25,10 @@ begin:
 end:
 	@echo Build test "BootloaderTest" complete.
 	@echo
-	
+
 testbootloaders:
 	@echo "buildtest:" > BuildMakefile
-	
+
 	@while read line;                                         \
 	 do                                                       \
 	   build_cfg=`echo $$line | grep -v "#" | sed 's/ //g'`;  \
@@ -50,7 +50,7 @@ testbootloaders:
 	     printf "\t$(MAKE) -C $(patsubst %/,%,$(LUFA_PATH))/../Bootloaders/%s/ clean elf ARCH=%s MCU=%s BOARD=%s FLASH_SIZE_KB=%s BOOT_SECTION_SIZE_KB=%s F_USB=%s000000 DEBUG_LEVEL=0\n\n" $$build_bootloader $$build_arch $$build_mcu $$build_board $$build_flashsize $$build_bootsize $$build_fusb >> BuildMakefile; \
 	   fi;                                                    \
 	 done < BootloaderDeviceMap.cfg
-	 
+
 	 $(MAKE) -f BuildMakefile buildtest
 
 clean:

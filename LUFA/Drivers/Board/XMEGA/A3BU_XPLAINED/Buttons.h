@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -95,7 +95,7 @@
 			{
 				PORTE.OUTCLR   = BUTTONS_BUTTON1;
 				PORTE.PIN5CTRL = 0;
-				
+
 				PORTF.OUTCLR   = (BUTTONS_BUTTON2 | BUTTONS_BUTTON3);
 				PORTF.PIN1CTRL = 0;
 				PORTF.PIN2CTRL = 0;

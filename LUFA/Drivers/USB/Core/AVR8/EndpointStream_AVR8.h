@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
-              
+     Copyright (C) Dean Camera, 2014.
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaims all warranties with regard to this
@@ -44,16 +44,16 @@
  *  and to endpoints.
  *
  *  @{
- */ 
+ */
 
 #ifndef __ENDPOINT_STREAM_AVR8_H__
 #define __ENDPOINT_STREAM_AVR8_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
-		#include "../USBMode.h"		
+		#include "../USBMode.h"
 		#include "../USBTask.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -87,7 +87,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Endpoint_Discard_Stream(512, NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -98,13 +98,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Endpoint_Discard_Stream(512, &BytesProcessed)) == ENDPOINT_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -123,7 +123,7 @@
 			                                uint16_t* const BytesProcessed);
 
 			/** Writes a given number of zeroed bytes to the currently selected endpoint's bank, sending
-			 *  full packets to the host as needed. The last packet is not automatically sent once the 
+			 *  full packets to the host as needed. The last packet is not automatically sent once the
 			 *  remaining bytes have been written; the user is responsible for manually sending the last
 			 *  packet to the host via the \ref Endpoint_ClearIN() macro.
 			 *
@@ -140,7 +140,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Endpoint_Null_Stream(512, NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -151,13 +151,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Endpoint_Null_Stream(512, &BytesProcessed)) == ENDPOINT_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -179,7 +179,7 @@
 
 			/** \name Stream functions for RAM source/destination data */
 			//@{
-		
+
 			/** Writes the given number of bytes to the endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The last packet filled is not automatically sent;
 			 *  the user is responsible for manually sending the last written packet to the host via the
@@ -199,7 +199,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Endpoint_Write_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                            NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
@@ -256,7 +256,7 @@
 			uint8_t Endpoint_Write_Stream_BE(const void* const Buffer,
 			                                 uint16_t Length,
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Reads the given number of bytes from the endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
 			 *  discarded once the remaining bytes has been read; the user is responsible for manually
@@ -276,7 +276,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Endpoint_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                           NULL)) != ENDPOINT_RWSTREAM_NoError)
 			 *  {
@@ -289,14 +289,14 @@
 			 *  uint8_t  DataStream[512];
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Endpoint_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                              &BytesProcessed)) == ENDPOINT_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != ENDPOINT_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -651,7 +651,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */

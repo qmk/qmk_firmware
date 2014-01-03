@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -33,10 +33,10 @@
  *
  *  This is a header file which is be used to configure some of
  *  the application's compile time options, as an alternative to
- *  specifying the compile time constants supplied through a 
+ *  specifying the compile time constants supplied through a
  *  makefile or build system.
  *
- *  For information on what each token does, refer to the 
+ *  For information on what each token does, refer to the
  *  \ref Sec_Options section of the application documentation.
  */
 

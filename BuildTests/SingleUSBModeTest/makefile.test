@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -11,8 +11,8 @@
 
 # Run "make help" for target help.
 
-MCU          = 
-ARCH         = 
+MCU          =
+ARCH         =
 BOARD        = NONE
 F_CPU        = $(F_USB)
 DEBUG_LEVEL  = 0

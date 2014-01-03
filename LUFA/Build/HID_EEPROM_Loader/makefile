@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -19,7 +19,7 @@ OPTIMIZATION = s
 TARGET       = HID_EEPROM_Loader
 SRC          = $(TARGET).c
 LUFA_PATH    = ../../../LUFA
-CC_FLAGS     = 
+CC_FLAGS     =
 LD_FLAGS     =
 OBJECT_FILES = InputEEData.o
 

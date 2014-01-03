@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -82,7 +82,7 @@ void USB_Host_ProcessNextHostState(void)
 				USB_OTGPAD_On();
 				USB_Host_VBUS_Auto_Enable();
 				USB_Host_VBUS_Auto_On();
-				
+
 				#if defined(NO_AUTO_VBUS_MANAGEMENT)
 				USB_Host_VBUS_Manual_Enable();
 				USB_Host_VBUS_Manual_On();

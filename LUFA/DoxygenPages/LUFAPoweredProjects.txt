@@ -106,7 +106,7 @@
  *  \li Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  \li Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
- *  \li Password keyring: http://owlsan.blogspot.no/2013/06/keyring-project-version-10.html
+ *  \li Password keyring: http://owlsan.blogspot.no/2014/06/keyring-project-version-10.html
  *  \li Picade alternative firmware, a retro Arcade controller/cabinet: https://github.com/rktrlng/picade_lufa
  *  \li PPM signal generator over USB: https://github.com/G33KatWork/USBPPM
  *  \li Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
@@ -168,7 +168,7 @@
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
  *  \li Flysight, a GPS logger for wingsuit pilots: http://flysight.ca/
- *  \li Goldilocks, an Arduino compatible clone: http://feilipu.me/2013/03/08/goldilocks-1284p-arduino-uno-clone/
+ *  \li Goldilocks, an Arduino compatible clone: http://feilipu.me/2014/03/08/goldilocks-1284p-arduino-uno-clone/
  *  \li HummingBird Kit, a robotics learning platform: http://www.hummingbirdkit.com/
  *  \li Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  \li PhatIO, a filesystem based I/O interface: http://www.phatio.com/
@@ -199,7 +199,7 @@
  *  \li Elektor Magazine, "20 x Open Source" by Jens Nickel, March 2010 Issue
  *  \li Circuit Cellar Magazine, "Advanced USB Design Debugging" by Collin O'Flynn, August 2010 Issue
  *  \li "Some Assembly Required: Assembly Language Programming with the AVR Microcontroller" by Timothy S. Margush
- *  \li Elektor Magazine, "Taming the Beast (2)" by Clemens Valens/Raymond Vermeulen, January 2013 Issue
+ *  \li Elektor Magazine, "Taming the Beast (2)" by Clemens Valens/Raymond Vermeulen, January 2014 Issue
  *
  *  \section Sec_LUFANotableMentions Other Notable Mentions of LUFA
  *  The following are non-print but notable mentions of the LUFA library.

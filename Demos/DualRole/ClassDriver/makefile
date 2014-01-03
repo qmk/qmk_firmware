@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -24,13 +24,13 @@ endif
 
 # Need to special-case building without a per-project object directory
 ifeq ($(OBJDIR),)
-   # If no target specified, force "clean all" and disallow parallel build   
+   # If no target specified, force "clean all" and disallow parallel build
    ifeq ($(MAKECMDGOALS),)
       MAKECMDGOALS := clean all
       .NOTPARALLEL:
    endif
 
-   # If one of the targets is to build, force "clean" beforehand and disallow parallel build   
+   # If one of the targets is to build, force "clean" beforehand and disallow parallel build
    ifneq ($(findstring all, $(MAKECMDGOALS)),)
       MAKECMDGOALS := clean $(MAKECMDGOALS)
       .NOTPARALLEL:
@@ -42,5 +42,5 @@ endif
 
 $(PROJECT_DIRECTORIES):
 	@$(MAKE) -C $@ $(MAKECMDGOALS)
-    
+
 .PHONY: $(PROJECT_DIRECTORIES)

@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -11,9 +11,9 @@
 
 # Run "make help" for target help.
 
-MCU          = 
-ARCH         = 
-BOARD        = 
+MCU          =
+ARCH         =
+BOARD        =
 F_CPU        = $(F_USB)
 F_USB        = 8000000
 OPTIMIZATION = 1

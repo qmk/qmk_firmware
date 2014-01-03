@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -33,10 +33,10 @@
  *
  *  This is a header file which is be used to configure some of
  *  the application's compile time options, as an alternative to
- *  specifying the compile time constants supplied through a 
+ *  specifying the compile time constants supplied through a
  *  makefile or build system.
  *
- *  For information on what each token does, refer to the 
+ *  For information on what each token does, refer to the
  *  \ref Sec_Options section of the application documentation.
  */
 
@@ -52,7 +52,7 @@
 	#define DEVICE_NETMASK                (uint8_t[]){255, 255, 255,   0}
 	#define DEVICE_GATEWAY                (uint8_t[]){ 10,   0,   0,   1}
 	#define SERVER_MAC_ADDRESS            (uint8_t[]){  1,   0,   1,   0,   1,   0}
-	
+
 	#define UIP_CONF_UDP                  (defined(ENABLE_DHCP_CLIENT) || defined(ENABLE_DHCP_SERVER))
 	#define UIP_CONF_BROADCAST            1
 	#define UIP_CONF_TCP                  1

@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -10,8 +10,8 @@ LUFA_BUILD_MODULES         += AVRDUDE
 LUFA_BUILD_TARGETS         += avrdude avrdude-ee
 LUFA_BUILD_MANDATORY_VARS  += MCU TARGET
 LUFA_BUILD_OPTIONAL_VARS   += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS
-LUFA_BUILD_PROVIDED_VARS   += 
-LUFA_BUILD_PROVIDED_MACROS += 
+LUFA_BUILD_PROVIDED_VARS   +=
+LUFA_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #             LUFA AVRDUDE Programmer Buildsystem Makefile Module.
@@ -57,7 +57,7 @@ ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(s
 # Default values of optionally user-supplied variables
 AVRDUDE_PROGRAMMER ?= jtagicemkii
 AVRDUDE_PORT       ?= usb
-AVRDUDE_FLAGS      ?= 
+AVRDUDE_FLAGS      ?=
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))

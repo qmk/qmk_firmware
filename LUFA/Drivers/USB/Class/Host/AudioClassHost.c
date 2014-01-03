@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -97,15 +97,15 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	AudioInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
 	AudioInterfaceInfo->Config.DataINPipe.Type   = EP_TYPE_ISOCHRONOUS;
 	AudioInterfaceInfo->Config.DataINPipe.Banks  = 2;
-	
+
 	AudioInterfaceInfo->Config.DataOUTPipe.Size  = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 	AudioInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
 	AudioInterfaceInfo->Config.DataOUTPipe.Type  = EP_TYPE_ISOCHRONOUS;
 	AudioInterfaceInfo->Config.DataOUTPipe.Banks = 2;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&AudioInterfaceInfo->Config.DataINPipe, 1)))
 	  return false;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&AudioInterfaceInfo->Config.DataOUTPipe, 1)))
 	  return false;
 

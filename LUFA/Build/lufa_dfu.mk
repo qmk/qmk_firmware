@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -9,9 +9,9 @@
 LUFA_BUILD_MODULES         += DFU
 LUFA_BUILD_TARGETS         += flip flip-ee dfu dfu-ee
 LUFA_BUILD_MANDATORY_VARS  += MCU TARGET
-LUFA_BUILD_OPTIONAL_VARS   += 
-LUFA_BUILD_PROVIDED_VARS   += 
-LUFA_BUILD_PROVIDED_MACROS += 
+LUFA_BUILD_OPTIONAL_VARS   +=
+LUFA_BUILD_PROVIDED_VARS   +=
+LUFA_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #               LUFA DFU Bootloader Buildsystem Makefile Module.
@@ -77,7 +77,7 @@ flip-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 	@echo $(MSG_REMOVE_CMD) Removing temporary file \"$<.hex\"
 	rm $<.hex
-	
+
 # Programs in the target FLASH memory using DFU-PROGRAMMER
 dfu: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming FLASH with dfu-programmer using \"$<\"
@@ -90,6 +90,6 @@ dfu-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming EEPROM with dfu-programmer using \"$<\"
 	dfu-programmer $(MCU) eeprom-flash $<
 	dfu-programmer $(MCU) reset
-	
+
 # Phony build targets for this module
 .PHONY: flip flip-ee dfu dfu-ee

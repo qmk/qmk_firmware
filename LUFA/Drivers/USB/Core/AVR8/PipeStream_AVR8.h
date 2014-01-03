@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
-              
+     Copyright (C) Dean Camera, 2014.
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaims all warranties with regard to this
@@ -27,7 +27,7 @@
   arising out of or in connection with the use or performance of
   this software.
 */
- 
+
 /** \file
  *  \brief Pipe data stream transmission and reception management for the AVR8 microcontrollers
  *  \copydetails Group_PipeStreamRW_AVR8
@@ -51,9 +51,9 @@
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
-		#include "../USBMode.h"		
+		#include "../USBMode.h"
 		#include "../USBTask.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -63,7 +63,7 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Function Prototypes: */
 			/** \name Stream functions for null data */
@@ -85,7 +85,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Pipe_Discard_Stream(512, NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -96,13 +96,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Discard_Stream(512, &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -137,7 +137,7 @@
 			 *  <b>Single Stream Transfer Example:</b>
 			 *  \code
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Pipe_Null_Stream(512, NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *       // Stream failed to complete - check ErrorCode here
@@ -148,13 +148,13 @@
 			 *  \code
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Null_Stream(512, &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -177,7 +177,7 @@
 
 			/** \name Stream functions for RAM source/destination data */
 			//@{
-			
+
 			/** Writes the given number of bytes to the pipe from the given buffer in little endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
 			 *  the user is responsible for manually sending the last written packet to the host via the
@@ -198,7 +198,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Pipe_Write_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                        NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
@@ -211,14 +211,14 @@
 			 *  uint8_t  DataStream[512];
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Write_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                           &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -279,7 +279,7 @@
 			 *  \code
 			 *  uint8_t DataStream[512];
 			 *  uint8_t ErrorCode;
-			 *  
+			 *
 			 *  if ((ErrorCode = Pipe_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                       NULL)) != PIPE_RWSTREAM_NoError)
 			 *  {
@@ -292,14 +292,14 @@
 			 *  uint8_t  DataStream[512];
 			 *  uint8_t  ErrorCode;
 			 *  uint16_t BytesProcessed;
-			 *  
+			 *
 			 *  BytesProcessed = 0;
 			 *  while ((ErrorCode = Pipe_Read_Stream_LE(DataStream, sizeof(DataStream),
 			 *                                          &BytesProcessed)) == PIPE_RWSTREAM_IncompleteTransfer)
 			 *  {
 			 *      // Stream not yet complete - do other actions here, abort if required
 			 *  }
-			 *  
+			 *
 			 *  if (ErrorCode != PIPE_RWSTREAM_NoError)
 			 *  {
 			 *      // Stream failed to complete - check ErrorCode here
@@ -343,7 +343,7 @@
 
 			/** \name Stream functions for EEPROM source/destination data */
 			//@{
-			
+
 			/** EEPROM buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
@@ -356,7 +356,7 @@
 			uint8_t Pipe_Write_EStream_LE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** EEPROM buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
 			 *  \param[in] Buffer          Pointer to the source data buffer to read from.
@@ -382,7 +382,7 @@
 			uint8_t Pipe_Read_EStream_LE(void* const Buffer,
 			                             uint16_t Length,
 			                             uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** EEPROM buffer source version of \ref Pipe_Read_Stream_BE().
 			 *
 			 *  \param[out] Buffer          Pointer to the source data buffer to write to.
@@ -399,7 +399,7 @@
 
 			/** \name Stream functions for PROGMEM source/destination data */
 			//@{
-			
+
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
 			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
@@ -414,7 +414,7 @@
 			uint8_t Pipe_Write_PStream_LE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
 			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
@@ -435,7 +435,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+
 #endif
 
 /** @} */

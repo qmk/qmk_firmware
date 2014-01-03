@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2012  Simon Foster (simon.foster [at] inbox [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -33,21 +33,21 @@
 
 static void HD44780_WriteNibble(const uint8_t nib)
 {
-	/* Read PORTD and clear the ENABLE and PD0..3 bits 
+	/* Read PORTD and clear the ENABLE and PD0..3 bits
 	   then OR in the data */
-	
+
 	PORTD = (PORTD & ~(ENABLE | LO4_MASK)) | (nib & LO4_MASK);
-	
-	/* Enforce address setup time (tAS) 60ns 
-	   60 @ 16MHz = <1  
+
+	/* Enforce address setup time (tAS) 60ns
+	   60 @ 16MHz = <1
 	   Let's us a few NOPs for good measure */
 	asm volatile("nop\n\t"
 	             "nop\n\t"
 	             :: );
-	
+
 	/* Take enable high and enforce Enable High time (tEH=450ns)
 	   450ns @ 16MHz = 7.2 => 7 NOPs */
-	   
+
 	PORTD |= ENABLE;
 
 	asm volatile("nop\n\t"
@@ -63,7 +63,7 @@ static void HD44780_WriteNibble(const uint8_t nib)
 	/* Take enable low and enforce Enable Low time (tEL=500ns)
 	   500ns @ 16MHz = 8.0 => 7 NOPs */
 	PORTD &= ~ENABLE;
-	
+
 	asm volatile("nop\n\t"
 	             "nop\n\t"
 	             "nop\n\t"
@@ -90,11 +90,11 @@ static void HD44780_PowerUp4Bit(void)
 	/* Wait for more than 4.1 ms */
 	_delay_ms(5);
 	HD44780_WriteNibble(0x03);        // FN_SET 8-bit
-	
+
 	/* Wait for more than 100 µs */
 	_delay_us(100);
 	HD44780_WriteNibble(0x03);        // FN_SET 8-bit
-	
+
 	/* From now on we must allow 40us for each command */
 	_delay_us(50);
 	HD44780_WriteNibble(0x02);        // FN_SET 4-bit

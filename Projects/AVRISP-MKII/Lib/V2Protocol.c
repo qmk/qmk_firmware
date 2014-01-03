@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -84,7 +84,7 @@ void V2Protocol_ProcessCommand(void)
 
 	/* Reset timeout counter duration and start the timer */
 	TimeoutTicksRemaining = COMMAND_TIMEOUT_TICKS;
-	TCCR0B = ((1 << CS02) | (1 << CS00));	
+	TCCR0B = ((1 << CS02) | (1 << CS00));
 
 	switch (V2Command)
 	{

@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -42,7 +42,7 @@
  *
  *  See \ref Group_Buttons_USB2AX for more details.
  */
- 
+
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_USB2AX_V3 USB2AX_V3
  *  \brief Board specific Button driver header for the Xevelabs USB2AX revision 3.
@@ -54,7 +54,7 @@
  *  \defgroup Group_Buttons_USB2AX USB2AX
  *  \brief Board specific Buttons driver header for the Xevelabs USB2AX revisions 1 and 2.
  *
- *  \note For version 3 USB2AX boards, compile with <code>BOARD = USB2AX_V3</code> and for version 3.1, with <code>BOARD = USB2AX_V31</code>. 
+ *  \note For version 3 USB2AX boards, compile with <code>BOARD = USB2AX_V3</code> and for version 3.1, with <code>BOARD = USB2AX_V31</code>.
  *
  *  Board specific Buttons driver header for the Paranoid Studio USB2AX (http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX).
  *

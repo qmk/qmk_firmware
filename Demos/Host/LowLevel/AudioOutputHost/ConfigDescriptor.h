@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -41,7 +41,7 @@
 
 		#include "AudioOutputHost.h"
 		#include "Config/AppConfig.h"
-		
+
 	/* Macros: */
 		/** Pipe address for the Audio data OUT pipe. */
 		#define AUDIO_DATA_OUT_PIPE          (PIPE_DIR_OUT | 1)

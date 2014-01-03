@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
-              
+     Copyright (C) Dean Camera, 2014.
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaims all warranties with regard to this
@@ -43,7 +43,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length,
 {
 	uint8_t  ErrorCode;
 	uint16_t BytesInTransfer = 0;
-	
+
 	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -57,7 +57,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length,
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
 			Pipe_ClearIN();
-				
+
 			if (BytesProcessed != NULL)
 			{
 				*BytesProcessed += BytesInTransfer;
@@ -70,7 +70,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length,
 		else
 		{
 			Pipe_Discard_8();
-			
+
 			Length--;
 			BytesInTransfer++;
 		}
@@ -84,7 +84,7 @@ uint8_t Pipe_Null_Stream(uint16_t Length,
 {
 	uint8_t  ErrorCode;
 	uint16_t BytesInTransfer = 0;
-	
+
 	Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -98,13 +98,13 @@ uint8_t Pipe_Null_Stream(uint16_t Length,
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
 			Pipe_ClearOUT();
-				
+
 			if (BytesProcessed != NULL)
 			{
 				*BytesProcessed += BytesInTransfer;
 				return PIPE_RWSTREAM_IncompleteTransfer;
 			}
-			
+
 			USB_USBTask();
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -113,7 +113,7 @@ uint8_t Pipe_Null_Stream(uint16_t Length,
 		else
 		{
 			Pipe_Write_8(0);
-			
+
 			Length--;
 			BytesInTransfer++;
 		}

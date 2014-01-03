@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -36,7 +36,7 @@ compile:
 
 	@echo Building SingleUSBModeTest for ARCH=XMEGA in device only mode...
 	$(MAKE) -f makefile.test clean elf ARCH=XMEGA MCU=atxmega128a1u CC_FLAGS='-D USB_DEVICE_ONLY'
-	
+
 	@echo Building SingleUSBModeTest for ARCH=UC3 in device only mode...
 	$(MAKE) -f makefile.test clean elf ARCH=UC3 MCU=uc3a0256 CC_FLAGS='-D USB_DEVICE_ONLY'
 

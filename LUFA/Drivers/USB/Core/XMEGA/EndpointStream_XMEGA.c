@@ -1,21 +1,21 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
-              
+     Copyright (C) Dean Camera, 2014.
+
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaims all warranties with regard to this
@@ -44,10 +44,10 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length,
 {
 	uint8_t  ErrorCode;
 	uint16_t BytesInTransfer = 0;
-	
+
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
-	  
+
 	if (BytesProcessed != NULL)
 	  Length -= *BytesProcessed;
 
@@ -74,7 +74,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length,
 			BytesInTransfer++;
 		}
 	}
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
@@ -83,10 +83,10 @@ uint8_t Endpoint_Null_Stream(uint16_t Length,
 {
 	uint8_t  ErrorCode;
 	uint16_t BytesInTransfer = 0;
-	
+
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
-	  
+
 	if (BytesProcessed != NULL)
 	  Length -= *BytesProcessed;
 
@@ -113,7 +113,7 @@ uint8_t Endpoint_Null_Stream(uint16_t Length,
 			BytesInTransfer++;
 		}
 	}
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 

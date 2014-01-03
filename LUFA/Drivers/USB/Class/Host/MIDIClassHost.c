@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -81,16 +81,16 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 	MIDIInterfaceInfo->Config.DataINPipe.Size  = le16_to_cpu(DataINEndpoint->EndpointSize);
 	MIDIInterfaceInfo->Config.DataINPipe.EndpointAddress = DataINEndpoint->EndpointAddress;
 	MIDIInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_BULK;
-	
+
 	MIDIInterfaceInfo->Config.DataOUTPipe.Size = le16_to_cpu(DataOUTEndpoint->EndpointSize);
 	MIDIInterfaceInfo->Config.DataOUTPipe.EndpointAddress = DataOUTEndpoint->EndpointAddress;
 	MIDIInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&MIDIInterfaceInfo->Config.DataINPipe, 1)))
 	  return false;
-	
+
 	if (!(Pipe_ConfigurePipeTable(&MIDIInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;	
+	  return false;
 
 	MIDIInterfaceInfo->State.InterfaceNumber = MIDIInterface->InterfaceNumber;
 	MIDIInterfaceInfo->State.IsActive = true;
@@ -157,7 +157,7 @@ uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipe.Address);
 	Pipe_Unfreeze();
-	
+
 	if (Pipe_BytesInPipe())
 	{
 		Pipe_ClearOUT();
@@ -184,7 +184,7 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipe.Address);
 	Pipe_Unfreeze();
-	
+
 	if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL)) != PIPE_RWSTREAM_NoError)
 	{
 		Pipe_Freeze();
@@ -204,7 +204,7 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-	  
+
 	bool DataReady = false;
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataINPipe.Address);
@@ -221,9 +221,9 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 		if (!(Pipe_BytesInPipe()))
 		  Pipe_ClearIN();
 	}
-	
+
 	Pipe_Freeze();
-	
+
 	return DataReady;
 }
 

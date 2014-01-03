@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -35,7 +35,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
- 
+
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_USB2AX_V31 USB2AX_V31
  *  \brief Board specific LED driver header for the Xevelabs USB2AX revision 3.1.
@@ -54,8 +54,8 @@
  *  \defgroup Group_LEDs_USB2AX USB2AX
  *  \brief Board specific LED driver header for the Xevelabs USB2AX revisions 1 and 2.
  *
- *  \note For version 3 USB2AX boards, compile with <code>BOARD = USB2AX_V3</code> and for version 3.1, with <code>BOARD = USB2AX_V31</code>. 
- *  
+ *  \note For version 3 USB2AX boards, compile with <code>BOARD = USB2AX_V3</code> and for version 3.1, with <code>BOARD = USB2AX_V31</code>.
+ *
  *  Board specific LED driver header for the Xevelabs USB2AX (http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX).
  *
  *  <b>USB2AX</b>:

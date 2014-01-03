@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -10,8 +10,8 @@ LUFA_BUILD_MODULES         += ATPROGRAM
 LUFA_BUILD_TARGETS         += atprogram atprogram-ee
 LUFA_BUILD_MANDATORY_VARS  += MCU TARGET
 LUFA_BUILD_OPTIONAL_VARS   += ATPROGRAM_PROGRAMMER ATPROGRAM_INTERFACE ATPROGRAM_PORT
-LUFA_BUILD_PROVIDED_VARS   += 
-LUFA_BUILD_PROVIDED_MACROS += 
+LUFA_BUILD_PROVIDED_VARS   +=
+LUFA_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #             LUFA ATPROGRAM Programmer Buildsystem Makefile Module.
@@ -57,7 +57,7 @@ ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(s
 # Default values of optionally user-supplied variables
 ATPROGRAM_PROGRAMMER ?= jtagice3
 ATPROGRAM_INTERFACE  ?= jtag
-ATPROGRAM_PORT       ?= 
+ATPROGRAM_PORT       ?=
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(LUFA_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
@@ -98,6 +98,6 @@ atprogram: $(TARGET).elf $(MAKEFILE_LIST)
 atprogram-ee: $(TARGET).elf $(MAKEFILE_LIST)
 	@echo $(MSG_ATPROGRAM_CMD) Programming device \"$(MCU)\" EEPROM using \"$(ATPROGRAM_PROGRAMMER)\"
 	atprogram $(BASE_ATPROGRAM_FLAGS) program $(ATPROGRAM_EEPROM_FLAGS) --file $<
-	
+
 # Phony build targets for this module
 .PHONY: atprogram atprogram-ee

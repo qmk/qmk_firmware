@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2013.
+#     Copyright (C) Dean Camera, 2014.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -29,10 +29,10 @@ end:
 
 makeboardlist:
 	@grep "BOARD_" $(patsubst %/,%,$(LUFA_PATH))/Common/BoardTypes.h | cut -d'#' -f2 | cut -d' ' -f2 | grep "BOARD_" > BoardList.txt
-	
+
 testboards:
 	@echo "buildtest:" > BuildMakefile
-	
+
 	@while read line;                                                                               \
 	 do                                                                                             \
 	   build_cfg=`grep "$$line " BoardDeviceMap.cfg | grep -v "#" | cut -d'=' -f2- | sed 's/ //g'`; \
@@ -50,7 +50,7 @@ testboards:
 		 printf "\t$(MAKE) -f makefile.test clean elf MCU=%s ARCH=%s BOARD=%s\n\n" $$build_mcu $$build_arch $$build_board >> BuildMakefile; \
 	   fi;                                                                                          \
 	 done < BoardList.txt
-	 
+
 	 $(MAKE) -f BuildMakefile buildtest
 
 clean:

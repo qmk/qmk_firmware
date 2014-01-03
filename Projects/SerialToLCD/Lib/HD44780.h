@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2013.
+     Copyright (C) Dean Camera, 2014.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2013  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2012  Simon Foster (simon.foster [at] inbox [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -36,7 +36,7 @@
 
 #ifndef _HD44780_H_
 #define _HD44780_H_
-	
+
 	/* Includes: */
 		#include <avr/io.h>
 		#include <util/delay.h>
