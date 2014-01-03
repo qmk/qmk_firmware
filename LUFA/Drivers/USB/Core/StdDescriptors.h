@@ -706,6 +706,9 @@
 				#endif
 			} ATTR_PACKED USB_Descriptor_String_t;
 
+			/** Convenience macro to easily create \ref USB_Descriptor_String_t instances without having to count characters. */
+			#define USB_STRING_DESCRIPTOR(string) {.Header = {.Size = sizeof(string), .Type = DTYPE_String}, .UnicodeString = string}
+
 			/** \brief Standard USB String Descriptor (USB-IF naming conventions).
 			 *
 			 *  Type define for a standard string descriptor. Unlike other standard descriptors, the length
