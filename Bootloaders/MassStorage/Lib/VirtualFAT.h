@@ -274,10 +274,10 @@
 
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_VIRTUAL_FAT_C)
-			static uint8_t ReadEEPROMByte(const uint8_t* const Address) ATTR_NEVER_INLINE;
+			static uint8_t ReadEEPROMByte(const uint8_t* const Address) ATTR_NO_INLINE;
 
 			static void WriteEEPROMByte(uint8_t* const Address,
-			                            const uint8_t Data) ATTR_NEVER_INLINE;
+			                            const uint8_t Data) ATTR_NO_INLINE;
 
 			static void UpdateFAT12ClusterEntry(uint8_t* const FATTable,
 			                                    const uint16_t Index,
