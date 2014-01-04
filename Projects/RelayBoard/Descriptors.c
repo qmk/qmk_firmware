@@ -119,33 +119,18 @@ const USB_Descriptor_String_t PROGMEM RelayBoard_LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM RelayBoard_ManufacturerString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
-
-	.UnicodeString          = L"SISPM"
-};
+const USB_Descriptor_String_t PROGMEM RelayBoard_ManufacturerString = USB_STRING_DESCRIPTOR(L"SISPM");
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM RelayBoard_ProductString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(10), .Type = DTYPE_String},
-
-	.UnicodeString          = L"RelayBoard"
-};
+const USB_Descriptor_String_t PROGMEM RelayBoard_ProductString = USB_STRING_DESCRIPTOR(L"RelayBoard");
 
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
  *  series of uppercase hexadecimal digits.
  */
-const USB_Descriptor_String_t PROGMEM RelayBoard_SerialString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
-
-	.UnicodeString          = L"00001"
-};
+const USB_Descriptor_String_t PROGMEM RelayBoard_SerialString = USB_STRING_DESCRIPTOR(L"00001");
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given

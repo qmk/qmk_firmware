@@ -179,34 +179,19 @@ const USART_USB_Descriptor_Configuration_t PROGMEM USART_ConfigurationDescriptor
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-const USB_Descriptor_String_t PROGMEM USART_LanguageString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-
-	.UnicodeString          = {LANGUAGE_ID_ENG}
-};
+const USB_Descriptor_String_t PROGMEM USART_LanguageString = USB_STRING_DESCRIPTOR(LANGUAGE_ID_ENG);
 
 /** Manufacturer descriptor string. This is a Unicode string containing the manufacturer's details in human readable
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM USART_ManufacturerString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
-
-	.UnicodeString          = L"Dean Camera"
-};
+const USB_Descriptor_String_t PROGMEM USART_ManufacturerString = USB_STRING_DESCRIPTOR(L"Dean Camera");
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM USART_ProductString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
-
-	.UnicodeString          = L"LUFA XPLAIN Bridge"
-};
+const USB_Descriptor_String_t PROGMEM USART_ProductString = USB_STRING_DESCRIPTOR(L"LUFA XPLAIN Bridge");
 
 /** Descriptor retrieval function for the USART Bridge descriptors. This function is in turn called by the GetDescriptor
  *  callback function in the main source file, to retrieve the device's descriptors when in USART bridge mode.

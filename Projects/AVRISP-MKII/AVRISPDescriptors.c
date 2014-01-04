@@ -142,44 +142,26 @@ AVRISP_USB_Descriptor_Configuration_t AVRISP_ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-const USB_Descriptor_String_t PROGMEM AVRISP_LanguageString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-
-	.UnicodeString          = {LANGUAGE_ID_ENG}
-};
+const USB_Descriptor_String_t PROGMEM AVRISP_LanguageString = USB_STRING_DESCRIPTOR(LANGUAGE_ID_ENG);
 
 /** Manufacturer descriptor string. This is a Unicode string containing the manufacturer's details in human readable
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
-
-	.UnicodeString          = L"ATMEL"
-};
+const USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString = USB_STRING_DESCRIPTOR(L"ATMEL");
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
-
-	.UnicodeString          = L"AVRISP mkII"
-};
+const USB_Descriptor_String_t PROGMEM AVRISP_ProductString = USB_STRING_DESCRIPTOR(L"AVRISP mkII");
 
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
  *  series of uppercase hexadecimal digits.
  */
-USB_Descriptor_String_t AVRISP_SerialString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
-
-	.UnicodeString          = L"000200012345\0" // Note: Real AVRISP-MKII has the embedded NUL byte, bug in firmware?
-};
+USB_Descriptor_String_t AVRISP_SerialString = USB_STRING_DESCRIPTOR(L"000200012345\0"
+    // Note: Real AVRISP-MKII has the embedded NUL byte, bug in firmware?
+);
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given

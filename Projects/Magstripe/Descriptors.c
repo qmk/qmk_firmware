@@ -142,34 +142,19 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors. */
-const USB_Descriptor_String_t PROGMEM LanguageString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-
-	.UnicodeString          = {LANGUAGE_ID_ENG}
-};
+const USB_Descriptor_String_t PROGMEM LanguageString = USB_STRING_DESCRIPTOR(LANGUAGE_ID_ENG);
 
 /** Manufacturer descriptor string. This is a Unicode string containing the manufacturer's details in human readable
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM ManufacturerString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(32), .Type = DTYPE_String},
-
-	.UnicodeString          = L"Dean Camera and Denver Gingerich"
-};
+const USB_Descriptor_String_t PROGMEM ManufacturerString = USB_STRING_DESCRIPTOR(L"Dean Camera and Denver Gingerich");
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-const USB_Descriptor_String_t PROGMEM ProductString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(20), .Type = DTYPE_String},
-
-	.UnicodeString          = L"Magnetic Card Reader"
-};
+const USB_Descriptor_String_t PROGMEM ProductString = USB_STRING_DESCRIPTOR(L"Magnetic Card Reader");
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given

@@ -82,7 +82,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 			/* Get the next HID interface from the configuration descriptor */
 			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-										  DComp_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DComp_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				/* Descriptor not found, error out */
 				return NoCompatibleInterfaceFound;

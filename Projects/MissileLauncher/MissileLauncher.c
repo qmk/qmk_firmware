@@ -1,10 +1,10 @@
 /*
-         USB Missile Launcher Demo
-	 Copyright (C) Dave Fletcher, 2010.
-	  fletch at fletchtronics dot net
+            USB Missile Launcher Demo
+        Copyright (C) Dave Fletcher, 2010.
+         fletch at fletchtronics dot net
 
-	 Based on research by Scott Weston at
-	  http://code.google.com/p/pymissile
+       Based on research by Scott Weston at
+        http://code.google.com/p/pymissile
  */
 
 /*
