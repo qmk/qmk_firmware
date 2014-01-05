@@ -24,7 +24,7 @@ See README of [tmk_keyboard] for more.
 * No risks: Everything is all reversible
 * No need for PCB trace patching, case cutting or any other destructive mod
 * Can keep original controller intact
-* Can change all HHKB behaviour as you like
+* Can change all HHKB behavior as you like
 
 ###Cons
 * Void your warranty
@@ -54,11 +54,11 @@ Several version of keymap are available in advance but you are recommended to de
 ### Program
 First, push reset button on board to start bootloader.
 
-This command programs the controller with [dfu-programmer] if the tool is intalled and configured properly.
+This command programs the controller with [dfu-programmer] if the tool is installed and configured properly.
 
     $ make dfu
 
-Or you can also use [FLIP] command to program. Also the tool should be intalled and configured properly. FLIP GUI app is also available.
+Or you can also use [FLIP] command to program. Also the tool should be installed and configured properly. FLIP GUI application is also available.
 
     $ make flip
 
@@ -70,7 +70,7 @@ To define your own keymap create file named `keymap_<name>.c` and see keymap doc
 
 
 ##Hardware
-You have some options for hardware. Development boards with USB AVR family(ATMega32U4, AT90USB1286) like Teensy will work while MegaAVR with [V-USB] library is also cheapear option for DIY.
+You have some options for hardware. Development boards with USB AVR family(ATMega32U4, AT90USB1286) like Teensy will work while MegaAVR with [V-USB] library is also cheaper option for DIY.
 
 ###1. TMK Alt Controller Board
 TMK designed [Keyboard Controller Board for HHKB Pro2(KiCad project)](https://github.com/tmk/HHKB_controller).

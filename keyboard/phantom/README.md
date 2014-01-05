@@ -33,7 +33,7 @@ between 0 and 255:
 ### 2. Sleep LED
 It is possible to have the LEDs fade in and out when the computer is suspended.
 
-To enable this feature, uncoment the `SLEEP_LED_ENABLE` line in the makefile you are using:
+To enable this feature, uncomment the `SLEEP_LED_ENABLE` line in the makefile you are using:
 
     SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 

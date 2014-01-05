@@ -1,4 +1,4 @@
-Replacable USB Controller for Apple IIgs/Standard(M0116)
+Replaceable USB Controller for Apple IIgs/Standard(M0116)
 JeffreySung(nattyman@gmail.com)
 
 ===============================
@@ -32,7 +32,7 @@ PJRC Teensy
 1. Bypass #31 pin(from board) to E4(Teensy)
 2. Bypass #30 pin(from board) to F2(Teensy)
 3. Bypass #6  pin(from board) to A0(Teensy)
-4. Refer doc directory
+4. Refer to documentation directory
 
 To Do
 =====
