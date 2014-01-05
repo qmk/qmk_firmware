@@ -2,7 +2,7 @@ M0110/M0110A to USB keyboard converter
 ======================================
 This firmware converts the protocol of Apple Macintosh keyboard **M0110**, **M0110A** and **M0120** into USB. Target of this project is USB AVR controller **ATmega32U4**. Using this converter you can revive these retro keyboards with modern computer.
 
-Pics of **M0110 + M0120** and **M0110A**.
+Pictures of **M0110 + M0120** and **M0110A**.
 
 ![M0110+M0120](http://i.imgur.com/dyvXb2Tm.jpg)
 ![M0110A](http://i.imgur.com/HuHOEoHm.jpg)
@@ -31,7 +31,7 @@ Note that original cable used with Mac is **straight** while phone handset cable
 
 <http://en.wikipedia.org/wiki/Modular_connector#4P4C>
 
-Close-up pic of handset cable. You can see one end of plug has reverse color codes against the other. Click to enlarge.
+Close-up picture of handset cable. You can see one end of plug has reverse color codes against the other. Click to enlarge.
 [![4P4C cable](http://i.imgur.com/3S9P1mYm.jpg?1)](http://i.imgur.com/3S9P1mY.jpg?1)
 
 [Teensy]: http://www.pjrc.com/teensy/
@@ -43,12 +43,12 @@ Close-up pic of handset cable. You can see one end of plug has reverse color cod
 ![Jack fig](http://www.kbdbabel.org/conn/kbd_connector_macplus.png)
 
 
-### Pull-up Registor
-You may need pull-up registors on signal lines(`CLOCK`, `DATA`) in particular when you have long or coiled cable. **1k-10k Ohm** will be OK for this purpose. In that case the converter may not read signal from keyboard correctly without pull-up resistors.
+### Pull-up Resistor
+You may need pull-up resistors on signal lines(`CLOCK`, `DATA`) in particular when you have long or coiled cable. **1k-10k Ohm** will be OK for this purpose. In that case the converter may not read signal from keyboard correctly without pull-up resistors.
 
 
 
-Building Frimware
+Building Firmware
 -----------------
 To compile firmware you need AVR GCC. You can edit *Makefile* and *config.h* to change compile options and pin configuration.
 

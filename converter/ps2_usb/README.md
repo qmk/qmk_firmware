@@ -12,7 +12,7 @@ Following three methods are used to implement PS/2 signal handling.
 ### Interrupt driven(ps2_interrupt.c)
     Uses pin interrupt to detect falling edge of clock line.
 ### USART hardware module(ps2_usart.c)
-    Uses AVR USART engine to recevie PS/2 signal.
+    Uses AVR USART engine to receive PS/2 signal.
 
 To select method edit Makefile.
 
@@ -31,7 +31,7 @@ In case of Teensy2.0(ATMega32U4):
 To change pin configuration edit config.h.
 
 
-Build Frimware
+Build Firmware
 --------------
 Just run `make`:
 

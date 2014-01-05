@@ -12,7 +12,7 @@ X68000 keyboard has ALPS linear switches.
 Hardware
 --------
 Target MCU is ATMega32u4 but other USB capable AVR will also work.
-You can use PJRC Teensy as dev board.
+You can use PJRC Teensy as development board.
     http://www.pjrc.com/teensy/
 
 Wiring:
@@ -83,7 +83,7 @@ bit 6-0     following scan code
 
 Data from computer
 ------------------
-- LED contorol ON/OFF(0/1)
+- LED control ON/OFF(0/1)
     bit 7   1(fixed)
     bit 6   全角
     bit 5   ひらがな

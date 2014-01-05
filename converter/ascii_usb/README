@@ -6,7 +6,7 @@ Target MCU is ATMega32u4 but other USB capable AVR will also work.
 
 Hardware
 --------
-Connect RX, TX and GND to UART pin of AVR. Note that you may need line drvier/level shfiter like MAX232 to interface high voltage of RS-232C.
+Connect RX, TX and GND to UART pin of AVR. Note that you may need line driver/level shifter like MAX232 to interface high voltage of RS-232C.
 
 
 
