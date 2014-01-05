@@ -80,7 +80,7 @@ See [keymap_plain.c](keymap_plain.c) for detail.
 
 
 ### 3. Hasu
-This is my favourite keymap with HHKB Fn, Vi cursor and Mousekey layer. See [keymap_hasu.c](keymap_hasu.c) for detail.
+This is my favorite keymap with HHKB Fn, Vi cursor and Mousekey layer. See [keymap_hasu.c](keymap_hasu.c) for detail.
 
 
 ### 4. SpaceFN

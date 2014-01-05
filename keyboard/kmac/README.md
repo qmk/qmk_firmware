@@ -18,7 +18,7 @@ Move to this directory then just run `make` like:
 Use `Makefile.pjrc` if you want to use PJRC stack or use `Makefile.lufa` for LUFA stack.
 
 
-Booloader
+Bootloader
 ---------
 The PCB is hardwired to run the bootloader if the key at the `Caps Lock` position is held down when connecting the keyboard.
 
