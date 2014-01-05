@@ -34,11 +34,11 @@ Connector
 
 Protocol
 --------
-Singnal: Asynchronous, Negative logic, 1200baud, No Flow control
+Signal: Asynchronous, Negative logic, 1200baud, No Flow control
 Frame format: 1-Start bit, 8-Data bits, No-Parity, 1-Stop bit
 
     AVR USART engine expects positive logic while Sun keyboard signal is negative.
-    To use AVR UART engine you need exteral inverter in front of RX and TX pin.
+    To use AVR UART engine you need external inverter in front of RX and TX pin.
     Otherwise you can software serial routine to communicate the keyboard.
 
 This converter uses software method, you doesn't need any inverter part.

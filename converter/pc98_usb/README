@@ -16,7 +16,7 @@ Connector
      (receptacle)
 
 
-Wiring: You can change this with ediging config.h.
+Wiring: You can change this with editing config.h.
 
     Pin mini DIN        MCU
     ----------------------------------
@@ -34,7 +34,7 @@ Wiring: You can change this with ediging config.h.
 
 Protocol
 --------
-Singnal: Asynchronous, Positive logic, 19200baud, Least bit first
+Signal: Asynchronous, Positive logic, 19200baud, Least bit first
 Frame format: 1-Start bit(Lo), 8-Data bits, Odd-Parity, 1-Stop bit
 
 This converter uses software method for testing purpose. AVR UART engine will work better.

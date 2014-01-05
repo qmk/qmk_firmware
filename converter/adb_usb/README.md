@@ -71,8 +71,8 @@ Notes
 Many ADB keyboards has no discrimination between right modifier and left one,
 you will always see left control even if you press right control key.
 Apple Extended Keyboard and Apple Extended Keyboard II are the examples.
-Though ADB protocol itsef has the ability of distinction between right and left.
-And most ADB keyboard has no NKRO functionality, though ADB protocol itsef has that. 
+Though ADB protocol itself has the ability of distinction between right and left.
+And most ADB keyboard has no NKRO functionality, though ADB protocol itself has that. 
 See protocol/adb.c for more info.
 
 EOF
