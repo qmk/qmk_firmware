@@ -15,6 +15,9 @@
  *    - The \c VERSION_BCD() macro has changed from accepting one floating point parameter to taking three distinct major/minor/revision integer parameters, as
  *      some edge cases caused incorrect parsing of the input float into the final integer BCD encoded value.
  *
+ *  <b>Non-USB Library Components</b>
+ *    - The \c ATTR_NEVER_INLINE macro, erroneously introduced in a previous release has been removed, as it duplicates the existing \c ATTR_NO_INLINE macro.
+ *
  *  \section Sec_Migration130901 Migrating from 130303 to 130901
  *  <b>Non-USB Library Components</b>
  *    - The Board Dataflash \c Dataflash_Init() function now automatically configures the appropriate communication interface.
