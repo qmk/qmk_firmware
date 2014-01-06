@@ -26,7 +26,7 @@ function-list:
 	@sort function_list.h | uniq > function_list_unique.h
 	@rm temp.xml
 
-# Update all Doxygen configuration files to the latest Doxygen version - force Markdown support to be disabled
+# Update all Doxygen configuration files to the latest Doxygen version
 upgrade-doxygen:
 	@echo Upgrading Doxygen.conf files...
 	@for doxygen_conf in `find $(LUFA_ROOT) -name Doxygen.conf`; do                                       \
