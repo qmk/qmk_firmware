@@ -12,6 +12,7 @@
   *   - Added new Bulk Vendor low level device demo
   *   - Added new libUSB host Python and NodeJS application examples for the Class driver GenericHID demo (thanks to Laszlo Monda)
   *   - Added new AVR8 USB option to keep 3.3V regulator enabled (thanks to Michael Hanselmann)
+  *   - Added new USB_STRING_DESCRIPTOR() and USB_STRING_DESCRIPTOR_ARRAY() convenience macros (thanks to Laszlo Monda)
   *
   *  <b>Changed:</b>
   *  - Library Applications:
