@@ -91,7 +91,7 @@
 			 *
 			 *  \param[in] String  String to initialize a USB String Descriptor structure with.
 			 */
-			#define USB_STRING_DESCRIPTOR(String)     { .Header = {.Size = sizeof(String), .Type = DTYPE_String}, .UnicodeString = String }
+			#define USB_STRING_DESCRIPTOR(String)     { .Header = {.Size = (sizeof(String) - 2), .Type = DTYPE_String}, .UnicodeString = String }
 
 			/** Convenience macro to easily create \ref USB_Descriptor_String_t instances from an array of characters.
 			 *
