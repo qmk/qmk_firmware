@@ -52,6 +52,8 @@ LUFA_BUILD_PROVIDED_MACROS +=
 
 SHELL = /bin/sh
 
+LUFA_MODULE_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+
 ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
 ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
 ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
@@ -74,9 +76,9 @@ hid: $(TARGET).hex $(MAKEFILE_LIST)
 # Programs in the target EEPROM memory using the HID_BOOTLOADER_CLI tool (note: clears target FLASH memory)
 hid-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_OBJCPY_CMD) Converting \"$<\" to a binary file \"InputEEData.bin\"
-	avr-objcopy -I ihex -O binary $< $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/InputEEData.bin
+	avr-objcopy -I ihex -O binary $< $(LUFA_MODULE_PATH)/HID_EEPROM_Loader/InputEEData.bin
 	@echo $(MSG_MAKE_CMD) Making EEPROM loader application for \"$<\"
-	$(MAKE) -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) clean hid
+	$(MAKE) -C $(LUFA_MODULE_PATH)/HID_EEPROM_Loader/ MCU=$(MCU) clean hid
 
 # Programs in the target FLASH memory using the TEENSY_BOOTLOADER_CLI tool
 teensy: $(TARGET).hex $(MAKEFILE_LIST)
@@ -86,9 +88,9 @@ teensy: $(TARGET).hex $(MAKEFILE_LIST)
 # Programs in the target EEPROM memory using the TEENSY_BOOTLOADER_CLI tool (note: clears target FLASH memory)
 teensy-ee: $(TARGET).hex $(MAKEFILE_LIST)
 	@echo $(MSG_OBJCPY_CMD) Converting \"$<\" to a binary file \"InputEEData.bin\"
-	avr-objcopy -I ihex -O binary $< $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/InputEEData.bin
+	avr-objcopy -I ihex -O binary $< $(LUFA_MODULE_PATH)/HID_EEPROM_Loader/InputEEData.bin
 	@echo $(MSG_MAKE_CMD) Making EEPROM loader application for \"$<\"
-	$(MAKE) -s -C $(patsubst %/,%,$(LUFA_PATH))/Build/HID_EEPROM_Loader/ MCU=$(MCU) clean hid-teensy
+	$(MAKE) -s -C $(LUFA_MODULE_PATH)/HID_EEPROM_Loader/ MCU=$(MCU) clean teensy
 
 # Phony build targets for this module
 .PHONY: hid hid-ee teensy teensy-ee
