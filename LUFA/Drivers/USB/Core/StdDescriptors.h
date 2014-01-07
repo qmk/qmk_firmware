@@ -85,6 +85,20 @@
 			 */
 			#define USB_STRING_LEN(UnicodeChars)      (sizeof(USB_Descriptor_Header_t) + ((UnicodeChars) << 1))
 
+			/** Convenience macro to easily create \ref USB_Descriptor_String_t instances from a wide character string.
+			 *
+			 *  \note This macro is for little-endian systems only.
+			 *
+			 *  \param[in] String  String to initialize a USB String Descriptor structure with.
+			 */
+			#define USB_STRING_DESCRIPTOR(String)     { .Header = {.Size = sizeof(String), .Type = DTYPE_String}, .UnicodeString = String }
+
+			/** Convenience macro to easily create \ref USB_Descriptor_String_t instances from an array of characters.
+			 *
+			 *  \param[in] ...  Characters to initialize a USB String Descriptor structure with.
+			 */
+			#define USB_STRING_DESCRIPTOR_ARRAY(...)  { .Header = {.Size = sizeof((uint16_t){__VA_ARGS__}), .Type = DTYPE_String}, .UnicodeString = {__VA_ARGS__} }
+
 			/** Macro to encode a given major/minor/revision version number into Binary Coded Decimal format for descriptor
 			 *  fields requiring BCD encoding, such as the USB version number in the standard device descriptor.
 			 *
@@ -705,9 +719,6 @@
 				                           */
 				#endif
 			} ATTR_PACKED USB_Descriptor_String_t;
-
-			/** Convenience macro to easily create \ref USB_Descriptor_String_t instances without having to count characters. */
-			#define USB_STRING_DESCRIPTOR(string) {.Header = {.Size = sizeof(string), .Type = DTYPE_String}, .UnicodeString = string}
 
 			/** \brief Standard USB String Descriptor (USB-IF naming conventions).
 			 *
