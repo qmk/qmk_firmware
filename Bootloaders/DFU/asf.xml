@@ -144,6 +144,7 @@
 		<build type="header-file" value="Config/LUFAConfig.h"/>
 		<build type="header-file" value="Config/AppConfig.h"/>
 
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="BootloaderDFU.txt"/>
 
 		<require idref="lufa.common"/>

@@ -56,7 +56,7 @@ ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $
 ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Default values of optionally user-supplied variables
-DOXYGEN_CONF            ?= Doxygen.conf
+DOXYGEN_CONF            ?= doxyfile
 DOXYGEN_FAIL_ON_WARNING ?= Y
 DOXYGEN_OVERRIDE_PARAMS ?= QUIET=YES HTML_EXTRA_STYLESHEET=$(patsubst %/,%,$(LUFA_PATH))/DoxygenPages/Style/Style.css
 

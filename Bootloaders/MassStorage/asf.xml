@@ -144,6 +144,7 @@
 		<build type="header-file" value="Lib/SCSI.h"/>
 		<build type="c-source" value="Lib/SCSI.c"/>
 
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="BootloaderMassStorage.txt"/>
 
 		<require idref="lufa.common"/>

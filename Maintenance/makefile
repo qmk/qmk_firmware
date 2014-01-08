@@ -28,9 +28,9 @@ function-list:
 
 # Update all Doxygen configuration files to the latest Doxygen version
 upgrade-doxygen:
-	@echo Upgrading Doxygen.conf files...
-	@for doxygen_conf in `find $(LUFA_ROOT) -name Doxygen.conf`; do                                       \
-	  doxygen -u $$doxygen_conf;                                                                          \
+	@echo Upgrading Doxygen files...
+	@for doxygen_conf in `find $(LUFA_ROOT) -name doxyfile`; do \
+	  doxygen -u $$doxygen_conf;                                \
 	done;
 	@echo Doxygen configuration update complete.
 

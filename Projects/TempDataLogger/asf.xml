@@ -29,6 +29,7 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="TemperatureDataLogger.txt"/>
 		<build type="distribute" subtype="directory" value="TempLogHostApp"/>
 		<build type="distribute" subtype="directory" value="TempLogHostApp_Python"/>

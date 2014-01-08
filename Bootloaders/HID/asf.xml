@@ -109,6 +109,7 @@
 		<build type="module-config" subtype="path" value="Config"/>
 		<build type="header-file" value="Config/LUFAConfig.h"/>
 
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="BootloaderHID.txt"/>
 		<build type="distribute" subtype="directory" value="HostLoaderApp"/>
 		<build type="distribute" subtype="directory" value="HostLoaderApp_Python"/>

@@ -28,6 +28,7 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="AudioInputHost.txt"/>
 
 		<build type="c-source" value="AudioInputHost.c"/>

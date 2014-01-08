@@ -18,6 +18,10 @@
  *  <b>Non-USB Library Components</b>
  *    - The \c ATTR_NEVER_INLINE macro, erroneously introduced in a previous release has been removed, as it duplicates the existing \c ATTR_NO_INLINE macro.
  *
+ *  <b>Build System</b>
+ *    - The default configuration file for Doxygen is now "doxyfile" rather than "Doxygen.conf", to conform to the Doxygen project's own default file name.
+ *      Set \c DOXYGEN_CONF to override the new default file name.
+ *
  *  \section Sec_Migration130901 Migrating from 130303 to 130901
  *  <b>Non-USB Library Components</b>
  *    - The Board Dataflash \c Dataflash_Init() function now automatically configures the appropriate communication interface.
