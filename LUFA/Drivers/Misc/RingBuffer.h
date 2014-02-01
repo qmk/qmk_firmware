@@ -70,11 +70,11 @@
  *      RingBuffer_InitBuffer(&Buffer, BufferData, sizeof(BufferData));
  *
  *      // Insert some data into the buffer
- *      RingBuffer_Insert(Buffer, 'H');
- *      RingBuffer_Insert(Buffer, 'E');
- *      RingBuffer_Insert(Buffer, 'L');
- *      RingBuffer_Insert(Buffer, 'L');
- *      RingBuffer_Insert(Buffer, 'O');
+ *      RingBuffer_Insert(&Buffer, 'H');
+ *      RingBuffer_Insert(&Buffer, 'E');
+ *      RingBuffer_Insert(&Buffer, 'L');
+ *      RingBuffer_Insert(&Buffer, 'L');
+ *      RingBuffer_Insert(&Buffer, 'O');
  *
  *      // Cache the number of stored bytes in the buffer
  *      uint16_t BufferCount = RingBuffer_GetCount(&Buffer);
