@@ -68,34 +68,43 @@ uint8_t matrix_cols(void)
 static void enable_break(void)
 {
     uint8_t ret;
-    for (uint8_t code = 0; code < 0x80; code++) {
+    print("Enable break: ");
+    // valid scancode: 00-77h
+    for (uint8_t code = 0; code < 0x78; code++) {
         while (ibm4704_send(0x80|code) != 0) {
             print("z");
+            _delay_us(500);
         }
-        _delay_ms(1);
-        ret = ibm4704_recv(); 
-        if (ret!=0xFF) {
-            xprintf("%0X: %0X ", code, ret);
+        _delay_us(2000);
+        ret = ibm4704_recv();
+        if (ret != 0xff) {
+            xprintf("c%02X:r%02X ", code, ret);
         }
+        _delay_us(1000);
     }
-    _delay_us(100);
+    _delay_us(1000);
+    while (ibm4704_send(0xFF) != 0) { _delay_us(500); } // End
     print("End\n");
-    while (ibm4704_send(0xFF) != 0) {
-        print("Z");
-    } // End
 }
 
 void matrix_init(void)
 {
+    uint8_t ret;
     debug_enable = true;
 
     ibm4704_init();
     matrix_clear();
 
-    xprintf("------\n");
+    // read keyboard id
+    while ((ret = ibm4704_recv()) == 0xFF) {
+        ibm4704_send(0xFE);
+        _delay_us(100);
+    }
+
+    _delay_ms(2000);    // wait for starting up debug console 
+    print("IBM 4704 converter\n");
+    xprintf("Keyboard ID: %02X\n", ret);
     enable_break();
-    //while (ibm4704_send(0x8C) != 0) ;
-    //while (ibm4704_send(0xFF) != 0) ;
 }
 
 /*
@@ -108,8 +117,8 @@ uint8_t matrix_scan(void)
         // Not receivd
         return 0;
     } else if ((code&0x78)==0x78) {
-        // 0xFF-F8 and 0x7F-78 is not scan code
-        dprintf("Error: %0X\n", code);
+        // 0xFF-F8 and 0x7F-78 is not scancode
+        xprintf("Error: %0X\n", code);
         matrix_clear();
         return 0;
     } else if (code&0x80) {
@@ -118,12 +127,6 @@ uint8_t matrix_scan(void)
         matrix_break(code);
     }
     return 1;
-}
-
-inline
-bool matrix_has_ghost(void)
-{
-    return false;
 }
 
 inline
@@ -142,20 +145,8 @@ void matrix_print(void)
 {
     print("\nr/c 01234567\n");
     for (uint8_t row = 0; row < matrix_rows(); row++) {
-        // TODO: use new function
-        phex(row); print(": ");
-        pbin_reverse(matrix_get_row(row));
-        print("\n");
+        xprintf("%02X: %08b\n", row, bitrev(matrix_get_row(row)));
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop(matrix[i]);
-    }
-    return count;
 }
 
 
