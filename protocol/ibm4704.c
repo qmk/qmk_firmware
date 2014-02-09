@@ -20,13 +20,7 @@ uint8_t ibm4704_error = 0;
 
 void ibm4704_init(void)
 {
-    // POR
-    //_delay_ms(2500);
-    //while ( 0xA3 != ibm4704_recv() ) ;
-
     inhibit();
-    DDRD |= 1<<3;
-    PORTD &= ~(1<<3);
 }
 
 uint8_t ibm4704_send(uint8_t data)
@@ -37,44 +31,43 @@ uint8_t ibm4704_send(uint8_t data)
     /* Request to send */
     idle();
     clock_lo();
-PIND |= 1<<3;
 
     /* wait for Start bit(Clock:lo/Data:hi) */
     WAIT(data_hi, 300, 0x30);
 
     /* Data bit */
     for (uint8_t i = 0; i < 8; i++) {
-        WAIT(clock_hi, 100, 0x31);
+        WAIT(clock_hi, 100, 0x40+i);
         //_delay_us(5);
-PIND |= 1<<3;
         if (data&(1<<i)) {
             parity = !parity;
             data_hi();
         } else {
             data_lo();
         }
-        WAIT(clock_lo, 100, 0x32);
+        WAIT(clock_lo, 100, 0x48+i);
     }
 
     /* Parity bit */
-    WAIT(clock_hi, 100, 4);
-PIND |= 1<<3;
+    WAIT(clock_hi, 100, 0x34);
     if (parity) { data_hi(); } else { data_lo(); }
-    WAIT(clock_lo, 100, 5);
+    WAIT(clock_lo, 100, 0x35);
 
     /* Stop bit */
-    WAIT(clock_hi, 100, 4);
+    WAIT(clock_hi, 100, 0x34);
     data_hi();
 
     /* End */
-    WAIT(data_lo, 100, 6);
+    WAIT(data_lo, 100, 0x36);
 
     inhibit();
     _delay_us(200); // wait to recover clock to hi
     return 0;
 ERROR:
     inhibit();
-xprintf("x%02X ", ibm4704_error);
+    if (ibm4704_error >= 0x30) {
+        xprintf("x%02X ", ibm4704_error);
+    }
     _delay_us(200); // wait to recover clock to hi
     return -1;
 }
@@ -110,10 +103,10 @@ uint8_t ibm4704_recv(void)
     _delay_us(5);   // wait for line settles
 
     /* start bit */
-    WAIT(clock_lo, 100, 1); // wait for keyboard to send
-    WAIT(data_hi, 100, 2);  // can be delayed that long
+    WAIT(clock_lo, 100, 0x11); // wait for keyboard to send
+    WAIT(data_hi, 100, 0x12);  // can be delayed that long
 
-    WAIT(clock_hi, 100, 3); // first rising edge which can take longer
+    WAIT(clock_hi, 100, 0x13); // first rising edge which can take longer
     /* data */
     for (uint8_t i = 0; i < 8; i++) {
         WAIT(clock_hi, 100, 0x20+i);
@@ -126,22 +119,22 @@ uint8_t ibm4704_recv(void)
     }
 
     /* parity */
-    WAIT(clock_hi, 100, 7);
+    WAIT(clock_hi, 100, 0x17);
     if (data_in() != parity) {
         ibm4704_error = IBM4704_ERR_PARITY;
         goto ERROR;
     }
-    WAIT(clock_lo, 150, 8);
+    WAIT(clock_lo, 150, 0x18);
 
     /* stop bit */
-    WAIT(clock_hi, 100, 9);
-    WAIT(data_lo, 1, 9);
+    WAIT(clock_hi, 100, 0x19);
+    WAIT(data_lo, 1, 0x19);
 
     inhibit();
     _delay_us(200); // wait to recover clock to hi
     return data;
 ERROR:
-    if (ibm4704_error > 2) {
+    if (ibm4704_error > 0x12) {
         xprintf("x%02X ", ibm4704_error);
     }
     inhibit();

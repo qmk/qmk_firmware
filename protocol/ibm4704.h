@@ -5,7 +5,6 @@ Copyright 2014 Jun WAKO <wakojun@gmail.com>
 #define IBM4704_H
 
 #define IBM4704_ERR_NONE        0
-#define IBM4704_ERR_STARTBIT    1
 #define IBM4704_ERR_PARITY      0x70
 
 
