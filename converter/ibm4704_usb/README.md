@@ -3,16 +3,29 @@ IBM 4704 to USB keyboard converter
 This firmware converts IBM 4704 keyboard protocol to USB HID.
 
 
-Connect Wires
--------------
-In case of Teensy2.0(ATMega32U4):
+4704 Connector
+--------------
+    Keyboard Plug from front
 
-1. Connect Vcc and GND.
-2. Connect Clock and Data line. 
-    - Clock is on PD1 and Data on PD2.
-3. Optionally you need pull-up register. 1KOhm is OK?
+    DSUB-9
+    -------------
+    \ N 2 3 4 5 /
+     \ N N N N /
+      ---------
+    2   GND
+    3   VCC 5V
+    4   DATA
+    5   CLOCK
+    N   No connection/No pin.
 
-To change pin configuration edit config.h.
+
+Connection
+----------
+In case of using ATMega32U4(Teensy2.0):
+
+1. Supply power with VCC and GND.
+2. Connect CLOCK to PD1 and DATA to PD2. You can change pin with config.h.
+3. Optionally you may need pull-up register. 1KOhm probably work.
 
 
 Build Firmware
