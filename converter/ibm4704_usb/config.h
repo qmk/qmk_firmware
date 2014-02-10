@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IBM4704_DATA_PORT   PORTD
 #define IBM4704_DATA_PIN    PIND
 #define IBM4704_DATA_DDR    DDRD
-#define IBM4704_DATA_BIT    2
+#define IBM4704_DATA_BIT    0
 
 /*
  * Pin interrupt
