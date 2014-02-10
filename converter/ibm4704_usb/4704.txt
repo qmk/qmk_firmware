@@ -1,0 +1,147 @@
+4704 Keyboard
+=============
+Keyboard Models:
+    Model 100 6019273 50-key (grid layout)
+    Model 200 6019284 62-key Alpha(60% layout)
+    Model 300 6019303 77-key Expanded Alpha
+    Model 400 6020218 107-key Full key
+
+Resourse
+--------
+The IBM 4704: lots of pictures and info
+http://kishy.dyndns.org/?p=648#more-648 
+
+Brochure:
+http://ed-thelen.org/comp-hist/IBM-ProdAnn/4700.pdf
+
+
+
+
+4704 Keyboard Protocol
+======================
+On powering up the keyboard sends keyboard id; A3h for 6019284(62-key), for example.
+After that firmware enters FC command mode and waits for parameter data from host
+so that it doesn't send any scancode until you send 'FF'(End of FC command).
+
+
+Keyboard to Host
+----------------
+Data bits are LSB first and Pairty is odd. Clock has around 60us high and 30us low part.
+
+            ____      __   __   __   __   __   __   __   __   __   ________
+    Clock       \____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+                 ____ ____ ____ ____ ____ ____ ____ ____ ____ ____    
+    Data    ____/    X____X____X____X____X____X____X____X____X____X________
+                Start   0    1    2    3    4    5    6    7    P  Stop
+
+Start bit:  can be long as 300-350us.
+Inhibit:    Pull Data line down to inhibit keyboard to send.
+Timing:     Host reads bit while Clock is hi.
+Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
+
+
+
+Host to Keyboard
+----------------
+Data bits are LSB first and Pairty is odd. Clock has around 60us high and 30us low part.
+
+            ____        __   __   __   __   __   __   __   __   __   ________
+    Clock       \______/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+                ^   ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ___
+    Data    ____|__/    X____X____X____X____X____X____X____X____X____X   \___
+                |  Start   0    1    2    3    4    5    6    7    P   Stop
+                Request by host
+
+Start bit:  can be long as 300-350us.
+Request:    Host pulls Clock line down to request to send a command.
+Timing:     After Request keyboard pull up Data and down Clock line to low for start bit.
+            After request host release Clock line once Data line becomes hi.
+            Host wirtes a bit while Clock is hi and Keyboard reads while low.
+Stop bit:   Host releases or pulls up Data line to hi after 9th clock and waits for keybaord pull down the line to lo.
+
+
+
+Scancodes
+---------
+Keyboard doesn't send Break code for all keys except for Alt by default.
+
+    6019284 62-key:
+    ,-----------------------------------------------------------.
+    |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|???|BS |
+    |-----------------------------------------------------------|
+    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P| ￠|  \|  PD2|
+    |-----------------------------------------------------------|
+    |Ctrl  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '| {}| PD3|
+    |-----------------------------------------------------------|
+    |Shif| <>|  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|???|Shift |
+    |-----------------------------------------------------------|
+    |Reset|blk|Alt  |         Space             |Alt  |blk|Enter|
+    `-----------------------------------------------------------'
+    +----------+---------------------+----------+----------+
+    |`       00|PD1     04|Caps    20|LShift  30|Reset   31|
+    |1       18|q       05|a       21|<>      3E|Rblank  41|
+    |2       19|w       06|s       22|z       32|Alt     3F|
+    |3       1A|e       13|d       23|x       33|Space   40|
+    |4       10|r       14|f       24|c       34|Alt     3F|
+    |5       11|t       15|g       25|v       35|Lblank  42|
+    |6       12|y       16|h       26|b       36|Enter   2F|
+    |7       08|u       17|j       27|n       37|          |
+    |8       09|i       01|k       28|m       38|          |
+    |9       0A|o       02|l       29|,       39|          |
+    |0       0F|p       03|;       2A|.       3A|          |
+    |-       1F|￠      1B|'       2B|/       3B|          |
+    |=       0D|\       1C|{}      2C|???     3C|          |
+    |???     0C|PD2     1D|PD3     2D|RShift  3D|          |
+    |BS      0E|          |          |          |          |
+    +----------+---------------------+----------+----------+
+    Bit7 is 'press flag' which set 1 on press and 0 on release when break code is enabled.
+
+NOTE: When break code is enabled the key sends scancode with setting 7th bit on press
+and without it on release. That is, '`' sends 80h on press and 00h on release.
+
+
+keyboard command
+----------------
+    FF  Soft Reset(0008h)
+    FE  Resend(00e8h)
+    FD  Buzzer stop?(00edh)
+    FC  Set Key flag(00f6h)
+    FB  Soft Reset(0008h)
+    FA  Reset(0000h)
+    
+
+Keyboard response
+-----------------
+    FF  Not exist. [Outgoing buffer cannot have FFh(00h in fact)]
+    FE  Overflow(key event/receive data)        at 00c5h, 0346h
+    FE  Memory test error                       at 0224h
+    FD  Command out of bound                    at 00d8h
+        Key out of bound
+    7E  Read/Parity error in receive from host  at 00bch
+
+
+Set Key flag command(FC)
+------------------------
+After 'Power on Reset' firmware enters this command mode and waits for data from host,
+so that you don't need to send 'FC' and it doesn't send any scancode until you send 'FF'.
+
+Data sent from host:
+
+    bit: 7   6 ... 0
+         en  |     |
+         |   `-----`--- scan code
+         `------------- enable bit(0: enable repeat, 1: enable break)
+
+    00-77   Enable repeat(78-7F: invalid scancode)
+    80-F7   Enable break(F8-FF: invalid scancode)
+    FE      Resend(011ah) no need to use
+    FF      End(0114h) exits FC command mode.
+
+Response from keyboard:
+    FD      Out of bound - Invalid scancode
+
+Examples:
+    To enable break code of all keys.
+
+    FC 80 81 ... F7 FF
+
