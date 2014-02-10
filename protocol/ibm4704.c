@@ -23,6 +23,25 @@ void ibm4704_init(void)
     inhibit();
 }
 
+/*
+Host to Keyboard
+----------------
+Data bits are LSB first and Parity is odd. Clock has around 60us high and 30us low part.
+
+        ____        __   __   __   __   __   __   __   __   __   ________
+Clock       \______/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+            ^   ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ___
+Data    ____|__/    X____X____X____X____X____X____X____X____X____X   \___
+            |  Start   0    1    2    3    4    5    6    7    P   Stop
+            Request by host
+
+Start bit:  can be long as 300-350us.
+Request:    Host pulls Clock line down to request to send a command.
+Timing:     After Request keyboard pull up Data and down Clock line to low for start bit.
+            After request host release Clock line once Data line becomes hi.
+            Host writes a bit while Clock is hi and Keyboard reads while low.
+Stop bit:   Host releases or pulls up Data line to hi after 9th clock and waits for keyboard pull down the line to lo.
+*/
 uint8_t ibm4704_send(uint8_t data)
 {
     bool parity = true; // odd parity
@@ -85,13 +104,20 @@ uint8_t ibm4704_recv_response(void)
 }
 
 /*
-Keyboard to Host:
-Clock   ~~~~___~~_~~_~~_~~_~~_~~_~~_~~_~~_~~~~~~~~ H:60us/L:30us
+Keyboard to Host
+----------------
+Data bits are LSB first and Parity is odd. Clock has around 60us high and 30us low part.
 
-Data    ____~~X==X==X==X==X==X==X==X==X==X________
-            |  0  1  2  3  4  5  6  7  P(odd)
-            |  LSB                MSB
-            Start bit(80us)
+        ____      __   __   __   __   __   __   __   __   __   ________
+Clock       \____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+             ____ ____ ____ ____ ____ ____ ____ ____ ____ ____    
+Data    ____/    X____X____X____X____X____X____X____X____X____X________
+            Start   0    1    2    3    4    5    6    7    P  Stop
+
+Start bit:  can be long as 300-350us.
+Inhibit:    Pull Data line down to inhibit keyboard to send.
+Timing:     Host reads bit while Clock is hi.
+Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
 */
 uint8_t ibm4704_recv(void)
 {
