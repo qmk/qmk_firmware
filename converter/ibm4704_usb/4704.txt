@@ -16,12 +16,27 @@ http://ed-thelen.org/comp-hist/IBM-ProdAnn/4700.pdf
 
 
 
-
 4704 Keyboard Protocol
 ======================
 On powering up the keyboard sends keyboard id; A3h for 6019284(62-key), for example.
 After that firmware enters FC command mode and waits for parameter data from host
 so that it doesn't send any scancode until you send 'FF'(End of FC command).
+
+
+Connector
+---------
+    Keyboard Plug from front
+
+    DSUB-9
+    -------------
+    \ N 2 3 4 5 /
+     \ N N N N /
+      ---------
+    2   GND
+    3   VCC 5V
+    4   DATA
+    5   CLOCK
+    N   No connection/No pin.
 
 
 Keyboard to Host
@@ -38,7 +53,6 @@ Start bit:  can be long as 300-350us.
 Inhibit:    Pull Data line down to inhibit keyboard to send.
 Timing:     Host reads bit while Clock is hi.
 Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
-
 
 
 Host to Keyboard
@@ -58,7 +72,6 @@ Timing:     After Request keyboard pull up Data and down Clock line to low for s
             After request host release Clock line once Data line becomes hi.
             Host wirtes a bit while Clock is hi and Keyboard reads while low.
 Stop bit:   Host releases or pulls up Data line to hi after 9th clock and waits for keybaord pull down the line to lo.
-
 
 
 Scancodes
