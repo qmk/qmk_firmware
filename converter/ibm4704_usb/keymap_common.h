@@ -39,7 +39,7 @@ extern const uint16_t fn_actions[];
     K00,K18,K19,K1A,K10,K11,K12,K08,K09,K0A,K0F,K1F,K0D,K0C,K0E, \
     K04,K05,K06,K13,K14,K15,K16,K17,K01,K02,K03,K1B,K1C,K1D, \
     K20,K21,K22,K23,K24,K25,K26,K27,K28,K29,K2A,K2B,K2C,K2D, \
-    K30,K3E,K32,K33,K34,K35,K36,K37,K38,K39,K3A,K3B,K3D, \
+    K30,K3E,K32,K33,K34,K35,K36,K37,K38,K39,K3A,K3B,K3C,K3D, \
     K31,K41,K3F,        K40,                    K42,K2F \
 ) { \
     { KC_##K00, KC_##K01, KC_##K02, KC_##K03, KC_##K04, KC_##K05, KC_##K06, KC_NO }, \
@@ -49,7 +49,7 @@ extern const uint16_t fn_actions[];
     { KC_##K20, KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_##K27 }, \
     { KC_##K28, KC_##K29, KC_##K2A, KC_##K2B, KC_##K2C, KC_##K2D, KC_NO,    KC_##K2F }, \
     { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_##K37 }, \
-    { KC_##K38, KC_##K39, KC_##K3A, KC_##K3B, KC_NO,    KC_##K3D, KC_##K3E, KC_##K3F }, \
+    { KC_##K38, KC_##K39, KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E, KC_##K3F }, \
     { KC_##K40, KC_##K41, KC_##K42, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO }, \
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO }, \
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO }, \

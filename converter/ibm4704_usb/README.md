@@ -1,5 +1,5 @@
 IBM 4704 to USB keyboard converter
-=======----=======================
+==================================
 This firmware converts IBM 4704 keyboard protocol to USB HID.
 
 
