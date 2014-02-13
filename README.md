@@ -41,6 +41,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [pc98_usb](converter/pc98_usb/)           - [PC98] to USB
 * [usb_usb](converter/usb_usb/)             - USB to USB(experimental)
 * [ascii_usb](converter/ascii_usb/)         - ASCII(Serial console terminal) to USB
+* [ibm4704_usb](converter/ibm4704_usb)      - [IBM 4704 keyboard Converter][GH_ibm4704]
 
 ### keyboard
 * [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] **my main board**
@@ -62,6 +63,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [GH_terminal]:  http://geekhack.org/showwiki.php?title=Island:27272
 [GH_x68k]:      http://geekhack.org/showwiki.php?title=Island:29060
 [GH_hbkb]:      http://geekhack.org/showwiki.php?title=Island:29483
+[GH_ibm4704]:   http://geekhack.org/index.php?topic=54706.0
 [HID_liber]:    http://deskthority.net/wiki/HID_Liberation_Device_-_DIY_Instructions
 [Phantom]:      http://geekhack.org/index.php?topic=26742
 [GH60]:         http://geekhack.org/index.php?topic=34959
