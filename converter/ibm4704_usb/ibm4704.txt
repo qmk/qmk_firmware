@@ -1,10 +1,16 @@
-4704 Keyboard
-=============
-Keyboard Models:
-    Model 100 6019273 50-key (grid layout)
-    Model 200 6019284 62-key Alpha(60% layout)
-    Model 300 6019303 77-key Expanded Alpha
-    Model 400 6020218 107-key Full key
+IBM 4704 Keyboard
+=================
+IBM capacitive switch models:
+    6019273 Model 100 50-key (grid layout)      http://kishy.dyndns.org/?p=977
+    6019284 Model 200 62-key Alpha(60% layout)  http://kishy.dyndns.org/?p=894
+    6019303 Model 300 77-key Expanded Alpha     http://kbtalking.cool3c.com/article/23272
+    6020218 Model 400 107-key Full key          http://kishy.dyndns.org/?p=980
+
+Alps switch(vintage Green) models:
+    5954339 Japanese 102-key    http://deskthority.net/post87127.html#p87127
+    6112883 Japanese 102-key    http://geekhack.org/index.php?topic=52888.msg1194489#msg1194489
+    6112884 Japanese 102-key    http://geekhack.org/index.php?topic=50437.msg1193047#msg1193047
+    6341739 Chinese 102-key     http://geekhack.org/index.php?topic=52888.msg1176566#msg1176566
 
 Resourse
 --------
@@ -16,11 +22,19 @@ http://ed-thelen.org/comp-hist/IBM-ProdAnn/4700.pdf
 
 
 
-4704 Keyboard Protocol
-======================
-On powering up the keyboard sends keyboard id; A3h for 6019284(62-key), for example.
-After that firmware enters FC command mode and waits for parameter data from host
-so that it doesn't send any scancode until you send 'FF'(End of FC command).
+IBM 4704 Keyboard Protocol
+==========================
+On powering up keyboard sends keyboard ID; A3h for 6019284(62-key), for example.
+After that the keyboard enters FC command mode and waits for parameter data from host
+so that it doesn't send any scancode until you send 'FF'(End of FC command mode).
+
+    Keyboard                    ID
+    -------------------------------
+    Model 100 50-key            A2h
+    Model 200 62-key            A3h
+    Model 300 77-key            A4h
+    Model 400 107-key           ??
+    Japanese/Chinese 102-key    A6h
 
 
 Connector
@@ -113,27 +127,34 @@ NOTE: When break code is enabled the key sends scancode with setting 7th bit on 
 and without it on release. That is, '`' sends 80h on press and 00h on release.
 
 
-keyboard command
+Keyboard command
 ----------------
-    FF  Soft Reset(0008h)
-    FE  Resend(00e8h)
-    FD  Buzzer stop?(00edh)
-    FC  Set Key flag(00f6h)
-    FB  Soft Reset(0008h)
-    FA  Reset(0000h)
+Keyboard accepts these commands from host.
+
+        Description                             Entry point
+    -----------------------------------------------------------
+    FF  Soft Reset                              0008h
+    FE  Resend                                  00e8h
+    FD  Buzzer(emits a short beep)              00edh
+    FC  Set Key Flag                            00f6h
+    FB  Soft Reset                              0008h
+    FA  Reset                                   0000h
     
 
 Keyboard response
 -----------------
-    FF  Not exist. [Outgoing buffer cannot have FFh(00h in fact)]
-    FE  Overflow(key event/receive data)        at 00c5h, 0346h
-    FE  Memory test error                       at 0224h
-    FD  Command out of bound                    at 00d8h
+Keyobard sends these bytes to host.
+
+        Description                             Entry point
+    -----------------------------------------------------------
+    FE  Overflow(key event/receive data)        00c5h, 0346h
+        Memory test error                       0224h
+    FD  Command out of bound                    00d8h
         Key out of bound
-    7E  Read/Parity error in receive from host  at 00bch
+    7E  Read/Parity error in receive from host  00bch
 
 
-Set Key flag command(FC)
+Set Key Flag command(FC)
 ------------------------
 After 'Power on Reset' firmware enters this command mode and waits for data from host,
 so that you don't need to send 'FC' and it doesn't send any scancode until you send 'FF'.
