@@ -48,7 +48,7 @@
  *
  *  This bootloader enumerates to the host as a HID Class device, allowing for device FLASH programming through
  *  the supplied command line software, which is a modified version of Paul's TeensyHID Command Line loader code
- *  from PJRC (used with permission). This bootloader is deliberatley non-compatible with the properietary PJRC
+ *  from PJRC (used with permission). This bootloader is deliberately non-compatible with the proprietary PJRC
  *  HalfKay bootloader GUI; only the command line interface software accompanying this bootloader will work with it.
  *
  *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
