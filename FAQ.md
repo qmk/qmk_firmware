@@ -33,6 +33,7 @@ Check:
 
 # PS/2 mouse support
 ## TrackPoint needs reset circuit
-Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware.
+Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware. See circuit schematic of TPM754.
 
 http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
+http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
