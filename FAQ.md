@@ -14,11 +14,11 @@ Check if you can't get this 'Listening:' message:
 
 ## Can't get message from console
 Check:
-- the device is connected to *hid_listen*. See above.
+- connect the device to *hid_listen*. See above.
 - push **LShift+RShift+d** to enable debug. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- `debug_enable=yes` Usually in `matrix_init()` in **matrix.c**.
+- set `debug_enable=yes` usually in `matrix_init()` in **matrix.c**.
 - try using 'print' function instead of debug print. See **common/print.h**.
-- Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+- disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
 ***
 
