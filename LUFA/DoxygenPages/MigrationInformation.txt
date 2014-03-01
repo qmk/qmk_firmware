@@ -10,7 +10,7 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- *  \section Sec_MigrationXXXXXX Migrating from 130901 to XXXXXX
+ *  \section Sec_Migration140302 Migrating from 130901 to 140302
  *  <b>USB Core</b>
  *    - The \c VERSION_BCD() macro has changed from accepting one floating point parameter to taking three distinct major/minor/revision integer parameters, as
  *      some edge cases caused incorrect parsing of the input float into the final integer BCD encoded value.

@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog140302 Version 140302
   *  <b>New:</b>
   *  - Library Applications:
   *   - Added new Bulk Vendor low level device demo
