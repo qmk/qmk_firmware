@@ -32,3 +32,7 @@ Check:
 # NKRO
 
 # PS/2 mouse support
+## TrackPoint needs reset circuit
+Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware.
+
+http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
