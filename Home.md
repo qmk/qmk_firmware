@@ -1,3 +1,5 @@
 Welcome to the tmk_keyboard wiki!
 
-Check out [[Compatible Microcontrollers]].
+- [[FAQ]]
+- [Keymap Editor](http://tmk.github.io/tmk_keyboard/editor/index.html) (beta)
+- [[Compatible Microcontrollers]]
