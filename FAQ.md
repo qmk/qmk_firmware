@@ -1,3 +1,10 @@
+# Build
+## 'make clean' needs after changing config.h
+To build with new config.h
+
+    $ make clean
+
+
 # Degug Console
 ## hid_listen can't find device
 When debug console of your device is not ready you will see like this:
