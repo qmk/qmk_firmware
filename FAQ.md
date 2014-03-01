@@ -1,6 +1,6 @@
 # Build
 ## 'make clean' needs after changing config.h
-To build with new config.h
+To build with new **config.h** you need
 
     $ make clean
 
