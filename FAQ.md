@@ -10,7 +10,7 @@ once the device is pluged in then 'hid_listen' finds it you will get this messag
     Listening:
 
 Check these if you can't get this 'Listening:' message:
-- build with 'CONSOLE_ENABLE=yes' in Makefile
+- build with `CONSOLE_ENABLE=yes` in Makefile
 
 
 # NKRO
