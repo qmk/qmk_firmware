@@ -8,6 +8,8 @@ To build with new **config.h** you need
 It is no longer recommended and may cause some problem.
 See [Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
+
+
 # Degug Console
 ## hid_listen can't find device
 When debug console of your device is not ready you will see like this:
@@ -32,10 +34,17 @@ Check:
 
 ***
 
-# NKRO
+# Miscellaneous
+## NKRO Doesn't work
+Build with this option of Makefile
 
-# PS/2 mouse support
-## TrackPoint needs reset circuit
+    NKRO_ENABLE = yes
+
+And use `Magic` command **N** to toggle NKRO feature.
+At this time NKRO is not used by default even if it is build with `NKRO_ENABLE`, you still need the `Magic`.
+
+
+## TrackPoint needs reset circuit(PS/2 mouse support)
 Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware. See circuit schematic of TPM754.
 
 http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
