@@ -4,6 +4,9 @@ To build with new **config.h** you need
 
     $ make clean
 
+## WINAVR is obsolete
+It is no longer recommended and may cause some problem.
+See [Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
 # Degug Console
 ## hid_listen can't find device
