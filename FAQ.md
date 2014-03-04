@@ -64,3 +64,10 @@ Without reset circuit you will have inconsistent reuslt due to improper initiali
 
 - http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
+
+
+## Can't read comlumn of matrix beyond 16 
+Use `1UL<<16` intead of `1<<16` in `read_cols()` in **matrix.h** when your columns goes beyond 16.
+In C `1` means one of int type which is 16bit in case of AVR so you can't shift left more than 15. You will get unexpected `0` when you say `1<<16`.
+
+http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
