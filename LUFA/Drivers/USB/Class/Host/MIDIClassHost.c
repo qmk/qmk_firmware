@@ -87,10 +87,10 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 	MIDIInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
 
 	if (!(Pipe_ConfigurePipeTable(&MIDIInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return MIDI_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&MIDIInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return MIDI_ENUMERROR_PipeConfigurationFailed;
 
 	MIDIInterfaceInfo->State.InterfaceNumber = MIDIInterface->InterfaceNumber;
 	MIDIInterfaceInfo->State.IsActive = true;

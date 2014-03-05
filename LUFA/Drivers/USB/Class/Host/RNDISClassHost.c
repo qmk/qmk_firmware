@@ -114,13 +114,13 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 	RNDISInterfaceInfo->Config.NotificationPipe.Type = EP_TYPE_INTERRUPT;
 
 	if (!(Pipe_ConfigurePipeTable(&RNDISInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return RNDIS_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&RNDISInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return RNDIS_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&RNDISInterfaceInfo->Config.NotificationPipe, 1)))
-	  return false;
+	  return RNDIS_ENUMERROR_PipeConfigurationFailed;
 
 	RNDISInterfaceInfo->State.ControlInterfaceNumber = RNDISControlInterface->InterfaceNumber;
 	RNDISInterfaceInfo->State.IsActive = true;

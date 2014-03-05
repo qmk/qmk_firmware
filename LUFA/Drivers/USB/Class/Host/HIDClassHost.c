@@ -99,7 +99,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	HIDInterfaceInfo->Config.DataINPipe.Type  = EP_TYPE_INTERRUPT;
 
 	if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return HID_ENUMERROR_PipeConfigurationFailed;
 
 	if (DataOUTEndpoint)
 	{
@@ -108,7 +108,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		HIDInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_INTERRUPT;
 
 		if (!(Pipe_ConfigurePipeTable(&HIDInterfaceInfo->Config.DataOUTPipe, 1)))
-		  return false;
+		  return HID_ENUMERROR_PipeConfigurationFailed;
 	}
 
 	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;

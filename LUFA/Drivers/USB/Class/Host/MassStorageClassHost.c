@@ -87,10 +87,10 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	MSInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
 
 	if (!(Pipe_ConfigurePipeTable(&MSInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return MS_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&MSInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return MS_ENUMERROR_PipeConfigurationFailed;
 
 	MSInterfaceInfo->State.InterfaceNumber = MassStorageInterface->InterfaceNumber;
 	MSInterfaceInfo->State.IsActive = true;

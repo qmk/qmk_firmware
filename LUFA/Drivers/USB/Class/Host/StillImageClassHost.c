@@ -100,13 +100,13 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	SIInterfaceInfo->Config.EventsPipe.Type = EP_TYPE_INTERRUPT;
 
 	if (!(Pipe_ConfigurePipeTable(&SIInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return SI_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&SIInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return SI_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&SIInterfaceInfo->Config.EventsPipe, 1)))
-	  return false;
+	  return SI_ENUMERROR_PipeConfigurationFailed;
 
 	SIInterfaceInfo->State.InterfaceNumber = StillImageInterface->InterfaceNumber;
 	SIInterfaceInfo->State.IsActive = true;

@@ -104,10 +104,10 @@ uint8_t Audio_Host_ConfigurePipes(USB_ClassInfo_Audio_Host_t* const AudioInterfa
 	AudioInterfaceInfo->Config.DataOUTPipe.Banks = 2;
 
 	if (!(Pipe_ConfigurePipeTable(&AudioInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return AUDIO_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&AudioInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return AUDIO_ENUMERROR_PipeConfigurationFailed;
 
 	AudioInterfaceInfo->State.ControlInterfaceNumber    = AudioControlInterface->InterfaceNumber;
 	AudioInterfaceInfo->State.StreamingInterfaceNumber  = AudioStreamingInterface->InterfaceNumber;

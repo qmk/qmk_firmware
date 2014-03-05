@@ -98,10 +98,10 @@ uint8_t AOA_Host_ConfigurePipes(USB_ClassInfo_AOA_Host_t* const AOAInterfaceInfo
 	AOAInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
 
 	if (!(Pipe_ConfigurePipeTable(&AOAInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return AOA_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&AOAInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return AOA_ENUMERROR_PipeConfigurationFailed;
 
 	AOAInterfaceInfo->State.IsActive        = true;
 	AOAInterfaceInfo->State.InterfaceNumber = AOAInterface->InterfaceNumber;

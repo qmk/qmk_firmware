@@ -112,13 +112,13 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	CDCInterfaceInfo->Config.NotificationPipe.Type = EP_TYPE_INTERRUPT;
 
 	if (!(Pipe_ConfigurePipeTable(&CDCInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return CDC_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&CDCInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return CDC_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&CDCInterfaceInfo->Config.NotificationPipe, 1)))
-	  return false;
+	  return CDC_ENUMERROR_PipeConfigurationFailed;
 
 	CDCInterfaceInfo->State.ControlInterfaceNumber = CDCControlInterface->InterfaceNumber;
 	CDCInterfaceInfo->State.ControlLineStates.HostToDevice = (CDC_CONTROL_LINE_OUT_RTS | CDC_CONTROL_LINE_OUT_DTR);

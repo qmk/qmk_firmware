@@ -87,10 +87,10 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 	PRNTInterfaceInfo->Config.DataOUTPipe.Type = EP_TYPE_BULK;
 
 	if (!(Pipe_ConfigurePipeTable(&PRNTInterfaceInfo->Config.DataINPipe, 1)))
-	  return false;
+	  return PRNT_ENUMERROR_PipeConfigurationFailed;
 
 	if (!(Pipe_ConfigurePipeTable(&PRNTInterfaceInfo->Config.DataOUTPipe, 1)))
-	  return false;
+	  return PRNT_ENUMERROR_PipeConfigurationFailed;
 
 	PRNTInterfaceInfo->State.InterfaceNumber  = PrinterInterface->InterfaceNumber;
 	PRNTInterfaceInfo->State.AlternateSetting = PrinterInterface->AlternateSetting;

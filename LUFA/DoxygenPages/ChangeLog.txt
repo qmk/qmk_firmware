@@ -7,7 +7,10 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  None
+  *  <b>Fixed:</b>
+  *  - Core:
+  *   - Fixed device class driver pipe configuration routines returning success with a partially constructed instance
+  *     when a pipe configuration failed (thanks to Helge Suess)
   *
   *  \section Sec_ChangeLog140302 Version 140302
   *  <b>New:</b>
