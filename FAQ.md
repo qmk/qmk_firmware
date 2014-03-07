@@ -8,7 +8,10 @@ To build with new **config.h** you need
 It is no longer recommended and may cause some problem.
 See [Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
+## USB stack: LUFA or PJRC?
+Use **LUFA**. **PJRC** stack won't be supported actively anymore. There is no reason to hesitate to use LUFA except for binary size(about 1KB lager?).
 
+See also [Issue #50](https://github.com/tmk/tmk_keyboard/issues/50) and [Issue #58](https://github.com/tmk/tmk_keyboard/issues/58).
 
 # Degug Console
 ## hid_listen can't find device
