@@ -11,9 +11,10 @@ See [Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 ## USB stack: LUFA or PJRC?
 Use **LUFA**.
 
-**PJRC** stack won't be supported actively anymore. There is no reason to hesitate to use LUFA except for binary size(about 1KB lager?). See also [Issue #50](https://github.com/tmk/tmk_keyboard/issues/50) and [Issue #58](https://github.com/tmk/tmk_keyboard/issues/58).
+**PJRC** stack won't be supported actively anymore. There is no reason to hesitate to use LUFA except for binary size(about 1KB lager?). But **PJRC** is still very useful for debug and development purpose.
+See also [Issue #50](https://github.com/tmk/tmk_keyboard/issues/50) and [Issue #58](https://github.com/tmk/tmk_keyboard/issues/58).
 
-But **PJRC** is still very useful for debug and development purpose.
+
 
 # Degug Console
 ## hid_listen can't find device
