@@ -171,8 +171,8 @@
 			 *
 			 *  \return Boolean \c true if the internal oscillator was successfully started, \c false if invalid parameters specified.
 			 */
-			static inline uint8_t XMEGACLK_StartInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
-			static inline uint8_t XMEGACLK_StartInternalOscillator(const uint8_t Source)
+			static inline bool XMEGACLK_StartInternalOscillator(const uint8_t Source) ATTR_ALWAYS_INLINE;
+			static inline bool XMEGACLK_StartInternalOscillator(const uint8_t Source)
 			{
 				switch (Source)
 				{
