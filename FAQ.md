@@ -15,6 +15,16 @@ Use **LUFA**.
 See also [Issue #50](https://github.com/tmk/tmk_keyboard/issues/50) and [Issue #58](https://github.com/tmk/tmk_keyboard/issues/58).
 
 
+## Edit configuration but not change
+Try these.
+### 1. make clean
+This will be needed when you edit **config.h**.
+
+### 2. Remove Drivers from Device Manager(Windows)
+Windows only. Linux, OSX and other OS's doesn't require this. It looks like Windows keeps using driver installed when device was connected first time even after the device changes its configuration. To load proper drivers for new configuration you need to remove existent drivers from **Drvice Manager**.
+
+You will need this after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENABLE` or `MOUSEKEY_ENABLE` option in **Makefile**.
+
 
 # Degug Console
 ## hid_listen can't find device
