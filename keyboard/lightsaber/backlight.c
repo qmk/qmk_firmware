@@ -16,39 +16,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <avr/io.h>
-#include "stdint.h"
-#include "led.h"
+#include "backlight.h"
 
-/* LED pin configuration
+/* Backlight pin configuration
  *
- * Caps      PB0 (low)
- * NumLock   PB4 (low)
+ * Alphas    PB1 (high)
+ * Numeric   PB2 (high)
+ * Mod+Num   PB3 (high)
+ * Backside  PD6 (high)
+ * TopRight  PD7 (low)
+ * F-Row     PE6 (high)
  *
  */
-void led_set(uint8_t usb_led)
+void backlight_set(uint8_t level)
 {
     // Set as output.
-    DDRB |= (1<<0) | (1<<4);
+    DDRB |= (1<<1) | (1<<2) | (1<<3);
+    DDRD |= (1<<6) | (1<<7);
+    DDRE |= (1<<6);
 
-    if (usb_led & (1<<USB_LED_CAPS_LOCK))
+    if(level & (1<<0))
     {
-        // Output low.
-        PORTB &= ~(1<<0);
+        PORTB &= ~(1<<1);
+        PORTB &= ~(1<<2);
+        PORTB &= ~(1<<3);
+        PORTD &= ~(1<<6);
+        PORTD |= (1<<7);
+        PORTE &= ~(1<<6);
     }
     else
     {
-        // Output high.
-        PORTB |= (1<<0);
-    }
-
-    if (usb_led & (1<<USB_LED_NUM_LOCK))
-    {
-        // Output low.
-        PORTB &= ~(1<<4);
-    }
-    else
-    {
-        // Output high.
-        PORTB |= (1<<4);
+        PORTB |= (1<<1);
+        PORTB |= (1<<2);
+        PORTB |= (1<<3);
+        PORTD |= (1<<6);
+        PORTD &= ~(1<<7);
+        PORTE |= (1<<6);
     }
 }

@@ -32,6 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
 
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 1
+
 /* Set 0 if need no debouncing */
 #define DEBOUNCE    5
 
