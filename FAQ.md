@@ -88,3 +88,22 @@ Use `1UL<<16` intead of `1<<16` in `read_cols()` in **matrix.h** when your colum
 In C `1` means one of **int** type which is **16bit** in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use **unsigned long** type with `1UL`.
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
+
+
+
+## Pull-up Resistor
+In some case converters needed to have pull-up resistors to work correctly. Place the resistor between VCC and signal line in parallel.
+
+```
+Keyboard       Conveter
+               ,------.
+5V------+------|VCC   |
+        |      |      |
+        R      |      |
+        |      |      |
+Signal--+------|PD0   |
+               |      |
+GND------------|GND   |
+               `------'
+R: 1K Ohm resistor
+```
