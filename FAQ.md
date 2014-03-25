@@ -109,6 +109,6 @@ R: 1K Ohm resistor
 ```
 
 
-## Arduino Micro's Pin naming is confusing
+## Arduino Micro's pin naming is confusing
 Note that Arduino Micro PCB marking is different from real AVR port name. D0 of Arduino Micro is not PD0, PD0 is D3. Check schematic yourself.
 http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
