@@ -269,7 +269,7 @@ Default Layer is a layer which always is valid and referred to when actions is n
 
 This sets Default Layer to given parameter `layer` and activate it.
 
-    ACTION_DEFAULT_LAYER(layer)
+    ACTION_DEFAULT_LAYER_SET(layer)
 
 
 #### 2.2.2 Momentary 
