@@ -294,7 +294,7 @@ void process_action(keyrecord_t *record)
 #ifdef BACKLIGHT_ENABLE
         case ACT_BACKLIGHT:
             if (!event.pressed) {
-                switch (action.backlight.id) {
+                switch (action.backlight.opt) {
                     case BACKLIGHT_INCREASE:
                         backlight_increase();
                         break;
@@ -306,6 +306,9 @@ void process_action(keyrecord_t *record)
                         break;
                     case BACKLIGHT_STEP:
                         backlight_step();
+                        break;
+                    case BACKLIGHT_LEVEL:
+                        backlight_level(action.backlight.level);
                         break;
                 }
             }
