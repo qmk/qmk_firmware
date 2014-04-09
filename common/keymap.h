@@ -35,7 +35,7 @@ typedef union {
         bool no_gui:1;
         bool swap_grave_esc:1;
         bool swap_backslash_backspace:1;
-        bool reserved:1;
+        bool nkro:1;
     };
 } keymap_config_t;
 keymap_config_t keymap_config;

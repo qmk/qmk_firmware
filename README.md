@@ -151,6 +151,7 @@ To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be 
 - Disable Gui(`Left Gui`)
 - Swap Grave and Escape(`Grave`)
 - Swap BackSlash and BackSpace(`Back Slash`)
+- Enable NKRO on boot(`N`)
 
 #### Default Layer
 - Set Default Layer to 0(`0`)
