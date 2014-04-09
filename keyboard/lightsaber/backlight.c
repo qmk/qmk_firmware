@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Backside  PD6 (high)
  * TopRight  PD7 (low)
  * F-Row     PE6 (high)
- *
  */
+
 void backlight_set(uint8_t level)
 {
     // Set as output.
@@ -35,22 +35,52 @@ void backlight_set(uint8_t level)
     DDRD |= (1<<6) | (1<<7);
     DDRE |= (1<<6);
 
-    if(level & (1<<0))
+    if (level & BACKLIGHT_ALPHA)
     {
-        PORTB &= ~(1<<1);
-        PORTB &= ~(1<<2);
-        PORTB &= ~(1<<3);
-        PORTD &= ~(1<<6);
-        PORTD |= (1<<7);
-        PORTE &= ~(1<<6);
+        PORTB |= (1<<1);
     }
     else
     {
-        PORTB |= (1<<1);
+        PORTB &= ~(1<<1);
+    }
+    if (level & BACKLIGHT_NUMERIC)
+    {
         PORTB |= (1<<2);
+    }
+    else
+    {
+        PORTB &= ~(1<<2);
+    }
+    if (level & BACKLIGHT_MODNUM)
+    {
         PORTB |= (1<<3);
+    }
+    else
+    {
+        PORTB &= ~(1<<3);
+    }
+    if (level & BACKLIGHT_BACKSIDE)
+    {
         PORTD |= (1<<6);
+    }
+    else
+    {
+        PORTD &= ~(1<<6);
+    }
+    if (level & BACKLIGHT_TOPRIGHT)
+    {
         PORTD &= ~(1<<7);
+    }
+    else
+    {
+        PORTD |= (1<<7);
+    }
+    if (level & BACKLIGHT_FROW)
+    {
         PORTE |= (1<<6);
+    }
+    else
+    {
+        PORTE &= ~(1<<6);
     }
 }

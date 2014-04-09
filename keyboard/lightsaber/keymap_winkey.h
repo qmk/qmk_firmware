@@ -1,3 +1,5 @@
+#include "backlight.h"
+
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(\
         ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,      INS,    PSCR,    SLCK,       BRK,      \
@@ -8,14 +10,20 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL,LGUI,LALT,               SPC,                NO,  RALT,RGUI,RCTL,     KP_0,   NO,      KP_DOT,     NO),      \
     KEYMAP(\
         CALC,MYCM,WSCH,WHOM,MAIL,MUTE,VOLD,VOLU,MSEL,MSTP,MPLY,MPRV,MNXT,TRNS,     TRNS,   WAKE,    PWR,        SLEP,     \
-        TRNS,TRNS,TRNS,TRNS,END ,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS,     \
+        FN1, FN2, FN3, FN4, FN5, FN6, FN7, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS,     \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS,     \
         TRNS,TRNS,TRNS,TRNS,PGDN,TRNS,LEFT,DOWN,UP  ,RGHT,TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS,     \
         TRNS,     TRNS,TRNS,TRNS,TRNS,PGUP,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS,     \
-        TRNS,TRNS,TRNS,               FN1,                TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS)
+        TRNS,TRNS,TRNS,               TRNS,               TRNS,TRNS,TRNS,TRNS,     TRNS,   TRNS,    TRNS,       TRNS)
 };
 
 static const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(1),
-    [1] = ACTION_BACKLIGHT_STEP()
+    [1] = ACTION_BACKLIGHT_TOGGLE(),
+    [2] = ACTION_BACKLIGHT_LEVEL(BACKLIGHT_ALPHA),
+    [3] = ACTION_BACKLIGHT_LEVEL(BACKLIGHT_MODNUM),
+    [4] = ACTION_BACKLIGHT_LEVEL(BACKLIGHT_NUMERIC),
+    [5] = ACTION_BACKLIGHT_LEVEL(BACKLIGHT_FROW),
+    [6] = ACTION_BACKLIGHT_LEVEL(BACKLIGHT_BACKSIDE),
+    [7] = ACTION_BACKLIGHT_LEVEL(BACKLIGHT_TOPRIGHT)
 };

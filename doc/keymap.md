@@ -444,6 +444,10 @@ Step through backlight levels.
 
     ACTION_BACKLIGHT_STEP()
 
+Turn a specific backlight level on or off.
+
+    ACTION_BACKLIGHT_LEVEL(1)
+
 #### 2.5.2 Turn on / off backlight
 Turn the backlight on and off without changing level.
 
