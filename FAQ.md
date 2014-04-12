@@ -112,3 +112,21 @@ R: 1K Ohm resistor
 ## Arduino Micro's pin naming is confusing
 Note that Arduino Micro PCB marking is different from real AVR port name. D0 of Arduino Micro is not PD0, PD0 is D3. Check schematic yourself.
 http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+
+
+
+## Bootloader jump doesn't work
+Properly configure boot section size in Makefile. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
+- https://github.com/tmk/tmk_keyboard#magic-commands
+- https://github.com/tmk/tmk_keyboard#bootloader
+
+```
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 1024
+#   Atmel DFU loader 4096       (TMK Alt Controller)
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
+```
+http://geekhack.org/index.php?topic=12047.msg1292018#msg1292018
