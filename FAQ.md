@@ -130,3 +130,7 @@ Properly configure boot section size in Makefile. With wrong section size bootlo
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
 http://geekhack.org/index.php?topic=12047.msg1292018#msg1292018
+
+
+## Special Extra key doesn't work(System, Audio control keys)
+http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-60.html#p157919
