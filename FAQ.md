@@ -133,4 +133,8 @@ http://geekhack.org/index.php?topic=12047.msg1292018#msg1292018
 
 
 ## Special Extra key doesn't work(System, Audio control keys)
+You need to define `EXTRAKEY_ENABLE` in **makefile** to use them in TMK.
+```
+EXTRAKEY_ENABLE = yes          # Audio control and System control
+```
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-60.html#p157919
