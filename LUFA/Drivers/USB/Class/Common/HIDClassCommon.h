@@ -147,7 +147,7 @@
 		#define HID_KEYBOARD_SC_4_AND_DOLLAR                      0x21
 		#define HID_KEYBOARD_SC_5_AND_PERCENTAGE                  0x22
 		#define HID_KEYBOARD_SC_6_AND_CARET                       0x23
-		#define HID_KEYBOARD_SC_7_AND_AND_AMPERSAND               0x24
+		#define HID_KEYBOARD_SC_7_AND_AMPERSAND                   0x24
 		#define HID_KEYBOARD_SC_8_AND_ASTERISK                    0x25
 		#define HID_KEYBOARD_SC_9_AND_OPENING_PARENTHESIS         0x26
 		#define HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS         0x27
@@ -229,7 +229,7 @@
 		#define HID_KEYBOARD_SC_F24                               0x73
 		#define HID_KEYBOARD_SC_EXECUTE                           0x74
 		#define HID_KEYBOARD_SC_HELP                              0x75
-		#define HID_KEYBOARD_SC_MANU                              0x76
+		#define HID_KEYBOARD_SC_MENU                              0x76
 		#define HID_KEYBOARD_SC_SELECT                            0x77
 		#define HID_KEYBOARD_SC_STOP                              0x78
 		#define HID_KEYBOARD_SC_AGAIN                             0x79
@@ -265,7 +265,7 @@
 		#define HID_KEYBOARD_SC_LANG8                             0x97
 		#define HID_KEYBOARD_SC_LANG9                             0x98
 		#define HID_KEYBOARD_SC_ALTERNATE_ERASE                   0x99
-		#define HID_KEYBOARD_SC_SISREQ                            0x9A
+		#define HID_KEYBOARD_SC_SYSREQ                            0x9A
 		#define HID_KEYBOARD_SC_CANCEL                            0x9B
 		#define HID_KEYBOARD_SC_CLEAR                             0x9C
 		#define HID_KEYBOARD_SC_PRIOR                             0x9D
@@ -274,7 +274,7 @@
 		#define HID_KEYBOARD_SC_OUT                               0xA0
 		#define HID_KEYBOARD_SC_OPER                              0xA1
 		#define HID_KEYBOARD_SC_CLEAR_AND_AGAIN                   0xA2
-		#define HID_KEYBOARD_SC_CRSEL_ANDPROPS                    0xA3
+		#define HID_KEYBOARD_SC_CRSEL_AND_PROPS                   0xA3
 		#define HID_KEYBOARD_SC_EXSEL                             0xA4
 		#define HID_KEYBOARD_SC_KEYPAD_00                         0xB0
 		#define HID_KEYBOARD_SC_KEYPAD_000                        0xB1
@@ -330,6 +330,23 @@
 		#define HID_KEYBOARD_SC_RIGHT_SHIFT                       0xE5
 		#define HID_KEYBOARD_SC_RIGHT_ALT                         0xE6
 		#define HID_KEYBOARD_SC_RIGHT_GUI                         0xE7
+		#define HID_KEYBOARD_SC_MEDIA_PLAY                        0xE8
+		#define HID_KEYBOARD_SC_MEDIA_STOP                        0xE9
+		#define HID_KEYBOARD_SC_MEDIA_PREVIOUS_TRACK              0xEA
+		#define HID_KEYBOARD_SC_MEDIA_NEXT_TRACK                  0xEB
+		#define HID_KEYBOARD_SC_MEDIA_EJECT                       0xEC
+		#define HID_KEYBOARD_SC_MEDIA_VOLUME_UP                   0xED
+		#define HID_KEYBOARD_SC_MEDIA_VOLUME_DOWN                 0xEE
+		#define HID_KEYBOARD_SC_MEDIA_MUTE                        0xEF
+		#define HID_KEYBOARD_SC_MEDIA_WWW                         0xF0
+		#define HID_KEYBOARD_SC_MEDIA_BACKWARD                    0xF1
+		#define HID_KEYBOARD_SC_MEDIA_FORWARD                     0xF2
+		#define HID_KEYBOARD_SC_MEDIA_CANCEL                      0xF3
+		#define HID_KEYBOARD_SC_MEDIA_SEARCH                      0xF4
+		#define HID_KEYBOARD_SC_MEDIA_SLEEP                       0xF8
+		#define HID_KEYBOARD_SC_MEDIA_LOCK                        0xF9
+		#define HID_KEYBOARD_SC_MEDIA_RELOAD                      0xFA
+		#define HID_KEYBOARD_SC_MEDIA_CALCULATOR                  0xFB
 		//@}
 
 		/** \name Common HID Device Report Descriptors */
