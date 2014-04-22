@@ -138,3 +138,9 @@ You need to define `EXTRAKEY_ENABLE` in **makefile** to use them in TMK.
 EXTRAKEY_ENABLE = yes          # Audio control and System control
 ```
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-60.html#p157919
+
+
+## Wakeup from sleep doesn't work
+In Windows check `Allow this device to wake the computer` setting in Power **Management property** tab of **Device Manager**. Also check BIOS setting.
+
+Pressing any key should wake host.
