@@ -25,7 +25,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN4, \
-           FN5, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
+           FN11,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
                 LGUI,LALT,          FN6,                RALT,RGUI),
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -131,12 +131,9 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 /* id for user defined functions */
 enum function_id {
     LSHIFT_LPAREN,
-    RSHIFT_RPAREN,
 };
 
 enum macro_id {
-    LSHIFT_PAREN,
-    RSHIFT_PAREN,
     HELLO,
     VOLUP,
 };
@@ -163,10 +160,7 @@ const uint16_t fn_actions[] PROGMEM = {
 
 //  [8] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_BSPC),       // LControl with tap Backspace
 //  [9] = ACTION_LMOD_TAP_KEY(KC_LCTL, KC_ESC),        // LControl with tap Esc
-  [11] = ACTION_FUNCTION_TAP(LSHIFT_LPAREN),         // Function: LShift with tap '('
-  [12] = ACTION_FUNCTION_TAP(RSHIFT_RPAREN),         // Function: RShift with tap ')'
-//  [13] = ACTION_MACRO_TAP(LSHIFT_PAREN),             // Macro: LShift with tap '('
-//  [14] = ACTION_MACRO_TAP(RSHIFT_PAREN),             // Macro: RShift with tap ')'
+    [11] = ACTION_FUNCTION_TAP(LSHIFT_LPAREN),         // Function: LShift with tap '('
 //  [15] = ACTION_MACRO(HELLO),                        // Macro: say hello
 //  [9] = ACTION_MACRO(VOLUP),                         // Macro: media key
 };
@@ -177,32 +171,13 @@ const uint16_t fn_actions[] PROGMEM = {
  */
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    keyevent_t event = record->event;
-    tap_t tap = record->tap;
-
     switch (id) {
-        case LSHIFT_PAREN:
-            if (tap.count > 0 && !tap.interrupted) {
-                return (event.pressed ?
-                        MACRO( D(LSHIFT), D(9), U(9), U(LSHIFT), END ) : MACRO_NONE);
-            } else {
-                return (event.pressed ?
-                        MACRO( D(LSHIFT), END ) : MACRO( U(LSHIFT), END ) );
-            }
-        case RSHIFT_PAREN:
-            if (tap.count > 0 && !tap.interrupted) {
-                return (event.pressed ?
-                        MACRO( D(RSHIFT), D(0), U(0), U(RSHIFT), END ) : MACRO_NONE);
-            } else {
-                return (event.pressed ?
-                        MACRO( D(RSHIFT), END ) : MACRO( U(RSHIFT), END ) );
-            }
         case HELLO:
-            return (event.pressed ?
+            return (record->event.pressed ?
                     MACRO( I(0), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
                     MACRO_NONE );
         case VOLUP:
-            return (event.pressed ?
+            return (record->event.pressed ?
                     MACRO( D(VOLU), U(VOLU), END ) :
                     MACRO_NONE );
     }
@@ -216,48 +191,36 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
  */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    keyevent_t event = record->event;
-    tap_t tap = record->tap;
+    if (record->event.pressed) dprint("P"); else dprint("R");
+    dprintf("%d", record->tap.count);
+    if (record->tap.interrupted) dprint("i");
+    dprint("\n");
 
     switch (id) {
         case LSHIFT_LPAREN:
-            // LShft + tap '('
-            // NOTE: cant use register_code to avoid conflicting with magic key bind
-            if (event.pressed) {
-                if (tap.count == 0 || tap.interrupted) {
-                    //add_mods(MOD_BIT(KC_LSHIFT));
-                    layer_on(1);
+            // Shift parentheses example: LShft + tap '('
+            // http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses
+            // http://geekhack.org/index.php?topic=41989.msg1304899#msg1304899
+            if (record->event.pressed) {
+                if (record->tap.count > 0 && !record->tap.interrupted) {
+                    if (record->tap.interrupted) {
+                        dprint("tap interrupted\n");
+                        register_mods(MOD_BIT(KC_LSHIFT));
+                    }
                 } else {
-                    add_mods(MOD_BIT(KC_LSHIFT));
-                    add_key(KC_9);
-                    send_keyboard_report();
-                    del_mods(MOD_BIT(KC_LSHIFT));
-                    del_key(KC_9);
-                    send_keyboard_report();
+                    register_mods(MOD_BIT(KC_LSHIFT));
                 }
             } else {
-                if (tap.count == 0 || tap.interrupted) {
-                    //del_mods(MOD_BIT(KC_LSHIFT));
-                    layer_off(1);
-                }
-            }
-            break;
-        case RSHIFT_RPAREN:
-            // RShift + tap ')'
-            if (event.pressed) {
-                if (tap.count == 0 || tap.interrupted) {
-                    add_mods(MOD_BIT(KC_RSHIFT));
+                if (record->tap.count > 0 && !(record->tap.interrupted)) {
+                    add_weak_mods(MOD_BIT(KC_LSHIFT));
+                    send_keyboard_report();
+                    register_code(KC_9);
+                    unregister_code(KC_9);
+                    del_weak_mods(MOD_BIT(KC_LSHIFT));
+                    send_keyboard_report();
+                    record->tap.count = 0;  // ad hoc: cancel tap
                 } else {
-                    add_mods(MOD_BIT(KC_RSHIFT));
-                    add_key(KC_0);
-                    send_keyboard_report();
-                    del_mods(MOD_BIT(KC_RSHIFT));
-                    del_key(KC_0);
-                    send_keyboard_report();
-                }
-            } else {
-                if (tap.count == 0 || tap.interrupted) {
-                    del_mods(MOD_BIT(KC_RSHIFT));
+                    unregister_mods(MOD_BIT(KC_LSHIFT));
                 }
             }
             break;
