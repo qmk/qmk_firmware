@@ -235,7 +235,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
     .SubClass               = USB_CSCP_NoDeviceSubclass,
     .Protocol               = USB_CSCP_NoDeviceProtocol,
 
-    .Endpoint0Size          = 8,
+    .Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
     /* specified in config.h */
     .VendorID               = VENDOR_ID,
@@ -246,7 +246,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
     .ProductStrIndex        = 0x02,
     .SerialNumStrIndex      = NO_DESCRIPTOR,
 
-    .NumberOfConfigurations = 1
+    .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
 /*******************************************************************************
