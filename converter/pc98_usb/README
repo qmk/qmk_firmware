@@ -20,7 +20,7 @@ Wiring: You can change this with editing config.h.
 
     Pin mini DIN        MCU
     ----------------------------------
-    1  ~RST             PD1
+    1  ~RST(TXD)        PD3
     2   GND             GND
     3  ~RDY             PD4
     4   RXD             PD2
@@ -36,9 +36,6 @@ Protocol
 --------
 Signal: Asynchronous, Positive logic, 19200baud, Least bit first
 Frame format: 1-Start bit(Lo), 8-Data bits, Odd-Parity, 1-Stop bit
-
-This converter uses software method for testing purpose. AVR UART engine will work better.
-
 
 
 
