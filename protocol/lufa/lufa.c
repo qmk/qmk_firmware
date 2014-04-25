@@ -184,15 +184,6 @@ void EVENT_USB_Device_StartOfFrame(void)
 /** Event handler for the USB_ConfigurationChanged event.
  * This is fired when the host sets the current configuration of the USB device after enumeration.
  */
-#if LUFA_VERSION_INTEGER < 0x120730
-    /* old API 120219 */
-    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint(epnum, eptype, epdir, epsize, epbank)
-#else
-    /* new API >= 120730 */
-    #define ENDPOINT_BANK_SINGLE 1
-    #define ENDPOINT_BANK_DOUBLE 2
-    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint((epdir) | (epnum) , eptype, epsize, epbank)
-#endif
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
     bool ConfigSuccess = true;
