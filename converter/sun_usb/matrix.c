@@ -63,6 +63,8 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+    DDRD |= (1<<6);
+    PORTD |= (1<<6);
     debug_enable = true;
 
     serial_init();
