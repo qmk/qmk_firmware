@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef NKRO_ENABLE
-bool keyboard_nkro = false;
+bool keyboard_nkro = true;
 #endif
 
 static host_driver_t *driver;

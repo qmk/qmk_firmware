@@ -301,13 +301,13 @@ static bool command_common(uint8_t code)
         case KC_S:
             print("\n\n----- Status -----\n");
             print_val_hex8(host_keyboard_leds());
+            print_val_hex8(keyboard_protocol);
+            print_val_hex8(keyboard_idle);
 #ifdef PROTOCOL_PJRC
             print_val_hex8(UDCON);
             print_val_hex8(UDIEN);
             print_val_hex8(UDINT);
             print_val_hex8(usb_keyboard_leds);
-            print_val_hex8(usb_keyboard_protocol);
-            print_val_hex8(usb_keyboard_idle_config);
             print_val_hex8(usb_keyboard_idle_count);
 #endif
 

@@ -32,6 +32,9 @@ extern "C" {
 extern bool keyboard_nkro;
 #endif
 
+uint8_t keyboard_idle;
+uint8_t keyboard_protocol;
+
 
 /* host driver */
 void host_set_driver(host_driver_t *driver);
