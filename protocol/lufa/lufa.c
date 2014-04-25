@@ -52,8 +52,8 @@
 #include "descriptor.h"
 #include "lufa.h"
 
-static uint8_t idle_duration = 0;
-static uint8_t protocol_report = 1;
+uint8_t keyboard_idle = 0;
+uint8_t keyboard_protocol = 1;
 static uint8_t keyboard_led_stats = 0;
 
 static report_keyboard_t keyboard_report_sent;
@@ -290,21 +290,26 @@ void EVENT_USB_Device_ControlRequest(void)
         case HID_REQ_GetProtocol:
             if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
             {
-                Endpoint_ClearSETUP();
-                while (!(Endpoint_IsINReady()));
-                Endpoint_Write_8(protocol_report);
-                Endpoint_ClearIN();
-                Endpoint_ClearStatusStage();
+                if (USB_ControlRequest.wIndex == KEYBOARD_INTERFACE) {
+                    Endpoint_ClearSETUP();
+                    while (!(Endpoint_IsINReady()));
+                    Endpoint_Write_8(keyboard_protocol);
+                    Endpoint_ClearIN();
+                    Endpoint_ClearStatusStage();
+                }
             }
 
             break;
         case HID_REQ_SetProtocol:
             if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
             {
-                Endpoint_ClearSETUP();
-                Endpoint_ClearStatusStage();
+                if (USB_ControlRequest.wIndex == KEYBOARD_INTERFACE) {
+                    Endpoint_ClearSETUP();
+                    Endpoint_ClearStatusStage();
 
-                protocol_report = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
+                    keyboard_protocol = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
+                    clear_keyboard();
+                }
             }
 
             break;
@@ -314,7 +319,7 @@ void EVENT_USB_Device_ControlRequest(void)
                 Endpoint_ClearSETUP();
                 Endpoint_ClearStatusStage();
 
-                idle_duration = ((USB_ControlRequest.wValue & 0xFF00) >> 8);
+                keyboard_idle = ((USB_ControlRequest.wValue & 0xFF00) >> 8);
             }
 
             break;
@@ -323,7 +328,7 @@ void EVENT_USB_Device_ControlRequest(void)
             {
                 Endpoint_ClearSETUP();
                 while (!(Endpoint_IsINReady()));
-                Endpoint_Write_8(idle_duration);
+                Endpoint_Write_8(keyboard_idle);
                 Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
             }
@@ -349,32 +354,28 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_nkro && keyboard_protocol) {
+        /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 
         /* Check if write ready for a polling interval around 1ms */
         while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(4);
         if (!Endpoint_IsReadWriteAllowed()) return;
-    }
-    else
-#endif
-    {
-        Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
 
-        /* Check if write ready for a polling interval around 10ms */
-        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
-        if (!Endpoint_IsReadWriteAllowed()) return;
-    }
-
-    /* Write Keyboard Report Data */
-#ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+        /* Write Keyboard Report Data */
         Endpoint_Write_Stream_LE(report, NKRO_EPSIZE, NULL);
     }
     else
 #endif
     {
-        /* boot mode */
+        /* Boot protocol */
+        Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+
+        /* Check if write ready for a polling interval around 10ms */
+        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+        if (!Endpoint_IsReadWriteAllowed()) return;
+
+        /* Write Keyboard Report Data */
         Endpoint_Write_Stream_LE(report, KEYBOARD_EPSIZE, NULL);
     }
 

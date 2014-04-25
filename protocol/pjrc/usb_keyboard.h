@@ -30,8 +30,6 @@
 #include "host.h"
 
 
-extern uint8_t usb_keyboard_protocol;
-extern uint8_t usb_keyboard_idle_config;
 extern uint8_t usb_keyboard_idle_count;
 extern volatile uint8_t usb_keyboard_leds;
 
