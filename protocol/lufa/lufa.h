@@ -66,4 +66,15 @@ typedef struct {
     uint16_t usage;
 } __attribute__ ((packed)) report_extra_t;
 
+
+#if LUFA_VERSION_INTEGER < 0x120730
+    /* old API 120219 */
+    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint(epnum, eptype, epdir, epsize, epbank)
+#else
+    /* new API >= 120730 */
+    #define ENDPOINT_BANK_SINGLE 1
+    #define ENDPOINT_BANK_DOUBLE 2
+    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint((epdir) | (epnum) , eptype, epsize, epbank)
+#endif
+
 #endif
