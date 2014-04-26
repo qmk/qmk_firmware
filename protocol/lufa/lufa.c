@@ -308,6 +308,9 @@ void EVENT_USB_Device_ControlRequest(void)
                     Endpoint_ClearStatusStage();
 
                     keyboard_protocol = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
+#ifdef NKRO_ENABLE
+                    keyboard_nkro = !!keyboard_protocol;
+#endif
                     clear_keyboard();
                 }
             }
@@ -354,7 +357,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro && keyboard_protocol) {
+    if (keyboard_nkro) {
         /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 

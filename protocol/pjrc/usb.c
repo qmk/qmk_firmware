@@ -930,6 +930,9 @@ ISR(USB_COM_vect)
 				}
 				if (bRequest == HID_SET_PROTOCOL) {
 					keyboard_protocol = wValue;
+#ifdef NKRO_ENABLE
+                                        keyboard_nkro = !!keyboard_protocol;
+#endif
                                         clear_keyboard();
 					//usb_wait_in_ready();
 					usb_send_in();
