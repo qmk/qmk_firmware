@@ -52,28 +52,17 @@ Check:
 
 # Miscellaneous
 ## NKRO Doesn't work
-Build with this option of Makefile
+1. Build with this option of Makefile
 
     NKRO_ENABLE = yes
 
-And use `Magic` command **N** to toggle NKRO feature.
-At this time NKRO is not used by default even if it is build with `NKRO_ENABLE`, you still need the `Magic`.
+2. After boot keyboard may be in **boot mode**(6KRO), you will need to replug keyboard to enable NKRO.
 
-To turn on NKRO by default see this fix.
-https://github.com/shayneholmes/tmk_keyboard/commit/b8375a0
-```
---- a/common/host.c
-+++ b/common/host.c
-@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
- 
- #ifdef NKRO_ENABLE
--bool keyboard_nkro = false;
-+bool keyboard_nkro = true;
- #endif
- 
- static host_driver_t *driver;
-```
+3. Or use `Magic` **N** command to toggle NKRO function.
+
+
+
+
 
 ## TrackPoint needs reset circuit(PS/2 mouse support)
 Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware. See circuit schematic of TPM754.
