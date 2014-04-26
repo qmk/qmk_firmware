@@ -56,7 +56,7 @@ int8_t usb_keyboard_send_report(report_keyboard_t *report)
     int8_t result = 0;
 
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro && keyboard_protocol)
+    if (keyboard_nkro)
         result = send_report(report, KBD2_ENDPOINT, 0, KBD2_SIZE);
     else
 #endif
