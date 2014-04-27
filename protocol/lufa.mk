@@ -1,7 +1,7 @@
 LUFA_DIR = protocol/lufa
 
 # Path to the LUFA library
-ifeq (, $(wildcard $(TOP_DIR)/$(LUFA_DIR)/LUFA-git))
+ifeq (, $(wildcard $(TOP_DIR)/$(LUFA_DIR)/LUFA-git/LUFA/Version.h))
     LUFA_PATH ?= $(LUFA_DIR)/LUFA-120730
 else
     LUFA_PATH ?= $(LUFA_DIR)/LUFA-git
