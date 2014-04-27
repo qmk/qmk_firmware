@@ -162,6 +162,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 
 /* new API */
 #if LUFA_VERSION_INTEGER < 0x140302
+    #undef VERSION_BCD
     #define VERSION_BCD(Major, Minor, Revision) \
                                               CPU_TO_LE16( ((Major & 0xFF) << 8) | \
                                                            ((Minor & 0x0F) << 4) | \
