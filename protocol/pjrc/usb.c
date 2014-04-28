@@ -629,6 +629,7 @@ uint8_t usb_configured(void)
 void usb_remote_wakeup(void)
 {
     UDCON |= (1<<RMWKUP);
+    while (UDCON & (1<<RMWKUP));
 }
 
 
