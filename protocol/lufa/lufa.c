@@ -272,6 +272,7 @@ void EVENT_USB_Device_ControlRequest(void)
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
                 case KEYBOARD_INTERFACE:
+                case NKRO_INTERFACE:
                     Endpoint_ClearSETUP();
 
                     while (!(Endpoint_IsOUTReceived())) {
