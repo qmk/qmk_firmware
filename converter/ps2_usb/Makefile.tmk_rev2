@@ -1,8 +1,9 @@
 # 
-# Makefile for Teensy
+# Makefile for TMK keyboard converter rev2
+#     https://github.com/tmk/keyboard_converter#pcb-rev2
 #
 # Target file name (without extension).
-TARGET = ps2_usb_lufa
+TARGET = ps2_usb_tmk_rev2
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -21,12 +22,11 @@ else
     SRC := keymap_plain.c $(SRC)
 endif
 
-CONFIG_H = config.h
+CONFIG_H = config_tmk_rev2.h
 
 
 # MCU name
-#MCU = at90usb1287
-MCU = atmega32u4
+MCU = atmega32u2
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -61,9 +61,6 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
-# Interrupt driven control endpoint task(+60)
-#OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
@@ -71,7 +68,7 @@ F_USB = $(F_CPU)
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=512
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
@@ -82,18 +79,14 @@ MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
-NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+#NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
 
 
 # PS/2 Options
 #
-PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomened)
-#PS2_USE_INT = yes	# uses external interrupt for falling edge of PS/2 clock pin
+PS2_USE_INT = yes	# uses external interrupt for falling edge of PS/2 clock pin
 #PS2_USE_BUSYWAIT = yes	# uses primitive reference code
 
-
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
 
 # Search Path
 VPATH += $(TARGET_DIR)
