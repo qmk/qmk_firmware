@@ -58,9 +58,7 @@ Check:
 
 2. After boot keyboard may be in **boot mode**(6KRO), you will need to replug keyboard to enable NKRO.
 
-3. Or use `Magic` **N** command to toggle NKRO function.
-
-
+3. Or use `Magic` **N** command to toggle NKRO function.(`LShift+RShift+N` by default)
 
 
 
