@@ -28,7 +28,7 @@ You will need this after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENAB
 
 # Keymap
 ## Power key doesn't work
-Use `KC_PWR` instead of 'KC_POWER` or vice versa.
+Use `KC_PWR` instead of `KC_POWER` or vice versa.
 - `KC_PWR` works with Windows and Linux, not with OSX.
 - `KC_POWER` works with OSX and Linux, not with Windows.
 
