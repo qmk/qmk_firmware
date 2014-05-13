@@ -26,6 +26,16 @@ Windows only. Linux, OSX and other OS's doesn't require this. It looks like Wind
 You will need this after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENABLE` or `MOUSEKEY_ENABLE` option in **Makefile**.
 
 
+# Keymap
+## Power key doesn't work
+Use `KC_PWR` instead of 'KC_POWER` or vice versa.
+- `KC_PWR` works with Windows and Linux, not with OSX.
+- `KC_POWER` works with OSX and Linux, not with Windows.
+
+http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
+
+
+
 # Degug Console
 ## hid_listen can't find device
 When debug console of your device is not ready you will see like this:
