@@ -1,4 +1,8 @@
 # Build
+## How to Build
+See this first!
+https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
+
 ## 'make clean' needs after changing config.h
 To build with new **config.h** you need
 
