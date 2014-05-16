@@ -1,12 +1,37 @@
+# Documents You Need To Read
+Read these yet?
+ 
+1. First **README** under top directory : https://github.com/tmk/tmk_keyboard/blob/master/README.md
+2. For **Build**: https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
+3. And **README** under each project(keyboard/converter) directory
+
+Note that you should read two **README**.
+
+
 # Build
 ## How to Build
 See this first!
 https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
 
-## 'make clean' needs after changing config.h
-To build with new **config.h** you need
+In short,
 
     $ make clean
+    $ make [KEYMAP=...]
+
+
+## Do 'make clean' before 'make'
+You'll need `make clean` after you edit **config.h** or change options like `KEYMAP`.
+
+Frist remove all files made in previous build,
+
+    $ make clean
+
+then build new frimware. 
+
+    $ make [KEYMAP=...]
+
+Also you can always try `make clean` when you get other strange result during build.
+
 
 ## WINAVR is obsolete
 It is no longer recommended and may cause some problem.
