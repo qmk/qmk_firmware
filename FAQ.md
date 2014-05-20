@@ -174,7 +174,8 @@ Pressing any key during sleep should wake host.
 
 ## Using Arduino?
 **Note that Arduino pin naming is different from actual chip.** For example, Arduino pin `D0` is not `PD0`. Check circuit with its schematics yourself.
-http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
-http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
-Arduino leonardo and micro have ATMega32U4 and can be used for TMK, though Arduino bootloader may be a problem.
+- http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
+- http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
+
+Arduino leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
