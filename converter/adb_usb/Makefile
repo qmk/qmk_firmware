@@ -48,10 +48,16 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # project specific files
-SRC =	keymap.c \
+SRC =	keymap_common.c \
 	matrix.c \
 	led.c \
 	adb.c
+
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_ansi.c $(SRC)
+endif
 
 CONFIG_H = config.h
 

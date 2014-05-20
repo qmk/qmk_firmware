@@ -7,15 +7,27 @@ But binary size is about 10KB or more it doesn't fit into 8K flash like ATMega8U
 Discuss: http://geekhack.org/showwiki.php?title=Island:14290
 
 
-Build
------
-0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data). By default Data line uses port D0.
+Wiring
+------
+0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data). By default Data line uses port PD0.
    This converter uses AVR's internal pull-up, but it seems to be too weak, in particular when you want to use a long or coiled cable.
    The external pull-up resistor(1K-10K Ohm) on Data is strongly recommended.
-1. Define following macros for ADB connection in config.h if you use other than port D0.
+1. Define following macros for ADB connection in config.h if you use other than port PD0.
    ADB_PORT, ADB_PIN, ADB_DDR, ADB_DATA_BIT
 2. make
 3. program Teensy
+
+
+Build
+-----
+Just make
+
+    $ make clean
+    $ make
+
+If your keyboard is ISO layout
+
+    $ make KEYMAP=iso
 
 
 LOCKING CAPSLOCK
@@ -48,7 +60,7 @@ effort at this time.
      * |-----------------------------------------------------------|     ,---.     |---------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift     |     |Up |     |  1|  2|  3|   |
      * |-----------------------------------------------------------| ,-----------. |-----------|Ent|
-     * |Ctrl |Gui |Alt |         Space           |     |    |      | |Lef|Dow|Rig| |      0|  .|   |
+     * |Ctrl |Alt |Gui |         Space             |Gui |Alt |Ctrl | |Lef|Dow|Rig| |      0|  .|   |
      * `-----------------------------------------------------------' `-----------' `---------------'
      */
     KEYMAP(
@@ -68,11 +80,17 @@ To get help press `h` holding Magic key. Magic key is `Power key`.
 
 Notes
 -----
-Many ADB keyboards has no discrimination between right modifier and left one,
+Not-extended ADB keyboards have no discrimination between right modifier and left one,
 you will always see left control even if you press right control key.
-Apple Extended Keyboard and Apple Extended Keyboard II are the examples.
-Though ADB protocol itself has the ability of distinction between right and left.
-And most ADB keyboard has no NKRO functionality, though ADB protocol itself has that. 
-See protocol/adb.c for more info.
+Apple Extended Keyboard and Apple Extended Keyboard II can discriminate both side
+modifiers except for GUI key(Windows/Command).
+
+And most ADB keyboard has no diodes in its matrix so they are not NKRO,
+though ADB protocol itself supports it. See protocol/adb.c for more info.
+
+If keyobard has ISO layout you need to use ISO keymap with `make KEYMAP=iso`. With ANSI
+keymap you will suffer from swapped keys problem.
+
+https://github.com/tmk/tmk_keyboard/issues/35
 
 EOF
