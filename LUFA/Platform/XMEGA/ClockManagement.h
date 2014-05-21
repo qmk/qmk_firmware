@@ -286,7 +286,7 @@
 			                                      const uint8_t Reference,
 			                                      const uint32_t Frequency)
 			{
-				uint16_t DFLLCompare = (Frequency / 1000);
+				uint16_t DFLLCompare = (Frequency / 1024);
 
 				switch (Source)
 				{

@@ -12,6 +12,7 @@
   *   - Fixed device class driver pipe configuration routines returning success with a partially constructed instance
   *     when a pipe configuration failed (thanks to Helge Suess)
   *   - Fixed incorrect LED driver definitions for the Arduino Leonardo board (thanks to Zoltán Szőke)
+  *   - Fixed incorrect XMEGA DFLL reference frequency (thanks to Martin Aakerberg)
   *
   *  \section Sec_ChangeLog140302 Version 140302
   *  <b>New:</b>

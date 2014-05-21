@@ -44,7 +44,7 @@
  *  \li AM Radio transmitter: http://amcinnes.info/2012/uc_am_xmit/
  *  \li Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  \li Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
- *  \li AttoBasic AVR BASIC interpreter: http://www.cappels.org/dproj/AttoBasic2_1/AttoBasic_2.1_with_USB_and_Arduino_support.html
+ *  \li AttoBasic AVR BASIC interpreter: http://cappels.org/dproj/AttoBasic_Home/AttoBasic_Home.html
  *  \li AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  \li Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  \li Bluetooth Explorerbot: http://code.google.com/p/bluetooth-explorerbot/
@@ -60,6 +60,7 @@
  *  \li Dashkey, a custom PC keyboard controller: http://geekhack.org/showwiki.php?title=Island:19096
  *  \li DIY PS3 controller emulator: https://code.google.com/p/diyps3controller/
  *  \li EMuSer, a USB-RS422 adapter for E-Mu samplers: http://www.emxp.net/EMuSer.htm
+ *  \li EQ Track, a telescope mount controller: http://sourceforge.net/projects/eqtrack/
  *  \li Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
  *  \li "Fingerlicking Wingdinger" (WARNING: Bad language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  \li Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
