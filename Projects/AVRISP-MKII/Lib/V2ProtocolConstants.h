@@ -68,11 +68,11 @@
 		#define STATUS_CMD_FAILED           0xC0
 		#define STATUS_CMD_UNKNOWN          0xC9
 		#define STATUS_CMD_ILLEGAL_PARAM    0xCA
-		#define STATUS_ISP_READY            0x10
+		#define STATUS_ISP_READY            0x00
 		#define STATUS_CONN_FAIL_MOSI       0x01
 		#define STATUS_CONN_FAIL_RST        0x02
 		#define STATUS_CONN_FAIL_SCK        0x04
-		#define STATUS_TGT_NOT_DETECTED     0x00
+		#define STATUS_TGT_NOT_DETECTED     0x10
 		#define STATUS_TGT_REVERSE_INSERTED 0x20
 
 		#define PARAM_BUILD_NUMBER_LOW      0x80

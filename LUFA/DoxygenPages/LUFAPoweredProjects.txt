@@ -187,7 +187,7 @@
  *  \li RFI21.1EU UHF RFID reader: http://www.metra.cz/rfid/uhf-rfid-ctecky/rfi21-1eu-uhf-rfid-ctecka.htm
  *  \li SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
  *  \li TimelapsePlus, a digital camera time lapse tool: https://github.com/timelapseplus/TimelapsePlus-Firmware
- *  \li USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
+ *  \li USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.no-ip.biz:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
  *  \li UDS18B20 USB Temperature sensor: http://toughlog.org/uds18b20/
  *  \li VMeter, a USB MIDI touch strip controller: http://www.vmeter.net/
  *  \li XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
