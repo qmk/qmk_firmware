@@ -232,6 +232,9 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 			break;
 	}
 
+	/* Keep the TX line held high (idle) while the USART is reconfigured */
+	PORTD |= (1 << 3);
+
 	/* Must turn off USART before reconfiguring it, otherwise incorrect operation may occur */
 	UCSR1B = 0;
 	UCSR1A = 0;
@@ -244,5 +247,8 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 	UCSR1C = ConfigMask;
 	UCSR1A = (1 << U2X1);
 	UCSR1B = ((1 << RXCIE1) | (1 << TXEN1) | (1 << RXEN1));
+
+	/* Release the TX line after the USART has been reconfigured */
+	PORTD &= ~(1 << 3);
 }
 

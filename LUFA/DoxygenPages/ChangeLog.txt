@@ -13,6 +13,8 @@
   *     when a pipe configuration failed (thanks to Helge Suess)
   *   - Fixed incorrect LED driver definitions for the Arduino Leonardo board (thanks to Zoltán Szőke)
   *   - Fixed incorrect XMEGA DFLL reference frequency (thanks to Martin Aakerberg)
+  *  - Library Applications:
+  *   - Fixed spurious 0xFE USART byte sent in the USBtoSerial project when the baud rate is changed (thanks to Carl Kjeldsen)
   *
   *  \section Sec_ChangeLog140302 Version 140302
   *  <b>New:</b>
