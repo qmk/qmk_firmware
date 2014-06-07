@@ -53,6 +53,7 @@ int main(void)
 		USB_USBTask();
 
 		uint8_t ReceivedData[VENDOR_IO_EPSIZE];
+		memset(ReceivedData, 0x00, sizeof(ReceivedData));
 
 		Endpoint_SelectEndpoint(VENDOR_OUT_EPADDR);
 		if (Endpoint_IsOUTReceived())
