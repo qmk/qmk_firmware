@@ -9,7 +9,7 @@
 LUFA_BUILD_MODULES         += BUILD
 LUFA_BUILD_TARGETS         += size symbol-sizes all lib elf bin hex lss clean mostlyclean
 LUFA_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC F_USB LUFA_PATH
-LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS
+LUFA_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS COMPILER_PATH
 LUFA_BUILD_PROVIDED_VARS   +=
 LUFA_BUILD_PROVIDED_MACROS +=
 
@@ -72,6 +72,7 @@ LUFA_BUILD_PROVIDED_MACROS +=
 #                                generate in the compiled object files
 #    DEBUG_LEVEL               - Level the debugging information to generate in
 #                                the compiled object files
+#    COMPILER_PATH             - Location of the GCC toolchain to use
 #
 # PROVIDED VARIABLES:
 #
@@ -90,6 +91,7 @@ ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $
 ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Default values of optionally user-supplied variables
+COMPILER_PATH      ?=
 BOARD              ?= NONE
 OPTIMIZATION       ?= s
 F_CPU              ?=
@@ -123,12 +125,12 @@ $(call ERROR_IF_NONBOOL, LINKER_RELAXATIONS)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
-   CROSS        := avr
+   CROSS        := $(COMPILER_PATH)avr
 else ifeq ($(ARCH), XMEGA)
-   CROSS        := avr
+   CROSS        := $(COMPILER_PATH)avr
    $(warning The XMEGA device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 else ifeq ($(ARCH), UC3)
-   CROSS        := avr32
+   CROSS        := $(COMPILER_PATH)avr32
    $(warning The UC3 device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 else
    $(error Unsupported architecture "$(ARCH)")

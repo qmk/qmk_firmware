@@ -190,6 +190,10 @@
  *    <td>Common flags to pass to the C/C++ compiler and assembler, after the automatically generated flags.</td>
  *   </tr>
  *   <tr>
+ *    <td><tt>COMPILER_PATH</tt></td>
+ *    <td>Directory where the C/C++ toolchain is located, if not available in the system <tt>PATH</tt>.</td>
+ *   </tr>
+ *   <tr>
  *    <td><tt>LD_FLAGS</tt></td>
  *    <td>Flags to pass to the linker, after the automatically generated flags.</td>
  *   </tr>

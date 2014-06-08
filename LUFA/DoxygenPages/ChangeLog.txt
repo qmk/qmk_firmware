@@ -7,12 +7,17 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  <b>New:</b>
+  *  - Core:
+  *   - Updated the BUILD build system module to add a new COMPILER_PATH optional variable
+  *
   *  <b>Fixed:</b>
   *  - Core:
   *   - Fixed device class driver pipe configuration routines returning success with a partially constructed instance
   *     when a pipe configuration failed (thanks to Helge Suess)
   *   - Fixed incorrect LED driver definitions for the Arduino Leonardo board (thanks to Zoltán Szőke)
   *   - Fixed incorrect XMEGA DFLL reference frequency (thanks to Martin Aakerberg)
+  *   - Fixed possible infinite loop in the control endpoint stream write function (thanks to Clayton Knight)
   *  - Library Applications:
   *   - Fixed spurious 0xFE USART byte sent in the USBtoSerial project when the baud rate is changed (thanks to Carl Kjeldsen)
   *
