@@ -79,6 +79,8 @@ uint8_t TEMPLATE_FUNC_NAME (const void* const Buffer,
 		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
 		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
 		  return ENDPOINT_RWCSTREAM_BusSuspended;
+		else if (Endpoint_IsSETUPReceived())
+		  return ENDPOINT_RWCSTREAM_HostAborted;
 	}
 
 	return ENDPOINT_RWCSTREAM_NoError;
