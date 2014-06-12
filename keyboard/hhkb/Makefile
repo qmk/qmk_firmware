@@ -56,7 +56,7 @@ SRC +=	keymap_common.c \
 ifdef KEYMAP
     SRC := keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := keymap_hasu.c $(SRC)
+    SRC := keymap_hhkb.c $(SRC)
 endif
 
 CONFIG_H = config.h

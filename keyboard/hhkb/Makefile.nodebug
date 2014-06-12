@@ -102,7 +102,7 @@ ARCH = AVR8
 F_USB = $(F_CPU)
 
 # Interrupt driven control endpoint task
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+#OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
 # Boot Section Size in *bytes*
@@ -122,8 +122,8 @@ MOUSEKEY_ENABLE = yes		# Mouse keys
 EXTRAKEY_ENABLE = yes		# Audio control and System control
 #CONSOLE_ENABLE = yes		# Console for debug
 COMMAND_ENABLE = yes    	# Commands for debug and configuration
-#NKRO_ENABLE = yes		# USB Nkey Rollover
-#KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
+NKRO_ENABLE = yes		# USB Nkey Rollover
+KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
 
 
 # Search Path
