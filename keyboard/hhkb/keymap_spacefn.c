@@ -58,11 +58,52 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       `-------------------------------------------'
      */
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,DEL,   \
-           TRNS,TRNS,TRNS,ESC, TRNS,TRNS,TRNS,HOME,UP,  END, PSCR,SLCK,PAUS,INS,        \
+           TRNS,TRNS,TRNS,ESC, TRNS,TRNS,TRNS,HOME,FN3, END, PSCR,SLCK,PAUS,INS,        \
            TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PGUP,LEFT,DOWN,RGHT,TRNS,TRNS,TRNS,            \
            TRNS,TRNS,TRNS,TRNS,TRNS,SPC, PGDN,GRV, FN2, TRNS,TRNS,TRNS,NO,              \
                 TRNS,TRNS,          TRNS,               TRNS,TRNS),
 };
+
+
+/*
+ * user defined action function
+ */
+enum function_id {
+    CTRL_SPACE_I,       // Ctrl + Up(SpaceFN) -> PgUp
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+#   define MODS_CTRL_MASK   (MOD_BIT(KC_LCTRL)|MOD_BIT(KC_RCTRL))
+    static uint8_t ctrl_space_i_prev_ctrl;
+
+    switch (id) {
+        // Ctrl + Up(SpaceFN) -> PgUp
+        case CTRL_SPACE_I:
+            ctrl_space_i_prev_ctrl = get_mods()&MODS_CTRL_MASK;
+            if (record->event.pressed) {
+                if (ctrl_space_i_prev_ctrl) {
+                    del_mods(ctrl_space_i_prev_ctrl);   // remove Ctrl
+                    add_key(KC_PGUP);
+                    send_keyboard_report(); // send PgUp without Ctrl
+                    add_mods(ctrl_space_i_prev_ctrl);   // return Ctrl but not sent
+                } else {
+                    add_key(KC_UP);
+                    send_keyboard_report();
+                }
+            } else {
+                if (ctrl_space_i_prev_ctrl) {
+                    del_key(KC_PGUP);
+                    send_keyboard_report();
+                } else {
+                    del_key(KC_UP);
+                    send_keyboard_report();
+                }
+            }
+            break;
+    }
+}
+
 
 /*
  * Fn action definition
@@ -71,5 +112,5 @@ const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(1),
     [1] = ACTION_LAYER_TAP_KEY(2, KC_SPACE),
     [2] = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),    // tilde
+    [3] = ACTION_FUNCTION(CTRL_SPACE_I),        // Ctrl + Up(SpaceFN) -> PgUp
 };
-
