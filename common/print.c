@@ -37,26 +37,4 @@ void print_set_sendchar(int8_t (*sendchar_func)(uint8_t))
     xdev_out(sendchar_func);
 }
 
-void print_S(const char *s)
-{
-    uint8_t c;
-    while (1) {
-        c = *s++;
-        if (!c) break;
-        if (c == '\n') sendchar('\r');
-        sendchar(c);
-    }
-}
-
-void print_lf(void)
-{
-    sendchar('\n');
-}
-
-void print_crlf(void)
-{
-    sendchar('\r');
-    sendchar('\n');
-}
-
 #endif
