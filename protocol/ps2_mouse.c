@@ -82,9 +82,14 @@ void ps2_mouse_task(void)
         mouse_report.x = ps2_host_recv_response();
         mouse_report.y = ps2_host_recv_response();
     } else {
-        if (!debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
+        if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
         return;
     }
+        xprintf("%ud ", timer_read());
+        print("ps2_mouse raw: [");
+        phex(mouse_report.buttons); print("|");
+        print_hex8((uint8_t)mouse_report.x); print(" ");
+        print_hex8((uint8_t)mouse_report.y); print("]\n");
 
     /* if mouse moves or buttons state changes */
     if (mouse_report.x || mouse_report.y ||
