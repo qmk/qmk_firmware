@@ -25,13 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NO_DEBUG
 
 #define dprint(s)           do { if (debug_enable) print(s); } while (0)
-#define dprintln()          do { if (debug_enable) print_crlf(); } while (0)
+#define dprintln(s)         do { if (debug_enable) println(s); } while (0)
 #define dprintf(fmt, ...)   do { if (debug_enable) xprintf(fmt, ##__VA_ARGS__); } while (0)
 #define dmsg(s)             dprintf("%s at %s: %S\n", __FILE__, __LINE__, PSTR(s))
 
 /* DO NOT USE these anymore */
 #define debug(s)                  do { if (debug_enable) print(s); } while (0)
-#define debugln(s)                do { if (debug_enable) print_crlf(); } while (0)
+#define debugln(s)                do { if (debug_enable) println(s); } while (0)
 #define debug_S(s)                do { if (debug_enable) print_S(s); } while (0)
 #define debug_P(s)                do { if (debug_enable) print_P(s); } while (0)
 #define debug_msg(s)              do { \

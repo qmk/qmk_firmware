@@ -11,6 +11,7 @@ void SysTick_Handler(void)  {
 
 void timer_init(void)
 {
+    timer_count = 0;
     SysTick_Config(SystemCoreClock / 1000); /* 1ms tick */
 }
 
