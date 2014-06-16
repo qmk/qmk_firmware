@@ -35,7 +35,7 @@
 #ifndef NO_PRINT
 
 
-#ifdef __AVR__
+#if defined(__AVR__)
 
 #include "xprintf.h"
 
@@ -44,21 +44,21 @@
 #ifndef __cplusplus
 #define print(s)    xputs(PSTR(s))
 #endif
-#define println(s)  xputs(PSTR(s "\n"))
+#define println(s)  xputs(PSTR(s "\r\n"))
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
 #endif
 /* function pointer of sendchar to be used by print utility */
 void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
-#elif __arm__
+#elif defined(__arm__)
 
-#include "mbed.h"
-Serial ser(UART_TX, UART_RX);
-#define xprintf     ser.printf
+#include "mbed/xprintf.h"
+
 #define print(s)    xprintf(s)
-#define println(s)  xprintf(s "\n")
+#define println(s)  xprintf(s "\r\n")
+
 /* TODO: to select output destinations: UART/USBSerial */
 #define print_set_sendchar(func)
 

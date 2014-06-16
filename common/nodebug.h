@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NODEBUG_H
 #define NODEBUG_H 1
 
-#include "debug_config.h"
-
 #define dprint(s)
 #define dprintln(s)
 #define dprintf(fmt, ...)

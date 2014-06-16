@@ -38,14 +38,15 @@ typedef union {
 } debug_config_t;
 debug_config_t debug_config;
 
+#ifdef __cplusplus
+}
+#endif
+
+
 /* for backward compatibility */
 #define debug_enable    (debug_config.enable)
 #define debug_matrix    (debug_config.matrix)
 #define debug_keyboard  (debug_config.keyboard)
 #define debug_mouse     (debug_config.mouse)
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
