@@ -7,7 +7,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/keymap.c \
-	$(COMMON_DIR)/timer.c \
+	$(COMMON_DIR)/avr/timer.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/bootloader.c \
 	$(COMMON_DIR)/suspend.c \

@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
+#include "timer_avr.h"
 #include "timer.h"
 
 

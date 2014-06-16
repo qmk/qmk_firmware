@@ -1,6 +1,7 @@
 #include "mbed.h"
 #include "HIDKeyboard.h"
 #include "debug.h"
+#include "timer.h"
  
 /*
 //#define DEBUG 
@@ -27,11 +28,16 @@ int main(void) {
     //led_red = 0;
     //led_green = 0;
     debug_enable = true;
-    dprintf("HIDKeyboard:\n");
-    print("aaa");
+    dprintf("HIDKeyboard:\r\n");
+
+    timer_init();
+    xprintf("timer: %i\r\n", timer_read());
 
     report_keyboard_t report = { 2, 0, 4, }; //a
     report_keyboard_t report_off = { 0 };
+
+    bool last_isp = isp;
+    uint32_t last_timer;
     while (1) {
         //keyboard.mediaControl(KEY_VOLUME_DOWN);
         //keyboard.printf("Hello World from Mbed\r\n");
@@ -42,14 +48,19 @@ int main(void) {
         //leds = keyboard.lockStatus();
         //ser.putc(ser.getc());
 
+        if (last_isp == isp) continue;
         if (isp == 0) {
             led_red = 0;    // on
-            keyboard.sendReport(report);
+    xprintf("timer: %i\r\n", timer_read32());
+    xprintf("diff: %i\r\n", timer_elapsed32(last_timer));
+            //keyboard.sendReport(report);
         } else {
             led_red = 1;    // off
-            keyboard.sendReport(report_off);
+            //keyboard.sendReport(report_off);
         }
-        led_green = !led_green;
+        last_isp = isp;
+        last_timer = timer_read();
+        //led_green = !led_green;
         //wait(0.5);
     }
 }
