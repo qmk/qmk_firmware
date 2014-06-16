@@ -15,6 +15,7 @@ OBJDIR = ./build
 
 OBJECTS = \
 	$(OBJDIR)/./HIDKeyboard.o \
+	$(OBJDIR)/./mbed_driver.o \
 	$(OBJDIR)/./main.o
 
 SYS_OBJECTS = 

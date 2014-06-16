@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include <avr/interrupt.h>
+//#include <avr/interrupt.h>
 #include "keycode.h"
 #include "host.h"
 #include "util.h"
@@ -55,7 +55,7 @@ void host_keyboard_send(report_keyboard_t *report)
 
     if (debug_keyboard) {
         dprint("keyboard_report: ");
-        for (uint8_t i = 0; i < REPORT_SIZE; i++) {
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
             dprintf("%02X ", report->raw[i]);
         }
         dprint("\n");

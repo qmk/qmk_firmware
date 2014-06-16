@@ -37,7 +37,7 @@
 
 #if defined(__AVR__)
 
-#include "xprintf.h"
+#include "avr/xprintf.h"
 
 
 // TODO: avoid collision with arduino/Print.h

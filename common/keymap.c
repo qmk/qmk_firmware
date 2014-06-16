@@ -28,7 +28,7 @@ static action_t keycode_to_action(uint8_t keycode);
 
 
 /* converts key to action */
-action_t action_for_key(uint8_t layer, key_t key)
+action_t action_for_key(uint8_t layer, keypos_t key)
 {
     uint8_t keycode = keymap_key_to_keycode(layer, key);
     switch (keycode) {
@@ -156,7 +156,7 @@ static action_t keycode_to_action(uint8_t keycode)
  *      Consider using new keymap API instead.
  */
 __attribute__ ((weak))
-uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
+uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     return keymap_get_keycode(layer, key.row, key.col);
 }

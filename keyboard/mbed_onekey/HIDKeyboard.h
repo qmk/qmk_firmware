@@ -3,16 +3,7 @@
 #include "stdint.h"
 #include "stdbool.h"
 #include "USBHID.h"
-
-
-typedef union {
-    uint8_t raw[8];
-    struct {
-        uint8_t mods;
-        uint8_t reserved;
-        uint8_t keys[6];
-    };
-} __attribute__ ((packed)) report_keyboard_t;
+#include "report.h"
 
 
 class HIDKeyboard : public USBDevice {
