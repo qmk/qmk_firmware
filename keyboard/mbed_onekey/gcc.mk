@@ -10,7 +10,8 @@ SIZE 	= $(GCC_BIN)arm-none-eabi-size
 CHKSUM  = ~/Dropbox/MBED/tool/lpc-vector-checksum
 
 CPU = -mcpu=cortex-m0 -mthumb
-CC_FLAGS = $(CPU) -c -g -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections 
+
+CC_FLAGS += $(CPU) -c -g -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections
 CC_FLAGS += -MMD -MP
 CC_SYMBOLS = -DTARGET_LPC11U35_401 -DTARGET_M0 -DTARGET_NXP -DTARGET_LPC11UXX -DTOOLCHAIN_GCC_ARM -DTOOLCHAIN_GCC -D__CORTEX_M0 -DARM_MATH_CM0 -DMBED_BUILD_TIMESTAMP=1399108688.49 -D__MBED__=1 
 

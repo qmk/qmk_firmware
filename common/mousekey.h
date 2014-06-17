@@ -52,12 +52,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-uint8_t mk_delay;
-uint8_t mk_interval;
-uint8_t mk_max_speed;
-uint8_t mk_time_to_max;
-uint8_t mk_wheel_max_speed;
-uint8_t mk_wheel_time_to_max;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern uint8_t mk_delay;
+extern uint8_t mk_interval;
+extern uint8_t mk_max_speed;
+extern uint8_t mk_time_to_max;
+extern uint8_t mk_wheel_max_speed;
+extern uint8_t mk_wheel_time_to_max;
 
 
 void mousekey_task(void);
@@ -65,5 +69,9 @@ void mousekey_on(uint8_t code);
 void mousekey_off(uint8_t code);
 void mousekey_clear(void);
 void mousekey_send(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
