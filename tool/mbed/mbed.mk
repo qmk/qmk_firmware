@@ -89,4 +89,11 @@ INCLUDE_PATHS += \
 	-I$(MBED_DIR)/libraries/USBDevice/USBMSD \
 	-I$(MBED_DIR)/libraries/USBDevice/USBMIDI
 
+OBJECTS += \
+	$(OBJDIR)/protocol/mbed/mbed_driver.o \
+	$(OBJDIR)/protocol/mbed/HIDKeyboard.o \
+
+INCLUDE_PATHS += \
+	-I$(TMK_DIR)/protocol/mbed
+
 LINKER_SCRIPT = $(MBED_DIR)/libraries/mbed/targets/cmsis/TARGET_NXP/TARGET_LPC11UXX/TOOLCHAIN_GCC_ARM/TARGET_LPC11U35_401/LPC11U35.ld
