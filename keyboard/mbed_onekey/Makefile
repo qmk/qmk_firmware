@@ -18,12 +18,20 @@ OBJECTS = \
 	$(OBJDIR)/./mbed_driver.o \
 	$(OBJDIR)/./main.o
 
+CONFIG_H = config.h
+
 SYS_OBJECTS = 
 
 INCLUDE_PATHS = -I.
 
 LIBRARY_PATHS = 
 LIBRARIES = 
+
+# Build Options
+#   Comment out to disable
+#BOOTMAGIC_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+
 
 include mbed.mk
 include common.mk
