@@ -1,21 +1,21 @@
-COMMON_DIR = common
 OBJECTS += \
-	$(OBJDIR)/$(COMMON_DIR)/action.o \
-	$(OBJDIR)/$(COMMON_DIR)/action_tapping.o \
-	$(OBJDIR)/$(COMMON_DIR)/action_macro.o \
-	$(OBJDIR)/$(COMMON_DIR)/action_layer.o \
-	$(OBJDIR)/$(COMMON_DIR)/action_util.o \
-	$(OBJDIR)/$(COMMON_DIR)/host.o \
-	$(OBJDIR)/$(COMMON_DIR)/keymap.o \
-	$(OBJDIR)/$(COMMON_DIR)/keyboard.o \
-	$(OBJDIR)/$(COMMON_DIR)/util.o \
-	$(OBJDIR)/$(COMMON_DIR)/mbed/suspend.o \
-	$(OBJDIR)/$(COMMON_DIR)/mbed/timer.o \
-	$(OBJDIR)/$(COMMON_DIR)/mbed/xprintf.o \
-	$(OBJDIR)/$(COMMON_DIR)/mbed/bootloader.o \
+	$(OBJDIR)/common/action.o \
+	$(OBJDIR)/common/action_tapping.o \
+	$(OBJDIR)/common/action_macro.o \
+	$(OBJDIR)/common/action_layer.o \
+	$(OBJDIR)/common/action_util.o \
+	$(OBJDIR)/common/host.o \
+	$(OBJDIR)/common/keymap.o \
+	$(OBJDIR)/common/keyboard.o \
+	$(OBJDIR)/common/util.o \
+	$(OBJDIR)/common/mbed/suspend.o \
+	$(OBJDIR)/common/mbed/timer.o \
+	$(OBJDIR)/common/mbed/xprintf.o \
+	$(OBJDIR)/common/mbed/bootloader.o \
 
 INCLUDE_PATHS += \
-	-I$(TMK_DIR)/$(COMMON_DIR)
+	-I$(TMK_DIR)/common \
+	-I$(TMK_DIR)/protocol
 
 CC_FLAGS += -include $(CONFIG_H)
 
@@ -24,13 +24,13 @@ CC_FLAGS += -include $(CONFIG_H)
 # Option modules
 ifdef BOOTMAGIC_ENABLE
     $(error Not Supported)
-    OBJECTS += $(OBJDIR)/$(COMMON_DIR)/bootmagic.o
-    OBJECTS += $(OBJDIR)/$(COMMON_DIR)/mbed/eeprom.o
+    OBJECTS += $(OBJDIR)/common/bootmagic.o
+    OBJECTS += $(OBJDIR)/common/mbed/eeprom.o
     OPT_DEFS += -DBOOTMAGIC_ENABLE
 endif
 
 ifdef MOUSEKEY_ENABLE
-    OBJECTS += $(OBJDIR)/$(COMMON_DIR)/mousekey.o
+    OBJECTS += $(OBJDIR)/common/mousekey.o
     OPT_DEFS += -DMOUSEKEY_ENABLE
     OPT_DEFS += -DMOUSE_ENABLE
 endif
@@ -50,7 +50,7 @@ endif
 
 ifdef COMMAND_ENABLE
     $(error Not Supported)
-    SRC += $(COMMON_DIR)/command.c
+    SRC += common/command.c
     OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
@@ -61,14 +61,14 @@ endif
 
 ifdef SLEEP_LED_ENABLE
     $(error Not Supported)
-    SRC += $(COMMON_DIR)/sleep_led.c
+    SRC += common/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
 ifdef BACKLIGHT_ENABLE
     $(error Not Supported)
-    SRC += $(COMMON_DIR)/backlight.c
+    SRC += common/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 
