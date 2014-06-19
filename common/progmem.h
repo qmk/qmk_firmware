@@ -6,6 +6,7 @@
 #elif defined(__arm__)
 #   define PROGMEM
 #   define pgm_read_byte(p)     *(p)
+#   define pgm_read_word(p)     *(p)
 #endif
 
 #endif

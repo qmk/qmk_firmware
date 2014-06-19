@@ -1,4 +1,4 @@
-PROJECT = mbed_onekey
+PROJECT = ps2_usb
 
 TMK_DIR = ../..
 MBED_DIR = $(TMK_DIR)/mbed-sdk
@@ -11,9 +11,20 @@ vpath %.cpp .:$(MBED_DIR):$(TMK_DIR)
 OBJDIR = ./build
 
 OBJECTS = \
+	$(OBJDIR)/protocol/ps2_busywait.o \
+	$(OBJDIR)/protocol/ps2_io_mbed.o \
+	$(OBJDIR)/./keymap_common.o \
+	$(OBJDIR)/./matrix.o \
+	$(OBJDIR)/./led.o \
 	$(OBJDIR)/./main.o
 
-CONFIG_H = config.h
+ifdef KEYMAP
+    OBJECTS := $(OBJDIR)/keymap_$(KEYMAP).o $(OBJECTS)
+else
+    OBJECTS := $(OBJDIR)/keymap_plain.o $(OBJECTS)
+endif
+
+CONFIG_H = config_mbed.h
 
 SYS_OBJECTS = 
 
