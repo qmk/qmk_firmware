@@ -181,8 +181,10 @@ Pressing any key during sleep should wake host.
 Arduino leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
 
-## Using PF4-7 pins of USB AVR(ATMega32U* or AT90USB*)?
-You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
+## Using PF4-7 pins of USB AVR?
+You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affeteced with this.
+
+If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
 
 See this code.
 ```
