@@ -17,6 +17,10 @@ bool HIDKeyboard::sendReport(report_keyboard_t report) {
     return true;
 }
 
+uint8_t HIDKeyboard::leds() {
+    return led_state;
+}
+
 bool HIDKeyboard::USBCallback_setConfiguration(uint8_t configuration) {
     if (configuration != DEFAULT_CONFIGURATION) {
         return false;
@@ -228,29 +232,40 @@ bool HIDKeyboard::USBCallback_request() {
     }
 
     // Process class-specific requests
-/*
     if (transfer->setup.bmRequestType.Type == CLASS_TYPE)
     {
-        switch (transfer->setup.bRequest)
-        {
-             case SET_REPORT:
-                // First byte will be used for report ID
-                //outputReport.data[0] = transfer->setup.wValue & 0xff;
-                //outputReport.length = transfer->setup.wLength + 1;
-                outputReport.length = transfer->setup.wLength;
+        switch (transfer->setup.bRequest) {
+            case SET_REPORT:
+                // LED indicator
+                // TODO: check Interface and Report length?
+                // if (transfer->setup.wIndex == INTERFACE_KEYBOAD) { }
+                // if (transfer->setup.wLength == 1)
 
-                //transfer->remaining = sizeof(outputReport.data) - 1;
-                //transfer->ptr = &outputReport.data[1];
-                transfer->remaining = sizeof(outputReport.data);
-                transfer->ptr = &outputReport.data[0];
+                transfer->remaining = 1;
+                //transfer->ptr = ?? what ptr should be set when OUT(not used?)
                 transfer->direction = HOST_TO_DEVICE;
-                transfer->notify = true;
+                transfer->notify = true;    /* notify with USBCallback_requestCompleted */
                 success = true;
             default:
                 break;
         }
     }
-*/
 
     return success;
+}
+
+void HIDKeyboard::USBCallback_requestCompleted(uint8_t * buf, uint32_t length)
+{
+    if (length > 0) {
+        CONTROL_TRANSFER *transfer = getTransferPtr();
+        if (transfer->setup.bmRequestType.Type == CLASS_TYPE) {
+            switch (transfer->setup.bRequest) {
+                case SET_REPORT:
+                    led_state = buf[0];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
