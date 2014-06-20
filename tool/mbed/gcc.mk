@@ -7,7 +7,7 @@ LD      = $(GCC_BIN)arm-none-eabi-gcc
 OBJCOPY = $(GCC_BIN)arm-none-eabi-objcopy
 OBJDUMP = $(GCC_BIN)arm-none-eabi-objdump
 SIZE 	= $(GCC_BIN)arm-none-eabi-size
-CHKSUM  = ~/Dropbox/MBED/tool/lpc-vector-checksum
+CHKSUM  = $(TMK_DIR)/tool/mbed/lpc-vector-checksum
 
 CPU = -mcpu=cortex-m0 -mthumb
 
