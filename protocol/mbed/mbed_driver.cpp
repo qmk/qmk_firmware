@@ -24,7 +24,7 @@ host_driver_t mbed_driver = {
 
 static uint8_t keyboard_leds(void)
 {
-    return 0;
+    return keyboard.leds();
 }
 static void send_keyboard(report_keyboard_t *report)
 {
