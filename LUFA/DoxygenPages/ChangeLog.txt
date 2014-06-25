@@ -18,6 +18,7 @@
   *   - Fixed incorrect LED driver definitions for the Arduino Leonardo board (thanks to Zoltán Szőke)
   *   - Fixed incorrect XMEGA DFLL reference frequency (thanks to Martin Aakerberg)
   *   - Fixed possible infinite loop in the control endpoint stream write function (thanks to Clayton Knight)
+  *   - Fixed missing HID report ID prefix on HID class driver GetReport request responses (thanks to Bert van Hall)
   *  - Library Applications:
   *   - Fixed spurious 0xFE USART byte sent in the USBtoSerial project when the baud rate is changed (thanks to Carl Kjeldsen)
   *
