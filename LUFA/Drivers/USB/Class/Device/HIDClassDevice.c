@@ -68,6 +68,10 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 				Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 
 				Endpoint_ClearSETUP();
+
+				if (ReportID)
+				  Endpoint_Write_8(ReportID);
+
 				Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
 				Endpoint_ClearOUT();
 			}
