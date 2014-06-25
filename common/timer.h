@@ -20,6 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
+#if defined(__AVR__)
+#include "avr/timer_avr.h"
+#endif
+
+
 #define TIMER_DIFF(a, b, max)   ((a) >= (b) ?  (a) - (b) : (max) - (b) + (a))
 #define TIMER_DIFF_8(a, b)      TIMER_DIFF(a, b, UINT8_MAX)
 #define TIMER_DIFF_16(a, b)     TIMER_DIFF(a, b, UINT16_MAX)
