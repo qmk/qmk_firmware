@@ -48,6 +48,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /*
+ * Hardware Serial(UART)
+ *     Baud rate are calculated with round off(+0.5).
+ */
+#ifdef __AVR_ATmega32U4__
+    /* iom32u4.h has no definition of UCSR1D. copy from iom32u2.h */
+    #define UCSR1D _SFR_MEM8(0xCB)
+    #define RTSEN 0
+    #define CTSEN 1
+
+    #define SERIAL_UART_BAUD       115200
+    #define SERIAL_UART_DATA       UDR1
+    #define SERIAL_UART_UBRR       ((F_CPU/(16.0*SERIAL_UART_BAUD)-1+0.5))
+    #define SERIAL_UART_RXD_VECT   USART1_RX_vect
+    #define SERIAL_UART_TXD_READY  (UCSR1A&(1<<UDRE1))
+    #define SERIAL_UART_INIT()     do { \
+        UBRR1L = (uint8_t) SERIAL_UART_UBRR;       /* baud rate */ \
+        UBRR1H = ((uint16_t)SERIAL_UART_UBRR>>8);  /* baud rate */ \
+        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1); /* RX interrupt, RX: enable */ \
+        UCSR1B |= (0<<TXCIE1) | (1<<TXEN1); /* TX interrupt, TX: enable */ \
+        UCSR1C |= (0<<UPM11) | (0<<UPM10);  /* parity: none(00), even(01), odd(11) */ \
+        UCSR1D |= (0<<RTSEN) | (0<<CTSEN);  /* RTS, CTS */ \
+        sei(); \
+    } while(0)
+#else
+    #error "USART configuration is needed."
+#endif
+
+
+/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */

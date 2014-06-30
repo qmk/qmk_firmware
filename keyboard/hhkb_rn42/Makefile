@@ -52,12 +52,14 @@ TARGET_DIR = .
 SRC +=	keymap_common.c \
 	matrix.c \
 	led.c \
+	serial_uart.c \
+	rn42.c \
 	main.c
 
 ifdef KEYMAP
     SRC := keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := keymap_hhkb.c $(SRC)
+    SRC := keymap_hasu.c $(SRC)
 endif
 
 CONFIG_H = config.h
@@ -123,14 +125,15 @@ MOUSEKEY_ENABLE = yes		# Mouse keys
 EXTRAKEY_ENABLE = yes		# Audio control and System control
 CONSOLE_ENABLE = yes		# Console for debug
 COMMAND_ENABLE = yes    	# Commands for debug and configuration
-NKRO_ENABLE = yes		# USB Nkey Rollover
-KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
+#NKRO_ENABLE = yes		# USB Nkey Rollover
+#KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
 
 
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 
+include $(TOP_DIR)/protocol.mk
 include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
