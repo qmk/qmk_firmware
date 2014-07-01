@@ -139,8 +139,8 @@ static void send_consumer(uint16_t data)
     serial_send(0xFD);  // Raw report mode
     serial_send(3);     // length
     serial_send(3);     // descriptor type
-    serial_send((bits>>8)&0xFF);
     serial_send(bits&0xFF);
+    serial_send((bits>>8)&0xFF);
 }
 
 
