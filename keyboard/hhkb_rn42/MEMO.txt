@@ -4,20 +4,20 @@ Roving RN-42
 
 TODO
 ----
-- USB connection check
-- BT on/off check: whether RX line is pulled up?
-- CTS/RTS lines are needed? just connect in loop back if no flow control is needed.
-- CTS is needed for waking up from deep sleep?
-- USB/BT switching  BT is on -> BT, BT is off -> USB
-
-- Low voltage lock out LVLO of DC converter for protection of Lipo
 - Lipo charger configuration: fast charge time
 - Low voltage alarm: LED indcates voltage of Lipo
-
-- Power saving: HHKB scan, BT radio control
-
+- CTS/RTS lines are needed? just connect in loop back if no flow control is needed.
+- CTS is needed for waking up from deep sleep?
 - Serial API callback  when data are available/received(and when send buffer is available)
 - Serial API instance  several serial ports can be used
+
+DONE:
+- USB connection check - 07.01
+- BT on/off check: whether RX line is pulled up? - checking RTS 07.01
+- USB/BT switching  BT is on -> BT, BT is off -> USB - 07.01
+- Under voltage lock out UVLO for protection of Lipo - Lipo has discharge protection at 3.100V    07.01
+- Power saving: HHKB scan, BT radio control - 9h with 850mAh, this is enough   07.01
+
 
 
 
