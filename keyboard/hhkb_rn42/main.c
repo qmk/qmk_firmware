@@ -121,7 +121,7 @@ int main(void)
         }
 
         /* Bluetooth mode when ready */
-        if (!force_usb) {
+        if (!config_mode && !force_usb) {
             if (rn42_ready() && host_get_driver() != &rn42_driver) {
                 clear_keyboard();
                 host_set_driver(&rn42_driver);
