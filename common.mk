@@ -48,6 +48,10 @@ ifdef NKRO_ENABLE
     OPT_DEFS += -DNKRO_ENABLE
 endif
 
+ifdef USB_6KRO_ENABLE
+    OPT_DEFS += -DUSB_6KRO_ENABLE
+endif
+
 ifdef SLEEP_LED_ENABLE
     SRC += $(COMMON_DIR)/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
