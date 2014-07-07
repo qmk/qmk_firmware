@@ -4,12 +4,16 @@ Roving RN-42
 
 TODO
 ----
-- Lipo charger configuration: fast charge time
+- Lipo voltage ADC sensing
+- Lipo charger configuration: fast charge time:  USB charger spec?
 - Low voltage alarm: LED indcates voltage of Lipo
 - CTS/RTS lines are needed? just connect in loop back if no flow control is needed.
 - CTS is needed for waking up from deep sleep?
 - Serial API callback  when data are available/received(and when send buffer is available)
 - Serial API instance  several serial ports can be used
+- DCDC converter: squeaky inducter with onsemi NCP1402
+- Lipo charger MCP73831: needs capacitor 4.7uF *2
+- Keymap layer bug: during space is pressed(mousekey) press Fn(HHKB) then release space before Fn, in result HHKB layer is locked(toggled) unintentionally.
 
 DONE:
 - USB connection check - 07.01
@@ -17,6 +21,7 @@ DONE:
 - USB/BT switching  BT is on -> BT, BT is off -> USB - 07.01
 - Under voltage lock out UVLO for protection of Lipo - Lipo has discharge protection at 3.100V    07.01
 - Power saving: HHKB scan, BT radio control - 9h with 850mAh, this is enough   07.01
+- Power selector doesn't work; Q4 MOSFET leaks from Lipo to USB power line. -- use Schottky instead 07/04
 
 
 
