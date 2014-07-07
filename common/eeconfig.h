@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYMAP_NO_GUI                      (1<<4)
 #define EECONFIG_KEYMAP_SWAP_GRAVE_ESC              (1<<5)
 #define EECONFIG_KEYMAP_SWAP_BACKSLASH_BACKSPACE    (1<<6)
+#define EECONFIG_KEYMAP_NKRO                        (1<<7)
 
 
 bool eeconfig_is_enabled(void);
