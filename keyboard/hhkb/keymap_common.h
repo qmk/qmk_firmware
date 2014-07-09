@@ -54,4 +54,31 @@ extern const uint16_t fn_actions[];
     { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    } \
 }
 
+
+#define KEYMAP_JP( \
+    K02, K32, K62, K22, K12, K52, K72, KA2, K92, K82, KB2, KE2, KF2, KD2, KC2, \
+    K03, K63, K23, K13, K53, K73, KA3, K93, K83, KB3, KE3, KF3, KD3, \
+    K06, K66, K26, K16, K56, K76, KA6, K96, K86, KB6, KE6, KF6, KD6, KC6, \
+    K05, K65, K25, K15, K55, K75, KA5, K95, K85, KB5, KE5, KF5, KD5, KC5, \
+    K04, K34, K64, K24, K14,      K74,      K94, K84, KB4, KE4, KF4, KD4, KC4 \
+) \
+{ \
+    { KC_NO,    KC_NO,    KC_##K02, KC_##K03, KC_##K04, KC_##K05, KC_##K06, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K32, KC_NO,    KC_##K34, KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K52, KC_##K53, KC_NO,    KC_##K55, KC_##K56, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K62, KC_##K63, KC_##K64, KC_##K65, KC_##K66, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K82, KC_##K83, KC_##K84, KC_##K85, KC_##K86, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##K92, KC_##K93, KC_##K94, KC_##K95, KC_##K96, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KA2, KC_##KA3, KC_NO,    KC_##KA5, KC_##KA6, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KB2, KC_##KB3, KC_##KB4, KC_##KB5, KC_##KB6, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KC2, KC_NO,    KC_##KC4, KC_##KC5, KC_##KC6, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KD2, KC_##KD3, KC_##KD4, KC_##KD5, KC_##KD6, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KE2, KC_##KE3, KC_##KE4, KC_##KE5, KC_##KE6, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_##KF2, KC_##KF3, KC_##KF4, KC_##KF5, KC_##KF6, KC_NO    }  \
+}
+
 #endif
