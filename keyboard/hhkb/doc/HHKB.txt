@@ -162,7 +162,7 @@ Matrix diagram:
 
 Signals charts
 --------------
-    While pressing space bar, watched HHKB original controller signals by logic analyzer.
+    While pressing space bar, watched HHKB Pro original controller signals by logic analyzer.
     Row and column is looping between 0-7 each for selecting a key.
     A key is scaned every about 15ms, so scan rate is 66Hz.
 
@@ -171,71 +171,32 @@ Signals charts
     Space bar locate at ROW:3 COL:7. A key is selected by HC4051(C,B,A) and LS145(C,B,A).
     Key state can be read on TP1684(4/KEY) while asserting low on LS145(D). 
 
-    Usage of TP1684(5) is not clear. Controller seemed to output previous key state on this line.
-    However key state can be read without using this signal.
-
     (HHKB_chart2.jpg)
 
-5us after setting colA-C
-colA   _~~~~~~~~~~~~~~~~~~
-prev    _~~~~_____          20us if previous key state is low
-colD    ~~~__~~~~~          10us column enabled
-key     ~~~____~~~          22us hold state of the key
 
-prev    ____~~~~__________  20us(JP)/17us(Pro2)
-key     ~~~~~~_____~~~~~~~  22us
-colD    ~~~~~~__~~~~~~~~~~  10us(LS175)
+    Signal of JP:
 
-colC    ____~~~~____~~~~    550/410us(JP)
-colB    __~~__~~__~~__~~    200/210us(JP)
-colA    _~_~_~_~_~_~_~_~    100/110us(JP)   200/210us(Pro2)
-        0123456701234567    selected column
+    1) Select row
+    rowC    ____~~~~____~~~~    3.8/3.8ms(JP) 7.7/7.7ms(Pro)   S2 of HC4051
+    rowB    __~~__~~__~~__~~    1.9/1.9ms(JP) 3.8/3.8ms(Pro)   S1 of HC4051
+    rowA    _~_~_~_~_~_~_~_~    1.0/1.0ms(JP) 1.9/1.9ms(Pro)   S0 of HC4051
+            0123456701234567    selected row(Pro)
+            0123456789ABCDEF    selected row(JP)
+    rowEn0  ________~~~~~~~~    7.7/7.7ms(JP only)              ~Enable of Z2 HC4051(JP only)
+    rowEn1  ~~~~~~~~________    7.7/7.7ms(JP only)              ~Enable of Z3 HC4051(JP only)
 
-rowC    ____~~~~____~~~~    3.8/3.8ms(JP)   S2 of HC4051
-rowB    __~~__~~__~~__~~    1.9/1.9ms(JP)   S1 of HC4051
-rowA    _~_~_~_~_~_~_~_~    1.0/1.0ms(JP)   S0 of HC4051
-        0123456701234567    selected row(Pro/Pro2)
-        0123456789ABCDEF    selected row(JP)
-rowEn0  ________~~~~~~~~    7.7/7.7ms   ~Enable of Z2 HC4051(JP only)
-rowEn1  ~~~~~~~~________    7.7/7.7ms   ~Enable of Z3 HC4051(JP only)
+    2) Select column
+    colC    ____~~~~____~~~~    550/410us(JP)      /   us(Pro)
+    colB    __~~__~~__~~__~~    200/210us(JP)   450/460us(Pro)
+    colA    _~_~_~_~_~_~_~_~    100/110us(JP)   220/230us(Pro)
+            0123456701234567    selected column
 
-NOTE: JP scans twice fast as Pro2 does. So Pro2 scan 8x8 matrix in 15.4ms while JP can 16x8 in that time.
+    3) Wait 5us after column select, then set prev, strobe colD to spit out key status and read it.
+    prev    _~~~~_____          20us if previous key state is low
+    colD    ~~~__~~~~~          10us strobe
+    key     ~~~____~~~          22us indicates current state of the key
 
-
-
-
-Matrix scan pseudo code
------------------------
-    for (row: 0-7) {
-        SELECT_ROW(row);        // set HC4051(A,B,C)
-
-        for (col: 0-7) {
-            SELECT_COL(col);    // set LS145(A,B,C)
-
-            _delay_us(40);
-
-            if (prev_key_state(row, col)) {
-                KEY_PREV_ON;
-            }
-
-            _delay_us(7);
-
-            ENALBLE_COL();      // set LS145(D) to low
-
-            _delay_us(10);
-
-            if (KEY == 0) {     // read TP1684(KEY)
-                // key pressed
-            } else {
-                // not pressed
-            }
-
-            KEY_PREV_OFF;
-            UNALBLE_COL();      // set LS145(D) to high
-
-            _delay_us(150);
-        }
-    }
+    NOTE: JP scans twice fast as Pro/Pro2 does. So Pro/Pro2 scans 8x8 matrix in 15.4ms while JP scans 16x8 in that time.
 
 
 
