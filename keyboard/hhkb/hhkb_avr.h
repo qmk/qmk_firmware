@@ -71,13 +71,14 @@ static inline void KEY_SELECT(uint8_t ROW, uint8_t COL)
 
 
 #elif defined(__AVR_AT90USB1286__)
-/* 
+/*
  * For Teensy++(AT90USB1286)
  *
- * row:     PB0-2
- * col:     PB3-5,6
- * key:     PE6(pull-uped)
- * prev:    PE7
+ *                          HHKB pro    HHKB pro2
+ * row:     PB0-2           (6-8)       (5-7)
+ * col:     PB3-5,6         (9-12)      (8-11)
+ * key:     PE6(pull-uped)  (4)         (3)
+ * prev:    PE7             (5)         (4)
  *
  * TODO: convert into 'staitc inline' function
  */
