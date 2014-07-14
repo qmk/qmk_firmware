@@ -53,6 +53,7 @@ SRC +=	keymap_common.c \
 	matrix.c \
 	led.c \
 	serial_uart.c \
+	suart.S \
 	rn42.c \
 	main.c
 

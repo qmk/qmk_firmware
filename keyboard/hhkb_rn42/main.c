@@ -12,9 +12,15 @@
 #include "action.h"
 #include "action_util.h"
 #include "wait.h"
-
+#include "suart.h"
 
 bool config_mode = false;
+
+static int8_t sendchar_func(uint8_t c)
+{
+    sendchar(c);    // LUFA
+    xmit(c);        // SUART
+}
 
 static void SetupHardware(void)
 {
@@ -32,7 +38,16 @@ static void SetupHardware(void)
 
     // for Console_Task
     USB_Device_EnableSOFEvents();
-    print_set_sendchar(sendchar);
+    print_set_sendchar(sendchar_func);
+
+    // SUART PD0:output, PD1:input
+    DDRD |= (1<<0);
+    PORTD |= (1<<0);
+    DDRD &= ~(1<<1);
+    PORTD |= (1<<1);
+
+    // CTS control
+    CTS_INIT();
 }
 
 static bool force_usb = false;
@@ -70,6 +85,12 @@ int main(void)
     sleep_led_init();
 #endif
 
+    // ADC for battery
+    //ADMUX = (1<<REFS0); // Ref:AVCC, Input:ADC0(PF0)
+    ADMUX = (1<<REFS1) | (1<<REFS0); // Ref:AVCC, Input:ADC0(PF0)
+    ADCSRA = (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0); // Prescale:128
+    ADCSRA |= (1<<ADEN); // enable ADC
+
     print("Keyboard start.\n");
     while (1) {
 /*
@@ -89,7 +110,12 @@ int main(void)
 
         int16_t c;
         if (config_mode) {
-            while ((c = serial_recv2()) != -1) xprintf("%c", c);
+            while ((c = serial_recv2()) != -1) {
+                // without flow control it'll fail to receive data when flooded
+                CTS_HI();
+                xprintf("%c", c);
+                CTS_LO();
+            }
         } else {
             while ((c = serial_recv2()) != -1) {
                 // LED Out report: 0xFE, 0x02, 0x01, <leds>
@@ -146,6 +172,7 @@ bool command_extra(uint8_t code)
             print("a:   Bluetooth auto connect\n");
             print("del: Bluetooth disconnect\n");
             print("i:   info\n");
+            print("b:   battery voltage\n");
 
             if (config_mode) {
                 return true;
@@ -207,6 +234,22 @@ bool command_extra(uint8_t code)
             xprintf("force_usb: %X\n", force_usb);
             xprintf("rn42_ready(): %X\n", rn42_ready());
             xprintf("config_mode: %X\n", config_mode);
+            return true;
+        case KC_B:
+            // battery monitor
+            ADCSRA |= (1<<ADEN) | (1<<ADSC);
+            while (ADCSRA & (1<<ADSC)) ;
+            uint16_t bat = ADCL;
+            bat = ADCH<<8 | bat;
+            xprintf("BAT: %04X\n", bat);
+
+            ADCSRA |= (1<<ADEN) | (1<<ADSC);
+            while (ADCSRA & (1<<ADSC)) ;
+            bat = ADCL;
+            bat = ADCH<<8 | bat;
+            xprintf("BAT: %04X\n", bat);
+
+            ADCSRA &= ~(1<<ADEN);
             return true;
         default:
             if (config_mode)
