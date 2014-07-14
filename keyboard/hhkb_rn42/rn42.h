@@ -3,6 +3,11 @@
 
 #include <stdbool.h>
 
+// RN-42 CTS pin
+#define CTS_INIT()  (DDRD  |=  (1<<5))
+#define CTS_HI()    (PORTD |=  (1<<5))
+#define CTS_LO()    (PORTD &= ~(1<<5))
+
 host_driver_t rn42_driver;
 host_driver_t rn42_config_driver;
 
