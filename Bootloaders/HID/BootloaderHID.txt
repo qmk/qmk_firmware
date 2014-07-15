@@ -59,6 +59,12 @@
  *  \warning <b>THIS BOOTLOADER IS NOT SECURE.</b> Malicious entities can recover written data, even if the device
  *           lockbits are set.
  *
+ *  \section Sec_Running Running the Bootloader
+ *
+ *  This bootloader is designed to be started via the HWB mechanism of the USB AVRs; ground the HWB pin (see device
+ *  datasheet) then momentarily ground /RESET to start the bootloader. This assumes the HWBE fuse is set and the BOOTRST
+ *  fuse is cleared.
+ *
  *  \section Sec_Installation Driver Installation
  *
  *  This bootloader uses the HID class driver inbuilt into all modern operating systems, thus no additional drivers
