@@ -133,8 +133,8 @@ int main(void)
 			}
 		}
 
-		/* Load the next byte from the USART transmit buffer into the USART */
-		if (!(RingBuffer_IsEmpty(&USBtoUSART_Buffer)))
+		/* Load the next byte from the USART transmit buffer into the USART if transmit buffer space is available */
+		if (Serial_IsSendReady() && !(RingBuffer_IsEmpty(&USBtoUSART_Buffer)))
 		  Serial_SendByte(RingBuffer_Remove(&USBtoUSART_Buffer));
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
