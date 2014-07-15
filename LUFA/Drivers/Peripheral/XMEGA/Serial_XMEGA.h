@@ -216,7 +216,36 @@
 				return ((USART->STATUS & USART_RXCIF_bm) ? true : false);
 			}
 
+			/** Indicates whether there is hardware buffer space for a new transmit on the USART. This
+			 *  function can be used to determine if a call to \ref Serial_SendByte() will block in advance.
+			 *
+			 *  \param[in,out] USART  Pointer to the base of the USART peripheral within the device.
+			 *
+			 *  \return Boolean \c true if a character can be queued for transmission immediately, \c false otherwise.
+			 */
+			static inline bool Serial_IsSendReady(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+			static inline bool Serial_IsSendReady(USART_t* const USART)
+			{
+				return (USART->STATUS & USART_DREIF_bm) ? true : false);
+			}
+
+			/** Indicates whether the hardware USART transmit buffer is completely empty, indicating all
+			 *  pending transmissions have completed.
+			 *
+			 *  \param[in,out] USART  Pointer to the base of the USART peripheral within the device.
+			 *
+			 *  \return Boolean \c true if no characters are buffered for transmission, \c false otherwise.
+			 */
+			static inline bool Serial_IsSendComplete(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
+			static inline bool Serial_IsSendComplete(USART_t* const USART)
+			{
+				return (USART->STATUS & USART_TCXIF_bm) ? true : false);
+			}
+
 			/** Transmits a given byte through the USART.
+			 *
+			 *  \note If no buffer space is available in the hardware USART, this function will block. To check if
+			 *        space is available before calling this function, see \ref Serial_IsSendReady().
 			 *
 			 *  \param[in,out] USART     Pointer to the base of the USART peripheral within the device.
 			 *  \param[in]     DataByte  Byte to transmit through the USART.
@@ -226,7 +255,7 @@
 			static inline void Serial_SendByte(USART_t* const USART,
 			                                   const char DataByte)
 			{
-				while (!(USART->STATUS & USART_DREIF_bm));
+				while (!(Serial_IsSendReady(USART));
 				USART->DATA = DataByte;
 			}
 

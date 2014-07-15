@@ -10,6 +10,7 @@
   *  <b>New:</b>
   *  - Core:
   *   - Updated the BUILD build system module to add a new COMPILER_PATH optional variable
+  *   - Added Serial_IsSendReady() and Serial_IsSendComplete() functions to the Serial hardware peripheral driver
   *
   *  <b>Fixed:</b>
   *  - Core:
