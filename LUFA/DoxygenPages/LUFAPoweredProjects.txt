@@ -216,8 +216,8 @@
  *  The following are unofficial forks of the LUFA codebase, which implement different features such as support for
  *  additional architectures.
  *
- *  \li NXP's official "nxpusblib" LUFA fork, for LPC devices: http://www.lpcware.com/content/project/nxpusblib
+ *  \li NXP's official LPCOpen "LPCUSBLib" LUFA fork, for LPC devices: http://www.lpcware.com/
  *  \li Kevin Mehall's LUFA port to the NXP LPC13xx: https://github.com/kevinmehall/LUFA-LPC13xx
- *  \li Mark Ding's port for the Silabs SiM3U1xx: https://www.github.com/MarkDing/USB_CDC
- *
+ *  \li Mark Ding's port for the Silicon Labs SiM3U1xx: https://www.github.com/MarkDing/USB_CDC
+ *  \li Mark Ding's port for the Silicon Labs EFM32 Giant Gecko: https://github.com/MarkDing/lufa-efm32
  */
