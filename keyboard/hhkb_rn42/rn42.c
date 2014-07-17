@@ -24,17 +24,17 @@ host_driver_t rn42_driver = {
 
 void rn42_init(void)
 {
-    // PF1: check RTS(active low)
-    DDRF &= ~(1<<1);
-    PORTF &= ~(1<<1);
-
     // PF7: BT connection control(HiZ: connect, low: disconnect)
     // JTAG disable for PORT F. write JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
     rn42_autoconnect();
 
-    // PD5: CTS    (low: allow to send, high:not allowed)
+    // PF1: RTS(low: allowed to send, high: not allowed)
+    DDRF &= ~(1<<1);
+    PORTF &= ~(1<<1);
+
+    // PD5: CTS(low: allow to send, high:not allow)
     DDRD |= (1<<5);
     PORTD &= ~(1<<5);
 
@@ -46,22 +46,43 @@ void rn42_putc(uint8_t c)
     serial_send(c);
 }
 
+bool rn42_autoconnecting(void)
+{
+    // GPIO6 for control connection(high: auto connect, low: disconnect)
+    // Note that this needs config: SM,4(Auto-Connect DTR Mode)
+    return (PORTF & (1<<7) ? true : false);
+}
+
 void rn42_autoconnect(void)
 {
-    DDRF &= ~(1<<7);
-    PORTF &= ~(1<<7);
+    // hi to auto connect
+    DDRF |= (1<<7);
+    PORTF |= (1<<7);
 }
 
 void rn42_disconnect(void)
 {
+    // low to disconnect
     DDRF |= (1<<7);
     PORTF &= ~(1<<7);
 }
 
-bool rn42_ready(void)
+bool rn42_rts(void)
 {
-    // RTS low
-    return PINF&(1<<1) ? false : true;
+    // low when RN-42 is powered and ready to receive
+    return PINF&(1<<1);
+}
+
+void rn42_cts_hi(void)
+{
+    // not allow to send
+    PORTD |= (1<<5);
+}
+
+void rn42_cts_lo(void)
+{
+    // allow to send
+    PORTD &= ~(1<<5);
 }
 
 
