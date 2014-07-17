@@ -1,3 +1,4 @@
+#include <avr/io.h>
 #include "host.h"
 #include "host_driver.h"
 #include "serial.h"

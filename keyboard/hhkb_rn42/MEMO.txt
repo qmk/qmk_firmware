@@ -1,9 +1,13 @@
 Roving RN-42
 ============
+07/16   After fix of voltage dividor on GPIO6, had a trouble that it could not send a char to BT module, though could receive.
+        Found R8 had wrong 1K resistor and changed to 10K, after that it can send to the module again. Not sure how it had sent with the wrong 1K before.
+
 
 
 TODO
 ----
+- Factroy reset doesn't work; need to test again. 10K pull-up is too high?
 - Lipo voltage ADC sensing
 - Lipo charger configuration: fast charge time:  USB charger spec?
 - Low voltage alarm: LED indcates voltage of Lipo
@@ -34,43 +38,10 @@ Ver 6.15 04/26/2013
 BTA=0006664B3AE3
 BTName=tmkBT-3AE3
 Baudrt(SW4)=115K
-Mode  =Pair
-Authen=2
-Bonded=1
-Rem=001BDC06415B
-***ADVANCED Settings***
-SrvName= keyboard/mouse
-SrvClass=0000
-DevClass=05C0
-InqWindw=0100
-PagWindw=0100
-CfgTimer=255
-StatuStr=NULL
-HidFlags=3f
-DTRtimer=8
-KeySwapr=0
-***OTHER Settings***
-Profile= HID
-CfgChar= $
-SniffEna=0
-LowPower=0
-TX Power=4
-IOPorts= 0
-IOValues=0
-Sleeptmr=0
-DebugMod=0
-RoleSwch=0
-
-Ver 6.15 04/26/2013
-(c) Roving Networks
-***Settings***
-BTA=0006664B3AE3
-BTName=tmkBT-3AE3
-Baudrt(SW4)=115K
 Mode  =DTR
 Authen=2
 Bonded=0
-Rem=BCF5AC9BCB7E
+Rem=000000000000
 ***ADVANCED Settings***
 SrvName= keyboard/mouse
 SrvClass=0000
@@ -79,15 +50,15 @@ InqWindw=0100
 PagWindw=0100
 CfgTimer=255
 StatuStr=NULL
-HidFlags=3f
+HidFlags=3c
 DTRtimer=8
 KeySwapr=0
 ***OTHER Settings***
 Profile= HID
 CfgChar= $
-SniffEna=0
+SniffEna=8010
 LowPower=0
-TX Power=ffe8
+TX Power=0
 IOPorts= 0
 IOValues=0
 Sleeptmr=0
@@ -95,27 +66,38 @@ DebugMod=0
 RoleSwch=0
 
 
-command mode
-------------
-To enter command mode disconnect the module from host and type '$$$'.(you will see 'CMD')
-To exit type '---'.(you will see 'END')
 
+Serial connection
+-----------------
 Serial line:    115200bps, 8bit, 1-stopbit, non-parity, no flow control
 SSP:            115200bps, 8bit, 1-stopbit, non-parity, no flow control(via Bluetooth)
 
+To enter command mode disconnect the module from host and type '$$$'.(you will see 'CMD')
+To exit type '---'(you will see 'END') and '+' to get local echo.
 
-S-,tmkBT        // Device name
-SH,0038         // HID register
+
+
+Setting command mode
+--------------------
+S-,tmkBT            // Device name
+SS,keyboard/mouse   // service name
+SM,4                // Auto Connect DTR mode
+SW,8010             // Sniff enable 0x10*0.625ms=10ms; 50ms is laggish and not much power save
+S~,6                // HID profile
+SH,003C             // HID register
+SY,0004             // Transmit power
+
+
+
+
+Other options:
 SC,0000         // COD: 000005C0    (see HID spec/Bluegiga doc)
 SD,05C0         //     bit 12-8         7           6           5-0
                 //         00101        1           1           0
                 //         peripheral   pointing    keybaord    joystick, gamepad, ...
-S~,6            // HID profile
-SS,keyboard/mouse   // service name
 SM,6                // Pairing mode: auto connect
 SM,4                // Master mode: Connection can be controled with GPIO6
 
-SY,FEE8             // lower power -20dbM
 
 
 
@@ -197,7 +179,7 @@ Sniff mode                  Transmit
 
 Deep sleep                  Idle            (3.1.2)
     In this mode the module shuts down completly and only draws about 300uA. To enable this set the most signifant bit(0x8000) of Sniff interaval timer.
-    SW,8320     // deep sleep enable(interval=0x320*0.625ms)
+    SW,8320     // deep sleep enable(interval=0x320*0.625=500ms)
     In normal sleep the firmware is still running in idle mode, and wakes up about 20 times per second to check ports, update LEDs, etc. During deep sleep, the firmware actually stops runnig some tasks and the LEDs only update about once per second.
     To wake from deep sleep there are three ways: (in worst case wake up takes 5ms)
         *send a charactor to the UART(first charactor will be lost)

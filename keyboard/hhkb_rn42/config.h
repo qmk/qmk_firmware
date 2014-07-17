@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCAFE
+#define PRODUCT_ID      0x4242
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         HHKB mod

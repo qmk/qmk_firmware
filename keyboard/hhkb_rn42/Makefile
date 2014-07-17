@@ -55,6 +55,7 @@ SRC +=	keymap_common.c \
 	serial_uart.c \
 	suart.S \
 	rn42.c \
+	rn42_task.c \
 	main.c
 
 ifdef KEYMAP
