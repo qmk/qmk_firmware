@@ -45,9 +45,6 @@ static void SetupHardware(void)
     PORTD |= (1<<0);
     DDRD &= ~(1<<1);
     PORTD |= (1<<1);
-
-    // CTS control
-    CTS_INIT();
 }
 
 static bool force_usb = false;
@@ -75,7 +72,7 @@ int main(void)
     /* init modules */
     keyboard_init();
 
-    if (rn42_ready()) {
+    if (!rn42_rts()) {
         host_set_driver(&rn42_driver);
     } else {
         host_set_driver(&lufa_driver);
@@ -112,9 +109,9 @@ int main(void)
         if (config_mode) {
             while ((c = serial_recv2()) != -1) {
                 // without flow control it'll fail to receive data when flooded
-                CTS_HI();
+                rn42_cts_hi();
                 xprintf("%c", c);
-                CTS_LO();
+                rn42_cts_lo();
             }
         } else {
             while ((c = serial_recv2()) != -1) {
@@ -148,10 +145,10 @@ int main(void)
 
         /* Bluetooth mode when ready */
         if (!config_mode && !force_usb) {
-            if (rn42_ready() && host_get_driver() != &rn42_driver) {
+            if (!rn42_rts() && host_get_driver() != &rn42_driver) {
                 clear_keyboard();
                 host_set_driver(&rn42_driver);
-            } else if (!rn42_ready() && host_get_driver() != &lufa_driver) {
+            } else if (rn42_rts() && host_get_driver() != &lufa_driver) {
                 clear_keyboard();
                 host_set_driver(&lufa_driver);
             }
@@ -159,7 +156,10 @@ int main(void)
     }
 }
 
-static bool local_echo = false;
+
+/******************************************************************************
+ * Command
+ ******************************************************************************/
 bool command_extra(uint8_t code)
 {
     static host_driver_t *prev_driver = &rn42_driver;
@@ -167,44 +167,35 @@ bool command_extra(uint8_t code)
         case KC_H:
         case KC_SLASH: /* ? */
             print("\n\n----- Bluetooth RN-42 Help -----\n");
-            print("w:   toggle RN-42 config mode(enter/exit)\n");
-            print("l:   toggle print module output(local echo)\n");
-            print("a:   Bluetooth auto connect\n");
-            print("del: Bluetooth disconnect\n");
-            print("i:   info\n");
+            print("Del: auto_connect/disconnect(enter/exit config mode)\n");
+            print("i:   RN-42 info\n");
             print("b:   battery voltage\n");
 
             if (config_mode) {
                 return true;
             } else {
-                print("u:   force USB mode\n");
+                print("u:   Force USB mode\n");
                 return false;   // to display default command help
             }
-        case KC_W:
-            if (!config_mode) {
-                print("\nEnter RN-42 config mode\n");
-                print("type $$$ to enter RN-42 command mode\n");
-                print("type Delete to disconnect Bluetooth connection\n");
+        case KC_DELETE:
+            if (rn42_autoconnecting()) {
+                rn42_disconnect();
+                print("\nRN-42: disconnect\n");
+                print("Enter config mode\n");
+                print("type $$$ to start and + for local echo\n");
                 command_state = CONSOLE;
                 config_mode = true;
                 prev_driver = host_get_driver();
                 clear_keyboard();
-                host_set_driver(&rn42_config_driver);
+                host_set_driver(&rn42_config_driver);   // null driver; not to send a key to host
             } else {
-                print("\nExit RN-42 config mode\n");
+                rn42_autoconnect();
+                print("\nRN-42: auto_connect\n");
+                print("Exit config mode\n");
                 command_state = ONESHOT;
                 config_mode = false;
                 clear_keyboard();
                 host_set_driver(prev_driver);
-            }
-            return true;
-        case KC_L:
-            if (local_echo) {
-                print("local echo off\n");
-                local_echo = false;
-            } else {
-                print("local echo on\n");
-                local_echo = true;
             }
             return true;
         case KC_U:
@@ -219,20 +210,12 @@ bool command_extra(uint8_t code)
                 host_set_driver(&lufa_driver);
             }
             return true;
-        case KC_A:
-            print("auto connect\n");
-            rn42_autoconnect();
-            return true;
-        case KC_DELETE:
-            print("disconnect\n");
-            rn42_disconnect();
-            //rn42_putc('\0');    // see 5.3.4.4 DISCONNECT KEY of User's Guide
-            return true;
         case KC_I:
-            print("\nRN-42 info\n");
+            print("\n----- RN-42 info -----\n");
             xprintf("protocol: %s\n", (host_get_driver() == &rn42_driver) ? "RN-42" : "LUFA");
             xprintf("force_usb: %X\n", force_usb);
-            xprintf("rn42_ready(): %X\n", rn42_ready());
+            xprintf("rn42_autoconnecting(): %X\n", rn42_autoconnecting());
+            xprintf("rn42_rts(): %X\n", rn42_rts());
             xprintf("config_mode: %X\n", config_mode);
             return true;
         case KC_B:
@@ -266,7 +249,6 @@ bool command_console_extra(uint8_t code)
     switch (code) {
         default:
             rn42_putc(code2asc(code));
-            if (local_echo) xprintf("%c", code2asc(code));
             return true;
     }
     return false;
