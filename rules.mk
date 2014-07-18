@@ -565,6 +565,7 @@ $(OBJDIR)/%.o : %.cpp
 # Assemble: create object files from assembler source files.
 $(OBJDIR)/%.o : %.S
 	@echo
+	mkdir -p $(@D)
 	@echo $(MSG_ASSEMBLING) $<
 	$(CC) -c $(ALL_ASFLAGS) $< -o $@
 

@@ -13,6 +13,7 @@
 #include "action_util.h"
 #include "wait.h"
 #include "suart.h"
+#include "suspend.h"
 
 static int8_t sendchar_func(uint8_t c)
 {

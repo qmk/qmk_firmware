@@ -2,6 +2,7 @@ Roving RN-42
 ============
 07/16   After fix of voltage dividor on GPIO6, had a trouble that it could not send a char to BT module, though could receive.
         Found R8 had wrong 1K resistor and changed to 10K, after that it can send to the module again. Not sure how it had sent with the wrong 1K before.
+07/18   On Linux, had an USB related trouble; keyobard or console didn't work for some reason. Changing PID cured this problem. Very annoying, took very long time before resolved it.
 
 
 
@@ -27,6 +28,28 @@ DONE:
 - Power saving: HHKB scan, BT radio control - 9h with 850mAh, this is enough   07.01
 - Power selector doesn't work; Q4 MOSFET leaks from Lipo to USB power line. -- use Schottky instead 07/04
 
+
+Lipo
+----
+Sparkfun Polymer Lithium Ion Battery 850mAh:
+https://www.sparkfun.com/products/341
+Lipo Cell spec:
+https://www.sparkfun.com/datasheets/Batteries/063048%20Li-polymer.pdf
+Protection spec:
+http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/BatteryProtection.pdf
+                            min     typical max
+over-charge                 4.255   4.280   4.305
+over-charge discover?       4.030   4.080   4.130        
+over-discharge              2.827   2.900   2.973
+over-discharge discover     3.022   3.100   3.178
+
+ADC voltage monitor:    voltage divider 10K+10K(0.5)
+    ADC=V*0.5/2.56*1024
+    V       ADC
+    ------------------
+    4.20    0x347(839)
+    3.10    0x26b(619)
+    
 
 
 
