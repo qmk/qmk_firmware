@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "rn42.h"
 
+void rn42_task_init(void);
 void rn42_task(void);
 
 #endif

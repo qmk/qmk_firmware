@@ -51,12 +51,7 @@ TARGET_DIR = .
 # List C source files here. (C dependencies are automatically generated.)
 SRC +=	keymap_common.c \
 	matrix.c \
-	led.c \
-	serial_uart.c \
-	suart.S \
-	rn42.c \
-	rn42_task.c \
-	main.c
+	led.c
 
 ifdef KEYMAP
     SRC := keymap_$(KEYMAP).c $(SRC)
@@ -135,6 +130,7 @@ COMMAND_ENABLE = yes    	# Commands for debug and configuration
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 
+include rn42.mk
 include $(TOP_DIR)/protocol.mk
 include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
