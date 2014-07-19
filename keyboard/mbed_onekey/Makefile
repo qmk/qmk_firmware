@@ -25,7 +25,7 @@ LIBRARIES =
 # Build Options
 #   Comment out to disable
 #BOOTMAGIC_ENABLE = yes
-MOUSEKEY_ENABLE = yes
+#MOUSEKEY_ENABLE = yes
 
 
 include $(TMK_DIR)/tool/mbed/mbed.mk
