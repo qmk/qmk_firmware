@@ -8,6 +8,7 @@ Roving RN-42
 
 TODO
 ----
+- LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
 - Factroy reset doesn't work; need to test again. 10K pull-up is too high?
 - Lipo voltage ADC sensing
 - Lipo charger configuration: fast charge time:  USB charger spec?

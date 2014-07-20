@@ -56,9 +56,7 @@ void rn42_task(void)
         // Config mode: print output from RN-42
         while ((c = serial_recv2()) != -1) {
             // without flow control it'll fail to receive data when flooded
-            rn42_cts_hi();
             xprintf("%c", c);
-            rn42_cts_lo();
         }
     } else {
         // Raw mode: interpret output report of LED state
