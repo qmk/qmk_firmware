@@ -109,14 +109,24 @@ void USB_Disable(void)
 
 void USB_ResetInterface(void)
 {
+	uint8_t PrescalerNeeded;
+	uint8_t nbit = 0;
+
 	#if defined(USB_DEVICE_OPT_FULLSPEED)
 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
-	  CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
+	  PrescalerNeeded = F_USB / 6000000;
 	else
-	  CLK.USBCTRL = (((F_USB / 48000000) - 1) << CLK_USBPSDIV_gp);
+	  PrescalerNeeded = F_USB / 48000000;
 	#else
-	CLK.USBCTRL = (((F_USB / 6000000) - 1) << CLK_USBPSDIV_gp);
+	PrescalerNeeded = F_USB / 6000000;
 	#endif
+
+	while (PrescalerNeeded && nbit < 7) {
+		PrescalerNeeded >>= 1;
+		nbit++;
+	}
+
+	CLK.USBCTRL = (nbit - 1) << CLK_USBPSDIV_gp;
 
 	if (USB_Options & USB_OPT_PLLCLKSRC)
 	  CLK.USBCTRL |= (CLK_USBSRC_PLL_gc   | CLK_USBSEN_bm);
