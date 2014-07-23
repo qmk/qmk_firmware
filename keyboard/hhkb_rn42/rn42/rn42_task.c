@@ -162,8 +162,10 @@ bool command_extra(uint8_t code)
             xprintf("protocol: %s\n", (host_get_driver() == &rn42_driver) ? "RN-42" : "LUFA");
             xprintf("force_usb: %X\n", force_usb);
             xprintf("rn42_autoconnecting(): %X\n", rn42_autoconnecting());
+            xprintf("rn42_linked(): %X\n", rn42_linked());
             xprintf("rn42_rts(): %X\n", rn42_rts());
             xprintf("config_mode: %X\n", config_mode);
+            xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
             return true;
         case KC_B:
             // battery monitor
