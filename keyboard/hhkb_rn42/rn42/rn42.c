@@ -86,6 +86,11 @@ void rn42_cts_lo(void)
     PORTD &= ~(1<<5);
 }
 
+bool rn42_linked(void)
+{
+    return PINF&(1<<6);
+}
+
 
 static uint8_t keyboard_leds(void) { return 0; }
 
