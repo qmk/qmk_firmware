@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 
-#define SERIAL_MOUSE_CENTER_SCROLL
+//#define SERIAL_MOUSE_CENTER_SCROLL
 
 static void print_usb_data(const report_mouse_t *report);
 
