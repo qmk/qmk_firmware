@@ -20,7 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
-uint8_t serial_mouse_init(void);
+#include "serial.h"
+
+static inline uint8_t serial_mouse_init(void)
+{
+    serial_init();
+    return 0;
+}
+
 void serial_mouse_task(void);
 
 #endif

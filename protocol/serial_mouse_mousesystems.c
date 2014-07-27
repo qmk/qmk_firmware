@@ -31,12 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static void print_usb_data(const report_mouse_t *report);
 
-uint8_t serial_mouse_init(void)
-{
-    serial_init();
-    return 0;
-}
-
 void serial_mouse_task(void)
 {
     /* 5 byte ring buffer */
