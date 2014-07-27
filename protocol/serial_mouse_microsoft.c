@@ -27,6 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 
+#ifdef MAX
+#undef MAX
+#endif
+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+
 static void print_usb_data(const report_mouse_t *report);
 
 void serial_mouse_task(void)
@@ -91,8 +96,8 @@ void serial_mouse_task(void)
     report.y = ((buffer[0] << 4) & 0xC0) | buffer[2];
 
     /* USB HID uses values from -127 to 127 only */
-    report.x = report.x < -127 ? -127 : report.x;
-    report.y = report.y < -127 ? -127 : report.y;
+    report.x = MAX(report.x, -127);
+    report.y = MAX(report.y, -127);
 
 #if 0
     if (!report.buttons && !report.x && !report.y) {

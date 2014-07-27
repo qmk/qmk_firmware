@@ -27,6 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 
+#ifdef MAX
+#undef MAX
+#endif
+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+
 //#define SERIAL_MOUSE_CENTER_SCROLL
 
 static void print_usb_data(const report_mouse_t *report);
@@ -67,20 +72,16 @@ void serial_mouse_task(void)
 
 #ifdef SERIAL_MOUSE_CENTER_SCROLL
     if ((buffer[0] & 0x7) == 0x5 && (buffer[1] || buffer[2])) {
-        report.h = (int8_t)buffer[1];
         /* USB HID uses only values from -127 to 127 */
-        report.h = report.h < -127 ? -127 : report.h;
-        report.v = (int8_t)buffer[2];
-        report.v = report.v < -127 ? -127 : report.v;
+        report.h = MAX((int8_t)buffer[1], -127);
+        report.v = MAX((int8_t)buffer[2], -127);
 
         print_usb_data(&report);
         host_mouse_send(&report);
 
         if (buffer[3] || buffer[4]) {
-            report.h = (int8_t)buffer[3];
-            report.h = report.h < -127 ? -127 : report.h;
-            report.v = (int8_t)buffer[4];
-            report.v = report.v < -127 ? -127 : report.v;
+            report.h = MAX((int8_t)buffer[3], -127);
+            report.v = MAX((int8_t)buffer[4], -127);
 
             print_usb_data(&report);
             host_mouse_send(&report);
@@ -103,20 +104,16 @@ void serial_mouse_task(void)
     if (!(buffer[0] & (1 << 0)))
         report.buttons |= MOUSE_BTN2;
 
-    report.x = (int8_t)buffer[1];
     /* USB HID uses only values from -127 to 127 */
-    report.x = report.x < -127 ? -127 : report.x;
-    report.y = -(int8_t)buffer[2];
-    report.y = report.y < -127 ? -127 : report.y;
+    report.x = MAX((int8_t)buffer[1], -127);
+    report.y = MAX(-(int8_t)buffer[2], -127);
 
     print_usb_data(&report);
     host_mouse_send(&report);
 
     if (buffer[3] || buffer[4]) {
-        report.x = (int8_t)buffer[3];
-        report.x = report.x < -127 ? -127 : report.x;
-        report.y = -(int8_t)buffer[4];
-        report.y = report.y < -127 ? -127 : report.y;
+        report.x = MAX((int8_t)buffer[3], -127);
+        report.y = MAX(-(int8_t)buffer[4], -127);
 
         print_usb_data(&report);
         host_mouse_send(&report);
