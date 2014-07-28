@@ -25,11 +25,16 @@ host_driver_t rn42_driver = {
 
 void rn42_init(void)
 {
-    // PF7: BT connection control(HiZ: connect, low: disconnect)
     // JTAG disable for PORT F. write JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
+
+    // PF7: BT connection control(high: connect, low: disconnect)
     rn42_autoconnect();
+
+    // PF6: linked(input without pull-up)
+    DDRF  &= ~(1<<6);
+    PORTF &= ~(1<<6);
 
     // PF1: RTS(low: allowed to send, high: not allowed)
     DDRF &= ~(1<<1);
