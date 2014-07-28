@@ -1,27 +1,35 @@
 Roving RN-42
 ============
-07/16   After fix of voltage dividor on GPIO6, had a trouble that it could not send a char to BT module, though could receive.
-        Found R8 had wrong 1K resistor and changed to 10K, after that it can send to the module again. Not sure how it had sent with the wrong 1K before.
-07/18   On Linux, had an USB related trouble; keyobard or console didn't work for some reason. Changing PID cured this problem. Very annoying, took very long time before resolved it.
-
-
 
 TODO
 ----
+Power saving:
+- When not connected in a few minuts get into deep sleep to save battery life
+- CTS is needed for waking up from deep sleep? How deep sleep is activated?
+
+Improving:
+- Status LED; connecting, liked, low battery, sleeping, deep sleeping
+- Battry voltage display by command; like full(solid), medium(blink), low(flash)
+- move rn42 to protocol directory when it becomes reusable stack
 - LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
-- Factroy reset doesn't work; need to test again. 10K pull-up is too high?
-- Lipo voltage ADC sensing
-- Lipo charger configuration: fast charge time:  USB charger spec?
-- Low voltage alarm: LED indcates voltage of Lipo
-- CTS/RTS lines are needed? just connect in loop back if no flow control is needed.
-- CTS is needed for waking up from deep sleep?
-- Serial API callback  when data are available/received(and when send buffer is available)
-- Serial API instance  several serial ports can be used
-- DCDC converter: squeaky inducter with onsemi NCP1402
-- Lipo charger MCP73831: needs capacitor 4.7uF *2
+
+Testing:
+- Factroy reset doesn't work; need to **test again** 10K pull-up is too high?
+- Lipo voltage ADC value is not stabilized
+- DCDC converter: squeaky inducter; try other inductors
+
 - Keymap layer bug: during space is pressed(mousekey) press Fn(HHKB) then release space before Fn, in result HHKB layer is locked(toggled) unintentionally.
 
+
 DONE:
+- Lipo charger configuration: fast charge time:  USB charger spec? -- used 2kohm
+- use LED of charger to alarm low battery. LED should be powered directly from Lipo? - cancel; powered from VUSB
+- Use RTS in serial_uart.c to resolve missing chars from help message of RN-42 - done
+- CTS/RTS lines are needed? just connect in loop back if no flow control is needed. - done
+- add IO pin to charger status CHRG; LED control(low) and detect charge status(input HiZ) 07.24
+- LINKED: add trace on PIO2 to PF6   07.24
+- Lipo voltage ADC sensing
+- Lipo charger MCP73831: needs capacitor 4.7uF *2
 - USB connection check - 07.01
 - BT on/off check: whether RX line is pulled up? - checking RTS 07.01
 - USB/BT switching  BT is on -> BT, BT is off -> USB - 07.01
@@ -30,22 +38,35 @@ DONE:
 - Power selector doesn't work; Q4 MOSFET leaks from Lipo to USB power line. -- use Schottky instead 07/04
 
 
+
+TROUBLE SHOOT
+-------------
+07/16   After fix of voltage dividor on GPIO6, had a trouble that it could not send a char to BT module, though could receive.
+        Found R8 had wrong 1K resistor and changed to 10K, after that it can send to the module again. Not sure how it had sent with the wrong 1K before.
+
+07/18   On Linux, had an USB related trouble; keyobard or console didn't work for some reason. Changing PID cured this problem. Very annoying, took very long time before resolved it.
+
+
+
 Lipo
 ----
+850mA lasts around 9 hours(07/28)
+
 Sparkfun Polymer Lithium Ion Battery 850mAh:
 https://www.sparkfun.com/products/341
 Lipo Cell spec:
 https://www.sparkfun.com/datasheets/Batteries/063048%20Li-polymer.pdf
 Protection spec:
 http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/BatteryProtection.pdf
-                            min     typical max
-over-charge                 4.255   4.280   4.305
-over-charge discover?       4.030   4.080   4.130        
-over-discharge              2.827   2.900   2.973
-over-discharge discover     3.022   3.100   3.178
+                                min     typical max
+    over-charge                 4.255   4.280   4.305
+    over-charge discover?       4.030   4.080   4.130        
+    over-discharge              2.827   2.900   2.973
+    over-discharge discover     3.022   3.100   3.178
 
 ADC voltage monitor:    voltage divider 10K+10K(0.5)
-    ADC=V*0.5/2.56*1024
+                        ADC=V*0.5/2.56*1024
+
     V       ADC
     ------------------
     4.20    0x347(839)
@@ -134,7 +155,9 @@ R,1     reboot
 
 Apple iOS
 ---------
-Cannot supported without apple iAP authentication chip.
+Keyboard can be used with iPhone, but mouse cannot.
+To operate iOS with keyboard is not so useful, though.
+There may be iOS specific scancodes?
 
 
 HID flag register
@@ -157,6 +180,7 @@ GH
     0011:   Combo
     0100:   Joystick
     1xxx:   reserved
+
 
 Out report - Indicator
 ----------------------
