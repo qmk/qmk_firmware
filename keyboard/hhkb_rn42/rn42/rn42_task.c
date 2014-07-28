@@ -58,10 +58,10 @@ static void battery_led(bool on)
 {
     if (on) {
         DDRF  |=  (1<<5);
-        PORTF &= ~(1<<5);
+        PORTF &= ~(1<<5);   // Low
     } else {
         DDRF  &= ~(1<<5);
-        PORTF |=  (1<<5);
+        PORTF &= ~(1<<5);   // HiZ
     }
 }
 
@@ -80,9 +80,9 @@ void rn42_task_init(void)
 {
     battery_adc_init();
 
-    // battery charging(input with pull-up)
+    // battery charging(HiZ)
     DDRF  &= ~(1<<5);
-    PORTF |=  (1<<5);
+    PORTF &= ~(1<<5);
 }
 
 void rn42_task(void)
@@ -134,6 +134,15 @@ void rn42_task(void)
             clear_keyboard();
             host_set_driver(&lufa_driver);
         }
+    }
+
+    /* Battery monitor */
+
+    /* Connection monitor */
+    if (rn42_linked()) {
+        status_led(true);
+    } else {
+        status_led(false);
     }
 }
 
