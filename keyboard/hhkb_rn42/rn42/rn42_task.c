@@ -13,6 +13,17 @@
 static bool config_mode = false;
 static bool force_usb = false;
 
+static void status_led(bool on)
+{
+    if (on) {
+        DDRE  |=  (1<<6);
+        PORTE &= ~(1<<6);
+    } else {
+        DDRE  |=  (1<<6);
+        PORTE |=  (1<<6);
+    }
+}
+
 static void battery_adc_init(void)
 {
     ADMUX = (1<<REFS1) | (1<<REFS0);                // Ref:2.56V band-gap, Input:ADC0(PF0)
@@ -43,10 +54,35 @@ static uint16_t battery_adc(void)
     return bat;
 }
 
+static void battery_led(bool on)
+{
+    if (on) {
+        DDRF  |=  (1<<5);
+        PORTF &= ~(1<<5);
+    } else {
+        DDRF  &= ~(1<<5);
+        PORTF |=  (1<<5);
+    }
+}
+
+static bool battery_charging(void)
+{
+    // MCP73831:STAT
+    //   Hi-Z:   Shutdown/No Battery
+    //   Low:    Charging
+    //   Hi:     Charged
+    DDRF  &= ~(1<<5);
+    PORTF |=  (1<<5);
+    return PINF&(1<<5) ? false : true;
+}
 
 void rn42_task_init(void)
 {
     battery_adc_init();
+
+    // battery charging(input with pull-up)
+    DDRF  &= ~(1<<5);
+    PORTF |=  (1<<5);
 }
 
 void rn42_task(void)
@@ -108,6 +144,8 @@ void rn42_task(void)
  ******************************************************************************/
 bool command_extra(uint8_t code)
 {
+    uint32_t t;
+    uint16_t b;
     static host_driver_t *prev_driver = &rn42_driver;
     switch (code) {
         case KC_H:
@@ -166,10 +204,16 @@ bool command_extra(uint8_t code)
             xprintf("rn42_rts(): %X\n", rn42_rts());
             xprintf("config_mode: %X\n", config_mode);
             xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
+            xprintf("battery_charging: %X\n", battery_charging());
             return true;
         case KC_B:
             // battery monitor
-            xprintf("BAT: %04X(%08lX)\n",  battery_adc(), timer_read32());
+            t = timer_read32()/1000;
+            b = battery_adc();
+            xprintf("BAT: %umV(%04X)\t",  (b-16)*5, b);
+            xprintf("%02u:",   t/3600);
+            xprintf("%02u:",   t%3600/60);
+            xprintf("%02u\n",  t%60);
             return true;
         default:
             if (config_mode)
