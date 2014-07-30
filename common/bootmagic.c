@@ -111,7 +111,7 @@ static bool scan_keycode(uint8_t keycode)
         matrix_row_t matrix_row = matrix_get_row(r);
         for (uint8_t c = 0; c < MATRIX_COLS; c++) {
             if (matrix_row & ((matrix_row_t)1<<c)) {
-                if (keycode == keymap_key_to_keycode(0, (key_t){ .row = r, .col = c })) {
+                if (keycode == keymap_key_to_keycode(0, (keypos_t){ .row = r, .col = c })) {
                     return true;
                 }
             }

@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "report.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern report_keyboard_t *keyboard_report;
 
 void send_keyboard_report(void);
@@ -54,4 +58,9 @@ void oneshot_disable(void);
 uint8_t has_anykey(void);
 uint8_t has_anymod(void);
 uint8_t get_first_key(void);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
