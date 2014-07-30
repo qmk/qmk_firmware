@@ -40,8 +40,9 @@ POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include <stdbool.h>
-#include <util/delay.h>
+#include "wait.h"
 #include "ps2.h"
+#include "ps2_io.h"
 #include "debug.h"
 
 
@@ -58,8 +59,11 @@ uint8_t ps2_error = PS2_ERR_NONE;
 
 void ps2_host_init(void)
 {
+    clock_init();
+    data_init();
+
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
-    _delay_ms(2500);
+    wait_ms(2500);
 
     inhibit();
 }
@@ -71,7 +75,7 @@ uint8_t ps2_host_send(uint8_t data)
 
     /* terminate a transmission if we have */
     inhibit();
-    _delay_us(100); // 100us [4]p.13, [5]p.50
+    wait_us(100); // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
@@ -80,7 +84,7 @@ uint8_t ps2_host_send(uint8_t data)
 
     /* Data bit */
     for (uint8_t i = 0; i < 8; i++) {
-        _delay_us(15);
+        wait_us(15);
         if (data&(1<<i)) {
             parity = !parity;
             data_hi();
@@ -92,13 +96,13 @@ uint8_t ps2_host_send(uint8_t data)
     }
 
     /* Parity bit */
-    _delay_us(15);
+    wait_us(15);
     if (parity) { data_hi(); } else { data_lo(); }
     WAIT(clock_hi, 50, 4);
     WAIT(clock_lo, 50, 5);
 
     /* Stop bit */
-    _delay_us(15);
+    wait_us(15);
     data_hi();
 
     /* Ack */

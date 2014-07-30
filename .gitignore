@@ -8,3 +8,5 @@
 *.map
 *.sym
 tags
+build/
+*.bak

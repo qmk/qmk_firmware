@@ -17,12 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ACTION_MACRO_H
 #define ACTION_MACRO_H
 #include <stdint.h>
-#include <avr/pgmspace.h>
+#include "progmem.h"
 
 
-#define MACRO_NONE  0
-#define MACRO(...) ({ static const macro_t __m[] PROGMEM = { __VA_ARGS__ }; &__m[0]; })
-
+#define MACRO_NONE      0
+#define MACRO(...)      ({ static const macro_t __m[] PROGMEM = { __VA_ARGS__ }; &__m[0]; })
+#define MACRO_GET(p)    pgm_read_byte(p)
 
 typedef uint8_t macro_t;
 

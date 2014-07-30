@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <avr/io.h>
-#include <util/delay.h>
 #include "action.h"
 #include "print.h"
 #include "util.h"
@@ -189,6 +187,7 @@ uint8_t matrix_scan(void)
     }
 
     uint8_t code = ps2_host_recv();
+    if (code) xprintf("%i\r\n", code);
     if (!ps2_error) {
         switch (state) {
             case INIT:
