@@ -77,3 +77,23 @@ Just use 'make'
     $ cd sun_usb
     $ make
 Then, load the binary to MCU with your favorite programmer.
+
+
+Sun commands
+------------
+You can send Sun protocol commands with TMK `Magic` key combo. By default `Magic` key is `LShift` + `RShift`, `LAlt` + `RAlt' or `LMeta` + `RMeta`.
+https://github.com/tmk/tmk_keyboard#magic-commands
+
+Following Sun specific commands are available. For example, to send 'Bell On' you can press `LShift` + `RShift` + `Up` keys simultaneously.
+
+```
+----- Sun converter Help -----
+Up:     Bell On
+Down:   Bell Off
+Left:   Click On
+Right:  Click Off
+PgUp:   LED all On
+PgDown: LED all On
+Insert: Layout
+Delete: Reset
+```
