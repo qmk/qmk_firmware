@@ -226,7 +226,7 @@
 			static inline bool Serial_IsSendReady(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			static inline bool Serial_IsSendReady(USART_t* const USART)
 			{
-				return (USART->STATUS & USART_DREIF_bm) ? true : false);
+				return (USART->STATUS & USART_DREIF_bm) ? true : false;
 			}
 
 			/** Indicates whether the hardware USART transmit buffer is completely empty, indicating all
@@ -239,7 +239,7 @@
 			static inline bool Serial_IsSendComplete(USART_t* const USART) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(1);
 			static inline bool Serial_IsSendComplete(USART_t* const USART)
 			{
-				return (USART->STATUS & USART_TCXIF_bm) ? true : false);
+				return (USART->STATUS & USART_TXCIF_bm) ? true : false;
 			}
 
 			/** Transmits a given byte through the USART.
@@ -255,7 +255,7 @@
 			static inline void Serial_SendByte(USART_t* const USART,
 			                                   const char DataByte)
 			{
-				while (!(Serial_IsSendReady(USART));
+				while (!(Serial_IsSendReady(USART)));
 				USART->DATA = DataByte;
 			}
 
