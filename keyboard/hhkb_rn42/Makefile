@@ -53,12 +53,6 @@ SRC +=	keymap_common.c \
 	matrix.c \
 	led.c
 
-ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := keymap_hasu.c $(SRC)
-endif
-
 CONFIG_H = config.h
 
 
@@ -124,6 +118,26 @@ CONSOLE_ENABLE = yes		# Console for debug
 COMMAND_ENABLE = yes    	# Commands for debug and configuration
 #NKRO_ENABLE = yes		# USB Nkey Rollover
 #KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
+#HHKB_JP = yes			# HHKB JP support
+
+
+ifdef HHKB_JP
+    OPT_DEFS += -DHHKB_JP
+endif
+
+
+#
+# Keymap file
+#
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    ifdef HHKB_JP
+    	SRC := keymap_jp.c $(SRC)
+    else
+	SRC := keymap_hasu.c $(SRC)
+    endif
+endif
 
 
 # Search Path
