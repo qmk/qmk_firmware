@@ -12,6 +12,7 @@ Improving:
 - Battry voltage display by command; like full(solid), medium(blink), low(flash)
 - move rn42 to protocol directory when it becomes reusable stack
 - LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
+- keyboard LED update
 
 Testing:
 - Factroy reset doesn't work; need to **test again** 10K pull-up is too high?
