@@ -49,10 +49,6 @@
 #endif
 #include "suspend.h"
 
-#ifdef SERIAL_MOUSE_ENABLE
-#include "serial_mouse.h"
-#endif
-
 #include "descriptor.h"
 #include "lufa.h"
 
@@ -575,10 +571,6 @@ int main(void)
     sleep_led_init();
 #endif
 
-#ifdef SERIAL_MOUSE_ENABLE
-    serial_mouse_init();
-#endif
-
     print("Keyboard start.\n");
     while (1) {
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
@@ -589,10 +581,6 @@ int main(void)
         }
 
         keyboard_task();
-
-#ifdef SERIAL_MOUSE_ENABLE
-        serial_mouse_task();
-#endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
