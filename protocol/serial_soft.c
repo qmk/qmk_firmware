@@ -122,7 +122,11 @@ void serial_send(uint8_t data)
     /* signal state: IDLE: ON, START: OFF, STOP: ON, DATA0: OFF, DATA1: ON */
 
 #ifdef SERIAL_SOFT_BIT_ORDER_MSB
+    #ifdef SERIAL_SOFT_DATA_7BIT
+    uint8_t mask = 0x40;
+    #else
     uint8_t mask = 0x80;
+    #endif
 #else
     uint8_t mask = 0x01;
 #endif
@@ -133,7 +137,11 @@ void serial_send(uint8_t data)
     SERIAL_SOFT_TXD_OFF();
     _delay_us(WAIT_US);
 
-    while (mask) {
+#ifdef SERIAL_SOFT_DATA_7BIT
+    while (mask&0x7F) {
+#else
+    while (mask&0xFF) {
+#endif
         if (data&mask) {
             SERIAL_SOFT_TXD_ON();
             parity ^= 1;
@@ -173,7 +181,11 @@ ISR(SERIAL_SOFT_RXD_VECT)
     uint8_t data = 0;
 
 #ifdef SERIAL_SOFT_BIT_ORDER_MSB
+    #ifdef SERIAL_SOFT_DATA_7BIT
+    uint8_t mask = 0x40;
+    #else
     uint8_t mask = 0x80;
+    #endif
 #else
     uint8_t mask = 0x01;
 #endif
@@ -197,7 +209,11 @@ ISR(SERIAL_SOFT_RXD_VECT)
 #else
         mask <<= 1;
 #endif
-    } while (mask);
+#ifdef SERIAL_SOFT_DATA_7BIT
+    } while (mask&0x7F);
+#else
+    } while (mask&0xFF);
+#endif
 
 #if defined(SERIAL_SOFT_PARITY_EVEN) || defined(SERIAL_SOFT_PARITY_ODD)
     /* to center of parity bit */
