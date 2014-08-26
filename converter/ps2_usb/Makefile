@@ -91,19 +91,6 @@ PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomen
 #PS2_USE_INT = yes	# uses external interrupt for falling edge of PS/2 clock pin
 #PS2_USE_BUSYWAIT = yes	# uses primitive reference code
 
-# Serial Mouse Options
-#   You can choose a mouse protocol and the implementation of
-#   the underlying serial connection.
-#
-#SERIAL_MOUSE_MICROSOFT_ENABLE = yes	# Enable support for Microsoft-compatible mice
-#SERIAL_MOUSE_MOUSESYSTEMS_ENABLE = yes	# Enable support for Mousesystems-compatible mice
-#SERIAL_MOUSE_USE_UART = yes		# use hardware UART for serial connection
-#SERIAL_MOUSE_USE_SOFT = yes		# use software serial implementation
-
-# Optional serial mouse driver features
-# Support scrolling while holding the middle mouse button
-# (currently only supported for Mousesystems mice):
-#OPT_DEFS += -DSERIAL_MOUSE_CENTER_SCROLL
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
