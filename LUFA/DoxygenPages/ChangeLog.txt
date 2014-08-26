@@ -21,6 +21,8 @@
   *   - Fixed possible infinite loop in the control endpoint stream write function (thanks to Clayton Knight)
   *   - Fixed missing HID report ID prefix on HID class driver GetReport request responses (thanks to Bert van Hall)
   *   - Fixed incorrect XMEGA USB controller clock division factory for non-Full Speed operation (thanks to Bert van Hall)
+  *   - Patched the LUFA build system to work around a GCC code generation bug in newer toolchains when building for larger
+  *     FLASH memory devices (thanks to demultiplexer)
   *  - Library Applications:
   *   - Fixed spurious 0xFE USART byte sent in the USBtoSerial project when the baud rate is changed (thanks to Carl Kjeldsen)
   *   - Fixed blocking USART reads causing low throughput on slow baud rates in the USBtoSerial project (thanks to Nevada Smith)

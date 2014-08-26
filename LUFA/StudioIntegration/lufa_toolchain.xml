@@ -20,7 +20,7 @@
 				<toolchain-config name="avrgcc.compiler.optimization.OtherFlags" value="-fdata-sections" toolchain="avrgcc"/>
 				<toolchain-config name="avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection" value="True" toolchain="avrgcc"/>
 				<toolchain-config name="avrgcc.compiler.warnings.AllWarnings" value="True" toolchain="avrgcc"/>
-				<toolchain-config name="avrgcc.compiler.miscellaneous.OtherFlags" value="-mrelax -std=gnu99 -fno-strict-aliasing" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.compiler.miscellaneous.OtherFlags" value="-mrelax -std=gnu99 -fno-strict-aliasing -fno-jump-tables" toolchain="avrgcc"/>
 				<toolchain-config name="avrgcc.linker.optimization.GarbageCollectUnusedSections" value="True" toolchain="avrgcc"/>
 				<toolchain-config name="avrgcc.linker.optimization.RelaxBranches" value="True" toolchain="avrgcc"/>
 			</module>
