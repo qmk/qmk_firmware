@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_DATA_PORT   PORTD
 #define PS2_DATA_PIN    PIND
 #define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    0
+#define PS2_DATA_BIT    2
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC11) |      \
               (0<<ISC10));      \
@@ -168,44 +168,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_USART_ERROR         (UCSR0A & ((1<<FE0) | (1<<DOR0) | (1<<UPE0)))
 #define PS2_USART_RX_VECT       USART_RX_vect
 #endif
-#endif
-
-#ifdef SERIAL_MOUSE_MICROSOFT
-    /*
-     * Serial(USART) configuration (for Microsoft serial mice)
-     *     asynchronous, positive logic, 1200baud, bit order: LSB first
-     *     1-start bit, 7-data bit, no parity, 1-stop bit
-     */
-    #define SERIAL_UART_BAUD       1200
-    #define SERIAL_UART_DATA       UDR1
-    #define SERIAL_UART_UBRR       ((F_CPU/(16UL*SERIAL_UART_BAUD))-1)
-    #define SERIAL_UART_RXD_VECT   USART1_RX_vect
-    #define SERIAL_UART_TXD_READY  (UCSR1A&(1<<UDRE1))
-    #define SERIAL_UART_INIT()     do { \
-        UBRR1L = (uint8_t) SERIAL_UART_UBRR;       /* baud rate */ \
-        UBRR1H = (uint8_t) (SERIAL_UART_UBRR>>8);  /* baud rate */ \
-        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1); /* RX interrupt, RX: enable */ \
-        UCSR1C = (1<<UCSZ11) | (0<<UCSZ10);  /* no parity, 1 stop bit, 7-bit characters */ \
-        sei(); \
-    } while(0)
-#elif defined(SERIAL_MOUSE_MOUSESYSTEMS)
-    /*
-     * Serial(USART) configuration (for Mousesystems serial mice)
-     *     asynchronous, positive logic, 1200baud, bit order: LSB first
-     *     1-start bit, 8-data bit, no parity, 1-stop bit
-     */
-    #define SERIAL_UART_BAUD       1200
-    #define SERIAL_UART_DATA       UDR1
-    #define SERIAL_UART_UBRR       ((F_CPU/(16UL*SERIAL_UART_BAUD))-1)
-    #define SERIAL_UART_RXD_VECT   USART1_RX_vect
-    #define SERIAL_UART_TXD_READY  (UCSR1A&(1<<UDRE1))
-    #define SERIAL_UART_INIT()     do { \
-        UBRR1L = (uint8_t) SERIAL_UART_UBRR;       /* baud rate */ \
-        UBRR1H = (uint8_t) (SERIAL_UART_UBRR>>8);  /* baud rate */ \
-        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1); /* RX interrupt, RX: enable */ \
-        UCSR1C = (1<<UCSZ11) | (1<<UCSZ10);  /* no parity, 1 stop bit, 8-bit characters */ \
-        sei(); \
-    } while(0)
 #endif
 
 #endif
