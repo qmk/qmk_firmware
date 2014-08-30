@@ -34,7 +34,7 @@ void rn42_init(void)
 
     // PF6: linked(input without pull-up)
     DDRF  &= ~(1<<6);
-    PORTF &= ~(1<<6);
+    PORTF |=  (1<<6);
 
     // PF1: RTS(low: allowed to send, high: not allowed)
     DDRF &= ~(1<<1);
@@ -93,7 +93,11 @@ void rn42_cts_lo(void)
 
 bool rn42_linked(void)
 {
-    return PINF&(1<<6);
+    // RN-42 GPIO2
+    //   Hi-Z:  Not powered
+    //   High:  Linked
+    //   Low:   Connecting
+    return !rn42_rts() && PINF&(1<<6);
 }
 
 
