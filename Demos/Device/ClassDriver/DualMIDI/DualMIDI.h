@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for MIDI.c.
+ *  Header file for DualMIDI.c.
  */
 
-#ifndef _MIDI_H_
-#define _MIDI_H_
+#ifndef _DUAL_MIDI_H_
+#define _DUAL_MIDI_H_
 
 	/* Includes: */
 		#include <avr/io.h>

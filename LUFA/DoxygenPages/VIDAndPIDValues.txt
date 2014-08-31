@@ -171,12 +171,12 @@
  *   <tr>
  *    <td>0x03EB</td>
  *    <td>0x206C</td>
- *    <td>Bulk Vendor Demo</td>
+ *    <td>Bulk Vendor Demo Application</td>
  *   </tr>
  *   <tr>
  *    <td>0x03EB</td>
  *    <td>0x206D</td>
- *    <td><i>Currently Unallocated</i></td>
+ *    <td>Dual MIDI Demo Application</td>
  *   </tr>
  *   <tr>
  *    <td>0x03EB</td>
