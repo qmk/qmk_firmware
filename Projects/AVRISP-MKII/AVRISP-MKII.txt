@@ -67,7 +67,16 @@
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
  *  of FLASH is required. On 8KB devices, ISP or PDI/TPI protocol programming support can be disabled to reduce program size.
  *
- *  \note Due to <a href="http://savannah.nongnu.org/bugs/index.php?40831">a change in 6.0.1 and never AVRDUDE releases</a>, these builds are incompatible with the AVRISP-MKII clone project. Use an older 5.x release until AVRDUDE is patched.
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par Incompatible with newer AVRDUDE releases.
+ *  Due to <a href="http://savannah.nongnu.org/bugs/index.php?40831">a change in 6.0.1 and never AVRDUDE releases</a>,
+ *  these builds are incompatible with the AVRISP-MKII clone project. Use an older 5.x release until AVRDUDE is patched.
+ *
+ *  \par XMEGA EEPROM programming fails in some cases.
+ *  Several users have reported that XMEGA EEPROM programming fails unless the chip is erased first. If a non-blank EEPROM
+ *  is present, writing further EEPROM data causes corruption.
+ *  <a href="https://github.com/abcminiuser/lufa/issues/25">LUFA issue tracker entry</a>.
  *
  *  \section Sec_Installation Installation
  *  The programmer supports multiple platforms, both Windows and Linux.
