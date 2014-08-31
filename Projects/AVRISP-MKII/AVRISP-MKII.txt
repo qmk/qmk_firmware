@@ -67,6 +67,8 @@
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
  *  of FLASH is required. On 8KB devices, ISP or PDI/TPI protocol programming support can be disabled to reduce program size.
  *
+ *  \note Due to <a href="http://savannah.nongnu.org/bugs/index.php?40831">a change in 6.0.1 and never AVRDUDE releases</a>, these builds are incompatible with the AVRISP-MKII clone project. Use an older 5.x release until AVRDUDE is patched.
+ *
  *  \section Sec_Installation Installation
  *  The programmer supports multiple platforms, both Windows and Linux.
  *
