@@ -36,6 +36,15 @@
 
 #include "RNDISEthernet.h"
 
+/** Message buffer for RNDIS messages processed by the RNDIS device class driver. */
+static uint8_t RNDIS_Message_Buffer[192];
+
+/** Global to store the incoming frame from the host before it is processed by the device. */
+static Ethernet_Frame_Info_t FrameIN;
+
+/** Global to store the outgoing frame created in the device before it is sent to the host. */
+static Ethernet_Frame_Info_t FrameOUT;
+
 /** LUFA RNDIS Class driver interface configuration and state information. This structure is
  *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -65,14 +74,11 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 					},
 				.AdapterVendorDescription       = "LUFA RNDIS Demo Adapter",
 				.AdapterMACAddress              = {ADAPTER_MAC_ADDRESS},
+				.MessageBuffer                  = RNDIS_Message_Buffer,
+				.MessageBufferLength            = sizeof(RNDIS_Message_Buffer),
 			},
 	};
 
-/** Global to store the incoming frame from the host before it is processed by the device. */
-static Ethernet_Frame_Info_t FrameIN;
-
-/** Global to store the outgoing frame created in the device before it is sent to the host. */
-static Ethernet_Frame_Info_t FrameOUT;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

@@ -58,9 +58,6 @@
 		#include <LUFA/Platform/Platform.h>
 
 	/* Macros: */
-		/** Notification value to indicate that a frame is ready to be read by the host. */
-		#define NOTIF_RESPONSE_AVAILABLE  0x01
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 

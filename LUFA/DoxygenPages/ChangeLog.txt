@@ -12,6 +12,11 @@
   *   - Updated the BUILD build system module to add a new COMPILER_PATH optional variable
   *   - Added Serial_IsSendReady() and Serial_IsSendComplete() functions to the Serial hardware peripheral driver
   *
+  *  <b>Changed:</b>
+  *  - Core:
+  *   - The RNDIS device class driver now takes a user-supplied buffer and buffer length for the internal RNDIS
+  *     message management (thanks to Peter Mc Shane)
+  *
   *  <b>Fixed:</b>
   *  - Core:
   *   - Fixed device class driver pipe configuration routines returning success with a partially constructed instance

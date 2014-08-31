@@ -172,9 +172,6 @@
 		#define OID_802_3_XMIT_MORE_COLLISIONS        0x01020103UL
 		//@}
 
-		/** Maximum size in bytes of a RNDIS control message which can be sent or received. */
-		#define RNDIS_MESSAGE_BUFFER_SIZE             128
-
 		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard. */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
 

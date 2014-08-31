@@ -54,8 +54,8 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
 	DHCP_Header_t* DHCPHeaderIN  = (DHCP_Header_t*)DHCPHeaderInStart;
 	DHCP_Header_t* DHCPHeaderOUT = (DHCP_Header_t*)DHCPHeaderOutStart;
 
-	uint8_t* DHCPOptionsINStart  = (uint8_t*)(DHCPHeaderInStart  + sizeof(DHCP_Header_t));
-	uint8_t* DHCPOptionsOUTStart = (uint8_t*)(DHCPHeaderOutStart + sizeof(DHCP_Header_t));
+	uint8_t* DHCPOptionsINStart  = ((uint8_t*)DHCPHeaderInStart  + sizeof(DHCP_Header_t));
+	uint8_t* DHCPOptionsOUTStart = ((uint8_t*)DHCPHeaderOutStart + sizeof(DHCP_Header_t));
 
 	DecodeDHCPHeader(DHCPHeaderInStart);
 

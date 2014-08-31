@@ -87,14 +87,15 @@
 
 					char*         AdapterVendorDescription; /**< String description of the adapter vendor. */
 					MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter. */
+
+					uint8_t*      MessageBuffer; /**< Buffer where RNDIS messages can be stored by the internal driver. This
+					                              *   should be at least 132 bytes in length for minimal functionality. */
+					uint16_t      MessageBufferLength; /**< Length in bytes of the \ref MessageBuffer RNDIS buffer. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
 				struct
 				{
-					uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
-																			 *   managed by the class driver.
-																			 */
 					bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host. */
 					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the \ref RNDIS_States_t enum. */
 					uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver. */
@@ -172,6 +173,9 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define RNDIS_DEVICE_MIN_MESSAGE_BUFFER_LENGTH  sizeof(AdapterSupportedOIDList) + sizeof(RNDIS_Query_Complete_t)
+
 		/* Function Prototypes: */
 		#if defined(__INCLUDE_FROM_RNDIS_DEVICE_C)
 			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)

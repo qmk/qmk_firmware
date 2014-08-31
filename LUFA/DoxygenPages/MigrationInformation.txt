@@ -11,7 +11,9 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 140302 to XXXXXX
- *  None
+ *  <b>Device Mode</b>
+ *    - The device mode RNDIS class driver now requires a user-supplied buffer and buffer length to operate, rather
+ *      than allocating this buffer internally.
  *
  *  \section Sec_Migration140302 Migrating from 130901 to 140302
  *  <b>USB Core</b>

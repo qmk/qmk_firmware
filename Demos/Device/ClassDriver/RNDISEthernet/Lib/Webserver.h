@@ -46,7 +46,7 @@
 
 	/* Macros: */
 		/** Maximum size of a HTTP response per transmission */
-		#define  HTTP_REPLY_BLOCK_SIZE     128
+		#define HTTP_REPLY_BLOCK_SIZE     128
 
 	/* Function Prototypes: */
 		void Webserver_Init(void);
