@@ -9,6 +9,7 @@
 #include "print.h"
 #include "timer.h"
 #include "command.h"
+#include "battery.h"
 
 static bool config_mode = false;
 static bool force_usb = false;
@@ -24,65 +25,9 @@ static void status_led(bool on)
     }
 }
 
-static void battery_adc_init(void)
-{
-    ADMUX = (1<<REFS1) | (1<<REFS0);                // Ref:2.56V band-gap, Input:ADC0(PF0)
-    ADCSRA = (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);  // Prescale:128 16MHz/128=125KHz
-    ADCSRA |= (1<<ADEN);                            // enable ADC
-}
-
-static uint16_t battery_adc(void)
-{
-    volatile uint16_t bat;
-    ADCSRA |= (1<<ADEN);
-
-    // discard first result
-    ADCSRA |= (1<<ADSC);
-    while (ADCSRA & (1<<ADSC)) ;
-    bat = ADC;
-
-    // discard second result
-    ADCSRA |= (1<<ADSC);
-    while (ADCSRA & (1<<ADSC)) ;
-    bat = ADC;
-
-    ADCSRA |= (1<<ADSC);
-    while (ADCSRA & (1<<ADSC)) ;
-    bat = ADC;
-
-    ADCSRA &= ~(1<<ADEN);
-    return bat;
-}
-
-static void battery_led(bool on)
-{
-    if (on) {
-        DDRF  |=  (1<<5);
-        PORTF &= ~(1<<5);   // Low
-    } else {
-        DDRF  &= ~(1<<5);
-        PORTF &= ~(1<<5);   // HiZ
-    }
-}
-
-static bool battery_charging(void)
-{
-    // MCP73831:STAT
-    //   Hi-Z:   Shutdown/No Battery
-    //   Low:    Charging
-    //   Hi:     Charged
-    DDRF  &= ~(1<<5);
-    PORTF |=  (1<<5);
-    return PINF&(1<<5) ? false : true;
-}
-
 void rn42_task_init(void)
 {
-    battery_adc_init();
-
-    // battery charging(HiZ)
-    DDRF  &= ~(1<<5);
-    PORTF &= ~(1<<5);
+    battery_init();
 }
 
 void rn42_task(void)
@@ -136,7 +81,12 @@ void rn42_task(void)
         }
     }
 
-    /* Battery monitor */
+    /* Low voltage alert */
+    if (battery_status() == LOW_VOLTAGE) {
+        battery_led(LED_ON);
+    } else {
+        battery_led(LED_CHARGER);
+    }
 
     /* Connection monitor */
     if (rn42_linked()) {
@@ -214,12 +164,13 @@ bool command_extra(uint8_t code)
             xprintf("config_mode: %X\n", config_mode);
             xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
             xprintf("battery_charging: %X\n", battery_charging());
+            xprintf("battery_status: %X\n", battery_status());
             return true;
         case KC_B:
             // battery monitor
             t = timer_read32()/1000;
-            b = battery_adc();
-            xprintf("BAT: %umV(%04X)\t",  (b-16)*5, b);
+            b = battery_voltage();
+            xprintf("BAT: %umV\t", b);
             xprintf("%02u:",   t/3600);
             xprintf("%02u:",   t%3600/60);
             xprintf("%02u\n",  t%60);
