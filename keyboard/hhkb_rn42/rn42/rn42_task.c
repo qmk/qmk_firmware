@@ -81,12 +81,49 @@ void rn42_task(void)
         }
     }
 
-    /* Low voltage alert */
-    if (battery_status() == LOW_VOLTAGE) {
-        battery_led(LED_ON);
-    } else {
-        battery_led(LED_CHARGER);
+
+    static uint16_t prev_timer = 0;
+    static uint8_t sec = 0;
+    // NOTE: not exact 1 sec
+    if (timer_elapsed(prev_timer) > 1000) {
+        /* every second */
+        prev_timer = timer_read();
+
+        /* Low voltage alert */
+        uint8_t bs = battery_status();
+        if (bs == LOW_VOLTAGE) {
+            battery_led(LED_ON);
+        } else {
+            battery_led(LED_CHARGER);
+        }
+
+        static uint8_t prev_status = UNKNOWN;
+        if (bs != prev_status) {
+            prev_status = bs;
+            switch (bs) {
+                case FULL_CHARGED:  xprintf("FULL_CHARGED\n"); break;
+                case CHARGING:      xprintf("CHARGING\n"); break;
+                case DISCHARGING:   xprintf("DISCHARGING\n"); break;
+                case LOW_VOLTAGE:   xprintf("LOW_VOLTAGE\n"); break;
+                default:            xprintf("UNKNOWN STATUS\n"); break;
+            };
+        }
+
+        /* every minute */
+        if (sec == 0) {
+            uint32_t t = timer_read32()/1000;
+            uint16_t v = battery_voltage();
+            uint8_t h = t/3600;
+            uint8_t m = t%3600/60;
+            uint8_t s = t%60;
+            xprintf("%02u:%02u:%02u\t%umV\n", h, m, s, v);
+            /* TODO: xprintf doesn't work for this.
+            xprintf("%02u:%02u:%02u\t%umV\n", (t/3600), (t%3600/60), (t%60), v);
+            */
+        }
+        sec++; sec = sec%60;
     }
+
 
     /* Connection monitor */
     if (rn42_linked()) {

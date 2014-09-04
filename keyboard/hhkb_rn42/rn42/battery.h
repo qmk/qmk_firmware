@@ -9,6 +9,7 @@ typedef enum {
     CHARGING,
     DISCHARGING,
     LOW_VOLTAGE,
+    UNKNOWN,
 } battery_status_t;
 
 typedef enum {
