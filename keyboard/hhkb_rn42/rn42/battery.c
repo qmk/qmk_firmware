@@ -49,10 +49,11 @@ bool battery_charging(void)
 {
     if (!(USBSTA&(1<<VBUS))) return false;
 
-    // MCP73831:STAT
-    //   HiZ:    Shutdown/No Battery
-    //   Low:    Charging
-    //   Hi:     Charged
+    // Charger Status:
+    //   MCP73831   MCP73832   LTC4054  Status
+    //   Hi-Z       Hi-Z       Hi-Z     Shutdown/No Battery
+    //   Low        Low        Low      Charging
+    //   Hi         Hi-Z       Hi-Z     Charged
 
     // preserve last register status
     uint8_t ddrf_prev  = DDRF;
@@ -68,6 +69,10 @@ bool battery_charging(void)
     DDRF  = (DDRF&~(1<<5))  | (ddrf_prev&(1<<5));
     PORTF = (PORTF&~(1<<5)) | (portf_prev&(1<<5));
 
+    // TODO: With MCP73831 this can not get stable status when charging.
+    // LED is powered from PSEL line(USB or Lipo)
+    // due to weak low output of STAT pin?
+    // due to pull-up'd via resitor and LED?
     return charging;
 }
 
