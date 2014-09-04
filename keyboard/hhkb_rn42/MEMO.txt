@@ -3,16 +3,24 @@ Roving RN-42
 
 TODO
 ----
+Bug:
+- with Nexus5 keyboard and mouse are very laggy.
+
 Power saving:
-- When not connected in a few minuts get into deep sleep to save battery life
+- 8MHz clock
+- When not connected in a few minutes get into deep sleep to save battery life
 - CTS is needed for waking up from deep sleep? How deep sleep is activated?
+- firmware controlled 3.3V DC converter to switch on/off BT module
+- sleep MCU and BT module(keyboard is not used)
+- deep sleep MCU and BT module(keyboard is not used for long time)
+- deep sleep MCU and turn off BT module(keyboard is not used and not connected)
+- Battery ADC; switching, high resistance
 
 Improving:
-- Status LED; connecting, liked, low battery, sleeping, deep sleeping
-- Battry voltage display by command; like full(solid), medium(blink), low(flash)
+- BT LED; connecting, linked, sleeping, deep sleeping
+- Battry LED; blink(using timer?)
 - move rn42 to protocol directory when it becomes reusable stack
 - LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
-- keyboard LED update
 
 Testing:
 - Factroy reset doesn't work; need to **test again** 10K pull-up is too high?
@@ -22,7 +30,91 @@ Testing:
 - Keymap layer bug: during space is pressed(mousekey) press Fn(HHKB) then release space before Fn, in result HHKB layer is locked(toggled) unintentionally.
 
 
+Done:
+- low battery alert(solid light) 09/04
+
+
+Power routing
+-------------
+Current:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+     DPDT
+ |      |  |Switch/-----------------------+
+ |      |  +------+                       |
+ | +-------+  |                           |
+ +-|Charger|  |                           |
+ | +-------+  |     +---+                 |
+ |            |     |MCU|                 |
+ |            |     +---+                 |
+ |            |      |                    |
+ |            |      |                    |
++--------------+  +-----+  +------+   +---/--+    +-----+
+|Power Selector|--|DC 5V|--|DC3.3V|---|Switch|----|RN-42|
++--------------+  +-----+  +------+   +------+    +-----+
+USB Power is boosted unnecessarily, not harmful?
+
+Idea 1:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+     DPDT
+ |      |  |Switch/----------+
+ |      |  +------+          |
+ | +-------+  |              |
+ +-|Charger|  |              |
+ | +-------+  |     +---+    |
+ |         +-----+  |MCU|    |
+ |         |DC 5V|  +---+    |
+ |         +-----+   |       |
+ |            |      |       |
++--------------+     |   +---/--+    +------+     +-----+
+|Power Selector|-----+---|Switch|----|DC3.3V|-----|RN-42|
++--------------+         +------+    +------+     +-----+
+To enable BT when USB powered it still needs to turn siwtch on, Lipo consumes quinscent current at 5V converter in vain.(Not good)
+
+Idea 2:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+
+ |      |  |Switch|
+ |      |  +------+
+ | +-------+  |
+ +-|Charger|  |
+ | +-------+  |     +---+
+ |         +-----+  |MCU|----+ Controlled by firmware
+ |         |DC 5V|  +---+    | On: Lipo powered
+ |         +-----+   |       | Off: USB powered
+ |            |      |       |enable
++--------------+     |   +------+     +-----+
+|Power Selector|-----+---|DC3.3V|-----|RN-42|
++--------------+         +------+     +-----+
+MCU can controlled power of RN-42 without hardware switch.
+When USB powered and switch is on Lipo consumes quinscent current at 5V converter in vain.(Not good)
+
+Idea 3:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+
+ |      |  |Switch|SPST(or without)
+ |      |  +------+
+ | +-------+  |
+ +-|Charger|  |
+ | +-------+  |     +---+
+ |            |     |MCU|----+ Controlled by firmware
+ |            |     +---+    | On: Lipo powered
+ |            |      |       | Off: USB powered
+ |            |      |       |enable
++--------------+ +-----+ +------+     +-----+
+|Power Selector|-|DC 5V|-|DC3.3V|-----|RN-42|
++--------------+ +-----+ +------+     +-----+
+Switch is needed to save Lipo when not used because decent power saving is not available now. If firmware can turn off BT module completely and make MCU deep sleep the switch will be not even needed.
+
+
+
+
+
 DONE:
+- BT_INDICATOR LED turns on wrongly when touching line or pin.  -- pull-up enabled on PF6/GPIO2 08/30
 - Lipo charger configuration: fast charge time:  USB charger spec? -- used 2kohm
 - use LED of charger to alarm low battery. LED should be powered directly from Lipo? - cancel; powered from VUSB
 - Use RTS in serial_uart.c to resolve missing chars from help message of RN-42 - done
