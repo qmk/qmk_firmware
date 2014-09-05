@@ -83,11 +83,10 @@ void rn42_task(void)
 
 
     static uint16_t prev_timer = 0;
-    static uint8_t sec = 0;
-    // NOTE: not exact 1 sec
-    if (timer_elapsed(prev_timer) > 1000) {
+    uint16_t e = timer_elapsed(prev_timer);
+    if (e > 1000) {
         /* every second */
-        prev_timer = timer_read();
+        prev_timer += e/1000*1000;
 
         /* Low voltage alert */
         uint8_t bs = battery_status();
@@ -110,8 +109,8 @@ void rn42_task(void)
         }
 
         /* every minute */
-        if (sec == 0) {
-            uint32_t t = timer_read32()/1000;
+        uint32_t t = timer_read32()/1000;
+        if (t%60 == 0) {
             uint16_t v = battery_voltage();
             uint8_t h = t/3600;
             uint8_t m = t%3600/60;
@@ -121,7 +120,6 @@ void rn42_task(void)
             xprintf("%02u:%02u:%02u\t%umV\n", (t/3600), (t%3600/60), (t%60), v);
             */
         }
-        sec++; sec = sec%60;
     }
 
 
