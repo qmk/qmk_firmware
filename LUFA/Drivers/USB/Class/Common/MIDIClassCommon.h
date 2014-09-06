@@ -135,7 +135,7 @@
 		 *
 		 *  \return Constructed MIDI event ID.
 		 */
-		#define MIDI_EVENT(virtualcable, command)  ((virtualcable << 4) | (command >> 4))
+		#define MIDI_EVENT(virtualcable, command)  (((virtualcable) << 4) | ((command) >> 4))
 
 	/* Enums: */
 		/** Enum for the possible MIDI jack types in a MIDI device jack descriptor. */
