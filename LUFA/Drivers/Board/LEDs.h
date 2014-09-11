@@ -203,6 +203,8 @@
 			#include "XMEGA/C3_XPLAINED/LEDs.h"
 		#elif (BOARD == BOARD_U2S)
 			#include "AVR8/U2S/LEDs.h"
+		#elif (BOARD == BOARD_YUN)
+			#include "AVR8/YUN/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
