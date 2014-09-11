@@ -39,7 +39,7 @@
   *    - No known issues.
   *  - Atmel Studio Integration
   *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
-  *    - When switching boards after changing the device selection, a second conflicting \cB OARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the "Toolchain" tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *    - When switching boards after changing the device selection, a second conflicting \c BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the "Toolchain" tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
   *
   *  \section Sec_KnownIssues140302 Version 140302
   *  - AVR8 Architecture

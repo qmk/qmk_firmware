@@ -53,7 +53,7 @@
 
 	/* Type Defines: */
  		/** Type define for a dual jack endpoint descriptor. This is identical to the LUFA MIDI class driver's
- 		 *  \ref USB_MIDI_Descriptor_Jack_Endpoint_t, except that it contains two jack association entries.
+ 		 *  USB_MIDI_Descriptor_Jack_Endpoint_t, except that it contains two jack association entries.
  		 */
 		typedef struct
 		{
