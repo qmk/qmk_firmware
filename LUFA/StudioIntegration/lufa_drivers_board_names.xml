@@ -822,6 +822,32 @@
 
 				<build type="define" name="BOARD" value="BOARD_U2S"/>
 			</module>
+
+			<module type="driver" id="lufa.drivers.board#yun" caption="Board Support - YUN">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_YUN"/>
+
+				<device-support value="atmega32u4"/>
+
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/YUN/Board.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/YUN/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_YUN"/>
+			</module>
+
+			<module type="driver" id="lufa.drivers.board#yun" caption="Board Support - MICRO">
+				<build type="doxygen-entry-point" value="Group_BoardInfo_MICRO"/>
+
+				<device-support value="atmega32u4"/>
+
+				<require idref="lufa.drivers.board.leds"/>
+
+				<build type="header-file" value="Drivers/Board/AVR8/MICRO/Board.h"/>
+				<build type="header-file" value="Drivers/Board/AVR8/MICRO/LEDs.h"/>
+
+				<build type="define" name="BOARD" value="BOARD_MICRO"/>
+			</module>
 		</select-by-config>
 	</asf>
 </lufa>
