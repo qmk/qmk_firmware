@@ -234,6 +234,9 @@
 			/** Selects the U2S specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_U2S                  56
 
+			/** Selects the YUN specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_YUN                  57
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

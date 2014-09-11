@@ -11,6 +11,7 @@
   *  - Core:
   *   - Updated the BUILD build system module to add a new COMPILER_PATH optional variable
   *   - Added Serial_IsSendReady() and Serial_IsSendComplete() functions to the Serial hardware peripheral driver
+  *   - Added support for the Arduino Yun board (ATMEGA32U4 coprocessor)
   *  - Library Applications:
   *   - Added new Dual MIDI class driver device demo
   *

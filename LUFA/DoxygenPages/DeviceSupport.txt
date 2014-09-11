@@ -98,6 +98,7 @@
  *   - Adafruit U4 Breakout Board
  *   - Arduino Uno
  *   - Arduino Leonardo
+ *   - Arduino Yun
  *   - Bitwizard Multio and Big-Multio
  *   - Busware BUI
  *   - Busware CUL V3
