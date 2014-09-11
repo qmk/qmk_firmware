@@ -12,7 +12,7 @@
   *   - Updated the BUILD build system module to add a new COMPILER_PATH optional variable
   *   - Added Serial_IsSendReady() and Serial_IsSendComplete() functions to the Serial hardware peripheral driver
   *   - Added support for the Arduino Yun board (ATMEGA32U4 co-processor)
-  *   - Added support for the Arduino Micro board
+  *   - Added support for the Arduino Micro board (thanks to Zoltán Szőke)
   *  - Library Applications:
   *   - Added new Dual MIDI class driver device demo
   *
@@ -25,7 +25,6 @@
   *  - Core:
   *   - Fixed device class driver pipe configuration routines returning success with a partially constructed instance
   *     when a pipe configuration failed (thanks to Helge Suess)
-  *   - Fixed incorrect LED driver definitions for the Arduino Leonardo board (thanks to Zoltán Szőke)
   *   - Fixed incorrect XMEGA DFLL reference frequency (thanks to Martin Aakerberg)
   *   - Fixed possible infinite loop in the control endpoint stream write function (thanks to Clayton Knight)
   *   - Fixed missing HID report ID prefix on HID class driver GetReport request responses (thanks to Bert van Hall)
