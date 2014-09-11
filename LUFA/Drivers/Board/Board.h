@@ -155,6 +155,8 @@
 			#include "AVR8/U2S/Board.h"
 		#elif (BOARD == BOARD_YUN)
 			#include "AVR8/YUN/Board.h"
+		#elif (BOARD == BOARD_MICRO)
+			#include "AVR8/MICRO/Board.h"
 		#else
 			#include "Board/Board.h"
 		#endif

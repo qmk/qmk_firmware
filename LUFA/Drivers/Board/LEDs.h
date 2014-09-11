@@ -205,6 +205,8 @@
 			#include "AVR8/U2S/LEDs.h"
 		#elif (BOARD == BOARD_YUN)
 			#include "AVR8/YUN/LEDs.h"
+		#elif (BOARD == BOARD_MICRO)
+			#include "AVR8/MICRO/LEDs.h"
 		#else
 			#include "Board/LEDs.h"
 		#endif
