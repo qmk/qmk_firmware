@@ -52,7 +52,7 @@
  *
  *  \code
  *      // Initialize the Master SPI mode USART driver before first use, with 1Mbit baud
- *      SerialSPI_Init((USART_SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_ORDER_MSB_FIRST), 1000000);
+ *      SerialSPI_Init((USART_SPI_SCK_LEAD_RISING | USART_SPI_SAMPLE_LEADING | USART_SPI_ORDER_MSB_FIRST), 1000000);
  *
  *      // Send several bytes, ignoring the returned data
  *      SerialSPI_SendByte(0x01);
@@ -90,37 +90,45 @@
 		#endif
 
 	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-			#define SERIAL_SPI_UBBRVAL(Baud)       ((Baud < (F_CPU / 2)) ? ((F_CPU / (2 * Baud)) - 1) : 0)
-	#endif
+		#if !defined(__DOXYGEN__)
+			#define SERIAL_SPI_UBBRVAL(Baud)             ((Baud < (F_CPU / 2)) ? ((F_CPU / (2 * Baud)) - 1) : 0)
+
+			/* Master USART SPI mode flag definitions missing in the AVR8 toolchain */
+			#if !defined(UCPHA1)
+				#define UCPHA1                           1
+			#endif
+			#if !defined(UDORD1)
+				#define UDORD1                           2
+			#endif
+		#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name SPI SCK Polarity Configuration Masks */
 			//@{
 			/** SPI clock polarity mask for \ref SPI_Init(). Indicates that the SCK should lead on the rising edge. */
-			#define USART_SPI_SCK_LEAD_RISING            (0 << UCPOL)
+			#define USART_SPI_SCK_LEAD_RISING            (0 << UCPOL1)
 
 			/** SPI clock polarity mask for \ref SPI_Init(). Indicates that the SCK should lead on the falling edge. */
-			#define USART_SPI_SCK_LEAD_FALLING           (1 << UCPOL)
+			#define USART_SPI_SCK_LEAD_FALLING           (1 << UCPOL1)
 			//@}
 
 			/** \name SPI Sample Edge Configuration Masks */
 			//@{
 			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should sampled on the leading edge. */
-			#define USART_SPI_SAMPLE_LEADING             (0 << UPCHA)
+			#define USART_SPI_SAMPLE_LEADING             (0 << UCPHA1)
 
 			/** SPI data sample mode mask for \ref SerialSPI_Init(). Indicates that the data should be sampled on the trailing edge. */
-			#define USART_SPI_SAMPLE_TRAILING            (1 << UPCHA)
+			#define USART_SPI_SAMPLE_TRAILING            (1 << UCPHA1)
 			//@}
 
 			/** \name SPI Data Ordering Configuration Masks */
 			//@{
 			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out MSB first. */
-			#define USART_SPI_ORDER_MSB_FIRST            (0 << UDORD)
+			#define USART_SPI_ORDER_MSB_FIRST            (0 << UDORD1)
 
 			/** SPI data order mask for \ref SerialSPI_Init(). Indicates that data should be shifted out LSB first. */
-			#define USART_SPI_ORDER_LSB_FIRST            (1 << UDORD)
+			#define USART_SPI_ORDER_LSB_FIRST            (1 << UDORD1)
 			//@}
 
 		/* Inline Functions: */
