@@ -66,9 +66,7 @@
  *  application.
  *
  *  \code
- *      // Initialize the SPI and board Dataflash drivers before first use
- *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
- *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
+ *      // Initialize the board Dataflash driver before first use
  *      Dataflash_Init();
  *
  *      uint8_t WriteBuffer[DATAFLASH_PAGE_SIZE];
