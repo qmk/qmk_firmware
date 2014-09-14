@@ -118,32 +118,32 @@
 		 *
 		 *  \param[in] Buffer  Application buffer to lock
 		 */
-		#define TCP_APP_CAPTURE_BUFFER(Buffer)       MACROS{ Buffer->Direction = TCP_PACKETDIR_OUT; Buffer->InUse = true; }MACROE
+		#define TCP_APP_CAPTURE_BUFFER(Buffer)       do { Buffer->Direction = TCP_PACKETDIR_OUT; Buffer->InUse = true; } while (0)
 
 		/** Application macro: Releases a captured application buffer, allowing for host-to-device packets to be received.
 		 *
 		 *  \param[in] Buffer  Application buffer to release
 		 */
-		#define TCP_APP_RELEASE_BUFFER(Buffer)       MACROS{ Buffer->InUse = false; }MACROE
+		#define TCP_APP_RELEASE_BUFFER(Buffer)       do { Buffer->InUse = false; } while (0)
 
 		/** Application macro: Sends the contents of the given application buffer to the host.
 		 *
 		 *  \param[in] Buffer  Application buffer to send
 		 *  \param[in] Len     Length of data contained in the buffer
 		 */
-		#define TCP_APP_SEND_BUFFER(Buffer, Len)     MACROS{ Buffer->Direction = TCP_PACKETDIR_OUT; Buffer->Length = Len; Buffer->Ready = true; }MACROE
+		#define TCP_APP_SEND_BUFFER(Buffer, Len)     do { Buffer->Direction = TCP_PACKETDIR_OUT; Buffer->Length = Len; Buffer->Ready = true; } while (0)
 
 		/** Application macro: Clears the application buffer, ready for a packet to be written to it.
 		 *
 		 *  \param[in] Buffer  Application buffer to clear
 		 */
-		#define TCP_APP_CLEAR_BUFFER(Buffer)         MACROS{ Buffer->Ready = false; Buffer->Length = 0; }MACROE
+		#define TCP_APP_CLEAR_BUFFER(Buffer)         do { Buffer->Ready = false; Buffer->Length = 0; } while (0)
 
 		/** Application macro: Closes an open connection to a host.
 		 *
 		 *  \param[in] Connection  Open TCP connection to close
 		 */
-		#define TCP_APP_CLOSECONNECTION(Connection)  MACROS{ Connection->State = TCP_Connection_Closing;  }MACROE
+		#define TCP_APP_CLOSECONNECTION(Connection)  do { Connection->State = TCP_Connection_Closing;  } while (0)
 
 	/* Enums: */
 		/** Enum for possible TCP port states. */

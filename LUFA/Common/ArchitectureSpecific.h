@@ -70,18 +70,18 @@
 					 *
 					 *  \note This macro is not available for all architectures.
 					 */
-					#define JTAG_ENABLE()                  MACROS{                                       \
-																	__asm__ __volatile__ (               \
-																	"in __tmp_reg__,__SREG__" "\n\t"     \
-																	"cli" "\n\t"                         \
-																	"out %1, %0" "\n\t"                  \
-																	"out __SREG__, __tmp_reg__" "\n\t"   \
-																	"out %1, %0" "\n\t"                  \
-																	:                                    \
-																	: "r" (MCUCR & ~(1 << JTD)),         \
-																	  "M" (_SFR_IO_ADDR(MCUCR))          \
-																	: "r0");                             \
-															}MACROE
+					#define JTAG_ENABLE()               do {                                     \
+					                                        __asm__ __volatile__ (               \
+					                                        "in __tmp_reg__,__SREG__" "\n\t"     \
+					                                        "cli" "\n\t"                         \
+					                                        "out %1, %0" "\n\t"                  \
+					                                        "out __SREG__, __tmp_reg__" "\n\t"   \
+					                                        "out %1, %0" "\n\t"                  \
+					                                        :                                    \
+					                                        : "r" (MCUCR & ~(1 << JTD)),         \
+					                                          "M" (_SFR_IO_ADDR(MCUCR))          \
+					                                        : "r0");                             \
+					                                    } while (0)
 
 					/** Disables the AVR's JTAG bus in software, until a system reset. This will override the current JTAG
 					 *  status as set by the JTAGEN fuse, disabling JTAG debugging and reverting the JTAG pins back to GPIO
@@ -89,18 +89,18 @@
 					 *
 					 *  \note This macro is not available for all architectures.
 					 */
-					#define JTAG_DISABLE()                  MACROS{                                      \
-																	__asm__ __volatile__ (               \
-																	"in __tmp_reg__,__SREG__" "\n\t"     \
-																	"cli" "\n\t"                         \
-																	"out %1, %0" "\n\t"                  \
-																	"out __SREG__, __tmp_reg__" "\n\t"   \
-																	"out %1, %0" "\n\t"                  \
-																	:                                    \
-																	: "r" (MCUCR | (1 << JTD)),          \
-																	  "M" (_SFR_IO_ADDR(MCUCR))          \
-																	: "r0");                             \
-															}MACROE
+					#define JTAG_DISABLE()              do {                                     \
+					                                        __asm__ __volatile__ (               \
+					                                        "in __tmp_reg__,__SREG__" "\n\t"     \
+					                                        "cli" "\n\t"                         \
+					                                        "out %1, %0" "\n\t"                  \
+					                                        "out __SREG__, __tmp_reg__" "\n\t"   \
+					                                        "out %1, %0" "\n\t"                  \
+					                                        :                                    \
+					                                        : "r" (MCUCR | (1 << JTD)),          \
+					                                          "M" (_SFR_IO_ADDR(MCUCR))          \
+					                                        : "r0");                             \
+					                                    } while (0)
 				#endif
 
 				/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
@@ -124,7 +124,10 @@
 				 *
 				 *  \param[in] Condition  Condition that will be evaluated.
 				*/
-				#define JTAG_ASSERT(Condition)          MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
+				#define JTAG_ASSERT(Condition)          do {                       \
+				                                            if (!(Condition))      \
+				                                              JTAG_DEBUG_BREAK();  \
+				                                        } while (0)
 
 				/** Macro for testing condition \c "x" and writing debug data to the stdout stream if \c false. The stdout stream
 				 *  must be pre-initialized before this macro is run and linked to an output device, such as the microcontroller's
@@ -136,17 +139,17 @@
 				 *
 				 *  \param[in] Condition  Condition that will be evaluated,
 				 */
-				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(Condition)) {                                     \
-				                                                     printf_P(PSTR("%s: Function \"%s\", Line %d: "     \
-				                                                                   "Assertion \"%s\" failed.\r\n"),     \
-				                                                                   __FILE__, __func__, __LINE__, #Condition); } }MACROE
+				#define STDOUT_ASSERT(Condition)        do {                                                           \
+				                                            if (!(Condition))                                          \
+				                                              printf_P(PSTR("%s: Function \"%s\", Line %d: "           \
+				                                                            "Assertion \"%s\" failed.\r\n"),           \
+				                                                            __FILE__, __func__, __LINE__, #Condition); \
+				                                        } while (0)
 
 				#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
-					/** Reads a pointer out of PROGMEM space on the AVR8 architecture. This is currently a wrapper for the
-					 *  avr-libc \c pgm_read_word() macro with a \c void* cast, so that its value can be assigned directly
-					 *  to a pointer variable or used in pointer arithmetic without further casting in C. In a future
-					 *  avr-libc distribution this will be part of the standard API and will be implemented in a more formal
-					 *  manner.
+					/** Reads a pointer out of PROGMEM space on the AVR8 architecture. This is a wrapper for the avr-libc
+					 *  \c pgm_read_word() macro with a \c void* cast, so that its value can be assigned directly to a
+					 *  pointer variable or used in pointer arithmetic without further casting in C.
 					 *
 					 *  \note This macro is not available for all architectures.
 					 *
@@ -154,16 +157,21 @@
 					 *
 					 *  \return Pointer retrieved from PROGMEM space.
 					 */
-					#define pgm_read_ptr(Address)        (void*)pgm_read_word(Address)
+					#define pgm_read_ptr(Address)       (void*)pgm_read_word(Address)
 				#endif
 			#elif (ARCH == ARCH_UC3)
 				#define JTAG_DEBUG_POINT()              __asm__ __volatile__ ("nop" ::)
 				#define JTAG_DEBUG_BREAK()              __asm__ __volatile__ ("breakpoint" ::)
-				#define JTAG_ASSERT(Condition)          MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
-				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(Condition)) {                              \
-				                                                     printf("%s: Function \"%s\", Line %d: "     \
-				                                                            "Assertion \"%s\" failed.\r\n"),     \
-				                                                            __FILE__, __func__, __LINE__, #Condition); } }MACROE
+				#define JTAG_ASSERT(Condition)          do {                                                    \
+				                                            if (!(Condition))                                   \
+				                                              JTAG_DEBUG_BREAK();                               \
+				                                        } while (0)
+				#define STDOUT_ASSERT(Condition)        do {                                                    \
+				                                            if (!(Condition))                                   \
+				                                              printf("%s: Function \"%s\", Line %d: "           \
+				                                                     "Assertion \"%s\" failed.\r\n",            \
+				                                                     __FILE__, __func__, __LINE__, #Condition); \
+				                                        } while (0)
 			#endif
 
 	/* Disable C linkage for C++ Compilers: */

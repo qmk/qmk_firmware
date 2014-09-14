@@ -55,9 +55,9 @@
 		 *  \param[in] Acode  New SCSI additional sense key to set the additional sense code to
 		 *  \param[in] Aqual  New SCSI additional sense key qualifier to set the additional sense qualifier code to
 		 */
-		#define SCSI_SET_SENSE(Key, Acode, Aqual)  MACROS{ SenseData.SenseKey                 = (Key);   \
-		                                                   SenseData.AdditionalSenseCode      = (Acode); \
-		                                                   SenseData.AdditionalSenseQualifier = (Aqual); }MACROE
+		#define SCSI_SET_SENSE(Key, Acode, Aqual)  do { SenseData.SenseKey                 = (Key);   \
+		                                                SenseData.AdditionalSenseCode      = (Acode); \
+		                                                SenseData.AdditionalSenseQualifier = (Aqual); } while (0)
 
 		/** Macro for the \ref SCSI_Command_ReadWrite_10() function, to indicate that data is to be read from the storage medium. */
 		#define DATA_READ           true

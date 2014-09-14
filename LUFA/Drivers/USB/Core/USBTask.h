@@ -186,9 +186,9 @@
 			#endif
 
 		/* Macros: */
-			#define HOST_TASK_NONBLOCK_WAIT(Duration, NextState) MACROS{ USB_HostState   = HOST_STATE_WaitForDevice; \
-			                                                             WaitMSRemaining = (Duration);               \
-			                                                             PostWaitState   = (NextState);              }MACROE
+			#define HOST_TASK_NONBLOCK_WAIT(Duration, NextState) do { USB_HostState   = HOST_STATE_WaitForDevice; \
+			                                                          WaitMSRemaining = (Duration);               \
+			                                                          PostWaitState   = (NextState);              } while (0)
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */
