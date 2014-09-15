@@ -16,9 +16,6 @@ Build firmware
     $ cd tmk_keyboard
     $ git submodule init
     $ git submodule update
-
-and download LUFA and unzip under protocol/lufa and edit LUFA_PATH in protocol/lufa.mk. Then,
-
     $ cd converter/usb_usb
     $ make
 
