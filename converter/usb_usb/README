@@ -14,7 +14,6 @@ Build firmware
 --------------
     $ git clone git://github.com/tmk/tmk_keyboard.git
     $ cd tmk_keyboard
-    $ git checkout usb_hid
     $ git submodule init
     $ git submodule update
 
