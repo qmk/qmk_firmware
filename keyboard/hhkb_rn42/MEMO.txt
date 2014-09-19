@@ -15,12 +15,19 @@ Power saving:
 - deep sleep MCU and BT module(keyboard is not used for long time)
 - deep sleep MCU and turn off BT module(keyboard is not used and not connected)
 - Battery ADC; switching, high resistance
+    - switching gnd end of divider with PF4
+    - high resistor 100K/1M?
+        capacitor   10nF
+        http://www.eevblog.com/forum/beginners/measuring-battery-voltage-without-consuming-current/
 
 Improving:
 - BT LED; connecting, linked, sleeping, deep sleeping
 - Battry LED; blink(using timer?)
 - move rn42 to protocol directory when it becomes reusable stack
 - LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
+- ADC resolution
+    AVR120
+    AVR32138
 
 Testing:
 - Factroy reset doesn't work; need to **test again** 10K pull-up is too high?

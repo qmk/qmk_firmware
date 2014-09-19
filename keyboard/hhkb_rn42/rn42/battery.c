@@ -21,6 +21,10 @@ void battery_init(void)
     ADMUX = (1<<REFS1) | (1<<REFS0);
     ADCSRA = (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);
     ADCSRA |= (1<<ADEN);
+
+    // ADC disable voltate divider(PF4)
+    DDRF  |=  (1<<4);
+    PORTF &= ~(1<<4);
 }
 
 // Indicator for battery
@@ -79,6 +83,10 @@ bool battery_charging(void)
 // Returns voltage in mV
 uint16_t battery_voltage(void)
 {
+    // ADC disable voltate divider(PF4)
+    DDRF  |=  (1<<4);
+    PORTF |=  (1<<4);
+
     volatile uint16_t bat;
     //ADCSRA |= (1<<ADEN);
 
@@ -97,6 +105,10 @@ uint16_t battery_voltage(void)
     bat = ADC;
 
     //ADCSRA &= ~(1<<ADEN);
+
+    // ADC disable voltate divider(PF4)
+    DDRF  |=  (1<<4);
+    PORTF &= ~(1<<4);
 
     return (bat - BATTERY_ADC_OFFSET) * BATTERY_ADC_RESOLUTION;
 }
