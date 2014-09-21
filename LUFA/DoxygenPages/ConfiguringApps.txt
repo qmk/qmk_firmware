@@ -76,6 +76,12 @@
  *  This parameter indicates the raw input clock frequency to the USB module within the microcontroller in Hz. This may be very different on some platforms
  *  to the main CPU clock or other peripheral/bus clocks.
  *
+ *    \note On AVR8 platforms, this must be equal to \c 8000000 or \c 16000000.
+ *
+ *    \note On XMEGA platforms, this must be equal to a multiple of 6000000 from \c 6000000 to \c 48000000.
+ *
+ *    \note On UC3 platforms, this must be equal to a multiple of 12000000 from \c 12000000 to \c 48000000.
+ *
  *  \subsection SSec_ConfiguringApps_OPTIMIZATION The OPTIMIZATION Parameter
  *  This parameter indicates the level of optimization to use when compiling the application. This will allow you to compile with an optimization level
  *  supported by GCC, from <tt>0</tt> (no optimization) to <tt>3</tt> (fastest runtime optimization) or <tt>s</tt> (smallest size).
@@ -101,4 +107,51 @@
  *  \subsection SSec_ConfiguringApps_LD_FLAGS The LD_FLAGS Parameter
  *  This parameter lists the linker flags passed exclusively to the linker. These are used as-is directly to GCC and thus must match GCC's command line
  *  linker options as given in the GCC manual. This variable may be used to create or relocate custom data sections, or enable linker specific behaviors.
+ *
+ *
+ *  \section Sec_ExampleAppConfig Example Application Makefile Configurations
+ *  Below is an example makefile for an AVR8 based AT90USB1287 running at 8MHz, to compile a program called "MyApplication":
+ *  \verbatim
+    MCU          = at90usb1287
+    ARCH         = AVR8
+    BOARD        = NONE
+    F_CPU        = 8000000
+    F_USB        = $(F_CPU)
+    OPTIMIZATION = s
+    TARGET       = MyApplication
+    SRC          = MyApplication.c Descriptors.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
+    LUFA_PATH    = ../../../../LUFA
+    CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
+    LD_FLAGS     =
+    \endverbatim
+ *
+ *  Below is an example makefile for an XMEGA based ATXMEGA128A1U running at 32MHz, to compile a program called "MyApplication":
+ *  \verbatim
+    MCU          = atxmega128a1u
+    ARCH         = XMEGA
+    BOARD        = NONE
+    F_CPU        = 32000000
+    F_USB        = 48000000
+    OPTIMIZATION = s
+    TARGET       = MyApplication
+    SRC          = MyApplication.c Descriptors.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
+    LUFA_PATH    = ../../../../LUFA
+    CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
+    LD_FLAGS     =
+    \endverbatim
+ *
+ *  Below is an example makefile for a UC3 based AT32UC3A0512 running at 50MHz, to compile a program called "MyApplication":
+ *  \verbatim
+    MCU          = uc3a0512
+    ARCH         = UC3
+    BOARD        = NONE
+    F_CPU        = 50000000
+    F_USB        = 48000000
+    OPTIMIZATION = s
+    TARGET       = MyApplication
+    SRC          = MyApplication.c Descriptors.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
+    LUFA_PATH    = ../../../../LUFA
+    CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
+    LD_FLAGS     =
+    \endverbatim
  */
