@@ -8,6 +8,10 @@
 #include <inttypes.h>
 #include <avr/pgmspace.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern void (*xfunc_out)(uint8_t);
 #define xdev_out(func) xfunc_out = (void(*)(uint8_t))(func)
 
@@ -98,6 +102,10 @@ char xatoi(char **str, long *ret);
   ret
     Pointer to return value
 */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
