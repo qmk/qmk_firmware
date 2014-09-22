@@ -59,7 +59,6 @@ int main(void)
     LED_TX_INIT;
     LED_TX_ON;
 
-    print_enable = true;
     debug_enable = true;
     debug_matrix = true;
     debug_keyboard = true;

@@ -9,6 +9,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keymap.c \
 	$(COMMON_DIR)/timer.c \
 	$(COMMON_DIR)/print.c \
+	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/bootloader.c \
 	$(COMMON_DIR)/suspend.c \
 	$(COMMON_DIR)/xprintf.S \
