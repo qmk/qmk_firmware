@@ -14,12 +14,8 @@ Build firmware
 --------------
     $ git clone git://github.com/tmk/tmk_keyboard.git
     $ cd tmk_keyboard
-    $ git checkout usb_hid
     $ git submodule init
     $ git submodule update
-
-and download LUFA and unzip under protocol/lufa and edit LUFA_PATH in protocol/lufa.mk. Then,
-
     $ cd converter/usb_usb
     $ make
 
