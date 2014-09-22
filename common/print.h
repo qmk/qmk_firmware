@@ -34,10 +34,7 @@
 
 // this macro allows you to write print("some text") and
 // the string is automatically placed into flash memory :)
-// TODO: avoid collision with arduino/Print.h
-#ifndef __cplusplus
 #define print(s)                print_P(PSTR(s))
-#endif
 #define println(s)              print_P(PSTR(s "\n"))
 
 /* for old name */
