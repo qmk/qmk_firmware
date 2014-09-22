@@ -1,6 +1,7 @@
 /*
  * To keep Timer0 for common/timer.c override arduino/wiring.c.
  */
+#define __DELAY_BACKWARD_COMPATIBLE__
 #include <util/delay.h>
 #include "common/timer.h"
 #include "Arduino.h"

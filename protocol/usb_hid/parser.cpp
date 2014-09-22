@@ -1,5 +1,3 @@
-#include <cstring.h>
-
 #include "parser.h"
 #include "usb_hid.h"
 
