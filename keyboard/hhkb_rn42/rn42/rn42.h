@@ -15,5 +15,6 @@ bool rn42_rts(void);
 void rn42_cts_hi(void);
 void rn42_cts_lo(void);
 bool rn42_linked(void);
+void rn42_set_leds(uint8_t l);
 
 #endif

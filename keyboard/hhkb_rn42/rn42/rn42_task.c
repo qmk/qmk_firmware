@@ -7,6 +7,7 @@
 #include "lufa.h"
 #include "rn42_task.h"
 #include "print.h"
+#include "debug.h"
 #include "timer.h"
 #include "command.h"
 #include "battery.h"
@@ -45,7 +46,6 @@ void rn42_task(void)
             // LED Out report: 0xFE, 0x02, 0x01, <leds>
             // To get the report over UART set bit3 with SH, command.
             static enum {LED_INIT, LED_FE, LED_02, LED_01} state = LED_INIT;
-            xprintf("%02X\n", c);
             switch (state) {
                 case LED_INIT:
                     if (c == 0xFE) state = LED_FE;
@@ -60,8 +60,8 @@ void rn42_task(void)
                     else           state = LED_INIT;
                     break;
                 case LED_01:
-                    // TODO: move to rn42.c and make accessible with keyboard_leds()
-                    xprintf("LED status: %02X\n", c);
+                    dprintf("LED status: %02X\n", c);
+                    rn42_set_leds(c);
                     state = LED_INIT;
                     break;
                 default:

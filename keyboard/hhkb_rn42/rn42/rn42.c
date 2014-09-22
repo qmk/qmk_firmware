@@ -101,7 +101,9 @@ bool rn42_linked(void)
 }
 
 
-static uint8_t keyboard_leds(void) { return 0; }
+static uint8_t leds = 0;
+static uint8_t keyboard_leds(void) { return leds; }
+void rn42_set_leds(uint8_t l) { leds = l; }
 
 static void send_keyboard(report_keyboard_t *report)
 {
@@ -199,7 +201,7 @@ host_driver_t rn42_config_driver = {
     config_send_consumer
 };
 
-static uint8_t config_keyboard_leds(void) { return 0; }
+static uint8_t config_keyboard_leds(void) { return leds; }
 static void config_send_keyboard(report_keyboard_t *report) {}
 static void config_send_mouse(report_mouse_t *report) {}
 static void config_send_system(uint16_t data) {}
