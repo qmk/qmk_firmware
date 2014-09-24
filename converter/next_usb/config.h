@@ -60,6 +60,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 //#define TEENSY_CONFIG 1
 #define PRO_MICRO_CONFIG 1
+//#define TMK_CONFIG 1
 
 // comment out if you don't want the keyboard's LEDs to flash upon initialization
 #define NEXT_KBD_INIT_FLASH_LEDS
@@ -142,6 +143,43 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #endif
 //================= End of Teensy 2.0 Configuration ==================
+
+
+//================ Start of TMK converter Configuration =================
+#ifdef TMK_CONFIG
+
+// this is the debugging LED that flashes when a key is being pressed
+// comment out in order to disable debugging LED
+#define NEXT_KBD_LED1_PORT  PORTD
+#define NEXT_KBD_LED1_PIN   PIND
+#define NEXT_KBD_LED1_DDR   DDRD
+#define NEXT_KBD_LED1_BIT   6
+
+#define NEXT_KBD_LED1_ON    NEXT_KBD_LED1_PORT |=  (1<<NEXT_KBD_LED1_BIT);
+#define NEXT_KBD_LED1_OFF   NEXT_KBD_LED1_PORT &= ~(1<<NEXT_KBD_LED1_BIT);
+
+// corresponds to the Keyboard In wire on the NeXT connector
+#define NEXT_KBD_OUT_PORT  PORTD
+#define NEXT_KBD_OUT_PIN   PIND
+#define NEXT_KBD_OUT_DDR   DDRD
+#define NEXT_KBD_OUT_BIT   1
+
+// corresponds to the Keyboard Out wire on the NeXT connector
+#define NEXT_KBD_IN_PORT   PORTD
+#define NEXT_KBD_IN_PIN    PIND
+#define NEXT_KBD_IN_DDR    DDRD
+#define NEXT_KBD_IN_BIT    0
+
+// this pin is an input for the power key on the NeXT keyboard
+// as the keyboard is powered on this should be normally high;
+// if it is pulled low it means the power button is being preseed
+#define NEXT_KBD_PWR_PORT  PORTD
+#define NEXT_KBD_PWR_PIN   PIND
+#define NEXT_KBD_PWR_DDR   DDRD
+#define NEXT_KBD_PWR_BIT   4
+
+#endif
+//================= End of TMK converter Configuration ==================
 
 /* key combination for command */
 #define IS_COMMAND() ( \
