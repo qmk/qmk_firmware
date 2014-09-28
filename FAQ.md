@@ -64,7 +64,8 @@ Use `KC_PWR` instead of `KC_POWER` or vice versa.
 http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
 
 ## Oneshot modifier
-https://github.com/tmk/tmk_keyboard/issues/71
+Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  Oneshot Shift mitgates this for me.
+https://github.com/tmk/tmk_keyboard/issues/67
 
 # Degug Console
 ## hid_listen can't find device
