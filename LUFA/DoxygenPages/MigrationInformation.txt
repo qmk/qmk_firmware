@@ -10,6 +10,9 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
+ *  \section Sec_MigrationXXXXXX Migrating from 140928 to XXXXXX
+ *   None.
+ *
  *  \section Sec_Migration140928 Migrating from 140302 to 140928
  *  <b>Device Mode</b>
  *    - The device mode RNDIS class driver now requires a user-supplied buffer and buffer length to operate, rather
