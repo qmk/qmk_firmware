@@ -120,6 +120,7 @@ http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad
 ## Pull-up Resistor
 In some case converters needed to have pull-up resistors to work correctly. Place the resistor between VCC and signal line in parallel.
 
+For example:
 ```
 Keyboard       Conveter
                ,------.
@@ -133,6 +134,8 @@ GND------------|GND   |
                `------'
 R: 1K Ohm resistor
 ```
+
+https://github.com/tmk/tmk_keyboard/issues/71
 
 
 ## Arduino Micro's pin naming is confusing
