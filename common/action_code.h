@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * ACT_LAYER_TAP(101x):
  * 101E|LLLL| keycode    On/Off with tap key
- * 101E|LLLL|1110 xxxx   Reserved(0xE0-EF)
+ * 101E|LLLL|1110 mods   On/Off with modifiers(0xE0-EF)
  * 101E|LLLL|1111 0000   Invert with tap toggle(0xF0)
  * 101E|LLLL|1111 0001   On/Off
  * 101E|LLLL|1111 0010   Off/On
@@ -266,6 +266,7 @@ enum layer_pram_tap_op {
 #define ACTION_LAYER_ON_OFF(layer)                  ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
+#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | (mods)&0x0f)
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
 #define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
