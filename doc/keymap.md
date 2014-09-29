@@ -497,6 +497,13 @@ Number of taps can be configured with `TAPPING_TOGGLE` in `config.h`, `5` by def
 
 
 
+### 3.5 Momentary switching with Modifiers
+This registers modifier key(s) simultaneously with layer switching.
+
+    ACTION_LAYER_MODS(2, MOD_LSFT | MOD_LALT)
+
+
+
 ## 4. Tapping
 Tapping is to press and release a key quickly. Tapping speed is determined with setting of `TAPPING_TERM`, which can be defined in `config.h`, 200ms by default.
 
