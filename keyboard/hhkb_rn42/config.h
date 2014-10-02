@@ -50,6 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Boot Magic salt key: Space */
 #define BOOTMAGIC_KEY_SALT      KC_FN6
 
+/* power control of key switch board */
+#define HHKB_POWER_SAVING
 
 /*
  * Hardware Serial(UART)
