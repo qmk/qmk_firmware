@@ -59,9 +59,27 @@
  *
  *  \section Sec_Running Running the Bootloader
  *
- *  This bootloader is designed to be started via the HWB mechanism of the USB AVRs; ground the HWB pin (see device
- *  datasheet) then momentarily ground /RESET to start the bootloader. This assumes the HWBE fuse is set and the BOOTRST
- *  fuse is cleared.
+ *  On the USB AVR8 devices, setting the \c HWBE device fuse will cause the bootloader to run if the \c HWB pin of
+ *  the AVR is grounded when the device is reset.
+ *
+ *  The are two behaviours of this bootloader, depending on the device's fuses:
+ *
+ *  <b>If the device's BOOTRST fuse is set</b>, the bootloader will run any time the system is not reset from
+ *  the external reset pin, unless no valid user application has been loaded. To initiate the bootloader, the
+ *  device's external reset pin should be grounded.
+ *
+ *  <b>If the device's BOOTRST fuse is not set</b>, the bootloader will run only if initiated via a software
+ *  jump, or if the \c HWB pin was low during the last device reset (if the \c HWBE fuse is set).
+ *
+ *  For board specific exceptions to the above, see below.
+ *
+ *  \subsection SSec_XPLAIN Atmel Xplain Board
+ *  Ground the USB AVR JTAG's \c TCK pin to ground when powering on the board to start the bootloader. This assumes the
+ *  \c HWBE fuse is cleared and the \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \subsection SSec_Leonardo Arduino Leonardo Board
+ *  Ground \c IO13 when powering the board to start the bootloader. This assumes the \c HWBE fuse is cleared and the
+ *  \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
  *
  *  For board specific exceptions to the above, see below.
  *

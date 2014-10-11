@@ -14,7 +14,9 @@
   *  - Library Applications:
   *   - The CDC, DFU, Mass Storage and Printer class bootloaders will no longer run the user application if the application reset
   *     vector is blank (thanks to Alex Kazik)
-  *   - The Printer class bootloader is now compatible with the original Atmel XPLAIN and Arduino Leonardo boards.
+  *   - The CDC, DFU and Printer class bootloaders are now compatible with the original Atmel XPLAIN and Arduino Leonardo boards.
+  *   - The CDC, DFU, Mass Storage and Printer class bootloaders are not compatible with devices with the BOOTRST fuse set and will
+  *     exit automatically unless an external reset was the last reset cause (thanks to Alex Kazik)
   *
   *  <b>Fixed:</b>
   *   - None.
