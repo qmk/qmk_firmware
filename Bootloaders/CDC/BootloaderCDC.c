@@ -91,6 +91,10 @@ void Application_Jump_Check(void)
 	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
 	  JumpToApplication |= true;
 
+	/* Don't run the user application if the reset vector is blank (no app loaded) */
+	if (pgm_read_word_near(0) == 0xFFFF)
+	  JumpToApplication = false;
+
 	/* If a request has been made to jump to the user application, honor it */
 	if (JumpToApplication)
 	{

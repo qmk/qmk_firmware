@@ -127,6 +127,10 @@ void Application_Jump_Check(void)
 	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
 	  JumpToApplication |= true;
 
+	/* Don't run the user application if the reset vector is blank (no app loaded) */
+
+	  JumpToApplication = false;
+
 	/* If a request has been made to jump to the user application, honor it */
 	if (JumpToApplication)
 	{
@@ -751,8 +755,9 @@ static void ProcessWriteCommand(void)
 			}
 			else                                                               // Start via jump
 			{
-				/* Set the flag to terminate the bootloader at next opportunity */
-				RunBootloader = false;
+				/* Set the flag to terminate the bootloader at next opportunity if a valid application has been loaded */
+				if (pgm_read_word_near(0) == 0xFFFF)
+				  RunBootloader = false;
 			}
 		}
 	}

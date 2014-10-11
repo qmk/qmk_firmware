@@ -11,7 +11,10 @@
   *   - None.
   *
   *  <b>Changed:</b>
-  *   - None.
+  *  - Library Applications:
+  *   - The CDC, DFU, Mass Storage and Printer class bootloaders will no longer run the user application if the application reset
+  *     vector is blank (thanks to Alex Kazik)
+  *   - The Printer class bootloader is now compatible with the original Atmel XPLAIN and Arduino Leonardo boards.
   *
   *  <b>Fixed:</b>
   *   - None.

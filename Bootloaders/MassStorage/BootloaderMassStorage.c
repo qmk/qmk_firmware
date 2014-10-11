@@ -116,13 +116,22 @@ void Application_Jump_Check(void)
 
 	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
 	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
-	{
-		MagicBootKey      = 0;
-		JumpToApplication = true;
-	}
+	  JumpToApplication |= true;
 
+	/* Don't run the user application if the reset vector is blank (no app loaded) */
+	if (pgm_read_word_near(0) == 0xFFFF)
+	  JumpToApplication = false;
+
+	/* If a request has been made to jump to the user application, honor it */
 	if (JumpToApplication)
 	{
+		/* Turn off the watchdog */
+		MCUSR &= ~(1<<WDRF);
+		wdt_disable();
+
+		/* Clear the boot key and jump to the user application */
+		MagicBootKey = 0;
+
 		// cppcheck-suppress constStatement
 		((void (*)(void))0x0000)();
 	}
