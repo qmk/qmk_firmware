@@ -61,9 +61,9 @@
  *
  *  \section Sec_Running Running the Bootloader
  *
- *  This bootloader is designed to be started via the HWB mechanism of the USB AVRs; ground the HWB pin (see device
- *  datasheet) then momentarily ground /RESET to start the bootloader. This assumes the HWBE fuse is set and the BOOTRST
- *  fuse is cleared.
+ *  This bootloader is designed to be started via the \c HWB mechanism of the USB AVRs; ground the \c HWB pin (see device
+ *  datasheet) then momentarily ground \c /RESET to start the bootloader. This assumes the \c HWBE fuse is set and the
+ *  \c BOOTRST fuse is cleared.
  *
  *  \section Sec_Installation Driver Installation
  *
@@ -73,7 +73,7 @@
  *  \section Sec_HostApp Host Controller Application
  *
  *  Due to licensing issues, the supplied bootloader is compatible with the HalfKay bootloader protocol designed
- *  by PJRC, but is non-compatible with the cross-platform loader GUI. A modified version of the open source
+ *  by PJRC, but is <b>not compatible with the cross-platform loader GUI</b>. A modified version of the open source
  *  cross-platform TeensyLoader application is supplied, which can be compiled under most operating systems. The
  *  command-line loader application should remain compatible with genuine Teensy boards in addition to boards using
  *  this custom bootloader.
@@ -86,9 +86,9 @@
  *  \section Sec_KnownIssues Known Issues:
  *
  *  \par After loading an application, it is not run automatically on startup.
- *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
- *  to run automatically when the device is reset. In most cases, the BOOTRST
- *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  Some USB AVR boards ship with the \c BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. This booloader requires the
+ *  \c BOOTRST be disabled and the HWBE fuse used instead to run the bootloader
  *  when needed.
  *
  *  \section SSec_Options Project Options

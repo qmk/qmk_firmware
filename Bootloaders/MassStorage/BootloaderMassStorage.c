@@ -120,7 +120,18 @@ void Application_Jump_Check(void)
 			if (!(MCUSR & (1 << EXTRF)) || (MagicBootKey == MAGIC_BOOT_KEY))
 			  JumpToApplication = true;
 
+			/* Clear reset source */
 			MCUSR &= ~(1 << EXTRF);
+		}
+		else
+		{
+			/* If the reset source was the bootloader and the key is correct, clear it and jump to the application;
+			 * this can happen in the HWBE fuse is set, and the HBE pin is low during the watchdog reset */
+			if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+				JumpToApplication = true;
+
+			/* Clear reset source */
+			MCUSR &= ~(1 << WDRF);
 		}
 	#endif
 
