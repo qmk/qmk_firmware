@@ -98,5 +98,5 @@ BootloaderAPI_JumpTable:
 BootloaderAPI_Signatures:
 
 	.long BOOT_START_ADDR ; Start address of the bootloader
-	.word 0xDF30          ; Signature for the MS class bootloader, V1
-	.word 0xDCFB          ; Signature for a LUFA class bootloader
+	.word 0xDF30 ; Signature for the MS class bootloader, V1
+	.word 0xDCFB ; Signature for a LUFA class bootloader
