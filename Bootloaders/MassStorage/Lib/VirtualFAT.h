@@ -99,31 +99,31 @@
 
 		/** Bit-rotates a given 8-bit value once to the right.
 		 *
-		 *  \param x  Value to rotate right once
+		 *  \param[in] x  Value to rotate right once
 		 *
 		 *  \return Bit-rotated input value, rotated once to the right.
 		 */
-		#define _ROT8(x)                  ((((x) & 0xFE) >> 1) | (((x) & 1) ? 0x80 : 0x00))
+		#define ROT8(x)                   ((((x) & 0xFE) >> 1) | (((x) & 1) ? 0x80 : 0x00))
 
 		/** Computes the LFN entry checksum of a MSDOS 8.3 format file entry,
 		 *  to associate a LFN entry with its short file entry.
 		 *
-		 *  \param n0  MSDOS Filename character 1
-		 *  \param n1  MSDOS Filename character 2
-		 *  \param n2  MSDOS Filename character 3
-		 *  \param n3  MSDOS Filename character 4
-		 *  \param n4  MSDOS Filename character 5
-		 *  \param n5  MSDOS Filename character 6
-		 *  \param n6  MSDOS Filename character 7
-		 *  \param n7  MSDOS Filename character 8
-		 *  \param e0  MSDOS Extension character 1
-		 *  \param e1  MSDOS Extension character 2
-		 *  \param e2  MSDOS Extension character 3
+		 *  \param[in] n0  MSDOS Filename character 1
+		 *  \param[in] n1  MSDOS Filename character 2
+		 *  \param[in] n2  MSDOS Filename character 3
+		 *  \param[in] n3  MSDOS Filename character 4
+		 *  \param[in] n4  MSDOS Filename character 5
+		 *  \param[in] n5  MSDOS Filename character 6
+		 *  \param[in] n6  MSDOS Filename character 7
+		 *  \param[in] n7  MSDOS Filename character 8
+		 *  \param[in] e0  MSDOS Extension character 1
+		 *  \param[in] e1  MSDOS Extension character 2
+		 *  \param[in] e2  MSDOS Extension character 3
 		 *
 		 *  \return LFN checksum of the given MSDOS 8.3 filename.
 		 */
 		#define FAT_CHECKSUM(n0, n1, n2, n3, n4, n5, n6, n7, e0, e1, e2) \
-		   (uint8_t)(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(_ROT8(n0)+n1)+n2)+n3)+n4)+n5)+n6)+n7)+e0)+e1)+e2)
+		   (uint8_t)(ROT8(ROT8(ROT8(ROT8(ROT8(ROT8(ROT8(ROT8(ROT8(ROT8(n0)+n1)+n2)+n3)+n4)+n5)+n6)+n7)+e0)+e1)+e2)
 
 		/** \name FAT Filesystem Flags */
 		//@{
