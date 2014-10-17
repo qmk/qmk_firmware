@@ -67,6 +67,14 @@ http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
 Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  Oneshot Shift mitgates this for me.
 https://github.com/tmk/tmk_keyboard/issues/67
 
+## Modifier/Layer stuck
+Modifier keys or layers can be stuck unless layer switching is configured properly.
+For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
+
+https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#31-momentary-switching
+http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+
+
 # Degug Console
 ## hid_listen can't find device
 When debug console of your device is not ready you will see like this:
