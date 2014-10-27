@@ -4,6 +4,7 @@ Copyright 2010,2011,2012,2013 Jun WAKO <wakojun@gmail.com>
 #include <stdbool.h>
 #include <util/delay.h>
 #include "debug.h"
+#include "ring_buffer.h"
 #include "ibm4704.h"
 
 
@@ -20,7 +21,9 @@ uint8_t ibm4704_error = 0;
 
 void ibm4704_init(void)
 {
-    inhibit();
+    IBM4704_INT_INIT();
+    IBM4704_INT_ON();
+    idle();
 }
 
 /*
@@ -47,6 +50,8 @@ uint8_t ibm4704_send(uint8_t data)
     bool parity = true; // odd parity
     ibm4704_error = 0;
 
+    IBM4704_INT_OFF();
+
     /* Request to send */
     idle();
     clock_lo();
@@ -57,7 +62,6 @@ uint8_t ibm4704_send(uint8_t data)
     /* Data bit */
     for (uint8_t i = 0; i < 8; i++) {
         WAIT(clock_hi, 100, 0x40+i);
-        //_delay_us(5);
         if (data&(1<<i)) {
             parity = !parity;
             data_hi();
@@ -79,28 +83,25 @@ uint8_t ibm4704_send(uint8_t data)
     /* End */
     WAIT(data_lo, 100, 0x36);
 
-    inhibit();
-    _delay_us(200); // wait to recover clock to hi
+    idle();
+    IBM4704_INT_ON();
     return 0;
 ERROR:
-    inhibit();
-    if (ibm4704_error >= 0x30) {
-        xprintf("x%02X ", ibm4704_error);
+    idle();
+    if (ibm4704_error > 0x30) {
+        xprintf("S:%02X ", ibm4704_error);
     }
-    _delay_us(200); // wait to recover clock to hi
+    IBM4704_INT_ON();
     return -1;
 }
 
-/* receive data when host want else inhibit communication */
+/* wait forever to receive data */
 uint8_t ibm4704_recv_response(void)
 {
-    // 250 * 100us(wait start bit in ibm4704_recv)
-    uint8_t data = 0;
-    uint8_t try = 250;
-    do {
-        data = ibm4704_recv();
-    } while (try-- && ibm4704_error);
-    return data;
+    while (!rbuf_has_data()) {
+        _delay_ms(1);
+    }
+    return rbuf_dequeue();
 }
 
 /*
@@ -121,49 +122,69 @@ Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
 */
 uint8_t ibm4704_recv(void)
 {
-    uint8_t data = 0;
-    bool parity = true;    // odd parity
-    ibm4704_error = IBM4704_ERR_NONE;
-
-    idle();
-    _delay_us(5);   // wait for line settles
-
-    /* start bit */
-    WAIT(clock_lo, 100, 0x11); // wait for keyboard to send
-    WAIT(data_hi, 100, 0x12);  // can be delayed that long
-
-    WAIT(clock_hi, 100, 0x13); // first rising edge which can take longer
-    /* data */
-    for (uint8_t i = 0; i < 8; i++) {
-        WAIT(clock_hi, 100, 0x20+i);
-        //_delay_us(5);
-        if (data_in()) {
-            parity = !parity;
-            data |= (1<<i);
-        }
-        WAIT(clock_lo, 150, 0x28+i);
+    if (rbuf_has_data()) {
+        return rbuf_dequeue();
+    } else {
+        return -1;
     }
+}
 
-    /* parity */
-    WAIT(clock_hi, 100, 0x17);
-    if (data_in() != parity) {
-        ibm4704_error = IBM4704_ERR_PARITY;
-        goto ERROR;
+ISR(IBM4704_INT_VECT)
+{
+    static enum {
+        INIT, START, BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7, PARITY,
+    } state = INIT;
+    // LSB first
+    static uint8_t data = 0;
+    // Odd parity
+    static uint8_t parity = false;
+
+    ibm4704_error = 0;
+    // return unless falling edge
+    if (clock_in()) { goto RETURN; }    // why this occurs?
+
+    state++;
+    switch (state) {
+        case START:
+            // Data:Low
+            WAIT(data_hi, 10, state);
+            break;
+        case BIT0:
+        case BIT1:
+        case BIT2:
+        case BIT3:
+        case BIT4:
+        case BIT5:
+        case BIT6:
+        case BIT7:
+            data >>= 1;
+            if (data_in()) {
+                data |= 0x80;
+                parity = !parity;
+            }
+            break;
+        case PARITY:
+            if (data_in()) {
+                parity = !parity;
+            }
+            if (!parity)
+                goto ERROR;
+            rbuf_enqueue(data);
+            ibm4704_error = IBM4704_ERR_NONE;
+            goto DONE;
+            break;
+        default:
+            goto ERROR;
     }
-    WAIT(clock_lo, 150, 0x18);
-
-    /* stop bit */
-    WAIT(clock_hi, 100, 0x19);
-    WAIT(data_lo, 1, 0x19);
-
-    inhibit();
-    _delay_us(200); // wait to recover clock to hi
-    return data;
+    goto RETURN;
 ERROR:
-    if (ibm4704_error > 0x12) {
-        xprintf("x%02X ", ibm4704_error);
-    }
-    inhibit();
-    _delay_us(200); // wait to recover clock to hi
-    return -1;
+    ibm4704_error = state;
+    while (ibm4704_send(0xFE)) _delay_ms(1); // resend
+    xprintf("R:%02X\n", data);
+DONE:
+    state = INIT;
+    data = 0;
+    parity = false;
+RETURN:
+    return;
 }
