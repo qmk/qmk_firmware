@@ -56,7 +56,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Pin interrupt
  */
-#ifdef IBM4704_USE_INT
 #define IBM4704_INT_INIT()  do {    \
     EICRA |= ((1<<ISC11) |      \
               (0<<ISC10));      \
@@ -68,7 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     EIMSK &= ~(1<<INT1);        \
 } while (0)
 #define IBM4704_INT_VECT    INT1_vect
-#endif
 
 
 #endif
