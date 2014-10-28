@@ -180,7 +180,7 @@ ISR(IBM4704_INT_VECT)
 ERROR:
     ibm4704_error = state;
     while (ibm4704_send(0xFE)) _delay_ms(1); // resend
-    xprintf("R:%02X\n", data);
+    xprintf("R:%02X%02X\n", state, data);
 DONE:
     state = INIT;
     data = 0;

@@ -86,7 +86,7 @@ static void enable_break(void)
 
 void matrix_init(void)
 {
-    debug_enable = false;
+    debug_enable = true;
 
     ibm4704_init();
     matrix_clear();
