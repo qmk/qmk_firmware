@@ -72,6 +72,6 @@ void layer_xor(uint32_t state);
 
 
 /* return action depending on current layer status */
-action_t layer_switch_get_action(key_t key);
+action_t layer_switch_get_action(keypos_t key);
 
 #endif
