@@ -4,3 +4,6 @@
 [submodule "protocol/lufa/LUFA-git"]
 	path = protocol/lufa/LUFA-git
 	url = https://github.com/abcminiuser/lufa.git
+[submodule "teensy-sdk"]
+	path = teensy-sdk
+	url = https://github.com/apmorton/teensy-template
