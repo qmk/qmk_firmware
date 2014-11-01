@@ -33,8 +33,14 @@
 
 #ifndef NO_PRINT
 
+#if defined(__TEENSY_)
 
-#if defined(__AVR__)
+#include "teensy/xprintf.h"
+
+#define print(s)    xprintf(s)
+#define println(s)  xprintf(s "\r\n")
+
+#elif defined(__AVR__)
 
 #include "avr/xprintf.h"
 

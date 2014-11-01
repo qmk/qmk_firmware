@@ -39,7 +39,9 @@ typedef struct {
     uint16_t time;
 } keyevent_t;
 
+#ifdef __AVR__
 typedef keypos_t key_t;
+#endif
 
 /* equivalent test of keypos_t */
 #define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)

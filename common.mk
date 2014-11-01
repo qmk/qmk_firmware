@@ -1,4 +1,10 @@
+ifndef PLATFORM
+PLATFORM=avr
+endif
+
 COMMON_DIR = common
+PLATFORM_DIR = $(COMMON_DIR)/$(PLATFORM)
+
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
@@ -7,18 +13,28 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/keymap.c \
-	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
-	$(COMMON_DIR)/avr/suspend.c \
-	$(COMMON_DIR)/avr/xprintf.S \
-	$(COMMON_DIR)/avr/timer.c \
-	$(COMMON_DIR)/avr/bootloader.c
+	$(PLATFORM_DIR)/suspend.c \
+	$(PLATFORM_DIR)/bootloader.c
+
+ifeq (PLATFORM,avr)
+	$(COMMON_DIR)/print.c \
+	SRC += $(PLATFORM_DIR)/xprintf.S
+else
+	SRCPP += $(PLATFORM_DIR)/xprintf.cpp
+endif
+
+ifeq (PLATFORM,teensy)
+	SRCPP += $(PLATFORM_DIR)/timer.cpp
+else
+	SRC += $(PLATFORM_DIR)/timer.c
+endif
 
 # Option modules
 ifdef BOOTMAGIC_ENABLE
     SRC += $(COMMON_DIR)/bootmagic.c
-    SRC += $(COMMON_DIR)/avr/eeconfig.c
+    SRC += $(PLATFORM_DIR)/eeconfig.c
     OPT_DEFS += -DBOOTMAGIC_ENABLE
 endif
 

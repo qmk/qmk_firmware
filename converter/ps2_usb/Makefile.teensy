@@ -1,0 +1,55 @@
+
+# 
+# Makefile for Teensy
+#
+# Target file name (without extension).
+TEENSY=31
+PLATFORM=teensy
+TARGET = ps2_usb_$(PLATFORM)
+
+# Directory common source filess exist
+TOP_DIR = ../..
+
+# Directory keyboard dependent files exist
+TARGET_DIR = .
+
+# project specific files
+SRC =	keymap_common.c \
+	matrix.c \
+	led.c
+
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_plain.c $(SRC)
+endif
+
+CONFIG_H = config_teensy.h
+
+# Build Options
+#   comment out to disable the options.
+#
+#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+CONSOLE_ENABLE = yes	# Console for debug(+400)
+#COMMAND_ENABLE = yes    # Commands for debug and configuration
+#NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+
+
+# PS/2 Options
+#
+PS2_USE_BUSYWAIT = yes	# uses primitive reference code
+
+
+# Optimize size but this may cause error "relocation truncated to fit"
+#EXTRALDFLAGS = -Wl,--relax
+
+# Search Path
+VPATH += $(TARGET_DIR)
+VPATH += $(TOP_DIR)
+
+include $(TOP_DIR)/protocol.mk
+include $(TOP_DIR)/protocol/teensy.mk
+include $(TOP_DIR)/common.mk
+include $(TOP_DIR)/tool/teensy/gcc.mk
