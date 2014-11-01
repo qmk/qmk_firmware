@@ -37,31 +37,69 @@ KEYMAP_ALL( \
 
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: default
-     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.     ,-----------.
-     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|     |Pwr|Slp|Wak|
-     * `---'   `---------------' `---------------' `---------------' `-----------'     `-----------'
-     * ,-----------------------------------------------------------. ,-----------. ,---------------.
-     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backspa| |Ins|Hom|PgU| |NmL|  /|  *|  -|
-     * |-----------------------------------------------------------| |-----------| |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \| |Del|End|PgD| |  7|  8|  9|   |
-     * |-----------------------------------------------------------| `-----------' |-----------|  +|
-     * |CapsLo|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |               |  4|  5|  6|   |
-     * |-----------------------------------------------------------|     ,---.     |---------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift     |     |Up |     |  1|  2|  3|   |
-     * |-----------------------------------------------------------| ,-----------. |-----------|Ent|
-     * |Ctrl |Gui |Alt |         Space         |Alt |Gui |Menu|Ctrl| |Lef|Dow|Rig| |      0|  .|   |
-     * `-----------------------------------------------------------' `-----------' `---------------'
-     */
-    KEYMAP_FOCUS8000(
-    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,     NO,  NO,  NO,  NO,
-    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    WREF,NLCK,PSLS,PAST,PMNS,
-    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,          DEL, END, PGDN,    CALC,P7,  P8,  P9,
-    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         MUTE,P4,  P5,  P6,  PPLS,
-    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           VOLD,P1,  P2,  P3,
-    RCTL,LGUI,LALT,               SPC,                     RALT,BSLS,CAPS,     LEFT,DOWN,RGHT,    VOLU,P0,       PDOT,PENT
-    ),
+
+/* 0: default
+ * ,---.   ,---------------. ,---------------. ,---------------. ,-----------. ,-------------------.
+ * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau| | %  |SqRt| AC |Kb/C|
+ * `---'   `---------------' `---------------' `---------------' `-----------' `-------------------'
+ * ,-----------------------------------------------------------. ,-----------. ,-------------------.
+ * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backspa| |Ins|Hom|PgU| |CE |NmL|  /|  *|  -|
+ * |-----------------------------------------------------------| |-----------| |-------------------|
+ * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     | |Del|End|PgD| |MC |  7|  8|  9|   |
+ * |-----------------------------------------------------+     | `-----------' |---------------|  +|
+ * |CapsLo|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |               |MR |  4|  5|  6|   |
+ * |-----------------------------------------------------------|     ,---.     |-------------------|
+ * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift     |     |Up |     |M- |  1|  2|  3|   |
+ * |-----------------------------------------------------------| ,-----------. |---------------|Ent|
+ * |Ctrl |Fn0| Alt |           Space           | Alt |  /|Ctrl | |Lef|Dow|Rig| |M+ |      0|  .|   |
+ * `-----------------------------------------------------------' `-----------' `-------------------'
+ */
+KEYMAP_FOCUS8000(
+
+    ESC,      F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,      PSCR,SLCK,BRK,     NO,  NO,  NO,  NO,
+
+    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NO,  NLCK,PSLS,PAST,PMNS,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,          DEL, END, PGDN,    NO,  P7,  P8,  P9,
+    LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         NO,  P4,  P5,  P6,  PPLS,
+    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           NO,  P1,  P2,  P3,
+    RCTL,FN0, LALT,               SPC,                     RALT,BSLS,CAPS,     LEFT,DOWN,RGHT,    NO,  P0,       PDOT,PENT
+
+),
+
+/* 1: extra keys
+ * -------------
+ *  - vim keys
+ *  - media keys
+ *  - mouse keys
+ * ,---.   ,---------------. ,---------------. ,---------------. ,-----------. ,-------------------.
+ * |   |   |   |   |   |   | |   |   |   |   | |   |   |   |   | |   |   |   | |    |    |    |    |
+ * `---'   `---------------' `---------------' `---------------' `-----------' `-------------------'
+ * ,-----------------------------------------------------------. ,-----------. ,-------------------.
+ * |   |   |   |   |   |   |   |   |   |   |   |   |   |       | |   |   |   | |   |   |   |   |   |
+ * |-----------------------------------------------------------| |-----------| |-------------------|
+ * |     |   |   |   |   |   |   |   |   |   |   |   |   |     | |   |   |   | |   |Bn1|MsU|Bn2|   |
+ * |-----------------------------------------------------+     | `-----------' |---------------|WUp|
+ * |      |   |   |   |   |   |   |Lef|Dow|Up |Rig|   |        |               |   |MsL|MsD|MsR|   |
+ * |-----------------------------------------------------------|     ,---.     |-------------------|
+ * |        |   |   |   |   |   |   |   |   |   |   |          |     |   |     |   |   |   |   |   |
+ * |-----------------------------------------------------------| ,-----------. |---------------|WDn|
+ * |     |   |    |                            |VolDn|Mut|VolUp| |   |   |   | |   |       |   |   |
+ * `-----------------------------------------------------------' `-----------' `-------------------'
+ */
+KEYMAP_FOCUS8000(
+
+    TRNS,     TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,TRNS,TRNS,    TRNS,TRNS,TRNS,TRNS,
+
+    TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,     TRNS,TRNS,TRNS,    TRNS,TRNS,TRNS,TRNS,TRNS,
+    TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          TRNS,TRNS,TRNS,    TRNS,BTN1,MS_U,BTN2,
+    TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,LEFT,DOWN,UP,  RGHT,TRNS,     TRNS,                        TRNS,MS_L,MS_D,MS_R,WH_U,
+    TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,          TRNS,          TRNS,         TRNS,TRNS,TRNS,TRNS,
+    TRNS,TRNS,TRNS,               TRNS,                    VOLD,MUTE,VOLU,     TRNS,TRNS,TRNS,    TRNS,TRNS,     TRNS,WH_D
+
+),
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_LAYER_MOMENTARY(1),
 };
