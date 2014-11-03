@@ -76,7 +76,7 @@ http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 
 
 # Degug Console
-## hid_listen can't find device
+## hid_listen can't recognize device
 When debug console of your device is not ready you will see like this:
 
     Waiting for device:.........
@@ -91,14 +91,14 @@ Check if you can't get this 'Listening:' message:
 
 ## Can't get message on console
 Check:
-- connect the device to *hid_listen*. See above.
-- push **LShift+RShift+d** to enable debug. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
+- *hid_listen* finds your device. See above.
+- Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
 - set `debug_enable=yes` usually in `matrix_init()` in **matrix.c**.
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
 ## Linux or UNIX like system requires Super User privilege
-Just use 'sudo' to execute 'hid_listen' with privilege.
+Just use 'sudo' to execute *hid_listen* with privilege.
 ```
 $ sudo hid_listen
 ```
