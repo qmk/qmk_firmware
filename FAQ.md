@@ -89,13 +89,27 @@ once the device is pluged in then *hid_listen* finds it you will get this messag
 Check if you can't get this 'Listening:' message:
 - build with `CONSOLE_ENABLE=yes` in **Makefile**.
 
-## Can't get message from console
+## Can't get message on console
 Check:
 - connect the device to *hid_listen*. See above.
 - push **LShift+RShift+d** to enable debug. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
 - set `debug_enable=yes` usually in `matrix_init()` in **matrix.c**.
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+
+## Linux or UNIX like system requires Super User privilege
+Just use 'sudo' to execute 'hid_listen' with privilege.
+```
+$ sudo hid_listen
+```
+
+Or add an *udev rule* for TMK devices with placing a file in rules directory. The directory may vary on each system.
+
+File: /etc/udev/rules.d/52-tmk-keyboard.rules(in case of Ubuntu)
+```
+# tmk keyboard products     https://github.com/tmk/tmk_keyboard
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
+```
 
 ***
 
