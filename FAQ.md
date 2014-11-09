@@ -222,3 +222,7 @@ See this code.
 https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
 
 And read **26.5.1 MCU Control Register – MCUCR** of ATMega32U4 datasheet.
+
+## Adding LED indicators of Lock keys
+You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
+http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
