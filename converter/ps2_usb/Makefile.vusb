@@ -8,9 +8,15 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	keymap.c \
+SRC = keymap_common.c \
 	matrix.c \
 	led.c
+
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_plain.c $(SRC)
+endif
 
 # Use USART for PS/2. With V-USB INT and BUSYWAIT code is not useful.
 SRC += protocol/ps2_usart.c
@@ -95,7 +101,7 @@ VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 
 
-include $(TOP_DIR)/protocol/vusb.mk
 include $(TOP_DIR)/protocol.mk
 include $(TOP_DIR)/common.mk
+include $(TOP_DIR)/protocol/vusb.mk
 include $(TOP_DIR)/rules.mk
