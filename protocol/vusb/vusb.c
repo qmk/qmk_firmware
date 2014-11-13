@@ -35,6 +35,13 @@ static report_keyboard_t kbuf[KBUF_SIZE];
 static uint8_t kbuf_head = 0;
 static uint8_t kbuf_tail = 0;
 
+typedef struct {
+        uint8_t modifier;
+        uint8_t reserved;
+        uint8_t keycode[6];
+} keyboard_report_t;
+
+static keyboard_report_t keyboard_report; // sent to PC
 
 /* transfer keyboard report from buffer */
 void vusb_transfer_keyboard(void)
@@ -168,8 +175,8 @@ usbRequest_t    *rq = (void *)data;
         if(rq->bRequest == USBRQ_HID_GET_REPORT){
             debug("GET_REPORT:");
             /* we only have one report type, so don't look at wValue */
-            usbMsgPtr = (void *)keyboard_report;
-            return sizeof(*keyboard_report);
+            usbMsgPtr = (void *)&keyboard_report;
+            return sizeof(keyboard_report);
         }else if(rq->bRequest == USBRQ_HID_GET_IDLE){
             debug("GET_IDLE: ");
             //debug_hex(vusb_idle_rate);
@@ -232,7 +239,7 @@ uchar usbFunctionWrite(uchar *data, uchar len)
  *
  * from an example in HID spec appendix
  */
-PROGMEM uchar keyboard_hid_report[] = {
+const PROGMEM uchar keyboard_hid_report[] = {
     0x05, 0x01,          // Usage Page (Generic Desktop),
     0x09, 0x06,          // Usage (Keyboard),
     0xA1, 0x01,          // Collection (Application),
@@ -275,7 +282,7 @@ PROGMEM uchar keyboard_hid_report[] = {
  * http://www.keil.com/forum/15671/
  * http://www.microsoft.com/whdc/device/input/wheel.mspx
  */
-PROGMEM uchar mouse_hid_report[] = {
+const PROGMEM uchar mouse_hid_report[] = {
     /* mouse */
     0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
     0x09, 0x02,                    // USAGE (Mouse)
@@ -358,7 +365,7 @@ PROGMEM uchar mouse_hid_report[] = {
  * contains: device, interface, HID and endpoint descriptors
  */
 #if USB_CFG_DESCR_PROPS_CONFIGURATION
-PROGMEM char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
+const PROGMEM char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
     9,          /* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */
     USBDESCR_CONFIG,    /* descriptor type */
     9 + (9 + 9 + 7) + (9 + 9 + 7), 0,
