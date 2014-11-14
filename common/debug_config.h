@@ -27,7 +27,6 @@ extern "C" {
 
 /* NOTE: Not portable. Bit field order depends on implementation */
 typedef union {
-    uint8_t raw;
     struct {
         bool enable:1;
         bool matrix:1;
@@ -35,6 +34,7 @@ typedef union {
         bool mouse:1;
         uint8_t reserved:4;
     };
+    uint8_t raw;
 } debug_config_t;
 extern debug_config_t debug_config;
 
