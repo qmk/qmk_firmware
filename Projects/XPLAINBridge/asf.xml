@@ -5,7 +5,7 @@
 		<generator value="as5_8"/>
 
 		<device-support value="at90usb1287"/>
-		<config name="lufa.drivers.board.name" value="usbkey"/>
+		<config name="lufa.drivers.board.name" value="xplain"/>
 
 		<build type="define" name="F_CPU" value="8000000UL"/>
 		<build type="define" name="F_USB" value="8000000UL"/>
