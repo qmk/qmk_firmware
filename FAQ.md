@@ -76,13 +76,13 @@ http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 
 
 ## Mechanical Lock Switch Support
+https://github.com/tmk/tmk_keyboard#mechanical-locking-support
+
 LOCKING_SUPPORT is for mechanical lock switch like this Alps one. http://deskthority.net/wiki/Alps_SKCL_Lock
 
 Using enabling LOCKING_SUPPORT and using LCAP keycode in keymap you can use physical locking Capslock key as you expected. For example, Apple Extended Keyboard(AEK) and AEK II have.
 
 Old vintage mechanical keyboard occasionally has lock switch but modern ones including your HHKB don't have. You don't need LOCKING_SUPPORT for HHKB and just use CAPS for Capslock.
-
-With default HHKB keymap you can register Capslock with FN0+Tab. This doesn't work for you?
 
 
 
