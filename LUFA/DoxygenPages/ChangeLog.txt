@@ -8,7 +8,7 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
-  *   - None.
+  *   - Added support for the Atmel Xplained-MINI series of development kits.
   *
   *  <b>Changed:</b>
   *  - Library Applications:

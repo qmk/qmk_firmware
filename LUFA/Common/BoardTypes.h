@@ -240,6 +240,9 @@
 			/** Selects the Arduino Micro specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_MICRO                58
 
+			/** Selects the Atmel Xplained-MINI specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_XPLAINED_MINI        59
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_                 BOARD_NONE
 

@@ -92,6 +92,7 @@
  *   - STK525
  *   - STK526
  *   - XPLAIN (Original green board, <i>not</i> the newer blue XPLAINED family boards)
+ *   - Xplained-MINI
  *
  *  \section Sec_AVR8Support_ThirdParty Supported Third Party Boards
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile \c BOARD constant names):
