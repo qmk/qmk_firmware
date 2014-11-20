@@ -58,8 +58,7 @@ To select method edit Makefile.
 
 V-USB Support
 -------------
-You can also use this converter on ATmega(168/328) with V-USB instead of Teensy.
-The converter on V-USB lacks some features for now: USB NKRO and System/Media control.
+With V-USB you can use this converter on ATmega(168/328) but it doesn't support NKRO at this time.
 
 Circuit:
 
