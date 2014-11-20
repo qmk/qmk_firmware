@@ -7,6 +7,9 @@
 #include "backlight.h"
 #include "suspend_avr.h"
 #include "suspend.h"
+#ifdef PROTOCOL_LUFA
+#include "lufa.h"
+#endif
 
 
 #define wdt_intr_enable(value)   \
@@ -26,30 +29,45 @@ __asm__ __volatile__ (  \
 )
 
 
-void suspend_power_down(void)
+void suspend_idle(uint8_t time)
 {
-#ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
-#endif
-#ifndef NO_SUSPEND_POWER_DOWN
-    // Enable watchdog to wake from MCU sleep
     cli();
-    wdt_reset();
+    set_sleep_mode(SLEEP_MODE_IDLE);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
+}
 
-    // Watchdog Interrupt and System Reset Mode
-    //wdt_enable(WDTO_1S);
-    //WDTCSR |= _BV(WDIE);
-    
+/* Power down MCU with watchdog timer
+ * wdto: watchdog timer timeout defined in <avr/wdt.h>
+ *          WDTO_15MS
+ *          WDTO_30MS
+ *          WDTO_60MS
+ *          WDTO_120MS
+ *          WDTO_250MS
+ *          WDTO_500MS
+ *          WDTO_1S
+ *          WDTO_2S
+ *          WDTO_4S
+ *          WDTO_8S
+ */
+void suspend_power_down(uint8_t wdto)
+{
+#ifdef PROTOCOL_LUFA
+    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+#endif
+
     // Watchdog Interrupt Mode
-    wdt_intr_enable(WDTO_120MS);
-    
+    wdt_intr_enable(wdto);
+
     // TODO: more power saving
     // See PicoPower application note
     // - I/O port input with pullup
     // - prescale clock
     // - BOD disable
     // - Power Reduction Register PRR
-    // sleep in power down mode
+
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
     sleep_enable();
     sei();
@@ -58,12 +76,13 @@ void suspend_power_down(void)
 
     // Disable watchdog after sleep
     wdt_disable();
-#endif
 }
 
 bool suspend_wakeup_condition(void)
 {
+    matrix_power_up();
     matrix_scan();
+    matrix_power_down();
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         if (matrix_get_row(r)) return true;
     }
