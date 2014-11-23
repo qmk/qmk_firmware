@@ -1,12 +1,37 @@
 Roving RN-42
 ============
 
-TODO
-----
 Bug:
 - with Nexus5 keyboard and mouse are very laggy.
 
+- lose USB connection during power-down mode
+    - USB initialize code in main() causes this - WRONG
+    - Do not power-down during USB connection is active - DONE 11/11
+        (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
+        matrix_power_down() matrix.c - 11/23
+
+Todo:
+
+Design:
+- remove MCU dependent power saving code from core/keyboard
+    - it should be located in project matrix.c - DONE 11/23
+- HHKB matrix.c needs matrix_prev?
+    - is_modified() is obsolete now. really needs?
+
+
+LUFA:
+USB connection check: state of USB deivce
+- USB_DeviceState:
+    USB_Deivce_State_t { Unattached, Powered, Default, Addressed, Configured*, Suspended* }
+- USB_IsInitialized: state of LUFA core setup
+    becomes true in USB_Init()  USBController_AVR8.c
+    becomes false in USB_Disable()  USBController_AVR8.c
+- USB_VBUS_GetStatus(): state of VBUS(power/connection)
+- USB_Disable() detaches, disables all interrupts, controller, PLL, regulater.
+
+
 Power saving:
+- confirm suspend mode lufa.c: matrix_power_*, suspend_wakeup_condition
 - 8MHz clock
 - When not connected in a few minutes get into deep sleep to save battery life
 - CTS is needed for waking up from deep sleep? How deep sleep is activated?
@@ -19,6 +44,9 @@ Power saving:
     - high resistor 100K/1M?
         capacitor   10nF
         http://www.eevblog.com/forum/beginners/measuring-battery-voltage-without-consuming-current/
+- During USB suspend change clock source to internal RC from external Xtal(6.8)
+- FRZCLK: you can freeze clock for power saving. still WAKEUPI and VBUSTI interrupts are available while freezing.(21.7.3)
+- Suspend: Clear Suspend Bit, Freeze clock, disable PLL, MCU sleep(21.13)
 
 Improving:
 - BT LED; connecting, linked, sleeping, deep sleeping
@@ -305,6 +333,10 @@ SM,5        Auto Connect ANY Mode (Mode =ANY)
                 each time GPIO is set, make inquiry and connect to the first found device
 SM,6        automatically reconnect(Mode =Pair)
                 confirm: auto connect works well but difficult to enter command mode.
+
+SR,Z        removes all remote addresses for reconnecting.
+                can be used to connect another host
+SR,I        registers last inquiry address
 
 
 Fast data mode
