@@ -27,7 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "matrix.h"
 #include "hhkb_avr.h"
+#include <avr/wdt.h>
+#include "suspend.h"
+#include "lufa.h"
 
+
+// matrix power saving
+#define MATRIX_POWER_SAVE       10000
+static uint32_t matrix_last_modified = 0;
+static bool matrix_power = true;
 
 // matrix state buffer(1:on, 0:off)
 static matrix_row_t *matrix;
@@ -72,7 +80,7 @@ uint8_t matrix_scan(void)
     matrix_prev = matrix;
     matrix = tmp;
 
-    KEY_POWER_ON();
+    matrix_power_up();
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             KEY_SELECT(row, col);
@@ -126,8 +134,9 @@ uint8_t matrix_scan(void)
             // This takes 25us or more to make sure KEY_STATE returns to idle state.
             _delay_us(75);
         }
+        if (matrix[row] ^ matrix_prev[row]) matrix_last_modified = timer_read32();
     }
-    KEY_POWER_OFF();
+    matrix_power_down();
     return 1;
 }
 
@@ -164,4 +173,19 @@ void matrix_print(void)
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         xprintf("%02X: %08b\n", row, bitrev(matrix_get_row(row)));
     }
+}
+
+void matrix_power_up(void) {
+    if (matrix_power) return;
+    KEY_POWER_ON();
+    matrix_power = true;
+}
+void matrix_power_down(void) {
+    if (!matrix_power) return;
+    // doesn't power save while USB connection is active
+    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+    if (timer_elapsed32(matrix_last_modified) <= MATRIX_POWER_SAVE) return;
+    KEY_POWER_OFF();
+    suspend_power_down(WDTO_15MS);
+    matrix_power = false;
 }

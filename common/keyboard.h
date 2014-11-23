@@ -62,6 +62,9 @@ void keyboard_init(void);
 void keyboard_task(void);
 void keyboard_set_leds(uint8_t leds);
 
+__attribute__ ((weak)) void matrix_power_up(void) {}
+__attribute__ ((weak)) void matrix_power_down(void) {}
+
 #ifdef __cplusplus
 }
 #endif
