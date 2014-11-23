@@ -50,9 +50,15 @@ TARGET_DIR = .
 # project specific files
 SRC =	keymap_common.c \
 	matrix.c \
-	backlight.c \
-	led.c \
-	keymap_ansi150.c
+	backlight.c
+
+ifdef LAYOUT
+   OPT_DEFS += -DNERD_LAYOUT_$(LAYOUT)
+endif
+
+ifdef KEYMAP
+    SRC := keymap_$(LAYOUT)_$(KEYMAP).c $(SRC)
+endif
 
 CONFIG_H = config.h
 
@@ -103,7 +109,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-#MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
@@ -118,6 +124,3 @@ VPATH += $(TOP_DIR)
 include $(TOP_DIR)/protocol/lufa.mk
 include $(TOP_DIR)/common.mk
 include $(TOP_DIR)/rules.mk
-
-winkey: OPT_DEFS += -DLAYOUT_WINKEY
-winkey: all

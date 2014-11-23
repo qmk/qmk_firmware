@@ -17,10 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <avr/io.h>
 #include "backlight.h"
+#include "led.h"
 
 void backlight_init_ports()
 {
     DDRB |= 0b11100000; // PB7 (switch), PB6 (pcb), PB5 (caps)
+}
+
+void led_set(uint8_t usb_led)
+{
+    (usb_led & (1<<USB_LED_CAPS_LOCK)) ? backlight_caps_enable() : backlight_caps_disable();
 }
 
 void backlight_set(uint8_t level)

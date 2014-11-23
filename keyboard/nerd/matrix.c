@@ -142,19 +142,20 @@ static void init_inputs(void)
     DDRE &= ~0b01000000; // PE6 (Col 0)
     DDRB &= ~0b00001111; // PB0 (Col 1), PB1 (Col 2), PB2 (Col 3), PB3 (Col 4)
     DDRF &= ~0b00000001; // PF0 (Col 5)
-    DDRD &= ~0b00100001; // PD0 (Col 6), PD5 (Col 7)
+    DDRD &= ~0b00100011; // PD0 (Col 6), PD1 (Col 8 TKL), PD5 (Col 7)
 }
 
 static uint16_t read_inputs(void)
 {
-    return (PINE&(1<<6) ? 0 : (1<<0)) |  // PE6 (Row 0)
-           (PINB&(1<<0) ? 0 : (1<<1)) |  // PB0 (Row 1)
-           (PINB&(1<<1) ? 0 : (1<<2)) |  // PB1 (Row 2)
-           (PINB&(1<<2) ? 0 : (1<<3)) |  // PB2 (Row 3)
-           (PINB&(1<<3) ? 0 : (1<<4)) |  // PB3 (Row 4)
-           (PINF&(1<<0) ? 0 : (1<<5)) |  // PF0 (Row 5)
-           (PIND&(1<<0) ? 0 : (1<<6)) |  // PD0 (Row 6)
-           (PIND&(1<<5) ? 0 : (1<<7));   // PD5 (Row 7)
+    return (PINE&(1<<6) ? 0 : (1<<0)) |  // PE6 (Col 0)
+           (PINB&(1<<0) ? 0 : (1<<1)) |  // PB0 (Col 1)
+           (PINB&(1<<1) ? 0 : (1<<2)) |  // PB1 (Col 2)
+           (PINB&(1<<2) ? 0 : (1<<3)) |  // PB2 (Col 3)
+           (PINB&(1<<3) ? 0 : (1<<4)) |  // PB3 (Col 4)
+           (PINF&(1<<0) ? 0 : (1<<5)) |  // PF0 (Col 5)
+           (PIND&(1<<0) ? 0 : (1<<6)) |  // PD0 (Col 6)
+           (PIND&(1<<5) ? 0 : (1<<7)) |  // PD5 (Col 7)
+           (PIND&(1<<1) ? 0 : (1<<8));   // PD1 (Col 8 TKL)
 }
 
 static void reset_inputs(void)
@@ -162,7 +163,7 @@ static void reset_inputs(void)
     PORTE |= 0b01000000; // PE6 (Col 0)
     PORTB |= 0b00001111; // PB0 (Col 1), PB1 (Col 2), PB2 (Col 3), PB3 (Col 4)
     PORTF |= 0b00000001; // PF0 (Col 5)
-    PORTD |= 0b00100001; // PD0 (Col 6), PD5 (Col 7)
+    PORTD |= 0b00100011; // PD0 (Col 6), PD1 (Col 8 TKL), PD5 (Col 7)
 }
 
 static void init_outputs(void)
