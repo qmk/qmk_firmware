@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <stdint.h>
+#include <util/delay.h>
+#include <avr/wdt.h>
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -30,12 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bootmagic.h"
 #include "eeconfig.h"
 #include "backlight.h"
+#include "suspend.h"
 #ifdef MOUSEKEY_ENABLE
 #   include "mousekey.h"
 #endif
 #ifdef PS2_MOUSE_ENABLE
 #   include "ps2_mouse.h"
 #endif
+#include "lufa.h"
 
 
 #ifdef MATRIX_HAS_GHOST
@@ -83,7 +87,25 @@ void keyboard_task(void)
     static uint8_t led_status = 0;
     matrix_row_t matrix_row = 0;
     matrix_row_t matrix_change = 0;
+    static uint32_t last_key_time = 0;
 
+/*
+#define SLEEP_TIME_MS 10000
+    // (USB_DeviceState == DEVICE_STATE_Suspended) {
+    //if (timer_elapsed32(last_key_time) > SLEEP_TIME_MS) {
+    // TODO: remove LUFA dependent code
+    if (!USB_IsInitialized && timer_elapsed32(last_key_time) > SLEEP_TIME_MS) {
+        matrix_power_down();
+        // TODO: power down only when no USB connection
+        // Or it makes USB connection lost or suspended
+        suspend_power_down(WDTO_15MS);
+        matrix_power_up();
+    }
+    else {
+        matrix_power_down();
+        matrix_power_up();
+    }
+*/
     matrix_scan();
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         matrix_row = matrix_get_row(r);
@@ -105,6 +127,7 @@ void keyboard_task(void)
                     });
                     // record a processed key
                     matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                    last_key_time = timer_read32();
                     // process a key per task call
                     goto MATRIX_LOOP_END;
                 }

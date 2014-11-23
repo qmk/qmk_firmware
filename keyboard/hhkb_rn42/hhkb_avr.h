@@ -43,11 +43,10 @@ static inline void KEY_PREV_ON(void) { (PORTB |=  (1<<7)); }
 static inline void KEY_PREV_OFF(void) { (PORTB &= ~(1<<7)); }
 #ifdef HHKB_POWER_SAVING
 static inline void KEY_POWER_ON(void) {
-    _delay_ms(10);                      // TODO: sleep to save power
     DDRB = 0xFF; PORTB = 0x40;          // change pins output
     DDRD |= (1<<4); PORTD |= (1<<4);    // MOS FET switch on
     /* Without this wait you will miss or get false key events. */
-    _delay_ms(1);                       // wait for powering up
+    _delay_ms(5);                       // wait for powering up
 }
 static inline void KEY_POWER_OFF(void) {
     /* input with pull-up consumes less than without it when pin is open. */
@@ -74,7 +73,7 @@ static inline void KEY_INIT(void)
     KEY_UNABLE();
     KEY_PREV_OFF();
 
-    KEY_POWER_OFF();
+    KEY_POWER_ON();
 }
 static inline void KEY_SELECT(uint8_t ROW, uint8_t COL)
 {
