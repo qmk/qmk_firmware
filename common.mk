@@ -7,19 +7,19 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/keymap.c \
-	$(COMMON_DIR)/timer.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
-	$(COMMON_DIR)/bootloader.c \
-	$(COMMON_DIR)/suspend.c \
-	$(COMMON_DIR)/xprintf.S \
-	$(COMMON_DIR)/util.c
+	$(COMMON_DIR)/util.c \
+	$(COMMON_DIR)/avr/suspend.c \
+	$(COMMON_DIR)/avr/xprintf.S \
+	$(COMMON_DIR)/avr/timer.c \
+	$(COMMON_DIR)/avr/bootloader.c
 
 
 # Option modules
 ifdef BOOTMAGIC_ENABLE
     SRC += $(COMMON_DIR)/bootmagic.c
-    SRC += $(COMMON_DIR)/eeconfig.c
+    SRC += $(COMMON_DIR)/avr/eeconfig.c
     OPT_DEFS += -DBOOTMAGIC_ENABLE
 endif
 

@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include <util/delay.h>
 #include "keycode.h"
 #include "host.h"
 #include "timer.h"

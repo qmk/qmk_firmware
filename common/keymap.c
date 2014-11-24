@@ -14,7 +14,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <avr/pgmspace.h>
 #include "keymap.h"
 #include "report.h"
 #include "keycode.h"
@@ -28,7 +27,7 @@ static action_t keycode_to_action(uint8_t keycode);
 
 
 /* converts key to action */
-action_t action_for_key(uint8_t layer, key_t key)
+action_t action_for_key(uint8_t layer, keypos_t key)
 {
     uint8_t keycode = keymap_key_to_keycode(layer, key);
     switch (keycode) {
@@ -156,7 +155,7 @@ static action_t keycode_to_action(uint8_t keycode)
  *      Consider using new keymap API instead.
  */
 __attribute__ ((weak))
-uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
+uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     return keymap_get_keycode(layer, key.row, key.col);
 }

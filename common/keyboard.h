@@ -30,16 +30,16 @@ extern "C" {
 typedef struct {
     uint8_t col;
     uint8_t row;
-} key_t;
+} keypos_t;
 
 /* key event */
 typedef struct {
-    key_t    key;
+    keypos_t key;
     bool     pressed;
     uint16_t time;
 } keyevent_t;
 
-/* equivalent test of key_t */
+/* equivalent test of keypos_t */
 #define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
 /* Rules for No Event:
@@ -52,7 +52,7 @@ static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) &&
 
 /* Tick event */
 #define TICK                    (keyevent_t){           \
-    .key = (key_t){ .row = 255, .col = 255 },           \
+    .key = (keypos_t){ .row = 255, .col = 255 },           \
     .pressed = false,                                   \
     .time = (timer_read() | 1)                          \
 }
@@ -61,6 +61,9 @@ static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) &&
 void keyboard_init(void);
 void keyboard_task(void);
 void keyboard_set_leds(uint8_t leds);
+
+__attribute__ ((weak)) void matrix_power_up(void) {}
+__attribute__ ((weak)) void matrix_power_down(void) {}
 
 #ifdef __cplusplus
 }
