@@ -122,7 +122,7 @@ void usb_remote_wakeup(void);
 #define KBD_INTERFACE		0
 #define KBD_ENDPOINT		1
 #define KBD_SIZE		8
-#define KBD_BUFFER		EP_DOUBLE_BUFFER
+#define KBD_BUFFER		EP_SINGLE_BUFFER
 #define KBD_REPORT_KEYS		(KBD_SIZE - 2)
 
 // secondary keyboard
