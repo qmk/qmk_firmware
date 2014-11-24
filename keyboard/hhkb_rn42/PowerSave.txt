@@ -1,0 +1,102 @@
+RN-42
+=====
+
+HHKB key switch power control
+-----------------------------
+MOS FET Nch: BSS138 or IRLML6344T, either works and no apparent difference.
+Normally on(pull-up) or off(pull-down)? interms of power saving it prefers pull-down?
+
+Pull-down will be better for power saving, normally off.
+
+
+
+Used Timer
+----------
+
+8MHz clock
+----------
+1) 16MHz xtal with system prescaler div2: F_CPU=8MHz, F_USB=16MHz
+2) 8MHz xtal with div1: F_CPU=8MHz, F_USB=8MHz
+Hardware USART doesn't work at 115200bps with 8MHz(F_CPU).
+
+workaround:
+a) use Sotwre serial for communcation with RN-42
+b) reduce baud of RN-42 to lower rate;(factory default is 115200bps)
+10/03
+
+
+
+Slave mode
+----------
+Discovery/Inquire
+Connect/Page
+
+SI,0012
+SJ,0012
+InqWindw=0100
+PagWindw=0100
+
+
+Sniff mode
+----------
+0.625ms * <hex>
+SW,0320     Very sluggish. Type is not lost but very slow to register.
+SW,0160     Still sluggish. may transposed? can type but ...
+            Mouse point move intermittently
+SW,0020     feel a bit late like stumble(20ms)
+SW,0010     feel no latency(10ms)
+
+
+Deep sleep
+----------
+SW,8010
+
+
+TX power
+--------
+SY,fff4
+
+
+IO pins
+-------
+S%,1000         status led and connection control don't work
+                GPIO5: status LED
+                GPIO6: Connection control
+                GPIO2: linked status
+
+
+
+
+
+Ver 6.15 04/26/2013
+(c) Roving Networks
+***Settings***
+BTA=00066667BBE9
+BTName=tmkBT-BBE9
+Baudrt(SW4)=115K
+Mode  =DTR
+Authen=1
+Bonded=0
+Rem=001BDC06415B
+***ADVANCED Settings***
+SrvName= keyboard/mouse
+SrvClass=0000
+DevClass=1F00
+InqWindw=0012
+PagWindw=0012
+CfgTimer=255
+StatuStr=NULL
+HidFlags=3c
+DTRtimer=8
+KeySwapr=0
+***OTHER Settings***
+Profile= HID
+CfgChar= $
+SniffEna=8010
+LowPower=0          S|,
+TX Power=fff4       SY,
+IOPorts= 0
+IOValues=0
+Sleeptmr=0
+DebugMod=0
+RoleSwch=0

@@ -53,4 +53,9 @@ matrix_row_t  matrix_get_row(uint8_t row);
 void matrix_print(void);
 
 
+/* power control */
+void matrix_power_up(void);
+void matrix_power_down(void);
+
+
 #endif

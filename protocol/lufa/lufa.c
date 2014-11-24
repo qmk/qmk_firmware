@@ -148,10 +148,23 @@ static void Console_Task(void)
 */
 void EVENT_USB_Device_Connect(void)
 {
+    /* For battery powered device */
+    if (!USB_IsInitialized) {
+        USB_Init();
+        USB_Device_EnableSOFEvents();
+    }
 }
 
 void EVENT_USB_Device_Disconnect(void)
 {
+    /* For battery powered device */
+/* TODO: This doesn't work. After several plug in/outs can not be enumerated. 
+    if (USB_IsInitialized) {
+        USB_Disable();  // Disable all interrupts
+	USB_Controller_Enable();
+        USB_INT_Enable(USB_INT_VBUSTI);
+    }
+*/
 }
 
 void EVENT_USB_Device_Reset(void)
@@ -574,7 +587,7 @@ int main(void)
     print("Keyboard start.\n");
     while (1) {
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
-            suspend_power_down();
+            suspend_power_down(WDTO_120MS);
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();
             }

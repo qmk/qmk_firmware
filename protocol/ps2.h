@@ -39,8 +39,9 @@ POSSIBILITY OF SUCH DAMAGE.
 #define PS2_H
 
 #include <stdbool.h>
-#include <util/delay.h>
-#include <avr/io.h>
+#include "wait.h"
+#include "ps2_io.h"
+#include "print.h"
 
 /*
  * Primitive PS/2 Library for AVR
@@ -92,79 +93,27 @@ uint8_t ps2_host_recv(void);
 void ps2_host_set_led(uint8_t usb_led);
 
 
-/* Check port settings for clock and data line */
-#if !(defined(PS2_CLOCK_PORT) && \
-      defined(PS2_CLOCK_PIN) && \
-      defined(PS2_CLOCK_DDR) && \
-      defined(PS2_CLOCK_BIT))
-#   error "PS/2 clock port setting is required in config.h"
-#endif
-
-#if !(defined(PS2_DATA_PORT) && \
-      defined(PS2_DATA_PIN) && \
-      defined(PS2_DATA_DDR) && \
-      defined(PS2_DATA_BIT))
-#   error "PS/2 data port setting is required in config.h"
-#endif
-
 /*--------------------------------------------------------------------
  * static functions
  *------------------------------------------------------------------*/
-static inline void clock_lo(void)
-{
-    PS2_CLOCK_PORT &= ~(1<<PS2_CLOCK_BIT);
-    PS2_CLOCK_DDR  |=  (1<<PS2_CLOCK_BIT);
-}
-static inline void clock_hi(void)
-{
-    /* input with pull up */
-    PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
-    PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
-}
-static inline bool clock_in(void)
-{
-    PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
-    PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
-    _delay_us(1);
-    return PS2_CLOCK_PIN&(1<<PS2_CLOCK_BIT);
-}
-static inline void data_lo(void)
-{
-    PS2_DATA_PORT &= ~(1<<PS2_DATA_BIT);
-    PS2_DATA_DDR  |=  (1<<PS2_DATA_BIT);
-}
-static inline void data_hi(void)
-{
-    /* input with pull up */
-    PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
-    PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
-}
-static inline bool data_in(void)
-{
-    PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
-    PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
-    _delay_us(1);
-    return PS2_DATA_PIN&(1<<PS2_DATA_BIT);
-}
-
 static inline uint16_t wait_clock_lo(uint16_t us)
 {
-    while (clock_in()  && us) { asm(""); _delay_us(1); us--; }
+    while (clock_in()  && us) { asm(""); wait_us(1); us--; }
     return us;
 }
 static inline uint16_t wait_clock_hi(uint16_t us)
 {
-    while (!clock_in() && us) { asm(""); _delay_us(1); us--; }
+    while (!clock_in() && us) { asm(""); wait_us(1); us--; }
     return us;
 }
 static inline uint16_t wait_data_lo(uint16_t us)
 {
-    while (data_in() && us)  { asm(""); _delay_us(1); us--; }
+    while (data_in() && us)  { asm(""); wait_us(1); us--; }
     return us;
 }
 static inline uint16_t wait_data_hi(uint16_t us)
 {
-    while (!data_in() && us)  { asm(""); _delay_us(1); us--; }
+    while (!data_in() && us)  { asm(""); wait_us(1); us--; }
     return us;
 }
 
