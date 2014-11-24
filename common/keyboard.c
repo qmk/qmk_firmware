@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <stdint.h>
-#include <util/delay.h>
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -107,7 +106,7 @@ void keyboard_task(void)
             for (uint8_t c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & ((matrix_row_t)1<<c)) {
                     action_exec((keyevent_t){
-                        .key = (key_t){ .row = r, .col = c },
+                        .key = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & ((matrix_row_t)1<<c)),
                         .time = (timer_read() | 1) /* time should not be 0 */
                     });

@@ -9,6 +9,7 @@ endif
 
 ifdef PS2_USE_BUSYWAIT
     SRC += protocol/ps2_busywait.c
+    SRC += protocol/ps2_io_avr.c
     OPT_DEFS += -DPS2_USE_BUSYWAIT
 endif
 

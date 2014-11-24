@@ -1,0 +1,523 @@
+Roving RN-42
+============
+
+Bug:
+- with Nexus5 keyboard and mouse are very laggy.
+
+- lose USB connection during power-down mode
+    - USB initialize code in main() causes this - WRONG
+    - Do not power-down during USB connection is active - DONE 11/11
+        (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
+        matrix_power_down() matrix.c - 11/23
+
+Todo:
+
+Design:
+- remove MCU dependent power saving code from core/keyboard
+    - it should be located in project matrix.c - DONE 11/23
+- HHKB matrix.c needs matrix_prev?
+    - is_modified() is obsolete now. really needs?
+
+
+LUFA:
+USB connection check: state of USB deivce
+- USB_DeviceState:
+    USB_Deivce_State_t { Unattached, Powered, Default, Addressed, Configured*, Suspended* }
+- USB_IsInitialized: state of LUFA core setup
+    becomes true in USB_Init()  USBController_AVR8.c
+    becomes false in USB_Disable()  USBController_AVR8.c
+- USB_VBUS_GetStatus(): state of VBUS(power/connection)
+- USB_Disable() detaches, disables all interrupts, controller, PLL, regulater.
+
+
+Power saving:
+- confirm suspend mode lufa.c: matrix_power_*, suspend_wakeup_condition
+- 8MHz clock
+- When not connected in a few minutes get into deep sleep to save battery life
+- CTS is needed for waking up from deep sleep? How deep sleep is activated?
+- firmware controlled 3.3V DC converter to switch on/off BT module
+- sleep MCU and BT module(keyboard is not used)
+- deep sleep MCU and BT module(keyboard is not used for long time)
+- deep sleep MCU and turn off BT module(keyboard is not used and not connected)
+- Battery ADC; switching, high resistance
+    - switching gnd end of divider with PF4
+    - high resistor 100K/1M?
+        capacitor   10nF
+        http://www.eevblog.com/forum/beginners/measuring-battery-voltage-without-consuming-current/
+- During USB suspend change clock source to internal RC from external Xtal(6.8)
+- FRZCLK: you can freeze clock for power saving. still WAKEUPI and VBUSTI interrupts are available while freezing.(21.7.3)
+- Suspend: Clear Suspend Bit, Freeze clock, disable PLL, MCU sleep(21.13)
+
+Improving:
+- BT LED; connecting, linked, sleeping, deep sleeping
+- Battry LED; blink(using timer?)
+- move rn42 to protocol directory when it becomes reusable stack
+- LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
+- ADC resolution
+    AVR120
+    AVR32138
+
+Testing:
+- Factroy reset doesn't work; need to **test again** 10K pull-up is too high?
+- Lipo voltage ADC value is not stabilized
+- DCDC converter: squeaky inducter; try other inductors
+
+- Keymap layer bug: during space is pressed(mousekey) press Fn(HHKB) then release space before Fn, in result HHKB layer is locked(toggled) unintentionally.
+
+
+Done:
+- low battery alert(solid light) 09/04
+
+
+Power routing
+-------------
+Current:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+     DPDT
+ |      |  |Switch/-----------------------+
+ |      |  +------+                       |
+ | +-------+  |                           |
+ +-|Charger|  |                           |
+ | +-------+  |     +---+                 |
+ |            |     |MCU|                 |
+ |            |     +---+                 |
+ |            |      |                    |
+ |            |      |                    |
++--------------+  +-----+  +------+   +---/--+    +-----+
+|Power Selector|--|DC 5V|--|DC3.3V|---|Switch|----|RN-42|
++--------------+  +-----+  +------+   +------+    +-----+
+USB Power is boosted unnecessarily, not harmful?
+
+Idea 1:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+     DPDT
+ |      |  |Switch/----------+
+ |      |  +------+          |
+ | +-------+  |              |
+ +-|Charger|  |              |
+ | +-------+  |     +---+    |
+ |         +-----+  |MCU|    |
+ |         |DC 5V|  +---+    |
+ |         +-----+   |       |
+ |            |      |       |
++--------------+     |   +---/--+    +------+     +-----+
+|Power Selector|-----+---|Switch|----|DC3.3V|-----|RN-42|
++--------------+         +------+    +------+     +-----+
+To enable BT when USB powered it still needs to turn siwtch on, Lipo consumes quinscent current at 5V converter in vain.(Not good)
+
+Idea 2:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+
+ |      |  |Switch|
+ |      |  +------+
+ | +-------+  |
+ +-|Charger|  |
+ | +-------+  |     +---+
+ |         +-----+  |MCU|----+ Controlled by firmware
+ |         |DC 5V|  +---+    | On: Lipo powered
+ |         +-----+   |       | Off: USB powered
+ |            |      |       |enable
++--------------+     |   +------+     +-----+
+|Power Selector|-----+---|DC3.3V|-----|RN-42|
++--------------+         +------+     +-----+
+MCU can controlled power of RN-42 without hardware switch.
+When USB powered and switch is on Lipo consumes quinscent current at 5V converter in vain.(Not good)
+
+Idea 3:
+(USB)   +---(Lipo)
+ |      |     |
+ |      |  +------+
+ |      |  |Switch|SPST(or without)
+ |      |  +------+
+ | +-------+  |
+ +-|Charger|  |
+ | +-------+  |     +---+
+ |            |     |MCU|----+ Controlled by firmware
+ |            |     +---+    | On: Lipo powered
+ |            |      |       | Off: USB powered
+ |            |      |       |enable
++--------------+ +-----+ +------+     +-----+
+|Power Selector|-|DC 5V|-|DC3.3V|-----|RN-42|
++--------------+ +-----+ +------+     +-----+
+Switch is needed to save Lipo when not used because decent power saving is not available now. If firmware can turn off BT module completely and make MCU deep sleep the switch will be not even needed.
+
+
+
+
+
+DONE:
+- BT_INDICATOR LED turns on wrongly when touching line or pin.  -- pull-up enabled on PF6/GPIO2 08/30
+- Lipo charger configuration: fast charge time:  USB charger spec? -- used 2kohm
+- use LED of charger to alarm low battery. LED should be powered directly from Lipo? - cancel; powered from VUSB
+- Use RTS in serial_uart.c to resolve missing chars from help message of RN-42 - done
+- CTS/RTS lines are needed? just connect in loop back if no flow control is needed. - done
+- add IO pin to charger status CHRG; LED control(low) and detect charge status(input HiZ) 07.24
+- LINKED: add trace on PIO2 to PF6   07.24
+- Lipo voltage ADC sensing
+- Lipo charger MCP73831: needs capacitor 4.7uF *2
+- USB connection check - 07.01
+- BT on/off check: whether RX line is pulled up? - checking RTS 07.01
+- USB/BT switching  BT is on -> BT, BT is off -> USB - 07.01
+- Under voltage lock out UVLO for protection of Lipo - Lipo has discharge protection at 3.100V    07.01
+- Power saving: HHKB scan, BT radio control - 9h with 850mAh, this is enough   07.01
+- Power selector doesn't work; Q4 MOSFET leaks from Lipo to USB power line. -- use Schottky instead 07/04
+
+
+
+TROUBLE SHOOT
+-------------
+07/16   After fix of voltage dividor on GPIO6, had a trouble that it could not send a char to BT module, though could receive.
+        Found R8 had wrong 1K resistor and changed to 10K, after that it can send to the module again. Not sure how it had sent with the wrong 1K before.
+
+07/18   On Linux, had an USB related trouble; keyobard or console didn't work for some reason. Changing PID cured this problem. Very annoying, took very long time before resolved it.
+
+
+
+Lipo
+----
+850mA lasts around 9 hours(07/28)
+
+Sparkfun Polymer Lithium Ion Battery 850mAh:
+https://www.sparkfun.com/products/341
+Lipo Cell spec:
+https://www.sparkfun.com/datasheets/Batteries/063048%20Li-polymer.pdf
+Protection spec:
+http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/BatteryProtection.pdf
+                                min     typical max
+    over-charge                 4.255   4.280   4.305
+    over-charge discover?       4.030   4.080   4.130        
+    over-discharge              2.827   2.900   2.973
+    over-discharge discover     3.022   3.100   3.178
+
+ADC voltage monitor:    voltage divider 10K+10K(0.5)
+                        ADC=V*0.5/2.56*1024
+
+    V       ADC
+    ------------------
+    4.20    0x347(839)
+    3.10    0x26b(619)
+    
+
+
+
+Configuration
+-------------
+Ver 6.15 04/26/2013
+(c) Roving Networks
+***Settings***
+BTA=0006664B3AE3
+BTName=tmkBT-3AE3
+Baudrt(SW4)=115K
+Mode  =DTR
+Authen=2
+Bonded=0
+Rem=000000000000
+***ADVANCED Settings***
+SrvName= keyboard/mouse
+SrvClass=0000
+DevClass=0000
+InqWindw=0100
+PagWindw=0100
+CfgTimer=255
+StatuStr=NULL
+HidFlags=3c
+DTRtimer=8
+KeySwapr=0
+***OTHER Settings***
+Profile= HID
+CfgChar= $
+SniffEna=8010
+LowPower=0
+TX Power=0
+IOPorts= 0
+IOValues=0
+Sleeptmr=0
+DebugMod=0
+RoleSwch=0
+
+
+
+Serial connection
+-----------------
+Serial line:    115200bps, 8bit, 1-stopbit, non-parity, no flow control
+SSP:            115200bps, 8bit, 1-stopbit, non-parity, no flow control(via Bluetooth)
+
+To enter command mode disconnect the module from host and type '$$$'.(you will see 'CMD')
+To exit type '---'(you will see 'END') and '+' to get local echo.
+
+
+
+Setting command mode
+--------------------
+S-,tmkBT            // Device name
+SS,keyboard/mouse   // service name
+SM,4                // Auto Connect DTR mode
+SW,8010             // Sniff enable 0x10*0.625ms=10ms; 50ms is laggish and not much power save
+S~,6                // HID profile
+SH,003C             // HID register
+SY,0004             // Transmit power
+
+
+
+
+Other options:
+SC,0000         // COD: 000005C0    (see HID spec/Bluegiga doc)
+SD,05C0         //     bit 12-8         7           6           5-0
+                //         00101        1           1           0
+                //         peripheral   pointing    keybaord    joystick, gamepad, ...
+SM,6                // Pairing mode: auto connect
+SM,4                // Master mode: Connection can be controled with GPIO6
+
+
+
+
+HID profile
+-----------
+S~,6    HID profile
+S~,0    SPP profile
+R,1     reboot
+
+
+Apple iOS
+---------
+Keyboard can be used with iPhone, but mouse cannot.
+To operate iOS with keyboard is not so useful, though.
+There may be iOS specific scancodes?
+
+
+HID flag register
+-----------------
+SH,0200
+GH
+
+10 0000 0000(0200)  default
+00 0011 1000(0038)  Combo
+|| |  | |\_\____ number of paired devices to which the module can reconnect
+|| |  | \_______ send out reports over UART (0xFF <len> <data>)
+|| \__\_________ descriptor type
+|\______________ toggle virtual keyboard on iOS when first connected
+\_______________ Force HID mode if GPIO11 is high on power-up
+
+    Descriptor type:
+    0000:   keybaord
+    0001:   Game Pad
+    0010:   Mouse
+    0011:   Combo
+    0100:   Joystick
+    1xxx:   reserved
+
+
+Out report - Indicator
+----------------------
+0xFE 0x02 0x01 <LED_state>
+
+
+LED Status
+----------
+Configuring                     10 times per sec
+Startup/configuration timer     2 times per sec
+Discoverable/Inquiring/Idle     once per sec
+Connected                       solid on
+
+
+Pairing
+-------
+First, host initiates pairing process and once it is done, auto connect will work thereafter.
+SM,3        Master mode
+SM,4        Auto Connect DTR Mode uses GPIO6 to make and break connection(Mode =DTR)
+                confirm: auto connect works and control connection with GPIO6
+SM,5        Auto Connect ANY Mode (Mode =ANY)
+                each time GPIO is set, make inquiry and connect to the first found device
+SM,6        automatically reconnect(Mode =Pair)
+                confirm: auto connect works well but difficult to enter command mode.
+
+SR,Z        removes all remote addresses for reconnecting.
+                can be used to connect another host
+SR,I        registers last inquiry address
+
+
+Fast data mode
+--------------
+The module enters fast data mode after 'remote configuration timer' window is passed from power on.
+In this mode the module does not accept '$$$' to enter command mode.
+
+Power Management
+----------------
+Inquiry and Page window     Idle or Active  (3.1.1)
+    Downside: delay in discovery or connection time
+    SI,         // set inquiry scan window(discovery) on/off duty?
+    SJ,         // set page scan window(connection)
+    This reduces averaege power >20mA to 5mA(3mA in Sniff mode)
+
+Sniff mode                  Transmit
+    Sniff mode is disabled by default and radio is active continuously when connected.(25-30mA)
+    In Sniff mode the radio wakes up intermittently and sleeps in very low power mode.(2mA)
+    SW,<val>    // set interval timer(*0.625ms) 0000-7FFF
+
+Deep sleep                  Idle            (3.1.2)
+    In this mode the module shuts down completly and only draws about 300uA. To enable this set the most signifant bit(0x8000) of Sniff interaval timer.
+    SW,8320     // deep sleep enable(interval=0x320*0.625=500ms)
+    In normal sleep the firmware is still running in idle mode, and wakes up about 20 times per second to check ports, update LEDs, etc. During deep sleep, the firmware actually stops runnig some tasks and the LEDs only update about once per second.
+    To wake from deep sleep there are three ways: (in worst case wake up takes 5ms)
+        *send a charactor to the UART(first charactor will be lost)
+        *toggle CTS low to high and wait 5ms
+        *wake automatically every slot time(<val>*0.625ms)
+    Once the radio is awake it stay active for exactly 1 second of inactivity and then sleeps again.
+    Downside: latency and data loss
+
+Disable Output driver       Idle or Active  (3.1.3)
+    S%,1000     // set all GPIO pins(0-11) to inputs.
+
+Lower Transmit Power        Idle or Active  (3.1.4)
+    SY,<hex>    // transmit power setting(takes effect after a power cycle and reboot)
+    Downside: reducing effective range
+
+
+Optimizig for Latency
+---------------------
+By default the firmware is optimized for throughput.
+SQ,16           // set latency bit
+SQ,0            // unset latency bit
+
+
+Configuration timer settings
+----------------------------
+Remote configuration is used for the module to be configured with various commands over Bluetooth(SPP profile only?).
+
+The module has remote configuration timer to allow remote configuration over Bluetooth after power up in Slave mode. In Master modes the remote configuration timer is set to 0(no remote configuration). (In Trigger Master mode the timer is used as an idle timer to break the connection after time expires with no charactors receive.)
+    ST,0        // no remote, no local when connected
+    ST,<1-252>  // local and remote with timeout in seconds from power up
+    ST,253      // local only       without timeout
+    ST,254      // remote only      without timeout
+    ST,255      // local and remote without timeout
+
+
+Android
+-------
+3.7.1.5 Note: To connect with Android phone the modules must wake up 11ms every 2.5seconds.
+
+
+Commands
+--------
+SC,
+SM,<val>
+SD,         
+SP,<string>             Pin code(alpahnumeric)
+SQ,<mask>               Special configuration(GPIO, discovery mode, low latency, reboot, UART)
+SR,<hex>                Store remote address
+SR,Z                    Erase all address
+SS,<string>             Set service name(1-20)**
+ST,<val>                Remote configuration timer(Master:0, Slave:0-255, Triger:as idle timer)
+SU,<val>                UART baud rate
+SW,<val>                low-power sniff mode** deep sleep and wake up every 625us * <val>
+SX,<0|1>                bonding enable  only acceps device that matches the stored address
+SY,<hex>                power setting** 
+SZ,<val>                non-standard raw baud rate  <val>=baud*0.004096
+S~,<val>                Profile     0:SPP, 5:APL, 6:HID
+S-,<string>             Device name     -15 alphanumeric charactors
+S?,<0|1>                role switch enable
+S$,<char>               command mode char
+$|,<hex>                low-power connect mode  deep sleep/active(discoverable and connectable) cycle
+D                       display basic setting
+E                       display extended setting
+GB                      display the device's Bluetooth address
+GF                      display Bluetooth address of connected device
+GK                      show connection status
+GR                      show remote address for reconnecting
+G&                      show GPIO pin
+G<char>                 show stored setting
++                       toggle local echo on/off
+&                       show GPIO 3,4,6,7(DIP switch)
+C                       connect to stored remote address
+C,<address>             connect last address
+CFI                     connect and go into fast data mode
+CFR                     connect and go into fast data mode
+CT,<address>,<val>      connect to the address and disconnect after val?
+F,1                     fast data mod:
+H                       display help
+I,<time>,<cod>          inquiry scan with <cod>
+IN
+IQ                      scan
+IS                      inquiry scan with 001F00
+J                       hide pin code
+K,                      kill    disconnects current connection
+L                       link quality
+M                       show modem signlal status
+O                       display other settings
+P,<car>                 pass through?
+Q                       quiet mode  make the module not discoverable
+Q,0                     discoverable and connectable
+Q,1                     not discoverable and not connectable
+Q,2                     not discoverable and connectable
+Q,?                     display current quiet mode
+R,1                     reboot
+T,<0|1>                 pass received data while in command mode
+U,<baud>,<parity>       change UART setting tentatively
+V                       display firmware version
+W                       wake from quiet mode    enable discovery and connection
+Z                       deep sleep mode(<2mA)
+
+
+
+help
+----
+*** SET COMMANDS ***
+SA,<3,0>   - Authentication
+SC,<hex>   - Service Class
+SD,<hex>   - Device Class
+SE,<1-16>  - UUID
+SF,1       - Factory Defaults
+SH,<hex>   - HID flags
+SI,<hex>   - Inquiry Scan Window
+SJ,<hex>   - Page Scan Window
+SL,<E,O,N> - Parity
+SM,<0-5>   - Mode (0=slav,1=mstr,2=trig,3=auto,4=DTR,5=Any)
+SN,<name>  - Name
+SO,<text>  - conn/discon Status
+SP,<text>  - Pin Code
+SR,<adr>   - Remote Address
+SS,<text>  - Service Name
+ST,<num>   - Config Timer
+SU,<rate>  - Baudrate
+SW,<hex>   - Sniff Rate
+SX,<1,0>   - Bonding
+SY,<hex>   - TX power
+SZ,<num>   - Raw Baudrate
+S~,<0-6>   - Profile (0=SPP,1=DCE,2=DTE,3=MDM,4=D&S,6=HID
+S?,<0-1>   - role switch
+S$,<char>  - CMD mode char
+S@,<hex>   - io port dir
+S&,<hex>   - io port val
+S%,<hex>   - io boot dir
+S^,<hex>   - io boot val
+S*,<hex>   - pio(8-11) set
+S|,<hex>   - low power timers
+S+,<num>   - DTR timer
+S=,<hex>   - Key mapper
+S:,<num>   - sleep timer
+*** DISPLAY      ***
+D     - Basic Settings
+E     - Extended Settings
+G<X>  - Stored setting
+GB    - BT Address
+GF    - BT Address of Last Connection
+GK    - Connect Status
+G&    - I/O Ports
+V     - Firmare version
+*** OTHER        ***
+C,<adr>    - Connect
+F,1        - Fast Mode
+I,<time>,<cod> - Device Scan Inquiry
+J          - Hide Pin Code
+K,         - Kill (disconnect)
+L,         - toggle local echo
+P,<text>   - Pass Thru
+Q          - Quiet (no discovery)
+R,1        - Reboot
+T,<0,1>    - send data in CMD mode
+U,<rate>,<E,O,N> - Temp Uart Change
+Z          - low power sleep
+&          - Read switches

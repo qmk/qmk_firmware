@@ -41,13 +41,29 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "serial.h"
 
 
+#if defined(SERIAL_UART_RTS_LO) && defined(SERIAL_UART_RTS_HI)
+    // Buffer state
+    //   Empty:           RBUF_SPACE == RBUF_SIZE(head==tail)
+    //   Last 1 space:    RBUF_SPACE == 2
+    //   Full:            RBUF_SPACE == 1(last cell of rbuf be never used.)
+    #define RBUF_SPACE()   (rbuf_head < rbuf_tail ?  (rbuf_tail - rbuf_head) : (RBUF_SIZE - rbuf_head + rbuf_tail))
+    // allow to send
+    #define rbuf_check_rts_lo() do { if (RBUF_SPACE() > 2) SERIAL_UART_RTS_LO(); } while (0)
+    // prohibit to send
+    #define rbuf_check_rts_hi() do { if (RBUF_SPACE() <= 2) SERIAL_UART_RTS_HI(); } while (0)
+#else
+    #define rbuf_check_rts_lo()
+    #define rbuf_check_rts_hi()
+#endif
+
+
 void serial_init(void)
 {
     SERIAL_UART_INIT();
 }
 
 // RX ring buffer
-#define RBUF_SIZE   8
+#define RBUF_SIZE   256
 static uint8_t rbuf[RBUF_SIZE];
 static uint8_t rbuf_head = 0;
 static uint8_t rbuf_tail = 0;
@@ -61,6 +77,7 @@ uint8_t serial_recv(void)
 
     data = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
+    rbuf_check_rts_lo();
     return data;
 }
 
@@ -73,6 +90,7 @@ int16_t serial_recv2(void)
 
     data = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
+    rbuf_check_rts_lo();
     return data;
 }
 
@@ -90,4 +108,5 @@ ISR(SERIAL_UART_RXD_VECT)
         rbuf[rbuf_head] = SERIAL_UART_DATA;
         rbuf_head = next;
     }
+    rbuf_check_rts_hi();
 }
