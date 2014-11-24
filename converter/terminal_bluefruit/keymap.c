@@ -214,7 +214,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 */
 
-uint8_t keymap_key_to_keycode(uint8_t layer, key_t key)
+uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
 }
