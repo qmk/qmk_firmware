@@ -27,7 +27,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
            LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN6, \
            FN7, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
-                LGUI,LALT,          FN4,                FN5, RGUI),
+                LGUI,LALT,          FN4,                FN5, FN5),
 
     /* Layer 1: HHKB mode[HHKB Fn]
      * ,-----------------------------------------------------------.
@@ -201,7 +201,7 @@ const uint16_t fn_actions[] PROGMEM = {
     [2] = ACTION_LAYER_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
     [3] = ACTION_LAYER_TAP_KEY(3, KC_SCLN),           // Mousekey layer with Semicolon*
     [4] = ACTION_LAYER_TAP_KEY(4, KC_SPC),            // Mousekey layer with Space
-    [5] = ACTION_LAYER_MOMENTARY(4),                  // Mousekey layer(IJKL)
+    [5] = ACTION_LAYER_MOMENTARY(3),                  // Mousekey layer
     [6] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT),      // RControl with tap Enter
     [7] = ACTION_MODS_ONESHOT(MOD_LSFT),              // Oneshot Shift
     [8] = ACTION_MACRO(ALT_TAB),                      // Application switching
