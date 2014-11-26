@@ -183,7 +183,7 @@ void matrix_power_up(void) {
 void matrix_power_down(void) {
     if (!matrix_power) return;
     // doesn't power save while USB connection is active
-    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+    if (USB_DeviceState != DEVICE_STATE_Unattached) return;
     if (timer_elapsed32(matrix_last_modified) <= MATRIX_POWER_SAVE) return;
     KEY_POWER_OFF();
     suspend_power_down();
