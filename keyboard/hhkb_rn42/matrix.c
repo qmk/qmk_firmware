@@ -186,6 +186,6 @@ void matrix_power_down(void) {
     if (USB_DeviceState == DEVICE_STATE_Configured) return;
     if (timer_elapsed32(matrix_last_modified) <= MATRIX_POWER_SAVE) return;
     KEY_POWER_OFF();
-    suspend_power_down(WDTO_15MS);
+    suspend_power_down();
     matrix_power = false;
 }

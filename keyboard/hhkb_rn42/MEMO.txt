@@ -9,10 +9,15 @@ Bug:
     - Do not power-down during USB connection is active - DONE 11/11
         (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
         matrix_power_down() matrix.c - 11/23
+- timer is slow while power down - DONE 11/26
+    - time out interrupt is lost while power down?
+    - interrupt of watchdog timer compensates timer counter(avr/suspend.c)
 
 Todo:
 
 Design:
+- suspend.h - DONE 11/26
+    - remove argument from suspend_power_down() for backward compatitibility
 - remove MCU dependent power saving code from core/keyboard
     - it should be located in project matrix.c - DONE 11/23
 - HHKB matrix.c needs matrix_prev?
@@ -47,6 +52,8 @@ Power saving:
 - During USB suspend change clock source to internal RC from external Xtal(6.8)
 - FRZCLK: you can freeze clock for power saving. still WAKEUPI and VBUSTI interrupts are available while freezing.(21.7.3)
 - Suspend: Clear Suspend Bit, Freeze clock, disable PLL, MCU sleep(21.13)
+- Voltage reference(8.1.1)
+    - to reduce power consumption while power down mode
 
 Improving:
 - BT LED; connecting, linked, sleeping, deep sleeping
