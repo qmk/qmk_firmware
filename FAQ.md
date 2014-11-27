@@ -57,10 +57,9 @@ You will need this after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENAB
 
 
 ## USB VID and PID
-You can use any ID you want with editing `config.h`.
-Using any presumably unused ID will be no problem in fact except for very least chance of collision with other product. So I don't think it is worth bugging them to get prototype VID.
+You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very least chance of collision with other product.
 
-For example TMK uses following numbers.
+For example TMK uses following numbers by default.
 ```
 keyboard:
 hhkb: FEED:CAFE
@@ -77,6 +76,9 @@ pc98: FEED:9898
 Also see this.
 https://github.com/tmk/tmk_keyboard/issues/150
 
+You can buy a really unique VID:PID here. I don't think you need this for personal use.
+- http://www.obdev.at/products/vusb/license.html
+- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 
 # Degug Console
