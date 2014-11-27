@@ -29,7 +29,7 @@ Using enabling this feature and using keycodes `LCAP`, `LNUM` or `LSCR` in keyma
 Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `CAPS`, `NLCK` and `SLCK`.***
 
 
-## Input language specific charactors other than ASCII like Cédille 'Ç'
+## Input special charactors other than ASCII like Cédille 'Ç'
 NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define **MACRO** in way specific to your OS or layout.
 
 See this post for example **MACRO** code.
