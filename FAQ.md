@@ -56,7 +56,26 @@ Windows only. Linux, OSX and other OS's doesn't require this. It looks like Wind
 You will need this after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENABLE` or `MOUSEKEY_ENABLE` option in **Makefile**.
 
 
+## USB VID and PID
+You can use any ID you want with editing `config.h`.
+Using any presumably unused ID will be no problem in fact except for very least chance of collision with other product. So I don't think it is worth bugging them to get prototype VID.
 
+For example TMK uses following numbers.
+```
+keyboard:
+hhkb: FEED:CAFE
+gh60: FEED:6060
+
+converter:
+x68k: FEED:6800
+ps2: FEED:6512
+adb: FEED:0ADB
+ibm4704: FEED:4704
+pc98: FEED:9898
+```
+
+Also see this.
+https://github.com/tmk/tmk_keyboard/issues/150
 
 
 
