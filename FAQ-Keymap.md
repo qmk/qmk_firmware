@@ -30,9 +30,9 @@ Old vintage mechanical keyboards occasionally have lock switches but modern ones
 
 
 ## Input language specific charactors other than ASCII like Cédille 'Ç'
-NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define MACRO in way specific to your OS or layout.
+NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define **MACRO** in way specific to your OS or layout.
 
-See this post for example code.
+See this post for example **MACRO** code.
 
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
 
