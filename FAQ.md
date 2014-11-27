@@ -7,6 +7,9 @@ Read these yet?
 
 Note that you should read two **README**.
 
+Then FAQ.
+- [[FAQ/Keymap]]
+
 
 # Build
 ## How to Build
