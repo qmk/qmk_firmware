@@ -3,11 +3,9 @@ Read these yet?
  
 1. First **README** under top directory : https://github.com/tmk/tmk_keyboard/blob/master/README.md
 2. For **Build**: https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
-3. And **README** under each project(keyboard/converter) directory
-
-Note that you should read two **README**.
-
+3. And **README** under each project(keyboard/converter) directory. Note that you should read two **README**.
 4. And then, FAQ.
+
 - [[FAQ/Keymap]]
 
 
