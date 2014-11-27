@@ -7,7 +7,7 @@ Read these yet?
 
 Note that you should read two **README**.
 
-Then FAQ.
+4. And then, FAQ.
 - [[FAQ/Keymap]]
 
 
