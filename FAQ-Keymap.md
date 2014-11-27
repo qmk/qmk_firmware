@@ -27,3 +27,23 @@ http://deskthority.net/wiki/Alps_SKCL_Lock
 Using enabling this feature and using keycodes `LCAP`, `LNUM` or `LSCR` in keymap you can use physical locking CapsLock, NumLock or ScrollLock keys as you expected.
 
 Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `CAPS`, `NLCK` and `SLCK`.***
+
+
+## Input language specific charactors other than ASCII like Cédille 'Ç'
+NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define MACRO in way specific to your OS or layout.
+
+See this post for example code.
+http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
+
+On **Windows** you can use `AltGr` key or **Alt code**.
+- http://en.wikipedia.org/wiki/AltGr_key
+- http://en.wikipedia.org/wiki/Alt_code
+
+On **Mac** OS defines `Option` key combinations.
+- http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input
+
+On **Xorg** you can use `compose` key, instead.
+- http://en.wikipedia.org/wiki/Compose_key
+
+And see this for **Unicode** input.
+- http://en.wikipedia.org/wiki/Unicode_input
