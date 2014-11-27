@@ -33,6 +33,7 @@ Old vintage mechanical keyboards occasionally have lock switches but modern ones
 NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define MACRO in way specific to your OS or layout.
 
 See this post for example code.
+
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
 
 On **Windows** you can use `AltGr` key or **Alt code**.
