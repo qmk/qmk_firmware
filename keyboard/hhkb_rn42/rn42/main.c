@@ -17,8 +17,8 @@
 
 static int8_t sendchar_func(uint8_t c)
 {
-    sendchar(c);    // LUFA
     xmit(c);        // SUART
+    sendchar(c);    // LUFA
     return 0;
 }
 
@@ -85,6 +85,7 @@ int main(void)
     print("Keyboard start.\n");
     while (1) {
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
+            print("[s]");
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();
