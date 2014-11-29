@@ -197,6 +197,8 @@ bool command_extra(uint8_t code)
             xprintf("rn42_linked(): %X\n", rn42_linked());
             xprintf("rn42_rts(): %X\n", rn42_rts());
             xprintf("config_mode: %X\n", config_mode);
+            xprintf("USB_DeviceState: %X\n", USB_DeviceState);
+            xprintf("USB_Device_RemoteWakeupEnabled: %X\n", USB_Device_RemoteWakeupEnabled);
             xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
             xprintf("battery_charging: %X\n", battery_charging());
             xprintf("battery_status: %X\n", battery_status());
