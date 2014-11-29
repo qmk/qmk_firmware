@@ -9,33 +9,84 @@ Bug:
     - Do not power-down during USB connection is active - DONE 11/11
         (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
         matrix_power_down() matrix.c - 11/23
+
+- When given power only from wall wart adapter
+    - it sleeps. it should not sleep
+    - Configured state without USB connection?
+
 - timer is slow while power down - DONE 11/26
     - time out interrupt is lost while power down?
     - interrupt of watchdog timer compensates timer counter(avr/suspend.c)
 
+- USB plug-in while BT failes
+    - it ends in suspend state
+    - maybe, not responsive to host enumeration process due to power-down.
+    - matrix_power_down() only when state is unattached - 11/26
+        - need to observe a while
+- repeated CHARGING/FULL_CHARGED
+    - In LTC sharp pulses are observed.
+    - MCP has no pulse but still has a problem.
+    - needs more wait before read pin state?
+- wrongly suspended when powered from adapter without USB connection
+    - suspend event may occur when plug into adapter
+    - and never wake until conected to real USB line
+    - without debug print via USB no problem; CSW(wake just after suspend as real USB line)
+    - seems like USB print causes this problem after suspended
+
 Todo:
+- sendchar() in lufa.c block loop   - 11/29
+    - block loop when powered with AC adapter
+    - FrameNumber is not updated when adapter powered
+- sendchar() in lufa.c no buffer
+    - no buffering. character lost can be caused.
 
 Design:
 - suspend.h - DONE 11/26
     - remove argument from suspend_power_down() for backward compatitibility
-- remove MCU dependent power saving code from core/keyboard
-    - it should be located in project matrix.c - DONE 11/23
+- remove MCU dependent power saving code from core/keyboard - DONE 11/23
+    - it should be located in project matrix.c
 - HHKB matrix.c needs matrix_prev?
     - is_modified() is obsolete now. really needs?
+- ADC: removing AREF capacitor C10
+    - seems to be better while usb powered
+    - still bad while battery powered
+    http://electronics.stackexchange.com/questions/105849/avcc-and-capacitor-using-adc
+- ADC: smaller resistors for voltage dividor
+    - 1K + 1K: not improved. - 11/27
 
 
 LUFA:
 USB connection check: state of USB deivce
 - USB_DeviceState:
     USB_Deivce_State_t { Unattached, Powered, Default, Addressed, Configured*, Suspended* }
+    Unattached: unpluged
+    Powered:    pluged with power adapter
+    Default:    enumerate process bigin
+    Addressed:  addressed
+    Configured: enumerated
+    Suspended:  suspended
+
 - USB_IsInitialized: state of LUFA core setup
     becomes true in USB_Init()  USBController_AVR8.c
     becomes false in USB_Disable()  USBController_AVR8.c
 - USB_VBUS_GetStatus(): state of VBUS(power/connection)
 - USB_Disable() detaches, disables all interrupts, controller, PLL, regulater.
 
+- When connect to power adapter
+    - event happened: CW or CSW or C or DDC
+    - USB state: not configured
+
+- USB evnets
+    - USB connect: CSWRWRW
+    - USB connect but fail to enumeration: CWRWRWRWS
+    - USB disconnect: D
+    - Power adapter connect: CW, CSW, C
+    - Power adapter disconnect: D
+
 
 Power saving:
+- matrix power saving
+    - power saving while externally powered and not while unpluged
 - confirm suspend mode lufa.c: matrix_power_*, suspend_wakeup_condition
 - 8MHz clock
 - When not connected in a few minutes get into deep sleep to save battery life
@@ -63,6 +114,9 @@ Improving:
 - ADC resolution
     AVR120
     AVR32138
+    - Enhancing ADC resolution by oversampling 
+        AVR121  http://www.atmel.com/images/doc8003.pdf
+
 
 Testing:
 - Factroy reset doesn't work; need to **test again** 10K pull-up is too high?
