@@ -21,7 +21,7 @@ void battery_init(void)
     ADMUX = (1<<REFS1) | (1<<REFS0);
     ADCSRA = (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);
     // digital input buffer disable(24.9.5)
-    DIDR0 = (1<<ADC0D) | (1<<ADC4D) | (1<<ADC5D) | (1<<ADC7D);
+    DIDR0 = (1<<ADC0D) | (1<<ADC4D) | (1<<ADC7D);
     DIDR1 = (1<<AIN0D);
     DIDR2 = (1<<ADC8D) | (1<<ADC9D) | (1<<ADC11D) | (1<<ADC12D) | (1<<ADC13D);
 
