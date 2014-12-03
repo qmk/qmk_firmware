@@ -92,6 +92,7 @@ uint16_t battery_voltage(void)
 
     volatile uint16_t bat;
     ADCSRA |= (1<<ADEN);
+    _delay_ms(1);   // wait for charging S/H capacitance
 
     ADCSRA |= (1<<ADSC);
     while (ADCSRA & (1<<ADSC)) ;
