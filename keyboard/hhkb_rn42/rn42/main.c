@@ -63,7 +63,7 @@ int main(void)
         USB_USBTask();
 #endif
     }
-    print("USB configured.\n");
+    print("\nUSB init\n");
 
     rn42_init();
     rn42_task_init();
@@ -82,10 +82,18 @@ int main(void)
     sleep_led_init();
 #endif
 
-    print("Keyboard start.\n");
+    print("Keyboard start\n");
     while (1) {
-        while (USB_DeviceState == DEVICE_STATE_Suspended) {
+        while (rn42_rts() && // RN42 is off
+                USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
+            matrix_power_down();
+            suspend_power_down();
+            suspend_power_down();
+            suspend_power_down();
+            suspend_power_down();
+            suspend_power_down();
+            suspend_power_down();
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();

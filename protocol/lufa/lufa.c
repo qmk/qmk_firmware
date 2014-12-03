@@ -151,6 +151,7 @@ void EVENT_USB_Device_Connect(void)
     print("[C]");
     /* For battery powered device */
     if (!USB_IsInitialized) {
+        USB_Disable();
         USB_Init();
         USB_Device_EnableSOFEvents();
     }
@@ -160,6 +161,7 @@ void EVENT_USB_Device_Disconnect(void)
 {
     print("[D]");
     /* For battery powered device */
+    USB_IsInitialized = false;
 /* TODO: This doesn't work. After several plug in/outs can not be enumerated. 
     if (USB_IsInitialized) {
         USB_Disable();  // Disable all interrupts
@@ -177,6 +179,7 @@ void EVENT_USB_Device_Reset(void)
 void EVENT_USB_Device_Suspend()
 {
     print("[S]");
+    matrix_power_down();
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif

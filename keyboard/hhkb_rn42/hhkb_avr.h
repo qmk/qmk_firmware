@@ -53,9 +53,11 @@ static inline void KEY_POWER_OFF(void) {
     DDRB = 0x00; PORTB = 0xFF;          // change pins input with pull-up
     DDRD |= (1<<4); PORTD &= ~(1<<4);   // MOS FET switch off
 }
+static inline bool KEY_POWER_STATE(void) { return PORTD & (1<<4); }
 #else
 static inline void KEY_POWER_ON(void) {}
 static inline void KEY_POWER_OFF(void) {}
+static inline bool KEY_POWER_STATE(void) { return true; }
 #endif
 static inline void KEY_INIT(void)
 {
@@ -73,7 +75,7 @@ static inline void KEY_INIT(void)
     KEY_UNABLE();
     KEY_PREV_OFF();
 
-    KEY_POWER_ON();
+    KEY_POWER_OFF();
 }
 static inline void KEY_SELECT(uint8_t ROW, uint8_t COL)
 {
