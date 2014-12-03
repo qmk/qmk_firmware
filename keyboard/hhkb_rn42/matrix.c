@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // matrix power saving
 #define MATRIX_POWER_SAVE       10000
 static uint32_t matrix_last_modified = 0;
-static bool matrix_power = true;
 
 // matrix state buffer(1:on, 0:off)
 static matrix_row_t *matrix;
@@ -80,7 +79,8 @@ uint8_t matrix_scan(void)
     matrix_prev = matrix;
     matrix = tmp;
 
-    matrix_power_up();
+    // power on
+    if (!KEY_POWER_STATE()) KEY_POWER_ON();
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             KEY_SELECT(row, col);
@@ -136,7 +136,14 @@ uint8_t matrix_scan(void)
         }
         if (matrix[row] ^ matrix_prev[row]) matrix_last_modified = timer_read32();
     }
-    matrix_power_down();
+    // power off
+    if (KEY_POWER_STATE() &&
+            (USB_DeviceState == DEVICE_STATE_Suspended ||
+             USB_DeviceState == DEVICE_STATE_Unattached ) &&
+            timer_elapsed32(matrix_last_modified) > MATRIX_POWER_SAVE) {
+        KEY_POWER_OFF();
+        suspend_power_down();
+    }
     return 1;
 }
 
@@ -176,16 +183,8 @@ void matrix_print(void)
 }
 
 void matrix_power_up(void) {
-    if (matrix_power) return;
     KEY_POWER_ON();
-    matrix_power = true;
 }
 void matrix_power_down(void) {
-    if (!matrix_power) return;
-    // doesn't power save while USB connection is active
-    if (USB_DeviceState != DEVICE_STATE_Unattached) return;
-    if (timer_elapsed32(matrix_last_modified) <= MATRIX_POWER_SAVE) return;
     KEY_POWER_OFF();
-    suspend_power_down();
-    matrix_power = false;
 }
