@@ -38,12 +38,7 @@
 #if defined(__AVR__)
 
 #include "avr/xprintf.h"
-
-
-// TODO: avoid collision with arduino/Print.h
-#ifndef __cplusplus
 #define print(s)    xputs(PSTR(s))
-#endif
 #define println(s)  xputs(PSTR(s "\r\n"))
 
 #ifdef __cplusplus

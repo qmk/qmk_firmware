@@ -81,7 +81,7 @@ bool matrix_is_on(uint8_t row, uint8_t col) {
             return true;
         }
     }
-    for (uint8_t i = 0; i < REPORT_KEYS; i++) {
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (usb_hid_keyboard_report.keys[i] == code) {
             return true;
         }
@@ -96,7 +96,7 @@ uint8_t matrix_get_row(uint8_t row) {
         row_bits |= usb_hid_keyboard_report.mods;
     }
 
-    for (uint8_t i = 0; i < REPORT_KEYS; i++) {
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (IS_ANY(usb_hid_keyboard_report.keys[i])) {
             if (row == ROW(usb_hid_keyboard_report.keys[i])) {
                 row_bits |= ROW_BITS(usb_hid_keyboard_report.keys[i]);
@@ -110,7 +110,7 @@ uint8_t matrix_key_count(void) {
     uint8_t count = 0;
 
     count += bitpop(usb_hid_keyboard_report.mods);
-    for (uint8_t i = 0; i < REPORT_KEYS; i++) {
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (IS_ANY(usb_hid_keyboard_report.keys[i])) {
             count++;
         }
