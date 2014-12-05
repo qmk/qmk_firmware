@@ -42,7 +42,7 @@ SRC += $(USB_HID_DIR)/override_Serial.cpp
 
 # replace arduino/wiring.c
 SRC += $(USB_HID_DIR)/override_wiring.c
-SRC += common/timer.c
+SRC += common/avr/timer.c
 
 SRC += $(USB_HOST_SHIELD_SRC)
 SRC += $(ARDUINO_CORES_SRC)
