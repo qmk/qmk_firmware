@@ -96,18 +96,6 @@ void rn42_task(void)
             battery_led(LED_CHARGER);
         }
 
-        static uint8_t prev_status = UNKNOWN;
-        if (bs != prev_status) {
-            prev_status = bs;
-            switch (bs) {
-                case FULL_CHARGED:  xprintf("FULL_CHARGED\n"); break;
-                case CHARGING:      xprintf("CHARGING\n"); break;
-                case DISCHARGING:   xprintf("DISCHARGING\n"); break;
-                case LOW_VOLTAGE:   xprintf("LOW_VOLTAGE\n"); break;
-                default:            xprintf("UNKNOWN STATUS\n"); break;
-            };
-        }
-
         /* every minute */
         uint32_t t = timer_read32()/1000;
         if (t%60 == 0) {
@@ -193,15 +181,33 @@ bool command_extra(uint8_t code)
             print("\n----- RN-42 info -----\n");
             xprintf("protocol: %s\n", (host_get_driver() == &rn42_driver) ? "RN-42" : "LUFA");
             xprintf("force_usb: %X\n", force_usb);
+            xprintf("rn42: %s\n", rn42_rts() ? "OFF" : (rn42_linked() ? "CONN" : "ON"));
             xprintf("rn42_autoconnecting(): %X\n", rn42_autoconnecting());
-            xprintf("rn42_linked(): %X\n", rn42_linked());
-            xprintf("rn42_rts(): %X\n", rn42_rts());
             xprintf("config_mode: %X\n", config_mode);
-            xprintf("USB_DeviceState: %X\n", USB_DeviceState);
-            xprintf("USB_Device_RemoteWakeupEnabled: %X\n", USB_Device_RemoteWakeupEnabled);
+            xprintf("USB State: %s\n",
+                    (USB_DeviceState == DEVICE_STATE_Unattached) ? "Unattached" :
+                    (USB_DeviceState == DEVICE_STATE_Powered) ? "Powered" :
+                    (USB_DeviceState == DEVICE_STATE_Default) ? "Default" :
+                    (USB_DeviceState == DEVICE_STATE_Addressed) ? "Addressed" :
+                    (USB_DeviceState == DEVICE_STATE_Configured) ? "Configured" :
+                    (USB_DeviceState == DEVICE_STATE_Suspended) ? "Suspended" : "?");
+            xprintf("battery: ");
+            switch (battery_status()) {
+                case FULL_CHARGED:  xprintf("FULL"); break;
+                case CHARGING:      xprintf("CHARG"); break;
+                case DISCHARGING:   xprintf("DISCHG"); break;
+                case LOW_VOLTAGE:   xprintf("LOW"); break;
+                default:            xprintf("?"); break;
+            };
+            xprintf("\n");
+            xprintf("RemoteWakeupEnabled: %X\n", USB_Device_RemoteWakeupEnabled);
             xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
-            xprintf("battery_charging: %X\n", battery_charging());
-            xprintf("battery_status: %X\n", battery_status());
+            t = timer_read32()/1000;
+            uint8_t d = t/3600/24;
+            uint8_t h = t/3600;
+            uint8_t m = t%3600/60;
+            uint8_t s = t%60;
+            xprintf("uptime: %02ud%02u:%02u:%02u\n", d, h, m, s);
             return true;
         case KC_B:
             // battery monitor
