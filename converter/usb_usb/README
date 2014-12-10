@@ -33,8 +33,28 @@ Only supports 'HID Boot protocol'.
 Not support keyboard LED yet.
 
 
+
+Update
+------
+2014/12/11  Added Hub support(confirmed with HHKB pro2)
+
+
+
 Resource
 --------
-http://deskthority.net/workshop-f7/is-remapping-a-usb-keyboard-using-teensy-possible-t2841.html
-https://github.com/felis/USB_Host_Shield_2.0
-https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
+USB Host Sheild 2.0
+    https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino
+    https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-for-arduino-pro-mini
+USB Host Sheild 2.0 source
+    https://github.com/felis/USB_Host_Shield_2.0
+Arduino USB Host Shield(with bootst converter)
+    http://arduino.cc/en/Main/ArduinoUSBHostShield
+Arduino source
+    https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
+Initial release of TMK USB-USB converter
+    https://geekhack.org/index.php?topic=33057.msg653549#msg653549
+    http://deskthority.net/workshop-f7/is-remapping-a-usb-keyboard-using-teensy-possible-t2841-30.html#p74854
+Arduino-based hardware keyboard remapper - Colemak forum
+    http://forum.colemak.com/viewtopic.php?id=1561
+Teensy + Host Shield
+    http://www.pjrc.com/teensy/td_libs_USBHostShield.html
