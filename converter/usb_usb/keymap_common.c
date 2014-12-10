@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2014 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,26 +14,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef CONFIG_H
-#define CONFIG_H
-
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x005B
-#define DEVICE_VER      0x0814
-#define MANUFACTURER    t.m.k.
-#define PRODUCT         USB to USB keyboard converter
+#include "keymap_common.h"
+#include "progmem.h"
 
 
-#define DESCRIPTION     Product from t.m.k. keyboard firmware project
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
+{
+    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+}
 
-
-/* matrix size */
-#define MATRIX_ROWS 32
-#define MATRIX_COLS 8
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 
-
-#endif
+/* translates Fn keycode to action */
+action_t keymap_fn_to_action(uint8_t keycode)
+{
+    return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
+}
