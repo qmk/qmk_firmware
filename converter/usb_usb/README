@@ -19,13 +19,22 @@ Build firmware
     $ cd converter/usb_usb
     $ make
 
-You will get usb_usb.hex if you are lucky.
-Program your Leonardo with avrdude(or easy-going Arduino IDE):
+Program converter. Push reset button on Leonardo before run this command. Serial port name(COM17) depends your system. On Linux I got /dev/ttyACM0.
 
-    $ avrdude -patmega32u4 -cavr109 -PCOM17 -b57600 -Uflash:w:usb_usb.hex
+    $ DEV=COM17 make program
+    or
+    $ avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:usb_usb.hex -PCOM17
+
 
 
 Limitation
 ----------
 Only supports 'HID Boot protocol'.
 Not support keyboard LED yet.
+
+
+Resource
+--------
+http://deskthority.net/workshop-f7/is-remapping-a-usb-keyboard-using-teensy-possible-t2841.html
+https://github.com/felis/USB_Host_Shield_2.0
+https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
