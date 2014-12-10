@@ -120,7 +120,7 @@ VPATH += $(TOP_DIR)
 
 
 # program Leonardo
-PROGRAM_CMD = avrdude -p$(MCU) -cavr109 -P$(DEV) -b57600 -Uflash:w:$(TARGET).hex
+PROGRAM_CMD = avrdude -p$(MCU) -cavr109 -b57600 -Uflash:w:$(TARGET).hex -P$(DEV)
 
 
 
