@@ -8,6 +8,7 @@ USB_HOST_SHIELD_DIR = $(USB_HID_DIR)/USB_Host_Shield_2.0
 USB_HOST_SHIELD_SRC = \
 	$(USB_HOST_SHIELD_DIR)/Usb.cpp \
 	$(USB_HOST_SHIELD_DIR)/hid.cpp \
+	$(USB_HOST_SHIELD_DIR)/usbhub.cpp \
 	$(USB_HOST_SHIELD_DIR)/parsetools.cpp \
 	$(USB_HOST_SHIELD_DIR)/message.cpp 
 
