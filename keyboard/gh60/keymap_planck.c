@@ -22,7 +22,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_DEFAULT_LAYER_SET(0),                             // set Qwerty layout
     [2] = ACTION_DEFAULT_LAYER_SET(1),                             // set Photoshop presets
     [3] = ACTION_LAYER_ON_OFF(2),                                  // Photoshop function layer
-
+ 
     [4] = ACTION_MODS_KEY(MOD_LSFT | MOD_LCTL | MOD_LALT, KC_F9),   // photo folder AHK
     [5] = ACTION_MODS_KEY(MOD_LSFT | MOD_LCTL, KC_I),              // select inverse
     [6] = ACTION_MODS_KEY(MOD_LSFT, KC_M),                         // marquee select

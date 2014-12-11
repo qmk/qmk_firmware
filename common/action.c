@@ -348,7 +348,7 @@ void register_code(uint8_t code)
         return;
     }
 
-#ifdef LOCKING_SUPPORT_ENABLE
+#ifdef LOCKING_SUPPORT_ENABLE    
     else if (KC_LOCKING_CAPS == code) {
 #ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is on

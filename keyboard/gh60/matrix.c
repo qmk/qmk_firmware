@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "action_layer.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -55,11 +56,20 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+static
+void setup_leds(void) {
+  DDRF  |=  0x00;
+  PORTF |=  0x00;
+}
+
+
 void matrix_init(void)
 {
     // initialize row and col
     unselect_rows();
     init_cols();
+
+    setup_leds();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -92,6 +102,18 @@ uint8_t matrix_scan(void)
                 matrix[i] = matrix_debouncing[i];
             }
         }
+    }
+
+    // uint8_t layer = biton32(default_layer_state);
+    switch (default_layer_state) {
+        case 1:
+            DDRF &= ~(1<<0);
+            PORTF &= ~(1<<0);
+            break;
+        case 2:
+            DDRF |= (1<<0);
+            PORTF |= (1<<0);
+            break;
     }
 
     return 1;
