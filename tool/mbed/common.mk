@@ -7,6 +7,8 @@ OBJECTS += \
 	$(OBJDIR)/common/host.o \
 	$(OBJDIR)/common/keymap.o \
 	$(OBJDIR)/common/keyboard.o \
+	$(OBJDIR)/common/print.o \
+	$(OBJDIR)/common/debug.o \
 	$(OBJDIR)/common/util.o \
 	$(OBJDIR)/common/mbed/suspend.o \
 	$(OBJDIR)/common/mbed/timer.o \
