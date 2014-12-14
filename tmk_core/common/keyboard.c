@@ -87,6 +87,9 @@ void keyboard_init(void)
 void keyboard_task(void)
 {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
+#ifdef MATRIX_HAS_GHOST
+    static matrix_row_t matrix_ghost[MATRIX_ROWS];
+#endif
     static uint8_t led_status = 0;
     matrix_row_t matrix_row = 0;
     matrix_row_t matrix_change = 0;
@@ -96,13 +99,21 @@ void keyboard_task(void)
         matrix_row = matrix_get_row(r);
         matrix_change = matrix_row ^ matrix_prev[r];
         if (matrix_change) {
-            if (debug_matrix) matrix_print();
 #ifdef MATRIX_HAS_GHOST
             if (has_ghost_in_row(r)) {
-                matrix_prev[r] = matrix_row;
+                /* Keep track of whether ghosted status has changed for
+                 * debugging. But don't update matrix_prev until un-ghosted, or
+                 * the last key would be lost.
+                 */
+                if (debug_matrix && matrix_ghost[r] != matrix_row) {
+                    matrix_print();
+                }
+                matrix_ghost[r] = matrix_row;
                 continue;
             }
+            matrix_ghost[r] = matrix_row;
 #endif
+            if (debug_matrix) matrix_print();
             for (uint8_t c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & ((matrix_row_t)1<<c)) {
                     action_exec((keyevent_t){
