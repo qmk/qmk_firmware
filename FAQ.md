@@ -234,3 +234,15 @@ And read **26.5.1 MCU Control Register – MCUCR** of ATMega32U4 datasheet.
 You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
 
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
+
+## Program Arduino Micro/Leonardo
+Push reset button and then run command like this within 8 seconds.
+
+```
+avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:adb_usb.hex -P/dev/ttyACM0
+```
+
+Device name will vary depending on your system.
+
+http://arduino.cc/en/Main/ArduinoBoardMicro
+https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867
