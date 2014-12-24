@@ -15,11 +15,13 @@ endif
 
 ifdef PS2_USE_INT
     SRC += protocol/ps2_interrupt.c
+    SRC += protocol/ps2_io_avr.c
     OPT_DEFS += -DPS2_USE_INT
 endif
 
 ifdef PS2_USE_USART
     SRC += protocol/ps2_usart.c
+    SRC += protocol/ps2_io_avr.c
     OPT_DEFS += -DPS2_USE_USART
 endif
 
