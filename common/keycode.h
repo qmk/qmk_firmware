@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* 
+/*
  * Keycodes based on HID Usage Keyboard/Keypad Page(0x07) plus special codes
  * http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
  */
@@ -392,7 +392,7 @@ enum hid_keyboard_keypad_usage {
     KC_RALT,
     KC_RGUI,
 
-    /* NOTE: 0xE8-FF are used for internal special purpose */ 
+    /* NOTE: 0xE8-FF are used for internal special purpose */
 };
 
 /* Special keycodes */
@@ -422,7 +422,7 @@ enum internal_special_keycodes {
     KC_WWW_FORWARD,
     KC_WWW_STOP,
     KC_WWW_REFRESH,
-    KC_WWW_FAVORITES,   
+    KC_WWW_FAVORITES,
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,    /* 0xBC */
 
