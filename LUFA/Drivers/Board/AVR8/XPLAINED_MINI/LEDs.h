@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  \defgroup Group_LEDs_XPLAINED XPLAINED_MINI
+ *  \defgroup Group_LEDs_XPLAINED_MINI XPLAINED_MINI
  *  \brief Board specific LED driver header for the Atmel Xplained-MINI series kits.
  *
  *  Board specific LED driver header for the Atmel Xplained-MINI series kits.
