@@ -53,6 +53,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway] [retired]
 * [KMAC](keyboard/kmac/)                    - Korean custom keyboard
 * [Lightsaber](keyboard/lightsaber/)        - Korean custom keyboard
+* [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
 
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
@@ -72,6 +73,8 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [PC98]:         http://en.wikipedia.org/wiki/NEC_PC-9801
 [Sun]:          http://en.wikipedia.org/wiki/Sun-3
 [IIGS]:         http://en.wikipedia.org/wiki/Apple_IIGS
+[ghost_squid]:  http://deskthority.net/wiki/Costar_replacement_controllers#The_Ghost_Squid
+[cmxt]:         http://gaming.coolermaster.com/en/products/keyboards/quickfirext/
 
 
 
