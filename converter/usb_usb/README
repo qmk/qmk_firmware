@@ -7,7 +7,19 @@ Arduino Leonardo
     http://arduino.cc/en/Main/ArduinoBoardLeonardo 
 
 Circuit@Home USB Host Shield 2.0
-    http://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino
+    https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino-assembled/
+
+Buying Arduino Leonardo and USB Host Shield 2.0(from Circuit@home) will be the easiest way, you won't need even soldering iron.
+Arduino's Shield will also work well but I think Sparkfun's needs to be modified.
+
+    http://arduino.cc/en/Main/ArduinoUSBHostShield
+    https://www.sparkfun.com/products/9947
+
+Also Pro Micro 3.3V(not Mini) or Teensy with mini host shield will work with some fixes on signal/power routing.
+    https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-for-arduino-pro-mini
+    https://www.sparkfun.com/products/12587
+    https://www.pjrc.com/teensy/td_libs_USBHostShield.html
+
 
 
 Build firmware
@@ -31,6 +43,8 @@ Limitation
 ----------
 Only supports 'HID Boot protocol'.
 Not support keyboard LED yet.
+
+Note that the converter can host only USB "boot protocol" keyboard(6KRO) and not NKRO, it is possible to support NKRO keyboard but you will need to write HID report parser for that. Every NKRO keyboard can have different HID report and it is difficult to support all kind of NKRO keyboards in the market.
 
 
 
