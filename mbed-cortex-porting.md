@@ -2,8 +2,8 @@
 Experienced this with arm-none-eabi-gcc (4.8.2-14ubuntu1+6) 4.8.2 on ubuntu 14.04.
 
 And resolved with 4.9.3 installed from:
-https://launchpad.net/gcc-arm-embedded
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
+- https://launchpad.net/gcc-arm-embedded
+- https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
 
 ```
 $ make -f Makefile.mbed                                                                                                                                                         
