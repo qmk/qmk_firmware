@@ -194,6 +194,7 @@ static bool command_common(uint8_t code)
         case KC_CAPSLOCK:
             if (host_get_driver()) {
                 host_driver = host_get_driver();
+                clear_keyboard();
                 host_set_driver(0);
                 print("Locked.\n");
             } else {
