@@ -15,9 +15,9 @@ CC_SYMBOLS += \
 	-D__MBED__=1
 
 OBJECTS += \
+	$(OBJDIR)/mbed-infinity/cmsis_nvic.o \
+	$(OBJDIR)/mbed-infinity/system_MK20D5.o \
 	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/TOOLCHAIN_GCC_ARM/startup_MK20D5.o \
-	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/cmsis_nvic.o \
-	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/system_MK20D5.o \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/analogin_api.o \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/gpio_api.o \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/gpio_irq_api.o \
@@ -32,6 +32,7 @@ OBJECTS += \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/us_ticker.o
 
 INCLUDE_PATHS += \
+	-Imbed \
 	-I$(MBED_DIR)/libraries/mbed/targets \
 	-I$(MBED_DIR)/libraries/mbed/targets/cmsis \
 	-I$(MBED_DIR)/libraries/mbed/targets/cmsis/TARGET_Freescale \
@@ -41,4 +42,4 @@ INCLUDE_PATHS += \
 	-I$(MBED_DIR)/libraries/mbed/targets/hal/TARGET_Freescale \
 	-I$(MBED_DIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M
 
-LINKER_SCRIPT = infinity.ld
+LINKER_SCRIPT = mbed-infinity/infinity.ld

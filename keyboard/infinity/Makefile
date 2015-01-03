@@ -24,7 +24,10 @@ INCLUDE_PATHS = -I.
 #MOUSEKEY_ENABLE = yes
 
 
-include $(TMK_DIR)/tool/mbed/mk20d50m.mk
+include mbed-infinity.mk
 include $(TMK_DIR)/tool/mbed/mbed.mk
 include $(TMK_DIR)/tool/mbed/common.mk
 include $(TMK_DIR)/tool/mbed/gcc.mk
+
+program:
+	dfu-util -D $(OBJDIR)/$(PROJECT).bin
