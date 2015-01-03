@@ -104,7 +104,7 @@ int main(void)
         dprintf("Starting main loop");
         while (1) {
             while (suspend) {
-                suspend_power_down();
+                suspend_power_down(WDTO_120MS);
                 if (remote_wakeup && suspend_wakeup_condition()) {
                     usb_remote_wakeup();
                 }
