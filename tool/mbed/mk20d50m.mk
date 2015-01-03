@@ -41,5 +41,4 @@ INCLUDE_PATHS += \
 	-I$(MBED_DIR)/libraries/mbed/targets/hal/TARGET_Freescale \
 	-I$(MBED_DIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M
 
-LINKER_SCRIPT = $(MBED_DIR)/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/TOOLCHAIN_GCC_ARM/MK20D5.ld
-#LINKER_SCRIPT = infinity.ld
+LINKER_SCRIPT = infinity.ld

@@ -9,7 +9,7 @@ MEMORY
 {
   /* Infinity blootloader uses 4KB */
   FLASH (rx) : ORIGIN = 4K, LENGTH = 128K - 4K
-  RAM (rwx) : ORIGIN = 0x1FFFE000, LENGTH = 16K
+  RAM (rwx) : ORIGIN = 0x1FFFE0F8, LENGTH = 16K - 0xF8
 }
 
 /* Linker script to place sections and symbol values. Should be used together
