@@ -11,6 +11,10 @@ vpath %.cpp .:$(MBED_DIR):$(TMK_DIR)
 OBJDIR = ./build
 
 OBJECTS = \
+	$(OBJDIR)/matrix.o \
+	$(OBJDIR)/keymap.o \
+	$(OBJDIR)/keymap_common.o \
+	$(OBJDIR)/led.o \
 	$(OBJDIR)/main.o
 
 CONFIG_H = config.h
@@ -29,5 +33,5 @@ include $(TMK_DIR)/tool/mbed/mbed.mk
 include $(TMK_DIR)/tool/mbed/common.mk
 include $(TMK_DIR)/tool/mbed/gcc.mk
 
-program:
+program: $(OBJDIR)/$(PROJECT).bin
 	dfu-util -D $(OBJDIR)/$(PROJECT).bin

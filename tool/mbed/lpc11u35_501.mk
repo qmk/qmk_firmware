@@ -17,6 +17,7 @@ CC_SYMBOLS = \
 	-D__MBED__=1
 
 OBJECTS += \
+	$(OBJDIR)/libraries/USBDevice/USBDevice/USBHAL_LPC11U.o \
 	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_NXP/TARGET_LPC11UXX/TOOLCHAIN_GCC_ARM/startup_LPC11xx.o \
 	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_NXP/TARGET_LPC11UXX/cmsis_nvic.o \
 	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_NXP/TARGET_LPC11UXX/system_LPC11Uxx.o \

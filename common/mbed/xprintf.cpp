@@ -6,6 +6,10 @@
 
 #define STRING_STACK_LIMIT    120
 
+//TODO
+int xprintf(const char* format, ...) { return 0; }
+
+#if 0
 /* mbed Serial */
 Serial ser(UART_TX, UART_RX);
 
@@ -44,3 +48,4 @@ int xprintf(const char* format, ...)
     return r;
 */
 }
+#endif

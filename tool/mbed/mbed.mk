@@ -4,7 +4,9 @@
 OBJECTS += \
 	$(OBJDIR)/libraries/mbed/common/gpio.o \
 	$(OBJDIR)/libraries/mbed/common/us_ticker_api.o \
-	$(OBJDIR)/libraries/mbed/common/wait_api.o
+	$(OBJDIR)/libraries/mbed/common/wait_api.o \
+	$(OBJDIR)/libraries/USBDevice/USBDevice/USBDevice.o
+
 
 #	$(OBJDIR)/libraries/mbed/common/assert.o \
 #	$(OBJDIR)/libraries/mbed/common/board.o \
@@ -75,9 +77,9 @@ INCLUDE_PATHS += \
 	-I$(MBED_DIR)/libraries/USBDevice/USBSerial
 
 # TMK mbed protocol
-#OBJECTS += \
-#	$(OBJDIR)/protocol/mbed/mbed_driver.o \
-#	$(OBJDIR)/protocol/mbed/HIDKeyboard.o
+OBJECTS += \
+	$(OBJDIR)/protocol/mbed/mbed_driver.o \
+	$(OBJDIR)/protocol/mbed/HIDKeyboard.o
 
 INCLUDE_PATHS += \
 	-I$(TMK_DIR)/protocol/mbed
