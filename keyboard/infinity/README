@@ -1,0 +1,81 @@
+Infinity
+========
+Massdrop Infinity Keyboard:
+https://www.massdrop.com/buy/infinity-keyboard-kit
+
+kiibohd controller(MD1):
+https://github.com/kiibohd/controller
+
+DFU bootloader:
+https://github.com/kiibohd/controller/tree/master/Bootloader
+
+Program with bootloader:
+    $ dfu-util -D kiibohd.dfu.bin
+
+Pinout:
+https://github.com/kiibohd/controller/blob/master/Scan/MD1/pinout
+
+MCHCK compatible:
+https://mchck.org/about/
+
+MCU Freescale MK20DX128VLF5 48-QFP:
+http://cache.freescale.com/files/32bit/doc/data_sheet/K20P48M50SF0.pdf
+
+
+
+Pin Usage
+=========
+Key Matrix:
+    Strobe(output high):            PTB0 PTB1 PTB2 PTB3 PTB16 PTB17 PTC4 PTC5 PTD0
+    Sense(input with pull-down):    PTD1 PTD2 PTD3 PTD4 PTD5 PTD6 PTD7
+
+
+SWD pinout:
+    SWD_CLK(PTA0) SWD_DIO(PTA3)
+    SWD pins are placed next to reset button; SWD_CLK, SWD_DIO, GND, VCC from top.
+    Note that RESET is also needed to get full control with OpenOCD.
+
+LED:
+    PTA19(turns on with output high)
+
+
+
+Memory map
+==========
+kiibohd bootloader: Lib/mk20dx128vlf5.bootloader.ld
+0x0000_0000 +-------------------+ -----------------+---------------+ Vector table
+            | .vectors          | ------------.    | StackPointer0 |     of Bootloader
+            | .startup          |              \   | ResetHandler1 |
+            | .rodata           |               `--+---------------+ 0xF8
+0x0000_0400 | .flashconfig(0x10)| 
+      _0410 | .text             |
+            | .init             |
+0x0000_1000 +-------------------+ -----------------+---------------+ Vector table
+            | _app_rom          | ------------.    |               |     of App
+            |                   |              \   |               |
+            |                   |               `--+---------------+
+            |                   |
+            ~                   ~
+            |                   |
+0x07FF_FFFF +-------------------+ 128KB
+
+
+0x1FFF_E000 +-------------------+ -----------------+---------------+ Vector table
+      _E0F8 |                   | ------------.    |               |     of App(copied)
+            |                   |              \   |               |  
+            |                   |               `--+---------------+ mbed NVIC
+            |                   |
+            | RAM               |
+            |                8KB|
+0x2000_0000 +-------------------+
+            |                   |
+            |                   |
+            |                   |
+            |                   |
+            | RAM               |
+            |                8KB|
+0x2000_2000 +-------------------+ _estack
+
+
+
+

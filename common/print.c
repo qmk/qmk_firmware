@@ -22,12 +22,13 @@
  * THE SOFTWARE.
  */
 
-#include <avr/io.h>
-#include <avr/pgmspace.h>
+#include <stdint.h>
 #include "print.h"
 
 
 #ifndef NO_PRINT
+
+#if defined(__AVR__)
 
 #define sendchar(c)    xputc(c)
 
@@ -36,5 +37,12 @@ void print_set_sendchar(int8_t (*sendchar_func)(uint8_t))
 {
     xdev_out(sendchar_func);
 }
+
+#elif defined(__arm__)
+
+// TODO
+//void print_set_sendchar(int8_t (*sendchar_func)(uint8_t)) { }
+
+#endif
 
 #endif
