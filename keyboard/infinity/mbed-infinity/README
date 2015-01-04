@@ -1,0 +1,39 @@
+mbed fix for Infinity
+=====================
+Without linker script patch it doesn't place vector table in final binary.
+And clock is configured to 48MHz using internal clock reference and FLL multiplication.
+
+
+mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/system_MK20D5.c
+    Fix SystemInit: clock setup for internal clock. Inifinity has no external Xtal.
+
+mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/cmsis_nvic.c
+    Fix NVIC vector address of firmware 0x1000 instead of 0x0
+
+mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/TOOLCHAIN_GCC_ARM/MK20D5.ld
+    Fix memory map for Infinity bootloader
+        Flash starts at 0x1000
+        No flash config bytes sector
+
+USBDevice/USBDevice/USBHAL_KL25Z.cpp
+    Fix USB clock setup, see below.
+
+
+2015/01/04  Based on mbed-sdk @2f63fa7d78a26.
+
+
+
+Kinetis USB config
+==================
+Clock source: Internal reference clock wth FLL
+    SIM_SOPT[USBSRC] = 1(MCGPLLCLK/MCGFLLCLK)
+    SIM_SOPT[PLLSEL] = 0(MCGFLLCLK)
+
+Clock dividor:
+    SIM_CLKDIV2[USBDIV] = 0
+    SIM_CLKDIV2[USBFAC] = 0
+
+Clock enable:
+    SIM_SCGC4[USBOTG] = 1
+
+
