@@ -39,6 +39,8 @@ LIBRARIES =
 MOUSEKEY_ENABLE = yes
 
 
+#include $(TMK_DIR)/tool/mbed/mk20d50m.mk
+include $(TMK_DIR)/tool/mbed/lpc11u35_501.mk
 include $(TMK_DIR)/tool/mbed/mbed.mk
 include $(TMK_DIR)/tool/mbed/common.mk
 include $(TMK_DIR)/tool/mbed/gcc.mk

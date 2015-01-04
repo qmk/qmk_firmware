@@ -43,6 +43,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "ps2.h"
+#include "ps2_io.h"
 #include "print.h"
 
 
