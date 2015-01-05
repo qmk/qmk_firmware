@@ -47,7 +47,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
            CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS, UP,  NO,  BSPC, \
            LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
            LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT,TRNS, \
-                LGUI,LALT,          SPC,                RALT,RGUI),
+                LGUI,LALT,          TRNS,               RALT,RGUI),
 
     /* Layer 2: Vi mode[Slash]
      * ,-----------------------------------------------------------.
@@ -66,7 +66,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  BSPC, \
            LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, TRNS,RSFT,NO, \
+           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT,TRNS, \
                 LGUI,LALT,          SPC,                RALT,RGUI),
 
     /* Layer 3: Mouse mode(IJKL)[Semicolon]
@@ -81,16 +81,16 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * `-----------------------------------------------------------'
      *      |Gui |Alt  |          Mb1          |Fn   |Fn |
      *      `--------------------------------------------'
-     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel8
+     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     [3] = \
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           FN8, NO,  NO,  NO,  NO,  NO,  LEFT,WH_D,MS_U,WH_U,RGHT,FN9, FN10,FN8, \
-           LCTL,ACL0,ACL1,ACL2,ACL2,NO,  NO,  MS_L,MS_D,MS_R,TRNS,NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,NO, \
+           FN8, NO,  NO,  NO,  NO,  NO,  NO,  WH_D,MS_U,WH_U,RGHT,FN9, FN10,FN8, \
+           LCTL,ACL0,ACL1,ACL2,ACL2,NO,  NO,  MS_L,MS_D,MS_R,FN3, NO,  ENT, \
+           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,TRNS, \
                 LGUI,LALT,          BTN1,               TRNS,TRNS),
 
-    /* Layer 5: Mouse mode(IJKL)[Space]
+    /* Layer 4: Mouse mode(IJKL)[Space]
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
@@ -102,13 +102,13 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * `-----------------------------------------------------------'
      *      |Gui |Alt  |          Mb1          |Fn   |Fn |
      *      `--------------------------------------------'
-     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel8
+     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     [4] = \
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           FN8, NO,  NO,  NO,  NO,  NO,  LEFT,WH_D,MS_U,WH_U,RGHT,FN9, FN10,FN8, \
+           FN8, NO,  NO,  NO,  NO,  NO,  NO,  WH_D,MS_U,WH_U,RGHT,FN9, FN10,FN8, \
            LCTL,VOLD,VOLU,MUTE,NO,  NO,  NO,  MS_L,MS_D,MS_R,BTN1,NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,NO, \
+           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,TRNS, \
                 LGUI,LALT,          TRNS,               TRNS,TRNS),
 
 #if 0
@@ -127,7 +127,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, NO,  NO,  NO,  NO,  NO,  LEFT,WH_D,WH_U,RGHT,NO,  NO,  NO,  BSPC, \
+           TAB, NO,  NO,  NO,  NO,  NO,  NO,  WH_D,WH_U,RGHT,NO,  NO,  NO,  BSPC, \
            LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,TRNS,QUOT,ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,SLSH,RSFT,NO, \
                 LGUI,LALT,          BTN1,               RALT,TRNS),
@@ -147,7 +147,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           FN8, NO,  NO,  NO,  NO,  NO,  LEFT,WH_D,WH_U,RGHT,NO,  FN9, FN10,FN8, \
+           FN8, NO,  NO,  NO,  NO,  NO,  NO,  WH_D,WH_U,RGHT,NO,  FN9, FN10,FN8, \
            LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,BTN1,NO,  ENT, \
            LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,NO, \
                 LGUI,LALT,          TRNS,               RALT,RGUI),
