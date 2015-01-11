@@ -53,14 +53,14 @@ int16_t rn42_getc(void)
     return serial_recv2();
 }
 
-char *rn42_gets(uint16_t timeout)
+const char *rn42_gets(uint16_t timeout)
 {
-    static char s[16];
+    static char s[24];
     uint16_t t = timer_read();
     uint8_t i = 0;
     int16_t c;
-    while (i < 15 && timer_elapsed(t) < timeout) {
-               if ((c = rn42_getc()) != -1) {
+    while (i < 23 && timer_elapsed(t) < timeout) {
+        if ((c = rn42_getc()) != -1) {
             if ((char)c == '\r') continue;
             if ((char)c == '\n') break;
             s[i++] = c;
@@ -126,7 +126,7 @@ bool rn42_linked(void)
     //   Hi-Z:  Not powered
     //   High:  Linked
     //   Low:   Connecting
-    return !rn42_rts() && PINF&(1<<6);
+    return PINF&(1<<6);
 }
 
 
