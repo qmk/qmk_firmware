@@ -1,4 +1,7 @@
 # Keymap
+## Sysrq key
+see #168
+
 ## Power key doesn't work
 Use `KC_PWR` instead of `KC_POWER` or vice versa.
 - `KC_PWR` works with Windows and Linux, not with OSX.
