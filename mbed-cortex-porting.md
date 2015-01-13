@@ -1,3 +1,10 @@
+## PS/2 converter
+Confirmed it works on NXP LPC11U35.
+http://developer.mbed.org/platforms/TG-LPC11U35-501/
+
+## Infinity support
+It runs on Freescale MK20DX128.
+
 ## compile error: cstddef
 Experienced this with arm-none-eabi-gcc (4.8.2-14ubuntu1+6) 4.8.2 on ubuntu 14.04.
 
