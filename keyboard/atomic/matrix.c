@@ -104,17 +104,6 @@ uint8_t matrix_scan(void)
         }
     }
 
-    // uint8_t layer = biton32(default_layer_state);
-    switch (default_layer_state) {
-        case 1:
-            DDRF &= ~(1<<0);
-            PORTF &= ~(1<<0);
-            break;
-        case 2:
-            DDRF |= (1<<0);
-            PORTF |= (1<<0);
-            break;
-    }
 
     return 1;
 }
