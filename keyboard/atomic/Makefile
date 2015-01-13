@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = gh60_lufa
+TARGET = atomic_lufa
 
 # Directory common source filess exist
 TOP_DIR = ../..
