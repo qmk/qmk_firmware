@@ -1,7 +1,7 @@
 ## supported projects
 ### PS/2 converter
 Confirmed it works on NXP LPC11U35.
-http://developer.mbed.org/platforms/TG-LPC11U35-501/
+- http://developer.mbed.org/platforms/TG-LPC11U35-501/
 
 ### Infinity keyboard
 It runs on Freescale MK20DX128.
