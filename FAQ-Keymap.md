@@ -1,6 +1,10 @@
 # Keymap
 ## Sysrq key
-see #168
+Use keycode for Print Screen(`KC_PSCREEN' or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
+
+See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
+http://en.wikipedia.org/wiki/Magic_SysRq_key
+http://en.wikipedia.org/wiki/System_request
 
 ## Power key doesn't work
 Use `KC_PWR` instead of `KC_POWER` or vice versa.
