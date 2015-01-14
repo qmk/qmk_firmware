@@ -1,4 +1,3 @@
-# Keymap
 ## READ FIRST
 https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md
 
