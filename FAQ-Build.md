@@ -67,3 +67,23 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+
+
+## Linux udev rules
+On Linux you need proper privilege to access device file of MCU, you'll have to use `sudo` when flashing firmware. You can circumvent this with placing these files in `/etc/udev/rules.d/`.
+
+**/etc/udev/rules.d/50-atmel-dfu.rules:**
+```
+# Atmel ATMega32U4
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", MODE:="0666"
+# Atmel USBKEY AT90USB1287
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", MODE:="0666"
+# Atmel ATMega32U2
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="0666"
+```
+
+**/etc/udev/rules.d/52-tmk-keyboard.rules:**
+```
+# tmk keyboard products     https://github.com/tmk/tmk_keyboard
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
+```
