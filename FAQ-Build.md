@@ -1,5 +1,3 @@
-# FAQ/Build
-
 ## READ FIRST
 - https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
 
