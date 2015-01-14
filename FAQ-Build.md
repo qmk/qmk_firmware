@@ -1,12 +1,13 @@
 # FAQ/Build
-## How to Build
-See this first!
-https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
+
+## READ FIRST
+- https://github.com/tmk/tmk_keyboard/blob/master/doc/build.md
 
 In short,
 
-    $ make clean
-    $ make [KEYMAP=...]
+    $ make [-f Makefile.<variant>] [KEYMAP=...] clean
+    $ make [-f Makefile.<variant>] [KEYMAP=...]
+    $ make [-f Makefile.<variant>] [KEYMAP=...] dfu
 
 
 ## Do 'make clean' before 'make'
