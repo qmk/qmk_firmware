@@ -1,4 +1,4 @@
-# READ FIRST
+## READ FIRST
 - **README** of top directory : https://github.com/tmk/tmk_keyboard/blob/master/README.md
 - **README** of target project(keyboard/converter) directory.
 
