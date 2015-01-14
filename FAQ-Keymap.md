@@ -1,4 +1,7 @@
 # Keymap
+## READ FIRST
+https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md
+
 ## How to get keycode
 See [doc/keycode.txt](https://github.com/tmk/tmk_keyboard/blob/master/doc/keycode.txt).
 Keycodes are actually defined in [common/keycode.h](https://github.com/tmk/tmk_keyboard/blob/master/common/keycode.h).
