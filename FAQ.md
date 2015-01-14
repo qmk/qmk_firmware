@@ -8,7 +8,7 @@ Read these yet?
 
 
 # Build
-- [[FAQ/Build]
+- [[FAQ/Build]]
 
 
 # Keymap
