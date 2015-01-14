@@ -2,7 +2,7 @@
 - **README** of top directory : https://github.com/tmk/tmk_keyboard/blob/master/README.md
 - **README** of target project(keyboard/converter) directory.
 
-Note that you'll need to read two **README**.
+Note that you'll need to read **both**.
 
 
 # Build
