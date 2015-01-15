@@ -1,38 +1,8 @@
-Roving RN-42
-============
+Memo of deveopment
+==================
+just memo, NOT WORTH READING
 
 Bug:
-- with Nexus5 keyboard and mouse are very laggy.
-
-- lose USB connection during power-down mode - DONE
-    - USB initialize code in main() causes this - WRONG
-    - Do not power-down during USB connection is active - DONE 11/11
-        (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
-        matrix_power_down() matrix.c - 11/23
-
-- When given power only from wall wart adapter
-    - it sleeps. it should not sleep
-    - Configured state without USB connection?
-
-- timer is slow while power down - DONE 11/26
-    - time out interrupt is lost while power down?
-    - interrupt of watchdog timer compensates timer counter(avr/suspend.c)
-
-- USB plug-in fails while BT
-    - it ends in suspend state
-    - maybe, not responsive to host enumeration process due to power-down.
-    - matrix_power_down() only when state is unattached - 11/26
-        - need to observe a while
-- repeated CHARGING/FULL_CHARGED
-    - In LTC sharp pulses are observed.
-    - MCP has no pulse but still has a problem.
-    - needs more wait before read pin state? - NO
-- wrongly suspended when powered from adapter without USB connection - DONE
-    - suspend event may occur when plug into adapter
-    - and never wake until conected to real USB line
-    - without debug print via USB no problem; CSW(wake just after suspend as real USB line)
-    - seems like USB print causes this problem after suspended
-
 - Factory Reset PIO4 doesn't work
     - the reason is unclear - 12/08 NOT LOOK INTO ANY MORE
     - WORKAROUND: use serial pins(3.3V, GND, RX and TX)
@@ -51,11 +21,9 @@ Todo:
     - no buffering. character lost can be caused.
 - LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
 
-- switch BT host connections
 - BT operations
     - disconnect
     - new connection
-    - switch next connection
     - remove connection
 
 - sendchar() in lufa.c block loop   - DONE 11/29
@@ -246,3 +214,42 @@ Done:
 - Under voltage lock out UVLO for protection of Lipo - Lipo has discharge protection at 3.100V    07.01
 - Power saving: HHKB scan, BT radio control - 9h with 850mAh, this is enough   07.01
 - Power selector doesn't work; Q4 MOSFET leaks from Lipo to USB power line. -- use Schottky instead 07/04
+
+- wrongly suspended when powered from adapter without USB connection - DONE
+    - suspend event may occur when plug into adapter
+    - and never wake until conected to real USB line
+    - without debug print via USB no problem; CSW(wake just after suspend as real USB line)
+    - seems like USB print causes this problem after suspended
+
+- lose USB connection during power-down mode - DONE
+    - USB initialize code in main() causes this - WRONG
+    - Do not power-down during USB connection is active - DONE 11/11
+        (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
+        matrix_power_down() matrix.c - 11/23
+
+- with Nexus5 keyboard and mouse are very laggy.
+    Not confirmed. 01/15
+
+- switch BT host connections    - CANCEL 01/15
+    - switch next connection
+        cannot switch connection with version 6.15 at least
+
+- When given power only from wall wart adapter  - DONE? not confirmed 01/15
+    - it sleeps. it should not sleep
+    - Configured state without USB connection?
+
+- timer is slow while power down - DONE 11/26
+    - time out interrupt is lost while power down?
+    - interrupt of watchdog timer compensates timer counter(avr/suspend.c)
+
+- repeated CHARGING/FULL_CHARGED    - No longer problem 01/15
+    - In LTC sharp pulses are observed.
+    - MCP has no pulse but still has a problem.
+    - needs more wait before read pin state? - NO
+
+- USB plug-in fails while BT        - No longer problem 01/15
+    - it ends in suspend state
+    - maybe, not responsive to host enumeration process due to power-down.
+    - matrix_power_down() only when state is unattached - 11/26
+        - need to observe a while
+
