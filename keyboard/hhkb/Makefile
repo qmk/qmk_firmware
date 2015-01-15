@@ -121,11 +121,6 @@ NKRO_ENABLE = yes		# USB Nkey Rollover
 #HHKB_JP = yes			# HHKB JP support
 
 
-ifdef HHKB_JP
-    OPT_DEFS += -DHHKB_JP
-endif
-
-
 #
 # Keymap file
 #
@@ -137,6 +132,11 @@ else
     else 
     	SRC := keymap_hhkb.c $(SRC)
     endif
+endif
+
+
+ifneq (, $(or $(findstring keymap_jp.c, $(SRC)), $(findstring yes, $(HHKB_JP))))
+    OPT_DEFS += -DHHKB_JP
 endif
 
 

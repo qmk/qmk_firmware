@@ -36,7 +36,7 @@ static void bluefruit_serial_send(uint8_t);
 void bluefruit_keyboard_print_report(report_keyboard_t *report)
 {
     if (!debug_keyboard) return;
-    dprintf("keys: "); for (int i = 0; i < REPORT_KEYS; i++) { debug_hex8(report->keys[i]); dprintf(" "); }
+    dprintf("keys: "); for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) { debug_hex8(report->keys[i]); dprintf(" "); }
     dprintf(" mods: "); debug_hex8(report->mods);
     dprintf(" reserved: "); debug_hex8(report->reserved); 
     dprintf("\n");
@@ -99,7 +99,7 @@ static void send_keyboard(report_keyboard_t *report)
     bluefruit_trace_header();
 #endif
     bluefruit_serial_send(0xFD);
-    for (uint8_t i = 0; i < REPORT_SIZE; i++) {
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
         bluefruit_serial_send(report->raw[i]);
     }
 #ifdef BLUEFRUIT_TRACE_SERIAL   
