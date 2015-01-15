@@ -1,6 +1,19 @@
 RN-42
 =====
 
+
+12/11
+Power Comsumption
+MCU+HHKB
+--------
+Battery drive:
+    idle    18.9mA
+    active  35.8mA
+
+USB powered:
+    40.0mA
+
+
 HHKB key switch power control
 -----------------------------
 MOS FET Nch: BSS138 or IRLML6344T, either works and no apparent difference.

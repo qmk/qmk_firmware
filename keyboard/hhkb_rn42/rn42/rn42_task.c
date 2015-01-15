@@ -1,4 +1,7 @@
 #include <stdint.h>
+#include <string.h>
+#include <avr/pgmspace.h>
+#include <avr/eeprom.h>
 #include "keycode.h"
 #include "serial.h"
 #include "host.h"
@@ -9,6 +12,7 @@
 #include "print.h"
 #include "debug.h"
 #include "timer.h"
+#include "wait.h"
 #include "command.h"
 #include "battery.h"
 
@@ -34,39 +38,34 @@ void rn42_task_init(void)
 void rn42_task(void)
 {
     int16_t c;
-    if (config_mode) {
-        // Config mode: print output from RN-42
-        while ((c = serial_recv2()) != -1) {
-            // without flow control it'll fail to receive data when flooded
-            xprintf("%c", c);
-        }
-    } else {
-        // Raw mode: interpret output report of LED state
-        while ((c = serial_recv2()) != -1) {
-            // LED Out report: 0xFE, 0x02, 0x01, <leds>
-            // To get the report over UART set bit3 with SH, command.
-            static enum {LED_INIT, LED_FE, LED_02, LED_01} state = LED_INIT;
-            switch (state) {
-                case LED_INIT:
-                    if (c == 0xFE) state = LED_FE;
-                    else           state = LED_INIT;
-                    break;
-                case LED_FE:
-                    if (c == 0x02) state = LED_02;
-                    else           state = LED_INIT;
-                    break;
-                case LED_02:
-                    if (c == 0x01) state = LED_01;
-                    else           state = LED_INIT;
-                    break;
-                case LED_01:
-                    dprintf("LED status: %02X\n", c);
-                    rn42_set_leds(c);
-                    state = LED_INIT;
-                    break;
-                default:
-                    state = LED_INIT;
-            }
+    // Raw mode: interpret output report of LED state
+    while ((c = rn42_getc()) != -1) {
+        // LED Out report: 0xFE, 0x02, 0x01, <leds>
+        // To get the report over UART set bit3 with SH, command.
+        static enum {LED_INIT, LED_FE, LED_02, LED_01} state = LED_INIT;
+        switch (state) {
+            case LED_INIT:
+                if (c == 0xFE) state = LED_FE;
+                else {
+                    if (0x0 <= c && c <= 0x7f) xprintf("%c", c);
+                    else xprintf(" %02X", c);
+                }
+                break;
+            case LED_FE:
+                if (c == 0x02) state = LED_02;
+                else           state = LED_INIT;
+                break;
+            case LED_02:
+                if (c == 0x01) state = LED_01;
+                else           state = LED_INIT;
+                break;
+            case LED_01:
+                dprintf("LED status: %02X\n", c);
+                rn42_set_leds(c);
+                state = LED_INIT;
+                break;
+            default:
+                state = LED_INIT;
         }
     }
 
@@ -96,18 +95,6 @@ void rn42_task(void)
             battery_led(LED_CHARGER);
         }
 
-        static uint8_t prev_status = UNKNOWN;
-        if (bs != prev_status) {
-            prev_status = bs;
-            switch (bs) {
-                case FULL_CHARGED:  xprintf("FULL_CHARGED\n"); break;
-                case CHARGING:      xprintf("CHARGING\n"); break;
-                case DISCHARGING:   xprintf("DISCHARGING\n"); break;
-                case LOW_VOLTAGE:   xprintf("LOW_VOLTAGE\n"); break;
-                default:            xprintf("UNKNOWN STATUS\n"); break;
-            };
-        }
-
         /* every minute */
         uint32_t t = timer_read32()/1000;
         if (t%60 == 0) {
@@ -115,7 +102,7 @@ void rn42_task(void)
             uint8_t h = t/3600;
             uint8_t m = t%3600/60;
             uint8_t s = t%60;
-            xprintf("%02u:%02u:%02u\t%umV\n", h, m, s, v);
+            dprintf("%02u:%02u:%02u\t%umV\n", h, m, s, v);
             /* TODO: xprintf doesn't work for this.
             xprintf("%02u:%02u:%02u\t%umV\n", (t/3600), (t%3600/60), (t%60), v);
             */
@@ -124,7 +111,7 @@ void rn42_task(void)
 
 
     /* Connection monitor */
-    if (rn42_linked()) {
+    if (!rn42_rts() && rn42_linked()) {
         status_led(true);
     } else {
         status_led(false);
@@ -136,46 +123,247 @@ void rn42_task(void)
 /******************************************************************************
  * Command
  ******************************************************************************/
+static host_driver_t *prev_driver = &rn42_driver;
+
+static void print_rn42(void)
+{
+    int16_t c;
+    while ((c = rn42_getc()) != -1) {
+        xprintf("%c", c);
+    }
+}
+
+static void clear_rn42(void)
+{
+    while (rn42_getc() != -1) ;
+}
+
+#define SEND_STR(str)       send_str(PSTR(str))
+#define SEND_COMMAND(cmd)   send_command(PSTR(cmd))
+
+static void send_str(const char *str)
+{
+    uint8_t c;
+    while ((c = pgm_read_byte(str++)))
+        rn42_putc(c);
+}
+
+static const char *send_command(const char *cmd)
+{
+    static const char *s;
+    send_str(cmd);
+    wait_ms(500);
+    s = rn42_gets(100);
+    xprintf("%s\r\n", s);
+    print_rn42();
+    return s;
+}
+
+static void enter_command_mode(void)
+{
+    prev_driver = host_get_driver();
+    clear_keyboard();
+    host_set_driver(&rn42_config_driver);   // null driver; not to send a key to host
+    rn42_disconnect();
+    while (rn42_linked()) ;
+
+    print("Entering config mode ...\n");
+    wait_ms(1100);          // need 1 sec
+    SEND_COMMAND("$$$");
+    wait_ms(600);           // need 1 sec
+    print_rn42();
+    const char *s = SEND_COMMAND("v\r\n");
+    if (strncmp("v", s, 1) != 0) SEND_COMMAND("+\r\n"); // local echo on
+}
+
+static void exit_command_mode(void)
+{
+    print("Exiting config mode ...\n");
+    SEND_COMMAND("---\r\n");    // exit
+
+    rn42_autoconnect();
+    clear_keyboard();
+    host_set_driver(prev_driver);
+}
+
+static void init_rn42(void)
+{
+    // RN-42 configure
+    if (!config_mode) enter_command_mode();
+    SEND_COMMAND("SF,1\r\n");  // factory defaults
+    SEND_COMMAND("S-,TmkBT\r\n");
+    SEND_COMMAND("SS,Keyboard/Mouse\r\n");
+    SEND_COMMAND("SM,4\r\n");  // auto connect(DTR)
+    SEND_COMMAND("SW,8000\r\n");   // Sniff disable
+    SEND_COMMAND("S~,6\r\n");   // HID profile
+    SEND_COMMAND("SH,003C\r\n");   // combo device, out-report, 4-reconnect
+    SEND_COMMAND("SY,FFF4\r\n");   // transmit power -12
+    SEND_COMMAND("R,1\r\n");
+    if (!config_mode) exit_command_mode();
+}
+
+#if 0
+// Switching connections
+// NOTE: Remote Address doesn't work in the way manual says.
+// EEPROM address for link store
+#define RN42_LINK0  (uint8_t *)128
+#define RN42_LINK1  (uint8_t *)140
+#define RN42_LINK2  (uint8_t *)152
+#define RN42_LINK3  (uint8_t *)164
+static void store_link(uint8_t *eeaddr)
+{
+    enter_command_mode();
+    SEND_STR("GR\r\n"); // remote address
+    const char *s = rn42_gets(500);
+    if (strcmp("GR", s) == 0) s = rn42_gets(500);   // ignore local echo
+    xprintf("%s(%d)\r\n", s, strlen(s));
+    if (strlen(s) == 12) {
+        for (int i = 0; i < 12; i++) {
+            eeprom_write_byte(eeaddr+i, *(s+i));
+            dprintf("%c ", *(s+i));
+        }
+        dprint("\r\n");
+    }
+    exit_command_mode();
+}
+
+static void restore_link(const uint8_t *eeaddr)
+{
+    enter_command_mode();
+    SEND_COMMAND("SR,Z\r\n");   // remove remote address
+    SEND_STR("SR,");            // set remote address from EEPROM
+    for (int i = 0; i < 12; i++) {
+        uint8_t c = eeprom_read_byte(eeaddr+i);
+        rn42_putc(c);
+        dprintf("%c ", c);
+    }
+    dprintf("\r\n");
+    SEND_COMMAND("\r\n");
+    SEND_COMMAND("R,1\r\n");    // reboot
+    exit_command_mode();
+}
+
+static const char *get_link(uint8_t * eeaddr)
+{
+    static char s[13];
+    for (int i = 0; i < 12; i++) {
+        uint8_t c = eeprom_read_byte(eeaddr+i);
+        s[i] = c;
+    }
+    s[12] = '\0';
+    return s;
+}
+#endif
+
+static void pairing(void)
+{
+    enter_command_mode();
+    SEND_COMMAND("SR,Z\r\n");   // remove remote address
+    SEND_COMMAND("R,1\r\n");    // reboot
+    exit_command_mode();
+}
+
 bool command_extra(uint8_t code)
 {
     uint32_t t;
     uint16_t b;
-    static host_driver_t *prev_driver = &rn42_driver;
     switch (code) {
         case KC_H:
         case KC_SLASH: /* ? */
             print("\n\n----- Bluetooth RN-42 Help -----\n");
-            print("Del: enter/exit config mode(auto_connect/disconnect)\n");
-            print("i:   RN-42 info\n");
-            print("b:   battery voltage\n");
+            print("i:       RN-42 info\n");
+            print("b:       battery voltage\n");
+            print("Del:     enter/exit RN-42 config mode\n");
+            print("Slck:    RN-42 initialize\n");
+#if 0
+            print("1-4:     restore link\n");
+            print("F1-F4:   store link\n");
+#endif
+            print("p:       pairing\n");
 
             if (config_mode) {
                 return true;
             } else {
-                print("u:   Force USB mode\n");
+                print("u:       toggle Force USB mode\n");
                 return false;   // to display default command help
             }
-        case KC_DELETE:
-            if (rn42_autoconnecting()) {
-                prev_driver = host_get_driver();
-                clear_keyboard();
-                _delay_ms(500);
-                host_set_driver(&rn42_config_driver);   // null driver; not to send a key to host
-                rn42_disconnect();
-                print("\nRN-42: disconnect\n");
-                print("Enter config mode\n");
-                print("type $$$ to start and + for local echo\n");
-                command_state = CONSOLE;
-                config_mode = true;
-            } else {
-                rn42_autoconnect();
-                print("\nRN-42: auto_connect\n");
-                print("Exit config mode\n");
-                command_state = ONESHOT;
-                config_mode = false;
-                //clear_keyboard();
-                host_set_driver(prev_driver);
-            }
+        case KC_P:
+            pairing();
+            return true;
+#if 0
+        /* Store link address to EEPROM */
+        case KC_F1:
+            store_link(RN42_LINK0);
+            return true;
+        case KC_F2:
+            store_link(RN42_LINK1);
+            return true;
+        case KC_F3:
+            store_link(RN42_LINK2);
+            return true;
+        case KC_F4:
+            store_link(RN42_LINK3);
+            return true;
+        /* Restore link address to EEPROM */
+        case KC_1:
+            restore_link(RN42_LINK0);
+            return true;
+        case KC_2:
+            restore_link(RN42_LINK1);
+            return true;
+        case KC_3:
+            restore_link(RN42_LINK2);
+            return true;
+        case KC_4:
+            restore_link(RN42_LINK3);
+            return true;
+#endif
+        case KC_I:
+            print("\n----- RN-42 info -----\n");
+            xprintf("protocol: %s\n", (host_get_driver() == &rn42_driver) ? "RN-42" : "LUFA");
+            xprintf("force_usb: %X\n", force_usb);
+            xprintf("rn42: %s\n", rn42_rts() ? "OFF" : (rn42_linked() ? "CONN" : "ON"));
+            xprintf("rn42_autoconnecting(): %X\n", rn42_autoconnecting());
+            xprintf("config_mode: %X\n", config_mode);
+            xprintf("USB State: %s\n",
+                    (USB_DeviceState == DEVICE_STATE_Unattached) ? "Unattached" :
+                    (USB_DeviceState == DEVICE_STATE_Powered) ? "Powered" :
+                    (USB_DeviceState == DEVICE_STATE_Default) ? "Default" :
+                    (USB_DeviceState == DEVICE_STATE_Addressed) ? "Addressed" :
+                    (USB_DeviceState == DEVICE_STATE_Configured) ? "Configured" :
+                    (USB_DeviceState == DEVICE_STATE_Suspended) ? "Suspended" : "?");
+            xprintf("battery: ");
+            switch (battery_status()) {
+                case FULL_CHARGED:  xprintf("FULL"); break;
+                case CHARGING:      xprintf("CHARG"); break;
+                case DISCHARGING:   xprintf("DISCHG"); break;
+                case LOW_VOLTAGE:   xprintf("LOW"); break;
+                default:            xprintf("?"); break;
+            };
+            xprintf("\n");
+            xprintf("RemoteWakeupEnabled: %X\n", USB_Device_RemoteWakeupEnabled);
+            xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
+            t = timer_read32()/1000;
+            uint8_t d = t/3600/24;
+            uint8_t h = t/3600;
+            uint8_t m = t%3600/60;
+            uint8_t s = t%60;
+            xprintf("uptime: %02u %02u:%02u:%02u\n", d, h, m, s);
+#if 0
+            xprintf("LINK0: %s\r\n", get_link(RN42_LINK0));
+            xprintf("LINK1: %s\r\n", get_link(RN42_LINK1));
+            xprintf("LINK2: %s\r\n", get_link(RN42_LINK2));
+            xprintf("LINK3: %s\r\n", get_link(RN42_LINK3));
+#endif
+            return true;
+        case KC_B:
+            // battery monitor
+            t = timer_read32()/1000;
+            b = battery_voltage();
+            xprintf("BAT: %umV\t", b);
+            xprintf("%02u:",   t/3600);
+            xprintf("%02u:",   t%3600/60);
+            xprintf("%02u\n",  t%60);
             return true;
         case KC_U:
             if (config_mode) return false;
@@ -189,45 +377,41 @@ bool command_extra(uint8_t code)
                 host_set_driver(&lufa_driver);
             }
             return true;
-        case KC_I:
-            print("\n----- RN-42 info -----\n");
-            xprintf("protocol: %s\n", (host_get_driver() == &rn42_driver) ? "RN-42" : "LUFA");
-            xprintf("force_usb: %X\n", force_usb);
-            xprintf("rn42_autoconnecting(): %X\n", rn42_autoconnecting());
-            xprintf("rn42_linked(): %X\n", rn42_linked());
-            xprintf("rn42_rts(): %X\n", rn42_rts());
-            xprintf("config_mode: %X\n", config_mode);
-            xprintf("VBUS: %X\n", USBSTA&(1<<VBUS));
-            xprintf("battery_charging: %X\n", battery_charging());
-            xprintf("battery_status: %X\n", battery_status());
+        case KC_DELETE:
+            /* RN-42 Command mode */
+            if (rn42_autoconnecting()) {
+                enter_command_mode();
+
+                command_state = CONSOLE;
+                config_mode = true;
+            } else {
+                exit_command_mode();
+
+                command_state = ONESHOT;
+                config_mode = false;
+            }
             return true;
-        case KC_B:
-            // battery monitor
-            t = timer_read32()/1000;
-            b = battery_voltage();
-            xprintf("BAT: %umV\t", b);
-            xprintf("%02u:",   t/3600);
-            xprintf("%02u:",   t%3600/60);
-            xprintf("%02u\n",  t%60);
+        case KC_SCROLLLOCK:
+            init_rn42();
             return true;
         default:
             if (config_mode)
                 return true;
             else
-                return false;   // exec default command
+                return false;   // yield to default command
     }
     return true;
 }
 
+/*
+ * RN-42 Command mode
+ * sends charactors to the module
+ */
 static uint8_t code2asc(uint8_t code);
 bool command_console_extra(uint8_t code)
 {
-    switch (code) {
-        default:
-            rn42_putc(code2asc(code));
-            return true;
-    }
-    return false;
+    rn42_putc(code2asc(code));
+    return true;
 }
 
 // convert keycode into ascii charactor

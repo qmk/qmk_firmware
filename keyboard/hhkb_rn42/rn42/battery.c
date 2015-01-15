@@ -20,7 +20,10 @@ void battery_init(void)
     // Ref:2.56V band-gap, Input:ADC0(PF0), Prescale:128(16MHz/128=125KHz)
     ADMUX = (1<<REFS1) | (1<<REFS0);
     ADCSRA = (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);
-    ADCSRA |= (1<<ADEN);
+    // digital input buffer disable(24.9.5)
+    DIDR0 = (1<<ADC0D) | (1<<ADC4D) | (1<<ADC7D);
+    DIDR1 = (1<<AIN0D);
+    DIDR2 = (1<<ADC8D) | (1<<ADC9D) | (1<<ADC11D) | (1<<ADC12D) | (1<<ADC13D);
 
     // ADC disable voltate divider(PF4)
     DDRF  |=  (1<<4);
@@ -88,23 +91,14 @@ uint16_t battery_voltage(void)
     PORTF |=  (1<<4);
 
     volatile uint16_t bat;
-    //ADCSRA |= (1<<ADEN);
-
-    // discard first result
-    ADCSRA |= (1<<ADSC);
-    while (ADCSRA & (1<<ADSC)) ;
-    bat = ADC;
-
-    // discard second result
-    ADCSRA |= (1<<ADSC);
-    while (ADCSRA & (1<<ADSC)) ;
-    bat = ADC;
+    ADCSRA |= (1<<ADEN);
+    _delay_ms(1);   // wait for charging S/H capacitance
 
     ADCSRA |= (1<<ADSC);
     while (ADCSRA & (1<<ADSC)) ;
     bat = ADC;
 
-    //ADCSRA &= ~(1<<ADEN);
+    ADCSRA &= ~(1<<ADEN);
 
     // ADC disable voltate divider(PF4)
     DDRF  |=  (1<<4);

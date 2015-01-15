@@ -7,7 +7,10 @@ host_driver_t rn42_driver;
 host_driver_t rn42_config_driver;
 
 void rn42_init(void);
+int16_t rn42_getc(void);
+const char *rn42_gets(uint16_t timeout);
 void rn42_putc(uint8_t c);
+void rn42_puts(char *s);
 bool rn42_autoconnecting(void);
 void rn42_autoconnect(void);
 void rn42_disconnect(void);
