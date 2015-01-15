@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	10
+#   define DEBOUNCE 10
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
@@ -56,11 +56,20 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+static
+void setup_leds(void) {
+  DDRF  |=  0x00;
+  PORTF |=  0x00;
+}
+
+
 void matrix_init(void)
 {
     // initialize row and col
     unselect_rows();
     init_cols();
+
+    setup_leds();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -95,18 +104,6 @@ uint8_t matrix_scan(void)
         }
     }
 
-    uint8_t layer = biton32(layer_state);
-    switch (layer) {
-        case 1:
-        case 2:
-            DDRC |= (1<<7);
-            PORTC |= (1<<7);
-            break;
-        case 0:
-            DDRC &= ~(1<<7);
-            PORTC &= ~(1<<7);
-            break;
-    }
 
     return 1;
 }
@@ -155,28 +152,33 @@ uint8_t matrix_key_count(void)
 
 static void init_cols(void)
 {
+    DDRC  &= ~(1<<6 | 1<<7);
+    PORTC |=  (1<<6 | 1<<7);
+    DDRD  &= ~(1<<4 | 1<<5 | 1<<6 | 1<<7);
+    PORTD |=  (1<<4 | 1<<5 | 1<<6 | 1<<7);
+    DDRB  &= ~(1<<4 | 1<<5 | 1<<6);
+    PORTB |=  (1<<4 | 1<<5 | 1<<6);
     DDRF  &= ~(1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
     PORTF |=  (1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
-    DDRD  &= ~(1<<0);
-    PORTD |=  (1<<0);
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<7);
-    PORTB |=  (1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<7);
 }
 
 static matrix_row_t read_cols(void)
 {
-    return (PINB&(1<<0) ? 0 : (1<< 0)) |
-           (PINB&(1<<1) ? 0 : (1<< 1)) |
-           (PINB&(1<<2) ? 0 : (1<< 2)) |
-           (PINB&(1<<3) ? 0 : (1<< 3)) |
-           (PINB&(1<<7) ? 0 : (1<< 4)) |
-           (PIND&(1<<0) ? 0 : (1<< 5)) |
-           (PINF&(1<<7) ? 0 : (1<< 6)) |
-           (PINF&(1<<6) ? 0 : (1<< 7)) |
-           (PINF&(1<<5) ? 0 : (1<< 8)) |
-           (PINF&(1<<4) ? 0 : (1<< 9)) |
-           (PINF&(1<<1) ? 0 : (1<<10)) |
-           (PINF&(1<<0) ? 0 : (1<<11));
+    return (PINC&(1<<6) ? 0 : (1<< 0)) |
+           (PINC&(1<<7) ? 0 : (1<< 1)) |
+           (PIND&(1<<5) ? 0 : (1<< 2)) |
+           (PIND&(1<<4) ? 0 : (1<< 3)) |
+           (PIND&(1<<6) ? 0 : (1<< 4)) |
+           (PIND&(1<<7) ? 0 : (1<< 5)) |
+           (PINB&(1<<4) ? 0 : (1<< 6)) |
+           (PINB&(1<<5) ? 0 : (1<< 7)) |
+           (PINB&(1<<6) ? 0 : (1<< 8)) |
+           (PINF&(1<<7) ? 0 : (1<< 9)) |
+           (PINF&(1<<6) ? 0 : (1<<10)) |
+           (PINF&(1<<5) ? 0 : (1<<11)) |
+           (PINF&(1<<4) ? 0 : (1<<12)) |
+           (PINF&(1<<1) ? 0 : (1<<13)) |
+           (PINF&(1<<0) ? 0 : (1<<14));
 }
 
 /* Row pin configuration
@@ -186,30 +188,32 @@ static matrix_row_t read_cols(void)
 static void unselect_rows(void)
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~0b01110000;
-    PORTB &= ~0b01110000;
-    DDRD  &= ~0b10000000;
-    PORTD &= ~0b10000000;
+    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<7);
+    PORTB |=  (1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<7);
 }
 
 static void select_row(uint8_t row)
 {
     switch (row) {
         case 0:
-            DDRB  |= (1<<6);
-            PORTB &= ~(1<<6);
+            DDRB  |= (1<<0);
+            PORTB &= ~(1<<0);
             break;
         case 1:
-            DDRB  |= (1<<5);
-            PORTB &= ~(1<<5);
+            DDRB  |= (1<<1);
+            PORTB &= ~(1<<1);
             break;
         case 2:
-            DDRB  |= (1<<4);
-            PORTB &= ~(1<<4);
+            DDRB  |= (1<<2);
+            PORTB &= ~(1<<2);
             break;
         case 3:
-            DDRD  |= (1<<7);
-            PORTD &= ~(1<<7);
+            DDRB  |= (1<<3);
+            PORTB &= ~(1<<3);
+            break;
+        case 4:
+            DDRB  |= (1<<7);
+            PORTB &= ~(1<<7);
             break;
     }
 }
