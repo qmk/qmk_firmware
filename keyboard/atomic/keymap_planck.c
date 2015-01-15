@@ -9,12 +9,12 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = KEYMAP( /* QWERTY->PHOTOSHOP */
       DELETE,  0,    1,    2,    3,    4,    5,    6,    7,    8,    9,    FN1,
       O,       G,    S,    U,    T,    FN27,  F21,  F10,  F11,  F7,   F8,   F9,
-      TAB,     FN22, FN24,  FN6,  F1,   FN7,  F18,  F19,  F23,  F20,  F22,  FN9,
+      TAB,     FN4, FN5,  FN6,  F1,   FN7,  F18,  F19,  F23,  F20,  F22,  FN9,
       COMM,    DOT,  FN10, FN11, FN3,  SPC,        FN12, F2,   FN8,  F3,   F14),
     [2] = KEYMAP( /* 2: FN3 PHOTOSHOP */
       ESC,    FN25, FN26,   NO,   NO,   NO,   NO,   NO,   NO,   NO,   NO,   NO,
       NO,      NO,   NO,   NO,   NO,   NO,   NO,   NO,   NO,   FN19, FN20, FN21, 
-      C,       FN4,  NO,  FN5,   NO,   FN23, NO,   NO,   NO,   NO,   FN13, NO,
+      C,       NO,  FN22,  FN5,   NO,   FN23, NO,   NO,   NO,   NO,   FN13, NO,
       FN14,    FN15, FN16, FN17, FN3,   SPC,        FN18, NO,   NO,   F24,  NO),
 };
 
