@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2014 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,20 +18,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-
+#if 0
+// duplicated name against mbed USBDeivce
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x005B
-#define DEVICE_VER      0x0814
-#define MANUFACTURER    t.m.k.
-#define PRODUCT         USB to USB keyboard converter
-
-
-#define DESCRIPTION     Product from t.m.k. keyboard firmware project
+#define PRODUCT_ID      0x3BED
+#endif
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    tmk.
+#define PRODUCT         Infinitiy
+#define DESCRIPTION     Massdrop Infinity keyboard firmware by tmk
 
 
 /* matrix size */
-#define MATRIX_ROWS 32
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 9   // Strobe
+#define MATRIX_COLS 7   // Sense
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 

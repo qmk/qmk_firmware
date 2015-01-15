@@ -43,12 +43,15 @@ See [doc/HHKB.txt](doc/HHKB.txt) and files under [doc/](doc/) for internal of HH
 See [this document](../../doc/build.md) first.
 
 ### Configuration
-Set `MCU`, `BOOTLOADER_SIZE` and other build options in `Makefile` and `config.h`. If your target is **HHKB JP** you need to set `HHKB_JP` build option in `Makefile`.
+If your target is **HHKB JP** you need to set `HHKB_JP` build option in `Makefile` or use `Makefile.jp` instead of `Makefile`.
+
+If you use other than **TMK Alt Controller Board** set proper `MCU`, `BOOTLOADER_SIZE` and other build options in `Makefile` and `config.h`. At least PJRC Teensy requires changing `BOOTLOADER_SIZE` to 512.
 
 ### Build 
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. Just `make` with `KEYMAP` option like:
 
     $ make KEYMAP=[hasu|hhkb|spacefn|<name>]
+    $ make -f Makefile.jp KEYMAP=[jp|<name>]        # for HHKB JP
 
 
 ### Program
@@ -57,10 +60,12 @@ First, push reset button on board to start bootloader.
 This command programs the controller with [dfu-programmer] if the tool is installed and configured properly.
 
     $ make dfu
+    $ make -f Makefile.jp dfu       # for HHKB JP
 
 Or you can also use [FLIP] command to program. Also the tool should be installed and configured properly. FLIP GUI application is also available.
 
     $ make flip
+    $ make -f Makefile.jp flip      # for HHKB JP
 
 Use [Teensy Loader] if your controller is Teensy/Teensy++.
 

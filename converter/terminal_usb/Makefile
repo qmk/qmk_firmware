@@ -82,21 +82,6 @@ PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomen
 #PS2_USE_INT = yes	# uses external interrupt for falling edge of PS/2 clock pin
 #PS2_USE_BUSYWAIT = yes	# uses primitive reference code
 
-ifdef PS2_USE_USART
-    SRC += protocol/ps2_usart.c
-    OPT_DEFS += -DPS2_USE_USART
-endif
-
-ifdef PS2_USE_INT
-    SRC += protocol/ps2.c
-    OPT_DEFS += -DPS2_USE_INT
-endif
-
-ifdef PS2_USE_BUSYWAIT
-    SRC += protocol/ps2.c
-    OPT_DEFS += -DPS2_USE_BUSYWAIT
-endif
-
 
 #---------------- Programming Options --------------------------
 PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
