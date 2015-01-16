@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = hhkb_lufa
+TARGET = hhkb_rn42
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -53,13 +53,10 @@ SRC +=	keymap_common.c \
 	matrix.c \
 	led.c
 
-CONFIG_H = config.h
+CONFIG_H = config_rn42.h
 
 
 # MCU name
-# PJRC Teensy++ 2.0
-#MCU = at90usb1286
-# TMK Alt Controller or PJRC Teensy 2.0
 MCU = atmega32u4
 
 # Processor frequency.
@@ -121,11 +118,6 @@ COMMAND_ENABLE = yes    	# Commands for debug and configuration
 #HHKB_JP = yes			# HHKB JP support
 
 
-ifdef HHKB_JP
-    OPT_DEFS += -DHHKB_JP
-endif
-
-
 #
 # Keymap file
 #
@@ -134,9 +126,14 @@ ifdef KEYMAP
 else
     ifdef HHKB_JP
     	SRC := keymap_jp.c $(SRC)
-    else
-	SRC := keymap_hasu.c $(SRC)
+    else 
+    	SRC := keymap_hhkb.c $(SRC)
     endif
+endif
+
+
+ifneq (, $(or $(findstring keymap_jp.c, $(SRC)), $(findstring yes, $(HHKB_JP))))
+    OPT_DEFS += -DHHKB_JP
 endif
 
 
@@ -154,4 +151,5 @@ debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
 
 debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
+debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
 debug-off: all
