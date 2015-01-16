@@ -81,7 +81,7 @@ KC_F12                              45 Keyboard F12
 KC_PSCREEN          KC_PSCR         46 Keyboard PrintScreen1
 KC_SCKLOCK          KC_SLCK         47 Keyboard Scroll Lock11
 KC_PAUSE            KC_PAUS         48 Keyboard Pause1
-KC_INSERT           KC_INT          49 Keyboard Insert1
+KC_INSERT           KC_INS          49 Keyboard Insert1
 KC_HOME                             4A Keyboard Home1
 KC_PGUP                             4B Keyboard PageUp1
 KC_DELETE           KC_DELETE       4C Keyboard Delete Forward
