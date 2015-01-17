@@ -3,22 +3,68 @@ RN-42 Bluetooth Module Support
 Bluetooth controller board works with HHKB Pro2, JP, Type-S and Type-S JP and it supports both USB and Bluetooth as keyboard output protocol. Bluetooth module Roving Networks/Microchip RN-42 is installed on the board.
 
 
+RN-42:
+http://www.microchip.com/wwwproducts/Devices.aspx?product=RN42
+
+
+Capabitlities:
+- USB keyboard functions
+    completely equivarent to USB controller including mouse keys and NKRO.
+- Switching between USB and Bluetooth
+    You can switch the two connections with BT switch or key combination.
+- RN-42 config mode
+    You can change power/connection configuration of the module if needed.
+- Low battery alert
+    Red LED turns on when low voltage.
+- RN-42 status indicator
+    LED indicates status of Bluetooth connection.
+- Pairing
+    The module stores up to 8 connections.
+- Auto connect
+    The module connects the last connected device automatically.
+- iOS support
+    works as keyboard with iPhone5. No tested completely.
+- Android support
+    works as keyboard and mouse with Nexus5. No tested completely.
+- Mouse keys over BT
+    Note that iOS doesn't accept mouse device.
+
+
 Limitations:
-- short battery life
-- connection switching
-    the module always connects to the last linked device. Remote address setting does not work as expected.
-- HHKB JP requires case modification for power switch and LEDs.
+- Short battery life
+    Around 12hr with 1000mAh
+- No connection switching
+    RN-42 auto-connects to the last connected device.
+    Some of consumer products can switch between devices, for example Logitech K480.
+        http://www.logitech.com/en-us/product/multi-device-keyboard-k480?crid=26
+- HHKB JP requires case modification for BT switch and LEDs.
     without switch power controlled by MCU? Probably using 3.3V regulator enable pin power of RN-42 can be controlled.
-- Wiress certification of RN-42
-    Japan, Korea, Taiwan, Europe, FCC, Canada
-    http://www.microchip.com/wwwproducts/Devices.aspx?product=RN42
 
 NOTE:
-- Lipo battery is not included. Cannot ship it from Japan due to regulations.
+- LIPO BATTERY IS VERY DANGEROUS, TAKE EXTRA CARE OF YOUR SAFETY AND PROPERTY.
+- RN-42 version 6.15 is supported.
+- No NKRO over Bluetooth
+- Check you country's wiress regulation and certification of RN-42.
 
 Bugs:
 
 Todos:
+
+
+Lipo Battery
+------------
+You can use 3.7V Lithium Ion battery with JST PH 2pin connector and protection circuit.
+Battery space inside HHKB is around 54mm x 50mm and its height is 7mm.
+
+Sparkfun 850mAh
+https://www.sparkfun.com/products/341
+Sparkfun 1000mAh
+https://www.sparkfun.com/products/339
+
+Sparkfun 2000mAh battery won't fit due to its size.
+
+Learn about Lipo battery:
+https://learn.adafruit.com/li-ion-and-lipoly-batteries
 
 
 

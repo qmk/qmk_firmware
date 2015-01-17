@@ -10,6 +10,18 @@ Battery drive:
 
 USB powered:
     40.0mA
+    52mA    01/17
+
+Other keyboards:
+HHKB Pro    55mA
+HHKB Pro2   140mA
+HHKB Pro    42mA(Alt)
+HHKB Pro2   52mA(Alt BT controller USB mode)
+HHKB Pro2   88mA(Alt BT controller BT mode connected)
+HHKB Pro2   68mA(Alt BT controller BT mode config mode)
+Poker X     6mA
+Infinity    24mA(TMK)
+            65mA(kiibohd)
 
 
 HHKB key switch power control
