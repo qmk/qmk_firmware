@@ -54,6 +54,9 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [KMAC](keyboard/kmac/)                    - Korean custom keyboard
 * [Lightsaber](keyboard/lightsaber/)        - Korean custom keyboard
 * [Infinity](keyboard/infinity/)            - Massdrop [Infinity keyboard][Infinity]
+* [NerD](keyboard/nerd/)                    - Korean custom keyboard
+* [KittenPaw](keyboard/kittenpaw)           - Custom Majestouch controller
+* [Lightpad](keyboard/lightpad)             - Korean custom keypad
 
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
