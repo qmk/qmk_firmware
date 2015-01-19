@@ -57,6 +57,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [NerD](keyboard/nerd/)                    - Korean custom keyboard
 * [KittenPaw](keyboard/kittenpaw)           - Custom Majestouch controller
 * [Lightpad](keyboard/lightpad)             - Korean custom keypad
+* [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
 
 [GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
 [GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
@@ -77,6 +78,8 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [Sun]:          http://en.wikipedia.org/wiki/Sun-3
 [IIGS]:         http://en.wikipedia.org/wiki/Apple_IIGS
 [Infinity]:     https://www.massdrop.com/buy/infinity-keyboard-kit
+[ghost_squid]:  http://deskthority.net/wiki/Costar_replacement_controllers#The_Ghost_Squid
+[cmxt]:         http://gaming.coolermaster.com/en/products/keyboards/quickfirext/
 
 
 
