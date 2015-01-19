@@ -29,6 +29,7 @@ Other Keyboard Firmware Projects
 ## ErgoDox[Ergo][Split][USB][AVR]
 - <http://geekhack.org/index.php?topic=22780.0>
 - <https://github.com/benblazak/ergodox-firmware>
+- <https://github.com/cub-uanic/tmk_keyboard>
 
 ## Suka's keyboard collection[Ergo][Split][3DPrinting][USB][AVR]
 - <http://deskthority.net/workshop-f7/my-diy-keyboard-collection-or-how-i-became-a-kb-geek-t2534.html>
