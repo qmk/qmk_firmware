@@ -16,7 +16,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    TRNS,TRNS,TRNS,          FN1,                          TRNS,FN0, TRNS),
     /* Layer 2: Functions */
     KEYMAP_ANSI150(SLEP,F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, MUTE, \
-                   TRNS,BTN1,MS_U,BTN3,PSCR,SLCK,BRK, HOME,INS, END, MPLY,VOLD,VOLU,FN3,  \
+                   TRNS,BTN1,MS_U,BTN3,PSCR,SLCK,PAUS,HOME,INS, END, MPLY,VOLD,VOLU,FN3,  \
                    CAPS,MS_L,MS_D,MS_R,PGDN,TRNS,LEFT,DOWN,UP  ,RGHT,MPRV,MNXT,     FN2,  \
                    UP,       TRNS,DEL, TRNS,TRNS,PGUP,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,      \
                    LEFT,DOWN,RGHT,          TRNS,                         TRNS,TRNS,TRNS)
