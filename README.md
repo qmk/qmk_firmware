@@ -55,7 +55,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [Lightsaber](keyboard/lightsaber/)        - Korean custom keyboard
 * [Infinity](keyboard/infinity/)            - Massdrop [Infinity keyboard][Infinity]
 * [NerD](keyboard/nerd/)                    - Korean custom keyboard
-* [KittenPaw](keyboard/kittenpaw)           - Custom Majestouch controller
+* [KittenPaw](keyboard/kitten_paw)          - Custom Majestouch controller
 * [Lightpad](keyboard/lightpad)             - Korean custom keypad
 * [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
 
