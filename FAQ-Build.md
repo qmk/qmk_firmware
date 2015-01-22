@@ -32,16 +32,21 @@ Use **LUFA**.
 **PJRC** stack won't be supported actively anymore. There is no reason to hesitate to use LUFA except for binary size(about 1KB lager?). But **PJRC** is still very useful for debug and development purpose.
 See also [Issue #50](https://github.com/tmk/tmk_keyboard/issues/50) and [Issue #58](https://github.com/tmk/tmk_keyboard/issues/58).
 
-
 ## Edit configuration but not change
-Try these.
+You will need followings after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENABLE` or `MOUSEKEY_ENABLE` option in **Makefile**.
+
 ### 1. make clean
 This will be needed when you edit **config.h**.
 
 ### 2. Remove Drivers from Device Manager(Windows)
-Windows only. Linux, OSX and other OS's doesn't require this. It looks like Windows keeps using driver installed when device was connected first time even after the device changes its configuration. To load proper drivers for new configuration you need to remove existent drivers from **Drvice Manager**.
+**Windows only.** Linux, OSX and other OS's doesn't require this. It looks like Windows keeps using driver installed when device was connected first time even after the device changes its configuration. To load proper drivers for new configuration you need to remove existent drivers from **Drvice Manager**.
 
-You will need this after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENABLE` or `MOUSEKEY_ENABLE` option in **Makefile**.
+### 3. Build with different VID:PID
+**Windows only.** If method 2. does't work fou you try this. Change Vendor ID or Product ID in **config.h** and build firmware. Windows should recognize it as whole new device and start drivers install process.
+
+### 4. Just try other ports
+This will be useful and the easiest workaround for **Windows**.
+
 
 
 ## USB VID and PID
