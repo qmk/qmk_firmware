@@ -5,6 +5,8 @@ DIY/Assembled compact ortholinear keyboard by [Ortholinear Keyboards](http://ort
 ## Notable TMK forks (which some of the keymap files are from)
 - [Shane's Fork](https://github.com/shanecelis/tmk_keyboard/tree/master/keyboard/planck)
 - [Pierre's Fork](https://github.com/pcarrier/tmk_keyboard/blob/pcarrier/planck/keyboard/gh60/keymap_planck.c)
+- [Nathan's Fork](https://github.com/nathanrosspowell/tmk_keyboard/tree/planck-jack/keyboard/planck)
+- [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck_grid)
 
 ## Build
 Move to this directory then just run `make` like:
