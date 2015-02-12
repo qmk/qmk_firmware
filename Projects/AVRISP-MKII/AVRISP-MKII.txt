@@ -78,6 +78,14 @@
  *  is present, writing further EEPROM data causes corruption.
  *  <a href="https://github.com/abcminiuser/lufa/issues/25">LUFA issue tracker entry</a>.
  *
+ *  \par Does not work with Atmel Studio 6.2 or newer in some cases.
+ *  If the libUSB filter driver is used to bind both libUSB and Jungo drivers to the clone device at the same time, it will
+ *  no longer work in Atmel Studio 6.2 and newer. This is due to a change in the latter; Atmel Studio now supports both
+ *  drivers for various tools, but while the libUSB driver is given preference the inner workings of Atmel Studio cannot
+ *  communicate with the AVR-ISP MKII with libUSB (this is true for the genuine tool also). Uninstall the filter driver and
+ *  install only the standard libUSB driver, or Jungo driver. The \c RESET_TOGGLES_LIBUSB_COMPAT compile option (detailed
+ *  below) is a suitable workaround to this issue.
+ *
  *  \section Sec_Installation Installation
  *  The programmer supports multiple platforms, both Windows and Linux.
  *
