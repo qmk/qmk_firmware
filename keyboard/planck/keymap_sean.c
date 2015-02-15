@@ -13,17 +13,17 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       Z,    X,    C,    V,    B,    TAB,  ENT,  N,    M,    COMM, DOT,  SLSH,
       LSFT, LCTL, LALT, LGUI, FN1,  SPC,        FN2,  LEFT, DOWN, UP,  RGHT),
       
-    [2] = KEYMAP( /* fn1 */
-      F1,   F2,   F3,   F4,   F5,   NO,   NO,   F6,   F7,   F8,   F9,   F10,
+    [2] = KEYMAP( /* fn1 lower */
+      F1,   F2,   F3,   F4,   F5,   TRNS, TRNS, F6,   F7,   F8,   F9,   F10,
       1,    2,    3,    4,    5,    ESC,  DEL,  6,    7,    8,    9,    0,
-      FN3,   FN4,   NO,  GRV,   MINS, F18,  INS,  BSLS, LBRC, RBRC, NO,   NO,
-      TRNS, TRNS, TRNS, TRNS, FN1,  TRNS,       FN3,  HOME, PGDN, PGUP, END),
+      FN3,  FN4,  TRNS,   GRV,  MINS, TRNS, TRNS, BSLS, LBRC, RBRC, TRNS, TRNS,
+      TRNS, TRNS, TRNS, TRNS, FN1,  TRNS,       TRNS, HOME, PGDN, PGUP, END),
 
-    [3] = KEYMAP( /* fn2 */
-      F11,  F12,  F13,  F14,  F15,  NO,   NO,   F16,  F17,  F18,  F19,  F20,
-      F1,   F2,   F3,   F4,   F5,   ESC,  DEL,  F6,   F7,   F8,   F9,   F10,
-      FN3,  FN4,  NO,   GRV,  MINS, F18,  INS,  INS,  PSCR, SLCK, PAUS, TRNS,
-      TRNS, TRNS, TRNS, TRNS, FN3,  TRNS,       FN2,  MUTE, VOLD, VOLU, MPLY),
+    [3] = KEYMAP( /* fn2 raise */
+      F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  F12,
+      FN10, FN11, FN12, FN13, FN14, ESC,  DEL,  FN15, FN16, FN17, FN18, FN19,
+      FN3,  FN4,  TRNS,   FN22, FN20, TRNS, TRNS, FN28, FN23, FN24, TRNS, TRNS,
+      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       FN2,  MNXT, VOLD, VOLU, MPLY),
 };
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay
