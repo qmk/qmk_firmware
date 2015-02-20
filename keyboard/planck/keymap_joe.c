@@ -19,7 +19,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [3] = KEYMAP( /* Joe LOWER */
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN7, FN8, FN9, FN30, FN31,
   DEL,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    TRNS,
-  FN25, LSFT, RSFT, PAUS, TRNS, TRNS, TRNS, TRNS, TRNS, FN23, FN24, EQL,
+  FN25, FN3,  FN4,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN23, FN24, EQL,
   TRNS, TRNS, TRNS, TRNS, FN1,    TRNS,     FN2,  HOME, PGDN, PGUP, END),
 [4] = KEYMAP( /* Joe LOWER + RAISE */
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [27] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT, KC_DOWN),
     [28] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT, KC_UP),
     [29] = ACTION_MODS_KEY(MOD_LCTL | MOD_LALT, KC_RGHT),
-    
+
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
