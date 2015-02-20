@@ -1,15 +1,15 @@
 #include "keymap_common.h"
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP( /* Joe */
-  ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    MINS,
-  BSPC, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,
-  TAB,  Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, QUOT,
-  LCTL, LGUI, LALT, LSFT, FN1,    SPC,      FN0,  LEFT, DOWN, UP,  RGHT),
-[1] = KEYMAP( /* Joe colemak */
+[0] = KEYMAP( /* Joe colemak */
   ESC,  Q,    W,    F,    P,    G,    J,    L,    U,    Y,    SCLN, MINS,
   BSPC, A,    R,    S,    T,    D,    H,    N,    E,    I,    O,    ENT,
   TAB,  Z,    X,    C,    V,    B,    K,    M,    COMM, DOT,  SLSH, QUOT,
+  LCTL, LGUI, LALT, LSFT, FN1,    SPC,      FN0,  LEFT, DOWN, UP,  RGHT),
+[1] = KEYMAP( /* Joe qwerty */
+  ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    MINS,
+  BSPC, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,
+  TAB,  Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, QUOT,
   LCTL, LGUI, LALT, LSFT, FN1,    SPC,      FN0,  LEFT, DOWN, UP,  RGHT),
 [2] = KEYMAP( /* Joe RAISE */
   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  F12,
