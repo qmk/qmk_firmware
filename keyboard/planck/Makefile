@@ -55,11 +55,10 @@ SRC =	keymap_common.c \
 ifdef KEYMAP
     SRC := keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := keymap_sean.c $(SRC)
+    SRC := keymap_joe.c $(SRC)
 endif
 
 CONFIG_H = config.h
-
 
 # MCU name
 #MCU = at90usb1287
