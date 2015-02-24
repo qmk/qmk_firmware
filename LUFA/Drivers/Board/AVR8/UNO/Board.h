@@ -66,6 +66,12 @@
 		/* Macros: */
 			/** Indicates the board has hardware LEDs mounted. */
 			#define BOARD_HAS_LEDS
+			
+			/** Pin that can reset the main MCU. */
+			#define AVR_RESET_LINE_PORT PORTD
+			#define AVR_RESET_LINE_DDR DDRD
+			#define AVR_RESET_LINE_PIN PIND
+			#define AVR_RESET_LINE_MASK (1 << PD7)
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
