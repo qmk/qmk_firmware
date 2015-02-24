@@ -56,20 +56,12 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
-static
-void setup_leds(void) {
-  DDRF  |=  0x00;
-  PORTF |=  0x00;
-}
-
 
 void matrix_init(void)
 {
     // initialize row and col
     unselect_rows();
     init_cols();
-
-    setup_leds();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {

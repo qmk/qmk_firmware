@@ -78,7 +78,7 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+{ 
     keyevent_t event = record->event;
     switch (id) {
         case M_Q0:
