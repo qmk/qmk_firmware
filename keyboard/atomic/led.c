@@ -22,13 +22,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void led_set(uint8_t usb_led)
 {
-    if (usb_led & (1<<USB_LED_FUNCTION)) {
-        // Output high.
-        DDRF |= (1<<0);
-        PORTF |= (1<<0);
-    } else {
-        // Output low.
-        DDRF &= ~(1<<0);
-        PORTF &= ~(1<<0);
-    }
 }
