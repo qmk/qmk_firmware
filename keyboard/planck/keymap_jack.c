@@ -24,7 +24,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay
-    [2] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay 
+    [2] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay
 
     [3] = ACTION_DEFAULT_LAYER_SET(0),  
     [4] = ACTION_DEFAULT_LAYER_SET(1),
