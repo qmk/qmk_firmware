@@ -5,7 +5,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, RSFT,
-  LGUI, TAB,  LCTL, LALT, FN2,     SPC,     FN1,  LEFT, DOWN, UP,   RGHT),
+  LGUI, TAB,  RSFT, LALT, FN2,     SPC,     FN1,  LEFT, DOWN, UP,   RGHT),
 [1] = KEYMAP( /* RAISE */
   GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    DEL,
   TRNS, F1,   F2,   F3,   F4,   F5,   F6,   4,    5,    6,    TRNS, TRNS,
@@ -13,7 +13,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MPRV, MNXT, TRNS, MUTE, TRNS,    TRNS,    FN1,  TRNS, TRNS, TRNS, PGDN),
 [2] = KEYMAP( /* LOWER */
   FN22, FN10, FN11, FN12, FN13, FN14, FN15, FN16, FN17, FN18, FN19, MINS,
-  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, EQL,
+  TRNS, TRNS, TRNS, PAUSE, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, EQL,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
   MPLY, MSTP, VOLU, VOLD, FN2,     TRNS,    TRNS, TRNS, TRNS, TRNS, TRNS),
 };
