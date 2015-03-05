@@ -12,10 +12,15 @@ OBJDIR = ./build
 
 OBJECTS = \
 	$(OBJDIR)/matrix.o \
-	$(OBJDIR)/keymap.o \
 	$(OBJDIR)/keymap_common.o \
 	$(OBJDIR)/led.o \
 	$(OBJDIR)/main.o
+
+ifdef KEYMAP
+    OBJECTS := $(OBJDIR)/keymap_$(KEYMAP).o $(OBJECTS)
+else
+    OBJECTS := $(OBJDIR)/keymap.o $(OBJECTS)
+endif
 
 CONFIG_H = config.h
 
