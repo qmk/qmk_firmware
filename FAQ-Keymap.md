@@ -61,3 +61,24 @@ On **Xorg** you can use `compose` key, instead.
 
 And see this for **Unicode** input.
 - http://en.wikipedia.org/wiki/Unicode_input
+
+
+### Apple keyboard Fn
+Not supported.
+
+Apple keyboard sends keycod for Fn unlike most of other keyboards.
+I think you can send Apple Fn key using Appleventer Page 0xff00 and usage 0x0003. You have to change HID Report Descriptor, of course.
+
+https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
+
+
+## Mac OSX suppors key?
+You can know which keycodes are supported in OSX from this source code.
+
+`usb_2_adb_keymap` array maps Keyboard/Keypad Page usages to ADB scancodes(OSX internal keycodes).
+
+https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/Cosmo_USB2ADB.c
+
+And `IOHIDConsumer::dispatchConsumerEvent` handles Consumer page usages.
+
+https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp
