@@ -72,7 +72,13 @@ I think you can send Apple Fn key using Appleventer Page 0xff00 and usage 0x0003
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
 
 
-## Mac OSX suppors key?
+## Media control keys in Mac OSX
+See #160
+>The "Play/Pause"(KC_MPLY) works good on Apple OS. But "Next/Prev Track" buttons are unfunctional.
+Apple OS use "Fast Forwad"(F9 on Apple keyboard) & "Rewind"(F7 on Apple keyboard) instead.
+
+
+## Keys supported in Mac OSX?
 You can know which keycodes are supported in OSX from this source code.
 
 `usb_2_adb_keymap` array maps Keyboard/Keypad Page usages to ADB scancodes(OSX internal keycodes).
