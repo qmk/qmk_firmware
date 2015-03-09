@@ -66,8 +66,8 @@ And see this for **Unicode** input.
 ### Apple keyboard Fn
 Not supported.
 
-Apple keyboard sends keycod for Fn unlike most of other keyboards.
-I think you can send Apple Fn key using Appleventer Page 0xff00 and usage 0x0003. You have to change HID Report Descriptor, of course.
+Apple keyboard sends keycode for Fn unlike most of other keyboards.
+I think you can send Apple Fn key using Apple venter specific Page 0xff00 and usage 0x0003. But you have to change HID Report Descriptor for this, of course.
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
 
@@ -81,6 +81,7 @@ Apple OS use "Fast Forwad"(F9 on Apple keyboard) & "Rewind"(F7 on Apple keyboard
 Use `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) and `KC_MRWD`(`KC_MEDIA_REWIND`) instead of KC_ and `KC_MNXT` and `KC_MPRV`.
 
 https://github.com/tmk/tmk_keyboard/blob/5a8dbc63ea29eb454ad5f36de5c6c33172230f88/common/keycode.h#L141-L144
+
 
 ## Keys supported in Mac OSX?
 You can know which keycodes are supported in OSX from this source code.
