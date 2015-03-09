@@ -80,6 +80,7 @@ Apple OS use "Fast Forwad"(F9 on Apple keyboard) & "Rewind"(F7 on Apple keyboard
 
 Use `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) and `KC_MRWD`(`KC_MEDIA_REWIND`) instead of KC_ and `KC_MNXT` and `KC_MPRV`.
 
+https://github.com/tmk/tmk_keyboard/blob/5a8dbc63ea29eb454ad5f36de5c6c33172230f88/common/keycode.h#L141-L144
 
 ## Keys supported in Mac OSX?
 You can know which keycodes are supported in OSX from this source code.
