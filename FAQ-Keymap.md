@@ -73,10 +73,12 @@ https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/
 
 
 ## Media control keys in Mac OSX
-See issue #160.
+See [PR #160](https://github.com/tmk/tmk_keyboard/issues/160).
 
 >The "Play/Pause"(KC_MPLY) works good on Apple OS. But "Next/Prev Track" buttons are unfunctional.
 Apple OS use "Fast Forwad"(F9 on Apple keyboard) & "Rewind"(F7 on Apple keyboard) instead.
+
+Use `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) and `KC_MRWD`(`KC_MEDIA_REWIND`) instead of KC_ and `KC_MNXT` and `KC_MPRV`.
 
 
 ## Keys supported in Mac OSX?
