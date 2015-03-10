@@ -836,7 +836,7 @@
 				<build type="define" name="BOARD" value="BOARD_YUN"/>
 			</module>
 
-			<module type="driver" id="lufa.drivers.board#yun" caption="Board Support - MICRO">
+			<module type="driver" id="lufa.drivers.board#micro" caption="Board Support - MICRO">
 				<build type="doxygen-entry-point" value="Group_BoardInfo_MICRO"/>
 
 				<device-support value="atmega32u4"/>
