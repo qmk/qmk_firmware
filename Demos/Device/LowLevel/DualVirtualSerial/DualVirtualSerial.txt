@@ -14,8 +14,8 @@
  *  \li Series 6 USB AVRs (AT90USBxxx6)
  *  \li Series 4 USB AVRs (ATMEGAxxU4)
  *  \li Series AU XMEGA AVRs (ATXMEGAxxxAxU)
- *  \li Series B XMEGA AVRs (ATXMEGAxxxBxU)
- *  \li Series C XMEGA AVRs (ATXMEGAxxxCxU)
+ *  \li Series B XMEGA AVRs (ATXMEGAxxxBx)
+ *  \li Series C XMEGA AVRs (ATXMEGAxxxCx)
  *
  *  \section Sec_Info USB Information:
  *
