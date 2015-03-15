@@ -173,7 +173,8 @@
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
 			 *
 			 *  \param[in,out] USART        Pointer to the base of the USART peripheral within the device.
-			 *  \param[in]     BaudRate     Serial baud rate, in bits per second.
+			 *  \param[in]     BaudRate     Serial baud rate, in bits per second. This should be the target baud rate regardless of
+			 *                              the \c DoubleSpeed parameter's value.
 			 *  \param[in]     DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate.
 			 */
 			static inline void Serial_Init(USART_t* const USART,
