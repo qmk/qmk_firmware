@@ -96,7 +96,20 @@
  *  remove your device from the host using the host OS's ejection APIs, to ensure all data is correctly flushed to the
  *  bootloader's virtual filesystem and not cached in the OS's file system driver.
  *
- *  The current device firmware can be read from the device by reading a file from the virtual FAT filesystem.
+ *  The current device firmware can be read from the device by reading a file from the virtual FAT filesystem. Two files will
+ *  be present:
+ *    - <b>FLASH.BIN</b>, representing the AVR's internal flash memory
+ *    - <b>EEPROM.BIN</b>, representing the AVR's internal EEPROM memory
+ *
+ *  To convert an existing Intel HEX (.HEX) program file to a binary (.BIN) file suitable for this bootloader, run:
+ *    \code
+ *		avr-objcopy -O binary -R .eeprom -R .fuse -R .lock -R .signature input.hex output.bin
+ *    \endcode
+ *  From a terminal, replacing <tt>input.hex</tt> and <tt>output.bin</tt> with the respective input and output filenames.
+ *  AVR EEPROM data files in Intel HEX format (.EEP) uses a similar technique:
+ *    \code
+ *		avr-objcopy -O binary input.eep output.bin
+ *    \endcode
  *
  *  \warning This bootloader is currently <b>incompatible with the Apple MacOS X OS Finder GUI</b>, due to the
  *           large amount of meta files this OS attempts to write to the disk along with the new binaries. On
