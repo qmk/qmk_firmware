@@ -265,3 +265,18 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }
 
+/** CDC class driver callback function the processing of changes to the virtual
+ *  control lines sent from the host..
+ *
+ *  \param[in] CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
+ */
+void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t *const CDCInterfaceInfo)
+{
+	/* You can get changes to the virtual CDC lines in this callback; a common
+	   use-case is to use the Data Terminal Ready (DTR) flag to enable and
+	   disable CDC communications in your application when set to avoid the
+	   application blocking while waiting for a host to become ready and read
+	   in the pending data from the USB endpoints.
+	*/
+	bool HostReady = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR) != 0;
+}
