@@ -1,5 +1,28 @@
-RN-42
-=====
+Power Saving
+============
+
+
+MCU+HHKB Power Comsumption
+--------------------------
+Battery drive:
+    idle    18.9mA
+    active  35.8mA
+
+USB powered:
+    40.0mA
+    52mA    01/17
+
+Other keyboards:
+HHKB Pro    55mA
+HHKB Pro2   140mA
+HHKB Pro    42mA(Alt)
+HHKB Pro2   52mA(Alt BT controller USB mode)
+HHKB Pro2   88mA(Alt BT controller BT mode connected)
+HHKB Pro2   68mA(Alt BT controller BT mode config mode)
+Poker X     6mA
+Infinity    24mA(TMK)
+            65mA(kiibohd)
+
 
 HHKB key switch power control
 -----------------------------
@@ -63,40 +86,3 @@ S%,1000         status led and connection control don't work
                 GPIO5: status LED
                 GPIO6: Connection control
                 GPIO2: linked status
-
-
-
-
-
-Ver 6.15 04/26/2013
-(c) Roving Networks
-***Settings***
-BTA=00066667BBE9
-BTName=tmkBT-BBE9
-Baudrt(SW4)=115K
-Mode  =DTR
-Authen=1
-Bonded=0
-Rem=001BDC06415B
-***ADVANCED Settings***
-SrvName= keyboard/mouse
-SrvClass=0000
-DevClass=1F00
-InqWindw=0012
-PagWindw=0012
-CfgTimer=255
-StatuStr=NULL
-HidFlags=3c
-DTRtimer=8
-KeySwapr=0
-***OTHER Settings***
-Profile= HID
-CfgChar= $
-SniffEna=8010
-LowPower=0          S|,
-TX Power=fff4       SY,
-IOPorts= 0
-IOValues=0
-Sleeptmr=0
-DebugMod=0
-RoleSwch=0

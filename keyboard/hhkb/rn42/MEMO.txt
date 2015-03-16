@@ -1,0 +1,255 @@
+Memo of deveopment
+==================
+just memo, NOT WORTH READING
+
+Bug:
+- Factory Reset PIO4 doesn't work
+    - the reason is unclear - 12/08 NOT LOOK INTO ANY MORE
+    - WORKAROUND: use serial pins(3.3V, GND, RX and TX)
+        - SF,1 and R,1 to set factory defalult
+    
+
+Todo:
+- LED cover and switch knob and new Slide Switch
+- RN42 auto configuration
+    - configure the module as HID device every time powering up
+    - this'll reduce work load of assembly
+
+- move rn42 to protocol directory when it becomes reusable stack
+
+- sendchar() in lufa.c no buffer
+    - no buffering. character lost can be caused.
+- LUFA sendchar should be buffered and serial_uart.c buffur size is too large(256).
+
+- BT operations
+    - disconnect
+    - new connection
+    - remove connection
+
+- sendchar() in lufa.c block loop   - DONE 11/29
+    - block loop when powered with AC adapter
+    - FrameNumber is not updated when adapter powered
+
+Improving:
+- ADC resolution
+    AVR120
+    AVR32138
+    - Enhancing ADC resolution by oversampling
+        AVR121  http://www.atmel.com/images/doc8003.pdf
+    - disable digital input buffer DIDR(7.8.6)
+
+Design:
+- suspend.h - DONE 11/26
+    - remove argument from suspend_power_down() for backward compatitibility
+- remove MCU dependent power saving code from core/keyboard - DONE 11/23
+    - it should be located in project matrix.c
+- HHKB matrix.c needs matrix_prev?
+    - is_modified() is obsolete now. really needs?
+- ADC: removing AREF capacitor C10
+    - seems to be better while usb powered
+    - still bad while battery powered
+    http://electronics.stackexchange.com/questions/105849/avcc-and-capacitor-using-adc
+- ADC: smaller resistors for voltage dividor
+    - 1K + 1K: not improved. - 11/27
+
+
+LUFA:
+USB connection check: state of USB deivce
+- USB_DeviceState:
+    USB_Deivce_State_t { Unattached, Powered, Default, Addressed, Configured*, Suspended* }
+    Unattached: unpluged
+    Powered:    pluged with power adapter
+    Default:    enumerate process bigin
+    Addressed:  addressed
+    Configured: enumerated
+    Suspended:  suspended
+
+- USB_IsInitialized: state of LUFA core setup
+    becomes true in USB_Init()  USBController_AVR8.c
+    becomes false in USB_Disable()  USBController_AVR8.c
+- USB_VBUS_GetStatus(): state of VBUS(power/connection)
+- USB_Disable() detaches, disables all interrupts, controller, PLL, regulater.
+
+- When connect to power adapter
+    - event happened: CW or CSW or C or DDC
+    - USB state: not configured
+
+- USB evnets
+    - USB connect: CSWRWRW
+    - USB connect but fail to enumeration: CWRWRWRWS
+    - USB disconnect: D
+    - Power adapter connect: CW, CSW, C
+    - Power adapter disconnect: D
+
+
+Power saving:
+- Pro2 current consumption
+    - active: 138.2mA(no device on Hub)
+    - suspended: 30.9mA(WakeUp enabled DIPSW6)
+    - suspended: 0mA->46.0mA(WakeUp disabled DIPSW6)
+- Pro current consumption
+    - active: 54.0mA
+    - suspended: 40.5mA(WakeUp enabled DIPSW6)
+    - suspended: 0.3mA(WakeUp disabled DIPSW6)
+
+- RN42 3.3V
+    - disconnected(Idle): 5mA (config mode)
+    - connected(Active):
+        SW,0000:  23-26mA
+        SW,0010:  27-29mA worse than 0000 for unknown reason
+        SW,0020:  17-19mA mouse NG
+        SW,0030:  13-16mA laggy mouse NG
+        SW,0050:  10-13mA laggy mouse NG
+
+- matrix power saving
+    - power saving while externally powered and not while unpluged
+- confirm suspend mode lufa.c: matrix_power_*, suspend_wakeup_condition
+- 8MHz clock
+- When not connected in a few minutes get into deep sleep to save battery life
+- CTS is needed for waking up from deep sleep? How deep sleep is activated?
+- firmware controlled 3.3V DC converter to switch on/off BT module
+- sleep MCU and BT module(keyboard is not used)
+- deep sleep MCU and BT module(keyboard is not used for long time)
+- deep sleep MCU and turn off BT module(keyboard is not used and not connected)
+- Battery ADC; switching, high resistance
+    - switching gnd end of divider with PF4
+    - high resistor 100K/1M?
+        capacitor   10nF
+        http://www.eevblog.com/forum/beginners/measuring-battery-voltage-without-consuming-current/
+- During USB suspend change clock source to internal RC from external Xtal(6.8)
+- FRZCLK: you can freeze clock for power saving. still WAKEUPI and VBUSTI interrupts are available while freezing.(21.7.3)
+- Suspend: Clear Suspend Bit, Freeze clock, disable PLL, MCU sleep(21.13)
+- Voltage reference(8.1.1)
+    - to reduce power consumption while power down mode
+- unset ADEN before sleep(24.7)
+
+
+
+
+
+
+
+Lipo
+----
+850mA lasts around 9 hours(07/28)
+
+Sparkfun Polymer Lithium Ion Battery 850mAh:
+https://www.sparkfun.com/products/341
+Lipo Cell spec:
+https://www.sparkfun.com/datasheets/Batteries/063048%20Li-polymer.pdf
+Protection spec:
+http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Prototyping/BatteryProtection.pdf
+                                min     typical max
+    over-charge                 4.255   4.280   4.305
+    over-charge discover?       4.030   4.080   4.130
+    over-discharge              2.827   2.900   2.973
+    over-discharge discover     3.022   3.100   3.178
+
+ADC voltage monitor:    voltage divider 10K+10K(0.5)
+                        ADC=V*0.5/2.56*1024
+
+    V       ADC
+    ------------------
+    4.20    0x347(839)
+    3.10    0x26b(619)
+
+
+
+
+TROUBLE SHOOT
+-------------
+07/16   After fix of voltage dividor on GPIO6, had a trouble that it could not send a char to BT module, though could receive.
+        Found R8 had wrong 1K resistor and changed to 10K, after that it can send to the module again. Not sure how it had sent with the wrong 1K before.
+
+07/18   On Linux, had an USB related trouble; keyboard or console didn't work for some reason. Changing PID cured this problem. Very annoying, took very long time before resolved it.
+
+12/07   rn42_rts() read 1 every time. R12 broke in open mode(no coductive), idk why, too much heat with soldering? and PF1 pin was not soldered.
+        It resolved with resoldering PF1 and new resistor on R12.
+
+
+
+
+Done:
+- low battery alert(solid light) 09/04
+- *** Rev.E BT test *** - DONE
+    - with MCP73832, new Schottky, tantalum caps - DONE 12/07
+        * MCP73832 doesn't leak from Vcc pin when unpluged and battery powered
+            34mV vs 2.07V(MCP73831) at Vcc pin
+            MCP73832 doesn't need revese protection diode D5
+        * PMEG2010ER is very low VF while reverse current/voltage is high
+            VF=0.96 vs 1.98(RB160M-30TR)with Fluke 175
+            Anode of D11 is 680mV vs 20mV(RB160M-30TR)
+            780mV is still low < 1.4V VBUS plugin detection(21.11)
+                this doesn't cause false VBUS detect
+                and 780mV on MCP73832 Vcc pin is also no problem.
+            D5 can be removed.
+    - ADC divider switching - DONE 12/07
+        * Drain and Source of Q4 Pch was reversed wrongly on Rev.E.
+
+    - reverse current from Lipo charger - DONE 12/07
+        * MCP73832 has no recverse current from Vcc pin unlike MCP73831
+
+
+- Rev.F design - DONE
+    - current measure point - DONE 12/08
+    - change value of cap 68->47    - DONE 12/08
+    - PPTC land pattern: no solder jumper, use 0Ohm resistor instead - CANCEL 12/08
+    - Q4 Pch FET: wrong Drain and Source - DONE 12/08
+    - D5 can be removed.    - DONE 12/08
+
+
+
+- BT_INDICATOR LED turns on wrongly when touching line or pin.  -- pull-up enabled on PF6/GPIO2 08/30
+- Lipo charger configuration: fast charge time:  USB charger spec? -- used 2kohm
+- use LED of charger to alarm low battery. LED should be powered directly from Lipo? - cancel; powered from VUSB
+- Use RTS in serial_uart.c to resolve missing chars from help message of RN-42 - done
+- CTS/RTS lines are needed? just connect in loop back if no flow control is needed. - done
+- add IO pin to charger status CHRG; LED control(low) and detect charge status(input HiZ) 07.24
+- LINKED: add trace on PIO2 to PF6   07.24
+- Lipo voltage ADC sensing
+- Lipo charger MCP73831: needs capacitor 4.7uF *2
+- USB connection check - 07.01
+- BT on/off check: whether RX line is pulled up? - checking RTS 07.01
+- USB/BT switching  BT is on -> BT, BT is off -> USB - 07.01
+- Under voltage lock out UVLO for protection of Lipo - Lipo has discharge protection at 3.100V    07.01
+- Power saving: HHKB scan, BT radio control - 9h with 850mAh, this is enough   07.01
+- Power selector doesn't work; Q4 MOSFET leaks from Lipo to USB power line. -- use Schottky instead 07/04
+
+- wrongly suspended when powered from adapter without USB connection - DONE
+    - suspend event may occur when plug into adapter
+    - and never wake until conected to real USB line
+    - without debug print via USB no problem; CSW(wake just after suspend as real USB line)
+    - seems like USB print causes this problem after suspended
+
+- lose USB connection during power-down mode - DONE
+    - USB initialize code in main() causes this - WRONG
+    - Do not power-down during USB connection is active - DONE 11/11
+        (USB_DeviceState == USB_DEVICE_Configured) is used to check USB connection
+        matrix_power_down() matrix.c - 11/23
+
+- with Nexus5 keyboard and mouse are very laggy.
+    Not confirmed. 01/15
+
+- switch BT host connections    - CANCEL 01/15
+    - switch next connection
+        cannot switch connection with version 6.15 at least
+
+- When given power only from wall wart adapter  - DONE? not confirmed 01/15
+    - it sleeps. it should not sleep
+    - Configured state without USB connection?
+
+- timer is slow while power down - DONE 11/26
+    - time out interrupt is lost while power down?
+    - interrupt of watchdog timer compensates timer counter(avr/suspend.c)
+
+- repeated CHARGING/FULL_CHARGED    - No longer problem 01/15
+    - In LTC sharp pulses are observed.
+    - MCP has no pulse but still has a problem.
+    - needs more wait before read pin state? - NO
+
+- USB plug-in fails while BT        - No longer problem 01/15
+    - it ends in suspend state
+    - maybe, not responsive to host enumeration process due to power-down.
+    - matrix_power_down() only when state is unattached - 11/26
+        - need to observe a while
+

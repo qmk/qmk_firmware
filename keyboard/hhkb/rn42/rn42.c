@@ -4,6 +4,7 @@
 #include "serial.h"
 #include "rn42.h"
 #include "print.h"
+#include "timer.h"
 #include "wait.h"
 
 
@@ -47,9 +48,37 @@ void rn42_init(void)
     serial_init();
 }
 
+int16_t rn42_getc(void)
+{
+    return serial_recv2();
+}
+
+const char *rn42_gets(uint16_t timeout)
+{
+    static char s[24];
+    uint16_t t = timer_read();
+    uint8_t i = 0;
+    int16_t c;
+    while (i < 23 && timer_elapsed(t) < timeout) {
+        if ((c = rn42_getc()) != -1) {
+            if ((char)c == '\r') continue;
+            if ((char)c == '\n') break;
+            s[i++] = c;
+        }
+    }
+    s[i] = '\0';
+    return s;
+}
+
 void rn42_putc(uint8_t c)
 {
     serial_send(c);
+}
+
+void rn42_puts(char *s)
+{
+    while (*s)
+	serial_send(*s++);
 }
 
 bool rn42_autoconnecting(void)
@@ -97,7 +126,7 @@ bool rn42_linked(void)
     //   Hi-Z:  Not powered
     //   High:  Linked
     //   Low:   Connecting
-    return !rn42_rts() && PINF&(1<<6);
+    return PINF&(1<<6);
 }
 
 
