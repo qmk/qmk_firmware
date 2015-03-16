@@ -360,7 +360,7 @@ Commands
     3:  mice
 
     Registers:
-    0: application(keyobard uses this to store its data.)
+    0: application(keyboard uses this to store its data.)
     1: application
     2: application(keyboard uses this for LEDs and state of modifiers)
     3: status and command

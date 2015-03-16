@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2014 Ralf Schmitt <ralf@bunkertor.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,20 +14,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "keymap_common.h"
 
-#include <avr/io.h>
-#include "stdint.h"
-#include "led.h"
-
-
-/* HHKB has no LEDs */
-void led_set(uint8_t usb_led)
+/* translates key to keycode */
+uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        DDRD |= (1<<6);
-        PORTD |= (1<<6);
-    } else {
-        DDRD |= (1<<6);
-        PORTD &= ~(1<<6);
-    }
+    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+}
+
+/* translates Fn keycode to action */
+action_t keymap_fn_to_action(uint8_t keycode)
+{
+    return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
 }

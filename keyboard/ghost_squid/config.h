@@ -1,5 +1,5 @@
 /*
-Copyright 2014 Jun Wako <wakojun@gmail.com>
+Copyright 2014 Ralf Schmitt <ralf@bunkertor.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,26 +18,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#if 0
-// duplicated name against mbed USBDeivce
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3BED
-#endif
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    tmk.
-#define PRODUCT         Infinitiy
-#define DESCRIPTION     Massdrop Infinity keyboard firmware by tmk
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED // 0x2516 (original CM XT value)
+#define PRODUCT_ID      0x001A
+#define DEVICE_VER      0x0000
+#define MANUFACTURER    Cooler Master
+#define PRODUCT         Cooler Master QuickFire XT
 
+/* message strings */
+#define DESCRIPTION     t.m.k. keyboard firmware for Cooler Master QuickFire XT
 
 /* matrix size */
-#define MATRIX_ROWS 9   // Strobe
-#define MATRIX_COLS 7   // Sense
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 18
+
+/* Set 0 if need no debouncing */
+#define DEBOUNCE    5
 
 /* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 
-
-
-/* for prototype */
-//#define INFINITY_PROTOTYPE
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+)
 
 #endif
