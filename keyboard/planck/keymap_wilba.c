@@ -39,7 +39,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [17] = ACTION_MODS_KEY(MOD_LSFT, KC_8), // *
     [18] = ACTION_MODS_KEY(MOD_LSFT, KC_9), // (
     [19] = ACTION_MODS_KEY(MOD_LSFT, KC_0), // )
-	
+    
     [20] = ACTION_MODS_KEY(MOD_LSFT, KC_MINS), // _
     [21] = ACTION_MODS_KEY(MOD_LSFT, KC_EQL), // +
     [22] = ACTION_MODS_KEY(MOD_LSFT, KC_GRV), // ~
@@ -48,9 +48,9 @@ const uint16_t PROGMEM fn_actions[] = {
     [25] = ACTION_MODS_KEY(MOD_LSFT, KC_BSLS), // |
 
     [26] = ACTION_MODS_KEY(MOD_LSFT | MOD_RSFT, KC_PAUSE),
-	
-	[27] = ACTION_BACKLIGHT_TOGGLE(),
-	[28] = ACTION_BACKLIGHT_INCREASE(),
-	[29] = ACTION_BACKLIGHT_DECREASE()
-	
+    
+    [27] = ACTION_BACKLIGHT_TOGGLE(),
+    [28] = ACTION_BACKLIGHT_INCREASE(),
+    [29] = ACTION_BACKLIGHT_DECREASE()
+    
 };
