@@ -77,6 +77,6 @@ To create your own keymap copy existent keymap file to `keymap_name.c` and edit 
 
 Debug
 -----
-You can use [PJRC HID listen](http://www.pjrc.com/teensy/hid_listen.html) to see debug output. The converter has some functions for debug, press `<Command>+H` simultaneously to get help.
+You can use [PJRC HID listen](http://www.pjrc.com/teensy/hid_listen.html) to see debug output. The converter has some functions for debug, press `<Magic>+H` simultaneously to get help.
 
-- Command: `Shift+Option+Command`(`Shift+Alt+Gui` or `Shift+Alt+Control`)
+- Magic combo: `Shift+Option+⌘` or `Shift+Option+Ctrl`(`Shift+Alt+Gui` or `Shift+Alt+Control`)
