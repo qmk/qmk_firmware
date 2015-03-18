@@ -9,6 +9,11 @@ DIY/Assembled compact ortholinear keyboard by [Ortholinear Keyboards](http://ort
 - [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck_grid)
 
 ## Build
+
+Follow [this guide](http://deskthority.net/workshop-f7/how-to-build-your-very-own-keyboard-firmware-t7177.html) to setup your development environment before anything else.
+
+Download the whole firmware [here](https://github.com/jackhumbert/tmk_keyboard/archive/master.zip) and navigate to the keyboard/planck folder. Once your dev env is setup, you'll be able to type "make" to generate your .hex that you can load with the Teensy app onto your Planck (once you've hit reset/shorted GND & RST).
+
 Move to this directory then just run `make` like:
 
     $ make
