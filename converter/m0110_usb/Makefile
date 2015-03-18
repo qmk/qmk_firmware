@@ -26,7 +26,7 @@ CONFIG_H = config.h
 # MCU name, you MUST set this to match the board you are using
 # type "make clean" after changing this, so all files will be rebuilt
 MCU = atmega32u2       # TMK converter rev2
-MCU = atmega32u4       # TMK converter rev1
+#MCU = atmega32u4       # TMK converter rev1
 
 
 # Processor frequency.
