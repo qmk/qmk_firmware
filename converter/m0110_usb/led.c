@@ -15,10 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "stdint.h"
+#include <stdint.h>
+#include <avr/io.h>
 #include "led.h"
 
 
 void led_set(uint8_t usb_led)
 {
+    if (usb_led &  (1<<USB_LED_CAPS_LOCK)) {
+        DDRD |= (1<<6);
+        PORTD |= (1<<6);
+    } else {
+        DDRD |= (1<<6);
+        PORTD &= ~(1<<6);
+    }
 }
