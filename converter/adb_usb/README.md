@@ -88,7 +88,7 @@ modifiers except for GUI key(Windows/Command).
 And most ADB keyboard has no diodes in its matrix so they are not NKRO,
 though ADB protocol itself supports it. See protocol/adb.c for more info.
 
-If keyobard has ISO layout you need to use ISO keymap with `make KEYMAP=iso`. With ANSI
+If keyboard has ISO layout you need to use ISO keymap with `make KEYMAP=iso`. With ANSI
 keymap you will suffer from swapped keys problem.
 
 https://github.com/tmk/tmk_keyboard/issues/35

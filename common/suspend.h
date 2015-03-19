@@ -6,7 +6,7 @@
 
 
 void suspend_idle(uint8_t timeout);
-void suspend_power_down(uint8_t timeout);
+void suspend_power_down(void);
 bool suspend_wakeup_condition(void);
 void suspend_wakeup_init(void);
 

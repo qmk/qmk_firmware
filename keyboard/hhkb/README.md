@@ -10,11 +10,17 @@ See [this thread][AltController] in geekhack.org.
 [AltController]: http://geekhack.org/index.php?topic=12047.0
 
 
+## Update
+* Bluetooth module RN-42 is supported.(2015/01)
+* V-USB and iWRAP are no longer supported now, but still it'll works with a little fix. See not_supported directory.(2015/01)
+
+
 ##Features
 * Customizable keymap
 * More keymap layers(more Fn keys)
 * Mouse keys
 * USB NKRO
+* Bluetooth(RN-42)
 
 See README of [tmk_keyboard] for more.
 
@@ -43,12 +49,16 @@ See [doc/HHKB.txt](doc/HHKB.txt) and files under [doc/](doc/) for internal of HH
 See [this document](../../doc/build.md) first.
 
 ### Configuration
-Set `MCU`, `BOOTLOADER_SIZE` and other build options in `Makefile` and `config.h`. If your target is **HHKB JP** you need to set `HHKB_JP` build option in `Makefile`.
+If your target is **HHKB JP** you need to set `HHKB_JP` build option in `Makefile` or use `Makefile.jp` instead of `Makefile`.
+
+If you use other than **TMK Alt Controller Board** set proper `MCU`, `BOOTLOADER_SIZE` and other build options in `Makefile` and `config.h`. At least PJRC Teensy requires changing `BOOTLOADER_SIZE` to 512.
 
 ### Build 
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. Just `make` with `KEYMAP` option like:
 
-    $ make KEYMAP=[hasu|hhkb|spacefn|<name>]
+    $ make -f Makefile.<jp|pjrc|rn42> KEYMAP=(hasu|hhkb|spacefn|<name>)
+
+You can omit `-f` option when you use `Makefile`. `Makefile` is used for **Pro2 and Pro**, `Makefile.jp` fits for **JP** model and `Makefile.rn42` supports Bluetooth module **RN-42**. `Makefile.pjrc` uses **PJRC** as output protocol instead of **LUFA**.
 
 
 ### Program
@@ -56,11 +66,11 @@ First, push reset button on board to start bootloader.
 
 This command programs the controller with [dfu-programmer] if the tool is installed and configured properly.
 
-    $ make dfu
+    $ make -f Makefile.<variant> KEYMAP=<name> dfu
 
 Or you can also use [FLIP] command to program. Also the tool should be installed and configured properly. FLIP GUI application is also available.
 
-    $ make flip
+    $ make -f Makefile.<variant> KEYMAP=<name> flip
 
 Use [Teensy Loader] if your controller is Teensy/Teensy++.
 
