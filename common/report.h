@@ -61,6 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* supplement for Bluegiga iWRAP HID(not supported by Windows?) */
 #define AL_LOCK                 0x019E
 #define TRANSPORT_RECORD        0x00B2
+#define TRANSPORT_FAST_FORWARD  0x00B3
 #define TRANSPORT_REWIND        0x00B4
 #define TRANSPORT_EJECT         0x00B8
 #define AC_MINIMIZE             0x0206
@@ -158,6 +159,8 @@ typedef struct {
     (key == KC_AUDIO_VOL_DOWN   ?  AUDIO_VOL_DOWN : \
     (key == KC_MEDIA_NEXT_TRACK ?  TRANSPORT_NEXT_TRACK : \
     (key == KC_MEDIA_PREV_TRACK ?  TRANSPORT_PREV_TRACK : \
+    (key == KC_MEDIA_FAST_FORWARD ?  TRANSPORT_FAST_FORWARD : \
+    (key == KC_MEDIA_REWIND     ?  TRANSPORT_REWIND : \
     (key == KC_MEDIA_STOP       ?  TRANSPORT_STOP : \
     (key == KC_MEDIA_EJECT      ?  TRANSPORT_STOP_EJECT : \
     (key == KC_MEDIA_PLAY_PAUSE ?  TRANSPORT_PLAY_PAUSE : \
@@ -171,7 +174,7 @@ typedef struct {
     (key == KC_WWW_FORWARD      ?  AC_FORWARD : \
     (key == KC_WWW_STOP         ?  AC_STOP : \
     (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
-    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))
+    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))
 
 #ifdef __cplusplus
 }

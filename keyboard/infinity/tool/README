@@ -1,0 +1,25 @@
+OpenOCD config files for Kinetis 
+================================
+http://nemuisan.blog.bai.ne.jp/?eid=192848#OPENOCD
+
+These are needed for SWD debug and programing bootloader. To flash keyboard firmware use 'dfu-util'.
+
+Flash security of Freescale kinetis
+-----------------------------------
+If FSEC of flash config is changed accidentally SWD/JTAG you can't get debug access until doing 'mdm mass_erase' with JTAG, CMSIS-DAP or OpenSAD adapter. HLA(high level adapter) like stlink doesn't work for this.
+
+
+Example
+-------
+Debug:
+    $ openocd -s tool -f tool/openocd.cfg
+    $ arm-none-eabi-gdb build/infinity.elf -ex "target remote localhost:3333"
+
+Flash bootloader:
+    $ openocd -s tool -f tool/openocd.cfg -c "mt_flash kiibohd_bootloader.bin"
+
+
+Infinity SWD pinout
+-------------------
+SWD pins are placed next to reset button; SWD_CLK, SWD_DIO, GND, VCC from top.
+Note that RESET is also needed to get full control with OpenOCD.
