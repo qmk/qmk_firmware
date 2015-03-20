@@ -1,5 +1,5 @@
 /*
-Copyright 2013 Jun Wako <wakojun@gmail.com>
+Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,7 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "keymap.h"
+
+#include "extended_keymap_common.h"
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
@@ -23,14 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 
 
-static action_t keycode_to_action(uint8_t keycode);
+static action_t keycode_to_action(uint16_t keycode);
 
 
 /* converts key to action */
-__attribute__ ((weak))
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
-    uint8_t keycode = keymap_key_to_keycode(layer, key);
+    uint16_t keycode = keymap_key_to_keycode(layer, key);
+
+    // Handle mods in keymap
+    if (keycode > 0x00FF) {
+    	action_t action;
+    	action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);
+    	return action;
+	}
+
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
             return keymap_fn_to_action(keycode);
@@ -119,7 +127,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 
 /* translates keycode to action */
-static action_t keycode_to_action(uint8_t keycode)
+static action_t keycode_to_action(uint16_t keycode)
 {
     action_t action;
     switch (keycode) {
@@ -147,38 +155,17 @@ static action_t keycode_to_action(uint8_t keycode)
 }
 
 
-
-#ifdef USE_LEGACY_KEYMAP
-/*
- * Legacy keymap support
- *      Consider using new keymap API instead.
- */
-__attribute__ ((weak))
-uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
+/* translates key to keycode */
+uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-    return keymap_get_keycode(layer, key.row, key.col);
+    // return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+    // This limits it to a byte
+
+    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
-
-/* Legacy keymap support */
-__attribute__ ((weak))
-action_t keymap_fn_to_action(uint8_t keycode)
+/* translates Fn keycode to action */
+action_t keymap_fn_to_action(uint16_t keycode)
 {
-    action_t action = { .code = ACTION_NO };
-    switch (keycode) {
-        case KC_FN0 ... KC_FN31:
-            {
-                uint8_t layer = keymap_fn_layer(FN_INDEX(keycode));
-                uint8_t key = keymap_fn_keycode(FN_INDEX(keycode));
-                if (key) {
-                    action.code = ACTION_LAYER_TAP_KEY(layer, key);
-                } else {
-                    action.code = ACTION_LAYER_MOMENTARY(layer);
-                }
-            }
-            return action;
-        default:
-            return action;
-    }
+    return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
 }
-#endif
