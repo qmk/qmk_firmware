@@ -33,10 +33,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     uint16_t keycode = keymap_key_to_keycode(layer, key);
 
     // Handle mods in keymap
-    if (keycode > 0x00FF) {
+    if (keycode > 0x00FF && keycode < 0x2000) {
     	action_t action;
     	action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);
     	return action;
+	} else if (keycode > 0x1FFF && keycode < 0x3000) {
+        return keymap_func_to_action(keycode & 0xFFF);
 	}
 
     switch (keycode) {
@@ -168,4 +170,10 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 action_t keymap_fn_to_action(uint16_t keycode)
 {
     return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
+}
+
+/* translates Fn keycode to action */
+action_t keymap_func_to_action(uint16_t keycode)
+{
+    return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
 }
