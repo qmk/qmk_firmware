@@ -54,6 +54,9 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 /* translates Fn keycode to action */
 action_t keymap_fn_to_action(uint16_t keycode);
 
+/* translates Fn keycode to action */
+action_t keymap_func_to_action(uint16_t keycode);
+
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
 
@@ -67,6 +70,9 @@ extern const uint16_t fn_actions[];
 #define RALT(kc) kc | 0x1400
 #define RGUI(kc) kc | 0x1800
 
+#define FUNC(kc) kc | 0x2000
+
 #define S(kc) LSFT(kc)
+#define F(kc) FUNC(kc)
 
 #endif
