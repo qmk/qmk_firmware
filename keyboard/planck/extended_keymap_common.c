@@ -30,14 +30,17 @@ static action_t keycode_to_action(uint16_t keycode);
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
+	// 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
 
-    // Handle mods in keymap
     if (keycode > 0x00FF && keycode < 0x2000) {
+    	// Has a modifier
     	action_t action;
+    	// Split it up
     	action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);
     	return action;
 	} else if (keycode > 0x1FFF && keycode < 0x3000) {
+		// Is a shortcut for function layer, pull last 12bits
         return keymap_func_to_action(keycode & 0xFFF);
 	}
 
@@ -160,9 +163,7 @@ static action_t keycode_to_action(uint16_t keycode)
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-    // return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
-    // This limits it to a byte
-
+	// Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
@@ -175,5 +176,6 @@ action_t keymap_fn_to_action(uint16_t keycode)
 /* translates Fn keycode to action */
 action_t keymap_func_to_action(uint16_t keycode)
 {
+	// For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
 }
