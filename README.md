@@ -58,6 +58,8 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [KittenPaw](keyboard/kitten_paw)          - Custom Majestouch controller
 * [Lightpad](keyboard/lightpad)             - Korean custom keypad
 * [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
+* [planck](keyboard/planck/)                - [Planck] Ortholinear 40% keyboard
+* [atomic](keyboard/atomic/)                - [Atomic] Ortholinear 60% keyboard
 
 ### Extenal projects using tmk_keyboard
 * [ErgoDox_cub-uanic][cub-uanic]            - Split Ergonomic Keyboard [ErgoDox][ergodox_org]
@@ -89,7 +91,8 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [cub-uanic]:    https://github.com/cub-uanic/tmk_keyboard/tree/master/keyboard/ergodox
 [mcdox]:        https://github.com/DavidMcEwan/mcdox
 [mcdox_tmk]:    https://github.com/DavidMcEwan/tmk_keyboard/tree/master/keyboard/mcdox
-
+[Planck]:       http://planckkeyboard.com
+[Atomic]:       http://atomickeyboard.com
 
 
 License
