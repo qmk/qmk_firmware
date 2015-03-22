@@ -19,7 +19,7 @@ OBJECTS += \
 	$(OBJDIR)/mbed-infinity/cmsis_nvic.o \
 	$(OBJDIR)/mbed-infinity/system_MK20D5.o \
 	$(OBJDIR)/mbed-infinity/USBHAL_KL25Z.o \
-	$(OBJDIR)/libraries/mbed/targets/cmsis/TARGET_Freescale/TARGET_K20D50M/TOOLCHAIN_GCC_ARM/startup_MK20D5.o \
+	$(OBJDIR)/mbed-infinity/startup_MK20D5.o \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/analogin_api.o \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/gpio_api.o \
 	$(OBJDIR)/libraries/mbed/targets/hal/TARGET_Freescale/TARGET_K20D50M/gpio_irq_api.o \
