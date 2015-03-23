@@ -8,6 +8,7 @@ If you include extended_keymap_common.h instead of keymap_common.h at the top of
 - Use `LSFT()`, `LCTL()`, et. al. (listed in extended_keymap_common.h) as modifiers for keys (daisy-chain-able)
 - Use `FUNC(1)` instead of `FN1` (etc.) to access the function layers beyond the 32 function layer limit
 - Use `CM_F` instead of `KC_F` to get the ColeMak equivilent for shortcuts (maps backwards)
+- Use `MACRODOWN()` instead of `MACRO()` to easily make a keydown macro (`CM_*` works here too)
 
 ### Some notes on usage:
 
