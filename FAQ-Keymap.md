@@ -93,3 +93,13 @@ https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/
 And `IOHIDConsumer::dispatchConsumerEvent` handles Consumer page usages.
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp
+
+
+## JIS keys in Mac OSX
+Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)` are not recognized on OSX. You can use Seil to enable those keys, try fllowing options.
+
+***Enable NFER Key on PC keyboard***
+***Enable XFER Key on PC keyboard***
+***Enable KATAKANA Key on PC keyboard***
+
+https://pqrs.org/osx/karabiner/seil.html
