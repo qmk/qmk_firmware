@@ -419,6 +419,11 @@ flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
 dfu: $(TARGET).hex
+ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
+	dfu-programmer $(MCU) erase --force
+else
+	dfu-programmer $(MCU) erase
+endif
 	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(TARGET).hex
 	dfu-programmer $(MCU) reset
