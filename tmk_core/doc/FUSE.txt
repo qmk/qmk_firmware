@@ -1,0 +1,40 @@
+ATMega168P Fuse/Lock Bits
+=========================
+This configuration is from usbasploader's Makefile.
+
+    HFUSE   0xD6
+    LFUSE   0xDF
+    EFUSE   0x00
+    LOCK    0x3F(intact)
+
+#---------------------------------------------------------------------
+# ATMega168P
+#---------------------------------------------------------------------
+# Fuse extended byte:
+# 0x00 = 0 0 0 0   0 0 0 0 <-- BOOTRST (boot reset vector at 0x1800)
+#                    \+/
+#                     +------- BOOTSZ (00 = 2k bytes)
+# Fuse high byte:
+# 0xd6 = 1 1 0 1   0 1 1 0
+#        ^ ^ ^ ^   ^ \-+-/
+#        | | | |   |   +------ BODLEVEL 0..2 (110 = 1.8 V)
+#        | | | |   + --------- EESAVE (preserve EEPROM over chip erase)
+#        | | | +-------------- WDTON (if 0: watchdog always on)
+#        | | +---------------- SPIEN (allow serial programming)
+#        | +------------------ DWEN (debug wire enable)
+#        +-------------------- RSTDISBL (reset pin is enabled)
+# Fuse low byte:
+# 0xdf = 1 1 0 1   1 1 1 1
+#        ^ ^ \ /   \--+--/
+#        | |  |       +------- CKSEL 3..0 (external >8M crystal)
+#        | |  +--------------- SUT 1..0 (crystal osc, BOD enabled)
+#        | +------------------ CKOUT (if 0: Clock output enabled)
+#        +-------------------- CKDIV8 (if 0: divide by 8)
+
+
+# Lock Bits
+# 0x3f = - - 1 1   1 1 1 1
+#            \ /   \-/ \-/
+#             |     |   +----- LB 2..1 (No memory lock features enabled)
+#             |     +--------- BLB0 2..1 (No restrictions for SPM or LPM accessing the Application section)
+#             +--------------- BLB1 2..1 (No restrictions for SPM or LPM accessing the Boot Loader section)
