@@ -9,7 +9,7 @@ SRC +=	$(IWRAP_DIR)/main.c \
 	$(COMMON_DIR)/uart.c
 
 # Search Path
-VPATH += $(TOP_DIR)/protocol/iwrap
+VPATH += $(TMK_DIR)/protocol/iwrap
 
 
 # TODO: compatible with LUFA and PJRC
@@ -21,6 +21,6 @@ SRC +=	$(VUSB_DIR)/vusb.c \
 	$(VUSB_DIR)/usbdrv/usbdrv.c \
 	$(VUSB_DIR)/usbdrv/usbdrvasm.S \
 	$(VUSB_DIR)/usbdrv/oddebug.c
-VPATH += $(TOP_DIR)/protocol/vusb:$(TOP_DIR)/protocol/vusb/usbdrv
+VPATH += $(TMK_DIR)/protocol/vusb:$(TMK_DIR)/protocol/vusb/usbdrv
 
 

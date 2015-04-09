@@ -5,7 +5,7 @@
 TARGET = ps2_usb_lufa
 
 # Directory common source filess exist
-TOP_DIR = ../..
+TMK_DIR = ../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -97,9 +97,9 @@ PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomen
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/protocol.mk
-include $(TOP_DIR)/protocol/lufa.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/protocol.mk
+include $(TMK_DIR)/protocol/lufa.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/rules.mk

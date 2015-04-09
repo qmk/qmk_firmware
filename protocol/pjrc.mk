@@ -20,7 +20,7 @@ ifdef EXTRAKEY_ENABLE
 endif
 
 # Search Path
-VPATH += $(TOP_DIR)/$(PJRC_DIR)
+VPATH += $(TMK_DIR)/$(PJRC_DIR)
 
 # This indicates using LUFA stack
 OPT_DEFS += -DPROTOCOL_PJRC

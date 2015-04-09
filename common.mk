@@ -66,7 +66,7 @@ endif
 
 ifdef KEYMAP_SECTION_ENABLE
     OPT_DEFS += -DKEYMAP_SECTION_ENABLE
-    EXTRALDFLAGS = -Wl,-L$(TOP_DIR),-Tldscript_keymap_avr5.x
+    EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x
 endif
 
 # Version string
@@ -74,4 +74,4 @@ OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 
 
 
 # Search Path
-VPATH += $(TOP_DIR)/common
+VPATH += $(TMK_DIR)/common
