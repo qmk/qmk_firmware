@@ -2,7 +2,7 @@
 TARGET = next_usb
 
 # Directory common source filess exist
-TMK_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
