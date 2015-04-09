@@ -1,0 +1,846 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_BuildSystem The LUFA Build System
+ *
+ *  \section Sec_BuildSystemOverview Overview of the LUFA Build System
+ *  The LUFA build system is an attempt at making a set of re-usable, modular build make files which
+ *  can be referenced in a LUFA powered project, to minimise the amount of code required in an
+ *  application makefile. The system is written in GNU Make, and each module is independant of
+ *  one-another.
+ *
+ *  For details on the prerequisites needed for Linux and Windows machines to be able to use the LUFA
+ *  build system, see \ref Sec_Prerequisites.
+ *
+ *  To use a LUFA build system module, simply add an include to your project makefile:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_core.mk
+ *  \endcode
+ *
+ *  And the associated build module targets will be added to your project's build makefile automatically.
+ *  To call a build target, run <tt>make {TARGET_NAME}</tt> from the command line, substituting in
+ *  the appropriate target name.
+ *
+ *  \see \ref Sec_AppConfigParams for a copy of the sample LUFA project makefile.
+ *
+ *  Each build module may have one or more mandatory parameters (GNU Make variables) which <i>must</i>
+ *  be supplied in the project makefile for the module to work, and one or more optional parameters which
+ *  may be defined and which will assume a sensible default if not.
+ *
+ *  \section SSec_BuildSystemModules Available Modules
+ *
+ *  The following modules are included in this LUFA release:
+ *
+ *  \li \subpage Page_BuildModule_ATPROGRAM - Device Programming
+ *  \li \subpage Page_BuildModule_AVRDUDE - Device Programming
+ *  \li \subpage Page_BuildModule_BUILD - Compiling/Assembling/Linking
+ *  \li \subpage Page_BuildModule_CORE - Core Build System Functions
+ *  \li \subpage Page_BuildModule_CPPCHECK - Static Code Analysis
+ *  \li \subpage Page_BuildModule_DFU - Device Programming
+ *  \li \subpage Page_BuildModule_DOXYGEN - Automated Source Code Documentation
+ *  \li \subpage Page_BuildModule_HID - Device Programming
+ *  \li \subpage Page_BuildModule_SOURCES - LUFA Module Source Code Variables
+ */
+ 
+ /** \page Page_BuildModule_BUILD The BUILD build module
+ *
+ *  The BUILD LUFA build system module, providing targets for the compilation,
+ *  assembling and linking of an application from source code into binary files
+ *  suitable for programming into a target device.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_build.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_BUILD_Requirements Requirements
+ *  This module requires the the architecture appropriate binaries of the GCC compiler are  available in your
+ *  system's <b>PATH</b> variable. The GCC compiler and associated toolchain is distributed in Atmel AVR Studio
+ *  5.x and Atmel Studio 6.x installation directories, as well as in many third party distribution packages.
+ *
+ *  \section SSec_BuildModule_BUILD_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>size</tt></td>
+ *    <td>Display size of the compiled application FLASH and SRAM segments.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>symbol-sizes</tt></td>
+ *    <td>Display a size-sorted list of symbols from the compiled application, in decimal bytes.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>check-source</tt></td>
+ *    <td>Display a list of input SRC source files which cannot be found (if any).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>lib</tt></td>
+ *    <td>Build and archive all source files into a library A binary file.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>all</tt></td>
+ *    <td>Build and link the application into ELF debug and HEX binary files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>elf</tt></td>
+ *    <td>Build and link the application into an ELF debug file.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>hex</tt></td>
+ *    <td>Build and link the application and produce HEX and EEP binary files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>lss</tt></td>
+ *    <td>Build and link the application and produce a LSS source code/assembly code mixed listing file.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>clean</tt></td>
+ *    <td>Remove all intermediatary files and binary output files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>mostlyclean</tt></td>
+ *    <td>Remove all intermediatary files but preserve any binary output files.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_BUILD_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>TARGET</tt></td>
+ *    <td>Name of the application output file prefix (e.g. <tt>TestApplication</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ARCH</tt></td>
+ *    <td>Architecture of the target processor (see \ref Page_DeviceSupport).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>MCU</tt></td>
+ *    <td>Name of the Atmel processor model (e.g. <tt>at90usb1287</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>SRC</tt></td>
+ *    <td>List of relative or absolute paths to the application C (.c), C++ (.cpp) and Assembly (.S) source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>F_USB</tt></td>
+ *    <td>Speed in Hz of the input clock frequency to the target's USB controller.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_PATH</tt></td>
+ *    <td>Path to the LUFA library core, either relative or absolute (e.g. <tt>../LUFA-000000/LUFA/</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_BUILD_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>BOARD</tt></td>
+ *    <td>LUFA board hardware drivers to use (see \ref Page_DeviceSupport).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>OPTIMIZATION</tt></td>
+ *    <td>Optimization level to use when compiling source files (see GCC manual).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>C_STANDARD</tt></td>
+ *    <td>Version of the C standard to apply when compiling C++ source files (see GCC manual).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPP_STANDARD</tt></td>
+ *    <td>Version of the C++ standard to apply when compiling C++ source files (see GCC manual).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>DEBUG_FORMAT</tt></td>
+ *    <td>Format of the debug information to embed in the generated object files (see GCC manual).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>DEBUG_LEVEL</tt></td>
+ *    <td>Level of the debugging information to embed in the generated object files (see GCC manual).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>F_CPU</tt></td>
+ *    <td>Speed of the processor CPU clock, in Hz.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>C_FLAGS</tt></td>
+ *    <td>Flags to pass to the C compiler only, after the automatically generated flags.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPP_FLAGS</tt></td>
+ *    <td>Flags to pass to the C++ compiler only, after the automatically generated flags.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ASM_FLAGS</tt></td>
+ *    <td>Flags to pass to the assembler only, after the automatically generated flags.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CC_FLAGS</tt></td>
+ *    <td>Common flags to pass to the C/C++ compiler and assembler, after the automatically generated flags.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LD_FLAGS</tt></td>
+ *    <td>Flags to pass to the linker, after the automatically generated flags.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>OBJDIR</tt></td>
+ *    <td>Directory to place the generated object and dependency files. If set to "." the same folder as the source file will be used.
+ *        \note When this option is enabled, all source filenames <b>must</b> be unique.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>OBJECT_FILES</tt></td>
+ *    <td>List of additional object files that should be linked into the resulting binary.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_BUILD_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_BUILD_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+
+/** \page Page_BuildModule_CORE The CORE build module
+ *
+ *  The core LUFA build system module, providing common build system help and information targets.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_core.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_CORE_Requirements Requirements
+ *  This module has no requirements outside a standard *nix shell like environment; the <tt>sh</tt>
+ *  shell, GNU <tt>make</tt> and *nix CoreUtils (<tt>echo</tt>, <tt>printf</tt>, etc.).
+ *
+ *  \section SSec_BuildModule_CORE_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>help</tt></td>
+ *    <td>Display build system help and configuration information.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_targets</tt></td>
+ *    <td>List all available build targets from the build system.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_modules</tt></td>
+ *    <td>List all available build modules from the build system.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_mandatory</tt></td>
+ *    <td>List all mandatory parameters required by the included modules.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_optional</tt></td>
+ *    <td>List all optional parameters required by the included modules.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_provided</tt></td>
+ *    <td>List all variables provided by the included modules.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>list_macros</tt></td>
+ *    <td>List all macros provided by the included modules.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CORE_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CORE_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CORE_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_CORE_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+
+/** \page Page_BuildModule_ATPROGRAM The ATPROGRAM build module
+ *
+ *  The ATPROGRAM programming utility LUFA build system module, providing targets to reprogram an
+ *  Atmel processor FLASH and EEPROM memories with a project's compiled binary output files.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_atprogram.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_Requirements Requirements
+ *  This module requires the <tt>atprogram.exe</tt> utility to be available in your system's <b>PATH</b>
+ *  variable. The <tt>atprogram.exe</tt> utility is distributed in Atmel AVR Studio 5.x and Atmel Studio 6.x
+ *  inside the application install folder's "\avrdbg" subdirectory.
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>atprogram</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>atprogram-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>MCU</tt></td>
+ *    <td>Name of the Atmel processor model (e.g. <tt>at90usb1287</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>TARGET</tt></td>
+ *    <td>Name of the application output file prefix (e.g. <tt>TestApplication</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>ATPROGRAM_PROGRAMMER</tt></td>
+ *    <td>Name of the Atmel programmer or debugger tool to communicate with (e.g. <tt>jtagice3</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ATPROGRAM_INTERFACE</tt></td>
+ *    <td>Name of the programming interface to use when programming the target (e.g. <tt>spi</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ATPROGRAM_PORT</tt></td>
+ *    <td>Name of the communication port to use when when programming with a serially connected tool (e.g. <tt>COM2</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_ATPROGRAM_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+
+/** \page Page_BuildModule_AVRDUDE The AVRDUDE build module
+ *
+ *  The AVRDUDE programming utility LUFA build system module, providing targets to reprogram an
+ *  Atmel processor FLASH and EEPROM memories with a project's compiled binary output files.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_avrdude.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_AVRDUDE_Requirements Requirements
+ *  This module requires the <tt>avrdude</tt> utility to be available in your system's <b>PATH</b>
+ *  variable. The <tt>avrdude</tt> utility is distributed in the old WinAVR project releases for
+ *  Windows (<a>winavr.sourceforge.net</a>) or can be installed on *nix systems via the project's
+ *  source code (<a>https://savannah.nongnu.org/projects/avrdude</a>) or through the package manager.
+ *
+ *  \section SSec_BuildModule_AVRDUDE_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>avrdude</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>avrdude</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_AVRDUDE_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>MCU</tt></td>
+ *    <td>Name of the Atmel processor model (e.g. <tt>at90usb1287</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>TARGET</tt></td>
+ *    <td>Name of the application output file prefix (e.g. <tt>TestApplication</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_AVRDUDE_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>AVRDUDE_PROGRAMMER</tt></td>
+ *    <td>Name of the programmer or debugger tool to communicate with (e.g. <tt>jtagicemkii</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ATPROGRAM_PORT</tt></td>
+ *    <td>Name of the communication port to use when when programming with the connected tool (e.g. <tt>COM2</tt>, <tt>/dev/ttyUSB0</tt> or <tt>usb</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ATPROGRAM_FLAGS</tt></td>
+ *    <td>Additional flags to pass to avrdude when programming, applied after the automatically generated flags.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_AVRDUDE_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_AVRDUDE_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+ 
+ /** \page Page_BuildModule_CPPCHECK The CPPCHECK build module
+ *
+ *  The CPPCHECK programming utility LUFA build system module, providing targets to statically
+ *  analyze C and C++ source code for errors and performance/style issues.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_cppcheck.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_CPPCHECK_Requirements Requirements
+ *  This module requires the <tt>cppcheck</tt> utility to be available in your system's <b>PATH</b>
+ *  variable. The <tt>cppcheck</tt> utility is distributed through the project's home page
+ *  (<a>http://cppcheck.sourceforge.net</a>) for Windows, and can be installed on *nix systems via
+ *  the project's source code or through the package manager.
+ *
+ *  \section SSec_BuildModule_CPPCHECK_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>cppcheck</tt></td>
+ *    <td>Statically analyze the project source code for issues.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>cppcheck-config</tt></td>
+ *    <td>Check the <tt>cppcheck</tt> configuration - scan source code and warn about missing header files and other issues.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CPPCHECK_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>SRC</tt></td>
+ *    <td>List of source files to statically analyze.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CPPCHECK_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>CPPCHECK_INCLUDES</tt></td>
+ *    <td>Path of extra directories to check when attemting to resolve C/C++ header file includes.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_EXCLUDES</tt></td>
+ *    <td>Paths or path fragments to exclude when analyzing.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_MSG_TEMPLATE</tt></td>
+ *    <td>Output message template to use when printing errors, warnings and information (see <tt>cppcheck</tt> documentation).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_ENABLE</tt></td>
+ *    <td>Analysis rule categories to enable (see <tt>cppcheck</tt> documentation).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_SUPPRESS</tt></td>
+ *    <td>Specific analysis rules to suppress (see <tt>cppcheck</tt> documentation).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_FAIL_ON_WARNING</tt></td>
+ *    <td>Set to <b>Y</b> to fail the analysis job with an error exit code if warnings are found, <b>N</b> to continue without failing.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_QUIET</tt></td>
+ *    <td>Set to <b>Y</b> to suppress all output except warnings and errors, <b>N</b> to show verbose output information.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>CPPCHECK_FLAGS</tt></td>
+ *    <td>Extra flags to pass to <tt>cppcheck</tt>, after the automatically generated flags.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_CPPCHECK_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_CPPCHECK_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+ 
+ /** \page Page_BuildModule_DFU The DFU build module
+ *
+ *  The DFU programming utility LUFA build system module, providing targets to reprogram an
+ *  Atmel processor FLASH and EEPROM memories with a project's compiled binary output files.
+ *  This module requires a DFU class bootloader to be running in the target, compatible with
+ *  the DFU bootloader protocol as published by Atmel.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_dfu.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_DFU_Requirements Requirements
+ *  This module requires either the <tt>batchisp</tt> utility from Atmel's FLIP utility, or the open
+ *  source <tt>dfu-programmer</tt> utility (<a>http://dfu-programmer.sourceforge.net/</a>) to be
+ *  available in your system's <b>PATH</b> variable. On *nix systems the <tt>dfu-programmer</tt> utility
+ *  can be installed via the project's source code or through the package manager.
+ *
+ *  \section SSec_BuildModule_DFU_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>dfu</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data using <tt>dfu-programmer</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>dfu-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data using <tt>dfu-programmer</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>flip</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data using <tt>batchisp</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>flip-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data using <tt>batchisp</tt>.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_DFU_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>MCU</tt></td>
+ *    <td>Name of the Atmel processor model (e.g. <tt>at90usb1287</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>TARGET</tt></td>
+ *    <td>Name of the application output file prefix (e.g. <tt>TestApplication</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_DFU_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_DFU_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_DFU_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+ 
+ /** \page Page_BuildModule_DOXYGEN The DOXYGEN build module
+ *
+ *  The DOXYGEN code documentation utility LUFA build system module, providing targets to generate
+ *  project HTML and other format documentation from a set of source files that include special
+ *  Doxygen comments.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_doxygen.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_DOXYGEN_Requirements Requirements
+ *  This module requires the <tt>doxygen</tt> utility from the Doxygen website
+ *  (<a>http://www.stack.nl/~dimitri/doxygen/</a>) to be available in your system's <b>PATH</b>
+ *  variable. On *nix systems the <tt>doxygen</tt> utility can be installed via the project's source
+ *  code or through the package manager.
+ *
+ *  \section SSec_BuildModule_DOXYGEN_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>doxygen</tt></td>
+ *    <td>Generate project documentation.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_DOXYGEN_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>LUFA_PATH</tt></td>
+ *    <td>Path to the LUFA library core, either relative or absolute (e.g. <tt>../LUFA-000000/LUFA/</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_DOXYGEN_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>DOXYGEN_CONF</tt></td>
+ *    <td>Name and path of the base Doxygen configuration file for the project.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>DOXYGEN_FAIL_ON_WARNING</tt></td>
+ *    <td>Set to <b>Y</b> to fail the generation with an error exit code if warnings are found other than unsupported configuration parameters, <b>N</b> to continue without failing.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>DOXYGEN_OVERRIDE_PARAMS</tt></td>
+ *    <td>Extra Doxygen configuration parameters to apply, overriding the corresponding config entry in the project's configuration file (e.g. <tt>QUIET=YES</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_DOXYGEN_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_DOXYGEN_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+ 
+ /** \page Page_BuildModule_HID The HID build module
+ *
+ *  The HID programming utility LUFA build system module, providing targets to reprogram an
+ *  Atmel processor's FLASH memory with a project's compiled binary output file. This module
+ *  requires a HID class bootloader to be running in the target, using a protocol compatible
+ *  with the PJRC "HalfKay" protocol (<a>http://www.pjrc.com/teensy/halfkay_protocol.html</a>).
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_hid.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_HID_Requirements Requirements
+ *  This module requires either the <tt>hid_bootloader_cli</tt> utility from the included LUFA HID
+ *  class bootloader API subdirectory, or the <tt>teensy_loader_cli</tt> utility from PJRC
+ *  (<a>http://www.pjrc.com/teensy/loader_cli.html</a>) to be available in your system's <b>PATH</b>
+ *  variable.
+ *
+ *  \section SSec_BuildModule_HID_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>hid</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data using <tt>hid_bootloader_cli</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>hid-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data using <tt>hid_bootloader_cli</tt> and
+ *        a temporary AVR application programmed into the target's FLASH.
+ *        \note This will erase the currently loaded application in the target.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>teensy</tt></td>
+ *    <td>Program the device FLASH memory with the application's executable data using <tt>teensy_loader_cli</tt>.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>teensy-ee</tt></td>
+ *    <td>Program the device EEPROM memory with the application's EEPROM data using <tt>teensy_loader_cli</tt> and
+ *        a temporary AVR application programmed into the target's FLASH.
+ *        \note This will erase the currently loaded application in the target.</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_HID_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>MCU</tt></td>
+ *    <td>Name of the Atmel processor model (e.g. <tt>at90usb1287</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>TARGET</tt></td>
+ *    <td>Name of the application output file prefix (e.g. <tt>TestApplication</tt>).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_HID_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_HID_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_HID_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
+ 
+ /** \page Page_BuildModule_SOURCES The SOURCES build module
+ *
+ *  The SOURCES LUFA build system module, providing variables listing the various LUFA source files
+ *  required to be build by a project for a given LUFA module. This module gives a way to reference
+ *  LUFA source files symbollically, so that changes to the library structure do not break the library
+ *  makefile.
+ *
+ *  To use this module in your application makefile, add the following code:
+ *  \code
+ *  include $(LUFA_PATH)/Build/lufa_sources.mk
+ *  \endcode
+ *
+ *  \section SSec_BuildModule_SOURCES_Requirements Requirements
+ *  None.
+ *
+ *  \section SSec_BuildModule_SOURCES_Targets Targets
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_SOURCES_MandatoryParams Mandatory Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>LUFA_PATH</tt></td>
+ *    <td>Path to the LUFA library core, either relative or absolute (e.g. <tt>../LUFA-000000/LUFA/</tt>).</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>ARCH</tt></td>
+ *    <td>Architecture of the target processor (see \ref Page_DeviceSupport).</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_SOURCES_OptionalParams Optional Parameters
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_BuildModule_SOURCES_ProvidedVariables Module Provided Variables
+ *
+ *  <table>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_USB</tt></td>
+ *    <td>List of LUFA USB driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_USBCLASS</tt></td>
+ *    <td>List of LUFA USB Class driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_TEMPERATURE</tt></td>
+ *    <td>List of LUFA temperature sensor driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_SERIAL</tt></td>
+ *    <td>List of LUFA Serial U(S)ART driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_TWI</tt></td>
+ *    <td>List of LUFA TWI driver source files.</td>
+ *   </tr>
+ *   <tr>
+ *    <td><tt>LUFA_SRC_PLATFORM</tt></td>
+ *    <td>List of LUFA architecture specific platform management source files.</td>
+ *   </tr> 
+ *  </table> 
+ *
+ *  \section SSec_BuildModule_SOURCES_ProvidedMacros Module Provided Macros
+ *
+ *  <table>
+ *   <tr>
+ *    <td><i>None</i></td>
+ *   </tr>
+ *  </table>
+ */
