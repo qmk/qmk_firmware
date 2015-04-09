@@ -41,7 +41,7 @@
 # Target file name (without extension).
 TARGET = usb_usb
 
-TMK_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
