@@ -47,4 +47,4 @@ ifdef SERIAL_MOUSE_USE_UART
 endif
 
 # Search Path
-VPATH += $(TOP_DIR)/protocol
+VPATH += $(TMK_DIR)/protocol

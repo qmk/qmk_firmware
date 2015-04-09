@@ -58,17 +58,17 @@ OPT_DEFS += -DARDUINO=101
 #
 # Search Path
 #
-VPATH += $(TOP_DIR)/$(USB_HID_DIR)
-VPATH += $(TOP_DIR)/$(USB_HOST_SHIELD_DIR)
+VPATH += $(TMK_DIR)/$(USB_HID_DIR)
+VPATH += $(TMK_DIR)/$(USB_HOST_SHIELD_DIR)
 
 # for #include "Arduino.h"
-VPATH += $(TOP_DIR)/$(ARDUINO_CORES_DIR)
+VPATH += $(TMK_DIR)/$(ARDUINO_CORES_DIR)
 
 # for #include "pins_arduino.h"
-VPATH += $(TOP_DIR)/$(ARDUINO_DIR)/variants/leonardo
+VPATH += $(TMK_DIR)/$(ARDUINO_DIR)/variants/leonardo
 
 # ad hoc workaround for compile problem on Windows:
 #    Windows doesn't know difference between common/print.h and arduino/Print.h.
 #    On Linux no problem.
 #    Change file name common/print.h to console.h ?
-VPATH := $(TOP_DIR)/common $(VPATH)
+VPATH := $(TMK_DIR)/common $(VPATH)

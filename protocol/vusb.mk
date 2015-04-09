@@ -18,4 +18,4 @@ endif
 
 
 # Search Path
-VPATH += $(TOP_DIR)/protocol/vusb:$(TOP_DIR)/protocol/vusb/usbdrv
+VPATH += $(TMK_DIR)/protocol/vusb:$(TMK_DIR)/protocol/vusb/usbdrv

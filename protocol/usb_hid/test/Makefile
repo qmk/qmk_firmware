@@ -41,7 +41,7 @@
 # Target file name (without extension).
 TARGET = usb_hid_test
 
-TOP_DIR = ../../..
+TMK_DIR = ../../..
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -111,8 +111,8 @@ CONFIG_H = config.h
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TOP_DIR)/common
+VPATH += $(TMK_DIR)
+VPATH += $(TMK_DIR)/common
 
 
 
@@ -121,6 +121,6 @@ PROGRAM_CMD = avrdude -p$(MCU) -cavr109 -P$(DEV) -b57600 -Uflash:w:$(TARGET).hex
 
 
 
-include $(TOP_DIR)/protocol/usb_hid.mk
-include $(TOP_DIR)/protocol/lufa.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/protocol/usb_hid.mk
+include $(TMK_DIR)/protocol/lufa.mk
+include $(TMK_DIR)/rules.mk
