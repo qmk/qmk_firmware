@@ -55,12 +55,11 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ## NKRO Doesn't work
 First you have to compile frimware with this build option `NKRO_ENABLE` in `Makefile`.
 
-Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode.
+Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode, in particular when you are in BIOS.
 
 If your firmeare built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and keeped over power cycles.
-https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
-Note that host(in particular BIOS) can force keyboard to turn into **6KRO** mode. 
+https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
 ## TrackPoint needs reset circuit(PS/2 mouse support)
