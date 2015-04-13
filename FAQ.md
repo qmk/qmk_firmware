@@ -53,9 +53,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 
 # Miscellaneous
 ## NKRO Doesn't work
-First you have to compile frimware with this build option in `Makefile`.
-
-    NKRO_ENABLE = yes
+First you have to compile frimware with this build option `NKRO_ENABLE` in `Makefile`.
 
 Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode.
 
