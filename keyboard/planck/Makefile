@@ -48,18 +48,22 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # # project specific files
-# SRC =	keymap_common.c \
-# 	matrix_handwire.c \
-# 	led.c \
-# 	backlight.c
+ifdef COMMON
+SRC = keymap_common.c \
+	matrix_handwire.c \
+	led.c \
+	backlight.c
 
-# ifdef KEYMAP
-#     SRC := keymap_$(KEYMAP).c $(SRC)
-# else
-#     SRC := keymap_jack.c $(SRC)
-# endif
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_jack.c $(SRC)
+endif
+
+else
 
 # project specific files
+
 SRC =	extended_keymap_common.c \
 	matrix_handwire.c \
 	led.c \
@@ -69,6 +73,8 @@ ifdef KEYMAP
     SRC := extended_keymap_$(KEYMAP).c $(SRC)
 else
     SRC := extended_keymap_jack.c $(SRC)
+endif
+
 endif
 
 CONFIG_H = config.h
