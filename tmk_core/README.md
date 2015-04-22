@@ -1,8 +1,8 @@
-TMK Keyboard Firmware Collection
-================================
-This is a keyboard firmware with some useful features for Atmel AVR controller.
+TMK Keyboard Firmware Core Library
+==================================
+This is a keyboard firmware library with some useful features for Atmel AVR and Cortex-M.
 
-Source code is available here: <http://github.com/tmk/tmk_keyboard>
+Source code is available here: <https://github.com/tmk/tmk_keyboard/tree/core>
 
 
 Features
@@ -26,69 +26,18 @@ These features can be used in your keyboard.
 * Backlight           - Control backlight levels
 
 
-Projects
---------
-You can find some keyboard specific projects under `converter` and `keyboard` directory.
 
-### converter
-* [ps2_usb](converter/ps2_usb/)             - [PS/2 keyboard to USB][GH_ps2]
-* [adb_usb](converter/adb_usb/)             - [ADB keyboard to USB][GH_adb]
-* [m0110_usb](converter/m0110_usb)          - [Macintosh 128K/512K/Plus keyboard to USB][GH_m0110]
-* [terminal_usb](converter/terminal_usb/)   - [IBM Model M terminal keyboard(PS/2 scancode set3) to USB][GH_terminal]
-* [news_usb](converter/news_usb/)           - [Sony NEWS keyboard to USB][GH_news]
-* [x68k_usb](converter/x68k_usb/)           - [Sharp X68000 keyboard to USB][GH_x68k]
-* [sun_usb](converter/sun_usb/)             - [Sun] to USB(type4, 5 and 3?)
-* [pc98_usb](converter/pc98_usb/)           - [PC98] to USB
-* [usb_usb](converter/usb_usb/)             - USB to USB(experimental)
-* [ascii_usb](converter/ascii_usb/)         - ASCII(Serial console terminal) to USB
-* [ibm4704_usb](converter/ibm4704_usb)      - [IBM 4704 keyboard Converter][GH_ibm4704]
-
-### keyboard
-* [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] **my main board**
-* [gh60](keyboard/gh60/)                    - [GH60] DIY 60% keyboard [prototype][GH60_proto] **my second board**
-* [hbkb](keyboard/hbkb/)                    - [Happy Buckling spring keyboard][GH_hbkb](IBM Model M 60% mod)
-* [hid_liber](keyboard/hid_liber/)          - [HID liberation][HID_liber] controller (by alaricljs)
-* [phantom](keyboard/phantom/)              - [Phantom] keyboard (by Tranquilite)
-* [IIgs_Standard](keyboard/IIgs/)           - Apple [IIGS] keyboard mod(by JeffreySung)
-* [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway] [retired]
-* [KMAC](keyboard/kmac/)                    - Korean custom keyboard
-* [Lightsaber](keyboard/lightsaber/)        - Korean custom keyboard
-* [Infinity](keyboard/infinity/)            - Massdrop [Infinity keyboard][Infinity]
-* [NerD](keyboard/nerd/)                    - Korean custom keyboard
-* [KittenPaw](keyboard/kitten_paw)          - Custom Majestouch controller
-* [Lightpad](keyboard/lightpad)             - Korean custom keypad
-* [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
-
-### Extenal projects using tmk_keyboard
-* [ErgoDox_cub-uanic][cub-uanic]            - Split Ergonomic Keyboard [ErgoDox][ergodox_org]
-* [mcdox][mcdox_tmk]                        - [mcdox][mcdox]
+Updates
+-------
+2015/04/22  separated with TMK Keyboard Firmware Collection
 
 
-[GH_macway]:    http://geekhack.org/showwiki.php?title=Island:11930
-[GH_hhkb]:      http://geekhack.org/showwiki.php?title=Island:12047
-[GH_ps2]:       http://geekhack.org/showwiki.php?title=Island:14618
-[GH_adb]:       http://geekhack.org/showwiki.php?title=Island:14290
-[GH_hhkb_bt]:   http://geekhack.org/showwiki.php?title=Island:20851
-[GH_m0110]:     http://geekhack.org/showwiki.php?title=Island:24965
-[GH_news]:      http://geekhack.org/showwiki.php?title=Island:25759
-[GH_terminal]:  http://geekhack.org/showwiki.php?title=Island:27272
-[GH_x68k]:      http://geekhack.org/showwiki.php?title=Island:29060
-[GH_hbkb]:      http://geekhack.org/showwiki.php?title=Island:29483
-[GH_ibm4704]:   http://geekhack.org/index.php?topic=54706.0
-[HID_liber]:    http://deskthority.net/wiki/HID_Liberation_Device_-_DIY_Instructions
-[Phantom]:      http://geekhack.org/index.php?topic=26742
-[GH60]:         http://geekhack.org/index.php?topic=34959
-[GH60_proto]:   http://geekhack.org/index.php?topic=37570.0
-[PC98]:         http://en.wikipedia.org/wiki/NEC_PC-9801
-[Sun]:          http://en.wikipedia.org/wiki/Sun-3
-[IIGS]:         http://en.wikipedia.org/wiki/Apple_IIGS
-[Infinity]:     https://www.massdrop.com/buy/infinity-keyboard-kit
-[ghost_squid]:  http://deskthority.net/wiki/Costar_replacement_controllers#The_Ghost_Squid
-[cmxt]:         http://gaming.coolermaster.com/en/products/keyboards/quickfirext/
-[ergodox_org]:  http://ergodox.org/
-[cub-uanic]:    https://github.com/cub-uanic/tmk_keyboard/tree/master/keyboard/ergodox
-[mcdox]:        https://github.com/DavidMcEwan/mcdox
-[mcdox_tmk]:    https://github.com/DavidMcEwan/tmk_keyboard/tree/master/keyboard/mcdox
+
+TMK Keyboard Firmware Collection
+--------------------------------
+Complete firmwares for various keyboards and protocol converters.
+
+<https://github.com/tmk/tmk_keyboard>
 
 
 
@@ -103,97 +52,6 @@ Build Firmware and Program Controller
 -------------------------------------
 See [doc/build.md](doc/build.md).
 
-
-
-Change your keymap
-------------------
-See [doc/keymap.md](doc/keymap.md).
-
-
-
-Magic Commands
---------------
-To see help press `Magic` + `H`.
-
- `Magic` key bind may be `LShift` + `RShift` in many project, but `Power` key on ADB converter. `Magic` keybind can be vary on each project, check `config.h` in project directory.
-
-Following commands can be also executed with `Magic` + key. In console mode `Magic` keybind is not needed.
-
-    ----- Command Help -----
-    c:      enter console mode
-    d:      toggle debug enable
-    x:      toggle matrix debug
-    k:      toggle keyboard debug
-    m:      toggle mouse debug
-    v:      print device version & info
-    t:      print timer count
-    s:      print status
-    e:	    print eeprom config
-    n:	    toggle NKRO
-    0/F10:  switch to Layer0
-    1/F1:   switch to Layer1
-    2/F2:   switch to Layer2
-    3/F3:   switch to Layer3
-    4/F4:   switch to Layer4
-    PScr:   power down/remote wake-up
-    Caps:   Lock Keyboard(Child Proof)
-    Paus:   jump to bootloader
-
-**TBD**
-
-### Boot Magic Configuration - Virtual DIP Switch
-Boot Magic are executed during boot up time. Press Magic key below then plug in keyboard cable.
-Note that you must use keys of **Layer 0** as Magic keys. These settings are stored in EEPROM so that retain your configure over power cycles.
-
-To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be pressed along with the following configuration keys. The salt key is configurable in `config.h`. See [common/bootmagic.h](common/bootmagic.h).
-
-#### General
-- Skip reading EEPROM to start with default configuration(`ESC`)
-- Clear configuration stored in EEPROM to reset configuration(`Backspace`)
-
-#### Bootloader
-- Kick up Bootloader(`B`)
-
-#### Debug
-- Debug enable(`D`)
-- Debug matrix enable(`D`+`X`)
-- Debug keyboard enable(`D`+`K`)
-- Debug mouse enable(`D`+`M`)
-
-#### Keymap
-- Swap Control and CapsLock(`Left Control`)
-- Change CapsLock to Control(`Caps Lock`)
-- Swap LeftAlt and Gui(`Left Alt`)
-- Swap RightAlt and Gui(`Right Alt`)
-- Disable Gui(`Left Gui`)
-- Swap Grave and Escape(`Grave`)
-- Swap BackSlash and BackSpace(`Back Slash`)
-- Enable NKRO on boot(`N`)
-
-#### Default Layer
-- Set Default Layer to 0(`0`)
-- Set Default Layer to 1(`1`)
-- Set Default Layer to 2(`2`)
-- Set Default Layer to 3(`3`)
-- Set Default Layer to 4(`4`)
-- Set Default Layer to 5(`5`)
-- Set Default Layer to 6(`6`)
-- Set Default Layer to 7(`7`)
-
-#### Caution
-Unintentional use of this feature will cause user confusion.
-
-TODO: Magic key combination to avoid unintentional press during plug in
-
-**TBD**
-
-
-Mechanical Locking support
---------------------------
-This feature makes it possible for you to use mechanical switch for `CapsLock`, `NumLock` or `ScrollLock`. To enable this feature define these macros in `config.h` and use `KC_LCAP`, `KC_LNUM` or `KC_LSCR` in keymap for locking key instead of normal `KC_CAPS`, `KC_NLCK` or `KC_SLCK`. Resync option tries to keep lock switch state consistent with keyboard LED state.
- 
-    #define LOCKING_SUPPORT_ENABLE
-    #define LOCKING_RESYNC_ENABLE
 
 
 Start Your Own Project
@@ -245,8 +103,6 @@ Files and Directories
 ### Top
 * common/       - common codes
 * protocol/     - keyboard protocol support
-* keyboard/     - keyboard projects
-* converter/    - protocol converter projects
 * doc/          - documents
 * common.mk     - Makefile for common
 * protocol.mk    - Makefile for protocol
@@ -288,9 +144,3 @@ Files and Directories
 Coding Style
 -------------
 - Doesn't use Tab to indent, use 4-spaces instead.
-
-
-
-Other Keyboard Firmware Projects
-------------------
-You can learn a lot about keyboard firmware from these. See [doc/other_projects.md](doc/other_projects.md).
