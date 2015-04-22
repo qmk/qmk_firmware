@@ -33,7 +33,7 @@ so that it doesn't send any scancode until you send 'FF'(End of FC command mode)
     Model 100 50-key            A2h
     Model 200 62-key            A3h
     Model 300 77-key            A4h
-    Model 400 107-key           ??
+    Model 400 107-key           A5h
     Japanese/Chinese 102-key    A6h
 
 
