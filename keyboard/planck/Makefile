@@ -47,9 +47,12 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
+
+
 # # project specific files
-ifdef COMMON
-SRC = keymap_common.c \
+ifdef COMMON_KEYMAP
+
+	SRC = keymap_common.c \
 	matrix_handwire.c \
 	led.c \
 	backlight.c
@@ -62,9 +65,7 @@ endif
 
 else
 
-# project specific files
-
-SRC =	extended_keymap_common.c \
+SRC = extended_keymap_common.c \
 	matrix_handwire.c \
 	led.c \
 	backlight.c
