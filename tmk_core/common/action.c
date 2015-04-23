@@ -518,7 +518,12 @@ bool is_tap_key(keypos_t key)
         case ACT_RMODS_TAP:
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
-            return true;
+            switch (action.layer_tap.code) {
+                case 0x00 ... 0xdf:
+                case OP_TAP_TOGGLE:
+                    return true;
+            }
+            return false;
         case ACT_MACRO:
         case ACT_FUNCTION:
             if (action.func.opt & FUNC_TAP) { return true; }
