@@ -1,8 +1,15 @@
 #include "keymap_common.h"
 
 /*
+ * make KEYMAP=reed COMMON_KEYMAP=true
+ *
+ *
  * This layout works off of Jack's layout, making some changes that I
- * feel significantly improve the function of the keyboard.
+ * feel significantly improve the function of the keyboard. Major changes
+ * include adding a "gaming mode" that will allow users to still access
+ * the number keys 1 through 4 easily for games that require it. Also
+ * included is the ability to use the tap/hold function for easy use of
+ * right shift and thumb shift with their tapped companions.
  *
  */
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -21,22 +28,23 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [2] = KEYMAP_GRID( /* Reed RAISE */
   GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    DEL,
   TRNS, FN3, FN4, PAUSE, TRNS, TRNS, TRNS, MINS, EQL,  LBRC, RBRC, BSLS,
-  TRNS, F11,  F12,  F13,  F14,  F15,  F16,  F17,  F18,  F19,  F20, TRNS,
+  TRNS, F1,   F2,    F3,   F4,    F5,    F6,   F7,   F8,   F9,   F10,  TRNS,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN1, MNXT, VOLD, VOLU, MPLY),
 
 [3] = KEYMAP_GRID( /* Reed LOWER */
   TRNS	, FN10, FN11, FN12, FN13, FN14, FN15, FN16, FN17, FN18, FN19, BSPC,
   TRNS, TRNS, TRNS, PAUSE, TRNS, TRNS, TRNS, FN20, FN21, FN23, FN24, FN28,
-  TRNS, F1,   F2,    F3,   F4,    F5,    F6,   F7,   F8,   F9,   F10,  TRNS,
+  TRNS, F11,  F12,  F13,  F14,  F15,  F16,  F17,  F18,  F19,  F20, TRNS,
   TRNS, TRNS, TRNS, TRNS, FN2,  TRNS, TRNS, TRNS, MNXT, VOLD, VOLU, MPLY),
 };
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay RAISE
-    [2] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay LOWER
+    [1] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay - RAISE
+    [2] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay - LOWER
 
     [3] = ACTION_DEFAULT_LAYER_SET(0),
     [4] = ACTION_DEFAULT_LAYER_SET(1),
-    [5] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_ENT),
+	// Actions for the tap/hold modifiers listed above
+    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
     [7] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),
 	
     [10] = ACTION_MODS_KEY(MOD_LSFT, KC_1),
