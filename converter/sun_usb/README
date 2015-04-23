@@ -1,10 +1,17 @@
 Sun to USB keyboard protocol converter
 ======================================
 Target MCU is ATMega32u4 but other USB capable AVR will also work.
-Supported keyboards: Sun Type 5 Keyboard, CTCSP SHORT TYPE KEYBOARD(CKUB)
 
-CTCSP SHORT TYPE KEYBOARD: http://imgur.com/a/QIv6p
+This converter will work with Sun Type 2-5 Keyboards.
 
+
+Tested on:
+Sun Type 3 Keyboard: http://blog.daveastels.com.s3-website-us-west-2.amazonaws.com/2014/12/27/type-3-keyboard.html
+CTCSP SHORT TYPE KEYBOARD(Type 5): http://imgur.com/a/QIv6p
+
+
+Keymap of Type 3(keymap_sun3.c) were impoted from dastels's repository.
+https://github.com/dastels/tmk_keyboard/tree/master/converter/sun3_usb
 
 
 
