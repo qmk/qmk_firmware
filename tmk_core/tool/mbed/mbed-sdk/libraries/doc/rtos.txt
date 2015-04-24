@@ -1,0 +1,37 @@
+=== Tasks ===
+
+^ os_tsk.new->task_id  ^ Tasks ^ Stack Size       ^
+| 0x01                 | Main  | 4*OS_MAINSTKSIZE |
+| 0x02                 | Timer | 4*OS_TIMERSTKSZ  |
+| 0xFF                 | Idle  | 4*OS_STKSIZE     |
+
+----------
+    |     
+    V     os_tsk.run->tsk_stack
+          
+          
+MAGIC_WORD  os_tsk.run->stack[0]
+----------
+
+The current task structure is always pointed by:
+    struct OS_TSK os_tsk;
+
+=== Init Sequence ===
+OS:
+  * osKernelInitialize
+    * rt_sys_init
+      * rt_init_context
+        * rt_init_stack
+      * rt_set_PSP
+      * rt_init_robin
+      * rt_svc_init
+  
+  * set_main_stack
+  
+  * osThreadCreate(os_thread_def_main)
+    * rt_tsk_create
+      * rt_init_context
+        * rt_init_stack
+      * rt_dispatch
+  
+  * osKernelStart
