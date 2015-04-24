@@ -1,8 +1,14 @@
 #include "keymap_common.h"
 
 /*
- * make KEYMAP=reed COMMON_KEYMAP=true
+ * BUILD:
+ * Simply run the command below in the keyboard/planck directory
+ * to build against this keymap
  *
+ *    make KEYMAP=reed COMMON_KEYMAP=true
+ *
+ *
+ * DETAILS:
  *
  * This layout works off of Jack's layout, making some changes that I
  * feel significantly improve the function of the keyboard. Major changes
@@ -26,13 +32,13 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LCTL, 1,    2,    3,    4,   SPC,  FN2,  FN1,   LEFT, DOWN, UP,  RGHT),
 
 [2] = KEYMAP_GRID( /* Reed RAISE */
-  GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    DEL,
+  GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    BSPC,
   TRNS, FN3, FN4, PAUSE, TRNS, TRNS, TRNS, MINS, EQL,  LBRC, RBRC, BSLS,
   TRNS, F1,   F2,    F3,   F4,    F5,    F6,   F7,   F8,   F9,   F10,  TRNS,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN1, MNXT, VOLD, VOLU, MPLY),
 
 [3] = KEYMAP_GRID( /* Reed LOWER */
-  TRNS	, FN10, FN11, FN12, FN13, FN14, FN15, FN16, FN17, FN18, FN19, BSPC,
+  TRNS	, FN10, FN11, FN12, FN13, FN14, FN15, FN16, FN17, FN18, FN19, DEL,
   TRNS, TRNS, TRNS, PAUSE, TRNS, TRNS, TRNS, FN20, FN21, FN23, FN24, FN28,
   TRNS, F11,  F12,  F13,  F14,  F15,  F16,  F17,  F18,  F19,  F20, TRNS,
   TRNS, TRNS, TRNS, TRNS, FN2,  TRNS, TRNS, TRNS, MNXT, VOLD, VOLU, MPLY),
