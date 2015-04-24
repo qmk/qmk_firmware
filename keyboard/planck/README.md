@@ -25,33 +25,29 @@ Download the whole firmware [here](https://github.com/jackhumbert/tmk_keyboard/a
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
 ####Default
-To build the default keymap, simply move to the tmk\_keyboard/keyboard/planck/ and run `make` as follows:
+To build with the default keymap, simply move to the tmk\_keyboard/keyboard/planck/ and run `make` as follows:
 ```
 $ make
 ```
 
+## Keymap
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
+    
 ####**Extended Keymaps**
 
-Extended keymaps need to be specified as follows:
+To build the firmware binary hex file with an extended keymap just do `make` with `KEYMAP` option like:
 ```
 $ make KEYMAP=[common|jack|<name>]
 ```
-Applicable keymaps should follow the format **__extended\_keymap\_<name>.c__**
+_The only applicable keymaps will work with this option._ Extended keymaps follow the format **__extended\_keymap\_\<name\>.c__**
 
 ####**Common Keymaps**
 
-Common keymaps need to be specified as follows:
+Building with a common keymap is as simple as adding the COMMON option. Note that only 
 ```
 $ make KEYMAP=[common|jack|<name>] COMMON=true
 ```
-Applicable keymaps should follow the format **__keymap\_<name>.c__**
-
-## Keymap
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
-
-To build firmware binary hex file with a certain keymap just do `make` with `KEYMAP` option like:
-
-    $ make KEYMAP=[<name>]
+_The only applicable keymaps will work with this option._ Common keymaps follow the format **__keymap\_\<name\>.c__**
 
 ## Notable TMK forks (which some of the keymap files are from)
 - [Shane's Fork](https://github.com/shanecelis/tmk_keyboard/tree/master/keyboard/planck)
