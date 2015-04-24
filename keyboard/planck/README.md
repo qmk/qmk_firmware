@@ -18,13 +18,31 @@ If you include extended_keymap_common.h instead of keymap_common.h at the top of
 
 ## Build
 
-Follow [this guide](http://deskthority.net/workshop-f7/how-to-build-your-very-own-keyboard-firmware-t7177.html) to setup your development environment before anything else.
+Follow [this guide](http://deskthority.net/workshop-f7/how-to-build-your-very-own-keyboard-firmware-t7177.html) to setup your development environment before anything else. Abbreviated instructions are provide at the [bottom of this document](https://github.com/rswiernik/tmk_keyboard/tree/rswiernik_dev/keyboard/planck#environment-setup)
 
-Download the whole firmware [here](https://github.com/jackhumbert/tmk_keyboard/archive/master.zip) and navigate to the keyboard/planck folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex that you can load with the Teensy app onto your Planck (once you've hit reset/shorted GND & RST).
+Download the whole firmware [here](https://github.com/jackhumbert/tmk_keyboard/archive/master.zip) and navigate to the keyboard/planck folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex that you can load with the Teensy app onto your Planck (once you've hit reset/shorted GND & RST). 
 
-Move to this directory then just run `make` like:
+Depending on which keymap you would like to use, you will have to compile slightly differently.
 
-    $ make
+**Extended Keymaps (default)**
+Extended keymaps need to be specified as follows:
+```
+$ make KEYMAP=[common|jack|<name>]
+```
+Applicable keymaps should follow the format **__extended\_keymap\_name.c__**
+
+**Common Keymaps**
+Common keymaps need to be specified as follows:
+```
+$ make KEYMAP=[common|jack|<name>] COMMON=true
+```
+Applicable keymaps should follow the format **__keymap\_name.c__**
+
+
+To build the default keymap, simply move to the tmk\_keyboard/keyboard/planck/ and run `make` as follows:
+```
+$ make
+```
 
 ## Keymap
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
@@ -38,3 +56,6 @@ To build firmware binary hex file with a certain keymap just do `make` with `KEY
 - [Pierre's Fork](https://github.com/pcarrier/tmk_keyboard/blob/pcarrier/planck/keyboard/gh60/keymap_planck.c)
 - [Nathan's Fork](https://github.com/nathanrosspowell/tmk_keyboard/tree/planck-jack/keyboard/planck)
 - [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck_grid)
+
+## Environment Setup
+
