@@ -25,6 +25,7 @@ Download the whole firmware [here](https://github.com/jackhumbert/tmk_keyboard/a
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
 **Extended Keymaps (default)**
+
 Extended keymaps need to be specified as follows:
 ```
 $ make KEYMAP=[common|jack|<name>]
@@ -32,6 +33,7 @@ $ make KEYMAP=[common|jack|<name>]
 Applicable keymaps should follow the format **__extended\_keymap\_name.c__**
 
 **Common Keymaps**
+
 Common keymaps need to be specified as follows:
 ```
 $ make KEYMAP=[common|jack|<name>] COMMON=true
