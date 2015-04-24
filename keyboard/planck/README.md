@@ -36,7 +36,7 @@ Extended keymaps need to be specified as follows:
 ```
 $ make KEYMAP=[common|jack|<name>]
 ```
-Applicable keymaps should follow the format **__extended\_keymap\_name.c__**
+Applicable keymaps should follow the format **__extended\_keymap\_<name>.c__**
 
 ####**Common Keymaps**
 
@@ -44,7 +44,7 @@ Common keymaps need to be specified as follows:
 ```
 $ make KEYMAP=[common|jack|<name>] COMMON=true
 ```
-Applicable keymaps should follow the format **__keymap\_name.c__**
+Applicable keymaps should follow the format **__keymap\_<name>.c__**
 
 ## Keymap
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
