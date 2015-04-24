@@ -24,7 +24,13 @@ Download the whole firmware [here](https://github.com/jackhumbert/tmk_keyboard/a
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
-**Extended Keymaps (default)**
+####Default
+To build the default keymap, simply move to the tmk\_keyboard/keyboard/planck/ and run `make` as follows:
+```
+$ make
+```
+
+####**Extended Keymaps**
 
 Extended keymaps need to be specified as follows:
 ```
@@ -32,19 +38,13 @@ $ make KEYMAP=[common|jack|<name>]
 ```
 Applicable keymaps should follow the format **__extended\_keymap\_name.c__**
 
-**Common Keymaps**
+####**Common Keymaps**
 
 Common keymaps need to be specified as follows:
 ```
 $ make KEYMAP=[common|jack|<name>] COMMON=true
 ```
 Applicable keymaps should follow the format **__keymap\_name.c__**
-
-
-To build the default keymap, simply move to the tmk\_keyboard/keyboard/planck/ and run `make` as follows:
-```
-$ make
-```
 
 ## Keymap
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
