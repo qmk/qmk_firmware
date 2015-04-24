@@ -1,0 +1,3 @@
+graft workspace_tools
+recursive-exclude workspace_tools *.pyc
+include LICENSE

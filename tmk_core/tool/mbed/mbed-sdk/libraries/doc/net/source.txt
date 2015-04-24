@@ -1,0 +1,32 @@
+lwip-1.4.0:
+    http://download.savannah.gnu.org/releases/lwip/lwip-1.4.0.zip
+
+NXP lwIP port:
+    http://sw.lpcware.com/index.php?p=lwip_lpc.git&a=snapshot&h=7b84446afe97af955acad1d720696a0de73ab7cf&fmt=zip
+
+NXP Driver Library (needed for Ethernet defines)
+    http://ics.nxp.com/support/documents/microcontrollers/zip/lpc17xx.cmsis.driver.library.zip
+
+# lwip library
+    lwip-1.4.0\src
+        api
+        core
+        include
+        netif
+
+# lwip-eth library
+    lwip_lpc\nxpcommon\
+        examples/lpc177x_8x/ea1788/ea1788_tcpecho_freertos/source/configs/flash/lpc_emac_config.h
+        lpc_phy_dp83848.c
+        lpc_phy.h
+        arch\lpc177x_8x\lpc17_emac.c
+        arch\lpc177x_8x\lpc17_emac.h
+    lpc17xx.cmsis.driver.library\Drivers\include
+        lpc17xx_emac.h
+
+# lwip-sys library
+    lwip_lpc\nxpcommon\arch
+        cc.h
+        perf.h
+    touch sys_arch.c
+    touch sys_arch.h

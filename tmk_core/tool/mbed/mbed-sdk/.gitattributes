@@ -1,0 +1,15 @@
+*.c       text
+*.cpp     text
+*.h       text
+*.s       text
+*.sct     text
+*.ld      text
+*.txt     text
+*.xml     text
+*.py      text
+*.md      text
+*.json    text
+*.tmpl    text
+*.dia     binary
+*.elf     binary
+*.bin     binary

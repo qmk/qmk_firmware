@@ -1,0 +1,35 @@
+lwip/api/tcpip.c: tcpip_init -> tcpip_thread
+
+lwip/core/netif.c: netif_add
+lwip/arch/lpc17_emac.c: lpc_enetif_init -> packet_rx, packet_tx
+
+=== tcpip_thread ===
+    while (true):
+        sys_timeouts_mbox_fetch(&mbox, (void **)&msg)
+        ...
+
+Feeding the tcpip_thread mbox:
+    tcpip_input
+    tcpip_callback_with_block
+    tcpip_timeout
+    tcpip_untimeout
+    tcpip_apimsg
+    tcpip_netifapi
+
+
+=== packet_rx ===
+    while (true):
+        sys_arch_sem_wait(&lpc_enetif->RxSem, osWaitForever)
+        ...
+
+Feeding the RX semaphore:
+    ENET_IRQHandler
+
+
+=== packet_tx ===
+    while (true):
+        sys_arch_sem_wait(&lpc_enetif->TxCleanSem, osWaitForever)
+        ...
+
+Feeding the TX semaphore:
+    ENET_IRQHandler
