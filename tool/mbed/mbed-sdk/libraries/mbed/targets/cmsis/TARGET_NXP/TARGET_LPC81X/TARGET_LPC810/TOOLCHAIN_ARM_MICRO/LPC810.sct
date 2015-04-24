@@ -1,0 +1,14 @@
+
+LR_IROM1 0x00000000 0x1000  {    ; load region size_region (4k)
+  ER_IROM1 0x00000000 0x1000  {  ; load address = execution address
+   *.o (RESET, +First)
+   *(InRoot$$Sections)
+   .ANY (+RO)
+  }
+  ; 8_byte_aligned(48 vect * 4 bytes) = 0xC0
+  ; 1KB(0x0400) - 0xC0 = 0x340
+  RW_IRAM1 (0x10000000+0xC0) (0x400-0xC0)  {
+   .ANY (+RW +ZI)
+  }
+}
+

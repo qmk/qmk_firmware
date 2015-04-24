@@ -1,0 +1,43 @@
+
+
+LOAD_TTB    0x20000000 0x00004000 ; Page 0 of On-Chip Data Retention RAM
+{
+    TTB     +0 EMPTY 0x4000            
+    { }                           ; Level-1 Translation Table for MMU
+}
+
+SFLASH 0x18000000 (0x08000000)
+{
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; S-Flash ROM : Executable cached region
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    BOOT_LOADER_BEGIN 0x18000000 FIXED
+    {
+        *   ( BOOT_LOADER )
+    }
+
+    VECTORS 0x18004000 FIXED
+    {
+        * (RESET, +FIRST)         ; Vector table and other (assembler) startup code
+        * (InRoot$$Sections)      ; All (library) code that must be in a root region
+        * (+RO-CODE)              ; Application RO code (.text)
+    }
+
+    RO_DATA    +0
+    { * (+RO-DATA) }              ; Application RO data (.constdata)
+
+    RW_DATA    0x20020000
+    { * (+RW) }                   ; Application RW data (.data)
+
+    ZI_DATA    +0 ALIGN 0x400
+    { * (+ZI) }                   ; Application ZI data (.bss)
+
+    RW_DATA_NC 0x60900000 0x00100000
+    { * (NC_DATA) }              ; Application RW data Non cached area
+
+    ZI_DATA_NC +0
+    { * (NC_BSS) }               ; Application ZI data Non cached area
+}
+
+
