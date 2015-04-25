@@ -47,20 +47,25 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
+
+
 # # project specific files
-# SRC =	keymap_common.c \
-# 	matrix_handwire.c \
-# 	led.c \
-# 	backlight.c
+ifdef COMMON_KEYMAP
 
-# ifdef KEYMAP
-#     SRC := keymap_$(KEYMAP).c $(SRC)
-# else
-#     SRC := keymap_jack.c $(SRC)
-# endif
+	SRC = keymap_common.c \
+	matrix_handwire.c \
+	led.c \
+	backlight.c
 
-# project specific files
-SRC =	extended_keymap_common.c \
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_jack.c $(SRC)
+endif
+
+else
+
+SRC = extended_keymap_common.c \
 	matrix_handwire.c \
 	led.c \
 	backlight.c
@@ -69,6 +74,8 @@ ifdef KEYMAP
     SRC := extended_keymap_$(KEYMAP).c $(SRC)
 else
     SRC := extended_keymap_jack.c $(SRC)
+endif
+
 endif
 
 CONFIG_H = config.h
