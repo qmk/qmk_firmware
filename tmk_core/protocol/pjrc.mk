@@ -11,6 +11,10 @@ ifdef MOUSEKEY_ENABLE
     SRC += $(PJRC_DIR)/usb_mouse.c
 endif
 
+ifdef ADB_MOUSE_ENABLE
+    SRC += $(PJRC_DIR)/usb_mouse.c
+endif
+
 ifdef PS2_MOUSE_ENABLE
     SRC += $(PJRC_DIR)/usb_mouse.c
 endif
