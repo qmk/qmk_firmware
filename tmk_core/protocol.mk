@@ -46,5 +46,9 @@ ifdef SERIAL_MOUSE_USE_UART
     SRC += $(PROTOCOL_DIR)/serial_uart.c
 endif
 
+ifdef ADB_MOUSE_ENABLE
+	 OPT_DEFS += -DADB_MOUSE_ENABLE -DMOUSE_ENABLE
+endif
+
 # Search Path
 VPATH += $(TMK_DIR)/protocol

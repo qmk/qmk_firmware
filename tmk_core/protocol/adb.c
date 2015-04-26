@@ -60,6 +60,7 @@ static inline void place_bit1(void);
 static inline void send_byte(uint8_t data);
 static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
+static inline uint16_t adb_host_dev_recv(uint8_t device);
 
 
 void adb_host_init(void)
@@ -121,12 +122,33 @@ bool adb_host_psw(void)
 //
 // [from Apple IIgs Hardware Reference Second Edition]
 
+enum {
+    ADDR_KEYB  = 0x20,
+    ADDR_MOUSE = 0x30
+};
+
 uint16_t adb_host_kbd_recv(void)
+{
+    return adb_host_dev_recv(ADDR_KEYB);
+}
+
+#ifdef ADB_MOUSE_ENABLE
+void adb_mouse_init(void) {
+	    return;
+}
+
+uint16_t adb_host_mouse_recv(void)
+{
+    return adb_host_dev_recv(ADDR_MOUSE);
+}
+#endif
+
+static inline uint16_t adb_host_dev_recv(uint8_t device)
 {
     uint16_t data = 0;
     cli();
     attention();
-    send_byte(0x2C);            // Addr:Keyboard(0010), Cmd:Talk(11), Register0(00)
+    send_byte(device|0x0C);     // Addr:Keyboard(0010)/Mouse(0011), Cmd:Talk(11), Register0(00)
     place_bit0();               // Stopbit(0)
     if (!wait_data_hi(500)) {    // Service Request(310us Adjustable Keyboard): just ignored
         sei();
