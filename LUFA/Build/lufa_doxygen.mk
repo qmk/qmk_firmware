@@ -72,7 +72,7 @@ MSG_DOXYGEN_CMD         := ' [DOXYGEN] :'
 # Determine Doxygen invocation command
 BASE_DOXYGEN_CMD := ( cat $(DOXYGEN_CONF) $(DOXYGEN_OVERRIDE_PARAMS:%=; echo "%") ) | doxygen -
 ifeq ($(DOXYGEN_FAIL_ON_WARNING), Y)
-   DOXYGEN_CMD := if ( $(BASE_DOXYGEN_CMD) 2>&1 | grep -v "warning: ignoring unsupported tag" ;); then exit 1; fi;
+   DOXYGEN_CMD := if ( $(BASE_DOXYGEN_CMD) 2>&1 | grep -v -e "[Ww]arning:\|recompile doxygen" ;); then exit 1; fi;
 else
    DOXYGEN_CMD := $(BASE_DOXYGEN_CMD)
 endif
