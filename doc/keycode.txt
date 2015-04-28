@@ -174,7 +174,7 @@ KC_CLEAR_AGAIN                      A2 Keyboard Clear/Again
 KC_CRSEL                            A3 Keyboard CrSel/Props
 KC_EXSEL                            A4 Keyboard ExSel
 /* Modifiers */
-KC_LCTRL            KC_LCTRL        E0 Keyboard LeftControl
+KC_LCTRL            KC_LCTL         E0 Keyboard LeftControl
 KC_LSHIFT           KC_LSFT         E1 Keyboard LeftShift
 KC_LALT                             E2 Keyboard LeftAlt
 KC_LGUI                             E3 Keyboard Left GUI(Windows/Apple/Meta key)
