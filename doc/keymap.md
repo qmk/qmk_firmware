@@ -198,7 +198,7 @@ There are 8 modifiers which has discrimination between left and right.
  See keycode table in [`doc/keycode.txt`](./keycode.txt) for description of keycodes.
 
  In regard to implementation side most of keycodes are identical with [HID usage][HID_usage](pdf) sent to host for real and some virtual keycodes are defined to support special actions.
-[HID_usage]: http://www.usb.org/developers/devclass_docs/Hut1_11.pdf
+[HID_usage]: http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
 
 
 

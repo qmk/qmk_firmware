@@ -70,13 +70,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1001|oopp|BBBB BBBB   8-bit Bitwise Operation???
  *
  * ACT_LAYER_TAP(101x):
- * 101E|LLLL| keycode    On/Off with tap key
- * 101E|LLLL|1110 mods   On/Off with modifiers(0xE0-EF)
- * 101E|LLLL|1111 0000   Invert with tap toggle(0xF0)
- * 101E|LLLL|1111 0001   On/Off
- * 101E|LLLL|1111 0010   Off/On
- * 101E|LLLL|1111 0011   Set/Clear
- * 101E|LLLL|1111 xxxx   Reserved(0xF4-FF)
+ * 101E|LLLL| keycode    On/Off with tap key    (0x00-DF)[TAP]
+ * 101E|LLLL|1110 mods   On/Off with modifiers  (0xE0-EF)[NOT TAP]
+ * 101E|LLLL|1111 0000   Invert with tap toggle (0xF0)   [TAP]
+ * 101E|LLLL|1111 0001   On/Off                 (0xF1)   [NOT TAP]
+ * 101E|LLLL|1111 0010   Off/On                 (0xF2)   [NOT TAP]
+ * 101E|LLLL|1111 0011   Set/Clear              (0xF3)   [NOT TAP]
+ * 101E|LLLL|1111 xxxx   Reserved               (0xF4-FF)
  *   ELLLL: layer 0-31(E: extra bit for layer 16-31)
  *
  *
