@@ -4,4 +4,4 @@
     git co core
     git merge <tmp_branch>
     git co master
-    git subtree merge -P tmk_core
+    git subtree merge -P tmk_core --squash
