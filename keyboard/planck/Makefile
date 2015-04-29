@@ -50,7 +50,7 @@ TARGET_DIR = .
 
 
 # # project specific files
-ifdef COMMON_KEYMAP
+ifdef COMMON
 
 	SRC = keymap_common.c \
 	matrix_handwire.c \
