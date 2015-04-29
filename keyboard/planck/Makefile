@@ -50,7 +50,7 @@ TARGET_DIR = .
 
 
 # # project specific files
-ifdef COMMON_KEYMAP
+ifdef COMMON
 
 	SRC = keymap_common.c \
 	matrix_handwire.c \
@@ -58,9 +58,9 @@ ifdef COMMON_KEYMAP
 	backlight.c
 
 ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
+    SRC := common_keymaps/keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := keymap_jack.c $(SRC)
+    SRC := common_keymaps/keymap_jack.c $(SRC)
 endif
 
 else
@@ -71,9 +71,9 @@ SRC = extended_keymap_common.c \
 	backlight.c
 
 ifdef KEYMAP
-    SRC := extended_keymap_$(KEYMAP).c $(SRC)
+    SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := extended_keymap_jack.c $(SRC)
+    SRC := extended_keymaps/extended_keymap_jack.c $(SRC)
 endif
 
 endif
