@@ -1,10 +1,10 @@
 IBM 4704 Keyboard
 =================
 IBM capacitive switch models:
-    6019273 Model 100 50-key (grid layout)      http://kishy.dyndns.org/?p=977
-    6019284 Model 200 62-key Alpha(60% layout)  http://kishy.dyndns.org/?p=894
-    6019303 Model 300 77-key Expanded Alpha     http://kbtalking.cool3c.com/article/23272
-    6020218 Model 400 107-key Full key          http://kishy.dyndns.org/?p=980
+    6019273 Model 100 50-key (grid layout)      http://kishy.ca/?p=894
+    6019284 Model 200 62-key Alpha(60% layout)  http://kishy.ca/?p=894
+    6019303 Model 300 77-key Expanded Alpha     http://deskthority.net/photos-f62/ibm-6019303-t8502.html
+    6020218 Model 400 107-key Full key          http://kishy.ca/?p=894
 
 Alps switch(vintage Green) models:
     5954339 Japanese 102-key    http://deskthority.net/post87127.html#p87127
