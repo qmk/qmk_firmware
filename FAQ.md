@@ -119,7 +119,9 @@ Properly configure boot section size in Makefile. With wrong section size bootlo
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
-http://geekhack.org/index.php?topic=12047.msg1292018#msg1292018
+
+And see this discussion.
+https://github.com/tmk/tmk_keyboard/issues/179
 
 
 ## Special Extra key doesn't work(System, Audio control keys)
