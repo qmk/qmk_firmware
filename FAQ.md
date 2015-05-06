@@ -53,7 +53,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 
 # Miscellaneous
 ## NKRO Doesn't work
-First you have to compile frimware with this build option `NKRO_ENABLE` in `Makefile`.
+First you have to compile frimware with this build option `NKRO_ENABLE` in **Makefile**.
 
 Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode, in particular when you are in BIOS.
 
@@ -106,7 +106,7 @@ http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 
 ## Bootloader jump doesn't work
-Properly configure bootloader size in Makefile. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
+Properly configure bootloader size in **Makefile**. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
 ```
 # Size of Bootloaders in bytes:
 #   Atmel DFU loader(ATmega32U4)   4096    
