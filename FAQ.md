@@ -106,21 +106,50 @@ http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 
 ## Bootloader jump doesn't work
-Properly configure boot section size in Makefile. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
-- https://github.com/tmk/tmk_keyboard#magic-commands
-- https://github.com/tmk/tmk_keyboard#bootloader
-
+Properly configure bootloader size in Makefile. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
 ```
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096       (TMK Alt Controller)
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
+# Size of Bootloaders in bytes:
+#   Atmel DFU loader(ATmega32U4)   4096    
+#   Atmel DFU loader(AT90USB128)   8192    
+#   LUFA bootloader(ATmega32U4)    4096             
+#   Arduino Caterina(ATmega32U4)   4096             
+#   USBaspLoader(ATmega***)        2048             
+#   Teensy   halfKay(ATmega32U4)   512              
+#   Teensy++ halfKay(AT90USB128)   1024
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
+AVR Boot section size are defined by setting **BOOTSZ** fuse in fact. Consult with your MCU datasheet.
+Note that **Word**(2 bytes) size and address are used in datasheet while TMK uses **Byte**.
 
-And see this discussion.
+AVR Boot section is located at end of Flash memory like the followings.
+```
+byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
+0x0000   +---------------+               0x00000  +---------------+
+         |               |                        |               |
+         |               |                        |               |
+         |  Application  |                        |  Application  |
+         |               |                        |               | 
+         =               =                        =               =
+         |               | 32KB-4KB               |               | 128KB-8KB
+0x6000   +---------------+               0x1FC00  +---------------+
+         |  Bootloader   | 4KB                    |  Bootloader   | 8KB
+0x7FFF   +---------------+               0x1FFFF  +---------------+
+
+ 
+byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
+0x0000   +---------------+               0x00000  +---------------+
+         |               |                        |               |
+         |               |                        |               |
+         |  Application  |                        |  Application  |
+         |               |                        |               |
+         =               =                        =               =
+         |               | 32KB-512B              |               | 128KB-1KB
+0x7E00   +---------------+               0x1FC00  +---------------+
+         |  Bootloader   | 512B                   |  Bootloader   | 1KB
+0x7FFF   +---------------+               0x1FFFF  +---------------+
+```
+
+And see this discussion for further reference.
 https://github.com/tmk/tmk_keyboard/issues/179
 
 
