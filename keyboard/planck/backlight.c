@@ -2,9 +2,11 @@
 #include <avr/io.h>
 #include "backlight.h"
 
+#define CHANNEL OCR1C
 
-void backlight_init_ports()
+void backlight_init_ports(uint8_t level)
 {
+
     // Setup PB7 as output and output low.
     DDRB |= (1<<7);
     PORTB &= ~(1<<7);
@@ -24,9 +26,8 @@ void backlight_init_ports()
     
     TCCR1A = _BV(COM1C1) | _BV(WGM11); // = 0b00001010;
     TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-    
-    // Default to zero duty cycle.
-    OCR1C = 0x0000;
+
+    backlight_init();
 }
 
 void backlight_set(uint8_t level)
@@ -35,12 +36,14 @@ void backlight_set(uint8_t level)
     {
         // Turn off PWM control on PB7, revert to output low.
         TCCR1A &= ~(_BV(COM1C1));
+        // CHANNEL = level << OFFSET | 0x0FFF;
+        CHANNEL = ((1 << level) - 1);
     }
     else
     {
         // Turn on PWM control of PB7
         TCCR1A |= _BV(COM1C1);
-        OCR1C = level << 12 | 0x0FFF;
+        // CHANNEL = level << OFFSET | 0x0FFF;
+        CHANNEL = ((1 << level) - 1);
     }
 }
-

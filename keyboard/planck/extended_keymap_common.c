@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include "action_macro.h"
 #include "debug.h"
+#include "backlight.h"
 
 
 static action_t keycode_to_action(uint16_t keycode);
@@ -46,7 +47,30 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	action_t action;
     	action.code = ACTION_MACRO(keycode & 0xFF);
     	return action;
-	}
+	} else if (keycode >= BL_0 & keycode <= BL_15) {
+        action_t action;
+        action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
+        return action;
+    } else if (keycode == BL_DEC) {
+        action_t action;
+        action.code = ACTION_BACKLIGHT_DECREASE();
+        return action;
+    } else if (keycode == BL_INC) {
+        action_t action;
+        action.code = ACTION_BACKLIGHT_INCREASE();
+        return action;
+    } else if (keycode == BL_TOGG) {
+        action_t action;
+        action.code = ACTION_BACKLIGHT_TOGGLE();
+        return action;
+    } else if (keycode == BL_STEP) {
+        action_t action;
+        action.code = ACTION_BACKLIGHT_STEP();
+        return action;
+    } else if (keycode == RESET) {
+        bootloader_jump();
+        return;
+    }
 
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
