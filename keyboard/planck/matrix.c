@@ -62,8 +62,8 @@ void matrix_init(void)
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
 
-    // TODO fix this dependency 
-    backlight_init_ports();
+    // Pass default level here
+    backlight_init_ports(15);
     
     // initialize row and col
     unselect_rows();

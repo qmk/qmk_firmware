@@ -53,7 +53,7 @@ TARGET_DIR = .
 ifdef COMMON
 
 	SRC = keymap_common.c \
-	matrix_handwire.c \
+	matrix.c \
 	led.c \
 	backlight.c
 
@@ -66,7 +66,7 @@ endif
 else
 
 SRC = extended_keymap_common.c \
-	matrix_handwire.c \
+	matrix.c \
 	led.c \
 	backlight.c
 

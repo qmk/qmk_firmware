@@ -149,4 +149,29 @@ extern const uint16_t fn_actions[];
 
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
+#define BL_ON 0x4009
+#define BL_OFF 0x4000
+#define BL_0 0x4000
+#define BL_1 0x4001
+#define BL_2 0x4002
+#define BL_3 0x4003
+#define BL_4 0x4004
+#define BL_5 0x4005
+#define BL_6 0x4006
+#define BL_7 0x4007
+#define BL_8 0x4008
+#define BL_9 0x4009
+#define BL_10 0x400A
+#define BL_11 0x400B
+#define BL_12 0x400C
+#define BL_13 0x400D
+#define BL_14 0x400E
+#define BL_15 0x400F
+#define BL_DEC 0x4010
+#define BL_INC 0x4011
+#define BL_TOGG 0x4012
+#define BL_STEP 0x4013
+
+#define RESET 0x5000
+
 #endif
