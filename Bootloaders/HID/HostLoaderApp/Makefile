@@ -13,8 +13,9 @@ hid_bootloader_cli: hid_bootloader_cli.c
 else ifeq ($(OS), WINDOWS)
 CC = i586-mingw32msvc-gcc
 CFLAGS ?= -O2 -Wall
+LDLIB = -lsetupapi -lhid
 hid_bootloader_cli.exe: hid_bootloader_cli.c
-	$(CC) $(CFLAGS) -s -DUSE_WIN32 -o hid_bootloader_cli.exe hid_bootloader_cli.c -lhid -lsetupapi
+	$(CC) $(CFLAGS) -s -DUSE_WIN32 -o hid_bootloader_cli.exe hid_bootloader_cli.c $(LDLIB)
 
 
 else ifeq ($(OS), MACOSX)
