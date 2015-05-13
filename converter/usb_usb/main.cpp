@@ -18,7 +18,28 @@
 #include "debug.h"
 #include "keyboard.h"
 
-#include "leonardo_led.h"
+
+/* LED ping configuration */
+#define TMK_LED
+//#define LEONARDO_LED
+#if defined(TMK_LED)
+// For TMK converter and Teensy
+#define LED_TX_INIT    (DDRD  |=  (1<<6))
+#define LED_TX_ON      (PORTD |=  (1<<6))
+#define LED_TX_OFF     (PORTD &= ~(1<<6))
+#define LED_TX_TOGGLE  (PORTD ^=  (1<<6))
+#elif defined(LEONARDO_LED)
+// For Leonardo(TX LED)
+#define LED_TX_INIT    (DDRD  |=  (1<<5))
+#define LED_TX_ON      (PORTD &= ~(1<<5))
+#define LED_TX_OFF     (PORTD |=  (1<<5))
+#define LED_TX_TOGGLE  (PORTD ^=  (1<<5))
+#else
+#define LED_TX_INIT
+#define LED_TX_ON
+#define LED_TX_OFF
+#define LED_TX_TOGGLE
+#endif
 
 
 static USB     usb_host;
