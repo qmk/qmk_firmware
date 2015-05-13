@@ -56,12 +56,11 @@ static void LUFA_setup(void)
 static void HID_setup()
 {
     if (usb_host.Init() == -1) {
-        debug("HID init: failed\n");
         LED_TX_OFF;
     }
-  
+
     _delay_ms(200);
-      
+
     kbd.SetReportParser(0, (HIDReportParser*)&kbd_parser);
 }
 
@@ -72,35 +71,27 @@ int main(void)
     LED_TX_ON;
 
     debug_enable = true;
-/*
-    debug_matrix = true;
-    debug_keyboard = true;
-    debug_mouse = true;
-*/
 
     host_set_driver(&lufa_driver);
     keyboard_init();
 
     LUFA_setup();
+    HID_setup();
+    /* NOTE: Don't insert time consuming job here.
+     * It'll cause unclear initialization failure when DFU reset(worm start).
+     */
     sei();
 
-uint8_t ret;
     // wait for startup of sendchar routine
     while (USB_DeviceState != DEVICE_STATE_Configured) ;
     if (debug_enable) {
         _delay_ms(1000);
     }
 
-    debug("init: start\n");
-    HID_setup();
-    
     debug("init: done\n");
 
 uint16_t timer;
-// to see loop pulse with oscillo scope
-DDRF = (1<<7);
     for (;;) {
-PORTF ^= (1<<7);
         keyboard_task();
 
 timer = timer_read();
@@ -115,6 +106,6 @@ if (timer > 100) {
         USB_USBTask();
 #endif
     }
-        
+
     return 0;
 }
