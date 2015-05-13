@@ -70,7 +70,7 @@ static inline void KEY_INIT(void)
 #ifdef HHKB_JP
     /* row extention for HHKB JP */
     DDRC  |= (1<<6|1<<7);
-    PORTC &= ~(1<<6|1<<7);
+    PORTC |= (1<<6|1<<7);
 #endif
     KEY_UNABLE();
     KEY_PREV_OFF();
