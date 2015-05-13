@@ -1,0 +1,233 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage DFU Class USB AVR Bootloader
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4) - <i>See \ref SSec_Aux_Space</i>
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2) - <i>See \ref SSec_Aux_Space</i>
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Device Firmware Update Class (DFU)</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>None</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF DFU Class Standard, Atmel USB Bootloader Datasheet</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Supported USB Speeds:</b></td>
+ *   <td>Low Speed Mode \n
+ *       Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  This bootloader enumerates to the host as a DFU Class device, allowing for DFU-compatible programming
+ *  software to load firmware onto the AVR.
+ *
+ *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
+ *  into 4KB of bootloader space. If you wish to alter this size and/or change the AVR model, you will need to
+ *  edit the MCU, FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
+ *
+ *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
+ *  bootloader from the normal user application.
+ *
+ *  \section Sec_Running Running the Bootloader
+ *
+ *  This bootloader is designed to be started via the HWB mechanism of the USB AVRs; ground the HWB pin (see device
+ *  datasheet) then momentarily ground /RESET to start the bootloader. This assumes the HWBE fuse is set and the BOOTRST
+ *  fuse is cleared.
+ *
+ *  For board specific exceptions to the above, see below.
+ *
+ *  \subsection SSec_XPLAIN Atmel Xplain Board
+ *  Ground the USB AVR JTAG's \c TCK pin to ground when powering on the board to start the bootloader. This assumes the
+ *  \c HWBE fuse is cleared and the \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \subsection SSec_Leonardo Arduino Leonardo Board
+ *  Ground \c IO13 when powering the board to start the bootloader. This assumes the \c HWBE fuse is cleared and the
+ *  \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \section Sec_Installation Driver Installation
+ *
+ *  This bootloader is designed to be compatible with Atmel's provided Windows DFU class drivers. You will need to
+ *  install Atmel's DFU drivers prior to using this bootloader on Windows platforms. If you are using a 64 bit Windows
+ *  OS, you will need to either disable the driver signing requirement (see online tutorials for details) or use a
+ *  digitally signed version of the official Atmel driver provided by a third party AVR user at
+ *  <a>http://www.avrfreaks.net/index.php?module=Freaks%20Academy&func=viewItem&item_id=2196&item_type=project</a>.
+ *
+ *  \note This device spoofs Atmel's DFU Bootloader USB VID and PID so that the Atmel DFU bootloader
+ *        drivers included with FLIP will work. If you do not wish to use Atmel's ID codes, please
+ *        manually change them in Descriptors.c and alter your driver's INF file accordingly.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  This bootloader is compatible with Atmel's FLIP utility on Windows machines, and dfu-programmer on Linux machines.
+ *
+ *  \subsection SSec_FLIP FLIP (Windows)
+ *
+ *  FLIP (Flexible In-System Programmer) is a utility written by Atmel, and distributed for free on the Atmel website.
+ *  The FLIP utility is designed to assist in the bootloader programming of a range of Atmel devices, through several
+ *  popular physical interfaces including USB. It is written in Java, however makes use of native extensions for USB
+ *  support and thus is only offered on Windows.
+ *
+ *  To program a device using FLIP, refer to the Atmel FLIP documentation.
+ *
+ *  \subsection SSec_DFUProgrammer dfu-programmer (Linux)
+ *
+ *  dfu-programmer is an open-source command line solution for the bootloader programming of Atmel devices through a
+ *  USB connection, using the DFU protocol, available for download at <a>http://sourceforge.net/projects/dfu-programmer/</a>.
+ *
+ *  The following example loads a HEX file into the AVR's FLASH memory using dfu-programmer:
+ *  \code
+ *  dfu-programmer at90usb1287 erase flash Mouse.hex
+ *  \endcode
+ *
+ *  \section Sec_API User Application API
+ *
+ *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
+ *  allowing the user application to call into the bootloader at runtime to read and write FLASH data.
+ *
+ *  \warning The APIs exposed by the DFU class bootloader are \b NOT compatible with the API exposed by the official Atmel DFU bootloader.
+ *
+ *  By default, the bootloader API jump table is located 32 bytes from the end of the device's FLASH memory, and follows the
+ *  following layout:
+ *
+ *  \code
+ *  #define BOOTLOADER_API_TABLE_SIZE          32
+ *  #define BOOTLOADER_API_TABLE_START         ((FLASHEND + 1UL) - BOOTLOADER_API_TABLE_SIZE)
+ *  #define BOOTLOADER_API_CALL(Index)         (void*)((BOOTLOADER_API_TABLE_START + (Index * 2)) / 2)
+ *
+ *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
+ *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
+ *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
+ *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_CALL(3);
+ *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
+ *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
+ *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
+ *
+ *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 2))
+ *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
+ *
+ *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
+ *  #define BOOTLOADER_DFU_SIGNATURE           0xDF10
+ *
+ *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
+ *  #define BOOTLOADER_ADDRESS_LENGTH          4
+ *  \endcode
+ *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_DFU_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes of FLASH
+ *  memory starting from address \c BOOTLOADER_ADDRESS_START.
+ *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_AUX_SECTION_SIZE
+ *  | Booloader Start Trampoline |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - (BOOT_AUX_SECTION_SIZE - 4)
+ *  |                            |
+ *  |     Auxillery Bootloader   |
+ *  |  Space for Smaller Devices |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
+ *
+ *  \subsection SSec_Aux_Space Auxiliary Bootloader Section
+ *  To make the bootloader function on smaller devices (those with a physical
+ *  bootloader section of smaller than 6KB)
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par On Linux machines, the DFU bootloader is inaccessible.
+ *  On many Linux systems, non-root users do not have automatic access to newly
+ *  inserted DFU devices. Root privileges or a UDEV rule is required to gain
+ *  access.
+ *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>SECURE_MODE</td>
+ *    <td>AppConfig.h</td>
+ *    <td>If defined to \c true, the bootloader will not accept any memory commands other than a chip erase on start-up, until an
+ *        erase has been performed. This can be used in conjunction with the AVR's lockbits to prevent the AVRs firmware from
+ *        being dumped by unauthorized persons. When false, all memory operations are allowed at any time.</td>
+ *   </tr>
+ *  </table>
+ */
+

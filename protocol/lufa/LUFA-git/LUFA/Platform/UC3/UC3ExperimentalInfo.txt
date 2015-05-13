@@ -1,0 +1,1 @@
+Please note that the UC3 architecture support is EXPERIMENTAL at this time, and may be non-functional/incomplete in some areas. Please refer to the Known Issues section of the LUFA manual.

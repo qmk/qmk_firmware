@@ -1,0 +1,86 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Temperature Datalogger Project
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4) - <i>those with >16KB of FLASH memory only</i>
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Classes:</b></td>
+ *    <td>Mass Storage Device \n
+ *        Human Interface Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclasses:</b></td>
+ *    <td>Bulk-Only Transport \n
+ *        Keyboard Subclass</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Mass Storage Standard \n
+ *        USB Bulk-Only Transport Standard \n
+ *        SCSI Primary Commands Specification \n
+ *        SCSI Block Commands Specification \n
+ *        USBIF HID Specification, USBIF HID Usage Tables</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Temperature Data Logger project. This project is a very basic USB data logger for the current temperature as reported by
+ *  the board's temperature sensor, writing the temperature to a file stored on the board's Dataflash in a FAT filesystem
+ *  each time a specified interval elapses. When inserted into a PC, the datalogger will appear as a standard USB Mass Storage
+ *  device with a single text file, which contains the logged data. Files are named according to the current date when the
+ *  logging commences.
+ *
+ *  A DS1307 or compatible RTC IC is designed to be attached to the AVR's TWI bus, for the management of timestamps on the
+ *  sampled data. This project will not function correctly if the RTC chip is omitted unless the DUMMY_RTC compile time token
+ *  is specified - see \ref Sec_Options.
+ *
+ *  Due to the host's need for exclusive access to the file system, the device will not log samples while connected to a host.
+ *  For the logger to store data, the Dataflash must first be formatted by the host so that it contains a valid FAT file system.
+ *
+ *  This project uses the FatFS library from ELM Chan (http://elm-chan.org/fsw/ff/00index_e.html) and the .NET HID device library
+ *  LibHIDNet (http://sourceforge.net/projects/libhidnet/).
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>DUMMY_RTC</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When a DS1307 RTC chip is not fitted, this token can be defined to make the demo use a dummy software RTC using the system
+ *        clock. This is less accurate and does not store the set time and date into non-volatile memory.</td>
+ *   </tr>
+ *  </table>
+ */
+
