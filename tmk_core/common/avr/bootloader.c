@@ -11,12 +11,49 @@
 #endif
 
 
-/* Boot Section Size in *BYTEs*
- *   Teensy   halfKay    512
- *   Teensy++ halfKay    1024
- *   Atmel DFU loader    4096
- *   LUFA bootloader     4096
- *   USBaspLoader        2048
+/* Bootloader Size in *bytes*
+ *
+ * AVR Boot section size are defined by setting BOOTSZ fuse in fact. Consult with your MCU datasheet.
+ * Note that 'Word'(2 bytes) size and address are used in datasheet while TMK uses 'Byte'.
+ *
+ *
+ * Size of Bootloaders in bytes:
+ *   Atmel DFU loader(ATmega32U4)   4096
+ *   Atmel DFU loader(AT90USB128)   8192
+ *   LUFA bootloader(ATmega32U4)    4096
+ *   Arduino Caterina(ATmega32U4)   4096
+ *   USBaspLoader(ATmega***)        2048
+ *   Teensy   halfKay(ATmega32U4)   512
+ *   Teensy++ halfKay(AT90USB128)   1024
+ *
+ *
+ * AVR Boot section is located at the end of Flash memory like the followings.
+ *
+ *
+ * byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB128)
+ * 0x0000   +---------------+               0x00000  +---------------+
+ *          |               |                        |               |
+ *          |               |                        |               |
+ *          |  Application  |                        |  Application  |
+ *          |               |                        |               |
+ *          =               =                        =               =
+ *          |               | 32KB-4KB               |               | 128KB-8KB
+ * 0x6000   +---------------+               0x1FC00  +---------------+
+ *          |  Bootloader   | 4KB                    |  Bootloader   | 8KB
+ * 0x7FFF   +---------------+               0x1FFFF  +---------------+
+ *
+ *
+ * byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB128)
+ * 0x0000   +---------------+               0x00000  +---------------+
+ *          |               |                        |               |
+ *          |               |                        |               |
+ *          |  Application  |                        |  Application  |
+ *          |               |                        |               |
+ *          =               =                        =               =
+ *          |               | 32KB-512B              |               | 128KB-1KB
+ * 0x7E00   +---------------+               0x1FC00  +---------------+
+ *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
+ * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
 #ifndef BOOTLOADER_SIZE
 #warning To use bootloader_jump() you need to define BOOTLOADER_SIZE in config.h.
