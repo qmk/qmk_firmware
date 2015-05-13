@@ -1,0 +1,73 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage MIDI Tone Generator Project
+ *
+ *  \section Sec_Compat Project Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this project.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this project.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Audio Class</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Standard Audio Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Audio Class Specification \n
+ *        USB-MIDI Audio Class Extension Specification \n
+ *        General MIDI Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  MIDI note synthesiser project. This project implements a basic DDS frequency synthesiser, capable of producing 8-bit PWM sine
+ *  waves of variable frequency. When attached to a USB host, this project will allow for multiple MIDI notes to be synthesised into
+ *  audiable sound via PWM, using the notes sent to MIDI channel 1.
+ *
+ *  Outgoing audio will output in 8-bit PWM onto the timer 3 output compare channel A. Decouple the audio output with a capacitor
+ *  and attach to a speaker to hear the audio.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>MAX_SIMULTANEOUS_NOTES</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Sets the maximum number of MIDI notes that can be generated simultaneously. More notes require more processing time,
+ *        and thus a value that is too high will cause audiable sound distortion due to insufficient CPU time.</td>
+ *   </tr>
+ *  </table>
+ */
+

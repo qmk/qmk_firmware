@@ -1,0 +1,371 @@
+####################################################
+# Syntax Coloring Map For USB Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+USB	KEYWORD1
+USBHub	KEYWORD1
+
+####################################################
+# Syntax Coloring Map For BTD (Bluetooth) Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+BTD	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+Task	KEYWORD2
+
+####################################################
+# Syntax Coloring Map For PS3/PS4 Bluetooth/USB Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+PS3BT	KEYWORD1
+PS3USB	KEYWORD1
+PS4BT	KEYWORD1
+PS4USB	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+setBdaddr	KEYWORD2
+getBdaddr	KEYWORD2
+setMoveBdaddr	KEYWORD2
+getMoveBdaddr	KEYWORD2
+getMoveCalibration	KEYWORD2
+
+getButtonPress	KEYWORD2
+getButtonClick	KEYWORD2
+getAnalogButton	KEYWORD2
+getAnalogHat	KEYWORD2
+getSensor	KEYWORD2
+getAngle	KEYWORD2
+get9DOFValues	KEYWORD2
+getStatus	KEYWORD2
+printStatusString	KEYWORD2
+getTemperature	KEYWORD2
+disconnect	KEYWORD2
+
+setAllOff	KEYWORD2
+setRumbleOff	KEYWORD2
+setRumbleOn	KEYWORD2
+setLedOff	KEYWORD2
+setLedOn	KEYWORD2
+setLedToggle	KEYWORD2
+setLedFlash	KEYWORD2
+moveSetBulb	KEYWORD2
+moveSetRumble	KEYWORD2
+
+attachOnInit	KEYWORD2
+
+PS3Connected	KEYWORD2
+PS3MoveConnected	KEYWORD2
+PS3NavigationConnected	KEYWORD2
+
+isReady	KEYWORD2
+watingForConnection	KEYWORD2
+
+isTouching	KEYWORD2
+getX	KEYWORD2
+getY	KEYWORD2
+getTouchCounter	KEYWORD2
+
+getUsbStatus    KEYWORD2
+getAudioStatus  KEYWORD2
+getMicStatus    KEYWORD2
+
+####################################################
+# Constants and enums (LITERAL1)
+####################################################
+OFF	LITERAL1
+LED1	LITERAL1
+LED2	LITERAL1
+LED3	LITERAL1
+LED4	LITERAL1
+LED5	LITERAL1
+LED6	LITERAL1
+LED7	LITERAL1
+LED8	LITERAL1
+LED9	LITERAL1
+LED10	LITERAL1
+
+Red	LITERAL1
+Green	LITERAL1
+Blue	LITERAL1
+Yellow	LITERAL1
+Lightblue	LITERAL1
+Purble	LITERAL1
+White	LITERAL1
+Off	LITERAL1
+
+SELECT	LITERAL1
+L3	LITERAL1
+R3	LITERAL1
+START	LITERAL1
+UP	LITERAL1
+RIGHT	LITERAL1
+DOWN	LITERAL1
+LEFT	LITERAL1
+L2	LITERAL1
+R2	LITERAL1
+L1	LITERAL1
+R1	LITERAL1
+TRIANGLE	LITERAL1
+CIRCLE	LITERAL1
+CROSS	LITERAL1
+SQUARE	LITERAL1
+PS	LITERAL1
+MOVE	LITERAL1
+T	LITERAL1
+
+SHARE	LITERAL1
+OPTIONS	LITERAL1
+TOUCHPAD	LITERAL1
+
+LeftHatX	LITERAL1
+LeftHatY	LITERAL1
+RightHatX	LITERAL1
+RightHatY	LITERAL1
+
+aX	LITERAL1
+aY	LITERAL1
+aZ	LITERAL1
+gX	LITERAL1
+gY	LITERAL1
+gZ	LITERAL1
+aXmove	LITERAL1
+aYmove	LITERAL1
+aZmove	LITERAL1
+gXmove	LITERAL1
+gYmove	LITERAL1
+gZmove	LITERAL1
+tempMove	LITERAL1
+mXmove	LITERAL1
+mZmove	LITERAL1
+mYmove	LITERAL1
+
+Pitch	LITERAL1
+Roll	LITERAL1
+
+Plugged	LITERAL1
+Unplugged	LITERAL1
+Charging	LITERAL1
+NotCharging	LITERAL1
+Shutdown	LITERAL1
+Dying	LITERAL1
+Low	LITERAL1
+High	LITERAL1
+Full	LITERAL1
+MoveCharging	LITERAL1
+MoveNotCharging	LITERAL1
+MoveShutdown	LITERAL1
+MoveDying	LITERAL1
+MoveLow	LITERAL1
+MoveHigh	LITERAL1
+MoveFull	LITERAL1
+CableRumble	LITERAL1
+Cable	LITERAL1
+BluetoothRumble	LITERAL1
+Bluetooth	LITERAL1
+
+RumbleHigh	LITERAL1
+RumbleLow	LITERAL1
+
+####################################################
+# Syntax Coloring Map For Xbox 360 Libraries
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+XBOXUSB	KEYWORD1
+XBOXONE	KEYWORD1
+XBOXOLD	KEYWORD1
+XBOXRECV	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+
+setLedRaw	KEYWORD2
+setLedBlink	KEYWORD2
+setLedMode	KEYWORD2
+getBatteryLevel	KEYWORD2
+buttonChanged	KEYWORD2
+
+XboxReceiverConnected	KEYWORD2
+Xbox360Connected	KEYWORD2
+XboxOneConnected	KEYWORD2
+
+####################################################
+# Constants and enums (LITERAL1)
+####################################################
+
+ALL	LITERAL1
+
+ROTATING	LITERAL1
+FASTBLINK	LITERAL1
+SLOWBLINK	LITERAL1
+ALTERNATING	LITERAL1
+
+BACK	LITERAL1
+
+XBOX	LITERAL1
+SYNC	LITERAL1
+
+BLACK	LITERAL1
+WHITE	LITERAL1
+
+A	LITERAL1
+B	LITERAL1
+X	LITERAL1
+Y	LITERAL1
+
+####################################################
+# Syntax Coloring Map For RFCOMM/SPP Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+SPP	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+
+connected	KEYWORD2
+discard	KEYWORD2
+
+####################################################
+# Syntax Coloring Map For Wiimote Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+WII	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+
+wiimoteConnected	KEYWORD2
+nunchuckConnected	KEYWORD2
+motionPlusConnected	KEYWORD2
+wiiUProControllerConnected	KEYWORD2
+wiiBalanceBoardConnected	KEYWORD2
+setRumbleToggle	KEYWORD2
+getPitch	KEYWORD2
+getRoll	KEYWORD2
+getYaw	KEYWORD2
+getWiimotePitch	KEYWORD2
+getWiimoteRoll	KEYWORD2
+getNunchuckPitch	KEYWORD2
+getNunchuckRoll	KEYWORD2
+PAIR	KEYWORD2
+statusRequest	KEYWORD2
+getBatteryLevel	KEYWORD2
+getWiiState	KEYWORD2
+getWeight	KEYWORD2
+getTotalWeight	KEYWORD2
+getWeightRaw	KEYWORD2
+
+####################################################
+# Constants and enums (LITERAL1)
+####################################################
+
+PLUS	LITERAL1
+MINUS	LITERAL1
+ONE	LITERAL1
+TWO	LITERAL1
+HOME	LITERAL1
+Z	LITERAL1
+C	LITERAL1
+L	LITERAL1
+R	LITERAL1
+ZL	LITERAL1
+ZR	LITERAL1
+HatX	LITERAL1
+HatY	LITERAL1
+TopRight	LITERAL1
+BotRight	LITERAL1
+TopLeft	LITERAL1
+BotLeft	LITERAL1
+
+####################################################
+# Methods and Functions for the IR Camera
+####################################################
+
+IRinitialize	KEYWORD2
+isIRCameraEnabled	KEYWORD2
+getIRx1	KEYWORD2
+getIRy1	KEYWORD2
+getIRs1	KEYWORD2
+getIRx2	KEYWORD2
+getIRy2	KEYWORD2
+getIRs2	KEYWORD2
+getIRx3	KEYWORD2
+getIRy3	KEYWORD2
+getIRs3	KEYWORD2
+getIRx4	KEYWORD2
+getIRy4	KEYWORD2
+getIRs4	KEYWORD2
+
+####################################################
+# Syntax Coloring Map For BTHID Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+BTHID	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+SetReportParser	KEYWORD2
+setProtocolMode	KEYWORD2
+
+####################################################
+# Syntax Coloring Map For PS Buzz Library
+####################################################
+
+####################################################
+# Datatypes (KEYWORD1)
+####################################################
+
+PSBuzz	KEYWORD1
+
+####################################################
+# Methods and Functions (KEYWORD2)
+####################################################
+
+setLedOnAll	KEYWORD2
+setLedOffAll	KEYWORD2
+
+####################################################
+# Constants and enums (LITERAL1)
+####################################################
+
+RED	LITERAL1
+YELLOW	LITERAL1
+GREEN	LITERAL1
+ORANGE	LITERAL1
+BLUE	LITERAL1

@@ -1,0 +1,32 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2013.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="service" id="lufa.drivers.usb.class" caption="LUFA USB Class Drivers">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<info type="gui-flag" value="hidden"/>
+			<build type="doxygen-entry-point" value="Group_USBClassDrivers"/>
+
+			<require idref="lufa.drivers.usb.class.android"/>
+			<require idref="lufa.drivers.usb.class.audio"/>
+			<require idref="lufa.drivers.usb.class.cdc"/>
+			<require idref="lufa.drivers.usb.class.hid"/>
+			<require idref="lufa.drivers.usb.class.ms"/>
+			<require idref="lufa.drivers.usb.class.midi"/>
+			<require idref="lufa.drivers.usb.class.printer"/>
+			<require idref="lufa.drivers.usb.class.rndis"/>
+			<require idref="lufa.drivers.usb.class.si"/>
+		</module>
+	</asf>
+</lufa>

@@ -1,0 +1,92 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Audio Input Device Demo
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Audio Class</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Standard Audio Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Audio 1.0 Class Specification \n
+ *        USBIF Audio 1.0 Class Terminal Types Specification \n
+ *        USBIF Audio 1.0 Data Formats Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Audio demonstration application. This gives a simple reference
+ *  application for implementing a USB Audio Input device using the
+ *  basic USB Audio 1.0 drivers in all modern OSes (i.e. no special drivers
+ *  required).
+ *
+ *  On start-up the system will automatically enumerate and function as a
+ *  USB microphone. By default, the demo will produce a square wave test tone
+ *  when the board button is pressed. If USE_TEST_TONE is not defined in the
+ *  project makefile, incoming audio from the ADC channel 1 will be sampled
+ *  and sent to the host computer instead.
+ *
+ *  When in microphone mode, connect a microphone to the ADC channel 2.
+ *
+ *  Under Windows, if a driver request dialogue pops up, select the option
+ *  to automatically install the appropriate drivers.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>MIC_IN_ADC_CHANNEL</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Sets the ADC channel used by the demo for the input audio samples from an attached microphone.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>USE_TEST_TONE</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, this alters the demo to produce a square wave test tone when the first board button is pressed
+ *        instead of sampling the board microphone.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>MICROPHONE_BIASED_TO_HALF_RAIL</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, this alters the demo so that the half VCC bias of the microphone input is subtracted.</td>
+ *   </tr>
+ *  </table>
+ */
+
