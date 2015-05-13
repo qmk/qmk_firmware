@@ -1,0 +1,80 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \dir Platform
+ *  \brief Platform specific drivers.
+ *
+ *  This folder contains platform specific drivers and defines for various supported architectures. These may or may
+ *  not be used in a LUFA application, and are provided for convenience purposes.
+ *
+ *  \dir Drivers
+ *  \brief Library hardware and software drivers.
+ *
+ *  This folder contains all the library hardware and software drivers for each supported board, architecture and
+ *  microcontroller model.
+ *
+ *  \dir Drivers/Misc
+ *  \brief Miscellaneous driver files.
+ *
+ *  This folder contains drivers for aspects other than the USB interface, board hardware or microcontroller peripherals.
+ *
+ *  \dir Drivers/Peripheral
+ *  \brief Microcontroller peripheral driver files.
+ *
+ *  This folder contains drivers for various low level microcontroller peripherals, usually located on the microcontroller
+ *  die within the same physical chip.
+ *
+ *  \dir Drivers/USB
+ *  \brief USB controller peripheral driver files.
+ *
+ *  This folder contains the complete LUFA USB stack and controller files, including the core driver and stack, as well
+ *  as the USB class driver implementations.
+ *
+ *  \dir Drivers/USB/Core
+ *  \brief Core USB driver files.
+ *
+ *  This folder contains the core USB stack and controller driver files, to correctly implement USB functionality on the
+ *  target architecture and microcontroller model. This
+ *
+ *  \dir Drivers/USB/Class
+ *  \brief USB Class helper driver files.
+ *
+ *  This folder contains drivers for implementing functionality of standardized USB classes. These are not used directly by the library,
+ *  but provide a standard and library-maintained way of implementing functionality from some of the defined USB classes without extensive
+ *  development effort. Is is recommended that these drivers be used where possible to reduce maintenance of user applications.
+ *
+ *  \dir Drivers/USB/Class/Device
+ *  \brief USB Device Class helper driver files.
+ *
+ *  Device mode drivers for the standard USB classes.
+ *
+ *  \dir Drivers/USB/Class/Host
+ *  \brief USB Host Class helper driver files.
+ *
+ *  Host mode drivers for the standard USB classes.
+ *
+ *  \dir Drivers/Board
+ *  \brief Board hardware driver files.
+ *
+ *  This folder contains drivers for interfacing with the physical hardware on supported commercial boards, primarily from
+ *  the Atmel corporation. Header files in this folder should be included in user applications requiring the functionality of
+ *  hardware placed on supported boards.
+ *
+ *  \dir CodeTemplates
+ *  \brief Code templates for use in LUFA powered applications.
+ *
+ *  This contains code templates for board drivers, sample LUFA project makefiles and other similar templates that can be copied into
+ *  a LUFA powered application and modified to speed up development.
+ *
+ *  \dir CodeTemplates/DriverStubs
+ *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
+ *
+ *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardware other than those
+ *  directly supported by the library, the BOARD parameter of the application's makefile can be set to "USER", and these stub files
+ *  copied to the "/Board/" directory of the application's folder. When fleshed out with working driver code for the custom board,
+ *  the corresponding LUFA board APIs will work correctly with the non-standard board hardware.
+ */
+

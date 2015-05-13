@@ -1,0 +1,146 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage RNDIS Class Ethernet Demo (with Webserver/Telnet)
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series AU XMEGA AVRs (ATXMEGAxxxAxU)
+ *  \li Series B XMEGA AVRs (ATXMEGAxxxBxU)
+ *  \li Series C XMEGA AVRs (ATXMEGAxxxCxU)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>Microsoft RNDIS Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Remote Network Driver Interface demonstration application.
+ *  This gives a simple reference application for implementing
+ *  a CDC RNDIS device acting as a simple network interface for
+ *  ethernet packet exchange. RNDIS is a proprietary Microsoft
+ *  standard; this demo will only work on Windows 2000 (manually
+ *  patched with the Microsoft RNDIS hotfix) and above (with no
+ *  manual patches), or on the latest Linux kernels.
+ *
+ *  Before running, you will need to install the INF file that
+ *  is located in the RNDISEthernet project directory. This will
+ *  enable Windows to use its inbuilt RNDIS drivers, negating the
+ *  need for special Windows drivers for the device. To install,
+ *  right-click the .INF file and choose the Install option. If
+ *  Windows 2000 is used, the Microsoft INF file in the hotfix
+ *  will need to be altered to use the VID/PID of the demo and
+ *  then chosen instead of the LUFA RNDIS INF file when prompted.
+ *
+ *  When enumerated, this demo will install as a new network
+ *  adapter which ethernet packets can be sent to and received
+ *  from. Running on top of the adapter is a very simple TCP/IP
+ *  stack with a HTTP webserver and TELNET host which can be
+ *  accessed through a web browser at IP address 10.0.0.2:80 or
+ *  through a TELNET client at 10.0.0.2:25. This device also supports
+ *  ping echos via the ICMP protocol.
+ *
+ *  \note The TCP/IP stack in this demo has a number of limitations
+ *  and should serve as an example only - it is not fully featured nor
+ *  compliant to the TCP/IP specification. For complete projects, it is
+ *  recommended that it be replaced with an external open source TCP/IP
+ *  stack that is feature complete, such as the uIP stack.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>CLIENT_IP_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the IP address given to the client (PC) via the DHCP server.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SERVER_IP_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the IP address of the virtual server.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADAPTER_MAC_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the MAC address of the RNDIS adapter on the host (PC) side.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SERVER_MAC_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Configures the MAC address of the virtual server on the network.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_ETHERNET</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received Ethernet headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_ARP</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received ARP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_IP</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received IP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_ICMP</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received ICMP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_TCP</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received TCP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_UDP</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received UDP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_DHCP</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, received DHCP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *  </table>
+ */
+

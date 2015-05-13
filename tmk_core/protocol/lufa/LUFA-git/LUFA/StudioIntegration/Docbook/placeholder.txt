@@ -1,0 +1,1 @@
+Copy the Docbook XSLT docbook-xsl-1.78.1 release contents into this directory (i.e. with the root Docbook files in the current folder). The Docbook releases can be found at http://sourceforge.net/projects/docbook/files/docbook-xsl/ .

@@ -1,0 +1,14 @@
+*.o
+*.d
+*.elf
+*.hex
+*.eep
+*.sym
+*.bin
+*.lss
+*.map
+*.bak
+*.class
+Documentation/
+LUFA/StudioIntegration/ProjectGenerator/*
+LUFA/StudioIntegration/DocBook/*

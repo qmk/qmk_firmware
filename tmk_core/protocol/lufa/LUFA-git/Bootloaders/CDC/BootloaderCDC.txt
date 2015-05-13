@@ -1,0 +1,240 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage CDC Class USB AVR Bootloader
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Abstract Control Model (ACM)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF CDC Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  This bootloader enumerates to the host as a CDC Class device (virtual serial port), allowing for AVR109
+ *  protocol compatible programming software to load firmware onto the AVR.
+ *
+ *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
+ *  into 4KB of bootloader space. If you wish to alter this size and/or change the AVR model, you will need to
+ *  edit the MCU, FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
+ *
+ *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
+ *  bootloader from the normal user application.
+ *
+ *  \warning <b>THIS BOOTLOADER IS NOT SECURE.</b> Malicious entities can recover written data, even if the device
+ *           lockbits are set.
+ *
+ *  \section Sec_Running Running the Bootloader
+ *
+ *  This bootloader is designed to be started via the HWB mechanism of the USB AVRs; ground the HWB pin (see device
+ *  datasheet) then momentarily ground /RESET to start the bootloader. This assumes the HWBE fuse is set and the BOOTRST
+ *  fuse is cleared.
+ *
+ *  For board specific exceptions to the above, see below.
+ *
+ *  \subsection SSec_XPLAIN Atmel Xplain Board
+ *  Ground the USB AVR JTAG's \c TCK pin to ground when powering on the board to start the bootloader. This assumes the
+ *  \c HWBE fuse is cleared and the \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \subsection SSec_Leonardo Arduino Leonardo Board
+ *  Ground \c IO13 when powering the board to start the bootloader. This assumes the \c HWBE fuse is cleared and the
+ *  \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \section Sec_Installation Driver Installation
+ *
+ *  After running this bootloader for the first time on a new computer, you will need to supply the .INF
+ *  file located in this bootloader project's directory as the device's driver when running under Windows.
+ *  This will enable Windows to use its inbuilt CDC drivers, negating the need for custom drivers for the
+ *  device. Other Operating Systems should automatically use their own inbuilt CDC-ACM drivers.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  This bootloader is compatible with the open source application AVRDUDE, Atmel's AVRPROG, or other
+ *  applications implementing the AVR109 protocol, which is documented on the Atmel website as an application
+ *  note.
+ *
+ *  \subsection SSec_AVRDude AVRDUDE (Windows, Mac, Linux)
+ *
+ *  AVRDude is a free, cross-platform and open source command line programmer for Atmel and third party AVR
+ *  programmers. It is available on the the Windows platform as part of the "WinAVR" package, or on other systems
+ *  either from a build from the official source code, or in many distributions as a precompiled binary package.
+ *
+ *  To load a new HEX file with AVRDude, specify "AVR109" as the programmer, with the allocated COM port. On Windows
+ *  platforms this will be a COMx port name:
+ *  \code
+ *  avrdude -c AVR109 -p at90usb1287 -P COM0 -U flash:w:Mouse.hex
+ *  \endcode
+ *
+ *  On Linux systems, this will typically be a /dev/ttyACMx port name:
+ *  \code
+ *  avrdude -c AVR109 -p at90usb1287 -P /dev/ttyACM0 -U flash:w:Mouse.hex
+ *  \endcode
+ *
+ *  Refer to the AVRDude project documentation for additional usage instructions.
+ *
+ *  \section Sec_API User Application API
+ *
+ *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
+ *  allowing the user application to call into the bootloader at runtime to read and write FLASH data.
+ *
+ *  By default, the bootloader API jump table is located 32 bytes from the end of the device's FLASH memory, and follows the
+ *  following layout:
+ *
+ *  \code
+ *  #define BOOTLOADER_API_TABLE_SIZE          32
+ *  #define BOOTLOADER_API_TABLE_START         ((FLASHEND + 1UL) - BOOTLOADER_API_TABLE_SIZE)
+ *  #define BOOTLOADER_API_CALL(Index)         (void*)((BOOTLOADER_API_TABLE_START + (Index * 2)) / 2)
+ *
+ *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
+ *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
+ *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
+ *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_CALL(3);
+ *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
+ *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
+ *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
+ *
+ *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 2))
+ *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
+ *
+ *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
+ *  #define BOOTLOADER_CDC_SIGNATURE           0xDF00
+ *
+ *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
+ *  #define BOOTLOADER_ADDRESS_LENGTH          4
+ *  \endcode
+ *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_CDC_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes of FLASH
+ *  memory starting from address \c BOOTLOADER_ADDRESS_START.
+ *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par On Linux machines, the CDC bootloader is unstable or inaccessible.
+ *  A change to the \c ModemManager module in many Linux distributions causes
+ *  this module to try to take control over inserted CDC devices, corrupting the
+ *  datastream. A UDEV rule is required to prevent this.
+ *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
+ *  If the issue still persists then uninstall modemmanager by executing <tt>sudo apt-get remove modemmanager</tt>, or
+ *  the equivalent using your chosen distribution's package manager.
+ *
+ *  \par On Linux machines, the CDC bootloader is inaccessible.
+ *  On many Linux systems, non-root users do not have automatic access to newly
+ *  inserted CDC devices. Root privileges or a UDEV rule is required to gain
+ *  access.
+ *  See <a href=https://groups.google.com/d/msg/lufa-support/CP9cy2bc8yo/kBqsOu-RBeMJ>here</a> for resolution steps.
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_BLOCK_SUPPORT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable memory block read/write support in the bootloader, requiring all reads and writes to be made
+ *        using the byte-level commands.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_EEPROM_BYTE_SUPPORT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable EEPROM memory byte read/write support in the bootloader, requiring all EEPROM reads and writes
+ *        to be made using the block-level commands.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_FLASH_BYTE_SUPPORT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable FLASH memory byte read/write support in the bootloader, requiring all FLASH reads and writes
+ *        to be made using the block-level commands.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_LOCK_BYTE_WRITE_SUPPORT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable lock byte write support in the bootloader, preventing the lock bits from being set programmatically.</td>
+ *   </tr>
+ *  </table>
+ */
+
