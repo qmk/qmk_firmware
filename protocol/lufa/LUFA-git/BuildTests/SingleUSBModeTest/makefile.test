@@ -1,0 +1,69 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2014.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+# --------------------------------------
+#         LUFA Project Makefile.
+# --------------------------------------
+
+# Run "make help" for target help.
+
+MCU          =
+ARCH         =
+BOARD        = NONE
+F_CPU        = $(F_USB)
+DEBUG_LEVEL  = 0
+
+ifeq ($(ARCH), AVR8)
+  F_USB      = 8000000
+else ifeq ($(ARCH), XMEGA)
+  F_USB      = 48000000
+else ifeq ($(ARCH), UC3)
+  F_USB      = 48000000
+endif
+
+OPTIMIZATION = 1
+TARGET       = Test
+SRC          = Test.c Dummy.S $(LUFA_SRC_USB)
+LUFA_PATH    = ../../LUFA
+
+# Generic C/C++ compiler flags
+CC_FLAGS  = -Wextra
+CC_FLAGS += -Werror
+CC_FLAGS += -Wformat=2
+CC_FLAGS += -Winit-self
+CC_FLAGS += -Wswitch-enum
+CC_FLAGS += -Wunused
+CC_FLAGS += -Wundef
+CC_FLAGS += -Wpointer-arith
+CC_FLAGS += -Wcast-align
+CC_FLAGS += -Wwrite-strings
+CC_FLAGS += -Wlogical-op
+CC_FLAGS += -Wmissing-declarations
+CC_FLAGS += -Wmissing-field-initializers
+CC_FLAGS += -Wmissing-format-attribute
+CC_FLAGS += -Woverlength-strings
+
+# Only enable rendundant declaration warnings for AVR8 target (FIXME)
+ifeq ($(ARCH), AVR8)
+  CC_FLAGS += -Wredundant-decls
+endif
+
+# C compiler only flags
+C_FLAGS += -Wmissing-parameter-type
+C_FLAGS += -Wnested-externs
+
+# Potential additional warnings to enable in the future (FIXME)
+#CC_FLAGS += -Wswitch-default
+#CC_FLAGS += -Wc++-compat
+#CC_FLAGS += -Wcast-qual
+#CC_FLAGS += -Wconversion
+#CC_FLAGS += -Wjump-misses-init
+#CC_FLAGS += -pedantic
+
+# Include LUFA build script makefiles
+include $(LUFA_PATH)/Build/lufa_sources.mk
+include $(LUFA_PATH)/Build/lufa_build.mk

@@ -1,0 +1,52 @@
+<asf xmlversion="1.0">
+	<project caption="Magnetic Strip Card Reader" id="lufa.projects.magstripe.avr8">
+		<require idref="lufa.projects.magstripe"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="at90usb1287"/>
+		<config name="lufa.drivers.board.name" value="usbkey"/>
+
+		<build type="define" name="F_CPU" value="8000000UL"/>
+		<build type="define" name="F_USB" value="8000000UL"/>
+	</project>
+
+	<module type="application" id="lufa.projects.magstripe" caption="Magnetic Strip Card Reader">
+		<info type="description" value="summary">
+		Magnetic strip card reader project.
+		</info>
+
+ 		<info type="gui-flag" value="move-to-root"/>
+
+		<info type="keyword" value="Technology">
+			<keyword value="Class Driver APIs"/>
+			<keyword value="USB Device"/>
+			<keyword value="HID Class"/>
+		</info>
+
+		<device-support-alias value="lufa_avr8"/>
+		<device-support-alias value="lufa_xmega"/>
+		<device-support-alias value="lufa_uc3"/>
+
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
+		<build type="distribute" subtype="user-file" value="Magstripe.txt"/>
+
+		<build type="c-source" value="Magstripe.c"/>
+		<build type="c-source" value="Descriptors.c"/>
+		<build type="header-file" value="Magstripe.h"/>
+		<build type="header-file" value="Descriptors.h"/>
+
+		<build type="c-source" value="Lib/CircularBitBuffer.c"/>
+		<build type="header-file" value="Lib/CircularBitBuffer.h"/>
+		<build type="header-file" value="Lib/MagstripeHW.h"/>
+
+		<build type="module-config" subtype="path" value="Config"/>
+		<build type="module-config" subtype="required-header-file" value="AppConfig.h"/>
+		<build type="header-file" value="Config/AppConfig.h"/>
+		<build type="header-file" value="Config/LUFAConfig.h"/>
+
+		<require idref="lufa.common"/>
+		<require idref="lufa.platform"/>
+		<require idref="lufa.drivers.usb"/>
+	</module>
+</asf>

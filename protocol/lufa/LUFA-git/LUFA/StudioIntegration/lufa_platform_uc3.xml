@@ -1,0 +1,26 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2013.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="driver" id="lufa.platform.uc3" caption="LUFA UC3 Platform Drivers">
+			<device-support-alias value="lufa_uc3"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<build type="doxygen-entry-point" value="Group_PlatformDrivers_UC3"/>
+
+			<build type="header-file" value="Platform/UC3/ClockManagement.h"/>
+			<build type="header-file" value="Platform/UC3/InterruptManagement.h"/>
+			<build type="c-source" value="Platform/UC3/InterruptManagement.c"/>
+			<build type="asm-source" value="Platform/UC3/Exception.S"/>
+		</module>
+	</asf>
+</lufa>
