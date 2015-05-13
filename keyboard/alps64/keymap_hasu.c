@@ -6,9 +6,9 @@
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default Layer
      * ,-----------------------------------------------------------.
-     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
+     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   \   |
      * |-----------------------------------------------------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Bspc |
      * |-----------------------------------------------------------|
      * |Ctrl  |  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|FN1     |
      * |-----------------------------------------------------------|
@@ -18,17 +18,17 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     [0] = KEYMAP_AEK( \
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, \
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
+        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS, \
+        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN1, \
         LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT, \
-        LCTL,LGUI,LALT,          FN4,                          RALT,FN5, RCTL),
+        LCTL,LGUI,LALT,          FN4,                          RALT,FN5, FN0),
 
     /* HHKB mode[HHKB Fn]
      * ,-----------------------------------------------------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Del    |
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   `   |
      * |-----------------------------------------------------------|
-     * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Backs|
+     * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Del  |
      * |-----------------------------------------------------------|
      * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
      * |-----------------------------------------------------------|
@@ -38,11 +38,11 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */ 
     [1] = KEYMAP_AEK( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
-        CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  BSPC, \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
+        CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS,UP,  NO,  DEL, \
         LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,TRNS, \
         LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,RSFT, \
-        LCTL,LGUI,LALT,          TRNS,                         RALT,RGUI,RCTL),
+        LCTL,LGUI,LALT,          TRNS,                         RALT,RGUI,TRNS),
 
     /* Vi mode[Slash]
      * ,-----------------------------------------------------------.
@@ -58,8 +58,8 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'
      */
     [2] = KEYMAP_AEK( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
-        TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  BSPC, \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
+        TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  DEL, \
         LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  ENT, \
         LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT, \
         LCTL,LGUI,LALT,          SPC,                          RALT,RGUI,RCTL),
@@ -79,7 +79,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     [3] = KEYMAP_AEK( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
         FN8, NO,  NO,  NO,  NO,  NO,  NO,  WH_D,MS_U,WH_U,RGHT,FN9, FN10,FN8, \
         LCTL,ACL0,ACL1,ACL2,ACL2,NO,  NO,  MS_L,MS_D,MS_R,TRNS,NO,  ENT, \
         LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT, \
@@ -100,7 +100,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
     [4] = KEYMAP_AEK( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL, \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, GRV, \
         FN8, NO,  NO,  NO,  NO,  NO,  NO,  WH_D,MS_U,WH_U,RGHT,FN9, FN10,FN8, \
         LCTL,VOLD,VOLU,MUTE,NO,  NO,  NO,  MS_L,MS_D,MS_R,BTN1,NO,  ENT, \
         LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT, \
@@ -122,7 +122,7 @@ enum macro_id {
  * Fn action definition
  */
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_DEFAULT_LAYER_SET(0),                // Default layer(not used)
+    [0] = ACTION_LAYER_MOMENTARY(1),                  // HHKB layer
     [1] = ACTION_LAYER_TAP_KEY(1, KC_ENTER),          // HHKB layer
     [2] = ACTION_LAYER_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
     [3] = ACTION_LAYER_TAP_KEY(3, KC_SCLN),           // Mousekey layer with Semicolon*
