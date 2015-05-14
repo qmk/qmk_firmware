@@ -57,15 +57,15 @@ Keyboard to Host
 ----------------
 Data bits are LSB first and Pairty is odd. Clock has around 60us high and 30us low part.
 
-            ____      __   __   __   __   __   __   __   __   __   ________
-    Clock       \____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+            ____       __   __   __   __   __   __   __   __   __   _______
+    Clock       \_____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
                  ____ ____ ____ ____ ____ ____ ____ ____ ____ ____    
     Data    ____/    X____X____X____X____X____X____X____X____X____X________
                 Start   0    1    2    3    4    5    6    7    P  Stop
 
 Start bit:  can be long as 300-350us.
 Inhibit:    Pull Data line down to inhibit keyboard to send.
-Timing:     Host reads bit while Clock is hi.
+Timing:     Host reads bit while Clock is hi.(rising edge)
 Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
 
 
