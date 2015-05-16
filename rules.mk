@@ -422,6 +422,11 @@ dfu: $(TARGET).hex
 	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(TARGET).hex
 	dfu-programmer $(MCU) reset
+
+dfu-force: $(TARGET).hex
+	dfu-programmer $(MCU) erase --force
+	dfu-programmer $(MCU) flash $(TARGET).hex
+	dfu-programmer $(MCU) reset
 	
 dfu-start:
 	dfu-programmer $(MCU) reset
