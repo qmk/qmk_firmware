@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "backlight.h" // TODO fix this dependency 
 
 
 #ifndef DEBOUNCE
@@ -58,13 +57,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-
-    // TODO fix this dependency 
-    backlight_init_ports();
-    
     // initialize row and col
     unselect_rows();
     init_cols();
@@ -142,19 +134,10 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-//
-// Planck PCB Rev 1 Pin Assignments
-//
-// Column: 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11
-// Pin:    F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7
-//
-
 static void init_cols(void)
 {
-    DDRB &= ~(1<<4 | 1<<0);
-    PORTB |= (1<<4 | 1<<0);
-    DDRC &= ~(1<<7);
-    PORTC |= (1<<7);
+    DDRB &= ~(1<<6 | 1<<5 | 1<<4);
+    PORTB |= (1<<6 | 1<<5 | 1<<4);
     DDRD &= ~(1<<7 | 1<<6 | 1<<4);
     PORTD |= (1<<7 | 1<<6 | 1<<4);
     DDRF &= ~(1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
@@ -164,55 +147,46 @@ static void init_cols(void)
 
 static matrix_row_t read_cols(void)
 {
-  return (PINF&(1<<1) ? 0 : (1<<0)) |
-         (PINF&(1<<0) ? 0 : (1<<1)) |
-         (PINB&(1<<0) ? 0 : (1<<2)) |
-         (PINC&(1<<7) ? 0 : (1<<3)) |
-         (PINF&(1<<4) ? 0 : (1<<4)) |
-         (PINF&(1<<5) ? 0 : (1<<5)) |
-         (PINF&(1<<6) ? 0 : (1<<6)) |
-         (PINF&(1<<7) ? 0 : (1<<7)) |
-         (PIND&(1<<4) ? 0 : (1<<8)) |
-         (PIND&(1<<6) ? 0 : (1<<9)) |
-         (PINB&(1<<4) ? 0 : (1<<10)) |
-         (PIND&(1<<7) ? 0 : (1<<11));
+  return (PIND&(1<<4) ? 0 : (1<<0)) |
+         (PIND&(1<<6) ? 0 : (1<<1)) |
+         (PIND&(1<<7) ? 0 : (1<<2)) |
+         (PINB&(1<<4) ? 0 : (1<<3)) |
+         (PINB&(1<<5) ? 0 : (1<<4)) |
+         (PINB&(1<<6) ? 0 : (1<<5)) |
+         (PINF&(1<<7) ? 0 : (1<<6)) |
+         (PINF&(1<<6) ? 0 : (1<<7)) |
+         (PINF&(1<<5) ? 0 : (1<<8)) |
+         (PINF&(1<<4) ? 0 : (1<<9)) |
+         (PINF&(1<<1) ? 0 : (1<<10)) |
+         (PINF&(1<<0) ? 0 : (1<<11));
          
 }
 
 static void unselect_rows(void)
 {
-    DDRB &= ~(1<<5 | 1<<6);
-    PORTB |= (1<<5 | 1<<6);
-    DDRD &= ~(1<<0 | 1<<5);
-    PORTD |= (1<<0 | 1<<5);
+    DDRB &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
+    PORTB |= (1<<0 | 1<<1 | 1<<2 | 1<<3);
     
 }
-
-//
-// Planck PCB Rev 1 Pin Assignments
-//
-// Row: 0,  1,  2,  3
-// Pin: D0, D5, B5, B6
-//
 
 static void select_row(uint8_t row)
 {
     switch (row) {
         case 0:
-            DDRD  |= (1<<0);
-            PORTD &= ~(1<<0);
+            DDRB  |= (1<<0);
+            PORTB &= ~(1<<0);
             break;
         case 1:
-            DDRD  |= (1<<5);
-            PORTD &= ~(1<<5);
+            DDRB  |= (1<<1);
+            PORTB &= ~(1<<1);
             break;
         case 2:
-            DDRB  |= (1<<5);
-            PORTB &= ~(1<<5);
+            DDRB  |= (1<<2);
+            PORTB &= ~(1<<2);
             break;
         case 3:
-            DDRB  |= (1<<6);
-            PORTB &= ~(1<<6);
+            DDRB  |= (1<<3);
+            PORTB &= ~(1<<3);
             break;
         
     }
