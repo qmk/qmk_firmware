@@ -103,3 +103,12 @@ Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`
 * Enable KATAKANA Key on PC keyboard
 
 https://pqrs.org/osx/karabiner/seil.html
+
+
+## RN-42 Bluetooth doesn't work with Karabiner
+Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
+https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
+
+See these for the deail of this problem.
+https://github.com/tmk/tmk_keyboard/issues/213
+https://github.com/tekezo/Karabiner/issues/403
