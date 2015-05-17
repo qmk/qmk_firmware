@@ -19,7 +19,7 @@
   *     exit automatically unless an external reset was the last reset cause (thanks to Alex Kazik)
   *
   *  <b>Fixed:</b>
-  *   - None.
+  *   - Fixed broken XMEGA serial stream driver due to missing USART base pointer parameter (thanks to William Patterson)
   *
   *  \section Sec_ChangeLog140928 Version 140928
   *  <b>New:</b>

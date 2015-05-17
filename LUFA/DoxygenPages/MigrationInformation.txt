@@ -12,7 +12,8 @@
  *
  *  \section Sec_MigrationXXXXXX Migrating from 140928 to XXXXXX
  *  <b>Non-USB Library Components</b>
- *    - The ATPROGRAM LUFA build system module now defaults to the Atmel ICE debuger tool, instead of the Atmel JTAG ICE3.
+ *    - The ATPROGRAM LUFA build system module now defaults to the Atmel ICE debugger tool, instead of the Atmel JTAG ICE3.
+ *    - The \x Serial_CreateStream() and \c Serial_CreateBlockingStream() functions now require a USART base pointer for XMEGA devices as the first parameter.
  *
  *  \section Sec_Migration140928 Migrating from 140302 to 140928
  *  <b>Device Mode</b>
