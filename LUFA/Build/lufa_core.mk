@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2014.
+#     Copyright (C) Dean Camera, 2015.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
@@ -76,7 +76,7 @@ PRINTABLE_LUFA_PROVIDED_MACROS = $(call CONVERT_TO_PRINTABLE, $(SORTED_LUFA_PROV
 help:
 	@echo "==================================================================="
 	@echo "                       LUFA Build System 2.0                       "
-	@echo "      (C) Dean Camera, 2014 { dean @ fourwalledcubicle . com }     "
+	@echo "      (C) Dean Camera, 2015 { dean @ fourwalledcubicle . com }     "
 	@echo "==================================================================="
 	@echo "DESCRIPTION:                                                       "
 	@echo " This build system is a set of makefile modules for (GNU) Make, to "
