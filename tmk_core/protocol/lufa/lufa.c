@@ -544,7 +544,7 @@ int8_t sendchar(uint8_t c)
 /*******************************************************************************
  * main
  ******************************************************************************/
-static void SetupHardware(void)
+static void setup_mcu(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
     MCUSR &= ~(1 << WDRF);
@@ -552,7 +552,10 @@ static void SetupHardware(void)
 
     /* Disable clock division */
     clock_prescale_set(clock_div_1);
+}
 
+static void setup_usb(void)
+{
     // Leonardo needs. Without this USB device is not recognized.
     USB_Disable();
 
@@ -566,7 +569,9 @@ static void SetupHardware(void)
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
-    SetupHardware();
+    setup_mcu();
+    keyboard_setup();
+    setup_usb();
     sei();
 
     /* wait for USB startup & debug output */
