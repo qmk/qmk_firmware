@@ -43,7 +43,9 @@ extern "C" {
 uint8_t matrix_rows(void);
 /* number of matrix columns */
 uint8_t matrix_cols(void);
-/* intialize matrix for scaning. should be called once. */
+/* should be called at early stage of startup before matrix_init.(optional) */
+void matrix_setup(void);
+/* intialize matrix for scaning. */
 void matrix_init(void);
 /* scan all key states on matrix */
 uint8_t matrix_scan(void);

@@ -67,35 +67,31 @@ uint8_t matrix_cols(void)
 
 static void enable_break(void)
 {
-    uint8_t ret;
     print("Enable break: ");
     // valid scancode: 00-79h
     for (uint8_t code = 0; code < 0x7A; code++) {
-        while (ibm4704_send(0x80|code)) _delay_ms(1);
-        // get none when ok, get FD when out of bound
-        _delay_ms(5);
-        if ((ret = ibm4704_recv()) != 0xff) {
-            xprintf("c%02X:r%02X ", code, ret);
-        }
-        _delay_ms(1);
+        while (ibm4704_send(0x80|code)) _delay_ms(10);
+        _delay_ms(5);   // wait for response
+        // No response(FF) when ok, FD when out of bound
+        xprintf("s%02X:r%02X ", code, ibm4704_recv());
     }
-    _delay_us(1000);
-    while (ibm4704_send(0xFF)) { _delay_ms(1); } // End
+    while (ibm4704_send(0xFF)) { _delay_ms(10); } // End
     print("End\n");
+}
+
+
+void matrix_setup(void)
+{
+    ibm4704_init();
 }
 
 void matrix_init(void)
 {
     debug_enable = true;
 
-    ibm4704_init();
-    matrix_clear();
-
-    _delay_ms(2000);    // wait for starting up debug console
-
     print("IBM 4704 converter\n");
-    while (ibm4704_send(0xFE)) _delay_ms(1);    // resend
-    _delay_ms(5);
+    matrix_clear();
+    _delay_ms(2000);    // wait for keyboard starting up
     xprintf("Keyboard ID: %02X\n", ibm4704_recv());
     enable_break();
 }
