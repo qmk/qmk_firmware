@@ -14,7 +14,7 @@ In case of Teensy2.0(ATMega32U4):
     - **USART**:       **Clock** is on `PD5` and **Data** on `PD2`.
 3. Optionally you need pull-up resistor. 1K-10K Ohm is OK.
 
-To change pin configuration edit config.h.
+To change pin configuration edit **config.h** and **Makefile**.
 
 
 Build Firmware
