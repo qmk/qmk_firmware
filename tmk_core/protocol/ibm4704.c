@@ -21,9 +21,10 @@ uint8_t ibm4704_error = 0;
 
 void ibm4704_init(void)
 {
+    inhibit();  // keep keyboard from sending
     IBM4704_INT_INIT();
     IBM4704_INT_ON();
-    idle();
+    idle();     // allow keyboard sending
 }
 
 /*
@@ -132,8 +133,8 @@ Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
 ISR(IBM4704_INT_VECT)
 {
     static enum {
-        STOP, BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7, PARITY
-    } state = STOP;
+        BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7, PARITY, STOP
+    } state = BIT0;
     // LSB first
     static uint8_t data = 0;
     // Odd parity
@@ -141,11 +142,7 @@ ISR(IBM4704_INT_VECT)
 
     ibm4704_error = 0;
 
-    switch (state++) {
-        case STOP:
-            // Data:Low
-            WAIT(data_lo, 10, state);
-            break;
+    switch (state) {
         case BIT0:
         case BIT1:
         case BIT2:
@@ -166,6 +163,10 @@ ISR(IBM4704_INT_VECT)
             }
             if (!parity)
                 goto ERROR;
+            break;
+        case STOP:
+            // Data:Low
+            WAIT(data_lo, 100, state);
             rbuf_enqueue(data);
             ibm4704_error = IBM4704_ERR_NONE;
             goto DONE;
@@ -173,13 +174,14 @@ ISR(IBM4704_INT_VECT)
         default:
             goto ERROR;
     }
+    state++;
     goto RETURN;
 ERROR:
     ibm4704_error = state;
     while (ibm4704_send(0xFE)) _delay_ms(1); // resend
     xprintf("R:%02X%02X\n", state, data);
 DONE:
-    state = STOP;
+    state = BIT0;
     data = 0;
     parity = false;
 RETURN:

@@ -166,13 +166,14 @@ Data sent from host:
          |   `-----`--- scan code
          `------------- enable bit(0: enable repeat, 1: enable break)
 
-    00-77   Enable repeat(78-7F: invalid scancode)
-    80-F7   Enable break(F8-FF: invalid scancode)
+    00-79   Enable repeat
+    80-F9   Enable break(FA-FF are used as other commands, see above.)
     FE      Resend(011ah) no need to use
     FF      End(0114h) exits FC command mode.
 
 Response from keyboard:
     FD      Out of bound - Invalid scancode
+    --      OK - No response means that command is accepted.
 
 Examples:
     To enable break code of all keys.
