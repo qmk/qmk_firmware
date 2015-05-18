@@ -46,6 +46,8 @@ int main(void)
     // set for 16 MHz clock
     CPU_PRESCALE(0);
 
+    keyboard_setup();
+
     // Initialize the USB, and then wait for the host to set configuration.
     // If the Teensy is powered without a PC connected to the USB port,
     // this will wait forever.

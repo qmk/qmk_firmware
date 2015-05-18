@@ -58,12 +58,14 @@ static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) &&
 }
 
 
+/* it runs once at early stage of startup before keyboard_init. */
+void keyboard_setup(void);
+/* it runs once after initializing host side protocol, debug and MCU peripherals. */
 void keyboard_init(void);
+/* it runs repeatedly in main loop */
 void keyboard_task(void);
+/* it runs when host LED status is updated */
 void keyboard_set_leds(uint8_t leds);
-
-__attribute__ ((weak)) void matrix_power_up(void) {}
-__attribute__ ((weak)) void matrix_power_down(void) {}
 
 #ifdef __cplusplus
 }
