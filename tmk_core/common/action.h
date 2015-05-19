@@ -51,6 +51,7 @@ void action_exec(keyevent_t event);
 
 /* action for key */
 action_t action_for_key(uint8_t layer, keypos_t key);
+action_t action_for_key_default(uint8_t layer, keypos_t key);
 
 /* macro */
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);

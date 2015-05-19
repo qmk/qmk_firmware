@@ -27,8 +27,13 @@ static action_t keycode_to_action(uint8_t keycode);
 
 
 /* converts key to action */
+__attribute__((__weak__))
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
+	return action_for_key_default(layer, key);
+}
+
+action_t action_for_key_default(uint8_t layer, keypos_t key)
     uint8_t keycode = keymap_key_to_keycode(layer, key);
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
