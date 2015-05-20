@@ -36,6 +36,16 @@
 
 #include "AVRISP-MKII.h"
 
+#if (BOARD != BOARD_NONE)
+  /* Some board hardware definitions (e.g. the Arduino Micro) have their LEDs defined on the same pins
+     as the ISP, PDI or TPI interfaces (see the accompanying project documentation). If a board other
+     than NONE is selected (to enable the LED driver with the programmer) you should double-check that
+     no conflicts will occur. If there is a conflict, turn off the LEDs (set BOARD to NONE in the makefile)
+     or define a custom board driver (see the LUFA manual) with alternative LED mappings.
+  */
+  #warning Board specific drivers have been selected; make sure the board LED driver does not conflict with the programmer ISP/PDI/TPI interfaces.
+#endif
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
