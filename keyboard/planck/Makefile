@@ -73,7 +73,7 @@ SRC = extended_keymap_common.c \
 ifdef KEYMAP
     SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := extended_keymaps/extended_keymap_jack.c $(SRC)
+    SRC := extended_keymaps/extended_keymap_default.c $(SRC)
 endif
 
 endif
