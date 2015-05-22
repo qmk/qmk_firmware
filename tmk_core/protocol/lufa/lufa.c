@@ -197,10 +197,24 @@ void EVENT_USB_Device_WakeUp()
 #endif
 }
 
+#ifdef CONSOLE_ENABLE
+static bool console_flush = false;
+#define CONSOLE_FLUSH_SET(b)   do { \
+    uint8_t sreg = SREG; cli(); console_flush = b; SREG = sreg; \
+} while (0)
+
+// called every 1ms
 void EVENT_USB_Device_StartOfFrame(void)
 {
+    static uint8_t count;
+    if (++count % 50) return;
+    count = 0;
+
+    if (!console_flush) return;
     Console_Task();
+    console_flush = false;
 }
+#endif
 
 /** Event handler for the USB_ConfigurationChanged event.
  * This is fired when the host sets the current configuration of the USB device after enumeration.
@@ -491,6 +505,10 @@ int8_t sendchar(uint8_t c)
     // Because sendchar() is called so many times, waiting each call causes big lag.
     static bool timeouted = false;
 
+    // prevents Console_Task() from running during sendchar() runs.
+    // or char will be lost. These two function is mutually exclusive.
+    CONSOLE_FLUSH_SET(false);
+
     if (USB_DeviceState != DEVICE_STATE_Configured)
         return -1;
 
@@ -524,8 +542,12 @@ int8_t sendchar(uint8_t c)
     Endpoint_Write_8(c);
 
     // send when bank is full
-    if (!Endpoint_IsReadWriteAllowed())
+    if (!Endpoint_IsReadWriteAllowed()) {
+        while (!(Endpoint_IsINReady()));
         Endpoint_ClearIN();
+    } else {
+        CONSOLE_FLUSH_SET(true);
+    }
 
     Endpoint_SelectEndpoint(ep);
     return 0;
