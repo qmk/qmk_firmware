@@ -7,6 +7,7 @@
 #include "backlight.h"
 #include "suspend_avr.h"
 #include "suspend.h"
+#include "timer.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #endif
@@ -52,11 +53,13 @@ void suspend_idle(uint8_t time)
  *          WDTO_4S
  *          WDTO_8S
  */
-void suspend_power_down(uint8_t wdto)
+static uint8_t wdt_timeout = 0;
+static void power_down(uint8_t wdto)
 {
 #ifdef PROTOCOL_LUFA
     if (USB_DeviceState == DEVICE_STATE_Configured) return;
 #endif
+    wdt_timeout = wdto;
 
     // Watchdog Interrupt Mode
     wdt_intr_enable(wdto);
@@ -67,7 +70,6 @@ void suspend_power_down(uint8_t wdto)
     // - prescale clock
     // - BOD disable
     // - Power Reduction Register PRR
-
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
     sleep_enable();
     sei();
@@ -76,6 +78,11 @@ void suspend_power_down(uint8_t wdto)
 
     // Disable watchdog after sleep
     wdt_disable();
+}
+
+void suspend_power_down(void)
+{
+    power_down(WDTO_15MS);
 }
 
 bool suspend_wakeup_condition(void)
@@ -103,15 +110,13 @@ void suspend_wakeup_init(void)
 /* watchdog timeout */
 ISR(WDT_vect)
 {
-    /* wakeup from MCU sleep mode */
-/*
-    // blink LED
-    static uint8_t led_state = 0;
-    static uint8_t led_count = 0;
-    led_count++;
-    if ((led_count & 0x07) == 0) {
-        led_set((led_state ^= (1<<USB_LED_CAPS_LOCK)));
+    // compensate timer for sleep
+    switch (wdt_timeout) {
+        case WDTO_15MS:
+            timer_count += 15 + 2;  // WDTO_15MS + 2(from observation)
+            break;
+        default:
+            ;
     }
-*/
 }
 #endif
