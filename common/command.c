@@ -303,7 +303,7 @@ static bool command_common(uint8_t code)
 #endif
             " " STR(BOOTLOADER_SIZE) "\n");
 
-            print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__) 
+            print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__)
                   " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
                   " AVR_ARCH: avr" STR(__AVR_ARCH__) "\n");
             break;
@@ -542,12 +542,12 @@ static void mousekey_console_help(void)
     print("4:	select mk_time_to_max\n");
     print("5:	select mk_wheel_max_speed\n");
     print("6:	select mk_wheel_time_to_max\n");
-    print("p:	print prameters\n");
+    print("p:	print parameters\n");
     print("d:	set default values\n");
-    print("up:	increase prameters(+1)\n");
-    print("down:	decrease prameters(-1)\n");
-    print("pgup:	increase prameters(+10)\n");
-    print("pgdown:	decrease prameters(-10)\n");
+    print("up:	increase parameters(+1)\n");
+    print("down:	decrease parameters(-1)\n");
+    print("pgup:	increase parameters(+10)\n");
+    print("pgdown:	decrease parameters(-10)\n");
     print("\nspeed = delta * max_speed * (repeat / time_to_max)\n");
     print("where delta: cursor="); pdec(MOUSEKEY_MOVE_DELTA);
     print(", wheel="); pdec(MOUSEKEY_WHEEL_DELTA); print("\n");

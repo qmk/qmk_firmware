@@ -502,8 +502,10 @@ MODEL NUMBER:
 
 Scan Code
 ---------
-    m0110_recv_key() function returns following scan codes instead of raw key events.
-    Scan codes are 1 byte long and MSB(bit7) is set when key is released. 
+    m0110_recv_key() function returns following scan codes instead of M0110 raw codes.
+    Scan codes are 1 byte size and MSB(bit7) is set when key is released.
+
+        scancode = ((raw&0x80) | ((raw&0x7F)>>1))
 
     M0110                                                          M0120
     ,---------------------------------------------------------.    ,---------------.
@@ -528,6 +530,19 @@ Scan Code
     `---------------------------------------------------------'    |-----------| 4C|
          | 3A|  37|             31              |   34| 3A|        |     52| 41|   |
          `------------------------------------------------'        `---------------'
+
+    International keyboard(See page 22 of "Technical Info for 128K/512K")
+    ,---------------------------------------------------------.
+    | 32| 12| 13| 14| 15| 17| 16| 1A| 1C| 19| 1D| 1B| 18|   33|
+    |---------------------------------------------------------|
+    |   30| 0C| 0D| 0E| 0F| 10| 11| 20| 22| 1F| 23| 21| 1E| 2A|
+    |------------------------------------------------------   |
+    |    39| 00| 01| 02| 03| 05| 04| 26| 28| 25| 29| 27| 24|  |
+    |---------------------------------------------------------|
+    |  38| 06| 07| 08| 09| 0B| 2D| 2E| 2B| 2F| 2C| 0A|      38|
+    `---------------------------------------------------------'
+         | 3A|  37|             34              |   31| 3A|
+         `------------------------------------------------'
 
     M0110A
     ,---------------------------------------------------------. ,---------------.
@@ -568,7 +583,7 @@ Connector:
 Signaling:
     http://www.kbdbabel.org/signaling/kbd_signaling_mac.png
     http://typematic.blog.shinobi.jp/Entry/14/
-Scan Codes:
+M0110 raw scan codes:
     Page 22 of Tech Info for 128K/512K
     Page 07 of Tech Info for Plus
     http://m0115.web.fc2.com/m0110.jpg

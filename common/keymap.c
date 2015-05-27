@@ -27,6 +27,7 @@ static action_t keycode_to_action(uint8_t keycode);
 
 
 /* converts key to action */
+__attribute__ ((weak))
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
     uint8_t keycode = keymap_key_to_keycode(layer, key);
@@ -116,8 +117,6 @@ __attribute__ ((weak))
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 }
-
-
 
 /* translates keycode to action */
 static action_t keycode_to_action(uint8_t keycode)

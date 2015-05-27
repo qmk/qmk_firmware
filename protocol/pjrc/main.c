@@ -61,7 +61,7 @@ int main(void)
 #endif
     while (1) {
         while (suspend) {
-            suspend_power_down(WDTO_120MS);
+            suspend_power_down();
             if (remote_wakeup && suspend_wakeup_condition()) {
                 usb_remote_wakeup();
             }

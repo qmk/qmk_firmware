@@ -17,7 +17,7 @@ SRC =	matrix.c \
 ifdef KEYMAP
     SRC += keymap_$(KEYMAP).c
 else
-    SRC += keymap_plain.c
+    SRC += keymap_default.c
 endif
 
 CONFIG_H = config.h
@@ -25,10 +25,8 @@ CONFIG_H = config.h
 
 # MCU name, you MUST set this to match the board you are using
 # type "make clean" after changing this, so all files will be rebuilt
-#MCU = at90usb162       # Teensy 1.0
-MCU = atmega32u4       # Teensy 2.0
-#MCU = at90usb646       # Teensy++ 1.0
-#MCU = at90usb1286      # Teensy++ 2.0
+MCU = atmega32u2       # TMK converter rev2
+#MCU = atmega32u4       # TMK converter rev1
 
 
 # Processor frequency.
