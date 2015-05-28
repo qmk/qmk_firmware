@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_MOMENTARY(1),  // to RAISE
-    [2] = ACTION_LAYER_MOMENTARY(2)   // to LOWER
+    [2] = ACTION_LAYER_MOMENTARY(2),   // to LOWER
     [3] = ACTION_LAYER_MOMENTARY(3)   // to LOWER
 };
 
