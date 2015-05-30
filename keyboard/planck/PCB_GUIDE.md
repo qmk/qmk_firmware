@@ -33,7 +33,7 @@ Generally, the instructions to flash the PCB are as follows:
 2. Save the file
 3. `make clean`
 4. Press the reset button on the PCB/press the key with the `RESET` keycode
-5. `make dfu` - use the necessary `KEYMAP=<keymap>` or `COMMON=true` here.
+5. `make <arguments> dfu` - use the necessary `KEYMAP=<keymap>` and/or `COMMON=true` arguments here.
 
 ## Extended keymap
 
