@@ -15,6 +15,11 @@
 1. Install AVR GCC with your favorite package manager.
 2. Install [DFU-Programmer][dfu-prog].
 
+##Verify Your Installation
+1. Clone the following repository: https://github.com/jackhumbert/tmk_keyboard
+2. Open a Terminal and `cd` into `tmk_keyboard/keyboard/planck`
+3. Run `make`. This should output a lot of information about the build process.
+
 ## Using the built-in functions
 
 Here is a list of some of the functions avaiable from the command line:
