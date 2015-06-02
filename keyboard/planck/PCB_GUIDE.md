@@ -22,12 +22,13 @@
 
 ## Using the built-in functions
 
-Here is a list of some of the functions avaiable from the command line:
+Here is a list of some of the functions available from the command line:
 
 * `make clean`: clean the environment - may be required in-between builds
 * `make`: compile the code
 * `make COMMON=true`: compile with the common (non-extended) keymap
-* `make KEYMAP=<keymap>`: compile with the extended keymap file `extended_keymaps_extended_keymap_<keymap>.c`
+* `make MATRIX=<matrix_file>`: compile with the referenced matrix file. Default if unspecified is `matrix_pcb.c`. For handwired boards, use `matrix_handwired.c`.
+* `make KEYMAP=<keymap>`: compile with the extended keymap file `extended_keymaps/extended_keymap_<keymap>.c`
 * `make COMMON=true KEYMAP=<keymap>`: compile with the common keymap file `common_keymaps/keymap_<keymap>.c`
 * `make dfu`: build and flash the layout to the PCB
 * `make dfu-force`: build and force-flash the layout to the PCB (may be require for first flash)
@@ -81,7 +82,7 @@ A number of other keycodes have been added that you may find useful:
 
 ### Function layers
 
-The extended keymap extends the number of function layers from 32 to the near-infinite value of 256. Rather than using `FN<num>` notation (still avaiable, but limited to `FN0`-`FN31`), you can use the `FUNC(<num>)` notation. `F(<num>)` is a shortcut for this.
+The extended keymap extends the number of function layers from 32 to the near-infinite value of 256. Rather than using `FN<num>` notation (still available, but limited to `FN0`-`FN31`), you can use the `FUNC(<num>)` notation. `F(<num>)` is a shortcut for this.
 
 The function actions are unchanged, and you can see the full list of them [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/common/action_code.h). They are explained in detail [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/doc/keymap.md#2-action).
 
