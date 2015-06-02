@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdint.h"
 #include "serial.h"
 #include "led.h"
+#include "debug.h"
 
 
 void led_set(uint8_t usb_led)
@@ -27,6 +28,7 @@ void led_set(uint8_t usb_led)
     if (usb_led & (1<<USB_LED_COMPOSE))     sun_led |= (1<<1);
     if (usb_led & (1<<USB_LED_SCROLL_LOCK)) sun_led |= (1<<2);
     if (usb_led & (1<<USB_LED_CAPS_LOCK))   sun_led |= (1<<3);
+    xprintf("LED: %02X\n", usb_led);
 
     serial_send(0x0E);
     serial_send(sun_led);

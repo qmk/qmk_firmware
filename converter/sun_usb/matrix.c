@@ -72,6 +72,21 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
+    // wait for keyboard coming up
+    // otherwise LED status update fails
+    print("Reseting ");
+    while (1) {
+        print(".");
+        while (serial_recv());
+        serial_send(0x01);
+        _delay_ms(500);
+        if (serial_recv() == 0xFF) {
+            _delay_ms(500);
+            if (serial_recv() == 0x04)
+                break;
+        }
+    }
+    print(" Done\n");
     return;
 }
 
