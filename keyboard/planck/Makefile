@@ -47,13 +47,18 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
+# Default to PCB matrix
+ifndef MATRIX
+	MATRIX=matrix_pcb.c
+endif
 
+$(warning MATRIX: $(MATRIX))
 
 # # project specific files
 ifdef COMMON
 
 	SRC = keymap_common.c \
-	matrix_pcb.c \
+	$(MATRIX) \
 	led.c \
 	backlight.c
 
@@ -66,7 +71,7 @@ endif
 else
 
 SRC = extended_keymap_common.c \
-	matrix_pcb.c \
+	$(MATRIX) \
 	led.c \
 	backlight.c
 
