@@ -21,13 +21,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
   [4] = { /* Joe LOWER fn1 */
     {KC_GRV,  KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, M(3),    M(2),    M(1),    M(0)   },
-    {KC_DEL,  KC_1,    KC_2,    KC_3,    KC_4,  KC_5,    KC_6,    KC_7,  KC_8,    KC_9,    KC_0,    KC_TRNS},
+    {KC_BSPC, KC_1,    KC_2,    KC_3,    KC_4,  KC_5,    KC_6,    KC_7,  KC_8,    KC_9,    KC_0,    KC_TRNS},
     {KC_BSLS, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_LBRC, KC_RBRC, KC_EQL },
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, F(1),  KC_TRNS, KC_TRNS, F(2),  KC_HOME, KC_PGDN, KC_PGUP, KC_END }
   },
   [5] = { /* Joe UPPER fn2 */
     {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,               KC_F10,              KC_F11,            KC_F12             },
-    {KC_DEL,  KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,             KC_UP,               KC_RGHT,           RESET              },
+    {KC_DEL,  KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,             KC_UP,               KC_RGHT,           KC_NO              },
     {KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN4, KC_MENU, KC_CAPS, KC_INS,  KC_PSCR,             KC_NO,               LCTL(KC_PGUP),     LCTL(KC_PGDN)      },
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, F(1),    KC_NO,   KC_NO,   F(2),    LCTL(LALT(KC_LEFT)), LCTL(LALT(KC_DOWN)), LCTL(LALT(KC_UP)), LCTL(LALT(KC_RGHT))}
   },
