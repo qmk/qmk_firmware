@@ -32,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, F(1),    KC_NO,   KC_NO,   F(2),    LCTL(LALT(KC_LEFT)), LCTL(LALT(KC_DOWN)), LCTL(LALT(KC_UP)), LCTL(LALT(KC_RGHT))}
   },
   [6] = { /* Joe SPECIAL fn3 */
-    {KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO,   KC_NO  },
-    {KC_NO,   KC_MPLY, KC_MPRV, KC_MNXT, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO,   RESET  },
-    {KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO,   KC_NO  },
-    {F(6),    F(7),    F(8),    KC_NO,   F(1),  KC_TRNS, KC_TRNS, F(2),  KC_NO, KC_PWR, KC_WAKE, KC_SLEP}
+    {KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,   KC_NO           },
+    {KC_NO,   KC_MPLY, KC_MPRV, KC_MNXT, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,   RESET           },
+    {KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,   KC_NO           },
+    {F(6),    F(7),    F(8),    KC_NO,   F(1),  KC_TRNS, KC_TRNS, F(2),  KC_PWR, KC_WAKE, KC_SLEP, LCTL(LALT(KC_L))}
   }
 };
 
