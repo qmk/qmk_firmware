@@ -3,12 +3,12 @@
 ## Setting up the environment
 
 ### Windows
-1. Install [MHV AVR Tools][mhv] for AVR GCC compiler and [Cygwin][cygwin](or [MinGW][mingw]) for shell terminal.
+1. Install [WinAVR Tools](http://sourceforge.net/projects/winavr/) for AVR GCC compiler.
 2. Install [DFU-Programmer][dfu-prog] (the -win one).
 3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
 
 ### Mac
-1. Install [CrossPack](https://www.obdev.at/downloads/crosspack/CrossPack-AVR-20131216.dmg).
+1. Install [CrossPack](http://www.obdev.at/products/crosspack/index.html) or install Xcode from the App Store.
 2. Install [DFU-Programmer][dfu-prog].
 
 ### Linux
