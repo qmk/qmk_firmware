@@ -13,7 +13,7 @@ Note that you'll need to read **both**.
 - [[FAQ/Keymap]]
 
 
-# Degug Console
+# Debug Console
 ## hid_listen can't recognize device
 When debug console of your device is not ready you will see like this:
 
