@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6464
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    geekhack
+#define MANUFACTURER    TMK
 #define PRODUCT         Alps64
-#define DESCRIPTION     t.m.k. keyboard firmware for Alps64
+#define DESCRIPTION     TMK keyboard firmware for Alps64
 
 /* key matrix size */
 #define MATRIX_ROWS 8

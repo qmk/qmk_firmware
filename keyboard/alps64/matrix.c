@@ -55,6 +55,10 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+#define LED_ON()    do { DDRC |= (1<<5); PORTC |= (1<<5); } while (0)
+#define LED_OFF()   do { DDRC &= ~(1<<5); PORTC &= ~(1<<5); } while (0)
+#define LED_TGL()   do { DDRC |= (1<<5); PINC |= (1<<5); } while (0)
+
 void matrix_init(void)
 {
     // initialize row and col
@@ -66,6 +70,12 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+
+    //debug
+    debug_matrix = true;
+    LED_ON();
+    _delay_ms(500);
+    LED_OFF();
 }
 
 uint8_t matrix_scan(void)
