@@ -59,6 +59,16 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+    MCUCR |= (1<<JTD);
+    MCUCR |= (1<<JTD);
+
+    backlight_init_ports();
+
+    // Turn status LED on
+    DDRE |= (1<<6);
+    PORTE |= (1<<6);
+    
     // initialize row and col
     unselect_rows();
     init_cols();
@@ -137,75 +147,84 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-/* Column pin configuration
- * col: 0  1  2  3  4  5  6  7  8  9  10 11
- * pin: F0 F1 F4 F5 F6 F7 B6 B5 B4 D7 D5 D4
- */
+//
+// Atomic PCB Rev 0 Pin Assignments
+//
+// Column: 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14
+// Pin:    F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1
+//
 
 static void init_cols(void)
 {
-    DDRC  &= ~(1<<6 | 1<<7);
-    PORTC |=  (1<<6 | 1<<7);
-    DDRD  &= ~(1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTD |=  (1<<4 | 1<<5 | 1<<6 | 1<<7);
-    DDRB  &= ~(1<<4 | 1<<5 | 1<<6);
-    PORTB |=  (1<<4 | 1<<5 | 1<<6);
-    DDRF  &= ~(1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTF |=  (1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
+    DDRB &= ~(1<<4 | 1<<0);
+    PORTB |= (1<<4 | 1<<0);
+    DDRC &= ~(1<<7);
+    PORTC |= (1<<7);
+    DDRD &= ~(1<<7 | 1<<6 | 1<<4 | 1<<3 | 1<<2 | 1<<1);
+    PORTD |= (1<<7 | 1<<6 | 1<<4 | 1<<3 | 1<<2 | 1<<1);
+    DDRF &= ~(1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
+    PORTF |= (1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
 }
 
 static matrix_row_t read_cols(void)
 {
-    return (PINC&(1<<6) ? 0 : (1<< 0)) |
-           (PINC&(1<<7) ? 0 : (1<< 1)) |
-           (PIND&(1<<5) ? 0 : (1<< 2)) |
-           (PIND&(1<<4) ? 0 : (1<< 3)) |
-           (PIND&(1<<6) ? 0 : (1<< 4)) |
-           (PIND&(1<<7) ? 0 : (1<< 5)) |
-           (PINB&(1<<4) ? 0 : (1<< 6)) |
-           (PINB&(1<<5) ? 0 : (1<< 7)) |
-           (PINB&(1<<6) ? 0 : (1<< 8)) |
-           (PINF&(1<<7) ? 0 : (1<< 9)) |
-           (PINF&(1<<6) ? 0 : (1<<10)) |
-           (PINF&(1<<5) ? 0 : (1<<11)) |
-           (PINF&(1<<4) ? 0 : (1<<12)) |
-           (PINF&(1<<1) ? 0 : (1<<13)) |
-           (PINF&(1<<0) ? 0 : (1<<14));
+  return (PINF&(1<<1) ? 0 : (1<<0)) |
+         (PINF&(1<<0) ? 0 : (1<<1)) |
+         (PINB&(1<<0) ? 0 : (1<<2)) |
+         (PINC&(1<<7) ? 0 : (1<<3)) |
+         (PINF&(1<<4) ? 0 : (1<<4)) |
+         (PINF&(1<<5) ? 0 : (1<<5)) |
+         (PINF&(1<<6) ? 0 : (1<<6)) |
+         (PINF&(1<<7) ? 0 : (1<<7)) |
+         (PIND&(1<<4) ? 0 : (1<<8)) |
+         (PIND&(1<<6) ? 0 : (1<<9)) |
+         (PINB&(1<<4) ? 0 : (1<<10)) |
+         (PIND&(1<<7) ? 0 : (1<<11)) |
+         (PIND&(1<<3) ? 0 : (1<<12)) |
+         (PIND&(1<<2) ? 0 : (1<<13)) |
+         (PIND&(1<<1) ? 0 : (1<<14));
 }
 
-/* Row pin configuration
- * row: 0  1  2  3
- * pin: B0 B1 B2 B3
- */
+
+//
+// Atomic PCB Rev 0 Pin Assignments
+//
+// Row: 0,  1,  2,  3,  4
+// Pin: D0, D5, B5, B6, C6
+//
+
 static void unselect_rows(void)
 {
-    // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<7);
-    PORTB |=  (1<<0 | 1<<1 | 1<<2 | 1<<3 | 1<<7);
+    DDRB &= ~(1<<5 | 1<<6);
+    PORTB |= (1<<5 | 1<<6);
+    DDRD &= ~(1<<0 | 1<<5);
+    PORTD |= (1<<0 | 1<<5);
+    DDRC &= ~(1<<6);
+    PORTC |= (1<<6);
 }
 
 static void select_row(uint8_t row)
 {
     switch (row) {
         case 0:
-            DDRB  |= (1<<0);
-            PORTB &= ~(1<<0);
+            DDRD  |= (1<<0);
+            PORTD &= ~(1<<0);
             break;
         case 1:
-            DDRB  |= (1<<1);
-            PORTB &= ~(1<<1);
+            DDRD  |= (1<<5);
+            PORTD &= ~(1<<5);
             break;
         case 2:
-            DDRB  |= (1<<2);
-            PORTB &= ~(1<<2);
+            DDRB  |= (1<<5);
+            PORTB &= ~(1<<5);
             break;
         case 3:
-            DDRB  |= (1<<3);
-            PORTB &= ~(1<<3);
+            DDRB  |= (1<<6);
+            PORTB &= ~(1<<6);
             break;
         case 4:
-            DDRB  |= (1<<7);
-            PORTB &= ~(1<<7);
-            break;
+            DDRC  |= (1<<6);
+            PORTC &= ~(1<<6);
+            break;        
     }
 }
