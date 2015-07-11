@@ -59,19 +59,16 @@ To compile firmware you need AVR GCC. You can edit *Makefile* and *config.h* to 
 
     $ git clone git://github.com/tmk/tmk_keyboard.git (or download source)
     $ cd m0110_usb
-    $ make -f Makefile clean
-    $ make -f Makefile [KEYMAP={default|plain|intl|spacefn|hasu}]
+    $ make -f Makefile.rev2 clean
+    $ make -f Makefile.rev2 [KEYMAP={default|intl|spacefn|hasu}]
 
-Use `Makefile.teensy` instead for Teensy.
+Use `Maefile.tmk_rev1` for TMK converter Rev.1, `Makefile.teensy` for Teensy instead.
 
 
 
 Keymap
 ------
-To create your own keymap copy existent keymap file to `keymap_name.c` and edit it. You can build it like this.
-
-    $ make -f Makefile clean
-    $ make -f Makefile KEYMAP=name
+To create your own keymap copy existent keymap file to `keymap_name.c` and edit it.
 
 
 
