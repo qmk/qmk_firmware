@@ -18,11 +18,11 @@ else
     SRC := keymap_plain.c $(SRC)
 endif
 
-# Use USART for PS/2. With V-USB INT and BUSYWAIT code is not useful.
-SRC += protocol/ps2_usart.c
-OPT_DEFS += -DPS2_USE_USART
-
 CONFIG_H = config.h
+
+
+# Use USART for PS/2. With V-USB INT and BUSYWAIT code is not useful.
+PS2_USE_USART = yes
 
 
 # V-USB debug level: To use ps2_usart.c level must be 0
