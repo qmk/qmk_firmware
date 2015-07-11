@@ -66,7 +66,14 @@ endif
 
 ifdef KEYMAP_SECTION_ENABLE
     OPT_DEFS += -DKEYMAP_SECTION_ENABLE
-    EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x
+
+    ifeq ($(strip $(MCU)),atmega32u2)
+	EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr35.x
+    else ifeq ($(strip $(MCU)),atmega32u4)
+	EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x
+    else
+	EXTRALDFLAGS = $(error no ldscript for keymap section)
+    endif
 endif
 
 # Version string
