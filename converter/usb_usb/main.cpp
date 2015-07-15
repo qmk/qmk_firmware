@@ -5,10 +5,10 @@
 
 // USB HID host
 #include "Usb.h"
+#include "usbhub.h"
 #include "hid.h"
 #include "hidboot.h"
 #include "parser.h"
-#include "usbhub.h"
 
 // LUFA
 #include "lufa.h"
@@ -17,6 +17,7 @@
 #include "sendchar.h"
 #include "debug.h"
 #include "keyboard.h"
+#include "led.h"
 
 
 /* LED ping configuration */
@@ -42,19 +43,6 @@
 #endif
 
 
-static USB     usb_host;
-static HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd(&usb_host);
-static KBDReportParser kbd_parser;
-static USBHub hub1(&usb_host);  // one hub is enough for HHKB pro2
-/* may be needed  for other device with more hub
-static USBHub hub2(&usb_host);
-static USBHub hub3(&usb_host);
-static USBHub hub4(&usb_host);
-static USBHub hub5(&usb_host);
-static USBHub hub6(&usb_host);
-static USBHub hub7(&usb_host);
-*/
-
 static void LUFA_setup(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
@@ -74,16 +62,23 @@ static void LUFA_setup(void)
     print_set_sendchar(sendchar);
 }
 
-static void HID_setup()
+
+
+/*
+ * USB Host Shield HID keyboard
+ */
+USB usb_host;
+USBHub hub1(&usb_host);
+HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd(&usb_host);
+KBDReportParser kbd_parser;
+
+
+void led_set(uint8_t usb_led)
 {
-    if (usb_host.Init() == -1) {
-        LED_TX_OFF;
-    }
-
-    _delay_ms(200);
-
-    kbd.SetReportParser(0, (HIDReportParser*)&kbd_parser);
+    kbd.SetReport(0, 0, 2, 0, 1, &usb_led);
 }
+
+
 
 int main(void)
 {
@@ -92,12 +87,17 @@ int main(void)
     LED_TX_ON;
 
     debug_enable = true;
+    debug_keyboard = true;
 
     host_set_driver(&lufa_driver);
     keyboard_init();
 
     LUFA_setup();
-    HID_setup();
+
+    // USB Host Shield setup
+    usb_host.Init();
+    kbd.SetReportParser(0, (HIDReportParser*)&kbd_parser);
+
     /* NOTE: Don't insert time consuming job here.
      * It'll cause unclear initialization failure when DFU reset(worm start).
      */
