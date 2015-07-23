@@ -45,12 +45,20 @@ static inline void KEY_PREV_OFF(void) { (PORTB &= ~(1<<7)); }
 static inline void KEY_POWER_ON(void) {
     DDRB = 0xFF; PORTB = 0x40;          // change pins output
     DDRD |= (1<<4); PORTD |= (1<<4);    // MOS FET switch on
+#ifdef HHKB_JP
+    DDRC  |= (1<<6|1<<7);
+    PORTC |= (1<<6|1<<7);
+#endif
     /* Without this wait you will miss or get false key events. */
     _delay_ms(5);                       // wait for powering up
 }
 static inline void KEY_POWER_OFF(void) {
     /* input with pull-up consumes less than without it when pin is open. */
     DDRB = 0x00; PORTB = 0xFF;          // change pins input with pull-up
+#ifdef HHKB_JP
+    DDRC  &= ~(1<<6|1<<7);
+    PORTC |=  (1<<6|1<<7);
+#endif
     DDRD |= (1<<4); PORTD &= ~(1<<4);   // MOS FET switch off
 }
 static inline bool KEY_POWER_STATE(void) { return PORTD & (1<<4); }
