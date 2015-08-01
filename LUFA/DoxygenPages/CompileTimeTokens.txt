@@ -114,7 +114,7 @@
  *      VBUS events, the library attempts to determine the connection state via the bus suspension and wake up events instead. This however may be
  *      slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
  *      required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_DeviceState global
- *      can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the RAISE_EVENT macro.
+ *      can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the user application.
  *      When defined, this token disables the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
  *
  *  \li <b>NO_SOF_EVENTS</b> - (\ref Group_Events) - <i>All Architectures</i> \n

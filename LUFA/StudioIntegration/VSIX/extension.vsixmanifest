@@ -15,19 +15,20 @@
 		<SupportedProducts>
 			<IsolatedShell Version="6.1">AtmelStudio</IsolatedShell>
 			<IsolatedShell Version="6.2">AtmelStudio</IsolatedShell>
+			<IsolatedShell Version="7.0">AtmelStudio</IsolatedShell>
 		</SupportedProducts>
 
 		<SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.5"/>
 		<Locale>1033</Locale>
 
-	    <AllUsers>false</AllUsers>
+		<AllUsers>false</AllUsers>
 	</Identifier>
 
 	<References/>
 
 	<Content>
 		<VsPackage>LUFA.pkgdef</VsPackage>
-	    <CustomExtension Type="MSHelp">helpcontentsetup.msha</CustomExtension>
+		<CustomExtension Type="MSHelp">helpcontentsetup.msha</CustomExtension>
 		<CustomExtension Type="asf-manifest">asf-manifest.xml</CustomExtension>
 	</Content>
 </Vsix>

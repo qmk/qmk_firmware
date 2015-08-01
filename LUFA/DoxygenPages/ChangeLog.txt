@@ -8,13 +8,14 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
-  *   - Added support for the Atmel Xplained-MINI series of development kits.
+  *   - Added support for the Atmel Xplained-MINI series of development kits
+  *   - Added new PROGMEM variant send functions to the CDC class driver (thanks to Stefan Hellermann)
   *
   *  <b>Changed:</b>
   *  - Library Applications:
   *   - The CDC, DFU, Mass Storage and Printer class bootloaders will no longer run the user application if the application reset
   *     vector is blank (thanks to Alex Kazik)
-  *   - The CDC, DFU and Printer class bootloaders are now compatible with the original Atmel XPLAIN and Arduino Leonardo boards.
+  *   - The CDC, DFU and Printer class bootloaders are now compatible with the original Atmel XPLAIN and Arduino Leonardo boards
   *   - The CDC, DFU, Mass Storage and Printer class bootloaders are not compatible with devices with the BOOTRST fuse set and will
   *     exit automatically unless an external reset was the last reset cause (thanks to Alex Kazik)
   *
