@@ -294,6 +294,24 @@ uint8_t CDC_Host_SendData(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 	return ErrorCode;
 }
 
+uint8_t CDC_Host_SendData_P(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
+                          const void* const Buffer,
+                          const uint16_t Length)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
+	  return PIPE_READYWAIT_DeviceDisconnected;
+
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipe.Address);
+
+	Pipe_Unfreeze();
+	ErrorCode = Pipe_Write_PStream_LE(Buffer, Length, NULL);
+	Pipe_Freeze();
+
+	return ErrorCode;
+}
+
 uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
                             const char* const String)
 {
@@ -306,6 +324,23 @@ uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 
 	Pipe_Unfreeze();
 	ErrorCode = Pipe_Write_Stream_LE(String, strlen(String), NULL);
+	Pipe_Freeze();
+
+	return ErrorCode;
+}
+
+uint8_t CDC_Host_SendString_P(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
+                            const char* const String)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
+	  return PIPE_READYWAIT_DeviceDisconnected;
+
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipe.Address);
+
+	Pipe_Unfreeze();
+	ErrorCode = Pipe_Write_PStream_LE(String, strlen_P(String), NULL);
 	Pipe_Freeze();
 
 	return ErrorCode;
