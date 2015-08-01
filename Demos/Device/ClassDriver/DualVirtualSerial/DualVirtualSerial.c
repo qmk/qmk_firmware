@@ -233,7 +233,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t *const C
 
 	if (CDCInterfaceInfo == &VirtualSerial1_CDC_Interface)
 	{
-		/ CDC interface 1's host is ready to send/receive data
+		// CDC interface 1's host is ready to send/receive data
 	}
 	else
 	{
