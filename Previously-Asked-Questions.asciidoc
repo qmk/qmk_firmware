@@ -2,6 +2,8 @@
 :toc:
 :toc-placement!:
 
+toc::[]
+
 = Question thread
 http://deskthority.net/workshop-f7/how-to-build-your-very-own-keyboard-firmware-t7177-270.html
 
