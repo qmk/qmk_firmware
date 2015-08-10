@@ -1,6 +1,6 @@
 = Previously Asked Questions
 :toc:
-
+:toc-placement:
 toc::[]
 
 = Question thread
