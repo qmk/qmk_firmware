@@ -1,6 +1,5 @@
 = Previously Asked Questions
-:toc:
-:toc-placement!:
+
 
 toc::[]
 
