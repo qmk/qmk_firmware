@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = atomic_lufa
+TARGET = planck_lufa
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -47,19 +47,49 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
-# project specific files
-SRC =	keymap_common.c \
-	matrix.c \
-	led.c
+
+
+# # project specific files
+ifdef COMMON
+
+	SRC = keymap_common.c \
+	led.c \
+	backlight.c
 
 ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
+    SRC := common_keymaps/keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := keymap_vlad.c $(SRC)
+    SRC := common_keymaps/keymap_jack.c $(SRC)
+endif
+
+ifdef MATRIX
+    SRC := matrix_$(MATRIX).c $(SRC)
+else
+    SRC := matrix_pcb.c $(SRC)
+endif
+
+else
+
+SRC = extended_keymap_common.c \
+	analog.c \
+	led.c \
+	backlight.c
+
+ifdef KEYMAP
+    SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := extended_keymaps/extended_keymap_default.c $(SRC)
+endif
+
+ifdef MATRIX
+    SRC := matrix_$(MATRIX).c $(SRC)
+else
+    SRC := matrix_pcb.c $(SRC)
+endif
+
 endif
 
 CONFIG_H = config.h
-
 
 # MCU name
 #MCU = at90usb1287
@@ -119,9 +149,10 @@ MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
-
+BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax

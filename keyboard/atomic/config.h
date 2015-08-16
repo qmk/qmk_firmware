@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         Atomic Keyboard
-#define DESCRIPTION     t.m.k. keyboard firmware for Atomic
+#define PRODUCT         Atomic
+#define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -33,6 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
+/* NOTE: this is the max value of 0..BACKLIGHT_LEVELS so really 16 levels. */
+#define BACKLIGHT_LEVELS 15
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5

@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "report.h"
 #include "host.h"
-#include "print.h"
+// #include "print.h"
 #include "debug.h"
 
 #ifdef BOOTMAGIC_ENABLE
@@ -173,5 +173,7 @@ extern const uint16_t fn_actions[];
 #define BL_STEP 0x4013
 
 #define RESET 0x5000
+
+#define MIDI(n) n | 0x6000
 
 #endif

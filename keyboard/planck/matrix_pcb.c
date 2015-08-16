@@ -23,12 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "print.h"
+// #include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "backlight.h" // TODO fix this dependency 
-
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE 10
@@ -67,7 +66,7 @@ void matrix_init(void)
     // Turn status LED on
     DDRE |= (1<<6);
     PORTE |= (1<<6);
-    
+
     // initialize row and col
     unselect_rows();
     init_cols();

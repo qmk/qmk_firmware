@@ -23,10 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <util/delay.h>
 #include "action_layer.h"
-#include "print.h"
+// #include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
+#include "analog.h"
 
 
 #ifndef DEBOUNCE
@@ -40,9 +41,14 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static matrix_row_t read_cols(void);
 static void init_cols(void);
+static void init_encoder(void);
+static void init_pot(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
-
+int16_t analogRead(uint8_t pin);
+uint8_t state;
+int32_t position;
+int16_t value;
 
 inline
 uint8_t matrix_rows(void)
@@ -61,12 +67,58 @@ void matrix_init(void)
     // initialize row and col
     unselect_rows();
     init_cols();
+    init_encoder();
+    init_pot();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+}
+
+static void init_encoder(void)
+{
+    DDRC &= ~(1<<6 | 1<<7);
+    PORTC |=  (1<<6 | 1<<7);
+
+    uint8_t s = 0;
+    _delay_ms(1);
+    if (PINC&(1<<6)) s |= 1;
+    if (PINC&(1<<7)) s |= 2;
+    state = s;
+    position = 0;
+}
+
+void read_encoder(void)
+{
+    uint8_t s = state & 3;
+    if (PINC&(1<<6)) s |= 4;
+    if (PINC&(1<<7)) s |= 8;
+    state = (s >> 2);
+    switch (s) {
+        case 1: case 7: case 8: case 14:
+            position++; 
+            break;
+        case 2: case 4: case 11: case 13:
+            position--; 
+            break;
+        case 3: case 12:
+            position += 2; 
+            break;
+        case 6: case 9:
+            position -= 2; 
+            break;
+    }
+}
+
+#define HEX(n) (((n) < 10) ? ((n) + '0') : ((n) + 'A' - 10))
+
+static void init_pot(void)
+{
+    // DDRD &= ~(1<<4);
+    // PORTD |=  (1<<4);
+    // DIDR2 = (1<<0);
 }
 
 uint8_t matrix_scan(void)
@@ -94,6 +146,21 @@ uint8_t matrix_scan(void)
             }
         }
     }
+
+    read_encoder();
+    if (position >= 2) {
+        register_code(KC_AUDIO_VOL_UP);
+        unregister_code(KC_AUDIO_VOL_UP);
+        position = 0;
+    } else if (position <= -2) {
+        register_code(KC_AUDIO_VOL_DOWN);
+        unregister_code(KC_AUDIO_VOL_DOWN);
+        position = 0;
+    }
+
+    // uint16_t val = analogRead(11);
+
+    // debug("analogRead: "); debug_hex(val); debug("\n");
 
     return 1;
 }
