@@ -1,0 +1,6 @@
+define reset
+SIGNAL SIGHUP
+end
+file planck_lufa.elf
+target remote localhost:4242
+break main
