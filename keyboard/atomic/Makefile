@@ -47,8 +47,6 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
-
-
 # # project specific files
 ifdef COMMON
 
