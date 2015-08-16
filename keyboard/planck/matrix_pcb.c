@@ -181,6 +181,13 @@ static matrix_row_t read_cols(void)
          
 }
 
+//
+// Planck PCB Rev 1 Pin Assignments
+//
+// Row: 0,  1,  2,  3
+// Pin: D0, D5, B5, B6
+//
+
 static void unselect_rows(void)
 {
     DDRB &= ~(1<<5 | 1<<6);
@@ -189,13 +196,6 @@ static void unselect_rows(void)
     PORTD |= (1<<0 | 1<<5);
     
 }
-
-//
-// Planck PCB Rev 1 Pin Assignments
-//
-// Row: 0,  1,  2,  3
-// Pin: D0, D5, B5, B6
-//
 
 static void select_row(uint8_t row)
 {
