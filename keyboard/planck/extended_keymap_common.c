@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "backlight.h"
 
-
 static action_t keycode_to_action(uint16_t keycode);
 
 
@@ -69,6 +68,9 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         return action;
     } else if (keycode == RESET) {
         bootloader_jump();
+        return;
+    } else if (keycode > RESET) {
+        // MIDI
         return;
     }
 
