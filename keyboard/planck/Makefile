@@ -69,12 +69,6 @@ else
     SRC := common_keymaps/keymap_jack.c $(SRC)
 endif
 
-ifdef MATRIX
-    SRC := matrix_$(MATRIX).c $(SRC)
-else
-    SRC := matrix_pcb.c $(SRC)
-endif
-
 else
 
 SRC = extended_keymap_common.c \
@@ -87,12 +81,6 @@ ifdef KEYMAP
     SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)
 else
     SRC := extended_keymaps/extended_keymap_default.c $(SRC)
-endif
-
-ifdef MATRIX
-    SRC := matrix_$(MATRIX).c $(SRC)
-else
-    SRC := matrix_pcb.c $(SRC)
 endif
 
 endif
