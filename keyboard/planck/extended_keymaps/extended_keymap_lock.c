@@ -1,5 +1,6 @@
 #include "extended_keymap_common.h"
 #include "backlight.h"
+#include "action_layer.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = { /* Qwerty */
@@ -50,10 +51,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       switch(id) {
         case 0:   
         if (record->event.pressed) {
-          register_code(KC_RSFT);
-          backlight_step();
+          // register_code(KC_RSFT);
+          backlight_set(BACKLIGHT_LEVELS);
+          layer_on(4);
         } else {
-          unregister_code(KC_RSFT);
+          // unregister_code(KC_RSFT);
+          backlight_set(0);
+          layer_clear();
         }
         break;
       } 
