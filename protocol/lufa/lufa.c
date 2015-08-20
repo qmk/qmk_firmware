@@ -52,6 +52,7 @@
 #include "descriptor.h"
 #include "lufa.h"
 
+
 uint8_t keyboard_idle = 0;
 uint8_t keyboard_protocol = 1;
 static uint8_t keyboard_led_stats = 0;
@@ -65,13 +66,50 @@ static void send_keyboard(report_keyboard_t *report);
 static void send_mouse(report_mouse_t *report);
 static void send_system(uint16_t data);
 static void send_consumer(uint16_t data);
+void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
+void usb_get_midi(MidiDevice * device);
+void midi_usb_init(MidiDevice * device);
 host_driver_t lufa_driver = {
     keyboard_leds,
     send_keyboard,
     send_mouse,
     send_system,
-    send_consumer
+    send_consumer,
+    usb_send_func,
+    usb_get_midi,
+    midi_usb_init
 };
+
+void SetupHardware(void);
+
+USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
+{
+  .Config =
+  {
+    .StreamingInterfaceNumber = 1,
+    .DataINEndpoint           =
+    {
+      .Address          = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
+      .Size             = MIDI_STREAM_EPSIZE,
+      .Banks            = 1,
+    },
+    .DataOUTEndpoint          =
+    {
+      .Address          = (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM),
+      .Size             = MIDI_STREAM_EPSIZE,
+      .Banks            = 1,
+    },
+  },
+};
+
+#define SYSEX_START_OR_CONT 0x40
+#define SYSEX_ENDS_IN_1 0x50
+#define SYSEX_ENDS_IN_2 0x60
+#define SYSEX_ENDS_IN_3 0x70
+
+#define SYS_COMMON_1 0x50
+#define SYS_COMMON_2 0x20
+#define SYS_COMMON_3 0x30
 
 
 /*******************************************************************************
@@ -240,7 +278,12 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     ConfigSuccess &= ENDPOINT_CONFIG(NKRO_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      NKRO_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
+
+
+    ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
 }
+
+
 
 /*
 Appendix G: HID Request Support Requirements
@@ -262,6 +305,8 @@ void EVENT_USB_Device_ControlRequest(void)
 {
     uint8_t* ReportData = NULL;
     uint8_t  ReportSize = 0;
+
+    MIDI_Device_ProcessControlRequest(&USB_MIDI_Interface);
 
     /* Handle HID Class specific requests */
     switch (USB_ControlRequest.bRequest)
@@ -541,10 +586,109 @@ int8_t sendchar(uint8_t c)
 #endif
 
 
+
+
+
+void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
+  MIDI_EventPacket_t event;
+  event.Data1 = byte0;
+  event.Data2 = byte1;
+  event.Data3 = byte2;
+
+  //if the length is undefined we assume it is a SYSEX message
+  if (midi_packet_length(byte0) == UNDEFINED) {
+    switch(cnt) {
+      case 3:
+        if (byte2 == SYSEX_END)
+          event.Event = MIDI_EVENT(0, SYSEX_ENDS_IN_3);
+        else
+          event.Event = MIDI_EVENT(0, SYSEX_START_OR_CONT);
+        break;
+      case 2:
+        if (byte1 == SYSEX_END)
+          event.Event = MIDI_EVENT(0, SYSEX_ENDS_IN_2);
+        else
+          event.Event = MIDI_EVENT(0, SYSEX_START_OR_CONT);
+        break;
+      case 1:
+        if (byte0 == SYSEX_END)
+          event.Event = MIDI_EVENT(0, SYSEX_ENDS_IN_1);
+        else
+          event.Event = MIDI_EVENT(0, SYSEX_START_OR_CONT);
+        break;
+      default:
+        return; //invalid cnt
+    }
+  } else {
+    //deal with 'system common' messages
+    //TODO are there any more?
+    switch(byte0 & 0xF0){
+      case MIDI_SONGPOSITION:
+        event.Event = MIDI_EVENT(0, SYS_COMMON_3);
+        break;
+      case MIDI_SONGSELECT:
+      case MIDI_TC_QUARTERFRAME:
+        event.Event = MIDI_EVENT(0, SYS_COMMON_2);
+        break;
+      default:
+        event.Event = MIDI_EVENT(0, byte0);
+        break;
+    }
+  }
+
+  MIDI_Device_SendEventPacket(&USB_MIDI_Interface, &event);
+  MIDI_Device_Flush(&USB_MIDI_Interface);
+  MIDI_Device_USBTask(&USB_MIDI_Interface);
+  USB_USBTask();
+}
+
+void usb_get_midi(MidiDevice * device) {
+  MIDI_EventPacket_t event;
+  while (MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, &event)) {
+
+    midi_packet_length_t length = midi_packet_length(event.Data1);
+    uint8_t input[3];
+    input[0] = event.Data1;
+    input[1] = event.Data2;
+    input[2] = event.Data3;
+    if (length == UNDEFINED) {
+      //sysex
+      if (event.Event == MIDI_EVENT(0, SYSEX_START_OR_CONT) || event.Event == MIDI_EVENT(0, SYSEX_ENDS_IN_3)) {
+        length = 3;
+      } else if (event.Event == MIDI_EVENT(0, SYSEX_ENDS_IN_2)) {
+        length = 2;
+      } else if(event.Event ==  MIDI_EVENT(0, SYSEX_ENDS_IN_1)) {
+        length = 1;
+      } else {
+        //XXX what to do?
+      }
+    }
+
+    //pass the data to the device input function
+    if (length != UNDEFINED)
+      midi_device_input(device, length, input);
+  }
+  MIDI_Device_USBTask(&USB_MIDI_Interface);
+  USB_USBTask();
+}
+
+void midi_usb_init(MidiDevice * device){
+  midi_device_init(device);
+  midi_device_set_send_func(device, usb_send_func);
+  midi_device_set_pre_input_process_func(device, usb_get_midi);
+
+  SetupHardware();
+  sei();
+}
+
+
+
+
+
 /*******************************************************************************
  * main
  ******************************************************************************/
-static void SetupHardware(void)
+void SetupHardware(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
     MCUSR &= ~(1 << WDRF);
@@ -563,11 +707,33 @@ static void SetupHardware(void)
     print_set_sendchar(sendchar);
 }
 
+void fallthrough_callback(MidiDevice * device,
+    uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
+void cc_callback(MidiDevice * device,
+    uint8_t chan, uint8_t num, uint8_t val);
+void sysex_callback(MidiDevice * device,
+    uint16_t start, uint8_t length, uint8_t * data);
+
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
+    //setup the device
+
+    midi_device_init(&midi_device);
+    midi_device_set_send_func(&midi_device, usb_send_func);
+    midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+
     SetupHardware();
     sei();
+
+    midi_register_fallthrough_callback(&midi_device, fallthrough_callback);
+    midi_register_cc_callback(&midi_device, cc_callback);
+    midi_register_sysex_callback(&midi_device, sysex_callback);
+
+    midi_send_cc(&midi_device, 0, 1, 2);
+    midi_send_cc(&midi_device, 15, 1, 0);
+    midi_send_noteon(&midi_device, 0, 64, 127);
+    midi_send_noteoff(&midi_device, 0, 64, 127);
 
     /* wait for USB startup & debug output */
     while (USB_DeviceState != DEVICE_STATE_Configured) {
@@ -598,8 +764,29 @@ int main(void)
 
         keyboard_task();
 
+        midi_device_process(&midi_device);
+
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
 #endif
     }
+}
+
+//echo data back
+void fallthrough_callback(MidiDevice * device,
+    uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2){
+  //pass the data back to the device, using the general purpose send data
+  //function, any bytes after cnt are ignored
+}
+
+void cc_callback(MidiDevice * device,
+    uint8_t chan, uint8_t num, uint8_t val) {
+  //sending it back on the next channel
+  midi_send_cc(device, (chan + 1) % 16, num, val);
+}
+
+void sysex_callback(MidiDevice * device,
+    uint16_t start, uint8_t length, uint8_t * data) {
+  for (int i = 0; i < length; i++)
+    midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
 }

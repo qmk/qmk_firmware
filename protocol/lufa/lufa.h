@@ -48,7 +48,7 @@
 #include <LUFA/Version.h>
 #include <LUFA/Drivers/USB/USB.h>
 #include "host.h"
-
+#include "midi/midi.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,6 +66,7 @@ typedef struct {
     uint16_t usage;
 } __attribute__ ((packed)) report_extra_t;
 
+MidiDevice midi_device;
 
 #if LUFA_VERSION_INTEGER < 0x120730
     /* old API 120219 */

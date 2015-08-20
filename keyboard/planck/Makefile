@@ -75,7 +75,7 @@ SRC = extended_keymap_common.c \
 	$(MATRIX) \
 	led.c \
 	backlight.c \
-	beeps.c 
+	beeps.c
 
 ifdef KEYMAP
     SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)

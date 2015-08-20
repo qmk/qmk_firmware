@@ -1,5 +1,6 @@
 #include "extended_keymap_common.h"
 #include "backlight.h"
+#include "lufa.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = { /* Qwerty */
@@ -50,10 +51,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       switch(id) {
         case 0:   
         if (record->event.pressed) {
-          register_code(KC_RSFT);
+          if (!&midi_device) {
+            register_code(KC_RSFT);
+          } else {
+            midi_send_noteon(&midi_device, 1, 64, 127);
+          }
           backlight_step();
         } else {
-          unregister_code(KC_RSFT);
+          if (!&midi_device) {
+            unregister_code(KC_RSFT);
+          } else {
+            midi_send_noteoff(&midi_device, 1, 64, 127);
+          }
         }
         break;
       } 
