@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = planck_lufa
+TARGET = preonic_lufa
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -47,31 +47,9 @@ TOP_DIR = ../..
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
-# Default to PCB matrix
-ifndef MATRIX
-	MATRIX=matrix_pcb.c
-endif
-
-$(warning MATRIX: $(MATRIX))
-
 # # project specific files
-ifdef COMMON
-
-	SRC = keymap_common.c \
-	$(MATRIX) \
-	led.c \
-	backlight.c
-
-ifdef KEYMAP
-    SRC := common_keymaps/keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := common_keymaps/keymap_jack.c $(SRC)
-endif
-
-else
-
 SRC = extended_keymap_common.c \
-	$(MATRIX) \
+	matrix.c \
 	led.c \
 	backlight.c
 
@@ -79,8 +57,6 @@ ifdef KEYMAP
     SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)
 else
     SRC := extended_keymaps/extended_keymap_default.c $(SRC)
-endif
-
 endif
 
 CONFIG_H = config.h
@@ -145,8 +121,10 @@ CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+MIDI_ENABLE = yes 		# MIDI controls
+BACKLIGHT_ENABLE = yes
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax

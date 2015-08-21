@@ -66,27 +66,35 @@ static void send_keyboard(report_keyboard_t *report);
 static void send_mouse(report_mouse_t *report);
 static void send_system(uint16_t data);
 static void send_consumer(uint16_t data);
+
+#ifdef MIDI_ENABLE
 void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
 void usb_get_midi(MidiDevice * device);
 void midi_usb_init(MidiDevice * device);
+#endif
+
 host_driver_t lufa_driver = {
     keyboard_leds,
     send_keyboard,
     send_mouse,
     send_system,
     send_consumer,
+#ifdef MIDI_ENABLE
     usb_send_func,
     usb_get_midi,
-    midi_usb_init
+    midi_usb_init,
+#endif
+
 };
 
 void SetupHardware(void);
+
 
 USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 {
   .Config =
   {
-    .StreamingInterfaceNumber = 1,
+    .StreamingInterfaceNumber = (NKRO_INTERFACE + 2),
     .DataINEndpoint           =
     {
       .Address          = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
@@ -110,6 +118,7 @@ USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 #define SYS_COMMON_1 0x50
 #define SYS_COMMON_2 0x20
 #define SYS_COMMON_3 0x30
+
 
 
 /*******************************************************************************
@@ -279,8 +288,15 @@ void EVENT_USB_Device_ConfigurationChanged(void)
                                      NKRO_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
+#ifdef MIDI_ENABLE
+    // ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
 
-    ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
+    ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+                                                MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+                                                MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
+
 }
 
 
@@ -589,32 +605,37 @@ int8_t sendchar(uint8_t c)
 
 
 
+#ifdef MIDI_ENABLE
 void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
   MIDI_EventPacket_t event;
   event.Data1 = byte0;
   event.Data2 = byte1;
   event.Data3 = byte2;
 
+  uint8_t cable = 0;
+
+Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
+
   //if the length is undefined we assume it is a SYSEX message
   if (midi_packet_length(byte0) == UNDEFINED) {
     switch(cnt) {
       case 3:
         if (byte2 == SYSEX_END)
-          event.Event = MIDI_EVENT(0, SYSEX_ENDS_IN_3);
+          event.Event = MIDI_EVENT(cable, SYSEX_ENDS_IN_3);
         else
-          event.Event = MIDI_EVENT(0, SYSEX_START_OR_CONT);
+          event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
         break;
       case 2:
         if (byte1 == SYSEX_END)
-          event.Event = MIDI_EVENT(0, SYSEX_ENDS_IN_2);
+          event.Event = MIDI_EVENT(cable, SYSEX_ENDS_IN_2);
         else
-          event.Event = MIDI_EVENT(0, SYSEX_START_OR_CONT);
+          event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
         break;
       case 1:
         if (byte0 == SYSEX_END)
-          event.Event = MIDI_EVENT(0, SYSEX_ENDS_IN_1);
+          event.Event = MIDI_EVENT(cable, SYSEX_ENDS_IN_1);
         else
-          event.Event = MIDI_EVENT(0, SYSEX_START_OR_CONT);
+          event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
         break;
       default:
         return; //invalid cnt
@@ -624,17 +645,20 @@ void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byt
     //TODO are there any more?
     switch(byte0 & 0xF0){
       case MIDI_SONGPOSITION:
-        event.Event = MIDI_EVENT(0, SYS_COMMON_3);
+        event.Event = MIDI_EVENT(cable, SYS_COMMON_3);
         break;
       case MIDI_SONGSELECT:
       case MIDI_TC_QUARTERFRAME:
-        event.Event = MIDI_EVENT(0, SYS_COMMON_2);
+        event.Event = MIDI_EVENT(cable, SYS_COMMON_2);
         break;
       default:
-        event.Event = MIDI_EVENT(0, byte0);
+        event.Event = MIDI_EVENT(cable, byte0);
         break;
     }
   }
+
+Endpoint_Write_Stream_LE(&event, sizeof(event), NULL);
+Endpoint_ClearIN();
 
   MIDI_Device_SendEventPacket(&USB_MIDI_Interface, &event);
   MIDI_Device_Flush(&USB_MIDI_Interface);
@@ -680,7 +704,7 @@ void midi_usb_init(MidiDevice * device){
   SetupHardware();
   sei();
 }
-
+#endif
 
 
 
@@ -707,25 +731,30 @@ void SetupHardware(void)
     print_set_sendchar(sendchar);
 }
 
+#ifdef MIDI_ENABLE
 void fallthrough_callback(MidiDevice * device,
     uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
 void cc_callback(MidiDevice * device,
     uint8_t chan, uint8_t num, uint8_t val);
 void sysex_callback(MidiDevice * device,
     uint16_t start, uint8_t length, uint8_t * data);
+#endif
 
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
     //setup the device
 
+#ifdef MIDI_ENABLE
     midi_device_init(&midi_device);
     midi_device_set_send_func(&midi_device, usb_send_func);
     midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+#endif
 
     SetupHardware();
     sei();
 
+#ifdef MIDI_ENABLE
     midi_register_fallthrough_callback(&midi_device, fallthrough_callback);
     midi_register_cc_callback(&midi_device, cc_callback);
     midi_register_sysex_callback(&midi_device, sysex_callback);
@@ -734,6 +763,8 @@ int main(void)
     midi_send_cc(&midi_device, 15, 1, 0);
     midi_send_noteon(&midi_device, 0, 64, 127);
     midi_send_noteoff(&midi_device, 0, 64, 127);
+#endif
+
 
     /* wait for USB startup & debug output */
     while (USB_DeviceState != DEVICE_STATE_Configured) {
@@ -764,7 +795,9 @@ int main(void)
 
         keyboard_task();
 
+#ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
+#endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
@@ -772,6 +805,7 @@ int main(void)
     }
 }
 
+#ifdef MIDI_ENABLE
 //echo data back
 void fallthrough_callback(MidiDevice * device,
     uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2){
@@ -790,3 +824,4 @@ void sysex_callback(MidiDevice * device,
   for (int i = 0; i < length; i++)
     midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
 }
+#endif

@@ -49,6 +49,10 @@ ifdef NKRO_ENABLE
     OPT_DEFS += -DNKRO_ENABLE
 endif
 
+ifdef MIDI_ENABLE
+    OPT_DEFS += -DMIDI_ENABLE
+endif
+
 ifdef USB_6KRO_ENABLE
     OPT_DEFS += -DUSB_6KRO_ENABLE
 endif
