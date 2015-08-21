@@ -487,6 +487,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
         },
 #endif
 
+#ifdef MIDI_ENABLE
     .Audio_ControlInterface =
         {
             .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
@@ -508,7 +509,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
 
-            .ACSpecification          = VERSION_BCD(1,1,1),
+            .ACSpecification          = VERSION_BCD(1,0,0),
             .TotalLength              = sizeof(USB_Audio_Descriptor_Interface_AC_t),
 
             .InCollection             = 1,
@@ -536,7 +537,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t), .Type = DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_General,
 
-            .AudioSpecification       = VERSION_BCD(1,1,1),
+            .AudioSpecification       = VERSION_BCD(1,0,0),
 
             .TotalLength              = (sizeof(USB_Descriptor_Configuration_t) -
                                          offsetof(USB_Descriptor_Configuration_t, Audio_StreamInterface_SPC))
@@ -603,7 +604,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                     .EndpointAddress     = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
                     .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
                     .EndpointSize        = MIDI_STREAM_EPSIZE,
-                    .PollingIntervalMS   = 0x01
+                    .PollingIntervalMS   = 0x05
                 },
 
             .Refresh                  = 0,
@@ -628,7 +629,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                     .EndpointAddress     = (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM),
                     .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
                     .EndpointSize        = MIDI_STREAM_EPSIZE,
-                    .PollingIntervalMS   = 0x01
+                    .PollingIntervalMS   = 0x05
                 },
 
             .Refresh                  = 0,
@@ -643,7 +644,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .TotalEmbeddedJacks       = 0x01,
             .AssociatedJackID         = {0x03}
         }
-
+#endif
 };
 
 

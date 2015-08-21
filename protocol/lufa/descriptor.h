@@ -86,6 +86,7 @@ typedef struct
     USB_Descriptor_Endpoint_t             NKRO_INEndpoint;
 #endif
 
+#ifdef MIDI_ENABLE
       // MIDI Audio Control Interface
       USB_Descriptor_Interface_t                Audio_ControlInterface;
       USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
@@ -101,6 +102,7 @@ typedef struct
       USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
       USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
       USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
+#endif
 
 } USB_Descriptor_Configuration_t;
 
@@ -132,9 +134,14 @@ typedef struct
 #   define NKRO_INTERFACE           CONSOLE_INTERFACE
 #endif
 
+#ifdef MIDI_ENABLE
+#   define MIDI_INTERFACE           (NKRO_INTERFACE + 1)
+#else
+#   define MIDI_INTERFACE           NKRO_INTERFACE
+#endif
 
 /* nubmer of interfaces */
-#define TOTAL_INTERFACES            (NKRO_INTERFACE + 3)
+#define TOTAL_INTERFACES            (MIDI_INTERFACE + 1)
 
 
 // Endopoint number and size
@@ -167,8 +174,13 @@ typedef struct
 #   endif
 #endif
 
-#define MIDI_STREAM_IN_EPNUM        (NKRO_IN_EPNUM + 1)
-#define MIDI_STREAM_OUT_EPNUM        (NKRO_IN_EPNUM + 1)
+#ifdef MIDI_ENABLE
+#   define MIDI_STREAM_IN_EPNUM        (NKRO_IN_EPNUM + 1)
+#   define MIDI_STREAM_OUT_EPNUM        (NKRO_IN_EPNUM + 1)
+#else
+#   define MIDI_STREAM_IN_EPNUM     NKRO_IN_EPNUM
+#   define MIDI_STREAM_OUT_EPNUM    NKRO_IN_EPNUM
+#endif
 
 
 #define KEYBOARD_EPSIZE             8
