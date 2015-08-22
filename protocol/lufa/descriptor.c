@@ -492,7 +492,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
         {
             .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber          = (NKRO_INTERFACE + 1),
+            .InterfaceNumber          = MIDI_INTERFACE,
             .AlternateSetting         = 0,
 
             .TotalEndpoints           = 0,
@@ -513,14 +513,14 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .TotalLength              = sizeof(USB_Audio_Descriptor_Interface_AC_t),
 
             .InCollection             = 1,
-            .InterfaceNumber          = (NKRO_INTERFACE + 2),
+            .InterfaceNumber          = MIDI2_INTERFACE,
         },
 
     .Audio_StreamInterface =
         {
             .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber          = (NKRO_INTERFACE + 2),
+            .InterfaceNumber          = MIDI2_INTERFACE,
             .AlternateSetting         = 0,
 
             .TotalEndpoints           = 2,
