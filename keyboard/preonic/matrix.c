@@ -23,11 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
-// #include "print.h"
+#include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "backlight.h" // TODO fix this dependency 
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE 10
@@ -145,78 +144,91 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-//
-// Planck PCB Rev 1 Pin Assignments
-//
-// Column: 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11
-// Pin:    F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7
-//
-
 static void init_cols(void)
 {
-    DDRB &= ~(1<<4 | 1<<0);
-    PORTB |= (1<<4 | 1<<0);
-    DDRC &= ~(1<<7);
-    PORTC |= (1<<7);
-    DDRD &= ~(1<<7 | 1<<6 | 1<<4);
-    PORTD |= (1<<7 | 1<<6 | 1<<4);
-    DDRF &= ~(1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTF |= (1<<0 | 1<<1 | 1<<4 | 1<<5 | 1<<6 | 1<<7);
-    
+    int B = 0, C = 0, D = 0, E = 0, F = 0;
+    for(int x = 0; x < MATRIX_COLS; x++) { 
+        int col = COLS[x];
+        if ((col & 0xF0) == 0x20) { 
+            B |= (1<<(col & 0x0F)); 
+        } else if ((col & 0xF0) == 0x30) { 
+            C |= (1<<(col & 0x0F)); 
+        } else if ((col & 0xF0) == 0x40) { 
+            D |= (1<<(col & 0x0F)); 
+        } else if ((col & 0xF0) == 0x50) { 
+            E |= (1<<(col & 0x0F)); 
+        } else if ((col & 0xF0) == 0x60) { 
+            F |= (1<<(col & 0x0F)); 
+        } 
+    }
+    DDRB &= ~(B); PORTB |= (B);
+    DDRC &= ~(C); PORTC |= (C); 
+    DDRD &= ~(D); PORTD |= (D);
+    DDRE &= ~(E); PORTE |= (E);
+    DDRF &= ~(F); PORTF |= (F);
 }
 
 static matrix_row_t read_cols(void)
 {
-  return (PINF&(1<<1) ? 0 : (1<<0)) |
-         (PINF&(1<<0) ? 0 : (1<<1)) |
-         (PINB&(1<<0) ? 0 : (1<<2)) |
-         (PINC&(1<<7) ? 0 : (1<<3)) |
-         (PINF&(1<<4) ? 0 : (1<<4)) |
-         (PINF&(1<<5) ? 0 : (1<<5)) |
-         (PINF&(1<<6) ? 0 : (1<<6)) |
-         (PINF&(1<<7) ? 0 : (1<<7)) |
-         (PIND&(1<<4) ? 0 : (1<<8)) |
-         (PIND&(1<<6) ? 0 : (1<<9)) |
-         (PINB&(1<<4) ? 0 : (1<<10)) |
-         (PIND&(1<<7) ? 0 : (1<<11));
-         
+    matrix_row_t result = 0;
+    for(int x = 0; x < MATRIX_COLS; x++) {     
+        int col = COLS[x];
+        if ((col & 0xF0) == 0x20) { 
+            result |= (PINB&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+        } else if ((col & 0xF0) == 0x30) { 
+            result |= (PINC&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+        } else if ((col & 0xF0) == 0x40) { 
+            result |= (PIND&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+        } else if ((col & 0xF0) == 0x50) { 
+            result |= (PINE&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+        } else if ((col & 0xF0) == 0x60) { 
+            result |= (PINF&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+        } 
+    }
+    return result;
 }
-
-//
-// Planck PCB Rev 1 Pin Assignments
-//
-// Row: 0,  1,  2,  3
-// Pin: D0, D5, B5, B6
-//
 
 static void unselect_rows(void)
 {
-    DDRB &= ~(1<<5 | 1<<6);
-    PORTB |= (1<<5 | 1<<6);
-    DDRD &= ~(1<<0 | 1<<5);
-    PORTD |= (1<<0 | 1<<5);
-    
+    int B = 0, C = 0, D = 0, E = 0, F = 0;
+    for(int x = 0; x < MATRIX_ROWS; x++) { 
+        int row = ROWS[x];
+        if ((row & 0xF0) == 0x20) { 
+            B |= (1<<(row & 0x0F)); 
+        } else if ((row & 0xF0) == 0x30) { 
+            C |= (1<<(row & 0x0F)); 
+        } else if ((row & 0xF0) == 0x40) { 
+            D |= (1<<(row & 0x0F)); 
+        } else if ((row & 0xF0) == 0x50) { 
+            E |= (1<<(row & 0x0F)); 
+        } else if ((row & 0xF0) == 0x60) { 
+            F |= (1<<(row & 0x0F)); 
+        } 
+    }
+    DDRB &= ~(B); PORTB |= (B);
+    DDRC &= ~(C); PORTC |= (C); 
+    DDRD &= ~(D); PORTD |= (D);
+    DDRE &= ~(E); PORTE |= (E);
+    DDRF &= ~(F); PORTF |= (F);
 }
 
 static void select_row(uint8_t row)
 {
-    switch (row) {
-        case 0:
-            DDRD  |= (1<<0);
-            PORTD &= ~(1<<0);
-            break;
-        case 1:
-            DDRD  |= (1<<5);
-            PORTD &= ~(1<<5);
-            break;
-        case 2:
-            DDRB  |= (1<<5);
-            PORTB &= ~(1<<5);
-            break;
-        case 3:
-            DDRB  |= (1<<6);
-            PORTB &= ~(1<<6);
-            break;
-        
-    }
+    int row_pin = ROWS[row];
+    if ((row_pin & 0xF0) == 0x20) { 
+        DDRB  |= (1<<(row_pin & 0x0F));
+        PORTB &= ~(1<<(row_pin & 0x0F));
+    } else if ((row_pin & 0xF0) == 0x30) { 
+        DDRC  |= (1<<(row_pin & 0x0F));
+        PORTC &= ~(1<<(row_pin & 0x0F));
+    } else if ((row_pin & 0xF0) == 0x40) { 
+        DDRD  |= (1<<(row_pin & 0x0F));
+        PORTD &= ~(1<<(row_pin & 0x0F));
+    } else if ((row_pin & 0xF0) == 0x50) { 
+        DDRE  |= (1<<(row_pin & 0x0F));
+        PORTE &= ~(1<<(row_pin & 0x0F));
+    } else if ((row_pin & 0xF0) == 0x60) { 
+        DDRF  |= (1<<(row_pin & 0x0F));
+        PORTF &= ~(1<<(row_pin & 0x0F));
+    }  
 }

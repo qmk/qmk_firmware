@@ -1,9 +1,9 @@
-Atomic keyboard firmware
+Planck keyboard firmware
 ======================
-DIY/Assembled ortholinear 60% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
+DIY/Assembled compact ortholinear 40% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
 
 ## Extended Keymap
-If you include extended_keymap_common.h instead of keymap_common.h at the top of your file, you'll have access to a bunch of goodies:t
+If you include extended_keymap_common.h instead of keymap_common.h at the top of your file, you'll have access to a bunch of goodies:
 
 - Use `LSFT()`, `LCTL()`, et. al. (listed in extended_keymap_common.h) as modifiers for keys (daisy-chain-able)
 - Use `FUNC(1)` instead of `FN1` (etc.) to access the function layers beyond the 32 function layer limit
