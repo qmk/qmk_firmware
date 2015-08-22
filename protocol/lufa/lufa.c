@@ -94,7 +94,7 @@ USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 {
   .Config =
   {
-    .StreamingInterfaceNumber = (NKRO_INTERFACE + 2),
+    .StreamingInterfaceNumber = MIDI2_INTERFACE,
     .DataINEndpoint           =
     {
       .Address          = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
@@ -289,12 +289,12 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #endif
 
 #ifdef MIDI_ENABLE
-    // ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
+    ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
 
-    ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-                                                MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-                                                MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    // ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+    //                                             MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    // ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+    //                                             MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 }
@@ -614,7 +614,7 @@ void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byt
 
   uint8_t cable = 0;
 
-Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
+// Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
 
   //if the length is undefined we assume it is a SYSEX message
   if (midi_packet_length(byte0) == UNDEFINED) {
@@ -657,8 +657,8 @@ Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
     }
   }
 
-Endpoint_Write_Stream_LE(&event, sizeof(event), NULL);
-Endpoint_ClearIN();
+// Endpoint_Write_Stream_LE(&event, sizeof(event), NULL);
+// Endpoint_ClearIN();
 
   MIDI_Device_SendEventPacket(&USB_MIDI_Interface, &event);
   MIDI_Device_Flush(&USB_MIDI_Interface);

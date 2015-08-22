@@ -136,12 +136,13 @@ typedef struct
 
 #ifdef MIDI_ENABLE
 #   define MIDI_INTERFACE           (NKRO_INTERFACE + 1)
+#   define MIDI2_INTERFACE           (NKRO_INTERFACE + 2)
 #else
-#   define MIDI_INTERFACE           NKRO_INTERFACE
+#   define MIDI2_INTERFACE           NKRO_INTERFACE
 #endif
 
 /* nubmer of interfaces */
-#define TOTAL_INTERFACES            (MIDI_INTERFACE + 1)
+#define TOTAL_INTERFACES            MIDI2_INTERFACE + 1
 
 
 // Endopoint number and size
