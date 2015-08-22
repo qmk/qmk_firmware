@@ -2,10 +2,10 @@ Planck keyboard firmware
 ======================
 DIY/Assembled compact ortholinear 40% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
 
-## Extended Keymap
-If you include extended_keymap_common.h instead of keymap_common.h at the top of your file, you'll have access to a bunch of goodies:
+## OLKB Keymap
+You have access to a bunch of goodies:
 
-- Use `LSFT()`, `LCTL()`, et. al. (listed in extended_keymap_common.h) as modifiers for keys (daisy-chain-able)
+- Use `LSFT()`, `LCTL()`, et. al. (listed in keymap_common.h) as modifiers for keys (daisy-chain-able)
 - Use `FUNC(1)` instead of `FN1` (etc.) to access the function layers beyond the 32 function layer limit
 - Use `CM_F` instead of `KC_F` to get the ColeMak equivilent for shortcuts (maps backwards)
 - Use `MACRODOWN()` instead of `MACRO()` to easily make a keydown macro (`CM_*` works here too)
@@ -33,21 +33,13 @@ $ make
 ## Keymap
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
     
-####**Extended Keymaps**
+####**Keymaps**
 
 To build the firmware binary hex file with an extended keymap just do `make` with `KEYMAP` option like:
 ```
-$ make KEYMAP=[common|jack|<name>]
+$ make KEYMAP=[default|jack|<name>]
 ```
-_The only applicable keymaps will work with this option._ Extended keymaps follow the format **__extended\_keymap\_\<name\>.c__**
-
-####**Common Keymaps**
-
-Building with a common keymap is as simple as adding the COMMON option. Note that only 
-```
-$ make KEYMAP=[common|jack|<name>] COMMON=true
-```
-_The only applicable keymaps will work with this option._ Common keymaps follow the format **__keymap\_\<name\>.c__**
+_The only applicable keymaps will work with this option._ Keymaps follow the format **__keymap\_\<name\>.c__** and are stored in the `keymaps` folder.
 
 ## Notable TMK forks (which some of the keymap files are from)
 - [Shane's Fork](https://github.com/shanecelis/tmk_keyboard/tree/master/keyboard/planck)
