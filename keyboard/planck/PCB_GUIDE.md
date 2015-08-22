@@ -26,10 +26,7 @@ Here is a list of some of the functions available from the command line:
 
 * `make clean`: clean the environment - may be required in-between builds
 * `make`: compile the code
-* `make COMMON=true`: compile with the common (non-extended) keymap
-* `make MATRIX=<matrix_file>`: compile with the referenced matrix file. Default if unspecified is `matrix_pcb.c`. For handwired boards, use `matrix_handwired.c`.
 * `make KEYMAP=<keymap>`: compile with the extended keymap file `extended_keymaps/extended_keymap_<keymap>.c`
-* `make COMMON=true KEYMAP=<keymap>`: compile with the common keymap file `common_keymaps/keymap_<keymap>.c`
 * `make dfu`: build and flash the layout to the PCB
 * `make dfu-force`: build and force-flash the layout to the PCB (may be require for first flash)
 
@@ -41,11 +38,11 @@ Generally, the instructions to flash the PCB are as follows:
 4. Press the reset button on the PCB/press the key with the `RESET` keycode
 5. `make <arguments> dfu` - use the necessary `KEYMAP=<keymap>` and/or `COMMON=true` arguments here.
 
-## Extended keymap
+## OLKB keymap
 
 ### Keymap
 
-Unlike the common keymap, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/tmk_keyboard/blob/master/keyboard/planck/extended_keymap_common.h).
+Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/tmk_keyboard/blob/master/keyboard/planck/keymap_common.h).
 
 You can use modifiers with keycodes like this:
 
@@ -88,7 +85,7 @@ The function actions are unchanged, and you can see the full list of them [here]
 
 ### Macros
 
-Macros have been setup in the `extended_keymaps/extended_keymaps_default.c` file so that you can use `M(<num>)` to access a macro in the `action_get_macro` section on your keymap. The switch/case structure you see here is required, and is setup for `M(0)` - you'll need to copy and paste the code to look like this (e.g. to support `M(3)`):
+Macros have been setup in the `keymaps/keymap_default.c` file so that you can use `M(<num>)` to access a macro in the `action_get_macro` section on your keymap. The switch/case structure you see here is required, and is setup for `M(0)` - you'll need to copy and paste the code to look like this (e.g. to support `M(3)`):
 
     switch(id) {
       case 0:
