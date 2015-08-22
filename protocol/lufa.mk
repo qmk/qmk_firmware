@@ -19,7 +19,12 @@ endif
 
 LUFA_SRC = $(LUFA_DIR)/lufa.c \
 	   $(LUFA_DIR)/descriptor.c \
-	   $(LUFA_SRC_USB)
+	   $(LUFA_SRC_USB) \
+	   $(LUFA_DIR)/midi/midi.c \
+	   $(LUFA_DIR)/midi/midi_device.c \
+	   $(LUFA_DIR)/midi/bytequeue/bytequeue.c \
+	   $(LUFA_DIR)/midi/bytequeue/interrupt_setting.c \
+	   $(LUFA_DIR)/LUFA-git/LUFA/Drivers/USB/Class/Device/MIDIClassDevice.c
 
 SRC += $(LUFA_SRC)
 

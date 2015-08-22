@@ -25,16 +25,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Planck Keyboard
+#define PRODUCT         The Preonic Keyboard
 #define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 4
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
 /* Planck PCB default pin-out */
 #define COLS (int []){ F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
-#define ROWS (int []){ D0, D5, B5, B6 }
+#define ROWS (int []){ D1, D0, D5, B5, B6 }
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
