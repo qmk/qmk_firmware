@@ -52,6 +52,8 @@
 #include "descriptor.h"
 #include "lufa.h"
 
+// #include <LUFA/Version.h>
+// #include <LUFA/Drivers/USB/USB.h>
 
 uint8_t keyboard_idle = 0;
 uint8_t keyboard_protocol = 1;
