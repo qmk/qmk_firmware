@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "debug.h"
 #include "backlight.h"
+#include "keymap_midi.h"
 
 static action_t keycode_to_action(uint16_t keycode);
 
@@ -69,9 +70,14 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     } else if (keycode == RESET) {
         bootloader_jump();
         return;
-    } else if (keycode > RESET) {
-        // MIDI
+    } else if (keycode == DEBUG) {
+        print("\nDEBUG: enabled.\n");
+        debug_enable = true;
         return;
+    } else if (keycode >= 0x6000 && keycode < 0x7000) {
+        action_t action;
+        action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
+        return action;
     }
 
     switch (keycode) {

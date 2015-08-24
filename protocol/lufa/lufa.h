@@ -68,17 +68,18 @@ typedef struct {
 } __attribute__ ((packed)) report_extra_t;
 
 #ifdef MIDI_ENABLE
+void MIDI_Task(void);
 MidiDevice midi_device;
 #endif
 
-#if LUFA_VERSION_INTEGER < 0x120730
-    /* old API 120219 */
-    #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint(epnum, eptype, epdir, epsize, epbank)
-#else
+// #if LUFA_VERSION_INTEGER < 0x120730
+//     /* old API 120219 */
+//     #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint(epnum, eptype, epdir, epsize, epbank)
+// #else
     /* new API >= 120730 */
     #define ENDPOINT_BANK_SINGLE 1
     #define ENDPOINT_BANK_DOUBLE 2
     #define ENDPOINT_CONFIG(epnum, eptype, epdir, epsize, epbank)    Endpoint_ConfigureEndpoint((epdir) | (epnum) , eptype, epsize, epbank)
-#endif
+// #endif
 
 #endif
