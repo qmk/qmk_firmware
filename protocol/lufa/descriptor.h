@@ -135,14 +135,14 @@ typedef struct
 #endif
 
 #ifdef MIDI_ENABLE
-#   define MIDI_INTERFACE           (NKRO_INTERFACE + 1)
-#   define MIDI2_INTERFACE           (NKRO_INTERFACE + 2)
+#   define AC_INTERFACE           (NKRO_INTERFACE + 1)
+#   define AS_INTERFACE           (NKRO_INTERFACE + 2)
 #else
-#   define MIDI2_INTERFACE           NKRO_INTERFACE
+#   define AS_INTERFACE           NKRO_INTERFACE
 #endif
 
 /* nubmer of interfaces */
-#define TOTAL_INTERFACES            MIDI2_INTERFACE + 1
+#define TOTAL_INTERFACES            AS_INTERFACE + 1
 
 
 // Endopoint number and size
@@ -170,19 +170,22 @@ typedef struct
 
 #ifdef NKRO_ENABLE
 #   define NKRO_IN_EPNUM            (CONSOLE_OUT_EPNUM + 1)
-#   if defined(__AVR_ATmega32U2__) && NKRO_IN_EPNUM > 4
-#       error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO)"
-#   endif
+#else
+#   define NKRO_IN_EPNUM            CONSOLE_OUT_EPNUM
 #endif
 
 #ifdef MIDI_ENABLE
-#   define MIDI_STREAM_IN_EPNUM        (NKRO_IN_EPNUM + 1)
-#   define MIDI_STREAM_OUT_EPNUM        (NKRO_IN_EPNUM + 1)
-#else
-#   define MIDI_STREAM_IN_EPNUM     NKRO_IN_EPNUM
-#   define MIDI_STREAM_OUT_EPNUM    NKRO_IN_EPNUM
+#   define MIDI_STREAM_IN_EPNUM     (NKRO_IN_EPNUM + 1)
+// #   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 1)
+#   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 2)
+#   define MIDI_STREAM_IN_EPADDR    (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
+#   define MIDI_STREAM_OUT_EPADDR   (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
 #endif
 
+
+#if defined(__AVR_ATmega32U2__) && MIDI_STREAM_OUT_EPADDR > 4
+# error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI)"
+#endif
 
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8

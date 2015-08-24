@@ -92,20 +92,21 @@ host_driver_t lufa_driver = {
 void SetupHardware(void);
 
 
+#ifdef MIDI_ENABLE
 USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 {
   .Config =
   {
-    .StreamingInterfaceNumber = MIDI2_INTERFACE,
+    .StreamingInterfaceNumber = AS_INTERFACE,
     .DataINEndpoint           =
     {
-      .Address          = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
+      .Address          = MIDI_STREAM_IN_EPADDR,
       .Size             = MIDI_STREAM_EPSIZE,
       .Banks            = 1,
     },
     .DataOUTEndpoint          =
     {
-      .Address          = (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM),
+      .Address          = MIDI_STREAM_OUT_EPADDR,
       .Size             = MIDI_STREAM_EPSIZE,
       .Banks            = 1,
     },
@@ -120,7 +121,7 @@ USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 #define SYS_COMMON_1 0x50
 #define SYS_COMMON_2 0x20
 #define SYS_COMMON_3 0x30
-
+#endif
 
 
 /*******************************************************************************
@@ -291,12 +292,10 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #endif
 
 #ifdef MIDI_ENABLE
-    ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
-
-    // ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
-    //                                             MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-    // ConfigSuccess &= ENDPOINT_CONFIG(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-    //                                             MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    // ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&USB_MIDI_Interface);
+    
 #endif
 
 }
@@ -324,7 +323,7 @@ void EVENT_USB_Device_ControlRequest(void)
     uint8_t* ReportData = NULL;
     uint8_t  ReportSize = 0;
 
-    MIDI_Device_ProcessControlRequest(&USB_MIDI_Interface);
+    // MIDI_Device_ProcessControlRequest(&USB_MIDI_Interface);
 
     /* Handle HID Class specific requests */
     switch (USB_ControlRequest.bRequest)
@@ -706,6 +705,74 @@ void midi_usb_init(MidiDevice * device){
   SetupHardware();
   sei();
 }
+
+void MIDI_Task(void)
+{
+
+    /* Device must be connected and configured for the task to run */
+    dprint("in MIDI_TASK\n");
+    if (USB_DeviceState != DEVICE_STATE_Configured)
+      return;
+    dprint("continuing in MIDI_TASK\n");
+
+    Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPADDR);
+
+    if (Endpoint_IsINReady())
+    {
+
+        dprint("Endpoint is ready\n");
+
+        uint8_t MIDICommand = 0;
+        uint8_t MIDIPitch;
+
+        /* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
+        uint8_t Channel = MIDI_CHANNEL(1);
+
+        MIDICommand = MIDI_COMMAND_NOTE_ON;
+        MIDIPitch   = 0x3E;
+
+        /* Check if a MIDI command is to be sent */
+        if (MIDICommand)
+        {
+            dprint("Command exists\n");
+            MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
+                {
+                    .Event       = MIDI_EVENT(0, MIDICommand),
+
+                    .Data1       = MIDICommand | Channel,
+                    .Data2       = MIDIPitch,
+                    .Data3       = MIDI_STANDARD_VELOCITY,
+                };
+
+            /* Write the MIDI event packet to the endpoint */
+            Endpoint_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
+
+            /* Send the data in the endpoint to the host */
+            Endpoint_ClearIN();
+        }
+    }
+
+
+    /* Select the MIDI OUT stream */
+    Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPADDR);
+
+    /* Check if a MIDI command has been received */
+    if (Endpoint_IsOUTReceived())
+    {
+        MIDI_EventPacket_t MIDIEvent;
+
+        /* Read the MIDI event packet from the endpoint */
+        Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
+
+        /* If the endpoint is now empty, clear the bank */
+        if (!(Endpoint_BytesInEndpoint()))
+        {
+            /* Clear the endpoint ready for new packet */
+            Endpoint_ClearOUT();
+        }
+    }
+}
+
 #endif
 
 
@@ -761,10 +828,10 @@ int main(void)
     midi_register_cc_callback(&midi_device, cc_callback);
     midi_register_sysex_callback(&midi_device, sysex_callback);
 
-    midi_send_cc(&midi_device, 0, 1, 2);
-    midi_send_cc(&midi_device, 15, 1, 0);
-    midi_send_noteon(&midi_device, 0, 64, 127);
-    midi_send_noteoff(&midi_device, 0, 64, 127);
+    // midi_send_cc(&midi_device, 0, 1, 2);
+    // midi_send_cc(&midi_device, 15, 1, 0);
+    // midi_send_noteon(&midi_device, 0, 64, 127);
+    // midi_send_noteoff(&midi_device, 0, 64, 127);
 #endif
 
 
@@ -795,11 +862,13 @@ int main(void)
             }
         }
 
-        keyboard_task();
-
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
+        // MIDI_Task();
 #endif
+
+        keyboard_task();
+
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();

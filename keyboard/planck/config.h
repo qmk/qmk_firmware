@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x6061
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
 #define PRODUCT         The Planck Keyboard
@@ -61,10 +61,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-#define NO_DEBUG
+// #define NO_DEBUG
 
 /* disable print */
-#define NO_PRINT
+// #define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
