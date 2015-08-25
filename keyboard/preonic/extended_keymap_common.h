@@ -174,6 +174,7 @@ extern const uint16_t fn_actions[];
 #define BL_STEP 0x4013
 
 #define RESET 0x5000
+#define DEBUG 0x5001
 
 #define MIDI(n) n | 0x6000
 
