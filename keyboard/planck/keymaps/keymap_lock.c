@@ -35,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_KP_1,    KC_KP_2,    KC_KP_3,  KC_SLSH, KC_ENT},
   {KC_TRNS, KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS,    KC_SPC,   KC_SPC, KC_KP_0,   KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT}
 },
-[5] = { /* MIDI */
-  {CHNL(N_C5, 0), CHNL(N_D5, 0),CHNL(N_E5, 0),CHNL(N_F5, 0),CHNL(N_G5, 0),CHNL(N_A5, 0),CHNL(N_B5, 0),CHNL(N_C6, 0), CHNL(N_D6, 0), CHNL(N_E6, 0),  CHNL(N_F6, 0),CHNL(N_G6, 0)},
-  {CHNL(N_C5, 2), CHNL(N_D5, 2),CHNL(N_E5, 2),CHNL(N_F5, 2),CHNL(N_G5, 2),CHNL(N_A5, 2),CHNL(N_B5, 2),CHNL(N_C6, 2), CHNL(N_D6, 2), CHNL(N_E6, 2),  CHNL(N_F6, 2),CHNL(N_G6, 2)},
-  {CHNL(N_C5, 4), CHNL(N_D5, 4),CHNL(N_E5, 4),CHNL(N_F5, 4),CHNL(N_G5, 4),CHNL(N_A5, 4),CHNL(N_B5, 4),CHNL(N_C6, 4), CHNL(N_D6, 4), CHNL(N_E6, 4),  CHNL(N_F6, 4),CHNL(N_G6, 4)},
-  {KC_TRNS, KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS,    KC_SPC,   KC_SPC, KC_KP_0,   KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT}
+[5] = {
+  { MIDI12 },
+  { MIDI12 },
+  { MIDI12 },
+  {M(0), KC_LCTL, KC_LALT, KC_LGUI, FUNC(2),    KC_SPC,   KC_SPC,    FUNC(1),   MIDI, MIDI, MIDI,  MIDI}
 }
 };
 
@@ -60,11 +60,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         if (record->event.pressed) {
           // register_code(KC_RSFT);
           backlight_set(BACKLIGHT_LEVELS);
-          layer_on(5);
+          default_layer_and(0); 
+          default_layer_or((1<<5));
         } else {
           // unregister_code(KC_RSFT);
           backlight_set(0);
-          layer_clear();
+          default_layer_and(0); 
+          default_layer_or(0);
         }
         break;
       } 
