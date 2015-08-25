@@ -31,7 +31,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 	    }
 	}
 
-    if (record->event.key.col == 11 && record->event.key.row == 4) {
+    if (record->event.key.col == 11 && record->event.key.row == 4 && record->event.pressed) {
         starting_note++;
         midi_send_cc(&midi_device, 0, 0x7B, 0);
         midi_send_cc(&midi_device, 1, 0x7B, 0);
@@ -39,7 +39,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
         midi_send_cc(&midi_device, 3, 0x7B, 0);
         midi_send_cc(&midi_device, 4, 0x7B, 0);
     }
-    if (record->event.key.col == 8 && record->event.key.row == 4) {
+    if (record->event.key.col == 8 && record->event.key.row == 4 && record->event.pressed) {
         starting_note--;
         midi_send_cc(&midi_device, 0, 0x7B, 0);
         midi_send_cc(&midi_device, 1, 0x7B, 0);

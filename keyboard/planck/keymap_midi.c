@@ -19,11 +19,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_midi.h"
 #include <lufa.h>
 
+uint8_t starting_note = 0x0C;
+
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+	if (id != 0) {
+	    if (record->event.pressed) {
+	    	midi_send_noteon(&midi_device, opt, (id & 0xFF), 127);
+	    } else {
+	        midi_send_noteoff(&midi_device, opt, (id & 0xFF), 127);
+	    }
+	}
+
+    if (record->event.key.col == (MATRIX_COLS - 1) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
+        starting_note++;
+        midi_send_cc(&midi_device, 0, 0x7B, 0);
+        midi_send_cc(&midi_device, 1, 0x7B, 0);
+        midi_send_cc(&midi_device, 2, 0x7B, 0);
+        midi_send_cc(&midi_device, 3, 0x7B, 0);
+        midi_send_cc(&midi_device, 4, 0x7B, 0);
+    }
+    if (record->event.key.col == (MATRIX_COLS - 2) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
+        starting_note--;
+        midi_send_cc(&midi_device, 0, 0x7B, 0);
+        midi_send_cc(&midi_device, 1, 0x7B, 0);
+        midi_send_cc(&midi_device, 2, 0x7B, 0);
+        midi_send_cc(&midi_device, 3, 0x7B, 0);
+        midi_send_cc(&midi_device, 4, 0x7B, 0);
+    }
+
     if (record->event.pressed) {
-    	midi_send_noteon(&midi_device, opt, (id & 0xFF), 127);
+    	midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
     } else {
-        midi_send_noteoff(&midi_device, opt, (id & 0xFF), 127);
+        midi_send_noteoff(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
     }
 }

@@ -18,7 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYMAP_MIDI_H
 #define KEYMAP_MIDI_H
 
+#define MIDI 0x6000
+#define MIDI12 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000
+
 #define CHNL(note, channel) (note + (channel << 8))
+
+#define SCALE (int []){ 0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, 24, 26, 28, 29, 31, 33, 35, 36}
 
 #define N_CN1  (0x600C + (12 * -1) + 0 )
 #define N_CN1S (0x600C + (12 * -1) + 1 )
