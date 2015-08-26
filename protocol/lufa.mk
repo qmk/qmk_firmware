@@ -1,11 +1,11 @@
 LUFA_DIR = protocol/lufa
 
 # Path to the LUFA library
-#ifeq (, $(wildcard $(TOP_DIR)/$(LUFA_DIR)/LUFA-git/LUFA/Version.h))
-#    LUFA_PATH ?= $(LUFA_DIR)/LUFA-120730
-#else
+ifeq (, $(wildcard $(TOP_DIR)/$(LUFA_DIR)/LUFA-git/LUFA/Version.h))
+    LUFA_PATH ?= $(LUFA_DIR)/LUFA-120730
+else
     LUFA_PATH ?= $(LUFA_DIR)/LUFA-git
-#endif
+endif
 
 
 # Create the LUFA source path variables by including the LUFA makefile
