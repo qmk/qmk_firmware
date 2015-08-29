@@ -7,35 +7,18 @@
 #define PI 3.14159265
 #define CHANNEL OCR1C
 
-volatile uint16_t sample;
-uint16_t lastSample;
-
-const int sounddata_length=200;
-
-const unsigned char sounddata_data[] PROGMEM = {128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
-128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 129, 127, 129, 128, 127, 133, 
-117, 109, 125, 121, 116, 132, 140, 126, 114, 114, 116, 120, 114, 93, 73, 66, 76, 116, 142, 129, 
-128, 129, 120, 119, 118, 104, 87, 123, 181, 194, 196, 198, 189, 176, 160, 162, 172, 164, 164, 183, 
-197, 188, 168, 167, 170, 165, 185, 209, 206, 196, 196, 199, 185, 162, 156, 167, 176, 173, 170, 166, 
-151, 142, 140, 134, 130, 127, 113, 86, 67, 66, 69, 75, 73, 75, 86, 90, 91, 84, 65, 48, 
-41, 30, 26, 56, 91, 88, 72, 70, 73, 82, 89, 73, 57, 60, 74, 89, 92, 77, 63, 60, 
-53, 47, 56, 64, 63, 61, 56, 54, 52, 36, 16, 22, 51, 66, 67, 70, 76, 88, 99, 92, 
-77, 74, 85, 100, 106, 97, 83, 85, 96, 108, 133, 160, 164};
-
 void delay_us(int count) {
   while(count--) {
     _delay_us(1);
   }
 }
+
+int voices = 0;
+double frequency = 0;
+int volume = 0;
+
+double frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 void beeps() {
  //    DDRB |= (1<<7);
@@ -120,119 +103,118 @@ play_notes();
 
 }
 
-void play_note(float freq, int length) {
-    DDRB |= (1<<7);
-    PORTB &= ~(1<<7);
+void send_freq(double freq, int vol) {
+    int duty = (((double)F_CPU) / freq);
+    ICR3 = duty; // Set max to the period
+    OCR3A = duty >> (0x10 - vol); // Set compare to half the period
+}
+
+void stop_all_notes() {
+    voices = 0;
+    TCCR3A = 0;
+    TCCR3B = 0;
+    frequency = 0;
+
+    for (int i = 0; i < 8; i++) {
+        frequencies[i] = 0;
+        volumes[i] = 0;
+    }
+}
+
+void stop_note(double freq) {
+    for (int i = 7; i >= 0; i--) {
+        if (frequencies[i] == freq) {
+            frequencies[i] = 0;
+            volumes[i] = 0;
+            for (int j = i; (j < 7); j++) {
+                frequencies[j] = frequencies[j+1];
+                frequencies[j+1] = 0;
+                volumes[j] = volumes[j+1];
+                volumes[j+1] = 0;
+            }
+        }
+    }
+    voices--;
+    if (voices == 0) {
+        TCCR3A = 0;
+        TCCR3B = 0;
+        frequency = 0;
+    } else {
+        double freq = frequencies[voices - 1];
+        int vol = volumes[voices - 1];
+        if (frequency < freq) {
+            for (double f = frequency; f <= freq; f += ((freq - frequency) / 500.0)) {
+                send_freq(f, vol);
+            }
+        } else if (frequency > freq) {
+            for (double f = frequency; f >= freq; f -= ((frequency - freq) / 500.0)) {
+                send_freq(f, vol);
+            }
+        }
+        send_freq(freq, vol);
+        frequency = freq;
+        volume = vol;
+    }
+}
+
+void play_note(double freq, int vol) {
 
     if (freq > 0) {
-	    int frequency = 1000000/freq;
-		ICR1 = frequency; // Set max to the period
-		OCR1C = frequency >> 1; // Set compare to half the period
+        DDRC |= (1<<6); 
 
-	    TCCR1A = _BV(COM1C1) | _BV(WGM11); // = 0b00001010;
-	    TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-    }
+        TCCR3A = (1 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
+        TCCR3B = (1 << WGM33) | (1 << WGM32) | (0 << CS32) | (1 << CS31) | (0 << CS30);
 
-	for (int i = 0; i < length; i++) {
-	    _delay_us(50000);
-	}
-
-    TCCR1A &= ~(_BV(COM1C1));
-}
-
-// This is called at 8000 Hz to load the next sample.
-ISR(TIMER1_COMPA_vect) {
-    if (sample >= sounddata_length) {
-        if (sample == sounddata_length + lastSample) {
-            TIMSK1 &= ~_BV(OCIE1A);
-
-			// Disable the per-sample timer completely.
-   			 TCCR1B &= ~_BV(CS10);
+        if (frequency != 0) {
+            if (frequency < freq) {
+                for (double f = frequency; f <= freq; f += ((freq - frequency) / 500.0)) {
+                    send_freq(f, vol);
+                }
+            } else if (frequency > freq) {
+                for (double f = frequency; f >= freq; f -= ((frequency - freq) / 500.0)) {
+                    send_freq(f, vol);
+                }
+            }
         }
-        else {
-            OCR1C = sounddata_length + lastSample - sample;                
-        }
+        send_freq(freq, vol);
+        frequency = freq;
+        volume = vol;
+
+        frequencies[voices] = frequency;
+        volumes[voices] = volume;
+        voices++;
     }
-    else {
-        OCR1C = pgm_read_byte(&sounddata_data[sample]);            
-    }
+    // ICR3 = 0xFFFF;
+    // for (int i = 0; i < 10000; i++) {
+    //     OCR3A = round((sin(i*freq)*.5)+.5)*0xFFFF;
+    //     // _delay_us(50);
+    // }
 
-    ++sample;
-}
-
-void play_notes() {
-
-
-    // Set up Timer 2 to do pulse width modulation on the speaker
-    // pin.
-
-    DDRB |= (1<<7);
-    PORTB &= ~(1<<7);
-
-    // Use internal clock (datasheet p.160)
-    // ASSR &= ~(_BV(EXCLK) | _BV(AS2));
-
-    // Set fast PWM mode  (p.157)
-    TCCR1A |= _BV(WGM21) | _BV(WGM20);
-    TCCR1B &= ~_BV(WGM22);
-
-    // Do non-inverting PWM on pin OC2A (p.155)
-    // On the Arduino this is pin 11.
-    TCCR1A = (TCCR2A | _BV(COM2A1)) & ~_BV(COM2A0);
-    TCCR1A &= ~(_BV(COM2B1) | _BV(COM2B0));
-    // No prescaler (p.158)
-    TCCR1B = (TCCR1B & ~(_BV(CS12) | _BV(CS11))) | _BV(CS10);
-
-    // Set initial pulse width to the first sample.
-    OCR1A = pgm_read_byte(&sounddata_data[0]);
-
-
-
-
-	cli();
-
-    // Set CTC mode (Clear Timer on Compare Match) (p.133)
-    // Have to set OCR1A *after*, otherwise it gets reset to 0!
-    TCCR2B = (TCCR2B & ~_BV(WGM13)) | _BV(WGM12);
-    TCCR2A = TCCR2A & ~(_BV(WGM11) | _BV(WGM10));
-
-    // No prescaler (p.134)
-    TCCR2B = (TCCR2B & ~(_BV(CS12) | _BV(CS11))) | _BV(CS10);
-
-    // Set the compare register (OCR1A).
-    // OCR1A is a 16-bit register, so we have to do this with
-    // interrupts disabled to be safe.
-    // OCR2A = F_CPU / SAMPLE_RATE;    // 16e6 / 8000 = 2000
-    OCR2A = 2000;
-
-    // Enable interrupt when TCNT1 == OCR1A (p.136)
-    TIMSK1 |= _BV(OCIE2A);
-
-    sample = 0;
-    sei();
+    // TCCR3A = 0;
+    // TCCR3B = 0;
 }
 
 void note(int x, float length) {
-    DDRB |= (1<<1);
+    DDRC |= (1<<6);
 	int t = (int)(440*pow(2,-x/12.0)); // starting note
     for (int y = 0; y < length*1000/t; y++) { // note length
-        PORTB |= (1<<1);
+        PORTC |= (1<<6);
         delay_us(t);
-        PORTB &= ~(1<<1);
+        PORTC &= ~(1<<6);
         delay_us(t);
     }
-	PORTB &= ~(1<<1);
+	PORTC &= ~(1<<6);
 }
 
 void true_note(float x, float y, float length) {
 	for (uint32_t i = 0; i < length * 50; i++) {
 		uint32_t v = (uint32_t) (round(sin(PI*2*i*640000*pow(2, x/12.0))*.5+1 + sin(PI*2*i*640000*pow(2, y/12.0))*.5+1) / 2 * pow(2, 8)); 
 		for (int u = 0; u < 8; u++) {
-			if (v & (1 << u) && !(PORTB&(1<<1)))
-		        PORTB |= (1<<1);
-		    else if (PORTB&(1<<1))
-	        	PORTB &= ~(1<<1);
+			if (v & (1 << u) && !(PORTC&(1<<6)))
+		        PORTC |= (1<<6);
+		    else if (PORTC&(1<<6))
+	        	PORTC &= ~(1<<6);
 		}
 	}
-	PORTB &= ~(1<<1);
+	PORTC &= ~(1<<6);
 }
