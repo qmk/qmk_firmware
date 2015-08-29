@@ -50,7 +50,9 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
     if (record->event.pressed) {
     	midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
+		play_note(((double)261.6)*pow(2.0, 2.0)*pow(2.0,SCALE[record->event.key.col]/12.0+(record->event.key.row)), 0xF);
     } else {
         midi_send_noteoff(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
+        stop_note(((double)261.6)*pow(2.0, 2.0)*pow(2.0,SCALE[record->event.key.col]/12.0+(record->event.key.row)));
     }
 }
