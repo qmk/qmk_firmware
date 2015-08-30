@@ -22,6 +22,7 @@
   *
   *  <b>Fixed:</b>
   *   - Fixed broken XMEGA serial stream driver due to missing USART base pointer parameter (thanks to William Patterson)
+  *   - Fixed incorrect signature reported in the CDC/DFU bootloaders for the AT90USB82 (thanks to NicoHood)
   *
   *  \section Sec_ChangeLog140928 Version 140928
   *  <b>New:</b>
