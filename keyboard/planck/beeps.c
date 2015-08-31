@@ -5,7 +5,6 @@
 #include <avr/io.h>
 
 #define PI 3.14159265
-#define CHANNEL OCR1C
 
 void delay_us(int count) {
   while(count--) {
@@ -16,91 +15,17 @@ void delay_us(int count) {
 int voices = 0;
 double frequency = 0;
 int volume = 0;
+int position = 0;
 
 double frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+bool sliding = false;
+#define RANGE 1000
+volatile int i=0; //elements of the wave
+
 
 void beeps() {
- //    DDRB |= (1<<7);
- //    PORTB &= ~(1<<7);
-    
- //    // Use full 16-bit resolution. 
- //    ICR1 = 0xFFFF;
-
- //    // I could write a wall of text here to explain... but TL;DW
- //    // Go read the ATmega32u4 datasheet.
- //    // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
-    
- //    // Pin PB7 = OCR1C (Timer 1, Channel C)
- //    // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
- //    // (i.e. start high, go low when counter matches.)
- //    // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
- //    // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
-    
- //    TCCR1A = _BV(COM1C1) | _BV(WGM11); // = 0b00001010;
- //    TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-
-
- //    // Turn off PWM control on PB7, revert to output low.
- //    // TCCR1A &= ~(_BV(COM1C1));
- //    // CHANNEL = ((1 << level) - 1);
-
- //    // Turn on PWM control of PB7
- //    TCCR1A |= _BV(COM1C1);
- //    // CHANNEL = level << OFFSET | 0x0FFF;
- //    // CHANNEL = 0b1010101010101010;
-
- //    float x = 12;
- //    float y = 24;
- //    float length = 50;
- //    float scale = 1;
-
- // //    int f1 = 1000000/440;
- // //    int f2 = 1000000/880;
-	// // for (uint32_t i = 0; i < length * 1000; i++) {
-	// // 	// int frequency = 1/((sin(PI*2*i*scale*pow(2, x/12.0))*.5+1 + sin(PI*2*i*scale*pow(2, y/12.0))*.5+1) / 2); 
-
-	// // 	ICR1 = f1; // Set max to the period
-	// // 	OCR1C = f1 >> 1; // Set compare to half the period
- // //     	// _delay_us(10);
-	// // }
- //    int frequency = 1000000/440;
-	// ICR1 = frequency; // Set max to the period
-	// OCR1C = frequency >> 1; // Set compare to half the period
- //    _delay_us(500000);
-
- //    TCCR1A &= ~(_BV(COM1C1));
- //    CHANNEL = 0;
-play_notes();
-
-
-	// play_note(55*pow(2, 0/12.0), 	1);
-	// play_note(55*pow(2, 12/12.0), 	1);
-	// play_note(55*pow(2, 24/12.0), 	1);
-	// play_note(55*pow(2, 0/12.0), 	1);
-	// play_note(55*pow(2, 12/12.0), 	1);
-	// play_note(55*pow(2, 24/12.0), 	1);
-
-	// play_note(0, 					4);
-
-	// play_note(55*pow(2, 0/12.0), 	8);
-	// play_note(55*pow(2, 12/12.0), 	4);
-	// play_note(55*pow(2, 10/12.0), 	4);
-	// play_note(55*pow(2, 12/12.0), 	8);
-	// play_note(55*pow(2, 10/12.0), 	4);
-	// play_note(55*pow(2, 7/12.0), 	2);
-	// play_note(55*pow(2, 8/12.0), 	2);
-	// play_note(55*pow(2, 7/12.0), 	16);
-	// play_note(0, 					4);
-	// play_note(55*pow(2, 3/12.0), 	8);
-	// play_note(55*pow(2, 5/12.0), 	4);
-	// play_note(55*pow(2, 7/12.0), 	4);
-	// play_note(55*pow(2, 7/12.0), 	8);
-	// play_note(55*pow(2, 5/12.0), 	4);
-	// play_note(55*pow(2, 3/12.0), 	4);
-	// play_note(55*pow(2, 2/12.0), 	16);
-
-
+    play_notes();
 }
 
 void send_freq(double freq, int vol) {
@@ -114,6 +39,7 @@ void stop_all_notes() {
     TCCR3A = 0;
     TCCR3B = 0;
     frequency = 0;
+    volume = 0;
 
     for (int i = 0; i < 8; i++) {
         frequencies[i] = 0;
@@ -135,27 +61,143 @@ void stop_note(double freq) {
         }
     }
     voices--;
+    if (voices < 0)
+        voices = 0;
     if (voices == 0) {
         TCCR3A = 0;
         TCCR3B = 0;
         frequency = 0;
+        volume = 0;
     } else {
         double freq = frequencies[voices - 1];
         int vol = volumes[voices - 1];
         if (frequency < freq) {
+            sliding = true;
             for (double f = frequency; f <= freq; f += ((freq - frequency) / 500.0)) {
                 send_freq(f, vol);
             }
+            sliding = false;
         } else if (frequency > freq) {
+            sliding = true;
             for (double f = frequency; f >= freq; f -= ((frequency - freq) / 500.0)) {
                 send_freq(f, vol);
             }
+            sliding = false;
         }
         send_freq(freq, vol);
         frequency = freq;
         volume = vol;
     }
 }
+
+void init_notes() {
+    // TCCR1A = (1 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (1 << WGM10);
+    // TCCR1B = (1 << COM1B1) | (0 << COM1A0) | (1 << WGM13) | (1 << WGM12) | (0 << CS12) | (0 << CS11) | (1 << CS10);
+
+    // DDRC |= (1<<6); 
+
+    // TCCR3A = (1 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
+    // TCCR3B = (1 << WGM33) | (1 << WGM32) | (0 << CS32) | (0 << CS31) | (1 << CS30);
+
+    // ICR3 = 0xFFFF; 
+    // OCR3A = (int)((float)wave[i]*ICR3/RANGE); //go to next array element
+
+
+    // cli();
+
+    // /* Enable interrupt on timer2 == 127, with clk/8 prescaler. At 16MHz,
+    //    this gives a timer interrupt at 15625Hz. */
+    // TIMSK3 = (1 << OCIE3A);
+
+    // /* clear/reset timer on match */
+    // // TCCR3A = 1<<WGM31 | 0<<WGM30;  CTC mode, reset on match 
+    // // TCCR3B = 0<<CS32 | 1<<CS31 | 0<<CS30; /* clk, /8 prescaler */
+
+    // TCCR3A = (1 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
+    // TCCR3B = (0 << WGM33) | (0 << WGM32) | (0 << CS32) | (0 << CS31) | (1 << CS30);
+
+
+    // TCCR1A = (1 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
+    // TCCR1B = (1 << WGM12) | (0 << CS12) | (0 << CS11) | (1 << CS10);
+    // // SPCR = 0x50;
+    // // SPSR = 0x01;
+    // DDRC |= (1<<6);
+    // // ICR3 = 0xFFFF; 
+    // // OCR3A=80;
+    // PORTC |= (1<<6);
+
+    // sei();
+}
+
+// #define highByte(c) ((c >> 8) & 0x00FF)
+// #define lowByte(c) (c & 0x00FF)
+
+ISR(TIMER3_COMPA_vect) {
+
+    if (ICR3 > 0 && !sliding) {
+        switch (position) {
+            case 0: {
+                int duty = (((double)F_CPU) / (frequency));
+                ICR3 = duty; // Set max to the period
+                OCR3A = duty >> 1; // Set compare to half the period
+                break;
+            }
+            case 1: {
+                int duty = (((double)F_CPU) / (frequency*2));
+                ICR3 = duty; // Set max to the period
+                OCR3A = duty >> 1; // Set compare to half the period
+                break;
+            }
+            case 2: {
+                int duty = (((double)F_CPU) / (frequency*3));
+                ICR3 = duty; // Set max to the period
+                OCR3A = duty >> 1; // Set compare to half the period
+                break;
+            }
+        }
+        position = (position + 1) % 3;
+    }
+//     /* OCR2A has been cleared, per TCCR2A above */
+//     // OCR3A = 127;
+
+//     // pos1 += incr1;
+//     // pos2 += incr2;
+//     // pos3 += incr3;
+
+//     // sample = sinewave[highByte(pos1)] + sinewave[highByte(pos2)] + sinewave[highByte(pos3)];
+
+//     // OCR3A = sample;
+
+
+//     OCR3A=pgm_read_byte(&sinewave[pos1]);
+//     pos1++;
+//     // PORTC &= ~(1<<6);
+
+//     /* buffered, 1x gain, active mode */
+//     // SPDR = highByte(sample) | 0x70;
+//     // while (!(SPSR & (1<<SPIF)));
+
+//     // SPDR = lowByte(sample);
+//     // while (!(SPSR & (1<<SPIF)));
+
+//     // PORTC |= (1<<6);
+}
+
+void loop() {
+}
+// ISR(TIMER1_COMPA_vect)
+// {
+//     // if (i<(sizeof(wave)/sizeof(int))) //don't exceed ends of vector... sizeof(wave)
+//     if (i<pow(2, 10)) //don't exceed ends of vector... sizeof(wave)
+//     {
+//         OCR3A = (int)((float)wave[i]*ICR3/RANGE); //go to next array element
+//         // int x = 1;
+//         // int y = 5;
+//         // OCR3A = (int) (round(sin(i*440*pow(2, x/12.0))*.5+.5 + sin(i*440*pow(2, y/12.0))*.5+.5) / 2 * ICR3); 
+//         i++; //increment
+//     }
+//     else i=0; //reset
+// }
 
 void play_note(double freq, int vol) {
 

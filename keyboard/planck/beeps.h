@@ -9,3 +9,4 @@ void true_note(float x, float y, float length);
 void play_note(double freq, int vol);
 void stop_note(double freq);
 void stop_all_notes();
+void init_notes();
