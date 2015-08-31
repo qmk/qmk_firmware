@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { MIDI12 },
   { MIDI12 },
   { MIDI12 },
-  {M(0), KC_LCTL, KC_LALT, KC_LGUI, FUNC(2),    KC_SPC,   KC_SPC,    FUNC(1),   MIDI, MIDI, MIDI,  MIDI}
+  {M(0), KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,    KC_SPC,   KC_SPC,    FUNC(1),   MIDI, MIDI, MIDI,  MIDI}
 }
 };
 

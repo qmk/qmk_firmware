@@ -829,6 +829,7 @@ int main(void)
     midi_register_cc_callback(&midi_device, cc_callback);
     midi_register_sysex_callback(&midi_device, sysex_callback);
 
+    init_notes();
     // midi_send_cc(&midi_device, 0, 1, 2);
     // midi_send_cc(&midi_device, 15, 1, 0);
     // midi_send_noteon(&midi_device, 0, 64, 127);
@@ -837,13 +838,13 @@ int main(void)
 
 
     /* wait for USB startup & debug output */
-    while (USB_DeviceState != DEVICE_STATE_Configured) {
-#if defined(INTERRUPT_CONTROL_ENDPOINT)
-        ;
-#else
+    // while (USB_DeviceState != DEVICE_STATE_Configured) {
+// #if defined(INTERRUPT_CONTROL_ENDPOINT)
+        // ;
+// #else
         USB_USBTask();
-#endif
-    }
+// #endif
+    // }
     print("USB configured.\n");
 
     /* init modules */
