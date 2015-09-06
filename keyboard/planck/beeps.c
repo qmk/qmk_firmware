@@ -183,22 +183,6 @@ ISR(TIMER3_COMPA_vect) {
 //     // PORTC |= (1<<6);
 }
 
-void loop() {
-}
-// ISR(TIMER1_COMPA_vect)
-// {
-//     // if (i<(sizeof(wave)/sizeof(int))) //don't exceed ends of vector... sizeof(wave)
-//     if (i<pow(2, 10)) //don't exceed ends of vector... sizeof(wave)
-//     {
-//         OCR3A = (int)((float)wave[i]*ICR3/RANGE); //go to next array element
-//         // int x = 1;
-//         // int y = 5;
-//         // OCR3A = (int) (round(sin(i*440*pow(2, x/12.0))*.5+.5 + sin(i*440*pow(2, y/12.0))*.5+.5) / 2 * ICR3); 
-//         i++; //increment
-//     }
-//     else i=0; //reset
-// }
-
 void play_note(double freq, int vol) {
 
     if (freq > 0) {
@@ -236,27 +220,27 @@ void play_note(double freq, int vol) {
     // TCCR3B = 0;
 }
 
-void note(int x, float length) {
-    DDRC |= (1<<6);
-	int t = (int)(440*pow(2,-x/12.0)); // starting note
-    for (int y = 0; y < length*1000/t; y++) { // note length
-        PORTC |= (1<<6);
-        delay_us(t);
-        PORTC &= ~(1<<6);
-        delay_us(t);
-    }
-	PORTC &= ~(1<<6);
-}
+// void note(int x, float length) {
+//     DDRC |= (1<<6);
+// 	int t = (int)(440*pow(2,-x/12.0)); // starting note
+//     for (int y = 0; y < length*1000/t; y++) { // note length
+//         PORTC |= (1<<6);
+//         delay_us(t);
+//         PORTC &= ~(1<<6);
+//         delay_us(t);
+//     }
+// 	PORTC &= ~(1<<6);
+// }
 
-void true_note(float x, float y, float length) {
-	for (uint32_t i = 0; i < length * 50; i++) {
-		uint32_t v = (uint32_t) (round(sin(PI*2*i*640000*pow(2, x/12.0))*.5+1 + sin(PI*2*i*640000*pow(2, y/12.0))*.5+1) / 2 * pow(2, 8)); 
-		for (int u = 0; u < 8; u++) {
-			if (v & (1 << u) && !(PORTC&(1<<6)))
-		        PORTC |= (1<<6);
-		    else if (PORTC&(1<<6))
-	        	PORTC &= ~(1<<6);
-		}
-	}
-	PORTC &= ~(1<<6);
-}
+// void true_note(float x, float y, float length) {
+// 	for (uint32_t i = 0; i < length * 50; i++) {
+// 		uint32_t v = (uint32_t) (round(sin(PI*2*i*640000*pow(2, x/12.0))*.5+1 + sin(PI*2*i*640000*pow(2, y/12.0))*.5+1) / 2 * pow(2, 8)); 
+// 		for (int u = 0; u < 8; u++) {
+// 			if (v & (1 << u) && !(PORTC&(1<<6)))
+// 		        PORTC |= (1<<6);
+// 		    else if (PORTC&(1<<6))
+// 	        	PORTC &= ~(1<<6);
+// 		}
+// 	}
+// 	PORTC &= ~(1<<6);
+// }
