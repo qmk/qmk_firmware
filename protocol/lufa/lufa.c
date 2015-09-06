@@ -51,7 +51,9 @@
 
 #include "descriptor.h"
 #include "lufa.h"
+#ifdef MIDI_ENABLE
 #include <beeps.h>
+#endif
 
 // #include <LUFA/Version.h>
 // #include <LUFA/Drivers/USB/USB.h>
