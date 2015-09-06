@@ -7,6 +7,7 @@ Keyboard initialization process takes a few seconds at start up. During that you
 
 Update
 ------
+2015/09/07  Added keymap for Alps 102-key. Thanks, tai @ geekhack!
 2015/05/05  Added keymaps for 107-key, 77-key and 50-key. Thanks, orihalcon @ geekhack!
 2015/05/19  Fixed a protocol handling bug.
 
@@ -67,3 +68,5 @@ To select keymap:
 Keymap
 ------
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document(you can find in top README.md) and existent keymap files.
+
+Use `KEYMAP_ALPS102()` to define your keymap for Alps models.
