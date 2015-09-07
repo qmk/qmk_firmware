@@ -19,7 +19,7 @@ void bootmagic(void)
     }
 
     /* do scans in case of bounce */
-    print("boogmagic scan: ... ");
+    print("bootmagic scan: ... ");
     uint8_t scan = 100;
     while (scan--) { matrix_scan(); _delay_ms(10); }
     print("done.\n");
