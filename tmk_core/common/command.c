@@ -287,6 +287,9 @@ static bool command_common(uint8_t code)
 #ifdef PROTOCOL_VUSB
             " VUSB"
 #endif
+#ifdef PROTOCOL_CHIBIOS
+            " CHIBIOS"
+#endif
 #ifdef BOOTMAGIC_ENABLE
             " BOOTMAGIC"
 #endif
