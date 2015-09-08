@@ -81,6 +81,10 @@ endif
 # Version string
 OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
 
+# Bootloader address
+ifdef BOOTLOADER_ADDRESS
+    OPT_DEFS += -DBOOTLOADER_ADDRESS=$(BOOTLOADER_ADDRESS)
+endif
 
 # Search Path
 VPATH += $(TMK_DIR)/common
