@@ -31,7 +31,7 @@
 #define USB_DRIVER USBD1
 
 /* Initialize the USB driver and bus */
-void init_usb_driver(void);
+void init_usb_driver(USBDriver *usbp);
 
 /* ---------------
  * Keyboard header
