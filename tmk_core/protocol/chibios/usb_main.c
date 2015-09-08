@@ -20,6 +20,11 @@
 
 #include "usb_main.h"
 
+#include "debug.h"
+#ifdef SLEEP_LED_ENABLE
+#include "sleep_led.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -752,6 +757,7 @@ static const USBEndpointConfig nkro_ep_config = {
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
   switch(event) {
   case USB_EVENT_RESET:
+    //TODO: from ISR! print("[R]");
     return;
 
   case USB_EVENT_ADDRESS:
@@ -778,9 +784,21 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     return;
 
   case USB_EVENT_SUSPEND:
+    //TODO: from ISR! print("[S]");
+    //TODO: signal suspend?
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_enable();
+#endif /* SLEEP_LED_ENABLE */
     return;
 
   case USB_EVENT_WAKEUP:
+    //TODO: from ISR! print("[W]");
+    //TODO: suspend_wakeup_init();
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_disable();
+    // NOTE: converters may not accept this
+    led_set(host_keyboard_leds());
+#endif /* SLEEP_LED_ENABLE */
     return;
 
   case USB_EVENT_STALLED:

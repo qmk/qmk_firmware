@@ -76,7 +76,7 @@ int main(void) {
   host_set_driver(&chibios_driver);
 
 #ifdef SLEEP_LED_ENABLE
-    sleep_led_init();
+  sleep_led_init();
 #endif
 
   print("Keyboard start.\n");
