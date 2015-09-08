@@ -206,7 +206,7 @@ CPPWARN = -Wall -Wextra -Wundef
 UDEFS = $(OPT_DEFS)
 
 # Define ASM defines here
-UADEFS =
+UADEFS = $(OPT_DEFS)
 
 # List all user directories here
 UINCDIR =
