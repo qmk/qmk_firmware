@@ -60,7 +60,7 @@ int main(void) {
   palClearPad(GPIOC, GPIOC_LED_BLUE);
 
   /* Init USB */
-  init_usb_driver();
+  init_usb_driver(&USB_DRIVER);
 
   /* init printf */
   init_printf(NULL,sendchar_pf);
