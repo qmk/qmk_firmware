@@ -40,6 +40,14 @@
  * -------------------------
  */
 
+/* declarations */
+uint8_t keyboard_leds(void);
+void send_keyboard(report_keyboard_t *report);
+void send_mouse(report_mouse_t *report);
+void send_system(uint16_t data);
+void send_consumer(uint16_t data);
+
+/* host struct */
 host_driver_t chibios_driver = {
   keyboard_leds,
   send_keyboard,
@@ -52,14 +60,15 @@ host_driver_t chibios_driver = {
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
  */
-// uint8_t blinkLedState = 0;
-// static THD_WORKING_AREA(waThread1, 128);
-// static THD_FUNCTION(Thread1, arg) {
+/* set this variable to non-zero anywhere to blink once */
+// uint8_t blinkLed = 0;
+// static THD_WORKING_AREA(waBlinkerThread, 128);
+// static THD_FUNCTION(blinkerThread, arg) {
 //   (void)arg;
-//   chRegSetThreadName("blinker1");
+//   chRegSetThreadName("blinkOrange");
 //   while(true) {
-//     if(blinkLedState) {
-//       blinkLedState = 0;
+//     if(blinkLed) {
+//       blinkLed = 0;
 //       palSetPad(GPIOC, GPIOC_LED_ORANGE);
 //       chThdSleepMilliseconds(100);
 //       palClearPad(GPIOC, GPIOC_LED_ORANGE);
@@ -82,7 +91,7 @@ int main(void) {
   palClearPad(GPIOC, GPIOC_LED_BLUE);
 
   // TESTING
-  // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+  // chThdCreateStatic(waBlinkerThread, sizeof(waBlinkerThread), NORMALPRIO, blinkerThread, NULL);
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
