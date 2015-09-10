@@ -19,6 +19,9 @@
 #ifndef _USB_MAIN_H_
 #define _USB_MAIN_H_
 
+// TESTING
+// extern uint8_t blinkLedState;
+
 #include "ch.h"
 #include "hal.h"
 

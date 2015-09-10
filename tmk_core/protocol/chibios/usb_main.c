@@ -23,6 +23,8 @@
 #include "debug.h"
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
+#include "led.h"
+#include "host.h"
 #endif
 
 /* ---------------------------------------------------------

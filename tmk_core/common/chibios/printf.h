@@ -55,16 +55,16 @@ many embedded systems.
 To use the printf you need to supply your own character output function, 
 something like :
 
-	void putc ( void* p, char c)
-		{
-		while (!SERIAL_PORT_EMPTY) ;
-		SERIAL_PORT_TX_REGISTER = c;
-		}
+    void putc ( void* p, char c)
+        {
+        while (!SERIAL_PORT_EMPTY) ;
+        SERIAL_PORT_TX_REGISTER = c;
+        }
 
 Before you can call printf you need to initialize it to use your 
 character output function with something like:
 
-	init_printf(NULL,putc);
+    init_printf(NULL,putc);
 
 Notice the 'NULL' in 'init_printf' and the parameter 'void* p' in 'putc', 
 the NULL (or any pointer) you pass into the 'init_printf' will eventually be 
