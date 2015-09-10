@@ -55,8 +55,7 @@ ifdef USB_6KRO_ENABLE
 endif
 
 ifdef SLEEP_LED_ENABLE
-    $(error Sleep LED Not Supported)
-    SRC += $(COMMON_DIR)/sleep_led.c
+    SRC += $(COMMON_DIR)/chibios/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
