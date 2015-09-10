@@ -20,12 +20,17 @@ endif
 
 CONFIG_H = config.h
 
-# chip/board
+## chip/board settings
+# the next two should match the directories in
+#  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F0xx
 # linker script to use
+# it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+#  or <this_dir>/ld/
 MCU_MODEL_FAMILY = STM32F072xB
-# the directory in board/
+# it should exist either in <chibios>/os/hal/boards/
+#  or <this_dir>/boards
 BOARD = ST_STM32F072B_DISCOVERY
 # ARM version, M0/M1 are 6, M3/M4/M7 are 7
 ARMV = 6
@@ -45,7 +50,7 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-#NKRO_ENABLE = yes	# USB Nkey Rollover
+NKRO_ENABLE = yes	    # USB Nkey Rollover
 
 include $(TMK_DIR)/tool/chibios/common.mk
 include $(TMK_DIR)/tool/chibios/chibios.mk
