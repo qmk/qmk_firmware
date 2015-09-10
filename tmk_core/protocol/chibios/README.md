@@ -8,17 +8,22 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - USB string descriptors are a mess. I did not find a way to cleanly generate the right structures from actual strings, so the definitions in individual keyboards' `config.h` are ugly as heck.
 - There are some random constants left so far, e.g. 5ms sleep between calling `keyboard_task` in `main.c`. There should be no such in `usb_main.c`. Everything is based on timers/interrupts/kernel scheduling (well except `keyboard_task`), so no periodically called things (again, except `keyboard_task`, which is just how TMK is designed).
 - It is easy to add some code for testing (e.g. blink LED, do stuff on button press, etc...) - just create another thread in `main.c`, it will run independently of the keyboard business.
-- Jumping to bootloader works, but it is not entirely pleasant, since it is very much MCU dependent. So, one needs to dig out the right address to jump to, and pass it to the compiler in the `Makefile`. Also, a patch to upstream ChibiOS is needed (supplied), because it `ResetHandler` needs adjusting.
+- Jumping to bootloader works, but it is not entirely pleasant, since it is very much MCU dependent. The code is now geared towards STM32 chips and their built-in bootloaders. So, one needs to dig out the right address to jump to, and pass it to the compiler in the `Makefile`. Also, a patch to upstream ChibiOS is needed (supplied), because it `ResetHandler` needs adjusting.
+- Sleep LED works, but at the moment only on/off, i.e. no breathing.
 - The USB stack works pretty completely; however there are bits of other TMK stuff that are not done yet:
 
 ### Immediate todo
 
-- suspend
-- sleep led
+- power saving for suspend?
+- PWM for sleep led
+
+### Not tested, but possibly working
+
+- backlight
 
 ### Missing / not working (TMK vs ChibiOS bits)
 
-- eeprom / bootmagic (will be chip dependent)
+- eeprom / bootmagic (will be chip dependent; eeprom needs to be emulated in flash, which means less writes; wear-levelling?)
 
 ### Tried with
 

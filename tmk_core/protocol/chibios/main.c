@@ -48,6 +48,28 @@ host_driver_t chibios_driver = {
   send_consumer
 };
 
+
+/* TESTING
+ * Amber LED blinker thread, times are in milliseconds.
+ */
+// uint8_t blinkLedState = 0;
+// static THD_WORKING_AREA(waThread1, 128);
+// static THD_FUNCTION(Thread1, arg) {
+//   (void)arg;
+//   chRegSetThreadName("blinker1");
+//   while(true) {
+//     if(blinkLedState) {
+//       blinkLedState = 0;
+//       palSetPad(GPIOC, GPIOC_LED_ORANGE);
+//       chThdSleepMilliseconds(100);
+//       palClearPad(GPIOC, GPIOC_LED_ORANGE);
+//     }
+//     chThdSleepMilliseconds(100);
+//   }
+// }
+
+
+
 /* Main thread
  */
 int main(void) {
@@ -58,6 +80,9 @@ int main(void) {
   palSetPad(GPIOC, GPIOC_LED_BLUE);
   chThdSleepMilliseconds(400);
   palClearPad(GPIOC, GPIOC_LED_BLUE);
+
+  // TESTING
+  // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
