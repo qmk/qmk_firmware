@@ -126,7 +126,6 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = YES 		# MIDI controls
-BACKLIGHT_ENABLE = yes
 
 ifdef MIDI_ENABLE
 	SRC += keymap_midi.c
