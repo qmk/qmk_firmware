@@ -42,7 +42,8 @@
 #define F6 0x66
 #define F7 0x67
 
-
+#define COL2ROW 0x0
+#define ROW2COL 0x1
 
 
 
