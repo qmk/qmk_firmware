@@ -27,17 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static action_t keycode_to_action(uint16_t keycode);
 
-
-uint16_t hextokeycode(int hex) {
-    if (hex == 0x0) {
-        return KC_0;
-    } else if (hex < 0xA) {
-        return KC_1 + (hex - 0x1);
-    } else {
-        return KC_A + (hex - 0xA);
-    }
-}
-
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
