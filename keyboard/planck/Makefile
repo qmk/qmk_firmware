@@ -125,11 +125,16 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-MIDI_ENABLE = YES 		# MIDI controls
+# MIDI_ENABLE = YES 		# MIDI controls
+UNICODE_ENABLE = YES 		# MIDI controls
 BACKLIGHT_ENABLE = yes
 
 ifdef MIDI_ENABLE
 	SRC += keymap_midi.c
+endif
+
+ifdef UNICODE_ENABLE
+	SRC += keymap_unicode.c
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
