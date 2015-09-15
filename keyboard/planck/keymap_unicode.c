@@ -17,6 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keymap_common.h"
 
+uint16_t hextokeycode(int hex) {
+    if (hex == 0x0) {
+        return KC_0;
+    } else if (hex < 0xA) {
+        return KC_1 + (hex - 0x1);
+    } else {
+        return KC_A + (hex - 0xA);
+    }
+}
+
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
