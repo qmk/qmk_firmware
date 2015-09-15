@@ -85,7 +85,7 @@ endif
 # Imported source files and paths
 CHIBIOS = $(TMK_DIR)/tool/chibios/chibios
 # Startup files.
-include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(shell echo $(MCU_SERIES) | tr '[:upper:]' '[:lower:]').mk
+include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
@@ -101,10 +101,10 @@ include $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
 # Other files (optional).
 
 # Define linker script file here
-ifneq ("$(wildcard $(TARGET_DIR)/ld/$(MCU_MODEL_FAMILY).ld)","")
-LDSCRIPT = $(TARGET_DIR)/ld/$(MCU_MODEL_FAMILY).ld
+ifneq ("$(wildcard $(TARGET_DIR)/ld/$(MCU_LDSCRIPT).ld)","")
+LDSCRIPT = $(TARGET_DIR)/ld/$(MCU_LDSCRIPT).ld
 else
-LDSCRIPT = $(STARTUPLD)/$(MCU_MODEL_FAMILY).ld
+LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
