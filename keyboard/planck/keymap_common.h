@@ -176,6 +176,8 @@ extern const uint16_t fn_actions[];
 #define RESET 0x5000
 #define DEBUG 0x5001
 
-#define MIDI(n) n | 0x6000
+#define MIDI(n) (n | 0x6000)
+
+#define UNI(n) (n | 0x8000)
 
 #endif
