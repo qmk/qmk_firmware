@@ -127,7 +127,6 @@ typedef struct {
 
 /* Putchar over the USB console */
 int8_t sendchar(uint8_t c);
-/* wrapper for printf lib */
 
 /* Flush output (send everything immediately) */
 void console_flush_output(void);
