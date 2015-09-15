@@ -88,7 +88,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         action_t action;
         action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
         return action;
-    } else if (keycode >= 0x8000 && keycode < 0x9000) {
+    } else if (keycode >= 0x8000) {
         action_t action;
         uint16_t unicode = keycode & ~(0x8000);
         action.code =  ACTION_FUNCTION_OPT(unicode & 0xFF, (unicode & 0xFF00) >> 8);
