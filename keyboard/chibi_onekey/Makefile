@@ -28,11 +28,14 @@ MCU_SERIES = STM32F0xx
 # linker script to use
 # it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
 #  or <this_dir>/ld/
-MCU_MODEL_FAMILY = STM32F072xB
+MCU_LDSCRIPT = STM32F072xB
+# startup code to use
+# is should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
+MCU_STARTUP = stm32f0xx
 # it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
 BOARD = ST_STM32F072B_DISCOVERY
-# ARM version, M0/M1 are 6, M3/M4/M7 are 7
+# ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 ARMV = 6
 # If you want to be able to jump to bootloader from firmware (on STM32 MCUs),
 # set the correct BOOTLOADER_ADDRESS here. Otherwise leave commented out.
