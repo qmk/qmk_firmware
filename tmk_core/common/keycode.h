@@ -426,6 +426,9 @@ enum internal_special_keycodes {
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,    /* 0xBC */
 
+    /* Jump to bootloader */
+    KC_RESET            = 0xBF,
+
     /* Fn key */
     KC_FN0              = 0xC0,
     KC_FN1,
