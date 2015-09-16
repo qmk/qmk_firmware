@@ -156,6 +156,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WSTP KC_WWW_STOP
 #define KC_WREF KC_WWW_REFRESH
 #define KC_WFAV KC_WWW_FAVORITES
+/* Jump to bootloader */
+#define KC_BTLD KC_BOOTLOADER
 /* Transparent */
 #define KC_TRANSPARENT  1
 #define KC_TRNS KC_TRANSPARENT
@@ -427,7 +429,7 @@ enum internal_special_keycodes {
     KC_MEDIA_REWIND,    /* 0xBC */
 
     /* Jump to bootloader */
-    KC_RESET            = 0xBF,
+    KC_BOOTLOADER       = 0xBF,
 
     /* Fn key */
     KC_FN0              = 0xC0,
