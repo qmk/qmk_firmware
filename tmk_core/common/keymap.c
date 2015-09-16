@@ -14,15 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <util/delay.h>
 #include "keymap.h"
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
 #include "action.h"
 #include "action_macro.h"
+#include "wait.h"
 #include "debug.h"
-#include "print.h"
 
 
 static action_t keycode_to_action(uint8_t keycode);
@@ -142,12 +141,10 @@ static action_t keycode_to_action(uint8_t keycode)
         case KC_TRNS:
             action.code = ACTION_TRANSPARENT;
             break;
-        case KC_RESET:
+        case KC_BOOTLOADER:
             clear_keyboard();
-            print("\n\nJump to bootloader... ");
-            _delay_ms(50);
-            bootloader_jump();
-            print("not supported.\n");
+            wait_ms(50);
+            bootloader_jump(); // not return
             break;
         default:
             action.code = ACTION_NO;
