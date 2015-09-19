@@ -27,11 +27,14 @@ once the device is pluged in then *hid_listen* finds it you will get this messag
 Check if you can't get this 'Listening:' message:
 - build with `CONSOLE_ENABLE=yes` in **Makefile**.
 
+You may need privilege to access the device on OS like Linux.
+- try `sudo hid_listen`
+
 ## Can't get message on console
 Check:
 - *hid_listen* finds your device. See above.
 - Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- set `debug_enable=yes` usually in `matrix_init()` in **matrix.c**.
+- set `debug_enable=true` usually in `matrix_init()` in **matrix.c**.
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
