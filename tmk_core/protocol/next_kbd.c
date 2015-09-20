@@ -59,10 +59,16 @@ static inline void query(void);
 static inline void reset(void);
 static inline uint32_t response(void);
 
-#define out_hi_delay(intervals)  do { out_hi(); _delay_us(NEXT_KBD_TIMING * intervals); } while (0);
-#define out_lo_delay(intervals)  do { out_lo(); _delay_us(NEXT_KBD_TIMING * intervals); } while (0);
-#define query_delay(intervals)   do { query();  _delay_us(NEXT_KBD_TIMING * intervals); } while (0);
-#define reset_delay(intervals)   do { reset();  _delay_us(NEXT_KBD_TIMING * intervals); } while (0);
+/* The keyboard sends signal with 50us pulse width on OUT line
+ * while it seems to miss the 50us pulse on In line.
+ * next_kbd_set_leds() often fails to sync LED status with 50us
+ * but it works well with 51us(+1us) on TMK converter(ATMeaga32u2) at least.
+ * TODO: test on Teensy and Pro Micro configuration
+ */
+#define out_hi_delay(intervals)  do { out_hi(); _delay_us((NEXT_KBD_TIMING+1) * intervals); } while (0);
+#define out_lo_delay(intervals)  do { out_lo(); _delay_us((NEXT_KBD_TIMING+1) * intervals); } while (0);
+#define query_delay(intervals)   do { query();  _delay_us((NEXT_KBD_TIMING+1) * intervals); } while (0);
+#define reset_delay(intervals)   do { reset();  _delay_us((NEXT_KBD_TIMING+1) * intervals); } while (0);
 
 void next_kbd_init(void)
 {
@@ -79,6 +85,7 @@ void next_kbd_init(void)
 
 void next_kbd_set_leds(bool left, bool right)
 {
+    cli();
     out_lo_delay(9);
     
     out_hi_delay(3);
@@ -98,6 +105,7 @@ void next_kbd_set_leds(bool left, bool right)
     
     out_lo_delay(7);
     out_hi();
+    sei();
 }
 
 #define NEXT_KBD_READ (NEXT_KBD_IN_PIN&(1<<NEXT_KBD_IN_BIT))
