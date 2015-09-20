@@ -53,6 +53,7 @@
 #include "lufa.h"
 
 uint8_t keyboard_idle = 0;
+/* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
 static uint8_t keyboard_led_stats = 0;
 
@@ -349,10 +350,7 @@ void EVENT_USB_Device_ControlRequest(void)
                     Endpoint_ClearSETUP();
                     Endpoint_ClearStatusStage();
 
-                    keyboard_protocol = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
-#ifdef NKRO_ENABLE
-                    keyboard_nkro = !!keyboard_protocol;
-#endif
+                    keyboard_protocol = (USB_ControlRequest.wValue & 0xFF);
                     clear_keyboard();
                 }
             }
@@ -399,7 +397,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_protocol && keyboard_nkro) {
         /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 
