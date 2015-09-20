@@ -160,7 +160,7 @@ void matrix_init(void)
 /* scan all key states on matrix */
 uint8_t matrix_scan(void)
 {
-    _delay_ms(20);
+    _delay_ms(5);
     
     //next_kbd_set_leds(false, false);
     NEXT_KBD_LED1_OFF;
