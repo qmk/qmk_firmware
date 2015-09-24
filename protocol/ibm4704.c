@@ -21,9 +21,10 @@ uint8_t ibm4704_error = 0;
 
 void ibm4704_init(void)
 {
+    inhibit();  // keep keyboard from sending
     IBM4704_INT_INIT();
     IBM4704_INT_ON();
-    idle();
+    idle();     // allow keyboard sending
 }
 
 /*
@@ -104,22 +105,6 @@ uint8_t ibm4704_recv_response(void)
     return rbuf_dequeue();
 }
 
-/*
-Keyboard to Host
-----------------
-Data bits are LSB first and Parity is odd. Clock has around 60us high and 30us low part.
-
-        ____      __   __   __   __   __   __   __   __   __   ________
-Clock       \____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
-             ____ ____ ____ ____ ____ ____ ____ ____ ____ ____    
-Data    ____/    X____X____X____X____X____X____X____X____X____X________
-            Start   0    1    2    3    4    5    6    7    P  Stop
-
-Start bit:  can be long as 300-350us.
-Inhibit:    Pull Data line down to inhibit keyboard to send.
-Timing:     Host reads bit while Clock is hi.
-Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
-*/
 uint8_t ibm4704_recv(void)
 {
     if (rbuf_has_data()) {
@@ -129,26 +114,35 @@ uint8_t ibm4704_recv(void)
     }
 }
 
+/*
+Keyboard to Host
+----------------
+Data bits are LSB first and Parity is odd. Clock has around 60us high and 30us low part.
+
+        ____       __   __   __   __   __   __   __   __   __   _______
+Clock       \_____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+             ____ ____ ____ ____ ____ ____ ____ ____ ____ ____    
+Data    ____/    X____X____X____X____X____X____X____X____X____X________
+            Start   0    1    2    3    4    5    6    7    P  Stop
+
+Start bit:  can be long as 300-350us.
+Inhibit:    Pull Data line down to inhibit keyboard to send.
+Timing:     Host reads bit while Clock is hi.(rising edge)
+Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
+*/
 ISR(IBM4704_INT_VECT)
 {
     static enum {
-        INIT, START, BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7, PARITY,
-    } state = INIT;
+        BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7, PARITY, STOP
+    } state = BIT0;
     // LSB first
     static uint8_t data = 0;
     // Odd parity
     static uint8_t parity = false;
 
     ibm4704_error = 0;
-    // return unless falling edge
-    if (clock_in()) { goto RETURN; }    // why this occurs?
 
-    state++;
     switch (state) {
-        case START:
-            // Data:Low
-            WAIT(data_hi, 10, state);
-            break;
         case BIT0:
         case BIT1:
         case BIT2:
@@ -169,6 +163,10 @@ ISR(IBM4704_INT_VECT)
             }
             if (!parity)
                 goto ERROR;
+            break;
+        case STOP:
+            // Data:Low
+            WAIT(data_lo, 100, state);
             rbuf_enqueue(data);
             ibm4704_error = IBM4704_ERR_NONE;
             goto DONE;
@@ -176,13 +174,14 @@ ISR(IBM4704_INT_VECT)
         default:
             goto ERROR;
     }
+    state++;
     goto RETURN;
 ERROR:
     ibm4704_error = state;
     while (ibm4704_send(0xFE)) _delay_ms(1); // resend
     xprintf("R:%02X%02X\n", state, data);
 DONE:
-    state = INIT;
+    state = BIT0;
     data = 0;
     parity = false;
 RETURN:

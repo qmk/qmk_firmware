@@ -5,7 +5,7 @@
  * is based on binutils-avr ldscripts(/usr/lib/ldscripts/avr5.x).
  */
 OUTPUT_FORMAT("elf32-avr","elf32-avr","elf32-avr")
-OUTPUT_ARCH(avr:5)
+OUTPUT_ARCH(avr:35)
 MEMORY
 {
   /* With keymap section
@@ -29,7 +29,7 @@ MEMORY
    * | bootloader | 4KB
    * +------------+ 0x7FFF
    */
-  text   (rx)   : ORIGIN = 0, LENGTH = 128K
+  text   (rx)   : ORIGIN = 0, LENGTH = 64K
   keymap (rw!x) : ORIGIN = 0x6800, LENGTH = 2K
   data   (rw!x) : ORIGIN = 0x800060, LENGTH = 0xffa0
   eeprom (rw!x) : ORIGIN = 0x810000, LENGTH = 64K

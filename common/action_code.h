@@ -266,7 +266,7 @@ enum layer_pram_tap_op {
 #define ACTION_LAYER_ON_OFF(layer)                  ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
-#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | (mods)&0x0f)
+#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | ((mods)&0x0f))
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
 #define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)

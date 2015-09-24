@@ -76,7 +76,7 @@ void send_keyboard_report(void) {
 void add_key(uint8_t key)
 {
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_protocol && keyboard_nkro) {
         add_key_bit(key);
         return;
     }
@@ -87,7 +87,7 @@ void add_key(uint8_t key)
 void del_key(uint8_t key)
 {
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_protocol && keyboard_nkro) {
         del_key_bit(key);
         return;
     }
@@ -160,7 +160,7 @@ uint8_t has_anymod(void)
 uint8_t get_first_key(void)
 {
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_protocol && keyboard_nkro) {
         uint8_t i = 0;
         for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
             ;
