@@ -53,6 +53,7 @@
 #include "lufa.h"
 
 uint8_t keyboard_idle = 0;
+/* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
 static uint8_t keyboard_led_stats = 0;
 
@@ -179,7 +180,6 @@ void EVENT_USB_Device_Reset(void)
 void EVENT_USB_Device_Suspend()
 {
     print("[S]");
-    matrix_power_down();
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif
@@ -197,13 +197,30 @@ void EVENT_USB_Device_WakeUp()
 #endif
 }
 
+#ifdef CONSOLE_ENABLE
+static bool console_flush = false;
+#define CONSOLE_FLUSH_SET(b)   do { \
+    uint8_t sreg = SREG; cli(); console_flush = b; SREG = sreg; \
+} while (0)
+
+// called every 1ms
 void EVENT_USB_Device_StartOfFrame(void)
 {
+    static uint8_t count;
+    if (++count % 50) return;
+    count = 0;
+
+    if (!console_flush) return;
     Console_Task();
+    console_flush = false;
 }
+#endif
 
 /** Event handler for the USB_ConfigurationChanged event.
  * This is fired when the host sets the current configuration of the USB device after enumeration.
+ *
+ * ATMega32u2 supports dual bank(ping-pong mode) only on endpoint 3 and 4,
+ * it is safe to use singl bank for all endpoints.
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
@@ -228,7 +245,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #ifdef CONSOLE_ENABLE
     /* Setup Console HID Report Endpoints */
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     CONSOLE_EPSIZE, ENDPOINT_BANK_DOUBLE);
+                                     CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #if 0
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                      CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
@@ -333,10 +350,7 @@ void EVENT_USB_Device_ControlRequest(void)
                     Endpoint_ClearSETUP();
                     Endpoint_ClearStatusStage();
 
-                    keyboard_protocol = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
-#ifdef NKRO_ENABLE
-                    keyboard_nkro = !!keyboard_protocol;
-#endif
+                    keyboard_protocol = (USB_ControlRequest.wValue & 0xFF);
                     clear_keyboard();
                 }
             }
@@ -383,7 +397,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_protocol && keyboard_nkro) {
         /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 
@@ -491,6 +505,10 @@ int8_t sendchar(uint8_t c)
     // Because sendchar() is called so many times, waiting each call causes big lag.
     static bool timeouted = false;
 
+    // prevents Console_Task() from running during sendchar() runs.
+    // or char will be lost. These two function is mutually exclusive.
+    CONSOLE_FLUSH_SET(false);
+
     if (USB_DeviceState != DEVICE_STATE_Configured)
         return -1;
 
@@ -524,8 +542,12 @@ int8_t sendchar(uint8_t c)
     Endpoint_Write_8(c);
 
     // send when bank is full
-    if (!Endpoint_IsReadWriteAllowed())
+    if (!Endpoint_IsReadWriteAllowed()) {
+        while (!(Endpoint_IsINReady()));
         Endpoint_ClearIN();
+    } else {
+        CONSOLE_FLUSH_SET(true);
+    }
 
     Endpoint_SelectEndpoint(ep);
     return 0;
@@ -544,7 +566,7 @@ int8_t sendchar(uint8_t c)
 /*******************************************************************************
  * main
  ******************************************************************************/
-static void SetupHardware(void)
+static void setup_mcu(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
     MCUSR &= ~(1 << WDRF);
@@ -552,7 +574,10 @@ static void SetupHardware(void)
 
     /* Disable clock division */
     clock_prescale_set(clock_div_1);
+}
 
+static void setup_usb(void)
+{
     // Leonardo needs. Without this USB device is not recognized.
     USB_Disable();
 
@@ -566,7 +591,9 @@ static void SetupHardware(void)
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
-    SetupHardware();
+    setup_mcu();
+    keyboard_setup();
+    setup_usb();
     sei();
 
     /* wait for USB startup & debug output */

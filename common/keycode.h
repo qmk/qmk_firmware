@@ -156,6 +156,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WSTP KC_WWW_STOP
 #define KC_WREF KC_WWW_REFRESH
 #define KC_WFAV KC_WWW_FAVORITES
+/* Jump to bootloader */
+#define KC_BTLD KC_BOOTLOADER
 /* Transparent */
 #define KC_TRANSPARENT  1
 #define KC_TRNS KC_TRANSPARENT
@@ -214,7 +216,7 @@ enum hid_keyboard_keypad_usage {
     KC_LBRACKET,
     KC_RBRACKET,        /* 0x30 */
     KC_BSLASH,          /* \ (and |) */
-    KC_NONUS_HASH,      /* Non-US # and ~ */
+    KC_NONUS_HASH,      /* Non-US # and ~ (Typically near the Enter key) */
     KC_SCOLON,          /* ; (and :) */
     KC_QUOTE,           /* ' and " */
     KC_GRAVE,           /* Grave accent and tilde */
@@ -264,7 +266,7 @@ enum hid_keyboard_keypad_usage {
     KC_KP_9,
     KC_KP_0,
     KC_KP_DOT,
-    KC_NONUS_BSLASH,    /* Non-US \ and | */
+    KC_NONUS_BSLASH,    /* Non-US \ and | (Typically near the Left-Shift key) */
     KC_APPLICATION,
     KC_POWER,
     KC_KP_EQUAL,
@@ -425,6 +427,9 @@ enum internal_special_keycodes {
     KC_WWW_FAVORITES,
     KC_MEDIA_FAST_FORWARD,
     KC_MEDIA_REWIND,    /* 0xBC */
+
+    /* Jump to bootloader */
+    KC_BOOTLOADER       = 0xBF,
 
     /* Fn key */
     KC_FN0              = 0xC0,

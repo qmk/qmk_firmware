@@ -85,6 +85,8 @@ void suspend_power_down(void)
     power_down(WDTO_15MS);
 }
 
+__attribute__ ((weak)) void matrix_power_up(void) {}
+__attribute__ ((weak)) void matrix_power_down(void) {}
 bool suspend_wakeup_condition(void)
 {
     matrix_power_up();

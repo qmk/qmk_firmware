@@ -28,6 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_LED_KANA                    4
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void led_set(uint8_t usb_led);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

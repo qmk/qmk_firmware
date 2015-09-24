@@ -62,6 +62,12 @@ static bool has_ghost_in_row(uint8_t row)
 #endif
 
 
+__attribute__ ((weak)) void matrix_setup(void) {}
+void keyboard_setup(void)
+{
+    matrix_setup();
+}
+
 void keyboard_init(void)
 {
     timer_init();
