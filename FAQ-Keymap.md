@@ -27,8 +27,9 @@ https://github.com/tmk/tmk_keyboard/issues/67
 Modifier keys or layers can be stuck unless layer switching is configured properly.
 For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
-https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#31-momentary-switching
-http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+- https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#31-momentary-switching
+- http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+- https://github.com/tmk/tmk_keyboard/issues/248
 
 
 ## Mechanical Lock Switch Support
