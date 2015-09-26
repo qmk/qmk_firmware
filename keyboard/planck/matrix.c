@@ -65,7 +65,9 @@ void matrix_init(void)
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
 
+#ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
+#endif
 
     // Turn status LED on
     DDRE |= (1<<6);
