@@ -4,17 +4,16 @@
 #include "action_util.h"
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-[0] = KEYMAP_AND_REVERSE( /* Charlie workman */
-  TAB,   Q,    D,    R,    W,    B,    J,    F,    U,    P,    SCLN, BSPC,
-  LCTL,  A,    S,    H,    T,    G,    Y,    N,    E,    O,    I,    ENT,
-  LSFT,  Z,    X,    M,    C,    V,    K,    L,    COMM, DOT,  SLSH, RSFT,
-  FN3,   LCTL, LALT, LGUI, FN1,     FN16,    FN2,  RGUI, RALT, RCTL,  FN3),
-[2] = KEYMAP_AND_REVERSE( /* Charlie querty */
+[0] = KEYMAP_AND_REVERSE( /* Charlie querty */
   TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, RSFT,
   FN3,  LCTL, LALT, LGUI, FN1,    FN16,     FN2,  RGUI, RALT, RCTL, FN3),
+[2] = KEYMAP_AND_REVERSE( /* Charlie workman */
+  TAB,   Q,    D,    R,    W,    B,    J,    F,    U,    P,    SCLN, BSPC,
+  LCTL,  A,    S,    H,    T,    G,    Y,    N,    E,    O,    I,    ENT,
+  LSFT,  Z,    X,    M,    C,    V,    K,    L,    COMM, DOT,  SLSH, RSFT,
+  FN3,   LCTL, LALT, LGUI, FN1,     FN16,    FN2,  RGUI, RALT, RCTL,  FN3),
 [4] = KEYMAP_AND_REVERSE( /* Charlie RAISE */
   ESC,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    TRNS,
   TRNS, FN4,  FN5,  FN6,  FN7,  FN8,  FN9,  FN10, FN11, FN12, FN13, TRNS,
