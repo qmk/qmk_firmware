@@ -268,7 +268,7 @@
 			                       const uint8_t* InternalAddress,
 			                       uint8_t InternalAddressLen,
 			                       uint8_t* Buffer,
-			                       uint8_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(4);
+			                       uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(4);
 
 			/** High level function to perform a complete packet transfer over the TWI bus from the specified
 			 *  device.
@@ -289,7 +289,7 @@
 			                        const uint8_t* InternalAddress,
 			                        uint8_t InternalAddressLen,
 			                        const uint8_t* Buffer,
-			                        uint8_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(4);
+			                        uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(4);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

@@ -110,7 +110,7 @@ uint8_t TWI_ReadPacket(TWI_t* const TWI,
                        const uint8_t* InternalAddress,
                        uint8_t InternalAddressLen,
                        uint8_t* Buffer,
-                       uint8_t Length)
+                       uint16_t Length)
 {
 	uint8_t ErrorCode;
 
@@ -151,7 +151,7 @@ uint8_t TWI_WritePacket(TWI_t* const TWI,
                         const uint8_t* InternalAddress,
                         uint8_t InternalAddressLen,
                         const uint8_t* Buffer,
-                        uint8_t Length)
+                        uint16_t Length)
 {
 	uint8_t ErrorCode;
 

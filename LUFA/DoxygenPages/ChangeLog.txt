@@ -13,6 +13,9 @@
   *   - Added new PROGMEM variant send functions to the CDC class host driver
   *
   *  <b>Changed:</b>
+  *  - Core:
+  *   - The TWI peripheral driver's TWI_WritePacket() and TWI_ReadPacket() functions now takes a 16-bit Length rather than an 8-bit
+  *     length, for longer transfers
   *  - Library Applications:
   *   - The CDC, DFU, Mass Storage and Printer class bootloaders will no longer run the user application if the application reset
   *     vector is blank (thanks to Alex Kazik)
