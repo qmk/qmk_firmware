@@ -206,7 +206,7 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 	{
 		uint8_t BytesInBlockDiv16 = 0;
 
-		/* Write an endpoint packet sized data block to the Dataflash */
+		/* Read an endpoint packet sized data block from the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
 			/* Check if the endpoint is currently full */
@@ -413,7 +413,7 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 	{
 		uint8_t BytesInBlockDiv16 = 0;
 
-		/* Write an endpoint packet sized data block to the Dataflash */
+		/* Read an endpoint packet sized data block from the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
 			/* Check if end of Dataflash page reached */
