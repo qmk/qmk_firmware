@@ -95,11 +95,19 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
 																								: DHCP_MESSAGETYPE_ACK;
 
 				*(DHCPOptionsOUTStart++) = DHCP_OPTION_SUBNETMASK;
-				*(DHCPOptionsOUTStart++) = 4;
+				*(DHCPOptionsOUTStart++) = sizeof(IP_Address_t);
 				*(DHCPOptionsOUTStart++) = 0xFF;
 				*(DHCPOptionsOUTStart++) = 0xFF;
 				*(DHCPOptionsOUTStart++) = 0xFF;
 				*(DHCPOptionsOUTStart++) = 0x00;
+
+				*(DHCPOptionsOUTStart++) = DHCP_OPTION_LEASETIME;
+				*(DHCPOptionsOUTStart++) = sizeof(uint32_t);
+				/* Lease Time 86400s (ONE_DAY) */
+				*(DHCPOptionsOUTStart++) = 0x00;
+				*(DHCPOptionsOUTStart++) = 0x01;
+				*(DHCPOptionsOUTStart++) = 0x51;
+				*(DHCPOptionsOUTStart++) = 0x80;
 
 				*(DHCPOptionsOUTStart++) = DHCP_OPTION_DHCPSERVER;
 				*(DHCPOptionsOUTStart++) = sizeof(IP_Address_t);
@@ -108,7 +116,7 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
 
 				*(DHCPOptionsOUTStart++) = DHCP_OPTION_END;
 
-				return (sizeof(DHCP_Header_t) + 12 + sizeof(IP_Address_t));
+				return (sizeof(DHCP_Header_t) + 18 + sizeof(IP_Address_t));
 			}
 		}
 
