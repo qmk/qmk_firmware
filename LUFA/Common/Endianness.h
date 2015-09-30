@@ -397,7 +397,7 @@
 			 *
 			 *  \return Input data with the individual bytes reversed.
 			 */
-			static inline uint16_t SwapEndian_16(const uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
+			static inline uint16_t SwapEndian_16(const uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint16_t SwapEndian_16(const uint16_t Word)
 			{
 				if (GCC_IS_COMPILE_CONST(Word))
@@ -428,7 +428,7 @@
 			 *
 			 *  \return Input data with the individual bytes reversed.
 			 */
-			static inline uint32_t SwapEndian_32(const uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
+			static inline uint32_t SwapEndian_32(const uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint32_t SwapEndian_32(const uint32_t DWord)
 			{
 				if (GCC_IS_COMPILE_CONST(DWord))
