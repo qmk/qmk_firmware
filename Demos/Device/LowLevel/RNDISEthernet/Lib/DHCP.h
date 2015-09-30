@@ -60,6 +60,9 @@
 		/** DHCP option list entry header, indicating that a subnet mask will follow. */
 		#define DHCP_OPTION_SUBNETMASK    1
 
+		/** DHCP option list entry header, indicating that the Lease Time will follow. */
+		#define DHCP_OPTION_LEASETIME     51
+
 		/** DHCP option list entry header, indicating that the DHCP message type constant will follow. */
 		#define DHCP_OPTION_MESSAGETYPE   53
 
