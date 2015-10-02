@@ -25,6 +25,16 @@
 	</xsl:template>
 
 	<!-- Update the LUFA help package file name -->
+	<xsl:template match="xhtml:div[@class='package']/xhtml:span">
+		<xsl:copy>
+			<xsl:copy-of select="@class"/>
+
+			<xsl:text>lufa_help_</xsl:text>
+			<xsl:value-of select="$extension-version"/>
+			<xsl:text>.mshc</xsl:text>
+		</xsl:copy>
+	</xsl:template>
+
 	<xsl:template match="xhtml:div[@class='package']/xhtml:a">
 		<xsl:copy>
 			<xsl:copy-of select="@class"/>

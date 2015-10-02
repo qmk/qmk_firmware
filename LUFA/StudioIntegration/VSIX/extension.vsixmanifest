@@ -13,8 +13,6 @@
 		<PreviewImage>LUFA.png</PreviewImage>
 
 		<SupportedProducts>
-			<IsolatedShell Version="6.1">AtmelStudio</IsolatedShell>
-			<IsolatedShell Version="6.2">AtmelStudio</IsolatedShell>
 			<IsolatedShell Version="7.0">AtmelStudio</IsolatedShell>
 		</SupportedProducts>
 
