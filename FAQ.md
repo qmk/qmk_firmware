@@ -218,5 +218,5 @@ I heard some people have a problem with USB 3 port, try USB 2 port.
 
 
 ## Mac compatibility
-- OS X 10.11 and Hub: https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
+### OS X 10.11 and Hub
 https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
