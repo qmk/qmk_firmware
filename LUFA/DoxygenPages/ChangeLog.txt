@@ -11,6 +11,7 @@
   *   - Added support for the Atmel Xplained-MINI series of development kits
   *   - Added new PROGMEM variant send functions to the CDC class device driver (thanks to Stefan Hellermann)
   *   - Added new PROGMEM variant send functions to the CDC class host driver
+  *   - Added additional Arduino Uno board definitions for the main processor reset (thanks to NicoHood)
   *
   *  <b>Changed:</b>
   *  - Core:
@@ -28,6 +29,7 @@
   *   - Fixed broken XMEGA serial stream driver due to missing USART base pointer parameter (thanks to William Patterson)
   *   - Fixed incorrect signature reported in the CDC/DFU bootloaders for the AT90USB82 (thanks to NicoHood)
   *   - Fixed broken RNDIS demos on Linux machines whose DHCP hosts require a Lease Time option (thanks to Stefan Hellermann)
+  *   - Fixed broken LEDs_Disable() implementation for the Arduino Uno board (thanks to NicoHood)
   *
   *  \section Sec_ChangeLog140928 Version 140928
   *  <b>New:</b>
