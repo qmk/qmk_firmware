@@ -44,8 +44,8 @@
  *
  *  <table>
  *    <tr><th>Name</th><th>Color</th><th>Info</th><th>Active Level</th><th>Port Pin</th></tr>
- *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>RX</td><td>Low</td><td>PORTD.4</td></tr>
- *    <tr><td>LEDS_LED2</td><td>Yellow</td><td>TX</td><td>Low</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED1</td><td>Yellow</td><td>RX</td><td>Low</td><td>PORTD.5</td></tr>
+ *    <tr><td>LEDS_LED2</td><td>Yellow</td><td>TX</td><td>Low</td><td>PORTD.4</td></tr>
  *  </table>
  *
  *  @{
@@ -70,16 +70,22 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1        (1 << 4)
+			#define LEDS_LED1        (1 << 5)
 
 			/** LED mask for the second LED on the board. */
-			#define LEDS_LED2        (1 << 5)
+			#define LEDS_LED2        (1 << 4)
 
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2)
 
 			/** LED mask for none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
+			
+			/** LED mask for the library LED driver, to indicate TX activity. */
+			#define LEDMASK_TX       LEDS_LED1
+			
+			/** LED mask for the library LED driver, to indicate RX activity. */
+			#define LEDMASK_RX       LEDS_LED2
 
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
@@ -92,7 +98,7 @@
 			static inline void LEDs_Disable(void)
 			{
 				DDRD  &= ~LEDS_ALL_LEDS;
-				PORTD &= ~LEDS_ALL_LEDS;
+				PORTD |= LEDS_ALL_LEDS;
 			}
 
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
