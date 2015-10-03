@@ -76,6 +76,7 @@
  *  \li Gumbi, a Python library and USB GPIO controller: https://code.google.com/p/gumbi/
  *  \li Hardware Volume Control: https://github.com/davidk/hw-volume-control
  *  \li Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
+ *  \li HoodLoader2, an Arduino Uno enhanced USB AVR coprocessor firmware: https://github.com/NicoHood/HoodLoader2
  *  \li IBM capacitive keybord replacement controller: http://downloads.cornall.co/ibm-capsense-usb-web/ibm-capsense-usb.html
  *  \li Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
  *  \li IR electricity meter monitor: http://sourceforge.net/projects/irmetermon/
