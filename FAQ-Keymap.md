@@ -116,7 +116,7 @@ https://github.com/p3lim/keyboard_firmware/commit/fd799c12b69a5ab5addd1d4c03380a
 
 ## 32 Fn keys are not enough?
 ### actionmap
-It uses 16 bit codes and no limitation of 32 Fn at the expense of memory space. TMK keymap is actually is 8 bit codes as subset of the actionmap.
+It uses 16 bit codes and has no limitation of 32 Fn at the expense of memory space. TMK keymap is actually is 8 bit codes as subset of the actionmap.
 https://github.com/tmk/tmk_keyboard/issues?utf8=%E2%9C%93&q=is%3Aissue+actionmap
 
 ### extension for modified keys
