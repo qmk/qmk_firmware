@@ -108,3 +108,7 @@ https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 See these for the deail of this problem.
 https://github.com/tmk/tmk_keyboard/issues/213
 https://github.com/tekezo/Karabiner/issues/403
+
+
+## Esc and `~ on a key
+https://github.com/p3lim/keyboard_firmware/commit/fd799c12b69a5ab5addd1d4c03380a1b8ef8e9dc
