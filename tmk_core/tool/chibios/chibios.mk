@@ -207,6 +207,14 @@ UDEFS = $(OPT_DEFS)
 
 # Define ASM defines here
 UADEFS = $(OPT_DEFS)
+# bootloader definitions may be used in the startup .s file
+ifneq ("$(wildcard $(TARGET_DIR)/bootloader_defs.h)","")
+    UADEFS += -include $(TARGET_DIR)/bootloader_defs.h
+    UDEFS += -include $(TARGET_DIR)/bootloader_defs.h
+else ifneq ("$(wildcard $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h)","")
+    UADEFS += -include $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h
+    UDEFS += -include $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h
+endif
 
 # List all user directories here
 UINCDIR =
