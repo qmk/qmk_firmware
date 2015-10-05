@@ -2,13 +2,13 @@
 
 ### Notes
 
-- To use, unpack or symlink [ChibiOS] {currently 3.0.1} to `tmk_core/tool/chibios/chibios`.
+- To use, unpack or symlink [ChibiOS] {currently 3.0.2} to `tmk_core/tool/chibios/chibios`.
 - For gcc options, inspect `tmk_core/tool/chibios/chibios.mk`. For instance, I enabled `-Wno-missing-field-initializers`, because TMK common bits generated a lot of warnings on that.
 Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - USB string descriptors are messy. I did not find a way to cleanly generate the right structures from actual strings, so the definitions in individual keyboards' `config.h` are ugly as heck.
 - There are some random constants left so far, e.g. 5ms sleep between calling `keyboard_task`, or 1.5sec wait for USB init, in `main.c`. There should be no such in `usb_main.c` (the main USB stack). Everything is based on timers/interrupts/kernel scheduling (well except `keyboard_task`), so no periodically called things (again, except `keyboard_task`, which is just how TMK is designed).
 - It is easy to add some code for testing (e.g. blink LED, do stuff on button press, etc...) - just create another thread in `main.c`, it will run independently of the keyboard business.
-- Jumping to bootloader works, but it is not entirely pleasant, since it is very much MCU dependent. The code is now geared towards STM32 chips and their built-in bootloaders. So, one needs to dig out the right address to jump to, and pass it to the compiler in the `Makefile`. Also, a patch to upstream ChibiOS is needed (supplied), because it `ResetHandler` needs adjusting.
+- Jumping to bootloader works, but it is not entirely pleasant, since it is very much MCU dependent. The code is now geared towards STM32 chips and their built-in bootloaders. So, one needs to dig out the right address to jump to, and either pass it to the compiler in the `Makefile`, or better, define it in `<your_kb>/bootloader_defs.h`. Also, a patch to upstream ChibiOS is needed (supplied), because it `ResetHandler` needs adjusting.
 - Sleep LED works, but at the moment only on/off, i.e. no breathing.
 - The USB stack works pretty completely; however there are bits of other TMK stuff that are not done yet:
 
@@ -28,7 +28,7 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 
 ### Tried with
 
-- ChibiOS 3.0.1 and ST F072RB DISCOVERY board.
+- ChibiOS 3.0.1, 3.0.2 and ST F072RB DISCOVERY board.
 - Need to test on other STM32 chips (F3, F4) to make it as much chip-independent as possible.
 
 ## STM32-based keyboard design considerations
@@ -36,13 +36,13 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - STM32F0x2 chips can do crystal-less USB, but they still need a 3.3V voltage regulator.
 - The BOOT0 pin should be tied to GND.
 - For a hardware way of accessing the in-built DFU bootloader, in addition to the reset button, put another button between the BOOT0 pin and 3V3.
-- For breathing the caps lock LED during the suspended state ("sleep LED"), it is desirable to have that LED on a hardware PWM pin (there's usually plenty of those, look for TIMERs in the datasheet).
+- For breathing the caps lock LED during the suspended state ("sleep LED"), it is desirable to have that LED on a hardware PWM pin (there's usually plenty of those, look for TIMERs in the datasheet). However this is not strictly necessary, because instead of direct output of a timer to a pin (better of course), it is easy to define timer callbacks in ChibiOS that turn on/off an arbitrary pin.
 
-## ChibiOS-supported MCUs (as of 3.0.1)
+## ChibiOS-supported MCUs (as of 3.0.2)
 
 - Pretty much all STM32 chips.
 - There is also support for AVR8, but the USB stack is not implemented for them yet, and also the kernel itself takes about 1k of RAM. I think people managed to get ChibiOS running on atmega32[8p/u4] though.
-- There is some support for K20 and KL25 Freescale chips (i.e. Teensy 3.0, mchck, FRDM-KL25Z, FRDM-K20D50M), but again, no USB stack yet.
+- There is some support for K20x and KL2x Freescale chips (i.e. Teensy 3.0, mchck, FRDM-KL25Z, FRDM-K20D50M), but again, no official USB stack yet. This is being worked on, see the `kinetis` branch of [my ChibiOS fork](https://github.com/flabbergast/ChibiOS). It supports also Teensy LC, 3.1 and FRDM-KL26Z.
 - I've seen community support for Nordic NRF51822 (the chip in Adafruit's Bluefruit bluetooth-low-energy boards), but not sure about the extent.
 
 
