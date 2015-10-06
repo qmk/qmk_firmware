@@ -170,3 +170,48 @@ https://github.com/tmk/tmk_keyboard/issues?utf8=%E2%9C%93&q=is%3Aissue+actionmap
 
 ### extension for modified keys
 https://geekhack.org/index.php?topic=41989.msg1885526#msg1885526
+
+
+## Arrow on Right Modifier keys with Dual-Role
+This turns right modifer keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
+```
+#include "keymap_common.h"
+
+
+/* Arrow keys on right modifier keys with TMK dual role feature
+ *
+ *  https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#213-modifier-with-tap-keydual-role
+ *  https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
+ */
+const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* 0: qwerty */
+    [0] = KEYMAP( \
+        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
+        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
+        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
+        LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
+        FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
+    [1] = KEYMAP( \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN5, TRNS, \
+        TRNS,TRNS,TRNS,          TRNS,                    TRNS,FN7, FN6, FN8),
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
+    [1] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_DOWN),
+    [2] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_LEFT),
+    [3] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_RIGHT),
+    [4] = ACTION_LAYER_MOMENTARY(1),
+    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_PGUP),
+    [6] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_PGDN),
+    [7] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_HOME),
+    [8] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_END),
+};
+
+```
+
+
+Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
