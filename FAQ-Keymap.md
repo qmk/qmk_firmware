@@ -157,7 +157,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MODS(1, MOD_LSFT),
     [1] = ACTION_LAYER_MOMENTARY(2),
 };
-
 ```
 
 Otherwise, you can write code, see this.
