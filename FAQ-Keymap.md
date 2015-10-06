@@ -111,7 +111,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 
 ## Esc and `~ on a key
-https://github.com/p3lim/keyboard_firmware/commit/fd799c12b69a5ab5addd1d4c03380a1b8ef8e9dc
+
 
 You can define FC660 and Poker style ESC with `ACTION_LAYER_MODS`.
 https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
@@ -158,6 +158,10 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_MOMENTARY(2),
 };
 ```
+
+Otherwise, you can write code, see this.
+https://github.com/p3lim/keyboard_firmware/commit/fd799c12b69a5ab5addd1d4c03380a1b8ef8e9dc
+
 
 ## 32 Fn keys are not enough?
 ### actionmap
