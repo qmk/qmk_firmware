@@ -113,6 +113,51 @@ https://github.com/tekezo/Karabiner/issues/403
 ## Esc and `~ on a key
 https://github.com/p3lim/keyboard_firmware/commit/fd799c12b69a5ab5addd1d4c03380a1b8ef8e9dc
 
+You can define FC660 and Poker style ESC with `ACTION_LAYER_MODS`.
+https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
+
+```
+#include "keymap_common.h"
+
+
+/* Leopold FC660
+ * https://elitekeyboards.com/products.php?sub=leopold,compact&pid=fc660c
+ * Shift + Esc = ~
+ * Fn    + Esc = `
+ *
+ * Votex Poker II
+ * https://adprice.fedorapeople.org/poker2_manual.pdf
+ * Fn         + Esc = `
+ * Fn + Shift + Esc = ~
+ */
+const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* 0: qwerty */
+    [0] = KEYMAP( \
+        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
+        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
+        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
+        FN0, NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT,ESC, \
+        LCTL,LGUI,LALT,          SPC,                     RALT,FN1, RGUI,RCTL),
+    [1] = KEYMAP( \
+        GRV, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,          TRNS,                    TRNS,TRNS,TRNS,TRNS),
+    [2] = KEYMAP( \
+        GRV, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,          TRNS,                    TRNS,TRNS,TRNS,TRNS),
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    // https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
+    [0] = ACTION_LAYER_MODS(1, MOD_LSFT),
+    [1] = ACTION_LAYER_MOMENTARY(2),
+};
+```
 
 ## 32 Fn keys are not enough?
 ### actionmap
