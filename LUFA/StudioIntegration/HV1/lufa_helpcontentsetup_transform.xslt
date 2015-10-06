@@ -25,7 +25,7 @@
 	</xsl:template>
 
 	<!-- Update the LUFA help package file name -->
-	<xsl:template match="xhtml:div[@class='package']/xhtml:span">
+	<xsl:template match="xhtml:div[@class='package']/xhtml:span[@class='name']">
 		<xsl:copy>
 			<xsl:copy-of select="@class"/>
 
@@ -35,7 +35,7 @@
 		</xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="xhtml:div[@class='package']/xhtml:a">
+	<xsl:template match="xhtml:div[@class='package']/xhtml:a[@class='current-link']">
 		<xsl:copy>
 			<xsl:copy-of select="@class"/>
 
