@@ -146,7 +146,7 @@ byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
          |  Application  |                        |  Application  |
          |               |                        |               |
          =               =                        =               =
-         |               | 32KB-512B              |               | 128KB-1KB
+         |               | 32KB-512B              |               | 128KB-2KB
 0x7E00   +---------------+               0x1FC00  +---------------+
          |  Bootloader   | 512B                   |  Bootloader   | 2KB
 0x7FFF   +---------------+               0x1FFFF  +---------------+
