@@ -118,7 +118,7 @@ Properly configure bootloader size in **Makefile**. With wrong section size boot
 #   Arduino Caterina(ATmega32U4)   4096             
 #   USBaspLoader(ATmega***)        2048             
 #   Teensy   halfKay(ATmega32U4)   512              
-#   Teensy++ halfKay(AT90USB128)   1024
+#   Teensy++ halfKay(AT90USB128)   2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
 AVR Boot section size are defined by setting **BOOTSZ** fuse in fact. Consult with your MCU datasheet.
@@ -134,7 +134,7 @@ byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
          |               |                        |               | 
          =               =                        =               =
          |               | 32KB-4KB               |               | 128KB-8KB
-0x6000   +---------------+               0x1FC00  +---------------+
+0x6000   +---------------+               0x1E000  +---------------+
          |  Bootloader   | 4KB                    |  Bootloader   | 8KB
 0x7FFF   +---------------+               0x1FFFF  +---------------+
 
@@ -148,7 +148,7 @@ byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
          =               =                        =               =
          |               | 32KB-512B              |               | 128KB-1KB
 0x7E00   +---------------+               0x1FC00  +---------------+
-         |  Bootloader   | 512B                   |  Bootloader   | 1KB
+         |  Bootloader   | 512B                   |  Bootloader   | 2KB
 0x7FFF   +---------------+               0x1FFFF  +---------------+
 ```
 
