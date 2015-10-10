@@ -69,9 +69,9 @@ host_driver_t chibios_driver = {
 //   while(true) {
 //     if(blinkLed) {
 //       blinkLed = 0;
-//       palSetPad(GPIOC, GPIOC_LED_ORANGE);
+//       palSetPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13);
 //       chThdSleepMilliseconds(100);
-//       palClearPad(GPIOC, GPIOC_LED_ORANGE);
+//       palClearPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13);
 //     }
 //     chThdSleepMilliseconds(100);
 //   }
@@ -85,10 +85,6 @@ int main(void) {
   /* ChibiOS/RT init */
   halInit();
   chSysInit();
-
-  palSetPad(GPIOC, GPIOC_LED_BLUE);
-  chThdSleepMilliseconds(400);
-  palClearPad(GPIOC, GPIOC_LED_BLUE);
 
   // TESTING
   // chThdCreateStatic(waBlinkerThread, sizeof(waBlinkerThread), NORMALPRIO, blinkerThread, NULL);
