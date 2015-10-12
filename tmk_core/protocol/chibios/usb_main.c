@@ -43,6 +43,12 @@ extern bool keyboard_nkro;
 #endif /* NKRO_ENABLE */
 
 report_keyboard_t keyboard_report_sent = {{0}};
+#ifdef MOUSE_ENABLE
+report_mouse_t mouse_report_blank = {0};
+#endif /* MOUSE_ENABLE */
+#ifdef EXTRAKEY_ENABLE
+uint8_t extra_report_blank[3] = {0};
+#endif /* EXTRAKEY_ENABLE */
 
 #ifdef CONSOLE_ENABLE
 /* The emission queue */
@@ -857,6 +863,43 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
           usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent), NULL);
           return TRUE;
           break;
+
+#ifdef MOUSE_ENABLE
+        case MOUSE_INTERFACE:
+          usbSetupTransfer(usbp, (uint8_t *)&mouse_report_blank, sizeof(mouse_report_blank), NULL);
+          return TRUE;
+          break;
+#endif /* MOUSE_ENABLE */
+
+#ifdef CONSOLE_ENABLE
+        case CONSOLE_INTERFACE:
+          usbSetupTransfer(usbp, console_queue_buffer, CONSOLE_EPSIZE, NULL);
+          return TRUE;
+          break;
+#endif /* CONSOLE_ENABLE */
+
+#ifdef EXTRAKEY_ENABLE
+        case EXTRA_INTERFACE:
+          if(usbp->setup[3] == 1) { /* MSB(wValue) [Report Type] == 1 [Input Report] */
+            switch(usbp->setup[2]) { /* LSB(wValue) [Report ID] */
+              case REPORT_ID_SYSTEM:
+                extra_report_blank[0] = REPORT_ID_SYSTEM;
+                usbSetupTransfer(usbp, (uint8_t *)extra_report_blank, sizeof(extra_report_blank), NULL);
+                return TRUE;
+                break;
+              case REPORT_ID_CONSUMER:
+                extra_report_blank[0] = REPORT_ID_CONSUMER;
+                usbSetupTransfer(usbp, (uint8_t *)extra_report_blank, sizeof(extra_report_blank), NULL);
+                return TRUE;
+                break;
+              default:
+                return FALSE;
+            }
+          } else {
+            return FALSE;
+          }
+          break;
+#endif /* EXTRAKEY_ENABLE */
 
         default:
           usbSetupTransfer(usbp, NULL, 0, NULL);
