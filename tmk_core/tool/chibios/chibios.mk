@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -O0 -ggdb -fomit-frame-pointer -falign-functions=16 -std=gnu99 -DPROTOCOL_CHIBIOS
+  USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16 -std=gnu99 -DPROTOCOL_CHIBIOS
 endif
 
 # C specific options here (added to USE_OPT).
