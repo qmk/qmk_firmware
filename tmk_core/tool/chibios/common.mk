@@ -18,7 +18,6 @@ SRC +=	$(COMMON_DIR)/host.c \
 
 # Option modules
 ifdef BOOTMAGIC_ENABLE
-    $(error Bootmagic Not Supported)
     SRC += $(COMMON_DIR)/bootmagic.c
     SRC += $(COMMON_DIR)/chibios/eeconfig.c
     OPT_DEFS += -DBOOTMAGIC_ENABLE
