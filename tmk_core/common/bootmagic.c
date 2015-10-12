@@ -10,6 +10,7 @@
 #include "eeconfig.h"
 #include "bootmagic.h"
 
+keymap_config_t keymap_config;
 
 void bootmagic(void)
 {
