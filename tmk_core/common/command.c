@@ -232,13 +232,13 @@ static bool command_common(uint8_t code)
             break;
         case KC_D:
             if (debug_enable) {
-                print("\ndebug: on\n");
+                print("\ndebug: off\n");
                 debug_matrix   = false;
                 debug_keyboard = false;
                 debug_mouse    = false;
                 debug_enable   = false;
             } else {
-                print("\ndebug: off\n");
+                print("\ndebug: on\n");
                 debug_enable   = true;
             }
             break;
@@ -327,6 +327,9 @@ static bool command_common(uint8_t code)
             print_val_hex8(host_keyboard_leds());
             print_val_hex8(keyboard_protocol);
             print_val_hex8(keyboard_idle);
+#ifdef NKRO_ENABLE
+            print_val_hex8(keyboard_nkro);
+#endif
             print_val_hex32(timer_read32());
 
 #ifdef PROTOCOL_PJRC

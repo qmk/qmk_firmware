@@ -6,9 +6,9 @@ Download and Install
 --------------------
 ### 1. Install Tools
 
-1. **Toolchain** On Windows install [MHV AVR Tools][mhv] for AVR GCC compiler and [Cygwin][cygwin](or [MinGW][mingw]) for shell terminal. On Mac you can use [CrossPack][crosspack]. On Linux you can install AVR GCC with your favorite package manager.
+1. **Toolchain** On Windows install [Atmel AVR Toolchain][atmelgcc] for AVR GCC compiler and [Cygwin][cygwin](or [MinGW][mingw]) for shell terminal. On Mac you can use [CrossPack][crosspack] or your favorite package manager. On Linux you can install AVR GCC with your favorite package manager.
 
-2. **Programmer** On Windows install [Atmel FLIP][flip]. On Mac and Linux install [dfu-programmer][dfu-prog].
+2. **Programmer** Install [dfu-programmer][dfu-prog]. GUI tool [Atmel FLIP][flip] also can be used on Windows.
 
 3. **Driver** On Windows you start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you shall need to update its driver on 'Device Manager'. You will find the driver in `FLIP` install directory like: C:\Program Files (x86)\Atmel\Flip 3.4.5\usb\. In case of `dfu-programmer` use its driver.
 
@@ -53,7 +53,7 @@ Now you have **hex** file to program on current directory. This **hex** is only 
 How to program controller depends on controller chip and its board design. To program AVR USB chips you'll need to start it up in bootloader mode. Most of boards with the chip have a push button to let bootloader come up. Consult with your controller board manual.
 
 ### 2. Program with DFU bootloader
-Stock AVR USB chip including ATmega32U4 has DFU bootloader by factory default. `FLIP` is a DFU programmer on Windows offered by Atmel. Open source command line tool `dfu-programmer` also supports AVR chips, it runs on Linux, Mac OSX and even Windows.
+Stock AVR USB chips have DFU bootloader by factory default. `FLIP` is a DFU programmer on Windows offered by Atmel. Open source command line tool `dfu-programmer` also supports AVR chips, it runs on Linux, Mac OSX and even Windows.
 
 To program AVR chip with DFU bootloader use `FLIP` or `dfu-programmer`.
 If you have a proper program command in `Makefile` just type this.
@@ -68,7 +68,7 @@ Or to program with `dfu-programmer` run:
     $ make -f Makefile.<variant> dfu
 
 #### FLIP GUI tutorial
-1. On menu bar click Device -> Select, then. `ATmega32u4`.
+1. On menu bar click Device -> Select, then choose your chip name.
 2. On menu bar click Settings -> Communication -> USB, then click 'Open' button on 'USB Port Connection' dialog.
 At this point you'll see grey-outed widgets on the app get colored and ready.
 
@@ -99,10 +99,9 @@ You may want to use other programmer like `avrdude` with AVRISPmkII, Arduino or 
     $ make -f Makefile.<variant> program
 
 
+[atmelgcc]:     http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORWINDOWS.aspx
 [cygwin]:       https://www.cygwin.com/
 [mingw]:        http://www.mingw.org/
-[mhv]:          https://infernoembedded.com/products/avr-tools
-[winavr]:       http://winavr.sourceforge.net/
 [crosspack]:    http://www.obdev.at/products/crosspack/index.html
 [flip]:         http://www.atmel.com/tools/FLIP.aspx
 [dfu-prog]:     http://dfu-programmer.sourceforge.net/

@@ -45,7 +45,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#define VENDOR_ID       0xBCBC
+#define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xBCBC
 #define DEVICE_VER      0x0500
 #define MANUFACTURER    t.m.k.
@@ -56,14 +56,15 @@ POSSIBILITY OF SUCH DAMAGE.
 #define MATRIX_ROWS 12  // keycode bit: 3-0
 #define MATRIX_COLS  8  // keycode bit: 6-4
 
-//#define DEBUG_ON_INIT 1
+#define DEBUG_ON_INIT 1
 
 //#define TEENSY_CONFIG 1
-#define PRO_MICRO_CONFIG 1
-//#define TMK_CONFIG 1
+//#define PRO_MICRO_CONFIG 1
+#define TMK_CONFIG 1
 
-// comment out if you don't want the keyboard's LEDs to flash upon initialization
-#define NEXT_KBD_INIT_FLASH_LEDS
+// comment out if you don't want the keyboard's LEDs to flash upon initialization or pressing shift
+//#define NEXT_KBD_INIT_FLASH_LEDS
+//#define NEXT_KBD_SHIFT_FLASH_LEDS
 
 //============= Start of Arduino Pro Micro Configuration ==============
 #ifdef PRO_MICRO_CONFIG
@@ -183,6 +184,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))|| \
-    (keyboard_report->mods == (MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)))  \
+    (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) || \
+    (keyboard_report->mods == (MOD_BIT(KC_RALT) | MOD_BIT(KC_RALT))) || \
+    (keyboard_report->mods == (MOD_BIT(KC_RGUI) | MOD_BIT(KC_RGUI)))  \
 )

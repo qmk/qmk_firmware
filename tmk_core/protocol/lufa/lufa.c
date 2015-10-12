@@ -53,6 +53,7 @@
 #include "lufa.h"
 
 uint8_t keyboard_idle = 0;
+/* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
 static uint8_t keyboard_led_stats = 0;
 
@@ -217,6 +218,9 @@ void EVENT_USB_Device_StartOfFrame(void)
 
 /** Event handler for the USB_ConfigurationChanged event.
  * This is fired when the host sets the current configuration of the USB device after enumeration.
+ *
+ * ATMega32u2 supports dual bank(ping-pong mode) only on endpoint 3 and 4,
+ * it is safe to use singl bank for all endpoints.
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
@@ -241,7 +245,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #ifdef CONSOLE_ENABLE
     /* Setup Console HID Report Endpoints */
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     CONSOLE_EPSIZE, ENDPOINT_BANK_DOUBLE);
+                                     CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #if 0
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                      CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
@@ -346,10 +350,7 @@ void EVENT_USB_Device_ControlRequest(void)
                     Endpoint_ClearSETUP();
                     Endpoint_ClearStatusStage();
 
-                    keyboard_protocol = ((USB_ControlRequest.wValue & 0xFF) != 0x00);
-#ifdef NKRO_ENABLE
-                    keyboard_nkro = !!keyboard_protocol;
-#endif
+                    keyboard_protocol = (USB_ControlRequest.wValue & 0xFF);
                     clear_keyboard();
                 }
             }
@@ -396,7 +397,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_nkro) {
+    if (keyboard_protocol && keyboard_nkro) {
         /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 
