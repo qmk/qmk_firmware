@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "wait.h"
 #include "debug.h"
+#include "bootloader.h"
 
 
 static action_t keycode_to_action(uint8_t keycode);
