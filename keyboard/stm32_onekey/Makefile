@@ -35,6 +35,9 @@ MCU_STARTUP = stm32f0xx
 # it should exist either in <chibios>/os/hal/boards/
 #  or <this_dir>/boards
 BOARD = ST_STM32F072B_DISCOVERY
+# Cortex version
+# Teensy LC is cortex-m0; Teensy 3.x are cortex-m4
+MCU  = cortex-m0
 # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 ARMV = 6
 # If you want to be able to jump to bootloader from firmware on STM32 MCUs,
