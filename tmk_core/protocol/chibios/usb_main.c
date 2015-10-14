@@ -22,6 +22,7 @@
 
 #include "host.h"
 #include "debug.h"
+#include "suspend.h"
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
 #include "led.h"
@@ -356,8 +357,8 @@ static const uint8_t hid_configuration_descriptor_data[] = {
                          NUM_INTERFACES,    // bNumInterfaces
                          1,    // bConfigurationValue
                          0,    // iConfiguration
-                         0xA0, // bmAttributes
-                         50),  // bMaxPower (100mA)
+                         0xA0, // bmAttributes (RESERVED|REMOTEWAKEUP)
+                         50),  // bMaxPower (50mA)
 
   /* Interface Descriptor (9 bytes) USB spec 9.6.5, page 267-269, Table 9-12 */
   USB_DESC_INTERFACE(KBD_INTERFACE,        // bInterfaceNumber
@@ -793,7 +794,6 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 
   case USB_EVENT_SUSPEND:
     //TODO: from ISR! print("[S]");
-    //TODO: signal suspend?
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -801,7 +801,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 
   case USB_EVENT_WAKEUP:
     //TODO: from ISR! print("[W]");
-    //TODO: suspend_wakeup_init();
+    suspend_wakeup_init();
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
     // NOTE: converters may not accept this

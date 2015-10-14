@@ -26,6 +26,8 @@
 #include "host_driver.h"
 #include "keyboard.h"
 #include "action.h"
+#include "action_util.h"
+#include "mousekey.h"
 #include "led.h"
 #include "sendchar.h"
 #include "debug.h"
@@ -113,7 +115,24 @@ int main(void) {
 
   /* Main loop */
   while(true) {
-    /* TODO: check for suspended event */
+
+    if(USB_DRIVER.state == USB_SUSPENDED) {
+      print("[s]");
+      while(USB_DRIVER.state == USB_SUSPENDED) {
+        /* Do this in the suspended state */
+        suspend_power_down(); // on AVR this deep sleeps for 15ms
+        // TODO: remote wakeup
+        // if(USB_Device_RemoteWakeupEnabled (USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
+          // USB_Device_SendRemoteWakeup();
+        // }
+      }
+      /* Woken up */
+      // variables has been already cleared by the wakeup hook
+      send_keyboard_report();
+#ifdef MOUSEKEY_ENABLE
+      mousekey_send();
+#endif /* MOUSEKEY_ENABLE */
+    }
 
     keyboard_task();
     chThdSleepMilliseconds(5);
