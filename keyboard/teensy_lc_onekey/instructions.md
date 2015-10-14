@@ -16,6 +16,8 @@ It's set up for Teensy LC. To use 3.x, you'll need to edit the `Makefile` (and c
 
 ## Credits
 
+TMK itself is written by hasu, original sources [here](https://github.com/tmk/tmk_keyboard).
+
 The USB support for Kinetis MCUs is due to RedoX. His ChibiOS fork is also [on github](https://github.com/RedoXyde/ChibiOS); but it doesn't include Teensy LC definitions.
 
 ## Features that are not implemented yet
