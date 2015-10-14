@@ -57,6 +57,16 @@ or set LOW by
 
         palClearPad(TEENSY_PINn_IOPORT, TEENSY_PINn);
 
+Toggling can be done with
+
+        palTogglePad(TEENSY_PINn_IOPORT, TEENSY_PINn);
+
+Alternatively, you can use
+
+        palWritePad(TEENSY_PINn_IOPORT, TEENSY_PINn, bit);
+
+where `bit` is either `PAL_LOW` or `PAL_HIGH` (i.e. `0` or `1`).
+
 ### Reading
 
 Reading pin status is done with
@@ -64,3 +74,7 @@ Reading pin status is done with
         palReadPad(TEENSY_PINn_IOPORT, TEENSY_PINn);
 
 The function returns either `PAL_HIGH` (actually `1`) or `PAL_LOW` (actually `0`).
+
+### Further docs
+
+All the commands that are available for pin manipulation through ChibiOS HAL are documented in [ChibiOS PAL driver docs](http://chibios.sourceforge.net/docs3/hal/group___p_a_l.html).
