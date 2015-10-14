@@ -1024,6 +1024,23 @@ void init_usb_driver(USBDriver *usbp) {
 #endif
 }
 
+/*
+ * Send remote wakeup packet
+ * Note: should not be called from ISR
+ */
+void send_remote_wakeup(USBDriver *usbp) {
+  (void)usbp;
+#if defined(K20x) || defined(KL2x)
+#if KINETIS_USB_USE_USB0
+  USB0->CTL |= USBx_CTL_RESUME;
+  chThdSleepMilliseconds(15);
+  USB0->CTL &= ~USBx_CTL_RESUME;
+#endif /* KINETIS_USB_USE_USB0 */
+#else /* K20x || KL2x */
+#warning Sending remote wakeup packet not implemented for your platform.
+#endif /* K20x || KL2x */
+}
+
 /* ---------------------------------------------------------
  *                  Keyboard functions
  * ---------------------------------------------------------

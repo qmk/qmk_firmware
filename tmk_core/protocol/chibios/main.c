@@ -121,10 +121,10 @@ int main(void) {
       while(USB_DRIVER.state == USB_SUSPENDED) {
         /* Do this in the suspended state */
         suspend_power_down(); // on AVR this deep sleeps for 15ms
-        // TODO: remote wakeup
-        // if(USB_Device_RemoteWakeupEnabled (USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
-          // USB_Device_SendRemoteWakeup();
-        // }
+        /* Remote wakeup */
+        if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
+          send_remote_wakeup(&USB_DRIVER);
+        }
       }
       /* Woken up */
       // variables has been already cleared by the wakeup hook
