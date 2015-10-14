@@ -4,7 +4,9 @@ These ARM Teensies are now supported through [chibios](http://chibios.org).
 
 You'll need to install an ARM toolchain, for instance from [gcc ARM embedded](https://launchpad.net/gcc-arm-embedded) website, or using your favourite package manager. After installing, you should be able to run `arm-none-eabi-gcc -v` in the command prompt and get sensible output. This toolchain is used instead of `avr-gcc`, which is only for AVR chips. Naturally you'll also need the usual development tools (e.g. `make`), just as in the AVR setting.
 
-Next, you'll need ChibiOS. The current release (3.0.2) does not have sufficient Kinetis support, so you'll need to get a patched version from [my fork](https://github.com/flabbergast/ChibiOS/tree/kinetis): you can download a current tree zipped from [here](https://github.com/flabbergast/ChibiOS/archive/kinetis.zip). Unpack the zip, rename the newly created `ChibiOS-kinetis` to `chibios`, and move it to `tmk/tool/chibios/` (so that the ChibiOS files reside in `tmk/tool/chibios/chibios`).
+You'll need this fork/branch of TMK. If you're reading this from your own hard drive, then you already have it ;) Anyway, you can get a zip from [here](https://https://github.com/flabbergast/tmk_keyboard/archive/chibios.zip) {or clone this repo from github and checkout the `chibios` branch}.
+
+Next, you'll need ChibiOS. The current release (3.0.2) does not have sufficient Kinetis support, so you'll need to get a patched version from [my fork](https://github.com/flabbergast/ChibiOS/tree/kinetis): you can download a current tree zipped from [here](https://github.com/flabbergast/ChibiOS/archive/kinetis.zip) {or clone that repo from github and checkout the `kinetis` branch}. Unpack the zip, rename the newly created `ChibiOS-kinetis` to `chibios`, and move it to `tmk/tool/chibios/` (so that the ChibiOS files reside in `tmk/tool/chibios/chibios`).
 
 This should be it. Running `make` in `keyboard/teensy_lc_onekey` should create a working firmware in `build/`, called `ch.hex`.
 
