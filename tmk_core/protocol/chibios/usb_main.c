@@ -1130,7 +1130,7 @@ void send_keyboard(report_keyboard_t *report) {
   } else
 #endif /* NKRO_ENABLE */
   { /* boot protocol */
-    usbPrepareTransmit(&USB_DRIVER, KBD_ENDPOINT, (uint8_t *)report, sizeof(report_keyboard_t));
+    usbPrepareTransmit(&USB_DRIVER, KBD_ENDPOINT, (uint8_t *)report, KBD_EPSIZE);
     osalSysLock();
     usbStartTransmitI(&USB_DRIVER, KBD_ENDPOINT);
     osalSysUnlock();
