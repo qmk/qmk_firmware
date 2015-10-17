@@ -1121,19 +1121,24 @@ void send_keyboard(report_keyboard_t *report) {
   }
   osalSysUnlock();
 
+  bool ret;
 #ifdef NKRO_ENABLE
   if(keyboard_nkro) {  /* NKRO protocol */
     usbPrepareTransmit(&USB_DRIVER, NKRO_ENDPOINT, (uint8_t *)report, sizeof(report_keyboard_t));
-    osalSysLock();
-    usbStartTransmitI(&USB_DRIVER, NKRO_ENDPOINT);
-    osalSysUnlock();
+    do {
+        osalSysLock();
+        ret = usbStartTransmitI(&USB_DRIVER, NKRO_ENDPOINT);
+        osalSysUnlock();
+    } while (ret);
   } else
 #endif /* NKRO_ENABLE */
   { /* boot protocol */
     usbPrepareTransmit(&USB_DRIVER, KBD_ENDPOINT, (uint8_t *)report, KBD_EPSIZE);
-    osalSysLock();
-    usbStartTransmitI(&USB_DRIVER, KBD_ENDPOINT);
-    osalSysUnlock();
+    do {
+        osalSysLock();
+        ret = usbStartTransmitI(&USB_DRIVER, KBD_ENDPOINT);
+        osalSysUnlock();
+    } while (ret);
   }
   keyboard_report_sent = *report;
 }
