@@ -22,7 +22,7 @@ static const uint8_t breathing_table[64] = {
 15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-/* LP Timer interrupt handler */
+/* Low Power Timer interrupt handler */
 OSAL_IRQ_HANDLER(KINETIS_LPTMR0_IRQ_VECTOR) {
     OSAL_IRQ_PROLOGUE();
 
@@ -63,7 +63,7 @@ OSAL_IRQ_HANDLER(KINETIS_LPTMR0_IRQ_VECTOR) {
 /* LPTMR clock options */
 #define LPTMR_CLOCK_MCGIRCLK 0 /* 4MHz clock */
 #define LPTMR_CLOCK_LPO      1 /* 1kHz clock */
-#define LPTMR_CLOCK_ERCLK32K 2
+#define LPTMR_CLOCK_ERCLK32K 2 /* external 32kHz crystal */
 #define LPTMR_CLOCK_OSCERCLK 3 /* output from OSC */
 
 /* Work around inconsistencies in Freescale naming */
@@ -78,7 +78,8 @@ void sleep_led_init(void) {
     /* Reset LPTMR settings */
     LPTMR0->CSR = 0;
     /* Set the compare value */
-    LPTMR0->CMR = 1;  // trigger on counter value (i.e. every time)
+    LPTMR0->CMR = 0;  // trigger on counter value (i.e. every time)
+
     /* Set up clock source and prescaler */
     /* Software PWM
     *  ______           ______           __
@@ -90,28 +91,39 @@ void sleep_led_init(void) {
     * F                periods/second[frequency]
     * R * F            interrupts/second
     */
+
     /* === OPTION 1 === */
-    //  for 1kHz LPO
+    #if 0
+    //  1kHz LPO
     //  No prescaler => 1024 irqs/sec
-    // LPTMR0->PSR = LPTMRx_PSR_PCS(LPTMR_CLOCK_LPO)|LPTMRx_PSR_PBYP;
+    //  Note: this is too slow for a smooth breathe
+    LPTMR0->PSR = LPTMRx_PSR_PCS(LPTMR_CLOCK_LPO)|LPTMRx_PSR_PBYP;
+    #endif /* OPTION 1 */
+
     /* === OPTION 2 === */
-    //  for nMHz IRC (n=4 on KL25Z, KL26Z and K20x; n=2 or 8 on KL27Z)
+    #if 1
+    //  nMHz IRC (n=4 on KL25Z, KL26Z and K20x; n=2 or 8 on KL27Z)
     MCG->C2 |= MCG_C2_IRCS; // fast (4MHz) internal ref clock
-    #if defined(KL27Z) // divide the 8MHz IRC by 2, to have the same MCGIRCLK speed as others
+    #if defined(KL27) // divide the 8MHz IRC by 2, to have the same MCGIRCLK speed as others
     MCG->MC |= MCG_MC_LIRC_DIV2_DIV2;
-    #endif /* KL27Z */
+    #endif /* KL27 */
     MCG->C1 |= MCG_C1_IRCLKEN; // enable internal ref clock
     //  to work in stop mode, also MCG_C1_IREFSTEN
-    //  Divide 4MHz by 2^N (N=5) => 62500 irqs/sec =>
+    //  Divide 4MHz by 2^N (N=6) => 62500 irqs/sec =>
     //  => approx F=61, R=256, duration = 4
-    LPTMR0->PSR = LPTMRx_PSR_PCS(LPTMR_CLOCK_MCGIRCLK)|LPTMRx_PSR_PRESCALE(5);
+    LPTMR0->PSR = LPTMRx_PSR_PCS(LPTMR_CLOCK_MCGIRCLK)|LPTMRx_PSR_PRESCALE(6);
+    #endif /* OPTION 2 */
+
     /* === OPTION 3 === */
-    //  for OSC output (external crystal), usually 8MHz or 16MHz
-    // OSC0->CR |= OSC_CR_ERCLKEN; // enable ext ref clock
+    #if 0
+    //  OSC output (external crystal), usually 8MHz or 16MHz
+    OSC0->CR |= OSC_CR_ERCLKEN; // enable ext ref clock
     //  to work in stop mode, also OSC_CR_EREFSTEN
     //  Divide by 2^N
-    // LPTMR0->PSR = LPTMRx_PSR_PCS(LPTMR_CLOCK_OSCERCLK)|LPTMRx_PSR_PRESCALE(7);
+    LPTMR0->PSR = LPTMRx_PSR_PCS(LPTMR_CLOCK_OSCERCLK)|LPTMRx_PSR_PRESCALE(7);
+    #endif /* OPTION 3 */
     /* === END OPTIONS === */
+
     /* Interrupt on TCF set (compare flag) */
     nvicEnableVector(LPTMR0_IRQn, 2); // vector, priority
     LPTMR0->CSR |= LPTMRx_CSR_TIE;
