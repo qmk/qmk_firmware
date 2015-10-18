@@ -25,13 +25,13 @@ void bootloader_jump(void) {
 
 #if defined(KIIBOHD_BOOTLOADER)
 /* Kiibohd Bootloader (MCHCK and Infinity KB) */
-#define SCB_AIRCR   (*(volatile uint32_t *)0xE000ED0C) // Application Interrupt and Reset Control
+#define SCB_AIRCR_VECTKEY_WRITEMAGIC 0x05FA0000
 #define VBAT        (*(volatile uint8_t  *)0x4003E000) // VBAT register file (32 bytes)
 const uint8_t sys_reset_to_loader_magic[] = "\xff\x00\x7fRESET TO LOADER\x7f\x00\xff";
 void bootloader_jump(void) {
   __builtin_memcpy((void *)&VBAT, (const void *)sys_reset_to_loader_magic, sizeof(sys_reset_to_loader_magic));
   // request reset
-  SCB_AIRCR = 0x05FA0004;
+  SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
 }
 
 #else /* defined(KIIBOHD_BOOTLOADER) */
