@@ -215,3 +215,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 
 Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
+
+
+## Eject on Mac OSX
+It is actually F20, at least HHKB use it for Eject key(Fn+f).
