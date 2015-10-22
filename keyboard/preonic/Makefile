@@ -127,7 +127,8 @@ MIDI_ENABLE = yes 		# MIDI controls
 BACKLIGHT_ENABLE = yes
 
 ifdef MIDI_ENABLE
-	SRC += keymap_midi.c
+	SRC += keymap_midi.c \
+		   beeps.c
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"

@@ -840,13 +840,13 @@ int main(void)
 
 
     /* wait for USB startup & debug output */
-    // while (USB_DeviceState != DEVICE_STATE_Configured) {
+    while (USB_DeviceState != DEVICE_STATE_Configured) {
 // #if defined(INTERRUPT_CONTROL_ENDPOINT)
         // ;
 // #else
         USB_USBTask();
 // #endif
-    // }
+    }
     print("USB configured.\n");
 
     /* init modules */

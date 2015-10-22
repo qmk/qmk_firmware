@@ -3,7 +3,7 @@ PJRC_DIR = protocol/pjrc
 
 SRC +=	$(BLUEFRUIT_DIR)/main.c \
 	$(BLUEFRUIT_DIR)/bluefruit.c \
-	serial_uart.c \
+	../serial_uart.c \
 	$(PJRC_DIR)/pjrc.c \
 	$(PJRC_DIR)/usb_keyboard.c \
 	$(PJRC_DIR)/usb_debug.c \
