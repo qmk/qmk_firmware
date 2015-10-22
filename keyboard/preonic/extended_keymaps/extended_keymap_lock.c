@@ -1,8 +1,8 @@
 #include "extended_keymap_common.h"
 #include "backlight.h"
 #include "action_layer.h"
-#include "lufa.h"
 #include "keymap_midi.h"
+#include "beeps.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = { /* Qwerty */
