@@ -75,33 +75,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           default_layer_and(0); 
           default_layer_or((1<<5));
 
-          uint8_t low = boot_lock_fuse_bits_get(0x0000);
-          uint8_t high = boot_lock_fuse_bits_get(0x0003);
-          uint8_t ext = boot_lock_fuse_bits_get(0x0002);
-          uint8_t lock = boot_lock_fuse_bits_get(0x0001);
+          // uint8_t low = boot_lock_fuse_bits_get(0x0000);
+          // uint8_t high = boot_lock_fuse_bits_get(0x0003);
+          // uint8_t ext = boot_lock_fuse_bits_get(0x0002);
+          // uint8_t lock = boot_lock_fuse_bits_get(0x0001);
 
-          register_code(hextokeycode((low & 0xF0) >> 4));
-          unregister_code(hextokeycode((low & 0xF0) >> 4));
-          register_code(hextokeycode((low & 0x0F)));
-          unregister_code(hextokeycode((low & 0x0F)));
-
-
-          register_code(hextokeycode((high & 0xF0) >> 4));
-          unregister_code(hextokeycode((high & 0xF0) >> 4));
-          register_code(hextokeycode((high & 0x0F)));
-          unregister_code(hextokeycode((high & 0x0F)));
+          // register_code(hextokeycode((low & 0xF0) >> 4));
+          // unregister_code(hextokeycode((low & 0xF0) >> 4));
+          // register_code(hextokeycode((low & 0x0F)));
+          // unregister_code(hextokeycode((low & 0x0F)));
 
 
-          register_code(hextokeycode((ext & 0xF0) >> 4));
-          unregister_code(hextokeycode((ext & 0xF0) >> 4));
-          register_code(hextokeycode((ext & 0x0F)));
-          unregister_code(hextokeycode((ext & 0x0F)));
+          // register_code(hextokeycode((high & 0xF0) >> 4));
+          // unregister_code(hextokeycode((high & 0xF0) >> 4));
+          // register_code(hextokeycode((high & 0x0F)));
+          // unregister_code(hextokeycode((high & 0x0F)));
 
 
-          register_code(hextokeycode((lock & 0xF0) >> 4));
-          unregister_code(hextokeycode((lock & 0xF0) >> 4));
-          register_code(hextokeycode((lock & 0x0F)));
-          unregister_code(hextokeycode((lock & 0x0F)));
+          // register_code(hextokeycode((ext & 0xF0) >> 4));
+          // unregister_code(hextokeycode((ext & 0xF0) >> 4));
+          // register_code(hextokeycode((ext & 0x0F)));
+          // unregister_code(hextokeycode((ext & 0x0F)));
+
+
+          // register_code(hextokeycode((lock & 0xF0) >> 4));
+          // unregister_code(hextokeycode((lock & 0xF0) >> 4));
+          // register_code(hextokeycode((lock & 0x0F)));
+          // unregister_code(hextokeycode((lock & 0x0F)));
 
           // note(0+12, 20);
           // note(0+24, 20);

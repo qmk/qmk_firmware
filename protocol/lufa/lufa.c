@@ -51,8 +51,13 @@
 
 #include "descriptor.h"
 #include "lufa.h"
+
 #ifdef MIDI_ENABLE
-#include <beeps.h>
+    #include <beeps.h>
+#endif
+
+#ifdef BLUETOOTH_ENABLE
+    #include "bluetooth.h"
 #endif
 
 // #include <LUFA/Version.h>
@@ -89,7 +94,6 @@ host_driver_t lufa_driver = {
     usb_get_midi,
     midi_usb_init,
 #endif
-
 };
 
 void SetupHardware(void);
@@ -477,6 +481,13 @@ static void send_keyboard(report_keyboard_t *report)
     Endpoint_ClearIN();
 
     keyboard_report_sent = *report;
+
+#ifdef BLUETOOTH_ENABLE
+    bluefruit_serial_send(0xFD);
+    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+        bluefruit_serial_send(report->raw[i]);
+    }
+#endif
 }
 
 static void send_mouse(report_mouse_t *report)
@@ -499,6 +510,20 @@ static void send_mouse(report_mouse_t *report)
 
     /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
+
+
+#ifdef BLUETOOTH_ENABLE
+    bluefruit_serial_send(0xFD);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x03);
+    bluefruit_serial_send(report->buttons);
+    bluefruit_serial_send(report->x);
+    bluefruit_serial_send(report->y);
+    bluefruit_serial_send(report->v); // should try sending the wheel v here
+    bluefruit_serial_send(report->h); // should try sending the wheel h here
+    bluefruit_serial_send(0x00);
+#endif
+
 #endif
 }
 
@@ -542,6 +567,23 @@ static void send_consumer(uint16_t data)
 
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
+
+#ifdef BLUETOOTH_ENABLE
+    static uint16_t last_data = 0;
+    if (data == last_data) return;
+    last_data = data;
+    uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
+    bluefruit_serial_send(0xFD);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x02);
+    bluefruit_serial_send((bitmap>>8)&0xFF);
+    bluefruit_serial_send(bitmap&0xFF); 
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+#endif
+
 }
 
 
@@ -836,6 +878,11 @@ int main(void)
     // midi_send_cc(&midi_device, 15, 1, 0);
     // midi_send_noteon(&midi_device, 0, 64, 127);
     // midi_send_noteoff(&midi_device, 0, 64, 127);
+#endif
+
+#ifdef BLUETOOTH_ENABLE
+    print_set_sendchar(sendchar);
+    serial_init();
 #endif
 
 

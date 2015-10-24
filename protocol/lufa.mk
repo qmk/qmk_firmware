@@ -29,6 +29,11 @@ ifdef MIDI_ENABLE
 	   $(LUFA_SRC_USBCLASS)
 endif
 
+ifdef BLUETOOTH_ENABLE
+	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
+	$(LUFA_DIR)/../serial_uart.c
+endif
+
 SRC += $(LUFA_SRC)
 
 # Search Path
