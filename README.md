@@ -1,9 +1,6 @@
-TMK Keyboard Firmware Collection
+Quantum Mechanical Keyboard Firmware
 ================================
-This is a keyboard firmware with some useful features for Atmel AVR controller.
-
-Source code is available here: <http://github.com/tmk/tmk_keyboard>
-
+This is a keyboard firmware with some useful features for Atmel AVR controller, based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard)
 
 Features
 --------
