@@ -27,7 +27,7 @@ DOXYGEN_COMBINED_XML := $(LUFA_ROOT)/Documentation/xml/lufa_doc.xml
 TEMP_MANIFEST_XML    := manifest.xml
 EXTENSION_OUTPUT_XML := $(LUFA_ROOT)/../extension.xml
 MODULE_OUTPUT_XML    := $(LUFA_ROOT)/asf.xml
-MSHELP_OUTPUT_XML    := $(LUFA_ROOT)/../lufa_help_$(EXT_VERSION_NUM).mshc
+MSHELP_OUTPUT_XML    := $(LUFA_ROOT)/../lufa_help_$(subst .,_,$(EXT_VERSION_NUM)).mshc
 XML_FILES            := $(filter-out $(TEMP_MANIFEST_FILE), $(shell ls *.xml))
 VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png     \
                         $(LUFA_ROOT)/DoxygenPages/Images/LUFA.png           \
@@ -36,7 +36,8 @@ VSIX_ASSETS          := $(LUFA_ROOT)/DoxygenPages/Images/LUFA_thumb.png     \
                         VSIX/LUFA.dll                                       \
                         VSIX/LUFA.pkgdef
 VSIX_GEN_PARAMS     := --stringparam extension-version "$(EXT_VERSION_NUM)" \
-                       --stringparam lufa-version "$(LUFA_VERSION_NUM)"
+                       --stringparam lufa-version "$(LUFA_VERSION_NUM)"     \
+                       --stringparam help-package-filename "$(notdir $(MSHELP_OUTPUT_XML))"
 MSHELP_GEN_PARAMS   := --stringparam generate.toc "book toc"                \
                        --stringparam chunk.quietly "1"                      \
                        --stringparam chunk.section.depth "3"                \

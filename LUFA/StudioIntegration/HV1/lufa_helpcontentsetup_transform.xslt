@@ -13,8 +13,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml" version="1.0">
 	<xsl:output method="xml" omit-xml-declaration="yes"/>
 
-	<!-- Need to input the LUFA extension version for later use -->
-	<xsl:param name="extension-version"/>
+	<!-- Need to input the LUFA help package filename for later use -->
+	<xsl:param name="help-package-filename"/>
 
 	<!-- Recursively match and copy/process all nodes/attributes -->
 	<xsl:template match="node()">
@@ -29,9 +29,7 @@
 		<xsl:copy>
 			<xsl:copy-of select="@class"/>
 
-			<xsl:text>lufa_help_</xsl:text>
-			<xsl:value-of select="$extension-version"/>
-			<xsl:text>.mshc</xsl:text>
+			<xsl:value-of select="$help-package-filename"/>
 		</xsl:copy>
 	</xsl:template>
 
@@ -40,14 +38,10 @@
 			<xsl:copy-of select="@class"/>
 
 			<xsl:attribute name="href">
-				<xsl:text>lufa_help_</xsl:text>
-				<xsl:value-of select="$extension-version"/>
-				<xsl:text>.mshc</xsl:text>
+				<xsl:value-of select="$help-package-filename"/>
 			</xsl:attribute>
 
-			<xsl:text>lufa_help_</xsl:text>
-			<xsl:value-of select="$extension-version"/>
-			<xsl:text>.mshc</xsl:text>
+			<xsl:value-of select="$help-package-filename"/>
 		</xsl:copy>
 	</xsl:template>
 </xsl:stylesheet>
