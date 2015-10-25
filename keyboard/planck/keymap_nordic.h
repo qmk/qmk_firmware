@@ -10,7 +10,7 @@
 // Normal characters
 #define NO_HALF	KC_GRV
 #define NO_PLUS	KC_MINS
-#define NO_TICK	KC_EQL
+#define NO_ACUT	KC_EQL
 
 #define NO_AM	KC_LBRC
 #define NO_QUOT	KC_RBRC
@@ -27,18 +27,18 @@
 #define NO_BULT LSFT(KC_4)
 #define NO_AMP	LSFT(KC_6)
 #define NO_SLSH LSFT(KC_7)
-#define NO_LPAR	LSFT(KC_8)
-#define NO_RPAR	LSFT(KC_9)
+#define NO_LPRN	LSFT(KC_8)
+#define NO_RPRN	LSFT(KC_9)
 #define NO_EQL	LSFT(KC_0)
 #define NO_QUES	LSFT(NO_PLUS)
-#define NO_BTCK	LSFT(NO_TICK)
+#define NO_GRV	LSFT(NO_ACUT)
 
-#define NO_SUPR LSFT(NO_QUOT)
+#define NO_CIRC LSFT(NO_QUOT)
 
 #define NO_GRTR	LSFT(NO_LESS)
-#define NO_SEMI LSFT(KC_COMM)
+#define NO_SCLN LSFT(KC_COMM)
 #define NO_COLN LSFT(KC_DOT)
-#define NO_UNDR LSFT(NO_DASH)
+#define NO_UNDS LSFT(NO_DASH)
 
 // Alt Gr-ed characters
 #define NO_AT	ALGR(KC_2)
@@ -48,12 +48,12 @@
 #define NO_LBRK ALGR(KC_8)
 #define NO_RBRK ALGR(KC_9)
 #define NO_RBRC	ALGR(KC_0)
-#define NO_PIPE ALGR(NO_TICK)
+#define NO_PIPE ALGR(NO_ACUT)
 
 #define NO_EURO ALGR(KC_E)
 #define NO_TILD ALGR(NO_QUOT)
 
 #define NO_BSLS ALGR(NO_LESS)
-#define NO_NU 	ALGR(KC_M)
+#define NO_MU 	ALGR(KC_M)
 
 #endif
