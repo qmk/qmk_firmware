@@ -1,5 +1,5 @@
-#ifndef KEYMAP_NORDIC_H
-#define KEYMAP_NORDIC_H
+#ifndef KEYMAP_FRENCH_H
+#define KEYMAP_FRENCH_H
 
 #include "keymap_common.h"
 
@@ -67,15 +67,15 @@
 // Alt Gr-ed characters
 #define FR_TILD	ALGR(KC_2)
 #define FR_HASH	ALGR(KC_3)
-#define FR_LBRC ALGR(KC_4)
-#define FR_LBRK	ALGR(KC_5)
+#define FR_LCBR ALGR(KC_4)
+#define FR_LBRC	ALGR(KC_5)
 #define FR_PIPE ALGR(KC_6)
 #define FR_GRV 	ALGR(KC_7)
 #define FR_BSLS	ALGR(KC_8)
 #define FR_CIRC	ALGR(KC_9)
 #define FR_AT 	ALGR(KC_0)
-#define FR_RBRK	ALGR(FR_RPRN)
-#define FR_LBRC ALGR(FR_EQL)
+#define FR_RBRC	ALGR(FR_RPRN)
+#define FR_LCBR ALGR(FR_EQL)
 
 #define FR_EURO	ALGR(KC_E)
 #define FR_BULT	ALGR(FR_DLR)
