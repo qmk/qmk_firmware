@@ -4,8 +4,6 @@
 
 	<xsl:output method="xml" indent="no"/>
 
-	<xsl:param name="keyword.namespace" select="'Atmel.Language.C'"/>
-
 	<xsl:template name="generate.book.title">
 		<xsl:text>LUFA Library</xsl:text>
 	</xsl:template>
@@ -33,7 +31,7 @@
 			</xsl:call-template>
 		</xsl:variable>
 
-		<indexterm id="{$keyword.namespace}.{$name}">
+		<indexterm id="{$name}">
 			<primary>
 				<xsl:value-of select="$book.title"/>
 			</primary>
