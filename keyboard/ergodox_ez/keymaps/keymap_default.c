@@ -1,7 +1,8 @@
-#include "ergodox.h"
+#include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
 
+// TODO: Define layer names that make sense for the ErgoDox EZ.
 #define DEFAULT_LAYER 0
 #define COLEMAK_LAYER 1
 #define DVORAK_LAYER 2
@@ -76,11 +77,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
-
+// Runs just one time when the keyboard initializes.
 void * matrix_init_user(void) {
 
 };
 
+// Runs constantly in the background, in a loop.
 void * matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
@@ -89,6 +91,7 @@ void * matrix_scan_user(void) {
     ergodox_left_led_2_off();
     ergodox_left_led_3_off();
     switch (layer) {
+      // TODO: Make this relevant to the ErgoDox EZ.
         case 1:
             // all
             ergodox_left_led_1_on();

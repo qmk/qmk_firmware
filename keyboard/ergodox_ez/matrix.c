@@ -1,4 +1,10 @@
 /*
+
+Note for ErgoDox EZ customizers: Here be dragons!
+This is not a file you want to be messing with.
+All of the interesting stuff for you is under keymaps/ :)
+Love, Erez
+
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
@@ -27,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "ergodox.h"
+#include "ergodox_ez.h"
 #include "i2cmaster.h"
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #include  "timer.h"
@@ -80,7 +86,7 @@ void matrix_init(void)
     // initialize row and col
 
     mcp23018_status = init_mcp23018();
-    
+
 
     unselect_rows();
     init_cols();
@@ -130,69 +136,6 @@ uint8_t matrix_scan(void)
 
         matrix_timer = timer_now;
         matrix_scan_count = 0;
-    }
-#endif
-
-#ifdef KEYMAP_CUB
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_left_led_1_off();
-    ergodox_left_led_2_off();
-    ergodox_left_led_3_off();
-    switch (layer) {
-        case 1:
-            // all
-            ergodox_left_led_1_on();
-            ergodox_left_led_2_on();
-            ergodox_left_led_3_on();
-            break;
-        case 2:
-            // blue
-            ergodox_left_led_2_on();
-            break;
-        case 8:
-            // blue and green
-            ergodox_left_led_2_on();
-            // break missed intentionally
-        case 3:
-            // green
-            ergodox_left_led_3_on();
-            break;
-        case 6:
-            ergodox_board_led_on();
-            // break missed intentionally
-        case 4:
-        case 5:
-        case 7:
-            // white
-            ergodox_left_led_1_on();
-            break;
-        case 9:
-            // white+green
-            ergodox_left_led_1_on();
-            ergodox_left_led_3_on();
-            break;
-        default:
-            // none
-            break;
-    }
-
-    mcp23018_status = ergodox_left_leds_update();
-#endif
-
-#ifdef KEYMAP_SIMON
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    switch (layer) {
-        case 0:
-// none
-            
-            break;
-        default:
-            ergodox_board_led_on();
-            break;
     }
 #endif
 
@@ -268,11 +211,11 @@ uint8_t matrix_key_count(void)
  *
  * Teensy
  * col: 0   1   2   3   4   5
- * pin: F0  F1  F4  F5  F6  F7 
+ * pin: F0  F1  F4  F5  F6  F7
  *
  * MCP23018
  * col: 0   1   2   3   4   5
- * pin: B5  B4  B3  B2  B1  B0 
+ * pin: B5  B4  B3  B2  B1  B0
  */
 static void  init_cols(void)
 {
@@ -361,7 +304,7 @@ static void select_row(uint8_t row)
             // set other rows hi-Z : 1
             mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write( 0xFF & ~(1<<row) 
+            mcp23018_status = i2c_write( 0xFF & ~(1<<row)
                                   & ~(ergodox_left_led_3<<LEFT_LED_3_SHIFT)
                               );                                if (mcp23018_status) goto out;
         out:
