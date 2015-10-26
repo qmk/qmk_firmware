@@ -8,10 +8,12 @@ bool ergodox_left_led_1 = 0;  // left top
 bool ergodox_left_led_2 = 0;  // left middle
 bool ergodox_left_led_3 = 0;  // left bottom
 
+__attribute__ ((weak))
 void * matrix_init_user(void) {
 
 };
 
+__attribute__ ((weak))
 void * matrix_scan_user(void) {
 
 };
