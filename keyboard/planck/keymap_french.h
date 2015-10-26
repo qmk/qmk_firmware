@@ -14,7 +14,7 @@
 #define FR_QUOT	KC_3
 #define FR_APOS	KC_4
 #define FR_LPRN	KC_5
-#define FR_DASH	KC_6
+#define FR_MINS	KC_6
 #define FR_EGRV	KC_7
 #define FR_UNDS	KC_8
 #define FR_CCED	KC_9

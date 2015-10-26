@@ -19,7 +19,7 @@
 #define	NO_APOS	KC_NUHS
 
 #define NO_LESS	KC_NUBS
-#define NO_DASH KC_SLSH
+#define NO_MINS KC_SLSH
 
 // Shifted characters
 #define NO_SECT LSFT(NO_HALF)
@@ -38,7 +38,7 @@
 #define NO_GRTR	LSFT(NO_LESS)
 #define NO_SCLN LSFT(KC_COMM)
 #define NO_COLN LSFT(KC_DOT)
-#define NO_UNDS LSFT(NO_DASH)
+#define NO_UNDS LSFT(NO_MINS)
 
 // Alt Gr-ed characters
 #define NO_AT	ALGR(KC_2)

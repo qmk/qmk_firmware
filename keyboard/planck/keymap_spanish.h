@@ -20,7 +20,7 @@
 #define ES_CCED	KC_NUHS
 
 #define ES_LESS	KC_NUBS
-#define ES_DASH	KC_SLSH
+#define ES_MINS	KC_SLSH
 
 // Shifted characters
 #define ES_ASML	LSFT(ES_OVRR)
@@ -42,7 +42,7 @@
 #define ES_GRTR	LSFT(ES_LESS)
 #define ES_SCLN	LSFT(ES_COMM)
 #define ES_COLN	LSFT(ES_DOT)
-#define ES_UNDS	LSFT(ES_DASH)
+#define ES_UNDS	LSFT(ES_MINS)
 
 // Alt Gr-ed characters
 #define ES_BSLS	ALGR(ES_OVRR)
