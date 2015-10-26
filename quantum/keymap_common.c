@@ -37,15 +37,18 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	// Has a modifier
     	action_t action;
     	// Split it up
-    	action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);
+    	action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
     	return action;
 	} else if (keycode >= 0x2000 && keycode < 0x3000) {
-		// Is a shortcut for function layer, pull last 12bits
+        // Is a shortcut for function layer, pull last 12bits
+        // This means we have 4,096 FN macros at our disposal
         return keymap_func_to_action(keycode & 0xFFF);
 	} else if (keycode >= 0x3000 && keycode < 0x4000) {
+      // When the code starts with 3, it's an action macro.
     	action_t action;
     	action.code = ACTION_MACRO(keycode & 0xFF);
     	return action;
+#ifdef BACKLIGHT_ENABLE
 	} else if (keycode >= BL_0 & keycode <= BL_15) {
         action_t action;
         action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
@@ -66,10 +69,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         action_t action;
         action.code = ACTION_BACKLIGHT_STEP();
         return action;
-    } else if (keycode == RESET) {
+#endif
+    } else if (keycode == RESET) { // RESET is 0x5000, which is why this is here
         bootloader_jump();
         return;
-    } else if (keycode == DEBUG) {
+    } else if (keycode == DEBUG) { // DEBUG is 0x5001
+      // TODO: Does this actually work?
         print("\nDEBUG: enabled.\n");
         debug_enable = true;
         return;
@@ -79,15 +84,21 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         action_t action;
         action.code = ACTION_LAYER_SET(layer, when);
         return action;
+#ifdef MIDI_ENABLE
     } else if (keycode >= 0x6000 && keycode < 0x7000) {
         action_t action;
         action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
         return action;
+#endif
+#ifdef UNICODE_ENABLE
     } else if (keycode >= 0x8000) {
         action_t action;
         uint16_t unicode = keycode & ~(0x8000);
         action.code =  ACTION_FUNCTION_OPT(unicode & 0xFF, (unicode & 0xFF00) >> 8);
         return action;
+#endif
+    } else {
+
     }
 
     switch (keycode) {

@@ -42,8 +42,11 @@ QUANTUM_DIR = $(TOP_DIR)/quantum
 
 # # project specific files
 SRC += $(QUANTUM_DIR)/keymap_common.c \
-	$(QUANTUM_DIR)/matrix.c \
 	$(QUANTUM_DIR)/led.c 
+
+ifndef CUSTOM_MATRIX
+	SRC += $(QUANTUM_DIR)/matrix.c
+endif
 
 ifdef MIDI_ENABLE
 	SRC += $(QUANTUM_DIR)/keymap_midi.c \
@@ -58,8 +61,6 @@ endif
 #EXTRALDFLAGS = -Wl,--relax
 
 # Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
 VPATH += $(QUANTUM_DIR)
 
 include $(TOP_DIR)/protocol/lufa.mk
