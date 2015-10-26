@@ -445,6 +445,14 @@ static uint8_t keyboard_leds(void)
 
 static void send_keyboard(report_keyboard_t *report)
 {
+
+#ifdef BLUETOOTH_ENABLE
+    bluefruit_serial_send(0xFD);
+    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+        bluefruit_serial_send(report->raw[i]);
+    }
+#endif
+
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -482,17 +490,24 @@ static void send_keyboard(report_keyboard_t *report)
 
     keyboard_report_sent = *report;
 
-#ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-        bluefruit_serial_send(report->raw[i]);
-    }
-#endif
 }
 
 static void send_mouse(report_mouse_t *report)
 {
 #ifdef MOUSE_ENABLE
+
+#ifdef BLUETOOTH_ENABLE
+    bluefruit_serial_send(0xFD);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x03);
+    bluefruit_serial_send(report->buttons);
+    bluefruit_serial_send(report->x);
+    bluefruit_serial_send(report->y);
+    bluefruit_serial_send(report->v); // should try sending the wheel v here
+    bluefruit_serial_send(report->h); // should try sending the wheel h here
+    bluefruit_serial_send(0x00);
+#endif
+
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -510,19 +525,6 @@ static void send_mouse(report_mouse_t *report)
 
     /* Finalize the stream transfer to send the last packet */
     Endpoint_ClearIN();
-
-
-#ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x03);
-    bluefruit_serial_send(report->buttons);
-    bluefruit_serial_send(report->x);
-    bluefruit_serial_send(report->y);
-    bluefruit_serial_send(report->v); // should try sending the wheel v here
-    bluefruit_serial_send(report->h); // should try sending the wheel h here
-    bluefruit_serial_send(0x00);
-#endif
 
 #endif
 }
@@ -550,6 +552,23 @@ static void send_system(uint16_t data)
 
 static void send_consumer(uint16_t data)
 {
+
+#ifdef BLUETOOTH_ENABLE
+    static uint16_t last_data = 0;
+    if (data == last_data) return;
+    last_data = data;
+    uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
+    bluefruit_serial_send(0xFD);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x02);
+    bluefruit_serial_send((bitmap>>8)&0xFF);
+    bluefruit_serial_send(bitmap&0xFF); 
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+    bluefruit_serial_send(0x00);
+#endif
+
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -568,21 +587,6 @@ static void send_consumer(uint16_t data)
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
 
-#ifdef BLUETOOTH_ENABLE
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
-    uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x02);
-    bluefruit_serial_send((bitmap>>8)&0xFF);
-    bluefruit_serial_send(bitmap&0xFF); 
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-#endif
 
 }
 
@@ -881,19 +885,18 @@ int main(void)
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    print_set_sendchar(sendchar);
     serial_init();
 #endif
 
 
     /* wait for USB startup & debug output */
-    while (USB_DeviceState != DEVICE_STATE_Configured) {
+    // while (USB_DeviceState != DEVICE_STATE_Configured) {
 // #if defined(INTERRUPT_CONTROL_ENDPOINT)
         // ;
 // #else
         USB_USBTask();
 // #endif
-    }
+    // }
     print("USB configured.\n");
 
     /* init modules */
@@ -905,13 +908,13 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        while (USB_DeviceState == DEVICE_STATE_Suspended) {
-            print("[s]");
-            suspend_power_down();
-            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-                    USB_Device_SendRemoteWakeup();
-            }
-        }
+        // while (USB_DeviceState == DEVICE_STATE_Suspended) {
+        //     print("[s]");
+        //     suspend_power_down();
+        //     if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+        //             USB_Device_SendRemoteWakeup();
+        //     }
+        // }
 
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
