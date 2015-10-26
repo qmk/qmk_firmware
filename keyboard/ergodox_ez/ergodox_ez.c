@@ -1,4 +1,4 @@
-#include "ergodox.h"
+#include "ergodox_ez.h"
 #include "i2cmaster.h"
 
 bool i2c_initialized = 0;

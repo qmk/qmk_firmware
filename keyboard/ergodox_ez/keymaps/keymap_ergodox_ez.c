@@ -1,3 +1,4 @@
+// TODO: Move all of this stuff into the default keymap, and then get rid of this file.
 #include "action_util.h"
 #include "action_layer.h"
 #define KC_SW0 KC_FN0
