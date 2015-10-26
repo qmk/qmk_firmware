@@ -61,6 +61,10 @@ void matrix_print(void);
 void matrix_power_up(void);
 void matrix_power_down(void);
 
+void *matrix_init_kb(void);
+void *matrix_scan_kb(void);
+
+
 #ifdef __cplusplus
 }
 #endif

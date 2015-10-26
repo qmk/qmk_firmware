@@ -38,8 +38,8 @@ static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #if DIODE_DIRECTION == ROW2COL
-static matrix_row_t matrix_reversed[MATRIX_COLS];
-static matrix_row_t matrix_reversed_debouncing[MATRIX_COLS];
+    static matrix_row_t matrix_reversed[MATRIX_COLS];
+    static matrix_row_t matrix_reversed_debouncing[MATRIX_COLS];
 #endif
 
 static matrix_row_t read_cols(void);
@@ -65,13 +65,6 @@ void matrix_init(void)
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
 
-#ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
-#endif
-
-    // Turn status LED on
-    DDRE |= (1<<6);
-    PORTE |= (1<<6);
 
     // initialize row and col
     unselect_rows();
@@ -82,11 +75,16 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+
+    if (matrix_init_kb) {
+        (*matrix_init_kb)();
+    }
 }
 
 
 uint8_t matrix_scan(void)
 {
+
 #if DIODE_DIRECTION == COL2ROW
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
@@ -143,6 +141,10 @@ uint8_t matrix_scan(void)
         matrix[y] = row;
     }
 #endif
+
+    if (matrix_scan_kb) {
+        (*matrix_scan_kb)();
+    }
 
     return 1;
 }
