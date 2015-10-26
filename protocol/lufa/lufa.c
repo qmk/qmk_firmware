@@ -908,13 +908,16 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        // while (USB_DeviceState == DEVICE_STATE_Suspended) {
-        //     print("[s]");
-        //     suspend_power_down();
-        //     if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-        //             USB_Device_SendRemoteWakeup();
-        //     }
-        // }
+
+#ifndef BLUETOOTH_ENABLE
+        while (USB_DeviceState == DEVICE_STATE_Suspended) {
+            print("[s]");
+            suspend_power_down();
+            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+                    USB_Device_SendRemoteWakeup();
+            }
+        }
+#endif
 
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);

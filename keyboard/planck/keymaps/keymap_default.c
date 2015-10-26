@@ -1,6 +1,5 @@
-#include "keymap_common.h"
+#include "planck.h"
 #include "backlight.h"
-#include "debug.h"
 
 #define QWERTY_LAYER 0
 #define COLEMAK_LAYER 1

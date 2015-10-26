@@ -73,6 +73,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         print("\nDEBUG: enabled.\n");
         debug_enable = true;
         return;
+    } else if (keycode >= 0x5000 && keycode < 0x6000) {
+        int when = (keycode >> 0x9) & 0x3;
+        int layer = keycode & 0xFF;
+        action_t action;
+        action.code = ACTION_LAYER_SET(layer, when);
+        return action;
     } else if (keycode >= 0x6000 && keycode < 0x7000) {
         action_t action;
         action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
