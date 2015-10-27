@@ -1,45 +1,21 @@
 #----------------------------------------------------------------------------
 # On command line:
 #
-# make all = Make software.
+# make = Make software.
 #
 # make clean = Clean out built project files.
 #
-# make coff = Convert ELF to AVR COFF.
+# That's pretty much all you need. To compile, always go make clean, 
+# followed by make.
 #
-# make extcoff = Convert ELF to AVR Extended COFF.
-#
-# make program = Download the hex file to the device.
-#                Please customize your programmer settings(PROGRAM_CMD)
-#
+# For advanced users only:
 # make teensy = Download the hex file to the device, using teensy_loader_cli.
 #               (must have teensy_loader_cli installed).
 #
-# make dfu = Download the hex file to the device, using dfu-programmer (must
-#            have dfu-programmer installed).
-#
-# make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
-#
-# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
-#
-# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
-#
-# make debug = Start either simulavr or avarice as specified for debugging, 
-#              with avr-gdb or avr-insight as the front end for debugging.
-#
-# make filename.s = Just compile filename.c into the assembler code only.
-#
-# make filename.i = Create a preprocessed source file for use in submitting
-#                   bug reports to the GCC project.
-#
-# To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = ergodox
+TARGET = ergodox_ez
 
 
 # Directory common source filess exist
@@ -49,9 +25,8 @@ TOP_DIR = ../..
 TARGET_DIR = .
 
 # # project specific files
-SRC = ergodox.c \
-	twimaster.c \
-	backlight.c 
+SRC = ergodox_ez.c \
+	  twimaster.c
 
 ifdef KEYMAP
     SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
