@@ -71,6 +71,36 @@ extern const uint16_t fn_actions[];
 #define RALT(kc) kc | 0x1400
 #define RGUI(kc) kc | 0x1800
 
+// Aliases for shifted symbols
+#define KC_TILD LSFT(KC_GRV)    // ~
+#define KC_TILDE    KC_TILD
+#define KC_EXLM LSFT(KC_1)      // !
+#define KC_EXCLAIM  KC_EXLM
+#define KC_AT   LSFT(KC_2)      // @
+#define KC_HASH LSFT(KC_3)      // #
+#define KC_DLR  LSFT(KC_4)      // $
+#define KC_DOLLAR   KC_DLR
+#define KC_PERC LSFT(KC_5)      // %
+#define KC_PERCENT  KC_PERC
+#define KC_CIRC LSFT(KC_6)      // ^
+#define KC_CIRCUMFLEX   KC_CIRC
+#define KC_AMPR LSFT(KC_7)      // &
+#define KC_AMPERSAND    KC_AMPR
+#define KC_ASTR LSFT(KC_8)      // *
+#define KC_ASTERISK KC_ASTR
+#define KC_LPRN LSFT(KC_9)      // (
+#define KC_LEFT_PAREN   KC_LPRN
+#define KC_RPRN LSFT(KC_0)      // )
+#define KC_RIGHT_PAREN  KC_RPRN
+#define KC_UNDS LSFT(KC_MINS)   // _
+#define KC_UNDERSCORE   KC_UNDS
+#define KC_PLUS LSFT(KC_EQL)    // +
+#define KC_LCBR LSFT(KC_LBRC)   // {
+#define KC_LEFT_CURLY_BRACE KC_LCBR
+#define KC_RCBR LSFT(KC_RBRC)   // }
+#define KC_RIGHT_CURLY_BRACE    KC_RCBR
+#define KC_PIPE LSFT(KC_SLSH)   // |
+
 // Alias for function layers than expand past FN31
 #define FUNC(kc) kc | 0x2000
 
@@ -108,10 +138,18 @@ extern const uint16_t fn_actions[];
 #define RESET 0x5000
 #define DEBUG 0x5001
 
+// GOTO layer - 16 layers max
+// when:
 // ON_PRESS    = 1
 // ON_RELEASE  = 2
 // ON_BOTH     = 3
-#define TO(layer, when) (layer | 0x5100 | (when << 0x9))
+#define TO(layer, when) (layer | 0x5100 | (when << 0x4))
+
+// Momentary switch layer - 256 layer max
+#define MO(layer) (layer | 0x5200)
+
+// Set default layer - 256 layer max
+#define DF(layer) (layer | 0x5300)
 
 #define MIDI(n) (n | 0x6000)
 
