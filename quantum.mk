@@ -38,7 +38,7 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-QUANTUM_DIR = $(TOP_DIR)/quantum
+QUANTUM_DIR = quantum
 
 # # project specific files
 SRC += $(QUANTUM_DIR)/keymap_common.c \
@@ -61,7 +61,7 @@ endif
 #EXTRALDFLAGS = -Wl,--relax
 
 # Search Path
-VPATH += $(QUANTUM_DIR)
+VPATH += $(TOP_DIR)/$(QUANTUM_DIR)
 
 include $(TOP_DIR)/protocol/lufa.mk
 

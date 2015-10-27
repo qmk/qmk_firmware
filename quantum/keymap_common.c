@@ -78,12 +78,30 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         print("\nDEBUG: enabled.\n");
         debug_enable = true;
         return;
-    } else if (keycode >= 0x5000 && keycode < 0x6000) {
-        int when = (keycode >> 0x9) & 0x3;
-        int layer = keycode & 0xFF;
-        action_t action;
-        action.code = ACTION_LAYER_SET(layer, when);
-        return action;
+    } else if (keycode >= 0x5000 && keycode < 0x6000) { 
+        // Layer movement shortcuts
+        // See .h to see constraints/usage
+        int type = (keycode >> 0x8) & 0xF;
+        if (type == 0x1) {
+            // Layer set "GOTO"
+            int when = (keycode >> 0x4) & 0x3;
+            int layer = keycode & 0xF;
+            action_t action;
+            action.code = ACTION_LAYER_SET(layer, when);
+            return action;
+        } else if (type == 0x2) {
+            // Momentary layer
+            int layer = keycode & 0xFF;
+            action_t action;
+            action.code = ACTION_LAYER_MOMENTARY(layer);
+            return action;
+        } else if (type == 0x3) {
+            // Set default layer
+            int layer = keycode & 0xFF;
+            action_t action;
+            action.code = ACTION_DEFAULT_LAYER_SET(layer);
+            return action;
+        }
 #ifdef MIDI_ENABLE
     } else if (keycode >= 0x6000 && keycode < 0x7000) {
         action_t action;
