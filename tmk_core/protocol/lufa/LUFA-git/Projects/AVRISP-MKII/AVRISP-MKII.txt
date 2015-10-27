@@ -1,0 +1,385 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage AVRISP MKII Programmer Project
+ *
+ *  \section Sec_Compat Project Compatibility
+ *
+ *  The following list indicates what microcontrollers are compatible with this project.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2) - <i>8KB versions with reduced features only</i>
+ *
+ *  \section Sec_Info USB Information
+ *
+ *  The following table gives a rundown of the USB utilization of this project.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Vendor Specific Class</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>N/A</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>Atmel AVRISP MKII Protocol Specification</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Supported USB Speeds:</b></td>
+ *   <td>Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ *
+ *  \section Sec_Description Project Description
+ *
+ *  Firmware for an Atmel Studio/AVR Studio compatible AVRISP-MKII clone programmer. This project will enable the USB
+ *  AVR series of microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within
+ *  Atmel Studio/AVR Studio or with any software capable of driving a real Atmel AVRISP-MKII programmer. In its most
+ *  basic form, it allows for the programming of AVR TINY, MEGA and XMEGA devices aat the programmer's VCC voltage from
+ *  within Atmel Studio/AVR Studio with no special hardware other than the USB AVR and the parts needed for the USB
+ *  interface. If the user desires, more advanced circuits incorporating level conversion can be made to allow for the
+ *  programming of target AVRs running at a different voltage to the programmer.
+ *
+ *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
+ *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with Atmel Studio/AVR Studio.
+ *
+ *  Note that this design currently has the following limitations:
+ *    - No reversed/shorted target connector detection and notification
+ *    - A separate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
+ *
+ *  On AVR models with an ADC converter, the USB AVR's AVCC pin should be tied to 5V (e.g. VBUS) and the
+ *  \c VTARGET_ADC_CHANNEL token should be set to an appropriate ADC channel number in the project makefile for VTARGET
+ *  detection to operate correctly. On models without an ADC converter, VTARGET will report a fixed 3.3V level at all times
+ *  which should allow the programmer to remain compatible at the protocol level with all AVR devices.
+ *
+ *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
+ *  of FLASH is required. On 8KB devices, ISP or PDI/TPI protocol programming support can be disabled to reduce program size.
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par Incompatible with newer AVRDUDE releases.
+ *  Due to <a href="http://savannah.nongnu.org/bugs/index.php?40831">a change in 6.0.1 and never AVRDUDE releases</a>,
+ *  these builds are incompatible with the AVRISP-MKII clone project. Use an older 5.x release until AVRDUDE is patched.
+ *
+ *  \par XMEGA EEPROM programming fails in some cases.
+ *  Several users have reported that XMEGA EEPROM programming fails unless the chip is erased first. If a non-blank EEPROM
+ *  is present, writing further EEPROM data causes corruption.
+ *  <a href="https://github.com/abcminiuser/lufa/issues/25">LUFA issue tracker entry</a>.
+ *
+ *  \section Sec_Installation Installation
+ *  The programmer supports multiple platforms, both Windows and Linux.
+ *
+ *  \subsection SSec_LinuxInstallation Linux Installation
+ *  On Linux systems, the programmer should be usable out of the box with no special setup other than (on some systems)
+ *  editing of the system permissions to allow the programmer to be used from a non-elevated (root) context. The programmer
+ *  is compatible with the free open source AVRDude programming software project.
+ *
+ *  \subsection SSec_WindowsInstallation Windows Installation
+ *  On Windows systems, due to an unfortunate limitation of the USB AVR devices and the driver used in the official AVR
+ *  Studio/Atmel Studio platform, the programmer cannot be made compatible with AVRDude and AVR Studio/Atmel Studio at the
+ *  same time. Instead, the programmer will be compatible with the official Atmel software by default, with a recompilation
+ *  with the \c LIBUSB_DRIVER_COMPAT token (see \ref Sec_Options) being required to use the alternative libUSB driver
+ *  compatibility mode that will allow the programmer to work under AVRDude on Windows.
+ *
+ *  If compiled for Atmel Studio/AVR Studio compatibility, install the Jungo device drivers that ship with the Atmel software.
+ *  If compiled in the alternative libUSB compatibility mode for AVRDude use, install the libUSB drivers that are included
+ *  with your compiled copy of AVRDude, or create them using the libUSB-Win32 (http://sourceforge.net/projects/libusb-win32)
+ *  project.
+ *
+ *  For convenience, the programmer will report two different serial numbers depending on the firmware compatibility mode, so
+ *  that the correct driver can be installed for the matching firmware. If the \c RESET_TOGGLES_LIBUSB_COMPAT compile option
+ *  is used (see \ref Sec_Options) this allows for an easy way to automatically switch device drivers along with the firmware
+ *  compatibility mode. The serials are:
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Serial Number:</b></th>
+ *    <th><b>Compatibility Mode:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>000200012345</td>
+ *    <td>Jungo (Atmel Studio) Compatibility</td>
+ *   </tr>
+ *   <tr>
+ *    <td>000200112345</td>
+ *    <td>libUSB Compatibility</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_ISP ISP Connections
+ *  Connections to the device for SPI programming (when enabled):
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Programmer Pin:</b></th>
+ *    <th><b>Target Device Pin:</b></th>
+ *    <th><b>ISP 6 Pin Layout:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>MISO</td>
+ *    <td>PDO</td>
+ *    <td>1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *    <td>2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SCLK</td>
+ *    <td>SCLK</td>
+ *    <td>3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>MOSI</td>
+ *    <td>PDI</td>
+ *    <td>4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PORTx.y <b><sup>2</sup></b></td>
+ *    <td>/RESET</td>
+ *    <td>5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *    <td>6</td>
+ *   </tr>
+ *  </table>
+ *
+ *  In addition, the AVR's OCR1A pin will generate a 4MHz clock, to act as an external rescue device clock if the
+ *  fuses have been mis-set. To use the recovery clock, connect the OCR1A pin of the USB AVR to the target AVR's
+ *  XTAL1 pin, and set the ISP programming speed to 125KHz (note: other ISP speeds will not work correctly).
+ *
+ *  <b><sup>1</sup></b> <i>Optional, see \ref Sec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref Sec_Options section</i>
+ *
+ *  \section Sec_PDI PDI Connections
+ *  Connections to the device for PDI programming (when enabled):
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Programmer Pin:</b></th>
+ *    <th><b>Target Device Pin:</b></th>
+ *    <th><b>PDI 6 Pin Layout:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>Tx/Rx <b><sup>2</sup></b></td>
+ *    <td>DATA</td>
+ *    <td>1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *    <td>2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>N/A</td>
+ *    <td>N/A</td>
+ *    <td>3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>N/A</td>
+ *    <td>N/A</td>
+ *    <td>4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>XCK</td>
+ *    <td>CLOCK</td>
+ *    <td>5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *    <td>6</td>
+ *   </tr>
+ *  </table>
+ *
+ *  <b><sup>1</sup></b> <i>Optional, see \ref Sec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>2</sup></b> <i>The AVR's Tx and Rx become the DATA line when connected together via a pair of 220 ohm resistors</i> \n
+ *
+ *  \section Sec_TPI TPI Connections
+ *  Connections to the device for TPI programming (when enabled):
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Programmer Pin:</b></th>
+ *    <th><b>Target Device Pin:</b></th>
+ *    <th><b>TPI 6 Pin Layout:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>Tx/Rx <b><sup>2</sup></b></td>
+ *    <td>DATA</td>
+ *    <td>1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *    <td>2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>XCK <b><sup>2</sup></b></td>
+ *    <td>CLOCK</td>
+ *    <td>3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>N/A</td>
+ *    <td>N/A</td>
+ *    <td>4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PORTx.y <b><sup>3</sup></b></td>
+ *    <td>/RESET</td>
+ *    <td>5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *    <td>6</td>
+ *   </tr>
+ *  </table>
+ *
+ *  <b><sup>1</sup></b> <i>Optional, see \ref Sec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>2</sup></b> <i>The AVR's Tx and Rx become the DATA line when connected together via a pair of 220 ohm resistors</i> \n
+ *  <b><sup>3</sup></b> <i>See AUX line related tokens in the \ref Sec_Options section</i>
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>AUX_LINE_PORT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>PORT register for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line.
+ *        \n \n <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>AUX_LINE_PIN</td>
+ *    <td>AppConfig.h</td>
+ *    <td>PIN register for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line.
+ *        \n \n <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>AUX_LINE_DDR</td>
+ *    <td>AppConfig.h</td>
+ *    <td>DDR register for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line.
+ *        \n \n <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>AUX_LINE_MASK</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Mask for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line. <b>Must not be the AVR's /SS pin</b>.
+ *        \n \n <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>VTARGET_ADC_CHANNEL</td>
+ *    <td>AppConfig.h</td>
+ *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection, if NO_VTARGET_DETECT is not defined.
+ *        \n \n <i>Ignored when compiled for targets lacking an ADC.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_ISP_PROTOCOL</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to enable SPI programming protocol support.
+ *        \n \n <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_XPROG_PROTOCOL</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to enable PDI and TPI programming protocol support.
+ *        \n \n <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_VTARGET_DETECT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable VTARGET sampling and reporting on AVR models with an ADC converter. This will cause the programmer
+ *        to report a fixed 3.3V target voltage to the host regardless of the real target voltage.
+ *        \n \n <i>Ignored when compiled for targets lacking an ADC.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>VTARGET_REF_VOLTS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Indicates the programmer AVR's AVCC reference voltage when measuring the target's supply voltage. Note that the supply
+ *        voltage should never exceed the reference voltage on the programmer AVR without some form of protection to prevent damage
+ *        to the ADC.
+ *        \n \n <i>Ignored when compiled for targets lacking an ADC, or when NO_VTARGET_DETECT is defined.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>VTARGET_USE_INTERNAL_REF</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Selects the internal 2.56V ADC reference voltage, instead of using the AVR's VREF pin. When enabled, this option will
+ *        override the VTARGET_REF_VOLTS configuration option.
+ *        \n \n <i>Ignored when compiled for targets lacking an ADC, or when NO_VTARGET_DETECT is defined.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>VTARGET_SCALE_FACTOR</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Indicates the target's supply voltage scale factor when applied to the ADC. A simple resistive divider can be used on the
+ *        ADC pin for measuring the target's supply voltage, so that voltages above the programmer AVR's AVCC reference voltage can be
+ *        measured. This should be the reciprocal of the division performed - e.g. if the VTARGET voltage is halved, this should be set
+ *        to 2.
+ *        \n \n <i>Ignored when compiled for targets lacking an ADC, or when NO_VTARGET_DETECT is defined.</i></td>
+ *   </tr>
+ *   <tr>
+ *    <td>LIBUSB_DRIVER_COMPAT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with Atmel Studio/AVR Studio under Windows but
+ *        making the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
+ *
+ *        \note This option is incompatible with \c RESET_TOGGLES_LIBUSB_COMPAT.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>RESET_TOGGLES_LIBUSB_COMPAT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to make the /RESET line of the AVR toggle between Jungo and libUSB driver compatibility modes. Each time the AVR is
+ *        reset externally via the reset pin, the compatibility mode will be toggled. The compatibility mode is preserved between
+ *        power cycles and is not toggled via other forms of reset such as Watchdog or Brown Out.
+ *
+ *        When this option is enabled, all board LEDs will flash twice on startup for Jungo compatibility mode, and five times for
+ *        libUSB compatibility mode.
+ *
+ *        \note This option is incompatible with \c LIBUSB_DRIVER_COMPAT.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>XCK_RESCUE_CLOCK_ENABLE</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to move the ISP rescue clock to the AVR's XCK pin instead of the OCR1A output pin. This is useful for existing programming
+ *        hardware that does not expose the OCR1A pin of the AVR, but <i>may</i> cause some issues with PDI programming mode.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>INVERTED_ISP_MISO</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to invert the received data on the ISP MISO line. This is sometimes needed depending on the level translation hardware used,
+ *        if the translator hardware inverts the received logic level.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>FIRMWARE_VERSION_MINOR</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to set the minor firmware revision nunber reported to the host on request. By default this will use a firmware version compatible
+ *        with the latest Atmel IDE version, however if desired the reported minor value can be adjusted here.</td>
+ *   </tr>
+ *  </table>
+ */
+

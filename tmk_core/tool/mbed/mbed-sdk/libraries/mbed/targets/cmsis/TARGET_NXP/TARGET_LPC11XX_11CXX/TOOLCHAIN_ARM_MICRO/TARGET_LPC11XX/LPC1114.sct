@@ -1,0 +1,16 @@
+
+LR_IROM1 0x00000000 0x8000  {    ; load region size_region (32k)
+
+  ER_IROM1 0x00000000 0x8000  {  ; load address = execution address
+   *.o (RESET, +First)
+   *(InRoot$$Sections)
+   .ANY (+RO)
+  }
+
+  ; 48 vectors * 4 bytes = 0xC0 for remap
+  RW_IRAM1 (0x10000000+0xC0) (0x1000-0xC0)  {
+   .ANY (+RW +ZI)
+  }
+
+}
+

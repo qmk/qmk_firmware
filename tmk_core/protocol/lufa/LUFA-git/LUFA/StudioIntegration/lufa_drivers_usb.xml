@@ -1,0 +1,32 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2013.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="driver" id="lufa.drivers.usb" caption="LUFA USB Driver">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<build type="doxygen-entry-point" value="Group_USB"/>
+
+			<build type="define" name="USE_LUFA_CONFIG_HEADER" value=""/>
+			<build type="module-config" subtype="path" value="CodeTemplates"/>
+			<build type="module-config" subtype="required-header-file" value="LUFAConfig.h"/>
+
+			<build type="include-path" value=".."/>
+			<build type="header-file" subtype="api" value="Drivers/USB/USB.h"/>
+
+			<require idref="lufa.common"/>
+			<require idref="lufa.drivers.usb.class"/>
+			<require idref="lufa.drivers.usb.core"/>
+		</module>
+	</asf>
+</lufa>

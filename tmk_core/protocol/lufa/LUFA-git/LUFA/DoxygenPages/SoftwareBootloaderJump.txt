@@ -1,0 +1,71 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_SoftwareBootloaderStart Entering the Bootloader via Software
+ *
+ *  A common requirement of many applications is the ability to jump to the programmed bootloader of a chip
+ *  on demand, via the code's firmware (i.e. not as a result of any physical user interaction with the
+ *  hardware). This might be required because the device does not have any physical user input, or simply
+ *  just to streamline the device upgrade process on the host PC.
+ *
+ *  The following C code snippets may be used to enter the bootloader upon request by the user application.
+ *  By using the watchdog to physically reset the controller, it is ensured that all system hardware is
+ *  completely reset to their defaults before the bootloader is run. This is important; since bootloaders
+ *  are written to occupy a very limited space, they usually make assumptions about the register states based
+ *  on the default values after a hard-reset of the chip.
+ *
+ *  \section Sec_SoftareBootAVR8 AVR8 Architecture
+ *  The following software bootloader jump code is written for the AVR8 architecture.
+ *
+ *  \code
+ *  #include <avr/wdt.h>
+ *  #include <avr/io.h>
+ *  #include <util/delay.h>
+ *
+ *  #include <LUFA/Common/Common.h>
+ *  #include <LUFA/Drivers/USB/USB.h>
+ *
+ *  uint32_t Boot_Key ATTR_NO_INIT;
+ *
+ *  #define MAGIC_BOOT_KEY            0xDC42ACCA
+ *  #define BOOTLOADER_START_ADDRESS  ((FLASH_SIZE_BYTES - BOOTLOADER_SEC_SIZE_BYTES) >> 1)
+ *
+ *  void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
+ *  void Bootloader_Jump_Check(void)
+ *  {
+ *      // If the reset source was the bootloader and the key is correct, clear it and jump to the bootloader
+ *      if ((MCUSR & (1 << WDRF)) && (Boot_Key == MAGIC_BOOT_KEY))
+ *      {
+ *          Boot_Key = 0;
+ *          ((void (*)(void))BOOTLOADER_START_ADDRESS)();
+ *      }
+ *  }
+ *
+ *  void Jump_To_Bootloader(void)
+ *  {
+ *      // If USB is used, detach from the bus and reset it
+ *      USB_Disable();
+ *
+ *      // Disable all interrupts
+ *      cli();
+ *
+ *      // Wait two seconds for the USB detachment to register on the host
+ *      Delay_MS(2000);
+ *
+ *      // Set the bootloader key to the magic value and force a reset
+ *      Boot_Key = MAGIC_BOOT_KEY;
+ *      wdt_enable(WDTO_250MS);
+ *      for (;;);
+ *  }
+ *  \endcode
+ *
+ *  Note that the bootloader magic key can be any arbitrary value. The <em>FLASH_SIZE_BYTES</em> and
+ *  <em>BOOTLOADER_SEC_SIZE_BYTES</em> tokens should be replaced with the total flash size of the AVR
+ *  in bytes, and the allocated size of the bootloader section for the target AVR.
+ *
+ */
+

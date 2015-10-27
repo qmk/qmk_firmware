@@ -1,10 +1,10 @@
 IBM 4704 Keyboard
 =================
 IBM capacitive switch models:
-    6019273 Model 100 50-key (grid layout)      http://kishy.dyndns.org/?p=977
-    6019284 Model 200 62-key Alpha(60% layout)  http://kishy.dyndns.org/?p=894
-    6019303 Model 300 77-key Expanded Alpha     http://kbtalking.cool3c.com/article/23272
-    6020218 Model 400 107-key Full key          http://kishy.dyndns.org/?p=980
+    6019273 Model 100 50-key (grid layout)      http://kishy.ca/?p=894
+    6019284 Model 200 62-key Alpha(60% layout)  http://kishy.ca/?p=894
+    6019303 Model 300 77-key Expanded Alpha     http://deskthority.net/photos-f62/ibm-6019303-t8502.html
+    6020218 Model 400 107-key Full key          http://kishy.ca/?p=894
 
 Alps switch(vintage Green) models:
     5954339 Japanese 102-key    http://deskthority.net/post87127.html#p87127
@@ -33,7 +33,7 @@ so that it doesn't send any scancode until you send 'FF'(End of FC command mode)
     Model 100 50-key            A2h
     Model 200 62-key            A3h
     Model 300 77-key            A4h
-    Model 400 107-key           ??
+    Model 400 107-key           A5h
     Japanese/Chinese 102-key    A6h
 
 
@@ -57,15 +57,15 @@ Keyboard to Host
 ----------------
 Data bits are LSB first and Pairty is odd. Clock has around 60us high and 30us low part.
 
-            ____      __   __   __   __   __   __   __   __   __   ________
-    Clock       \____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
+            ____       __   __   __   __   __   __   __   __   __   _______
+    Clock       \_____/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/  \_/
                  ____ ____ ____ ____ ____ ____ ____ ____ ____ ____    
     Data    ____/    X____X____X____X____X____X____X____X____X____X________
                 Start   0    1    2    3    4    5    6    7    P  Stop
 
 Start bit:  can be long as 300-350us.
 Inhibit:    Pull Data line down to inhibit keyboard to send.
-Timing:     Host reads bit while Clock is hi.
+Timing:     Host reads bit while Clock is hi.(rising edge)
 Stop bit:   Keyboard pulls down Data line to lo after 9th clock.
 
 
@@ -166,13 +166,14 @@ Data sent from host:
          |   `-----`--- scan code
          `------------- enable bit(0: enable repeat, 1: enable break)
 
-    00-77   Enable repeat(78-7F: invalid scancode)
-    80-F7   Enable break(F8-FF: invalid scancode)
+    00-79   Enable repeat
+    80-F9   Enable break(FA-FF are used as other commands, see above.)
     FE      Resend(011ah) no need to use
     FF      End(0114h) exits FC command mode.
 
 Response from keyboard:
     FD      Out of bound - Invalid scancode
+    --      OK - No response means that command is accepted.
 
 Examples:
     To enable break code of all keys.
