@@ -2,7 +2,7 @@
 TARGET = ps2_usb_vusb
 
 # Directory common source filess exist
-TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -18,11 +18,11 @@ else
     SRC := keymap_plain.c $(SRC)
 endif
 
-# Use USART for PS/2. With V-USB INT and BUSYWAIT code is not useful.
-SRC += protocol/ps2_usart.c
-OPT_DEFS += -DPS2_USE_USART
-
 CONFIG_H = config.h
+
+
+# Use USART for PS/2. With V-USB INT and BUSYWAIT code is not useful.
+PS2_USE_USART = yes
 
 
 # V-USB debug level: To use ps2_usart.c level must be 0
@@ -98,10 +98,10 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
 
-include $(TOP_DIR)/protocol.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/protocol/vusb.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/protocol.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/protocol/vusb.mk
+include $(TMK_DIR)/rules.mk

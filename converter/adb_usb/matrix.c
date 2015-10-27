@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "adb.h"
 #include "matrix.h"
+#include "report.h"
+#include "host.h"
 
 
 #if (MATRIX_COLS > 16)
@@ -38,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 static bool is_modified = false;
+static report_mouse_t mouse_report = {};
 
 // matrix state buffer(1:on, 0:off)
 #if (MATRIX_COLS <= 8)
@@ -85,6 +88,64 @@ void matrix_init(void)
     print("debug enabled.\n");
     return;
 }
+
+#ifdef ADB_MOUSE_ENABLE
+
+#ifdef MAX
+#undef MAX
+#endif
+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+
+void adb_mouse_task(void)
+{
+    uint16_t codes;
+    int16_t x, y;
+    static int8_t mouseacc; 
+    _delay_ms(12);  // delay for preventing overload of poor ADB keyboard controller
+    codes = adb_host_mouse_recv();
+    // If nothing received reset mouse acceleration, and quit. 
+    if (!codes) {
+        mouseacc = 1;
+        return;
+    };
+    // Bit sixteen is button.
+    if (~codes & (1 << 15))
+        mouse_report.buttons |= MOUSE_BTN1;
+    if (codes & (1 << 15))
+        mouse_report.buttons &= ~MOUSE_BTN1;
+    // lower seven bits are movement, as signed int_7. 
+    // low byte is X-axis, high byte is Y. 
+    y = (codes>>8 & 0x3F);
+    x = (codes>>0 & 0x3F);
+    // bit seven and fifteen is negative
+    // usb does not use int_8, but int_7 (measuring distance) with sign-bit. 
+    if (codes & (1 << 6))
+          x = (x-0x40);
+    if (codes & (1 << 14))
+         y = (y-0x40);
+    // Accelerate mouse. (They weren't meant to be used on screens larger than 320x200).
+    x *= mouseacc;
+    y *= mouseacc;
+    // Cap our two bytes per axis to one byte. 
+    // Easier with a MIN-function, but since -MAX(-a,-b) = MIN(a,b)...
+	 // I.E. MIN(MAX(x,-127),127) = -MAX(-MAX(x, -127), -127) = MIN(-MIN(-x,127),127)
+    mouse_report.x = -MAX(-MAX(x, -127), -127);
+    mouse_report.y = -MAX(-MAX(y, -127), -127);
+    if (debug_mouse) {
+            print("adb_host_mouse_recv: "); print_bin16(codes); print("\n");
+            print("adb_mouse raw: [");
+            phex(mouseacc); print(" ");
+            phex(mouse_report.buttons); print("|");
+            print_decs(mouse_report.x); print(" ");
+            print_decs(mouse_report.y); print("]\n");
+    }
+    // Send result by usb. 
+    host_mouse_send(&mouse_report);
+    // increase acceleration of mouse
+    mouseacc += ( mouseacc < ADB_MOUSE_MAXACC ? 1 : 0 );
+    return;
+}
+#endif
 
 uint8_t matrix_scan(void)
 {

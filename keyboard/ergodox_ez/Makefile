@@ -110,5 +110,5 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 
-include $(TOP_DIR)/quantum.mk
+include $(TOP_DIR)/quantum/quantum.mk
 

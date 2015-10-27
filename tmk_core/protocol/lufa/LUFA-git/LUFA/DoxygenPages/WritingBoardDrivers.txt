@@ -1,0 +1,47 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_WritingBoardDrivers Writing LUFA Board Drivers
+ *
+ *  LUFA ships with several basic pre-made board drivers, to control hardware present on the supported board
+ *  hardware - such as Dataflash ICs, LEDs, Joysticks, or other hardware peripherals. When compiling an application
+ *  which makes use of one or more board drivers located in <i>LUFA/Drivers/Board</i>, you must also indicate which
+ *  board hardware you are using in your project makefile. This is done by defining the <tt>BOARD</tt> macro using
+ *  the <tt>-D</tt> switch passed to the compiler, with a constant of <tt>BOARD_{Name}</tt>. For example,
+ *  <tt>-DBOARD=BOARD_USBKEY</tt> instructs the compiler to use the USBKEY board hardware drivers.
+ *
+ *  If your application does not use <i>any</i> board level drivers, you can omit the definition of the <tt>BOARD</tt>
+ *  macro. However, some users may wish to write their own custom board hardware drivers which are to remain compatible
+ *  with the LUFA hardware API. To do this, the <tt>BOARD</tt> macro should be defined to the value <tt>BOARD_USER</tt>.
+ *  This indicates that the board level drivers should be located in a folder named "Board" located inside the
+ *  application's folder.
+ *
+ *  When used, the driver stub files located in the <tt>LUFA/CodeTemplates/DriverStubs</tt> folder should be copied to
+ *  the user application's <tt>Board/</tt> directory, and filled out to include the values and code needed to control
+ *  the custom board hardware. Once done, the existing LUFA board level APIs (accessed in the regular
+ *  <tt>LUFA/Drivers/Board/</tt> folder) will redirect to the user board drivers, maintaining code compatibility and
+ *  allowing for a different board to be selected through the project makefile with no code changes.
+ *
+ *  \section Sec_BoardTemplates Board Driver Templates
+ *
+ *  The templates for each board driver are reproduced below.
+ *
+ *  \subsection SSec_BoardTemplates_Board Template for USER <Board/Board.h>
+ *  \include "DriverStubs/Board.h"
+ *
+ *  \subsection SSec_BoardTemplates_Buttons Template for USER <Board/Buttons.h>
+ *  \include "DriverStubs/Buttons.h"
+ *
+ *  \subsection SSec_BoardTemplates_Dataflash Template for USER <Board/Dataflash.h>
+ *  \include "DriverStubs/Dataflash.h"
+ *
+ *  \subsection SSec_BoardTemplates_Joystick Template for USER <Board/Joystick.h>
+ *  \include "DriverStubs/Joystick.h"
+ *
+ *  \subsection SSec_BoardTemplates_LEDs Template for USER <Board/LEDs.h>
+ *  \include "DriverStubs/LEDs.h"
+ */
+

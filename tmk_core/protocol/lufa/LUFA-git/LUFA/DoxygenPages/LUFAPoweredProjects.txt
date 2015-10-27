@@ -1,0 +1,224 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_LUFAPoweredProjects User Projects Powered by LUFA
+ *
+ *  LUFA is currently in use all around the world, in many applications both commercial and non-commercial. Below is a
+ *  list of known public LUFA powered projects, which all use the LUFA library in some way. Feel free to visit each project's
+ *  home page for more information on each project.
+ *
+ *  If you have a project that you would like to add to this list, please contact me via the details on the main page of this
+ *  documentation.
+ *
+ *  \section Sec_BoardsUsingLUFA AVR-USB Development Boards Using LUFA
+ *
+ *  The following is a list of known AVR USB development boards, which recommend using LUFA for the USB stack. Some of these
+ *  are open design, and all are available for purchase as completed development boards suitable for project development.
+ *
+ *  \li AVR-USB-162, a USBKEY-like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
+ *  \li Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
+ *  \li Duce, the successor to the Benito #7: http://dorkbotpdx.org/wiki/duce
+ *  \li JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
+ *  \li Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
+ *  \li Microsin AVR-USB162 breakout board, a DIY AT90USB162 development board: http://microsin.ru/content/view/685/44/
+ *  \li Minimus USB, a board specially designed for PSGroove: http://www.minimususb.com/
+ *  \li Nanduino, a do-it-yourself AT90USB162 board: http://www.makestuff.eu/wordpress/?page_id=569
+ *  \li Sparkfun ATMEGA8U2 breakout board: http://www.sparkfun.com/products/10277
+ *  \li Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
+ *  \li U2DIL/U4DIL, a set of DIP layout USB AVR boards: http://www.reworld.eu/re/en/products/u2dil/
+ *  \li USB2AX, a tiny USB to serial converter board: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
+ *  \li USBFOO 2, AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
+ *
+ *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
+ *
+ *  The following are known hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
+ *  can be incorporated into many different applications.
+ *
+ *  \li Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
+ *  \li Adjacent Reality Motion Tracker: http://www.adjacentreality.org/
+ *  \li AD9833 based USB Function Generator: http://tuomasnylund.fi/drupal6/content/ad9833-based-usb-function-generator
+ *  \li AERY development platform for the AVR32 devices: http://www.aery32.com/
+ *  \li AM Radio transmitter: http://amcinnes.info/2012/uc_am_xmit/
+ *  \li Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
+ *  \li Arcade Joystick: http://jamie.lentin.co.uk/embedded/arcade-joystick/
+ *  \li AttoBasic AVR BASIC interpreter: http://cappels.org/dproj/AttoBasic_Home/AttoBasic_Home.html
+ *  \li AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
+ *  \li Bicycle POV: http://www.code.google.com/p/bicycleledpov/
+ *  \li Bluetooth Explorerbot: http://code.google.com/p/bluetooth-explorerbot/
+ *  \li Bus Ninja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
+ *  \li CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
+ *  \li ChameleonMini, a smart card emulator: https://github.com/skuep/ChameleonMini
+ *  \li CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
+ *  \li ChipWhisperer, a signal capture device: https://www.assembla.com/spaces/chipwhisperer/wiki/ChipWhisperer_Rev2_Capture_Hardware
+ *  \li ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
+ *  \li Collection of alternative Arduino Uno firmwares: http://hunt.net.nz/users/darran/
+ *  \li Computer controlled LED matrix (Russian): http://we.easyelectronics.ru/AVR/nebolshoy-primer-s-lufa-hidapi.html
+ *  \li CULFW, a 868MHz RF packet encoder/decoder: http://www.koeniglich.de/culfw/culfw.html
+ *  \li Dashkey, a custom PC keyboard controller: http://geekhack.org/showwiki.php?title=Island:19096
+ *  \li DIY PS3 controller emulator: https://code.google.com/p/diyps3controller/
+ *  \li EMuSer, a USB-RS422 adapter for E-Mu samplers: http://www.emxp.net/EMuSer.htm
+ *  \li EQ Track, a telescope mount controller: http://sourceforge.net/projects/eqtrack/
+ *  \li Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
+ *  \li "Fingerlicking Wingdinger" (WARNING: Bad language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
+ *  \li Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
+ *  \li FootJoy, a 22 button, 6-axis josystick with keyboard and mouse modes: https://bitbucket.org/sirbrialliance/foot-joy/
+ *  \li Gamecube controller to USB adapter: https://www.facebook.com/media/set/?set=a.10150202447076304.310536.688776303&l=df53851c50
+ *  \li Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
+ *  \li Geiger Counter with USB interface: http://www.hforsten.com/i-made-a-geiger-counter.html
+ *  \li Generic HID Device Creator: http://generichid.sourceforge.net/
+ *  \li Generic HID Open Source Framework: http://www.waitingforfriday.com/index.php/USB_Generic_HID_Open_Source_Framework_for_Atmel_AVR_and_Windows
+ *  \li Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
+ *  \li GPS enabled lap timer for vehicles: http://www.assembla.com/code/ironlung/subversion/nodes/trunk/LapTimer
+ *  \li GSynth, an 8-bit sound synthesizer: https://github.com/gcielniak/GSynth
+ *  \li Gumbi, a Python library and USB GPIO controller: https://code.google.com/p/gumbi/
+ *  \li Hardware Volume Control: https://github.com/davidk/hw-volume-control
+ *  \li Hiduino, a USB-MIDI replacement firmware for the Arduino Uno: http://code.google.com/p/hiduino/
+ *  \li IBM capacitive keybord replacement controller: http://downloads.cornall.co/ibm-capsense-usb-web/ibm-capsense-usb.html
+ *  \li Ikea RGB LED USB modification: http://slashhome.se/p/projects/id/ikea_dioder_usb/#project
+ *  \li IR electricity meter monitor: http://sourceforge.net/projects/irmetermon/
+ *  \li IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
+ *  \li Jukebox panic button: http://thinkl33t.co.uk/the-panic-button
+ *  \li Kinesis replacement firmware: https://github.com/chrisandreae/kinesis-firmware
+ *  \li LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
+ *  \li Linux Secure Storage Dongle: http://github.com/TomMD/teensy
+ *  \li LUFA powered DDR dance mat (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:ddr_repair
+ *  \li Macintosh SIMM ROM Programmer: https://code.google.com/p/mac-rom-simm-programmer/
+ *  \li MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
+ *  \li Mec64,a Commodore 64 keyboard: http://deskthority.net/workshop-f7/mec64-keyboard-t4522.html
+ *  \li MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
+ *  \li MIDI Theremin: http://baldwisdom.com/usb-midi-controller-theremin-style-on-arduino-uno/
+ *  \li MIDI interface hack of a toy Guitar: http://blog.x37v.info/2011/06/26/toy-guitar-hacked-midi-conroller
+ *  \li MiniBloq, a graphical Ardunio programming environment : http://minibloq.org/
+ *  \li MiXley, a port of the Teacup 3D printer firmware for the USB AVRs: http://codaset.com/michielh/mixley
+ *  \li Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
+ *  \li Moco, a native Arduino Uno MIDI replacement firmware: http://web.mac.com/kuwatay/morecat_lab./MocoLUFA.html
+ *  \li Monash ECSE Smart Packet Radio Testbed: http://www.ecse.monash.edu.au/twiki/bin/view/WSRNLab/SmartPacketRadio
+ *  \li Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
+ *  \li Multi-button Joystick (French): http://logicien-parfait.fr/dokuwiki/doku.php?id=projet:joystick
+ *  \li Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
+ *  \li Nehebkau, Laptop Controlled Keyboard and Mouse: http://www.frank-zhao.com/cache/nehebkau.php
+ *  \li NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
+ *  \li NES Controller USB modification: https://github.com/nfd/nes_adapter
+ *  \li Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
+ *  \li Nintendo Four-Score, USB NES 4-player controller adapter: http://www.waitingforfriday.com/index.php/Nintendo_Four_Score_USB
+ *  \li Numpad keyboard: http://tuomasnylund.fi/drupal6/content/usb-cherry-mx-numpad
+ *  \li Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
+ *  \li Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
+ *  \li Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
+ *  \li Password keyring: http://owlsan.blogspot.no/2014/06/keyring-project-version-10.html
+ *  \li Picade alternative firmware, a retro Arcade controller/cabinet: https://github.com/rktrlng/picade_lufa
+ *  \li PPM signal generator over USB: https://github.com/G33KatWork/USBPPM
+ *  \li Programmable keyboard controller: http://41j.com/blog/2011/10/a-programmable-keyboard-controller/
+ *  \li Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
+ *  \li Project Surface, a touch interface controller for Windows 8: https://code.google.com/p/project-surface/
+ *  \li PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
+ *  \li PS/2 to USB adapter: https://github.com/makestuff/p2ukbd
+ *  \li RaspiFace, an Arduino platform bridge for the Raspberry Pi: http://www.raspiface.com/
+ *  \li Reflow oven controller: http://danstrother.com/2011/01/15/reflow-oven-controller/
+ *  \li RFPirate, a RF experimentation platform: https://github.com/ebuller/RF-Pirate
+ *  \li RF Power Meter, based on the AD8307 log amp: https://sites.google.com/site/lofturj/ad8307-power-meter
+ *  \li RF Transceiver using the MRF49XA: http://alternet.us.com/?page_id=1494
+ *  \li SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
+ *  \li SDR1, a Software Defined Radio firmware: https://code.google.com/p/sdr-mk1/
+ *  \li SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
+ *  \li Serial Line bus analyser: http://www.pjrc.com/teensy/projects/SerialAnalyzer.html
+ *  \li Simple USB LED Controller (SULC): https://github.com/scottbez1/sulc
+ *  \li SNES custom FLASH ROM: http://electrifiedfoolingmachine.co/?page_id=633
+ *  \li Smartcard Detective: https://code.google.com/p/smartcarddetective/
+ *  \li SmartportVHD Apple II Mass Storage adapter: http://pcedric3.free.fr/SmartportVHD/
+ *  \li Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
+ *  \li Simple USB LED Controller: https://github.com/scottbez1/sulc
+ *  \li Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
+ *  \li Stylophone, with USB MIDI connectivity: http://www.waitingforfriday.com/index.php/Stylophone_Studio_5
+ *  \li Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
+ *  \li Touch It (Fabulously), presumably art: http://touch.it.fa.bulo.us/ly/
+ *  \li Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
+ *  \li UDFS, a BBC Micro USB disk filing system: https://github.com/makestuff/udfs
+ *  \li Universal USB AVR Module: http://usbavr.bplaced.net/
+ *  \li USB2AX, a USB to Dynamixel network adapter: http://paranoidstudio.assembla.com/wiki/show/paranoidstudio/USB2AX
+ *  \li USBPass, a USB password keeper: http://sroz.net/projects/usbpass/
+ *  \li USB Business Card: http://www.limpkin.fr/index.php?post/2012/09/15/My-new-business-card
+ *  \li USB Function Generator: http://tuomasnylund.fi/drupal6/content/ad9833-based-usb-function-generator
+ *  \li USB Infrared Receiver/Transmitter: http://vaton4.web2001.cz/
+ *  \li USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
+ *  \li USB MIDI to DMX controller: http://github.com/hanshuebner/miDiMX
+ *  \li USB Mood Light: https://github.com/hsbp/usb_moodlight
+ *  \li USB powered Geiger Counter: http://uhrheber.wordpress.com/2011/04/28/a-usb-powered-geiger-counter-for-the-z2-and-other-computers/
+ *  \li Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
+ *  \li Wii Classic Controller to USB converter: https://github.com/crazyiop/wii-classic-2-usb
+ *  \li Wireless MIDI Guitar system: http://www.ise.pw.edu.pl/~wzab/wireless_guitar_system/
+ *  \li XBOX 360 Startup Sound Changer: http://www.homebrew-connection.org/change-your-xbox-360-startup-sounds-yourself/
+ *  \li Xnormidi, a C MIDI library: http://x37v.info/projects/xnormidi
+ *  \li XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
+ *  \li Zeus, a touch screen computer for music manipulation: http://www.benbengler.com/developments_zeus.html
+ *
+ *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
+ *
+ *  The following is a list of known commercial products using LUFA. Some of these are open source, although many are "black-box"
+ *  solutions with no source code given. Those companies which have purchased a Commercial License to LUFA (see \ref Page_LicenseInfo)
+ *  are not listed here unless specifically requested.
+ *
+ *  \li Alphasphere, a MIDI input sphere device for music creation: http://www.alphasphere.com/
+ *  \li Arduino Uno and Leonardo, official Arduino boards: http://www.arduino.cc
+ *  \li ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
+ *  \li AsTeRICS assistive technologies project, HID actuator: http://www.asterics.eu
+ *  \li BitFury, a Bitcoin ASIC miner: https://github.com/aauer1/LUFA-BitFury/tree/master/Projects/BitfuryBTC
+ *  \li Ceberus, a MadCatz Xbox 360 arcade stick modifier: http://www.phreakmods.com/products/cerberus
+ *  \li CFFA3000, a CompactFlash interface for the Apple II: http://www.dreher.net/CFforAppleII
+ *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
+ *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
+ *  \li Flysight, a GPS logger for wingsuit pilots: http://flysight.ca/
+ *  \li Goldilocks, an Arduino compatible clone: http://feilipu.me/2014/03/08/goldilocks-1284p-arduino-uno-clone/
+ *  \li HummingBird Kit, a robotics learning platform: http://www.hummingbirdkit.com/
+ *  \li LP1, an AVRISP-MKII Clone AVR Programmer: http://embeddedglow.com/items/LP1/LP1.php
+ *  \li Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
+ *  \li PhatIO, a filesystem based I/O interface: http://www.phatio.com/
+ *  \li PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
+ *  \li PIR-4, a USB Connected 4 port IR transmitter: http://promixis.com/pir-4.php
+ *  \li PortPilot, a USB device charger with power meter: http://portpilot.net/
+ *  \li KeyGlove, an alternative input system: http://www.keyglove.net/
+ *  \li Many of Busware's Products: http://www.busware.de/
+ *  \li MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
+ *  \li MIDI USB Arduino Shield: http://openpipe.cc/products/midi-usb-shield/
+ *  \li Norduino, a wireless Arduino: http://norduino.robomotic.com/norduino-is-now-usb-hid/
+ *  \li Olimex AVR-ISP-MK2, an AVRISP-MKII Clone AVR Programmer: https://www.olimex.com/dev/avr-isp-mk2.html
+ *  \li Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
+ *  \li RFI21.1EU UHF RFID reader: http://www.metra.cz/rfid/uhf-rfid-ctecky/rfi21-1eu-uhf-rfid-ctecka.htm
+ *  \li SmartCardDetective, a Smart Card analysis tool: http://www.smartcarddetective.com/
+ *  \li TimelapsePlus, a digital camera time lapse tool: https://github.com/timelapseplus/TimelapsePlus-Firmware
+ *  \li USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.no-ip.biz:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
+ *  \li UDS18B20 USB Temperature sensor: http://toughlog.org/uds18b20/
+ *  \li VMeter, a USB MIDI touch strip controller: http://www.vmeter.net/
+ *  \li XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
+ *  \li Zeptoprog, a multifunction AVR programmer: http://www.mattairtech.com/index.php/featured/zeptoprog.html
+ *
+ *  \section Sec_LUFAPublications Publications Mentioning LUFA
+ *  The following are published magazines which have either mentioned or featured the LUFA library.
+ *
+ *  \li Elektor Magazine, "My First AVR-USB" by Antoine Authier (feature), January 2010 Issue
+ *  \li Elektor Magazine, "USB is Cool/Sucks" by Jerry Jacobs and Chris Vossen (minor mention), January 2010 Issue
+ *  \li Elektor Magazine, "20 x Open Source" by Jens Nickel, March 2010 Issue
+ *  \li Circuit Cellar Magazine, "Advanced USB Design Debugging" by Collin O'Flynn, August 2010 Issue
+ *  \li "Some Assembly Required: Assembly Language Programming with the AVR Microcontroller" by Timothy S. Margush
+ *  \li Elektor Magazine, "Taming the Beast (2)" by Clemens Valens/Raymond Vermeulen, January 2014 Issue
+ *
+ *  \section Sec_LUFANotableMentions Other Notable Mentions of LUFA
+ *  The following are non-print but notable mentions of the LUFA library.
+ *
+ *  \li Adafruit "Ask an Engineer", 7th November 2010
+ *  \li Arduino 2010 Keynote speech
+ *  \li The Amp Hour podcast blog #11
+ *  \li Blackhat 2011 conference, "Exploiting USB Devices with Arduino"
+ *
+ *  \section Sec_PortsAndForks Non-Official LUFA Ports and Forks
+ *  The following are unofficial forks of the LUFA codebase, which implement different features such as support for
+ *  additional architectures.
+ *
+ *  \li NXP's official LPCOpen "LPCUSBLib" LUFA fork, for LPC devices: http://www.lpcware.com/
+ *  \li Kevin Mehall's LUFA port to the NXP LPC13xx: https://github.com/kevinmehall/LUFA-LPC13xx
+ *  \li Mark Ding's port for the Silicon Labs SiM3U1xx: https://www.github.com/MarkDing/USB_CDC
+ *  \li Mark Ding's port for the Silicon Labs EFM32 Giant Gecko: https://github.com/MarkDing/lufa-efm32
+ */

@@ -1,0 +1,11 @@
+<h2>{{failing_builds|length}} Failing Builds</h2>
+{% for report in failing_builds %}
+{% include 'library_build/build_report.html' %}
+{% endfor %}
+
+<h2>{{passing_builds|length}} Passing Builds</h2>
+{% for report in passing_builds %}
+{% include 'library_build/build_report.html' %}
+{% endfor %}
+
+{% include 'scripts.js' %}
