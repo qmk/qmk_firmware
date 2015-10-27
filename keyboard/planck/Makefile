@@ -136,5 +136,5 @@ VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/quantum.mk
+include $(TOP_DIR)/quantum/quantum.mk
 
