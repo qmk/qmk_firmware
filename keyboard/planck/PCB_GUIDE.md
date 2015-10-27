@@ -8,16 +8,17 @@
 3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
 
 ### Mac
-1. Install [CrossPack](http://www.obdev.at/products/crosspack/index.html) or install Xcode from the App Store and install the Command Line Tools from `Xcode->Preferences->Downloads`.
-2. Install [DFU-Programmer][dfu-prog].
+1. Install Xcode from the App Store.
+2. Install the Command Line Tools from `Xcode->Preferences->Downloads`.
+3. Install [DFU-Programmer][dfu-prog].
 
 ### Linux
 1. Install AVR GCC with your favorite package manager.
 2. Install [DFU-Programmer][dfu-prog].
 
-##Verify Your Installation
-1. Clone the following repository: https://github.com/jackhumbert/tmk_keyboard
-2. Open a Terminal and `cd` into `tmk_keyboard/keyboard/planck`
+## Verify Your Installation
+1. Clone the following repository: https://github.com/jackhumbert/qmk_firmware
+2. Open a Terminal and `cd` into `qmk_firmware/keyboard/planck`
 3. Run `make`. This should output a lot of information about the build process.
 
 ## Using the built-in functions
@@ -38,11 +39,11 @@ Generally, the instructions to flash the PCB are as follows:
 4. Press the reset button on the PCB/press the key with the `RESET` keycode
 5. `make <arguments> dfu` - use the necessary `KEYMAP=<keymap>` and/or `COMMON=true` arguments here.
 
-## OLKB keymap
+## Quantum MK Firmware
 
 ### Keymap
 
-Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/tmk_keyboard/blob/master/keyboard/planck/keymap_common.h).
+Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/qmk_firmware/blob/master/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/qmk_firmware/blob/master/quantum/keymap_common.h).
 
 You can use modifiers with keycodes like this:
 
