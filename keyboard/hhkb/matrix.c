@@ -132,7 +132,13 @@ uint8_t matrix_scan(void)
 
             // NOTE: KEY_STATE keep its state in 20us after KEY_ENABLE.
             // This takes 25us or more to make sure KEY_STATE returns to idle state.
+#ifdef HHKB_JP
+            // Looks like JP needs faster scan due to its twice larger matrix
+            // or it can drop keys in fast key typing
+            _delay_us(30);
+#else
             _delay_us(75);
+#endif
         }
         if (matrix[row] ^ matrix_prev[row]) matrix_last_modified = timer_read32();
     }

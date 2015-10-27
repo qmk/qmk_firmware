@@ -160,7 +160,7 @@ void matrix_init(void)
 /* scan all key states on matrix */
 uint8_t matrix_scan(void)
 {
-    _delay_ms(20);
+    _delay_ms(5);
     
     //next_kbd_set_leds(false, false);
     NEXT_KBD_LED1_OFF;
@@ -194,10 +194,12 @@ uint8_t matrix_scan(void)
     
     NEXT_KBD_LED1_ON;
     
+#ifdef NEXT_KBD_SHIFT_FLASH_LEDS
     next_kbd_set_leds(
         NEXT_KBD_PRESSED_SHIFT_LEFT(resp) ? true : false, 
         NEXT_KBD_PRESSED_SHIFT_RGHT(resp) ? true : false
     );
+#endif
     
     dprintf("[ r=%04lX keycode=%02X pressed=%X CTRL=%X SHIFT_LEFT=%X SHIFT_RGHT=%X CMD_LEFT=%X CMD_RGHT=%X ALT_LEFT=%X ALT_RGHT=%X ]\n", \
         resp, \

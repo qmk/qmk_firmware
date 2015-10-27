@@ -23,8 +23,8 @@ endif
 # Search Path
 VPATH += $(TOP_DIR)/$(QUANTUM_DIR)
 
-include $(TOP_DIR)/protocol/lufa.mk
+include $(TMK_DIR)/protocol/lufa.mk
 
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/rules.mk
 

@@ -5,7 +5,7 @@
 TARGET = ps2_usb_lufa
 
 # Directory common source filess exist
-TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -87,8 +87,8 @@ NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
 
 # PS/2 Options
 #
-PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomened)
-#PS2_USE_INT = yes	# uses external interrupt for falling edge of PS/2 clock pin
+#PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomened)
+PS2_USE_INT = yes	# uses external interrupt for falling edge of PS/2 clock pin
 #PS2_USE_BUSYWAIT = yes	# uses primitive reference code
 
 
@@ -97,9 +97,9 @@ PS2_USE_USART = yes	# uses hardware USART engine for PS/2 signal receive(recomen
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/protocol.mk
-include $(TOP_DIR)/protocol/lufa.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/protocol.mk
+include $(TMK_DIR)/protocol/lufa.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/rules.mk

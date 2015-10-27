@@ -1,0 +1,105 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage HID Class USB AVR Bootloader
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Human Interface Device Class (HID)</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>N/A</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF HID Class Standard \n
+ *       Teensy Programming Protocol Specification</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Supported USB Speeds:</b></td>
+ *   <td>Low Speed Mode \n
+ *       Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ *
+ *  \section SSec_Description Project Description:
+ *
+ *  This bootloader enumerates to the host as a HID Class device, allowing for device FLASH programming through
+ *  the supplied command line software, which is a modified version of Paul's TeensyHID Command Line loader code
+ *  from PJRC (used with permission). This bootloader is deliberately non-compatible with the proprietary PJRC
+ *  HalfKay bootloader GUI; only the command line interface software accompanying this bootloader will work with it.
+ *
+ *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
+ *  into 2KB of bootloader space for the Series 2 USB AVRs (ATMEGAxxU2, AT90USBxx2) or 4KB of bootloader space for
+ *  all other models. If you wish to alter this size and/or change the AVR model, you will need to edit the MCU,
+ *  FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
+ *
+ *  \warning <b>THIS BOOTLOADER IS NOT SECURE.</b> Malicious entities can recover written data, even if the device
+ *           lockbits are set.
+ *
+ *  \section Sec_Running Running the Bootloader
+ *
+ *  This bootloader is designed to be started via the HWB mechanism of the USB AVRs; ground the HWB pin (see device
+ *  datasheet) then momentarily ground /RESET to start the bootloader. This assumes the HWBE fuse is set and the BOOTRST
+ *  fuse is cleared.
+ *
+ *  \section Sec_Installation Driver Installation
+ *
+ *  This bootloader uses the HID class driver inbuilt into all modern operating systems, thus no additional drivers
+ *  need to be supplied for correct operation.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  Due to licensing issues, the supplied bootloader is compatible with the HalfKay bootloader protocol designed
+ *  by PJRC, but is non-compatible with the cross-platform loader GUI. A modified version of the open source
+ *  cross-platform TeensyLoader application is supplied, which can be compiled under most operating systems. The
+ *  command-line loader application should remain compatible with genuine Teensy boards in addition to boards using
+ *  this custom bootloader.
+ *
+ *  Once compiled, programs can be loaded into the AVR's FLASH memory through the following example command:
+ *  \code
+ *  hid_bootloader_cli -mmcu=at90usb1287 Mouse.hex
+ *  \endcode
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par After loading an application, it is not run automatically on startup.
+ *  Some USB AVR boards ship with the BOOTRST fuse set, causing the bootloader
+ *  to run automatically when the device is reset. In most cases, the BOOTRST
+ *  fuse should be disabled and the HWBE fuse used instead to run the bootloader
+ *  when needed.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

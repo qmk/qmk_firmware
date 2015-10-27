@@ -2,7 +2,7 @@
 TARGET = terminal_bluefruit
 
 # Directory common source filess exist
-TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -89,11 +89,11 @@ PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
 
-include $(TOP_DIR)/protocol.mk
-include $(TOP_DIR)/protocol/bluefruit.mk
-include $(TOP_DIR)/protocol.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/protocol.mk
+include $(TMK_DIR)/protocol/bluefruit.mk
+include $(TMK_DIR)/protocol.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/rules.mk

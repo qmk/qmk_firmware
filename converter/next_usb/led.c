@@ -47,9 +47,14 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "stdint.h"
 #include "led.h"
+#include "next_kbd.h"
 
 
 void led_set(uint8_t usb_led)
 {
-
+    if (usb_led &  (1<<USB_LED_CAPS_LOCK)) {
+        next_kbd_set_leds(true, true);
+    } else {
+        next_kbd_set_leds(false, false);
+    }
 }

@@ -1,0 +1,52 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \mainpage
+ *
+ *  \image html Images/LUFA.png
+ *  <div align="center"><small><i>Logo design by <a href="http://www.studiomonsoon.com">Studio Monsoon Photography</a></i></small></div>
+ *  \n
+ *  <div align="center"><a href="http://www.lufa-lib.org">http://www.lufa-lib.org</a></div>
+ *  \n
+ *
+ *  <b>LUFA is donationware. For author and donation information, see \ref Page_Donating.</b>
+ *
+ *  LUFA is an open-source USB library for the USB-enabled AVR microcontrollers, released under the MIT license (see \ref Page_LicenseInfo).
+ *  It supports a large number of USB AVR models and boards (see \ref Page_DeviceSupport). It is designed to provide an easy to use,
+ *  feature rich framework for the development of USB peripherals and hosts.
+ *
+ *  LUFA focuses on the microcontroller side of USB development only; it includes no PC host USB driver development facilities - other projects
+ *  such as the Windows Driver Development Kit, Windows USB Device Mode Framework and libusb may be of interest for developing custom OS drivers.
+ *  While custom USB devices can be made with LUFA using such tools, the included demos all use the inbuilt OS drivers for each USB class for
+ *  simplicity.
+ *
+ *  The library is currently in a stable release, suitable for download and incorporation into user projects for
+ *  both host and device modes. For information about the project progression, see the blog link at \ref Page_Resources.
+ *
+ *  LUFA is written specifically for the free AVR-GCC compiler, and uses several GCC-only extensions to make the
+ *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package,
+ *  from the the WinAVR website (see \ref Page_Resources).
+ *
+ *  The only required AVR peripherals for LUFA is the USB controller itself and interrupts - LUFA does not require the use of the
+ *  microcontroller's timers or other hardware, leaving more hardware to the application developer.
+ *
+ *  Accompanying LUFA in the download package is a set of example demo applications, plus several Bootloaders of different classes
+ *  and open source LUFA powered projects.
+ *
+ *  <b>Subsections:</b>
+ *  \li \subpage Page_LicenseInfo - Project source license and commercial use information
+ *  \li \subpage Page_Donating - Donating to support this project
+ *  \li \subpage Page_DeviceSupport - Current Device and Hardware Support
+ *  \li \subpage Page_ChangeLog - Project Changelog
+ *  \li \subpage Page_KnownIssues - Known Issues
+ *  \li \subpage Page_FutureChanges - Planned Changes to the Library
+ *  \li \subpage Page_GettingStarted - Getting started with LUFA
+ *  \li \subpage Page_DevelopingWithLUFA - Developing with LUFA
+ *  \li \subpage Page_LUFAPoweredProjects - Other Projects Using LUFA
+ *  \li \subpage Page_Resources - LUFA and USB Related Resources
+ */
+

@@ -15,7 +15,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl |Gui|Alt  |         Space             |Alt  |Gui|Ctrl |
      * `-----------------------------------------------------------'
      */
-    KEYMAP(
+    KEYMAP_62(
     ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
     LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN1, QUOT,NO,  ENT, \
@@ -23,7 +23,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL,LGUI,LALT,          FN3,                               RGUI,RCTL \
     ),
 
-    KEYMAP(
+    KEYMAP_62(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
     CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,PAUS, UP, NO,  BSPC, \
     LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,NO,  ENT, \
@@ -31,7 +31,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL,LGUI,LALT,          SPC,                               RGUI,RCTL \
     ),
 
-    KEYMAP(
+    KEYMAP_62(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
     TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,WH_U,WH_R,WSTP,WBAK,WFWD,BSPC, \
     LCTL,NO,  ACL0,ACL1,ACL2,NO,  MS_L,MS_D,MS_U,MS_R,TRNS,NO,  NO,  ENT, \
@@ -39,7 +39,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL,LGUI,LALT,          BTN1,                              RGUI,RCTL \
     ),
 
-    KEYMAP(
+    KEYMAP_62(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
     TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  BSPC, \
     LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  NO,  ENT, \
@@ -47,7 +47,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL,LGUI,LALT,          SPC,                               RGUI,RCTL \
     ),
 
-    KEYMAP(
+    KEYMAP_62(
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
     TAB, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,MS_U,WH_U,WH_R,BTN4,BTN5,FN4, \
     LCTL,VOLD,VOLU,MUTE,NO,  NO,  BTN2,MS_L,MS_D,MS_R,BTN1,NO,  NO,  ENT, \

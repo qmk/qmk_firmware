@@ -56,12 +56,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_SOFT_RXD_BIT         2
 #define SERIAL_SOFT_RXD_VECT        INT2_vect
 /* RXD Interupt */
+#ifdef SERIAL_SOFT_LOGIC_NEGATIVE
+/* enable interrupt: INT2(rising edge) */
+#define INTR_TRIG_EDGE   ((1<<ISC21)|(1<<ISC20))
+#else
+/* enable interrupt: INT2(falling edge) */
+#define INTR_TRIG_EDGE   ((1<<ISC21)|(0<<ISC20))
+#endif
 #define SERIAL_SOFT_RXD_INIT()      do { \
     /* pin configuration: input with pull-up */ \
     SERIAL_SOFT_RXD_DDR &= ~(1<<SERIAL_SOFT_RXD_BIT); \
     SERIAL_SOFT_RXD_PORT |= (1<<SERIAL_SOFT_RXD_BIT); \
-    /* enable interrupt: INT2(rising edge) */ \
-    EICRA |= ((1<<ISC21)|(1<<ISC20)); \
+    EICRA |= INTR_TRIG_EDGE; \
     EIMSK |= (1<<INT2); \
     sei(); \
 } while (0)
