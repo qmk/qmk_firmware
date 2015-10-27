@@ -1,6 +1,6 @@
 Quantum MK Firmware
 ================================
-This is a keyboard firmware with some useful features for Atmel AVR controller, based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard).
+This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controller, and more specifically, the OLKB product line.
 
 Features
 --------
@@ -26,6 +26,18 @@ These features can be used in your keyboard.
 Projects
 --------
 You can find some keyboard specific projects under `converter` and `keyboard` directory.
+
+## Main projects
+
+### OLKB products
+* [planck](keyboard/planck/)                - [Planck] Ortholinear 40% keyboard
+* [preonic](keyboard/preonic/)              - [Preonic] Ortholinear 50% keyboard
+* [atomic](keyboard/atomic/)                - [Atomic] Ortholinear 60% keyboard
+
+### Ergodox EZ
+* [ergodox_ez](keyboard/ergodox_ez)         - [Ergodox_EZ] Assembled split keyboard
+
+## Other projects
 
 ### converter
 * [ps2_usb](converter/ps2_usb/)             - [PS/2 keyboard to USB][GH_ps2]
@@ -55,8 +67,6 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [KittenPaw](keyboard/kitten_paw)          - Custom Majestouch controller
 * [Lightpad](keyboard/lightpad)             - Korean custom keypad
 * [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
-* [planck](keyboard/planck/)                - [Planck] Ortholinear 40% keyboard
-* [atomic](keyboard/atomic/)                - [Atomic] Ortholinear 60% keyboard
 
 ### Extenal projects using tmk_keyboard
 * [ErgoDox_cub-uanic][cub-uanic]            - Split Ergonomic Keyboard [ErgoDox][ergodox_org]
@@ -88,8 +98,10 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [cub-uanic]:    https://github.com/cub-uanic/tmk_keyboard/tree/master/keyboard/ergodox
 [mcdox]:        https://github.com/DavidMcEwan/mcdox
 [mcdox_tmk]:    https://github.com/DavidMcEwan/tmk_keyboard/tree/master/keyboard/mcdox
-[Planck]:       http://planckkeyboard.com
-[Atomic]:       http://atomickeyboard.com
+[Planck]:       http://olkb.co/planck
+[Preonic]:      http://olkb.co/preonic
+[Atomic]:       http://olkb.co/atomic
+[Ergodox_EZ]:   https://www.indiegogo.com/projects/ergodox-ez-an-incredible-mechanical-keyboard
 
 
 License
@@ -101,7 +113,7 @@ LUFA, PJRC and V-USB stack have their own license respectively.
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](doc/build.md).
+See [doc/build.md](doc/build.md), or the README in the particular keyboard/* folder.
 
 
 
