@@ -2,7 +2,7 @@ Planck keyboard firmware
 ======================
 DIY/Assembled compact ortholinear 40% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
 
-## OLKB Keymap
+## Quantum MK Firmware
 You have access to a bunch of goodies:
 
 - Use `LSFT()`, `LCTL()`, et. al. (listed in keymap_common.h) as modifiers for keys (daisy-chain-able)

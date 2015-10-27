@@ -1,6 +1,6 @@
-Quantum Mechanical Keyboard Firmware
+Quantum MK Firmware
 ================================
-This is a keyboard firmware with some useful features for Atmel AVR controller, based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard)
+This is a keyboard firmware with some useful features for Atmel AVR controller, based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard).
 
 Features
 --------
