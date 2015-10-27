@@ -7,7 +7,7 @@
 TARGET = hhkb_iwrap
 
 # Directory common source filess exist
-TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -94,10 +94,10 @@ PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/protocol/iwrap.mk
+include $(TMK_DIR)/protocol/iwrap.mk
 # TODO: to be selectable: V-USB, LUFA or PJRC
-#include $(TOP_DIR)/protocol/vusb.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+#include $(TMK_DIR)/protocol/vusb.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/rules.mk

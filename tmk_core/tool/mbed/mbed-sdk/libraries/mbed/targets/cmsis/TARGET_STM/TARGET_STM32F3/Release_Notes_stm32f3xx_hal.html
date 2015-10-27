@@ -1,0 +1,983 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="File-List" href="Release_Notes_for_STM32F45x_StdPeriph_Driver_files/filelist.xml">
+<link rel="Edit-Time-Data" href="Release_Notes_for_STM32F45x_StdPeriph_Driver_files/editdata.mso"><!--[if !mso]> <style> v\:* {behavior:url(#default#VML);} o\:* {behavior:url(#default#VML);} w\:* {behavior:url(#default#VML);} .shape {behavior:url(#default#VML);} </style> <![endif]-->
+
+
+
+<title>Release Notes for STM32F3xx HAL Drivers</title><!--[if gte mso 9]><xml> <o:DocumentProperties> <o:Author>STMicroelectronics</o:Author> <o:LastAuthor>Raouf Hosni</o:LastAuthor> <o:Revision>39</o:Revision> <o:TotalTime>137</o:TotalTime> <o:Created>2009-02-27T19:26:00Z</o:Created> <o:LastSaved>2010-10-15T11:07:00Z</o:LastSaved> <o:Pages>3</o:Pages> <o:Words>973</o:Words> <o:Characters>5548</o:Characters> <o:Company>STMicroelectronics</o:Company> <o:Lines>46</o:Lines> <o:Paragraphs>13</o:Paragraphs> <o:CharactersWithSpaces>6508</o:CharactersWithSpaces> <o:Version>12.00</o:Version> </o:DocumentProperties> </xml><![endif]--><link rel="themeData" href="Release_Notes_for_STM32F45x_StdPeriph_Driver_files/themedata.thmx">
+<link rel="colorSchemeMapping" href="Release_Notes_for_STM32F45x_StdPeriph_Driver_files/colorschememapping.xml"><!--[if gte mso 9]><xml> <w:WordDocument> <w:Zoom>110</w:Zoom> <w:TrackMoves>false</w:TrackMoves> <w:TrackFormatting/> <w:ValidateAgainstSchemas/> <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid> <w:IgnoreMixedContent>false</w:IgnoreMixedContent> <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText> <w:DoNotPromoteQF/> <w:LidThemeOther>EN-US</w:LidThemeOther> <w:LidThemeAsian>X-NONE</w:LidThemeAsian> <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript> <w:Compatibility> <w:BreakWrappedTables/> <w:SnapToGridInCell/> <w:WrapTextWithPunct/> <w:UseAsianBreakRules/> <w:DontGrowAutofit/> <w:SplitPgBreakAndParaMark/> <w:DontVertAlignCellWithSp/> <w:DontBreakConstrainedForcedTables/> <w:DontVertAlignInTxbx/> <w:Word11KerningPairs/> <w:CachedColBalance/> </w:Compatibility> <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel> <m:mathPr> <m:mathFont m:val="Cambria Math"/> <m:brkBin m:val="before"/> <m:brkBinSub m:val="&#45;-"/> <m:smallFrac m:val="off"/> <m:dispDef/> <m:lMargin m:val="0"/> <m:rMargin m:val="0"/> <m:defJc m:val="centerGroup"/> <m:wrapIndent m:val="1440"/> <m:intLim m:val="subSup"/> <m:naryLim m:val="undOvr"/> </m:mathPr></w:WordDocument> </xml><![endif]--><!--[if gte mso 9]><xml> <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false" DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267"> <w:LsdException Locked="false" QFormat="true" Name="Normal"/> <w:LsdException Locked="false" QFormat="true" Name="heading 1"/> <w:LsdException Locked="false" QFormat="true" Name="heading 2"/> <w:LsdException Locked="false" QFormat="true" Name="heading 3"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="heading 4"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="heading 5"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="heading 6"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="heading 7"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="heading 8"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="heading 9"/> <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="caption"/> <w:LsdException Locked="false" QFormat="true" Name="Title"/> <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/> <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/> <w:LsdException Locked="false" QFormat="true" Name="Strong"/> <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/> <w:LsdException Locked="false" Priority="99" Name="No List"/> <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Placeholder Text"/> <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading"/> <w:LsdException Locked="false" Priority="61" Name="Light List"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/> <w:LsdException Locked="false" Priority="70" Name="Dark List"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/> <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/> <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/> <w:LsdException Locked="false" Priority="34" QFormat="true" Name="List Paragraph"/> <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/> <w:LsdException Locked="false" Priority="30" QFormat="true" Name="Intense Quote"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/> <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/> <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/> <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/> <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/> <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/> <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/> <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/> <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/> <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/> <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/> <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/> <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/> <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/> <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/> <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/> <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/> <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/> <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/> <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/> <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/> <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/> <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/> <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/> <w:LsdException Locked="false" Priority="19" QFormat="true" Name="Subtle Emphasis"/> <w:LsdException Locked="false" Priority="21" QFormat="true" Name="Intense Emphasis"/> <w:LsdException Locked="false" Priority="31" QFormat="true" Name="Subtle Reference"/> <w:LsdException Locked="false" Priority="32" QFormat="true" Name="Intense Reference"/> <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/> <w:LsdException Locked="false" Priority="37" SemiHidden="true" UnhideWhenUsed="true" Name="Bibliography"/> <w:LsdException Locked="false" Priority="39" SemiHidden="true" UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/> </w:LatentStyles> </xml><![endif]-->
+
+<style>
+<!--
+/* Font Definitions */
+@font-face
+{font-family:"Cambria Math";
+panose-1:2 4 5 3 5 4 6 3 2 4;
+mso-font-charset:1;
+mso-generic-font-family:roman;
+mso-font-format:other;
+mso-font-pitch:variable;
+mso-font-signature:0 0 0 0 0 0;}
+@font-face
+{font-family:Calibri;
+panose-1:2 15 5 2 2 2 4 3 2 4;
+mso-font-charset:0;
+mso-generic-font-family:swiss;
+mso-font-pitch:variable;
+mso-font-signature:-1610611985 1073750139 0 0 159 0;}
+@font-face
+{font-family:Tahoma;
+panose-1:2 11 6 4 3 5 4 4 2 4;
+mso-font-charset:0;
+mso-generic-font-family:swiss;
+mso-font-pitch:variable;
+mso-font-signature:1627400839 -2147483648 8 0 66047 0;}
+@font-face
+{font-family:Verdana;
+panose-1:2 11 6 4 3 5 4 4 2 4;
+mso-font-charset:0;
+mso-generic-font-family:swiss;
+mso-font-pitch:variable;
+mso-font-signature:536871559 0 0 0 415 0;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+{mso-style-unhide:no;
+mso-style-qformat:yes;
+mso-style-parent:"";
+margin:0in;
+margin-bottom:.0001pt;
+mso-pagination:widow-orphan;
+font-size:12.0pt;
+font-family:"Times New Roman","serif";
+mso-fareast-font-family:"Times New Roman";}
+h1
+{mso-style-unhide:no;
+mso-style-qformat:yes;
+mso-style-link:"Heading 1 Char";
+mso-margin-top-alt:auto;
+margin-right:0in;
+mso-margin-bottom-alt:auto;
+margin-left:0in;
+mso-pagination:widow-orphan;
+mso-outline-level:1;
+font-size:24.0pt;
+font-family:"Times New Roman","serif";
+mso-fareast-font-family:"Times New Roman";
+mso-fareast-theme-font:minor-fareast;
+font-weight:bold;}
+h2
+{mso-style-unhide:no;
+mso-style-qformat:yes;
+mso-style-link:"Heading 2 Char";
+mso-style-next:Normal;
+margin-top:12.0pt;
+margin-right:0in;
+margin-bottom:3.0pt;
+margin-left:0in;
+mso-pagination:widow-orphan;
+page-break-after:avoid;
+mso-outline-level:2;
+font-size:14.0pt;
+font-family:"Arial","sans-serif";
+mso-fareast-font-family:"Times New Roman";
+mso-fareast-theme-font:minor-fareast;
+font-weight:bold;
+font-style:italic;}
+h3
+{mso-style-unhide:no;
+mso-style-qformat:yes;
+mso-style-link:"Heading 3 Char";
+mso-margin-top-alt:auto;
+margin-right:0in;
+mso-margin-bottom-alt:auto;
+margin-left:0in;
+mso-pagination:widow-orphan;
+mso-outline-level:3;
+font-size:13.5pt;
+font-family:"Times New Roman","serif";
+mso-fareast-font-family:"Times New Roman";
+mso-fareast-theme-font:minor-fareast;
+font-weight:bold;}
+a:link, span.MsoHyperlink
+{mso-style-unhide:no;
+color:blue;
+text-decoration:underline;
+text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+{mso-style-unhide:no;
+color:blue;
+text-decoration:underline;
+text-underline:single;}
+p
+{mso-style-unhide:no;
+mso-margin-top-alt:auto;
+margin-right:0in;
+mso-margin-bottom-alt:auto;
+margin-left:0in;
+mso-pagination:widow-orphan;
+font-size:12.0pt;
+font-family:"Times New Roman","serif";
+mso-fareast-font-family:"Times New Roman";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+{mso-style-unhide:no;
+mso-style-link:"Balloon Text Char";
+margin:0in;
+margin-bottom:.0001pt;
+mso-pagination:widow-orphan;
+font-size:8.0pt;
+font-family:"Tahoma","sans-serif";
+mso-fareast-font-family:"Times New Roman";}
+span.Heading1Char
+{mso-style-name:"Heading 1 Char";
+mso-style-unhide:no;
+mso-style-locked:yes;
+mso-style-link:"Heading 1";
+mso-ansi-font-size:14.0pt;
+mso-bidi-font-size:14.0pt;
+font-family:"Cambria","serif";
+mso-ascii-font-family:Cambria;
+mso-ascii-theme-font:major-latin;
+mso-fareast-font-family:"Times New Roman";
+mso-fareast-theme-font:major-fareast;
+mso-hansi-font-family:Cambria;
+mso-hansi-theme-font:major-latin;
+mso-bidi-font-family:"Times New Roman";
+mso-bidi-theme-font:major-bidi;
+color:#365F91;
+mso-themecolor:accent1;
+mso-themeshade:191;
+font-weight:bold;}
+span.Heading2Char
+{mso-style-name:"Heading 2 Char";
+mso-style-unhide:no;
+mso-style-locked:yes;
+mso-style-link:"Heading 2";
+mso-ansi-font-size:13.0pt;
+mso-bidi-font-size:13.0pt;
+font-family:"Cambria","serif";
+mso-ascii-font-family:Cambria;
+mso-ascii-theme-font:major-latin;
+mso-fareast-font-family:"Times New Roman";
+mso-fareast-theme-font:major-fareast;
+mso-hansi-font-family:Cambria;
+mso-hansi-theme-font:major-latin;
+mso-bidi-font-family:"Times New Roman";
+mso-bidi-theme-font:major-bidi;
+color:#4F81BD;
+mso-themecolor:accent1;
+font-weight:bold;}
+span.Heading3Char
+{mso-style-name:"Heading 3 Char";
+mso-style-unhide:no;
+mso-style-locked:yes;
+mso-style-link:"Heading 3";
+mso-ansi-font-size:12.0pt;
+mso-bidi-font-size:12.0pt;
+font-family:"Cambria","serif";
+mso-ascii-font-family:Cambria;
+mso-ascii-theme-font:major-latin;
+mso-fareast-font-family:"Times New Roman";
+mso-fareast-theme-font:major-fareast;
+mso-hansi-font-family:Cambria;
+mso-hansi-theme-font:major-latin;
+mso-bidi-font-family:"Times New Roman";
+mso-bidi-theme-font:major-bidi;
+color:#4F81BD;
+mso-themecolor:accent1;
+font-weight:bold;}
+span.BalloonTextChar
+{mso-style-name:"Balloon Text Char";
+mso-style-unhide:no;
+mso-style-locked:yes;
+mso-style-link:"Balloon Text";
+mso-ansi-font-size:8.0pt;
+mso-bidi-font-size:8.0pt;
+font-family:"Tahoma","sans-serif";
+mso-ascii-font-family:Tahoma;
+mso-hansi-font-family:Tahoma;
+mso-bidi-font-family:Tahoma;}
+.MsoChpDefault
+{mso-style-type:export-only;
+mso-default-props:yes;
+font-size:10.0pt;
+mso-ansi-font-size:10.0pt;
+mso-bidi-font-size:10.0pt;}
+@page WordSection1
+{size:8.5in 11.0in;
+margin:1.0in 1.25in 1.0in 1.25in;
+mso-header-margin:.5in;
+mso-footer-margin:.5in;
+mso-paper-source:0;}
+div.WordSection1
+{page:WordSection1;}
+/* List Definitions */
+@list l0
+{mso-list-id:62067358;
+mso-list-template-ids:-174943062;}
+@list l0:level1
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l0:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l0:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1
+{mso-list-id:128015942;
+mso-list-template-ids:-90681214;}
+@list l1:level1
+{mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l1:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2
+{mso-list-id:216556000;
+mso-list-template-ids:925924412;}
+@list l2:level1
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l2:level2
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l2:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l2:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3
+{mso-list-id:562446694;
+mso-list-template-ids:913898366;}
+@list l3:level1
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l3:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l3:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4
+{mso-list-id:797802132;
+mso-list-template-ids:-1971191336;}
+@list l4:level1
+{mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l4:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5
+{mso-list-id:907304066;
+mso-list-template-ids:1969781532;}
+@list l5:level1
+{mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l5:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6
+{mso-list-id:1050613616;
+mso-list-template-ids:-1009886748;}
+@list l6:level1
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l6:level2
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l6:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l6:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7
+{mso-list-id:1234970193;
+mso-list-template-ids:2055904002;}
+@list l7:level1
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l7:level2
+{mso-level-number-format:bullet;
+mso-level-text:\F0B7;
+mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;
+mso-ansi-font-size:10.0pt;
+font-family:Symbol;}
+@list l7:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l7:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8
+{mso-list-id:1846092290;
+mso-list-template-ids:-768590846;}
+@list l8:level1
+{mso-level-start-at:2;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l8:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9
+{mso-list-id:1894656566;
+mso-list-template-ids:1199983812;}
+@list l9:level1
+{mso-level-start-at:2;
+mso-level-tab-stop:.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level2
+{mso-level-tab-stop:1.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level3
+{mso-level-tab-stop:1.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level4
+{mso-level-tab-stop:2.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level5
+{mso-level-tab-stop:2.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level6
+{mso-level-tab-stop:3.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level7
+{mso-level-tab-stop:3.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level8
+{mso-level-tab-stop:4.0in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+@list l9:level9
+{mso-level-tab-stop:4.5in;
+mso-level-number-position:left;
+text-indent:-.25in;}
+ol
+{margin-bottom:0in;}
+ul
+{margin-bottom:0in;}
+-->
+</style><!--[if gte mso 10]> <style> /* Style Definitions */ table.MsoNormalTable {mso-style-name:"Table Normal"; mso-tstyle-rowband-size:0; mso-tstyle-colband-size:0; mso-style-noshow:yes; mso-style-priority:99; mso-style-qformat:yes; mso-style-parent:""; mso-padding-alt:0in 5.4pt 0in 5.4pt; mso-para-margin:0in; mso-para-margin-bottom:.0001pt; mso-pagination:widow-orphan; font-size:10.0pt; font-family:"Times New Roman","serif";} </style> <![endif]--><!--[if gte mso 9]><xml> <o:shapedefaults v:ext="edit" spidmax="7170"/> </xml><![endif]--><!--[if gte mso 9]><xml> <o:shapelayout v:ext="edit"> <o:idmap v:ext="edit" data="1"/> </o:shapelayout></xml><![endif]-->
+<meta content="MCD Application Team" name="author"></head>
+<body style="" link="blue" vlink="blue">
+<div class="WordSection1">
+<p class="MsoNormal"><span style="font-family: &quot;Arial&quot;,&quot;sans-serif&quot;;"><o:p>&nbsp;</o:p></span></p>
+<div align="center">
+<table class="MsoNormalTable" style="width: 675pt;" border="0" cellpadding="0" cellspacing="0" width="900">
+<tbody>
+<tr style="">
+<td style="padding: 0in;" valign="top">
+<table class="MsoNormalTable" style="width: 675pt;" border="0" cellpadding="0" cellspacing="0" width="900">
+<tbody>
+<tr style="">
+<td style="padding: 0in 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-size: 8pt; font-family: &quot;Arial&quot;,&quot;sans-serif&quot;; color: blue;"><a href="../../Release_Notes.html">Back to Release page</a></span><span style="font-size: 10pt;"><o:p></o:p></span></p>
+</td>
+</tr>
+<tr style="">
+<td style="padding: 1.5pt;">
+<h1 style="margin-bottom: 0.25in; text-align: center;" align="center"><span style="font-size: 20pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(51, 102, 255);">Release
+Notes for STM32F3xx HAL Drivers</span><span style="font-size: 20pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><o:p></o:p></span></h1>
+<p class="MsoNormal" style="text-align: center;" align="center"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,&quot;sans-serif&quot;; color: black;">Copyright
+2014 STMicroelectronics</span><span style="color: black;"><u1:p></u1:p><o:p></o:p></span></p>
+<p class="MsoNormal" style="text-align: center;" align="center"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,&quot;sans-serif&quot;; color: black;"><img id="_x0000_i1026" src="../../_htmresc/st_logo.png" border="0" height="65" width="86"></span><span style="font-size: 10pt;"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: &quot;Arial&quot;,&quot;sans-serif&quot;; display: none;"><o:p>&nbsp;</o:p></span></p>
+<table class="MsoNormalTable" style="width: 675pt;" border="0" cellpadding="0" width="900">
+<tbody>
+<tr style="">
+<td style="padding: 0in;" valign="top">
+<h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><a name="History"></a><span style="font-size: 12pt; color: white;">Update History</span></h2>
+<h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 200px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.1.0
+/ 12-Sept-2014<o:p></o:p></span></h3><p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 18pt;"><b style=""><u><span style="font-size: 10pt; font-family: Verdana; color: black;">Main
+Changes</span></u></b></p>
+
+
+
+<ul style="margin-top: 0cm; list-style-type: square;"><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">First official
+release of STM32F3xx HAL drivers for </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F303xE,
+</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F302xE</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;"> </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">and</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;"> </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F398xx
+</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">devices.</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL generic</span> update</span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add support of new
+     devices <b>STM32F302xE</b> and<b> STM32F398xx</b> in STM32F3xx HAL drivers<o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><span style=""></span></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><span style=""></span><b>HAL ADC</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Empty weak function
+     return HAL_ERROR<o:p></o:p></span></li></ul></ul><ul style="margin-top: 0cm; list-style-type: square;"><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Misra error
+     corrections</span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL CORTEX</b><o:p></o:p></span></li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul style="margin-top: 0cm; list-style-type: square;"><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Macro IS_SYSTICK_CLKSOURCE
+     renamed IS_SYSTICK_CLK_SOURCE</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL DAC</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Empty weak function
+     return HAL_ERROR</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL IWDG</b><o:p></o:p></span><span style="font-family: &quot;Helvetica&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Minor updates (HAL coding rules)</span><span class="MsoNormal" style="font-family: &quot;Helvetica&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL PCD</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Changed </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">IN/OUT
+     EndPoint parameter array size (PCD Handle Structure)</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL RCC</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">RCC_MCOSOURCE_PLLCLK_DIV1
+     define added to RCC_MCO_Clock_Source defgroup for the following devices: STM32F302xE,
+     STM32F303xE, STM32F398xx, STM32F303x8, STM32F328xx, STM32F301x8, STM32F302x8
+     and STM32F318xx</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL SPI</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Removed HAL_
+     prefix from static function names</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"></span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL TIM</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Checked
+     DeadTime value in debug mode</span></li><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new macros __HAL_TIM_URS_ENABLE() and&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">__HAL_TIM_URS_DISABLE()</span></li></ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US"><b>HAL WWDG</b><o:p></o:p></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Minor updates (HAL coding
+     rules)</span></li><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Added macro __HAL_WWDG_CLEAR_IT()</span></li><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Use MODIFY_REG() macro to set Prescaler, Window and Counter registers within &nbsp;HAL_WWDG_Init()</span><span style="font-family: &quot;Helvetica&quot;,&quot;sans-serif&quot;;" lang="EN-US">&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"><o:p></o:p></span></li></ul></ul>
+
+
+
+
+
+
+
+
+
+<h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 200px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.1.0RC2
+/ 25-August-2014<o:p></o:p></span></h3><p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 18pt;"><b style=""><u><span style="font-size: 10pt; font-family: Verdana; color: black;">Main
+Changes</span></u></b></p>
+
+
+
+
+
+
+
+
+<ul style="list-style-type: square;"><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL generic</span> update</span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">General improvement of
+     Doxygen Tags for CHM UM generation</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add support of new
+     devices <b>STM32F303xE</b> in STM32F3xx HAL driver</span><span style="font-weight: bold;"></span></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-weight: bold;"></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;(for </span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines for ADC
+     trigger remapping (HAL_REMAPADCTRIGGER_x)</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines for CCM
+     RAM page write protection (up to 16 pages can be write protected)</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new macro IS_HAL_REMAPADCTRIGGER()</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Updated macro IS_HAL_SYSCFG_WP_PAGE
+     ()</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new macros to
+     freeze/unfreeze TIM20 in debug mode: __HAL_FREEZE_TIM20_DBGMCU() and __HAL_UNFREEZE_TIM20_DBGMCU()</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new macro to remap
+     the FMC banks 1 and 2 at 0x00000000 : __HAL_FMC_BANK()</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new macros to
+     enable/disable ADC trigger remapping: __HAL_REMAPADCTRIGGER_ENABLE() and __HAL_REMAPADCTRIGGER_DISABLE</span>()<b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></b></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL ADC </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;(for </span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines for TIM20
+     related ADC external triggers for regular groups (ADC_EXTERNALTRIGCONV_T20_x)</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines for TIM20
+     related ADC external triggers for injected groups (ADC_EXTERNALTRIGINJECCONV_T20_x)</span><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Updated macro __HAL_ADC_CFGR_EXTSEL() to take into account </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">TIM20 related ADC
+     triggers for regular channels</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"><o:p></o:p></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Updated macro __HAL_ADC_JSQR_JEXTSEL() to take into account </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">TIM20 related ADC
+     triggers for injected channels</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"><o:p></o:p></span></li></ul></ul><ul style="list-style-type: square;"><li><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL COMP </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update</span></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Defect correction:</span></li></ul><ul><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">Missing assert param IS_COMP_TRIGGERMODE</span></li></ul></ul><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">STM32F303xE:</span><span style="font-size: 10pt;" lang="EN-US"></span></li></ul><ul><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines for comparator output redirection: COMP_OUTPUT_TIM20BKIN,
+     COMP_OUTPUT_TIM20BKIN2, COMP_OUTPUT_TIM1BKIN2_TIM8BKIN2_TIM20BKIN2 and COMP_OUTPUT_TIM20OCREFCLR<o:p></o:p></span></li></ul></ul><li><span style="font-size: 10pt;" lang="EN-US"><span class="MsoNormal"></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL FLASH </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;(for </span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li></ul>
+
+
+
+
+
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">Add
+new defines for write protection of pages 32 to 61 and 62-263 (OB_WRP_PAGESxxTOyy)</span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL GPIO </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;(for </span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">Add
+new defines for TIM20 and FMC related AF: GPIO_AF2_TIM20, GPIO_AF3_TIM20, GPIO_AF6_TIM20 and
+GPIO_AF12_FMC</span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL IRDA </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">TC enabled and TXE disabled at the end of TX in IT
+mode</span><span style="font-size: 10pt;" lang="EN-US"><o:p></o:p></span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL HAL NAND</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">&nbsp;(</span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE specific</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">FMC: generic
+firmware to drive NAND memories mounted as external device</span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL NOR</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">&nbsp;(</span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE specific</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">FMC: generic
+firmware to drive NOR memories mounted as external device</span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL PCCARD</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">&nbsp;(</span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE specific</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">FMC: generic
+firmware to drive PCCARD memories mounted as external device</span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL PCD </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">Add
+new macros __HAL_USB_EXTI_GET_FLAG() , __HAL_USB_EXTI_CLEAR_FLAG(), __HAL_USB_EXTI_SET_RISING_EDGE_TRIGGER(),
+__HAL_USB_EXTI_SET_FALLING_EDGE_TRIGGER() and _HAL_USB_EXTI_SET_FALLINGRISING_TRIGGER()</span></li></ul></ul>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL PWR </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;<o:p></o:p></span></li></ul>
+
+<ul style="margin-top: 0cm;" type="disc"><ul><li class="MsoNormal" style="color: windowtext; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">PVD feature need falling/rising Event modes</span></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">Rename <span style="">&nbsp;</span>defines:&nbsp;</span></span></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">PWR_MODE_EVT to PWR_PVD_MODE_NORMAL</span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">PWR_MODE_IT_RISING to PWR_PVD_MODE_IT_RISING<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">PWR_MODE_IT_FALLING to PWR_PVD_MODE_IT_FALLING<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">PWR_MODE_IT_RISING_FALLING to PWR_PVD_MODE_IT_RISING_FALLING<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">PWR_MODE_IT_RISING to PWR_PVD_MODE_IT_RISING<o:p></o:p></span></span></li></ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">Add new
+     defines: PWR_PVD_MODE_EVENT_RISING, PWR_PVD_MODE_EVENT_FALLING and
+     PWR_PVD_MODE_EVENT_RISING_FALLING<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">Changed
+     __HAL_PVD_EXTI_ENABLE_IT() macro<span style="">&nbsp;
+     </span>definition: __EXTILINE__ argument no longer needed
+     (PWR_EXTI_LINE_PVD is used implicitly)<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">Changed
+     __HAL_PVD_EXTI_DISABLE_IT() macro definition: __EXTILINE__ argument no
+     longer needed (PWR_EXTI_LINE_PVD is used implicitly)<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">Changed
+     __HAL_PVD_EXTI_GET_FLAG () macro definition: __EXTILINE__ argument no
+     longer needed (PWR_EXTI_LINE_PVD is used implicitly)<o:p></o:p></span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"><span style="color: windowtext;">Changed
+     _HAL_PVD_EXTI_CLEAR_FLAG () macro definition: __EXTILINE__ argument no
+     longer needed (PWR_EXTI_LINE_PVD is used implicitly)</span></span></li><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">Add
+new macros __HAL_PWR_PVD_EXTI_ENABLE_EVENT(),
+__HAL_PWR_PVD_EXTI_DISABLE_EVENT(),<span style="">&nbsp;
+</span>__HAL_PWR_PVD_EXTI_CLEAR_EGDE_TRIGGER(),
+__HAL_PWR_PVD_EXTI_SET_FALLING_EGDE_TRIGGER() and
+__HAL_PWR_PVD_EXTI_SET_RISING_EDGE_TRIGGER()</span></li></ul></ul></ul>
+
+
+
+
+
+<span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(127, 127, 127);" lang="EN-US"></span><ul style="list-style-type: square;"><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL RCC </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;(for </span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)<o:p></o:p></span></li><ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal; color: black;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">RCC_OcsInitTypeDef and RCC_PLLInitTypeDef definitions are now product dependent:&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span></li><ul style="color: black;"><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">STM32F303xE:</span></li><ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Added PREDIV field to RCC_PLLInitTypeDef: used to set the
+     desired pre-division factor whatever the PLL clock source is (HSI or HSE)</span><span class="MsoNormal" style="font-size: 10pt; font-family: &quot;Courier New&quot;;" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">.</span></li><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Removed field HSEPredivValue from RCC_OscInitTypeDef (replaced by </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">PREDIV field in&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">RCC_PLLInitTypeDef)</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Other F3 products: no change in&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">RCC_OcsInitTypeDef and RCC_PLLInitTypeDef definitions</span></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new definition of RCC_PeriphCLKInitTypeDef<span style="">&nbsp; </span>to fit STM32F303xE <span style="">&nbsp;</span>clock selection capabilities (e.g select TIM20
+     clock source)</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines to select the pre-division factor&nbsp;(RCC_PREDIV_DIVx)</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defines to set TIM20 clock source (RCC_PERIPHCLK_TIM20, RCC_TIM20CLK_HCLK and
+     RCC_TIM20CLK_PLLCLK)</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add new defnes to set&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">TIM3 &amp; TIM4</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US"> clock source&nbsp; (</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">RCC_PERIPHCLK_TIM34</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">, RCC_TIM34CLK_HCLK, RCC_TIM34CLK_PCLK)<br></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add FMC related macros: __FMC_CLK_ENABLE(), __FMC_CLK_DISABLE(), __FMC_FORCE_RESET() and __FMC_RELEASE_RESET()</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add GPIO port G related macros: __GPIOG_CLK_ENABLE(), __GPIOG_CLK_DISABLE(),
+     __ GPIOG _FORCE_RESET() and __GPIOG _RELEASE_RESET()</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add GPIO port H related macros:_ __GPIOH_CLK_ENABLE(), __GPIOH_CLK_DISABLE(),
+     __FMC_ GPIOH _RESET() and __GPIOH _RELEASE_RESET()</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">Add SPI4 related macros: <span style="">&nbsp;</span>__SPI4_CLK_ENABLE(),
+     __SPI4_CLK_DISABLE(), __ SPI4_FORCE_RESET() and __SPI4_RELEASE_RESET()</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">Add TIM20 related macros: __TIM20_CLK_ENABLE(), __TIM20_CLK_DISABLE(),
+__ TIM20_FORCE_RESET() and __TIM20_RELEASE_RESET(), __HAL_RCC_TIM20_CONFIG() , __HAL_RCC_GET_TIM20_SOURCE()</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt; line-height: normal;"><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">Add new macro to set/get the clock source of TIM3 &amp; TIM4: __HAL_RCC_TIM34_CONFIG() and &nbsp;__HAL_RCC_GET_TIM34_SOURCE()<br></span></li></ul></ul><ul style="list-style-type: square;"><li><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL SMARTCARD
+</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">Change&nbsp;SMARTCARD_AdvFeatureConfig()
+from exported to static private function</span></li></ul><ul><li><span style="font-size: 10pt; color: windowtext;" lang="EN-US"></span><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">TC enabled and TXE disabled at the end of TX in IT
+mode</span></li></ul></ul>
+
+
+
+<p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 53.4pt; text-indent: -18pt; line-height: normal;"><span style="font-size: 10pt; font-family: Symbol; color: windowtext;" lang="EN-US"><span style=""><span style="font-family: &quot;Times New Roman&quot;; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;"></span></span></span><span style="font-size: 10pt; color: windowtext;" lang="EN-US"></span><span style="font-size: 10pt; color: windowtext;" lang="EN-US"><o:p></o:p></span></p>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL SMBUS </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">Fix wrong State after a PEC failed</span></li><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;">Fix slave acknowledge issue</span></li></ul></ul><p class="MsoListParagraphCxSpLast" style="margin: 4.5pt 0cm 4.5pt 53.4pt; text-indent: -18pt; line-height: normal;"><span style="font-size: 10pt; color: windowtext;"></span><span style="font-size: 10pt; color: windowtext;" lang="EN-US"><o:p></o:p></span></p>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL SPI </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">Fix CodeSonar warning: unreachable Call in
+SPI_CloseRxTx_ISR()</span></li></ul></ul><p class="MsoListParagraph" style="margin: 4.5pt 0cm 4.5pt 83.16pt; text-indent: -18pt; line-height: normal;"><span style="font-size: 10pt; font-family: Symbol; color: windowtext;" lang="EN-US"><span style=""><span style="font-family: &quot;Times New Roman&quot;; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;"></span></span></span><span style="font-size: 10pt; color: windowtext;" lang="EN-US"><o:p></o:p></span></p>
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL SRAM</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">&nbsp;(</span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE specific</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">FMC: generic
+firmware to drive SRAM memories mounted as external device</span></li></ul></ul>
+
+
+
+<ul style="list-style-type: square;"><li><span style="font-family: Symbol;"></span><span style="" lang="EN-US"><span style=""></span></span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL TIM </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update&nbsp;(for </span><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">STM32F303xE</span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">)</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;" lang="EN-US">Add
+defines to set TIM20 option register (link from analog watchdog and TIM20 ETR)</span></li></ul></ul><ul style="list-style-type: square;"><li><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL UART </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">TC enabled and TXE disabled at the end of TX in IT
+mode</span></li></ul></ul><ul style="list-style-type: square;"><li><b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">HAL USART </span></b><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;" lang="EN-US">update</span></li><ul><li><span style="font-size: 10pt; line-height: 115%; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: windowtext;" lang="EN-US">TC enabled and TXE disabled at the end of TX in IT
+mode</span></li></ul></ul><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 200px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.0.1
+/ 18-June-2014<o:p></o:p></span></h3><p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 18pt;"><b style=""><u><span style="font-size: 10pt; font-family: Verdana; color: black;">Main
+Changes</span></u></b></p>
+<ul style="margin-top: 0cm; list-style-type: square;"><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL generic</span> update<br></span></p><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix flag clear procedure: use atomic write operation </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">"=" </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">instead of ready-modify-write operation "|=" or "&amp;="</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix
+on Timeout management, Timeout value set to 0 passed to API
+automatically exits the function after checking the flag without any
+wait.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add
+new macro __HAL_RESET_HANDLE_STATE to reset a given handle state.</span></li></ul></li><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL ADC</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Rename defines:</span></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">ADC_EXTERNALTRIGCONV_Ext_IT11 to ADC_EXTERNALTRIGCONV_EXT_IT11</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">ADC_EXTERNALTRIGCONV_Ext_IT12 to ADC_EXTERNALTRIGCONV_EXT_IT12</span></li></ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix define ADC_SOFTWARE_START</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Update external trigger defines to remove HRTIM triggers for STM32F328xx and TIM8 triggers for STM32F302xC</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add ADC1_2_EXTERNALTRIG_T4_CC4 for </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">STM32F303x8 and&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">STM32F328xx</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL CEC</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Process no more locked during the transmission in interrupt mode.</span>&nbsp;</li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL COMP</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix on 32-bit register COMP CSR accesses for </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">STM32F373xC and STM32F378xx devices.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add new defines </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">for STM32F373xC and STM32F378xx comparators:&nbsp;</span></li></ul></ul><div style="margin-left: 120px;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-style: italic;">COMP_OUTPUT_TIM3IC1,
+COMP_OUTPUT_TIM3OCREFCLR, COMP_OUTPUT_TIM2IC4</span> and
+<span style="font-style: italic;">COMP_OUTPUT_TIM2OCREFCLR&nbsp;</span></span><br></div><div style="margin-left: 80px;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">instead of previous defines&nbsp;</span><br></div><div style="font-style: italic; margin-left: 120px;"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">COMP_OUTPUT_COMP1_TIM3IC1,
+COMP_OUTPUT_COMP1_TIM3OCREFCLR, COMP_OUTPUT_COMP1_TIM2IC4,&nbsp;
+COMP_OUTPUT_COMP1_TIM2OCREFCLR, <br></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">COMP_OUTPUT_COMP2_TIM3IC1, COMP_OUTPUT_COMP2_TIM3OCREFCLR, COMP_OUTPUT_COMP2_TIM2IC4,&nbsp; COMP_OUTPUT_COMP2_TIM2OCREFCLR.</span></div><ul style="margin-top: 0cm; list-style-type: square;"><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL DMA</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix in&nbsp;<span style="font-style: italic;">HAL_DMA_PollForTransfer()</span> to set error code <span style="font-style: italic;">HAL_DMA_ERROR_TE </span>in case of <span style="font-style: italic;">HAL_ERROR</span> status</span>&nbsp;</li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL GPIO</span> update<br></span></p><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix <span style="font-style: italic;">GPIO_AF5_SPI1</span> define instead of </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">GPIO_AF5_SPI1</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"> for STM32F303x8 device.</span>&nbsp;</li></ul><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;"></span></span></li></ul><ul style="margin-top: 0cm; list-style-type: square;"><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL HRTIM</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">HRTIM peripheral not available for STM32F328xx device.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix macros&nbsp;__HAL_HRTIM_CLEAR_FLAG, __HAL_HRTIM_MASTER_CLEAR_FLAG and __HAL_HRTIM_TIMER_CLEAR_FLAG</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL I2C</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add
+management of NACK event in Master transmitter mode and Slave
+transmitter/receiver modes (only in polling mode), in that case the
+current transfer is stopped.</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL IRDA</span> update<br></span></p><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add new enum typedef <span style="font-style: italic;">IRDA_ClockSourceTypeDef</span></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add new macro __HAL_IRDA_GETCLOCKSOURCE</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change in <span style="font-style: italic;">HAL_IRDA_Transmit_IT()</span> to enable IRDA_IT_TXE instead of IRDA_IT_TC.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Process no more locked during the transmission in interrupt mode.</span></li></ul></li></ul><ul style="margin-top: 0cm; list-style-type: square;"><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL OPAMP</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">__SYSCFG_CLK_ENABLE() is now handled internally in HAL_OPAMP_Init() and no more in user HAL_OPAMP_MspInit().</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+  <p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL PCD </span>update</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span></p>
+              </li><ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+    <p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add new macro <span style="font-style: italic;">__HAL_USB_EXTI_GENERATE_SWIT</span></span></p>
+  </li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL PWR</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix in <span style="font-style: italic;">HAL_PWR_EnterSTANDBYMode()</span> to not clear Wakeup flag (WUF), which need to be cleared at application level before to call this function</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL RCC</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change for </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">STM32F303x8, STM32F334x8 and STM32F328xx devices:</span></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Add missing macro __DAC2_FORCE_RESET</span></li></ul><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Rename <span style="font-style: italic;">RCC_USART1CLKSOURCE_PCLK2</span> into <span style="font-style: italic;">RCC_USART1CLKSOURCE_PCLK1</span></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span></li></ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Remove HRTIM1 peripheral and clocking macros for </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">STM32F328xx device.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix HSI Calibration issue when selected as SYSCLK <br></span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL SMARTCARD</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change in <span style="font-style: italic;">HAL_SMARTCARD_Transmit_IT()</span> to enable SMARTCARD_IT_TXE instead of SMARTCARD_IT_TC.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Process no more locked during the transmission in interrupt mode.</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL SMBUS</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix Slave acknowledge issue: Slave should ack each bit and so stretch the line till the bit is not ack</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL TIM</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix macro __HAL_TIM_PRESCALER</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;"><p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL TSC</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Fix define&nbsp;<span style="font-style: italic;">TSC_ACQ_MODE_SYNCHRO</span></span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL UART</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change in <span style="font-style: italic;">HAL_LIN_Init()</span> parameter BreakDetectLength to uint32_t</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change in <span style="font-style: italic;">HAL_UART_Transmit_IT()</span> to enable UART_IT_TXE instead of UART_IT_TC.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Process no more locked during the transmission in interrupt mode.</span></li></ul><li class="MsoNormal" style="margin-top: 4.5pt; margin-bottom: 4.5pt; color: black;">
+
+
+
+
+
+
+
+<p class="MsoListParagraph"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><span style="font-weight: bold;">HAL USART</span> update<br></span></p></li><ul><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change <span style="font-style: italic;">USART_InitTypeDef</span> fields to uint32_t type</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Rename __USART_ENABLE and __USART_DISABLE macros to respectively </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">__HAL_USART_ENABLE and __HAL_USART_DISABLE</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change in <span style="font-style: italic;">HAL_USART_Transmit_IT()</span> to enable USART_IT_TXE instead of USART_IT_TC.</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Process no more locked during the transmission in interrupt mode.</span></li><li><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Change in <span style="font-style: italic;">HAL_USART_TransmitReceive_DMA()</span> to manage DMA half transfer mode<br></span></li></ul></ul><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;"></span><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 200px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.0.0
+/ 06-May-2014<o:p></o:p></span></h3>
+<p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 18pt;"><b style=""><u><span style="font-size: 10pt; font-family: Verdana; color: black;">Main
+Changes</span></u></b></p>
+<ul style="margin-top: 0cm;" type="square"><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">First official
+release of STM32F3xx HAL drivers for </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F301x6/x8,
+</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F302x6/x8,&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F302xB/xC,
+</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F303x6/x8,&nbsp;</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F373xB/xC,
+</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F334x4/x6/x8</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">,&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;"><span style="font-weight: bold;"></span></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">STM32F318xx, STM32F328xx, STM32F358xx and STM32F378xx
+</span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; font-weight: bold;">devices.</span></li></ul><h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><a name="License"></a><span style="font-size: 12pt; color: white;">License<o:p></o:p></span></h2><div style="text-align: justify;"><font size="-1"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:</span><br>
+            </font>
+            <ol><li><font size="-1"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span></font></li><li><font size="-1"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Redistributions
+in binary form must reproduce the above copyright notice, this list of
+conditions and the following disclaimer in </span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">the documentation and/or other materials provided with the distribution.</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span></font></li><li><font size="-1"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">Neither the name of STMicroelectronics nor the names of its contributors may be used to endorse or promote products derived </span><br>
+                </font>
+              </li></ol>
+            <font size="-1"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from this software without specific prior written permission.</span><br>
+            <span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"></span><br>
+            <span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"> WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A </span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY </span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, </span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"> CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR </span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></font>
+            
+            </div><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;"></span>
+<div class="MsoNormal" style="text-align: center; margin-left: 40px;" align="center"><span style="color: black;">
+<hr align="center" size="2" width="100%"></span></div>
+<p class="MsoNormal" style="margin: 4.5pt 0in 4.5pt 0.6634in; text-align: center;" align="center"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: black;">For
+complete documentation on </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;">STM32<span style="color: black;"> Microcontrollers visit </span><u><span style="color: blue;"><a href="http://www.st.com/internet/mcu/family/141.jsp" target="_blank">www.st.com/STM32</a></span></u></span><span style="color: black;"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-left: 40px;" class="MsoNormal"><span style="font-size: 10pt;"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body></html>

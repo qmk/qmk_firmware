@@ -31,27 +31,28 @@ Two PCBs are connected by 15 lines(13 in case of Pro2).
 Vcc and GND use 3(2) lines each, other lines are for keyboard signaling.
 
     HHKB connector lines:
-    JP   Pro2   Pro     Function    Description                               Teensy++ pins
+    JP   Pro2   Pro     Function    Description                               TMK pin usage
     --------------------------------------------------------------------------------------------
                  1      Vcc(5V)                                               5V
      1    1      2      Vcc(5V)                                               5V
      2    2      3      Vcc(5V)                                               5V
-     3    3      4      TP1684      KEY: Low(0) when key pressed              PE6 input(with pullup)
-     4    4      5      TP1684      KEY_PREV: make threshold                  PE7 output
+     3    3      4      TP1684      ~KEY: Low(0) when key is pressed          PD7 input(with pullup)
+     4    4      5      TP1684      HYS: High(1) when key is pressed          PB7 output
      5    5      6      HC4051      A(bit0)\                                  PB0 output
      6    6      7      HC4051      B(bit1) > select row 0-7                  PB1 output
      7    7      8      HC4051      C(bit2)/                                  PB2 output
      8    8      9      LS145       A(bit0)\                                  PB3 output
      9    9     10      LS145       B(bit1) > select column 0-7               PB4 output
     10   10     11      LS145       C(bit2)/                                  PB5 output
-    11   11     12      LS145       D(enable) Low(0) enables selected column  PB6 output
+    11   11     12      LS145       ~D(enable) Low(0) enables selected column PB6 output
     12   12     13      GND                                                   GND
     13   13     14      GND                                                   GND
                 15      GND
-    14                  HC4051(Z2)  ~Enable of Z2   row0-7
-    15                  HC4051(Z3)  ~Enable of Z3   row8-15
+    14                  HC4051(Z2)  ~Enable of Z2   row0-7                    PC6
+    15                  HC4051(Z3)  ~Enable of Z3   row8-15                   PC7
 
-    NOTE: guessing pin5(KEY_PREV) may work for hysteresis of capacitive sensing.
+    NOTE: Probably HYS changes threshold for upstroke and makes hysteresis in the result.
+    NOTE: HYS should be given High(1) when previous KEY state is Low(0).
     NOTE: 1KOhm didn't work as pullup resistor on KEY. AVR internal pullup or 10KOhm resistor was OK.
     NOTE: JP has two HC4051(Z2,Z3) and line 5, 6 and 7 are connected to both of them.
 
@@ -112,7 +113,7 @@ Matrix diagram:
     |         <-+    |        <6-------|-|-|-|-|-|-|-|--|R|-+
     |   1   4 | |    |        <7-------|-|-|-|-|-|-|-|--|R|-+
     +---V---^-+ |    +-^-^-^--+        0 1 2 3 4 5 6 7  33K*8
-       KEY PREV |      A B C         +-----------------+
+       KEY HYS  |      A B C         +-----------------+
         |   | +-^----+ | | |         |      LS145      |
     Vcc |   | |BU9831| | | |         +-^--^--^--^------+
     --- |   | +------+ | | |           A  B  C  D   +-------+
@@ -138,7 +139,7 @@ Matrix diagram:
     |         | +---->        <6-----------|-|-|-|-|----|R|-+
     |         | | |  | A B C  <7-----------|-|-|-|-|----|R|-+
     +---V---^-+ | |  +-^-^-^--+            | | | | |        |
-       KEY PREV | |    | | |               | | | | |        |
+       KEY HYS  | |    | | |               | | | | |        |
         |   |   | |  +--------+            | | | | |        |
         |   |   | |  | HC4051 <8-----------|-|-|-|-|----|R|-+
         |   |   | |  |    Z3  <9-----------|-|-|-|-|----|R|-+
@@ -192,7 +193,7 @@ Signals charts
             0123456701234567    selected column
 
     3) Wait 5us after column select, then set prev, strobe colD to spit out key status and read it.
-    prev    _~~~~_____          20us if previous key state is low
+    hys     _~~~~_____          20us if previous key state is low
     colD    ~~~__~~~~~          10us strobe
     key     ~~~____~~~          22us indicates current state of the key
 

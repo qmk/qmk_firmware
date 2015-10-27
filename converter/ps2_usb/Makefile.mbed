@@ -1,7 +1,7 @@
 PROJECT = ps2_usb
 
-TMK_DIR = ../..
-MBED_DIR = $(TMK_DIR)/mbed-sdk
+TMK_DIR = ../../tmk_core
+MBED_DIR = $(TMK_DIR)/tool/mbed/mbed-sdk
 
 #VPATH += $(MBED_DIR):$(TMK_DIR)
 vpath %.s .:$(MBED_DIR):$(TMK_DIR)

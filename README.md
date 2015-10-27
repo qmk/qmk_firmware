@@ -2,6 +2,17 @@ Quantum MK Firmware
 ================================
 This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controller, and more specifically, the OLKB product line.
 
+Updates
+-------
+#### 2015/04/22
+Core library was separated to other branch `core`. <https://github.com/tmk/tmk_keyboard/tree/core>
+
+In `Makefile` you need to set `TMK_DIR` to indicate core library location now.
+
+    TMK_DIR = ../../tmk_core
+
+
+
 Features
 --------
 These features can be used in your keyboard.
@@ -21,6 +32,7 @@ These features can be used in your keyboard.
 * Locking CapsLock    - Mechanical switch support for CapsLock
 * Breathing Sleep LED - Sleep indicator with charm during USB suspend
 * Backlight           - Control backlight levels
+
 
 
 Projects
@@ -53,8 +65,8 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [ibm4704_usb](converter/ibm4704_usb)      - [IBM 4704 keyboard Converter][GH_ibm4704]
 
 ### keyboard
-* [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] **my main board**
-* [gh60](keyboard/gh60/)                    - [GH60] DIY 60% keyboard [prototype][GH60_proto] **my second board**
+* [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] hasu's main board
+* [gh60](keyboard/gh60/)                    - [GH60] DIY 60% keyboard [prototype][GH60_proto] hasu's second board
 * [hbkb](keyboard/hbkb/)                    - [Happy Buckling spring keyboard][GH_hbkb](IBM Model M 60% mod)
 * [hid_liber](keyboard/hid_liber/)          - [HID liberation][HID_liber] controller (by alaricljs)
 * [phantom](keyboard/phantom/)              - [Phantom] keyboard (by Tranquilite)
@@ -107,7 +119,8 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 License
 -------
 **GPLv2** or later. Some protocol files are under **Modified BSD License**.
-LUFA, PJRC and V-USB stack have their own license respectively.
+
+Third party libraries like LUFA, PJRC and V-USB have their own license respectively.
 
 
 
@@ -127,7 +140,8 @@ Magic Commands
 --------------
 To see help press `Magic` + `H`.
 
- `Magic` key bind may be `LShift` + `RShift` in many project, but `Power` key on ADB converter. `Magic` keybind can be vary on each project, check `config.h` in project directory.
+`Magic` key combination is `LShift` + `RShift` in many project, but `Power` key on ADB converter. 
+`Magic` keybind can be vary on each project, check `config.h` in project directory.
 
 Following commands can be also executed with `Magic` + key. In console mode `Magic` keybind is not needed.
 
@@ -151,13 +165,14 @@ Following commands can be also executed with `Magic` + key. In console mode `Mag
     Caps:   Lock Keyboard(Child Proof)
     Paus:   jump to bootloader
 
-**TBD**
 
-### Boot Magic Configuration - Virtual DIP Switch
+
+Boot Magic Configuration - Virtual DIP Switch
+---------------------------------------------
 Boot Magic are executed during boot up time. Press Magic key below then plug in keyboard cable.
 Note that you must use keys of **Layer 0** as Magic keys. These settings are stored in EEPROM so that retain your configure over power cycles.
 
-To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be pressed along with the following configuration keys. The salt key is configurable in `config.h`. See [common/bootmagic.h](common/bootmagic.h).
+To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be pressed along with the following configuration keys. The salt key is configurable in `config.h`. See [tmk_core/common/bootmagic.h](tmk_core/common/bootmagic.h).
 
 #### General
 - Skip reading EEPROM to start with default configuration(`ESC`)
@@ -192,55 +207,23 @@ To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be 
 - Set Default Layer to 6(`6`)
 - Set Default Layer to 7(`7`)
 
-#### Caution
-Unintentional use of this feature will cause user confusion.
-
-TODO: Magic key combination to avoid unintentional press during plug in
-
-**TBD**
 
 
 Mechanical Locking support
 --------------------------
-This feature makes it possible for you to use mechanical switch for `CapsLock`, `NumLock` or `ScrollLock`. To enable this feature define these macros in `config.h` and use `KC_LCAP`, `KC_LNUM` or `KC_LSCR` in keymap for locking key instead of normal `KC_CAPS`, `KC_NLCK` or `KC_SLCK`. Resync option tries to keep lock switch state consistent with keyboard LED state.
+This feature makes it possible for you to use mechanical locking switch for `CapsLock`, `NumLock` 
+or `ScrollLock`. To enable this feature define these macros in `config.h` and use `KC_LCAP`, `KC_LN
+UM` or `KC_LSCR` in keymap for locking key instead of normal `KC_CAPS`, `KC_NLCK` or `KC_SLCK`. Res
+ync option tries to keep switch state consistent with keyboard LED state.
  
     #define LOCKING_SUPPORT_ENABLE
     #define LOCKING_RESYNC_ENABLE
 
 
+
 Start Your Own Project
 -----------------------
 **TBD**
-### Config.h Options
-#### 1. USB vendor/product ID and device description
-    #define VENDOR_ID       0xFEED
-    #define PRODUCT_ID      0xBEEF
-    #define MANUFACTURER    t.m.k.
-    #define PRODUCT         Macway mod
-    #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
-
-#### 2. Keyboard matrix configuration
-    #define MATRIX_ROWS 8
-    #define MATRIX_COLS 8
-    #define MATRIX_HAS_GHOST
-
-
-
-Architecture
-------------
-    Architecture Diagram
-                               +---------------+---------------+-------------+
-                               |    Host       |   Keyboard    | Matrix, LED |
-       ___________             |-----------+-+ +-------------+ | +-----------|
-      /          /| Keys/Mouse | Protocol  |d| | Action      | | | Protocol  |
-     /__________/ |<-----------|  LUFA     |r| |  Layer, Tap | | |  Matrix   |
-     |.--------.| |   LED      |  V-USB    |i| |-------------| | |  PS/2,IBM |             __________________
-     ||        || |----------->|  PJRC     |v| | Keymap      | | |  ADB,M0110|  Keys      / /_/_/_/_/_/_/_/ /|
-     ||  Host  || |  Console   |  iWRAP(BT)|e| | Mousekey    | | |  SUN/NEWS |<----------/ /_/_/_/_/_/_/_/ / /
-     ||________||/.<-----------|  UART     |r| | Report      | | |  X68K/PC98| Control  / /_/_/_/_/_/_/_/ / /
-     `_========_'/|            |---------------------------------------------|-------->/___ /_______/ ___/ /
-     |_o______o_|/             | Sendchar, Print, Debug, Command, ...        |         |_________________|/
-                               +---------------------------------------------+              Keyboard
 
 
 
@@ -248,52 +231,17 @@ Debugging
 --------
 Use PJRC's `hid_listen` to see debug messages. You can use the tool for debug even if firmware use LUFA stack.
 
-You can use xprintf() to display debug info on `hid_listen`, see `common/xprintf.h`.
+You can use xprintf() to display debug info on `hid_listen`, see `tmk_core/common/xprintf.h`.
 
 
 
 Files and Directories
 -------------------
 ### Top
-* common/       - common codes
-* protocol/     - keyboard protocol support
+* tmk_core/     - core library
 * keyboard/     - keyboard projects
 * converter/    - protocol converter projects
 * doc/          - documents
-* common.mk     - Makefile for common
-* protocol.mk    - Makefile for protocol
-* rules.mk      - Makefile for build rules
-
-### Common
-* host.h
-* host_driver.h
-* keyboard.h
-* command.h
-* keymap.h
-* action.h
-* keycode.h
-* matrix.h
-* led.h
-* mousekey.h
-* report.h
-* debug.h
-* print.h
-* bootloader.h
-* sendchar.h
-* timer.h
-* util.h
-
-### Keyboard Protocols
-* lufa/     - LUFA USB stack
-* pjrc/     - PJRC USB stack
-* vusb/     - Objective Development V-USB
-* iwrap/    - Bluetooth HID for Bluegiga iWRAP
-* ps2.c     - PS/2 protocol
-* adb.c     - Apple Desktop Bus protocol
-* m0110.c   - Macintosh 128K/512K/Plus keyboard protocol
-* news.c    - Sony NEWS keyboard protocol
-* x68k.c    - Sharp X68000 keyboard protocol
-* serial_soft.c - Asynchronous Serial protocol implemented by software
 
 
 

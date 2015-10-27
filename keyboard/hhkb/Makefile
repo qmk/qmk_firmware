@@ -42,7 +42,7 @@
 TARGET = hhkb_lufa
 
 # Directory common source filess exist
-TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -120,6 +120,10 @@ NKRO_ENABLE = yes		# USB Nkey Rollover
 #KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
 #HHKB_JP = yes			# HHKB JP support
 
+#OPT_DEFS += -DNO_ACTION_TAPPING
+#OPT_DEFS += -DNO_ACTION_LAYER
+#OPT_DEFS += -DNO_ACTION_MACRO
+
 
 #
 # Keymap file
@@ -142,11 +146,11 @@ endif
 
 # Search Path
 VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/protocol/lufa.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+include $(TMK_DIR)/protocol/lufa.mk
+include $(TMK_DIR)/common.mk
+include $(TMK_DIR)/rules.mk
 
 debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
