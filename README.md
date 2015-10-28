@@ -4,6 +4,11 @@ This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.c
 
 Updates
 -------
+#### 2015/10/28
+Merged TMK updates from the past few months, and separately additions into /quantum. You can make a new quantum-based project by using `./new_project.sh <project_name>`, which will create /keyboard/<project_name>. 
+
+There are lots of new features, and they'll be documented soon.
+
 #### 2015/04/22
 Core library was separated to other branch `core`. <https://github.com/tmk/tmk_keyboard/tree/core>
 
