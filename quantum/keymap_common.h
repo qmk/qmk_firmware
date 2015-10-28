@@ -177,12 +177,15 @@ extern const uint16_t fn_actions[];
 
 #define MIDI(n) (n | 0x6000)
 
-// H-old, T-ap - 256 keycode max
-#define HT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
+// M-od, T-ap - 256 keycode max
+#define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
 #define CTL_T(kc) HT(0x1, kc)
 #define SFT_T(kc) HT(0x2, kc)
 #define ALT_T(kc) HT(0x4, kc)
 #define GUI_T(kc) HT(0x8, kc)
+
+// L-ayer, T-ap - 256 keycode max, 16 layer max
+#define LT(layer, kc) (kc | 0x7000 | ((layer & 0xF) << 8))
 
 // For sending unicode codes.
 // You may not send codes over 1FFF -- this supports most of UTF8.

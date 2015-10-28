@@ -118,6 +118,10 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         action_t action;
         action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
         return action;
+    } else if (keycode >= 0x8000 && keycode < 0x9000) {
+        action_t action;
+        action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
+        return action;
 #ifdef UNICODE_ENABLE
     } else if (keycode >= 0x8000000) {
         action_t action;
