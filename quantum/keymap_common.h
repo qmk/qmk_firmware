@@ -188,6 +188,7 @@ extern const uint16_t fn_actions[];
 #define SFT_T(kc) MT(0x2, kc)
 #define ALT_T(kc) MT(0x4, kc)
 #define GUI_T(kc) MT(0x8, kc)
+#define ALL_T(kc) MT(0xF, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | 0x8000 | ((layer & 0xF) << 8))
