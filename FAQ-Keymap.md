@@ -218,4 +218,6 @@ Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 
 
 ## Eject on Mac OSX
-It is actually `F20`, at least HHKB uses it for Eject key(`Fn+f`) on Mac mode.
+`EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
+
+Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key(`Fn+f`) on Mac mode but this is not same as Apple Eject keycode probably.
