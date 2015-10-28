@@ -27,7 +27,8 @@ TARGET_DIR = .
 
 # # project specific files
 SRC = ergodox_ez.c \
-	  twimaster.c
+	  twimaster.c \
+	  matrix.c
 
 ifdef KEYMAP
     SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
@@ -84,17 +85,18 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=512
 
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
+BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
+EXTRAKEY_ENABLE  = yes # Audio control and System control(+450)
+CONSOLE_ENABLE   = yes # Console for debug(+400)
+COMMAND_ENABLE   = yes # Commands for debug and configuration
+CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA

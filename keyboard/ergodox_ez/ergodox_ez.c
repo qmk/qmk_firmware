@@ -4,10 +4,6 @@
 bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
 
-bool ergodox_left_led_1 = 0;  // left top
-bool ergodox_left_led_2 = 0;  // left middle
-bool ergodox_left_led_3 = 0;  // left bottom
-
 __attribute__ ((weak))
 void * matrix_init_user(void) {
 
@@ -92,32 +88,7 @@ uint8_t init_mcp23018(void) {
 out:
     i2c_stop();
 
-    if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
-
     return mcp23018_status;
 }
 
-uint8_t ergodox_left_leds_update(void) {
-    if (mcp23018_status) { // if there was an error
-        return mcp23018_status;
-    }
-
-    // set logical value (doesn't matter on inputs)
-    // - unused  : hi-Z : 1
-    // - input   : hi-Z : 1
-    // - driving : hi-Z : 1
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(OLATA);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111
-            & ~(ergodox_left_led_3<<LEFT_LED_3_SHIFT)
-          );                                        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b11111111
-            & ~(ergodox_left_led_2<<LEFT_LED_2_SHIFT)
-            & ~(ergodox_left_led_1<<LEFT_LED_1_SHIFT)
-          );                                        if (mcp23018_status) goto out;
-
-out:
-    i2c_stop();
-    return mcp23018_status;
-}
 
