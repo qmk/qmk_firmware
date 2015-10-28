@@ -179,10 +179,10 @@ extern const uint16_t fn_actions[];
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
-#define CTL_T(kc) HT(0x1, kc)
-#define SFT_T(kc) HT(0x2, kc)
-#define ALT_T(kc) HT(0x4, kc)
-#define GUI_T(kc) HT(0x8, kc)
+#define CTL_T(kc) MT(0x1, kc)
+#define SFT_T(kc) MT(0x2, kc)
+#define ALT_T(kc) MT(0x4, kc)
+#define GUI_T(kc) MT(0x8, kc)
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | 0x7000 | ((layer & 0xF) << 8))
