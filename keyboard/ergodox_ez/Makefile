@@ -20,6 +20,7 @@ TARGET = ergodox_ez
 
 # Directory common source filess exist
 TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
@@ -109,6 +110,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
 include $(TOP_DIR)/quantum/quantum.mk
 
