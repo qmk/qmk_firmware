@@ -117,7 +117,12 @@ extern const uint16_t fn_actions[];
 #define KC_RCBR LSFT(KC_RBRC)   // }
 #define KC_RIGHT_CURLY_BRACE    KC_RCBR
 
+#define KC_COLN LSFT(KC_SCLN)   // :
+#define KC_COLON    KC_COLN
+
 #define KC_PIPE LSFT(KC_SLSH)   // |
+
+#define KC_DELT KC_DELETE // Del key (four letter code)
 
 // Alias for function layers than expand past FN31
 #define FUNC(kc) kc | 0x2000
