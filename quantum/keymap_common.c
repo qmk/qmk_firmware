@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
+#include <util/delay.h>
 #include "action.h"
 #include "action_macro.h"
 #include "debug.h"
@@ -71,6 +72,8 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         return action;
 #endif
     } else if (keycode == RESET) { // RESET is 0x5000, which is why this is here
+        clear_keyboard();
+        _delay_ms(250);
         bootloader_jump();
         return;
     } else if (keycode == DEBUG) { // DEBUG is 0x5001
@@ -78,7 +81,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         print("\nDEBUG: enabled.\n");
         debug_enable = true;
         return;
-    } else if (keycode >= 0x5000 && keycode < 0x6000) { 
+    } else if (keycode >= 0x5000 && keycode < 0x6000) {
         // Layer movement shortcuts
         // See .h to see constraints/usage
         int type = (keycode >> 0x8) & 0xF;
@@ -107,7 +110,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action_t action;
             action.code = ACTION_LAYER_TOGGLE(layer);
             return action;
-        } 
+        }
 #ifdef MIDI_ENABLE
     } else if (keycode >= 0x6000 && keycode < 0x7000) {
         action_t action;
