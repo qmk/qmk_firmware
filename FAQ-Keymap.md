@@ -219,5 +219,6 @@ Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 
 ## Eject on Mac OSX
 `EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
+It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
 
 Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key(`Fn+f`) on Mac mode but this is not same as Apple Eject keycode probably.
