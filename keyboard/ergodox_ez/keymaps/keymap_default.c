@@ -46,15 +46,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_COLN,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                      KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),KC_QUOT,
              TG(1),  KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                             KC_UP,  KC_DOWN,KC_RBRC,KC_LBRC,          KC_FN1,
-             KC_RALT,        CTL_T(KC_ESC),
+                             KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
+             KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_TAB, KC_ENT
     ),
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Flash |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOLS
 [SYMB] = KEYMAP(
        // left hand
-       RESET,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
+       KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
        KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
        KC_COLN,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
        KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
@@ -162,50 +162,24 @@ void * matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void * matrix_scan_user(void) {
+
     uint8_t layer = biton32(layer_state);
 
     ergodox_board_led_off();
-    ergodox_left_led_1_off();
-    ergodox_left_led_2_off();
-    ergodox_left_led_3_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case 1:
-            // all
-            ergodox_left_led_1_on();
-            ergodox_left_led_2_on();
-            ergodox_left_led_3_on();
+            ergodox_right_led_1_on();
             break;
         case 2:
-            // blue
-            ergodox_left_led_2_on();
-            break;
-        case 8:
-            // blue and green
-            ergodox_left_led_2_on();
-            // break missed intentionally
-        case 3:
-            // green
-            ergodox_left_led_3_on();
-            break;
-        case 6:
-            ergodox_board_led_on();
-            // break missed intentionally
-        case 4:
-        case 5:
-        case 7:
-            // white
-            ergodox_left_led_1_on();
-            break;
-        case 9:
-            // white+green
-            ergodox_left_led_1_on();
-            ergodox_left_led_3_on();
+            ergodox_right_led_2_on();
             break;
         default:
             // none
             break;
     }
 
-    mcp23018_status = ergodox_left_leds_update();
 };

@@ -190,12 +190,7 @@ extern const uint16_t fn_actions[];
 #define GUI_T(kc) MT(0x8, kc)
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
-#define LT(layer, kc) (kc | 0x7000 | ((layer & 0xF) << 8))
-
-// For sending unicode codes.
-// You may not send codes over 1FFF -- this supports most of UTF8.
-// To have a key that sends out Œ, go UC(0x0152)
-#define UNICODE(n) (n | 0x8000)
+#define LT(layer, kc) (kc | 0x8000 | ((layer & 0xF) << 8))
 #define UC(n) UNICODE(n)
 
 
