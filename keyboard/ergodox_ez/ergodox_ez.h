@@ -1,5 +1,5 @@
-#ifndef PLANCK_H
-#define PLANCK_H
+#ifndef ERGODOX_EZ_H
+#define ERGODOX_EZ_H
 
 #include "matrix.h"
 #include "keymap_common.h"

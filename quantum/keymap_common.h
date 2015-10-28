@@ -117,7 +117,12 @@ extern const uint16_t fn_actions[];
 #define KC_RCBR LSFT(KC_RBRC)   // }
 #define KC_RIGHT_CURLY_BRACE    KC_RCBR
 
+#define KC_COLN LSFT(KC_SCLN)   // :
+#define KC_COLON    KC_COLN
+
 #define KC_PIPE LSFT(KC_SLSH)   // |
+
+#define KC_DELT KC_DELETE // Del key (four letter code)
 
 // Alias for function layers than expand past FN31
 #define FUNC(kc) kc | 0x2000
@@ -179,10 +184,10 @@ extern const uint16_t fn_actions[];
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
-#define CTL_T(kc) HT(0x1, kc)
-#define SFT_T(kc) HT(0x2, kc)
-#define ALT_T(kc) HT(0x4, kc)
-#define GUI_T(kc) HT(0x8, kc)
+#define CTL_T(kc) MT(0x1, kc)
+#define SFT_T(kc) MT(0x2, kc)
+#define ALT_T(kc) MT(0x4, kc)
+#define GUI_T(kc) MT(0x8, kc)
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | 0x7000 | ((layer & 0xF) << 8))
