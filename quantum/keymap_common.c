@@ -101,15 +101,25 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action_t action;
             action.code = ACTION_DEFAULT_LAYER_SET(layer);
             return action;
-        }
+        } else if (type == 0x4) {
+            // Set default layer
+            int layer = keycode & 0xFF;
+            action_t action;
+            action.code = ACTION_LAYER_TOGGLE(layer);
+            return action;
+        } 
 #ifdef MIDI_ENABLE
     } else if (keycode >= 0x6000 && keycode < 0x7000) {
         action_t action;
         action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
         return action;
 #endif
+    } else if (keycode >= 0x7000 && keycode < 0x8000) {
+        action_t action;
+        action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
+        return action;
 #ifdef UNICODE_ENABLE
-    } else if (keycode >= 0x8000) {
+    } else if (keycode >= 0x8000000) {
         action_t action;
         uint16_t unicode = keycode & ~(0x8000);
         action.code =  ACTION_FUNCTION_OPT(unicode & 0xFF, (unicode & 0xFF00) >> 8);

@@ -172,7 +172,17 @@ extern const uint16_t fn_actions[];
 // Set default layer - 256 layer max
 #define DF(layer) (layer | 0x5300)
 
+// Toggle to layer - 256 layer max
+#define TG(layer) (layer | 0x5400)
+
 #define MIDI(n) (n | 0x6000)
+
+// H-old, T-ap - 256 keycode max
+#define HT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
+#define CTL_T(kc) HT(0x1, kc)
+#define SFT_T(kc) HT(0x2, kc)
+#define ALT_T(kc) HT(0x4, kc)
+#define GUI_T(kc) HT(0x8, kc)
 
 // For sending unicode codes.
 // You may not send codes over 1FFF -- this supports most of UTF8.
