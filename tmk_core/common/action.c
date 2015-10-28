@@ -142,12 +142,15 @@ void process_action(keyrecord_t *record)
                     default:
                         if (event.pressed) {
                             if (tap_count > 0) {
+#ifndef IGNORE_MOD_TAP_INTERRUPT
                                 if (record->tap.interrupted) {
-                                    dprint("MODS_TAP: Tap: Cancel: add_mods\n");
+                                    dprint("mods_tap: tap: cancel: add_mods\n");
                                     // ad hoc: set 0 to cancel tap
                                     record->tap.count = 0;
                                     register_mods(mods);
-                                } else {
+                                } else
+#endif
+                                {
                                     dprint("MODS_TAP: Tap: register_code\n");
                                     register_code(action.key.code);
                                 }
@@ -397,7 +400,7 @@ void register_code(uint8_t code)
             set_mods(tmp_mods);
             send_keyboard_report();
             oneshot_cancel();
-        } else 
+        } else
 */
 #endif
         {
