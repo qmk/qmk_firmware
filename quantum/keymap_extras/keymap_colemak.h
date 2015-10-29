@@ -24,6 +24,7 @@
 #define CM_E    KC_K
 #define CM_I    KC_L
 #define CM_O    KC_SCLN
+#define CM_SCLN LSFT(CM_SCLN)
 
 #define CM_Z    KC_Z
 #define CM_X    KC_X
