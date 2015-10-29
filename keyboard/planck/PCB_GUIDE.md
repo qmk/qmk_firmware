@@ -8,6 +8,14 @@
 3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
 
 ### Mac
+
+If you're using homebrew, you can use the following commands:
+
+    brew tap osx-cross/avr
+    brew install avr-libc
+
+Otherwise, these instructions will work:
+
 1. Install Xcode from the App Store.
 2. Install the Command Line Tools from `Xcode->Preferences->Downloads`.
 3. Install [DFU-Programmer][dfu-prog].
