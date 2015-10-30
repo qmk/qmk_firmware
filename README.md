@@ -4,7 +4,7 @@ This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.c
 
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK.
 
-This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](issues/new).
+This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
 
 ## Important background info: TMK documentation
 
