@@ -18,25 +18,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         Atomic
+#define PRODUCT         The Atomic Keyboard
 #define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+// Planck PCB default pin-out
+// Change this to how you wired your keyboard
+// COLS: Left to right, ROWS: Top to bottom
+#define COLS (int []){ F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1 }
+#define ROWS (int []){ D0, D5, B5, B6, C6 }
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
 /* NOTE: this is the max value of 0..BACKLIGHT_LEVELS so really 16 levels. */
-#define BACKLIGHT_LEVELS 15
+#define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
