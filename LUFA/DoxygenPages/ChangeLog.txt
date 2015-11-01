@@ -12,6 +12,7 @@
   *   - Added new PROGMEM variant send functions to the CDC class device driver (thanks to Stefan Hellermann)
   *   - Added new PROGMEM variant send functions to the CDC class host driver
   *   - Added additional Arduino Uno board definitions for the main processor reset (thanks to NicoHood)
+  *   - Added modified DocBook transforms to generate Atmel Studio 6/7 internal help documentation (thanks to Morten Engelhardt Olsen)
   *
   *  <b>Changed:</b>
   *  - Core:

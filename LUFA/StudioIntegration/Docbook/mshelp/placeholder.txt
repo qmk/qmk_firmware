@@ -1,1 +1,0 @@
-Copy the Microsoft HV1 Docbook transform contents into this directory (i.e. with the XSLT files in the current folder). The HV1 transform proposal can be found at http://sourceforge.net/p/docbook/feature-requests/461/ .
