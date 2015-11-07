@@ -184,20 +184,20 @@ static void send_system(uint16_t data)
 static uint16_t usage2bits(uint16_t usage)
 {
     switch (usage) {
-        case AC_HOME:               return 0x01;
-        case AL_EMAIL:              return 0x02;
-        case AC_SEARCH:             return 0x04;
+        case AC_HOME:                 return 0x01;
+        case AL_EMAIL:                return 0x02;
+        case AC_SEARCH:               return 0x04;
         //case AL_KBD_LAYOUT:         return 0x08;  // Apple virtual keybaord toggle
-        case AUDIO_VOL_UP:          return 0x10;
-        case AUDIO_VOL_DOWN:        return 0x20;
-        case AUDIO_MUTE:            return 0x40;
-        case TRANSPORT_PLAY_PAUSE:  return 0x80;
-        case TRANSPORT_NEXT_TRACK:  return 0x100;
-        case TRANSPORT_PREV_TRACK:  return 0x200;
-        case TRANSPORT_STOP:        return 0x400;
-        case TRANSPORT_STOP_EJECT:  return 0x800;
-        //case return 0x1000;   // Fast forward
-        //case return 0x2000;   // Rewind
+        case AUDIO_VOL_UP:            return 0x10;
+        case AUDIO_VOL_DOWN:          return 0x20;
+        case AUDIO_MUTE:              return 0x40;
+        case TRANSPORT_PLAY_PAUSE:    return 0x80;
+        case TRANSPORT_NEXT_TRACK:    return 0x100;
+        case TRANSPORT_PREV_TRACK:    return 0x200;
+        case TRANSPORT_STOP:          return 0x400;
+        case TRANSPORT_STOP_EJECT:    return 0x800;
+        case TRANSPORT_FAST_FORWARD:  return 0x1000;
+        case TRANSPORT_REWIND:        return 0x2000;
         //case return 0x4000;   // Stop/eject
         //case return 0x8000;   // Internet browser
     };
