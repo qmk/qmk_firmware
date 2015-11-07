@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Planck Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
+#define MANUFACTURER    geekhack
+#define PRODUCT         JD45
+#define DESCRIPTION     q.m.k. keyboard firmware for JD45
 
 /* key matrix size */
 #define MATRIX_ROWS 4
