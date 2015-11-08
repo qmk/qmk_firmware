@@ -88,7 +88,7 @@ dfu: $(TARGET).hex $(MAKEFILE_LIST)
 # Programs in the target EEPROM memory using DFU-PROGRAMMER
 dfu-ee: $(TARGET).eep $(MAKEFILE_LIST)
 	@echo $(MSG_DFU_CMD) Programming EEPROM with dfu-programmer using \"$<\"
-	dfu-programmer $(MCU) eeprom-flash $<
+	dfu-programmer $(MCU) flash --eeprom $<
 	dfu-programmer $(MCU) reset
 
 # Phony build targets for this module

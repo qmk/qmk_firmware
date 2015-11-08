@@ -25,6 +25,7 @@
   *   - The CDC, DFU, Mass Storage and Printer class bootloaders are not compatible with devices with the BOOTRST fuse set and will
   *     exit automatically unless an external reset was the last reset cause (thanks to Alex Kazik)
   *   - Added missing force-inline attribute to the endianness utility functions (thanks to Stefan Hellermann)
+  *   - Updated the DFU build system module to use updated EEPROM programming command arguments for dfu-programmer 0.6.2 or newer
   *
   *  <b>Fixed:</b>
   *   - Fixed broken XMEGA serial stream driver due to missing USART base pointer parameter (thanks to William Patterson)
