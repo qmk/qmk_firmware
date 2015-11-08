@@ -32,6 +32,7 @@
   *   - Fixed incorrect signature reported in the CDC/DFU bootloaders for the AT90USB82 (thanks to NicoHood)
   *   - Fixed broken RNDIS demos on Linux machines whose DHCP hosts require a Lease Time option (thanks to Stefan Hellermann)
   *   - Fixed broken LEDs_Disable() implementation for the Arduino Uno board (thanks to NicoHood)
+  *   - Fixed missing bounds checks and off-by-one in the DFU bootloader signature bytes (thanks to Reuti)
   *
   *  \section Sec_ChangeLog140928 Version 140928
   *  <b>New:</b>

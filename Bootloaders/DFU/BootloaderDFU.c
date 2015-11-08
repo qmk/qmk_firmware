@@ -818,18 +818,43 @@ static void ProcessReadCommand(void)
 	const uint8_t BootloaderInfo[3] = {BOOTLOADER_VERSION, BOOTLOADER_ID_BYTE1, BOOTLOADER_ID_BYTE2};
 	const uint8_t SignatureInfo[4]  = {0x58, AVR_SIGNATURE_1, AVR_SIGNATURE_2, AVR_SIGNATURE_3};
 
-	uint8_t DataIndexToRead = SentCommand.Data[1];
+	uint8_t DataIndexToRead    = SentCommand.Data[1];
+	bool    ReadAddressInvalid = false;
 
 	if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x00))                        // Read bootloader info
 	{
-		ResponseByte = BootloaderInfo[DataIndexToRead];
+		if (DataIndexToRead < 3)
+		  ResponseByte = BootloaderInfo[DataIndexToRead];
+		else
+		  ReadAddressInvalid = true;
 	}
 	else if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x01))                    // Read signature byte
 	{
-		if (DataIndexToRead < 0x60)
-		  ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
-		else
-		  ResponseByte = SignatureInfo[DataIndexToRead - 0x60 + 3];
+		switch (DataIndexToRead)
+		{
+			case 0x30:
+				ResponseByte = SignatureInfo[0];
+				break;
+			case 0x31:
+				ResponseByte = SignatureInfo[1];
+				break;
+			case 0x60:
+				ResponseByte = SignatureInfo[2];
+				break;
+			case 0x61:
+				ResponseByte = SignatureInfo[3];
+				break;
+			default:
+				ReadAddressInvalid = true;
+				break;
+		}
+	}
+
+	if (ReadAddressInvalid)
+	{
+		/* Set the state and status variables to indicate the error */
+		DFU_State  = dfuERROR;
+		DFU_Status = errADDRESS;
 	}
 }
 
