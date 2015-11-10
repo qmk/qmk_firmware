@@ -85,8 +85,8 @@ const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
     [27] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_ESC),
     [28] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPACE),
     [29] = ACTION_MODS_ONESHOT(MOD_LSFT),
-    [30] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ESC),
-    [31] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_BSPACE),
+    [30] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_GRAVE),
+    [31] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_BSLASH),
 };
 #else
 const uint16_t fn_actions[] PROGMEM = {

@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ONESHOT_TIMEOUT 300
 
 /* Boot Magic salt key: Space */
-#define BOOTMAGIC_KEY_SALT      KC_FN6
+#define BOOTMAGIC_KEY_SALT      KC_SPACE
 
 /* power control of key switch board */
 #define HHKB_POWER_SAVING
