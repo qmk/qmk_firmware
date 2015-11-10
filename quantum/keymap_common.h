@@ -66,6 +66,9 @@ extern const uint16_t fn_actions[];
 #define LSFT(kc) kc | 0x0200
 #define LALT(kc) kc | 0x0400
 #define LGUI(kc) kc | 0x0800
+#define HYPR(kc) kc | 0x0F00
+#define MEH(kc) kc  | 0x0700
+
 #define RCTL(kc) kc | 0x1100
 #define RSFT(kc) kc | 0x1200
 #define RALT(kc) kc | 0x1400
@@ -188,6 +191,7 @@ extern const uint16_t fn_actions[];
 #define SFT_T(kc) MT(0x2, kc)
 #define ALT_T(kc) MT(0x4, kc)
 #define GUI_T(kc) MT(0x8, kc)
+#define MEH_T(kc) MT(0x7, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
 #define ALL_T(kc) MT(0xF, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max

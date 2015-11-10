@@ -44,6 +44,8 @@ Your keymap can include shortcuts to common operations (called "function actions
 * `RALT(kc)` - applies right Alt to *kc*
 * `LGUI(kc)` - applies left GUI (command/win) to *kc*
 * `RGUI(kc)` - applies right GUI (command/win) to *kc*
+* `HYPR(kc)` - applies Hyper (all modifiers) to *kc*
+* `MEH(kc)`  - applies Meh (all modifiers except Win/Cmd) to *kc*
 
 You can also chain these, like this:
 
@@ -87,6 +89,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALT_T(kc)` - is LALT when held and *kc* when tapped 
   * `GUI_T(kc)` - is LGUI when held and *kc* when tapped 
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
+  * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
 ### Temporarily setting the default layer 
 
