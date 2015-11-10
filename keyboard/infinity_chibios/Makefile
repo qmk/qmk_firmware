@@ -25,6 +25,7 @@ CONFIG_H = config.h
 #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 # - For Teensies, FAMILY = KINETIS and SERIES is either
 #   KL2x (LC) or K20x (3.0,3.1,3.2).
+# - For Infinity KB, SERIES = K20x
 MCU_FAMILY = KINETIS
 MCU_SERIES = K20x
 
@@ -36,14 +37,14 @@ MCU_SERIES = K20x
 #   - MKL26Z64 for Teensy LC
 #   - MK20DX128 for Teensy 3.0
 #   - MK20DX256 for Teensy 3.1 and 3.2
-#MCU_LDSCRIPT = MK20DX128
+#   - MK20DX128BLDR4 for Infinity with Kiibohd bootloader
 MCU_LDSCRIPT = MK20DX128BLDR4
 
 # Startup code to use
 #  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
 # - STARTUP =
 #   - kl2x for Teensy LC
-#   - k20x5 for Teensy 3.0
+#   - k20x5 for Teensy 3.0 and Infinity KB
 #   - k20x7 for Teensy 3.1 and 3.2
 MCU_STARTUP = k20x5
 
@@ -53,6 +54,7 @@ MCU_STARTUP = k20x5
 #   - PJRC_TEENSY_LC for Teensy LC
 #   - PJRC_TEENSY_3 for Teensy 3.0
 #   - PJRC_TEENSY_3_1 for Teensy 3.1 or 3.2
+#   - MCHCK_K20 for Infinity KB
 BOARD = MCHCK_K20
 
 # Cortex version
@@ -65,8 +67,8 @@ ARMV = 7
 
 # Vector table for application
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
+# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
-
 
 # Build Options
 #   comment out to disable the options.
