@@ -135,6 +135,5 @@ int main(void) {
     }
 
     keyboard_task();
-    chThdSleepMilliseconds(5);
   }
 }
