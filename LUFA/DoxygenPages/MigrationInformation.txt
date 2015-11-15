@@ -10,6 +10,9 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
+ *  \section Sec_MigrationXXXXXX Version XXXXXX
+ *  None.
+ *
  *  \section Sec_Migration151115 Migrating from 140928 to 151115
  *  <b>Non-USB Library Components</b>
  *    - The ATPROGRAM LUFA build system module now defaults to the Atmel ICE debugger tool, instead of the Atmel JTAG ICE3.
