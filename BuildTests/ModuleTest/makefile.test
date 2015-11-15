@@ -75,7 +75,7 @@ ifneq ($(ARCH), UC3)
 endif
 
 # Only check C++ compatibility on the build files, to ensure headers are C++ compatible
-Test_C.c Test_CPP.c: CC_FLAGS += -Wc++-compat
+Test_C.c Test_CPP.cpp: CC_FLAGS += -Wc++-compat
 
 # Potential additional warnings to enable in the future (FIXME)
 #CC_FLAGS += -Wcast-qual
