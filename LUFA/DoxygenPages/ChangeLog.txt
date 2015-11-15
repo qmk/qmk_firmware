@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>
   *   - Added support for the Atmel Xplained-MINI series of development kits
   *   - Added new PROGMEM variant send functions to the CDC class device driver (thanks to Stefan Hellermann)
