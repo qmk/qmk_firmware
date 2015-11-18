@@ -13,7 +13,7 @@ void KBDReportParser::Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t *buf)
     bool is_error = false;
     report_keyboard_t *report = (report_keyboard_t *)buf;
 
-    dprintf("KBDReport: %02X %02X", report->mods, report->reserved);
+    dprintf("keyboard input:  %02X %02X", report->mods, report->reserved);
     for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (IS_ERROR(report->keys[i])) {
             is_error = true;
