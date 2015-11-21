@@ -14,7 +14,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |-----------------------------------------------------------|     ,---.     |---------------|
      * |Shft    |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /| RO|Shift |     |Up |     |  1|  2|  3|Ent|
      * |-----------------------------------------------------------| ,-----------. |-----------|   |
-     * |Ctl|Gui|Alt|MHN|       Space       |HNK|KNA|Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|   |
+     * |Ctl|Gui|Alt|MHEN|      Space      |HENK|KNA|Alt|Gui|App|Ctl| |Lef|Dow|Rig| |      0|  .|   |
      * `-----------------------------------------------------------' `-----------' `---------------'
      */
     [0] = \
@@ -24,7 +24,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     ENT,      DEL, END, PGDN,    P7,  P8,  P9,  PPLS,
     LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,NUHS,                                  P4,  P5,  P6,
     LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RO,  RSFT,          UP,           P1,  P2,  P3,  PENT,
-    LCTL,LGUI,LALT,HENK,     SPC,                MHEN,KANA,RALT,RGUI,APP, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT 
+    LCTL,LGUI,LALT,MHEN,     SPC,                HENK,KANA,RALT,RGUI,APP, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT 
     ),
 };
 
