@@ -123,7 +123,7 @@ extern const uint16_t fn_actions[];
 #define KC_COLN LSFT(KC_SCLN)   // :
 #define KC_COLON    KC_COLN
 
-#define KC_PIPE LSFT(KC_SLSH)   // |
+#define KC_PIPE LSFT(KC_BSLS)   // |
 
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
