@@ -113,13 +113,13 @@ Third party libraries like LUFA, PJRC and V-USB have their own license respectiv
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](doc/build.md), or the README in the particular keyboard/* folder.
+See [doc/build.md](tmk_core/doc/build.md), or the README in the particular keyboard/* folder.
 
 
 
 Change your keymap
 ------------------
-See [doc/keymap.md](doc/keymap.md).
+See [doc/keymap.md](tmk_core/doc/keymap.md).
 
 
 
@@ -240,4 +240,4 @@ Coding Style
 
 Other Keyboard Firmware Projects
 ------------------
-You can learn a lot about keyboard firmware from these. See [doc/other_projects.md](doc/other_projects.md).
+You can learn a lot about keyboard firmware from these. See [doc/other_projects.md](tmk_core/doc/other_projects.md).
