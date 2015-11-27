@@ -14,16 +14,17 @@ Easy way is to use `sudo` command, if you are not familiar with this command che
 
 https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/sudo.8.html
 
-in short,
+In short when your controller is ATMega32u4,
     
     $ sudo dfu-programmer atmega32u4 erase --force
     $ sudo dfu-programmer atmega32u4 flash hhkb_rn42.hex
     $ sudo dfu-programmer atmega32u4 reset
 
-or 
+or just
 
     $ sudo make dfu
 
+But to run `make` with root privilege is not good idea. Use former method as possible.
 
 ## Do 'make clean' before 'make'
 You'll need `make clean` after you edit **config.h** or change options like `KEYMAP`.
