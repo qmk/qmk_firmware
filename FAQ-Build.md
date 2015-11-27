@@ -8,6 +8,23 @@ In short,
     $ make [-f Makefile.<variant>] [KEYMAP=...] dfu
 
 
+## Can't program on Linux and Mac
+You will need proper permission to operate a device. For Linux users see udev rules below.
+Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
+
+https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/sudo.8.html
+
+in short,
+    
+    $ sudo dfu-programmer atmega32u4 erase --force
+    $ sudo dfu-programmer atmega32u4 flash hhkb_rn42.hex
+    $ sudo dfu-programmer atmega32u4 reset
+
+or 
+
+    $ sudo make dfu
+
+
 ## Do 'make clean' before 'make'
 You'll need `make clean` after you edit **config.h** or change options like `KEYMAP`.
 
