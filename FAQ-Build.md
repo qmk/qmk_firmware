@@ -17,7 +17,7 @@ https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/
 In short when your controller is ATMega32u4,
     
     $ sudo dfu-programmer atmega32u4 erase --force
-    $ sudo dfu-programmer atmega32u4 flash hhkb_rn42.hex
+    $ sudo dfu-programmer atmega32u4 flash your.hex
     $ sudo dfu-programmer atmega32u4 reset
 
 or just
