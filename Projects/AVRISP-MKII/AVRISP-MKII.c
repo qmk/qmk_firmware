@@ -157,7 +157,7 @@ void AVRISP_Task(void)
  *  \return Length of the retrieved descriptor in bytes, or NO_DESCRIPTOR if the descriptor was not found
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-                                    const uint8_t wIndex,
+                                    const uint16_t wIndex,
                                     const void** const DescriptorAddress,
                                     uint8_t* DescriptorMemorySpace)
 {

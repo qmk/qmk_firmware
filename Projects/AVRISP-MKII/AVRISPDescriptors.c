@@ -170,7 +170,7 @@ USB_Descriptor_String_t AVRISP_SerialString = USB_STRING_DESCRIPTOR(L"0002000123
  *  USB host.
  */
 uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
-                              const uint8_t wIndex,
+                              const uint16_t wIndex,
                               const void** const DescriptorAddress,
                               uint8_t* DescriptorMemorySpace)
 {

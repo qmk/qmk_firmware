@@ -131,7 +131,7 @@
 			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise.
 			 */
 			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-			                                    const uint8_t wIndex,
+			                                    const uint16_t wIndex,
 			                                    const void** const DescriptorAddress
 			#if (defined(ARCH_HAS_MULTI_ADDRESS_SPACE) || defined(__DOXYGEN__)) && \
 			    !(defined(USE_FLASH_DESCRIPTORS) || defined(USE_EEPROM_DESCRIPTORS) || defined(USE_RAM_DESCRIPTORS))

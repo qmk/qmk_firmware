@@ -122,7 +122,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
  * option is set, this is still required even in an application that uses host mode only.
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-		const uint8_t wIndex,
+		const uint16_t wIndex,
 		const void** const DescriptorAddress
 #if defined(HAS_MULTIPLE_DESCRIPTOR_ADDRESS_SPACES)
 		, uint8_t* const DescriptorMemorySpace

@@ -95,7 +95,7 @@
 		void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
 
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-		                                    const uint8_t wIndex,
+		                                    const uint16_t wIndex,
 		                                    const void** const DescriptorAddress,
 		                                    uint8_t* const DescriptorMemorySpace)
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);

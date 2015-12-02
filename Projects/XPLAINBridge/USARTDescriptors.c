@@ -197,7 +197,7 @@ const USB_Descriptor_String_t PROGMEM USART_ProductString = USB_STRING_DESCRIPTO
  *  callback function in the main source file, to retrieve the device's descriptors when in USART bridge mode.
  */
 uint16_t USART_GetDescriptor(const uint16_t wValue,
-                             const uint8_t wIndex,
+                             const uint16_t wIndex,
                              const void** const DescriptorAddress,
                              uint8_t* const DescriptorMemorySpace)
 {

@@ -7,7 +7,10 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  None.
+  *  <b>Fixed:</b>
+  *  - Core:
+  *   - The CALLBACK_USB_GetDescriptor() callback function into the user application erroneously had a uint8_t type for the wIndex
+  *     parameter, instead of uint16_t (thanks to Matlo)
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>

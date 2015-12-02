@@ -11,7 +11,8 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Version XXXXXX
- *  None.
+ *  <b>Device Mode</b>
+ *   - The \c CALLBACK_USB_GetDescriptor() callback function into the user application's \c wIndex parameter is now \c uint16_t, not \c uint8_t.
  *
  *  \section Sec_Migration151115 Migrating from 140928 to 151115
  *  <b>Non-USB Library Components</b>
