@@ -1,6 +1,5 @@
 # Target file name (without extension).
 PROJECT = ch
-TARGET = alps64
 
 # Directory common source files exist
 TMK_DIR = ../../tmk_core
@@ -26,14 +25,14 @@ CONFIG_H = config.h
 # BOARD = GENERIC_STM32_F103
 
 # GENERIC STM32F103C8T6 board - no bootloader (programmer over serial or SWD)
-OPT_DEFS =
-MCU_LDSCRIPT = STM32F103x8
-BOARD = GENERIC_STM32_F103
+# OPT_DEFS =
+# MCU_LDSCRIPT = STM32F103x8
+# BOARD = GENERIC_STM32_F103
 
 # MAPLE MINI
-# OPT_DEFS = -DCORTEX_VTOR_INIT=0x5000
-# MCU_LDSCRIPT = STM32F103xE_maplemini_bootloader.ld
-# BOARD = MAPLEMINI_STM32_F103
+OPT_DEFS = -DCORTEX_VTOR_INIT=0x5000
+MCU_LDSCRIPT = STM32F103xE_maplemini_bootloader
+BOARD = MAPLEMINI_STM32_F103
 
 ## chip/board settings
 # the next two should match the directories in
@@ -71,7 +70,7 @@ ARMV = 7
 ## BOOTMAGIC is not supported on STM32 chips yet.
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
+# CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
