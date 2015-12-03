@@ -54,9 +54,19 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+/* generic STM32F103C8T6 board */
+#ifdef BOARD_GENERIC_STM32_F103
 #define LED_ON()    do { palClearPad(GPIOC, GPIOC_LED) ;} while (0)
 #define LED_OFF()   do { palSetPad(GPIOC, GPIOC_LED); } while (0)
 #define LED_TGL()   do { palTogglePad(GPIOC, GPIOC_LED); } while (0)
+#endif
+
+/* Maple Mini */
+#ifdef BOARD_MAPLEMINI_STM32_F103
+#define LED_ON()    do { palClearPad(GPIOB, 1) ;} while (0)
+#define LED_OFF()   do { palSetPad(GPIOB, 1); } while (0)
+#define LED_TGL()   do { palTogglePad(GPIOB, 1); } while (0)
+#endif
 
 void matrix_init(void)
 {
@@ -132,8 +142,12 @@ void matrix_print(void)
  */
 static void  init_cols(void)
 {
+#ifdef BOARD_MAPLEMINI_STM32_F103
     // don't need pullup/down, since it's pulled down in hardware
+    palSetPadMode(GPIOB, 8, PAL_MODE_INPUT);
+#else
     palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLDOWN);
+#endif
 }
 
 /* Returns status of switches(1:on, 0:off) */
