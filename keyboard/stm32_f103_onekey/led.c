@@ -24,23 +24,20 @@ void led_set(uint8_t usb_led)
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
     	/* generic STM32F103C8T6 board */
 #ifdef BOARD_GENERIC_STM32_F103
-        palSetPadMode(GPIOC, 13, PAL_MODE_OUTPUT_PUSHPULL);
         palClearPad(GPIOC, 13);
 #endif
         /* Maple Mini */
 #ifdef BOARD_MAPLEMINI_STM32_F103
-        palSetPadMode(GPIOB, 1, PAL_MODE_OUTPUT_PUSHPULL);
         palSetPad(GPIOB, 1);
 #endif
     } else {
-        // Hi-Z
     	/* generic STM32F103C8T6 board */
 #ifdef BOARD_GENERIC_STM32_F103
-        palSetPadMode(GPIOC, 13, PAL_MODE_INPUT);
+    	palSetPad(GPIOC, 13);
 #endif
         /* Maple Mini */
 #ifdef BOARD_MAPLEMINI_STM32_F103
-        palSetPadMode(GPIOB, 1, PAL_MODE_INPUT);
+        palClearPad(GPIOB,1);
 #endif
     }
 }
