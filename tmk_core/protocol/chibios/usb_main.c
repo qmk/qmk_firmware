@@ -1036,11 +1036,11 @@ void send_remote_wakeup(USBDriver *usbp) {
   chThdSleepMilliseconds(15);
   USB0->CTL &= ~USBx_CTL_RESUME;
 #endif /* KINETIS_USB_USE_USB0 */
-#elif defined(STM32F0XX) /* K20x || KL2x */
+#elif defined(STM32F0XX) || defined(STM32F1XX) /* K20x || KL2x */
   STM32_USB->CNTR |= CNTR_RESUME;
   chThdSleepMilliseconds(15);
   STM32_USB->CNTR &= ~CNTR_RESUME;
-#else /* STM32F0XX */
+#else /* STM32F0XX || STM32F1XX */
 #warning Sending remote wakeup packet not implemented for your platform.
 #endif /* K20x || KL2x */
 }
