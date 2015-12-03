@@ -63,8 +63,8 @@ uint8_t matrix_cols(void)
 
 /* Maple Mini */
 #ifdef BOARD_MAPLEMINI_STM32_F103
-#define LED_ON()    do { palClearPad(GPIOB, 1) ;} while (0)
-#define LED_OFF()   do { palSetPad(GPIOB, 1); } while (0)
+#define LED_ON()    do { palSetPad(GPIOB, 1) ;} while (0)
+#define LED_OFF()   do { palClearPad(GPIOB, 1); } while (0)
 #define LED_TGL()   do { palTogglePad(GPIOB, 1); } while (0)
 #endif
 
