@@ -350,10 +350,11 @@ static bool command_common(uint8_t code)
         case KC_N:
             clear_keyboard(); //Prevents stuck keys.
             keyboard_nkro = !keyboard_nkro;
-            if (keyboard_nkro)
+            if (keyboard_nkro) {
                 print("NKRO: on\n");
-            else
+            } else {
                 print("NKRO: off\n");
+            }
             break;
 #endif
         case KC_ESC:
@@ -607,10 +608,11 @@ static bool mousekey_console(uint8_t code)
             print("?");
             return false;
     }
-    if (mousekey_param)
+    if (mousekey_param) {
         xprintf("M%d> ", mousekey_param);
-    else
+    } else {
         print("M>" );
+    }
     return true;
 }
 #endif
