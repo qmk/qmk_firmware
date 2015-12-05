@@ -56,7 +56,7 @@ Great resource of vintage keyboard protocol information and code
 ## Haata's kiibohd Controller[converter][vintage][protocol][AVR][PJRC][Cortex]
 A lots of vintage keyboard protocol supports
  
-- <http://gitorious.org/kiibohd-controller>
+- <https://github.com/kiibohd/controller>
  
 ## Kinesis ergonomic keyboard firmware replacement[V-USB][LUFA][Ergo]
 - <https://github.com/chrisandreae/kinesis-firmware>
