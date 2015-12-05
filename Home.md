@@ -1,6 +1,6 @@
 Welcome to the tmk_keyboard wiki!
 
-- [[Projects]]
+- [[TMK Projects]]
 - [[FAQ]]
 - [[FAQ/Build]]
 - [[FAQ/Keymap]]
