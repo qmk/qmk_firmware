@@ -114,13 +114,13 @@ Third party libraries like LUFA, PJRC and V-USB have their own license respectiv
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](doc/build.md).
+See [tmk_core/doc/build.md](tmk_core/doc/build.md).
 
 
 
 Change your keymap
 ------------------
-See [doc/keymap.md](doc/keymap.md).
+See [tmk_core/doc/keymap.md](tmk_core/doc/keymap.md).
 
 
 
@@ -226,10 +226,10 @@ You can use xprintf() to display debug info on `hid_listen`, see `tmk_core/commo
 Files and Directories
 -------------------
 ### Top
-* tmk_core/     - core library
 * keyboard/     - keyboard projects
 * converter/    - protocol converter projects
-* doc/          - documents
+* tmk_core/     - core library
+* tmk_core/doc/ - documents
 
 
 
@@ -241,4 +241,4 @@ Coding Style
 
 Other Keyboard Firmware Projects
 ------------------
-You can learn a lot about keyboard firmware from these. See [doc/other_projects.md](doc/other_projects.md).
+You can learn a lot about keyboard firmware from these. See [Other Projects](https://github.com/tmk/tmk_keyboard/wiki/Other-Protjects) other than TMK.
