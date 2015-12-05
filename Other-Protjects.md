@@ -1,4 +1,4 @@
-Other Keyboard Firmware Projects
+Keyboard Firmware Projects other than TMK
 ================================
 ## PJRC USB Keyboard/Mouse Example[USB][PJRC][Teensy][AVR]
 - <http://www.pjrc.com/teensy/usb_keyboard.html>
