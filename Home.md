@@ -9,3 +9,4 @@ Welcome to the tmk_keyboard wiki!
 - [[Compatible Microcontrollers]]
 - [[HHKB Alt controller]]
 - [[mbed/cortex porting]]
+- [[Keymap examples]]
