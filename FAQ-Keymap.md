@@ -222,3 +222,28 @@ Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
 
 Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key(`Fn+f`) on Mac mode but this is not same as Apple Eject keycode probably.
+
+
+
+## What's weak_mods and real_mods in action_util.c
+___TO BE IMPROVED___
+
+real_mods is intended to retains state of real/physical modifier key state, while
+weak_mods retains state of virtual or temprary modifiers which should not affect state real modifier key.
+
+Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A), 
+
+with weak_mods,
+(1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
+(2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
+(3) release ACTION_MODS_KEY(LSHIFT, KC_A): waek_mods &= ~MOD_BIT(LSHIFT)
+real_mods still keeps modifier state.
+
+without weak mods,
+(1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
+(2) press ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
+(3) release ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
+here real_mods lost state for 'physical left shift'.
+
+weak_mods is ORed with real_mods when keyboard report is sent.
+https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/common/action_util.c#L57
