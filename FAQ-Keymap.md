@@ -234,15 +234,15 @@ weak_mods retains state of virtual or temprary modifiers which should not affect
 Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A), 
 
 with weak_mods,
-(1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
-(2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
-(3) release ACTION_MODS_KEY(LSHIFT, KC_A): waek_mods &= ~MOD_BIT(LSHIFT)
+* (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
+* (2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
+* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): waek_mods &= ~MOD_BIT(LSHIFT)
 real_mods still keeps modifier state.
 
 without weak mods,
-(1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
-(2) press ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
-(3) release ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
+* (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
+* (2) press ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
+* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
 here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
