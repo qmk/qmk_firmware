@@ -135,3 +135,17 @@ avr-gcc -c -mmcu=atmega32u2 -gdwarf-2 -DF_CPU=16000000UL -DINTERRUPT_CONTROL_END
 ../../tmk_core/protocol/lufa/lufa.c:575: error: for each function it appears in.)
 make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
 ```
+
+
+## BOOTLOADER_SIZE for AVR
+Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
+
+```
+# Boot Section Size in *bytes*    
+#   Teensy halfKay   512          
+#   Teensy++ halfKay 2048         
+#   Atmel DFU loader 4096       (TMK Alt Controller)
+#   LUFA bootloader  4096         
+#   USBaspLoader     2048         
+OPT_DEFS += -DBOOTLOADER_SIZE=2048
+```
