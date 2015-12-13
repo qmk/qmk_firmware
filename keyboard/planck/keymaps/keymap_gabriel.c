@@ -16,13 +16,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (QWERTY layer)
  *
  * ,-----------------------------------------------------------------------.
- * | esc |  q  |  w  |  e  |  r  |  t  |  y  |  u  |  i  |  o  |  p  |bspc |
+ * | esc |  q  |  w  |  e  |  r  |  t  |  y  |  u  |  i  |  o  |  p  | bspc|
  * |-----------------------------------------------------------------------|
  * | tab |  a  |  s  |  d  |  f  |  g  |  h  |  j  |  k  |  l  |  ;  |  '  |
  * |-----------------------------------------------------------------------|
  * |shift|  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |enter|
  * |-----------------------------------------------------------------------|
- * | fn  | ctl | alt | cmd |lower|    spc    |raise|left |down | up  |right|
+ * | fn  | ctl | alt | cmd |lower|    spc    |raise| left| down|  up |right|
  * `-----------------------------------------------------------------------'
  */
 [_QW] = { /* QWERTY */
@@ -34,38 +34,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (Raised layer)
  *
  * ,-----------------------------------------------------------------------.
- * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |bspc |
+ * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |     |
  * |-----------------------------------------------------------------------|
  * |     | F1  | F2  | F3  | F4  | F5  | F6  |  -  |  =  |  [  |  ]  |  \  |
  * |-----------------------------------------------------------------------|
  * |     | F7  | F8  | F9  | F10 | F11 | F12 |     |     |     |     |     |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |     |           |     |left |down | up  |right|
+ * |     |     |     |     |     |           |     |     |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_RS] = { /* RAISE */
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
   {KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 /* MIT Layout (Lowered layer)
  *
  * ,-----------------------------------------------------------------------.
- * |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |bspc |
+ * |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |     |
  * |-----------------------------------------------------------------------|
  * |     | F1  | F2  | F3  | F4  | F5  | F6  |  _  |  +  |  {  |  }  |  |  |
  * |-----------------------------------------------------------------------|
  * |     | F7  | F8  | F9  | F10 | F11 | F12 |     |     |     |     |     |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |     |           |     |left |down | up  |right|
+ * |     |     |     |     |     |           |     |     |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_LW] = { /* LOWER */
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 /* MIT Layout (FN layer)
  *
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * |     |     |     |     |     |     |     |     |     |     |     |     |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |     |           |     |left |down | up  |right|
+ * |     |     |     |     |     |           |     |     |     |     |     |
  * `-----------------------------------------------------------------------'
  */
 [_FN] = { /* FUNCTION */
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 }
 };
 
