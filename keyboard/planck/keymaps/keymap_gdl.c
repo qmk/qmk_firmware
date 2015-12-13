@@ -1,6 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-
 #include "planck.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -12,6 +9,9 @@
 #define _RS 2
 #define _FN 3
 
+// This a slightly adapted 'default' keymap. I like the position of 'esc' and 'tab' better this way.
+// I also git rid of the backlighting control key and the dvorak and colemak layers. I added a 'fn' 
+// layer that makes the 'bspc' a forward delete (like on OSX).
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (QWERTY layer)
  *
@@ -22,14 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * |shift|  z  |  x  |  c  |  v  |  b  |  n  |  m  |  ,  |  .  |  /  |enter|
  * |-----------------------------------------------------------------------|
- * | fn  | ctl | alt | cmd |LOWER|    spc    |RAISE| left| down| up  |right|
+ * | fn  | ctl | alt | cmd |lower|    spc    |raise|left |down | up  |right|
  * `-----------------------------------------------------------------------'
  */
 [_QW] = { /* QWERTY */
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {MO(_FN),   KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), KC_SPC,  KC_SPC,  MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {MO(_FN), KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), KC_SPC,  KC_SPC,  MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 /* MIT Layout (Raised layer)
  *
