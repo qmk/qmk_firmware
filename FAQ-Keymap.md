@@ -64,10 +64,10 @@ And see this for **Unicode** input.
 - http://en.wikipedia.org/wiki/Unicode_input
 
 
-### Apple keyboard Fn
+## Apple/Mac keyboard Fn
 Not supported.
 
-Apple keyboard sends keycode for Fn unlike most of other keyboards.
+Apple/Mac keyboard sends keycode for Fn unlike most of other keyboards.
 I think you can send Apple Fn key using Apple venter specific Page 0xff01 and usage 0x0003. But you have to change HID Report Descriptor for this, of course.
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
