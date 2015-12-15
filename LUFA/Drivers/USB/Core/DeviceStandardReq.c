@@ -152,8 +152,8 @@ static void USB_Device_SetConfiguration(void)
 			#define MemoryAddressSpace  MEMSPACE_FLASH
 		#elif defined(USE_EEPROM_DESCRIPTORS)
 			#define MemoryAddressSpace  MEMSPACE_EEPROM
-		#elif defined(USE_SRAM_DESCRIPTORS)
-			#define MemoryAddressSpace  MEMSPACE_SRAM
+		#elif defined(USE_RAM_DESCRIPTORS)
+			#define MemoryAddressSpace  MEMSPACE_RAM
 		#else
 			uint8_t MemoryAddressSpace;
 		#endif

@@ -11,6 +11,8 @@
   *  - Core:
   *   - The CALLBACK_USB_GetDescriptor() callback function into the user application erroneously had a uint8_t type for the wIndex
   *     parameter, instead of uint16_t (thanks to Matlo)
+  *   - Fixed broken USE_RAM_DESCRIPTORS compile time option when the FIXED_NUM_CONFIGURATIONS compile time option is not enabled
+  *     in a user application (thanks to Matlo)
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>
