@@ -220,3 +220,13 @@ I heard some people have a problem with USB 3 port, try USB 2 port.
 ## Mac compatibility
 ### OS X 10.11 and Hub
 https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
+
+
+## Problem on BIOS(UEFI)/Resume(Sleep&Wake)/Power cycles
+Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).
+
+As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others. 
+
+https://github.com/tmk/tmk_keyboard/issues/266
+https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
+
