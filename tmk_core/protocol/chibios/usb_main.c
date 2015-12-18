@@ -1323,10 +1323,13 @@ int8_t sendchar(uint8_t c) {
     return 0;
   }
   osalSysUnlock();
-  /* should get suspended and wait if the queue is full
-   * but it's not blocking even if noone is listening,
-   *  because the USB packets are sent anyway */
-  return(chOQPut(&console_queue, c));
+  /* Timeout after 5us if the queue is full.
+   * Increase this timeout if too much stuff is getting
+   * dropped (i.e. the buffer is getting full too fast
+   * for USB/HIDRAW to dequeue). Another possibility
+   * for fixing this kind of thing is to increase
+   * CONSOLE_QUEUE_CAPACITY. */
+  return(chOQPutTimeout(&console_queue, c, US2ST(5)));
 }
 
 #else /* CONSOLE_ENABLE */
