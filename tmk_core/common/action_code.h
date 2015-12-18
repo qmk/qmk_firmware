@@ -255,6 +255,7 @@ enum layer_pram_tap_op {
 #define ACTION_LAYER_TAP(layer, key)                (ACT_LAYER_TAP<<12 | (layer)<<8 | (key))
 /* Default Layer */
 #define ACTION_DEFAULT_LAYER_SET(layer)             ACTION_DEFAULT_LAYER_BIT_SET((layer)/4, 1<<((layer)%4))
+#define ACTION_DEFAULT_LAYER_TOGGLE(layer)          ACTION_DEFAULT_LAYER_BIT_XOR((layer)/4, 1<<((layer)%4))
 /* Layer Operation */
 #define ACTION_LAYER_CLEAR(on)                      ACTION_LAYER_BIT_AND(0, 0, (on))
 #define ACTION_LAYER_MOMENTARY(layer)               ACTION_LAYER_ON_OFF(layer)

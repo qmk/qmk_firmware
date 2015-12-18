@@ -66,7 +66,7 @@ CONFIG_H = config.h
 # atmega32u4 	Teensy2.0
 # atemga32u4	TMK Converter rev.1
 # atemga32u2	TMK Converter rev.2
-MCU = atmega32u2
+MCU = atmega32u4
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
