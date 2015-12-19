@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, DE_BSLS,   DE_LBRC,   DE_RBRC,    DE_PIPE,    DE_HASH, KC_F12,
                 DE_SLSH,   DE_LPRN,   DE_RPRN,    DE_LCBR,    DE_RCBR, KC_TRNS,
-       KC_TRNS, DE_AMPR, DE_LESS,   DE_MORE,    DE_DQUOT,    DE_QUOT, KC_TRNS,
+       KC_TRNS, DE_AMPR, DE_LESS,   DE_MORE,    DE_DQOT,    DE_QUOT, KC_TRNS,
                          KC_TRNS,KC_DOT,  KC_EXLM,    KC_TRNS,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
