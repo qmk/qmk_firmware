@@ -16,9 +16,11 @@ This requires a little bit of familiarity with coding.
 1. Go to https://github.com/jackhumbert/qmk_firmware and read the Readme at the base of this repository, top to bottom. Then come back here :)
 2. Clone the repository (download it)
 3. Set up a build environment as per https://www.pjrc.com/teensy/gcc.html
-4. Customize the firmware to your liking and compile it
-5. Flash it using the [Teensy loader](https://www.pjrc.com/teensy/loader.html) as described in step 4 above.
-6. Submit your work as a pull request to this repository, so others can also use it. :)
+4. Copy keymaps/keymap_default.c into keymaps/your_keymap_name.c
+5. Edit this file, changing keycodes to your liking (see "Finding the keycodes you need" below). Try to edit the comments as well, so the "text graphics" represent your layout correctly.
+6. Compile your firmware by running `make clean` followed by `make KEYMAP=your_keymap_name`. This will result in a hex file.
+6. Flash this hex file using the [Teensy loader](https://www.pjrc.com/teensy/loader.html) as described in step 4 in the "Easy Way" above.
+7. Submit your work as a pull request to this repository, so others can also use it. :)
 
 Good luck! :)
 
