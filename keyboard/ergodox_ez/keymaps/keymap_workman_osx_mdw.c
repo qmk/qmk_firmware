@@ -34,8 +34,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |        |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------| Enter  |Space |
- *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 |Bckspc| Space|------|       |------| Space  |Enter |
+ *                                 |      |      | End  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,          KC_NO,        KC_LCTL,KC_LALT,KC_LGUI,
                                               KC_NO,  KC_NO,
                                                               KC_HOME,
-                                               KC_SPC,KC_BSPC,KC_END,
+                                               KC_BSPC,KC_SPC,KC_END,
         // right hand
              KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(1),       KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,          KC_FN4,
              KC_NO,        KC_NO,
              KC_PGUP,
-             KC_PGDN,KC_ENT, KC_SPC
+             KC_PGDN,KC_SPC,KC_ENT
     ),
 /* Keymap 1: Symbol Layer
  *
