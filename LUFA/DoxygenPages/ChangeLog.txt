@@ -13,6 +13,7 @@
   *     parameter, instead of uint16_t (thanks to Matlo)
   *   - Fixed broken USE_RAM_DESCRIPTORS compile time option when the FIXED_NUM_CONFIGURATIONS compile time option is not enabled
   *     in a user application (thanks to Matlo)
+  *   - Fixed missing \c va_end() calls in the HID bootloader CLI app which could cause portability issues
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>
