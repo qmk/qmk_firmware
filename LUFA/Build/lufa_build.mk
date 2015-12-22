@@ -66,15 +66,19 @@ else ifeq ($(ARCH), UC3)
    $(warning The UC3 device support is currently EXPERIMENTAL (incomplete and/or non-functional), and is included for preview purposes only.)
 endif
 
-# LUFA specific standard build options
-C_FLAGS += -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
-C_FLAGS += -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
+# Common LUFA C/C++ includes/definitions
+LUFA_CXX_INCLUDES = -I. -I$(patsubst %/,%,$(LUFA_PATH))/..
+LUFA_CXX_DEFINES  = -DARCH=ARCH_$(ARCH) -DBOARD=BOARD_$(BOARD) -DF_USB=$(F_USB)UL
 
 # This flag is required for bootloaders as GCC will emit invalid jump table
 # assembly code for devices with large amounts of flash; the jump table target
 # is extracted from FLASH without using the correct ELPM instruction, resulting
 # in a pseudo-random jump target.
-C_FLAGS += -fno-jump-tables
+LUFA_CXX_FLAGS    = -fno-jump-tables
+
+# LUFA specific standard build options
+C_FLAGS   += $(LUFA_CXX_INCLUDES) $(LUFA_CXX_DEFINES) $(LUFA_CXX_FLAGS)
+CPP_FLAGS += $(LUFA_CXX_INCLUDES) $(LUFA_CXX_DEFINES) $(LUFA_CXX_FLAGS)
 
 DMBS_PATH := $(LUFA_PATH)/Build/DMBS/DMBS
 include $(DMBS_PATH)/gcc.mk
