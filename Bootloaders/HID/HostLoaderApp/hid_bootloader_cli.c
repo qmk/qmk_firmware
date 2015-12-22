@@ -929,6 +929,8 @@ int printf_verbose(const char *format, ...)
 		fflush(stdout);
 		return r;
 	}
+	va_end(ap);
+
 	return 0;
 }
 
@@ -948,6 +950,8 @@ void die(const char *str, ...)
 	va_start(ap, str);
 	vfprintf(stderr, str, ap);
 	fprintf(stderr, "\n");
+	va_end(ap);
+
 	exit(1);
 }
 
