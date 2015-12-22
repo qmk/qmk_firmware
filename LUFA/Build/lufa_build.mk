@@ -8,16 +8,51 @@
 
 DMBS_BUILD_MODULES         +=
 DMBS_BUILD_TARGETS         +=
-DMBS_BUILD_MANDATORY_VARS  += F_USB
+DMBS_BUILD_MANDATORY_VARS  += LUFA_PATH ARCH F_USB
 DMBS_BUILD_OPTIONAL_VARS   += BOARD
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
+
+# -----------------------------------------------------------------------------
+#               LUFA Core Build Buildsystem Makefile Module.
+# -----------------------------------------------------------------------------
+# DESCRIPTION:
+#   Subclass of the standard DMBS GCC build module, with LUFA specific
+#   extensions. This module provides the core build rules for the compilation
+#   of LUFA projects using GCC.
+# -----------------------------------------------------------------------------
+# TARGETS:
+#
+#    (None)
+#
+# MANDATORY PARAMETERS:
+#
+#    LUFA_PATH                 - Path to the LUFA library core
+#    ARCH                      - Device architecture name
+#    F_USB                     - Speed of the USB core clock, in Hz
+#
+# OPTIONAL PARAMETERS:
+#
+#    BOARD                     - LUFA board drivers to use
+#
+# PROVIDED VARIABLES:
+#
+#    (None)
+#
+# PROVIDED MACROS:
+#
+#    (None)
+#
+# -----------------------------------------------------------------------------
+
+SHELL = /bin/sh
 
 ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
 ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
 ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Sanity check user supplied values
+$(call ERROR_IF_EMPTY, LUFA_PATH)
 $(call ERROR_IF_EMPTY, ARCH)
 $(call ERROR_IF_EMPTY, F_USB)
 

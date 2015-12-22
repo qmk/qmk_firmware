@@ -7,10 +7,23 @@
 /** \page Page_BuildSystem The LUFA Build System
  *
  *  \section Sec_BuildSystem_Overview Overview of the LUFA Build System
- *  The LUFA build system is an attempt at making a set of re-usable, modular build make files which
- *  can be referenced in a LUFA powered project, to minimize the amount of code required in an
- *  application makefile. The system is written in GNU Make, and each module is independent of
- *  one-another.
+ *  The LUFA build system was originally an attempt at making a set of
+ *  re-usable, modular build make files which could be referenced in a LUFA
+ *  powered project, to minimize the amount of code required in an
+ *  application makefile.
+ *
+ *  As it turned out to be fairly generic in nature, it was split out into its
+ *  own separate project, called DMBS (<i>Dean's Makefile Build System</i>)
+ *  which is released into the public domain. LUFA specific portions of the
+ *  LUFA build system extend DMBS, and provide a universal build system for all
+ *  LUFA projects.
+ *
+ *  The latest DMBS project information can be found at:
+ *  https://github.com/abcminiuser/dmbs
+ *
+ *  DMBS is written in GNU Make, and each module is independent of one-another.
+ *
+ *  \section SSec_BuildSystem_Using Using the LUFA Build System
  *
  *  For details on the prerequisites needed for Linux and Windows machines to be able to use the LUFA
  *  build system, see \ref Sec_CompilingApps_Prerequisites.

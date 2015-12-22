@@ -15,7 +15,7 @@ DMBS_BUILD_PROVIDED_VARS   += LUFA_SRC_USB_DEVICE LUFA_SRC_USB_HOST    \
                               LUFA_SRC_USBCLASS_HOST LUFA_SRC_USBCLASS \
                               LUFA_SRC_TEMPERATURE LUFA_SRC_SERIAL     \
                               LUFA_SRC_TWI LUFA_SRC_PLATFORM
-LUFA_BUILD_PROVIDED_MACROS +=
+DMBS_BUILD_PROVIDED_MACROS +=
 
 # -----------------------------------------------------------------------------
 #               LUFA Sources Buildsystem Makefile Module.
