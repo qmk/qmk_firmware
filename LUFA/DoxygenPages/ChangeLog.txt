@@ -14,6 +14,9 @@
   *   - Fixed broken USE_RAM_DESCRIPTORS compile time option when the FIXED_NUM_CONFIGURATIONS compile time option is not enabled
   *     in a user application (thanks to Matlo)
   *   - Fixed missing \c va_end() calls in the HID bootloader CLI app which could cause portability issues
+  *   - Fixed void pointer arithmetic in the \c Serial_SendData() functions for AVR8 and XMEGA architectures
+  *   - Fixed void pointer arithmetic in the low level RNDIS demo protocol decoders
+  *   - Fixed low level RNDIS demo incorrectly setting the RNDIS state when a null packet filter was requested
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>
