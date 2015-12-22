@@ -31,7 +31,7 @@
  *
  *  uint32_t Boot_Key ATTR_NO_INIT;
  *
- *  #define MAGIC_BOOT_KEY            0xDC42ACCA
+ *  #define MAGIC_BOOT_KEY            0xBADCAFE5
  *  #define BOOTLOADER_START_ADDRESS  ((FLASH_SIZE_BYTES - BOOTLOADER_SEC_SIZE_BYTES) >> 1)
  *
  *  void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
