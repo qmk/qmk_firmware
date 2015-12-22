@@ -1,3 +1,7 @@
+# Warning
+
+This version of the `qmk_firmware` is a special customization for my Ergodox EZ.  If you like it, feel free to do whatever with it, but I can make mistakes and so my keymap comes with no warranty or guarantees.  Other than the `keyboard/ergodox_ez/keymaps/keymap_bheklilr.c` file I haven't made any modifications to this firmware (yet).
+
 # Quantum MK Firmware
 
 This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co) and the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard.
