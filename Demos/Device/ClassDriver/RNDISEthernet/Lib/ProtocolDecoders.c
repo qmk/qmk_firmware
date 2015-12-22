@@ -244,7 +244,7 @@ void DecodeUDPHeader(void* InDataStart)
 void DecodeDHCPHeader(void* InDataStart)
 {
 	#if !defined(NO_DECODE_DHCP)
-	uint8_t* DHCPOptions = (InDataStart + sizeof(DHCP_Header_t));
+	uint8_t* DHCPOptions = ((uint8_t*)InDataStart + sizeof(DHCP_Header_t));
 
 	printf_P(PSTR("     \\\r\n      DHCP\r\n"));
 
