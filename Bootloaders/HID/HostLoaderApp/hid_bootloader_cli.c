@@ -921,17 +921,16 @@ void ihex_get_data(int addr, int len, unsigned char *bytes)
 int printf_verbose(const char *format, ...)
 {
 	va_list ap;
-	int r;
+	int r = 0;
 
 	va_start(ap, format);
 	if (verbose) {
 		r = vprintf(format, ap);
 		fflush(stdout);
-		return r;
 	}
 	va_end(ap);
 
-	return 0;
+	return r;
 }
 
 void delay(double seconds)
