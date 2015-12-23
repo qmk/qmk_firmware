@@ -31,26 +31,26 @@ static action_t keycode_to_action(uint16_t keycode);
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
-	// 16bit keycodes - important
+    // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
 
     if (keycode >= 0x0100 && keycode < 0x2000) {
-    	// Has a modifier
-    	action_t action;
-    	// Split it up
-    	action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
-    	return action;
-	} else if (keycode >= 0x2000 && keycode < 0x3000) {
+        // Has a modifier
+        action_t action;
+        // Split it up
+        action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
+        return action;
+    } else if (keycode >= 0x2000 && keycode < 0x3000) {
         // Is a shortcut for function layer, pull last 12bits
         // This means we have 4,096 FN macros at our disposal
         return keymap_func_to_action(keycode & 0xFFF);
-	} else if (keycode >= 0x3000 && keycode < 0x4000) {
+    } else if (keycode >= 0x3000 && keycode < 0x4000) {
       // When the code starts with 3, it's an action macro.
-    	action_t action;
-    	action.code = ACTION_MACRO(keycode & 0xFF);
-    	return action;
+        action_t action;
+        action.code = ACTION_MACRO(keycode & 0xFF);
+        return action;
 #ifdef BACKLIGHT_ENABLE
-	} else if (keycode >= BL_0 & keycode <= BL_15) {
+    } else if (keycode >= BL_0 & keycode <= BL_15) {
         action_t action;
         action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
         return action;
@@ -255,7 +255,7 @@ static action_t keycode_to_action(uint16_t keycode)
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-	// Read entire word (16bits)
+    // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
@@ -267,6 +267,6 @@ action_t keymap_fn_to_action(uint16_t keycode)
 
 action_t keymap_func_to_action(uint16_t keycode)
 {
-	// For FUNC without 8bit limit
+    // For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
 }
