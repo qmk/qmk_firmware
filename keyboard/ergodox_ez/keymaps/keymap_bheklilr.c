@@ -168,42 +168,24 @@ void * matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 0:  // OOO
-            break;
-        case 1:  // OOI
-            ergodox_right_led_1_on();
-            break;
-        case 2:  // OIO
-            ergodox_right_led_2_on();
-            break;
-        case 3:  // OII
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
-        case 4:  // IOO
-            ergodox_right_led_3_on();
-            break;
-        case 5:  // IOI
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
-        case 6:  // IIO
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        case 7:  // III
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        default:
-            // none
-            break;
-    }
 
+    uint8_t bit0 = layer & 0x001;
+    uint8_t bit1 = layer & 0x010;
+    uint8_t bit2 = layer & 0x100;
+
+    if (bit0 > 0) {
+      ergodox_right_led_1_on();
+    } else {
+      ergodox_right_led_1_off();
+    }
+    if (bit1 > 1) {
+      ergodox_right_led_2_on();
+    } else {
+      ergodox_right_led_2_off();
+    }
+    if (bit2 > 1) {
+      ergodox_right_led_3_on();
+    } else {
+      ergodox_right_led_3_off();
+    }
 };
