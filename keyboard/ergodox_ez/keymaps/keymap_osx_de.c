@@ -28,8 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |</L1|  ^°  |AltShf| Left | Right|                                       |  Up  | Down | CMD-SHIFT |  +  | #/L1 |
  *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | L1 | LGui |       | Alt  |Ctrl/Esc|
+ *                                        ,-------------.       ,---------------.
+ *                                        | MDIA | Meh  |       | Hyper|  NUM   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
  *                                 | Space|Backsp|------|       |------|  Enter | Space|
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(3),                   KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,                 CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
         LT(SYMB,KC_GRV),         DE_LESS,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
-                                               TG(2),  MEH_T(KC_NO),
+                                               TG(2),  MEH_T(LSFT(DE_ACUT)),
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
@@ -231,7 +231,7 @@ void * matrix_scan_user(void) {
         case 4:
 	    ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-	    ergodox_board_led_on();
+	    //ergodox_board_led_on();
             break;
         default:
             // none
