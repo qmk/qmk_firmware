@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,    KC_Q,     KC_G,     KC_M,   KC_L,     KC_W,     KC_VOLU,
    MO(SYMB),  KC_D,     KC_S,     KC_T,   KC_N,     KC_R,
    MO(CAPS),  KC_Z,     KC_X,     KC_C,   KC_V,     KC_J,     KC_VOLD,
-   TO(WASD),  KC_LEFT,  KC_RGHT,  KC_UP,  KC_DOWN,
+   TG(WASD),  KC_LEFT,  KC_RGHT,  KC_UP,  KC_DOWN,
 
                                                     KC_MPRV,  KC_MNXT,
                                                               KC_MUTE,
@@ -74,14 +74,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *
    */
    KC_F17,      KC_6,    KC_7,     KC_8,     KC_9,      KC_0,      KC_F18,
-   KC_PGUP,     KC_Y,    KC_F,     KC_U,     KC_B,      KC_ESC,    KC_BSCP,
+   KC_PGUP,     KC_Y,    KC_F,     KC_U,     KC_B,      KC_ESC,    KC_BSPC,
                 KC_I,    KC_A,     KC_E,     KC_O,      KC_H,      MO(SYMB),
    KC_PGDN,     KC_K,    KC_P,     KC_COMM,  KC_DOT,    KC_SLSH,   MO(CAPS),
                          KC_DOWN,  KC_UP,    KC_RIGHT,  KC_LEFT,   KC_F19,
 
    KC_F20,      KC_F21,
    KC_DELETE,
-   TO(FPAD),    KC_ENT,  KC_SPC
+   TG(FPAD),    KC_ENT,  KC_SPC
 ),
 
 [CAPS] = KEYMAP(
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    S(KC_TAB),  S(KC_Q),  S(KC_G),  S(KC_M),  S(KC_L),    S(KC_W),     KC_TRNS,
    KC_TRNS,    S(KC_D),  S(KC_S),  S(KC_T),  S(KC_N),    S(KC_R),
    KC_TRNS,    S(KC_Z),  S(KC_X),  S(KC_C),  S(KC_V),    S(KC_J),     KC_TRNS,
-   TO(LOCK),   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+   TG(LOCK),   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
 
                                                          KC_TRNS,     KC_TRNS,
                                                                       KC_TRNS,
@@ -215,59 +215,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *        `--------------------'
    *
    */
-   KC_TRNS,  KC_TRNS,  UC(0x201C),  UC(0x201D),  UC(0x2018), UC(0x2019), KC_TRNS,
-   KC_TRNS,  KC_Y,     KC_F,        KC_U,        KC_B,       KC_BSPC,    KC_ESC,
-             KC_I,     KC_A,        KC_E,        KC_O,       KC_H,       MO(SYMB),
-   KC_PGDN,  KC_K,     KC_P,        KC_COMM,     KC_DOT,     KC_SLSH,    MO(CAPS),
-                       KC_DOWN,     KC_UP,       KC_RIGHT,   KC_LEFT,    KC_F19,
+   KC_TRNS,  KC_TRNS,     UC(0x201C),  UC(0x201D),  UC(0x2018),  UC(0x2019),  KC_TRNS,
+   KC_TRNS,  KC_EXLM,     S(KC_COMM),  S(KC_DOT),   KC_EQL,      KC_AMPR,     KC_TRNS,
+             S(KC_SLSH),  KC_LPRN,     KC_RPRN,     KC_MINS,     KC_COLN,     KC_TRNS,
+   KC_TRNS,  KC_PLUS,     KC_PERC,     S(KC_QUOT),  KC_QUOT,     KC_SCLN,     KC_TRNS,
+                          KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
 
    KC_TRNS,  KC_TRNS,
    KC_TRNS,
-   KC_TRNS,  KC_TRNS,  KC_TRNS
+   KC_TRNS,  KC_TRNS,     KC_TRNS
 ),
 
-/* Keymap 1: Symbol Layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |    . |   0  |   =  |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-// SYMBOLS
-[SYMB] = KEYMAP(
-       // left hand
-       KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
-       KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_TRNS,
-       KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
-                         KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-),
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
