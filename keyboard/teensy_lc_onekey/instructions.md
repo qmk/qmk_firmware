@@ -4,9 +4,9 @@ These ARM Teensies are now supported through [chibios](http://chibios.org).
 
 You'll need to install an ARM toolchain, for instance from [gcc ARM embedded](https://launchpad.net/gcc-arm-embedded) website, or using your favourite package manager. After installing, you should be able to run `arm-none-eabi-gcc -v` in the command prompt and get sensible output. This toolchain is used instead of `avr-gcc`, which is only for AVR chips. Naturally you'll also need the usual development tools (e.g. `make`), just as in the AVR setting.
 
-You'll need this fork/branch of TMK. If you're reading this from your own hard drive, then you already have it ;) Anyway, you can get a zip from [here](https://https://github.com/flabbergast/tmk_keyboard/archive/chibios.zip) {or clone this repo from github and checkout the `chibios` branch}.
+You'll need this fork/branch of TMK. If you're reading this from your own hard drive, then you already have it ;) Anyway, you can get a zip from [here](https://github.com/flabbergast/tmk_keyboard/archive/chibios.zip) {or clone this repo from github and checkout the `chibios` branch}.
 
-Next, you'll need ChibiOS. The current release (3.0.2) does not have sufficient Kinetis support, so you'll need to get a patched version from [my fork](https://github.com/flabbergast/ChibiOS/tree/kinetis): you can download a current tree zipped from [here](https://github.com/flabbergast/ChibiOS/archive/kinetis.zip) {or clone that repo from github and checkout the `kinetis` branch}. Unpack the zip, rename the newly created `ChibiOS-kinetis` to `chibios`, and move it to `tmk/tool/chibios/` (so that the ChibiOS files reside in `tmk/tool/chibios/chibios`).
+Next, you'll need ChibiOS. The current release (3.0.4) does not have sufficient Kinetis support, so you'll need to get a patched version from [my fork](https://github.com/flabbergast/ChibiOS/tree/kinetis): you can download a current tree zipped from [here](https://github.com/flabbergast/ChibiOS/archive/kinetis.zip) {or clone that repo from github and checkout the `kinetis` branch}. Unpack the zip, rename the newly created `ChibiOS-kinetis` to `chibios`, and move it to `tmk/tool/chibios/` (so that the ChibiOS files reside in `tmk/tool/chibios/chibios`).
 
 This should be it. Running `make` in `keyboard/teensy_lc_onekey` should create a working firmware in `build/`, called `ch.hex`.
 
@@ -14,7 +14,7 @@ For more notes about the ChibiOS backend in TMK, see `tmk_core/protocol/chibios/
 
 ## About this onekey example
 
-It's set up for Teensy LC. To use 3.x, you'll need to edit the `Makefile` (and comment out one line in `mcuconf.h`). A sample makefile for Teensy 3.0 is provided as `Makefile.3.0`, can be used without renaming with `make -f Makefile.3.0`.
+It's set up for Teensy LC. To use 3.x, you'll need to edit the `Makefile` (and comment out one line in `mcuconf.h`). A sample makefile for Teensy 3.0 is provided as `Makefile.3.0`, can be used without renaming with `make -f Makefile.3.0`. Similarly for Teensy 3.2, there's `Makefile.3.2`.
 
 ## Credits
 
@@ -24,7 +24,7 @@ The USB support for Kinetis MCUs is due to RedoX. His ChibiOS fork is also [on g
 
 ## Features that are not implemented yet
 
-Currently only the more fancy suspend features are not there (i.e. "breathing" LED during suspend, power saving during suspend, sending a wakeup packet). The rest should work fine (reports either way are welcome).
+Currently only the more fancy suspend features are not there (power saving during suspend). The rest should work fine (reports either way are welcome).
 
 # Matrix programming notes
 
