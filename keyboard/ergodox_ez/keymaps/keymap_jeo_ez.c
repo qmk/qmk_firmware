@@ -337,7 +337,21 @@ action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void *
 matrix_init_user(void)
 {
-  /* Do nothing */
+  uint8_t ledFlash;
+
+  /**
+   * Pulse indicator LEDs
+   */
+  for (ledFlash = 0; ledFlash < 3; ++ledFlash)
+    {
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+
+      ergodox_right_led_1_off();
+      ergodox_right_led_2_off();
+      ergodox_right_led_3_off();
+    }
 };
 
 /**
@@ -351,22 +365,24 @@ matrix_scan_user(void)
   /**
    * Turn off all LEDs
    */
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
+  ergodox_board_led_off();    /* LED on Teensy board           */
+  ergodox_right_led_1_off();  /* Left (red) indicator LED      */
+  ergodox_right_led_2_off();  /* Middle (green) indicator LED  */
+  ergodox_right_led_3_off();  /* Right (blue) indicator LED    */
 
   /**
    * Turn back on the relevant ones
    */
   switch (layer)
     {
-    case 1:
-      ergodox_right_led_1_on();
+    case FPAD:
+      ergodox_right_led_3_on();
       break;
-    case 2:
+    case WASD:
       ergodox_right_led_2_on();
       break;
+    case LOCK:
+      ergodox_right_led_1_on();
     default:
       /* Do nothing */
       break;
