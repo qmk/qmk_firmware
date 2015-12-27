@@ -9,12 +9,21 @@
 #include "action_layer.h"
 #include "debug.h"
 
+/**
+ * Keyboard layers
+ */
 #define  BASE  0  /* qgmlwy...                 */
 #define  CAPS  1  /* QGMLWY...                 */
 #define  SYMB  2  /* Neo symbol layer          */
 #define  FPAD  3  /* Function and numpad layer */
 #define  WASD  4  /* Standard QWERTY layout    */
 #define  LOCK  5  /* Kitten-proof layer        */
+
+/**
+ * Custom macros
+ */
+#define  MHEX  0  /* Sends "0x" */
+#define  MBIN  1  /* Sends "0b" */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = KEYMAP(
@@ -292,9 +301,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      */
      KC_COLN,  KC_F6,    KC_F7,    KC_F8,  KC_F9,    KC_F10,   KC_PSLS,
-     KC_NO,    S(KC_A),  KC_P7,    KC_P8,  KC_P9,    S(KC_D),  KC_PAST,
+     M(MHEX),  S(KC_A),  KC_P7,    KC_P8,  KC_P9,    S(KC_D),  KC_PAST,
                S(KC_B),  KC_P4,    KC_P5,  KC_P6,    S(KC_E),  KC_PMNS,
-     KC_NO,    S(KC_C),  KC_P1,    KC_P2,  KC_P3,    S(KC_F),  KC_PPLS,
+     M(MBIN),  S(KC_C),  KC_P1,    KC_P2,  KC_P3,    S(KC_F),  KC_PPLS,
                          KC_HASH,  KC_P0,  KC_PDOT,  KC_E,     KC_PCMM,
 
      KC_LEFT,  KC_RGHT,
@@ -303,50 +312,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
+const uint16_t PROGMEM fn_actions[] = { };
 
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+const macro_t *
+action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
-
-};
-
-// Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
+  switch(id)
+    {
+    case MHEX:
+      if (record->event.pressed)
+        return MACRO(I(1), T(0), T(X), END);  /* Sends "0x" */
+      break;
+    case MBIN:
+      if (record->event.pressed)
+        return MACRO(I(1), T(0), T(B), END);  /* Sends "0b" */
+      break;
     }
+  return MACRO_NONE;
+};
 
+/**
+ * Run once on initialisation
+ */
+void *
+matrix_init_user(void)
+{
+  /* Do nothing */
+};
+
+/**
+ * Run constantly as a background loop
+ */
+void *
+matrix_scan_user(void)
+{
+  uint8_t layer = biton32(layer_state);
+
+  /**
+   * Turn off all LEDs
+   */
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+
+  /**
+   * Turn back on the relevant ones
+   */
+  switch (layer)
+    {
+    case 1:
+      ergodox_right_led_1_on();
+      break;
+    case 2:
+      ergodox_right_led_2_on();
+      break;
+    default:
+      /* Do nothing */
+      break;
+    }
 };
