@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *               ,--------------------------------------------------.
      *               |Prefs |6     |7     |8     |9     |0     |Search  |
      *               |------+------+------+------+------+------+--------|
-     *               |Page  |y     |f     |u     |b     |Escape|BckSpace|
+     *               |Page  |y     |f     |u     |b     |BkSpce|Escape  |
      *               |Up    |------+------+------+------+------+--------|
      *               |------|i     |a     |e     |o     |h     |Symbol  |
      *               |Page  |------+------+------+------+------+--------|
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      */
      KC_F17,      KC_6,    KC_7,     KC_8,     KC_9,      KC_0,      KC_F18,
-     KC_PGUP,     KC_Y,    KC_F,     KC_U,     KC_B,      KC_ESC,    KC_BSPC,
+     KC_PGUP,     KC_Y,    KC_F,     KC_U,     KC_B,      KC_BSPC,   KC_ESC,
                   KC_I,    KC_A,     KC_E,     KC_O,      KC_H,      MO(SYMB),
      KC_PGDN,     KC_K,    KC_P,     KC_COMM,  KC_DOT,    KC_SLSH,   MO(CAPS),
                            KC_DOWN,  KC_UP,    KC_RIGHT,  KC_LEFT,   KC_F19,
