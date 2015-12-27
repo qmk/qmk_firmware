@@ -344,13 +344,13 @@ matrix_init_user (void)
    */
   for (ledFlash = 0; ledFlash < 3; ++ledFlash)
     {
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();
+      ergodox_right_led_1_on ();
+      ergodox_right_led_2_on ();
+      ergodox_right_led_3_on ();
 
-      ergodox_right_led_1_off();
-      ergodox_right_led_2_off();
-      ergodox_right_led_3_off();
+      ergodox_right_led_1_off ();
+      ergodox_right_led_2_off ();
+      ergodox_right_led_3_off ();
     }
 };
 
