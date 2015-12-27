@@ -311,6 +311,75 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_ESC,   KC_PENT
   ),
 
+  [WASD] = KEYMAP(
+    /**
+     * WASD: Left Hand
+     *
+     * Blank keys are transparent.
+     *
+     *        ,--------------------------------------------------.
+     *        |Escape  |1    !|2    @|3    #|4    $|5    %|Pause |
+     *        |--------+------+------+------+------+-------------|
+     *        |Tab     |Q     |W     |E     |R     |T     |Volume|
+     *        |--------+------+------+------+------+------|Up    |
+     *        |CapsLock|A     |S     |D     |F     |G     |------|
+     *        |--------+------+------+------+------+------|Volume|
+     *        |Shift   |Z     |X     |C     |V     |B     |Down  |
+     *        `--------+------+------+------+------+-------------'
+     *          |      |Ctrl  |Alt   |Cmd   |Space |
+     *          `----------------------------------'
+     *                                                    ,-------------.
+     *                                                    |Prev  |Next  |
+     *                                             ,------|------|------|
+     *                                             |Home  |End   |Mute  |
+     *                                             |      |      |------|
+     *                                             |      |      |Menu  |
+     *                                             `--------------------'
+     */
+    KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_MPLY,
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_VOLU,
+    KC_LCAP,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,
+    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_VOLD,
+    KC_TRNS,  KC_LCTL,  KC_LALT,  KC_LGUI,  KC_SPC,
+
+                                                      KC_MPRV,  KC_MNXT,
+                                                                KC_MUTE,
+                                            KC_HOME,  KC_END,   KC_MENU,
+
+    /**
+     * WASD: Right Hand
+     *
+     *               ,--------------------------------------------------.
+     *               |`    ~|6    ^|7    &|8    *|9    (|0    )|BckSpace|
+     *               |------+------+------+------+------+------+--------|
+     *               |Page  |Y     |U     |I     |O     |P     |\      ||
+     *               |Up    |------+------+------+------+------+--------|
+     *               |------|H     |J     |K     |L     |;    :|Enter   |
+     *               |Page  |------+------+------+------+------+--------|
+     *               |Down  |N     |M     |,    <|.    >|/    ?|Shift   |
+     *               `-------------+------+------+------+------+--------'
+     *                             |-    _|=    +|[    {|]    }|'    "|
+     *                             `----------------------------------'
+     *        ,-------------.
+     *        |Insert|Up    |
+     *        |------+------+------.
+     *        |Left  |Down  |Right |
+     *        |------|      |      |
+     *        |Delete|      |      |
+     *        `--------------------'
+     *
+     */
+    KC_GRV,   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_BSPC,
+    KC_PGUP,  KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSLS,
+              KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_ENT,
+    KC_PGDN,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,
+                        KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,   KC_QUOT,
+
+    KC_INS,   KC_UP,
+    KC_LEFT,
+    KC_DELT,  KC_DOWN,  KC_RGHT
+  ),
+
   [LOCK] = KEYMAP(
     /**
      * LOCK: Left Hand
