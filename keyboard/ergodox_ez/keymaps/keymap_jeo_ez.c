@@ -315,9 +315,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = { };
 
 const macro_t *
-action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+action_get_macro (keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-  switch(id)
+  switch (id)
     {
     case MHEX:
       if (record->event.pressed)
@@ -335,7 +335,7 @@ action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
  * Run once on initialisation
  */
 void *
-matrix_init_user(void)
+matrix_init_user (void)
 {
   uint8_t ledFlash;
 
@@ -358,17 +358,17 @@ matrix_init_user(void)
  * Run constantly as a background loop
  */
 void *
-matrix_scan_user(void)
+matrix_scan_user (void)
 {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = biton32 (layer_state);
 
   /**
    * Turn off all LEDs
    */
-  ergodox_board_led_off();    /* LED on Teensy board           */
-  ergodox_right_led_1_off();  /* Left (red) indicator LED      */
-  ergodox_right_led_2_off();  /* Middle (green) indicator LED  */
-  ergodox_right_led_3_off();  /* Right (blue) indicator LED    */
+  ergodox_board_led_off ();    /* LED on Teensy board           */
+  ergodox_right_led_1_off ();  /* Left (red) indicator LED      */
+  ergodox_right_led_2_off ();  /* Middle (green) indicator LED  */
+  ergodox_right_led_3_off ();  /* Right (blue) indicator LED    */
 
   /**
    * Turn back on the relevant ones
@@ -376,13 +376,13 @@ matrix_scan_user(void)
   switch (layer)
     {
     case FPAD:
-      ergodox_right_led_3_on();
+      ergodox_right_led_3_on ();
       break;
     case WASD:
-      ergodox_right_led_2_on();
+      ergodox_right_led_2_on ();
       break;
     case LOCK:
-      ergodox_right_led_1_on();
+      ergodox_right_led_1_on ();
     default:
       /* Do nothing */
       break;
