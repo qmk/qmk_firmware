@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *               |------+------+------+------+------+------+--------|
      *               |Page  |y     |f     |u     |b     |BkSpce|Escape  |
      *               |Up    |------+------+------+------+------+--------|
-     *               |------|i     |a     |e     |o     |h     |Symbol  |
+     *               |------|i     |a     |e     |o     |h     |Enter   |
      *               |Page  |------+------+------+------+------+--------|
      *               |Down  |k     |p     |,     |.     |/     |Upper   |
      *               `-------------+------+------+------+------+--------'
@@ -76,21 +76,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *        ,-------------.
      *        |Term  |Editor|
      *        |------+------+------.
-     *        |Delete|Enter |Space |
+     *        |Delete|Symbol|Space |
      *        |------|      |      |
      *        |Fn    |      |      |
      *        `--------------------'
      *
      */
-     KC_F17,      KC_6,    KC_7,     KC_8,     KC_9,      KC_0,      KC_F18,
-     KC_PGUP,     KC_Y,    KC_F,     KC_U,     KC_B,      KC_BSPC,   KC_ESC,
-                  KC_I,    KC_A,     KC_E,     KC_O,      KC_H,      MO(SYMB),
-     KC_PGDN,     KC_K,    KC_P,     KC_COMM,  KC_DOT,    KC_SLSH,   MO(CAPS),
-                           KC_DOWN,  KC_UP,    KC_RIGHT,  KC_LEFT,   KC_F19,
+     KC_F17,      KC_6,      KC_7,     KC_8,     KC_9,      KC_0,      KC_F18,
+     KC_PGUP,     KC_Y,      KC_F,     KC_U,     KC_B,      KC_BSPC,   KC_ESC,
+                  KC_I,      KC_A,     KC_E,     KC_O,      KC_H,      KC_ENT,
+     KC_PGDN,     KC_K,      KC_P,     KC_COMM,  KC_DOT,    KC_SLSH,   MO(CAPS),
+                             KC_DOWN,  KC_UP,    KC_RIGHT,  KC_LEFT,   KC_F19,
 
      KC_F20,      KC_F21,
      KC_DELT,
-     TG(FPAD),    KC_ENT,  KC_SPC
+     TG(FPAD),    MO(SYMB),  KC_SPC
   ),
 
   [CAPS] = KEYMAP(
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *               |------+------+------+------+------+------+--------|
      *               |      |Y     |F     |U     |B     |      |        |
      *               |      |------+------+------+------+------+--------|
-     *               |------|I     |A     |E     |O     |H     |        |
+     *               |------|I     |A     |E     |O     |H     |ENTER   |
      *               |      |------+------+------+------+------+--------|
      *               |      |K     |P     |EmDash|MidDot|?     |        |
      *               `-------------+------+------+------+------+--------'
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *        ,-------------.
      *        |      |      |
      *        |------+------+------.
-     *        |      |ENTER |SPACE |
+     *        |      |      |SPACE |
      *        |------|      |      |
      *        |      |      |      |
      *        `--------------------'
@@ -155,13 +155,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
      KC_TRNS,  S(KC_Y),  S(KC_F),  S(KC_U),     S(KC_B),     KC_TRNS,     KC_TRNS,
-               S(KC_I),  S(KC_A),  S(KC_E),     S(KC_O),     S(KC_H),     KC_TRNS,
+               S(KC_I),  S(KC_A),  S(KC_E),     S(KC_O),     S(KC_H),     S(KC_ENT),
      KC_TRNS,  S(KC_K),  S(KC_P),  UC(0x2014),  UC(0x00B7),  S(KC_SLSH),  KC_TRNS,
                          KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,     S(KC_F19),
 
      KC_TRNS,  KC_TRNS,
      KC_TRNS,
-     KC_TRNS,  S(KC_ENT),  S(KC_SPC)
+     KC_TRNS,  KC_TRNS,  S(KC_SPC)
   ),
 
   [SYMB] = KEYMAP(
