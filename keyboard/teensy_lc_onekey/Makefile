@@ -54,8 +54,8 @@ MCU_STARTUP = kl2x
 BOARD = PJRC_TEENSY_LC
 
 # Cortex version
-# Teensy LC is cortex-m0; Teensy 3.x are cortex-m4
-MCU  = cortex-m0
+# Teensy LC is cortex-m0plus; Teensy 3.x are cortex-m4
+MCU  = cortex-m0plus
 
 # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 # I.e. 6 for Teensy LC; 7 for Teensy 3.x
