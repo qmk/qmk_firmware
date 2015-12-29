@@ -57,42 +57,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |Insert|           |Insert|  F6  |  F7  |  Tab |   /  |   *  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
+ * |        |  F8  |  F9  |  F10 |  F11 |  F12 |VolUp |           | Home |  Up  |  End |   7  |   8  |   9  |   +    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
+ * |        |      |      |      |      |      |------|           |------| Down | Right|   4  |   5  |   6  |   +    |
+ * |--------+------+------+------+------+------|VolDn |           | Left |------+------+------+------+------+--------|
+ * |        |      | cut  | copy |paste | Mute |      |           |      |      | Prev |   1  |   2  |   3  |KpEnter |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |    . |   0  |   =  |      |
- *   `----------------------------------'                                       `----------------------------------'
+ *   |      |      |      |      |      |                                       | Next |   0  |  00  |   .  |KpEnter|
+ *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      |      |       |n.lock|c.lock|
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
+ *                                 | Mute |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [SYMB] = KEYMAP(
        // left hand
-       KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
-       KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
+       KC_TRNS,KC_F1,  KC_F2,        KC_F3,       KC_F4,       KC_F5,  KC_INS,
+       KC_TRNS,KC_F8,  KC_F9,        KC_F10,      KC_F11,      KC_F12, KC_VOLU,
+       KC_TRNS,KC_TRNS,KC_TRNS,      KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS),KC_MUTE,KC_VOLD,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
+                               KC_MUTE,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_PLUS, KC_TRNS,
-       KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_BSLS, KC_TRNS,
-                         KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       KC_TRNS, KC_TRNS,
+       KC_INS,  KC_F6,   KC_F7,   KC_TAB,  KC_PSLS, KC_PAST, KC_PMNS,
+       KC_HOME, KC_UP,   KC_END,  KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+                KC_DOWN, KC_RGHT, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+       KC_LEFT, KC_TRNS, KC_MPRV, KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+                         KC_MNXT, KC_P0,   M(1),    KC_PDOT, KC_PENT,
+
+       KC_NLCK, KC_CAPS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
@@ -152,6 +154,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           register_code(KC_RSFT);
         } else {
           unregister_code(KC_RSFT);
+        }
+        break;
+        case 1:
+        if (record->event.pressed) {
+          return MACRO( I(25), T(P0), T(P0), END );
         }
         break;
       }
