@@ -2,6 +2,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "led.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -191,5 +192,7 @@ void * matrix_scan_user(void) {
             // none
             break;
     }
-
+    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+      ergodox_right_led_3_on();
+    }
 };
