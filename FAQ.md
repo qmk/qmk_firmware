@@ -72,8 +72,8 @@ Without reset circuit you will have inconsistent reuslt due to improper initiali
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 
-## Can't read comlumn of matrix beyond 16 
-Use `1UL<<16` intead of `1<<16` in `read_cols()` in **matrix.h** when your columns goes beyond 16.
+## Can't read column of matrix beyond 16 
+Use `1UL<<16` instead of `1<<16` in `read_cols()` in **matrix.h** when your columns goes beyond 16.
 
 In C `1` means one of **int** type which is **16bit** in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use **unsigned long** type with `1UL`.
 
