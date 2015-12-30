@@ -152,7 +152,7 @@ INCDIR = $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(CHIBIOS)/os/hal/lib/streams $(CHIBIOS)/os/various \
          $(TMK_DIR) $(COMMON_DIR) $(TMK_DIR)/protocol/chibios \
-         $(TARGET_DIR)
+         $(TMK_DIR)/protocol $(TARGET_DIR)
 
 #
 # Project, sources and paths
