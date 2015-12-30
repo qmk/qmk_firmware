@@ -1,4 +1,24 @@
-/* TypeMatrix-2030-like keymap */
+/* TypeMatrix-2030-like keymap
+ * ---------------------------
+ * Currently supported features:
+ * Layer 0: default layer close to the TM with the following differences:
+ *  - top row and rightmost column are removed, corresponding keys are displaced, except app-keys which are removed
+ *  - bottom-left keys are reorganized on a single roz as: Ctrl, "Fn", Gui, Play, App/Alt
+ *  - "shuffle" and "desktop" are not supported
+ *  - right-shift is moved on ' and \
+ *  - right-ctrl is moved on End
+ *  - ] is moved in place of the dash (-)
+ *  - dash (-) and = are moved on bottom right row
+ *  - arrows and PgUp/PgDn are moved on the thumbs
+ * Layer 1: "Fn"-layer close to the TM with the following differences:
+ *  - provides access to F1-F12
+ *  - VolUp & VolDn are only on left hand
+ *  - arrows & numpad are displaced by 1 to the top left
+ * Layer 2: TODO -- currently kept as in the default ErgoDox EZ layout
+ * Leds:
+ *  - left (1st) & middle (2nd) leds are used to indicate layers 1 & 2 respectively
+ *  - right (3rd) led is used to indicate caps-lock
+ */
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
