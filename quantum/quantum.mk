@@ -1,8 +1,8 @@
 QUANTUM_DIR = quantum
 
 # # project specific files
-SRC += $(QUANTUM_DIR)/keymap_common.c \
-	$(QUANTUM_DIR)/led.c 
+SRC += $(QUANTUM_DIR)/keymap_common.c
+	# $(QUANTUM_DIR)/led.c 
 
 ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
@@ -27,4 +27,3 @@ include $(TMK_DIR)/protocol/lufa.mk
 
 include $(TMK_DIR)/common.mk
 include $(TMK_DIR)/rules.mk
-
