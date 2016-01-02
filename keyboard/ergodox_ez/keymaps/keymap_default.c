@@ -157,7 +157,7 @@ KEYMAP(
  *                                 `--------------------'       `--------------------'
  */
 
-[PLVR] = KEYMAP(  // layout: layer 4: Steno for Plover
+[PLVR] = KEYMAP(  // layout: layer 4: Steno for Plover from https://github.com/shayneholmes/tmk_keyboard/commit/11290f8489013018f778627db725160c745e75bd
         // left hand
         KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  
         KC_NO,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NO,  
