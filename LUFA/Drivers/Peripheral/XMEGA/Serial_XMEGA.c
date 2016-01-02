@@ -91,8 +91,10 @@ void Serial_SendData(USART_t* const USART,
                      const void* Buffer,
                      uint16_t Length)
 {
+	uint8_t* CurrByte = (uint8_t*)Buffer;
+
 	while (Length--)
-	  Serial_SendByte(USART, *((uint8_t*)Buffer++));
+	  Serial_SendByte(USART, *(CurrByte++));
 }
 
 void Serial_CreateStream(USART_t* USART, FILE* Stream)

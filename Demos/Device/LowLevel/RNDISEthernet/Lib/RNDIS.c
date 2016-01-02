@@ -380,7 +380,7 @@ static bool ProcessNDISSet(uint32_t OId, void* SetData, uint16_t SetSize)
 			CurrPacketFilter = *((uint32_t*)SetData);
 
 			/* Set the RNDIS state to initialized if the packet filter is non-zero */
-			CurrRNDISState = ((CurrPacketFilter) ? RNDIS_Data_Initialized : RNDIS_Data_Initialized);
+			CurrRNDISState = ((CurrPacketFilter) ? RNDIS_Data_Initialized : RNDIS_Initialized);
 
 			return true;
 		case OID_802_3_MULTICAST_LIST:
