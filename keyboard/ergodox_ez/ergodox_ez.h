@@ -34,7 +34,7 @@ void ergodox_blink_all_leds(void);
 uint8_t init_mcp23018(void);
 uint8_t ergodox_left_leds_update(void);
 
-#define LED_BRIGHTNESS_LO       31
+#define LED_BRIGHTNESS_LO       15
 #define LED_BRIGHTNESS_HI       255
 
 
@@ -42,11 +42,13 @@ inline void ergodox_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6);
 inline void ergodox_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
 inline void ergodox_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
 inline void ergodox_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
+inline void ergodox_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
 
 inline void ergodox_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
 inline void ergodox_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
 inline void ergodox_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
 inline void ergodox_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
+inline void ergodox_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
 
 inline void ergodox_led_all_on(void)
 {
@@ -67,6 +69,11 @@ inline void ergodox_led_all_off(void)
 inline void ergodox_right_led_1_set(uint8_t n)    { OCR1A = n; }
 inline void ergodox_right_led_2_set(uint8_t n)    { OCR1B = n; }
 inline void ergodox_right_led_3_set(uint8_t n)    { OCR1C = n; }
+inline void ergodox_right_led_set(uint8_t led, uint8_t n)  {
+    (led == 1) ? (OCR1A = n) :
+    (led == 2) ? (OCR1B = n) :
+                 (OCR1C = n);
+}
 
 inline void ergodox_led_all_set(uint8_t n)
 {
