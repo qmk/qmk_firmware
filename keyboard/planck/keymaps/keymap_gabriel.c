@@ -11,7 +11,7 @@
 
 // This a slightly modified 'default' keymap that's closer to the Mac keyboard layout. I like the position
 // of 'esc' and 'tab' better this way. I also got rid of the backlighting control key and the dvorak and
-// colemak layers. I added a 'fn' layer that makes the 'bspc' a forward delete (like on OSX).
+// colemak layers. I added an 'fn' layer that makes the 'bspc' a forward delete (like on OSX).
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (QWERTY layer)
  *
@@ -76,15 +76,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * |     |     |     |     |     |     |     |     |     |     |     |     |
  * |-----------------------------------------------------------------------|
- * |     |     |     |     |     |           |     |     |     |     |     |
+ * |     |     |     |     |     |           |     |home |pgdn |pgup | end |
  * `-----------------------------------------------------------------------'
  */
 [_FN] = { /* FUNCTION */
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DELT},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END}
 }
 };
 
