@@ -235,3 +235,4 @@ https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 ## FLIP doesn't work
 ### AtLibUsbDfu.dll not found
 Remove current driver and reinstall one FLIP provides from DeviceManager.
+http://imgur.com/a/bnwzy
