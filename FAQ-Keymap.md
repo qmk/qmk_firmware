@@ -1,5 +1,5 @@
 ## READ FIRST
-https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md
+https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/doc/keymap.md
 
 ## How to get keycode
 See [doc/keycode.txt](https://github.com/tmk/tmk_keyboard/blob/master/doc/keycode.txt).
