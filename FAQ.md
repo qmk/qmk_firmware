@@ -230,3 +230,8 @@ As of now root of its cause is not clear but some build options seem to be relat
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 
+
+
+## FLIP doesn't work
+### AtLibUsbDfu.dll not found
+Remove current driver and reinstall one FLIP provides from DeviceManager.
