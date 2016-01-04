@@ -11,3 +11,4 @@ tags
 *~
 build/
 *.bak
+.vagrant/
