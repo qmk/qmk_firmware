@@ -6,12 +6,12 @@ uint8_t mcp23018_status = 0x20;
 
 __attribute__ ((weak))
 void * matrix_init_user(void) {
-
+    return NULL;
 };
 
 __attribute__ ((weak))
 void * matrix_scan_user(void) {
-
+    return NULL;
 };
 
 void * matrix_init_kb(void) {
@@ -34,16 +34,20 @@ void * matrix_init_kb(void) {
 
     ergodox_blink_all_leds();
 
-	if (matrix_init_user) {
-		(*matrix_init_user)();
-	}
+    if (matrix_init_user) {
+        (*matrix_init_user)();
+    }
+
+    return NULL;
 };
 
 void * matrix_scan_kb(void) {
 
-	if (matrix_scan_user) {
-		(*matrix_scan_user)();
-	}
+    if (matrix_scan_user) {
+        (*matrix_scan_user)();
+    }
+
+    return NULL;
 };
 
 
@@ -51,8 +55,19 @@ void ergodox_blink_all_leds(void)
 {
     ergodox_led_all_off();
     ergodox_led_all_set(LED_BRIGHTNESS_HI);
-    ergodox_led_all_on();
-    _delay_ms(333);
+    ergodox_right_led_1_on();
+    _delay_ms(50);
+    ergodox_right_led_2_on();
+    _delay_ms(50);
+    ergodox_right_led_3_on();
+    _delay_ms(50);
+    ergodox_right_led_1_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_right_led_3_off();
+    //ergodox_led_all_on();
+    //_delay_ms(333);
     ergodox_led_all_off();
 }
 
