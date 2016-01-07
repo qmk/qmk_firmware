@@ -10,50 +10,51 @@
 
 #define SUBL_PROJ LCTL(LALT(KC_P))
 #define SUBL_PAL RCTL(RSFT(KC_P))
+#define UNDO LCTL(KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Del    |   1  |   2  |   3  |   4  |   5  |  6   |           | Del  |   7  |   8  |   9  |   0  |   -  |   =    |
+ * | Undo   |   1  |   2  |   3  |   4  |   5  |  6   |           | Del  |   7  |   8  |   9  |   0  |   -  |   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | BkSp   |   Q  |   W  |   E  |   R  |   T  |CtlSft|           | Ctl  |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------| Tab  |           | Tab  |------+------+------+------+------+--------|
- * | Esc    |   A  |   S  | D/L4 | F/L3 |   G  |------|           |------|   H  | J/L2 | K/L5 |   L  |   :  |   '    |
+ * | BkSp   |   Q  |   W  |   E  |   R  |   T  | Ctl  |           | Ctl  |   Y  |   U  |   I  |   O  |   P  |   =    |
+ * |--------+------+------+------+------+------| PgUp |           | PgDn |------+------+------+------+------+--------|
+ * | Esc    |   A  |   S  | D/L4 | F/L3 |   G  |------|           |------|   H  | J/L2 | K/L5 |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------| Ctrl+|           | Ctrl+|------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  | Alt+P|           | Sft+P|   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *  |Grv/Gui|  '"  |  Ins | Home | End  |                                       | PgUp | PgDn |   [  |   ]  | ~L1  |
+ *  |Grv/Gui|  '"  |  Ins | Home | End  |                                       | PgUp | PgDn | Ctl+[| Ctl+]| Undo |
  *  `-----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |Ap/Alt| LGui |       | Meh  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |CtlSft|       |AltSft|        |      |
- *                                 | BkSp | Tab  |------|       |------| Enter  |Space |
- *                                 |      |      |CtlAlt|       | Alt  |        |      |
- *                                 `--------------------'       `----------------------'
+ *                                        ,---------------.       ,-------------.
+ *                                        |Ap/Alt| LGui   |       | Meh  |Ctrl/Esc|
+ *                                 ,------|------|--------|       |------+--------+------.
+ *                                 |      |      |CtlSft  |       |AltSft|        |      |
+ *                                 | BkSp | Tab  |--------|       |------| Enter  |Space |
+ *                                 |      |      |[/CtlAlt|       |]/Alt |        |      |
+ *                                 `----------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
     // left hand
-    KC_DELT,       KC_1,         KC_2,   KC_3,            KC_4,           KC_5,          KC_6,
-    KC_BSPC,       KC_Q,         KC_W,   KC_E,            KC_R,           KC_T,          LCTL(LSFT(KC_TAB)),
+    UNDO,          KC_1,         KC_2,   KC_3,            KC_4,           KC_5,          KC_6,
+    KC_BSPC,       KC_Q,         KC_W,   KC_E,            KC_R,           KC_T,          LCTL(KC_PGUP),
     KC_ESC,        KC_A,         KC_S,   LT(NUMPD, KC_D), LT(ARRS, KC_F), KC_G,
     KC_LSFT,       CTL_T(KC_Z),  KC_X,   KC_C,            KC_V,           KC_B,          SUBL_PROJ,
     GUI_T(KC_GRV), KC_QUOT,      KC_INS, KC_HOME,         KC_END,
                                                                           ALT_T(KC_APP), KC_LGUI,
                                                                                          LCTL(KC_LSFT),
-                                                          KC_BSPC,        KC_TAB,        LCTL(KC_LALT),
+                                                          KC_BSPC,        KC_TAB,        CTL_T(ALT_T(KC_LBRC)),
     // right hand
-    KC_DEL,        KC_7,          KC_8,            KC_9,           KC_0,    KC_MINS,        KC_EQL,
-    RCTL(KC_TAB),  KC_Y,          KC_U,            KC_I,           KC_O,    KC_P,           KC_BSLS,
-                   KC_H,          LT(MOUSE, KC_J), LT(SYMB, KC_K), KC_L,    KC_COLN,        KC_QUOT,
-    SUBL_PAL,      KC_N,          KC_M,            KC_COMM,        KC_DOT,  CTL_T(KC_SLSH), KC_RSFT,
-                                  KC_PGUP,         KC_PGDN,        KC_LBRC, KC_RBRC,        KC_FN1,
+    KC_DEL,        KC_7,          KC_8,            KC_9,           KC_0,          KC_MINS,        KC_BSLS,
+    LCTL(KC_PGDN), KC_Y,          KC_U,            KC_I,           KC_O,          KC_P,           KC_EQL,
+                   KC_H,          LT(MOUSE, KC_J), LT(SYMB, KC_K), KC_L,          KC_SCLN,        KC_QUOT,
+    SUBL_PAL,      KC_N,          KC_M,            KC_COMM,        KC_DOT,        CTL_T(KC_SLSH), KC_RSFT,
+                                  KC_PGUP,         KC_PGDN,        LCTL(KC_LBRC), LCTL(KC_RBRC),  UNDO,
     MEH_T(KC_NO),  CTL_T(KC_ESC),
     RALT(KC_RSFT),
-    KC_RALT,       KC_ENT,        KC_SPC
+    ALT_T(KC_RBRC),       KC_ENT,        KC_SPC
 ),
 /* Keymap 1: Symbol Layer
  *
@@ -230,21 +231,34 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
+  switch(id) {
+    case 0:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+      } else {
+        unregister_code(KC_RSFT);
       }
-    return MACRO_NONE;
+      break;
+    case 1:
+      break;
+  }
+  return MACRO_NONE;
 };
 
 // Runs just one time when the keyboard initializes.
 void * matrix_init_user(void) {
+  ergodox_led_all_off();
+  ergodox_led_all_set(LED_BRIGHTNESS_HI);
 
+  ergodox_right_led_1_on();
+  _delay_ms(111);
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_on();
+  _delay_ms(111);
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_on();
+  _delay_ms(111);
+  ergodox_right_led_3_off();
 };
 
 // Runs constantly in the background, in a loop.
@@ -255,6 +269,7 @@ void * matrix_scan_user(void) {
     ergodox_board_led_off();
 
     if ((layer & 0b001) > 0) {
+
       ergodox_right_led_1_on();
     } else {
       ergodox_right_led_1_off();
