@@ -80,20 +80,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |Insert|           |Insert|  F6  |  F7  |  Tab |   /  |   *  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |  F8  |  F9  |  F10 |  F11 |  F12 |VolUp |           | Home |  Up  |  End |   7  |   8  |   9  |   +    |
+ * |        |  F8  |  F9  |  F10 |  F11 |  F12 |VolUp |           |      |      | Home |   7  |   8  |   9  |   +    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------| Down | Right|   4  |   5  |   6  |   +    |
- * |--------+------+------+------+------+------|VolDn |           | Left |------+------+------+------+------+--------|
- * |        |      | cut  | copy |paste | Mute |      |           |      |      | Prev |   1  |   2  |   3  |KpEnter |
+ * |        |      |      |      |      |      |------|           |------|  Up  | End  |   4  |   5  |   6  |   +    |
+ * |--------+------+------+------+------+------|VolDn |           |      |------+------+------+------+------+--------|
+ * |        |      | cut  | copy |paste | Mute |      |           | Left | Down | Right|   1  |   2  |   3  |KpEnter |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       | Next |   0  |  00  |   .  |KpEnter|
+ *   |      |      |      |      |      |                                       |      |   0  |  00  |   .  |Etr/Ctl|
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |n.lock|c.lock|
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Mute |      |      |       |      |      |      |
- *                                 |  /   |      |------|       |------|      |      |
- *                                 | Alt  |      |      |       |      |      |      |
+ *                                 |      |      |      |       | Next |      |      |
+ *                                 | Mute |      |------|       |------|      |      |
+ *                                 |      |      |      |       | Prev |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
@@ -107,17 +107,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
-                        ALT_T(KC_MUTE),KC_TRNS,KC_TRNS,
+                              KC_MUTE, KC_TRNS,KC_TRNS,
        // right hand
        KC_INS,  KC_F6,   KC_F7,   KC_TAB,  KC_PSLS, KC_PAST, KC_PMNS,
-       KC_HOME, KC_UP,   KC_END,  KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-                KC_DOWN, KC_RGHT, KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
-       KC_LEFT, KC_TRNS, KC_MPRV, KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-                         KC_MNXT, KC_P0,   M(1),    KC_PDOT, KC_PENT,
+       KC_TRNS, KC_TRNS, KC_HOME, KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+                KC_UP,   KC_END,  KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+       KC_LEFT, KC_DOWN, KC_RGHT, KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+                         KC_TRNS, KC_P0,   M(1),    KC_PDOT, CTL_T(KC_PENT),
 
        KC_NLCK, KC_CAPS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_MPRV,
+       KC_MNXT, KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Media and mouse keys
  *
