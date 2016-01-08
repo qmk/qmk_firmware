@@ -5,4 +5,4 @@ if [ -n "$AVR_BIN" ]; then
 else
     _PATH=$PATH;
 fi
-PATH=$_PATH make KEYMAP=bheklilr
+PATH=$_PATH make -j KEYMAP=bheklilr

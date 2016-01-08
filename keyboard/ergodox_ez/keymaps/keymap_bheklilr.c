@@ -1,3 +1,4 @@
+#include "keymap_common.h"
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"

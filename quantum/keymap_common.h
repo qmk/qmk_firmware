@@ -61,18 +61,28 @@ action_t keymap_func_to_action(uint16_t keycode);
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
 
-// Ability to use mods in layouts
-#define LCTL(kc) kc | 0x0100
-#define LSFT(kc) kc | 0x0200
-#define LALT(kc) kc | 0x0400
-#define LGUI(kc) kc | 0x0800
-#define HYPR(kc) kc | 0x0F00
-#define MEH(kc) kc  | 0x0700
+#define LCTL_KM 0x0100
+#define LSFT_KM 0x0200
+#define LALT_KM 0x0400
+#define LGUI_KM 0x0800
+#define LHYPR_KM 0x0F00
+#define LMEH_KM 0x0700
+#define RIGHT(km) ((km) | 0x1000)
 
-#define RCTL(kc) kc | 0x1100
-#define RSFT(kc) kc | 0x1200
-#define RALT(kc) kc | 0x1400
-#define RGUI(kc) kc | 0x1800
+// Ability to use mods in layouts
+#define LCTL(kc) ((kc) ^ LCTL_KM)
+#define LSFT(kc) ((kc) ^ LSFT_KM)
+#define LALT(kc) ((kc) ^ LALT_KM)
+#define LGUI(kc) ((kc) ^ LGUI_KM)
+#define HYPR(kc) ((kc) ^ LHYPR_KM)
+#define MEH(kc)  ((kc) ^ LMEH_KM)
+
+#define RCTL(kc) ((kc) ^ RIGHT(LCTL_KM))
+#define RSFT(kc) ((kc) ^ RIGHT(LSFT_KM))
+#define RALT(kc) ((kc) ^ RIGHT(LALT_KM))
+#define RGUI(kc) ((kc) ^ RIGHT(LGUI_KM))
+
+#define SWAPSFT(kc) (LSFT(kc) & (~0x1000))
 
 // Aliases for shifted symbols
 // Each key has a 4-letter code, and some have longer aliases too.
