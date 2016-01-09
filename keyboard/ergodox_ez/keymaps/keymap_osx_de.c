@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_ESC,                  KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LCTL,
+        KC_ESC,                  KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LGUI(KC_V),
         KC_TAB,                  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LGUI,
         TG(3),                   KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,                 CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_BSPC,KC_DEL,KC_END,
         // right hand
-             KC_RCTL,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             LGUI(KC_C),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              KC_RGUI,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             DE_UE,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,LT(MDIA,DE_AE),
              KC_RALT,KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
@@ -126,7 +126,7 @@ KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_BTN3, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
