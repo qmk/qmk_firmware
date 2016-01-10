@@ -29,6 +29,12 @@
 #define NMBR 1 // numbers layer
 #define FNLR 2 // fn layer
 
+#define MDBL0 1
+#define MFNLR 2
+#define MCUT  3
+#define MCOPY 4
+#define MPSTE 5
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -59,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_BSPC,
         KC_LSFT,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_ENT,
-        KC_LCTL,        M(2),         KC_LGUI,KC_MPLY,ALT_T(KC_APP),
+        KC_LCTL,        M(MFNLR),     KC_LGUI,KC_MPLY,ALT_T(KC_APP),
 
                                               ALT_T(KC_ESC),  TG(1),
                                                               KC_PGUP,
@@ -114,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_HOME, KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
                 KC_UP,   KC_END,  KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
        KC_LEFT, KC_DOWN, KC_RGHT, KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-                         KC_TRNS, KC_P0,   M(1),    KC_PDOT, CTL_T(KC_PENT),
+                         KC_TRNS, KC_P0,   M(MDBL0),KC_PDOT, CTL_T(KC_PENT),
 
        KC_NLCK, KC_CAPS,
        KC_TRNS,
@@ -146,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS,
-       KC_TRNS, KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
+       KC_TRNS, KC_TRNS, M(MCUT),      M(MCOPY),    M(MPSTE),     KC_MUTE, KC_VOLD,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,
@@ -172,20 +178,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
     switch(id) {
-        case 0:
-            if (record->event.pressed) {
-              register_code(KC_RSFT);
-            } else {
-              unregister_code(KC_RSFT);
-            }
-        break;
-        case 1:
+        case MDBL0:
             if (record->event.pressed) {
               return MACRO( I(25), T(P0), T(P0), END );
             }
         break;
-        case 2:
+        case MFNLR:
             layer_state ^= (1 << NMBR) | (1 << FNLR);
+            break;
+        case MCUT:
+            if (record->event.pressed) {
+                return MACRO(D(LSFT), T(DELT), U(LSFT), END);
+            }
+            break;
+        case MCOPY:
+            if (record->event.pressed) {
+                return MACRO(D(LCTL), T(INS), U(LCTL), END);
+            }
+            break;
+        case MPSTE:
+            if (record->event.pressed) {
+                return MACRO(D(LSFT), T(INS), U(LSFT), END);
+            }
             break;
     }
     return MACRO_NONE;
