@@ -107,7 +107,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           // note(0+24, 20);
         } else {
           unregister_code(KC_RSFT);
-          // stop_all_notes();
+          stop_all_notes();
           // backlight_set(0);
           default_layer_and(0); 
           default_layer_or(0);
@@ -119,3 +119,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       } 
     return MACRO_NONE;
 };
+
+
+void * matrix_init_user(void) {
+    init_notes();
+
+    play_note(((double)261.6*3)*pow(2.0,(36)/12.0), 0xF);
+    _delay_ms(50);
+
+    play_note(((double)261.6*3)*pow(2.0,(48)/12.0), 0xF);
+    _delay_ms(25);
+    stop_note(((double)261.6*3)*pow(2.0,(48)/12.0));
+
+    play_note(((double)261.6*3)*pow(2.0,(48)/12.0), 0xF);
+    _delay_ms(25);
+    stop_note(((double)261.6*3)*pow(2.0,(48)/12.0));
+
+
+    stop_note(((double)261.6*3)*pow(2.0,(36)/12.0));
+
+
+    play_note(((double)261.6*3)*pow(2.0,(62)/12.0), 0xF);
+    _delay_ms(50);
+    stop_note(((double)261.6*3)*pow(2.0,(62)/12.0));
+
+
+    play_note(((double)261.6*3)*pow(2.0,(64)/12.0), 0xF);
+    _delay_ms(50);
+    stop_note(((double)261.6*3)*pow(2.0,(64)/12.0));
+
+}
