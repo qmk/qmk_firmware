@@ -3,8 +3,11 @@
 
 #include "matrix.h"
 #include "keymap_common.h"
-#include "backlight.h"
+// #include "backlight.h"
 #include <stddef.h>
+#ifdef MIDI_ENABLE
+	#include <keymap_midi.h>
+#endif
 
 #define PLANCK_MIT( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
