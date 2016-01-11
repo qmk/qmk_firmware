@@ -29,24 +29,24 @@ volatile uint32_t timer_count = 0;
 void timer_init(void)
 {
     // Timer0 CTC mode
-    TCCR0A = 0x02;
+    TCCR1A = 0x02;
 
 #if TIMER_PRESCALER == 1
-    TCCR0B = 0x01;
+    TCCR1B = 0x01;
 #elif TIMER_PRESCALER == 8
-    TCCR0B = 0x02;
+    TCCR1B = 0x02;
 #elif TIMER_PRESCALER == 64
-    TCCR0B = 0x03;
+    TCCR1B = 0x03;
 #elif TIMER_PRESCALER == 256
-    TCCR0B = 0x04;
+    TCCR1B = 0x04;
 #elif TIMER_PRESCALER == 1024
-    TCCR0B = 0x05;
+    TCCR1B = 0x05;
 #else
 #   error "Timer prescaler value is NOT vaild."
 #endif
 
-    OCR0A = TIMER_RAW_TOP;
-    TIMSK0 = (1<<OCIE0A);
+    OCR1A = TIMER_RAW_TOP;
+    TIMSK1 = (1<<OCIE1A);
 }
 
 inline
@@ -111,7 +111,7 @@ uint32_t timer_elapsed32(uint32_t last)
 }
 
 // excecuted once per 1ms.(excess for just timer count?)
-ISR(TIMER0_COMPA_vect)
+ISR(TIMER1_COMPA_vect)
 {
     timer_count++;
 }

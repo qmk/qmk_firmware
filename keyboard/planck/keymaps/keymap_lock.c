@@ -1,5 +1,5 @@
 #include "keymap_common.h"
-#include "backlight.h"
+// #include "backlight.h"
 #include "action_layer.h"
 #include "keymap_midi.h"
 #include <avr/boot.h>
@@ -71,7 +71,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         if (record->event.pressed) {
           // play_note(440, 20);
           // register_code(KC_RSFT);
-          backlight_set(BACKLIGHT_LEVELS);
+          // backlight_set(BACKLIGHT_LEVELS);
           default_layer_and(0); 
           default_layer_or((1<<5));
 
@@ -106,9 +106,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           // note(0+12, 20);
           // note(0+24, 20);
         } else {
-          // unregister_code(KC_RSFT);
-          // stop_note();
-          backlight_set(0);
+          unregister_code(KC_RSFT);
+          // stop_all_notes();
+          // backlight_set(0);
           default_layer_and(0); 
           default_layer_or(0);
           // note(0+24, 20);
