@@ -2,6 +2,13 @@ Memo of deveopment
 ==================
 just memo, NOT WORTH READING
 
+2015/11/24
+JP Bluetooth:
+    RN-42 cannot send Japanese keys like; henkan, mu-henkan and kana, JPY and RO.
+    It seems HID usage more than 0x65 cannot be send with the module.
+        http://shiki.esrille.com/2014/07/bluetoothnisse.html
+
+
 Bug:
 - Factory Reset PIO4 doesn't work
     - the reason is unclear - 12/08 NOT LOOK INTO ANY MORE
