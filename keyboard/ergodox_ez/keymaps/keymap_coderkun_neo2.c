@@ -5,6 +5,7 @@
 
 // Layer names
 #define BASE 0      // default layer
+#define FMU  1      // FMU layer
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -33,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         NEO_Y,      NEO_X,  NEO_V,  NEO_L,  NEO_C,  NEO_W,  KC_HOME,
         NEO_L1_L,   NEO_U,  NEO_I,  NEO_A,  NEO_E,  NEO_O,
         KC_LSFT,    NEO_UE, NEO_OE, NEO_AE, NEO_P,  NEO_Z,  KC_TRNS,
-        KC_LCTL,    KC_LALT,KC_TRNS,KC_LGUI,NEO_L2_L,
+        KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,NEO_L2_L,
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
                                             KC_SPC, KC_ENT,    ALL_T(KC_NO),
@@ -42,14 +43,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     NEO_K,  NEO_H,  NEO_G,  NEO_F,  NEO_Q,  NEO_SS,
                     NEO_S,  NEO_N,  NEO_R,  NEO_T,  NEO_D,  NEO_L1_R,
         KC_TRNS,    NEO_B,  NEO_M,  KC_COMM,KC_DOT, NEO_J,  KC_RSFT,
-                            NEO_L2_R,KC_RGUI,KC_TRNS,KC_RALT,KC_RCTL,
+                            NEO_L2_R,KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
     ),
+/* Layer 1 (F-keys, Mouse and Unicode)
+ * ┌───────┬─────┬─────┬─────┬─────┬─────┬─────┐     ┌─────┬─────┬─────┬─────┬─────┬─────┬───────┐
+ * │       │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │     │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │       │
+ * ├───────┼─────┼─────┼─────┼─────┼─────┼─────┤     ├─────┼─────┼─────┼─────┼─────┼─────┼───────┤
+ * │       │     │     │     │     │     │     │     │     │     │     │     │     │     │       │
+ * ├───────┼─────┼─────┼─────┼─────┼─────┤     │     │     ├─────┼─────┼─────┼─────┼─────┼───────┤
+ * │       │     │     │     │     │     ├─────┤     ├─────┤     │     │     │     │     │       │
+ * ├───────┼─────┼─────┼─────┼─────┼─────┤     │     │     ├─────┼─────┼─────┼─────┼─────┼───────┤
+ * │       │     │     │     │     │     │     │     │     │     │     │     │     │     │       │
+ * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
+ *   │     │     │     │     │     │                             │     │     │     │     │     │
+ *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
+ *                                   │ Ms← │ Ms↑ │ │ Ms↓ │ Ms→ │
+ *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
+ *                             │     │     │     │ │     │     │     │
+ *                             │     │     ├─────┤ ├─────┤     │     │
+ *                             │     │     │     │ │     │     │     │
+ *                             └─────┴─────┴─────┘ └─────┴─────┴─────┘
+ */
+[FMU] = KEYMAP(
+        // left hand
+        KC_TRNS,    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
+        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                                    KC_MS_L,    KC_MS_U,
+                                                                KC_BTN1,
+                                            KC_TRNS,KC_TRNS,    KC_TRNS,
+        // right hand
+        KC_F7,      KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_TRNS,
+        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                            KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_MS_D,    KC_MS_R,
+        KC_BTN2,
+        KC_TRNS,    KC_TRNS,KC_TRNS
+    ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
+    [1] = ACTION_LAYER_TAP_TOGGLE(FMU)
 };
 
 
@@ -86,6 +127,8 @@ void * matrix_scan_user(void)
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
+        case FMU:
+            ergodox_right_led_1_on();
         default:
             ergodox_board_led_off();
         break;
