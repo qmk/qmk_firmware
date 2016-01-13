@@ -173,7 +173,7 @@ KEYMAP(
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLSH,
        KC_TRNS,  KC_V,    KC_G,    KC_C,    KC_L,    KC_MINS, KC_Y,
                  KC_D,    KC_T,    KC_R,    KC_N,    KC_S, LT(MDIA,KC_F),
        KC_TRNS,  KC_B,    KC_P,    KC_W,    KC_M,    CTL_T(KC_J), KC_TRNS,
