@@ -11,8 +11,8 @@
 
 #define PI 3.14159265
 
-#define SAMPLE_DIVIDER 70
-#define SAMPLE_RATE (2000000.0/SAMPLE_DIVIDER/256)
+#define SAMPLE_DIVIDER 39
+#define SAMPLE_RATE (2000000.0/SAMPLE_DIVIDER/2048)
 // Resistor value of 1/ (2 * PI * 10nF * (2000000 hertz / SAMPLE_DIVIDER / 10)) for 10nF cap
 
 void delay_us(int count) {
@@ -32,9 +32,31 @@ bool sliding = false;
 #define RANGE 1000
 volatile int i=0; //elements of the wave
 
+int max = 0xFF;
+float sum = 0;
+int value = 128;
+float place = 0;
+
+uint16_t place_int = 0;
+bool repeat = true;
+uint8_t * sample;
+uint16_t sample_length = 0;
+
+
+bool notes = false;
+float note_frequency = 0;
+float note_length = 0;
+uint16_t note_position = 0;
+float (* notes_pointer)[][2];
+uint8_t notes_length;
+bool notes_repeat;
+uint8_t current_note = 0;
+
 void stop_all_notes() {
     voices = 0;
     TIMSK3 &= ~_BV(OCIE3A);
+    notes = false;
+    playing_notes = false;
     frequency = 0;
     volume = 0;
 
@@ -89,30 +111,35 @@ void stop_note(double freq) {
 
 void init_notes() {
 
-  PLLFRQ = _BV(PDIV2);
-  PLLCSR = _BV(PLLE);
-  while(!(PLLCSR & _BV(PLOCK)));
-  PLLFRQ |= _BV(PLLTM0); /* PCK 48MHz */
-  
-  /* Init a fast PWM on Timer4 */
-  TCCR4A = _BV(COM4A0) | _BV(PWM4A); /* Clear OC4A on Compare Match */
-  TCCR4B = _BV(CS40); /* No prescaling => f = PCK/256 = 187500Hz */
-  OCR4A = 0;
+    PLLFRQ = _BV(PDIV2);
+    PLLCSR = _BV(PLLE);
+    while(!(PLLCSR & _BV(PLOCK)));
+    PLLFRQ |= _BV(PLLTM0); /* PCK 48MHz */
 
-  /* Enable the OC4A output */
-  DDRC |= _BV(PORTC6);
+    /* Init a fast PWM on Timer4 */
+    TCCR4A = _BV(COM4A0) | _BV(PWM4A); /* Clear OC4A on Compare Match */
+    TCCR4B = _BV(CS40); /* No prescaling => f = PCK/256 = 187500Hz */
+    OCR4A = 0;
+
+    /* Enable the OC4A output */
+    DDRC |= _BV(PORTC6);
+
+    TIMSK3 &= ~_BV(OCIE3A); // Turn off 3A interputs
+    
+    TCCR3A = 0x0; // Options not needed
+    TCCR3B = _BV(CS31) | _BV(CS30) | _BV(WGM32); // 64th prescaling and CTC
+    OCR3A = SAMPLE_DIVIDER - 1; // Correct count/compare, related to sample playback
+
+    playing_notes = false;
 
 }
 
-int max = 0xFF;
-float sum = 0;
-int value = 128;
-float place = 0;
 
 ISR(TIMER3_COMPA_vect) {
 
+
     // SINE
-    OCR4A = pgm_read_byte(&sinewave[(uint16_t)place]);
+    // OCR4A = pgm_read_byte(&sinewave[(uint16_t)place]);
     
     // SQUARE
     // if (((int)place) >= 1024){
@@ -131,10 +158,82 @@ ISR(TIMER3_COMPA_vect) {
     //     OCR4A = 2048 - (int)place / 2;
     // }
 
-    place += frequency;
-    if (place >= SINE_LENGTH)
-        place -= SINE_LENGTH;
+    // place += frequency;
 
+    // if (place >= SINE_LENGTH)
+    //     if (repeat)
+    //         place -= SINE_LENGTH;
+    //     else
+    //         TIMSK3 &= ~_BV(OCIE3A);
+
+    // SAMPLE
+    // OCR4A = pgm_read_byte(&sample[(uint16_t)place_int]);
+
+    // place_int++;
+
+    // if (place_int >= sample_length)
+    //     if (repeat)
+    //         place_int -= sample_length;
+    //     else
+    //         TIMSK3 &= ~_BV(OCIE3A);
+
+
+    if (notes) {
+        OCR4A = pgm_read_byte(&sinewave[(uint16_t)place]) >> 0;
+
+        place += note_frequency;
+        if (place >= SINE_LENGTH)
+            place -= SINE_LENGTH;
+        note_position++;
+        if (note_position >= note_length) {
+            current_note++;
+            if (current_note >= notes_length) {
+                if (notes_repeat) {
+                    current_note = 0;
+                } else {
+                    TIMSK3 &= ~_BV(OCIE3A);
+                    notes = false;
+                    playing_notes = false;
+                    return;
+                }
+            }
+            note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
+            note_length = (*notes_pointer)[current_note][1];
+            note_position = 0;
+        }
+
+    }
+
+}
+
+void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat) {
+    notes = true;
+
+    notes_pointer = np;
+    notes_length = n_length;
+    notes_repeat = n_repeat;
+
+    place = 0;
+    current_note = 0;
+    note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
+    note_length = (*notes_pointer)[current_note][1];
+    // note_frequency = 880.0 / SAMPLE_RATE;
+    // note_length = 1000;
+    note_position = 0;
+
+
+    TIMSK3 |= _BV(OCIE3A);
+    playing_notes = true;
+}
+
+void play_sample(uint8_t * s, uint16_t l, bool r) {
+    place_int = 0;
+    sample = s;
+    sample_length = l;
+    repeat = r;
+
+    TIMSK3 |= _BV(OCIE3A);
+    playing_notes = true;
 }
 
 void play_note(double freq, int vol) {
@@ -160,12 +259,6 @@ void play_note(double freq, int vol) {
         volumes[voices] = volume;
         voices++;
     }
-
-    TIMSK3 &= ~_BV(OCIE3A);
-
-    TCCR3A = 0x0; 
-    TCCR3B = _BV(CS31) | _BV(WGM32);
-    OCR3A = SAMPLE_DIVIDER - 1;
 
     TIMSK3 |= _BV(OCIE3A);
 
