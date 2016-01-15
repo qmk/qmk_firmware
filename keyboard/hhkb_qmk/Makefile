@@ -1,21 +1,45 @@
 #----------------------------------------------------------------------------
 # On command line:
 #
-# make = Make software.
+# make all = Make software.
 #
 # make clean = Clean out built project files.
 #
-# That's pretty much all you need. To compile, always go make clean, 
-# followed by make.
+# make coff = Convert ELF to AVR COFF.
 #
-# For advanced users only:
+# make extcoff = Convert ELF to AVR Extended COFF.
+#
+# make program = Download the hex file to the device.
+#                Please customize your programmer settings(PROGRAM_CMD)
+#
 # make teensy = Download the hex file to the device, using teensy_loader_cli.
 #               (must have teensy_loader_cli installed).
 #
+# make dfu = Download the hex file to the device, using dfu-programmer (must
+#            have dfu-programmer installed).
+#
+# make flip = Download the hex file to the device, using Atmel FLIP (must
+#             have Atmel FLIP installed).
+#
+# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
+#               (must have dfu-programmer installed).
+#
+# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
+#                (must have Atmel FLIP installed).
+#
+# make debug = Start either simulavr or avarice as specified for debugging,
+#              with avr-gdb or avr-insight as the front end for debugging.
+#
+# make filename.s = Just compile filename.c into the assembler code only.
+#
+# make filename.i = Create a preprocessed source file for use in submitting
+#                   bug reports to the GCC project.
+#
+# To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = ergodox_ez
+TARGET = hhkb_qmk
 
 
 # Directory common source filess exist
@@ -26,9 +50,8 @@ TMK_DIR = ../../tmk_core
 TARGET_DIR = .
 
 # # project specific files
-SRC = ergodox_ez.c \
-	  twimaster.c \
-	  matrix.c
+SRC = hhkb_qmk.c \
+      matrix.c
 
 ifdef KEYMAP
     SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
@@ -85,22 +108,27 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=512
+#OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+# as per original hasu settings
+OPT_DEFS += -DBOOTLOADER_SIZE=512
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
-EXTRAKEY_ENABLE  = yes # Audio control and System control(+450)
-CONSOLE_ENABLE   = no # Console for debug(+400)
-COMMAND_ENABLE   = yes # Commands for debug and configuration
-CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE      = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-# MIDI_ENABLE    = yes 		# MIDI controls
-# UNICODE_ENABLE = yes 		# Unicode
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+CONSOLE_ENABLE = yes	# Console for debug(+400)
+COMMAND_ENABLE = yes    # Commands for debug and configuration
+CUSTOM_MATRIX    = yes # Custom matrix file for the HHKB
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+# NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+# MIDI_ENABLE = YES		# MIDI controls
+# UNICODE_ENABLE = YES		# Unicode
+# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 
 # Optimize size but this may cause error "relocation truncated to fit"
@@ -111,5 +139,11 @@ VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/quantum/quantum.mk
+debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
+debug-on: all
 
+debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
+debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
+debug-off: all
+
+include $(TOP_DIR)/quantum/quantum.mk
