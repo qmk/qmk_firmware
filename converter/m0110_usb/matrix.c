@@ -64,6 +64,12 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
     matrix = _matrix0;
+
+    // LED flash
+    DDRD |= (1<<6); PORTD |= (1<<6);
+    _delay_ms(500);
+    DDRD |= (1<<6); PORTD &= ~(1<<6);
+
     return;
 }
 

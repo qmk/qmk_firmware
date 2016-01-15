@@ -31,20 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  7 6 5 4 3 2 1 0
  * +---------------+
- * |   ROW   | COL |
+ * |  ROW  |  COL  |
  * +---------------+
  *
- * Matrix space(32 * 8):
- *      01234567
- *   0 +--------+
- *   : |        |
- *   : |        |
- *  31 +--------+
+ * Matrix space(16 * 16):
+ *   r\c0123456789ABCDEF
+ *   0 +----------------+
+ *   : |                |
+ *   : |                |
+ *  16 +----------------+
  */
-#define ROW_MASK 0xF8
-#define COL_MASK 0x07
-#define CODE(row, col)  (((row) << 3) | (col))
-#define ROW(code)       (((code) & ROW_MASK) >> 3)
+#define ROW_MASK 0xF0
+#define COL_MASK 0x0F
+#define CODE(row, col)  (((row) << 4) | (col))
+#define ROW(code)       (((code) & ROW_MASK) >> 4)
 #define COL(code)       ((code) & COL_MASK)
 #define ROW_BITS(code)  (1 << COL(code))
 
@@ -89,8 +89,8 @@ bool matrix_is_on(uint8_t row, uint8_t col) {
     return false;
 }
 
-uint8_t matrix_get_row(uint8_t row) {
-    uint8_t row_bits = 0;
+matrix_row_t matrix_get_row(uint8_t row) {
+    uint16_t row_bits = 0;
 
     if (IS_MOD(CODE(row, 0)) && usb_hid_keyboard_report.mods) {
         row_bits |= usb_hid_keyboard_report.mods;

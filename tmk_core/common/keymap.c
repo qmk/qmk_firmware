@@ -133,7 +133,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 /* translates keycode to action */
 static action_t keycode_to_action(uint8_t keycode)
 {
-    action_t action;
+    action_t action = {};
     switch (keycode) {
         case KC_A ... KC_EXSEL:
         case KC_LCTRL ... KC_RGUI:
