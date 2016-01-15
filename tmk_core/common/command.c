@@ -178,7 +178,9 @@ static void print_eeconfig(void)
 
 static bool command_common(uint8_t code)
 {
+#ifdef KEYBOARD_LOCK_ENABLE
     static host_driver_t *host_driver = 0;
+#endif
     switch (code) {
 #ifdef SLEEP_LED_ENABLE
         case KC_Z:
