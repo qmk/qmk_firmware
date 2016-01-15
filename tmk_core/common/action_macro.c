@@ -34,7 +34,7 @@ void action_macro_play(const macro_t *macro_p)
     macro_t macro = END;
     uint8_t interval = 0;
 
-    uint8_t mod_storage;
+    uint8_t mod_storage = 0;
 
     if (!macro_p) return;
     while (true) {
