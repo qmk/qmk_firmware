@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       |Esc/Alt|  L1  |       | Left |Right |
  *                                ,------+-------+------|       |------+------+------.
  *                                |      |       | PgUp |       |  Up  |      |      |
- *                                |Space | Space |------|       |------|Space |Space |
+ *                                |Space |LShift |------|       |------|RShift|Space |
  *                                |      |       | PgDn |       | Down |      |      |
  *                                `---------------------'       `--------------------'
  */
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                               ALT_T(KC_ESC),  TG(1),
                                                               KC_PGUP,
-                                             KC_SPC, KC_SPC,  KC_PGDN,
+                                            KC_SPC, KC_LSFT,  KC_PGDN,
 
         // right hand
              KC_DELT,     KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_RBRC,
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
              KC_LEFT, KC_RGHT,
              KC_UP,
-             KC_DOWN, KC_SPC,  KC_SPC
+             KC_DOWN, KC_RSFT,  KC_SPC
     ),
 /* Keymap 1: Numbers Layer
  *
