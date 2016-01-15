@@ -53,22 +53,28 @@ Now you have **hex** file to program on current directory. This **hex** is only 
 How to program controller depends on controller chip and its board design. To program AVR USB chips you'll need to start it up in bootloader mode. Most of boards with the chip have a push button to let bootloader come up. Consult with your controller board manual.
 
 ### 2. Program with DFU bootloader
-Stock AVR USB chips have DFU bootloader by factory default. `FLIP` is a DFU programmer on Windows offered by Atmel. Open source command line tool `dfu-programmer` also supports AVR chips, it runs on Linux, Mac OSX and even Windows.
+Stock AVR USB chips have DFU bootloader by factory default. `FLIP` is a DFU programmer on Windows offered by Atmel. `FLIP` has two version of tool, GUI app and command line program. If you want GUI see tutorial below. Open source alternative `dfu-programmer` also supports AVR chips, it is command line tool and runs on Linux, Mac OSX and even Windows.
 
-To program AVR chip with DFU bootloader use `FLIP` or `dfu-programmer`.
-If you have a proper program command in `Makefile` just type this.
 
-`FLIP` has two version of tool, GUI app and command line program. If you want GUI see tutorial below.
-To use command line tool run this command. Note that you need to set PATH variable properly.
+To program with command of `FLIP` run this. Note that you need to set PATH variable properly.
 
     $ make -f Makefile.<variant> flip
 
-Or to program with `dfu-programmer` run:
+With `dfu-programmer` run this.
 
     $ make -f Makefile.<variant> dfu
 
+Or you can execute the command directly as the following.
+
+    $ dfu-programmer <controller> erase --force
+    $ dfu-programmer <controller> flash <your_firmware.hex>
+    $ dfu-programmer <controller> reset
+
+`<controller>` part will be `atmega32u4` or `atmega32u2` in most cases. See manual of the command for the detail.
+
+
 #### FLIP GUI tutorial
-1. On menu bar click **Device** -> **Select**, then choose your chip name. (In most case **ATmega32U2** or **ATmega32U4**)
+1. On menu bar click **Device** -> **Select**, then choose your chip name. (In most cases **ATmega32U2** or **ATmega32U4**)
 2. On menu bar click **Settings** -> **Communication** -> **USB**, then click **Open** button on **USB Port Connection** dialog. At this point you'll have to plug into USB and start bootloader.
 
 3. On menu bar click **File** -> **Load HEX File**, then select your firmware hex file on File Selector dialog.
