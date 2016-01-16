@@ -54,10 +54,19 @@ SRC = planck.c \
 	backlight.c 
 
 ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
-    SRC := keymaps/keymap_default.c $(SRC)
+	KEYMAP_FILE = keymaps/$(KEYMAP)/default.c
 endif
+else
+ifneq ("$(wildcard keymaps/default.c)","")
+	KEYMAP_FILE = keymaps/default.c
+else
+	KEYMAP_FILE = keymaps/default/default.c
+endif
+endif
+SRC := $(KEYMAP_FILE) $(SRC)
 
 CONFIG_H = config.h
 
