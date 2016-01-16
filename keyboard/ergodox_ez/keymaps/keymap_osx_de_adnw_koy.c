@@ -1,17 +1,18 @@
+// Netable differences vs. the default firmware for the ErgoDox EZ:
+// 1. The Cmd key is now on the right side, making Cmd+Space easier.
+// 2. The media keys work on OSX (But not on Windows).
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_german_osx.h"
+#include "keymap_extras/keymap_german.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
-#define CRSR 3 // media keys
+#define ADNW 3 // media keys
 #define NUMB 4 // number keys
 
-#define M_CTRL_CMDV 1
-#define M_CTRL_CMDC 2
-#define M_MEH_SH_ACUT 3
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -21,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |  TAB   |   Q  |   W  |   E  |   R  |   T  | CMD  |           | CMD  |   Z  |   U  |   I  |   O  |   P  |   ü    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  L3    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ö  |  ä/L2  |
+ * |  ADNW  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ö  |  ä/L2  |
  * |--------+------+------+------+------+------| LALT |           | RALT |------+------+------+------+------+--------|
  * | LShift |Y/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |-/Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -39,21 +40,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_ESC,                  DE_1,         DE_2,   DE_3,   DE_4,   DE_5,   M(M_CTRL_CMDV),
-        KC_TAB,                  DE_Q,         DE_W,   DE_E,   DE_R,   DE_T,   KC_LGUI,
-        TG(3),                   DE_A,         DE_S,   DE_D,   DE_F,   DE_G,
-        KC_LSFT,                 CTL_T(DE_Y),  DE_X,   DE_C,   DE_V,   DE_B,   KC_LALT,
+        KC_ESC,                  KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LGUI(KC_V),
+        KC_TAB,                  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LGUI,
+        TG(3),                   KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LSFT,                 CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
         LT(SYMB,KC_GRV),         DE_LESS,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
-                                               					TG(2),  	M(M_MEH_SH_ACUT), //MEH_T(LSFT(DE_ACUT)), //need to create macro for that
-                                                              					KC_HOME,
-                                               				KC_BSPC,KC_DEL,		KC_END,
+                                               TG(2),  MEH_T(LSFT(DE_ACUT)),
+                                                              KC_HOME,
+                                               KC_BSPC,KC_DEL,KC_END,
         // right hand
-             M(M_CTRL_CMDC),  DE_6,   DE_7,   DE_8,   DE_9,   DE_0,             DE_SS,
-             KC_RGUI,     DE_Z,   DE_U,   DE_I,   DE_O,   DE_P,             DE_UE,
-                          DE_H,   DE_J,   DE_K,   DE_L,   DE_OE,LT(MDIA,DE_AE),
-             KC_RALT,	  DE_N,   DE_M,   DE_COMM,DE_DOT, CTL_T(DE_MINS),   KC_RSFT,
-                                  KC_UP,  KC_DOWN,LGUI(KC_LSFT),DE_PLUS,          LT(SYMB,DE_HASH),
-             ALL_T(DE_ACUT),      TG(4),
+             LGUI(KC_C),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             KC_RGUI,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             DE_UE,
+                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,LT(MDIA,DE_AE),
+             KC_RALT,KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+                                  KC_UP,  KC_DOWN,LGUI(KC_LSFT),KC_RBRC,          LT(SYMB,KC_BSLS),
+             ALL_T(DE_ACUT),        TG(4),
              KC_PGUP,
              KC_PGDN,KC_ENT, KC_SPC
     ),
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |  <   |  >   |   !  |  ?   |      |      |           |      |   \  |   [  |   ]  |   |  |   #  |   F12  |
+ * |        |      |      |   !  |  ?   |      |      |           |      |   \  |   [  |   ]  |   |  |   #  |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   #  |   $  |   \  |   /  |   .  |------|           |------|   /  |   (  |   )  |   {  |   }  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -82,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = KEYMAP(
        // left hand
        KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,DE_LESS,DE_MORE,DE_EXLM,DE_QST, KC_TRNS,KC_TRNS,
-       KC_TRNS,DE_HASH,DE_DLR, DE_BSLS,DE_SLSH,KC_DOT,
-       KC_TRNS,KC_TRNS,DE_LESS,DE_PERC,DE_PIPE,DE_TILD,KC_TRNS,
+       KC_TRNS,KC_GRV,LSFT(KC_GRV),DE_EXLM,DE_QST,KC_TRNS,KC_TRNS,
+       KC_TRNS,DE_HASH,DE_DLR, LALT(LSFT(KC_7)),DE_SLSH,KC_DOT,
+       KC_TRNS,KC_TRNS,DE_LESS,DE_PERC,LALT(KC_7),LALT(KC_N),KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
@@ -140,27 +141,48 @@ KEYMAP(
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
-// Cursor layer
+/* Keymap 3: ADNW-Koy layer
+ * ADNW-Koy is a special layout designed to be ergonomic. Was created using software to determine the most ergonomic way to type German and English texts.
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  ESC   |   1  |   2  |   3  |   4  |   5  |Lctrl |           |Rctrl |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |  TAB   |   K  |   .  |   O  |   ,  |   Y  | CMD  |           | CMD  |   V  |   G  |   C  |   L  |   ß  |   Z    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  ADNW  |   H  |   A  |   E  |   I  |   U  |------|           |------|   D  |   T  |   R  |   N |   S  |  F/L2  |
+ * |--------+------+------+------+------+------| LALT |           | RALT |------+------+------+------+------+--------|
+ * | LShift |X/Ctrl|   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |J/Ctrl| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |</L1|  ^  |AltShf| Left | Right|                                       |  Up | Down | CMD-SHIFT |  ´  | //L1 |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | L1 | LGui |       | Alt  |Ctrl/Esc|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 | Space|Backsp|------|       |------|  Enter | Space|
+ *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
 KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_K,    KC_DOT,  KC_O,    KC_COMM, KC_Z,    KC_TRNS,
+       KC_TRNS, KC_H,    KC_A,    KC_E,    KC_I,    KC_U,
+       KC_TRNS, CTL_T(KC_X),KC_Q,    DE_AE,   DE_UE,   DE_OE,   KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLSH,
+       KC_TRNS,  KC_V,    KC_G,    KC_C,    KC_L,    KC_MINS, KC_Y,
+                 KC_D,    KC_T,    KC_R,    KC_N,    KC_S, LT(MDIA,KC_F),
+       KC_TRNS,  KC_B,    KC_P,    KC_W,    KC_M,    CTL_T(KC_J), KC_TRNS,
+                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-//number pad
+
 KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -184,57 +206,20 @@ KEYMAP(
 
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),                // FN1 - Momentary Layer 1 (Symbols)
-    [2] = ACTION_LAYER_TAP_TOGGLE(CRSR)                // FN2 - Momentary Layer 2 (Cursors)
+    [2] = ACTION_LAYER_TAP_TOGGLE(ADNW)                // FN2 - Momentary Layer 2 (ADNW)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-		static uint16_t start;
   // MACRODOWN only works in this function
       switch(id) {
         case 0:
-		if (record->event.pressed) {
-		  register_code(KC_RSFT);
-		} else {
-		  unregister_code(KC_RSFT);
-		}
-		break;
-	case 1:
-		if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL), END);
-		} else {
-			if (timer_elapsed(start) > 150) {
-			    return MACRO(U(LCTRL), END);
-			} else {
-			    return MACRO(U(LCTRL), D(LGUI), T(V), U(LGUI), END);
-			}
-		}
-		break;
-	case 2:
-		if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),END);
-		} else {
-			if (timer_elapsed(start) > 150){
-				return MACRO(U(LCTRL),END);
-			} else {
-				return MACRO(U(LCTRL),D(LGUI),T(C),U(LGUI),END);
-			}
-		}
-		break;
-	case 3:
-		if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),D(LSFT),D(LALT),END);
-		} else {
-			if (timer_elapsed(start) > 150){
-				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
-			} else {
-				return MACRO(U(LCTRL),U(LALT),T(EQL),U(LSFT),END); //cannot use DE_ACUT here, as macro needs KC_ prefix
-			}
-		}
-		break;
+        if (record->event.pressed) {
+          register_code(KC_RSFT);
+        } else {
+          unregister_code(KC_RSFT);
+        }
+        break;
       }
     return MACRO_NONE;
 };
