@@ -1,9 +1,9 @@
 ## READ FIRST
-https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/doc/keymap.md
+https://github.com/tmk/tmk_core/blob/master/doc/keymap.md
 
 ## How to get keycode
-See [doc/keycode.txt](https://github.com/tmk/tmk_keyboard/blob/master/doc/keycode.txt).
-Keycodes are actually defined in [common/keycode.h](https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/common/keycode.h).
+See [doc/keycode.txt](https://github.com/tmk/tmk_core/blob/master/doc/keycode.txt).
+Keycodes are actually defined in [common/keycode.h](https://github.com/tmk/tmk_core/blob/master/common/keycode.h).
 
 ## Sysrq key
 Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
@@ -27,7 +27,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 Modifier keys or layers can be stuck unless layer switching is configured properly.
 For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
-- https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#31-momentary-switching
+- https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
 - http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 - https://github.com/tmk/tmk_keyboard/issues/248
 
@@ -114,7 +114,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 
 You can define FC660 and Poker style ESC with `ACTION_LAYER_MODS`.
-https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
+https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
 
 ```
 #include "keymap_common.h"
@@ -153,7 +153,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    // https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
+    // https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
     [0] = ACTION_LAYER_MODS(1, MOD_LSFT),
     [1] = ACTION_LAYER_MOMENTARY(2),
 };
@@ -180,7 +180,7 @@ This turns right modifer keys into arrow keys when the keys are tapped while sti
 
 /* Arrow keys on right modifier keys with TMK dual role feature
  *
- *  https://github.com/tmk/tmk_keyboard/blob/master/doc/keymap.md#213-modifier-with-tap-keydual-role
+ *  https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#213-modifier-with-tap-keydual-role
  *  https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
  */
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -246,4 +246,4 @@ without weak mods,
 here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
-https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/common/action_util.c#L57
+https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
