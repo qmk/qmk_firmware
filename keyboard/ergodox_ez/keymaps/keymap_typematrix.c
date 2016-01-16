@@ -10,14 +10,17 @@
  *  - ] is moved in place of the dash (-)
  *  - dash (-) and = are moved on bottom right row
  *  - arrows and PgUp/PgDn are moved on the thumbs
- * Layer 1: numbers layer close to the TM when toggling "num" with the following differences:
+ * Layer 1: same as Layer 0 but with Dvorak layout, to use with QWERTY OS layout.
+ *    Enable Dvorak layout with Magic-1 (LShift-RShift-1), disable with Magic-0.
+ * Layer 8: numbers layer close to the TM when toggling "num" with the following differences:
  *  - numpad is displaced by 1 to the top left
  *  - arrows are displaced by 1 to the left
  *  - provides access to F1-F12, caps lock and num lock
- * Layer 2: "fn" layer ("fn" key toggles both layers 1 & 2) with the following differences:
+ * Layer 9: "fn" layer ("fn" key toggles both layers 1 & 2) with the following differences:
  *  - VolUp & VolDn are only on left hand to keep access to arrows on right hand
- * Leds:
- *  - left (1st) & middle (2nd) leds are used to indicate layers 1 & 2 respectively
+ * LEDs:
+ *  - left (1st) led is used to indicate the numbers layer
+ *  - middle (2nd) led is used to indicate Dvorak layout
  *  - right (3rd) led is used to indicate caps-lock
  */
 #include "ergodox_ez.h"
@@ -26,8 +29,9 @@
 #include "led.h"
 
 #define BASE 0 // default layer
-#define NMBR 1 // numbers layer
-#define FNLR 2 // fn layer
+#define DVRK 1 // Dvorak layer
+#define NMBR 8 // numbers layer
+#define FNLR 9 // fn layer
 
 #define MDBL0 1
 #define MFNLR 2
@@ -36,7 +40,7 @@
 #define MPSTE 5
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
+/* Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   `    |   1  |   2  |   3  |   4  |   5  | Del  |           | Del  |   6  |   7  |   8  |   9  |   0  |   ]    |
@@ -50,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |LCtrl |  fn  | LGui | Play |App/Alt|                                      | RAlt |   -  | Home |   =  |End/Ctl|
  *   `-----------------------------------'                                      `-----------------------------------'
  *                                       ,--------------.       ,-------------.
- *                                       |Esc/Alt|  L1  |       | Left |Right |
+ *                                       |Esc/Alt| num  |       | Left |Right |
  *                                ,------+-------+------|       |------+------+------.
  *                                |      |       | PgUp |       |  Up  |      |      |
  *                                |Space |LShift |------|       |------|RShift|Space |
@@ -67,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_ENT,
         KC_LCTL,        M(MFNLR),     KC_LGUI,KC_MPLY,ALT_T(KC_APP),
 
-                                              ALT_T(KC_ESC),  TG(1),
+                                              ALT_T(KC_ESC),  TG(NMBR),
                                                               KC_PGUP,
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
@@ -82,7 +86,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_UP,
              KC_DOWN, KC_RSFT,  KC_SPC
     ),
-/* Keymap 1: Numbers Layer
+/* Dvorak layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   `    |   1  |   2  |   3  |   4  |   5  | Del  |           | Del  |   6  |   7  |   8  |   9  |   0  |   =    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |   '  |   ,  |   .  |   P  |   Y  |Backsp|           |Backsp|   F  |   G  |   C  |   R  |   L  |   /    |
+ * |--------+------+------+------+------+------|ace   |           |ace   |------+------+------+------+------+--------|
+ * | LShift |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | -/Shift|
+ * |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
+ * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | \/Shift|
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |LCtrl |  fn  | LGui | Play |App/Alt|                                      | RAlt |   [  | Home |   ]  |End/Ctl|
+ *   `-----------------------------------'                                      `-----------------------------------'
+ *                                       ,--------------.       ,-------------.
+ *                                       |Esc/Alt| num  |       | Left |Right |
+ *                                ,------+-------+------|       |------+------+------.
+ *                                |      |       | PgUp |       |  Up  |      |      |
+ *                                |Space |LShift |------|       |------|RShift|Space |
+ *                                |      |       | PgDn |       | Down |      |      |
+ *                                `---------------------'       `--------------------'
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[DVRK] = KEYMAP(  // layer 0 : default
+        // left hand
+        KC_GRV,   KC_1,      KC_2,    KC_3,    KC_4,   KC_5,   KC_DELT,
+        KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,   KC_Y,   KC_BSPC,
+        KC_LSFT,  KC_A,      KC_O,    KC_E,    KC_U,   KC_I,
+        KC_LSFT,  KC_SCLN,   KC_Q,    KC_J,    KC_K,   KC_X,   KC_ENT,
+        KC_LCTL,  M(MFNLR),  KC_LGUI, KC_MPLY, ALT_T(KC_APP),
+
+                                              ALT_T(KC_ESC),  TG(NMBR),
+                                                              KC_PGUP,
+                                            KC_SPC, KC_LSFT,  KC_PGDN,
+
+        // right hand
+             KC_DELT,     KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_EQL,
+             KC_BSPC,     KC_F,   KC_G,    KC_C,    KC_R,    KC_L,     KC_SLSH,
+                          KC_D,   KC_H,    KC_T,    KC_N,    KC_S,     SFT_T(KC_MINS),
+             KC_ENT,      KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,     SFT_T(KC_BSLS),
+                                  KC_RALT, KC_LBRC, KC_HOME, KC_RBRC,  CTL_T(KC_END),
+
+             KC_LEFT, KC_RGHT,
+             KC_UP,
+             KC_DOWN, KC_RSFT,  KC_SPC
+    ),
+/* Numbers Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |      |      |  Tab |   /  |   *  |   -    |
@@ -126,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 2: fn layer
+/* fn layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |Insert|           |Insert|Eject |Power |Sleep | Wake |PrtScr|ScrollLk|
@@ -221,8 +271,8 @@ void * matrix_scan_user(void) {
     if (layer_state & (1 << NMBR)) {
         ergodox_right_led_1_on();
     }
-    // led 2: fn layer
-    if (layer_state & (1 << FNLR)) {
+    // led 2: Dvorak layer
+    if (default_layer_state == 1 << DVRK) {
         ergodox_right_led_2_on();
     }
     // led 3: caps lock
