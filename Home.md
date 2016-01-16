@@ -1,6 +1,7 @@
 Welcome to the tmk_keyboard wiki!
 
-- [[TMK based Projects]]
+- [[TMK Own Projects]]
+- [[TMK Based Projects]]
 - [[Other Protjects]]
 - [[FAQ]]
 - [[FAQ/Build]]
@@ -10,6 +11,6 @@ Welcome to the tmk_keyboard wiki!
 - [[HHKB Alt controller]]
 - [[mbed/cortex porting]]
 - [[Keymap examples]]
-- [[TMK own Projects]]
+
 
 - [[Test for ASCIIDOC]]
