@@ -1,4 +1,6 @@
-## TMK own projects by hasu(in tmk_keyboard repository)
+## TMK own projects by hasu
+Located in [tmk_keyboard](https://github.com/tmk/tmk_keyboard/tree/master/) repository.
+
 ### converter                                                                                                                                                                                          
 * [ps2_usb]         - [PS/2 keyboard to USB][GH_ps2]
 * [adb_usb]         - [ADB keyboard to USB][GH_adb]
