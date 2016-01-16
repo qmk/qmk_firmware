@@ -67,13 +67,13 @@ uint16_t hextokeycode(int hex) {
 float walk_up[][2] = {
   {440.0*pow(2.0,(60)/12.0), 400},
   {0, 50},
-  {440.0*pow(2.0,(67)/12.0), 400},
+  {440.0*pow(2.0,(67)/12.0), 600},
 };
 
 float walk_dn[][2] = {
   {440.0*pow(2.0,(67)/12.0), 400},
   {0, 50},
-  {440.0*pow(2.0,(60)/12.0), 400},
+  {440.0*pow(2.0,(60)/12.0), 600},
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) 
