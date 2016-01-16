@@ -51,7 +51,7 @@ elif [[ -n "$(type -P yum)" ]]; then
 
 elif [[ -n "$(type -P zypper)" ]]; then
   # openSUSE
-  zypper refresh --non-interactive && zypper update --non-interactive
+  zypper --non-interactive refresh  && zypper --non-interactive update
   zypper --non-interactive install \
     git \
     make \
@@ -59,6 +59,6 @@ elif [[ -n "$(type -P zypper)" ]]; then
     kernel-devel \
     patch \
     wget \
-    dfu-util
+    dfu-programmer
 
 fi

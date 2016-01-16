@@ -13,6 +13,9 @@ Vagrant.configure(2) do |config|
   # VMware/Virtualbox 64 bit
   # config.vm.box = "puphpet/centos65-x64"
   #
+  # The opensuse boxes don't have dfu-util in their default repositories
+  #
+  # The virtualbox version has tools issues
   # VMware/Virtualbox 64 bit
   # config.vm.box = "bento/opensuse-13.2-x86_64"
   #
@@ -35,7 +38,7 @@ Vagrant.configure(2) do |config|
   # This section allows you to customize the VMware VM
   # settings, ie showing the GUI or upping the memory
   # or cores if desired
-  config.vm.provider "vmware" do |vmw|
+  config.vm.provider "vmware_workstation" do |vmw|
     # Hide the VMware GUI when booting the machine
     vmw.gui = false
  
@@ -43,6 +46,14 @@ Vagrant.configure(2) do |config|
     vmw.memory = "512"
   end
 
+  config.vm.provider "vmware_fusion" do |vmf|
+    # Hide the vmfare GUI when booting the machine
+    vmf.gui = false
+ 
+    # Customize the amount of memory on the VM:
+    vmf.memory = "512"
+  end
+  
   # This script ensures the required packages for AVR programming are installed
   # It also ensures the system always gets the latest updates when powered on
   # If this causes issues you can run a 'vagrant destroy' and then
@@ -53,14 +64,14 @@ Vagrant.configure(2) do |config|
 
   config.vm.post_up_message = """
   Log into the VM using 'vagrant ssh' on OSX or from Git Bash (Win)
-  or 'vagrant ssh-config' and Putty or another SSH tool
+  or 'vagrant ssh-config' and Putty or Bitvise SSH or another SSH tool
 
-  Change directory to the keyboard you wish to program 
-  optionally and modify your layout, 
+  Change directory (cd) to the keyboard you wish to program 
+  (Optionally) modify your layout, 
   then run 'make clean' 
   and then 'make' to compile the .eep and .hex files.
 
-  Or you can copy and paste the line below. 
+  Or you can copy and paste the example line below. 
  
   cd /vagrant; cd keyboard; cd ergodox_ez; make clean; make
   
