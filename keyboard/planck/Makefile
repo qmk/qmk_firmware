@@ -57,7 +57,11 @@ ifdef KEYMAP
 ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
 	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
+ifneq ("$(wildcard keymaps/$(KEYMAP)/default.c)","")
 	KEYMAP_FILE = keymaps/$(KEYMAP)/default.c
+else
+$(error Keymap file does not exist)
+endif
 endif
 else
 ifneq ("$(wildcard keymaps/default.c)","")
