@@ -20,7 +20,7 @@ You can find firmware source at github:
 
 - <https://github.com/tmk/tmk_keyboard>
 
-If you are familiar with `git` tools you are recommended to use it but you can also download zip archive from:
+If you are familiar with [`git`][git] tools you are recommended to use it but you can also download zip archive from:
 
 - <https://github.com/tmk/tmk_keyboard/archive/master.zip>
 
@@ -70,7 +70,7 @@ Or you can execute the command directly as the following.
     $ dfu-programmer <controller> flash <your_firmware.hex>
     $ dfu-programmer <controller> reset
 
-`<controller>` part will be `atmega32u4` or `atmega32u2` in most cases. See manual of the command for the detail.
+`<controller>` part will be `atmega32u4` or `atmega32u2` in most cases. See manual of the command for the detail. On Linux and Mac OSX you will need proper permission to program a controller and you can use `sudo` command for this purpose probably. On Linux you also can configure `udev` rules to set permission.
 
 
 #### FLIP GUI tutorial
@@ -111,6 +111,7 @@ You may want to use other programmer like [`avrdude`][avrdude]. In that case you
 [dfu-prog]:     http://dfu-programmer.sourceforge.net/
 [teensy-loader]:http://www.pjrc.com/teensy/loader.html
 [avrdude]:      http://savannah.nongnu.org/projects/avrdude/
+[git]:          https://git-scm.com/
 
 
 
