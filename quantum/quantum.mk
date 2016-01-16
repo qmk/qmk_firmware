@@ -4,6 +4,21 @@ QUANTUM_DIR = quantum
 SRC += $(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/led.c 
 
+ifdef KEYMAP
+ifneq (,$(shell grep USING_MIDI 'keymaps/keymap_$(KEYMAP).c'))
+MIDI_ENABLE=yes
+$(info  * Overriding MIDI_ENABLE setting - keymap_$(KEYMAP).c requires it)
+endif
+ifneq (,$(shell grep USING_UNICODE 'keymaps/keymap_$(KEYMAP).c'))
+UNICODE_ENABLE=yes
+$(info  * Overriding UNICODE_ENABLE setting - keymap_$(KEYMAP).c requires it)
+endif
+ifneq (,$(shell grep USING_BACKLIGHT 'keymaps/keymap_$(KEYMAP).c'))
+BACKLIGHT_ENABLE=yes
+$(info  * Overriding BACKLIGHT_ENABLE setting - keymap_$(KEYMAP).c requires it)
+endif
+endif
+
 ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif

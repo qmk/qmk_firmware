@@ -1,3 +1,5 @@
+// USING_MIDI
+// USING_BACKLIGHT
 #include "keymap_common.h"
 #include "backlight.h"
 #include "action_layer.h"
