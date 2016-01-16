@@ -4,18 +4,18 @@ QUANTUM_DIR = quantum
 SRC += $(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/led.c 
 
-ifdef KEYMAP
-ifneq (,$(shell grep USING_MIDI 'keymaps/keymap_$(KEYMAP).c'))
+ifdef KEYMAP_FILE
+ifneq (,$(shell grep USING_MIDI '$(KEYMAP_FILE)'))
 MIDI_ENABLE=yes
-$(info  * Overriding MIDI_ENABLE setting - keymap_$(KEYMAP).c requires it)
+$(info  * Overriding MIDI_ENABLE setting - $(KEYMAP_FILE) requires it)
 endif
-ifneq (,$(shell grep USING_UNICODE 'keymaps/keymap_$(KEYMAP).c'))
+ifneq (,$(shell grep USING_UNICODE '$(KEYMAP_FILE)'))
 UNICODE_ENABLE=yes
-$(info  * Overriding UNICODE_ENABLE setting - keymap_$(KEYMAP).c requires it)
+$(info  * Overriding UNICODE_ENABLE setting - $(KEYMAP_FILE) requires it)
 endif
-ifneq (,$(shell grep USING_BACKLIGHT 'keymaps/keymap_$(KEYMAP).c'))
+ifneq (,$(shell grep USING_BACKLIGHT '$(KEYMAP_FILE)'))
 BACKLIGHT_ENABLE=yes
-$(info  * Overriding BACKLIGHT_ENABLE setting - keymap_$(KEYMAP).c requires it)
+$(info  * Overriding BACKLIGHT_ENABLE setting - $(KEYMAP_FILE) requires it)
 endif
 endif
 
