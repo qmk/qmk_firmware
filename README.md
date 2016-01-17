@@ -13,6 +13,7 @@ The documentation below explains QMK customizations and elaborates on some of th
 ## Getting started
 
 * **If you're looking to customize a keyboard that currently runs QMK or TMK** , find your keyboard's directory under `/keyboard/` and read the README file. This will get you all set up.
+* Read the [QUICK_START.md](QUICK_START.md) if you want to hit the ground running with minimal fuss or you aren't a technical person and you just want to build the firmware with the least amount of hassle possible.
 * If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `./new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
 
 You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
