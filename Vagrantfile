@@ -11,16 +11,16 @@ Vagrant.configure(2) do |config|
   # config.vm.box = "phusion/ubuntu-14.04-amd64"
   #
   # VMware/Virtualbox 64 bit
-  # config.vm.box = "puphpet/centos65-x64"
+  #config.vm.box = "puphpet/centos65-x64"
   #
   # The opensuse boxes don't have dfu-util in their default repositories
   #
   # The virtualbox version has tools issues
   # VMware/Virtualbox 64 bit
-  # config.vm.box = "bento/opensuse-13.2-x86_64"
+  #config.vm.box = "bento/opensuse-13.2-x86_64"
   #
   # Virtualbox only
-  # config.vm.box = "bento/opensuse-13.2-i386"
+  #config.vm.box = "bento/opensuse-13.2-i386"
   # config.vm.box = ""
   # config.vm.box = ""
 
@@ -30,7 +30,13 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     # Hide the VirtualBox GUI when booting the machine
     vb.gui = false
-  
+    vb.customize ['modifyvm', :id, '--usb', 'on']
+    vb.customize ['usbfilter', 'add', '0',
+		  '--target', :id,
+		  '--name', 'teensy',
+		  '--vendorid', '0x16c0',
+		  '--productid','0x0478'
+    		 ] 
     # Customize the amount of memory on the VM:
     vb.memory = "512"
   end
@@ -40,7 +46,7 @@ Vagrant.configure(2) do |config|
   # or cores if desired
   config.vm.provider "vmware_workstation" do |vmw|
     # Hide the VMware GUI when booting the machine
-    vmw.gui = false
+    vmw.gui = false 
  
     # Customize the amount of memory on the VM:
     vmw.memory = "512"
