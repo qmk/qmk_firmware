@@ -20,7 +20,15 @@ if [[ -n "$(type -P pacman )" ]]; then
 
 elif [[ -n "$(type -P apt-get)" ]]; then
   # Debian and derivatives
-  apt-get update -y && apt-get upgrade -y
+  # This block performs completely non-interactive updates {{
+  export DEBIAN_FRONTEND=noninteractive
+  export DEBCONF_NONINTERACTIVE_SEEN=true
+  echo "grub-pc hold" | dpkg --set-selections
+  apt-get -y update
+  apt-get -y --allow-unauthenticated upgrade \
+	  -o Dpkg::Options::="--force-confdef" \
+	  -o Dpkg::Options::="--force-confold"
+  # }}
   apt-get install -y \
     build-essential \
     gcc \
