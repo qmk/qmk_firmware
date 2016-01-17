@@ -12,4 +12,7 @@ See https://github.com/tmk/tmk_keyboard/issues/173
 **Compact L3**: Custom keyboard designed by LifeZone and LeeKu.
 - https://github.com/xauser/tmk_keyboard/tree/xauser
 
+**KMAC, 1,2 and Happy**: Custom keyboard designed by kbdmania.
+- https://github.com/ageaenes/tmk_keyboard
+
 ### converter
