@@ -46,6 +46,7 @@ Your keymap can include shortcuts to common operations (called "function actions
 * `RGUI(kc)` - applies right GUI (command/win) to *kc*
 * `HYPR(kc)` - applies Hyper (all modifiers) to *kc*
 * `MEH(kc)`  - applies Meh (all modifiers except Win/Cmd) to *kc*
+* `LCAG(kc)` - applies CtrlAltGui to *kc*
 
 You can also chain these, like this:
 
@@ -89,6 +90,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALT_T(kc)` - is LALT when held and *kc* when tapped 
   * `GUI_T(kc)` - is LGUI when held and *kc* when tapped 
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
+  * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
 ### Temporarily setting the default layer 
@@ -175,3 +177,23 @@ This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happeni
 ## Bluetooth functionality
 
 This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts), but can be enabled via the Makefile. The firmware will still output characters via USB, so be aware of this when charging via a computer. It would make sense to have a switch on the Bluefruit to turn it off at will.
+
+## International Characters on Windows
+
+[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys amont others.
+
+The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
+
+First you need to select a modifier combination that is not in use by any of your programs.
+CtrlAltWin is not used very widely and should therefore be perfect for this.
+There is a macro defined for a mod-tab combo `LCAG_T`.
+Add this mod-tab combo to a key on your keyboard, e.g.: `LCAG_T(KC_TAB)`. 
+This makes the key behave like a tab key if pressed and released immediately but changes it to the modifier if used with another key.
+
+In the default script of AutoHotkey you can define custom hotkeys.
+
+    <^<!<#a::Send, ä
+    <^<!<#<+a::Send, Ä
+
+The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
+AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
