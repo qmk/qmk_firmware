@@ -192,8 +192,8 @@ This makes the key behave like a tab key if pressed and released immediately but
 
 In the default script of AutoHotkey you can define custom hotkeys.
 
-  <^<!<#a::Send, ä
-  <^<!<#<+a::Send, Ä
+    <^<!<#a::Send, ä
+    <^<!<#<+a::Send, Ä
 
 The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
 AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
