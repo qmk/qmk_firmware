@@ -8,7 +8,8 @@
 
 /* About this file: This is just an experimental keymap for my own use, with some ideas I'm testing out.
 *  Changlog:
-*  Jan 19: Made J into dual-action key (Alt when held down), to make Alt-tab more ergonomic.
+*  Jan 19: * Made J into dual-action key (Alt when held down), to make Alt-tab more ergonomic.
+*          * Made ' into dual-action key (Win/Cmd when held down).
 */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -19,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  | Alt/J|   K  |   L  |; / L2|   '    |
+ * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  | Alt/J|   K  |   L  |; / L2| LGui/' |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              KC_RGHT,     KC_6,KC_7,       KC_8,   KC_9,   KC_0,            KC_MINS,
              TG(SYMB),    KC_Y,KC_U,       KC_I,   KC_O,   KC_P,            KC_BSLS,
-                          KC_H,ALT_T(KC_J),KC_K,   KC_L,   LT(MDIA,KC_SCLN),KC_QUOT,
+                          KC_H,ALT_T(KC_J),KC_K,   KC_L,   LT(MDIA,KC_SCLN),GUI_T(KC_QUOT),
              MEH_T(KC_NO),KC_N,KC_M,       KC_COMM,KC_DOT, CTL_T(KC_SLSH),  KC_RSFT,
                                KC_UP,      KC_DOWN,KC_LBRC,KC_RBRC,         KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
