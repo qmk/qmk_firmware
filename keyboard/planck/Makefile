@@ -53,12 +53,16 @@ TARGET_DIR = .
 SRC = planck.c \
 	backlight.c 
 
+ifdef keymap
+	KEYMAP = $(keymap)
+endif
+
 ifdef KEYMAP
 ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
 	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
-ifneq ("$(wildcard keymaps/$(KEYMAP)/default.c)","")
-	KEYMAP_FILE = keymaps/$(KEYMAP)/default.c
+ifneq ("$(wildcard keymaps/$(KEYMAP)/keymap.c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
 else
 $(error Keymap file does not exist)
 endif
@@ -67,7 +71,7 @@ else
 ifneq ("$(wildcard keymaps/default.c)","")
 	KEYMAP_FILE = keymaps/default.c
 else
-	KEYMAP_FILE = keymaps/default/default.c
+	KEYMAP_FILE = keymaps/default/keymap.c
 endif
 endif
 SRC := $(KEYMAP_FILE) $(SRC)
