@@ -50,8 +50,7 @@ TMK_DIR = ../../tmk_core
 TARGET_DIR = .
 
 # # project specific files
-SRC = planck.c \
-	backlight.c 
+SRC = planck.c
 
 ifdef KEYMAP
     SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
@@ -124,9 +123,13 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = YES 		# MIDI controls
+AUDIO_ENABLE = YES 		# Audio output on port C6
 # UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
+ifdef BACKLIGHT_ENABLE
+	SRC += backlight.c
+endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax

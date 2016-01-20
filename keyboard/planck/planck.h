@@ -3,7 +3,9 @@
 
 #include "matrix.h"
 #include "keymap_common.h"
-// #include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+	#include "backlight.h"
+#endif
 #include <stddef.h>
 #ifdef MIDI_ENABLE
 	#include <keymap_midi.h>
