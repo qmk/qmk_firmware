@@ -64,10 +64,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       switch(id) {
         case 0:
           if (record->event.pressed) {
-            register_code(KC_RSFT);
-            backlight_step();
+            register_code(KC_LCTL);
+            backlight_step(); //moving this statement to the else block should move the action to the upstroke.
+            //if a certain amount of time has passed or a second key has been pressed, don't step the backlight.
           } else {
-            unregister_code(KC_RSFT);
+            unregister_code(KC_LCTL);
           }
         break;
       }
