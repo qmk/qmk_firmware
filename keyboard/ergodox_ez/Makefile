@@ -31,9 +31,9 @@ SRC = ergodox_ez.c \
 	  matrix.c
 
 ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
+    SRC := keymaps/$(KEYMAP)/keymap_$(KEYMAP).c $(SRC)
 else
-    SRC := keymaps/keymap_default.c $(SRC)
+    SRC := keymaps/default/keymap_default.c $(SRC)
 endif
 
 CONFIG_H = config.h
