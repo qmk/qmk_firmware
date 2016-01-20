@@ -52,8 +52,8 @@
 #include "descriptor.h"
 #include "lufa.h"
 
-#ifdef MIDI_ENABLE
-    #include <beeps.h>
+#ifdef AUDIO_ENABLE
+    #include <audio.h>
 #endif
 
 #ifdef BLUETOOTH_ENABLE
@@ -946,6 +946,8 @@ int main(void)
 #ifdef MIDI_ENABLE
 void fallthrough_callback(MidiDevice * device,
     uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2){
+
+#ifdef AUDIO_ENABLE
   if (cnt == 3) {
     switch (byte0 & 0xF0) {
         case MIDI_NOTEON:
@@ -959,6 +961,7 @@ void fallthrough_callback(MidiDevice * device,
   if (byte0 == MIDI_STOP) {
     stop_all_notes();
   }
+#endif
 }
 
 void cc_callback(MidiDevice * device,

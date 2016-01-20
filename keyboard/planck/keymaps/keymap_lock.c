@@ -1,8 +1,10 @@
 #include "keymap_common.h"
-// #include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+  #include "backlight.h"
+#endif
 #include "action_layer.h"
 #include "keymap_midi.h"
-#include "beeps.h"
+#include "audio.h"
 #include <avr/boot.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -86,7 +88,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           play_notes(&walk_up, 3, false);
           // play_note(440, 20);
           // register_code(KC_RSFT);
-          // backlight_set(BACKLIGHT_LEVELS);
+          #ifdef BACKLIGHT_ENABLE
+            backlight_set(BACKLIGHT_LEVELS);
+          #endif
           default_layer_and(0); 
           default_layer_or((1<<5));
 
@@ -118,17 +122,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           // register_code(hextokeycode((lock & 0x0F)));
           // unregister_code(hextokeycode((lock & 0x0F)));
 
-          // note(0+12, 20);
-          // note(0+24, 20);
         } else {
           unregister_code(KC_RSFT);
           play_notes(&walk_dn, 3, false);
-          // backlight_set(0);
+          #ifdef BACKLIGHT_ENABLE
+            backlight_set(0);
+          #endif
           default_layer_and(0); 
           default_layer_or(0);
-          // note(0+24, 20);
-          // note(0, 20);
-          // play_note(4, 20);
         }
         break;
       } 
@@ -149,44 +150,5 @@ float start_up[][2] = {
 
 void * matrix_init_user(void) {
     init_notes();
-
     play_notes(&start_up, 9, false);
-    // play_note(((double)261.6*3)*pow(2.0,(36)/12.0), 0xF);
-    // _delay_ms(50);
-
-    // play_note(((double)261.6*3)*pow(2.0,(48)/12.0), 0xF);
-    // _delay_ms(25);
-    // stop_note(((double)261.6*3)*pow(2.0,(48)/12.0));
-
-    // play_note(((double)261.6*3)*pow(2.0,(48)/12.0), 0xF);
-    // _delay_ms(25);
-    // stop_note(((double)261.6*3)*pow(2.0,(48)/12.0));
-
-
-    // stop_note(((double)261.6*3)*pow(2.0,(36)/12.0));
-
-
-    // play_note(((double)261.6*3)*pow(2.0,(62)/12.0), 0xF);
-    // _delay_ms(50);
-    // stop_note(((double)261.6*3)*pow(2.0,(62)/12.0));
-
-
-    // play_note(((double)261.6*3)*pow(2.0,(64)/12.0), 0xF);
-    // _delay_ms(50);
-    // stop_note(((double)261.6*3)*pow(2.0,(64)/12.0));
-
 }
-
-
-// void * matrix_scan_user(void) {
-//   if (layer_state & (1<<2)) {
-//     if (!playing_notes)
-//       play_notes(&start_up, 9, true);
-//   } else if (layer_state & (1<<3)) {
-//     if (!playing_notes)
-//       play_notes(&start_up, 9, true);
-//   } else {
-//     if (playing_notes)
-//       stop_all_notes();
-//   }
-// }
