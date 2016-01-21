@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(3),                   DE_A,         DE_S,   DE_D,   DE_F,   DE_G,
         KC_LSFT,                 CTL_T(DE_Y),  DE_X,   DE_C,   DE_V,   DE_B,   KC_LALT,
         LT(SYMB,KC_GRV),         DE_LESS,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
-                                               					TG(2),  	M(M_MEH_SH_ACUT), //MEH_T(LSFT(DE_ACUT)), //need to create macro for that
+                                               			  	M(M_MEH_SH_ACUT), 	TG(2),
                                                               					KC_HOME,
                                                				KC_BSPC,KC_DEL,		KC_END,
         // right hand
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           DE_H,   DE_J,   DE_K,   DE_L,   DE_OE,LT(MDIA,DE_AE),
              KC_RALT,	  DE_N,   DE_M,   DE_COMM,DE_DOT, CTL_T(DE_MINS),   KC_RSFT,
                                   KC_UP,  KC_DOWN,LGUI(KC_LSFT),DE_PLUS,          LT(SYMB,DE_HASH),
-             ALL_T(DE_ACUT),      TG(4),
+             TG(4),	  ALL_T(DE_ACUT),
              KC_PGUP,
              KC_PGDN,KC_ENT, KC_SPC
     ),
