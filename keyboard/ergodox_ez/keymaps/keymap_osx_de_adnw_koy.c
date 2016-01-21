@@ -38,26 +38,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = KEYMAP(  // layer 0 : default
-        // left hand
-        KC_ESC,                  KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LGUI(KC_V),
-        KC_TAB,                  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LGUI,
-        TG(3),                   KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,                 CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
-        LT(SYMB,KC_GRV),         DE_LESS,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
-                                               TG(2),  MEH_T(LSFT(DE_ACUT)),
-                                                              KC_HOME,
-                                               KC_BSPC,KC_DEL,KC_END,
-        // right hand
-             LGUI(KC_C),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             KC_RGUI,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             DE_UE,
-                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,LT(MDIA,DE_AE),
-             KC_RALT,KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                                  KC_UP,  KC_DOWN,LGUI(KC_LSFT),KC_RBRC,          LT(SYMB,KC_BSLS),
-             ALL_T(DE_ACUT),        TG(4),
-             KC_PGUP,
-             KC_PGDN,KC_ENT, KC_SPC
-    ),
+
+/* Keymap 0: ADNW-Koy layer
+ * ADNW-Koy is a special layout designed to be ergonomic. Was created using software to determine the most ergonomic way to type German and English texts.
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  ESC   |   1  |   2  |   3  |   4  |   5  |Lctrl |           |Rctrl |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |  TAB   |   K  |   .  |   O  |   ,  |   Y  | CMD  |           | CMD  |   V  |   G  |   C  |   L  |   ß  |   Z    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  ADNW  |   H  |   A  |   E  |   I  |   U  |------|           |------|   D  |   T  |   R  |   N |   S  |  F/L2  |
+ * |--------+------+------+------+------+------| LALT |           | RALT |------+------+------+------+------+--------|
+ * | LShift |X/Ctrl|   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |J/Ctrl| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |</L1|  ^  |AltShf| Left | Right|                                       |  Up | Down | CMD-SHIFT |  ´  | //L1 |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | L1 | LGui |       | Alt  |Ctrl/Esc|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 | Space|Backsp|------|       |------|  Enter | Space|
+ *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+KEYMAP(
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_K,    KC_DOT,  KC_O,    KC_COMM, KC_Z,    KC_TRNS,
+       KC_TRNS, KC_H,    KC_A,    KC_E,    KC_I,    KC_U,
+       KC_TRNS, CTL_T(KC_X),KC_Q,    DE_AE,   DE_UE,   DE_OE,   KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS,
+                                                    KC_TRNS,
+                                  KC_TRNS, KC_TRNS, KC_TRNS,
+    // right hand
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLSH,
+       KC_TRNS,  KC_V,    KC_G,    KC_C,    KC_L,    KC_MINS, KC_Y,
+                 KC_D,    KC_T,    KC_R,    KC_N,    KC_S, LT(MDIA,KC_F),
+       KC_TRNS,  KC_B,    KC_P,    KC_W,    KC_M,    CTL_T(KC_J), KC_TRNS,
+                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+),
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -141,48 +163,28 @@ KEYMAP(
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
-/* Keymap 3: ADNW-Koy layer
- * ADNW-Koy is a special layout designed to be ergonomic. Was created using software to determine the most ergonomic way to type German and English texts.
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  ESC   |   1  |   2  |   3  |   4  |   5  |Lctrl |           |Rctrl |   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  TAB   |   K  |   .  |   O  |   ,  |   Y  | CMD  |           | CMD  |   V  |   G  |   C  |   L  |   ß  |   Z    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  ADNW  |   H  |   A  |   E  |   I  |   U  |------|           |------|   D  |   T  |   R  |   N |   S  |  F/L2  |
- * |--------+------+------+------+------+------| LALT |           | RALT |------+------+------+------+------+--------|
- * | LShift |X/Ctrl|   Q  |   Ä  |   Ü  |   Ö  |      |           |      |   B  |   P  |   W  |   M  |J/Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |</L1|  ^  |AltShf| Left | Right|                                       |  Up | Down | CMD-SHIFT |  ´  | //L1 |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | L1 | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Enter | Space|
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
- */
-KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_K,    KC_DOT,  KC_O,    KC_COMM, KC_Z,    KC_TRNS,
-       KC_TRNS, KC_H,    KC_A,    KC_E,    KC_I,    KC_U,
-       KC_TRNS, CTL_T(KC_X),KC_Q,    DE_AE,   DE_UE,   DE_OE,   KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
-    // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLSH,
-       KC_TRNS,  KC_V,    KC_G,    KC_C,    KC_L,    KC_MINS, KC_Y,
-                 KC_D,    KC_T,    KC_R,    KC_N,    KC_S, LT(MDIA,KC_F),
-       KC_TRNS,  KC_B,    KC_P,    KC_W,    KC_M,    CTL_T(KC_J), KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-),
 
+[BASE] = KEYMAP(  // layer 3 : default qwertz layout
+        // left hand
+        KC_ESC,                  KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LGUI(KC_V),
+        KC_TAB,                  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LGUI,
+        TG(3),                   KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LSFT,                 CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
+        LT(SYMB,KC_GRV),         DE_LESS,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
+                                               TG(2),  MEH_T(LSFT(DE_ACUT)),
+                                                              KC_HOME,
+                                               KC_BSPC,KC_DEL,KC_END,
+        // right hand
+             LGUI(KC_C),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             KC_RGUI,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             DE_UE,
+                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,LT(MDIA,DE_AE),
+             KC_RALT,KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+                                  KC_UP,  KC_DOWN,LGUI(KC_LSFT),KC_RBRC,          LT(SYMB,KC_BSLS),
+             ALL_T(DE_ACUT),        TG(4),
+             KC_PGUP,
+             KC_PGDN,KC_ENT, KC_SPC
+    ),
+//numblock
 KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
