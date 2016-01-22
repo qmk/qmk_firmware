@@ -1094,7 +1094,9 @@ static void keyboard_idle_timer_cb(void *arg) {
   if(keyboard_idle) {
 #endif /* NKRO_ENABLE */
     /* TODO: are we sure we want the KBD_ENDPOINT? */
-    usbStartTransmitI(usbp, KBD_ENDPOINT, (uint8_t *)&keyboard_report_sent, sizeof(keyboard_report_sent));
+    if(!usbGetTransmitStatusI(usbp, KBD_ENDPOINT)) {
+      usbStartTransmitI(usbp, KBD_ENDPOINT, (uint8_t *)&keyboard_report_sent, KBD_EPSIZE);
+    }
     /* rearm the timer */
     chVTSetI(&keyboard_idle_timer, 4*MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
   }
@@ -1127,8 +1129,13 @@ void send_keyboard(report_keyboard_t *report) {
      * this is more efficient */
     /* busy wait, should be short and not very common */
     osalSysLock();
-    while(usbGetTransmitStatusI(&USB_DRIVER, NKRO_ENDPOINT))
-      ;
+    if(usbGetTransmitStatusI(&USB_DRIVER, NKRO_ENDPOINT)) {
+      /* Need to either suspend, or loop and call unlock/lock during
+       * every iteration - otherwise the system will remain locked,
+       * no interrupts served, so USB not going through as well.
+       * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+      osalThreadSuspendS(&(&USB_DRIVER)->epc[NKRO_ENDPOINT]->in_state->thread);
+    }
     usbStartTransmitI(&USB_DRIVER, NKRO_ENDPOINT, (uint8_t *)report, sizeof(report_keyboard_t));
     osalSysUnlock();
   } else
@@ -1137,8 +1144,13 @@ void send_keyboard(report_keyboard_t *report) {
     /* need to wait until the previous packet has made it through */
     /* busy wait, should be short and not very common */
     osalSysLock();
-    while(usbGetTransmitStatusI(&USB_DRIVER, KBD_ENDPOINT))
-      ;
+    if(usbGetTransmitStatusI(&USB_DRIVER, KBD_ENDPOINT)) {
+      /* Need to either suspend, or loop and call unlock/lock during
+       * every iteration - otherwise the system will remain locked,
+       * no interrupts served, so USB not going through as well.
+       * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+      osalThreadSuspendS(&(&USB_DRIVER)->epc[KBD_ENDPOINT]->in_state->thread);
+    }
     usbStartTransmitI(&USB_DRIVER, KBD_ENDPOINT, (uint8_t *)report, KBD_EPSIZE);
     osalSysUnlock();
   }
