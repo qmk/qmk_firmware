@@ -31,15 +31,14 @@ SRC = ergodox_ez.c \
 	  matrix.c
 
 ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
+    SRC := keymaps/$(KEYMAP)/keymap.c $(SRC)
 else
-    SRC := keymaps/keymap_default.c $(SRC)
+    SRC := keymaps/default/keymap.c $(SRC)
 endif
 
 CONFIG_H = config.h
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
