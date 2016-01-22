@@ -2,4 +2,4 @@
 
 This is what we ship with out of the factory. :) The image says it all:
 
-![Default](keymap_default.png)
+![Default](default_highres.png)
