@@ -1,20 +1,7 @@
-# Quantum MK Firmware
+hhkb_qmk keyboard firmware
+======================
 
-This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co) and the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard.
-
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK.
-
-This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
-
-## Important background info: TMK documentation
-
-The documentation below explains QMK customizations and elaborates on some of the more useful features of TMK. To understand the base firmware, and especially what *layers* are and how they work, please see [TMK_README.md](/TMK_README.md).
-
-## Getting started
-
-* **If you're looking to customize a keyboard that currently runs QMK or TMK** , find your keyboard's directory under `/keyboard/` and read the README file. This will get you all set up.
-* Read the [QUICK_START.md](QUICK_START.md) if you want to hit the ground running with minimal fuss or you aren't a technical person and you just want to build the firmware with the least amount of hassle possible.
-* If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `./new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
+## Quantum MK Firmware
 
 You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
 
@@ -45,9 +32,6 @@ Your keymap can include shortcuts to common operations (called "function actions
 * `RALT(kc)` - applies right Alt to *kc*
 * `LGUI(kc)` - applies left GUI (command/win) to *kc*
 * `RGUI(kc)` - applies right GUI (command/win) to *kc*
-* `HYPR(kc)` - applies Hyper (all modifiers) to *kc*
-* `MEH(kc)`  - applies Meh (all modifiers except Win/Cmd) to *kc*
-* `LCAG(kc)` - applies CtrlAltGui to *kc*
 
 You can also chain these, like this:
 
@@ -91,8 +75,6 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALT_T(kc)` - is LALT when held and *kc* when tapped 
   * `GUI_T(kc)` - is LGUI when held and *kc* when tapped 
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
-  * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
-  * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
 ### Temporarily setting the default layer 
 
@@ -179,22 +161,20 @@ This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happeni
 
 This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts), but can be enabled via the Makefile. The firmware will still output characters via USB, so be aware of this when charging via a computer. It would make sense to have a switch on the Bluefruit to turn it off at will.
 
-## International Characters on Windows
+## Building
 
-[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys amont others.
+Download or clone the whole firmware and navigate to the keyboard/planck folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
 
-The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
+Depending on which keymap you would like to use, you will have to compile slightly differently.
 
-First you need to select a modifier combination that is not in use by any of your programs.
-CtrlAltWin is not used very widely and should therefore be perfect for this.
-There is a macro defined for a mod-tab combo `LCAG_T`.
-Add this mod-tab combo to a key on your keyboard, e.g.: `LCAG_T(KC_TAB)`. 
-This makes the key behave like a tab key if pressed and released immediately but changes it to the modifier if used with another key.
+### Default
+To build with the default keymap, simply run `make`.
 
-In the default script of AutoHotkey you can define custom hotkeys.
+### Other Keymaps
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
 
-    <^<!<#a::Send, ä
-    <^<!<#<+a::Send, Ä
-
-The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
-AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
+To build the firmware binary hex file with a keymap just do `make` with `KEYMAP` option like:
+```
+$ make KEYMAP=[default|jack|<name>]
+```
+Keymaps follow the format **__keymap\_\<name\>.c__** and are stored in the `keymaps` folder.
