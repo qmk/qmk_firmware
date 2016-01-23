@@ -1,28 +1,4 @@
-/* TypeMatrix-2030-like keymap
- * ---------------------------
- * Currently supported features:
- * Layer 0: default layer close to the TM with the following differences:
- *  - top row and rightmost column are removed, corresponding keys are displaced
- *  - bottom-left keys are reorganized on a single roz as: Ctrl, "Fn", Gui, Play, App/Alt
- *  - "shuffle" and "desktop" are not supported
- *  - right-shift is moved on ' and \
- *  - right-ctrl is moved on End
- *  - ] is moved in place of the dash (-)
- *  - dash (-) and = are moved on bottom right row
- *  - arrows and PgUp/PgDn are moved on the thumbs
- * Layer 1: same as Layer 0 but with Dvorak layout, to use with QWERTY OS layout.
- *    Enable Dvorak layout with Magic-1 (LShift-RShift-1), disable with Magic-0.
- * Layer 8: numeric layer close to the TM when toggling "num" with the following differences:
- *  - numpad is displaced by 1 to the top left
- *  - arrows are displaced by 1 to the left
- *  - provides access to F1-F12, caps lock and num lock
- * Layer 9: "fn" layer ("fn" key toggles both layers 1 & 2) with the following differences:
- *  - VolUp & VolDn are only on left hand to keep access to arrows on right hand
- * LEDs:
- *  - left (1st) led is used to indicate the numeric layer
- *  - middle (2nd) led is used to indicate Dvorak layout
- *  - right (3rd) led is used to indicate caps-lock
- */
+/* TypeMatrix-2030-like keymap  */
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
