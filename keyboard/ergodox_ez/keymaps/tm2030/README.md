@@ -15,34 +15,36 @@ Some keys had to be moved around to fit into the ErgoDox, especially the `F1`-`F
 
 ## Base Layer
 This is the default layer, close to the TM with the following differences:
-- Top row (with the `F`-keys) and rightmost column (with application shortcuts) are removed, the corresponding keys are displaced elsewhere.
-- Bottom-left keys are reorganized on a single row as: `Ctrl`, `fn`, `Gui`, `Play`, `App`/`Alt`.
-- `shuffle` and `desktop` are not supported.
-- `right-shift` is moved on `'`, `\` and on the right thumb (the latter is actually the only _true_ `right-shift`, and must be used in the `Magic` key combination).
-- `right-ctrl` is moved on `End`.
-- `]` is moved in place of the dash (`-`).
-- Dash (`-`) and `=` are moved on bottom right row.
-- Arrows and `PgUp`/`PgDn` are moved on the thumbs.
 
-    ,--------------------------------------------------.           ,--------------------------------------------------.
-    |   `    |   1  |   2  |   3  |   4  |   5  | Del  |           | Del  |   6  |   7  |   8  |   9  |   0  |   ]    |
-    |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-    | Tab    |   Q  |   W  |   E  |   R  |   T  |Backsp|           |Backsp|   Y  |   U  |   I  |   O  |   P  |   [    |
-    |--------+------+------+------+------+------|ace   |           |ace   |------+------+------+------+------+--------|
-    | LShift |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  | '/Shift|
-    |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
-    | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | \/Shift|
-    `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-      |LCtrl |  fn  | LGui | Play |App/Alt|                                      | RAlt |   -  | Home |   =  |End/Ctl|
-      `-----------------------------------'                                      `-----------------------------------'
-                                          ,--------------.       ,-------------.
-                                          |Esc/Alt| num  |       | Left |Right |
-                                   ,------+-------+------|       |------+------+------.
-                                   |      |       | PgUp |       |  Up  |      |      |
-                                   |Space |LShift |------|       |------|RShift|Space |
-                                   |      |       | PgDn |       | Down |      |      |
-                                   `---------------------'       `--------------------'
+ - Top row (with the `F`-keys) and rightmost column (with application shortcuts) are removed, the corresponding keys are displaced elsewhere.
+ - Bottom-left keys are reorganized on a single row as: `Ctrl`, `fn`, `Gui`, `Play`, `App`/`Alt`.
+ - `shuffle` and `desktop` are not supported.
+ - `right-shift` is moved on `'`, `\` and on the right thumb (the latter is actually the only _true_ `right-shift`, and must be used in the `Magic` key combination).
+ - `right-ctrl` is moved on `End`.
+ - `]` is moved in place of the dash (`-`).
+ - Dash (`-`) and `=` are moved on bottom right row.
+ - Arrows and `PgUp`/`PgDn` are moved on the thumbs.
 
+```
+,--------------------------------------------------.           ,--------------------------------------------------.
+|   `    |   1  |   2  |   3  |   4  |   5  | Del  |           | Del  |   6  |   7  |   8  |   9  |   0  |   ]    |
+|--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+| Tab    |   Q  |   W  |   E  |   R  |   T  |Backsp|           |Backsp|   Y  |   U  |   I  |   O  |   P  |   [    |
+|--------+------+------+------+------+------|ace   |           |ace   |------+------+------+------+------+--------|
+| LShift |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  | '/Shift|
+|--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
+| LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | \/Shift|
+`--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+  |LCtrl |  fn  | LGui | Play |App/Alt|                                      | RAlt |   -  | Home |   =  |End/Ctl|
+  `-----------------------------------'                                      `-----------------------------------'
+                                      ,--------------.       ,-------------.
+                                      |Esc/Alt| num  |       | Left |Right |
+                               ,------+-------+------|       |------+------+------.
+                               |      |       | PgUp |       |  Up  |      |      |
+                               |Space |LShift |------|       |------|RShift|Space |
+                               |      |       | PgDn |       | Down |      |      |
+                               `---------------------'       `--------------------'
+```
 
 ### Layer Switching
 - Use `num` to toggle the Numeric Layer.
@@ -118,7 +120,7 @@ Note: the `eject` key does not work due to jackhumbert/qmk_firmware#82
     |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
     |        |      |      |      |      |      |VolUp |           |      |      |      |      |      |      | Pause  |
     |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-    |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+    |        |      |      | Calc | Mail |Browsr|------|           |------|      |      |      |      |      |        |
     |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
     |        |      | cut  | copy |paste | Mute |VolDn |           |      |      |      |      |      |      |        |
     `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
