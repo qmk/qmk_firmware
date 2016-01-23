@@ -5,7 +5,7 @@
 #
 # make clean = Clean out built project files.
 #
-# That's pretty much all you need. To compile, always go make clean, 
+# That's pretty much all you need. To compile, always go make clean,
 # followed by make.
 #
 # For advanced users only:
@@ -31,7 +31,11 @@ SRC = ergodox_ez.c \
 	  matrix.c
 
 ifdef KEYMAP
-    SRC := keymaps/$(KEYMAP)/keymap.c $(SRC)
+    ifdef VARIANT
+        SRC := keymaps/$(KEYMAP)/$(VARIANT).c $(SRC)
+    else
+        SRC := keymaps/$(KEYMAP)/keymap.c $(SRC)
+    endif
 else
     SRC := keymaps/default/keymap.c $(SRC)
 endif
@@ -111,4 +115,3 @@ VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
 include $(TOP_DIR)/quantum/quantum.mk
-

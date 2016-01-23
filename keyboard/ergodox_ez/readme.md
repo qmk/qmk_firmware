@@ -20,8 +20,9 @@ This requires a little bit of familiarity with coding.
 4. Copy `keymaps/default/keymap.c` into `keymaps/your_name/keymap.c` (for example, `keymaps/german/keymap.c`)
 5. Edit this file, changing keycodes to your liking (see "Finding the keycodes you need" below). Try to edit the comments as well, so the "text graphics" represent your layout correctly. See below for more tips on sharing your work.
 6. Compile your firmware by running `make clean` followed by `make KEYMAP=your_name`. For example, `make KEYMAP=german`. This will result in a hex file, which will always be called `ergodox_ez.hex`, regardless of your keymap name.
-6. Flash this hex file using the [Teensy loader](https://www.pjrc.com/teensy/loader.html) as described in step 4 in the "Easy Way" above.
-7. Submit your work as a pull request to this repository, so others can also use it. :) See below on specifics.
+    - HINT: You can create variants of your keymap in the same folder and built like `make KEYMAP=your_name VARIANT=your_variant`
+7. Flash this hex file using the [Teensy loader](https://www.pjrc.com/teensy/loader.html) as described in step 4 in the "Easy Way" above.
+8. Submit your work as a pull request to this repository, so others can also use it. :) See below on specifics.
 
 Good luck! :)
 
