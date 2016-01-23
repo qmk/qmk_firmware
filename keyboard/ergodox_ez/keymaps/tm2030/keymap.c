@@ -2,7 +2,7 @@
  * ---------------------------
  * Currently supported features:
  * Layer 0: default layer close to the TM with the following differences:
- *  - top row and rightmost column are removed, corresponding keys are displaced, except app-keys which are removed
+ *  - top row and rightmost column are removed, corresponding keys are displaced
  *  - bottom-left keys are reorganized on a single roz as: Ctrl, "Fn", Gui, Play, App/Alt
  *  - "shuffle" and "desktop" are not supported
  *  - right-shift is moved on ' and \
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |VolUp |           |      |      |      |      |      |      | Pause  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |        |      |      | Calc | Mail |Browsr|------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      | cut  | copy |paste | Mute |VolDn |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [FNLR] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
-       KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
        KC_TRNS, KC_TRNS, M(MCUT),      M(MCOPY),    M(MPSTE),     KC_MUTE, KC_VOLD,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
