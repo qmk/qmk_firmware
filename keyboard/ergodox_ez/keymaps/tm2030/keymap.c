@@ -12,14 +12,14 @@
  *  - arrows and PgUp/PgDn are moved on the thumbs
  * Layer 1: same as Layer 0 but with Dvorak layout, to use with QWERTY OS layout.
  *    Enable Dvorak layout with Magic-1 (LShift-RShift-1), disable with Magic-0.
- * Layer 8: numbers layer close to the TM when toggling "num" with the following differences:
+ * Layer 8: numeric layer close to the TM when toggling "num" with the following differences:
  *  - numpad is displaced by 1 to the top left
  *  - arrows are displaced by 1 to the left
  *  - provides access to F1-F12, caps lock and num lock
  * Layer 9: "fn" layer ("fn" key toggles both layers 1 & 2) with the following differences:
  *  - VolUp & VolDn are only on left hand to keep access to arrows on right hand
  * LEDs:
- *  - left (1st) led is used to indicate the numbers layer
+ *  - left (1st) led is used to indicate the numeric layer
  *  - middle (2nd) led is used to indicate Dvorak layout
  *  - right (3rd) led is used to indicate caps-lock
  */
@@ -30,7 +30,7 @@
 
 #define BASE 0 // default layer
 #define DVRK 1 // Dvorak layer
-#define NMBR 8 // numbers layer
+#define NUMR 8 // numeric layer
 #define FNLR 9 // fn layer
 
 #define MDBL0 1
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_ENT,
         KC_LCTL,        M(MFNLR),     KC_LGUI,KC_MPLY,ALT_T(KC_APP),
 
-                                              ALT_T(KC_ESC),  TG(NMBR),
+                                              ALT_T(KC_ESC),  TG(NUMR),
                                                               KC_PGUP,
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,  KC_SCLN,   KC_Q,    KC_J,    KC_K,   KC_X,   KC_ENT,
         KC_LCTL,  M(MFNLR),  KC_LGUI, KC_MPLY, ALT_T(KC_APP),
 
-                                              ALT_T(KC_ESC),  TG(NMBR),
+                                              ALT_T(KC_ESC),  TG(NUMR),
                                                               KC_PGUP,
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_UP,
              KC_DOWN, KC_RSFT,  KC_SPC
     ),
-/* Numbers Layer
+/* Numeric Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |      |      |  Tab |   /  |   *  |   -    |
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[NMBR] = KEYMAP(
+[NUMR] = KEYMAP(
        // left hand
        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
@@ -234,7 +234,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         break;
         case MFNLR:
-            layer_state ^= (1 << NMBR) | (1 << FNLR);
+            layer_state ^= (1 << NUMR) | (1 << FNLR);
             break;
         case MCUT:
             if (record->event.pressed) {
@@ -267,8 +267,8 @@ void * matrix_scan_user(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    // led 1: numbers layer
-    if (layer_state & (1 << NMBR)) {
+    // led 1: numeric layer
+    if (layer_state & (1 << NUMR)) {
         ergodox_right_led_1_on();
     }
     // led 2: Dvorak layer
