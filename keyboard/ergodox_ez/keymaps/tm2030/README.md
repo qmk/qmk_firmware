@@ -48,7 +48,8 @@ This is the default layer, close to the TM with the following differences:
 
 ### Layer Switching
 - Use `num` to toggle the Numeric Layer.
-- Hold `fn` to temporarily activate the Numeric & Fn Layers
+- Hold `fn` to temporarily activate the Numeric & Fn Layers.
+
 As on the original TM 2030, when `num` layer is activated, holding `fn` disables it but enables the other `fn` keys.
 
 ## Dvorak Layer
