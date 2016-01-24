@@ -88,7 +88,7 @@ Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - 
 
 ## Macro shortcuts: Send a whole string when pressing just one key
 
-Instead of using the `ACTION_MACRO` function, you can simply use `M(n)` to access macro *n* - *n* will get passed into the `action_get_macro` as the `id`, and you can use a switch statement to trigger it. This gets called on the keydown and keyup, so you'll need to use an if statement testing `record->event.pressed` (see keymap_default.c).
+Instead of using the `ACTION_MACRO` function, you can simply use `M(n)` to access macro *n* - *n* will get passed into the `action_get_macro` as the `id`, and you can use a switch statement to trigger it. This gets called on the keydown and keyup, so you'll need to use an if statement testing `record->event.pressed` (see keymaps/default.c).
 
 ```c
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
@@ -171,10 +171,10 @@ Depending on which keymap you would like to use, you will have to compile slight
 To build with the default keymap, simply run `make`.
 
 ### Other Keymaps
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
 
 To build the firmware binary hex file with a keymap just do `make` with `KEYMAP` option like:
 ```
 $ make KEYMAP=[default|jack|<name>]
 ```
-Keymaps follow the format **__keymap\_\<name\>.c__** and are stored in the `keymaps` folder.
+Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
