@@ -1,17 +1,18 @@
-#ifndef KEYMAP_GERMAN
-#define KEYMAP_GERMAN
+#ifndef KEYMAP_GERMAN_OSX
+#define KEYMAP_GERMAN_OSX
 
+#ifdef KEYMAP_GERMAN
+	#warning redefining german keys
+#endif
 #include "keymap_common.h"
 
 // Alt gr
-#define ALGR(kc) kc | 0x1400
-#define DE_ALGR KC_RALT
 
 // normal characters
 #define DE_Z KC_Y
 #define DE_Y KC_Z
 
-#define DE_A KC_A
+#define DE_A KC_A 
 #define DE_B KC_B
 #define DE_C KC_C
 #define DE_D KC_D
@@ -55,11 +56,11 @@
 #define DE_UE KC_LBRC
 #define DE_OE KC_SCLN
 
-#define DE_CIRC KC_GRAVE // accent circumflex ^ and ring °
+#define DE_CIRC KC_NUBS // accent circumflex ^ and ring °
 #define DE_ACUT KC_EQL // accent acute ´ and grave `
 #define DE_PLUS KC_RBRC // + and * and ~
 #define DE_HASH KC_BSLS // # and '
-#define DE_LESS KC_NUBS // < and > and |
+#define DE_LESS KC_GRV // < and > and |
 #define DE_MINS KC_SLSH // - and _
 
 // shifted characters
@@ -83,17 +84,17 @@
 #define DE_SCLN LSFT(KC_COMM) // ;
 #define DE_UNDS LSFT(DE_MINS) // _
 
-// Alt Gr-ed characters
-#define DE_SQ2 ALGR(KC_2) // ²
-#define DE_SQ3 ALGR(KC_3) // ³
-#define DE_LCBR ALGR(KC_7) // {
-#define DE_LBRC ALGR(KC_8) // [
-#define DE_RBRC ALGR(KC_9) // ]
-#define DE_RCBR ALGR(KC_0) // }
-#define DE_BSLS ALGR(DE_SS) // backslash
-#define DE_AT  ALGR(KC_Q) // @
-#define DE_EURO ALGR(KC_E) // €
-#define DE_TILD ALGR(DE_PLUS) // ~
-#define DE_PIPE ALGR(DE_LESS) // |
+// Alt-ed characters
+#define DE_SQ2 LALT(KC_2) // ²
+#define DE_SQ3 LALT(KC_3) // ³
+#define DE_LCBR LALT(KC_7) // {
+#define DE_LBRC LALT(KC_5) // [
+#define DE_RBRC LALT(KC_6) // ]
+#define DE_RCBR LALT(KC_9) // }
+#define DE_BSLS LALT(LSFT(KC_7)) // backslash
+#define DE_AT  LALT(DE_L) // @
+#define DE_EURO LALT(KC_E) // €
+#define DE_TILD LALT(DE_N) // ~
+#define DE_PIPE LALT(DE_7) // |
 
 #endif
