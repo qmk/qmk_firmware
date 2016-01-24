@@ -68,6 +68,7 @@ extern const uint16_t fn_actions[];
 #define LGUI(kc) kc | 0x0800
 #define HYPR(kc) kc | 0x0F00
 #define MEH(kc) kc  | 0x0700
+#define LCAG(kc) kc  | 0x0D00 // Modifier Ctrl Alt and GUI
 
 #define RCTL(kc) kc | 0x1100
 #define RSFT(kc) kc | 0x1200
@@ -193,6 +194,7 @@ extern const uint16_t fn_actions[];
 #define GUI_T(kc) MT(0x8, kc)
 #define C_S_T(kc) MT(0x3, kc) // Control + Shift e.g. for gnome-terminal
 #define MEH_T(kc) MT(0x7, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
+#define LCAG_T(kc) MT(0xD, kc) // Left control alt and gui 
 #define ALL_T(kc) MT(0xF, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
