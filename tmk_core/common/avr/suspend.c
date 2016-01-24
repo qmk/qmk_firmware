@@ -69,8 +69,6 @@ static void power_down(uint8_t wdto)
 backlight_set(0);
 #endif
 
-    led_off();
-
     // TODO: more power saving
     // See PicoPower application note
     // - I/O port input with pullup
