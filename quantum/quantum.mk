@@ -24,8 +24,11 @@ ifndef CUSTOM_MATRIX
 endif
 
 ifdef MIDI_ENABLE
-	SRC += $(QUANTUM_DIR)/keymap_midi.c \
-		   $(QUANTUM_DIR)/beeps.c
+	SRC += $(QUANTUM_DIR)/keymap_midi.c
+endif
+
+ifdef AUDIO_ENABLE
+	SRC += $(QUANTUM_DIR)/audio.c
 endif
 
 ifdef UNICODE_ENABLE

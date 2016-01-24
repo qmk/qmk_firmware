@@ -2,7 +2,9 @@
 // this is the style you want to emulate.
 
 #include "planck.h"
-#include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+  #include "backlight.h"
+#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -58,7 +60,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 0:
           if (record->event.pressed) {
             register_code(KC_RSFT);
-            backlight_step();
+            #ifdef BACKLIGHT_ENABLE
+              backlight_step();
+            #endif
           } else {
             unregister_code(KC_RSFT);
           }
