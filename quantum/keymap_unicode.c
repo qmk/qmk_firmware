@@ -30,6 +30,8 @@ uint16_t hextokeycode(int hex) {
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
+    // For more info on how this works per OS, see here: https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input
+
     if (record->event.pressed) {
         uint16_t unicode = (opt << 8) | id;
         register_code(KC_LALT);

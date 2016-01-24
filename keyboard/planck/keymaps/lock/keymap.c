@@ -1,7 +1,12 @@
+// USING_MIDI
+// USING_BACKLIGHT
 #include "keymap_common.h"
-#include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+  #include "backlight.h"
+#endif
 #include "action_layer.h"
 #include "keymap_midi.h"
+#include "audio.h"
 #include <avr/boot.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -63,15 +68,31 @@ uint16_t hextokeycode(int hex) {
     }
 }
 
+float walk_up[][2] = {
+  {440.0*pow(2.0,(60)/12.0), 400},
+  {0, 50},
+  {440.0*pow(2.0,(67)/12.0), 600},
+};
+
+float walk_dn[][2] = {
+  {440.0*pow(2.0,(67)/12.0), 400},
+  {0, 50},
+  {440.0*pow(2.0,(60)/12.0), 600},
+};
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) 
 {
   // MACRODOWN only works in this function
       switch(id) {
         case 0:   
         if (record->event.pressed) {
+
+          play_notes(&walk_up, 3, false);
           // play_note(440, 20);
           // register_code(KC_RSFT);
-          backlight_set(BACKLIGHT_LEVELS);
+          #ifdef BACKLIGHT_ENABLE
+            backlight_set(BACKLIGHT_LEVELS);
+          #endif
           default_layer_and(0); 
           default_layer_or((1<<5));
 
@@ -103,19 +124,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           // register_code(hextokeycode((lock & 0x0F)));
           // unregister_code(hextokeycode((lock & 0x0F)));
 
-          // note(0+12, 20);
-          // note(0+24, 20);
         } else {
-          // unregister_code(KC_RSFT);
-          // stop_note();
-          backlight_set(0);
+          unregister_code(KC_RSFT);
+          play_notes(&walk_dn, 3, false);
+          #ifdef BACKLIGHT_ENABLE
+            backlight_set(0);
+          #endif
           default_layer_and(0); 
           default_layer_or(0);
-          // note(0+24, 20);
-          // note(0, 20);
-          // play_note(4, 20);
         }
         break;
       } 
     return MACRO_NONE;
 };
+
+float start_up[][2] = {
+  {440.0*pow(2.0,(67)/12.0), 600},
+  {0, 50},
+  {440.0*pow(2.0,(64)/12.0), 400},
+  {0, 50},
+  {440.0*pow(2.0,(55)/12.0), 400},
+  {0, 50},
+  {440.0*pow(2.0,(60)/12.0), 400},
+  {0, 50},
+  {440.0*pow(2.0,(64)/12.0), 1000},
+};
+
+void * matrix_init_user(void) {
+    init_notes();
+    play_notes(&start_up, 9, false);
+}
