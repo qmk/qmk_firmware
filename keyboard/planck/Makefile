@@ -50,14 +50,30 @@ TMK_DIR = ../../tmk_core
 TARGET_DIR = .
 
 # # project specific files
-SRC = planck.c \
-	backlight.c 
+SRC = planck.c
+
+ifdef keymap
+	KEYMAP = $(keymap)
+endif
 
 ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
-    SRC := keymaps/keymap_default.c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP)/keymap.c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
+else
+$(error Keymap file does not exist)
 endif
+endif
+else
+ifneq ("$(wildcard keymaps/default.c)","")
+	KEYMAP_FILE = keymaps/default.c
+else
+	KEYMAP_FILE = keymaps/default/keymap.c
+endif
+endif
+SRC := $(KEYMAP_FILE) $(SRC)
 
 CONFIG_H = config.h
 
@@ -122,11 +138,15 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE = YES 		# MIDI controls
+# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+MIDI_ENABLE = YES 		# MIDI controls
+AUDIO_ENABLE = YES 		# Audio output on port C6
 # UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
+ifdef BACKLIGHT_ENABLE
+	SRC += backlight.c
+endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
