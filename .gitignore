@@ -12,3 +12,7 @@ tags
 *~
 build/
 *.bak
+
+.idea/
+
+CMakeLists.txt
