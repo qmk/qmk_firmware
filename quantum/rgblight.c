@@ -445,7 +445,7 @@ void rgblight_effect_snake(uint8_t interval) {
 	rgblight_set();
 	if (increament == 1) {
 		if (pos - 1 < 0) {
-			pos = 13;
+			pos = RGBLED_NUM-1;
 		} else {
 			pos -= 1;
 		}
