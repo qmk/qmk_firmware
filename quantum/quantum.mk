@@ -2,7 +2,7 @@ QUANTUM_DIR = quantum
 
 # # project specific files
 SRC += $(QUANTUM_DIR)/keymap_common.c \
-	$(QUANTUM_DIR)/led.c 
+	$(QUANTUM_DIR)/led.c
 
 # ifdef KEYMAP_FILE
 # ifneq (,$(shell grep USING_MIDI '$(KEYMAP_FILE)'))
@@ -35,6 +35,12 @@ ifdef UNICODE_ENABLE
 	SRC += $(QUANTUM_DIR)/keymap_unicode.c
 endif
 
+ifdef RGBLIGHT_ENABLE
+	SRC += $(QUANTUM_DIR)/light_ws2812.c
+	SRC += $(QUANTUM_DIR)/rgblight.c
+	OPT_DEFS += -DRGBLIGHT_ENABLE
+endif
+
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
 
@@ -45,4 +51,3 @@ include $(TMK_DIR)/protocol/lufa.mk
 
 include $(TMK_DIR)/common.mk
 include $(TMK_DIR)/rules.mk
-
