@@ -12,7 +12,6 @@ tags
 *~
 build/
 *.bak
-
+.vagrant/
 .idea/
-
 CMakeLists.txt

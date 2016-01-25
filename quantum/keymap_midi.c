@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keymap_common.h"
 #include "keymap_midi.h"
-#include <lufa.h>
 
 uint8_t starting_note = 0x0C;
 int offset = 7;
@@ -35,7 +34,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.key.col == (MATRIX_COLS - 1) && record->event.key.row == (MATRIX_ROWS - 1)) {
         if (record->event.pressed) {
             starting_note++;
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
+            play_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
             midi_send_cc(&midi_device, 0, 0x7B, 0);
             midi_send_cc(&midi_device, 1, 0x7B, 0);
             midi_send_cc(&midi_device, 2, 0x7B, 0);
@@ -43,7 +42,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             midi_send_cc(&midi_device, 4, 0x7B, 0);
             return;
         } else {
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)));
+            stop_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)));
             stop_all_notes();
             return;
         }
@@ -51,7 +50,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.key.col == (MATRIX_COLS - 2) && record->event.key.row == (MATRIX_ROWS - 1)) {
         if (record->event.pressed) {
             starting_note--;
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
+            play_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
             midi_send_cc(&midi_device, 0, 0x7B, 0);
             midi_send_cc(&midi_device, 1, 0x7B, 0);
             midi_send_cc(&midi_device, 2, 0x7B, 0);
@@ -59,7 +58,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             midi_send_cc(&midi_device, 4, 0x7B, 0);
             return;
         } else {
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)));
+            stop_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[0 + offset])/12.0+(MATRIX_ROWS - 1)));
             stop_all_notes();
             return;
         }
@@ -74,9 +73,9 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
         midi_send_cc(&midi_device, 4, 0x7B, 0);
         stop_all_notes();
         for (int i = 0; i <= 7; i++) {
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
+            play_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
             _delay_us(80000);
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)));
+            stop_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)));
             _delay_us(8000);
         }
         return;
@@ -90,9 +89,9 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
         midi_send_cc(&midi_device, 4, 0x7B, 0);
         stop_all_notes();
         for (int i = 0; i <= 7; i++) {
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
+            play_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)), 0xC);
             _delay_us(80000);
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)));
+            stop_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[i + offset])/12.0+(MATRIX_ROWS - 1)));
             _delay_us(8000);
         }
         return;
@@ -101,10 +100,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed) {
     	// midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
         midi_send_noteon(&midi_device, 0, (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row), 127);
-        play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
+        play_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
     } else {
         // midi_send_noteoff(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
         midi_send_noteoff(&midi_device, 0, (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row), 127);
-        stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+        stop_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
     }
 }
