@@ -8,6 +8,7 @@
 #include "suspend_avr.h"
 #include "suspend.h"
 #include "timer.h"
+#include "led.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #endif
@@ -64,6 +65,10 @@ static void power_down(uint8_t wdto)
     // Watchdog Interrupt Mode
     wdt_intr_enable(wdto);
 
+#ifdef BACKLIGHT_ENABLE
+backlight_set(0);
+#endif
+
     // TODO: more power saving
     // See PicoPower application note
     // - I/O port input with pullup
@@ -89,6 +94,9 @@ __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
 bool suspend_wakeup_condition(void)
 {
+#ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#endif
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
@@ -104,8 +112,10 @@ void suspend_wakeup_init(void)
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
     backlight_init();
 #endif
+led_set(host_keyboard_leds());
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
@@ -122,3 +132,4 @@ ISR(WDT_vect)
     }
 }
 #endif
+
