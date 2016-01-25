@@ -27,7 +27,7 @@
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
 #                (must have Atmel FLIP installed).
 #
-# make debug = Start either simulavr or avarice as specified for debugging, 
+# make debug = Start either simulavr or avarice as specified for debugging,
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -143,10 +143,12 @@ BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 # AUDIO_ENABLE = YES 		# Audio output on port C6
 # UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+# RGBLIGHT_ENABLE = yes # Enable WS2812 RGB underlight.  Do not enable this with MIDI at the same time.
 
 ifdef BACKLIGHT_ENABLE
 	SRC += backlight.c
 endif
+
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -157,4 +159,3 @@ VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
 include $(TOP_DIR)/quantum/quantum.mk
-
