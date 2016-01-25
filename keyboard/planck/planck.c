@@ -15,6 +15,11 @@ void * matrix_init_kb(void) {
     	backlight_init_ports();
 	#endif
 
+	#ifdef RGBLIGHT_ENABLE
+		rgblight_init();
+	#endif
+
+
     // Turn status LED on
     DDRE |= (1<<6);
     PORTE |= (1<<6);
