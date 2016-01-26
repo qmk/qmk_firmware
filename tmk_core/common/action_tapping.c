@@ -30,7 +30,6 @@ static bool process_tapping(keyrecord_t *record);
 static bool waiting_buffer_enq(keyrecord_t record);
 static void waiting_buffer_clear(void);
 static bool waiting_buffer_typed(keyevent_t event);
-static bool waiting_buffer_has_anykey_pressed(void);
 static void waiting_buffer_scan_tap(void);
 static void debug_tapping_key(void);
 static void debug_waiting_buffer(void);
@@ -320,14 +319,6 @@ bool waiting_buffer_typed(keyevent_t event)
         if (KEYEQ(event.key, waiting_buffer[i].event.key) && event.pressed !=  waiting_buffer[i].event.pressed) {
             return true;
         }
-    }
-    return false;
-}
-
-bool waiting_buffer_has_anykey_pressed(void)
-{
-    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        if (waiting_buffer[i].event.pressed) return true;
     }
     return false;
 }
