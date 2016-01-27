@@ -2,7 +2,7 @@ Welcome to the tmk_keyboard wiki!
 
 - [[TMK Own Projects]]
 - [[TMK Based Projects]]
-- [[Other Protjects]]
+- [[Other Projects]]
 - [[FAQ]]
 - [[FAQ/Build]]
 - [[FAQ/Keymap]]
