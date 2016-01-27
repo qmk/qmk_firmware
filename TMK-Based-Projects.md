@@ -15,4 +15,7 @@ See https://github.com/tmk/tmk_keyboard/issues/173
 **KMAC, 1,2 and Happy**: Custom keyboard designed by kbdmania.
 - https://github.com/ageaenes/tmk_keyboard
 
+**P60**: [DIY wired 60% keyboard](https://imgur.com/a/zwsDN) by [p3lim](https://github.com/p3lim).
+- https://github.com/p3lim/keyboard_firmware
+
 ### converters
