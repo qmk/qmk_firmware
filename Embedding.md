@@ -1,4 +1,4 @@
-# WARNING: Until issue #173 goes through, the [core][1] repository will not be up-to-date with the latest changes and fixes, but can still be used.
+# WARNING: Until issue [#173](https://github.com/tmk/tmk_keyboard/issues/173) goes through, the [core][1] repository will not be up-to-date with the latest changes and fixes, but can still be used.
 
 If you want to use TMK for your own keyboard project, you've got three options for embedding the [core][1].  
 The recommended option is [subtrees](#1-git-subtree).
