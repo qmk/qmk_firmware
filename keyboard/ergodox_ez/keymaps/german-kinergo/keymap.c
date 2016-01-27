@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Caps  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   Ö  |  Ä/L2  |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |   Y  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |-/Ctrl| RShift |
+ * | LShift |   Y  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |# -  #| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |#LGui#|#  ^ #|X  < X|XLEFTX|XRIGHT|                                       |X UP X|#Down#|# #  #|#  + #| ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -42,16 +42,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,         KC_A,           KC_S,     KC_D,     KC_F,     KC_G,
         KC_LSFT,         DE_Y,           KC_X,     KC_C,     KC_V,     KC_B,   ALL_T(KC_NO),
         KC_LGUI,      KC_CIRC, DE_LESS,  KC_LEFT,  KC_RIGHT,
-                                               ALT_T(KC_APP), KC_LGUI,
+                                               KC_LCTRL, KC_LALT,
                                                               KC_HOME,
                                                KC_BSPC,KC_DELT,KC_END,
         // right hand
         KC_MNXT,     KC_6,   KC_7,    KC_8,    KC_9,   KC_0,             KC_MINS,
         TG(2),       DE_Z,   KC_U,    KC_I,    KC_O,   KC_P,             DE_UE,
                      KC_H,   KC_J,    KC_K,    KC_L,   DE_OE,            LT(MDIA,DE_AE),
-        MEH_T(KC_NO),KC_N,   KC_M,    KC_COMM, KC_DOT, CTL_T(DE_MINS),   KC_RSFT,
+        MEH_T(KC_NO),KC_N,   KC_M,    KC_COMM, KC_DOT, DE_MINS,          KC_RSFT,
                              KC_UP, KC_DOWN, DE_HASH,  DE_PLUS,          KC_FN1,
-        KC_LALT,CTL_T(KC_ESC),
+        KC_RALT, KC_RCTRL,
         KC_PGUP,
         KC_PGDN, KC_ENT, KC_SPC
     ),
