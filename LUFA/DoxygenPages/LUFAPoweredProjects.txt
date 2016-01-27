@@ -169,6 +169,7 @@
  *  \li BitFury, a Bitcoin ASIC miner: https://github.com/aauer1/LUFA-BitFury/tree/master/Projects/BitfuryBTC
  *  \li Ceberus, a MadCatz Xbox 360 arcade stick modifier: http://www.phreakmods.com/products/cerberus
  *  \li CFFA3000, a CompactFlash interface for the Apple II: http://www.dreher.net/CFforAppleII
+ *  \li ChameleonMini, a RFID monitoring tool: https://github.com/emsec/ChameleonMini/wiki
  *  \li Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  \li FinchRobot, a robot designed for educational use: http://www.finchrobot.com/
  *  \li Flysight, a GPS logger for wingsuit pilots: http://flysight.ca/
