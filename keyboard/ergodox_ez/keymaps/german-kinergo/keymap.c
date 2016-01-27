@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | LShift |   Y  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |# -  #| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |#LGui#|#  ^ #|X  < X|XLEFTX|XRIGHT|                                       |X UP X|#Down#|# #  #|#  + #| ~L1  |
+ *   |#LGui#|#  ^ #|X  < X|XLEFTX|XRIGHT|                                       |XDownX|# Up #|# #  #|#  + #| ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |XCTRLX|XALTX |       | Alt  |Ctrl/Esc|
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(2),       DE_Z,   KC_U,    KC_I,    KC_O,   KC_P,             DE_UE,
                      KC_H,   KC_J,    KC_K,    KC_L,   DE_OE,            LT(MDIA,DE_AE),
         MEH_T(KC_NO),KC_N,   KC_M,    KC_COMM, KC_DOT, DE_MINS,          KC_RSFT,
-                             KC_UP, KC_DOWN, DE_HASH,  DE_PLUS,          KC_FN1,
+                             KC_DOWN, KC_UP,   DE_HASH,  DE_PLUS,          KC_FN1,
         KC_RALT, KC_RCTRL,
         KC_PGUP,
         KC_PGDN, KC_ENT, KC_SPC
