@@ -27,5 +27,9 @@ Modifications I made with regard to the aforementioned layouts:
 
 ![Layout of the code layer](layout-code.png "Layout of the code layer")
 
+## Media Layer
+
+![Layout of the media layer](layout-media.png "Layout of the media layer")
+
 Christoph Schmitz &lt;schm4704 at web dot de&gt;
 2016-01-28
