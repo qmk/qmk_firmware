@@ -12,6 +12,8 @@
 #define M_CTRL_CMDV 1
 #define M_CTRL_CMDC 2
 #define M_MEH_SH_ACUT 3
+#define M_DE_PLUS_CTRLALT 12
+#define M_DE_CIRC_CTRLCMD 13
 
 #define SM_SMILE 4
 #define SM_SMIRK 5
@@ -53,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,                  DE_Q,         DE_W,   DE_E,   DE_R,   DE_T,   KC_LGUI,
         KC_LALT,                   DE_A,         DE_S,   DE_D,   DE_F,   DE_G,
         KC_LSFT,                 CTL_T(DE_Y),  DE_X,   DE_C,   DE_V,   DE_B,   KC_LALT,
-        LT(SYMB,DE_LESS),        DE_CIRC,      DE_PLUS, LALT(KC_LSFT),  LGUI(KC_LSFT),
+        LT(SYMB,DE_LESS),        M(M_DE_CIRC_CTRLCMD),      M(M_DE_PLUS_CTRLALT), LALT(KC_LSFT),  LGUI(KC_LSFT),
                                                			  	M(M_MEH_SH_ACUT), 	TG(2),
                                                               					KC_HOME,
                                                				KC_BSPC,KC_DEL,		LT(SMLY,KC_END),
@@ -264,6 +266,30 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
 			} else {
 				return MACRO(U(LCTRL),U(LALT),T(EQL),U(LSFT),END); //cannot use DE_ACUT here, as macro needs KC_ prefix
+			}
+		}
+		break;
+	case M_DE_CIRC_CTRLCMD:
+		if (record->event.pressed) {
+			start = timer_read();
+			return MACRO(D(LCTRL),D(LGUI),END);
+		} else {
+			if (timer_elapsed(start) > 150){
+				return MACRO(U(LCTRL),U(LGUI),END);
+			} else {
+				return MACRO(U(LCTRL),U(LGUI),T(NUBS),END); 
+			}
+		}
+		break;
+	case M_DE_PLUS_CTRLALT:
+		if (record->event.pressed) {
+			start = timer_read();
+			return MACRO(D(LCTRL),D(LALT),END);
+		} else {
+			if (timer_elapsed(start) > 150){
+				return MACRO(U(LCTRL),U(LALT),END);
+			} else {
+				return MACRO(U(LCTRL),U(LALT),T(RBRC),END); 
 			}
 		}
 		break;
