@@ -17,15 +17,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * X'es mark the spots where this is different from the "german" layout which it is based on.
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |X Esc  X|   1  |   2  |   3  |   4  |   5  |X `  X|           | Next |   6  |   7  |   8  |   9  |   0  |   ß    |
+ * |X Esc  X|   1  |   2  |   3  |   4  |   5  |X `  X|           |XPRSCX|   6  |   7  |   8  |   9  |   0  |   ß    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |X Tab  X|   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L2  |   Z  |   U  |   I  |   O  |   P  |   Ü    |
+ * |X Tab  X|   Q  |   W  |   E  |   R  |   T  |X L1 X|           |X L1 X|   Z  |   U  |   I  |   O  |   P  |   Ü    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Caps  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   Ö  |  Ä/L2  |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |   Y  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |# -  #| RShift |
+ * |--------+------+------+------+------+------|X L2 X|           |X L2 X|------+------+------+------+------+--------|
+ * | LShift |   Y  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |X -  X| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |#LGui#|#  ^ #|X  < X|XLEFTX|XRIGHT|                                       |XDownX|# Up #|# #  #|#  + #| ~L1  |
+ *   |XLGuiX|X  ^ X|X  < X|XLEFTX|XRIGHT|                                       |XDownX|X Up X|X #  X|X  + X|XRGuiX|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |XCTRLX|XALTX |       | Alt  |Ctrl/Esc|
@@ -40,19 +40,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,         KC_1,           KC_2,     KC_3,     KC_4,     KC_5,   DE_ACUT,
-        KC_TAB,         KC_Q,           KC_W,     KC_E,     KC_R,     KC_T,   TG(1),
+        KC_TAB,         KC_Q,           KC_W,     KC_E,     KC_R,     KC_T,   MO(1),
         KC_CAPS,         KC_A,           KC_S,     KC_D,     KC_F,     KC_G,
-        KC_LSFT,         DE_Y,           KC_X,     KC_C,     KC_V,     KC_B,   ALL_T(KC_NO),
+        KC_LSFT,         DE_Y,           KC_X,     KC_C,     KC_V,     KC_B,   MO(2),
         KC_LGUI,      DE_CIRC, DE_LESS,  KC_LEFT,  KC_RIGHT,
                                                KC_LCTRL, KC_LALT,
                                                               KC_HOME,
                                                KC_BSPC,KC_DELT,KC_END,
         // right hand
-        KC_MNXT,     KC_6,   KC_7,    KC_8,    KC_9,   KC_0,             KC_MINS,
-        TG(2),       DE_Z,   KC_U,    KC_I,    KC_O,   KC_P,             DE_UE,
+        KC_PSCREEN,  KC_6,   KC_7,    KC_8,    KC_9,   KC_0,             KC_MINS,
+        MO(1),       DE_Z,   KC_U,    KC_I,    KC_O,   KC_P,             DE_UE,
                      KC_H,   KC_J,    KC_K,    KC_L,   DE_OE,            LT(MDIA,DE_AE),
-        MEH_T(KC_NO),KC_N,   KC_M,    KC_COMM, KC_DOT, DE_MINS,          KC_RSFT,
-                             KC_DOWN, KC_UP,   DE_HASH,  DE_PLUS,          KC_FN1,
+        MO(2),       KC_N,   KC_M,    KC_COMM, KC_DOT, DE_MINS,          KC_RSFT,
+                             KC_DOWN, KC_UP,   DE_HASH,  DE_PLUS,          KC_RGUI,
         KC_RALT, KC_RCTRL,
         KC_PGUP,
         KC_PGDN, KC_ENT, KC_SPC
