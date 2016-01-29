@@ -3,6 +3,7 @@
 ## Setting up the environment
 
 ### Windows
+
 1. Install [WinAVR Tools](http://sourceforge.net/projects/winavr/) for AVR GCC compiler.
 2. Install [DFU-Programmer][dfu-prog] (the -win one).
 3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
@@ -23,6 +24,9 @@ Otherwise, these instructions will work:
 ### Linux
 1. Install AVR GCC with your favorite package manager.
 2. Install [DFU-Programmer][dfu-prog].
+
+Note that, since it will be directly accessing USB hardware, the
+`dfu-programmer` program needs to be run as root.
 
 ## Verify Your Installation
 1. Clone the following repository: https://github.com/jackhumbert/qmk_firmware
