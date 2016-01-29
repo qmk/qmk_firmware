@@ -27,7 +27,7 @@
    - I'm suspicious that I want to shift M(0) from [4][1] to [4][2],
      and shift ESC off the first column so KC_LCTL and KC_LALT can
      be on the first column.
-
+   - I think I wanna swap ' and ENTER
 
    - I'm keeping Colemak and Dvorak around for reference, and added
      Workman just for fun.  They're useless to me, though.
