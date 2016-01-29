@@ -33,6 +33,17 @@
      Workman just for fun.  They're useless to me, though.
 */
 
+/* Other things to do...
+
+   - Need to think about what zsh and readline actions I use lots
+   - Wanna figure out macros, so I can put in a "cbbrowne" macro
+   - Ought to ensure that Control-Alt-Delete is convenient enough
+   - How about Alt-F1 thru Alt-F8?
+   - What's the keystroke to get from X to console these days?
+   - I do indeed want a sweet number pad!
+   - A layer for doing console switching would not be a bad idea
+*/
+
 enum layers {
   _QW = 0,  /* Qwerty mapping */
   _CM, /* Colemak */
