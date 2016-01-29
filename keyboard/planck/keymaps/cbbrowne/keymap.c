@@ -1,31 +1,30 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-/* #define _QW 0 */
-/* #define _CM 1 */
-/* #define _DV 2 */
-/* #define _LW 3 */
-/* #define _RS 4 */
+/* Each layer is given a name to aid in readability, which is then
+   used in the keymap matrix below.  The underscores do not denote 
+   anything - you can have a layer called STUFF or any other name.
+
+   Layer names don't all need to be of the same length, obviously, and
+   you could also skip them entirely and just use numbers, though that
+   means needing to manage the numbers.
+
+   It is preferable to keep the symbols short so that a line worth of
+   key mappings fits compactly onto a line of code. */
 
 enum layers {
-  _QW = 0,
-  _CM, 
-  _DV,
-  _WK,
-  _LW,
-  _RS,
-  _KP
+  _QW = 0,  /* Qwerty mapping */
+  _CM, /* Colemak */
+  _DV, /* Dvorak */
+  _WK, /* Workman */
+  _LW, /* Lower layer, where top line has symbols !@#$%^&*() */
+  _RS, /* Raised layer, where top line has digits 1234567890 */
+  _KP, /* Key pad */
 };
 
+/* Note that Planck has dimensions 4 rows x 12 columns */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = { /* Qwerty */
@@ -72,6 +71,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 };
 
+/* I'm planning to use this to set up some macros, including one to
+   expand into "cbbrowne", more to prove it can be done than anything
+   else.
+*/
 
 enum macro_id {
   M_P0,
