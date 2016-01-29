@@ -8,12 +8,14 @@
 #define MDIA 2 // media keys
 #define SMLY 3 // media keys
 #define NUMB 4 // number keys
+#define EGOS 5 // Egoshooter layer
 
 #define M_CTRL_CMDV 1
 #define M_CTRL_CMDC 2
 #define M_MEH_SH_ACUT 3
 #define M_DE_PLUS_CTRLALT 12
 #define M_DE_CIRC_CTRLCMD 13
+#define M_TOGGLE_5 14
 
 #define SM_SMILE 4
 #define SM_SMIRK 5
@@ -72,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |  L5  |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |  <   |  >   |   !  |  ?   |      |      |           |      |   \  |   [  |   ]  |   |  |   #  |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -102,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_DEL,KC_TRNS,
        // right hand
-       KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
+       M(M_TOGGLE_5), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, LALT(LSFT(KC_7)),   LALT(KC_5),   LALT(KC_6),    LALT(KC_7),    DE_HASH, KC_F12,
                 DE_SLSH,   DE_LPRN,   DE_RPRN,    LALT(KC_8),    LALT(KC_9), KC_TRNS,
        KC_TRNS, DE_AMPR, KC_GRV,   LSFT(KC_GRV),    DE_DQOT,    DE_QUOT, DE_QST,
@@ -114,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           | Mute |      |      |      |      |      |  Play  |
+ * |        |      |      |      |      |      |      |           | Mute |      |      |      |      |      |  EGOS  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      | Lclk | MsUp | Rclk | WlUp |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -210,6 +212,47 @@ KEYMAP(
                 KC_DOWN, KC_4,   KC_5,    KC_6,    KC_RBRC, DE_MINS,
        KC_TRNS, LSFT(KC_6), KC_1,   KC_2,    KC_3,    LSFT(KC_7), KC_TRNS,
                          KC_0,KC_DOT,  KC_0,    DE_EQL,  KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+/* Keymap 3: Egoshooter layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |  L5  |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  SHIFT |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | CTRL |      |      |      |      |                                       |     |       |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |   F1 |  F2  |       |      |      |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |  F3  |       |      |        |      |
+ *                                 | SPACE|  CTRL|------|       |------|        |      |
+ *                                 |      |      |  F4  |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+KEYMAP(
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_LSFT, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_LCTL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_F1, KC_F2,
+                                                    KC_F3,
+                                  KC_SPC, KC_LCTL, KC_F4,
+       // right hand
+       M(M_TOGGLE_5), KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,
+       KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
+                KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
+                         KC_TRNS,KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -336,7 +379,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LALT),T(8),U(LALT),END);
 		}
 		break;
-      }
+    case M_TOGGLE_5:  
+       if (record->event.pressed){
+           layer_state ^= (1<<5);
+           layer_state &= (1<<5);
+        }
+        break;
+    }
     return MACRO_NONE;
 };
 
@@ -370,6 +419,11 @@ void * matrix_scan_user(void) {
             ergodox_right_led_3_on();
 	    //ergodox_board_led_on();
             break;
+        case 5: 
+        	ergodox_right_led_1_on();
+        	ergodox_right_led_2_on();
+        	ergodox_right_led_3_on();
+        	break;
         default:
             // none
             break;
