@@ -14,6 +14,25 @@
    It is preferable to keep the symbols short so that a line worth of
    key mappings fits compactly onto a line of code. */
 
+/* This was originally based on planck/keymaps/default/default.c, and
+   then cbbrowne has revised things */
+
+/* Things I did not like about the default mapping 
+
+   - I find control too hard to get to.  I think I'll want it on a
+     left finger.  Gonna need to lose something to do that...
+   - Almost certainly, KC_LCTL should be on [2][1]
+   - having dash on [lower-j] is a bit nonintuitive, but may be OK
+   - I'll bet I should switch ESC/TAB
+   - I'm suspicious that I want to shift M(0) from [4][1] to [4][2],
+     and shift ESC off the first column so KC_LCTL and KC_LALT can
+     be on the first column.
+
+
+   - I'm keeping Colemak and Dvorak around for reference, and added
+     Workman just for fun.  They're useless to me, though.
+*/
+
 enum layers {
   _QW = 0,  /* Qwerty mapping */
   _CM, /* Colemak */
