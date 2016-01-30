@@ -4,7 +4,7 @@ The idea of this layout is to use it for [Neo2](http://www.neo-layout.org) but a
 
 The main goal of the default layer is to provide a complete symmetric layout with each modifier equally placed for both hands (mirror, of course).
 
-It also features a layer for additional keys like F-keys (F1 – F12), some mouse keys and (hopefully in the near future) some useful unicode symbols.
+It also features a layer for additional keys like F-keys (F1 – F12), some mouse keys and (hopefully in the near future) some useful Unicode symbols.
 
 
 ## Layers
@@ -12,5 +12,20 @@ It also features a layer for additional keys like F-keys (F1 – F12), some mous
 0. Default layer for Neo2
 1. Poor man’s QWERTZ
 2. Poor man’s Neo
-3. F-keys, mouse keys und unicode symbols
+3. F-keys, mouse keys und Unicode symbols
 4. Neo’s software layers 4 rebuilt in hardware
+
+
+## Build
+
+1. Enable Unicode in Makefile
+
+    ```
+    UNICODE_ENABLE   = yes
+    ```
+2. Build as usual
+
+    ```
+    make clean
+    make KEYMAP=coderkun_neo2
+    ```
