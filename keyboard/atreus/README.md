@@ -1,6 +1,10 @@
 atreus keyboard firmware
 ======================
 
+## Note
+
+This is for the Teensy2 hand wired boards only.
+
 ## Quantum MK Firmware
 
 You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
