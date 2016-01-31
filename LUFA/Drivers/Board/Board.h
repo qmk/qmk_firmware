@@ -157,6 +157,8 @@
 			#include "AVR8/YUN/Board.h"
 		#elif (BOARD == BOARD_MICRO)
 			#include "AVR8/MICRO/Board.h"
+		#elif (BOARD == BOARD_POLOLUMICRO)
+			#include "AVR8/POLOLUMICRO/Board.h"
 		#elif (BOARD == BOARD_XPLAINED_MINI)
 			#include "AVR8/XPLAINED_MINI/Board.h"
 		#else

@@ -105,8 +105,9 @@
 			#define JOY_LEFT         0
 			#define JOY_RIGHT        0
 			#define JOY_PRESS        0
-			static inline void       Joystick_Init(void) {};
-			static inline uint_reg_t Joystick_GetStatus(void) { return 0; };
+			static inline void       Joystick_Init(void) {}
+			static inline void       Joystick_Disable(void) {}
+			static inline uint_reg_t Joystick_GetStatus(void) { return 0; }
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/Joystick.h"
 		#elif (BOARD == BOARD_STK525)

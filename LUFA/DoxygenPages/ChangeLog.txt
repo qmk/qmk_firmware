@@ -7,6 +7,10 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  <b>New:</b>
+  *  - Core:
+  *   - Added support for the Pololu A-Star Micro board (thanks to Joh Schneider)
+  *
   *  <b>Fixed:</b>
   *  - Core:
   *   - The CALLBACK_USB_GetDescriptor() callback function into the user application erroneously had a uint8_t type for the wIndex

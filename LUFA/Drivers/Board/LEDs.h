@@ -108,13 +108,13 @@
 		#include "../../Common/Common.h"
 
 		#if (BOARD == BOARD_NONE)
-			static inline void LEDs_Init(void) {};
-			static inline void LEDs_Disable(void) {};
-			static inline void LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {};
-			static inline void LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {};
-			static inline void LEDs_SetAllLEDs(const uint_reg_t LEDMask) {};
-			static inline void LEDs_ChangeLEDs(const uint_reg_t LEDMask, const uint_reg_t ActiveMask) {};
-			static inline void LEDs_ToggleLEDs(const uint_reg_t LEDMask) {};
+			static inline void       LEDs_Init(void) {}
+			static inline void       LEDs_Disable(void) {}
+			static inline void       LEDs_TurnOnLEDs(const uint_reg_t LEDMask) {}
+			static inline void       LEDs_TurnOffLEDs(const uint_reg_t LEDMask) {}
+			static inline void       LEDs_SetAllLEDs(const uint_reg_t LEDMask) {}
+			static inline void       LEDs_ChangeLEDs(const uint_reg_t LEDMask, const uint_reg_t ActiveMask) {}
+			static inline void       LEDs_ToggleLEDs(const uint_reg_t LEDMask) {}
 			static inline uint_reg_t LEDs_GetLEDs(void) { return 0; }
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/LEDs.h"
@@ -207,6 +207,8 @@
 			#include "AVR8/YUN/LEDs.h"
 		#elif (BOARD == BOARD_MICRO)
 			#include "AVR8/MICRO/LEDs.h"
+		#elif (BOARD == BOARD_POLOLUMICRO)
+			#include "AVR8/POLOLUMICRO/LEDs.h"
 		#elif (BOARD == BOARD_XPLAINED_MINI)
 			#include "AVR8/XPLAINED_MINI/LEDs.h"
 		#else

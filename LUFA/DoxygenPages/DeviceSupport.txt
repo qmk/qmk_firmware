@@ -118,6 +118,7 @@
  *   - Olimex AVR-ISP-MK2
  *   - Paranoid Studio's US2AX (V1, V2 and V3 hardware revisions)
  *   - PJRC Teensy (1.x and 2.x versions)
+ *   - Pololu A-Star Micro
  *   - Rikus' U2S
  *   - Sparkfun U2 Breakout Board
  *   - Stange ISP Programmer Board
