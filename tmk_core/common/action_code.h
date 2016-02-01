@@ -211,11 +211,11 @@ enum mods_codes {
     MODS_TAP_TOGGLE = 0x01,
 };
 #define ACTION_KEY(key)                 ACTION(ACT_MODS, (key))
-#define ACTION_MODS(mods)               ACTION(ACT_MODS, ((mods)&0x1f)<<8 | 0)
-#define ACTION_MODS_KEY(mods, key)      ACTION(ACT_MODS, ((mods)&0x1f)<<8 | (key))
-#define ACTION_MODS_TAP_KEY(mods, key)  ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 | (key))
-#define ACTION_MODS_ONESHOT(mods)       ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 | MODS_ONESHOT)
-#define ACTION_MODS_TAP_TOGGLE(mods)    ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 | MODS_TAP_TOGGLE)
+#define ACTION_MODS(mods)               ACTION(ACT_MODS, ((mods)&0x1f)<<8 ^ 0)
+#define ACTION_MODS_KEY(mods, key)      ACTION(ACT_MODS, ((mods)&0x1f)<<8 ^ (key))
+#define ACTION_MODS_TAP_KEY(mods, key)  ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 ^ (key))
+#define ACTION_MODS_ONESHOT(mods)       ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 ^ MODS_ONESHOT)
+#define ACTION_MODS_TAP_TOGGLE(mods)    ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 ^ MODS_TAP_TOGGLE)
 
 
 /*
@@ -231,7 +231,7 @@ enum usage_pages {
 
 
 
-/* 
+/*
  * Layer Actions
  */
 enum layer_param_on {

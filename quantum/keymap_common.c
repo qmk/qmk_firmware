@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_midi.h"
 
 static action_t keycode_to_action(uint16_t keycode);
+static uint16_t keycode_to_mod_state(uint16_t keycode);
+
+uint16_t mods_state = 0;
 
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key)
@@ -38,6 +41,13 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         // Has a modifier
         action_t action;
         // Split it up
+#ifdef DOUBLE_MODS_CANCEL
+        uint16_t newkeycode = keycode ^ mods_state;
+        if (newkeycode > 0) {
+            mods_state = keycode_to_mod_state(keycode);
+            keycode = newkeycode;
+        }
+#endif
         action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
         return action;
     } else if (keycode >= 0x2000 && keycode < 0x3000) {
@@ -260,13 +270,38 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 }
 
 /* translates Fn keycode to action */
+__attribute__ ((weak))
 action_t keymap_fn_to_action(uint16_t keycode)
 {
     return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
 }
 
+__attribute__ ((weak))
 action_t keymap_func_to_action(uint16_t keycode)
 {
     // For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
+}
+
+uint16_t keycode_to_mod_state(uint16_t keycode) {
+    switch (keycode) {
+        case KC_LCTRL:
+            return LCTL_KM;
+        case KC_LSHIFT:
+            return LSFT_KM;
+        case KC_LALT:
+            return LALT_KM;
+        case KC_LGUI:
+            return LGUI_KM;
+        case KC_RCTRL:
+            return LCTL_KM;
+        case KC_RSHIFT:
+            return LSFT_KM;
+        case KC_RALT:
+            return LALT_KM;
+        case KC_RGUI:
+            return LGUI_KM;
+        default:
+            return 0x0000;
+    }
 }
