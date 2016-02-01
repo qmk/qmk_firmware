@@ -44,6 +44,15 @@
    - What's the keystroke to get from X to console these days?
    - I do indeed want a sweet number pad!
    - A layer for doing console switching would not be a bad idea
+   - Random data generator
+     - A key that generates values in the range 0-9 at random
+     - A key that generates values in the range a-z at random
+     - A key that generates values in the range a-z,A-Z,0-9 at random
+
+   - Figure out the MACRO example in https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/doc/keymap.md
+     - section 2.3.2
+     - where does the HELLO come from???
+     - What are the types of the T() calls? 
 */
 
 enum layers {
@@ -126,17 +135,21 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
+  switch(id) {
+  case 0:
+    if (record->event.pressed) {
+      register_code(KC_RSFT);
+#ifdef BACKLIGHT_ENABLE
+      backlight_step();
+#endif
+    } else {
+      unregister_code(KC_RSFT);
+    }
+  case 2550:
+    return (record->event.pressed ? 
+	    MACRO( I(55), T(C), T(B), T(B), T(R), T(O), T(W), T(N), T(E)) :
+	    MACRO_NONE );
+    break;
+  }
+  return MACRO_NONE;
 };
