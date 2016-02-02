@@ -1,0 +1,6 @@
+# TMK Converter rev.2
+# which looks like this:
+# https://github.com/tmk/keyboard_converter#pcb-rev2
+MCU = atmega32u2
+include Makefile
+
