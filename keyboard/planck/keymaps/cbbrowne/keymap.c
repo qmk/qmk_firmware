@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, DF(_KP), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 [_KP] = { /* Key Pad */
-  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_KP_ENTER, KC_KP_PLUS, KC_KP_PLUS, KC_KP_ENTER, KC_KP_ENTER},
+  {KC_ESC,  M(1),    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_KP_ENTER, KC_KP_PLUS, KC_KP_PLUS, KC_KP_ENTER, KC_KP_ENTER},
   {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_KP_MINUS, KC_7, KC_8,    KC_9,  KC_KP_DOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_KP_PLUS,    KC_4, KC_5,  KC_6, KC_0},
   {BL_STEP, M(0), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QW),   KC_1, KC_2, KC_3,  KC_0}
@@ -127,7 +127,6 @@ enum macro_id {
   M_USERNAME
 };
 
-
 const uint16_t PROGMEM fn_actions[] = {
 
 };
@@ -145,9 +144,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     } else {
       unregister_code(KC_RSFT);
     }
-  case 2550:
+    break;	    
+  case 1:
     return (record->event.pressed ? 
-	    MACRO( I(55), T(C), T(B), T(B), T(R), T(O), T(W), T(N), T(E)) :
+	    MACRO( T(C), T(B), T(B), T(R), T(O), T(W), T(N), T(E)) :
 	    MACRO_NONE );
     break;
   }
