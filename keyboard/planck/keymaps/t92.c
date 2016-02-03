@@ -1,6 +1,7 @@
 //Author: tong92 <tong92power@gmail.com>
 
-#include "keymap_common.h"
+#include "planck.h"
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //MIT Layout
@@ -67,11 +68,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------'
     */
 [4] ={
-{KC_ESC ,LALT(KC_F4),LGUI(KC_UP),KC_TRNS,LCTL(KC_F5)                       ,S(KC_CAPS),KC_PSCR   ,   KC_PGUP,  KC_UP,   KC_PGDN,   KC_TRNS,   KC_DELT},
-{KC_TRNS,LGUI(KC_LEFT),LGUI(KC_DOWN),LGUI(KC_RIGHT),KC_TRNS                ,LALT(KC_CAPS),KC_CAPS,   KC_LEFT,  KC_DOWN,   KC_RIGHT,  KC_TRNS,  KC_TRNS  },
-{KC_LSFT,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),KC_TRNS,KC_TNRS          ,LCTL(KC_CAPS),KC_SLCK,KC_HOME,KC_TRNS,KC_END, KC_TRNS, KC_TRNS },
-{KC_TRNS,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),LGUI(LCTL(KC_F4)),KC_TRNS,    LGUI(KC_SPC)    ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS}
-    },
+{KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,KC_TRNS          ,LCTL(KC_F5),S(KC_CAPS)   ,KC_PSCR,KC_PGUP,KC_UP  ,KC_PGDN ,KC_TRNS,KC_DELT},
+{KC_TRNS,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT)   ,KC_TRNS    ,LALT(KC_CAPS),KC_CAPS,KC_LEFT,KC_DOWN,KC_RIGHT,KC_TRNS,KC_TRNS},
+{KC_LSFT,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),KC_TRNS          ,KC_TNRS    ,LCTL(KC_CAPS),KC_SLCK,KC_HOME,KC_TRNS,KC_END  ,KC_TRNS,KC_TRNS},
+{KC_TRNS,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),LGUI(LCTL(KC_F4)),KC_TRNS    ,      LGUI(KC_SPC)   ,KC_TRNS,KC_TRNS,KC_TRNS ,KC_TRNS,KC_TRNS}
+    }
 };
 
 const uint16_t PROGMEM fn_actions[] = {
