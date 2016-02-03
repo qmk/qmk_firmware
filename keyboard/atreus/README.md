@@ -1,6 +1,9 @@
-Planck keyboard firmware
+atreus keyboard firmware
 ======================
-DIY/Assembled compact ortholinear 40% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
+
+## Note
+
+This is for the Teensy2 hand wired boards only.
 
 ## Quantum MK Firmware
 
@@ -89,7 +92,7 @@ Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - 
 
 ## Macro shortcuts: Send a whole string when pressing just one key
 
-Instead of using the `ACTION_MACRO` function, you can simply use `M(n)` to access macro *n* - *n* will get passed into the `action_get_macro` as the `id`, and you can use a switch statement to trigger it. This gets called on the keydown and keyup, so you'll need to use an if statement testing `record->event.pressed` (see keymaps/default.c).
+Instead of using the `ACTION_MACRO` function, you can simply use `M(n)` to access macro *n* - *n* will get passed into the `action_get_macro` as the `id`, and you can use a switch statement to trigger it. This gets called on the keydown and keyup, so you'll need to use an if statement testing `record->event.pressed` (see keymap_default.c).
 
 ```c
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
@@ -171,38 +174,11 @@ Depending on which keymap you would like to use, you will have to compile slight
 ### Default
 To build with the default keymap, simply run `make`.
 
-## Safety Considerations
-
-You probably don't want to "brick" your keyboard, making it impossible
-to rewrite firmware onto it.  Here are some of the parameters to show
-what things are (and likely aren't) too risky.
-
-- If a keyboard map does not include RESET, then, to get into DFU
-  mode, you will need to press the reset button on the PCB, which
-  requires unscrewing some bits.
-- Messing with tmk_core / common files might make the keyboard
-  inoperable
-- Too large a .hex file is trouble; `make dfu` will erase the block,
-  test the size (oops, wrong order!), which errors out, failing to
-  flash the keyboard
-- DFU tools do /not/ allow you to write into the bootloader (unless
-  you throw in extra fruitsalad of options), so there is little risk
-  there.
-- EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
-  firmware repeatedly and continually; that'll burn the EEPROM
-  eventually.
-
 ### Other Keymaps
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
 
 To build the firmware binary hex file with a keymap just do `make` with `KEYMAP` option like:
 ```
 $ make KEYMAP=[default|jack|<name>]
 ```
-Keymaps follow the format **__<name\>.c__** and are stored in the `keymaps` folder.
-
-### Notable forks (which some of the keymap files are from)
-- [Shane's Fork](https://github.com/shanecelis/tmk_keyboard/tree/master/keyboard/planck)
-- [Pierre's Fork](https://github.com/pcarrier/tmk_keyboard/blob/pcarrier/planck/keyboard/gh60/keymap_planck.c)
-- [Nathan's Fork](https://github.com/nathanrosspowell/tmk_keyboard/tree/planck-jack/keyboard/planck)
-- [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck_grid)
+Keymaps follow the format **__keymap\_\<name\>.c__** and are stored in the `keymaps` folder.
