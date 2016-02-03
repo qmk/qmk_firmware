@@ -55,7 +55,7 @@ Generally, the instructions to flash the PCB are as follows:
 
 ### Keymap
 
-Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/qmk_firmware/blob/master/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/qmk_firmware/blob/master/quantum/keymap_common.h).
+Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/qmk_firmware/blob/master/quantum/keymap_common.h).
 
 You can use modifiers with keycodes like this:
 

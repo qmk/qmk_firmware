@@ -4,12 +4,13 @@ Dies ist nur ein kleiner Tweak der bestehenden firmware für das ErgoDox-EZ-Keyb
 
 - Die Umlaute sollten an einigermassen sinnvollen Plätzen liegen
 - der Umstieg sollte dadurch erleichtert werden, dass einige Tasten an ihren "normalen" Platz zurückgewandert sind. Z.B. ESC, Tab,...
-- die Leertaste lässt sich jetzt mit beiden Daumen bedienen 
+- die Leertaste ist jetzt auf der rechten seite, neben Enter. Dafür hat der linke Daumen nun Backspace und Delete. 
 - die CMD- und Alt-Tasten sind in der Mitte einfach erreichbar.
-- es gibt eine neue Layer für die Nutzung der Cursortasten, dort sind sie etwas einfacher angeordnet und sind z.B. auch für Spiele nutzbar
+- es gibt eine neue Layer die für Spiele genutzt werden kann (egosooter wie Counter Strike). Dort liegen die wichtigsten Tasten auf der linken Seite, im Daumenblock z.B. space und ctrl sowie die F-Tasten 1-4. Diese Layer ist über die Symbollayer erreichbar.
 - Die Symbollayer wurde dahingehend angepasst, dass die klammern, etc nun auf beiden hälften der Tastatur zu finden sind
 - der Zehnerblock wurde in eine eigene Layer umgezogen
 - die Meh und Hyper-Tasten wurden in die Daumenblöcke umgezogen
+
 
 ------------------------------   
 
