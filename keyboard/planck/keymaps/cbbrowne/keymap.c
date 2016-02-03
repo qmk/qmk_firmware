@@ -61,15 +61,6 @@
    - What's the keystroke to get from X to console these days?
    - I do indeed want a sweet number pad!
    - A layer for doing console switching would not be a bad idea
-   - Random data generator
-     - A key that generates values in the range 0-9 at random
-     - A key that generates values in the range a-z at random
-     - A key that generates values in the range a-z,A-Z,0-9 at random
-
-   - Figure out the MACRO example in https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/doc/keymap.md
-     - section 2.3.2
-     - where does the HELLO come from???
-     - What are the types of the T() calls? 
 */
 
 enum layers {
