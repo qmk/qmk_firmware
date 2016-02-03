@@ -48,7 +48,8 @@
        of the random number generator
      - the other, M_RANDLETTER, generates a random letter based on state
        of the random number generator
-     - in both 
+     - in both, note the use of register_code()/unregister_code()
+       to indicate the desired key
 */
 
 /* Other things to do...
