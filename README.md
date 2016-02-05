@@ -138,9 +138,9 @@ Note: Using macros to have your keyboard send passwords for you is a bad idea.
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-   #include "keymap_<layout>.h"
+   #include <keymap_extras/keymap_colemak.h>
 
-Where <layout> is "colemak" or "dvorak". After including this line, you will get access to:
+If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
  * `CM_*` for all of the Colemak-equivalent characters
  * `DV_*` for all of the Dvorak-equivalent characters
