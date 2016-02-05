@@ -18,4 +18,6 @@ See https://github.com/tmk/tmk_keyboard/issues/173
 **P60**: [DIY wired 60% keyboard](https://imgur.com/a/zwsDN) by [p3lim](https://github.com/p3lim).
 - https://github.com/p3lim/keyboard_firmware
 
+**Nerd, Kitten Paw, Lightsaber, Phantom, Lightpad, Ergodox by [@xauser](https://github.com/xauser)**:
+- https://github.com/xauser/tmk_keyboard/tree/xauser
 ### converters
