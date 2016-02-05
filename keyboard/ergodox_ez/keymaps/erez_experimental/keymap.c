@@ -1,3 +1,4 @@
+#include <keymap_extras/keymap_colemak.h>
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
@@ -84,14 +85,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_1,   KC_2,   KC_3,          KC_4,         KC_TRNS, KC_TRNS,
        KC_TRNS, KC_5,   KC_6,   KC_7,          KC_8,         KC_9,
        KC_TRNS, KC_LPRN,KC_RPRN,KC_LBRC,       KC_RBRC,      KC_0,    KC_TRNS,
-       KC_TRNS, KC_TRNS,KC_TRNS,LCTL(KC_PGDN), LCTL(KC_PGUP),
+       KC_TRNS, KC_TRNS,KC_TRNS,LCTL(KC_PGUP), LCTL(KC_PGDN),
                                                                               KC_TRNS,KC_TRNS,
                                                                                       KC_TRNS,
                                                                       KC_TRNS,KC_TRNS,KC_TRNS,
-               // right hand. Sending KC_P instead of Semicolon because I use Colemak in software.
+               // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_TRNS, KC_TRNS,KC_EQL,  KC_TRNS, KC_TRNS, KC_F12,
-                KC_AMPR, KC_MINS,KC_UNDS, KC_P,    KC_PLUS, KC_TRNS,
+                KC_AMPR, KC_MINS,KC_UNDS, CM_SCLN, KC_PLUS, KC_TRNS,
        KC_TRNS, KC_PIPE, KC_LPRN,KC_RPRN, KC_3,    KC_TRNS, KC_TRNS,
                          KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
