@@ -13,3 +13,4 @@ tags
 build/
 *.bak
 .vagrant/
+.DS_STORE
