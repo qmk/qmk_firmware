@@ -126,7 +126,7 @@ BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 MIDI_ENABLE = yes 		# MIDI controls
 BACKLIGHT_ENABLE = yes
 
-ifdef MIDI_ENABLE
+ifeq ($(strip $(MIDI_ENABLE)), yes)
 	SRC += keymap_midi.c \
 		   beeps.c
 endif
