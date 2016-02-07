@@ -138,7 +138,7 @@ Note: Using macros to have your keyboard send passwords for you is possible, but
 
 To get more control over the keys/actions your keyboard takes, the following functions are available to you in the `action_get_macro` function block:
 
-#### `record->event.pressed`
+* `record->event.pressed`
 
 This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is
 
