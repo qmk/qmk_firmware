@@ -3,9 +3,9 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "led.h"
+#include "keymap_extras/keymap_bepo.h"
 
 #define BASE 0 // default layer
-#define DVRK 1 // Dvorak layer
 #define NUMR 8 // numeric layer
 #define FNLR 9 // fn layer
 
@@ -16,15 +16,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   `    |   1  |   2  |   3  |   4  |   5  | Del  |           | Del  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   $    |   "  |   «  |   »  |   (  |   )  | Del  |           | Del  |   @  |   +  |   -  |   /  |   *  |   =    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |Backsp|           |Backsp|   Y  |   U  |   I  |   O  |   P  |   [    |
+ * | Tab    |   B  |   É  |   P  |   O  |   È  |Backsp|           |Backsp|   ^  |   V  |   D  |   L  |   J  |   Z    |
  * |--------+------+------+------+------+------|ace   |           |ace   |------+------+------+------+------+--------|
- * |   ]    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |   W    |   A  |   U  |   I  |   E  |   ,  |------|           |------|   C  |   T  |   S  |   R  |   N  |   M    |
  * |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
+ * | LShift |   À  |   Y  |   X  |   .  |   K  |      |           |      |   '  |   Q  |   G  |   H  |   F  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |LCtrl |  fn  | LGui | Play |App/Alt|                                      | RAlt |   =  | Home |   \  |End/Ctl|
+ *   |LCtrl |  fn  | LGui | Play |App/Alt|                                      |Alt Gr|   %  | Home |   Ç  |End/Ctl|
  *   `-----------------------------------'                                      `-----------------------------------'
  *                                       ,--------------.       ,-------------.
  *                                       |Esc/Alt| num  |       | Left |Right |
@@ -38,72 +38,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_DELT,
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_BSPC,
-        KC_RBRC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_ENT,
-        KC_LCTL,        M(MFNLR),     KC_LGUI,KC_MPLY,ALT_T(KC_APP),
+        BP_DLR,     KC_1,      KC_2,    KC_3,    KC_4,          KC_5,    KC_DELT,
+        KC_TAB,     BP_B,      BP_ECUT, BP_P,    BP_O,          BP_EGRV, KC_BSPC,
+        BP_W,       BP_A,      BP_U,    BP_I,    BP_E,          BP_COMM,
+        KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,    BP_DOT,        BP_K,    KC_ENT,
+        KC_LCTL,    M(MFNLR),  KC_LGUI, KC_MPLY, ALT_T(KC_APP),
 
                                               ALT_T(KC_ESC),  TG(NUMR),
                                                               KC_PGUP,
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
         // right hand
-             KC_DELT,     KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,
-             KC_BSPC,     KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,
-                          KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,
-             KC_ENT,      KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-                                  KC_RALT, KC_EQL,  KC_HOME, KC_BSLS,   CTL_T(KC_END),
+        KC_DELT,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_EQL,
+        KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
+                   BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
+        KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
+                             BP_ALGR, BP_PERC, KC_HOME, BP_CCED,  CTL_T(KC_END),
 
-             KC_LEFT, KC_RGHT,
-             KC_UP,
-             KC_DOWN, KC_RSFT,  KC_SPC
-    ),
-/* Dvorak layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   `    |   1  |   2  |   3  |   4  |   5  | Del  |           | Del  |   6  |   7  |   8  |   9  |   0  |   =    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   '  |   ,  |   .  |   P  |   Y  |Backsp|           |Backsp|   F  |   G  |   C  |   R  |   L  |   /    |
- * |--------+------+------+------+------+------|ace   |           |ace   |------+------+------+------+------+--------|
- * | LShift |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  | -/Shift|
- * |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
- * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | \/Shift|
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |LCtrl |  fn  | LGui | Play |App/Alt|                                      | RAlt |   [  | Home |   ]  |End/Ctl|
- *   `-----------------------------------'                                      `-----------------------------------'
- *                                       ,--------------.       ,-------------.
- *                                       |Esc/Alt| num  |       | Left |Right |
- *                                ,------+-------+------|       |------+------+------.
- *                                |      |       | PgUp |       |  Up  |      |      |
- *                                |Space |LShift |------|       |------|RShift|Space |
- *                                |      |       | PgDn |       | Down |      |      |
- *                                `---------------------'       `--------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[DVRK] = KEYMAP(  // layer 0 : default
-        // left hand
-        KC_GRV,   KC_1,      KC_2,    KC_3,    KC_4,   KC_5,   KC_DELT,
-        KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,   KC_Y,   KC_BSPC,
-        KC_LSFT,  KC_A,      KC_O,    KC_E,    KC_U,   KC_I,
-        KC_LSFT,  KC_SCLN,   KC_Q,    KC_J,    KC_K,   KC_X,   KC_ENT,
-        KC_LCTL,  M(MFNLR),  KC_LGUI, KC_MPLY, ALT_T(KC_APP),
-
-                                              ALT_T(KC_ESC),  TG(NUMR),
-                                                              KC_PGUP,
-                                            KC_SPC, KC_LSFT,  KC_PGDN,
-
-        // right hand
-             KC_DELT,     KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_EQL,
-             KC_BSPC,     KC_F,   KC_G,    KC_C,    KC_R,    KC_L,     KC_SLSH,
-                          KC_D,   KC_H,    KC_T,    KC_N,    KC_S,     SFT_T(KC_MINS),
-             KC_ENT,      KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,     SFT_T(KC_BSLS),
-                                  KC_RALT, KC_LBRC, KC_HOME, KC_RBRC,  CTL_T(KC_END),
-
-             KC_LEFT, KC_RGHT,
-             KC_UP,
-             KC_DOWN, KC_RSFT,  KC_SPC
+        KC_LEFT, KC_RGHT,
+        KC_UP,
+        KC_DOWN, KC_RSFT,  KC_SPC
     ),
 /* Numeric Layer
  *
@@ -229,10 +183,6 @@ void * matrix_scan_user(void) {
     // led 1: numeric layer
     if (layer_state & (1 << NUMR)) {
         ergodox_right_led_1_on();
-    }
-    // led 2: Dvorak layer
-    if (default_layer_state == 1 << DVRK) {
-        ergodox_right_led_2_on();
     }
     // led 3: caps lock
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
