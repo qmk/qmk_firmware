@@ -11,9 +11,6 @@
 
 #define MDBL0 1
 #define MFNLR 2
-#define MCUT  3
-#define MCOPY 4
-#define MPSTE 5
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Basic layer
@@ -178,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
-       KC_TRNS, KC_TRNS, M(MCUT),      M(MCOPY),    M(MPSTE),     KC_MUTE, KC_VOLD,
+       KC_TRNS, KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
        KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,
@@ -210,22 +207,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         break;
         case MFNLR:
-            layer_state ^= (1 << NUMR) | (1 << FNLR);
-            break;
-        case MCUT:
-            if (record->event.pressed) {
-                return MACRO(D(LSFT), T(DELT), U(LSFT), END);
-            }
-            break;
-        case MCOPY:
-            if (record->event.pressed) {
-                return MACRO(D(LCTL), T(INS), U(LCTL), END);
-            }
-            break;
-        case MPSTE:
-            if (record->event.pressed) {
-                return MACRO(D(LSFT), T(INS), U(LSFT), END);
-            }
+            layer_invert(NUMR);
+            layer_invert(FNLR);
             break;
     }
     return MACRO_NONE;
