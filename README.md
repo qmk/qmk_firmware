@@ -132,9 +132,73 @@ A macro can include the following commands:
 
 So above you can see the stroke interval changed to 255ms between each keystroke, then a bunch of keys being typed, waits a while, then the macro ends.
 
-Note: Using macros to have your keyboard send passwords for you is a bad idea.
+Note: Using macros to have your keyboard send passwords for you is possible, but a bad idea.
 
-### Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
+### Advanced macro functions
+
+To get more control over the keys/actions your keyboard takes, the following functions are available to you in the `action_get_macro` function block:
+
+#### `record->event.pressed`
+
+This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is
+
+```c
+if (record->event.pressed) {
+  // on keydown
+} else {
+  // on keyup
+}
+```
+
+#### `record->tap.count`
+
+The number taps that a certain key gets without interruption. This value can also be reset by assigning it `0`.
+
+#### `register_code(<kc>);`
+
+This sends the `<kc>` keydown event to the computer. Some examples would be `KC_ESC`, `KC_C`, `KC_4`, and even modifiers such as `KC_LSFT` and `KC_LGUI`.
+
+#### `unregister_code(<kc>);`
+
+Parallel to `register_code` function, this sends the `<kc>` keyup event to the computer. If you don't use this, the key will be held down until it's sent.
+
+#### `layer_on(<n>);`
+
+This will turn on the layer `<n>` - the higher layer number will always take priority. Make sure you have `KC_TRNS` for the key you're pressing on the layer you're switching to, or you'll get stick there unless you have another plan.
+
+#### `layer_off(<n>);`
+
+This will turn off the layer `<n>`.
+
+#### `clear_keyboard();`
+
+This will clear all mods and keys currently pressed.
+
+#### `clear_mods();`
+
+This will clear all mods currently pressed.
+
+#### `clear_keyboard_but_mods();`
+
+This will clear all keys besides the mods currently pressed.
+
+#### Timer functionality
+
+It's possible to start timers and read values for time-specific events - here's an example:
+
+```c
+static uint16_t key_timer;
+key_timer = timer_read();
+if (timer_elapsed(key_timer) < 100) {
+  // do something if less than 100ms have passed
+} else {
+  // do something if 100ms or more have passed
+}
+```
+
+It's best to declare the `static uint16_t start;` outside of the macro block (top of file, etc). 
+
+## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
