@@ -40,6 +40,10 @@
 		<device-support-alias value="lufa_xmega"/>
 		<device-support-alias value="lufa_uc3"/>
 
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
+		<build type="distribute" subtype="user-file" value="VirtualSerial.txt"/>
+		<build type="distribute" subtype="user-file" value="LUFA RNDIS.inf"/>
+
 		<build type="c-source" value="RNDISEthernet.c"/>
 		<build type="c-source" value="Descriptors.c"/>
 		<build type="c-source" value="Lib/ARP.c"/>

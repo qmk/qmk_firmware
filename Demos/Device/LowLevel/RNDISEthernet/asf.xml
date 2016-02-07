@@ -42,6 +42,7 @@
 
 		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="RNDISEthernet.txt"/>
+		<build type="distribute" subtype="user-file" value="LUFA RNDIS.inf"/>
 
 		<build type="c-source" value="RNDISEthernet.c"/>
 		<build type="c-source" value="Descriptors.c"/>

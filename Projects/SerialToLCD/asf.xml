@@ -30,6 +30,7 @@
 
 		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="SerialToLCD.txt"/>
+		<build type="distribute" subtype="user-file" value="LUFA SerialToLCD.inf"/>
 
 		<build type="c-source" value="SerialToLCD.c"/>
 		<build type="c-source" value="Descriptors.c"/>

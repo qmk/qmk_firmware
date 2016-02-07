@@ -68,6 +68,7 @@
 
 		<build type="distribute" subtype="user-file" value="doxyfile"/>
 		<build type="distribute" subtype="user-file" value="AVRISP-MKII.txt"/>
+		<build type="distribute" subtype="directory" value="WindowsDriver"/>
 
 		<build type="c-source" value="AVRISP-MKII.c"/>
 		<build type="header-file" value="AVRISP-MKII.h"/>
