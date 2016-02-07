@@ -118,6 +118,8 @@ static uint16_t random_value = 157;
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+  uint8_t clockbyte=0;
+  clockbyte = TCNT1 % 256;
   // MACRODOWN only works in this function
   switch(id) {
   case M_LED:
@@ -141,161 +143,169 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     /* Generate, based on random number generator, a keystroke for
        a numeric digit chosen at random */
     random_value = ((random_value + randadd) * randmul) % randmod;
-    if (record->event.pressed) 
-    switch(random_value % 10) {
-    case 0:
-      register_code (KC_0);
-      unregister_code (KC_0);
-      break;
-    case 1:
-      register_code (KC_1);
-      unregister_code (KC_1);
-      break;
-    case 2:
-      register_code (KC_2);
-      unregister_code (KC_2);
-      break;
-    case 3:
-      register_code (KC_3);
-      unregister_code (KC_3);
-      break;
-    case 4:
-      register_code (KC_4);
-      unregister_code (KC_4);
-      break;
-    case 5:
-      register_code (KC_5);
-      unregister_code (KC_5);
-      break;
-    case 6:
-      register_code (KC_6);
-      unregister_code (KC_6);
-      break;
-    case 7:
-      register_code (KC_7);
-      unregister_code (KC_7);
-      break;
-    case 8:
-      register_code (KC_8);
-      unregister_code (KC_8);
-      break;
-    case 9:
-      register_code (KC_9);
-      unregister_code (KC_9);
-      break;
-    }
+    if (record->event.pressed)
+
+      /* Here, we mix the LCRNG with low bits from one of the system
+         clocks via XOR in the theory that this may be more random
+         than either separately */ 
+
+      switch ((random_value ^ clockbyte) % 10) {
+      case 0:
+	register_code (KC_0);
+	unregister_code (KC_0);
+	break;
+      case 1:
+	register_code (KC_1);
+	unregister_code (KC_1);
+	break;
+      case 2:
+	register_code (KC_2);
+	unregister_code (KC_2);
+	break;
+      case 3:
+	register_code (KC_3);
+	unregister_code (KC_3);
+	break;
+      case 4:
+	register_code (KC_4);
+	unregister_code (KC_4);
+	break;
+      case 5:
+	register_code (KC_5);
+	unregister_code (KC_5);
+	break;
+      case 6:
+	register_code (KC_6);
+	unregister_code (KC_6);
+	break;
+      case 7:
+	register_code (KC_7);
+	unregister_code (KC_7);
+	break;
+      case 8:
+	register_code (KC_8);
+	unregister_code (KC_8);
+	break;
+      case 9:
+	register_code (KC_9);
+	unregister_code (KC_9);
+	break;
+      }
     break;
   case M_RANDLETTER:
     /* Generate, based on random number generator, a keystroke for
        a letter chosen at random */
+    /* Here, we mix the LCRNG with low bits from one of the system
+       clocks via XOR in the theory that this may be more random
+       than either separately */ 
     random_value = ((random_value + randadd) * randmul) % randmod;
     if (record->event.pressed) 
-    switch(random_value % 26) {
-    case 0:
-      register_code(KC_A);
-      unregister_code(KC_A);
-      break;
-    case 1:
-      register_code(KC_B);
-      unregister_code(KC_B);
-      break;
-    case 2:
-      register_code(KC_C);
-      unregister_code(KC_C);
-      break;
-    case 3:
-      register_code(KC_D);
-      unregister_code(KC_D);
-      break;
-    case 4:
-      register_code(KC_E);
-      unregister_code(KC_E);
-      break;
-    case 5:
-      register_code(KC_F);
-      unregister_code(KC_F);
-      break;
-    case 6:
-      register_code(KC_G);
-      unregister_code(KC_G);
-      break;
-    case 7:
-      register_code(KC_H);
-      unregister_code(KC_H);
-      break;
-    case 8:
-      register_code(KC_I);
-      unregister_code(KC_I);
-      break;
-    case 9:
-      register_code(KC_J);
-      unregister_code(KC_J);
-      break;
-    case 10:
-      register_code(KC_K);
-      unregister_code(KC_K);
-      break;
-    case 11:
-      register_code(KC_L);
-      unregister_code(KC_L);
-      break;
-    case 12:
-      register_code(KC_M); 
-      unregister_code(KC_M); 
-      break;
-    case 13:
-      register_code(KC_N);
-      unregister_code(KC_N);
-      break;
-    case 14:
-      register_code(KC_O);
-      unregister_code(KC_O);
-      break;
-    case 15:
-      register_code(KC_P);
-      unregister_code(KC_P);
-      break;
-    case 16:
-      register_code(KC_Q);
-      unregister_code(KC_Q);
-      break;
-    case 17:
-      register_code(KC_R);
-      unregister_code(KC_R);
-      break;
-    case 18:
-      register_code(KC_S);
-      unregister_code(KC_S);
-      break;
-    case 19:
-      register_code(KC_T);
-      unregister_code(KC_T);
-      break;
-    case 20:
-      register_code(KC_U);
-      unregister_code(KC_U);
-      break;
-    case 21:
-      register_code(KC_V);
-      unregister_code(KC_V);
-      break;
-    case 22:
-      register_code(KC_W);
-      unregister_code(KC_W);
-      break;
-    case 23:
-      register_code(KC_X);
-      unregister_code(KC_X);
-      break;
-    case 24:
-      register_code(KC_Y);
-      unregister_code(KC_Y);
-      break;
-    case 25:
-      register_code(KC_Z);
+      switch((random_value ^ clockbyte) % 26) {
+      case 0:
+	register_code(KC_A);
+	unregister_code(KC_A);
+	break;
+      case 1:
+	register_code(KC_B);
+	unregister_code(KC_B);
+	break;
+      case 2:
+	register_code(KC_C);
+	unregister_code(KC_C);
+	break;
+      case 3:
+	register_code(KC_D);
+	unregister_code(KC_D);
+	break;
+      case 4:
+	register_code(KC_E);
+	unregister_code(KC_E);
+	break;
+      case 5:
+	register_code(KC_F);
+	unregister_code(KC_F);
+	break;
+      case 6:
+	register_code(KC_G);
+	unregister_code(KC_G);
+	break;
+      case 7:
+	register_code(KC_H);
+	unregister_code(KC_H);
+	break;
+      case 8:
+	register_code(KC_I);
+	unregister_code(KC_I);
+	break;
+      case 9:
+	register_code(KC_J);
+	unregister_code(KC_J);
+	break;
+      case 10:
+	register_code(KC_K);
+	unregister_code(KC_K);
+	break;
+      case 11:
+	register_code(KC_L);
+	unregister_code(KC_L);
+	break;
+      case 12:
+	register_code(KC_M); 
+	unregister_code(KC_M); 
+	break;
+      case 13:
+	register_code(KC_N);
+	unregister_code(KC_N);
+	break;
+      case 14:
+	register_code(KC_O);
+	unregister_code(KC_O);
+	break;
+      case 15:
+	register_code(KC_P);
+	unregister_code(KC_P);
+	break;
+      case 16:
+	register_code(KC_Q);
+	unregister_code(KC_Q);
+	break;
+      case 17:
+	register_code(KC_R);
+	unregister_code(KC_R);
+	break;
+      case 18:
+	register_code(KC_S);
+	unregister_code(KC_S);
+	break;
+      case 19:
+	register_code(KC_T);
+	unregister_code(KC_T);
+	break;
+      case 20:
+	register_code(KC_U);
+	unregister_code(KC_U);
+	break;
+      case 21:
+	register_code(KC_V);
+	unregister_code(KC_V);
+	break;
+      case 22:
+	register_code(KC_W);
+	unregister_code(KC_W);
+	break;
+      case 23:
+	register_code(KC_X);
+	unregister_code(KC_X);
+	break;
+      case 24:
+	register_code(KC_Y);
+	unregister_code(KC_Y);
+	break;
+      case 25:
+	register_code(KC_Z);
       unregister_code(KC_Z);
       break;
-    }
+      }
     break;
   }
   return MACRO_NONE;
