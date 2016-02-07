@@ -15,6 +15,27 @@ Depending on which keymap you would like to use, you will have to compile slight
 ### Default
 To build with the default keymap, simply run `make`.
 
+## Safety Considerations
+
+You probably don't want to "brick" your keyboard, making it impossible
+to rewrite firmware onto it.  Here are some of the parameters to show
+what things are (and likely aren't) too risky.
+
+- If a keyboard map does not include RESET, then, to get into DFU
+  mode, you will need to press the reset button on the PCB, which
+  requires unscrewing some bits.
+- Messing with tmk_core / common files might make the keyboard
+  inoperable
+- Too large a .hex file is trouble; `make dfu` will erase the block,
+  test the size (oops, wrong order!), which errors out, failing to
+  flash the keyboard
+- DFU tools do /not/ allow you to write into the bootloader (unless
+  you throw in extra fruitsalad of options), so there is little risk
+  there.
+- EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
+  firmware repeatedly and continually; that'll burn the EEPROM
+  eventually.
+
 ### Other Keymaps
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
 
