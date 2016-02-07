@@ -150,10 +150,6 @@ if (record->event.pressed) {
 }
 ```
 
-* `record->tap.count`
-
-The number taps that a certain key gets without interruption. This value can also be reset by assigning it `0`.
-
 * `register_code(<kc>);`
 
 This sends the `<kc>` keydown event to the computer. Some examples would be `KC_ESC`, `KC_C`, `KC_4`, and even modifiers such as `KC_LSFT` and `KC_LGUI`.
