@@ -152,15 +152,13 @@ void AVRISP_Task(void)
  *  \param[in]  wValue                 Descriptor type and index to retrieve
  *  \param[in]  wIndex                 Sub-index to retrieve (such as a localized string language)
  *  \param[out] DescriptorAddress      Address of the retrieved descriptor
- *  \param[out] DescriptorMemorySpace  Memory space that the descriptor is stored in
  *
  *  \return Length of the retrieved descriptor in bytes, or NO_DESCRIPTOR if the descriptor was not found
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint16_t wIndex,
-                                    const void** const DescriptorAddress,
-                                    uint8_t* DescriptorMemorySpace)
+                                    const void** const DescriptorAddress)
 {
-	return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress, DescriptorMemorySpace);
+	return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress);
 }
 

@@ -79,26 +79,6 @@
  *    <th><b>Description:</b></th>
  *   </tr>
  *   <tr>
- *    <td>LIBUSB_DRIVER_COMPAT</td>
- *    <td>AppConfig.h</td>
- *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
- *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
- *
- *        \note This option is incompatible with \c RESET_TOGGLES_LIBUSB_COMPAT.</td>
- *   </tr>
- *   <tr>
- *    <td>RESET_TOGGLES_LIBUSB_COMPAT</td>
- *    <td>Makefile LUFA_OPTS</td>
- *    <td>Define to make the /RESET line of the AVR toggle between Jungo and libUSB driver compatibility modes. Each time the AVR is
- *        reset externally via the reset pin, the compatibility mode will be toggled. The compatibility mode is preserved between
- *        power cycles and is not toggled via other forms of reset such as Watchdog or Brown Out.
- *
- *        When this option is enabled, all board LEDs will flash twice on startup for Jungo compatibility mode, and five times for
- *        libUSB compatibility mode.
- *
- *        \note This option is incompatible with \c LIBUSB_DRIVER_COMPAT.</td>
- *   </tr>
- *   <tr>
  *    <td>FIRMWARE_VERSION_MINOR</td>
  *    <td>AppConfig.h</td>
  *    <td>Define to set the minor firmware revision nunber reported to the host on request. By default this will use a firmware version compatible

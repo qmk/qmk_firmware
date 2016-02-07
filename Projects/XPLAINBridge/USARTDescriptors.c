@@ -198,16 +198,13 @@ const USB_Descriptor_String_t PROGMEM USART_ProductString = USB_STRING_DESCRIPTO
  */
 uint16_t USART_GetDescriptor(const uint16_t wValue,
                              const uint16_t wIndex,
-                             const void** const DescriptorAddress,
-                             uint8_t* const DescriptorMemorySpace)
+                             const void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
-
-	*DescriptorMemorySpace = MEMSPACE_FLASH;
 
 	switch (DescriptorType)
 	{

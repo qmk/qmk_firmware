@@ -37,17 +37,6 @@
 
 #include "AVRISPDescriptors.h"
 
-#if defined(RESET_TOGGLES_LIBUSB_COMPAT) || defined(__DOXYGEN__)
-	/** Indicates if an external reset has occurred and the compatibility mode needs to be altered */
-	static bool AVRISP_NeedCompatibilitySwitch ATTR_NO_INIT;
-
-	/** Current AVRISP data IN endpoint address. */
-	uint8_t AVRISP_CurrDataINEndpointAddress;
-
-	/** Saved AVRISP data IN endpoint address in EEPROM. */
-	uint8_t AVRISP_CurrDataINEndpointAddress_EEPROM EEMEM;
-#endif
-
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
@@ -80,7 +69,7 @@ const USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-AVRISP_USB_Descriptor_Configuration_t AVRISP_ConfigurationDescriptor =
+const AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -117,11 +106,7 @@ AVRISP_USB_Descriptor_Configuration_t AVRISP_ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
-			.EndpointAddress        = 0,
-#else
 			.EndpointAddress        = AVRISP_DATA_IN_EPADDR,
-#endif
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = AVRISP_DATA_EPSIZE,
 			.PollingIntervalMS      = 0x0A
@@ -159,7 +144,7 @@ const USB_Descriptor_String_t PROGMEM AVRISP_ProductString = USB_STRING_DESCRIPT
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
  *  series of uppercase hexadecimal digits.
  */
-USB_Descriptor_String_t AVRISP_SerialString = USB_STRING_DESCRIPTOR(L"000200012345\0"
+const USB_Descriptor_String_t PROGMEM AVRISP_SerialString = USB_STRING_DESCRIPTOR(L"000200012345\0"
     // Note: Real AVRISP-MKII has the embedded NUL byte, bug in firmware?
 );
 
@@ -171,16 +156,13 @@ USB_Descriptor_String_t AVRISP_SerialString = USB_STRING_DESCRIPTOR(L"0002000123
  */
 uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
                               const uint16_t wIndex,
-                              const void** const DescriptorAddress,
-                              uint8_t* DescriptorMemorySpace)
+                              const void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
-
-	*DescriptorMemorySpace = MEMSPACE_FLASH;
 
 	switch (DescriptorType)
 	{
@@ -189,12 +171,6 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration:
-			*DescriptorMemorySpace = MEMSPACE_RAM;
-			#if defined(RESET_TOGGLES_LIBUSB_COMPAT)
-				/* Update the configuration descriptor with the current endpoint address */
-				AVRISP_ConfigurationDescriptor.AVRISP_DataInEndpoint.EndpointAddress = AVRISP_CurrDataINEndpointAddress;
-			#endif
-
 			Address = &AVRISP_ConfigurationDescriptor;
 			Size    = sizeof(AVRISP_USB_Descriptor_Configuration_t);
 			break;
@@ -216,11 +192,6 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 				case AVRISP_STRING_ID_Serial:
 					Address = &AVRISP_SerialString;
 					Size    = AVRISP_SerialString.Header.Size;
-
-					/* Update serial number to have a different serial based on the current endpoint address */
-					((uint16_t*)&AVRISP_SerialString.UnicodeString)[6] = cpu_to_le16('0' + (AVRISP_DATA_IN_EPADDR & ENDPOINT_EPNUM_MASK));
-
-					*DescriptorMemorySpace = MEMSPACE_RAM;
 					break;
 			}
 
@@ -230,73 +201,3 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 	*DescriptorAddress = Address;
 	return Size;
 }
-
-#if defined(RESET_TOGGLES_LIBUSB_COMPAT) || defined(__DOXYGEN__)
-/** Checks the state of the system status register MCUSR and indicates via a flag if
- *  the current AVRISP driver compatibility mode needs to be reset.
- *
- *  When the \c RESET_TOGGLES_LIBUSB_COMPAT compile time option is enabled, pulling
- *  the reset line of the AVR low will toggle between Jungo and libUSB compatibility
- *  modes. Other forms of reset (such as power on or watchdog) will not force a mode
- *  change.
- */
-void CheckExternalReset(void)
-{
-	/* If an external reset occurred, we need to change compatibility mode */
-	AVRISP_NeedCompatibilitySwitch = (MCUSR == (1 << EXTRF));
-
-	MCUSR = 0;
-}
-
-/** Updates the device descriptors so that the correct compatibility mode is used
- *  when the \c RESET_TOGGLES_LIBUSB_COMPAT compile time option is enabled. This
- *  configures the programmer for either Jungo or libUSB driver compatibility. Each
- *  time the AVR is reset via pulling the reset line low the compatibility mode will
- *  be toggled. The current mode is stored in EEPROM and preserved through power
- *  cycles of the AVR.
- */
-void UpdateCurrentCompatibilityMode(void)
-{
-	/* Load the current IN endpoint address stored in EEPROM */
-	AVRISP_CurrDataINEndpointAddress = eeprom_read_byte(&AVRISP_CurrDataINEndpointAddress_EEPROM);
-
-	/* Check if we need to switch compatibility modes */
-	if (AVRISP_NeedCompatibilitySwitch)
-	{
-		/* Toggle between compatibility modes */
-		AVRISP_CurrDataINEndpointAddress = (AVRISP_CurrDataINEndpointAddress == AVRISP_DATA_IN_EPADDR_LIBUSB) ?
-				AVRISP_DATA_IN_EPADDR_JUNGO : AVRISP_DATA_IN_EPADDR_LIBUSB;
-
-		/* Save the new mode into EEPROM */
-		eeprom_update_byte(&AVRISP_CurrDataINEndpointAddress_EEPROM, AVRISP_CurrDataINEndpointAddress);
-	}
-
-	LEDs_SetAllLEDs(LEDS_NO_LEDS);
-
-	/* Validate IN endpoint address and indicate current mode via LED flashes */
-	switch (AVRISP_CurrDataINEndpointAddress)
-	{
-		default:
-			/* Default to Jungo compatibility mode if saved EEPROM is invalid */
-			AVRISP_CurrDataINEndpointAddress = AVRISP_DATA_IN_EPADDR_JUNGO;
-		case AVRISP_DATA_IN_EPADDR_JUNGO:
-			/* Two flashes for Jungo compatibility mode */
-			for (uint8_t i = 0; i < 4; i++)
-			{
-				LEDs_ToggleLEDs(LEDS_ALL_LEDS);
-				Delay_MS(100);
-			}
-			break;
-		case AVRISP_DATA_IN_EPADDR_LIBUSB:
-			/* Five flashes for libUSB compatibility mode */
-			for (uint8_t i = 0; i < 10; i++)
-			{
-				LEDs_ToggleLEDs(LEDS_ALL_LEDS);
-				Delay_MS(100);
-			}
-			break;
-	}
-
-	Delay_MS(500);
-}
-#endif

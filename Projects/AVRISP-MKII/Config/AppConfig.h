@@ -59,12 +59,10 @@
 	#define VTARGET_REF_VOLTS          5
 	#define VTARGET_SCALE_FACTOR       1
 //	#define VTARGET_USE_INTERNAL_REF
-//	#define NO_VTARGET_DETECT
+	#define NO_VTARGET_DETECT
 //	#define XCK_RESCUE_CLOCK_ENABLE
 //	#define INVERTED_ISP_MISO
 
-//	#define LIBUSB_DRIVER_COMPAT
-//	#define RESET_TOGGLES_LIBUSB_COMPAT
 //	#define FIRMWARE_VERSION_MINOR     0x11
 
 #endif
