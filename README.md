@@ -138,9 +138,9 @@ Note: Using macros to have your keyboard send passwords for you is a bad idea.
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-   #include "keymap_<layout>.h"
+   #include <keymap_extras/keymap_colemak.h>
 
-Where <layout> is "colemak" or "dvorak". After including this line, you will get access to:
+If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
  * `CM_*` for all of the Colemak-equivalent characters
  * `DV_*` for all of the Dvorak-equivalent characters
@@ -228,3 +228,24 @@ The firmware supports 5 different light effects, and the color (hue, saturation,
 ![WS2812 Wiring](https://raw.githubusercontent.com/yangliu/qmk_firmware/planck-rgb/keyboard/planck/keymaps/yang/WS2812-wiring.jpg)
 
 Please note the USB port can only supply a limited amount of power to the keyboard (500mA by standard, however, modern computer and most usb hubs can provide 700+mA.). According to the data of NeoPixel from Adafruit, 30 WS2812 LEDs require a 5V 1A power supply, LEDs used in this mod should not more than 20.
+
+## Safety Considerations
+
+You probably don't want to "brick" your keyboard, making it impossible
+to rewrite firmware onto it.  Here are some of the parameters to show
+what things are (and likely aren't) too risky.
+
+- If a keyboard map does not include RESET, then, to get into DFU
+  mode, you will need to press the reset button on the PCB, which
+  requires unscrewing some bits.
+- Messing with tmk_core / common files might make the keyboard
+  inoperable
+- Too large a .hex file is trouble; `make dfu` will erase the block,
+  test the size (oops, wrong order!), which errors out, failing to
+  flash the keyboard
+- DFU tools do /not/ allow you to write into the bootloader (unless
+  you throw in extra fruitsalad of options), so there is little risk
+  there.
+- EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
+  firmware repeatedly and continually; that'll burn the EEPROM
+  eventually.
