@@ -150,35 +150,35 @@ if (record->event.pressed) {
 }
 ```
 
-#### `record->tap.count`
+* `record->tap.count`
 
 The number taps that a certain key gets without interruption. This value can also be reset by assigning it `0`.
 
-#### `register_code(<kc>);`
+* `register_code(<kc>);`
 
 This sends the `<kc>` keydown event to the computer. Some examples would be `KC_ESC`, `KC_C`, `KC_4`, and even modifiers such as `KC_LSFT` and `KC_LGUI`.
 
-#### `unregister_code(<kc>);`
+* `unregister_code(<kc>);`
 
 Parallel to `register_code` function, this sends the `<kc>` keyup event to the computer. If you don't use this, the key will be held down until it's sent.
 
-#### `layer_on(<n>);`
+* `layer_on(<n>);`
 
 This will turn on the layer `<n>` - the higher layer number will always take priority. Make sure you have `KC_TRNS` for the key you're pressing on the layer you're switching to, or you'll get stick there unless you have another plan.
 
-#### `layer_off(<n>);`
+* `layer_off(<n>);`
 
 This will turn off the layer `<n>`.
 
-#### `clear_keyboard();`
+* `clear_keyboard();`
 
 This will clear all mods and keys currently pressed.
 
-#### `clear_mods();`
+* `clear_mods();`
 
 This will clear all mods currently pressed.
 
-#### `clear_keyboard_but_mods();`
+* `clear_keyboard_but_mods();`
 
 This will clear all keys besides the mods currently pressed.
 
@@ -196,7 +196,7 @@ if (timer_elapsed(key_timer) < 100) {
 }
 ```
 
-It's best to declare the `static uint16_t start;` outside of the macro block (top of file, etc). 
+It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
 
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
