@@ -117,7 +117,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     case _REC_STOP:
         backlight_toggle();
         if (!record->event.pressed) {
-            macro_end = ++macro_pointer;
+            macro_end = macro_pointer;
             layer_off(_REC);
 
             /* Disable the modifier held while starting the recording.
