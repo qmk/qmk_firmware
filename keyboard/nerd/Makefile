@@ -52,6 +52,9 @@ SRC =	keymap_common.c \
 	matrix.c \
 	backlight.c
 
+LAYOUT ?= 60
+KEYMAP ?= ansi150
+
 ifdef LAYOUT
    OPT_DEFS += -DNERD_LAYOUT_$(LAYOUT)
 endif
