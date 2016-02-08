@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "Timer.h"
+#include "Timer.hpp"
 #include "us_ticker_api.h"
 
 namespace mbed {
