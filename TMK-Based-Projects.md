@@ -24,6 +24,9 @@ See https://github.com/tmk/tmk_keyboard/issues/173
 **ErgoDox** on [cub-unanic](https://github.com/cub-uanic)'s repository
 - https://github.com/cub-uanic/tmk_keyboard/tree/master/keyboard/ergodox
 
+**Atreus** by [technomancy](https://atreus.technomancy.us)
+- https://github.com/technomancy/tmk_keyboard/tree/atreus/keyboard/atreus
+
 **[mcdox](https://github.com/DavidMcEwan/mcdox)**
 - https://github.com/DavidMcEwan/tmk_keyboard/tree/master/keyboard/mcdox
 
