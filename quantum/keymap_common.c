@@ -64,7 +64,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	action.code = ACTION_MACRO(keycode & 0xFF);
     	return action;
 #ifdef BACKLIGHT_ENABLE
-	} else if (keycode >= BL_0 & keycode <= BL_15) {
+	} else if (keycode >= BL_0 && keycode <= BL_15) {
         action_t action;
         action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
         return action;
