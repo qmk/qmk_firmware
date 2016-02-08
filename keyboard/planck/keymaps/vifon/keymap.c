@@ -5,6 +5,7 @@
 #ifdef BACKLIGHT_ENABLE
 #  include "backlight.h"
 #endif
+#include "action_layer.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -17,12 +18,17 @@ enum {
     _LW,
     _RS,
     _SP,
+    _REC,
 };
 
 
 /* My macros */
 enum {
-    _EMPTY = 0,
+    /* Warning! _REC_START and _MACRO_PLAY *must* be on the same layer! */
+    _REC_START,
+    _REC_KEY,
+    _REC_STOP,
+    _MACRO_PLAY,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LCTL, MO(_SP), KC_LGUI, KC_LALT, MO(_LW), KC_SPC,  KC_SPC,  MO(_RS), KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
 },
 [_LW]= { /* LOWER */
-    {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
-    {KC_TRNS, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-    {KC_TRNS, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS},
-    {KC_TRNS, BL_TOGG,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC,        KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
+    {KC_TRNS, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), M(_REC_START),  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
+    {KC_TRNS, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), M(_MACRO_PLAY), KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS},
+    {KC_TRNS, BL_TOGG,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_RS]= { /* RAISE */
     {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
@@ -62,6 +68,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
     {KC_LCTL, KC_TRNS, KC_LGUI, KC_LALT, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
+[_REC] = { /* Macro recording */
+    {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
+    {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
+    {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
+    {M(_REC_KEY), M(_REC_STOP), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)}
+},
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -70,9 +82,50 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+    static keyrecord_t macro_buffer[256];
+    static keyrecord_t *macro_end = macro_buffer;
+    static keyrecord_t *macro_pointer = macro_buffer;
+
     // MACRODOWN only works in this function
     switch(id) {
-    case _EMPTY:
+    case _REC_START:
+        backlight_toggle();
+        if (!record->event.pressed) {
+            clear_keyboard();
+            macro_pointer = macro_buffer;
+            layer_on(_REC);
+        }
+        break;
+    case _MACRO_PLAY:
+        backlight_toggle();
+        if (!record->event.pressed) {
+            uint32_t saved_layer_state = layer_state;
+
+            clear_keyboard();
+            macro_pointer = macro_buffer;
+            while (macro_pointer != macro_end) {
+                process_action(macro_pointer);
+                ++macro_pointer;
+            }
+
+            layer_state = saved_layer_state;
+        }
+        break;
+    case _REC_KEY:
+        *macro_pointer++ = *record;
+        break;
+    case _REC_STOP:
+        backlight_toggle();
+        if (!record->event.pressed) {
+            macro_end = ++macro_pointer;
+            layer_off(_REC);
+
+            /* Disable the modifier held while starting the recording.
+             * Its keyup was recorded at the very beginning of the
+             * recording so we just play the first key now.
+             */
+            process_action(&macro_buffer[0]);
+        }
         break;
     }
     return MACRO_NONE;
