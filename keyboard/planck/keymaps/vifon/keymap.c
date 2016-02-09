@@ -7,6 +7,8 @@
 #endif
 #include "action_layer.h"
 
+#define SIZEOFARRAY(A) (sizeof(A)/sizeof(*(A)))
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -115,7 +117,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         break;
     case _REC_KEY:
-        *macro_pointer++ = *record;
+        if ((macro_pointer - macro_buffer) < SIZEOFARRAY(macro_buffer)) {
+            *macro_pointer++ = *record;
+        } else {
+            backlight_toggle(); /* Notify about the end of buffer. */
+        }
         break;
     case _REC_STOP:
         backlight_toggle();
