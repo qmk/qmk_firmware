@@ -1,4 +1,4 @@
-COMMON_DIR = common
+COMMON_DIR = $(TMK_DIR)/common
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
@@ -58,7 +58,7 @@ ifdef KEYBOARD_LOCK_ENABLE
 endif
 
 ifdef SLEEP_LED_ENABLE
-    SRC += $(COMMON_DIR)/sleep_led.c
+    SRC += $(COMMON_DIR)/avr/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
