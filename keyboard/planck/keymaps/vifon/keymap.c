@@ -31,6 +31,7 @@ enum {
     _MACRO_PLAY,
 
     _MC1,
+    _MC2,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TAB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_TRNS, KC_PSCR, KC_BSPC},
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SLCK, KC_QUOT},
     {KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {KC_LCTL, KC_TRNS, KC_LGUI, KC_LALT, M(_MC1), KC_SPC,  KC_SPC,  M(_MC1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+    {KC_LCTL, KC_TRNS, KC_LGUI, KC_LALT, M(_MC1), KC_SPC,  KC_SPC,  M(_MC2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 [_REC] = { /* Macro recording */
     {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
@@ -133,6 +134,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     case _MC1:
         if (!record->event.pressed) {
             layer_off(_LW);
+            layer_on(_RS);
+            layer_off(_SP);
+        }
+        break;
+    case _MC2:
+        if (!record->event.pressed) {
+            layer_on(_LW);
             layer_off(_RS);
             layer_off(_SP);
         }
