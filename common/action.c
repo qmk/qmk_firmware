@@ -131,10 +131,17 @@ void process_action(keyrecord_t *record)
                     case MODS_TAP_TOGGLE:
                         if (event.pressed) {
                             if (tap_count <= TAPPING_TOGGLE) {
-                                register_mods(mods);
+                                if (mods & get_mods()) {
+                                    dprint("MODS_TAP_TOGGLE: toggle mods off\n");
+                                    unregister_mods(mods);
+                                } else {
+                                    dprint("MODS_TAP_TOGGLE: toggle mods on\n");
+                                    register_mods(mods);
+                                }
                             }
                         } else {
                             if (tap_count < TAPPING_TOGGLE) {
+                                dprint("MODS_TAP_TOGGLE: release : unregister_mods\n");
                                 unregister_mods(mods);
                             }
                         }

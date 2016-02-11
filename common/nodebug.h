@@ -18,7 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NODEBUG_H
 #define NODEBUG_H 1
 
+#if !defined(NO_DEBUG)
 #define NO_DEBUG
+#endif
 #include "debug.h"
 #undef NO_DEBUG
 

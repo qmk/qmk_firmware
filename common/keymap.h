@@ -38,7 +38,6 @@ typedef union {
         bool nkro:1;
     };
 } keymap_config_t;
-keymap_config_t keymap_config;
 #endif
 
 
