@@ -5,6 +5,16 @@ This is a keyboard firmware library with some useful features for Atmel AVR and 
 Source code is available here: <https://github.com/tmk/tmk_keyboard/tree/core>
 
 
+Updates
+-------
+#### 2016/02/10
+flabbergast's Chibios protocol was merged from <https://github.com/flabbergast/tmk_keyboard/tree/chibios>. See [protocol/chibios/README.md](protocol/chibios/README.md). Chibios protocol supports Cortex-M such as STM32 and Kinetis.
+
+#### 2015/04/22
+separated with TMK Keyboard Firmware Collection
+
+
+
 Features
 --------
 These features can be used in your keyboard.
@@ -24,12 +34,6 @@ These features can be used in your keyboard.
 * Locking CapsLock    - Mechanical switch support for CapsLock
 * Breathing Sleep LED - Sleep indicator with charm during USB suspend
 * Backlight           - Control backlight levels
-
-
-
-Updates
--------
-2015/04/22  separated with TMK Keyboard Firmware Collection
 
 
 
