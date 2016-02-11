@@ -7,12 +7,6 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
-/* About this file: This is just an experimental keymap for my own use, with some ideas I'm testing out.
-*  Changlog:
-*  Jan 19: * Made J into dual-action key (Alt when held down), to make Alt-tab more ergonomic.
-*          * Made ' into dual-action key (Win/Cmd when held down).
-*/
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -30,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 |      | L1   | Home |       | PgUp |        |      |
+ *                                 | Space| Tap/ |------|       |------| Tab/L1 |Enter |
+ *                                 |      |Toggle| End  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -46,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT, KC_RGHT,
                                               ALT_T(KC_APP),   KC_LGUI,
                                                                KC_HOME,
-                                               KC_SPC,TG(SYMB),KC_END,
+                                               KC_SPC,KC_FN1,KC_END,
         // right hand
              KC_RGHT,     KC_6,KC_7,       KC_8,   KC_9,   KC_0,            KC_MINS,
              TG(SYMB),    KC_Y,KC_U,       KC_I,   KC_O,   KC_P,            KC_BSLS,
@@ -62,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   1  |   2  |   3  |   4  |      |      |           |      |      |      |   =  |      |      |   F12  |
+ * |        |   1  |   2  |   3  |   4  |      |      |           |      |      |   %  |   =  |   @  |      |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   5  |   6  |   7  |   8  |   9  |------|           |------|   &  |   -  |   _  |   ;  |   +  |        |
+ * |        |   5  |   6  |   7  |   8  |   9  |------|           |------|   &  |   _  |   -  |   ;  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   (  |   )  |   [  |   ]  |   0  |      |           |      |   |  |   (  |   )  |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -91,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                       KC_TRNS,KC_TRNS,KC_TRNS,
                // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, KC_TRNS, KC_TRNS,KC_EQL,  KC_TRNS, KC_TRNS, KC_F12,
-                KC_AMPR, KC_MINS,KC_UNDS, CM_SCLN, KC_PLUS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_PERC,KC_EQL,  KC_AT,   KC_TRNS, KC_F12,
+                KC_AMPR, KC_UNDS,KC_MINS, CM_SCLN, KC_PLUS, KC_TRNS,
        KC_TRNS, KC_PIPE, KC_LPRN,KC_RPRN, KC_3,    KC_TRNS, KC_TRNS,
                          KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,

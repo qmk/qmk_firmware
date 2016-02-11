@@ -4,6 +4,13 @@ This is my personal layout which I use to test out ideas which may or may not ma
 
 Changelog:
 
+## Feb 11, 2016:
+
+* Updated ASCII legend for thumb clusters
+* Made it so outer left-hand thumb key is L1 momentary toggle
+* Added % and @ to L1
+* Swapped positions for _ and - on L1
+
 ## Feb 5, 2016:
 
 * A whole new design for the symbol layer. Specifically:
