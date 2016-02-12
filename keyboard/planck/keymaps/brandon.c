@@ -94,18 +94,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MIT Layout (Ten Key layer)
  *
  * ,-----------------------------------------------------------------------.
- * | esc |  F9 | F10 | F11 | F12 |     |  %  |  /  |  7  |  8  |  9  | bspc|
+ * | esc |  F9 | F10 | F11 | F12 | PGUP|  %  |  /  |  7  |  8  |  9  | bspc|
  * |-----------------------------------------------------------------------|
- * | tab |  F5 |  F6 | F7  |  F8 |     |     |  *  |  4  |  5  |  6  |  \  |
+ * | tab |  F5 |  F6 | F7  |  F8 | PGDN| HOME|  *  |  4  |  5  |  6  |  \  |
  * |-----------------------------------------------------------------------|
- * |shift|  F1 |  F2 | F3  |  F4 | DEL |     |  0  |  1  |  2  |  3  |enter|
+ * |shift|  F1 |  F2 | F3  |  F4 | DEL | END |  0  |  1  |  2  |  3  |enter|
  * |-----------------------------------------------------------------------|
  * | ctl | alt | win | TK  |lower|    spc    |raise|left |down | up  |right|
  * `-----------------------------------------------------------------------'
  */
-  {KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_PERC, KC_SLSH, KC_7,    KC_8,    KC_9,  KC_BSPC},
-  {KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_NO,   KC_NO,   KC_ASTR, KC_4,    KC_5,    KC_6,  KC_PIPE},
-  {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DEL,  KC_NO,   KC_0,    KC_1,    KC_2,    KC_3,  KC_TRNS},
+  {KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PGUP, KC_PERC, KC_SLSH, KC_7,    KC_8,    KC_9,  KC_BSPC},
+  {KC_TRNS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_PGDN, KC_HOME, KC_ASTR, KC_4,    KC_5,    KC_6,  KC_PIPE},
+  {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DEL,  KC_END,  KC_0,    KC_1,    KC_2,    KC_3,  KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
 }
 
