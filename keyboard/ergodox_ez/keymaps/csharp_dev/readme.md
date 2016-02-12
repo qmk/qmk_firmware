@@ -17,11 +17,11 @@ Then I came across the ErgoDox EZ project, that allowed a full customization of 
 ![CSharpDev](csharp_dev_legend.png)
 
 ## Layout design principles
-*No key combination required for the most common input characters ( (),[],{},<> ... )
-*No key combination required for the most common actions (copy/paste/undo/save)
-*Regroup characters by usage ( + - * =  ...)
-*Easy access to the most commonly used characters: ; / " . ,
-*Preregistered macro for the most common C# langage instructions: public / private / string / int / float ...
+* No key combination required for the most common input characters ( (),[],{},<> ... )
+* No key combination required for the most common actions (copy/paste/undo/save)
+* Regroup characters by usage ( + - * =  ...)
+* Easy access to the most commonly used characters: ; / " . ,
+* Preregistered macro for the most common C# langage instructions: public / private / string / int / float ...
 
 ## Why is it specific to C Sharp
 I defined the characters priority based on their usage in C# language, most of this characters are also used in other coding languages but it may require some tweaking. 
@@ -35,10 +35,10 @@ Still it's extremely satisfying to Save your file with just one easily accessibl
 ## Improvements
 This layout was shared after a bunch of iterations and only once I was happy with it.
 Still there are many way to improve or iterate on this:
-*Make it language agnostic
-*Check and compile language's keyboard's heatmaps to statistically define keys priority (e.g.  https://dzone.com/articles/most-pressed-keys-various )
-*QWERTY is still not the most efficient typing layout, I would like to create a Dvorak based similar layout in a near futur
-*Layout 1 is mainly here for safety, most of its unique keys could be transfered to Layout 2 and it could then be removed
+* Make it language agnostic
+* Check and compile language's keyboard's heatmaps to statistically define keys priority (e.g.  https://dzone.com/articles/most-pressed-keys-various )
+* QWERTY is still not the most efficient typing layout, I would like to create a Dvorak based similar layout in a near futur
+* Layout 1 is mainly here for safety, most of its unique keys could be transfered to Layout 2 and it could then be removed
 
 ## Issues 
 One of the issues encountered while creating this layout was that I did not find a way to have a key to send a modifier on hold, and a key combination while pressed (e.g. I can't set a Key to do Save (Ctrl + S) when pressed and Shift modifier when hold )
