@@ -1,4 +1,4 @@
-COMMON_DIR = $(TMK_DIR)/common
+COMMON_DIR = common
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
