@@ -24,6 +24,7 @@ GFXLIB = $(VISUALIZER_DIR)/ugfx
 ifdef LCD_ENABLE
 include $(GFXLIB)/gfx.mk
 OPT_DEFS += -DLCD_ENABLE
+OPT_LIBS += -lm
 endif
 SRC += $(GFXSRC) $(VISUALIZER_DIR)/visualizer.c
 INC += $(GFXINC) $(VISUALIZER_DIR)

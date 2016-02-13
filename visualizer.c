@@ -321,6 +321,13 @@ static THD_FUNCTION(visualizerThread, arg) {
 }
 
 void visualizer_init(void) {
+#ifdef LCD_ENABLE
+    gfxInit();
+#endif
+
+#ifdef LCD_BACKLIGHT_ENABLE
+    lcd_backlight_init();
+#endif
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
     chEvtObjectInit(&layer_changed_event);
