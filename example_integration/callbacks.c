@@ -1,11 +1,4 @@
-The files in this project are licensed under the MIT license
-It uses the following libraries
-uGFX - with it's own license, see the license.html file in the uGFX subfolder for more information
-tmk_core - is indirectly used and not included in the repository. It's licensed under the GPLv2 license
-Chibios - which is used by tmk_core is licensed under GPLv3.
-
-Therefore the effective license for any project using the library is GPLv3
-
+/*
 The MIT License (MIT)
 
 Copyright (c) 2016 Fred Sundvik
@@ -27,3 +20,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "keyboard.h"
+#include "action_layer.h"
+#include "visualizer.h"
+#include "host.h"
+
+void post_keyboard_init(void) {
+    visualizer_init();
+}
+
+void post_keyboard_task() {
+    visualizer_set_state(default_layer_state, layer_state, host_keyboard_leds());
+}
