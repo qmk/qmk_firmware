@@ -1,40 +1,30 @@
 CC = gcc
 CFLAGS	= 
 INCLUDES = -I.
-LDFLAGS = -L$(BUILDDIR)/cgreen/build-c/src
+LDFLAGS = -L$(BUILDDIR)/cgreen/build-c/src -shared
 LDLIBS = -lcgreen
-UNITOBJ = $(BUILDDIR)/testserial/unitobj
-DEPDIR = $(BUILDDIR)/testserial/unit.d
-UNITEXE = $(BUILDDIR)/testserial/unitexe
+UNITOBJ = $(BUILDDIR)/serialtest/unitobj
+DEPDIR = $(BUILDDIR)/serialtest/unit.d
+UNITTESTS = $(BUILDDIR)/serialtest/unittests
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
-EXT = 
+EXT = .so
 UNAME := $(shell uname)
-ifneq (, $(findstring mingw, $(UNAME)))
-	EXT += exe
+ifneq (, $(findstring MINGW, $(UNAME)))
+	EXT = .dll
 endif
-ifneq (, $(findstring cygwin, $(UNAME)))
-	EXT += exe
+ifneq (, $(findstring CYGWIN, $(UNAME)))
+	EXT = .dll
 endif
 	
 SRC = $(wildcard *.c)
-EXE = $(patsubst %.c, $(UNITEXE)/%$(EXT), $(SRC))
+TESTFILES = $(patsubst %.c, $(UNITTESTS)/%$(EXT), $(SRC))
 $(shell mkdir -p $(DEPDIR) >/dev/null)
 
-test: $(EXE)
-	@for f in $^; do \
-	echo "++++++++++++++++++"; \
-	echo "Running unit tests"; \
-	echo $$(basename $$f); \
-	echo "++++++++++++++++++"; \
-	echo ""; \
-	$$f || exit 1; \
-	echo ""; \
-	echo "******************"; \
-	echo ""; \
-	done
+test: $(TESTFILES)
+	@$(BUILDDIR)/cgreen/build-c/tools/cgreen-runner --color $(TESTFILES)
 
-$(UNITEXE)/%$(EXT): $(UNITOBJ)/%.o
-	mkdir -p $(UNITEXE)
+$(UNITTESTS)/%$(EXT): $(UNITOBJ)/%.o
+	mkdir -p $(UNITTESTS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 $(UNITOBJ)/%.o : %.c
