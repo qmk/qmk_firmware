@@ -21,6 +21,13 @@
 # SOFTWARE.
 
 GFXLIB = $(VISUALIZER_DIR)/ugfx
+ifdef LCD_ENABLE
 include $(GFXLIB)/gfx.mk
+endif
 SRC += $(GFXSRC)
-INC += $(GFXINC)
+INC += $(GFXINC) $(VISUALIZER_DIR)
+
+ifdef LCD_BACKLIGHT_ENABLE
+SRC += $(VISUALIZER_DIR)/lcd_backlight.c
+SRC += lcd_backlight_hal.c
+endif
