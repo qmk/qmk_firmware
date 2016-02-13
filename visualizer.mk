@@ -33,3 +33,8 @@ SRC += $(VISUALIZER_DIR)/lcd_backlight.c
 SRC += lcd_backlight_hal.c
 OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
+
+ifndef VISUALIZER_USER
+VISUALIZER_USER = visualizer_user.c
+endif
+SRC += $(VISUALIZER_USER)
