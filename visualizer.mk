@@ -23,11 +23,13 @@
 GFXLIB = $(VISUALIZER_DIR)/ugfx
 ifdef LCD_ENABLE
 include $(GFXLIB)/gfx.mk
+OPT_DEFS += -DLCD_ENABLE
 endif
-SRC += $(GFXSRC)
+SRC += $(GFXSRC) $(VISUALIZER_DIR)/visualizer.c
 INC += $(GFXINC) $(VISUALIZER_DIR)
 
 ifdef LCD_BACKLIGHT_ENABLE
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
 SRC += lcd_backlight_hal.c
+OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
