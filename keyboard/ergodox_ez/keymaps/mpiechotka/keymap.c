@@ -222,22 +222,27 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         } else {
              unregister_code(KC_LGUI);
         }
+        break;
     case PC1:
         if (!record->event.pressed) {
              return MACRO(T(SLCK), T(SLCK), T(1), T(ENT), END);
         }
+        break;
     case PC2:
         if (!record->event.pressed) {
              return MACRO(T(SLCK), T(SLCK), T(2), T(ENT), END);
         }
+        break;
     case PC3:
         if (!record->event.pressed) {
              return MACRO(T(SLCK), T(SLCK), T(3), T(ENT), END);
         }
+        break;
     case PC4:
         if (!record->event.pressed) {
              return MACRO(T(SLCK), T(SLCK), T(4), T(ENT), END);
         }
+        break;
     }
     return MACRO_NONE;
 }
