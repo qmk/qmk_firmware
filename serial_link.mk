@@ -2,6 +2,7 @@ CGREEN_LIB = $(BUILDDIR)/cgreen/build-c/src/libcgreen.a
 
 .phony testserial:
 testserial: $(CGREEN_LIB)
+	make -C $(SERIAL_DIR)/tests BUILDDIR=../../$(BUILDDIR)
 
 CGREEN_DIR = "$(CURDIR)/$(SERIAL_DIR)/cgreen/cgreen"
 CGREEN_BUILD_DIR = "$(CURDIR)/$(BUILDDIR)/cgreen"
