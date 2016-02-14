@@ -16,11 +16,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   $    |   "  |   «  |   »  |   (  |   )  | Del  |           | Del  |   @  |   +  |   -  |   /  |   *  |   =    |
+ * |   $    |   "  |   «  |   »  |   (  |   )  | Del  |           | Del  |   @  |   +  |   -  |   /  |   *  |   W    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   B  |   É  |   P  |   O  |   È  |Backsp|           |Backsp|   ^  |   V  |   D  |   L  |   J  |   Z    |
  * |--------+------+------+------+------+------|ace   |           |ace   |------+------+------+------+------+--------|
- * |   W    |   A  |   U  |   I  |   E  |   ,  |------|           |------|   C  |   T  |   S  |   R  |   N  |   M    |
+ * |   =    |   A  |   U  |   I  |   E  |   ,  |------|           |------|   C  |   T  |   S  |   R  |   N  |   M    |
  * |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
  * | LShift |   À  |   Y  |   X  |   .  |   K  |      |           |      |   '  |   Q  |   G  |   H  |   F  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         BP_DLR,     KC_1,      KC_2,    KC_3,    KC_4,          KC_5,    KC_DELT,
         KC_TAB,     BP_B,      BP_ECUT, BP_P,    BP_O,          BP_EGRV, KC_BSPC,
-        BP_W,       BP_A,      BP_U,    BP_I,    BP_E,          BP_COMM,
+        BP_EQL,     BP_A,      BP_U,    BP_I,    BP_E,          BP_COMM,
         KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,    BP_DOT,        BP_K,    KC_ENT,
         KC_LCTL,    M(MFNLR),  KC_LGUI, KC_MPLY, ALT_T(KC_APP),
 
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
         // right hand
-        KC_DELT,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_EQL,
+        KC_DELT,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_W,
         KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
                    BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
         KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
