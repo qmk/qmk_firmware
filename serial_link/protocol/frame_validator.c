@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include "protocol/frame_validator.h"
+#include "protocol/frame_router.h"
 
 const uint32_t poly8_lookup[256] =
 {
@@ -101,5 +102,11 @@ static uint32_t crc32_byte(uint8_t *p, uint32_t bytelength)
 }
 
 void recv_frame(uint8_t* data, uint16_t size) {
-
+    if (size > 4) {
+        uint32_t frame_crc = *(uint32_t*)(data + size - 4);
+        uint32_t expected_crc = crc32_byte(data, size - 4);
+        if (frame_crc == expected_crc) {
+            route_frame(data, size-4);
+        }
+    }
 }
