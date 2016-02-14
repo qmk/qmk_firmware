@@ -154,3 +154,95 @@ Ensure(ByteStuffer, receives_valid_frame_after_unexpected_non_zero) {
     recv_byte(&state, 7);
     recv_byte(&state, 0);
 }
+
+Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_and_then_end_of_frame) {
+    uint8_t expected[254];
+    int i;
+    for (i=0;i<254;i++) {
+        expected[i] = i + 1;
+    }
+    expect(recv_frame,
+        when(size, is_equal_to(254)),
+        when(data, is_equal_to_contents_of(expected, 254))
+        );
+    recv_byte(&state, 0xFF);
+    for (i=0;i<254;i++) {
+        recv_byte(&state, i+1);
+    }
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_non_zero) {
+    uint8_t expected[255];
+    int i;
+    for (i=0;i<254;i++) {
+        expected[i] = i + 1;
+    }
+    expected[254] = 7;
+    expect(recv_frame,
+        when(size, is_equal_to(255)),
+        when(data, is_equal_to_contents_of(expected, 255))
+        );
+    recv_byte(&state, 0xFF);
+    for (i=0;i<254;i++) {
+        recv_byte(&state, i+1);
+    }
+    recv_byte(&state, 2);
+    recv_byte(&state, 7);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_zero) {
+    uint8_t expected[255];
+    int i;
+    for (i=0;i<254;i++) {
+        expected[i] = i + 1;
+    }
+    expected[254] = 0;
+    expect(recv_frame,
+        when(size, is_equal_to(255)),
+        when(data, is_equal_to_contents_of(expected, 255))
+        );
+    recv_byte(&state, 0xFF);
+    for (i=0;i<254;i++) {
+        recv_byte(&state, i+1);
+    }
+    recv_byte(&state, 1);
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
+    uint8_t expected[515];
+    int i;
+    int j;
+    for (j=0;j<2;j++) {
+        for (i=0;i<254;i++) {
+            expected[i+254*j] = i + 1;
+        }
+    }
+    for (i=0;i<7;i++) {
+        expected[254*2+i] = i + 1;
+    }
+    expect(recv_frame,
+        when(size, is_equal_to(515)),
+        when(data, is_equal_to_contents_of(expected, 510))
+        );
+    recv_byte(&state, 0xFF);
+    for (i=0;i<254;i++) {
+        recv_byte(&state, i+1);
+    }
+    recv_byte(&state, 0xFF);
+    for (i=0;i<254;i++) {
+        recv_byte(&state, i+1);
+    }
+    recv_byte(&state, 8);
+    recv_byte(&state, 1);
+    recv_byte(&state, 2);
+    recv_byte(&state, 3);
+    recv_byte(&state, 4);
+    recv_byte(&state, 5);
+    recv_byte(&state, 6);
+    recv_byte(&state, 7);
+    recv_byte(&state, 0);
+}

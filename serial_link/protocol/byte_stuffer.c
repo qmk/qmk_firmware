@@ -24,26 +24,35 @@ SOFTWARE.
 
 #include "protocol/byte_stuffer.h"
 #include "protocol/frame_validator.h"
+#include <stdio.h>
 
 // This implements the "Consistent overhead byte stuffing protocol"
 // https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing
 // http://www.stuartcheshire.org/papers/COBSforToN.pdf
 
+#define MAX_FRAME_SIZE 1024
+
 typedef struct byte_stuffer_state {
     uint16_t next_zero;
     uint16_t data_pos;
-    uint8_t data[256];
+    bool long_frame;
+    uint8_t data[MAX_FRAME_SIZE];
 }byte_stuffer_state_t;
 
 void init_byte_stuffer_state(byte_stuffer_state_t* state) {
     state->next_zero = 0;
     state->data_pos = 0;
+    state->long_frame = false;
+}
+
+static void start_frame(byte_stuffer_state_t* state, uint8_t data) {
 }
 
 void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
     // Start of a new frame
     if (state->next_zero == 0) {
         state->next_zero = data;
+        state->long_frame = data == 0xFF;
         state->data_pos = 0;
         return;
     }
@@ -56,15 +65,20 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
         }
         else {
             // The frame is invalid, so reset
-            state->next_zero = 0;
-            state->data_pos = 0;
+            init_byte_stuffer_state(state);
         }
     }
     else {
         if (state->next_zero == 0) {
-            // Special case for zeroes
-            state->next_zero = data;
-            state->data[state->data_pos++] = 0;
+            if (state->long_frame) {
+                state->next_zero = data;
+                state->long_frame = data == 0xFF;
+            }
+            else {
+                // Special case for zeroes
+                state->next_zero = data;
+                state->data[state->data_pos++] = 0;
+            }
         }
         else {
             state->data[state->data_pos++] = data;
