@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "protocol/byte_stuffer.h"
 #include "protocol/frame_validator.h"
-#include <stdio.h>
+#include "protocol/physical.h"
 
 // This implements the "Consistent overhead byte stuffing protocol"
 // https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing
@@ -90,5 +90,15 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
         else {
             state->data[state->data_pos++] = data;
         }
+    }
+}
+
+void send_frame(uint8_t* data, uint16_t size) {
+    if (size > 0) {
+        uint8_t numZeroes = size + 1;
+        const uint8_t zero = 0;
+        send_data(&numZeroes, 1);
+        send_data(data, size);
+        send_data(&zero, 1);
     }
 }

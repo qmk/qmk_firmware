@@ -27,17 +27,26 @@ SOFTWARE.
 #include "protocol/byte_stuffer.h"
 #include "protocol/byte_stuffer.c"
 #include "protocol/frame_validator.h"
+#include "protocol/physical.h"
 
-byte_stuffer_state_t state;
+static byte_stuffer_state_t state;
+static uint8_t sent_data[MAX_FRAME_SIZE*2];
+static uint16_t sent_data_size;
 
 Describe(ByteStuffer);
 BeforeEach(ByteStuffer) {
     init_byte_stuffer_state(&state);
+    sent_data_size = 0;
 }
 AfterEach(ByteStuffer) {}
 
 void recv_frame(uint8_t* data, uint16_t size) {
     mock(data, size);
+}
+
+void send_data(const uint8_t* data, uint16_t size) {
+    memcpy(sent_data + sent_data_size, data, size);
+    sent_data_size += size;
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_zero_byte) {
@@ -66,7 +75,7 @@ Ensure(ByteStuffer, receives_single_byte_valid_frame) {
     expect(recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
-        );
+    );
     recv_byte(&state, 2);
     recv_byte(&state, 0x37);
     recv_byte(&state, 0);
@@ -77,7 +86,7 @@ Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
     expect(recv_frame,
         when(size, is_equal_to(3)),
         when(data, is_equal_to_contents_of(expected, 3))
-        );
+    );
     recv_byte(&state, 4);
     recv_byte(&state, 0x37);
     recv_byte(&state, 0x99);
@@ -90,7 +99,7 @@ Ensure(ByteStuffer, receives_single_zero_valid_frame) {
     expect(recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
-        );
+    );
     recv_byte(&state, 1);
     recv_byte(&state, 1);
     recv_byte(&state, 0);
@@ -101,7 +110,7 @@ Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
     expect(recv_frame,
         when(size, is_equal_to(4)),
         when(data, is_equal_to_contents_of(expected, 4))
-        );
+    );
     recv_byte(&state, 2);
     recv_byte(&state, 5);
     recv_byte(&state, 2);
@@ -116,11 +125,11 @@ Ensure(ByteStuffer, receives_two_valid_frames) {
     expect(recv_frame,
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected1, 2))
-        );
+    );
     expect(recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected2, 1))
-        );
+    );
     recv_byte(&state, 2);
     recv_byte(&state, 5);
     recv_byte(&state, 1);
@@ -135,7 +144,7 @@ Ensure(ByteStuffer, receives_valid_frame_after_unexpected_zero) {
     expect(recv_frame,
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected, 2))
-        );
+    );
     recv_byte(&state, 3);
     recv_byte(&state, 1);
     recv_byte(&state, 0);
@@ -150,7 +159,7 @@ Ensure(ByteStuffer, receives_valid_frame_after_unexpected_non_zero) {
     expect(recv_frame,
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected, 2))
-        );
+    );
     recv_byte(&state, 2);
     recv_byte(&state, 9);
     recv_byte(&state, 4); // This should have been zero
@@ -170,7 +179,7 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_and_then_end_
     expect(recv_frame,
         when(size, is_equal_to(254)),
         when(data, is_equal_to_contents_of(expected, 254))
-        );
+    );
     recv_byte(&state, 0xFF);
     for (i=0;i<254;i++) {
         recv_byte(&state, i+1);
@@ -188,7 +197,7 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_
     expect(recv_frame,
         when(size, is_equal_to(255)),
         when(data, is_equal_to_contents_of(expected, 255))
-        );
+    );
     recv_byte(&state, 0xFF);
     for (i=0;i<254;i++) {
         recv_byte(&state, i+1);
@@ -208,7 +217,7 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_
     expect(recv_frame,
         when(size, is_equal_to(255)),
         when(data, is_equal_to_contents_of(expected, 255))
-        );
+    );
     recv_byte(&state, 0xFF);
     for (i=0;i<254;i++) {
         recv_byte(&state, i+1);
@@ -233,7 +242,7 @@ Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
     expect(recv_frame,
         when(size, is_equal_to(515)),
         when(data, is_equal_to_contents_of(expected, 510))
-        );
+    );
     recv_byte(&state, 0xFF);
     for (i=0;i<254;i++) {
         recv_byte(&state, i+1);
@@ -258,7 +267,7 @@ Ensure(ByteStuffer, receives_an_all_zeros_frame_that_is_maximum_size) {
     expect(recv_frame,
         when(size, is_equal_to(MAX_FRAME_SIZE)),
         when(data, is_equal_to_contents_of(expected, MAX_FRAME_SIZE))
-        );
+    );
     int i;
     recv_byte(&state, 1);
     for(i=0;i<MAX_FRAME_SIZE;i++) {
@@ -284,7 +293,7 @@ Ensure(ByteStuffer, received_frame_is_aborted_when_its_too_long) {
     expect(recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
-        );
+    );
     int i;
     recv_byte(&state, 1);
     for(i=0;i<MAX_FRAME_SIZE;i++) {
@@ -293,4 +302,25 @@ Ensure(ByteStuffer, received_frame_is_aborted_when_its_too_long) {
     recv_byte(&state, 2);
     recv_byte(&state, 1);
     recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, send_zero_size_frame_does_nothing) {
+    assert_that(sent_data_size, is_equal_to(0));
+    send_frame(NULL, 0);
+}
+
+Ensure(ByteStuffer, send_one_byte_frame) {
+    uint8_t data[] = {5};
+    send_frame(data, 1);
+    assert_that(sent_data_size, is_equal_to(3));
+    uint8_t expected[] = {2, 5, 0};
+    assert_that(sent_data, is_equal_to_contents_of(expected, 3));
+}
+
+Ensure(ByteStuffer, send_two_byte_frame) {
+    uint8_t data[] = {5, 0x77};
+    send_frame(data, 2);
+    assert_that(sent_data_size, is_equal_to(4));
+    uint8_t expected[] = {3, 5, 0x77, 0};
+    assert_that(sent_data, is_equal_to_contents_of(expected, 4));
 }
