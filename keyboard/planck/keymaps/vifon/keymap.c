@@ -23,8 +23,8 @@ enum {
 
 /* My macros */
 enum {
-    _MC1,
-    _MC2,
+    _MC1,                       /* _SP -> _RS */
+    _MC2,                       /* _SP -> _LW */
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
