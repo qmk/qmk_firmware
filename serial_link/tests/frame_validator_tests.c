@@ -30,6 +30,10 @@ void route_frame(uint8_t* data, uint16_t size) {
     mock(data, size);
 }
 
+void send_frame(uint8_t* data, uint16_t size) {
+    mock(data, size);
+}
+
 Describe(FrameValidator);
 BeforeEach(FrameValidator) {}
 AfterEach(FrameValidator) {}
@@ -68,12 +72,30 @@ Ensure(FrameValidator, validates_four_byte_frame_with_correct_crc) {
 }
 
 Ensure(FrameValidator, validates_five_byte_frame_with_correct_crc) {
-    //0xBA304E74
-    //0x470B99F4
     uint8_t data[] = {1, 2, 3, 4, 5, 0xF4, 0x99, 0x0B, 0x47};
     expect(route_frame,
         when(size, is_equal_to(5)),
         when(data, is_equal_to_contents_of(data, 5))
     );
     recv_frame(data, 9);
+}
+
+Ensure(FrameValidator, sends_one_byte_with_correct_crc) {
+    uint8_t original[] = {0x44, 0, 0, 0, 0};
+    uint8_t expected[] = {0x44, 0x04, 0x6A, 0xB3, 0xA3};
+    expect(send_frame,
+        when(size, is_equal_to(sizeof(expected))),
+        when(data, is_equal_to_contents_of(expected, sizeof(expected)))
+    );
+    validator_send_frame(original, 1);
+}
+
+Ensure(FrameValidator, sends_five_bytes_with_correct_crc) {
+    uint8_t original[] = {1, 2, 3, 4, 5, 0, 0, 0, 0};
+    uint8_t expected[] = {1, 2, 3, 4, 5, 0xF4, 0x99, 0x0B, 0x47};
+    expect(send_frame,
+        when(size, is_equal_to(sizeof(expected))),
+        when(data, is_equal_to_contents_of(expected, sizeof(expected)))
+    );
+    validator_send_frame(original, 5);
 }

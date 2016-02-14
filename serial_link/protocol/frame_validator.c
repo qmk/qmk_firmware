@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "protocol/frame_validator.h"
 #include "protocol/frame_router.h"
+#include "protocol/byte_stuffer.h"
 
 const uint32_t poly8_lookup[256] =
 {
@@ -109,4 +110,10 @@ void recv_frame(uint8_t* data, uint16_t size) {
             route_frame(data, size-4);
         }
     }
+}
+
+void validator_send_frame(uint8_t* data, uint16_t size) {
+    uint32_t* crc = (uint32_t*)(data + size);
+    *crc = crc32_byte(data, size);
+    send_frame(data, size + 4);
 }
