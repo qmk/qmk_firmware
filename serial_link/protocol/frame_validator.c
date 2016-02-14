@@ -104,7 +104,8 @@ static uint32_t crc32_byte(uint8_t *p, uint32_t bytelength)
 
 void validator_recv_frame(uint8_t* data, uint16_t size) {
     if (size > 4) {
-        uint32_t frame_crc = *(uint32_t*)(data + size - 4);
+        uint32_t frame_crc;
+        memcpy(&frame_crc, data + size -4, 4);
         uint32_t expected_crc = crc32_byte(data, size - 4);
         if (frame_crc == expected_crc) {
             route_incoming_frame(data, size-4);
@@ -113,7 +114,7 @@ void validator_recv_frame(uint8_t* data, uint16_t size) {
 }
 
 void validator_send_frame(uint8_t* data, uint16_t size) {
-    uint32_t* crc = (uint32_t*)(data + size);
-    *crc = crc32_byte(data, size);
+    uint32_t crc = crc32_byte(data, size);
+    memcpy(data + size, &crc, 4);
     send_frame(data, size + 4);
 }
