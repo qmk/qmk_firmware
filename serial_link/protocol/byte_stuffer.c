@@ -25,6 +25,7 @@ SOFTWARE.
 #include "protocol/byte_stuffer.h"
 #include "protocol/frame_validator.h"
 #include "protocol/physical.h"
+#include <stdio.h>
 
 // This implements the "Consistent overhead byte stuffing protocol"
 // https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing
@@ -103,19 +104,29 @@ static void send_block(uint8_t* start, uint8_t* end, uint8_t num_non_zero) {
 void send_frame(uint8_t* data, uint16_t size) {
     const uint8_t zero = 0;
     if (size > 0) {
-        uint8_t num_non_zero = 1;
+        uint16_t num_non_zero = 1;
         uint8_t* end = data + size;
         uint8_t* start = data;
         while (data < end) {
-            if (*data == 0) {
+            if (num_non_zero == 0xFF) {
+                // There's more data after big non-zero block
+                // So send it, and start a new block
                 send_block(start, data, num_non_zero);
-                start = data + 1;
+                start = data;
                 num_non_zero = 1;
             }
             else {
-                num_non_zero++;
+                if (*data == 0) {
+                    // A zero encountered, so send the block
+                    send_block(start, data, num_non_zero);
+                    start = data + 1;
+                    num_non_zero = 1;
+                }
+                else {
+                    num_non_zero++;
+                }
+                ++data;
             }
-            ++data;
         }
         send_block(start, data, num_non_zero);
         send_data(&zero, 1);

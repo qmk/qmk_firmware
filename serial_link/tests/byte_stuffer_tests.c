@@ -372,3 +372,59 @@ Ensure(ByteStuffer, sends_three_byte_frame_with_all_zeroes) {
     assert_that(sent_data_size, is_equal_to(sizeof(expected)));
     assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
 }
+
+Ensure(ByteStuffer, sends_frame_with_254_non_zeroes) {
+    uint8_t data[254];
+    int i;
+    for(i=0;i<254;i++) {
+        data[i] = i + 1;
+    }
+    send_frame(data, 254);
+    uint8_t expected[256];
+    expected[0] = 0xFF;
+    for(i=1;i<255;i++) {
+        expected[i] = i;
+    }
+    expected[255] = 0;
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, sends_frame_with_255_non_zeroes) {
+    uint8_t data[255];
+    int i;
+    for(i=0;i<255;i++) {
+        data[i] = i + 1;
+    }
+    send_frame(data, 255);
+    uint8_t expected[258];
+    expected[0] = 0xFF;
+    for(i=1;i<255;i++) {
+        expected[i] = i;
+    }
+    expected[255] = 2;
+    expected[256] = 255;
+    expected[257] = 0;
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, sends_frame_with_254_non_zeroes_followed_by_zero) {
+    uint8_t data[255];
+    int i;
+    for(i=0;i<254;i++) {
+        data[i] = i + 1;
+    }
+    data[255] = 0;
+    send_frame(data, 255);
+    uint8_t expected[258];
+    expected[0] = 0xFF;
+    for(i=1;i<255;i++) {
+        expected[i] = i;
+    }
+    expected[255] = 1;
+    expected[256] = 1;
+    expected[257] = 0;
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
