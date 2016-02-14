@@ -129,8 +129,8 @@ bool macro_record_macro_handler(keyrecord_t *record, uint8_t id)
 {
     static keyrecord_t macro_buffer[MACRO_SIZE];
     static keyrecord_t *macro_end = macro_buffer;
-    static keyrecord_t *r_macro_buffer = macro_buffer + MACRO_SIZE - 1;
-    static keyrecord_t *r_macro_end    = macro_buffer + MACRO_SIZE - 1;
+    static keyrecord_t *const r_macro_buffer = macro_buffer + MACRO_SIZE - 1;
+    static keyrecord_t *r_macro_end = r_macro_buffer;
     static keyrecord_t *macro_pointer = NULL;
 
     switch (id) {
