@@ -107,7 +107,7 @@ void validator_recv_frame(uint8_t* data, uint16_t size) {
         uint32_t frame_crc = *(uint32_t*)(data + size - 4);
         uint32_t expected_crc = crc32_byte(data, size - 4);
         if (frame_crc == expected_crc) {
-            route_frame(data, size-4);
+            route_incoming_frame(data, size-4);
         }
     }
 }

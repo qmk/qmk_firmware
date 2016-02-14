@@ -26,7 +26,7 @@ SOFTWARE.
 #include <cgreen/mocks.h>
 #include "protocol/frame_validator.c"
 
-void route_frame(uint8_t* data, uint16_t size) {
+void route_incoming_frame(uint8_t* data, uint16_t size) {
     mock(data, size);
 }
 
@@ -39,7 +39,7 @@ BeforeEach(FrameValidator) {}
 AfterEach(FrameValidator) {}
 
 Ensure(FrameValidator, doesnt_validate_frames_under_5_bytes) {
-    never_expect(route_frame);
+    never_expect(route_incoming_frame);
     uint8_t data[] = {1, 2};
     validator_recv_frame(0, 1);
     validator_recv_frame(data, 2);
@@ -49,7 +49,7 @@ Ensure(FrameValidator, doesnt_validate_frames_under_5_bytes) {
 
 Ensure(FrameValidator, validates_one_byte_frame_with_correct_crc) {
     uint8_t data[] = {0x44, 0x04, 0x6A, 0xB3, 0xA3};
-    expect(route_frame,
+    expect(route_incoming_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(data, 1))
     );
@@ -58,13 +58,13 @@ Ensure(FrameValidator, validates_one_byte_frame_with_correct_crc) {
 
 Ensure(FrameValidator, does_not_validate_one_byte_frame_with_incorrect_crc) {
     uint8_t data[] = {0x44, 0, 0, 0, 0};
-    never_expect(route_frame);
+    never_expect(route_incoming_frame);
     validator_recv_frame(data, 5);
 }
 
 Ensure(FrameValidator, validates_four_byte_frame_with_correct_crc) {
     uint8_t data[] = {0x44, 0x10, 0xFF, 0x00, 0x74, 0x4E, 0x30, 0xBA};
-    expect(route_frame,
+    expect(route_incoming_frame,
         when(size, is_equal_to(4)),
         when(data, is_equal_to_contents_of(data, 4))
     );
@@ -73,7 +73,7 @@ Ensure(FrameValidator, validates_four_byte_frame_with_correct_crc) {
 
 Ensure(FrameValidator, validates_five_byte_frame_with_correct_crc) {
     uint8_t data[] = {1, 2, 3, 4, 5, 0xF4, 0x99, 0x0B, 0x47};
-    expect(route_frame,
+    expect(route_incoming_frame,
         when(size, is_equal_to(5)),
         when(data, is_equal_to_contents_of(data, 5))
     );
