@@ -5,9 +5,7 @@
 #ifdef BACKLIGHT_ENABLE
 #  include "backlight.h"
 #endif
-#include "action_layer.h"
-
-#define SIZEOFARRAY(A) (sizeof(A)/sizeof(*(A)))
+#include "macro_record.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -20,18 +18,11 @@ enum {
     _LW,
     _RS,
     _SP,
-    _REC,
 };
 
 
 /* My macros */
 enum {
-    /* Warning! _REC_START and _MACRO_PLAY *must* be on the same layer! */
-    _REC_START,
-    _REC_KEY,
-    _REC_STOP,
-    _MACRO_PLAY,
-
     _MC1,
     _MC2,
 };
@@ -68,17 +59,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TRNS, BL_STEP, KC_TRNS, KC_TRNS, MO(_SP), KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_VOLD, KC_VOLU, KC_TRNS}
 },
 [_SP]= { /* special */
-    {KC_TAB,  M(_REC_START), M(_MACRO_PLAY), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_TRNS, KC_PSCR, KC_BSPC},
-    {KC_TRNS, KC_TRNS,       KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SLCK, KC_QUOT},
-    {KC_LSFT, KC_TRNS,       KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {KC_LCTL, KC_TRNS,       KC_LGUI,        KC_LALT, M(_MC1), KC_SPC,  KC_SPC,  M(_MC2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+    {KC_TAB,  M(_REC_START1), M(_MACRO_PLAY1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_TRNS, KC_PSCR, KC_BSPC},
+    {KC_TRNS, M(_REC_START2), M(_MACRO_PLAY2), KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SLCK, KC_QUOT},
+    {KC_LSFT, KC_TRNS,        KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+    {KC_LCTL, KC_TRNS,        KC_LGUI,         KC_LALT, M(_MC1), KC_SPC,  KC_SPC,  M(_MC2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
-[_REC] = { /* Macro recording */
-    {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
-    {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
-    {M(_REC_KEY), M(_REC_KEY),  M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)},
-    {M(_REC_KEY), M(_REC_STOP), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY), M(_REC_KEY)}
-},
+MACRO_RECORD_KEYMAPS,
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -87,64 +73,12 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    static keyrecord_t macro_buffer[256];
-    static keyrecord_t *macro_end = macro_buffer;
-    static keyrecord_t *macro_pointer = macro_buffer;
+    if (macro_record_macro_handler(record, id)) {
+        return MACRO_NONE;
+    }
 
     // MACRODOWN only works in this function
-    switch(id) {
-    case _REC_START:
-        backlight_toggle();
-        if (!record->event.pressed) {
-            clear_keyboard();
-            layer_clear();
-            macro_pointer = macro_buffer;
-            layer_on(_REC);
-        }
-        break;
-    case _MACRO_PLAY:
-        backlight_toggle();
-        if (!record->event.pressed) {
-            uint32_t saved_layer_state = layer_state;
-
-            clear_keyboard();
-            layer_clear();
-
-            macro_pointer = macro_buffer;
-            while (macro_pointer != macro_end) {
-                process_action(macro_pointer);
-                ++macro_pointer;
-            }
-
-            layer_state = saved_layer_state;
-        }
-        break;
-    case _REC_KEY:
-        if ((macro_pointer - macro_buffer) < SIZEOFARRAY(macro_buffer)) {
-            *macro_pointer++ = *record;
-
-            layer_off(_REC);
-            process_action(record);
-            layer_on(_REC);
-        } else {
-            backlight_toggle(); /* Notify about the end of buffer. */
-        }
-        break;
-    case _REC_STOP: {
-        bool macro_is_empty = (macro_pointer == macro_buffer);
-
-        if (!macro_is_empty) {
-            backlight_toggle(); /* Notify about the end of recording. */
-        }
-
-        if ((!macro_is_empty && !record->event.pressed) ||
-            (macro_is_empty && record->event.pressed)) {
-
-            macro_end = macro_pointer;
-            layer_off(_REC);
-        }
-        break;
-    }
+    switch (id) {
     case _MC1:
         if (!record->event.pressed) {
             layer_off(_LW);
