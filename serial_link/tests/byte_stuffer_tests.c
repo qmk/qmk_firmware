@@ -428,3 +428,80 @@ Ensure(ByteStuffer, sends_frame_with_254_non_zeroes_followed_by_zero) {
     assert_that(sent_data_size, is_equal_to(sizeof(expected)));
     assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
 }
+
+Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet) {
+    uint8_t original_data[] = { 1, 2, 3};
+    send_frame(original_data, sizeof(original_data));
+    expect(recv_frame,
+        when(size, is_equal_to(sizeof(original_data))),
+        when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
+    );
+    int i;
+    for(i=0;i<sent_data_size;i++) {
+       recv_byte(&state, sent_data[i]);
+    }
+}
+
+Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet_with_zeros) {
+    uint8_t original_data[] = { 1, 0, 3, 0, 0, 9};
+    send_frame(original_data, sizeof(original_data));
+    expect(recv_frame,
+        when(size, is_equal_to(sizeof(original_data))),
+        when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
+    );
+    int i;
+    for(i=0;i<sent_data_size;i++) {
+       recv_byte(&state, sent_data[i]);
+    }
+}
+
+Ensure(ByteStuffer, sends_and_receives_full_roundtrip_254_bytes) {
+    uint8_t original_data[254];
+    int i;
+    for(i=0;i<254;i++) {
+        original_data[i] = i + 1;
+    }
+    send_frame(original_data, sizeof(original_data));
+    expect(recv_frame,
+        when(size, is_equal_to(sizeof(original_data))),
+        when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
+    );
+    for(i=0;i<sent_data_size;i++) {
+       recv_byte(&state, sent_data[i]);
+    }
+}
+
+Ensure(ByteStuffer, sends_and_receives_full_roundtrip_256_bytes) {
+    uint8_t original_data[256];
+    int i;
+    for(i=0;i<254;i++) {
+        original_data[i] = i + 1;
+    }
+    original_data[254] = 22;
+    original_data[255] = 23;
+    send_frame(original_data, sizeof(original_data));
+    expect(recv_frame,
+        when(size, is_equal_to(sizeof(original_data))),
+        when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
+    );
+    for(i=0;i<sent_data_size;i++) {
+       recv_byte(&state, sent_data[i]);
+    }
+}
+
+Ensure(ByteStuffer, sends_and_receives_full_roundtrip_254_bytes_and_then_zero) {
+    uint8_t original_data[255];
+    int i;
+    for(i=0;i<254;i++) {
+        original_data[i] = i + 1;
+    }
+    original_data[254] = 0;
+    send_frame(original_data, sizeof(original_data));
+    expect(recv_frame,
+        when(size, is_equal_to(sizeof(original_data))),
+        when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
+    );
+    for(i=0;i<sent_data_size;i++) {
+       recv_byte(&state, sent_data[i]);
+    }
+}
