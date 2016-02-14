@@ -72,7 +72,7 @@ Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
         when(size, is_equal_to(3)),
         when(data, is_equal_to_contents_of(expected, 3))
         );
-    recv_byte(&state, 5);
+    recv_byte(&state, 4);
     recv_byte(&state, 0x37);
     recv_byte(&state, 0x99);
     recv_byte(&state, 0xFF);
@@ -101,5 +101,56 @@ Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
     recv_byte(&state, 2);
     recv_byte(&state, 3);
     recv_byte(&state, 1);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_two_valid_frames) {
+    uint8_t expected1[] = {5, 0};
+    uint8_t expected2[] = {3};
+    expect(recv_frame,
+        when(size, is_equal_to(2)),
+        when(data, is_equal_to_contents_of(expected1, 2))
+        );
+    expect(recv_frame,
+        when(size, is_equal_to(1)),
+        when(data, is_equal_to_contents_of(expected2, 1))
+        );
+    recv_byte(&state, 2);
+    recv_byte(&state, 5);
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
+    recv_byte(&state, 2);
+    recv_byte(&state, 3);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_valid_frame_after_unexpected_zero) {
+    uint8_t expected[] = {5, 7};
+    expect(recv_frame,
+        when(size, is_equal_to(2)),
+        when(data, is_equal_to_contents_of(expected, 2))
+        );
+    recv_byte(&state, 3);
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
+    recv_byte(&state, 3);
+    recv_byte(&state, 5);
+    recv_byte(&state, 7);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_valid_frame_after_unexpected_non_zero) {
+    uint8_t expected[] = {5, 7};
+    expect(recv_frame,
+        when(size, is_equal_to(2)),
+        when(data, is_equal_to_contents_of(expected, 2))
+        );
+    recv_byte(&state, 2);
+    recv_byte(&state, 9);
+    recv_byte(&state, 4); // This should have been zero
+    recv_byte(&state, 0);
+    recv_byte(&state, 3);
+    recv_byte(&state, 5);
+    recv_byte(&state, 7);
     recv_byte(&state, 0);
 }

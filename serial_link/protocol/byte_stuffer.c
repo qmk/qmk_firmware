@@ -41,6 +41,7 @@ void init_byte_stuffer_state(byte_stuffer_state_t* state) {
 }
 
 void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
+    // Start of a new frame
     if (state->next_zero == 0) {
         state->next_zero = data;
         state->data_pos = 0;
@@ -49,10 +50,19 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
 
     state->next_zero--;
     if (data == 0) {
-        recv_frame(state->data, state->data_pos);
+        if (state->next_zero == 0) {
+            // The frame is completed
+            recv_frame(state->data, state->data_pos);
+        }
+        else {
+            // The frame is invalid, so reset
+            state->next_zero = 0;
+            state->data_pos = 0;
+        }
     }
     else {
         if (state->next_zero == 0) {
+            // Special case for zeroes
             state->next_zero = data;
             state->data[state->data_pos++] = 0;
         }
