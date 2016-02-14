@@ -22,4 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void recv_byte(uint8_t data);
+typedef struct byte_stuffer_state byte_stuffer_state_t;
+void init_byte_stuffer_state(byte_stuffer_state_t* state);
+void recv_byte(byte_stuffer_state_t* state, uint8_t data);

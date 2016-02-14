@@ -28,8 +28,12 @@ SOFTWARE.
 #include "protocol/byte_stuffer.c"
 #include "protocol/frame_validator.h"
 
+byte_stuffer_state_t state;
+
 Describe(ByteStuffer);
-BeforeEach(ByteStuffer) {}
+BeforeEach(ByteStuffer) {
+    init_byte_stuffer_state(&state);
+}
 AfterEach(ByteStuffer) {}
 
 void recv_frame(uint8_t* data, uint16_t size) {
@@ -38,15 +42,64 @@ void recv_frame(uint8_t* data, uint16_t size) {
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_zero_byte) {
     never_expect(recv_frame);
-    recv_byte(0);
+    recv_byte(&state, 0);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_FF_byte) {
     never_expect(recv_frame);
-    recv_byte(0xFF);
+    recv_byte(&state, 0xFF);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_random_byte) {
     never_expect(recv_frame);
-    recv_byte(0x4A);
+    recv_byte(&state, 0x4A);
+}
+
+Ensure(ByteStuffer, receives_single_byte_valid_frame) {
+    uint8_t expected[] = {0x37};
+    expect(recv_frame,
+        when(size, is_equal_to(1)),
+        when(data, is_equal_to_contents_of(expected, 1))
+        );
+    recv_byte(&state, 2);
+    recv_byte(&state, 0x37);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
+    uint8_t expected[] = {0x37, 0x99, 0xFF};
+    expect(recv_frame,
+        when(size, is_equal_to(3)),
+        when(data, is_equal_to_contents_of(expected, 3))
+        );
+    recv_byte(&state, 5);
+    recv_byte(&state, 0x37);
+    recv_byte(&state, 0x99);
+    recv_byte(&state, 0xFF);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_single_zero_valid_frame) {
+    uint8_t expected[] = {0};
+    expect(recv_frame,
+        when(size, is_equal_to(1)),
+        when(data, is_equal_to_contents_of(expected, 1))
+        );
+    recv_byte(&state, 1);
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
+    uint8_t expected[] = {5, 0, 3, 0};
+    expect(recv_frame,
+        when(size, is_equal_to(4)),
+        when(data, is_equal_to_contents_of(expected, 4))
+        );
+    recv_byte(&state, 2);
+    recv_byte(&state, 5);
+    recv_byte(&state, 2);
+    recv_byte(&state, 3);
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
 }

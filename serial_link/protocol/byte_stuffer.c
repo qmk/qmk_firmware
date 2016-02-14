@@ -25,5 +25,39 @@ SOFTWARE.
 #include "protocol/byte_stuffer.h"
 #include "protocol/frame_validator.h"
 
-void recv_byte(uint8_t data) {
+// This implements the "Consistent overhead byte stuffing protocol"
+// https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing
+// http://www.stuartcheshire.org/papers/COBSforToN.pdf
+
+typedef struct byte_stuffer_state {
+    uint16_t next_zero;
+    uint16_t data_pos;
+    uint8_t data[256];
+}byte_stuffer_state_t;
+
+void init_byte_stuffer_state(byte_stuffer_state_t* state) {
+    state->next_zero = 0;
+    state->data_pos = 0;
+}
+
+void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
+    if (state->next_zero == 0) {
+        state->next_zero = data;
+        state->data_pos = 0;
+        return;
+    }
+
+    state->next_zero--;
+    if (data == 0) {
+        recv_frame(state->data, state->data_pos);
+    }
+    else {
+        if (state->next_zero == 0) {
+            state->next_zero = data;
+            state->data[state->data_pos++] = 0;
+        }
+        else {
+            state->data[state->data_pos++] = data;
+        }
+    }
 }
