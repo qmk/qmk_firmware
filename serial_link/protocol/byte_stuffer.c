@@ -93,12 +93,31 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
     }
 }
 
+static void send_block(uint8_t* start, uint8_t* end, uint8_t num_non_zero) {
+    send_data(&num_non_zero, 1);
+    if (end > start) {
+        send_data(start, end-start);
+    }
+}
+
 void send_frame(uint8_t* data, uint16_t size) {
+    const uint8_t zero = 0;
     if (size > 0) {
-        uint8_t numZeroes = size + 1;
-        const uint8_t zero = 0;
-        send_data(&numZeroes, 1);
-        send_data(data, size);
+        uint8_t num_non_zero = 1;
+        uint8_t* end = data + size;
+        uint8_t* start = data;
+        while (data < end) {
+            if (*data == 0) {
+                send_block(start, data, num_non_zero);
+                start = data + 1;
+                num_non_zero = 1;
+            }
+            else {
+                num_non_zero++;
+            }
+            ++data;
+        }
+        send_block(start, data, num_non_zero);
         send_data(&zero, 1);
     }
 }

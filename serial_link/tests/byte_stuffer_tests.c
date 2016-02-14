@@ -312,15 +312,63 @@ Ensure(ByteStuffer, send_zero_size_frame_does_nothing) {
 Ensure(ByteStuffer, send_one_byte_frame) {
     uint8_t data[] = {5};
     send_frame(data, 1);
-    assert_that(sent_data_size, is_equal_to(3));
     uint8_t expected[] = {2, 5, 0};
-    assert_that(sent_data, is_equal_to_contents_of(expected, 3));
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
 }
 
 Ensure(ByteStuffer, send_two_byte_frame) {
     uint8_t data[] = {5, 0x77};
     send_frame(data, 2);
-    assert_that(sent_data_size, is_equal_to(4));
     uint8_t expected[] = {3, 5, 0x77, 0};
-    assert_that(sent_data, is_equal_to_contents_of(expected, 4));
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, send_one_byte_frame_with_zero) {
+    uint8_t data[] = {0};
+    send_frame(data, 1);
+    uint8_t expected[] = {1, 1, 0};
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, send_two_byte_frame_starting_with_zero) {
+    uint8_t data[] = {0, 9};
+    send_frame(data, 2);
+    uint8_t expected[] = {1, 2, 9, 0};
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, send_two_byte_frame_starting_with_non_zero) {
+    uint8_t data[] = {9, 0};
+    send_frame(data, 2);
+    uint8_t expected[] = {2, 9, 1, 0};
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, send_three_byte_frame_zero_in_the_middle) {
+    uint8_t data[] = {9, 0, 0x68};
+    send_frame(data, 3);
+    uint8_t expected[] = {2, 9, 2, 0x68, 0};
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, send_three_byte_frame_data_in_the_middle) {
+    uint8_t data[] = {0, 0x55, 0};
+    send_frame(data, 3);
+    uint8_t expected[] = {1, 2, 0x55, 1, 0};
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
+}
+
+Ensure(ByteStuffer, send_three_byte_frame_all_zeroes) {
+    uint8_t data[] = {0, 0, 0};
+    send_frame(data, 3);
+    uint8_t expected[] = {1, 1, 1, 1, 0};
+    assert_that(sent_data_size, is_equal_to(sizeof(expected)));
+    assert_that(sent_data, is_equal_to_contents_of(expected, sizeof(expected)));
 }
