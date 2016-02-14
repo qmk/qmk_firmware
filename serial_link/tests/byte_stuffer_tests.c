@@ -55,6 +55,12 @@ Ensure(ByteStuffer, receives_no_frame_for_a_single_random_byte) {
     recv_byte(&state, 0x4A);
 }
 
+Ensure(ByteStuffer, receives_no_frame_for_a_zero_length_frame) {
+    never_expect(recv_frame);
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
+}
+
 Ensure(ByteStuffer, receives_single_byte_valid_frame) {
     uint8_t expected[] = {0x37};
     expect(recv_frame,
@@ -244,5 +250,47 @@ Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
     recv_byte(&state, 5);
     recv_byte(&state, 6);
     recv_byte(&state, 7);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, receives_an_all_zeros_frame_that_is_maximum_size) {
+    uint8_t expected[MAX_FRAME_SIZE] = {};
+    expect(recv_frame,
+        when(size, is_equal_to(MAX_FRAME_SIZE)),
+        when(data, is_equal_to_contents_of(expected, MAX_FRAME_SIZE))
+        );
+    int i;
+    recv_byte(&state, 1);
+    for(i=0;i<MAX_FRAME_SIZE;i++) {
+       recv_byte(&state, 1);
+    }
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, doesnt_recv_a_frame_thats_too_long_all_zeroes) {
+    uint8_t expected[1] = {0};
+    never_expect(recv_frame);
+    int i;
+    recv_byte(&state, 1);
+    for(i=0;i<MAX_FRAME_SIZE;i++) {
+       recv_byte(&state, 1);
+    }
+    recv_byte(&state, 1);
+    recv_byte(&state, 0);
+}
+
+Ensure(ByteStuffer, received_frame_is_aborted_when_its_too_long) {
+    uint8_t expected[1] = {1};
+    expect(recv_frame,
+        when(size, is_equal_to(1)),
+        when(data, is_equal_to_contents_of(expected, 1))
+        );
+    int i;
+    recv_byte(&state, 1);
+    for(i=0;i<MAX_FRAME_SIZE;i++) {
+       recv_byte(&state, 1);
+    }
+    recv_byte(&state, 2);
+    recv_byte(&state, 1);
     recv_byte(&state, 0);
 }

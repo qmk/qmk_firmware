@@ -45,9 +45,6 @@ void init_byte_stuffer_state(byte_stuffer_state_t* state) {
     state->long_frame = false;
 }
 
-static void start_frame(byte_stuffer_state_t* state, uint8_t data) {
-}
-
 void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
     // Start of a new frame
     if (state->next_zero == 0) {
@@ -61,7 +58,9 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
     if (data == 0) {
         if (state->next_zero == 0) {
             // The frame is completed
-            recv_frame(state->data, state->data_pos);
+            if (state->data_pos > 0) {
+                recv_frame(state->data, state->data_pos);
+            }
         }
         else {
             // The frame is invalid, so reset
@@ -69,8 +68,16 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
         }
     }
     else {
-        if (state->next_zero == 0) {
+        if (state->data_pos == MAX_FRAME_SIZE) {
+            // We exceeded our maximum frame size
+            // therefore there's nothing else to do than reset to a new frame
+            state->next_zero = data;
+            state->long_frame = data == 0xFF;
+            state->data_pos = 0;
+        }
+        else if (state->next_zero == 0) {
             if (state->long_frame) {
+                // This is part of a long frame, so continue
                 state->next_zero = data;
                 state->long_frame = data == 0xFF;
             }
