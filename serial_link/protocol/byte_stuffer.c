@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "protocol/data_link.h"
-#include "protocol/routing.h"
+#include "protocol/byte_stuffer.h"
+#include "protocol/frame_validator.h"
 
 void recv_byte(uint8_t data) {
 }

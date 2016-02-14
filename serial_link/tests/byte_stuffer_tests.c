@@ -24,29 +24,29 @@ SOFTWARE.
 
 #include <cgreen/cgreen.h>
 #include <cgreen/mocks.h>
-#include "protocol/data_link.h"
-#include "protocol/data_link.c"
-#include "protocol/routing.h"
+#include "protocol/byte_stuffer.h"
+#include "protocol/byte_stuffer.c"
+#include "protocol/frame_validator.h"
 
-Describe(DataLink);
-BeforeEach(DataLink) {}
-AfterEach(DataLink) {}
+Describe(ByteStuffer);
+BeforeEach(ByteStuffer) {}
+AfterEach(ByteStuffer) {}
 
 void recv_frame(uint8_t* data, uint16_t size) {
     mock(data, size);
 }
 
-Ensure(DataLink, receives_no_frame_for_a_single_zero_byte) {
+Ensure(ByteStuffer, receives_no_frame_for_a_single_zero_byte) {
     never_expect(recv_frame);
     recv_byte(0);
 }
 
-Ensure(DataLink, receives_no_frame_for_a_single_FF_byte) {
+Ensure(ByteStuffer, receives_no_frame_for_a_single_FF_byte) {
     never_expect(recv_frame);
     recv_byte(0xFF);
 }
 
-Ensure(DataLink, receives_no_frame_for_a_single_random_byte) {
+Ensure(ByteStuffer, receives_no_frame_for_a_single_random_byte) {
     never_expect(recv_frame);
     recv_byte(0x4A);
 }
