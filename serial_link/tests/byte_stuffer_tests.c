@@ -40,7 +40,7 @@ BeforeEach(ByteStuffer) {
 }
 AfterEach(ByteStuffer) {}
 
-void recv_frame(uint8_t* data, uint16_t size) {
+void validator_recv_frame(uint8_t* data, uint16_t size) {
     mock(data, size);
 }
 
@@ -50,29 +50,29 @@ void send_data(const uint8_t* data, uint16_t size) {
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_zero_byte) {
-    never_expect(recv_frame);
+    never_expect(validator_recv_frame);
     recv_byte(&state, 0);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_FF_byte) {
-    never_expect(recv_frame);
+    never_expect(validator_recv_frame);
     recv_byte(&state, 0xFF);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_random_byte) {
-    never_expect(recv_frame);
+    never_expect(validator_recv_frame);
     recv_byte(&state, 0x4A);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_zero_length_frame) {
-    never_expect(recv_frame);
+    never_expect(validator_recv_frame);
     recv_byte(&state, 1);
     recv_byte(&state, 0);
 }
 
 Ensure(ByteStuffer, receives_single_byte_valid_frame) {
     uint8_t expected[] = {0x37};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
     );
@@ -83,7 +83,7 @@ Ensure(ByteStuffer, receives_single_byte_valid_frame) {
 
 Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
     uint8_t expected[] = {0x37, 0x99, 0xFF};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(3)),
         when(data, is_equal_to_contents_of(expected, 3))
     );
@@ -96,7 +96,7 @@ Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
 
 Ensure(ByteStuffer, receives_single_zero_valid_frame) {
     uint8_t expected[] = {0};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
     );
@@ -107,7 +107,7 @@ Ensure(ByteStuffer, receives_single_zero_valid_frame) {
 
 Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
     uint8_t expected[] = {5, 0, 3, 0};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(4)),
         when(data, is_equal_to_contents_of(expected, 4))
     );
@@ -122,11 +122,11 @@ Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
 Ensure(ByteStuffer, receives_two_valid_frames) {
     uint8_t expected1[] = {5, 0};
     uint8_t expected2[] = {3};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected1, 2))
     );
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected2, 1))
     );
@@ -141,7 +141,7 @@ Ensure(ByteStuffer, receives_two_valid_frames) {
 
 Ensure(ByteStuffer, receives_valid_frame_after_unexpected_zero) {
     uint8_t expected[] = {5, 7};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected, 2))
     );
@@ -156,7 +156,7 @@ Ensure(ByteStuffer, receives_valid_frame_after_unexpected_zero) {
 
 Ensure(ByteStuffer, receives_valid_frame_after_unexpected_non_zero) {
     uint8_t expected[] = {5, 7};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected, 2))
     );
@@ -176,7 +176,7 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_and_then_end_
     for (i=0;i<254;i++) {
         expected[i] = i + 1;
     }
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(254)),
         when(data, is_equal_to_contents_of(expected, 254))
     );
@@ -194,7 +194,7 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_
         expected[i] = i + 1;
     }
     expected[254] = 7;
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(255)),
         when(data, is_equal_to_contents_of(expected, 255))
     );
@@ -214,7 +214,7 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_
         expected[i] = i + 1;
     }
     expected[254] = 0;
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(255)),
         when(data, is_equal_to_contents_of(expected, 255))
     );
@@ -239,7 +239,7 @@ Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
     for (i=0;i<7;i++) {
         expected[254*2+i] = i + 1;
     }
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(515)),
         when(data, is_equal_to_contents_of(expected, 510))
     );
@@ -264,7 +264,7 @@ Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
 
 Ensure(ByteStuffer, receives_an_all_zeros_frame_that_is_maximum_size) {
     uint8_t expected[MAX_FRAME_SIZE] = {};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(MAX_FRAME_SIZE)),
         when(data, is_equal_to_contents_of(expected, MAX_FRAME_SIZE))
     );
@@ -278,7 +278,7 @@ Ensure(ByteStuffer, receives_an_all_zeros_frame_that_is_maximum_size) {
 
 Ensure(ByteStuffer, doesnt_recv_a_frame_thats_too_long_all_zeroes) {
     uint8_t expected[1] = {0};
-    never_expect(recv_frame);
+    never_expect(validator_recv_frame);
     int i;
     recv_byte(&state, 1);
     for(i=0;i<MAX_FRAME_SIZE;i++) {
@@ -290,7 +290,7 @@ Ensure(ByteStuffer, doesnt_recv_a_frame_thats_too_long_all_zeroes) {
 
 Ensure(ByteStuffer, received_frame_is_aborted_when_its_too_long) {
     uint8_t expected[1] = {1};
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
     );
@@ -432,7 +432,7 @@ Ensure(ByteStuffer, sends_frame_with_254_non_zeroes_followed_by_zero) {
 Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet) {
     uint8_t original_data[] = { 1, 2, 3};
     send_frame(original_data, sizeof(original_data));
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(sizeof(original_data))),
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
@@ -445,7 +445,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet) {
 Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet_with_zeros) {
     uint8_t original_data[] = { 1, 0, 3, 0, 0, 9};
     send_frame(original_data, sizeof(original_data));
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(sizeof(original_data))),
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
@@ -462,7 +462,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_254_bytes) {
         original_data[i] = i + 1;
     }
     send_frame(original_data, sizeof(original_data));
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(sizeof(original_data))),
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
@@ -480,7 +480,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_256_bytes) {
     original_data[254] = 22;
     original_data[255] = 23;
     send_frame(original_data, sizeof(original_data));
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(sizeof(original_data))),
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
@@ -497,7 +497,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_254_bytes_and_then_zero) {
     }
     original_data[254] = 0;
     send_frame(original_data, sizeof(original_data));
-    expect(recv_frame,
+    expect(validator_recv_frame,
         when(size, is_equal_to(sizeof(original_data))),
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );

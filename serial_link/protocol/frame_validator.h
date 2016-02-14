@@ -22,4 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void recv_frame(uint8_t* data, uint16_t size);
+void validator_recv_frame(uint8_t* data, uint16_t size);
+// The buffer pointed to by the data needs 4 additional bytes
+void validator_send_frame(uint8_t* data, uint16_t size);

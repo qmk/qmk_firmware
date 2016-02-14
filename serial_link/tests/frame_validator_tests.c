@@ -41,10 +41,10 @@ AfterEach(FrameValidator) {}
 Ensure(FrameValidator, doesnt_validate_frames_under_5_bytes) {
     never_expect(route_frame);
     uint8_t data[] = {1, 2};
-    recv_frame(0, 1);
-    recv_frame(data, 2);
-    recv_frame(data, 3);
-    recv_frame(data, 4);
+    validator_recv_frame(0, 1);
+    validator_recv_frame(data, 2);
+    validator_recv_frame(data, 3);
+    validator_recv_frame(data, 4);
 }
 
 Ensure(FrameValidator, validates_one_byte_frame_with_correct_crc) {
@@ -53,13 +53,13 @@ Ensure(FrameValidator, validates_one_byte_frame_with_correct_crc) {
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(data, 1))
     );
-    recv_frame(data, 5);
+    validator_recv_frame(data, 5);
 }
 
 Ensure(FrameValidator, does_not_validate_one_byte_frame_with_incorrect_crc) {
     uint8_t data[] = {0x44, 0, 0, 0, 0};
     never_expect(route_frame);
-    recv_frame(data, 5);
+    validator_recv_frame(data, 5);
 }
 
 Ensure(FrameValidator, validates_four_byte_frame_with_correct_crc) {
@@ -68,7 +68,7 @@ Ensure(FrameValidator, validates_four_byte_frame_with_correct_crc) {
         when(size, is_equal_to(4)),
         when(data, is_equal_to_contents_of(data, 4))
     );
-    recv_frame(data, 8);
+    validator_recv_frame(data, 8);
 }
 
 Ensure(FrameValidator, validates_five_byte_frame_with_correct_crc) {
@@ -77,7 +77,7 @@ Ensure(FrameValidator, validates_five_byte_frame_with_correct_crc) {
         when(size, is_equal_to(5)),
         when(data, is_equal_to_contents_of(data, 5))
     );
-    recv_frame(data, 9);
+    validator_recv_frame(data, 9);
 }
 
 Ensure(FrameValidator, sends_one_byte_with_correct_crc) {

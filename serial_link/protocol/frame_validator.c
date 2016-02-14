@@ -102,7 +102,7 @@ static uint32_t crc32_byte(uint8_t *p, uint32_t bytelength)
     return (crc ^ 0xffffffff);
 }
 
-void recv_frame(uint8_t* data, uint16_t size) {
+void validator_recv_frame(uint8_t* data, uint16_t size) {
     if (size > 4) {
         uint32_t frame_crc = *(uint32_t*)(data + size - 4);
         uint32_t expected_crc = crc32_byte(data, size - 4);

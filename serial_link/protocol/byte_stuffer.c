@@ -60,7 +60,7 @@ void recv_byte(byte_stuffer_state_t* state, uint8_t data) {
         if (state->next_zero == 0) {
             // The frame is completed
             if (state->data_pos > 0) {
-                recv_frame(state->data, state->data_pos);
+                validator_recv_frame(state->data, state->data_pos);
             }
         }
         else {
