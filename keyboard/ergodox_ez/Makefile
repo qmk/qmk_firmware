@@ -110,5 +110,9 @@ VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
+ifneq ($(wildcard keymaps/$(KEYMAP)/overrides.mk),)
+include keymaps/$(KEYMAP)/overrides.mk
+endif
+
 include $(TOP_DIR)/quantum/quantum.mk
 
