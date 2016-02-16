@@ -256,7 +256,7 @@ bool process_tapping(keyrecord_t *keyp)
                     return true;
                 }
             } else {
-                if (!IS_NOEVENT(event)) debug("Tapping: other key just after tap.\n") {};
+                if (!IS_NOEVENT(event)) debug("Tapping: other key just after tap.\n");
                 process_action(keyp);
                 return true;
             }
