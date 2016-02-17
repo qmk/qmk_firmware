@@ -102,4 +102,15 @@
 #define CM_NON_BREAKING_SPACE   ALTGR(KC_SPACE)
 #define CM_NBSP                 CM_NON_BREAKING_SPACE
 
+// GR2A-ed characters (non-exhaustive list)
+// second row
+#define CM_OE_LIGATURE  GR2A(KC_E)      // œ
+#define CM_OE           CM_OE_LIGATURE
+
+// third row
+#define CM_AE_LIGATURE  GR2A(KC_A)      // æ
+#define CM_AE           CM_AE_LIGATURE
+#define CM_DEAD_ACUTE   GR2A(KC_SCLN)   // dead acute accent
+#define CM_DACT         CM_DEAD_ACUTE
+
 #endif

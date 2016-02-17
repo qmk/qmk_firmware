@@ -36,6 +36,8 @@ enum macros {
     M_SCLN,
     M_GRV,
     M_NBSP,
+    // macros for characters that don't have a simple key combination in LR_CA_MULT_ALTGR
+    M_CRC,
     // other layer macros
     M_DBL0,
     M_FNLR,
@@ -108,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,   CM_DCRC,  KC_V,    KC_D,    KC_L,    KC_J,     KC_Z,
                    KC_C,     KC_T,    KC_S,    KC_R,    KC_N,     KC_M,
         KC_ENT,    CM_APOS,  KC_Q,    KC_G,    KC_H,    KC_F,     M(M_CMSFT),
-                             CM_ALGR, KC_PERC, KC_HOME, CM_CCED,  CTL_T(KC_END),
+                      MO(LR_CSA_AGR), KC_PERC, KC_HOME, CM_CCED,  CTL_T(KC_END),
 
         KC_LEFT, KC_RGHT,
         KC_UP,
@@ -157,6 +159,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
         KC_TRNS,  KC_TRNS,  M(M_NBSP)
+    ),
+/* AltGr-ed BÉPO over Canadian Multilingual
+ * "////" indicates that the key is disabled (unsupported bépo character)
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * | ////// | //// |   <  |   >  |   [  |   ]  |      |           |      |   ^  | //// | //// | //// | //// | ////// |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |   |  |dead '|   &  |   œ  |dead `|      |           |      | //// | //// | //// | //// | //// | ////// |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | ////// |   æ  |   ù  |dead "|   €  | //// |------|           |------| //// | //// | //// | //// | //// | ////// |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   \  |   {  |   }  | //// |   ~  |      |           |      | //// | //// | //// | //// | //// |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      | //// |      | //// |       |
+ *   `----------------------------------'                                       `-----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |   _  |      |------|       |------|      |  _   |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[LR_CSA_AGR] = KEYMAP(
+        // left hand
+        KC_NO,    KC_NO,    CM_LESS,  CM_GRTR, CM_LBRC,  CM_RBRC,  KC_TRNS,
+        KC_TRNS,  CM_PIPE,  CM_DACT,  KC_AMPR, CM_OE,    CM_DGRV,  KC_TRNS,
+        KC_NO,    CM_AE,    CM_UGRV,  CM_DTRM, CM_EURO,  KC_NO,
+        KC_TRNS,  CM_BSLS,  CM_LCBR,  CM_RCBR, KC_NO,    CM_TILD,  KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
+
+                                                      KC_TRNS,  KC_TRNS,
+                                                                KC_TRNS,
+                                            KC_UNDS,  KC_TRNS,  KC_TRNS,
+
+        // right hand
+        KC_TRNS,  M(M_CRC), KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+        KC_TRNS,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+                  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_TRNS,
+        KC_TRNS,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+                            KC_TRNS,  KC_NO,    KC_TRNS,  KC_NO,    KC_TRNS,
+
+        KC_TRNS,  KC_TRNS,
+        KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_UNDS
     ),
 /* Numeric Layer
  *
@@ -308,6 +355,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                     case M_SCLN:
                         return MACRO(D(LSFT), U(SCLN), END);
                 }
+            }
+            break;
+        case M_CRC:
+            if (record->event.pressed) {
+                return MACRO(TYPE(CM_DCRC), T(SPACE), END);
             }
             break;
         case M_DBL0:
