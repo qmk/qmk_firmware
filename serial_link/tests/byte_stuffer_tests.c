@@ -29,13 +29,12 @@ SOFTWARE.
 #include "protocol/frame_validator.h"
 #include "protocol/physical.h"
 
-static byte_stuffer_state_t state;
 static uint8_t sent_data[MAX_FRAME_SIZE*2];
 static uint16_t sent_data_size;
 
 Describe(ByteStuffer);
 BeforeEach(ByteStuffer) {
-    init_byte_stuffer_state(&state);
+    init_byte_stuffer();
     sent_data_size = 0;
 }
 AfterEach(ByteStuffer) {}
@@ -51,23 +50,23 @@ void send_data(const uint8_t* data, uint16_t size) {
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_zero_byte) {
     never_expect(validator_recv_frame);
-    recv_byte(&state, 0);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_FF_byte) {
     never_expect(validator_recv_frame);
-    recv_byte(&state, 0xFF);
+    recv_byte(0xFF);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_single_random_byte) {
     never_expect(validator_recv_frame);
-    recv_byte(&state, 0x4A);
+    recv_byte(0x4A);
 }
 
 Ensure(ByteStuffer, receives_no_frame_for_a_zero_length_frame) {
     never_expect(validator_recv_frame);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
+    recv_byte(1);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_single_byte_valid_frame) {
@@ -76,9 +75,9 @@ Ensure(ByteStuffer, receives_single_byte_valid_frame) {
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
     );
-    recv_byte(&state, 2);
-    recv_byte(&state, 0x37);
-    recv_byte(&state, 0);
+    recv_byte(2);
+    recv_byte(0x37);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
@@ -87,11 +86,11 @@ Ensure(ByteStuffer, receives_three_bytes_valid_frame) {
         when(size, is_equal_to(3)),
         when(data, is_equal_to_contents_of(expected, 3))
     );
-    recv_byte(&state, 4);
-    recv_byte(&state, 0x37);
-    recv_byte(&state, 0x99);
-    recv_byte(&state, 0xFF);
-    recv_byte(&state, 0);
+    recv_byte(4);
+    recv_byte(0x37);
+    recv_byte(0x99);
+    recv_byte(0xFF);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_single_zero_valid_frame) {
@@ -100,9 +99,9 @@ Ensure(ByteStuffer, receives_single_zero_valid_frame) {
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected, 1))
     );
-    recv_byte(&state, 1);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
+    recv_byte(1);
+    recv_byte(1);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
@@ -111,12 +110,12 @@ Ensure(ByteStuffer, receives_valid_frame_with_zeroes) {
         when(size, is_equal_to(4)),
         when(data, is_equal_to_contents_of(expected, 4))
     );
-    recv_byte(&state, 2);
-    recv_byte(&state, 5);
-    recv_byte(&state, 2);
-    recv_byte(&state, 3);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
+    recv_byte(2);
+    recv_byte(5);
+    recv_byte(2);
+    recv_byte(3);
+    recv_byte(1);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_two_valid_frames) {
@@ -130,13 +129,13 @@ Ensure(ByteStuffer, receives_two_valid_frames) {
         when(size, is_equal_to(1)),
         when(data, is_equal_to_contents_of(expected2, 1))
     );
-    recv_byte(&state, 2);
-    recv_byte(&state, 5);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
-    recv_byte(&state, 2);
-    recv_byte(&state, 3);
-    recv_byte(&state, 0);
+    recv_byte(2);
+    recv_byte(5);
+    recv_byte(1);
+    recv_byte(0);
+    recv_byte(2);
+    recv_byte(3);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_valid_frame_after_unexpected_zero) {
@@ -145,13 +144,13 @@ Ensure(ByteStuffer, receives_valid_frame_after_unexpected_zero) {
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected, 2))
     );
-    recv_byte(&state, 3);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
-    recv_byte(&state, 3);
-    recv_byte(&state, 5);
-    recv_byte(&state, 7);
-    recv_byte(&state, 0);
+    recv_byte(3);
+    recv_byte(1);
+    recv_byte(0);
+    recv_byte(3);
+    recv_byte(5);
+    recv_byte(7);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_valid_frame_after_unexpected_non_zero) {
@@ -160,14 +159,14 @@ Ensure(ByteStuffer, receives_valid_frame_after_unexpected_non_zero) {
         when(size, is_equal_to(2)),
         when(data, is_equal_to_contents_of(expected, 2))
     );
-    recv_byte(&state, 2);
-    recv_byte(&state, 9);
-    recv_byte(&state, 4); // This should have been zero
-    recv_byte(&state, 0);
-    recv_byte(&state, 3);
-    recv_byte(&state, 5);
-    recv_byte(&state, 7);
-    recv_byte(&state, 0);
+    recv_byte(2);
+    recv_byte(9);
+    recv_byte(4); // This should have been zero
+    recv_byte(0);
+    recv_byte(3);
+    recv_byte(5);
+    recv_byte(7);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_and_then_end_of_frame) {
@@ -180,11 +179,11 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_and_then_end_
         when(size, is_equal_to(254)),
         when(data, is_equal_to_contents_of(expected, 254))
     );
-    recv_byte(&state, 0xFF);
+    recv_byte(0xFF);
     for (i=0;i<254;i++) {
-        recv_byte(&state, i+1);
+        recv_byte(i+1);
     }
-    recv_byte(&state, 0);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_non_zero) {
@@ -198,13 +197,13 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_
         when(size, is_equal_to(255)),
         when(data, is_equal_to_contents_of(expected, 255))
     );
-    recv_byte(&state, 0xFF);
+    recv_byte(0xFF);
     for (i=0;i<254;i++) {
-        recv_byte(&state, i+1);
+        recv_byte(i+1);
     }
-    recv_byte(&state, 2);
-    recv_byte(&state, 7);
-    recv_byte(&state, 0);
+    recv_byte(2);
+    recv_byte(7);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_zero) {
@@ -218,13 +217,13 @@ Ensure(ByteStuffer, receives_a_valid_frame_with_over254_non_zeroes_next_byte_is_
         when(size, is_equal_to(255)),
         when(data, is_equal_to_contents_of(expected, 255))
     );
-    recv_byte(&state, 0xFF);
+    recv_byte(0xFF);
     for (i=0;i<254;i++) {
-        recv_byte(&state, i+1);
+        recv_byte(i+1);
     }
-    recv_byte(&state, 1);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
+    recv_byte(1);
+    recv_byte(1);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
@@ -243,23 +242,23 @@ Ensure(ByteStuffer, receives_two_long_frames_and_some_more) {
         when(size, is_equal_to(515)),
         when(data, is_equal_to_contents_of(expected, 510))
     );
-    recv_byte(&state, 0xFF);
+    recv_byte(0xFF);
     for (i=0;i<254;i++) {
-        recv_byte(&state, i+1);
+        recv_byte(i+1);
     }
-    recv_byte(&state, 0xFF);
+    recv_byte(0xFF);
     for (i=0;i<254;i++) {
-        recv_byte(&state, i+1);
+        recv_byte(i+1);
     }
-    recv_byte(&state, 8);
-    recv_byte(&state, 1);
-    recv_byte(&state, 2);
-    recv_byte(&state, 3);
-    recv_byte(&state, 4);
-    recv_byte(&state, 5);
-    recv_byte(&state, 6);
-    recv_byte(&state, 7);
-    recv_byte(&state, 0);
+    recv_byte(8);
+    recv_byte(1);
+    recv_byte(2);
+    recv_byte(3);
+    recv_byte(4);
+    recv_byte(5);
+    recv_byte(6);
+    recv_byte(7);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, receives_an_all_zeros_frame_that_is_maximum_size) {
@@ -269,23 +268,23 @@ Ensure(ByteStuffer, receives_an_all_zeros_frame_that_is_maximum_size) {
         when(data, is_equal_to_contents_of(expected, MAX_FRAME_SIZE))
     );
     int i;
-    recv_byte(&state, 1);
+    recv_byte(1);
     for(i=0;i<MAX_FRAME_SIZE;i++) {
-       recv_byte(&state, 1);
+       recv_byte(1);
     }
-    recv_byte(&state, 0);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, doesnt_recv_a_frame_thats_too_long_all_zeroes) {
     uint8_t expected[1] = {0};
     never_expect(validator_recv_frame);
     int i;
-    recv_byte(&state, 1);
+    recv_byte(1);
     for(i=0;i<MAX_FRAME_SIZE;i++) {
-       recv_byte(&state, 1);
+       recv_byte(1);
     }
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
+    recv_byte(1);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, received_frame_is_aborted_when_its_too_long) {
@@ -295,13 +294,13 @@ Ensure(ByteStuffer, received_frame_is_aborted_when_its_too_long) {
         when(data, is_equal_to_contents_of(expected, 1))
     );
     int i;
-    recv_byte(&state, 1);
+    recv_byte(1);
     for(i=0;i<MAX_FRAME_SIZE;i++) {
-       recv_byte(&state, 1);
+       recv_byte(1);
     }
-    recv_byte(&state, 2);
-    recv_byte(&state, 1);
-    recv_byte(&state, 0);
+    recv_byte(2);
+    recv_byte(1);
+    recv_byte(0);
 }
 
 Ensure(ByteStuffer, does_nothing_when_sending_zero_size_frame) {
@@ -438,7 +437,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet) {
     );
     int i;
     for(i=0;i<sent_data_size;i++) {
-       recv_byte(&state, sent_data[i]);
+       recv_byte(sent_data[i]);
     }
 }
 
@@ -451,7 +450,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_small_packet_with_zeros) {
     );
     int i;
     for(i=0;i<sent_data_size;i++) {
-       recv_byte(&state, sent_data[i]);
+       recv_byte(sent_data[i]);
     }
 }
 
@@ -467,7 +466,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_254_bytes) {
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
     for(i=0;i<sent_data_size;i++) {
-       recv_byte(&state, sent_data[i]);
+       recv_byte(sent_data[i]);
     }
 }
 
@@ -485,7 +484,7 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_256_bytes) {
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
     for(i=0;i<sent_data_size;i++) {
-       recv_byte(&state, sent_data[i]);
+       recv_byte(sent_data[i]);
     }
 }
 
@@ -502,6 +501,6 @@ Ensure(ByteStuffer, sends_and_receives_full_roundtrip_254_bytes_and_then_zero) {
         when(data, is_equal_to_contents_of(original_data, sizeof(original_data)))
     );
     for(i=0;i<sent_data_size;i++) {
-       recv_byte(&state, sent_data[i]);
+       recv_byte(sent_data[i]);
     }
 }
