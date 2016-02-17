@@ -5,12 +5,16 @@
 #include "led.h"
 #include "keymap_extras/keymap_bepo.h"
 
-#define BASE 0 // default layer
-#define NUMR 8 // numeric layer
-#define FNLR 9 // fn layer
+enum layers {
+    LR_BASE, // default layer
+    LR_NUMR, // numeric layer
+    LR_FN, // fn layer
+};
 
-#define MDBL0 1
-#define MFNLR 2
+enum macros {
+    M_DBL0,
+    M_FNLR,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Basic layer
@@ -36,15 +40,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = KEYMAP(  // layer 0 : default
+[LR_BASE] = KEYMAP(  // layer 0 : default
         // left hand
         BP_DLR,     KC_1,      KC_2,    KC_3,    KC_4,          KC_5,    KC_DELT,
         KC_TAB,     BP_B,      BP_ECUT, BP_P,    BP_O,          BP_EGRV, KC_BSPC,
         BP_EQL,     BP_A,      BP_U,    BP_I,    BP_E,          BP_COMM,
         KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,    BP_DOT,        BP_K,    KC_ENT,
-        KC_LCTL,    M(MFNLR),  KC_LGUI, KC_MPLY, ALT_T(KC_APP),
+        KC_LCTL,    M(M_FNLR), KC_LGUI, KC_MPLY, ALT_T(KC_APP),
 
-                                              ALT_T(KC_ESC),  TG(NUMR),
+                                              ALT_T(KC_ESC),  TG(LR_NUMR),
                                                               KC_PGUP,
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
@@ -81,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[NUMR] = KEYMAP(
+[LR_NUMR] = KEYMAP(
        // left hand
        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
@@ -91,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
-                                               KC_TRNS, KC_TRNS,KC_TRNS,
+                              KC_TRNS, KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_F6,   KC_F7,   KC_TAB,  KC_PSLS, KC_PAST, KC_PMNS,
-       KC_TRNS, KC_TRNS, KC_HOME, KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-                KC_UP,   KC_END,  KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
-       KC_LEFT, KC_DOWN, KC_RGHT, KC_P1,   KC_P2,   KC_P3,   KC_PENT,
-                         KC_TRNS, KC_P0,   M(MDBL0),KC_PDOT, CTL_T(KC_PENT),
+       KC_TRNS, KC_F6,   KC_F7,   KC_TAB,  KC_PSLS,  KC_PAST, KC_PMNS,
+       KC_TRNS, KC_TRNS, KC_HOME, KC_P7,   KC_P8,    KC_P9,   KC_PPLS,
+                KC_UP,   KC_END,  KC_P4,   KC_P5,    KC_P6,   KC_PPLS,
+       KC_LEFT, KC_DOWN, KC_RGHT, KC_P1,   KC_P2,    KC_P3,   KC_PENT,
+                         KC_TRNS, KC_P0,   M(M_DBL0),KC_PDOT, CTL_T(KC_PENT),
 
        KC_NLCK, KC_CAPS,
        KC_TRNS,
@@ -125,12 +129,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[FNLR] = KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
-       KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
-       KC_TRNS, KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
-       KC_TRNS, KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
-       KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
+[LR_FN] = KEYMAP(
+       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
+       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
+       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
+       KC_TRNS,   KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
+       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
@@ -155,14 +159,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
     switch(id) {
-        case MDBL0:
+        case M_DBL0:
             if (record->event.pressed) {
               return MACRO( I(25), T(P0), T(P0), END );
             }
         break;
-        case MFNLR:
-            layer_invert(NUMR);
-            layer_invert(FNLR);
+        case M_FNLR:
+            layer_invert(LR_NUMR);
+            layer_invert(LR_FN);
             break;
     }
     return MACRO_NONE;
@@ -181,7 +185,7 @@ void * matrix_scan_user(void) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     // led 1: numeric layer
-    if (layer_state & (1 << NUMR)) {
+    if (layer_state & (1 << LR_NUMR)) {
         ergodox_right_led_1_on();
     }
     // led 3: caps lock
