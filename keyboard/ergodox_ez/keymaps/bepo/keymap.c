@@ -4,14 +4,39 @@
 #include "action_layer.h"
 #include "led.h"
 #include "keymap_extras/keymap_bepo.h"
+#include "keymap_extras/keymap_canadian_multilingual.h"
 
 enum layers {
     LR_BASE, // default layer
+    LR_CSA, // BÉPO over Canadian Multilingual (CSA)
+    LR_CSA_SFT, // shifted BÉPO over CSA
+    LR_CSA_AGR, // altgr-ed BÉPO over CSA
+    LR_CSA_AGR_SFT, // altgr-shifted BÉPO over CSA
     LR_NUMR, // numeric layer
     LR_FN, // fn layer
 };
 
+#define IS_CA_MULT_ENABLED()    (default_layer_state & (1 << LR_CSA))
+
 enum macros {
+    M_TGCM, // toggle CA-mult
+    M_CMSFT, // toggle shift on CA-mult
+    // macros for characters that need to be un-shifted in LR_CA_MULT_SHIFT
+    M_1,
+    M_2,
+    M_3,
+    M_4,
+    M_5,
+    M_6,
+    M_7,
+    M_8,
+    M_9,
+    M_0,
+    M_DEGR,
+    M_SCLN,
+    M_GRV,
+    M_NBSP,
+    // other layer macros
     M_DBL0,
     M_FNLR,
 };
@@ -63,6 +88,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_UP,
         KC_DOWN, KC_RSFT,  KC_SPC
     ),
+/**
+ * Same as default but for use with Canadian Multilingual on OS side
+ */
+[LR_CSA] = KEYMAP(
+        // left hand
+        KC_DLR,     CM_DQOT,   CM_LGIL, CM_RGIL, KC_LPRN,       KC_RPRN, KC_DELT,
+        KC_TAB,     KC_B,      CM_ECUT, KC_P,    KC_O,          CM_EGRV, KC_BSPC,
+        KC_EQL,     KC_A,      KC_U,    KC_I,    KC_E,          KC_COMM,
+        M(M_CMSFT), CM_AGRV,   KC_Y,    KC_X,    KC_DOT,        KC_K,    KC_ENT,
+        KC_LCTL,    M(M_FNLR), KC_LGUI, KC_MPLY, ALT_T(KC_APP),
+
+                                              ALT_T(KC_ESC),  TG(LR_NUMR),
+                                                              KC_PGUP,
+                                            KC_SPC, KC_LSFT,  KC_PGDN,
+
+        // right hand
+        KC_DELT,   KC_AT,    KC_PLUS, KC_MINS, CM_SLSH, KC_ASTR,  KC_W,
+        KC_BSPC,   CM_DCRC,  KC_V,    KC_D,    KC_L,    KC_J,     KC_Z,
+                   KC_C,     KC_T,    KC_S,    KC_R,    KC_N,     KC_M,
+        KC_ENT,    CM_APOS,  KC_Q,    KC_G,    KC_H,    KC_F,     M(M_CMSFT),
+                             CM_ALGR, KC_PERC, KC_HOME, CM_CCED,  CTL_T(KC_END),
+
+        KC_LEFT, KC_RGHT,
+        KC_UP,
+        KC_DOWN, KC_RSFT,  KC_SPC
+    ),
+/* Shifted BÉPO over Canadian Multilingual
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   #    |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |   !  |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |   °    |      |      |      |      |   ;  |------|           |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |   :  |      |      |           |      |   ?  |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |   `  |      |      |       |
+ *   `----------------------------------'                                       `-----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[LR_CSA_SFT] = KEYMAP(
+        // left hand
+        KC_HASH,  M(M_1),   M(M_2),   M(M_3),  M(M_4),   M(M_5),   KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
+        M(M_DEGR),KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  M(M_SCLN),
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_COLN,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
+
+                                                      KC_TRNS,  KC_TRNS,
+                                                                KC_TRNS,
+                                          M(M_NBSP),  KC_TRNS,  KC_TRNS,
+
+        // right hand
+        KC_TRNS,  M(M_6),   M(M_7),   M(M_8),   M(M_9),   M(M_0),   KC_TRNS,
+        KC_TRNS,  KC_EXLM,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+                  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,  CM_QEST,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+                            KC_TRNS,  M(M_GRV), KC_TRNS,  KC_TRNS,  KC_TRNS,
+
+        KC_TRNS,  KC_TRNS,
+        KC_TRNS,
+        KC_TRNS,  KC_TRNS,  M(M_NBSP)
+    ),
 /* Numeric Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -110,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* fn layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |Insert|           |Insert|Eject |Power |Sleep | Wake |PrtScr|ScrollLk|
+ * |~CA-mult|      |      |      |      |      |Insert|           |Insert|Eject |Power |Sleep | Wake |PrtScr|ScrollLk|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |VolUp |           |      |      |      |      |      |      | Pause  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -130,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [LR_FN] = KEYMAP(
-       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
+       M(M_TGCM), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        RESET,     KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
        KC_TRNS,   KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
@@ -155,10 +250,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
 };
 
+void hold_shift(void) {
+    register_code(KC_LSHIFT);
+}
+
+void release_shift(void) {
+    unregister_code(KC_LSHIFT);
+}
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
     switch(id) {
+        case M_TGCM:
+            if (record->event.pressed) {
+                default_layer_xor(1 << LR_CSA);
+            }
+            break;
+        case M_CMSFT:
+            if (record->event.pressed) {
+                layer_on(LR_CSA_SFT);
+                hold_shift();
+            } else {
+                release_shift();
+                layer_off(LR_CSA_SFT);
+            }
+            break;
+        case M_1 ... M_0:
+        case M_DEGR:
+        case M_SCLN:
+        case M_GRV:
+        case M_NBSP:
+            // macros of the shift layer that require to release shift
+            if (record->event.pressed) {
+                release_shift();
+                switch (id) {
+                    case M_1 ... M_0:
+                        register_code(KC_1 + (id - M_1));
+                        break;
+                    case M_DEGR:
+                        return MACRO(DOWN(CM_ALTGR), D(SCLN), END);
+                    case M_SCLN:
+                        return MACRO(D(SCLN), END);
+                    case M_GRV:
+                        return MACRO(DOWN(CM_ALTGR), TYPE(CM_DCRC), UP(CM_ALTGR), T(SPACE), END);
+                    case M_NBSP:
+                        return MACRO(DOWN(CM_ALTGR), T(SPACE), UP(CM_ALTGR), END);
+                }
+            } else {
+                hold_shift();
+                switch (id) {
+                    case M_1 ... M_0:
+                        unregister_code(KC_1 + (id - M_1));
+                        break;
+                    case M_DEGR:
+                        return MACRO(UP(CM_ALTGR), D(LSFT), U(SCLN), END);
+                    case M_SCLN:
+                        return MACRO(D(LSFT), U(SCLN), END);
+                }
+            }
+            break;
         case M_DBL0:
             if (record->event.pressed) {
               return MACRO( I(25), T(P0), T(P0), END );
@@ -187,6 +338,10 @@ void * matrix_scan_user(void) {
     // led 1: numeric layer
     if (layer_state & (1 << LR_NUMR)) {
         ergodox_right_led_1_on();
+    }
+    // led 2: BÉPO over Canadian Multilingual
+    if (IS_CA_MULT_ENABLED()) {
+        ergodox_right_led_2_on();
     }
     // led 3: caps lock
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
