@@ -35,10 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Change this to how you wired your keyboard
 // COLS: Left to right, ROWS: Top to bottom
-#ifdef ATREUS_ASTAR
+#if defined(ATREUS_ASTAR)
   #define COLS (int []){ B7, D6, F7, F6, B6, D4, E6, B4, B5, C6, D7 }
   #define ROWS (int []){ D0, D1, D3, D2 }
-#else
+#elif defined(ATREUS_TEENSY2)
   #define COLS (int []){ F6, F5, F4, B7, B6, B5, B4, B3, B2, B1, B0}
   #define ROWS (int []){ D0, D1, D2, D3 }
 #endif

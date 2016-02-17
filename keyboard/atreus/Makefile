@@ -58,8 +58,13 @@ else
     SRC := keymaps/keymap_default.c $(SRC)
 endif
 
-ifdef ASTAR
+ifdef TEENSY2
+    OPT_DEFS += -DATREUS_TEENSY2
+    ATRUES_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
+else
     OPT_DEFS += -DATREUS_ASTAR
+    ATRUES_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
+                            avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 endif
 
 CONFIG_H = config.h
@@ -144,9 +149,4 @@ include $(TOP_DIR)/quantum/quantum.mk
 USB ?= /dev/cu.usbmodem1411
 
 upload: build
-ifdef ASTAR
-	while [ ! -r $(USB) ]; do sleep 1; done; \
-		avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-else
-	teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
-endif
+	$(ATRUES_UPLOAD_COMMAND)
