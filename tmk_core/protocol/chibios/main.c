@@ -101,6 +101,13 @@ int main(void) {
   while(USB_DRIVER.state != USB_ACTIVE)
     chThdSleepMilliseconds(50);
 
+  /* Do need to wait here!
+   * Otherwise the next print might start a transfer on console EP
+   * before the USB is completely ready, which sometimes causes
+   * HardFaults.
+   */
+  chThdSleepMilliseconds(50);
+
   print("USB configured.\n");
 
   /* init TMK modules */

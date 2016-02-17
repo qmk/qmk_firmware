@@ -33,9 +33,9 @@
  * ---------------------------------------------------------
  */
 
-uint8_t keyboard_idle = 0;
-uint8_t keyboard_protocol = 1;
-uint16_t keyboard_led_stats = 0;
+uint8_t keyboard_idle __attribute__((aligned(2))) = 0;
+uint8_t keyboard_protocol __attribute__((aligned(2))) = 1;
+uint16_t keyboard_led_stats __attribute__((aligned(2))) = 0;
 volatile uint16_t keyboard_idle_count = 0;
 static virtual_timer_t keyboard_idle_timer;
 static void keyboard_idle_timer_cb(void *arg);
@@ -1350,7 +1350,7 @@ int8_t sendchar(uint8_t c) {
     return 0;
   }
   osalSysUnlock();
-  /* Timeout after 5us if the queue is full.
+  /* Timeout after 100us if the queue is full.
    * Increase this timeout if too much stuff is getting
    * dropped (i.e. the buffer is getting full too fast
    * for USB/HIDRAW to dequeue). Another possibility
