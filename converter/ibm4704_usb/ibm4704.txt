@@ -152,12 +152,16 @@ Keyobard sends these bytes to host.
     FD  Command out of bound                    00d8h
         Key out of bound
     7E  Read/Parity error in receive from host  00bch
+    80-FB? scan code(make)
+    00-7B? scan code(break)
+    note: Alps model spits scan code 7B(FB) at least.
 
 
 Set Key Flag command(FC)
 ------------------------
 After 'Power on Reset' firmware enters this command mode and waits for data from host,
 so that you don't need to send 'FC' and it doesn't send any scancode until you send 'FF'.
+With Alps models you need to send 'FC' command to enter this mode.
 
 Data sent from host:
 
@@ -166,8 +170,8 @@ Data sent from host:
          |   `-----`--- scan code
          `------------- enable bit(0: enable repeat, 1: enable break)
 
-    00-79   Enable repeat
-    80-F9   Enable break(FA-FF are used as other commands, see above.)
+    00-7B?  Enable repeat
+    80-FB?  Enable break
     FE      Resend(011ah) no need to use
     FF      End(0114h) exits FC command mode.
 
@@ -178,5 +182,5 @@ Response from keyboard:
 Examples:
     To enable break code of all keys.
 
-    FC 80 81 ... F7 FF
+    FC 80 81 ... FB FF
 
