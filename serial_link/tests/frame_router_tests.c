@@ -174,7 +174,6 @@ Ensure(FrameRouter, first_link_sends_to_master) {
 }
 
 Ensure(FrameRouter, second_link_sends_to_master) {
-    printf("Second to master start\n");
     frame_buffer_t data;
     data.data = 0xAB7055BB;
     activate_router(2);
@@ -194,4 +193,39 @@ Ensure(FrameRouter, second_link_sends_to_master) {
     simulate_transport(1, 0);
     assert_that(router_buffers[0].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
     assert_that(router_buffers[0].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+}
+
+Ensure(FrameRouter, master_sends_to_master_does_nothing) {
+    frame_buffer_t data;
+    data.data = 0xAB7055BB;
+    activate_router(0);
+    router_send_frame(0, (uint8_t*)&data, 4);
+    assert_that(router_buffers[0].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+    assert_that(router_buffers[0].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+}
+
+Ensure(FrameRouter, link_sends_to_other_link_does_nothing) {
+    frame_buffer_t data;
+    data.data = 0xAB7055BB;
+    activate_router(1);
+    router_send_frame(2, (uint8_t*)&data, 4);
+    assert_that(router_buffers[1].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+    assert_that(router_buffers[1].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+}
+
+Ensure(FrameRouter, master_receives_on_uplink_does_nothing) {
+    frame_buffer_t data;
+    data.data = 0xAB7055BB;
+    activate_router(1);
+    router_send_frame(0, (uint8_t*)&data, 4);
+    assert_that(router_buffers[1].send_buffers[UP_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[1].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+
+    never_expect(transport_recv_frame);
+    activate_router(0);
+    receive_data(UP_LINK,
+        router_buffers[1].send_buffers[UP_LINK].sent_data,
+        router_buffers[1].send_buffers[UP_LINK].sent_data_size);
+    assert_that(router_buffers[0].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+    assert_that(router_buffers[0].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
 }

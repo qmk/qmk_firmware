@@ -33,7 +33,9 @@ void router_set_master(bool master) {
 
 void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size){
     if (is_master) {
-        transport_recv_frame(data[size-1], data, size - 1);
+        if (link == DOWN_LINK) {
+            transport_recv_frame(data[size-1], data, size - 1);
+        }
     }
     else {
         if (link == UP_LINK) {
@@ -52,11 +54,15 @@ void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size){
 
 void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
     if (destination == 0) {
-        data[size] = 1;
-        validator_send_frame(UP_LINK, data, size + 1);
+        if (!is_master) {
+            data[size] = 1;
+            validator_send_frame(UP_LINK, data, size + 1);
+        }
     }
     else {
-        data[size] = destination;
-        validator_send_frame(DOWN_LINK, data, size + 1);
+        if (is_master) {
+            data[size] = destination;
+            validator_send_frame(DOWN_LINK, data, size + 1);
+        }
     }
 }
