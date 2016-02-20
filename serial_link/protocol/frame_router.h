@@ -25,5 +25,6 @@ SOFTWARE.
 #define UP_LINK 0
 #define DOWN_LINK 1
 
+void router_set_master(bool master);
 void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size);
 void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size);
