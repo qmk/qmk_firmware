@@ -22,6 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void init_transport(void);
-void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
-uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size);
+#include <cgreen/cgreen.h>
+#include "protocol/transport.c"
+
+Describe(Transport);
+BeforeEach(Transport) {
+    init_transport();
+}
+AfterEach(Transport) {}
+
+Ensure(Transport, packet_number_is_sequential) {
+    assert_that(transport_send_frame(0, NULL, 0), is_equal_to(1));
+    assert_that(transport_send_frame(0, NULL, 0), is_equal_to(2));
+    // It doesn't matter if the destination changes
+    assert_that(transport_send_frame(1, NULL, 0), is_equal_to(3));
+}

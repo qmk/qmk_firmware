@@ -22,6 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void init_transport(void);
-void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
-uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size);
+#include "protocol/transport.h"
+
+static uint32_t current_send_frame;
+
+void init_transport(void) {
+    current_send_frame = 0;
+}
+
+void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
+
+}
+
+uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size) {
+    return ++current_send_frame;
+}
