@@ -24,10 +24,60 @@ SOFTWARE.
 
 #include "protocol/triple_buffered_object.h"
 
+#define GET_READ_INDEX() object->state & 3
+#define GET_WRITE1_INDEX() (object->state >> 2) & 3
+#define GET_WRITE2_INDEX() (object->state >> 4) & 3
+#define GET_FREE_INDEX() (object->state >> 6) & 3
+
+#define SET_READ_INDEX(i) object->state = ((object->state & ~3) | i)
+#define SET_WRITE1_INDEX(i) object->state = ((object->state & ~(3 << 2)) | (i << 2))
+#define SET_WRITE2_INDEX(i) object->state = ((object->state & ~(3 << 4)) | (i << 4))
+#define SET_FREE_INDEX(i) object->state = ((object->state & ~(3 << 6)) | (i << 6))
+
+void triple_buffer_init(triple_buffer_object_t* object) {
+    object->state = 0;
+    SET_WRITE1_INDEX(0);
+    SET_WRITE2_INDEX(0);
+    SET_READ_INDEX(1);
+    SET_FREE_INDEX(2);
+}
+
+static void triple_buffer_begin_read(uint16_t object_size, triple_buffer_object_t* object) {
+    uint8_t newest = GET_WRITE2_INDEX();
+    uint8_t free_index = GET_READ_INDEX();
+    SET_READ_INDEX(newest);
+    SET_FREE_INDEX(free_index);
+}
+
+static void triple_buffer_actual_read(uint16_t object_size, triple_buffer_object_t* object, void* dst) {
+    uint8_t read_index = GET_READ_INDEX();
+    memcpy(dst, object->buffer + object_size*read_index, object_size);
+}
+
+static void triple_buffer_end_read(uint16_t object_size, triple_buffer_object_t* object) {
+}
+
 void triple_buffer_write(uint16_t object_size, triple_buffer_object_t* object, void* src) {
-    memcpy(object->buffer, src, object_size);
+    uint8_t write1_index = GET_WRITE1_INDEX();
+    uint8_t write2_index = GET_WRITE2_INDEX();
+    uint8_t read_index = GET_READ_INDEX();
+    uint8_t free_index = GET_FREE_INDEX();
+
+    if (write2_index == read_index) {
+        // We are reading from the other write index
+        SET_WRITE1_INDEX(free_index);
+        memcpy(object->buffer + object_size * free_index, src, object_size);
+        SET_WRITE2_INDEX(free_index);
+    }
+    else {
+        SET_WRITE1_INDEX(write2_index);
+        memcpy(object->buffer + object_size * write2_index, src, object_size);
+        SET_WRITE2_INDEX(write2_index);
+    }
 }
 
 void triple_buffer_read(uint16_t object_size, triple_buffer_object_t* object, void* dst) {
-    memcpy(dst, object->buffer, object_size);
+    triple_buffer_begin_read(object_size, object);
+    triple_buffer_actual_read(object_size, object, dst);
+    triple_buffer_end_read(object_size, object);
 }
