@@ -46,13 +46,13 @@ router_buffer_t router_buffers[8];
 router_buffer_t* current_router_buffer;
 
 
-Describe(ByteStuffer);
-BeforeEach(ByteStuffer) {
+Describe(FrameRouter);
+BeforeEach(FrameRouter) {
     init_byte_stuffer();
     memset(router_buffers, 0, sizeof(router_buffers));
     current_router_buffer = 0;
 }
-AfterEach(ByteStuffer) {}
+AfterEach(FrameRouter) {}
 
 typedef struct {
     uint32_t data;
@@ -81,6 +81,9 @@ static void activate_router(uint8_t num) {
 static void simulate_transport(uint8_t from, uint8_t to) {
    activate_router(to);
    if (from > to) {
+       receive_data(DOWN_LINK,
+               router_buffers[from].send_buffers[UP_LINK].sent_data,
+               router_buffers[from].send_buffers[UP_LINK].sent_data_size);
    }
    else if(to > from) {
        receive_data(UP_LINK,
@@ -94,7 +97,7 @@ void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
 }
 
 
-Ensure(ByteStuffer, master_broadcast_is_received_by_everyone) {
+Ensure(FrameRouter, master_broadcast_is_received_by_everyone) {
     frame_buffer_t data;
     data.data = 0xAB7055BB;
     activate_router(0);
@@ -121,8 +124,7 @@ Ensure(ByteStuffer, master_broadcast_is_received_by_everyone) {
     assert_that(router_buffers[2].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
 }
 
-Ensure(ByteStuffer, master_send_is_received_by_targets) {
-    printf("Here\n");
+Ensure(FrameRouter, master_send_is_received_by_targets) {
     frame_buffer_t data;
     data.data = 0xAB7055BB;
     activate_router(0);
@@ -151,4 +153,22 @@ Ensure(ByteStuffer, master_send_is_received_by_targets) {
     simulate_transport(2, 3);
     assert_that(router_buffers[3].send_buffers[DOWN_LINK].sent_data_size, is_greater_than(0));
     assert_that(router_buffers[3].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+}
+
+Ensure(FrameRouter, first_sends_to_master) {
+    frame_buffer_t data;
+    data.data = 0xAB7055BB;
+    activate_router(1);
+    router_send_frame(0, (uint8_t*)&data, 4);
+    assert_that(router_buffers[1].send_buffers[UP_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[1].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+
+    expect(transport_recv_frame,
+        when(from, is_equal_to(1)),
+        when(size, is_equal_to(4)),
+        when(data, is_equal_to_contents_of(&data.data, 4))
+    );
+    simulate_transport(1, 0);
+    assert_that(router_buffers[0].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+    assert_that(router_buffers[0].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
 }
