@@ -77,4 +77,22 @@ Ensure(TripleBufferedObject, performs_another_write_in_the_middle_of_read) {
     triple_buffer_actual_read(4, (triple_buffer_object_t*)&test_object, &dst);
     triple_buffer_end_read(4, (triple_buffer_object_t*)&test_object);
     assert_that(dst, is_equal_to(1));
+    triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
+    assert_that(dst, is_equal_to(2));
+}
+
+Ensure(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
+    uint32_t src = 1;
+    uint32_t dst;
+    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
+    triple_buffer_begin_read(4, (triple_buffer_object_t*)&test_object);
+    src = 2;
+    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
+    src = 3;
+    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
+    triple_buffer_actual_read(4, (triple_buffer_object_t*)&test_object, &dst);
+    triple_buffer_end_read(4, (triple_buffer_object_t*)&test_object);
+    assert_that(dst, is_equal_to(1));
+    triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
+    assert_that(dst, is_equal_to(3));
 }
