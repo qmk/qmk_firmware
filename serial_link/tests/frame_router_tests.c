@@ -155,7 +155,7 @@ Ensure(FrameRouter, master_send_is_received_by_targets) {
     assert_that(router_buffers[3].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
 }
 
-Ensure(FrameRouter, first_sends_to_master) {
+Ensure(FrameRouter, first_link_sends_to_master) {
     frame_buffer_t data;
     data.data = 0xAB7055BB;
     activate_router(1);
@@ -165,6 +165,29 @@ Ensure(FrameRouter, first_sends_to_master) {
 
     expect(transport_recv_frame,
         when(from, is_equal_to(1)),
+        when(size, is_equal_to(4)),
+        when(data, is_equal_to_contents_of(&data.data, 4))
+    );
+    simulate_transport(1, 0);
+    assert_that(router_buffers[0].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+    assert_that(router_buffers[0].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+}
+
+Ensure(FrameRouter, second_link_sends_to_master) {
+    printf("Second to master start\n");
+    frame_buffer_t data;
+    data.data = 0xAB7055BB;
+    activate_router(2);
+    router_send_frame(0, (uint8_t*)&data, 4);
+    assert_that(router_buffers[2].send_buffers[UP_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[2].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+
+    simulate_transport(2, 1);
+    assert_that(router_buffers[1].send_buffers[UP_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[1].send_buffers[DOWN_LINK].sent_data_size, is_equal_to(0));
+
+    expect(transport_recv_frame,
+        when(from, is_equal_to(2)),
         when(size, is_equal_to(4)),
         when(data, is_equal_to_contents_of(&data.data, 4))
     );
