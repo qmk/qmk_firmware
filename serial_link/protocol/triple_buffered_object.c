@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include "protocol/triple_buffered_object.h"
+#include "system/system.h"
 
 #define GET_READ_INDEX() object->state & 3
 #define GET_WRITE_INDEX() (object->state >> 2) & 3
@@ -42,11 +43,21 @@ void triple_buffer_init(triple_buffer_object_t* object) {
     SET_DATA_AVAILABLE(0);
 }
 
-static void triple_buffer_begin_read(uint16_t object_size, triple_buffer_object_t* object) {
-    uint8_t shared_index = GET_SHARED_INDEX();
-    uint8_t read_index = GET_READ_INDEX();
-    SET_READ_INDEX(shared_index);
-    SET_SHARED_INDEX(read_index);
+static bool triple_buffer_begin_read(uint16_t object_size, triple_buffer_object_t* object) {
+    serial_link_lock();
+    if (GET_DATA_AVAILABLE()) {
+        uint8_t shared_index = GET_SHARED_INDEX();
+        uint8_t read_index = GET_READ_INDEX();
+        SET_READ_INDEX(shared_index);
+        SET_SHARED_INDEX(read_index);
+        SET_DATA_AVAILABLE(false);
+        serial_link_unlock();
+        return true;
+    }
+    else {
+        serial_link_unlock();
+        return false;
+    }
 }
 
 static void triple_buffer_actual_read(uint16_t object_size, triple_buffer_object_t* object, void* dst) {
@@ -61,13 +72,21 @@ void triple_buffer_write(uint16_t object_size, triple_buffer_object_t* object, v
 
     uint8_t write_index = GET_WRITE_INDEX();
     memcpy(object->buffer + object_size * write_index, src, object_size);
+    serial_link_lock();
     uint8_t shared_index = GET_SHARED_INDEX();
     SET_SHARED_INDEX(write_index);
     SET_WRITE_INDEX(shared_index);
+    SET_DATA_AVAILABLE(true);
+    serial_link_unlock();
 }
 
-void triple_buffer_read(uint16_t object_size, triple_buffer_object_t* object, void* dst) {
-    triple_buffer_begin_read(object_size, object);
-    triple_buffer_actual_read(object_size, object, dst);
-    triple_buffer_end_read(object_size, object);
+bool triple_buffer_read(uint16_t object_size, triple_buffer_object_t* object, void* dst) {
+    if (triple_buffer_begin_read(object_size, object)) {
+        triple_buffer_actual_read(object_size, object, dst);
+        triple_buffer_end_read(object_size, object);
+        return true;
+    }
+    else {
+        return false;
+    }
 }

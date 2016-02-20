@@ -22,17 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SERIAL_LINK_TRIPLE_BUFFERED_OBJECT_H
-#define SERIAL_LINK_TRIPLE_BUFFERED_OBJECT_H
+#ifndef SERIAL_LINK_SYSTEM_H
+#define SERIAL_LINK_SYSTEM_H
 
-typedef struct {
-    uint8_t state;
-    uint8_t buffer[];
-}triple_buffer_object_t;
+void serial_link_lock() {
 
-void triple_buffer_init(triple_buffer_object_t* object);
-void triple_buffer_write(uint16_t object_size, triple_buffer_object_t* object, void* src);
-bool triple_buffer_read(uint16_t object_size, triple_buffer_object_t* object, void* dst);
+}
 
+void serial_link_unlock() {
+
+}
 
 #endif

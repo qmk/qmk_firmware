@@ -47,6 +47,12 @@ Ensure(TripleBufferedObject, writes_and_reads_object) {
     assert_that(dst, is_equal_to(src));
 }
 
+Ensure(TripleBufferedObject, does_not_read_empty) {
+    uint32_t dst;
+    bool res = triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
+    assert_that(res, is_equal_to(false));
+}
+
 Ensure(TripleBufferedObject, writes_and_reads_object_decomposed) {
     uint32_t src = 0x3456ABCC;
     uint32_t dst;
@@ -79,6 +85,7 @@ Ensure(TripleBufferedObject, performs_another_write_in_the_middle_of_read) {
     assert_that(dst, is_equal_to(1));
     triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
     assert_that(dst, is_equal_to(2));
+    assert_that(triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst), is_equal_to(false));
 }
 
 Ensure(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
@@ -95,4 +102,5 @@ Ensure(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
     assert_that(dst, is_equal_to(1));
     triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
     assert_that(dst, is_equal_to(3));
+    assert_that(triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst), is_equal_to(false));
 }
