@@ -56,7 +56,7 @@ void init_byte_stuffer(void) {
     }
 }
 
-void recv_byte(uint8_t link, uint8_t data) {
+void byte_stuffer_recv_byte(uint8_t link, uint8_t data) {
     byte_stuffer_state_t* state = &states[link];
     // Start of a new frame
     if (state->next_zero == 0) {
@@ -112,7 +112,7 @@ static void send_block(uint8_t link, uint8_t* start, uint8_t* end, uint8_t num_n
     }
 }
 
-void send_frame(uint8_t link, uint8_t* data, uint16_t size) {
+void byte_stuffer_send_frame(uint8_t link, uint8_t* data, uint16_t size) {
     const uint8_t zero = 0;
     if (size > 0) {
         uint16_t num_non_zero = 1;

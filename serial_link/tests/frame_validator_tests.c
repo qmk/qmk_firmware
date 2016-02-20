@@ -30,7 +30,7 @@ void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size) {
     mock(data, size);
 }
 
-void send_frame(uint8_t link, uint8_t* data, uint16_t size) {
+void byte_stuffer_send_frame(uint8_t link, uint8_t* data, uint16_t size) {
     mock(data, size);
 }
 
@@ -83,7 +83,7 @@ Ensure(FrameValidator, validates_five_byte_frame_with_correct_crc) {
 Ensure(FrameValidator, sends_one_byte_with_correct_crc) {
     uint8_t original[] = {0x44, 0, 0, 0, 0};
     uint8_t expected[] = {0x44, 0x04, 0x6A, 0xB3, 0xA3};
-    expect(send_frame,
+    expect(byte_stuffer_send_frame,
         when(size, is_equal_to(sizeof(expected))),
         when(data, is_equal_to_contents_of(expected, sizeof(expected)))
     );
@@ -93,7 +93,7 @@ Ensure(FrameValidator, sends_one_byte_with_correct_crc) {
 Ensure(FrameValidator, sends_five_bytes_with_correct_crc) {
     uint8_t original[] = {1, 2, 3, 4, 5, 0, 0, 0, 0};
     uint8_t expected[] = {1, 2, 3, 4, 5, 0xF4, 0x99, 0x0B, 0x47};
-    expect(send_frame,
+    expect(byte_stuffer_send_frame,
         when(size, is_equal_to(sizeof(expected))),
         when(data, is_equal_to_contents_of(expected, sizeof(expected)))
     );

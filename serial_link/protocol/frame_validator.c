@@ -116,5 +116,5 @@ void validator_recv_frame(uint8_t link, uint8_t* data, uint16_t size) {
 void validator_send_frame(uint8_t link, uint8_t* data, uint16_t size) {
     uint32_t crc = crc32_byte(data, size);
     memcpy(data + size, &crc, 4);
-    send_frame(link, data, size + 4);
+    byte_stuffer_send_frame(link, data, size + 4);
 }

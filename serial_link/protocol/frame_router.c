@@ -22,6 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void init_byte_stuffer(void);
-void byte_stuffer_recv_byte(uint8_t link, uint8_t data);
-void byte_stuffer_send_frame(uint8_t link, uint8_t* data, uint16_t size);
+#include "protocol/frame_router.h"
+
+void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size){
+    validator_send_frame(DOWN_LINK, data, size);
+}
+
+void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
+    validator_send_frame(DOWN_LINK, data, size);
+}
