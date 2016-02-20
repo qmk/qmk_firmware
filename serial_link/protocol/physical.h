@@ -22,4 +22,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void send_data(const uint8_t* data, uint16_t size);
+void send_data(uint8_t link, const uint8_t* data, uint16_t size);

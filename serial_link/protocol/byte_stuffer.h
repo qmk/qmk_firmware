@@ -23,5 +23,5 @@ SOFTWARE.
 */
 
 void init_byte_stuffer(void);
-void recv_byte(uint8_t data);
-void send_frame(uint8_t* data, uint16_t size);
+void recv_byte(uint8_t link, uint8_t data);
+void send_frame(uint8_t link, uint8_t* data, uint16_t size);
