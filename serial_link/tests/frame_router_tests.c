@@ -120,3 +120,35 @@ Ensure(ByteStuffer, master_broadcast_is_received_by_everyone) {
     assert_that(router_buffers[2].send_buffers[DOWN_LINK].sent_data_size, is_greater_than(0));
     assert_that(router_buffers[2].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
 }
+
+Ensure(ByteStuffer, master_send_is_received_by_targets) {
+    printf("Here\n");
+    frame_buffer_t data;
+    data.data = 0xAB7055BB;
+    activate_router(0);
+    router_send_frame((1 << 1) | (1 << 2), (uint8_t*)&data, 4);
+    assert_that(router_buffers[0].send_buffers[DOWN_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[0].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+
+    simulate_transport(0, 1);
+    assert_that(router_buffers[1].send_buffers[DOWN_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[1].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+
+    expect(transport_recv_frame,
+        when(from, is_equal_to(0)),
+        when(size, is_equal_to(4)),
+        when(data, is_equal_to_contents_of(&data.data, 4))
+    );
+    simulate_transport(1, 2);
+    assert_that(router_buffers[2].send_buffers[DOWN_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[2].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+
+    expect(transport_recv_frame,
+        when(from, is_equal_to(0)),
+        when(size, is_equal_to(4)),
+        when(data, is_equal_to_contents_of(&data.data, 4))
+    );
+    simulate_transport(2, 3);
+    assert_that(router_buffers[3].send_buffers[DOWN_LINK].sent_data_size, is_greater_than(0));
+    assert_that(router_buffers[3].send_buffers[UP_LINK].sent_data_size, is_equal_to(0));
+}

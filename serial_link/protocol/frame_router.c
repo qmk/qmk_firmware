@@ -32,10 +32,14 @@ void router_set_master(bool master) {
 }
 
 void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size){
-    transport_recv_frame(0, data, size);
+    if (data[size-1] & 1) {
+        transport_recv_frame(0, data, size - 1);
+    }
+    data[size-1] >>= 1;
     validator_send_frame(DOWN_LINK, data, size);
 }
 
 void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
-    validator_send_frame(DOWN_LINK, data, size);
+    data[size] = destination;
+    validator_send_frame(DOWN_LINK, data, size + 1);
 }
