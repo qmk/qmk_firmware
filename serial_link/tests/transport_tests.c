@@ -24,8 +24,8 @@ SOFTWARE.
 
 #include <cgreen/cgreen.h>
 #include <cgreen/mocks.h>
-#include "protocol/transport.c"
-#include "protocol/triple_buffered_object.c"
+#include "serial_link/protocol/transport.c"
+#include "serial_link/protocol/triple_buffered_object.c"
 
 void signal_data_written(void) {
     mock();

@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 #include <cgreen/cgreen.h>
-#include "protocol/triple_buffered_object.c"
+#include "serial_link/protocol/triple_buffered_object.c"
 
 typedef struct {
     uint8_t state;

@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include <cgreen/cgreen.h>
 #include <cgreen/mocks.h>
-#include "protocol/frame_validator.c"
+#include "serial_link/protocol/frame_validator.c"
 
 void route_incoming_frame(uint8_t link, uint8_t* data, uint16_t size) {
     mock(data, size);

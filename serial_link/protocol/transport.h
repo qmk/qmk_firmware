@@ -25,8 +25,8 @@ SOFTWARE.
 #ifndef SERIAL_LINK_TRANSPORT_H
 #define SERIAL_LINK_TRANSPORT_H
 
-#include "protocol/triple_buffered_object.h"
-#include "system/system.h"
+#include "serial_link/protocol/triple_buffered_object.h"
+#include "serial_link/system/system.h"
 
 #define NUM_SLAVES 8
 #define LOCAL_OBJECT_EXTRA 16
@@ -146,7 +146,6 @@ typedef struct { \
 
 void init_transport(remote_object_t** remote_objects, uint32_t num_remote_objects);
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
-uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size);
 void update_transport(void);
 
 #endif

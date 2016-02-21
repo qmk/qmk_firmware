@@ -22,9 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "protocol/frame_validator.h"
-#include "protocol/frame_router.h"
-#include "protocol/byte_stuffer.h"
+#include "serial_link/protocol/frame_validator.h"
+#include "serial_link/protocol/frame_router.h"
+#include "serial_link/protocol/byte_stuffer.h"
+#include <string.h>
 
 const uint32_t poly8_lookup[256] =
 {

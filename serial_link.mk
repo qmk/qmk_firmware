@@ -21,3 +21,4 @@
 # SOFTWARE.
 
 INC += $(SERIAL_DIR)
+SRC += $(wildcard $(SERIAL_DIR)/serial_link/protocol/*.c)

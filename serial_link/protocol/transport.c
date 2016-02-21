@@ -22,9 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "protocol/transport.h"
-#include "protocol/frame_router.h"
-#include "protocol/triple_buffered_object.h"
+#include "serial_link/protocol/transport.h"
+#include "serial_link/protocol/frame_router.h"
+#include "serial_link/protocol/triple_buffered_object.h"
+#include <string.h>
 
 static remote_object_t** remote_objects;
 static uint32_t num_remote_objects;
@@ -32,7 +33,7 @@ static uint32_t num_remote_objects;
 void init_transport(remote_object_t** _remote_objects, uint32_t _num_remote_objects) {
     remote_objects = _remote_objects;
     num_remote_objects = _num_remote_objects;
-    int i;
+    unsigned int i;
     for(i=0;i<num_remote_objects;i++) {
         remote_object_t* obj = remote_objects[i];
         if (obj->object_type == MASTER_TO_ALL_SLAVES) {
@@ -44,7 +45,7 @@ void init_transport(remote_object_t** _remote_objects, uint32_t _num_remote_obje
         }
         else if(obj->object_type == MASTER_TO_SINGLE_SLAVE) {
             uint8_t* start = obj->buffer;
-            int j;
+            unsigned int j;
             for (j=0;j<NUM_SLAVES;j++) {
                 triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
                 triple_buffer_init(tb);
@@ -58,7 +59,7 @@ void init_transport(remote_object_t** _remote_objects, uint32_t _num_remote_obje
             triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
             triple_buffer_init(tb);
             start += LOCAL_OBJECT_SIZE(obj->object_size);
-            int j;
+            unsigned int j;
             for (j=0;j<NUM_SLAVES;j++) {
                 tb = (triple_buffer_object_t*)start;
                 triple_buffer_init(tb);
@@ -88,11 +89,8 @@ void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
     triple_buffer_end_write_internal(tb);
 }
 
-uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size) {
-}
-
 void update_transport(void) {
-    int i;
+    unsigned int i;
     for(i=0;i<num_remote_objects;i++) {
         remote_object_t* obj = remote_objects[i];
         if (obj->object_type == MASTER_TO_ALL_SLAVES || obj->object_type == SLAVE_TO_MASTER) {
@@ -106,7 +104,7 @@ void update_transport(void) {
         }
         else {
             uint8_t* start = obj->buffer;
-            int j;
+            unsigned int j;
             for (j=0;j<NUM_SLAVES;j++) {
                 triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
                 uint8_t* ptr = (uint8_t*)triple_buffer_read_internal(obj->object_size + LOCAL_OBJECT_EXTRA, tb);

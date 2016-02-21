@@ -25,6 +25,8 @@ SOFTWARE.
 #ifndef SERIAL_LINK_TRIPLE_BUFFERED_OBJECT_H
 #define SERIAL_LINK_TRIPLE_BUFFERED_OBJECT_H
 
+#include <stdint.h>
+
 typedef struct {
     uint8_t state;
     uint8_t buffer[] __attribute__((aligned(4)));

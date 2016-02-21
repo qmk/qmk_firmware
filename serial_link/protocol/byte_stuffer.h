@@ -22,6 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifndef SERIAL_LINK_BYTE_STUFFER_H
+#define SERIAL_LINK_BYTE_STUFFER_H
+
+#include <stdint.h>
+
 void init_byte_stuffer(void);
 void byte_stuffer_recv_byte(uint8_t link, uint8_t data);
 void byte_stuffer_send_frame(uint8_t link, uint8_t* data, uint16_t size);
+
+#endif

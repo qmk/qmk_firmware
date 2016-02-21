@@ -22,10 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "protocol/byte_stuffer.h"
-#include "protocol/frame_validator.h"
-#include "protocol/physical.h"
-#include <stdio.h>
+#include "serial_link/protocol/byte_stuffer.h"
+#include "serial_link/protocol/frame_validator.h"
+#include "serial_link/protocol/physical.h"
+#include <stdbool.h>
 
 // This implements the "Consistent overhead byte stuffing protocol"
 // https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing

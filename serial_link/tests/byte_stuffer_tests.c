@@ -24,10 +24,10 @@ SOFTWARE.
 
 #include <cgreen/cgreen.h>
 #include <cgreen/mocks.h>
-#include "protocol/byte_stuffer.h"
-#include "protocol/byte_stuffer.c"
-#include "protocol/frame_validator.h"
-#include "protocol/physical.h"
+#include "serial_link/protocol/byte_stuffer.h"
+#include "serial_link/protocol/byte_stuffer.c"
+#include "serial_link/protocol/frame_validator.h"
+#include "serial_link/protocol/physical.h"
 
 static uint8_t sent_data[MAX_FRAME_SIZE*2];
 static uint16_t sent_data_size;

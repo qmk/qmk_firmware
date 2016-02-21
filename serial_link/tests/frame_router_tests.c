@@ -24,10 +24,10 @@ SOFTWARE.
 
 #include <cgreen/cgreen.h>
 #include <cgreen/mocks.h>
-#include "protocol/byte_stuffer.c"
-#include "protocol/frame_validator.c"
-#include "protocol/frame_router.c"
-#include "protocol/transport.h"
+#include "serial_link/protocol/byte_stuffer.c"
+#include "serial_link/protocol/frame_validator.c"
+#include "serial_link/protocol/frame_router.c"
+#include "serial_link/protocol/transport.h"
 
 static uint8_t received_data[256];
 static uint16_t received_data_size;

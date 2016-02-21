@@ -22,7 +22,7 @@
 
 CC = gcc
 CFLAGS	= 
-INCLUDES = -I. -I../
+INCLUDES = -I. -I../../
 LDFLAGS = -L$(BUILDDIR)/cgreen/build-c/src -shared
 LDLIBS = -lcgreen
 UNITOBJ = $(BUILDDIR)/serialtest/unitobj

@@ -25,12 +25,18 @@ SOFTWARE.
 #ifndef SERIAL_LINK_SYSTEM_H
 #define SERIAL_LINK_SYSTEM_H
 
-void serial_link_lock() {
+inline void serial_link_lock(void) {
 }
 
-void serial_link_unlock() {
+inline void serial_link_unlock(void) {
 }
 
-void signal_data_written(void);
+void singal_data_written(void);
+
+#if defined(PROTOCOL_CHIBIOS)
+
+inline void signal_data_written(void) {
+}
+#endif
 
 #endif

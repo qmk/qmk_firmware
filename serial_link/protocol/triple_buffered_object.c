@@ -22,8 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "protocol/triple_buffered_object.h"
-#include "system/system.h"
+#include "serial_link/protocol/triple_buffered_object.h"
+#include "serial_link/system/system.h"
+#include <stdbool.h>
+#include <stddef.h>
 
 #define GET_READ_INDEX() object->state & 3
 #define GET_WRITE_INDEX() (object->state >> 2) & 3

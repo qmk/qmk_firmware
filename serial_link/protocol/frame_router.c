@@ -22,8 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "protocol/frame_router.h"
-#include "protocol/transport.h"
+#include "serial_link/protocol/frame_router.h"
+#include "serial_link/protocol/transport.h"
+#include "serial_link/protocol/frame_validator.h"
 
 static bool is_master;
 
