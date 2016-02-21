@@ -108,3 +108,18 @@ Ensure(Transport, writes_from_slave_to_master) {
     assert_that(obj2, is_not_equal_to(NULL));
     assert_that(obj2->test, is_equal_to(7));
 }
+
+Ensure(Transport, writes_from_master_to_single_slave) {
+    update_transport();
+    test_object1_t* obj = begin_write_master_to_single_slave(3);
+    obj->test = 7;
+    expect(signal_data_written);
+    end_write_master_to_single_slave(3);
+    expect(router_send_frame,
+            when(destination, is_equal_to(4)));
+    update_transport();
+    transport_recv_frame(0, sent_data, sent_data_size);
+    test_object1_t* obj2 = read_master_to_single_slave();
+    assert_that(obj2, is_not_equal_to(NULL));
+    assert_that(obj2->test, is_equal_to(7));
+}

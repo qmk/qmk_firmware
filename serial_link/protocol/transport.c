@@ -79,6 +79,9 @@ void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
         start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);
         start += (from - 1) * REMOTE_OBJECT_SIZE(obj->object_size);
     }
+    else {
+        start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);
+    }
     triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
     void* ptr = triple_buffer_begin_write_internal(obj->object_size, tb);
     memcpy(ptr, data, size -1);
@@ -99,6 +102,20 @@ void update_transport(void) {
                 ptr[obj->object_size] = i;
                 uint8_t dest = obj->object_type == MASTER_TO_ALL_SLAVES ? 0xFF : 0;
                 router_send_frame(dest, ptr, obj->object_size + 1);
+            }
+        }
+        else {
+            uint8_t* start = obj->buffer;
+            int j;
+            for (j=0;j<NUM_SLAVES;j++) {
+                triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
+                uint8_t* ptr = (uint8_t*)triple_buffer_read_internal(obj->object_size + LOCAL_OBJECT_EXTRA, tb);
+                if (ptr) {
+                    ptr[obj->object_size] = i;
+                    uint8_t dest = j + 1;
+                    router_send_frame(dest, ptr, obj->object_size + 1);
+                }
+                start += LOCAL_OBJECT_SIZE(obj->object_size);
             }
         }
     }

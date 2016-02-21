@@ -94,9 +94,25 @@ typedef struct { \
         } \
     }; \
     type* begin_write_##name(uint8_t slave) { \
+        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
+        uint8_t* start = obj->buffer;\
+        start += slave * LOCAL_OBJECT_SIZE(obj->object_size); \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
+        return (type*)triple_buffer_begin_write_internal(sizeof(type) + LOCAL_OBJECT_EXTRA, tb); \
     }\
     void end_write_##name(uint8_t slave) { \
+        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
+        uint8_t* start = obj->buffer;\
+        start += slave * LOCAL_OBJECT_SIZE(obj->object_size); \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
+        triple_buffer_end_write_internal(tb); \
         signal_data_written(); \
+    }\
+    type* read_##name() { \
+        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
+        uint8_t* start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);\
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
+        return triple_buffer_read_internal(obj->object_size, tb); \
     }
 
 #define SLAVE_TO_MASTER_OBJECT(name, type) \
