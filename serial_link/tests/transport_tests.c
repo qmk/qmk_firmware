@@ -34,32 +34,21 @@ typedef struct {
     uint32_t test2;
 } test_object2_t;
 
-MASTER_REMOTE_OBJECT(0, test_object1_t);
-SLAVE_REMOTE_OBJECT(1, test_object1_t);
-MASTER_REMOTE_OBJECT(2, test_object2_t);
-SLAVE_REMOTE_OBJECT(3, test_object2_t);
+MASTER_TO_ALL_SLAVES_OBJECT(master_to_slave, test_object1_t);
+MASTER_TO_SINGLE_SLAVE_OBJECT(master_to_single_slave, test_object1_t);
+SLAVE_TO_MASTER_OBJECT(slave_to_master, test_object1_t);
 
-// We want
-// master -> slave = 1 local(target all), 1 remote object
-// slave -> master = 1 local(target 0), multiple remote objects
-// master -> single slave (multiple local, target id), 1 remote object
-
-remote_object_t* remote_objects[] = {
-    REMOTE_OBJECT(0),
-    REMOTE_OBJECT(1),
-    REMOTE_OBJECT(2),
-    REMOTE_OBJECT(3),
+remote_object_t* test_remote_objects[] = {
+    REMOTE_OBJECT(master_to_slave),
+    REMOTE_OBJECT(master_to_single_slave),
+    REMOTE_OBJECT(slave_to_master),
 };
 
 Describe(Transport);
 BeforeEach(Transport) {
-    init_transport();
+    init_transport(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t));
 }
 AfterEach(Transport) {}
 
-Ensure(Transport, packet_number_is_sequential) {
-    assert_that(transport_send_frame(0, NULL, 0), is_equal_to(1));
-    assert_that(transport_send_frame(0, NULL, 0), is_equal_to(2));
-    // It doesn't matter if the destination changes
-    assert_that(transport_send_frame(1, NULL, 0), is_equal_to(3));
+Ensure(Transport, write_to_local_signals_an_event) {
 }

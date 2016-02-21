@@ -28,63 +28,66 @@ SOFTWARE.
 #include "protocol/triple_buffered_object.h"
 
 #define NUM_SLAVES 8
+#define LOCAL_OBJECT_EXTRA 16
+
+// master -> slave = 1 local(target all), 1 remote object
+// slave -> master = 1 local(target 0), multiple remote objects
+// master -> single slave (multiple local, target id), 1 remote object
+typedef enum {
+    MASTER_TO_ALL_SLAVES,
+    MASTER_TO_SINGLE_SLAVE,
+    SLAVE_TO_MASTER,
+} remote_object_type;
 
 typedef struct {
-    uint16_t element_size;
-    uint16_t buffer_size;
-    uint8_t is_master;
+    remote_object_type object_type;
+    uint16_t object_size;
     uint8_t buffer[] __attribute__((aligned(4)));
 } remote_object_t;
 
-typedef struct {
-    uint16_t element_size;
-    uint8_t destination;
-    uint8_t buffer[] __attribute__((aligned(4)));
-} local_object_t;
+#define REMOTE_OBJECT_SIZE(objectsize) \
+    (sizeof(triple_buffer_object_t) + objectsize * 3)
+#define LOCAL_OBJECT_SIZE(objectsize) \
+    (sizeof(triple_buffer_object_t) + (objectsize + LOCAL_OBJECT_EXTRA) * 3)
 
-#define REMOTE_OBJECT_BUFFER(id, type) \
-typedef struct { \
-    triple_buffer_object_t object; \
-    type buffer[3]; \
-} remote_object_buffer_##id##_t;
-
-#define MASTER_REMOTE_OBJECT(id, type) \
-REMOTE_OBJECT_BUFFER(id, type) \
+#define REMOTE_OBJECT_HELPER(name, type, num_local, num_remote) \
 typedef struct { \
     remote_object_t object; \
-    remote_object_buffer_##id##_t buffer; \
-} master_remote_object_##id##_t; \
-master_remote_object_##id##_t remote_object_##id = { \
-     .object = { \
-        .element_size = sizeof(type), \
-        .buffer_size = sizeof(remote_object_buffer_##id##_t), \
-        .is_master = true \
-    }};
+    uint8_t buffer[ \
+        num_remote * REMOTE_OBJECT_SIZE(sizeof(type)) + \
+        num_local * LOCAL_OBJECT_SIZE(sizeof(type))]; \
+} remote_object_##name##_t;
 
-#define SLAVE_REMOTE_OBJECT(id, type) \
-REMOTE_OBJECT_BUFFER(id, type) \
-typedef struct { \
-    remote_object_t object; \
-    remote_object_buffer_##id##_t buffer[NUM_SLAVES];\
-} slave_remote_object_##id##_t; \
-slave_remote_object_##id##_t remote_object_##id = { \
-     .object = { \
-        .element_size = sizeof(type), \
-        .buffer_size = sizeof(remote_object_buffer_##id##_t), \
-        .is_master = true \
-    }};
+#define MASTER_TO_ALL_SLAVES_OBJECT(name, type) \
+    REMOTE_OBJECT_HELPER(name, type, 1, 1) \
+    remote_object_##name##_t remote_object_##name = { \
+        .object = { \
+            .object_type = MASTER_TO_ALL_SLAVES, \
+            .object_size = sizeof(type), \
+        } \
+    };
 
-#define LOCAL_OBJECT(id, type) \
-typedef struct { \
-    uint32_t element_size; \
-    uint8_t buffer[NUM_SLAVES][sizeof(type) + 16][3]; \
-} remote_object_##id##_t; \
-remote_object_##id##_t remote_object_##id = {.element_size = sizeof(type) + 16};
+#define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type) \
+    REMOTE_OBJECT_HELPER(name, type, NUM_SLAVES, 1) \
+    remote_object_##name##_t remote_object_##name = { \
+        .object = { \
+            .object_type = MASTER_TO_SINGLE_SLAVE, \
+            .object_size = sizeof(type), \
+        } \
+    };
 
-#define REMOTE_OBJECT(id) (remote_object_t*)&remote_object_##id
+#define SLAVE_TO_MASTER_OBJECT(name, type) \
+    REMOTE_OBJECT_HELPER(name, type, 1, NUM_SLAVES) \
+    remote_object_##name##_t remote_object_##name = { \
+        .object = { \
+            .object_type = SLAVE_TO_MASTER, \
+            .object_size = sizeof(type), \
+        } \
+    };
 
+#define REMOTE_OBJECT(name) (remote_object_t*)&remote_object_##name
 
-void init_transport(void);
+void init_transport(remote_object_t* remote_objects, uint32_t num_remote_objects);
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
 uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size);
 

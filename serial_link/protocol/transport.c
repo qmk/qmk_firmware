@@ -24,10 +24,12 @@ SOFTWARE.
 
 #include "protocol/transport.h"
 
-static uint32_t current_send_frame;
+static remote_object_t* remote_objects;
+static uint32_t num_remote_objects;
 
-void init_transport(void) {
-    current_send_frame = 0;
+void init_transport(remote_object_t* _remote_objects, uint32_t _num_remote_objects) {
+    remote_objects = _remote_objects;
+    num_remote_objects = _num_remote_objects;
 }
 
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
@@ -35,5 +37,4 @@ void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
 }
 
 uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size) {
-    return ++current_send_frame;
 }
