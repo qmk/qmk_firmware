@@ -25,9 +25,19 @@ SOFTWARE.
 #include <cgreen/cgreen.h>
 #include <cgreen/mocks.h>
 #include "protocol/transport.c"
+#include "protocol/triple_buffered_object.c"
 
 void signal_data_written(void) {
     mock();
+}
+
+static uint8_t sent_data[2048];
+static uint16_t sent_data_size;
+
+void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) {
+    mock(destination);
+    memcpy(sent_data + sent_data_size, data, size);
+    sent_data_size += size;
 }
 
 typedef struct {
@@ -51,7 +61,8 @@ remote_object_t* test_remote_objects[] = {
 
 Describe(Transport);
 BeforeEach(Transport) {
-    init_transport(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t));
+    init_transport(test_remote_objects, sizeof(test_remote_objects) / sizeof(remote_object_t*));
+    sent_data_size = 0;
 }
 AfterEach(Transport) {}
 
@@ -65,4 +76,19 @@ Ensure(Transport, write_to_local_signals_an_event) {
     begin_write_master_to_single_slave(1);
     expect(signal_data_written);
     end_write_master_to_single_slave(1);
+}
+
+Ensure(Transport, writes_from_master_to_all_slaves) {
+    update_transport();
+    test_object1_t* obj = begin_write_master_to_slave();
+    obj->test = 5;
+    expect(signal_data_written);
+    end_write_master_to_slave();
+    expect(router_send_frame,
+            when(destination, is_equal_to(0xFF)));
+    update_transport();
+    transport_recv_frame(0, sent_data, sent_data_size);
+    test_object1_t* obj2 = read_master_to_slave();
+    assert_that(obj2, is_not_equal_to(NULL));
+    assert_that(obj2->test, is_equal_to(5));
 }

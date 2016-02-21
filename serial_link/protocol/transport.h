@@ -68,9 +68,21 @@ typedef struct { \
         } \
     }; \
     type* begin_write_##name(void) { \
+        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer; \
+        return (type*)triple_buffer_begin_write_internal(sizeof(type) + LOCAL_OBJECT_EXTRA, tb); \
     }\
     void end_write_##name(void) { \
+        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer; \
+        triple_buffer_end_write_internal(tb); \
         signal_data_written(); \
+    }\
+    type* read_##name(void) { \
+        remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
+        uint8_t* start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);\
+        triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
+        return triple_buffer_read_internal(obj->object_size, tb); \
     }
 
 #define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type) \
@@ -103,11 +115,9 @@ typedef struct { \
 
 #define REMOTE_OBJECT(name) (remote_object_t*)&remote_object_##name
 
-void init_transport(remote_object_t* remote_objects, uint32_t num_remote_objects);
+void init_transport(remote_object_t** remote_objects, uint32_t num_remote_objects);
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
 uint32_t transport_send_frame(uint8_t to, uint8_t* data, uint16_t size);
-
-void transport_register_master_remote_object(uint8_t id, void* ptr, uint16_t size);
-void transport_register_slave_remote_object(uint8_t id, void* ptr, uint16_t size);
+void update_transport(void);
 
 #endif
