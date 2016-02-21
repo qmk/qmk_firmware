@@ -23,7 +23,12 @@ SOFTWARE.
 */
 
 #include <cgreen/cgreen.h>
+#include <cgreen/mocks.h>
 #include "protocol/transport.c"
+
+void signal_data_written(void) {
+    mock();
+}
 
 typedef struct {
     uint32_t test;
@@ -51,4 +56,13 @@ BeforeEach(Transport) {
 AfterEach(Transport) {}
 
 Ensure(Transport, write_to_local_signals_an_event) {
+    begin_write_master_to_slave();
+    expect(signal_data_written);
+    end_write_master_to_slave();
+    begin_write_slave_to_master();
+    expect(signal_data_written);
+    end_write_slave_to_master();
+    begin_write_master_to_single_slave(1);
+    expect(signal_data_written);
+    end_write_master_to_single_slave(1);
 }

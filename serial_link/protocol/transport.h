@@ -26,6 +26,7 @@ SOFTWARE.
 #define SERIAL_LINK_TRANSPORT_H
 
 #include "protocol/triple_buffered_object.h"
+#include "system/system.h"
 
 #define NUM_SLAVES 8
 #define LOCAL_OBJECT_EXTRA 16
@@ -65,7 +66,12 @@ typedef struct { \
             .object_type = MASTER_TO_ALL_SLAVES, \
             .object_size = sizeof(type), \
         } \
-    };
+    }; \
+    type* begin_write_##name(void) { \
+    }\
+    void end_write_##name(void) { \
+        signal_data_written(); \
+    }
 
 #define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type) \
     REMOTE_OBJECT_HELPER(name, type, NUM_SLAVES, 1) \
@@ -74,7 +80,12 @@ typedef struct { \
             .object_type = MASTER_TO_SINGLE_SLAVE, \
             .object_size = sizeof(type), \
         } \
-    };
+    }; \
+    type* begin_write_##name(uint8_t slave) { \
+    }\
+    void end_write_##name(uint8_t slave) { \
+        signal_data_written(); \
+    }
 
 #define SLAVE_TO_MASTER_OBJECT(name, type) \
     REMOTE_OBJECT_HELPER(name, type, 1, NUM_SLAVES) \
@@ -83,7 +94,12 @@ typedef struct { \
             .object_type = SLAVE_TO_MASTER, \
             .object_size = sizeof(type), \
         } \
-    };
+    }; \
+    type* begin_write_##name(void) { \
+    }\
+    void end_write_##name(void) { \
+        signal_data_written(); \
+    }
 
 #define REMOTE_OBJECT(name) (remote_object_t*)&remote_object_##name
 

@@ -26,11 +26,11 @@ SOFTWARE.
 #define SERIAL_LINK_SYSTEM_H
 
 void serial_link_lock() {
-
 }
 
 void serial_link_unlock() {
-
 }
+
+void signal_data_written(void);
 
 #endif
