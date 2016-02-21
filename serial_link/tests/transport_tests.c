@@ -92,3 +92,19 @@ Ensure(Transport, writes_from_master_to_all_slaves) {
     assert_that(obj2, is_not_equal_to(NULL));
     assert_that(obj2->test, is_equal_to(5));
 }
+
+Ensure(Transport, writes_from_slave_to_master) {
+    update_transport();
+    test_object1_t* obj = begin_write_slave_to_master();
+    obj->test = 7;
+    expect(signal_data_written);
+    end_write_slave_to_master();
+    expect(router_send_frame,
+            when(destination, is_equal_to(0)));
+    update_transport();
+    transport_recv_frame(3, sent_data, sent_data_size);
+    test_object1_t* obj2 = read_slave_to_master(2);
+    assert_that(read_slave_to_master(0), is_equal_to(NULL));
+    assert_that(obj2, is_not_equal_to(NULL));
+    assert_that(obj2->test, is_equal_to(7));
+}
