@@ -25,6 +25,32 @@ SOFTWARE.
 #include <cgreen/cgreen.h>
 #include "protocol/transport.c"
 
+typedef struct {
+    uint32_t test;
+} test_object1_t;
+
+typedef struct {
+    uint32_t test1;
+    uint32_t test2;
+} test_object2_t;
+
+MASTER_REMOTE_OBJECT(0, test_object1_t);
+SLAVE_REMOTE_OBJECT(1, test_object1_t);
+MASTER_REMOTE_OBJECT(2, test_object2_t);
+SLAVE_REMOTE_OBJECT(3, test_object2_t);
+
+// We want
+// master -> slave = 1 local(target all), 1 remote object
+// slave -> master = 1 local(target 0), multiple remote objects
+// master -> single slave (multiple local, target id), 1 remote object
+
+remote_object_t* remote_objects[] = {
+    REMOTE_OBJECT(0),
+    REMOTE_OBJECT(1),
+    REMOTE_OBJECT(2),
+    REMOTE_OBJECT(3),
+};
+
 Describe(Transport);
 BeforeEach(Transport) {
     init_transport();

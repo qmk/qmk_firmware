@@ -27,7 +27,7 @@ SOFTWARE.
 
 typedef struct {
     uint8_t state;
-    uint8_t buffer[];
+    uint8_t buffer[] __attribute__((aligned(4)));
 }triple_buffer_object_t;
 
 void triple_buffer_init(triple_buffer_object_t* object);
