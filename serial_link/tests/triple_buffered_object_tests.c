@@ -40,67 +40,43 @@ AfterEach(TripleBufferedObject) {}
 
 
 Ensure(TripleBufferedObject, writes_and_reads_object) {
-    uint32_t src = 0x3456ABCC;
-    uint32_t dst;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    assert_that(dst, is_equal_to(src));
+    *triple_buffer_begin_write(&test_object) = 0x3456ABCC;
+    triple_buffer_end_write(&test_object);
+    assert_that(*triple_buffer_read(&test_object), is_equal_to(0x3456ABCC));
 }
 
 Ensure(TripleBufferedObject, does_not_read_empty) {
-    uint32_t dst;
-    bool res = triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    assert_that(res, is_equal_to(false));
-}
-
-Ensure(TripleBufferedObject, writes_and_reads_object_decomposed) {
-    uint32_t src = 0x3456ABCC;
-    uint32_t dst;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    triple_buffer_begin_read(4, (triple_buffer_object_t*)&test_object);
-    triple_buffer_actual_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    triple_buffer_end_read(4, (triple_buffer_object_t*)&test_object);
-    assert_that(dst, is_equal_to(src));
+    assert_that(triple_buffer_read(&test_object), is_equal_to(NULL));
 }
 
 Ensure(TripleBufferedObject, writes_twice_and_reads_object) {
-    uint32_t src = 0x3456ABCC;
-    uint32_t dst;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    src = 0x44778899;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    assert_that(dst, is_equal_to(src));
+    *triple_buffer_begin_write(&test_object) = 0x3456ABCC;
+    triple_buffer_end_write(&test_object);
+    *triple_buffer_begin_write(&test_object) = 0x44778899;
+    triple_buffer_end_write(&test_object);
+    assert_that(*triple_buffer_read(&test_object), is_equal_to(0x44778899));
 }
 
 Ensure(TripleBufferedObject, performs_another_write_in_the_middle_of_read) {
-    uint32_t src = 1;
-    uint32_t dst;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    src = 2;
-    triple_buffer_begin_read(4, (triple_buffer_object_t*)&test_object);
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    triple_buffer_actual_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    triple_buffer_end_read(4, (triple_buffer_object_t*)&test_object);
-    assert_that(dst, is_equal_to(1));
-    triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    assert_that(dst, is_equal_to(2));
-    assert_that(triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst), is_equal_to(false));
+    *triple_buffer_begin_write(&test_object) = 1;
+    triple_buffer_end_write(&test_object);
+    uint32_t* read = triple_buffer_read(&test_object);
+    *triple_buffer_begin_write(&test_object) = 2;
+    triple_buffer_end_write(&test_object);
+    assert_that(*read, is_equal_to(1));
+    assert_that(*triple_buffer_read(&test_object), is_equal_to(2));
+    assert_that(triple_buffer_read(&test_object), is_equal_to(NULL));
 }
 
 Ensure(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
-    uint32_t src = 1;
-    uint32_t dst;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    triple_buffer_begin_read(4, (triple_buffer_object_t*)&test_object);
-    src = 2;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    src = 3;
-    triple_buffer_write(4, (triple_buffer_object_t*)&test_object, &src);
-    triple_buffer_actual_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    triple_buffer_end_read(4, (triple_buffer_object_t*)&test_object);
-    assert_that(dst, is_equal_to(1));
-    triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst);
-    assert_that(dst, is_equal_to(3));
-    assert_that(triple_buffer_read(4, (triple_buffer_object_t*)&test_object, &dst), is_equal_to(false));
+    *triple_buffer_begin_write(&test_object) = 1;
+    triple_buffer_end_write(&test_object);
+    uint32_t* read = triple_buffer_read(&test_object);
+    *triple_buffer_begin_write(&test_object) = 2;
+    triple_buffer_end_write(&test_object);
+    *triple_buffer_begin_write(&test_object) = 3;
+    triple_buffer_end_write(&test_object);
+    assert_that(*read, is_equal_to(1));
+    assert_that(*triple_buffer_read(&test_object), is_equal_to(3));
+    assert_that(triple_buffer_read(&test_object), is_equal_to(NULL));
 }
