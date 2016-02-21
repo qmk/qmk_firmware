@@ -32,6 +32,40 @@ static uint32_t num_remote_objects;
 void init_transport(remote_object_t** _remote_objects, uint32_t _num_remote_objects) {
     remote_objects = _remote_objects;
     num_remote_objects = _num_remote_objects;
+    int i;
+    for(i=0;i<num_remote_objects;i++) {
+        remote_object_t* obj = remote_objects[i];
+        if (obj->object_type == MASTER_TO_ALL_SLAVES) {
+            triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer;
+            triple_buffer_init(tb);
+            uint8_t* start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);
+            tb = (triple_buffer_object_t*)start;
+            triple_buffer_init(tb);
+        }
+        else if(obj->object_type == MASTER_TO_SINGLE_SLAVE) {
+            uint8_t* start = obj->buffer;
+            int j;
+            for (j=0;j<NUM_SLAVES;j++) {
+                triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
+                triple_buffer_init(tb);
+                start += LOCAL_OBJECT_SIZE(obj->object_size);
+            }
+            triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
+            triple_buffer_init(tb);
+        }
+        else {
+            uint8_t* start = obj->buffer;
+            triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
+            triple_buffer_init(tb);
+            start += LOCAL_OBJECT_SIZE(obj->object_size);
+            int j;
+            for (j=0;j<NUM_SLAVES;j++) {
+                tb = (triple_buffer_object_t*)start;
+                triple_buffer_init(tb);
+                start += REMOTE_OBJECT_SIZE(obj->object_size);
+            }
+        }
+    }
 }
 
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
