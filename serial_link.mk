@@ -22,3 +22,4 @@
 
 INC += $(SERIAL_DIR)
 SRC += $(wildcard $(SERIAL_DIR)/serial_link/protocol/*.c)
+SRC += $(wildcard $(SERIAL_DIR)/serial_link/system/*.c)

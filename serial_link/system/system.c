@@ -21,36 +21,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#include "serial_link/system/system.h"
 
-#ifndef SERIAL_LINK_SYSTEM_H
-#define SERIAL_LINK_SYSTEM_H
-
-
-void init_serial_link(void);
-
-#if defined(PROTOCOL_CHIBIOS)
-#include "ch.h"
-
-static inline void serial_link_lock(void) {
-    chSysLock();
+// TODO: Optimize the stack size, this is probably way too big
+static THD_WORKING_AREA(serialThreadStack, 1024);
+static THD_FUNCTION(serialThread, arg) {
+    (void)arg;
 }
 
-static inline void serial_link_unlock(void) {
-    chSysUnlock();
+
+void init_serial_link(void) {
+    (void)chThdCreateStatic(serialThreadStack, sizeof(serialThreadStack),
+                              LOWPRIO, serialThread, NULL);
 }
 
-void signal_data_written(void);
+void signal_data_written(void) {
 
-#else
-
-inline void serial_link_lock(void) {
 }
-
-inline void serial_link_unlock(void) {
-}
-
-void signal_data_written(void);
-
-#endif
-
-#endif
