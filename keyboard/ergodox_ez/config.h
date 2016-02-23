@@ -61,6 +61,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+/* Must declare that we have the TEENSY 2.0 chip to have RESET key available. */
+#define __AVR_ATmega32U4__
 
 /* key combination for command */
 #define IS_COMMAND() ( \
