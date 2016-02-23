@@ -60,20 +60,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     },
       /* 4: fn layer
     * ,-----------------------------------------------------------------------.
-    * | ESC |AltF4|Win+U|     |Ct+F5|Sh+Ca|     |     |     |     |PrtSc| DEL |
+    * | ESC |AltF4|Win+U|     |Ct+F5|Sh+Ca|     | PgUp| UP  | PgDo|PrtSc| DEL |
     * |-----------------------------------------------------------------------|
-    * |     |Win+L|Win+D|Win+R|     |Al+Ca|CapsL|     |     |     |     | LED |
+    * |     |Win+L|Win+D|Win+R|     |Al+Ca|CapsL| LEFT| DONW|RIGHT|     | LED |
     * |-----------------------------------------------------------------------|
-    * |Shift|W+S+L|W+S+R|     |     |Ct+Ca|ScroL|     | HOME| PgUp|  UP | PgDo|
+    * |Shift|W+S+L|W+S+R|     |     |Ct+Ca|ScroL| HOME|     | END |     |     |
     * |-----------------------------------------------------------------------|
-    * |     |W+C+L|W+C+R|W+C+4|C+A+D| Win+Space |     | END | LEFT| DOWN|RIGHT|
+    * |     |W+C+L|W+C+R|W+C+4|C+A+D| Win+Space |     |     |     |     |RESET|
     * `-----------------------------------------------------------------------'
     */
 [4] ={
-{KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,KC_TRNS          ,LCTL(KC_F5),S(KC_CAPS)   ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PSCR,KC_DELT},
-{KC_TRNS,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT)   ,KC_TRNS    ,LALT(KC_CAPS),KC_CAPS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,M(0)   },
-{KC_LSFT,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),KC_TRNS          ,KC_TRNS    ,LCTL(KC_CAPS),KC_SLCK,KC_TRNS,KC_HOME,KC_PGUP ,KC_UP  ,KC_PGDN},
-{KC_TRNS,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),LGUI(LCTL(KC_F4)),LCTL(LALT(KC_DELT)),LGUI(KC_SPC),LGUI(KC_SPC) ,KC_TRNS,KC_END,KC_LEFT,KC_DOWN,KC_RIGHT}
+{KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,KC_TRNS          ,LCTL(KC_F5),S(KC_CAPS)   ,KC_TRNS,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,KC_DELT},
+{KC_TRNS,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT)   ,KC_TRNS    ,LALT(KC_CAPS),KC_CAPS,KC_LEFT,KC_DOWN,KC_RIGHT,KC_TRNS,M(0)   },
+{KC_LSFT,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),KC_TRNS          ,KC_TRNS    ,LCTL(KC_CAPS),KC_SLCK,KC_HOME,KC_TRNS,KC_END ,KC_TRNS  ,KC_TRNS},
+{KC_TRNS,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),LGUI(LCTL(KC_F4)),LCTL(LALT(KC_DELT)),LGUI(KC_SPC),LGUI(KC_SPC) ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,RESET}
     }
 };
 
