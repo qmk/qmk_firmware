@@ -68,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LCTL, _______, KC_LGUI, KC_LALT, M(_MC1), KC_SPC,        KC_SPC,         M(_MC2), _______, _______, _______, _______}
 },
 [_SP]= { /* special */
-    {KC_TAB,  M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______,    KC_INS,     _______,    KC_PSCR, KC_BSPC},
-    {_______, M(_REC_START2), M(_MACRO_PLAY2), _______, _______, _______, KC_MS_L, KC_MS_D,    KC_MS_U,    KC_MS_R,    KC_SLCK, KC_QUOT},
-    {KC_LSFT, _______,        _______,         _______, _______, _______, _______, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, KC_SLSH, KC_ENT },
-    {KC_LCTL, _______,        KC_LGUI,         KC_LALT, _______, KC_SPC,  KC_SPC,  _______,    _______,    _______,    _______, _______}
+    {KC_TAB,  M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______, KC_MS_U, _______, KC_PSCR, KC_BSPC},
+    {_______, M(_REC_START2), M(_MACRO_PLAY2), _______, _______, _______, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_SLCK, KC_QUOT},
+    {KC_LSFT, _______,        _______,         _______, _______, _______, KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_SLSH, KC_ENT },
+    {KC_LCTL, _______,        KC_LGUI,         KC_LALT, _______, KC_SPC,  KC_SPC,  _______, _______, _______, _______, _______}
 },
 MACRO_RECORD_KEYMAPS,
 };
