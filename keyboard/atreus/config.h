@@ -33,11 +33,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
 
-// Planck PCB default pin-out
 // Change this to how you wired your keyboard
 // COLS: Left to right, ROWS: Top to bottom
-#define COLS (int []){ F6, F5, F4, B7, B6, B5, B4, B3, B2, B1, B0}
-#define ROWS (int []){ D0, D1, D2, D3 }
+#if defined(ATREUS_ASTAR)
+  #define COLS (int []){ B7, D6, F7, F6, B6, D4, E6, B4, B5, C6, D7 }
+  #define ROWS (int []){ D0, D1, D3, D2 }
+#elif defined(ATREUS_TEENSY2)
+  #define COLS (int []){ F6, F5, F4, B7, B6, B5, B4, B3, B2, B1, B0}
+  #define ROWS (int []){ D0, D1, D2, D3 }
+#endif
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
