@@ -20,6 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-INC += $(SERIAL_DIR)
+UINCDIR += $(SERIAL_DIR)
 SRC += $(wildcard $(SERIAL_DIR)/serial_link/protocol/*.c)
 SRC += $(wildcard $(SERIAL_DIR)/serial_link/system/*.c)
