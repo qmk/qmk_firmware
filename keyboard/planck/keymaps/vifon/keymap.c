@@ -28,6 +28,8 @@ enum {
     _MC2,                       /* _SP -> _LW */
 };
 
+#define _______ KC_TRNS
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = { /* Qwerty */
     {KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
@@ -50,29 +52,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LW]= { /* LOWER */
     {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
     {KC_ESC,  LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-    {KC_TRNS, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_ENT },
-    {KC_TRNS, BL_TOGG,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, MO(_DL), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {_______, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_ENT },
+    {_______, BL_TOGG,    _______,    _______,    _______,    _______,    _______, MO(_DL), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_RS]= { /* RAISE */
     {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
     {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-    {KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), DF(_PP), RESET,   KC_ENT },
-    {KC_TRNS, BL_STEP, KC_TRNS, KC_TRNS, MO(_DL), KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_VOLD, KC_VOLU, KC_TRNS}
+    {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), DF(_PP), RESET,   KC_ENT },
+    {_______, BL_STEP, _______, _______, MO(_DL), _______, _______, _______, KC_MPLY, KC_VOLD, KC_VOLU, _______}
 },
 [_DL]= { /* DUAL */
-    {KC_TAB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,        KC_TRNS, KC_INS,  KC_TRNS, KC_PSCR, KC_BSPC},
-    {KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS,       KC_LEFT,        KC_DOWN, KC_UP,   KC_RGHT, KC_SLCK, KC_QUOT},
-    {KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(KC_LEFT), LALT(KC_RIGHT), KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {KC_LCTL, KC_TRNS, KC_LGUI, KC_LALT, M(_MC1), KC_SPC,        KC_SPC,         M(_MC2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+    {KC_TAB,  _______, _______, _______, _______, _______,       _______,        _______, KC_INS,  _______, KC_PSCR, KC_BSPC},
+    {_______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,       KC_LEFT,        KC_DOWN, KC_UP,   KC_RGHT, KC_SLCK, KC_QUOT},
+    {KC_LSFT, _______, _______, _______, _______, LALT(KC_LEFT), LALT(KC_RIGHT), KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+    {KC_LCTL, _______, KC_LGUI, KC_LALT, M(_MC1), KC_SPC,        KC_SPC,         M(_MC2), _______, _______, _______, _______}
 },
 [_SP]= { /* special */
-    {KC_TAB,  M(_REC_START1), M(_MACRO_PLAY1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_INS,     KC_TRNS,    KC_PSCR, KC_BSPC},
-    {KC_TRNS, M(_REC_START2), M(_MACRO_PLAY2), KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D,    KC_MS_U,    KC_MS_R,    KC_SLCK, KC_QUOT},
-    {KC_LSFT, KC_TRNS,        KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, KC_SLSH, KC_ENT },
-    {KC_LCTL, KC_TRNS,        KC_LGUI,         KC_LALT, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS}
+    {KC_TAB,  M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______,    KC_INS,     _______,    KC_PSCR, KC_BSPC},
+    {_______, M(_REC_START2), M(_MACRO_PLAY2), _______, _______, _______, KC_MS_L, KC_MS_D,    KC_MS_U,    KC_MS_R,    KC_SLCK, KC_QUOT},
+    {KC_LSFT, _______,        _______,         _______, _______, _______, _______, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, KC_SLSH, KC_ENT },
+    {KC_LCTL, _______,        KC_LGUI,         KC_LALT, _______, KC_SPC,  KC_SPC,  _______,    _______,    _______,    _______, _______}
 },
 MACRO_RECORD_KEYMAPS,
 };
+
+#undef _______
 
 const uint16_t PROGMEM fn_actions[] = {
     ACTION(ACT_MODS_TAP, ((MOD_RSFT)&0x1f)<<8 | (KC_ENT))
