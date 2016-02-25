@@ -68,5 +68,7 @@
 #define DV_RPRN	LSFT(DV_0)
 #define DV_LCBR	LSFT(DV_LBRC)
 #define DV_RCBR	LSFT(DV_RBRC)
+#define DV_UNDS LSFT(DV_MINS)
+#define DV_PLUS LSFT(DV_EQL)
 
 #endif
