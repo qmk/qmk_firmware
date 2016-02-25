@@ -180,15 +180,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * "////" indicates that the key is disabled (unsupported bépo character)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |    –   |   —  |   <  |   >  |   [  |   ]  |      |           |      |   ^  | //// | //// | //// | //// | ////// |
+ * |    –   |   —  |   <  |   >  |   [  |   ]  |      |           |      |   ^  |   ±  | //// | //// | //// | ////// |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   |  |dead '|   &  |   œ  |dead `|      |           |      | //// | //// | //// | //// | //// | ////// |
+ * |        |   |  |dead '|   &  |   œ  |dead `|      |           |      | //// | //// |   ð  | //// |   ĳ  | ////// |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | ////// |   æ  |   ù  |dead "|   €  | //// |------|           |------| //// | //// | //// | //// | //// | ////// |
+ * | ////// |   æ  |   ù  |dead "|   €  |   ̛’  |------|           |------| //// |   þ  |   ß  | //// |dead ~| ////// |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   \  |   {  |   }  |   …  |   ~  |      |           |      | //// | //// | //// | //// | //// |        |
+ * |        |   \  |   {  |   }  |   …  |   ~  |      |           |      | //// | //// |   μ  | //// | //// |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      | //// |      | //// |       |
+ *   |      |      |      |      |      |                                       |      | //// |      |dead ¸|       |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         MUC(NDSH),MUC(MDSH),CM_LESS,  CM_GRTR, CM_LBRC,  CM_RBRC,  KC_TRNS,
         KC_TRNS,  CM_PIPE,  CM_DACT,  KC_AMPR, CM_OE,    CM_DGRV,  KC_TRNS,
-        KC_NO,    CM_AE,    CM_UGRV,  CM_DTRM, CM_EURO,  KC_NO,
+        KC_NO,    CM_AE,    CM_UGRV,  CM_DTRM, CM_EURO,  CM_RQOT,
         KC_TRNS,  CM_BSLS,  CM_LCBR,  CM_RCBR, MUC(ELPS),CM_TILD,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
 
@@ -211,11 +211,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_UNDS,  KC_TRNS,  KC_TRNS,
 
         // right hand
-        KC_TRNS,  M(M_CRC), KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
-        KC_TRNS,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
-                  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_TRNS,
-        KC_TRNS,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
-                            KC_TRNS,  KC_NO,    KC_TRNS,  KC_NO,    KC_TRNS,
+        KC_TRNS,  M(M_CRC), CM_PSMS,  KC_NO,    KC_NO,    KC_NO,    KC_NO,
+        KC_TRNS,  KC_NO,    KC_NO,    CM_ETH,   KC_NO,    CM_IJ,    KC_NO,
+                  KC_NO,    CM_THRN,  CM_SRPS,  KC_NO,    CM_DTLD,  KC_TRNS,
+        KC_TRNS,  KC_NO,    KC_NO,    CM_MU,    KC_NO,    KC_NO,    KC_NO,
+                            KC_TRNS,  KC_NO,    KC_TRNS,  CM_DCED,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
