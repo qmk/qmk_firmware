@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_DOT,  KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_DQOT},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(5),    DE_MORE, DE_QST,  KC_TRNS},
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(1),    DE_MORE, DE_QST,  KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 [2] = { /* Raise
@@ -148,36 +148,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(1);
             unregister_code(KC_LSFT);
         }
-        break;
+        break;       
     case 1: // M(1)
-        if (record->event.pressed) {
-            register_code(LSFT(DE_SCLN));
-        } else {
-            unregister_code(LSFT(DE_SCLN));
-        }
-        break;
-    case 2: // M(2)
-        if (record->event.pressed) {
-            register_code(DE_MINS);
-        } else {
-            unregister_code(DE_MINS);
-        }
-        break;
-    case 3: // M(3)
-        if (record->event.pressed) {
-            register_code(DE_COMM);
-        } else {
-            unregister_code(DE_COMM);
-        }
-        break;        
-    case 4: // M(4)
-        if (record->event.pressed) {
-            register_code(DE_DOT);
-        } else {
-            unregister_code(DE_DOT);
-        }
-        break;        
-    case 5: // M(5)
         if (record->event.pressed) {
             unregister_code(KC_LSFT);
             register_code(DE_MORE);
@@ -185,13 +157,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(DE_MORE);
         }
         break;    
-    case 6: // M(6)
-        if (record->event.pressed) {
-            register_code(DE_LESS);
-        } else {
-            unregister_code(DE_LESS);
-        }
-        break;
   }
   return MACRO_NONE;
 
