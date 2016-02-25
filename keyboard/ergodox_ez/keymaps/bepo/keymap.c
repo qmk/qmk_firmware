@@ -19,6 +19,13 @@ enum layers {
 #define IS_CA_MULT_ENABLED()    (default_layer_state & (1 << LR_CSA))
 
 enum macros {
+    // Characters that do not exist in CSA and must be implemented based on unicode support
+    // Note: these are intentionally declared first to be used as indexes in spec_chars below
+    UC_NDSH, // –
+    UC_MDSH, // —
+    UC_ELPS, // …
+    END_UC, // indicates the last unicode character macro
+    // other macros
     M_TGCM, // toggle CA-mult
     M_CMSFT, // toggle shift on CA-mult
     // macros for characters that need to be un-shifted in LR_CA_MULT_SHIFT
@@ -42,6 +49,15 @@ enum macros {
     M_DBL0,
     M_FNLR,
 };
+
+const uint16_t unicode_chars[] = {
+        [UC_NDSH] = L'–',
+        [UC_MDSH] = L'—',
+        [UC_ELPS] = L'…',
+};
+
+/* shortcut for unicod character macros */
+#define MUC(name)   M(UC_##name)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Basic layer
@@ -164,13 +180,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * "////" indicates that the key is disabled (unsupported bépo character)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | ////// | //// |   <  |   >  |   [  |   ]  |      |           |      |   ^  | //// | //// | //// | //// | ////// |
+ * |    –   |   —  |   <  |   >  |   [  |   ]  |      |           |      |   ^  | //// | //// | //// | //// | ////// |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   |  |dead '|   &  |   œ  |dead `|      |           |      | //// | //// | //// | //// | //// | ////// |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | ////// |   æ  |   ù  |dead "|   €  | //// |------|           |------| //// | //// | //// | //// | //// | ////// |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   \  |   {  |   }  | //// |   ~  |      |           |      | //// | //// | //// | //// | //// |        |
+ * |        |   \  |   {  |   }  |   …  |   ~  |      |           |      | //// | //// | //// | //// | //// |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      | //// |      | //// |       |
  *   `----------------------------------'                                       `-----------------------------------'
@@ -184,10 +200,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA_AGR] = KEYMAP(
         // left hand
-        KC_NO,    KC_NO,    CM_LESS,  CM_GRTR, CM_LBRC,  CM_RBRC,  KC_TRNS,
+        MUC(NDSH),MUC(MDSH),CM_LESS,  CM_GRTR, CM_LBRC,  CM_RBRC,  KC_TRNS,
         KC_TRNS,  CM_PIPE,  CM_DACT,  KC_AMPR, CM_OE,    CM_DGRV,  KC_TRNS,
         KC_NO,    CM_AE,    CM_UGRV,  CM_DTRM, CM_EURO,  KC_NO,
-        KC_TRNS,  CM_BSLS,  CM_LCBR,  CM_RCBR, KC_NO,    CM_TILD,  KC_TRNS,
+        KC_TRNS,  CM_BSLS,  CM_LCBR,  CM_RCBR, MUC(ELPS),CM_TILD,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
 
                                                       KC_TRNS,  KC_TRNS,
@@ -305,10 +321,43 @@ void release_shift(void) {
     unregister_code(KC_LSHIFT);
 }
 
+uint16_t hextokeycode(int hex) {
+    if (hex == 0x0) {
+        return KC_P0;
+    } else if (hex < 0xA) {
+        return KC_P1 + (hex - 0x1);
+    } else {
+        return KC_A + (hex - 0xA);
+    }
+}
+
+void send_unicode(uint16_t unicode)
+{
+    // For more info on how this works per OS, see here: https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input
+    // Implemented for Windows:
+    // Pressing ALT followed by + followed by the unicode code point in hex.
+    // Requires registry key HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad set to String 1
+    register_code(KC_LALT);
+    register_code(KC_PPLS);
+    unregister_code(KC_PPLS);
+
+    for (int i = 12; i >= 0; i -= 4) {
+        register_code(hextokeycode((unicode >> i) & 0xF));
+        unregister_code(hextokeycode((unicode >> i) & 0xF));
+    }
+
+    unregister_code(KC_LALT);
+}
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
     switch(id) {
+        case 0 ... END_UC:
+            if (record->event.pressed) {
+                send_unicode(unicode_chars[id]);
+            }
+            break;
         case M_TGCM:
             if (record->event.pressed) {
                 default_layer_xor(1 << LR_CSA);
@@ -364,7 +413,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             break;
         case M_DBL0:
             if (record->event.pressed) {
-              return MACRO( I(25), T(P0), T(P0), END );
+                return MACRO( I(25), T(P0), T(P0), END );
             }
         break;
         case M_FNLR:
