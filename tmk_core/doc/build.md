@@ -6,7 +6,7 @@ Download and Install
 --------------------
 ### 1. Install Tools
 
-1. **Toolchain** On Windows install [MHV AVR Tools][mhv] for AVR GCC compiler and [Cygwin][cygwin](or [MinGW][mingw]) for shell terminal. On Mac you can use [CrossPack][crosspack]. On Linux you can install AVR GCC (and avr-libc) with your favorite package manager.
+1. **Toolchain** On Windows install [MHV AVR Tools][mhv] for AVR GCC compiler and [Cygwin][cygwin](or [MinGW][mingw]) for shell terminal. On Mac you can use [CrossPack][crosspack]. On Linux you can install AVR GCC (and avr-libc) with your favorite package manager or run the avr_setup.sh script in the root of this repository.
 
 2. **Programmer** On Windows install [Atmel FLIP][flip]. On Mac and Linux install [dfu-programmer][dfu-prog].
 

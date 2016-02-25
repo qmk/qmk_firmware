@@ -64,7 +64,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	action.code = ACTION_MACRO(keycode & 0xFF);
     	return action;
 #ifdef BACKLIGHT_ENABLE
-	} else if (keycode >= BL_0 & keycode <= BL_15) {
+	} else if (keycode >= BL_0 && keycode <= BL_15) {
         action_t action;
         action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
         return action;
@@ -91,6 +91,9 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             play_notes(&goodbye, 5, false);
         #endif
         _delay_ms(250);
+        #ifdef ATREUS_ASTAR
+            *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
+        #endif
         bootloader_jump();
         return;
     } else if (keycode == DEBUG) { // DEBUG is 0x5001

@@ -14,6 +14,7 @@ If you're using homebrew, you can use the following commands:
 
     brew tap osx-cross/avr
     brew install avr-libc
+    brew install dfu-programmer
 
 Otherwise, these instructions will work:
 

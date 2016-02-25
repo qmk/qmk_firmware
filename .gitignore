@@ -15,3 +15,10 @@ build/
 .vagrant/
 .idea/
 CMakeLists.txt
+.DS_STORE
+
+# Eclipse Settings
+.cproject
+.project
+.settings/
+
