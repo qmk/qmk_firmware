@@ -53,7 +53,7 @@ Generally, the instructions to flash the PCB are as follows:
 4. Press the reset button on the PCB/press the key with the `RESET` keycode
 5. `make <arguments> dfu` - use the necessary `KEYMAP=<keymap>` and/or `COMMON=true` arguments here.
 
-### Troubleshooting
+## Troubleshooting
 If you see something like this
 
           0 [main] sh 13384 sync_with_child: child 9716(0x178) died before initialization with status code 0xC0000142
@@ -63,6 +63,7 @@ If you see something like this
 after running 'make' on Windows than you are encountering a very popular issue with WinAVR on Windows 8.1 and 10.
 You can easily fix this problem by replacing msys-1.0.dll in WinAVR/utils/bin with [this one](http://www.madwizard.org/download/electronics/msys-1.0-vista64.zip).
 Restart your system and everything should work fine!
+
 
 If you see this
 
