@@ -175,7 +175,7 @@ CP   = $(TRGT)objcopy
 AS   = $(TRGT)gcc -x assembler-with-cpp
 AR   = $(TRGT)ar
 OD   = $(TRGT)objdump
-SZ   = $(TRGT)size
+SZ   = $(TRGT)size -A
 HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
 
