@@ -29,6 +29,7 @@ SOFTWARE.
 #include "serial_link/protocol/byte_stuffer.h"
 #include "serial_link/protocol/transport.h"
 #include "serial_link/protocol/frame_router.h"
+#include "matrix.h"
 #include <stdbool.h>
 #include "print.h"
 
@@ -111,16 +112,17 @@ void send_data(uint8_t link, const uint8_t* data, uint16_t size) {
 static systime_t last_update = 0;
 
 typedef struct {
-    uint32_t test;
-} test_object1_t;
+    matrix_row_t rows[MATRIX_ROWS];
+} matrix_object_t;
 
+static matrix_object_t last_matrix = {};
 
-SLAVE_TO_MASTER_OBJECT(slave_to_master, test_object1_t);
+SLAVE_TO_MASTER_OBJECT(keyboard_matrix, matrix_object_t);
 MASTER_TO_ALL_SLAVES_OBJECT(serial_link_connected, bool);
 
 remote_object_t* test_remote_objects[] = {
     REMOTE_OBJECT(serial_link_connected),
-    REMOTE_OBJECT(slave_to_master),
+    REMOTE_OBJECT(keyboard_matrix),
 };
 
 void init_serial_link(void) {
@@ -140,23 +142,41 @@ void serial_link_update(void) {
     if (current_time - last_update > 1000) {
         *begin_write_serial_link_connected() = true;
         end_write_serial_link_connected();
-        test_object1_t* obj = begin_write_slave_to_master();
-        obj->test = current_time;
-        end_write_slave_to_master();
-        xprintf("writing %d\n", current_time);
         last_update = current_time;
-    }
-    test_object1_t* obj = read_slave_to_master(0);
-    if (obj) {
-        xprintf("%d\n", obj->test);
-    }
-    obj = read_slave_to_master(1);
-    if (obj) {
-        xprintf("%d\n", obj->test);
     }
 
     if (read_serial_link_connected()) {
         serial_link_connected = true;
+    }
+
+    matrix_object_t matrix;
+    bool changed = false;
+    for(uint8_t i=0;i<MATRIX_ROWS;i++) {
+        matrix.rows[i] = matrix_get_row(i);
+        changed |= matrix.rows[i] != last_matrix.rows[i];
+    }
+    if (changed) {
+        last_matrix = matrix;
+        matrix_object_t* m = begin_write_keyboard_matrix();
+        for(uint8_t i=0;i<MATRIX_ROWS;i++) {
+            m->rows[i] = matrix.rows[i];
+        }
+        end_write_keyboard_matrix();
+    }
+
+    matrix_object_t* m = read_keyboard_matrix(0);
+    if (m) {
+        xprintf("\nr/c 01234567\n");
+        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+            xprintf("%X0: ", row);
+            for (int col = 0; col < MATRIX_COLS; col++) {
+                if (m->rows[row] & (1<<col))
+                    xprintf("1");
+                else
+                    xprintf("0");
+            }
+            xprintf("\n");
+        }
     }
 }
 
@@ -172,6 +192,7 @@ host_driver_t* get_serial_link_driver(void) {
     return &serial_driver;
 }
 
+// NOTE: The driver does nothing, because the master handles everything
 uint8_t keyboard_leds(void) {
     return 0;
 }
