@@ -36,14 +36,14 @@ static SerialConfig config = {
     .sc_speed = 38400
 };
 
-static uint32_t read_from_serial(SerialDriver* driver) {
+static uint32_t read_from_serial(SerialDriver* driver, uint8_t link) {
     const uint32_t buffer_size = 16;
     uint8_t buffer[buffer_size];
     uint32_t bytes_read = sdAsynchronousRead(driver, buffer, buffer_size);
     uint8_t* current = buffer;
     uint8_t* end = current + bytes_read;
     while(current < end) {
-        byte_stuffer_recv_byte(0, *current);
+        byte_stuffer_recv_byte(link, *current);
         current++;
     }
     return bytes_read;
@@ -74,14 +74,14 @@ static THD_FUNCTION(serialThread, arg) {
         router_set_master(is_master);
 
         need_wait = true;
-        need_wait &= read_from_serial(&SD1) == 0;
-        need_wait &= read_from_serial(&SD2) == 0;
+        need_wait &= read_from_serial(&SD2, UP_LINK) == 0;
+        need_wait &= read_from_serial(&SD1, DOWN_LINK) == 0;
         update_transport();
     }
 }
 
 void send_data(uint8_t link, const uint8_t* data, uint16_t size) {
-    if (link == 0) {
+    if (link == DOWN_LINK) {
         sdWrite(&SD1, data, size);
     }
     else {
