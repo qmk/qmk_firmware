@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, BL_STEP, _______, _______, MO(_DL), _______, _______, _______, KC_MPLY, KC_VOLD, KC_VOLU, _______}
 },
 [_DL]= { /* DUAL */
-    {KC_TAB,  _______, _______, _______, _______, _______,       _______,        _______, KC_INS,  _______, KC_PSCR, KC_BSPC},
-    {_______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,       KC_LEFT,        KC_DOWN, KC_UP,   KC_RGHT, KC_SLCK, KC_QUOT},
-    {KC_LSFT, _______, _______, _______, _______, LALT(KC_LEFT), LALT(KC_RIGHT), KC_MUTE, KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-    {KC_LCTL, _______, KC_LGUI, KC_LALT, M(_MC1), KC_SPC,        KC_SPC,         M(_MC2), _______, _______, _______, _______}
+    {_______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,       _______,        _______, KC_INS,  _______, KC_PSCR, _______},
+    {_______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,       KC_LEFT,        KC_DOWN, KC_UP,   KC_RGHT, KC_ACL0, KC_ACL2},
+    {_______, _______, KC_BTN2, KC_BTN3, KC_BTN1, LALT(KC_LEFT), LALT(KC_RIGHT), KC_MUTE, _______, _______, _______, _______},
+    {_______, _______, KC_LGUI, KC_LALT, M(_MC1), _______,       _______,        M(_MC2), _______, _______, _______, _______}
 },
 [_SP]= { /* special */
     {KC_TAB,  M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______, KC_MS_U, _______, KC_PSCR, KC_BSPC},
