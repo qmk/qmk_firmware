@@ -83,7 +83,7 @@ endif
 #
 
 # Imported source files and paths
-CHIBIOS = $(TMK_DIR)/tool/chibios/chibios
+CHIBIOS ?= $(TMK_DIR)/tool/chibios/chibios
 # Startup files.
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
 # HAL-OSAL files (optional).
