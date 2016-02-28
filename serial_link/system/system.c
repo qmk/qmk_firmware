@@ -137,6 +137,8 @@ void init_serial_link(void) {
                               LOWPRIO, serialThread, NULL);
 }
 
+void matrix_set_remote(matrix_row_t* rows, uint8_t index);
+
 void serial_link_update(void) {
     systime_t current_time = chVTGetSystemTimeX();
     if (current_time - last_update > 1000) {
@@ -166,17 +168,7 @@ void serial_link_update(void) {
 
     matrix_object_t* m = read_keyboard_matrix(0);
     if (m) {
-        xprintf("\nr/c 01234567\n");
-        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            xprintf("%X0: ", row);
-            for (int col = 0; col < MATRIX_COLS; col++) {
-                if (m->rows[row] & (1<<col))
-                    xprintf("1");
-                else
-                    xprintf("0");
-            }
-            xprintf("\n");
-        }
+        matrix_set_remote(m->rows, 0);
     }
 }
 
