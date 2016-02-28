@@ -21,14 +21,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#include "report.h"
+#include "host_driver.h"
 #include "serial_link/system/system.h"
+#include "serial_link/system/driver.h"
 #include "hal.h"
 #include "serial_link/protocol/byte_stuffer.h"
 #include "serial_link/protocol/transport.h"
 #include "serial_link/protocol/frame_router.h"
 #include <stdbool.h>
+#include "print.h"
 
 static event_source_t new_data_event;
+static bool serial_link_connected;
+
+static uint8_t keyboard_leds(void);
+static void send_keyboard(report_keyboard_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_system(uint16_t data);
+static void send_consumer(uint16_t data);
+
+host_driver_t serial_driver = {
+  keyboard_leds,
+  send_keyboard,
+  send_mouse,
+  send_system,
+  send_consumer
+};
 
 
 // Slow speed for testing
@@ -89,8 +108,25 @@ void send_data(uint8_t link, const uint8_t* data, uint16_t size) {
     }
 }
 
+static systime_t last_update = 0;
+
+typedef struct {
+    uint32_t test;
+} test_object1_t;
+
+
+SLAVE_TO_MASTER_OBJECT(slave_to_master, test_object1_t);
+MASTER_TO_ALL_SLAVES_OBJECT(serial_link_connected, bool);
+
+remote_object_t* test_remote_objects[] = {
+    REMOTE_OBJECT(serial_link_connected),
+    REMOTE_OBJECT(slave_to_master),
+};
 
 void init_serial_link(void) {
+    serial_link_connected = false;
+    init_serial_link_hal();
+    init_transport(test_remote_objects, sizeof(test_remote_objects)/sizeof(remote_object_t*));
     init_byte_stuffer();
     sdStart(&SD1, &config);
     sdStart(&SD2, &config);
@@ -99,6 +135,60 @@ void init_serial_link(void) {
                               LOWPRIO, serialThread, NULL);
 }
 
+void serial_link_update(void) {
+    systime_t current_time = chVTGetSystemTimeX();
+    if (current_time - last_update > 1000) {
+        *begin_write_serial_link_connected() = true;
+        end_write_serial_link_connected();
+        test_object1_t* obj = begin_write_slave_to_master();
+        obj->test = current_time;
+        end_write_slave_to_master();
+        xprintf("writing %d\n", current_time);
+        last_update = current_time;
+    }
+    test_object1_t* obj = read_slave_to_master(0);
+    if (obj) {
+        xprintf("%d\n", obj->test);
+    }
+    obj = read_slave_to_master(1);
+    if (obj) {
+        xprintf("%d\n", obj->test);
+    }
+
+    if (read_serial_link_connected()) {
+        serial_link_connected = true;
+    }
+}
+
 void signal_data_written(void) {
     chEvtBroadcast(&new_data_event);
 }
+
+bool is_serial_link_connected(void) {
+    return serial_link_connected;
+}
+
+host_driver_t* get_serial_link_driver(void) {
+    return &serial_driver;
+}
+
+uint8_t keyboard_leds(void) {
+    return 0;
+}
+
+void send_keyboard(report_keyboard_t *report) {
+    (void)report;
+}
+
+void send_mouse(report_mouse_t *report) {
+    (void)report;
+}
+
+void send_system(uint16_t data) {
+    (void)data;
+}
+
+void send_consumer(uint16_t data) {
+    (void)data;
+}
+

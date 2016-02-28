@@ -23,3 +23,5 @@
 UINCDIR += $(SERIAL_DIR)
 SRC += $(wildcard $(SERIAL_DIR)/serial_link/protocol/*.c)
 SRC += $(wildcard $(SERIAL_DIR)/serial_link/system/*.c)
+SRC += serial_link_hal.c
+OPT_DEFS += -DUSE_SERIAL_LINK
