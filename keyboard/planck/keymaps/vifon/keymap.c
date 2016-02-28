@@ -79,7 +79,7 @@ MACRO_RECORD_KEYMAPS,
 #undef _______
 
 const uint16_t PROGMEM fn_actions[] = {
-    ACTION(ACT_MODS_TAP, ((MOD_RSFT)&0x1f)<<8 | (KC_ENT))
+    ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
