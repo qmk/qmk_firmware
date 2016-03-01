@@ -82,8 +82,8 @@
 #define CSA_EURO        ALTGR(KC_E)                 // €
 #define CSA_DEAD_GRAVE  ALTGR(CSA_DEAD_CIRCUMFLEX)
 #define CSA_DGRV        CSA_DEAD_GRAVE              // dead `
-#define CSA_TILDE       ALTGR(CSA_C_CEDILLA)        // ~
-#define CSA_TILD        CSA_TILDE
+#define CSA_DEAD_TILDE  ALTGR(CSA_C_CEDILLA)        // ~
+#define CSA_DTLD        CSA_DEAD_TILDE
 
 // Third row
 #define CSA_DEGREE  ALTGR(KC_SCOLON)    // °
@@ -102,7 +102,7 @@
 #define CSA_NON_BREAKING_SPACE  ALTGR(KC_SPACE)
 #define CSA_NBSP                CSA_NON_BREAKING_SPACE
 
-// GR2A-ed characters (non-exhaustive list)
+// GR2A-ed characters
 // First row
 #define CSA_SUPERSCRIPT_ONE     GR2A(KC_1)  // ¹
 #define CSA_SUP1                CSA_SUPERSCRIPT_ONE
@@ -141,8 +141,8 @@
 #define CSA_THORN           GR2A(KC_P)  // þ
 #define CSA_THRN            CSA_THORN
 // nothing on ^
-#define CSA_DEAD_TILDE      GR2A(CSA_C_CEDILLA)  // dead ~
-#define CSA_DTLD            CSA_DEAD_TILDE
+#define CSA_TILDE           GR2A(CSA_C_CEDILLA)  // dead ~
+#define CSA_TILD            CSA_TILDE
 
 // Third row
 #define CSA_AE_LIGATURE     GR2A(KC_A)      // æ
@@ -175,17 +175,81 @@
 #define CSA_HORIZONTAL_BAR      GR2A(KC_COMMA)  // ―
 #define CSA_HZBR                CSA_HORIZONTAL_BAR
 #define CSA_DEAD_DOT_ABOVE      GR2A(KC_DOT)    // dead ˙
-#define CSA_DOTA                CSA_DEAD_DOT_ABOVE
+#define CSA_DDTA                CSA_DEAD_DOT_ABOVE
 
-// GR2A-shifted characters (non-exhaustive list)
+// GR2A-shifted characters (different from capitalised GR2A-ed characters)
 // First row
-#define CSA_PLUS_MINUS  LSFT(GR2A(KC_9))    // ±
-#define CSA_PSMS        CSA_PLUS_MINUS
+#define CSA_SOFT_HYPHEN         GR2A(LSFT(CSA_SLASH))   // soft-hyphen, appears as a hyphen in wrapped word
+#define CSA_SHYP                CSA_SOFT_HYPHEN
+#define CSA_INVERTED_EXCLAIM    GR2A(KC_EXCLAIM)    // ¡
+#define CSA_IXLM                CSA_INVERTED_EXCLAIM
+// nothing on 2
+#define CSA_POUND               GR2A(LSFT(KC_3))    // £
+#define CSA_GBP                 CSA_POUND_SIGN
+// already on ALTGR(KC_E)
+#define CSA_EURO_BIS            GR2A(LSFT(KC_4))    // €
+#define CSA_EURB                CSA_EURO_BIS
+#define CSA_THREE_EIGHTHS       GR2A(LSFT(KC_5))    // ⅜
+#define CSA_3ON8                CSA_THREE_EIGHTHS
+#define CSA_FIVE_EIGHTHS        GR2A(LSFT(KC_6))    // ⅝
+#define CSA_5ON8                CSA_FIVE_EIGHTHS
+#define CSA_SEVEN_EIGHTHS       GR2A(LSFT(KC_7))    // ⅞
+#define CSA_7ON8                CSA_SEVEN_EIGHTHS
+#define CSA_TRADEMARK           GR2A(LSFT(KC_8))    // ™
+#define CSA_TM                  CSA_TRADEMARK
+#define CSA_PLUS_MINUS          GR2A(LSFT(KC_9))    // ±
+#define CSA_PSMS                CSA_PLUS_MINUS
+// nothing on 0
+#define CSA_INVERTED_QUESTION   GR2A(LSFT(KC_MINUS))    // ¿
+#define CSA_IQST                CSA_INVERTED_QUESTION
+#define CSA_DEAD_OGONEK         GR2A(LSFT(KC_EQUAL))    // dead ˛
+#define CSA_DOGO                CSA_DEAD_OGONEK
+
+// Second row
+#define CSA_REGISTERED_TRADEMARK    GR2A(LSFT(KC_R))        // ®
+#define CSA_RTM                     CSA_REGISTERED_TRADEMARK
+#define CSA_YEN                     GR2A(LSFT(KC_Y))        // ¥
+#define CSA_YUAN                    CSA_YEN
+#define CSA_UP_ARROW                LSFT(CSA_DOWN_ARROW)    // ↑
+#define CSA_DOTLESS_I               GR2A(LSFT(KC_I))        // ı
+#define CSA_DLSI                    CSA_DOTLESS_I
+#define CSA_DEAD_RING               GR2A(LSFT(CSA_DCRC))    // dead °
+#define CSA_DRNG                    CSA_DEAD_RING
+#define CSA_DEAD_MACRON             GR2A(LSFT(CSA_C_CEDILLA))   // dead ¯
+#define CSA_DMCR                    CSA_DEAD_MACRON
+
+// Third row
+#define CSA_SECTION                 GR2A(LSFT(KC_S))        // §
+#define CSA_SECT                    CSA_SECTION
+#define CSA_ORDINAL_INDICATOR_A     GR2A(LSFT(KC_F))        // ª
+#define CSA_ORDA                    CSA_ORDINAL_INDICATOR_A
+#define CSA_DEAD_DOUBLE_ACUTE       LSFT(CSA_DEAD_ACUTE)    // ˝
+#define CSA_DDCT                    CSA_DEAD_DOUBLE_ACUTE
+#define CSA_DEAD_CARON              GR2A(LSFT(CSA_E_GRAVE)) // dead ˇ
+#define CSA_DCAR                    CSA_DEAD_CARON
+#define CSA_DEAD_BREVE              GR2A(LSFT(CSA_A_GRAVE)) // dead ˘
+#define CSA_DBRV                    CSA_DEAD_BREVE
 
 // Fourth row
-#define CSA_LEFT_QUOTE          LSFT(GR2A(KC_V))    // ‘
+#define CSA_BROKEN_PIPE         GR2A(LSFT(CSA_U_GRAVE)) // ¦
+#define CSA_BPIP                CSA_BROKEN_PIPE
+#define CSA_COPYRIGHT           GR2A(LSFT(KC_C))        // ©
+#define CSA_CPRT                CSA_COPYRIGHT
+#define CSA_LEFT_QUOTE          GR2A(LSFT(KC_V))        // ‘
 #define CSA_LQOT                CSA_LEFT_QUOTE
-#define CSA_RIGHT_QUOTE         LSFT(GR2A(KC_B))    // ’
+#define CSA_RIGHT_QUOTE         GR2A(LSFT(KC_B))        // ’
 #define CSA_RQOT                CSA_RIGHT_QUOTE
+#define CSA_EIGHTH_NOTE         GR2A(LSFT(KC_N))        // ♪
+#define CSA_8NOT                CSA_EIGHTH_NOTE
+#define CSA_ORDINAL_INDICATOR_O GR2A(LSFT(KC_M))        // º
+#define CSA_ORDO                CSA_ORDINAL_INDICATOR_O
+#define CSA_TIMES               GR2A(LSFT(KC_COMMA))    // ×
+#define CSA_TIMS                CSA_TIMES
+#define CSA_OBELUS              GR2A(LSFT(KC_DOT))      // ÷
+#define CSA_OBEL                CSA_OBELUS
+// more conventional name of the symbol
+#define CSA_DIVISION_SIGN       CSA_OBELUS
+#define CSA_DVSN                CSA_DIVISION_SIGN
+// TODO GR2A(LSFT(CSA_E_ACUTE))
 
 #endif

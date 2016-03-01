@@ -181,13 +181,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * "////" indicates that the key is disabled (unsupported bépo character)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |    –   |   —  |   <  |   >  |   [  |   ]  |      |           |      |   ^  |   ±  | //// | //// | //// | ////// |
+ * |    –   |   —  |   <  |   >  |   [  |   ]  |      |           |      |   ^  |   ±  | //// |   ÷  |   ×  | dead ˘ |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   |  |dead '|   &  |   œ  |dead `|      |           |      | //// | //// |   ð  | //// |   ĳ  | ////// |
+ * |        |   |  |dead '|   &  |   œ  |dead `|      |           |      |   ¡  |dead ˇ|   ð  | //// |   ĳ  | ////// |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | ////// |   æ  |   ù  |dead "|   €  |   ̛’  |------|           |------| //// |   þ  |   ß  | //// |dead ~| ////// |
+ * | ////// |   æ  |   ù  |dead "|   €  |   ̛’  |------|           |------|   ©  |   þ  |   ß  |   ®  |dead ~| dead ¯ |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   \  |   {  |   }  |   …  |   ~  |      |           |      | //// | //// |   μ  | //// | //// |        |
+ * |        |   \  |   {  |   }  |   …  |   ~  |      |           |      |   ¿  |dead °|   μ  | //// |dead ˛|        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      | //// |      |dead ¸|       |
  *   `----------------------------------'                                       `-----------------------------------'
@@ -212,11 +212,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_UNDS,  KC_TRNS,  KC_TRNS,
 
         // right hand
-        KC_TRNS,  M(M_CRC), CSA_PSMS,  KC_NO,     KC_NO,    KC_NO,     KC_NO,
-        KC_TRNS,  KC_NO,    KC_NO,     CSA_ETH,   KC_NO,    CSA_IJ,    KC_NO,
-                  KC_NO,    CSA_THRN,  CSA_SRPS,  KC_NO,    CSA_DTLD,  KC_TRNS,
-        KC_TRNS,  KC_NO,    KC_NO,     CSA_MU,    KC_NO,    KC_NO,     KC_NO,
-                            KC_TRNS,   KC_NO,     KC_TRNS,  CSA_DCED,  KC_TRNS,
+        KC_TRNS,  M(M_CRC),  CSA_PSMS,  KC_NO,     CSA_DVSN, CSA_TIMS,  CSA_DBRV,
+        KC_TRNS,  CSA_IXLM,  CSA_DCAR,  CSA_ETH,   KC_NO,    CSA_IJ,    KC_NO,
+                  CSA_CPRT,  CSA_THRN,  CSA_SRPS,  CSA_RTM,  CSA_DTLD,  CSA_DMCR,
+        KC_TRNS,  CSA_IQST,  CSA_DRNG,  CSA_MU,    KC_NO,    CSA_DOGO,  KC_TRNS,
+                             KC_TRNS,   KC_NO,     KC_TRNS,  CSA_DCED,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
