@@ -111,22 +111,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA] = KEYMAP(
         // left hand
-        KC_DLR,     CM_DQOT,   CM_LGIL, CM_RGIL, KC_LPRN,       KC_RPRN, KC_DELT,
-        KC_TAB,     KC_B,      CM_ECUT, KC_P,    KC_O,          CM_EGRV, KC_BSPC,
-        KC_EQL,     KC_A,      KC_U,    KC_I,    KC_E,          KC_COMM,
-        M(M_CMSFT), CM_AGRV,   KC_Y,    KC_X,    KC_DOT,        KC_K,    KC_ENT,
-        KC_LCTL,    M(M_FNLR), KC_LGUI, KC_MPLY, ALT_T(KC_APP),
+        KC_DLR,      CSA_DQOT,   CSA_LGIL,  CSA_RGIL,  KC_LPRN,       KC_RPRN,   KC_DELT,
+        KC_TAB,      KC_B,       CSA_ECUT,  KC_P,      KC_O,          CSA_EGRV,  KC_BSPC,
+        KC_EQL,      KC_A,       KC_U,      KC_I,      KC_E,          KC_COMM,
+        M(M_CMSFT),  CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,        KC_K,      KC_ENT,
+        KC_LCTL,     M(M_FNLR),  KC_LGUI,   KC_MPLY,   ALT_T(KC_APP),
 
                                               ALT_T(KC_ESC),  TG(LR_NUMR),
                                                               KC_PGUP,
                                             KC_SPC, KC_LSFT,  KC_PGDN,
 
         // right hand
-        KC_DELT,   KC_AT,    KC_PLUS, KC_MINS, CM_SLSH, KC_ASTR,  KC_W,
-        KC_BSPC,   CM_DCRC,  KC_V,    KC_D,    KC_L,    KC_J,     KC_Z,
-                   KC_C,     KC_T,    KC_S,    KC_R,    KC_N,     KC_M,
-        KC_ENT,    CM_APOS,  KC_Q,    KC_G,    KC_H,    KC_F,     M(M_CMSFT),
-                      MO(LR_CSA_AGR), KC_PERC, KC_HOME, CM_CCED,  CTL_T(KC_END),
+        KC_DELT,   KC_AT,     KC_PLUS,  KC_MINS,  CSA_SLSH,  KC_ASTR,   KC_W,
+        KC_BSPC,   CSA_DCRC,  KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
+                   KC_C,      KC_T,     KC_S,     KC_R,      KC_N,      KC_M,
+        KC_ENT,    CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      M(M_CMSFT),
+                       MO(LR_CSA_AGR),  KC_PERC,  KC_HOME,   CSA_CCED,  CTL_T(KC_END),
 
         KC_LEFT, KC_RGHT,
         KC_UP,
@@ -166,11 +166,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           M(M_NBSP),  KC_TRNS,  KC_TRNS,
 
         // right hand
-        KC_TRNS,  M(M_6),   M(M_7),   M(M_8),   M(M_9),   M(M_0),   KC_TRNS,
-        KC_TRNS,  KC_EXLM,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-        KC_TRNS,  CM_QEST,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                            KC_TRNS,  M(M_GRV), KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,  M(M_6),    M(M_7),   M(M_8),   M(M_9),   M(M_0),   KC_TRNS,
+        KC_TRNS,  KC_EXLM,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+                  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,  CSA_QEST,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+                             KC_TRNS,  M(M_GRV), KC_TRNS,  KC_TRNS,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
@@ -200,22 +200,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA_AGR] = KEYMAP(
         // left hand
-        MUC(NDSH),MUC(MDSH),CM_LESS,  CM_GRTR, CM_LBRC,  CM_RBRC,  KC_TRNS,
-        KC_TRNS,  CM_PIPE,  CM_DACT,  KC_AMPR, CM_OE,    CM_DGRV,  KC_TRNS,
-        KC_NO,    CM_AE,    CM_UGRV,  CM_DTRM, CM_EURO,  CM_RQOT,
-        KC_TRNS,  CM_BSLS,  CM_LCBR,  CM_RCBR, MUC(ELPS),CM_TILD,  KC_TRNS,
-        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
+        MUC(NDSH),  MUC(MDSH),  CSA_LESS,  CSA_GRTR,  CSA_LBRC,   CSA_RBRC,  KC_TRNS,
+        KC_TRNS,    CSA_PIPE,   CSA_DACT,  KC_AMPR,   CSA_OE,     CSA_DGRV,  KC_TRNS,
+        KC_NO,      CSA_AE,     CSA_UGRV,  CSA_DTRM,  CSA_EURO,   CSA_RQOT,
+        KC_TRNS,    CSA_BSLS,   CSA_LCBR,  CSA_RCBR,  MUC(ELPS),  CSA_TILD,  KC_TRNS,
+        KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
 
                                                       KC_TRNS,  KC_TRNS,
                                                                 KC_TRNS,
                                             KC_UNDS,  KC_TRNS,  KC_TRNS,
 
         // right hand
-        KC_TRNS,  M(M_CRC), CM_PSMS,  KC_NO,    KC_NO,    KC_NO,    KC_NO,
-        KC_TRNS,  KC_NO,    KC_NO,    CM_ETH,   KC_NO,    CM_IJ,    KC_NO,
-                  KC_NO,    CM_THRN,  CM_SRPS,  KC_NO,    CM_DTLD,  KC_TRNS,
-        KC_TRNS,  KC_NO,    KC_NO,    CM_MU,    KC_NO,    KC_NO,    KC_NO,
-                            KC_TRNS,  KC_NO,    KC_TRNS,  CM_DCED,  KC_TRNS,
+        KC_TRNS,  M(M_CRC), CSA_PSMS,  KC_NO,     KC_NO,    KC_NO,     KC_NO,
+        KC_TRNS,  KC_NO,    KC_NO,     CSA_ETH,   KC_NO,    CSA_IJ,    KC_NO,
+                  KC_NO,    CSA_THRN,  CSA_SRPS,  KC_NO,    CSA_DTLD,  KC_TRNS,
+        KC_TRNS,  KC_NO,    KC_NO,     CSA_MU,    KC_NO,    KC_NO,     KC_NO,
+                            KC_TRNS,   KC_NO,     KC_TRNS,  CSA_DCED,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
@@ -385,13 +385,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         register_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(DOWN(CM_ALTGR), D(SCLN), END);
+                        return MACRO(DOWN(CSA_ALTGR), D(SCLN), END);
                     case M_SCLN:
                         return MACRO(D(SCLN), END);
                     case M_GRV:
-                        return MACRO(DOWN(CM_ALTGR), TYPE(CM_DCRC), UP(CM_ALTGR), T(SPACE), END);
+                        return MACRO(DOWN(CSA_ALTGR), TYPE(CSA_DCRC), UP(CSA_ALTGR), T(SPACE), END);
                     case M_NBSP:
-                        return MACRO(DOWN(CM_ALTGR), T(SPACE), UP(CM_ALTGR), END);
+                        return MACRO(DOWN(CSA_ALTGR), T(SPACE), UP(CSA_ALTGR), END);
                 }
             } else {
                 hold_shift();
@@ -400,7 +400,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         unregister_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(UP(CM_ALTGR), D(LSFT), U(SCLN), END);
+                        return MACRO(UP(CSA_ALTGR), D(LSFT), U(SCLN), END);
                     case M_SCLN:
                         return MACRO(D(LSFT), U(SCLN), END);
                 }
@@ -408,7 +408,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             break;
         case M_CRC:
             if (record->event.pressed) {
-                return MACRO(TYPE(CM_DCRC), T(SPACE), END);
+                return MACRO(TYPE(CSA_DCRC), T(SPACE), END);
             }
             break;
         case M_DBL0:
