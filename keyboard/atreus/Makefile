@@ -58,6 +58,15 @@ else
     SRC := keymaps/keymap_default.c $(SRC)
 endif
 
+ifdef TEENSY2
+    OPT_DEFS += -DATREUS_TEENSY2
+    ATRUES_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
+else
+    OPT_DEFS += -DATREUS_ASTAR
+    ATRUES_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
+                            avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
+endif
+
 CONFIG_H = config.h
 
 # MCU name
@@ -114,8 +123,8 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 #   comment out to disable the options.
 #
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-#MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-#EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
@@ -137,3 +146,7 @@ VPATH += $(TMK_DIR)
 
 include $(TOP_DIR)/quantum/quantum.mk
 
+USB ?= /dev/cu.usbmodem1411
+
+upload: build
+	$(ATRUES_UPLOAD_COMMAND)
