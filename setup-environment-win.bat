@@ -6,11 +6,8 @@ if NOT ["%errorlevel%"]==["0"] (
 	exit
 ) 
 
-mingw-get install mingw32-make-bin mingw32-gcc-bin msys-wget-bin msys-unzip-bin
+mingw-get install msys-wget-bin msys-unzip-bin
 cd \MinGW\bin
-
-REM It would be somewhat better to use symlinks, but then it wouldn't work in XP or Vista.
-copy mingw32-make.exe make.exe
 
 mkdir temp
 cd temp 
