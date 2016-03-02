@@ -3,23 +3,11 @@
 ## Setting up the environment
 
 ### Windows
-
-Options
-1. Vagrant (overkill, lack of trust, no driver concerns)
-2. Chocolatey / dfu-programmer (more dev work required)
-3. Chocolatey / flip
-4. Write a batch script that installs dfu-programmer on the path, installs make with MinGW, and uses pnputil to install the proper driver https://technet.microsoft.com/en-us/library/cc732377%28v=ws.10%29.aspx?f=255&MSPPError=-2147217396#BKMK_Anchor2
-4. Look up altenatives (
-
-* Install [MHV AVR Tools](https://github.com/jackhumbert/qmk_firmware). Disable smatch, but be sure to leave the option to add the tools to the PATH checked.
-* Install the latest version of [the Atmel AVR **8-bit** toolchain](http://www.atmel.com/tools/atmelavrtoolchainforwindows.aspx)
-* Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The script depends on the default location.
-* Right-click on the setup-path-win batch script at the root of the project and select "Run as administrator". Press the spacebar to dismiss the success message.
-* 
-
-1. Install [Chocolatey](https://chocolatey.org/). It's a package manager for Windows that will make it easy to set up the complete build environment. To install Chocolatey, run the following command in a command line window with administrator privileges (search for command prompt, right-click on it, and select "Run as administrator"). `@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin`
-2. Install DFU-Programmer by running (the -win one).
-3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
+1. Install [MHV AVR Tools](https://github.com/jackhumbert/qmk_firmware). Disable smatch, but **be sure to leave the option to add the tools to the PATH checked**.
+2. Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The scripts depend on the default location.
+3. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
+4. Right-click on the 1-setup-path-win batch script, select "Run as administrator", and accept the User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
+5. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
 
 ### Mac
 
