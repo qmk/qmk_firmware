@@ -12,8 +12,8 @@ The documentation below explains QMK customizations and elaborates on some of th
 
 ## Getting started
 
-* **If you're looking to customize a keyboard that currently runs QMK or TMK** , find your keyboard's directory under `/keyboard/` and read the README file. This will get you all set up.
-* Read the [QUICK_START.md](QUICK_START.md) if you want to hit the ground running with minimal fuss or you aren't a technical person and you just want to build the firmware with the least amount of hassle possible.
+* [BUILD_GUIDE.md](BUILD_GUIDE.md) contains instructions to set up a build environment, build the firmware, and deploy it to a keyboard. Once your build environment has been set up, all `make` commands to actually build the firmware must be run from a folder in `keyboard/`.
+* If you're looking to customize a keyboard that currently runs QMK or TMK, find your keyboard's directory under `keyboard/` and run the make commands from there.
 * If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `./new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
 
 You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
@@ -309,3 +309,4 @@ what things are (and likely aren't) too risky.
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
+					
