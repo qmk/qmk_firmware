@@ -1,9 +1,9 @@
 # Build Guide
 
-## Platform-specific setup
+## Build Environment Setup
 
 ### Windows
-
+What these instructions look like depends on whether NoahAndrews's setup scripts get merged
 
 ### Mac
 
