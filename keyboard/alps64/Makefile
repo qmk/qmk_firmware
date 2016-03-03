@@ -48,15 +48,8 @@ TMK_DIR = ../../tmk_core
 TARGET_DIR = .
 
 # project specific files
-SRC =	keymap_common.c \
-	matrix.c \
+SRC =	matrix.c \
 	led.c
-
-ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := keymap_plain.c $(SRC)
-endif
 
 CONFIG_H = config.h
 
@@ -120,6 +113,20 @@ CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 #NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+ACTIONMAP_ENABLE = yes	# Use 16bit action codes in keymap instead of 8bit keycodes
+
+
+ifdef ACTIONMAP_ENABLE
+    KEYMAP_FILE = actionmap
+else
+    KEYMAP_FILE = keymap
+    SRC := keymap_common.c $(SRC)
+endif
+ifdef KEYMAP
+    SRC := $(KEYMAP_FILE)_$(KEYMAP).c $(SRC)
+else
+    SRC := $(KEYMAP_FILE)_plain.c $(SRC)
+endif
 
 
 # Optimize size but this may cause error "relocation truncated to fit"
