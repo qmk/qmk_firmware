@@ -6,7 +6,6 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_macro.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
-	$(COMMON_DIR)/keymap.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
@@ -17,6 +16,13 @@ SRC +=	$(COMMON_DIR)/host.c \
 
 
 # Option modules
+ifdef ACTIONMAP_ENABLE
+    SRC += $(COMMON_DIR)/actionmap.c
+    OPT_DEFS += -DACTIONMAP_ENABLE
+else
+    SRC += $(COMMON_DIR)/keymap.c
+endif
+
 ifdef BOOTMAGIC_ENABLE
     SRC += $(COMMON_DIR)/bootmagic.c
     SRC += $(COMMON_DIR)/avr/eeconfig.c
