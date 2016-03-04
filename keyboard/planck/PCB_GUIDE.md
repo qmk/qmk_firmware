@@ -8,6 +8,7 @@
 2. Install [DFU-Programmer][dfu-prog] (the -win one).
 3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
 
+
 ### Mac
 
 If you're using homebrew, you can use the following commands:
@@ -51,6 +52,28 @@ Generally, the instructions to flash the PCB are as follows:
 3. `make clean`
 4. Press the reset button on the PCB/press the key with the `RESET` keycode
 5. `make <arguments> dfu` - use the necessary `KEYMAP=<keymap>` and/or `COMMON=true` arguments here.
+
+## Troubleshooting
+If you see something like this
+
+          0 [main] sh 13384 sync_with_child: child 9716(0x178) died before initialization with status code 0xC0000142
+        440 [main] sh 13384 sync_with_child: *** child state waiting for longjmp
+    /usr/bin/sh: fork: Resource temporarily unavailable
+
+after running 'make' on Windows than you are encountering a very popular issue with WinAVR on Windows 8.1 and 10.
+You can easily fix this problem by replacing msys-1.0.dll in WinAVR/utils/bin with [this one](http://www.madwizard.org/download/electronics/msys-1.0-vista64.zip).
+Restart your system and everything should work fine!
+
+
+If you see this
+
+    dfu-programmer atmega32u4 erase
+    process_begin: CreateProcess(NULL, dfu-programmer atmega32u4 erase, ...) failed.
+    make (e=2): The system cannot find the file specified.
+    make: *** [dfu] Error 2
+
+when trying to 'make dfu' on Windows you need to copy the dfu-programmer.exe to qmk_firmware/keyboard/planck.
+
 
 ## Quantum MK Firmware
 
