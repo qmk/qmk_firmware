@@ -13,7 +13,6 @@ sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboard/$KEYBOARD
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/README.md > keyboard/$KEYBOARD/README.md
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboard/$KEYBOARD/Makefile
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default.c > keyboard/$KEYBOARD/keymaps/default.c
-cp quantum/template/bootloader.hex keyboard/$KEYBOARD/bootloader.hex
 
 echo "######################################################"
 echo "# keyboard/$KEYBOARD project created. To start"
