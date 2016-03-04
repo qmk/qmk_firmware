@@ -3,10 +3,11 @@
 ## Setting up the environment
 
 ### Windows
-
-1. Install [WinAVR Tools](http://sourceforge.net/projects/winavr/) for AVR GCC compiler.
-2. Install [DFU-Programmer][dfu-prog] (the -win one).
-3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
+1. Install [MHV AVR Tools](https://infernoembedded.com/sites/default/files/project/MHV_AVR_Tools_20131101.exe). Disable smatch, but **be sure to leave the option to add the tools to the PATH checked**.
+2. Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The scripts depend on the default location.
+3. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
+4. Right-click on the 1-setup-path-win batch script, select "Run as administrator", and accept the User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
+5. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
 
 
 ### Mac
