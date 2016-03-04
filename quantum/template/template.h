@@ -12,7 +12,7 @@
 // The second converts the arguments into a two-dimensional array
 #define KEYMAP( \
     k00, k01, k02, \
-      k10,  k11,   \
+      k10,  k11   \
 ) \
 { \
     { k00, k01,   k02 }, \
