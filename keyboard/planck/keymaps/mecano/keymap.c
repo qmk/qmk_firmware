@@ -35,7 +35,6 @@ enum function_id {
 	F_RH,
 	F_LC,
 	F_RC,
-
 	F_LS,
 	F_RS,
 	F_LA,
@@ -59,6 +58,7 @@ enum function_id {
 /* OSX Display Rotation Menu landscape shortcut */
 #define DP_LDSP LCAG(KC_0)
 //static keyrecord_t tapping_key = {};
+static uint8_t hold_type, hold_mods, tap_mods, tap_key;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QW] = { /* Qwerty */
@@ -90,86 +90,36 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				backlight_toggle();
 				return MACRODOWN(T(CAPS),END);
 			}
-
 			break;
 	}
 	return MACRO_NONE;
 };
-void action_add_mods(uint8_t m0, uint8_t m1, uint8_t m2, uint8_t m3)
-{
-	if (m3 > 0) {
-		add_weak_mods(MOD_BIT(m0)|MOD_BIT(m1)|MOD_BIT(m2)|MOD_BIT(m3));
-	} else if (m2 > 0) {
-		add_weak_mods(MOD_BIT(m0)|MOD_BIT(m1)|MOD_BIT(m2));
-	} else if (m1 > 0) {
-		add_weak_mods(MOD_BIT(m0)|MOD_BIT(m1));
-	} else {
-		add_weak_mods(MOD_BIT(m0));
-	}
-	send_keyboard_report();
-}
-void action_del_mods(void)
-{
-	clear_weak_mods();
-	send_keyboard_report();
-}
-void action_reg_mods(uint8_t m0, uint8_t m1, uint8_t m2, uint8_t m3)
-{
-	if (m3 > 0) {
-		register_mods(MOD_BIT(m0)|MOD_BIT(m1)|MOD_BIT(m2)|MOD_BIT(m3));
-	} else if (m2 > 0) {
-		register_mods(MOD_BIT(m0)|MOD_BIT(m1)|MOD_BIT(m2));
-	} else if (m1 > 0) {
-		register_mods(MOD_BIT(m0)|MOD_BIT(m1));
-	} else {
-		register_mods(MOD_BIT(m0));
-	}
-}
-void action_unr_mods(uint8_t m0, uint8_t m1, uint8_t m2, uint8_t m3)
-{
-	if (m3 > 0) {
-		unregister_mods(MOD_BIT(m0)|MOD_BIT(m1)|MOD_BIT(m2)|MOD_BIT(m3));
-	} else if (m2 > 0) {
-		unregister_mods(MOD_BIT(m0)|MOD_BIT(m1)|MOD_BIT(m2));
-	} else if (m1 > 0) {
-		unregister_mods(MOD_BIT(m0)|MOD_BIT(m1));
-	} else {
-		unregister_mods(MOD_BIT(m0));
-	}
-}
-void action_process(keyrecord_t *record,
-		uint8_t ht,
-		uint8_t h0, uint8_t h1, uint8_t h2, uint8_t h3,
-		uint8_t m10, uint8_t m11, uint8_t m12, uint8_t m13,
-		uint8_t t1)
+void action_process(keyrecord_t *record, uint8_t ht, uint8_t hm, uint8_t tm, uint8_t tk)
 {
 	keyevent_t event = record->event;
 	if (event.pressed) {
 		if (record->tap.count>0){
-			if (m10 > 0) {
-				action_add_mods(m10, m11, m12, m13);
-			}
-			register_code(t1);
+			add_weak_mods(tm);
+			send_keyboard_report();
+			register_code(tk);
 		} else {
-			dprintf("outside\n");
 			if (ht == 1) {
-				layer_on(h0);
-				debug("layer on\n");
+				layer_on(hm);
 			} else if (ht == 2) {
-				debug("mods on\n");
-				action_reg_mods(h0, h1, h2, h3);
+				register_mods(hm);
 			}
 		}
 	} else { // released
 		if (record->tap.count > 0) {
-			action_del_mods();
-			unregister_code(t1);
+			clear_weak_mods();
+			send_keyboard_report();
+			unregister_code(tk);
 			record->tap.count = 0;
 		} else {
 			if (ht == 1) {
-				layer_off(h0);
+				layer_off(hm);
 			} else if (ht == 2) {
-				action_unr_mods(h0, h1, h2, h3);
+				unregister_mods(hm);
 			}
 		}
 	}
@@ -178,93 +128,82 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 	switch (id) {
 		case F_LH:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_LSFT, KC_LALT, KC_LGUI, KC_LCTL, // layer id or mods
-					KC_LSFT, 0, 0, 0, // single tap mods
-					KC_9); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_LSFT)|MOD_BIT(KC_LALT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_LCTL); // layer id or mods
+			tap_mods=MOD_BIT(KC_LSFT); // single tap mods
+			tap_key=KC_9; // single tap
 			break;
 		case F_RH:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_RSFT, KC_RALT, KC_RGUI, KC_RCTL, // layer id or mods
-					KC_LSFT, 0, 0, 0, // single tap mods
-					KC_0); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_RSFT)|MOD_BIT(KC_RALT)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_RCTL); // layer id or mods
+			tap_mods=MOD_BIT(KC_LSFT); // single tap mods
+			tap_key=KC_0; // single tap
 			break;
 		case F_LC:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_LCTL,0,0,0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_ESC);// single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_LCTL); // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_ESC; // single tap
 			break;
 		case F_RC:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_RCTL,0,0,0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_BSPC);// single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_RCTL); // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_BSPC; // single tap
 			break;
 		case F_LS:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_LSFT, 0, 0, 0, // layer id or mods
-					KC_LSFT, 0, 0, 0, // single tap mods
-					KC_LBRC); // single tap break;
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_LSFT); // layer id or mods
+			tap_mods=KC_LSFT; // single tap mods
+			tap_key=KC_LBRC; // single tap
 			break;
 		case F_RS:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_RSFT, 0, 0, 0, // layer id or mods
-					KC_LSFT, 0, 0, 0, // single tap mods
-					KC_RBRC); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_RSFT); // layer id or mods
+			tap_mods=KC_LSFT; // single tap mods
+			tap_key=KC_RBRC; // single tap
 			break;
 		case F_LA:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_LALT, 0, 0, 0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_TAB); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_LALT); // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_TAB; // single tap
 			break;
 		case F_RA:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_RALT, 0, 0, 0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_EQL); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_RALT); // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_EQL; // single tap
 			break;
 		case F_LG:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_LGUI, 0, 0, 0, // layer id or mods
-					KC_LALT, KC_LSFT, 0, 0, // single tap mods
-					KC_2); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_LGUI); // layer id or mods
+			tap_mods=MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT); // single tap mods
+			tap_key=KC_2; // single tap
 			break;
 		case F_RG:
-			action_process(record,
-					2, // momentary type 0:off 1:layer 2:mod
-					KC_RGUI, 0, 0, 0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_MINS); // single tap
+			hold_type=2; // momentary type 0:off 1:layer 2:mod
+			hold_mods=MOD_BIT(KC_RGUI); // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_MINS; // single tap
 			break;
 		case F_LSP:
-			action_process(record,
-					1, // momentary type 0:off 1:layer 2:mod
-					_LSP, 0, 0, 0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_ENT); // single tap
+			hold_type=1; // momentary type 0:off 1:layer 2:mod
+			hold_mods=_LSP; // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_ENT; // single tap
 			break;
 		case F_RSP:
-			action_process(record,
-					1, // momentary type 0:off 1:layer 2:mod
-					_RSP, 0, 0, 0, // layer id or mods
-					0, 0, 0, 0, // single tap mods
-					KC_SPC); // single tap
+			hold_type=1; // momentary type 0:off 1:layer 2:mod
+			hold_mods=_RSP; // layer id or mods
+			tap_mods=NULL; // single tap mods
+			tap_key=KC_SPC; // single tap
 			break;
 		default:
 			// send_unicode(id,opt);
 			break;
 	}
+	action_process(record, hold_type, hold_mods, tap_mods, tap_key);
 }
 const uint16_t PROGMEM fn_actions[] = {
 	[_LH] = ACTION_FUNCTION_TAP(F_LH),
