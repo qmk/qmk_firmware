@@ -53,6 +53,26 @@ void action_exec(keyevent_t event)
 #endif
 }
 
+/*
+ * Make sure the action triggered when the key is released is the same
+ * one as the one triggered on press. It's important for the mod keys
+ * when the layer is switched after the down event but before the up
+ * event as they may get stuck otherwise.
+ */
+action_t store_or_get_action(bool pressed, keypos_t key)
+{
+#ifndef NO_ACTION_LAYER
+    static action_t pressed_actions[MATRIX_ROWS][MATRIX_COLS];
+
+    if (pressed) {
+        pressed_actions[key.row][key.col] = layer_switch_get_action(key);
+    }
+    return pressed_actions[key.row][key.col];
+#else
+    return layer_switch_get_action(key);
+#endif
+}
+
 void process_action(keyrecord_t *record)
 {
     keyevent_t event = record->event;
@@ -62,7 +82,7 @@ void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
-    action_t action = layer_switch_get_action(event.key);
+    action_t action = store_or_get_action(event.pressed, event.key);
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
