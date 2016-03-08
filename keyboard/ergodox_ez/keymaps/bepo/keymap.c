@@ -27,8 +27,10 @@ enum macros {
     UC_ELPS, // …
     END_UC, // indicates the last unicode character macro
     // other macros
-    M_TGCM, // toggle CA-mult
-    M_CMSFT, // toggle shift on CA-mult
+    M_TGCSA, // toggle BÉPO over CSA
+    M_CSA_SFT, // toggle shift on CSA
+    M_CSA_AGR_SFT, // toggle shift on LR_CSA_AGR (goes to LR_CSA_AGR_SFT)
+    M_CSA_SFT_AGR, // toggle AltGr on LR_CSA_SFT (goes to LR_CSA_AGR_SFT)
     // macros for characters that need to be un-shifted in LR_CA_MULT_SHIFT
     M_1,
     M_2,
@@ -51,14 +53,16 @@ enum macros {
     M_FNLR,
 };
 
+#define CSA(name)   M(M_CSA_##name)     // calls a CSA macro
+
 const uint16_t unicode_chars[] = {
         [UC_NDSH] = L'–',
         [UC_MDSH] = L'—',
         [UC_ELPS] = L'…',
 };
 
-/* shortcut for unicod character macros */
-#define MUC(name)   M(UC_##name)
+/* shortcut for unicode character macros */
+#define MUC(name)   M(UC_##name)    // calls a unicode macro
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Basic layer
@@ -115,23 +119,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DLR,      CSA_DQOT,   CSA_LGIL,  CSA_RGIL,  KC_LPRN,       KC_RPRN,   KC_DELT,
         KC_TAB,      KC_B,       CSA_ECUT,  KC_P,      KC_O,          CSA_EGRV,  KC_BSPC,
         KC_EQL,      KC_A,       KC_U,      KC_I,      KC_E,          KC_COMM,
-        M(M_CMSFT),  CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,        KC_K,      KC_ENT,
+        CSA(SFT),    CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,        KC_K,      KC_ENT,
         KC_LCTL,     M(M_FNLR),  KC_LGUI,   KC_MPLY,   ALT_T(KC_APP),
 
                                               ALT_T(KC_ESC),  TG(LR_NUMR),
                                                               KC_PGUP,
-                                            KC_SPC, KC_LSFT,  KC_PGDN,
+                                           KC_SPC, CSA(SFT),  KC_PGDN,
 
         // right hand
         KC_DELT,   KC_AT,     KC_PLUS,  KC_MINS,  CSA_SLSH,  KC_ASTR,   KC_W,
         KC_BSPC,   CSA_DCRC,  KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
                    KC_C,      KC_T,     KC_S,     KC_R,      KC_N,      KC_M,
-        KC_ENT,    CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      M(M_CMSFT),
+        KC_ENT,    CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      CSA(SFT),
                        MO(LR_CSA_AGR),  KC_PERC,  KC_HOME,   CSA_CCED,  CTL_T(KC_END),
 
         KC_LEFT, KC_RGHT,
         KC_UP,
-        KC_DOWN, KC_RSFT,  KC_SPC
+        KC_DOWN, CSA(SFT), KC_SPC
     ),
 /* Shifted BÉPO over Canadian Multilingual
  *
@@ -171,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  KC_EXLM,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
         KC_TRNS,  CSA_QEST,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                             KC_TRNS,  M(M_GRV), KC_TRNS,  KC_TRNS,  KC_TRNS,
+                        CSA(SFT_AGR),  M(M_GRV), KC_TRNS,  KC_TRNS,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
@@ -201,26 +205,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA_AGR] = KEYMAP(
         // left hand
-        MUC(NDSH),  MUC(MDSH),  CSA_LESS,  CSA_GRTR,  CSA_LBRC,   CSA_RBRC,  KC_TRNS,
-        KC_TRNS,    CSA_PIPE,   CSA_DACT,  KC_AMPR,   CSA_OE,     CSA_DGRV,  KC_TRNS,
-        KC_NO,      CSA_AE,     CSA_UGRV,  CSA_DTRM,  CSA_EURO,   CSA_RQOT,
-        KC_TRNS,    CSA_BSLS,   CSA_LCBR,  CSA_RCBR,  MUC(ELPS),  CSA_TILD,  KC_TRNS,
-        KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
+        MUC(NDSH),    MUC(MDSH),  CSA_LESS,  CSA_GRTR,  CSA_LBRC,   CSA_RBRC,  KC_TRNS,
+        KC_TRNS,      CSA_PIPE,   CSA_DACT,  KC_AMPR,   CSA_OE,     CSA_DGRV,  KC_TRNS,
+        KC_NO,        CSA_AE,     CSA_UGRV,  CSA_DTRM,  CSA_EURO,   CSA_RQOT,
+        CSA(AGR_SFT), CSA_BSLS,   CSA_LCBR,  CSA_RCBR,  MUC(ELPS),  CSA_TILD,  KC_TRNS,
+        KC_TRNS,      KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
 
                                                       KC_TRNS,  KC_TRNS,
                                                                 KC_TRNS,
-                                            KC_UNDS,  KC_TRNS,  KC_TRNS,
+                                        KC_UNDS, CSA(AGR_SFT),  KC_TRNS,
 
         // right hand
         KC_TRNS,  M(M_CRC),  CSA_PSMS,  KC_NO,     CSA_DVSN, CSA_TIMS,  CSA_DBRV,
         KC_TRNS,  CSA_IXLM,  CSA_DCAR,  CSA_ETH,   KC_NO,    CSA_IJ,    KC_NO,
                   CSA_CPRT,  CSA_THRN,  CSA_SRPS,  CSA_RTM,  CSA_DTLD,  CSA_DMCR,
-        KC_TRNS,  CSA_IQST,  CSA_DRNG,  CSA_MU,    KC_NO,    CSA_DOGO,  KC_TRNS,
+        KC_TRNS,  CSA_IQST,  CSA_DRNG,  CSA_MU,    KC_NO,    CSA_DOGO,  CSA(AGR_SFT),
                              KC_TRNS,   KC_NO,     KC_TRNS,  CSA_DCED,  KC_TRNS,
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
-        KC_TRNS,  KC_TRNS,  KC_UNDS
+        KC_TRNS,  CSA(AGR_SFT),  KC_UNDS
+    ),
+/* AltGr-shifted BÉPO over Canadian Multilingual
+ * "////" indicates that the key is disabled (unsupported bépo character or unused in bépo)
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |    ¶   | //// |   “  |   ”  | //// | //// |      |           |      | //// |   ¬  |   ¼  |   ½  |   ¾  | ////// |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |   ¦  |   ˝  |   §  |   Œ  |   `  |      |           |      | //// | //// |   Ð  | //// |   Ĳ  | ////// |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | ////// |   Æ  |   Ù  |dead-˙| //// | //// |------|           |------| //// |   Þ  |   ẞ   |   ™  | //// |   º    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        | //// |   ‘  |   ’  | //// | //// |      |           |      | //// | //// | //// | //// |   ª  |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[LR_CSA_AGR_SFT] = KEYMAP(
+        // left hand
+        CSA_PARG,      KC_NO,     CSA_LDQT,    CSA_RDQT,  KC_NO,     KC_NO,     KC_TRNS,
+        KC_TRNS,       CSA_BPIP,  CSA_DDCT,    CSA_SECT,  S(CSA_OE), M(M_GRV),  KC_TRNS,
+        KC_NO,         S(CSA_AE), S(CSA_UGRV), CSA_DDTA,  KC_NO,     KC_NO,
+        CSA(AGR_SFT),  KC_NO,     CSA_LQOT,    CSA_RQOT,  KC_NO,     KC_NO,     KC_TRNS,
+        KC_TRNS,       KC_TRNS,   KC_TRNS,     KC_TRNS,   KC_TRNS,
+
+        KC_TRNS,  KC_TRNS,
+        KC_TRNS,
+        KC_TRNS,  CSA(AGR_SFT),  KC_TRNS,
+
+        // right hand
+        KC_TRNS,  KC_NO,     CSA_NEGT,    CSA_1QRT,    CSA_1HLF,  CSA_3QRT,   KC_NO,
+        KC_TRNS,  KC_NO,     KC_NO,       S(CSA_ETH),  KC_NO,     S(CSA_IJ),  KC_NO,
+                  KC_NO,     S(CSA_THRN), S(CSA_SRPS), CSA_TM,    KC_NO,      CSA_ORDO,
+        KC_TRNS,  KC_NO,     KC_NO,       KC_NO,       KC_NO,     CSA_ORDA,   CSA(AGR_SFT),
+                        CSA(SFT_AGR),     KC_TRNS,     KC_TRNS,   KC_TRNS,    KC_TRNS,
+
+        KC_TRNS,  KC_TRNS,
+        KC_TRNS,
+        KC_TRNS,  CSA(AGR_SFT),  KC_TRNS
     ),
 /* Numeric Layer
  *
@@ -289,7 +338,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [LR_FN] = KEYMAP(
-       M(M_TGCM), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
+       M(M_TGCSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        RESET,     KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
        KC_TRNS,   KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
@@ -359,19 +408,36 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 send_unicode(unicode_chars[id]);
             }
             break;
-        case M_TGCM:
+        case M_TGCSA:
             if (record->event.pressed) {
                 default_layer_xor(1 << LR_CSA);
             }
             break;
-        case M_CMSFT:
+        case M_CSA_SFT:
+            // BÉPO over CSA: toggle shift layer
+            layer_invert(LR_CSA_SFT);
             if (record->event.pressed) {
-                layer_on(LR_CSA_SFT);
                 hold_shift();
             } else {
                 release_shift();
-                layer_off(LR_CSA_SFT);
             }
+            break;
+        case M_CSA_SFT_AGR:
+            // BÉPO over CSA: from shift layer, momentary altgr+shift layer
+            layer_invert(LR_CSA_AGR);
+            layer_invert(LR_CSA_AGR_SFT);
+            if (record->event.pressed) {
+                // shift not needed for LR_CSA_AGR_SFT
+                release_shift();
+            } else {
+                // back to shift layer
+                hold_shift();
+            }
+            break;
+        case M_CSA_AGR_SFT:
+            // BÉPO over CSA: from altgr layer, momentary altgr+shift layer
+            layer_invert(LR_CSA_SFT);
+            layer_invert(LR_CSA_AGR_SFT);
             break;
         case M_1 ... M_0:
         case M_DEGR:
