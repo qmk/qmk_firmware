@@ -61,7 +61,7 @@ void action_exec(keyevent_t event)
  */
 action_t store_or_get_action(bool pressed, keypos_t key)
 {
-#ifndef NO_ACTION_LAYER
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     static action_t pressed_actions[MATRIX_ROWS][MATRIX_COLS];
 
     if (pressed) {
