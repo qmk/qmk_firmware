@@ -2,6 +2,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "action_util.h"
 #include "led.h"
 #include "keymap_extras/keymap_bepo.h"
 #include "keymap_extras/keymap_canadian_multilingual.h"
@@ -391,7 +392,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                     case M_GRV:
                         return MACRO(DOWN(CSA_ALTGR), TYPE(CSA_DCRC), UP(CSA_ALTGR), T(SPACE), END);
                     case M_NBSP:
-                        return MACRO(DOWN(CSA_ALTGR), T(SPACE), UP(CSA_ALTGR), END);
+                        // use weak mod such that pressing another key will not be affected
+                        add_weak_mods(MOD_BIT(CSA_ALTGR));
+                        return MACRO(D(SPACE), END);
                 }
             } else {
                 hold_shift();
@@ -403,6 +406,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         return MACRO(UP(CSA_ALTGR), D(LSFT), U(SCLN), END);
                     case M_SCLN:
                         return MACRO(D(LSFT), U(SCLN), END);
+                    case M_NBSP:
+                        del_weak_mods(MOD_BIT(CSA_ALTGR));
+                        return MACRO(U(SPACE), END);
                 }
             }
             break;
