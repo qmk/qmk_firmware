@@ -2,7 +2,7 @@
 If you are a user of the [cygwin environment](https://cygwin.com) in Windows and want the freedom to use the latest tools available, then this is the guide for you. If compiling your own copy of the latest and greatest Gnu C Compiler makes you super happy, then this is the guide for you. If the command line make you smile, then this is the guide for you.
 
 
-This guide was written step by step as I went through the process on a `Windows 10` `x86_64` based system.  This should be generally applicable to to any `Windows` environment with `cygwin`.
+This guide was written step by step as I went through the process on a `Windows 10` `x86_64` and a `Windows 7` `amd k10` based system.  This should be generally applicable to to any `Windows` environment with `cygwin`.
 
 
 #####Do not skip steps. Do not move past a step until the previous step finishes successfully.
@@ -18,14 +18,16 @@ Download the `cygwin` setup ([x86_64](https://cygwin.com/setup-x86_64.exe)) and 
 - devel/gcc-g++
 - devel/flex
 - devel/git
-- libs/libglib2.0_0
+- devel/bison
+- devel/make
 - libs/libgcc1
 - interpreters/m4
 - web/wget
+- archive/unzip
 
 The following sources will be required:
 - [gmp](https://gmplib.org/) (6.1.0)
-- [mpfr](http://www.mpfr.org/) (3.1.3)
+- [mpfr](http://www.mpfr.org/) (3.1.4)
 - [mpc](http://www.multiprecision.org/) (1.0.3) 
 - [binutils](https://www.sourceware.org/binutils/) (2.26)
 - [gcc](https://gcc.gnu.org/) (5.3.0)
@@ -38,17 +40,18 @@ The `dfu-programmer` will be required to flash the new firmware
 The set of commands below will create a directory (`~/local/avr`) for the sources you compile to be installed on the machine and a directory (`~/src`) for these source files to be stored. The commands then download the sources of the needed packages and unpack them. Note: the expand commands are different depending on if the packages are offered as a `bz2` or `gz` archive
 
 ```
+$ mkdir ~/local
 $ mkdir ~/local/avr
 $ mkdir ~/src
 $ cd ~/src
 $ wget https://gmplib.org/download/gmp/gmp-6.1.0.tar.bz2
-$ wget http://www.mpfr.org/mpfr-current/mpfr-3.1.3.tar.bz2
+$ wget http://www.mpfr.org/mpfr-3.1.4/mpfr-3.1.4.tar.bz2
 $ wget ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz
 $ wget http://ftp.gnu.org/gnu/binutils/binutils-2.26.tar.gz
 $ wget http://mirror0.babylon.network/gcc/releases/gcc-5.3.0/gcc-5.3.0.tar.gz
 $ wget http://download.savannah.gnu.org/releases/avr-libc/avr-libc-2.0.0.tar.bz2
 $ tar -xjf gmp-6.1.0.tar.bz2
-$ tar -xjf mpfr-3.1.3.tar.bz2
+$ tar -xjf mpfr-3.1.4.tar.bz2
 $ tar -zxf mpc-1.0.3.tar.gz
 $ tar -zxf binutils-2.26.tar.gz
 $ tar -zxf gcc-5.3.0.tar.gz
@@ -79,7 +82,7 @@ $ make install
 
 ###Build and Install `mpfr`
 ```
-$ cd ~/src/mpfr-3.1.3
+$ cd ~/src/mpfr-3.1.4
 $ ./configure --with-gmp-build=../gmp-6.1.0 --enable-static --disable-shared
 $ make
 $ make check
@@ -96,7 +99,8 @@ $ make install
 ```
 
 ##OPTIONAL Part
-You can build and install a brand new `gcc` or you can use the one supplied by `cygwin`.  This will take about 4-5 hours to compile (It is a "native build", so it does the entire build **3 times**. This takes a long while). I would skip it.
+You can build and install a brand new `gcc` or you can use the one supplied by `cygwin`.  This will take about 4-5 hours to compile (It is a "native build", so it does the entire build **3 times**. This takes a long while).
+
 ###Build and Install `gcc` on your Machine  
 ```
 $ cd ~/src/gcc-5.3.0
@@ -141,7 +145,7 @@ $ make
 $ make install
 ```
 
-For building the `avr-libc`, we have to specify the host build system.  in my case it is `x86_64-unknown-cygwin`. You can look for build system type in the `gcc` configure notes for the proper `--build` specification to pass when you configure `avr-libc`.
+For building the `avr-libc`, we have to specify the host build system.  In my case it is `x86_64-unknown-cygwin`. You can look for build system type in the `gcc` configure notes for the proper `--build` specification to pass when you configure `avr-libc`.
 
 ###Build `avr-libc` for AVR
 ```
@@ -151,13 +155,34 @@ $ make
 $ make install
 ```
 
-##Install `dfu-programmer`
-To install the `dfu-programmer`, we must get if from [their website](https://dfu-programmer.github.io/) (no fancy command line tricks here, but [this](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip) might work).
-Copy this file into your `cygwin` home directory.  (For me, it is `C:\cygwin64\home\Kevin`), extract the files, move `dfu-programmer.exe` to `~/local/avr/bin`. Most obnoxiously, the `libusb0_x86.dll` and `libusb0.sys` need to be moved from  `dfu/dfu-prog-usb-1.2.2/x86/` to a directory in the `Windows` `PATH` and the `cygwin` `PATH`. I achieved this by moving the files with Windows Explorer (you know, click and drag...) to  `C:\cygwin64\home\Kevin\local\avr\bin` Then, in a `WINDOWS` command prompt running:
+### Build and Install the `dfu-programmer`
+We can either build our own, or use the precomplied binaries.  The precompiled binaries don't play well with `cygwin` so it is better to build them ourselves.  The procedure for the precompiled binaries is included at the end of this guide.
+
+The `dfu-programmer` requires `libusb`.  So let's go ahead and build that first.
+
 ```
-C:\> set PATH=%PATH%;C:\cygwin64\home\Kevin\local\avr\bin
+$ cd ~/src
+$ git clone https://github.com/libusb/libusb.git
+$ cd libusb
+$ ./bootstrap.sh
+$ ./configure --prefix=$PREFIX
+$ make
+$ make install
 ```
-Adjust your path (for username) as needed. Also, `libusb0_x86.dll` needs to be renamed to `libusb0.dll`.  Why must this be so hard? You can tell that you were successful this way:
+
+Next, we can build the `dfu-programmer`. This should be quick.
+```
+$ cd ~/src
+$ git clone https://github.com/dfu-programmer/dfu-programmer.git
+$ cd dfu-programmer
+$ ./bootstrap.sh
+$ ./configure --prefix=$PREFIX
+$ make
+$ make install
+```
+
+Verify the installation with:
+
 ```
 $ which dfu-programmer
 /home/Kevin/local/avr/bin/dfu-programmer
@@ -169,14 +194,22 @@ Type 'dfu-programmer --help'    for a list of commands
      'dfu-programmer --targets' to list supported target devices
 ```
 If you are not getting the above result, you will not be able to flash the firmware! 
-- Try making sure your `PATH` variables are set correctly for both `Windows` and `cygwin`. 
-- Do not extract it with `cygwin`'s `unzip` as it does not set the executable permissions correctly. If you did it anyway, do `chmod 755 dfu-programmer.exe`
 
-####Install the USB drivers
-These drivers are included in the `dfu-programmer` 0.7.2 (but you can get newer ones [here](http://iweb.dl.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip)) and allow the `dfu-programmer` to program the firmware. From an **administrator-privileged** `Windows` terminal, run the following command (adjust the path as necessary) and accept the prompt that pops up:
+###Install the USB drivers
+The official Atmel drivers are included in the windows binary version of [`dfu-programmer` 0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip) and allow the `dfu-programmer` to program the firmware.
+
 ```
-C:\> pnputil -i -a C:\cygwin64\home\Kevin\dfu-prog-usb-1.2.2\atmel_usb_dfu.inf
+$ cd ~/src
+$ wget http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip
+$ unzip dfu-programmer-win-0.7.2.zip -d dfu-programmer-win-0.7.2
+
 ```
+
+Then, from an **administrator-privileged** `Windows` terminal, run the following command (adjust the path for username as necessary) and accept the prompt that pops up:
+```
+C:\> pnputil -i -a C:\cygwin64\home\Kevin\src\dfu-programmer-win-0.7.2\dfu-prog-usb-1.2.2\atmel_usb_dfu.inf
+```
+
 This should be the result:
 ```
 Microsoft PnP Utility
@@ -190,6 +223,8 @@ Published name :            oem104.inf
 Total attempted:              1
 Number successfully imported: 1
 ```
+Alternativly, the `Windows` driver can be installed when prompted by `Windows` when the keyboard is attached. Do not let `Windows` search for a driver; specify the path to search for a driver and point it to the `atmel_usb_dfu.inf` file.
+
 
 ##Building and Flashing the Planck firmware!
 
@@ -235,3 +270,78 @@ $ make dfu
 .
 .
 profit!!!
+
+
+
+
+
+##extra bits...
+
+
+
+###Installing Precompiled `dfu-programmer` Binaries (Not recommended)
+To install the `dfu-programmer` from the binaries, we must get if from [the `dfu-programmer` website](https://dfu-programmer.github.io/) ([0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip)).
+Copy this file into your `cygwin` home\src directory.  (For me, it is `C:\cygwin64\home\Kevin\src`), extract the files, move `dfu-programmer.exe` to `~/local/avr/bin`. Most obnoxiously, the `libusb0_x86.dll` and `libusb0.sys` need to be moved from  `./dfu-prog-usb-1.2.2/x86/` to a directory in the `Windows` `PATH` and the `cygwin` `PATH`. I achieved this by moving the files with Windows Explorer (you know, click and drag...) to  `C:\cygwin64\home\Kevin\local\avr\bin` Then, in a `WINDOWS` command prompt running:
+```
+C:\> set PATH=%PATH%;C:\cygwin64\home\Kevin\local\avr\bin
+```
+Adjust your path (for username) as needed. 
+Then, rename `libusb0_x86.dll` to `libusb0.dll`. 
+You can tell that you were successful by trying to execute 'dfu-programmer' from the 'cygwin' prompt:
+```
+$ which dfu-programmer
+/home/Kevin/local/avr/bin/dfu-programmer
+
+$ dfu-programmer
+dfu-programmer 0.7.2
+https://github.com/dfu-programmer/dfu-programmer
+Type 'dfu-programmer --help'    for a list of commands
+     'dfu-programmer --targets' to list supported target devices
+```
+If you are not getting the above result, you will not be able to flash the firmware! 
+- Try making sure your `PATH` variables are set correctly for both `Windows` and `cygwin`. 
+- Make sure the `dll` is named correctly.
+- Do not extract it with `cygwin`'s `unzip` as it does not set the executable permission. If you did it anyway, do `chmod +x dfu-programmer.exe`.
+
+
+##Debugging Tools
+
+These tools are for debugging your firmware, etc. before flashing. Theoretically, it can save your flash memory from wearing out. However, these tool do not work 100% for the Planck firmware.
+
+### `gdb` for AVR
+`gdb` has a simulator for AVR but it does not support all instructions (like WDT), so it immediately crashes when running the Planck firmware (because `lufa.c` disables the WDT in the first few lines of execution). But it can still be useful in debugging example code and test cases, if you know how to use it.
+
+```
+$ cd ~/src
+$ git clone git://sourceware.org/git/binutils-gdb.git
+$ cd binutils-gdb
+$ ./bootstrap
+$ mkdir obj-avr
+$ cd obj-avr
+$ ../configure --prefix=$PREFIX --target=avr --build=x86_64-unknown-cygwin --with-gmp=/usr/local --with-mpfr=/usr/local --with-mpc=/usr/local --disable-nls --enable-static
+$ make
+$ make install
+```
+
+
+### `simulavr`
+`simulavr` is an AVR simulator.  It runs the complied AVR elf's. `simulavr` does not support the `atmega32u4` device... it does `atmega32` but that is not good enough for the firmware (no PORTE and other things), so you cannot run the Planck firmware. I use it to simulate ideas I have for features in separate test projects.
+
+This one is a major pain in the butt because it has a lot of dependencies and it is almost always buggy.  I will do my best to explain it but... it was hard to figure out. A few things need to be changed in the 'Makefile' to make it work in `cygwin`.
+
+
+```
+$ cd ~/src
+$ git clone https://github.com/Traumflug/simulavr.git
+$ cd simulavr
+$ ./bootstrap
+$ ./configure --prefix=$PREFIX --enable-static --disable-tcl --disable-doxygen-doc
+```
+ Edit `src/Makefile.am` now so that `-no-undefined` is included (I did this by removing the SYS_MINGW conditional surrounding `libsim_la_LDFLAGS += -no-undefined` and  `libsimulavr_la_LDFLAGS += -no-undefined \ libsimulavr_la_LIBADD += $(TCL_LIB)`. Also, `$(EXEEXT)` is added after `kbdgentables` in two places.
+
+```
+$ make
+$ make install
+```
+
+
