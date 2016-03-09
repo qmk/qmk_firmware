@@ -85,4 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+/* prevent the modifiers from being stuck, sacrificing some memory */
+#define PREVENT_STUCK_MODIFIERS
+
 #endif
