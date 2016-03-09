@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Keycodes based on HID Usage Keyboard/Keypad Page(0x07) plus special codes
- * http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
+ * http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
  */
 #ifndef KEYCODE_H
 #define KEYCODE_H
