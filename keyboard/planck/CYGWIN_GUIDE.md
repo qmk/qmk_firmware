@@ -69,7 +69,7 @@ $ export PATH
 ```
 
 ##The `gcc` Required Math Library Packages
-The following packages are required to be complied and installed in order to compile `gcc`.  They are not available through the `cygwin` package system, so we have to make them ourselves.  They must be complied in this order because each one depends on the previous.
+The following packages are required to be complied and installed in order to compile `gcc`.  They are not sufficiently available through the `cygwin` package system, so we have to make them ourselves.  They must be complied in this order because each one depends on the previous.
 
 ###Build and Install `gmp`
 ```
@@ -110,6 +110,7 @@ $ ../configure --enable-languages=c,c++ --with-gmp=/usr/local --with-mpfr=/usr/l
 $ make
 $ make install
 ```
+##End OPTIONAL Part
 
 ###Build and Install `binutils` on your Machine
 ```
@@ -120,7 +121,6 @@ $ ../configure
 $ make
 $ make install
 ```
-##End OPTIONAL Part
 
 ##Buliding `binutils`, `gcc`, and `avr-libc` for the AVR system
 Now we can make the critical stuff for compiling our firmware: `binutils`, `gcc`, and `avr-libc` for the AVR architecture.  These allow us to build and manipulate the firmware for the keyboard.
@@ -145,9 +145,8 @@ $ make
 $ make install
 ```
 
-For building the `avr-libc`, we have to specify the host build system.  In my case it is `x86_64-unknown-cygwin`. You can look for build system type in the `gcc` configure notes for the proper `--build` specification to pass when you configure `avr-libc`.
-
 ###Build `avr-libc` for AVR
+For building the `avr-libc`, we have to specify the host build system.  In my case it is `x86_64-unknown-cygwin`. You can look for build system type in the `gcc` configure notes for the proper `--build` specification to pass when you configure `avr-libc`.
 ```
 $ cd ~/src/avr-libc-2.0.0
 $ ./configure --prefix=$PREFIX --build=x86_64-unknown-cygwin --host=avr
@@ -159,7 +158,6 @@ $ make install
 We can either build our own, or use the precomplied binaries.  The precompiled binaries don't play well with `cygwin` so it is better to build them ourselves.  The procedure for the precompiled binaries is included at the end of this guide.
 
 The `dfu-programmer` requires `libusb`.  So let's go ahead and build that first.
-
 ```
 $ cd ~/src
 $ git clone https://github.com/libusb/libusb.git
@@ -170,7 +168,7 @@ $ make
 $ make install
 ```
 
-Next, we can build the `dfu-programmer`. This should be quick.
+Next, we can build the `dfu-programmer`. This is quick.
 ```
 $ cd ~/src
 $ git clone https://github.com/dfu-programmer/dfu-programmer.git
@@ -182,7 +180,6 @@ $ make install
 ```
 
 Verify the installation with:
-
 ```
 $ which dfu-programmer
 /home/Kevin/local/avr/bin/dfu-programmer
@@ -196,18 +193,23 @@ Type 'dfu-programmer --help'    for a list of commands
 If you are not getting the above result, you will not be able to flash the firmware! 
 
 ###Install the USB drivers
-The official Atmel drivers are included in the windows binary version of [`dfu-programmer` 0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip) and allow the `dfu-programmer` to program the firmware.
+The drivers are included in the windows binary version of [`dfu-programmer` 0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip).
 
 ```
 $ cd ~/src
 $ wget http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip
 $ unzip dfu-programmer-win-0.7.2.zip -d dfu-programmer-win-0.7.2
-
 ```
 
-Then, from an **administrator-privileged** `Windows` terminal, run the following command (adjust the path for username as necessary) and accept the prompt that pops up:
+or
+
+The official drivers are found in [Atmel's `FLIP` installer](http://www.atmel.com/images/Flip%20Installer%20-%203.4.7.112.exe). Download and then install `FLIP`. Upon installation, the drivers will be found in `C:\Program Files (x86)\Atmel\Flip 3.4.7\usb`.
+
+Then, from an **administrator-privileged** `Windows` terminal, run the following command (adjust the path for username, etc. as necessary) and accept the prompt that pops up:
 ```
 C:\> pnputil -i -a C:\cygwin64\home\Kevin\src\dfu-programmer-win-0.7.2\dfu-prog-usb-1.2.2\atmel_usb_dfu.inf
+or
+C:\> pnputil -i -a "C:\Program Files (x86)\Atmel\Flip 3.4.7\usb\atmel_usb_dfu.inf"
 ```
 
 This should be the result:
@@ -223,7 +225,8 @@ Published name :            oem104.inf
 Total attempted:              1
 Number successfully imported: 1
 ```
-Alternativly, the `Windows` driver can be installed when prompted by `Windows` when the keyboard is attached. Do not let `Windows` search for a driver; specify the path to search for a driver and point it to the `atmel_usb_dfu.inf` file.
+
+Alternatively, the `Windows` driver can be installed when prompted by `Windows` when the keyboard is attached. Do not let `Windows` search for a driver; specify the path to search for a driver and point it to the `atmel_usb_dfu.inf` file.
 
 
 ##Building and Flashing the Planck firmware!
@@ -277,11 +280,9 @@ profit!!!
 
 ##extra bits...
 
-
-
 ###Installing Precompiled `dfu-programmer` Binaries (Not recommended)
 To install the `dfu-programmer` from the binaries, we must get if from [the `dfu-programmer` website](https://dfu-programmer.github.io/) ([0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip)).
-Copy this file into your `cygwin` home\src directory.  (For me, it is `C:\cygwin64\home\Kevin\src`), extract the files, move `dfu-programmer.exe` to `~/local/avr/bin`. Most obnoxiously, the `libusb0_x86.dll` and `libusb0.sys` need to be moved from  `./dfu-prog-usb-1.2.2/x86/` to a directory in the `Windows` `PATH` and the `cygwin` `PATH`. I achieved this by moving the files with Windows Explorer (you know, click and drag...) to  `C:\cygwin64\home\Kevin\local\avr\bin` Then, in a `WINDOWS` command prompt running:
+Copy this file into your `cygwin` home\src directory.  (For me, it is `C:\cygwin64\home\Kevin\src`), extract the files, move `dfu-programmer.exe` to `~/local/avr/bin`. Most obnoxiously, the `libusb0_x86.dll` and `libusb0.sys` need to be moved from  `./dfu-prog-usb-1.2.2/x86/` to a directory in the `Windows` `PATH` and the `cygwin` `PATH`. This is because the `dfu-programmer` binary is `mingw` based, not `cygwin` based, so the `dlls` do not cooperate. I achieved acceptable pathing by moving the files with Windows Explorer (you know, click and drag...) to  `C:\cygwin64\home\Kevin\local\avr\bin` Then, in a `WINDOWS` command prompt running:
 ```
 C:\> set PATH=%PATH%;C:\cygwin64\home\Kevin\local\avr\bin
 ```
@@ -302,11 +303,12 @@ If you are not getting the above result, you will not be able to flash the firmw
 - Try making sure your `PATH` variables are set correctly for both `Windows` and `cygwin`. 
 - Make sure the `dll` is named correctly.
 - Do not extract it with `cygwin`'s `unzip` as it does not set the executable permission. If you did it anyway, do `chmod +x dfu-programmer.exe`.
+- Still have problems? Try building it instead.
 
 
 ##Debugging Tools
 
-These tools are for debugging your firmware, etc. before flashing. Theoretically, it can save your flash memory from wearing out. However, these tool do not work 100% for the Planck firmware.
+These tools are for debugging your firmware, etc. before flashing. Theoretically, it can save your memory from wearing out. However, these tool do not work 100% for the Planck firmware.
 
 ### `gdb` for AVR
 `gdb` has a simulator for AVR but it does not support all instructions (like WDT), so it immediately crashes when running the Planck firmware (because `lufa.c` disables the WDT in the first few lines of execution). But it can still be useful in debugging example code and test cases, if you know how to use it.
@@ -325,9 +327,9 @@ $ make install
 
 
 ### `simulavr`
-`simulavr` is an AVR simulator.  It runs the complied AVR elf's. `simulavr` does not support the `atmega32u4` device... it does `atmega32` but that is not good enough for the firmware (no PORTE and other things), so you cannot run the Planck firmware. I use it to simulate ideas I have for features in separate test projects.
+`simulavr` is an AVR simulator.  It runs the complied AVR elfs. `simulavr` does not support the `atmega32u4` device... it does `atmega32` but that is not good enough for the firmware (no PORTE and other things), so you cannot run the Planck firmware. I use it to simulate ideas I have for features in separate test projects.
 
-This one is a major pain in the butt because it has a lot of dependencies and it is almost always buggy.  I will do my best to explain it but... it was hard to figure out. A few things need to be changed in the 'Makefile' to make it work in `cygwin`.
+This one is a major pain in the butt because it has a lot of dependencies and it is buggy.  I will do my best to explain it but... it was hard to figure out. A few things need to be changed in the 'Makefile' to make it work in `cygwin`.
 
 
 ```
@@ -345,3 +347,7 @@ $ make install
 ```
 
 
+TODO:
+git repos for all sources
+command line magic for cygwin setup
+better options for dfu drivers
