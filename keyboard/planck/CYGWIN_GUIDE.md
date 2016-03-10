@@ -1,25 +1,23 @@
 #Planck Advanced (but not too advanced) `cygwin` Users Guide
 If you are a user of the [cygwin environment](https://cygwin.com) in Windows and want the freedom to use the latest tools available, then this is the guide for you. If compiling your own copy of the latest and greatest Gnu C Compiler makes you super happy, then this is the guide for you. If the command line make you smile, then this is the guide for you.
 
-
 This guide was written step by step as I went through the process on a `Windows 10` `x86_64` and a `Windows 7` `amd k10` based system.  This should be generally applicable to to any `Windows` environment with `cygwin`.
-
 
 #####Do not skip steps. Do not move past a step until the previous step finishes successfully.
 
-
-
 Based on [avr-libc installation guide](http://www.nongnu.org/avr-libc/user-manual/install_tools.html)
-
 
 ##Get the Required Packages
 Download the `cygwin` setup ([x86_64](https://cygwin.com/setup-x86_64.exe)) and install the default system plus the following if they are not already selected:
+- devel/git
 - devel/gcc-core
 - devel/gcc-g++
 - devel/flex
-- devel/git
 - devel/bison
 - devel/make
+- devel/texinfo
+- devel/gettext-devel
+- text/gettext
 - libs/libgcc1
 - interpreters/m4
 - web/wget
@@ -36,9 +34,7 @@ The following sources will be required:
 The `dfu-programmer` will be required to flash the new firmware 
 - [dfu-programmer](https://dfu-programmer.github.io/) (0.7.2)
 
-
 The set of commands below will create a directory (`~/local/avr`) for the sources you compile to be installed on the machine and a directory (`~/src`) for these source files to be stored. The commands then download the sources of the needed packages and unpack them. Note: the expand commands are different depending on if the packages are offered as a `bz2` or `gz` archive
-
 ```
 $ mkdir ~/local
 $ mkdir ~/local/avr
@@ -69,7 +65,7 @@ $ export PATH
 ```
 
 ##The `gcc` Required Math Library Packages
-The following packages are required to be complied and installed in order to compile `gcc`.  They are not sufficiently available through the `cygwin` package system, so we have to make them ourselves.  They must be complied in this order because each one depends on the previous.
+The following packages are required to be complied and installed in order to compile `gcc`.  They are not sufficiently available through the `cygwin` package system, so we have to make them ourselves.  They must be complied in this order because each one depends on the previous. Verfiy that for each package, `make check` returns all passing and no fails.
 
 ###Build and Install `gmp`
 ```
@@ -101,7 +97,7 @@ $ make install
 ##OPTIONAL Part
 You can build and install a brand new `gcc` or you can use the one supplied by `cygwin`.  This will take about 4-5 hours to compile (It is a "native build", so it does the entire build **3 times**. This takes a long while).
 
-###Build and Install `gcc` on your Machine  
+###Build and Install `gcc` for Your Machine  
 ```
 $ cd ~/src/gcc-5.3.0
 $ mkdir obj-local
@@ -112,7 +108,7 @@ $ make install
 ```
 ##End OPTIONAL Part
 
-###Build and Install `binutils` on your Machine
+###Build and Install `binutils` for Your Machine
 ```
 $ cd ~/src/binutils-2.26
 $ mkdir obj-local
@@ -126,6 +122,7 @@ $ make install
 Now we can make the critical stuff for compiling our firmware: `binutils`, `gcc`, and `avr-libc` for the AVR architecture.  These allow us to build and manipulate the firmware for the keyboard.
 
 ###Build `binutils` for AVR
+If you plan to build and install `avr-gdb` also, use the `gdb` install at the end of this guide as it also builds the `binutils`
 ```
 $ cd ~/src/binutils-2.26
 $ mkdir obj-avr
@@ -154,10 +151,11 @@ $ make
 $ make install
 ```
 
-### Build and Install the `dfu-programmer`
+##Building 'dfu-programmer' for flashing the firmware via USB and installing the drivers
 We can either build our own, or use the precomplied binaries.  The precompiled binaries don't play well with `cygwin` so it is better to build them ourselves.  The procedure for the precompiled binaries is included at the end of this guide.
 
-The `dfu-programmer` requires `libusb`.  So let's go ahead and build that first.
+### Build and Install the `libusb`
+The `dfu-programmer` requires `libusb` so that it can interact with the USB system.
 ```
 $ cd ~/src
 $ git clone https://github.com/libusb/libusb.git
@@ -168,7 +166,7 @@ $ make
 $ make install
 ```
 
-Next, we can build the `dfu-programmer`. This is quick.
+### Build and Install the `dfu-programmer`
 ```
 $ cd ~/src
 $ git clone https://github.com/dfu-programmer/dfu-programmer.git
@@ -194,7 +192,6 @@ If you are not getting the above result, you will not be able to flash the firmw
 
 ###Install the USB drivers
 The drivers are included in the windows binary version of [`dfu-programmer` 0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip).
-
 ```
 $ cd ~/src
 $ wget http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip
@@ -228,9 +225,7 @@ Number successfully imported: 1
 
 Alternatively, the `Windows` driver can be installed when prompted by `Windows` when the keyboard is attached. Do not let `Windows` search for a driver; specify the path to search for a driver and point it to the `atmel_usb_dfu.inf` file.
 
-
 ##Building and Flashing the Planck firmware!
-
 If you did everything else right. This part should be a snap! Grab the latest sources from `github`, make the Plank firmware, then flash it.
 
 ###Build Planck and Load the Firmware
@@ -240,8 +235,8 @@ $ git clone https://github.com/jackhumbert/qmk_firmware.git
 $ cd qmk_firmware/keyboard/planck
 $ make
 ```
-Make sure there are no errors.  You should end up with this or something similar:
 
+Make sure there are no errors.  You should end up with this or something similar:
 ```
 Creating load file for Flash: planck.hex
 avr-objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature planck.elf planck.hex
@@ -263,7 +258,7 @@ Size after:
 -------- end --------
 ```
 
-If you do not get the above, you **did not** build the firmware, and you will have nothing to flash.  If you have the fresh clone from github, it was probably something gone wrong in this install process, go check and see what didn't work and threw errors or what steps you might have missed.
+If you do not get the above, you **did not** build the firmware, and you will have nothing to flash.  If you have the fresh clone from `github`, it was probably something gone wrong in this install process, go check and see what didn't work and threw errors or what steps you might have missed.
 
 But if everything went OK, you are ready to flash! Press the reset button on the bottom of the Planck, wait two seconds, then:
 ```
@@ -280,14 +275,16 @@ profit!!!
 
 ##extra bits...
 
-###Installing Precompiled `dfu-programmer` Binaries (Not recommended)
+###Installing Precompiled `dfu-programmer` Binaries (not recommended for `cygwin`)
 To install the `dfu-programmer` from the binaries, we must get if from [the `dfu-programmer` website](https://dfu-programmer.github.io/) ([0.7.2](http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip)).
-Copy this file into your `cygwin` home\src directory.  (For me, it is `C:\cygwin64\home\Kevin\src`), extract the files, move `dfu-programmer.exe` to `~/local/avr/bin`. Most obnoxiously, the `libusb0_x86.dll` and `libusb0.sys` need to be moved from  `./dfu-prog-usb-1.2.2/x86/` to a directory in the `Windows` `PATH` and the `cygwin` `PATH`. This is because the `dfu-programmer` binary is `mingw` based, not `cygwin` based, so the `dlls` do not cooperate. I achieved acceptable pathing by moving the files with Windows Explorer (you know, click and drag...) to  `C:\cygwin64\home\Kevin\local\avr\bin` Then, in a `WINDOWS` command prompt running:
+
+Copy this file into your `cygwin` home\src directory.  (For me, it is `C:\cygwin64\home\Kevin\src`), extract the files, move `dfu-programmer.exe` to `~/local/avr/bin`. Most obnoxiously, the `libusb0_x86.dll` and `libusb0.sys` need to be moved from  `./dfu-prog-usb-1.2.2/x86/` to a directory in the `Windows` `PATH` and the `cygwin` `PATH`. This is because the `dfu-programmer` binary is `mingw` based, not `cygwin` based, so the `dlls` do not cooperate. I achieved acceptable pathing by moving the files to  `C:\cygwin64\home\Kevin\local\avr\bin` Then, in a `WINDOWS` command prompt running (Adjusting your path for username, etc. as needed):
 ```
 C:\> set PATH=%PATH%;C:\cygwin64\home\Kevin\local\avr\bin
 ```
-Adjust your path (for username) as needed. 
-Then, rename `libusb0_x86.dll` to `libusb0.dll`. 
+
+Then, rename `libusb0_x86.dll` to `libusb0.dll`.
+ 
 You can tell that you were successful by trying to execute 'dfu-programmer' from the 'cygwin' prompt:
 ```
 $ which dfu-programmer
@@ -299,6 +296,7 @@ https://github.com/dfu-programmer/dfu-programmer
 Type 'dfu-programmer --help'    for a list of commands
      'dfu-programmer --targets' to list supported target devices
 ```
+
 If you are not getting the above result, you will not be able to flash the firmware! 
 - Try making sure your `PATH` variables are set correctly for both `Windows` and `cygwin`. 
 - Make sure the `dll` is named correctly.
@@ -325,7 +323,6 @@ $ make
 $ make install
 ```
 
-
 ### `simulavr`
 `simulavr` is an AVR simulator.  It runs the complied AVR elfs. `simulavr` does not support the `atmega32u4` device... it does `atmega32` but that is not good enough for the firmware (no PORTE and other things), so you cannot run the Planck firmware. I use it to simulate ideas I have for features in separate test projects.
 
@@ -348,6 +345,6 @@ $ make install
 
 
 TODO:
-git repos for all sources
-command line magic for cygwin setup
-better options for dfu drivers
+- git repos for all sources
+- command line magic for cygwin setup
+- better options for `dfu-drivers`
