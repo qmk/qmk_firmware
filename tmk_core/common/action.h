@@ -59,6 +59,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 
 /* Utilities for actions.  */
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+extern bool disable_action_cache;
+void process_action_nocache(keyrecord_t *record);
+#endif
 void process_action(keyrecord_t *record);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);

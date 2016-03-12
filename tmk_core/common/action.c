@@ -53,6 +53,17 @@ void action_exec(keyevent_t event)
 #endif
 }
 
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+bool disable_action_cache = false;
+
+void process_action_nocache(keyrecord_t *record)
+{
+    disable_action_cache = true;
+    process_action(record);
+    disable_action_cache = false;
+}
+#endif
+
 /*
  * Make sure the action triggered when the key is released is the same
  * one as the one triggered on press. It's important for the mod keys
@@ -63,6 +74,10 @@ action_t store_or_get_action(bool pressed, keypos_t key)
 {
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     static action_t pressed_actions[MATRIX_ROWS][MATRIX_COLS];
+
+    if (disable_action_cache) {
+        return layer_switch_get_action(key);
+    }
 
     if (pressed) {
         pressed_actions[key.row][key.col] = layer_switch_get_action(key);
