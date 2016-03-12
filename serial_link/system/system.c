@@ -140,13 +140,6 @@ void init_serial_link(void) {
 void matrix_set_remote(matrix_row_t* rows, uint8_t index);
 
 void serial_link_update(void) {
-    systime_t current_time = chVTGetSystemTimeX();
-    if (current_time - last_update > 1000) {
-        *begin_write_serial_link_connected() = true;
-        end_write_serial_link_connected();
-        last_update = current_time;
-    }
-
     if (read_serial_link_connected()) {
         serial_link_connected = true;
     }
@@ -157,13 +150,19 @@ void serial_link_update(void) {
         matrix.rows[i] = matrix_get_row(i);
         changed |= matrix.rows[i] != last_matrix.rows[i];
     }
-    if (changed) {
+
+    systime_t current_time = chVTGetSystemTimeX();
+    systime_t delta = current_time - last_update;
+    if (changed || delta > US2ST(1000)) {
+        last_update = current_time;
         last_matrix = matrix;
         matrix_object_t* m = begin_write_keyboard_matrix();
         for(uint8_t i=0;i<MATRIX_ROWS;i++) {
             m->rows[i] = matrix.rows[i];
         }
         end_write_keyboard_matrix();
+        *begin_write_serial_link_connected() = true;
+        end_write_serial_link_connected();
     }
 
     matrix_object_t* m = read_keyboard_matrix(0);
