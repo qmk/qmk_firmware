@@ -83,7 +83,7 @@ void macro_record_key(
         *macro_pointer += direction;
 
         layer_off(rec_layer);
-        process_action(record);
+        process_action_nocache(record);
         layer_on(rec_layer);
     } else {
         backlight_toggle(); /* Notify about the end of buffer. */
