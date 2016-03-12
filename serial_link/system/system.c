@@ -50,10 +50,12 @@ host_driver_t serial_driver = {
   send_consumer
 };
 
+#ifndef SERIAL_LINK_BAUD
+#error "Serial link baud is not set"
+#endif
 
-// Slow speed for testing
 static SerialConfig config = {
-    .sc_speed = 38400
+    .sc_speed = SERIAL_LINK_BAUD
 };
 
 static uint32_t read_from_serial(SerialDriver* driver, uint8_t link) {
