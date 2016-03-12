@@ -42,6 +42,11 @@ SOFTWARE.
 #include "nodebug.h"
 #endif
 
+#ifdef USE_SERIAL_LINK
+#include "serial_link/protocol/transport.h"
+#include "serial_link/system/driver.h"
+#endif
+
 
 static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
@@ -58,6 +63,16 @@ static bool visualizer_enabled = false;
 
 #define MAX_SIMULTANEOUS_ANIMATIONS 4
 static keyframe_animation_t* animations[MAX_SIMULTANEOUS_ANIMATIONS] = {};
+
+#ifdef USE_SERIAL_LINK
+MASTER_TO_ALL_SLAVES_OBJECT(current_status, visualizer_keyboard_status_t);
+
+static remote_object_t* remote_objects[] = {
+    REMOTE_OBJECT(current_status),
+};
+
+#endif
+
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = -1;
@@ -328,6 +343,10 @@ void visualizer_init(void) {
 #ifdef LCD_BACKLIGHT_ENABLE
     lcd_backlight_init();
 #endif
+
+#ifdef USE_SERIAL_LINK
+    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
+#endif
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
     chEvtObjectInit(&layer_changed_event);
@@ -340,17 +359,45 @@ void visualizer_set_state(uint32_t default_state, uint32_t state, uint32_t leds)
     // a state where one of these are set but not the other. But this should
     // not really matter as it will be fixed during the next loop step.
     // Alternatively a mutex could be used instead of the volatile variables
+
     bool changed = false;
-    visualizer_keyboard_status_t new_status = {
-        .layer = state,
-        .default_layer = default_state,
-        .leds = leds,
-    };
-    if (!same_status(&current_status, &new_status)) {
-        changed = true;
+#ifdef USE_SERIAL_LINK
+    if (is_serial_link_connected ()) {
+        visualizer_keyboard_status_t* new_status = read_current_status();
+        if (new_status) {
+            if (!same_status(&current_status, new_status)) {
+                changed = true;
+                current_status = *new_status;
+            }
+        }
     }
-    current_status = new_status;
+    else {
+#else
+   {
+#endif
+        visualizer_keyboard_status_t new_status = {
+            .layer = state,
+            .default_layer = default_state,
+            .leds = leds,
+        };
+        if (!same_status(&current_status, &new_status)) {
+            changed = true;
+            current_status = new_status;
+        }
+    }
     if (changed) {
         chEvtBroadcast(&layer_changed_event);
+
     }
+#ifdef USE_SERIAL_LINK
+    static systime_t last_update = 0;
+    systime_t current_update = chVTGetSystemTimeX();
+    systime_t delta = current_update - last_update;
+    if (changed || delta > MS2ST(10)) {
+        last_update = current_update;
+        visualizer_keyboard_status_t* r = begin_write_current_status();
+        *r = current_status;
+        end_write_current_status();
+    }
+#endif
 }
