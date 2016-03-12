@@ -27,15 +27,15 @@ SOFTWARE.
 #include "serial_link/protocol/triple_buffered_object.h"
 #include <string.h>
 
-static remote_object_t** remote_objects;
-static uint32_t num_remote_objects;
+#define MAX_REMOTE_OBJECTS 16
+static remote_object_t* remote_objects[MAX_REMOTE_OBJECTS];
+static uint32_t num_remote_objects = 0;
 
-void init_transport(remote_object_t** _remote_objects, uint32_t _num_remote_objects) {
-    remote_objects = _remote_objects;
-    num_remote_objects = _num_remote_objects;
+void add_remote_objects(remote_object_t** _remote_objects, uint32_t _num_remote_objects) {
     unsigned int i;
-    for(i=0;i<num_remote_objects;i++) {
-        remote_object_t* obj = remote_objects[i];
+    for(i=0;i<_num_remote_objects;i++) {
+        remote_object_t* obj = _remote_objects[i];
+        remote_objects[num_remote_objects++] = obj;
         if (obj->object_type == MASTER_TO_ALL_SLAVES) {
             triple_buffer_object_t* tb = (triple_buffer_object_t*)obj->buffer;
             triple_buffer_init(tb);

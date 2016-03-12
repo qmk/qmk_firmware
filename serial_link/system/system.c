@@ -120,7 +120,7 @@ static matrix_object_t last_matrix = {};
 SLAVE_TO_MASTER_OBJECT(keyboard_matrix, matrix_object_t);
 MASTER_TO_ALL_SLAVES_OBJECT(serial_link_connected, bool);
 
-remote_object_t* test_remote_objects[] = {
+static remote_object_t* remote_objects[] = {
     REMOTE_OBJECT(serial_link_connected),
     REMOTE_OBJECT(keyboard_matrix),
 };
@@ -128,7 +128,7 @@ remote_object_t* test_remote_objects[] = {
 void init_serial_link(void) {
     serial_link_connected = false;
     init_serial_link_hal();
-    init_transport(test_remote_objects, sizeof(test_remote_objects)/sizeof(remote_object_t*));
+    add_remote_objects(remote_objects, sizeof(remote_objects)/sizeof(remote_object_t*));
     init_byte_stuffer();
     sdStart(&SD1, &config);
     sdStart(&SD2, &config);

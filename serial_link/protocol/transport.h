@@ -144,7 +144,7 @@ typedef struct { \
 
 #define REMOTE_OBJECT(name) (remote_object_t*)&remote_object_##name
 
-void init_transport(remote_object_t** remote_objects, uint32_t num_remote_objects);
+void add_remote_objects(remote_object_t** remote_objects, uint32_t num_remote_objects);
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
 void update_transport(void);
 

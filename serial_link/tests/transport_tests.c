@@ -53,7 +53,7 @@ MASTER_TO_ALL_SLAVES_OBJECT(master_to_slave, test_object1_t);
 MASTER_TO_SINGLE_SLAVE_OBJECT(master_to_single_slave, test_object1_t);
 SLAVE_TO_MASTER_OBJECT(slave_to_master, test_object1_t);
 
-remote_object_t* test_remote_objects[] = {
+static remote_object_t* test_remote_objects[] = {
     REMOTE_OBJECT(master_to_slave),
     REMOTE_OBJECT(master_to_single_slave),
     REMOTE_OBJECT(slave_to_master),
@@ -61,7 +61,7 @@ remote_object_t* test_remote_objects[] = {
 
 Describe(Transport);
 BeforeEach(Transport) {
-    init_transport(test_remote_objects, sizeof(test_remote_objects) / sizeof(remote_object_t*));
+    add_remote_objects(test_remote_objects, sizeof(test_remote_objects) / sizeof(remote_object_t*));
     sent_data_size = 0;
 }
 AfterEach(Transport) {}
