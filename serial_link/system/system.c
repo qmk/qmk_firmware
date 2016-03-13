@@ -88,11 +88,13 @@ static THD_FUNCTION(serialThread, arg) {
         EVENT_MASK(2),
         CHN_INPUT_AVAILABLE);
     bool need_wait = false;
+    bool is_master = false;
     while(true) {
         if (need_wait) {
             chEvtWaitAnyTimeout(ALL_EVENTS, MS2ST(1000));
         }
-        bool is_master = usbGetDriverStateI(&USBD1) == USB_ACTIVE;
+        // Always stay as master, even if the USB goes into sleep mode
+        is_master |= usbGetDriverStateI(&USBD1) == USB_ACTIVE;
         router_set_master(is_master);
 
         need_wait = true;
