@@ -76,13 +76,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
  * | LShift |   À  |   Y  |   X  |   .  |   K  |      |           |      |   '  |   Q  |   G  |   H  |   F  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |LCtrl |  fn  | LGui |numAlt|App/Alt|                                      |Alt Gr|   %  | Home |   Ç  |End/Ctl|
- *   `-----------------------------------'                                      `-----------------------------------'
+ *   |LCtrl |  fn  | LGui |numAlt| LAlt |                                       |Alt Gr|   %  |  App |   Ç  | RCtrl|
+ *   `----------------------------------'                                       `----------------------------------'
  *                                       ,--------------.       ,-------------.
- *                                       |Esc/Alt| num  |       | Left |Right |
+ *                                       |  Esc  | num  |       | Left |Right |
  *                                ,------+-------+------|       |------+------+------.
  *                                |      |       | PgUp |       |  Up  |      |      |
- *                                |Space |LShift |------|       |------|RShift|Space |
+ *                                |Space | Home  |------|       |------| End  |Space |
  *                                |      |       | PgDn |       | Down |      |      |
  *                                `---------------------'       `--------------------'
  */
@@ -90,26 +90,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [LR_BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,          KC_5,    KC_DELT,
-        KC_TAB,     BP_B,      BP_ECUT, BP_P,      BP_O,          BP_EGRV, KC_BSPC,
-        BP_EQL,     BP_A,      BP_U,    BP_I,      BP_E,          BP_COMM,
-        KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,      BP_DOT,        BP_K,    KC_ENT,
-        KC_LCTL,    M(M_FNLR), KC_LGUI, M(M_NMAL), ALT_T(KC_APP),
+        BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,     KC_5,    KC_DELT,
+        KC_TAB,     BP_B,      BP_ECUT, BP_P,      BP_O,     BP_EGRV, KC_BSPC,
+        BP_EQL,     BP_A,      BP_U,    BP_I,      BP_E,     BP_COMM,
+        KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,      BP_DOT,   BP_K,    KC_ENT,
+        KC_LCTL,    M(M_FNLR), KC_LGUI, M(M_NMAL), KC_LALT,
 
-                                              ALT_T(KC_ESC),  TG(LR_NUMR),
-                                                              KC_PGUP,
-                                            KC_SPC, KC_LSFT,  KC_PGDN,
+                                                   KC_ESC,   TG(LR_NUMR),
+                                                             KC_PGUP,
+                                          KC_SPC,  KC_HOME,  KC_PGDN,
 
         // right hand
         KC_DELT,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_W,
         KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
                    BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
         KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
-                             BP_ALGR, BP_PERC, KC_HOME, BP_CCED,  CTL_T(KC_END),
+                             BP_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
 
         KC_LEFT, KC_RGHT,
         KC_UP,
-        KC_DOWN, KC_RSFT,  KC_SPC
+        KC_DOWN, KC_END,   KC_SPC
     ),
 /**
  * Same as default but for use with Canadian Multilingual on OS side
@@ -131,11 +131,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,  CSA_DCRC,  KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
                   KC_C,      KC_T,     KC_S,     KC_R,      KC_N,      KC_M,
         KC_TRNS,  CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      CSA(SFT),
-                      MO(LR_CSA_AGR),  KC_PERC,  KC_TRNS,   CSA_CCED,  KC_TRNS,
+                      MO(LR_CSA_AGR),  KC_PERC,  KC_TRNS,   CSA_CCED,  KC_LCTL, // RCTL has a special behaviour in CSA so use LCTL
 
         KC_TRNS,  KC_TRNS,
         KC_TRNS,
-        KC_TRNS,  CSA(SFT), KC_TRNS
+        KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
 /* Shifted BÉPO over Canadian Multilingual
  *
