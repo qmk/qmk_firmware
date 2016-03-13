@@ -17,7 +17,7 @@ enum layers {
     LR_FN, // fn layer
 };
 
-#define IS_CA_MULT_ENABLED()    (default_layer_state & (1 << LR_CSA))
+#define IS_CA_MULT_ENABLED()    (layer_state & (1 << LR_CSA))
 
 enum macros {
     // Characters that do not exist in CSA and must be implemented based on unicode support
@@ -27,7 +27,6 @@ enum macros {
     UC_ELPS, // …
     END_UC, // indicates the last unicode character macro
     // other macros
-    M_TGCSA, // toggle BÉPO over CSA
     M_CSA_SFT, // toggle shift on CSA
     M_CSA_AGR_SFT, // toggle shift on LR_CSA_AGR (goes to LR_CSA_AGR_SFT)
     M_CSA_SFT_AGR, // toggle AltGr on LR_CSA_SFT (goes to LR_CSA_AGR_SFT)
@@ -117,26 +116,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [LR_CSA] = KEYMAP(
         // left hand
-        KC_DLR,      CSA_DQOT,   CSA_LGIL,  CSA_RGIL,  KC_LPRN,       KC_RPRN,   KC_DELT,
-        KC_TAB,      KC_B,       CSA_ECUT,  KC_P,      KC_O,          CSA_EGRV,  KC_BSPC,
-        KC_EQL,      KC_A,       KC_U,      KC_I,      KC_E,          KC_COMM,
-        CSA(SFT),    CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,        KC_K,      KC_ENT,
-        KC_LCTL,     M(M_FNLR),  KC_LGUI,   M(M_NMAL), ALT_T(KC_APP),
+        KC_DLR,      CSA_DQOT,   CSA_LGIL,  CSA_RGIL,  KC_LPRN,  KC_RPRN,   KC_TRNS,
+        KC_TRNS,     KC_B,       CSA_ECUT,  KC_P,      KC_O,     CSA_EGRV,  KC_TRNS,
+        KC_EQL,      KC_A,       KC_U,      KC_I,      KC_E,     KC_COMM,
+        CSA(SFT),    CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,   KC_K,      KC_TRNS,
+        KC_TRNS,     KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,
 
-                                              ALT_T(KC_ESC),  TG(LR_NUMR),
-                                                              KC_PGUP,
-                                           KC_SPC, CSA(SFT),  KC_PGDN,
+                                                       KC_TRNS,  KC_TRNS,
+                                                                 KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,  KC_TRNS,
 
         // right hand
-        KC_DELT,   KC_AT,     KC_PLUS,  KC_MINS,  CSA_SLSH,  KC_ASTR,   KC_W,
-        KC_BSPC,   CSA_DCRC,  KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
-                   KC_C,      KC_T,     KC_S,     KC_R,      KC_N,      KC_M,
-        KC_ENT,    CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      CSA(SFT),
-                       MO(LR_CSA_AGR),  KC_PERC,  KC_HOME,   CSA_CCED,  CTL_T(KC_END),
+        KC_TRNS,  KC_AT,     KC_PLUS,  KC_MINS,  CSA_SLSH,  KC_ASTR,   KC_W,
+        KC_TRNS,  CSA_DCRC,  KC_V,     KC_D,     KC_L,      KC_J,      KC_Z,
+                  KC_C,      KC_T,     KC_S,     KC_R,      KC_N,      KC_M,
+        KC_TRNS,  CSA_APOS,  KC_Q,     KC_G,     KC_H,      KC_F,      CSA(SFT),
+                      MO(LR_CSA_AGR),  KC_PERC,  KC_TRNS,   CSA_CCED,  KC_TRNS,
 
-        KC_LEFT, KC_RGHT,
-        KC_UP,
-        KC_DOWN, CSA(SFT), KC_SPC
+        KC_TRNS,  KC_TRNS,
+        KC_TRNS,
+        KC_TRNS,  CSA(SFT), KC_TRNS
     ),
 /* Shifted BÉPO over Canadian Multilingual
  *
@@ -340,7 +339,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [LR_FN] = KEYMAP(
-       M(M_TGCSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
+       TG(LR_CSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        RESET,      KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
        KC_TRNS,    KC_TRNS, S(KC_DELT),   LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
@@ -409,11 +408,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 0 ... END_UC:
             if (record->event.pressed) {
                 send_unicode(unicode_chars[id]);
-            }
-            break;
-        case M_TGCSA:
-            if (record->event.pressed) {
-                default_layer_xor(1 << LR_CSA);
             }
             break;
         case M_CSA_SFT:
