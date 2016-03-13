@@ -174,7 +174,7 @@ bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* 
 
 #ifdef LCD_BACKLIGHT_ENABLE
 bool keyframe_animate_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state) {
-    int frame_length = animation->frame_lengths[1];
+    int frame_length = animation->frame_lengths[animation->current_frame];
     int current_pos = frame_length - animation->time_left_in_frame;
     uint8_t t_h = LCD_HUE(state->target_lcd_color);
     uint8_t t_s = LCD_SAT(state->target_lcd_color);
@@ -270,12 +270,21 @@ bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_s
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
+#ifdef LCD_ENABLE
+    gdispSetPowerMode(powerOff);
+#endif
+#ifdef LCD_BACKLIGHT_ENABLE
+    lcd_backlight_hal_color(0, 0, 0);
+#endif
     return false;
 }
 
 bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
+#ifdef LCD_ENABLE
+    gdispSetPowerMode(powerOn);
+#endif
     return false;
 }
 
@@ -339,8 +348,8 @@ static THD_FUNCTION(visualizerThread, arg) {
                 else {
                     state.status = current_status;
                     update_user_visualizer_state(&state);
-                    state.prev_lcd_color = state.current_lcd_color;
                 }
+                state.prev_lcd_color = state.current_lcd_color;
             }
         }
         if (!enabled && state.status.suspended && current_status.suspended == false) {
@@ -350,6 +359,7 @@ static THD_FUNCTION(visualizerThread, arg) {
             state.status.suspended = false;
             stop_all_keyframe_animations();
             user_visualizer_resume(&state);
+            state.prev_lcd_color = state.current_lcd_color;
         }
         sleep_time = TIME_INFINITE;
         for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
