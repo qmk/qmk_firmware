@@ -65,7 +65,7 @@ static keyframe_animation_t startup_animation = {
     .num_frames = 4,
     .loop = false,
     .frame_lengths = {0, MS2ST(1000), MS2ST(5000), 0},
-    .frame_functions = {display_welcome, keyframe_animate_backlight_color, keyframe_no_operation, user_visualizer_inited},
+    .frame_functions = {display_welcome, keyframe_animate_backlight_color, keyframe_no_operation, enable_visualization},
 };
 
 // The color animation animates the LCD color when you change layers

@@ -38,8 +38,12 @@ SOFTWARE.
 
 // This need to be called once at the start
 void visualizer_init(void);
-// This should be called before every matrix scan
-void visualizer_set_state(uint32_t default_state, uint32_t state, uint32_t leds);
+// This should be called at every matrix scan
+void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds);
+// This should be called when the keyboard goes to suspend state
+void visualizer_suspend(void);
+// This should be called when the keyboard wakes up from suspend state
+void visualizer_resume(void);
 
 // If you need support for more than 8 keyframes per animation, you can change this
 #define MAX_VISUALIZER_KEY_FRAMES 8
@@ -50,6 +54,7 @@ typedef struct {
     uint32_t layer;
     uint32_t default_layer;
     uint32_t leds; // See led.h for available statuses
+    bool suspended;
 } visualizer_keyboard_status_t;
 
 // The state struct is used by the various keyframe functions
@@ -108,13 +113,19 @@ bool keyframe_set_backlight_color(keyframe_animation_t* animation, visualizer_st
 bool keyframe_display_layer_text(keyframe_animation_t* animation, visualizer_state_t* state);
 // Displays a bitmap (0/1) of all the currently active layers
 bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
+
+bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
+bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
+
 // Call this once, when the initial animation has finished, alternatively you can call it
 // directly from the initalize_user_visualizer function (the animation can be null)
-bool user_visualizer_inited(keyframe_animation_t* animation, visualizer_state_t* state);
+bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
 
 // These two functions have to be implemented by the user
 void initialize_user_visualizer(visualizer_state_t* state);
 void update_user_visualizer_state(visualizer_state_t* state);
+void user_visualizer_suspend(visualizer_state_t* state);
+void user_visualizer_resume(visualizer_state_t* state);
 
 
 #endif /* VISUALIZER_H */

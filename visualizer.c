@@ -52,10 +52,14 @@ static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
     .default_layer = 0xFFFFFFFF,
     .leds = 0xFFFFFFFF,
+    .suspended = false,
 };
 
 static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboard_status_t* status2) {
-    return memcmp(status1, status2, sizeof(visualizer_keyboard_status_t)) == 0;
+    return status1->layer == status2->layer &&
+        status1->default_layer == status2->default_layer &&
+        status1->leds == status2->leds &&
+        status1->suspended == status2->suspended;
 }
 
 static event_source_t layer_changed_event;
@@ -100,6 +104,17 @@ void stop_keyframe_animation(keyframe_animation_t* animation) {
         if (animations[i] == animation) {
             animations[i] = NULL;
             return;
+        }
+    }
+}
+
+void stop_all_keyframe_animations(void) {
+    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+        if (animations[i]) {
+            animations[i]->current_frame = animations[i]->num_frames;
+            animations[i]->time_left_in_frame = 0;
+            animations[i]->need_update = true;
+            animations[i] = NULL;
         }
     }
 }
@@ -252,7 +267,19 @@ bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_s
 }
 #endif // LCD_ENABLE
 
-bool user_visualizer_inited(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    (void)state;
+    return false;
+}
+
+bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    (void)state;
+    return false;
+}
+
+bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
     dprint("User visualizer inited\n");
@@ -268,13 +295,15 @@ static THD_FUNCTION(visualizerThread, arg) {
     event_listener_t event_listener;
     chEvtRegister(&layer_changed_event, &event_listener, 0);
 
-    visualizer_state_t state = {
-        .status = {
-            .default_layer = 0xFFFFFFFF,
-            .layer = 0xFFFFFFFF,
-            .leds = 0xFFFFFFFF,
-        },
+    visualizer_keyboard_status_t initial_status = {
+        .default_layer = 0xFFFFFFFF,
+        .layer = 0xFFFFFFFF,
+        .leds = 0xFFFFFFFF,
+        .suspended = false,
+    };
 
+    visualizer_state_t state = {
+        .status = initial_status,
         .current_lcd_color = 0,
 #ifdef LCD_ENABLE
         .font_fixed5x8 = gdispOpenFont("fixed_5x8"),
@@ -301,10 +330,26 @@ static THD_FUNCTION(visualizerThread, arg) {
         bool enabled = visualizer_enabled;
         if (!same_status(&state.status, &current_status)) {
             if (visualizer_enabled) {
-                state.status = current_status;
-                update_user_visualizer_state(&state);
-                state.prev_lcd_color = state.current_lcd_color;
+                if (current_status.suspended) {
+                    stop_all_keyframe_animations();
+                    visualizer_enabled = false;
+                    state.status = current_status;
+                    user_visualizer_suspend(&state);
+                }
+                else {
+                    state.status = current_status;
+                    update_user_visualizer_state(&state);
+                    state.prev_lcd_color = state.current_lcd_color;
+                }
             }
+        }
+        if (!enabled && state.status.suspended && current_status.suspended == false) {
+            // Setting the status to the initial status will force an update
+            // when the visualizer is enabled again
+            state.status = initial_status;
+            state.status.suspended = false;
+            stop_all_keyframe_animations();
+            user_visualizer_resume(&state);
         }
         sleep_time = TIME_INFINITE;
         for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
@@ -312,6 +357,9 @@ static THD_FUNCTION(visualizerThread, arg) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
         }
+        // The animation can enable the visualizer
+        // And we might need to update the state when that happens
+        // so don't sleep
         if (enabled != visualizer_enabled) {
             sleep_time = 0;
         }
@@ -354,7 +402,24 @@ void visualizer_init(void) {
                               LOWPRIO, visualizerThread, NULL);
 }
 
-void visualizer_set_state(uint32_t default_state, uint32_t state, uint32_t leds) {
+void update_status(bool changed) {
+    if (changed) {
+        chEvtBroadcast(&layer_changed_event);
+    }
+#ifdef USE_SERIAL_LINK
+    static systime_t last_update = 0;
+    systime_t current_update = chVTGetSystemTimeX();
+    systime_t delta = current_update - last_update;
+    if (changed || delta > MS2ST(10)) {
+        last_update = current_update;
+        visualizer_keyboard_status_t* r = begin_write_current_status();
+        *r = current_status;
+        end_write_current_status();
+    }
+#endif
+}
+
+void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds) {
     // Note that there's a small race condition here, the thread could read
     // a state where one of these are set but not the other. But this should
     // not really matter as it will be fixed during the next loop step.
@@ -379,25 +444,22 @@ void visualizer_set_state(uint32_t default_state, uint32_t state, uint32_t leds)
             .layer = state,
             .default_layer = default_state,
             .leds = leds,
+            .suspended = current_status.suspended,
         };
         if (!same_status(&current_status, &new_status)) {
             changed = true;
             current_status = new_status;
         }
     }
-    if (changed) {
-        chEvtBroadcast(&layer_changed_event);
+    update_status(changed);
+}
 
-    }
-#ifdef USE_SERIAL_LINK
-    static systime_t last_update = 0;
-    systime_t current_update = chVTGetSystemTimeX();
-    systime_t delta = current_update - last_update;
-    if (changed || delta > MS2ST(10)) {
-        last_update = current_update;
-        visualizer_keyboard_status_t* r = begin_write_current_status();
-        *r = current_status;
-        end_write_current_status();
-    }
-#endif
+void visualizer_suspend(void) {
+    current_status.suspended = true;
+    update_status(true);
+}
+
+void visualizer_resume(void) {
+    current_status.suspended = false;
+    update_status(true);
 }
