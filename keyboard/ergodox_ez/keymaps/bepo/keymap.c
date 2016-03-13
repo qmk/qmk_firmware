@@ -49,8 +49,9 @@ enum macros {
     // macros for characters that don't have a simple key combination in LR_CA_MULT_ALTGR
     M_CRC,
     // other layer macros
-    M_DBL0,
-    M_FNLR,
+    M_DBL0, // double 0
+    M_FNLR, // fn layer
+    M_NMAL, // num+alt
 };
 
 #define CSA(name)   M(M_CSA_##name)     // calls a CSA macro
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|Enter |           |Enter |------+------+------+------+------+--------|
  * | LShift |   À  |   Y  |   X  |   .  |   K  |      |           |      |   '  |   Q  |   G  |   H  |   F  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |LCtrl |  fn  | LGui | Play |App/Alt|                                      |Alt Gr|   %  | Home |   Ç  |End/Ctl|
+ *   |LCtrl |  fn  | LGui |numAlt|App/Alt|                                      |Alt Gr|   %  | Home |   Ç  |End/Ctl|
  *   `-----------------------------------'                                      `-----------------------------------'
  *                                       ,--------------.       ,-------------.
  *                                       |Esc/Alt| num  |       | Left |Right |
@@ -90,11 +91,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [LR_BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        BP_DLR,     KC_1,      KC_2,    KC_3,    KC_4,          KC_5,    KC_DELT,
-        KC_TAB,     BP_B,      BP_ECUT, BP_P,    BP_O,          BP_EGRV, KC_BSPC,
-        BP_EQL,     BP_A,      BP_U,    BP_I,    BP_E,          BP_COMM,
-        KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,    BP_DOT,        BP_K,    KC_ENT,
-        KC_LCTL,    M(M_FNLR), KC_LGUI, KC_MPLY, ALT_T(KC_APP),
+        BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,          KC_5,    KC_DELT,
+        KC_TAB,     BP_B,      BP_ECUT, BP_P,      BP_O,          BP_EGRV, KC_BSPC,
+        BP_EQL,     BP_A,      BP_U,    BP_I,      BP_E,          BP_COMM,
+        KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,      BP_DOT,        BP_K,    KC_ENT,
+        KC_LCTL,    M(M_FNLR), KC_LGUI, M(M_NMAL), ALT_T(KC_APP),
 
                                               ALT_T(KC_ESC),  TG(LR_NUMR),
                                                               KC_PGUP,
@@ -120,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,      KC_B,       CSA_ECUT,  KC_P,      KC_O,          CSA_EGRV,  KC_BSPC,
         KC_EQL,      KC_A,       KC_U,      KC_I,      KC_E,          KC_COMM,
         CSA(SFT),    CSA_AGRV,   KC_Y,      KC_X,      KC_DOT,        KC_K,      KC_ENT,
-        KC_LCTL,     M(M_FNLR),  KC_LGUI,   KC_MPLY,   ALT_T(KC_APP),
+        KC_LCTL,     M(M_FNLR),  KC_LGUI,   M(M_NMAL), ALT_T(KC_APP),
 
                                               ALT_T(KC_ESC),  TG(LR_NUMR),
                                                               KC_PGUP,
@@ -304,6 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                               KC_TRNS, KC_TRNS,KC_TRNS,
+
        // right hand
        KC_TRNS, KC_F6,   KC_F7,   KC_TAB,  KC_PSLS,  KC_PAST, KC_PMNS,
        KC_TRNS, KC_TRNS, KC_HOME, KC_P7,   KC_P8,    KC_P9,   KC_PPLS,
@@ -331,22 +333,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       | Next |      |      |
- *                                 | Mute |      |------|       |------|      |      |
- *                                 |      |      |      |       | Prev |      |      |
+ *                                 |      |      | Next |       |      |      |      |
+ *                                 | Mute | play |------|       |------|      |      |
+ *                                 |      |      | Prev |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
 [LR_FN] = KEYMAP(
        M(M_TGCSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
-       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
-       RESET,     KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
-       KC_TRNS,   KC_TRNS, LSFT(KC_DELT),LCTL(KC_INS),LSFT(KC_INS), KC_MUTE, KC_VOLD,
-       KC_TRNS,   KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
+       KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
+       RESET,      KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
+       KC_TRNS,    KC_TRNS, S(KC_DELT),   LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
+       KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  KC_MUTE, KC_TRNS, KC_TRNS,
+                                                    KC_MPRV,
+                                  KC_MUTE, KC_MPLY, KC_MNXT,
+
     // right hand
        KC_INS,   KC_EJCT, KC_PWR,  KC_SLEP, KC_WAKE, KC_PSCR, KC_SLCK,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS,
@@ -355,8 +358,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
        KC_TRNS, KC_TRNS,
-       KC_MPRV,
-       KC_MNXT, KC_TRNS, KC_TRNS
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
 
@@ -491,6 +494,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case M_FNLR:
             layer_invert(LR_NUMR);
             layer_invert(LR_FN);
+            break;
+        case M_NMAL:
+            layer_invert(LR_NUMR);
+            if (record->event.pressed) {
+                register_code(KC_LALT);
+            } else {
+                unregister_code(KC_LALT);
+            }
             break;
     }
     return MACRO_NONE;
