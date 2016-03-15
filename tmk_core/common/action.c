@@ -55,6 +55,7 @@ void action_exec(keyevent_t event)
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 bool disable_action_cache = false;
+action_t pressed_actions_cache[MATRIX_ROWS][MATRIX_COLS];
 
 void process_action_nocache(keyrecord_t *record)
 {
@@ -78,16 +79,14 @@ void process_action_nocache(keyrecord_t *record)
 action_t store_or_get_action(bool pressed, keypos_t key)
 {
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    static action_t pressed_actions[MATRIX_ROWS][MATRIX_COLS];
-
     if (disable_action_cache) {
         return layer_switch_get_action(key);
     }
 
     if (pressed) {
-        pressed_actions[key.row][key.col] = layer_switch_get_action(key);
+        pressed_actions_cache[key.row][key.col] = layer_switch_get_action(key);
     }
-    return pressed_actions[key.row][key.col];
+    return pressed_actions_cache[key.row][key.col];
 #else
     return layer_switch_get_action(key);
 #endif
