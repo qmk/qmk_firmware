@@ -62,6 +62,11 @@ void process_action_nocache(keyrecord_t *record)
     process_action(record);
     disable_action_cache = false;
 }
+#else
+void process_action_nocache(keyrecord_t *record)
+{
+    process_action(record);
+}
 #endif
 
 /*
