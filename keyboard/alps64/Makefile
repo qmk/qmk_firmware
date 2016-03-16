@@ -113,7 +113,7 @@ CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 #NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
-ACTIONMAP_ENABLE = yes	# Use 16bit action codes in keymap instead of 8bit keycodes
+#ACTIONMAP_ENABLE = yes	# Use 16bit action codes in keymap instead of 8bit keycodes
 
 
 ifdef ACTIONMAP_ENABLE
