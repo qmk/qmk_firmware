@@ -114,8 +114,7 @@ void layer_debug(void)
 
 action_t layer_switch_get_action(keypos_t key)
 {
-    action_t action;
-    action.code = ACTION_TRANSPARENT;
+    action_t action = { .code = ACTION_TRANSPARENT };
 
 #ifndef NO_ACTION_LAYER
     uint32_t layers = layer_state | default_layer_state;
