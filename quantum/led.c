@@ -16,9 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <avr/io.h>
-#include "stdint.h"
+#include <stddef.h>
 #include "led.h"
 
+__attribute__ ((weak))
+void * led_set_kb(uint8_t usb_led) {
+    return NULL;
+};
 
 void led_set(uint8_t usb_led)
 {
@@ -35,4 +39,10 @@ void led_set(uint8_t usb_led)
     //     DDRE &= ~(1<<6);
     //     PORTE &= ~(1<<6);
     // }
+
+    if (led_set_kb) {
+        (*led_set_kb)(usb_led);
+    }
+
+    return;
 }
