@@ -225,22 +225,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
     case PC1:
         if (!record->event.pressed) {
-             return MACRO(T(SLCK), T(SLCK), T(1), T(ENT), END);
+             return MACRO(T(SLCK), W(50), T(SLCK), W(50), T(1), W(50), T(ENT), END);
         }
         break;
     case PC2:
         if (!record->event.pressed) {
-             return MACRO(T(SLCK), T(SLCK), T(2), T(ENT), END);
+             return MACRO(T(SLCK), W(50), T(SLCK), W(50), T(2), W(50), T(ENT), END);
         }
         break;
     case PC3:
         if (!record->event.pressed) {
-             return MACRO(T(SLCK), T(SLCK), T(3), T(ENT), END);
+             return MACRO(T(SLCK), W(50), T(SLCK), W(50), T(3), W(50), T(ENT), END);
         }
         break;
     case PC4:
         if (!record->event.pressed) {
-             return MACRO(T(SLCK), T(SLCK), T(4), T(ENT), END);
+             return MACRO(T(SLCK), W(50), T(SLCK), W(50), T(4), W(50), T(ENT), END);
         }
         break;
     }
