@@ -15,8 +15,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CTL_T(KC_ESC), KC_A,    KC_S,    KC_E,    KC_T,    KC_G,
     KC_LSFT,       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC,
     TG(PLVR),      KC_TRNS, KC_TRNS, KC_LALT, KC_LGUI,
-    /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    KC_VOLU, KC_MUTE,
-    /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_VOLD,
+    /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    KC_VOLD, KC_MUTE,
+    /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_VOLU,
     /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    KC_BSPC, KC_ESC,  KC_FN1,
     //
     /*-*/          KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
