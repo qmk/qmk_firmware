@@ -7,7 +7,7 @@ There are four layers:
 - **PLVR** is optimized for [Plover](http://www.openstenoproject.org).
 - **ARRW** for navigation.
 
-[![keyboard-layout](romanzolotarev-norman-plover-osx.png)]()
+[![keyboard-layout](romanzolotarev-norman-plover-osx.png)](http://www.keyboard-layout-editor.com/#/gists/8ebcb701ecb763944417)
 
 ## Switching
 
