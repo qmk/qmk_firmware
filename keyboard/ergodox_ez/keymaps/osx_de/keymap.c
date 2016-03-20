@@ -211,7 +211,7 @@ KEYMAP(
        KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    LSFT(KC_RBRC), KC_F12,
                 KC_DOWN, KC_4,   KC_5,    KC_6,    KC_RBRC, DE_MINS,
        KC_TRNS, LSFT(KC_6), KC_1,   KC_2,    KC_3,    LSFT(KC_7), KC_TRNS,
-                         KC_0,KC_DOT,  KC_0,    DE_EQL,  KC_TRNS,
+                         KC_0,KC_DOT,  KC_COMM,    DE_EQL,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
