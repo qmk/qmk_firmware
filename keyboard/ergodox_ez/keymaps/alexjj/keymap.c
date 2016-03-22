@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |LCtrl |  `~  | Hyper| Left | Right|                                       |  Up  | Down | COPY | PASTE| RCtrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *        Meh = Ctrl+Alt+Shift            | Alt  |  F5  |       |  F2  | +L1  |
+ *   Hyper = Ctrl+Super+Alt+Shift         | Alt  |  F5  |       |  F2  | +L1  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      | PgUp |       | Ins  |      |      |
  *                                 | Enter| ~L2  |------|       |------| ~L1  |Space |
