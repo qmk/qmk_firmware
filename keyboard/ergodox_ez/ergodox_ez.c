@@ -5,16 +5,16 @@ bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
 
 __attribute__ ((weak))
-void * matrix_init_user(void) {
-    return NULL;
-};
+void matrix_init_user(void) {
+
+}
 
 __attribute__ ((weak))
-void * matrix_scan_user(void) {
-    return NULL;
-};
+void matrix_scan_user(void) {
 
-void * matrix_init_kb(void) {
+}
+
+void matrix_init_kb(void) {
    // keyboard LEDs (see "PWM on ports OC1(A|B|C)" in "teensy-2-0.md")
     TCCR1A = 0b10101001;  // set and configure fast PWM
     TCCR1B = 0b00001001;  // set and configure fast PWM
@@ -34,21 +34,12 @@ void * matrix_init_kb(void) {
 
     ergodox_blink_all_leds();
 
-    if (matrix_init_user) {
-        (*matrix_init_user)();
-    }
+    matrix_init_user();
+}
 
-    return NULL;
-};
-
-void * matrix_scan_kb(void) {
-
-    if (matrix_scan_user) {
-        (*matrix_scan_user)();
-    }
-
-    return NULL;
-};
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 
 void ergodox_blink_all_leds(void)
