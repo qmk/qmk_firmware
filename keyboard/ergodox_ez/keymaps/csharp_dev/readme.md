@@ -4,6 +4,8 @@
 
 * Feb 12, 2016 (V1): 
   * First version commit
+* Mar 20, 2016 (V2):
+  * Removed "Classic QWERTY" layer, inverted GUI and SHIFT on Hold for Space and Enter
 
 ## About
 This layout was conceived in an attempt to optimise keyboard layout for developers (C# more specifically, but it can work with most of other languages), and limit the keys required to perform the most frequent actions.
@@ -38,7 +40,6 @@ Still there are many way to improve or iterate on this:
 * Make it language agnostic
 * Check and compile language's keyboard's heatmaps to statistically define keys priority (e.g.  https://dzone.com/articles/most-pressed-keys-various )
 * QWERTY is still not the most efficient typing layout, I would like to create a Dvorak based similar layout in a near futur
-* Layout 1 is mainly here for safety, most of its unique keys could be transfered to Layout 2 and it could then be removed
 
 ## Issues 
 One of the issues encountered while creating this layout was that I did not find a way to have a key to send a modifier on hold, and a key combination while pressed (e.g. I can't set a Key to do Save (Ctrl + S) when pressed and Shift modifier when hold )

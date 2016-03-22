@@ -154,12 +154,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 // Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
-    return NULL;
+void matrix_init_user(void) {
+
 };
 
 // Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
+void matrix_scan_user(void) {
     /* leds is a static array holding the current brightness of each of the
      * three keyboard LEDs. It's 4 long simply to avoid the ugliness of +1s and
      * -1s in the code below, and because wasting a byte really doesn't matter
@@ -191,5 +191,5 @@ void * matrix_scan_user(void) {
         }
     }
 
-    return NULL;
+
 };
