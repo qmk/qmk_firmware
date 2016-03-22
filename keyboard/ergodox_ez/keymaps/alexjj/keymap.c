@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_PGUP,
                                                KC_ENT,KC_FN2,KC_PGDN,
         // right hand
-             KC_7,     KC_8,   KC_9,   KC_0,   KC_MINS,   KC_EQL,             KC_BKSP,
+             KC_7,     KC_8,   KC_9,   KC_0,   KC_MINS,   KC_EQL,             KC_BSPC,
              KC_RBRC,  KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                        KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
              KC_END,   KC_N,   KC_M,   KC_COMM,KC_DOT, ALT_T(KC_SLSH),   KC_RSFT,
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
+    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),                // FN1 - Momentary Layer 1 (Symbols)
     [2] = ACTION_LAYER_TAP_TOGGLE(MDIA)                // FN2 - Momentary Layer 2 (Media)
 };
 
