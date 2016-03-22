@@ -22,7 +22,7 @@ the 1st layer - in case of fat fingers.
 Layout
 -------
 
-*todo* insert picture
+![Layout](rl-layout.jpg "Isn't it lovely")
 
 ### Base Layer
 
