@@ -17,6 +17,9 @@ Download the `cygwin` setup ([x86_64](https://cygwin.com/setup-x86_64.exe)) and 
 - devel/make
 - devel/texinfo
 - devel/gettext-devel
+- devel/automake
+- devel/autoconfig
+- devel/libtool
 - text/gettext
 - libs/libgcc1
 - interpreters/m4
@@ -60,7 +63,7 @@ These commands will set up the install directory and the `PATH` variable, which 
 $ PREFIX=$HOME/local/avr
 $ export PREFIX
 $ PATH=/usr/local/bin:/usr/local/lib:/usr/local/include:/bin:/lib:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS
-$ PATH=$PATH:$PREFIX/bin
+$ PATH=$PATH:$PREFIX/bin:$PREFIX/lib
 $ export PATH
 ```
 
@@ -155,13 +158,13 @@ $ make install
 We can either build our own, or use the precomplied binaries.  The precompiled binaries don't play well with `cygwin` so it is better to build them ourselves.  The procedure for the precompiled binaries is included at the end of this guide.
 
 ### Build and Install the `libusb`
-The `dfu-programmer` requires `libusb` so that it can interact with the USB system.
+The `dfu-programmer` requires `libusb` so that it can interact with the USB system. These repos must be bootstrapped in order to create an appropriate `./configure` and `Makefile` for your system.
 ```
 $ cd ~/src
 $ git clone https://github.com/libusb/libusb.git
 $ cd libusb
 $ ./bootstrap.sh
-$ ./configure --prefix=$PREFIX
+$ ./configure
 $ make
 $ make install
 ```
@@ -172,7 +175,7 @@ $ cd ~/src
 $ git clone https://github.com/dfu-programmer/dfu-programmer.git
 $ cd dfu-programmer
 $ ./bootstrap.sh
-$ ./configure --prefix=$PREFIX
+$ ./configure
 $ make
 $ make install
 ```
@@ -180,7 +183,7 @@ $ make install
 Verify the installation with:
 ```
 $ which dfu-programmer
-/home/Kevin/local/avr/bin/dfu-programmer
+/usr/local/bin/dfu-programmer
 
 $ dfu-programmer
 dfu-programmer 0.7.2
@@ -315,7 +318,6 @@ These tools are for debugging your firmware, etc. before flashing. Theoretically
 $ cd ~/src
 $ git clone git://sourceware.org/git/binutils-gdb.git
 $ cd binutils-gdb
-$ ./bootstrap
 $ mkdir obj-avr
 $ cd obj-avr
 $ ../configure --prefix=$PREFIX --target=avr --build=x86_64-unknown-cygwin --with-gmp=/usr/local --with-mpfr=/usr/local --with-mpc=/usr/local --disable-nls --enable-static
