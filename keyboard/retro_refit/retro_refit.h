@@ -38,8 +38,8 @@
 {	KC_##KA0,	KC_##KA1,	KC_##KA2,	KC_##KA3,	KC_##KA4,	KC_##KA5,	KC_##KA6,	KC_##KA7,	} \
 }
 
-void * matrix_init_user(void);
-void * matrix_scan_user(void);
-void * led_set_user(uint8_t usb_led);
+void matrix_init_user(void);
+void matrix_scan_user(void);
+void led_set_user(uint8_t usb_led);
 
 #endif

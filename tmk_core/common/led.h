@@ -33,8 +33,9 @@ extern "C" {
 #endif
 
 void led_set(uint8_t usb_led);
-void * led_set_kb(uint8_t usb_led);
 
+/* keyboard-specific LED functionality */
+void led_set_kb(uint8_t usb_led);
 
 #ifdef __cplusplus
 }

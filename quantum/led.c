@@ -16,16 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <avr/io.h>
-#include <stddef.h>
+#include "stdint.h"
 #include "led.h"
 
 __attribute__ ((weak))
-void * led_set_kb(uint8_t usb_led) {
-    return NULL;
+void led_set_kb(uint8_t usb_led) {
+
 };
 
 void led_set(uint8_t usb_led)
 {
+
+	// Example LED Code
+	//
     // // Using PE6 Caps Lock LED
     // if (usb_led & (1<<USB_LED_CAPS_LOCK))
     // {
@@ -40,9 +43,5 @@ void led_set(uint8_t usb_led)
     //     PORTE &= ~(1<<6);
     // }
 
-    if (led_set_kb) {
-        (*led_set_kb)(usb_led);
-    }
-
-    return;
+	led_set_kb(usb_led);
 }
