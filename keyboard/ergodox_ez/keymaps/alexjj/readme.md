@@ -28,7 +28,7 @@ Layout
 
 ```
  ,--------------------------------------------------.           ,--------------------------------------------------.
- |   ESC  |   1  |   2  |   3  |   4  |   5  |  6   |           |  7   |   8  |   9  |   0  |  -_  |  +=  |  BkSp  |
+ |   ESC  |  1!  |  2@  |  3#  |  4$  |  5%  |  6^  |           |  7&  |  8*  |  9(  |  0)  |  -_  |  +=  |  BkSp  |
  |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  | Tab    |   Q  |   W  |   E  |   R  |   T  |  {   |           |   }  |   Y  |   U  |   I  |   O  |   P  |  |\    |
  |--------+------+------+------+------+------|  [   |           |   ]  |------+------+------+------+------+--------|
@@ -36,15 +36,16 @@ Layout
  |--------+------+------+------+------+------| Home |           | End  |------+------+------+------+------+--------|
  | LShift |Z/Alt |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Alt| RShift |
  `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-   |LCtrl |  `~  | Hyper| Left | Right|                                       |  Up  | Down | COPY | PASTE| RCtrl |
+   |LCtrl |  `~  | Hyper| Left | Right|                                       | Down |  Up  | COPY | PASTE| RCtrl |
    `----------------------------------'                                       `----------------------------------'
                                         ,-------------.       ,-------------.
-      Hyper = Ctrl+Super+Alt+Shift      | Alt  |  F5  |       |  F2  | +L1  |
+   Hyper = Ctrl+Super+Alt+Shift         | Alt  |  F5  |       |  F2  | ~L2  |
                                  ,------|------|------|       |------+------+------.
                                  |      |      | PgUp |       | Ins  |      |      |
-                                 | Enter| ~L2  |------|       |------| ~L1  |Space |
+                                 | Space| BkSp |------|       |------| ~L1  |Enter |
                                  |      |      | PgDn |       | Del  |      |      |
                                  `--------------------'       `--------------------'
+
 ``` 
 
 ### Symbol Layer
@@ -61,22 +62,21 @@ Layout
  `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
    |      |   £  |      |      |      |                                       |      |    . |   0  |   =  |Alt+F4|
    `----------------------------------'                                       `----------------------------------'
-              ^                         ,-------------.       ,-------------.
-              |                         |      |      |       |      |      |
-            THERE!               ,------|------|------|       |------+------+------.
-                                 |      |      |      |       |      |      |      |
+              ↑                         ,-------------.       ,-------------.
+           THERE!                       |      |      |       |      |      |
+                                 ,------|------|------|       |------+------+------.
+    CAD = Ctrl + Alt + Delete    |      |      |      |       |      |      |      |
                                  |      |      |------|       |------|      |      |
-                                 |      |      |      |       |      |      |      |
+                                 |      |      |      |       | CAD  |      |      |
                                  `--------------------'       `--------------------'
 ```
-
 ### Media Layer
 
 Not touched this, not used either.
 
 ```
  ,--------------------------------------------------.           ,--------------------------------------------------.
- |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ | TEENSY |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
  |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -95,8 +95,28 @@ Not touched this, not used either.
                                  `--------------------'       `--------------------'
 ```
 
+Usage
+------
+
+~L1 / L2 will momentarily switch to a layer if held and another key is pressed.
+If pressed and released will remain on layer until pressed again.
+
+
 Changelog
 -----------
+
+### [0.1.0] - 2016-03-21
+
+After actually using the keyboard, I've made some changes:
+
+* Swapped Enter and Space
+* Moved backspace to thumb keys (top right still remains)
+* Added Ctrl+Alt+Delete
+* Added Teensy Reset on 2nd layer
+* Switched Up and Down
+* Changed copy/paste to be Ctrl+c and Ctrl+v as KC_COPY/PASTE didn't work (in Windows)
+* Moved ~L2 to replace +L1 after learning how the function works (notes above)
+* Hopefully fixed GBP symbol (unicode enabled in MakeFile)
 
 ### [0.0.1] - 2016-03-21
 
@@ -106,6 +126,6 @@ First version
 Issues
 -------
 
-Space for feedback and notes for future improvements:
+Space for feedback and notes for future improvements
 
 
