@@ -40,7 +40,7 @@
 	{ k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b } \
 }
 
-void * matrix_init_user(void);
-void * matrix_scan_user(void);
+void matrix_init_user(void);
+void matrix_scan_user(void);
 
 #endif
