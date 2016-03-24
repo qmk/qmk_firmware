@@ -132,5 +132,5 @@ Issues
 
 Space for feedback and notes for future improvements
 
-<hl>
+----
 <sup><a name="unicode">1</a></sup>: For Windows only, and you have to edit the [registry](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input).
