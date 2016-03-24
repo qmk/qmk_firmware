@@ -104,6 +104,11 @@ If pressed and released will remain on layer until pressed again.
 Changelog
 -----------
 
+### [0.1.1] - 2016-03-23
+
+* Changed £ input to a macro
+
+
 ### [0.1.0] - 2016-03-22
 
 After actually using the keyboard, I've made some changes:
