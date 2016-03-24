@@ -8,7 +8,7 @@ About
 
 After using the massdrop configurator to get the basics, I wanted to add a
 little extra to my ergodox. Notably the Hyper hotkey, the press and hold,
-and a way to have my beloved £ :pound: symbol available. Why not switch to a GB
+and a way to have my beloved £ :pound: symbol available<sup>[1](#unicode)</sup>. Why not switch to a GB
 layout? Well the computers I use are US keymap'd and I can't always change
 that. Plus I've got used to 2/@ and 3/# and moving to the ergodox was hard
 enough. :sweat_smile:
@@ -132,4 +132,4 @@ Issues
 
 Space for feedback and notes for future improvements
 
-
+<a name="unicode">1</a>: For Windows only, and you have to edit the [registry](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input).
