@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
        KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
        KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-       KC_TRNS,UC(0x00A3),KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,M(3),KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
@@ -150,6 +150,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         } else {
           unregister_code(KC_RSFT);
         }
+      case 3: // this would trigger when you hit a key mapped as M(3)
+        if (record->event.pressed) {
+          return MACRO( I(255), D(LALT), T(PPLS), T(P0), T(P0), T(A), T(P3), T(P0), U(LALT), END  );
+      }
         break;
       }
     return MACRO_NONE;
