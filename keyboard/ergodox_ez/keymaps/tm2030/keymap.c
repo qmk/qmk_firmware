@@ -215,12 +215,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 // Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
-    return NULL;
+void matrix_init_user(void) {
+
 };
 
 // Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
+void matrix_scan_user(void) {
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -238,5 +238,5 @@ void * matrix_scan_user(void) {
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
       ergodox_right_led_3_on();
     }
-    return NULL;
+
 };
