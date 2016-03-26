@@ -28,7 +28,11 @@ There are four layers:
 - Tap `F2` to copy screenshot to the clipboard.
 - Hold `SHIFT` and tap `F2` to save screenshot as a file.
 - Tap `F3`, `F4`, `F5`, `F6` to resize a window via [Divvy](http://mizage.com/divvy/).
-- Tap `F14`, `F15` to adjust display brightness.
+- Tap `F14`, `F15` to adjust display brightness. 
+
+**IMPORTANT**: If you have another keyboard connected via Bluetooth, then `F14` and `F15` will not work.
+Turn off that Bluetooth keyboard. Re-plug you ErgoDox. Enjoy!
+
 
 ## CTRL/ESC
 
