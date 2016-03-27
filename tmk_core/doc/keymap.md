@@ -86,11 +86,12 @@ default_layer_state_set(1UL<<3);
 
 
 ### 0.2 Layer Precedence and Transparency
-Note that ***higher layer has higher priority on stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`**(transparent) on a layer it stops searching and lower layers aren't referred.
+Note that ***higher layers have priority in the layer stack***. The firmware starts at the topmost active layer, and works down to the bottom to find the an active keycode. Once the search encounters any keycode other than **`KC_TRNS`** (transparent) on an active layer, the search is halted and the remaining lower layers aren't examined, even if they are active.
 
-You can place `KC_TRNS` on overlay layer changes just part of layout to fall back on lower or base layer.
-Key with `KC_TRANS` doesn't has its own keycode and refers to lower valid layers for keycode, instead.
-See example below.
+**Note:** a layer must be activated before it may be included in the stack search.
+
+`KC_TRNS` is a special placeholder which can be used on overlay layers. This allows for the creation of "partial" layers which fall back on the lower layers, eliminating a good deal of repetition in keymap files.
+
 
 
 ### 0.3 Keymap Example
