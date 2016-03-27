@@ -111,8 +111,7 @@ void layer_debug(void)
 #endif
 
 
-
-action_t layer_switch_get_action(keypos_t key)
+int8_t layer_switch_get_layer(keypos_t key)
 {
     action_t action;
     action.code = ACTION_TRANSPARENT;
@@ -124,15 +123,18 @@ action_t layer_switch_get_action(keypos_t key)
         if (layers & (1UL<<i)) {
             action = action_for_key(i, key);
             if (action.code != ACTION_TRANSPARENT) {
-                return action;
+                return i;
             }
         }
     }
     /* fall back to layer 0 */
-    action = action_for_key(0, key);
-    return action;
+    return 0;
 #else
-    action = action_for_key(biton32(default_layer_state), key);
-    return action;
+    return biton32(default_layer_state);
 #endif
+}
+
+action_t layer_switch_get_action(keypos_t key)
+{
+    return action_for_key(layer_switch_get_layer(key), key);
 }
