@@ -3,9 +3,9 @@ Keymap framework - how to define your keymap
 ***NOTE: This is not final version, may be inconsistent with source code and changed occasionally for a while.***
 
 ## 0. Keymap and layers
-**Keymap** is comprised of multiple layers of key layout, you can define **32 layers** at most.
-**Layer** is an array of **keycodes** to define **actions** for each physical keys.
-respective layers can be validated simultaneously. Layers are indexed with 0 to 31 and higher layer has precedence.
+The **keymap** is an array composed of one or more layers.
+Each **layer** is an array of **keycodes**, defining **actions** for each physical key.
+Layers can be activated and deactivated independently. Multiple layers may be active at once, resulting in the currently-active **layer state**. Each layer has an index between 0-31. As active layers are stacked together, higher layers take precedence over lower layers.
 
     Keymap: 32 Layers                   Layer: Keycode matrix
     -----------------                   ---------------------
@@ -21,14 +21,35 @@ respective layers can be validated simultaneously. Layers are indexed with 0 to 
        1 /___________// |               1 `--------------------------
        0 /___________/  V low           0 `--------------------------
 
+**Note:** The keymap array is limited to **32 layers**.
 
 
-### 0.1 Keymap status
-Keymap has its state in two parameters:
-**`default_layer`** indicates a base keymap layer(0-31) which is always valid and to be referred, **`keymap_stat`** is 16bit variable which has current on/off status of layers on its each bit.
 
-Keymap layer '0' is usually `default_layer` and which is the only valid layer and other layers is initially off after boot up firmware, though, you can configured them in `config.h`.
-To change `default_layer` will be useful when you switch key layout completely, say you want Colmak instead of Qwerty.
+### 0.1 Layer state
+The current keymap layer state is determined by two parameters: the *default layer*, and the individual *layer states*. Changing the default layer is useful for switching key layouts completely; for example, switching to Dvorak, Colemak or Workman instead of QWERTY. Individual layer states, on the other hand, can be used to overlay the base layer with other functions such as navigation keys, function keys (F1-F12), media keys or other actions.
+
+Because the default layer is really just a special case affecting the overall layer state, it is important to first understand how the layer state is determined.
+
+#### 0.1.1 The layer state
+The **layer state** indicates the current on/off status of all layers. It is defined in the firmware by a 32-bit integer, `layer_state`, which stores each layer's on/off status in a single bit: 0 for off, 1 for on. As layers are activated and deactivated, their respective bits are flipped, changing the value of `layer_state`.
+
+    Overlay feature layer
+    ---------------------      bit|status
+           ____________        ---+------
+      31  /           /        31 |   0
+      30 /___________// -----> 30 |   1
+      29 /___________/  -----> 29 |   1
+       :                        : |   :
+       :   ____________         : |   :
+       2  /           /         2 |   0
+    ,->1 /___________/  ----->  1 |   1
+    |  0                        0 |   0
+    |                                 +
+    `--- default_layer = 1            |
+         layer_state   = 0x60000002 <-'
+
+#### 0.1.2 The default layer
+The **default layer** is the base keymap layer (0-31) which is always active and considered the "bottom" of the stack. When the firmware boots, the default layer is the only active layer. It is set to layer 0 by default, though this can be changed ~~in *config.h*~~ via Boot Magic settings.
 
     Initial state of Keymap          Change base layout              
     -----------------------          ------------------              
@@ -45,22 +66,22 @@ To change `default_layer` will be useful when you switch key layout completely, 
     `--- default_layer = 0           `--- default_layer = 1
          layer_state   = 0x00000001       layer_state   = 0x00000002
 
-On the other hand, you shall change `layer_state` to overlay base layer with some layers for feature such as navigation keys, function key(F1-F12), media keys or special actions.
+Note that the `default_layer_state` variable only determines the lowest value to which `layer_state` may be set, and that `default_layer_state` is used by the core firmware when determining the starting value of `layer_state` before applying changes. In other words, the default layer will *always* be set to *on* in `layer_state`.
 
-    Overlay feature layer
-    ---------------------      bit|status
-           ____________        ---+------
-      31  /           /        31 |   0
-      30 /___________// -----> 30 |   1
-      29 /___________/  -----> 29 |   1
-       :                        : |   :
-       :   ____________         : |   :
-       2  /           /         2 |   0
-    ,->1 /___________/  ----->  1 |   1
-    |  0                        0 |   0
-    |                                 +
-    `--- default_layer = 1            |
-         layer_state   = 0x60000002 <-'
+The default layer is defined in the firmware by the `default_layer_state` variable, which is identical in format to the `layer_state` variable exlpained above. The value may be changed using the following functions:
+
+- `default_layer_state_set(state)` sets the state to the specified 32-bit integer value.
+- AND/OR/XOR functions set the state based on a boolean logic comparison between the current state and the specified 32-bit integer value:
+    - `default_layer_state_and(state)`
+    - `default_layer_state_or(state)`
+    - `default_layer_state_xor(state)`
+
+For example, to set layer 3 as the default layer:
+
+```C
+// convert 3 to a 32-bit unsigned long value, and set the default layer
+default_layer_state_set(1UL<<3);
+```
 
 
 
