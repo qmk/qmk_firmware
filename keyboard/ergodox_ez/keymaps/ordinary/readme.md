@@ -1,5 +1,9 @@
-# The Ordinary Layout. for  users of common keyboards
+# The Ordinary Layout, a familiar and powerful layout
 
-You can read more about the reasoning behind this layout over at [Nicholas's blog](http://nicholas.rinard.us/2016/03/ergodox-ez-layout.html). The idea is to make a layout that's as familiar as possible for users of "regular" keyboards.
+The Ordinary Layout is intended to be unremarkably mundane and remarkably useful. This layout maintains most key positions from common QWERTY keyboards and features enhanced Symbol and Media layers compared to the default Ergodox EZ layout.
 
-![Ordinary layout](ordinary.png)
+Full details about the rationale behind this layout [are available](http://nicholas.rinard.us/2016/03/ergodox-ez-layout.html).
+
+![Ordinary base layout](ordinary-base.png)
+![Ordinary symbol layout](ordinary-symbol.png)
+![Ordinary media layout](ordinary-media.png)
