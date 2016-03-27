@@ -70,6 +70,10 @@ void process_action(keyrecord_t *record)
 #endif
     dprintln();
 
+    if (event.pressed) {
+        // clear the potential weak mods left by previously pressed keys
+        clear_weak_mods();
+    }
     switch (action.kind.id) {
         /* Key and Mods */
         case ACT_LMODS:
@@ -500,6 +504,7 @@ void clear_keyboard(void)
 void clear_keyboard_but_mods(void)
 {
     clear_weak_mods();
+    clear_macro_mods();
     clear_keys();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
