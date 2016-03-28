@@ -1,3 +1,7 @@
+# qmk_firmware documentation:
+
+- [[Build Guide]]
+
 Welcome to the tmk_keyboard wiki!
 
 - [[TMK Own Projects]]
