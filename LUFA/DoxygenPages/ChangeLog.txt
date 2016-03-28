@@ -10,6 +10,7 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the Pololu A-Star Micro board (thanks to Joh Schneider)
+  *   - Added new \c LUFA_VERSION_RELEASE_TYPE macro to the library version header, to determine release type (thanks to NicoHood)
   *
   *  <b>Fixed:</b>
   *  - Core:

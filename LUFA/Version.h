@@ -42,11 +42,26 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Indicates the version number of the library, as an integer. */
-			#define LUFA_VERSION_INTEGER     0x000000
+			/** \name LUFA Release Type Constants */
+			//@{
+				/** Constant for \ref LUFA_VERSION_RELEASE_TYPE indicating a development release. */
+				#define LUFA_VERSION_RELEASE_TYPE_DEVELOPMENT   0
 
-			/** Indicates the version number of the library, as a string. */
-			#define LUFA_VERSION_STRING      "000000"
+				/** Constant for \ref LUFA_VERSION_RELEASE_TYPE indicating a beta release. */
+				#define LUFA_VERSION_RELEASE_TYPE_BETA          1
+
+				/** Constant for \ref LUFA_VERSION_RELEASE_TYPE indicating a full official release. */
+				#define LUFA_VERSION_RELEASE_TYPE_FULL          2
+			//@}
+
+			/** Indicates the version number of the library, as an integer. \note This value is only updates in non-development releases. */
+			#define LUFA_VERSION_INTEGER              0x160328
+
+			/** Indicates the version number of the library, as a string. \note This value is only updates in non-development releases. */
+			#define LUFA_VERSION_STRING               "160328"
+
+			/** Indicates the release type of the library. */
+			#define LUFA_VERSION_RELEASE_TYPE         LUFA_VERSION_RELEASE_TYPE_DEVELOPMENT
 
 #endif
 

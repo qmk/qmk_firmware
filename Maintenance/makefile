@@ -71,12 +71,12 @@ bootloaders:
 # Check the working branch documentation, ensure no placeholder values
 check-documentation-placeholders:
 	@echo Checking for release suitability...
-	@if ( grep "XXXXXX" $(patsubst %/,%,$(LUFA_ROOT))/LUFA/DoxygenPages/*.txt > /dev/null ;); then \
-	  echo "  ERROR: Doxygen documentation has not been updated for release!";    \
+	@if ( grep " LUFA_VERSION_RELEASE_TYPE " $(patsubst %/,%,$(LUFA_ROOT))/LUFA/Version.h | grep "LUFA_VERSION_RELEASE_TYPE_DEVELOPMENT" > /dev/null ;); then          \
+	  echo "  ERROR: Version header has not been updated for release!";           \
 	  exit 1;                                                                     \
 	fi;
-	@if ( grep "000000" $(patsubst %/,%,$(LUFA_ROOT))/LUFA/Version.h > /dev/null ;); then          \
-	  echo "  ERROR: Version header has not been updated for release!";           \
+	@if ( grep "XXXXXX" $(patsubst %/,%,$(LUFA_ROOT))/LUFA/DoxygenPages/*.txt > /dev/null ;); then \
+	  echo "  ERROR: Doxygen documentation has not been updated for release!";    \
 	  exit 1;                                                                     \
 	fi;
 	@echo Done.
