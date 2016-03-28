@@ -184,9 +184,9 @@ static void send_system(uint16_t data)
 static uint16_t usage2bits(uint16_t usage)
 {
     switch (usage) {
-        case AC_HOME:                 return 0x01;
-        case AL_EMAIL:                return 0x02;
-        case AC_SEARCH:               return 0x04;
+        case APPCONTROL_HOME:         return 0x01;
+        case APPLAUNCH_EMAIL:         return 0x02;
+        case APPCONTROL_SEARCH:       return 0x04;
         //case AL_KBD_LAYOUT:         return 0x08;  // Apple virtual keybaord toggle
         case AUDIO_VOL_UP:            return 0x10;
         case AUDIO_VOL_DOWN:          return 0x20;
