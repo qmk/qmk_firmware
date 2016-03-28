@@ -54,7 +54,7 @@ void action_exec(keyevent_t event)
 }
 
 __attribute__ ((weak))
-void process_action_user(keyrecord_t *record) {}
+void process_action_kb(keyrecord_t *record) {}
 
 void process_action(keyrecord_t *record)
 {
@@ -65,7 +65,7 @@ void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
-    process_action_user(record);
+    process_action_kb(record);
 
     action_t action = layer_switch_get_action(event.key);
     dprint("ACTION: "); debug_action(action);
