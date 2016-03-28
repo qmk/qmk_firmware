@@ -29,6 +29,7 @@ static inline void del_key_bit(uint8_t code);
 
 static uint8_t real_mods = 0;
 static uint8_t weak_mods = 0;
+static uint8_t macro_mods = 0;
 
 #ifdef USB_6KRO_ENABLE
 #define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
@@ -55,6 +56,7 @@ static int16_t oneshot_time = 0;
 void send_keyboard_report(void) {
     keyboard_report->mods  = real_mods;
     keyboard_report->mods |= weak_mods;
+    keyboard_report->mods |= macro_mods;
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
@@ -117,6 +119,13 @@ void add_weak_mods(uint8_t mods) { weak_mods |= mods; }
 void del_weak_mods(uint8_t mods) { weak_mods &= ~mods; }
 void set_weak_mods(uint8_t mods) { weak_mods = mods; }
 void clear_weak_mods(void) { weak_mods = 0; }
+
+/* macro modifier */
+uint8_t get_macro_mods(void) { return macro_mods; }
+void add_macro_mods(uint8_t mods) { macro_mods |= mods; }
+void del_macro_mods(uint8_t mods) { macro_mods &= ~mods; }
+void set_macro_mods(uint8_t mods) { macro_mods = mods; }
+void clear_macro_mods(void) { macro_mods = 0; }
 
 /* Oneshot modifier */
 #ifndef NO_ACTION_ONESHOT
