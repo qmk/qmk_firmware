@@ -25,12 +25,12 @@ You can also try these instructions:
 3. Install [DFU-Programmer][dfu-prog].
 
 ### Linux
-Install AVR GCC and dfu-progammer with your favorite package manager.
+Install AVR GCC, AVR libc, and dfu-progammer with your favorite package manager.
 
 Debian/Ubuntu example: 
 
     sudo apt-get update
-    sudo apt-get install gcc-avr dfu-programmer
+    sudo apt-get install gcc-avr avr-libc dfu-programmer
 
 ### Vagrant
 If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](VAGRANT_GUIDE.md).
