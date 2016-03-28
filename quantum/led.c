@@ -19,9 +19,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdint.h"
 #include "led.h"
 
+__attribute__ ((weak))
+void led_set_kb(uint8_t usb_led) {
+
+}
 
 void led_set(uint8_t usb_led)
 {
+
+	// Example LED Code
+	//
     // // Using PE6 Caps Lock LED
     // if (usb_led & (1<<USB_LED_CAPS_LOCK))
     // {
@@ -35,4 +42,6 @@ void led_set(uint8_t usb_led)
     //     DDRE &= ~(1<<6);
     //     PORTE &= ~(1<<6);
     // }
+
+	led_set_kb(usb_led);
 }
