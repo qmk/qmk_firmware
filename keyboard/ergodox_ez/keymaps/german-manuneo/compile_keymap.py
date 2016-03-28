@@ -1,4 +1,13 @@
-# encoding: utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""Compiler for keymap.c files
+
+This scrip will generate a keymap.c file from a simple
+markdown file with a specific layout.
+
+Usage:
+    python compile_keymap.py INPUT_PATH [OUTPUT_PATH]
+"""
 from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
@@ -15,299 +24,423 @@ import collections
 PY2 = sys.version_info.major == 2
 
 if PY2:
-	chr = unichr
+    chr = unichr
 
 
-ONELINE_COMMENT_RE = re.compile(r"^\s*//.*$", re.MULTILINE)
-INLINE_COMMENT_RE = re.compile(
-    r"([\,\"\[\]\{\}\d])\s+//\s[^\"\]\}\{\[]*$", re.MULTILINE
-)
-TRAILING_COMMA_RE = re.compile(
-    r",$\s*([\]\}])", re.MULTILINE
-)
+BASEPATH = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", ".."
+))
+
+
+KEYBOARD_LAYOUTS = {
+    # These map positions in the parsed layout to
+    # positions in the KEYMAP MATRIX
+    'ergodox_ez': [
+        [ 0,  1,  2,  3,  4,  5,  6],  [38, 39, 40, 41, 42, 43, 44],
+        [ 7,  8,  9, 10, 11, 12, 13],  [45, 46, 47, 48, 49, 50, 51],
+        [14, 15, 16, 17, 18, 19    ],  [    52, 53, 54, 55, 56, 57],
+        [20, 21, 22, 23, 24, 25, 26],  [58, 59, 60, 61, 62, 63, 64],
+        [27, 28, 29, 30, 31        ],  [        65, 66, 67, 68, 69],
+        [                    32, 33],  [70, 71                    ],
+        [                        34],  [72                        ],
+        [                35, 36, 37],  [73, 74, 75                ],
+    ]
+}
+
+
+BLANK_LAYOUTS = [
+# Compact Layout
+"""
+.------------------------------------.------------------------------------.
+|     |    |    |    |    |    |     |     |    |    |    |    |    |     |
+!-----+----+----+----+----+----------!-----+----+----+----+----+----+-----!
+|     |    |    |    |    |    |     |     |    |    |    |    |    |     |
+!-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
+|     |    |    |    |    |    |-----!-----!    |    |    |    |    |     |
+!-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
+|     |    |    |    |    |    |     |     |    |    |    |    |    |     |
+'-----+----+----+----+----+----------'----------+----+----+----+----+-----'
+ |    |    |    |    |    |                     !    |    |    |    |    |
+ '------------------------'                     '------------------------'
+                        .-----------. .-----------.
+                        |     |     | !     |     |
+                  .-----+-----+-----! !-----+-----+-----.
+                  !     !     |     | !     |     !     !
+                  !     !     !-----! !-----!     !     !
+                  |     |     |     | !     |     |     |
+                  '-----------------' '-----------------'
+""",
+
+# Wide Layout
+"""
+.--------------------------------------------. .--------------------------------------------.
+|      |     |     |     |     |     |       | !       |     |     |     |     |     |      |
+!------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+------!
+|      |     |     |     |     |     |       | !       |     |     |     |     |     |      |
+!------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+------!
+|      |     |     |     |     |     |-------! !-------!     |     |     |     |     |      |
+!------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+------!
+|      |     |     |     |     |     |       | !       |     |     |     |     |     |      |
+'------+-----+-----+-----+-----+-------------' '-------------+-----+-----+-----+-----+------'
+ |     |     |     |     |     |                             !     |     |     |     |     |
+ '-----------------------------'                             '-----------------------------'
+                             .---------------. .---------------.
+                             |       |       | !       |       |
+                     .-------+-------+-------! !-------+-------+-------.
+                     !       !       |       | !       |       !       !
+                     !       !       !-------! !-------!       !       !
+                     |       |       |       | !       |       |       |
+                     '-----------------------' '-----------------------'
+""",
+]
+
+
+DEFAULT_CONFIG = {
+    "includes_basedir": "quantum/",
+    "keymaps_includes": [
+        "keymap_common.h",
+    ],
+    'filler': "-+.':x",
+    'separator': "|",
+    'default_key_prefix': ["KC_"],
+}
+
+
+SECTIONS = [
+    'layout_config',
+    'layers',
+]
+
+
+#       Markdown Parsing
 
 def loads(raw_data):
+    ONELINE_COMMENT_RE = re.compile(r"""
+        ^                       # comment must be at the start of the line
+        \s*                     # arbitrary whitespace
+        //                      # start of the comment
+        (.*)                    # the comment
+        $                       # until the end of line
+        """, re.MULTILINE | re.VERBOSE
+    )
+
+    INLINE_COMMENT_RE = re.compile(r"""
+        (?:[\,\"\[\]\{\}\d])    # anythig that might end a expression
+        \s+                     # comment must be preceded by whitespace
+        //                      # start of the comment
+        \s                      # and succeded by whitespace
+        ([^\"\]\}\{\[]*)        # the comment (except things which might be json)
+        $                       # until the end of line
+        """, re.MULTILINE | re.VERBOSE
+    )
+
+    TRAILING_COMMA_RE = re.compile(r"""
+        ,                       # the comma
+        \s*                     # arbitrary whitespace (including newlines)
+        ([\]\}])                # end of an array or object
+        """, re.MULTILINE | re.VERBOSE
+    )
+
     if isinstance(raw_data, bytes):
         raw_data = raw_data.decode('utf-8')
+
     raw_data = ONELINE_COMMENT_RE.sub(r"", raw_data)
     raw_data = INLINE_COMMENT_RE.sub(r"\1", raw_data)
     raw_data = TRAILING_COMMA_RE.sub(r"\1", raw_data)
     return json.loads(raw_data)
 
-with io.open("keymap.md", encoding="utf-8") as fh:
-	lines = fh.readlines()
 
-SECTIONS = [
-	'layout_config',
-	'layers',
-]
+def parse_config(path):
+    def reset_section():
+        section.update({
+            'name': section.get('name', ""),
+            'sub_name': "",
+            'start_line': -1,
+            'end_line': -1,
+            'code_lines': [],
+        })
 
-config = {
-	"includes_basedir": "quantum/",
-    "keymaps_includes": [
-        "keymap_common.h",
-    ],
-	'filler': "-+.':x",
-	'separator': "|",
-    'default_key_prefix': ["KC_"],
-    'unicode_macros': [],
-    'macro_ids': ['UMS'],
-    'layers': collections.OrderedDict(),
-	'layer_lines': collections.OrderedDict(),
-}
+    def start_section(line_index, line):
+        end_section()
+        if line.startswith("# "):
+            name = line[2:]
+        elif line.startswith("## "):
+            name = line[3:]
 
-section_start_index = -1
-current_section = None
-current_layer_name = None
-current_layer_lines = []
-config_data = []
+        name = name.strip().replace(" ", "_").lower()
+        if name in SECTIONS:
+            section['name'] = name
+        else:
+            section['sub_name'] = name
+        section['start_line'] = line_index
 
-def end_section():
-	global section_start_index
-	global current_layer_lines
-	section_start_index = -1
-	if current_section == 'layout_config':
-		config.update(loads("".join(
-			config_data
-		)))
-	elif current_section == 'layers':
-		config['layer_lines'][current_layer_name] = current_layer_lines
-		current_layer_lines = []
+    def end_section():
+        if section['start_line'] >= 0:
+            if section['name'] == 'layout_config':
+                config.update(loads("\n".join(
+                    section['code_lines']
+                )))
+            elif section['sub_name'].startswith('layer'):
+                layer_name = section['sub_name']
+                config['layer_lines'][layer_name] = section['code_lines']
 
+        reset_section()
 
-for i, line in enumerate(lines):
-	if line.startswith("# "):
-		section = line[2:].strip().replace(" ", "_").lower()
-		if section in SECTIONS:
-			current_section = section
-	elif line.startswith("## "):
-		sub_section = line[3:]
-		if current_section == 'layers':
-			current_layer_name = sub_section.strip()
-			# TODO: parse descriptio
-			config['layers'][current_layer_name] = ""
-	elif line.startswith("    "):
-		if section_start_index < 0:
-			section_start_index = i
-		if current_section == 'layout_config':
-			config_data.append(line)
-		elif current_section == 'layers':
-			if not line.strip():
-				continue
-			current_layer_lines.append(line)
-	elif section_start_index > 0:
-		end_section()
+    def amend_section(line_index, line):
+        section['end_line'] = line_index
+        section['code_lines'].append(line)
 
-end_section()
+    config = DEFAULT_CONFIG.copy()
+    config.update({
+        'layer_lines': collections.OrderedDict(),
+        'macro_ids': {'UM'},
+        'unicode_macros': {},
+    })
 
-KEYDEF_RE = re.compile(r"#define ((?:{})(?:\w+))".format(
-	"|".join(config['key_prefixes'])
-))
-IF0_RE = re.compile(r"^#if 0$.*?#endif", re.MULTILINE | re.DOTALL)
-COMMENT_RE = re.compile(r"/\*.*?\*/", re.MULTILINE | re.DOTALL)
-ENUM_RE = re.compile(r"(enum\s\w+\s\{.*?\};)", re.MULTILINE | re.DOTALL)
-ENUM_KEY_RE = re.compile(r"({}\w+)".format(
-	"|".join(config['key_prefixes'])
-))
+    section = {}
+    reset_section()
 
-def parse_keydefs(path):
-	with io.open(path, encoding="utf-8") as fh:
-		data = fh.read()
-	data, _ = COMMENT_RE.subn("", data)
-	data, _ = IF0_RE.subn("", data)
+    with io.open(path, encoding="utf-8") as fh:
+        for i, line in enumerate(fh):
+            if line.startswith("#"):
+                start_section(i, line)
+            elif line.startswith("    "):
+                amend_section(i, line[4:])
+            else:
+                # TODO: maybe parse description
+                pass
 
-	for match in KEYDEF_RE.finditer(data):
-		yield match.groups()[0]
+    end_section()
+    return config
 
-	for enum_match in ENUM_RE.finditer(data):
-		enum = enum_match.groups()[0]
-		for key_match in ENUM_KEY_RE.finditer(enum):
-			yield key_match.groups()[0]
+#       header file parsing
 
-valid_keycodes = set()
-basepath = os.path.abspath(os.path.join(
-	os.path.dirname(__file__), "..", "..", "..", ".."
-))
-
-valid_keycodes.update(parse_keydefs(os.path.join(
-	basepath, "tmk_core", "common", "keycode.h"
-)))
-
-for include_path in config['keymaps_includes']:
-	path = os.path.join(basepath, config['includes_dir'], include_path)
-	path = path.replace("/", os.sep)
-	if os.path.exists(path):
-		valid_keycodes.update(parse_keydefs(path))
-
-LAYER_CHANGE_RE = re.compile(r"(DF|TG|MO)\(\d+\)")
-MACRO_RE = re.compile(r"M\(\w+\)")
-UNICODE_RE = re.compile(r"U[0-9A-F]{4}")
-NON_CODE = re.compile(r"^[^A-Z0-9_]$")
+IF0_RE = re.compile(r"""
+    ^
+    #if 0
+    $.*?
+    #endif
+    """, re.MULTILINE | re.DOTALL | re.VERBOSE
+)
 
 
-def UNICODE_MACRO(config, c):
-	# TODO: don't use macro for codepoints below 0x2000
-	macro_id = "UC_" + (
-		unicodedata.name(c)
-		.replace(" ", "_")
-		.replace("-", "_")
-		.replace("SUPERSCRIPT_", "SUP_")
-		.replace("SUBSCRIPT_", "SUB_")
-		.replace("GREEK_SMALL_LETTER", "GR_LC")
-		.replace("GREEK_CAPITAL_LETTER", "GR_UC")
-		.replace("VULGAR_FRACTION_", "FR_")
-	)
-	if macro_id not in config['macro_ids']:
-		config['macro_ids'].append(macro_id)
-	code = "{:04X}".format(ord(c))
-	if (macro_id, code) not in config['unicode_macros']:
-		config['unicode_macros'].append((macro_id, code))
-	return "M({})".format(macro_id)
+COMMENT_RE = re.compile(r"""
+    /\*
+    .*?
+    \*/"
+    """, re.MULTILINE | re.DOTALL | re.VERBOSE
+)
+
+def read_header_file(path):
+    with io.open(path, encoding="utf-8") as fh:
+        data = fh.read()
+    data, _ = COMMENT_RE.subn("", data)
+    data, _ = IF0_RE.subn("", data)
+    return data
 
 
-def MACRO(config, code):
-	macro_id = code[2:-1]
-	if macro_id not in config['macro_ids']:
-		config['macro_ids'].append(macro_id)
-	return code
-
-# TODO: presumably we can have a macro or function which takes
-#		the hex code and produces much smaller code.
-
-WIN_UNICODE_MACRO_TEMPLATE = """
-case {0}:
-	return MACRODOWN(
-		D(LALT), T(KP_PLUS), {1}, U(LALT), END
-	);
-"""
-
-LINUX_UNICODE_MACRO_TEMPLATE = """
-case {0}:
-	return MACRODOWN(
-		D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), {1}, T(KP_ENTER), END
-	);
-"""
-
-def macro_cases(config, mode):
-	if mode == 'win':
-		template = WIN_UNICODE_MACRO_TEMPLATE
-	elif mode == 'linux':
-		template = LINUX_UNICODE_MACRO_TEMPLATE
-	else:
-		raise ValueError("Invalid mode: ", mode)
-	template = template.strip()
-
-	for macro_id, unimacro_chars in config['unicode_macros']:
-		unimacro_keys = ", ".join(
-			"T({})".format(
-				"KP_" + char if char.isdigit() else char
-			) for char in unimacro_chars
-		)
-		yield template.format(macro_id, unimacro_keys)
+def regex_partial(re_str_fmt, flags=re.MULTILINE | re.DOTALL | re.VERBOSE):
+    def partial(*args, **kwargs):
+        re_str = re_str_fmt.format(*args, **kwargs)
+        return re.compile(re_str, flags)
+    return partial
 
 
-MACROCODE = """
-#define UC_MODE_WIN 0
-#define UC_MODE_LINUX 1
-
-static uint16_t unicode_mode = UC_MODE_WIN;
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {{
-	if (!record->event.pressed) {{
-		return MACRO_NONE;
-	}}
-  	// MACRODOWN only works in this function
-    switch(id) {{
-    	case UMS:
-    		unicode_mode = (unicode_mode + 1) % 2;
-    		break;
-    	{macro_cases}
-    	default:
-    		break;
-    }}
-	if (unicode_mode == UC_MODE_WIN) {{
-		switch(id) {{
-			{win_macro_cases}
-	    	default:
-	    		break;
-		}}
-	}} else if (unicode_mode == UC_MODE_LINUX) {{
-		switch(id) {{
-			{linux_macro_cases}
-	    	default:
-	    		break;
-		}}
-	}}
-    return MACRO_NONE;
-}};
-"""
+KEYDEF_REP = regex_partial(r"""
+    #define
+    \s
+    (
+        (?:{})          # the prefixes
+        (?:\w+)         # the key name
+    )                   # capture group end
+    """
+)
 
 
-def iter_keycodes(layer_lines, config):
-	filler_re = re.compile("[" +
-		config['filler'] + " " +
-	"]")
+ENUM_RE = re.compile(r"""
+    (
+        enum
+        \s\w+\s
+        \{
+        .*?             # the enum content
+        \}
+        ;
+    )                   # capture group end
+    """, re.MULTILINE | re.DOTALL | re.VERBOSE
+)
 
-	all_codes = []
-	for line in layer_lines:
-		line, _ = filler_re.subn("", line.strip())
-		if not line:
-			continue
-		codes = line.split(config['separator'])
-		all_codes.extend(codes[1:-1])
 
-	key_groups = {}
-	for group_index, key_indexes in enumerate(config['keymap_indexes']):
-		for key_index in key_indexes:
-			key_groups[key_index] = group_index
+ENUM_KEY_REP = regex_partial(r"""
+    (
+        {}              # the prefixes
+        \w+             # the key name
+    )                   # capture group end
+    """
+)
 
-	keymap_indexes = sum(config['keymap_indexes'], [])
-	assert len(all_codes) == len(keymap_indexes)
-	code_index_pairs = zip(all_codes, keymap_indexes)
-	prev_index = None
-	for i, (code, key_index) in enumerate(code_index_pairs):
-		code = code.strip()
-		layer_match = LAYER_CHANGE_RE.match(code)
-		unicode_match = UNICODE_RE.match(code)
-		noncode_match = NON_CODE.match(code)
-		macro_match = MACRO_RE.match(code)
+def parse_keydefs(config, data):
+    prefix_options = "|".join(config['key_prefixes'])
+    keydef_re = KEYDEF_REP(prefix_options)
+    enum_key_re = ENUM_KEY_REP(prefix_options)
+    for match in keydef_re.finditer(data):
+        yield match.groups()[0]
 
-		ws = "\n" if key_groups[key_index] != prev_index else ""
-		prev_index = key_groups[key_index]
+    for enum_match in ENUM_RE.finditer(data):
+        enum = enum_match.groups()[0]
+        for key_match in enum_key_re.finditer(enum):
+            yield key_match.groups()[0]
 
-		try:
-			if not code:
-				code = 'KC_TRNS'
-			elif layer_match:
-				pass
-			elif macro_match:
-				code = MACRO(config, code)
-			elif unicode_match:
-				hex_code = code[1:]
-				code = UNICODE_MACRO(config, chr(int(hex_code, 16)))
-			elif noncode_match:
-				code = UNICODE_MACRO(config, code)
-			elif "_" in code:
-				assert code in valid_keycodes, "unknown code '{}'".format(code)
-			else:
-				for prefix in config['key_prefixes']:
-					if prefix + code in valid_keycodes:
-						code = prefix + code
-						break
-				assert code in valid_keycodes, "unknown code '{}'".format(code)
-			yield code, key_index, ws
-		except AssertionError:
-			print("Error processing code", repr(code).encode("utf-8"))
-			raise
+
+def parse_valid_keys(config):
+    valid_keycodes = set()
+    paths = [
+        os.path.join(BASEPATH, "tmk_core", "common", "keycode.h")
+    ] + [
+        os.path.join(
+            BASEPATH, config['includes_dir'], include_path
+        ) for include_path in config['keymaps_includes']
+    ]
+
+    for path in paths:
+        path = path.replace("/", os.sep)
+        # the config always uses forward slashe
+        if os.path.exists(path):
+            header_data = read_header_file(path)
+            valid_keycodes.update(
+                parse_keydefs(config, header_data)
+            )
+    return valid_keycodes
+
+#       Keymap Parsing
+
+def iter_raw_codes(layer_lines, filler, separator):
+    filler_re = re.compile("[" + filler + " ]")
+    for line in layer_lines:
+        line, _ = filler_re.subn("", line.strip())
+        if not line:
+            continue
+        codes = line.split(separator)
+        for code in codes[1:-1]:
+            yield code
+
+
+def iter_indexed_codes(raw_codes, key_indexes):
+    key_rows = {}
+    key_indexes_flat = []
+    for row_index, key_indexes in enumerate(key_indexes):
+        for key_index in key_indexes:
+            key_rows[key_index] = row_index
+        key_indexes_flat.extend(key_indexes)
+    assert len(raw_codes) == len(key_indexes_flat)
+    for raw_code, key_index in zip(raw_codes, key_indexes_flat):
+        # we keep track of the row mostly for layout purposes
+        yield raw_code, key_index, key_rows[key_index]
+
+
+LAYER_CHANGE_RE = re.compile(r"""
+    (DF|TG|MO)\(\d+\)
+""", re.VERBOSE)
+
+
+MACRO_RE = re.compile(r"""
+    M\(\w+\)
+""", re.VERBOSE)
+
+
+UNICODE_RE = re.compile(r"""
+    U[0-9A-F]{4}
+""", re.VERBOSE)
+
+
+NON_CODE = re.compile(r"""
+    ^[^A-Z0-9_]$
+""", re.VERBOSE)
+
+
+def parse_uni_code(raw_code):
+    macro_id = "UC_" + (
+        unicodedata.name(raw_code)
+        .replace(" ", "_")
+        .replace("-", "_")
+    )
+    code = "M({})".format(macro_id)
+    uc_hex = "{:04X}".format(ord(raw_code))
+    return code, macro_id, uc_hex
+
+
+def parse_key_code(raw_code, key_prefixes, valid_keycodes):
+    if raw_code in valid_keycodes:
+        return raw_code
+
+    for prefix in key_prefixes:
+        code = prefix + raw_code
+        if code in valid_keycodes:
+            return code
+
+
+def parse_code(raw_code, key_prefixes, valid_keycodes):
+    if not raw_code:
+        return 'KC_TRNS', None, None
+
+    if LAYER_CHANGE_RE.match(raw_code):
+        return raw_code, None, None
+
+    if MACRO_RE.match(raw_code):
+        code = macro_id = raw_code[2:-1]
+        return code, macro_id, None
+
+    if UNICODE_RE.match(raw_code):
+        hex_code = raw_code[1:]
+        return parse_uni_code(chr(int(hex_code, 16)))
+
+    if NON_CODE.match(raw_code):
+        return parse_uni_code(raw_code)
+
+    code = parse_key_code(raw_code, key_prefixes, valid_keycodes)
+    return code, None, None
+
+
+def parse_keymap(config, key_indexes, layer_lines, valid_keycodes):
+    keymap = {}
+    raw_codes = list(iter_raw_codes(
+        layer_lines, config['filler'], config['separator']
+    ))
+    indexed_codes = iter_indexed_codes(raw_codes, key_indexes)
+    for raw_code, key_index, row_index in indexed_codes:
+        code, macro_id, uc_hex = parse_code(
+            raw_code, config['key_prefixes'], valid_keycodes
+        )
+        if macro_id:
+            config['macro_ids'].add(macro_id)
+        if uc_hex:
+            config['unicode_macros'][macro_id] = uc_hex
+        keymap[key_index] = (code, row_index)
+    return keymap
+
+
+def parse_keymaps(config, valid_keycodes):
+    keymaps = collections.OrderedDict()
+    key_indexes = config.get(
+        'key_indexes', KEYBOARD_LAYOUTS[config['layout']]
+    )
+    # TODO: maybe validate key_indexes
+
+    for layer_name, layer_lines, in config['layer_lines'].items():
+        keymaps[layer_name] = parse_keymap(
+            config, key_indexes, layer_lines, valid_keycodes
+        )
+    return keymaps
+
+#       keymap.c output
 
 USERCODE = """
 // Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
+void matrix_init_user(void) {
 
 };
 
 // Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
+void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     ergodox_board_led_off();
@@ -348,71 +481,158 @@ void * matrix_scan_user(void) {
 };
 """
 
-def parse_keymaps(config):
-	keymaps = {}
-	layer_line_items = config['layer_lines'].items()
-	for i, (layer_name, layer_lines) in enumerate(layer_line_items):
-		print("parseing layer", layer_name)
-		keymap = {}
-		for code, key_index, ws in iter_keycodes(layer_lines, config):
-			keymap[key_index] = (code, ws)
-		keymaps[layer_name] = [v for k, v in sorted(keymap.items())]
-	return keymaps
+MACROCODE = """
+#define UC_MODE_WIN 0
+#define UC_MODE_LINUX 1
+
+static uint16_t unicode_mode = UC_MODE_WIN;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {{
+    if (!record->event.pressed) {{
+        return MACRO_NONE;
+    }}
+    // MACRODOWN only works in this function
+    switch(id) {{
+        case UM:
+            unicode_mode = (unicode_mode + 1) % 2;
+            break;
+        {macro_cases}
+        default:
+            break;
+    }}
+    if (unicode_mode == UC_MODE_WIN) {{
+        switch(id) {{
+            {win_macro_cases}
+            default:
+                break;
+        }}
+    }} else if (unicode_mode == UC_MODE_LINUX) {{
+        switch(id) {{
+            {linux_macro_cases}
+            default:
+                break;
+        }}
+    }}
+    return MACRO_NONE;
+}};
+"""
+
+WIN_UNICODE_MACRO_TEMPLATE = """
+case {0}:
+    return MACRODOWN(
+        D(LALT), T(KP_PLUS), {1}, U(LALT), END
+    );
+"""
+
+LINUX_UNICODE_MACRO_TEMPLATE = """
+case {0}:
+    return MACRODOWN(
+        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), {1}, T(KP_ENTER), END
+    );
+"""
+
+def macro_cases(config, mode):
+    if mode == 'win':
+        template = WIN_UNICODE_MACRO_TEMPLATE
+    elif mode == 'linux':
+        template = LINUX_UNICODE_MACRO_TEMPLATE
+    else:
+        raise ValueError("Invalid mode: ", mode)
+    template = template.strip()
+
+    for macro_id, uc_hex in config['unicode_macros'].items():
+        unimacro_keys = ", ".join(
+            "T({})".format(
+                "KP_" + digit if digit.isdigit() else digit
+            ) for digit in uc_hex
+        )
+        yield template.format(macro_id, unimacro_keys)
 
 
-def iter_keymap_lines(config, keymaps):
-	for include_path in config['keymaps_includes']:
-		yield '#include "{}"\n'.format(include_path)
-
-	yield "\n"
-
-	layer_items = config['layers'].items()
-	for i, (layer_name, description) in enumerate(layer_items):
-		yield '#define L{0:<3} {0:<5}  // {1}\n'.format(i, layer_name)
-
-	for i, macro_id in enumerate(config['macro_ids']):
-		yield "#define {} {}\n".format(macro_id, i)
-
-	yield "\n"
-
-	yield "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
-
-	layer_line_items = config['layer_lines'].items()
-	last_index = config['keymap_indexes'][-1]
-	for i, (layer_name, layer_lines) in enumerate(layer_line_items):
-		keymap = keymaps[layer_name]
-		yield "/*\n"
-		for line in layer_lines:
-			yield " *{}".format(line)
-		yield "*/\n"
-
-		yield "[L{0}] = KEYMAP(\n".format(i)
-
-		for key_index, (code, ws) in enumerate(keymap):
-			yield "\t{}".format(code)
-			if key_index < len(keymap) - 1:
-				yield ","
-			yield ws
-		yield "),\n"
-
-	yield "};\n\n"
-
-	yield "const uint16_t PROGMEM fn_actions[] = {\n"
-	yield "};\n"
-
-	yield MACROCODE.format(
-		macro_cases="",
-		win_macro_cases="\n".join(macro_cases(config, mode='win')),
-		linux_macro_cases="\n".join(macro_cases(config, mode='linux')),
-	)
-
-	yield USERCODE
+def iter_keymap_lines(keymap):
+    prev_row_index = None
+    for key_index in sorted(keymap):
+        code, row_index = keymap[key_index]
+        if row_index != prev_row_index:
+            yield "\n"
+        yield " {}".format(code)
+        if key_index < len(keymap) - 1:
+            yield ","
+        prev_row_index = row_index
 
 
-with io.open("keymap.c", mode="w", encoding="utf-8") as fh:
-	for data in iter_keymap_lines(config, parse_keymaps(config)):
-		fh.write(data)
+def iter_keymap_parts(config, keymaps):
+    # includes
+    for include_path in config['keymaps_includes']:
+        yield '#include "{}"\n'.format(include_path)
+
+    yield "\n"
+
+    # definitions
+    for i, macro_id in enumerate(sorted(config['macro_ids'])):
+        yield "#define {} {}\n".format(macro_id, i)
+
+    yield "\n"
+
+    for i, layer_name in enumerate(config['layer_lines']):
+        yield '#define L{0:<3} {0:<5}  // {1}\n'.format(i, layer_name)
+
+    yield "\n"
+
+    # keymaps
+    yield "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
+
+    for i, layer_name in enumerate(config['layer_lines']):
+        # comment
+        layer_lines = config['layer_lines'][layer_name]
+        prefixed_lines = " * " + " * ".join(layer_lines)
+        yield "/*\n{}*/\n".format(prefixed_lines)
+
+        # keymap codes
+        keymap = keymaps[layer_name]
+        keymap_lines = "".join(iter_keymap_lines(keymap))
+        yield "[L{0}] = KEYMAP({1}\n),\n".format(i, keymap_lines)
+
+    yield "};\n\n"
+
+    # no idea what this is for
+    yield "const uint16_t PROGMEM fn_actions[] = {};\n"
+
+    # macros
+    yield MACROCODE.format(
+        macro_cases="",
+        win_macro_cases="\n".join(macro_cases(config, mode='win')),
+        linux_macro_cases="\n".join(macro_cases(config, mode='linux')),
+    )
+
+    # TODO: dynamically create blinking lights
+    yield USERCODE
 
 
-# print("\n".join(sorted(valid_keycodes)))
-# print(json.dumps(config, indent=4))
+def main(argv=sys.argv[1:]):
+    if not argv or '-h' in argv or '--help' in argv:
+        print(__doc__)
+        return 0
+
+    in_path = os.path.abspath(argv[0])
+    if not os.path.exists(in_path):
+        print("No such file '{}'".format(in_path))
+        return 1
+
+    if len(argv) > 1:
+        out_path = os.path.abspath(argv[1])
+    else:
+        dirname = os.path.dirname(in_path)
+        out_path = os.path.join(dirname, "keymap.c")
+
+    config = parse_config(in_path)
+    valid_keys = parse_valid_keys(config)
+    keymaps = parse_keymaps(config, valid_keys)
+
+    with io.open(out_path, mode="w", encoding="utf-8") as fh:
+        for part in iter_keymap_parts(config, keymaps):
+            fh.write(part)
+
+
+if __name__ == '__main__':
+    sys.exit(main())
