@@ -116,7 +116,7 @@ If such situation bothers you add this to your `config.h`:
     #define PREVENT_STUCK_MODIFIERS
 
 Warning: This option uses up 1 byte of memory per key. For example on
-Planck it uses 4\*12=96 bytes.
+Planck it uses 4\*12=48 bytes.
 
 ### Remember: These are just aliases
 
