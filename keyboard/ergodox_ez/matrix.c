@@ -62,12 +62,12 @@ uint32_t matrix_scan_count;
 
 
 __attribute__ ((weak))
-void * matrix_init_kb(void) {
-};
+void matrix_init_kb(void) {
+}
 
 __attribute__ ((weak))
-void * matrix_scan_kb(void) {
-};
+void matrix_scan_kb(void) {
+}
 
 inline
 uint8_t matrix_rows(void)
@@ -102,9 +102,7 @@ void matrix_init(void)
     matrix_scan_count = 0;
 #endif
 
-    if (matrix_init_kb) {
-        (*matrix_init_kb)();
-    }
+    matrix_init_kb();
 
 }
 
@@ -163,9 +161,7 @@ uint8_t matrix_scan(void)
     }
 
 
-    if (matrix_scan_kb) {
-        (*matrix_scan_kb)();
-    }
+    matrix_scan_kb();
 
     return 1;
 }

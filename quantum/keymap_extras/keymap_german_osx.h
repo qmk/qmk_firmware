@@ -12,7 +12,7 @@
 #define DE_Z KC_Y
 #define DE_Y KC_Z
 
-#define DE_A KC_A 
+#define DE_A KC_A
 #define DE_B KC_B
 #define DE_C KC_C
 #define DE_D KC_D
@@ -87,7 +87,7 @@
 // Alt-ed characters
 #define DE_SQ2 LALT(KC_2) // ²
 #define DE_SQ3 LALT(KC_3) // ³
-#define DE_LCBR LALT(KC_7) // {
+#define DE_LCBR LALT(KC_8) // {
 #define DE_LBRC LALT(KC_5) // [
 #define DE_RBRC LALT(KC_6) // ]
 #define DE_RCBR LALT(KC_9) // }

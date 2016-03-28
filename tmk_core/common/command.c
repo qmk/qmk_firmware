@@ -52,6 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static bool command_common(uint8_t code);
 static void command_common_help(void);
+static void print_version(void);
+static void print_status(void);
 static bool command_console(uint8_t code);
 static void command_console_help(void);
 #ifdef MOUSEKEY_ENABLE
@@ -112,33 +114,138 @@ bool command_console_extra(uint8_t code)
  ***********************************************************/
 static void command_common_help(void)
 {
-    print("\n\t- Magic -\n"
-          "d:	debug\n"
-          "x:	debug matrix\n"
-          "k:	debug keyboard\n"
-          "m:	debug mouse\n"
-          "v:	version\n"
-          "s:	status\n"
-          "c:	console mode\n"
-          "0-4:	layer0-4(F10-F4)\n"
-          "Paus:	bootloader\n"
+	print(                            "\n\t- Magic -\n"
+		STR(MAGIC_KEY_DEBUG       ) ":	Debug Message Toggle\n"
+		STR(MAGIC_KEY_DEBUG_MATRIX) ":	Matrix Debug Mode Toggle - Show keypresses in matrix grid\n"
+		STR(MAGIC_KEY_DEBUG_KBD   ) ":	Keyboard Debug Toggle - Show keypress report\n"
+		STR(MAGIC_KEY_DEBUG_MOUSE ) ":	Debug Mouse Toggle\n"
+		STR(MAGIC_KEY_VERSION     ) ":	Version\n"
+		STR(MAGIC_KEY_STATUS      ) ":	Status\n"
+		STR(MAGIC_KEY_CONSOLE     ) ":	Activate Console Mode\n"
+		
+#if MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
+		STR(MAGIC_KEY_LAYER0      ) ":	Switch to Layer 0\n"
+		STR(MAGIC_KEY_LAYER1      ) ":	Switch to Layer 1\n"
+		STR(MAGIC_KEY_LAYER2      ) ":	Switch to Layer 2\n"
+		STR(MAGIC_KEY_LAYER3      ) ":	Switch to Layer 3\n"
+		STR(MAGIC_KEY_LAYER4      ) ":	Switch to Layer 4\n"
+		STR(MAGIC_KEY_LAYER5      ) ":	Switch to Layer 5\n"
+		STR(MAGIC_KEY_LAYER6      ) ":	Switch to Layer 6\n"
+		STR(MAGIC_KEY_LAYER7      ) ":	Switch to Layer 7\n"
+		STR(MAGIC_KEY_LAYER8      ) ":	Switch to Layer 8\n"
+		STR(MAGIC_KEY_LAYER9      ) ":	Switch to Layer 9\n"
+#endif
+
+#if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS							
+		                            "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
+#endif
+
+#if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS							
+		                            "0-9:	Switch to Layer 0-9\n"
+#endif
+
+		STR(MAGIC_KEY_LAYER0_ALT1 ) ":	Switch to Layer 0 (alternate key 1)\n"
+		STR(MAGIC_KEY_LAYER0_ALT2 ) ":	Switch to Layer 0 (alternate key 2)\n"
+		STR(MAGIC_KEY_BOOTLOADER  ) ":	Jump to Bootloader (Reset)\n"
 
 #ifdef KEYBOARD_LOCK_ENABLE
-          "Caps:	Lock\n"
+		STR(MAGIC_KEY_LOCK        ) ":	Lock\n"
 #endif
 
 #ifdef BOOTMAGIC_ENABLE
-          "e:	eeprom\n"
+		STR(MAGIC_KEY_EEPROM      ) ":	Print EEPROM Settings\n"
 #endif
 
 #ifdef NKRO_ENABLE
-          "n:	NKRO\n"
+		STR(MAGIC_KEY_NKRO        ) ":	NKRO Toggle\n"
 #endif
 
 #ifdef SLEEP_LED_ENABLE
-          "z:	sleep LED test\n"
+		STR(MAGIC_KEY_SLEEP_LED   ) ":	Sleep LED Test\n"
 #endif
     );
+}
+
+static void print_version(void)
+{
+	// print version & information
+    print("\n\t- Version -\n");
+    print("DESC: " STR(DESCRIPTION) "\n");
+    print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
+          "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
+          "VER: " STR(DEVICE_VER) "\n");
+    print("BUILD: " STR(VERSION) " (" __TIME__ " " __DATE__ ")\n");
+
+    /* build options */
+    print("OPTIONS:"
+
+#ifdef PROTOCOL_PJRC
+	    " PJRC"
+#endif
+#ifdef PROTOCOL_LUFA
+	    " LUFA"
+#endif
+#ifdef PROTOCOL_VUSB
+	    " VUSB"
+#endif
+#ifdef BOOTMAGIC_ENABLE
+	    " BOOTMAGIC"
+#endif
+#ifdef MOUSEKEY_ENABLE
+	    " MOUSEKEY"
+#endif
+#ifdef EXTRAKEY_ENABLE
+	    " EXTRAKEY"
+#endif
+#ifdef CONSOLE_ENABLE
+	    " CONSOLE"
+#endif
+#ifdef COMMAND_ENABLE
+	    " COMMAND"
+#endif
+#ifdef NKRO_ENABLE
+	    " NKRO"
+#endif
+#ifdef KEYMAP_SECTION_ENABLE
+	    " KEYMAP_SECTION"
+#endif
+
+	    " " STR(BOOTLOADER_SIZE) "\n");
+
+    print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__)
+          " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
+          " AVR_ARCH: avr" STR(__AVR_ARCH__) "\n");
+
+	return;
+}
+
+static void print_status(void)
+{
+
+    print("\n\t- Status -\n");
+
+    print_val_hex8(host_keyboard_leds());
+    print_val_hex8(keyboard_protocol);
+    print_val_hex8(keyboard_idle);
+#ifdef NKRO_ENABLE
+    print_val_hex8(keyboard_nkro);
+#endif
+    print_val_hex32(timer_count);
+
+#ifdef PROTOCOL_PJRC
+    print_val_hex8(UDCON);
+    print_val_hex8(UDIEN);
+    print_val_hex8(UDINT);
+    print_val_hex8(usb_keyboard_leds);
+    print_val_hex8(usb_keyboard_idle_count);
+#endif
+
+#ifdef PROTOCOL_PJRC
+#   if USB_COUNT_SOF
+    print_val_hex8(usbSofCount);
+#   endif
+#endif
+	return;
 }
 
 #ifdef BOOTMAGIC_ENABLE
@@ -178,24 +285,36 @@ static void print_eeconfig(void)
 
 static bool command_common(uint8_t code)
 {
+
+#ifdef KEYBOARD_LOCK_ENABLE
     static host_driver_t *host_driver = 0;
+#endif
+
     switch (code) {
+
 #ifdef SLEEP_LED_ENABLE
-        case KC_Z:
-            // test breathing sleep LED
-            print("Sleep LED test\n");
+
+		// test breathing sleep LED
+        case MAGIC_KC(MAGIC_KEY_SLEEP_LED):
+            print("Sleep LED Test\n");
             sleep_led_toggle();
             led_set(host_keyboard_leds());
             break;
 #endif
+
 #ifdef BOOTMAGIC_ENABLE
-        case KC_E:
+
+		// print stored eeprom config
+        case MAGIC_KC(MAGIC_KEY_EEPROM):        
             print("eeconfig:\n");
             print_eeconfig();
             break;
 #endif
+
 #ifdef KEYBOARD_LOCK_ENABLE
-        case KC_CAPSLOCK:
+
+		// lock/unlock keyboard
+        case MAGIC_KC(MAGIC_KEY_LOCK):
             if (host_get_driver()) {
                 host_driver = host_get_driver();
                 clear_keyboard();
@@ -207,11 +326,15 @@ static bool command_common(uint8_t code)
             }
             break;
 #endif
-        case KC_H:
-        case KC_SLASH: /* ? */
+
+		// print help
+        case MAGIC_KC(MAGIC_KEY_HELP1):
+        case MAGIC_KC(MAGIC_KEY_HELP2):
             command_common_help();
             break;
-        case KC_C:
+
+		// activate console
+        case MAGIC_KC(MAGIC_KEY_CONSOLE):
             debug_matrix   = false;
             debug_keyboard = false;
             debug_mouse    = false;
@@ -220,25 +343,33 @@ static bool command_common(uint8_t code)
             print("C> ");
             command_state = CONSOLE;
             break;
-        case KC_PAUSE:
-            clear_keyboard();
-            print("\n\nbootloader... ");
+
+        // jump to bootloader
+        case MAGIC_KC(MAGIC_KEY_BOOTLOADER):
+            clear_keyboard(); // clear to prevent stuck keys
+            print("\n\nJumping to bootloader... ");
             _delay_ms(1000);
             bootloader_jump(); // not return
             break;
-        case KC_D:
+
+        // debug toggle
+        case MAGIC_KC(MAGIC_KEY_DEBUG):
+            debug_enable = !debug_enable;
             if (debug_enable) {
+                print("\ndebug: on\n");
+                debug_matrix   = true;
+                debug_keyboard = true;
+                debug_mouse    = true;
+            } else {
                 print("\ndebug: off\n");
                 debug_matrix   = false;
                 debug_keyboard = false;
                 debug_mouse    = false;
-                debug_enable   = false;
-            } else {
-                print("\ndebug: on\n");
-                debug_enable   = true;
             }
             break;
-        case KC_X: // debug matrix toggle
+
+        // debug matrix toggle
+        case MAGIC_KC(MAGIC_KEY_DEBUG_MATRIX): 
             debug_matrix = !debug_matrix;
             if (debug_matrix) {
                 print("\nmatrix: on\n");
@@ -247,7 +378,9 @@ static bool command_common(uint8_t code)
                 print("\nmatrix: off\n");
             }
             break;
-        case KC_K: // debug keyboard toggle
+
+        // debug keyboard toggle
+        case MAGIC_KC(MAGIC_KEY_DEBUG_KBD): 
             debug_keyboard = !debug_keyboard;
             if (debug_keyboard) {
                 print("\nkeyboard: on\n");
@@ -256,87 +389,33 @@ static bool command_common(uint8_t code)
                 print("\nkeyboard: off\n");
             }
             break;
-        case KC_M: // debug mouse toggle
+
+        // debug mouse toggle
+        case MAGIC_KC(MAGIC_KEY_DEBUG_MOUSE):
             debug_mouse = !debug_mouse;
             if (debug_mouse) {
                 print("\nmouse: on\n");
                 debug_enable = true;
             } else {
-                print("\nmouse: off\n");
+				print("\nmouse: off\n");
             }
             break;
-        case KC_V: // print version & information
-            print("\n\t- Version -\n");
-            print("DESC: " STR(DESCRIPTION) "\n");
-            print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
-                  "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
-                  "VER: " STR(DEVICE_VER) "\n");
-            print("BUILD: " STR(VERSION) " (" __TIME__ " " __DATE__ ")\n");
-            /* build options */
-            print("OPTIONS:"
-#ifdef PROTOCOL_PJRC
-            " PJRC"
-#endif
-#ifdef PROTOCOL_LUFA
-            " LUFA"
-#endif
-#ifdef PROTOCOL_VUSB
-            " VUSB"
-#endif
-#ifdef BOOTMAGIC_ENABLE
-            " BOOTMAGIC"
-#endif
-#ifdef MOUSEKEY_ENABLE
-            " MOUSEKEY"
-#endif
-#ifdef EXTRAKEY_ENABLE
-            " EXTRAKEY"
-#endif
-#ifdef CONSOLE_ENABLE
-            " CONSOLE"
-#endif
-#ifdef COMMAND_ENABLE
-            " COMMAND"
-#endif
-#ifdef NKRO_ENABLE
-            " NKRO"
-#endif
-#ifdef KEYMAP_SECTION_ENABLE
-            " KEYMAP_SECTION"
-#endif
-            " " STR(BOOTLOADER_SIZE) "\n");
 
-            print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__)
-                  " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
-                  " AVR_ARCH: avr" STR(__AVR_ARCH__) "\n");
+		// print version
+        case MAGIC_KC(MAGIC_KEY_VERSION):
+        	print_version();
+		    break;
+
+		// print status
+		case MAGIC_KC(MAGIC_KEY_STATUS):
+			print_status();
             break;
-        case KC_S:
-            print("\n\t- Status -\n");
-            print_val_hex8(host_keyboard_leds());
-            print_val_hex8(keyboard_protocol);
-            print_val_hex8(keyboard_idle);
-#ifdef NKRO_ENABLE
-            print_val_hex8(keyboard_nkro);
-#endif
-            print_val_hex32(timer_count);
 
-#ifdef PROTOCOL_PJRC
-            print_val_hex8(UDCON);
-            print_val_hex8(UDIEN);
-            print_val_hex8(UDINT);
-            print_val_hex8(usb_keyboard_leds);
-            print_val_hex8(usb_keyboard_idle_count);
-#endif
-
-#ifdef PROTOCOL_PJRC
-#   if USB_COUNT_SOF
-            print_val_hex8(usbSofCount);
-#   endif
-#endif
-            break;
 #ifdef NKRO_ENABLE
-        case KC_N:
-            clear_keyboard(); //Prevents stuck keys.
+
+		// NKRO toggle
+        case MAGIC_KC(MAGIC_KEY_NKRO):
+            clear_keyboard(); // clear to prevent stuck keys
             keyboard_nkro = !keyboard_nkro;
             if (keyboard_nkro)
                 print("NKRO: on\n");
@@ -344,18 +423,78 @@ static bool command_common(uint8_t code)
                 print("NKRO: off\n");
             break;
 #endif
-        case KC_ESC:
-        case KC_GRV:
-        case KC_0:
-        case KC_F10:
+
+		// switch layers
+
+		case MAGIC_KC(MAGIC_KEY_LAYER0_ALT1):
+		case MAGIC_KC(MAGIC_KEY_LAYER0_ALT2):
             switch_default_layer(0);
             break;
-        case KC_1 ... KC_9:
-            switch_default_layer((code - KC_1) + 1);
+
+#if MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
+
+		case MAGIC_KC(MAGIC_KEY_LAYER0):
+            switch_default_layer(0);
             break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER1):
+            switch_default_layer(1);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER2):
+            switch_default_layer(2);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER3):
+            switch_default_layer(3);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER4):
+            switch_default_layer(4);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER5):
+            switch_default_layer(5);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER6):
+            switch_default_layer(6);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER7):
+            switch_default_layer(7);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER8):
+            switch_default_layer(8);
+            break;
+
+		case MAGIC_KC(MAGIC_KEY_LAYER9):
+            switch_default_layer(9);
+            break;
+#endif
+
+
+#if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
+
         case KC_F1 ... KC_F9:
             switch_default_layer((code - KC_F1) + 1);
             break;
+        case KC_F10:
+            switch_default_layer(0);
+            break;
+#endif
+
+#if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
+
+        case KC_1 ... KC_9:
+            switch_default_layer((code - KC_1) + 1);
+            break;
+        case KC_0:
+            switch_default_layer(0);
+            break;
+#endif
+
         default:
             print("?");
             return false;
