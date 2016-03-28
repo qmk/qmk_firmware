@@ -34,15 +34,15 @@ Layout
 |--------+------+------+------+------+------|  [   |           |   ]  |------+------+------+------+------+--------|
 | Win    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  :;  |  '"    |
 |--------+------+------+------+------+------| Home |           | End  |------+------+------+------+------+--------|
-| LShift |Z/Alt |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Alt| RShift |
+| LShift |Z/Alt |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | Alt  | RShift |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  |LCtrl |  `~  | Hyper| Left | Right|                                       | Down |  Up  | COPY | PASTE| RCtrl |
+  |LCtrl | COPY | PASTE| Left | Right|                                       | Down |  Up  |Hyper |  `~  | RCtrl |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-  Hyper = Ctrl+Super+Alt+Shift         | Alt  |  F5  |       |  F2  | ~L2  |
+  Hyper = Ctrl+Super+Alt+Shift         | ~L3  |  F5  |       |  F2  | ~L2  |
                                 ,------|------|------|       |------+------+------.
                                 |      |      | PgUp |       | Ins  |      |      |
-                                | Space| BkSp |------|       |------| ~L1  |Enter |
+                                | Enter| BkSp |------|       |------| ~L1  |Space |
                                 |      |      | PgDn |       | Del  |      |      |
                                 `--------------------'       `--------------------'
 ``` 
@@ -83,7 +83,7 @@ Not touched this, not used either.
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 |        |      |      |      |      |      |      |           |      |      |      | Prev | Next |      |        |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  |      |      |      | Lclk | Rclk |                                       |VolUp |VolDn | Mute |      |      |
+  |      |      |      | Lclk | Rclk |                                       |VolDn |VolUp | Mute |      |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
                                        |      |      |       |      |      |
@@ -93,16 +93,55 @@ Not touched this, not used either.
                                 |      |      |      |       |      |      |      |
                                 `--------------------'       `--------------------'
 ```
+### Unicode Layer
+
+Used to enter/test unicode input on Windows. All numbers are numpad keys.
+
+```
+,--------------------------------------------------.           ,--------------------------------------------------.
+|  Alt   |  1   |   2  |  3   |  4   |   5  |  6   |           |   7  |  8   |   9  |  0   |  +   |  +   |        |
+|--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+|  Alt   |      |      |   E  |      |      |      |           |      |      |   7  |   8  |  9   |  +   |        |
+|--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+|  Alt   |   A  |      |   D  |   F  |      |------|           |------|      |   4  |   5  |  6   |  +   |        |
+|--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+|  Alt   |      |      |   C  |      |   B  |      |           |      |      |   1  |   2  |  3   |  +   |        |
+`--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+  | Alt  |  Alt | Alt  |      |      |                                       |   0  |   0  |  0   |  +   |       |
+  `----------------------------------'                                       `----------------------------------'
+                                       ,-------------.       ,-------------.
+     WINDOWS ONLY SETUP!!              | ~L3  |      |       |      |      |
+                                ,------|------|------|       |------+------+------.
+                                |      |      |      |       |      |      |      |
+                                |  Alt |  Alt |------|       |------|  Alt | Alt  |
+                                |      |      |      |       |      |      |      |
+                                `--------------------'       `--------------------'
+```
+
 
 Usage
 ------
 
-~L1 / L2 will momentarily switch to a layer if held and another key is pressed.
+~L1 / L2 / L3 will momentarily switch to a layer if held and another key is pressed.
 If pressed and released will remain on layer until pressed again.
 
+### Unicode
+
+This layout is for Windows only. To enter a character Press and Hold Alt, type + and hex code then release Alt.
 
 Changelog
 -----------
+
+### [0.2.0] - 2016-03-27
+
+* Added unicode layer
+* Moved Copy/Paste to left hand side
+* Switched Enter and Space (again)
+* Added L3 (unicode layer) toggle
+* Removed Press and Hold for Alt on right hand size (/)
+* Swapped Volume Up/Down to match arrows
+* Tried fixing £ macro
+* Removed * in the matrix function things (upstream change)
 
 ### [0.1.1] - 2016-03-23
 
