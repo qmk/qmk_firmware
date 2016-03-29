@@ -7,19 +7,19 @@ SRC +=	$(PJRC_DIR)/main.c \
 	$(PJRC_DIR)/usb.c
 
 # Option modules
-ifdef MOUSEKEY_ENABLE
+ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(PJRC_DIR)/usb_mouse.c
 endif
 
-ifdef ADB_MOUSE_ENABLE
+ifeq ($(strip $(ADB_MOUSE_ENABLE)), yes)
     SRC += $(PJRC_DIR)/usb_mouse.c
 endif
 
-ifdef PS2_MOUSE_ENABLE
+ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
     SRC += $(PJRC_DIR)/usb_mouse.c
 endif
 
-ifdef EXTRAKEY_ENABLE
+ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     SRC += $(PJRC_DIR)/usb_extra.c
 endif
 

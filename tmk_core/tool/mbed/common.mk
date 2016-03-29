@@ -24,25 +24,25 @@ CC_FLAGS += -include $(CONFIG_H)
 
 
 # Option modules
-ifdef BOOTMAGIC_ENABLE
+ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
     $(error Not Supported)
     OBJECTS += $(OBJDIR)/common/bootmagic.o
     OBJECTS += $(OBJDIR)/common/mbed/eeprom.o
     OPT_DEFS += -DBOOTMAGIC_ENABLE
 endif
 
-ifdef MOUSEKEY_ENABLE
+ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     OBJECTS += $(OBJDIR)/common/mousekey.o
     OPT_DEFS += -DMOUSEKEY_ENABLE
     OPT_DEFS += -DMOUSE_ENABLE
 endif
 
-ifdef EXTRAKEY_ENABLE
+ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     $(error Not Supported)
     OPT_DEFS += -DEXTRAKEY_ENABLE
 endif
 
-ifdef CONSOLE_ENABLE
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     $(error Not Supported)
     OPT_DEFS += -DCONSOLE_ENABLE
 else
@@ -50,31 +50,31 @@ else
     OPT_DEFS += -DNO_DEBUG
 endif
 
-ifdef COMMAND_ENABLE
+ifeq ($(strip $(COMMAND_ENABLE)), yes)
     $(error Not Supported)
     SRC += common/command.c
     OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
-ifdef NKRO_ENABLE
+ifeq ($(strip $(NKRO_ENABLE)), yes)
     $(error Not Supported)
     OPT_DEFS += -DNKRO_ENABLE
 endif
 
-ifdef SLEEP_LED_ENABLE
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
     $(error Not Supported)
     SRC += common/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
-ifdef BACKLIGHT_ENABLE
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     $(error Not Supported)
     SRC += common/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 
-ifdef KEYMAP_SECTION_ENABLE
+ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
     $(error Not Supported)
     OPT_DEFS += -DKEYMAP_SECTION_ENABLE
     EXTRALDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x

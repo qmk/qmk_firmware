@@ -145,7 +145,7 @@ BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 # RGBLIGHT_ENABLE = yes # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 
-ifdef BACKLIGHT_ENABLE
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 	SRC += backlight.c
 endif
 
@@ -158,4 +158,7 @@ VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
+ifneq ($(wildcard keymaps/$(KEYMAP)/overrides.mk),)
+include keymaps/$(KEYMAP)/overrides.mk
+endif
 include $(TOP_DIR)/quantum/quantum.mk

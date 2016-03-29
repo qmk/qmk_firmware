@@ -1,7 +1,7 @@
 PROTOCOL_DIR = protocol
 
 
-ifdef PS2_MOUSE_ENABLE
+ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
     SRC += $(PROTOCOL_DIR)/ps2_mouse.c
     OPT_DEFS += -DPS2_MOUSE_ENABLE
     OPT_DEFS += -DMOUSE_ENABLE
@@ -26,13 +26,13 @@ ifdef PS2_USE_USART
 endif
 
 
-ifdef SERIAL_MOUSE_MICROSOFT_ENABLE
+ifeq ($(strip $(SERIAL_MOUSE_MICROSOFT_ENABLE)), yes)
     SRC += $(PROTOCOL_DIR)/serial_mouse_microsoft.c
     OPT_DEFS += -DSERIAL_MOUSE_ENABLE -DSERIAL_MOUSE_MICROSOFT \
                 -DMOUSE_ENABLE
 endif
 
-ifdef SERIAL_MOUSE_MOUSESYSTEMS_ENABLE
+ifeq ($(strip $(SERIAL_MOUSE_MOUSESYSTEMS_ENABLE)), yes)
     SRC += $(PROTOCOL_DIR)/serial_mouse_mousesystems.c
     OPT_DEFS += -DSERIAL_MOUSE_ENABLE -DSERIAL_MOUSE_MOUSESYSTEMS \
                 -DMOUSE_ENABLE
@@ -46,7 +46,7 @@ ifdef SERIAL_MOUSE_USE_UART
     SRC += $(PROTOCOL_DIR)/serial_uart.c
 endif
 
-ifdef ADB_MOUSE_ENABLE
+ifeq ($(strip $(ADB_MOUSE_ENABLE)), yes)
 	 OPT_DEFS += -DADB_MOUSE_ENABLE -DMOUSE_ENABLE
 endif
 
