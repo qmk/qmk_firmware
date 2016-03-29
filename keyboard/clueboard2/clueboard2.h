@@ -51,7 +51,7 @@
     { k90, KC_NO, k92, k93, k94, k95, k96, k97 }  \
 }
 
-void * matrix_init_user(void);
-void * matrix_scan_user(void);
+void matrix_init_user(void);
+void matrix_scan_user(void);
 
 #endif

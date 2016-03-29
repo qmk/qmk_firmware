@@ -51,7 +51,7 @@ TARGET_DIR = .
 
 # # project specific files
 SRC = clueboard1.c \
-			led.c \
+			led.c
 
 ifdef KEYMAP
     SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
@@ -62,7 +62,6 @@ endif
 CONFIG_H = config.h
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -121,6 +120,7 @@ CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality
 # MIDI_ENABLE = YES 		# MIDI controls
 # UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID

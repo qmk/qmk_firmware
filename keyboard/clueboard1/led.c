@@ -20,15 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 
 
-void led_set(uint8_t usb_led)
-{
+void led_set_kb(uint8_t usb_led) {
+    DDRF |= (1<<0);
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // output low
-        DDRB |= (1<<2);
-        PORTB &= ~(1<<2);
+        // Turn capslock on
+        PORTF |= (1<<0);
     } else {
-        // Hi-Z
-        DDRB &= ~(1<<2);
-        PORTB &= ~(1<<2);
+        // Turn capslock off
+        PORTF &= ~(1<<0);
     }
 }

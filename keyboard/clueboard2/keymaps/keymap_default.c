@@ -70,15 +70,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------------------------'
    */
 [_RS] = KEYMAP(
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(0),             F(6), \
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                   F(7), \
+  #ifdef ENABLE_RGBLIGHT
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(1),             F(7), \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                   F(8), \
   KC_TRNS, KC_TRNS, MO(_RS),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                         \
-  MO(_FL), KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_FL),          F(4),          \
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,        F(1),   F(1),                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(3),    F(5),    F(2)),
+  MO(_FL), KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_FL),          F(5),          \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,        F(2),   F(2),                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(4),    F(6),    F(3)),
+  #else
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,          KC_TRNS, \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                   KC_TRNS, \
+  KC_TRNS, KC_TRNS, MO(_RS),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                            \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS,          \
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS,KC_TRNS,                        KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_FL), KC_TRNS, KC_TRNS, KC_TRNS),
+  #endif
 };
 
 enum function_id {
     SHIFT_ESC,
+    #ifdef ENABLE_RGBLIGHT
     RGBLED_TOGGLE,
     RGBLED_STEP_MODE,
     RGBLED_INCREASE_HUE,
@@ -87,10 +96,12 @@ enum function_id {
     RGBLED_DECREASE_SAT,
     RGBLED_INCREASE_VAL,
     RGBLED_DECREASE_VAL
+    #endif
 };
 
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_FUNCTION(SHIFT_ESC),
+  #ifdef ENABLE_RGBLIGHT
   [1]  = ACTION_FUNCTION(RGBLED_TOGGLE),
   [2]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
   [3]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
@@ -99,6 +110,7 @@ const uint16_t PROGMEM fn_actions[] = {
   [6]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
   [7]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
   [8]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
+  #endif
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -125,6 +137,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     //led operations
+    #ifdef ENABLE_RGBLIGHT
     case RGBLED_TOGGLE:
       if (record->event.pressed) {
         rgblight_toggle();
@@ -166,5 +179,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         rgblight_step();
       }
       break;
+    #endif
   }
 }
