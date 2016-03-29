@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6800
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         SHARP X68000 keyboard converter
 #define DESCRIPTION     converts SHARP X68000 keyboard protocol into USB
@@ -45,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USART configuration
  *     asynchronous, 2400baud, 8-data bit, non parity, 1-stop bit, no flow control
  */
-#ifdef __AVR_ATmega32U4__
+#if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__)
     #define SERIAL_UART_BAUD       2400
     #define SERIAL_UART_DATA       UDR1
     #define SERIAL_UART_UBRR       ((F_CPU/(16UL*SERIAL_UART_BAUD))-1)
