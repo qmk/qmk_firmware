@@ -92,7 +92,7 @@ void keyboard_init(void)
     backlight_init();
 #endif
 
-#ifdef FORCE_NKRO
+#if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
 	keyboard_nkro = true;
 #endif
 
