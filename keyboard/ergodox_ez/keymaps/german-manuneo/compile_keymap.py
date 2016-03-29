@@ -121,32 +121,30 @@ def loads(raw_data):
         //                      # start of the comment
         (.*)                    # the comment
         $                       # until the end of line
-        """, re.MULTILINE | re.VERBOSE
-    )
-
+    """, re.MULTILINE | re.VERBOSE)
+    
     INLINE_COMMENT_RE = re.compile(r"""
-        (?:[\,\"\[\]\{\}\d])    # anythig that might end a expression
+        ([\,\"\[\]\{\}\d])      # anythig that might end a expression
         \s+                     # comment must be preceded by whitespace
         //                      # start of the comment
         \s                      # and succeded by whitespace
-        ([^\"\]\}\{\[]*)        # the comment (except things which might be json)
+        (?:[^\"\]\}\{\[]*)      # the comment (except things which might be json)
         $                       # until the end of line
-        """, re.MULTILINE | re.VERBOSE
-    )
-
+    """, re.MULTILINE | re.VERBOSE)
+    
     TRAILING_COMMA_RE = re.compile(r"""
         ,                       # the comma
-        \s*                     # arbitrary whitespace (including newlines)
+        (?:\s*)                 # arbitrary whitespace
+        $                       # only works if the trailing comma is followed by newline
+        (\s*)                   # arbitrary whitespace
         ([\]\}])                # end of an array or object
-        """, re.MULTILINE | re.VERBOSE
-    )
-
+    """, re.MULTILINE | re.VERBOSE)
     if isinstance(raw_data, bytes):
         raw_data = raw_data.decode('utf-8')
 
     raw_data = ONELINE_COMMENT_RE.sub(r"", raw_data)
     raw_data = INLINE_COMMENT_RE.sub(r"\1", raw_data)
-    raw_data = TRAILING_COMMA_RE.sub(r"\1", raw_data)
+    raw_data = TRAILING_COMMA_RE.sub(r"\1\2", raw_data)
     return json.loads(raw_data)
 
 
