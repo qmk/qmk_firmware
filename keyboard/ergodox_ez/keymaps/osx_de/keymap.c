@@ -16,6 +16,7 @@
 #define M_DE_PLUS_CTRLALT 12
 #define M_DE_CIRC_CTRLCMD 13
 #define M_TOGGLE_5 14
+#define M_CTL_SFT_HASH 15
 
 #define SM_SMILE 4
 #define SM_SMIRK 5
@@ -30,15 +31,15 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  ESC   |   1  |   2  |   3  |   4  |   5  |CTL_SFT|          | #    |   6  |   7  |   8  |   9  |   0  |   ß    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  TAB   |   Q  |   W  |   E  |   R  |   T  | CMD  |           | CMD  |   Z  |   U  |   I  |   O  |   P  |   ü    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  LALT  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H |   J  |   K  |   L  |   ö  |  ä/RALT|
- * |--------+------+------+------+------+------| LALT |           | RALT |------+------+------+------+------+--------|
- * | LShift |Y/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |-/Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ * ,-----------------------------------------------------.           ,--------------------------------------------------.
+ * |  ESC   |   1  |   2  |   3  |   4  |   5  |CTL_SFT/#|           |CTL_SFT/#|   6  |   7  |   8  |   9  |   0  |   ß    |
+ * |--------+------+------+------+------+----------------|           |---------+------+------+------+------+------+--------|
+ * |  TAB   |   Q  |   W  |   E  |   R  |   T  | CMD     |           | CMD     |   Z  |   U  |   I  |   O  |   P  |   ü    |
+ * |--------+------+------+------+------+------|         |           |         |------+------+------+------+------+--------|
+ * |  LALT  |   A  |   S  |   D  |   F  |   G  |---------|           |---------|   H |   J  |   K  |   L  |   ö  |  ä/RALT|
+ * |--------+------+------+------+------+------| LALT    |           | RALT    |------+------+------+------+------+--------|
+ * | LShift |Y/Ctrl|   X  |   C  |   V  |   B  |         |           |         |   N  |   M  |   ,  |   .  |-/Ctrl| RShift |
+ * `--------+------+------+------+------+----------------'           `-------------+------+------+------+------+--------'
  *   |</L1| ^°/CTRL_CMD | +/CTRL_ALT | UP | DOWN|                    |  Left  | Right | CMD-SHFT| ALT-SHIFT  | +/L1 |
  *   `------------------------------------------'                    `---------------------------------------------'
  *                                        ,-------------.       ,---------------.
@@ -53,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_ESC,                  DE_1,         DE_2,   DE_3,   DE_4,   DE_5,   LCTL(KC_LSFT),
+        KC_ESC,                  DE_1,         DE_2,   DE_3,   DE_4,   DE_5,   M(M_CTL_SFT_HASH),
         KC_TAB,                  DE_Q,         DE_W,   DE_E,   DE_R,   DE_T,   KC_LGUI,
         KC_LALT,                 DE_A,         DE_S,   DE_D,   DE_F,   DE_G,
         KC_LSFT,                 CTL_T(DE_Y),  DE_X,   DE_C,   DE_V,   DE_B,   KC_LALT,
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               					KC_HOME,
                                                				KC_BSPC,KC_DEL,		LT(SMLY,KC_END),
         // right hand
-             DE_HASH,  DE_6,  DE_7,   DE_8,   DE_9,   DE_0,   DE_SS,
+             M(M_CTL_SFT_HASH),  DE_6,  DE_7,   DE_8,   DE_9,   DE_0,   DE_SS,
              KC_RGUI,     DE_Z,   DE_U,   DE_I,   DE_O,   DE_P,         	DE_UE,
                           DE_H,   DE_J,   DE_K,   DE_L,   DE_OE,		ALT_T(DE_AE),
              KC_RALT,	  DE_N,   DE_M,   DE_COMM,DE_DOT, CTL_T(DE_MINS),   	KC_RSFT,
@@ -312,6 +313,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			}
 		}
 		break;
+	case M_CTL_SFT_HASH:
+		if (record->event.pressed) {
+			start=timer_read(); 
+			return MACRO(D(LCTRL),D(LSFT),END); 
+		} else {
+			if (timer_elapsed(start) > 150){
+				return MACRO(U(LCTRL),U(LSFT),END);
+			} else {
+				return MACRO(U(LCTRL),U(LSFT),T(BSLS),END);
+			}
+		}
+		break;	
 	case M_DE_CIRC_CTRLCMD:
 		if (record->event.pressed) {
 			start = timer_read();
