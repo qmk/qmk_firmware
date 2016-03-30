@@ -24,7 +24,7 @@
     { K70, K71, K72, K73, K74, K75, K76, KC_NO }                               \
 }
 
-void * matrix_init_user(void);
-void * matrix_scan_user(void);
+void matrix_init_user(void);
+void matrix_scan_user(void);
 
 #endif

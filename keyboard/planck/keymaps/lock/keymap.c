@@ -150,7 +150,7 @@ float start_up[][2] = {
   {440.0*pow(2.0,(64)/12.0), 1000},
 };
 
-void * matrix_init_user(void) {
+void matrix_init_user(void) {
     init_notes();
     play_notes(&start_up, 9, false);
 }

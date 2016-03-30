@@ -3,8 +3,7 @@
 #include "action_layer.h"
 
 #define BASE 0 // default layer
-#define QWERTY 1 // qwerty keys
-#define FKEYS 2 // F keys + macros
+#define FKEYS 1 // F keys + macros
 
 #define MACRO_PUBLIC 10
 #define MACRO_PRIVATE 11
@@ -43,12 +42,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |Tab~CL|  <   |  >   |   |  |  &   |                                       |   =  |   +  |   -  |   *  |  L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |. ~L1 | , ~L2|       |Home~L1| End~L2|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Copy |       | UP   |        |      |
- *                                 | Enter| Space|------|       |------|  Space |Enter |
- *                                 | ~LSFT| ~WIN | Past |       | DOWN |   ~WIN | ~LSFT|
- *                                 `--------------------'       `----------------------'
+ *                                        |. ~L1 | ,    |       |Home  |End~L1|
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      | Copy |       | UP   |      |      |
+ *                                 | Enter| Space|------|       |------| Space|Enter |
+ *                                 | ~WIN | ~LSFT| Past |       | DOWN | ~LSFT| ~WIN |
+ *                                 `--------------------'       `--------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
@@ -59,110 +58,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCBR,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_RCBR,        ALT_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_SLASH,
         CTL_T(KC_TAB), LSFT(KC_COMMA),LSFT(KC_DOT),KC_PIPE,KC_AMPR, 
-                                              LT(1,KC_DOT),  LT(2,KC_COMM),
+                                              LT(1,KC_DOT),  KC_COMM,
                                                               LCTL(KC_C),
-                                               SFT_T(KC_ENTER),GUI_T(KC_SPACE),LCTL(KC_V),
+                                               GUI_T(KC_ENTER),SFT_T(KC_SPACE),LCTL(KC_V),
         // right hand
              LCTL(KC_S)  ,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,     KC_LBRACKET,
              KC_DELETE,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_RBRACKET,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_UNDS,LCTL(KC_Y),
              KC_SCOLON,KC_N,   KC_M, KC_QUOTE  ,KC_EXLM , LSFT(KC_SLASH),   LCTL(KC_Z),
                                   KC_EQUAL,KC_PLUS  ,  KC_MINUS,KC_ASTR  ,     TG(1),
-             LT(2,KC_HOME),         LT(1,KC_END),
+             KC_HOME,         LT(1,KC_END),
              KC_UP,
-             KC_DOWN,GUI_T(KC_SPACE), SFT_T(KC_ENTER)
+             KC_DOWN,SFT_T(KC_SPACE), GUI_T(KC_ENTER)
     ),
-/* Keymap 1: QWERTY layer
+
+/* Keymap 1:  F keys + macros
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   `    |   1  |   2  |   3  |   4  |   5  |   -  |           |   =  |   6  |   7  |   8  |   9  |  0   |        |
+ * |  ESC   |  F1  |  F2  |  F3  |  F4  |  F5  |  `   |           | Calc |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |   Tab  |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  Esc   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;   |   '    |
- * |--------+------+------+------+------+------|  Tab |           |  Esc |------+------+------+------+------+--------|
- * |  LSHFT |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /   |    \   |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | CTRL | WIN  |  ALT |ALT GR| Esc  |                                       | PgUp | PgDw | Ins  | PtSc |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |  Cut |       |      |      |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |      |       |      |        |      |
- *                                 |      |      |------|       |------|   Left | Right|
- *                                 |      |      |      |       |      |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[QWERTY] = KEYMAP(  // layer 2 : QWERTY
-        // left hand
-        KC_GRAVE,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_MINUS,
-        KC_TAB,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_TRNS,
-        KC_ESCAPE,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSHIFT,        KC_Z,  KC_X,   KC_C,   KC_V,   KC_B,   KC_TAB,
-        KC_LCTRL, KC_LGUI,KC_LALT,  KC_RALT,    KC_ESCAPE,
-                                              KC_TRNS,  LCTL(KC_X),
-                                                              KC_TRNS,
-                                               KC_TRNS,KC_TRNS,KC_TRNS,
-        // right hand
-             KC_EQUAL  ,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0, KC_TRNS,
-             KC_TRNS,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,            KC_TRNS,
-                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCOLON,  KC_QUOTE,
-             KC_ESCAPE,KC_N,   KC_M,   KC_TRNS,KC_DOT , KC_SLASH,   KC_NONUS_BSLASH,
-                                  KC_PGUP  ,  KC_PGDOWN,KC_INSERT  ,KC_PSCREEN,          KC_TRNS,
-             KC_TRNS,        KC_TRNS,
-             KC_TRNS,
-             KC_TRNS,KC_LEFT, KC_RIGHT
-    ),
-/* Keymap 2:  F keys + macros
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | Calc |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |Public|Static|string|int   |return|      |           |      |//TODO|      |      |      |      |   F12  |
+ * |  Tab   |Public|Static|string|int   |return|      |           |      |//TODO|      |      |      |      |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |Privat|Const |var   |float |null  |------|           |------|new   |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  \   |           |  ~   |------+------+------+------+------+--------|
  * |        |      |      |void  |bool  |break;|      |           |      |();   |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      | Alt  |      |      |      |                                       |      |      |      |      |      |
+ *   |      |  WIN | Alt  |      |      |                                       | PgUp | PgDw | Ins  | PtSc |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      | Cut  |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |------|       |------| Left | Right|
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // FKEYS + MACROS
 [FKEYS] = KEYMAP(
        // left hand
-       KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,M(MACRO_PUBLIC),M(MACRO_STATIC),  M(MACRO_STRING),M(MACRO_INT),M(MACRO_RETURN),KC_TRNS,
+       KC_ESCAPE,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_GRAVE,
+       KC_TAB,M(MACRO_PUBLIC),M(MACRO_STATIC),  M(MACRO_STRING),M(MACRO_INT),M(MACRO_RETURN),KC_TRNS,
        KC_TRNS,M(MACRO_PRIVATE),M(MACRO_CONST), M(MACRO_VAR),M(MACRO_FLOAT),M(MACRO_NULL),
-       KC_TRNS,KC_TRNS,KC_TRNS,M(MACRO_VOID),M(MACRO_BOOL),M(MACRO_BREAK),KC_TRNS,
-       KC_TRNS,KC_LALT,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,M(MACRO_VOID),M(MACRO_BOOL),M(MACRO_BREAK),KC_BSLASH,
+       KC_TRNS,KC_LGUI,KC_LALT,KC_TRNS,KC_TRNS,
+                                       KC_TRNS,LCTL(KC_X),
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_CALCULATOR, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, M(MACRO_TODO),   KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_F12,
                 M(MACRO_NEW), KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
-       KC_TRNS, M(MACRO_PARENTHESE), KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
-                         KC_TRNS,KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,
+       KC_TILD, M(MACRO_PARENTHESE), KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS,
+                         KC_PGUP,KC_PGDOWN,  KC_INSERT,   KC_PSCREEN,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, KC_LEFT, KC_RIGHT
 ),
 
 
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(QWERTY)                // FN1 - Momentary Layer 1
+    [1] = ACTION_LAYER_TAP_TOGGLE(FKEYS)                // FN1 - Momentary Layer 1
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -253,12 +210,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 // Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
+void matrix_init_user(void) {
 
 };
 
 // Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
+void matrix_scan_user(void) {
 
     uint8_t layer = biton32(layer_state);
 

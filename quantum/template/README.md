@@ -15,7 +15,7 @@ Depending on which keymap you would like to use, you will have to compile slight
 To build with the default keymap, simply run `make`.
 
 ### Other Keymaps
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` in the keymaps folder, and see keymap document (you can find in top README.md) and existent keymap files.
 
 To build the firmware binary hex file with a keymap just do `make` with `KEYMAP` option like:
 ```

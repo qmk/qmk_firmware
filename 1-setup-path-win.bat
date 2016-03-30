@@ -1,9 +1,14 @@
 @echo off
-setx /M path "%PATH%;C:\MinGW\bin;C:\MinGW\msys\1.0\bin" > nul 2>&1
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /f /v Path /t REG_SZ /d "%path%;C:\MinGW\bin;C:\MinGW\msys\1.0\bin" > nul
+echo.
+
 if NOT ["%errorlevel%"]==["0"] (
-	echo FAILED. Rerun with administrator privileges.
-	pause
+	echo FAILED. You probably just need to run the script with administrator privileges.
 ) else (
 	echo Success!
-	pause
+	setx QMK QMK > nul
 )
+
+echo.
+pause
