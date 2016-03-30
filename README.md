@@ -269,7 +269,7 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 
     RGBLIGHT_ENABLE = yes
 
-Please note that the underglow is not compatible with MIDI functions. So you cannot enable both of them at the same time.
+Please note that the underglow is not compatible with audio output. So you cannot enable both of them at the same time.
 
 Please add the following options into your config.h, and set them up according your hardware configuration.
 
