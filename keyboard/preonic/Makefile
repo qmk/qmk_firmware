@@ -27,7 +27,7 @@
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
 #                (must have Atmel FLIP installed).
 #
-# make debug = Start either simulavr or avarice as specified for debugging, 
+# make debug = Start either simulavr or avarice as specified for debugging,
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -39,25 +39,41 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = preonic_lufa
+TARGET = preonic
+
 
 # Directory common source filess exist
 TOP_DIR = ../..
+TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
 # # project specific files
-SRC = extended_keymap_common.c \
-	matrix.c \
-	led.c \
-	backlight.c
+SRC = preonic.c
+
+ifdef keymap
+	KEYMAP = $(keymap)
+endif
 
 ifdef KEYMAP
-    SRC := extended_keymaps/extended_keymap_$(KEYMAP).c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
-    SRC := extended_keymaps/extended_keymap_default.c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP)/keymap.c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
+else
+$(error Keymap file does not exist)
 endif
+endif
+else
+ifneq ("$(wildcard keymaps/default.c)","")
+	KEYMAP_FILE = keymaps/default.c
+else
+	KEYMAP_FILE = keymaps/default/keymap.c
+endif
+endif
+SRC := $(KEYMAP_FILE) $(SRC)
 
 CONFIG_H = config.h
 
@@ -120,16 +136,19 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
+# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+# NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-MIDI_ENABLE = yes 		# MIDI controls
-BACKLIGHT_ENABLE = yes
+MIDI_ENABLE = YES 		# MIDI controls
+AUDIO_ENABLE = YES 		# Audio output on port C6
+# UNICODE_ENABLE = YES 		# Unicode
+# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+# RGBLIGHT_ENABLE = yes # Enable WS2812 RGB underlight.  Do not enable this with MIDI at the same time.
 
-ifdef MIDI_ENABLE
-	SRC += keymap_midi.c \
-		   beeps.c
+ifdef BACKLIGHT_ENABLE
+	SRC += backlight.c
 endif
+
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -137,7 +156,6 @@ endif
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
+VPATH += $(TMK_DIR)
 
-include $(TOP_DIR)/protocol/lufa.mk
-include $(TOP_DIR)/common.mk
-include $(TOP_DIR)/rules.mk
+include $(TOP_DIR)/quantum/quantum.mk
