@@ -53,9 +53,9 @@ SRC =	keymap_common.c \
 	led.c
 
 ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
+    SRC := keymaps/$(KEYMAP).c $(SRC)
 else
-    SRC := keymap_plain.c $(SRC)
+    SRC := keymaps/default.c $(SRC)
 endif
 
 CONFIG_H = config.h
