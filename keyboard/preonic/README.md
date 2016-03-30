@@ -1,6 +1,6 @@
-Planck keyboard firmware
+Preonic keyboard firmware
 ======================
-DIY/Assembled compact ortholinear 40% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
+DIY/Assembled compact ortholinear 50% keyboard by [Ortholinear Keyboards](http://ortholinearkeyboards.com).
 
 ## Quantum MK Firmware
 
@@ -8,7 +8,7 @@ For the full Quantum feature list, see [the parent README.md](/README.md).
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboard/planck folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
+Download or clone the whole firmware and navigate to the keyboard/preonic folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
@@ -23,9 +23,3 @@ To build the firmware binary hex file with a keymap just do `make` with `KEYMAP`
 $ make KEYMAP=[default|jack|<name>]
 ```
 Keymaps follow the format **__<name\>.c__** and are stored in the `keymaps` folder.
-
-### Notable forks (which some of the keymap files are from)
-- [Shane's Fork](https://github.com/shanecelis/tmk_keyboard/tree/master/keyboard/planck)
-- [Pierre's Fork](https://github.com/pcarrier/tmk_keyboard/blob/pcarrier/planck/keyboard/gh60/keymap_planck.c)
-- [Nathan's Fork](https://github.com/nathanrosspowell/tmk_keyboard/tree/planck-jack/keyboard/planck)
-- [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck_grid)
