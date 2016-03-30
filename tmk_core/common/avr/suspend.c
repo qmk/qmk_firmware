@@ -66,8 +66,11 @@ static void power_down(uint8_t wdto)
     wdt_intr_enable(wdto);
 
 #ifdef BACKLIGHT_ENABLE
-backlight_set(0);
+	backlight_set(0);
 #endif
+
+	// Turn off LED indicators
+	led_set(0);
 
     // TODO: more power saving
     // See PicoPower application note
