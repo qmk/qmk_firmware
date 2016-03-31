@@ -412,7 +412,7 @@ program: $(TARGET).hex $(TARGET).eep
 	$(PROGRAM_CMD)
 
 teensy: $(TARGET).hex
-	teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+	teensy-loader-cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
 flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
