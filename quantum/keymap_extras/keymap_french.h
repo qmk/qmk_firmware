@@ -75,7 +75,7 @@
 #define FR_CIRC	ALGR(KC_9)
 #define FR_AT 	ALGR(KC_0)
 #define FR_RBRC	ALGR(FR_RPRN)
-#define FR_LCBR ALGR(FR_EQL)
+#define FR_RCBR ALGR(FR_EQL)
 
 #define FR_EURO	ALGR(KC_E)
 #define FR_BULT	ALGR(FR_DLR)
