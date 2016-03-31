@@ -76,7 +76,7 @@ Use [Teensy Loader] if your controller is Teensy/Teensy++.
 
 
 ##Keymap
-To define your own keymap create file named `keymap_<name>.c` and see [keymap document](../../doc/keymap.md) and existent keymap files.
+To define your own keymap create a file in the keymaps folder named `<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
 
 
 ##Hardware

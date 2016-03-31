@@ -3,9 +3,12 @@
 ## Setting up the environment
 
 ### Windows
-1. Install [WinAVR Tools](http://sourceforge.net/projects/winavr/) for AVR GCC compiler.
-2. Install [DFU-Programmer][dfu-prog] (the -win one).
-3. Start DFU bootloader on the chip first time you will see 'Found New Hardware Wizard' to install driver. If you install device driver properly you can find chip name like 'ATmega32U4' under 'LibUSB-Win32 Devices' tree on 'Device Manager'. If not you will need to update its driver on 'Device Manager' to the `dfu-programmer` driver.
+1. Install [MHV AVR Tools](https://infernoembedded.com/sites/default/files/project/MHV_AVR_Tools_20131101.exe). Disable smatch, but **be sure to leave the option to add the tools to the PATH checked**.
+2. Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The scripts depend on the default location.
+3. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
+4. Right-click on the 1-setup-path-win batch script, select "Run as administrator", and accept the User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
+5. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
+
 
 ### Mac
 
@@ -13,6 +16,7 @@ If you're using homebrew, you can use the following commands:
 
     brew tap osx-cross/avr
     brew install avr-libc
+    brew install dfu-programmer
 
 Otherwise, these instructions will work:
 
@@ -23,6 +27,9 @@ Otherwise, these instructions will work:
 ### Linux
 1. Install AVR GCC with your favorite package manager.
 2. Install [DFU-Programmer][dfu-prog].
+
+Note that, since it will be directly accessing USB hardware, the
+`dfu-programmer` program needs to be run as root.
 
 ## Verify Your Installation
 1. Clone the following repository: https://github.com/jackhumbert/qmk_firmware
@@ -47,11 +54,33 @@ Generally, the instructions to flash the PCB are as follows:
 4. Press the reset button on the PCB/press the key with the `RESET` keycode
 5. `make <arguments> dfu` - use the necessary `KEYMAP=<keymap>` and/or `COMMON=true` arguments here.
 
+## Troubleshooting
+If you see something like this
+
+          0 [main] sh 13384 sync_with_child: child 9716(0x178) died before initialization with status code 0xC0000142
+        440 [main] sh 13384 sync_with_child: *** child state waiting for longjmp
+    /usr/bin/sh: fork: Resource temporarily unavailable
+
+after running 'make' on Windows than you are encountering a very popular issue with WinAVR on Windows 8.1 and 10.
+You can easily fix this problem by replacing msys-1.0.dll in WinAVR/utils/bin with [this one](http://www.madwizard.org/download/electronics/msys-1.0-vista64.zip).
+Restart your system and everything should work fine!
+
+
+If you see this
+
+    dfu-programmer atmega32u4 erase
+    process_begin: CreateProcess(NULL, dfu-programmer atmega32u4 erase, ...) failed.
+    make (e=2): The system cannot find the file specified.
+    make: *** [dfu] Error 2
+
+when trying to 'make dfu' on Windows you need to copy the dfu-programmer.exe to qmk_firmware/keyboard/planck.
+
+
 ## Quantum MK Firmware
 
 ### Keymap
 
-Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/qmk_firmware/blob/master/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/qmk_firmware/blob/master/quantum/keymap_common.h).
+Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full list of the keycodes is available [here](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keycode.txt). For the keycodes available only in the extended keymap, see this [header file](https://github.com/jackhumbert/qmk_firmware/blob/master/quantum/keymap_common.h).
 
 You can use modifiers with keycodes like this:
 

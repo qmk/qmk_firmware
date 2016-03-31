@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYMAP_MIDI_H
 #define KEYMAP_MIDI_H
 
+#include <lufa.h>
+
 #define MIDI 0x6000
 #define MIDI12 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000
 

@@ -54,9 +54,9 @@ SRC = jd45.c \
 	backlight.c 
 
 ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
+    SRC := keymaps/keymaps/(KEYMAP).c $(SRC)
 else
-    SRC := keymaps/keymap_default.c $(SRC)
+    SRC := keymaps/keymaps/default.c $(SRC)
 endif
 
 CONFIG_H = config.h

@@ -25,6 +25,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "backlight.h"
 #include "keymap_midi.h"
+#include "bootloader.h"
+
+#include <stdio.h>
+#include <inttypes.h>
+#ifdef AUDIO_ENABLE
+    #include "audio.h"
+
+    float goodbye[][2] = {
+        {440.0*pow(2.0,(67)/12.0), 400},
+        {0, 50},
+        {440.0*pow(2.0,(60)/12.0), 400},
+        {0, 50},
+        {440.0*pow(2.0,(55)/12.0), 600},
+    };
+#endif
 
 static action_t keycode_to_action(uint16_t keycode);
 static uint16_t keycode_to_mod_state(uint16_t keycode);
@@ -83,7 +98,13 @@ action_t action_for_key(uint8_t layer, keypos_t key)
 #endif
     } else if (keycode == RESET) { // RESET is 0x5000, which is why this is here
         clear_keyboard();
+        #ifdef AUDIO_ENABLE
+            play_notes(&goodbye, 5, false);
+        #endif
         _delay_ms(250);
+        #ifdef ATREUS_ASTAR
+            *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
+        #endif
         bootloader_jump();
         return;
     } else if (keycode == DEBUG) { // DEBUG is 0x5001
