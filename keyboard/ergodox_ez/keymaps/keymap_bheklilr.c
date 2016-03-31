@@ -26,6 +26,9 @@
 #define CTLSFT LCTL(KC_LSFT)
 #define ALTSFT LALT(KC_LSFT)
 
+#define RSTMOD M(1)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -34,29 +37,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Del    |   Q  |   W  |   E  |   R  |   T  | CTL+ |           | CTL+P|   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------| PGUP |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   S  | D/L4 | F/L3 |   G  |------|           |------|   H  |J/SYMB|K/MOUS|   L  |   ;  |   '    |
+ * | Esc    |   A  |S/Alt | D/L4 | F/L3 |   G  |------|           |------|   H  |J/SYMB|K/MOUS| L/Gui|   ;  |   '    |
  * |--------+------+------+------+------+------| CTL+ |           | CTL+ |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  | PGDN |           | ALT+P|   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *  | Undo  |  '"  |  Ins | Home | End  |                                       | PgUp | PgDn | Ctl+[| Ctl+]| Undo |
+ *  | Undo  |RSTMOD|  Ins | Home | End  |                                       | PgUp | PgDn | Ctl+[| Ctl+]| Undo |
  *  `-----------------------------------'                                       `----------------------------------'
  *                                        ,---------------.       ,---------------.
  *                                        | App  | LGui   |       | Meh  |Esc/Ctrl|
  *                                 ,------|------|--------|       |------+--------+------.
- *                                 |      |      |CtlSft  |       |AltSft|        |      |
- *                                 | BkSp | Tab  |--------|       |------| Enter  |Space |
+ *                                 |      | Tab/ |CtlSft  |       |AltSft| Enter/ |      |
+ *                                 | BkSp | Ctl  |--------|       |------| CtlSft |Space |
  *                                 |      |      |[/CtlAlt|       |]/Alt |        |      |
  *                                 `----------------------'       `----------------------'
  */
 [BASE] = KEYMAP(
-	GUI_T(KC_GRV),	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_6,
+	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_6,
 	KC_DEL,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		LCTL(KC_PGUP),
-	KC_ESC,		KC_A,		KC_S,		NMPDT(KC_D),	ARRST(KC_F),	KC_G,
+	KC_ESC,		KC_A,		ALT_T(KC_S),	NMPDT(KC_D),	ARRST(KC_F),	KC_G,
 	KC_LSFT,	CTL_T(KC_Z),	KC_X,		KC_C,		KC_V,		KC_B,		LCTL(KC_PGDN),
-	UNDO,		LSFT(KC_SCLN),	KC_INS,		KC_HOME,	KC_END,
+	UNDO,		RSTMOD,	KC_INS,		KC_HOME,	KC_END,
 											KC_APP,		KC_LGUI,
 													CTLSFT,
-									KC_BSPC,	KC_TAB,		CTAL_T(KC_LBRC),
+									KC_BSPC,	CTL_T(KC_TAB),	CTAL_T(KC_LBRC),
 	/**************************************************************************************************************/
 	SUBL_PROJ,	KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,	KC_BSLS,
 	SUBL_GOTO,	KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_EQL,
@@ -65,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					KC_PGUP,	KC_PGDN,	LCTL(KC_LBRC),	LCTL(KC_RBRC),	UNDO,
 	MEH_T(KC_NO),	CTL_T(KC_ESC),
 	ALTSFT,
-	ALT_T(KC_RBRC),	KC_ENT,		KC_SPC
+	ALT_T(KC_RBRC),	CTSH_T(KC_ENT),	KC_SPC
 ),
 /* Keymap 1: Symbol Layer
  *
@@ -155,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |  Up  |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      | Left | Down | Right|      |  Play  |
+ * |        |      |      | LGUI |      |      |------|           |------|      | Left | Down | Right|      |  Play  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      | Prev | Next |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -172,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ARRS] = KEYMAP(
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
+	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_LGUI,	KC_TRNS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
 											KC_TRNS,	KC_TRNS,
@@ -250,6 +253,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			}
 			break;
 		case 1:
+			if ((record->event.pressed)) {
+				clear_mods();
+			}
 			break;
 	}
 	return MACRO_NONE;
