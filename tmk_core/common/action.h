@@ -61,7 +61,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 /* Utilities for actions.  */
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 extern bool disable_action_cache;
-extern int8_t pressed_actions_cache[MATRIX_ROWS][MATRIX_COLS];
 #endif
 void process_action_nocache(keyrecord_t *record);
 void process_action(keyrecord_t *record);
