@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT,                 DE_OSX_A,         DE_OSX_S,   DE_OSX_D,   DE_OSX_F,   DE_OSX_G,
         KC_LSFT,                 CTL_T(DE_OSX_Y),  DE_OSX_X,   DE_OSX_C,   DE_OSX_V,   DE_OSX_B,   KC_LALT,
         LT(SYMB,DE_OSX_LESS),        M(M_DE_OSX_CIRC_CTRLCMD),      M(M_DE_OSX_PLUS_CTRLALT), KC_UP,  KC_DOWN,
-                                               			  	M(M_MEH_SH_ACUT), 	TG(2),
+                                               			  	M(M_MEH_SH_ACUT), 	TG(MDIA),
                                                               					KC_HOME,
                                                				KC_BSPC,KC_DEL,		LT(SMLY,KC_END),
         // right hand
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           DE_OSX_H,   DE_OSX_J,   DE_OSX_K,   DE_OSX_L,   DE_OSX_OE,		ALT_T(DE_OSX_AE),
              KC_RALT,	  DE_OSX_N,   DE_OSX_M,   DE_OSX_COMM,DE_OSX_DOT, CTL_T(DE_OSX_MINS),   	KC_RSFT,
                                   KC_LEFT,  KC_RIGHT,LGUI(KC_LSFT),LALT(KC_LSFT),        LT(SYMB,DE_OSX_PLUS),
-             TG(4),	  ALL_T(DE_OSX_ACUT),
+             TG(NUMB),	  ALL_T(DE_OSX_ACUT),
              KC_PGUP,
              KC_PGDN,KC_ENT, KC_SPC
     ),
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-KEYMAP(
+[MDIA] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,
@@ -178,7 +178,7 @@ KEYMAP(
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-KEYMAP(
+[SMLY] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS, KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,
@@ -198,7 +198,7 @@ KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 //number pad
-KEYMAP(
+[NUMB] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS,
@@ -239,7 +239,7 @@ KEYMAP(
  *                                 |      |      |  F4  |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-KEYMAP(
+[EGOS] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
