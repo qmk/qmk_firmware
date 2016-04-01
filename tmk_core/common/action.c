@@ -82,7 +82,7 @@ action_t store_or_get_action(bool pressed, keypos_t key)
     if (disable_action_cache) {
         return layer_switch_get_action(key);
     }
-    uint8_t key_number = (key.col + (key.row * MATRIX_COLS));
+    uint8_t key_number = key.col + (key.row * MATRIX_COLS);
     uint8_t storage_row = key_number / 8;
     uint8_t storage_bit = key_number % 8;
     uint8_t layer;
