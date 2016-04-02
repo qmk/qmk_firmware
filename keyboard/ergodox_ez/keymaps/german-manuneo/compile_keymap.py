@@ -20,16 +20,12 @@ import sys
 import json
 import unicodedata
 import collections
+import itertools as it
 
 PY2 = sys.version_info.major == 2
 
 if PY2:
     chr = unichr
-
-
-BASEPATH = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), "..", ".."
-))
 
 
 KEYBOARD_LAYOUTS = {
@@ -73,34 +69,33 @@ BLANK_LAYOUTS = [
 
 # Wide Layout
 """
-.--------------------------------------------. .--------------------------------------------.
-|      |     |     |     |     |     |       | !       |     |     |     |     |     |      |
-!------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+------!
-|      |     |     |     |     |     |       | !       |     |     |     |     |     |      |
-!------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+------!
-|      |     |     |     |     |     |-------! !-------!     |     |     |     |     |      |
-!------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+------!
-|      |     |     |     |     |     |       | !       |     |     |     |     |     |      |
-'------+-----+-----+-----+-----+-------------' '-------------+-----+-----+-----+-----+------'
- |     |     |     |     |     |                             !     |     |     |     |     |
- '-----------------------------'                             '-----------------------------'
-                             .---------------. .---------------.
-                             |       |       | !       |       |
-                     .-------+-------+-------! !-------+-------+-------.
-                     !       !       |       | !       |       !       !
-                     !       !       !-------! !-------!       !       !
-                     |       |       |       | !       |       |       |
-                     '-----------------------' '-----------------------'
+.---------------------------------------------. .---------------------------------------------.
+|       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
+!-------+-----+-----+-----+-----+-------------! !-------+-----+-----+-----+-----+-----+-------!
+|       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
+!-------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+-------!
+|       |     |     |     |     |     |-------! !-------!     |     |     |     |     |       |
+!-------+-----+-----+-----x-----x-----!       ! !       !-----x-----x-----+-----+-----+-------!
+|       |     |     |     |     |     |       | !       |     |     |     |     |     |       |
+'-------+-----+-----+-----+-----+-------------' '-------------+-----+-----+-----+-----+-------'
+ |      |     |     |     |     |                             !     |     |     |     |      |
+ '------------------------------'                             '------------------------------'
+                              .---------------. .---------------.
+                              |       |       | !       |       |
+                      .-------+-------+-------! !-------+-------+-------.
+                      !       !       |       | !       |       !       !
+                      !       !       !-------! !-------!       !       !
+                      |       |       |       | !       |       |       |
+                      '-----------------------' '-----------------------'
 """,
 ]
 
 
 DEFAULT_CONFIG = {
-    "includes_basedir": "quantum/",
     "keymaps_includes": [
         "keymap_common.h",
     ],
-    'filler': "-+.':x",
+    'filler': "-+.'!:x",
     'separator': "|",
     'default_key_prefix': ["KC_"],
 }
@@ -114,31 +109,34 @@ SECTIONS = [
 
 #       Markdown Parsing
 
+ONELINE_COMMENT_RE = re.compile(r"""
+    ^                       # comment must be at the start of the line
+    \s*                     # arbitrary whitespace
+    //                      # start of the comment
+    (.*)                    # the comment
+    $                       # until the end of line
+""", re.MULTILINE | re.VERBOSE
+)
+
+INLINE_COMMENT_RE = re.compile(r"""
+    ([\,\"\[\]\{\}\d])      # anythig that might end a expression
+    \s+                     # comment must be preceded by whitespace
+    //                      # start of the comment
+    \s                      # and succeded by whitespace
+    (?:[^\"\]\}\{\[]*)      # the comment (except things which might be json)
+    $                       # until the end of line
+""", re.MULTILINE | re.VERBOSE)
+
+TRAILING_COMMA_RE = re.compile(r"""
+    ,                       # the comma
+    (?:\s*)                 # arbitrary whitespace
+    $                       # only works if the trailing comma is followed by newline
+    (\s*)                   # arbitrary whitespace
+    ([\]\}])                # end of an array or object
+""", re.MULTILINE | re.VERBOSE)
+
+
 def loads(raw_data):
-    ONELINE_COMMENT_RE = re.compile(r"""
-        ^                       # comment must be at the start of the line
-        \s*                     # arbitrary whitespace
-        //                      # start of the comment
-        (.*)                    # the comment
-        $                       # until the end of line
-    """, re.MULTILINE | re.VERBOSE)
-    
-    INLINE_COMMENT_RE = re.compile(r"""
-        ([\,\"\[\]\{\}\d])      # anythig that might end a expression
-        \s+                     # comment must be preceded by whitespace
-        //                      # start of the comment
-        \s                      # and succeded by whitespace
-        (?:[^\"\]\}\{\[]*)      # the comment (except things which might be json)
-        $                       # until the end of line
-    """, re.MULTILINE | re.VERBOSE)
-    
-    TRAILING_COMMA_RE = re.compile(r"""
-        ,                       # the comma
-        (?:\s*)                 # arbitrary whitespace
-        $                       # only works if the trailing comma is followed by newline
-        (\s*)                   # arbitrary whitespace
-        ([\]\}])                # end of an array or object
-    """, re.MULTILINE | re.VERBOSE)
     if isinstance(raw_data, bytes):
         raw_data = raw_data.decode('utf-8')
 
@@ -164,6 +162,8 @@ def parse_config(path):
             name = line[2:]
         elif line.startswith("## "):
             name = line[3:]
+        else:
+            name = ""
 
         name = name.strip().replace(" ", "_").lower()
         if name in SECTIONS:
@@ -209,6 +209,7 @@ def parse_config(path):
                 pass
 
     end_section()
+    assert 'layout' in config
     return config
 
 #       header file parsing
@@ -218,16 +219,15 @@ IF0_RE = re.compile(r"""
     #if 0
     $.*?
     #endif
-    """, re.MULTILINE | re.DOTALL | re.VERBOSE
-)
+""", re.MULTILINE | re.DOTALL | re.VERBOSE)
 
 
 COMMENT_RE = re.compile(r"""
     /\*
     .*?
     \*/"
-    """, re.MULTILINE | re.DOTALL | re.VERBOSE
-)
+""", re.MULTILINE | re.DOTALL | re.VERBOSE)
+
 
 def read_header_file(path):
     with io.open(path, encoding="utf-8") as fh:
@@ -237,7 +237,7 @@ def read_header_file(path):
     return data
 
 
-def regex_partial(re_str_fmt, flags=re.MULTILINE | re.DOTALL | re.VERBOSE):
+def regex_partial(re_str_fmt, flags):
     def partial(*args, **kwargs):
         re_str = re_str_fmt.format(*args, **kwargs)
         return re.compile(re_str, flags)
@@ -251,8 +251,7 @@ KEYDEF_REP = regex_partial(r"""
         (?:{})          # the prefixes
         (?:\w+)         # the key name
     )                   # capture group end
-    """
-)
+""", re.MULTILINE | re.DOTALL | re.VERBOSE)
 
 
 ENUM_RE = re.compile(r"""
@@ -264,8 +263,7 @@ ENUM_RE = re.compile(r"""
         \}
         ;
     )                   # capture group end
-    """, re.MULTILINE | re.DOTALL | re.VERBOSE
-)
+""", re.MULTILINE | re.DOTALL | re.VERBOSE)
 
 
 ENUM_KEY_REP = regex_partial(r"""
@@ -273,8 +271,8 @@ ENUM_KEY_REP = regex_partial(r"""
         {}              # the prefixes
         \w+             # the key name
     )                   # capture group end
-    """
-)
+""", re.MULTILINE | re.DOTALL | re.VERBOSE)
+
 
 def parse_keydefs(config, data):
     prefix_options = "|".join(config['key_prefixes'])
@@ -289,25 +287,30 @@ def parse_keydefs(config, data):
             yield key_match.groups()[0]
 
 
-def parse_valid_keys(config):
-    valid_keycodes = set()
-    paths = [
-        os.path.join(BASEPATH, "tmk_core", "common", "keycode.h")
-    ] + [
-        os.path.join(
-            BASEPATH, config['includes_dir'], include_path
-        ) for include_path in config['keymaps_includes']
-    ]
+def parse_valid_keys(config, out_path):
+    basepath = os.path.abspath(os.path.join(os.path.dirname(out_path)))
+    dirpaths = []
+    subpaths = []
+    while len(subpaths) < 6:
+        path = os.path.join(basepath, *subpaths)
+        dirpaths.append(path)
+        dirpaths.append(os.path.join(path, "tmk_core", "common"))
+        dirpaths.append(os.path.join(path, "quantum"))
+        subpaths.append('..')
 
-    for path in paths:
-        path = path.replace("/", os.sep)
-        # the config always uses forward slashe
-        if os.path.exists(path):
-            header_data = read_header_file(path)
+    includes = set(config['keymaps_includes'])
+    includes.add("keycode.h")
+
+    valid_keycodes = set()
+    for dirpath, include in it.product(dirpaths, includes):
+        include_path = os.path.join(dirpath, include)
+        if os.path.exists(include_path):
+            header_data = read_header_file(include_path)
             valid_keycodes.update(
                 parse_keydefs(config, header_data)
             )
     return valid_keycodes
+
 
 #       Keymap Parsing
 
@@ -325,6 +328,7 @@ def iter_raw_codes(layer_lines, filler, separator):
 def iter_indexed_codes(raw_codes, key_indexes):
     key_rows = {}
     key_indexes_flat = []
+
     for row_index, key_indexes in enumerate(key_indexes):
         for key_index in key_indexes:
             key_rows[key_index] = row_index
@@ -384,8 +388,8 @@ def parse_code(raw_code, key_prefixes, valid_keycodes):
         return raw_code, None, None
 
     if MACRO_RE.match(raw_code):
-        code = macro_id = raw_code[2:-1]
-        return code, macro_id, None
+        macro_id = raw_code[2:-1]
+        return raw_code, macro_id, None
 
     if UNICODE_RE.match(raw_code):
         hex_code = raw_code[1:]
@@ -404,10 +408,17 @@ def parse_keymap(config, key_indexes, layer_lines, valid_keycodes):
         layer_lines, config['filler'], config['separator']
     ))
     indexed_codes = iter_indexed_codes(raw_codes, key_indexes)
+    key_prefixes = config['key_prefixes']
     for raw_code, key_index, row_index in indexed_codes:
         code, macro_id, uc_hex = parse_code(
-            raw_code, config['key_prefixes'], valid_keycodes
+            raw_code, key_prefixes, valid_keycodes
         )
+        # TODO: line numbers for invalid codes
+        err_msg = "Could not parse key '{}' on row {}".format(
+            raw_code, row_index
+        )
+        assert code is not None, err_msg
+        # print(repr(raw_code), repr(code), macro_id, uc_hex)
         if macro_id:
             config['macro_ids'].add(macro_id)
         if uc_hex:
@@ -482,8 +493,63 @@ void matrix_scan_user(void) {
 MACROCODE = """
 #define UC_MODE_WIN 0
 #define UC_MODE_LINUX 1
+#define UC_MODE_OSX 2
 
+// TODO: allow default mode to be configured
 static uint16_t unicode_mode = UC_MODE_WIN;
+
+uint16_t hextokeycode(uint8_t hex) {{
+    if (hex == 0x0) {{
+        return KC_P0;
+    }}
+    if (hex < 0xA) {{
+        return KC_P1 + (hex - 0x1);
+    }}
+    return KC_A + (hex - 0xA);
+}}
+
+void unicode_action_function(uint16_t hi, uint16_t lo) {{
+    switch (unicode_mode) {{
+    case UC_MODE_WIN:
+        register_code(KC_LALT);
+
+        register_code(KC_PPLS);
+        unregister_code(KC_PPLS);
+
+        register_code(hextokeycode((hi & 0xF0) >> 4));
+        unregister_code(hextokeycode((hi & 0xF0) >> 4));
+        register_code(hextokeycode((hi & 0x0F)));
+        unregister_code(hextokeycode((hi & 0x0F)));
+        register_code(hextokeycode((lo & 0xF0) >> 4));
+        unregister_code(hextokeycode((lo & 0xF0) >> 4));
+        register_code(hextokeycode((lo & 0x0F)));
+        unregister_code(hextokeycode((lo & 0x0F)));
+
+        unregister_code(KC_LALT);
+        break;
+    case UC_MODE_LINUX:
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+
+        register_code(KC_U);
+        unregister_code(KC_U);
+
+        register_code(hextokeycode((hi & 0xF0) >> 4));
+        unregister_code(hextokeycode((hi & 0xF0) >> 4));
+        register_code(hextokeycode((hi & 0x0F)));
+        unregister_code(hextokeycode((hi & 0x0F)));
+        register_code(hextokeycode((lo & 0xF0) >> 4));
+        unregister_code(hextokeycode((lo & 0xF0) >> 4));
+        register_code(hextokeycode((lo & 0x0F)));
+        unregister_code(hextokeycode((lo & 0x0F)));
+
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        break;
+    case UC_MODE_OSX:
+        break;
+    }}
+}}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {{
     if (!record->event.pressed) {{
@@ -494,57 +560,35 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {{
         case UM:
             unicode_mode = (unicode_mode + 1) % 2;
             break;
-        {macro_cases}
+{macro_cases}
+{unicode_macro_cases}
         default:
             break;
-    }}
-    if (unicode_mode == UC_MODE_WIN) {{
-        switch(id) {{
-            {win_macro_cases}
-            default:
-                break;
-        }}
-    }} else if (unicode_mode == UC_MODE_LINUX) {{
-        switch(id) {{
-            {linux_macro_cases}
-            default:
-                break;
-        }}
     }}
     return MACRO_NONE;
 }};
 """
 
-WIN_UNICODE_MACRO_TEMPLATE = """
-case {0}:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), {1}, U(LALT), END
-    );
-"""
 
-LINUX_UNICODE_MACRO_TEMPLATE = """
-case {0}:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), {1}, T(KP_ENTER), END
-    );
-"""
+UNICODE_MACRO_TEMPLATE = """
+case {macro_id}:
+    unicode_action_function(0x{hi:02x}, 0x{lo:02x});
+    break;
+""".strip()
 
-def macro_cases(config, mode):
-    if mode == 'win':
-        template = WIN_UNICODE_MACRO_TEMPLATE
-    elif mode == 'linux':
-        template = LINUX_UNICODE_MACRO_TEMPLATE
-    else:
-        raise ValueError("Invalid mode: ", mode)
-    template = template.strip()
 
+def unicode_macro_cases(config):
     for macro_id, uc_hex in config['unicode_macros'].items():
+        hi = int(uc_hex, 16) >> 8
+        lo = int(uc_hex, 16) & 0xFF
         unimacro_keys = ", ".join(
             "T({})".format(
                 "KP_" + digit if digit.isdigit() else digit
             ) for digit in uc_hex
         )
-        yield template.format(macro_id, unimacro_keys)
+        yield UNICODE_MACRO_TEMPLATE.format(
+            macro_id=macro_id, hi=hi, lo=lo
+        )
 
 
 def iter_keymap_lines(keymap):
@@ -599,8 +643,7 @@ def iter_keymap_parts(config, keymaps):
     # macros
     yield MACROCODE.format(
         macro_cases="",
-        win_macro_cases="\n".join(macro_cases(config, mode='win')),
-        linux_macro_cases="\n".join(macro_cases(config, mode='linux')),
+        unicode_macro_cases="\n".join(unicode_macro_cases(config)),
     )
 
     # TODO: dynamically create blinking lights
@@ -624,7 +667,7 @@ def main(argv=sys.argv[1:]):
         out_path = os.path.join(dirname, "keymap.c")
 
     config = parse_config(in_path)
-    valid_keys = parse_valid_keys(config)
+    valid_keys = parse_valid_keys(config, out_path)
     keymaps = parse_keymaps(config, valid_keys)
 
     with io.open(out_path, mode="w", encoding="utf-8") as fh:

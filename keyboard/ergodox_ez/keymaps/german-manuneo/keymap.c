@@ -106,8 +106,6 @@
 #define L4   4      // layer_4
 #define L5   5      // layer_5
 #define L6   6      // layer_6
-#define L7   7      // layer_7
-#define L8   8      // layer_8
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -120,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * !-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
  * |MO(3)| UE | OE | AE | C  | V  |END  | TAB | B  | M  |COMM| DOT| UP |  Y  |
  * '-----+----+----+----+----+----------'----------+----+----+----+----+-----'
- *  |    |    |LGUI|LALT|LCTL|                     !LALT|    |LEFT|DOWN|RGHT|
+ *  |    |    |LGUI|LALT|LCTL|                     !RCTL|RALT|LEFT|DOWN|RGHT|
  *  '------------------------'                     '------------------------'
  *                         .-----------. .-----------.
  *                         |INS  |TG(2)| !M(UM)|DELT |
@@ -143,8 +141,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TG(2), DE_H, DE_J, DE_K, DE_L, DE_Q, DE_Z,
  DE_S, DE_N, DE_R, DE_T, DE_D, DE_SS,
  KC_TAB, DE_B, DE_M, DE_COMM, DE_DOT, KC_UP, DE_Y,
- KC_LALT, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT,
- UM, KC_DELT,
+ KC_RCTL, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT,
+ M(UM), KC_DELT,
  KC_PGUP,
  KC_PGDN, KC_ENTER, KC_SPACE
 ),
@@ -376,90 +374,69 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/*
- * .------------------------------------.------------------------------------.
- * |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
- * !-----+----+----+----+----+----------!-----+----+----+----+----+----+-----!
- * |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
- * !-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
- * |     |    |    |    |    |    |-----!-----!    |    |    |    |    |     |
- * !-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
- * |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
- * '-----+----+----+----+----+----------'----------+----+----+----+----+-----'
- *  |    |    |    |    |    |                     !    |    |    |    |    |
- *  '------------------------'                     '------------------------'
- *                         .-----------. .-----------.
- *                         |     |     | !     |     |
- *                   .-----+-----+-----! !-----+-----+-----.
- *                   !     !     |     | !     |     !     !
- *                   !     !     !-----! !-----!     !     !
- *                   |     |     |     | !     |     |     |
- *                   '-----------------' '-----------------'
-*/
-[L7] = KEYMAP(
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS
-),
-/*
- * .------------------------------------.------------------------------------.
- * |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
- * !-----+----+----+----+----+----------!-----+----+----+----+----+----+-----!
- * |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
- * !-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
- * |     |    |    |    |    |    |-----!-----!    |    |    |    |    |     |
- * !-----+----+----+----x----x----!     !     !----x----x----+----+----+-----!
- * |     |    |    |    |    |    |     |     |    |    |    |    |    |     |
- * '-----+----+----+----+----+----------'----------+----+----+----+----+-----'
- *  |    |    |    |    |    |                     !    |    |    |    |    |
- *  '------------------------'                     '------------------------'
- *                         .-----------. .-----------.
- *                         |     |     | !     |     |
- *                   .-----+-----+-----! !-----+-----+-----.
- *                   !     !     |     | !     |     !     !
- *                   !     !     !-----! !-----!     !     !
- *                   |     |     |     | !     |     |     |
- *                   '-----------------' '-----------------'
-*/
-[L8] = KEYMAP(
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS
-),
 };
 
 const uint16_t PROGMEM fn_actions[] = {};
 
 #define UC_MODE_WIN 0
 #define UC_MODE_LINUX 1
+#define UC_MODE_OSX 2
 
+// TODO: allow default mode to be configured
 static uint16_t unicode_mode = UC_MODE_WIN;
+
+uint16_t hextokeycode(uint8_t hex) {
+    if (hex == 0x0) {
+        return KC_P0;
+    }
+    if (hex < 0xA) {
+        return KC_P1 + (hex - 0x1);
+    }
+    return KC_A + (hex - 0xA);
+}
+
+void unicode_action_function(uint16_t hi, uint16_t lo) {
+    switch (unicode_mode) {
+    case UC_MODE_WIN:
+        register_code(KC_LALT);
+
+        register_code(KC_PPLS);
+        unregister_code(KC_PPLS);
+
+        register_code(hextokeycode((hi & 0xF0) >> 4));
+        unregister_code(hextokeycode((hi & 0xF0) >> 4));
+        register_code(hextokeycode((hi & 0x0F)));
+        unregister_code(hextokeycode((hi & 0x0F)));
+        register_code(hextokeycode((lo & 0xF0) >> 4));
+        unregister_code(hextokeycode((lo & 0xF0) >> 4));
+        register_code(hextokeycode((lo & 0x0F)));
+        unregister_code(hextokeycode((lo & 0x0F)));
+
+        unregister_code(KC_LALT);
+        break;
+    case UC_MODE_LINUX:
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+
+        register_code(KC_U);
+        unregister_code(KC_U);
+
+        register_code(hextokeycode((hi & 0xF0) >> 4));
+        unregister_code(hextokeycode((hi & 0xF0) >> 4));
+        register_code(hextokeycode((hi & 0x0F)));
+        unregister_code(hextokeycode((hi & 0x0F)));
+        register_code(hextokeycode((lo & 0xF0) >> 4));
+        unregister_code(hextokeycode((lo & 0xF0) >> 4));
+        register_code(hextokeycode((lo & 0x0F)));
+        unregister_code(hextokeycode((lo & 0x0F)));
+
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        break;
+    case UC_MODE_OSX:
+        break;
+    }
+}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     if (!record->event.pressed) {
@@ -470,772 +447,291 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         case UM:
             unicode_mode = (unicode_mode + 1) % 2;
             break;
-        
+
+case UC_GREEK_SMALL_LETTER_OMICRON:
+    unicode_action_function(0x03, 0xbf);
+    break;
+case UC_LEFTWARDS_ARROW:
+    unicode_action_function(0x21, 0x90);
+    break;
+case UC_GREEK_CAPITAL_LETTER_RHO:
+    unicode_action_function(0x03, 0xa1);
+    break;
+case UC_SUBSCRIPT_THREE:
+    unicode_action_function(0x20, 0x83);
+    break;
+case UC_VULGAR_FRACTION_ONE_EIGHTH:
+    unicode_action_function(0x21, 0x5b);
+    break;
+case UC_GREEK_SMALL_LETTER_LAMDA:
+    unicode_action_function(0x03, 0xbb);
+    break;
+case UC_VULGAR_FRACTION_ONE_THIRD:
+    unicode_action_function(0x21, 0x53);
+    break;
+case UC_GREEK_SMALL_LETTER_XI:
+    unicode_action_function(0x03, 0xbe);
+    break;
+case UC_THERE_DOES_NOT_EXIST:
+    unicode_action_function(0x22, 0x04);
+    break;
+case UC_SUPERSCRIPT_ONE:
+    unicode_action_function(0x00, 0xb9);
+    break;
+case UC_GREEK_SMALL_LETTER_BETA:
+    unicode_action_function(0x03, 0xb2);
+    break;
+case UC_SUBSCRIPT_FIVE:
+    unicode_action_function(0x20, 0x85);
+    break;
+case UC_GREEK_CAPITAL_LETTER_IOTA:
+    unicode_action_function(0x03, 0x99);
+    break;
+case UC_VULGAR_FRACTION_ONE_FIFTH:
+    unicode_action_function(0x21, 0x55);
+    break;
+case UC_GREEK_SMALL_LETTER_PSI:
+    unicode_action_function(0x03, 0xc8);
+    break;
+case UC_SUBSCRIPT_NINE:
+    unicode_action_function(0x20, 0x89);
+    break;
+case UC_SUPERSCRIPT_FOUR:
+    unicode_action_function(0x20, 0x74);
+    break;
+case UC_RIGHTWARDS_ARROW:
+    unicode_action_function(0x21, 0x92);
+    break;
+case UC_SUPERSCRIPT_SIX:
+    unicode_action_function(0x20, 0x76);
+    break;
+case UC_DOWNWARDS_ARROW:
+    unicode_action_function(0x21, 0x93);
+    break;
+case UC_GREEK_SMALL_LETTER_PI:
+    unicode_action_function(0x03, 0xc0);
+    break;
+case UC_SUPERSCRIPT_TWO:
+    unicode_action_function(0x00, 0xb2);
+    break;
+case UC_GREEK_CAPITAL_LETTER_OMEGA:
+    unicode_action_function(0x03, 0xa9);
+    break;
+case UC_GREEK_CAPITAL_LETTER_PSI:
+    unicode_action_function(0x03, 0xa8);
+    break;
+case UC_SUBSCRIPT_FOUR:
+    unicode_action_function(0x20, 0x84);
+    break;
+case UC_GREEK_CAPITAL_LETTER_NU:
+    unicode_action_function(0x03, 0x9d);
+    break;
+case UC_DIVISION_SIGN:
+    unicode_action_function(0x00, 0xf7);
+    break;
+case UC_GREEK_SMALL_LETTER_SIGMA:
+    unicode_action_function(0x03, 0xc3);
+    break;
+case UC_GREEK_SMALL_LETTER_RHO:
+    unicode_action_function(0x03, 0xc1);
+    break;
+case UC_VULGAR_FRACTION_ONE_SIXTH:
+    unicode_action_function(0x21, 0x59);
+    break;
+case UC_GREEK_SMALL_LETTER_GAMMA:
+    unicode_action_function(0x03, 0xb3);
+    break;
+case UC_VULGAR_FRACTION_TWO_THIRDS:
+    unicode_action_function(0x21, 0x54);
+    break;
+case UC_GREEK_SMALL_LETTER_NU:
+    unicode_action_function(0x03, 0xbd);
+    break;
+case UC_GREEK_SMALL_LETTER_ZETA:
+    unicode_action_function(0x03, 0xb6);
+    break;
+case UC_GREEK_SMALL_LETTER_EPSILON:
+    unicode_action_function(0x03, 0xb5);
+    break;
+case UC_GREEK_SMALL_LETTER_KAPPA:
+    unicode_action_function(0x03, 0xba);
+    break;
+case UC_SUPERSCRIPT_SEVEN:
+    unicode_action_function(0x20, 0x77);
+    break;
+case UC_GREEK_CAPITAL_LETTER_PI:
+    unicode_action_function(0x03, 0xa0);
+    break;
+case UC_GREEK_SMALL_LETTER_FINAL_SIGMA:
+    unicode_action_function(0x03, 0xc2);
+    break;
+case UC_GREEK_CAPITAL_LETTER_XI:
+    unicode_action_function(0x03, 0x9e);
+    break;
+case UC_GREEK_SMALL_LETTER_THETA:
+    unicode_action_function(0x03, 0xb8);
+    break;
+case UC_GREEK_SMALL_LETTER_ETA:
+    unicode_action_function(0x03, 0xb7);
+    break;
+case UC_SUBSCRIPT_TWO:
+    unicode_action_function(0x20, 0x82);
+    break;
+case UC_ASYMPTOTICALLY_EQUAL_TO:
+    unicode_action_function(0x22, 0x43);
+    break;
+case UC_GREEK_SMALL_LETTER_ALPHA:
+    unicode_action_function(0x03, 0xb1);
+    break;
+case UC_GREEK_CAPITAL_LETTER_PHI:
+    unicode_action_function(0x03, 0xa6);
+    break;
+case UC_GREEK_SMALL_LETTER_PHI:
+    unicode_action_function(0x03, 0xc6);
+    break;
+case UC_INFINITY:
+    unicode_action_function(0x22, 0x1e);
+    break;
+case UC_GREEK_CAPITAL_LETTER_OMICRON:
+    unicode_action_function(0x03, 0x9f);
+    break;
+case UC_ELEMENT_OF:
+    unicode_action_function(0x22, 0x08);
+    break;
+case UC_MULTIPLICATION_SIGN:
+    unicode_action_function(0x00, 0xd7);
+    break;
+case UC_SUBSCRIPT_ZERO:
+    unicode_action_function(0x20, 0x80);
+    break;
+case UC_GREEK_CAPITAL_LETTER_SIGMA:
+    unicode_action_function(0x03, 0xa3);
+    break;
+case UC_GREEK_SMALL_LETTER_OMEGA:
+    unicode_action_function(0x03, 0xc9);
+    break;
+case UC_SUBSCRIPT_ONE:
+    unicode_action_function(0x20, 0x81);
+    break;
+case UC_GREEK_CAPITAL_LETTER_ZETA:
+    unicode_action_function(0x03, 0x96);
+    break;
+case UC_GREEK_SMALL_LETTER_TAU:
+    unicode_action_function(0x03, 0xc4);
+    break;
+case UC_SUPERSCRIPT_FIVE:
+    unicode_action_function(0x20, 0x75);
+    break;
+case UC_THERE_EXISTS:
+    unicode_action_function(0x22, 0x03);
+    break;
+case UC_PLUS_MINUS_SIGN:
+    unicode_action_function(0x00, 0xb1);
+    break;
+case UC_VULGAR_FRACTION_THREE_QUARTERS:
+    unicode_action_function(0x00, 0xbe);
+    break;
+case UC_SUPERSCRIPT_THREE:
+    unicode_action_function(0x00, 0xb3);
+    break;
+case UC_EMPTY_SET:
+    unicode_action_function(0x22, 0x05);
+    break;
+case UC_UPWARDS_ARROW:
+    unicode_action_function(0x21, 0x91);
+    break;
+case UC_SUPERSCRIPT_NINE:
+    unicode_action_function(0x20, 0x79);
+    break;
+case UC_GREEK_SMALL_LETTER_DELTA:
+    unicode_action_function(0x03, 0xb4);
+    break;
+case UC_GREEK_SMALL_LETTER_MU:
+    unicode_action_function(0x03, 0xbc);
+    break;
+case UC_GREEK_CAPITAL_LETTER_KAPPA:
+    unicode_action_function(0x03, 0x9a);
+    break;
+case UC_SUBSCRIPT_EIGHT:
+    unicode_action_function(0x20, 0x88);
+    break;
+case UC_GREEK_CAPITAL_LETTER_ALPHA:
+    unicode_action_function(0x03, 0x91);
+    break;
+case UC_SUBSCRIPT_SEVEN:
+    unicode_action_function(0x20, 0x87);
+    break;
+case UC_GREEK_CAPITAL_LETTER_BETA:
+    unicode_action_function(0x03, 0x92);
+    break;
+case UC_GREEK_CAPITAL_LETTER_ETA:
+    unicode_action_function(0x03, 0x97);
+    break;
+case UC_SUPERSCRIPT_EIGHT:
+    unicode_action_function(0x20, 0x78);
+    break;
+case UC_SUPERSCRIPT_ZERO:
+    unicode_action_function(0x20, 0x70);
+    break;
+case UC_NOT_AN_ELEMENT_OF:
+    unicode_action_function(0x22, 0x09);
+    break;
+case UC_GREEK_SMALL_LETTER_UPSILON:
+    unicode_action_function(0x03, 0xc5);
+    break;
+case UC_NOT_EQUAL_TO:
+    unicode_action_function(0x22, 0x60);
+    break;
+case UC_GREEK_CAPITAL_LETTER_CHI:
+    unicode_action_function(0x03, 0xa7);
+    break;
+case UC_FOR_ALL:
+    unicode_action_function(0x22, 0x00);
+    break;
+case UC_GREEK_CAPITAL_LETTER_TAU:
+    unicode_action_function(0x03, 0xa4);
+    break;
+case UC_VULGAR_FRACTION_ONE_QUARTER:
+    unicode_action_function(0x00, 0xbc);
+    break;
+case UC_GREEK_SMALL_LETTER_CHI:
+    unicode_action_function(0x03, 0xc7);
+    break;
+case UC_GREEK_CAPITAL_LETTER_THETA:
+    unicode_action_function(0x03, 0x98);
+    break;
+case UC_GREEK_SMALL_LETTER_IOTA:
+    unicode_action_function(0x03, 0xb9);
+    break;
+case UC_GREEK_CAPITAL_LETTER_LAMDA:
+    unicode_action_function(0x03, 0x9b);
+    break;
+case UC_SUPERSCRIPT_LATIN_SMALL_LETTER_N:
+    unicode_action_function(0x20, 0x7f);
+    break;
+case UC_GREEK_CAPITAL_LETTER_UPSILON:
+    unicode_action_function(0x03, 0xa5);
+    break;
+case UC_GREEK_CAPITAL_LETTER_MU:
+    unicode_action_function(0x03, 0x9c);
+    break;
+case UC_GREEK_CAPITAL_LETTER_EPSILON:
+    unicode_action_function(0x03, 0x95);
+    break;
+case UC_GREEK_CAPITAL_LETTER_GAMMA:
+    unicode_action_function(0x03, 0x93);
+    break;
+case UC_SUBSCRIPT_SIX:
+    unicode_action_function(0x20, 0x86);
+    break;
+case UC_GREEK_CAPITAL_LETTER_DELTA:
+    unicode_action_function(0x03, 0x94);
+    break;
+case UC_VULGAR_FRACTION_ONE_HALF:
+    unicode_action_function(0x00, 0xbd);
+    break;
         default:
             break;
-    }
-    if (unicode_mode == UC_MODE_WIN) {
-        switch(id) {
-            case UC_GREEK_SMALL_LETTER_OMICRON:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(F), U(LALT), END
-    );
-case UC_LEFTWARDS_ARROW:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_9), T(KP_0), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_RHO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_1), U(LALT), END
-    );
-case UC_SUBSCRIPT_THREE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_3), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_ONE_EIGHTH:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_5), T(B), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_LAMDA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(B), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_ONE_THIRD:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_5), T(KP_3), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_XI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(E), U(LALT), END
-    );
-case UC_THERE_DOES_NOT_EXIST:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_0), T(KP_4), U(LALT), END
-    );
-case UC_SUPERSCRIPT_ONE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(KP_9), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_BETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_2), U(LALT), END
-    );
-case UC_SUBSCRIPT_FIVE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_5), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_IOTA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_9), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_ONE_FIFTH:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_5), T(KP_5), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_PSI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_8), U(LALT), END
-    );
-case UC_SUBSCRIPT_NINE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_9), U(LALT), END
-    );
-case UC_SUPERSCRIPT_FOUR:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_4), U(LALT), END
-    );
-case UC_RIGHTWARDS_ARROW:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_9), T(KP_2), U(LALT), END
-    );
-case UC_SUPERSCRIPT_SIX:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_6), U(LALT), END
-    );
-case UC_DOWNWARDS_ARROW:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_9), T(KP_3), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_PI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_0), U(LALT), END
-    );
-case UC_SUPERSCRIPT_TWO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(KP_2), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_OMEGA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_9), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_PSI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_8), U(LALT), END
-    );
-case UC_SUBSCRIPT_FOUR:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_4), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_NU:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(D), U(LALT), END
-    );
-case UC_DIVISION_SIGN:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(F), T(KP_7), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_SIGMA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_3), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_RHO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_1), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_ONE_SIXTH:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_5), T(KP_9), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_GAMMA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_3), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_TWO_THIRDS:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_5), T(KP_4), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_NU:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(D), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_ZETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_6), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_EPSILON:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_5), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_KAPPA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(A), U(LALT), END
-    );
-case UC_SUPERSCRIPT_SEVEN:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_7), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_PI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_0), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_FINAL_SIGMA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_2), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_XI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(E), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_THETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_8), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_ETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_7), U(LALT), END
-    );
-case UC_SUBSCRIPT_TWO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_2), U(LALT), END
-    );
-case UC_ASYMPTOTICALLY_EQUAL_TO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_4), T(KP_3), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_ALPHA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_1), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_PHI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_6), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_PHI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_6), U(LALT), END
-    );
-case UC_INFINITY:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_1), T(E), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_OMICRON:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(F), U(LALT), END
-    );
-case UC_ELEMENT_OF:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_0), T(KP_8), U(LALT), END
-    );
-case UC_MULTIPLICATION_SIGN:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(D), T(KP_7), U(LALT), END
-    );
-case UC_SUBSCRIPT_ZERO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_0), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_SIGMA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_3), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_OMEGA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_9), U(LALT), END
-    );
-case UC_SUBSCRIPT_ONE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_1), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_ZETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_6), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_TAU:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_4), U(LALT), END
-    );
-case UC_SUPERSCRIPT_FIVE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_5), U(LALT), END
-    );
-case UC_THERE_EXISTS:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_0), T(KP_3), U(LALT), END
-    );
-case UC_PLUS_MINUS_SIGN:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(KP_1), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_THREE_QUARTERS:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(E), U(LALT), END
-    );
-case UC_SUPERSCRIPT_THREE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(KP_3), U(LALT), END
-    );
-case UC_EMPTY_SET:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_0), T(KP_5), U(LALT), END
-    );
-case UC_UPWARDS_ARROW:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_1), T(KP_9), T(KP_1), U(LALT), END
-    );
-case UC_SUPERSCRIPT_NINE:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_9), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_DELTA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_4), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_MU:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(C), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_KAPPA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(A), U(LALT), END
-    );
-case UC_SUBSCRIPT_EIGHT:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_8), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_ALPHA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_1), U(LALT), END
-    );
-case UC_SUBSCRIPT_SEVEN:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_7), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_BETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_2), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_ETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_7), U(LALT), END
-    );
-case UC_SUPERSCRIPT_EIGHT:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_8), U(LALT), END
-    );
-case UC_SUPERSCRIPT_ZERO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(KP_0), U(LALT), END
-    );
-case UC_NOT_AN_ELEMENT_OF:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_0), T(KP_9), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_UPSILON:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_5), U(LALT), END
-    );
-case UC_NOT_EQUAL_TO:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_6), T(KP_0), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_CHI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_7), U(LALT), END
-    );
-case UC_FOR_ALL:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_2), T(KP_0), T(KP_0), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_TAU:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_4), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_ONE_QUARTER:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(C), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_CHI:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(C), T(KP_7), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_THETA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_8), U(LALT), END
-    );
-case UC_GREEK_SMALL_LETTER_IOTA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(B), T(KP_9), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_LAMDA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(B), U(LALT), END
-    );
-case UC_SUPERSCRIPT_LATIN_SMALL_LETTER_N:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_7), T(F), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_UPSILON:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(A), T(KP_5), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_MU:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(C), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_EPSILON:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_5), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_GAMMA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_3), U(LALT), END
-    );
-case UC_SUBSCRIPT_SIX:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_2), T(KP_0), T(KP_8), T(KP_6), U(LALT), END
-    );
-case UC_GREEK_CAPITAL_LETTER_DELTA:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_3), T(KP_9), T(KP_4), U(LALT), END
-    );
-case UC_VULGAR_FRACTION_ONE_HALF:
-    return MACRODOWN(
-        D(LALT), T(KP_PLUS), T(KP_0), T(KP_0), T(B), T(D), U(LALT), END
-    );
-            default:
-                break;
-        }
-    } else if (unicode_mode == UC_MODE_LINUX) {
-        switch(id) {
-            case UC_GREEK_SMALL_LETTER_OMICRON:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(F), T(KP_ENTER), END
-    );
-case UC_LEFTWARDS_ARROW:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_9), T(KP_0), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_RHO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_1), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_THREE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_3), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_ONE_EIGHTH:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_5), T(B), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_LAMDA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(B), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_ONE_THIRD:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_5), T(KP_3), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_XI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(E), T(KP_ENTER), END
-    );
-case UC_THERE_DOES_NOT_EXIST:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_0), T(KP_4), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_ONE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(KP_9), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_BETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_2), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_FIVE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_5), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_IOTA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_9), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_ONE_FIFTH:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_5), T(KP_5), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_PSI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_8), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_NINE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_9), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_FOUR:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_4), T(KP_ENTER), END
-    );
-case UC_RIGHTWARDS_ARROW:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_9), T(KP_2), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_SIX:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_6), T(KP_ENTER), END
-    );
-case UC_DOWNWARDS_ARROW:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_9), T(KP_3), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_PI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_0), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_TWO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(KP_2), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_OMEGA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_9), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_PSI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_8), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_FOUR:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_4), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_NU:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(D), T(KP_ENTER), END
-    );
-case UC_DIVISION_SIGN:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(F), T(KP_7), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_SIGMA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_3), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_RHO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_1), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_ONE_SIXTH:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_5), T(KP_9), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_GAMMA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_3), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_TWO_THIRDS:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_5), T(KP_4), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_NU:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(D), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_ZETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_6), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_EPSILON:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_5), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_KAPPA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(A), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_SEVEN:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_7), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_PI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_0), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_FINAL_SIGMA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_2), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_XI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(E), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_THETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_8), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_ETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_7), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_TWO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_2), T(KP_ENTER), END
-    );
-case UC_ASYMPTOTICALLY_EQUAL_TO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_4), T(KP_3), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_ALPHA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_1), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_PHI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_6), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_PHI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_6), T(KP_ENTER), END
-    );
-case UC_INFINITY:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_1), T(E), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_OMICRON:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(F), T(KP_ENTER), END
-    );
-case UC_ELEMENT_OF:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_0), T(KP_8), T(KP_ENTER), END
-    );
-case UC_MULTIPLICATION_SIGN:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(D), T(KP_7), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_ZERO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_0), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_SIGMA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_3), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_OMEGA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_9), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_ONE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_1), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_ZETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_6), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_TAU:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_4), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_FIVE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_5), T(KP_ENTER), END
-    );
-case UC_THERE_EXISTS:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_0), T(KP_3), T(KP_ENTER), END
-    );
-case UC_PLUS_MINUS_SIGN:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(KP_1), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_THREE_QUARTERS:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(E), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_THREE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(KP_3), T(KP_ENTER), END
-    );
-case UC_EMPTY_SET:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_0), T(KP_5), T(KP_ENTER), END
-    );
-case UC_UPWARDS_ARROW:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_1), T(KP_9), T(KP_1), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_NINE:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_9), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_DELTA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_4), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_MU:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(C), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_KAPPA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(A), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_EIGHT:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_8), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_ALPHA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_1), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_SEVEN:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_7), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_BETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_2), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_ETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_7), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_EIGHT:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_8), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_ZERO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(KP_0), T(KP_ENTER), END
-    );
-case UC_NOT_AN_ELEMENT_OF:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_0), T(KP_9), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_UPSILON:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_5), T(KP_ENTER), END
-    );
-case UC_NOT_EQUAL_TO:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_6), T(KP_0), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_CHI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_7), T(KP_ENTER), END
-    );
-case UC_FOR_ALL:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_2), T(KP_0), T(KP_0), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_TAU:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_4), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_ONE_QUARTER:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(C), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_CHI:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(C), T(KP_7), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_THETA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_8), T(KP_ENTER), END
-    );
-case UC_GREEK_SMALL_LETTER_IOTA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(B), T(KP_9), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_LAMDA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(B), T(KP_ENTER), END
-    );
-case UC_SUPERSCRIPT_LATIN_SMALL_LETTER_N:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_7), T(F), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_UPSILON:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(A), T(KP_5), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_MU:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(C), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_EPSILON:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_5), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_GAMMA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_3), T(KP_ENTER), END
-    );
-case UC_SUBSCRIPT_SIX:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_2), T(KP_0), T(KP_8), T(KP_6), T(KP_ENTER), END
-    );
-case UC_GREEK_CAPITAL_LETTER_DELTA:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_3), T(KP_9), T(KP_4), T(KP_ENTER), END
-    );
-case UC_VULGAR_FRACTION_ONE_HALF:
-    return MACRODOWN(
-        D(LCTRL), D(LSHIFT), T(U), U(LCTRL), U(LSHIFT), T(KP_0), T(KP_0), T(B), T(D), T(KP_ENTER), END
-    );
-            default:
-                break;
-        }
     }
     return MACRO_NONE;
 };
