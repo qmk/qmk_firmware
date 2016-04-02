@@ -17,6 +17,7 @@
 #define M_DE_CIRC_CTRLCMD 13
 #define M_TOGGLE_5 14
 #define M_CTL_SFT_HASH 15
+#define M_LGUI_SHFT 16
 
 #define SM_SMILE 4
 #define SM_SMIRK 5
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGUI,     DE_Z,   DE_U,   DE_I,   DE_O,   DE_P,         	DE_UE,
                           DE_H,   DE_J,   DE_K,   DE_L,   DE_OE,		ALT_T(DE_AE),
              KC_RALT,	  DE_N,   DE_M,   DE_COMM,DE_DOT, CTL_T(DE_MINS),   	KC_RSFT,
-                                  KC_LEFT,  KC_RIGHT,LGUI(KC_LSFT),LALT(KC_LSFT),        LT(SYMB,DE_PLUS),
+                                  KC_LEFT,  KC_RIGHT,M(M_LGUI_SHFT),LALT(KC_LSFT),        LT(SYMB,DE_PLUS),
              TG(4),	  ALL_T(DE_ACUT),
              KC_PGUP,
              KC_PGDN,KC_ENT, KC_SPC
@@ -311,6 +312,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			} else {
 				return MACRO(U(LCTRL),U(LALT),T(EQL),U(LSFT),END); //cannot use DE_ACUT here, as macro needs KC_ prefix
 			}
+		}
+		break;
+	case M_LGUI_SHFT:
+		if (record->event.pressed){
+			return MACRO(D(LGUI),D(LSFT),END);
+		}else{
+			return MACRO(U(LGUI),U(LSFT),END);
 		}
 		break;
 	case M_CTL_SFT_HASH:
