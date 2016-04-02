@@ -89,7 +89,7 @@ action_t store_or_get_action(bool pressed, keypos_t key)
     if (pressed) {
         layer = layer_switch_get_layer(key);
         for (uint8_t bit_number = 0; bit_number <= 4; bit_number++) {
-            source_layers_cache[bit_number][storage_row] ^= (-(!!(layer & (1U << bit_number)) ^ source_layers_cache[bit_number][storage_row])) & (1U << storage_bit);
+            source_layers_cache[bit_number][storage_row] ^= (-(bool)((layer & (1U << bit_number)) != 0) ^ source_layers_cache[bit_number][storage_row])) & (1U << storage_bit);
         }
     } else {
         layer = 0;
