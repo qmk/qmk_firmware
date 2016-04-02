@@ -53,9 +53,9 @@ TARGET_DIR = .
 SRC = atreus.c
 
 ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
+    SRC := keymaps/$(KEYMAP).c $(SRC)
 else
-    SRC := keymaps/keymap_default.c $(SRC)
+    SRC := keymaps/default.c $(SRC)
 endif
 
 ifdef TEENSY2
