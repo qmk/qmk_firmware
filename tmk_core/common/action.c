@@ -82,20 +82,26 @@ action_t store_or_get_action(bool pressed, keypos_t key)
     if (disable_action_cache) {
         return layer_switch_get_action(key);
     }
-    uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    uint8_t storage_row = key_number / 8;
-    uint8_t storage_bit = key_number % 8;
+    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
+    const uint8_t storage_row = key_number / 8;
+    const uint8_t storage_bit = key_number % 8;
     uint8_t layer;
     if (pressed) {
         layer = layer_switch_get_layer(key);
-        for (uint8_t bit_number = 0; bit_number <= 4; bit_number++) {
-            source_layers_cache[bit_number][storage_row] ^= (-(bool)((layer & (1U << bit_number)) != 0) ^ source_layers_cache[bit_number][storage_row])) & (1U << storage_bit);
+        for (uint8_t bit_number = 0; bit_number < 5; bit_number++) {
+            source_layers_cache[bit_number][storage_row] ^=
+                (-((layer & (1U << bit_number)) != 0)
+                 ^ source_layers_cache[bit_number][storage_row])
+                & (1U << storage_bit);
         }
     }
     else {
         layer = 0;
-        for (uint8_t bit_number = 0; bit_number <= 4; bit_number++) {
-            layer |= (uint8_t)((source_layers_cache[bit_number][storage_row] & (1U << storage_bit)) != 0) << bit_number;
+        for (uint8_t bit_number = 0; bit_number < 5; bit_number++) {
+            layer |=
+                ((source_layers_cache[bit_number][storage_row]
+                  & (1U << storage_bit)) != 0)
+                << bit_number;
         }
     }
     return action_for_key(layer, key);
