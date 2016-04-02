@@ -55,7 +55,7 @@ void action_exec(keyevent_t event)
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 bool disable_action_cache = false;
-uint8_t source_layers_cache[5][((MATRIX_ROWS * MATRIX_COLS) / 8) ? ((MATRIX_ROWS * MATRIX_COLS) / 8) : 1];
+uint8_t source_layers_cache[5][((MATRIX_ROWS * MATRIX_COLS) / 8) ? ((MATRIX_ROWS * MATRIX_COLS) / 8) : 1] = {};
 
 void process_action_nocache(keyrecord_t *record)
 {
