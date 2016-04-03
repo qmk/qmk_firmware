@@ -6,7 +6,6 @@
 #  include "backlight.h"
 #endif
 #include "timer.h"
-#include "macro_record.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -21,8 +20,10 @@ enum userlayer {
     _RS,
     _DL,
     _SP,
+    NUM_LAYERS,
 };
 
+#include "macro_record.h"
 
 /* My macros */
 enum usermacro {

@@ -22,7 +22,7 @@ enum {
 
 /* Layers */
 enum {
-    _MACRO_RECORD_LAYER1 = 30,
+    _MACRO_RECORD_LAYER1 = NUM_LAYERS,
     _MACRO_RECORD_LAYER2,
 };
 
