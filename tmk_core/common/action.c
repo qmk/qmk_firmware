@@ -110,6 +110,9 @@ action_t store_or_get_action(bool pressed, keypos_t key)
 #endif
 }
 
+__attribute__ ((weak))
+void process_action_kb(keyrecord_t *record) {}
+
 void process_action(keyrecord_t *record)
 {
     keyevent_t event = record->event;
@@ -119,6 +122,8 @@ void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
+    process_action_kb(record);
+
     action_t action = store_or_get_action(event.pressed, event.key);
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
@@ -127,6 +132,10 @@ void process_action(keyrecord_t *record)
 #endif
     dprintln();
 
+    if (event.pressed) {
+        // clear the potential weak mods left by previously pressed keys
+        clear_weak_mods();
+    }
     switch (action.kind.id) {
         /* Key and Mods */
         case ACT_LMODS:
@@ -557,6 +566,7 @@ void clear_keyboard(void)
 void clear_keyboard_but_mods(void)
 {
     clear_weak_mods();
+    clear_macro_mods();
     clear_keys();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
