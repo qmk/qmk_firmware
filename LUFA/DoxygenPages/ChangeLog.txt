@@ -29,6 +29,8 @@
   *   - Added signed alternative libUSB driver for the AVRISP-MKII clone project, to support Atmel Studio 7 (thanks to Atmel)
   *   - Removed no longer required LIBUSB_DRIVER_COMPAT and RESET_TOGGLES_LIBUSB_COMPAT configuration options from the AVRISP-MKII
   *     clone project, as the new libUSB driver works for AVRDUDE and Atmel Studio 7 under Windows
+  *   - Replaced the LUFA build system with its (compatible) successor, DMBS (Dean's Makefile Build System)
+  *   - Removed obsolete library TAR export and associated documentation
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>

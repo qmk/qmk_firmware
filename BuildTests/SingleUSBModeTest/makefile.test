@@ -64,6 +64,12 @@ C_FLAGS += -Wnested-externs
 #CC_FLAGS += -Wjump-misses-init
 #CC_FLAGS += -pedantic
 
-# Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa_sources.mk
-include $(LUFA_PATH)/Build/lufa_build.mk
+# Include LUFA-specific DMBS extension modules
+DMBS_LUFA_PATH ?= $(LUFA_PATH)/Build/LUFA
+include $(DMBS_LUFA_PATH)/lufa-sources.mk
+include $(DMBS_LUFA_PATH)/lufa-gcc.mk
+
+# Include common DMBS build system modules
+DMBS_PATH      ?= $(LUFA_PATH)/Build/DMBS/DMBS
+include $(DMBS_PATH)/core.mk
+include $(DMBS_PATH)/gcc.mk
