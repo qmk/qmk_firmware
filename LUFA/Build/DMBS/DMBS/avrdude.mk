@@ -13,43 +13,6 @@ DMBS_BUILD_OPTIONAL_VARS   += AVRDUDE_PROGRAMMER AVRDUDE_PORT AVRDUDE_FLAGS AVRD
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-# -----------------------------------------------------------------------------
-#             DMBS AVRDUDE Programmer Buildsystem Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of targets to re-program a device using the open source
-#   avr-dude utility.
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    avrdude                   - Program target FLASH with application using
-#                                avrdude
-#    avrdude-ee                - Program target EEPROM with application data
-#                                using avrdude
-#
-# MANDATORY PARAMETERS:
-#
-#    MCU                       - Microcontroller device model name
-#    TARGET                    - Application name
-#
-# OPTIONAL PARAMETERS:
-#
-#    AVRDUDE_PROGRAMMER        - Name of programming hardware to use
-#    AVRDUDE_PORT              - Name of communication port to use
-#    AVRDUDE_FLAGS             - Flags to pass to avr-dude
-#    AVRDUDE_MEMORY            - Memory space to program application into (e.g.
-#                                "application" for an XMEGA DFU device)
-#
-# PROVIDED VARIABLES:
-#
-#    (None)
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
-
 SHELL = /bin/sh
 
 ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))

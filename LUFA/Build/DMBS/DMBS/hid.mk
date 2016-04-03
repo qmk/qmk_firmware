@@ -13,43 +13,6 @@ DMBS_BUILD_OPTIONAL_VARS   +=
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-# -----------------------------------------------------------------------------
-#               DMBS HID Bootloader Buildsystem Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of targets to re-program a device currently running a HID
-#   class bootloader with a project's FLASH files.
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    hid                       - Program FLASH into target via
-#                                hid_bootloader_cli
-#    hid-ee                    - Program EEPROM into target via a temporary
-#                                AVR application and hid_bootloader_cli
-#    teensy                    - Program FLASH into target via
-#                                teensy_loader_cli
-#    teensy-ee                 - Program EEPROM into target via a temporary
-#                                AVR application and teensy_loader_cli
-#
-# MANDATORY PARAMETERS:
-#
-#    MCU                       - Microcontroller device model name
-#    TARGET                    - Application name
-#
-# OPTIONAL PARAMETERS:
-#
-#    (None)
-#
-# PROVIDED VARIABLES:
-#
-#    (None)
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
-
 SHELL = /bin/sh
 
 DMBS_MODULE_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))

@@ -13,39 +13,6 @@ DMBS_BUILD_OPTIONAL_VARS   +=
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-# -----------------------------------------------------------------------------
-#               DMBS DFU Bootloader Buildsystem Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of targets to re-program a device currently running a DFU
-#   class bootloader with a project's FLASH and EEPROM files.
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    flip                      - Program FLASH into target via Atmel FLIP
-#    flip-ee                   - Program EEPROM into target via Atmel FLIP
-#    dfu                       - Program FLASH into target via dfu-programmer
-#    dfu-ee                    - Program EEPROM into target via dfu-programmer
-#
-# MANDATORY PARAMETERS:
-#
-#    MCU                       - Microcontroller device model name
-#    TARGET                    - Application name
-#
-# OPTIONAL PARAMETERS:
-#
-#    (None)
-#
-# PROVIDED VARIABLES:
-#
-#    (None)
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
-
 SHELL = /bin/sh
 
 ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))

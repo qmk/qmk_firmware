@@ -13,54 +13,13 @@ DMBS_BUILD_OPTIONAL_VARS   +=
 DMBS_BUILD_PROVIDED_VARS   += DMBS_VERSION
 DMBS_BUILD_PROVIDED_MACROS +=
 
-# -----------------------------------------------------------------------------
-#               DMBS Core Build System Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of core build targets for the DMBS build system
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    help                      - Build system help
-#    list_targets              - List all build targets
-#    list_modules              - List all build modules
-#    list_mandatory            - List all mandatory make variables required by
-#                                the included build modules of the application
-#    list_optional             - List all optional make variables required by
-#                                the included build modules of the application
-#    list_provided             - List all provided make variables from the
-#                                included build modules of the application
-#    list_macros               - List all provided make macros from the
-#                                included build modules of the application
-#
-# MANDATORY PARAMETERS:
-#
-#    (None)
-#
-# OPTIONAL PARAMETERS:
-#
-#    (None)
-#
-# PROVIDED VARIABLES:
-#
-#    DMBS_VERSION
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
-
 SHELL = /bin/sh
-
 
 # Current DMBS release version
 DMBS_VERSION = 0.4
 
-
 # Converts a given input to a printable output using "(None)" if no items are in the list
 CONVERT_TO_PRINTABLE           = $(if $(strip $(1)), $(1), (None))
-
 
 # Build sorted and filtered lists of the included build module data
 SORTED_DMBS_BUILD_MODULES      = $(sort $(DMBS_BUILD_MODULES))

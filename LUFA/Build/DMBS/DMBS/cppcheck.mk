@@ -14,47 +14,6 @@ DMBS_BUILD_OPTIONAL_VARS   += CPPCHECK_INCLUDES CPPCHECK_EXCLUDES CPPCHECK_MSG_T
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-# -----------------------------------------------------------------------------
-#                DMBS CPPCheck Buildsystem Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of targets to scan a project with the free "cppcheck" static
-#   analysis tool, to check for code errors at runtime
-#   (see http://cppcheck.sourceforge.net).
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    cppcheck                  - Scan the project with CPPCheck
-#    cppcheck-config           - Use CPPCheck to look for missing include files
-#
-# MANDATORY PARAMETERS:
-#
-#    SRC                       - List of source files to statically analyze
-#
-# OPTIONAL PARAMETERS:
-#
-#    CPPCHECK_INCLUDES         - Extra include paths to search for missing
-#                                header files
-#    CPPCHECK_EXCLUDES         - Source file paths to exclude checking (can be
-#                                a path fragment if desired)
-#    CPPCHECK_MSG_TEMPLATE     - Template for cppcheck error and warning output
-#    CPPCHECK_ENABLE           - General cppcheck category checks to enable
-#    CPPCHECK_SUPPRESS         - Specific cppcheck warnings to disable by ID
-#    CPPCHECK_FAIL_ON_WARNING  - Set to Y to fail the build on cppcheck
-#                                warnings, N to continue even if warnings occur
-#    CPPCHECK_QUIET            - Enable cppcheck verbose or quiet output mode
-#    CPPCHECK_FLAGS            - Additional flags to pass to cppcheck
-#
-# PROVIDED VARIABLES:
-#
-#    (None)
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
-
 SHELL = /bin/sh
 
 ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))

@@ -7,47 +7,11 @@
 #
 
 DMBS_BUILD_MODULES         += DOXYGEN
-DMBS_BUILD_TARGETS         += doxygen doxygen_upgrade doxygen_create
+DMBS_BUILD_TARGETS         += doxygen doxygen-upgrade doxygen-create
 DMBS_BUILD_MANDATORY_VARS  +=
 DMBS_BUILD_OPTIONAL_VARS   += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERRIDE_PARAMS
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
-
-# -----------------------------------------------------------------------------
-#                 DMBS Doxygen Buildsystem Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of targets to automatically build Doxygen documentation for
-#   a project (see www.doxygen.org).
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    doxygen                   - Build Doxygen Documentation
-#    doxygen_create            - Create a new Doxygen configuration file using
-#                                the latest template
-#    doxygen_upgrade           - Upgrade an existing Doxygen configuration file
-#                                to the latest template
-#
-# MANDATORY PARAMETERS:
-#
-#    (None)
-#
-# OPTIONAL PARAMETERS:
-#
-#    DOXYGEN_CONF              - Doxygen configuration filename
-#    DOXYGEN_FAIL_ON_WARNING   - Set to Y to fail the build on Doxygen warnings,
-#                                N to continue even if warnings occur
-#    DOXYGEN_OVERRIDE_PARAMS   - Parameters to override in the doxygen
-#                                configuration file
-# PROVIDED VARIABLES:
-#
-#    (None)
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
 
 SHELL = /bin/sh
 
@@ -86,12 +50,12 @@ doxygen: $(DOXYGEN_CONF) $(MAKEFILE_LIST)
 	$(DOXYGEN_CMD)
 
 # Upgrades an existing Doxygen configuration file to the latest Doxygen template, preserving settings
-doxygen_upgrade: $(DOXYGEN_CONF) $(MAKEFILE_LIST)
+doxygen-upgrade: $(DOXYGEN_CONF) $(MAKEFILE_LIST)
 	@echo $(MSG_DOXYGEN_CMD) Upgrading configuration file \"$(DOXYGEN_CONF)\" with latest template
 	doxygen -u $(DOXYGEN_CONF) > /dev/null
 
 # Creates a new Doxygen configuration file with the set file name
-doxygen_create: $(MAKEFILE_LIST)
+doxygen-create: $(MAKEFILE_LIST)
 	@echo $(MSG_DOXYGEN_CMD) Creating new configuration file \"$(DOXYGEN_CONF)\" with latest template
 	doxygen -g $(DOXYGEN_CONF) > /dev/null
 

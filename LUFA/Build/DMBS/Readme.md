@@ -35,9 +35,7 @@ are included via a GNU Make `include` directive. While the DMBS `core` module is
 always required, you can pick and choose what other modules you wish to add to
 your user project.
 
-DMBS is also used in the LUFA Project which provides a
-[detailed documentation](http://www.fourwalledcubicle.com/files/LUFA/Doc/151115/html/_page__build_system.html)
-of DMBS.
+[See here for the documentation on the individual modules provided by DMBS.](DMBS/Modules.md)
 
 Here's an example user makefile:
 

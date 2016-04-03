@@ -13,41 +13,6 @@ DMBS_BUILD_OPTIONAL_VARS   += ATPROGRAM_PROGRAMMER ATPROGRAM_INTERFACE ATPROGRAM
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-# -----------------------------------------------------------------------------
-#             DMBS ATPROGRAM Programmer Buildsystem Makefile Module.
-# -----------------------------------------------------------------------------
-# DESCRIPTION:
-#   Provides a set of targets to re-program a device using the Atmel atprogram
-#   utility in AVR Studio 5.x and Atmel Studio 6.0 onwards.
-# -----------------------------------------------------------------------------
-# TARGETS:
-#
-#    atprogram                 - Program target FLASH with application using
-#                                atprogram
-#    atprogram-ee              - Program target EEPROM with application data
-#                                using atprogram
-#
-# MANDATORY PARAMETERS:
-#
-#    MCU                       - Microcontroller device model name
-#    TARGET                    - Application name
-#
-# OPTIONAL PARAMETERS:
-#
-#    ATPROGRAM_PROGRAMMER      - Name of programming hardware to use
-#    ATPROGRAM_INTERFACE       - Name of programming interface to use
-#    ATPROGRAM_PORT            - Name of communication port to use
-#
-# PROVIDED VARIABLES:
-#
-#    (None)
-#
-# PROVIDED MACROS:
-#
-#    (None)
-#
-# -----------------------------------------------------------------------------
-
 SHELL = /bin/sh
 
 ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
