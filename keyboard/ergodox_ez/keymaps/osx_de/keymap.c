@@ -271,14 +271,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		static uint16_t start;
   // MACRODOWN only works in this function
       switch(id) {
-        case 0:
-		if (record->event.pressed) {
-		  register_code(KC_RSFT);
-		} else {
-		  unregister_code(KC_RSFT);
-		}
-		break;
-	case 1:
+	case M_CTRL_CMDV:
+		//Macro description: long press CTRL, type CMD-V
+		//Macro type: LT
 		if (record->event.pressed) {
 			start = timer_read();
 			return MACRO(D(LCTRL), END);
@@ -290,7 +285,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			}
 		}
 		break;
-	case 2:
+		//End Macro
+	case M_CTRL_CMDC:
+		//Macro description: 
+		//Macro type: LT
 		if (record->event.pressed) {
 			start = timer_read();
 			return MACRO(D(LCTRL),END);
@@ -302,7 +300,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			}
 		}
 		break;
-	case 3:
+	case M_MEH_SH_ACUT:
 		if (record->event.pressed) {
 			start = timer_read();
 			return MACRO(D(LCTRL),D(LSFT),D(LALT),END);
@@ -313,7 +311,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				return MACRO(U(LCTRL),U(LALT),T(EQL),U(LSFT),END); //cannot use DE_OSX_ACUT here, as macro needs KC_ prefix
 			}
 		}
-		break;
+		break; 
+       
 	case M_LGUI_SHFT:
 		if (record->event.pressed){
 			return MACRO(D(LGUI),D(LSFT),END);
@@ -358,6 +357,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		}
 		break;
 	case SM_SMILE:
+		//MAcro description: :-)
+		//Macro type: MACRO
 		if (record->event.pressed) {
 			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(9),U(LSFT),END);
 		}
@@ -401,11 +402,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		}
 		break;
     case M_TOGGLE_5:  
+	//Macro description: Toggle LAyer 5 (Egoshooter)
+	//Macro type: LToggle
        if (record->event.pressed){
            layer_state ^= (1<<5);
            layer_state &= (1<<5);
         }
         break;
+	//Macro End
     }
     return MACRO_NONE;
 };
@@ -426,21 +430,21 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
+        case SYMB:
             ergodox_right_led_1_on();
             break;
-        case 2:
+        case MDIA:
             ergodox_right_led_2_on();
 	    break;
-        case 3:
+        case SMLY:
             ergodox_right_led_3_on();
             break;
-        case 4:
+        case NUMB:
 	    ergodox_right_led_1_on();
             ergodox_right_led_3_on();
 	    //ergodox_board_led_on();
             break;
-        case 5: 
+        case EGOS: 
         	ergodox_right_led_1_on();
         	ergodox_right_led_2_on();
         	ergodox_right_led_3_on();
