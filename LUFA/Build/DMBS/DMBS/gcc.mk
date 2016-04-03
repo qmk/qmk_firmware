@@ -192,6 +192,12 @@ BASE_C_FLAGS   := -x c -O$(OPTIMIZATION) -std=$(C_STANDARD) -Wstrict-prototypes
 BASE_CPP_FLAGS := -x c++ -O$(OPTIMIZATION) -std=$(CPP_STANDARD)
 BASE_ASM_FLAGS := -x assembler-with-cpp
 
+# This flag is required for bootloaders as GCC will emit invalid jump table
+# assembly code for devices with large amounts of flash; the jump table target
+# is extracted from FLASH without using the correct ELPM instruction, resulting
+# in a pseudo-random jump target.
+BASE_CC_FLAGS += -fno-jump-tables
+
 # Create a list of flags to pass to the linker
 BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections
 ifeq ($(LINKER_RELAXATIONS), Y)

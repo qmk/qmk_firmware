@@ -55,7 +55,7 @@ ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $
 ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Default values of optionally user-supplied variables
-ATPROGRAM_PROGRAMMER ?= jtagice3
+ATPROGRAM_PROGRAMMER ?= atmelice
 ATPROGRAM_INTERFACE  ?= jtag
 ATPROGRAM_PORT       ?=
 
