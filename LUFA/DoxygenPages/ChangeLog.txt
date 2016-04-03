@@ -7,6 +7,11 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  <b>New:</b>
+  *  - Core:
+  *   - Added support for the Pololu A-Star Micro board (thanks to Joh Schneider)
+  *   - Added new \c LUFA_VERSION_RELEASE_TYPE macro to the library version header, to determine release type (thanks to NicoHood)
+  *
   *  <b>Fixed:</b>
   *  - Core:
   *   - The CALLBACK_USB_GetDescriptor() callback function into the user application erroneously had a uint8_t type for the wIndex
@@ -17,6 +22,13 @@
   *   - Fixed void pointer arithmetic in the \c Serial_SendData() functions for AVR8 and XMEGA architectures
   *   - Fixed void pointer arithmetic in the low level and class driver RNDIS demo protocol decoders
   *   - Fixed low level RNDIS demo incorrectly setting the RNDIS state when a null packet filter was requested
+  *   - Fixed missing entries in several project's Atmel Studio integration files, such as driver INF files
+  *   - Fixed invalid endpoint indexes causing memory corruption in device Clear/Set Feature standard requests (thanks to Peter Popovec)
+  *
+  *  <b>Changed:</b>
+  *   - Added signed alternative libUSB driver for the AVRISP-MKII clone project, to support Atmel Studio 7 (thanks to Atmel)
+  *   - Removed no longer required LIBUSB_DRIVER_COMPAT and RESET_TOGGLES_LIBUSB_COMPAT configuration options from the AVRISP-MKII
+  *     clone project, as the new libUSB driver works for AVRDUDE and Atmel Studio 7 under Windows
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>

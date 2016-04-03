@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2015.
+     Copyright (C) Dean Camera, 2016.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2015  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2016  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -59,12 +59,10 @@
 	#define VTARGET_REF_VOLTS          5
 	#define VTARGET_SCALE_FACTOR       1
 //	#define VTARGET_USE_INTERNAL_REF
-//	#define NO_VTARGET_DETECT
+	#define NO_VTARGET_DETECT
 //	#define XCK_RESCUE_CLOCK_ENABLE
 //	#define INVERTED_ISP_MISO
 
-	#define LIBUSB_DRIVER_COMPAT
-//	#define RESET_TOGGLES_LIBUSB_COMPAT
 //	#define FIRMWARE_VERSION_MINOR     0x11
 
 #endif

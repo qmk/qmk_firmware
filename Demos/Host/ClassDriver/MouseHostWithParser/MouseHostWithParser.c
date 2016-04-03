@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2015.
+     Copyright (C) Dean Camera, 2016.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2015  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2016  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -132,13 +132,17 @@ void MouseHost_Task(void)
 			if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
 			    (ReportItem->ItemType                     == HID_REPORT_ITEM_In))
 			{
-				if (ReportItem->Value)
+				/* Buttons are numbered sequentially in their HID usages, button 1 is the left mouse button */
+				uint8_t ButtonID = ReportItem->Attributes.Usage.Usage;
+
+				if ((ButtonID == 1) && (ReportItem->Value != 0))
 				  LEDMask = LEDS_ALL_LEDS;
 			}
 			else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 			         (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
 			         (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 			{
+				/* Convert wheel data to a 16-bit signed value */
 				int16_t WheelDelta = HID_ALIGN_DATA(ReportItem, int16_t);
 
 				if (WheelDelta)
@@ -149,6 +153,7 @@ void MouseHost_Task(void)
 			          (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
 			         (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 			{
+				/* Convert X/Y movement to 16-bit signed value */
 				int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
 
 				if (DeltaMovement)

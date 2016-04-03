@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2015.
+     Copyright (C) Dean Camera, 2016.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2015  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2016  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -276,19 +276,17 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
  *  \param[in]  wValue                 Descriptor type and index to retrieve
  *  \param[in]  wIndex                 Sub-index to retrieve (such as a localized string language)
  *  \param[out] DescriptorAddress      Address of the retrieved descriptor
- *  \param[out] DescriptorMemorySpace  Memory space that the descriptor is stored in
  *
  *  \return Length of the retrieved descriptor in bytes, or NO_DESCRIPTOR if the descriptor was not found
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint16_t wIndex,
-                                    const void** const DescriptorAddress,
-		                            uint8_t* const DescriptorMemorySpace)
+                                    const void** const DescriptorAddress)
 {
 	/* Return the correct descriptors based on the selected mode */
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
-	  return USART_GetDescriptor(wValue, wIndex, DescriptorAddress, DescriptorMemorySpace);
+	  return USART_GetDescriptor(wValue, wIndex, DescriptorAddress);
 	else
-	  return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress, DescriptorMemorySpace);
+	  return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress);
 }
 

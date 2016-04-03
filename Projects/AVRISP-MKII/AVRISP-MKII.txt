@@ -44,16 +44,24 @@
  *
  *  \section Sec_Description Project Description
  *
- *  Firmware for an Atmel Studio/AVR Studio compatible AVRISP-MKII clone programmer. This project will enable the USB
+ *  Firmware for an Atmel Studio compatible AVRISP-MKII clone programmer. This project will enable the USB
  *  AVR series of microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within
- *  Atmel Studio/AVR Studio or with any software capable of driving a real Atmel AVRISP-MKII programmer. In its most
- *  basic form, it allows for the programming of AVR TINY, MEGA and XMEGA devices aat the programmer's VCC voltage from
- *  within Atmel Studio/AVR Studio with no special hardware other than the USB AVR and the parts needed for the USB
+ *  Atmel Studio or with any software capable of driving a real Atmel AVRISP-MKII programmer. In its most
+ *  basic form, it allows for the programming of AVR TINY, MEGA and XMEGA devices at the programmer's VCC voltage from
+ *  within Atmel Studio with no special hardware other than the USB AVR and the parts needed for the USB
  *  interface. If the user desires, more advanced circuits incorporating level conversion can be made to allow for the
  *  programming of target AVRs running at a different voltage to the programmer.
  *
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
- *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with Atmel Studio/AVR Studio.
+ *  drivers. It is currently tested working under the following configurations:
+ *
+ *    - <b>Windows:</b> Atmel Studio 7, with alternative driver
+ *    - <b>Windows:</b> AVRDUDE 6.2, with alternative driver
+ *    - <b>Linux:</b> AVRDUDE 6.1
+ *
+ *  <b>Note that this clone requires an alternative driver under Windows,</b> due to an incompatible change in the official
+ *  Jungo based driver. The alternative driver given here will function with both real and clone AVRISP devices in Atmel
+ *  Studio 7 onwards under Windows - and as a bonus, also provides AVRDude access to the programmer.
  *
  *  Note that this design currently has the following limitations:
  *    - No reversed/shorted target connector detection and notification
@@ -69,22 +77,10 @@
  *
  *  \section Sec_KnownIssues Known Issues:
  *
- *  \par Incompatible with newer AVRDUDE releases.
- *  Due to <a href="http://savannah.nongnu.org/bugs/index.php?40831">a change in 6.0.1 and never AVRDUDE releases</a>,
- *  these builds are incompatible with the AVRISP-MKII clone project. Use an older 5.x release until AVRDUDE is patched.
- *
  *  \par XMEGA EEPROM programming fails in some cases.
  *  Several users have reported that XMEGA EEPROM programming fails unless the chip is erased first. If a non-blank EEPROM
  *  is present, writing further EEPROM data causes corruption.
  *  <a href="https://github.com/abcminiuser/lufa/issues/25">LUFA issue tracker entry</a>.
- *
- *  \par Does not work with Atmel Studio 6.2 or newer in some cases.
- *  If the libUSB filter driver is used to bind both libUSB and Jungo drivers to the clone device at the same time, it will
- *  no longer work in Atmel Studio 6.2 and newer. This is due to a change in the latter; Atmel Studio now supports both
- *  drivers for various tools, but while the libUSB driver is given preference the inner workings of Atmel Studio cannot
- *  communicate with the AVR-ISP MKII with libUSB (this is true for the genuine tool also). Uninstall the filter driver and
- *  install only the standard libUSB driver, or Jungo driver. The \c RESET_TOGGLES_LIBUSB_COMPAT compile option (detailed
- *  below) is a suitable workaround to this issue.
  *
  *  \section Sec_Installation Installation
  *  The programmer supports multiple platforms, both Windows and Linux.
@@ -95,36 +91,9 @@
  *  is compatible with the free open source AVRDude programming software project.
  *
  *  \subsection SSec_WindowsInstallation Windows Installation
- *  On Windows systems, due to an unfortunate limitation of the USB AVR devices and the driver used in the official AVR
- *  Studio/Atmel Studio platform, the programmer cannot be made compatible with AVRDude and AVR Studio/Atmel Studio at the
- *  same time. Instead, the programmer will be compatible with the official Atmel software by default, with a recompilation
- *  with the \c LIBUSB_DRIVER_COMPAT token (see \ref Sec_Options) being required to use the alternative libUSB driver
- *  compatibility mode that will allow the programmer to work under AVRDude on Windows.
- *
- *  If compiled for Atmel Studio/AVR Studio compatibility, install the Jungo device drivers that ship with the Atmel software.
- *  If compiled in the alternative libUSB compatibility mode for AVRDude use, install the libUSB drivers that are included
- *  with your compiled copy of AVRDude, or create them using the libUSB-Win32 (http://sourceforge.net/projects/libusb-win32)
- *  project.
- *
- *  For convenience, the programmer will report two different serial numbers depending on the firmware compatibility mode, so
- *  that the correct driver can be installed for the matching firmware. If the \c RESET_TOGGLES_LIBUSB_COMPAT compile option
- *  is used (see \ref Sec_Options) this allows for an easy way to automatically switch device drivers along with the firmware
- *  compatibility mode. The serials are:
- *
- *  <table>
- *   <tr>
- *    <th><b>Serial Number:</b></th>
- *    <th><b>Compatibility Mode:</b></th>
- *   </tr>
- *   <tr>
- *    <td>000200012345</td>
- *    <td>Jungo (Atmel Studio) Compatibility</td>
- *   </tr>
- *   <tr>
- *    <td>000200112345</td>
- *    <td>libUSB Compatibility</td>
- *   </tr>
- *  </table>
+ *  On Windows systems, due to an unfortunate limitation of the USB AVR devices and the Atmel Studio platform, the programmer
+ *  requires an alternative libUSB based driver. Uninstall the existing Jungo driver for the device (if installed) and replace
+ *  it with the driver that ships with this project, to enable access to the programmer in Atmel Studio and AVRDUDE.
  *
  *  \section Sec_ISP ISP Connections
  *  Connections to the device for SPI programming (when enabled):
@@ -349,26 +318,6 @@
  *        measured. This should be the reciprocal of the division performed - e.g. if the VTARGET voltage is halved, this should be set
  *        to 2.
  *        \n \n <i>Ignored when compiled for targets lacking an ADC, or when NO_VTARGET_DETECT is defined.</i></td>
- *   </tr>
- *   <tr>
- *    <td>LIBUSB_DRIVER_COMPAT</td>
- *    <td>AppConfig.h</td>
- *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with Atmel Studio/AVR Studio under Windows but
- *        making the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
- *
- *        \note This option is incompatible with \c RESET_TOGGLES_LIBUSB_COMPAT.</td>
- *   </tr>
- *   <tr>
- *    <td>RESET_TOGGLES_LIBUSB_COMPAT</td>
- *    <td>AppConfig.h</td>
- *    <td>Define to make the /RESET line of the AVR toggle between Jungo and libUSB driver compatibility modes. Each time the AVR is
- *        reset externally via the reset pin, the compatibility mode will be toggled. The compatibility mode is preserved between
- *        power cycles and is not toggled via other forms of reset such as Watchdog or Brown Out.
- *
- *        When this option is enabled, all board LEDs will flash twice on startup for Jungo compatibility mode, and five times for
- *        libUSB compatibility mode.
- *
- *        \note This option is incompatible with \c LIBUSB_DRIVER_COMPAT.</td>
  *   </tr>
  *   <tr>
  *    <td>XCK_RESCUE_CLOCK_ENABLE</td>

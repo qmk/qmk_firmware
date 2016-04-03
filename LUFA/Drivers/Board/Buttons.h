@@ -1,13 +1,13 @@
 /*
              LUFA Library
-     Copyright (C) Dean Camera, 2015.
+     Copyright (C) Dean Camera, 2016.
 
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
 
 /*
-  Copyright 2015  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2016  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
@@ -93,8 +93,9 @@
 
 		#if (BOARD == BOARD_NONE)
 			#define BUTTONS_BUTTON1  0
-			static inline void       Buttons_Init(void) {};
-			static inline uint_reg_t Buttons_GetStatus(void) { return 0; };
+			static inline void       Buttons_Init(void) {}
+			static inline void       Buttons_Disable(void) {}
+			static inline uint_reg_t Buttons_GetStatus(void) { return 0; }
 		#elif (BOARD == BOARD_USBKEY)
 			#include "AVR8/USBKEY/Buttons.h"
 		#elif (BOARD == BOARD_STK525)

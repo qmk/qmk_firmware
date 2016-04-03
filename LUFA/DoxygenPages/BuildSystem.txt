@@ -456,6 +456,10 @@
  *    <td><tt>AVRDUDE_FLAGS</tt></td>
  *    <td>Additional flags to pass to avrdude when programming, applied after the automatically generated flags.</td>
  *   </tr>
+ *   <tr>
+ *    <td><tt>AVRDUDE_MEMORY</tt></td>
+ *    <td>Main memory space used when programming in an application *e.g. <tt>application</tt> for a DFU bootloader, or <tt>flash</tt> for a regular programmer).</td>
+ *   </tr>
  *  </table>
  *
  *  \section SSec_BuildModule_AVRDUDE_ProvidedVariables Module Provided Variables
