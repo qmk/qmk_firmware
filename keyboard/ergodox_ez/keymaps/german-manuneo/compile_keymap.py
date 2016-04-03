@@ -43,6 +43,9 @@ KEYBOARD_LAYOUTS = {
     ]
 }
 
+ROW_INDENTS = {
+    'ergodox_ez': [0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 5, 0, 6, 0, 4, 0]
+}
 
 BLANK_LAYOUTS = [
 # Compact Layout
@@ -591,16 +594,43 @@ def unicode_macro_cases(config):
         )
 
 
-def iter_keymap_lines(keymap):
+def iter_keymap_lines(keymap, row_indents=None):
+    col_widths = {}
+    col = 0
+    # first pass, figure out the column widths
+    prev_row_index = None
+    for code, row_index in keymap.values():
+        if row_index != prev_row_index:
+            col = 0
+            if row_indents:
+                col = row_indents[row_index]
+        col_widths[col] = max(len(code), col_widths.get(col, 0))
+        prev_row_index = row_index
+        col += 1
+
+    # second pass, yield the cell values
+    col = 0
     prev_row_index = None
     for key_index in sorted(keymap):
         code, row_index = keymap[key_index]
         if row_index != prev_row_index:
+            col = 0
             yield "\n"
+            if row_indents:
+                for indent_col in range(row_indents[row_index]):
+                    pad = " " * (col_widths[indent_col] - 4)
+                    yield (" /*-*/" + pad)
+                col = row_indents[row_index]
+        else:
+            yield pad
         yield " {}".format(code)
         if key_index < len(keymap) - 1:
             yield ","
+            # This will be yielded on the next iteration when
+            # we know that we're not at the end of a line.
+            pad = " " * (col_widths[col] - len(code))
         prev_row_index = row_index
+        col += 1
 
 
 def iter_keymap_parts(config, keymaps):
@@ -628,11 +658,12 @@ def iter_keymap_parts(config, keymaps):
         # comment
         layer_lines = config['layer_lines'][layer_name]
         prefixed_lines = " * " + " * ".join(layer_lines)
-        yield "/*\n{}*/\n".format(prefixed_lines)
+        yield "/*\n{} */\n".format(prefixed_lines)
 
         # keymap codes
         keymap = keymaps[layer_name]
-        keymap_lines = "".join(iter_keymap_lines(keymap))
+        row_indents = ROW_INDENTS.get(config['layout'])
+        keymap_lines = "".join(iter_keymap_lines(keymap, row_indents))
         yield "[L{0}] = KEYMAP({1}\n),\n".format(i, keymap_lines)
 
     yield "};\n\n"
