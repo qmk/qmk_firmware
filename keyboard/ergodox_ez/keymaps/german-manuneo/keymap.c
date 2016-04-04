@@ -127,22 +127,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |BSPC |LSFT | ESC | ! PGDN|ENTER|SPACE|
  *                   '-----------------' '-----------------'
-*/
+ */
 [L0] = KEYMAP(
- MO(5), DE_1, DE_2, DE_3, DE_4, DE_5, DE_ACUT,
- MO(4), DE_X, DE_P, DE_F, DE_W, DE_G, KC_HOME,
- MO(1), DE_U, DE_I, DE_A, DE_E, DE_O,
- MO(3), DE_UE, DE_OE, DE_AE, DE_C, DE_V, KC_END,
- KC_TRNS, KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL,
- KC_INS, TG(2),
- KC_APP,
- KC_BSPC, KC_LSFT, KC_ESC,
- DE_GRV, DE_6, DE_7, DE_8, DE_9, DE_0, DE_CIRC,
- TG(2), DE_H, DE_J, DE_K, DE_L, DE_Q, DE_Z,
- DE_S, DE_N, DE_R, DE_T, DE_D, DE_SS,
- KC_TAB, DE_B, DE_M, DE_COMM, DE_DOT, KC_UP, DE_Y,
- KC_RCTL, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT,
- M(UM), KC_DELT,
+ MO(5),   DE_1,     DE_2,     DE_3,    DE_4,    DE_5,    DE_ACUT,
+ MO(4),   DE_X,     DE_P,     DE_F,    DE_W,    DE_G,    KC_HOME,
+ MO(1),   DE_U,     DE_I,     DE_A,    DE_E,    DE_O,
+ MO(3),   DE_UE,    DE_OE,    DE_AE,   DE_C,    DE_V,    KC_END,
+ KC_TRNS, KC_TRNS,  KC_LGUI,  KC_LALT, KC_LCTL,
+ /*-*/    /*-*/     /*-*/     /*-*/    /*-*/    KC_INS,  TG(2),
+ /*-*/    /*-*/     /*-*/     /*-*/    /*-*/    /*-*/    KC_APP,
+ /*-*/    /*-*/     /*-*/     /*-*/    KC_BSPC, KC_LSFT, KC_ESC,
+ DE_GRV,  DE_6,     DE_7,     DE_8,    DE_9,    DE_0,    DE_CIRC,
+ TG(2),   DE_H,     DE_J,     DE_K,    DE_L,    DE_Q,    DE_Z,
+ /*-*/    DE_S,     DE_N,     DE_R,    DE_T,    DE_D,    DE_SS,
+ KC_TAB,  DE_B,     DE_M,     DE_COMM, DE_DOT,  KC_UP,   DE_Y,
+ /*-*/    /*-*/     KC_RCTL,  KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT,
+ M(UM),   KC_DELT,
  KC_PGUP,
  KC_PGDN, KC_ENTER, KC_SPACE
 ),
@@ -165,21 +165,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
-*/
+ */
 [L1] = KEYMAP(
- KC_TRNS, DE_EXLM, DE_DQOT, DE_PARA, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, DE_ASTR, DE_PIPE, DE_SLSH, DE_LCBR, DE_RCBR, KC_TRNS,
- KC_TRNS, DE_UNDS, DE_MINS, DE_AMPR, DE_LBRC, DE_RBRC,
- KC_TRNS, KC_TRNS, DE_PLUS, DE_EQL, KC_TRNS, KC_TRNS, KC_TRNS,
+ KC_TRNS, DE_EXLM, DE_DQOT, DE_PARA, KC_TRNS,               KC_TRNS,               KC_TRNS,
+ KC_TRNS, DE_ASTR, DE_PIPE, DE_SLSH, DE_LCBR,               DE_RCBR,               KC_TRNS,
+ KC_TRNS, DE_UNDS, DE_MINS, DE_AMPR, DE_LBRC,               DE_RBRC,
+ KC_TRNS, KC_TRNS, DE_PLUS, DE_EQL,  KC_TRNS,               KC_TRNS,               KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_RING, KC_TRNS,
- KC_TRNS, DE_HASH, DE_LESS, DE_MORE, KC_TRNS, DE_DQOT, KC_TRNS,
- DE_DLR, DE_LPRN, DE_RPRN, DE_TILD, DE_QUOT, DE_QST,
- KC_TRNS, DE_BSLS, DE_PERC, DE_SCLN, DE_COLN, M(UC_UPWARDS_ARROW), KC_TRNS,
- KC_TRNS, KC_TRNS, M(UC_LEFTWARDS_ARROW), M(UC_DOWNWARDS_ARROW), M(UC_RIGHTWARDS_ARROW),
+ /*-*/    /*-*/    /*-*/    /*-*/    /*-*/                  KC_TRNS,               KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    /*-*/                  /*-*/                  KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS,               KC_TRNS,               KC_TRNS,
+ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,               DE_RING,               KC_TRNS,
+ KC_TRNS, DE_HASH, DE_LESS, DE_MORE, KC_TRNS,               DE_DQOT,               KC_TRNS,
+ /*-*/    DE_DLR,  DE_LPRN, DE_RPRN, DE_TILD,               DE_QUOT,               DE_QST,
+ KC_TRNS, DE_BSLS, DE_PERC, DE_SCLN, DE_COLN,               M(UC_UPWARDS_ARROW),   KC_TRNS,
+ /*-*/    /*-*/    KC_TRNS, KC_TRNS, M(UC_LEFTWARDS_ARROW), M(UC_DOWNWARDS_ARROW), M(UC_RIGHTWARDS_ARROW),
  KC_TRNS, KC_TRNS,
  KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS
@@ -203,21 +203,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
-*/
+ */
 [L2] = KEYMAP(
- KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F11,
+ KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_F12, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_PEQL,
- KC_TRNS, KC_TRNS, KC_P7, KC_P8, KC_P9, KC_PAST, KC_PSLS,
- KC_TRNS, KC_P4, KC_P5, KC_P6, KC_PMNS, KC_PMNS,
- KC_NLCK, KC_TRNS, KC_P1, KC_P2, KC_P3, KC_PPLS, KC_PPLS,
- KC_P0, KC_PCMM, KC_PDOT, KC_PENT, KC_PENT,
+ /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS, KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS, KC_TRNS, KC_TRNS,
+ KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_PEQL,
+ KC_TRNS, KC_TRNS, KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_PSLS,
+ /*-*/    KC_TRNS, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PMNS,
+ KC_NLCK, KC_TRNS, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, KC_PPLS,
+ /*-*/    /*-*/    KC_P0,   KC_PCMM, KC_PDOT, KC_PENT, KC_PENT,
  KC_TRNS, KC_TRNS,
  KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS
@@ -241,24 +241,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
-*/
+ */
 [L3] = KEYMAP(
- KC_TRNS, M(UC_SUPERSCRIPT_ONE), M(UC_SUPERSCRIPT_TWO), M(UC_SUPERSCRIPT_THREE), M(UC_SUPERSCRIPT_FOUR), M(UC_SUPERSCRIPT_FIVE), M(UC_FOR_ALL),
- KC_TRNS, M(UC_MULTIPLICATION_SIGN), M(UC_VULGAR_FRACTION_ONE_HALF), M(UC_DIVISION_SIGN), M(UC_VULGAR_FRACTION_ONE_QUARTER), M(UC_VULGAR_FRACTION_ONE_FIFTH), KC_TRNS,
- KC_TRNS, KC_TRNS, M(UC_PLUS_MINUS_SIGN), DE_AT, DE_EURO, M(UC_EMPTY_SET),
- KC_TRNS, M(UC_VULGAR_FRACTION_ONE_THIRD), M(UC_NOT_EQUAL_TO), M(UC_VULGAR_FRACTION_TWO_THIRDS), M(UC_VULGAR_FRACTION_THREE_QUARTERS), M(UC_ASYMPTOTICALLY_EQUAL_TO), KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+ KC_TRNS, M(UC_SUPERSCRIPT_ONE),           M(UC_SUPERSCRIPT_TWO),                  M(UC_SUPERSCRIPT_THREE),          M(UC_SUPERSCRIPT_FOUR),               M(UC_SUPERSCRIPT_FIVE),          M(UC_FOR_ALL),
+ KC_TRNS, M(UC_MULTIPLICATION_SIGN),       M(UC_VULGAR_FRACTION_ONE_HALF),         M(UC_DIVISION_SIGN),              M(UC_VULGAR_FRACTION_ONE_QUARTER),    M(UC_VULGAR_FRACTION_ONE_FIFTH), KC_TRNS,
+ KC_TRNS, KC_TRNS,                         M(UC_PLUS_MINUS_SIGN),                  DE_AT,                            DE_EURO,                              M(UC_EMPTY_SET),
+ KC_TRNS, M(UC_VULGAR_FRACTION_ONE_THIRD), M(UC_NOT_EQUAL_TO),                     M(UC_VULGAR_FRACTION_TWO_THIRDS), M(UC_VULGAR_FRACTION_THREE_QUARTERS), M(UC_ASYMPTOTICALLY_EQUAL_TO),   KC_TRNS,
+ KC_TRNS, KC_TRNS,                         KC_TRNS,                                KC_TRNS,                          KC_TRNS,
+ /*-*/    /*-*/                            /*-*/                                   /*-*/                             /*-*/                                 KC_TRNS,                         KC_TRNS,
+ /*-*/    /*-*/                            /*-*/                                   /*-*/                             /*-*/                                 /*-*/                            KC_TRNS,
+ /*-*/    /*-*/                            /*-*/                                   /*-*/                             KC_TRNS,                              KC_TRNS,                         KC_TRNS,
+ KC_TRNS, M(UC_SUPERSCRIPT_SIX),           M(UC_SUPERSCRIPT_SEVEN),                M(UC_SUPERSCRIPT_EIGHT),          M(UC_SUPERSCRIPT_NINE),               M(UC_SUPERSCRIPT_ZERO),          KC_TRNS,
+ KC_TRNS, M(UC_VULGAR_FRACTION_ONE_SIXTH), KC_TRNS,                                M(UC_VULGAR_FRACTION_ONE_EIGHTH), KC_TRNS,                              KC_TRNS,                         KC_TRNS,
+ /*-*/    M(UC_INFINITY),                  M(UC_SUPERSCRIPT_LATIN_SMALL_LETTER_N), M(UC_THERE_EXISTS),               M(UC_ELEMENT_OF),                     KC_TRNS,                         KC_TRNS,
+ KC_TRNS, DE_EXLM,                         KC_TRNS,                                M(UC_THERE_DOES_NOT_EXIST),       M(UC_NOT_AN_ELEMENT_OF),              KC_TRNS,                         KC_TRNS,
+ /*-*/    /*-*/                            KC_TRNS,                                KC_TRNS,                          KC_TRNS,                              KC_TRNS,                         KC_TRNS,
  KC_TRNS, KC_TRNS,
  KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, M(UC_SUPERSCRIPT_SIX), M(UC_SUPERSCRIPT_SEVEN), M(UC_SUPERSCRIPT_EIGHT), M(UC_SUPERSCRIPT_NINE), M(UC_SUPERSCRIPT_ZERO), KC_TRNS,
- KC_TRNS, M(UC_VULGAR_FRACTION_ONE_SIXTH), KC_TRNS, M(UC_VULGAR_FRACTION_ONE_EIGHTH), KC_TRNS, KC_TRNS, KC_TRNS,
- M(UC_INFINITY), M(UC_SUPERSCRIPT_LATIN_SMALL_LETTER_N), M(UC_THERE_EXISTS), M(UC_ELEMENT_OF), KC_TRNS, KC_TRNS,
- KC_TRNS, DE_EXLM, KC_TRNS, M(UC_THERE_DOES_NOT_EXIST), M(UC_NOT_AN_ELEMENT_OF), KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS
+ KC_TRNS, KC_TRNS,                         KC_TRNS
 ),
 /*
  * .------------------------------------.------------------------------------.
@@ -279,24 +279,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
-*/
+ */
 [L4] = KEYMAP(
- KC_TRNS, M(UC_SUBSCRIPT_ONE), M(UC_SUBSCRIPT_TWO), M(UC_SUBSCRIPT_THREE), M(UC_SUBSCRIPT_FOUR), M(UC_SUBSCRIPT_FIVE), KC_TRNS,
- KC_TRNS, M(UC_GREEK_SMALL_LETTER_CHI), M(UC_GREEK_SMALL_LETTER_PI), M(UC_GREEK_SMALL_LETTER_PHI), M(UC_GREEK_SMALL_LETTER_OMEGA), M(UC_GREEK_SMALL_LETTER_GAMMA), KC_TRNS,
- KC_TRNS, M(UC_GREEK_SMALL_LETTER_UPSILON), M(UC_GREEK_SMALL_LETTER_IOTA), M(UC_GREEK_SMALL_LETTER_ALPHA), M(UC_GREEK_SMALL_LETTER_EPSILON), M(UC_GREEK_SMALL_LETTER_OMICRON),
- KC_TRNS, KC_TRNS, M(UC_GREEK_SMALL_LETTER_THETA), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+ KC_TRNS, M(UC_SUBSCRIPT_ONE),              M(UC_SUBSCRIPT_TWO),            M(UC_SUBSCRIPT_THREE),          M(UC_SUBSCRIPT_FOUR),             M(UC_SUBSCRIPT_FIVE),             KC_TRNS,
+ KC_TRNS, M(UC_GREEK_SMALL_LETTER_CHI),     M(UC_GREEK_SMALL_LETTER_PI),    M(UC_GREEK_SMALL_LETTER_PHI),   M(UC_GREEK_SMALL_LETTER_OMEGA),   M(UC_GREEK_SMALL_LETTER_GAMMA),   KC_TRNS,
+ KC_TRNS, M(UC_GREEK_SMALL_LETTER_UPSILON), M(UC_GREEK_SMALL_LETTER_IOTA),  M(UC_GREEK_SMALL_LETTER_ALPHA), M(UC_GREEK_SMALL_LETTER_EPSILON), M(UC_GREEK_SMALL_LETTER_OMICRON),
+ KC_TRNS, KC_TRNS,                          M(UC_GREEK_SMALL_LETTER_THETA), KC_TRNS,                        KC_TRNS,                          KC_TRNS,                          KC_TRNS,
+ KC_TRNS, KC_TRNS,                          KC_TRNS,                        KC_TRNS,                        KC_TRNS,
+ /*-*/    /*-*/                             /*-*/                           /*-*/                           /*-*/                             KC_TRNS,                          KC_TRNS,
+ /*-*/    /*-*/                             /*-*/                           /*-*/                           /*-*/                             /*-*/                             KC_TRNS,
+ /*-*/    /*-*/                             /*-*/                           /*-*/                           KC_TRNS,                          KC_TRNS,                          KC_TRNS,
+ KC_TRNS, M(UC_SUBSCRIPT_SIX),              M(UC_SUBSCRIPT_SEVEN),          M(UC_SUBSCRIPT_EIGHT),          M(UC_SUBSCRIPT_NINE),             M(UC_SUBSCRIPT_ZERO),             KC_TRNS,
+ KC_TRNS, M(UC_GREEK_SMALL_LETTER_ETA),     M(UC_GREEK_SMALL_LETTER_XI),    M(UC_GREEK_SMALL_LETTER_KAPPA), M(UC_GREEK_SMALL_LETTER_LAMDA),   KC_TRNS,                          M(UC_GREEK_SMALL_LETTER_ZETA),
+ /*-*/    M(UC_GREEK_SMALL_LETTER_SIGMA),   M(UC_GREEK_SMALL_LETTER_NU),    M(UC_GREEK_SMALL_LETTER_RHO),   M(UC_GREEK_SMALL_LETTER_TAU),     M(UC_GREEK_SMALL_LETTER_DELTA),   M(UC_GREEK_SMALL_LETTER_FINAL_SIGMA),
+ KC_TRNS, M(UC_GREEK_SMALL_LETTER_BETA),    M(UC_GREEK_SMALL_LETTER_MU),    KC_TRNS,                        KC_TRNS,                          KC_TRNS,                          M(UC_GREEK_SMALL_LETTER_PSI),
+ /*-*/    /*-*/                             KC_TRNS,                        KC_TRNS,                        KC_TRNS,                          KC_TRNS,                          KC_TRNS,
  KC_TRNS, KC_TRNS,
  KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, M(UC_SUBSCRIPT_SIX), M(UC_SUBSCRIPT_SEVEN), M(UC_SUBSCRIPT_EIGHT), M(UC_SUBSCRIPT_NINE), M(UC_SUBSCRIPT_ZERO), KC_TRNS,
- KC_TRNS, M(UC_GREEK_SMALL_LETTER_ETA), M(UC_GREEK_SMALL_LETTER_XI), M(UC_GREEK_SMALL_LETTER_KAPPA), M(UC_GREEK_SMALL_LETTER_LAMDA), KC_TRNS, M(UC_GREEK_SMALL_LETTER_ZETA),
- M(UC_GREEK_SMALL_LETTER_SIGMA), M(UC_GREEK_SMALL_LETTER_NU), M(UC_GREEK_SMALL_LETTER_RHO), M(UC_GREEK_SMALL_LETTER_TAU), M(UC_GREEK_SMALL_LETTER_DELTA), M(UC_GREEK_SMALL_LETTER_FINAL_SIGMA),
- KC_TRNS, M(UC_GREEK_SMALL_LETTER_BETA), M(UC_GREEK_SMALL_LETTER_MU), KC_TRNS, KC_TRNS, KC_TRNS, M(UC_GREEK_SMALL_LETTER_PSI),
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS
+ KC_TRNS, KC_TRNS,                          KC_TRNS
 ),
 /*
  * .------------------------------------.------------------------------------.
@@ -317,24 +317,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
-*/
+ */
 [L5] = KEYMAP(
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_CHI), M(UC_GREEK_CAPITAL_LETTER_PI), M(UC_GREEK_CAPITAL_LETTER_PHI), M(UC_GREEK_CAPITAL_LETTER_OMEGA), M(UC_GREEK_CAPITAL_LETTER_GAMMA), KC_TRNS,
- KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_UPSILON), M(UC_GREEK_CAPITAL_LETTER_IOTA), M(UC_GREEK_CAPITAL_LETTER_ALPHA), M(UC_GREEK_CAPITAL_LETTER_EPSILON), M(UC_GREEK_CAPITAL_LETTER_OMICRON),
- KC_TRNS, KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_THETA), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+ KC_TRNS, KC_TRNS,                            KC_TRNS,                          KC_TRNS,                          KC_TRNS,                            KC_TRNS,                            KC_TRNS,
+ KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_CHI),     M(UC_GREEK_CAPITAL_LETTER_PI),    M(UC_GREEK_CAPITAL_LETTER_PHI),   M(UC_GREEK_CAPITAL_LETTER_OMEGA),   M(UC_GREEK_CAPITAL_LETTER_GAMMA),   KC_TRNS,
+ KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_UPSILON), M(UC_GREEK_CAPITAL_LETTER_IOTA),  M(UC_GREEK_CAPITAL_LETTER_ALPHA), M(UC_GREEK_CAPITAL_LETTER_EPSILON), M(UC_GREEK_CAPITAL_LETTER_OMICRON),
+ KC_TRNS, KC_TRNS,                            M(UC_GREEK_CAPITAL_LETTER_THETA), KC_TRNS,                          KC_TRNS,                            KC_TRNS,                            KC_TRNS,
+ KC_TRNS, KC_TRNS,                            KC_TRNS,                          KC_TRNS,                          KC_TRNS,
+ /*-*/    /*-*/                               /*-*/                             /*-*/                             /*-*/                               KC_TRNS,                            KC_TRNS,
+ /*-*/    /*-*/                               /*-*/                             /*-*/                             /*-*/                               /*-*/                               KC_TRNS,
+ /*-*/    /*-*/                               /*-*/                             /*-*/                             KC_TRNS,                            KC_TRNS,                            KC_TRNS,
+ KC_TRNS, KC_TRNS,                            KC_TRNS,                          KC_TRNS,                          KC_TRNS,                            KC_TRNS,                            KC_TRNS,
+ KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_ETA),     M(UC_GREEK_CAPITAL_LETTER_XI),    M(UC_GREEK_CAPITAL_LETTER_KAPPA), M(UC_GREEK_CAPITAL_LETTER_LAMDA),   KC_TRNS,                            M(UC_GREEK_CAPITAL_LETTER_ZETA),
+ /*-*/    M(UC_GREEK_CAPITAL_LETTER_SIGMA),   M(UC_GREEK_CAPITAL_LETTER_NU),    M(UC_GREEK_CAPITAL_LETTER_RHO),   M(UC_GREEK_CAPITAL_LETTER_TAU),     M(UC_GREEK_CAPITAL_LETTER_DELTA),   KC_TRNS,
+ KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_BETA),    M(UC_GREEK_CAPITAL_LETTER_MU),    KC_TRNS,                          KC_TRNS,                            KC_TRNS,                            M(UC_GREEK_CAPITAL_LETTER_PSI),
+ /*-*/    /*-*/                               KC_TRNS,                          KC_TRNS,                          KC_TRNS,                            KC_TRNS,                            KC_TRNS,
  KC_TRNS, KC_TRNS,
  KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_ETA), M(UC_GREEK_CAPITAL_LETTER_XI), M(UC_GREEK_CAPITAL_LETTER_KAPPA), M(UC_GREEK_CAPITAL_LETTER_LAMDA), KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_ZETA),
- M(UC_GREEK_CAPITAL_LETTER_SIGMA), M(UC_GREEK_CAPITAL_LETTER_NU), M(UC_GREEK_CAPITAL_LETTER_RHO), M(UC_GREEK_CAPITAL_LETTER_TAU), M(UC_GREEK_CAPITAL_LETTER_DELTA), KC_TRNS,
- KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_BETA), M(UC_GREEK_CAPITAL_LETTER_MU), KC_TRNS, KC_TRNS, KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_PSI),
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS
+ KC_TRNS, KC_TRNS,                            KC_TRNS
 ),
 /*
  * .------------------------------------.------------------------------------.
@@ -355,21 +355,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   !     !     !-----! !-----!     !     !
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
-*/
+ */
 [L6] = KEYMAP(
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS,
- KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS, KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS,
+ /*-*/    /*-*/    /*-*/    /*-*/    KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+ /*-*/    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+ /*-*/    /*-*/    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS,
  KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS

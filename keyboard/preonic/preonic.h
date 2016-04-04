@@ -44,7 +44,7 @@
 	{ k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b } \
 }
 
-void * matrix_init_user(void);
-void * matrix_scan_user(void);
+void matrix_init_user(void);
+void matrix_scan_user(void);
 
 #endif
