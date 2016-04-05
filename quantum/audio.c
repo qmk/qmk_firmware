@@ -247,6 +247,9 @@ ISR(TIMER3_COMPA_vect) {
             if (note_frequency > 0) {
                 ICR3 = (int)(((double)F_CPU) / note_frequency); // Set max to the period
                 OCR3A = (int)(((double)F_CPU) / note_frequency) >> 1; // Set compare to half the period
+            } else {
+                ICR3 = 0;
+                OCR3A = 0;
             }
         #endif
 
