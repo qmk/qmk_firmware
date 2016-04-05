@@ -58,6 +58,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
 /* user defined special function */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 
+/* keyboard-specific key event (pre)processing */
+void process_action_kb(keyrecord_t *record);
+
 /* Utilities for actions.  */
 void process_action(keyrecord_t *record);
 void register_code(uint8_t code);
