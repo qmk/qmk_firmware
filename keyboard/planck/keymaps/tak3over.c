@@ -16,9 +16,8 @@
 // entirely and just use numbers.
 #define _QW 0
 #define _CM 1
-//#define _TK 2
-#define _LW 3
-#define _RS 4
+#define _LW 2
+#define _RS 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -58,39 +57,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), MO(_RS), KC_SPC,  KC_SPC,  MO(_RS), MO(_LW), KC_RGUI, KC_RALT, KC_RCTL}
 },
 
-/* TenKey Layer, obsolete
- * ,-----------------------------------------------------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |  6   |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  | Next | Vol- | Vol+ | Play |  \   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |Qwerty|Colemk|Brite | Reset|Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Lower |Raise |    Space    |Raise |Lower | GUI  | Alt  | Ctrl |
- * `-----------------------------------------------------------------------------------'
- 
-[_TK] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_ESC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_DEL,  KC_ASTR, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_SLSH},
-  {KC_LSFT, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_INS,  KC_DOT,  KC_1,    KC_2,    KC_3,    KC_MINS, KC_ENT },
-  {KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), MO(_RS), KC_SPC,  KC_SPC,  MO(_RS), MO(_LW), KC_RGUI, KC_RALT, KC_RCTL}
-},*/
-
-/* Raise 
+/* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |Reset | Ins  | Home | PGUP | Next | Left | Down |  Up  |Right | Play |  \   |
+ * | Esc  | Reset| Ins  | Home | PGUP |Colemk| Left | Down |  Up  |Right | Del  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift| Brite| Del  | End  | PGDN |Qwerty|Colemk|   -  |   =  |   [  |   ]  |Enter |
+ * | Shift| Brite| Del  | End  | PGDN |Qwerty| Next | Mute | Vol- | Vol+ | Play |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  |Lower |Raise |    Space    |Raise |Lower | GUI  | Alt  | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_RS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_TRNS, RESET,   KC_INS,  KC_HOME, KC_PGUP, KC_MNXT, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MPLY, KC_BSLS},
-  {KC_TRNS, M(0),    KC_DEL,  KC_END,  KC_PGDN, DF(_QW), DF(_CM), KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TRNS},
+  {KC_TRNS, RESET,   KC_INS,  KC_HOME, KC_PGUP, DF(_CM), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_DEL,  KC_BSLS},
+  {KC_TRNS, M(0),    KC_DEL,  KC_END,  KC_PGDN, DF(_QW), KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 
@@ -98,16 +79,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  | Next | Vol- | Vol+ | Play |  |   |
+ * | Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   _  |   +  |   {  |   }  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  |Lower |Raise |    Space    |Raise |Lower | GUI  | Alt  | Ctrl |
  * `-----------------------------------------------------------------------------------'
- */ 
+ */
 [_LW] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
-  {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MUTE, KC_PIPE},
+  {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_PIPE},
   {KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_TRNS},
   {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 }
