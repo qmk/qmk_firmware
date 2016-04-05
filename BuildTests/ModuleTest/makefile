@@ -62,5 +62,6 @@ clean:
 
 .PHONY: all arch_avr8 arch_xmega arch_uc3 begin end
 
-# Include LUFA build script makefiles
-include $(LUFA_PATH)/Build/lufa_core.mk
+# Include common DMBS build system modules
+DMBS_PATH      ?= $(LUFA_PATH)/Build/DMBS/DMBS
+include $(DMBS_PATH)/core.mk

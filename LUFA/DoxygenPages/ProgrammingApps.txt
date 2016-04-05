@@ -24,7 +24,4 @@
  *  If you wish to use the DFU bootloader to program in your application, refer to your DFU programmer's documentation.
  *  Atmel provides a free utility called FLIP which is USB AVR compatible, and an open source (Linux compatible)
  *  alternative exists called "dfu-programmer".
- *
- *  \see \ref Page_BuildModule_DFU for information on the LUFA build system DFU module, for automatic DFU bootloader
- *  programming makefile targets.
  */
