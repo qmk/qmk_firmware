@@ -198,7 +198,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
       case 3: // this would trigger when you hit a key mapped as M(3)
         if (record->event.pressed) {
-          return MACRO( I(255), D(LALT), T(P1), T(P0), T(P5), T(P6), U(LALT), END  );
+          return MACRO( I(255), D(LALT), T(P1), T(P5), T(P6), U(LALT), END  );
       }
         break;
       }
