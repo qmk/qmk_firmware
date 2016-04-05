@@ -1,9 +1,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 //
-// Custom style by tak3over.  Dropped the dvorak layer as it was not being used by me. Shifted over
-// keys to make room for a second function key on the left side.  Now has a keypad and most all
-// standard keyboard keys. Including Delete. See TK layer. 
+//Dropped the Dvorak layer and added two my layer buttons.  Both Raise and lower can be accessed from either side now.
 
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
