@@ -466,9 +466,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         unregister_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(UP(CSA_ALTGR), D(LSFT), U(SCLN), END);
+                        return MACRO(UP(CSA_ALTGR), U(SCLN), END);
                     case M_SCLN:
-                        return MACRO(D(LSFT), U(SCLN), END);
+                        return MACRO(U(SCLN), END);
                     case M_NBSP:
                         del_weak_mods(MOD_BIT(CSA_ALTGR));
                         return MACRO(U(SPACE), END);
