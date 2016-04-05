@@ -132,6 +132,10 @@ This layout is for Windows only. To enter a character Press and Hold Alt, type +
 Changelog
 -----------
 
+### [0.2.1] - 2016-04-05
+
+* Changed £ to alt code in Windows. Windows sucks at unicode.
+
 ### [0.2.0] - 2016-03-27
 
 * Added unicode layer
