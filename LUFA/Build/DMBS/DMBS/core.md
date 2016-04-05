@@ -95,7 +95,7 @@ syntax) if desired, as they are provided by this module.
  <tbody>
    <tr>
     <td>DMBS_VERSION</td>
-    <td>Current version of this DMBS release.</td>
+    <td>Current version of this DMBS release, as a ISO 8601 integer (such as `160403` for `2016-04-03`).</td>
    </tr>
  </tbody>
 </table>
@@ -109,8 +109,28 @@ this module.
 <table>
  <tbody>
    <tr>
-    <td>N/A</td>
-    <td>This module provides no macros.</td>
+    <td>DMBS_CHECK_VERSION</td>
+    <td>Macro to check the current DMBS version against the first argument and abort if the required version is newer than the current version.</td>
+   </tr>
+   <tr>
+    <td>ERROR_IF_UNSET</td>
+    <td>Macro to check the given makefile variable name passed as the first argument, and abort if it has not been set by any makefile module.</td>
+   </tr>
+   <tr>
+    <td>ERROR_IF_EMPTY</td>
+    <td>Macro to check the given makefile variable name passed as the first argument, and abort if it has an empty value.</td>
+   </tr>
+   <tr>
+    <td>ERROR_IF_NONBOOL</td>
+    <td>Macro to check the given makefile variable name passed as the first argument, and abort if it has a value other than `Y` or `N`.</td>
    </tr>
  </tbody>
 </table>
+
+## Module Changelog:
+
+The changes to this module since its initial release are listed below, as of the
+DMBS version where the change was made.
+
+### 20160403
+Initial release.

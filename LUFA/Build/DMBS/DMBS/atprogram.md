@@ -109,3 +109,11 @@ this module.
    </tr>
  </tbody>
 </table>
+
+## Module Changelog:
+
+The changes to this module since its initial release are listed below, as of the
+DMBS version where the change was made.
+
+### 20160403
+Initial release.

@@ -13,13 +13,11 @@ DMBS_BUILD_OPTIONAL_VARS   +=
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-SHELL = /bin/sh
-
+# Conditionally import the CORE module of DMBS if it is not already imported
 DMBS_MODULE_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
-
-ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
-ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
-ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
+ifeq ($(findstring CORE, $(DMBS_BUILD_MODULES)),)
+  include $(DMBS_MODULE_PATH)/core.mk
+endif
 
 # Sanity-check values of mandatory user-supplied variables
 $(foreach MANDATORY_VAR, $(DMBS_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))

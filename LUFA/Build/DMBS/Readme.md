@@ -35,7 +35,8 @@ are included via a GNU Make `include` directive. While the DMBS `core` module is
 always required, you can pick and choose what other modules you wish to add to
 your user project.
 
-[See here for the documentation on the individual modules provided by DMBS.](DMBS/Modules.md)
+[See here for the documentation on the individual modules provided by DMBS.](DMBS/ModulesOverview.md)
+If you're interested in writing your own DMBS module(s), [see here.](DMBS/WritingYourOwnModules.md)
 
 Here's an example user makefile:
 
@@ -70,6 +71,21 @@ defaults used if left out.
 As modules are added, you can get a list of available targets by simply typing
 `make help` from the command line. This will produce a formatted list of targets
 as well as mandatory and optional variables and exposed variables and macros.
+
+
+Distribution
+----------------
+
+You can embed DMBS in your project any way you like - some options are:
+1. A git submodule
+2. A source tarball
+3. A manually copied extracted archive
+
+The intention of DMBS is that users can just import it from whatever source
+they like. If your project needs to extend the existing modules in an unusual
+manner, or if you want to provide your own modules, you can include them in
+your project repository (or submit a patch to DMBS if your module is generic
+enough to warrant wide use).
 
 
 License

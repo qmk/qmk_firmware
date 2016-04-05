@@ -11,12 +11,20 @@ DMBS_BUILD_TARGETS         += help list_targets list_modules list_mandatory list
 DMBS_BUILD_MANDATORY_VARS  +=
 DMBS_BUILD_OPTIONAL_VARS   +=
 DMBS_BUILD_PROVIDED_VARS   += DMBS_VERSION
-DMBS_BUILD_PROVIDED_MACROS +=
+DMBS_BUILD_PROVIDED_MACROS += DMBS_CHECK_VERSION ERROR_IF_UNSET ERROR_IF_EMPTY ERROR_IF_NONBOOL
 
 SHELL = /bin/sh
 
 # Current DMBS release version
-DMBS_VERSION = 0.4
+DMBS_VERSION       := 20160403
+
+# Macro to check the DMBS version, aborts if the given DMBS version is below the current version
+DMBS_CHECK_VERSION ?= $(if $(filter-out 0, $(shell test $(DMBS_VERSION) -lt $(1); echo $$?)), , $(error DMBS version $(1) or newer required, current version is $(DMBS_VERSION)))
+
+# Macros to use in other modules to check various conditions
+ERROR_IF_UNSET     ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
+ERROR_IF_EMPTY     ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
+ERROR_IF_NONBOOL   ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
 
 # Converts a given input to a printable output using "(None)" if no items are in the list
 CONVERT_TO_PRINTABLE           = $(if $(strip $(1)), $(1), (None))

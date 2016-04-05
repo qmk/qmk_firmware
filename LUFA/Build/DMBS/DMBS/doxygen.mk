@@ -13,11 +13,11 @@ DMBS_BUILD_OPTIONAL_VARS   += DOXYGEN_CONF DOXYGEN_FAIL_ON_WARNING DOXYGEN_OVERR
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
-SHELL = /bin/sh
-
-ERROR_IF_UNSET   ?= $(if $(filter undefined, $(origin $(strip $(1)))), $(error Makefile $(strip $(1)) value not set))
-ERROR_IF_EMPTY   ?= $(if $(strip $($(strip $(1)))), , $(error Makefile $(strip $(1)) option cannot be blank))
-ERROR_IF_NONBOOL ?= $(if $(filter Y N, $($(strip $(1)))), , $(error Makefile $(strip $(1)) option must be Y or N))
+# Conditionally import the CORE module of DMBS if it is not already imported
+DMBS_MODULE_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+ifeq ($(findstring CORE, $(DMBS_BUILD_MODULES)),)
+  include $(DMBS_MODULE_PATH)/core.mk
+endif
 
 # Default values of optionally user-supplied variables
 DOXYGEN_CONF            ?= doxyfile
@@ -59,5 +59,4 @@ doxygen-create: $(MAKEFILE_LIST)
 	@echo $(MSG_DOXYGEN_CMD) Creating new configuration file \"$(DOXYGEN_CONF)\" with latest template
 	doxygen -g $(DOXYGEN_CONF) > /dev/null
 
-# Phony build targets for this module
-.PHONY: $(DMBS_BUILD_TARGETS)
+
