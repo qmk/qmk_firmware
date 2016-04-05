@@ -10,6 +10,11 @@ void matrix_scan_user(void) {
 
 };
 
+__attribute__ ((weak))
+void process_action_user(keyrecord_t *record) {
+
+};
+
 void matrix_init_kb(void) {
 	#ifdef BACKLIGHT_ENABLE
     	backlight_init_ports();
@@ -30,3 +35,7 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
 	matrix_scan_user();
 };
+
+void process_action_kb(keyrecord_t *record) {
+	process_action_user(record);
+}
