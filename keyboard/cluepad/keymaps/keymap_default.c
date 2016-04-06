@@ -36,20 +36,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * .-------------------.
    * |NL F|    |    | Fn0|
    * |-------------------|
-   * | Fn2|    | Fn4|    |
+   * |    | Fn4|    |    |
    * |--------------|    |
-   * | Fn3|BL_S| Fn5| Fn6|
+   * | Fn3|BL_S| Fn2| Fn6|
    * |-------------------|
-   * |    |    |    |    |
+   * |    | Fn5|    |    |
    * |--------------|    |
    * |      Fn1|    | Fn7|
    * '-------------------'
    */
 [_FL] = KEYMAP(
   LT(_FL, KC_NLCK), KC_TRNS, KC_TRNS, F(0), \
-  F(2),             KC_TRNS, F(4),    F(6), \
-  F(3),             BL_STEP, F(5), \
-  KC_TRNS,          KC_TRNS, KC_TRNS, F(7), \
+  KC_TRNS,          F(4),    KC_TRNS, F(6), \
+  F(3),             BL_STEP, F(2), \
+  KC_TRNS,          F(5),    KC_TRNS, F(7), \
   F(1),                      KC_TRNS)
 };
 
