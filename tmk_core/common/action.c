@@ -53,6 +53,22 @@ void action_exec(keyevent_t event)
 #endif
 }
 
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+bool disable_action_cache = false;
+
+void process_action_nocache(keyrecord_t *record)
+{
+    disable_action_cache = true;
+    process_action(record);
+    disable_action_cache = false;
+}
+#else
+void process_action_nocache(keyrecord_t *record)
+{
+    process_action(record);
+}
+#endif
+
 __attribute__ ((weak))
 void process_action_kb(keyrecord_t *record) {}
 
@@ -67,7 +83,7 @@ void process_action(keyrecord_t *record)
 
     process_action_kb(record);
 
-    action_t action = layer_switch_get_action(event.key);
+    action_t action = store_or_get_action(event.pressed, event.key);
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
