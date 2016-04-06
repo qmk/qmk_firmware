@@ -46,5 +46,6 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
+void process_action_kb(keyrecord_t *record);
 
 #endif
