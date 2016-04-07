@@ -174,16 +174,7 @@ float tone_dv[][2] = {
 };
 #endif
 
-#define IS_LAYER_ON(layer)  ((layer_state) & (1<<(layer)))
-#define IS_LAYER_OFF(layer) ((!layer_state) & (1<<(layer)))
 
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
