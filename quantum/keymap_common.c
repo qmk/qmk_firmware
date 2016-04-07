@@ -291,3 +291,11 @@ action_t keymap_func_to_action(uint16_t keycode)
 	// For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
 }
+
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
+    layer_on(layer3);
+  } else {
+    layer_off(layer3);
+  }
+}
