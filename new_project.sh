@@ -2,6 +2,11 @@
 # Script to make a new quantum project
 # Jack Humbert 2015
 
+if [ -z "$1" ]; then
+	echo "Usege: $0 <keyboard_name>"
+	exit 1
+fi
+
 KEYBOARD=$1
 KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
 
