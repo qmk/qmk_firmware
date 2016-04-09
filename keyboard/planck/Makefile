@@ -54,9 +54,11 @@ SRC = planck.c
 
 ifdef keymap
 	KEYMAP = $(keymap)
+	TARGET = $(KEYMAP)
 endif
 
 ifdef KEYMAP
+	TARGET = $(KEYMAP)
 ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
 	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
