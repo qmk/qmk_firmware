@@ -2,7 +2,7 @@
 
 ### Notes
 
-- To use, unpack or symlink [ChibiOS] {currently 3.0.2} to `tmk_core/tool/chibios/chibios`. For Kinetis support, you'll need a fork which implements the USB driver, e.g. [this one](https://github.com/flabbergast/ChibiOS/tree/kinetis).
+- To use, unpack, symlink or add a submodule of [ChibiOS] {currently 3.0.2} to `tmk_core/tool/chibios/chibios`. For Kinetis support, you'll need a fork which implements the USB driver, e.g. [this one](https://github.com/flabbergast/ChibiOS/tree/kinetis).
 - For gcc options, inspect `tmk_core/tool/chibios/chibios.mk`. For instance, I enabled `-Wno-missing-field-initializers`, because TMK common bits generated a lot of warnings on that.
 Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - USB string descriptors are messy. I did not find a way to cleanly generate the right structures from actual strings, so the definitions in individual keyboards' `config.h` are ugly as heck.
@@ -10,6 +10,12 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - It is easy to add some code for testing (e.g. blink LED, do stuff on button press, etc...) - just create another thread in `main.c`, it will run independently of the keyboard business.
 - Jumping to (the built-in) bootloaders on STM32 works, but it is not entirely pleasant, since it is very much MCU dependent. So, one needs to dig out the right address to jump to, and either pass it to the compiler in the `Makefile`, or better, define it in `<your_kb>/bootloader_defs.h`. Also, a patch to upstream ChibiOS is needed (supplied), because it `ResetHandler` needs adjusting.
 - Sleep LED works, but at the moment only on/off, i.e. no breathing.
+
+### Experimental pre-ChibiOS 4 support
+- As an alternative to the mentioned flabbergast branch above, you can use the [master branch of ChibiOS](https://github.com/ChibiOS/ChibiOS). 
+- Note that the Kinetis support has moved to the [ChibiOS-Contrib repository](https://github.com/ChibiOS/ChibiOS-Contrib), so you need to put that into your repository in the same way as you did for the main ChibiOS repository. 
+- You also need to define CHIBIOS_CONTRIB in your makefile and point it to the right directory.
+- You need to add some new options to chconf.h, or you will get compiler errors. Just copy the new options from samples provided by the ChibiOS-Contrib repository.
 
 ### Immediate todo
 
