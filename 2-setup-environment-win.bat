@@ -4,13 +4,12 @@ if NOT ["%errorlevel%"]==["0"] (
 	echo FAILED. Rerun with administrator privileges.
 	pause
 	exit
-) 
-
+)
 echo ------------------------------------------
 echo Installing wget and unzip
 echo ------------------------------------------
 mingw-get install msys-wget-bin msys-unzip-bin
-cd \MinGW\bin
+cd C:\MinGW\bin
 
 mkdir temp
 cd temp
