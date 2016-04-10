@@ -54,7 +54,6 @@ SRC = planck.c
 
 ifdef keymap
 	KEYMAP = $(keymap)
-	TARGET = $(KEYMAP)
 endif
 
 ifdef KEYMAP
