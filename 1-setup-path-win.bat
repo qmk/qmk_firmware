@@ -5,7 +5,7 @@ SET CMDLINERUNSTR=%SystemRoot%\system32\cmd.exe
 SET NEWPATH1="C:\MinGW\msys\1.0\bin"
 SET NEWPATH2="C:\MinGW\bin"
 
-:: Make sure paths exist
+:: Make sure the second path exists. The first path won't be created until the second script is run
 IF NOT EXIST !NEWPATH2! (ECHO Path not found: %NEWPATH2% && GOTO ExitBatch)
 
 :: Add paths
