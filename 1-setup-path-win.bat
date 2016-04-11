@@ -6,7 +6,6 @@ SET NEWPATH1="C:\MinGW\msys\1.0\bin"
 SET NEWPATH2="C:\MinGW\bin"
 
 :: Make sure paths exist
-IF NOT EXIST !NEWPATH1! (ECHO Path not found: %NEWPATH1% && GOTO ExitBatch)
 IF NOT EXIST !NEWPATH2! (ECHO Path not found: %NEWPATH2% && GOTO ExitBatch)
 
 :: Add paths
