@@ -13,7 +13,7 @@ IF NOT ["%ERRORLEVEL%"]==["0"] (
 :: Make sure path to MinGW exists - if so, CD to it
 SET MINGWPATH="C:\MinGW\bin"
 IF NOT EXIST !MINGWPATH! (ECHO Path not found: %MINGWPATH% && GOTO ExitBatch)
-cd %MINGWPATH%
+CD /D %MINGWPATH%
 
 
 ECHO ------------------------------------------
@@ -57,7 +57,7 @@ ECHO ------------------------------------------
 ECHO Finished!
 
 :ExitBatch
-CD %STARTINGDIR%
+CD /D %STARTINGDIR%
 ENDLOCAL
 PAUSE
 EXIT /b
