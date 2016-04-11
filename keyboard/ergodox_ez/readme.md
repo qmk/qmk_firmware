@@ -15,7 +15,7 @@ This requires a little bit of familiarity with coding.
 
 1. Go to https://github.com/jackhumbert/qmk_firmware and read the Readme at the base of this repository, top to bottom. Then come back here :)
 2. Clone the repository (download it)
-3. Set up a build environment as per [pjrc.com/teensy/gcc.html](https://www.pjrc.com/teensy/gcc.html)
+3. Set up a build environment as per [the build guide](/BUILD_GUIDE.md) 
     - Using a Mac and have homebrew? just run `brew tap osx-cross/avr && brew install avr-libc`
 4. Copy `keymaps/default/keymap.c` into `keymaps/your_name/keymap.c` (for example, `keymaps/german/keymap.c`)
 5. Edit this file, changing keycodes to your liking (see "Finding the keycodes you need" below). Try to edit the comments as well, so the "text graphics" represent your layout correctly. See below for more tips on sharing your work.
