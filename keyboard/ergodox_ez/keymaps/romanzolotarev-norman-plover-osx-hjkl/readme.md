@@ -5,12 +5,12 @@ There are four layers:
 - **BASE** is [Norman layout](https://normanlayout.info/).
 - **SYMB** for numbers and symbols.
 - **PLVR** is optimized for [Plover](http://www.openstenoproject.org).
-- **ARRW** for navigation (same fingers for arrows as IJKL on QWERTY).
+- **ARRW** for navigation (same fingers for arrows as HJKL on QWERTY).
 
-Looking for HJKL arrows? [Here we
-go](../romanzolotarev-norman-plover-osx-hjkl/).
+Looking for IJKL arrows? [Here we
+go](../romanzolotarev-norman-plover-osx/).
 
-[![keyboard-layout](romanzolotarev-norman-plover-osx.png)](http://www.keyboard-layout-editor.com/#/gists/8ebcb701ecb763944417)
+[![keyboard-layout](romanzolotarev-norman-plover-osx-hjkl.png)](rttp://www.keyboard-layout-editor.com/#/gists/56ffedceb0668dda47c993e7271563e0)
 
 ## Switching
 
