@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_TRNS ,KC_TRNS  ,KC_TRNS
     ),
 
-/* Keymap 10: Symbol Momentary Layer
+/* Keymap 2: Symbol Momentary Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |           |
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     ,KC_PGDN     ,KC_BSPC ,KC_DEL
 ),
 
-/* Keymap 11: Symbol Lock Layer
+/* Keymap 3: Symbol Lock Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | Lock      |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 | Lock      |
@@ -195,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     ,KC_PGDN     ,KC_BSPC ,KC_DEL
     ),
 
-/* Keymap 12: Symbol Unlock Layer
+/* Keymap 4: Symbol Unlock Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           | Esc  |      |      |      |      |      |           |      |      |      |      |      |      |           |
@@ -237,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 									   ,KC_TRNS ,KC_TRNS  ,KC_TRNS
 	),
 
-/* Keymap 20: Media and mouse keys
+/* Keymap 5: Media Momentary Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           | F11  | F12  | F13  | F14  | F15  |      |           |      | F16  | F17  | F18  | F19  | F20  |           |
@@ -279,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      ,KC_VOLD  ,KC_MSTP ,KC_MPLY
 ),
 
-/* Keymap 21: Media Lock Layer
+/* Keymap 6: Media Lock Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           | F11  | F12  | F13  | F14  | F15  |      |           |      | F16  | F17  | F18  | F19  | F20  |           |
@@ -321,7 +321,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      ,KC_VOLD  ,KC_MSTP ,KC_MPLY
     ),
 
-/* Keymap 22: Media Unlock Layer
+/* Keymap 7: Media Unlock Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           | Esc  |      |      |      |      |      |           |      |      |      |      |      |      |           |
@@ -366,7 +366,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_TRNS ,KC_TRNS  ,KC_TRNS
     ),
 
-/* Keymap 22: Unlock Layer
+/* Keymap 8: Unlock Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | Unlock    |      |      |      |      |      |      |           |      |      |      |      |      |      | Unlock    |
@@ -413,7 +413,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-     [1] = ACTION_LAYER_CLEAR(ON_PRESS)                    // FN1 - clear to base layer
+         [1] = ACTION_LAYER_CLEAR(ON_PRESS)                // FN1 - clear to base layer
 	,[2] = ACTION_LAYER_INVERT(SYMB_TG, ON_PRESS)      // FN2 - toggle to Symbols on press
 	,[3] = ACTION_LAYER_INVERT(MDIA_TG, ON_PRESS)      // FN3 - toggle to Media on press
 };
