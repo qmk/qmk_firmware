@@ -3,14 +3,15 @@
 #include "debug.h"
 #include "action_layer.h"
 
-#define BASE 0 // default layer
-#define LOCK 1 // layer lock keys
+#define BASE 0    // default layer
+#define LOCK 1    // layer lock keys
 #define SYMB_MO 2 // symbols momentary layer
 #define SYMB_TG 3 // symbols lock layer
-#define SYMB_XX 4 // symbols lock layer
+#define SYMB_XX 4 // symbols exit layer
 #define MDIA_MO 5 // media momentary layer
 #define MDIA_TG 6 // media lock layer
-#define MDIA_XX 7 // topmost escape
+#define MDIA_XX 7 // media exit layer
+#define UNLOCK 8  // clear to base layer
 
 /*
  * Ordinary Ergodox EZ keyboard layout, v3
@@ -133,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [SYMB_MO] = KEYMAP(
 // left hand
- KC_TRNS       ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_TRNS
+ KC_FN2        ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_TRNS
 ,MO(MDIA_MO)   ,KC_EXLM ,KC_AT   ,KC_LCBR ,KC_RCBR ,KC_AMPR ,LSFT(KC_COMM)
 ,MO(SYMB_MO)   ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV 
 ,KC_LSFT       ,KC_PERC ,KC_CIRC ,KC_LBRC ,KC_RBRC ,KC_TILD ,KC_TAB
@@ -142,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             ,KC_UP
                                           ,KC_SPC  ,KC_ENT  ,KC_DOWN
                                                                     // right hand
-                                                                    ,KC_TRNS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,KC_TRNS
+                                                                    ,KC_TRNS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,KC_FN2
                                                                     ,LSFT(KC_DOT),KC_PIPE ,KC_7  ,KC_8   ,KC_9  ,KC_SLSH ,MO(MDIA_MO)
                                                                                  ,KC_SLSH ,KC_4  ,KC_5   ,KC_6  ,KC_ASTR ,MO(SYMB_MO)
                                                                     ,LSFT(KC_TAB),KC_BSLS ,KC_1  ,KC_2   ,KC_3  ,KC_MINS ,KC_RSFT
@@ -177,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  MO(SYMB_XX)  ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_TRNS
 ,MO(MDIA_MO)  ,KC_EXLM ,KC_AT   ,KC_LCBR ,KC_RCBR ,KC_AMPR ,LSFT(KC_COMM)
-,KC_NO        ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV
+,MO(UNLOCK)   ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV
 ,KC_LSFT      ,KC_PERC ,KC_CIRC ,KC_LBRC ,KC_RBRC ,KC_TILD ,KC_TAB
 ,KC_TRNS      ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
                                                   ,KC_LEFT ,KC_RGHT
@@ -186,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     // right hand
                                                                     ,KC_TRNS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,MO(SYMB_XX)
                                                                     ,LSFT(KC_DOT),KC_PIPE ,KC_7  ,KC_8   ,KC_9  ,KC_SLSH ,MO(MDIA_MO)
-                                                                                 ,KC_SLSH ,KC_4  ,KC_5   ,KC_6  ,KC_ASTR ,KC_NO
+                                                                                 ,KC_SLSH ,KC_4  ,KC_5   ,KC_6  ,KC_ASTR ,MO(UNLOCK)
                                                                     ,LSFT(KC_TAB),KC_BSLS ,KC_1  ,KC_2   ,KC_3  ,KC_MINS ,KC_RSFT
                                                                                           ,KC_0  ,KC_DOT ,KC_EQL,KC_PLUS ,KC_ENT
                                                                     ,KC_HOME     ,KC_END
@@ -259,18 +260,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [MDIA_MO] = KEYMAP(
 // left hand
- KC_TRNS       ,KC_F11  ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_TRNS
+ KC_FN3        ,KC_F11  ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_TRNS
 ,MO(MDIA_MO)   ,KC_POWER,KC_TRNS ,KC_MS_U ,KC_TRNS ,KC_TRNS ,KC_WH_U
-,KC_NO         ,KC_SLEP ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_TRNS
+,MO(SYMB_MO)   ,KC_SLEP ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_TRNS
 ,KC_LSFT       ,KC_TRNS ,KC_TRNS ,KC_MS_D ,KC_TRNS ,KC_TRNS ,KC_WH_D
 ,KC_MUTE       ,KC_VOLD ,KC_VOLU ,KC_BTN1 ,KC_BTN2
                                                    ,KC_WSTP ,KC_WREF
                                                             ,KC_WSCH
                                           ,KC_WBAK ,KC_TRNS ,KC_WHOM
                                                                      // right hand
-                                                                     ,KC_TRNS  ,KC_F16  ,KC_F17 ,KC_F18  ,KC_F19  ,KC_F20  ,KC_TRNS
+                                                                     ,KC_TRNS  ,KC_F16  ,KC_F17 ,KC_F18  ,KC_F19  ,KC_F20  ,KC_FN3
                                                                      ,KC_WH_U  ,KC_PSCR ,KC_HOME,KC_UP   ,KC_PGUP ,KC_MAIL ,MO(MDIA_MO)
-                                                                               ,KC_NLCK ,KC_LEFT,KC_DOWN ,KC_RIGHT,KC_MYCM ,KC_NO
+                                                                               ,KC_NLCK ,KC_LEFT,KC_DOWN ,KC_RIGHT,KC_MYCM ,MO(SYMB_MO)
                                                                      ,KC_WH_D  ,KC_TRNS ,KC_END ,KC_DOWN ,KC_PGDN ,KC_TRNS ,KC_RSFT
                                                                                         ,KC_INS ,KC_DEL  ,KC_TRNS ,KC_TRNS ,KC_TRNS
                                                                      ,KC_MPRV  ,KC_MNXT
@@ -302,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA_TG] = KEYMAP(
 // left hand
  MO(MDIA_XX)  ,KC_F11  ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_TRNS
-,KC_NO        ,KC_POWER,KC_TRNS ,KC_MS_U ,KC_TRNS ,KC_TRNS ,KC_WH_U
+,MO(UNLOCK)   ,KC_POWER,KC_TRNS ,KC_MS_U ,KC_TRNS ,KC_TRNS ,KC_WH_U
 ,KC_NO        ,KC_SLEP ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_TRNS
 ,KC_LSFT      ,KC_TRNS ,KC_TRNS ,KC_MS_D ,KC_TRNS ,KC_TRNS ,KC_WH_D
 ,KC_MUTE      ,KC_VOLD ,KC_VOLU ,KC_BTN1 ,KC_BTN2
@@ -311,7 +312,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            ,KC_WBAK ,KC_TRNS ,KC_WHOM
                                                                      // right hand
                                                                      ,KC_TRNS  ,KC_F16  ,KC_F17 ,KC_F18  ,KC_F19  ,KC_F20  ,MO(MDIA_XX)
-                                                                     ,KC_WH_U  ,KC_PSCR ,KC_HOME,KC_UP   ,KC_PGUP ,KC_MAIL ,KC_NO
+                                                                     ,KC_WH_U  ,KC_PSCR ,KC_HOME,KC_UP   ,KC_PGUP ,KC_MAIL ,MO(UNLOCK)
                                                                                ,KC_NLCK ,KC_LEFT,KC_DOWN ,KC_RIGHT,KC_MYCM ,KC_NO
                                                                      ,KC_WH_D  ,KC_TRNS ,KC_END ,KC_DOWN ,KC_PGDN ,KC_TRNS ,KC_RSFT
                                                                                         ,KC_INS ,KC_DEL  ,KC_TRNS ,KC_TRNS ,KC_TRNS
@@ -363,11 +364,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_TRNS ,KC_TRNS
                                                                ,KC_TRNS
                                                                ,KC_TRNS ,KC_TRNS  ,KC_TRNS
+    ),
+
+/* Keymap 22: Unlock Layer
+ *
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * | Unlock    |      |      |      |      |      |      |           |      |      |      |      |      |      | Unlock    |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |      |      |      |      |      |------|           |------|      |      |      |      |      |           |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *      |      |      |      |      |      |                                       |      |      |      |      |      |
+ *      `----------------------------------'                                       `----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         |      |      |           |      |      |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      |      |           |      |      |      |
+ *                                  |      |      |------|           |------|      |      |
+ *                                  |      |      |      |           |      |      |      |
+ *                                  `--------------------'           `--------------------'
+ */
+[UNLOCK] = KEYMAP(
+// left hand
+ KC_FN1       ,KC_ESC    ,KC_TRNS   ,KC_TRNS   ,KC_TRNS ,KC_TRNS  ,KC_TRNS
+,KC_TRNS       ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS ,KC_TRNS  ,KC_TRNS
+,KC_TRNS      ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS ,KC_TRNS
+,KC_TRNS      ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS ,KC_TRNS  ,KC_TRNS
+,KC_TRNS      ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS
+
+                                                        ,KC_TRNS  ,KC_TRNS
+                                                                  ,KC_TRNS
+                                                ,KC_TRNS,KC_TRNS  ,KC_TRNS
+
+                                                                // right hand
+                                                               ,KC_TRNS ,KC_TRNS  ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS  ,KC_FN1
+                                                               ,KC_TRNS ,KC_TRNS  ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS  ,KC_TRNS
+                                                                        ,KC_TRNS  ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS  ,KC_TRNS
+                                                               ,KC_TRNS ,KC_TRNS  ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS  ,KC_TRNS
+                                                                                  ,KC_TRNS   ,KC_TRNS   ,KC_TRNS   ,KC_TRNS  ,KC_TRNS
+
+                                                               ,KC_TRNS ,KC_TRNS
+                                                               ,KC_TRNS
+                                                               ,KC_TRNS ,KC_TRNS  ,KC_TRNS
     )
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-     [1] = ACTION_LAYER_CLEAR(ON_PRESS)                // FN1 - clear to base layer
+     [1] = ACTION_LAYER_CLEAR(ON_PRESS)                    // FN1 - clear to base layer
 	,[2] = ACTION_LAYER_INVERT(SYMB_TG, ON_PRESS)      // FN2 - toggle to Symbols on press
 	,[3] = ACTION_LAYER_INVERT(MDIA_TG, ON_PRESS)      // FN3 - toggle to Media on press
 };
@@ -396,20 +442,15 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 	uint8_t layer = biton32(layer_state);
 
+    // do not change lights for locking and unlocking
+    if(layer == UNLOCK || layer == LOCK || layer == SYMB_XX || layer == MDIA_XX) {
+        return;
+    }
+
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-
-    // lock layer turns on all lights
-    if(layer == LOCK || layer == SYMB_XX) {
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
-    } else if(layer == MDIA_XX) {
-        ergodox_right_led_1_on();
-        ergodox_right_led_3_on();
-    }
 
     // caps lock turns on red light
     if(host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
