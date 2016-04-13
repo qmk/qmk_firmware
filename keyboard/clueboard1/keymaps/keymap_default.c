@@ -1,6 +1,6 @@
 #include "clueboard1.h"
 
-#ifdef ENABLE_RGBLIGHT
+#ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
 #endif
 
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------------------------'
    */
 [_RS] = KEYMAP(
-  #ifdef ENABLE_RGBLIGHT
+  #ifdef RGBLIGHT_ENABLE
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(1),             F(7), \
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                   F(8), \
   KC_TRNS, KC_TRNS, MO(_RS),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                         \
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum function_id {
     SHIFT_ESC,
-    #ifdef ENABLE_RGBLIGHT
+    #ifdef RGBLIGHT_ENABLE
     RGBLED_TOGGLE,
     RGBLED_STEP_MODE,
     RGBLED_INCREASE_HUE,
@@ -101,7 +101,7 @@ enum function_id {
 
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_FUNCTION(SHIFT_ESC),
-  #ifdef ENABLE_RGBLIGHT
+  #ifdef RGBLIGHT_ENABLE
   [1]  = ACTION_FUNCTION(RGBLED_TOGGLE),
   [2]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
   [3]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
@@ -137,7 +137,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     //led operations
-    #ifdef ENABLE_RGBLIGHT
+    #ifdef RGBLIGHT_ENABLE
     case RGBLED_TOGGLE:
       if (record->event.pressed) {
         rgblight_toggle();
