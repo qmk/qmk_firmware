@@ -98,6 +98,27 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 `DF(layer)` - sets default layer to *layer*. The default layer is the one at the "bottom" of the layer stack - the ultimate fallback layer. This currently does not persist over power loss. When you plug the keyboard back in, layer 0 will always be the default. It is theoretically possible to work around that, but that's not what `DF` does.
 
+### Prevent stuck modifiers
+
+Consider the following scenario:
+
+1. Layer 0 has a key defined as Shift.
+2. The same key is defined on layer 1 as the letter A.
+3. User presses Shift.
+4. User switches to layer 1 for whatever reason.
+5. User releases Shift, or rather the letter A.
+6. User switches back to layer 0.
+
+Shift was actually never released and is still considered pressed.
+
+If such situation bothers you add this to your `config.h`:
+
+    #define PREVENT_STUCK_MODIFIERS
+
+This option uses 5 bytes of memory per every 8 keys on the keyboard
+rounded up (5 bits per key). For example on Planck (48 keys) it uses
+(48/8)\*5 = 30 bytes.
+
 ### Remember: These are just aliases
 
 These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keymap.md#2-action).

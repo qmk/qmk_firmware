@@ -58,12 +58,26 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
+// Guitar Notes
+#define N_E 13180.5
+#define N_B 9870.8
+#define N_G 15680.0
+#define N_D 11740.7
+#define N_E 13180.5
+
 float start_up[][2] = {
-  {440.0*pow(2.0,(67)/12.0), 600},
-  {440.0*pow(2.0,(64)/12.0), 400},
-  {440.0*pow(2.0,(55)/12.0), 400},
-  {440.0*pow(2.0,(60)/12.0), 400},
-  {440.0*pow(2.0,(64)/12.0), 1000},
+ { N_E, 500 },
+ { 0, 50 },
+ { N_E, 500 },
+ { 0, 50 },
+ { N_E, 500 },
+ { 0, 50 },
+ { N_B, 500 },
+ { 0, 50 },
+ { N_E, 1000 },
+ { 0, 50 },
+ { N_G, 1500 },
+ { 0, 50 },
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -87,6 +101,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
 #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, 5, false);
+    play_notes(&start_up, 12, false);
+#endif
+}
+
+void process_action_user(keyrecord_t *record) {
+#ifdef AUDIO_ENABLE
+  if (record->event.pressed) {
+    float keypress[][2] = {
+      {440.0*pow(2.0,(record->event.key.col*7)/12.0), 600}
+    };
+    play_notes(&keypress, 1, false);
+  }
 #endif
 }
