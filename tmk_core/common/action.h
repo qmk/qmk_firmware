@@ -62,6 +62,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 void process_action_kb(keyrecord_t *record);
 
 /* Utilities for actions.  */
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+extern bool disable_action_cache;
+#endif
+void process_action_nocache(keyrecord_t *record);
 void process_action(keyrecord_t *record);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
