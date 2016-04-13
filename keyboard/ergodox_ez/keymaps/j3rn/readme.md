@@ -1,10 +1,10 @@
-# J3RN's Mac-centric Ergodox EZ keymap
+# J3RN's Mac-centric ErgoDox EZ keymap
 
 ## Motivation
 
-Essentially, I wanted to switch to a layout that was less jarring than the default Ergodox EZ layout, and did not require finger gymnastics to perform common OS X shortcuts (most of which involve the CMD (LGui) key).
+Essentially, I wanted to switch to a layout that was less jarring than the default ErgoDox EZ layout, and did not require finger gymnastics to perform common OS X shortcuts (most of which involve the CMD (LGui) key).
 
-## How is it different from the default Ergodox EZ layout?
+## How is it different from the default ErgoDox EZ layout?
 
 This layout more closely resembles that of the Mac keyboard, and has some other goodness baked in. Here is a rundown of what that means:
 
@@ -18,6 +18,7 @@ This layout more closely resembles that of the Mac keyboard, and has some other 
 ### Other changes
 
 - **The button to the left of "A" is Ctrl/Esc instead of Backspace.** This is actually how I have the keyboard on my Macbook set up to be, since it's loads more convenient than a  CAPS LOCK key. This is the Ctrl key I find myself using most.
+- **Mouse uses Vim-style navigation**. To activate "Media mode," hold the 'a' key. This allows you to move the mouse around with hjkl just like in Vim. Additionally, right and left click are the conveniently placed 'i' and 'o' keys.
 - **The key to the right of "5" and the key to left of "6" are "[" and "]", respectively, instead of Left and Right.** There is a more convenient set of Left and Right already present. Truth be told, I don't really use these keys, as they are a stretch to reach.
 - **The Toggle L1 keys have been replaced by the otherwise displaced "-" and "=".** They are laid out, left-to-right, in the same order as on the Mac keyboard. Honestly, they are not terribly conveniently placed, and their placement might change in a later version. I found that I did not toggle L1 frequently at all, and found using the momentary keys to access L1 to fit my workflow better.
 - **The "~"/L1 key in the bottom-left is now just momentary L1.** The "~" key was moved to the top-left as mentioned before, and I like to keep my multi-use keys to a minimum due to the latency for them to switch from "press" to "hold."
