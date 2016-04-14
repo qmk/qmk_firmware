@@ -184,8 +184,6 @@ extern const uint16_t fn_actions[];
 // Toggle to layer - 256 layer max
 #define TG(layer) (layer | 0x5400)
 
-#define MIDI(n) (n | 0x6000)
-
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
 #define CTL_T(kc) MT(0x1, kc)

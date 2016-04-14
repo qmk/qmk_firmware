@@ -1,6 +1,8 @@
 
 #include <avr/io.h>
 #include "backlight.h"
+#include "atomic.h"
+
 
 #define CHANNEL OCR1C
 
