@@ -87,6 +87,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         return action;
 #endif
     } else if (keycode == RESET) { // RESET is 0x5000, which is why this is here
+    	action_t action;
         clear_keyboard();
         #ifdef AUDIO_ENABLE
             play_notes(&goodbye, 5, false);
@@ -96,12 +97,13 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
         #endif
         bootloader_jump();
-        return;
+        return action;
     } else if (keycode == DEBUG) { // DEBUG is 0x5001
       // TODO: Does this actually work?
+        action_t action;
         print("\nDEBUG: enabled.\n");
         debug_enable = true;
-        return;
+        return action;
     } else if (keycode >= 0x5000 && keycode < 0x6000) {
         // Layer movement shortcuts
         // See .h to see constraints/usage
