@@ -120,13 +120,13 @@ EXTRAKEY_ENABLE = yes		# Audio control and System control(+450)
 CONSOLE_ENABLE = yes		# Console for debug(+400)
 COMMAND_ENABLE = yes		# Commands for debug and configuration
 #NKRO_ENABLE = yes			# USB Nkey Rollover - not yet supported in LUFA
-#BACKLIGHT_ENABLE = yes		# Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes		# Enable keyboard backlight functionality
 #MIDI_ENABLE = yes 			# MIDI controls
 #UNICODE_ENABLE = yes		# Unicode
 #BLUETOOTH_ENABLE = yes		# Enable Bluetooth with the Adafruit EZ-Key HID
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+#SLEEP_LED_ENABLE = yes		# Breathing sleep LED during USB suspend
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
