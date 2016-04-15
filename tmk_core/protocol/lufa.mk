@@ -17,7 +17,7 @@ LUFA_SRC = $(LUFA_DIR)/lufa.c \
 	   $(LUFA_DIR)/descriptor.c \
 	   $(LUFA_SRC_USB)
 
-ifeq ($(MIDI_ENABLE), yes)
+ifeq ($(strip $(MIDI_ENABLE)), yes)
 	LUFA_SRC += $(LUFA_DIR)/midi/midi.c \
 	   $(LUFA_DIR)/midi/midi_device.c \
 	   $(LUFA_DIR)/midi/bytequeue/bytequeue.c \
@@ -25,7 +25,7 @@ ifeq ($(MIDI_ENABLE), yes)
 	   $(LUFA_SRC_USBCLASS)
 endif
 
-ifeq ($(BLUETOOTH_ENABLE), yes)
+ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
 	$(TMK_DIR)/protocol/serial_uart.c
 endif
