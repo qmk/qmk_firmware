@@ -69,6 +69,7 @@ endif
 
 ifeq ($(BACKLIGHT_ENABLE), yes)
     SRC += $(COMMON_DIR)/backlight.c
+    SRC += $(COMMON_DIR)/avr/eeconfig.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 

@@ -2,9 +2,6 @@
 // this is the style you want to emulate.
 
 #include "planck.h"
-#ifdef BACKLIGHT_ENABLE
-  #include "backlight.h"
-#endif
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
