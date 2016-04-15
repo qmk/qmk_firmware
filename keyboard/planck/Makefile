@@ -107,6 +107,10 @@ endif
 
 SRC := $(KEYMAP_FILE) $(SRC)
 
+ifeq ($(BACKLIGHT_ENABLE), yes)
+	SRC := backlight.c $(SRC)
+endif
+
 CONFIG_H = config.h
 
 # MCU name
@@ -125,7 +129,6 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
-
 
 #
 # LUFA specific
@@ -157,12 +160,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
-
-ifeq ($(BACKLIGHT_ENABLE), yes)
-	SRC += backlight.c
-endif
-
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
