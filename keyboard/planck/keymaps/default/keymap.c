@@ -89,24 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, M(M_LW), KC_SPC,  KC_SPC,  M(M_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
-/* Raise
- * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
- */
-[_RS] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
-},
-
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
@@ -121,6 +103,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LW] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+},
+
+/* Raise
+ * ,-----------------------------------------------------------------------------------.
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_RS] = {
+  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
+  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
@@ -148,17 +148,18 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
+#ifdef AUDIO_ENABLE
 float tone_qw[][2] = {
   {440.0*pow(2.0,(67)/12.0), 400},
   {440.0*pow(2.0,(60)/12.0), 400},
-  {0, 400},
+  {0, 800},
   {440.0*pow(2.0,(67)/12.0), 1600}
 };
 
 float tone_cm[][2] = {
   {440.0*pow(2.0,(67)/12.0), 400},
   {440.0*pow(2.0,(60)/12.0), 400},
-  {0, 400},
+  {0, 800},
   {440.0*pow(2.0,(67)/12.0), 1000},
   {0, 200},
   {440.0*pow(2.0,(67)/12.0), 1000}
@@ -167,14 +168,14 @@ float tone_cm[][2] = {
 float tone_dv[][2] = {
   {440.0*pow(2.0,(67)/12.0), 400},
   {440.0*pow(2.0,(60)/12.0), 400},
-  {0, 400},
+  {0, 800},
   {440.0*pow(2.0,(67)/12.0), 800},
   {0, 200},
   {440.0*pow(2.0,(67)/12.0), 800},
   {0, 200},
   {440.0*pow(2.0,(67)/12.0), 800}
 };
-
+#endif
 
 #define IS_LAYER_ON(layer)  ((layer_state) & (1<<(layer)))
 #define IS_LAYER_OFF(layer) ((!layer_state) & (1<<(layer)))
@@ -192,19 +193,25 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       switch(id) {
         case M_QW:
           if (record->event.pressed) {
-            play_notes(&tone_qw, 4, false);
+            #ifdef AUDIO_ENABLE
+              play_notes(&tone_qw, 4, false);
+            #endif
             default_layer_set(1UL<<_QW);
           }
           break;
         case M_CM:
           if (record->event.pressed) {
-            play_notes(&tone_cm, 6, false);
+            #ifdef AUDIO_ENABLE
+              play_notes(&tone_cm, 6, false);
+            #endif
             default_layer_set(1UL<<_CM);
           }
           break;
         case M_DV:
           if (record->event.pressed) {
-            play_notes(&tone_dv, 8, false);
+            #ifdef AUDIO_ENABLE
+              play_notes(&tone_dv, 8, false);
+            #endif
             default_layer_set(1UL<<_DV);
           }
           break;
@@ -240,6 +247,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+#ifdef AUDIO_ENABLE
 float start_up[][2] = {
   {440.0*pow(2.0,(67)/12.0), 650},
   {440.0*pow(2.0,(64)/12.0), 450},
@@ -247,8 +255,11 @@ float start_up[][2] = {
   {440.0*pow(2.0,(60)/12.0), 450},
   {440.0*pow(2.0,(64)/12.0), 1000}
 };
+#endif
 
 void matrix_init_user(void) {
+  #ifdef AUDIO_ENABLE
     init_notes();
     play_notes(&start_up, 5, false);
+  #endif
 }
