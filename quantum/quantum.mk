@@ -23,19 +23,19 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
-ifdef MIDI_ENABLE
+ifeq ($(MIDI_ENABLE), yes)
 	SRC += $(QUANTUM_DIR)/keymap_midi.c
 endif
 
-ifdef AUDIO_ENABLE
+ifeq ($(AUDIO_ENABLE), yes)
 	SRC += $(QUANTUM_DIR)/audio.c
 endif
 
-ifdef UNICODE_ENABLE
+ifeq ($(UNICODE_ENABLE), yes)
 	SRC += $(QUANTUM_DIR)/keymap_unicode.c
 endif
 
-ifdef RGBLIGHT_ENABLE
+ifeq ($(RGBLIGHT_ENABLE), yes)
 	SRC += $(QUANTUM_DIR)/light_ws2812.c
 	SRC += $(QUANTUM_DIR)/rgblight.c
 	OPT_DEFS += -DRGBLIGHT_ENABLE
