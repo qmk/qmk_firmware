@@ -16,12 +16,20 @@ The documentation below explains QMK customizations and elaborates on some of th
 * If you're looking to customize a keyboard that currently runs QMK or TMK, find your keyboard's directory under `keyboard/` and run the make commands from there.
 * If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `./new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
 
+### Makefile Options
+
 You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
 
     BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
     MIDI_ENABLE = yes      # MIDI controls
-    # UNICODE_ENABLE = yes # Unicode support - this is commented out, just as an example. You have to use #, not //
+    UNICODE_ENABLE = no    # <-- This is how you disable an option, just set it to "no"
     BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+
+### Customizing Makefile options on a per-keymap basis
+
+If your keymap directory has a file called `makefile.mk` (note the lowercase filename, and the `.mk` extension), any Makefile options you set in that file will take precedence over other Makefile options (those set for Quantum as a whole or for your particular keyboard).
+
+So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `makefile.mk` and specify `CONSOLE_ENABLE = no`.
 
 ## Quick aliases to common actions
 
@@ -198,6 +206,10 @@ This will clear all mods currently pressed.
 * `clear_keyboard_but_mods();`
 
 This will clear all keys besides the mods currently pressed.
+
+* `update_tri_layer(layer_1, layer_2, layer_3);`
+
+If the user attempts to activate layer 1 AND layer 2 at the same time (for example, by hitting their respective layer keys), layer 3 will be activated. Layers 1 and 2 will _also_ be activated, for the purposes of fallbacks (so a given key will fall back from 3 to 2, to 1 -- and only then to 0).
 
 #### Timer functionality
 

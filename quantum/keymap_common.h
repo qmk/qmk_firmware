@@ -208,5 +208,9 @@ extern const uint16_t fn_actions[];
 #define UNICODE(n) (n | 0x8000)
 #define UC(n) UNICODE(n)
 
+// For tri-layer
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+#define IS_LAYER_ON(layer)  ((layer_state) & (1UL<<(layer)))
+#define IS_LAYER_OFF(layer) ((!layer_state) & (1UL<<(layer)))
 
 #endif
