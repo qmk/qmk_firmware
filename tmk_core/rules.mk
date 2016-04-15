@@ -357,7 +357,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build sizeafter end
+all: begin tkd gccversion sizebefore build sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -372,7 +372,11 @@ sym: $(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
 
-
+# Create target keymap directory
+tkd:
+ifneq ("$(TARGET_KEYMAP_DIR)","")
+	mkdir -p $(TARGET_KEYMAP_DIR)
+endif
 
 # Eye candy.
 # AVR Studio 3.x does not check make's exit code but relies on
