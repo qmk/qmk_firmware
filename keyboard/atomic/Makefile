@@ -27,7 +27,7 @@
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
 #                (must have Atmel FLIP installed).
 #
-# make debug = Start either simulavr or avarice as specified for debugging, 
+# make debug = Start either simulavr or avarice as specified for debugging,
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -37,6 +37,27 @@
 #
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
+
+# Build Options
+#   change to "no" to disable the options, or define them in the makefile.mk in
+#   the appropriate keymap folder that will get included automatically
+#
+BOOTMAGIC_ENABLE = yes     # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE  = yes     # Mouse keys(+4700)
+EXTRAKEY_ENABLE  = yes     # Audio control and System control(+450)
+CONSOLE_ENABLE   = yes     # Console for debug(+400)
+COMMAND_ENABLE   = yes     # Commands for debug and configuration
+NKRO_ENABLE      = no      # USB Nkey Rollover - if this doesn't work, see here:
+                           # https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
+MIDI_ENABLE      = no      # MIDI controls
+AUDIO_ENABLE     = no      # Audio output on port C6
+UNICODE_ENABLE   = no      # Unicode
+BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE  = no      # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # Target file name (without extension).
 TARGET = atomic
@@ -50,14 +71,41 @@ TMK_DIR = ../../tmk_core
 TARGET_DIR = .
 
 # # project specific files
-SRC = atomic.c \
-	backlight.c 
+SRC = atomic.c
+
+ifdef keymap
+	KEYMAP = $(keymap)
+endif
 
 ifdef KEYMAP
-    SRC := keymaps/$(KEYMAP).c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
-    SRC := keymaps/default.c $(SRC)
+ifneq ("$(wildcard keymaps/$(KEYMAP)/keymap.c)","")
+	KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
+ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
+	include keymaps/$(KEYMAP)/makefile.mk
 endif
+else
+$(error Keymap file does not exist)
+endif
+endif
+
+else
+
+ifneq ("$(wildcard keymaps/default.c)","")
+	KEYMAP_FILE = keymaps/default.c
+else
+	KEYMAP_FILE = keymaps/default/keymap.c
+endif
+
+ifneq ("$(wildcard keymaps/default/makefile.mk)","")
+	include keymaps/default/makefile.mk
+endif
+
+endif
+
+SRC := $(KEYMAP_FILE) $(SRC)
 
 CONFIG_H = config.h
 
@@ -111,22 +159,10 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
-# Build Options
-#   comment out to disable the options.
-#
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
-COMMAND_ENABLE = yes        # Commands for debug and configuration
-NKRO_ENABLE = yes           # USB Nkey Rollover - not yet supported in LUFA
-#BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
-#MIDI_ENABLE = yes          # MIDI controls
-#UNICODE_ENABLE = yes       # Unicode
-#BLUETOOTH_ENABLE = yes     # Enable Bluetooth with the Adafruit EZ-Key HID
+ifeq ($(BACKLIGHT_ENABLE), yes)
+	SRC += backlight.c
+endif
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-#SLEEP_LED_ENABLE = yes     # Breathing sleep LED during USB suspend
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -135,12 +171,5 @@ NKRO_ENABLE = yes           # USB Nkey Rollover - not yet supported in LUFA
 VPATH += $(TARGET_DIR)
 VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
-
-debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
-debug-on: all
-
-debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
-debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
-debug-off: all
 
 include $(TOP_DIR)/quantum/quantum.mk
