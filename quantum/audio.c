@@ -255,7 +255,12 @@ ISR(TIMER3_COMPA_vect) {
 
 
         note_position++;
-        if (note_position >= note_length) {
+        bool end_of_note = false;
+        if (ICR3 > 0) 
+            end_of_note = (note_position >= (note_length / ICR3 * 0xFFFF));
+        else 
+            end_of_note = (note_position >= (note_length * 0x7FF));
+        if (end_of_note) {
             current_note++;
             if (current_note >= notes_length) {
                 if (notes_repeat) {
