@@ -33,11 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "audio.h"
 
     float goodbye[][2] = {
-        {440.0*pow(2.0,(67)/12.0), 400},
-        {0, 50},
-        {440.0*pow(2.0,(60)/12.0), 400},
-        {0, 50},
-        {440.0*pow(2.0,(55)/12.0), 600},
+        {440.0*pow(2.0,(67)/12.0), 8},
+        {440.0*pow(2.0,(60)/12.0), 8},
+        {440.0*pow(2.0,(55)/12.0), 12},
     };
 #endif
 
@@ -90,7 +88,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	action_t action;
         clear_keyboard();
         #ifdef AUDIO_ENABLE
-            play_notes(&goodbye, 5, false);
+            play_notes(&goodbye, 3, false);
         #endif
         _delay_ms(250);
         #ifdef ATREUS_ASTAR

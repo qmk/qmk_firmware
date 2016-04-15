@@ -38,30 +38,8 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Build Options
-#   change to "no" to disable the options, or define them in the makefile.mk in 
-#   the appropriate keymap folder that will get included automatically
-#
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
-COMMAND_ENABLE = yes        # Commands for debug and configuration
-NKRO_ENABLE = no            # USB Nkey Rollover - if this doesn't work, see here: 
-                            # https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = no           # Audio output on port C6
-UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
 # Target file name (without extension).
 TARGET = planck
-
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -126,7 +104,6 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
-
 #
 # LUFA specific
 #
@@ -158,7 +135,29 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+# Build Options
+#   change to "no" to disable the options, or define them in the makefile.mk in 
+#   the appropriate keymap folder that will get included automatically
+#
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+
+ifdef KEYMAP
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Build Options
 #   comment out to disable the options.
@@ -185,8 +184,25 @@ ifdef BACKLIGHT_ENABLE
 ifeq ($(BACKLIGHT_ENABLE), yes)
 >>>>>>> master
 	SRC += backlight.c
+=======
+ifeq ("$(wildcard keymaps/$(KEYMAP).c)","")
+ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
+	include keymaps/$(KEYMAP)/makefile.mk
+endif 
+>>>>>>> remotes/jackhumbert/new_defaults
 endif
 
+else
+
+ifneq ("$(wildcard keymaps/default/makefile.mk)","")
+	include keymaps/default/makefile.mk
+endif
+
+endif
+
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+	SRC := backlight.c $(SRC)
+endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
