@@ -169,7 +169,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   switch(id) {
     case KP_00:
       if (record->event.pressed) {
-        return MACRO( D(KP_0), U(KP_0), D(KP_0), U(KP_0), END );
+        return MACRO( D(KP_0), U(KP_0), D(KP_0), END );
+      } else {
+        return MACRO( U(KP_0), END );
       }
       break;
   }
