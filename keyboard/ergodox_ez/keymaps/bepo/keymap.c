@@ -7,6 +7,7 @@
 #define FNX 1 // function keys
 #define NUM 2 // numeric keypad keys
 #define NAV 3 // navigation keys
+#define MSE 4 // mouse keys
 
 #define KP_00 0
 
@@ -22,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|Delete|                                  | NumLo|------+------+------+------+------+--------|
  * | E_CIRC |A_GRAV|   Y  |   X  |   .  |   K  |      |                                  |      |   '  |   Q  |   G  |   H  |   F  | C_CEDIL|
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   |      |      |LSuper| LCtrl|  LAlt|             |      |      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
+ *   |      |      |LSuper| LCtrl|  LAlt|             |      | L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             | Space|  Tab |------|      |------|RShift|Enter |
@@ -36,7 +37,7 @@ BP_PERCENT,	BP_B,		BP_E_ACUTE,	BP_P,		BP_O,		BP_E_GRAVE,	KC_BSPC,
 BP_W,		BP_A,		BP_U,		BP_I,		BP_E,		BP_COMMA,
 BP_ECRC,	BP_A_GRAVE,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_DEL,
 KC_NO,		KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_NO,		KC_NO,
+														KC_NO,		MO(MSE),
 																MO(NUM),
 												KC_SPC,		KC_TAB,		MO(NAV),
 // Right hand
@@ -154,6 +155,43 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 				KC_NO,		KC_NO,		KC_HOME,	KC_UP,		KC_END,		KC_PGUP,	KC_NO,
 						KC_NO,		KC_LEFT,	KC_DOWN,	KC_RIGHT,	KC_PGDOWN,	KC_NO,
+				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
+KC_NO,		KC_NO,
+KC_NO,
+KC_NO,		KC_TRNS,	KC_NO),
+/* Keymap 4: mouse layer
+ *
+ * ,--------------------------------------------------.                                  ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |                                  |      |      |LClick|  Up  |RClick| WhUp |        |
+ * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|                                  |------|      | Left | Down | Right|WhDown|        |
+ * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |             |      |      |      |      |      |             |      |      |      |      |      |
+ *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
+ *                                             |      |      |      |      |      |      |      |
+ *                                             |      |      |------|      |------|      |      |
+ *                                             |      |      |      |      |      |      |      |
+ *                                             `--------------------'      `--------------------'
+ */
+[MSE] = KEYMAP(
+// Left hand
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
+														KC_NO,		KC_TRNS,
+																KC_NO,
+												KC_NO,		KC_NO,		KC_NO,
+// Right hand
+				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+				KC_NO,		KC_NO,		KC_MS_BTN1,	KC_MS_UP,	KC_MS_BTN2,	KC_MS_WH_UP,	KC_NO,
+						KC_NO,		KC_MS_LEFT,	KC_MS_DOWN,	KC_MS_RIGHT,	KC_MS_WH_DOWN,	KC_NO,
 				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
 KC_NO,		KC_NO,
