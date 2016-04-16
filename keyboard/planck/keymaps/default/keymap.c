@@ -19,12 +19,16 @@
 #define _AD 5
 
 // Macro name shortcuts
-#define M_QW 0
-#define M_CM 1
-#define M_DV 2
-#define M_LW 3
-#define M_RS 4
+#define QWERTY M(_QW)
+#define COLEMAK M(_CM)
+#define DVORAK M(_DV)
+#define LOWER M(_LW)
+#define RAISE M(_RS)
 #define M_BL 5
+#ifdef AUDIO_ENABLE
+  #define AUD_OFF M(6)
+  #define AUD_ON M(7)
+#endif
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -47,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, M(M_LW), KC_SPC,  KC_SPC,  M(M_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak
@@ -65,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, M(M_LW), KC_SPC,  KC_SPC,  M(M_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Dvorak
@@ -83,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, M(M_LW), KC_SPC,  KC_SPC,  M(M_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Lower
@@ -126,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |Aud on|Audoff|      |      |Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -135,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_AD] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, _______, M(6),    _______, _______, M(M_QW), M(M_CM), M(M_DV), _______, _______},
+  {_______, _______, _______, AUD_ON,  AUD_OFF, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -146,6 +150,14 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 #ifdef AUDIO_ENABLE
+float start_up[][2] = {
+  {440.0*pow(2.0,(67)/12.0), 12},
+  {440.0*pow(2.0,(64)/12.0), 8},
+  {440.0*pow(2.0,(55)/12.0), 8},
+  {440.0*pow(2.0,(60)/12.0), 8},
+  {440.0*pow(2.0,(64)/12.0), 20}
+};
+
 float tone_qw[][2] = {
   {440.0*pow(2.0,(59)/12.0), 8},
   {440.0*pow(2.0,(60)/12.0), 8},
@@ -157,20 +169,20 @@ float tone_cm[][2] = {
   {440.0*pow(2.0,(59)/12.0), 8},
   {440.0*pow(2.0,(60)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16},
+  {440.0*pow(2.0,(67)/12.0), 12},
   {0, 4},
-  {440.0*pow(2.0,(71)/12.0), 16}
+  {440.0*pow(2.0,(71)/12.0), 12}
 };
 
 float tone_dv[][2] = {
   {440.0*pow(2.0,(59)/12.0), 8},
   {440.0*pow(2.0,(60)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16},
+  {440.0*pow(2.0,(67)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(69)/12.0), 16},
+  {440.0*pow(2.0,(69)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16}
+  {440.0*pow(2.0,(67)/12.0), 8}
 };
 #endif
 
@@ -179,7 +191,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
       switch(id) {
-        case M_QW:
+        case _QW:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               play_notes(&tone_qw, 4, false);
@@ -187,7 +199,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             default_layer_set(1UL<<_QW);
           }
           break;
-        case M_CM:
+        case _CM:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               play_notes(&tone_cm, 6, false);
@@ -195,7 +207,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             default_layer_set(1UL<<_CM);
           }
           break;
-        case M_DV:
+        case _DV:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               play_notes(&tone_dv, 8, false);
@@ -203,7 +215,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             default_layer_set(1UL<<_DV);
           }
           break;
-        case M_LW:
+        case _LW:
           if (record->event.pressed) {
             layer_on(_LW);
             update_tri_layer(_LW, _RS, _AD);
@@ -212,7 +224,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             update_tri_layer(_LW, _RS, _AD);
           }
           break;
-        case M_RS:
+        case _RS:
           if (record->event.pressed) {
             layer_on(_RS);
             update_tri_layer(_LW, _RS, _AD);
@@ -233,22 +245,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
         case 6:
           if (record->event.pressed) {
-            audio_toggle();
+            #ifdef AUDIO_ENABLE
+              audio_off();
+            #endif
+          }
+        break;
+        case 7:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              audio_on();
+              play_notes(&start_up, 5, false);
+            #endif
           }
         break;
       }
     return MACRO_NONE;
 };
-
-#ifdef AUDIO_ENABLE
-float start_up[][2] = {
-  {440.0*pow(2.0,(67)/12.0), 12},
-  {440.0*pow(2.0,(64)/12.0), 8},
-  {440.0*pow(2.0,(55)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
-  {440.0*pow(2.0,(64)/12.0), 20}
-};
-#endif
 
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
