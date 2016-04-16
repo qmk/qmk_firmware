@@ -8,6 +8,8 @@
 #include "audio.h"
 #include "keymap_common.h"
 
+#include "eeconfig.h"
+
 #define PI 3.14159265
 
 // #define PWM_AUDIO
@@ -56,6 +58,25 @@ float (* notes_pointer)[][2];
 uint8_t notes_length;
 bool notes_repeat;
 uint8_t current_note = 0;
+
+audio_config_t audio_config;
+
+
+void audio_toggle(void) {
+    audio_config.enable ^= 1;
+    eeconfig_write_audio(audio_config.raw);
+}
+
+void audio_on(void) {
+    audio_config.enable = 1;
+    eeconfig_write_audio(audio_config.raw);
+}
+
+void audio_off(void) {
+    audio_config.enable = 0;
+    eeconfig_write_audio(audio_config.raw);
+}
+
 
 void stop_all_notes() {
     voices = 0;
@@ -129,6 +150,12 @@ void stop_note(double freq) {
 
 void init_notes() {
 
+    /* check signature */
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+    audio_config.raw = eeconfig_read_audio();
+
     #ifdef PWM_AUDIO
         PLLFRQ = _BV(PDIV2);
         PLLCSR = _BV(PLLE);
@@ -160,7 +187,6 @@ void init_notes() {
 
 
 ISR(TIMER3_COMPA_vect) {
-
     if (note) {
         #ifdef PWM_AUDIO
             if (voices == 1) {
@@ -288,9 +314,16 @@ ISR(TIMER3_COMPA_vect) {
 
     }
 
+    if (!audio_config.enable) {
+        notes = false;
+        note = false;
+    }
 }
 
 void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat) {
+
+if (audio_config.enable) {
+
     if (note)
         stop_all_notes();
     notes = true;
@@ -319,7 +352,12 @@ void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat) {
     #endif
 }
 
+}
+
 void play_sample(uint8_t * s, uint16_t l, bool r) {
+
+if (audio_config.enable) {
+
     stop_all_notes();
     place_int = 0;
     sample = s;
@@ -330,9 +368,15 @@ void play_sample(uint8_t * s, uint16_t l, bool r) {
         TIMSK3 |= _BV(OCIE3A);
     #else
     #endif
+
+}
+
 }
 
 void play_note(double freq, int vol) {
+
+if (audio_config.enable) {
+
     if (notes)
         stop_all_notes();
     note = true;
@@ -366,5 +410,7 @@ void play_note(double freq, int vol) {
         TIMSK3 |= _BV(OCIE3A);
         TCCR3A |= _BV(COM3A1);
     #endif
+
+}
 
 }
