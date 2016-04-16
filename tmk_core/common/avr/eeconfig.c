@@ -14,7 +14,7 @@ void eeconfig_init(void)
     eeprom_write_byte(EECONFIG_BACKLIGHT,      0);
 #endif
 #ifdef AUDIO_ENABLE
-    eeprom_write_byte(EECONFIG_AUDIO,      	   0);
+    eeprom_write_byte(EECONFIG_AUDIO,      	   0xFF); // On by default
 #endif
 }
 
