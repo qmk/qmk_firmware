@@ -153,9 +153,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Audoff|Aud on|      |      |Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |Audoff|Aud on|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |Musoff|Mus on|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, _______},
+  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP,  QWERTY,  COLEMAK, DVORAK,  _______, _______},
   {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -231,6 +231,10 @@ float tone_music[][2] = {
 };
 #endif
 
+void persistant_default_layer_set(uint16_t default_layer) {
+  eeconfig_write_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -240,8 +244,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               play_notes(&tone_qwerty, 4, false);
             #endif
-            eeconfig_write_default_layer(1UL<<_QWERTY);
-            default_layer_set(1UL<<_QWERTY);
+            persistant_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
@@ -249,8 +252,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               play_notes(&tone_colemak, 6, false);
             #endif
-            eeconfig_write_default_layer(1UL<<_COLEMAK);
-            default_layer_set(1UL<<_COLEMAK);
+            persistant_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
@@ -258,8 +260,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               play_notes(&tone_dvorak, 8, false);
             #endif
-            eeconfig_write_default_layer(1UL<<_DVORAK);
-            default_layer_set(1UL<<_DVORAK);
+            persistant_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _LOWER:

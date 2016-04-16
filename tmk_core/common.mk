@@ -21,6 +21,9 @@ ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
     SRC += $(COMMON_DIR)/bootmagic.c
     SRC += $(COMMON_DIR)/avr/eeconfig.c
     OPT_DEFS += -DBOOTMAGIC_ENABLE
+else
+    SRC += $(COMMON_DIR)/magic.c
+    SRC += $(COMMON_DIR)/avr/eeconfig.c
 endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
