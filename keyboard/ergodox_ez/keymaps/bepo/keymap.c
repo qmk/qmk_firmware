@@ -14,40 +14,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
- * |   $    |   "  |   <  |   >  |   (  |   )  |      |                                  |ScroLo|   @  |   +  |   -  |   /  |   *  |   =    |
+ * |   $    |   "  |   <  |   >  |   (  |   )  |  Esc |                                  |ScroLo|   @  |   +  |   -  |   /  |   *  |   =    |
  * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
- * |   %    |   B  |E_ACUT|   P  |   O  |E_GRAV|  Esc |                                  |CapsLo|   ^  |   V  |   D  |   L  |   J  |   Z    |
- * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
+ * |   %    |   B  |E_ACUT|   P  |   O  |E_GRAV|Backsp|                                  |CapsLo|   ^  |   V  |   D  |   L  |   J  |   Z    |
+ * |--------+------+------+------+------+------|  ace |                                  |      |------+------+------+------+------+--------|
  * |   W    |   A  |   U  |   I  |   E  |   ,  |------|                                  |------|   C  |   T  |   S  |   R  |   N  |   M    |
- * |--------+------+------+------+------+------|  Tab |                                  | NumLo|------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|Delete|                                  | NumLo|------+------+------+------+------+--------|
  * | E_CIRC |A_GRAV|   Y  |   X  |   .  |   K  |      |                                  |      |   '  |   Q  |   G  |   H  |   F  | C_CEDIL|
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   |      | L_Fx | L_Num| L_Nav| LCtrl|             |Delete|LSuper|      |RSuper|Insert|             | AltGr|      |      |PrntSc| Pause|
+ *   |      |      |LSuper| LCtrl|  LAlt|             |      |      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      | LCtrl|      | RCtrl|      |      |
- *                                             | Space|Backsp|------|      |------|RShift|Enter |
- *                                             |      |ace   |  LAlt|      | AltGr|      |      |
+ *                                             |      |      | L_Num|      |      |      |      |
+ *                                             | Space|  Tab |------|      |------|RShift|Enter |
+ *                                             |      |      | L_Nav|      | L_Fx |      |      |
  *                                             `--------------------'      `--------------------'
  */
 [BASE] = KEYMAP(
 // Left hand
-BP_DOLLAR,	BP_DQOT,	BP_LGIL,	BP_RGIL,	BP_LPRN,	BP_RPRN,	KC_NO,
-BP_PERCENT,	BP_B,		BP_E_ACUTE,	BP_P,		BP_O,		BP_E_GRAVE,	KC_ESC,
+BP_DOLLAR,	BP_DQOT,	BP_LGIL,	BP_RGIL,	BP_LPRN,	BP_RPRN,	KC_ESC,
+BP_PERCENT,	BP_B,		BP_E_ACUTE,	BP_P,		BP_O,		BP_E_GRAVE,	KC_BSPC,
 BP_W,		BP_A,		BP_U,		BP_I,		BP_E,		BP_COMMA,
-BP_ECRC,	BP_A_GRAVE,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_TAB,
-KC_NO,		MO(FNX),	MO(NUM),	MO(NAV),	KC_LCTL,
-														KC_DEL,		KC_LGUI,
-																KC_LCTL,
-												KC_SPC,		KC_BSPC,	KC_LALT,
+BP_ECRC,	BP_A_GRAVE,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_DEL,
+KC_NO,		KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
+														KC_NO,		KC_NO,
+																MO(NUM),
+												KC_SPC,		KC_TAB,		MO(NAV),
 // Right hand
 				KC_SLCK,	BP_AT,		BP_PLUS,	BP_MINUS,	BP_SLASH,	BP_ASTR,	BP_EQUAL,
 				KC_CAPSLOCK,	BP_DCRC,	BP_V,		BP_D,		BP_L,		BP_J,		BP_Z,
 						BP_C,		BP_T,		BP_S,		BP_R,		BP_N,		BP_M,
 				KC_NUMLOCK,	BP_APOS,	BP_Q,		BP_G,		BP_H,		BP_F,		BP_CCED,
-								BP_ALGR,	KC_NO,		KC_NO,		KC_PSCREEN,	KC_PAUSE,
-KC_RGUI,	KC_INS,
-KC_RCTL,
-BP_ALGR,	KC_RSHIFT,	KC_ENTER),
+								BP_ALGR,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
+KC_NO,		KC_INS,
+KC_NO,
+MO(FNX),	KC_RSHIFT,	KC_ENTER),
 /* Keymap 1: function layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
@@ -55,9 +55,9 @@ BP_ALGR,	KC_RSHIFT,	KC_ENTER),
  * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |   F12  |
  * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|                                  |------|      |      |      |      |      |        |
+ * |        |      |      |      |      |      |------|                                  |------|      |      |      |      |      |   F13  |
  * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |   F14  |
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |             |      |      |      |      |      |             |      |      |      |      |      |
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
@@ -72,19 +72,19 @@ KC_NO,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_TRNS,	KC_NO,		KC_NO,		KC_NO,
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 														KC_NO,		KC_NO,
 																KC_NO,
 												KC_NO,		KC_NO,		KC_NO,
 // Right hand
 				KC_NO,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,
 				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F12,
-						KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+						KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F13,
+				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F14,
 								KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,
 KC_NO,
-KC_NO,		KC_NO,		KC_NO),
+KC_TRNS,	KC_NO,		KC_NO),
 /* Keymap 2: numeric layer, sends keypad codes
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
@@ -109,9 +109,9 @@ KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_TRNS,	KC_NO,		KC_NO,
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 														KC_NO,		KC_NO,
-																KC_NO,
+																KC_TRNS,
 												KC_NO,		KC_NO,		KC_NO,
 // Right hand
 				KC_NO,		KC_NO,		KC_KP_PLUS,	KC_KP_MINUS,	KC_KP_SLASH,	KC_KP_ASTERISK,	KC_NO,
@@ -146,10 +146,10 @@ KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_TRNS,	KC_NO,
+KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 														KC_NO,		KC_NO,
 																KC_NO,
-												KC_NO,		KC_NO,		KC_NO,
+												KC_NO,		KC_NO,		KC_TRNS,
 // Right hand
 				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 				KC_NO,		KC_NO,		KC_HOME,	KC_UP,		KC_END,		KC_PGUP,	KC_NO,
