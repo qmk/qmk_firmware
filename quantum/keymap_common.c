@@ -33,11 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "audio.h"
 
     float goodbye[][2] = {
-        {440.0*pow(2.0,(67)/12.0), 400},
-        {0, 50},
-        {440.0*pow(2.0,(60)/12.0), 400},
-        {0, 50},
-        {440.0*pow(2.0,(55)/12.0), 600},
+        {440.0*pow(2.0,(67)/12.0), 8},
+        {440.0*pow(2.0,(60)/12.0), 8},
+        {440.0*pow(2.0,(55)/12.0), 12},
     };
 #endif
 
@@ -90,7 +88,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     	action_t action;
         clear_keyboard();
         #ifdef AUDIO_ENABLE
-            play_notes(&goodbye, 5, false);
+            play_notes(&goodbye, 3, false);
         #endif
         _delay_ms(250);
         #ifdef ATREUS_ASTAR
@@ -292,4 +290,12 @@ action_t keymap_func_to_action(uint16_t keycode)
 {
 	// For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
+}
+
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
+    layer_on(layer3);
+  } else {
+    layer_off(layer3);
+  }
 }
