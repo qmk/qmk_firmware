@@ -59,11 +59,11 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 float start_up[][2] = {
-  {440.0*pow(2.0,(67)/12.0), 600},
-  {440.0*pow(2.0,(64)/12.0), 400},
-  {440.0*pow(2.0,(55)/12.0), 400},
-  {440.0*pow(2.0,(60)/12.0), 400},
-  {440.0*pow(2.0,(64)/12.0), 1000},
+  {440.0*pow(2.0,(67)/12.0), 4},
+  {440.0*pow(2.0,(64)/12.0), 8},
+  {440.0*pow(2.0,(55)/12.0), 8},
+  {440.0*pow(2.0,(60)/12.0), 8},
+  {440.0*pow(2.0,(64)/12.0), 10},
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -76,8 +76,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef BACKLIGHT_ENABLE
               backlight_step();
             #endif
+            audio_toggle();
           } else {
             unregister_code(KC_RSFT);
+            play_notes(&start_up, 5, false);
           }
         break;
       }
