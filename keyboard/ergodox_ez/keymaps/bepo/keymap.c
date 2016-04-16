@@ -6,10 +6,11 @@
 #define BASE 0 // default layer
 #define QWER 1 // qwerty compat layer
 #define SQWER 2 // shifted qwerty compat layer
-#define FNX 3 // function keys
-#define NUM 4 // numeric keypad keys
-#define NAV 5 // navigation keys
-#define MSE 6 // mouse keys
+#define AQWER 3 // alted qwerty compat layer
+#define FNX 4 // function keys
+#define NUM 5 // numeric keypad keys
+#define NAV 6 // navigation keys
+#define MSE 7 // mouse keys
 
 #define KP_00 0
 
@@ -84,7 +85,7 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 				KC_CAPSLOCK,	KC_CIRC,	KC_V,		KC_D,		KC_L,		KC_J,		KC_Z,
 						KC_C,		KC_T,		KC_S,		KC_R,		KC_N,		KC_M,
 				KC_NUMLOCK,	KC_QUOT,	KC_Q,		KC_G,		KC_H,		KC_F,		KC_C,
-								KC_RALT,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
+								MO(AQWER),	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
 KC_NO,
 MO(FNX),	MO(SQWER),	KC_ENTER),
@@ -125,7 +126,44 @@ KC_TRNS,	KC_TRNS,	S(KC_LGUI),	S(KC_LCTL),	S(KC_LALT),
 KC_TRNS,	KC_TRNS,
 KC_TRNS,
 KC_TRNS,	KC_TRNS,	KC_TRNS),
-/* Keymap 3: function layer
+/* Keymap 3: QWERTY alted system compatibility layer
+ *
+ * ,--------------------------------------------------.                                  ,--------------------------------------------------.
+ * |   $    |   "  |   <  |   >  |   [  |   ]  |  Esc |                                  |ScroLo|   @  |   +  |   -  |   /  |   *  |   =    |
+ * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
+ * |   %    |   |  |   e  |   &  |   o  |   e  |Backsp|                                  |CapsLo|   ^  |   v  |   d  |   l  |   j  |   z    |
+ * |--------+------+------+------+------+------|  ace |                                  |      |------+------+------+------+------+--------|
+ * |   w    |   a  |   u  |   i  |   €  |   ,  |------|                                  |------|   c  |   t  |   s  |   r  |   n  |   m    |
+ * |--------+------+------+------+------+------|Delete|                                  | NumLo|------+------+------+------+------+--------|
+ * |   e    |   \  |   {  |   }  |   .  |   ~  |      |                                  |      |   '  |   q  |   g  |   h  |   f  |   c    |
+ * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
+ *   | BEPO |      |LSuper| LCtrl|  LAlt|             |      | L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
+ *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
+ *                                             |      |      | L_Num|      |      |      |      |
+ *                                             | Space|  Tab |------|      |------|RShift|Enter |
+ *                                             |      |      | L_Nav|      | L_Fx |      |      |
+ *                                             `--------------------'      `--------------------'
+ */
+[AQWER] = KEYMAP(
+// Left hand
+KC_DOLLAR,	S(KC_QUOT),	S(KC_COMM),	S(KC_DOT),	KC_LBRC,	KC_RBRC,	KC_ESC,
+KC_PERCENT,	S(KC_BSLASH),	KC_E,		S(KC_7),	KC_O,		KC_E,		KC_BSPC,
+KC_W,		KC_A,		KC_U,		KC_I,		RALT(KC_5),	KC_COMMA,
+KC_E,		KC_BSLASH,	S(KC_LBRC),	S(KC_RBRC),	KC_DOT,		S(KC_GRV),	KC_DEL,
+KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
+														KC_NO,		MO(MSE),
+																MO(NUM),
+												KC_SPC,		KC_TAB,		MO(NAV),
+// Right hand
+				KC_SLCK,	KC_AT,		KC_PLUS,	KC_MINUS,	KC_SLASH,	KC_ASTR,	KC_EQUAL,
+				KC_CAPSLOCK,	KC_CIRC,	KC_V,		KC_D,		KC_L,		KC_J,		KC_Z,
+						KC_C,		KC_T,		KC_S,		KC_R,		KC_N,		KC_M,
+				KC_NUMLOCK,	KC_QUOT,	KC_Q,		KC_G,		KC_H,		KC_F,		KC_C,
+								KC_TRNS,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
+KC_NO,		KC_INS,
+KC_NO,
+MO(FNX),	MO(SQWER),	KC_ENTER),
+/* Keymap 4: function layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |                                  |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
@@ -162,7 +200,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 KC_NO,		KC_NO,
 KC_NO,
 KC_TRNS,	KC_TRNS,	KC_NO),
-/* Keymap 4: numeric layer, sends keypad codes
+/* Keymap 5: numeric layer, sends keypad codes
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |                                  |      |      |   +  |   -  |   /  |   *  |        |
@@ -199,7 +237,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 KC_NO,		KC_NO,
 KC_NO,
 KC_NO,		KC_TRNS,	KC_KP_ENTER),
-/* Keymap 5: navigation layer
+/* Keymap 6: navigation layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
@@ -236,7 +274,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 KC_NO,		KC_NO,
 KC_NO,
 KC_NO,		KC_TRNS,	KC_NO),
-/* Keymap 6: mouse layer
+/* Keymap 7: mouse layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
