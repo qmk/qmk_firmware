@@ -32,6 +32,8 @@ int voice_place = 0;
 double frequency = 0;
 int volume = 0;
 long position = 0;
+int duty_place = 1;
+int duty_counter = 0;
 
 double frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -98,53 +100,55 @@ void stop_all_notes() {
 }
 
 void stop_note(double freq) {
-    #ifdef PWM_AUDIO
-        freq = freq / SAMPLE_RATE;
-    #endif
-    for (int i = 7; i >= 0; i--) {
-        if (frequencies[i] == freq) {
-            frequencies[i] = 0;
-            volumes[i] = 0;
-            for (int j = i; (j < 7); j++) {
-                frequencies[j] = frequencies[j+1];
-                frequencies[j+1] = 0;
-                volumes[j] = volumes[j+1];
-                volumes[j+1] = 0;
-            }
-        }
-    }
-    voices--;
-    if (voices < 0)
-        voices = 0;
-    if (voices == 0) {
+    if (note) {
         #ifdef PWM_AUDIO
-            TIMSK3 &= ~_BV(OCIE3A);
-        #else
-            TIMSK3 &= ~_BV(OCIE3A);
-            TCCR3A &= ~_BV(COM3A1);
+            freq = freq / SAMPLE_RATE;
         #endif
-        frequency = 0;
-        volume = 0;
-        note = false;
-    } else {
-        double freq = frequencies[voices - 1];
-        int vol = volumes[voices - 1];
-        double starting_f = frequency;
-        if (frequency < freq) {
-            sliding = true;
-            for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
-                frequency = f;
+        for (int i = 7; i >= 0; i--) {
+            if (frequencies[i] == freq) {
+                frequencies[i] = 0;
+                volumes[i] = 0;
+                for (int j = i; (j < 7); j++) {
+                    frequencies[j] = frequencies[j+1];
+                    frequencies[j+1] = 0;
+                    volumes[j] = volumes[j+1];
+                    volumes[j+1] = 0;
+                }
             }
-            sliding = false;
-        } else if (frequency > freq) {
-            sliding = true;
-            for (double f = starting_f; f >= freq; f -= ((starting_f - freq) / 2000.0)) {
-                frequency = f;
-            }
-            sliding = false;
         }
-        frequency = freq;
-        volume = vol;
+        voices--;
+        if (voices < 0)
+            voices = 0;
+        if (voices == 0) {
+            #ifdef PWM_AUDIO
+                TIMSK3 &= ~_BV(OCIE3A);
+            #else
+                TIMSK3 &= ~_BV(OCIE3A);
+                TCCR3A &= ~_BV(COM3A1);
+            #endif
+            frequency = 0;
+            volume = 0;
+            note = false;
+        } else {
+            double freq = frequencies[voices - 1];
+            int vol = volumes[voices - 1];
+            double starting_f = frequency;
+            if (frequency < freq) {
+                sliding = true;
+                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
+                    frequency = f;
+                }
+                sliding = false;
+            } else if (frequency > freq) {
+                sliding = true;
+                for (double f = starting_f; f >= freq; f -= ((starting_f - freq) / 2000.0)) {
+                    frequency = f;
+                }
+                sliding = false;
+            }
+            frequency = freq;
+            volume = vol;
+        }
     }
 }
 
@@ -239,13 +243,19 @@ ISR(TIMER3_COMPA_vect) {
             if (frequency > 0) {
                 // ICR3 = (int)(((double)F_CPU) / frequency); // Set max to the period
                 // OCR3A = (int)(((double)F_CPU) / frequency) >> 1; // Set compare to half the period
-                if (place > 10) {
+                voice_place %= voices;
+                if (place > (frequencies[voice_place] / 500)) {
                     voice_place = (voice_place + 1) % voices;
                     place = 0.0;
                 }
                 ICR3 = (int)(((double)F_CPU) / frequencies[voice_place]); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / frequencies[voice_place]) >> 1; // Set compare to half the period
+                OCR3A = (int)(((double)F_CPU) / frequencies[voice_place]) >> 1 * duty_place; // Set compare to half the period
                 place++;
+                // if (duty_counter > (frequencies[voice_place] / 500)) {
+                //     duty_place = (duty_place % 3) + 1;
+                //     duty_counter = 0;
+                // }
+                // duty_counter++;
             }
         #endif
     }
@@ -375,7 +385,7 @@ if (audio_config.enable) {
 
 void play_note(double freq, int vol) {
 
-if (audio_config.enable) {
+if (audio_config.enable && voices < 8) {
 
     if (notes)
         stop_all_notes();
