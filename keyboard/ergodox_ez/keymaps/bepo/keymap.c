@@ -109,17 +109,17 @@ MO(FNX),	MO(SQWER),	KC_ENTER),
  */
 [SQWER] = KEYMAP(
 // Left hand
-S(KC_3),	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_TRNS,
+KC_HASH,	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_TRNS,
 KC_GRV,		S(KC_B),	S(KC_E),	S(KC_P),	S(KC_O),	S(KC_E),	KC_TRNS,
 S(KC_W),	S(KC_A),	S(KC_U),	S(KC_I),	S(KC_E),	KC_SCOLON,
-S(KC_E),	S(KC_A),	S(KC_Y),	S(KC_X),	S(KC_SCOLON),	S(KC_K),	KC_TRNS,
+S(KC_E),	S(KC_A),	S(KC_Y),	S(KC_X),	KC_COLON,	S(KC_K),	KC_TRNS,
 KC_TRNS,	KC_TRNS,	S(KC_LGUI),	S(KC_LCTL),	S(KC_LALT),
 														KC_TRNS,	KC_TRNS,
 																KC_TRNS,
 												KC_TRNS,	S(KC_TAB),	KC_TRNS,
 // Right hand
 				KC_TRNS,	KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_TRNS,
-				KC_TRNS,	S(KC_1),	S(KC_V),	S(KC_D),	S(KC_L),	S(KC_J),	S(KC_Z),
+				KC_TRNS,	KC_EXLM,	S(KC_V),	S(KC_D),	S(KC_L),	S(KC_J),	S(KC_Z),
 						S(KC_C),	S(KC_T),	S(KC_S),	S(KC_R),	S(KC_N),	S(KC_M),
 				KC_TRNS,	S(KC_SLASH),	S(KC_Q),	S(KC_G),	S(KC_H),	S(KC_F),	S(KC_C),
 								S(KC_RALT),	S(KC_RCTL),	S(KC_RGUI),	KC_TRNS,	KC_TRNS,
@@ -147,13 +147,13 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
 [AQWER] = KEYMAP(
 // Left hand
 KC_DOLLAR,	S(KC_QUOT),	S(KC_COMM),	S(KC_DOT),	KC_LBRC,	KC_RBRC,	KC_ESC,
-KC_PERCENT,	S(KC_BSLASH),	KC_E,		S(KC_7),	KC_O,		KC_E,		KC_BSPC,
+KC_PERCENT,	KC_PIPE,	KC_E,		KC_AMPR,	KC_O,		KC_E,		KC_BSPC,
 KC_W,		KC_A,		KC_U,		KC_I,		RALT(KC_5),	KC_COMMA,
-KC_E,		KC_BSLASH,	S(KC_LBRC),	S(KC_RBRC),	KC_DOT,		S(KC_GRV),	KC_DEL,
+KC_E,		KC_BSLASH,	KC_LCBR,	KC_RCBR,	KC_DOT,		KC_TILDE,	KC_DEL,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 														KC_NO,		MO(MSE),
 																MO(NUM),
-												S(KC_MINUS),	KC_TAB,		MO(NAV),
+												KC_UNDS,	KC_TAB,		MO(NAV),
 // Right hand
 				KC_SLCK,	KC_AT,		KC_PLUS,	KC_MINUS,	KC_SLASH,	KC_ASTR,	KC_EQUAL,
 				KC_CAPSLOCK,	KC_CIRC,	KC_V,		KC_D,		KC_L,		KC_J,		KC_Z,
