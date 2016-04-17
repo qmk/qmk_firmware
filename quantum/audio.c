@@ -318,7 +318,7 @@ ISR(TIMER3_COMPA_vect) {
                     return;
                 }
             }
-            if (!note_resting && ((int)notes_rest != 0)) {
+            if (!note_resting && (notes_rest > 0)) {
                 note_resting = true;
                 note_frequency = 0;
                 note_length = notes_rest;
