@@ -3,7 +3,9 @@
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
+#include "musical_notes.h"
 #endif
+
 
 #define _QW 0
 #define _LW 1
@@ -82,10 +84,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 float tone_lw[][2] = {
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16}
+Q_NOTE(_C4   ) ,
+Q_NOTE(_CS4  ) ,
+Q_NOTE(_D4   ) ,
+Q_NOTE(_DS4  ) ,
+Q_NOTE(_E4   ) ,
+Q_NOTE(_F4   ) ,
+Q_NOTE(_FS4  ) ,
+Q_NOTE(_G4   ) ,
+Q_NOTE(_GS4  ) ,
+Q_NOTE(_A4   ) ,
+Q_NOTE(_AS4  ) ,
+Q_NOTE(_B4   ) ,
 };
 
 float tone_rs[][2] = {
@@ -158,6 +168,7 @@ void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t l
 const uint16_t PROGMEM fn_actions[] = {
 };
 
+#define ARRAY_SIZE(x) ((sizeof x) / (sizeof *x))
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -167,7 +178,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               println("PlayNotes LW");
-              play_notes(&tone_lw, 4, false);
+              print_val_hex32(ARRAY_SIZE(tone_lw));
+              play_notes(&tone_lw, 12, false);
             #endif
             layer_on(_LW);
             update_tri_layer(_LW, _RS, _FN);
