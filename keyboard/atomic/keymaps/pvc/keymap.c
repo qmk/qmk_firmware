@@ -84,6 +84,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 float tone_lw[][2] = {
+/*
+Q_NOTE(_C1   ) ,
+Q_NOTE(_CS1  ) ,
+Q_NOTE(_D1   ) ,
+Q_NOTE(_DS1  ) ,
+Q_NOTE(_E1   ) ,
+Q_NOTE(_F1   ) ,
+Q_NOTE(_FS1  ) ,
+Q_NOTE(_G1   ) ,
+Q_NOTE(_GS1  ) ,
+Q_NOTE(_A1   ) ,
+Q_NOTE(_AS1  ) ,
+Q_NOTE(_B1   ) ,
+*/
+
+Q_NOTE(_C4   ) ,
+Q_NOTE(_CS4  ) ,
+Q_NOTE(_D4   ) ,
+Q_NOTE(_DS4  ) ,
+Q_NOTE(_E4   ) ,
+Q_NOTE(_F4   ) ,
+Q_NOTE(_FS4  ) ,
+Q_NOTE(_G4   ) ,
+Q_NOTE(_GS4  ) ,
+Q_NOTE(_A4   ) ,
+Q_NOTE(_AS4  ) ,
+Q_NOTE(_B1   ) ,
+
+
+Q_NOTE(_C2   ) ,
+Q_NOTE(_CS2  ) ,
+Q_NOTE(_D2   ) ,
+Q_NOTE(_DS2  ) ,
+Q_NOTE(_E2   ) ,
+Q_NOTE(_F2   ) ,
+Q_NOTE(_FS2  ) ,
+Q_NOTE(_G2   ) ,
+Q_NOTE(_GS2  ) ,
+Q_NOTE(_A2   ) ,
+Q_NOTE(_AS2  ) ,
+Q_NOTE(_B2   ) ,
+Q_NOTE(_C3   ) ,
+Q_NOTE(_CS3  ) ,
+Q_NOTE(_D3   ) ,
+Q_NOTE(_DS3  ) ,
+Q_NOTE(_E3   ) ,
+Q_NOTE(_F3   ) ,
+Q_NOTE(_FS3  ) ,
+Q_NOTE(_G3   ) ,
+Q_NOTE(_GS3  ) ,
+Q_NOTE(_A3   ) ,
+Q_NOTE(_AS3  ) ,
+Q_NOTE(_B3   ) ,
 Q_NOTE(_C4   ) ,
 Q_NOTE(_CS4  ) ,
 Q_NOTE(_D4   ) ,
@@ -96,15 +149,64 @@ Q_NOTE(_GS4  ) ,
 Q_NOTE(_A4   ) ,
 Q_NOTE(_AS4  ) ,
 Q_NOTE(_B4   ) ,
+Q_NOTE(_C5   ) ,
+Q_NOTE(_CS5  ) ,
+Q_NOTE(_D5   ) ,
+Q_NOTE(_DS5  ) ,
+Q_NOTE(_E5   ) ,
+Q_NOTE(_F5   ) ,
+Q_NOTE(_FS5  ) ,
+Q_NOTE(_G5   ) ,
+Q_NOTE(_GS5  ) ,
+Q_NOTE(_A5   ) ,
+Q_NOTE(_AS5  ) ,
+Q_NOTE(_B5   ) ,
+Q_NOTE(_C6   ) ,
+Q_NOTE(_CS6  ) ,
+Q_NOTE(_D6   ) ,
+Q_NOTE(_DS6  ) ,
+Q_NOTE(_E6   ) ,
+Q_NOTE(_F6   ) ,
+Q_NOTE(_FS6  ) ,
+Q_NOTE(_G6   ) ,
+Q_NOTE(_GS6  ) ,
+Q_NOTE(_A6   ) ,
+Q_NOTE(_AS6  ) ,
+Q_NOTE(_B6   ) ,
+Q_NOTE(_C7   ) ,
+Q_NOTE(_CS7  ) ,
+Q_NOTE(_D7   ) ,
+Q_NOTE(_DS7  ) ,
+Q_NOTE(_E7   ) ,
+Q_NOTE(_F7   ) ,
+Q_NOTE(_FS7  ) ,
+Q_NOTE(_G7   ) ,
+Q_NOTE(_GS7  ) ,
+Q_NOTE(_A7   ) ,
+Q_NOTE(_AS7  ) ,
+Q_NOTE(_B7   ) ,
+Q_NOTE(_C8   ) ,
+Q_NOTE(_CS8  ) ,
+Q_NOTE(_D8   ) ,
+Q_NOTE(_DS8  ) ,
+Q_NOTE(_E8   ) ,
+Q_NOTE(_F8   ) ,
+Q_NOTE(_FS8  ) ,
+Q_NOTE(_G8   ) ,
+Q_NOTE(_GS8  ) ,
+Q_NOTE(_A8   ) ,
+Q_NOTE(_AS8  ) ,
+Q_NOTE(_B8   ) ,
+
 };
 
 float tone_rs[][2] = {
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16},
-  {0, 4},
-  {440.0*pow(2.0,(71)/12.0), 16}
+Q_NOTE(_F8   ) ,
+Q_NOTE(_G8   ) ,
+Q_NOTE(_GS8  ) ,
+Q_NOTE(_A8   ) ,
+Q_NOTE(_AS8  ) ,
+Q_NOTE(_B8   ) ,
 };
 
 float tone_fn[][2] = {
@@ -118,23 +220,6 @@ float tone_fn[][2] = {
   {440.0*pow(2.0,(67)/12.0), 16}
 };
 #endif
-
-
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3)
-{
-	if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2))
-	{
-            #ifdef AUDIO_ENABLE
-              println("PlayNotes FN");
-              play_notes(&tone_fn, 8, false);
-            #endif
-		layer_on(layer3);
-	}
-	else
-	{
-	    layer_off(layer3);
-	}
-}
 
 void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4, bool order)
 {
@@ -179,7 +264,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               println("PlayNotes LW");
               print_val_hex32(ARRAY_SIZE(tone_lw));
-              play_notes(&tone_lw, 12, false);
+              play_notes(&tone_lw, 96, false);
             #endif
             layer_on(_LW);
             update_tri_layer(_LW, _RS, _FN);
@@ -209,18 +294,42 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 #ifdef AUDIO_ENABLE
 float start_up[][2] = {
-  {440.0*pow(2.0,(67)/12.0), 12},
-  {440.0*pow(2.0,(64)/12.0), 8},
-  {440.0*pow(2.0,(55)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
-  {440.0*pow(2.0,(64)/12.0), 20}
+Q_NOTE(_E4   ) ,
+{0,1} ,
+Q_NOTE(_E4   ) ,
+{0,1} ,
+Q_NOTE(_F4   ) ,
+{0,1} ,
+Q_NOTE(_G4   ) ,
+{0,1} ,
+Q_NOTE(_G4   ) ,
+{0,1} ,
+Q_NOTE(_F4   ) ,
+{0,1} ,
+Q_NOTE(_E4   ) ,
+{0,1} ,
+Q_NOTE(_D4   ) ,
+{0,1} ,
+Q_NOTE(_C4   ) ,
+{0,1} ,
+Q_NOTE(_C4   ) ,
+{0,1} ,
+Q_NOTE(_D4   ) ,
+{0,1} ,
+Q_NOTE(_E4   ) ,
+{0,1} ,
+H_NOTE(_E4   ) ,
+{0,1} ,
+Q_NOTE(_D4   ) ,
+{0,1} ,
+H_NOTE(_D4   ) ,
 };
 #endif
 
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, 5, false);
+    play_notes(&start_up, 29, false);
     println("Matrix Init");
   #endif
 }
