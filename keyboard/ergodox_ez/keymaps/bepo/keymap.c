@@ -140,7 +140,7 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
  *   | BEPO |      |LSuper| LCtrl|  LAlt|             |      | L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
- *                                             | Space|  Tab |------|      |------|RShift|Enter |
+ *                                             |   _  |  Tab |------|      |------|RShift|Enter |
  *                                             |      |      | L_Nav|      | L_Fx |      |      |
  *                                             `--------------------'      `--------------------'
  */
@@ -153,7 +153,7 @@ KC_E,		KC_BSLASH,	S(KC_LBRC),	S(KC_RBRC),	KC_DOT,		S(KC_GRV),	KC_DEL,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 														KC_NO,		MO(MSE),
 																MO(NUM),
-												KC_SPC,		KC_TAB,		MO(NAV),
+												S(KC_MINUS),	KC_TAB,		MO(NAV),
 // Right hand
 				KC_SLCK,	KC_AT,		KC_PLUS,	KC_MINUS,	KC_SLASH,	KC_ASTR,	KC_EQUAL,
 				KC_CAPSLOCK,	KC_CIRC,	KC_V,		KC_D,		KC_L,		KC_J,		KC_Z,
