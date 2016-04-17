@@ -15,4 +15,9 @@
 	QD_NOTE(_B4), E__NOTE(_D5), Q__NOTE(_G5),      \
 	H__NOTE(_FS5),
 
+#define OLKB_GOODBYE \
+	E__NOTE(_E7),    \
+	E__NOTE(_A6),    \
+	ED_NOTE(_E6),
+
 #endif
