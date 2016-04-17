@@ -257,7 +257,7 @@ ISR(TIMER3_COMPA_vect) {
                     place = 0.0;
                 }
                 ICR3 = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)); // Set max to the period
-                OCR3A = (int)((((double)F_CPU) / (note_frequency * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
+                OCR3A = (int)((((double)F_CPU) /(frequencies[voice_place] * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
                 //OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
                 place++;
                 // if (duty_counter > (frequencies[voice_place] / 500)) {
