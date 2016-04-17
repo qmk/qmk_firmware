@@ -24,8 +24,12 @@ void play_note(double freq, int vol);
 void stop_note(double freq);
 void stop_all_notes(void);
 void init_notes(void);
-void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat, float n_rest);
+void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest);
 
+void set_timbre(float timbre);
+void set_tempo(float tempo);
+void increase_tempo(uint8_t tempo_change);
+void decrease_tempo(uint8_t tempo_change);
 
 // These macros are used to allow play_notes to play an array of indeterminate
 // length. This works around the limitation of C's sizeof operation on pointers.

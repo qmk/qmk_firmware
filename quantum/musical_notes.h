@@ -2,7 +2,8 @@
 #define MUSICAL_NOTES_H
 
 // Tempo Placeholder
-#define TEMPO 120
+#define TEMPO_DEFAULT 100
+
 
 #define SONG(notes...) { notes }
 
@@ -20,7 +21,6 @@
 #define QUARTER_DOT_NOTE(note)         MUSICAL_NOTE(note, 16+8)
 #define EIGHTH_DOT_NOTE(note)          MUSICAL_NOTE(note,  8+4)
 #define SIXTEENTH_DOT_NOTE(note)       MUSICAL_NOTE(note,  4+2)
-
 
 // Note Type Shortcuts
 #define M__NOTE(note, duration)        MUSICAL_NOTE(note, duration)
@@ -40,6 +40,15 @@
 // Legato makes notes flow together. Think: TAAA
 #define STACCATO 0.01
 #define LEGATO   0
+
+// Note Timbre
+// Changes how the notes sound
+#define TIMBRE_12       0.125
+#define TIMBRE_25       0.250
+#define TIMBRE_50       0.500
+#define TIMBRE_75       0.750
+#define TIMBRE_DEFAULT  TIMBRE_50
+
 
 // Notes - # = Octave
 #define NOTE_REST         0.00
