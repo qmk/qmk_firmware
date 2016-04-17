@@ -194,7 +194,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _QW:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_qw, 4, false);
+              play_notes(&tone_qw, 4, false, 0);
             #endif
             default_layer_set(1UL<<_QW);
           }
@@ -202,7 +202,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _CM:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_cm, 6, false);
+              play_notes(&tone_cm, 6, false, 0);
             #endif
             default_layer_set(1UL<<_CM);
           }
@@ -210,7 +210,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _DV:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_dv, 8, false);
+              play_notes(&tone_dv, 8, false, 0);
             #endif
             default_layer_set(1UL<<_DV);
           }
@@ -254,7 +254,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               audio_on();
-              play_notes(&start_up, 5, false);
+              play_notes(&start_up, 5, false, 0);
             #endif
           }
         break;
@@ -265,6 +265,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, 5, false);
+    play_notes(&start_up, 5, false, 0);
   #endif
 }

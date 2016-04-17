@@ -189,7 +189,7 @@ static action_t keycode_to_action(uint16_t keycode)
         case RESET: ; // RESET is 0x5000, which is why this is here
             clear_keyboard();
             #ifdef AUDIO_ENABLE
-                play_notes(&goodbye, 3, false);
+                play_notes(&goodbye, 3, false, 0);
             #endif
             _delay_ms(250);
             #ifdef ATREUS_ASTAR
