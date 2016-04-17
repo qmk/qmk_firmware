@@ -12,6 +12,8 @@
 
 #define PI 3.14159265
 
+#define CPU_PRESCALER 8
+
 // #define PWM_AUDIO
 
 #ifdef PWM_AUDIO
@@ -244,12 +246,12 @@ ISR(TIMER3_COMPA_vect) {
                 // ICR3 = (int)(((double)F_CPU) / frequency); // Set max to the period
                 // OCR3A = (int)(((double)F_CPU) / frequency) >> 1; // Set compare to half the period
                 voice_place %= voices;
-                if (place > (frequencies[voice_place] / 500)) {
+                if (place > (frequencies[voice_place] / 50)) {
                     voice_place = (voice_place + 1) % voices;
                     place = 0.0;
                 }
-                ICR3 = (int)(((double)F_CPU) / frequencies[voice_place]); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / frequencies[voice_place]) >> 1 * duty_place; // Set compare to half the period
+                ICR3 = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)); // Set max to the period
+                OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
                 place++;
                 // if (duty_counter > (frequencies[voice_place] / 500)) {
                 //     duty_place = (duty_place % 3) + 1;
@@ -281,8 +283,8 @@ ISR(TIMER3_COMPA_vect) {
                 place -= SINE_LENGTH;
         #else
             if (note_frequency > 0) {
-                ICR3 = (int)(((double)F_CPU) / note_frequency); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / note_frequency) >> 1; // Set compare to half the period
+                ICR3 = (int)(((double)F_CPU) / (note_frequency * CPU_PRESCALER)); // Set max to the period
+                OCR3A = (int)(((double)F_CPU) / (note_frequency * CPU_PRESCALER)) >> 1; // Set compare to half the period
             } else {
                 ICR3 = 0;
                 OCR3A = 0;
