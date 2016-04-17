@@ -68,6 +68,7 @@ void layer_xor(uint32_t state);
 #define layer_and(state)
 #define layer_xor(state)
 #define layer_debug()
+
 #endif
 
 /* pressed actions cache */

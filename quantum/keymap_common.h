@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #include "print.h"
 #include "debug.h"
 
-#ifdef BOOTMAGIC_ENABLE
 /* NOTE: Not portable. Bit field order depends on implementation */
 typedef union {
     uint16_t raw;
@@ -45,8 +44,6 @@ typedef union {
         bool nkro:1;
     };
 } keymap_config_t;
-keymap_config_t keymap_config;
-#endif
 
 
 /* translates key to keycode */
@@ -168,6 +165,30 @@ extern const uint16_t fn_actions[];
 #define RESET 0x5000
 #define DEBUG 0x5001
 
+// MAGIC keycodes
+#define MAGIC_SWAP_CONTROL_CAPSLOCK      0x5002
+#define MAGIC_UNSWAP_CONTROL_CAPSLOCK    0x5003
+#define MAGIC_CAPSLOCK_TO_CONTROL        0x5004
+#define MAGIC_UNCAPSLOCK_TO_CONTROL      0x5005
+#define MAGIC_SWAP_LALT_LGUI             0x5006
+#define MAGIC_UNSWAP_LALT_LGUI           0x5007
+#define MAGIC_SWAP_RALT_RGUI             0x5008
+#define MAGIC_UNSWAP_RALT_RGUI           0x5009
+#define MAGIC_NO_GUI                     0x500a
+#define MAGIC_UNNO_GUI                   0x500b
+#define MAGIC_SWAP_GRAVE_ESC             0x500c
+#define MAGIC_UNSWAP_GRAVE_ESC           0x500d
+#define MAGIC_SWAP_BACKSLASH_BACKSPACE   0x500e
+#define MAGIC_UNSWAP_BACKSLASH_BACKSPACE 0x500f
+#define MAGIC_HOST_NKRO                  0x5010
+#define MAGIC_UNHOST_NKRO                0x5011
+#define MAGIC_SWAP_ALT_GUI               0x5012
+#define MAGIC_UNSWAP_ALT_GUI             0x5013
+
+#define AG_SWAP MAGIC_SWAP_ALT_GUI
+#define AG_NORM MAGIC_UNSWAP_ALT_GUI
+
+
 // GOTO layer - 16 layers max
 // when:
 // ON_PRESS    = 1
@@ -183,8 +204,6 @@ extern const uint16_t fn_actions[];
 
 // Toggle to layer - 256 layer max
 #define TG(layer) (layer | 0x5400)
-
-#define MIDI(n) (n | 0x6000)
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
@@ -209,6 +228,11 @@ extern const uint16_t fn_actions[];
 // To have a key that sends out Œ, go UC(0x0152)
 #define UNICODE(n) (n | 0x8000)
 #define UC(n) UNICODE(n)
+
+// For tri-layer
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+#define IS_LAYER_ON(layer)  ((layer_state) & (1UL<<(layer)))
+#define IS_LAYER_OFF(layer) ((!layer_state) & (1UL<<(layer)))
 
 
 #endif

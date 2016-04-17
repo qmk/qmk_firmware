@@ -111,7 +111,7 @@ void layer_debug(void)
 #endif
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-uint8_t source_layers_cache[MAX_LAYER_BITS][(MATRIX_ROWS * MATRIX_COLS + 7) / 8] = {0};
+uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {0};
 
 void update_source_layers_cache(keypos_t key, uint8_t layer)
 {
@@ -120,9 +120,9 @@ void update_source_layers_cache(keypos_t key, uint8_t layer)
     const uint8_t storage_bit = key_number % 8;
 
     for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        source_layers_cache[bit_number][storage_row] ^=
+        source_layers_cache[storage_row][bit_number] ^=
             (-((layer & (1U << bit_number)) != 0)
-             ^ source_layers_cache[bit_number][storage_row])
+             ^ source_layers_cache[storage_row][bit_number])
             & (1U << storage_bit);
     }
 }
@@ -136,7 +136,7 @@ uint8_t read_source_layers_cache(keypos_t key)
 
     for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
         layer |=
-            ((source_layers_cache[bit_number][storage_row]
+            ((source_layers_cache[storage_row][bit_number]
               & (1U << storage_bit)) != 0)
             << bit_number;
     }
