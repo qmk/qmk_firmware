@@ -3,11 +3,6 @@
 #include "eeconfig.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
-  #define SCALE (int []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \
-              0 + (12*1), 2 + (12*1), 4 + (12*1), 5 + (12*1), 7 + (12*1), 9 + (12*1), 11 + (12*1), \
-              0 + (12*2), 2 + (12*2), 4 + (12*2), 5 + (12*2), 7 + (12*2), 9 + (12*2), 11 + (12*2), \
-              0 + (12*3), 2 + (12*3), 4 + (12*3), 5 + (12*3), 7 + (12*3), 9 + (12*3), 11 + (12*3), \
-              0 + (12*4), 2 + (12*4), 4 + (12*4), 5 + (12*4), 7 + (12*4), 9 + (12*4), 11 + (12*4), }
 #endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -153,9 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Audoff|Aud on|      |      |Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |Audoff|Aud on|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |Musoff|Mus on|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -163,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, _______},
+  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP,  QWERTY,  COLEMAK, DVORAK,  _______, _______},
   {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -186,51 +181,55 @@ const uint16_t PROGMEM fn_actions[] = {
 
 #ifdef AUDIO_ENABLE
 float start_up[][2] = {
-  {440.0*pow(2.0,(50)/12.0), 20},
-  {440.0*pow(2.0,(62)/12.0), 8},
-  {440.0*pow(2.0,(54)/12.0), 20},
-  {440.0*pow(2.0,(62)/12.0), 8}
+  {440.0*pow(2.0,(14)/12.0), 20},
+  {440.0*pow(2.0,(26)/12.0), 8},
+  {440.0*pow(2.0,(18)/12.0), 20},
+  {440.0*pow(2.0,(26)/12.0), 8}
 };
 
 float tone_qwerty[][2] = {
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
+  {440.0*pow(2.0,(23)/12.0), 8},
+  {440.0*pow(2.0,(24)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16}
+  {440.0*pow(2.0,(31)/12.0), 16}
 };
 
 float tone_colemak[][2] = {
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
+  {440.0*pow(2.0,(23)/12.0), 8},
+  {440.0*pow(2.0,(24)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 12},
+  {440.0*pow(2.0,(31)/12.0), 12},
   {0, 4},
-  {440.0*pow(2.0,(71)/12.0), 12}
+  {440.0*pow(2.0,(35)/12.0), 12}
 };
 
 float tone_dvorak[][2] = {
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
+  {440.0*pow(2.0,(23)/12.0), 8},
+  {440.0*pow(2.0,(24)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 8},
+  {440.0*pow(2.0,(31)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(69)/12.0), 8},
+  {440.0*pow(2.0,(33)/12.0), 8},
   {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 8}
+  {440.0*pow(2.0,(31)/12.0), 8}
 };
 
 float tone_music[][2] = {
-  {440.0*pow(2.0,(48)/12.0), 8},
-  {440.0*pow(2.0,(50)/12.0), 8},
-  {440.0*pow(2.0,(52)/12.0), 8},
-  {440.0*pow(2.0,(53)/12.0), 8},
-  {440.0*pow(2.0,(55)/12.0), 8},
-  {440.0*pow(2.0,(57)/12.0), 8},
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8}
+  {440.0*pow(2.0,(12)/12.0), 8},
+  {440.0*pow(2.0,(14)/12.0), 8},
+  {440.0*pow(2.0,(16)/12.0), 8},
+  {440.0*pow(2.0,(17)/12.0), 8},
+  {440.0*pow(2.0,(19)/12.0), 8},
+  {440.0*pow(2.0,(21)/12.0), 8},
+  {440.0*pow(2.0,(23)/12.0), 8},
+  {440.0*pow(2.0,(24)/12.0), 8}
 };
 #endif
 
+void persistant_default_layer_set(uint16_t default_layer) {
+  eeconfig_write_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -238,28 +237,25 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _QWERTY:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_qwerty, 4, false);
+              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
             #endif
-            eeconfig_write_default_layer(1UL<<_QWERTY);
-            default_layer_set(1UL<<_QWERTY);
+            persistant_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_colemak, 6, false);
+              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            eeconfig_write_default_layer(1UL<<_COLEMAK);
-            default_layer_set(1UL<<_COLEMAK);
+            persistant_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_dvorak, 8, false);
+              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
-            eeconfig_write_default_layer(1UL<<_DVORAK);
-            default_layer_set(1UL<<_DVORAK);
+            persistant_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _LOWER:
@@ -301,7 +297,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               audio_on();
-              play_notes(&start_up, 4, false);
+              PLAY_NOTE_ARRAY(start_up, false, 0);
             #endif
           }
         break;
@@ -316,7 +312,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 9:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_music, 8, false);
+              PLAY_NOTE_ARRAY(tone_music, false, 0);
               layer_on(_MUSIC);
             #endif
           }
@@ -332,9 +328,9 @@ void process_action_user(keyrecord_t *record) {
 
   if (IS_LAYER_ON(_MUSIC)) {
     if (record->event.pressed) {
-        play_note(((double)261.626)*pow(2.0, -2.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
+        play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
     } else {
-        stop_note(((double)261.626)*pow(2.0, -2.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+        stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
     }
   }
 
@@ -343,6 +339,6 @@ void process_action_user(keyrecord_t *record) {
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, 4, false);
+    play_notes(&start_up, false, 0);
   #endif
 }
