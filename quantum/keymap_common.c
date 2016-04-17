@@ -34,15 +34,13 @@ extern keymap_config_t keymap_config;
 #include <inttypes.h>
 #ifdef AUDIO_ENABLE
     #include "audio.h"
+
     #ifndef TONE_GOODBYE
-    #define TONE_GOODBYE { \
-        {440.0*pow(2.0,(31)/12.0), 8}, \
-        {440.0*pow(2.0,(24)/12.0), 8}, \
-        {440.0*pow(2.0,(19)/12.0), 12}, \
-    } 
-    #endif
-    float tone_goodbye[][2] = TONE_GOODBYE;
-#endif
+    	#define TONE_GOODBYE OLKB_GOODBYE
+    #endif /*! TONE_GOODBYE */
+
+    float tone_goodbye[][2] = SONG(TONE_GOODBYE);
+#endif /* AUDIO_ENABLE */
 
 static action_t keycode_to_action(uint16_t keycode);
 

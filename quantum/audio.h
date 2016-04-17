@@ -3,6 +3,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "musical_notes.h"
+#include "song_list.h"
 
 #ifndef AUDIO_H
 #define AUDIO_H
