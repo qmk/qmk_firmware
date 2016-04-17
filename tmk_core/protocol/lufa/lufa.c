@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2012 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
@@ -152,10 +152,10 @@ static void Console_Task(void)
         {
             /* Create a temporary buffer to hold the read in report from the host */
             uint8_t ConsoleData[CONSOLE_EPSIZE];
- 
+
             /* Read Console Report Data */
             Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
- 
+
             /* Process Console Report Data */
             //ProcessConsoleHIDReport(ConsoleData);
         }
@@ -182,10 +182,6 @@ static void Console_Task(void)
     }
 
     Endpoint_SelectEndpoint(ep);
-}
-#else
-static void Console_Task(void)
-{
 }
 #endif
 
@@ -216,7 +212,7 @@ void EVENT_USB_Device_Disconnect(void)
     print("[D]");
     /* For battery powered device */
     USB_IsInitialized = false;
-/* TODO: This doesn't work. After several plug in/outs can not be enumerated. 
+/* TODO: This doesn't work. After several plug in/outs can not be enumerated.
     if (USB_IsInitialized) {
         USB_Disable();  // Disable all interrupts
 	USB_Controller_Enable();
@@ -313,7 +309,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 #ifdef MIDI_ENABLE
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);    
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 }
 
@@ -439,7 +435,7 @@ void EVENT_USB_Device_ControlRequest(void)
 }
 
 /*******************************************************************************
- * Host driver 
+ * Host driver
  ******************************************************************************/
 static uint8_t keyboard_leds(void)
 {
@@ -563,7 +559,7 @@ static void send_consumer(uint16_t data)
     bluefruit_serial_send(0x00);
     bluefruit_serial_send(0x02);
     bluefruit_serial_send((bitmap>>8)&0xFF);
-    bluefruit_serial_send(bitmap&0xFF); 
+    bluefruit_serial_send(bitmap&0xFF);
     bluefruit_serial_send(0x00);
     bluefruit_serial_send(0x00);
     bluefruit_serial_send(0x00);

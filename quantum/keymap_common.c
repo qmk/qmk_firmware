@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "keymap_midi.h"
 #include "bootloader.h"
+#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
