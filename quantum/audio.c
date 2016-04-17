@@ -4,7 +4,7 @@
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
-
+#include "print.h"
 #include "audio.h"
 #include "keymap_common.h"
 
@@ -57,9 +57,11 @@ bool notes = false;
 bool note = false;
 float note_frequency = 0;
 float note_length = 0;
+float note_tempo = TEMPO_DEFAULT;
+float note_timbre = TIMBRE_DEFAULT;
 uint16_t note_position = 0;
 float (* notes_pointer)[][2];
-uint8_t notes_length;
+uint8_t notes_count;
 bool notes_repeat;
 float notes_rest;
 bool note_resting = false;
@@ -255,7 +257,8 @@ ISR(TIMER3_COMPA_vect) {
                     place = 0.0;
                 }
                 ICR3 = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
+                OCR3A = (int)((((double)F_CPU) / (note_frequency * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
+                //OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
                 place++;
                 // if (duty_counter > (frequencies[voice_place] / 500)) {
                 //     duty_place = (duty_place % 3) + 1;
@@ -288,7 +291,7 @@ ISR(TIMER3_COMPA_vect) {
         #else
             if (note_frequency > 0) {
                 ICR3 = (int)(((double)F_CPU) / (note_frequency * CPU_PRESCALER)); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / (note_frequency * CPU_PRESCALER)) >> 1; // Set compare to half the period
+                OCR3A = (int)((((double)F_CPU) / (note_frequency * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
             } else {
                 ICR3 = 0;
                 OCR3A = 0;
@@ -304,7 +307,7 @@ ISR(TIMER3_COMPA_vect) {
             end_of_note = (note_position >= (note_length * 0x7FF));
         if (end_of_note) {
             current_note++;
-            if (current_note >= notes_length) {
+            if (current_note >= notes_count) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
@@ -327,10 +330,10 @@ ISR(TIMER3_COMPA_vect) {
                 note_resting = false;
                 #ifdef PWM_AUDIO
                     note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
-                    note_length = (*notes_pointer)[current_note][1];
+                    note_length = (*notes_pointer)[current_note][1] * (note_tempo / 100);
                 #else
                     note_frequency = (*notes_pointer)[current_note][0];
-                    note_length = (*notes_pointer)[current_note][1] / 4;
+                    note_length = ((*notes_pointer)[current_note][1] / 4) * (note_tempo / 100);
                 #endif
             }
             note_position = 0;
@@ -344,7 +347,7 @@ ISR(TIMER3_COMPA_vect) {
     }
 }
 
-void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat, float n_rest) {
+void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest) {
 
 if (audio_config.enable) {
 
@@ -352,7 +355,7 @@ if (audio_config.enable) {
         stop_all_notes();
 
     notes_pointer = np;
-    notes_length = n_length;
+    notes_count = n_count;
     notes_repeat = n_repeat;
     notes_rest = n_rest;
 
@@ -360,10 +363,10 @@ if (audio_config.enable) {
     current_note = 0;
     #ifdef PWM_AUDIO
         note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
-        note_length = (*notes_pointer)[current_note][1];
+        note_length = (*notes_pointer)[current_note][1] * (note_tempo / 100);
     #else
         note_frequency = (*notes_pointer)[current_note][0];
-        note_length = (*notes_pointer)[current_note][1] / 4;
+        note_length = ((*notes_pointer)[current_note][1] / 4) * (note_tempo / 100);
     #endif
     note_position = 0;
 
@@ -440,3 +443,31 @@ if (audio_config.enable && voices < 8) {
 }
 
 }
+
+void set_timbre(float timbre)
+{
+	note_timbre = timbre;
+}
+
+void set_tempo(float tempo)
+{
+	note_tempo = tempo;
+}
+
+void decrease_tempo(uint8_t tempo_change)
+{
+	note_tempo += (float) tempo_change;
+}
+
+void increase_tempo(uint8_t tempo_change)
+{
+	if (note_tempo - (float) tempo_change < 10)
+		{
+			note_tempo = 10;
+		}
+	else
+		{
+		note_tempo -= (float) tempo_change;
+		}
+}
+
