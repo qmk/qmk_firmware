@@ -3,7 +3,7 @@
 
 #ifdef AUDIO_ENABLE
 #include "audio.h"
-#include "musical_notes.h"
+#include "song_list.h"
 #endif
 
 
@@ -75,140 +75,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
 };
 
-
-#ifdef AUDIO_ENABLE
-
-
-
-
-float tone_lw[][2] = {
-/*
-Q_NOTE(_C1   ) ,
-Q_NOTE(_CS1  ) ,
-Q_NOTE(_D1   ) ,
-Q_NOTE(_DS1  ) ,
-Q_NOTE(_E1   ) ,
-Q_NOTE(_F1   ) ,
-Q_NOTE(_FS1  ) ,
-Q_NOTE(_G1   ) ,
-Q_NOTE(_GS1  ) ,
-Q_NOTE(_A1   ) ,
-Q_NOTE(_AS1  ) ,
-Q_NOTE(_B1   ) ,
-*/
-
-Q_NOTE(_C4   ) ,
-Q_NOTE(_CS4  ) ,
-Q_NOTE(_D4   ) ,
-Q_NOTE(_DS4  ) ,
-Q_NOTE(_E4   ) ,
-Q_NOTE(_F4   ) ,
-Q_NOTE(_FS4  ) ,
-Q_NOTE(_G4   ) ,
-Q_NOTE(_GS4  ) ,
-Q_NOTE(_A4   ) ,
-Q_NOTE(_AS4  ) ,
-Q_NOTE(_B1   ) ,
-
-
-Q_NOTE(_C2   ) ,
-Q_NOTE(_CS2  ) ,
-Q_NOTE(_D2   ) ,
-Q_NOTE(_DS2  ) ,
-Q_NOTE(_E2   ) ,
-Q_NOTE(_F2   ) ,
-Q_NOTE(_FS2  ) ,
-Q_NOTE(_G2   ) ,
-Q_NOTE(_GS2  ) ,
-Q_NOTE(_A2   ) ,
-Q_NOTE(_AS2  ) ,
-Q_NOTE(_B2   ) ,
-Q_NOTE(_C3   ) ,
-Q_NOTE(_CS3  ) ,
-Q_NOTE(_D3   ) ,
-Q_NOTE(_DS3  ) ,
-Q_NOTE(_E3   ) ,
-Q_NOTE(_F3   ) ,
-Q_NOTE(_FS3  ) ,
-Q_NOTE(_G3   ) ,
-Q_NOTE(_GS3  ) ,
-Q_NOTE(_A3   ) ,
-Q_NOTE(_AS3  ) ,
-Q_NOTE(_B3   ) ,
-Q_NOTE(_C4   ) ,
-Q_NOTE(_CS4  ) ,
-Q_NOTE(_D4   ) ,
-Q_NOTE(_DS4  ) ,
-Q_NOTE(_E4   ) ,
-Q_NOTE(_F4   ) ,
-Q_NOTE(_FS4  ) ,
-Q_NOTE(_G4   ) ,
-Q_NOTE(_GS4  ) ,
-Q_NOTE(_A4   ) ,
-Q_NOTE(_AS4  ) ,
-Q_NOTE(_B4   ) ,
-Q_NOTE(_C5   ) ,
-Q_NOTE(_CS5  ) ,
-Q_NOTE(_D5   ) ,
-Q_NOTE(_DS5  ) ,
-Q_NOTE(_E5   ) ,
-Q_NOTE(_F5   ) ,
-Q_NOTE(_FS5  ) ,
-Q_NOTE(_G5   ) ,
-Q_NOTE(_GS5  ) ,
-Q_NOTE(_A5   ) ,
-Q_NOTE(_AS5  ) ,
-Q_NOTE(_B5   ) ,
-Q_NOTE(_C6   ) ,
-Q_NOTE(_CS6  ) ,
-Q_NOTE(_D6   ) ,
-Q_NOTE(_DS6  ) ,
-Q_NOTE(_E6   ) ,
-Q_NOTE(_F6   ) ,
-Q_NOTE(_FS6  ) ,
-Q_NOTE(_G6   ) ,
-Q_NOTE(_GS6  ) ,
-Q_NOTE(_A6   ) ,
-Q_NOTE(_AS6  ) ,
-Q_NOTE(_B6   ) ,
-Q_NOTE(_C7   ) ,
-Q_NOTE(_CS7  ) ,
-Q_NOTE(_D7   ) ,
-Q_NOTE(_DS7  ) ,
-Q_NOTE(_E7   ) ,
-Q_NOTE(_F7   ) ,
-Q_NOTE(_FS7  ) ,
-Q_NOTE(_G7   ) ,
-Q_NOTE(_GS7  ) ,
-Q_NOTE(_A7   ) ,
-Q_NOTE(_AS7  ) ,
-Q_NOTE(_B7   ) ,
-Q_NOTE(_C8   ) ,
-Q_NOTE(_CS8  ) ,
-Q_NOTE(_D8   ) ,
-Q_NOTE(_DS8  ) ,
-Q_NOTE(_E8   ) ,
-Q_NOTE(_F8   ) ,
-Q_NOTE(_FS8  ) ,
-Q_NOTE(_G8   ) ,
-Q_NOTE(_GS8  ) ,
-Q_NOTE(_A8   ) ,
-Q_NOTE(_AS8  ) ,
-Q_NOTE(_B8   ) ,
-
-};
-
-float tone_rs[][2] = {
-Q_NOTE(_A4   ) ,
-Q_NOTE(_A4   ) ,
-Q_NOTE(_A4   ) ,
-Q_NOTE(_A4   ) ,
-Q_NOTE(_AS8  ) ,
-Q_NOTE(_B8   ) ,
-};
-
-#endif
-
 void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4, bool order)
 {
 	if (order)
@@ -241,7 +107,6 @@ void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t l
 const uint16_t PROGMEM fn_actions[] = {
 };
 
-//#define MUSIC_ARRAY_SIZE(x) (((int)(sizeof(x) / (sizeof(x[0][0])))) / 2)
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -280,30 +145,140 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+
+
 #ifdef AUDIO_ENABLE
-float start_up[][2] = {
-Q_NOTE(_E4   ) ,
-Q_NOTE(_E4   ) ,
-Q_NOTE(_F4   ) ,
-Q_NOTE(_G4   ) ,
-Q_NOTE(_G4   ) ,
-Q_NOTE(_F4   ) ,
-Q_NOTE(_E4   ) ,
-Q_NOTE(_D4   ) ,
-Q_NOTE(_C4   ) ,
-Q_NOTE(_C4   ) ,
-Q_NOTE(_D4   ) ,
-Q_NOTE(_E4   ) ,
-H_NOTE(_E4   ) ,
-Q_NOTE(_D4   ) ,
-H_NOTE(_D4   ) ,
+
+float start_up[][2] = SONG(ODE_TO_JOY);
+
+float tone_lw[][2] = {
+	/*
+	Q__NOTE(_C1   ) ,
+	Q__NOTE(_CS1  ) ,
+	Q__NOTE(_D1   ) ,
+	Q__NOTE(_DS1  ) ,
+	Q__NOTE(_E1   ) ,
+	Q__NOTE(_F1   ) ,
+	Q__NOTE(_FS1  ) ,
+	Q__NOTE(_G1   ) ,
+	Q__NOTE(_GS1  ) ,
+	Q__NOTE(_A1   ) ,
+	Q__NOTE(_AS1  ) ,
+	Q__NOTE(_B1   ) ,
+	*/
+
+	Q__NOTE(_C4   ) ,
+	Q__NOTE(_CS4  ) ,
+	Q__NOTE(_D4   ) ,
+	Q__NOTE(_DS4  ) ,
+	Q__NOTE(_E4   ) ,
+	Q__NOTE(_F4   ) ,
+	Q__NOTE(_FS4  ) ,
+	Q__NOTE(_G4   ) ,
+	Q__NOTE(_GS4  ) ,
+	Q__NOTE(_A4   ) ,
+	Q__NOTE(_AS4  ) ,
+	Q__NOTE(_B1   ) ,
+
+	Q__NOTE(_C2   ) ,
+	Q__NOTE(_CS2  ) ,
+	Q__NOTE(_D2   ) ,
+	Q__NOTE(_DS2  ) ,
+	Q__NOTE(_E2   ) ,
+	Q__NOTE(_F2   ) ,
+	Q__NOTE(_FS2  ) ,
+	Q__NOTE(_G2   ) ,
+	Q__NOTE(_GS2  ) ,
+	Q__NOTE(_A2   ) ,
+	Q__NOTE(_AS2  ) ,
+	Q__NOTE(_B2   ) ,
+	Q__NOTE(_C3   ) ,
+	Q__NOTE(_CS3  ) ,
+	Q__NOTE(_D3   ) ,
+	Q__NOTE(_DS3  ) ,
+	Q__NOTE(_E3   ) ,
+	Q__NOTE(_F3   ) ,
+	Q__NOTE(_FS3  ) ,
+	Q__NOTE(_G3   ) ,
+	Q__NOTE(_GS3  ) ,
+	Q__NOTE(_A3   ) ,
+	Q__NOTE(_AS3  ) ,
+	Q__NOTE(_B3   ) ,
+	Q__NOTE(_C4   ) ,
+	Q__NOTE(_CS4  ) ,
+	Q__NOTE(_D4   ) ,
+	Q__NOTE(_DS4  ) ,
+	Q__NOTE(_E4   ) ,
+	Q__NOTE(_F4   ) ,
+	Q__NOTE(_FS4  ) ,
+	Q__NOTE(_G4   ) ,
+	Q__NOTE(_GS4  ) ,
+	Q__NOTE(_A4   ) ,
+	Q__NOTE(_AS4  ) ,
+	Q__NOTE(_B4   ) ,
+	Q__NOTE(_C5   ) ,
+	Q__NOTE(_CS5  ) ,
+	Q__NOTE(_D5   ) ,
+	Q__NOTE(_DS5  ) ,
+	Q__NOTE(_E5   ) ,
+	Q__NOTE(_F5   ) ,
+	Q__NOTE(_FS5  ) ,
+	Q__NOTE(_G5   ) ,
+	Q__NOTE(_GS5  ) ,
+	Q__NOTE(_A5   ) ,
+	Q__NOTE(_AS5  ) ,
+	Q__NOTE(_B5   ) ,
+	Q__NOTE(_C6   ) ,
+	Q__NOTE(_CS6  ) ,
+	Q__NOTE(_D6   ) ,
+	Q__NOTE(_DS6  ) ,
+	Q__NOTE(_E6   ) ,
+	Q__NOTE(_F6   ) ,
+	Q__NOTE(_FS6  ) ,
+	Q__NOTE(_G6   ) ,
+	Q__NOTE(_GS6  ) ,
+	Q__NOTE(_A6   ) ,
+	Q__NOTE(_AS6  ) ,
+	Q__NOTE(_B6   ) ,
+	Q__NOTE(_C7   ) ,
+	Q__NOTE(_CS7  ) ,
+	Q__NOTE(_D7   ) ,
+	Q__NOTE(_DS7  ) ,
+	Q__NOTE(_E7   ) ,
+	Q__NOTE(_F7   ) ,
+	Q__NOTE(_FS7  ) ,
+	Q__NOTE(_G7   ) ,
+	Q__NOTE(_GS7  ) ,
+	Q__NOTE(_A7   ) ,
+	Q__NOTE(_AS7  ) ,
+	Q__NOTE(_B7   ) ,
+	Q__NOTE(_C8   ) ,
+	Q__NOTE(_CS8  ) ,
+	Q__NOTE(_D8   ) ,
+	Q__NOTE(_DS8  ) ,
+	Q__NOTE(_E8   ) ,
+	Q__NOTE(_F8   ) ,
+	Q__NOTE(_FS8  ) ,
+	Q__NOTE(_G8   ) ,
+	Q__NOTE(_GS8  ) ,
+	Q__NOTE(_A8   ) ,
+	Q__NOTE(_AS8  ) ,
+	Q__NOTE(_B8   ) ,
 };
-#endif
+
+float tone_rs[][2] = {
+	Q__NOTE(_A4   ) ,
+	Q__NOTE(_A4   ) ,
+	Q__NOTE(_A4   ) ,
+	Q__NOTE(_A4   ) ,
+	Q__NOTE(_AS8  ) ,
+	Q__NOTE(_B8   ) ,
+};
 
 void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-    init_notes();
-    PLAY_NOTE_ARRAY(start_up, false, STACCATO);
-    println("Matrix Init");
-  #endif
+	init_notes();
+	PLAY_NOTE_ARRAY(start_up, false, STACCATO);
+	println("Matrix Init");
 }
+
+#endif

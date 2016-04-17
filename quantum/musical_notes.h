@@ -4,20 +4,36 @@
 // Tempo Placeholder
 #define TEMPO 120
 
+#define SONG(notes...) { notes }
+
 
 // Note Types
-#define WHOLE_NOTE(note)     {(NOTE##note), 64}
-#define HALF_NOTE(note)      {(NOTE##note), 32}
-#define QUARTER_NOTE(note)   {(NOTE##note), 16}
-#define EIGHTH_NOTE(note)    {(NOTE##note), 8}
-#define SIXTEENTH_NOTE(note) {(NOTE##note), 4}
+#define MUSICAL_NOTE(note, duration)   {(NOTE##note), duration}
+#define WHOLE_NOTE(note)               MUSICAL_NOTE(note, 64)
+#define HALF_NOTE(note)                MUSICAL_NOTE(note, 32)
+#define QUARTER_NOTE(note)             MUSICAL_NOTE(note, 16)
+#define EIGHTH_NOTE(note)              MUSICAL_NOTE(note,  8)
+#define SIXTEENTH_NOTE(note)           MUSICAL_NOTE(note,  4)
 
-// Note Types Short
-#define W_NOTE(n) WHOLE_NOTE(n)
-#define H_NOTE(n) HALF_NOTE(n)
-#define Q_NOTE(n) QUARTER_NOTE(n)
-#define E_NOTE(n) EIGTH_NOTE(n)
-#define S_NOTE(n) SIXTEENTH_NOTE(n)
+#define WHOLE_DOT_NOTE(note)           MUSICAL_NOTE(note, 64+32)
+#define HALF_DOT_NOTE(note)            MUSICAL_NOTE(note, 32+16)
+#define QUARTER_DOT_NOTE(note)         MUSICAL_NOTE(note, 16+8)
+#define EIGHTH_DOT_NOTE(note)          MUSICAL_NOTE(note,  8+4)
+#define SIXTEENTH_DOT_NOTE(note)       MUSICAL_NOTE(note,  4+2)
+
+
+// Note Type Shortcuts
+#define M__NOTE(note, duration)        MUSICAL_NOTE(note, duration)
+#define W__NOTE(n)                     WHOLE_NOTE(n)
+#define H__NOTE(n)                     HALF_NOTE(n)
+#define Q__NOTE(n)                     QUARTER_NOTE(n)
+#define E__NOTE(n)                     EIGHTH_NOTE(n)
+#define S__NOTE(n)                     SIXTEENTH_NOTE(n)
+#define WD_NOTE(n)                     WHOLE_DOT_NOTE(n)
+#define HD_NOTE(n)                     HALF_DOT_NOTE(n)
+#define QD_NOTE(n)                     QUARTER_DOT_NOTE(n)
+#define ED_NOTE(n)                     EIGTH_DOT_NOTE(n)
+#define SD_NOTE(n)                     SIXTEENTH_DOT_NOTE(n)
 
 // Note Styles
 // Staccato makes sure there is a rest between each note. Think: TA TA TA
