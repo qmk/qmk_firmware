@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "wait.h"
 #include "debug.h"
-
+#include "bootloader.h"
 
 static action_t keycode_to_action(uint8_t keycode);
 
@@ -143,6 +143,7 @@ static action_t keycode_to_action(uint8_t keycode)
             action.code = ACTION_TRANSPARENT;
             break;
         case KC_BOOTLOADER:
+        	action.code = ACTION_NO;
             clear_keyboard();
             wait_ms(50);
             bootloader_jump(); // not return

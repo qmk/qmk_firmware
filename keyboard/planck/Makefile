@@ -41,7 +41,6 @@
 # Target file name (without extension).
 TARGET = planck
 
-
 # Directory common source filess exist
 TOP_DIR = ../..
 TMK_DIR = ../../tmk_core
@@ -62,17 +61,28 @@ ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
 else
 ifneq ("$(wildcard keymaps/$(KEYMAP)/keymap.c)","")
 	KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
+ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
+	include keymaps/$(KEYMAP)/makefile.mk
+endif
 else
 $(error Keymap file does not exist)
+endif 
 endif
-endif
+
 else
+
 ifneq ("$(wildcard keymaps/default.c)","")
 	KEYMAP_FILE = keymaps/default.c
 else
 	KEYMAP_FILE = keymaps/default/keymap.c
 endif
+
+ifneq ("$(wildcard keymaps/default/makefile.mk)","")
+	include keymaps/default/makefile.mk
 endif
+
+endif
+
 SRC := $(KEYMAP_FILE) $(SRC)
 
 CONFIG_H = config.h
@@ -93,7 +103,6 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
-
 
 #
 # LUFA specific
@@ -126,29 +135,45 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-
 # Build Options
-#   comment out to disable the options.
+#   change to "no" to disable the options, or define them in the makefile.mk in 
+#   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-# NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE = YES 		# MIDI controls
-# AUDIO_ENABLE = YES 		# Audio output on port C6
-# UNICODE_ENABLE = YES 		# Unicode
-# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
-# RGBLIGHT_ENABLE = yes # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = no         # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 
-ifdef BACKLIGHT_ENABLE
-	SRC += backlight.c
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+
+ifdef KEYMAP
+
+ifeq ("$(wildcard keymaps/$(KEYMAP).c)","")
+ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
+	include keymaps/$(KEYMAP)/makefile.mk
+endif 
 endif
 
+else
+
+ifneq ("$(wildcard keymaps/default/makefile.mk)","")
+	include keymaps/default/makefile.mk
+endif
+
+endif
+
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+	SRC := backlight.c $(SRC)
+endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
