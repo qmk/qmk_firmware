@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "musical_notes.h"
 
 typedef union {
     uint8_t raw;
@@ -20,4 +21,4 @@ void play_note(double freq, int vol);
 void stop_note(double freq);
 void stop_all_notes();
 void init_notes();
-void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat);
+void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat, float n_rest);
