@@ -9,7 +9,7 @@
 #define WHOLE_NOTE(note)     {(NOTE##note), 64}
 #define HALF_NOTE(note)      {(NOTE##note), 32}
 #define QUARTER_NOTE(note)   {(NOTE##note), 16}
-#define EIGTH_NOTE(note)     {(NOTE##note), 8}
+#define EIGHTH_NOTE(note)    {(NOTE##note), 8}
 #define SIXTEENTH_NOTE(note) {(NOTE##note), 4}
 
 // Note Types Short
@@ -19,6 +19,11 @@
 #define E_NOTE(n) EIGTH_NOTE(n)
 #define S_NOTE(n) SIXTEENTH_NOTE(n)
 
+// Note Styles
+// Staccato makes sure there is a rest between each note. Think: TA TA TA
+// Legato makes notes flow together. Think: TAAA
+#define STACCATO 0.01
+#define LEGATO   0
 
 // Notes - # = Octave
 #define NOTE_REST         0.00
