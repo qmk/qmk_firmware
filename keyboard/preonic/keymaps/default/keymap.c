@@ -3,11 +3,6 @@
 #include "eeconfig.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
-  #define SCALE (int []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \
-              0 + (12*1), 2 + (12*1), 4 + (12*1), 5 + (12*1), 7 + (12*1), 9 + (12*1), 11 + (12*1), \
-              0 + (12*2), 2 + (12*2), 4 + (12*2), 5 + (12*2), 7 + (12*2), 9 + (12*2), 11 + (12*2), \
-              0 + (12*3), 2 + (12*3), 4 + (12*3), 5 + (12*3), 7 + (12*3), 9 + (12*3), 11 + (12*3), \
-              0 + (12*4), 2 + (12*4), 4 + (12*4), 5 + (12*4), 7 + (12*4), 9 + (12*4), 11 + (12*4), }
 #endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -242,7 +237,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _QWERTY:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_qwerty, 4, false, 0);
+              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
             #endif
             persistant_default_layer_set(1UL<<_QWERTY);
           }
@@ -250,7 +245,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_colemak, 6, false, 1);
+              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
             persistant_default_layer_set(1UL<<_COLEMAK);
           }
@@ -258,7 +253,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_dvorak, 8, false, 10);
+              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
             persistant_default_layer_set(1UL<<_DVORAK);
           }
@@ -302,7 +297,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               audio_on();
-              play_notes(&start_up, 4, false, 0);
+              PLAY_NOTE_ARRAY(start_up, false, 0);
             #endif
           }
         break;
@@ -317,7 +312,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 9:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              play_notes(&tone_music, 8, false, 0);
+              PLAY_NOTE_ARRAY(tone_music, false, 0);
               layer_on(_MUSIC);
             #endif
           }
@@ -344,6 +339,6 @@ void process_action_user(keyrecord_t *record) {
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, 4, false, 0);
+    play_notes(&start_up, false, 0);
   #endif
 }

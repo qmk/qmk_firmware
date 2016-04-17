@@ -353,7 +353,6 @@ if (audio_config.enable) {
 
     if (note)
         stop_all_notes();
-    notes = true;
 
     notes_pointer = np;
     notes_count = n_count;
@@ -378,6 +377,8 @@ if (audio_config.enable) {
         TIMSK3 |= _BV(OCIE3A);
         TCCR3A |= _BV(COM3A1);
     #endif
+
+    notes = true;
 }
 
 }
@@ -407,7 +408,6 @@ if (audio_config.enable && voices < 8) {
 
     if (notes)
         stop_all_notes();
-    note = true;
     #ifdef PWM_AUDIO
         freq = freq / SAMPLE_RATE;
     #endif
@@ -439,6 +439,7 @@ if (audio_config.enable && voices < 8) {
         TCCR3A |= _BV(COM3A1);
     #endif
 
+    note = true;
 }
 
 }

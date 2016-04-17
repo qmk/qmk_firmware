@@ -34,12 +34,14 @@ extern keymap_config_t keymap_config;
 #include <inttypes.h>
 #ifdef AUDIO_ENABLE
     #include "audio.h"
-
-    float goodbye[][2] = {
-        {440.0*pow(2.0,(31)/12.0), 8},
-        {440.0*pow(2.0,(24)/12.0), 8},
-        {440.0*pow(2.0,(19)/12.0), 12},
-    };
+    #ifndef TONE_GOODBYE
+    #define TONE_GOODBYE { \
+        {440.0*pow(2.0,(31)/12.0), 8}, \
+        {440.0*pow(2.0,(24)/12.0), 8}, \
+        {440.0*pow(2.0,(19)/12.0), 12}, \
+    } 
+    #endif
+    float tone_goodbye[][2] = TONE_GOODBYE;
 #endif
 
 static action_t keycode_to_action(uint16_t keycode);
@@ -190,7 +192,7 @@ static action_t keycode_to_action(uint16_t keycode)
         case RESET: ; // RESET is 0x5000, which is why this is here
             clear_keyboard();
             #ifdef AUDIO_ENABLE
-                PLAY_NOTE_ARRAY(goodbye, false, 0);
+                PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
             #endif
             _delay_ms(250);
             #ifdef ATREUS_ASTAR
