@@ -23,21 +23,19 @@
 #define EGOS 5
 
 #define M_TOGGLE_5 0
-#define M_CTRL_CMDC 1
-#define M_DE_OSX_PLUS_CTRLALT 2
-#define SM_KISS 3
-#define SM_FROWN 4
-#define SM_CRY 5
-#define SM_SMILE 6
-#define SM_SMIRK 7
-#define M_LGUI_SHFT 8
-#define SM_HEART 9
-#define SM_LAUGH 10
-#define M_CTL_SFT_HASH 11
-#define SM_SAD 12
-#define M_DE_OSX_CIRC_CTRLCMD 13
-#define M_CTRL_CMDV 14
-#define M_MEH_SH_ACUT 15
+#define M_DE_OSX_PLUS_CTRLALT 1
+#define SM_KISS 2
+#define SM_FROWN 3
+#define SM_CRY 4
+#define SM_SMILE 5
+#define SM_SMIRK 6
+#define M_LGUI_SHFT 7
+#define SM_HEART 8
+#define SM_LAUGH 9
+#define M_CTL_SFT_HASH 10
+#define SM_SAD 11
+#define M_DE_OSX_CIRC_CTRLCMD 12
+#define M_MEH_SH_ACUT 13
 
 //Layout keymap.c generated with ErgodoxLayoutGenerator V1.0BETA1
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
     KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, KC_LALT, 
-                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), M(M_DE_OSX_PLUS_CTRLALT), M(M_CTL_SFT_HASH), KC_LCTRL, 
+                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), M(M_DE_OSX_PLUS_CTRLALT), LSFT(KC_LCTRL), DE_OSX_QUOT, 
                                               KC_HOME, KC_END, 
                                                      KC_PGUP, 
                                        KC_BSPC, KC_DEL, KC_PGDN, 
@@ -56,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RGUI, DE_OSX_Z, DE_OSX_U, DE_OSX_I, DE_OSX_O, DE_OSX_P, DE_OSX_UE, 
            DE_OSX_H, DE_OSX_J, DE_OSX_K, DE_OSX_L, DE_OSX_OE, ALT_T(DE_OSX_AE), 
     KC_RALT, DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSFT, 
-                         M(M_MEH_SH_ACUT), ALL_T(DE_OSX_ACUT), LGUI(KC_LSFT), LALT(KC_LSFT), LT(SYMB,DE_OSX_PLUS), 
+                         MEH_T(DE_OSX_HASH), ALL_T(DE_OSX_ACUT), LGUI(KC_LSFT), LALT(KC_LSFT), LT(SYMB,DE_OSX_PLUS), 
     KC_LEFT, KC_RIGHT, 
     KC_UP, 
     KC_DOWN, KC_ENT, KC_SPC),
@@ -173,20 +171,6 @@ case M_TOGGLE_5:
         }
 
 break;
-case M_CTRL_CMDC:
-//Macro: M_CTRL_CMDC//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),END);
-			} else {
-				return MACRO(U(LCTRL),D(LGUI),T(C),U(LGUI),END);
-			}
-		}
-
-break;
 case M_DE_OSX_PLUS_CTRLALT:
 //Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
 if (record->event.pressed) {
@@ -241,7 +225,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(D(LGUI),D(LSFT),END);
 		}else{
-			return MACRO(U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
@@ -290,20 +274,6 @@ if (record->event.pressed) {
 				return MACRO(U(LCTRL),U(LGUI),END);
 			} else {
 				return MACRO(U(LCTRL),U(LGUI),T(NUBS),END);
-			}
-		}
-
-break;
-case M_CTRL_CMDV:
-//Macro: M_CTRL_CMDV//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),END);
-			} else {
-				return MACRO(U(LCTRL),D(LGUI),T(V),U(LGUI),END);
 			}
 		}
 
