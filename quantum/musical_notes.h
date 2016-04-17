@@ -32,7 +32,7 @@
 #define WD_NOTE(n)                     WHOLE_DOT_NOTE(n)
 #define HD_NOTE(n)                     HALF_DOT_NOTE(n)
 #define QD_NOTE(n)                     QUARTER_DOT_NOTE(n)
-#define ED_NOTE(n)                     EIGTH_DOT_NOTE(n)
+#define ED_NOTE(n)                     EIGHTH_DOT_NOTE(n)
 #define SD_NOTE(n)                     SIXTEENTH_DOT_NOTE(n)
 
 // Note Styles
