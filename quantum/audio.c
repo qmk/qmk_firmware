@@ -181,7 +181,7 @@ void init_notes() {
         DDRC |= _BV(PORTC6);
 
         TIMSK3 &= ~_BV(OCIE3A); // Turn off 3A interputs
-        
+
         TCCR3A = 0x0; // Options not needed
         TCCR3B = _BV(CS31) | _BV(CS30) | _BV(WGM32); // 64th prescaling and CTC
         OCR3A = SAMPLE_DIVIDER - 1; // Correct count/compare, related to sample playback
@@ -202,14 +202,14 @@ ISR(TIMER3_COMPA_vect) {
             if (voices == 1) {
                 // SINE
                 OCR4A = pgm_read_byte(&sinewave[(uint16_t)place]) >> 2;
-            
+
                 // SQUARE
                 // if (((int)place) >= 1024){
                 //     OCR4A = 0xFF >> 2;
                 // } else {
                 //     OCR4A = 0x00;
                 // }
-                
+
                 // SAWTOOTH
                 // OCR4A = (int)place / 4;
 
@@ -298,9 +298,9 @@ ISR(TIMER3_COMPA_vect) {
 
         note_position++;
         bool end_of_note = false;
-        if (ICR3 > 0) 
+        if (ICR3 > 0)
             end_of_note = (note_position >= (note_length / ICR3 * 0xFFFF));
-        else 
+        else
             end_of_note = (note_position >= (note_length * 0x7FF));
         if (end_of_note) {
             current_note++;
@@ -318,7 +318,7 @@ ISR(TIMER3_COMPA_vect) {
                     return;
                 }
             }
-            if (!note_resting && ((int)notes_rest != 0)) {
+            if (!note_resting && (notes_rest > 0)) {
                 note_resting = true;
                 note_frequency = 0;
                 note_length = notes_rest;
@@ -412,7 +412,7 @@ if (audio_config.enable && voices < 8) {
         if (frequency != 0) {
             double starting_f = frequency;
             if (frequency < freq) {
-                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {   
+                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
                     frequency = f;
                 }
             } else if (frequency > freq) {
