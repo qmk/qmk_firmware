@@ -75,8 +75,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
 };
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (!IS_LAYER_ON(layer))
 
 #ifdef AUDIO_ENABLE
 
@@ -201,24 +199,14 @@ Q_NOTE(_B8   ) ,
 };
 
 float tone_rs[][2] = {
-Q_NOTE(_F8   ) ,
-Q_NOTE(_G8   ) ,
-Q_NOTE(_GS8  ) ,
-Q_NOTE(_A8   ) ,
+Q_NOTE(_A4   ) ,
+Q_NOTE(_A4   ) ,
+Q_NOTE(_A4   ) ,
+Q_NOTE(_A4   ) ,
 Q_NOTE(_AS8  ) ,
 Q_NOTE(_B8   ) ,
 };
 
-float tone_fn[][2] = {
-  {440.0*pow(2.0,(59)/12.0), 8},
-  {440.0*pow(2.0,(60)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16},
-  {0, 4},
-  {440.0*pow(2.0,(69)/12.0), 16},
-  {0, 4},
-  {440.0*pow(2.0,(67)/12.0), 16}
-};
 #endif
 
 void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4, bool order)
@@ -253,18 +241,18 @@ void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t l
 const uint16_t PROGMEM fn_actions[] = {
 };
 
-#define ARRAY_SIZE(x) ((sizeof x) / (sizeof *x))
+//#define MUSIC_ARRAY_SIZE(x) (((int)(sizeof(x) / (sizeof(x[0][0])))) / 2)
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+
   // MACRODOWN only works in this function
       switch(id) {
         case M_LW:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               println("PlayNotes LW");
-              print_val_hex32(ARRAY_SIZE(tone_lw));
-              play_notes(&tone_lw, 96, false);
+              PLAY_NOTE_ARRAY(tone_lw, false, STACCATO);
             #endif
             layer_on(_LW);
             update_tri_layer(_LW, _RS, _FN);
@@ -277,7 +265,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               println("PlayNotes RS");
-              play_notes(&tone_rs, 6, false);
+              PLAY_NOTE_ARRAY(tone_rs, false, LEGATO);
             #endif
             layer_on(_RS);
             update_tri_layer(_LW, _RS, _FN);
@@ -295,33 +283,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 #ifdef AUDIO_ENABLE
 float start_up[][2] = {
 Q_NOTE(_E4   ) ,
-{0,1} ,
 Q_NOTE(_E4   ) ,
-{0,1} ,
 Q_NOTE(_F4   ) ,
-{0,1} ,
 Q_NOTE(_G4   ) ,
-{0,1} ,
 Q_NOTE(_G4   ) ,
-{0,1} ,
 Q_NOTE(_F4   ) ,
-{0,1} ,
 Q_NOTE(_E4   ) ,
-{0,1} ,
 Q_NOTE(_D4   ) ,
-{0,1} ,
 Q_NOTE(_C4   ) ,
-{0,1} ,
 Q_NOTE(_C4   ) ,
-{0,1} ,
 Q_NOTE(_D4   ) ,
-{0,1} ,
 Q_NOTE(_E4   ) ,
-{0,1} ,
 H_NOTE(_E4   ) ,
-{0,1} ,
 Q_NOTE(_D4   ) ,
-{0,1} ,
 H_NOTE(_D4   ) ,
 };
 #endif
@@ -329,7 +303,7 @@ H_NOTE(_D4   ) ,
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, 29, false);
+    PLAY_NOTE_ARRAY(start_up, false, STACCATO);
     println("Matrix Init");
   #endif
 }

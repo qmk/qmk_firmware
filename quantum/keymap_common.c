@@ -191,7 +191,7 @@ static action_t keycode_to_action(uint16_t keycode)
         case RESET: ; // RESET is 0x5000, which is why this is here
             clear_keyboard();
             #ifdef AUDIO_ENABLE
-                play_notes(&goodbye_tune, false, 0);
+                PLAY_NOTE_ARRAY(goodbye_tune, false, 0);
             #endif
             _delay_ms(250);
             #ifdef ATREUS_ASTAR
@@ -204,7 +204,7 @@ static action_t keycode_to_action(uint16_t keycode)
             debug_enable = true;
             break;
         case 0x5002 ... 0x50FF:
-            // MAGIC actions (BOOTMAGIC without the boot)   
+            // MAGIC actions (BOOTMAGIC without the boot)
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
             }
