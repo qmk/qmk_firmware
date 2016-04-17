@@ -61,7 +61,11 @@ uint16_t note_position = 0;
 float (* notes_pointer)[][2];
 uint8_t notes_length;
 bool notes_repeat;
+float notes_rest;
+bool note_resting = false;
+
 uint8_t current_note = 0;
+uint8_t rest_counter = 0;
 
 audio_config_t audio_config;
 
@@ -314,13 +318,21 @@ ISR(TIMER3_COMPA_vect) {
                     return;
                 }
             }
-            #ifdef PWM_AUDIO
-                note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
-                note_length = (*notes_pointer)[current_note][1];
-            #else
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length = (*notes_pointer)[current_note][1] / 4;
-            #endif
+            if (!note_resting && ((int)notes_rest != 0)) {
+                note_resting = true;
+                note_frequency = 0;
+                note_length = notes_rest;
+                current_note--;
+            } else {
+                note_resting = false;
+                #ifdef PWM_AUDIO
+                    note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
+                    note_length = (*notes_pointer)[current_note][1];
+                #else
+                    note_frequency = (*notes_pointer)[current_note][0];
+                    note_length = (*notes_pointer)[current_note][1] / 4;
+                #endif
+            }
             note_position = 0;
         }
 
@@ -332,7 +344,7 @@ ISR(TIMER3_COMPA_vect) {
     }
 }
 
-void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat) {
+void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat, float n_rest) {
 
 if (audio_config.enable) {
 
@@ -343,6 +355,7 @@ if (audio_config.enable) {
     notes_pointer = np;
     notes_length = n_length;
     notes_repeat = n_repeat;
+    notes_rest = n_rest;
 
     place = 0;
     current_note = 0;
