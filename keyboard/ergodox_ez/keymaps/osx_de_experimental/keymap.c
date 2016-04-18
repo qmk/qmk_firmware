@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
     KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, KC_LALT, 
-                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), M(M_DE_OSX_PLUS_CTRLALT), LSFT(KC_LCTRL), DE_OSX_QUOT, 
+                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), M(M_DE_OSX_PLUS_CTRLALT), LSFT(KC_LCTRL), LT(SMLY,DE_OSX_QUOT), 
                                               KC_HOME, KC_END, 
                                                      KC_PGUP, 
                                        KC_BSPC, KC_DEL, KC_PGDN, 
@@ -225,7 +225,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(D(LGUI),D(LSFT),END);
 		}else{
-			return MACRO(U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
