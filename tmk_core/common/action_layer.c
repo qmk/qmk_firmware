@@ -4,14 +4,14 @@
 #include "util.h"
 #include "action_layer.h"
 
-#ifdef DEBUG_ACTION
+//#ifdef DEBUG_ACTION
 #include "debug.h"
-#else
-#include "nodebug.h"
-#endif
+//#else
+//#include "nodebug.h"
+//#endif
 
 
-/* 
+/*
  * Default Layer State
  */
 uint32_t default_layer_state = 0;
@@ -52,7 +52,7 @@ void default_layer_xor(uint32_t state)
 
 
 #ifndef NO_ACTION_LAYER
-/* 
+/*
  * Keymap Layer State
  */
 uint32_t layer_state = 0;
