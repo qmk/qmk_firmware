@@ -17,66 +17,70 @@ SRC +=	$(COMMON_DIR)/host.c \
 
 
 # Option modules
-ifdef BOOTMAGIC_ENABLE
+ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
     SRC += $(COMMON_DIR)/bootmagic.c
     SRC += $(COMMON_DIR)/avr/eeconfig.c
     OPT_DEFS += -DBOOTMAGIC_ENABLE
+else
+    SRC += $(COMMON_DIR)/magic.c
+    SRC += $(COMMON_DIR)/avr/eeconfig.c
 endif
 
-ifdef MOUSEKEY_ENABLE
+ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += $(COMMON_DIR)/mousekey.c
     OPT_DEFS += -DMOUSEKEY_ENABLE
     OPT_DEFS += -DMOUSE_ENABLE
 endif
 
-ifdef EXTRAKEY_ENABLE
+ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     OPT_DEFS += -DEXTRAKEY_ENABLE
 endif
 
-ifdef CONSOLE_ENABLE
+ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     OPT_DEFS += -DCONSOLE_ENABLE
 else
     OPT_DEFS += -DNO_PRINT
     OPT_DEFS += -DNO_DEBUG
 endif
 
-ifdef COMMAND_ENABLE
+ifeq ($(strip $(COMMAND_ENABLE)), yes)
     SRC += $(COMMON_DIR)/command.c
     OPT_DEFS += -DCOMMAND_ENABLE
 endif
 
-ifdef NKRO_ENABLE
+ifeq ($(strip $(NKRO_ENABLE)), yes)
     OPT_DEFS += -DNKRO_ENABLE
 endif
 
-ifdef MIDI_ENABLE
+ifeq ($(strip $(MIDI_ENABLE)), yes)
     OPT_DEFS += -DMIDI_ENABLE
 endif
 
-ifdef AUDIO_ENABLE
+ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
 endif
 
-ifdef USB_6KRO_ENABLE
+ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
     OPT_DEFS += -DUSB_6KRO_ENABLE
 endif
 
-ifdef SLEEP_LED_ENABLE
+ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
     SRC += $(COMMON_DIR)/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
-ifdef BACKLIGHT_ENABLE
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     SRC += $(COMMON_DIR)/backlight.c
+    SRC += $(COMMON_DIR)/avr/eeconfig.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 
-ifdef BLUETOOTH_ENABLE
+ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
 endif
 
-ifdef KEYMAP_SECTION_ENABLE
+ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
     OPT_DEFS += -DKEYMAP_SECTION_ENABLE
 
     ifeq ($(strip $(MCU)),atmega32u2)

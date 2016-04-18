@@ -4,11 +4,15 @@
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
-
+#include "print.h"
 #include "audio.h"
 #include "keymap_common.h"
 
+#include "eeconfig.h"
+
 #define PI 3.14159265
+
+#define CPU_PRESCALER 8
 
 // #define PWM_AUDIO
 
@@ -30,6 +34,8 @@ int voice_place = 0;
 double frequency = 0;
 int volume = 0;
 long position = 0;
+int duty_place = 1;
+int duty_counter = 0;
 
 double frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -51,11 +57,36 @@ bool notes = false;
 bool note = false;
 float note_frequency = 0;
 float note_length = 0;
+float note_tempo = TEMPO_DEFAULT;
+float note_timbre = TIMBRE_DEFAULT;
 uint16_t note_position = 0;
 float (* notes_pointer)[][2];
-uint8_t notes_length;
+uint8_t notes_count;
 bool notes_repeat;
+float notes_rest;
+bool note_resting = false;
+
 uint8_t current_note = 0;
+uint8_t rest_counter = 0;
+
+audio_config_t audio_config;
+
+
+void audio_toggle(void) {
+    audio_config.enable ^= 1;
+    eeconfig_write_audio(audio_config.raw);
+}
+
+void audio_on(void) {
+    audio_config.enable = 1;
+    eeconfig_write_audio(audio_config.raw);
+}
+
+void audio_off(void) {
+    audio_config.enable = 0;
+    eeconfig_write_audio(audio_config.raw);
+}
+
 
 void stop_all_notes() {
     voices = 0;
@@ -77,57 +108,65 @@ void stop_all_notes() {
 }
 
 void stop_note(double freq) {
-    #ifdef PWM_AUDIO
-        freq = freq / SAMPLE_RATE;
-    #endif
-    for (int i = 7; i >= 0; i--) {
-        if (frequencies[i] == freq) {
-            frequencies[i] = 0;
-            volumes[i] = 0;
-            for (int j = i; (j < 7); j++) {
-                frequencies[j] = frequencies[j+1];
-                frequencies[j+1] = 0;
-                volumes[j] = volumes[j+1];
-                volumes[j+1] = 0;
-            }
-        }
-    }
-    voices--;
-    if (voices < 0)
-        voices = 0;
-    if (voices == 0) {
+    if (note) {
         #ifdef PWM_AUDIO
-            TIMSK3 &= ~_BV(OCIE3A);
-        #else
-            TIMSK3 &= ~_BV(OCIE3A);
-            TCCR3A &= ~_BV(COM3A1);
+            freq = freq / SAMPLE_RATE;
         #endif
-        frequency = 0;
-        volume = 0;
-        note = false;
-    } else {
-        double freq = frequencies[voices - 1];
-        int vol = volumes[voices - 1];
-        double starting_f = frequency;
-        if (frequency < freq) {
-            sliding = true;
-            for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
-                frequency = f;
+        for (int i = 7; i >= 0; i--) {
+            if (frequencies[i] == freq) {
+                frequencies[i] = 0;
+                volumes[i] = 0;
+                for (int j = i; (j < 7); j++) {
+                    frequencies[j] = frequencies[j+1];
+                    frequencies[j+1] = 0;
+                    volumes[j] = volumes[j+1];
+                    volumes[j+1] = 0;
+                }
             }
-            sliding = false;
-        } else if (frequency > freq) {
-            sliding = true;
-            for (double f = starting_f; f >= freq; f -= ((starting_f - freq) / 2000.0)) {
-                frequency = f;
-            }
-            sliding = false;
         }
-        frequency = freq;
-        volume = vol;
+        voices--;
+        if (voices < 0)
+            voices = 0;
+        if (voices == 0) {
+            #ifdef PWM_AUDIO
+                TIMSK3 &= ~_BV(OCIE3A);
+            #else
+                TIMSK3 &= ~_BV(OCIE3A);
+                TCCR3A &= ~_BV(COM3A1);
+            #endif
+            frequency = 0;
+            volume = 0;
+            note = false;
+        } else {
+            double freq = frequencies[voices - 1];
+            int vol = volumes[voices - 1];
+            double starting_f = frequency;
+            if (frequency < freq) {
+                sliding = true;
+                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
+                    frequency = f;
+                }
+                sliding = false;
+            } else if (frequency > freq) {
+                sliding = true;
+                for (double f = starting_f; f >= freq; f -= ((starting_f - freq) / 2000.0)) {
+                    frequency = f;
+                }
+                sliding = false;
+            }
+            frequency = freq;
+            volume = vol;
+        }
     }
 }
 
 void init_notes() {
+
+    /* check signature */
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+    audio_config.raw = eeconfig_read_audio();
 
     #ifdef PWM_AUDIO
         PLLFRQ = _BV(PDIV2);
@@ -144,7 +183,7 @@ void init_notes() {
         DDRC |= _BV(PORTC6);
 
         TIMSK3 &= ~_BV(OCIE3A); // Turn off 3A interputs
-        
+
         TCCR3A = 0x0; // Options not needed
         TCCR3B = _BV(CS31) | _BV(CS30) | _BV(WGM32); // 64th prescaling and CTC
         OCR3A = SAMPLE_DIVIDER - 1; // Correct count/compare, related to sample playback
@@ -160,20 +199,19 @@ void init_notes() {
 
 
 ISR(TIMER3_COMPA_vect) {
-
     if (note) {
         #ifdef PWM_AUDIO
             if (voices == 1) {
                 // SINE
                 OCR4A = pgm_read_byte(&sinewave[(uint16_t)place]) >> 2;
-            
+
                 // SQUARE
                 // if (((int)place) >= 1024){
                 //     OCR4A = 0xFF >> 2;
                 // } else {
                 //     OCR4A = 0x00;
                 // }
-                
+
                 // SAWTOOTH
                 // OCR4A = (int)place / 4;
 
@@ -213,13 +251,20 @@ ISR(TIMER3_COMPA_vect) {
             if (frequency > 0) {
                 // ICR3 = (int)(((double)F_CPU) / frequency); // Set max to the period
                 // OCR3A = (int)(((double)F_CPU) / frequency) >> 1; // Set compare to half the period
-                if (place > 10) {
+                voice_place %= voices;
+                if (place > (frequencies[voice_place] / 50)) {
                     voice_place = (voice_place + 1) % voices;
                     place = 0.0;
                 }
-                ICR3 = (int)(((double)F_CPU) / frequencies[voice_place]); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / frequencies[voice_place]) >> 1; // Set compare to half the period
+                ICR3 = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)); // Set max to the period
+                OCR3A = (int)((((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
+                //OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
                 place++;
+                // if (duty_counter > (frequencies[voice_place] / 500)) {
+                //     duty_place = (duty_place % 3) + 1;
+                //     duty_counter = 0;
+                // }
+                // duty_counter++;
             }
         #endif
     }
@@ -245,8 +290,8 @@ ISR(TIMER3_COMPA_vect) {
                 place -= SINE_LENGTH;
         #else
             if (note_frequency > 0) {
-                ICR3 = (int)(((double)F_CPU) / note_frequency); // Set max to the period
-                OCR3A = (int)(((double)F_CPU) / note_frequency) >> 1; // Set compare to half the period
+                ICR3 = (int)(((double)F_CPU) / (note_frequency * CPU_PRESCALER)); // Set max to the period
+                OCR3A = (int)((((double)F_CPU) / (note_frequency * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
             } else {
                 ICR3 = 0;
                 OCR3A = 0;
@@ -255,9 +300,14 @@ ISR(TIMER3_COMPA_vect) {
 
 
         note_position++;
-        if (note_position >= note_length) {
+        bool end_of_note = false;
+        if (ICR3 > 0)
+            end_of_note = (note_position >= (note_length / ICR3 * 0xFFFF));
+        else
+            end_of_note = (note_position >= (note_length * 0x7FF));
+        if (end_of_note) {
             current_note++;
-            if (current_note >= notes_length) {
+            if (current_note >= notes_count) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
@@ -271,37 +321,54 @@ ISR(TIMER3_COMPA_vect) {
                     return;
                 }
             }
-            #ifdef PWM_AUDIO
-                note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
-                note_length = (*notes_pointer)[current_note][1];
-            #else
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length = (*notes_pointer)[current_note][1] / 4;
-            #endif
+            if (!note_resting && (notes_rest > 0)) {
+                note_resting = true;
+                note_frequency = 0;
+                note_length = notes_rest;
+                current_note--;
+            } else {
+                note_resting = false;
+                #ifdef PWM_AUDIO
+                    note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
+                    note_length = (*notes_pointer)[current_note][1] * (note_tempo / 100);
+                #else
+                    note_frequency = (*notes_pointer)[current_note][0];
+                    note_length = ((*notes_pointer)[current_note][1] / 4) * (note_tempo / 100);
+                #endif
+            }
             note_position = 0;
         }
 
     }
 
+    if (!audio_config.enable) {
+        notes = false;
+        note = false;
+    }
 }
 
-void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat) {
+void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest) {
+
+if (audio_config.enable) {
+
+	// Cancel note if a note is playing
     if (note)
         stop_all_notes();
     notes = true;
 
     notes_pointer = np;
-    notes_length = n_length;
+    notes_count = n_count;
     notes_repeat = n_repeat;
+    notes_rest = n_rest;
 
     place = 0;
     current_note = 0;
     #ifdef PWM_AUDIO
         note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
-        note_length = (*notes_pointer)[current_note][1];
+        note_length = (*notes_pointer)[current_note][1] * (note_tempo / 100);
     #else
         note_frequency = (*notes_pointer)[current_note][0];
-        note_length = (*notes_pointer)[current_note][1] / 4;
+        note_length = ((*notes_pointer)[current_note][1] / 4) * (note_tempo / 100);
     #endif
     note_position = 0;
 
@@ -312,9 +379,15 @@ void play_notes(float (*np)[][2], uint8_t n_length, bool n_repeat) {
         TIMSK3 |= _BV(OCIE3A);
         TCCR3A |= _BV(COM3A1);
     #endif
+
+}
+
 }
 
 void play_sample(uint8_t * s, uint16_t l, bool r) {
+
+if (audio_config.enable) {
+
     stop_all_notes();
     place_int = 0;
     sample = s;
@@ -325,9 +398,16 @@ void play_sample(uint8_t * s, uint16_t l, bool r) {
         TIMSK3 |= _BV(OCIE3A);
     #else
     #endif
+
+}
+
 }
 
 void play_note(double freq, int vol) {
+
+if (audio_config.enable && voices < 8) {
+
+    // Cancel notes if notes are playing
     if (notes)
         stop_all_notes();
     note = true;
@@ -338,7 +418,7 @@ void play_note(double freq, int vol) {
         if (frequency != 0) {
             double starting_f = frequency;
             if (frequency < freq) {
-                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {   
+                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
                     frequency = f;
                 }
             } else if (frequency > freq) {
@@ -363,3 +443,46 @@ void play_note(double freq, int vol) {
     #endif
 
 }
+
+}
+
+void set_timbre(float timbre)
+{
+	note_timbre = timbre;
+}
+
+void set_tempo(float tempo)
+{
+	note_tempo = tempo;
+}
+
+void decrease_tempo(uint8_t tempo_change)
+{
+	note_tempo += (float) tempo_change;
+}
+
+void increase_tempo(uint8_t tempo_change)
+{
+	if (note_tempo - (float) tempo_change < 10)
+		{
+			note_tempo = 10;
+		}
+	else
+		{
+		note_tempo -= (float) tempo_change;
+		}
+}
+
+//------------------------------------------------------------------------------
+// Override these functions in your keymap file to play different tunes on
+// startup and bootloader jump
+__attribute__ ((weak))
+void play_startup_tone()
+{
+}
+
+__attribute__ ((weak))
+void play_goodbye_tone()
+{
+}
+//------------------------------------------------------------------------------
