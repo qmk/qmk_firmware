@@ -131,8 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FN] = {
   {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    MG_H, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
   {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
   {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 }
 };
@@ -140,16 +140,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
 
 };
-
-
-int tri_layer = 0;
-void update_tri_layer(int layer) {
-  if (tri_layer > 1) {
-    layer_on(layer);
-  } else {
-    layer_off(layer);
-  }
-}
 
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -161,13 +151,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			if (record->event.pressed) {
 				print("RS_DN");
 				layer_on(_RS);
-				tri_layer++;
-				update_tri_layer(_FN);
+				update_tri_layer(_RS, _LW, _FN);
 			} else {
 				print("RS_UP");
 				layer_off(_RS);
-				tri_layer--;
-				update_tri_layer(_FN);
+				update_tri_layer(_RS, _LW, _FN);
 				phex(layer_state);
 			}
 			break;
@@ -176,13 +164,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			if (record->event.pressed) {
 				print("LW_DN");
 				layer_on(_LW);
-				tri_layer++;
-				update_tri_layer(_FN);
+				update_tri_layer(_RS, _LW, _FN);
 			} else {
 				print("LW_UP");
 				layer_off(_LW);
-				tri_layer--;
-				update_tri_layer(_FN);
+				update_tri_layer(_RS, _LW, _FN);
 			}
 			break;
 
