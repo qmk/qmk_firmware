@@ -51,7 +51,10 @@
 
 
 // Notes - # = Octave
+
 #define NOTE_REST         0.00
+
+/* These notes are currently bugged
 #define NOTE_C0          16.35
 #define NOTE_CS0         17.32
 #define NOTE_D0          18.35
@@ -75,6 +78,8 @@
 #define NOTE_GS1         51.91
 #define NOTE_A1          55.00
 #define NOTE_AS1         58.27
+*/
+
 #define NOTE_B1          61.74
 #define NOTE_C2          65.41
 #define NOTE_CS2         69.30
