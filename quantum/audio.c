@@ -351,7 +351,7 @@ void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest) 
 
 if (audio_config.enable) {
 
-    if (note)
+    if (note || notes)
         stop_all_notes();
     notes = true;
 
@@ -406,7 +406,7 @@ void play_note(double freq, int vol) {
 
 if (audio_config.enable && voices < 8) {
 
-    if (notes)
+    if (note || notes)
         stop_all_notes();
     note = true;
     #ifdef PWM_AUDIO
@@ -471,3 +471,16 @@ void increase_tempo(uint8_t tempo_change)
 		}
 }
 
+//------------------------------------------------------------------------------
+// Override these functions in your keymap file to play different tunes on
+// startup and bootloader jump
+__attribute__ ((weak))
+void play_startup_tone()
+{
+}
+
+__attribute__ ((weak))
+void play_goodbye_tone()
+{
+}
+//------------------------------------------------------------------------------

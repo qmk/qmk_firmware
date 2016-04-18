@@ -44,5 +44,7 @@ void decrease_tempo(uint8_t tempo_change);
 #define NOTE_ARRAY_SIZE(x) ((int)(sizeof(x) / (sizeof(x[0]))))
 #define PLAY_NOTE_ARRAY(note_array, note_repeat, note_rest_style) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat), (note_rest_style));
 
+void play_goodbye_tone(void);
+void play_startup_tone(void);
 
 #endif
