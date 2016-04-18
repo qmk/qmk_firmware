@@ -302,45 +302,38 @@ void matrix_init_user(void)
 void led_set_user(uint8_t usb_led)
 {
 	static uint8_t old_usb_led = 0;
-	static bool first_run = true;
 
-	// Skip first execution to avoid beeps caused by LED states being detected on power-up
-	if (!first_run)
+	if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
 	{
-
-		if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
-		{
-				// If CAPS LK LED is turning on...
-				PLAY_NOTE_ARRAY(tone_caps_on,  false, LEGATO);
-	    }
-		else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
-	    {
-				// If CAPS LK LED is turning off...
-				PLAY_NOTE_ARRAY(tone_caps_off, false, LEGATO);
-	    }
-		else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
-		{
-				// If NUM LK LED is turning on...
-				PLAY_NOTE_ARRAY(tone_numlk_on,  false, LEGATO);
-	    }
-		else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
-	    {
-				// If NUM LED is turning off...
-				PLAY_NOTE_ARRAY(tone_numlk_off, false, LEGATO);
-	    }
-		else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
-		{
-				// If SCROLL LK LED is turning on...
-				PLAY_NOTE_ARRAY(tone_scroll_on,  false, LEGATO);
-	    }
-		else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
-	    {
-				// If SCROLL LED is turning off...
-				PLAY_NOTE_ARRAY(tone_scroll_off, false, LEGATO);
-	    }
-	}
+			// If CAPS LK LED is turning on...
+			PLAY_NOTE_ARRAY(tone_caps_on,  false, LEGATO);
+    }
+	else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+    {
+			// If CAPS LK LED is turning off...
+			PLAY_NOTE_ARRAY(tone_caps_off, false, LEGATO);
+    }
+	else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
+	{
+			// If NUM LK LED is turning on...
+			PLAY_NOTE_ARRAY(tone_numlk_on,  false, LEGATO);
+    }
+	else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
+    {
+			// If NUM LED is turning off...
+			PLAY_NOTE_ARRAY(tone_numlk_off, false, LEGATO);
+    }
+	else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+	{
+			// If SCROLL LK LED is turning on...
+			PLAY_NOTE_ARRAY(tone_scroll_on,  false, LEGATO);
+    }
+	else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+    {
+			// If SCROLL LED is turning off...
+			PLAY_NOTE_ARRAY(tone_scroll_off, false, LEGATO);
+    }
 	old_usb_led = usb_led;
-	first_run = false;
 }
 
 
