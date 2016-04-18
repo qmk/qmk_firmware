@@ -224,6 +224,7 @@ float tone_music[][2] = {
   {440.0*pow(2.0,(23)/12.0), 8},
   {440.0*pow(2.0,(24)/12.0), 8}
 };
+float ode_to_joy[][2] = SONG(ODE_TO_JOY);
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -312,7 +313,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 9:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_music, false, 0);
+              init_notes();
+              set_tempo(150);
+              PLAY_NOTE_ARRAY(ode_to_joy, false, .25);
               layer_on(_MUSIC);
             #endif
           }
@@ -339,6 +342,6 @@ void process_action_user(keyrecord_t *record) {
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
-    play_notes(&start_up, false, 0);
+    PLAY_NOTE_ARRAY(start_up, false, 0);
   #endif
 }
