@@ -351,7 +351,7 @@ void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest) 
 
 if (audio_config.enable) {
 
-    if (note || notes)
+    if (note)
         stop_all_notes();
     notes = true;
 
@@ -406,7 +406,7 @@ void play_note(double freq, int vol) {
 
 if (audio_config.enable && voices < 8) {
 
-    if (note || notes)
+    if (notes)
         stop_all_notes();
     note = true;
     #ifdef PWM_AUDIO
