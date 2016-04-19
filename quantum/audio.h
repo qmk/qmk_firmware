@@ -8,6 +8,9 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
+// Enable vibrato strength/amplitude - slows down ISR too much
+// #define VIBRATO_STRENGTH_ENABLE
+
 typedef union {
     uint8_t raw;
     struct {
@@ -20,17 +23,40 @@ void audio_toggle(void);
 void audio_on(void);
 void audio_off(void);
 
+// Vibrato rate functions
+
+void set_vibrato_rate(float rate);
+void increase_vibrato_rate(float change);
+void decrease_vibrato_rate(float change);
+
+#ifdef VIBRATO_STRENGTH_ENABLE
+
+void set_vibrato_strength(float strength);
+void increase_vibrato_strength(float change);
+void decrease_vibrato_strength(float change);
+
+#endif
+
+// Polyphony functions
+
+void set_polyphony_rate(float rate);
+void enable_polyphony();
+void disable_polyphony();
+void increase_polyphony_rate(float change);
+void decrease_polyphony_rate(float change);
+
+void set_timbre(float timbre);
+void set_tempo(float tempo);
+
+void increase_tempo(uint8_t tempo_change);
+void decrease_tempo(uint8_t tempo_change);
+
 void play_sample(uint8_t * s, uint16_t l, bool r);
 void play_note(double freq, int vol);
 void stop_note(double freq);
 void stop_all_notes(void);
 void init_notes(void);
 void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest);
-
-void set_timbre(float timbre);
-void set_tempo(float tempo);
-void increase_tempo(uint8_t tempo_change);
-void decrease_tempo(uint8_t tempo_change);
 
 #define SCALE (int []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \
 						0 + (12*1), 2 + (12*1), 4 + (12*1), 5 + (12*1), 7 + (12*1), 9 + (12*1), 11 + (12*1), \
@@ -44,5 +70,7 @@ void decrease_tempo(uint8_t tempo_change);
 #define NOTE_ARRAY_SIZE(x) ((int)(sizeof(x) / (sizeof(x[0]))))
 #define PLAY_NOTE_ARRAY(note_array, note_repeat, note_rest_style) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat), (note_rest_style));
 
+void play_goodbye_tone(void);
+void play_startup_tone(void);
 
 #endif
