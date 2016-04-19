@@ -49,6 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   include "usbdrv.h"
 #endif
 
+#ifdef AUDIO_ENABLE
+    #include "audio.h"
+#endif /* AUDIO_ENABLE */
+
 
 static bool command_common(uint8_t code);
 static void command_common_help(void);
@@ -122,7 +126,7 @@ static void command_common_help(void)
 		STR(MAGIC_KEY_VERSION     ) ":	Version\n"
 		STR(MAGIC_KEY_STATUS      ) ":	Status\n"
 		STR(MAGIC_KEY_CONSOLE     ) ":	Activate Console Mode\n"
-		
+
 #if MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
 		STR(MAGIC_KEY_LAYER0      ) ":	Switch to Layer 0\n"
 		STR(MAGIC_KEY_LAYER1      ) ":	Switch to Layer 1\n"
@@ -136,11 +140,11 @@ static void command_common_help(void)
 		STR(MAGIC_KEY_LAYER9      ) ":	Switch to Layer 9\n"
 #endif
 
-#if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS							
+#if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
 		                            "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
 #endif
 
-#if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS							
+#if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
 		                            "0-9:	Switch to Layer 0-9\n"
 #endif
 
@@ -251,6 +255,7 @@ static void print_status(void)
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
+#ifndef NO_PRINT
     print("default_layer: "); print_dec(eeconfig_read_default_layer()); print("\n");
 
     debug_config_t dc;
@@ -279,9 +284,12 @@ static void print_eeconfig(void)
     print("backlight_config.raw: "); print_hex8(bc.raw); print("\n");
     print(".enable: "); print_dec(bc.enable); print("\n");
     print(".level: "); print_dec(bc.level); print("\n");
-#endif
+#endif /* BACKLIGHT_ENABLE */
+
+#endif /* !NO_PRINT */
+
 }
-#endif
+#endif /* BOOTMAGIC_ENABLE */
 
 static bool command_common(uint8_t code)
 {
@@ -305,7 +313,7 @@ static bool command_common(uint8_t code)
 #ifdef BOOTMAGIC_ENABLE
 
 		// print stored eeprom config
-        case MAGIC_KC(MAGIC_KEY_EEPROM):        
+        case MAGIC_KC(MAGIC_KEY_EEPROM):
             print("eeconfig:\n");
             print_eeconfig();
             break;
@@ -348,6 +356,9 @@ static bool command_common(uint8_t code)
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER):
             clear_keyboard(); // clear to prevent stuck keys
             print("\n\nJumping to bootloader... ");
+            #ifdef AUDIO_ENABLE
+                play_goodbye_tone();
+            #endif
             _delay_ms(1000);
             bootloader_jump(); // not return
             break;
@@ -369,7 +380,7 @@ static bool command_common(uint8_t code)
             break;
 
         // debug matrix toggle
-        case MAGIC_KC(MAGIC_KEY_DEBUG_MATRIX): 
+        case MAGIC_KC(MAGIC_KEY_DEBUG_MATRIX):
             debug_matrix = !debug_matrix;
             if (debug_matrix) {
                 print("\nmatrix: on\n");
@@ -380,7 +391,7 @@ static bool command_common(uint8_t code)
             break;
 
         // debug keyboard toggle
-        case MAGIC_KC(MAGIC_KEY_DEBUG_KBD): 
+        case MAGIC_KC(MAGIC_KEY_DEBUG_KBD):
             debug_keyboard = !debug_keyboard;
             if (debug_keyboard) {
                 print("\nkeyboard: on\n");
@@ -551,6 +562,7 @@ static uint8_t mousekey_param = 0;
 
 static void mousekey_param_print(void)
 {
+#ifndef NO_PRINT
     print("\n\t- Values -\n");
     print("1: delay(*10ms): "); pdec(mk_delay); print("\n");
     print("2: interval(ms): "); pdec(mk_interval); print("\n");
@@ -558,6 +570,8 @@ static void mousekey_param_print(void)
     print("4: time_to_max: "); pdec(mk_time_to_max); print("\n");
     print("5: wheel_max_speed: "); pdec(mk_wheel_max_speed); print("\n");
     print("6: wheel_time_to_max: "); pdec(mk_wheel_time_to_max); print("\n");
+#endif /* !NO_PRINT */
+
 }
 
 //#define PRINT_SET_VAL(v)  print(#v " = "); print_dec(v); print("\n");
@@ -677,7 +691,7 @@ static void mousekey_console_help(void)
           "pgdown:	-10\n"
           "\n"
           "speed = delta * max_speed * (repeat / time_to_max)\n");
-    xprintf("where delta: cursor=%d, wheel=%d\n" 
+    xprintf("where delta: cursor=%d, wheel=%d\n"
             "See http://en.wikipedia.org/wiki/Mouse_keys\n", MOUSEKEY_MOVE_DELTA,  MOUSEKEY_WHEEL_DELTA);
 }
 

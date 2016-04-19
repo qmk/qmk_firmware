@@ -5,7 +5,10 @@ There are four layers:
 - **BASE** is [Norman layout](https://normanlayout.info/).
 - **SYMB** for numbers and symbols.
 - **PLVR** is optimized for [Plover](http://www.openstenoproject.org).
-- **ARRW** for navigation.
+- **ARRW** for navigation (same fingers for arrows as IJKL on QWERTY).
+
+Looking for HJKL arrows? [Here we
+go](../romanzolotarev-norman-plover-osx-hjkl/).
 
 [![keyboard-layout](romanzolotarev-norman-plover-osx.png)](http://www.keyboard-layout-editor.com/#/gists/8ebcb701ecb763944417)
 
@@ -28,11 +31,11 @@ There are four layers:
 - Tap `F2` to copy screenshot to the clipboard.
 - Hold `SHIFT` and tap `F2` to save screenshot as a file.
 - Tap `F3`, `F4`, `F5`, `F6` to resize a window via [Divvy](http://mizage.com/divvy/).
-- Tap `F14`, `F15` to adjust display brightness. 
+- Tap `F14`, `F15` to adjust display brightness.
 
-**IMPORTANT**: If you have another keyboard connected via Bluetooth, then `F14` and `F15` will not work.
-Turn off that Bluetooth keyboard. Re-plug you ErgoDox. Enjoy!
-
+**IMPORTANT**: If you have another keyboard connected via Bluetooth, then
+`F14` and `F15` will not work. Turn off that Bluetooth keyboard. Re-plug
+you ErgoDox. Enjoy!
 
 ## CTRL/ESC
 
