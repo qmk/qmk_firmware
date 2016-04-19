@@ -23,25 +23,27 @@
 #define EGOS 5
 
 #define SMLY_TOG_QUOT 0
-#define M_TOGGLE_5 1
-#define M_DE_OSX_PLUS_CTRLALT 2
-#define SM_KISS 3
-#define SM_FROWN 4
-#define SM_CRY 5
-#define SM_SMILE 6
-#define SM_SMIRK 7
-#define M_LGUI_SHFT 8
-#define SM_HEART 9
-#define SM_LAUGH 10
-#define SM_SAD 11
-#define M_DE_OSX_CIRC_CTRLCMD 12
-#define M_MEH_SH_ACUT 13
+#define TOG_HLD_MDIA 1
+#define M_TOGGLE_5 2
+#define M_DE_OSX_PLUS_CTRLALT 3
+#define SM_KISS 4
+#define SM_FROWN 5
+#define SM_CRY 6
+#define SM_SMILE 7
+#define SM_SMIRK 8
+#define M_LGUI_SHFT 9
+#define SM_HEART 10
+#define SM_LAUGH 11
+#define SM_SAD 12
+#define M_DE_OSX_CIRC_CTRLCMD 13
+#define M_MEH_SH_ACUT 14
+#define TGH_NUM 15
 
 //Layout keymap.c generated with ErgodoxLayoutGenerator V1.0BETA1
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE]=KEYMAP(
 //left half
-    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, TG(NUMB), 
+    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
     KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, KC_LALT, 
@@ -50,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_PGUP, 
                                        KC_BSPC, KC_DEL, KC_PGDN, 
     //right half
-    TG(MDIA), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
+    M(TOG_HLD_MDIA), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
     KC_RGUI, DE_OSX_Z, DE_OSX_U, DE_OSX_I, DE_OSX_O, DE_OSX_P, DE_OSX_UE, 
            DE_OSX_H, DE_OSX_J, DE_OSX_K, DE_OSX_L, DE_OSX_OE, ALT_T(DE_OSX_AE), 
     KC_RALT, DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSFT, 
@@ -188,6 +190,21 @@ case M_TOGGLE_5:
         }
 
 break;
+case TGH_NUM:
+//Macro: TGH_NUM//-----------------------
+if (record->event.pressed){
+         start = timer_read();
+         layer_state ^=(1<<NUMB);
+         layer_state &=(1<<NUMB);
+ } else {
+         if (timer_elapsed(start) > 150) {
+                 layer_state^=(1<<NUMB);
+                 layer_state&=(1<<NUMB);
+         }
+ }
+return MACRO_NONE;
+
+break;
 case M_DE_OSX_PLUS_CTRLALT:
 //Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
 if (record->event.pressed) {
@@ -242,7 +259,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(D(LGUI),D(LSFT),END);
 		}else{
-			return MACRO(U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
@@ -251,6 +268,21 @@ case SM_HEART:
 if (record->event.pressed) {
 			return MACRO(T(GRV),T(3),END);
 		}
+
+break;
+case TOG_HLD_MDIA:
+//Macro: TOG_HLD_MDIA//-----------------------
+if (record->event.pressed){
+         start = timer_read();
+         layer_state ^=(1<<MDIA);
+         layer_state &=(1<<MDIA);
+ } else {
+         if (timer_elapsed(start) > 150) {
+                 layer_state^=(1<<MDIA);
+                 layer_state&=(1<<MDIA);
+         }
+ }
+return MACRO_NONE;
 
 break;
 case SM_LAUGH:
