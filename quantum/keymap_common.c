@@ -34,12 +34,6 @@ extern keymap_config_t keymap_config;
 #include <inttypes.h>
 #ifdef AUDIO_ENABLE
     #include "audio.h"
-
-    #ifndef TONE_GOODBYE
-    	#define TONE_GOODBYE OLKB_GOODBYE
-    #endif /*! TONE_GOODBYE */
-
-    float tone_goodbye[][2] = SONG(TONE_GOODBYE);
 #endif /* AUDIO_ENABLE */
 
 static action_t keycode_to_action(uint16_t keycode);
@@ -47,7 +41,7 @@ static action_t keycode_to_action(uint16_t keycode);
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
-	// 16bit keycodes - important
+    // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
 
     switch (keycode) {
@@ -190,7 +184,7 @@ static action_t keycode_to_action(uint16_t keycode)
         case RESET: ; // RESET is 0x5000, which is why this is here
             clear_keyboard();
             #ifdef AUDIO_ENABLE
-                PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+                play_goodbye_tone();
             #endif
             _delay_ms(250);
             #ifdef ATREUS_ASTAR
@@ -303,7 +297,7 @@ static action_t keycode_to_action(uint16_t keycode)
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-	// Read entire word (16bits)
+    // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
@@ -315,7 +309,7 @@ action_t keymap_fn_to_action(uint16_t keycode)
 
 action_t keymap_func_to_action(uint16_t keycode)
 {
-	// For FUNC without 8bit limit
+    // For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
 }
 
