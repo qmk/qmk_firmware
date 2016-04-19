@@ -34,8 +34,6 @@ int voice_place = 0;
 double frequency = 0;
 int volume = 0;
 long position = 0;
-int duty_place = 1;
-int duty_counter = 0;
 
 double frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -51,7 +49,7 @@ uint16_t place_int = 0;
 bool repeat = true;
 uint8_t * sample;
 uint16_t sample_length = 0;
-
+double freq = 0;
 
 bool notes = false;
 bool note = false;
@@ -65,10 +63,14 @@ uint8_t notes_count;
 bool notes_repeat;
 float notes_rest;
 bool note_resting = false;
-int note_flipper = 0;
 
 uint8_t current_note = 0;
 uint8_t rest_counter = 0;
+
+uint8_t vibrato_counter = 0;
+float vibrato_strength = 0;
+
+float polyphony_rate = 0;
 
 audio_config_t audio_config;
 
@@ -182,6 +184,11 @@ void init_notes() {
     #endif
 }
 
+float mod(float a, int b)
+{
+    float r = fmod(a, b);
+    return r < 0 ? r + b : r;
+}
 
 ISR(TIMER3_COMPA_vect) {
     if (note) {
@@ -233,48 +240,41 @@ ISR(TIMER3_COMPA_vect) {
                 OCR4A = sum;
             }
         #else
-            if (frequencies[voice_place] > 0) {
-                // if (frequencies[voice_place] > 880.0) {
-                //     if (note_flipper == 100) {
-                //         note_flipper = 0;
-                //         return;
-                //     }
-                //     note_flipper++;
-                // } else {
-                //     note_flipper = 0;
-                // }
-                // ICR3 = (int)(((double)F_CPU) / frequency); // Set max to the period
-                // OCR3A = (int)(((double)F_CPU) / frequency) >> 1; // Set compare to half the period
-
-                double freq;
-                if (false) {                
-                    voice_place %= voices;
-                    if (place > (frequencies[voice_place] / 50)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place = 0.0;
+            if (voices > 0) {
+                if (false && polyphony_rate > 0) {                
+                    if (voices > 1) {
+                        voice_place %= voices;
+                        if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER / voices)) {
+                            voice_place = (voice_place + 1) % voices;
+                            place = 0.0;
+                        }
                     }
-                    freq = frequencies[voice_place];
+                    if (vibrato_strength > 0) {
+                        freq = frequencies[voice_place] * pow(VIBRATO_LUT[(int)vibrato_counter], vibrato_strength);
+                        vibrato_counter = mod((vibrato_counter + 1), VIBRATO_LUT_LENGTH);
+                    } else {
+                        freq = frequencies[voice_place];
+                    } 
                 } else {
                     if (frequency != 0) {
                         if (frequency < frequencies[voices - 1]) {
-                            frequency = frequency * 1.01454533494;
+                            frequency = frequency * pow(2, 440/frequencies[voices - 1]/12/4);
                         } else if (frequency > frequencies[voices - 1]) {
-                            frequency = frequency * 0.98566319864;
+                            frequency = frequency * pow(2, -440/frequencies[voices - 1]/12/4);
                         }
                     } else {
                         frequency = frequencies[voices - 1];
                     }
-                    freq = frequency;
+
+                    if (false && vibrato_strength > 0) {
+                        freq = frequency * pow(VIBRATO_LUT[(int)vibrato_counter], vibrato_strength);
+                        vibrato_counter = mod((vibrato_counter + 1 + 440/frequencies[voices - 1]), VIBRATO_LUT_LENGTH);
+                    } else {
+                        freq = frequency;
+                    } 
                 }
                 ICR3 = (int)(((double)F_CPU) / (freq * CPU_PRESCALER)); // Set max to the period
                 OCR3A = (int)((((double)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
-                //OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
-                place++;
-                // if (duty_counter > (frequencies[voice_place] / 500)) {
-                //     duty_place = (duty_place % 3) + 1;
-                //     duty_counter = 0;
-                // }
-                // duty_counter++;
             }
         #endif
     }
@@ -300,8 +300,17 @@ ISR(TIMER3_COMPA_vect) {
                 place -= SINE_LENGTH;
         #else
             if (note_frequency > 0) {
-                ICR3 = (int)(((double)F_CPU) / (note_frequency * CPU_PRESCALER)); // Set max to the period
-                OCR3A = (int)((((double)F_CPU) / (note_frequency * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
+                float freq;
+
+                if (false && vibrato_strength > 0) {
+                    freq = note_frequency * pow(VIBRATO_LUT[(int)vibrato_counter], vibrato_strength);
+                    vibrato_counter = mod((vibrato_counter + 1), VIBRATO_LUT_LENGTH);
+                } else {
+                    freq = note_frequency;
+                }
+
+                ICR3 = (int)(((double)F_CPU) / (freq * CPU_PRESCALER)); // Set max to the period
+                OCR3A = (int)((((double)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
             } else {
                 ICR3 = 0;
                 OCR3A = 0;
