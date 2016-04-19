@@ -84,6 +84,7 @@ endif
 
 # Imported source files and paths
 CHIBIOS ?= $(TMK_DIR)/tool/chibios/chibios
+CHIBIOS_CONTRIB ?= $(TMK_DIR)/tool/chibios/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and 
 # for things hardware in the contrib repository
 STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
