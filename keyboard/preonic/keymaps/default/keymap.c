@@ -14,8 +14,9 @@
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 5
-#define _MUSIC 6
+#define _ADJUST 6
+#define _MUSIC 7
+#define _STOPPER 5
 
 // Macro name shortcuts
 #define QWERTY M(_QWERTY)
@@ -172,7 +173,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Stopper
+ *
+ */
+[_STOPPER] = {
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 }
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -225,6 +238,7 @@ float tone_music[][2] = {
   {440.0*pow(2.0,(24)/12.0), 8}
 };
 float ode_to_joy[][2] = SONG(ODE_TO_JOY);
+float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -306,6 +320,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               layer_off(_MUSIC);
+              layer_off(_STOPPER);
               stop_all_notes();
             #endif
           }
@@ -317,6 +332,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
               set_tempo(150);
               PLAY_NOTE_ARRAY(ode_to_joy, false, .25);
               layer_on(_MUSIC);
+              layer_on(_STOPPER);
             #endif
           }
         break;
@@ -344,4 +360,10 @@ void matrix_init_user(void) {
     init_notes();
     PLAY_NOTE_ARRAY(start_up, false, 0);
   #endif
+}
+
+void play_goodbye_tone()
+{
+  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  _delay_ms(2000);
 }

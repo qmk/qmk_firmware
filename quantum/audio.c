@@ -65,6 +65,7 @@ uint8_t notes_count;
 bool notes_repeat;
 float notes_rest;
 bool note_resting = false;
+int note_flipper = 0;
 
 uint8_t current_note = 0;
 uint8_t rest_counter = 0;
@@ -127,6 +128,9 @@ void stop_note(double freq) {
         voices--;
         if (voices < 0)
             voices = 0;
+        if (voice_place >= voices) {
+            voice_place = 0;
+        }
         if (voices == 0) {
             #ifdef PWM_AUDIO
                 TIMSK3 &= ~_BV(OCIE3A);
@@ -137,25 +141,6 @@ void stop_note(double freq) {
             frequency = 0;
             volume = 0;
             note = false;
-        } else {
-            double freq = frequencies[voices - 1];
-            int vol = volumes[voices - 1];
-            double starting_f = frequency;
-            if (frequency < freq) {
-                sliding = true;
-                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
-                    frequency = f;
-                }
-                sliding = false;
-            } else if (frequency > freq) {
-                sliding = true;
-                for (double f = starting_f; f >= freq; f -= ((starting_f - freq) / 2000.0)) {
-                    frequency = f;
-                }
-                sliding = false;
-            }
-            frequency = freq;
-            volume = vol;
         }
     }
 }
@@ -248,16 +233,41 @@ ISR(TIMER3_COMPA_vect) {
                 OCR4A = sum;
             }
         #else
-            if (frequency > 0) {
+            if (frequencies[voice_place] > 0) {
+                // if (frequencies[voice_place] > 880.0) {
+                //     if (note_flipper == 100) {
+                //         note_flipper = 0;
+                //         return;
+                //     }
+                //     note_flipper++;
+                // } else {
+                //     note_flipper = 0;
+                // }
                 // ICR3 = (int)(((double)F_CPU) / frequency); // Set max to the period
                 // OCR3A = (int)(((double)F_CPU) / frequency) >> 1; // Set compare to half the period
-                voice_place %= voices;
-                if (place > (frequencies[voice_place] / 50)) {
-                    voice_place = (voice_place + 1) % voices;
-                    place = 0.0;
+
+                double freq;
+                if (false) {                
+                    voice_place %= voices;
+                    if (place > (frequencies[voice_place] / 50)) {
+                        voice_place = (voice_place + 1) % voices;
+                        place = 0.0;
+                    }
+                    freq = frequencies[voice_place];
+                } else {
+                    if (frequency != 0) {
+                        if (frequency < frequencies[voices - 1]) {
+                            frequency = frequency * 1.01454533494;
+                        } else if (frequency > frequencies[voices - 1]) {
+                            frequency = frequency * 0.98566319864;
+                        }
+                    } else {
+                        frequency = frequencies[voices - 1];
+                    }
+                    freq = frequency;
                 }
-                ICR3 = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)); // Set max to the period
-                OCR3A = (int)((((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
+                ICR3 = (int)(((double)F_CPU) / (freq * CPU_PRESCALER)); // Set max to the period
+                OCR3A = (int)((((double)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
                 //OCR3A = (int)(((double)F_CPU) / (frequencies[voice_place] * CPU_PRESCALER)) >> 1 * duty_place; // Set compare to half the period
                 place++;
                 // if (duty_counter > (frequencies[voice_place] / 500)) {
@@ -413,23 +423,8 @@ if (audio_config.enable && voices < 8) {
         freq = freq / SAMPLE_RATE;
     #endif
     if (freq > 0) {
-        if (frequency != 0) {
-            double starting_f = frequency;
-            if (frequency < freq) {
-                for (double f = starting_f; f <= freq; f += ((freq - starting_f) / 2000.0)) {
-                    frequency = f;
-                }
-            } else if (frequency > freq) {
-                for (double f = starting_f; f >= freq; f -= ((starting_f - freq) / 2000.0)) {
-                    frequency = f;
-                }
-            }
-        }
-        frequency = freq;
-        volume = vol;
-
-        frequencies[voices] = frequency;
-        volumes[voices] = volume;
+        frequencies[voices] = freq;
+        volumes[voices] = vol;
         voices++;
     }
 
