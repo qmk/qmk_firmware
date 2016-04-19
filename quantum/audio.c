@@ -361,6 +361,7 @@ void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest) 
 
 if (audio_config.enable) {
 
+	// Cancel note if a note is playing
     if (note)
         stop_all_notes();
     notes = true;
@@ -416,6 +417,7 @@ void play_note(double freq, int vol) {
 
 if (audio_config.enable && voices < 8) {
 
+    // Cancel notes if notes are playing
     if (notes)
         stop_all_notes();
     note = true;
