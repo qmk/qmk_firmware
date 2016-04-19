@@ -274,7 +274,7 @@ This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboar
 
 ## International Characters on Windows
 
-[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys amont others.
+[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
 
 The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
 
