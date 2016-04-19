@@ -14,8 +14,8 @@
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 5
-#define _MUSIC 6
+#define _MUSIC 5
+#define _ADJUST 6
 
 // Macro name shortcuts
 #define QWERTY M(_QWERTY)
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP,  QWERTY,  COLEMAK, DVORAK,  _______, _______},
+  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP,  QWERTY, COLEMAK, DVORAK,  _______, _______},
   {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -167,12 +167,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 [_MUSIC] = {
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 }
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -224,7 +225,8 @@ float tone_music[][2] = {
   {440.0*pow(2.0,(23)/12.0), 8},
   {440.0*pow(2.0,(24)/12.0), 8}
 };
-float ode_to_joy[][2] = SONG(ODE_TO_JOY);
+float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -314,8 +316,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               init_notes();
-              set_tempo(150);
-              PLAY_NOTE_ARRAY(ode_to_joy, false, .25);
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
               layer_on(_MUSIC);
             #endif
           }
@@ -342,6 +343,13 @@ void process_action_user(keyrecord_t *record) {
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     init_notes();
+    _delay_ms(10);
     PLAY_NOTE_ARRAY(start_up, false, 0);
   #endif
+}
+
+void play_goodbye_tone()
+{
+  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  _delay_ms(150);
 }
