@@ -18,7 +18,7 @@ no rights reserved, use for any purposes, credit me if you are a nice person
 
 ![Ordinary base layout](ordinary-base.png)
 
-This layout puts the modifier keys along the bottom of the keyboard where they are on most keyboards. They are in the regular order, with the addition of Hyper and Meh keys. On the outside edges are the Shift keys. The traditional shift key is called Capitals Shift and it is in the normal location. Above that are Symbols Shift and Media Shift. Each Shift key momentarily switches the layout to that layer, and if you use the Shift Lock button you can lock the layout to that layer.
+This layout puts the modifier keys along the bottom of the keyboard where they are on most keyboards. They are in the regular order, with the addition of Hyper and Meh keys. The modifier keys are all in the same place on all layers, although some layers also assign symbols on those buttons. On the outside edges are the Shift keys. The traditional shift key is called Capitals Shift and it is in the normal location. Above that are Symbols Shift and Media Shift. Each Shift key momentarily switches the layout to that layer, and if you use the Shift Lock button you can lock the layout to that layer.
 
 Touch typists will also find tilde, tab, equals/plus, slash/pipe, and quote/double-quote sharing space on those Shift keys where they would probably be on a common keyboard. Other than the turquoise keys the only buttons which move to new locations are the Brackets and Dash and Escape. Most touch typists dont touch-type brackets or dash anyway so only Escape really requires retraining of muscle memory, and see below for the Special Escape Sequence.
 

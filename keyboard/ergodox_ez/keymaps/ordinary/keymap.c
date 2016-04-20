@@ -15,7 +15,7 @@
 #define UNLOCK  8 // clear to base layer
 
 /*
- * Ordinary Ergodox EZ keyboard layout, v3.1
+ * The Ordinary Layout for the Ergodox EZ keyboard, v3.1
  * modifications from default by Nicholas Keene ergodoxez@nicholaskeene.com
  * Details: readme.md
  *          https://github.com/nrrkeene/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/ordinary
@@ -46,15 +46,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP(
 // left hand
- LT(LOCK, KC_GRV),KC_1        ,KC_2        ,KC_3   ,KC_4  ,KC_5 ,KC_ESC
-,LT(MDIA_SH, KC_TAB),KC_Q     ,KC_W        ,KC_E   ,KC_R  ,KC_T ,KC_LBRC
-,MO(SYMB_SH)     ,KC_A        ,KC_S        ,KC_D   ,KC_F  ,KC_G
-,KC_LSFT         ,KC_Z        ,KC_X        ,KC_C   ,KC_V  ,KC_B ,LSFT(KC_TAB)
-,KC_LCTL         ,MEH_T(KC_NO),ALL_T(KC_NO),KC_LALT,KC_LGUI
+ LT(LOCK, KC_GRV)   ,KC_1        ,KC_2        ,KC_3   ,KC_4  ,KC_5  ,KC_ESC
+,LT(MDIA_SH, KC_TAB),KC_Q        ,KC_W        ,KC_E   ,KC_R  ,KC_T  ,KC_LBRC
+,MO(SYMB_SH)        ,KC_A        ,KC_S        ,KC_D   ,KC_F  ,KC_G
+,KC_LSFT            ,KC_Z        ,KC_X        ,KC_C   ,KC_V  ,KC_B  ,LSFT(KC_TAB)
+,KC_LCTL            ,MEH_T(KC_NO),ALL_T(KC_NO),KC_LALT,KC_LGUI
 
-                                                        ,KC_HOME,KC_END
-                                                                ,KC_PGUP
-                                                ,KC_BSPC,KC_DEL ,KC_PGDN
+                                                            ,KC_HOME,KC_END
+                                                                    ,KC_PGUP
+                                                    ,KC_BSPC,KC_DEL ,KC_PGDN
 
                                                                 // right hand
                                                                ,KC_MINS ,KC_6   ,KC_7   ,KC_8   ,KC_9        ,KC_0        ,LT(LOCK, KC_EQL)
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Symbol Shift Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | LOCK      |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |      LOCK |
+ * | LOCK      |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |  -   |  F6  |  F7  |  F8  |  F9  |  F10 |      LOCK |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * | Media     |   !  |   @  |   {  |   }  |   &  |  <   |           |  >   |   |  |   7  |   8  |   9  |   /  |     Media |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
@@ -145,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             ,KC_UP
                                           ,KC_SPC  ,KC_ENT  ,KC_DOWN
                                                                     // right hand
-                                                                    ,KC_TRNS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,KC_FN2
+                                                                    ,KC_MINS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,KC_FN2
                                                                     ,LSFT(KC_DOT),KC_PIPE ,KC_7  ,KC_8   ,KC_9  ,KC_SLSH ,MO(MDIA_SH)
                                                                                  ,KC_SLSH ,KC_4  ,KC_5   ,KC_6  ,KC_ASTR ,MO(SYMB_SH)
                                                                     ,LSFT(KC_TAB),KC_BSLS ,KC_1  ,KC_2   ,KC_3  ,KC_MINS ,KC_RSFT
-                                                                                          ,KC_0  ,KC_DOT ,KC_EQL,KC_PLUS ,KC_ENT
+                                                                                          ,GUI_T(KC_0),ALT_T(KC_DOT),ALL_T(KC_EQL),MEH_T(KC_PLUS),CTL_T(KC_ENT)
                                                                     ,KC_HOME     ,KC_END
                                                                     ,KC_PGUP
                                                                     ,KC_PGDN     ,KC_BSPC ,KC_DEL
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 3: Symbol Lock Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | LOCK      |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |      LOCK |
+ * | LOCK      |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |  -   |  F6  |  F7  |  F8  |  F9  |  F10 |      LOCK |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * | Media     |   !  |   @  |   {  |   }  |   &  |  <   |           |  >   |   |  |   7  |   8  |   9  |   /  |     Media |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
@@ -187,11 +187,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           ,KC_UP
                                         ,KC_SPC  ,KC_ENT  ,KC_DOWN
                                                                     // right hand
-                                                                    ,KC_TRNS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,MO(SYMB_UN)
+                                                                    ,KC_MINS     ,KC_F6   ,KC_F7 ,KC_F8  ,KC_F9 ,KC_F10  ,MO(SYMB_UN)
                                                                     ,LSFT(KC_DOT),KC_PIPE ,KC_7  ,KC_8   ,KC_9  ,KC_SLSH ,MO(MDIA_SH)
                                                                                  ,KC_SLSH ,KC_4  ,KC_5   ,KC_6  ,KC_ASTR ,MO(UNLOCK)
                                                                     ,LSFT(KC_TAB),KC_BSLS ,KC_1  ,KC_2   ,KC_3  ,KC_MINS ,KC_RSFT
-                                                                                          ,KC_0  ,KC_DOT ,KC_EQL,KC_PLUS ,KC_ENT
+                                                                                          ,GUI_T(KC_0),ALT_T(KC_DOT),ALL_T(KC_EQL),MEH_T(KC_PLUS),CTL_T(KC_ENT)
                                                                     ,KC_HOME     ,KC_END
                                                                     ,KC_PGUP
                                                                     ,KC_PGDN     ,KC_BSPC ,KC_DEL
@@ -244,13 +244,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | LOCK      | F11  | F12  | F13  | F14  | F15  |      |           |      | F16  | F17  | F18  | F19  | F20  |      LOCK |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Media     |ShutDn|      | MsUp |      |      |ScrlUp|           |ScrlUp|PrtScr| Home |  Up  | PgUp | Mail |     Media |
+ * | Media     |ShutDn|LClick| MsUp |RClick|Vol Up|ScrlUp|           |ScrlUp|PrtScr| Home |  Up  | PgUp | Mail |     Media |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * | Symbol    | Sleep|MsLeft|MsDown|MsRght|      |------|           |------|NumLok| Left | Down | Right|MyComp|    Symbol |
+ * | Symbol    | Sleep|MsLeft|MsDown|MsRght|Vol Dn|------|           |------|NumLok| Left | Down | Right|MyComp|    Symbol |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * | LShift    |      |      |MsDown|      |      |ScrlDn|           |ScrlDn|      | End  | Down | PgDn |      |    RShift |
+ * | LShift    |      |      |MsDown|      | Mute |ScrlDn|           |ScrlDn|      | End  | Down | PgDn |      |    RShift |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *      | Mute |Vol Dn|Vol Up| Lclk | Rclk |                                       |Insert|Delete|      |      |      |
+ *      | LCtrl| Meh  |Hyper | LAlt | LGui |                                       |Insert|Delete| Hyper| LAlt | LGui |
  *      `----------------------------------'                                       `----------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         | Stop |Refrsh|           | Prev | Next |
@@ -262,20 +262,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [MDIA_SH] = KEYMAP(
 // left hand
- KC_FN3        ,KC_F11  ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_NO
-,MO(MDIA_SH)   ,KC_POWER,KC_NO   ,KC_MS_U ,KC_NO   ,KC_NO   ,KC_WH_U
-,MO(SYMB_SH)   ,KC_SLEP ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO  
-,KC_LSFT       ,KC_NO   ,KC_NO   ,KC_MS_D ,KC_NO   ,KC_NO   ,KC_WH_D
-,KC_MUTE       ,KC_VOLD ,KC_VOLU ,KC_BTN1 ,KC_BTN2
-                                                   ,KC_WSTP ,KC_WREF
-                                                            ,KC_WSCH
-                                          ,KC_WBAK ,KC_NO   ,KC_WHOM
+ KC_FN3        ,KC_F11      ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_NO
+,MO(MDIA_SH)   ,KC_POWER    ,KC_BTN1 ,KC_MS_U ,KC_BTN2 ,KC_VOLU ,KC_WH_U
+,MO(SYMB_SH)   ,KC_SLEP     ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_VOLD
+,KC_LSFT       ,KC_NO       ,KC_NO   ,KC_MS_D ,KC_NO   ,KC_MUTE ,KC_WH_D
+,KC_LCTL       ,MEH_T(KC_NO),ALL_T(KC_NO),KC_LALT,KC_LGUI
+                                                       ,KC_WSTP ,KC_WREF
+                                                                ,KC_WSCH
+                                              ,KC_WBAK ,KC_NO   ,KC_WHOM
                                                                      // right hand
                                                                      ,KC_NO    ,KC_F16  ,KC_F17 ,KC_F18  ,KC_F19  ,KC_F20  ,KC_FN3
                                                                      ,KC_WH_U  ,KC_PSCR ,KC_HOME,KC_UP   ,KC_PGUP ,KC_MAIL ,MO(MDIA_SH)
                                                                                ,KC_NLCK ,KC_LEFT,KC_DOWN ,KC_RIGHT,KC_MYCM ,MO(SYMB_SH)
                                                                      ,KC_WH_D  ,KC_NO   ,KC_END ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_RSFT
-                                                                                        ,KC_INS ,KC_DEL  ,KC_NO   ,KC_NO   ,KC_NO
+                                                                                        ,GUI_T(KC_INS),ALT_T(KC_DEL),ALL_T(KC_NO),MEH_T(KC_NO),KC_RCTL
                                                                      ,KC_MPRV  ,KC_MNXT
                                                                      ,KC_VOLU
                                                                      ,KC_VOLD  ,KC_MSTP ,KC_MPLY
@@ -286,13 +286,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | LOCK      | F11  | F12  | F13  | F14  | F15  |      |           |      | F16  | F17  | F18  | F19  | F20  |      LOCK |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Media     |ShutDn|      | MsUp |      |      |ScrlUp|           |ScrlUp|PrtScr| Home |  Up  | PgUp | Mail |     Media |
+ * | Media     |ShutDn|LClick| MsUp |RClick|Vol Up|ScrlUp|           |ScrlUp|PrtScr| Home |  Up  | PgUp | Mail |     Media |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |           | Sleep|MsLeft|MsDown|MsRght|      |------|           |------|NumLok| Left | Down | Right|MyComp|           |
+ * |           | Sleep|MsLeft|MsDown|MsRght|Vol Dn|------|           |------|NumLok| Left | Down | Right|MyComp|           |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * | LShift    |      |      |MsDown|      |      |ScrlDn|           |ScrlDn|      | End  | Down | PgDn |      |    RShift |
+ * | LShift    |      |      |MsDown|      | Mute |ScrlDn|           |ScrlDn|      | End  | Down | PgDn |      |    RShift |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *      | Mute |Vol Dn|Vol Up| Lclk | Rclk |                                       |Insert|Delete|      |      |      |
+ *      | LCtrl| Meh  |Hyper | LAlt | LGui |                                       |Insert|Delete| Hyper| LAlt | LGui |
  *      `----------------------------------'                                       `----------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         | Stop |Refrsh|           | Prev | Next |
@@ -304,20 +304,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [MDIA_LK] = KEYMAP(
 // left hand
- MO(MDIA_UN)  ,KC_F11  ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_NO
-,MO(UNLOCK)   ,KC_POWER,KC_NO   ,KC_MS_U ,KC_NO   ,KC_NO   ,KC_WH_U
-,KC_NO        ,KC_SLEP ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO  
-,KC_LSFT      ,KC_NO   ,KC_NO   ,KC_MS_D ,KC_NO   ,KC_NO   ,KC_WH_D
-,KC_MUTE      ,KC_VOLD ,KC_VOLU ,KC_BTN1 ,KC_BTN2
-                                                  ,KC_WSTP ,KC_WREF
-                                                           ,KC_WSCH
-                                         ,KC_WBAK ,KC_NO   ,KC_WHOM
+ MO(MDIA_UN),KC_F11      ,KC_F12  ,KC_F13  ,KC_F14  ,KC_F15  ,KC_NO
+,MO(UNLOCK) ,KC_POWER    ,KC_BTN1 ,KC_MS_U ,KC_BTN2 ,KC_VOLU ,KC_WH_U
+,KC_NO      ,KC_SLEP     ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_VOLD  
+,KC_LSFT    ,KC_NO       ,KC_NO   ,KC_MS_D ,KC_NO   ,KC_MUTE ,KC_WH_D
+,KC_LCTL    ,MEH_T(KC_NO),ALL_T(KC_NO),KC_LALT,KC_LGUI
+                                                    ,KC_WSTP ,KC_WREF
+                                                             ,KC_WSCH
+                                           ,KC_WBAK ,KC_NO   ,KC_WHOM
                                                                      // right hand
                                                                      ,KC_NO    ,KC_F16  ,KC_F17 ,KC_F18  ,KC_F19  ,KC_F20  ,MO(MDIA_UN)
                                                                      ,KC_WH_U  ,KC_PSCR ,KC_HOME,KC_UP   ,KC_PGUP ,KC_MAIL ,MO(UNLOCK)
                                                                                ,KC_NLCK ,KC_LEFT,KC_DOWN ,KC_RIGHT,KC_MYCM ,KC_NO
                                                                      ,KC_WH_D  ,KC_NO   ,KC_END ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_RSFT
-                                                                                        ,KC_INS ,KC_DEL  ,KC_NO   ,KC_NO   ,KC_NO
+                                                                                        ,GUI_T(KC_INS),ALT_T(KC_DEL),ALL_T(KC_NO),MEH_T(KC_NO),KC_RCTL
                                                                      ,KC_MPRV  ,KC_MNXT
                                                                      ,KC_VOLU
                                                                      ,KC_VOLD  ,KC_MSTP ,KC_MPLY
