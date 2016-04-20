@@ -360,7 +360,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 			else
 			{
 				/* Write the next EEPROM byte from the endpoint */
-				eeprom_write_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
+				eeprom_update_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
 
 				/* Increment the address counter after use */
 				CurrAddress += 2;
@@ -614,7 +614,7 @@ static void CDC_Task(void)
 	else if (Command == AVR109_COMMAND_WriteEEPROM)
 	{
 		/* Read the byte from the endpoint and write it to the EEPROM */
-		eeprom_write_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
+		eeprom_update_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
 
 		/* Increment the address after use */
 		CurrAddress += 2;
@@ -671,4 +671,3 @@ static void CDC_Task(void)
 	/* Acknowledge the command from the host */
 	Endpoint_ClearOUT();
 }
-
