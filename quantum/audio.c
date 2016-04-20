@@ -213,7 +213,6 @@ void audio_init() {
     #endif
 
     inited = true;
-    _delay_ms(500);
 }
 
 void stop_all_notes() {
