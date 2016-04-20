@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 },
 
-/* Plover layer (http://openstenoproject.org)
+/* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -225,16 +225,10 @@ float tone_dvorak[][2] = {
   {440.0*pow(2.0,(31)/12.0), 8}
 };
 
-float tone_music[][2] = {
-  {440.0*pow(2.0,(12)/12.0), 8},
-  {440.0*pow(2.0,(14)/12.0), 8},
-  {440.0*pow(2.0,(16)/12.0), 8},
-  {440.0*pow(2.0,(17)/12.0), 8},
-  {440.0*pow(2.0,(19)/12.0), 8},
-  {440.0*pow(2.0,(21)/12.0), 8},
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8}
-};
+
+float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+float goodbye[][2] = SONG(GOODBYE_SOUND);
+
 #endif
 
 
@@ -324,7 +318,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 9:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_music, false, 0);
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
               layer_on(_MUSIC);
             #endif
           }
@@ -370,7 +364,12 @@ void process_action_user(keyrecord_t *record) {
 
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
-    init_notes();
     PLAY_NOTE_ARRAY(tone_startup, false, 0);
   #endif
+}
+
+void play_goodbye_tone()
+{
+  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  _delay_ms(150);
 }

@@ -3,6 +3,7 @@
 #include "eeconfig.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
+  #include "song_list.h"
 #endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -15,7 +16,7 @@
 #define _LOWER 3
 #define _RAISE 4
 #define _MUSIC 5
-#define _ADJUST 6
+#define _ADJUST 16
 
 // Macro name shortcuts
 #define QWERTY M(_QWERTY)
@@ -142,6 +143,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
+/* Music (reserved for process_action_user)
+ *
+ */
+[_MUSIC] = {
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
+},
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
@@ -161,18 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP,  QWERTY, COLEMAK, DVORAK,  _______, _______},
   {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-/* Music (reserved for process_action_user)
- *
- */
-[_MUSIC] = {
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 }
+
 
 };
 
@@ -188,43 +190,10 @@ float start_up[][2] = {
   {440.0*pow(2.0,(26)/12.0), 8}
 };
 
-float tone_qwerty[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 16}
-};
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 
-float tone_colemak[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 12},
-  {0, 4},
-  {440.0*pow(2.0,(35)/12.0), 12}
-};
-
-float tone_dvorak[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(33)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 8}
-};
-
-float tone_music[][2] = {
-  {440.0*pow(2.0,(12)/12.0), 8},
-  {440.0*pow(2.0,(14)/12.0), 8},
-  {440.0*pow(2.0,(16)/12.0), 8},
-  {440.0*pow(2.0,(17)/12.0), 8},
-  {440.0*pow(2.0,(19)/12.0), 8},
-  {440.0*pow(2.0,(21)/12.0), 8},
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8}
-};
 float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
@@ -315,7 +284,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 9:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              init_notes();
               PLAY_NOTE_ARRAY(music_scale, false, 0);
               layer_on(_MUSIC);
             #endif
@@ -341,11 +309,13 @@ void process_action_user(keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-    init_notes();
-    _delay_ms(10);
-    PLAY_NOTE_ARRAY(start_up, false, 0);
-  #endif
+  // audio_init();
+  play_startup_tone();
+}
+
+void play_startup_tone()
+{
+  PLAY_NOTE_ARRAY(music_scale, false, 0);
 }
 
 void play_goodbye_tone()
