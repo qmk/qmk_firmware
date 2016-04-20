@@ -315,7 +315,7 @@ void matrix_init_user(void) {
 
 void play_startup_tone()
 {
-  PLAY_NOTE_ARRAY(music_scale, false, 0);
+  PLAY_NOTE_ARRAY(start_up, false, 0);
 }
 
 void play_goodbye_tone()
