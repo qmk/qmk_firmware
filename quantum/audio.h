@@ -55,7 +55,6 @@ void play_sample(uint8_t * s, uint16_t l, bool r);
 void play_note(double freq, int vol);
 void stop_note(double freq);
 void stop_all_notes(void);
-void init_notes(void);
 void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest);
 
 #define SCALE (int []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \

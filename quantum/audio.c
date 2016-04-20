@@ -74,7 +74,9 @@ float vibrato_counter = 0;
 float vibrato_strength = .5;
 float vibrato_rate = 0.125;
 
-float polyphony_rate = .5;
+float polyphony_rate = 0;
+
+bool inited = false;
 
 audio_config_t audio_config;
 
@@ -170,66 +172,7 @@ void increase_tempo(uint8_t tempo_change) {
     }
 }
 
-void stop_all_notes() {
-    voices = 0;
-    #ifdef PWM_AUDIO
-        TIMSK3 &= ~_BV(OCIE3A);
-    #else
-        TIMSK3 &= ~_BV(OCIE3A);
-        TCCR3A &= ~_BV(COM3A1);
-    #endif
-    notes = false;
-    note = false;
-    frequency = 0;
-    volume = 0;
-
-    for (int i = 0; i < 8; i++) {
-        frequencies[i] = 0;
-        volumes[i] = 0;
-    }
-}
-
-void stop_note(double freq) {
-    if (note) {
-        cli();
-        #ifdef PWM_AUDIO
-            freq = freq / SAMPLE_RATE;
-        #endif
-        for (int i = 7; i >= 0; i--) {
-            if (frequencies[i] == freq) {
-                frequencies[i] = 0;
-                volumes[i] = 0;
-                for (int j = i; (j < 7); j++) {
-                    frequencies[j] = frequencies[j+1];
-                    frequencies[j+1] = 0;
-                    volumes[j] = volumes[j+1];
-                    volumes[j+1] = 0;
-                }
-                break;
-            }
-        }
-        voices--;
-        if (voices < 0)
-            voices = 0;
-        if (voice_place >= voices) {
-            voice_place = 0;
-        }
-        if (voices == 0) {
-            #ifdef PWM_AUDIO
-                TIMSK3 &= ~_BV(OCIE3A);
-            #else
-                TIMSK3 &= ~_BV(OCIE3A);
-                TCCR3A &= ~_BV(COM3A1);
-            #endif
-            frequency = 0;
-            volume = 0;
-            note = false;
-        }
-        sei();
-    }
-}
-
-void init_notes() {
+void audio_init() {
 
     /* check signature */
     if (!eeconfig_is_enabled()) {
@@ -264,6 +207,71 @@ void init_notes() {
         TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
         TCCR3B = (1 << WGM33) | (1 << WGM32) | (0 << CS32) | (1 << CS31) | (0 << CS30);
     #endif
+
+    inited = true;
+}
+
+void stop_all_notes() {
+    if (!inited) {
+        audio_init();
+    }
+    voices = 0;
+    #ifdef PWM_AUDIO
+        TIMSK3 &= ~_BV(OCIE3A);
+    #else
+        TIMSK3 &= ~_BV(OCIE3A);
+        TCCR3A &= ~_BV(COM3A1);
+    #endif
+    notes = false;
+    note = false;
+    frequency = 0;
+    volume = 0;
+
+    for (int i = 0; i < 8; i++) {
+        frequencies[i] = 0;
+        volumes[i] = 0;
+    }
+}
+
+void stop_note(double freq) {
+    if (note) {
+        if (!inited) {
+            audio_init();
+        }
+        #ifdef PWM_AUDIO
+            freq = freq / SAMPLE_RATE;
+        #endif
+        for (int i = 7; i >= 0; i--) {
+            if (frequencies[i] == freq) {
+                frequencies[i] = 0;
+                volumes[i] = 0;
+                for (int j = i; (j < 7); j++) {
+                    frequencies[j] = frequencies[j+1];
+                    frequencies[j+1] = 0;
+                    volumes[j] = volumes[j+1];
+                    volumes[j+1] = 0;
+                }
+                break;
+            }
+        }
+        voices--;
+        if (voices < 0)
+            voices = 0;
+        if (voice_place >= voices) {
+            voice_place = 0;
+        }
+        if (voices == 0) {
+            #ifdef PWM_AUDIO
+                TIMSK3 &= ~_BV(OCIE3A);
+            #else
+                TIMSK3 &= ~_BV(OCIE3A);
+                TCCR3A &= ~_BV(COM3A1);
+            #endif
+            frequency = 0;
+            volume = 0;
+            note = false;
+        }
+    }
 }
 
 float mod(float a, int b)
@@ -456,7 +464,10 @@ ISR(TIMER3_COMPA_vect) {
 void play_notes(float (*np)[][2], uint8_t n_count, bool n_repeat, float n_rest) {
 
 if (audio_config.enable) {
-    cli();
+    TIMSK3 &= ~_BV(OCIE3A);
+    if (!inited) {
+        audio_init();
+    }
 	// Cancel note if a note is playing
     if (note)
         stop_all_notes();
@@ -485,7 +496,6 @@ if (audio_config.enable) {
         TIMSK3 |= _BV(OCIE3A);
         TCCR3A |= _BV(COM3A1);
     #endif
-    sei();
 }
 
 }
@@ -493,7 +503,10 @@ if (audio_config.enable) {
 void play_sample(uint8_t * s, uint16_t l, bool r) {
 
 if (audio_config.enable) {
-
+    TIMSK3 &= ~_BV(OCIE3A);
+    if (!inited) {
+        audio_init();
+    }
     stop_all_notes();
     place_int = 0;
     sample = s;
@@ -512,7 +525,10 @@ if (audio_config.enable) {
 void play_note(double freq, int vol) {
 
 if (audio_config.enable && voices < 8) {
-    cli();
+    TIMSK3 &= ~_BV(OCIE3A);
+    if (!inited) {
+        audio_init();
+    }
     // Cancel notes if notes are playing
     if (notes)
         stop_all_notes();
@@ -532,7 +548,6 @@ if (audio_config.enable && voices < 8) {
         TIMSK3 |= _BV(OCIE3A);
         TCCR3A |= _BV(COM3A1);
     #endif
-    sei();
 }
 
 }
@@ -545,8 +560,11 @@ void play_startup_tone()
 {
 }
 
+
+
 __attribute__ ((weak))
 void play_goodbye_tone()
 {
+
 }
 //------------------------------------------------------------------------------
