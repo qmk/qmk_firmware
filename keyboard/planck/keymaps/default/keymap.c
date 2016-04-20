@@ -364,7 +364,6 @@ void process_action_user(keyrecord_t *record) {
 
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
-    init_notes();
     PLAY_NOTE_ARRAY(tone_startup, false, 0);
   #endif
 }
