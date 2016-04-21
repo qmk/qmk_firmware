@@ -79,7 +79,8 @@ static void power_down(uint8_t wdto)
 	led_set(0);
 
 	#ifdef AUDIO_ENABLE
-		stop_all_notes();
+        // This sometimes disables the start-up noise, so it's been disabled
+		// stop_all_notes();
 	#endif /* AUDIO_ENABLE */
 
     // TODO: more power saving
