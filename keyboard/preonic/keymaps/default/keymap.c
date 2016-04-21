@@ -3,7 +3,6 @@
 #include "eeconfig.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
-  #include "song_list.h"
 #endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -31,6 +30,8 @@
 #endif
 #define MUS_OFF M(8)
 #define MUS_ON M(9)
+#define VC_IN M(10)
+#define VC_DE M(11)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -171,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
   {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP,  QWERTY, COLEMAK, DVORAK,  _______, _______},
-  {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
+  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -286,6 +287,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(music_scale, false, 0);
               layer_on(_MUSIC);
+            #endif
+          }
+        break;
+        case 10:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_iterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+        case 11:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_deiterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
             #endif
           }
         break;
