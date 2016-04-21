@@ -11,9 +11,9 @@
 float voice_envelope(float frequency);
 
 typedef enum {
-	default_voice,
-	butts_fader,
-	octave_crunch
+    default_voice,
+    butts_fader,
+    octave_crunch
 } voice_type;
 
 void set_voice(voice_type v);
