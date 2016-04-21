@@ -4,6 +4,7 @@
 #include <util/delay.h>
 #include "musical_notes.h"
 #include "song_list.h"
+#include "voices.h"
 
 #ifndef AUDIO_H
 #define AUDIO_H
