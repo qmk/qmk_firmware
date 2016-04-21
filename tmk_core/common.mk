@@ -9,6 +9,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
+	$(COMMON_DIR)/hook.c \
 	$(COMMON_DIR)/avr/suspend.c \
 	$(COMMON_DIR)/avr/xprintf.S \
 	$(COMMON_DIR)/avr/timer.c \

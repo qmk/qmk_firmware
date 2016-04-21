@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bootmagic.h"
 #include "eeconfig.h"
 #include "backlight.h"
+#include "hook.h"
 #ifdef MOUSEKEY_ENABLE
 #   include "mousekey.h"
 #endif
@@ -128,11 +129,13 @@ void keyboard_task(void)
             if (debug_matrix) matrix_print();
             for (uint8_t c = 0; c < MATRIX_COLS; c++) {
                 if (matrix_change & ((matrix_row_t)1<<c)) {
-                    action_exec((keyevent_t){
+                    keyevent_t e = (keyevent_t){
                         .key = (keypos_t){ .row = r, .col = c },
                         .pressed = (matrix_row & ((matrix_row_t)1<<c)),
                         .time = (timer_read() | 1) /* time should not be 0 */
-                    });
+                    };
+                    action_exec(e);
+                    hook_matrix_change(e);
                     // record a processed key
                     matrix_prev[r] ^= ((matrix_row_t)1<<c);
                     // process a key per task call
@@ -145,6 +148,8 @@ void keyboard_task(void)
     action_exec(TICK);
 
 MATRIX_LOOP_END:
+
+    hook_keyboard_loop();
 
 #ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration
@@ -166,12 +171,12 @@ MATRIX_LOOP_END:
     // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
-        keyboard_set_leds(led_status);
+        if (debug_keyboard) dprintf("LED: %02X\n", led_status);
+        hook_keyboard_leds_change(led_status);
     }
 }
 
 void keyboard_set_leds(uint8_t leds)
 {
-    if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }
     led_set(leds);
 }

@@ -35,7 +35,7 @@ endif
 
 # Enable this if you want link time optimizations (LTO)
 ifeq ($(USE_LTO),)
-  USE_LTO = yes
+  USE_LTO = no
 endif
 
 # If enabled, this option allows to compile the application in THUMB mode.
@@ -83,21 +83,44 @@ endif
 #
 
 # Imported source files and paths
-CHIBIOS = $(TMK_DIR)/tool/chibios/chibios
-# Startup files.
-include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+CHIBIOS ?= $(TMK_DIR)/tool/chibios/chibios
+# Startup files. Try a few different locations, for compability with old versions and 
+# for things hardware in the contrib repository
+STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+ifeq ("$(wildcard $(STARTUP_MK))","")
+	STARTUP_MK = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+	ifeq ("$(wildcard $(STARTUP_MK))","")
+		STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+	endif
+endif
+include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
-include $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
-ifneq ("$(wildcard $(TARGET_DIR)/boards/$(BOARD))","")
-	include $(TARGET_DIR)/boards/$(BOARD)/board.mk
-else
-	include $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
+
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+ifeq ("$(wildcard $(PLATFORM_MK))","")
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
 endif
+include $(PLATFORM_MK)
+
+
+BOARD_MK = $(TARGET_DIR)/boards/$(BOARD)/board.mk
+ifeq ("$(wildcard $(BOARD_MK))","")
+	BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
+	ifeq ("$(wildcard $(BOARD_MK))","")
+		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
+	endif
+endif
+include $(BOARD_MK)
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
-include $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+# Compability with old version
+PORT_V = $(CHIBIOS)/os/rt/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+ifeq ("$(wildcard $(PORT_V))","")
+PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
+endif
+include $(PORT_V)
 # Other files (optional).
 
 # Define linker script file here
@@ -175,7 +198,7 @@ CP   = $(TRGT)objcopy
 AS   = $(TRGT)gcc -x assembler-with-cpp
 AR   = $(TRGT)ar
 OD   = $(TRGT)objdump
-SZ   = $(TRGT)size
+SZ   = $(TRGT)size -A
 HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
 
@@ -228,4 +251,7 @@ endif
 ##############################################################################
 
 RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
+RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+endif
 include $(RULESPATH)/rules.mk

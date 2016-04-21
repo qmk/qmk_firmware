@@ -10,6 +10,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
+	$(COMMON_DIR)/hook.c \
 	$(COMMON_DIR)/chibios/suspend.c \
 	$(COMMON_DIR)/chibios/printf.c \
 	$(COMMON_DIR)/chibios/timer.c \
@@ -80,6 +81,6 @@ endif
 OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
 
 # Bootloader address
-ifdef BOOTLOADER_ADDRESS
-    OPT_DEFS += -DBOOTLOADER_ADDRESS=$(BOOTLOADER_ADDRESS)
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
 endif

@@ -10,6 +10,7 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootmagic.h"
+#include "hook.h"
 
 keymap_config_t keymap_config;
 
@@ -40,6 +41,9 @@ void bootmagic(void)
     if (bootmagic_scan_key(BOOTMAGIC_KEY_BOOTLOADER)) {
         bootloader_jump();
     }
+
+    /* user-defined checks */
+    hook_bootmagic();
 
     /* debug enable */
     debug_config.raw = eeconfig_read_debug();

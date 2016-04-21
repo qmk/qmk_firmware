@@ -51,8 +51,8 @@ The **layer state** indicates the current on/off status of all layers. It is def
 #### 0.1.2 The default layer
 The **default layer** is the base keymap layer (0-31) which is always active and considered the "bottom" of the stack. When the firmware boots, the default layer is the only active layer. It is set to layer 0 by default, though this can be changed ~~in *config.h*~~ via Boot Magic settings.
 
-    Initial state of Keymap          Change base layout              
-    -----------------------          ------------------              
+    Initial state of Keymap          Change base layout
+    -----------------------          ------------------
 
       31                               31
       30                               30

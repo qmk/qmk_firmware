@@ -1,21 +1,30 @@
 ## TMK running on top of ChibiOS
 
+This code can be used to run TMK keyboard logic on top of [ChibiOS], meaning that you can run TMK on whatever [ChibiOS] supports. The notable examples are ARM-based Teensies (3.x and LC) and on the boards with STM32 MCUs.
+
+### Usage
+
+- To use, unpack or symlink [ChibiOS] to `tmk_core/tool/chibios/chibios`. For Kinetis support (this means Teensies, Infinity keyboard, WhiteFox keyboard), you'll need a fork which implements the USB driver, e.g. [this one](https://github.com/flabbergast/ChibiOS/tree/kinetis).
+- You will also need to install an ARM toolchain, for instance from [here](https://launchpad.net/gcc-arm-embedded). On linux, this is usually also present as a package for your distribution (as `gcc-arm` or something similar). On OS X, you can use [homebrew](http://brew.sh/) with an appropriate tap.
+
 ### Notes
 
-- To use, unpack or symlink [ChibiOS] {currently 3.0.2} to `tmk_core/tool/chibios/chibios`. For Kinetis support, you'll need a fork which implements the USB driver, e.g. [this one](https://github.com/flabbergast/ChibiOS/tree/kinetis).
+- Some comments about ChibiOS syntax and the most commonly used GPIO functions are, as well as an example for ARM Teensies, is [here](https://github.com/tmk/tmk_keyboard/blob/master/keyboard/teensy_lc_onekey/instructions.md).
 - For gcc options, inspect `tmk_core/tool/chibios/chibios.mk`. For instance, I enabled `-Wno-missing-field-initializers`, because TMK common bits generated a lot of warnings on that.
 Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - USB string descriptors are messy. I did not find a way to cleanly generate the right structures from actual strings, so the definitions in individual keyboards' `config.h` are ugly as heck.
-- There are some random constants left so far, e.g. 5ms sleep between calling `keyboard_task`, or 1.5sec wait for USB init, in `main.c`. There should be no such in `usb_main.c` (the main USB stack). Everything is based on timers/interrupts/kernel scheduling (well except `keyboard_task`), so no periodically called things (again, except `keyboard_task`, which is just how TMK is designed).
 - It is easy to add some code for testing (e.g. blink LED, do stuff on button press, etc...) - just create another thread in `main.c`, it will run independently of the keyboard business.
-- Jumping to (the built-in) bootloaders on STM32 works, but it is not entirely pleasant, since it is very much MCU dependent. So, one needs to dig out the right address to jump to, and either pass it to the compiler in the `Makefile`, or better, define it in `<your_kb>/bootloader_defs.h`. Also, a patch to upstream ChibiOS is needed (supplied), because it `ResetHandler` needs adjusting.
-- Sleep LED works, but at the moment only on/off, i.e. no breathing.
+- Jumping to (the built-in) bootloaders on STM32 works, but it is not entirely pleasant, since it is very much MCU dependent. So, one needs to dig out the right address to jump to, and either pass it to the compiler in the `Makefile`, or better, define it in `<your_kb>/bootloader_defs.h`. An additional startup code is also needed; the best way to deal with this is to define custom board files. (Example forthcoming.)
+
+### Experimental pre-ChibiOS 4 support
+- As an alternative to the mentioned flabbergast branch above, you can use the [master branch of ChibiOS](https://github.com/ChibiOS/ChibiOS). 
+- Note that the Kinetis support has moved to the [ChibiOS-Contrib repository](https://github.com/ChibiOS/ChibiOS-Contrib), so you need to put that into your repository in the same way as you did for the main ChibiOS repository. 
+- You also need to define CHIBIOS_CONTRIB in your makefile and point it to the right directory.
+- You need to add some new options to chconf.h, or you will get compiler errors. Just copy the new options from samples provided by the ChibiOS-Contrib repository.
 
 ### Immediate todo
 
-- host-wakeup packet sending during suspend
-- power saving for suspend?
-- PWM for sleep led
+- power saving for suspend
 
 ### Not tested, but possibly working
 
@@ -27,14 +36,14 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 
 ### Tried with
 
-- ChibiOS 3.0.1, 3.0.2 and ST F072RB DISCOVERY board.
-- Need to test on other STM32 chips (F3, F4) to make it as much chip-independent as possible.
-- ChibiOS with Kinetis patches and Teensy LC and 3.0.
+- Infinity, WhiteFox keyboards
+- all ARM-based Teensies
+- some STM32-based boards (e.g. ST-F072RB-DISCOVERY board, STM32F042 breakout board, Maple Mini (STM32F103-based))
 
-## ChibiOS-supported MCUs (as of 3.0.2)
+## ChibiOS-supported MCUs
 
 - Pretty much all STM32 chips.
-- There is some support for K20x and KL2x Freescale chips (i.e. Teensy 3.x/LC, mchck, FRDM-KL2{5,6}Z, FRDM-K20D50M), but again, no official USB stack yet. However the `kinetis` branch of [my ChibiOS fork](https://github.com/flabbergast/ChibiOS). With this fork, TMK work normally on all the ARM Teensies.
+- There is some support for K20x and KL2x Freescale chips (i.e. Teensy 3.x/LC, mchck, FRDM-KL2{5,6}Z, FRDM-K20D50M), but again, no official USB stack yet. However the `kinetis` branch of [flabbergast's ChibiOS fork](https://github.com/flabbergast/ChibiOS). With this fork, TMK work normally on all the ARM Teensies.
 - There is also support for AVR8, but the USB stack is not implemented for them yet, and also the kernel itself takes about 1k of RAM. I think people managed to get ChibiOS running on atmega32[8p/u4] though.
 - I've seen community support for Nordic NRF51822 (the chip in Adafruit's Bluefruit bluetooth-low-energy boards), but not sure about the extent.
 
@@ -43,7 +52,6 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 - STM32F0x2 chips can do crystal-less USB, but they still need a 3.3V voltage regulator.
 - The BOOT0 pin should be tied to GND.
 - For a hardware way of accessing the in-built DFU bootloader, in addition to the reset button, put another button between the BOOT0 pin and 3V3.
-- For breathing the caps lock LED during the suspended state ("sleep LED"), it is desirable to have that LED on a hardware PWM pin (there's usually plenty of those, look for TIMERs in the datasheet). However this is not strictly necessary, because instead of direct output of a timer to a pin (better of course), it is easy to define timer callbacks in ChibiOS that turn on/off an arbitrary pin.
 
 
 
