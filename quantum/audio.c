@@ -302,18 +302,19 @@ float vibrato(float average_freq) {
 float envelope(float f) {
     uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / f));
     switch (compensated_index) {
-        case 0:
-            note_timbre = TIMBRE_50;
-        break;
-        case 20:
-            note_timbre = TIMBRE_25;
-        break;
-        case 32:
+        case 0 ... 9:
+            f = f / 4;
             note_timbre = TIMBRE_12;
         break;
-        case 40 ... 60:
+        case 10 ... 19:
             f = f / 2;
-            note_timbre = TIMBRE_50;
+            note_timbre = TIMBRE_12;
+        break;
+        case 20 ... 200:
+            note_timbre = .125 - pow(((float)compensated_index - 20) / (200 - 20), 2)*.125;
+        break;
+        default:
+            note_timbre = 0;
         break;
     }
     return f;
@@ -414,6 +415,8 @@ ISR(TIMER3_COMPA_vect) {
                 }
                 freq = envelope(freq);
 
+                if (freq < 30.517578125)
+                    freq = 30.52;
                 ICR3 = (int)(((double)F_CPU) / (freq * CPU_PRESCALER)); // Set max to the period
                 OCR3A = (int)((((double)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
             }
