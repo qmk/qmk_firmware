@@ -81,6 +81,7 @@ bool inited = false;
 
 audio_config_t audio_config;
 
+uint16_t envelope_index = 0;
 
 void audio_toggle(void) {
     audio_config.enable ^= 1;
@@ -298,6 +299,26 @@ float vibrato(float average_freq) {
 
 #endif
 
+float envelope(float f) {
+    uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / f));
+    switch (compensated_index) {
+        case 0:
+            note_timbre = TIMBRE_50;
+        break;
+        case 20:
+            note_timbre = TIMBRE_25;
+        break;
+        case 32:
+            note_timbre = TIMBRE_12;
+        break;
+        case 40 ... 60:
+            f = f / 2;
+            note_timbre = TIMBRE_50;
+        break;
+    }
+    return f;
+}
+
 ISR(TIMER3_COMPA_vect) {
     if (note) {
         #ifdef PWM_AUDIO
@@ -387,6 +408,12 @@ ISR(TIMER3_COMPA_vect) {
                         freq = frequency;
                     } 
                 }
+
+                if (envelope_index < 65535) {
+                    envelope_index++;
+                }
+                freq = envelope(freq);
+
                 ICR3 = (int)(((double)F_CPU) / (freq * CPU_PRESCALER)); // Set max to the period
                 OCR3A = (int)((((double)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
             }
@@ -495,6 +522,7 @@ if (audio_config.enable && voices < 8) {
     if (notes)
         stop_all_notes();
     note = true;
+    envelope_index = 0;
     #ifdef PWM_AUDIO
         freq = freq / SAMPLE_RATE;
     #endif
