@@ -22,9 +22,11 @@
 #define CTSH_T(k) CTL_T(SFT_T(k))
 #define ALSH_T(k) ALT_T(SFT_T(k))
 
-#define CTLALT LCTL(KC_LALT)
-#define CTLSFT LCTL(KC_LSFT)
-#define ALTSFT LALT(KC_LSFT)
+#define CTLALT LCTL(ALT_T(KC_NO))
+#define CTLSFT LCTL(SFT_T(KC_NO))
+#define ALTSFT LALT(SFT_T(KC_NO))
+
+#define TERM LSFT(LCTL(LGUI(KC_GRV)))
 
 #define RSTMOD M(1)
 
@@ -37,18 +39,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Del    |   Q  |   W  |   E  |   R  |   T  | CTL+ |           | CTL+P|   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------| PGUP |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |S/Alt | D/L4 | F/L3 |   G  |------|           |------|   H  |J/SYMB|K/MOUS| L/Gui|   ;  |   '    |
+ * | Esc    |   A  |S/Alt | D/L4 | F/L3 |   G  |------|           |------|   H  |J/SYMB|K/MOUS| L    |   ;  |   '    |
  * |--------+------+------+------+------+------| CTL+ |           | CTL+ |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  | PGDN |           | ALT+P|   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *  | Undo  |RSTMOD|  Ins | Home | End  |                                       | PgUp | PgDn | Ctl+[| Ctl+]| Undo |
+ *  | Undo  |RSTMOD|  Ins | Home | End  |                                       | PgUp | PgDn | Ctl+[| Ctl+]| Term |
  *  `-----------------------------------'                                       `----------------------------------'
  *                                        ,---------------.       ,---------------.
- *                                        | App  | LGui   |       | Meh  |Esc/Ctrl|
+ *                                        | App  | LGui   |       | Meh  | RGui   |
  *                                 ,------|------|--------|       |------+--------+------.
  *                                 |      | Tab/ |CtlSft  |       |AltSft| Enter/ |      |
  *                                 | BkSp | Ctl  |--------|       |------| CtlSft |Space |
- *                                 |      |      |[/CtlAlt|       |]/Alt |        |      |
+ *                                 |      |      | CtlAlt |       | Alt  |        |      |
  *                                 `----------------------'       `----------------------'
  */
 [BASE] = KEYMAP(
@@ -56,19 +58,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_DEL,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		LCTL(KC_PGUP),
 	KC_ESC,		KC_A,		ALT_T(KC_S),	NMPDT(KC_D),	ARRST(KC_F),	KC_G,
 	KC_LSFT,	CTL_T(KC_Z),	KC_X,		KC_C,		KC_V,		KC_B,		LCTL(KC_PGDN),
-	UNDO,		RSTMOD,	KC_INS,		KC_HOME,	KC_END,
+	UNDO,		RSTMOD,		KC_INS,		KC_HOME,	KC_END,
 											KC_APP,		KC_LGUI,
 													CTLSFT,
-									KC_BSPC,	CTL_T(KC_TAB),	CTAL_T(KC_LBRC),
+									KC_BSPC,	CTL_T(KC_TAB),	CTLALT,
 	/**************************************************************************************************************/
 	SUBL_PROJ,	KC_7,		KC_8,		KC_9,		KC_0,		KC_MINS,	KC_BSLS,
 	SUBL_GOTO,	KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_EQL,
 			KC_H,		SYMBT(KC_J),	MOUST(KC_K),	KC_L,		KC_SCLN,	KC_QUOT,
 	SUBL_PAL,	KC_N,		KC_M,		KC_COMM,	KC_DOT,		CTL_T(KC_SLSH),	KC_RSFT,
-					KC_PGUP,	KC_PGDN,	LCTL(KC_LBRC),	LCTL(KC_RBRC),	UNDO,
-	MEH_T(KC_NO),	CTL_T(KC_ESC),
+					KC_PGUP,	KC_PGDN,	LCTL(KC_LBRC),	LCTL(KC_RBRC),	TERM,
+	MEH_T(KC_NO),	KC_RGUI,
 	ALTSFT,
-	ALT_T(KC_RBRC),	CTSH_T(KC_ENT),	KC_SPC
+	KC_RALT,	CTSH_T(KC_ENT),	KC_SPC
 ),
 /* Keymap 1: Symbol Layer
  *
@@ -116,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      | Rclk | MsUp | Lclk |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      |      |      |      |      |        |
+ * |        |      |MsLeft|MsDown|MsRght| Mclk |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -128,19 +130,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 | Lclk | Rclk |------|       |------| ScrU | ScrD |
- *                                 |      |      | Mclk |       |      |      |      |
+ *                                 |  [   |  ]   |------|       |------| ScrU | ScrD |
+ *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 [MOUS] = KEYMAP(
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_MS_U,	KC_TRNS,	KC_TRNS,	KC_TRNS,
-	KC_TRNS,	KC_TRNS,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_TRNS,
+	KC_TRNS,	KC_TRNS,	KC_BTN2,	KC_MS_U,	KC_BTN1,	KC_TRNS,	KC_TRNS,
+	KC_TRNS,	KC_TRNS,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_BTN3,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
 											KC_TRNS,	KC_TRNS,
 													KC_TRNS,
-									KC_BTN1,	KC_BTN2,	KC_BTN3,
+									KC_LBRC,	KC_RBRC,	KC_TRNS,
 	/**************************************************************************************************************/
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,
@@ -168,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 | Ctl+ | Ctl+ |------|       |------| Ctrl | Shft |
+ *                                 | Ctl+ | Ctl+ |------|       |------|  [   | ]   |
  *                                 | Alt  | Shft |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -189,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					KC_VOLU,	KC_VOLD,	KC_MUTE,	KC_TRNS,	KC_TRNS,
 	KC_TRNS,	KC_TRNS,
 	KC_TRNS,
-	KC_TRNS,	KC_LCTL,	KC_LSFT
+	KC_TRNS,	KC_LBRC,	KC_RBRC
 ),
 /*
  *
@@ -262,7 +264,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 // Runs just one time when the keyboard initializes.
-void * matrix_init_user(void) {
+void matrix_init_user(void) {
 	ergodox_led_all_off();
 	ergodox_led_all_set(LED_BRIGHTNESS_HI);
 
@@ -278,7 +280,7 @@ void * matrix_init_user(void) {
 };
 
 // Runs constantly in the background, in a loop.
-void * matrix_scan_user(void) {
+void matrix_scan_user(void) {
 	uint8_t layer = biton32(layer_state);
 
 	ergodox_board_led_off();

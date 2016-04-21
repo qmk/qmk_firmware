@@ -5,7 +5,7 @@
 #
 # make clean = Clean out built project files.
 #
-# That's pretty much all you need. To compile, always go make clean, 
+# That's pretty much all you need. To compile, always go make clean,
 # followed by make.
 #
 # For advanced users only:
@@ -31,9 +31,9 @@ SRC = ergodox_ez.c \
 	  matrix.c
 
 ifdef KEYMAP
-    SRC := keymaps/$(KEYMAP)/keymap.c $(SRC)
+	SRC := keymaps/$(KEYMAP)/keymap.c $(SRC)
 else
-    SRC := keymaps/default/keymap.c $(SRC)
+	SRC := keymaps/default/keymap.c $(SRC)
 endif
 
 CONFIG_H = config.h
