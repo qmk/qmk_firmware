@@ -309,7 +309,7 @@ void process_action_user(keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  // audio_init();
+  _delay_ms(10); // gets rid of tick
   play_startup_tone();
 }
 
