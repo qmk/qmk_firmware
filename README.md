@@ -74,7 +74,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [Lightpad](keyboard/lightpad)             - Korean custom keypad
 * [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
 
-### Extenal projects using tmk_keyboard
+### External projects using tmk_keyboard
 * [ErgoDox_cub-uanic][cub-uanic]            - Split Ergonomic Keyboard [ErgoDox][ergodox_org]
 * [mcdox][mcdox_tmk]                        - [mcdox][mcdox]
 
