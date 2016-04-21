@@ -52,10 +52,9 @@ void timer_init(void)
 inline
 void timer_clear(void)
 {
-    uint8_t sreg = SREG;
     cli();
     timer_count = 0;
-    SREG = sreg;
+    sei();
 }
 
 inline
@@ -63,10 +62,9 @@ uint16_t timer_read(void)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
     cli();
     t = timer_count;
-    SREG = sreg;
+    sei();
 
     return (t & 0xFFFF);
 }
@@ -76,10 +74,9 @@ uint32_t timer_read32(void)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
     cli();
     t = timer_count;
-    SREG = sreg;
+    sei();
 
     return t;
 }
@@ -89,10 +86,9 @@ uint16_t timer_elapsed(uint16_t last)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
     cli();
     t = timer_count;
-    SREG = sreg;
+    sei();
 
     return TIMER_DIFF_16((t & 0xFFFF), last);
 }
@@ -102,10 +98,9 @@ uint32_t timer_elapsed32(uint32_t last)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
     cli();
     t = timer_count;
-    SREG = sreg;
+    sei();
 
     return TIMER_DIFF_32(t, last);
 }

@@ -26,11 +26,10 @@ void sleep_led_init(void)
     /* Clock selelct: clk/1 */
     TCCR1B |= _BV(CS10);
     /* Set TOP value */
-    uint8_t sreg = SREG;
     cli();
     OCR1AH = (SLEEP_LED_TIMER_TOP>>8)&0xff;
     OCR1AL = SLEEP_LED_TIMER_TOP&0xff;
-    SREG = sreg;
+    sei();
 }
 
 void sleep_led_enable(void)
@@ -83,7 +82,7 @@ ISR(TIMER1_COMPA_vect)
     } timer = { .row = 0 };
 
     timer.row++;
-    
+
     // LED on
     if (timer.pwm.count == 0) {
         led_set(1<<USB_LED_CAPS_LOCK);
