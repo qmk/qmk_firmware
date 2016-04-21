@@ -299,27 +299,6 @@ float vibrato(float average_freq) {
 
 #endif
 
-float envelope(float f) {
-    uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / f));
-    switch (compensated_index) {
-        case 0 ... 9:
-            f = f / 4;
-            note_timbre = TIMBRE_12;
-        break;
-        case 10 ... 19:
-            f = f / 2;
-            note_timbre = TIMBRE_12;
-        break;
-        case 20 ... 200:
-            note_timbre = .125 - pow(((float)compensated_index - 20) / (200 - 20), 2)*.125;
-        break;
-        default:
-            note_timbre = 0;
-        break;
-    }
-    return f;
-}
-
 ISR(TIMER3_COMPA_vect) {
     if (note) {
         #ifdef PWM_AUDIO
@@ -413,7 +392,7 @@ ISR(TIMER3_COMPA_vect) {
                 if (envelope_index < 65535) {
                     envelope_index++;
                 }
-                freq = envelope(freq);
+                freq = voice_envelope(freq);
 
                 if (freq < 30.517578125)
                     freq = 30.52;
@@ -455,6 +434,11 @@ ISR(TIMER3_COMPA_vect) {
                 #endif
                     freq = note_frequency;
                 }
+
+                if (envelope_index < 65535) {
+                    envelope_index++;
+                }
+                freq = voice_envelope(freq);
 
                 ICR3 = (int)(((double)F_CPU) / (freq * CPU_PRESCALER)); // Set max to the period
                 OCR3A = (int)((((double)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre); // Set compare to half the period
@@ -498,6 +482,7 @@ ISR(TIMER3_COMPA_vect) {
                     note_frequency = (*notes_pointer)[current_note][0] / SAMPLE_RATE;
                     note_length = (*notes_pointer)[current_note][1] * (note_tempo / 100);
                 #else
+                    envelope_index = 0;
                     note_frequency = (*notes_pointer)[current_note][0];
                     note_length = ((*notes_pointer)[current_note][1] / 4) * (note_tempo / 100);
                 #endif

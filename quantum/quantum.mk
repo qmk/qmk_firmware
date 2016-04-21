@@ -28,7 +28,7 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/audio.c
+	SRC += $(QUANTUM_DIR)/audio/audio.c $(QUANTUM_DIR)/audio/voices.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
@@ -47,6 +47,7 @@ endif
 # Search Path
 VPATH += $(TOP_DIR)/$(QUANTUM_DIR)
 VPATH += $(TOP_DIR)/$(QUANTUM_DIR)/keymap_extras
+VPATH += $(TOP_DIR)/$(QUANTUM_DIR)/audio
 
 include $(TMK_DIR)/protocol/lufa.mk
 
