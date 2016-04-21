@@ -4,10 +4,26 @@
 #include "led.h"
 #include "sleep_led.h"
 
-#if defined(KL2x) || defined(K20x) /* platform selection: familiar Kinetis chips */
-/* All right, we go the "software" way: LP timer, toggle LED in interrupt.
+/* All right, we go the "software" way: timer, toggle LED in interrupt.
  * Based on hasu's code for AVRs.
+ * Use LP timer on Kinetises, TIM14 on STM32F0.
  */
+
+#if defined(KL2x) || defined(K20x)
+
+/* Use Low Power Timer (LPTMR) */
+#define TIMER_INTERRUPT_VECTOR KINETIS_LPTMR0_IRQ_VECTOR
+#define RESET_COUNTER LPTMR0->CSR |= LPTMRx_CSR_TCF
+
+#elif defined(STM32F0XX)
+
+/* Use TIM14 manually */
+#define TIMER_INTERRUPT_VECTOR STM32_TIM14_HANDLER
+#define RESET_COUNTER STM32_TIM14->SR &= ~STM32_TIM_SR_UIF
+
+#endif
+
+#if defined(KL2x) || defined(K20x) || defined(STM32F0XX) /* common parts for timers/interrupts */
 
 /* Breathing Sleep LED brighness(PWM On period) table
  * (64[steps] * 4[duration]) / 64[PWM periods/s] = 4 second breath cycle
@@ -22,8 +38,8 @@ static const uint8_t breathing_table[64] = {
 15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-/* Low Power Timer interrupt handler */
-OSAL_IRQ_HANDLER(KINETIS_LPTMR0_IRQ_VECTOR) {
+/* interrupt handler */
+OSAL_IRQ_HANDLER(TIMER_INTERRUPT_VECTOR) {
     OSAL_IRQ_PROLOGUE();
 
     /* Software PWM
@@ -55,10 +71,15 @@ OSAL_IRQ_HANDLER(KINETIS_LPTMR0_IRQ_VECTOR) {
     }
 
     /* Reset the counter */
-    LPTMR0->CSR |= LPTMRx_CSR_TCF;
+    RESET_COUNTER;
 
     OSAL_IRQ_EPILOGUE();
 }
+
+#endif /* common parts for known platforms */
+
+
+#if defined(KL2x) || defined(K20x) /* platform selection: familiar Kinetis chips */
 
 /* LPTMR clock options */
 #define LPTMR_CLOCK_MCGIRCLK 0 /* 4MHz clock */
@@ -144,7 +165,48 @@ void sleep_led_toggle(void) {
     LPTMR0->CSR ^= LPTMRx_CSR_TEN;
 }
 
-#else /* platform selection: not on familiar Kinetis chips */
+#elif defined(STM32F0XX) /* platform selection: STM32F0XX */
+
+/* Initialise the timer */
+void sleep_led_init(void) {
+    /* enable clock */
+    rccEnableTIM14(FALSE); /* low power enable = FALSE */
+    rccResetTIM14();
+
+    /* prescale */
+    /* Assuming 48MHz internal clock */
+    /* getting cca 65484 irqs/sec */
+    STM32_TIM14->PSC = 733;
+
+    /* auto-reload */
+    /* 0 => interrupt every time */
+    STM32_TIM14->ARR = 3;
+
+    /* enable counter update event interrupt */
+    STM32_TIM14->DIER |= STM32_TIM_DIER_UIE;
+
+    /* register interrupt vector */
+    nvicEnableVector(STM32_TIM14_NUMBER, 2); /* vector, priority */
+}
+
+void sleep_led_enable(void) {
+    /* Enable the timer */
+    STM32_TIM14->CR1 = STM32_TIM_CR1_CEN | STM32_TIM_CR1_URS;
+    /* URS => update event only on overflow; setting UG bit disabled */
+}
+
+void sleep_led_disable(void) {
+    /* Disable the timer */
+    STM32_TIM14->CR1 = 0;
+}
+
+void sleep_led_toggle(void) {
+    /* Toggle the timer */
+    STM32_TIM14->CR1 ^= STM32_TIM_CR1_CEN;
+}
+
+
+#else /* platform selection: not on familiar chips */
 
 void sleep_led_init(void) {
 }

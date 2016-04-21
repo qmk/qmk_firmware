@@ -58,9 +58,6 @@ void send_remote_wakeup(USBDriver *usbp);
 #define NKRO_REPORT_KEYS  (NKRO_EPSIZE - 1)
 #endif
 
-/* this defines report_keyboard_t and computes REPORT_SIZE defines */
-// #include "report.h"
-
 /* extern report_keyboard_t keyboard_report_sent; */
 
 /* keyboard IN request callback handler */
@@ -122,8 +119,7 @@ typedef struct {
 #define CONSOLE_EPSIZE         16
 
 /* Number of IN reports that can be stored inside the output queue */
-#define CONSOLE_QUEUE_CAPACITY 2
-#define CONSOLE_QUEUE_BUFFER_SIZE (CONSOLE_QUEUE_CAPACITY * CONSOLE_EPSIZE)
+#define CONSOLE_QUEUE_CAPACITY 4
 
 /* Console flush time */
 #define CONSOLE_FLUSH_MS 50

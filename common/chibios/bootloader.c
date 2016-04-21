@@ -42,5 +42,6 @@ void bootloader_jump(void) {
 #endif /* defined(KIIBOHD_BOOTLOADER) */
 
 #else /* neither STM32 nor KINETIS */
+__attribute__((weak))
 void bootloader_jump(void) {}
 #endif
