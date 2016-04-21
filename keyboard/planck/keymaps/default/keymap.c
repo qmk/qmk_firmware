@@ -198,33 +198,11 @@ float tone_startup[][2] = {
   {440.0*pow(2.0,(28)/12.0), 20}
 };
 
-float tone_qwerty[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 16}
-};
-
-float tone_colemak[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 12},
-  {0, 4},
-  {440.0*pow(2.0,(35)/12.0), 12}
-};
-
-float tone_dvorak[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(33)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 8}
-};
-
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float tone_plover[][2]     = SONG(PLOVER_SOUND);
+float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
 float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
@@ -325,6 +303,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
         case 10:
           if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_NOTE_ARRAY(tone_plover, false, 0);
+            #endif
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
@@ -339,6 +320,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
         case 11:
           if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+            #endif
             layer_off(_PLOVER);
           }
         break;
@@ -364,6 +348,7 @@ void process_action_user(keyrecord_t *record) {
 
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
+    _delay_ms(10); // stops the tick
     PLAY_NOTE_ARRAY(tone_startup, false, 0);
   #endif
 }
