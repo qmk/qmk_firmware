@@ -244,4 +244,4 @@ Coding Style
 
 Other Keyboard Firmware Projects
 ------------------
-You can learn a lot about keyboard firmware from these. See [Other Projects](https://github.com/tmk/tmk_keyboard/wiki/Other-Protjects) other than TMK.
+You can learn a lot about keyboard firmware from these. See [Other Projects](https://github.com/tmk/tmk_keyboard/wiki/Other-Projects) other than TMK.
