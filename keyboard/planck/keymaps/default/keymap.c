@@ -211,7 +211,7 @@ float goodbye[][2] = SONG(GOODBYE_SOUND);
 
 
 void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_write_default_layer(default_layer);
+  eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
@@ -315,7 +315,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             keymap_config.raw = eeconfig_read_keymap();
             keymap_config.nkro = 1;
-            eeconfig_write_keymap(keymap_config.raw);
+            eeconfig_update_keymap(keymap_config.raw);
           }
         break;
         case 11:

@@ -1,12 +1,22 @@
 #include "voices.h"
 
+// these are imported from audio.c
 extern uint16_t envelope_index;
 extern float note_timbre;
+extern float polyphony_rate;
 
-voice_type voice = default_voice;
+voice_type voice = duty_osc;
 
 void set_voice(voice_type v) {
     voice = v;
+}
+
+void voice_iterate() {
+    voice = (voice + 1) % number_of_voices;
+}
+
+void voice_deiterate() {
+    voice = (voice - 1) % number_of_voices;
 }
 
 float voice_envelope(float frequency) {
@@ -15,9 +25,11 @@ float voice_envelope(float frequency) {
 
     switch (voice) {
         case default_voice:
-            // nothing here on purpose
+            note_timbre = TIMBRE_50;
+            polyphony_rate = 0;
         break;
         case butts_fader:
+            polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
                     frequency = frequency / 4;
@@ -36,6 +48,7 @@ float voice_envelope(float frequency) {
             }
         break;
         case octave_crunch:
+            polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
                 case 20 ... 24:
@@ -53,6 +66,24 @@ float voice_envelope(float frequency) {
                     note_timbre = TIMBRE_12;
                 break;
             }
+        break;
+        case duty_osc:
+            // This slows the loop down a substantial amount, so higher notes may freeze
+            polyphony_rate = 0;
+            switch (compensated_index) {
+                default:
+                    #define OCS_SPEED 10
+                    #define OCS_AMP   .25
+                    // sine wave is slow
+                    // note_timbre = (sin((float)compensated_index/10000*OCS_SPEED) * OCS_AMP / 2) + .5;
+                    // triangle wave is a bit faster
+                    note_timbre = (float)abs((compensated_index*OCS_SPEED % 3000) - 1500) * ( OCS_AMP / 1500 ) + (1 - OCS_AMP) / 2;
+                break;
+            }
+        break;
+        case duty_octave_down:
+            polyphony_rate = 0;
+            note_timbre = (envelope_index % 2) * .125 + .375 * 2;
         break;
     }
 
