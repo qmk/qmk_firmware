@@ -289,9 +289,9 @@ float mod(float a, int b)
 
 float vibrato(float average_freq) {
     #ifdef VIBRATO_STRENGTH_ENABLE
-        float vibrated_freq = average_freq * pow(VIBRATO_LUT[(int)vibrato_counter], vibrato_strength);
+        float vibrated_freq = average_freq * pow(pgm_read_float(&VIBRATO_LUT[(int)vibrato_counter]), vibrato_strength);
     #else
-        float vibrated_freq = average_freq * VIBRATO_LUT[(int)vibrato_counter];
+        float vibrated_freq = average_freq * pgm_read_float(&VIBRATO_LUT[(int)vibrato_counter]);
     #endif
     vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0/average_freq)), VIBRATO_LUT_LENGTH);
     return vibrated_freq;
@@ -351,7 +351,7 @@ ISR(TIMER3_COMPA_vect) {
         #else
             if (voices > 0) {
                 float freq;
-                if (polyphony_rate > 0) {                
+                if (polyphony_rate > 0) {
                     if (voices > 1) {
                         voice_place %= voices;
                         if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
@@ -367,7 +367,7 @@ ISR(TIMER3_COMPA_vect) {
                     {
                     #endif
                         freq = frequencies[voice_place];
-                    } 
+                    }
                 } else {
                     if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
                         frequency = frequency * pow(2, 440/frequency/12/2);
@@ -386,7 +386,7 @@ ISR(TIMER3_COMPA_vect) {
                     {
                     #endif
                         freq = frequency;
-                    } 
+                    }
                 }
 
                 if (envelope_index < 65535) {
