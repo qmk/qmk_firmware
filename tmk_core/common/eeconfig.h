@@ -60,22 +60,22 @@ void eeconfig_enable(void);
 void eeconfig_disable(void);
 
 uint8_t eeconfig_read_debug(void);
-void eeconfig_write_debug(uint8_t val);
+void eeconfig_update_debug(uint8_t val);
 
 uint8_t eeconfig_read_default_layer(void);
-void eeconfig_write_default_layer(uint8_t val);
+void eeconfig_update_default_layer(uint8_t val);
 
 uint8_t eeconfig_read_keymap(void);
-void eeconfig_write_keymap(uint8_t val);
+void eeconfig_update_keymap(uint8_t val);
 
 #ifdef BACKLIGHT_ENABLE
 uint8_t eeconfig_read_backlight(void);
-void eeconfig_write_backlight(uint8_t val);
+void eeconfig_update_backlight(uint8_t val);
 #endif
 
 #ifdef AUDIO_ENABLE
 uint8_t eeconfig_read_audio(void);
-void eeconfig_write_audio(uint8_t val);
+void eeconfig_update_audio(uint8_t val);
 #endif
 
 #endif

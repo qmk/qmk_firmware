@@ -219,7 +219,7 @@ static void store_link(uint8_t *eeaddr)
     xprintf("%s(%d)\r\n", s, strlen(s));
     if (strlen(s) == 12) {
         for (int i = 0; i < 12; i++) {
-            eeprom_write_byte(eeaddr+i, *(s+i));
+            eeprom_update_byte(eeaddr+i, *(s+i));
             dprintf("%c ", *(s+i));
         }
         dprint("\r\n");
