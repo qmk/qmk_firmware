@@ -50,8 +50,8 @@ void decrease_vibrato_strength(float change);
 // Polyphony functions
 
 void set_polyphony_rate(float rate);
-void enable_polyphony();
-void disable_polyphony();
+void enable_polyphony(void);
+void disable_polyphony(void);
 void increase_polyphony_rate(float change);
 void decrease_polyphony_rate(float change);
 
@@ -61,7 +61,7 @@ void set_tempo(float tempo);
 void increase_tempo(uint8_t tempo_change);
 void decrease_tempo(uint8_t tempo_change);
 
-void audio_init();
+void audio_init(void);
 
 #ifdef PWM_AUDIO
 void play_sample(uint8_t * s, uint16_t l, bool r);
