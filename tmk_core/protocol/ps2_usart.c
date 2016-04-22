@@ -181,7 +181,6 @@ static uint8_t pbuf_head = 0;
 static uint8_t pbuf_tail = 0;
 static inline void pbuf_enqueue(uint8_t data)
 {
-    uint8_t sreg = SREG;
     cli();
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
     if (next != pbuf_tail) {
@@ -190,34 +189,31 @@ static inline void pbuf_enqueue(uint8_t data)
     } else {
         print("pbuf: full\n");
     }
-    SREG = sreg;
+    sei();
 }
 static inline uint8_t pbuf_dequeue(void)
 {
     uint8_t val = 0;
 
-    uint8_t sreg = SREG;
     cli();
     if (pbuf_head != pbuf_tail) {
         val = pbuf[pbuf_tail];
         pbuf_tail = (pbuf_tail + 1) % PBUF_SIZE;
     }
-    SREG = sreg;
+    sei();
 
     return val;
 }
 static inline bool pbuf_has_data(void)
 {
-    uint8_t sreg = SREG;
     cli();
     bool has_data = (pbuf_head != pbuf_tail);
-    SREG = sreg;
+    sei();
     return has_data;
 }
 static inline void pbuf_clear(void)
 {
-    uint8_t sreg = SREG;
     cli();
     pbuf_head = pbuf_tail = 0;
-    SREG = sreg;
+    sei();
 }

@@ -67,21 +67,20 @@ SIGNAL(TIMER0_OVF_vect)
 unsigned long millis()
 {
 	unsigned long m;
-	uint8_t oldSREG = SREG;
 
 	// disable interrupts while we read timer0_millis or we might get an
 	// inconsistent value (e.g. in the middle of a write to timer0_millis)
 	cli();
 	m = timer0_millis;
-	SREG = oldSREG;
+	sei();
 
 	return m;
 }
 
 unsigned long micros() {
 	unsigned long m;
-	uint8_t oldSREG = SREG, t;
-	
+	uint8_t t;
+
 	cli();
 	m = timer0_overflow_count;
 #if defined(TCNT0)
@@ -92,7 +91,7 @@ unsigned long micros() {
 	#error TIMER 0 not defined
 #endif
 
-  
+
 #ifdef TIFR0
 	if ((TIFR0 & _BV(TOV0)) && (t < 255))
 		m++;
@@ -101,8 +100,8 @@ unsigned long micros() {
 		m++;
 #endif
 
-	SREG = oldSREG;
-	
+	sei();
+
 	return ((m << 8) + t) * (64 / clockCyclesPerMicrosecond());
 }
 
@@ -173,7 +172,7 @@ void delayMicroseconds(unsigned int us)
 	// per iteration, so execute it twice for each microsecond of
 	// delay requested.
 	us <<= 1;
-    
+
 	// partially compensate for the time taken by the preceeding commands.
 	// we can't subtract any more than this or we'd overflow w/ small delays.
 	us--;
@@ -191,14 +190,14 @@ void init()
 	// this needs to be called before setup() or some functions won't
 	// work there
 	sei();
-	
+
 	// on the ATmega168, timer 0 is also used for fast hardware pwm
 	// (using phase-correct PWM would mean that timer 0 overflowed half as often
 	// resulting in different millis() behavior on the ATmega8 and ATmega168)
 #if defined(TCCR0A) && defined(WGM01)
 	sbi(TCCR0A, WGM01);
 	sbi(TCCR0A, WGM00);
-#endif  
+#endif
 
 	// set timer 0 prescale factor to 64
 #if defined(__AVR_ATmega128__)
@@ -283,7 +282,7 @@ void init()
 	sbi(TCCR4B, CS42);		// set timer4 prescale factor to 64
 	sbi(TCCR4B, CS41);
 	sbi(TCCR4B, CS40);
-	sbi(TCCR4D, WGM40);		// put timer 4 in phase- and frequency-correct PWM mode	
+	sbi(TCCR4D, WGM40);		// put timer 4 in phase- and frequency-correct PWM mode
 	sbi(TCCR4A, PWM4A);		// enable PWM mode for comparator OCR4A
 	sbi(TCCR4C, PWM4D);		// enable PWM mode for comparator OCR4D
 #else /* beginning of timer4 block for ATMEGA1280 and ATMEGA2560 */
@@ -292,7 +291,7 @@ void init()
 	sbi(TCCR4B, CS40);
 	sbi(TCCR4A, WGM40);		// put timer 4 in 8-bit phase correct pwm mode
 #endif
-#endif /* end timer4 block for ATMEGA1280/2560 and similar */	
+#endif /* end timer4 block for ATMEGA1280/2560 and similar */
 
 #if defined(TCCR5B) && defined(CS51) && defined(WGM50)
 	sbi(TCCR5B, CS51);		// set timer 5 prescale factor to 64

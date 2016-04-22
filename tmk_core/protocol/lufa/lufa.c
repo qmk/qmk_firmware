@@ -249,7 +249,7 @@ void EVENT_USB_Device_WakeUp()
 #ifdef CONSOLE_ENABLE
 static bool console_flush = false;
 #define CONSOLE_FLUSH_SET(b)   do { \
-    uint8_t sreg = SREG; cli(); console_flush = b; SREG = sreg; \
+    cli(); console_flush = b; sei(); \
 } while (0)
 
 // called every 1ms
