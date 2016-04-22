@@ -72,14 +72,18 @@ float voice_envelope(float frequency) {
             polyphony_rate = 0;
             switch (compensated_index) {
                 default:
-                    #define SPEED 10
-                    #define AMP   .75
+                    #define OCS_SPEED 10
+                    #define OCS_AMP   .25
                     // sine wave is slow
-                    // note_timbre = (sin((float)compensated_index/10000*SPEED) * AMP / 2) + .5;
+                    // note_timbre = (sin((float)compensated_index/10000*OCS_SPEED) * OCS_AMP / 2) + .5;
                     // triangle wave is a bit faster
-                    note_timbre = (float)abs((compensated_index*SPEED % 3000) - 1500) * ( AMP / 1500 ) + (1 - AMP) / 2;
+                    note_timbre = (float)abs((compensated_index*OCS_SPEED % 3000) - 1500) * ( OCS_AMP / 1500 ) + (1 - OCS_AMP) / 2;
                 break;
             }
+        break;
+        case duty_octave_down:
+            polyphony_rate = 0;
+            note_timbre = (envelope_index % 2) * .125 + .375 * 2;
         break;
     }
 
