@@ -20,7 +20,7 @@ typedef enum {
 } voice_type;
 
 void set_voice(voice_type v);
-void voice_iterate();
-void voice_deiterate();
+void voice_iterate(void);
+void voice_deiterate(void);
 
 #endif
