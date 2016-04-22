@@ -85,17 +85,17 @@ uint16_t envelope_index = 0;
 
 void audio_toggle(void) {
     audio_config.enable ^= 1;
-    eeconfig_write_audio(audio_config.raw);
+    eeconfig_update_audio(audio_config.raw);
 }
 
 void audio_on(void) {
     audio_config.enable = 1;
-    eeconfig_write_audio(audio_config.raw);
+    eeconfig_update_audio(audio_config.raw);
 }
 
 void audio_off(void) {
     audio_config.enable = 0;
-    eeconfig_write_audio(audio_config.raw);
+    eeconfig_update_audio(audio_config.raw);
 }
 
 #ifdef VIBRATO_ENABLE
