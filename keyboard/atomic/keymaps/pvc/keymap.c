@@ -13,9 +13,9 @@
 #define LAYER_DVORAK         2
 #define LAYER_LOWER          3
 #define LAYER_RAISE          4
-#define LAYER_ADJUST         5
-#define LAYER_FUNCTION       6
-#define LAYER_MUSIC          7
+#define LAYER_FUNCTION       5
+#define LAYER_MUSIC          6
+#define LAYER_ADJUST         7
 
 #define MACRO_QWERTY         0
 #define MACRO_COLEMAK        1
@@ -34,6 +34,8 @@
 #define MACRO_MUSIC_OFF     14
 #define MACRO_AUDIO_ON      15
 #define MACRO_AUDIO_OFF     16
+#define MACRO_INC_VOICE     17
+#define MACRO_DEC_VOICE     18
 
 #define M_QWRTY             M(MACRO_QWERTY)
 #define M_COLMK             M(MACRO_COLEMAK)
@@ -54,6 +56,8 @@
 #define MUS_OFF             M(MACRO_MUSIC_OFF)
 #define AUD_OFF             M(MACRO_AUDIO_OFF)
 #define AUD_ON              M(MACRO_AUDIO_ON)
+#define VC_UP               M(MACRO_INC_VOICE)
+#define VC_DOWN             M(MACRO_DEC_VOICE)
 
 
 #define SC_UNDO             LCTL(KC_Z)
@@ -164,20 +168,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
  },
 
+ [LAYER_MUSIC] = {
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_RAISE, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+ },
+
  [LAYER_ADJUST] = { /* ADJUST */
   { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, _______, MUS_ON,  MUS_OFF, AUD_ON,  AUD_OFF, ___T___, ___T___  },
   { _______, M_QWRTY, M_COLMK, M_DVORK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ___T___, ___T___, _______  },
-  { _______, _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______  },
-  { _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______, _______, _______, _______, _______, _______, _______  },
- },
-
- [LAYER_MUSIC] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ___T___, ___T___  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ___T___, ___T___, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______  },
-  { _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______, _______, _______, _______, _______, _______, _______  },
+  { _______, _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, ___T___, ___T___, VC_UP,   _______  },
+  { _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______, _______, _______, _______, _______, VC_DOWN, _______  },
  },
 };
 
@@ -187,8 +191,8 @@ float tone_my_startup[][2] = SONG(ODE_TO_JOY);
 float tone_my_goodbye[][2] = SONG(ROCK_A_BYE_BABY);
 
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(COLEMAK_SOUND);
-float tone_colemak[][2]    = SONG(DVORAK_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 
 float tone_audio_on[][2]   = SONG(CLOSE_ENCOUNTERS_5_NOTE);
 float tone_music_on[][2]   = SONG(DOE_A_DEER);
@@ -198,6 +202,7 @@ float tone_numlk_on[][2]   = SONG(NUM_LOCK_ON_SOUND);
 float tone_numlk_off[][2]  = SONG(NUM_LOCK_OFF_SOUND);
 float tone_scroll_on[][2]  = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_scroll_off[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
+float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 #endif /* AUDIO_ENABLE */
 
@@ -380,6 +385,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
 
+        case MACRO_INC_VOICE:
+            if (record->event.pressed)
+            {
+                #ifdef AUDIO_ENABLE
+					voice_iterate();
+					PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
+                #endif
+            }
+            break;
+
+        case MACRO_DEC_VOICE:
+            if (record->event.pressed)
+            {
+                #ifdef AUDIO_ENABLE
+					voice_deiterate();
+					PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
+                #endif
+            }
+            break;
+
         default:
             break;
 
@@ -390,12 +415,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 #ifdef AUDIO_ENABLE
 
-uint8_t starting_note = 0x0C;
-int offset = 7;
-
 
 void process_action_user(keyrecord_t *record)
 {
+
+	uint8_t starting_note = 0x0C;
+	int offset = 7;
+
     if (IS_LAYER_ON(LAYER_MUSIC))
     {
         if (record->event.pressed)
@@ -412,7 +438,7 @@ void process_action_user(keyrecord_t *record)
 
 void matrix_init_user(void)
 {
-    init_notes();
+    set_voice(default_voice);
     play_startup_tone();
     println("Matrix Init");
 }
@@ -420,6 +446,8 @@ void matrix_init_user(void)
 void led_set_user(uint8_t usb_led)
 {
     static uint8_t old_usb_led = 0;
+
+    _delay_ms(10); // gets rid of tick
 
     if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
     {
@@ -457,13 +485,14 @@ void led_set_user(uint8_t usb_led)
 
 void play_startup_tone()
 {
+	_delay_ms(10); // gets rid of tick
     PLAY_NOTE_ARRAY(tone_my_startup, false, STACCATO);
 }
 
 void play_goodbye_tone()
 {
     PLAY_NOTE_ARRAY(tone_my_goodbye, false, STACCATO);
-    _delay_ms(2000);
+    _delay_ms(1000);
 }
 
 #endif /* AUDIO_ENABLE */
