@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "action.h"
 
-
-#ifdef BOOTMAGIC_ENABLE
 /* NOTE: Not portable. Bit field order depends on implementation */
 typedef union {
     uint8_t raw;
@@ -39,7 +37,6 @@ typedef union {
     };
 } keymap_config_t;
 keymap_config_t keymap_config;
-#endif
 
 
 /* translates key to keycode */
