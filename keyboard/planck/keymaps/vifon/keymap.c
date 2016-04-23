@@ -15,7 +15,6 @@ enum userlayer {
     _QW = 0,
     _CM,
     _PP,
-    _MS,
     _LW,
     _RS,
     _DL,
@@ -31,7 +30,6 @@ enum usermacro {
     _MRS,
     _MDR,
     _MDL,
-    _MMS,                    /* short press = _PP; long press = _MS */
 };
 
 #define _______ KC_TRNS
@@ -55,12 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_RSFT, KC_UP,   KC_RCTL},
     {KC_LCTL, MO(_SP), KC_LGUI, KC_LALT, M(_MLW), KC_SPC,  KC_SPC,  M(_MRS), KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
 },
-[_MS] = { /* Mouse */
-    {KC_TAB,        _______, _______, KC_ACL2, _______, _______, _______, KC_WH_D, KC_MS_U, KC_WH_U, _______, KC_BSPC},
-    {CTL_T(KC_ESC), _______, KC_BTN2, KC_BTN3, KC_BTN1, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______},
-    {KC_LSFT,       _______, _______, KC_ACL1, KC_ACL0, _______, _______, _______, _______, _______, KC_UP,   KC_FN0 },
-    {KC_LCTL,       MO(_SP), KC_LGUI, KC_LALT, M(_MLW), KC_SPC,  KC_SPC,  M(_MRS), KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
-},
 [_LW]= { /* LOWER */
     {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
     {KC_ESC,  LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
@@ -70,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RS]= { /* RAISE */
     {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
     {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-    {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), M(_MMS), RESET,   KC_ENT },
+    {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), DF(_PP), RESET,   KC_ENT },
     {_______, BL_STEP, _______, _______, M(_MDL), KC_BTN2, KC_BTN2, _______, KC_MPLY, KC_VOLD, KC_VOLU, _______}
 },
 [_DL]= { /* DUAL */
@@ -141,17 +133,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
     case _MDR:
         dual_layer_second_layer(record, _RS, _DL);
-        break;
-    case _MMS:
-        if (record->event.pressed) {
-            key_timer = timer_read();
-        } else {
-            if (timer_elapsed(key_timer) < 100) {
-                default_layer_set(1UL<<_PP);
-            } else {
-                default_layer_set(1UL<<_MS);
-            }
-        }
         break;
     }
     return MACRO_NONE;
