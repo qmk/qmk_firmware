@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,NEO_L2_L,
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
-                                            KC_SPC, KC_ENT,    ALL_T(KC_NO),
+                                            KC_SPC, KC_ENT,    KC_HYPR,
         // right hand
         DE_ACUT,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,
         KC_END,     NEO_K,  NEO_H,  NEO_G,  NEO_F,  NEO_Q,  NEO_SS,
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             NEO_L2_R,KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
-        MEH_T(KC_NO),KC_ENT,KC_SPC
+        KC_MEH,      KC_ENT,KC_SPC
     ),
 
 /* Layer 1: poor man’s QWERTZ
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,MO(NHL),
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
-                                            KC_SPC, KC_ENT,    ALL_T(KC_NO),
+                                            KC_SPC, KC_ENT,    KC_HYPR,
         // right hand
         DE_ACUT,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,
         KC_END,     DE_B,   DE_A,   DE_S,   DE_G,   DE_V,   DE_Y,
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             MO(NHL),KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
-        MEH_T(KC_NO),KC_ENT,KC_SPC
+        KC_MEH,      KC_ENT,KC_SPC
     ),
 
 /* Layer 2: poor man’s Neo
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_LALT,MO(FMU),KC_LGUI,MO(NHL),
                                                     KC_LEFT,    KC_UP,
                                                                 KC_MINS,
-                                            KC_SPC, KC_ENT,    ALL_T(KC_NO),
+                                            KC_SPC, KC_ENT,    KC_HYPR,
         // right hand
         DE_ACUT,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSPC,
         KC_END,     DE_K,   DE_H,   DE_G,   DE_F,   DE_Q,   DE_SS,
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             MO(NHL),KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
-        MEH_T(KC_NO),KC_ENT,KC_SPC
+        KC_MEH,      KC_ENT,KC_SPC
     ),
 
 /* Layer 3: F-keys, Mouse and Unicode
