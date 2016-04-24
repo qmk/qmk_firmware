@@ -103,6 +103,8 @@ void stop_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = animation->num_frames;
     animation->time_left_in_frame = 0;
     animation->need_update = true;
+    animation->first_update_of_frame = false;
+    animation->last_update_of_frame = false;
     for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
         if (animations[i] == animation) {
             animations[i] = NULL;
@@ -117,6 +119,8 @@ void stop_all_keyframe_animations(void) {
             animations[i]->current_frame = animations[i]->num_frames;
             animations[i]->time_left_in_frame = 0;
             animations[i]->need_update = true;
+            animations[i]->first_update_of_frame = false;
+            animations[i]->last_update_of_frame = false;
             animations[i] = NULL;
         }
     }
@@ -133,16 +137,20 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
        animation->current_frame = 0;
        animation->time_left_in_frame = animation->frame_lengths[0];
        animation->need_update = true;
+       animation->first_update_of_frame = true;
     } else {
         animation->time_left_in_frame -= delta;
         while (animation->time_left_in_frame <= 0) {
             int left = animation->time_left_in_frame;
             if (animation->need_update) {
                 animation->time_left_in_frame = 0;
+                animation->last_update_of_frame = true;
                 (*animation->frame_functions[animation->current_frame])(animation, state);
+                animation->last_update_of_frame = false;
             }
             animation->current_frame++;
             animation->need_update = true;
+            animation->first_update_of_frame = true;
             if (animation->current_frame == animation->num_frames) {
                 if (animation->loop) {
                     animation->current_frame = 0;
@@ -159,6 +167,7 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
     }
     if (animation->need_update) {
         animation->need_update = (*animation->frame_functions[animation->current_frame])(animation, state);
+        animation->first_update_of_frame = false;
     }
 
     int wanted_sleep = animation->need_update ? 10 : animation->time_left_in_frame;

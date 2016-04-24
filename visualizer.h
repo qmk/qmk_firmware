@@ -95,6 +95,8 @@ typedef struct keyframe_animation_t {
     // keyframe update functions
     int current_frame;
     int time_left_in_frame;
+    bool first_update_of_frame;
+    bool last_update_of_frame;
     bool need_update;
 
 } keyframe_animation_t;
