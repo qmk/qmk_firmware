@@ -1,5 +1,4 @@
 /*
-
 Note for ErgoDox EZ customizers: Here be dragons!
 This is not a file you want to be messing with.
 All of the interesting stuff for you is under keymaps/ :)
@@ -42,24 +41,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
 #endif
-static uint8_t debouncing = DEBOUNCE;
-
-/* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-
-static matrix_row_t read_cols(uint8_t row);
-static void init_cols(void);
-static void unselect_rows();
-static void select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
-
+static uint8_t debouncing = DEBOUNCE;
 #ifdef DEBUG_MATRIX_SCAN_RATE
 uint32_t matrix_timer;
 uint32_t matrix_scan_count;
 #endif
+/* matrix state(1:on, 0:off) */
+static matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
+static matrix_row_t read_inputs(const uint8_t row);
+static void init_inputs(void);
+static void unselect_outputs();
+static void select_output(const uint8_t row);
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -69,45 +65,32 @@ __attribute__ ((weak))
 void matrix_scan_kb(void) {
 }
 
-inline
-uint8_t matrix_rows(void)
-{
+inline uint8_t matrix_outputs (void) {
     return MATRIX_ROWS;
 }
 
-inline
-uint8_t matrix_cols(void)
-{
+inline uint8_t matrix_inputs (void) {
     return MATRIX_COLS;
 }
 
-void matrix_init(void)
-{
+void matrix_init(void) {
     // initialize row and col
-
     mcp23018_status = init_mcp23018();
-
-
-    unselect_rows();
-    init_cols();
-
+    unselect_outputs();
+    init_inputs();
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
-        matrix_debouncing[i] = 0;
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        matrix[row] = 0;
+        matrix_debouncing[row] = 0;
     }
-
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_timer = timer_read32();
     matrix_scan_count = 0;
 #endif
-
     matrix_init_kb();
-
 }
 
-uint8_t matrix_scan(void)
-{
+uint8_t matrix_scan(void) {
     if (mcp23018_status) { // if there was an error
         if (++mcp23018_reset_loop == 0) {
             // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
@@ -116,76 +99,64 @@ uint8_t matrix_scan(void)
             mcp23018_status = init_mcp23018();
             if (mcp23018_status) {
                 print("left side not responding\n");
-            } else {
+            }
+            else {
                 print("left side attached\n");
                 ergodox_blink_all_leds();
             }
         }
     }
-
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_count++;
-
     uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
+    if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
         print("matrix scan frequency: ");
         pdec(matrix_scan_count);
         print("\n");
-
         matrix_timer = timer_now;
         matrix_scan_count = 0;
     }
 #endif
-
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        select_row(i);
-        matrix_row_t cols = read_cols(i);
-        if (matrix_debouncing[i] != cols) {
-            matrix_debouncing[i] = cols;
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        select_output(row);
+        matrix_row_t state = read_inputs(row);
+        if (matrix_debouncing[row] != state) {
+            matrix_debouncing[row] = state;
             if (debouncing) {
                 debug("bounce!: "); debug_hex(debouncing); debug("\n");
             }
             debouncing = DEBOUNCE;
         }
-        unselect_rows();
+        unselect_outputs();
     }
-
     if (debouncing) {
         if (--debouncing) {
             _delay_ms(1);
-        } else {
-            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-                matrix[i] = matrix_debouncing[i];
+        }
+        else {
+            for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+                matrix[row] = matrix_debouncing[row];
             }
         }
     }
-
-
     matrix_scan_kb();
-
     return 1;
 }
 
-bool matrix_is_modified(void)
-{
+bool matrix_is_modified(void) {
     if (debouncing) return false;
     return true;
 }
 
-inline
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-    return (matrix[row] & ((matrix_row_t)1<<col));
+inline bool matrix_is_on(const uint8_t row, const uint8_t col) {
+    return (matrix[row] & ((matrix_row_t)1 << col));
 }
 
-inline
-matrix_row_t matrix_get_row(uint8_t row)
-{
+inline matrix_row_t matrix_get_row(const uint8_t row) {
     return matrix[row];
 }
 
-void matrix_print(void)
-{
+void matrix_print(void) {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
@@ -194,11 +165,10 @@ void matrix_print(void)
     }
 }
 
-uint8_t matrix_key_count(void)
-{
+uint8_t matrix_key_count(void) {
     uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        count += bitpop16(matrix[row]);
     }
     return count;
 }
@@ -213,43 +183,45 @@ uint8_t matrix_key_count(void)
  * col: 0   1   2   3   4   5
  * pin: B5  B4  B3  B2  B1  B0
  */
-static void  init_cols(void)
-{
+static void  init_inputs(void) {
     // init on mcp23018
     // not needed, already done as part of init_mcp23018()
 
     // init on teensy
     // Input with pull-up(DDR:0, PORT:1)
-    DDRF  &= ~(1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
-    PORTF |=  (1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
+    DDRF &= ~(_BV(7) | _BV(6) | _BV(5) | _BV(4) | _BV(1) | _BV(0));
+    PORTF |= (_BV(7) | _BV(6) | _BV(5) | _BV(4) | _BV(1) | _BV(0));
 }
 
-static matrix_row_t read_cols(uint8_t row)
-{
+static matrix_row_t read_inputs(const uint8_t row) {
     if (row < 7) {
         if (mcp23018_status) { // if there was an error
             return 0;
-        } else {
+        }
+        else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-            data = i2c_readNak();
-            data = ~data;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE);
+            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOB);
+            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ);
+            if (mcp23018_status) goto out;
+            data = ~i2c_readNak();
         out:
             i2c_stop();
             return data;
         }
-    } else {
+    }
+    else {
         _delay_us(30);  // without this wait read unstable value.
         // read from teensy
         return
-            (PINF&(1<<0) ? 0 : (1<<0)) |
-            (PINF&(1<<1) ? 0 : (1<<1)) |
-            (PINF&(1<<4) ? 0 : (1<<2)) |
-            (PINF&(1<<5) ? 0 : (1<<3)) |
-            (PINF&(1<<6) ? 0 : (1<<4)) |
-            (PINF&(1<<7) ? 0 : (1<<5)) ;
+            (PINF & _BV(0) ? 0 : _BV(0)) |
+            (PINF & _BV(1) ? 0 : _BV(1)) |
+            (PINF & _BV(4) ? 0 : _BV(2)) |
+            (PINF & _BV(5) ? 0 : _BV(3)) |
+            (PINF & _BV(6) ? 0 : _BV(4)) |
+            (PINF & _BV(7) ? 0 : _BV(5));
     }
 }
 
@@ -263,82 +235,83 @@ static matrix_row_t read_cols(uint8_t row)
  * row: 0   1   2   3   4   5   6
  * pin: A0  A1  A2  A3  A4  A5  A6
  */
-static void unselect_rows(void)
-{
+static void unselect_outputs(void) {
     // unselect on mcp23018
     if (mcp23018_status) { // if there was an error
         // do nothing
-    } else {
+    }
+    else {
         // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write( 0xFF
-                              & ~(0<<7)
-                          );                            if (mcp23018_status) goto out;
+        mcp23018_status = i2c_start(I2C_ADDR_WRITE);
+        if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(GPIOA);
+        if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(0xFF);
+        if (mcp23018_status) goto out;
     out:
         i2c_stop();
     }
-
     // unselect on teensy
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    DDRD  &= ~(1<<2 | 1<<3);
-    PORTD &= ~(1<<2 | 1<<3);
-    DDRC  &= ~(1<<6);
-    PORTC &= ~(1<<6);
+    DDRB &= ~(_BV(0) | _BV(1) | _BV(2) | _BV(3));
+    PORTB &= ~(_BV(0) | _BV(1) | _BV(2) | _BV(3));
+    DDRD &= ~(_BV(2) | _BV(3));
+    PORTD &= ~(_BV(2) | _BV(3));
+    DDRC &= ~_BV(6);
+    PORTC &= ~_BV(6);
 }
 
-static void select_row(uint8_t row)
-{
+static void select_output(const uint8_t row) {
     if (row < 7) {
         // select on mcp23018
         if (mcp23018_status) { // if there was an error
             // do nothing
-        } else {
+        }
+        else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write( 0xFF & ~(1<<row)
-                                  & ~(0<<7)
-                              );                                if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE);
+            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA);
+            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(~_BV(row));
+            if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }
-    } else {
+    }
+    else {
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
             case 7:
-                DDRB  |= (1<<0);
-                PORTB &= ~(1<<0);
+                DDRB |= _BV(0);
+                PORTB &= ~_BV(0);
                 break;
             case 8:
-                DDRB  |= (1<<1);
-                PORTB &= ~(1<<1);
+                DDRB |= _BV(1);
+                PORTB &= ~_BV(1);
                 break;
             case 9:
-                DDRB  |= (1<<2);
-                PORTB &= ~(1<<2);
+                DDRB |= _BV(2);
+                PORTB &= ~_BV(2);
                 break;
             case 10:
-                DDRB  |= (1<<3);
-                PORTB &= ~(1<<3);
+                DDRB |= _BV(3);
+                PORTB &= ~_BV(3);
                 break;
             case 11:
-                DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
+                DDRD |= _BV(2);
+                PORTD &= ~_BV(3);
                 break;
             case 12:
-                DDRD  |= (1<<3);
-                PORTD &= ~(1<<3);
+                DDRD |= _BV(3);
+                PORTD &= ~_BV(3);
                 break;
             case 13:
-                DDRC  |= (1<<6);
-                PORTC &= ~(1<<6);
+                DDRC |= _BV(6);
+                PORTC &= ~_BV(6);
                 break;
         }
     }
 }
-

@@ -35,8 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Planck PCB default pin-out
 // Change this to how you wired your keyboard
 // COLS: Left to right, ROWS: Top to bottom
-#define COLS (int []){ B0, B1, B2, B3, B7, D0, B6, F7, F6, F5, F4, F1 }
-#define ROWS (int []){ F0, D6, D4, D5 }
+#define COL_PINS (const uint8_t []){ B0, B1, B2, B3, B7, D0, B6, F7, F6, F5, F4, F1 }
+#define ROW_PINS (const uint8_t []){ F0, D6, D4, D5 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
