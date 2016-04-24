@@ -25,21 +25,35 @@ SOFTWARE.
 #include "gfx.h"
 
 keyframe_animation_t led_test_animation = {
-    .num_frames = 1,
+    .num_frames = 3,
     .loop = true,
-    .frame_lengths = {MS2ST(1000)},
+    .frame_lengths = {MS2ST(1000), MS2ST(1000), MS2ST(1000)},
     .frame_functions = {
         keyframe_fade_in_all_leds,
+        keyframe_no_operation,
+        keyframe_fade_out_all_leds,
     },
 };
 
-bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)state;
+static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint8_t from, uint8_t to) {
     int frame_length = animation->frame_lengths[animation->current_frame];
     int current_pos = frame_length - animation->time_left_in_frame;
-    uint8_t luma = 0x255 * current_pos / frame_length;
+    int delta = to - from;
+    int luma = (delta * current_pos) / frame_length;
+    luma += from;
     color_t color = LUMA2COLOR(luma);
     gdispGClear(LED_DISPLAY, color);
     gdispGFlush(LED_DISPLAY);
+}
+
+bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    keyframe_fade_all_leds_from_to(animation, 0, 255);
+    return true;
+}
+
+bool keyframe_fade_out_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    keyframe_fade_all_leds_from_to(animation, 255, 0);
     return true;
 }
