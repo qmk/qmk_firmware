@@ -94,35 +94,7 @@ float voice_envelope(float frequency) {
         case duty_octave_down:
             polyphony_rate = 0;
             note_timbre = (envelope_index % 2) * .125 + .375 * 2;
-            if ((envelope_index % 4) == 0)
-                note_timbre = 0.5;
-            if ((envelope_index % 8) == 0)
-                note_timbre = 0;
-            break;
-        case duty_fifth_down:
-            note_timbre = 0.5;
-            if ((envelope_index % 3) == 0)
-                note_timbre = 0.75;
-            break;
-        case duty_fourth_down:
-            note_timbre = 0.0;
-            if ((envelope_index % 12) == 0)
-                note_timbre = 0.75;
-            if (((envelope_index % 12) % 4) != 1)
-                note_timbre = 0.75;
-            break;
-        case duty_third_down:
-            note_timbre = 0.5;
-            if ((envelope_index % 5) == 0)
-                note_timbre = 0.75;
-            break;
-        case duty_fifth_third_down:
-            note_timbre = 0.5;
-            if ((envelope_index % 5) == 0)
-                note_timbre = 0.75;
-            if ((envelope_index % 3) == 0)
-                note_timbre = 0.25;
-            break;
+	        break;
 
 		default:
    			break;
