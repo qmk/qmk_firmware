@@ -106,6 +106,9 @@ extern GDisplay* LED_DISPLAY;
 
 void start_keyframe_animation(keyframe_animation_t* animation);
 void stop_keyframe_animation(keyframe_animation_t* animation);
+// This runs the next keyframe, but does not update the animation state
+// Useful for crossfades for example
+void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state);
 
 // Some predefined keyframe functions that can be used by the user code
 // Does nothing, useful for adding delays

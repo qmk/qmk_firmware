@@ -178,6 +178,21 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
     return true;
 }
 
+void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state) {
+    int next_frame = animation->current_frame + 1;
+    if (next_frame == animation->num_frames) {
+        next_frame = 0;
+    }
+    keyframe_animation_t temp_animation = *animation;
+    temp_animation.current_frame = next_frame;
+    temp_animation.time_left_in_frame = animation->frame_lengths[next_frame];
+    temp_animation.first_update_of_frame = true;
+    temp_animation.last_update_of_frame = false;
+    temp_animation.need_update  = false;
+    visualizer_state_t temp_state = *state;
+    (*temp_animation.frame_functions[next_frame])(&temp_animation, &temp_state);
+}
+
 bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
