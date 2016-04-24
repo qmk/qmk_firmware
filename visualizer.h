@@ -45,8 +45,8 @@ void visualizer_suspend(void);
 // This should be called when the keyboard wakes up from suspend state
 void visualizer_resume(void);
 
-// If you need support for more than 8 keyframes per animation, you can change this
-#define MAX_VISUALIZER_KEY_FRAMES 8
+// If you need support for more than 16 keyframes per animation, you can change this
+#define MAX_VISUALIZER_KEY_FRAMES 16
 
 struct keyframe_animation_t;
 

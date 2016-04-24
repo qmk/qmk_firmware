@@ -26,17 +26,24 @@ SOFTWARE.
 #include "math.h"
 
 keyframe_animation_t led_test_animation = {
-    .num_frames = 8,
+    .num_frames = 14,
     .loop = true,
     .frame_lengths = {
         MS2ST(1000), // fade in
         MS2ST(1000), // no op (leds on)
         MS2ST(1000), // fade out
         MS2ST(1000), // crossfade
-        MS2ST(3000), // left to rigt
+        MS2ST(3000), // left to rigt (outside in)
         MS2ST(1000), // crossfade
         MS2ST(3000), // top_to_bottom
+        0,           // mirror leds
         MS2ST(1000), // crossfade
+        MS2ST(3000), // left_to_right (mirrored, so inside out)
+        MS2ST(1000), // crossfade
+        MS2ST(3000), // top_to_bottom
+        0,           // normal leds
+        MS2ST(1000), // crossfade
+
     },
     .frame_functions = {
         keyframe_fade_in_all_leds,
@@ -46,7 +53,13 @@ keyframe_animation_t led_test_animation = {
         keyframe_led_left_to_right_gradient,
         keyframe_led_crossfade,
         keyframe_led_top_to_bottom_gradient,
-        keyframe_led_crossfade
+        keyframe_mirror_led_orientation,
+        keyframe_led_crossfade,
+        keyframe_led_left_to_right_gradient,
+        keyframe_led_crossfade,
+        keyframe_led_top_to_bottom_gradient,
+        keyframe_normal_led_orientation,
+        keyframe_led_crossfade,
     },
 };
 
@@ -123,7 +136,6 @@ static void copy_current_led_state(uint8_t* dest) {
         }
     }
 }
-
 bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     if (animation->first_update_of_frame) {
@@ -137,5 +149,19 @@ bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t*
             gdispGDrawPixel(LED_DISPLAY, j, i, color);
         }
     }
+    return true;
+}
+
+bool keyframe_mirror_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    (void)animation;
+    gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_180);
+    return true;
+}
+
+bool keyframe_normal_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    (void)animation;
+    gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_0);
     return true;
 }
