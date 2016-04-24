@@ -21,13 +21,13 @@
 # SOFTWARE.
 
 GFXLIB = $(VISUALIZER_DIR)/ugfx
-SRC += $(GFXSRC) $(VISUALIZER_DIR)/visualizer.c
+SRC += $(VISUALIZER_DIR)/visualizer.c
 UINCDIR += $(GFXINC) $(VISUALIZER_DIR)
 
 ifdef LCD_ENABLE
-include $(GFXLIB)/gfx.mk
 UDEFS += -DLCD_ENABLE
 ULIBS += -lm
+USE_UGFX = yes
 endif
 
 ifdef LCD_BACKLIGHT_ENABLE
@@ -39,6 +39,12 @@ endif
 ifdef LED_ENABLE
 SRC += $(VISUALIZER_DIR)/led_test.c
 UDEFS += -DLED_ENABLE
+USE_UGFX = yes
+endif
+
+ifdef USE_UGFX
+include $(GFXLIB)/gfx.mk
+SRC += $(GFXSRC)
 endif
 
 ifndef VISUALIZER_USER

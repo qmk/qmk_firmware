@@ -77,8 +77,8 @@ static remote_object_t* remote_objects[] = {
 
 #endif
 
-GDisplay* LCDDisplay;
-GDisplay* LEDDisplay;
+GDisplay* LCD_DISPLAY = 0;
+GDisplay* LED_DISPLAY = 0;
 
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
@@ -437,8 +437,8 @@ void visualizer_init(void) {
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
 #endif
     // TODO: Make sure these works when either of these are disabled
-    LCDDisplay = gdispGetDisplay(0);
-    LEDDisplay = gdispGetDisplay(1);
+    LCD_DISPLAY = gdispGetDisplay(0);
+    LED_DISPLAY = gdispGetDisplay(1);
 
 
     // We are using a low priority thread, the idea is to have it run only
