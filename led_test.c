@@ -26,27 +26,41 @@ SOFTWARE.
 #include "math.h"
 
 keyframe_animation_t led_test_animation = {
-    .num_frames = 4,
+    .num_frames = 8,
     .loop = true,
     .frame_lengths = {
-        MS2ST(1000),
-        MS2ST(1000),
-        MS2ST(1000),
-        MS2ST(3000)},
+        MS2ST(1000), // fade in
+        MS2ST(1000), // no op (leds on)
+        MS2ST(1000), // fade out
+        MS2ST(1000), // crossfade
+        MS2ST(3000), // left to rigt
+        MS2ST(1000), // crossfade
+        MS2ST(3000), // top_to_bottom
+        MS2ST(1000), // crossfade
+    },
     .frame_functions = {
         keyframe_fade_in_all_leds,
         keyframe_no_operation,
         keyframe_fade_out_all_leds,
+        keyframe_led_crossfade,
         keyframe_led_left_to_right_gradient,
+        keyframe_led_crossfade,
+        keyframe_led_top_to_bottom_gradient,
+        keyframe_led_crossfade
     },
 };
 
-static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint8_t from, uint8_t to) {
+static uint8_t fade_led_color(keyframe_animation_t* animation, uint8_t from, uint8_t to) {
     int frame_length = animation->frame_lengths[animation->current_frame];
     int current_pos = frame_length - animation->time_left_in_frame;
     int delta = to - from;
     int luma = (delta * current_pos) / frame_length;
     luma += from;
+    return luma;
+}
+
+static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint8_t from, uint8_t to) {
+    uint8_t luma = fade_led_color(animation, from, to);
     color_t color = LUMA2COLOR(luma);
     gdispGClear(LED_DISPLAY, color);
     gdispGFlush(LED_DISPLAY);
@@ -55,6 +69,9 @@ static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint
 // TODO: Should be customizable per keyboard
 #define NUM_ROWS 7
 #define NUM_COLS 7
+
+static uint8_t crossfade_start_frame[NUM_ROWS][NUM_COLS];
+static uint8_t crossfade_end_frame[NUM_ROWS][NUM_COLS];
 
 static uint8_t compute_gradient_color(float t, float index, float num) {
     float d = fabs(index - t);
@@ -85,5 +102,44 @@ bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visual
         uint8_t color = compute_gradient_color(t, i, NUM_COLS);
         gdispGDrawLine(LED_DISPLAY, i, 0, i, NUM_ROWS - 1, LUMA2COLOR(color));
     }
+    gdispGFlush(LED_DISPLAY);
+    return true;
+}
+
+bool keyframe_led_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    int frame_length = animation->frame_lengths[animation->current_frame];
+    int current_pos = frame_length - animation->time_left_in_frame;
+    float t = current_pos / frame_length;
+    for (int i=0; i< NUM_ROWS; i++) {
+        uint8_t color = compute_gradient_color(t, i, NUM_ROWS);
+        gdispGDrawLine(LED_DISPLAY, 0, i, NUM_COLS - 1, i, LUMA2COLOR(color));
+    }
+    gdispGFlush(LED_DISPLAY);
+    return true;
+}
+
+static void copy_current_led_state(uint8_t* dest) {
+    for (int i=0;i<NUM_ROWS;i++) {
+        for (int j=0;j<NUM_COLS;j++) {
+            dest[i*NUM_COLS + j] = gdispGGetPixelColor(LED_DISPLAY, j, i);
+        }
+    }
+}
+
+bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    if (animation->first_update_of_frame) {
+        copy_current_led_state(&crossfade_start_frame[0][0]);
+        run_next_keyframe(animation, state);
+        copy_current_led_state(&crossfade_end_frame[0][0]);
+    }
+    for (int i=0;i<NUM_ROWS;i++) {
+        for (int j=0;j<NUM_COLS;j++) {
+            color_t color  = LUMA2COLOR(fade_led_color(animation, crossfade_start_frame[i][j], crossfade_end_frame[i][j]));
+            gdispGDrawPixel(LED_DISPLAY, j, i, color);
+        }
+    }
+    gdispGFlush(LED_DISPLAY);
     return true;
 }
