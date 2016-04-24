@@ -99,6 +99,9 @@ typedef struct keyframe_animation_t {
 
 } keyframe_animation_t;
 
+extern GDisplay* LCD_DISPLAY;
+extern GDisplay* LED_DISPLAY;
+
 void start_keyframe_animation(keyframe_animation_t* animation);
 void stop_keyframe_animation(keyframe_animation_t* animation);
 

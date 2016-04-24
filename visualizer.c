@@ -77,6 +77,9 @@ static remote_object_t* remote_objects[] = {
 
 #endif
 
+GDisplay* LCDDisplay;
+GDisplay* LEDDisplay;
+
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = -1;
@@ -405,6 +408,11 @@ void visualizer_init(void) {
 #ifdef USE_SERIAL_LINK
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
 #endif
+    // TODO: Make sure these works when either of these are disabled
+    LCDDisplay = gdispGetDisplay(0);
+    LEDDisplay = gdispGetDisplay(1);
+
+
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
     chEvtObjectInit(&layer_changed_event);
