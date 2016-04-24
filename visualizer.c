@@ -127,6 +127,7 @@ void stop_all_keyframe_animations(void) {
 }
 
 static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systime_t delta, systime_t* sleep_time) {
+    // TODO: Clean up this messy code
     dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame,
             animation->time_left_in_frame, delta);
     if (animation->current_frame == animation->num_frames) {
@@ -394,6 +395,9 @@ static THD_FUNCTION(visualizerThread, arg) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
         }
+#ifdef LED_ENABLE
+        gdispGFlush(LED_DISPLAY);
+#endif
         // The animation can enable the visualizer
         // And we might need to update the state when that happens
         // so don't sleep

@@ -63,7 +63,6 @@ static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint
     uint8_t luma = fade_led_color(animation, from, to);
     color_t color = LUMA2COLOR(luma);
     gdispGClear(LED_DISPLAY, color);
-    gdispGFlush(LED_DISPLAY);
 }
 
 // TODO: Should be customizable per keyboard
@@ -102,7 +101,6 @@ bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visual
         uint8_t color = compute_gradient_color(t, i, NUM_COLS);
         gdispGDrawLine(LED_DISPLAY, i, 0, i, NUM_ROWS - 1, LUMA2COLOR(color));
     }
-    gdispGFlush(LED_DISPLAY);
     return true;
 }
 
@@ -115,7 +113,6 @@ bool keyframe_led_top_to_bottom_gradient(keyframe_animation_t* animation, visual
         uint8_t color = compute_gradient_color(t, i, NUM_ROWS);
         gdispGDrawLine(LED_DISPLAY, 0, i, NUM_COLS - 1, i, LUMA2COLOR(color));
     }
-    gdispGFlush(LED_DISPLAY);
     return true;
 }
 
@@ -140,6 +137,5 @@ bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t*
             gdispGDrawPixel(LED_DISPLAY, j, i, color);
         }
     }
-    gdispGFlush(LED_DISPLAY);
     return true;
 }
