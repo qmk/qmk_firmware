@@ -36,8 +36,10 @@ extern keymap_config_t keymap_config;
 #endif
 #define MUS_OFF M(8)
 #define MUS_ON M(9)
-#define PLOVER M(10)
-#define EXT_PLV M(11)
+#define VC_IN M(10)
+#define VC_DE M(11)
+#define PLOVER M(12)
+#define EXT_PLV M(13)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -178,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
   {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
+  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -304,11 +306,29 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 10:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
+              voice_iterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+        case 11:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_deiterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+        case 12:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_plover, false, 0);
             #endif
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
+            layer_off(_MUSIC);
+            stop_all_notes();
             layer_on(_PLOVER);
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
@@ -318,7 +338,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             eeconfig_update_keymap(keymap_config.raw);
           }
         break;
-        case 11:
+        case 13:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
