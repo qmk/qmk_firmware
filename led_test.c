@@ -23,15 +23,21 @@ SOFTWARE.
 */
 #include "led_test.h"
 #include "gfx.h"
+#include "math.h"
 
 keyframe_animation_t led_test_animation = {
-    .num_frames = 3,
+    .num_frames = 4,
     .loop = true,
-    .frame_lengths = {MS2ST(1000), MS2ST(1000), MS2ST(1000)},
+    .frame_lengths = {
+        MS2ST(1000),
+        MS2ST(1000),
+        MS2ST(1000),
+        MS2ST(3000)},
     .frame_functions = {
         keyframe_fade_in_all_leds,
         keyframe_no_operation,
         keyframe_fade_out_all_leds,
+        keyframe_led_left_to_right_gradient,
     },
 };
 
@@ -46,6 +52,18 @@ static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint
     gdispGFlush(LED_DISPLAY);
 }
 
+// TODO: Should be customizable per keyboard
+#define NUM_ROWS 7
+#define NUM_COLS 7
+
+static uint8_t compute_gradient_color(float t, float index, float num) {
+    float d = fabs(index - t);
+    if (d > num / 2.0f) {
+        d = num - d;
+    }
+    return (uint8_t)(255.0f * d);
+}
+
 bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     keyframe_fade_all_leds_from_to(animation, 0, 255);
@@ -55,5 +73,17 @@ bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state
 bool keyframe_fade_out_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     keyframe_fade_all_leds_from_to(animation, 255, 0);
+    return true;
+}
+
+bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    int frame_length = animation->frame_lengths[animation->current_frame];
+    int current_pos = frame_length - animation->time_left_in_frame;
+    float t = current_pos / frame_length;
+    for (int i=0; i< NUM_COLS; i++) {
+        uint8_t color = compute_gradient_color(t, i, NUM_COLS);
+        gdispGDrawLine(LED_DISPLAY, i, 0, i, NUM_ROWS - 1, LUMA2COLOR(color));
+    }
     return true;
 }

@@ -29,6 +29,7 @@ SOFTWARE.
 
 bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state);
 bool keyframe_fade_out_all_leds(keyframe_animation_t* animation, visualizer_state_t* state);
+bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
 
 extern keyframe_animation_t led_test_animation;
 
