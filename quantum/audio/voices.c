@@ -6,7 +6,7 @@ extern uint16_t envelope_index;
 extern float note_timbre;
 extern float polyphony_rate;
 
-voice_type voice = duty_osc;
+voice_type voice = default_voice;
 
 void set_voice(voice_type v) {
     voice = v;
@@ -99,30 +99,30 @@ float voice_envelope(float frequency) {
             if ((envelope_index % 8) == 0)
                 note_timbre = 0;
             break;
-        case duty_fifth_down:
-            note_timbre = 0.5;
-            if ((envelope_index % 3) == 0)
-                note_timbre = 0.75;
-            break;
-        case duty_fourth_down:
-            note_timbre = 0.0;
-            if ((envelope_index % 12) == 0)
-                note_timbre = 0.75;
-            if (((envelope_index % 12) % 4) != 1)
-                note_timbre = 0.75;
-            break;
-        case duty_third_down:
-            note_timbre = 0.5;
-            if ((envelope_index % 5) == 0)
-                note_timbre = 0.75;
-            break;
-        case duty_fifth_third_down:
-            note_timbre = 0.5;
-            if ((envelope_index % 5) == 0)
-                note_timbre = 0.75;
-            if ((envelope_index % 3) == 0)
-                note_timbre = 0.25;
-            break;
+        // case duty_fifth_down:
+        //     note_timbre = 0.5;
+        //     if ((envelope_index % 3) == 0)
+        //         note_timbre = 0.75;
+        //     break;
+        // case duty_fourth_down:
+        //     note_timbre = 0.0;
+        //     if ((envelope_index % 12) == 0)
+        //         note_timbre = 0.75;
+        //     if (((envelope_index % 12) % 4) != 1)
+        //         note_timbre = 0.75;
+        //     break;
+        // case duty_third_down:
+        //     note_timbre = 0.5;
+        //     if ((envelope_index % 5) == 0)
+        //         note_timbre = 0.75;
+        //     break;
+        // case duty_fifth_third_down:
+        //     note_timbre = 0.5;
+        //     if ((envelope_index % 5) == 0)
+        //         note_timbre = 0.75;
+        //     if ((envelope_index % 3) == 0)
+        //         note_timbre = 0.25;
+        //     break;
 
 		default:
    			break;

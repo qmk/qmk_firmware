@@ -16,10 +16,10 @@ typedef enum {
     octave_crunch,
     duty_osc,
     duty_octave_down,
-    duty_fifth_down,
-    duty_fourth_down,
-    duty_third_down,
-    duty_fifth_third_down,
+    // duty_fifth_down,
+    // duty_fourth_down,
+    // duty_third_down,
+    // duty_fifth_third_down,
     number_of_voices // important that this is last
 } voice_type;
 
