@@ -123,6 +123,7 @@ PORT_V = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v$(ARMV)m.mk
 endif
 include $(PORT_V)
 # Other files (optional).
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 # Define linker script file here
 ifneq ("$(wildcard $(TARGET_DIR)/ld/$(MCU_LDSCRIPT).ld)","")
@@ -140,7 +141,7 @@ CSRC = $(STARTUPSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
-       $(CHIBIOS)/os/hal/lib/streams/chprintf.c \
+       $(STREAMSSRC) \
        $(TMK_DIR)/protocol/chibios/usb_main.c \
        $(TMK_DIR)/protocol/chibios/main.c \
        $(SRC)
@@ -170,11 +171,13 @@ TCSRC =
 TCPPSRC =
 
 # List ASM source files here
-ASMSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
+ASMSRC =
+ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 
-INCDIR = $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
+INCDIR = $(CHIBIOS)/os/license \
+         $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(CHIBIOS)/os/hal/lib/streams $(CHIBIOS)/os/various \
+         $(STREAMSINC) $(CHIBIOS)/os/various \
          $(TMK_DIR) $(COMMON_DIR) $(TMK_DIR)/protocol/chibios \
          $(TMK_DIR)/protocol $(TARGET_DIR)
 
