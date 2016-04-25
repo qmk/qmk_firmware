@@ -30,10 +30,8 @@ extern keymap_config_t keymap_config;
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define M_BL 5
-#ifdef AUDIO_ENABLE
-  #define AUD_OFF M(6)
-  #define AUD_ON M(7)
-#endif
+#define AUD_OFF M(6)
+#define AUD_ON M(7)
 #define MUS_OFF M(8)
 #define MUS_ON M(9)
 #define VC_IN M(10)
@@ -172,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |Mus on|Musoff|      |      |      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -208,7 +206,6 @@ float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
 float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
-
 #endif
 
 
@@ -351,6 +348,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+void matrix_init_user(void) {
+  #ifdef AUDIO_ENABLE
+    _delay_ms(20); // stops the tick
+    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+  #endif
+}
+
+#ifdef AUDIO_ENABLE
+void play_goodbye_tone()
+{
+  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  _delay_ms(150);
+}
+
 uint8_t starting_note = 0x0C;
 int offset = 7;
 
@@ -365,16 +376,4 @@ void process_action_user(keyrecord_t *record) {
   }
 
 }
-
-void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-    _delay_ms(10); // stops the tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-  #endif
-}
-
-void play_goodbye_tone()
-{
-  PLAY_NOTE_ARRAY(goodbye, false, 0);
-  _delay_ms(150);
-}
+#endif
