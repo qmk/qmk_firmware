@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RBRC,  KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                        KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
              KC_END,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,   KC_RSFT,
-             KC_DOWN,KC_UP, ALL_T(KC_NO),KC_GRV,   KC_RCTRL,
+             KC_DOWN,KC_UP, KC_HYPR,     KC_GRV,   KC_RCTRL,
              KC_F2, KC_FN2,
              KC_INS,
              KC_DELT,KC_FN1, KC_SPC
@@ -184,7 +184,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),                // FN1 - Momentary Layer 1 (Symbols)
     [2] = ACTION_LAYER_TAP_TOGGLE(MDIA),                // FN2 - Momentary Layer 2 (Media)
     [3] = ACTION_LAYER_TAP_TOGGLE(UNIC)                 // FN3 - Momentary Layer 3 (Unicode entry)
-}; 
+};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
