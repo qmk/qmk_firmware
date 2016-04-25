@@ -24,10 +24,8 @@
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define M_BL 5
-#ifdef AUDIO_ENABLE
-  #define AUD_OFF M(6)
-  #define AUD_ON M(7)
-#endif
+#define AUD_OFF M(6)
+#define AUD_ON M(7)
 #define MUS_OFF M(8)
 #define MUS_ON M(9)
 #define VC_IN M(10)
@@ -163,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |Audoff|Aud on|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |Musoff|Mus on|      |      |      |      |      |      |      |
+ * |      |Voice-|Voice+|Musoff|Mus on|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -310,6 +308,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+
+void matrix_init_user(void) {
+  #ifdef AUDIO_ENABLE
+    _delay_ms(20); // gets rid of tick
+    PLAY_NOTE_ARRAY(start_up, false, 0);
+  #endif
+}
+
+#ifdef AUDIO_ENABLE
+
 uint8_t starting_note = 0x0C;
 int offset = 7;
 
@@ -325,18 +333,10 @@ void process_action_user(keyrecord_t *record) {
 
 }
 
-void matrix_init_user(void) {
-  _delay_ms(10); // gets rid of tick
-  play_startup_tone();
-}
-
-void play_startup_tone()
-{
-  PLAY_NOTE_ARRAY(start_up, false, 0);
-}
-
 void play_goodbye_tone()
 {
   PLAY_NOTE_ARRAY(goodbye, false, 0);
   _delay_ms(150);
 }
+
+#endif
