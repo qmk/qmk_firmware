@@ -189,8 +189,13 @@ void rgblight_mode(uint8_t mode) {
 	} else {
 		rgblight_config.mode = mode;
 	}
+<<<<<<< HEAD
   eeconfig_update_rgblight(rgblight_config.raw);
   dprintf("rgblight mode: %u\n", rgblight_config.mode);
+=======
+  eeconfig_write_rgblight(rgblight_config.raw);
+  xprintf("rgblight mode: %u\n", rgblight_config.mode);
+>>>>>>> pr/286
 	if (rgblight_config.mode == 1) {
 		rgblight_timer_disable();
 	} else if (rgblight_config.mode >=2 && rgblight_config.mode <=23) {
@@ -207,7 +212,7 @@ void rgblight_mode(uint8_t mode) {
 void rgblight_toggle(void) {
   rgblight_config.enable ^= 1;
   eeconfig_update_rgblight(rgblight_config.raw);
-  dprintf("rgblight toggle: rgblight_config.enable = %u\n", rgblight_config.enable);
+  xprintf("rgblight toggle: rgblight_config.enable = %u\n", rgblight_config.enable);
 	if (rgblight_config.enable) {
 		rgblight_mode(rgblight_config.mode);
 	} else {
@@ -300,7 +305,7 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val){
 		rgblight_config.sat = sat;
 		rgblight_config.val = val;
 		eeconfig_update_rgblight(rgblight_config.raw);
-		dprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+		xprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
   }
 }
 

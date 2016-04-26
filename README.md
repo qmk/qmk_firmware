@@ -1,10 +1,12 @@
-# Quantum MK Firmware
+# Quantum Mechanical Keyboard Firmware
 
-This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co) and the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard.
+This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
 
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK.
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
+
+The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [skullydazed](/skullydazed).
 
 ## Important background info: TMK documentation
 
