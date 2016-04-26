@@ -153,7 +153,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
                 register_code(KC_LSFT); // we're now holding down Shift.
             } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
+                if (timer_elapsed(key_timer) < 70) { // the threshhold we pick for counting something as a tap. 
                     register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
                     unregister_code(KC_9); // now let's let go of that key
                 }
@@ -166,7 +166,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
                 register_code(KC_RSFT); 
             } else { 
-                if (timer_elapsed(key_timer) < 150) { 
+                if (timer_elapsed(key_timer) < 70) { 
                     register_code(KC_0); 
                     unregister_code(KC_0); 
                 }
