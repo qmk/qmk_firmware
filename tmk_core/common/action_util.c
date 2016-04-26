@@ -27,9 +27,9 @@ static inline void add_key_bit(uint8_t code);
 static inline void del_key_bit(uint8_t code);
 #endif
 
-static uint8_t real_mods = 0;
-static uint8_t weak_mods = 0;
-static uint8_t macro_mods = 0;
+static uint8_t mods;
+static uint8_t physical_mods;
+static uint8_t mod_toggles[4];
 
 #ifdef USB_6KRO_ENABLE
 #define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
@@ -54,9 +54,7 @@ static int16_t oneshot_time = 0;
 
 
 void send_keyboard_report(void) {
-    keyboard_report->mods  = real_mods;
-    keyboard_report->mods |= weak_mods;
-    keyboard_report->mods |= macro_mods;
+    keyboard_report->mods = mods;
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
@@ -106,26 +104,24 @@ void clear_keys(void)
 }
 
 
-/* modifier */
-uint8_t get_mods(void) { return real_mods; }
-void add_mods(uint8_t mods) { real_mods |= mods; }
-void del_mods(uint8_t mods) { real_mods &= ~mods; }
-void set_mods(uint8_t mods) { real_mods = mods; }
-void clear_mods(void) { real_mods = 0; }
+/* modifiers */
+uint8_t get_mods(void) { return mods; }
+void add_mods(const uint8_t changing_mods) { mods |= changing_mods; }
+void del_mods(const uint8_t changing_mods) { mods &= ~changing_mods; }
+void set_mods(const uint8_t changing_mods) { mods = changing_mods; }
+void clear_mods(void) { mods = 0; }
 
-/* weak modifier */
-uint8_t get_weak_mods(void) { return weak_mods; }
-void add_weak_mods(uint8_t mods) { weak_mods |= mods; }
-void del_weak_mods(uint8_t mods) { weak_mods &= ~mods; }
-void set_weak_mods(uint8_t mods) { weak_mods = mods; }
-void clear_weak_mods(void) { weak_mods = 0; }
+/* physical modifiers */
+uint8_t get_physical_mods(void) { return physical_mods; }
+void add_physical_mods(const uint8_t changing_mods) { physical_mods |= changing_mods; }
+void del_physical_mods(const uint8_t changing_mods) { physical_mods &= ~changing_mods; }
+void clear_physical_mods(void) { physical_mods = 0; }
 
-/* macro modifier */
-uint8_t get_macro_mods(void) { return macro_mods; }
-void add_macro_mods(uint8_t mods) { macro_mods |= mods; }
-void del_macro_mods(uint8_t mods) { macro_mods &= ~mods; }
-void set_macro_mods(uint8_t mods) { macro_mods = mods; }
-void clear_macro_mods(void) { macro_mods = 0; }
+/* modifier toggles */
+uint8_t get_mod_toggles(const uint8_t mod_index) { return mod_toggles[mod_index]; }
+void increment_mod_toggles(const uint8_t mod_index) { ++mod_toggles[mod_index]; }
+void decrement_mod_toggles(const uint8_t mod_index) { if (mod_toggles[mod_index]) --mod_toggles[mod_index]; }
+void clear_mod_toggles(const uint8_t mod_index) { clear_mod_toggles(mod_index); }
 
 /* Oneshot modifier */
 #ifndef NO_ACTION_ONESHOT
@@ -163,7 +159,7 @@ uint8_t has_anykey(void)
 
 uint8_t has_anymod(void)
 {
-    return bitpop(real_mods);
+    return bitpop(mods);
 }
 
 uint8_t get_first_key(void)

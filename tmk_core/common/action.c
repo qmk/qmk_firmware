@@ -92,41 +92,63 @@ void process_action(keyrecord_t *record)
     dprintln();
 
     if (event.pressed) {
-        // clear the potential weak mods left by previously pressed keys
-        clear_weak_mods();
+        set_mods(get_physical_mods());
+        send_keyboard_report();
     }
     switch (action.kind.id) {
         /* Key and Mods */
         case ACT_LMODS:
-        case ACT_RMODS:
-            {
-                uint8_t mods = (action.kind.id == ACT_LMODS) ?  action.key.mods :
-                                                                action.key.mods<<4;
-                if (event.pressed) {
-                    if (mods) {
-                        if (IS_MOD(action.key.code)) {
-                            // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
-                            // this also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT)
-                            add_mods(mods);
-                        } else {
-                            add_weak_mods(mods);
+        case ACT_RMODS: {
+            const uint8_t mods = action.kind.id == ACT_LMODS ? action.key.mods : action.key.mods << 4;
+            if (event.pressed) {
+                if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    register_mods(mods | (action.key.code == KC_NO ? 0 : MOD_BIT(action.key.code)));
+                }
+                else {
+                    for (int8_t mod_index = MOD_INDEX(KC_LGUI); mod_index >= MOD_INDEX(KC_LCTL); --mod_index) {
+                        const uint8_t mod_bit = _BV(mod_index);
+                        if (action.key.mods & mod_bit) {
+                            const uint8_t mod_bit_pair = mod_bit | mod_bit << 4;
+                            increment_mod_toggles(mod_index);
+                            if (get_physical_mods() & mod_bit_pair) {
+                                del_mods(mod_bit_pair);
+                            }
+                            else {
+                                add_mods(mod_bit);
+                            }
+                            send_keyboard_report();
                         }
-                        send_keyboard_report();
                     }
                     register_code(action.key.code);
-                } else {
+                }
+            }
+            else {
+                if (IS_MOD(action.key.code) || action.key.code == KC_NO) {
+                    unregister_mods(mods | (action.key.code == KC_NO ? 0 : MOD_BIT(action.key.code)));
+                }
+                else {
                     unregister_code(action.key.code);
-                    if (mods) {
-                        if (IS_MOD(action.key.code)) {
-                            del_mods(mods);
-                        } else {
-                            del_weak_mods(mods);
+                    for (int8_t mod_index = MOD_INDEX(KC_LGUI); mod_index >= MOD_INDEX(KC_LCTL); --mod_index) {
+                        const uint8_t mod_bit = _BV(mod_index);
+                        if (action.key.mods & mod_bit) {
+                            decrement_mod_toggles(mod_index);
+                            if (!get_mod_toggles(mod_index)) {
+                                const uint8_t mod_bit_pair = mod_bit | mod_bit << 4;
+                                if (get_physical_mods() & mod_bit_pair) {
+                                    add_mods(get_physical_mods() & mod_bit_pair);
+                                }
+                                else {
+                                    del_mods(mod_bit);
+                                }
+                                send_keyboard_report();
+
+                            }
                         }
-                        send_keyboard_report();
                     }
                 }
             }
             break;
+        }
 #ifndef NO_ACTION_TAPPING
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
@@ -510,32 +532,39 @@ void unregister_code(uint8_t code)
     }
 }
 
-void register_mods(uint8_t mods)
-{
-    if (mods) {
-        add_mods(mods);
-        send_keyboard_report();
+void register_mods(uint8_t mods) {
+    add_physical_mods(mods);
+    add_mods(mods);
+    send_keyboard_report();
+    mods |= mods >> 4;
+    for (int8_t mod_index = MOD_INDEX(KC_LGUI); mod_index >= MOD_INDEX(KC_LCTL); --mod_index) {
+        if (mods & _BV(mod_index)) {
+            clear_mod_toggles(mod_index);
+        }
     }
 }
 
-void unregister_mods(uint8_t mods)
-{
-    if (mods) {
-        del_mods(mods);
-        send_keyboard_report();
+void unregister_mods(uint8_t mods) {
+    del_physical_mods(mods);
+    del_mods(mods);
+    send_keyboard_report();
+    mods |= mods >> 4;
+    for (int8_t mod_index = MOD_INDEX(KC_LGUI); mod_index >= MOD_INDEX(KC_LCTL); --mod_index) {
+        if (mods & _BV(mod_index)) {
+            clear_mod_toggles(mod_index);
+        }
     }
 }
 
 void clear_keyboard(void)
 {
+    clear_physical_mods();
     clear_mods();
     clear_keyboard_but_mods();
 }
 
 void clear_keyboard_but_mods(void)
 {
-    clear_weak_mods();
-    clear_macro_mods();
     clear_keys();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
