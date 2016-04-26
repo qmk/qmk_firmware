@@ -3,7 +3,7 @@
 #include "action.h"
 #include "util.h"
 #include "action_layer.h"
-
+#include "action_util.h"
 //#ifdef DEBUG_ACTION
 #include "debug.h"
 //#else
@@ -22,7 +22,12 @@ static void default_layer_state_set(uint32_t state)
     default_layer_debug(); debug(" to ");
     default_layer_state = state;
     default_layer_debug(); debug("\n");
+#ifndef PREVENT_STUCK_MODIFIERS
+    for (int8_t mod_index = MOD_INDEX(KC_LGUI); mod_index >= MOD_INDEX(KC_LCTL); --mod_index) {
+        clear_mod_toggles(mod_index);
+    }
     clear_keyboard_but_mods(); // To avoid stuck keys
+#endif
 }
 
 void default_layer_debug(void)
@@ -63,7 +68,12 @@ static void layer_state_set(uint32_t state)
     layer_debug(); dprint(" to ");
     layer_state = state;
     layer_debug(); dprintln();
+#ifndef PREVENT_STUCK_MODIFIERS
+    for (int8_t mod_index = MOD_INDEX(KC_LGUI); mod_index >= MOD_INDEX(KC_LCTL); --mod_index) {
+        clear_mod_toggles(mod_index);
+    }
     clear_keyboard_but_mods(); // To avoid stuck keys
+#endif
 }
 
 void layer_clear(void)

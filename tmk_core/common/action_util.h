@@ -33,26 +33,24 @@ void add_key(uint8_t key);
 void del_key(uint8_t key);
 void clear_keys(void);
 
-/* modifier */
+/* modifiers */
 uint8_t get_mods(void);
-void add_mods(uint8_t mods);
-void del_mods(uint8_t mods);
-void set_mods(uint8_t mods);
+void add_mods(const uint8_t changing_mods);
+void del_mods(const uint8_t changing_mods);
+void set_mods(const uint8_t changing_mods);
 void clear_mods(void);
 
-/* weak modifier */
-uint8_t get_weak_mods(void);
-void add_weak_mods(uint8_t mods);
-void del_weak_mods(uint8_t mods);
-void set_weak_mods(uint8_t mods);
-void clear_weak_mods(void);
+/* physical modifiers */
+uint8_t get_physical_mods(void);
+void add_physical_mods(const uint8_t changing_mods);
+void del_physical_mods(const uint8_t changing_mods);
+void clear_physical_mods(void);
 
-/* macro modifier */
-uint8_t get_macro_mods(void);
-void add_macro_mods(uint8_t mods);
-void del_macro_mods(uint8_t mods);
-void set_macro_mods(uint8_t mods);
-void clear_macro_mods(void);
+/* modifier toggles */
+uint8_t get_mod_toggles(const uint8_t mod_index);
+void increment_mod_toggles(const uint8_t mod_index);
+void decrement_mod_toggles(const uint8_t mod_index);
+void clear_mod_toggles(const uint8_t mod_index);
 
 /* oneshot modifier */
 void set_oneshot_mods(uint8_t mods);

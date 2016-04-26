@@ -40,22 +40,12 @@ void action_macro_play(const macro_t *macro_p)
             case KEY_DOWN:
                 MACRO_READ();
                 dprintf("KEY_DOWN(%02X)\n", macro);
-                if (IS_MOD(macro)) {
-                    add_macro_mods(MOD_BIT(macro));
-                    send_keyboard_report();
-                } else {
-                    register_code(macro);
-                }
+                register_code(macro);
                 break;
             case KEY_UP:
                 MACRO_READ();
                 dprintf("KEY_UP(%02X)\n", macro);
-                if (IS_MOD(macro)) {
-                    del_macro_mods(MOD_BIT(macro));
-                    send_keyboard_report();
-                } else {
-                    unregister_code(macro);
-                }
+                unregister_code(macro);
                 break;
             case WAIT:
                 MACRO_READ();
