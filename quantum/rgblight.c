@@ -189,13 +189,8 @@ void rgblight_mode(uint8_t mode) {
 	} else {
 		rgblight_config.mode = mode;
 	}
-<<<<<<< HEAD
   eeconfig_update_rgblight(rgblight_config.raw);
-  dprintf("rgblight mode: %u\n", rgblight_config.mode);
-=======
-  eeconfig_write_rgblight(rgblight_config.raw);
   xprintf("rgblight mode: %u\n", rgblight_config.mode);
->>>>>>> pr/286
 	if (rgblight_config.mode == 1) {
 		rgblight_timer_disable();
 	} else if (rgblight_config.mode >=2 && rgblight_config.mode <=23) {
