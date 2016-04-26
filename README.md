@@ -211,6 +211,23 @@ This will clear all keys besides the mods currently pressed.
 
 If the user attempts to activate layer 1 AND layer 2 at the same time (for example, by hitting their respective layer keys), layer 3 will be activated. Layers 1 and 2 will _also_ be activated, for the purposes of fallbacks (so a given key will fall back from 3 to 2, to 1 -- and only then to 0).
 
+#### Naming your macros
+
+If you have a bunch of macros you want to refer to from your keymap, while keeping the keymap easily readable, you can just name them like so:
+
+```
+#define AUD_OFF M(6)
+#define AUD_ON M(7)
+#define MUS_OFF M(8)
+#define MUS_ON M(9)
+#define VC_IN M(10)
+#define VC_DE M(11)
+#define PLOVER M(12)
+#define EXT_PLV M(13)
+```
+
+As was done on the [Planck default keymap](/keyboard/planck/keymaps/default/keymap.c#L33-L40)
+
 #### Timer functionality
 
 It's possible to start timers and read values for time-specific events - here's an example:
@@ -227,11 +244,91 @@ if (timer_elapsed(key_timer) < 100) {
 
 It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
 
+#### Example 1: Single-key copy/paste (hold to copy, tap to paste)
+
+With QMK, it's easy to make one key do two things, as long as one of those things is being a modifier. :) So if you want a key to act as Ctrl when held and send the letter R when tapped, that's easy: `CTL_T(KC_R)`. But what do you do when you want that key to send Ctrl-V (paste) when tapped, and Ctrl-C (copy) when held?
+
+Here's what you do:
+
+
+```
+static uint16_t key_timer;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+      switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // if the key is being pressed, we start the timer.
+            } 
+            else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+                if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
+                    return MACRO( D(LCTL), T(C), U(LCTL), END  );
+                }
+                else {
+                    return MACRO( D(LCTL), T(V), U(LCTL), END  );
+                }
+            }
+            break;
+        }
+      }
+    return MACRO_NONE;
+};
+```
+
+And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for copy/paste.
+
+#### Example 2: Space Cadet Shift (making it easy to send opening and closing parentheses)
+
+In the [Modern Space Cadet Keyboard](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses), one of cooler features is the Shift Parentheses. To quote Steve Losh:
+
+  > When held while pressing other keys, act like Shift.
+  > When pressed and released on their own, type an opening or closing parenthesis (left and right shift respectively).
+
+```
+static uint16_t key_timer;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+      switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // if the key is being pressed, we start the timer.
+                register_code(KC_LSFT); // we're now holding down Shift.
+            } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
+                    register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
+                    unregister_code(KC_9); // now let's let go of that key
+                }
+                unregister_code(KC_LSFT); // let's release the Shift key now.
+            }
+            break;
+        }
+        case 1: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
+                register_code(KC_RSFT); 
+            } else { 
+                if (timer_elapsed(key_timer) < 150) { 
+                    register_code(KC_0); 
+                    unregister_code(KC_0); 
+                }
+                unregister_code(KC_RSFT); 
+            }
+            break;
+        }
+      }
+    return MACRO_NONE;
+};
+```
+
+And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for left shift/opening parens, and `M(1)` for right shift/closing parens.
+
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-   #include <keymap_extras/keymap_colemak.h>
+   #include <keymap_colemak.h>
 
 If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
