@@ -3,7 +3,7 @@
 # Jack Humbert 2015
 
 if [ -z "$1" ]; then
-	echo "Usege: $0 <keyboard_name>"
+	echo "Usage: $0 <keyboard_name>"
 	exit 1
 fi
 
