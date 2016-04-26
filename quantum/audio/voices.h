@@ -16,6 +16,8 @@ typedef enum {
     octave_crunch,
     duty_osc,
     duty_octave_down,
+    delayed_vibrato,
+    // delayed_vibrato_octave,
     // duty_fifth_down,
     // duty_fourth_down,
     // duty_third_down,
