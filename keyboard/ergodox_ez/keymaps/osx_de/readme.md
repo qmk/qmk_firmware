@@ -11,6 +11,12 @@ Dies ist nur ein kleiner Tweak der bestehenden firmware für das ErgoDox-EZ-Keyb
 - der Zehnerblock wurde in eine eigene Layer umgezogen
 - die Meh und Hyper-Tasten wurden in die Daumenblöcke umgezogen
 
+# Erstellt Mit Dem ErgodoxLayoutGenerator
+
+Der ErgodoxLayoutGenerator ist ein kleines Werkzeug, welches die Erstellung und Pflege der eigenen Keymaps erleichtern soll. Es ist in java geschrieben und kann [hier](https://github.com/sboesebeck/ErgodoxLayoutGenerator/releases) heruntergeladen werden. Damit das Tool funktioniert sollte das offizielle Oracle JDK in aktueller Version installiert sein.
+Die Dokumentation für den ELG kann man [hier](https://boesebeck.name/2016/04/16/ergodoxlayoutgenerator-documentation/) nachlesen (momentan leider nur in Englisch verfügbar).
+
+
 
 ------------------------------   
 
@@ -26,3 +32,10 @@ This is  only a little tweak of the existing default layout for the ErgoDox keyb
 - the symbollayer now has only symbols
 - the number block was moved to a special layer
 - meh and hyper went down to the thumb block
+
+# Created Using the ErgodoxLayoutGenerator
+
+The ErgodoxLayoutGenerator (ELG) is a little tool, which makes the creation and maintenance of keycaps a lot easier. It was written in Java and can be downloaded  [here](https://github.com/sboesebeck/ErgodoxLayoutGenerator/releases). To use the tool, you need to have a current version of Oracles JDK installed.
+
+The documentation of the ELG can be viewed [here](https://boesebeck.name/2016/04/16/ergodoxlayoutgenerator-documentation/).
+
