@@ -4,7 +4,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty */
     KEYMAP(
-		ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, GRV,  \
+	ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, GRV,  \
         TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
         CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,NO,  ENT,  \
         LSFT,FN1, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, RSFT, \
@@ -52,18 +52,18 @@ void matrix_scan_user(void) {
 	
     if (layer & (1<<1)) {
         gh60_wasd_leds_on();
-		gh60_fn_led_on();
-	} else {
-		gh60_wasd_leds_off();
-		gh60_fn_led_off();
+        gh60_fn_led_on();
+    } else {
+        gh60_wasd_leds_off();
+        gh60_fn_led_off();
     }
 	
     if (layer & (1<<2)) {
         gh60_poker_leds_on();
-		gh60_esc_led_on();
-	} else {
+        gh60_esc_led_on();
+    } else {
         gh60_poker_leds_off();
-		gh60_esc_led_off();
+        gh60_esc_led_off();
     }
 	
 };
