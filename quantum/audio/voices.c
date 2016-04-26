@@ -1,5 +1,6 @@
 #include "voices.h"
 #include "stdlib.h"
+#include "vibrato_lut.h"
 
 // these are imported from audio.c
 extern uint16_t envelope_index;
@@ -99,6 +100,36 @@ float voice_envelope(float frequency) {
             if ((envelope_index % 8) == 0)
                 note_timbre = 0;
             break;
+        case delayed_vibrato:
+            polyphony_rate = 0;
+            note_timbre = TIMBRE_50;
+            #define VOICE_VIBRATO_DELAY 150
+            #define VOICE_VIBRATO_SPEED 50
+            switch (compensated_index) {
+                case 0 ... VOICE_VIBRATO_DELAY:
+                    break;
+                default:
+                    frequency = frequency * VIBRATO_LUT[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
+                    break;
+            }
+            break;
+        // case delayed_vibrato_octave:
+        //     polyphony_rate = 0;
+        //     if ((envelope_index % 2) == 1) {
+        //         note_timbre = 0.55;
+        //     } else {
+        //         note_timbre = 0.45;
+        //     }
+        //     #define VOICE_VIBRATO_DELAY 150
+        //     #define VOICE_VIBRATO_SPEED 50
+        //     switch (compensated_index) {
+        //         case 0 ... VOICE_VIBRATO_DELAY:
+        //             break;
+        //         default:
+        //             frequency = frequency * VIBRATO_LUT[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
+        //             break;
+        //     }
+        //     break;
         // case duty_fifth_down:
         //     note_timbre = 0.5;
         //     if ((envelope_index % 3) == 0)
