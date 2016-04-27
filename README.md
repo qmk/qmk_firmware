@@ -1,10 +1,12 @@
-# Quantum MK Firmware
+# Quantum Mechanical Keyboard Firmware
 
-This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co) and the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard.
+This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
 
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK.
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
+
+The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [skullydazed](/skullydazed).
 
 ## Important background info: TMK documentation
 
@@ -16,12 +18,20 @@ The documentation below explains QMK customizations and elaborates on some of th
 * If you're looking to customize a keyboard that currently runs QMK or TMK, find your keyboard's directory under `keyboard/` and run the make commands from there.
 * If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `./new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
 
+### Makefile Options
+
 You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
 
     BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
     MIDI_ENABLE = yes      # MIDI controls
-    # UNICODE_ENABLE = yes # Unicode support - this is commented out, just as an example. You have to use #, not //
+    UNICODE_ENABLE = no    # <-- This is how you disable an option, just set it to "no"
     BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+
+### Customizing Makefile options on a per-keymap basis
+
+If your keymap directory has a file called `makefile.mk` (note the lowercase filename, and the `.mk` extension), any Makefile options you set in that file will take precedence over other Makefile options (those set for Quantum as a whole or for your particular keyboard).
+
+So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `makefile.mk` and specify `CONSOLE_ENABLE = no`.
 
 ## Quick aliases to common actions
 
@@ -199,6 +209,27 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
+* `update_tri_layer(layer_1, layer_2, layer_3);`
+
+If the user attempts to activate layer 1 AND layer 2 at the same time (for example, by hitting their respective layer keys), layer 3 will be activated. Layers 1 and 2 will _also_ be activated, for the purposes of fallbacks (so a given key will fall back from 3 to 2, to 1 -- and only then to 0).
+
+#### Naming your macros
+
+If you have a bunch of macros you want to refer to from your keymap, while keeping the keymap easily readable, you can just name them like so:
+
+```
+#define AUD_OFF M(6)
+#define AUD_ON M(7)
+#define MUS_OFF M(8)
+#define MUS_ON M(9)
+#define VC_IN M(10)
+#define VC_DE M(11)
+#define PLOVER M(12)
+#define EXT_PLV M(13)
+```
+
+As was done on the [Planck default keymap](/keyboard/planck/keymaps/default/keymap.c#L33-L40)
+
 #### Timer functionality
 
 It's possible to start timers and read values for time-specific events - here's an example:
@@ -215,11 +246,91 @@ if (timer_elapsed(key_timer) < 100) {
 
 It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
 
+#### Example 1: Single-key copy/paste (hold to copy, tap to paste)
+
+With QMK, it's easy to make one key do two things, as long as one of those things is being a modifier. :) So if you want a key to act as Ctrl when held and send the letter R when tapped, that's easy: `CTL_T(KC_R)`. But what do you do when you want that key to send Ctrl-V (paste) when tapped, and Ctrl-C (copy) when held?
+
+Here's what you do:
+
+
+```
+static uint16_t key_timer;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+      switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // if the key is being pressed, we start the timer.
+            } 
+            else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+                if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
+                    return MACRO( D(LCTL), T(C), U(LCTL), END  );
+                }
+                else {
+                    return MACRO( D(LCTL), T(V), U(LCTL), END  );
+                }
+            }
+            break;
+        }
+      }
+    return MACRO_NONE;
+};
+```
+
+And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for copy/paste.
+
+#### Example 2: Space Cadet Shift (making it easy to send opening and closing parentheses)
+
+In the [Modern Space Cadet Keyboard](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses), one of cooler features is the Shift Parentheses. To quote Steve Losh:
+
+  > When held while pressing other keys, act like Shift.
+  > When pressed and released on their own, type an opening or closing parenthesis (left and right shift respectively).
+
+```
+static uint16_t key_timer;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+      switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // if the key is being pressed, we start the timer.
+                register_code(KC_LSFT); // we're now holding down Shift.
+            } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
+                    register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
+                    unregister_code(KC_9); // now let's let go of that key
+                }
+                unregister_code(KC_LSFT); // let's release the Shift key now.
+            }
+            break;
+        }
+        case 1: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
+                register_code(KC_RSFT); 
+            } else { 
+                if (timer_elapsed(key_timer) < 150) { 
+                    register_code(KC_0); 
+                    unregister_code(KC_0); 
+                }
+                unregister_code(KC_RSFT); 
+            }
+            break;
+        }
+      }
+    return MACRO_NONE;
+};
+```
+
+And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for left shift/opening parens, and `M(1)` for right shift/closing parens.
+
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-   #include <keymap_extras/keymap_colemak.h>
+   #include <keymap_colemak.h>
 
 If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
@@ -262,7 +373,7 @@ This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboar
 
 ## International Characters on Windows
 
-[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys amont others.
+[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
 
 The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
 
@@ -292,7 +403,7 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 
 Please note that the underglow is not compatible with audio output. So you cannot enable both of them at the same time.
 
-Please add the following options into your config.h, and set them up according your hardware configuration.
+Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the F4 by default:
 
     #define ws2812_PORTREG  PORTF
     #define ws2812_DDRREG   DDRF
@@ -301,6 +412,12 @@ Please add the following options into your config.h, and set them up according y
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
+
+You'll need to edit `PORTF`, `DDRF`, and `PF4` on the first three lines to the port/pin you have your LED(s) wired to, eg for B3 change things to:
+
+    #define ws2812_PORTREG  PORTB
+    #define ws2812_DDRREG   DDRB
+    #define ws2812_pin PB3
 
 The firmware supports 5 different light effects, and the color (hue, saturation, brightness) can be customized in most effects. To control the underglow, you need to modify your keymap file to assign those functions to some keys/key combinations. For details, please check this keymap. `keyboard/planck/keymaps/yang/keymap.c`
 

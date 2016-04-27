@@ -23,19 +23,19 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
-ifdef MIDI_ENABLE
+ifeq ($(strip $(MIDI_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/keymap_midi.c
 endif
 
-ifdef AUDIO_ENABLE
-	SRC += $(QUANTUM_DIR)/audio.c
+ifeq ($(strip $(AUDIO_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/audio/audio.c $(QUANTUM_DIR)/audio/voices.c
 endif
 
-ifdef UNICODE_ENABLE
+ifeq ($(strip $(UNICODE_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/keymap_unicode.c
 endif
 
-ifdef RGBLIGHT_ENABLE
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/light_ws2812.c
 	SRC += $(QUANTUM_DIR)/rgblight.c
 	OPT_DEFS += -DRGBLIGHT_ENABLE
@@ -46,6 +46,8 @@ endif
 
 # Search Path
 VPATH += $(TOP_DIR)/$(QUANTUM_DIR)
+VPATH += $(TOP_DIR)/$(QUANTUM_DIR)/keymap_extras
+VPATH += $(TOP_DIR)/$(QUANTUM_DIR)/audio
 
 include $(TMK_DIR)/protocol/lufa.mk
 
