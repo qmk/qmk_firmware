@@ -6,7 +6,7 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
 
-The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [skullydazed](/skullydazed).
+The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [Zach White](https://github.com/skullydazed).
 
 ## Important background info: TMK documentation
 
