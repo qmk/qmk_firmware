@@ -18,7 +18,7 @@ SRC =	keymap.c \
 	led.c \
 	protocol/serial_uart.c
 
-CONFIG_H = config_pjrc.h
+CONFIG_H = config.h
 
 
 # MCU name, you MUST set this to match the board you are using

@@ -39,9 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) \
 )
 
-/* legacy keymap support */
-#define USE_LEGACY_KEYMAP
-
 
 /* USART configuration
  *     asynchronous, 2400baud, 8-data bit, non parity, 1-stop bit, no flow control
