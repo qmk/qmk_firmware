@@ -27,11 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_util.h"
 #include "action.h"
 
-//#ifdef DEBUG_ACTION
+#ifdef DEBUG_ACTION
 #include "debug.h"
-//#else
-//#include "nodebug.h"
-//#endif
+#else
+#include "nodebug.h"
+#endif
 
 
 void action_exec(keyevent_t event)
