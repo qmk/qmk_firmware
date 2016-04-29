@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2016 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x5021
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         SONY NEWS keyboard converter
 #define DESCRIPTION     converts SONY NEWS protocol into USB
