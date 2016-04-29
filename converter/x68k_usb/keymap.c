@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 #include "util.h"
+#include "serial.h"
 #include "keymap.h"
 
 
@@ -72,10 +73,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 static const uint16_t fn_actions[] PROGMEM = {
+    [0] = ACTION_FUNCTION(0),   // toggle all LEDs
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+    static bool led = false;
+    switch (id) {
+        case 0:
+            if (record->event.pressed) {
+                if ((led = !led))
+                    serial_send(0x80);  // all on
+                else
+                    serial_send(0xff);  // all off
+            }
+            break;
+    }
 }
 
 
@@ -98,7 +111,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     /* ANSI */
     KEYMAP(
-    F16, F17,     F1,  F2,  F3,  F4,  F5,   F6,  F7,  F8,  F9,  F10,              PSCR,SLCK,PAUS,     CAPS,F11, F12, F13,
+    FN0, F17,     F1,  F2,  F3,  F4,  F5,   F6,  F7,  F8,  F9,  F10,              PSCR,SLCK,PAUS,     CAPS,F11, F12, F13,
     ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,BSPC,   HOME,INS, DEL,      NLCK,PSLS,PAST,PMNS,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     ENT,    PGDN,PGUP,END,      P7,  P8,  P9,  PPLS,
     LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,F18,                   UP,            P4,  P5,  P6,  PEQL,
