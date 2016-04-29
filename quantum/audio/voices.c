@@ -54,28 +54,28 @@ float voice_envelope(float frequency) {
             }
     	    break;
 
-        case octave_crunch:
-            polyphony_rate = 0;
-            switch (compensated_index) {
-                case 0 ... 9:
-                case 20 ... 24:
-                case 30 ... 32:
-                    frequency = frequency / 2;
-                    note_timbre = TIMBRE_12;
-                break;
+        // case octave_crunch:
+        //     polyphony_rate = 0;
+        //     switch (compensated_index) {
+        //         case 0 ... 9:
+        //         case 20 ... 24:
+        //         case 30 ... 32:
+        //             frequency = frequency / 2;
+        //             note_timbre = TIMBRE_12;
+        //         break;
 
-                case 10 ... 19:
-                case 25 ... 29:
-                case 33 ... 35:
-                    frequency = frequency * 2;
-                    note_timbre = TIMBRE_12;
-	                break;
+        //         case 10 ... 19:
+        //         case 25 ... 29:
+        //         case 33 ... 35:
+        //             frequency = frequency * 2;
+        //             note_timbre = TIMBRE_12;
+	       //          break;
 
-                default:
-                    note_timbre = TIMBRE_12;
-                	break;
-            }
-	        break;
+        //         default:
+        //             note_timbre = TIMBRE_12;
+        //         	break;
+        //     }
+	       //  break;
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze

@@ -365,7 +365,7 @@ void play_goodbye_tone()
 }
 
 uint8_t starting_note = 0x0C;
-int offset = 7;
+int offset = 0;
 
 void process_action_user(keyrecord_t *record) {
 
