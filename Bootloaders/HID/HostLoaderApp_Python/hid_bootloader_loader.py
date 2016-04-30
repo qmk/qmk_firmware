@@ -16,7 +16,7 @@
         python hid_bootloader_loader.py at90usb1287 Mouse.hex
 
     Requires the pywinusb (https://pypi.python.org/pypi/pywinusb/) and
-    IntelHex (http://bialix.com/intelhex/) libraries.
+    IntelHex (https://pypi.python.org/pypi/IntelHex/) libraries.
 """
 
 import sys
