@@ -13,6 +13,7 @@
 #define MSE 7 // mouse keys
 
 #define KP_00 0
+#define CA_Fx 1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base layer
@@ -28,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   |QWERTY|      |LSuper| LCtrl|  LAlt|             |      | L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      | L_Num|      |      |      |      |
+ *                                             |      |      | L_Num|      | CA_Fx|      |      |
  *                                             | Space|  Tab |------|      |------|RShift|Enter |
  *                                             |      |      | L_Nav|      | L_Fx |      |      |
  *                                             `--------------------'      `--------------------'
@@ -50,7 +51,7 @@ TG(QWER),	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 				KC_NUMLOCK,	BP_APOS,	BP_Q,		BP_G,		BP_H,		BP_F,		BP_CCED,
 								BP_ALGR,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
-KC_NO,
+M(CA_Fx),
 MO(FNX),	KC_RSHIFT,	KC_ENTER),
 /* Keymap 1: QWERTY system compatibility layer
  *
@@ -87,7 +88,7 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 				KC_NUMLOCK,	KC_QUOT,	KC_Q,		KC_G,		KC_H,		KC_F,		KC_C,
 								MO(AQWER),	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
-KC_NO,
+KC_TRNS,
 MO(FNX),	MO(SQWER),	KC_ENTER),
 /* Keymap 2: QWERTY shifted system compatibility layer
  *
@@ -161,7 +162,7 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 				KC_NUMLOCK,	KC_QUOT,	KC_Q,		KC_G,		KC_H,		KC_F,		KC_C,
 								KC_TRNS,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
-KC_NO,
+KC_TRNS,
 MO(FNX),	MO(SQWER),	KC_ENTER),
 /* Keymap 4: function layer
  *
@@ -198,7 +199,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F14,
 								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
 KC_NO,		KC_NO,
-KC_NO,
+KC_TRNS,
 KC_TRNS,	KC_TRNS,	KC_NO),
 /* Keymap 5: numeric layer, sends keypad codes
  *
@@ -324,6 +325,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return MACRO( T(KP_0), D(KP_0), END );
       } else {
         return MACRO( U(KP_0), END );
+      }
+      break;
+    case CA_Fx:
+      if (record->event.pressed) {
+        layer_on(FNX);
+        return MACRO( D(LALT), D(LCTL), END );
+      } else {
+        layer_off(FNX);
+        return MACRO( U(LCTL), U(LALT), END );
       }
       break;
   }
