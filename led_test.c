@@ -63,7 +63,7 @@ keyframe_animation_t led_test_animation = {
     },
 };
 
-static uint8_t fade_led_color(keyframe_animation_t* animation, uint8_t from, uint8_t to) {
+static uint8_t fade_led_color(keyframe_animation_t* animation, int from, int to) {
     int frame_length = animation->frame_lengths[animation->current_frame];
     int current_pos = frame_length - animation->time_left_in_frame;
     int delta = to - from;
@@ -107,8 +107,8 @@ bool keyframe_fade_out_all_leds(keyframe_animation_t* animation, visualizer_stat
 
 bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
-    int frame_length = animation->frame_lengths[animation->current_frame];
-    int current_pos = frame_length - animation->time_left_in_frame;
+    float frame_length = animation->frame_lengths[animation->current_frame];
+    float current_pos = frame_length - animation->time_left_in_frame;
     float t = current_pos / frame_length;
     for (int i=0; i< NUM_COLS; i++) {
         uint8_t color = compute_gradient_color(t, i, NUM_COLS);
@@ -119,8 +119,8 @@ bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visual
 
 bool keyframe_led_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
-    int frame_length = animation->frame_lengths[animation->current_frame];
-    int current_pos = frame_length - animation->time_left_in_frame;
+    float frame_length = animation->frame_lengths[animation->current_frame];
+    float current_pos = frame_length - animation->time_left_in_frame;
     float t = current_pos / frame_length;
     for (int i=0; i< NUM_ROWS; i++) {
         uint8_t color = compute_gradient_color(t, i, NUM_ROWS);
@@ -156,12 +156,12 @@ bool keyframe_mirror_led_orientation(keyframe_animation_t* animation, visualizer
     (void)state;
     (void)animation;
     gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_180);
-    return true;
+    return false;
 }
 
 bool keyframe_normal_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     (void)animation;
     gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_0);
-    return true;
+    return false;
 }
