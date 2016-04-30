@@ -319,15 +319,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 12:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
+              stop_all_notes();
               PLAY_NOTE_ARRAY(tone_plover, false, 0);
             #endif
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
             layer_off(_MUSIC);
-            #ifdef AUDIO_ENABLE
-              stop_all_notes();
-            #endif
             layer_on(_PLOVER);
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
