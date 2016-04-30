@@ -213,7 +213,7 @@ extern const uint16_t fn_actions[];
 #define GUI_T(kc) MT(0x8, kc)
 #define C_S_T(kc) MT(0x3, kc) // Control + Shift e.g. for gnome-terminal
 #define MEH_T(kc) MT(0x7, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
-#define LCAG_T(kc) MT(0xD, kc) // Left control alt and gui 
+#define LCAG_T(kc) MT(0xD, kc) // Left control alt and gui
 #define ALL_T(kc) MT(0xF, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
@@ -231,8 +231,8 @@ extern const uint16_t fn_actions[];
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-#define IS_LAYER_ON(layer)  ((layer_state) & (1UL<<(layer)))
-#define IS_LAYER_OFF(layer) ((!layer_state) & (1UL<<(layer)))
+#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
+#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
 
 
 #endif

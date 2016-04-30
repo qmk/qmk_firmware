@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "keymap_midi.h"
 #include "bootloader.h"
+#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -33,22 +34,14 @@ extern keymap_config_t keymap_config;
 #include <inttypes.h>
 #ifdef AUDIO_ENABLE
     #include "audio.h"
-    #ifndef TONE_GOODBYE
-    #define TONE_GOODBYE { \
-        {440.0*pow(2.0,(31)/12.0), 8}, \
-        {440.0*pow(2.0,(24)/12.0), 8}, \
-        {440.0*pow(2.0,(19)/12.0), 12}, \
-    } 
-    #endif
-    float tone_goodbye[][2] = TONE_GOODBYE;
-#endif
+#endif /* AUDIO_ENABLE */
 
 static action_t keycode_to_action(uint16_t keycode);
 
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key)
 {
-	// 16bit keycodes - important
+    // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
 
     switch (keycode) {
@@ -191,7 +184,8 @@ static action_t keycode_to_action(uint16_t keycode)
         case RESET: ; // RESET is 0x5000, which is why this is here
             clear_keyboard();
             #ifdef AUDIO_ENABLE
-                PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+                stop_all_notes();
+                play_goodbye_tone();
             #endif
             _delay_ms(250);
             #ifdef ATREUS_ASTAR
@@ -251,7 +245,7 @@ static action_t keycode_to_action(uint16_t keycode)
                 keymap_config.swap_lalt_lgui = 0;
                 keymap_config.swap_ralt_rgui = 0;
             }
-            eeconfig_write_keymap(keymap_config.raw);
+            eeconfig_update_keymap(keymap_config.raw);
             break;
         case 0x5100 ... 0x5FFF: ;
             // Layer movement shortcuts
@@ -304,7 +298,7 @@ static action_t keycode_to_action(uint16_t keycode)
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-	// Read entire word (16bits)
+    // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
 }
 
@@ -316,7 +310,7 @@ action_t keymap_fn_to_action(uint16_t keycode)
 
 action_t keymap_func_to_action(uint16_t keycode)
 {
-	// For FUNC without 8bit limit
+    // For FUNC without 8bit limit
     return (action_t){ .code = pgm_read_word(&fn_actions[(int)keycode]) };
 }
 

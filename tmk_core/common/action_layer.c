@@ -11,7 +11,7 @@
 #endif
 
 
-/* 
+/*
  * Default Layer State
  */
 uint32_t default_layer_state = 0;
@@ -52,7 +52,7 @@ void default_layer_xor(uint32_t state)
 
 
 #ifndef NO_ACTION_LAYER
-/* 
+/*
  * Keymap Layer State
  */
 uint32_t layer_state = 0;

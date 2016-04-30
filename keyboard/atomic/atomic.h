@@ -3,8 +3,11 @@
 
 #include "matrix.h"
 #include "keymap_common.h"
-#include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+    #include "backlight.h"
+#endif
 #include <stddef.h>
+#include <avr/io.h>
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
