@@ -1,5 +1,7 @@
 # The Zweihander Layout
 
+NB: the backtick (\`) is special in Markdown. If I write ⌘\` in this readme, I mean “command-backtick”, not “command-backslash-backtick”.
+
 This layout is tuned for people who…
 
 
@@ -12,10 +14,13 @@ This layout doesn’t make any concessions for Windows use. While it should work
 
 I tend to have my mouse in my left hand, but I like to use my other hand to make things go faster. I’ve added a bunch of buttons to the media layer to speed up browsing in Safari and Finder:
 
+- Close Window (⌘W)
 - Back (⌘[)
 - Forward (⌘])
 - Open and Close Parent Folder (⌥⌘↓)
 - Go Up and Close Just-Left Folder (⌥⌘↑)
+- Cycle through open windows in current application (⌘\` and ⌘⇧\`)
+- Cycle through tabs in current window (⌥⇥ and ⌥⇧⇥)
 - Space (page down in browsers; Quick Look in the Finder)
 - Shift-Space (page up in web browsers)
 
