@@ -11,8 +11,8 @@
 #define LAYER_QWERTY         0
 #define LAYER_COLEMAK        1
 #define LAYER_DVORAK         2
-#define LAYER_LOWER          3
-#define LAYER_RAISE          4
+#define LAYER_RAISE          3
+#define LAYER_LOWER          4
 #define LAYER_FUNCTION       5
 #define LAYER_MOUSE          6
 #define LAYER_MUSIC          7
@@ -21,8 +21,8 @@
 #define MACRO_QWERTY         0
 #define MACRO_COLEMAK        1
 #define MACRO_DVORAK         2
-#define MACRO_LOWER          3
-#define MACRO_RAISE          4
+#define MACRO_RAISE          3
+#define MACRO_LOWER          4
 #define MACRO_FUNCTION       5
 #define MACRO_MOUSE          6
 #define MACRO_TIMBRE_1       7
@@ -42,8 +42,8 @@
 #define M_QWRTY             M(MACRO_QWERTY)
 #define M_COLMK             M(MACRO_COLEMAK)
 #define M_DVORK             M(MACRO_DVORAK)
-#define M_LOWER             M(MACRO_LOWER)
 #define M_RAISE             M(MACRO_RAISE)
+#define M_LOWER             M(MACRO_LOWER)
 #define M_FUNCT             M(MACRO_FUNCTION)
 #define M_MOUSE             M(MACRO_MOUSE)
 #define TIMBR_1             M(MACRO_TIMBRE_1)
@@ -148,6 +148,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_RAISE, KC_SPC,  KC_SPC,  M_LOWER, KC_RALT, KC_RGUI, KC_MENU, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT  },
  },
 
+ [LAYER_RAISE]        = { /* RAISED */
+  { KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
+  { _______, _______, _______, _______, SC_ACLS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
+  { _______, SC_SELA, SC_SAVE, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
+  { _______, SC_UNDO, SC_CUT,  SC_COPY, SC_PSTE, _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
+  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, _______, _______  },
+ },
 
  [LAYER_LOWER]        = { /* LOWERED */
   { KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
@@ -155,14 +162,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
   { _______, SC_REDO, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
   { _______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______, _______, _______, _______  },
- },
-
- [LAYER_RAISE]        = { /* RAISED */
-  { KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
-  { _______, _______, _______, _______, SC_ACLS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
-  { _______, SC_SELA, SC_SAVE, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
-  { _______, SC_UNDO, SC_CUT,  SC_COPY, SC_PSTE, _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
-  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
 
  [LAYER_FUNCTION]     = { /* FUNCTION */
@@ -281,19 +280,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
 
-        case MACRO_LOWER:
-            if (record->event.pressed)
-            {
-                layer_on(LAYER_LOWER);
-                update_tri_layer(LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
-            }
-            else
-            {
-                layer_off(LAYER_LOWER);
-                update_tri_layer(LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
-            }
-            break;
-
         case MACRO_RAISE:
             if (record->event.pressed)
             {
@@ -303,6 +289,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             else
             {
                 layer_off(LAYER_RAISE);
+                update_tri_layer(LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
+            }
+            break;
+
+        case MACRO_LOWER:
+            if (record->event.pressed)
+            {
+                layer_on(LAYER_LOWER);
+                update_tri_layer(LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
+            }
+            else
+            {
+                layer_off(LAYER_LOWER);
                 update_tri_layer(LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
             }
             break;

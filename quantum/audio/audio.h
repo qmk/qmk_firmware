@@ -56,7 +56,7 @@ void increase_polyphony_rate(float change);
 void decrease_polyphony_rate(float change);
 
 void set_timbre(float timbre);
-void set_tempo(float tempo);
+void set_tempo(uint8_t tempo);
 
 void increase_tempo(uint8_t tempo_change);
 void decrease_tempo(uint8_t tempo_change);
@@ -85,5 +85,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 
 void play_goodbye_tone(void);
 void play_startup_tone(void);
+
+
 
 #endif

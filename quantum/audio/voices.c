@@ -1,6 +1,6 @@
 #include "voices.h"
+#include "audio.h"
 #include "stdlib.h"
-#include "vibrato_lut.h"
 
 // these are imported from audio.c
 extern uint16_t envelope_index;
@@ -109,7 +109,7 @@ float voice_envelope(float frequency) {
                 case 0 ... VOICE_VIBRATO_DELAY:
                     break;
                 default:
-                    frequency = frequency * VIBRATO_LUT[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
+                    frequency = frequency * vibrato_lut[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
                     break;
             }
             break;
@@ -161,3 +161,5 @@ float voice_envelope(float frequency) {
 
     return frequency;
 }
+
+
