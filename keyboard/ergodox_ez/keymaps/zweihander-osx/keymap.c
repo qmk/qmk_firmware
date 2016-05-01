@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_END , KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Media keys
- *                                                dim             brighten
+ *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |  F14 |           |  F15 |  ⌘W  | ⌘⇧`  |  ⌘`  | ⌥⇧⇥  |  ⌥⇥  |  Power |
+ * |        |  F14 |  F15 |      |      |      |      |           |  ⌘Q  |  ⌘W  | ⌘⇧`  |  ⌘`  | ⌥⇧⇥  |  ⌥⇥  |  Power |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      | PgUp |      |      |      |           |      |  ⌘]  | ⌥⌘↑  |   ↑  | ⌥⌘↓  |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F14,  /* F14 dims screen, F15 brightens */
+       KC_TRNS, KC_F14 , KC_F15 , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  /* F14 dims screen, F15 brightens */
        KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END , KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -124,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_F15 ,  LGUI(KC_W),    LGUI(LSFT(KC_GRV)), LGUI(KC_GRV),   LALT(LSFT(KC_TAB)),     LALT(KC_TAB),   KC_PWR,
-       KC_TRNS,  LGUI(KC_RBRC), LGUI(LALT(KC_UP)),  KC_UP  ,        LGUI(LALT(KC_DOWN)),    KC_TRNS,        KC_TRNS,
-                 LGUI(KC_LBRC), KC_LEFT,            KC_DOWN,        KC_RGHT,                KC_TRNS,        KC_MPLY,
-       KC_TRNS,  LSFT(KC_SPC),  KC_SPC ,            KC_MPRV,        KC_MNXT,                KC_TRNS,        KC_TRNS,
-                                KC_VOLU,            KC_VOLD,        KC_MUTE,                KC_TRNS,        KC_TRNS,
+       LGUI(KC_Q),  LGUI(KC_W),     LGUI(LSFT(KC_GRV)), LGUI(KC_GRV),   LALT(LSFT(KC_TAB)),     LALT(KC_TAB),   KC_PWR,
+       KC_TRNS,     LGUI(KC_RBRC),  LGUI(LALT(KC_UP)),  KC_UP  ,        LGUI(LALT(KC_DOWN)),    KC_TRNS,        KC_TRNS,
+                    LGUI(KC_LBRC),  KC_LEFT,            KC_DOWN,        KC_RGHT,                KC_TRNS,        KC_MPLY,
+       KC_TRNS,     LSFT(KC_SPC),   KC_SPC ,            KC_MPRV,        KC_MNXT,                KC_TRNS,        KC_TRNS,
+                                    KC_VOLU,            KC_VOLD,        KC_MUTE,                KC_TRNS,        KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
