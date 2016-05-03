@@ -10,6 +10,7 @@
   #include "rgblight.h"
 #endif
 #include <stddef.h>
+#include <avr/io.h>
 #ifdef MIDI_ENABLE
 	#include <keymap_midi.h>
 #endif

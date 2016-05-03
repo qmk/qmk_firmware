@@ -4,6 +4,15 @@ This is my personal layout which I use to test out ideas which may or may not ma
 
 Changelog:
 
+## Apr 29, 2016:
+
+* Tweaks the Hyper and Meh key to send brackets when tapped
+* Turns bottom-right key into a minus/underscore (easy to reach with the right pinky)
+
+## Apr 25, 2016:
+
+* Made it so that the right and left Shift keys send opening and closing parens ( ) when tapped
+
 ## Feb 11, 2016:
 
 * Updated ASCII legend for thumb clusters

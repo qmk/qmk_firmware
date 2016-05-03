@@ -16,8 +16,8 @@ build/
 .vagrant/
 .DS_STORE
 
-# Eclipse Settings
+# Eclipse/PyCharm/Other IDE Settings
 .cproject
 .project
 .settings/
-
+.idea

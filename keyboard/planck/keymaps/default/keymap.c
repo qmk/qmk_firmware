@@ -6,6 +6,9 @@
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
+#include "eeconfig.h"
+
+extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -16,8 +19,9 @@
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 5
-#define _MUSIC 6
+#define _MUSIC 5
+#define _PLOVER 6
+#define _ADJUST 16
 
 // Macro name shortcuts
 #define QWERTY M(_QWERTY)
@@ -26,12 +30,14 @@
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define M_BL 5
-#ifdef AUDIO_ENABLE
-  #define AUD_OFF M(6)
-  #define AUD_ON M(7)
-#endif
+#define AUD_OFF M(6)
+#define AUD_ON M(7)
 #define MUS_OFF M(8)
 #define MUS_ON M(9)
+#define VC_IN M(10)
+#define VC_DE M(11)
+#define PLOVER M(12)
+#define EXT_PLV M(13)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -129,33 +135,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
+/* Music (reserved for process_action_user)
+ *
+ */
+[_MUSIC] = {
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
+},
+
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[_PLOVER] = {
+  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
+  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
+  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+},
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______},
-  {_______, _______, _______, MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-/* Music (reserved for process_action_user)
- *
- */
-[_MUSIC] = {
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
+
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -171,48 +198,19 @@ float tone_startup[][2] = {
   {440.0*pow(2.0,(28)/12.0), 20}
 };
 
-float tone_qwerty[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 16}
-};
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float tone_plover[][2]     = SONG(PLOVER_SOUND);
+float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
-float tone_colemak[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 12},
-  {0, 4},
-  {440.0*pow(2.0,(35)/12.0), 12}
-};
-
-float tone_dvorak[][2] = {
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(33)/12.0), 8},
-  {0, 4},
-  {440.0*pow(2.0,(31)/12.0), 8}
-};
-
-float tone_music[][2] = {
-  {440.0*pow(2.0,(12)/12.0), 8},
-  {440.0*pow(2.0,(14)/12.0), 8},
-  {440.0*pow(2.0,(16)/12.0), 8},
-  {440.0*pow(2.0,(17)/12.0), 8},
-  {440.0*pow(2.0,(19)/12.0), 8},
-  {440.0*pow(2.0,(21)/12.0), 8},
-  {440.0*pow(2.0,(23)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8}
-};
+float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
 void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_write_default_layer(default_layer);
+  eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
@@ -297,17 +295,75 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 9:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_music, false, 0);
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
               layer_on(_MUSIC);
             #endif
           }
         break;
+        case 10:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_iterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+        case 11:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_deiterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+        case 12:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              stop_all_notes();
+              PLAY_NOTE_ARRAY(tone_plover, false, 0);
+            #endif
+            layer_off(_RAISE);
+            layer_off(_LOWER);
+            layer_off(_ADJUST);
+            layer_off(_MUSIC);
+            layer_on(_PLOVER);
+            if (!eeconfig_is_enabled()) {
+                eeconfig_init();
+            }
+            keymap_config.raw = eeconfig_read_keymap();
+            keymap_config.nkro = 1;
+            eeconfig_update_keymap(keymap_config.raw);
+          }
+        break;
+        case 13:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+            #endif
+            layer_off(_PLOVER);
+          }
+        break;
+
       }
     return MACRO_NONE;
 };
 
+void matrix_init_user(void) {
+  #ifdef AUDIO_ENABLE
+    _delay_ms(20); // stops the tick
+    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+  #endif
+}
+
+#ifdef AUDIO_ENABLE
+void play_goodbye_tone()
+{
+  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  _delay_ms(150);
+}
+
 uint8_t starting_note = 0x0C;
-int offset = 7;
+int offset = 0;
 
 void process_action_user(keyrecord_t *record) {
 
@@ -320,10 +376,4 @@ void process_action_user(keyrecord_t *record) {
   }
 
 }
-
-void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-    init_notes();
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-  #endif
-}
+#endif
