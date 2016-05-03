@@ -3,8 +3,11 @@
 
 #include "matrix.h"
 #include "keymap_common.h"
-#include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+    #include "backlight.h"
+#endif
 #include <stddef.h>
+#include <avr/io.h>
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -26,5 +29,8 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
+void process_action_user(keyrecord_t *record);
+void led_set_user(uint8_t usb_led);
+void backlight_init_ports(void);
 
 #endif

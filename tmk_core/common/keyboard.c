@@ -27,7 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "util.h"
 #include "sendchar.h"
-#include "bootmagic.h"
+#ifdef BOOTMAGIC_ENABLE
+    #include "bootmagic.h"
+#else
+    #include "magic.h"
+#endif
 #include "eeconfig.h"
 #include "backlight.h"
 #ifdef MOUSEKEY_ENABLE
@@ -70,6 +74,7 @@ void keyboard_setup(void)
 
 void keyboard_init(void)
 {
+
     timer_init();
     matrix_init();
 #ifdef PS2_MOUSE_ENABLE
@@ -85,11 +90,18 @@ void keyboard_init(void)
 
 #ifdef BOOTMAGIC_ENABLE
     bootmagic();
+#else
+    magic();
 #endif
 
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
+
+#if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
+	keyboard_nkro = true;
+#endif
+
 }
 
 /*

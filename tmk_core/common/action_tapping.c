@@ -139,7 +139,7 @@ bool process_tapping(keyrecord_t *keyp)
                     if (event.pressed) {
                         tapping_key.tap.interrupted = true;
                     }
-                    // enqueue 
+                    // enqueue
                     return false;
                 }
             }
@@ -324,6 +324,7 @@ bool waiting_buffer_typed(keyevent_t event)
     return false;
 }
 
+__attribute__((unused))
 bool waiting_buffer_has_anykey_pressed(void)
 {
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {

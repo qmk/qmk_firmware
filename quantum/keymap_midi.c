@@ -99,11 +99,11 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
     if (record->event.pressed) {
     	// midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
-        midi_send_noteon(&midi_device, 0, (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row), 127);
+        // midi_send_noteon(&midi_device, 0, (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row), 127);
         play_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
     } else {
         // midi_send_noteoff(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
-        midi_send_noteoff(&midi_device, 0, (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row), 127);
+        // midi_send_noteoff(&midi_device, 0, (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row), 127);
         stop_note(((double)261.626)*pow(2.0, -1.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
     }
 }
