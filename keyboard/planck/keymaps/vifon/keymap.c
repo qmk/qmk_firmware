@@ -28,8 +28,6 @@ enum userlayer {
 enum usermacro {
     _MLW,
     _MRS,
-    _MDR,
-    _MDL,
 };
 
 #define _______ KC_TRNS
@@ -57,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
     {KC_ESC,  LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
     {_______, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_ENT },
-    {_______, BL_TOGG,    _______,    _______,    _______,    KC_BTN1,    KC_BTN1, M(_MDR), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {_______, BL_TOGG,    _______,    _______,    M(_MLW),    KC_BTN1,    KC_BTN1, M(_MRS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_RS]= { /* RAISE */
     {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
     {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
     {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), DF(_PP), RESET,   KC_ENT },
-    {_______, BL_STEP, _______, _______, M(_MDL), KC_BTN2, KC_BTN2, _______, KC_MPLY, KC_VOLD, KC_VOLU, _______}
+    {_______, BL_STEP, _______, _______, M(_MLW), KC_BTN2, KC_BTN2, M(_MRS), KC_MPLY, KC_VOLD, KC_VOLU, _______}
 },
 [_DL]= { /* DUAL */
     {_______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,       _______,        _______, KC_INS,  _______, KC_PSCR, _______},
@@ -91,29 +89,6 @@ const uint16_t PROGMEM fn_actions[] = {
 
 static uint16_t key_timer;
 
-void dual_layer_first_layer(
-    keyrecord_t *record, enum userlayer single, enum userlayer dual)
-{
-    if (record->event.pressed) {
-        layer_on(single);
-    } else {
-        layer_off(single);
-        layer_off(dual);
-    }
-}
-
-void dual_layer_second_layer(
-    keyrecord_t *record, enum userlayer single, enum userlayer dual)
-{
-    if (record->event.pressed) {
-        layer_on(dual);
-        layer_on(single);
-    } else {
-        layer_off(dual);
-        layer_off(single);
-    }
-}
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     if (macro_record_macro_handler(record, id)) {
@@ -123,16 +98,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     // MACRODOWN only works in this function
     switch (id) {
     case _MLW:
-        dual_layer_first_layer(record, _LW, _DL);
+        if (record->event.pressed) {
+            layer_on(_LW);
+        } else {
+            layer_off(_LW);
+        }
+        update_tri_layer(_LW, _RS, _DL);
         break;
     case _MRS:
-        dual_layer_first_layer(record, _RS, _DL);
-        break;
-    case _MDL:
-        dual_layer_second_layer(record, _LW, _DL);
-        break;
-    case _MDR:
-        dual_layer_second_layer(record, _RS, _DL);
+        if (record->event.pressed) {
+            layer_on(_RS);
+        } else {
+            layer_off(_RS);
+        }
+        update_tri_layer(_LW, _RS, _DL);
         break;
     }
     return MACRO_NONE;
