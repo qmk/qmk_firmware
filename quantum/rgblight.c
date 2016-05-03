@@ -107,17 +107,17 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, struct cRGB *led1) {
 uint32_t eeconfig_read_rgblight(void) {
   return eeprom_read_dword(EECONFIG_RGBLIGHT);
 }
-void eeconfig_write_rgblight(uint32_t val) {
-  eeprom_write_dword(EECONFIG_RGBLIGHT, val);
+void eeconfig_update_rgblight(uint32_t val) {
+  eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 }
-void eeconfig_write_rgblight_default(void) {
-	dprintf("eeconfig_write_rgblight_default\n");
+void eeconfig_update_rgblight_default(void) {
+	dprintf("eeconfig_update_rgblight_default\n");
 	rgblight_config.enable = 1;
 	rgblight_config.mode = 1;
 	rgblight_config.hue = 200;
 	rgblight_config.sat = 204;
 	rgblight_config.val = 204;
-	eeconfig_write_rgblight(rgblight_config.raw);
+	eeconfig_update_rgblight(rgblight_config.raw);
 }
 void eeconfig_debug_rgblight(void) {
 	dprintf("rgblight_config eprom\n");
@@ -136,12 +136,12 @@ void rgblight_init(void) {
   if (!eeconfig_is_enabled()) {
 		dprintf("rgblight_init eeconfig is not enabled.\n");
     eeconfig_init();
-		eeconfig_write_rgblight_default();
+		eeconfig_update_rgblight_default();
   }
   rgblight_config.raw = eeconfig_read_rgblight();
 	if (!rgblight_config.mode) {
 		dprintf("rgblight_init rgblight_config.mode = 0. Write default values to EEPROM.\n");
-		eeconfig_write_rgblight_default();
+		eeconfig_update_rgblight_default();
 		rgblight_config.raw = eeconfig_read_rgblight();
 	}
 	eeconfig_debug_rgblight(); // display current eeprom values
@@ -189,8 +189,8 @@ void rgblight_mode(uint8_t mode) {
 	} else {
 		rgblight_config.mode = mode;
 	}
-  eeconfig_write_rgblight(rgblight_config.raw);
-  dprintf("rgblight mode: %u\n", rgblight_config.mode);
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight mode: %u\n", rgblight_config.mode);
 	if (rgblight_config.mode == 1) {
 		rgblight_timer_disable();
 	} else if (rgblight_config.mode >=2 && rgblight_config.mode <=23) {
@@ -206,8 +206,8 @@ void rgblight_mode(uint8_t mode) {
 
 void rgblight_toggle(void) {
   rgblight_config.enable ^= 1;
-  eeconfig_write_rgblight(rgblight_config.raw);
-  dprintf("rgblight toggle: rgblight_config.enable = %u\n", rgblight_config.enable);
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight toggle: rgblight_config.enable = %u\n", rgblight_config.enable);
 	if (rgblight_config.enable) {
 		rgblight_mode(rgblight_config.mode);
 	} else {
@@ -299,8 +299,8 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val){
 		rgblight_config.hue = hue;
 		rgblight_config.sat = sat;
 		rgblight_config.val = val;
-		eeconfig_write_rgblight(rgblight_config.raw);
-		dprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+		eeconfig_update_rgblight(rgblight_config.raw);
+		xprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
   }
 }
 

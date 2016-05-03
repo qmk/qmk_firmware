@@ -184,6 +184,7 @@ static action_t keycode_to_action(uint16_t keycode)
         case RESET: ; // RESET is 0x5000, which is why this is here
             clear_keyboard();
             #ifdef AUDIO_ENABLE
+                stop_all_notes();
                 play_goodbye_tone();
             #endif
             _delay_ms(250);
@@ -244,7 +245,7 @@ static action_t keycode_to_action(uint16_t keycode)
                 keymap_config.swap_lalt_lgui = 0;
                 keymap_config.swap_ralt_rgui = 0;
             }
-            eeconfig_write_keymap(keymap_config.raw);
+            eeconfig_update_keymap(keymap_config.raw);
             break;
         case 0x5100 ... 0x5FFF: ;
             // Layer movement shortcuts
