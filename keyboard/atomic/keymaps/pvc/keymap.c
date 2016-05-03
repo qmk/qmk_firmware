@@ -149,18 +149,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
 
  [LAYER_RAISE]        = { /* RAISED */
-  { KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
-  { _______, _______, _______, _______, SC_ACLS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
-  { _______, SC_SELA, SC_SAVE, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
-  { _______, SC_UNDO, SC_CUT,  SC_COPY, SC_PSTE, _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
+  { KC_TILD, KC_PSCR, KC_PAUS, KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
+  { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
+  { _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
+  { _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
   { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
 
  [LAYER_LOWER]        = { /* LOWERED */
   { KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
-  { _______, _______, _______, _______, SC_CCLS, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
-  { _______, SC_REDO, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
+  { _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
+  { _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
+  { _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
   { _______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
 
@@ -467,36 +467,40 @@ void led_set_user(uint8_t usb_led)
 
     _delay_ms(10); // gets rid of tick
 
-    if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
-    {
-            // If CAPS LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_caps_on,  false, LEGATO);
-    }
-    else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
-    {
-            // If CAPS LK LED is turning off...
-            PLAY_NOTE_ARRAY(tone_caps_off, false, LEGATO);
-    }
-    else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
-    {
-            // If NUM LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_numlk_on,  false, LEGATO);
-    }
-    else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
-    {
-            // If NUM LED is turning off...
-            PLAY_NOTE_ARRAY(tone_numlk_off, false, LEGATO);
-    }
-    else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
-    {
-            // If SCROLL LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_scroll_on,  false, LEGATO);
-    }
-    else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
-    {
-            // If SCROLL LED is turning off...
-            PLAY_NOTE_ARRAY(tone_scroll_off, false, LEGATO);
-    }
+	if (!is_playing_notes())
+	{
+	    if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+	    {
+	            // If CAPS LK LED is turning on...
+	            PLAY_NOTE_ARRAY(tone_caps_on,  false, LEGATO);
+	    }
+	    else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+	    {
+	            // If CAPS LK LED is turning off...
+	            PLAY_NOTE_ARRAY(tone_caps_off, false, LEGATO);
+	    }
+	    else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
+	    {
+	            // If NUM LK LED is turning on...
+	            PLAY_NOTE_ARRAY(tone_numlk_on,  false, LEGATO);
+	    }
+	    else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
+	    {
+	            // If NUM LED is turning off...
+	            PLAY_NOTE_ARRAY(tone_numlk_off, false, LEGATO);
+	    }
+	    else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+	    {
+	            // If SCROLL LK LED is turning on...
+	            PLAY_NOTE_ARRAY(tone_scroll_on,  false, LEGATO);
+	    }
+	    else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+	    {
+	            // If SCROLL LED is turning off...
+	            PLAY_NOTE_ARRAY(tone_scroll_off, false, LEGATO);
+	    }
+	}
+
     old_usb_led = usb_led;
 }
 

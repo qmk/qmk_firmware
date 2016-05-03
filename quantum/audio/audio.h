@@ -83,6 +83,8 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
 #define PLAY_NOTE_ARRAY(note_array, note_repeat, note_rest_style) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat), (note_rest_style));
 
+
+bool is_playing_notes(void);
 void play_goodbye_tone(void);
 void play_startup_tone(void);
 

@@ -370,6 +370,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 
 }
 
+bool is_playing_notes(void) {
+	return playing_notes;
+}
+
 void audio_toggle(void) {
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
