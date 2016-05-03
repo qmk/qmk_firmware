@@ -184,57 +184,39 @@ ISR(TIMER3_COMPA_vect)
 {
 	float freq;
 
-	if (playing_note)
-	{
-		if (voices > 0)
-		{
-			if (polyphony_rate > 0)
-			{
-				if (voices > 1)
-				{
+	if (playing_note) {
+		if (voices > 0) {
+			if (polyphony_rate > 0) {
+				if (voices > 1) {
 					voice_place %= voices;
-					if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER))
-					{
+					if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
 						voice_place = (voice_place + 1) % voices;
 						place = 0.0;
 					}
 				}
 
 				#ifdef VIBRATO_ENABLE
-					if (vibrato_strength > 0)
-					{
+					if (vibrato_strength > 0) {
 						freq = vibrato(frequencies[voice_place]);
-					}
-					else
-					{
+					} else {
 						freq = frequencies[voice_place];
 					}
 				#else
 					freq = frequencies[voice_place];
 				#endif
-			}
-			else
-			{
-				if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2))
-				{
+			} else {
+				if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
 					frequency = frequency * pow(2, 440/frequency/12/2);
-				}
-				else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2))
-				{
+				} else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
 					frequency = frequency * pow(2, -440/frequency/12/2);
-				}
-				else
-				{
+				} else {
 					frequency = frequencies[voices - 1];
 				}
 
 				#ifdef VIBRATO_ENABLE
-					if (vibrato_strength > 0)
-					{
+					if (vibrato_strength > 0) {
 						freq = vibrato(frequency);
-					}
-					else
-					{
+					} else {
 						freq = frequency;
 					}
 				#else
@@ -242,15 +224,13 @@ ISR(TIMER3_COMPA_vect)
 				#endif
 			}
 
-			if (envelope_index < 65535)
-			{
+			if (envelope_index < 65535) {
 				envelope_index++;
 			}
 
 			freq = voice_envelope(freq);
 
-			if (freq < 30.517578125)
-			{
+			if (freq < 30.517578125) {
 				freq = 30.52;
 			}
 
@@ -259,75 +239,56 @@ ISR(TIMER3_COMPA_vect)
 		}
 	}
 
-	if (playing_notes)
-	{
-		if (note_frequency > 0)
-		{
+	if (playing_notes) {
+		if (note_frequency > 0) {
 			#ifdef VIBRATO_ENABLE
-				if (vibrato_strength > 0)
-				{
+				if (vibrato_strength > 0) {
 					freq = vibrato(note_frequency);
-				}
-				else
-				{
+				} else {
 					freq = note_frequency;
 				}
 			#else
 					freq = note_frequency;
 			#endif
 
-			if (envelope_index < 65535)
-			{
+			if (envelope_index < 65535) {
 				envelope_index++;
 			}
 			freq = voice_envelope(freq);
 
 			TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
 			TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-		}
-		else
-		{
+		} else {
 			TIMER_3_PERIOD = 0;
 			TIMER_3_DUTY_CYCLE = 0;
 		}
 
 		note_position++;
 		bool end_of_note = false;
-		if (TIMER_3_PERIOD > 0)
-		{
+		if (TIMER_3_PERIOD > 0) {
 			end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF));
-		}
-		else
-		{
+		} else {
 			end_of_note = (note_position >= (note_length * 0x7FF));
 		}
 
-		if (end_of_note)
-		{
+		if (end_of_note) {
 			current_note++;
-			if (current_note >= notes_count)
-			{
-				if (notes_repeat)
-				{
+			if (current_note >= notes_count) {
+				if (notes_repeat) {
 					current_note = 0;
-				}
-				else
-				{
+				} else {
 					DISABLE_AUDIO_COUNTER_3_ISR;
 					DISABLE_AUDIO_COUNTER_3_OUTPUT;
 					playing_notes = false;
 					return;
 				}
 			}
-			if (!note_resting && (notes_rest > 0))
-			{
+			if (!note_resting && (notes_rest > 0)) {
 				note_resting = true;
 				note_frequency = 0;
 				note_length = notes_rest;
 				current_note--;
-			}
-			else
-			{
+			} else {
 				note_resting = false;
 				envelope_index = 0;
 				note_frequency = (*notes_pointer)[current_note][0];
@@ -338,8 +299,7 @@ ISR(TIMER3_COMPA_vect)
 		}
 	}
 
-	if (!audio_config.enable)
-	{
+	if (!audio_config.enable) {
 		playing_notes = false;
 		playing_note = false;
 	}
