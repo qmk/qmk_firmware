@@ -319,13 +319,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 12:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
+              stop_all_notes();
               PLAY_NOTE_ARRAY(tone_plover, false, 0);
             #endif
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
             layer_off(_MUSIC);
-            stop_all_notes();
             layer_on(_PLOVER);
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
@@ -363,7 +363,7 @@ void play_goodbye_tone()
 }
 
 uint8_t starting_note = 0x0C;
-int offset = 7;
+int offset = 0;
 
 void process_action_user(keyrecord_t *record) {
 
