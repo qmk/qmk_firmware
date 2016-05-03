@@ -10,6 +10,7 @@
   #include "rgblight.h"
 #endif
 #include <stddef.h>
+#include <avr/io.h>
 #ifdef MIDI_ENABLE
 	#include <keymap_midi.h>
 #endif
@@ -42,5 +43,6 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
+void process_action_user(keyrecord_t *record);
 
 #endif

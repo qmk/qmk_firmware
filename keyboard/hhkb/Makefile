@@ -129,17 +129,17 @@ NKRO_ENABLE = yes		# USB Nkey Rollover
 # Keymap file
 #
 ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
+    SRC := keymaps/$(KEYMAP).c $(SRC)
 else
     ifdef HHKB_JP
-    	SRC := keymap_jp.c $(SRC)
+    	SRC := keymaps/jp.c $(SRC)
     else 
-    	SRC := keymap_hhkb.c $(SRC)
+    	SRC := keymaps/hhkb.c $(SRC)
     endif
 endif
 
 
-ifneq (, $(or $(findstring keymap_jp.c, $(SRC)), $(findstring yes, $(HHKB_JP))))
+ifneq (, $(or $(findstring jp.c, $(SRC)), $(findstring yes, $(HHKB_JP))))
     OPT_DEFS += -DHHKB_JP
 endif
 

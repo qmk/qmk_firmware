@@ -53,6 +53,25 @@ void action_exec(keyevent_t event)
 #endif
 }
 
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+bool disable_action_cache = false;
+
+void process_action_nocache(keyrecord_t *record)
+{
+    disable_action_cache = true;
+    process_action(record);
+    disable_action_cache = false;
+}
+#else
+void process_action_nocache(keyrecord_t *record)
+{
+    process_action(record);
+}
+#endif
+
+__attribute__ ((weak))
+void process_action_kb(keyrecord_t *record) {}
+
 void process_action(keyrecord_t *record)
 {
     keyevent_t event = record->event;
@@ -62,7 +81,9 @@ void process_action(keyrecord_t *record)
 
     if (IS_NOEVENT(event)) { return; }
 
-    action_t action = layer_switch_get_action(event.key);
+    process_action_kb(record);
+
+    action_t action = store_or_get_action(event.pressed, event.key);
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
@@ -83,14 +104,24 @@ void process_action(keyrecord_t *record)
                                                                 action.key.mods<<4;
                 if (event.pressed) {
                     if (mods) {
-                        add_weak_mods(mods);
+                        if (IS_MOD(action.key.code)) {
+                            // e.g. LSFT(KC_LGUI): we don't want the LSFT to be weak as it would make it useless.
+                            // this also makes LSFT(KC_LGUI) behave exactly the same as LGUI(KC_LSFT)
+                            add_mods(mods);
+                        } else {
+                            add_weak_mods(mods);
+                        }
                         send_keyboard_report();
                     }
                     register_code(action.key.code);
                 } else {
                     unregister_code(action.key.code);
                     if (mods) {
-                        del_weak_mods(mods);
+                        if (IS_MOD(action.key.code)) {
+                            del_mods(mods);
+                        } else {
+                            del_weak_mods(mods);
+                        }
                         send_keyboard_report();
                     }
                 }
