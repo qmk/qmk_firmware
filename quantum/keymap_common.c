@@ -24,9 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "debug.h"
 #include "backlight.h"
-#include "keymap_midi.h"
 #include "bootloader.h"
 #include "eeconfig.h"
+
+#ifdef MIDI_ENABLE
+	#include "keymap_midi.h"
+#endif
+
 
 extern keymap_config_t keymap_config;
 
