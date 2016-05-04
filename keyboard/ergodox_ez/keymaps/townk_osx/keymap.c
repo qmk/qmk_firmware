@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------+------+------+------+------+------| F18  |           | F19  |------+------+------+------+------+-----------|
  * |  LShift   |   Z  |   X  |   C  |   V  |   B  | Hyper|           | Hyper|   N  |   M  |   ,  |   .  |   /  |   RShift  |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     | FN    |  No  |LCtrl | LAlt | LGui |                                       | RGui | RAlt | RCtrl|  No  | KPAD  |
+ *     | FN    | KPAD |LCtrl | LAlt | LGui |                                       | RGui | RAlt | RCtrl| KPAD |    FN |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         | Left | Right|           | Down |  Up  |
@@ -84,23 +84,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         (this is used to issue the Esc key to the Tmux application)
  */
 [BASE]=KEYMAP(//left half
-              KC_GRV,            KC_1,    KC_2,           KC_3,           KC_4,     KC_5,     KC_ESC,
-              KC_TAB,            KC_Q,    KC_W,           KC_E,           KC_R,     KC_T,     MEH_T(KC_F16),
-              CTL_T(KC_BSLS),    KC_A,    KC_S,           KC_D,           KC_F,     KC_G,
-              KC_FN2,            KC_Z,    KC_X,           KC_C,           KC_V,     KC_B,     ALL_T(KC_F18),
-              KC_FN1,            KC_NO,   KC_LCTRL,       KC_LALT,        KC_LGUI,
-                                                                                    KC_LEFT,  KC_RIGHT,
-                                                                                              KC_HOME,
-                                                                          KC_BSPC,  KC_DELT,  KC_END,
-              //right half
-              M(MACRO_TMUX_ESC), KC_6,    KC_7,           KC_8,           KC_9,     KC_0,     KC_EQL,
-              MEH_T(KC_F17),     KC_Y,    KC_U,           KC_I,           KC_O,     KC_P,     KC_MINS,
-                                 KC_H,    KC_J,           KC_K,           KC_L,     KC_SCLN,  CTL_T(KC_QUOT),
-              ALL_T(KC_F19),     KC_N,    KC_M,           KC_COMM,        KC_DOT,   KC_SLSH,  KC_FN2,
-                                 KC_RGUI, ALT_T(KC_LBRC), CTL_T(KC_RBRC), KC_NO,    TG(KEYPAD),
-              KC_DOWN,           KC_UP,
-              KC_PGUP,
-              KC_PGDN,           KC_ENT,  KC_SPC),
+              KC_GRV,            KC_1,       KC_2,           KC_3,           KC_4,       KC_5,     KC_ESC,
+              KC_TAB,            KC_Q,       KC_W,           KC_E,           KC_R,       KC_T,     MEH_T(KC_F16),
+              CTL_T(KC_BSLS),    KC_A,       KC_S,           KC_D,           KC_F,       KC_G,
+              KC_FN2,            KC_Z,       KC_X,           KC_C,           KC_V,       KC_B,     ALL_T(KC_F18),
+              KC_FN1,            TG(KEYPAD), KC_LCTRL,       KC_LALT,        KC_LGUI,    
+                                                                                         KC_LEFT,  KC_RIGHT,
+                                                                                                   KC_HOME,
+                                                                             KC_BSPC,    KC_DELT,  KC_END,
+              //right half                                                               
+              M(MACRO_TMUX_ESC), KC_6,       KC_7,           KC_8,           KC_9,       KC_0,     KC_EQL,
+              MEH_T(KC_F17),     KC_Y,       KC_U,           KC_I,           KC_O,       KC_P,     KC_MINS,
+                                 KC_H,       KC_J,           KC_K,           KC_L,       KC_SCLN,  CTL_T(KC_QUOT),
+              ALL_T(KC_F19),     KC_N,       KC_M,           KC_COMM,        KC_DOT,     KC_SLSH,  KC_FN2,
+                                 KC_RGUI,    ALT_T(KC_LBRC), CTL_T(KC_RBRC), TG(KEYPAD), KC_FN1,
+              KC_DOWN,           KC_UP,      
+              KC_PGUP,                       
+              KC_PGDN,           KC_ENT,     KC_SPC),
 
 /* Keymap 1: KeyPad Layer
  *
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO,        KC_NO,    KC_MS_WH_UP,   KC_MS_U,        KC_MS_WH_DOWN,  KC_NO,   KC_NO,
                 KC_NO,        KC_NO,    KC_MS_L,       KC_MS_D,        KC_MS_R,        KC_NO,
                 KC_NO,        KC_NO,    KC_MS_WH_LEFT, KC_NO,          KC_MS_WH_RIGHT, KC_NO,   KC_NO,
-                KC_TRNS,      KC_NO,    KC_NO,         KC_NO,          KC_NO,
+                KC_TRNS,      KC_TRNS,  KC_NO,         KC_NO,          KC_NO,
                                                                                        KC_NO,   KC_NO,
                                                                                                 KC_NO,
                                                                        KC_NO,          KC_NO,   KC_NO,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TAB,       KC_KP_7,  KC_KP_8,       KC_KP_9,        KC_KP_PLUS,     KC_RPRN, KC_MS_BTN2,
                               KC_KP_4,  KC_KP_5,       KC_KP_6,        KC_KP_MINUS,    KC_NO,   KC_MS_BTN3,
                 KC_KP_ENTER,  KC_KP_1,  KC_KP_2,       KC_KP_3,        KC_KP_EQUAL,    KC_NO,   KC_NO,
-                                        KC_KP_0,       KC_KP_DOT,      KC_KP_COMMA,    KC_NO,   KC_TRNS,
+                                        KC_KP_0,       KC_KP_DOT,      KC_KP_COMMA,    KC_TRNS, KC_TRNS,
                 KC_NO,        KC_NO,
                 KC_NO,
                 KC_NO,        KC_NO,    KC_NO),
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TRNS, KC_NO,          KC_NO,               KC_NO,               KC_NO,                 KC_NO,  KC_VOLD,
                      KC_LEFT,        KC_DOWN,             KC_UP,               KC_RIGHT,              KC_NO,  KC_MUTE,
             KC_TRNS, KC_NO,          KC_NO,               KC_NO,               KC_NO,                 KC_NO,  KC_RSFT,
-                                     KC_TRNS,             KC_TRNS,             KC_TRNS,               KC_NO,  KC_NO,
+                                     KC_TRNS,             KC_TRNS,             KC_TRNS,               KC_NO,  KC_TRNS,
             KC_NO,   KC_NO,
             KC_NO,
             KC_NO,   KC_NO,          KC_NO)};
