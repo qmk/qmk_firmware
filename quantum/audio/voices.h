@@ -2,8 +2,7 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "musical_notes.h"
-#include "song_list.h"
+#include "luts.h"
 
 #ifndef VOICES_H
 #define VOICES_H
