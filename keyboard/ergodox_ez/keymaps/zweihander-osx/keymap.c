@@ -139,6 +139,8 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
+// action_get_macro() is unused — remove the “#if 0” and “#endif” lines to reenable
+#if 0
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -153,6 +155,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
+#endif
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
