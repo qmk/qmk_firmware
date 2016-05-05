@@ -67,9 +67,11 @@ Alas, the yellow keys have at best spotty success with common software. Good luc
 
 ## Switching Between Layers ##
 
-The three Shift keys correspond to three logical layers on top of the ever-present base layer, and are represented in the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active. Shift keys work in the expected way: press them and the keys shift to that layer; release them and the keys shift back to the base layer. The Ordinary Layout also features a Shift Lock key to keep a layer active indefinitely. Hold down the Shift Lock key then press any Shift key to lock to that layer. Or, hold down the Shift key and press the Shift Lock key; it works either way. To revert to the base layer, use the Shift Lock key again in combination with the Shift key.
+In addition to Symbols and Media the Ordinary Layout treats the Capitals as a logical layer. Each layer is accessed by a shift key on each edge of the keyboard and corresponds to one of the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active.
 
-This layout attempts to treat the Capitals Shift layer the same as the other two Shift layers, but internally they are different which causes some inconsistencies. For instance, it is possible to switch from any layer to any other layer, and to lock to any layer, *except* it is not possible to go from Media to Symbols. You must exit the Media layer before engaging the Symbols layer. Also, the Caps Lock feature must be triggered by first pressing the Shift Lock key then a Capitals Shift key; it doesn't work if you press the Shift key first (instead you get the secondary symbol character associated with the Shift Lock button).
+Shift buttons work in the expected way: press them and all of the keys switch to that layer; release them and the keys switch back to the base layer. Lock layers using the Shift key in conjunction with the Shift Lock key. For instance, the widely and rightly loathed Caps Lock is engaged by pressing the Shift Lock button then Capitals Shift. Or, hold down the Shift key and press the Shift Lock key; it works either way. All the Shift keys work this way.
+
+Multiple layers can be turned on at once but only one controls the keyboard. The order of the LEDs indicates the priority order: Media, Symbols, Capitals.
 
 ## Special Escape & Backspace Sequences ##
 
