@@ -32,12 +32,11 @@
 #define MACRO_TEMPO_U       11
 #define MACRO_TEMPO_D       12
 #define MACRO_TONE_DEFAULT  13
-#define MACRO_MUSIC_ON      14
-#define MACRO_MUSIC_OFF     15
-#define MACRO_AUDIO_ON      16
-#define MACRO_AUDIO_OFF     17
+#define MACRO_MUSIC_TOGGLE  14
+#define MACRO_AUDIO_TOGGLE  16
 #define MACRO_INC_VOICE     18
 #define MACRO_DEC_VOICE     19
+#define MACRO_BACKLIGHT     20
 
 #define M_QWRTY             M(MACRO_QWERTY)
 #define M_COLMK             M(MACRO_COLEMAK)
@@ -53,12 +52,11 @@
 #define TMPO_UP             M(MACRO_TEMPO_U)
 #define TMPO_DN             M(MACRO_TEMPO_D)
 #define TMPO_DF             M(MACRO_TONE_DEFAULT)
+#define M_BACKL             M(MACRO_BACKLIGHT)
 
 
-#define MUS_ON              M(MACRO_MUSIC_ON)
-#define MUS_OFF             M(MACRO_MUSIC_OFF)
-#define AUD_OFF             M(MACRO_AUDIO_OFF)
-#define AUD_ON              M(MACRO_AUDIO_ON)
+#define MUS_TOG             M(MACRO_MUSIC_TOGGLE)
+#define AUD_TOG             M(MACRO_AUDIO_TOGGLE)
 #define VC_UP               M(MACRO_INC_VOICE)
 #define VC_DOWN             M(MACRO_DEC_VOICE)
 
@@ -158,9 +156,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [LAYER_LOWER]        = { /* LOWERED */
   { KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
-  { _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS   },
-  { _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______, _______, _______, _______, _______, _______, _______, ________________, KC_HOME  },
-  { _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  _______, _______, _______, _______, _______, _______, ________________, _______, KC_END   },
+  { _______, _______, _______, _______, KC_EQL,  _______, _______, KC_UNDS, _______, _______, _______, _______, _______, _______, KC_INS   },
+  { _______, _______, KC_LCBR, KC_LBRC, KC_LPRN, KC_PMNS, KC_PPLS, KC_RPRN, KC_RBRC, KC_RCBR, _______, _______, ________________, KC_HOME  },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLS, ________________, _______, KC_END   },
   { _______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
 
@@ -193,10 +191,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
 
  [LAYER_ADJUST]       = { /* ADJUST */
-  { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, _______, MUS_ON,  MUS_OFF, AUD_ON,  AUD_OFF, ________________  },
+  { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, _______, _______, _______, MUS_TOG, AUD_TOG, ________________  },
   { _______, M_QWRTY, M_COLMK, M_DVORK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______  },
-  { _______, _______, _______, _______, _______, RESET,   _______, M_MOUSE, _______, _______, _______, ________________, VC_UP,   _______  },
+  { _______, _______, _______, _______, M_BACKL, RESET,   _______, M_MOUSE, _______, _______, _______, ________________, VC_UP,   _______  },
   { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, VC_DOWN, _______  },
  },
 
@@ -362,42 +360,34 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
 
-        case MACRO_AUDIO_OFF:
+        case MACRO_AUDIO_TOGGLE:
             if (record->event.pressed)
             {
-                #ifdef AUDIO_ENABLE
-                    audio_off();
-                #endif
+                	if (is_audio_on())
+                	{
+	                	audio_off();
+                	}
+                	else
+                	{
+	                    audio_on();
+	                	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
+					}
             }
             break;
 
-        case MACRO_AUDIO_ON:
+        case MACRO_MUSIC_TOGGLE:
             if (record->event.pressed)
             {
-                #ifdef AUDIO_ENABLE
-                    audio_on();
-                PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
-                #endif
-            }
-            break;
-
-        case MACRO_MUSIC_ON:
-            if (record->event.pressed)
-            {
-                #ifdef AUDIO_ENABLE
+                	if (IS_LAYER_ON(LAYER_MUSIC))
+                	{
+	                    layer_off(LAYER_MUSIC);
+	                    stop_all_notes();
+                	}
+                	else
+                	{
                     PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
                     layer_on(LAYER_MUSIC);
-                #endif
-            }
-            break;
-
-        case MACRO_MUSIC_OFF:
-            if (record->event.pressed)
-            {
-                #ifdef AUDIO_ENABLE
-                    layer_off(LAYER_MUSIC);
-                    stop_all_notes();
-                #endif
+					}
             }
             break;
 
@@ -422,6 +412,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             break;
 
 #endif /* AUDIO_ENABLE */
+
+#ifdef BACKLIGHT_ENABLE
+		case MACRO_BACKLIGHT:
+			if (record->event.pressed)
+			{
+				backlight_step();
+			}
+#endif
 
         default:
             break;
