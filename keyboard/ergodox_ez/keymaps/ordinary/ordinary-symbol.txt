@@ -14,7 +14,7 @@
 [{y:-0.75,x:3.5,c:"#bbddbb"},"[",{x:10.5,c:"#89b087"},"2"],
 [{y:-0.875,x:2.5,c:"#bbddbb"},"^",{x:1},"]",{x:8.5,c:"#89b087"},"1",{x:1},"3"],
 [{y:-0.875,x:5.5,c:"#bbddbb"},"~",{x:6.5},"\\"],
-[{y:-0.875,c:"#2277ff",f2:1,w:1.5},"Capitals\nShift\n\n\n\n\nShift",{c:"#bbddbb"},"%",{x:14.5,c:"#89b087"},"-",{c:"#2277ff",fa:[0,1,0,1],w:1.5},"\n\nCapitals\nShift\n\n\n\nShift"],
+[{y:-0.875,c:"#2277ff",w:1.5},"Capitals\n\n\n\n\n\nShift",{c:"#bbddbb"},"%",{x:14.5,c:"#89b087"},"-",{c:"#2277ff",w:1.5},"\n\nCapitals\n\n\n\n\nShift"],
 [{y:-0.375,x:3.5,c:"#77aaff"},"Option\n\n\nLAlt",{x:10.5,c:"#89b087"},".\n\n\nOption"],
 [{y:-0.875,x:2.5,c:"#77aaff"},"Hyper",{x:1},"Cmd\n\n\nSuper",{x:8.5,c:"#89b087"},"0\n\n\nCmd",{x:1},"=\n\n\nHyper"],
 [{y:-0.75,x:0.5,c:"#77aaff"},"Ctrl\n\n\nLCtrl","Meh",{x:14.5,c:"#89b087"},"+\n\n\nMeh","Enter\n\n\nCtrl"],
