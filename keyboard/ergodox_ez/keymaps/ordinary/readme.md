@@ -67,7 +67,7 @@ Alas, the yellow keys have at best spotty success with common software. Good luc
 
 ## Switching Between Layers ##
 
-In addition to Symbols and Media the Ordinary Layout treats the Capitals as a logical layer. Each layer is accessed by a shift key on each edge of the keyboard and corresponds to one of the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active.
+In addition to Symbols and Media there is the Capitals layer which is exactly the same as pressing the shift key. (Note: it is exactly the same as pressing the *left* shift key; the *right* shift key is only available on the Media layer because holding both shift keys is the 'magic' command combo for this keyboard so it is inconviently locate to minimize accidents.) Each layer is accessed by a shift key on each edge of the keyboard and corresponds to one of the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active.
 
 Shift buttons work in the expected way: press them and all of the keys switch to that layer; release them and the keys switch back to the base layer. Lock layers using the Shift key in conjunction with the Shift Lock key. For instance, the widely and rightly loathed Caps Lock is engaged by pressing the Shift Lock button then Capitals Shift. Or, hold down the Shift key and press the Shift Lock key; it works either way. All the Shift keys work this way.
 
