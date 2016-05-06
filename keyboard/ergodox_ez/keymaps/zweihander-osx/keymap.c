@@ -109,8 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|  ⌘C  |  ⌘V  |
+ *                                 |      |      |      |       |  ⌘X  |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
@@ -129,9 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     LGUI(KC_LBRC),  KC_LEFT,            KC_DOWN,        KC_RGHT,                KC_TRNS,        KC_MPLY,
        KC_TRNS,     LSFT(KC_SPC),   KC_SPC ,            KC_MPRV,        KC_MNXT,                KC_TRNS,        KC_TRNS,
                                     KC_VOLU,            KC_VOLD,        KC_MUTE,                KC_TRNS,        KC_TRNS,
-       KC_TRNS, KC_TRNS,
+       KC_TRNS,     KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       LGUI(KC_X),  LGUI(KC_C),     LGUI(KC_V)
 ),
 };
 
