@@ -67,6 +67,9 @@ extern const uint16_t fn_actions[];
 #define MEH(kc) kc  | 0x0700
 #define LCAG(kc) kc  | 0x0D00 // Modifier Ctrl Alt and GUI
 
+#define MOD_HYPR 0xf
+#define MOD_MEH 0x7
+
 #define RCTL(kc) kc | 0x1100
 #define RSFT(kc) kc | 0x1200
 #define RALT(kc) kc | 0x1400
