@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "debug.h"
 #include "action_util.h"
+#include "action_layer.h"
 #include "timer.h"
 
 static inline void add_key_byte(uint8_t code);
@@ -47,11 +48,70 @@ report_keyboard_t *keyboard_report = &(report_keyboard_t){};
 
 #ifndef NO_ACTION_ONESHOT
 static int8_t oneshot_mods = 0;
+static int8_t oneshot_locked_mods = 0;
+int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
+void set_oneshot_locked_mods(int8_t mods) { oneshot_locked_mods = mods; }
+void clear_oneshot_locked_mods(void) { oneshot_locked_mods = 0; }
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
 static int16_t oneshot_time = 0;
+inline bool has_oneshot_mods_timed_out() {
+  return TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT;
+}
 #endif
 #endif
 
+/* oneshot layer */
+#ifndef NO_ACTION_ONESHOT
+/* oneshot_layer_data bits
+* LLLL LSSS
+* where:
+*   L => are layer bits
+*   S => oneshot state bits
+*/
+static int8_t oneshot_layer_data = 0;
+
+inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
+inline uint8_t get_oneshot_layer_state(void) { return oneshot_layer_data & 0b111; }
+
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+static int16_t oneshot_layer_time = 0;
+inline bool has_oneshot_layer_timed_out() {
+    return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT &&
+        !(get_oneshot_layer_state() & ONESHOT_TOGGLED);
+}
+#endif
+
+/* Oneshot layer */
+void set_oneshot_layer(uint8_t layer, uint8_t state)
+{
+    oneshot_layer_data = layer << 3 | state;
+    layer_on(layer);
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_layer_time = timer_read();
+#endif
+}
+void reset_oneshot_layer(void) {
+    oneshot_layer_data = 0;
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_layer_time = 0;
+#endif
+}
+void clear_oneshot_layer_state(oneshot_fullfillment_t state)
+{
+    uint8_t start_state = oneshot_layer_data;
+    oneshot_layer_data &= ~state;
+    if (!get_oneshot_layer_state() && start_state != oneshot_layer_data) {
+        layer_off(get_oneshot_layer());
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    oneshot_layer_time = 0;
+#endif
+    }
+}
+bool is_oneshot_layer_active(void)
+{
+    return get_oneshot_layer_state();
+}
+#endif
 
 void send_keyboard_report(void) {
     keyboard_report->mods  = real_mods;
@@ -60,7 +120,7 @@ void send_keyboard_report(void) {
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-        if (TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT) {
+        if (has_oneshot_mods_timed_out()) {
             dprintf("Oneshot: timeout\n");
             clear_oneshot_mods();
         }
@@ -70,6 +130,7 @@ void send_keyboard_report(void) {
             clear_oneshot_mods();
         }
     }
+
 #endif
     host_keyboard_send(keyboard_report);
 }
@@ -143,10 +204,11 @@ void clear_oneshot_mods(void)
     oneshot_time = 0;
 #endif
 }
+uint8_t get_oneshot_mods(void)
+{
+    return oneshot_mods;
+}
 #endif
-
-
-
 
 /*
  * inspect keyboard state
