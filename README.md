@@ -33,6 +33,10 @@ If your keymap directory has a file called `makefile.mk` (note the lowercase fil
 
 So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `makefile.mk` and specify `CONSOLE_ENABLE = no`.
 
+### Customizing config.h on a per-keymap basis
+
+If you use the ErgoDox EZ, you can make a `config_user.h` file in your keymap directory and use it to override any `config.h` settings you don't like. Anything you set there will take precedence over the global `config.h` for the ErgoDox EZ. To see an example of this, check out `keymaps/erez_experimental`.
+
 ## Quick aliases to common actions
 
 Your keymap can include shortcuts to common operations (called "function actions" in tmk).
@@ -41,9 +45,12 @@ Your keymap can include shortcuts to common operations (called "function actions
 
 `MO(layer)` - momentary switch to *layer*. As soon as you let go of the key, the layer is deactivated and you pop back out to the previous layer. When you apply this to a key, that same key must be set as `KC_TRNS` on the destination layer. Otherwise, you won't make it back to the original layer when you release the key (and you'll get a keycode sent). You can only switch to layers *above* your current layer. If you're on layer 0 and you use `MO(1)`, that will switch to layer 1 just fine. But if you include `MO(3)` on layer 5, that won't do anything for you -- because layer 3 is lower than layer 5 on the stack.
 
+`OSL(layer)` - momentary switch to *layer*, as a one-shot operation. So if you have a key that's defined as `OSL(1)`, and you tap that key, then only the very next keystroke would come from layer 1. You would drop back to layer zero immediately after that one keystroke. That's handy if you have a layer full of custom shortcuts -- for example, a dedicated key for closing a window. So you tap your one-shot layer mod, then tap that magic 'close window' key, and keep typing like a boss. Layer 1 would remain active as long as you hold that key down, too (so you can use it like a momentary toggle-layer key with extra powers).
+
 `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped. Like `MO()`, this only works upwards in the layer stack (`layer` must be higher than the current layer).
 
 `TG(layer)` - toggles a layer on or off. As with `MO()`, you should set this key as `KC_TRNS` in the destination layer so that tapping it again actually toggles back to the original layer. Only works upwards in the layer stack.
+
 
 ### Fun with modifier keys
 
@@ -83,14 +90,19 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
     KC_PIPE  |
     KC_COLN  :
 
+`OSM(mod)` - this is a "one shot" modifier. So let's say you have your left Shift key defined as `OSM(MOD_LSFT)`. Tap it, let go, and Shift is "on" -- but only for the next character you'll type. So to write "The", you don't need to hold down Shift -- you tap it, tap t, and move on with life. And if you hold down the left Shift key, it just works as a left Shift key, as you would expect (so you could type THE). There's also a magical, secret way to "lock" a modifier by tapping it multiple times. If you want to learn more about that, open an issue. :)
+
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
 
-These are the values you can use for the `mod` in `MT()` (right-hand modifiers are not available):
+These are the values you can use for the `mod` in `MT()` and `OSM()` (right-hand modifiers are not available for `MT()`):
 
   * MOD_LCTL
   * MOD_LSFT
   * MOD_LALT
   * MOD_LGUI
+  * MOD_HYPR
+  * MOD_MEH
+
 
 These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
 
