@@ -121,6 +121,12 @@ extern const uint16_t fn_actions[];
 #define KC_RCBR LSFT(KC_RBRC)   // }
 #define KC_RIGHT_CURLY_BRACE    KC_RCBR
 
+#define KC_LABK LSFT(KC_COMM)   // <
+#define KC_LEFT_ANGLE_BRACKET   KC_LABK
+
+#define KC_RABK LSFT(KC_DOT)    // >
+#define KC_RIGHT_ANGLE_BRACKET  KC_RABK
+
 #define KC_COLN LSFT(KC_SCLN)   // :
 #define KC_COLON    KC_COLN
 
