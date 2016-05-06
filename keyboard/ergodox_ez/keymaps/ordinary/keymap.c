@@ -430,7 +430,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     // shift or caps lock turns on red light
-    if((keyboard_report->mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))) || (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
+    if(caps_shift || (keyboard_report->mods & MOD_BIT(KC_RSFT)) || (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
         ergodox_right_led_1_on();
     } else {
         ergodox_right_led_1_off();
