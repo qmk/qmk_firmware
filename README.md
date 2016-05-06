@@ -80,6 +80,8 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
     KC_PLUS  +
     KC_LCBR  {
     KC_RCBR  }
+    KC_LABK  <
+    KC_RABK  >
     KC_PIPE  |
     KC_COLN  :
 
