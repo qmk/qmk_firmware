@@ -140,7 +140,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
+    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),               // FN1 - Momentary Layer 1 (Symbols)
+    [2] = ACTION_MACRO_TAP(0),                         // Eric Tang's Famous Macro!
+    [3] = ACTION_MACRO_TAP(1)                          // Eric Tang's Famous Macro!
 };
 
 static uint16_t key_timer;
@@ -148,33 +150,46 @@ static uint16_t key_timer;
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-        case 0: {
-            if (record->event.pressed) {
-                key_timer = timer_read(); // if the key is being pressed, we start the timer.
-                register_code(KC_LSFT); // we're now holding down Shift.
-            } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-                if (timer_elapsed(key_timer) < 70) { // the threshhold we pick for counting something as a tap. 
-                    register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
-                    unregister_code(KC_9); // now let's let go of that key
-                }
-                unregister_code(KC_LSFT); // let's release the Shift key now.
-            }
-            break;
+        case 0:
+          if (record->event.pressed) {
+              register_mods(MOD_BIT(KC_LSFT));
+              if (record->tap.count && !record->tap.interrupted) {
+                  register_code(KC_9);
+              }
+              else {
+                  record->tap.count = 0;
+              }
+          }
+          else {
+              if (record->tap.count) {
+                  unregister_code(KC_9);
+              }
+              else {
+              }
+              unregister_mods(MOD_BIT(KC_LSFT));
+          }
+          break;
+
+        case 1:
+          if (record->event.pressed) {
+              register_mods(MOD_BIT(KC_LSFT));
+              if (record->tap.count && !record->tap.interrupted) {
+                  register_code(KC_0);
+              }
+              else {
+                  record->tap.count = 0;
+              }
+          }
+          else {
+              if (record->tap.count) {
+                  unregister_code(KC_0);
+              }
+              else {
+              }
+              unregister_mods(MOD_BIT(KC_LSFT));
+          }
+          break;
         }
-        case 1: {
-            if (record->event.pressed) {
-                key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
-                register_code(KC_RSFT); 
-            } else { 
-                if (timer_elapsed(key_timer) < 70) { 
-                    register_code(KC_0); 
-                    unregister_code(KC_0); 
-                }
-                unregister_code(KC_RSFT); 
-            }
-            break;
-        }
-      }
     return MACRO_NONE;
 };
 
