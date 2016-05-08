@@ -272,6 +272,14 @@ static action_t keycode_to_action(uint16_t keycode)
                 // Set default layer
                 int layer = keycode & 0xFF;
                 action.code = ACTION_LAYER_TOGGLE(layer);
+            } else if (type == 0x5) {
+                // OSL(layer) - One-shot layer
+                int layer = keycode & 0xFF;
+                action.code = ACTION_LAYER_ONESHOT(layer);
+            } else if (type == 0x6) {
+                // OSM(mod) - One-shot mod
+                int mod = keycode & 0xFF;
+                action.code = ACTION_MODS_ONESHOT(mod);
             }
             break;
     #ifdef MIDI_ENABLE
