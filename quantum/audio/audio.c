@@ -374,6 +374,10 @@ bool is_playing_notes(void) {
 	return playing_notes;
 }
 
+bool is_audio_on(void) {
+    return (audio_config.enable != 0);
+}
+
 void audio_toggle(void) {
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
