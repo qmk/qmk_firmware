@@ -38,6 +38,7 @@
 #define MACRO_AUDIO_OFF     17
 #define MACRO_INC_VOICE     18
 #define MACRO_DEC_VOICE     19
+#define MACRO_BACKLIGHT     20
 
 #define M_QWRTY             M(MACRO_QWERTY)
 #define M_COLMK             M(MACRO_COLEMAK)
@@ -53,6 +54,7 @@
 #define TMPO_UP             M(MACRO_TEMPO_U)
 #define TMPO_DN             M(MACRO_TEMPO_D)
 #define TMPO_DF             M(MACRO_TONE_DEFAULT)
+#define M_BACKL             M(MACRO_BACKLIGHT)
 
 
 #define MUS_ON              M(MACRO_MUSIC_ON)
@@ -217,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [LAYER_ADJUST]       = { /* ADJUST */
   { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, MUS_ON,  MUS_OFF, AUD_ON,  AUD_OFF  },
   { _______, M_QWRTY, M_COLMK, M_DVORK, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, _______, _______, _______, _______, RESET,   _______, M_MOUSE, _______, _______, _______, _______  },
+  { _______, _______, _______, _______, M_BACKL, RESET,   _______, M_MOUSE, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, VC_UP,   VC_DOWN, _______, _______  },
  },
 
@@ -336,6 +338,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 layer_off(LAYER_FUNCTION);
             }
             break;
+
+
+#ifdef BACKLIGHT_ENABLE
+		case MACRO_BACKLIGHT:
+			if (record->event.pressed)
+			{
+				backlight_step();
+			}
+#endif
 
 #ifdef MOUSEKEY_ENABLE
 
