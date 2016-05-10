@@ -171,15 +171,19 @@ void toggle_steno(int pressed)
   if (pressed) {
     if (layer != STEN) layer_on(STEN); else layer_off(STEN);
 
-    register_code(PV_LS);
+    register_code(PV_LP);
     register_code(PV_LH);
-    register_code(PV_RF);
-    register_code(PV_RT);
+    register_code(PV_LR);
+    register_code(PV_O);
+    register_code(PV_RL);
+    register_code(PV_RG);
   } else {
-    unregister_code(PV_LS);
+    unregister_code(PV_LP);
     unregister_code(PV_LH);
-    unregister_code(PV_RF);
-    unregister_code(PV_RT);
+    unregister_code(PV_LR);
+    unregister_code(PV_O);
+    unregister_code(PV_RL);
+    unregister_code(PV_RG);
   }
 }
 

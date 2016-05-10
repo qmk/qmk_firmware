@@ -12,8 +12,6 @@ The Plover key (top right key on the left half) also sends my Plover
 layer, so you can toggle between steno and typing modes with a single
 keypress.
 
-If you want to use this feature, you'll need to add:
-
-    "SH-FT": "{PLOVER:TOGGLE}"
-
-to your Plover dictionary.
+If you want to use this feature, you'll need to add the
+`commands.json` dictionary to your Plover dictionaries, or define the
+toggle stroke (`PHROLG`) yourself.
