@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-// #define NO_DEBUG
+#define NO_DEBUG
 
 /* disable print */
 // #define NO_PRINT
@@ -86,5 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
+#define ONESHOT_TAP_TOGGLE 2
+#define ONESHOT_TIMEOUT 3000
 
 #endif
