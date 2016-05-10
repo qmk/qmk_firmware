@@ -3,8 +3,8 @@
 - Layer 0: Non-ANSI Dvorak layout, with modified modifiers — all
   modifiers on thumb keys, as well as return and space.
 - Layer 1: Default symbol layout.
-- Layer 2: Default media/mouse layout.
-- Layer 3: Plover-oriented stenography layer.
+- Layer 2: Plover-oriented stenography layer.
+- Layer 3: Extended media/mouse layout.
 
 ## Unusual features
 The Plover key (top right key on the left half) also sends my Plover
