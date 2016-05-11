@@ -28,6 +28,7 @@ enum userlayer {
 enum usermacro {
     _MLW,
     _MRS,
+    _SHLK,                      /* ShiftLock */
 };
 
 #define _______ KC_TRNS
@@ -70,10 +71,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, KC_LGUI, KC_LALT, _______, _______,       _______,        _______, _______, _______, _______, _______}
 },
 [_SP]= { /* special */
-    {_______, M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, KC_PAUS},
-    {_______, M(_REC_START2), M(_MACRO_PLAY2), _______, _______, _______, _______, _______, _______, KC_CAPS, KC_SLCK, KC_NLCK},
-    {_______, _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______,  M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, KC_PAUS},
+    {_______,  M(_REC_START2), M(_MACRO_PLAY2), _______, _______, _______, _______, _______, _______, KC_CAPS, KC_SLCK, KC_NLCK},
+    {M(_SHLK), _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 MACRO_RECORD_KEYMAPS,
 };
@@ -112,6 +113,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_RS);
         }
         update_tri_layer(_LW, _RS, _DL);
+        break;
+    case _SHLK:
+        register_code(KC_LSFT);
         break;
     }
     return MACRO_NONE;
