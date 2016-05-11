@@ -200,8 +200,6 @@ const uint16_t PROGMEM fn_actions[] = {
   [3] = ACTION_LAYER_TAP_KEY(KEYPAD, KC_RBRC),
 };
 
-static uint16_t key_timer;
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
   switch(id) {
