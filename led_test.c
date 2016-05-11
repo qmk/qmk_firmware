@@ -86,10 +86,13 @@ static uint8_t crossfade_start_frame[NUM_ROWS][NUM_COLS];
 static uint8_t crossfade_end_frame[NUM_ROWS][NUM_COLS];
 
 static uint8_t compute_gradient_color(float t, float index, float num) {
-    float d = fabs(index - t);
-    if (d > num / 2.0f) {
+    const float target = t * (num - 1.0f);
+    const float half_num = num / 2.0f;
+    float d = fabs(index - target);
+    if (d > half_num) {
         d = num - d;
     }
+    d = 1.0f - (d / half_num);
     return (uint8_t)(255.0f * d);
 }
 
