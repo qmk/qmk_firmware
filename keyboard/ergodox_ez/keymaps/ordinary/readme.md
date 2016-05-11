@@ -55,7 +55,7 @@ Finally, consider the turquoise text-nav keys. Here in the Symbols layer, these 
 * The bright green keys are more F-keys
 * The dark yellow keys signal Web and Audio applications
 * The light yellow keys signal the operating system
-* The uncolored keys do nothing in case you bump them by accident
+* The dark gray keys do nothing in case you bump them by accident
 
 ![Ordinary media layout](ordinary-media.png)
 
@@ -67,16 +67,37 @@ Alas, the yellow keys have at best spotty success with common software. Good luc
 
 ## Switching Between Layers ##
 
-In addition to Symbols and Media the Ordinary Layout treats the Capitals as a logical layer. Each layer is accessed by a shift key on each edge of the keyboard and corresponds to one of the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active.
+In addition to Symbols and Media there is the Capitals layer which is exactly the same as pressing the shift key. Each layer is accessed by a shift key on each edge of the keyboard and corresponds to one of the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active.
 
-Shift buttons work in the expected way: press them and all of the keys switch to that layer; release them and the keys switch back to the base layer. Lock layers using the Shift key in conjunction with the Shift Lock key. For instance, the widely and rightly loathed Caps Lock is engaged by pressing the Shift Lock button then Capitals Shift. Or, hold down the Shift key and press the Shift Lock key; it works either way. All the Shift keys work this way.
+Shift buttons work in the expected way: press them and all of the keys switch to that layer; release them and the keys switch back to the base layer. If you press both of a pair of shift keys, the layer will lock on until you press both shift keys again. For instance, the widely and rightly loathed Caps Lock is engaged by pressing both Capitals Shift buttons. All the Shift keys work this way.
 
-Multiple layers can be turned on at once but only one controls the keyboard. The order of the LEDs indicates the priority order: Media, Symbols, Capitals.
+Multiple layers can be turned on at once. The Capitals layer will affect characters on other layers to capitalize. Other layers, however, don't 'mix': Symbols blankets the base layout; Media blankets Symbols.
 
-## Special Escape & Backspace Sequences ##
+## Special Sequences ##
 
-In the Ordinary Layout, the most unsatisfying key location is the Escape key which rightly belongs segregated on its own way up on the top left of the keyboard. The Ergodox does not have a physical button in such a location and the nearest one, in the top left corner, is home to the tilde (er, grave) which is commonly found there. The Escape key is important so it features prominently on the other top corner on the left side of the keyboard, and is always there in all layers. Nevertheless, alas, it isn't Ordinary to put the escape in that different corner!
+![Ordinary special layout](ordinary-special.png)
 
-That tilde key has a second function as the Shift Lock key and that makes possible a special feature. To make this layout as Ordinary as possible, the Escape key can *also* be accessed by pressing Shift Lock then the 1 button right next to it. This easy gesture is a way to partially maintain the ease of flicking your wrist to the left and tapping Escape. This gesture works in all layers.
+### Escape ###
 
-Finally, because the special Escape sequence is so natural and useful, on the top right corner of the Ergodox EZ you can do the same gesture with the 0 key to produce a Backspace. Users of this keyboard and this layout are well advised to learn to use their thumbs for deleting text, but sometimes you are doing other computery things and just want to flick your digits up to the right and press backspace a bunch times. These special sequences should feel unremarkably mundane but might prove to be remarkably useful.
+The One True Location for the Escape key is segregated way up on the top left of the keyboard. The Ergodox does not have a physical button in such a location and the nearest one is home to the tilde (er, grave) which is commonly found there. In the Ordinary layout the Escape key is found on all layers in the prominent location in the corner next to the 5, whnich is easy to remember, and yet it isn't natural for those of us with muscle memory flicking our wrists up and to the left looking for Escape.
+
+The Ordinary layout offers as a consolation prize a Special sequence for Escape: Special Shift + 1. This is natural so you can tap the top left button, then the button next to it and get Escape. This gesture works in all layers.
+
+### Backspace ###
+
+At the top right corner of the Ergodox EZ you can a gesture similar to the special Escape sequence, using the 0 key, to produce a Backspace. Users of this keyboard and this layout are well advised to learn to use their thumbs for deleting text, but sometimes you are doing other computery things and just want to flick your digits up to the right and press backspace a bunch times.
+
+### RShift ###
+
+The Ordinary Layout locks layers by pressing both of a pair of shift keys. This interferes with the QMK firmware magic sequence, which is LShift+RShift. To work around this, both of the Capitals Shift keys produce a *Left Shift* keystroke. If for some reason a person needs *Right Shift* they can find it by pressing a Special Shift key, then the Capitals Shift key on the right side of the keyboard.
+
+****
+
+The Ordinary Layout for the Ergodox EZ keyboard, v4
+
+Modifications from default by Nicholas Keene ergodoxez@nicholaskeene.com
+
+No rights reserved. This software is in the public domain. Credit me if you are friendly but if you're a jerk don't bother.
+
+Details: readme.md
+         https://github.com/nrrkeene/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/ordinary

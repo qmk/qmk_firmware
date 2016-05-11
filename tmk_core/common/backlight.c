@@ -83,3 +83,8 @@ void backlight_level(uint8_t level)
     eeconfig_update_backlight(backlight_config.raw);
     backlight_set(backlight_config.level);
 }
+
+uint8_t get_backlight_level(void)
+{
+    return backlight_config.level;
+}

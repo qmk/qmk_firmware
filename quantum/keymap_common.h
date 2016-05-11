@@ -67,6 +67,9 @@ extern const uint16_t fn_actions[];
 #define MEH(kc) kc  | 0x0700
 #define LCAG(kc) kc  | 0x0D00 // Modifier Ctrl Alt and GUI
 
+#define MOD_HYPR 0xf
+#define MOD_MEH 0x7
+
 #define RCTL(kc) kc | 0x1100
 #define RSFT(kc) kc | 0x1200
 #define RALT(kc) kc | 0x1400
@@ -84,7 +87,10 @@ extern const uint16_t fn_actions[];
 #define KC_EXCLAIM  KC_EXLM
 
 #define KC_AT   LSFT(KC_2)      // @
+
+
 #define KC_HASH LSFT(KC_3)      // #
+
 
 #define KC_DLR  LSFT(KC_4)      // $
 #define KC_DOLLAR   KC_DLR
@@ -107,10 +113,12 @@ extern const uint16_t fn_actions[];
 #define KC_RPRN LSFT(KC_0)      // )
 #define KC_RIGHT_PAREN  KC_RPRN
 
+
 #define KC_UNDS LSFT(KC_MINS)   // _
 #define KC_UNDERSCORE   KC_UNDS
 
 #define KC_PLUS LSFT(KC_EQL)    // +
+
 
 #define KC_LCBR LSFT(KC_LBRC)   // {
 #define KC_LEFT_CURLY_BRACE KC_LCBR
@@ -118,10 +126,29 @@ extern const uint16_t fn_actions[];
 #define KC_RCBR LSFT(KC_RBRC)   // }
 #define KC_RIGHT_CURLY_BRACE    KC_RCBR
 
+#define KC_LABK LSFT(KC_COMM)   // <
+#define KC_LEFT_ANGLE_BRACKET   KC_LABK
+
+#define KC_RABK LSFT(KC_DOT)    // >
+#define KC_RIGHT_ANGLE_BRACKET  KC_RABK
+
 #define KC_COLN LSFT(KC_SCLN)   // :
 #define KC_COLON    KC_COLN
 
 #define KC_PIPE LSFT(KC_BSLS)   // |
+
+#define KC_LT LSFT(KC_COMM)     // <
+
+
+#define KC_GT LSFT(KC_DOT)      // >
+
+
+#define KC_QUES LSFT(KC_SLSH)   // ?
+#define KC_QUESTION KC_QUES
+
+
+#define KC_DQT LSFT(KC_QUOT)   // "
+#define KC_DOUBLE_QUOTE KC_DQT
 
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
@@ -204,6 +231,12 @@ extern const uint16_t fn_actions[];
 
 // Toggle to layer - 256 layer max
 #define TG(layer) (layer | 0x5400)
+
+// One-shot layer - 256 layer max
+#define OSL(layer) (layer | 0x5500)
+
+// One-shot mod
+#define OSM(layer) (layer | 0x5600)
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
