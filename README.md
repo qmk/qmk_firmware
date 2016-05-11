@@ -377,6 +377,55 @@ You can currently send 4 hex digits with your OS-specific modifier key (RALT for
 
 Enable the backlight from the Makefile.
 
+## Driving a speaker - audio support
+
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and have it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+
+The audio code lives in [quantum/audio/audio.h](/quantum/audio/audio.h) and in the other files in the audio directory. It's enabled by default on the Planck [stock keymap](/keyboard/planck/keymaps/default/keymap.c). Here are the important bits:
+
+```
+#include "audio.h"
+```
+
+Then, lower down the file:
+
+```
+float tone_startup[][2] = {
+    ED_NOTE(_E7 ),
+    E__NOTE(_CS7),
+    E__NOTE(_E6 ),
+    E__NOTE(_A6 ),
+    M__NOTE(_CS7, 20)
+};
+```
+
+This is how you write a song. Each of these lines is a note, so we have a little ditty composed of five notes here.
+
+Then, we have this chunk:
+
+```
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float tone_plover[][2]     = SONG(PLOVER_SOUND);
+float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+
+float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+float goodbye[][2] = SONG(GOODBYE_SOUND);
+```
+
+Wherein we bind predefined songs (from [audio/song_list.h](/audio/song_list.h)) into named variables. This is one optimization that helps save on memory: These songs only take up memory when you reference them in your keymap, because they're essentially all preprocessor directives.
+
+So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
+
+```
+PLAY_NOTE_ARRAY(tone_plover, false, 0); // Signature is: Song name, repeat, rest style
+```
+
+This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
+
+"Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
+
 ## MIDI functionalty
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
