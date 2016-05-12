@@ -6,6 +6,7 @@
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
+
 #include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Dvorak
@@ -360,24 +361,33 @@ void matrix_init_user(void) {
 }
 
 #ifdef AUDIO_ENABLE
-void play_goodbye_tone()
-{
-  PLAY_NOTE_ARRAY(goodbye, false, 0);
-  _delay_ms(150);
-}
+  void play_goodbye_tone(void)
+  {
+    PLAY_NOTE_ARRAY(goodbye, false, 0);
+    _delay_ms(150);
+  }
+#endif
 
-uint8_t starting_note = 0x0C;
-int offset = 0;
+LEADER_EXTERNS();
 
-void process_action_user(keyrecord_t *record) {
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() { 
+    leading = false;
+    leader_end(); 
 
-  if (IS_LAYER_ON(_MUSIC)) {
-    if (record->event.pressed) {
-        play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
-    } else {
-        stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+    SEQ_ONE_KEY(KC_F) {
+      register_code(KC_S);
+      unregister_code(KC_S);
+    }
+    SEQ_TWO_KEYS(KC_A, KC_S) {
+      register_code(KC_H);
+      unregister_code(KC_H);
+    }
+    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
+      register_code(KC_LGUI);
+      register_code(KC_S);
+      unregister_code(KC_S);
+      unregister_code(KC_LGUI);
     }
   }
-
 }
-#endif

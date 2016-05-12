@@ -7,7 +7,9 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {}
 
 __attribute__ ((weak))
-void process_action_user(keyrecord_t *record) {}
+bool process_action_user(keyrecord_t *record) {
+    return true;
+}
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {}
@@ -32,8 +34,8 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 }
 
-void process_action_kb(keyrecord_t *record) {
-	process_action_user(record);
+bool process_action_kb(keyrecord_t *record) {
+	return process_action_user(record);
 }
 
 void led_set_kb(uint8_t usb_led) {
