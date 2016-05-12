@@ -64,7 +64,7 @@ bool process_action_quantum(keyrecord_t *record) {
       keycode = keymap_key_to_keycode(biton32(default_layer_state), key);
     #endif
 
-    if (keycode == KC_LEAD) {
+    if (!leading && keycode == KC_LEAD) {
       leader_start();
       leading = true;
       leader_time = timer_read();
