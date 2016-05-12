@@ -36,8 +36,7 @@ OPT_DEFS += -DDEBUG_LEVEL=0
 #MCU = atmega32u4       # Teensy 2.0
 #MCU = at90usb646       # Teensy++ 1.0
 #MCU = at90usb1286      # Teensy++ 2.0
-#MCU = atmega168
-MCU = atmega328p
+MCU = atmega168
 
 
 # Processor frequency.
@@ -45,7 +44,7 @@ MCU = atmega328p
 #   so your program will run at the correct speed.  You should also set this
 #   variable to same clock speed.  The _delay_ms() macro uses this, and many
 #   examples use this variable to calculate timings.  Do not add a "UL" here.
-F_CPU = 12000000
+F_CPU = 20000000
 
 
 # Build Options

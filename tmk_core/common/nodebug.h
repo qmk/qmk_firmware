@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NODEBUG_H
 #define NODEBUG_H
 
-<<<<<<< HEAD
 #ifndef NO_DEBUG
 	#define NO_DEBUG
 	#include "debug.h"
@@ -26,12 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
 	#include "debug.h"
 #endif
-=======
-#if !defined(NO_DEBUG)
-#define NO_DEBUG
-#endif
-#include "debug.h"
-#undef NO_DEBUG
->>>>>>> tmk/master
 
 #endif

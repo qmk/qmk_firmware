@@ -48,7 +48,6 @@
 #include "sleep_led.h"
 #endif
 #include "suspend.h"
-#include "hook.h"
 
 #include "descriptor.h"
 #include "lufa.h"
@@ -230,13 +229,21 @@ void EVENT_USB_Device_Reset(void)
 void EVENT_USB_Device_Suspend()
 {
     print("[S]");
-    hook_usb_suspend_entry();
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_enable();
+#endif
 }
 
 void EVENT_USB_Device_WakeUp()
 {
     print("[W]");
-    hook_usb_wakeup();
+    suspend_wakeup_init();
+
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_disable();
+    // NOTE: converters may not accept this
+    led_set(host_keyboard_leds());
+#endif
 }
 
 #ifdef CONSOLE_ENABLE
@@ -867,7 +874,6 @@ int main(void)
 #endif
 
     setup_mcu();
-    hook_early_init();
     keyboard_setup();
     setup_usb();
     sei();
@@ -910,12 +916,14 @@ int main(void)
 #endif
 
     print("Keyboard start.\n");
-    hook_late_init();
     while (1) {
         #ifndef BLUETOOTH_ENABLE
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
-            hook_usb_suspend_loop();
+            suspend_power_down();
+            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+                    USB_Device_SendRemoteWakeup();
+            }
         }
         #endif
 
@@ -931,7 +939,6 @@ int main(void)
     }
 }
 
-<<<<<<< HEAD
 #ifdef MIDI_ENABLE
 void fallthrough_callback(MidiDevice * device,
     uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2){
@@ -965,40 +972,3 @@ void sysex_callback(MidiDevice * device,
     midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
 }
 #endif
-=======
-
-/* hooks */
-__attribute__((weak))
-void hook_early_init(void) {}
-
-__attribute__((weak))
-void hook_late_init(void) {}
-
- __attribute__((weak))
-void hook_usb_suspend_entry(void)
-{
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_enable();
-#endif
-}
-
-__attribute__((weak))
-void hook_usb_suspend_loop(void)
-{
-    suspend_power_down();
-    if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-            USB_Device_SendRemoteWakeup();
-    }
-}
-
-__attribute__((weak))
-void hook_usb_wakeup(void)
-{
-    suspend_wakeup_init();
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_disable();
-    // NOTE: converters may not accept this
-    led_set(host_keyboard_leds());
-#endif
-}
->>>>>>> tmk/master

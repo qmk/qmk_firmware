@@ -434,6 +434,7 @@ ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 else
 	dfu-programmer $(MCU) erase
 endif
+	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(TARGET).hex
 	dfu-programmer $(MCU) reset
 	

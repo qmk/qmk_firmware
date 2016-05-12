@@ -1,10 +1,5 @@
-#
-# Makefile for PJRC Teensy
-#
-
-
 # Target file name (without extension).
-TARGET = news_usb_pjrc
+TARGET = adb_usb_pjrc
 
 # Directory common source filess exist
 TMK_DIR = ../../tmk_core
@@ -13,12 +8,18 @@ TMK_DIR = ../../tmk_core
 TARGET_DIR = .
 
 # keyboard dependent files
-SRC =	keymap.c \
+SRC =	keymap_common.c \
 	matrix.c \
 	led.c \
-	news.c
+	adb.c
 
-CONFIG_H = config_pjrc.h
+ifdef KEYMAP
+    SRC := keymap_$(KEYMAP).c $(SRC)
+else
+    SRC := keymap_ansi.c $(SRC)
+endif
+
+CONFIG_H = config.h
 
 
 # MCU name, you MUST set this to match the board you are using
@@ -47,7 +48,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
-#   *Comment out* to disable the options.
+#   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes	# Mouse keys(+5000)
@@ -55,18 +56,16 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control(+600)
 CONSOLE_ENABLE = yes    # Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	# USB Nkey Rollover(+500)
+#NKRO_ENABLE = yes	# USB Nkey Rollover(+500)
+ADB_MOUSE_ENABLE = yes
 
-
-
-#---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+# ADB Mice need acceleration for todays much bigger screens. 
+OPT_DEFS += -DADB_MOUSE_MAXACC=8
 
 
 # Search Path
 VPATH += $(TARGET_DIR)
 VPATH += $(TMK_DIR)
-
 
 include $(TMK_DIR)/protocol/pjrc.mk
 include $(TMK_DIR)/protocol.mk

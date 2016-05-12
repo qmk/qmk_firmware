@@ -38,15 +38,11 @@ void print_set_sendchar(int8_t (*sendchar_func)(uint8_t))
     xdev_out(sendchar_func);
 }
 
-#elif defined(PROTOCOL_CHIBIOS) /* __AVR__ */
-
-// don't need anything extra
-
-#elif defined(__arm__) /* __AVR__ */
+#elif defined(__arm__)
 
 // TODO
 //void print_set_sendchar(int8_t (*sendchar_func)(uint8_t)) { }
 
-#endif /* __AVR__ */
+#endif
 
 #endif

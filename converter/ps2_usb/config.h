@@ -61,7 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * PS/2 Pin interrupt
  */
 #ifdef PS2_USE_INT
-#if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
 /* uses INT1 for clock line(ATMega32U4) */
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
@@ -82,28 +81,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     EIMSK &= ~(1<<INT1);        \
 } while (0)
 #define PS2_INT_VECT    INT1_vect
-
-#elif defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
-/* uses PCINT17(PD1) for clock line. this doesn't work with VUSB */
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   1
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    0
-#define PS2_INT_INIT()  do {    \
-    PCICR  |= (1<<PCIE2);       \
-} while (0)
-#define PS2_INT_ON()  do {      \
-    PCMSK2 |= (1<<PCINT17);     \
-} while (0)
-#define PS2_INT_OFF() do {      \
-    PCMSK2 &= ~(1<<PCINT17);    \
-} while (0)
-#define PS2_INT_VECT    PCINT2_vect
-#endif
 #endif
 
 /*

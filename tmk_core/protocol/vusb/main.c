@@ -49,7 +49,7 @@ int main(void)
 #endif
 
     CLKPR = 0x80, CLKPR = 0;
-#ifndef NO_UART
+#ifndef PS2_USE_USART
     uart_init(UART_BAUD_RATE);
 #endif
 

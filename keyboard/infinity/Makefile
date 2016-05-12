@@ -3,7 +3,10 @@ PROJECT = infinity
 TMK_DIR = ../../tmk_core
 MBED_DIR = $(TMK_DIR)/tool/mbed/mbed-sdk
 
-VPATH += $(TMK_DIR):$(MBED_DIR)
+#VPATH += $(MBED_DIR):$(TMK_DIR)
+vpath %.s .:$(MBED_DIR):$(TMK_DIR)
+vpath %.c .:$(MBED_DIR):$(TMK_DIR)
+vpath %.cpp .:$(MBED_DIR):$(TMK_DIR)
 
 OBJDIR = ./build
 
@@ -30,9 +33,9 @@ INCLUDE_PATHS = -I.
 #MOUSEKEY_ENABLE = yes
 
 
-include $(TMK_DIR)/tool/mbed/common.mk
 include mbed-infinity.mk
 include $(TMK_DIR)/tool/mbed/mbed.mk
+include $(TMK_DIR)/tool/mbed/common.mk
 include $(TMK_DIR)/tool/mbed/gcc.mk
 
 program: $(OBJDIR)/$(PROJECT).bin

@@ -64,9 +64,6 @@ enum macro_command_id{
     /* 0x74 - 0x83 */
     WAIT                = 0x74,
     INTERVAL,
-    MOD_STORE,
-    MOD_RESTORE,
-    MOD_CLEAR,
 
     /* 0x84 - 0xf3 (reserved for keycode up) */
 
@@ -85,9 +82,6 @@ enum macro_command_id{
 #define TYPE(key)       DOWN(key), UP(key)
 #define WAIT(ms)        WAIT, (ms)
 #define INTERVAL(ms)    INTERVAL, (ms)
-#define STORE()         MOD_STORE
-#define RESTORE()       MOD_RESTORE
-#define CLEAR()         MOD_CLEAR
 
 /* key down */
 #define D(key)          DOWN(KC_##key)
@@ -99,12 +93,6 @@ enum macro_command_id{
 #define W(ms)           WAIT(ms)
 /* interval */
 #define I(ms)           INTERVAL(ms)
-/* store modifier(s) */
-#define SM()            STORE()
-/* restore modifier(s) */
-#define RM()            RESTORE()
-/* clear modifier(s) */
-#define CM()            CLEAR()
 
 /* for backward comaptibility */
 #define MD(key)         DOWN(KC_##key)

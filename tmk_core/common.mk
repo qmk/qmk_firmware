@@ -6,10 +6,10 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_macro.c \
 	$(COMMON_DIR)/action_layer.c \
 	$(COMMON_DIR)/action_util.c \
+	$(COMMON_DIR)/keymap.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
-	$(COMMON_DIR)/hook.c \
 	$(COMMON_DIR)/avr/suspend.c \
 	$(COMMON_DIR)/avr/xprintf.S \
 	$(COMMON_DIR)/avr/timer.c \
@@ -17,18 +17,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 
 
 # Option modules
-<<<<<<< HEAD
 ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
-=======
-ifdef ACTIONMAP_ENABLE
-    SRC += $(COMMON_DIR)/actionmap.c
-    OPT_DEFS += -DACTIONMAP_ENABLE
-else
-    SRC += $(COMMON_DIR)/keymap.c
-endif
-
-ifdef BOOTMAGIC_ENABLE
->>>>>>> tmk/master
     SRC += $(COMMON_DIR)/bootmagic.c
     SRC += $(COMMON_DIR)/avr/eeconfig.c
     OPT_DEFS += -DBOOTMAGIC_ENABLE
@@ -75,17 +64,8 @@ ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
     OPT_DEFS += -DUSB_6KRO_ENABLE
 endif
 
-<<<<<<< HEAD
 ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
     SRC += $(COMMON_DIR)/sleep_led.c
-=======
-ifdef KEYBOARD_LOCK_ENABLE
-    OPT_DEFS += -DKEYBOARD_LOCK_ENABLE
-endif
-
-ifdef SLEEP_LED_ENABLE
-    SRC += $(COMMON_DIR)/avr/sleep_led.c
->>>>>>> tmk/master
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
@@ -113,8 +93,7 @@ ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
 endif
 
 # Version string
-VERSION := $(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
-OPT_DEFS += -DVERSION=$(VERSION)
+OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
 
 
 # Search Path

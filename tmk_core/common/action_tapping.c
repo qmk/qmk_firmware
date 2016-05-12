@@ -30,6 +30,7 @@ static bool process_tapping(keyrecord_t *record);
 static bool waiting_buffer_enq(keyrecord_t record);
 static void waiting_buffer_clear(void);
 static bool waiting_buffer_typed(keyevent_t event);
+static bool waiting_buffer_has_anykey_pressed(void);
 static void waiting_buffer_scan_tap(void);
 static void debug_tapping_key(void);
 static void debug_waiting_buffer(void);
@@ -323,7 +324,6 @@ bool waiting_buffer_typed(keyevent_t event)
     return false;
 }
 
-<<<<<<< HEAD
 __attribute__((unused))
 bool waiting_buffer_has_anykey_pressed(void)
 {
@@ -333,8 +333,6 @@ bool waiting_buffer_has_anykey_pressed(void)
     return false;
 }
 
-=======
->>>>>>> tmk/master
 /* scan buffer for tapping */
 void waiting_buffer_scan_tap(void)
 {

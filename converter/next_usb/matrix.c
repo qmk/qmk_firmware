@@ -187,7 +187,7 @@ uint8_t matrix_scan(void)
     
     uint32_t resp = (next_kbd_recv());
     
-    if (!resp || resp == NEXT_KBD_KMBUS_IDLE)
+    if (resp == NEXT_KBD_KMBUS_IDLE)
     {
         return 0;
     }

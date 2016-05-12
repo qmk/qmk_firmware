@@ -1,5 +1,0 @@
-# build firmware for keymap editor
-#
-KEYMAP_SECTION_ENABLE = yes	# fixed address keymap for keymap editor
-include Makefile
-
