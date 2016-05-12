@@ -327,6 +327,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_ADJUST);
             layer_off(_MUSIC);
             layer_on(_PLOVER);
+            return MACRO( D(E), D(R), D(F), D(V), D(O), D(L), U(E), U(R), U(F), U(V), U(O), U(L), END );
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
             }
@@ -340,6 +341,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
             #endif
+            return MACRO( D(E), D(R), D(F), D(V), D(O), D(L), U(E), U(R), U(F), U(V), U(O), U(L), END );
             layer_off(_PLOVER);
           }
         break;
