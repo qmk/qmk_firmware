@@ -7,9 +7,9 @@ Keyboard initialization process takes a few seconds at start up. During that you
 
 Update
 ------
-2015/09/07  Added keymap for Alps 102-key. Thanks, tai @ geekhack!
-2015/05/05  Added keymaps for 107-key, 77-key and 50-key. Thanks, orihalcon @ geekhack!
-2015/05/19  Fixed a protocol handling bug.
+- 2015/09/07  Added keymap for Alps 102-key. Thanks, tai @ geekhack!
+- 2015/05/05  Added keymaps for 107-key, 77-key and 50-key. Thanks, orihalcon @ geekhack!
+- 2015/05/19  Fixed a protocol handling bug.
 
 
 
@@ -47,22 +47,35 @@ Keyboard Plug from front:
 
 Connection
 ----------
-In case of using ATMega32U4(Teensy2.0):
+In case of using ATMega32U4/U2
 
 1. Supply power with VCC and GND.
 2. Connect CLOCK to PD1 and DATA to PD0. You can change pin with config.h.
 3. Optionally you may need pull-up register. 1KOhm probably work.
+
+TMK Converter can supports IBM 4704.
+https://github.com/tmk/keyboard_converter
 
 
 Build Firmware
 --------------
 Just run `make`:
 
-    $ make
+    $ make -f <makefile>
+
+For TMK Converter rev.1 use `Makefile.tmk_rev1` as makefile:
+
+    $ make -f Makefile.tmk_rev1
+
+For TMK Converter rev.2 use `Makefile.tmk_rev2` as makefile:
+
+    $ make -f Makefile.tmk_rev2
 
 To select keymap:
 
-    $ make KEYMAP=[plain|...]
+    $ make -f <makefile> KEYMAP=[plain|...]
+
+To indentify your TMK Converter revision see [this](https://github.com/tmk/keyboard_converter#pcb-revisions).
 
 
 Keymap

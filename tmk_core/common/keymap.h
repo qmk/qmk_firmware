@@ -36,7 +36,11 @@ typedef union {
         bool nkro:1;
     };
 } keymap_config_t;
+<<<<<<< HEAD
 keymap_config_t keymap_config;
+=======
+#endif
+>>>>>>> tmk/master
 
 
 /* translates key to keycode */

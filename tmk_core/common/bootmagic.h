@@ -95,6 +95,6 @@
 
 
 void bootmagic(void);
-bool bootmagic_scan_keycode(uint8_t keycode);
+bool bootmagic_scan_key(uint16_t action);
 
 #endif

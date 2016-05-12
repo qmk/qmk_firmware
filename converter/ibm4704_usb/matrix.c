@@ -106,8 +106,8 @@ uint8_t matrix_scan(void)
     if (code==0xFF) {
         // Not receivd
         return 0;
-    } else if ((code&0x7F) >= 0x7A) {
-        // 0xFF-FA and 0x7F-7A is not scancode
+    } else if ((code&0x7F) >= 0x7C) {
+        // 0xFF-FC and 0x7F-7C is not scancode
         xprintf("Error: %02X\n", code);
         matrix_clear();
         return 0;

@@ -1,8 +1,7 @@
 ADB to USB keyboard converter
 =============================
 This firmware converts ADB keyboard protocol to USB.
-You can use PJRC Teensy for this converter, though, other USB AVR(ATMega32U4, AT90USB64/128 or etc) should work.
-But binary size is about 10KB or more it doesn't fit into 8K flash like ATMega8U2.
+You can use TMK Converter, PJRC Teensy2.0 and other USB AVR MCU(ATMega32U4, AT90USB64/128 or etc) for this. But binary size is probably more than 10KB and it won't fit into 8K flash.
 
 Discuss: http://geekhack.org/showwiki.php?title=Island:14290
 
@@ -54,22 +53,34 @@ Define following macros for ADB connection in config.h if you use other than por
     ADB_PORT, ADB_PIN, ADB_DDR, ADB_DATA_BIT
 
 
-Build
------
-See doc/build.md. In short,
+Build firmware and Program microcontroller
+------------------------------------------
+See [doc/build.md](../../tmk_core/doc/build.md).
 
-    $ make clean
-    $ make
+To build firmware:
+
+    $ make -f Makefile clean
+    $ make -f Makefile
 
 You can select keymap(ansi is default) like this:
 
-    $ make KEYMAP=[ansi|iso|hasu]
+    $ make -f Makefile KEYMAP=[ansi|iso|hasu]
+
+To program TMK Converter:
+
+    $ make -f Makefile dfu
+
+To program Teensy2.0:
+
+    $ make -f Makefile.teensy teensy
+
+Use **Makefile.rev1** for TMK Converter rev.1 and **Makefile.teensy** for Teensy2.0 instead of **Makefile**. For TMK Converter rev.2 just use **Makefile**.
 
 
 Keymap
 ------
 You can change a keymap by editing code of keymap_[ansi|iso|hasu|yours].c.
-How to define the keymap is probably obvious. You can find key symbols in common/keycode.h. And see doc/keymap.md for more detail.
+How to define the keymap is probably obvious. You can find key symbols in common/keycode.h. And see [doc/keymap.md](../../tmk_core/doc/keymap.md) for more detail.
 
 
 Magic command
@@ -83,6 +94,12 @@ Many of old ADB keyboards have mechanical push-lock switch for Capslock key and 
 https://github.com/tmk/tmk_keyboard/blob/master/README.md#mechanical-locking-support
 
 Also you may want to remove locking pin from the push-lock switch to use capslock as a normal momentary switch.
+
+
+Mouse support
+-------------
+ADB mouse support was added by @mek-apelsin on Apr,2015. It supports only one button as of now.
+https://github.com/tmk/tmk_keyboard/pull/207
 
 
 Notes

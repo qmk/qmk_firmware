@@ -63,8 +63,10 @@ CONFIG_H = config.h
 
 
 # MCU name
-#MCU = at90usb1287
-MCU = atmega32u4
+# atmega32u4 	Teensy2.0
+# atemga32u4	TMK Converter rev.1
+# atemga32u2	TMK Converter rev.2
+MCU = atmega32u2
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -106,7 +108,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
 #   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
+#   Atmel DFU loader 4096	for TMK Converter rev.1/rev.2
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096

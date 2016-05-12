@@ -86,6 +86,12 @@ void matrix_init(void)
     //debug_keyboard = true;
     //debug_mouse = true;
     print("debug enabled.\n");
+
+    // LED flash
+    DDRD |= (1<<6); PORTD |= (1<<6);
+    _delay_ms(500);
+    DDRD |= (1<<6); PORTD &= ~(1<<6);
+
     return;
 }
 

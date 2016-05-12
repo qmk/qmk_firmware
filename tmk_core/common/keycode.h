@@ -85,15 +85,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_LCAP KC_LOCKING_CAPS
 #define KC_LNUM KC_LOCKING_NUM
 #define KC_LSCR KC_LOCKING_SCROLL
-#define KC_ERAS KC_ALT_ERASE,
+#define KC_ERAS KC_ALT_ERASE
 #define KC_CLR  KC_CLEAR
 /* Japanese specific */
 #define KC_ZKHK KC_GRAVE
 #define KC_RO   KC_INT1
 #define KC_KANA KC_INT2
 #define KC_JYEN KC_INT3
+#define KC_JPY  KC_INT3
 #define KC_HENK KC_INT4
 #define KC_MHEN KC_INT5
+/* Korean specific */
+#define KC_HAEN KC_LANG1
+#define KC_HANJ KC_LANG2
 /* Keypad */
 #define KC_P1   KC_KP_1
 #define KC_P2   KC_KP_2
@@ -113,6 +117,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_PPLS KC_KP_PLUS
 #define KC_PEQL KC_KP_EQUAL
 #define KC_PENT KC_KP_ENTER
+/* Unix function key */
+#define KC_EXEC KC_EXECUTE
+#define KC_SLCT KC_SELECT
+#define KC_AGIN KC_AGAIN
+#define KC_PSTE KC_PASTE
 /* Mousekey */
 #define KC_MS_U KC_MS_UP
 #define KC_MS_D KC_MS_DOWN
@@ -144,8 +153,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MRWD KC_MEDIA_REWIND
 #define KC_MSTP KC_MEDIA_STOP
 #define KC_MPLY KC_MEDIA_PLAY_PAUSE
-#define KC_MSEL KC_MEDIA_SELECT
 #define KC_EJCT KC_MEDIA_EJECT
+#define KC_MSEL KC_MEDIA_SELECT
 #define KC_MAIL KC_MAIL
 #define KC_CALC KC_CALCULATOR
 #define KC_MYCM KC_MY_COMPUTER
@@ -411,10 +420,12 @@ enum internal_special_keycodes {
     KC_AUDIO_VOL_DOWN,
     KC_MEDIA_NEXT_TRACK,
     KC_MEDIA_PREV_TRACK,
+    KC_MEDIA_FAST_FORWARD,
+    KC_MEDIA_REWIND,
     KC_MEDIA_STOP,
     KC_MEDIA_PLAY_PAUSE,
-    KC_MEDIA_SELECT,
     KC_MEDIA_EJECT,
+    KC_MEDIA_SELECT,
     KC_MAIL,
     KC_CALCULATOR,
     KC_MY_COMPUTER,
@@ -424,9 +435,7 @@ enum internal_special_keycodes {
     KC_WWW_FORWARD,
     KC_WWW_STOP,
     KC_WWW_REFRESH,
-    KC_WWW_FAVORITES,
-    KC_MEDIA_FAST_FORWARD,
-    KC_MEDIA_REWIND,    /* 0xBC */
+    KC_WWW_FAVORITES,    /* 0xBC */
 
     /* Jump to bootloader */
     KC_BOOTLOADER       = 0xBF,

@@ -34,6 +34,8 @@ void action_macro_play(const macro_t *macro_p)
     macro_t macro = END;
     uint8_t interval = 0;
 
+    uint8_t mod_storage = 0;
+
     if (!macro_p) return;
     while (true) {
         switch (MACRO_READ()) {
@@ -65,6 +67,17 @@ void action_macro_play(const macro_t *macro_p)
             case INTERVAL:
                 interval = MACRO_READ();
                 dprintf("INTERVAL(%u)\n", interval);
+                break;
+            case MOD_STORE:
+                mod_storage = get_mods();
+                break;
+            case MOD_RESTORE:
+                set_mods(mod_storage);
+                send_keyboard_report();
+                break;
+            case MOD_CLEAR:
+                clear_mods();
+                send_keyboard_report();
                 break;
             case 0x04 ... 0x73:
                 dprintf("DOWN(%02X)\n", macro);

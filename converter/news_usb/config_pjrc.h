@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Asynchronous USART
  * 8-data bit, non parity, 1-stop bit, no flow control
  */
-#ifdef __AVR_ATmega32U4__
+#if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__)
 #   define NEWS_KBD_RX_VECT        USART1_RX_vect
 #   define NEWS_KBD_RX_DATA        UDR1
 #   define NEWS_KBD_RX_BAUD        9600
