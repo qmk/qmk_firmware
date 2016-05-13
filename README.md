@@ -1,10 +1,12 @@
-# Quantum MK Firmware
+# Quantum Mechanical Keyboard Firmware
 
-This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co) and the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard.
+This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
 
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK.
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
+
+The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [Zach White](https://github.com/skullydazed).
 
 ## Important background info: TMK documentation
 
@@ -31,6 +33,10 @@ If your keymap directory has a file called `makefile.mk` (note the lowercase fil
 
 So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `makefile.mk` and specify `CONSOLE_ENABLE = no`.
 
+### Customizing config.h on a per-keymap basis
+
+If you use the ErgoDox EZ, you can make a `config_user.h` file in your keymap directory and use it to override any `config.h` settings you don't like. Anything you set there will take precedence over the global `config.h` for the ErgoDox EZ. To see an example of this, check out `keymaps/erez_experimental`.
+
 ## Quick aliases to common actions
 
 Your keymap can include shortcuts to common operations (called "function actions" in tmk).
@@ -39,9 +45,12 @@ Your keymap can include shortcuts to common operations (called "function actions
 
 `MO(layer)` - momentary switch to *layer*. As soon as you let go of the key, the layer is deactivated and you pop back out to the previous layer. When you apply this to a key, that same key must be set as `KC_TRNS` on the destination layer. Otherwise, you won't make it back to the original layer when you release the key (and you'll get a keycode sent). You can only switch to layers *above* your current layer. If you're on layer 0 and you use `MO(1)`, that will switch to layer 1 just fine. But if you include `MO(3)` on layer 5, that won't do anything for you -- because layer 3 is lower than layer 5 on the stack.
 
+`OSL(layer)` - momentary switch to *layer*, as a one-shot operation. So if you have a key that's defined as `OSL(1)`, and you tap that key, then only the very next keystroke would come from layer 1. You would drop back to layer zero immediately after that one keystroke. That's handy if you have a layer full of custom shortcuts -- for example, a dedicated key for closing a window. So you tap your one-shot layer mod, then tap that magic 'close window' key, and keep typing like a boss. Layer 1 would remain active as long as you hold that key down, too (so you can use it like a momentary toggle-layer key with extra powers).
+
 `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped. Like `MO()`, this only works upwards in the layer stack (`layer` must be higher than the current layer).
 
 `TG(layer)` - toggles a layer on or off. As with `MO()`, you should set this key as `KC_TRNS` in the destination layer so that tapping it again actually toggles back to the original layer. Only works upwards in the layer stack.
+
 
 ### Fun with modifier keys
 
@@ -78,17 +87,24 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
     KC_PLUS  +
     KC_LCBR  {
     KC_RCBR  }
+    KC_LABK  <
+    KC_RABK  >
     KC_PIPE  |
     KC_COLN  :
 
+`OSM(mod)` - this is a "one shot" modifier. So let's say you have your left Shift key defined as `OSM(MOD_LSFT)`. Tap it, let go, and Shift is "on" -- but only for the next character you'll type. So to write "The", you don't need to hold down Shift -- you tap it, tap t, and move on with life. And if you hold down the left Shift key, it just works as a left Shift key, as you would expect (so you could type THE). There's also a magical, secret way to "lock" a modifier by tapping it multiple times. If you want to learn more about that, open an issue. :)
+
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
 
-These are the values you can use for the `mod` in `MT()` (right-hand modifiers are not available):
+These are the values you can use for the `mod` in `MT()` and `OSM()` (right-hand modifiers are not available for `MT()`):
 
   * MOD_LCTL
   * MOD_LSFT
   * MOD_LALT
   * MOD_LGUI
+  * MOD_HYPR
+  * MOD_MEH
+
 
 These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
 
@@ -211,6 +227,23 @@ This will clear all keys besides the mods currently pressed.
 
 If the user attempts to activate layer 1 AND layer 2 at the same time (for example, by hitting their respective layer keys), layer 3 will be activated. Layers 1 and 2 will _also_ be activated, for the purposes of fallbacks (so a given key will fall back from 3 to 2, to 1 -- and only then to 0).
 
+#### Naming your macros
+
+If you have a bunch of macros you want to refer to from your keymap, while keeping the keymap easily readable, you can just name them like so:
+
+```
+#define AUD_OFF M(6)
+#define AUD_ON M(7)
+#define MUS_OFF M(8)
+#define MUS_ON M(9)
+#define VC_IN M(10)
+#define VC_DE M(11)
+#define PLOVER M(12)
+#define EXT_PLV M(13)
+```
+
+As was done on the [Planck default keymap](/keyboard/planck/keymaps/default/keymap.c#L33-L40)
+
 #### Timer functionality
 
 It's possible to start timers and read values for time-specific events - here's an example:
@@ -227,11 +260,91 @@ if (timer_elapsed(key_timer) < 100) {
 
 It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
 
+#### Example 1: Single-key copy/paste (hold to copy, tap to paste)
+
+With QMK, it's easy to make one key do two things, as long as one of those things is being a modifier. :) So if you want a key to act as Ctrl when held and send the letter R when tapped, that's easy: `CTL_T(KC_R)`. But what do you do when you want that key to send Ctrl-V (paste) when tapped, and Ctrl-C (copy) when held?
+
+Here's what you do:
+
+
+```
+static uint16_t key_timer;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+      switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // if the key is being pressed, we start the timer.
+            } 
+            else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+                if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
+                    return MACRO( D(LCTL), T(C), U(LCTL), END  );
+                }
+                else {
+                    return MACRO( D(LCTL), T(V), U(LCTL), END  );
+                }
+            }
+            break;
+        }
+      }
+    return MACRO_NONE;
+};
+```
+
+And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for copy/paste.
+
+#### Example 2: Space Cadet Shift (making it easy to send opening and closing parentheses)
+
+In the [Modern Space Cadet Keyboard](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses), one of cooler features is the Shift Parentheses. To quote Steve Losh:
+
+  > When held while pressing other keys, act like Shift.
+  > When pressed and released on their own, type an opening or closing parenthesis (left and right shift respectively).
+
+```
+static uint16_t key_timer;
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+      switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // if the key is being pressed, we start the timer.
+                register_code(KC_LSFT); // we're now holding down Shift.
+            } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
+                    register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
+                    unregister_code(KC_9); // now let's let go of that key
+                }
+                unregister_code(KC_LSFT); // let's release the Shift key now.
+            }
+            break;
+        }
+        case 1: {
+            if (record->event.pressed) {
+                key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
+                register_code(KC_RSFT); 
+            } else { 
+                if (timer_elapsed(key_timer) < 150) { 
+                    register_code(KC_0); 
+                    unregister_code(KC_0); 
+                }
+                unregister_code(KC_RSFT); 
+            }
+            break;
+        }
+      }
+    return MACRO_NONE;
+};
+```
+
+And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for left shift/opening parens, and `M(1)` for right shift/closing parens.
+
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-   #include <keymap_extras/keymap_colemak.h>
+   #include <keymap_colemak.h>
 
 If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
@@ -263,6 +376,55 @@ You can currently send 4 hex digits with your OS-specific modifier key (RALT for
 * `BL_STEP` - steps through the backlight levels
 
 Enable the backlight from the Makefile.
+
+## Driving a speaker - audio support
+
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and have it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+
+The audio code lives in [quantum/audio/audio.h](/quantum/audio/audio.h) and in the other files in the audio directory. It's enabled by default on the Planck [stock keymap](/keyboard/planck/keymaps/default/keymap.c). Here are the important bits:
+
+```
+#include "audio.h"
+```
+
+Then, lower down the file:
+
+```
+float tone_startup[][2] = {
+    ED_NOTE(_E7 ),
+    E__NOTE(_CS7),
+    E__NOTE(_E6 ),
+    E__NOTE(_A6 ),
+    M__NOTE(_CS7, 20)
+};
+```
+
+This is how you write a song. Each of these lines is a note, so we have a little ditty composed of five notes here.
+
+Then, we have this chunk:
+
+```
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float tone_plover[][2]     = SONG(PLOVER_SOUND);
+float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+
+float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+float goodbye[][2] = SONG(GOODBYE_SOUND);
+```
+
+Wherein we bind predefined songs (from [audio/song_list.h](/audio/song_list.h)) into named variables. This is one optimization that helps save on memory: These songs only take up memory when you reference them in your keymap, because they're essentially all preprocessor directives.
+
+So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
+
+```
+PLAY_NOTE_ARRAY(tone_plover, false, 0); // Signature is: Song name, repeat, rest style
+```
+
+This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
+
+"Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
 
 ## MIDI functionalty
 

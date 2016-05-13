@@ -1,4 +1,5 @@
 #include "voices.h"
+#include "audio.h"
 #include "stdlib.h"
 
 // these are imported from audio.c
@@ -53,28 +54,28 @@ float voice_envelope(float frequency) {
             }
     	    break;
 
-        case octave_crunch:
-            polyphony_rate = 0;
-            switch (compensated_index) {
-                case 0 ... 9:
-                case 20 ... 24:
-                case 30 ... 32:
-                    frequency = frequency / 2;
-                    note_timbre = TIMBRE_12;
-                break;
+        // case octave_crunch:
+        //     polyphony_rate = 0;
+        //     switch (compensated_index) {
+        //         case 0 ... 9:
+        //         case 20 ... 24:
+        //         case 30 ... 32:
+        //             frequency = frequency / 2;
+        //             note_timbre = TIMBRE_12;
+        //         break;
 
-                case 10 ... 19:
-                case 25 ... 29:
-                case 33 ... 35:
-                    frequency = frequency * 2;
-                    note_timbre = TIMBRE_12;
-	                break;
+        //         case 10 ... 19:
+        //         case 25 ... 29:
+        //         case 33 ... 35:
+        //             frequency = frequency * 2;
+        //             note_timbre = TIMBRE_12;
+	       //          break;
 
-                default:
-                    note_timbre = TIMBRE_12;
-                	break;
-            }
-	        break;
+        //         default:
+        //             note_timbre = TIMBRE_12;
+        //         	break;
+        //     }
+	       //  break;
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze
@@ -99,6 +100,36 @@ float voice_envelope(float frequency) {
             if ((envelope_index % 8) == 0)
                 note_timbre = 0;
             break;
+        case delayed_vibrato:
+            polyphony_rate = 0;
+            note_timbre = TIMBRE_50;
+            #define VOICE_VIBRATO_DELAY 150
+            #define VOICE_VIBRATO_SPEED 50
+            switch (compensated_index) {
+                case 0 ... VOICE_VIBRATO_DELAY:
+                    break;
+                default:
+                    frequency = frequency * vibrato_lut[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
+                    break;
+            }
+            break;
+        // case delayed_vibrato_octave:
+        //     polyphony_rate = 0;
+        //     if ((envelope_index % 2) == 1) {
+        //         note_timbre = 0.55;
+        //     } else {
+        //         note_timbre = 0.45;
+        //     }
+        //     #define VOICE_VIBRATO_DELAY 150
+        //     #define VOICE_VIBRATO_SPEED 50
+        //     switch (compensated_index) {
+        //         case 0 ... VOICE_VIBRATO_DELAY:
+        //             break;
+        //         default:
+        //             frequency = frequency * VIBRATO_LUT[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
+        //             break;
+        //     }
+        //     break;
         // case duty_fifth_down:
         //     note_timbre = 0.5;
         //     if ((envelope_index % 3) == 0)
@@ -130,3 +161,5 @@ float voice_envelope(float frequency) {
 
     return frequency;
 }
+
+

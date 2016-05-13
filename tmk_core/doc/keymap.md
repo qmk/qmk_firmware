@@ -528,13 +528,19 @@ This is a feature to assign both toggle layer and momentary switch layer action 
 
 
 ### 4.3 Oneshot Modifier
-This runs onetime effects which modify only on just one following key. It works as normal modifier key when holding down while oneshot modifier when tapping.
+This runs onetime effects which modify only on just one following key. It works as normal modifier key when holding down while oneshot modifier when tapping. The behavior of oneshot modifiers is similar to the [sticky keys](https://en.wikipedia.org/wiki/StickyKeys) functionality found in most operating systems.
 
     ACTION_MODS_ONESHOT(MOD_LSFT)
+
+Oneshot layer key:
+
+    ACTION_LAYER_ONESHOT(MY_LAYER)
 
 Say you want to type 'The', you have to push and hold Shift key before type 't' then release it before type 'h' and 'e', otherwise you'll get 'THe' or 'the' unintentionally. With Oneshot Modifier you can tap Shift then type 't', 'h' and 'e' normally, you don't need to holding Shift key properly here. This mean you can release Shift before 't' is pressed down.
 
 Oneshot effect is cancel unless following key is pressed down within `ONESHOT_TIMEOUT` of `config.h`. No timeout when it is `0` or not defined.
+
+Most implementations of sticky keys allow you to lock a modifier by double tapping the modifier. The layer then remains locked untill the modifier is tapped again. To enable this behaviour for oneshot modifiers set `ONESHOT_TAP_TOGGLE` to the number taps required. The feature is disabled if `ONESHOT_TAP_TOGGLE<2` or not defined.
 
 
 ### 4.4 Tap Toggle Mods
