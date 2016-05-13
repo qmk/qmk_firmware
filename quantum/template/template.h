@@ -3,7 +3,10 @@
 
 #include "matrix.h"
 #include "keymap_common.h"
-#include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+	#include "backlight.h"
+#endif
+#include <avr/io.h>
 #include <stddef.h>
 
 // This a shortcut to help you visually see your layout.

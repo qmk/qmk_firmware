@@ -24,9 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "debug.h"
 #include "backlight.h"
-#include "keymap_midi.h"
 #include "bootloader.h"
 #include "eeconfig.h"
+
+#ifdef MIDI_ENABLE
+	#include "keymap_midi.h"
+#endif
+
 
 extern keymap_config_t keymap_config;
 
@@ -268,6 +272,14 @@ static action_t keycode_to_action(uint16_t keycode)
                 // Set default layer
                 int layer = keycode & 0xFF;
                 action.code = ACTION_LAYER_TOGGLE(layer);
+            } else if (type == 0x5) {
+                // OSL(layer) - One-shot layer
+                int layer = keycode & 0xFF;
+                action.code = ACTION_LAYER_ONESHOT(layer);
+            } else if (type == 0x6) {
+                // OSM(mod) - One-shot mod
+                int mod = keycode & 0xFF;
+                action.code = ACTION_MODS_ONESHOT(mod);
             }
             break;
     #ifdef MIDI_ENABLE

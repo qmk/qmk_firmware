@@ -2,8 +2,7 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "musical_notes.h"
-#include "song_list.h"
+#include "luts.h"
 
 #ifndef VOICES_H
 #define VOICES_H
@@ -16,6 +15,8 @@ typedef enum {
     octave_crunch,
     duty_osc,
     duty_octave_down,
+    delayed_vibrato,
+    // delayed_vibrato_octave,
     // duty_fifth_down,
     // duty_fourth_down,
     // duty_third_down,

@@ -28,7 +28,9 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/audio/audio.c $(QUANTUM_DIR)/audio/voices.c
+    SRC += $(QUANTUM_DIR)/audio/audio.c
+    SRC += $(QUANTUM_DIR)/audio/voices.c
+    SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)

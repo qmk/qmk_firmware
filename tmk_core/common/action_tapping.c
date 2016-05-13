@@ -6,11 +6,11 @@
 #include "keycode.h"
 #include "timer.h"
 
-//#ifdef DEBUG_ACTION
+#ifdef DEBUG_ACTION
 #include "debug.h"
-//#else
-//#include "nodebug.h"
-//#endif
+#else
+#include "nodebug.h"
+#endif
 
 #ifndef NO_ACTION_TAPPING
 

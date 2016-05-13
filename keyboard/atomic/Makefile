@@ -171,10 +171,6 @@ endif
 
 endif
 
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
-	SRC := backlight.c $(SRC)
-endif
-
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
 
