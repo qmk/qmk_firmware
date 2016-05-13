@@ -73,27 +73,22 @@ bool process_action_quantum(keyrecord_t *record) {
   #endif
 #endif
 
-  /* This block gets the keycode from the key pressed */
+  /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  action_t action;
-  action.code = ACTION_TRANSPARENT;
+  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+    uint8_t layer;
 
-  #ifndef NO_ACTION_LAYER
-    uint32_t layers = layer_state | default_layer_state;
-    /* check top layer first */
-    for (int8_t i = 31; i >= 0; i--) {
-      if (layers & (1UL<<i)) {
-        action = action_for_key(i, key);
-        if (action.code != ACTION_TRANSPARENT)
-          keycode = keymap_key_to_keycode(i, key);
-      }
+    if (record->event.pressed) {
+      layer = layer_switch_get_layer(key);
+      update_source_layers_cache(key, layer);
+    } else {
+      layer = read_source_layers_cache(key);
     }
-    /* fall back to layer 0 */
-    keycode = keymap_key_to_keycode(0, key);
+    keycode = keymap_key_to_keycode(layer, key);
   #else
-    keycode = keymap_key_to_keycode(biton32(default_layer_state), key);
+    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
 
 #ifndef DISABLE_LEADER
