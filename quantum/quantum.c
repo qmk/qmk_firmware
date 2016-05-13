@@ -115,7 +115,7 @@ bool process_action_quantum(keyrecord_t *record) {
   }
 #endif
 
-
+#define DISABLE_CHORDING
 #ifndef DISABLE_CHORDING
 
   if (keycode >= 0x5700 && keycode <= 0x57FF) {
