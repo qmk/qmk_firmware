@@ -191,7 +191,7 @@ extern const uint16_t fn_actions[];
 
 #define RESET 0x5000
 #define DEBUG 0x5001
-#define KC_LEAD 0x5002
+#define KC_LEAD 0x5014
 
 
 // MAGIC keycodes
