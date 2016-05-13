@@ -26,6 +26,8 @@ extern uint32_t default_layer_state;
 	extern uint32_t layer_state;
 #endif
 
+bool music_activated;
+
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 bool process_action_kb(keyrecord_t *record);

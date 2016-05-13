@@ -292,7 +292,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 8:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              layer_off(_MUSIC);
+              music_activated = false;
               stop_all_notes();
             #endif
           }
@@ -301,7 +301,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(music_scale, false, 0);
-              layer_on(_MUSIC);
+              music_activated = true;
             #endif
           }
         break;

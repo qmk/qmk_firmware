@@ -20,6 +20,7 @@ void leader_end(void) {}
 #ifdef AUDIO_ENABLE
   uint8_t starting_note = 0x0C;
   int offset = 0;
+  bool music_activated = false;
 #endif
 
 // Leader key stuff
@@ -61,18 +62,6 @@ bool keys_chord(uint8_t keys[]) {
 
 bool process_action_quantum(keyrecord_t *record) {
 
-#ifdef AUDIO_ENABLE
-  #ifdef _MUSIC
-  if (IS_LAYER_ON(_MUSIC)) {
-    if (record->event.pressed) {
-        play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
-    } else {
-        stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
-    }
-  }
-  #endif
-#endif
-
   /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
   uint16_t keycode;
@@ -90,6 +79,20 @@ bool process_action_quantum(keyrecord_t *record) {
   #else
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
+
+  #ifdef AUDIO_ENABLE
+    if (music_activated) {
+      if (record->event.pressed) {
+          play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
+      } else {
+          stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+      }
+      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
+        return false;
+    }
+  #endif
+
+
 
 #ifndef DISABLE_LEADER
   // Leader key set-up
