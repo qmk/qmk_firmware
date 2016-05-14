@@ -21,6 +21,7 @@ void leader_end(void) {}
   uint8_t starting_note = 0x0C;
   int offset = 0;
   bool music_activated = false;
+  float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 #endif
 
 // Leader key stuff
@@ -90,6 +91,41 @@ bool process_action_quantum(keyrecord_t *record) {
   #endif
 
   #ifdef AUDIO_ENABLE
+    if (keycode == AU_ON && record->event.pressed) {
+      audio_on();
+      audio_on_callback();
+      return false;
+    }
+
+    if (keycode == AU_OFF && record->event.pressed) {
+      audio_off();
+      return false;
+    }
+
+    if (keycode == MU_ON && record->event.pressed) {
+      music_activated = true;
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
+    if (keycode == MU_OFF && record->event.pressed) {
+      music_activated = false;
+      stop_all_notes();
+      return false;
+    }
+
+    if (keycode == MUV_IN && record->event.pressed) {
+      voice_iterate();
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
+    if (keycode == MUV_DE && record->event.pressed) {
+      voice_deiterate();
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
     if (music_activated) {   
 
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
