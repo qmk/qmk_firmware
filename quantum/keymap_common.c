@@ -40,6 +40,10 @@ extern keymap_config_t keymap_config;
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
+#ifdef UNICODE_ENABLE
+    #include "unicode.h"
+#endif /* UNICODE_ENABLE */
+
 static action_t keycode_to_action(uint16_t keycode);
 
 /* converts key to action */
@@ -294,8 +298,8 @@ static action_t keycode_to_action(uint16_t keycode)
             action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
             break;
     #ifdef UNICODE_ENABLE
-        case 0x8000000 ... 0x8FFFFFF:
-            uint16_t unicode = keycode & ~(0x8000);
+        case 0x9000 ... 0x9FFF:
+            unicode = keycode & ~(0x9000);
             action.code =  ACTION_FUNCTION_OPT(unicode & 0xFF, (unicode & 0xFF00) >> 8);
             break;
     #endif
