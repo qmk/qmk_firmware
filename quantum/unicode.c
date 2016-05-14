@@ -75,7 +75,6 @@ void send_unicode(keyrecord_t *record, uint8_t id, uint8_t opt)
 				unregister_code(KC_LSFT);
 				break;
 		}
-		unregister_code(KC_LALT);
 	}
 }
 void set_unicode_mode(uint8_t os_target)
