@@ -34,7 +34,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/keymap_unicode.c
+	SRC += $(QUANTUM_DIR)/unicode.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)

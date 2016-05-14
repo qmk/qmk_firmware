@@ -259,7 +259,7 @@ extern const uint16_t fn_actions[];
 // For sending unicode codes.
 // You may not send codes over 1FFF -- this supports most of UTF8.
 // To have a key that sends out Œ, go UC(0x0152)
-#define UNICODE(n) (n | 0x8000)
+#define UNICODE(n) (n | 0x9000)
 #define UC(n) UNICODE(n)
 
 // For tri-layer
