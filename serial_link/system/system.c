@@ -58,6 +58,8 @@ static SerialConfig config = {
     .sc_speed = SERIAL_LINK_BAUD
 };
 
+//#define DEBUG_LINK_ERRORS
+
 static uint32_t read_from_serial(SerialDriver* driver, uint8_t link) {
     const uint32_t buffer_size = 16;
     uint8_t buffer[buffer_size];
@@ -71,6 +73,37 @@ static uint32_t read_from_serial(SerialDriver* driver, uint8_t link) {
     return bytes_read;
 }
 
+static void print_error(char* str, eventflags_t flags, SerialDriver* driver) {
+#ifdef DEBUG_LINK_ERRORS
+    if (flags & SD_PARITY_ERROR) {
+        print(str);
+        print(" Parity error\n");
+    }
+    if (flags & SD_FRAMING_ERROR) {
+        print(str);
+        print(" Framing error\n");
+    }
+    if (flags & SD_OVERRUN_ERROR) {
+        print(str);
+        uint32_t size = qSpaceI(&(driver->iqueue));
+        xprintf(" Overrun error, queue size %d\n", size);
+
+    }
+    if (flags & SD_NOISE_ERROR) {
+        print(str);
+        print(" Noise error\n");
+    }
+    if (flags & SD_BREAK_DETECTED) {
+        print(str);
+        print(" Break detected\n");
+    }
+#else
+    (void)str;
+    (void)flags;
+    (void)driver;
+#endif
+}
+
 // TODO: Optimize the stack size, this is probably way too big
 static THD_WORKING_AREA(serialThreadStack, 1024);
 static THD_FUNCTION(serialThread, arg) {
@@ -79,20 +112,33 @@ static THD_FUNCTION(serialThread, arg) {
     event_listener_t sd1_listener;
     event_listener_t sd2_listener;
     chEvtRegister(&new_data_event, &new_data_listener, 0);
+    eventflags_t events = CHN_INPUT_AVAILABLE
+            | SD_PARITY_ERROR | SD_FRAMING_ERROR | SD_OVERRUN_ERROR | SD_NOISE_ERROR | SD_BREAK_DETECTED;
     chEvtRegisterMaskWithFlags(chnGetEventSource(&SD1),
         &sd1_listener,
         EVENT_MASK(1),
-        CHN_INPUT_AVAILABLE);
+        events);
     chEvtRegisterMaskWithFlags(chnGetEventSource(&SD2),
         &sd2_listener,
         EVENT_MASK(2),
-        CHN_INPUT_AVAILABLE);
+        events);
     bool need_wait = false;
     bool is_master = false;
     while(true) {
+        eventflags_t flags1 = 0;
+        eventflags_t flags2 = 0;
         if (need_wait) {
-            chEvtWaitAnyTimeout(ALL_EVENTS, MS2ST(1000));
+            eventmask_t mask = chEvtWaitAnyTimeout(ALL_EVENTS, MS2ST(1000));
+            if (mask & EVENT_MASK(1)) {
+                flags1 = chEvtGetAndClearFlags(&sd1_listener);
+                print_error("DOWNLINK", flags1, &SD1);
+            }
+            if (mask & EVENT_MASK(2)) {
+                flags2 = chEvtGetAndClearFlags(&sd2_listener);
+                print_error("UPLINK", flags2, &SD2);
+            }
         }
+
         // Always stay as master, even if the USB goes into sleep mode
         is_master |= usbGetDriverStateI(&USBD1) == USB_ACTIVE;
         router_set_master(is_master);
