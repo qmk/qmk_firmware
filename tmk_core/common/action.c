@@ -46,7 +46,7 @@ void action_exec(keyevent_t event)
 #ifndef NO_ACTION_TAPPING
     action_tapping_process(record);
 #else
-    process_action(&record);
+    process_record(&record);
     if (!IS_NOEVENT(record.event)) {
         dprint("processed: "); debug_record(record); dprintln();
     }
@@ -56,25 +56,43 @@ void action_exec(keyevent_t event)
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 bool disable_action_cache = false;
 
-void process_action_nocache(keyrecord_t *record)
+void process_record_nocache(keyrecord_t *record)
 {
     disable_action_cache = true;
-    process_action(record);
+    process_record(record);
     disable_action_cache = false;
 }
 #else
-void process_action_nocache(keyrecord_t *record)
+void process_record_nocache(keyrecord_t *record)
 {
-    process_action(record);
+    process_record(record);
 }
 #endif
 
 __attribute__ ((weak))
-bool process_action_quantum(keyrecord_t *record) {
+bool process_record_quantum(keyrecord_t *record) {
     return true;
 }
 
-void process_action(keyrecord_t *record)
+void process_record(keyrecord_t *record) 
+{
+    if (IS_NOEVENT(record->event)) { return; }
+
+    if(!process_record_quantum(record))
+        return;
+
+    action_t action = store_or_get_action(record->event.pressed, record->event.key);
+    dprint("ACTION: "); debug_action(action);
+#ifndef NO_ACTION_LAYER
+    dprint(" layer_state: "); layer_debug();
+    dprint(" default_layer_state: "); default_layer_debug();
+#endif
+    dprintln();
+
+    process_action(record, action);
+}
+
+void process_action(keyrecord_t *record, action_t action)
 {
     bool do_release_oneshot = false;
     keyevent_t event = record->event;
@@ -82,25 +100,12 @@ void process_action(keyrecord_t *record)
     uint8_t tap_count = record->tap.count;
 #endif
 
-    if (IS_NOEVENT(event)) { return; }
-
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
         dprintf("Oneshot layer: timeout\n");
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
 #endif
-
-    if (!process_action_quantum(record))
-        return;
-
-    action_t action = store_or_get_action(event.pressed, event.key);
-    dprint("ACTION: "); debug_action(action);
-#ifndef NO_ACTION_LAYER
-    dprint(" layer_state: "); layer_debug();
-    dprint(" default_layer_state: "); default_layer_debug();
-#endif
-    dprintln();
 
     if (event.pressed) {
         // clear the potential weak mods left by previously pressed keys
@@ -451,7 +456,7 @@ void process_action(keyrecord_t *record)
     if (do_release_oneshot && !(get_oneshot_layer_state() & ONESHOT_PRESSED )   ) {
         record->event.pressed = false;
         layer_on(get_oneshot_layer());
-        process_action(record);
+        process_record(record);
         layer_off(get_oneshot_layer());
     }
 #endif

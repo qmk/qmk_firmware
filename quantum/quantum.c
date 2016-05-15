@@ -70,7 +70,7 @@ static uint8_t music_sequence_position = 0;
 static uint16_t music_sequence_timer = 0;
 static uint16_t music_sequence_interval = 100;
 
-bool process_action_quantum(keyrecord_t *record) {
+bool process_record_quantum(keyrecord_t *record) {
 
   /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
@@ -89,6 +89,14 @@ bool process_action_quantum(keyrecord_t *record) {
   #else
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
+
+    // This is how you use actions here
+    // if (keycode == KC_LEAD) {
+    //   action_t action;
+    //   action.code = ACTION_DEFAULT_LAYER_SET(0);
+    //   process_action(record, action);
+    //   return false;
+    // }
 
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
@@ -259,5 +267,6 @@ void matrix_scan_quantum() {
   }
 
   #endif
+  
   matrix_scan_kb();
 }
