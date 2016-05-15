@@ -123,3 +123,46 @@ Ensure(Transport, writes_from_master_to_single_slave) {
     assert_that(obj2, is_not_equal_to(NULL));
     assert_that(obj2->test, is_equal_to(7));
 }
+
+Ensure(Transport, ignores_object_with_invalid_id) {
+    update_transport();
+    test_object1_t* obj = begin_write_master_to_single_slave(3);
+    obj->test = 7;
+    expect(signal_data_written);
+    end_write_master_to_single_slave(3);
+    expect(router_send_frame,
+            when(destination, is_equal_to(4)));
+    update_transport();
+    sent_data[sent_data_size - 1] = 44;
+    transport_recv_frame(0, sent_data, sent_data_size);
+    test_object1_t* obj2 = read_master_to_single_slave();
+    assert_that(obj2, is_equal_to(NULL));
+}
+
+Ensure(Transport, ignores_object_with_size_too_small) {
+    update_transport();
+    test_object1_t* obj = begin_write_master_to_slave();
+    obj->test = 7;
+    expect(signal_data_written);
+    end_write_master_to_slave();
+    expect(router_send_frame);
+    update_transport();
+    sent_data[sent_data_size - 2] = 0;
+    transport_recv_frame(0, sent_data, sent_data_size - 1);
+    test_object1_t* obj2 = read_master_to_slave();
+    assert_that(obj2, is_equal_to(NULL));
+}
+
+Ensure(Transport, ignores_object_with_size_too_big) {
+    update_transport();
+    test_object1_t* obj = begin_write_master_to_slave();
+    obj->test = 7;
+    expect(signal_data_written);
+    end_write_master_to_slave();
+    expect(router_send_frame);
+    update_transport();
+    sent_data[sent_data_size + 21] = 0;
+    transport_recv_frame(0, sent_data, sent_data_size + 22);
+    test_object1_t* obj2 = read_master_to_slave();
+    assert_that(obj2, is_equal_to(NULL));
+}

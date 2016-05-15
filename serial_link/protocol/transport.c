@@ -73,21 +73,23 @@ void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size) {
     uint8_t id = data[size-1];
     if (id < num_remote_objects) {
         remote_object_t* obj = remote_objects[id];
-        uint8_t* start;
-        if (obj->object_type == MASTER_TO_ALL_SLAVES) {
-            start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);
+        if (obj->object_size == size - 1) {
+            uint8_t* start;
+            if (obj->object_type == MASTER_TO_ALL_SLAVES) {
+                start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);
+            }
+            else if(obj->object_type == SLAVE_TO_MASTER) {
+                start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);
+                start += (from - 1) * REMOTE_OBJECT_SIZE(obj->object_size);
+            }
+            else {
+                start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);
+            }
+            triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
+            void* ptr = triple_buffer_begin_write_internal(obj->object_size, tb);
+            memcpy(ptr, data, size - 1);
+            triple_buffer_end_write_internal(tb);
         }
-        else if(obj->object_type == SLAVE_TO_MASTER) {
-            start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);
-            start += (from - 1) * REMOTE_OBJECT_SIZE(obj->object_size);
-        }
-        else {
-            start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);
-        }
-        triple_buffer_object_t* tb = (triple_buffer_object_t*)start;
-        void* ptr = triple_buffer_begin_write_internal(obj->object_size, tb);
-        memcpy(ptr, data, size -1);
-        triple_buffer_end_write_internal(tb);
     }
 }
 
