@@ -156,8 +156,15 @@ bool process_record_quantum(keyrecord_t *record) {
           // midi_send_cc(&midi_device, 4, 0x7B, 0);
           return false;
       }
+      // basic
       // uint8_t note = (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row);
-      uint8_t note = (starting_note + record->event.key.col + offset)+12*(MATRIX_ROWS - record->event.key.row);
+      // advanced
+      // uint8_t note = (starting_note + record->event.key.col + offset)+12*(MATRIX_ROWS - record->event.key.row);
+      // guitar
+      uint8_t note = (starting_note + record->event.key.col + offset)+5*(MATRIX_ROWS - record->event.key.row);
+      // violin
+      // uint8_t note = (starting_note + record->event.key.col + offset)+7*(MATRIX_ROWS - record->event.key.row);
+
       if (record->event.pressed) {
         // midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
         midi_send_noteon(&midi_device, 0, note, 127);
