@@ -282,11 +282,6 @@ static action_t keycode_to_action(uint16_t keycode)
                 action.code = ACTION_MODS_ONESHOT(mod);
             }
             break;
-    #ifdef MIDI_ENABLE
-        case 0x6000 ... 0x6FFF:
-            action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
-            break;
-    #endif
         case 0x7000 ... 0x7FFF:
             action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
             break;

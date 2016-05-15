@@ -13,7 +13,8 @@
   #include "audio.h"
 #endif
 #ifdef MIDI_ENABLE
-	#include <keymap_midi.h>
+	// #include <keymap_midi.h>
+	#include <lufa.h>
 #endif
 #include "action_layer.h"
 #include "eeconfig.h"

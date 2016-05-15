@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
   {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______, _______, _______, _______, _______, _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -227,8 +227,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
+            #ifdef BACKLIGHT_ENABLE
                 breathing_speed_set(2);
                 breathing_pulse();
+            #endif
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
             layer_off(_LOWER);
@@ -238,8 +240,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
+            #ifdef BACKLIGHT_ENABLE
                 breathing_speed_set(2);
                 breathing_pulse();
+            #endif
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
             layer_off(_RAISE);
