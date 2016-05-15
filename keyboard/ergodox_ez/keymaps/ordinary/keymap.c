@@ -238,7 +238,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case LCaps: // both caps-shift keys trigger Left Shift
         case RCaps: // so they don't interfere with the magic combo
-        if (record->event.pressed && !record->tap.count) {
+        if (record->event.pressed) {
             if(++caps_shift > 2) caps_shift = 2;
             if(caps_shift == 2)  {
                 register_code(KC_CAPS);
@@ -317,7 +317,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 }
             }
         } else {
-            if(record->tap.count && symb_shift == 0) {
+            if(record->tap.count && (!symb_shift) && (!symb_lock)) {
                 unregister_code(KC_QUOT);
             } else {
                 if(--symb_shift < 0) symb_shift = 0;
