@@ -19,9 +19,13 @@ void leader_end(void) {}
 
 #ifdef AUDIO_ENABLE
   uint8_t starting_note = 0x0C;
-  int offset = 0;
+  int offset = 7;
   bool music_activated = false;
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+#endif
+
+#ifdef MIDI_ENABLE
+  bool midi_activated = false;
 #endif
 
 // Leader key stuff
@@ -98,6 +102,82 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  #ifdef MIDI_ENABLE
+    if (keycode == MI_ON && record->event.pressed) {
+      midi_activated = true;
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
+    if (keycode == MI_OFF && record->event.pressed) {
+      midi_activated = false;
+      midi_send_cc(&midi_device, 0, 0x7B, 0);
+      return false;
+    }
+
+    if (midi_activated) {
+      if (record->event.key.col == (MATRIX_COLS - 1) && record->event.key.row == (MATRIX_ROWS - 1)) {
+          if (record->event.pressed) {
+              starting_note++; // Change key
+              midi_send_cc(&midi_device, 0, 0x7B, 0);
+              // midi_send_cc(&midi_device, 1, 0x7B, 0);
+              // midi_send_cc(&midi_device, 2, 0x7B, 0);
+              // midi_send_cc(&midi_device, 3, 0x7B, 0);
+              // midi_send_cc(&midi_device, 4, 0x7B, 0);
+          }
+          return false;
+      }
+      if (record->event.key.col == (MATRIX_COLS - 2) && record->event.key.row == (MATRIX_ROWS - 1)) {
+          if (record->event.pressed) {
+              starting_note--; // Change key
+              midi_send_cc(&midi_device, 0, 0x7B, 0);
+              // midi_send_cc(&midi_device, 1, 0x7B, 0);
+              // midi_send_cc(&midi_device, 2, 0x7B, 0);
+              // midi_send_cc(&midi_device, 3, 0x7B, 0);
+              // midi_send_cc(&midi_device, 4, 0x7B, 0);
+          }
+          return false;
+      }
+      if (record->event.key.col == (MATRIX_COLS - 3) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
+          offset++; // Change scale
+          midi_send_cc(&midi_device, 0, 0x7B, 0);
+          // midi_send_cc(&midi_device, 1, 0x7B, 0);
+          // midi_send_cc(&midi_device, 2, 0x7B, 0);
+          // midi_send_cc(&midi_device, 3, 0x7B, 0);
+          // midi_send_cc(&midi_device, 4, 0x7B, 0);
+          return false;
+      }
+      if (record->event.key.col == (MATRIX_COLS - 4) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
+          offset--; // Change scale
+          midi_send_cc(&midi_device, 0, 0x7B, 0);
+          // midi_send_cc(&midi_device, 1, 0x7B, 0);
+          // midi_send_cc(&midi_device, 2, 0x7B, 0);
+          // midi_send_cc(&midi_device, 3, 0x7B, 0);
+          // midi_send_cc(&midi_device, 4, 0x7B, 0);
+          return false;
+      }
+      // basic
+      // uint8_t note = (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row);
+      // advanced
+      // uint8_t note = (starting_note + record->event.key.col + offset)+12*(MATRIX_ROWS - record->event.key.row);
+      // guitar
+      uint8_t note = (starting_note + record->event.key.col + offset)+5*(MATRIX_ROWS - record->event.key.row);
+      // violin
+      // uint8_t note = (starting_note + record->event.key.col + offset)+7*(MATRIX_ROWS - record->event.key.row);
+
+      if (record->event.pressed) {
+        // midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
+        midi_send_noteon(&midi_device, 0, note, 127);
+      } else {
+        // midi_send_noteoff(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
+        midi_send_noteoff(&midi_device, 0, note, 127);
+      }
+
+      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
+        return false;
+    }
+  #endif
+
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
@@ -169,7 +249,7 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
       }
 
-      float freq = ((float)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
       if (record->event.pressed) {
         play_note(freq, 0xF);
         if (music_sequence_recording) {
@@ -184,8 +264,6 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
     }
   #endif
-
-
 
 #ifndef DISABLE_LEADER
   // Leader key set-up
@@ -267,6 +345,6 @@ void matrix_scan_quantum() {
   }
 
   #endif
-  
+
   matrix_scan_kb();
 }

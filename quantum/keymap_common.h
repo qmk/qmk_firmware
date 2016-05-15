@@ -195,6 +195,7 @@ extern const uint16_t fn_actions[];
 
 
 
+
 // MAGIC keycodes
 #define MAGIC_SWAP_CONTROL_CAPSLOCK      0x5002
 #define MAGIC_UNSWAP_CONTROL_CAPSLOCK    0x5003
@@ -231,6 +232,10 @@ extern const uint16_t fn_actions[];
 // Music voice iterate
 #define MUV_IN 0x5024
 #define MUV_DE 0x5025
+
+// Midi mode on/off
+#define MI_ON  0x5026
+#define MI_OFF 0x5027
 
 // GOTO layer - 16 layers max
 // when:
