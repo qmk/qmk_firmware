@@ -21,6 +21,7 @@ void leader_end(void) {}
   uint8_t starting_note = 0x0C;
   int offset = 0;
   bool music_activated = false;
+  float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 #endif
 
 // Leader key stuff
@@ -60,6 +61,15 @@ bool keys_chord(uint8_t keys[]) {
   return (pass && (in == keys_size));
 }
 
+static bool music_sequence_recording = false;
+static bool music_sequence_playing = false;
+static float music_sequence[16] = {0};
+static uint8_t music_sequence_count = 0;
+static uint8_t music_sequence_position = 0;
+
+static uint16_t music_sequence_timer = 0;
+static uint16_t music_sequence_interval = 100;
+
 bool process_action_quantum(keyrecord_t *record) {
 
   /* This gets the keycode from the key pressed */
@@ -81,12 +91,87 @@ bool process_action_quantum(keyrecord_t *record) {
   #endif
 
   #ifdef AUDIO_ENABLE
-    if (music_activated) {
-      if (record->event.pressed) {
-          play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
-      } else {
-          stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+    if (keycode == AU_ON && record->event.pressed) {
+      audio_on();
+      audio_on_callback();
+      return false;
+    }
+
+    if (keycode == AU_OFF && record->event.pressed) {
+      audio_off();
+      return false;
+    }
+
+    if (keycode == MU_ON && record->event.pressed) {
+      music_activated = true;
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
+    if (keycode == MU_OFF && record->event.pressed) {
+      music_activated = false;
+      stop_all_notes();
+      return false;
+    }
+
+    if (keycode == MUV_IN && record->event.pressed) {
+      voice_iterate();
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
+    if (keycode == MUV_DE && record->event.pressed) {
+      voice_deiterate();
+      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      return false;
+    }
+
+    if (music_activated) {   
+
+      if (keycode == KC_LCTL && record->event.pressed) { // Start recording
+        stop_all_notes();
+        music_sequence_recording = true;
+        music_sequence_playing = false;
+        music_sequence_count = 0;
+        return false;
       }
+      if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
+        stop_all_notes();
+        music_sequence_recording = false;
+        music_sequence_playing = false;
+        return false;
+      }
+      if (keycode == KC_LGUI && record->event.pressed) { // Start playing
+        stop_all_notes();
+        music_sequence_recording = false;
+        music_sequence_playing = true;
+        music_sequence_position = 0;
+        music_sequence_timer = 0;
+        return false;
+      }
+
+      if (keycode == KC_UP) {
+        if (record->event.pressed)
+          music_sequence_interval-=10;
+        return false;
+      }
+      if (keycode == KC_DOWN) {
+        if (record->event.pressed)
+          music_sequence_interval+=10;
+        return false;
+      }
+
+      float freq = ((float)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      if (record->event.pressed) {
+        play_note(freq, 0xF);
+        if (music_sequence_recording) {
+          music_sequence[music_sequence_count] = freq;
+          music_sequence_count++;
+        }
+      } else {
+        stop_note(freq);
+      }  
+
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
     }
@@ -163,5 +248,16 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
+  #ifdef AUDIO_ENABLE
+  if (music_sequence_playing) {
+    if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
+      music_sequence_timer = timer_read();
+      stop_note(music_sequence[(music_sequence_position - 1 < 0)?(music_sequence_position - 1 + music_sequence_count):(music_sequence_position - 1)]);
+      play_note(music_sequence[music_sequence_position], 0xF);
+      music_sequence_position = (music_sequence_position + 1) % music_sequence_count;
+    }
+  }
+
+  #endif
   matrix_scan_kb();
 }
