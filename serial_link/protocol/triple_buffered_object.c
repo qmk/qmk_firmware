@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 #include "serial_link/protocol/triple_buffered_object.h"
-#include "serial_link/system/system.h"
+#include "serial_link/system/serial_link.h"
 #include <stdbool.h>
 #include <stddef.h>
 

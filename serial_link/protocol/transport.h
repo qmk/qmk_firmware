@@ -26,7 +26,7 @@ SOFTWARE.
 #define SERIAL_LINK_TRANSPORT_H
 
 #include "serial_link/protocol/triple_buffered_object.h"
-#include "serial_link/system/system.h"
+#include "serial_link/system/serial_link.h"
 
 #define NUM_SLAVES 8
 #define LOCAL_OBJECT_EXTRA 16

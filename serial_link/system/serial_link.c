@@ -23,8 +23,7 @@ SOFTWARE.
 */
 #include "report.h"
 #include "host_driver.h"
-#include "serial_link/system/system.h"
-#include "serial_link/system/driver.h"
+#include "serial_link/system/serial_link.h"
 #include "hal.h"
 #include "serial_link/protocol/byte_stuffer.h"
 #include "serial_link/protocol/transport.h"
