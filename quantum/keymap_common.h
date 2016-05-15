@@ -159,7 +159,7 @@ extern const uint16_t fn_actions[];
 #define S(kc) LSFT(kc)
 #define F(kc) FUNC(kc)
 
-#define M(kc) kc | 0x3000
+#define M(kc) (kc | 0x3000)
 
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
@@ -191,6 +191,8 @@ extern const uint16_t fn_actions[];
 
 #define RESET 0x5000
 #define DEBUG 0x5001
+#define KC_LEAD 0x5014
+
 
 // MAGIC keycodes
 #define MAGIC_SWAP_CONTROL_CAPSLOCK      0x5002

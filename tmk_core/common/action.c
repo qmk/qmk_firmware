@@ -70,7 +70,9 @@ void process_action_nocache(keyrecord_t *record)
 #endif
 
 __attribute__ ((weak))
-void process_action_kb(keyrecord_t *record) {}
+bool process_action_quantum(keyrecord_t *record) {
+    return true;
+}
 
 void process_action(keyrecord_t *record)
 {
@@ -89,7 +91,8 @@ void process_action(keyrecord_t *record)
     }
 #endif
 
-    process_action_kb(record);
+    if (!process_action_quantum(record))
+        return;
 
     action_t action = store_or_get_action(event.pressed, event.key);
     dprint("ACTION: "); debug_action(action);

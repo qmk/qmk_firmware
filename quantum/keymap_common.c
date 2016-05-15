@@ -251,7 +251,7 @@ static action_t keycode_to_action(uint16_t keycode)
             }
             eeconfig_update_keymap(keymap_config.raw);
             break;
-        case 0x5100 ... 0x5FFF: ;
+        case 0x5100 ... 0x56FF: ;
             // Layer movement shortcuts
             // See .h to see constraints/usage
             int type = (keycode >> 0x8) & 0xF;
