@@ -45,7 +45,7 @@ SOFTWARE.
 
 #ifdef USE_SERIAL_LINK
 #include "serial_link/protocol/transport.h"
-#include "serial_link/system/driver.h"
+#include "serial_link/system/serial_link.h"
 #endif
 
 // Define this in config.h
