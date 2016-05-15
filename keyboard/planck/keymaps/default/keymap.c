@@ -19,8 +19,7 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _MUSIC 5
-#define _PLOVER 6
+#define _PLOVER 5
 #define _ADJUST 16
 
 // Macro name shortcuts
@@ -30,12 +29,6 @@ extern keymap_config_t keymap_config;
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define M_BL 5
-#define AUD_OFF M(6)
-#define AUD_ON M(7)
-#define MUS_OFF M(8)
-#define MUS_ON M(9)
-#define VC_IN M(10)
-#define VC_DE M(11)
 #define PLOVER M(12)
 #define EXT_PLV M(13)
 #define TOG_OUT M(14)
@@ -136,16 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
-/* Music (reserved for process_action_user)
- *
- */
-[_MUSIC] = {
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
-},
-
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -178,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -205,7 +188,6 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
@@ -270,53 +252,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RSFT);
           }
         break;
-        case 6:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              audio_off();
-            #endif
-          }
-        break;
-        case 7:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              audio_on();
-              PLAY_NOTE_ARRAY(tone_startup, false, 0);
-            #endif
-          }
-        break;
-        case 8:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              layer_off(_MUSIC);
-              stop_all_notes();
-            #endif
-          }
-        break;
-        case 9:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-              layer_on(_MUSIC);
-            #endif
-          }
-        break;
-        case 10:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              voice_iterate();
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-            #endif
-          }
-        break;
-        case 11:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              voice_deiterate();
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-            #endif
-          }
-        break;
         case 12:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -365,20 +300,5 @@ void play_goodbye_tone()
 {
   PLAY_NOTE_ARRAY(goodbye, false, 0);
   _delay_ms(150);
-}
-
-uint8_t starting_note = 0x0C;
-int offset = 0;
-
-void process_action_user(keyrecord_t *record) {
-
-  if (IS_LAYER_ON(_MUSIC)) {
-    if (record->event.pressed) {
-        play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
-    } else {
-        stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
-    }
-  }
-
 }
 #endif
