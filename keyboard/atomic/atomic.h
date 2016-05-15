@@ -1,11 +1,7 @@
 #ifndef ATOMIC_H
 #define ATOMIC_H
 
-#include "matrix.h"
-#include "keymap_common.h"
-#ifdef BACKLIGHT_ENABLE
-    #include "backlight.h"
-#endif
+#include "quantum.h"
 #include <stddef.h>
 #include <avr/io.h>
 
