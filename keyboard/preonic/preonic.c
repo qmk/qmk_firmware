@@ -11,8 +11,8 @@ void matrix_scan_user(void) {
 };
 
 __attribute__ ((weak))
-void process_action_user(keyrecord_t *record) {
-
+bool process_action_user(keyrecord_t *record) {
+    return true;
 };
 
 void matrix_init_kb(void) {
@@ -36,8 +36,8 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 };
 
-void process_action_kb(keyrecord_t *record) {
-	process_action_user(record);
+bool process_action_kb(keyrecord_t *record) {
+	return process_action_user(record);
 }
 
 #ifdef BACKLIGHT_ENABLE

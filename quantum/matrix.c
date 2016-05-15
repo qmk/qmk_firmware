@@ -55,12 +55,12 @@ static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 __attribute__ ((weak))
-void matrix_init_kb(void) {
+void matrix_init_quantum(void) {
 
 }
 
 __attribute__ ((weak))
-void matrix_scan_kb(void) {
+void matrix_scan_quantum(void) {
 
 }
 
@@ -93,7 +93,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_kb();
+    matrix_init_quantum();
 }
 
 
@@ -157,7 +157,7 @@ uint8_t matrix_scan(void)
     }
 #endif
 
-    matrix_scan_kb();
+    matrix_scan_quantum();
 
     return 1;
 }
