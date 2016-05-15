@@ -24,9 +24,9 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
-ifeq ($(strip $(MIDI_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/keymap_midi.c
-endif
+#ifeq ($(strip $(MIDI_ENABLE)), yes)
+#	SRC += $(QUANTUM_DIR)/keymap_midi.c
+#endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/audio/audio.c
