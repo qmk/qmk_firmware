@@ -21,10 +21,7 @@ void leader_end(void) {}
   uint8_t starting_note = 0x0C;
   int offset = 0;
   bool music_activated = false;
-<<<<<<< HEAD
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
-=======
->>>>>>> master
 #endif
 
 // Leader key stuff
@@ -262,6 +259,5 @@ void matrix_scan_quantum() {
   }
 
   #endif
-
   matrix_scan_kb();
 }
