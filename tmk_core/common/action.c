@@ -70,7 +70,11 @@ void process_record_nocache(keyrecord_t *record)
 #endif
 
 __attribute__ ((weak))
+<<<<<<< HEAD
 bool process_record_quantum(keyrecord_t *record) {
+=======
+bool process_action_quantum(keyrecord_t *record) {
+>>>>>>> master
     return true;
 }
 
@@ -107,6 +111,20 @@ void process_action(keyrecord_t *record, action_t action)
     }
 #endif
 
+<<<<<<< HEAD
+=======
+    if (!process_action_quantum(record))
+        return;
+
+    action_t action = store_or_get_action(event.pressed, event.key);
+    dprint("ACTION: "); debug_action(action);
+#ifndef NO_ACTION_LAYER
+    dprint(" layer_state: "); layer_debug();
+    dprint(" default_layer_state: "); default_layer_debug();
+#endif
+    dprintln();
+
+>>>>>>> master
     if (event.pressed) {
         // clear the potential weak mods left by previously pressed keys
         clear_weak_mods();

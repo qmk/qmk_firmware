@@ -256,6 +256,56 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RSFT);
           }
         break;
+<<<<<<< HEAD
+=======
+        case 6:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              audio_off();
+            #endif
+          }
+        break;
+        case 7:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              audio_on();
+              PLAY_NOTE_ARRAY(tone_startup, false, 0);
+            #endif
+          }
+        break;
+        case 8:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              music_activated = false;
+              stop_all_notes();
+            #endif
+          }
+        break;
+        case 9:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+              music_activated = true;
+            #endif
+          }
+        break;
+        case 10:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_iterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+        case 11:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              voice_deiterate();
+              PLAY_NOTE_ARRAY(music_scale, false, 0);
+            #endif
+          }
+        break;
+>>>>>>> master
         case 12:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE

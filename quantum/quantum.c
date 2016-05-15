@@ -21,7 +21,10 @@ void leader_end(void) {}
   uint8_t starting_note = 0x0C;
   int offset = 0;
   bool music_activated = false;
+<<<<<<< HEAD
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+=======
+>>>>>>> master
 #endif
 
 // Leader key stuff
@@ -61,6 +64,7 @@ bool keys_chord(uint8_t keys[]) {
   return (pass && (in == keys_size));
 }
 
+<<<<<<< HEAD
 static bool music_sequence_recording = false;
 static bool music_sequence_playing = false;
 static float music_sequence[16] = {0};
@@ -71,6 +75,9 @@ static uint16_t music_sequence_timer = 0;
 static uint16_t music_sequence_interval = 100;
 
 bool process_record_quantum(keyrecord_t *record) {
+=======
+bool process_action_quantum(keyrecord_t *record) {
+>>>>>>> master
 
   /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
@@ -90,6 +97,7 @@ bool process_record_quantum(keyrecord_t *record) {
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
 
+<<<<<<< HEAD
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
     //   action_t action;
@@ -181,6 +189,15 @@ bool process_record_quantum(keyrecord_t *record) {
         stop_note(freq);
       }  
 
+=======
+  #ifdef AUDIO_ENABLE
+    if (music_activated) {
+      if (record->event.pressed) {
+          play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
+      } else {
+          stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+      }
+>>>>>>> master
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
     }
@@ -257,6 +274,7 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
+<<<<<<< HEAD
   #ifdef AUDIO_ENABLE
   if (music_sequence_playing) {
     if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
@@ -269,5 +287,7 @@ void matrix_scan_quantum() {
 
   #endif
 
+=======
+>>>>>>> master
   matrix_scan_kb();
 }
