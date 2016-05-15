@@ -191,8 +191,6 @@ extern const uint16_t fn_actions[];
 
 #define RESET 0x5000
 #define DEBUG 0x5001
-#define KC_LEAD 0x5014
-
 
 // MAGIC keycodes
 #define MAGIC_SWAP_CONTROL_CAPSLOCK      0x5002
@@ -217,6 +215,19 @@ extern const uint16_t fn_actions[];
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
 
+#define KC_LEAD 0x5014
+
+// Audio on/off
+#define AU_ON  0x5020
+#define AU_OFF 0x5021
+
+// Music mode on/off
+#define MU_ON  0x5022
+#define MU_OFF 0x5023
+
+// Music voice iterate
+#define MUV_IN 0x5024
+#define MUV_DE 0x5025
 
 // GOTO layer - 16 layers max
 // when:

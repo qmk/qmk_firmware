@@ -29,6 +29,7 @@ bool is_audio_on(void);
 void audio_toggle(void);
 void audio_on(void);
 void audio_off(void);
+void audio_on_callback(void);
 
 // Vibrato rate functions
 

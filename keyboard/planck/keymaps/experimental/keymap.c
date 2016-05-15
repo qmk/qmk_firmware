@@ -20,8 +20,7 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _MUSIC 5
-#define _PLOVER 6
+#define _PLOVER 5
 #define _ADJUST 16
 
 // Macro name shortcuts
@@ -31,12 +30,6 @@ extern keymap_config_t keymap_config;
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define M_BL 5
-#define AUD_OFF M(6)
-#define AUD_ON M(7)
-#define MUS_OFF M(8)
-#define MUS_ON M(9)
-#define VC_IN M(10)
-#define VC_DE M(11)
 #define PLOVER M(12)
 #define EXT_PLV M(13)
 
@@ -136,16 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
-/* Music (reserved for process_action_user)
- *
- */
-[_MUSIC] = {
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
-},
-
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -178,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -205,7 +188,6 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
@@ -274,53 +256,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RSFT);
           }
         break;
-        case 6:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              audio_off();
-            #endif
-          }
-        break;
-        case 7:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              audio_on();
-              PLAY_NOTE_ARRAY(tone_startup, false, 0);
-            #endif
-          }
-        break;
-        case 8:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              music_activated = false;
-              stop_all_notes();
-            #endif
-          }
-        break;
-        case 9:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-              music_activated = true;
-            #endif
-          }
-        break;
-        case 10:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              voice_iterate();
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-            #endif
-          }
-        break;
-        case 11:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              voice_deiterate();
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-            #endif
-          }
-        break;
         case 12:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -330,7 +265,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
-            layer_off(_MUSIC);
             layer_on(_PLOVER);
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
