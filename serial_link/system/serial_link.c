@@ -35,6 +35,7 @@ SOFTWARE.
 
 static event_source_t new_data_event;
 static bool serial_link_connected;
+static bool is_master = false;
 
 static uint8_t keyboard_leds(void);
 static void send_keyboard(report_keyboard_t *report);
@@ -109,6 +110,10 @@ static void print_error(char* str, eventflags_t flags, SerialDriver* driver) {
 #endif
 }
 
+bool is_serial_link_master(void) {
+    return is_master;
+}
+
 // TODO: Optimize the stack size, this is probably way too big
 static THD_WORKING_AREA(serialThreadStack, 1024);
 static THD_FUNCTION(serialThread, arg) {
@@ -128,7 +133,6 @@ static THD_FUNCTION(serialThread, arg) {
         EVENT_MASK(2),
         events);
     bool need_wait = false;
-    bool is_master = false;
     while(true) {
         eventflags_t flags1 = 0;
         eventflags_t flags2 = 0;

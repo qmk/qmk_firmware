@@ -31,6 +31,7 @@ SOFTWARE.
 void init_serial_link(void);
 void init_serial_link_hal(void);
 bool is_serial_link_connected(void);
+bool is_serial_link_master(void);
 host_driver_t* get_serial_link_driver(void);
 void serial_link_update(void);
 
