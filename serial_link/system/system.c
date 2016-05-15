@@ -32,6 +32,7 @@ SOFTWARE.
 #include "matrix.h"
 #include <stdbool.h>
 #include "print.h"
+#include "config.h"
 
 static event_source_t new_data_event;
 static bool serial_link_connected;
@@ -50,8 +51,13 @@ host_driver_t serial_driver = {
   send_consumer
 };
 
+// Define these in your Config.h file
 #ifndef SERIAL_LINK_BAUD
 #error "Serial link baud is not set"
+#endif
+
+#ifndef SERIAL_LINK_THREAD_PRIORITY
+#error "Serial link thread priority not set"
 #endif
 
 static SerialConfig config = {
@@ -184,7 +190,7 @@ void init_serial_link(void) {
     sdStart(&SD2, &config);
     chEvtObjectInit(&new_data_event);
     (void)chThdCreateStatic(serialThreadStack, sizeof(serialThreadStack),
-                              LOWPRIO, serialThread, NULL);
+                              SERIAL_LINK_THREAD_PRIORITY, serialThread, NULL);
 }
 
 void matrix_set_remote(matrix_row_t* rows, uint8_t index);
