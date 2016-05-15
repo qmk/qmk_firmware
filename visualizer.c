@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include "visualizer.h"
 #include "ch.h"
+#include "config.h"
 #include <string.h>
 
 #ifdef LCD_ENABLE
@@ -45,6 +46,11 @@ SOFTWARE.
 #ifdef USE_SERIAL_LINK
 #include "serial_link/protocol/transport.h"
 #include "serial_link/system/driver.h"
+#endif
+
+// Define this in config.h
+#ifndef VISUALIZER_THREAD_PRIORITY
+#define "Visualizer thread priority not defined"
 #endif
 
 
@@ -409,7 +415,7 @@ void visualizer_init(void) {
     // when the main thread is sleeping during the matrix scanning
     chEvtObjectInit(&layer_changed_event);
     (void)chThdCreateStatic(visualizerThreadStack, sizeof(visualizerThreadStack),
-                              LOWPRIO, visualizerThread, NULL);
+                              VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
 }
 
 void update_status(bool changed) {
