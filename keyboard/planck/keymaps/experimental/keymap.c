@@ -6,6 +6,7 @@
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
+
 #include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
@@ -19,8 +20,7 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _MUSIC 5
-#define _PLOVER 6
+#define _PLOVER 5
 #define _ADJUST 16
 
 // Macro name shortcuts
@@ -30,12 +30,6 @@ extern keymap_config_t keymap_config;
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define M_BL 5
-#define AUD_OFF M(6)
-#define AUD_ON M(7)
-#define MUS_OFF M(8)
-#define MUS_ON M(9)
-#define VC_IN M(10)
-#define VC_DE M(11)
 #define PLOVER M(12)
 #define EXT_PLV M(13)
 
@@ -78,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Dvorak
@@ -135,16 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
-/* Music (reserved for process_action_user)
- *
- */
-[_MUSIC] = {
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
-},
-
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -177,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AUD_ON,  AUD_OFF, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, VC_DE,   VC_IN,   MUS_ON,  MUS_OFF, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -204,7 +188,6 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
@@ -244,8 +227,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
+            #ifdef BACKLIGHT_ENABLE
                 breathing_speed_set(2);
                 breathing_pulse();
+            #endif
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
             layer_off(_LOWER);
@@ -255,8 +240,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
+            #ifdef BACKLIGHT_ENABLE
                 breathing_speed_set(2);
                 breathing_pulse();
+            #endif
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
             layer_off(_RAISE);
@@ -273,53 +260,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RSFT);
           }
         break;
-        case 6:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              audio_off();
-            #endif
-          }
-        break;
-        case 7:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              audio_on();
-              PLAY_NOTE_ARRAY(tone_startup, false, 0);
-            #endif
-          }
-        break;
-        case 8:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              layer_off(_MUSIC);
-              stop_all_notes();
-            #endif
-          }
-        break;
-        case 9:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-              layer_on(_MUSIC);
-            #endif
-          }
-        break;
-        case 10:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              voice_iterate();
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-            #endif
-          }
-        break;
-        case 11:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              voice_deiterate();
-              PLAY_NOTE_ARRAY(music_scale, false, 0);
-            #endif
-          }
-        break;
         case 12:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -329,7 +269,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
-            layer_off(_MUSIC);
             layer_on(_PLOVER);
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
@@ -360,24 +299,35 @@ void matrix_init_user(void) {
 }
 
 #ifdef AUDIO_ENABLE
-void play_goodbye_tone()
-{
-  PLAY_NOTE_ARRAY(goodbye, false, 0);
-  _delay_ms(150);
-}
+  void play_goodbye_tone(void)
+  {
+    PLAY_NOTE_ARRAY(goodbye, false, 0);
+    _delay_ms(150);
+  }
+#endif
 
-uint8_t starting_note = 0x0C;
-int offset = 0;
+LEADER_EXTERNS();
 
-void process_action_user(keyrecord_t *record) {
+#define LEADER_TIMEOUT 300
 
-  if (IS_LAYER_ON(_MUSIC)) {
-    if (record->event.pressed) {
-        play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
-    } else {
-        stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() { 
+    leading = false;
+    leader_end(); 
+
+    SEQ_ONE_KEY(KC_F) {
+      register_code(KC_S);
+      unregister_code(KC_S);
+    }
+    SEQ_TWO_KEYS(KC_A, KC_S) {
+      register_code(KC_H);
+      unregister_code(KC_H);
+    }
+    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
+      register_code(KC_LGUI);
+      register_code(KC_S);
+      unregister_code(KC_S);
+      unregister_code(KC_LGUI);
     }
   }
-
 }
-#endif

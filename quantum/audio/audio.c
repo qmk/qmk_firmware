@@ -478,12 +478,11 @@ void increase_tempo(uint8_t tempo_change) {
 // Override these functions in your keymap file to play different tunes on
 // startup and bootloader jump
 __attribute__ ((weak))
-void play_startup_tone()
-{
-}
+void play_startup_tone() {}
 
 __attribute__ ((weak))
-void play_goodbye_tone()
-{
-}
+void play_goodbye_tone() {}
+
+__attribute__ ((weak))
+void audio_on_callback(void) {}
 //------------------------------------------------------------------------------

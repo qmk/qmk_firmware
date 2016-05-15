@@ -255,7 +255,7 @@ static action_t keycode_to_action(uint16_t keycode)
             }
             eeconfig_update_keymap(keymap_config.raw);
             break;
-        case 0x5100 ... 0x5FFF: ;
+        case 0x5100 ... 0x56FF: ;
             // Layer movement shortcuts
             // See .h to see constraints/usage
             int type = (keycode >> 0x8) & 0xF;
@@ -286,11 +286,6 @@ static action_t keycode_to_action(uint16_t keycode)
                 action.code = ACTION_MODS_ONESHOT(mod);
             }
             break;
-    #ifdef MIDI_ENABLE
-        case 0x6000 ... 0x6FFF:
-            action.code =  ACTION_FUNCTION_OPT(keycode & 0xFF, (keycode & 0x0F00) >> 8);
-            break;
-    #endif
         case 0x7000 ... 0x7FFF:
             action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
             break;
