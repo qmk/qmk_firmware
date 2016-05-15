@@ -178,7 +178,6 @@ bool process_record_quantum(keyrecord_t *record) {
     }
   #endif
 
-
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
