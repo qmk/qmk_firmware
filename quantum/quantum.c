@@ -76,23 +76,14 @@ static uint16_t music_sequence_interval = 100;
 
 bool process_record_quantum(keyrecord_t *record) {
 
-  /* This gets the keycode from the key pressed */
-  keypos_t key = record->event.key;
-  uint16_t keycode;
+    /* This gets the keycode from the key pressed */
+    keypos_t key = record->event.key;
 
-  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    uint8_t layer;
-
-    if (record->event.pressed) {
-      layer = layer_switch_get_layer(key);
-      update_source_layers_cache(key, layer);
-    } else {
-      layer = read_source_layers_cache(key);
-    }
-    keycode = keymap_key_to_keycode(layer, key);
-  #else
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
-  #endif
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+    action_t action = get_action(key, record->event.pressed);
+#else
+    action_t action = layer_switch_get_action(key);
+#endif
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -103,13 +94,13 @@ bool process_record_quantum(keyrecord_t *record) {
     // }
 
   #ifdef MIDI_ENABLE
-    if (keycode == MI_ON && record->event.pressed) {
+    if (action.code == MI_ON && record->event.pressed) {
       midi_activated = true;
       PLAY_NOTE_ARRAY(music_scale, false, 0);
       return false;
     }
 
-    if (keycode == MI_OFF && record->event.pressed) {
+    if (action.code == MI_OFF && record->event.pressed) {
       midi_activated = false;
       midi_send_cc(&midi_device, 0, 0x7B, 0);
       return false;
@@ -173,63 +164,63 @@ bool process_record_quantum(keyrecord_t *record) {
         midi_send_noteoff(&midi_device, 0, note, 127);
       }
 
-      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
+      if (action.code < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
     }
   #endif
 
   #ifdef AUDIO_ENABLE
-    if (keycode == AU_ON && record->event.pressed) {
+    if (action.code == AU_ON && record->event.pressed) {
       audio_on();
       audio_on_callback();
       return false;
     }
 
-    if (keycode == AU_OFF && record->event.pressed) {
+    if (action.code == AU_OFF && record->event.pressed) {
       audio_off();
       return false;
     }
 
-    if (keycode == MU_ON && record->event.pressed) {
+    if (action.code == MU_ON && record->event.pressed) {
       music_activated = true;
       PLAY_NOTE_ARRAY(music_scale, false, 0);
       return false;
     }
 
-    if (keycode == MU_OFF && record->event.pressed) {
+    if (action.code == MU_OFF && record->event.pressed) {
       music_activated = false;
       stop_all_notes();
       return false;
     }
 
-    if (keycode == MUV_IN && record->event.pressed) {
+    if (action.code == MUV_IN && record->event.pressed) {
       voice_iterate();
       PLAY_NOTE_ARRAY(music_scale, false, 0);
       return false;
     }
 
-    if (keycode == MUV_DE && record->event.pressed) {
+    if (action.code == MUV_DE && record->event.pressed) {
       voice_deiterate();
       PLAY_NOTE_ARRAY(music_scale, false, 0);
       return false;
     }
 
-    if (music_activated) {   
+    if (music_activated) {
 
-      if (keycode == KC_LCTL && record->event.pressed) { // Start recording
+      if (action.code == KC_LCTL && record->event.pressed) { // Start recording
         stop_all_notes();
         music_sequence_recording = true;
         music_sequence_playing = false;
         music_sequence_count = 0;
         return false;
       }
-      if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
+      if (action.code == KC_LALT && record->event.pressed) { // Stop recording/playing
         stop_all_notes();
         music_sequence_recording = false;
         music_sequence_playing = false;
         return false;
       }
-      if (keycode == KC_LGUI && record->event.pressed) { // Start playing
+      if (action.code == KC_LGUI && record->event.pressed) { // Start playing
         stop_all_notes();
         music_sequence_recording = false;
         music_sequence_playing = true;
@@ -238,12 +229,12 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
       }
 
-      if (keycode == KC_UP) {
+      if (action.code == KC_UP) {
         if (record->event.pressed)
           music_sequence_interval-=10;
         return false;
       }
-      if (keycode == KC_DOWN) {
+      if (action.code == KC_DOWN) {
         if (record->event.pressed)
           music_sequence_interval+=10;
         return false;
@@ -258,9 +249,9 @@ bool process_record_quantum(keyrecord_t *record) {
         }
       } else {
         stop_note(freq);
-      }  
+      }
 
-      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
+      if (action.code < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
     }
   #endif
@@ -268,7 +259,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifndef DISABLE_LEADER
   // Leader key set-up
   if (record->event.pressed) {
-    if (!leading && keycode == KC_LEAD) {
+    if (!leading && action.code == KC_LEAD) {
       leader_start();
       leading = true;
       leader_time = timer_read();
@@ -279,7 +270,7 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
     if (leading && timer_elapsed(leader_time) < LEADER_TIMEOUT) {
-      leader_sequence[leader_sequence_size] = keycode;
+      leader_sequence[leader_sequence_size] = action.code;
       leader_sequence_size++;
       return false;
     }
@@ -289,7 +280,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #define DISABLE_CHORDING
 #ifndef DISABLE_CHORDING
 
-  if (keycode >= 0x5700 && keycode <= 0x57FF) {
+  if (action.code >= 0x5700 && action.code <= 0x57FF) {
     if (record->event.pressed) {
       if (!chording) {
         chording = true;
@@ -298,7 +289,7 @@ bool process_record_quantum(keyrecord_t *record) {
         chord_key_count = 0;
         chord_key_down = 0;
       }
-      chord_keys[chord_key_count] = (keycode & 0xFF);
+      chord_keys[chord_key_count] = (action.code & 0xFF);
       chord_key_count++;
       chord_key_down++;
       return false;

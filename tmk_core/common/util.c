@@ -99,3 +99,15 @@ uint32_t bitrev32(uint32_t bits)
     bits = (uint32_t)bitrev16(bits & 0x0000ffff)<<16 | bitrev16((bits & 0xffff0000)>>16);
     return bits;
 }
+
+void mask_byte(uint8_t *pointer, bool flag, uint8_t mask) {
+    *pointer ^= (-flag ^ *pointer) & mask;
+}
+
+void mask_word(uint16_t *pointer, bool flag, uint16_t mask) {
+    *pointer ^= (-flag ^ *pointer) & mask;
+}
+
+void mask_dword(uint32_t *pointer, bool flag, uint32_t mask) {
+    *pointer ^= ((int32_t)-flag ^ *pointer) & mask;
+}
