@@ -21,7 +21,9 @@
 # SOFTWARE.
 
 GFXLIB = $(VISUALIZER_DIR)/ugfx
+ifndef EMULATOR
 SRC += $(VISUALIZER_DIR)/visualizer.c
+endif
 UINCDIR += $(GFXINC) $(VISUALIZER_DIR)
 
 ifdef LCD_ENABLE
@@ -45,9 +47,13 @@ endif
 ifdef USE_UGFX
 include $(GFXLIB)/gfx.mk
 SRC += $(GFXSRC)
+UDEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
+ULIBS += $(patsubst %,-l%,$(patsubst -l%,%,$(GFXLIBS)))
 endif
 
 ifndef VISUALIZER_USER
+ifndef EMULATOR
 VISUALIZER_USER = visualizer_user.c
+endif
 endif
 SRC += $(VISUALIZER_USER)
