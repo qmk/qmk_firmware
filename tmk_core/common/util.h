@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UTIL_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 // convert to L string
 #define LSTR(s) XLSTR(s)
@@ -39,5 +40,8 @@ uint8_t biton32(uint32_t bits);
 uint8_t  bitrev(uint8_t bits);
 uint16_t bitrev16(uint16_t bits);
 uint32_t bitrev32(uint32_t bits);
+void mask_byte(uint8_t *target, bool flag, uint8_t mask);
+void mask_word(uint16_t *target, bool flag, uint16_t mask);
+void mask_dword(uint32_t *target, bool flag, uint32_t mask);
 
 #endif

@@ -116,7 +116,11 @@ bool process_tapping(keyrecord_t *keyp)
                  */
                 else if (IS_RELEASED(event) && !waiting_buffer_typed(event)) {
                     // Modifier should be retained till end of this tapping.
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+                    action_t action = get_action(event.key, false);
+#else
                     action_t action = layer_switch_get_action(event.key);
+#endif
                     switch (action.kind.id) {
                         case ACT_LMODS:
                         case ACT_RMODS:

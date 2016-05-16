@@ -122,26 +122,24 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 `DF(layer)` - sets default layer to *layer*. The default layer is the one at the "bottom" of the layer stack - the ultimate fallback layer. This currently does not persist over power loss. When you plug the keyboard back in, layer 0 will always be the default. It is theoretically possible to work around that, but that's not what `DF` does.
 
-### Prevent stuck modifiers
+### Prevent stuck keys
 
-Consider the following scenario:
+Consider the following scenario.
 
-1. Layer 0 has a key defined as Shift.
-2. The same key is defined on layer 1 as the letter A.
-3. User presses Shift.
-4. User switches to layer 1 for whatever reason.
-5. User releases Shift, or rather the letter A.
-6. User switches back to layer 0.
+1. You defined a key as Shift on layer 0.
+2. You defined the same key as the letter A on layer 1.
+3. You press Shift while in layer 0.
+4. You switch to layer 1 for whatever reason.
+5. You release Shift, or rather the letter A.
+6. Shift was not released and is now stuck.
 
-Shift was actually never released and is still considered pressed.
+If you want to prevent this from happening, add the following line to `config.h`.
 
-If such situation bothers you add this to your `config.h`:
+```c
+#define PREVENT_STUCK_KEYS
+```
 
-    #define PREVENT_STUCK_MODIFIERS
-
-This option uses 5 bytes of memory per every 8 keys on the keyboard
-rounded up (5 bits per key). For example on Planck (48 keys) it uses
-(48/8)\*5 = 30 bytes.
+This option uses 5 bytes of memory per every 8 keys on the keyboard rounded up (5 bits per key). On a 48-key Planck, for example, it uses (48 keys / 8 keys) \* 5 bytes = 30 bytes.
 
 ### Remember: These are just aliases
 
@@ -258,7 +256,7 @@ if (timer_elapsed(key_timer) < 100) {
 }
 ```
 
-It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
+It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc).
 
 #### Example 1: Single-key copy/paste (hold to copy, tap to paste)
 
@@ -276,7 +274,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 0: {
             if (record->event.pressed) {
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
-            } 
+            }
             else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
                 if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
                     return MACRO( D(LCTL), T(C), U(LCTL), END  );
@@ -312,7 +310,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
                 register_code(KC_LSFT); // we're now holding down Shift.
             } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
+                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
                     register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
                     unregister_code(KC_9); // now let's let go of that key
                 }
@@ -323,13 +321,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1: {
             if (record->event.pressed) {
                 key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
-                register_code(KC_RSFT); 
-            } else { 
-                if (timer_elapsed(key_timer) < 150) { 
-                    register_code(KC_0); 
-                    unregister_code(KC_0); 
+                register_code(KC_RSFT);
+            } else {
+                if (timer_elapsed(key_timer) < 150) {
+                    register_code(KC_0);
+                    unregister_code(KC_0);
                 }
-                unregister_code(KC_RSFT); 
+                unregister_code(KC_RSFT);
             }
             break;
         }
@@ -510,4 +508,3 @@ what things are (and likely aren't) too risky.
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
-					

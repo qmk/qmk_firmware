@@ -53,20 +53,20 @@ void action_exec(keyevent_t event)
 #endif
 }
 
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-bool disable_action_cache = false;
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+static bool force_process_record_special = false;
 
-void process_record_nocache(keyrecord_t *record)
-{
-    disable_action_cache = true;
+void process_record_special(keyrecord_t *record) {
+    force_process_record_special = true;
     process_record(record);
-    disable_action_cache = false;
+    force_process_record_special = false;
 }
+
 #else
-void process_record_nocache(keyrecord_t *record)
-{
+void process_record_special(keyrecord_t *record) {
     process_record(record);
 }
+
 #endif
 
 __attribute__ ((weak))
@@ -74,14 +74,24 @@ bool process_record_quantum(keyrecord_t *record) {
     return true;
 }
 
-void process_record(keyrecord_t *record) 
+void process_record(keyrecord_t *record)
 {
     if (IS_NOEVENT(record->event)) { return; }
 
     if(!process_record_quantum(record))
         return;
 
-    action_t action = store_or_get_action(record->event.pressed, record->event.key);
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+    action_t action;
+    if (force_process_record_special) {
+        action = find_action(record->event.key);
+    }
+    else {
+        action = get_action(record->event.key, record->event.pressed);
+    }
+#else
+    action_t action = layer_switch_get_action(record->event.key);
+#endif
     dprint("ACTION: "); debug_action(action);
 #ifndef NO_ACTION_LAYER
     dprint(" layer_state: "); layer_debug();
@@ -638,7 +648,11 @@ void clear_keyboard_but_mods(void)
 
 bool is_tap_key(keypos_t key)
 {
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+    action_t action = find_action(key);
+#else
     action_t action = layer_switch_get_action(key);
+#endif
 
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
@@ -696,3 +710,14 @@ void debug_action(action_t action)
     }
     dprintf("[%X:%02X]", action.kind.param>>8, action.kind.param&0xff);
 }
+
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+action_t get_action(keypos_t key, bool pressed) {
+    return action_for_key(get_source_layer(key, pressed), key);
+}
+
+action_t find_action(keypos_t key) {
+    return action_for_key(find_source_layer(key), key);
+}
+
+#endif

@@ -110,94 +110,79 @@ void layer_debug(void)
 }
 #endif
 
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {0};
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_KEYS)
+static uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS];
 
-void update_source_layers_cache(keypos_t key, uint8_t layer)
-{
-    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
+static void update_source_layers_cache(keypos_t key, uint8_t layer);
+static uint8_t read_source_layers_cache(keypos_t key);
 
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        source_layers_cache[storage_row][bit_number] ^=
-            (-((layer & (1U << bit_number)) != 0)
-             ^ source_layers_cache[storage_row][bit_number])
-            & (1U << storage_bit);
+static void update_source_layers_cache(keypos_t key, uint8_t layer) {
+    uint8_t number = key.col + key.row * MATRIX_COLS;
+    uint8_t row = number / 8;
+    uint8_t mask = 1U << number % 8;
+    for (int8_t column = MAX_LAYER_BITS - 1; column >= 0; --column) {
+        mask_byte(&source_layers_cache[row][column], layer & _BV(column), mask);
     }
 }
 
-uint8_t read_source_layers_cache(keypos_t key)
-{
-    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
+static uint8_t read_source_layers_cache(keypos_t key) {
+    uint8_t number = key.col + key.row * MATRIX_COLS;
+    uint8_t row = number / 8;
+    uint8_t mask = 1U << number % 8;
     uint8_t layer = 0;
-
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        layer |=
-            ((source_layers_cache[storage_row][bit_number]
-              & (1U << storage_bit)) != 0)
-            << bit_number;
+    for (int8_t column = MAX_LAYER_BITS - 1; column >= 0; --column) {
+        if (source_layers_cache[row][column] & mask) layer |= _BV(column);
     }
-
     return layer;
 }
-#endif
 
-/*
- * Make sure the action triggered when the key is released is the same
- * one as the one triggered on press. It's important for the mod keys
- * when the layer is switched after the down event but before the up
- * event as they may get stuck otherwise.
- */
-action_t store_or_get_action(bool pressed, keypos_t key)
-{
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    if (disable_action_cache) {
-        return layer_switch_get_action(key);
-    }
-
-    uint8_t layer;
-
-    if (pressed) {
-        layer = layer_switch_get_layer(key);
-        update_source_layers_cache(key, layer);
-    }
-    else {
-        layer = read_source_layers_cache(key);
-    }
-    return action_for_key(layer, key);
-#else
-    return layer_switch_get_action(key);
-#endif
-}
-
-
-int8_t layer_switch_get_layer(keypos_t key)
-{
-    action_t action;
-    action.code = ACTION_TRANSPARENT;
-
-#ifndef NO_ACTION_LAYER
-    uint32_t layers = layer_state | default_layer_state;
-    /* check top layer first */
-    for (int8_t i = 31; i >= 0; i--) {
-        if (layers & (1UL<<i)) {
-            action = action_for_key(i, key);
-            if (action.code != ACTION_TRANSPARENT) {
-                return i;
+uint8_t find_source_layer(keypos_t key) {
+    uint32_t master_layer_state = layer_state | default_layer_state;
+    /* scan from the highest layer to the lowest layer */
+    for (int8_t layer = 31; layer >= 0; --layer) {
+        if (master_layer_state & 1UL << layer) {
+            if (action_for_key(layer, key).code != ACTION_TRANSPARENT) {
+                return layer;
             }
         }
     }
     /* fall back to layer 0 */
     return 0;
-#else
-    return biton32(default_layer_state);
-#endif
 }
 
-action_t layer_switch_get_action(keypos_t key)
-{
-    return action_for_key(layer_switch_get_layer(key), key);
+/*
+ * This function makes sure that the action triggered when each key is released
+ * is the same as the one that was triggered when it was pressed. This is
+ * important for the modifier keys because they can get stuck if layer
+ * operations are performed while they are held down.
+ */
+uint8_t get_source_layer(keypos_t key, bool pressed) {
+    if (pressed) {
+        uint8_t layer = find_source_layer(key);
+        update_source_layers_cache(key, layer);
+        return layer;
+    }
+    return read_source_layers_cache(key);
 }
+
+#else
+action_t layer_switch_get_action(keypos_t key) {
+#   ifndef NO_ACTION_LAYER
+    uint32_t master_layer_state = layer_state | default_layer_state;
+    /* scan from the highest layer to the lowest layer */
+    for (int8_t layer = 31; layer >= 0; --layer) {
+        if (master_layer_state & 1UL << layer) {
+            action_t action = action_for_key(layer, key);
+            if (action.code != ACTION_TRANSPARENT) {
+                return action;
+            }
+        }
+    }
+    /* fall back to layer 0 */
+    return action_for_key(0, key);
+#   else
+    return action_for_key(biton32(default_layer_state), key);
+#   endif
+}
+
+#endif
