@@ -34,6 +34,8 @@ ifdef LCD_BACKLIGHT_ENABLE
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
 ifndef EMULATOR
 SRC += lcd_backlight_hal.c
+else
+SRC += lcd_backlight_hal_emulator.c
 endif
 UDEFS += -DLCD_BACKLIGHT_ENABLE
 endif
