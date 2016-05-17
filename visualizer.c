@@ -458,7 +458,9 @@ void visualizer_init(void) {
 void update_status(bool changed) {
     if (changed) {
         GSourceListener* listener = geventGetSourceListener(layer_changed_event, NULL);
-        geventSendEvent(listener);
+        if (listener) {
+            geventSendEvent(listener);
+        }
     }
 #ifdef USE_SERIAL_LINK
     static systime_t last_update = 0;
