@@ -261,7 +261,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_RAISE);
             layer_off(_LOWER);
             layer_off(_ADJUST);
-            layer_off(_MUSIC);
             layer_on(_PLOVER);
             if (!eeconfig_is_enabled()) {
                 eeconfig_init();
