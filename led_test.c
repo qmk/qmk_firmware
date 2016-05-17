@@ -29,20 +29,20 @@ keyframe_animation_t led_test_animation = {
     .num_frames = 14,
     .loop = true,
     .frame_lengths = {
-        MS2ST(1000), // fade in
-        MS2ST(1000), // no op (leds on)
-        MS2ST(1000), // fade out
-        MS2ST(1000), // crossfade
-        MS2ST(3000), // left to rigt (outside in)
-        MS2ST(1000), // crossfade
-        MS2ST(3000), // top_to_bottom
+        gfxMillisecondsToTicks(1000), // fade in
+        gfxMillisecondsToTicks(1000), // no op (leds on)
+        gfxMillisecondsToTicks(1000), // fade out
+        gfxMillisecondsToTicks(1000), // crossfade
+        gfxMillisecondsToTicks(3000), // left to rigt (outside in)
+        gfxMillisecondsToTicks(1000), // crossfade
+        gfxMillisecondsToTicks(3000), // top_to_bottom
         0,           // mirror leds
-        MS2ST(1000), // crossfade
-        MS2ST(3000), // left_to_right (mirrored, so inside out)
-        MS2ST(1000), // crossfade
-        MS2ST(3000), // top_to_bottom
+        gfxMillisecondsToTicks(1000), // crossfade
+        gfxMillisecondsToTicks(3000), // left_to_right (mirrored, so inside out)
+        gfxMillisecondsToTicks(1000), // crossfade
+        gfxMillisecondsToTicks(3000), // top_to_bottom
         0,           // normal leds
-        MS2ST(1000), // crossfade
+        gfxMillisecondsToTicks(1000), // crossfade
 
     },
     .frame_functions = {

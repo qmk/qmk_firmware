@@ -31,17 +31,15 @@ USE_UGFX = yes
 endif
 
 ifdef LCD_BACKLIGHT_ENABLE
-ifndef EMULATOR
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
+ifndef EMULATOR
 SRC += lcd_backlight_hal.c
 endif
 UDEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
 ifdef LED_ENABLE
-ifndef EMULATOR
 SRC += $(VISUALIZER_DIR)/led_test.c
-endif
 UDEFS += -DLED_ENABLE
 USE_UGFX = yes
 endif
@@ -54,9 +52,7 @@ ULIBS += $(patsubst %,-l%,$(patsubst -l%,%,$(GFXLIBS)))
 endif
 
 ifndef VISUALIZER_USER
-ifndef EMULATOR
 VISUALIZER_USER = visualizer_user.c
-endif
 endif
 SRC += $(VISUALIZER_USER)
 
