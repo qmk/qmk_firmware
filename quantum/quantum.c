@@ -22,6 +22,16 @@ void leader_end(void) {}
   int offset = 7;
   bool music_activated = false;
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+
+  // music sequencer
+  static bool music_sequence_recording = false;
+  static bool music_sequence_playing = false;
+  static float music_sequence[16] = {0};
+  static uint8_t music_sequence_count = 0;
+  static uint8_t music_sequence_position = 0;
+
+  static uint16_t music_sequence_timer = 0;
+  static uint16_t music_sequence_interval = 100;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -42,6 +52,10 @@ bool chording = false;
 uint8_t chord_keys[CHORDING_MAX] = {0};
 uint8_t chord_key_count = 0;
 uint8_t chord_key_down = 0;
+
+#ifdef UNICODE_ENABLE
+  static uint8_t input_mode;
+#endif
 
 bool keys_chord(uint8_t keys[]) {
   uint8_t keys_size = sizeof(keys)/sizeof(keys[0]);
@@ -65,14 +79,25 @@ bool keys_chord(uint8_t keys[]) {
   return (pass && (in == keys_size));
 }
 
-static bool music_sequence_recording = false;
-static bool music_sequence_playing = false;
-static float music_sequence[16] = {0};
-static uint8_t music_sequence_count = 0;
-static uint8_t music_sequence_position = 0;
+#ifdef UNICODE_ENABLE
 
-static uint16_t music_sequence_timer = 0;
-static uint16_t music_sequence_interval = 100;
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
+}
+
+void set_unicode_mode(uint8_t os_target)
+{
+  input_mode = os_target;
+}
+
+#endif
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -325,6 +350,48 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #endif
 
+#ifdef UNICODE_ENABLE
+
+  if (keycode > UNICODE(0) && record->event.pressed) {
+    uint16_t unicode = keycode & 0x7FFF;
+    switch(input_mode) {
+      case UC_OSX:
+        register_code(KC_LALT);
+        break;
+      case UC_LNX:
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_U);
+        unregister_code(KC_U);
+        break;
+      case UC_WIN:
+        register_code(KC_LALT);
+        register_code(KC_PPLS);
+        unregister_code(KC_PPLS);
+        break;
+    }
+    register_code(hex_to_keycode((unicode & 0xF000) >> 12));
+    unregister_code(hex_to_keycode((unicode & 0xF000) >> 12));
+    register_code(hex_to_keycode((unicode & 0x0F00) >> 8));
+    unregister_code(hex_to_keycode((unicode & 0x0F00) >> 8));
+    register_code(hex_to_keycode((unicode & 0x00F0) >> 4));
+    unregister_code(hex_to_keycode((unicode & 0x00F0) >> 4));
+    register_code(hex_to_keycode((unicode & 0x000F)));
+    unregister_code(hex_to_keycode((unicode & 0x000F)));
+    switch(input_mode) {
+      case UC_OSX:
+      case UC_WIN:
+        unregister_code(KC_LALT);
+        break;
+      case UC_LNX:
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        break;
+    }
+    unregister_code(KC_LALT);
+  }
+
+#endif
 
   return process_action_kb(record);
 }
