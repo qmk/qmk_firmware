@@ -23,7 +23,6 @@ SOFTWARE.
 */
 
 #include "visualizer.h"
-#include "ch.h"
 #include "config.h"
 #include <string.h>
 
@@ -68,7 +67,7 @@ static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboa
         status1->suspended == status2->suspended;
 }
 
-static event_source_t layer_changed_event;
+static GSourceHandle layer_changed_event;
 static bool visualizer_enabled = false;
 
 #define MAX_SIMULTANEOUS_ANIMATIONS 4
@@ -132,7 +131,7 @@ void stop_all_keyframe_animations(void) {
     }
 }
 
-static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systime_t delta, systime_t* sleep_time) {
+static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systemticks_t delta, systemticks_t* sleep_time) {
     // TODO: Clean up this messy code
     dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame,
             animation->time_left_in_frame, delta);
@@ -331,12 +330,13 @@ bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* s
 }
 
 // TODO: Optimize the stack size, this is probably way too big
-static THD_WORKING_AREA(visualizerThreadStack, 1024);
-static THD_FUNCTION(visualizerThread, arg) {
+static DECLARE_THREAD_STACK(visualizerThreadStack, 1024);
+static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
     (void)arg;
 
-    event_listener_t event_listener;
-    chEvtRegister(&layer_changed_event, &event_listener, 0);
+    GListener event_listener;
+    geventListenerInit(&event_listener);
+    geventAttachSource(&event_listener, layer_changed_event, 0);
 
     visualizer_keyboard_status_t initial_status = {
         .default_layer = 0xFFFFFFFF,
@@ -363,12 +363,12 @@ static THD_FUNCTION(visualizerThread, arg) {
             LCD_INT(state.current_lcd_color));
 #endif
 
-    systime_t sleep_time = TIME_INFINITE;
-    systime_t current_time = chVTGetSystemTimeX();
+    systemticks_t sleep_time = TIME_INFINITE;
+    systemticks_t current_time = gfxSystemTicks();
 
     while(true) {
-        systime_t new_time = chVTGetSystemTimeX();
-        systime_t delta = new_time - current_time;
+        systemticks_t new_time = gfxSystemTicks();
+        systemticks_t delta = new_time - current_time;
         current_time = new_time;
         bool enabled = visualizer_enabled;
         if (!same_status(&state.status, &current_status)) {
@@ -411,7 +411,7 @@ static THD_FUNCTION(visualizerThread, arg) {
             sleep_time = 0;
         }
 
-        systime_t after_update = chVTGetSystemTimeX();
+        systemticks_t after_update = gfxSystemTicks();
         unsigned update_delta = after_update - current_time;
         if (sleep_time != TIME_INFINITE) {
             if (sleep_time > update_delta) {
@@ -422,12 +422,14 @@ static THD_FUNCTION(visualizerThread, arg) {
             }
         }
         dprintf("Update took %d, last delta %d, sleep_time %d\n", update_delta, delta, sleep_time);
-        chEvtWaitOneTimeout(EVENT_MASK(0), sleep_time);
+        geventEventWait(&event_listener, sleep_time);
     }
 #ifdef LCD_ENABLE
     gdispCloseFont(state.font_fixed5x8);
     gdispCloseFont(state.font_dejavusansbold12);
 #endif
+
+    return 0;
 }
 
 void visualizer_init(void) {
@@ -449,14 +451,14 @@ void visualizer_init(void) {
 
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
-    chEvtObjectInit(&layer_changed_event);
-    (void)chThdCreateStatic(visualizerThreadStack, sizeof(visualizerThreadStack),
+    gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
                               VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
 }
 
 void update_status(bool changed) {
     if (changed) {
-        chEvtBroadcast(&layer_changed_event);
+        GSourceListener* listener = geventGetSourceListener(layer_changed_event, NULL);
+        geventSendEvent(listener);
     }
 #ifdef USE_SERIAL_LINK
     static systime_t last_update = 0;
