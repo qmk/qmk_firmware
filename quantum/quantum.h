@@ -15,6 +15,10 @@
 #ifdef MIDI_ENABLE
 	#include <lufa.h>
 #endif
+#ifdef UNICODE_ENABLE
+	#include "unicode.h"
+#endif
+
 #include "action_layer.h"
 #include "eeconfig.h"
 #include <stddef.h>

@@ -370,14 +370,11 @@ bool process_record_quantum(keyrecord_t *record) {
         unregister_code(KC_PPLS);
         break;
     }
-    register_code(hex_to_keycode((unicode & 0xF000) >> 12));
-    unregister_code(hex_to_keycode((unicode & 0xF000) >> 12));
-    register_code(hex_to_keycode((unicode & 0x0F00) >> 8));
-    unregister_code(hex_to_keycode((unicode & 0x0F00) >> 8));
-    register_code(hex_to_keycode((unicode & 0x00F0) >> 4));
-    unregister_code(hex_to_keycode((unicode & 0x00F0) >> 4));
-    register_code(hex_to_keycode((unicode & 0x000F)));
-    unregister_code(hex_to_keycode((unicode & 0x000F)));
+    for(int i = 3; i >= 0; i--) {
+        uint8_t digit = ((unicode >> (i*4)) & 0xF);
+        register_code(hex_to_keycode(digit));
+        unregister_code(hex_to_keycode(digit));
+    }
     switch(input_mode) {
       case UC_OSX:
       case UC_WIN:
