@@ -388,7 +388,6 @@ bool process_record_quantum(keyrecord_t *record) {
         unregister_code(KC_LSFT);
         break;
     }
-    unregister_code(KC_LALT);
   }
 
 #endif
