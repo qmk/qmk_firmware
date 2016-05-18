@@ -51,7 +51,7 @@
 #include "RawSerial.h"
 
 // mbed Internal components
-#include "Timer.h"
+#include "Timer.hpp"
 #include "Ticker.h"
 #include "Timeout.h"
 #include "LocalFileSystem.h"
