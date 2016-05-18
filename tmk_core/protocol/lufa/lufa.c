@@ -883,7 +883,7 @@ int main(void)
     midi_register_cc_callback(&midi_device, cc_callback);
     midi_register_sysex_callback(&midi_device, sysex_callback);
 
-    init_notes();
+    // init_notes();
     // midi_send_cc(&midi_device, 0, 1, 2);
     // midi_send_cc(&midi_device, 15, 1, 0);
     // midi_send_noteon(&midi_device, 0, 64, 127);

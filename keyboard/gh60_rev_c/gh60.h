@@ -75,7 +75,7 @@ inline void gh60_wasd_leds_off(void)   	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-void process_action_user(keyrecord_t *record);
+bool process_action_user(keyrecord_t *record);
 void led_set_user(uint8_t usb_led);
 
 #endif
