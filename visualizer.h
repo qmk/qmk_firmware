@@ -45,6 +45,11 @@ void visualizer_suspend(void);
 // This should be called when the keyboard wakes up from suspend state
 void visualizer_resume(void);
 
+// These functions are week, so they can be overridden by the keyboard
+// if needed
+GDisplay* get_lcd_display(void);
+GDisplay* get_led_display(void);
+
 // If you need support for more than 16 keyframes per animation, you can change this
 #define MAX_VISUALIZER_KEY_FRAMES 16
 

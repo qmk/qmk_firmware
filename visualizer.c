@@ -85,6 +85,15 @@ static remote_object_t* remote_objects[] = {
 GDisplay* LCD_DISPLAY = 0;
 GDisplay* LED_DISPLAY = 0;
 
+__attribute__((weak))
+GDisplay* get_lcd_display(void) {
+    return gdispGetDisplay(0);
+}
+
+__attribute__((weak))
+GDisplay* get_led_display(void) {
+    return gdispGetDisplay(1);
+}
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = -1;
@@ -444,10 +453,13 @@ void visualizer_init(void) {
 #ifdef USE_SERIAL_LINK
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
 #endif
-    // TODO: Make sure these works when either of these are disabled
-    LCD_DISPLAY = gdispGetDisplay(0);
-    LED_DISPLAY = gdispGetDisplay(1);
 
+#ifdef LCD_ENABLE
+    LCD_DISPLAY = get_lcd_display();
+#endif
+#ifdef LED_ENABLE
+    LED_DISPLAY = get_led_display();
+#endif
 
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
