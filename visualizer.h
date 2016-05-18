@@ -50,6 +50,11 @@ void visualizer_resume(void);
 GDisplay* get_lcd_display(void);
 GDisplay* get_led_display(void);
 
+// For emulator builds, this function need to be implemented
+#if EMULATOR
+void draw_emulator(void);
+#endif
+
 // If you need support for more than 16 keyframes per animation, you can change this
 #define MAX_VISUALIZER_KEY_FRAMES 16
 
@@ -134,7 +139,7 @@ bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualiz
 // directly from the initalize_user_visualizer function (the animation can be null)
 bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
 
-// These two functions have to be implemented by the user
+// These functions have to be implemented by the user
 void initialize_user_visualizer(visualizer_state_t* state);
 void update_user_visualizer_state(visualizer_state_t* state);
 void user_visualizer_suspend(visualizer_state_t* state);
