@@ -67,6 +67,9 @@ extern const uint16_t fn_actions[];
 #define MEH(kc) kc  | 0x0700
 #define LCAG(kc) kc  | 0x0D00 // Modifier Ctrl Alt and GUI
 
+#define MOD_HYPR 0xf
+#define MOD_MEH 0x7
+
 #define RCTL(kc) kc | 0x1100
 #define RSFT(kc) kc | 0x1200
 #define RALT(kc) kc | 0x1400
@@ -122,6 +125,12 @@ extern const uint16_t fn_actions[];
 
 #define KC_RCBR LSFT(KC_RBRC)   // }
 #define KC_RIGHT_CURLY_BRACE    KC_RCBR
+
+#define KC_LABK LSFT(KC_COMM)   // <
+#define KC_LEFT_ANGLE_BRACKET   KC_LABK
+
+#define KC_RABK LSFT(KC_DOT)    // >
+#define KC_RIGHT_ANGLE_BRACKET  KC_RABK
 
 #define KC_COLN LSFT(KC_SCLN)   // :
 #define KC_COLON    KC_COLN
@@ -222,6 +231,12 @@ extern const uint16_t fn_actions[];
 
 // Toggle to layer - 256 layer max
 #define TG(layer) (layer | 0x5400)
+
+// One-shot layer - 256 layer max
+#define OSL(layer) (layer | 0x5500)
+
+// One-shot mod
+#define OSM(layer) (layer | 0x5600)
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))

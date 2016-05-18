@@ -4,6 +4,14 @@ This is my personal layout which I use to test out ideas which may or may not ma
 
 Changelog:
 
+## May 8, 2016:
+
+* Makes bottom-right key send minus/underscore when tapped, L1 temporary toggle when held
+* Tweaked the positions of the numbers on the symbol layer. Basically, 12345 are now directly under their number-row counterparts in layer 0. You can imagine pulling the number row down to the home row. And 67890 are directly under 12345 - so it's a matter of just adding 5 and going to the next row (1+5 = 6, 2+5 = 7 and so on).
+* Tweaks media/nav layer
+  * Removes mouse control, as I don't use it
+  * Makes left home row keys PgUp, Home, End, PgDn
+
 ## Apr 29, 2016:
 
 * Tweaks the Hyper and Meh key to send brackets when tapped
