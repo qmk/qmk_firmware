@@ -428,7 +428,7 @@ flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
-dfu: $(TARGET).hex
+dfu: $(TARGET).hex sizeafter
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 	dfu-programmer $(MCU) erase --force
 else
