@@ -381,11 +381,14 @@ bool is_audio_on(void) {
 void audio_toggle(void) {
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
+    if (audio_config.enable)
+        audio_on_user();
 }
 
 void audio_on(void) {
     audio_config.enable = 1;
     eeconfig_update_audio(audio_config.raw);
+    audio_on_user();
 }
 
 void audio_off(void) {
@@ -484,10 +487,7 @@ __attribute__ ((weak))
 void play_goodbye_tone() {}
 
 __attribute__ ((weak))
-void play_audio_on_tone() {}
-
-__attribute__ ((weak))
-void play_music_on_tone() {}
+void audio_on_user() {}
 
 __attribute__ ((weak))
 void play_music_scale() {}

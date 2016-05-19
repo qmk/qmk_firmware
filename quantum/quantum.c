@@ -18,9 +18,10 @@ void leader_start(void) {}
 __attribute__ ((weak))
 void leader_end(void) {}
 
+uint8_t starting_note = 0x0C;
+int offset = 7;
+  
 #ifdef AUDIO_ENABLE
-  uint8_t starting_note = 0x0C;
-  int offset = 7;
   bool music_activated = false;
 #endif
 
@@ -181,7 +182,6 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
-      play_audio_on_tone();
       return false;
     }
 
@@ -198,33 +198,28 @@ bool process_record_quantum(keyrecord_t *record) {
         else
         {
             audio_on();
-            play_audio_on_tone();
         }
       return false;
     }
 
     if (keycode == MU_ON && record->event.pressed) {
-      music_activated = true;
-      play_music_on_tone();
+      music_on();
       return false;
     }
 
     if (keycode == MU_OFF && record->event.pressed) {
-      music_activated = false;
-      stop_all_notes();
+      music_off();
       return false;
     }
 
     if (keycode == MU_TOG && record->event.pressed) {
         if (music_activated)
         {
-          music_activated = false;
-          stop_all_notes();
+          music_off();
         }
         else
         {
-            music_activated = true;
-            play_music_on_tone();
+          music_on();
         }
         return false;
     }
@@ -375,3 +370,28 @@ void matrix_scan_quantum() {
 
   matrix_scan_kb();
 }
+
+bool is_music_on(void) {
+    return (music_activated != 0);
+}
+
+void music_toggle(void) {
+    if (!music_activated) {
+        music_on();
+    } else {
+        music_off();
+    }
+}
+
+void music_on(void) {
+    music_activated = 1;
+    music_on_user();
+}
+
+void music_off(void) {
+    music_activated = 0;
+    stop_all_notes();
+}
+
+__attribute__ ((weak))
+void music_on_user() {}
