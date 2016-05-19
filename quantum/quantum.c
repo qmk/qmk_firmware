@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "timer.h"
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {}
@@ -22,6 +23,8 @@ void leader_end(void) {}
   int offset = 7;
   bool music_activated = false;
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+  float tone_audio_on[][2] = SONG(CLOSE_ENCOUNTERS_5_NOTE);
+
 #endif
 
 #ifdef MIDI_ENABLE
@@ -182,11 +185,26 @@ bool process_record_quantum(keyrecord_t *record) {
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
       audio_on_callback();
+      PLAY_NOTE_ARRAY(tone_audio_on, false, 0);
       return false;
     }
 
     if (keycode == AU_OFF && record->event.pressed) {
       audio_off();
+      return false;
+    }
+
+    if (keycode == AU_TOG && record->event.pressed) {
+        if (is_audio_on())
+        {
+            audio_off();
+        }
+        else
+        {
+            audio_on();
+            audio_on_callback();
+            PLAY_NOTE_ARRAY(tone_audio_on, false, 0);
+        }
       return false;
     }
 
@@ -202,6 +220,20 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
+    if (keycode == MU_TOG && record->event.pressed) {
+        if (music_activated)
+        {
+          music_activated = false;
+          stop_all_notes();
+        }
+        else
+        {
+            music_activated = true;
+            PLAY_NOTE_ARRAY(music_scale, false, 0);
+        }
+        return false;
+    }
+
     if (keycode == MUV_IN && record->event.pressed) {
       voice_iterate();
       PLAY_NOTE_ARRAY(music_scale, false, 0);
@@ -214,7 +246,7 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
-    if (music_activated) {   
+    if (music_activated) {
 
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
         stop_all_notes();
@@ -258,7 +290,7 @@ bool process_record_quantum(keyrecord_t *record) {
         }
       } else {
         stop_note(freq);
-      }  
+      }
 
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
