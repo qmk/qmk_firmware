@@ -34,10 +34,6 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/keymap_unicode.c
-endif
-
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/light_ws2812.c
 	SRC += $(QUANTUM_DIR)/rgblight.c

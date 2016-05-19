@@ -60,6 +60,10 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
 endif
 
+ifeq ($(strip $(UNICODE_ENABLE)), yes)
+    OPT_DEFS += -DUNICODE_ENABLE
+endif
+
 ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
     OPT_DEFS += -DUSB_6KRO_ENABLE
 endif
