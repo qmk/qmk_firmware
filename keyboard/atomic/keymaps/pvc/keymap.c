@@ -15,8 +15,7 @@
 #define LAYER_LOWER                      4
 #define LAYER_FUNCTION                   5
 #define LAYER_MOUSE                      6
-#define LAYER_MUSIC                      7
-#define LAYER_ADJUST                     8
+#define LAYER_ADJUST                     7
 
 #define MACRO_QWERTY                     0
 #define MACRO_COLEMAK                    1
@@ -63,8 +62,8 @@
 #define M_BDFLT             M(MACRO_BREATH_DEFAULT)
 
 
-#define MUS_TOG             M(MACRO_MUSIC_TOGGLE)
-#define AUD_TOG             M(MACRO_AUDIO_TOGGLE)
+//#define MU_TOG             M(MACRO_MUSIC_TOGGLE)
+//#define AU_TOG              M(MACRO_AUDIO_TOGGLE)
 #define VC_UP               M(MACRO_INC_VOICE)
 #define VC_DOWN             M(MACRO_DEC_VOICE)
 
@@ -219,20 +218,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #endif
 
- [LAYER_MUSIC]        = { // MUSIC
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_UPPER, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
- },
-
  [LAYER_ADJUST]       = { // ADJUST
-  { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, _______, _______, _______, MUS_TOG, AUD_TOG, ________________  },
+  { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, _______, _______, _______, MU_TOG,  AU_TOG,  ________________  },
   { _______, M_QWRTY, M_COLMK, M_DVORK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______  },
-  { _______, _______, _______, _______, M_BACKL, RESET,   _______, M_MOUSE, _______, _______, _______, ________________, VC_UP,   _______  },
-  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, VC_DOWN, _______  },
+  { _______, _______, _______, _______, M_BACKL, RESET,   _______, M_MOUSE, _______, _______, _______, ________________, MUV_IN,  _______  },
+  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, MUV_DE,  _______  },
  },
 
 
@@ -259,13 +250,14 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 
 float tone_audio_on[][2]   = SONG(CLOSE_ENCOUNTERS_5_NOTE);
 float tone_music_on[][2]   = SONG(DOE_A_DEER);
+float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
+
 float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
 float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
 float tone_numlk_on[][2]   = SONG(NUM_LOCK_ON_SOUND);
 float tone_numlk_off[][2]  = SONG(NUM_LOCK_OFF_SOUND);
 float tone_scroll_on[][2]  = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_scroll_off[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 #endif /* AUDIO_ENABLE */
 
@@ -434,6 +426,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
 
+/*
         case MACRO_AUDIO_TOGGLE:
             if (record->event.pressed)
             {
@@ -464,7 +457,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                     }
             }
             break;
-
         case MACRO_INC_VOICE:
             if (record->event.pressed)
             {
@@ -484,6 +476,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 #endif
             }
             break;
+*/
 
 #endif /* AUDIO_ENABLE */
 
@@ -505,8 +498,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 #ifdef AUDIO_ENABLE
 
-
-void process_action_user(keyrecord_t *record)
+/*
+bool process_action_user(keyrecord_t *record)
 {
 
     uint8_t starting_note = 0x0C;
@@ -524,7 +517,7 @@ void process_action_user(keyrecord_t *record)
         }
     }
 }
-
+*/
 
 void matrix_init_user(void)
 {
@@ -588,6 +581,21 @@ void play_goodbye_tone()
     PLAY_NOTE_ARRAY(tone_my_goodbye, false, STACCATO);
     _delay_ms(2000);
     stop_all_notes();
+}
+
+void play_audio_on_tone(void)
+{
+	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
+}
+
+void play_music_on_tone(void)
+{
+	PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
+}
+
+void play_music_scale(void)
+{
+	PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
 }
 
 #endif /* AUDIO_ENABLE */

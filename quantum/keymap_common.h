@@ -199,18 +199,20 @@ extern const uint16_t fn_actions[];
 // Audio on/off
 #define AU_ON  0x5020
 #define AU_OFF 0x5021
+#define AU_TOG 0x5022
 
 // Music mode on/off
-#define MU_ON  0x5022
-#define MU_OFF 0x5023
+#define MU_ON  0x5023
+#define MU_OFF 0x5024
+#define MU_TOG 0x5025
 
 // Music voice iterate
-#define MUV_IN 0x5024
-#define MUV_DE 0x5025
+#define MUV_IN 0x5026
+#define MUV_DE 0x5027
 
 // Midi mode on/off
-#define MI_ON  0x5026
-#define MI_OFF 0x5027
+#define MI_ON  0x5028
+#define MI_OFF 0x5029
 
 // These affect the backlight (if your keyboard has one).
 // We don't need to comment them out if your keyboard doesn't have a backlight,

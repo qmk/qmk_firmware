@@ -62,4 +62,11 @@ void matrix_init_kb(void);
 void matrix_scan_kb(void);
 bool process_action_kb(keyrecord_t *record);
 
+bool is_music_on(void);
+void music_toggle(void);
+void music_on(void);
+void music_off(void);
+
+void music_on_user(void);
+
 #endif
