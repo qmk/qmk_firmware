@@ -20,7 +20,7 @@ void leader_end(void) {}
 
 uint8_t starting_note = 0x0C;
 int offset = 7;
-  
+
 #ifdef AUDIO_ENABLE
   bool music_activated = false;
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
@@ -435,28 +435,29 @@ void matrix_scan_quantum() {
 
   matrix_scan_kb();
 }
+#ifdef AUDIO_ENABLE
+  bool is_music_on(void) {
+      return (music_activated != 0);
+  }
 
-bool is_music_on(void) {
-    return (music_activated != 0);
-}
+  void music_toggle(void) {
+      if (!music_activated) {
+          music_on();
+      } else {
+          music_off();
+      }
+  }
 
-void music_toggle(void) {
-    if (!music_activated) {
-        music_on();
-    } else {
-        music_off();
-    }
-}
+  void music_on(void) {
+      music_activated = 1;
+      music_on_user();
+  }
 
-void music_on(void) {
-    music_activated = 1;
-    music_on_user();
-}
+  void music_off(void) {
+      music_activated = 0;
+      stop_all_notes();
+  }
 
-void music_off(void) {
-    music_activated = 0;
-    stop_all_notes();
-}
-
+#endif
 __attribute__ ((weak))
 void music_on_user() {}
