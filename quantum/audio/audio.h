@@ -29,7 +29,6 @@ bool is_audio_on(void);
 void audio_toggle(void);
 void audio_on(void);
 void audio_off(void);
-void audio_on_callback(void);
 
 // Vibrato rate functions
 
@@ -87,9 +86,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 
 
 bool is_playing_notes(void);
+
 void play_goodbye_tone(void);
 void play_startup_tone(void);
-
-
+void audio_on_user(void);
+void play_music_scale(void);
 
 #endif
