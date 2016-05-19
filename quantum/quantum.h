@@ -46,4 +46,11 @@ void leader_end(void);
 #define LEADER_EXTERNS() extern bool leading; extern uint16_t leader_time; extern uint16_t leader_sequence[3]; extern uint8_t leader_sequence_size
 #define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 
+bool is_music_on(void);
+void music_toggle(void);
+void music_on(void);
+void music_off(void);
+
+void music_on_user(void);
+
 #endif
