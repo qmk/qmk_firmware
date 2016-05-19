@@ -484,5 +484,11 @@ __attribute__ ((weak))
 void play_goodbye_tone() {}
 
 __attribute__ ((weak))
-void audio_on_callback(void) {}
+void play_audio_on_tone() {}
+
+__attribute__ ((weak))
+void play_music_on_tone() {}
+
+__attribute__ ((weak))
+void play_music_scale() {}
 //------------------------------------------------------------------------------

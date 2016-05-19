@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "timer.h"
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {}
@@ -21,7 +22,6 @@ void leader_end(void) {}
   uint8_t starting_note = 0x0C;
   int offset = 7;
   bool music_activated = false;
-  float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 #endif
 
 #ifdef MIDI_ENABLE
@@ -105,7 +105,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef MIDI_ENABLE
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
@@ -181,7 +181,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
-      audio_on_callback();
+      play_audio_on_tone();
       return false;
     }
 
@@ -190,9 +190,22 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
+    if (keycode == AU_TOG && record->event.pressed) {
+        if (is_audio_on())
+        {
+            audio_off();
+        }
+        else
+        {
+            audio_on();
+            play_audio_on_tone();
+        }
+      return false;
+    }
+
     if (keycode == MU_ON && record->event.pressed) {
       music_activated = true;
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_on_tone();
       return false;
     }
 
@@ -202,19 +215,33 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
+    if (keycode == MU_TOG && record->event.pressed) {
+        if (music_activated)
+        {
+          music_activated = false;
+          stop_all_notes();
+        }
+        else
+        {
+            music_activated = true;
+            play_music_on_tone();
+        }
+        return false;
+    }
+
     if (keycode == MUV_IN && record->event.pressed) {
       voice_iterate();
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
       voice_deiterate();
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
-    if (music_activated) {   
+    if (music_activated) {
 
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
         stop_all_notes();
@@ -258,7 +285,7 @@ bool process_record_quantum(keyrecord_t *record) {
         }
       } else {
         stop_note(freq);
-      }  
+      }
 
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
