@@ -248,9 +248,9 @@ float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 
-//float tone_audio_on[][2]   = SONG(CLOSE_ENCOUNTERS_5_NOTE);
-//float music_scale[][2]   = SONG(MUSIC_SCALE_SOUND);
-//float tone_music_on[][2] = SONG(DOE_A_DEER);
+float tone_audio_on[][2]   = SONG(CLOSE_ENCOUNTERS_5_NOTE);
+float tone_music_on[][2]   = SONG(DOE_A_DEER);
+float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
 float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
@@ -581,6 +581,21 @@ void play_goodbye_tone()
     PLAY_NOTE_ARRAY(tone_my_goodbye, false, STACCATO);
     _delay_ms(2000);
     stop_all_notes();
+}
+
+void play_audio_on_tone(void)
+{
+	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
+}
+
+void play_music_on_tone(void)
+{
+	PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
+}
+
+void play_music_scale(void)
+{
+	PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
 }
 
 #endif /* AUDIO_ENABLE */

@@ -22,9 +22,6 @@ void leader_end(void) {}
   uint8_t starting_note = 0x0C;
   int offset = 7;
   bool music_activated = false;
-  float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
-  float tone_audio_on[][2] = SONG(CLOSE_ENCOUNTERS_5_NOTE);
-
 #endif
 
 #ifdef MIDI_ENABLE
@@ -108,7 +105,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef MIDI_ENABLE
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
@@ -184,8 +181,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
-      audio_on_callback();
-      PLAY_NOTE_ARRAY(tone_audio_on, false, 0);
+      play_audio_on_tone();
       return false;
     }
 
@@ -202,15 +198,14 @@ bool process_record_quantum(keyrecord_t *record) {
         else
         {
             audio_on();
-            audio_on_callback();
-            PLAY_NOTE_ARRAY(tone_audio_on, false, 0);
+            play_audio_on_tone();
         }
       return false;
     }
 
     if (keycode == MU_ON && record->event.pressed) {
       music_activated = true;
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_on_tone();
       return false;
     }
 
@@ -229,20 +224,20 @@ bool process_record_quantum(keyrecord_t *record) {
         else
         {
             music_activated = true;
-            PLAY_NOTE_ARRAY(music_scale, false, 0);
+            play_music_on_tone();
         }
         return false;
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
       voice_iterate();
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
       voice_deiterate();
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
