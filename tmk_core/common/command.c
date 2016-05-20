@@ -39,14 +39,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef PROTOCOL_PJRC
-#   include "usb_keyboard.h"
-#   ifdef EXTRAKEY_ENABLE
-#       include "usb_extra.h"
-#   endif
+	#include "usb_keyboard.h"
+		#ifdef EXTRAKEY_ENABLE
+		#include "usb_extra.h"
+	#endif
 #endif
 
 #ifdef PROTOCOL_VUSB
-#   include "usbdrv.h"
+	#include "usbdrv.h"
 #endif
 
 #ifdef AUDIO_ENABLE

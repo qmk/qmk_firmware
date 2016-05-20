@@ -588,7 +588,7 @@ void audio_on_user(void)
 	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
 }
 
-void play_music_on_tone(void)
+void music_on_user(void)
 {
 	PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
 }
