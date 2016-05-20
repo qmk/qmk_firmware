@@ -40,7 +40,11 @@
 
 # Target file name (without extension).
 TARGET = planck
+# default target file name with keymap
+TARGET_KEYMAP := default_$(TARGET)
 
+# Directory where to save built firmware
+TARGET_KEYMAP_DIR := keymaps/default/$(TARGET_KEYMAP)_built
 # Directory common source filess exist
 TOP_DIR = ../..
 TMK_DIR = ../../tmk_core
@@ -56,6 +60,9 @@ ifdef keymap
 endif
 
 ifdef KEYMAP
+	# replace custom keymap name
+	TARGET_KEYMAP := $(KEYMAP)_$(TARGET)
+	TARGET_KEYMAP_DIR := keymaps/$(KEYMAP)/$(TARGET_KEYMAP)_built
 ifneq ("$(wildcard keymaps/$(KEYMAP).c)","")
 	KEYMAP_FILE = keymaps/$(KEYMAP).c
 else
@@ -84,6 +91,9 @@ endif
 endif
 
 SRC := $(KEYMAP_FILE) $(SRC)
+
+# where to save built firmware
+TARGET := $(TARGET_KEYMAP_DIR)/$(TARGET_KEYMAP)
 
 CONFIG_H = config.h
 
