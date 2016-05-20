@@ -283,9 +283,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 void matrix_init_user(void) {
-	#ifdef AUDIO_ENABLE
-		startup_song_user();
-	#endif
+    #ifdef AUDIO_ENABLE
+        startup_song_user();
+    #endif
 }
 
 #ifdef AUDIO_ENABLE
@@ -298,19 +298,19 @@ void startup_song_user()
 
 void goodbye_song_user()
 {
-	PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-	_delay_ms(150);
+    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    _delay_ms(150);
     stop_all_notes();
 }
 
 void music_on_user(void)
 {
-	music_scale_user();
+    music_scale_user();
 }
 
 void music_scale_user(void)
 {
-	PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_NOTE_ARRAY(music_scale, false, 0);
 }
 
 #endif
