@@ -229,75 +229,75 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 
     if (keycode == MU_ON && record->event.pressed) {
-		music_on();
-		return false;
+        music_on();
+        return false;
     }
 
     if (keycode == MU_OFF && record->event.pressed) {
-		music_off();
-		return false;
+        music_off();
+        return false;
     }
 
     if (keycode == MU_TOG && record->event.pressed) {
         if (music_activated)
         {
-			music_off();
+            music_off();
         }
         else
         {
-        	music_on();
+            music_on();
         }
         return false;
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
-		voice_iterate();
-		music_scale_user();
-		return false;
+        voice_iterate();
+        music_scale_user();
+        return false;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
-		voice_deiterate();
-		music_scale_user();
-		return false;
+        voice_deiterate();
+        music_scale_user();
+        return false;
     }
 
     if (music_activated) {
 
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
-		stop_all_notes();
-		music_sequence_recording = true;
-		music_sequence_playing = false;
-		music_sequence_count = 0;
-		return false;
+        stop_all_notes();
+        music_sequence_recording = true;
+        music_sequence_playing = false;
+        music_sequence_count = 0;
+        return false;
       }
     
       if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
-		stop_all_notes();
-		music_sequence_recording = false;
-		music_sequence_playing = false;
-		return false;
+        stop_all_notes();
+        music_sequence_recording = false;
+        music_sequence_playing = false;
+        return false;
       }
     
       if (keycode == KC_LGUI && record->event.pressed) { // Start playing
-		stop_all_notes();
-		music_sequence_recording = false;
-		music_sequence_playing = true;
-		music_sequence_position = 0;
-		music_sequence_timer = 0;
-		return false;
+        stop_all_notes();
+        music_sequence_recording = false;
+        music_sequence_playing = true;
+        music_sequence_position = 0;
+        music_sequence_timer = 0;
+        return false;
       }
 
       if (keycode == KC_UP) {
-		if (record->event.pressed)
-			music_sequence_interval-=10;
-		return false;
+        if (record->event.pressed)
+            music_sequence_interval-=10;
+        return false;
       }
     
       if (keycode == KC_DOWN) {
-		if (record->event.pressed)
-			music_sequence_interval+=10;
-		return false;
+        if (record->event.pressed)
+            music_sequence_interval+=10;
+        return false;
       }
 
       float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
