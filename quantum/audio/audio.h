@@ -86,10 +86,11 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 
 
 bool is_playing_notes(void);
-void play_goodbye_tone(void);
-void play_startup_tone(void);
-void play_audio_on_tone(void);
-void play_music_on_tone(void);
-void play_music_scale(void);
+
+void startup_song_user(void);
+void goodbye_song_user(void);
+void audio_on_user(void);
+void music_on_user(void);
+void music_scale_user(void);
 
 #endif

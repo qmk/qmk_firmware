@@ -381,11 +381,14 @@ bool is_audio_on(void) {
 void audio_toggle(void) {
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
+    if (audio_config.enable)
+        audio_on_user();
 }
 
 void audio_on(void) {
     audio_config.enable = 1;
     eeconfig_update_audio(audio_config.raw);
+    audio_on_user();
 }
 
 void audio_off(void) {
@@ -475,20 +478,22 @@ void increase_tempo(uint8_t tempo_change) {
 
 
 //------------------------------------------------------------------------------
-// Override these functions in your keymap file to play different tunes on
-// startup and bootloader jump
-__attribute__ ((weak))
-void play_startup_tone() {}
+// Override these functions in your keymap file to play different tunes on 
+// different events such as startup and bootloader jump
 
 __attribute__ ((weak))
-void play_goodbye_tone() {}
+void startup_song_user() {}
 
 __attribute__ ((weak))
-void play_audio_on_tone() {}
+void goodbye_song_user() {}
 
 __attribute__ ((weak))
-void play_music_on_tone() {}
+void music_on_user() {}
 
 __attribute__ ((weak))
-void play_music_scale() {}
+void audio_on_user() {}
+
+__attribute__ ((weak))
+void music_scale_user() {}
+
 //------------------------------------------------------------------------------

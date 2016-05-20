@@ -522,7 +522,7 @@ bool process_action_user(keyrecord_t *record)
 void matrix_init_user(void)
 {
     set_voice(default_voice);
-    play_startup_tone();
+    startup_song_user();
     println("Matrix Init");
 }
 
@@ -570,20 +570,20 @@ void led_set_user(uint8_t usb_led)
 }
 
 
-void play_startup_tone()
+void startup_song_user()
 {
     _delay_ms(10); // gets rid of tick
     PLAY_NOTE_ARRAY(tone_my_startup, false, STACCATO);
 }
 
-void play_goodbye_tone()
+void goodbye_song_user()
 {
     PLAY_NOTE_ARRAY(tone_my_goodbye, false, STACCATO);
     _delay_ms(2000);
     stop_all_notes();
 }
 
-void play_audio_on_tone(void)
+void audio_on_user(void)
 {
 	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
 }
@@ -593,7 +593,7 @@ void play_music_on_tone(void)
 	PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
 }
 
-void play_music_scale(void)
+void music_scale_user(void)
 {
 	PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
 }

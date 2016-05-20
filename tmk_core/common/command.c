@@ -358,7 +358,7 @@ static bool command_common(uint8_t code)
             print("\n\nJumping to bootloader... ");
             #ifdef AUDIO_ENABLE
 	            stop_all_notes();
-                play_goodbye_tone();
+                goodbye_song_user();
             #else
 	            _delay_ms(1000);
             #endif

@@ -163,38 +163,13 @@ extern const uint16_t fn_actions[];
 
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
-// These affect the backlight (if your keyboard has one).
-// We don't need to comment them out if your keyboard doesn't have a backlight,
-// since they don't take up any space.
-#define BL_ON 0x4009
-#define BL_OFF 0x4000
-#define BL_0 0x4000
-#define BL_1 0x4001
-#define BL_2 0x4002
-#define BL_3 0x4003
-#define BL_4 0x4004
-#define BL_5 0x4005
-#define BL_6 0x4006
-#define BL_7 0x4007
-#define BL_8 0x4008
-#define BL_9 0x4009
-#define BL_10 0x400A
-#define BL_11 0x400B
-#define BL_12 0x400C
-#define BL_13 0x400D
-#define BL_14 0x400E
-#define BL_15 0x400F
-#define BL_DEC 0x4010
-#define BL_INC 0x4011
-#define BL_TOGG 0x4012
-#define BL_STEP 0x4013
+// 0x3100+ is free
+
+// L-ayer, T-ap - 256 keycode max, 16 layer max
+#define LT(layer, kc) (kc | 0x4000 | ((layer & 0xF) << 8))
 
 #define RESET 0x5000
 #define DEBUG 0x5001
-#define KC_LEAD 0x5014
-
-
-
 
 // MAGIC keycodes
 #define MAGIC_SWAP_CONTROL_CAPSLOCK      0x5002
@@ -239,6 +214,32 @@ extern const uint16_t fn_actions[];
 #define MI_ON  0x5028
 #define MI_OFF 0x5029
 
+// These affect the backlight (if your keyboard has one).
+// We don't need to comment them out if your keyboard doesn't have a backlight,
+// since they don't take up any space.
+#define BL_ON 0x5079
+#define BL_OFF 0x5070
+#define BL_0 0x5070
+#define BL_1 0x5071
+#define BL_2 0x5072
+#define BL_3 0x5073
+#define BL_4 0x5074
+#define BL_5 0x5075
+#define BL_6 0x5076
+#define BL_7 0x5077
+#define BL_8 0x5078
+#define BL_9 0x5079
+#define BL_10 0x507A
+#define BL_11 0x507B
+#define BL_12 0x507C
+#define BL_13 0x507D
+#define BL_14 0x507E
+#define BL_15 0x507F
+#define BL_DEC 0x5080
+#define BL_INC 0x5081
+#define BL_TOGG 0x5082
+#define BL_STEP 0x5083
+
 // GOTO layer - 16 layers max
 // when:
 // ON_PRESS    = 1
@@ -261,6 +262,8 @@ extern const uint16_t fn_actions[];
 // One-shot mod
 #define OSM(layer) (layer | 0x5600)
 
+// chording is currently at 0x57xx
+
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
 #define CTL_T(kc) MT(0x1, kc)
@@ -276,14 +279,13 @@ extern const uint16_t fn_actions[];
 #define KC_HYPR HYPR(KC_NO)
 #define KC_MEH  MEH(KC_NO)
 
-// L-ayer, T-ap - 256 keycode max, 16 layer max
-#define LT(layer, kc) (kc | 0x8000 | ((layer & 0xF) << 8))
-
-// For sending unicode codes.
-// You may not send codes over 1FFF -- this supports most of UTF8.
-// To have a key that sends out Œ, go UC(0x0152)
-#define UNICODE(n) (n | 0x8000)
-#define UC(n) UNICODE(n)
+#ifdef UNICODE_ENABLE
+    // For sending unicode codes.
+    // You may not send codes over 7FFF -- this supports most of UTF8.
+    // To have a key that sends out Œ, go UC(0x0152)
+    #define UNICODE(n) (n | 0x8000)
+    #define UC(n) UNICODE(n)
+#endif
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
