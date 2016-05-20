@@ -4,23 +4,19 @@ This code can be used to run TMK keyboard logic on top of [ChibiOS], meaning tha
 
 ### Usage
 
-- To use, unpack or symlink [ChibiOS] to `tmk_core/tool/chibios/chibios`. For Kinetis support (this means Teensies, Infinity keyboard, WhiteFox keyboard), you'll need a fork which implements the USB driver, e.g. [this one](https://github.com/flabbergast/ChibiOS/tree/kinetis).
+- To use, [get a zip of chibios](https://github.com/ChibiOS/ChibiOS/archive/a7df9a891067621e8e1a5c2a2c0ceada82403afe.zip) and unpack/rename it to `tmk_core/tool/chibios/chibios`; or you can just clone [the repo](https://github.com/ChibiOS/ChibiOS) there. For Freescale/NXP Kinetis support (meaning ARM Teensies and the Infinity keyboard), you'll also need [a zip of chibios-contrib](https://github.com/ChibiOS/ChibiOS-Contrib/archive/e1311c4db6cd366cf760673f769e925741ac0ad3.zip), unpacked/renamed to `tmk_core/tool/chibios/chibios-contrib`. Likewise, for git-savvy people, just clone [the repo](https://github.com/ChibiOS/ChibiOS-Contrib) there.
+- Note: the abovementioned directories are the defaults. You can have the two chibios repositories wherever you want, just define their location in `CHIBIOS` and `CHIBIOS_CONTRIB` variables in your `Makefile`.
 - You will also need to install an ARM toolchain, for instance from [here](https://launchpad.net/gcc-arm-embedded). On linux, this is usually also present as a package for your distribution (as `gcc-arm` or something similar). On OS X, you can use [homebrew](http://brew.sh/) with an appropriate tap.
 
 ### Notes
 
 - Some comments about ChibiOS syntax and the most commonly used GPIO functions are, as well as an example for ARM Teensies, is [here](https://github.com/tmk/tmk_keyboard/blob/master/keyboard/teensy_lc_onekey/instructions.md).
 - For gcc options, inspect `tmk_core/tool/chibios/chibios.mk`. For instance, I enabled `-Wno-missing-field-initializers`, because TMK common bits generated a lot of warnings on that.
-Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
+- For debugging, it is sometimes useful disable gcc optimisations, you can do that by adding `-O0` to `OPT_DEFS` in your `Makefile`.
 - USB string descriptors are messy. I did not find a way to cleanly generate the right structures from actual strings, so the definitions in individual keyboards' `config.h` are ugly as heck.
 - It is easy to add some code for testing (e.g. blink LED, do stuff on button press, etc...) - just create another thread in `main.c`, it will run independently of the keyboard business.
-- Jumping to (the built-in) bootloaders on STM32 works, but it is not entirely pleasant, since it is very much MCU dependent. So, one needs to dig out the right address to jump to, and either pass it to the compiler in the `Makefile`, or better, define it in `<your_kb>/bootloader_defs.h`. An additional startup code is also needed; the best way to deal with this is to define custom board files. (Example forthcoming.)
+- Jumping to (the built-in) bootloaders on STM32 works, but it is not entirely pleasant, since it is very much MCU dependent. So, one needs to dig out the right address to jump to, and either pass it to the compiler in the `Makefile`, or better, define it in `<your_kb>/bootloader_defs.h`. An additional startup code is also needed; the best way to deal with this is to define custom board files. (Example forthcoming.) In any case, there are no problems for Teensies.
 
-### Experimental pre-ChibiOS 4 support
-- As an alternative to the mentioned flabbergast branch above, you can use the [master branch of ChibiOS](https://github.com/ChibiOS/ChibiOS). 
-- Note that the Kinetis support has moved to the [ChibiOS-Contrib repository](https://github.com/ChibiOS/ChibiOS-Contrib), so you need to put that into your repository in the same way as you did for the main ChibiOS repository. 
-- You also need to define CHIBIOS_CONTRIB in your makefile and point it to the right directory.
-- You need to add some new options to chconf.h, or you will get compiler errors. Just copy the new options from samples provided by the ChibiOS-Contrib repository.
 
 ### Immediate todo
 
@@ -43,15 +39,16 @@ Also pay attention to `-O0` (enabled for debugging); for deployment use `-O2`.
 ## ChibiOS-supported MCUs
 
 - Pretty much all STM32 chips.
-- There is some support for K20x and KL2x Freescale chips (i.e. Teensy 3.x/LC, mchck, FRDM-KL2{5,6}Z, FRDM-K20D50M), but again, no official USB stack yet. However the `kinetis` branch of [flabbergast's ChibiOS fork](https://github.com/flabbergast/ChibiOS). With this fork, TMK work normally on all the ARM Teensies.
-- There is also support for AVR8, but the USB stack is not implemented for them yet, and also the kernel itself takes about 1k of RAM. I think people managed to get ChibiOS running on atmega32[8p/u4] though.
-- I've seen community support for Nordic NRF51822 (the chip in Adafruit's Bluefruit bluetooth-low-energy boards), but not sure about the extent.
+- K20x and KL2x Freescale/NXP chips (i.e. Teensy 3.x/LC, mchck, FRDM-KL2{5,6}Z, FRDM-K20D50M), via the [ChibiOS-Contrib](https://github.com/ChibiOS/ChibiOS-Contrib) repository.
+- There is also support for AVR8, but the USB stack is not implemented for them yet (some news on that front recently though), and also the kernel itself takes about 1k of RAM. I think people managed to get ChibiOS running on atmega32[8p/u4] though.
+- There is also support for Nordic NRF51822 (the chip in Adafruit's Bluefruit bluetooth-low-energy boards), but be aware that that chip does *not* have USB, and the BLE softdevice (i.e. Bluetooth) is not supported directly at the moment.
 
 ## STM32-based keyboard design considerations
 
 - STM32F0x2 chips can do crystal-less USB, but they still need a 3.3V voltage regulator.
 - The BOOT0 pin should be tied to GND.
 - For a hardware way of accessing the in-built DFU bootloader, in addition to the reset button, put another button between the BOOT0 pin and 3V3.
+- There is a working example of a STM32F042-based keyboard: [firmware here](https://github.com/flabbergast/flabber_kbs/tree/master/kb45p) and [hardware (kicad) here](https://github.com/flabbergast/kicad/tree/master/kb45p). You can check this example firmware for custom board files, and a more complicated matrix than just one key.
 
 
 
