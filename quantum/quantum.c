@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "timer.h"
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {}
@@ -17,11 +18,23 @@ void leader_start(void) {}
 __attribute__ ((weak))
 void leader_end(void) {}
 
+uint8_t starting_note = 0x0C;
+int offset = 7;
+
 #ifdef AUDIO_ENABLE
-  uint8_t starting_note = 0x0C;
-  int offset = 7;
   bool music_activated = false;
   float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
+
+  // music sequencer
+  static bool music_sequence_recording = false;
+  static bool music_sequence_playing = false;
+  static float music_sequence[16] = {0};
+  static uint8_t music_sequence_count = 0;
+  static uint8_t music_sequence_position = 0;
+
+  static uint16_t music_sequence_timer = 0;
+  static uint16_t music_sequence_interval = 100;
+
 #endif
 
 #ifdef MIDI_ENABLE
@@ -42,6 +55,10 @@ bool chording = false;
 uint8_t chord_keys[CHORDING_MAX] = {0};
 uint8_t chord_key_count = 0;
 uint8_t chord_key_down = 0;
+
+#ifdef UNICODE_ENABLE
+  static uint8_t input_mode;
+#endif
 
 bool keys_chord(uint8_t keys[]) {
   uint8_t keys_size = sizeof(keys)/sizeof(keys[0]);
@@ -65,14 +82,25 @@ bool keys_chord(uint8_t keys[]) {
   return (pass && (in == keys_size));
 }
 
-static bool music_sequence_recording = false;
-static bool music_sequence_playing = false;
-static float music_sequence[16] = {0};
-static uint8_t music_sequence_count = 0;
-static uint8_t music_sequence_position = 0;
+#ifdef UNICODE_ENABLE
 
-static uint16_t music_sequence_timer = 0;
-static uint16_t music_sequence_interval = 100;
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
+}
+
+void set_unicode_mode(uint8_t os_target)
+{
+  input_mode = os_target;
+}
+
+#endif
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -105,7 +133,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef MIDI_ENABLE
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
@@ -181,7 +209,6 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef AUDIO_ENABLE
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
-      audio_on_callback();
       return false;
     }
 
@@ -190,31 +217,53 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
+    if (keycode == AU_TOG && record->event.pressed) {
+        if (is_audio_on())
+        {
+            audio_off();
+        }
+        else
+        {
+            audio_on();
+        }
+      return false;
+    }
+
     if (keycode == MU_ON && record->event.pressed) {
-      music_activated = true;
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      music_on();
       return false;
     }
 
     if (keycode == MU_OFF && record->event.pressed) {
-      music_activated = false;
-      stop_all_notes();
+      music_off();
       return false;
+    }
+
+    if (keycode == MU_TOG && record->event.pressed) {
+        if (music_activated)
+        {
+          music_off();
+        }
+        else
+        {
+          music_on();
+        }
+        return false;
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
       voice_iterate();
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
       voice_deiterate();
-      PLAY_NOTE_ARRAY(music_scale, false, 0);
+      play_music_scale();
       return false;
     }
 
-    if (music_activated) {   
+    if (music_activated) {
 
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
         stop_all_notes();
@@ -258,7 +307,7 @@ bool process_record_quantum(keyrecord_t *record) {
         }
       } else {
         stop_note(freq);
-      }  
+      }
 
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
@@ -325,6 +374,44 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #endif
 
+#ifdef UNICODE_ENABLE
+
+  if (keycode > UNICODE(0) && record->event.pressed) {
+    uint16_t unicode = keycode & 0x7FFF;
+    switch(input_mode) {
+      case UC_OSX:
+        register_code(KC_LALT);
+        break;
+      case UC_LNX:
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        register_code(KC_U);
+        unregister_code(KC_U);
+        break;
+      case UC_WIN:
+        register_code(KC_LALT);
+        register_code(KC_PPLS);
+        unregister_code(KC_PPLS);
+        break;
+    }
+    for(int i = 3; i >= 0; i--) {
+        uint8_t digit = ((unicode >> (i*4)) & 0xF);
+        register_code(hex_to_keycode(digit));
+        unregister_code(hex_to_keycode(digit));
+    }
+    switch(input_mode) {
+      case UC_OSX:
+      case UC_WIN:
+        unregister_code(KC_LALT);
+        break;
+      case UC_LNX:
+        unregister_code(KC_LCTL);
+        unregister_code(KC_LSFT);
+        break;
+    }
+  }
+
+#endif
 
   return process_action_kb(record);
 }
@@ -348,3 +435,29 @@ void matrix_scan_quantum() {
 
   matrix_scan_kb();
 }
+#ifdef AUDIO_ENABLE
+  bool is_music_on(void) {
+      return (music_activated != 0);
+  }
+
+  void music_toggle(void) {
+      if (!music_activated) {
+          music_on();
+      } else {
+          music_off();
+      }
+  }
+
+  void music_on(void) {
+      music_activated = 1;
+      music_on_user();
+  }
+
+  void music_off(void) {
+      music_activated = 0;
+      stop_all_notes();
+  }
+
+#endif
+__attribute__ ((weak))
+void music_on_user() {}
