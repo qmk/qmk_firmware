@@ -31,7 +31,7 @@ BOARD = GENERIC_STM32_F103
 
 # MAPLE MINI
 # OPT_DEFS = -DCORTEX_VTOR_INIT=0x5000
-# MCU_LDSCRIPT = STM32F103xE_maplemini_bootloader
+# MCU_LDSCRIPT = STM32F103xB_maplemini_bootloader
 # BOARD = MAPLEMINI_STM32_F103
 
 ## chip/board settings
