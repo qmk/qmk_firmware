@@ -14,26 +14,38 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #ifndef MATRIX_H
 #define MATRIX_H
 
 #include <stdint.h>
 #include <stdbool.h>
 
-
-#if (MATRIX_COLS <= 8)
-typedef  uint8_t    matrix_row_t;
-#elif (MATRIX_COLS <= 16)
-typedef  uint16_t   matrix_row_t;
-#elif (MATRIX_COLS <= 32)
-typedef  uint32_t   matrix_row_t;
+#if MATRIX_COLS <= 8
+typedef uint8_t matrix_row_t;
+#elif MATRIX_COLS <= 16
+typedef uint16_t matrix_row_t;
+#elif MATRIX_COLS <= 32
+typedef uint32_t matrix_row_t;
 #else
-#error "MATRIX_COLS: invalid value"
+#   error "There are too many columns."
 #endif
 
-#define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
+#if DIODE_DIRECTION == ROW2COL
+#   if MATRIX_ROWS <= 8
+typedef uint8_t matrix_col_t;
+#   elif MATRIX_ROWS <= 16
+typedef uint16_t matrix_col_t;
+#   elif MATRIX_ROWS <= 32
+typedef uint32_t matrix_col_t;
+#   else
+#       error "There are too many rows."
+#   endif
+#endif
 
+typedef struct {
+    uint8_t input_addr:4;
+    uint8_t bit:4;
+} io_pin_t;
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,9 +55,9 @@ extern "C" {
 uint8_t matrix_rows(void);
 /* number of matrix columns */
 uint8_t matrix_cols(void);
-/* should be called at early stage of startup before matrix_init.(optional) */
+/* set up matrix before matrix_init (optional) */
 void matrix_setup(void);
-/* intialize matrix for scaning. */
+/* intialize matrix */
 void matrix_init(void);
 /* scan all key states on matrix */
 uint8_t matrix_scan(void);
@@ -57,12 +69,9 @@ bool matrix_is_on(uint8_t row, uint8_t col);
 matrix_row_t matrix_get_row(uint8_t row);
 /* print matrix for debug */
 void matrix_print(void);
-
-
 /* power control */
 void matrix_power_up(void);
 void matrix_power_down(void);
-
 /* keyboard-specific setup/loop functionality */
 void matrix_init_quantum(void);
 void matrix_scan_quantum(void);

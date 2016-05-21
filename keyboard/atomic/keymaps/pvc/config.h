@@ -42,14 +42,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define COLS (int []){ F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1 }
-#define ROWS (int []){ D0, D5, B5, B6, B3 }
+#define MATRIX_ROW_PINS { D0, D5, B5, B6, B3 }
+#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE    5
+#define DEBOUNCING_DELAY 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

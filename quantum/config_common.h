@@ -1,69 +1,73 @@
 #ifndef CONFIG_DEFINITIONS_H
 #define CONFIG_DEFINITIONS_H
 
-#define B0 0x20
-#define B1 0x21
-#define B2 0x22
-#define B3 0x23
-#define B4 0x24
-#define B5 0x25
-#define B6 0x26
-#define B7 0x27
-#define C0 0x30
-#define C1 0x31
-#define C2 0x32
-#define C3 0x33
-#define C4 0x34
-#define C5 0x35
-#define C6 0x36
-#define C7 0x37
-#define D0 0x40
-#define D1 0x41
-#define D2 0x42
-#define D3 0x43
-#define D4 0x44
-#define D5 0x45
-#define D6 0x46
-#define D7 0x47
-#define E0 0x50
-#define E1 0x51
-#define E2 0x52
-#define E3 0x53
-#define E4 0x54
-#define E5 0x55
-#define E6 0x56
-#define E7 0x57
-#define F0 0x60
-#define F1 0x61
-#define F2 0x62
-#define F3 0x63
-#define F4 0x64
-#define F5 0x65
-#define F6 0x66
-#define F7 0x67
+/* diode directions */
+#define COL2ROW 0
+#define ROW2COL 1
+/* I/O pins */
+#define B0 { .input_addr = 3, .bit = 0 }
+#define B1 { .input_addr = 3, .bit = 1 }
+#define B2 { .input_addr = 3, .bit = 2 }
+#define B3 { .input_addr = 3, .bit = 3 }
+#define B4 { .input_addr = 3, .bit = 4 }
+#define B5 { .input_addr = 3, .bit = 5 }
+#define B6 { .input_addr = 3, .bit = 6 }
+#define B7 { .input_addr = 3, .bit = 7 }
+#define C0 { .input_addr = 6, .bit = 0 }
+#define C1 { .input_addr = 6, .bit = 1 }
+#define C2 { .input_addr = 6, .bit = 2 }
+#define C3 { .input_addr = 6, .bit = 3 }
+#define C4 { .input_addr = 6, .bit = 4 }
+#define C5 { .input_addr = 6, .bit = 5 }
+#define C6 { .input_addr = 6, .bit = 6 }
+#define C7 { .input_addr = 6, .bit = 7 }
+#define D0 { .input_addr = 9, .bit = 0 }
+#define D1 { .input_addr = 9, .bit = 1 }
+#define D2 { .input_addr = 9, .bit = 2 }
+#define D3 { .input_addr = 9, .bit = 3 }
+#define D4 { .input_addr = 9, .bit = 4 }
+#define D5 { .input_addr = 9, .bit = 5 }
+#define D6 { .input_addr = 9, .bit = 6 }
+#define D7 { .input_addr = 9, .bit = 7 }
+#define E0 { .input_addr = 0xC, .bit = 0 }
+#define E1 { .input_addr = 0xC, .bit = 1 }
+#define E2 { .input_addr = 0xC, .bit = 2 }
+#define E3 { .input_addr = 0xC, .bit = 3 }
+#define E4 { .input_addr = 0xC, .bit = 4 }
+#define E5 { .input_addr = 0xC, .bit = 5 }
+#define E6 { .input_addr = 0xC, .bit = 6 }
+#define E7 { .input_addr = 0xC, .bit = 7 }
+#define F0 { .input_addr = 0xF, .bit = 0 }
+#define F1 { .input_addr = 0xF, .bit = 1 }
+#define F2 { .input_addr = 0xF, .bit = 2 }
+#define F3 { .input_addr = 0xF, .bit = 3 }
+#define F4 { .input_addr = 0xF, .bit = 4 }
+#define F5 { .input_addr = 0xF, .bit = 5 }
+#define F6 { .input_addr = 0xF, .bit = 6 }
+#define F7 { .input_addr = 0xF, .bit = 7 }
 
-#define COL2ROW 0x0
-#define ROW2COL 0x1
-
+/* USART configuration */
 #ifdef BLUETOOTH_ENABLE
-#ifdef __AVR_ATmega32U4__
-    #define SERIAL_UART_BAUD       9600
-    #define SERIAL_UART_DATA       UDR1
-    #define SERIAL_UART_UBRR       ((F_CPU/(16UL*SERIAL_UART_BAUD))-1)
-    #define SERIAL_UART_RXD_VECT   USART1_RX_vect
-    #define SERIAL_UART_TXD_READY  (UCSR1A&(1<<UDRE1))
-    #define SERIAL_UART_INIT()     do { \
-        UBRR1L = (uint8_t) SERIAL_UART_UBRR;       /* baud rate */ \
-        UBRR1H = (uint8_t) (SERIAL_UART_UBRR>>8);  /* baud rate */ \
-        UCSR1B = (1<<TXEN1);                /* TX: enable */ \
-        UCSR1C = (0<<UPM11) | (0<<UPM10) | /* parity: none(00), even(01), odd(11) */ \
-                 (0<<UCSZ12) | (1<<UCSZ11) | (1<<UCSZ10); /* data-8bit(011) */ \
-		sei(); \
-    } while(0)
-#else
-#   error "USART configuration is needed."
+#   ifdef __AVR_ATmega32U4__
+#      define SERIAL_UART_BAUD 9600
+#      define SERIAL_UART_DATA UDR1
+#      define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
+#      define SERIAL_UART_RXD_VECT USART1_RX_vect
+#      define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+#      define SERIAL_UART_INIT() do { \
+            /* baud rate */ \
+            UBRR1L = SERIAL_UART_UBRR; \
+            /* baud rate */ \
+            UBRR1H = SERIAL_UART_UBRR >> 8; \
+            /* enable TX */ \
+            UCSR1B = _BV(TXEN1); \
+            /* 8-bit data */ \
+            UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
+            sei(); \
+        } while(0)
+#   else
+#       error "USART configuration is needed."
 #endif
-
 
 // I'm fairly sure these aren't needed, but oh well - Jack
 
@@ -113,4 +117,3 @@
 #endif
 
 #endif
-
