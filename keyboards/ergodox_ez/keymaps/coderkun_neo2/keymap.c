@@ -1,7 +1,8 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_neo2.h"
+#include "led.h"
+#include "keymap_extras/keymap_neo2.h"
 
 // Layer names
 #define BASE 0      // default layer
@@ -267,7 +268,13 @@ void matrix_scan_user(void)
             ergodox_right_led_3_on();
         break;
         default:
-            ergodox_board_led_off();
+            if(host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) {
+                ergodox_led_all_set(LED_BRIGHTNESS_HI);
+                ergodox_right_led_1_on();
+            }
+            else {
+                ergodox_board_led_off();
+            }
         break;
     }
 
