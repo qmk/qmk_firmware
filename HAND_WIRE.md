@@ -51,11 +51,11 @@ A problem arises when you start pressing more than one key at a time. Looking at
       x row0 ---(-+-0)---(-+-1)  x row0 ---(-+-0)---(-+-1)
                   |        |                 |        |
       x row1 ---(key2)---(-+-3)  x row1 ---(key2)---(-+-3)
-      
+
       Remember that this ^ is still connected to row1
 
 The data we get from that is:
-    
+
     col0: 0b11
     col1: 0b11
             │└row0
@@ -73,7 +73,7 @@ Which isn't accurate, since we only have 3 keys pressed down, not all 4. This be
                     │        │                 |        │
                  (key2)   (key3)            (key2)   (key3)
                   !        !                 !        !
-        row1 ─────┴────────┘       row1 ─────┴────────┘ 
+        row1 ─────┴────────┘       row1 ─────┴────────┘
 
 In practical applications, the black line of the diode will be placed facing the row, and away from the keyswitch - the `!` in this case is the diode, where the gap represents the black line. A good way to remember this is to think of this symbol: `>|`
 
@@ -89,10 +89,10 @@ Now when we press the three keys, invoking what would be a ghosting scenario:
                     │        │                 │        │
                  (key2)   (┌─┘3)            (key2)   (┌─┘3)
                   !        !                 !        !
-        row1 ─────┴────────┘     x row1 ─────┴────────┘ 
+        row1 ─────┴────────┘     x row1 ─────┴────────┘
 
 Things act as they should! Which will get us the following data:
-    
+
     col0: 0b01
     col1: 0b11
             │└row0
@@ -106,7 +106,7 @@ The firmware can then use this correct data to detect what it should do, and eve
 
 When starting this, you should have all of your stabilisers and keyswitches already installed (and optionally keycaps). If you're using a Cherry-type stabiliser (plate-mounted only, obviously), you'll need to install that before your keyswitches. If you're using Costar ones, you can installed them afterwards.
 
-To make things easier on yourself, make sure all of the keyswitches are oriented the same way (if they can be - not all layouts support this). Despite this, it's important to remember that the contacts on the keyswitches are completely symmetrical. We'll be using the keyswitch's left side contact for wiring the rows, and the right side one for wiring the columns. 
+To make things easier on yourself, make sure all of the keyswitches are oriented the same way (if they can be - not all layouts support this). Despite this, it's important to remember that the contacts on the keyswitches are completely symmetrical. We'll be using the keyswitch's left side contact for wiring the rows, and the right side one for wiring the columns.
 
 Get your soldering iron heated-up and collect the rest of the materials from the part list at the beginning of the guide. Place your keyboard so that the bottoms of the keyswitches are accessible - it may be a good idea to place it on a cloth to protect your keyswitches/keycaps.
 
@@ -155,7 +155,7 @@ When all of the diodes are completely soldered, it's a good idea to quickly insp
 
 ### Soldering the columns
 
-You'll have some options in the next process - it's a good idea to insulate the column wires (since the diodes aren't), but if you're careful enough, you can use exposed wires for the columns - it's not recommended, though. If you're using single-cored wire, stripping the plastic off of the whole wire and feeding it back on is probably the best option, but can be difficult depending on the size and materials. You'll want to leave parts of the wire exposed where you're going to be solder it onto the keyswitch. 
+You'll have some options in the next process - it's a good idea to insulate the column wires (since the diodes aren't), but if you're careful enough, you can use exposed wires for the columns - it's not recommended, though. If you're using single-cored wire, stripping the plastic off of the whole wire and feeding it back on is probably the best option, but can be difficult depending on the size and materials. You'll want to leave parts of the wire exposed where you're going to be solder it onto the keyswitch.
 
 If you're using stranded wire, it's probably easiest to just use a lot of small wires to connect each keyswitch along the column. It's possible to use one and melt through the insulation, but this isn't recommended, will produce even more harmful fumes, and can ruin your soldering iron.
 
@@ -195,15 +195,13 @@ You'll want to navigate to the `keyboard/<project_name>/` folder by typing, like
 
 #### config.h
 
-The first thing we're going to want to modify is the `config.h` file. On line 32 and 33, you'll see `MATRIX_ROWS` and `MATRIX_COLS` - set both these variables to however many rows and columns you have on your keyboard.
+The first thing you're going to want to modify is the `config.h` file. Find `MATRIX_ROWS` and `MATRIX_COLS` and them to match the dimensions of your keyboard's matrix.
 
-On line 38 and 39 you'll see the `COLS` and `ROWS` definitions - this is where you'll enter the pins you used, in order (left-to-right when looking at the top of the keyboard, but right-to-left when looking at the bottom).
-
-There are some other variables that you'll be able to modify (lines 23-29), but it's not necessary to do that now (or ever, really).
+Farther down are `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`. Change their definitions to match how you wired up your matrix (looking from the top of the keyboard, the rows run top-to-bottom and the columns run left-to-right). Likewise, change the definition of `UNUSED_PINS` to match the pins you did not use (this will save power).
 
 #### \<project_name\>.h
 
-The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `KEYMAP` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix. 
+The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `KEYMAP` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
 
 We'll dive into how this will work with the following example. Say we have a keyboard like this:
 
@@ -230,7 +228,7 @@ The middle column is unused on the bottom row in this example. Our `KEYMAP` defi
     { \
         { k00, k01,   k02 }, \
         { k10, KC_NO, k11 }, \
-    } 
+    }
 
 Notice how the top half is spaced to resemble our physical layout - this helps us understand which keys are associated with which columns. The bottom half uses the keycode `KC_NO` where there is no keyswitch wired in. It's easiest to keep the bottom half aligned in a grid to help us make sense of how the firmware actually sees the wiring.
 
@@ -251,7 +249,7 @@ This would require our `KEYMAP` definition to look like this:
     { \
         { k00, k01, k02   }, \
         { k10, k11, KC_NO }, \
-    } 
+    }
 
 Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `KEYMAP` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
 
