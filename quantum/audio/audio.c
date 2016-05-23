@@ -475,25 +475,3 @@ void increase_tempo(uint8_t tempo_change) {
         note_tempo -= tempo_change;
     }
 }
-
-
-//------------------------------------------------------------------------------
-// Override these functions in your keymap file to play different tunes on 
-// different events such as startup and bootloader jump
-
-__attribute__ ((weak))
-void startup_song_user() {}
-
-__attribute__ ((weak))
-void goodbye_song_user() {}
-
-__attribute__ ((weak))
-void music_on_user() {}
-
-__attribute__ ((weak))
-void audio_on_user() {}
-
-__attribute__ ((weak))
-void music_scale_user() {}
-
-//------------------------------------------------------------------------------

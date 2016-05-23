@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "command.h"
 #include "backlight.h"
+#include "quantum.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
@@ -358,7 +359,7 @@ static bool command_common(uint8_t code)
             print("\n\nJumping to bootloader... ");
             #ifdef AUDIO_ENABLE
 	            stop_all_notes();
-                goodbye_song_user();
+                shutdown_user();
             #else
 	            _delay_ms(1000);
             #endif

@@ -284,19 +284,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
-        startup_song_user();
+        startup_user();
     #endif
 }
 
 #ifdef AUDIO_ENABLE
 
-void startup_song_user()
+void startup_user()
 {
     _delay_ms(20); // gets rid of tick
     PLAY_NOTE_ARRAY(tone_startup, false, 0);
 }
 
-void goodbye_song_user()
+void shutdown_user()
 {
     PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
     _delay_ms(150);

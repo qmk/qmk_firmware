@@ -5,6 +5,7 @@
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
+#include "quantum.h"
 
 #ifndef AUDIO_H
 #define AUDIO_H
@@ -86,11 +87,5 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 
 
 bool is_playing_notes(void);
-
-void startup_song_user(void);
-void goodbye_song_user(void);
-void audio_on_user(void);
-void music_on_user(void);
-void music_scale_user(void);
 
 #endif

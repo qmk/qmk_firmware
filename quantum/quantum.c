@@ -461,5 +461,24 @@ void matrix_scan_quantum() {
   }
 
 #endif
+
+//------------------------------------------------------------------------------
+// Override these functions in your keymap file to play different tunes on 
+// different events such as startup and bootloader jump
+
+__attribute__ ((weak))
+void startup_user() {}
+
+__attribute__ ((weak))
+void shutdown_user() {}
+
 __attribute__ ((weak))
 void music_on_user() {}
+
+__attribute__ ((weak))
+void audio_on_user() {}
+
+__attribute__ ((weak))
+void music_scale_user() {}
+
+//------------------------------------------------------------------------------
