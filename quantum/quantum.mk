@@ -1,7 +1,8 @@
 QUANTUM_DIR = quantum
 
 # # project specific files
-SRC += $(QUANTUM_DIR)/keymap_common.c \
+SRC += $(QUANTUM_DIR)/quantum.c \
+	$(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/led.c
 
 # ifdef KEYMAP_FILE
@@ -23,16 +24,14 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
-ifeq ($(strip $(MIDI_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/keymap_midi.c
-endif
+#ifeq ($(strip $(MIDI_ENABLE)), yes)
+#	SRC += $(QUANTUM_DIR)/keymap_midi.c
+#endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/audio/audio.c $(QUANTUM_DIR)/audio/voices.c
-endif
-
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/keymap_unicode.c
+    SRC += $(QUANTUM_DIR)/audio/audio.c
+    SRC += $(QUANTUM_DIR)/audio/voices.c
+    SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)

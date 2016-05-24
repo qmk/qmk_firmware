@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x0419
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ortholinear Keyboards
 #define PRODUCT         The Atomic Keyboard
@@ -42,14 +42,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define COLS (int []){ F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1 }
-#define ROWS (int []){ D0, D5, B5, B6, B3 }
+#define MATRIX_ROW_PINS { D0, D5, B5, B6, B3 }
+#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE    5
+#define DEBOUNCING_DELAY 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -157,5 +158,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+
+//#define VIBRATO_ENABLE
+//#define VIBRATO_STRENGTH_ENABLE
 
 #endif

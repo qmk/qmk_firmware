@@ -32,19 +32,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 4
 
-// COLS: Left to right, ROWS: Top to bottom
-
+// ROWS: Top to bottom, COLS: Left to right
+/* Row pin configuration
+* row: 0  1  2  3  4
+* pin:
+*/
+#define MATRIX_ROW_PINS { B0, D3, D5, D4, D6 }
 /* Column pin configuration
  * col: 0  1  2  3
  * pin: F4 E6 B1 D2
  */
-#define COLS (int []){ F4, E6, B1, D2 }
-
- /* Row pin configuration
- * row: 0  1  2  3  4
- * pin:
- */
-#define ROWS (int []){ B0, D3, D5, D4, D6 }
+#define MATRIX_COL_PINS { F4, E6, B1, D2 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
+#define DEBOUNCING_DELAY 5
 
 /* Number of backlighting levels */
 #define BACKLIGHT_LEVELS 3
