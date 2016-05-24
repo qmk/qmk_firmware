@@ -37,10 +37,8 @@ static const io_pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 /* matrix state */
 #if DIODE_DIRECTION == COL2ROW
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t debouncing_matrix[MATRIX_ROWS];
 #else
 static matrix_col_t matrix[MATRIX_COLS];
-static matrix_col_t debouncing_matrix[MATRIX_COLS];
 #endif
 static int8_t debouncing_delay = -1;
 
@@ -99,6 +97,7 @@ void matrix_init(void) {
 
 #if DIODE_DIRECTION == COL2ROW
 uint8_t matrix_scan(void) {
+    static matrix_row_t debouncing_matrix[MATRIX_ROWS];
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
         toggle_row(r);
         matrix_row_t state = read_cols();
@@ -146,6 +145,7 @@ matrix_row_t matrix_get_row(uint8_t row) {
 
 #else
 uint8_t matrix_scan(void) {
+    static matrix_col_t debouncing_matrix[MATRIX_COLS];
     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
         toggle_col(c);
         matrix_col_t state = read_rows();
