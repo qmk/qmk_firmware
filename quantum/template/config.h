@@ -41,15 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
-*/ 
-#define COLS (int []){ F1, F0, B0 }
-#define ROWS (int []){ D0, D5 }
+*/
+#define MATRIX_ROW_PINS { D0, D5 }
+#define MATRIX_COL_PINS { F1, F0, B0 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE    5
+#define DEBOUNCING_DELAY 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -62,17 +63,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* 
+/*
  * Force NKRO
  *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved 
+ * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
  * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
  * makefile for this to work.)
  *
  * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
  * until the next keyboard reset.
  *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is 
+ * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
  * fully operational during normal computer usage.
  *
  * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
@@ -90,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * the keyboard. They are best used in combination with the HID Listen program,
  * found here: https://www.pjrc.com/teensy/hid_listen.html
  *
- * The options below allow the magic key functionality to be changed. This is 
+ * The options below allow the magic key functionality to be changed. This is
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */

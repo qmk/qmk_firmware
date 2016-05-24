@@ -101,6 +101,22 @@ NKRO_ENABLE      = yes		# USB Nkey Rollover - if this doesn't work, see here: ht
 # MIDI_ENABLE    = yes 		# MIDI controls
 # UNICODE_ENABLE = yes 		# Unicode
 
+# If you want to have your own config_user.h, you can just put it in
+# your keymap directory. Anything you set there will take precedence
+# over the global config.h.
+ifneq ("$(wildcard keymaps/$(KEYMAP)/config_user.h)","")
+CONFIG_USER_H = keymaps/$(KEYMAP)/config_user.h
+endif
+
+ifdef KEYMAP
+
+ifeq ("$(wildcard keymaps/$(KEYMAP).c)","")
+ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
+	include keymaps/$(KEYMAP)/makefile.mk
+endif
+endif
+endif
+
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax

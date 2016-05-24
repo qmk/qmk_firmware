@@ -883,7 +883,7 @@ int main(void)
     midi_register_cc_callback(&midi_device, cc_callback);
     midi_register_sysex_callback(&midi_device, sysex_callback);
 
-    init_notes();
+    // init_notes();
     // midi_send_cc(&midi_device, 0, 1, 2);
     // midi_send_cc(&midi_device, 15, 1, 0);
     // midi_send_noteon(&midi_device, 0, 64, 127);
@@ -947,10 +947,10 @@ void fallthrough_callback(MidiDevice * device,
   if (cnt == 3) {
     switch (byte0 & 0xF0) {
         case MIDI_NOTEON:
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
+            play_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
             break;
         case MIDI_NOTEOFF:
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(byte1 & 0x7F)/12.0));
+            stop_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0));
             break;
     }
   }

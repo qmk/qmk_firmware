@@ -1,18 +1,7 @@
 #ifndef PREONIC_H
 #define PREONIC_H
 
-#include "matrix.h"
-#include "keymap_common.h"
-#ifdef BACKLIGHT_ENABLE
-	#include "backlight.h"
-#endif
-#ifdef RGBLIGHT_ENABLE
-  #include "rgblight.h"
-#endif
-#include <stddef.h>
-#ifdef MIDI_ENABLE
-	#include <keymap_midi.h>
-#endif
+#include "quantum.h"
 
 #define PREONIC_MIT( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
@@ -46,6 +35,6 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-void process_action_kb(keyrecord_t *record);
+bool process_action_kb(keyrecord_t *record);
 
 #endif

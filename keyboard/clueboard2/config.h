@@ -32,19 +32,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 
-// COLS: Left to right, ROWS: Top to bottom
-
+// ROWS: Top to bottom, COLS: Left to right
+/* Row pin configuration
+* row: 0  1  2  3  4  5  6  7  8  9
+* pin: B2 C7 C6 B6 B5 B0 B3 D5 D3 D2
+*/
+#define MATRIX_ROW_PINS { B2, C7, C6, B6, B5, B0, B3, D5, D3, D2 }
 /* Column pin configuration
  * col: 0  1  2  3  4  5  6  7
  * pin: F0 F1 F4 F5 F6 F7 E6 B1
  */
-#define COLS (int []){ F0, F1, F4, F5, F6, F7, E6, B1 }
-
- /* Row pin configuration
- * row: 0  1  2  3  4  5  6  7  8  9
- * pin: B2 C7 C6 B6 B5 B0 B3 D5 D3 D2
- */
-#define ROWS (int []){ B2, C7, C6, B6, B5, B0, B3, D5, D3, D2 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, E6, B1 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
+#define DEBOUNCING_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -33,20 +33,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "command.h"
 #include "backlight.h"
+#include "quantum.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
 #endif
 
 #ifdef PROTOCOL_PJRC
-#   include "usb_keyboard.h"
-#   ifdef EXTRAKEY_ENABLE
-#       include "usb_extra.h"
-#   endif
+	#include "usb_keyboard.h"
+		#ifdef EXTRAKEY_ENABLE
+		#include "usb_extra.h"
+	#endif
 #endif
 
 #ifdef PROTOCOL_VUSB
-#   include "usbdrv.h"
+	#include "usbdrv.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -357,9 +358,11 @@ static bool command_common(uint8_t code)
             clear_keyboard(); // clear to prevent stuck keys
             print("\n\nJumping to bootloader... ");
             #ifdef AUDIO_ENABLE
-                play_goodbye_tone();
+	            stop_all_notes();
+                shutdown_user();
+            #else
+	            _delay_ms(1000);
             #endif
-            _delay_ms(1000);
             bootloader_jump(); // not return
             break;
 

@@ -1,10 +1,9 @@
 #ifndef ATOMIC_H
 #define ATOMIC_H
 
-#include "matrix.h"
-#include "keymap_common.h"
-#include "backlight.h"
+#include "quantum.h"
 #include <stddef.h>
+#include <avr/io.h>
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -26,8 +25,24 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-void process_action_user(keyrecord_t *record);
+bool process_action_user(keyrecord_t *record);
 void led_set_user(uint8_t usb_led);
 void backlight_init_ports(void);
+
+void breathing_enable(void);
+void breathing_pulse(void);
+void breathing_disable(void);
+void breathing_self_disable(void);
+void breathing_toggle(void);
+bool is_breathing(void);
+
+
+void breathing_defaults(void);
+void breathing_intensity_default(void);
+void breathing_speed_default(void);
+void breathing_speed_set(uint8_t value);
+void breathing_speed_inc(uint8_t value);
+void breathing_speed_dec(uint8_t value);
+
 
 #endif

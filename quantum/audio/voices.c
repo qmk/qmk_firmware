@@ -1,6 +1,6 @@
 #include "voices.h"
+#include "audio.h"
 #include "stdlib.h"
-#include "vibrato_lut.h"
 
 // these are imported from audio.c
 extern uint16_t envelope_index;
@@ -54,28 +54,28 @@ float voice_envelope(float frequency) {
             }
     	    break;
 
-        case octave_crunch:
-            polyphony_rate = 0;
-            switch (compensated_index) {
-                case 0 ... 9:
-                case 20 ... 24:
-                case 30 ... 32:
-                    frequency = frequency / 2;
-                    note_timbre = TIMBRE_12;
-                break;
+        // case octave_crunch:
+        //     polyphony_rate = 0;
+        //     switch (compensated_index) {
+        //         case 0 ... 9:
+        //         case 20 ... 24:
+        //         case 30 ... 32:
+        //             frequency = frequency / 2;
+        //             note_timbre = TIMBRE_12;
+        //         break;
 
-                case 10 ... 19:
-                case 25 ... 29:
-                case 33 ... 35:
-                    frequency = frequency * 2;
-                    note_timbre = TIMBRE_12;
-	                break;
+        //         case 10 ... 19:
+        //         case 25 ... 29:
+        //         case 33 ... 35:
+        //             frequency = frequency * 2;
+        //             note_timbre = TIMBRE_12;
+	       //          break;
 
-                default:
-                    note_timbre = TIMBRE_12;
-                	break;
-            }
-	        break;
+        //         default:
+        //             note_timbre = TIMBRE_12;
+        //         	break;
+        //     }
+	       //  break;
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze
@@ -109,7 +109,7 @@ float voice_envelope(float frequency) {
                 case 0 ... VOICE_VIBRATO_DELAY:
                     break;
                 default:
-                    frequency = frequency * VIBRATO_LUT[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
+                    frequency = frequency * vibrato_lut[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1))/1000*VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
                     break;
             }
             break;
@@ -161,3 +161,5 @@ float voice_envelope(float frequency) {
 
     return frequency;
 }
+
+
