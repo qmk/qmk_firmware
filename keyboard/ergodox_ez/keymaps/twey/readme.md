@@ -3,8 +3,8 @@
 - Layer 0: Non-ANSI Dvorak layout, with modified modifiers — all
   modifiers on thumb keys, as well as return and space.
 - Layer 1: Default symbol layout.
-- Layer 2: Default media/mouse layout.
-- Layer 3: Plover-oriented stenography layer.
+- Layer 2: Plover-oriented stenography layer.
+- Layer 3: Extended media/mouse layout.
 
 ## Unusual features
 The Plover key (top right key on the left half) also sends my Plover
@@ -12,8 +12,6 @@ The Plover key (top right key on the left half) also sends my Plover
 layer, so you can toggle between steno and typing modes with a single
 keypress.
 
-If you want to use this feature, you'll need to add:
-
-    "SH-FT": "{PLOVER:TOGGLE}"
-
-to your Plover dictionary.
+If you want to use this feature, you'll need to add the
+`commands.json` dictionary to your Plover dictionaries, or define the
+toggle stroke (`PHROLG`) yourself.
