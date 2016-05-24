@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "bootloader.h"
 #include "eeconfig.h"
+#include "quantum.h"
 
 #ifdef MIDI_ENABLE
 	#include "keymap_midi.h"
@@ -190,7 +191,7 @@ static action_t keycode_to_action(uint16_t keycode)
             clear_keyboard();
             #ifdef AUDIO_ENABLE
                 stop_all_notes();
-                play_goodbye_tone();
+                shutdown_user();
             #endif
             _delay_ms(250);
             #ifdef ATREUS_ASTAR

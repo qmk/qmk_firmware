@@ -67,6 +67,10 @@ void music_toggle(void);
 void music_on(void);
 void music_off(void);
 
+void startup_user(void);
+void shutdown_user(void);
+void audio_on_user(void);
 void music_on_user(void);
+void music_scale_user(void);
 
 #endif

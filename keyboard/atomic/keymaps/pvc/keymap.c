@@ -62,8 +62,6 @@
 #define M_BDFLT             M(MACRO_BREATH_DEFAULT)
 
 
-//#define MU_TOG             M(MACRO_MUSIC_TOGGLE)
-//#define AU_TOG              M(MACRO_AUDIO_TOGGLE)
 #define VC_UP               M(MACRO_INC_VOICE)
 #define VC_DOWN             M(MACRO_DEC_VOICE)
 
@@ -156,11 +154,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* UPPER
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | PRINT  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | NUM LK | /      | *      | -      | NUM LK | SCR LK | XXXXXX . PAUSE  |
+ * | PRINT  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | NUM LK | /      | *      |        | NUM LK | SCR LK | XXXXXX . PAUSE  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * |        | F1     | F2     | F3     | F4     |        |        | 7      | 8      | 9      | +      | ~      |        |        | INS    |
+ * |        | F1     | F2     | F3     | F4     |        |        | 7      | 8      | 9      | -      |        |        |        | INS    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAP LK | F5     | F6     | F7     | F8     |        |        | 4      | 5      | 6      | +      | `      | XXXXXX .        | HOME   |
+ * | CAP LK | F5     | F6     | F7     | F8     |        |        | 4      | 5      | 6      | +      |        | XXXXXX .        | HOME   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
  * |        | F9     | F10    | F11    | F12    |        |        | 1      | 2      | 3      | ENTER  | XXXXXX .        |        | END    |
  * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
@@ -498,31 +496,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 #ifdef AUDIO_ENABLE
 
-/*
-bool process_action_user(keyrecord_t *record)
-{
-
-    uint8_t starting_note = 0x0C;
-    int offset = 7;
-
-    if (IS_LAYER_ON(LAYER_MUSIC))
-    {
-        if (record->event.pressed)
-        {
-            play_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)), 0xF);
-        }
-        else
-        {
-            stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
-        }
-    }
-}
-*/
-
 void matrix_init_user(void)
 {
     set_voice(default_voice);
-    play_startup_tone();
+    startup_user();
     println("Matrix Init");
 }
 
@@ -570,30 +547,30 @@ void led_set_user(uint8_t usb_led)
 }
 
 
-void play_startup_tone()
+void startup_user()
 {
     _delay_ms(10); // gets rid of tick
     PLAY_NOTE_ARRAY(tone_my_startup, false, STACCATO);
 }
 
-void play_goodbye_tone()
+void shutdown_user()
 {
     PLAY_NOTE_ARRAY(tone_my_goodbye, false, STACCATO);
     _delay_ms(2000);
     stop_all_notes();
 }
 
-void play_audio_on_tone(void)
+void audio_on_user(void)
 {
 	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
 }
 
-void play_music_on_tone(void)
+void music_on_user(void)
 {
 	PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
 }
 
-void play_music_scale(void)
+void music_scale_user(void)
 {
 	PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
 }

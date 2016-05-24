@@ -23,17 +23,16 @@ int offset = 7;
 
 #ifdef AUDIO_ENABLE
   bool music_activated = false;
-  float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 
-  // music sequencer
-  static bool music_sequence_recording = false;
-  static bool music_sequence_playing = false;
-  static float music_sequence[16] = {0};
-  static uint8_t music_sequence_count = 0;
-  static uint8_t music_sequence_position = 0;
+// music sequencer
+static bool music_sequence_recording = false;
+static bool music_sequence_playing = false;
+static float music_sequence[16] = {0};
+static uint8_t music_sequence_count = 0;
+static uint8_t music_sequence_position = 0;
 
-  static uint16_t music_sequence_timer = 0;
-  static uint16_t music_sequence_interval = 100;
+static uint16_t music_sequence_timer = 0;
+static uint16_t music_sequence_interval = 100;
 
 #endif
 
@@ -133,7 +132,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef MIDI_ENABLE
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
-      play_music_scale();
+      music_scale_user();
       return false;
     }
 
@@ -230,37 +229,37 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 
     if (keycode == MU_ON && record->event.pressed) {
-      music_on();
-      return false;
+        music_on();
+        return false;
     }
 
     if (keycode == MU_OFF && record->event.pressed) {
-      music_off();
-      return false;
+        music_off();
+        return false;
     }
 
     if (keycode == MU_TOG && record->event.pressed) {
         if (music_activated)
         {
-          music_off();
+            music_off();
         }
         else
         {
-          music_on();
+            music_on();
         }
         return false;
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
-      voice_iterate();
-      play_music_scale();
-      return false;
+        voice_iterate();
+        music_scale_user();
+        return false;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
-      voice_deiterate();
-      play_music_scale();
-      return false;
+        voice_deiterate();
+        music_scale_user();
+        return false;
     }
 
     if (music_activated) {
@@ -272,12 +271,14 @@ bool process_record_quantum(keyrecord_t *record) {
         music_sequence_count = 0;
         return false;
       }
+    
       if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
         stop_all_notes();
         music_sequence_recording = false;
         music_sequence_playing = false;
         return false;
       }
+    
       if (keycode == KC_LGUI && record->event.pressed) { // Start playing
         stop_all_notes();
         music_sequence_recording = false;
@@ -289,12 +290,13 @@ bool process_record_quantum(keyrecord_t *record) {
 
       if (keycode == KC_UP) {
         if (record->event.pressed)
-          music_sequence_interval-=10;
+            music_sequence_interval-=10;
         return false;
       }
+    
       if (keycode == KC_DOWN) {
         if (record->event.pressed)
-          music_sequence_interval+=10;
+            music_sequence_interval+=10;
         return false;
       }
 
@@ -459,5 +461,24 @@ void matrix_scan_quantum() {
   }
 
 #endif
+
+//------------------------------------------------------------------------------
+// Override these functions in your keymap file to play different tunes on 
+// different events such as startup and bootloader jump
+
+__attribute__ ((weak))
+void startup_user() {}
+
+__attribute__ ((weak))
+void shutdown_user() {}
+
 __attribute__ ((weak))
 void music_on_user() {}
+
+__attribute__ ((weak))
+void audio_on_user() {}
+
+__attribute__ ((weak))
+void music_scale_user() {}
+
+//------------------------------------------------------------------------------
