@@ -96,17 +96,15 @@ void keyboard_init(void) {
 
 /* does routine keyboard jobs */
 void keyboard_task(void) {
-    static matrix_row_t previous_matrix[MATRIX_ROWS];
-#ifdef MATRIX_HAS_GHOST
-    static matrix_row_t deghosting_matrix[MATRIX_ROWS];
-#endif
-    static uint8_t led_status = 0;
+    static uint8_t led_status;
     matrix_scan();
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
+        static matrix_row_t previous_matrix[MATRIX_ROWS];
         matrix_row_t state = matrix_get_row(r);
         matrix_row_t changes = state ^ previous_matrix[r];
         if (changes) {
 #ifdef MATRIX_HAS_GHOST
+            static matrix_row_t deghosting_matrix[MATRIX_ROWS];
             if (is_row_ghosting(r)) {
                 /* debugs the deghosting mechanism */
                 /* doesn't update previous_matrix until the ghosting has stopped
