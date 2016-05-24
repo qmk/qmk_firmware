@@ -132,7 +132,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef MIDI_ENABLE
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
-      play_music_scale();
+      music_scale_user();
       return false;
     }
 
