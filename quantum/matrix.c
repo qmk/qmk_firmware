@@ -42,18 +42,25 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static matrix_row_t matrix_reversed_debouncing[MATRIX_COLS];
 #endif
 
+
+#if MATRIX_COLS > 16
+    #define SHIFTER 1UL
+#else
+    #define SHIFTER 1
+#endif
+
 static matrix_row_t read_cols(void);
 static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 __attribute__ ((weak))
-void matrix_init_kb(void) {
+void matrix_init_quantum(void) {
 
 }
 
 __attribute__ ((weak))
-void matrix_scan_kb(void) {
+void matrix_scan_quantum(void) {
 
 }
 
@@ -86,7 +93,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_kb();
+    matrix_init_quantum();
 }
 
 
@@ -150,7 +157,7 @@ uint8_t matrix_scan(void)
     }
 #endif
 
-    matrix_scan_kb();
+    matrix_scan_quantum();
 
     return 1;
 }
@@ -235,15 +242,15 @@ static matrix_row_t read_cols(void)
 #endif
 
         if ((col & 0xF0) == 0x20) { 
-            result |= (PINB&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+            result |= (PINB&(1<<(col & 0x0F)) ? 0 : (SHIFTER<<x)); 
         } else if ((col & 0xF0) == 0x30) { 
-            result |= (PINC&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+            result |= (PINC&(1<<(col & 0x0F)) ? 0 : (SHIFTER<<x)); 
         } else if ((col & 0xF0) == 0x40) { 
-            result |= (PIND&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+            result |= (PIND&(1<<(col & 0x0F)) ? 0 : (SHIFTER<<x)); 
         } else if ((col & 0xF0) == 0x50) { 
-            result |= (PINE&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+            result |= (PINE&(1<<(col & 0x0F)) ? 0 : (SHIFTER<<x)); 
         } else if ((col & 0xF0) == 0x60) { 
-            result |= (PINF&(1<<(col & 0x0F)) ? 0 : (1<<x)); 
+            result |= (PINF&(1<<(col & 0x0F)) ? 0 : (SHIFTER<<x)); 
         } 
     }
     return result;

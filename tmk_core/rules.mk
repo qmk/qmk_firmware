@@ -142,6 +142,9 @@ CFLAGS += $(CSTANDARD)
 ifdef CONFIG_H
     CFLAGS += -include $(CONFIG_H)
 endif
+ifdef CONFIG_USER_H
+    CFLAGS += -include $(CONFIG_USER_H)
+endif
 
 
 #---------------- Compiler Options C++ ----------------
@@ -176,6 +179,9 @@ CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 ifdef CONFIG_H
     CPPFLAGS += -include $(CONFIG_H)
 endif
+ifdef CONFIG_USER_H
+    CPPFLAGS += -include $(CONFIG_USER_H)
+endif
 
 
 #---------------- Assembler Options ----------------
@@ -191,6 +197,9 @@ ASFLAGS = $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 ASFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 ifdef CONFIG_H
     ASFLAGS += -include $(CONFIG_H)
+endif
+ifdef CONFIG_USER_H
+    ASFLAGS += -include $(CONFIG_USER_H)
 endif
 
 
@@ -419,7 +428,7 @@ flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
-dfu: $(TARGET).hex
+dfu: $(TARGET).hex sizeafter
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 	dfu-programmer $(MCU) erase --force
 else
