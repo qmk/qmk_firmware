@@ -1,13 +1,9 @@
 #ifndef ERGODOX_EZ_H
 #define ERGODOX_EZ_H
 
-#include "matrix.h"
-#include "keymap_common.h"
-#include "backlight.h"
-#include <stddef.h>
+#include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include <avr/io.h>
 #include "i2cmaster.h"
 #include <util/delay.h>
 

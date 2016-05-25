@@ -118,6 +118,42 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
+### The Leader key: A new kind of modifier
+
+If you've ever used Vim, you know what a Leader key is. If not, you're about to discover a wonderful concept. :) Instead of hitting Alt+Shift+W for example (holding down three keys at the same time), what if you could hit a _sequence_ of keys instead? So you'd hit our special modifier (the Leader key), followed by W and then C (just a rapid succession of keys), and something would happen.
+
+That's what `KC_LEAD` does. Here's an example:
+
+1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
+2. Include the line `#define LEADER_TIMEOUT 300` somewhere in your keymap.c file, probably near the top. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
+3. Within your `matrix_scan_user` function, do something like this:
+
+```
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_F) {
+      register_code(KC_S);
+      unregister_code(KC_S);
+    }
+    SEQ_TWO_KEYS(KC_A, KC_S) {
+      register_code(KC_H);
+      unregister_code(KC_H);
+    }
+    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
+      register_code(KC_LGUI);
+      register_code(KC_S);
+      unregister_code(KC_S);
+      unregister_code(KC_LGUI);
+    }
+  }
+}
+```
+
+As you can see, you have three function. you can use - `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS` and `SEQ_THREE_.EYS` for longer sequences. Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
+
 ### Temporarily setting the default layer
 
 `DF(layer)` - sets default layer to *layer*. The default layer is the one at the "bottom" of the layer stack - the ultimate fallback layer. This currently does not persist over power loss. When you plug the keyboard back in, layer 0 will always be the default. It is theoretically possible to work around that, but that's not what `DF` does.
@@ -258,7 +294,7 @@ if (timer_elapsed(key_timer) < 100) {
 }
 ```
 
-It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
+It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc).
 
 #### Example 1: Single-key copy/paste (hold to copy, tap to paste)
 
@@ -276,7 +312,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 0: {
             if (record->event.pressed) {
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
-            } 
+            }
             else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
                 if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
                     return MACRO( D(LCTL), T(C), U(LCTL), END  );
@@ -312,7 +348,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
                 register_code(KC_LSFT); // we're now holding down Shift.
             } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
+                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
                     register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
                     unregister_code(KC_9); // now let's let go of that key
                 }
@@ -323,13 +359,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1: {
             if (record->event.pressed) {
                 key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
-                register_code(KC_RSFT); 
-            } else { 
-                if (timer_elapsed(key_timer) < 150) { 
-                    register_code(KC_0); 
-                    unregister_code(KC_0); 
+                register_code(KC_RSFT);
+            } else {
+                if (timer_elapsed(key_timer) < 150) {
+                    register_code(KC_0);
+                    unregister_code(KC_0);
                 }
-                unregister_code(KC_RSFT); 
+                unregister_code(KC_RSFT);
             }
             break;
         }
@@ -510,4 +546,4 @@ what things are (and likely aren't) too risky.
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
-					
+

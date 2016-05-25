@@ -9,6 +9,7 @@
 
 #define LSFTO M(0) // Left shift, open parens when tapped
 #define RSFTC M(1) // Right shift, close parens when tapped
+#define LEADER_TIMEOUT 300
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -27,23 +28,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      | L1   | Home |       | PgUp |        |      |
- *                                 | Space| Tap/ |------|       |------| Tab/L1 |Enter |
- *                                 |      |Toggle| End  |       | PgDn |        |      |
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 | Space|Leader|------|       |------| Tab/L1 |Enter |
+ *                                 |      |      | End  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,    KC_5,   KC_LEFT,
-        KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,    KC_T,   TG(SYMB),
-        KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,    KC_G,
-        LSFTO,          CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,    KC_B,   ALL_T(KC_LBRC),
-        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT, KC_RGHT,
-                                              ALT_T(KC_APP),   KC_LGUI,
-                                                               KC_HOME,
-                                                 KC_SPC,KC_FN1,KC_END,
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,     KC_5,   KC_LEFT,
+        KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,     KC_T,   TG(SYMB),
+        KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,     KC_G,
+        LSFTO,          CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,     KC_B,   ALL_T(KC_LBRC),
+        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,  KC_RGHT,
+                                              ALT_T(KC_APP),    KC_LGUI,
+                                                                KC_HOME,
+                                                 KC_SPC,KC_LEAD,KC_END,
         // right hand
              KC_RGHT,       KC_6,KC_7,       KC_8,   KC_9,   KC_0,            KC_MINS,
              TG(SYMB),      KC_Y,KC_U,       KC_I,   KC_O,   KC_P,            KC_BSLS,
@@ -198,28 +199,50 @@ void matrix_init_user(void) {
 
 };
 
+LEADER_EXTERNS();
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+  uint8_t layer = biton32(layer_state);
 
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+  switch (layer) {
+    // TODO: Make this relevant to the ErgoDox EZ.
+    case 1:
+      ergodox_right_led_1_on();
+      break;
+    case 2:
+      ergodox_right_led_2_on();
+      break;
+    default:
+      // none
+      break;
+  }
+
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_W) {
+      register_code(KC_LALT);
+      register_code(KC_F4);
+      unregister_code(KC_F4);
+      unregister_code(KC_LALT);
     }
-
+    SEQ_ONE_KEY(KC_O) {
+      register_code(KC_LCTL);
+      register_code(KC_LSFT);
+      register_code(KC_O);
+      unregister_code(KC_O);
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+    }
+  }
 };
+
 
 
