@@ -4,6 +4,12 @@ This is my personal layout which I use to test out ideas which may or may not ma
 
 Changelog:
 
+## May 24, 2016:
+
+* Implements Leader key example
+  * Leader, W sends Alt-F4
+  * Leader, O sends Ctrl-shift-o (a shortcut I use in FrontApp) 
+
 ## May 8, 2016:
 
 * Makes bottom-right key send minus/underscore when tapped, L1 temporary toggle when held
