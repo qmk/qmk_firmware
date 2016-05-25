@@ -29,6 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
     // TODO: somehow map shit so you can hold down a button to override the macro hold down feature (e.g. override control hold so that holding a key and space/bksp/ent/tab will repeat those)
+    // TODO: maybe make almost identical layers but for wintdows and mac
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
