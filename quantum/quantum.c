@@ -60,7 +60,7 @@ uint8_t chord_key_down = 0;
   static uint8_t input_mode;
 #endif
 
-static bool shift_interrupted[] = {0, 0, 0};
+static bool shift_interrupted[2] = {0, 0};
 
 bool keys_chord(uint8_t keys[]) {
   uint8_t keys_size = sizeof(keys)/sizeof(keys[0]);
