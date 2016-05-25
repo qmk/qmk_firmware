@@ -25,13 +25,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
  *                                 | Space| Bksp |------|       |------|  Tab   |Enter |
- *                                 | ctrl | gui  | End  |       | PgDn |  gui   | ctrl |
+ *                                 | ctrl | gui  | Alt  |       | Alt |  gui   | ctrl |
  *                                 `--------------------'       `----------------------'
  */
     // TODO: somehow map shit so you can hold down a button to override the macro hold down feature (e.g. override control hold so that holding a key and space/bksp/ent/tab will repeat those) ~~~~~~ this might be taken care of.... you can just tap once, then hold, and it does this shit :::))) ... not sure if this is desirable for most use-cases / situations
     // TODO: maybe make almost identical layers but for wintdows and mac
     // TODO: find a do nothing key, so you aren't tempted by useless keys
     // TODO: add vi layer for arrow keys and shit on hjkl?
+    // TODO: maybe look into changing the delay or whatever for the holding macros... not sure which way you would go with this. if the macro automatically kicks in if you hold it and press another button (no matter how long you held it for), then it wouldn't hurt to have a longer period i think... although if you hold a button and then decide not to, then you;ll register a space/bksp/etc. on accident. on the other hand, if it's too short of a delay, then you might be able to register spc/bksp/etc quickly enough, although i don't see this as big of an issue
     // not sure if gui is meta key or super... it says meta on the basic keycodes page, and i think that's consitent with other shit, but you should really figure out how to program the keyboard to have meta and super separately instead of hacking your init.el to recognize alt as meta... because shit will get fucked up beteween awesome and emacs and other shit i'm guessing
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
@@ -44,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMB,KC_GRV),        KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
                                               ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
-                                               CTL_T(KC_SPC),GUI_T(KC_BSPC),KC_END,
+                                               CTL_T(KC_SPC),GUI_T(KC_BSPC),KC_LALT,
         // right hand
              KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
@@ -53,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
-             KC_PGDN,GUI_T(KC_TAB), CTL_T(KC_ENT)
+             KC_RALT,GUI_T(KC_TAB), CTL_T(KC_ENT)
     ),
 /* Keymap 1: Symbol Layer
  *
