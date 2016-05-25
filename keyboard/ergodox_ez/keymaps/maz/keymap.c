@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | ctrl | gui  | End  |       | PgDn |  gui   | ctrl |
  *                                 `--------------------'       `----------------------'
  */
-    // TODO: somehow map shit so you can hold down a button to override the macro hold down feature (e.g. override control hold so that holding a key and space/bksp/ent/tab will repeat those)
+    // TODO: somehow map shit so you can hold down a button to override the macro hold down feature (e.g. override control hold so that holding a key and space/bksp/ent/tab will repeat those) ~~~~~~ this might be taken care of.... you can just tap once, then hold, and it does this shit :::))) ... not sure if this is desirable for most use-cases / situations
     // TODO: maybe make almost identical layers but for wintdows and mac
     // TODO: find a do nothing key, so you aren't tempted by useless keys
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
