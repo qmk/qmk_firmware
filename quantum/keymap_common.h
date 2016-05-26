@@ -119,6 +119,8 @@ extern const uint16_t fn_actions[];
 
 #define KC_PLUS LSFT(KC_EQL)    // +
 
+#define KC_DQUO LSFT(KC_QUOT)   // "
+#define KC_DOUBLE_QUOTE KC_DQUO
 
 #define KC_LCBR LSFT(KC_LBRC)   // {
 #define KC_LEFT_CURLY_BRACE KC_LCBR
@@ -240,6 +242,8 @@ extern const uint16_t fn_actions[];
 #define BL_TOGG 0x5082
 #define BL_STEP 0x5083
 
+#define KC_LSPO 0x5084 // Left shift, open parens when tapped
+#define KC_RSPC 0x5085 // Right shift, close parens when tapped
 // GOTO layer - 16 layers max
 // when:
 // ON_PRESS    = 1

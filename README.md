@@ -85,6 +85,7 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
     KC_RPRN  )
     KC_UNDS  _
     KC_PLUS  +
+    KC_DQUO  "
     KC_LCBR  {
     KC_RCBR  }
     KC_LABK  <
@@ -117,6 +118,56 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
+
+### Space Cadet Shift: The future, built in
+
+Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) the Space Cadet Shift quite well. Essentially, you hit the left Shift on its own, and you get an opening parenthesis; hit the right Shift on its own, and you get the closing one. When hit with other keys, the Shift key keeps working as it always does. Yes, it's as cool as it sounds.
+
+To use it, use `KC_LSPO` (Left Shift, Parens Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parens Close) for your right Shift. 
+
+The only other thing you're going to want to do is create a `makefile.mk` in your keymap directory and set the following:
+
+```
+COMMAND_ENABLE   = no  # Commands for debug and configuration
+```
+
+This is just to keep the keyboard from going into command mode when you hold both Shift keys at the same time.
+
+### The Leader key: A new kind of modifier
+
+If you've ever used Vim, you know what a Leader key is. If not, you're about to discover a wonderful concept. :) Instead of hitting Alt+Shift+W for example (holding down three keys at the same time), what if you could hit a _sequence_ of keys instead? So you'd hit our special modifier (the Leader key), followed by W and then C (just a rapid succession of keys), and something would happen.
+
+That's what `KC_LEAD` does. Here's an example:
+
+1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
+2. Include the line `#define LEADER_TIMEOUT 300` somewhere in your keymap.c file, probably near the top. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
+3. Within your `matrix_scan_user` function, do something like this:
+
+```
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_F) {
+      register_code(KC_S);
+      unregister_code(KC_S);
+    }
+    SEQ_TWO_KEYS(KC_A, KC_S) {
+      register_code(KC_H);
+      unregister_code(KC_H);
+    }
+    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
+      register_code(KC_LGUI);
+      register_code(KC_S);
+      unregister_code(KC_S);
+      unregister_code(KC_LGUI);
+    }
+  }
+}
+```
+
+As you can see, you have three function. you can use - `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS` and `SEQ_THREE_.EYS` for longer sequences. Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
 
 ### Temporarily setting the default layer
 
@@ -258,9 +309,9 @@ if (timer_elapsed(key_timer) < 100) {
 }
 ```
 
-It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc). 
+It's best to declare the `static uint16_t key_timer;` outside of the macro block (top of file, etc).
 
-#### Example 1: Single-key copy/paste (hold to copy, tap to paste)
+#### Example: Single-key copy/paste (hold to copy, tap to paste)
 
 With QMK, it's easy to make one key do two things, as long as one of those things is being a modifier. :) So if you want a key to act as Ctrl when held and send the letter R when tapped, that's easy: `CTL_T(KC_R)`. But what do you do when you want that key to send Ctrl-V (paste) when tapped, and Ctrl-C (copy) when held?
 
@@ -276,7 +327,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 0: {
             if (record->event.pressed) {
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
-            } 
+            }
             else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
                 if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
                     return MACRO( D(LCTL), T(C), U(LCTL), END  );
@@ -293,52 +344,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 ```
 
 And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for copy/paste.
-
-#### Example 2: Space Cadet Shift (making it easy to send opening and closing parentheses)
-
-In the [Modern Space Cadet Keyboard](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses), one of cooler features is the Shift Parentheses. To quote Steve Losh:
-
-  > When held while pressing other keys, act like Shift.
-  > When pressed and released on their own, type an opening or closing parenthesis (left and right shift respectively).
-
-```
-static uint16_t key_timer;
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case 0: {
-            if (record->event.pressed) {
-                key_timer = timer_read(); // if the key is being pressed, we start the timer.
-                register_code(KC_LSFT); // we're now holding down Shift.
-            } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-                if (timer_elapsed(key_timer) < 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap. 
-                    register_code(KC_9); // sending 9 while Shift is held down gives us an opening paren
-                    unregister_code(KC_9); // now let's let go of that key
-                }
-                unregister_code(KC_LSFT); // let's release the Shift key now.
-            }
-            break;
-        }
-        case 1: {
-            if (record->event.pressed) {
-                key_timer = timer_read(); // Now we're doing the same thing, only for the right shift/close paren key
-                register_code(KC_RSFT); 
-            } else { 
-                if (timer_elapsed(key_timer) < 150) { 
-                    register_code(KC_0); 
-                    unregister_code(KC_0); 
-                }
-                unregister_code(KC_RSFT); 
-            }
-            break;
-        }
-      }
-    return MACRO_NONE;
-};
-```
-
-And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for left shift/opening parens, and `M(1)` for right shift/closing parens.
 
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
@@ -510,4 +515,4 @@ what things are (and likely aren't) too risky.
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
-					
+
