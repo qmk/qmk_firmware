@@ -11,7 +11,7 @@
 #define BBED 2 // BBEdit
 #define TMNL 3 // Terminal
 #define SAFA 4 // Safari
-#define ALFRED_LEAD_TIME 100 // time, in milliseconds, to let Alfred come to the fore and accept keyboard input
+#define ALFRED_LEAD_TIME 250 // time, in milliseconds, to let Alfred come to the fore and accept keyboard input
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = KEYMAP(
        // left hand
        KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_DQUO,KC_TRNS,
+       KC_TRNS,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_DQT ,KC_TRNS,
        KC_TRNS,KC_LABK,KC_RABK,KC_LPRN,KC_RPRN,KC_QUOT,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
