@@ -119,6 +119,8 @@ extern const uint16_t fn_actions[];
 
 #define KC_PLUS LSFT(KC_EQL)    // +
 
+#define KC_DQUO LSFT(KC_QUOT)   // "
+#define KC_DOUBLE_QUOTE KC_DQUO
 
 #define KC_LCBR LSFT(KC_LBRC)   // {
 #define KC_LEFT_CURLY_BRACE KC_LCBR
