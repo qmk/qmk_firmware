@@ -85,6 +85,7 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
     KC_RPRN  )
     KC_UNDS  _
     KC_PLUS  +
+    KC_DQUO  "
     KC_LCBR  {
     KC_RCBR  }
     KC_LABK  <
