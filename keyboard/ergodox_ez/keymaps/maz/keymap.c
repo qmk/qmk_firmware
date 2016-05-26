@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
  *                                 | Space| Bksp |------|       |------|  Tab   |Enter |
- *                                 | ctrl | gui  | Alt  |       | Alt |  gui   | ctrl |
+ *                                 | ctrl | gui  | Alt  |       | Alt  |  gui   | ctrl |
  *                                 `--------------------'       `----------------------'
  */
     // TODO: somehow map shit so you can hold down a button to override the macro hold down feature (e.g. override control hold so that holding a key and space/bksp/ent/tab will repeat those) ~~~~~~ this might be taken care of.... you can just tap once, then hold, and it does this shit :::))) ... not sure if this is desirable for most use-cases / situations
