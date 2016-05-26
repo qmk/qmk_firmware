@@ -6,6 +6,13 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+#define SGWK 0 // "sagewick", ⌘S ⌘⇥
+#define SGWF 1 // "sagewick freshly", ⌘S ⌘⇥ ⌘R
+#define BBED 2 // BBEdit
+#define TMNL 3 // Terminal
+#define SAFA 4 // Safari
+#define ALFRED_LEAD_TIME 100 // time, in milliseconds, to let Alfred come to the fore and accept keyboard input
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -55,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   [  |   ]  |   {  |   }  |      |      |           |      |   /  |   7  |   8  |   9  |   *  |   F12  |
+ * |        |   [  |   ]  |   {  |   }  |   "  |      |           |      |   /  |   7  |   8  |   9  |   *  |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   <  |   >  |   (  |   )  |      |------|           |------|   -  |   4  |   5  |   6  |   +  |        |
+ * |        |   <  |   >  |   (  |   )  |   '  |------|           |------|   -  |   4  |   5  |   6  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |   &  |   1  |   2  |   3  |   =  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -75,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = KEYMAP(
        // left hand
        KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_LABK,KC_RABK,KC_LPRN,KC_RPRN,KC_TRNS,
+       KC_TRNS,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_DQUO,KC_TRNS,
+       KC_TRNS,KC_LABK,KC_RABK,KC_LPRN,KC_RPRN,KC_QUOT,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_TRNS,
