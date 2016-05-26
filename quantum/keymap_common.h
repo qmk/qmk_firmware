@@ -88,9 +88,7 @@ extern const uint16_t fn_actions[];
 
 #define KC_AT   LSFT(KC_2)      // @
 
-
 #define KC_HASH LSFT(KC_3)      // #
-
 
 #define KC_DLR  LSFT(KC_4)      // $
 #define KC_DOLLAR   KC_DLR
@@ -113,14 +111,10 @@ extern const uint16_t fn_actions[];
 #define KC_RPRN LSFT(KC_0)      // )
 #define KC_RIGHT_PAREN  KC_RPRN
 
-
 #define KC_UNDS LSFT(KC_MINS)   // _
 #define KC_UNDERSCORE   KC_UNDS
 
 #define KC_PLUS LSFT(KC_EQL)    // +
-
-#define KC_DQUO LSFT(KC_QUOT)   // "
-#define KC_DOUBLE_QUOTE KC_DQUO
 
 #define KC_LCBR LSFT(KC_LBRC)   // {
 #define KC_LEFT_CURLY_BRACE KC_LCBR
@@ -141,16 +135,14 @@ extern const uint16_t fn_actions[];
 
 #define KC_LT LSFT(KC_COMM)     // <
 
-
 #define KC_GT LSFT(KC_DOT)      // >
-
 
 #define KC_QUES LSFT(KC_SLSH)   // ?
 #define KC_QUESTION KC_QUES
 
-
 #define KC_DQT LSFT(KC_QUOT)   // "
 #define KC_DOUBLE_QUOTE KC_DQT
+#define KC_DQUO KC_DQT
 
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
