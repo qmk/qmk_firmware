@@ -2,6 +2,7 @@
 // this is the style you want to emulate.
 
 #include "arrow_pad.h"
+#include "led.h"
 
 #define LAYER_BASE                      0
 #define LAYER_EDIT                      1
@@ -100,4 +101,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
     }
     return MACRO_NONE;
-};
+}
+
+void led_set_user(uint8_t usb_led)
+{
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // output high
+        DDRD |= (1<<6);
+        PORTD |= (1<<6);
+    } else {
+        // Hi-Z
+        DDRD &= ~(1<<6);
+        PORTD &= ~(1<<6);
+    }
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+        // output low
+        DDRC |= (1<<7);
+        PORTC |= ~(1<<7);
+    } else {
+        // Hi-Z
+        DDRC &= ~(1<<7);
+        PORTC &= ~(1<<7);
+    }
+}
