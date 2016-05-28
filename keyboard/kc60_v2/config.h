@@ -25,11 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
-#define PRODUCT         kc60
+#define PRODUCT         kc60v2
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 1
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
 /*
