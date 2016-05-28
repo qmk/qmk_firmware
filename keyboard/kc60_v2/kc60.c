@@ -49,14 +49,14 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 #ifdef BACKLIGHT_ENABLE
-#define CHANNEL OCR1C
+#define CHANNEL OCR1B
 
 void backlight_init_ports()
 {
 
     // Setup PB7 as output and output low.
-    DDRB |= (1<<7);
-    PORTB &= ~(1<<7);
+    DDRB |= (1<<6);
+    PORTB &= ~(1<<6);
     
     // Use full 16-bit resolution. 
     ICR1 = 0xFFFF;
@@ -81,16 +81,16 @@ void backlight_set(uint8_t level)
 {
     if ( level == 0 )
     {
-        // Turn off PWM control on PB7, revert to output low.
+        // Turn off PWM control on PB6, revert to output low.
         TCCR1A &= ~(_BV(COM1C1));
         CHANNEL = 0x0;
         // Prevent backlight blink on lowest level
-        PORTB &= ~(_BV(PORTB7));
+        PORTB &= ~(_BV(PORTB6));
     }
     else if ( level == BACKLIGHT_LEVELS )
     {
         // Prevent backlight blink on lowest level
-        PORTB &= ~(_BV(PORTB7));
+        PORTB &= ~(_BV(PORTB6));
         // Turn on PWM control of PB7
         TCCR1A |= _BV(COM1C1);
         // Set the brightness
@@ -99,7 +99,7 @@ void backlight_set(uint8_t level)
     else        
     {
         // Prevent backlight blink on lowest level
-        PORTB &= ~(_BV(PORTB7));
+        PORTB &= ~(_BV(PORTB6));
         // Turn on PWM control of PB7
         TCCR1A |= _BV(COM1C1);
         // Set the brightness
