@@ -29,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 5
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Possible pins for columns include: F1  F0  E6  D7  D6  D4  C7  C6  B7  B5  B4  B3  B1  B0
 // Pins for rows include:  D0  D1  F6  F7  D5
 #define MATRIX_ROW_PINS { D0, D1, F6, F7, D5 }
-#define MATRIX_COL_PINS { F0, F1, E6, C7, C6 }
+#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B7, D4, B1, B0, B5, B4, D7, D6, B3 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
