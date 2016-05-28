@@ -1,5 +1,9 @@
 QUANTUM_DIR = quantum
 
+ifndef VERBOSE
+.SILENT:
+endif
+
 # # project specific files
 SRC += $(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap_common.c \
