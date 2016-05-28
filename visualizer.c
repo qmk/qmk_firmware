@@ -414,7 +414,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         gdispGFlush(LED_DISPLAY);
 #endif
 
-#if EMULATOR
+#ifdef EMULATOR
         draw_emulator();
 #endif
         // The animation can enable the visualizer

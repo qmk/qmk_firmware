@@ -51,7 +51,7 @@ GDisplay* get_lcd_display(void);
 GDisplay* get_led_display(void);
 
 // For emulator builds, this function need to be implemented
-#if EMULATOR
+#ifdef EMULATOR
 void draw_emulator(void);
 #endif
 
