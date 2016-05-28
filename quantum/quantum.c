@@ -13,6 +13,16 @@ bool process_action_kb(keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  return process_record_user(keycode, record);
+}
+
+__attribute__ ((weak))
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+__attribute__ ((weak))
 void leader_start(void) {}
 
 __attribute__ ((weak))
@@ -123,6 +133,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #else
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
+
+  if (!process_record_kb(keycode, record))
+    return false;
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
