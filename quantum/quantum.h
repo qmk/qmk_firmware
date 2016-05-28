@@ -23,6 +23,7 @@
 #include "eeconfig.h"
 #include <stddef.h>
 #include <avr/io.h>
+#include <util/delay.h>
 
 extern uint32_t default_layer_state;
 

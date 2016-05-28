@@ -14,17 +14,30 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "keymap_common.h"
+#include "quantum.h"
 
+#define LED_ON()    do { DDRC |= (1<<5); PORTC |= (1<<5); } while (0)
+#define LED_OFF()   do { DDRC &= ~(1<<5); PORTC &= ~(1<<5); } while (0)
+#define LED_TGL()   do { DDRC |= (1<<5); PINC |= (1<<5); } while (0)
 
-/* translates key to keycode */
-uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
-{
-    return pgm_read_byte(&keymaps[(layer)][(key.row)][(key.col)]);
+__attribute__ ((weak))
+void matrix_init_user(void) {
+
 }
 
-/* translates Fn keycode to action */
-action_t keymap_fn_to_action(uint8_t keycode)
-{
-    return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+
+}
+
+void matrix_init_kb(void) {
+    LED_ON();
+    _delay_ms(500);
+    LED_OFF();
+    
+    matrix_init_user();
+}
+
+void matrix_scan_kb(void) {
+    matrix_scan_user();
 }
