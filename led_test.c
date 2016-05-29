@@ -89,14 +89,11 @@ static uint8_t crossfade_start_frame[NUM_ROWS][NUM_COLS];
 static uint8_t crossfade_end_frame[NUM_ROWS][NUM_COLS];
 
 static uint8_t compute_gradient_color(float t, float index, float num) {
-    const float target = t * (num - 1.0f);
-    const float half_num = num / 2.0f;
-    float d = fabs(index - target);
-    if (d > half_num) {
-        d = num - d;
-    }
-    d = 1.0f - (d / half_num);
-    return (uint8_t)(255.0f * d);
+    const float two_pi = 2.0f * PI;
+    float normalized_index = (1.0f - index / (num - 1)) * two_pi;
+    float x = t * two_pi + normalized_index;
+    float v = 0.5 * (cosf(x) + 1.0f);
+    return (uint8_t)(255.0f * v);
 }
 
 bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
