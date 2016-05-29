@@ -25,6 +25,9 @@ SOFTWARE.
 #include "gfx.h"
 #include "math.h"
 
+#define CROSSFADE_TIME 1000
+#define GRADIENT_TIME 3000
+
 keyframe_animation_t led_test_animation = {
     .num_frames = 14,
     .loop = true,
@@ -32,17 +35,17 @@ keyframe_animation_t led_test_animation = {
         gfxMillisecondsToTicks(1000), // fade in
         gfxMillisecondsToTicks(1000), // no op (leds on)
         gfxMillisecondsToTicks(1000), // fade out
-        gfxMillisecondsToTicks(1000), // crossfade
-        gfxMillisecondsToTicks(3000), // left to rigt (outside in)
-        gfxMillisecondsToTicks(1000), // crossfade
-        gfxMillisecondsToTicks(3000), // top_to_bottom
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // top_to_bottom
         0,           // mirror leds
-        gfxMillisecondsToTicks(1000), // crossfade
-        gfxMillisecondsToTicks(3000), // left_to_right (mirrored, so inside out)
-        gfxMillisecondsToTicks(1000), // crossfade
-        gfxMillisecondsToTicks(3000), // top_to_bottom
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // top_to_bottom
         0,           // normal leds
-        gfxMillisecondsToTicks(1000), // crossfade
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
 
     },
     .frame_functions = {
