@@ -75,10 +75,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, BL_STEP, _______, _______, _______, KC_BTN2, KC_BTN2, _______, KC_MPLY, KC_VOLD, KC_VOLU, _______}
 },
 [_DL]= { /* DUAL */
-    {_______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,       _______,        _______, KC_INS,  _______, KC_PSCR, _______},
-    {_______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,       KC_LEFT,        KC_DOWN, KC_UP,   KC_RGHT, KC_ACL0, KC_ACL2},
-    {_______, _______, KC_BTN2, KC_BTN3, KC_BTN1, LALT(KC_LEFT), LALT(KC_RIGHT), KC_MUTE, _______, _______, _______, _______},
-    {_______, _______, KC_LGUI, KC_LALT, _______, _______,       _______,        _______, _______, _______, _______, _______}
+    {_______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,     _______,        _______, KC_INS,  _______, KC_PSCR, _______},
+    {_______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,     KC_LEFT,        KC_DOWN, KC_UP,   KC_RGHT, KC_ACL0, KC_ACL2},
+    {_______, _______, KC_BTN2, KC_BTN3, KC_BTN1, KC_WWW_BACK, KC_WWW_FORWARD, KC_MUTE, _______, _______, _______, _______},
+    {_______, _______, KC_LGUI, KC_LALT, _______, _______,     _______,        _______, _______, _______, _______, _______}
 },
 [_SP]= { /* special */
     {_______,  M(_REC_START1), M(_MACRO_PLAY1), _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, KC_PAUS},
