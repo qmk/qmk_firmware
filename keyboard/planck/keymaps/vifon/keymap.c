@@ -16,6 +16,7 @@ enum userlayer {
     _QW = 0,
     _CM,
     _PP,
+    _NM,
     _LW,
     _RS,
     _DL,
@@ -31,6 +32,7 @@ enum usermacro {
     _MRS,
     _SHLK,                      /* ShiftLock */
     _RST,                       /* Reset */
+    _NUM,                       /* Numeric layer */
 };
 
 #define _______ KC_TRNS
@@ -54,9 +56,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_RSFT, KC_UP,   KC_RCTL},
     {KC_LCTL, MO(_SP), KC_LGUI, KC_LALT, M(_MLW), KC_SPC,  KC_SPC,  M(_MRS), KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
 },
+[_NM] = { /* Numeric */
+    {KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_LSFT, _______, _______, _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______, KC_FN0 },
+    {_______, _______, _______, _______, _______, KC_SPC,  KC_SPC,  _______, _______, _______, _______, _______}
+},
 [_LW]= { /* LOWER */
     {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
-    {KC_ESC,  LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
+    {KC_ESC,  LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), M(_NUM), KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
     {_______, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_ENT },
     {_______, BL_TOGG,    _______,    _______,    M(_MLW),    KC_BTN1,    KC_BTN1, M(_MRS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
@@ -132,6 +140,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         }
         break;
+    case _NUM:
+        layer_on(_NM);
+        break;
     }
     return MACRO_NONE;
 };
+
+void process_action_user(keyrecord_t *record)
+{
+    if (record->event.pressed
+        && IS_LAYER_ON(_NM)
+        && keymap_key_to_keycode(_NM, record->event.key) == KC_TRNS) {
+
+        layer_off(_NM);
+    }
+}
