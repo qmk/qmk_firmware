@@ -57,46 +57,12 @@ void backlight_init_ports()
   DDRB |= (1<<6);  // Make port B6 an output port.
   PORTB &= ~(1<<6); // Make port B6 set to output low
 
-  // Use full 16-bit resolution. 
-  ICR1 = 0xFFFF;
-
-  // I could write a wall of text here to explain... but TL;DW
-  // Go read the ATmega32u4 datasheet.
-  // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
-
-  TCCR1A = 0b00001010;
-  TCCR1B = 0b00011001;
-
-  CHANNEL = 0x0000;
-
   backlight_init();
 }
 
 void backlight_set(uint8_t level)
 {
-  // Prevent backlight blink on lowest level
-  PORTB &= ~(_BV(PORTB6));
-
-  if ( level == 0 )
-  {
-    // Turn off PWM control on PB6, revert to output low.
-    TCCR1A &= ~(_BV(COM1B1));
-    CHANNEL = 0x0;
-  }
-  else if ( level == BACKLIGHT_LEVELS )
-  {
-    // Turn on PWM control of PB6
-    TCCR1A |= _BV(COM1B1);
-    // Set the brightness
-    CHANNEL = 0xFFFF;
-  }
-  else        
-  {
-    // Turn on PWM control of PB6
-    TCCR1A |= _BV(COM1B1);
-    // Set the brightness
-    CHANNEL = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
-  }
+  PORTB |= (1<<6);
 }
 
 #endif
