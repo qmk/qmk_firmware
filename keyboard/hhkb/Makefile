@@ -56,7 +56,7 @@ SRC = hhkb_qmk.c \
 ifdef KEYMAP
     SRC := keymaps/keymaps/$(KEYMAP).c $(SRC)
 else
-    SRC := keymaps/keymaps/default.c $(SRC)
+    SRC := keymaps/default.c $(SRC)
 endif
 
 CONFIG_H = config.h
