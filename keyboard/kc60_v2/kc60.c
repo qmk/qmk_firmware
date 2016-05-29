@@ -50,19 +50,27 @@ void led_set_kb(uint8_t usb_led) {
 
 #ifdef BACKLIGHT_ENABLE
 
-#define CHANNEL OCR1B
+#define output_low(port,pin) port &= ~(1<<pin)
+#define output_high(port,pin) port |= (1<<pin)
+#define PIN 6
 
 void backlight_init_ports()
 {
-  DDRB |= (1<<6);  // Make port B6 an output port.
-  PORTB &= ~(1<<6); // Make port B6 set to output low
+  DDRB |= (1<<PIN);  // Make port B6 an output port.
+  output_low(PORTB, PIN);
 
   backlight_init();
 }
 
 void backlight_set(uint8_t level)
 {
-  PORTB |= (1<<6);
+  println("Setting backlight with function ---------------");
+  if(level == 0) {
+    println("Backlight off! -------------");
+    output_low(PORTB, PIN);
+  } else {
+    output_high(PORTB, PIN);
+  }
 }
 
 #endif
