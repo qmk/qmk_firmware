@@ -20,13 +20,5 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if(record->event.pressed) {
-#ifdef BACKLIGHT_ENABLE
-        backlight_set(BACKLIGHT_LEVELS);
-#endif
-      }
-  }
   return MACRO_NONE;
 };

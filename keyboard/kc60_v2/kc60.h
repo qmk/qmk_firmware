@@ -29,6 +29,8 @@
 void matrix_init_user(void);
 void matrix_scan_user(void);
 bool process_action_user(keyrecord_t *record);
+
 void led_set_user(uint8_t usb_led);
+void backlight_init_ports(void);
 
 #endif
