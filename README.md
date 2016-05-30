@@ -8,9 +8,17 @@ This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If y
 
 The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [Zach White](https://github.com/skullydazed).
 
-## Important background info: TMK documentation
+## Documentation roadmap
 
-The documentation below explains QMK customizations and elaborates on some of the more useful features of TMK. To understand the base firmware, and especially what *layers* are and how they work, please see [TMK_README.md](/TMK_README.md).
+This is not a tiny project. While this is the main Readme, there are many other files you might want to consult. Here are some points of interest:
+
+* The Readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboard/ergodox_ez/); for the Atomic, it's [here](keyboard/atomic/) and so on.
+* The [build guide](BUILD_GUIDE.md), also mentioned in the next section. This is how you put your development environment together so you can compile the firmware.
+* The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
+  * [tmk_core/common/keycode.h](tmk_core/common/keycode.h) - the base TMK keycodes. This is the actual source file.
+  * [tmk_core/doc/keycode.txt](tmk_core/doc/keycode.txt) - an explanation of those same keycodes.
+  * [quantum/keymap_common.h](quantum/keymap_common.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap_common.h` is where they're actually defined.
+* The [TMK documentation](tmk_core/doc). QMK is based on TMK, and this explains how it works internally.
 
 ## Getting started
 

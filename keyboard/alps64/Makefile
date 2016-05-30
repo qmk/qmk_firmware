@@ -42,14 +42,14 @@
 TARGET = alps64
 
 # Directory common source filess exist
+TOP_DIR = ../..
 TMK_DIR = ../../tmk_core
 
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
 # project specific files
-SRC =	keymap_common.c \
-	matrix.c \
+SRC =	alps64.c \
 	led.c
 
 ifdef KEYMAP
@@ -127,8 +127,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 
 # Search Path
 VPATH += $(TARGET_DIR)
+VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
-include $(TMK_DIR)/protocol/lufa.mk
-include $(TMK_DIR)/common.mk
-include $(TMK_DIR)/rules.mk
+include $(TOP_DIR)/quantum/quantum.mk
