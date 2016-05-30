@@ -23,6 +23,7 @@
 #include "eeconfig.h"
 #include <stddef.h>
 #include <avr/io.h>
+#include <util/delay.h>
 
 extern uint32_t default_layer_state;
 
@@ -61,6 +62,9 @@ extern uint32_t default_layer_state;
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 bool process_action_kb(keyrecord_t *record);
+bool process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
+
 
 bool is_music_on(void);
 void music_toggle(void);

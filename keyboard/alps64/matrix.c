@@ -55,10 +55,6 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
-#define LED_ON()    do { DDRC |= (1<<5); PORTC |= (1<<5); } while (0)
-#define LED_OFF()   do { DDRC &= ~(1<<5); PORTC &= ~(1<<5); } while (0)
-#define LED_TGL()   do { DDRC |= (1<<5); PINC |= (1<<5); } while (0)
-
 void matrix_init(void)
 {
     // initialize row and col
@@ -159,6 +155,7 @@ static void unselect_rows(void)
     DDRC  &= ~0b00000100;
     PORTC &= ~0b00000100;
 }
+
 
 static void select_row(uint8_t row)
 {

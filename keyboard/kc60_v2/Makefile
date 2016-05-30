@@ -39,7 +39,8 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = gh60_lufa
+TARGET = kc60
+
 
 # Directory common source filess exist
 TOP_DIR = ../..
@@ -48,18 +49,16 @@ TMK_DIR = ../../tmk_core
 # Directory keyboard dependent files exist
 TARGET_DIR = .
 
-# project specific files
-SRC =	matrix.c \
-	led.c
+# # project specific files
+SRC = kc60.c
 
 ifdef KEYMAP
     SRC := keymaps/$(KEYMAP).c $(SRC)
 else
-    SRC := keymaps/poker.c $(SRC)
+    SRC := keymaps/default.c $(SRC)
 endif
 
 CONFIG_H = config.h
-
 
 # MCU name
 #MCU = at90usb1287
@@ -112,17 +111,40 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-CUSTOM_MATRIX = yes
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+KEYBOARD_LOCK_ENABLE = yes  # Allow locking of keyboard via magic key
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # USB Nkey Rollover
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+MIDI_ENABLE = no            # MIDI controls
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
 
+
+ifdef KEYMAP
+
+ifeq ("$(wildcard keymaps/$(KEYMAP).c)","")
+ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
+    include keymaps/$(KEYMAP)/makefile.mk
+endif 
+endif
+
+else
+
+ifneq ("$(wildcard keymaps/default/makefile.mk)","")
+    include keymaps/default/makefile.mk
+endif
+
+endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
@@ -133,3 +155,4 @@ VPATH += $(TOP_DIR)
 VPATH += $(TMK_DIR)
 
 include $(TOP_DIR)/quantum/quantum.mk
+

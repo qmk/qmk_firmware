@@ -68,8 +68,10 @@ uint8_t matrix_cols(void) {
 
 void matrix_init(void) {
     /* frees PORTF by setting the JTD bit twice within four cycles */
-    MCUCR |= _BV(JTD);
-    MCUCR |= _BV(JTD);
+    #ifdef __AVR_ATmega32U4__
+        MCUCR |= _BV(JTD);
+        MCUCR |= _BV(JTD);
+    #endif
     /* initializes the I/O pins */
 #if DIODE_DIRECTION == COL2ROW
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {

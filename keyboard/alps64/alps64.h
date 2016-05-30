@@ -14,25 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef KEYMAP_COMMON_H
-#define KEYMAP_COMMON_H
+#ifndef ALPS64_H
+#define ALPS64_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/pgmspace.h>
-#include "keycode.h"
-#include "action.h"
-#include "action_macro.h"
-#include "report.h"
-#include "host.h"
-#include "print.h"
-#include "debug.h"
-#include "keymap.h"
-
-
-extern const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-extern const uint16_t fn_actions[];
-
+#include "quantum.h"
 
 /* Alps64 keymap definition macro */
 #define KEYMAP( \
