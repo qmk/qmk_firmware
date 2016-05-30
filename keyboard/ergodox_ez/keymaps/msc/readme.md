@@ -9,7 +9,6 @@
 ![Main Layer](img/main_layer.png)
 
 ### Code Layer
-
 ![Code Layer](img/code_layer.png)
 
 ### Media Layer
@@ -17,6 +16,14 @@
 ![Media Layer](img/media_layer.png)
 
 ## Changelog
+
+Version 1.1
+
+- Changed bottom left three keys to Ctrl | Alt | Cmd
+- Removed Ctrl combo from 'z' | '/'
+- Removed Cmd combo from ' key
+- Changed delete to Tab
+- Changed tab key under right thumb to Tab
 
 Version 1.0
 
@@ -30,3 +37,5 @@ Version 1.0
 
 #### Coming Soon:
 - A new layer for Blender editing with a focus on left hand shortcut and a righthand num pad to control the view in Blender.
+
+# TODO update images
