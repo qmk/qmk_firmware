@@ -318,7 +318,7 @@ REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 # Autodecct teensy loader
-ifneq (, $(shell which teensy-loader-cli 2>/dev/null)))
+ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
   TEENSY_LOADER_CLI = teensy-loader-cli
 else
   TEENSY_LOADER_CLI = teensy_loader_cli
