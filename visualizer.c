@@ -25,6 +25,9 @@ SOFTWARE.
 #include "visualizer.h"
 #include "config.h"
 #include <string.h>
+#ifdef PROTOCOL_CHIBIOS
+#include "ch.h"
+#endif
 
 #ifdef LCD_ENABLE
 #include "gfx.h"
@@ -67,7 +70,6 @@ static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboa
         status1->suspended == status2->suspended;
 }
 
-static GSourceHandle layer_changed_event;
 static bool visualizer_enabled = false;
 
 #define MAX_SIMULTANEOUS_ANIMATIONS 4
@@ -185,8 +187,8 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
         animation->first_update_of_frame = false;
     }
 
-    int wanted_sleep = animation->need_update ? 10 : animation->time_left_in_frame;
-    if ((unsigned)wanted_sleep < *sleep_time) {
+    systemticks_t wanted_sleep = animation->need_update ? gfxMillisecondsToTicks(10) : (unsigned)animation->time_left_in_frame;
+    if (wanted_sleep < *sleep_time) {
         *sleep_time = wanted_sleep;
     }
 
@@ -345,7 +347,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 
     GListener event_listener;
     geventListenerInit(&event_listener);
-    geventAttachSource(&event_listener, layer_changed_event, 0);
+    geventAttachSource(&event_listener, (GSourceHandle)&current_status, 0);
 
     visualizer_keyboard_status_t initial_status = {
         .default_layer = 0xFFFFFFFF,
@@ -435,6 +437,16 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
             }
         }
         dprintf("Update took %d, last delta %d, sleep_time %d\n", update_delta, delta, sleep_time);
+#ifdef PROTOCOL_CHIBIOS
+        // The gEventWait function really takes milliseconds, even if the documentation says ticks.
+        // Unfortunately there's no generic ugfx conversion from system time to milliseconds,
+        // so let's do it in a platform dependent way.
+
+        // On windows the system ticks is the same as milliseconds anyway
+        if (sleep_time != TIME_INFINITE) {
+            sleep_time = ST2MS(sleep_time);
+        }
+#endif
         geventEventWait(&event_listener, sleep_time);
     }
 #ifdef LCD_ENABLE
@@ -473,7 +485,7 @@ void visualizer_init(void) {
 
 void update_status(bool changed) {
     if (changed) {
-        GSourceListener* listener = geventGetSourceListener(layer_changed_event, NULL);
+        GSourceListener* listener = geventGetSourceListener((GSourceHandle)&current_status, NULL);
         if (listener) {
             geventSendEvent(listener);
         }
