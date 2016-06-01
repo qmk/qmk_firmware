@@ -1,7 +1,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
-#include "arrow_pad.h"
+#include "arrow_pad._21h"
 #include "led.h"
 
 #define LAYER_BASE                      0
