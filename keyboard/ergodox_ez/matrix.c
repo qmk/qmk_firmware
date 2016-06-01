@@ -50,7 +50,7 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static matrix_row_t read_cols(uint8_t row);
 static void init_cols(void);
-static void unselect_rows();
+static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
