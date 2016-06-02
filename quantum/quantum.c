@@ -13,6 +13,16 @@ bool process_action_kb(keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  return process_record_user(keycode, record);
+}
+
+__attribute__ ((weak))
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+__attribute__ ((weak))
 void leader_start(void) {}
 
 __attribute__ ((weak))
@@ -20,6 +30,7 @@ void leader_end(void) {}
 
 uint8_t starting_note = 0x0C;
 int offset = 7;
+
 
 #ifdef AUDIO_ENABLE
   bool music_activated = false;
@@ -58,6 +69,8 @@ uint8_t chord_key_down = 0;
 #ifdef UNICODE_ENABLE
   static uint8_t input_mode;
 #endif
+
+static bool shift_interrupted[2] = {0, 0};
 
 bool keys_chord(uint8_t keys[]) {
   uint8_t keys_size = sizeof(keys)/sizeof(keys[0]);
@@ -120,6 +133,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #else
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
+
+  if (!process_record_kb(keycode, record))
+    return false;
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -414,6 +430,45 @@ bool process_record_quantum(keyrecord_t *record) {
   }
 
 #endif
+
+  switch(keycode) {
+    case KC_LSPO: {
+                    if (record->event.pressed) {
+                      shift_interrupted[0] = false;
+                      register_mods(MOD_BIT(KC_LSFT));
+                    }
+                    else {
+                      if (!shift_interrupted[0]) {
+                        register_code(KC_9);
+                        unregister_code(KC_9);
+                      }
+                      unregister_mods(MOD_BIT(KC_LSFT));
+                    }
+                    return false;
+                    break;
+                  }
+
+    case KC_RSPC: {
+                    if (record->event.pressed) {
+                      shift_interrupted[1] = false;
+                      register_mods(MOD_BIT(KC_RSFT));
+                    }
+                    else {
+                      if (!shift_interrupted[1]) {
+                        register_code(KC_0);
+                        unregister_code(KC_0);
+                      }
+                      unregister_mods(MOD_BIT(KC_RSFT));
+                    }
+                    return false;
+                    break;
+                  }
+    default: {
+               shift_interrupted[0] = true;
+               shift_interrupted[1] = true;
+               break;
+             }
+  }
 
   return process_action_kb(record);
 }
