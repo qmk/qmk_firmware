@@ -481,7 +481,7 @@ bool shift_us_qwerty[0x80] = {
 };
 
 uint8_t ascii_us_qwerty[0x80] = {
-  0, 0, 0, 0, 0, 0, 0, 0, KC_BSPC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, KC_ESC, 0, 0, 0, 0,  // 0 - 31
+  0, 0, 0, 0, 0, 0, 0, 0, KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, KC_ESC, 0, 0, 0, 0,  // 0 - 31
   KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT, KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, // 32 - 46
   KC_SLSH, KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,     // 47 - 61
   KC_DOT, KC_SLSH, KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N,  // 62 - 78
