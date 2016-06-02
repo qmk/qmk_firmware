@@ -3,8 +3,8 @@
 #include "action_layer.h"
 
 #define BASE 0 // default layer
-#define PROG 1 // symbols
-#define NAVI 2 // navigation keys
+#define PROG 1 // programming
+#define NAVI 2 // navigation
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -18,16 +18,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   H  |           |   B  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |`/Ctrl|   \  |      |      | LAlt |                                       | RAlt |      |   [  |   ]  |'/Ctrl|
+ *   |`/Ctrl|   \  |      |      | LAlt |                                       | RAlt |   [  |   ]  |      |'/Ctrl|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | PrtS | Apps |       | Paus | CtAl |
+ *                                        | PrtS | PrtS |       | CtAl | CtAl |
  *                                 ,------+------+------|       |------+------+------.
  *                                 |      |      |  L1  |       |  L1  |      |      |
  *                                 | Spce | ~L2  +------|       |------+  ~L1 | Spce |
  *                                 |      |      | LGui |       | RGui |      |      |
  *                                 `--------------------'       `--------------------'
  */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,   KC_1,     KC_2,    KC_3,    KC_4,    KC_5,   KC_6,
@@ -35,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTRL, KC_A,     KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT,  KC_Z,     KC_X,    KC_C,    KC_V,    KC_B,   KC_H,
         CTL_T(KC_GRV),KC_NUBS,KC_NO, KC_NO,   KC_LALT,
-                                                   KC_PSCREEN,    KC_APP,
+                                                  KC_PSCREEN, KC_PSCREEN,
                                                       TO(PROG, ON_PRESS),
                                                KC_SPC, MO(NAVI), KC_LGUI,
         // right hand
@@ -43,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_G,    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_ENTER,
                       KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_ENTER,
              KC_B,    KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
-                              KC_RALT,KC_NO,  KC_LBRC,KC_RBRC, CTL_T(KC_QUOT),
-             KC_PAUS, MT(0x5, KC_NO),
+                              KC_RALT,KC_LBRC,KC_RBRC,KC_NO,   CTL_T(KC_QUOT),
+             MT(0x5, KC_NO), MT(0x5, KC_NO),
              TO(PROG, ON_PRESS),
              KC_RGUI, MO(PROG), KC_SPC
     ),
@@ -70,6 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
+// PROGRAMMING
 [PROG] = KEYMAP(
        // left hand
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -105,20 +108,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      | MsLt | MsDn | MsRt |      |                                       |VolDn | Mute |VolUp |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Powr |  Log |       |      |      |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |  L0  |       |  L0  |      |      |
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
+// NAVIGATION
 [NAVI] = KEYMAP(
        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
        KC_TRNS, KC_HOME, KC_UP,   KC_END,  KC_INS,  KC_PGUP, KC_TRNS,
        KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_DELT, KC_PGDN,
        KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-                                KC_PWR, LCTL(LALT(KC_DELT)),
+                                           KC_TRNS, KC_TRNS,
                                          TO(BASE, ON_PRESS),
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand

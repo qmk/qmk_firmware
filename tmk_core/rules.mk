@@ -317,7 +317,12 @@ REMOVE = rm -f
 REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
-
+# Autodecct teensy loader
+ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+  TEENSY_LOADER_CLI = teensy-loader-cli
+else
+  TEENSY_LOADER_CLI = teensy_loader_cli
+endif
 
 # Define Messages
 # English
@@ -425,7 +430,7 @@ program: $(TARGET).hex $(TARGET).eep
 	$(PROGRAM_CMD)
 
 teensy: $(TARGET).hex
-	teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(TARGET).hex
 
 flip: $(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
