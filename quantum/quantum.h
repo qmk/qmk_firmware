@@ -59,6 +59,8 @@ extern uint32_t default_layer_state;
 	#define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif
 
+void send_string(char str[]);
+
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 bool process_action_kb(keyrecord_t *record);
