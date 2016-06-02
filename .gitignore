@@ -4,6 +4,7 @@ keyboard/planck/dfu-programmer.exe
 *.eep
 *.elf
 *.hex
+*.log
 *.lss
 *.lst
 *.map
@@ -14,6 +15,8 @@ tags
 build/
 *.bak
 .vagrant/
+.idea/
+CMakeLists.txt
 .DS_STORE
 
 # Eclipse/PyCharm/Other IDE Settings
