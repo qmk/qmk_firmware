@@ -23,10 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x4097
-#define DEVICE_VER      0x001
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Nobody
 #define PRODUCT         Arrow Pad 21
-#define DESCRIPTION     A custom keyboard
+#define DESCRIPTION     21-Key QMK Assistant
 
 /* key matrix size */
 #define MATRIX_ROWS 2
