@@ -287,14 +287,14 @@ bool process_record_quantum(keyrecord_t *record) {
         music_sequence_count = 0;
         return false;
       }
-    
+
       if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
         stop_all_notes();
         music_sequence_recording = false;
         music_sequence_playing = false;
         return false;
       }
-    
+
       if (keycode == KC_LGUI && record->event.pressed) { // Start playing
         stop_all_notes();
         music_sequence_recording = false;
@@ -309,7 +309,7 @@ bool process_record_quantum(keyrecord_t *record) {
             music_sequence_interval-=10;
         return false;
       }
-    
+
       if (keycode == KC_DOWN) {
         if (record->event.pressed)
             music_sequence_interval+=10;
@@ -473,57 +473,106 @@ bool process_record_quantum(keyrecord_t *record) {
   return process_action_kb(record);
 }
 
-bool shift_us_qwerty[0x80] = {
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0 - 31
-  0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1,  // 32 - 63
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,  // 64 - 95
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0   // 96 - 127
+const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 0,
+    1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0
 };
 
-uint8_t ascii_us_qwerty[0x80] = {
-  0, 0, 0, 0, 0, 0, 0, 0, KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, KC_ESC, 0, 0, 0, 0,  // 0 - 31
-  KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT, KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, // 32 - 46
-  KC_SLSH, KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,     // 47 - 61
-  KC_DOT, KC_SLSH, KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N,  // 62 - 78
-  KC_O, KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W, KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    // 79 - 94
-  KC_MINS, KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,  // 95 - 111
-  KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W, KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL // 112 - 127
+const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
+    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
+    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
+    KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
 
-// This is how you'd add OS colemak support
+/* for users whose OSes are set to Colemak */
+#if 0
+#include "keymap_colemak.h"
 
-// bool shift_us_colemak[0x80] = {
-//   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  // 0 - 31
-//   0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1,  // 32 - 63
-//   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,  // 64 - 95
-//   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0   // 96 - 127
-// };
+const bool ascii_to_colemak_shift_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 0,
+    1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0
+};
 
-// #include "keymap_colemak.h"
+const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
+    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, CM_SCLN, CM_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
+    KC_2, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
+    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
+    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
+    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
+    KC_GRV, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
+    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
+    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
+    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+};
 
-// uint8_t ascii_us_colemak[0x80] = {
-//   0, 0, 0, 0, 0, 0, 0, 0, KC_BSPC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, KC_ESC, 0, 0, 0, 0,  // 0 - 31
-//   KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT, KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, // 32 - 46
-//   KC_SLSH, KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, CM_SCLN, CM_SCLN, KC_COMM, KC_EQL,     // 47 - 61
-//   KC_DOT, KC_SLSH, KC_2, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G, CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N,  // 62 - 78
-//   CM_O, CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W, CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    // 79 - 94
-//   KC_MINS, KC_GRV, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G, CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,  // 95 - 111
-//   CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W, CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL // 112 - 127
-// };
+#endif
 
-void send_string(char str[]) {
-  for (int i = 0; str[i] != 0; i++) {
-    uint8_t keycode = ascii_us_qwerty[str[i]];
-    if (shift_us_qwerty[str[i]]) {
-      register_code(KC_LSFT);
-      register_code(keycode);
-      unregister_code(keycode);
-      unregister_code(KC_LSFT);
-    } else {
-      register_code(keycode);
-      unregister_code(keycode);
+void send_string(const char *str) {
+    while (1) {
+        uint8_t keycode;
+        uint8_t ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
+        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
+            register_code(KC_LSFT);
+            register_code(keycode);
+            unregister_code(keycode);
+            unregister_code(KC_LSFT);
+        }
+        else {
+            register_code(keycode);
+            unregister_code(keycode);
+        }
+        ++str;
     }
-  }
 }
 
 
@@ -572,7 +621,7 @@ void matrix_scan_quantum() {
 #endif
 
 //------------------------------------------------------------------------------
-// Override these functions in your keymap file to play different tunes on 
+// Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
 __attribute__ ((weak))

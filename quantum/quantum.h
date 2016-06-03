@@ -1,6 +1,7 @@
 #ifndef QUANTUM_H
 #define QUANTUM_H
 
+#include <avr/pgmspace.h>
 #include "matrix.h"
 #include "keymap_common.h"
 #ifdef BACKLIGHT_ENABLE
@@ -24,6 +25,8 @@
 #include <stddef.h>
 #include <avr/io.h>
 #include <util/delay.h>
+
+#define SEND_STRING(str) send_string(PSTR(str))
 
 extern uint32_t default_layer_state;
 
@@ -59,7 +62,7 @@ extern uint32_t default_layer_state;
 	#define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif
 
-void send_string(char str[]);
+void send_string(const char *str);
 
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
