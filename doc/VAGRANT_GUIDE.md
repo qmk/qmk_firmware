@@ -4,7 +4,7 @@ This project includes a Vagrantfile that will allow you to build a new firmware 
 
 ## Requirements
 
-Using the Vagrantfile in this repository requires you have [Vagrant](http://www.vagrantup.com/) as well as [VirtualBox](https://www.virtualbox.org/) (or [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](http://www.vagrantup.com/vmware) but the (paid) VMware plugin requires a licensed copy of VMware Workstation/Fusion).
+Using the `/util/Vagrantfile` in this repository requires you have [Vagrant](http://www.vagrantup.com/) as well as [VirtualBox](https://www.virtualbox.org/) (or [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](http://www.vagrantup.com/vmware) but the (paid) VMware plugin requires a licensed copy of VMware Workstation/Fusion).
 
 *COMPATIBILITY NOTICE* Certain versions of Virtualbox 5 appear to have an incompatibility with the Virtualbox extensions installed in the boxes in this Vagrantfile. If you encounter any issues with the /vagrant mount not succeeding, please upgrade your version of Virtualbox to at least 5.0.12.
 
@@ -12,15 +12,15 @@ Other than having Vagrant and Virtualbox installed and possibly a restart of you
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](tmk_core/doc/build.md), or the README in the particular keyboard/* folder.
+See [/doc/BUIDE_GUIDE.md](/doc/BUILD_GUIDE.md), or the README in the particular keyboard/* folder.
 
 Change your keymap
 ------------------
-See [doc/keymap.md](tmk_core/doc/keymap.md).
+See [/doc/keymap.md](/doc/keymap.md).
 
 ## Flashing the firmware
 
-The "easy" way to flash the firmware is using a tool from your host OS like the Teensy programming app. [ErgoDox EZ](keyboard/ergodox_ez/readme.md) gives a great example.
+The "easy" way to flash the firmware is using a tool from your host OS like the Teensy programming app. [ErgoDox EZ](/keyboard/ergodox_ez/readme.md) gives a great example.
 
 If you want to program via the command line you can uncomment the ['modifyvm'] lines in the Vagrantfile to enable the USB passthrough into Linux and then program using the command line tools like dfu-util/dfu-programmer or you can install the Teensy CLI version.
 	

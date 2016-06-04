@@ -1,6 +1,7 @@
 Build Firmware and Program Controller
 =====================================
 
+## This guide may be out-dated - use doc/BUILD_GUIDE.md instead
 
 Download and Install
 --------------------

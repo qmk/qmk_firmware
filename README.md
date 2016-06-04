@@ -14,18 +14,18 @@ The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and t
 This is not a tiny project. While this is the main Readme, there are many other files you might want to consult. Here are some points of interest:
 
 * The Readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboard/ergodox_ez/); for the Atomic, it's [here](keyboard/atomic/) and so on.
-* The [build guide](BUILD_GUIDE.md), also mentioned in the next section. This is how you put your development environment together so you can compile the firmware.
+* The [build guide](doc/BUILD_GUIDE.md), also mentioned in the next section. This is how you put your development environment together so you can compile the firmware.
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
   * [tmk_core/common/keycode.h](tmk_core/common/keycode.h) - the base TMK keycodes. This is the actual source file.
-  * [tmk_core/doc/keycode.txt](tmk_core/doc/keycode.txt) - an explanation of those same keycodes.
+  * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
   * [quantum/keymap_common.h](quantum/keymap_common.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap_common.h` is where they're actually defined.
-* The [TMK documentation](tmk_core/doc). QMK is based on TMK, and this explains how it works internally.
+* The [TMK documentation](doc/TMK_README.md). QMK is based on TMK, and this explains how it works internally.
 
 ## Getting started
 
-* [BUILD_GUIDE.md](BUILD_GUIDE.md) contains instructions to set up a build environment, build the firmware, and deploy it to a keyboard. Once your build environment has been set up, all `make` commands to actually build the firmware must be run from a folder in `keyboard/`.
+* [BUILD_GUIDE.md](doc/BUILD_GUIDE.md) contains instructions to set up a build environment, build the firmware, and deploy it to a keyboard. Once your build environment has been set up, all `make` commands to actually build the firmware must be run from a folder in `keyboard/`.
 * If you're looking to customize a keyboard that currently runs QMK or TMK, find your keyboard's directory under `keyboard/` and run the make commands from there.
-* If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `./new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
+* If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `util/new_project.sh <project_name>`, which will create `/keyboard/<project_name>` with all the necessary components for a Quantum project.
 
 ### Makefile Options
 
@@ -205,7 +205,7 @@ rounded up (5 bits per key). For example on Planck (48 keys) it uses
 
 ### Remember: These are just aliases
 
-These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keymap.md#2-action).
+These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/jackhumbert/qmk_firmware/blob/master/doc/keymap.md#2-action).
 
 Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - the benefit here is being able to use more than 32 function actions (up to 4096), if you happen to need them.
 
