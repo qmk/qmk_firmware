@@ -4,7 +4,7 @@ This project includes a Vagrantfile that will allow you to build a new firmware 
 
 ## Requirements
 
-Using the `/util/Vagrantfile` in this repository requires you have [Vagrant](http://www.vagrantup.com/) as well as [VirtualBox](https://www.virtualbox.org/) (or [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](http://www.vagrantup.com/vmware) but the (paid) VMware plugin requires a licensed copy of VMware Workstation/Fusion).
+Using the `/Vagrantfile` in this repository requires you have [Vagrant](http://www.vagrantup.com/) as well as [VirtualBox](https://www.virtualbox.org/) (or [VMware Workstation](https://www.vmware.com/products/workstation) and [Vagrant VMware plugin](http://www.vagrantup.com/vmware) but the (paid) VMware plugin requires a licensed copy of VMware Workstation/Fusion).
 
 *COMPATIBILITY NOTICE* Certain versions of Virtualbox 5 appear to have an incompatibility with the Virtualbox extensions installed in the boxes in this Vagrantfile. If you encounter any issues with the /vagrant mount not succeeding, please upgrade your version of Virtualbox to at least 5.0.12.
 
