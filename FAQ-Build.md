@@ -1,5 +1,5 @@
 ## READ FIRST
-- https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/doc/build.md
+- https://github.com/tmk/tmk_keyboard/blob/master/doc/BUILD_GUIDE.md
 
 In short,
 
