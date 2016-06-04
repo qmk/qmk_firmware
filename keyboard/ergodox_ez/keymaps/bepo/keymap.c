@@ -7,10 +7,9 @@
 #define QWER 1 // qwerty compat layer
 #define SQWER 2 // shifted qwerty compat layer
 #define AQWER 3 // alted qwerty compat layer
-#define FNX 4 // function keys
+#define FNAV 4 // function / navigation keys
 #define NUM 5 // numeric keypad keys
-#define NAV 6 // navigation keys
-#define MSE 7 // mouse keys
+#define MSE 6 // mouse keys
 
 #define KP_00 0
 #define CA_Fx 1
@@ -31,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      | CA_Fx|      |      |
  *                                             | Space|  Tab |------|      |------|RShift|Enter |
- *                                             |      |      | L_Nav|      | L_Fx |      |      |
+ *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
 [BASE] = KEYMAP(
@@ -43,7 +42,7 @@ BP_ECRC,	BP_A_GRAVE,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_DEL,
 TG(QWER),	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 														KC_NO,		MO(MSE),
 																MO(NUM),
-												KC_SPC,		KC_TAB,		MO(NAV),
+												KC_SPC,		KC_TAB,		MO(FNAV),
 // Right hand
 				KC_SLCK,	BP_AT,		BP_PLUS,	BP_MINUS,	BP_SLASH,	BP_ASTR,	BP_EQUAL,
 				KC_CAPSLOCK,	BP_DCRC,	BP_V,		BP_D,		BP_L,		BP_J,		BP_Z,
@@ -52,7 +51,7 @@ TG(QWER),	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 								BP_ALGR,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
 M(CA_Fx),
-MO(FNX),	KC_RSHIFT,	KC_ENTER),
+MO(FNAV),	KC_RSHIFT,	KC_ENTER),
 /* Keymap 1: QWERTY system compatibility layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
@@ -68,7 +67,7 @@ MO(FNX),	KC_RSHIFT,	KC_ENTER),
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             | Space|  Tab |------|      |------|RShift|Enter |
- *                                             |      |      | L_Nav|      | L_Fx |      |      |
+ *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
 [QWER] = KEYMAP(
@@ -80,7 +79,7 @@ KC_E,		KC_A,		KC_Y,		KC_X,		KC_DOT,		KC_K,		KC_DEL,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 														KC_NO,		MO(MSE),
 																MO(NUM),
-												KC_SPC,		KC_TAB,		MO(NAV),
+												KC_SPC,		KC_TAB,		MO(FNAV),
 // Right hand
 				KC_SLCK,	KC_AT,		KC_PLUS,	KC_MINUS,	KC_SLASH,	KC_ASTR,	KC_EQUAL,
 				KC_CAPSLOCK,	KC_CIRC,	KC_V,		KC_D,		KC_L,		KC_J,		KC_Z,
@@ -89,7 +88,7 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 								MO(AQWER),	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
 KC_TRNS,
-MO(FNX),	MO(SQWER),	KC_ENTER),
+MO(FNAV),	MO(SQWER),	KC_ENTER),
 /* Keymap 2: QWERTY shifted system compatibility layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
@@ -105,7 +104,7 @@ MO(FNX),	MO(SQWER),	KC_ENTER),
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             | Space|  Tab |------|      |------|RShift|Enter |
- *                                             |      |      | L_Nav|      | L_Fx |      |      |
+ *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
 [SQWER] = KEYMAP(
@@ -142,7 +141,7 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             |   _  |  Tab |------|      |------|RShift|Enter |
- *                                             |      |      | L_Nav|      | L_Fx |      |      |
+ *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
 [AQWER] = KEYMAP(
@@ -154,7 +153,7 @@ KC_E,		KC_BSLASH,	KC_LCBR,	KC_RCBR,	KC_DOT,		KC_TILDE,	KC_DEL,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 														KC_NO,		MO(MSE),
 																MO(NUM),
-												KC_UNDS,	KC_TAB,		MO(NAV),
+												KC_UNDS,	KC_TAB,		MO(FNAV),
 // Right hand
 				KC_SLCK,	KC_AT,		KC_PLUS,	KC_MINUS,	KC_SLASH,	KC_ASTR,	KC_EQUAL,
 				KC_CAPSLOCK,	KC_CIRC,	KC_V,		KC_D,		KC_L,		KC_J,		KC_Z,
@@ -163,17 +162,17 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 								KC_TRNS,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
 KC_NO,		KC_INS,
 KC_TRNS,
-MO(FNX),	MO(SQWER),	KC_ENTER),
-/* Keymap 4: function layer
+MO(FNAV),	MO(SQWER),	KC_ENTER),
+/* Keymap 4: function / navigation layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |                                  |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |                                  |      |  F6  |  F7  |  F8  |  F9  |  F10 |        |
  * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |   F12  |
+ * |        |      |      |      |      |      |      |                                  |      | PgUp | Home |  Up  |  End |  F11 |        |
  * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|                                  |------|      |      |      |      |      |   F13  |
+ * |        |      |      |      |      |      |------|                                  |------| PgDn | Left | Down | Right|  F12 |        |
  * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |   F14  |
+ * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |             |      |      |      |      |      |             |      |      |      |      |      |
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
@@ -182,7 +181,7 @@ MO(FNX),	MO(SQWER),	KC_ENTER),
  *                                             |      |      |      |      |      |      |      |
  *                                             `--------------------'      `--------------------'
  */
-[FNX] = KEYMAP(
+[FNAV] = KEYMAP(
 // Left hand
 KC_NO,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
@@ -191,12 +190,12 @@ KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 														KC_NO,		KC_NO,
 																KC_NO,
-												KC_NO,		KC_NO,		KC_NO,
+												KC_NO,		KC_NO,		KC_TRNS,
 // Right hand
-				KC_NO,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_F11,
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F12,
-						KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F13,
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_F14,
+				KC_NO,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_NO,
+				KC_NO,		KC_PGUP,	KC_HOME,	KC_UP,		KC_END,		KC_F11,		KC_NO,
+						KC_PGDOWN,	KC_LEFT,	KC_DOWN,	KC_RIGHT,	KC_F12,		KC_NO,
+				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
 KC_NO,		KC_NO,
 KC_TRNS,
@@ -238,44 +237,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 KC_NO,		KC_NO,
 KC_NO,
 KC_NO,		KC_TRNS,	KC_KP_ENTER),
-/* Keymap 6: navigation layer
- *
- * ,--------------------------------------------------.                                  ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      | Home |  Up  |  End | PgUp |        |
- * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|                                  |------|      | Left | Down | Right| PgDn |        |
- * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |             |      |      |      |      |      |             |      |      |      |      |      |
- *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      |      |      |      |      |      |
- *                                             |      |      |------|      |------|      |      |
- *                                             |      |      |      |      |      |      |      |
- *                                             `--------------------'      `--------------------'
- */
-[NAV] = KEYMAP(
-// Left hand
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
-														KC_NO,		KC_NO,
-																KC_NO,
-												KC_NO,		KC_NO,		KC_TRNS,
-// Right hand
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-				KC_NO,		KC_NO,		KC_HOME,	KC_UP,		KC_END,		KC_PGUP,	KC_NO,
-						KC_NO,		KC_LEFT,	KC_DOWN,	KC_RIGHT,	KC_PGDOWN,	KC_NO,
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
-KC_NO,		KC_NO,
-KC_NO,
-KC_NO,		KC_TRNS,	KC_NO),
-/* Keymap 7: mouse layer
+/* Keymap 6: mouse layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
@@ -329,10 +291,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       break;
     case CA_Fx:
       if (record->event.pressed) {
-        layer_on(FNX);
+        layer_on(FNAV);
         return MACRO( D(LALT), D(LCTL), END );
       } else {
-        layer_off(FNX);
+        layer_off(FNAV);
         return MACRO( U(LCTL), U(LALT), END );
       }
       break;
