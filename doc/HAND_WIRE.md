@@ -187,7 +187,7 @@ To start out, download [the firmware](https://github.com/jackhumbert/qmk_firmwar
 
 The first thing we're going to do is create a new project using the script in the root directory of the firmware. In your terminal, run this command with `<project_name>` replaced by the name of your project - it'll need to be different from any other project in the `keyboard/` folder:
 
-    ./new_project.sh <project_name>
+    util/new_project.sh <project_name>
 
 You'll want to navigate to the `keyboard/<project_name>/` folder by typing, like the print-out from the script specifies:
 
