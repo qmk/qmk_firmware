@@ -44,7 +44,7 @@ else
 	KEYMAP_PATH = $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
 	ifneq ("$(wildcard $(KEYMAP_PATH)/keymap.c)","")
 		KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
-		include $(KEYMAP_PATH)/Makefile
+		-include $(KEYMAP_PATH)/Makefile
 	else 
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 	endif

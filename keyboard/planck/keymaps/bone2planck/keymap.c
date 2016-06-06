@@ -3,7 +3,7 @@
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
 #endif
-#include "..\..\quantum\keymap_extras\keymap_german.h"
+#include "keymap_german.h"
 
 /* This Layout tries to emulate the Bone2 Variant of Neo2, and is intended to be used with a German QWERTZ Softwarelayout.
    It has Umlauts and "ß" as it is optimized for a mix of German & English.

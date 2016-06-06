@@ -35,14 +35,3 @@ const uint16_t PROGMEM fn_actions[] = {
     [2] = ACTION_LAYER_MOMENTARY(2),   // to LOWER
     [3] = ACTION_LAYER_MOMENTARY(3)   // to LOWER
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) 
-{
-  // MACRODOWN only works in this function
-    switch(id) {
-      case 0:
-        return MACRODOWN(T(CM_T), END);
-      break;
-    } 
-    return MACRO_NONE;
-};
