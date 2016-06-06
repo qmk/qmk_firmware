@@ -13,6 +13,7 @@ keyboard/planck/dfu-programmer.exe
 tags
 *~
 build/
+.build/
 *.bak
 .vagrant/
 .idea/

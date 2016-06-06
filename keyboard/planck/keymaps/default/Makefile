@@ -39,69 +39,14 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = planck
+TARGET ?= planck
 
 # Directory common source filess exist
-TOP_DIR = ../../../..
-TMK_DIR = $(TOP_DIR)/tmk_core
-KEYBOARD_DIR = $(TOP_DIR)/keyboard/planck
-LAYOUT_DIR = $(KEYBOARD_DIR)/keymaps/$(notdir $(CURDIR))
+TOP_DIR ?= ../../../..
+LAYOUT_DIR = $(notdir $(CURDIR))
 
 # Directory keyboard dependent files exist
-TARGET_DIR = .
-
-# # project specific files
-SRC = $(KEYBOARD_DIR)/planck.c $(LAYOUT_DIR)/keymap.c
-
-CONFIG_H = $(KEYBOARD_DIR)/config.h
-
-# MCU name
-#MCU = at90usb1287
-MCU = atmega32u4
-
-# Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the
-#     processor frequency in Hz. You can then use this symbol in your source code to
-#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
-#     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_USB below, as it is sourced by
-#     F_USB after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
-F_CPU = 16000000
-
-#
-# LUFA specific
-#
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-# Input clock frequency.
-#     This will define a symbol, F_USB, in all source code files equal to the
-#     input clock frequency (before any prescaling is performed) in Hz. This value may
-#     differ from F_CPU if prescaling is used on the latter, and is required as the
-#     raw input clock is fed directly to the PLL sections of the AVR for high speed
-#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
-#     at the end, this will be done automatically to create a 32-bit value in your
-#     source code.
-#
-#     If no clock division is performed on the input clock inside the AVR (via the
-#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+TARGET_DIR ?= .
 
 # Build Options
 #   change to "no" to disable the options, or define them in the makefile.mk in 
@@ -123,13 +68,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
-
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
-VPATH += $(KEYBOARD_DIR)
-
-include $(TOP_DIR)/quantum/quantum.mk
+ifndef KEYBOARD_DIR
+	include ../../Makefile
+endif
