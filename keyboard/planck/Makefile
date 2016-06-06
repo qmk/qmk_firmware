@@ -38,39 +38,11 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TARGET ?= planck
 
 # Directory common source filess exist
 TOP_DIR ?= ../..
-TMK_DIR = $(TOP_DIR)/tmk_core
 KEYBOARD_DIR = planck
 KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD_DIR)
-
-# Directory keyboard dependent files exist
-TARGET_DIR ?= .
-
-# # project specific files
-SRC += planck.c
-
-ifdef LAYOUT_DIR
-	KEYMAP_FILE = keymaps/$(LAYOUT_DIR)/keymap.c
-else
-	ifdef keymap
-		KEYMAP = $(keymap)
-	endif
-	ifndef KEYMAP
-		KEYMAP = default
-	endif
-	ifneq ("$(wildcard keymaps/$(KEYMAP)/keymap.c)","")
-		KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
-		include keymaps/$(KEYMAP)/Makefile
-	else 
-		$(error "keymaps/$(KEYMAP)/keymap.c" does not exist)
-	endif
-endif
-
-SRC += $(KEYMAP_FILE)
 
 CONFIG_H = $(KEYBOARD_PATH)/config.h
 
@@ -142,16 +114,6 @@ RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
-
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
-
-# Search Path
-# Search Path
-
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
-VPATH += $(KEYBOARD_PATH)
-
-include $(TOP_DIR)/quantum/quantum.mk
+ifndef QUANTUM_DIR
+	include $(TOP_DIR)/Makefile
+endif

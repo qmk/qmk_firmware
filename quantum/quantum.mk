@@ -11,21 +11,6 @@ SRC += quantum.c \
 	keymap_common.c \
 	led.c
 
-# ifdef KEYMAP_FILE
-# ifneq (,$(shell grep USING_MIDI '$(KEYMAP_FILE)'))
-# MIDI_ENABLE=yes
-# $(info  * Overriding MIDI_ENABLE setting - $(KEYMAP_FILE) requires it)
-# endif
-# ifneq (,$(shell grep USING_UNICODE '$(KEYMAP_FILE)'))
-# UNICODE_ENABLE=yes
-# $(info  * Overriding UNICODE_ENABLE setting - $(KEYMAP_FILE) requires it)
-# endif
-# ifneq (,$(shell grep USING_BACKLIGHT '$(KEYMAP_FILE)'))
-# BACKLIGHT_ENABLE=yes
-# $(info  * Overriding BACKLIGHT_ENABLE setting - $(KEYMAP_FILE) requires it)
-# endif
-# endif
-
 ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif

@@ -38,15 +38,10 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TARGET ?= planck
 
 # Directory common source filess exist
 TOP_DIR ?= ../../../..
-LAYOUT_DIR = $(notdir $(CURDIR))
-
-# Directory keyboard dependent files exist
-TARGET_DIR ?= .
+KEYMAP_DIR = $(notdir $(CURDIR))
 
 # Build Options
 #   change to "no" to disable the options, or define them in the makefile.mk in 

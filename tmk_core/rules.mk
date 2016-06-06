@@ -367,15 +367,12 @@ ALL_CFLAGS = -mmcu=$(MCU) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_CPPFLAGS = -mmcu=$(MCU) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
-
-
-
-
 # Default target.
 all: 
 	$(MAKE) begin 
 	$(MAKE) gccversion 
 	$(MAKE) sizebefore 
+	$(MAKE) clean_list # force clean each time
 	$(MAKE) build 
 	$(MAKE) sizeafter 
 	$(MAKE) end
@@ -598,13 +595,9 @@ $(OBJDIR)/%.o : %.S
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) -r $(BUILD_DIR)
-	$(REMOVE) $(OBJ)
-	$(REMOVE) $(LST)
-	$(REMOVE) $(OBJ:.o=.s)
-	$(REMOVE) $(OBJ:.o=.i)
-	$(REMOVE) -r .dep
-	$(REMOVE) -r $(OBJDIR)
+	$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
+	$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
+	$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:
 	@echo VPATH=$(VPATH)
