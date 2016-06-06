@@ -58,11 +58,12 @@
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
+BUILD_DIR = .build
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-OBJDIR = obj_$(TARGET)
+OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
 
 
 # Optimization level, can be [0, 1, 2, 3, s]. 
@@ -261,7 +262,7 @@ EXTMEMOPTS =
 # Comennt out "--relax" option to avoid a error such:
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
-LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
+LDFLAGS = -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 #LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
@@ -356,7 +357,7 @@ LST = $(patsubst %.c,$(OBJDIR)/%.lst,$(patsubst %.cpp,$(OBJDIR)/%.lst,$(patsubst
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
-GENDEPFLAGS = -MMD -MP -MF .dep/$(subst /,_,$@).d
+GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$@).d
 
 
 # Combine all necessary flags and optional flags.
@@ -384,11 +385,11 @@ build: elf hex eep lss sym
 #build: lib
 
 
-elf: $(TARGET).elf
-hex: $(TARGET).hex
-eep: $(TARGET).eep
-lss: $(TARGET).lss
-sym: $(TARGET).sym
+elf: $(BUILD_DIR)/$(TARGET).elf
+hex: $(BUILD_DIR)/$(TARGET).hex
+eep: $(BUILD_DIR)/$(TARGET).eep
+lss: $(BUILD_DIR)/$(TARGET).lss
+sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
 
@@ -405,16 +406,16 @@ end:
 
 
 # Display size of file.
-HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
+HEXSIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex
 #ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
-ELFSIZE = $(SIZE) $(TARGET).elf
+ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
 sizeafter:
-	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
 
@@ -426,43 +427,43 @@ gccversion :
 
 
 # Program the device.  
-program: $(TARGET).hex $(TARGET).eep
+program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(PROGRAM_CMD)
 
-teensy: $(TARGET).hex
-	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(TARGET).hex
+teensy: $(BUILD_DIR)/$(TARGET).hex
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 
-flip: $(TARGET).hex
+flip: $(BUILD_DIR)/$(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
+	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
-dfu: $(TARGET).hex sizeafter
+dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 	dfu-programmer $(MCU) erase --force
 else
 	dfu-programmer $(MCU) erase
 endif
 	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash $(TARGET).hex
+	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	dfu-programmer $(MCU) reset
 	
 dfu-start:
 	dfu-programmer $(MCU) reset
 	dfu-programmer $(MCU) start
 
-flip-ee: $(TARGET).hex $(TARGET).eep
-	$(COPY) $(TARGET).eep $(TARGET)eep.hex
+flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
+	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(TARGET)eep.hex
+	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
-dfu-ee: $(TARGET).hex $(TARGET).eep
+dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) flash --eeprom $(TARGET).eep
+	dfu-programmer $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
 else
-	dfu-programmer $(MCU) flash-eeprom $(TARGET).eep
+	dfu-programmer $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
 endif
 	dfu-programmer $(MCU) reset
 
@@ -475,18 +476,18 @@ gdb-config:
 	@echo define reset >> $(GDBINIT_FILE)
 	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
 	@echo end >> $(GDBINIT_FILE)
-	@echo file $(TARGET).elf >> $(GDBINIT_FILE)
+	@echo file $(BUILD_DIR)/$(TARGET).elf >> $(GDBINIT_FILE)
 	@echo target remote $(DEBUG_HOST):$(DEBUG_PORT)  >> $(GDBINIT_FILE)
 ifeq ($(DEBUG_BACKEND),simulavr)
 	@echo load  >> $(GDBINIT_FILE)
 endif
 	@echo break main >> $(GDBINIT_FILE)
 
-debug: gdb-config $(TARGET).elf
+debug: gdb-config $(BUILD_DIR)/$(TARGET).elf
 ifeq ($(DEBUG_BACKEND), avarice)
 	@echo Starting AVaRICE - Press enter when "waiting to connect" message displays.
 	@$(WINSHELL) /c start avarice --jtag $(JTAG_DEV) --erase --program --file \
-	$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
+	$(BUILD_DIR)/$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
 	@$(WINSHELL) /c pause
 
 else
@@ -507,14 +508,14 @@ COFFCONVERT += --change-section-address .eeprom-0x810000
 
 
 
-coff: $(TARGET).elf
-	@echo $(MSG_COFF) $(TARGET).cof
-	$(COFFCONVERT) -O coff-avr $< $(TARGET).cof
+coff: $(BUILD_DIR)/$(TARGET).elf
+	@echo $(MSG_COFF) $(BUILD_DIR)/$(TARGET).cof
+	$(COFFCONVERT) -O coff-avr $< $(BUILD_DIR)/$(TARGET).cof
 
 
-extcoff: $(TARGET).elf
-	@echo $(MSG_EXTENDED_COFF) $(TARGET).cof
-	$(COFFCONVERT) -O coff-ext-avr $< $(TARGET).cof
+extcoff: $(BUILD_DIR)/$(TARGET).elf
+	@echo $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
+	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
 
 
@@ -522,6 +523,7 @@ extcoff: $(TARGET).elf
 %.hex: %.elf
 	@echo $(MSG_FLASH) $@
 	$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@
+	$(COPY) $@ $(TARGET).hex
 
 %.eep: %.elf
 	@echo $(MSG_EEPROM) $@
@@ -538,10 +540,8 @@ extcoff: $(TARGET).elf
 	@echo $(MSG_SYMBOL_TABLE) $@
 	$(NM) -n $< > $@
 
-
-
 # Create library from object files.
-.SECONDARY : $(TARGET).a
+.SECONDARY : $(BUILD_DIR)/$(TARGET).a
 .PRECIOUS : $(OBJ)
 %.a: $(OBJ)
 	@echo $(MSG_CREATING_LIBRARY) $@
@@ -549,7 +549,7 @@ extcoff: $(TARGET).elf
 
 
 # Link: create ELF output file from object files.
-.SECONDARY : $(TARGET).elf
+.SECONDARY : $(BUILD_DIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
 %.elf: $(OBJ)
 	@echo $(MSG_LINKING) $@
@@ -572,11 +572,13 @@ $(OBJDIR)/%.o : %.cpp
 
 # Compile: create assembler files from C source files.
 %.s : %.c
+	@echo Assembling: $<
 	$(CC) -S $(ALL_CFLAGS) $< -o $@
 
 
 # Compile: create assembler files from C++ source files.
 %.s : %.cpp
+	@echo Assembling: $<
 	$(CC) -S $(ALL_CPPFLAGS) $< -o $@
 
 
@@ -596,13 +598,7 @@ $(OBJDIR)/%.o : %.S
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) $(TARGET).hex
-	$(REMOVE) $(TARGET).eep
-	$(REMOVE) $(TARGET).cof
-	$(REMOVE) $(TARGET).elf
-	$(REMOVE) $(TARGET).map
-	$(REMOVE) $(TARGET).sym
-	$(REMOVE) $(TARGET).lss
+	$(REMOVE) -r $(BUILD_DIR)
 	$(REMOVE) $(OBJ)
 	$(REMOVE) $(LST)
 	$(REMOVE) $(OBJ:.o=.s)
@@ -614,13 +610,15 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
+# Create build directory
+$(shell mkdir $(BUILD_DIR) 2>/dev/null)
 
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Include the dependency files.
--include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+-include $(shell mkdir $(BUILD_DIR)/.dep 2>/dev/null) $(wildcard $(BUILD_DIR)/.dep/*)
 
 
 # Listing of phony targets.

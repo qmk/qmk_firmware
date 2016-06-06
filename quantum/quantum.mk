@@ -1,13 +1,15 @@
 QUANTUM_DIR = quantum
 
+QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
+
 ifndef VERBOSE
 .SILENT:
 endif
 
 # # project specific files
-SRC += $(QUANTUM_DIR)/quantum.c \
-	$(QUANTUM_DIR)/keymap_common.c \
-	$(QUANTUM_DIR)/led.c
+SRC += quantum.c \
+	keymap_common.c \
+	led.c
 
 # ifdef KEYMAP_FILE
 # ifneq (,$(shell grep USING_MIDI '$(KEYMAP_FILE)'))
@@ -48,11 +50,11 @@ endif
 #EXTRALDFLAGS = -Wl,--relax
 
 # Search Path
-VPATH += $(TOP_DIR)/$(QUANTUM_DIR)
-VPATH += $(TOP_DIR)/$(QUANTUM_DIR)/keymap_extras
-VPATH += $(TOP_DIR)/$(QUANTUM_DIR)/audio
+VPATH += $(QUANTUM_PATH)
+VPATH += $(QUANTUM_PATH)/keymap_extras
+VPATH += $(QUANTUM_PATH)/audio
+
 
 include $(TMK_DIR)/protocol/lufa.mk
-
 include $(TMK_DIR)/common.mk
 include $(TMK_DIR)/rules.mk
