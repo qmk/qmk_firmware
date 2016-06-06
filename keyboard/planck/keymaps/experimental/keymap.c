@@ -316,8 +316,7 @@ void matrix_scan_user(void) {
     leader_end(); 
 
     SEQ_ONE_KEY(KC_F) {
-      register_code(KC_S);
-      unregister_code(KC_S);
+      send_string("if yes\n\tpeanut butter\nelse\n\trice snacks");
     }
     SEQ_TWO_KEYS(KC_A, KC_S) {
       register_code(KC_H);
