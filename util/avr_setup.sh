@@ -39,7 +39,7 @@ elif [[ -n "$(type -P apt-get)" ]]; then
     binutils-avr \
     avr-libc \
     dfu-util
-  
+
 elif [[ -n "$(type -P yum)" ]]; then
   # Fedora, CentOS or RHEL and derivatives
   yum -y makecache && yum -y update
