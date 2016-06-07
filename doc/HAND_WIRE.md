@@ -195,7 +195,7 @@ You'll want to navigate to the `keyboard/<project_name>/` folder by typing, like
 
 #### config.h
 
-The first thing you're going to want to modify is the `config.h` file. Find `MATRIX_ROWS` and `MATRIX_COLS` and them to match the dimensions of your keyboard's matrix.
+The first thing you're going to want to modify is the `config.h` file. Find `MATRIX_ROWS` and `MATRIX_COLS` and change their definitions to match the dimensions of your keyboard's matrix.
 
 Farther down are `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`. Change their definitions to match how you wired up your matrix (looking from the top of the keyboard, the rows run top-to-bottom and the columns run left-to-right). Likewise, change the definition of `UNUSED_PINS` to match the pins you did not use (this will save power).
 
