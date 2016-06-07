@@ -154,11 +154,11 @@ CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
 # add color
 ifeq ($(COLOR),true)
-	ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-		CFLAGS+= -fdiagnostics-color
-	else ifeq ("$(shell echo "int main(){}" | $(CC) -fcolor-diagnostics -x c - -o /dev/null 2>&1)", "")
-		CFLAGS+= -fcolor-diagnostics
-	endif
+ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
+	CFLAGS+= -fdiagnostics-color
+else ifeq ("$(shell echo "int main(){}" | $(CC) -fcolor-diagnostics -x c - -o /dev/null 2>&1)", "")
+	CFLAGS+= -fcolor-diagnostics
+endif
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
@@ -624,9 +624,9 @@ $(OBJDIR)/%.o : %.S
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
-	$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
-	$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
+	$(REMOVE) -rd $(TOP_DIR)/$(BUILD_DIR)
+	$(REMOVE) -rd $(KEYBOARD_PATH)/$(BUILD_DIR)
+	$(REMOVE) -rd $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:
 	@echo VPATH=$(VPATH)

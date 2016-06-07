@@ -42,9 +42,6 @@
 # Directory common source filess exist
 TOP_DIR ?= ../..
 KEYBOARD_DIR = planck
-KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD_DIR)
-
-CONFIG_H = $(KEYBOARD_PATH)/config.h
 
 # MCU name
 #MCU = at90usb1287

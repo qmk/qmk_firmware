@@ -54,6 +54,12 @@ endif
 
 TARGET = $(KEYBOARD)_$(KEYMAP)
 
+ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
+	CONFIG_H = $(KEYMAP_PATH)/config.h
+else
+	CONFIG_H = $(KEYBOARD_PATH)/config.h
+endif
+
 # # project specific files
 SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
