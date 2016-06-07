@@ -101,4 +101,4 @@ OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 
 
 
 # Search Path
-VPATH += $(TMK_DIR)/$(COMMON_DIR)
+VPATH += $(TMK_PATH)/$(COMMON_DIR)

@@ -78,15 +78,22 @@ OPT = s
 #     AVR [Extended] COFF format requires stabs, plus an avr-objcopy run.
 DEBUG = dwarf-2
 
+COLOR?=true
 
 NO_COLOR=\033[0m
 OK_COLOR=\033[32;01m
 ERROR_COLOR=\033[31;01m
 WARN_COLOR=\033[33;01m
 
-OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
-ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
-WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
+ifeq ($(COLOR),true)
+	OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
+	ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
+	WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
+else
+	OK_STRING=[OK]
+	ERROR_STRING=[ERRORS]
+	WARN_STRING=[WARNINGS]
+endif
 
 TAB_LOG = printf "\n$$LOG" | awk '{ sub(/^/," | "); print }'
 AWK_CMD = awk '{ printf "%-69s %-10s\n","$(MSG)", $$1; }'
@@ -146,7 +153,14 @@ CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
 # add color
-CFLAGS += -fdiagnostics-color
+ifeq ($(COLOR),true)
+	CFLAGS += -fdiagnostics-color
+	ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
+		CFLAGS+= -fdiagnostics-color
+	else ifeq ("$(shell echo "int main(){}" | $(CC) -fcolor-diagnostics -x c - -o /dev/null 2>&1)", "")
+		CFLAGS+= -fcolor-diagnostics
+	endif
+endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 #CFLAGS += -mshort-calls
@@ -425,7 +439,7 @@ HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
 ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(TARGET).hex; then echo; echo $(MSG_SIZE_BEFORE); $(HEXSIZE); \
+	@if test -f $(TARGET).hex; then echo $(MSG_SIZE_BEFORE); $(HEXSIZE); \
 	2>/dev/null; echo; fi
 
 sizeafter:
@@ -535,39 +549,39 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
-	@echo $(MSG_FLASH) $@
-	$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@
+	$(eval MSG=$(MSG_FLASH) $@)
+	LOG=$$($(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 	$(COPY) $@ $(TARGET).hex
 
 %.eep: %.elf
-	@echo $(MSG_EEPROM) $@
-	-$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
-	--change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0
+	$(eval MSG=$(MSG_EEPROM) $@)
+	LOG=$$($(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
+	--change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
-	@echo $(MSG_EXTENDED_LISTING) $@
-	$(OBJDUMP) -h -S -z $< > $@
+	$(eval MSG=$(MSG_EXTENDED_LISTING) $@)
+	LOG=$$($(OBJDUMP) -h -S -z $< > $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # Create a symbol table from ELF output file.
 %.sym: %.elf
-	@echo $(MSG_SYMBOL_TABLE) $@
-	$(NM) -n $< > $@
+	$(eval MSG=$(MSG_SYMBOL_TABLE) $@)
+	LOG=$$($(NM) -n $< > $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # Create library from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).a
 .PRECIOUS : $(OBJ)
 %.a: $(OBJ)
-	@echo $(MSG_CREATING_LIBRARY) $@
-	$(AR) $@ $(OBJ)
+	$(eval MSG=$(MSG_CREATING_LIBRARY) $@)
+	LOG=$$($(AR) $@ $(OBJ) 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 
 # Link: create ELF output file from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
 %.elf: $(OBJ)
-	@echo $(MSG_LINKING) $@
-	$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS)
+	$(eval MSG=$(MSG_LINKING) $@)
+	LOG=$$($(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS) 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 
 # Compile: create object files from C source files.

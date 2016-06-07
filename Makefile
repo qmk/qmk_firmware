@@ -4,7 +4,8 @@ endif
 
 # Directory common source filess exist
 TOP_DIR ?= .
-TMK_DIR = $(TOP_DIR)/tmk_core
+TMK_DIR = tmk_core
+TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
 
 QUANTUM_DIR = quantum
 QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
@@ -83,11 +84,11 @@ endif
 VPATH += $(KEYMAP_PATH)
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
+VPATH += $(TMK_PATH)
 VPATH += $(QUANTUM_PATH)
 VPATH += $(QUANTUM_PATH)/keymap_extras
 VPATH += $(QUANTUM_PATH)/audio
 
-include $(TMK_DIR)/protocol/lufa.mk
-include $(TMK_DIR)/common.mk
-include $(TMK_DIR)/rules.mk
+include $(TMK_PATH)/protocol/lufa.mk
+include $(TMK_PATH)/common.mk
+include $(TMK_PATH)/rules.mk
