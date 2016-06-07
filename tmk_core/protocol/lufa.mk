@@ -13,15 +13,15 @@ else
     include $(TMK_DIR)/$(LUFA_PATH)/LUFA/makefile
 endif
 
-LUFA_SRC = $(LUFA_DIR)/lufa.c \
-	   $(LUFA_DIR)/descriptor.c \
+LUFA_SRC = lufa.c \
+	   descriptor.c \
 	   $(LUFA_SRC_USB)
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
-	LUFA_SRC += $(LUFA_DIR)/midi/midi.c \
-	   $(LUFA_DIR)/midi/midi_device.c \
-	   $(LUFA_DIR)/midi/bytequeue/bytequeue.c \
-	   $(LUFA_DIR)/midi/bytequeue/interrupt_setting.c \
+	LUFA_SRC += midi/midi.c \
+	   midi/midi_device.c \
+	   midi/bytequeue/bytequeue.c \
+	   midi/bytequeue/interrupt_setting.c \
 	   $(LUFA_SRC_USBCLASS)
 endif
 

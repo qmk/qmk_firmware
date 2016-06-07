@@ -79,6 +79,21 @@ OPT = s
 DEBUG = dwarf-2
 
 
+NO_COLOR=\033[0m
+OK_COLOR=\033[32;01m
+ERROR_COLOR=\033[31;01m
+WARN_COLOR=\033[33;01m
+
+OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
+ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
+WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
+
+TAB_LOG = printf "\n$$LOG" | awk '{ sub(/^/," | "); print }'
+AWK_CMD = awk '{ printf "%-69s %-10s\n","$(MSG)", $$1; }'
+PRINT_ERROR = printf "$(ERROR_STRING)\n" | $(AWK_CMD) && $(TAB_LOG) && false
+PRINT_WARNING = printf "$(WARN_STRING)\n" | $(AWK_CMD) && $(TAB_LOG)
+PRINT_OK = printf "$(OK_STRING)\n" | $(AWK_CMD)
+
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
@@ -341,8 +356,8 @@ MSG_EEPROM = Creating load file for EEPROM:
 MSG_EXTENDED_LISTING = Creating Extended Listing:
 MSG_SYMBOL_TABLE = Creating Symbol Table:
 MSG_LINKING = Linking:
-MSG_COMPILING = Compiling C:
-MSG_COMPILING_CPP = Compiling C++:
+MSG_COMPILING = Compiling:
+MSG_COMPILING_CPP = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
@@ -405,16 +420,16 @@ end:
 
 
 # Display size of file.
-HEXSIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex
+HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
 #ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
 ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(BUILD_DIR)/$(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
+	@if test -f $(TARGET).hex; then echo; echo $(MSG_SIZE_BEFORE); $(HEXSIZE); \
 	2>/dev/null; echo; fi
 
 sizeafter:
-	@if test -f $(BUILD_DIR)/$(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
+	@if test -f $(TARGET).hex; then echo; echo $(MSG_SIZE_AFTER); $(HEXSIZE); \
 	2>/dev/null; echo; fi
 
 
@@ -558,21 +573,21 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 # Compile: create object files from C source files.
 $(OBJDIR)/%.o : %.c
 	mkdir -p $(@D)
-	@echo $(MSG_COMPILING) $<
-	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
-
+	$(eval MSG=$(MSG_COMPILING) $<)
+	LOG=$$($(CC) -c $(ALL_CFLAGS) $< -o $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # Compile: create object files from C++ source files.
 $(OBJDIR)/%.o : %.cpp
 	mkdir -p $(@D)
-	@echo $(MSG_COMPILING_CPP) $<
+	$(eval MSG=$(MSG_COMPILING_CPP) $<)
 	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
 
 
 # Compile: create assembler files from C source files.
 %.s : %.c
-	@echo Assembling: $<
-	$(CC) -S $(ALL_CFLAGS) $< -o $@
+	MSG="Assembling: $<"
+	# $(CC) -S $(ALL_CFLAGS) $< -o $@
+	LOG=$$($(CC) -S $(ALL_CFLAGS) $< -o $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 
 # Compile: create assembler files from C++ source files.
@@ -584,9 +599,8 @@ $(OBJDIR)/%.o : %.cpp
 # Assemble: create object files from assembler source files.
 $(OBJDIR)/%.o : %.S
 	mkdir -p $(@D)
-	@echo $(MSG_ASSEMBLING) $<
-	$(CC) -c $(ALL_ASFLAGS) $< -o $@
-
+	$(eval MSG=$(MSG_ASSEMBLING) $<)
+	LOG=$$($(CC) -c $(ALL_ASFLAGS) $< -o $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # Create preprocessed source for use in sending a bug report.
 %.i : %.c
