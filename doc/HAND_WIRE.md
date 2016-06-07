@@ -282,7 +282,7 @@ It's also important to use the `KEYMAP` function we defined earlier - this is wh
 
 #### Compiling your firmware
 
-After you've written out your entire keymap, you're ready to get the firmware compiled and onto your Teensy. Before compiling, you'll need to get your [development environment set-up](./BUILD_GUIDE.md) - you can skip the dfu-programmer instructions, but you'll need to download and install the [Teensy Loader](https://www.pjrc.com/teensy/loader.html) to get the firmware on your Teensy.
+After you've written out your entire keymap, you're ready to get the firmware compiled and onto your Teensy. Before compiling, you'll need to get your [development environment set-up](/doc/BUILD_GUIDE.md) - you can skip the dfu-programmer instructions, but you'll need to download and install the [Teensy Loader](https://www.pjrc.com/teensy/loader.html) to get the firmware on your Teensy.
 
 Once everything is installed, running `make` in the terminal should get you some output, and eventually a `<project_name>.hex` file in that folder. If you're having trouble with this step, see the end of the guide for the trouble-shooting section.
 
