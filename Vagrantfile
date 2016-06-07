@@ -62,6 +62,16 @@ Vagrant.configure(2) do |config|
     vmf.memory = "512"
   end
 
+  # Docker provider pulls from hub.docker.com respecting docker.image if
+  # config.vm.box is nil. Note that this bind-mounts from the current dir to
+  # /vagrant in the guest, so unless your UID is 1000 to match vagrant in the
+  # image, you'll need to: chmod -R a+rw .
+  config.vm.provider "docker" do |docker, override|
+    override.vm.box = nil
+    docker.image = "jesselang/debian-vagrant:jessie"
+    docker.has_ssh = true
+  end
+
   # This script ensures the required packages for AVR programming are installed
   # It also ensures the system always gets the latest updates when powered on
   # If this causes issues you can run a 'vagrant destroy' and then
