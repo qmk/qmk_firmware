@@ -6,8 +6,8 @@ The base layer is a merge of what I liked with the default layout and the ordina
 
 * The Caps Lock postion handles [Hyper/Esc](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
 * The Tab key toggles MEH.
-* The top vertical modes on the left and right are [ and ].
-* The bottom vertical mods on the left and right are tab and shift+tab 
+* The top vertical mods on the left and right are [ and ].
+* The bottom vertical mods on the left and right are tab and shift+tab
 * The HYPER and MEH key are made in the same location on the right side of the board as well. Using Keyboard Maestro for OS X makes one-handed shortcuts very easy.
 * Layer switching is focused around the thumb clusters plus some additional locations for convience.
 
@@ -17,9 +17,19 @@ The symbol layer can be tap/toggled with the bottom right key and also toggled o
 The bottom two vertical mods are set to F14 and F15 which is the default for changing screen brightness on the mac
 
 ## App Layer
-The app layer is used to control media playback and also some application shortcuts.
-It can be toggled on the left board in the top left corner (tilde/grave) or using your pinky on the right side of the board using either ; or /.  
+The app layer is used to control media playback and also some application shortcuts (OS X Focused).
+It can be toggled on the left board in the top left corner (tilde/grave) or using your pinky on the right side of the board using either ; or /.
 There is one additional toggle on the right thumb cluster for quick access to play and mute key combos.
+
+### Current App shortcuts defined
+* Q = CMD+Q
+* W = CMD+W
+* Z = CMD+Z
+* X = CMD+X
+* C = CMD+C
+* V = CMD+V
+* B = CTRL+C
+* P = Print Screen
 
 ## Control Layer
 The control layer is meant to help easily navigate and select text. It can also be stacked ontop of the Symbol layer when needed.
