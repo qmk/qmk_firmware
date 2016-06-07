@@ -70,7 +70,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", run: "always", path: "./util/avr_setup.sh", args: "-update"
 
-  config.vm.post_up_message = """
+  config.vm.post_up_message = <<-EOT
   Log into the VM using 'vagrant ssh' on OSX or from Git Bash (Win)
   or 'vagrant ssh-config' and Putty or Bitvise SSH or another SSH tool
 
@@ -84,5 +84,5 @@ Vagrant.configure(2) do |config|
   cd /vagrant; cd keyboard; cd ergodox_ez; make clean; make
 
 
-  """
+  EOT
 end
