@@ -38,6 +38,7 @@ elif [[ -n "$(type -P apt-get)" ]]; then
     gcc-avr \
     binutils-avr \
     avr-libc \
+    dfu-programmer \
     dfu-util
 
 elif [[ -n "$(type -P yum)" ]]; then
@@ -55,6 +56,7 @@ elif [[ -n "$(type -P yum)" ]]; then
     avr-binutils \
     avr-gcc \
     avr-libc \
+    dfu-programmer \
     dfu-util
 
 elif [[ -n "$(type -P zypper)" ]]; then
