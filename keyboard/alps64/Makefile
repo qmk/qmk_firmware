@@ -39,27 +39,13 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = alps64
 
 # Directory common source filess exist
-TOP_DIR = ../..
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
+TOP_DIR ?= ../..
+KEYBOARD_DIR = alps64
 
 # project specific files
-SRC =	alps64.c \
-	led.c
-
-ifdef KEYMAP
-    SRC := keymaps/$(KEYMAP).c $(SRC)
-else
-    SRC := keymaps/default.c $(SRC)
-endif
-
-CONFIG_H = config.h
-
+SRC = led.c
 
 # MCU name
 MCU = atmega32u2
@@ -121,13 +107,6 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 #NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
 
-
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
-
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
-
-include $(TOP_DIR)/quantum/quantum.mk
+ifndef QUANTUM_DIR
+	include $(TOP_DIR)/Makefile
+endif
