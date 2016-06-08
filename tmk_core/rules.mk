@@ -95,11 +95,13 @@ else
 	WARN_STRING=[WARNINGS]
 endif
 
-TAB_LOG = printf "\n$$LOG" | awk '{ sub(/^/," | "); print }'
-AWK_CMD = awk '{ printf "%-69s %-10s\n","$(MSG)", $$1; }'
-PRINT_ERROR = printf "$(ERROR_STRING)\n" | $(AWK_CMD) && $(TAB_LOG) && false
-PRINT_WARNING = printf "$(WARN_STRING)\n" | $(AWK_CMD) && $(TAB_LOG)
-PRINT_OK = printf "$(OK_STRING)\n" | $(AWK_CMD)
+TAB_LOG = printf "\n$$LOG\n\n" | awk '{ sub(/^/," | "); print }'
+AWK_STATUS = awk '{ printf "%-10s\n", $$1; }'
+AWK_CMD = awk '{ printf "%-69s", $$0; }'
+PRINT_ERROR = printf "$(ERROR_STRING)" | $(AWK_STATUS) && $(TAB_LOG) && false
+PRINT_WARNING = printf "$(WARN_STRING)" | $(AWK_STATUS) && $(TAB_LOG)
+PRINT_OK = printf "$(OK_STRING)" | $(AWK_STATUS)
+BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
@@ -399,13 +401,13 @@ ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 # Default target.
 all: 
-	$(MAKE) begin 
-	$(MAKE) gccversion 
-	$(MAKE) sizebefore 
-	$(MAKE) clean_list # force clean each time
-	$(MAKE) build 
-	$(MAKE) sizeafter 
-	$(MAKE) end
+	@$(MAKE) begin 
+	@$(MAKE) gccversion 
+	@$(MAKE) sizebefore 
+	@$(MAKE) clean_list # force clean each time
+	@$(MAKE) build 
+	@$(MAKE) sizeafter 
+	@$(MAKE) end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -548,89 +550,108 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
-	$(eval MSG=$(MSG_FLASH) $@)
-	LOG=$$($(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
-	$(COPY) $@ $(TARGET).hex
+	@printf "$(MSG_FLASH) $@" | $(AWK_CMD)
+	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
+	@$(BUILD_CMD)
+	@$(COPY) $@ $(TARGET).hex
 
 %.eep: %.elf
-	$(eval MSG=$(MSG_EEPROM) $@)
-	LOG=$$($(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
-	--change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
+	@printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
+	$(eval CMD=$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0)
+	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
-	$(eval MSG=$(MSG_EXTENDED_LISTING) $@)
-	LOG=$$($(OBJDUMP) -h -S -z $< > $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
+	@printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
+	$(eval CMD=$(OBJDUMP) -h -S -z $< > $@)
+	@$(BUILD_CMD)
 
 # Create a symbol table from ELF output file.
 %.sym: %.elf
-	$(eval MSG=$(MSG_SYMBOL_TABLE) $@)
-	LOG=$$($(NM) -n $< > $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
+	@printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
+	$(eval CMD=$(NM) -n $< > $@ )
+	@$(BUILD_CMD)
 
 # Create library from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).a
 .PRECIOUS : $(OBJ)
 %.a: $(OBJ)
-	$(eval MSG=$(MSG_CREATING_LIBRARY) $@)
-	LOG=$$($(AR) $@ $(OBJ) 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
-
+	@printf "$(MSG_CREATING_LIBRARY) $@" | $(AWK_CMD)
+	$(eval CMD=$(AR) $@ $(OBJ) )
+	@$(BUILD_CMD)
 
 # Link: create ELF output file from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
 %.elf: $(OBJ)
-	$(eval MSG=$(MSG_LINKING) $@)
-	LOG=$$($(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS) 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
-
+	@printf "$(MSG_LINKING) $@" | $(AWK_CMD)
+	$(eval CMD=$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS))
+	@$(BUILD_CMD)
 
 # Compile: create object files from C source files.
 $(OBJDIR)/%.o : %.c
-	mkdir -p $(@D)
-	$(eval MSG=$(MSG_COMPILING) $<)
-	LOG=$$($(CC) -c $(ALL_CFLAGS) $< -o $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
+	@mkdir -p $(@D)
+	@printf "$(MSG_COMPILING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -c $(ALL_CFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
 $(OBJDIR)/%.o : %.cpp
-	mkdir -p $(@D)
-	$(eval MSG=$(MSG_COMPILING_CPP) $<)
+	@mkdir -p $(@D)
+	@printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
 	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
-
+	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
 %.s : %.c
-	MSG="Assembling: $<"
-	# $(CC) -S $(ALL_CFLAGS) $< -o $@
-	LOG=$$($(CC) -S $(ALL_CFLAGS) $< -o $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
-
+	@printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -S $(ALL_CFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Compile: create assembler files from C++ source files.
 %.s : %.cpp
-	@echo Assembling: $<
-	$(CC) -S $(ALL_CPPFLAGS) $< -o $@
-
+	@printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -S $(ALL_CPPFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
 $(OBJDIR)/%.o : %.S
-	mkdir -p $(@D)
-	$(eval MSG=$(MSG_ASSEMBLING) $<)
-	LOG=$$($(CC) -c $(ALL_ASFLAGS) $< -o $@ 2>&1) ; if [ $$? -eq 1 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
+	@mkdir -p $(@D)
+	@printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -c $(ALL_ASFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Create preprocessed source for use in sending a bug report.
 %.i : %.c
 	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@ 
 
-
 # Target: clean project.
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) -rd $(TOP_DIR)/$(BUILD_DIR)
-	$(REMOVE) -rd $(KEYBOARD_PATH)/$(BUILD_DIR)
-	$(REMOVE) -rd $(KEYMAP_PATH)/$(BUILD_DIR)
+	$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
+	$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
+	$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
+
+SUBDIRS_DEFAULTS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
+
+all-keyboards-defaults:
+	@for x in $(SUBDIRS_DEFAULTS) ; do \
+		printf "Compiling with default: $$x" | $(AWK_CMD); \
+		LOG=$$($(MAKE) -C $$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
+	done
+
+SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/keymaps/*/.)))
+
+all-keyboards:
+	@for x in $(SUBDIRS) ; do \
+		printf "Compiling: $$x" | $(AWK_CMD); \
+		LOG=$$($(MAKE) -C $$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
+	done
 
 # Create build directory
 $(shell mkdir $(BUILD_DIR) 2>/dev/null)
@@ -647,4 +668,5 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start
+program teensy dfu flip dfu-ee flip-ee dfu-start \
+all-keyboards-defaults all-keyboards
