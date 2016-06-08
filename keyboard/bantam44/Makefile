@@ -38,27 +38,10 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TARGET = Bantam44
-
-
 # Directory common source filess exist
-TOP_DIR = ../..
-TMK_DIR = ../../tmk_core
+TOP_DIR ?= ../..
+KEYBOARD_DIR = bantam44
 
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
-# # project specific files
-SRC = Bantam44.c
-
-ifdef KEYMAP
-    SRC := keymaps/$(KEYMAP).c $(SRC)
-else
-    SRC := keymaps/default.c $(SRC)
-endif
-
-CONFIG_H = config.h
 
 # MCU name
 #MCU = at90usb1287
@@ -126,14 +109,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 # UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
-
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
-
-include $(TOP_DIR)/quantum/quantum.mk
+ifndef QUANTUM_DIR
+	include $(TOP_DIR)/Makefile
+endif
 
