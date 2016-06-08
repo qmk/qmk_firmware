@@ -39,26 +39,8 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET = arrow_pad
-
-
-# Directory common source filess exist
-TOP_DIR = ../..
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
-# # project specific files
-SRC = arrow_pad.c
-
-ifdef KEYMAP
-    SRC := keymaps/$(KEYMAP).c $(SRC)
-else
-    SRC := keymaps/default.c $(SRC)
-endif
-
-CONFIG_H = config.h
+TOP_DIR ?= ../..
+KEYBOARD_DIR = arrow_pad
 
 # MCU name
 #MCU = at90usb1287
@@ -129,30 +111,6 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 
-
-ifdef KEYMAP
-
-ifeq ("$(wildcard keymaps/$(KEYMAP).c)","")
-ifneq ("$(wildcard keymaps/$(KEYMAP)/makefile.mk)","")
-    include keymaps/$(KEYMAP)/makefile.mk
-endif 
+ifndef QUANTUM_DIR
+	include $(TOP_DIR)/Makefile
 endif
-
-else
-
-ifneq ("$(wildcard keymaps/default/makefile.mk)","")
-    include keymaps/default/makefile.mk
-endif
-
-endif
-
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
-
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
-
-include $(TOP_DIR)/quantum/quantum.mk
-

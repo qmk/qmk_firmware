@@ -80,20 +80,19 @@ DEBUG = dwarf-2
 
 COLOR?=true
 
-NO_COLOR=\033[0m
-OK_COLOR=\033[32;01m
-ERROR_COLOR=\033[31;01m
-WARN_COLOR=\033[33;01m
-
 ifeq ($(COLOR),true)
-	OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
-	ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
-	WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
-else
-	OK_STRING=[OK]
-	ERROR_STRING=[ERRORS]
-	WARN_STRING=[WARNINGS]
+	NO_COLOR=\033[0m
+	OK_COLOR=\033[32;01m
+	ERROR_COLOR=\033[31;01m
+	WARN_COLOR=\033[33;01m
+	BLUE=\033[0;34m
+	BOLD=\033[1m
 endif
+
+OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
+ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
+WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
+
 
 TAB_LOG = printf "\n$$LOG\n\n" | awk '{ sub(/^/," | "); print }'
 AWK_STATUS = awk '{ printf "%-10s\n", $$1; }'
@@ -637,20 +636,21 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS_DEFAULTS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
-
+SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
 all-keyboards-defaults:
-	@for x in $(SUBDIRS_DEFAULTS) ; do \
+	@for x in $(SUBDIRS) ; do \
 		printf "Compiling with default: $$x" | $(AWK_CMD); \
 		LOG=$$($(MAKE) -C $$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
 	done
 
-SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/keymaps/*/.)))
-
-all-keyboards:
-	@for x in $(SUBDIRS) ; do \
-		printf "Compiling: $$x" | $(AWK_CMD); \
-		LOG=$$($(MAKE) -C $$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
+KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboard/%/=/keyboard/%)
+all-keyboards: $(KEYBOARDS)
+/keyboard/%:
+	$(eval KEYBOARD=$(patsubst /keyboard/%,%,$@))
+	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
+	@for x in $(KEYMAPS) ; do \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | awk '{ printf "%-88s", $$0; }'; \
+		LOG=$$($(MAKE) -C $(TOP_DIR)$@ keymap=$$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
 	done
 
 # Create build directory
@@ -669,4 +669,4 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
-all-keyboards-defaults all-keyboards
+all-keyboards-defaults all-keyboards all-keyboards-maybe
