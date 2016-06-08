@@ -653,6 +653,13 @@ all-keyboards: $(KEYBOARDS)
 		LOG=$$($(MAKE) -C $(TOP_DIR)$@ keymap=$$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
 	done
 
+all-keymaps:
+	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboard/$(KEYBOARD)/keymaps/*/.))))
+	@for x in $(KEYMAPS) ; do \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | awk '{ printf "%-88s", $$0; }'; \
+		LOG=$$($(MAKE) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi; \
+	done
+
 # Create build directory
 $(shell mkdir $(BUILD_DIR) 2>/dev/null)
 
@@ -669,4 +676,4 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
-all-keyboards-defaults all-keyboards all-keyboards-maybe
+all-keyboards-defaults all-keyboards all-keymaps
