@@ -19,7 +19,7 @@ else
 		KEYBOARD = $(keyboard)
 	endif
 	ifndef KEYBOARD
-$(error Please specify a keyboard with keyboard=<keyboard>)
+		KEYBOARD=planck
 	endif
 	KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)
 	ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
