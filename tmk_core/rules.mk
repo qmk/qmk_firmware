@@ -95,7 +95,7 @@ WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
 
 
 TAB_LOG = printf "\n$$LOG\n\n" | awk '{ sub(/^/," | "); print }'
-AWK_STATUS = awk '{ printf "%-10s\n", $$1; }'
+AWK_STATUS = awk '{ printf " %-10s\n", $$1; }'
 AWK_CMD = awk '{ printf "%-69s", $$0; }'
 PRINT_ERROR = printf "$(ERROR_STRING)" | $(AWK_STATUS) && $(TAB_LOG) && false
 PRINT_WARNING = printf "$(WARN_STRING)" | $(AWK_STATUS) && $(TAB_LOG)
@@ -409,7 +409,8 @@ all:
 	@$(MAKE) end
 
 # Change the build target to build a HEX file or a library.
-build: elf hex eep lss sym
+build: elf hex
+#build: elf hex eep lss sym
 #build: lib
 
 
@@ -553,6 +554,14 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
 	@$(COPY) $@ $(TARGET).hex
+	@if [ $(KEYBOARD) = "ergodox_ez" ]; then \
+		printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYMAP).hex" | $(AWK_CMD); \
+		$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/$(KEYMAP).hex) \
+	else \
+		printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex" | $(AWK_CMD); \
+		$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/compiled.hex) \
+	fi
+	@$(BUILD_CMD)
 
 %.eep: %.elf
 	@printf "$(MSG_EEPROM) $@" | $(AWK_CMD)

@@ -3,7 +3,9 @@ keyboard/planck/dfu-programmer.exe
 *.o
 *.eep
 *.elf
-*.hex
+/*.hex
+/keyboard/**/*.hex
+!/keyboard/**/keymaps/**/*.hex
 *.log
 *.lss
 *.lst

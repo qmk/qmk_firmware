@@ -27,7 +27,7 @@
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
 #                (must have Atmel FLIP installed).
 #
-# make debug = Start either simulavr or avarice as specified for debugging,
+# make debug = Start either simulavr or avarice as specified for debugging, 
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -40,10 +40,7 @@
 
 # Target file name (without extension).
 TOP_DIR ?= ../..
-KEYBOARD_DIR = hhkb
-
-# project specific files
-SRC = matrix.c
+KEYBOARD_DIR = kc60
 
 # MCU name
 #MCU = at90usb1287
@@ -92,37 +89,30 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-#OPT_DEFS += -DBOOTLOADER_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-# as per original hasu settings
-OPT_DEFS += -DBOOTLOADER_SIZE=512
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
-CONSOLE_ENABLE ?= yes	# Console for debug(+400)
-COMMAND_ENABLE ?= yes    # Commands for debug and configuration
-CUSTOM_MATRIX    ?= yes # Custom matrix file for the HHKB
+BOOTMAGIC_ENABLE ?= yes      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes       # Audio control and System control(+450)
+CONSOLE_ENABLE ?= yes        # Console for debug(+400)
+COMMAND_ENABLE ?= yes        # Commands for debug and configuration
+KEYBOARD_LOCK_ENABLE ?= yes  # Allow locking of keyboard via magic key
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
-# NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-# BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE ?= YES		# MIDI controls
-# UNICODE_ENABLE ?= YES		# Unicode
-# BLUETOOTH_ENABLE ?= yes # Enable Bluetooth with the Adafruit EZ-Key HID
-
+SLEEP_LED_ENABLE ?= no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE ?= no            # USB Nkey Rollover
+BACKLIGHT_ENABLE ?= yes      # Enable keyboard backlight functionality
+MIDI_ENABLE ?= no            # MIDI controls
+UNICODE_ENABLE ?= no         # Unicode
+BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE ?= no           # Audio output on port C6
 
 
 ifndef QUANTUM_DIR
 	include $(TOP_DIR)/Makefile
 endif
 
-debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
-debug-on: all
-
-debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
-debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
-debug-off: all
