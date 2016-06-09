@@ -38,10 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TOP_DIR ?= ../..
-KEYBOARD_DIR = hhkb
-
 # project specific files
 SRC = matrix.c
 
@@ -117,7 +113,7 @@ CUSTOM_MATRIX    ?= yes # Custom matrix file for the HHKB
 
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
 
 debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION

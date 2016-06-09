@@ -38,11 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = atreus
-
 ifdef TEENSY2
     OPT_DEFS += -DATREUS_TEENSY2
     ATRUES_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
@@ -119,7 +114,7 @@ UNICODE_ENABLE ?= YES 		# Unicode
 # BLUETOOTH_ENABLE ?= yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
 
 USB ?= /dev/cu.usbmodem1411

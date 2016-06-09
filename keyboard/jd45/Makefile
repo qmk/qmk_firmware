@@ -38,10 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TOP_DIR ?= ../..
-KEYBOARD_DIR = jd45
-
 # # project specific files
 SRC = backlight.c 
 
@@ -112,6 +108,5 @@ MIDI_ENABLE ?= YES 		# MIDI controls
 BLUETOOTH_ENABLE ?= yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
-

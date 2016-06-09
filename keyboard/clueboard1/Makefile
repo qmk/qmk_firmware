@@ -38,10 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = clueboard1
-
 # # project specific files
 SRC = led.c
 
@@ -110,5 +106,5 @@ UNICODE_ENABLE ?= no 		# Unicode
 BLUETOOTH_ENABLE ?= no # Enable Bluetooth with the Adafruit EZ-Key HID
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif

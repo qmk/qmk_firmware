@@ -38,10 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = retro_refit
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -111,6 +107,6 @@ NKRO_ENABLE ?= yes			# USB Nkey Rollover - if this doesn't work, see here: https
 
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
 

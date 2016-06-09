@@ -40,10 +40,6 @@
 
 # Target file name (without extension).
 
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = alps64
-
 # project specific files
 SRC = led.c
 
@@ -108,5 +104,5 @@ COMMAND_ENABLE ?= yes    # Commands for debug and configuration
 #NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif

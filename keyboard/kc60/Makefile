@@ -38,10 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TOP_DIR ?= ../..
-KEYBOARD_DIR = kc60
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -113,6 +109,6 @@ AUDIO_ENABLE ?= no           # Audio output on port C6
 
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
 

@@ -37,12 +37,6 @@
 #
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
-
-
-# Directory common source filess exist
-TOP_DIR ?= ../../../..
-KEYMAP_DIR = $(notdir $(CURDIR))
-
 # Build Options
 #   change to "no" to disable the options, or define them in the makefile.mk in 
 #   the appropriate keymap folder that will get included automatically
@@ -63,8 +57,6 @@ RGBLIGHT_ENABLE  = no  # Enable WS2812 RGB underlight.  Do not enable this with 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 
-CONFIG_H = keymaps/$(KEYMAP)/config.h
-
-ifndef KEYBOARD_DIR
-	include ../../Makefile
+ifndef QUANTUM_DIR
+	include ../../../../Makefile
 endif

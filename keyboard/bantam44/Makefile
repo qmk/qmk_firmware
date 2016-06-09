@@ -38,11 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = bantam44
-
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -110,6 +105,6 @@ COMMAND_ENABLE ?= yes    # Commands for debug and configuration
 # BLUETOOTH_ENABLE ?= yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
 

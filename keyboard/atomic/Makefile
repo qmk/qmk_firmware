@@ -38,11 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = atomic
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -112,5 +107,5 @@ RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif

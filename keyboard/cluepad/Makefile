@@ -38,10 +38,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Directory common source filess exist
-TOP_DIR ?= ../..
-KEYBOARD_DIR = cluepad
-
 # # project specific files
 SRC = backlight.c
 
@@ -112,5 +108,5 @@ RGBLIGHT_ENABLE ?= yes
 
 
 ifndef QUANTUM_DIR
-	include $(TOP_DIR)/Makefile
+	include ../../Makefile
 endif
