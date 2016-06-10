@@ -551,13 +551,8 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
 	@$(COPY) $@ $(TARGET).hex
-	@if [ $(KEYBOARD) = "ergodox_ez" ]; then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYMAP).hex" | $(AWK_CMD); \
-		$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/$(KEYMAP).hex) \
-	else \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex" | $(AWK_CMD); \
-		$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/compiled.hex) \
-	fi
+	$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex" | $(AWK_CMD)
+	$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/compiled.hex)
 	@$(BUILD_CMD)
 
 %.eep: %.elf
