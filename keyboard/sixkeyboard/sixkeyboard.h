@@ -1,5 +1,5 @@
-#ifndef SIX_KEY_H
-#define SIX_KEY_H
+#ifndef SIXKEYBOARD_H
+#define SIXKEYBOARD_H
 
 #include "quantum.h"
 
