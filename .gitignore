@@ -28,3 +28,7 @@ CMakeLists.txt
 .project
 .settings/
 .idea
+
+keyboard/ergodox_ez/keymaps/bepo/bepo.hex
+
+keyboard/ergodox_ez/keymaps/techtomas/techtomas.hex
