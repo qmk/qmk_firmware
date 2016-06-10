@@ -24,6 +24,7 @@ env:
   - KEYBOARD=planck
   - KEYBOARD=preonic
   - KEYBOARD=retro_refit
+  - KEYBOARD=sixkeyboard
 
 script:
   - cd keyboard/$KEYBOARD && make all-keymaps
