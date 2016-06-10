@@ -40,9 +40,9 @@ endif
 KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)
 ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
 	KEYBOARD_FILE = $(KEYBOARD).c
-	# ifndef ARCH
-		-include $(KEYBOARD_PATH)/Makefile
-	# endif
+	ifndef ARCH
+		include $(KEYBOARD_PATH)/Makefile
+	endif
 else 
 $(error "$(KEYBOARD_PATH)/$(KEYBOARD).c" does not exist)
 endif
