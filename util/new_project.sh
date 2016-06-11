@@ -12,12 +12,13 @@ KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
 
 mkdir keyboard/$1
 mkdir keyboard/$1/keymaps
+mkdir keyboard/$1/keymaps/default
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" -e "s;%KEYBOARD_UPPERCASE%;$KEYBOARD_UPPERCASE;g" quantum/template/template.h > keyboard/$KEYBOARD/$KEYBOARD.h
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/template.c > keyboard/$KEYBOARD/$KEYBOARD.c
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboard/$KEYBOARD/config.h
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/README.md > keyboard/$KEYBOARD/README.md
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboard/$KEYBOARD/Makefile
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default.c > keyboard/$KEYBOARD/keymaps/default.c
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/keymap.c > keyboard/$KEYBOARD/keymaps/default/keymap.c
 
 echo "######################################################"
 echo "# keyboard/$KEYBOARD project created. To start"

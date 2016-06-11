@@ -18,16 +18,16 @@ env:
   - KEYBOARD=cluepad
   - KEYBOARD=ergodox_ez
   - KEYBOARD=gh60
-  - KEYBOARD=gh60_rev_c
   - KEYBOARD=hhkb
   - KEYBOARD=jd45
-  - KEYBOARD=kc60_v2
+  - KEYBOARD=kc60
   - KEYBOARD=planck
   - KEYBOARD=preonic
   - KEYBOARD=retro_refit
+  - KEYBOARD=sixkeyboard
 
 script:
-  - cd keyboard/$KEYBOARD && make
+  - cd keyboard/$KEYBOARD && make all-keymaps
 
 addons:
   apt:
