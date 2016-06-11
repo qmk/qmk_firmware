@@ -405,6 +405,15 @@ all:
 	@$(MAKE) sizeafter 
 	@$(MAKE) end
 
+# Quick make that doesn't clean
+quick: 
+	@$(MAKE) begin 
+	@$(MAKE) gccversion 
+	@$(MAKE) sizebefore 
+	@$(MAKE) build 
+	@$(MAKE) sizeafter 
+	@$(MAKE) end
+
 # Change the build target to build a HEX file or a library.
 build: elf hex
 #build: elf hex eep lss sym
@@ -443,8 +452,8 @@ sizebefore:
 sizeafter:
 	@if test -f $(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
 	2>/dev/null; $(SECHO); fi
-
-
+	# test file sizes eventually
+	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | awk 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
 
 # Display compiler version information.
 gccversion : 
@@ -673,7 +682,7 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all begin finish end sizebefore sizeafter gccversion \
+.PHONY : all quick begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
