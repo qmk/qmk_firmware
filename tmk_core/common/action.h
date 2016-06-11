@@ -46,18 +46,14 @@ typedef struct {
 #endif
 } keyrecord_t;
 
-/* Execute action per keyevent */
+/* processes key events */
 void action_exec(keyevent_t event);
-
-/* action for key */
+/* gets the action associated with a key */
 action_t action_for_key(uint8_t layer, keypos_t key);
-
-/* macro */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
-
-/* user defined special function */
+/* returns macros */
+const macro_t * action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
+/* executes custom code */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
-
 /* keyboard-specific key event (pre)processing */
 bool process_record_quantum(keyrecord_t *record);
 

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "keyboard.h"
 #include "matrix.h"
-#include "keymap.h"
 #include "host.h"
 #include "led.h"
 #include "keycode.h"
@@ -29,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "backlight.h"
+#include "action.h"
 #ifdef BOOTMAGIC_ENABLE
 #   include "bootmagic.h"
 #else

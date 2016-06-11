@@ -113,7 +113,6 @@ Files and Directories
 * host_driver.h
 * keyboard.h
 * command.h
-* keymap.h
 * action.h
 * keycode.h
 * matrix.h

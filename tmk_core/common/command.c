@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "keycode.h"
 #include "host.h"
-#include "keymap.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -156,11 +155,7 @@ static void command_common_help(void)
 #ifdef KEYBOARD_LOCK_ENABLE
 		STR(MAGIC_KEY_LOCK        ) ":	Lock\n"
 #endif
-
-#ifdef BOOTMAGIC_ENABLE
 		STR(MAGIC_KEY_EEPROM      ) ":	Print EEPROM Settings\n"
-#endif
-
 #ifdef NKRO_ENABLE
 		STR(MAGIC_KEY_NKRO        ) ":	NKRO Toggle\n"
 #endif
@@ -253,7 +248,6 @@ static void print_status(void)
 	return;
 }
 
-#ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
 #ifndef NO_PRINT
@@ -290,7 +284,6 @@ static void print_eeconfig(void)
 #endif /* !NO_PRINT */
 
 }
-#endif /* BOOTMAGIC_ENABLE */
 
 static bool command_common(uint8_t code)
 {
@@ -311,14 +304,12 @@ static bool command_common(uint8_t code)
             break;
 #endif
 
-#ifdef BOOTMAGIC_ENABLE
 
 		// print stored eeprom config
         case MAGIC_KC(MAGIC_KEY_EEPROM):
             print("eeconfig:\n");
             print_eeconfig();
             break;
-#endif
 
 #ifdef KEYBOARD_LOCK_ENABLE
 

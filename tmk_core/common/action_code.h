@@ -206,6 +206,8 @@ enum mods_bit {
     MOD_RSFT = 0x12,
     MOD_RALT = 0x14,
     MOD_RGUI = 0x18,
+    MOD_HYPR = MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI,
+    MOD_MEH = MOD_LCTL | MOD_LSFT | MOD_LALT
 };
 enum mods_codes {
     MODS_ONESHOT = 0x00,
@@ -232,7 +234,7 @@ enum usage_pages {
 
 
 
-/* 
+/*
  * Layer Actions
  */
 enum layer_param_on {
