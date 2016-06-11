@@ -1,6 +1,7 @@
 #ifndef QUANTUM_H
 #define QUANTUM_H
 
+#include <avr/pgmspace.h>
 #include "matrix.h"
 #include "keymap_common.h"
 #ifdef BACKLIGHT_ENABLE
@@ -23,6 +24,9 @@
 #include "eeconfig.h"
 #include <stddef.h>
 #include <avr/io.h>
+#include <util/delay.h>
+
+#define SEND_STRING(str) send_string(PSTR(str))
 
 extern uint32_t default_layer_state;
 
@@ -58,9 +62,14 @@ extern uint32_t default_layer_state;
 	#define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif
 
+void send_string(const char *str);
+
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 bool process_action_kb(keyrecord_t *record);
+bool process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
+
 
 bool is_music_on(void);
 void music_toggle(void);

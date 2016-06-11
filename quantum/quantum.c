@@ -13,6 +13,16 @@ bool process_action_kb(keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  return process_record_user(keycode, record);
+}
+
+__attribute__ ((weak))
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+__attribute__ ((weak))
 void leader_start(void) {}
 
 __attribute__ ((weak))
@@ -20,6 +30,7 @@ void leader_end(void) {}
 
 uint8_t starting_note = 0x0C;
 int offset = 7;
+
 
 #ifdef AUDIO_ENABLE
   bool music_activated = false;
@@ -58,6 +69,8 @@ uint8_t chord_key_down = 0;
 #ifdef UNICODE_ENABLE
   static uint8_t input_mode;
 #endif
+
+static bool shift_interrupted[2] = {0, 0};
 
 bool keys_chord(uint8_t keys[]) {
   uint8_t keys_size = sizeof(keys)/sizeof(keys[0]);
@@ -120,6 +133,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #else
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
+
+  if (!process_record_kb(keycode, record))
+    return false;
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -271,14 +287,14 @@ bool process_record_quantum(keyrecord_t *record) {
         music_sequence_count = 0;
         return false;
       }
-    
+
       if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
         stop_all_notes();
         music_sequence_recording = false;
         music_sequence_playing = false;
         return false;
       }
-    
+
       if (keycode == KC_LGUI && record->event.pressed) { // Start playing
         stop_all_notes();
         music_sequence_recording = false;
@@ -293,7 +309,7 @@ bool process_record_quantum(keyrecord_t *record) {
             music_sequence_interval-=10;
         return false;
       }
-    
+
       if (keycode == KC_DOWN) {
         if (record->event.pressed)
             music_sequence_interval+=10;
@@ -415,8 +431,150 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #endif
 
+  switch(keycode) {
+    case KC_LSPO: {
+                    if (record->event.pressed) {
+                      shift_interrupted[0] = false;
+                      register_mods(MOD_BIT(KC_LSFT));
+                    }
+                    else {
+                      if (!shift_interrupted[0]) {
+                        register_code(KC_9);
+                        unregister_code(KC_9);
+                      }
+                      unregister_mods(MOD_BIT(KC_LSFT));
+                    }
+                    return false;
+                    break;
+                  }
+
+    case KC_RSPC: {
+                    if (record->event.pressed) {
+                      shift_interrupted[1] = false;
+                      register_mods(MOD_BIT(KC_RSFT));
+                    }
+                    else {
+                      if (!shift_interrupted[1]) {
+                        register_code(KC_0);
+                        unregister_code(KC_0);
+                      }
+                      unregister_mods(MOD_BIT(KC_RSFT));
+                    }
+                    return false;
+                    break;
+                  }
+    default: {
+               shift_interrupted[0] = true;
+               shift_interrupted[1] = true;
+               break;
+             }
+  }
+
   return process_action_kb(record);
 }
+
+const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 0,
+    1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0
+};
+
+const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
+    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
+    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
+    KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+};
+
+/* for users whose OSes are set to Colemak */
+#if 0
+#include "keymap_colemak.h"
+
+const bool ascii_to_colemak_shift_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 0,
+    1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0
+};
+
+const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
+    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, CM_SCLN, CM_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
+    KC_2, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
+    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
+    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
+    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
+    KC_GRV, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
+    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
+    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
+    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+};
+
+#endif
+
+void send_string(const char *str) {
+    while (1) {
+        uint8_t keycode;
+        uint8_t ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
+        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
+            register_code(KC_LSFT);
+            register_code(keycode);
+            unregister_code(keycode);
+            unregister_code(KC_LSFT);
+        }
+        else {
+            register_code(keycode);
+            unregister_code(keycode);
+        }
+        ++str;
+    }
+}
+
 
 void matrix_init_quantum() {
   matrix_init_kb();
@@ -463,7 +621,7 @@ void matrix_scan_quantum() {
 #endif
 
 //------------------------------------------------------------------------------
-// Override these functions in your keymap file to play different tunes on 
+// Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
 __attribute__ ((weak))
