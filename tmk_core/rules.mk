@@ -482,6 +482,16 @@ endif
 	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	dfu-programmer $(MCU) reset
+
+dfu-no-build:
+ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
+	dfu-programmer $(MCU) erase --force
+else
+	dfu-programmer $(MCU) erase
+endif
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash $(KEYMAP_PATH)/compiled.hex
+	dfu-programmer $(MCU) reset
 	
 dfu-start:
 	dfu-programmer $(MCU) reset

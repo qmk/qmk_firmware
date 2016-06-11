@@ -39,7 +39,7 @@ ifndef KEYBOARD
 endif
 KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)
 ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
-	KEYBOARD_FILE = $(KEYBOARD).c
+	KEYBOARD_FILE = keyboard/$(KEYBOARD)/$(KEYBOARD).c
 	ifndef ARCH
 		include $(KEYBOARD_PATH)/Makefile
 	endif
@@ -58,7 +58,7 @@ ifndef KEYMAP
 endif
 KEYMAP_PATH = $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
 ifneq ("$(wildcard $(KEYMAP_PATH)/keymap.c)","")
-	KEYMAP_FILE = keymaps/$(KEYMAP)/keymap.c
+	KEYMAP_FILE = keyboard/$(KEYBOARD)/keymaps/$(KEYMAP)/keymap.c
 	-include $(KEYMAP_PATH)/Makefile
 else 
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
