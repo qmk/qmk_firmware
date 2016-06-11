@@ -1,5 +1,14 @@
 #include "quantum.h"
 #include "timer.h"
+#include "debug.h"
+#include "bootloader.h"
+#ifdef BOOTMAGIC_ENABLE
+#   include "bootmagic.h"
+#else
+#   include "magic.h"
+#endif
+
+static void process_magic_code(uint16_t code);
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {}
@@ -144,7 +153,32 @@ bool process_record_quantum(keyrecord_t *record) {
     //   process_action(record, action);
     //   return false;
     // }
-
+    switch (keycode) {
+    case RESET:
+        if (record->event.pressed) {
+            clear_keyboard();
+#ifdef AUDIO_ENABLE
+            stop_all_notes();
+            shutdown_user();
+#endif
+#ifdef ATREUS_ASTAR
+            *(uint16_t *)0x800 = 0x7777;
+#endif
+            bootloader_jump();
+        }
+        return false;
+    case DEBUG:
+        if (record->event.pressed) {
+            debug_enable = true;
+            dprintln("Debugging messages have been enabled.");
+        }
+        return false;
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_UNSWAP_ALT_GUI:
+        if (record->event.pressed) {
+            process_magic_code(keycode);
+        }
+        return false;
+    }
   #ifdef MIDI_ENABLE
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
@@ -513,6 +547,7 @@ const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
 
 /* for users whose OSes are set to Colemak */
 #if 0
+
 #include "keymap_colemak.h"
 
 const bool ascii_to_colemak_shift_lut[0x80] PROGMEM = {
@@ -640,3 +675,24 @@ __attribute__ ((weak))
 void music_scale_user() {}
 
 //------------------------------------------------------------------------------
+
+/* keymap configuration */
+static void process_magic_code(uint16_t code) {
+    switch (code) {
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_HOST_NKRO:
+        keymap_config.raw |= _BV(code - MAGIC_SWAP_CONTROL_CAPSLOCK);
+        break;
+    case MAGIC_SWAP_ALT_GUI:
+        keymap_config.swap_lalt_lgui = 1;
+        keymap_config.swap_ralt_rgui = 1;
+        break;
+    case MAGIC_UNSWAP_CONTROL_CAPSLOCK ... MAGIC_UNHOST_NKRO:
+        keymap_config.raw &= ~_BV(code - MAGIC_UNSWAP_CONTROL_CAPSLOCK);
+        break;
+    case MAGIC_UNSWAP_ALT_GUI:
+        keymap_config.swap_lalt_lgui = 0;
+        keymap_config.swap_ralt_rgui = 0;
+        break;
+    }
+    eeconfig_update_keymap(keymap_config.raw);
+}

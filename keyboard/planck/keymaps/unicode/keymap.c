@@ -27,8 +27,11 @@
   #include "audio.h"
 #endif
 #include "eeconfig.h"
-
-extern keymap_config_t keymap_config;
+#ifdef BOOTMAGIC_ENABLE
+#   include "bootmagic.h"
+#else
+#   include "magic.h"
+#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -322,5 +325,3 @@ void play_goodbye_tone()
   _delay_ms(150);
 }
 #endif
-
-

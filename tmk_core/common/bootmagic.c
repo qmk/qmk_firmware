@@ -4,12 +4,13 @@
 #include "matrix.h"
 #include "bootloader.h"
 #include "debug.h"
-#include "keymap.h"
+#include "keymap_common.h"
 #include "host.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootmagic.h"
 
+keymap_config_t keymap_config;
 
 void bootmagic(void)
 {
