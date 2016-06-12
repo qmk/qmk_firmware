@@ -12,13 +12,19 @@ ifneq (,$(findstring /keyboard/,$(starting_makefile)))
 		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
 		KEYMAP_DIR:=$(lastword $(subst /keymaps/, ,$(possible_keyboard)))
 	else
-		KEYBOARD_DIR:=$(possible_keyboard)
+		ifneq (,$(findstring /,$(possible_keyboard)))
+			KEYBOARD_DIR:=$(firstword $(subst /, ,$(possible_keyboard)))
+			SUBPROJECT_DIR:=$(lastword $(subst /, ,$(possible_keyboard)))
+		else
+			KEYBOARD_DIR:=$(possible_keyboard)
+		endif
 		KEYMAP_DIR:=default
 	endif
 endif
 
 # $(info $(KEYBOARD_DIR))
 # $(info $(KEYMAP_DIR))
+# $(info $(SUBPROJECT_DIR))
 
 # Directory common source filess exist
 TOP_DIR = $(tmk_root)

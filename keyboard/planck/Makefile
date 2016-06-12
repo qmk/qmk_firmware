@@ -38,6 +38,8 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+SUBPROJECT_DEFAULT = planck/rev4
+
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
