@@ -11,10 +11,6 @@ void matrix_scan_user(void) {
 }
 
 void matrix_init_kb(void) {
-	#ifdef RGBLIGHT_ENABLE
-		rgblight_init();
-	#endif
-
 	matrix_init_user();
 }
 
