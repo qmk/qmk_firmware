@@ -648,9 +648,10 @@ $(OBJDIR)/%.o : %.S
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
-	$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
-	$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
+	@$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
+	@$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
+	@if $(SUBPROJECT); then $(REMOVE) -r $(SUBPROJECT_PATH)/$(BUILD_DIR); fi  
+	@$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:
 	@echo VPATH=$(VPATH)

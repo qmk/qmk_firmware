@@ -12,12 +12,7 @@ ifneq (,$(findstring /keyboard/,$(starting_makefile)))
 		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
 		KEYMAP_DIR:=$(lastword $(subst /keymaps/, ,$(possible_keyboard)))
 	else
-		ifneq (,$(findstring /,$(possible_keyboard)))
-			KEYBOARD_DIR:=$(firstword $(subst /, ,$(possible_keyboard)))
-			SUBPROJECT_DIR:=$(lastword $(subst /, ,$(possible_keyboard)))
-		else
-			KEYBOARD_DIR:=$(possible_keyboard)
-		endif
+		KEYBOARD_DIR:=$(possible_keyboard)
 		KEYMAP_DIR:=default
 	endif
 endif
@@ -34,6 +29,7 @@ TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
 QUANTUM_DIR = quantum
 QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
 
+
 ifdef keyboard
 	KEYBOARD ?= $(keyboard)
 endif
@@ -43,6 +39,16 @@ endif
 ifndef KEYBOARD
 	KEYBOARD=planck
 endif
+
+ifdef SUBPROJECT_DEFAULT
+	SUBPROJECT=$(SUBPROJECT_DEFAULT)
+endif
+ifneq (,$(findstring /,$(KEYBOARD)))
+	TEMP:=$(KEYBOARD)
+	KEYBOARD:=$(firstword $(subst /, ,$(TEMP)))
+	SUBPROJECT:=$(lastword $(subst /, ,$(TEMP)))
+endif
+
 KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)
 ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
 	KEYBOARD_FILE = keyboard/$(KEYBOARD)/$(KEYBOARD).c
@@ -51,6 +57,16 @@ ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
 	endif
 else 
 $(error "$(KEYBOARD_PATH)/$(KEYBOARD).c" does not exist)
+endif
+
+ifdef SUBPROJECT
+	SUBPROJECT_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)/$(SUBPROJECT)
+	ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
+		SUBPROJECT_FILE = keyboard/$(KEYBOARD)/$(SUBPROJECT)/$(SUBPROJECT).c
+		-include $(SUBPROJECT_PATH)/Makefile
+	else 
+$(error "$(SUBPROJECT_PATH)/$(SUBPROJECT).c" does not exist)
+	endif
 endif
 
 ifdef keymap
@@ -70,12 +86,23 @@ else
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 endif
 
-TARGET = $(KEYBOARD)_$(KEYMAP)
+ifdef SUBPROJECT
+	TARGET = $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
+else
+	TARGET = $(KEYBOARD)_$(KEYMAP)
+endif
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
 else
 	CONFIG_H = $(KEYBOARD_PATH)/config.h
+endif
+
+
+ifdef SUBPROJECT
+	ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
+		CONFIG_H = $(SUBPROJECT_PATH)/config.h
+	endif
 endif
 
 # # project specific files
@@ -84,6 +111,10 @@ SRC += $(KEYBOARD_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/led.c
+
+ifdef SUBPROJECT
+	SRC += $(SUBPROJECT_FILE)
+endif
 
 ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
@@ -106,6 +137,9 @@ endif
 
 # Search Path
 VPATH += $(KEYMAP_PATH)
+ifdef SUBPROJECT
+	VPATH += $(SUBPROJECT_PATH)
+endif
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(TOP_DIR)
 VPATH += $(TMK_PATH)
