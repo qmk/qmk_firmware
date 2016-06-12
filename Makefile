@@ -4,19 +4,22 @@ endif
 
 starting_makefile := $(abspath $(firstword $(MAKEFILE_LIST)))
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
+abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
 
 ifneq (,$(findstring /keyboard/,$(starting_makefile)))
-	possible_keyboard:=$(patsubst %/,%,$(dir $(patsubst $(tmk_root)/keyboard/%,%,$(starting_makefile))))
+	possible_keyboard:=$(patsubst %/,%,$(dir $(patsubst $(abs_tmk_root)/keyboard/%,%,$(starting_makefile))))
 	ifneq (,$(findstring /keymaps/,$(possible_keyboard)))
 		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
 		KEYMAP_DIR:=$(lastword $(subst /keymaps/, ,$(possible_keyboard)))
+		tmk_root = ../../../..
 	else
 		KEYBOARD_DIR:=$(possible_keyboard)
 		KEYMAP_DIR:=default
+		tmk_root = ../..
 	endif
+else
+	tmk_root = .
 endif
-
 # $(info $(KEYBOARD_DIR))
 # $(info $(KEYMAP_DIR))
 
