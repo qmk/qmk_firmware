@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
     #    	  '--name', 'teensy',
     #    	  '--vendorid', '0x16c0',
     #    	  '--productid','0x0478'
-    #		 ] 
+    #		 ]
     # Customize the amount of memory on the VM:
     vb.memory = "512"
   end
@@ -48,8 +48,8 @@ Vagrant.configure(2) do |config|
   # or cores if desired
   config.vm.provider "vmware_workstation" do |vmw|
     # Hide the VMware GUI when booting the machine
-    vmw.gui = false 
- 
+    vmw.gui = false
+
     # Customize the amount of memory on the VM:
     vmw.memory = "512"
   end
@@ -57,32 +57,42 @@ Vagrant.configure(2) do |config|
   config.vm.provider "vmware_fusion" do |vmf|
     # Hide the vmfare GUI when booting the machine
     vmf.gui = false
- 
+
     # Customize the amount of memory on the VM:
     vmf.memory = "512"
   end
-  
+
+  # Docker provider pulls from hub.docker.com respecting docker.image if
+  # config.vm.box is nil. Note that this bind-mounts from the current dir to
+  # /vagrant in the guest, so unless your UID is 1000 to match vagrant in the
+  # image, you'll need to: chmod -R a+rw .
+  config.vm.provider "docker" do |docker, override|
+    override.vm.box = nil
+    docker.image = "jesselang/debian-vagrant:jessie"
+    docker.has_ssh = true
+  end
+
   # This script ensures the required packages for AVR programming are installed
   # It also ensures the system always gets the latest updates when powered on
   # If this causes issues you can run a 'vagrant destroy' and then
   # add a # before ,args: and run 'vagrant up' to get a working
-  # non-updated box and then attempt to troubleshoot or open a Github issue 
-  
-  config.vm.provision "shell", run: "always", path: "avr_setup.sh", args: "-update"
+  # non-updated box and then attempt to troubleshoot or open a Github issue
 
-  config.vm.post_up_message = """
+  config.vm.provision "shell", run: "always", path: "./util/avr_setup.sh", args: "-update"
+
+  config.vm.post_up_message = <<-EOT
   Log into the VM using 'vagrant ssh' on OSX or from Git Bash (Win)
   or 'vagrant ssh-config' and Putty or Bitvise SSH or another SSH tool
 
-  Change directory (cd) to the keyboard you wish to program 
-  (Optionally) modify your layout, 
-  then run 'make clean' 
+  Change directory (cd) to the keyboard you wish to program
+  (Optionally) modify your layout,
+  then run 'make clean'
   and then 'make' to compile the .eep and .hex files.
 
-  Or you can copy and paste the example line below. 
- 
-  cd /vagrant; cd keyboard; cd ergodox_ez; make clean; make
-  
+  Or you can copy and paste the example line below.
 
-  """
+  cd /vagrant; cd keyboard; cd ergodox_ez; make clean; make
+
+
+  EOT
 end

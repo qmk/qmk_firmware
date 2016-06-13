@@ -838,7 +838,10 @@ static void setup_mcu(void)
     wdt_disable();
 
     /* Disable clock division */
-    clock_prescale_set(clock_div_1);
+    // clock_prescale_set(clock_div_1);
+
+    CLKPR = (1 << CLKPCE);
+    CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
 }
 
 static void setup_usb(void)
