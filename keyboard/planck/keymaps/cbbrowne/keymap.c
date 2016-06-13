@@ -2,6 +2,7 @@
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
+#include "config_user.h"
 
 /* Each layer is given a name to aid in readability, which is then
    used in the keymap matrix below.  The underscores do not denote 
@@ -19,26 +20,25 @@
 
 /* Things I did not like about the default mapping 
 
-   - I find control too hard to get to.  I think I'll want it on a
-     left finger.  Gonna need to lose something to do that...
-   - Almost certainly, KC_LCTL should be on [2][1]
-   - having dash on [lower-j] is a bit nonintuitive, but may be OK
+   - I found control too hard to get to.  I use it more than Tab, so
+     switched it there.
+   - Having dash on [lower-j] is a bit nonintuitive, but may be OK
    - I'll bet I should switch ESC/TAB
    - I'm suspicious that I want to shift M(0) from [4][1] to [4][2],
      and shift ESC off the first column so KC_LCTL and KC_LALT can
      be on the first column.
-   - I think I wanna swap ' and ENTER
+   - I needed to swap ' and ENTER
 
    - All of the above are done :-)
 
-   - I'm keeping Colemak and Dvorak around for reference, and added
-     Workman just for fun.  They're useless to me, though.
+   - Dropped out support for Dvorak and friends.  They aren't 
+     improvements to me
 */
 
 
 /* Some interesting things implemented
 
-   - There is a macro that writes out "cbbrowne" just because I could
+   - There is a macro that writes out "cbbrowne" to show that I could
    - There is a (somewhat cruddy) linear congruential random number
      generator.
      - I would like to be seeding it with clock info to make it look
@@ -50,16 +50,15 @@
        of the random number generator
      - in both, note the use of register_code()/unregister_code()
        to indicate the desired key
+   - I do indeed want a sweet number pad!
 */
 
 /* Other things to do...
 
    - Need to think about what zsh and readline actions I use lots
-   - Wanna figure out macros, so I can put in a "cbbrowne" macro
    - Ought to ensure that Control-Alt-Delete is convenient enough
    - How about Alt-F1 thru Alt-F8?
    - What's the keystroke to get from X to console these days?
-   - I do indeed want a sweet number pad!
    - A layer for doing console switching would not be a bad idea
 */
 
@@ -112,9 +111,6 @@ const uint16_t PROGMEM fn_actions[] = {
 /* This bit of logic seeds a wee linear congruential random number generator */
 /* lots of prime numbers everywhere... */
 static uint16_t random_value = 157;
-#define randadd 53
-#define randmul 181
-#define randmod 167
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
