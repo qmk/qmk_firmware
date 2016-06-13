@@ -43,9 +43,6 @@ ifndef KEYBOARD
 	KEYBOARD=planck
 endif
 
-ifdef SUBPROJECT_DEFAULT
-	SUBPROJECT=$(SUBPROJECT_DEFAULT)
-endif
 ifneq (,$(findstring /,$(KEYBOARD)))
 	TEMP:=$(KEYBOARD)
 	KEYBOARD:=$(firstword $(subst /, ,$(TEMP)))
@@ -60,6 +57,17 @@ ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
 	endif
 else 
 $(error "$(KEYBOARD_PATH)/$(KEYBOARD).c" does not exist)
+endif
+
+ifdef sub
+	SUBPROJECT=$(sub)
+endif
+ifdef subproject
+	SUBPROJECT=$(subproject)
+endif
+
+ifdef SUBPROJECT_DEFAULT
+	SUBPROJECT?=$(SUBPROJECT_DEFAULT)
 endif
 
 ifdef SUBPROJECT
@@ -99,14 +107,14 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
 else
 	CONFIG_H = $(KEYBOARD_PATH)/config.h
-endif
-
-
-ifdef SUBPROJECT
-	ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
-		CONFIG_H = $(SUBPROJECT_PATH)/config.h
+	ifdef SUBPROJECT
+		ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
+			CONFIG_H = $(SUBPROJECT_PATH)/config.h
+		endif
 	endif
 endif
+
+
 
 # # project specific files
 SRC += $(KEYBOARD_FILE) \
