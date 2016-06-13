@@ -3,6 +3,7 @@
   #include "backlight.h"
 #endif
 #include "config_user.h"
+#include "quantum.h"
 
 /* Each layer is given a name to aid in readability, which is then
    used in the keymap matrix below.  The underscores do not denote 
@@ -131,7 +132,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     break;	    
   case M_USERNAME:
     if (record->event.pressed) {
-      return MACRO( I(1), T(C), T(B), T(B), T(R), T(O), T(W), T(N), T(E));
+      SEND_STRING("cbbrowne");
+      return MACRO_NONE ;
     } else {
       return MACRO_NONE ;
     }
