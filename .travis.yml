@@ -1,0 +1,37 @@
+os:
+  - linux
+
+language:
+  - c
+
+compiler:
+  - avr-gcc
+
+env:
+  - KEYBOARD=alps64
+  - KEYBOARD=arrow_pad
+  - KEYBOARD=atomic
+  - KEYBOARD=atreus
+  - KEYBOARD=bantam44
+  - KEYBOARD=clueboard1
+  - KEYBOARD=clueboard2
+  - KEYBOARD=cluepad
+  - KEYBOARD=ergodox_ez
+  - KEYBOARD=gh60
+  - KEYBOARD=hhkb
+  - KEYBOARD=jd45
+  - KEYBOARD=kc60
+  - KEYBOARD=planck
+  - KEYBOARD=preonic
+  - KEYBOARD=retro_refit
+  - KEYBOARD=sixkeyboard
+
+script:
+  - cd keyboard/$KEYBOARD && make all-keymaps
+
+addons:
+  apt:
+    packages:
+      - avr-libc
+      - gcc-avr
+      - dfu-programmer

@@ -38,27 +38,7 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TARGET = clueboard2
-
-
-# Directory common source filess exist
-TOP_DIR = ../..
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
-# # project specific files
-SRC = clueboard2.c led.c
-
-ifdef KEYMAP
-    SRC := keymaps/keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := keymaps/keymap_default.c $(SRC)
-endif
-
-CONFIG_H = config.h
+SRC = led.c
 
 # MCU name
 #MCU = at90usb1287
@@ -113,29 +93,23 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
-BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
-MIDI_ENABLE = no 		# MIDI controls
-AUDIO_ENABLE = no
-UNICODE_ENABLE = no 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
+BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= no	# Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
+CONSOLE_ENABLE ?= yes	# Console for debug(+400)
+COMMAND_ENABLE ?= yes    # Commands for debug and configuration
+NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+RGBLIGHT_ENABLE ?= no   # Enable keyboard underlight functionality (+4870)
+BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality (+1150)
+MIDI_ENABLE ?= no 		# MIDI controls
+AUDIO_ENABLE ?= no
+UNICODE_ENABLE ?= no 		# Unicode
+BLUETOOTH_ENABLE ?= no # Enable Bluetooth with the Adafruit EZ-Key HID
 
 #ifdef BACKLIGHT_ENABLE
     SRC := backlight.c $(SRC)
 #endif
 
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
-
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
-
-include $(TOP_DIR)/quantum/quantum.mk
+ifndef QUANTUM_DIR
+	include ../../Makefile
+endif
