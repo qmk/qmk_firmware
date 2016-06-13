@@ -133,9 +133,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   case M_USERNAME:
     if (record->event.pressed) {
       SEND_STRING("cbbrowne");
-      return MACRO_NONE ;
-    } else {
-      return MACRO_NONE ;
     }
     break;
   case M_RANDDIGIT:
