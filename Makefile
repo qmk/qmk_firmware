@@ -73,6 +73,7 @@ endif
 ifdef SUBPROJECT
 	SUBPROJECT_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)/$(SUBPROJECT)
 	ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
+		OPT_DEFS += -DSUBPROJECT_$(SUBPROJECT)
 		SUBPROJECT_FILE = keyboard/$(KEYBOARD)/$(SUBPROJECT)/$(SUBPROJECT).c
 		-include $(SUBPROJECT_PATH)/Makefile
 	else 
@@ -113,8 +114,6 @@ else
 		endif
 	endif
 endif
-
-
 
 # # project specific files
 SRC += $(KEYBOARD_FILE) \
