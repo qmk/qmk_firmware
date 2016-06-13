@@ -1,4 +1,4 @@
-#include "clueboard2.h"
+#include "clueboard.h"
 
 // Used for SHIFT_ESC
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))

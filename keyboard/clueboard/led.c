@@ -19,18 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdint.h"
 #include "led.h"
 
-
 void led_init_ports() {
     // * Set our LED pins as output
     DDRB |= (1<<4);
 }
 
 void led_set_kb(uint8_t usb_led) {
+    DDRF |= (1<<0);
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // Turn capslock on
-        PORTB |= (1<<4);
+        PORTF |= (1<<0);
     } else {
         // Turn capslock off
-        PORTB &= ~(1<<4);
+        PORTF &= ~(1<<0);
     }
 }

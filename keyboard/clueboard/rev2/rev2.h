@@ -1,10 +1,7 @@
-#ifndef CLUEBOARD2_H
-#define CLUEBOARD2_H
+#ifndef REV2_H
+#define REV2_H
 
-#include "matrix.h"
-#include "keymap_common.h"
-#include <stddef.h>
-
+#include "../clueboard.h"
 
 /* Clueboard matrix layout
  * ,-----------------------------------------------------------.  ,---.
@@ -32,6 +29,7 @@
  */
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
+
 #define KEYMAP( \
     k00, k01, k02, k03, k04, k05, k06, k07, k50, k51, k52, k53, k54, k55, k56, k57, \
     k10, k11, k12, k13, k14, k15, k16, k17, k60, k61, k62, k63, k64, k65,      k67, \
@@ -51,7 +49,5 @@
     { k90, KC_NO, k92, k93, k94, k95, k96, k97 }  \
 }
 
-void matrix_init_user(void);
-void matrix_scan_user(void);
 
 #endif

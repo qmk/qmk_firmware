@@ -38,10 +38,12 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+SUBPROJECT_DEFAULT = rev2
+
+# # project specific files
 SRC = led.c
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -99,16 +101,11 @@ EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
 CONSOLE_ENABLE ?= yes	# Console for debug(+400)
 COMMAND_ENABLE ?= yes    # Commands for debug and configuration
 NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE ?= no   # Enable keyboard underlight functionality (+4870)
-BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality (+1150)
-MIDI_ENABLE ?= no 		# MIDI controls
 AUDIO_ENABLE ?= no
+RGBLIGHT_ENABLE ?= no   # Enable keyboard underlight functionality
+MIDI_ENABLE ?= no 		# MIDI controls
 UNICODE_ENABLE ?= no 		# Unicode
 BLUETOOTH_ENABLE ?= no # Enable Bluetooth with the Adafruit EZ-Key HID
-
-#ifdef BACKLIGHT_ENABLE
-    SRC := backlight.c $(SRC)
-#endif
 
 ifndef QUANTUM_DIR
 	include ../../Makefile

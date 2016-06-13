@@ -1,16 +1,27 @@
-
+#include "rev2.h"
 #include <avr/io.h>
 #include "backlight.h"
 #include "print.h"
 
-/* Clueboard 2.0 LED locations:
- *
- * Capslock: B4, pull high to turn on
- * LCtrl: Shared with Capslock, DO NOT INSTALL LED'S IN BOTH
- * Page Up: B7, pull high to turn on
- * Escape: D6, pull high to turn on
- * Arrows: D4, pull high to turn on
- */
+void matrix_init_kb(void) {
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+	matrix_init_user();
+	led_init_ports();
+
+    #ifdef BACKLIGHT_ENABLE
+        init_backlight_pin();
+    #endif
+
+    // JTAG disable for PORT F. write JTD bit twice within four cycles.
+    MCUCR |= (1<<JTD);
+    MCUCR |= (1<<JTD);
+}
+
+
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 void init_backlight_pin(void) {
     print("init_backlight_pin()\n");
@@ -38,4 +49,3 @@ void backlight_set(uint8_t level) {
         PORTD &= ~(1<<4); // Arrows
     }
 }
-
