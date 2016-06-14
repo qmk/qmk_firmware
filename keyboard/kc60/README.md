@@ -1,4 +1,4 @@
-kc60 keyboard firmware
+KC60 (version 2.0) keyboard firmware
 ======================
 
 ## Quantum MK Firmware
