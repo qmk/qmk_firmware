@@ -37,19 +37,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_##K77 } \
 }
 
-/* AEK US */
-#define KEYMAP_AEK( \
-    K36, K37, K46, K47, K56, K57, K66, K67, K76, K77, K06, K07, K17, K27, \
-    K34, K35, K44, K45, K54, K55, K64, K65, K75, K05, K15, K16, K25, K24, \
-    K32, K33, K43, K52, K53, K63, K73, K74, K03, K04, K13, K14, K23, \
-    K31, K42, K51, K61, K62, K71, K72, K01, K02, K11, K12, K21, \
-    K30, K40, K50,           K60,                          K00, K10, K20  \
-) KEYMAP( \
-    K36, K37, K46, K47, K56, K57, K66, K67, K76, K77, K06, K07, K17, NUHS,K27, \
-    K34, K35, K44, K45, K54, K55, K64, K65, K75, K05, K15, K16, K25, K24, \
-    K32, K33, K43, K52, K53, K63, K73, K74, K03, K04, K13, K14, K23, \
-    K31, NUBS,K42, K51, K61, K62, K71, K72, K01, K02, K11, K12, K21, ESC, \
-    K30, K40, K50,           K60,                     APP, K00, K10, K20  \
-)
-
 #endif

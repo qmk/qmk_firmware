@@ -21,6 +21,7 @@ extern keymap_config_t keymap_config;
 #define _RAISE 4
 #define _FCT 5
 #define _SETUP 6
+#define _MUSIC 7
 #define _MICMUTE 16
 
 // Macro name shortcuts
@@ -209,7 +210,7 @@ void play_goodbye_tone()
 uint8_t starting_note = 0x0C;
 int offset = 0;
 
-void process_action_user(keyrecord_t *record) {
+bool process_action_user(keyrecord_t *record) {
 
   if (IS_LAYER_ON(_MUSIC)) {
     if (record->event.pressed) {
@@ -217,7 +218,8 @@ void process_action_user(keyrecord_t *record) {
     } else {
         stop_note(((double)220.0)*pow(2.0, -4.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row)));
     }
+    return false;
   }
-
+  return true;
 }
 #endif

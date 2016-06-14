@@ -3,7 +3,10 @@ keyboard/planck/dfu-programmer.exe
 *.o
 *.eep
 *.elf
-*.hex
+/*.hex
+/keyboard/**/*.hex
+/keyboard/**/keymaps/**/*.hex
+!/keyboard/**/keymaps/**/compiled.hex
 *.log
 *.lss
 *.lst
@@ -13,6 +16,7 @@ keyboard/planck/dfu-programmer.exe
 tags
 *~
 build/
+.build/
 *.bak
 .vagrant/
 .idea/

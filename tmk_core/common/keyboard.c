@@ -46,6 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ADB_MOUSE_ENABLE
 #   include "adb.h"
 #endif
+#ifdef RGBLIGHT_ENABLE
+#   include "rgblight.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 static bool is_row_ghosting(uint8_t row){
@@ -88,6 +91,9 @@ void keyboard_init(void) {
 #endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
+#endif
+#ifdef RGBLIGHT_ENABLE
+    rgblight_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
 	keyboard_nkro = true;
