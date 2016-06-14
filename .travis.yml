@@ -21,9 +21,11 @@ env:
   - KEYBOARD=hhkb
   - KEYBOARD=jd45
   - KEYBOARD=kc60
+  - KEYBOARD=phantom
   - KEYBOARD=planck
   - KEYBOARD=preonic
   - KEYBOARD=retro_refit
+  - KEYBOARD=satan
   - KEYBOARD=sixkeyboard
 
 script:
