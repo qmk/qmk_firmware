@@ -38,28 +38,8 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# Target file name (without extension).
-TARGET = hhkb_qmk
-
-
-# Directory common source filess exist
-TOP_DIR = ../..
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
-# # project specific files
-SRC = hhkb_qmk.c \
-      matrix.c
-
-ifdef KEYMAP
-    SRC := keymaps/keymaps/$(KEYMAP).c $(SRC)
-else
-    SRC := keymaps/default.c $(SRC)
-endif
-
-CONFIG_H = config.h
+# project specific files
+SRC = matrix.c
 
 # MCU name
 #MCU = at90usb1287
@@ -116,28 +96,25 @@ OPT_DEFS += -DBOOTLOADER_SIZE=512
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-CUSTOM_MATRIX    = yes # Custom matrix file for the HHKB
+BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
+CONSOLE_ENABLE ?= yes	# Console for debug(+400)
+COMMAND_ENABLE ?= yes    # Commands for debug and configuration
+CUSTOM_MATRIX    ?= yes # Custom matrix file for the HHKB
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-# NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE = YES		# MIDI controls
-# UNICODE_ENABLE = YES		# Unicode
-# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+# SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
+# NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality
+# MIDI_ENABLE ?= YES		# MIDI controls
+# UNICODE_ENABLE ?= YES		# Unicode
+# BLUETOOTH_ENABLE ?= yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
 
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_DIR)
+ifndef QUANTUM_DIR
+	include ../../Makefile
+endif
 
 debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
@@ -145,5 +122,3 @@ debug-on: all
 debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
 debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
 debug-off: all
-
-include $(TOP_DIR)/quantum/quantum.mk

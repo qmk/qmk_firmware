@@ -2,6 +2,8 @@
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
+#include "config_user.h"
+#include "quantum.h"
 
 /* Each layer is given a name to aid in readability, which is then
    used in the keymap matrix below.  The underscores do not denote 
@@ -19,26 +21,25 @@
 
 /* Things I did not like about the default mapping 
 
-   - I find control too hard to get to.  I think I'll want it on a
-     left finger.  Gonna need to lose something to do that...
-   - Almost certainly, KC_LCTL should be on [2][1]
-   - having dash on [lower-j] is a bit nonintuitive, but may be OK
+   - I found control too hard to get to.  I use it more than Tab, so
+     switched it there.
+   - Having dash on [lower-j] is a bit nonintuitive, but may be OK
    - I'll bet I should switch ESC/TAB
    - I'm suspicious that I want to shift M(0) from [4][1] to [4][2],
      and shift ESC off the first column so KC_LCTL and KC_LALT can
      be on the first column.
-   - I think I wanna swap ' and ENTER
+   - I needed to swap ' and ENTER
 
    - All of the above are done :-)
 
-   - I'm keeping Colemak and Dvorak around for reference, and added
-     Workman just for fun.  They're useless to me, though.
+   - Dropped out support for Dvorak and friends.  They aren't 
+     improvements to me
 */
 
 
 /* Some interesting things implemented
 
-   - There is a macro that writes out "cbbrowne" just because I could
+   - There is a macro that writes out "cbbrowne" to show that I could
    - There is a (somewhat cruddy) linear congruential random number
      generator.
      - I would like to be seeding it with clock info to make it look
@@ -50,16 +51,15 @@
        of the random number generator
      - in both, note the use of register_code()/unregister_code()
        to indicate the desired key
+   - I do indeed want a sweet number pad!
 */
 
 /* Other things to do...
 
    - Need to think about what zsh and readline actions I use lots
-   - Wanna figure out macros, so I can put in a "cbbrowne" macro
    - Ought to ensure that Control-Alt-Delete is convenient enough
    - How about Alt-F1 thru Alt-F8?
    - What's the keystroke to get from X to console these days?
-   - I do indeed want a sweet number pad!
    - A layer for doing console switching would not be a bad idea
 */
 
@@ -99,10 +99,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, DF(_KP), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 [_KP] = { /* Key Pad */
-  {KC_ESC,  M(M_USERNAME),    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_KP_ENTER, KC_KP_PLUS, KC_KP_PLUS, KC_KP_ENTER, KC_BSPC},
-  {KC_LCTL, M(M_RANDDIGIT),    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_KP_MINUS, KC_7, KC_8,    KC_9,  KC_ENT},
-  {KC_LSFT, M(M_RANDLETTER),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_KP_PLUS,    KC_4, KC_5,  KC_6, KC_DOT},
-  {BL_STEP, M(M_LED), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QW),   KC_1, KC_2, KC_3,  KC_0}
+  {KC_ESC,  M(M_USERNAME),    KC_F9,   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
+  {KC_LCTL, M(M_RANDDIGIT),   KC_F5,   KC_F6,    KC_F7,   KC_F8,    KC_PGDN, KC_KP_MINUS, KC_4, KC_5, KC_6, KC_PIPE},
+  {KC_LSFT, M(M_RANDLETTER),  KC_F1,   KC_F2,    KC_F3,   KC_F4,    KC_DEL,  KC_KP_PLUS,  KC_1, KC_2,  KC_3, KC_ENTER},
+  {BL_STEP, M(M_LED), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QW),   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
 }
 };
 
@@ -110,11 +110,8 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 /* This bit of logic seeds a wee linear congruential random number generator */
-
+/* lots of prime numbers everywhere... */
 static uint16_t random_value = 157;
-#define randadd 53
-#define randmul 181
-#define randmod 167
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -135,9 +132,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     break;	    
   case M_USERNAME:
     if (record->event.pressed) {
-      return MACRO( I(1), T(C), T(B), T(B), T(R), T(O), T(W), T(N), T(E));
-    } else {
-      return MACRO_NONE ;
+      SEND_STRING("cbbrowne");
     }
     break;
   case M_RANDDIGIT:

@@ -58,11 +58,12 @@
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
+BUILD_DIR = .build
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-OBJDIR = obj_$(TARGET)
+OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
 
 
 # Optimization level, can be [0, 1, 2, 3, s]. 
@@ -77,6 +78,35 @@ OPT = s
 #     AVR [Extended] COFF format requires stabs, plus an avr-objcopy run.
 DEBUG = dwarf-2
 
+COLOR?=true
+
+ifeq ($(COLOR),true)
+	NO_COLOR=\033[0m
+	OK_COLOR=\033[32;01m
+	ERROR_COLOR=\033[31;01m
+	WARN_COLOR=\033[33;01m
+	BLUE=\033[0;34m
+	BOLD=\033[1m
+endif
+
+OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
+ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
+WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
+
+ifndef $(SILENT)
+	SILENT = false
+endif
+
+TAB_LOG = printf "\n$$LOG\n\n" | awk '{ sub(/^/," | "); print }'
+TAB_LOG_PLAIN = printf "$$LOG\n"
+AWK_STATUS = awk '{ printf " %-10s\n", $$1; }'
+AWK_CMD = awk '{ printf "%-69s", $$0; }'
+PRINT_ERROR = ($(SILENT) ||printf "$(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && false
+PRINT_WARNING = ($(SILENT) || printf "$(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
+PRINT_ERROR_PLAIN = ($(SILENT) ||printf "$(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && false
+PRINT_WARNING_PLAIN = ($(SILENT) || printf "$(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
+PRINT_OK = $(SILENT) || printf "$(OK_STRING)" | $(AWK_STATUS)
+BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
@@ -129,6 +159,14 @@ CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
+# add color
+ifeq ($(COLOR),true)
+ifeq ("$(echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
+	CFLAGS+= -fdiagnostics-color
+else ifeq ("$(echo "int main(){}" | $(CC) -fcolor-diagnostics -x c - -o /dev/null 2>&1)", "")
+	CFLAGS+= -fcolor-diagnostics
+endif
+endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 #CFLAGS += -mshort-calls
@@ -141,9 +179,6 @@ CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
 ifdef CONFIG_H
     CFLAGS += -include $(CONFIG_H)
-endif
-ifdef CONFIG_USER_H
-    CFLAGS += -include $(CONFIG_USER_H)
 endif
 
 
@@ -179,9 +214,6 @@ CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 ifdef CONFIG_H
     CPPFLAGS += -include $(CONFIG_H)
 endif
-ifdef CONFIG_USER_H
-    CPPFLAGS += -include $(CONFIG_USER_H)
-endif
 
 
 #---------------- Assembler Options ----------------
@@ -198,10 +230,6 @@ ASFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 ifdef CONFIG_H
     ASFLAGS += -include $(CONFIG_H)
 endif
-ifdef CONFIG_USER_H
-    ASFLAGS += -include $(CONFIG_USER_H)
-endif
-
 
 #---------------- Library Options ----------------
 # Minimalistic printf version
@@ -261,7 +289,7 @@ EXTMEMOPTS =
 # Comennt out "--relax" option to avoid a error such:
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
-LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
+LDFLAGS = -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 #LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
@@ -317,6 +345,7 @@ REMOVE = rm -f
 REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
+SECHO = $(SILENT) || echo
 # Autodecct teensy loader
 ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
   TEENSY_LOADER_CLI = teensy-loader-cli
@@ -338,8 +367,8 @@ MSG_EEPROM = Creating load file for EEPROM:
 MSG_EXTENDED_LISTING = Creating Extended Listing:
 MSG_SYMBOL_TABLE = Creating Symbol Table:
 MSG_LINKING = Linking:
-MSG_COMPILING = Compiling C:
-MSG_COMPILING_CPP = Compiling C++:
+MSG_COMPILING = Compiling:
+MSG_COMPILING_CPP = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
@@ -356,7 +385,7 @@ LST = $(patsubst %.c,$(OBJDIR)/%.lst,$(patsubst %.cpp,$(OBJDIR)/%.lst,$(patsubst
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
-GENDEPFLAGS = -MMD -MP -MF .dep/$(subst /,_,$@).d
+GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$@).d
 
 
 # Combine all necessary flags and optional flags.
@@ -366,29 +395,36 @@ ALL_CFLAGS = -mmcu=$(MCU) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_CPPFLAGS = -mmcu=$(MCU) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
-
-
-
-
 # Default target.
 all: 
-	$(MAKE) begin 
-	$(MAKE) gccversion 
-	$(MAKE) sizebefore 
-	$(MAKE) build 
-	$(MAKE) sizeafter 
-	$(MAKE) end
+	@$(MAKE) begin 
+	@$(MAKE) gccversion 
+	@$(MAKE) sizebefore 
+	@$(MAKE) clean_list # force clean each time
+	@$(MAKE) build 
+	@$(MAKE) sizeafter 
+	@$(MAKE) end
+
+# Quick make that doesn't clean
+quick: 
+	@$(MAKE) begin 
+	@$(MAKE) gccversion 
+	@$(MAKE) sizebefore 
+	@$(MAKE) build 
+	@$(MAKE) sizeafter 
+	@$(MAKE) end
 
 # Change the build target to build a HEX file or a library.
-build: elf hex eep lss sym
+build: elf hex
+#build: elf hex eep lss sym
 #build: lib
 
 
-elf: $(TARGET).elf
-hex: $(TARGET).hex
-eep: $(TARGET).eep
-lss: $(TARGET).lss
-sym: $(TARGET).sym
+elf: $(BUILD_DIR)/$(TARGET).elf
+hex: $(BUILD_DIR)/$(TARGET).hex
+eep: $(BUILD_DIR)/$(TARGET).eep
+lss: $(BUILD_DIR)/$(TARGET).lss
+sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
 
@@ -398,71 +434,81 @@ lib: $(LIBNAME)
 # AVR Studio 3.x does not check make's exit code but relies on
 # the following magic strings to be generated by the compile job.
 begin:
-	@echo $(MSG_BEGIN)
+	@$(SECHO) $(MSG_BEGIN)
 
 end:
-	@echo $(MSG_END)
+	@$(SECHO) $(MSG_END)
 
 
 # Display size of file.
 HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
 #ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
-ELFSIZE = $(SIZE) $(TARGET).elf
+ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
-	2>/dev/null; echo; fi
+	@if test -f $(TARGET).hex; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(HEXSIZE); \
+	2>/dev/null; $(SECHO); fi
 
 sizeafter:
-	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
-	2>/dev/null; echo; fi
-
-
+	@if test -f $(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
+	2>/dev/null; $(SECHO); fi
+	# test file sizes eventually
+	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | awk 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
 
 # Display compiler version information.
 gccversion : 
-	@$(CC) --version
+	@$(SILENT) || $(CC) --version
 
 
 
 # Program the device.  
-program: $(TARGET).hex $(TARGET).eep
+program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(PROGRAM_CMD)
 
-teensy: $(TARGET).hex
-	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(TARGET).hex
+teensy: $(BUILD_DIR)/$(TARGET).hex
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 
-flip: $(TARGET).hex
+flip: $(BUILD_DIR)/$(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
+	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
-dfu: $(TARGET).hex sizeafter
+dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 	dfu-programmer $(MCU) erase --force
 else
 	dfu-programmer $(MCU) erase
 endif
 	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash $(TARGET).hex
+	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	dfu-programmer $(MCU) reset
+
+dfu-no-build:
+ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
+	dfu-programmer $(MCU) erase --force
+else
+	dfu-programmer $(MCU) erase
+endif
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash $(KEYMAP_PATH)/compiled.hex
 	dfu-programmer $(MCU) reset
 	
 dfu-start:
 	dfu-programmer $(MCU) reset
 	dfu-programmer $(MCU) start
 
-flip-ee: $(TARGET).hex $(TARGET).eep
-	$(COPY) $(TARGET).eep $(TARGET)eep.hex
+flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
+	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
 	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
+	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(TARGET)eep.hex
+	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
-dfu-ee: $(TARGET).hex $(TARGET).eep
+dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) flash --eeprom $(TARGET).eep
+	dfu-programmer $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
 else
-	dfu-programmer $(MCU) flash-eeprom $(TARGET).eep
+	dfu-programmer $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
 endif
 	dfu-programmer $(MCU) reset
 
@@ -475,18 +521,18 @@ gdb-config:
 	@echo define reset >> $(GDBINIT_FILE)
 	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
 	@echo end >> $(GDBINIT_FILE)
-	@echo file $(TARGET).elf >> $(GDBINIT_FILE)
+	@echo file $(BUILD_DIR)/$(TARGET).elf >> $(GDBINIT_FILE)
 	@echo target remote $(DEBUG_HOST):$(DEBUG_PORT)  >> $(GDBINIT_FILE)
 ifeq ($(DEBUG_BACKEND),simulavr)
 	@echo load  >> $(GDBINIT_FILE)
 endif
 	@echo break main >> $(GDBINIT_FILE)
 
-debug: gdb-config $(TARGET).elf
+debug: gdb-config $(BUILD_DIR)/$(TARGET).elf
 ifeq ($(DEBUG_BACKEND), avarice)
 	@echo Starting AVaRICE - Press enter when "waiting to connect" message displays.
 	@$(WINSHELL) /c start avarice --jtag $(JTAG_DEV) --erase --program --file \
-	$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
+	$(BUILD_DIR)/$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
 	@$(WINSHELL) /c pause
 
 else
@@ -507,124 +553,147 @@ COFFCONVERT += --change-section-address .eeprom-0x810000
 
 
 
-coff: $(TARGET).elf
-	@echo $(MSG_COFF) $(TARGET).cof
-	$(COFFCONVERT) -O coff-avr $< $(TARGET).cof
+coff: $(BUILD_DIR)/$(TARGET).elf
+	@$(SECHO) $(MSG_COFF) $(BUILD_DIR)/$(TARGET).cof
+	$(COFFCONVERT) -O coff-avr $< $(BUILD_DIR)/$(TARGET).cof
 
 
-extcoff: $(TARGET).elf
-	@echo $(MSG_EXTENDED_COFF) $(TARGET).cof
-	$(COFFCONVERT) -O coff-ext-avr $< $(TARGET).cof
+extcoff: $(BUILD_DIR)/$(TARGET).elf
+	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
+	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
 
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
-	@echo $(MSG_FLASH) $@
-	$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@
+	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
+	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
+	@$(BUILD_CMD)
+	@$(COPY) $@ $(TARGET).hex
+	$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex" | $(AWK_CMD)
+	$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/compiled.hex)
+	@$(BUILD_CMD)
 
 %.eep: %.elf
-	@echo $(MSG_EEPROM) $@
-	-$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
-	--change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0
+	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
+	$(eval CMD=$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0)
+	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.
 %.lss: %.elf
-	@echo $(MSG_EXTENDED_LISTING) $@
-	$(OBJDUMP) -h -S -z $< > $@
+	@$(SILENT) || printf "$(MSG_EXTENDED_LISTING) $@" | $(AWK_CMD)
+	$(eval CMD=$(OBJDUMP) -h -S -z $< > $@)
+	@$(BUILD_CMD)
 
 # Create a symbol table from ELF output file.
 %.sym: %.elf
-	@echo $(MSG_SYMBOL_TABLE) $@
-	$(NM) -n $< > $@
-
-
+	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
+	$(eval CMD=$(NM) -n $< > $@ )
+	@$(BUILD_CMD)
 
 # Create library from object files.
-.SECONDARY : $(TARGET).a
+.SECONDARY : $(BUILD_DIR)/$(TARGET).a
 .PRECIOUS : $(OBJ)
 %.a: $(OBJ)
-	@echo $(MSG_CREATING_LIBRARY) $@
-	$(AR) $@ $(OBJ)
-
+	@$(SILENT) || printf "$(MSG_CREATING_LIBRARY) $@" | $(AWK_CMD)
+	$(eval CMD=$(AR) $@ $(OBJ) )
+	@$(BUILD_CMD)
 
 # Link: create ELF output file from object files.
-.SECONDARY : $(TARGET).elf
+.SECONDARY : $(BUILD_DIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
 %.elf: $(OBJ)
-	@echo $(MSG_LINKING) $@
-	$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS)
-
+	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
+	$(eval CMD=$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS))
+	@$(BUILD_CMD)
 
 # Compile: create object files from C source files.
 $(OBJDIR)/%.o : %.c
-	mkdir -p $(@D)
-	@echo $(MSG_COMPILING) $<
-	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
-
+	@mkdir -p $(@D)
+	@$(SILENT) || printf "$(MSG_COMPILING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -c $(ALL_CFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
 $(OBJDIR)/%.o : %.cpp
-	mkdir -p $(@D)
-	@echo $(MSG_COMPILING_CPP) $<
+	@mkdir -p $(@D)
+	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
 	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
-
+	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
 %.s : %.c
-	$(CC) -S $(ALL_CFLAGS) $< -o $@
-
+	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -S $(ALL_CFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Compile: create assembler files from C++ source files.
 %.s : %.cpp
-	$(CC) -S $(ALL_CPPFLAGS) $< -o $@
-
+	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -S $(ALL_CPPFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
 $(OBJDIR)/%.o : %.S
-	mkdir -p $(@D)
-	@echo $(MSG_ASSEMBLING) $<
-	$(CC) -c $(ALL_ASFLAGS) $< -o $@
-
+	@mkdir -p $(@D)
+	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
+	$(eval CMD=$(CC) -c $(ALL_ASFLAGS) $< -o $@)
+	@$(BUILD_CMD)
 
 # Create preprocessed source for use in sending a bug report.
 %.i : %.c
 	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@ 
 
-
 # Target: clean project.
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) $(TARGET).hex
-	$(REMOVE) $(TARGET).eep
-	$(REMOVE) $(TARGET).cof
-	$(REMOVE) $(TARGET).elf
-	$(REMOVE) $(TARGET).map
-	$(REMOVE) $(TARGET).sym
-	$(REMOVE) $(TARGET).lss
-	$(REMOVE) $(OBJ)
-	$(REMOVE) $(LST)
-	$(REMOVE) $(OBJ:.o=.s)
-	$(REMOVE) $(OBJ:.o=.i)
-	$(REMOVE) -r .dep
-	$(REMOVE) -r $(OBJDIR)
+	$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
+	$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
+	$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
+SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
+all-keyboards-defaults:
+	@for x in $(SUBDIRS) ; do \
+		printf "Compiling with default: $$x" | $(AWK_CMD); \
+		LOG=$$($(MAKE) -C $$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+	done
+
+KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboard/%/=/keyboard/%)
+all-keyboards: $(KEYBOARDS)
+/keyboard/%:
+	$(eval KEYBOARD=$(patsubst /keyboard/%,%,$@))
+	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
+	@for x in $(KEYMAPS) ; do \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | awk '{ printf "%-88s", $$0; }'; \
+		LOG=$$($(MAKE) -C $(TOP_DIR)$@ keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+	done
+
+all-keymaps:
+	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboard/$(KEYBOARD)/keymaps/*/.))))
+	@for x in $(KEYMAPS) ; do \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | awk '{ printf "%-88s", $$0; }'; \
+		LOG=$$($(MAKE) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+	done
+
+# Create build directory
+$(shell mkdir $(BUILD_DIR) 2>/dev/null)
 
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Include the dependency files.
--include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+-include $(shell mkdir $(BUILD_DIR)/.dep 2>/dev/null) $(wildcard $(BUILD_DIR)/.dep/*)
 
 
 # Listing of phony targets.
-.PHONY : all begin finish end sizebefore sizeafter gccversion \
+.PHONY : all quick begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start
+program teensy dfu flip dfu-ee flip-ee dfu-start \
+all-keyboards-defaults all-keyboards all-keymaps

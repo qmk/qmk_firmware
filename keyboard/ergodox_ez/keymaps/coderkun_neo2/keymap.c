@@ -1,7 +1,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_neo2.h"
+#include "keymap_neo2.h"
 
 // Layer names
 #define BASE 0      // default layer

@@ -21,10 +21,6 @@ void matrix_init_kb(void) {
         init_backlight_pin();
     #endif
 
-    #ifdef RGBLIGHT_ENABLE
-        rgblight_init();
-    #endif
-
     // JTAG disable for PORT F. write JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
