@@ -34,14 +34,19 @@ right). The more interesting parts are how certain keys behave:
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of
   the one-shot modifiers are in-flight (as in, single-tapped, and not expired
   yet), it cancels all one-shot modifiers. Otherwise it sends the usual keycode.
-* The **Emacs** and **Hun** layer keys are one-shot, the **1Hand** is a toggle.
+* The **Emacs** and **Hun** layer keys are one-shot, the **1Hand** and **STENO**
+  keys are toggles.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some
   actions:
     - `LEAD u` enters unicode input mode, by sending the GTK+ key sequence that
       does this.
     - `LEAD l` uses the unicode input method to enter a `λ`.
     - `LEAD s` does a lot of magic to type in a shruggie: `¯\_(ツ)_/¯`
+    - `LEAD y` types `\o/`.
     - `LEAD w m` maximises the currently focused window.
+    - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
+    - `LEAD v` prints the firmware version, the keyboard and the keymap, if
+      compiled with a QMK version that has these available.
 
 ## Hungarian layer
 
@@ -99,6 +104,26 @@ The differences are as follows:
     - The `Enter`/`Shift` key sends `Enter` on short-tap, `Shift` on long-tap.
 * The `Apps`/`BASE` key can be used to go back to the base layer, by
   long-tapping it. A short-tap will send the `App` key, as usual.
+
+## Steno layer
+
+[![Steno layer for Plover](images/steno-layer.png)](http://www.keyboard-layout-editor.com/#/gists/401ef9a84369e47c57f9aedcf0a0d667)
+
+This is to be used with [Plover](http://www.openstenoproject.org/plover/),
+nothing really fancy here. The **STENO** key toggles the layer on and off, and
+sends the toggle command to Plover too.
+
+## Experimental layer
+
+[![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
+
+While using the standard Dvorak layout, I encountered a number of
+inconveniences, and on this layer, I am playing with ideas to make the layout
+feel better. Initially, it was based on [Capewell-Dvorak][cpd], but that too,
+had shortcomings I was not happy with. So now this is something inbetween, with
+own observations thrown in. How it works out in the long run remains to be seen.
+
+ [cpd]: http://www.michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm
 
 # Building
 
