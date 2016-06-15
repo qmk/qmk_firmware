@@ -114,7 +114,7 @@ include $(TMK_PATH)/protocol/lufa.mk
 include $(TMK_PATH)/common.mk
 include $(TMK_PATH)/rules.mk
 
-GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null)
+GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 OPT_DEFS += -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
 OPT_DEFS += -DQMK_VERSION=\"$(GIT_VERSION)\" -DQMK_BUILDDATE=\"$(BUILD_DATE)\"
