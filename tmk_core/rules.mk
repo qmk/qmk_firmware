@@ -89,23 +89,29 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
-OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
-ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)
-WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)
+ifeq ("$(awk /dev/null 2>&1)", "")
+	AWK=awk
+else
+	AWK=cat && test
+endif
+
+OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)\n
+ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)\n
+WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)\n
 
 ifndef $(SILENT)
 	SILENT = false
 endif
 
-TAB_LOG = printf "\n$$LOG\n\n" | awk '{ sub(/^/," | "); print }'
+TAB_LOG = printf "\n$$LOG\n\n" | $(AWK) '{ sub(/^/," | "); print }'
 TAB_LOG_PLAIN = printf "$$LOG\n"
-AWK_STATUS = awk '{ printf " %-10s\n", $$1; }'
-AWK_CMD = awk '{ printf "%-69s", $$0; }'
-PRINT_ERROR = ($(SILENT) ||printf "$(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && false
-PRINT_WARNING = ($(SILENT) || printf "$(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
-PRINT_ERROR_PLAIN = ($(SILENT) ||printf "$(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && false
-PRINT_WARNING_PLAIN = ($(SILENT) || printf "$(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
-PRINT_OK = $(SILENT) || printf "$(OK_STRING)" | $(AWK_STATUS)
+AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'
+AWK_CMD = $(AWK) '{ printf "%-69s", $$0; }'
+PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && false
+PRINT_WARNING = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
+PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && false
+PRINT_WARNING_PLAIN = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
+PRINT_OK = $(SILENT) || printf " $(OK_STRING)" | $(AWK_STATUS)
 BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # List any extra directories to look for include files here.
@@ -453,7 +459,7 @@ sizeafter:
 	@if test -f $(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
 	2>/dev/null; $(SECHO); fi
 	# test file sizes eventually
-	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | awk 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
+	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | $(AWK) 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
 
 # Display compiler version information.
 gccversion : 
@@ -669,14 +675,14 @@ all-keyboards: $(KEYBOARDS)
 	$(eval KEYBOARD=$(patsubst /keyboard/%,%,$@))
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
-		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | awk '{ printf "%-88s", $$0; }'; \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
 		LOG=$$($(MAKE) -C $(TOP_DIR)$@ keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
 
 all-keymaps:
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboard/$(KEYBOARD)/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
-		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | awk '{ printf "%-88s", $$0; }'; \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
 		LOG=$$($(MAKE) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
 
