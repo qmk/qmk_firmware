@@ -356,7 +356,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #define DISABLE_CHORDING
 #ifndef DISABLE_CHORDING
 
-  if (keycode >= 0x5700 && keycode <= 0x57FF) {
+  if (keycode >= QK_CHORDING && keycode <= QK_CHORDING_MAX) {
     if (record->event.pressed) {
       if (!chording) {
         chording = true;
@@ -394,7 +394,7 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #ifdef UNICODE_ENABLE
 
-  if (keycode > UNICODE(0) && record->event.pressed) {
+  if (keycode > QK_UNICODE && record->event.pressed) {
     uint16_t unicode = keycode & 0x7FFF;
     switch(input_mode) {
       case UC_OSX:

@@ -58,22 +58,141 @@ action_t keymap_func_to_action(uint16_t keycode);
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
 
+enum quantum_keycodes {
+    // Ranges used in shortucuts - not to be used directly
+    QK_TMK                = 0x0000,
+    QK_TMK_MAX            = 0x00FF,
+    QK_MODS               = 0x0100,
+    QK_LCTL               = 0x0100,
+    QK_LSFT               = 0x0200,
+    QK_LALT               = 0x0400,
+    QK_LGUI               = 0x0800,
+    QK_RCTL               = 0x1100,
+    QK_RSFT               = 0x1200,
+    QK_RALT               = 0x1400,
+    QK_RGUI               = 0x1800,
+    QK_MODS_MAX           = 0x1FFF,
+    QK_FUNCTION           = 0x2000,
+    QK_FUNCTION_MAX       = 0x2FFF,
+    QK_MACRO              = 0x3000,
+    QK_MACRO_MAX          = 0x3FFF,
+    QK_LAYER_TAP          = 0x4000,
+    QK_LAYER_TAP_MAX      = 0x4FFF,
+    QK_TO                 = 0x5000,
+    QK_TO_MAX             = 0x50FF,
+    QK_MOMENTARY          = 0x5100,
+    QK_MOMENTARY_MAX      = 0x51FF,
+    QK_DEF_LAYER          = 0x5200,
+    QK_DEF_LAYER_MAX      = 0x52FF,
+    QK_TOGGLE_LAYER       = 0x5300,
+    QK_TOGGLE_LAYER_MAX   = 0x53FF,
+    QK_ONE_SHOT_LAYER     = 0x5400,
+    QK_ONE_SHOT_LAYER_MAX = 0x54FF,
+    QK_ONE_SHOT_MOD       = 0x5500,
+    QK_ONE_SHOT_MOD_MAX   = 0x55FF,
+#ifndef DISABLE_CHORDING
+    QK_CHORDING           = 0x5600,
+    QK_CHORDING_MAX       = 0x56FF,
+#endif
+    QK_MOD_TAP            = 0x6000,
+    QK_MOD_TAP_MAX        = 0x6FFF,
+#ifdef UNICODE_ENABLE
+    QK_UNICODE            = 0x8000,
+    QK_UNICODE_MAX        = 0xFFFF,
+#endif
+
+    // Loose keycodes - to be used directly
+
+    RESET = 0x7000,
+    DEBUG,
+    MAGIC_SWAP_CONTROL_CAPSLOCK,
+    MAGIC_CAPSLOCK_TO_CONTROL,
+    MAGIC_SWAP_LALT_LGUI,
+    MAGIC_SWAP_RALT_RGUI,
+    MAGIC_NO_GUI,
+    MAGIC_SWAP_GRAVE_ESC,
+    MAGIC_SWAP_BACKSLASH_BACKSPACE,
+    MAGIC_HOST_NKRO,
+    MAGIC_SWAP_ALT_GUI,
+    MAGIC_UNSWAP_CONTROL_CAPSLOCK,
+    MAGIC_UNCAPSLOCK_TO_CONTROL,
+    MAGIC_UNSWAP_LALT_LGUI,
+    MAGIC_UNSWAP_RALT_RGUI,
+    MAGIC_UNNO_GUI,
+    MAGIC_UNSWAP_GRAVE_ESC,
+    MAGIC_UNSWAP_BACKSLASH_BACKSPACE,
+    MAGIC_UNHOST_NKRO,
+    MAGIC_UNSWAP_ALT_GUI,
+
+    // Leader key
+#ifndef DISABLE_LEADER
+    KC_LEAD,
+#endif
+
+    // Audio on/off/toggle
+    AU_ON,
+    AU_OFF,
+    AU_TOG,
+
+    // Music mode on/off/toggle
+    MU_ON,
+    MU_OFF,
+    MU_TOG,
+
+    // Music voice iterate
+    MUV_IN,
+    MUV_DE,
+
+    // Midi mode on/off
+    MI_ON,
+    MI_OFF,
+
+    // Backlight functionality
+    BL_0,
+    BL_1,
+    BL_2,
+    BL_3,
+    BL_4,
+    BL_5,
+    BL_6,
+    BL_7,
+    BL_8,
+    BL_9,
+    BL_10,
+    BL_11,
+    BL_12,
+    BL_13,
+    BL_14,
+    BL_15,
+    BL_DEC,
+    BL_INC,
+    BL_TOGG,
+    BL_STEP,
+
+    // Left shift, open paren
+    KC_LSPO,
+
+    // Right shift, close paren
+    KC_RSPC,
+};
+
 // Ability to use mods in layouts
-#define LCTL(kc) kc | 0x0100
-#define LSFT(kc) kc | 0x0200
-#define LALT(kc) kc | 0x0400
-#define LGUI(kc) kc | 0x0800
-#define HYPR(kc) kc | 0x0F00
-#define MEH(kc) kc  | 0x0700
-#define LCAG(kc) kc  | 0x0D00 // Modifier Ctrl Alt and GUI
+#define LCTL(kc) (kc | QK_LCTL)
+#define LSFT(kc) (kc | QK_LSFT)
+#define LALT(kc) (kc | QK_LALT)
+#define LGUI(kc) (kc | QK_LGUI)
+#define RCTL(kc) (kc | QK_RCTL)
+#define RSFT(kc) (kc | QK_RSFT)
+#define RALT(kc) (kc | QK_RALT)
+#define RGUI(kc) (kc | QK_RGUI)
+
+#define HYPR(kc) (kc | QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)
+#define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
+#define LCAG(kc) (kc | QK_LCTL | QK_LALT | QK_LGUI)
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
 
-#define RCTL(kc) kc | 0x1100
-#define RSFT(kc) kc | 0x1200
-#define RALT(kc) kc | 0x1400
-#define RGUI(kc) kc | 0x1800
 
 // Aliases for shifted symbols
 // Each key has a 4-letter code, and some have longer aliases too.
@@ -147,129 +266,57 @@ extern const uint16_t fn_actions[];
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
 // Alias for function layers than expand past FN31
-#define FUNC(kc) kc | 0x2000
+#define FUNC(kc) (kc | QK_FUNCTION)
 
 // Aliases
 #define S(kc) LSFT(kc)
 #define F(kc) FUNC(kc)
 
-#define M(kc) (kc | 0x3000)
+#define M(kc) (kc | QK_MACRO)
 
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
-// 0x3100+ is free
-
 // L-ayer, T-ap - 256 keycode max, 16 layer max
-#define LT(layer, kc) (kc | 0x4000 | ((layer & 0xF) << 8))
-
-#define RESET 0x5000
-#define DEBUG 0x5001
-
-// MAGIC keycodes
-#define MAGIC_SWAP_CONTROL_CAPSLOCK      0x5002
-#define MAGIC_UNSWAP_CONTROL_CAPSLOCK    0x5003
-#define MAGIC_CAPSLOCK_TO_CONTROL        0x5004
-#define MAGIC_UNCAPSLOCK_TO_CONTROL      0x5005
-#define MAGIC_SWAP_LALT_LGUI             0x5006
-#define MAGIC_UNSWAP_LALT_LGUI           0x5007
-#define MAGIC_SWAP_RALT_RGUI             0x5008
-#define MAGIC_UNSWAP_RALT_RGUI           0x5009
-#define MAGIC_NO_GUI                     0x500a
-#define MAGIC_UNNO_GUI                   0x500b
-#define MAGIC_SWAP_GRAVE_ESC             0x500c
-#define MAGIC_UNSWAP_GRAVE_ESC           0x500d
-#define MAGIC_SWAP_BACKSLASH_BACKSPACE   0x500e
-#define MAGIC_UNSWAP_BACKSLASH_BACKSPACE 0x500f
-#define MAGIC_HOST_NKRO                  0x5010
-#define MAGIC_UNHOST_NKRO                0x5011
-#define MAGIC_SWAP_ALT_GUI               0x5012
-#define MAGIC_UNSWAP_ALT_GUI             0x5013
+#define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
 
-#define KC_LEAD 0x5014
+#define BL_ON  BL_9
+#define BL_OFF BL_0
 
-// Audio on/off
-#define AU_ON  0x5020
-#define AU_OFF 0x5021
-#define AU_TOG 0x5022
-
-// Music mode on/off
-#define MU_ON  0x5023
-#define MU_OFF 0x5024
-#define MU_TOG 0x5025
-
-// Music voice iterate
-#define MUV_IN 0x5026
-#define MUV_DE 0x5027
-
-// Midi mode on/off
-#define MI_ON  0x5028
-#define MI_OFF 0x5029
-
-// These affect the backlight (if your keyboard has one).
-// We don't need to comment them out if your keyboard doesn't have a backlight,
-// since they don't take up any space.
-#define BL_ON 0x5079
-#define BL_OFF 0x5070
-#define BL_0 0x5070
-#define BL_1 0x5071
-#define BL_2 0x5072
-#define BL_3 0x5073
-#define BL_4 0x5074
-#define BL_5 0x5075
-#define BL_6 0x5076
-#define BL_7 0x5077
-#define BL_8 0x5078
-#define BL_9 0x5079
-#define BL_10 0x507A
-#define BL_11 0x507B
-#define BL_12 0x507C
-#define BL_13 0x507D
-#define BL_14 0x507E
-#define BL_15 0x507F
-#define BL_DEC 0x5080
-#define BL_INC 0x5081
-#define BL_TOGG 0x5082
-#define BL_STEP 0x5083
-
-#define KC_LSPO 0x5084 // Left shift, open parens when tapped
-#define KC_RSPC 0x5085 // Right shift, close parens when tapped
 // GOTO layer - 16 layers max
 // when:
 // ON_PRESS    = 1
 // ON_RELEASE  = 2
 // Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
-#define TO(layer, when) (layer | 0x5100 | (when << 0x4))
+#define TO(layer, when) (layer | QK_TO | (when << 0x4))
 
 // Momentary switch layer - 256 layer max
-#define MO(layer) (layer | 0x5200)
+#define MO(layer) (layer | QK_MOMENTARY)
 
 // Set default layer - 256 layer max
-#define DF(layer) (layer | 0x5300)
+#define DF(layer) (layer | QK_DEF_LAYER)
 
 // Toggle to layer - 256 layer max
-#define TG(layer) (layer | 0x5400)
+#define TG(layer) (layer | QK_TOGGLE_LAYER)
 
 // One-shot layer - 256 layer max
-#define OSL(layer) (layer | 0x5500)
+#define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
 
 // One-shot mod
-#define OSM(layer) (layer | 0x5600)
-
-// chording is currently at 0x57xx
+#define OSM(layer) (layer | QK_ONE_SHOT_MOD)
 
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | 0x7000 | ((mod & 0xF) << 8))
-#define CTL_T(kc) MT(0x1, kc)
-#define SFT_T(kc) MT(0x2, kc)
-#define ALT_T(kc) MT(0x4, kc)
-#define GUI_T(kc) MT(0x8, kc)
-#define C_S_T(kc) MT(0x3, kc) // Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(0x7, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
-#define LCAG_T(kc) MT(0xD, kc) // Left control alt and gui
-#define ALL_T(kc) MT(0xF, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
+#define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0xF) << 8))
+#define CTL_T(kc) MT(MOD_LCTL, kc)
+#define SFT_T(kc) MT(MOD_LSFT, kc)
+#define ALT_T(kc) MT(MOD_LALT, kc)
+#define GUI_T(kc) MT(MOD_LGUI, kc)
+#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc) // Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc) // Left control alt and gui
+#define ALL_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
 #define KC_HYPR HYPR(KC_NO)
@@ -279,7 +326,7 @@ extern const uint16_t fn_actions[];
     // For sending unicode codes.
     // You may not send codes over 7FFF -- this supports most of UTF8.
     // To have a key that sends out Œ, go UC(0x0152)
-    #define UNICODE(n) (n | 0x8000)
+    #define UNICODE(n) (n | QK_UNICODE)
     #define UC(n) UNICODE(n)
 #endif
 

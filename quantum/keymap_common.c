@@ -137,6 +137,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 static action_t keycode_to_action(uint16_t keycode)
 {
     action_t action;
+    uint8_t layer, when, mod;
     switch (keycode) {
         case KC_A ... KC_EXSEL:
         case KC_LCTRL ... KC_RGUI:
@@ -154,25 +155,60 @@ static action_t keycode_to_action(uint16_t keycode)
         case KC_TRNS:
             action.code = ACTION_TRANSPARENT;
             break;
-        case LCTL(0) ... 0x1FFF: ;
+        case QK_MODS ... QK_MODS_MAX: ;
             // Has a modifier
             // Split it up
             action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF); // adds modifier to key
             break;
-        case FUNC(0) ... FUNC(0xFFF): ;
+        case QK_FUNCTION ... QK_FUNCTION_MAX: ;
             // Is a shortcut for function layer, pull last 12bits
             // This means we have 4,096 FN macros at our disposal
             return keymap_func_to_action(keycode & 0xFFF);
             break;
-        case M(0) ... M(0xFF):
+        case QK_MACRO ... QK_MACRO_MAX:
             action.code = ACTION_MACRO(keycode & 0xFF);
             break;
-        case LT(0, 0) ... LT(0xFF, 0xF):
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
             break;
+        case QK_TO ... QK_TO_MAX: ;
+            // Layer set "GOTO"
+            when = (keycode >> 0x4) & 0x3;
+            layer = keycode & 0xF;
+            action.code = ACTION_LAYER_SET(layer, when);
+            break;
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX: ;
+            // Momentary layer
+            layer = keycode & 0xFF;
+            action.code = ACTION_LAYER_MOMENTARY(layer);
+            break;
+        case QK_DEF_LAYER ... QK_DEF_LAYER_MAX: ;
+            // Set default layer
+            layer = keycode & 0xFF;
+            action.code = ACTION_DEFAULT_LAYER_SET(layer);
+            break;
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX: ;
+            // Set toggle
+            layer = keycode & 0xFF;
+            action.code = ACTION_LAYER_TOGGLE(layer);
+            break;
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX: ;
+            // OSL(layer) - One-shot layer
+            layer = keycode & 0xFF;
+            action.code = ACTION_LAYER_ONESHOT(layer);
+            break;
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX: ;
+            // OSM(mod) - One-shot mod
+            mod = keycode & 0xFF;
+            action.code = ACTION_MODS_ONESHOT(mod);
+            break;
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
+            break;
+
     #ifdef BACKLIGHT_ENABLE
         case BL_0 ... BL_15:
-            action.code = ACTION_BACKLIGHT_LEVEL(keycode & 0x000F);
+            action.code = ACTION_BACKLIGHT_LEVEL(keycode - BL_0);
             break;
         case BL_DEC:
             action.code = ACTION_BACKLIGHT_DECREASE();
@@ -187,7 +223,7 @@ static action_t keycode_to_action(uint16_t keycode)
             action.code = ACTION_BACKLIGHT_STEP();
             break;
     #endif
-        case RESET: ; // RESET is 0x5000, which is why this is here
+        case RESET:
             clear_keyboard();
             #ifdef AUDIO_ENABLE
                 stop_all_notes();
@@ -252,40 +288,6 @@ static action_t keycode_to_action(uint16_t keycode)
                 keymap_config.swap_ralt_rgui = 0;
             }
             eeconfig_update_keymap(keymap_config.raw);
-            break;
-        case TO(0, 1) ... OSM(0xFF): ;
-            // Layer movement shortcuts
-            // See .h to see constraints/usage
-            int type = (keycode >> 0x8) & 0xF;
-            if (type == 0x1) {
-                // Layer set "GOTO"
-                int when = (keycode >> 0x4) & 0x3;
-                int layer = keycode & 0xF;
-                action.code = ACTION_LAYER_SET(layer, when);
-            } else if (type == 0x2) {
-                // Momentary layer
-                int layer = keycode & 0xFF;
-                action.code = ACTION_LAYER_MOMENTARY(layer);
-            } else if (type == 0x3) {
-                // Set default layer
-                int layer = keycode & 0xFF;
-                action.code = ACTION_DEFAULT_LAYER_SET(layer);
-            } else if (type == 0x4) {
-                // Set default layer
-                int layer = keycode & 0xFF;
-                action.code = ACTION_LAYER_TOGGLE(layer);
-            } else if (type == 0x5) {
-                // OSL(layer) - One-shot layer
-                int layer = keycode & 0xFF;
-                action.code = ACTION_LAYER_ONESHOT(layer);
-            } else if (type == 0x6) {
-                // OSM(mod) - One-shot mod
-                int mod = keycode & 0xFF;
-                action.code = ACTION_MODS_ONESHOT(mod);
-            }
-            break;
-        case MT(0, 0) ... MT(0xF, 0xFF):
-            action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
             break;
         default:
             action.code = ACTION_NO;
