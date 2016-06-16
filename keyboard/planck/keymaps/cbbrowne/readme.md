@@ -28,7 +28,8 @@ doing sundry experimentation:
      to use it, but hey, it shows how others might use this facility
      in a more useful context.
    - Key [2][2] aka "a" uses a random number generator to select a digit 0-9 at random
-   - Key [3][2] aka "z" uses a random number generator to select a letter a-z at random	 
+   - Key [3][2] aka "z" uses a random number generator to select a letter a-z at random
+   - Key [1][3] aka "e" spits out the keymap version number
 
 2. Some code structure ideas
 ---------------------------------------------------
