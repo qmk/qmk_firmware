@@ -89,7 +89,7 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
-ifeq ("$(awk /dev/null 2>&1)", "")
+ifneq ($(shell awk --version 2>/dev/null),)
 	AWK=awk
 else
 	AWK=cat && test
