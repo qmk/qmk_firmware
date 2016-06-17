@@ -1,4 +1,4 @@
-#include "keymap_common.h"
+#include "keymap.h"
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP( /* Wilba */

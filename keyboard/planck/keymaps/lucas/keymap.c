@@ -8,7 +8,7 @@ The "Gaming" layer is mainly customized for CS:GO.
 If you have any question about this keymap feel free to shoot me a message on reddit!
 */
 
-#include "keymap_common.h"
+#include "keymap.h"
 #include "keymap_extras/keymap_german.h"
 #include "backlight.h"
 #include "debug.h"
