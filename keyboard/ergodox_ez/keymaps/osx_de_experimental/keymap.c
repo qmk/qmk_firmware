@@ -63,6 +63,8 @@
 
 #define M_MEH_SH_ACUT 15
 
+#define M_Key_KC_BSLS_MODS 16
+
 
 //Layout keymap.c generated with ErgodoxLayoutGenerator V1.0BETA1
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,14 +80,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | Alt                | A                  | S                  | D                  | F                  | G                  |                                                                 | H                  | J                  | K                  | L                  | Ö                  | Ä                  |                      
 * |                    |                    |                    |                    |                    |                    |                                                                 |                    |                    |                    |                    |                    | ALT                |                      
 * /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                        /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                       
-* | Shift              | Y                  | X                  | C                  | V                  | B                  | MEH                |                       | HYPR               | N                  | M                  | ,                  | .                  | -                  | Shift              |                      
-* |                    | Ctrl               |                    |                    |                    |                    |                    |                       |                    |                    |                    |                    |                    | Ctrl               |                    |                      
+* | Shift              | Y                  | X                  | C                  | V                  | B                  | NO                 |                       | NO                 | N                  | M                  | ,                  | .                  | -                  | Shift              |                      
+* |                    | Ctrl               |                    |                    |                    |                    | Meh                |                       | Hyper              |                    |                    |                    |                    | Ctrl               |                    |                      
 * \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\                        \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\                       
 *                                                                                                                                                                                                                                                                                                                                                      
 *                                                                                                                                                                                                                                                                                                                                                      
 *                                           /-------------------//-------------------//-------------------//-------------------//-------------------/                                                                                       /-------------------//-------------------//-------------------//-------------------//-------------------/  
-*                                           | <                  | LongPress / Type   | LongPress / Type   | Shift+Ctrl         | Type               |                                                                                      | #                  | ACUT               | CMD+Shift          | ALT+Shift          | +                  | 
-*                                           | SYMB               | DE_OSX_CIRC_CTRLCMD| DE_OSX_PLUS_CTRAlt |                    | Toggle SMLY        |                                                                                      |                    |                    |                    |                    | SYMB               | 
+*                                           | <                  | LongPress / Type   | LongPress / Type   | Shift+Ctrl         | Type               |                                                                                      | LongPress / Type   | ACUT               | CMD+Shift          | ALT+Shift          | +                  | 
+*                                           | SYMB               | DE_OSX_CIRC_CTRLCMD| DE_OSX_PLUS_CTRAlt |                    | Toggle SMLY        |                                                                                      | Key_BSLS_MODS      |                    |                    |                    | SYMB               | 
 *                                           \-------------------\\-------------------\\-------------------\\-------------------\/-------------------//-------------------/   /-------------------//-------------------/                     \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\  
 *                                                                                                                               | HOME               | END                |  | LEFT               | RIGHT              |                                                                                                                               
 *                                                                                                                               |                    |                    |  |                    |                    |                                                                                                                               
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
-    KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, KC_MEH, 
+    KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, MEH_T(KC_NO), 
                   LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), M(M_DE_OSX_PLUS_CTRLALT), LSFT(KC_LCTRL), M(SMLY_TOG_QUOT), 
                                               KC_HOME, KC_END, 
                                                      KC_PGUP, 
@@ -113,8 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     M(TOG_HLD_MDIA), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
     KC_RGUI, DE_OSX_Z, DE_OSX_U, DE_OSX_I, DE_OSX_O, DE_OSX_P, DE_OSX_UE, 
            DE_OSX_H, DE_OSX_J, DE_OSX_K, DE_OSX_L, DE_OSX_OE, ALT_T(DE_OSX_AE), 
-    KC_HYPR, DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSFT, 
-                         DE_OSX_HASH, DE_OSX_ACUT, LGUI(KC_LSFT), LALT(KC_LSFT), LT(SYMB,DE_OSX_PLUS), 
+    ALL_T(KC_NO), DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSFT, 
+                         M(M_Key_KC_BSLS_MODS), DE_OSX_ACUT, LGUI(KC_LSFT), LALT(KC_LSFT), LT(SYMB,DE_OSX_PLUS), 
     KC_LEFT, KC_RIGHT, 
     KC_UP, 
     KC_DOWN, KC_ENT, KC_SPC),
@@ -276,35 +278,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS),
 /**
 * Layer: NUMB
-* /----//----//----//----//----//----//----/         /----//----//----//----//----//----//----/        
-* |     |     |     |     |     |     |     |        |     | F6  | F7  | F8  | F9  | F10 | F11 |       
-* |     |     |     |     |     |     |     |        |     |     |     |     |     |     |     |       
-* /----//----//----//----//----//----//----/         /----//----//----//----//----//----//----/        
-* |     |     |     | UP  |     |     |     |        |     | /   | 7   | 8   | 9   | *   | F12 |       
-* |     |     |     |     |     |     |     |        |     |     |     |     |     |     |     |       
-* /----//----//----//----//----//----/\----\         \----\/----//----//----//----//----//----/        
-* |     |     | LEFT| DOWN| RGHT|     |                    | /   | 4   | 5   | 6   | +   | -   |       
-* |     |     |     |     |     |     |                    |     |     |     |     |     |     |       
-* /----//----//----//----//----//----//----/         /----//----//----//----//----//----//----/        
-* |     |     |     |     |     |     |     |        |     | %   | 1   | 2   | 3   |     |     |       
-* |     |     |     |     |     |     |     |        |     |     |     |     |     |     |     |       
-* \----\\----\\----\\----\\----\\----\\----\         \----\\----\\----\\----\\----\\----\\----\        
-*                                                                                                      
-*                                                                                                      
-*             /----//----//----//----//----/                           /----//----//----//----//----/  
-*             |     |     |     |     |     |                          | 0   | .   | ,   | =   |     | 
-*             |     |     |     |     |     |                          |     |     |     |     |     | 
-*             \----\\----\\----\\----\/----//----/   /----//----/      \----\\----\\----\\----\\----\  
-*                                     |     |     |  |     |     |                                     
-*                                     |     |     |  |     |     |                                     
-*                                     \----\/----/   /----/\----\                                      
-*                                           |     |  |     |                                           
-*                                           |     |  |     |                                           
-*                               /----//----//----/   /----//----//----/                                
-*                               |     |     |     |  |     |     |     |                               
-*                               |     |     |     |  |     |     |     |                               
-*                               \----\\----\\----\   \----\\----\\----\                                
-*                                                                                                      
+* /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
+* |      |      |      |      |      |      |      |         |      | F6   | F7   | F8   | F9   | F10  | F11  |        
+* |      |      |      |      |      |      |      |         |      |      |      |      |      |      |      |        
+* /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
+* |      |      |      | UP   |      |      |      |         |      | /    | 7    | 8    | 9    | *    | F12  |        
+* |      |      |      |      |      |      |      |         |      |      |      |      |      |      |      |        
+* /-----//-----//-----//-----//-----//-----/\-----\          \-----\/-----//-----//-----//-----//-----//-----/         
+* |      |      | LEFT | DOWN | RIGHT|      |                       | /    | 4    | 5    | 6    | +    | -    |        
+* |      |      |      |      |      |      |                       |      |      |      |      |      |      |        
+* /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
+* |      |      |      |      |      |      |      |         |      | %    | 1    | 2    | 3    |      |      |        
+* |      |      |      |      |      |      |      |         |      |      |      |      |      |      |      |        
+* \-----\\-----\\-----\\-----\\-----\\-----\\-----\          \-----\\-----\\-----\\-----\\-----\\-----\\-----\         
+*                                                                                                                      
+*                                                                                                                      
+*               /-----//-----//-----//-----//-----/                               /-----//-----//-----//-----//-----/  
+*               |      |      |      |      |      |                              | 0    | .    | ,    | =    |      | 
+*               |      |      |      |      |      |                              |      |      |      |      |      | 
+*               \-----\\-----\\-----\\-----\/-----//-----/   /-----//-----/       \-----\\-----\\-----\\-----\\-----\  
+*                                           |      |      |  |      |      |                                           
+*                                           |      |      |  |      |      |                                           
+*                                           \-----\/-----/   /-----/\-----\                                            
+*                                                  |      |  |      |                                                  
+*                                                  |      |  |      |                                                  
+*                                    /-----//-----//-----/   /-----//-----//-----/                                     
+*                                    |      |      |      |  |      |      |      |                                    
+*                                    |      |      |      |  |      |      |      |                                    
+*                                    \-----\\-----\\-----\   \-----\\-----\\-----\                                     
+*                                                                                                                      
 * 
 **/
 [NUMB]=KEYMAP(
@@ -477,12 +479,26 @@ if (record->event.pressed) {
 		}
 
 break;
+case M_Key_KC_BSLS_MODS:
+//Macro: M_Key_KC_BSLS_MODS//-----------------------
+if (record->event.pressed) {
+			start = timer_read();
+			return MACRO(DOWN(KC_LALT),DOWN(KC_LGUI),END);
+		} else {
+			if (timer_elapsed(start) >150) {
+				return MACRO(U(LALT),U(LGUI),END);
+			} else {
+				return MACRO(UP(KC_LALT),UP(KC_LGUI),TYPE(KC_BSLS),END);
+			}
+		}
+
+break;
 case M_LGUI_SHFT:
 //Macro: M_LGUI_SHFT//-----------------------
 if (record->event.pressed){
 			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
 		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
