@@ -1,6 +1,6 @@
 #include "ergodox_ez.h"
 #include "action_layer.h"
-#include "keymap_common.h"
+#include "keymap.h"
 #include "keymap_extras/keymap_german.h"
 
 #define UC_ASYMPTOTICALLY_EQUAL_TO 0
