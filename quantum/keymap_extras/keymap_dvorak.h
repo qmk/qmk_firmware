@@ -1,7 +1,7 @@
 #ifndef KEYMAP_DVORAK_H
 #define KEYMAP_DVORAK_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Normal characters
 #define DV_GRV	KC_GRV

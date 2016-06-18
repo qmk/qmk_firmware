@@ -74,7 +74,8 @@ enum macro_id {
   M_LED = 0,
   M_USERNAME,
   M_RANDDIGIT,
-  M_RANDLETTER
+  M_RANDLETTER,
+  M_VERSION
 };
 
 /* Note that Planck has dimensions 4 rows x 12 columns */
@@ -99,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, DF(_KP), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 [_KP] = { /* Key Pad */
-  {KC_ESC,  M(M_USERNAME),    KC_F9,   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
+  {KC_ESC,  M(M_USERNAME),    M(M_VERSION),   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
   {KC_LCTL, M(M_RANDDIGIT),   KC_F5,   KC_F6,    KC_F7,   KC_F8,    KC_PGDN, KC_KP_MINUS, KC_4, KC_5, KC_6, KC_PIPE},
   {KC_LSFT, M(M_RANDLETTER),  KC_F1,   KC_F2,    KC_F3,   KC_F4,    KC_DEL,  KC_KP_PLUS,  KC_1, KC_2,  KC_3, KC_ENTER},
   {BL_STEP, M(M_LED), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QW),   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
@@ -133,6 +134,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   case M_USERNAME:
     if (record->event.pressed) {
       SEND_STRING("cbbrowne");
+    }
+    break;
+  case M_VERSION:
+    if (record->event.pressed) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP "@" QMK_VERSION "@" QMK_BUILDDATE);
     }
     break;
   case M_RANDDIGIT:

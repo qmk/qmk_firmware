@@ -1,7 +1,7 @@
 #ifndef KEYMAP_GERMAN
 #define KEYMAP_GERMAN
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
 #define ALGR(kc) kc | 0x1400

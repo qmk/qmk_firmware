@@ -2,7 +2,7 @@
 #define JD45_H
 
 #include "matrix.h"
-#include "keymap_common.h"
+#include "keymap.h"
 #include "backlight.h"
 #include <stddef.h>
 

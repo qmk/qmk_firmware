@@ -1,4 +1,4 @@
-#include "keymap_common.h"
+#include "keymap.h"
 #include "action_layer.h"
 #include "action.h"
 #include "action_util.h"
