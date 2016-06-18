@@ -10,13 +10,25 @@ abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
 ifneq (,$(findstring /keyboard/,$(starting_makefile)))
 	possible_keyboard:=$(patsubst %/,%,$(dir $(patsubst $(abs_tmk_root)/keyboard/%,%,$(starting_makefile))))
 	ifneq (,$(findstring /keymaps/,$(possible_keyboard)))
-		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
 		KEYMAP_DIR:=$(lastword $(subst /keymaps/, ,$(possible_keyboard)))
-		tmk_root = ../../../..
+		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
+		ifneq (,$(findstring /,$(KEYBOARD_DIR)))
+			# SUBPROJECT_DIR:=$(lastword $(subst /, ,$(KEYBOARD_DIR)))
+			# KEYBOARD_DIR:=$(firstword $(subst /, ,$(KEYBOARD_DIR)))
+			tmk_root = ../../..
+		else
+			tmk_root = ../../../..
+		endif
 	else
-		KEYBOARD_DIR:=$(possible_keyboard)
 		KEYMAP_DIR:=default
-		tmk_root = ../..
+		KEYBOARD_DIR:=$(possible_keyboard)
+		ifneq (,$(findstring /,$(KEYBOARD_DIR)))
+			# SUBPROJECT_DIR:=$(lastword $(subst /, ,$(KEYBOARD_DIR)))
+			# KEYBOARD_DIR:=$(firstword $(subst /, ,$(KEYBOARD_DIR)))
+			tmk_root = ../../..
+		else
+			tmk_root = ../..
+		endif
 	endif
 else
 	tmk_root = .
@@ -44,6 +56,7 @@ ifndef KEYBOARD
 	KEYBOARD=planck
 endif
 
+# converts things to keyboard/subproject
 ifneq (,$(findstring /,$(KEYBOARD)))
 	TEMP:=$(KEYBOARD)
 	KEYBOARD:=$(firstword $(subst /, ,$(TEMP)))
