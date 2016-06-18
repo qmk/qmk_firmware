@@ -68,7 +68,7 @@ else
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 endif
 
-TARGET = $(KEYBOARD)_$(KEYMAP)
+TARGET ?= $(KEYBOARD)_$(KEYMAP)
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
