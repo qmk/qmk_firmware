@@ -99,15 +99,11 @@ else
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 endif
 
-<<<<<<< HEAD
 ifdef SUBPROJECT
-	TARGET = $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
+	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
 else
-	TARGET = $(KEYBOARD)_$(KEYMAP)
+	TARGET ?= $(KEYBOARD)_$(KEYMAP)
 endif
-=======
-TARGET ?= $(KEYBOARD)_$(KEYMAP)
->>>>>>> master
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
