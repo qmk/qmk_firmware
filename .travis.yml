@@ -35,6 +35,6 @@ addons:
     - gcc-avr
     - dfu-programmer
 after_success:
-  - git config credential.helper "store --file=.git/credentials"
-  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+  - git remote rm origin
+  - git remote add origin https://jackhumbert:${GH_TOKEN}@github.com/jackhumbert/qmk_firmware.git
   - git commit -am "Updates compiled.hex files"; git push
