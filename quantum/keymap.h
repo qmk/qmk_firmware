@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include <avr/pgmspace.h>
 #include "keycode.h"
-#include "keymap.h"
 #include "action_macro.h"
 #include "report.h"
 #include "host.h"
@@ -44,7 +43,7 @@ typedef union {
         bool nkro:1;
     };
 } keymap_config_t;
-
+keymap_config_t keymap_config;
 
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
