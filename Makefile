@@ -2,8 +2,9 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-starting_makefile := $(abspath $(firstword $(MAKEFILE_LIST)))
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+space := $(subst ,, )
+starting_makefile := $(subst $(space),_SPACE_,$(abspath $(firstword $(MAKEFILE_LIST))))
+mkfile_path := $(subst $(space),_SPACE_,$(abspath $(lastword $(MAKEFILE_LIST))))
 abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
 
 ifneq (,$(findstring /keyboard/,$(starting_makefile)))
