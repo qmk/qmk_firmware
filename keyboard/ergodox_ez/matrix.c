@@ -106,6 +106,25 @@ void matrix_init(void)
 
 }
 
+void matrix_power_up(void) {
+    mcp23018_status = init_mcp23018();
+
+    unselect_rows();
+    init_cols();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+        matrix_debouncing[i] = 0;
+    }
+
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    matrix_timer = timer_read32();
+    matrix_scan_count = 0;
+#endif
+
+}
+
 uint8_t matrix_scan(void)
 {
     if (mcp23018_status) { // if there was an error

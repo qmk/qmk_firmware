@@ -1,5 +1,5 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H 1
+#ifndef CONFIG_ALGERNON_H
+#define CONFIG_ALGERNON_H
 
 #include "../../config.h"
 
@@ -23,5 +23,7 @@
 
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 1000
+
+#define FORCE_NKRO
 
 #endif

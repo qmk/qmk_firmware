@@ -3,7 +3,7 @@
 
 #include <avr/pgmspace.h>
 #include "matrix.h"
-#include "keymap_common.h"
+#include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
@@ -25,8 +25,8 @@
 #include <stddef.h>
 #include <avr/io.h>
 #include <util/delay.h>
-
-#define SEND_STRING(str) send_string(PSTR(str))
+#include "bootloader.h"
+#include "timer.h"
 
 extern uint32_t default_layer_state;
 
@@ -62,14 +62,19 @@ extern uint32_t default_layer_state;
 	#define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 #endif
 
+#define SEND_STRING(str) send_string(PSTR(str))
 void send_string(const char *str);
+
+// For tri-layer
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
+#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
 
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
-
 
 bool is_music_on(void);
 void music_toggle(void);
