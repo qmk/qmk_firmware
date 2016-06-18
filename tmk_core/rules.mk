@@ -622,7 +622,7 @@ $(OBJDIR)/%.o : %.c
 $(OBJDIR)/%.o : %.cpp
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
-	$(CC) -c $(ALL_CPPFLAGS) $< -o $@
+	$(eval CMD=$(CC) -c $(ALL_CPPFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
