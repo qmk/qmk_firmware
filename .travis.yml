@@ -9,23 +9,23 @@ compiler:
 
 env:
   - KEYBOARD=alps64
-  - KEYBOARD=arrow_pad
-  - KEYBOARD=atomic
-  - KEYBOARD=atreus
-  - KEYBOARD=bantam44
-  - KEYBOARD=clueboard
-  - KEYBOARD=cluepad
-  - KEYBOARD=ergodox_ez
-  - KEYBOARD=gh60
-  - KEYBOARD=hhkb
-  - KEYBOARD=jd45
-  - KEYBOARD=kc60
-  - KEYBOARD=phantom
-  - KEYBOARD=planck
-  - KEYBOARD=preonic
-  - KEYBOARD=retro_refit
-  - KEYBOARD=satan
-  - KEYBOARD=sixkeyboard
+  # - KEYBOARD=arrow_pad
+  # - KEYBOARD=atomic
+  # - KEYBOARD=atreus
+  # - KEYBOARD=bantam44
+  # - KEYBOARD=clueboard
+  # - KEYBOARD=cluepad
+  # - KEYBOARD=ergodox_ez
+  # - KEYBOARD=gh60
+  # - KEYBOARD=hhkb
+  # - KEYBOARD=jd45
+  # - KEYBOARD=kc60
+  # - KEYBOARD=phantom
+  # - KEYBOARD=planck
+  # - KEYBOARD=preonic
+  # - KEYBOARD=retro_refit
+  # - KEYBOARD=satan
+  # - KEYBOARD=sixkeyboard
 
 script:
   - cd keyboard/$KEYBOARD && make all-keymaps
@@ -36,3 +36,7 @@ addons:
       - avr-libc
       - gcc-avr
       - dfu-programmer
+
+after_success:
+  git commit -am "Updates compiled.hex files"
+  git push
