@@ -2,7 +2,7 @@
 #ifndef KEYMAP_BEPO_H
 #define KEYMAP_BEPO_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
 #ifndef ALTGR

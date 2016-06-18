@@ -18,11 +18,7 @@ LUFA_SRC = lufa.c \
 	   $(LUFA_SRC_USB)
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
-	LUFA_SRC += midi/midi.c \
-	   midi/midi_device.c \
-	   midi/bytequeue/bytequeue.c \
-	   midi/bytequeue/interrupt_setting.c \
-	   $(LUFA_SRC_USBCLASS)
+	include $(TMK_PATH)/protocol/midi.mk
 endif
 
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)

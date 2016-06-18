@@ -1,5 +1,4 @@
 #include "quantum.h"
-#include "timer.h"
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {}
@@ -35,15 +34,15 @@ int offset = 7;
 #ifdef AUDIO_ENABLE
   bool music_activated = false;
 
-// music sequencer
-static bool music_sequence_recording = false;
-static bool music_sequence_playing = false;
-static float music_sequence[16] = {0};
-static uint8_t music_sequence_count = 0;
-static uint8_t music_sequence_position = 0;
+  // music sequencer
+  static bool music_sequence_recording = false;
+  static bool music_sequence_playing = false;
+  static float music_sequence[16] = {0};
+  static uint8_t music_sequence_count = 0;
+  static uint8_t music_sequence_position = 0;
 
-static uint16_t music_sequence_timer = 0;
-static uint16_t music_sequence_interval = 100;
+  static uint16_t music_sequence_timer = 0;
+  static uint16_t music_sequence_interval = 100;
 
 #endif
 
@@ -172,10 +171,6 @@ bool process_record_quantum(keyrecord_t *record) {
           if (record->event.pressed) {
               starting_note++; // Change key
               midi_send_cc(&midi_device, 0, 0x7B, 0);
-              // midi_send_cc(&midi_device, 1, 0x7B, 0);
-              // midi_send_cc(&midi_device, 2, 0x7B, 0);
-              // midi_send_cc(&midi_device, 3, 0x7B, 0);
-              // midi_send_cc(&midi_device, 4, 0x7B, 0);
           }
           return false;
       }
@@ -183,29 +178,17 @@ bool process_record_quantum(keyrecord_t *record) {
           if (record->event.pressed) {
               starting_note--; // Change key
               midi_send_cc(&midi_device, 0, 0x7B, 0);
-              // midi_send_cc(&midi_device, 1, 0x7B, 0);
-              // midi_send_cc(&midi_device, 2, 0x7B, 0);
-              // midi_send_cc(&midi_device, 3, 0x7B, 0);
-              // midi_send_cc(&midi_device, 4, 0x7B, 0);
           }
           return false;
       }
       if (record->event.key.col == (MATRIX_COLS - 3) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
           offset++; // Change scale
           midi_send_cc(&midi_device, 0, 0x7B, 0);
-          // midi_send_cc(&midi_device, 1, 0x7B, 0);
-          // midi_send_cc(&midi_device, 2, 0x7B, 0);
-          // midi_send_cc(&midi_device, 3, 0x7B, 0);
-          // midi_send_cc(&midi_device, 4, 0x7B, 0);
           return false;
       }
       if (record->event.key.col == (MATRIX_COLS - 4) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
           offset--; // Change scale
           midi_send_cc(&midi_device, 0, 0x7B, 0);
-          // midi_send_cc(&midi_device, 1, 0x7B, 0);
-          // midi_send_cc(&midi_device, 2, 0x7B, 0);
-          // midi_send_cc(&midi_device, 3, 0x7B, 0);
-          // midi_send_cc(&midi_device, 4, 0x7B, 0);
           return false;
       }
       // basic
@@ -365,7 +348,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #define DISABLE_CHORDING
 #ifndef DISABLE_CHORDING
 
-  if (keycode >= 0x5700 && keycode <= 0x57FF) {
+  if (keycode >= QK_CHORDING && keycode <= QK_CHORDING_MAX) {
     if (record->event.pressed) {
       if (!chording) {
         chording = true;
@@ -403,7 +386,7 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #ifdef UNICODE_ENABLE
 
-  if (keycode > UNICODE(0) && record->event.pressed) {
+  if (keycode > QK_UNICODE && record->event.pressed) {
     uint16_t unicode = keycode & 0x7FFF;
     switch(input_mode) {
       case UC_OSX:
@@ -443,42 +426,117 @@ bool process_record_quantum(keyrecord_t *record) {
   // Shift / paren setup
 
   switch(keycode) {
+    case RESET:
+      if (record->event.pressed) {
+        clear_keyboard();
+        #ifdef AUDIO_ENABLE
+          stop_all_notes();
+          shutdown_user();
+        #endif
+        _delay_ms(250);
+        #ifdef ATREUS_ASTAR
+            *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
+        #endif
+        bootloader_jump();
+        return false;
+      }
+      break;
+    case DEBUG:
+      if (record->event.pressed) {
+          print("\nDEBUG: enabled.\n");
+          debug_enable = true;
+          return false;
+      }
+      break;
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_UNSWAP_ALT_GUI:
+      if (record->event.pressed) {
+        // MAGIC actions (BOOTMAGIC without the boot)
+        if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+        }
+        /* keymap config */
+        keymap_config.raw = eeconfig_read_keymap();
+        if (keycode == MAGIC_SWAP_CONTROL_CAPSLOCK) {
+            keymap_config.swap_control_capslock = 1;
+        } else if (keycode == MAGIC_CAPSLOCK_TO_CONTROL) {
+            keymap_config.capslock_to_control = 1;
+        } else if (keycode == MAGIC_SWAP_LALT_LGUI) {
+            keymap_config.swap_lalt_lgui = 1;
+        } else if (keycode == MAGIC_SWAP_RALT_RGUI) {
+            keymap_config.swap_ralt_rgui = 1;
+        } else if (keycode == MAGIC_NO_GUI) {
+            keymap_config.no_gui = 1;
+        } else if (keycode == MAGIC_SWAP_GRAVE_ESC) {
+            keymap_config.swap_grave_esc = 1;
+        } else if (keycode == MAGIC_SWAP_BACKSLASH_BACKSPACE) {
+            keymap_config.swap_backslash_backspace = 1;
+        } else if (keycode == MAGIC_HOST_NKRO) {
+            keymap_config.nkro = 1;
+        } else if (keycode == MAGIC_SWAP_ALT_GUI) {
+            keymap_config.swap_lalt_lgui = 1;
+            keymap_config.swap_ralt_rgui = 1;
+        }
+        /* UNs */
+        else if (keycode == MAGIC_UNSWAP_CONTROL_CAPSLOCK) {
+            keymap_config.swap_control_capslock = 0;
+        } else if (keycode == MAGIC_UNCAPSLOCK_TO_CONTROL) {
+            keymap_config.capslock_to_control = 0;
+        } else if (keycode == MAGIC_UNSWAP_LALT_LGUI) {
+            keymap_config.swap_lalt_lgui = 0;
+        } else if (keycode == MAGIC_UNSWAP_RALT_RGUI) {
+            keymap_config.swap_ralt_rgui = 0;
+        } else if (keycode == MAGIC_UNNO_GUI) {
+            keymap_config.no_gui = 0;
+        } else if (keycode == MAGIC_UNSWAP_GRAVE_ESC) {
+            keymap_config.swap_grave_esc = 0;
+        } else if (keycode == MAGIC_UNSWAP_BACKSLASH_BACKSPACE) {
+            keymap_config.swap_backslash_backspace = 0;
+        } else if (keycode == MAGIC_UNHOST_NKRO) {
+            keymap_config.nkro = 0;
+        } else if (keycode == MAGIC_UNSWAP_ALT_GUI) {
+            keymap_config.swap_lalt_lgui = 0;
+            keymap_config.swap_ralt_rgui = 0;
+        }
+        eeconfig_update_keymap(keymap_config.raw);
+        return false;
+      }
+      break;
     case KC_LSPO: {
-                    if (record->event.pressed) {
-                      shift_interrupted[0] = false;
-                      register_mods(MOD_LSFT);
-                    }
-                    else {
-                      if (!shift_interrupted[0]) {
-                        register_code(LSPO_KEY);
-                        unregister_code(LSPO_KEY);
-                      }
-                      unregister_mods(MOD_LSFT);
-                    }
-                    return false;
-                    break;
-                  }
+      if (record->event.pressed) {
+        shift_interrupted[0] = false;
+        register_mods(MOD_LSFT);
+      }
+      else {
+        if (!shift_interrupted[0]) {
+          register_code(LSPO_KEY);
+          unregister_code(LSPO_KEY);
+        }
+        unregister_mods(MOD_LSFT);
+      }
+      return false;
+      break;
+    }
 
     case KC_RSPC: {
-                    if (record->event.pressed) {
-                      shift_interrupted[1] = false;
-                      register_mods(MOD_RSFT);
-                    }
-                    else {
-                      if (!shift_interrupted[1]) {
-                        register_code(RSPC_KEY);
-                        unregister_code(RSPC_KEY);
-                      }
-                      unregister_mods(MOD_RSFT);
-                    }
-                    return false;
-                    break;
-                  }
+      if (record->event.pressed) {
+        shift_interrupted[1] = false;
+        register_mods(MOD_RSFT);
+      }
+      else {
+        if (!shift_interrupted[1]) {
+          register_code(RSPC_KEY);
+          unregister_code(RSPC_KEY);
+        }
+        unregister_mods(MOD_RSFT);
+      }
+      return false;
+      break;
+    }
     default: {
-               shift_interrupted[0] = true;
-               shift_interrupted[1] = true;
-               break;
-             }
+      shift_interrupted[0] = true;
+      shift_interrupted[1] = true;
+      break;
+    }
   }
 
   return process_action_kb(record);
@@ -586,6 +644,13 @@ void send_string(const char *str) {
     }
 }
 
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
+    layer_on(layer3);
+  } else {
+    layer_off(layer3);
+  }
+}
 
 void matrix_init_quantum() {
   matrix_init_kb();

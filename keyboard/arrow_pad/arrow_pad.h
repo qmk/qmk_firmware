@@ -2,7 +2,7 @@
 #define ARROW_PAD_H
 
 #include "matrix.h"
-#include "keymap_common.h"
+#include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
 	#include "backlight.h"
 #endif

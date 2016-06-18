@@ -1,7 +1,7 @@
 #ifndef KEYMAP_PLOVER_H
 #define KEYMAP_PLOVER_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 #define PV_NUM  KC_1
 #define PV_LS   KC_Q
