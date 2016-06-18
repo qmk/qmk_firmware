@@ -70,6 +70,15 @@ uint8_t chord_key_down = 0;
   static uint8_t input_mode;
 #endif
 
+// Shift / paren setup
+
+#ifndef LSPO_KEY
+  #define LSPO_KEY KC_9
+#endif
+#ifndef RSPC_KEY
+  #define RSPC_KEY KC_0
+#endif
+
 static bool shift_interrupted[2] = {0, 0};
 
 bool keys_chord(uint8_t keys[]) {
@@ -431,18 +440,20 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #endif
 
+  // Shift / paren setup
+
   switch(keycode) {
     case KC_LSPO: {
                     if (record->event.pressed) {
                       shift_interrupted[0] = false;
-                      register_mods(MOD_BIT(KC_LSFT));
+                      register_mods(MOD_LSFT);
                     }
                     else {
                       if (!shift_interrupted[0]) {
-                        register_code(KC_9);
-                        unregister_code(KC_9);
+                        register_code(LSPO_KEY);
+                        unregister_code(LSPO_KEY);
                       }
-                      unregister_mods(MOD_BIT(KC_LSFT));
+                      unregister_mods(MOD_LSFT);
                     }
                     return false;
                     break;
@@ -451,14 +462,14 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
                     if (record->event.pressed) {
                       shift_interrupted[1] = false;
-                      register_mods(MOD_BIT(KC_RSFT));
+                      register_mods(MOD_RSFT);
                     }
                     else {
                       if (!shift_interrupted[1]) {
-                        register_code(KC_0);
-                        unregister_code(KC_0);
+                        register_code(RSPC_KEY);
+                        unregister_code(RSPC_KEY);
                       }
-                      unregister_mods(MOD_BIT(KC_RSFT));
+                      unregister_mods(MOD_RSFT);
                     }
                     return false;
                     break;
