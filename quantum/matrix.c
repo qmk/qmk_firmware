@@ -66,6 +66,30 @@ uint8_t matrix_cols(void) {
     return MATRIX_COLS;
 }
 
+void matrix_power_up(void) {
+#if DIODE_DIRECTION == COL2ROW
+    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
+        /* DDRxn */
+        _SFR_IO8(row_pins[r].input_addr + 1) |= _BV(row_pins[r].bit);
+        toggle_row(r);
+    }
+    for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
+        /* PORTxn */
+        _SFR_IO8(col_pins[c].input_addr + 2) |= _BV(col_pins[c].bit);
+    }
+#else
+    for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
+        /* DDRxn */
+        _SFR_IO8(col_pins[c].input_addr + 1) |= _BV(col_pins[c].bit);
+        toggle_col(c);
+    }
+    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
+        /* PORTxn */
+        _SFR_IO8(row_pins[r].input_addr + 2) |= _BV(row_pins[r].bit);
+    }
+#endif
+}
+
 void matrix_init(void) {
     /* frees PORTF by setting the JTD bit twice within four cycles */
     #ifdef __AVR_ATmega32U4__

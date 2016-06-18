@@ -2,7 +2,7 @@
 #define RETRO_REFIT_H
 
 #include "matrix.h"
-#include "keymap_common.h"
+#include "keymap.h"
 #include "led.h"
 #include <stddef.h>
 

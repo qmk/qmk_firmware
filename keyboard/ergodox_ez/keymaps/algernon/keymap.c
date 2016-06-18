@@ -9,77 +9,98 @@
 #include "action_util.h"
 #include "mousekey.h"
 #include "timer.h"
+#include "keymap_plover.h"
 
 /* Layers */
 
-#define BASE    0 // default layer
-#define APPSEL  1 // application select layer
-#define HUN     2 // Hungarian layer
-#define EMACS   3 // (Spac)Emacs layer
-#define OHLFT   4 // One-handed, left side
-#define OHRGT   5 // One-handed, right side
+enum {
+  BASE = 0,
+  APPSEL,
+  HUN,
+  EMACS,
+  OHLFT,
+  OHRGT,
+  PLVR,
+  EXPRM
+};
 
 /* Macros */
 
-#define A_GUI      0 // GUI magic
-#define A_ESC     44 // OSM-clearing ESC
+enum {
+  NONE = 0,
+  // Buttons that do extra stuff
+  A_GUI,
+  A_PLVR,
+  A_ESC,
+  A_MPN,
+  A_COLN,
 
-#define A_MUL      1 // mouse up-left
-#define A_MUR      2 // mouse up-right
-#define A_MDL      3 // mouse down-left
-#define A_MDR      4 // mouse down-right
+  // Function / number keys
+  KF_1, // 1, F1
+  KF_2, // 2, F2
+  KF_3, // ...
+  KF_4,
+  KF_5,
+  KF_6,
+  KF_7,
+  KF_8,
+  KF_9,
+  KF_10,
+  KF_11, // =, F11
 
-#define AE_VIS     5 // Visual mode
-#define AE_PSTDEL  6 // Paste/Delete
-#define AE_CPYC    7 // Copy/Cut
-#define AE_EMACS   8 // Emacs copy & paste mode
-#define AE_TERM    9 // Terminal copy & paste mode
-#define AE_OTHER  10 // Other copy & paste mode
-#define AE_INS    11 // Insert mode
-#define AE_OVR    12 // Overwrite mode
-#define AE_APPND  13 // Append
+  // Application select keys
+  APP_SLK, // Slack
+  APP_EMCS, // Emacs
+  APP_TERM, // Terminal
+  APP_CHRM, // Chrome
+  APP_MSIC, // Music
 
-#define HU_AA     14 // Á
-#define HU_OO     15 // Ó
-#define HU_EE     16 // É
-#define HU_UU     17 // Ú
-#define HU_II     18 // Í
-#define HU_OE     19 // Ö
-#define HU_UE     20 // Ü
-#define HU_OEE    21 // Ő
-#define HU_UEE    22 // Ű
+  // Diagonal mouse movement
+  A_MUL,
+  A_MUR,
+  A_MDL,
+  A_MDR,
 
-#define APP_SLK   23 // Slack
-#define APP_EMCS  24 // Emacs
-#define APP_TERM  25 // Terminal
-#define APP_CHRM  26 // Chrome
-#define APP_MSIC  27 // Music
+  // Emacs layer keys
+  AE_VIS, // Visual mode
+  AE_PSTDEL, // Paste/Delete
+  AE_CPYC, // Copy/Cut
+  AE_EMACS, // Emacs copy & paste mode
+  AE_TERM, // Terminal copy & paste mode
+  AE_OTHER, // Other copy & paste mode
+  AE_INS, // Insert mode
+  AE_OVR, // Overwrite mode
+  AE_APPND, // Append
 
-#define KF_1      28 // 1, F1
-#define KF_2      29 // 2, F2
-#define KF_3      30 // ...
-#define KF_4      31
-#define KF_5      32
-#define KF_6      33
-#define KF_7      34
-#define KF_8      35
-#define KF_9      36
-#define KF_10     37
-#define KF_11     38 // =, F11
+  // Hungarian layer keys
+  HU_AA, // Á
+  HU_OO, // Ó
+  HU_EE, // É
+  HU_UU, // Ú
+  HU_II, // Í
+  HU_OE, // Ö
+  HU_UE, // Ü
+  HU_OEE, // Ő
+  HU_UEE, // Ű
 
-#define OH_BSSPC  39
-#define OH_ENTSFT 40
-#define OH_BASE   41
-#define OH_LEFT   42
-#define OH_RIGHT  43
+  // One-handed layout specials
+  OH_BSSPC,
+  OH_ENTSFT,
+  OH_BASE,
+  OH_LEFT,
+  OH_RIGHT,
+};
 
 /* Fn keys */
-#define F_BSE     0
-#define F_HUN     1
-#define F_GUI     2
-#define F_SFT     3
-#define F_ALT     4
-#define F_CTRL    5
+
+enum {
+  F_BSE = 0,
+  F_HUN,
+  F_GUI,
+  F_SFT,
+  F_ALT,
+  F_CTRL
+};
 
 /* States & timers */
 
@@ -117,13 +138,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10| =     F11 |
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | /         |
+ * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | =         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |         - |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
+ * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -137,19 +158,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP(
 // left hand
- KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,KC_TAB             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_MINS            ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_SCLN     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,KC_COLN
+ KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
+,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
+,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,M(KF_11)
-                                                               ,KC_RBRC ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_SLSH
+                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_EQL
                                                                         ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
                                                                ,KC_RPRN ,KC_B   ,KC_M   ,KC_W   ,KC_V        ,KC_Z        ,KC_MSTP
                                                                                 ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
@@ -386,6 +407,96 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_NO   ,KC_NO  ,KC_NO
     ),
 
+/* Keymap 7: Steno for Plover
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      | BASE |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |   #  |   #  |   #  |   #  |   #  |      |           |      |  #   |  #   |   #  |   #  |  #   |   #    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |   T  |   P  |   H  |      |------|           |------|      |  F   |   P  |   L  |  T   |   D    |
+ * |--------+   S  +------+------+------+   *  |      |           |      |  *   +------+------+------+------+--------|
+ * |        |      |   K  |   W  |   R  |      |      |           |      |      |  R   |   B  |   G  |  S   |   Z    |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |   A  |   O  |------|       |------|  E   |  U   |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+
+[PLVR] = KEYMAP(
+// left hand
+KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   M(A_PLVR),
+KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  KC_NO,
+KC_NO,  PV_LS,  PV_LT,  PV_LP,   PV_LH,  PV_STAR,
+KC_NO,  PV_LS,  PV_LK,  PV_LW,   PV_LR,  PV_STAR, KC_NO,
+KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,
+                                           KC_NO, KC_NO,
+                                           KC_NO,
+                                           PV_A,  PV_O,  KC_NO,
+
+                                                 // right hand
+                                                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                                 KC_NO,   PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,
+                                                          PV_STAR, PV_RF,   PV_RP,   PV_RL,   PV_RT,   PV_RD,
+                                                 KC_NO,   PV_STAR, PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,
+                                                                   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+                                           KC_NO,      KC_NO,
+                                           KC_NO,
+                                           KC_NO,PV_E, PV_U
+ ),
+
+/* Keymap 8: Experimental layer
+ *
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   C  |   R  |  J   | =         |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
+ * | Play/Pause|   Z  |   K  |   V  |   G  |   X  |      |           |      |   L  |   M  |   W  |   B  |  /   |      Stop |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
+ *     `-----------------------------------'                                       `-----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         | LAlt | GUI  |           |EMACS | 1HND |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      | Ctrl |           | LEAD |      |      |
+ *                                  |Backsp|LShift|------|           |------| Enter| Space|
+ *                                  |      |      | ESC  |           | HUN  |      |      |
+ *                                  `--------------------'           `--------------------'
+ */
+[EXPRM] = KEYMAP(
+// left hand
+ KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
+,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
+,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,KC_MPLY            ,KC_Z        ,KC_K        ,KC_V   ,KC_G   ,KC_X   ,KC_LPRN
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
+
+                                                            ,F(F_ALT),F(F_GUI)
+                                                                     ,F(F_CTRL)
+                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
+
+                                                                // right hand
+                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_EQL
+                                                                        ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
+                                                               ,KC_RPRN ,KC_L   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
+                                                                                ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
+
+                                                               ,OSL(EMACS),M(OH_LEFT)
+                                                               ,KC_LEAD
+                                                               ,F(F_HUN),KC_ENT ,KC_SPC
+    ),
+
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -396,6 +507,29 @@ const uint16_t PROGMEM fn_actions[] = {
   ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
   ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
 };
+
+void toggle_steno(int pressed)
+{
+  uint8_t layer = biton32(layer_state);
+
+  if (pressed) {
+    if (layer != PLVR) layer_on(PLVR); else layer_off(PLVR);
+
+    register_code(PV_LP);
+    register_code(PV_LH);
+    register_code(PV_LR);
+    register_code(PV_O);
+    register_code(PV_RL);
+    register_code(PV_RG);
+  } else {
+    unregister_code(PV_LP);
+    unregister_code(PV_LH);
+    unregister_code(PV_LR);
+    unregister_code(PV_O);
+    unregister_code(PV_RL);
+    unregister_code(PV_RG);
+  }
+}
 
 macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_char)
 {
@@ -476,8 +610,50 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           } else {
             register_code (KC_ESC);
           }
+          layer_off (HUN);
         } else {
           unregister_code (KC_ESC);
+        }
+        break;
+
+      case A_COLN:
+        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+            ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+          int oneshot = ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out());
+
+          if (record->event.pressed) {
+            if (oneshot)
+              clear_oneshot_mods ();
+            unregister_code (KC_LSFT);
+
+            register_code (KC_SCLN);
+            unregister_code (KC_SCLN);
+            if (!oneshot)
+              register_code (KC_LSFT);
+          }
+        } else {
+          return MACRODOWN (D(RSFT), T(SCLN), U(RSFT), END);
+        }
+        break;
+
+      case A_MPN:
+        if (record->event.pressed) {
+          if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+              ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+            int oneshot = ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out());
+
+            if (oneshot)
+              clear_oneshot_mods ();
+            unregister_code (KC_LSFT);
+
+            register_code (KC_MPRV);
+            unregister_code (KC_MPRV);
+
+            if (!oneshot)
+              register_code (KC_LSFT);
+          } else {
+            return MACRO (T(MNXT), END);
+          }
         }
         break;
 
@@ -666,6 +842,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         break;
 
+        /* Plover base */
+      case A_PLVR:
+        toggle_steno(record->event.pressed);
+        break;
+
         /* GUI & AppSel */
       case A_GUI:
         if (record->event.pressed) {
@@ -691,29 +872,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
-        if (record->event.pressed)
-          return MACRO(T(S), T(C), T(U), T(D), T(C), T(L), T(O), T(U), T(D), T(ENT), END);
-        break;
+        return MACRODOWN(T(S), T(C), T(U), T(D), T(C), T(L), T(O), T(U), T(D), T(ENT), END);
 
       case APP_EMCS:
-        if (record->event.pressed)
-          return MACRO(T(E), T(M), T(A), T(C), T(S), T(ENT), END);
-        break;
+        return MACRODOWN(T(E), T(M), T(A), T(C), T(S), T(ENT), END);
 
       case APP_TERM:
-        if (record->event.pressed)
-          return MACRO(T(T), T(E), T(R), T(M), T(ENT), END);
-        break;
+        return MACRODOWN(T(T), T(E), T(R), T(M), T(ENT), END);
 
       case APP_CHRM:
-        if (record->event.pressed)
-          return MACRO(T(C), T(H), T(R), T(O), T(M), T(ENT), END);
-        break;
+        return MACRODOWN(T(C), T(H), T(R), T(O), T(M), T(ENT), END);
 
       case APP_MSIC:
-        if (record->event.pressed)
-          return MACRO(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
-        break;
+        return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
 
         /* Function keys */
       case KF_1 ... KF_11:
@@ -783,9 +954,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  ergodox_led_all_set (LED_BRIGHTNESS_LO);
   ergodox_led_all_on();
+  for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
+    ergodox_led_all_set (i);
+    _delay_ms (5);
+  }
   _delay_ms(1000);
+  for (int i = LED_BRIGHTNESS_LO; i > 0; i--) {
+    ergodox_led_all_set (i);
+    _delay_ms (10);
+  }
   ergodox_led_all_off();
 };
 
@@ -798,18 +976,22 @@ void ang_do_unicode (void) {
   unregister_code (KC_U);
   unregister_code (KC_RSFT);
   unregister_code (KC_RCTL);
+  _delay_ms (100);
 }
 
 void ang_tap (uint16_t codes[]) {
   for (int i = 0; codes[i] != 0; i++) {
     register_code (codes[i]);
     unregister_code (codes[i]);
+    _delay_ms (50);
   }
 }
 
 #define TAP_ONCE(code) \
   register_code (code); \
   unregister_code (code)
+
+uint8_t is_exp = 0;
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
@@ -829,6 +1011,16 @@ void matrix_scan_user(void) {
   } else if (layer == EMACS) {
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
+  } else if (layer == PLVR) {
+    ergodox_right_led_1_on ();
+    ergodox_right_led_2_on ();
+    ergodox_right_led_3_on ();
+  } else if (layer == EXPRM) {
+    ergodox_right_led_1_on ();
+    ergodox_right_led_2_on ();
+    ergodox_right_led_3_on ();
+
+    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
   }
 
   if (layer == OHLFT || layer == OHRGT) {
@@ -863,7 +1055,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
   } else {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != OHLFT && layer != EMACS)
+    if (layer != OHLFT && layer != EMACS && layer != PLVR && layer != EXPRM)
       ergodox_right_led_1_off ();
   }
 
@@ -873,7 +1065,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_on ();
   } else {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != EMACS)
+    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != EMACS && layer != PLVR && layer != EXPRM)
       ergodox_right_led_2_off ();
   }
 
@@ -883,7 +1075,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_on ();
   } else {
     ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN)
+    if (layer != OHRGT && layer != HUN && layer != PLVR && layer != EXPRM)
       ergodox_right_led_3_off ();
   }
 
@@ -895,11 +1087,22 @@ void matrix_scan_user(void) {
       ang_do_unicode ();
     }
 
+#ifdef QMK_VERSION
+    SEQ_ONE_KEY (KC_V) {
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+    }
+#endif
+
     SEQ_ONE_KEY (KC_L) {
       /* λ */
       ang_do_unicode ();
 
       uint16_t codes[] = {KC_0, KC_3, KC_B, KC_B, KC_ENT, 0};
+      ang_tap (codes);
+    }
+
+    SEQ_ONE_KEY (KC_Y) {
+      uint16_t codes[] = {KC_BSLS, KC_O, KC_SLSH, 0};
       ang_tap (codes);
     }
 
@@ -927,6 +1130,43 @@ void matrix_scan_user(void) {
       register_code (KC_UP);
       unregister_code (KC_UP);
       unregister_code (KC_LGUI);
+    }
+
+    SEQ_ONE_KEY (KC_E) {
+      if (is_exp == 0) {
+        default_layer_and (0);
+        default_layer_or ((1 << EXPRM));
+        is_exp = 1;
+
+        ergodox_led_all_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+      } else {
+        is_exp = 0;
+        default_layer_and (0);
+        default_layer_or (1 << BASE);
+
+        ergodox_led_all_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+
+      }
     }
   }
 }

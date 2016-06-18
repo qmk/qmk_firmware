@@ -2,8 +2,9 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-starting_makefile := $(abspath $(firstword $(MAKEFILE_LIST)))
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+space := $(subst ,, )
+starting_makefile := $(subst $(space),_SPACE_,$(abspath $(firstword $(MAKEFILE_LIST))))
+mkfile_path := $(subst $(space),_SPACE_,$(abspath $(lastword $(MAKEFILE_LIST))))
 abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
 
 ifneq (,$(findstring /keyboard/,$(starting_makefile)))
@@ -98,11 +99,15 @@ else
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 endif
 
+<<<<<<< HEAD
 ifdef SUBPROJECT
 	TARGET = $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
 else
 	TARGET = $(KEYBOARD)_$(KEYMAP)
 endif
+=======
+TARGET ?= $(KEYBOARD)_$(KEYMAP)
+>>>>>>> master
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
@@ -119,7 +124,8 @@ endif
 SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
-	$(QUANTUM_DIR)/keymap_common.c \
+	$(QUANTUM_DIR)/keymap.c \
+	$(QUANTUM_DIR)/keycode_config.c \
 	$(QUANTUM_DIR)/led.c
 
 ifdef SUBPROJECT
@@ -160,3 +166,8 @@ VPATH += $(QUANTUM_PATH)/audio
 include $(TMK_PATH)/protocol/lufa.mk
 include $(TMK_PATH)/common.mk
 include $(TMK_PATH)/rules.mk
+
+GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
+OPT_DEFS += -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
+OPT_DEFS += -DQMK_VERSION=\"$(GIT_VERSION)\" -DQMK_BUILDDATE=\"$(BUILD_DATE)\"

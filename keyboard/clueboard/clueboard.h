@@ -9,7 +9,7 @@
 #endif
 
 #include "matrix.h"
-#include "keymap_common.h"
+#include "keymap.h"
 #include <stddef.h>
 
 void matrix_init_user(void);

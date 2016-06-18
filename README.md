@@ -134,6 +134,11 @@ Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) 
 
 To use it, use `KC_LSPO` (Left Shift, Parens Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parens Close) for your right Shift. 
 
+It's defaulted to work on US keyboards, but if your layout uses different keys for parenthesis, you can define those in your keymap like this:
+
+    #define LSPO_KEY KC_9
+    #define RSPC_KEY KC_0
+
 The only other thing you're going to want to do is create a `makefile.mk` in your keymap directory and set the following:
 
 ```
