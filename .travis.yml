@@ -38,5 +38,5 @@ addons:
       - dfu-programmer
 
 after_success:
-  git commit -am "Updates compiled.hex files"
+  git commit -am "Updates compiled.hex files";
   git push
