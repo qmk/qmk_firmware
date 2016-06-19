@@ -15,5 +15,6 @@ git config user.email "jack.humb+travis.ci@gmail.com"
 git remote rm origin
 git remote add origin "https://$GH_TOKEN@github.com/jackhumbert/qmk_firmware.git"
 git pull origin $TRAVIS_BRANCH
-git commit --amend -C HEAD
-git push origin +$TRAVIS_BRANCH:$TRAVIS_BRANCH
+git add -A
+git commit --amend -m "; adds compiled.hex files from ${rev}"
+git push -f origin $TRAVIS_BRANCH
