@@ -35,4 +35,5 @@ addons:
     - gcc-avr
     - dfu-programmer
 after_success:
+  - cd ../..
   - bash util/travis_compiled_push.sh
