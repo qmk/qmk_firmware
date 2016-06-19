@@ -7,7 +7,7 @@ compiler:
 env:
   matrix:  
   - KEYBOARD=alps64
-  # - KEYBOARD=arrow_pad
+  - KEYBOARD=arrow_pad
   # - KEYBOARD=atomic
   # - KEYBOARD=atreus
   # - KEYBOARD=bantam44
@@ -35,5 +35,28 @@ addons:
     - gcc-avr
     - dfu-programmer
 after_success:
-  - cd ../..
-  - bash util/travis_compiled_push.sh
+  - python util/travis_after_all.py https://api.travis-ci.com
+  - export $(cat .to_export_back)
+  - |
+      if [ "$BUILD_LEADER" = "YES" ]; then
+        if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
+          echo "All jobs succeeded! PUBLISHING..." ;
+          cd ../.. ;
+          bash util/travis_compiled_push.sh ;
+        else
+          echo "Some jobs failed"
+        fi
+      fi
+after_failure:
+  - python util/travis_after_all.py https://api.travis-ci.com
+  - export $(cat .to_export_back)
+  - |
+      if [ "$BUILD_LEADER" = "YES" ]; then
+        if [ "$BUILD_AGGREGATE_STATUS" = "others_failed" ]; then
+          echo "All jobs failed"
+        else
+          echo "Some jobs failed"
+        fi
+      fi
+after_script:
+  - echo leader=$BUILD_LEADER status=$BUILD_AGGREGATE_STATUS
