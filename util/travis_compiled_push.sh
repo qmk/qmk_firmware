@@ -18,5 +18,5 @@ git checkout $TRAVIS_BRANCH
 git fetch origin $TRAVIS_BRANCH
 git add -A
 git commit --amend -C HEAD
-git merge origin $TRAVIS_BRANCH
+git merge $TRAVIS_BRANCH
 git push origin +$TRAVIS_BRANCH
