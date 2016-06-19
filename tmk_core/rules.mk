@@ -89,6 +89,12 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
+ifdef quick
+	QUICK = $(quick)
+endif
+
+QUICK ?= false
+
 ifneq ($(shell awk --version 2>/dev/null),)
 	AWK=awk
 else
@@ -672,16 +678,14 @@ all-keyboards-defaults-%:
 all-keyboards-defaults: all-keyboards-defaults-all
 
 KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboard/%/=/keyboard/%)
-all-keyboards-%: $(KEYBOARDS)
+all-keyboards: $(KEYBOARDS)
 /keyboard/%:
 	$(eval KEYBOARD=$(patsubst /keyboard/%,%,$@))
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
 		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
-		LOG=$$($(MAKE) -C $(TOP_DIR)$@ $(subst all-keyboards-,,$@) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+		LOG=$$($(MAKE) -C $(TOP_DIR)$@ QUICK=$(QUICK) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
-
-all-keyboards: all-keyboards-all
 
 all-keymaps-%:
 	$(eval MAKECONFIG=$(call get_target,all-keymaps,$@))
