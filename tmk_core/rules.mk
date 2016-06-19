@@ -94,6 +94,7 @@ ifdef quick
 endif
 
 QUICK ?= false
+AUTOGEN ?= false
 
 ifneq ($(shell awk --version 2>/dev/null),)
 	AWK=awk
@@ -580,6 +581,10 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
 	@$(COPY) $@ $(TARGET).hex
+	@if $(AUTOGEN); then \
+		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex\n"; \
+		$(COPY) $@ $(KEYMAP_PATH)/compiled.hex; \
+	fi
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
@@ -681,7 +686,7 @@ all-keyboards: $(KEYBOARDS)
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
 		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
-		LOG=$$($(MAKE) -C $(TOP_DIR)$@ QUICK=$(QUICK) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+		LOG=$$($(MAKE) -C $(TOP_DIR)$@ QUICK=$(QUICK) AUTOGEN=$(AUTOGEN) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
 
 all-keymaps-%:
