@@ -17,5 +17,6 @@ git remote add origin "https://$GH_TOKEN@github.com/jackhumbert/qmk_firmware.git
 git fetch origin $TRAVIS_BRANCH
 git add -A
 git commit --amend -C HEAD
-git pull origin $TRAVIS_BRANCH
+git fetch origin $TRAVIS_BRANCH
+git merge --no-commit
 git push origin +$TRAVIS_BRANCH
