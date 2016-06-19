@@ -580,9 +580,6 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
 	@$(COPY) $@ $(TARGET).hex
-	$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex" | $(AWK_CMD)
-	$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/compiled.hex)
-	@$(BUILD_CMD)
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
