@@ -13,4 +13,4 @@ git fetch origin
 git checkout -b $TRAVIS_BRANCH-automated-build
 git add -A
 git commit -m "adds compiled files from $TRAVIS_BRANCH@${rev}" 
-git push origin -f $TRAVIS_BRANCH-automated-build
+git push -uf origin $TRAVIS_BRANCH-automated-build
