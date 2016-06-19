@@ -15,7 +15,7 @@ git config user.email "jack.humb+travis.ci@gmail.com"
 git remote rm origin
 git remote add origin "https://$GH_TOKEN@github.com/jackhumbert/qmk_firmware.git"
 git fetch origin $TRAVIS_BRANCH
-git rebase
+git rebase $TRAVIS_BRANCH
 git add -A
 git commit --amend -C HEAD
 git push -f origin $TRAVIS_BRANCH
