@@ -35,6 +35,4 @@ addons:
     - gcc-avr
     - dfu-programmer
 after_success:
-  - git remote rm origin
-  - git remote add origin https://jackhumbert:${GH_TOKEN}@github.com/jackhumbert/qmk_firmware.git
-  - git commit -am "Updates compiled.hex files"; git push
+  - bash util/travis_compiled_push.sh
