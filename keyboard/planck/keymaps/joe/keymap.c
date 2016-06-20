@@ -1,4 +1,4 @@
-#include "keymap_common.h"
+#include "keymap.h"
 #include "keymap_colemak.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
