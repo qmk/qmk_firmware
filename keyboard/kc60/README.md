@@ -1,19 +1,15 @@
 KC60 (version 2.0) keyboard firmware
 ======================
 
-![Image of KC60 with RGB Underglow](ws2812_example.jpg)
-
 ## Quantum MK Firmware
-
 For the full Quantum feature list, see [the parent README.md](/README.md).
 
 ## WS2812 Support
-
-By default, it is now setup for 16 LEDs on the PF5 breakout pin. See [included images](ws2812_wiring.jpg) for wiring reference.
+![Image of KC60 with RGB Underglow](/keymaps/ws2812/ws2812_example.jpg)
+Build with WS2812 Support by running `make KEYMAP=ws2812`.
 
 ## Building
-
-Download or clone the whole firmware and navigate to the keyboard/kc60 folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Download or clone the whole firmware and navigate to the keyboard/kc60 folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file.
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
