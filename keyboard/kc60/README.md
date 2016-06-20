@@ -5,7 +5,7 @@ KC60 (version 2.0) keyboard firmware
 For the full Quantum feature list, see [the parent README.md](/README.md).
 
 ## WS2812 Support
-![Image of KC60 with RGB Underglow](/keymaps/ws2812/ws2812_example.jpg)
+![Image of KC60 with RGB Underglow](keymaps/ws2812/ws2812_example.jpg)
 Build with WS2812 Support by running `make KEYMAP=ws2812`.
 
 ## Building
