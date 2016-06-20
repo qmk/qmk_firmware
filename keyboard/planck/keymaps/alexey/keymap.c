@@ -1,4 +1,4 @@
-#include "keymap_common.h"
+#include "keymap.h"
 #include "planck.h"
 #include "backlight.h"
 

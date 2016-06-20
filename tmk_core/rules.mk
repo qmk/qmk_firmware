@@ -43,7 +43,7 @@
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
 #                (must have Atmel FLIP installed).
 #
-# make debug = Start either simulavr or avarice as specified for debugging, 
+# make debug = Start either simulavr or avarice as specified for debugging,
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -66,7 +66,7 @@ BUILD_DIR = .build
 OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
 
 
-# Optimization level, can be [0, 1, 2, 3, s]. 
+# Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
@@ -229,7 +229,7 @@ endif
 #             for use in COFF files, additional information about filenames
 #             and function names needs to be present in the assembler source
 #             files -- see avr-libc docs [FIXME: not yet described there]
-#  -listing-cont-lines: Sets the maximum number of continuation lines of hex 
+#  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS = $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 ASFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
@@ -245,7 +245,7 @@ PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_min
 PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
 
 # If this is left blank, then it will use the Standard printf version.
-PRINTF_LIB = 
+PRINTF_LIB =
 #PRINTF_LIB = $(PRINTF_LIB_MIN)
 #PRINTF_LIB = $(PRINTF_LIB_FLOAT)
 
@@ -257,7 +257,7 @@ SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
 SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
 
 # If this is left blank, then it will use the Standard scanf version.
-SCANF_LIB = 
+SCANF_LIB =
 #SCANF_LIB = $(SCANF_LIB_MIN)
 #SCANF_LIB = $(SCANF_LIB_FLOAT)
 
@@ -269,7 +269,7 @@ MATH_LIB = -lm
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS = 
+EXTRALIBDIRS =
 
 
 
@@ -330,7 +330,7 @@ JTAG_DEV = /dev/com1
 DEBUG_PORT = 4242
 
 # Debugging host used to communicate between GDB / avarice / simulavr, normally
-#     just set to localhost unless doing some sort of crazy debugging when 
+#     just set to localhost unless doing some sort of crazy debugging when
 #     avarice is running on a different computer.
 DEBUG_HOST = localhost
 
@@ -364,7 +364,7 @@ endif
 MSG_ERRORS_NONE = Errors: none
 MSG_BEGIN = -------- begin --------
 MSG_END = --------  end  --------
-MSG_SIZE_BEFORE = Size before: 
+MSG_SIZE_BEFORE = Size before:
 MSG_SIZE_AFTER = Size after:
 MSG_COFF = Converting to AVR COFF:
 MSG_EXTENDED_COFF = Converting to AVR Extended COFF:
@@ -402,22 +402,22 @@ ALL_CPPFLAGS = -mmcu=$(MCU) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 # Default target.
-all: 
-	@$(MAKE) begin 
-	@$(MAKE) gccversion 
-	@$(MAKE) sizebefore 
+all:
+	@$(MAKE) begin
+	@$(MAKE) gccversion
+	@$(MAKE) sizebefore
 	@$(MAKE) clean_list # force clean each time
-	@$(MAKE) build 
-	@$(MAKE) sizeafter 
+	@$(MAKE) build
+	@$(MAKE) sizeafter
 	@$(MAKE) end
 
 # Quick make that doesn't clean
-quick: 
-	@$(MAKE) begin 
-	@$(MAKE) gccversion 
-	@$(MAKE) sizebefore 
-	@$(MAKE) build 
-	@$(MAKE) sizeafter 
+quick:
+	@$(MAKE) begin
+	@$(MAKE) gccversion
+	@$(MAKE) sizebefore
+	@$(MAKE) build
+	@$(MAKE) sizeafter
 	@$(MAKE) end
 
 # Change the build target to build a HEX file or a library.
@@ -462,12 +462,12 @@ sizeafter:
 	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | $(AWK) 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
 
 # Display compiler version information.
-gccversion : 
+gccversion :
 	@$(SILENT) || $(CC) --version
 
 
 
-# Program the device.  
+# Program the device.
 program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(PROGRAM_CMD)
 
@@ -485,7 +485,6 @@ ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 else
 	dfu-programmer $(MCU) erase
 endif
-	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	dfu-programmer $(MCU) reset
 
@@ -495,10 +494,9 @@ ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 else
 	dfu-programmer $(MCU) erase
 endif
-	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(KEYMAP_PATH)/compiled.hex
 	dfu-programmer $(MCU) reset
-	
+
 dfu-start:
 	dfu-programmer $(MCU) reset
 	dfu-programmer $(MCU) start
@@ -520,9 +518,9 @@ endif
 
 
 # Generate avr-gdb config/init file which does the following:
-#     define the reset signal, load the target file, connect to target, and set 
+#     define the reset signal, load the target file, connect to target, and set
 #     a breakpoint at main().
-gdb-config: 
+gdb-config:
 	@$(REMOVE) $(GDBINIT_FILE)
 	@echo define reset >> $(GDBINIT_FILE)
 	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
@@ -624,7 +622,7 @@ $(OBJDIR)/%.o : %.c
 $(OBJDIR)/%.o : %.cpp
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
-	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
+	$(CC) -c $(ALL_CPPFLAGS) $< -o $@
 	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
@@ -648,7 +646,7 @@ $(OBJDIR)/%.o : %.S
 
 # Create preprocessed source for use in sending a bug report.
 %.i : %.c
-	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@ 
+	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@
 
 # Target: clean project.
 clean: begin clean_list end
@@ -663,28 +661,35 @@ show_path:
 	@echo SRC=$(SRC)
 
 SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
-all-keyboards-defaults:
+all-keyboards-defaults-%:
 	@for x in $(SUBDIRS) ; do \
 		printf "Compiling with default: $$x" | $(AWK_CMD); \
-		LOG=$$($(MAKE) -C $$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+		LOG=$$($(MAKE) -C $$x $(subst all-keyboards-defaults-,,$@) VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
 
+all-keyboards-defaults: all-keyboards-defaults-all
+
 KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboard/%/=/keyboard/%)
-all-keyboards: $(KEYBOARDS)
+all-keyboards-%: $(KEYBOARDS)
 /keyboard/%:
 	$(eval KEYBOARD=$(patsubst /keyboard/%,%,$@))
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
 		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
-		LOG=$$($(MAKE) -C $(TOP_DIR)$@ keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+		LOG=$$($(MAKE) -C $(TOP_DIR)$@ $(subst all-keyboards-,,$@) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
 
-all-keymaps:
+all-keyboards: all-keyboards-all
+
+all-keymaps-%:
+	$(eval MAKECONFIG=$(call get_target,all-keymaps,$@))
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboard/$(KEYBOARD)/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
 		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
-		LOG=$$($(MAKE) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+		LOG=$$($(MAKE) $(subst all-keymaps-,,$@) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
+
+all-keymaps: all-keymaps-all
 
 # Create build directory
 $(shell mkdir $(BUILD_DIR) 2>/dev/null)
@@ -702,4 +707,5 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
-all-keyboards-defaults all-keyboards all-keymaps
+all-keyboards-defaults all-keyboards all-keymaps \
+all-keyboards-defaults-% all-keyboards-% all-keymaps-%

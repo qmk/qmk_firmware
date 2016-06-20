@@ -2,8 +2,9 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-starting_makefile := $(abspath $(firstword $(MAKEFILE_LIST)))
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+space := $(subst ,, )
+starting_makefile := $(subst $(space),_SPACE_,$(abspath $(firstword $(MAKEFILE_LIST))))
+mkfile_path := $(subst $(space),_SPACE_,$(abspath $(lastword $(MAKEFILE_LIST))))
 abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
 
 ifneq (,$(findstring /keyboard/,$(starting_makefile)))
@@ -67,7 +68,7 @@ else
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 endif
 
-TARGET = $(KEYBOARD)_$(KEYMAP)
+TARGET ?= $(KEYBOARD)_$(KEYMAP)
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
@@ -79,7 +80,8 @@ endif
 SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
-	$(QUANTUM_DIR)/keymap_common.c \
+	$(QUANTUM_DIR)/keymap.c \
+	$(QUANTUM_DIR)/keycode_config.c \
 	$(QUANTUM_DIR)/led.c
 
 ifndef CUSTOM_MATRIX
