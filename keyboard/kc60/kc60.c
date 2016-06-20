@@ -62,7 +62,7 @@ void backlight_init_ports()
   DDRB |= (1<<6);
   PORTB &= ~(1<<6);
 
-  // Use full 16-bit resolution. 
+  // Use full 16-bit resolution.
   ICR1 = 0xFFFF;
 
   // I could write a wall of text here to explain... but TL;DW
@@ -99,7 +99,7 @@ void backlight_set(uint8_t level)
     // Set the brightness
     CHANNEL = 0xFFFF;
   }
-  else        
+  else
   {
     // Turn on PWM control of PB6
     TCCR1A |= _BV(COM1B1);
