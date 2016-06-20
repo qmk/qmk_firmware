@@ -1,4 +1,4 @@
-KC60 (version 2.0) keyboard firmware
+KC60 with WS2812 RGB Underglow
 ======================
 
 ![Image of KC60 with RGB Underglow](ws2812_example.jpg)
@@ -7,7 +7,7 @@ KC60 (version 2.0) keyboard firmware
 For the full Quantum feature list, see [the parent README.md](/README.md).
 
 ## WS2812 Support
-By default, it is now setup for 16 LEDs on the PF5 breakout pin. See [included images](ws2812_wiring.jpg) for wiring reference.
+By default, it is now setup for 16 LEDs on the PF5 breakout pin. See [included image](ws2812_wiring.jpg) for wiring reference.
 
 ### Build
 To build this keymap with WS2812 enabled, simply run `make KEYMAP=ws2812`.
