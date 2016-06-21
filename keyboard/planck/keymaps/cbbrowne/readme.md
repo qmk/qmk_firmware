@@ -62,3 +62,17 @@ doing sundry experimentation:
      and shift ESC off the first column so KC_LCTL and KC_LALT can
      be on the first column.
    * I needed to swap ' and ENTER
+
+4. TODO
+---------------------------------------------------------
+
+  * I use tmux quite a lot; the mollat keymap seems to have some
+    interesting helpers.  It might be interesting to add a "tmux
+    layer"
+  * The mollat tmux layer also suggests some thoughts about Emacs
+    helpers.
+  * I do not presently have anything that handles X11 screen
+    switching, as with Control-Alt-various
+	
+
+
