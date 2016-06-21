@@ -11,6 +11,6 @@ git remote add origin "https://$GH_TOKEN@github.com/jackhumbert/qmk_firmware.git
 git fetch origin
 [[ $(git branch | grep $TRAVIS_BRANCH-automated-build) != "" ]] && git branch -D $TRAVIS_BRANCH-automated-build
 git checkout -b $TRAVIS_BRANCH-automated-build
-git add -A
+find . -name 'compiled.hex' | xargs git add -fA
 git commit -m "adds compiled files from $TRAVIS_BRANCH@${rev}" 
 git push -uf origin $TRAVIS_BRANCH-automated-build
