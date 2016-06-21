@@ -504,14 +504,14 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
-        register_mods(MOD_LSFT);
+        register_mods(MOD_BIT(KC_LSFT));
       }
       else {
         if (!shift_interrupted[0]) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
-        unregister_mods(MOD_LSFT);
+        unregister_mods(MOD_BIT(KC_LSFT));
       }
       return false;
       break;
@@ -520,14 +520,14 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
-        register_mods(MOD_RSFT);
+        register_mods(MOD_BIT(KC_RSFT));
       }
       else {
         if (!shift_interrupted[1]) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
-        unregister_mods(MOD_RSFT);
+        unregister_mods(MOD_BIT(KC_RSFT));
       }
       return false;
       break;
