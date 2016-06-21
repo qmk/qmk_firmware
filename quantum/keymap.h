@@ -154,7 +154,7 @@ enum quantum_keycodes {
     KC_LSPO,
 
     // Right shift, close paren
-    KC_RSPC,
+    KC_RSPC
 };
 
 // Ability to use mods in layouts
