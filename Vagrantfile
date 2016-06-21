@@ -5,10 +5,10 @@ Vagrant.configure(2) do |config|
   # You can only have one config.vm.box uncommented at a time
 
   # Comment this and uncomment another if you don't want to use the minimal Arch box
-  config.vm.box = "dragon788/arch-ala-elasticdog"
+  #config.vm.box = "dragon788/arch-ala-elasticdog"
 
   # VMware/Virtualbox 64 bit
-  # config.vm.box = "phusion/ubuntu-14.04-amd64"
+  config.vm.box = "phusion/ubuntu-14.04-amd64"
   #
   # VMware/Virtualbox 64 bit
   #config.vm.box = "puphpet/centos65-x64"
