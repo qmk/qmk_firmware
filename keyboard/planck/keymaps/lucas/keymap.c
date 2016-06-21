@@ -12,6 +12,7 @@ If you have any question about this keymap feel free to shoot me a message on re
 #include "keymap_extras/keymap_german.h"
 #include "backlight.h"
 #include "debug.h"
+#include "action_layer.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = { /* Colemak   
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_LGUI, KC_LEFT, KC_DOWN, KC_RGHT}
 },
 [6] = { /* Gaming 
-        /* CS:GO buy binds
+         * CS:GO buy binds
     * ,-----------------------------------------------------------------------.
     * |     |     |     |     |     |     |     |     |  7  |  8  |  9  |     |
     * |-----------------------------------------------------------------------|
