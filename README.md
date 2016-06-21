@@ -38,13 +38,13 @@ You have access to a bunch of goodies! Check out the Makefile to enable/disable 
 
 ### Customizing Makefile options on a per-keymap basis
 
-If your keymap directory has a file called `makefile.mk` (note the lowercase filename, and the `.mk` extension), any Makefile options you set in that file will take precedence over other Makefile options (those set for Quantum as a whole or for your particular keyboard).
+If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options (those set for Quantum as a whole or for your particular keyboard).
 
-So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `makefile.mk` and specify `CONSOLE_ENABLE = no`.
+So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `Makefile` and specify `CONSOLE_ENABLE = no`.
 
 ### Customizing config.h on a per-keymap basis
 
-If you use the ErgoDox EZ, you can make a `config_user.h` file in your keymap directory and use it to override any `config.h` settings you don't like. Anything you set there will take precedence over the global `config.h` for the ErgoDox EZ. To see an example of this, check out `keymaps/erez_experimental`.
+You can also make a `config.h` file in your keymap directory and use it to override any `config.h` settings you don't like. Anything you set there will take precedence over the global `config.h` for the ErgoDox EZ. To see an example of this, check out `keymaps/erez_experimental`.
 
 ## Quick aliases to common actions
 
@@ -134,12 +134,12 @@ Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) 
 
 To use it, use `KC_LSPO` (Left Shift, Parens Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parens Close) for your right Shift. 
 
-It's defaulted to work on US keyboards, but if your layout uses different keys for parenthesis, you can define those in your keymap like this:
+It's defaulted to work on US keyboards, but if your layout uses different keys for parenthesis, you can define those in your `config.h` like this:
 
     #define LSPO_KEY KC_9
     #define RSPC_KEY KC_0
 
-The only other thing you're going to want to do is create a `makefile.mk` in your keymap directory and set the following:
+The only other thing you're going to want to do is create a `Makefile` in your keymap directory and set the following:
 
 ```
 COMMAND_ENABLE   = no  # Commands for debug and configuration
