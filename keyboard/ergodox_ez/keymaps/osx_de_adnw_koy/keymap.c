@@ -9,7 +9,7 @@
 #include "keymap_nordic.h"
 #include "keymap_dvorak.h"
 #include "keymap_german.h"
-#include "keymap_norwegian.c"
+#include "keymap_norwegian.h"
 #include "keymap_fr_ch.h"
 #include "keymap_german_osx.h"
 #include "keymap_spanish.h"

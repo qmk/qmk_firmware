@@ -1,7 +1,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_colemak.h"
+#include "keymap_colemak.h"
 
 enum {
     BASE = 0,

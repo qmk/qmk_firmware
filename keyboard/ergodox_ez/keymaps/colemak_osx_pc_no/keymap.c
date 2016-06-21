@@ -1,7 +1,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "../../../../quantum/keymap_extras/keymap_norwegian.c"
+#include "keymap_norwegian.h"
 
 #define BASE 0 // default layer
 #define BASE_MAC 1 // default layer mac
