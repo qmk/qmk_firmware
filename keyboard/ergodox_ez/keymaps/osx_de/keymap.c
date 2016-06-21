@@ -1,19 +1,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_french.h"
-#include "keymap_extras/keymap_neo2.h"
-#include "keymap_extras/keymap_uk.h"
-#include "keymap_extras/keymap_colemak.h"
-#include "keymap_extras/keymap_french_osx.h"
-#include "keymap_extras/keymap_nordic.h"
-#include "keymap_extras/keymap_dvorak.h"
-#include "keymap_extras/keymap_german.h"
-#include "keymap_extras/keymap_norwegian.c"
-#include "keymap_extras/keymap_fr_ch.h"
-#include "keymap_extras/keymap_german_osx.h"
-#include "keymap_extras/keymap_spanish.h"
-#include "keymap_extras/keymap_bepo.h"
+#include "keymap_german_osx.h"
 
 #define BASE 0
 #define SYMB 1

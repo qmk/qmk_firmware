@@ -4,6 +4,7 @@
 #include "quantum.h"
 #include <stddef.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout

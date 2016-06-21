@@ -7,8 +7,6 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
-#define LEADER_TIMEOUT 300
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -143,8 +141,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [2] = ACTION_MACRO_TAP(0),                         // Eric Tang's Famous Macro!
     [3] = ACTION_MACRO_TAP(1)                          // Eric Tang's Famous Macro!
 };
-
-static uint16_t key_timer;
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {

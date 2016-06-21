@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         M(OBRACE),      KC_SLSH,KC_Q,   KC_J,   KC_K,   KC_X,   KC_LGUI,
         M(OBRACK),      KC_HOME,KC_PGDN,KC_PGUP,KC_END,
                                                            LCAG_T(KC_F5),  LT(AUX, KC_F6),
-                                                           MT(MOD_LALT | MOD_LCTL, KC_F4),
+                                                           MT((MOD_LALT | MOD_LCTL), KC_F4),
                                            KC_ENT,KC_TAB,MT((MOD_LALT | MOD_LSFT), KC_F3),
         // right hand
                     KC_EQL,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINUS,
@@ -77,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_RALT,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   M(CBRACE),
                                        KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,M(CBRACK),
         LT(AUX, KC_F7), LCAG_T(KC_F8),
-        MT(MOD_LALT | MOD_LCTL, KC_F11),
-        MT(MOD_LALT | MOD_LSFT, KC_F12),KC_BSPC, KC_SPC
+        MT((MOD_LALT | MOD_LCTL), KC_F11),
+        MT((MOD_LALT | MOD_LSFT), KC_F12),KC_BSPC, KC_SPC
     ),
 /* Keymap 1: Aux layer
  *
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         M(OBRACE),      KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LGUI,
         M(OBRACK),      KC_HOME,KC_PGDN,KC_PGUP,KC_END,
                                                                   LCAG_T(KC_F5),  KC_TRNS,
-                                                           MT(MOD_LALT | MOD_LCTL, KC_F4),
+                                                           MT((MOD_LALT | MOD_LCTL), KC_F4),
                                                                     KC_ENT,KC_TAB,KC_TRNS,
         // right hand
                     KC_EQL,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINUS,
@@ -163,8 +163,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_RALT,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,M(CBRACE),
                                        KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,M(CBRACK),
         KC_TRNS, LCAG_T(KC_F8),
-        MT(MOD_LALT | MOD_LCTL, KC_F11),
-        MT(MOD_LALT | MOD_LSFT, KC_F12),KC_BSPC, KC_SPC
+        MT((MOD_LALT | MOD_LCTL), KC_F11),
+        MT((MOD_LALT | MOD_LSFT), KC_F12),KC_BSPC, KC_SPC
 ),
 };
 

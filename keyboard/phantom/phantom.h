@@ -4,7 +4,7 @@
 #include "matrix.h"
 #include "keymap.h"
 #include <stddef.h>
-
+#include "action_util.h"
 
 /* Phantom matrix layout
    * ,-----------------------------------------------------------------------------.
