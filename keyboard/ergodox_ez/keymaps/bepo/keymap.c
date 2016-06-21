@@ -1,7 +1,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_bepo.h"
+#include "keymap_bepo.h"
 
 #define BASE 0 // default layer
 #define QWER 1 // qwerty compat layer

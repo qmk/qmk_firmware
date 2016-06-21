@@ -4,7 +4,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_german.h"
+#include "keymap_german.h"
 
 // Layer names
 #define BASE 0 // default layer

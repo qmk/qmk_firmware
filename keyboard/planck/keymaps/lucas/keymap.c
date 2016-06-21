@@ -9,7 +9,7 @@ If you have any question about this keymap feel free to shoot me a message on re
 */
 
 #include "keymap.h"
-#include "keymap_extras/keymap_german.h"
+#include "keymap_german.h"
 #include "backlight.h"
 #include "debug.h"
 #include "action_layer.h"
