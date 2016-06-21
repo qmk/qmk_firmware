@@ -25,6 +25,12 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 __attribute__ ((weak))
+void led_init_ports(void)
+{
+
+}
+
+__attribute__ ((weak))
 void led_set(uint8_t usb_led)
 {
 

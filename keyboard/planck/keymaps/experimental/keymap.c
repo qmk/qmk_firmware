@@ -321,8 +321,6 @@ void music_scale_user(void)
 
 LEADER_EXTERNS();
 
-#define LEADER_TIMEOUT 300
-
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() { 
     leading = false;

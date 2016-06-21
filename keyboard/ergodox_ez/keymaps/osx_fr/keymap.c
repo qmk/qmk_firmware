@@ -2,7 +2,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_extras/keymap_french_osx.h"
+#include "keymap_french_osx.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols

@@ -36,5 +36,6 @@
 void matrix_init_user(void);
 void matrix_scan_user(void);
 bool process_action_kb(keyrecord_t *record);
+void backlight_init_ports(void);
 
 #endif
