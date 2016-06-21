@@ -2,7 +2,7 @@
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
-#include "config_user.h"
+#include "config.h"
 #include "quantum.h"
 
 /* Each layer is given a name to aid in readability, which is then
