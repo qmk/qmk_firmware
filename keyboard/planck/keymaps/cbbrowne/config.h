@@ -9,6 +9,9 @@
 #define randmul 181
 #define randmod 167
 
+/* Filler to make layering a bit clearer */
+#define _______ KC_TRNS
+
 #endif
 
 
