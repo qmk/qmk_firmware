@@ -3,6 +3,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "action_util.h"
+#include "mousekey.h"
 
 #define BASE   0 // default layer
 #define SYMB   1 // symbols layer

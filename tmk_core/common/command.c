@@ -66,7 +66,6 @@ static bool mousekey_console(uint8_t code);
 static void mousekey_console_help(void);
 #endif
 
-static uint8_t numkey2num(uint8_t code);
 static void switch_default_layer(uint8_t layer);
 
 
@@ -763,7 +762,7 @@ static bool mousekey_console(uint8_t code)
 /***********************************************************
  * Utilities
  ***********************************************************/
-static uint8_t numkey2num(uint8_t code)
+uint8_t numkey2num(uint8_t code)
 {
     switch (code) {
         case KC_1: return 1;
