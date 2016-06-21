@@ -108,6 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 };
 
+/* What is fn_actions actually used for??? */
 const uint16_t PROGMEM fn_actions[] = {
 };
 
