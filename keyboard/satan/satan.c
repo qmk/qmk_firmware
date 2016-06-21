@@ -41,7 +41,6 @@ void backlight_init_ports()
     TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
 
     backlight_init();
-    breathing_defaults();
 }
 
 void backlight_set(uint8_t level)
@@ -69,7 +68,6 @@ void backlight_set(uint8_t level)
         // Set the brightness
         CHANNEL = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
     }
-    breathing_intensity_default();
 }
 
 #endif
