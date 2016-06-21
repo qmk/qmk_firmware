@@ -20,7 +20,7 @@ void matrix_scan_user(void) {
 void backlight_init_ports()
 {
 
-    // Setup PB7 as output and output low.
+    // Setup PB6 as output and output low.
     DDRB |= (1<<6);
     PORTB &= ~(1<<6);
 
@@ -31,7 +31,7 @@ void backlight_init_ports()
     // Go read the ATmega32u4 datasheet.
     // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
 
-    // Pin PB7 = OCR1C (Timer 1, Channel C)
+    // Pin PB6 = OCR1B (Timer 1, Channel C)
     // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
     // (i.e. start high, go low when counter matches.)
     // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
@@ -50,23 +50,23 @@ void backlight_set(uint8_t level)
 
     if ( level == 0 )
     {
-        // Turn off PWM control on PB7, revert to output low.
+        // Turn off PWM control on PB6, revert to output low.
         TCCR1A &= ~(_BV(COM1B1));
-        CHANNEL = 0x0;
+        OCR1B = 0x0;
     }
     else if ( level == BACKLIGHT_LEVELS )
     {
-        // Turn on PWM control of PB7
+        // Turn on PWM control of PB6
         TCCR1A |= _BV(COM1B1);
         // Set the brightness
-        CHANNEL = 0xFFFF;
+        OCR1B = 0xFFFF;
     }
     else
     {
-        // Turn on PWM control of PB7
+        // Turn on PWM control of PB6
         TCCR1A |= _BV(COM1B1);
         // Set the brightness
-        CHANNEL = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
+        OCR1B = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
     }
 }
 
