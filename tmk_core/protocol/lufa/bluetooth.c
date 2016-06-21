@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "print.h"
 #include "debug.h"
-#include "../serial.h"
 #include "bluetooth.h"
 
 void bluefruit_keyboard_print_report(report_keyboard_t *report)

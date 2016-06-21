@@ -202,7 +202,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			break;
 		case MACRO_PARENTHESE:
 			if (record->event.pressed) {
-				return MACRO(  D(LSHIFT),T(LPRN), T(RPRN),U(LSHIFT), T(SCOLON), END);
+				return MACRO(  D(LSHIFT),T(9), T(0),U(LSHIFT), T(SCOLON), END);
 			} 
 			break;
       }
