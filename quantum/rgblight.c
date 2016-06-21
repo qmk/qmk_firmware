@@ -42,7 +42,7 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
 	The DIM_CURVE is used only on brightness/value and on saturation (inverted).
 	This looks the most natural.
 	*/
-  uint8_t r, g, b;
+  uint8_t r = 0, g = 0, b = 0;
 
   val = pgm_read_byte(&DIM_CURVE[val]);
 	sat = 255 - pgm_read_byte(&DIM_CURVE[255 - sat]);
@@ -154,7 +154,7 @@ void rgblight_init(void) {
 }
 
 void rgblight_increase(void) {
-	uint8_t mode;
+	uint8_t mode = 0;
   if (rgblight_config.mode < RGBLIGHT_MODES) {
     mode = rgblight_config.mode + 1;
   }
@@ -162,7 +162,7 @@ void rgblight_increase(void) {
 }
 
 void rgblight_decrease(void) {
-	uint8_t mode;
+	uint8_t mode = 0;
   if (rgblight_config.mode > 1) { //mode will never < 1, if mode is less than 1, eeprom need to be initialized.
     mode = rgblight_config.mode-1;
   }
@@ -170,7 +170,7 @@ void rgblight_decrease(void) {
 }
 
 void rgblight_step(void) {
-	uint8_t mode;
+	uint8_t mode = 0;
   mode = rgblight_config.mode + 1;
   if (mode > RGBLIGHT_MODES) {
     mode = 1;
