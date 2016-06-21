@@ -68,10 +68,6 @@ AUDIO_ENABLE ?= no
 UNICODE_ENABLE ?= no 		# Unicode
 BLUETOOTH_ENABLE ?= no # Enable Bluetooth with the Adafruit EZ-Key HID
 
-#ifdef BACKLIGHT_ENABLE
-    SRC := backlight.c $(SRC)
-#endif
-
 ifndef QUANTUM_DIR
 	include ../../Makefile
 endif
