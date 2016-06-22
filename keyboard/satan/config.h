@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration
  */
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_LEVELS 4
 
 /* Underlight configuration
  */
