@@ -7,7 +7,7 @@ For the full Quantum feature list, see [the parent README.md](/doc/README.md).
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboard/%KEYBOARD% folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Download or clone the whole firmware and navigate to the keyboards/%KEYBOARD% folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
