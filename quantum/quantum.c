@@ -54,7 +54,7 @@ int offset = 7;
 bool leading = false;
 uint16_t leader_time = 0;
 
-uint16_t leader_sequence[3] = {0, 0, 0};
+uint16_t leader_sequence[5] = {0, 0, 0, 0, 0};
 uint8_t leader_sequence_size = 0;
 
 // Chording stuff
@@ -335,6 +335,8 @@ bool process_record_quantum(keyrecord_t *record) {
       leader_sequence[0] = 0;
       leader_sequence[1] = 0;
       leader_sequence[2] = 0;
+      leader_sequence[3] = 0;
+      leader_sequence[4] = 0;
       return false;
     }
     if (leading && timer_elapsed(leader_time) < LEADER_TIMEOUT) {
