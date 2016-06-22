@@ -15,13 +15,14 @@
 
 enum {
   BASE = 0,
+  EXPRM,
+  ARRW,
   APPSEL,
   HUN,
-  EMACS,
+  NMDIA,
   OHLFT,
   OHRGT,
   PLVR,
-  EXPRM
 };
 
 /* Macros */
@@ -33,7 +34,6 @@ enum {
   A_PLVR,
   A_ESC,
   A_MPN,
-  A_COLN,
 
   // Function / number keys
   KF_1, // 1, F1
@@ -60,17 +60,6 @@ enum {
   A_MUR,
   A_MDL,
   A_MDR,
-
-  // Emacs layer keys
-  AE_VIS, // Visual mode
-  AE_PSTDEL, // Paste/Delete
-  AE_CPYC, // Copy/Cut
-  AE_EMACS, // Emacs copy & paste mode
-  AE_TERM, // Terminal copy & paste mode
-  AE_OTHER, // Other copy & paste mode
-  AE_INS, // Insert mode
-  AE_OVR, // Overwrite mode
-  AE_APPND, // Append
 
   // Hungarian layer keys
   HU_AA, // Á
@@ -102,11 +91,13 @@ enum {
   F_CTRL
 };
 
-/* States & timers */
+/* Custom keycodes */
 
-uint8_t m_visual_state = 0;
-static uint16_t m_cutdel_timer;
-static uint16_t m_copypaste_timer;
+enum {
+  CT_CLN = 0x7101
+};
+
+/* States & timers */
 
 uint16_t gui_timer = 0;
 
@@ -123,13 +114,8 @@ uint16_t oh_left_blink_timer = 0;
 uint8_t oh_right_blink = 0;
 uint16_t oh_right_blink_timer = 0;
 
-enum {
-  CP_EMACS = 0,
-  CP_TERM  = 1,
-  CP_OTHER = 2,
-};
-
-uint8_t cp_mode = CP_EMACS;
+uint8_t ct_cln_count = 0;
+uint16_t ct_cln_timer = 0;
 
 /* The Keymap */
 
@@ -138,18 +124,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | 1HND | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | =         |
+ * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | =         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
  * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
+ *     |       |      | Left |  Up  |   :  |                                       |   -  | Down | Rght |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           |EMACS | 1HND |
+ *                                         | LAlt | GUI  |           | MDIA | ARRW |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      | Ctrl |           | LEAD |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
@@ -162,25 +148,116 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
 ,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
+,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,CT_CLN
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
-                                                               ,KC_RBRC ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_EQL
-                                                                        ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
-                                                               ,KC_RPRN ,KC_B   ,KC_M   ,KC_W   ,KC_V        ,KC_Z        ,KC_MSTP
-                                                                                ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
+                                                               ,M(OH_LEFT),M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_BSLS
+                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
+                                                               ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V        ,KC_Z        ,KC_MSTP
+                                                                                  ,KC_MINS,KC_DOWN,KC_RGHT     ,KC_NO       ,KC_NO
 
-                                                               ,OSL(EMACS),M(OH_LEFT)
+                                                               ,OSL(NMDIA),OSL(ARRW)
                                                                ,KC_LEAD
-                                                               ,F(F_HUN),KC_ENT ,KC_SPC
+                                                               ,F(F_HUN)  ,KC_ENT ,KC_SPC
     ),
 
-/* Keymap 1: Application select layer
+/* Keymap 1: Experimental layer
+ *
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | 1HND | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   L  |   F  |   C  |   R  |  J   | =         |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
+ * | Play/Pause|   Z  |   G  |   V  |   K  |   X  |      |           |      |   Q  |   M  |   W  |   B  |  /   |      Stop |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *     |       |      | Left |  Up  |   :  |                                       |   -  | Down | Rght |      |       |
+ *     `-----------------------------------'                                       `-----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         | LAlt | GUI  |           | MDIA | ARRW |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      | Ctrl |           | LEAD |      |      |
+ *                                  |Backsp|LShift|------|           |------| Enter| Space|
+ *                                  |      |      | ESC  |           | HUN  |      |      |
+ *                                  `--------------------'           `--------------------'
+ */
+[EXPRM] = KEYMAP(
+// left hand
+ KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
+,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
+,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
+,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,CT_CLN
+
+                                                            ,F(F_ALT),F(F_GUI)
+                                                                     ,F(F_CTRL)
+                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
+
+                                                                // right hand
+                                                               ,M(OH_LEFT),M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC   ,KC_L   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_BSLS
+                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
+                                                               ,KC_RPRN   ,KC_Q   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
+                                                                                  ,KC_MINS,KC_DOWN,KC_RGHT     ,KC_NO       ,KC_NO
+
+                                                               ,OSL(NMDIA),OSL(ARRW)
+                                                               ,KC_LEAD
+                                                               ,F(F_HUN)  ,KC_ENT ,KC_SPC
+    ),
+
+/* Keymap 2: Arrow layer
+ *
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |      |      |      |      |      |------|           |------|      |      |      |      |      |           |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *      |      |      | Home | PgUp |      |                                       |      | PgDn | End  |      |      |
+ *      `----------------------------------'                                       `----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         |      |      |           |      |      |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      |      |           |      |      |      |
+ *                                  |      |      |------|           |------|      |      |
+ *                                  |      |      |      |           |      |      |      |
+ *                                  `--------------------'           `--------------------'
+ */
+
+[ARRW] = KEYMAP(
+// left hand
+ KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
+,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
+,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
+,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
+,KC_TRNS ,KC_TRNS    ,KC_HOME   ,KC_PGUP    ,KC_TRNS
+
+                                             ,KC_TRNS ,KC_TRNS
+                                                      ,KC_TRNS
+                                    ,KC_TRNS ,KC_TRNS ,KC_TRNS
+
+                                                                // right hand
+                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                                        ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                                                 ,KC_TRNS ,KC_PGDN ,KC_END  ,KC_TRNS ,KC_TRNS
+
+                                                               ,KC_TRNS ,KC_TRNS
+                                                               ,KC_TRNS
+                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS
+    ),
+
+/* Keymap 3: Application select layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |Music |Slack |Emacs |Term  |Chrome|      |           |      |      |      |      |      |      |           |
@@ -227,7 +304,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-/* Keymap 2: Hungarian Layer
+/* Keymap 4: Hungarian Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
@@ -251,73 +328,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [HUN] = KEYMAP(
 // left hand
- KC_NO   ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO    ,KC_NO   ,KC_TRNS
+ KC_NO   ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO
 ,KC_NO   ,KC_NO   ,M(HU_OEE),KC_NO   ,M(HU_UEE),KC_NO   ,KC_NO
 ,KC_NO   ,M(HU_AA),M(HU_OO) ,M(HU_EE),M(HU_UU) ,M(HU_II)
-,KC_TRNS ,KC_NO   ,M(HU_OE) ,KC_NO   ,M(HU_UE) ,KC_NO   ,KC_NO
-,KC_TRNS ,KC_TRNS ,KC_TRNS  ,KC_TRNS ,KC_NO
+,KC_NO   ,KC_NO   ,M(HU_OE) ,KC_NO   ,M(HU_UE) ,KC_NO   ,KC_NO
+,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO   ,KC_NO
 
-                                             ,KC_TRNS ,KC_TRNS
-                                                      ,KC_TRNS
-                                    ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                             ,KC_NO   ,KC_NO
+                                                      ,KC_NO
+                                    ,KC_NO   ,KC_TRNS ,KC_TRNS
 
                                                                 // right hand
                                                                ,KC_TRNS ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
                                                                ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
                                                                         ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
                                                                ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
-                                                                                 ,KC_NO   ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                                                 ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
 
                                                                ,KC_NO   ,KC_NO
                                                                ,KC_NO
                                                                ,F(F_BSE),KC_TRNS  ,KC_TRNS
     ),
 
-/* Keymap 3: Spacemacs layer
+/* Keymap 5: Navigation & Media layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | MS Slow   | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 |ScrLCK|           |ScrLCK| 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|    F11    |
+ * | MS Slow   |      |      |      |      |      |ScrLCK|           |ScrLCK|      |      |      |      |      |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | MS Normal |      | Home |  Up  | PgUp |      |Visual|           |Scroll|  $   |MsUpL | MsUp |MsUpR |  R   |PrintScreen|
- * |-----------+------+------+------+------+------| Mode |           |  Up  |------+------+------+------+------+-----------|
- * | MS Fast   |APPEND| Left | Down | Right| INS  |------|           |------|  D   |MsLeft| MsDn |MsRght|      |           |
- * |-----------+------+------+------+------+------| Cut  |           |Scroll|------+------+------+------+------+-----------|
- * | Play/Pause|      | End  | Down | PgDn |  X   | Copy |           | Down |      |MsDnL |  W   |MsDnR |      |      Stop |
+ * | MS Normal |      | Home |  Up  | PgUp |      |      |           |Scroll|      |MsUpL | MsUp |MsUpR |      |PrintScreen|
+ * |-----------+------+------+------+------+------|      |           |  Up  |------+------+------+------+------+-----------|
+ * | MS Fast   |      | Left | Down | Right|      |------|           |------|      |MsLeft| MsDn |MsRght|      |           |
+ * |-----------+------+------+------+------+------|      |           |Scroll|------+------+------+------+------+-----------|
+ * | Play/Pause|      | End  | Down | PgDn |      |      |           | Down |      |MsDnL | MsDn |MsDnR |      |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *      |EmacsM|TermM |OtherM|      |      |                                       |Vol Up|Vol Dn| Mute |      |      |
+ *      |      |      |      |      |      |                                       |      |      |      |      |      |
  *      `----------------------------------'                                       `----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         |  Alt | GUI  |           | BASE | MClk |
+ *                                         | Mute | VlUp |           | BASE | MClk |
  *                                  ,------|------|------|           |------+------+------.
- *                                  |Delete|      | Ctrl |           | Prev |Left  |Right |
- *                                  |      |LShift|------|           |------| Click| Click|
- *                                  |Paste |      | ESC  |           | Next |      |      |
+ *                                  |      |      | VlDn |           | Prev |Left  |Right |
+ *                                  |  SPC | Enter|------|           |------| Click| Click|
+ *                                  |      |      | ESC  |           | Next |      |      |
  *                                  `--------------------'           `--------------------'
  */
-[EMACS] = KEYMAP(
+[NMDIA] = KEYMAP(
 // left hand
- KC_ACL0    ,M(KF_1)     ,M(KF_2)    ,M(KF_3) ,M(KF_4) ,M(KF_5) ,LGUI(KC_L)
-,KC_ACL1    ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,M(AE_VIS)
-,KC_ACL2    ,M(AE_APPND) ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,M(AE_INS)
-,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_X    ,M(AE_CPYC)
-,M(AE_EMACS),M(AE_TERM)  ,M(AE_OTHER),KC_NO   ,KC_NO
-                                                        ,KC_TRNS ,KC_TRNS
-                                                                 ,KC_TRNS
-                                           ,M(AE_PSTDEL),KC_TRNS ,KC_TRNS
+ KC_ACL0    ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,LGUI(KC_L)
+,KC_ACL1    ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,KC_NO
+,KC_ACL2    ,KC_NO       ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,KC_NO
+,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_NO
+,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO
+                                                        ,KC_MUTE ,KC_VOLU
+                                                                 ,KC_VOLD
+                                                 ,KC_SPC,KC_ENTER,M(A_ESC)
 
                                                                      // right hand
-                                                                     ,LGUI(KC_L),M(KF_6) ,M(KF_7) ,M(KF_8) ,M(KF_9) ,M(KF_10) ,M(KF_11)
-                                                                     ,KC_WH_U   ,KC_DLR  ,M(A_MUL),KC_MS_U ,M(A_MUR),M(AE_OVR),KC_PSCR
-                                                                                ,KC_D    ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO    ,KC_NO
-                                                                     ,KC_WH_D   ,KC_NO   ,M(A_MDL),KC_W    ,M(A_MDR),KC_NO    ,KC_MSTP
-                                                                                         ,KC_VOLU ,KC_VOLD ,KC_MUTE ,KC_NO    ,KC_NO
+                                                                     ,LGUI(KC_L),KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
+                                                                     ,KC_WH_U   ,KC_NO   ,M(A_MUL),KC_MS_U ,M(A_MUR),KC_NO    ,KC_PSCR
+                                                                                ,KC_NO   ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO    ,KC_NO
+                                                                     ,KC_WH_D   ,KC_NO   ,M(A_MDL),KC_MS_D ,M(A_MDR),KC_NO    ,KC_MSTP
+                                                                                         ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                      ,KC_TRNS   ,KC_MS_BTN3
                                                                      ,KC_MPRV
                                                                      ,KC_MNXT   ,KC_BTN1 ,KC_BTN2
     ),
 
-/* Keymap 5: One-handed, left side
+/* Keymap 6: One-handed, left side
  *
  * ,-----------------------------------------------------.
  * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 |A  BSE|
@@ -362,7 +439,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_NO   ,KC_NO  ,KC_NO
     ),
 
-/* Keymap 6: One-handed, right side
+/* Keymap 7: One-handed, right side
  *
  * ,-----------------------------------------------------.
  * | =     F11 | 0 F10| 9 F9 | 8 F8 | 7 F7 | 6 F6 |A  BSE|
@@ -407,15 +484,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_NO   ,KC_NO  ,KC_NO
     ),
 
-/* Keymap 7: Steno for Plover
+/* Keymap 8: Steno for Plover
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      | BASE |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   #  |   #  |   #  |   #  |   #  |      |           |      |  #   |  #   |   #  |   #  |  #   |   #    |
+ * |        |   #  |   #  |   #  |   #  |   #  |   #  |           |  #   |  #   |  #   |   #  |   #  |  #   |   #    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |   T  |   P  |   H  |      |------|           |------|      |  F   |   P  |   L  |  T   |   D    |
- * |--------+   S  +------+------+------+   *  |      |           |      |  *   +------+------+------+------+--------|
+ * |--------+   S  +------+------+------+   *  |   *  |           |  *   |  *   +------+------+------+------+--------|
  * |        |      |   K  |   W  |   R  |      |      |           |      |      |  R   |   B  |   G  |  S   |   Z    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -432,9 +509,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [PLVR] = KEYMAP(
 // left hand
 KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   M(A_PLVR),
-KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  KC_NO,
+KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  PV_NUM,
 KC_NO,  PV_LS,  PV_LT,  PV_LP,   PV_LH,  PV_STAR,
-KC_NO,  PV_LS,  PV_LK,  PV_LW,   PV_LR,  PV_STAR, KC_NO,
+KC_NO,  PV_LS,  PV_LK,  PV_LW,   PV_LR,  PV_STAR, PV_STAR,
 KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,
                                            KC_NO, KC_NO,
                                            KC_NO,
@@ -442,60 +519,14 @@ KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,
 
                                                  // right hand
                                                  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                                 KC_NO,   PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,
+                                                 PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,
                                                           PV_STAR, PV_RF,   PV_RP,   PV_RL,   PV_RT,   PV_RD,
-                                                 KC_NO,   PV_STAR, PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,
-                                                                   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+                                                 PV_STAR, PV_STAR, PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,
+                                                                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                                            KC_NO,      KC_NO,
                                            KC_NO,
                                            KC_NO,PV_E, PV_U
  ),
-
-/* Keymap 8: Experimental layer
- *
- * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
- * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   C  |   R  |  J   | =         |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
- * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   Z  |   K  |   V  |   G  |   X  |      |           |      |   L  |   M  |   W  |   B  |  /   |      Stop |
- * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
- *     `-----------------------------------'                                       `-----------------------------------'
- *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           |EMACS | 1HND |
- *                                  ,------|------|------|           |------+------+------.
- *                                  |      |      | Ctrl |           | LEAD |      |      |
- *                                  |Backsp|LShift|------|           |------| Enter| Space|
- *                                  |      |      | ESC  |           | HUN  |      |      |
- *                                  `--------------------'           `--------------------'
- */
-[EXPRM] = KEYMAP(
-// left hand
- KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
-,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_Z        ,KC_K        ,KC_V   ,KC_G   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
-
-                                                            ,F(F_ALT),F(F_GUI)
-                                                                     ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
-
-                                                                // right hand
-                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
-                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_EQL
-                                                                        ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
-                                                               ,KC_RPRN ,KC_L   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
-                                                                                ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
-
-                                                               ,OSL(EMACS),M(OH_LEFT)
-                                                               ,KC_LEAD
-                                                               ,F(F_HUN),KC_ENT ,KC_SPC
-    ),
-
 
 };
 
@@ -616,26 +647,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         break;
 
-      case A_COLN:
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-            ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
-          int oneshot = ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out());
-
-          if (record->event.pressed) {
-            if (oneshot)
-              clear_oneshot_mods ();
-            unregister_code (KC_LSFT);
-
-            register_code (KC_SCLN);
-            unregister_code (KC_SCLN);
-            if (!oneshot)
-              register_code (KC_LSFT);
-          }
-        } else {
-          return MACRODOWN (D(RSFT), T(SCLN), U(RSFT), END);
-        }
-        break;
-
       case A_MPN:
         if (record->event.pressed) {
           if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
@@ -722,126 +733,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         mousekey_send();
         break;
 
-        /* EMACS layer stuff */
-      case AE_EMACS:
-        if (record->event.pressed) {
-          cp_mode = CP_EMACS;
-        }
-        break;
-
-      case AE_TERM:
-        if (record->event.pressed) {
-          cp_mode = CP_TERM;
-        }
-        break;
-
-      case AE_OTHER:
-        if (record->event.pressed) {
-          cp_mode = CP_OTHER;
-        }
-        break;
-
-      case AE_VIS:
-        if (cp_mode == CP_EMACS && record->event.pressed) {
-          return MACRO(T(V), END);
-        }
-        break;
-
-      case AE_CPYC:
-        if (record->event.pressed) {
-          m_copypaste_timer = timer_read ();
-        } else {
-          if (timer_elapsed (m_copypaste_timer) > TAPPING_TERM) {
-            // Long press: Cut
-            switch (cp_mode) {
-            case CP_EMACS:
-              return MACRO(T(X), END);
-              break;
-            case CP_TERM:
-              return MACRO(D(RCTRL), D(RSFT), T(X), U(RSFT), U(RCTRL), END);
-              break;
-            case CP_OTHER:
-              return MACRO(D(RCTRL), T(X), U(RCTRL), END);
-              break;
-            }
-          } else {
-            // Short press: Copy
-            switch (cp_mode) {
-            case CP_EMACS:
-              return MACRO(T(Y), END);
-              break;
-            case CP_TERM:
-              return MACRO(D(RCTRL), D(RSFT), T(C), U(RSFT), U(RCTRL), END);
-              break;
-            case CP_OTHER:
-              return MACRO(D(RCTRL), T(C), U(RCTRL), END);
-              break;
-            }
-          }
-        }
-        break;
-
-      case AE_PSTDEL:
-        if (record->event.pressed) {
-          m_cutdel_timer = timer_read ();
-        } else {
-          if (timer_elapsed (m_cutdel_timer) > TAPPING_TERM) {
-            // Long press: Delete
-            switch (cp_mode) {
-            case CP_EMACS:
-              return MACRO(T(D), END);
-              break;
-            case CP_TERM:
-            case CP_OTHER:
-              return MACRO(T(DEL), END);
-              break;
-            }
-          } else {
-            // Short press: Paste
-            switch (cp_mode) {
-            case CP_EMACS:
-              if (keyboard_report->mods & MOD_BIT(KC_RSFT)) {
-                unregister_code (KC_RSFT);
-                return MACRO(U(RSFT), T(RBRC), T(P), D(RSFT), END);
-              }
-              else
-                return MACRO(T(P), END);
-              break;
-            case CP_TERM:
-              return MACRO(D(RCTRL), D(RSFT), T(V), U(RSFT), U(RCTRL), END);
-              break;
-            case CP_OTHER:
-              return MACRO(D(RCTRL), T(V), U(RCTRL), END);
-              break;
-            }
-          }
-        }
-        break;
-
-      case AE_INS:
-        if (record->event.pressed) {
-          return MACRO(T(I), END);
-        } else {
-          layer_clear();
-        }
-        break;
-
-      case AE_OVR:
-        if (record->event.pressed) {
-          return MACRO(T(R), END);
-        } else {
-          layer_clear();
-        }
-        break;
-
-      case AE_APPND:
-        if (record->event.pressed) {
-          return MACRO(T(A), END);
-        } else {
-          layer_clear();
-        }
-        break;
-
         /* Plover base */
       case A_PLVR:
         toggle_steno(record->event.pressed);
@@ -872,7 +763,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
-        return MACRODOWN(T(S), T(C), T(U), T(D), T(C), T(L), T(O), T(U), T(D), T(ENT), END);
+        return MACRODOWN(T(S), T(L), T(A), T(C), T(K), T(ENT), END);
 
       case APP_EMCS:
         return MACRODOWN(T(E), T(M), T(A), T(C), T(S), T(ENT), END);
@@ -1000,6 +891,21 @@ void matrix_scan_user(void) {
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
 
+  if (ct_cln_timer && timer_elapsed (ct_cln_timer) > TAPPING_TERM) {
+    if (ct_cln_count == 1) {
+      register_code (KC_RSFT);
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      unregister_code (KC_RSFT);
+    } else if (ct_cln_count == 2) {
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+    }
+
+    ct_cln_count = 0;
+    ct_cln_timer = 0;
+  }
+
   if (layer != OHLFT)
     oh_left_blink = 0;
   if (layer != OHRGT)
@@ -1008,7 +914,7 @@ void matrix_scan_user(void) {
   if (layer == HUN) {
     ergodox_right_led_2_on();
     ergodox_right_led_3_on();
-  } else if (layer == EMACS) {
+  } else if (layer == NMDIA) {
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
   } else if (layer == PLVR) {
@@ -1055,7 +961,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
   } else {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != OHLFT && layer != EMACS && layer != PLVR && layer != EXPRM)
+    if (layer != OHLFT && layer != NMDIA && layer != PLVR && layer != EXPRM)
       ergodox_right_led_1_off ();
   }
 
@@ -1065,7 +971,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_on ();
   } else {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != EMACS && layer != PLVR && layer != EXPRM)
+    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != NMDIA && layer != PLVR && layer != EXPRM)
       ergodox_right_led_2_off ();
   }
 
@@ -1087,11 +993,9 @@ void matrix_scan_user(void) {
       ang_do_unicode ();
     }
 
-#ifdef QMK_VERSION
     SEQ_ONE_KEY (KC_V) {
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ (" QMK_VERSION "/" KEYMAP_VERSION ")");
     }
-#endif
 
     SEQ_ONE_KEY (KC_L) {
       /* λ */
@@ -1165,8 +1069,36 @@ void matrix_scan_user(void) {
         ergodox_right_led_2_off ();
         _delay_ms (100);
         ergodox_right_led_3_off ();
-
       }
     }
   }
+}
+
+bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+  case CT_CLN:
+    if (record->event.pressed) {
+      ct_cln_count++;
+      ct_cln_timer = timer_read ();
+    } else {
+    }
+    return false;
+    break;
+
+  default:
+    if (ct_cln_count == 1) {
+      register_code (KC_RSFT);
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      unregister_code (KC_RSFT);
+    } else if (ct_cln_count == 2) {
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+    }
+    ct_cln_count = 0;
+    ct_cln_timer = 0;
+    break;
+  }
+
+  return true;
 }
