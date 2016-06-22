@@ -33,7 +33,7 @@ Note that, since it will be directly accessing USB hardware, the
 
 ## Verify Your Installation
 1. Clone the following repository: https://github.com/jackhumbert/qmk_firmware
-2. Open a Terminal and `cd` into `qmk_firmware/keyboard/planck`
+2. Open a Terminal and `cd` into `qmk_firmware/keyboards/planck`
 3. Run `make`. This should output a lot of information about the build process.
 
 ## Using the built-in functions
@@ -73,7 +73,7 @@ If you see this
     make (e=2): The system cannot find the file specified.
     make: *** [dfu] Error 2
 
-when trying to 'make dfu' on Windows you need to copy the dfu-programmer.exe to qmk_firmware/keyboard/planck.
+when trying to 'make dfu' on Windows you need to copy the dfu-programmer.exe to qmk_firmware/keyboards/planck.
 
 
 ## Quantum MK Firmware
