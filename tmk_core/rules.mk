@@ -580,10 +580,11 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
-	@$(COPY) $@ $(TARGET).hex
 	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/compiled.hex; \
+		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYBOARD)_$(KEYMAP).hex\n"; \
+		$(COPY) $@ $(KEYMAP_PATH)/$(KEYBOARD)_$(KEYMAP).hex; \
+	else \
+		$(COPY) $@ $(TARGET).hex; \
 	fi
 
 %.eep: %.elf

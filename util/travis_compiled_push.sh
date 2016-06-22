@@ -13,6 +13,7 @@ git clone https://$GH_TOKEN@github.com/jackhumbert/qmk.fm.git
 cd qmk.fm
 rm -rf keyboard
 cp -r ../qmk_firmware/keyboard .
+./generate.sh
 
 git add -A
 git commit -m "complete keyboards and compiled files from qmk_firmware/$TRAVIS_BRANCH@${rev}" 

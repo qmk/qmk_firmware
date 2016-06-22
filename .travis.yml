@@ -18,4 +18,5 @@ addons:
     - avr-libc
     - gcc-avr
     - dfu-programmer
+    - pandoc
 after_success: bash util/travis_compiled_push.sh
