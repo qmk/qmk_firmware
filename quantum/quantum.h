@@ -28,6 +28,7 @@
 #include "bootloader.h"
 #include "timer.h"
 #include "config_common.h"
+#include <avr/interrupt.h>
 
 extern uint32_t default_layer_state;
 
@@ -92,6 +93,23 @@ void music_scale_user(void);
 
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
+
+#ifdef BACKLIGHT_BREATHING
+void breathing_enable(void);
+void breathing_pulse(void);
+void breathing_disable(void);
+void breathing_self_disable(void);
+void breathing_toggle(void);
+bool is_breathing(void);
+
+void breathing_defaults(void);
+void breathing_intensity_default(void);
+void breathing_speed_default(void);
+void breathing_speed_set(uint8_t value);
+void breathing_speed_inc(uint8_t value);
+void breathing_speed_dec(uint8_t value);
+#endif
+
 #endif
 
 #endif

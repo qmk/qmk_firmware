@@ -20,8 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 
 __attribute__ ((weak))
-void led_set_kb(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
 
+}
+
+__attribute__ ((weak))
+void led_set_kb(uint8_t usb_led) {
+    led_set_user(usb_led);
 }
 
 __attribute__ ((weak))
