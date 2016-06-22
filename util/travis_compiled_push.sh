@@ -6,11 +6,14 @@ rev=$(git rev-parse --short HEAD)
 
 git config user.name "Travis CI"
 git config user.email "jack.humb+travis.ci@gmail.com"
-git remote rm origin
-git remote add origin "https://$GH_TOKEN@github.com/jackhumbert/qmk_firmware.git"
-git fetch origin
-[[ $(git branch | grep $TRAVIS_BRANCH-automated-build) != "" ]] && git branch -D $TRAVIS_BRANCH-automated-build
-git checkout -b $TRAVIS_BRANCH-automated-build
-find . -name 'compiled.hex' | xargs git add -fA
-git commit -m "adds compiled files from $TRAVIS_BRANCH@${rev}" 
-git push -uf origin $TRAVIS_BRANCH-automated-build
+
+find . -name ".build" | xargs rm -rf
+cd ..
+git clone https://$GH_TOKEN@github.com/jackhumbert/qmk.fm.git
+cd qmk.fm
+rm -rf keyboard
+cp -r ../qmk_firmware/keyboard .
+
+git add -A
+git commit -m "complete keyboards and compiled files from qmk_firmware/$TRAVIS_BRANCH@${rev}" 
+git push
