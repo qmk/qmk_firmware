@@ -1,17 +1,19 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_neo2.h"
-#include "keymap_uk.h"
-#include "keymap_colemak.h"
-#include "keymap_nordic.h"
-#include "keymap_dvorak.h"
-#include "keymap_german.h"
-#include "keymap_norwegian.h"
-#include "keymap_fr_ch.h"
-#include "keymap_german_osx.h"
-#include "keymap_spanish.h"
-#include "keymap_bepo.h"
+#include "keymap_extras/keymap_french.h"
+#include "keymap_extras/keymap_neo2.h"
+#include "keymap_extras/keymap_uk.h"
+#include "keymap_extras/keymap_colemak.h"
+#include "keymap_extras/keymap_french_osx.h"
+#include "keymap_extras/keymap_nordic.h"
+#include "keymap_extras/keymap_dvorak.h"
+#include "keymap_extras/keymap_german.h"
+#include "keymap_extras/keymap_norwegian.h"
+#include "keymap_extras/keymap_fr_ch.h"
+#include "keymap_extras/keymap_german_osx.h"
+#include "keymap_extras/keymap_spanish.h"
+#include "keymap_extras/keymap_bepo.h"
 
 
 /**
@@ -47,21 +49,21 @@
 
 #define SM_SMIRK 8
 
-#define M_LGUI_SHFT 9
+#define M_Key_KC_BSLS_MODS 9
 
-#define SM_HEART 10
+#define M_LGUI_SHFT 10
 
-#define TOG_HLD_MDIA 11
+#define SM_HEART 11
 
-#define SM_LAUGH 12
+#define TOG_HLD_MDIA 12
 
-#define SM_SAD 13
+#define SM_LAUGH 13
 
-#define M_DE_OSX_CIRC_CTRLCMD 14
+#define SM_SAD 14
 
-#define M_MEH_SH_ACUT 15
+#define M_DE_OSX_CIRC_CTRLCMD 15
 
-#define M_Key_KC_BSLS_MODS 16
+#define M_MEH_SH_ACUT 16
 
 
 //Layout keymap.c generated with ErgodoxLayoutGenerator V1.0BETA1
@@ -225,14 +227,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
 * Layer: SMLY
 * /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |         |            | Typing  | Typing  | Typing  |         |         |         |         |           
-* |         |         |         |         |         |         |         |            | SM_SMILE| SM_SMIRK| SM_LAUGH|         |         |         |         |           
+* |         |         |         |         |         |         |         |            | Typing  | Typing  |         |         |         |         |         |           
+* |         |         |         |         |         |         |         |            | SM_KISS | SM_HEART|         |         |         |         |         |           
 * /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
 * |         |         |         |         |         |         |         |            |         | Typing  | Typing  | Typing  |         |         |         |           
 * |         |         |         |         |         |         |         |            |         | SM_FROWN| SM_SAD  | SM_CRY  |         |         |         |           
 * /--------//--------//--------//--------//--------//--------/\--------\             \--------\/--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |                                | Typing  | Typing  |         |         |         |         |           
-* |         |         |         |         |         |         |                                | SM_HEART| SM_KISS |         |         |         |         |           
+* |         |         |         |         |         |         |                                | Typing  | Typing  | Typing  |         |         |         |           
+* |         |         |         |         |         |         |                                | SM_SMIRK| SM_SMILE| SM_LAUGH|         |         |         |           
 * /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
 * |         |         |         |         |         |         |         |            |         |         |         |         |         |         |         |           
 * |         |         |         |         |         |         |         |            |         |         |         |         |         |         |         |           
@@ -266,9 +268,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_TRNS, 
                                        KC_TRNS, KC_TRNS, KC_TRNS, 
     //right half
-    M(SM_SMILE), M(SM_SMIRK), M(SM_LAUGH), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+    M(SM_KISS), M(SM_HEART), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, M(SM_FROWN), M(SM_SAD), M(SM_CRY), KC_TRNS, KC_TRNS, KC_TRNS, 
-           M(SM_HEART), M(SM_KISS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+           M(SM_SMIRK), M(SM_SMILE), M(SM_LAUGH), KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, KC_TRNS, 
@@ -496,7 +498,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
 		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
