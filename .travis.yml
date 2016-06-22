@@ -29,7 +29,7 @@ env:
   - KEYBOARD=sixkeyboard
 
 script:
-  - cd keyboard/$KEYBOARD && make all-keymaps
+  - cd keyboards/$KEYBOARD && make all-keymaps
 
 addons:
   apt:
