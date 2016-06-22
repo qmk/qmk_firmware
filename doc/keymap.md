@@ -378,7 +378,7 @@ Default Layer also has bitwise operations, they are executed when key is release
 #### 2.3.2 Examples
 
 ***TODO: sample implementation***
-See `keyboard/hhkb/keymap.c` for sample.
+See `keyboards/hhkb/keymap.c` for sample.
 
 
 
@@ -424,7 +424,7 @@ This C function is called every time key is operated, argument `id` selects acti
     } key_t;
 
 ***TODO: sample implementation***
-See `keyboard/hhkb/keymap.c` for sample.
+See `keyboards/hhkb/keymap.c` for sample.
 
 
 

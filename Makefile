@@ -7,8 +7,8 @@ starting_makefile := $(subst $(space),_SPACE_,$(abspath $(firstword $(MAKEFILE_L
 mkfile_path := $(subst $(space),_SPACE_,$(abspath $(lastword $(MAKEFILE_LIST))))
 abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
 
-ifneq (,$(findstring /keyboard/,$(starting_makefile)))
-	possible_keyboard:=$(patsubst %/,%,$(dir $(patsubst $(abs_tmk_root)/keyboard/%,%,$(starting_makefile))))
+ifneq (,$(findstring /keyboards/,$(starting_makefile)))
+	possible_keyboard:=$(patsubst %/,%,$(dir $(patsubst $(abs_tmk_root)/keyboards/%,%,$(starting_makefile))))
 	ifneq (,$(findstring /keymaps/,$(possible_keyboard)))
 		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
 		KEYMAP_DIR:=$(lastword $(subst /keymaps/, ,$(possible_keyboard)))
@@ -41,9 +41,9 @@ endif
 ifndef KEYBOARD
 	KEYBOARD=planck
 endif
-KEYBOARD_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)
+KEYBOARD_PATH = $(TOP_DIR)/keyboards/$(KEYBOARD)
 ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
-	KEYBOARD_FILE = keyboard/$(KEYBOARD)/$(KEYBOARD).c
+	KEYBOARD_FILE = keyboards/$(KEYBOARD)/$(KEYBOARD).c
 	ifndef ARCH
 		include $(KEYBOARD_PATH)/Makefile
 	endif
@@ -62,7 +62,7 @@ ifndef KEYMAP
 endif
 KEYMAP_PATH = $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
 ifneq ("$(wildcard $(KEYMAP_PATH)/keymap.c)","")
-	KEYMAP_FILE = keyboard/$(KEYBOARD)/keymaps/$(KEYMAP)/keymap.c
+	KEYMAP_FILE = keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/keymap.c
 	-include $(KEYMAP_PATH)/Makefile
 else 
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
