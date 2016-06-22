@@ -1,12 +1,12 @@
-keyboard/planck/dfu-programmer.exe
+keyboards/planck/dfu-programmer.exe
 .dep
 *.o
 *.eep
 *.elf
 /*.hex
-/keyboard/**/*.hex
-/keyboard/**/keymaps/**/*.hex
-!/keyboard/**/keymaps/**/compiled.hex
+/keyboards/**/*.hex
+/keyboards/**/keymaps/**/*.hex
+!/keyboards/**/keymaps/**/compiled.hex
 *.log
 *.lss
 *.lst
