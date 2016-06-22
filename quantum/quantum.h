@@ -27,6 +27,7 @@
 #include <util/delay.h>
 #include "bootloader.h"
 #include "timer.h"
+#include "config_common.h"
 
 extern uint32_t default_layer_state;
 
@@ -88,5 +89,9 @@ void shutdown_user(void);
 void audio_on_user(void);
 void music_on_user(void);
 void music_scale_user(void);
+
+#ifdef BACKLIGHT_ENABLE
+void backlight_init_ports(void);
+#endif
 
 #endif

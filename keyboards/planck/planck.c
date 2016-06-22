@@ -40,8 +40,7 @@ void led_set_kb(uint8_t usb_led) {
     led_set_user(usb_led);
 }
 
-#ifdef BACKLIGHT_ENABLE
-#define CHANNEL OCR1C
+#ifdef BACKLIGHT_BREATHING
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
 #define BREATHING_HALT_ON  2
@@ -50,62 +49,6 @@ static uint8_t breath_intensity;
 static uint8_t breath_speed;
 static uint16_t breathing_index;
 static uint8_t breathing_halt;
-
-void backlight_init_ports()
-{
-
-    // Setup PB7 as output and output low.
-    DDRB |= (1<<7);
-    PORTB &= ~(1<<7);
-
-    // Use full 16-bit resolution.
-    ICR1 = 0xFFFF;
-
-    // I could write a wall of text here to explain... but TL;DW
-    // Go read the ATmega32u4 datasheet.
-    // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
-
-    // Pin PB7 = OCR1C (Timer 1, Channel C)
-    // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
-    // (i.e. start high, go low when counter matches.)
-    // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
-    // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
-
-    TCCR1A = _BV(COM1C1) | _BV(WGM11); // = 0b00001010;
-    TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-
-    backlight_init();
-    breathing_defaults();
-}
-
-void backlight_set(uint8_t level)
-{
-    // Prevent backlight blink on lowest level
-    PORTB &= ~(_BV(PORTB7));
-
-    if ( level == 0 )
-    {
-        // Turn off PWM control on PB7, revert to output low.
-        TCCR1A &= ~(_BV(COM1C1));
-        CHANNEL = 0x0;
-    }
-    else if ( level == BACKLIGHT_LEVELS )
-    {
-        // Turn on PWM control of PB7
-        TCCR1A |= _BV(COM1C1);
-        // Set the brightness
-        CHANNEL = 0xFFFF;
-    }
-    else
-    {
-        // Turn on PWM control of PB7
-        TCCR1A |= _BV(COM1C1);
-        // Set the brightness
-        CHANNEL = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
-    }
-    breathing_intensity_default();
-}
-
 
 void breathing_enable(void)
 {
