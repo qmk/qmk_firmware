@@ -11,9 +11,11 @@ find . -name ".build" | xargs rm -rf
 cd ..
 git clone https://$GH_TOKEN@github.com/jackhumbert/qmk.fm.git
 cd qmk.fm
+git submodule update --init --recursive
 rm -rf keyboard
 cp -r ../qmk_firmware/keyboard .
-./generate.sh
+# ./generate.sh
+pandoc -v
 
 git add -A
 git commit -m "complete keyboards and compiled files from qmk_firmware/$TRAVIS_BRANCH@${rev}" 
