@@ -1,13 +1,7 @@
 #ifndef KC60_H
 #define KC60_H
 
-#include "matrix.h"
-#include "keymap.h"
-#ifdef BACKLIGHT_ENABLE
-#include "backlight.h"
-#endif
-#include <avr/io.h>
-#include <stddef.h>
+#include "quantum.h"
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
@@ -25,12 +19,5 @@
   {  K30,  K31,  K32,  K33,    K34,    K35,  K36,    K37,    K38,    K39,  K3A,  K3B,  K3C,  K3D  },  \
   {  K40,  K41,  K42,  KC_NO,  KC_NO,  K45,  KC_NO,  KC_NO,  KC_NO,  KC_NO,K4A,  K4B,  K4C,  K4D  }   \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
-bool process_action_user(keyrecord_t *record);
-
-void led_set_user(uint8_t usb_led);
-void backlight_init_ports(void);
 
 #endif

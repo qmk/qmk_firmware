@@ -1,7 +1,4 @@
 
-
-SRC = led.c
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4

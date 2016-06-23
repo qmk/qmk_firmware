@@ -655,7 +655,7 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 void matrix_init_quantum() {
-  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
+  #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
   #endif
   matrix_init_kb();
@@ -701,6 +701,7 @@ void matrix_scan_quantum() {
   }
 
 #endif
+
 
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
 
@@ -984,6 +985,20 @@ ISR(TIMER1_COMPA_vect)
 
 
 #endif // breathing
+
+#else // backlight
+
+__attribute__ ((weak))
+void backlight_init_ports(void)
+{
+
+}
+
+__attribute__ ((weak))
+void backlight_set(uint8_t level)
+{
+
+}
 
 #endif // backlight
 
