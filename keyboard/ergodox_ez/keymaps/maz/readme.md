@@ -9,7 +9,7 @@ More specifically, I wanted to have each modifier key controlled by the thumbs, 
 The biggest changes from the ergodox ez default keymap are the modifiers on the thumb cluster.
 
 ## Caveats
-I've heard many complaints about the thumb clusters. I agree that the three outter keys are almost impossible to reach. I am going to try to build [Matt Adereth's keyboard][https://github.com/adereth/dactyl-keyboard], which looks to have a better layout. However, I am able to comfortably use the three modifier keys mainly because:
+I've heard many complaints about the thumb clusters. I agree that the three outter keys are almost impossible to reach. I am going to try to build [Matt Adereth's keyboard](https://github.com/adereth/dactyl-keyboard), which looks to have a better layout. However, I am able to comfortably use the three modifier keys mainly because:
 * I use DCS keycaps with SA Row 3 keycaps where the Alt keys are
 * I have relatively large hands (I guarantee you there's no problem; I guarantee you)
 
