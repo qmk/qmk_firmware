@@ -1,11 +1,8 @@
-os:
-- linux
-dist: 
-- trusty
-language:
-- c
-compiler:
-- avr-gcc
+os: linux
+dist: trusty
+sudo: required
+language: c
+compiler: avr-gcc
 branches:
   except:
     - /^.*-automated-build$/
