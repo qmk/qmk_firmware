@@ -4,6 +4,24 @@
 
 This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
 
+## Official website
+
+For an easy-to-read version of this document and the repository, check out [http://qmk.fm](http://qmk.fm).
+
+## Included Keyboards
+
+* [Planck](/keyboards/planck/)
+* [Preonic](/keyboards/preonic/)
+* [Atomic](/keyboards/atomic/)
+* [ErgoDox EZ](/keyboards/ergodox_ez/)
+* [Clueboard rev.1](/keyboards/clueboard1/)
+* [Clueboard rev.2](/keyboards/clueboard2/)
+* [Cluepad](/keyboards/cluepad/)
+
+The project also includes community support for [lots of other keyboards](/keyboards/).
+
+## Maintainers
+
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK. In fact, this repo used to be a fork of TMK, and we are incredibly grateful for his founding contributions to the firmware. We've had to break the fork due to purely technical reasons -- it simply became too different over time, and we've had to start refactoring some of the basic bits and pieces. We are huge fans of TMK, both the firmware and the person. :)
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
