@@ -54,7 +54,7 @@ int offset = 7;
 bool leading = false;
 uint16_t leader_time = 0;
 
-uint16_t leader_sequence[3] = {0, 0, 0};
+uint16_t leader_sequence[5] = {0, 0, 0, 0, 0};
 uint8_t leader_sequence_size = 0;
 
 // Chording stuff
@@ -335,6 +335,8 @@ bool process_record_quantum(keyrecord_t *record) {
       leader_sequence[0] = 0;
       leader_sequence[1] = 0;
       leader_sequence[2] = 0;
+      leader_sequence[3] = 0;
+      leader_sequence[4] = 0;
       return false;
     }
     if (leading && timer_elapsed(leader_time) < LEADER_TIMEOUT) {
@@ -504,14 +506,14 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
-        register_mods(MOD_LSFT);
+        register_mods(MOD_BIT(KC_LSFT));
       }
       else {
         if (!shift_interrupted[0]) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
-        unregister_mods(MOD_LSFT);
+        unregister_mods(MOD_BIT(KC_LSFT));
       }
       return false;
       break;
@@ -520,14 +522,14 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
-        register_mods(MOD_RSFT);
+        register_mods(MOD_BIT(KC_RSFT));
       }
       else {
         if (!shift_interrupted[1]) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
-        unregister_mods(MOD_RSFT);
+        unregister_mods(MOD_BIT(KC_RSFT));
       }
       return false;
       break;

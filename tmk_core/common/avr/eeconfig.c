@@ -14,7 +14,10 @@ void eeconfig_init(void)
     eeprom_update_byte(EECONFIG_BACKLIGHT,      0);
 #endif
 #ifdef AUDIO_ENABLE
-    eeprom_update_byte(EECONFIG_AUDIO,      	   0xFF); // On by default
+    eeprom_update_byte(EECONFIG_AUDIO,             0xFF); // On by default
+#endif
+#ifdef RGBLIGHT_ENABLE
+    eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
 #endif
 }
 

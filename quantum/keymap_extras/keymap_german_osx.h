@@ -1,9 +1,6 @@
 #ifndef KEYMAP_GERMAN_OSX
 #define KEYMAP_GERMAN_OSX
 
-#ifdef KEYMAP_GERMAN
-	#warning redefining german keys
-#endif
 #include "keymap.h"
 
 // Alt gr

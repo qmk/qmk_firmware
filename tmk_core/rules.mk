@@ -14,45 +14,7 @@
 # Frederik Rouleau
 # Carlos Lamas
 #
-#----------------------------------------------------------------------------
-# On command line:
-#
-# make all = Make software.
-#
-# make clean = Clean out built project files.
-#
-# make coff = Convert ELF to AVR COFF.
-#
-# make extcoff = Convert ELF to AVR Extended COFF.
-#
-# make program = Download the hex file to the device.
-#                Please customize your programmer settings(PROGRAM_CMD)
-#
-# make teensy = Download the hex file to the device, using teensy_loader_cli.
-#               (must have teensy_loader_cli installed).
-#
-# make dfu = Download the hex file to the device, using dfu-programmer (must
-#            have dfu-programmer installed).
-#
-# make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
-#
-# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
-#
-# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
-#
-# make debug = Start either simulavr or avarice as specified for debugging,
-#              with avr-gdb or avr-insight as the front end for debugging.
-#
-# make filename.s = Just compile filename.c into the assembler code only.
-#
-# make filename.i = Create a preprocessed source file for use in submitting
-#                   bug reports to the GCC project.
-#
-# To rebuild project do "make clean" then "make all".
-#----------------------------------------------------------------------------
+
 
 
 # Output format. (can be srec, ihex, binary)
@@ -671,7 +633,7 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
+SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/*/.)))
 all-keyboards-defaults-%:
 	@for x in $(SUBDIRS) ; do \
 		printf "Compiling with default: $$x" | $(AWK_CMD); \
@@ -680,19 +642,38 @@ all-keyboards-defaults-%:
 
 all-keyboards-defaults: all-keyboards-defaults-all
 
-KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboard/%/=/keyboard/%)
-all-keyboards: $(KEYBOARDS)
-/keyboard/%:
-	$(eval KEYBOARD=$(patsubst /keyboard/%,%,$@))
-	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$@/keymaps/*/.))))
-	@for x in $(KEYMAPS) ; do \
-		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
-		LOG=$$($(MAKE) -C $(TOP_DIR)$@ QUICK=$(QUICK) AUTOGEN=$(AUTOGEN) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
-	done
+KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboards/%/=/keyboards/%)
+all-keyboards-all: $(addsuffix -all,$(KEYBOARDS))
+all-keyboards-quick: $(addsuffix -quick,$(KEYBOARDS))
+all-keyboards-clean: $(addsuffix -clean,$(KEYBOARDS))
+all-keyboards: all-keyboards-all
+
+define make_keyboard
+$(eval KEYBOARD=$(patsubst /keyboards/%,%,$1))
+$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$1/keymaps/*/.))))
+@for x in $(KEYMAPS) ; do \
+	printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
+	LOG=$$($(MAKE) -C $(TOP_DIR)$1 $2 keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+done
+endef
+
+define make_keyboard_helper
+# Just remove the -quick, -all and so on from the first argument and pass it forward
+$(call make_keyboard,$(subst -$2,,$1),$2)
+endef
+
+/keyboards/%-quick:
+	$(call make_keyboard_helper,$@,quick)
+/keyboards/%-all:
+	$(call make_keyboard_helper,$@,all)
+/keyboards/%-clean:
+	$(call make_keyboard_helper,$@,clean)
+/keyboards/%:
+	$(call make_keyboard_helper,$@,all)
 
 all-keymaps-%:
 	$(eval MAKECONFIG=$(call get_target,all-keymaps,$@))
-	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboard/$(KEYBOARD)/keymaps/*/.))))
+	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
 		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
 		LOG=$$($(MAKE) $(subst all-keymaps-,,$@) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \

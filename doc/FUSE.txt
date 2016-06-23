@@ -1,3 +1,12 @@
+Atmega32u4 Fuse/Lock Bits for Planck/Atomic/Preonic
+=========================
+
+	Low Fuse: 0x5E
+	High Fuse: 0x99
+	Extended Fuse: 0xF3
+	Lock Byte: 0xFF
+
+
 ATMega168P Fuse/Lock Bits
 =========================
 This configuration is from usbasploader's Makefile.
@@ -38,3 +47,4 @@ This configuration is from usbasploader's Makefile.
 #             |     |   +----- LB 2..1 (No memory lock features enabled)
 #             |     +--------- BLB0 2..1 (No restrictions for SPM or LPM accessing the Application section)
 #             +--------------- BLB1 2..1 (No restrictions for SPM or LPM accessing the Boot Loader section)
+
