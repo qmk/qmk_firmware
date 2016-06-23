@@ -56,7 +56,7 @@ ifndef KEYBOARD
 	KEYBOARD=planck
 endif
 
-# converts things to keyboard/subproject
+# converts things to keyboards/subproject
 ifneq (,$(findstring /,$(KEYBOARD)))
 	TEMP:=$(KEYBOARD)
 	KEYBOARD:=$(firstword $(subst /, ,$(TEMP)))
@@ -86,10 +86,10 @@ ifdef SUBPROJECT_DEFAULT
 endif
 
 ifdef SUBPROJECT
-	SUBPROJECT_PATH = $(TOP_DIR)/keyboard/$(KEYBOARD)/$(SUBPROJECT)
+	SUBPROJECT_PATH = $(TOP_DIR)/keyboards/$(KEYBOARD)/$(SUBPROJECT)
 	ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
 		OPT_DEFS += -DSUBPROJECT_$(SUBPROJECT)
-		SUBPROJECT_FILE = keyboard/$(KEYBOARD)/$(SUBPROJECT)/$(SUBPROJECT).c
+		SUBPROJECT_FILE = keyboards/$(KEYBOARD)/$(SUBPROJECT)/$(SUBPROJECT).c
 		-include $(SUBPROJECT_PATH)/Makefile
 	else 
 $(error "$(SUBPROJECT_PATH)/$(SUBPROJECT).c" does not exist)
