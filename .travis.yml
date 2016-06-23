@@ -1,5 +1,7 @@
 os:
 - linux
+dist: 
+- trusty
 language:
 - c
 compiler:
