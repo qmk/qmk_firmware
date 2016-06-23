@@ -15,7 +15,7 @@ I've heard many complaints about the thumb clusters. I agree that the three outt
 * I have relatively large hands (I guarantee you there's no problem - I guarantee you)
 
 ### Dangerous positioning
-I think it's quite dangerous to put something like control on the same key as enter. Alas, this is a risk I'm willing to accept, and so should you if you decide to use this keymap. I tend to avoid putting myself in situtation in which disaster could occur with one fell swoop of a keypress.
+I think it's quite dangerous to put something like control on the same key as enter. Alas, this is a risk I'm willing to accept, and so should you if you decide to use this keymap. I tend to avoid putting myself in situtations in which disaster could occur with one fell swoop of a keypress.
 
 # Keymap
 ## Keymap 0: Basic layer
