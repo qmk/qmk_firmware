@@ -655,7 +655,7 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 void matrix_init_quantum() {
-  #ifdef BACKLIGHT_ENABLE
+  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
     backlight_init_ports();
   #endif
   matrix_init_kb();
