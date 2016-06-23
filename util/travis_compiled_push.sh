@@ -14,8 +14,7 @@ cd qmk.fm
 git submodule update --init --recursive
 rm -rf keyboard
 cp -r ../qmk_firmware/keyboard .
-# ./generate.sh
-pandoc -v
+./generate.sh
 
 git add -A
 git commit -m "complete keyboards and compiled files from qmk_firmware/$TRAVIS_BRANCH@${rev}" 
