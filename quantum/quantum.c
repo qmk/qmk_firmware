@@ -967,7 +967,7 @@ static const uint8_t breathing_table[64] PROGMEM = {
 
 ISR(TIMER1_COMPA_vect)
 {
-    // CHANNEL = (pgm_read_byte(&breathing_table[ ( (uint8_t)( (breathing_index++) >> breath_speed ) ) & 0x3F ] )) * breath_intensity;
+    // OCR1x = (pgm_read_byte(&breathing_table[ ( (uint8_t)( (breathing_index++) >> breath_speed ) ) & 0x3F ] )) * breath_intensity;
 
 
     uint8_t local_index = ( (uint8_t)( (breathing_index++) >> breath_speed ) ) & 0x3F;
@@ -978,7 +978,7 @@ ISR(TIMER1_COMPA_vect)
         TIMSK1 &= ~_BV(OCIE1A);
     }
 
-    CHANNEL = (uint16_t)(((uint16_t)pgm_read_byte(&breathing_table[local_index]) * 257)) >> breath_intensity;
+    OCR1x = (uint16_t)(((uint16_t)pgm_read_byte(&breathing_table[local_index]) * 257)) >> breath_intensity;
 
 }
 
