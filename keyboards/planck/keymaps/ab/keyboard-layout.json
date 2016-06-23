@@ -1,0 +1,101 @@
+[
+  {
+    "name": "AB's Practical Keymap for Planck",
+    "author": "Anand Babu Periasamy"
+  },
+  [
+    "1\nF1\n!\n\n\n\n\n\n\nTab",
+    "2\nF2\n@\n\n\n\n\n\n\nQ",
+    "3\nF3\n#\n\n\n\n\n\n\nW",
+    "4\nF4\n$\n\n\n\n\n\n\nE",
+    "5\nF5\n%\n\n\n\n\n\n\nR",
+    "6\nF6\n^\n\n\n\n\n\n\nT",
+    "7\nF7\n&\n\n\n\n\n\n\nY",
+    "8\nF8\n*\n\n\n\n\n\n\nU",
+    "9\nF9\n(\n\n\n\n\n\n\nI",
+    "0\nF10\n)\n\n\n\n\n\n\nO",
+    "-\nF11\n_\n\n\n\n\n\n\nP",
+    "=\nF12\n+\n\n\n\n\n\n\n<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i>"
+  ],
+  [
+    {
+      "a": 7
+    },
+    "Ctrl",
+    "A",
+    "S",
+    "D",
+    {
+      "a": 4
+    },
+    "(\n\n\n\n\n\n\n\n\nF",
+    ")\n\n\n\n\n\n\n\n\nG",
+    "{\n\n\n\n\n\n\n\n\nH",
+    "}\n\n\n\n\n\n\n\n\nJ",
+    {
+      "a": 7
+    },
+    "K",
+    "L",
+    {
+      "a": 6
+    },
+    ";\n\n:",
+    {
+      "a": 7
+    },
+    "Enter"
+  ],
+  [
+    "Shift",
+    "Z",
+    "X",
+    "C",
+    {
+      "a": 4
+    },
+    "[\n`\n\n\n\n\n\n\n\nV",
+    "]\n~\n\n\n\n\n\n\n\nB",
+    "'\n\\\n\n\n\n\n\n\n\nN",
+    "\"\n|\n\n\n\n\n\n\n\nM",
+    {
+      "a": 6
+    },
+    ",\n\n<",
+    ".\n\n>",
+    "/\n\n?",
+    {
+      "a": 7
+    },
+    "Shift\n\n\n\nEnter"
+  ],
+  [
+    {
+      "a": 4
+    },
+    "<i class='fa fa-lightbulb-o'></i>\n<i class='fa fa-download'></i>\n\n\n\n\n\n\n\nCtrl",
+    {
+      "a": 7
+    },
+    "Esc",
+    "<i class='fa fa-linux'></i>",
+    "Alt",
+    "<i class='fa fa-sort-up'></i>",
+    {
+      "a": 4,
+      "w": 2
+    },
+    "\nPgUP\n\nPgDn\n\n\n\n\n\nSpace",
+    {
+      "a": 7
+    },
+    "<i class='fa fa-sort-down'></i>",
+    "<i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i>",
+    {
+      "a": 4
+    },
+    "\n<i class='fa fa-volume-down'></i>\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-up\" aria-hidden=\"true\"></i>",
+    "\n<i class='fa fa-volume-up'></i>\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-down\" aria-hidden=\"true\"></i>",
+    "\n<i class='fa fa-volume-off'></i>\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i>"
+  ]
+]
