@@ -9,10 +9,6 @@ void matrix_init_kb(void) {
 	matrix_init_user();
 	led_init_ports();
 
-    #ifdef BACKLIGHT_ENABLE
-        init_backlight_pin();
-    #endif
-
     // JTAG disable for PORT F. write JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
@@ -23,7 +19,7 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-void init_backlight_pin(void) {
+void backlight_init_ports(void) {
     print("init_backlight_pin()\n");
     // Set our LED pins as output
     DDRD |= (1<<6); // Esc

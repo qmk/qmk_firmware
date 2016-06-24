@@ -8,11 +8,6 @@
     #include "rev2.h"
 #endif
 
-#include "matrix.h"
-#include "keymap.h"
-#include <stddef.h>
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
+#include "quantum.h"
 
 #endif
