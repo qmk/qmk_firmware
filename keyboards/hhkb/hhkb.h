@@ -1,10 +1,7 @@
 #ifndef HHKB_H
 #define HHKB_H
 
-#include "matrix.h"
-#include "keymap.h"
-//#include "backlight.h"
-#include <stddef.h>
+#include "quantum.h"
 
 #define KEYMAP(                                                                \
     K31, K30, K00, K10, K11, K20, K21, K40, K41, K60, K61, K70, K71, K50, K51, \
@@ -23,8 +20,5 @@
     { K60, K61, K62, K63, K64, K65, K66, KC_NO },                              \
     { K70, K71, K72, K73, K74, K75, K76, KC_NO }                               \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
 
 #endif

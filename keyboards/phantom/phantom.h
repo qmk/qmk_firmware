@@ -1,10 +1,7 @@
 #ifndef PHANTOM_H
 #define PHANTOM_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include <stddef.h>
-#include "action_util.h"
+#include "quantum.h"
 
 /* Phantom matrix layout
    * ,-----------------------------------------------------------------------------.
@@ -39,8 +36,5 @@
 		{k40, k40, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4d, k4d, k4f, k4f, k4f},  \
 		{k50, k51, k52, k57, k57, k57, k57, k57, k57, k57, k5a, k5b, k5c, k5d, k5e, k5f, k5g} \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
 
 #endif

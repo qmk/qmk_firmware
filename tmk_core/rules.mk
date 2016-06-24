@@ -40,7 +40,7 @@ OPT = s
 #     AVR [Extended] COFF format requires stabs, plus an avr-objcopy run.
 DEBUG = dwarf-2
 
-COLOR?=true
+COLOR ?= true
 
 ifeq ($(COLOR),true)
 	NO_COLOR=\033[0m
@@ -136,10 +136,8 @@ CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
+ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
 	CFLAGS+= -fdiagnostics-color
-else ifeq ("$(echo "int main(){}" | $(CC) -fcolor-diagnostics -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fcolor-diagnostics
 endif
 endif
 CFLAGS += -Wall
@@ -457,15 +455,6 @@ endif
 	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	dfu-programmer $(MCU) reset
 
-dfu-no-build:
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) erase --force
-else
-	dfu-programmer $(MCU) erase
-endif
-	dfu-programmer $(MCU) flash $(KEYMAP_PATH)/compiled.hex
-	dfu-programmer $(MCU) reset
-
 dfu-start:
 	dfu-programmer $(MCU) reset
 	dfu-programmer $(MCU) start
@@ -626,7 +615,7 @@ clean_list :
 	@$(REMOVE) -r $(BUILD_DIR)
 	@$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
 	@$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
-	@if $$SUBPROJECT; then $(REMOVE) -r $(SUBPROJECT_PATH)/$(BUILD_DIR); fi  
+	@if $$SUBPROJECT; then $(REMOVE) -r $(SUBPROJECT_PATH)/$(BUILD_DIR); fi
 	@$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:

@@ -1,11 +1,17 @@
 #include "clueboard.h"
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-	// leave these blank
+void led_init_ports() {
+    // * Set our LED pins as output
+    DDRB |= (1<<4);
 }
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-	// leave these blank
+void led_set_kb(uint8_t usb_led) {
+    DDRF |= (1<<0);
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // Turn capslock on
+        PORTF |= (1<<0);
+    } else {
+        // Turn capslock off
+        PORTF &= ~(1<<0);
+    }
 }

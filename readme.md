@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/jackhumbert/qmk_firmware.svg?branch=master)](https://travis-ci.org/jackhumbert/qmk_firmware)
 
-This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
+This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
 
 ## Official website
 
-For an easy-to-read version of this document and the repository, check out [http://qmk.fm](http://qmk.fm).
+For an easy-to-read version of this document and the repository, check out [http://qmk.fm](http://qmk.fm). Nicely formatted keyboard and keymap listings are also available there, along with the ability to download .hex files instead of having to setup a build environment and compile them.
 
 ## Included Keyboards
 
@@ -22,52 +22,202 @@ The project also includes community support for [lots of other keyboards](/keybo
 
 ## Maintainers
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK. In fact, this repo used to be a fork of TMK, and we are incredibly grateful for his founding contributions to the firmware. We've had to break the fork due to purely technical reasons -- it simply became too different over time, and we've had to start refactoring some of the basic bits and pieces. We are huge fans of TMK, both the firmware and the person. :)
+QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). This repo used to be a fork of [TMK](https://github.com/tmk/tmk_keyboard), and we are incredibly grateful for his founding contributions to the firmware. We've had to break the fork due to purely technical reasons - it simply became too different over time, and we've had to start refactoring some of the basic bits and pieces. We are huge fans of TMK and Hasu :)
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
 
-The OLKB product firmwares are maintained by Jack, the Ergodox EZ by Erez, and the Clueboard by [Zach White](https://github.com/skullydazed).
+The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [Erez Zukerman](https://github.com/ezuk), and the Clueboard by [Zach White](https://github.com/skullydazed).
 
 ## Documentation roadmap
 
-This is not a tiny project. While this is the main Readme, there are many other files you might want to consult. Here are some points of interest:
+This is not a tiny project. While this is the main readme, there are many other files you might want to consult. Here are some points of interest:
 
-* The Readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox_ez/); for the Atomic, it's [here](keyboards/atomic/) and so on.
-* The [build guide](doc/BUILD_GUIDE.md), also mentioned in the next section. This is how you put your development environment together so you can compile the firmware.
+* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox_ez/); for the Planck, it's [here](keyboards/planck/) and so on.
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
-  * [tmk_core/common/keycode.h](tmk_core/common/keycode.h) - the base TMK keycodes. This is the actual source file.
   * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
-  * [quantum/keymap_common.h](quantum/keymap_common.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap_common.h` is where they're actually defined.
-* The [TMK documentation](doc/TMK_README.md). QMK is based on TMK, and this explains how it works internally.
+  * [quantum/keymap.h](quantum/keymap.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap.h` is where they're actually defined.
+* The [TMK documentation](doc/TMK_readme.md). QMK is based on TMK, and this explains how it works internally.
 
-## Getting started
+# Getting started
 
-* [BUILD_GUIDE.md](doc/BUILD_GUIDE.md) contains instructions to set up a build environment, build the firmware, and deploy it to a keyboard. Once your build environment has been set up, all `make` commands to actually build the firmware must be run from a folder in `keyboards/`.
-* If you're looking to customize a keyboard that currently runs QMK or TMK, find your keyboard's directory under `keyboards/` and run the make commands from there.
-* If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `util/new_project.sh <project_name>`, which will create `/keyboards/<project_name>` with all the necessary components for a Quantum project.
+Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/jackhumbert/qmk_firmware/pulls) with your changes!
 
-### Makefile Options
+## Build Environment Setup
 
-You have access to a bunch of goodies! Check out the Makefile to enable/disable some of the features. Uncomment the `#` to enable them. Setting them to `no` does nothing and will only confuse future you.
+### Windows (Vista and later)
+1. If you have ever installed WinAVR, uninstall it.
+2. Install [MHV AVR Tools](https://infernoembedded.com/sites/default/files/project/MHV_AVR_Tools_20131101.exe). Disable smatch, but **be sure to leave the option to add the tools to the PATH checked**.
+3. Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The scripts depend on the default location.
+4. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
+5. Double-click on the 1-setup-path-win batch script to run it. You'll need to accept a User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
+6. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
+7. Future build commands should be run from the standard Windows command prompt, which you can find by searching for "command prompt" from the start menu or start screen. Ignore the "MHV AVR Shell".
 
-    BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
-    MIDI_ENABLE = yes      # MIDI controls
-    UNICODE_ENABLE = no    # <-- This is how you disable an option, just set it to "no"
-    BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+### Mac
+If you're using [homebrew,](http://brew.sh/) you can use the following commands:
+
+    brew tap osx-cross/avr
+    brew install avr-libc
+    brew install dfu-programmer
+
+This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line.
+
+You can also try these instructions:
+
+1. Install Xcode from the App Store.
+2. Install the Command Line Tools from `Xcode->Preferences->Downloads`.
+3. Install [DFU-Programmer][dfu-prog].
+
+### Linux
+Install AVR GCC, AVR libc, and dfu-progammer with your favorite package manager.
+
+Debian/Ubuntu example:
+
+    sudo apt-get update
+    sudo apt-get install gcc-avr avr-libc dfu-programmer
+
+### Vagrant
+If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](VAGRANT_GUIDE.md).
+
+## Verify Your Installation
+1. If you haven't already, obtain this repository ([https://github.com/jackhumbert/qmk_firmware](https://github.com/jackhumbert/qmk_firmware)). You can either download it as a zip file and extract it, or clone it using the command line tool git or the Github Desktop application.
+2. Open up a terminal or command prompt and navigate to the `qmk_firmware` folder using the `cd` command. The command prompt will typically open to your home directory. If, for example, you cloned the repository to your Documents folder, then you would type `cd Documents/qmk_firmware`. If you extracted the file from a zip, then it may be named `qmk_firmware-master` instead.
+3. To confirm that you're in the correct location, you can display the contents of your current folder using the `dir` command on Windows, or the `ls` command on Linux or Mac. You should see several files, including `readme.md` and a `quantum` folder. From here, you need to navigate to the appropriate folder under `keyboards/`. For example, if you're building for a Planck, run `cd keyboards/planck`.
+4. Once you're in the correct keyboard-specific folder, run the `make` command. This should output a lot of information about the build process. More information about the `make` command can be found below.
+
+# Customizing your keymap
+
+In every keymap folder, the following files are recommended:
+
+* `config.h` - the options to configure your keymap
+* `keymap.c` - all of your keymap code, required
+* `Makefile` - the features of QMK that are enabled, required to run `make` in your keymap folder
+* `readme.md` - a description of your keymap, how others might use it, and explanations of features 
+
+## The `make` command
+
+The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys). You can run `make` from the root (`/`), your keyboard folder (`/keyboards/<keyboard>/`), or your keymap folder (`/keyboards/<keyboard>/keymaps/<keymap>/`) if you have a `Makefile` there (see the example [here](/doc/keymap_makefile_example.mk)).
+
+By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests. Your .hex file will also be available on qmk.fm/keyboards/<keyboard>/keymaps/<keymap>/.
+
+Below are some definitions that will be useful:
+
+* The "root" (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
+* The "keyboard" folder is any keyboard project's folder, like `/keyboards/planck`.
+* The "keymap" folder is any keymap's folder, like `/keyboards/planck/keymaps/default`.
+
+Below is a list of the useful `make` commands in QMK:
+
+* `make` - cleans automatically and builds your keyboard and keymap depending on which folder you're in. This defaults to the "default" layout (unless in a keymap folder), and Planck keyboard in the root folder
+  * `make keyboard=<keyboard>` - specifies the keyboard (only to be used in root)
+  * `make keymap=<keymap>` - specifies the keymap (only to be used in root and keyboard folder - not needed when in keymap folder)
+* `make quick` - skips the clean step (cannot be used immediately after modifying config.h or Makefiles)
+* `make dfu` - (requires dfu-programmer) builds and flashes the keymap to your keyboard once placed in reset/dfu mode (button or press `KC_RESET`). This does not work for Teensy-based keyboards like the ErgoDox EZ.
+  * `keyboard=` and `keymap=` are compatible with this
+* `make all-keyboards` - builds all keymaps for all keyboards and outputs status of each (use in root)
+* `make all-keyboards-default` - builds all default keymaps for all keyboards and outputs status of each (use in root)
+* `make all-keymaps [keyboard=<keyboard>]` - builds all of the keymaps for whatever keyboard folder you're in, or specified by `<keyboard>`
+* `make all-keyboards-quick`, `make all-keyboards-default-quick` and `make all-keymaps-quick [keyboard=<keyboard>]` - like the normal "make-all-*" commands, but they skip the clean steps
+
+Other, less useful functionality:
+
+* `make COLOR=false` - turns off color output
+* `make SILENT=true` - turns off output besides errors/warnings
+* `make VERBOSE=true` - outputs all of the avr-gcc stuff (not interesting)
+
+## The `Makefile`
+
+There are 3 different `make` and `Makefile` locations:
+
+* root (`/`)
+* keyboard (`/keyboards/<keyboard>/`)
+* keymap (`/keyboards/<keyboard>/keymaps/<keymap>/`)
+
+The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **It is required if you want to run `make` in the keymap folder.**
+
+### Makefile options
+
+Set the variables to `no` to disable them, and `yes` to enable them.
+
+`BOOTMAGIC_ENABLE`
+
+This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
+
+`MOUSEKEY_ENABLE`
+
+This gives you control over cursor movements and clicks via keycodes/custom functions.
+
+`EXTRAKEY_ENABLE`
+
+This allows you to use the system and audio control key codes.
+
+`CONSOLE_ENABLE`
+
+TODO
+
+`COMMAND_ENABLE`
+
+TODO
+
+`SLEEP_LED_ENABLE`
+
+Enables your LED to breath while your computer is sleeping. Timer1 is being used here. This feature is largely unused and untested, and needs updating/abstracting.
+
+`NKRO_ENABLE`
+
+This allows for n-key rollover (default is 6) to be enabled. It is off by default, but can be forced by adding `#define FORCE_NKRO` to your config.h.
+
+`BACKLIGHT_ENABLE`
+
+This enables your backlight on Timer1 and ports B5, B6, or B7 (for now). You can specify your port by putting this in your `config.h`:
+
+    #define BACKLIGHT_PIN B7
+
+`MIDI_ENABLE`
+
+This enables MIDI sending and receiving with your keyboard. To enter MIDI send mode, you can use the keycode `MI_ON`, and `MI_OFF` to turn it off. This is a largely untested feature, but more information can be found in the `quantum/quantum.c` file.
+
+`UNICODE_ENABLE`
+
+This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only codes up to 0x7FFF are currently supported.
+
+`BLUETOOTH_ENABLE`
+
+This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly. It uses the D2 and D3 pins.
+
+`AUDIO_ENABLE`
+
+This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#driving-a-speaker---audio-support) for more information.
 
 ### Customizing Makefile options on a per-keymap basis
 
-If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options (those set for Quantum as a whole or for your particular keyboard).
+If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options for your particular keyboard.
 
-So let's say your keyboard's makefile has `CONSOLE_ENABLE = yes` (or maybe doesn't even list the `CONSOLE_ENABLE` option, which would cause it to revert to the global Quantum default). You want your particular keymap to not have the debug console, so you make a file called `Makefile` and specify `CONSOLE_ENABLE = no`.
+So let's say your keyboard's makefile has `BACKLIGHT_ENABLE = yes` (or maybe doesn't even list the `BACKLIGHT_ENABLE` option, which would cause it to be off). You want your particular keymap to not have the debug console, so you make a file called `Makefile` and specify `BACKLIGHT_ENABLE = no`.
 
-### Customizing config.h on a per-keymap basis
+You can use the `doc/keymap_makefile_example.md` as a template/starting point.
 
-You can also make a `config.h` file in your keymap directory and use it to override any `config.h` settings you don't like. Anything you set there will take precedence over the global `config.h` for the ErgoDox EZ. To see an example of this, check out `keymaps/erez_experimental`.
+## The `config.h` file
 
-## Quick aliases to common actions
+There are 2 `config.h` locations:
 
-Your keymap can include shortcuts to common operations (called "function actions" in tmk).
+* keyboard (`/keyboards/<keyboard>/`)
+* keymap (`/keyboards/<keyboard>/keymaps/<keymap>/`)
+
+The keyboard `config.h` is included only if the keymap one doesn't exist. The format to use for your custom one [is here](/doc/keymap_config_h_example.h). If you want to override a setting from the parent `config.h` file, you need to do this:
+
+```c
+#undef MY_SETTING
+#define MY_SETTING 4
+```
+
+For a value of `4` for this imaginary setting. So we `undef` it first, then `define` it.
+
+You can then override any settings, rather than having to copy and paste the whole thing.
+
+## Going beyond the keycodes
+
+Aside from the [basic keycodes](doc/keycode.txt), your keymap can include shortcuts to common operations.
 
 ### Switching and toggling layers
 
@@ -133,7 +283,6 @@ These are the values you can use for the `mod` in `MT()` and `OSM()` (right-hand
   * MOD_LGUI
   * MOD_HYPR
   * MOD_MEH
-
 
 These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
 
@@ -415,9 +564,60 @@ You can currently send 4 hex digits with your OS-specific modifier key (RALT for
 
 Enable the backlight from the Makefile.
 
-## Driving a speaker - audio support
+# Custom Quantum functions
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and have it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
+
+## `void martix_init_*(void)`
+
+This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
+
+## `void matrix_scan_*(void)`
+
+This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
+
+## `bool process_record_*(uint16_t keycode, keyrecord_t *record)`
+
+This function gets called on every keypress/release, and is where you can define custom functionality. The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
+
+The `keycode` variable is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. and can be switch-cased to execute code whenever a particular code is pressed.
+
+The `record` variable contains infomation about the actual press:
+
+```
+keyrecord_t record {
+  keyevent_t event {
+    keypos_t key {
+      uint8_t col
+      uint8_t row
+    }
+    bool     pressed
+    uint16_t time
+  }
+}
+```
+
+The conditional `if (record->event.pressed)` can tell if the key is being pressed or released, and you can execute code based on that.
+
+## `void led_set_*(uint8_t usb_led)`
+
+This gets called whenever there is a state change on your host LEDs (eg caps lock, scroll lock, etc). The LEDs are defined as:
+
+```
+#define USB_LED_NUM_LOCK                0
+#define USB_LED_CAPS_LOCK               1
+#define USB_LED_SCROLL_LOCK             2
+#define USB_LED_COMPOSE                 3
+#define USB_LED_KANA                    4
+```
+
+and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED one, otherwise turn it off.
+
+# Modding your keyboard
+
+## Audio output from a speaker
+
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
 The audio code lives in [quantum/audio/audio.h](/quantum/audio/audio.h) and in the other files in the audio directory. It's enabled by default on the Planck [stock keymap](/keyboards/planck/keymaps/default/keymap.c). Here are the important bits:
 
@@ -549,3 +749,63 @@ what things are (and likely aren't) too risky.
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
 
+# Porting your keyboard to QMK
+
+If your keyboard is running an Atmega chip (atmega32u4 and others), it's pretty easy to get things setup for compiling your own firmware to flash onto your board. There is a `/util/new_project.sh <keyboard>` script to help get you started - you can simply pass your keyboard's name into the script, and all of the necessary files will be created. The components of each are described below.
+
+## `/keyboards/<keyboard>/config.h`
+
+The `USB Device descriptor parameter` block contains parameters are used to uniquely identify your keyboard, but they don't really matter to the machine.
+
+Your `MATRIX_ROWS` and `MATRIX_COLS` are the numbers of rows and cols in your keyboard matrix - this may be different than the number of actual rows and columns on your keyboard. There are some tricks you can pull to increase the number of keys in a given matrix, but most keyboards are pretty straight-forward. 
+
+The `MATRIX_ROW_PINS` and `MATRIX_COL_PINS` are the pins your MCU uses on each row/column. Your schematic (if you have one) will have this information on it, and the values will vary depending on your setup. This is one of the most important things to double-check in getting your keyboard setup correctly.
+
+For the `DIODE_DIRECTION`, most hand-wiring guides will instruct you to wire the diodes in the `COL2ROW` position, but it's possible that they are in the other - people coming from EasyAVR often use `ROW2COL`. Nothing will function if this is incorrect.
+
+`BACKLIGHT_PIN` is the pin that your PWM-controlled backlight (if one exists) is hooked-up to. Currently only B5, B6, and B7 are supported. 
+
+`BACKLIGHT_BREATHING` is a fancier backlight feature, and uses one of the timers.
+
+`BACKLIGHT_LEVELS` is how many levels exist for your backlight - max is 15, and they are computed automatically from this number.
+
+## `/keyboards/<keyboard>/Makefile`
+
+The values at the top likely won't need to be changed, since most boards use the `atmega32u4` chip. The `BOOTLOADER_SIZE` will need to be adjusted based on your MCU type. It's defaulted to the Teensy, since that's the most common controller. Below is quoted from the `Makefile`.
+
+```
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 1024
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
+OPT_DEFS += -DBOOTLOADER_SIZE=512
+```
+
+At the bottom of the file, you'll find lots of features to turn on and off - all of these options should be set with `?=` to allow for the keymap overrides. `?=` only assigns if the variable was previously undefined. For the full documenation of these features, see the [Makefile options](#makefile-options).
+
+## `/keyboards/<keyboard>/readme.md`
+
+This is where you'll describe your keyboard - please write as much as you can about it! Talking about default functionality/features is useful here. Feel free to link to external pages/sites if necessary. Images can be included here as well. This file will be rendered into a webpage at qmk.fm/keyboards/<keyboard>/.
+
+## `/keyboards/<keyboard>/<keyboard>.c`
+
+This is where all of the custom logic for your keyboard goes - you may not need to put anything in this file, since a lot of things are configured automatically. All of the `*_kb()` functions are defined here. If you modify them, remember to keep the calls to `*_user()`, or things in the keymaps might not work. You can read more about the functions [here](#custom-quantum-functions-for-keyboards-and-keymaps)
+
+## `/keyboards/<keyboard>/<keyboard>.h`
+
+Here is where you can (optionally) define your `KEYMAP` function to remap your matrix into a more readable format. With ortholinear boards, this isn't always necessary, but it can help to accomodate the dead spots on your matrix, where there are keys that take up more than one space (2u, staggering, 6.25u, etc). The example shows the difference between the physical keys, and the matrix design:
+
+```
+#define KEYMAP( \
+    k00, k01, k02, \
+      k10,  k11   \
+) \
+{ \
+    { k00, k01,   k02 }, \
+    { k10, KC_NO, k11 }, \
+}
+```
+
+Each of the `kxx` variables needs to be unique, and usually follows the format `k<row><col>`. You can place `KC_NO` where your dead keys are in your matrix.

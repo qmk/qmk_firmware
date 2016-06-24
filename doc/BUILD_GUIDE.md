@@ -1,4 +1,4 @@
-# Build Guide
+# This guide has now been included in the main readme - please reference that one instead.
 
 ## Build Environment Setup
 
@@ -40,7 +40,7 @@ If you have any problems building the firmware, you can try using a tool called 
 ## Verify Your Installation
 1. If you haven't already, obtain this repository ([https://github.com/jackhumbert/qmk_firmware](https://github.com/jackhumbert/qmk_firmware)). You can either download it as a zip file and extract it, or clone it using the command line tool git or the Github Desktop application.
 2. Open up a terminal or command prompt and navigate to the `qmk_firmware` folder using the `cd` command. The command prompt will typically open to your home directory. If, for example, you cloned the repository to your Documents folder, then you would type `cd Documents/qmk_firmware`. If you extracted the file from a zip, then it may be named `qmk_firmware-master` instead.
-3. To confirm that you're in the correct location, you can display the contents of your current folder using the `dir` command on Windows, or the `ls` command on Linux or Mac. You should see several files, including `README.md` and a `quantum` folder. From here, you need to navigate to the appropriate folder under `keyboards/`. For example, if you're building for a Planck, run `cd keyboards/planck`.
+3. To confirm that you're in the correct location, you can display the contents of your current folder using the `dir` command on Windows, or the `ls` command on Linux or Mac. You should see several files, including `readme.md` and a `quantum` folder. From here, you need to navigate to the appropriate folder under `keyboards/`. For example, if you're building for a Planck, run `cd keyboards/planck`.
 4. Once you're in the correct keyboard-specific folder, run the `make` command. This should output a lot of information about the build process. More information about the `make` command can be found below.
 
 ## Customizing, Building, and Deploying Your Firmware
@@ -49,7 +49,7 @@ If you have any problems building the firmware, you can try using a tool called 
 
 The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys). You can run `make` from the root (`/`), your keyboard folder (`/keyboards/<keyboard>/`), or your keymap folder (`/keyboards/<keyboard>/keymaps/<keymap>/`) if you have a `Makefile` there (see the example [here](/doc/keymap_makefile_example.mk)).
 
-By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests. Your .hex file will also be copied into your keymap folder as `compiled.hex`, which isn't ignored by git - this is included in case first-time users are having trouble compiling, and just want to flash a layout via `make dfu-no-build` or using the Teensy loader.
+By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests.
 
 * The "root" (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
 * The "keyboard" folder is any keyboard project's folder, like `/keyboards/planck`.
@@ -63,7 +63,6 @@ Below is a list of the useful `make` commands in QMK:
 * `make quick` - skips the clean step (cannot be used immediately after modifying config.h or Makefiles)
 * `make dfu` - (requires dfu-programmer) builds and flashes the keymap to your keyboard once placed in reset/dfu mode (button or press `KC_RESET`). This does not work for Teensy-based keyboards like the ErgoDox EZ.
   * `keyboard=` and `keymap=` are compatible with this
-* `make dfu-no-build` - (requires dfu-programmer) same as `make dfu`, but doesn't build and uses the included `compiled.hex` to flash the keyboard
 * `make all-keyboards` - builds all keymaps for all keyboards and outputs status of each (use in root)
 * `make all-keyboards-default` - builds all default keymaps for all keyboards and outputs status of each (use in root)
 * `make all-keymaps [keyboard=<keyboard>]` - builds all of the keymaps for whatever keyboard folder you're in, or specified by `<keyboard>`

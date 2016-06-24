@@ -1,6 +1,6 @@
 # BEPO keymap for the ErgoDox
 
-This keymap has been made for the BEPO layout (http://bepo.fr), which is an ergonomic french keyboard layout based on Dvorak rules. As it's made for french people, the following of this README will be in french.
+This keymap has been made for the BEPO layout (http://bepo.fr), which is an ergonomic french keyboard layout based on Dvorak rules. As it's made for french people, the following of this readme will be in french.
 
 # Disposition BÉPO pour l'ErgoDox
 
