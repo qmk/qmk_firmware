@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/jackhumbert/qmk_firmware.svg?branch=master)](https://travis-ci.org/jackhumbert/qmk_firmware)
 
-This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.co), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
+This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
 
 ## Official website
 
-For an easy-to-read version of this document and the repository, check out [http://qmk.fm](http://qmk.fm).
+For an easy-to-read version of this document and the repository, check out [http://qmk.fm](http://qmk.fm). Nicely formatted keyboard and keymap listings are also available there, along with the ability to download .hex files instead of having to setup a build environment and compile them.
 
 ## Included Keyboards
 
@@ -22,7 +22,7 @@ The project also includes community support for [lots of other keyboards](/keybo
 
 ## Maintainers
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, TMK. In fact, this repo used to be a fork of TMK, and we are incredibly grateful for his founding contributions to the firmware. We've had to break the fork due to purely technical reasons -- it simply became too different over time, and we've had to start refactoring some of the basic bits and pieces. We are huge fans of TMK, both the firmware and the person. :)
+QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). This repo used to be a fork of [TMK](https://github.com/tmk/tmk_keyboard), and we are incredibly grateful for his founding contributions to the firmware. We've had to break the fork due to purely technical reasons - it simply became too different over time, and we've had to start refactoring some of the basic bits and pieces. We are huge fans of TMK and Hasu :)
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
 
@@ -40,7 +40,7 @@ This is not a tiny project. While this is the main readme, there are many other 
 
 # Getting started
 
-Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below.
+Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/jackhumbert/qmk_firmware/pulls) with your changes!
 
 ## Build Environment Setup
 
@@ -217,7 +217,7 @@ You can then override any settings, rather than having to copy and paste the who
 
 ## Editing your keymap
 
-Aside from the basic keycodes, your keymap can include shortcuts to common operations.
+Aside from the [basic keycodes](doc/keycode.txt), your keymap can include shortcuts to common operations.
 
 ### Switching and toggling layers
 
@@ -568,15 +568,15 @@ Enable the backlight from the Makefile.
 
 All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
 
-`void martix_init_*(void)`
+## `void martix_init_*(void)`
 
 This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
 
-`void matrix_scan_*(void)`
+## `void matrix_scan_*(void)`
 
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
-`bool process_record_*(uint16_t keycode, keyrecord_t *record)`
+## `bool process_record_*(uint16_t keycode, keyrecord_t *record)`
 
 This function gets called on every keypress/release, and is where you can define custom functionality. The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
 
@@ -599,7 +599,7 @@ keyrecord_t record {
 
 The conditional `if (record->event.pressed)` can tell if the key is being pressed or released, and you can execute code based on that.
 
-`void led_set_*(uint8_t usb_led)`
+## `void led_set_*(uint8_t usb_led)`
 
 This gets called whenever there is a state change on your host LEDs (eg caps lock, scroll lock, etc). The LEDs are defined as:
 
@@ -752,7 +752,7 @@ what things are (and likely aren't) too risky.
 
 If your keyboard is running an Atmega chip (atmega32u4 and others), it's pretty easy to get things setup for compiling your own firmware to flash onto your board. There is a `/util/new_project.sh <keyboard>` script to help get you started - you can simply pass your keyboard's name into the script, and all of the necessary files will be created. The components of each are described below.
 
-## /keyboards/<keyboard>/config.h
+## `/keyboards/<keyboard>/config.h`
 
 The `USB Device descriptor parameter` block contains parameters are used to uniquely identify your keyboard, but they don't really matter to the machine.
 
@@ -768,7 +768,7 @@ For the `DIODE_DIRECTION`, most hand-wiring guides will instruct you to wire the
 
 `BACKLIGHT_LEVELS` is how many levels exist for your backlight - max is 15, and they are computed automatically from this number.
 
-## /keyboards/<keyboard>/Makefile
+## `/keyboards/<keyboard>/Makefile`
 
 The values at the top likely won't need to be changed, since most boards use the `atmega32u4` chip. The `BOOTLOADER_SIZE` will need to be adjusted based on your MCU type. It's defaulted to the Teensy, since that's the most common controller. Below is quoted from the `Makefile`.
 
@@ -784,15 +784,15 @@ OPT_DEFS += -DBOOTLOADER_SIZE=512
 
 At the bottom of the file, you'll find lots of features to turn on and off - all of these options should be set with `?=` to allow for the keymap overrides. `?=` only assigns if the variable was previously undefined. For the full documenation of these features, see the [Makefile options](#makefile-options).
 
-## /keyboards/<keyboard>/readme.md
+## `/keyboards/<keyboard>/readme.md`
 
 This is where you'll describe your keyboard - please write as much as you can about it! Talking about default functionality/features is useful here. Feel free to link to external pages/sites if necessary. Images can be included here as well. This file will be rendered into a webpage at qmk.fm/keyboards/<keyboard>/.
 
-## /keyboards/<keyboard>/<keyboard>.c
+## `/keyboards/<keyboard>/<keyboard>.c`
 
 This is where all of the custom logic for your keyboard goes - you may not need to put anything in this file, since a lot of things are configured automatically. All of the `*_kb()` functions are defined here. If you modify them, remember to keep the calls to `*_user()`, or things in the keymaps might not work. You can read more about the functions [here](#custom-quantum-functions-for-keyboards-and-keymaps)
 
-## /keyboards/<keyboard>/<keyboard>.h
+## `/keyboards/<keyboard>/<keyboard>.h`
 
 Here is where you can (optionally) define your `KEYMAP` function to remap your matrix into a more readable format. With ortholinear boards, this isn't always necessary, but it can help to accomodate the dead spots on your matrix, where there are keys that take up more than one space (2u, staggering, 6.25u, etc). The example shows the difference between the physical keys, and the matrix design:
 
