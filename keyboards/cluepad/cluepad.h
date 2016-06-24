@@ -35,7 +35,4 @@
     { k40, KC_NO, k42, KC_NO } \
 }
 
-void matrix_init_user(void);
-void matrix_scan_user(void);
-
 #endif

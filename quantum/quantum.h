@@ -27,6 +27,10 @@
 #include <util/delay.h>
 #include "bootloader.h"
 #include "timer.h"
+#include "config_common.h"
+#include <avr/interrupt.h>
+#include "led.h"
+#include "action_util.h"
 
 extern uint32_t default_layer_state;
 
@@ -74,6 +78,8 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
+void matrix_init_user(void);
+void matrix_scan_user(void);
 bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
@@ -88,5 +94,29 @@ void shutdown_user(void);
 void audio_on_user(void);
 void music_on_user(void);
 void music_scale_user(void);
+
+#ifdef BACKLIGHT_ENABLE
+void backlight_init_ports(void);
+
+#ifdef BACKLIGHT_BREATHING
+void breathing_enable(void);
+void breathing_pulse(void);
+void breathing_disable(void);
+void breathing_self_disable(void);
+void breathing_toggle(void);
+bool is_breathing(void);
+
+void breathing_defaults(void);
+void breathing_intensity_default(void);
+void breathing_speed_default(void);
+void breathing_speed_set(uint8_t value);
+void breathing_speed_inc(uint8_t value);
+void breathing_speed_dec(uint8_t value);
+#endif
+
+#endif
+
+void led_set_user(uint8_t usb_led);
+void led_set_kb(uint8_t usb_led);
 
 #endif

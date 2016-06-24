@@ -1,5 +1,5 @@
 /*
- * algernon's ErgoDox EZ layout, please see the README.md file!
+ * algernon's ErgoDox EZ layout, please see the readme.md file!
  */
 
 #include "ergodox_ez.h"
