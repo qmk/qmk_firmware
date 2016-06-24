@@ -30,6 +30,7 @@
 #include "config_common.h"
 #include <avr/interrupt.h>
 #include "led.h"
+#include "action_util.h"
 
 extern uint32_t default_layer_state;
 
