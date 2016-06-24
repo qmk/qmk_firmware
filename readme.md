@@ -32,15 +32,15 @@ The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/j
 
 This is not a tiny project. While this is the main readme, there are many other files you might want to consult. Here are some points of interest:
 
-* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox_ez/); for the Atomic, it's [here](keyboards/atomic/) and so on.
-* The [build guide](doc/BUILD_GUIDE.md), also mentioned in the next section. This is how you put your development environment together so you can compile the firmware.
+* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox_ez/); for the Planck, it's [here](keyboards/planck/) and so on.
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
-  * [tmk_core/common/keycode.h](tmk_core/common/keycode.h) - the base TMK keycodes. This is the actual source file.
   * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
-  * [quantum/keymap_common.h](quantum/keymap_common.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap_common.h` is where they're actually defined.
+  * [quantum/keymap.h](quantum/keymap.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap.h` is where they're actually defined.
 * The [TMK documentation](doc/TMK_readme.md). QMK is based on TMK, and this explains how it works internally.
 
 # Getting started
+
+Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below.
 
 ## Build Environment Setup
 
@@ -87,11 +87,20 @@ If you have any problems building the firmware, you can try using a tool called 
 
 # Customizing, building, and flashing your keymap
 
+In every keymap folder, the following files are recommended:
+
+* `config.h` - the options to configure your keymap
+* `keymap.c` - all of your keymap code, required
+* `Makefile` - the features of QMK that are enabled, required to run `make` in your keymap folder
+* `readme.md` - a description of your keymap, how others might use it, and explanations of features 
+
 ## The `make` command
 
 The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys). You can run `make` from the root (`/`), your keyboard folder (`/keyboards/<keyboard>/`), or your keymap folder (`/keyboards/<keyboard>/keymaps/<keymap>/`) if you have a `Makefile` there (see the example [here](/doc/keymap_makefile_example.mk)).
 
-By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests. Your .hex file will also be available on qmk.fm/keyboards/<keyboard>/keymaps/<keymap> in case first-time users are having trouble compiling, and just want to flash a layout.
+By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests. Your .hex file will also be available on qmk.fm/keyboards/<keyboard>/keymaps/<keymap>/.
+
+Below are some definitions that will be useful:
 
 * The "root" (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
 * The "keyboard" folder is any keyboard project's folder, like `/keyboards/planck`.
@@ -130,53 +139,53 @@ The root contains the code used to automatically figure out which keymap or keym
 
 Set the variables to `no` to disable them, and `yes` to enable them.
 
-#### `BOOTMAGIC_ENABLE`
+`BOOTMAGIC_ENABLE`
 
 This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
 
-#### `MOUSEKEY_ENABLE`
+`MOUSEKEY_ENABLE`
 
 This gives you control over cursor movements and clicks via keycodes/custom functions.
 
-#### `EXTRAKEY_ENABLE`
+`EXTRAKEY_ENABLE`
 
 This allows you to use the system and audio control key codes.
 
-#### `CONSOLE_ENABLE`
+`CONSOLE_ENABLE`
 
 TODO
 
-#### `COMMAND_ENABLE`
+`COMMAND_ENABLE`
 
 TODO
 
-#### `SLEEP_LED_ENABLE`
+`SLEEP_LED_ENABLE`
 
 Enables your LED to breath while your computer is sleeping. Timer1 is being used here. This feature is largely unused and untested, and needs updating/abstracting.
 
-#### `NKRO_ENABLE`
+`NKRO_ENABLE`
 
 This allows for n-key rollover (default is 6) to be enabled. It is off by default, but can be forced by adding `#define FORCE_NKRO` to your config.h.
 
-#### `BACKLIGHT_ENABLE`
+`BACKLIGHT_ENABLE`
 
 This enables your backlight on Timer1 and ports B5, B6, or B7 (for now). You can specify your port by putting this in your `config.h`:
 
     #define BACKLIGHT_PIN B7
 
-#### `MIDI_ENABLE`
+`MIDI_ENABLE`
 
 This enables MIDI sending and receiving with your keyboard. To enter MIDI send mode, you can use the keycode `MI_ON`, and `MI_OFF` to turn it off. This is a largely untested feature, but more information can be found in the `quantum/quantum.c` file.
 
-#### `UNICODE_ENABLE`
+`UNICODE_ENABLE`
 
 This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only codes up to 0x7FFF are currently supported.
 
-#### `BLUETOOTH_ENABLE`
+`BLUETOOTH_ENABLE`
 
 This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly. It uses the D2 and D3 pins.
 
-#### `AUDIO_ENABLE`
+`AUDIO_ENABLE`
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#driving-a-speaker---audio-support) for more information.
 
@@ -206,16 +215,9 @@ For a value of `4` for this imaginary setting. So we `undef` it first, then `def
 
 You can then override any settings, rather than having to copy and paste the whole thing.
 
+## Editing your keymap
 
-
-* If you're looking to customize a keyboard that currently runs QMK or TMK, find your keyboard's directory under `keyboards/` and run the make commands from there.
-* If you're looking to apply this firmware to an entirely new hardware project (a new kind of keyboard), you can create your own Quantum-based project by using `util/new_project.sh <project_name>`, which will create `/keyboards/<project_name>` with all the necessary components for a Quantum project.
-
-
-
-## Quick aliases to common actions
-
-Your keymap can include shortcuts to common operations (called "function actions" in tmk).
+Aside from the basic keycodes, your keymap can include shortcuts to common operations.
 
 ### Switching and toggling layers
 
@@ -562,6 +564,56 @@ You can currently send 4 hex digits with your OS-specific modifier key (RALT for
 
 Enable the backlight from the Makefile.
 
+# Custom Quantum functions for keyboards and keymaps
+
+All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
+
+`void martix_init_*(void)`
+
+This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
+
+`void matrix_scan_*(void)`
+
+This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
+
+`bool process_record_*(uint16_t keycode, keyrecord_t *record)`
+
+This function gets called on every keypress/release, and is where you can define custom functionality. The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
+
+The `keycode` variable is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. and can be switch-cased to execute code whenever a particular code is pressed.
+
+The `record` variable contains infomation about the actual press:
+
+```
+keyrecord_t record {
+  keyevent_t event {
+    keypos_t key {
+      uint8_t col
+      uint8_t row
+    }
+    bool     pressed
+    uint16_t time
+  }
+}
+```
+
+The conditional `if (record->event.pressed)` can tell if the key is being pressed or released, and you can execute code based on that.
+
+`void led_set_*(uint8_t usb_led)`
+
+This gets called whenever there is a state change on your host LEDs (eg caps lock, scroll lock, etc). The LEDs are defined as:
+
+```
+#define USB_LED_NUM_LOCK                0
+#define USB_LED_CAPS_LOCK               1
+#define USB_LED_SCROLL_LOCK             2
+#define USB_LED_COMPOSE                 3
+#define USB_LED_KANA                    4
+```
+
+and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED one, otherwise turn it off.
+
+
 # Audio output from a speaker
 
 Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
@@ -756,53 +808,3 @@ Here is where you can (optionally) define your `KEYMAP` function to remap your m
 ```
 
 Each of the `kxx` variables needs to be unique, and usually follows the format `k<row><col>`. You can place `KC_NO` where your dead keys are in your matrix.
-
-# Custom Quantum functions for keyboards and keymaps
-
-All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
-
-## `void martix_init_*(void)`
-
-This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
-
-## `void matrix_scan_*(void)`
-
-This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
-
-## `bool process_record_*(uint16_t keycode, keyrecord_t *record)`
-
-This function gets called on every keypress/release, and is where you can define custom functionality. The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
-
-The `keycode` variable is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. and can be switch-cased to execute code whenever a particular code is pressed.
-
-The `record` variable contains infomation about the actual press:
-
-```
-keyrecord_t record {
-  keyevent_t event {
-    keypos_t key {
-      uint8_t col
-      uint8_t row
-    }
-    bool     pressed
-    uint16_t time
-  }
-}
-```
-
-The conditional `if (record->event.pressed)` can tell if the key is being pressed or released, and you can execute code based on that.
-
-## `void led_set_*(uint8_t usb_led)`
-
-This gets called whenever there is a state change on your host LEDs (eg caps lock, scroll lock, etc). The LEDs are defined as:
-
-```
-#define USB_LED_NUM_LOCK                0
-#define USB_LED_CAPS_LOCK               1
-#define USB_LED_SCROLL_LOCK             2
-#define USB_LED_COMPOSE                 3
-#define USB_LED_KANA                    4
-```
-
-and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED one, otherwise turn it off.
-
