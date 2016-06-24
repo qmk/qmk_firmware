@@ -1003,6 +1003,47 @@ void backlight_set(uint8_t level)
 #endif // backlight
 
 
+
+__attribute__ ((weak))
+void led_set_user(uint8_t usb_led) {
+
+}
+
+__attribute__ ((weak))
+void led_set_kb(uint8_t usb_led) {
+    led_set_user(usb_led);
+}
+
+__attribute__ ((weak))
+void led_init_ports(void)
+{
+
+}
+
+__attribute__ ((weak))
+void led_set(uint8_t usb_led)
+{
+
+  // Example LED Code
+  //
+    // // Using PE6 Caps Lock LED
+    // if (usb_led & (1<<USB_LED_CAPS_LOCK))
+    // {
+    //     // Output high.
+    //     DDRE |= (1<<6);
+    //     PORTE |= (1<<6);
+    // }
+    // else
+    // {
+    //     // Output low.
+    //     DDRE &= ~(1<<6);
+    //     PORTE &= ~(1<<6);
+    // }
+
+  led_set_kb(usb_led);
+}
+
+
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump

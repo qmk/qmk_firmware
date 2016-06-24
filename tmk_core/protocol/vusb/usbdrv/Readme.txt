@@ -1,4 +1,4 @@
-This is the Readme file to Objective Development's firmware-only USB driver
+This is the readme file to Objective Development's firmware-only USB driver
 for Atmel AVR microcontrollers. For more information please visit
 http://www.obdev.at/vusb/
 
@@ -15,7 +15,7 @@ file "usbdrv.h". Please read all of it carefully! Configuration options are
 documented in "usbconfig-prototype.h".
 
 The driver consists of the following files:
-  Readme.txt ............. The file you are currently reading.
+  readme.txt ............. The file you are currently reading.
   Changelog.txt .......... Release notes for all versions of the driver.
   usbdrv.h ............... Driver interface definitions and technical docs.
 * usbdrv.c ............... High level language part of the driver. Link this
@@ -155,7 +155,7 @@ http://www.obdev.at/goto.php?t=vusb-wiki&p=hosted-projects.
 (2) Adhere to minimum publication standards. Please include AT LEAST:
     - a circuit diagram in PDF, PNG or GIF format
     - full source code for the host software
-    - a Readme.txt file in ASCII format which describes the purpose of the
+    - a readme.txt file in ASCII format which describes the purpose of the
       project and what can be found in which directories and which files
     - a reference to http://www.obdev.at/vusb/
 

@@ -12,7 +12,7 @@ Other than having Vagrant and Virtualbox installed and possibly a restart of you
 
 Build Firmware and Program Controller
 -------------------------------------
-See [/doc/BUIDE_GUIDE.md](/doc/BUILD_GUIDE.md), or the README in the particular keyboards/* folder.
+See [/doc/BUIDE_GUIDE.md](/doc/BUILD_GUIDE.md), or the readme in the particular keyboards/* folder.
 
 Change your keymap
 ------------------
