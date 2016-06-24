@@ -13,7 +13,7 @@ There are two main ways you could customize the ErgoDox EZ.
 
 This requires a little bit of familiarity with coding.
 
-1. Go to https://github.com/jackhumbert/qmk_firmware and read the Readme at the base of this repository, top to bottom. Then come back here :)
+1. Go to https://github.com/jackhumbert/qmk_firmware and read the readme at the base of this repository, top to bottom. Then come back here :)
 2. Clone the repository (download it)
 3. Set up a build environment as per [the build guide](/doc/BUILD_GUIDE.md) 
     - Using a Mac and have homebrew? just run `brew tap osx-cross/avr && brew install avr-libc`
@@ -31,9 +31,8 @@ The ErgoDox EZ firmware is open-source, so it would be wonderful to have your co
 
 1. All work goes inside your keymap subdirectory (`keymaps/german` in this example).
 2. `keymap.c` - this is your actual keymap file; please update the ASCII comments in the file so they correspond with what you did.
-3. `compiled.hex` - a compiled version of your keymap. This allows people to just download your hex file and flash it without having to set up a build toolchain to make it.
-3. `readme.md` - a Readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
-4. Any graphics you wish to add. This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your Readme can just embed the graphic as a link, just like I did with the default layout. 
+3. `readme.md` - a readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
+4. Any graphics you wish to add. This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link, just like I did with the default layout. 
 
 
 ## Finding the keycodes you need

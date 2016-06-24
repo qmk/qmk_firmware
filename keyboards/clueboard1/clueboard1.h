@@ -1,9 +1,7 @@
 #ifndef CLUEBOARD1_H
 #define CLUEBOARD1_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include <stddef.h>
+#include "quantum.h"
 
 
 /* Clueboard matrix layout
@@ -45,8 +43,5 @@
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E }, \
     { k40, k41, k42, k43, KC_NO,    k45, k46, KC_NO,    KC_NO,    k49, k4A, k4B, k4C, k4D, k4E, k4F }  \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
 
 #endif

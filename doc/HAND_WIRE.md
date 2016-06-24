@@ -306,7 +306,7 @@ If you've done all of these things, keep in mind that sometimes you might have h
 
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
-There are a lot of possibilities inside the firmware - check out the [README](https://github.com/jackhumbert/qmk_firmware/blob/master/README.md) for a full feature list, and dive into the different project (Planck, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
+There are a lot of possibilities inside the firmware - check out the [readme](https://github.com/jackhumbert/qmk_firmware/blob/master/readme.md) for a full feature list, and dive into the different project (Planck, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
 
 ## Trouble-shooting compiling
 

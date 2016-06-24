@@ -1,10 +1,7 @@
 #ifndef RETRO_REFIT_H
 #define RETRO_REFIT_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include "led.h"
-#include <stddef.h>
+#include "quantum.h"
 
 // This macro is an example of using a non-standard row-column matrix. The 
 // keyboard in question had 11 rows and 8 columns, but the rows were not all 
@@ -37,9 +34,5 @@
 {	KC_##K90,	KC_##K91,	KC_NO,		KC_##K93,	KC_##K94,	KC_##K95,	KC_NO,		KC_##K97,	}, \
 {	KC_##KA0,	KC_##KA1,	KC_##KA2,	KC_##KA3,	KC_##KA4,	KC_##KA5,	KC_##KA6,	KC_##KA7,	} \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
-void led_set_user(uint8_t usb_led);
 
 #endif
