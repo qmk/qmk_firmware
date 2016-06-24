@@ -85,7 +85,7 @@ If you have any problems building the firmware, you can try using a tool called 
 3. To confirm that you're in the correct location, you can display the contents of your current folder using the `dir` command on Windows, or the `ls` command on Linux or Mac. You should see several files, including `readme.md` and a `quantum` folder. From here, you need to navigate to the appropriate folder under `keyboards/`. For example, if you're building for a Planck, run `cd keyboards/planck`.
 4. Once you're in the correct keyboard-specific folder, run the `make` command. This should output a lot of information about the build process. More information about the `make` command can be found below.
 
-# Customizing, building, and flashing your keymap
+# Customizing your keymap
 
 In every keymap folder, the following files are recommended:
 
@@ -215,7 +215,7 @@ For a value of `4` for this imaginary setting. So we `undef` it first, then `def
 
 You can then override any settings, rather than having to copy and paste the whole thing.
 
-## Editing your keymap
+## Going beyond the keycodes
 
 Aside from the [basic keycodes](doc/keycode.txt), your keymap can include shortcuts to common operations.
 
@@ -564,7 +564,7 @@ You can currently send 4 hex digits with your OS-specific modifier key (RALT for
 
 Enable the backlight from the Makefile.
 
-# Custom Quantum functions for keyboards and keymaps
+# Custom Quantum functions
 
 All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
 
@@ -613,8 +613,9 @@ This gets called whenever there is a state change on your host LEDs (eg caps loc
 
 and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED one, otherwise turn it off.
 
+# Modding your keyboard
 
-# Audio output from a speaker
+## Audio output from a speaker
 
 Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
@@ -663,15 +664,15 @@ This is inside one of the macros. So when that macro executes, your keyboard pla
 
 "Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
 
-# MIDI functionalty
+## MIDI functionalty
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
 
-# Bluetooth functionality
+## Bluetooth functionality
 
 This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts), but can be enabled via the Makefile. The firmware will still output characters via USB, so be aware of this when charging via a computer. It would make sense to have a switch on the Bluefruit to turn it off at will.
 
-# International Characters on Windows
+## International Characters on Windows
 
 [AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
 
@@ -691,7 +692,7 @@ In the default script of AutoHotkey you can define custom hotkeys.
 The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
 AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
-# RGB Under Glow Mod
+## RGB Under Glow Mod
 
 ![Planck with RGB Underglow](https://raw.githubusercontent.com/yangliu/qmk_firmware/planck-rgb/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
 
@@ -721,7 +722,7 @@ You'll need to edit `PORTF`, `DDRF`, and `PF4` on the first three lines to the p
 
 The firmware supports 5 different light effects, and the color (hue, saturation, brightness) can be customized in most effects. To control the underglow, you need to modify your keymap file to assign those functions to some keys/key combinations. For details, please check this keymap. `keyboards/planck/keymaps/yang/keymap.c`
 
-## WS2812 Wiring
+### WS2812 Wiring
 
 ![WS2812 Wiring](https://raw.githubusercontent.com/yangliu/qmk_firmware/planck-rgb/keyboards/planck/keymaps/yang/WS2812-wiring.jpg)
 
