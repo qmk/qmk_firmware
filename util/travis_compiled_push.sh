@@ -15,6 +15,7 @@ git submodule update --init --recursive
 rm -rf keyboard
 rm -rf keyboards
 cp -r ../qmk_firmware/keyboards .
+cp ../qmk_firmware/readme.md qmk_readme.md
 ./generate.sh
 
 git add -A

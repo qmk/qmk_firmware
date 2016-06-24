@@ -14,8 +14,7 @@ For an easy-to-read version of this document and the repository, check out [http
 * [Preonic](/keyboards/preonic/)
 * [Atomic](/keyboards/atomic/)
 * [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard rev.1](/keyboards/clueboard1/)
-* [Clueboard rev.2](/keyboards/clueboard2/)
+* [Clueboard](/keyboards/clueboard/)
 * [Cluepad](/keyboards/cluepad/)
 
 The project also includes community support for [lots of other keyboards](/keyboards/).
