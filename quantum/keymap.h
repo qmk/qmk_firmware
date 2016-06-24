@@ -125,8 +125,8 @@ enum quantum_keycodes {
     MUV_DE,
 
     // Midi mode on/off
-    MI_ON,
-    MI_OFF,
+    MIDI_ON,
+    MIDI_OFF,
 
     // Backlight functionality
     BL_0,
@@ -154,7 +154,10 @@ enum quantum_keycodes {
     KC_LSPO,
 
     // Right shift, close paren
-    KC_RSPC
+    KC_RSPC,
+
+    // always leave at the end
+    SAFE_RANGE
 };
 
 // Ability to use mods in layouts
@@ -265,6 +268,9 @@ enum quantum_keycodes {
 
 #define BL_ON  BL_9
 #define BL_OFF BL_0
+
+#define MI_ON MIDI_ON
+#define MI_OFF MIDI_OFF
 
 // GOTO layer - 16 layers max
 // when:

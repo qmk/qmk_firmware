@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define DEBOUNCING_DELAY 5
 #endif
 
-static const io_pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const io_pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 /* matrix state */
 #if DIODE_DIRECTION == COL2ROW
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -52,10 +52,30 @@ static matrix_col_t read_rows(void);
 
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
+    matrix_init_kb();
 }
 
 __attribute__ ((weak))
 void matrix_scan_quantum(void) {
+    matrix_scan_kb();
+}
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
 }
 
 uint8_t matrix_rows(void) {
@@ -70,22 +90,22 @@ void matrix_power_up(void) {
 #if DIODE_DIRECTION == COL2ROW
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
         /* DDRxn */
-        _SFR_IO8(row_pins[r].input_addr + 1) |= _BV(row_pins[r].bit);
+        _SFR_IO8((row_pins[r] >> 4) + 1) |= _BV(row_pins[r] & 0xF);
         toggle_row(r);
     }
     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
         /* PORTxn */
-        _SFR_IO8(col_pins[c].input_addr + 2) |= _BV(col_pins[c].bit);
+        _SFR_IO8((col_pins[c] >> 4) + 2) |= _BV(col_pins[c] & 0xF);
     }
 #else
     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
         /* DDRxn */
-        _SFR_IO8(col_pins[c].input_addr + 1) |= _BV(col_pins[c].bit);
+        _SFR_IO8((col_pins[c] >> 4) + 1) |= _BV(col_pins[c] & 0xF);
         toggle_col(c);
     }
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
         /* PORTxn */
-        _SFR_IO8(row_pins[r].input_addr + 2) |= _BV(row_pins[r].bit);
+        _SFR_IO8((row_pins[r] >> 4) + 2) |= _BV(row_pins[r] & 0xF);
     }
 #endif
 }
@@ -100,22 +120,22 @@ void matrix_init(void) {
 #if DIODE_DIRECTION == COL2ROW
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
         /* DDRxn */
-        _SFR_IO8(row_pins[r].input_addr + 1) |= _BV(row_pins[r].bit);
+        _SFR_IO8((row_pins[r] >> 4) + 1) |= _BV(row_pins[r] & 0xF);
         toggle_row(r);
     }
     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
         /* PORTxn */
-        _SFR_IO8(col_pins[c].input_addr + 2) |= _BV(col_pins[c].bit);
+        _SFR_IO8((col_pins[c] >> 4) + 2) |= _BV(col_pins[c] & 0xF);
     }
 #else
     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
         /* DDRxn */
-        _SFR_IO8(col_pins[c].input_addr + 1) |= _BV(col_pins[c].bit);
+        _SFR_IO8((col_pins[c] >> 4) + 1) |= _BV(col_pins[c] & 0xF);
         toggle_col(c);
     }
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
         /* PORTxn */
-        _SFR_IO8(row_pins[r].input_addr + 2) |= _BV(row_pins[r].bit);
+        _SFR_IO8((row_pins[r] >> 4) + 2) |= _BV(row_pins[r] & 0xF);
     }
 #endif
     matrix_init_quantum();
@@ -151,14 +171,14 @@ uint8_t matrix_scan(void) {
 
 static void toggle_row(uint8_t row) {
     /* PINxn */
-    _SFR_IO8(row_pins[row].input_addr) = _BV(row_pins[row].bit);
+    _SFR_IO8((row_pins[row] >> 4)) = _BV(row_pins[row] & 0xF);
 }
 
 static matrix_row_t read_cols(void) {
     matrix_row_t state = 0;
     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
         /* PINxn */
-        if (!(_SFR_IO8(col_pins[c].input_addr) & _BV(col_pins[c].bit))) {
+        if (!(_SFR_IO8((col_pins[c] >> 4)) & _BV(col_pins[c] & 0xF))) {
             state |= (matrix_row_t)1 << c;
         }
     }
@@ -199,14 +219,14 @@ uint8_t matrix_scan(void) {
 
 static void toggle_col(uint8_t col) {
     /* PINxn */
-    _SFR_IO8(col_pins[col].input_addr) = _BV(col_pins[col].bit);
+    _SFR_IO8((col_pins[col] >> 4)) = _BV(col_pins[col] & 0xF);
 }
 
 static matrix_col_t read_rows(void) {
     matrix_col_t state = 0;
     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
         /* PINxn */
-        if (!(_SFR_IO8(row_pins[r].input_addr) & _BV(row_pins[r].bit))) {
+        if (!(_SFR_IO8((row_pins[r] >> 4)) & _BV(row_pins[r] & 0xF))) {
             state |= (matrix_col_t)1 << r;
         }
     }

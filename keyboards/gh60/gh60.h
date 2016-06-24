@@ -1,10 +1,8 @@
 #ifndef GH60_H
 #define GH60_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include "backlight.h"
-#include <stddef.h>
+#include "quantum.h"
+#include "led.h"
 
 /* GH60 LEDs 
  *   GPIO pads
@@ -72,10 +70,5 @@ inline void gh60_wasd_leds_off(void)   	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
     K30, NO,  K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, \
     K40, K41, K42,           K45,                K49, K4A, K4B, K4C, K4D  \
 )
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
-bool process_action_user(keyrecord_t *record);
-void led_set_user(uint8_t usb_led);
 
 #endif

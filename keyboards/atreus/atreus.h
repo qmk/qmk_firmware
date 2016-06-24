@@ -1,8 +1,8 @@
 #ifndef ATREUS_H
 #define ATREUS_H
 
+#include "quantum.h"
 #include "matrix.h"
-#include "keymap.h"
 #include "backlight.h"
 #include <stddef.h>
 
@@ -21,8 +21,5 @@
 	{ k20, k21, k22, k23, k24, k35,   k25, k26, k27, k28, k29 }, \
 	{ k2a, k30, k31, k32, k33, k34,   k36, k37, k38, k39, k3a } \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
 
 #endif

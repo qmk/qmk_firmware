@@ -1,10 +1,7 @@
 #ifndef SATAN_H
 #define SATAN_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include <stddef.h>
-#include "action_util.h"
+#include "quantum.h"
 
 /* Clueboard matrix layout
    * ,-----------------------------------------------------------.
