@@ -1,10 +1,7 @@
 #ifndef BANTAM44_H
 #define BANTAM44_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include "backlight.h"
-#include <stddef.h>
+#include "quantum.h"
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -22,8 +19,5 @@
 	{ K20, K21, K22, K23,   K24, K25,   K26, K27,   K28, K29, K2A,   K2B   }, \
 	{ K30, K31, K32, KC_NO, K33, KC_NO, K34, KC_NO, K35, K36, K37,   K38   }, \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
 
 #endif

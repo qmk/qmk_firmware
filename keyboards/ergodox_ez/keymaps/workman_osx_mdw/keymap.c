@@ -1,7 +1,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
-// README
+// readme
 // This keyboard layout is based on the [Workman Dead layout](https://github.com/ojbucao/Workman/tree/master/mac#workman-dead-for-programmers), which uses the comma as a dead key to trigger a second layer.
 // Since I have more keys at my disposal on the ErgoDox, I moved the dead key to the bottom right. There are still a lot of
 // blanks so still discovering what I like.

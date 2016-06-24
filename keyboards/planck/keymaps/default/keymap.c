@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -194,92 +194,92 @@ void persistant_default_layer_set(uint16_t default_layer) {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-      switch(id) {
-        case _QWERTY:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-            #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
-          }
-          break;
-        case _COLEMAK:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-            #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
-          }
-          break;
-        case _DVORAK:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-            #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
-          }
-          break;
-        case _LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          break;
-        case _RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          break;
-        case M_BL:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-        case 12:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              stop_all_notes();
-              PLAY_NOTE_ARRAY(tone_plover, false, 0);
-            #endif
-            layer_off(_RAISE);
-            layer_off(_LOWER);
-            layer_off(_ADJUST);
-            layer_on(_PLOVER);
-            if (!eeconfig_is_enabled()) {
-                eeconfig_init();
-            }
-            keymap_config.raw = eeconfig_read_keymap();
-            keymap_config.nkro = 1;
-            eeconfig_update_keymap(keymap_config.raw);
-          }
-        break;
-        case 13:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
-            #endif
-            layer_off(_PLOVER);
-          }
-        break;
-        case 14:
-          if (record->event.pressed) {
-            return MACRO( D(E), D(R), D(F), D(V), D(O), D(L), U(E), U(R), U(F), U(V), U(O), U(L), END );
-          }
-        break;
+  switch(id) {
+    case _QWERTY:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+        #endif
+        persistant_default_layer_set(1UL<<_QWERTY);
       }
-    return MACRO_NONE;
+      break;
+    case _COLEMAK:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+        #endif
+        persistant_default_layer_set(1UL<<_COLEMAK);
+      }
+      break;
+    case _DVORAK:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+        #endif
+        persistant_default_layer_set(1UL<<_DVORAK);
+      }
+      break;
+    case _LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      break;
+    case _RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      break;
+    case M_BL:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        #ifdef BACKLIGHT_ENABLE
+          backlight_step();
+        #endif
+      } else {
+        unregister_code(KC_RSFT);
+      }
+    break;
+    case 12:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          stop_all_notes();
+          PLAY_NOTE_ARRAY(tone_plover, false, 0);
+        #endif
+        layer_off(_RAISE);
+        layer_off(_LOWER);
+        layer_off(_ADJUST);
+        layer_on(_PLOVER);
+        if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+        }
+        keymap_config.raw = eeconfig_read_keymap();
+        keymap_config.nkro = 1;
+        eeconfig_update_keymap(keymap_config.raw);
+      }
+    break;
+    case 13:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+        #endif
+        layer_off(_PLOVER);
+      }
+    break;
+    case 14:
+      if (record->event.pressed) {
+        return MACRO( D(E), D(R), D(F), D(V), D(O), D(L), U(E), U(R), U(F), U(V), U(O), U(L), END );
+      }
+    break;
+  }
+  return MACRO_NONE;
 };
 
 void matrix_init_user(void) {
