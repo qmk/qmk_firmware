@@ -1,12 +1,6 @@
 #include "quantum.h"
 
 __attribute__ ((weak))
-void matrix_init_kb(void) {}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {}
-
-__attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
 }
