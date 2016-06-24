@@ -1,9 +1,7 @@
 #ifndef CLUEPAD_H
 #define CLUEPAD_H
 
-#include "matrix.h"
-#include "keymap.h"
-#include <stddef.h>
+#include "quantum.h"
 
 
 /* Cluepad matrix layout
