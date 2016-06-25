@@ -145,7 +145,12 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
+ifeq ($(strip $(MIDI_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
+endif
+
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
 	SRC += $(QUANTUM_DIR)/audio/audio.c
 	SRC += $(QUANTUM_DIR)/audio/voices.c
 	SRC += $(QUANTUM_DIR)/audio/luts.c
@@ -171,6 +176,7 @@ VPATH += $(TMK_PATH)
 VPATH += $(QUANTUM_PATH)
 VPATH += $(QUANTUM_PATH)/keymap_extras
 VPATH += $(QUANTUM_PATH)/audio
+VPATH += $(QUANTUM_PATH)/process_keycode
 
 include $(TMK_PATH)/protocol/lufa.mk
 include $(TMK_PATH)/common.mk

@@ -32,14 +32,19 @@
 #include "led.h"
 #include "action_util.h"
 
+
 extern uint32_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
 	extern uint32_t layer_state;
 #endif
 
+#ifdef MIDI_ENABLE
+	#include "process_midi.h"
+#endif
+	
 #ifdef AUDIO_ENABLE
-	bool music_activated;
+	#include "process_music.h"
 #endif
 
 #ifdef UNICODE_ENABLE
@@ -84,16 +89,8 @@ bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
-bool is_music_on(void);
-void music_toggle(void);
-void music_on(void);
-void music_off(void);
-
 void startup_user(void);
 void shutdown_user(void);
-void audio_on_user(void);
-void music_on_user(void);
-void music_scale_user(void);
 
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);

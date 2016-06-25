@@ -21,29 +21,6 @@ void leader_start(void) {}
 __attribute__ ((weak))
 void leader_end(void) {}
 
-uint8_t starting_note = 0x0C;
-int offset = 7;
-
-
-#ifdef AUDIO_ENABLE
-  bool music_activated = false;
-
-  // music sequencer
-  static bool music_sequence_recording = false;
-  static bool music_sequence_playing = false;
-  static float music_sequence[16] = {0};
-  static uint8_t music_sequence_count = 0;
-  static uint8_t music_sequence_position = 0;
-
-  static uint16_t music_sequence_timer = 0;
-  static uint16_t music_sequence_interval = 100;
-
-#endif
-
-#ifdef MIDI_ENABLE
-  bool midi_activated = false;
-#endif
-
 // Leader key stuff
 bool leading = false;
 uint16_t leader_time = 0;
@@ -148,174 +125,13 @@ bool process_record_quantum(keyrecord_t *record) {
     // }
 
   #ifdef MIDI_ENABLE
-    if (keycode == MI_ON && record->event.pressed) {
-      midi_activated = true;
-      music_scale_user();
+    if (!process_midi(keycode, record))
       return false;
-    }
-
-    if (keycode == MI_OFF && record->event.pressed) {
-      midi_activated = false;
-      midi_send_cc(&midi_device, 0, 0x7B, 0);
-      return false;
-    }
-
-    if (midi_activated) {
-      if (record->event.key.col == (MATRIX_COLS - 1) && record->event.key.row == (MATRIX_ROWS - 1)) {
-          if (record->event.pressed) {
-              starting_note++; // Change key
-              midi_send_cc(&midi_device, 0, 0x7B, 0);
-          }
-          return false;
-      }
-      if (record->event.key.col == (MATRIX_COLS - 2) && record->event.key.row == (MATRIX_ROWS - 1)) {
-          if (record->event.pressed) {
-              starting_note--; // Change key
-              midi_send_cc(&midi_device, 0, 0x7B, 0);
-          }
-          return false;
-      }
-      if (record->event.key.col == (MATRIX_COLS - 3) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
-          offset++; // Change scale
-          midi_send_cc(&midi_device, 0, 0x7B, 0);
-          return false;
-      }
-      if (record->event.key.col == (MATRIX_COLS - 4) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
-          offset--; // Change scale
-          midi_send_cc(&midi_device, 0, 0x7B, 0);
-          return false;
-      }
-      // basic
-      // uint8_t note = (starting_note + SCALE[record->event.key.col + offset])+12*(MATRIX_ROWS - record->event.key.row);
-      // advanced
-      // uint8_t note = (starting_note + record->event.key.col + offset)+12*(MATRIX_ROWS - record->event.key.row);
-      // guitar
-      uint8_t note = (starting_note + record->event.key.col + offset)+5*(MATRIX_ROWS - record->event.key.row);
-      // violin
-      // uint8_t note = (starting_note + record->event.key.col + offset)+7*(MATRIX_ROWS - record->event.key.row);
-
-      if (record->event.pressed) {
-        // midi_send_noteon(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
-        midi_send_noteon(&midi_device, 0, note, 127);
-      } else {
-        // midi_send_noteoff(&midi_device, record->event.key.row, starting_note + SCALE[record->event.key.col], 127);
-        midi_send_noteoff(&midi_device, 0, note, 127);
-      }
-
-      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
-        return false;
-    }
   #endif
 
   #ifdef AUDIO_ENABLE
-    if (keycode == AU_ON && record->event.pressed) {
-      audio_on();
+    if (!process_music(keycode, record))
       return false;
-    }
-
-    if (keycode == AU_OFF && record->event.pressed) {
-      audio_off();
-      return false;
-    }
-
-    if (keycode == AU_TOG && record->event.pressed) {
-        if (is_audio_on())
-        {
-            audio_off();
-        }
-        else
-        {
-            audio_on();
-        }
-      return false;
-    }
-
-    if (keycode == MU_ON && record->event.pressed) {
-        music_on();
-        return false;
-    }
-
-    if (keycode == MU_OFF && record->event.pressed) {
-        music_off();
-        return false;
-    }
-
-    if (keycode == MU_TOG && record->event.pressed) {
-        if (music_activated)
-        {
-            music_off();
-        }
-        else
-        {
-            music_on();
-        }
-        return false;
-    }
-
-    if (keycode == MUV_IN && record->event.pressed) {
-        voice_iterate();
-        music_scale_user();
-        return false;
-    }
-
-    if (keycode == MUV_DE && record->event.pressed) {
-        voice_deiterate();
-        music_scale_user();
-        return false;
-    }
-
-    if (music_activated) {
-
-      if (keycode == KC_LCTL && record->event.pressed) { // Start recording
-        stop_all_notes();
-        music_sequence_recording = true;
-        music_sequence_playing = false;
-        music_sequence_count = 0;
-        return false;
-      }
-
-      if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
-        stop_all_notes();
-        music_sequence_recording = false;
-        music_sequence_playing = false;
-        return false;
-      }
-
-      if (keycode == KC_LGUI && record->event.pressed) { // Start playing
-        stop_all_notes();
-        music_sequence_recording = false;
-        music_sequence_playing = true;
-        music_sequence_position = 0;
-        music_sequence_timer = 0;
-        return false;
-      }
-
-      if (keycode == KC_UP) {
-        if (record->event.pressed)
-            music_sequence_interval-=10;
-        return false;
-      }
-
-      if (keycode == KC_DOWN) {
-        if (record->event.pressed)
-            music_sequence_interval+=10;
-        return false;
-      }
-
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
-      if (record->event.pressed) {
-        play_note(freq, 0xF);
-        if (music_sequence_recording) {
-          music_sequence[music_sequence_count] = freq;
-          music_sequence_count++;
-        }
-      } else {
-        stop_note(freq);
-      }
-
-      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
-        return false;
-    }
   #endif
 
 #ifndef DISABLE_LEADER
@@ -657,45 +473,11 @@ void matrix_init_quantum() {
 
 void matrix_scan_quantum() {
   #ifdef AUDIO_ENABLE
-  if (music_sequence_playing) {
-    if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
-      music_sequence_timer = timer_read();
-      stop_note(music_sequence[(music_sequence_position - 1 < 0)?(music_sequence_position - 1 + music_sequence_count):(music_sequence_position - 1)]);
-      play_note(music_sequence[music_sequence_position], 0xF);
-      music_sequence_position = (music_sequence_position + 1) % music_sequence_count;
-    }
-  }
-
+    matrix_scan_music();
   #endif
 
   matrix_scan_kb();
 }
-
-#ifdef AUDIO_ENABLE
-  bool is_music_on(void) {
-      return (music_activated != 0);
-  }
-
-  void music_toggle(void) {
-      if (!music_activated) {
-          music_on();
-      } else {
-          music_off();
-      }
-  }
-
-  void music_on(void) {
-      music_activated = 1;
-      music_on_user();
-  }
-
-  void music_off(void) {
-      music_activated = 0;
-      stop_all_notes();
-  }
-
-#endif
-
 
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
 
@@ -1047,14 +829,5 @@ void startup_user() {}
 
 __attribute__ ((weak))
 void shutdown_user() {}
-
-__attribute__ ((weak))
-void music_on_user() {}
-
-__attribute__ ((weak))
-void audio_on_user() {}
-
-__attribute__ ((weak))
-void music_scale_user() {}
 
 //------------------------------------------------------------------------------
