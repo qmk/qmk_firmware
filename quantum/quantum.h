@@ -10,15 +10,6 @@
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
 #endif
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#ifdef MIDI_ENABLE
-	#include <lufa.h>
-#endif
-#ifdef UNICODE_ENABLE
-	#include "unicode.h"
-#endif
 
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -40,10 +31,12 @@ extern uint32_t default_layer_state;
 #endif
 
 #ifdef MIDI_ENABLE
+	#include <lufa.h>
 	#include "process_midi.h"
 #endif
 
 #ifdef AUDIO_ENABLE
+ 	#include "audio.h"
 	#include "process_music.h"
 #endif
 

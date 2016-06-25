@@ -161,7 +161,7 @@ endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
