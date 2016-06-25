@@ -15,31 +15,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-__attribute__ ((weak))
-void leader_start(void) {}
-
-__attribute__ ((weak))
-void leader_end(void) {}
-
-// Leader key stuff
-bool leading = false;
-uint16_t leader_time = 0;
-
-uint16_t leader_sequence[5] = {0, 0, 0, 0, 0};
-uint8_t leader_sequence_size = 0;
-
-// Chording stuff
-#define CHORDING_MAX 4
-bool chording = false;
-
-uint8_t chord_keys[CHORDING_MAX] = {0};
-uint8_t chord_key_count = 0;
-uint8_t chord_key_down = 0;
-
-#ifdef UNICODE_ENABLE
-  static uint8_t input_mode;
-#endif
-
 // Shift / paren setup
 
 #ifndef LSPO_KEY
@@ -50,48 +25,6 @@ uint8_t chord_key_down = 0;
 #endif
 
 static bool shift_interrupted[2] = {0, 0};
-
-bool keys_chord(uint8_t keys[]) {
-  uint8_t keys_size = sizeof(keys)/sizeof(keys[0]);
-  bool pass = true;
-  uint8_t in = 0;
-  for (uint8_t i = 0; i < chord_key_count; i++) {
-    bool found = false;
-    for (uint8_t j = 0; j < keys_size; j++) {
-      if (chord_keys[i] == (keys[j] & 0xFF)) {
-        in++; // detects key in chord
-        found = true;
-        break;
-      }
-    }
-    if (found)
-      continue;
-    if (chord_keys[i] != 0)  {
-      pass = false; // makes sure rest are blank
-    }
-  }
-  return (pass && (in == keys_size));
-}
-
-#ifdef UNICODE_ENABLE
-
-uint16_t hex_to_keycode(uint8_t hex)
-{
-  if (hex == 0x0) {
-    return KC_0;
-  } else if (hex < 0xA) {
-    return KC_1 + (hex - 0x1);
-  } else {
-    return KC_A + (hex - 0xA);
-  }
-}
-
-void set_unicode_mode(uint8_t os_target)
-{
-  input_mode = os_target;
-}
-
-#endif
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -113,8 +46,6 @@ bool process_record_quantum(keyrecord_t *record) {
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
 
-  if (!process_record_kb(keycode, record))
-    return false;
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -124,116 +55,26 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  if (!(
+    process_record_kb(keycode, record) &&
   #ifdef MIDI_ENABLE
-    if (!process_midi(keycode, record))
-      return false;
+    process_midi(keycode, record) &&
   #endif
-
   #ifdef AUDIO_ENABLE
-    if (!process_music(keycode, record))
-      return false;
+    process_music(keycode, record) &&
   #endif
-
-#ifndef DISABLE_LEADER
-  // Leader key set-up
-  if (record->event.pressed) {
-    if (!leading && keycode == KC_LEAD) {
-      leader_start();
-      leading = true;
-      leader_time = timer_read();
-      leader_sequence_size = 0;
-      leader_sequence[0] = 0;
-      leader_sequence[1] = 0;
-      leader_sequence[2] = 0;
-      leader_sequence[3] = 0;
-      leader_sequence[4] = 0;
-      return false;
-    }
-    if (leading && timer_elapsed(leader_time) < LEADER_TIMEOUT) {
-      leader_sequence[leader_sequence_size] = keycode;
-      leader_sequence_size++;
-      return false;
-    }
+  #ifndef DISABLE_LEADER
+    process_leader(keycode, record) &&
+  #endif
+  #ifndef DISABLE_CHORDING
+    process_chording(keycode, record) &&
+  #endif
+  #ifdef UNICODE_ENABLE
+    process_unicode(keycode, record) &&
+  #endif
+      true)) {
+    return false;
   }
-#endif
-
-#define DISABLE_CHORDING
-#ifndef DISABLE_CHORDING
-
-  if (keycode >= QK_CHORDING && keycode <= QK_CHORDING_MAX) {
-    if (record->event.pressed) {
-      if (!chording) {
-        chording = true;
-        for (uint8_t i = 0; i < CHORDING_MAX; i++)
-          chord_keys[i] = 0;
-        chord_key_count = 0;
-        chord_key_down = 0;
-      }
-      chord_keys[chord_key_count] = (keycode & 0xFF);
-      chord_key_count++;
-      chord_key_down++;
-      return false;
-    } else {
-      if (chording) {
-        chord_key_down--;
-        if (chord_key_down == 0) {
-          chording = false;
-          // Chord Dictionary
-          if (keys_chord((uint8_t[]){KC_ENTER, KC_SPACE})) {
-            register_code(KC_A);
-            unregister_code(KC_A);
-            return false;
-          }
-          for (uint8_t i = 0; i < chord_key_count; i++) {
-            register_code(chord_keys[i]);
-            unregister_code(chord_keys[i]);
-            return false;
-          }
-        }
-      }
-    }
-  }
-
-#endif
-
-#ifdef UNICODE_ENABLE
-
-  if (keycode > QK_UNICODE && record->event.pressed) {
-    uint16_t unicode = keycode & 0x7FFF;
-    switch(input_mode) {
-      case UC_OSX:
-        register_code(KC_LALT);
-        break;
-      case UC_LNX:
-        register_code(KC_LCTL);
-        register_code(KC_LSFT);
-        register_code(KC_U);
-        unregister_code(KC_U);
-        break;
-      case UC_WIN:
-        register_code(KC_LALT);
-        register_code(KC_PPLS);
-        unregister_code(KC_PPLS);
-        break;
-    }
-    for(int i = 3; i >= 0; i--) {
-        uint8_t digit = ((unicode >> (i*4)) & 0xF);
-        register_code(hex_to_keycode(digit));
-        unregister_code(hex_to_keycode(digit));
-    }
-    switch(input_mode) {
-      case UC_OSX:
-      case UC_WIN:
-        unregister_code(KC_LALT);
-        break;
-      case UC_LNX:
-        unregister_code(KC_LCTL);
-        unregister_code(KC_LSFT);
-        break;
-    }
-  }
-
-#endif
 
   // Shift / paren setup
 

@@ -135,7 +135,8 @@ SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap.c \
-	$(QUANTUM_DIR)/keycode_config.c
+	$(QUANTUM_DIR)/keycode_config.c \
+	$(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifdef SUBPROJECT
 	SRC += $(SUBPROJECT_FILE)
@@ -146,20 +147,27 @@ ifndef CUSTOM_MATRIX
 endif
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
+    OPT_DEFS += -DMIDI_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    OPT_DEFS += -DAUDIO_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
 	SRC += $(QUANTUM_DIR)/audio/audio.c
 	SRC += $(QUANTUM_DIR)/audio/voices.c
 	SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
+ifeq ($(strip $(UNICODE_ENABLE)), yes)
+    OPT_DEFS += -DUNICODE_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
+endif
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+	OPT_DEFS += -DRGBLIGHT_ENABLE
 	SRC += $(QUANTUM_DIR)/light_ws2812.c
 	SRC += $(QUANTUM_DIR)/rgblight.c
-	OPT_DEFS += -DRGBLIGHT_ENABLE
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"

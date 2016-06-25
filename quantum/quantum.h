@@ -42,35 +42,22 @@ extern uint32_t default_layer_state;
 #ifdef MIDI_ENABLE
 	#include "process_midi.h"
 #endif
-	
+
 #ifdef AUDIO_ENABLE
 	#include "process_music.h"
 #endif
 
-#ifdef UNICODE_ENABLE
-	#define UC_OSX 0
-	#define UC_LNX 1
-	#define UC_WIN 2
-	#define UC_BSD 3
-
-	void set_unicode_input_mode(uint8_t os_target);
+#ifndef DISABLE_LEADER
+	#include "process_leader.h"
 #endif
 
-#ifndef DISABLE_LEADER
-	void leader_start(void);
-	void leader_end(void);
+#define DISABLE_CHORDING
+#ifndef DISABLE_CHORDING
+	#include "process_chording.h"
+#endif
 
-	#ifndef LEADER_TIMEOUT
-		#define LEADER_TIMEOUT 200
-	#endif
-	#define SEQ_ONE_KEY(key) if (leader_sequence[0] == (key) && leader_sequence[1] == 0 && leader_sequence[2] == 0 && leader_sequence[3] == 0 && leader_sequence[4] == 0)
-	#define SEQ_TWO_KEYS(key1, key2) if (leader_sequence[0] == (key1) && leader_sequence[1] == (key2) && leader_sequence[2] == 0 && leader_sequence[3] == 0 && leader_sequence[4] == 0)
-	#define SEQ_THREE_KEYS(key1, key2, key3) if (leader_sequence[0] == (key1) && leader_sequence[1] == (key2) && leader_sequence[2] == (key3) && leader_sequence[3] == 0 && leader_sequence[4] == 0)
-	#define SEQ_FOUR_KEYS(key1, key2, key3, key4) if (leader_sequence[0] == (key1) && leader_sequence[1] == (key2) && leader_sequence[2] == (key3) && leader_sequence[3] == (key4) && leader_sequence[4] == 0)
-	#define SEQ_FIVE_KEYS(key1, key2, key3, key4, key5) if (leader_sequence[0] == (key1) && leader_sequence[1] == (key2) && leader_sequence[2] == (key3) && leader_sequence[3] == (key4) && leader_sequence[4] == (key5))
-
-	#define LEADER_EXTERNS() extern bool leading; extern uint16_t leader_time; extern uint16_t leader_sequence[5]; extern uint8_t leader_sequence_size
-	#define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
+#ifdef UNICODE_ENABLE
+	#include "process_unicode.h"
 #endif
 
 #define SEND_STRING(str) send_string(PSTR(str))
