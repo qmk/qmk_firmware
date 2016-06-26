@@ -125,8 +125,8 @@ enum quantum_keycodes {
     MUV_DE,
 
     // Midi mode on/off
-    MI_ON,
-    MI_OFF,
+    MIDI_ON,
+    MIDI_OFF,
 
     // Backlight functionality
     BL_0,
@@ -155,6 +155,9 @@ enum quantum_keycodes {
 
     // Right shift, close paren
     KC_RSPC,
+
+    // always leave at the end
+    SAFE_RANGE
 };
 
 // Ability to use mods in layouts
@@ -266,6 +269,9 @@ enum quantum_keycodes {
 #define BL_ON  BL_9
 #define BL_OFF BL_0
 
+#define MI_ON MIDI_ON
+#define MI_OFF MIDI_OFF
+
 // GOTO layer - 16 layers max
 // when:
 // ON_PRESS    = 1
@@ -294,10 +300,10 @@ enum quantum_keycodes {
 #define SFT_T(kc) MT(MOD_LSFT, kc)
 #define ALT_T(kc) MT(MOD_LALT, kc)
 #define GUI_T(kc) MT(MOD_LGUI, kc)
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc) // Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
-#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc) // Left control alt and gui
-#define ALL_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
+#define C_S_T(kc) MT((MOD_LCTL | MOD_LSFT), kc) // Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT), kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
+#define LCAG_T(kc) MT((MOD_LCTL | MOD_LALT | MOD_LGUI), kc) // Left control alt and gui
+#define ALL_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI), kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
 #define KC_HYPR HYPR(KC_NO)

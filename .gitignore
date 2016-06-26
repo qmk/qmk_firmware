@@ -1,12 +1,10 @@
-keyboard/planck/dfu-programmer.exe
 .dep
 *.o
 *.eep
 *.elf
-/*.hex
-/keyboard/**/*.hex
-/keyboard/**/keymaps/**/*.hex
-!/keyboard/**/keymaps/**/compiled.hex
+*.hex
+!util/bootloader.hex
+!quantum/tools/eeprom_reset.hex
 *.log
 *.lss
 *.lst

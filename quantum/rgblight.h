@@ -64,7 +64,6 @@ void rgblight_decrease_val(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 
-#define EECONFIG_RGBLIGHT (uint8_t *)7
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);
 void eeconfig_update_rgblight_default(void);

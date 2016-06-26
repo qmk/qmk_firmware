@@ -235,7 +235,7 @@ If you did everything else right. This part should be a snap! Grab the latest so
 ```
 $ cd ~/src
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
-$ cd qmk_firmware/keyboard/planck
+$ cd qmk_firmware/keyboards/planck
 $ make
 ```
 

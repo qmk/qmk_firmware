@@ -7,21 +7,25 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
+cd "$(dirname "$0")/.."
+
 KEYBOARD=$1
 KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
 
-mkdir keyboard/$1
-mkdir keyboard/$1/keymaps
-mkdir keyboard/$1/keymaps/default
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" -e "s;%KEYBOARD_UPPERCASE%;$KEYBOARD_UPPERCASE;g" quantum/template/template.h > keyboard/$KEYBOARD/$KEYBOARD.h
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/template.c > keyboard/$KEYBOARD/$KEYBOARD.c
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboard/$KEYBOARD/config.h
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/README.md > keyboard/$KEYBOARD/README.md
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboard/$KEYBOARD/Makefile
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/keymap.c > keyboard/$KEYBOARD/keymaps/default/keymap.c
+mkdir keyboards/$1
+mkdir keyboards/$1/keymaps
+mkdir keyboards/$1/keymaps/default
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" -e "s;%KEYBOARD_UPPERCASE%;$KEYBOARD_UPPERCASE;g" quantum/template/template.h > keyboards/$KEYBOARD/$KEYBOARD.h
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/template.c > keyboards/$KEYBOARD/$KEYBOARD.c
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboards/$KEYBOARD/config.h
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/readme.md > keyboards/$KEYBOARD/readme.md
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboards/$KEYBOARD/Makefile
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/config.h > keyboards/$KEYBOARD/keymaps/default/config.h
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/keymap.c > keyboards/$KEYBOARD/keymaps/default/keymap.c
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/Makefile > keyboards/$KEYBOARD/keymaps/default/Makefile
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/readme.md > keyboards/$KEYBOARD/keymaps/default/readme.md
 
 echo "######################################################"
-echo "# keyboard/$KEYBOARD project created. To start"
-echo "# working on things, use the following command:"
-echo "# cd keyboard/$KEYBOARD"
+echo "# /keyboards/$KEYBOARD project created. To start"
+echo "# working on things, cd into keyboards/$KEYBOARD"
 echo "######################################################"
