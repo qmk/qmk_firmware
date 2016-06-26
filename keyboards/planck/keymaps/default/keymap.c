@@ -30,8 +30,7 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   BACKLIT,
-  EXT_PLV,
-  TOG_OUT
+  EXT_PLV
 };
 
 // Fillers to make layering more clear
@@ -145,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_PLOVER] = {
   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
   {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {TOG_OUT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
 },
 
@@ -199,6 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistant_default_layer_set(1UL<<_QWERTY);
       }
       break;
+      return false;
     case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -207,6 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistant_default_layer_set(1UL<<_COLEMAK);
       }
       break;
+      return false;
     case DVORAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -215,6 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistant_default_layer_set(1UL<<_DVORAK);
       }
       break;
+      return false;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -224,6 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       break;
+      return false;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -233,6 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       break;
+      return false;
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -242,7 +246,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_RSFT);
       }
-    break;
+      break;
+      return false;
     case PLOVER:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -260,7 +265,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         keymap_config.nkro = 1;
         eeconfig_update_keymap(keymap_config.raw);
       }
-    break;
+      break;
+      return false;
     case EXT_PLV:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -268,12 +274,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         layer_off(_PLOVER);
       }
-    break;
-    case TOG_OUT:
-      if (record->event.pressed) {
-        return MACRO( D(E), D(R), D(F), D(V), D(O), D(L), U(E), U(R), U(F), U(V), U(O), U(L), END );
-      }
-    break;
+      break;
+      return false;
   }
   return true;
 }
