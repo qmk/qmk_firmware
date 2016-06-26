@@ -16,7 +16,7 @@
 #define _RAISE 4
 #define _ADJUST 16
 
-enum planck_keycodes {
+enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
@@ -157,10 +157,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 
