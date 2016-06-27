@@ -44,11 +44,13 @@
     },
     "D",
     {
+      "c": "#c4bcbc",
       "a": 4,
       "f": 3
     },
     "\n(\n\n\n\n\n\n\n\nF",
     {
+      "c": "#cccccc",
       "f": 3
     },
     "\n)\n\n\n\n\n\n\n\nG",
@@ -57,10 +59,12 @@
     },
     "\n{\n\n\n\n\n\n\n\nH",
     {
+      "c": "#c4bcbc",
       "f": 3
     },
     "\n}\n\n\n\n\n\n\n\nJ",
     {
+      "c": "#cccccc",
       "a": 7,
       "f": 3
     },
@@ -136,26 +140,20 @@
       ]
     },
     "<i class='fa fa-download'></i>\n<i class='fa fa-lightbulb-o'></i>\n\n\n\n\n\n\n\nCtrl",
+    "\n<i class=\"fa fa-search\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\nEsc",
+    "\n<i class=\"fa fa-search-minus\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\n<i class='fa fa-linux'></i>",
+    "\n<i class=\"fa fa-search-plus\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\nAlt",
     {
       "a": 7,
-      "f": 3
-    },
-    "Esc",
-    {
-      "f": 3
-    },
-    "<i class='fa fa-linux'></i>",
-    {
-      "f": 3
-    },
-    "Alt",
-    {
       "f": 3
     },
     "<i class='fa fa-sort-down'></i>",
     {
       "a": 4,
-      "f": 3,
+      "fa": [
+        1,
+        1
+      ],
       "w": 2
     },
     "PgUp\nPgDn\n\n\n\n\n\n\n\nSpace",
@@ -165,21 +163,23 @@
     },
     "<i class='fa fa-sort-up'></i>",
     {
-      "f": 3
-    },
-    "<i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i>",
-    {
       "a": 4,
-      "f": 3
+      "fa": [
+        2
+      ]
     },
-    "\n<i class='fa fa-volume-down'></i>\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-down\" aria-hidden=\"true\"></i>",
+    "<i class=\"fa fa-undo\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i>",
     {
       "f": 3
     },
-    "\n<i class='fa fa-volume-up'></i>\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-up\" aria-hidden=\"true\"></i>",
+    "<i class='fa fa-volume-down'></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-down\" aria-hidden=\"true\"></i>",
     {
       "f": 3
     },
-    "\n<i class='fa fa-volume-off'></i>\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i>"
+    "<i class='fa fa-volume-up'></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-up\" aria-hidden=\"true\"></i>",
+    {
+      "f": 3
+    },
+    "<i class='fa fa-volume-off'></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i>"
   ]
 ]
