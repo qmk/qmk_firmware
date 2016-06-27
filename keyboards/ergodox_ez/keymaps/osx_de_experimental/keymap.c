@@ -666,6 +666,32 @@ break;
 	unregister_code(KC_D);
 	unregister_code(KC_LSFT);
     }
+
+    SEQ_ONE_KEY(KC_U){
+	register_code(KC_LSFT);
+	register_code(DE_DOT);
+	unregister_code(DE_DOT);
+ 	unregister_code(KC_LSFT);
+	register_code(DE_MINS);
+	unregister_code(DE_MINS);
+	register_code(KC_LSFT); 
+	register_code(KC_8);
+	unregister_code(KC_8);
+	unregister_code(KC_LSFT);
+    }
+
+    SEQ_ONE_KEY(KC_I){
+	register_code(KC_LSFT);
+	register_code(DE_DOT);
+	unregister_code(DE_COMM);
+ 	unregister_code(KC_LSFT);
+	register_code(DE_MINS);
+	unregister_code(DE_MINS);
+	register_code(KC_LSFT); 
+	register_code(KC_8);
+	unregister_code(KC_8);
+	unregister_code(KC_LSFT);
+    }
   
     SEQ_ONE_KEY(KC_5) {
 	 layer_state ^=(1<<NUMB);
@@ -701,8 +727,6 @@ break;
         _delay_ms (100);
         ergodox_right_led_3_off ();
       }    
-
-
     }
     SEQ_ONE_KEY(KC_4) {
 	layer_state ^=(1<<MDIA);
