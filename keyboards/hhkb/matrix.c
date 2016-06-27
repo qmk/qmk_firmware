@@ -150,6 +150,9 @@ uint8_t matrix_scan(void)
         KEY_POWER_OFF();
         suspend_power_down();
     }
+
+    matrix_scan_quantum();
+
     return 1;
 }
 

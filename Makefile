@@ -136,6 +136,7 @@ SRC += $(KEYBOARD_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap.c \
 	$(QUANTUM_DIR)/keycode_config.c \
+	$(QUANTUM_DIR)/process_keycode/process_tap_dance.c \
 	$(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifdef SUBPROJECT
@@ -168,6 +169,10 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	OPT_DEFS += -DRGBLIGHT_ENABLE
 	SRC += $(QUANTUM_DIR)/light_ws2812.c
 	SRC += $(QUANTUM_DIR)/rgblight.c
+endif
+
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+  OPT_DEFS += -DTAP_DANCE_ENABLE
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"

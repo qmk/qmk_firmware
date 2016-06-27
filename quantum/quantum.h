@@ -53,6 +53,8 @@ extern uint32_t default_layer_state;
 	#include "process_unicode.h"
 #endif
 
+#include "process_tap_dance.h"
+
 #define SEND_STRING(str) send_string(PSTR(str))
 void send_string(const char *str);
 
