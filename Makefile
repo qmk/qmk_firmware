@@ -80,6 +80,7 @@ endif
 SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
+	$(QUANTUM_DIR)/tap_dance.c \
 	$(QUANTUM_DIR)/keymap.c \
 	$(QUANTUM_DIR)/keycode_config.c
 
@@ -97,6 +98,10 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/light_ws2812.c
 	SRC += $(QUANTUM_DIR)/rgblight.c
 	OPT_DEFS += -DRGBLIGHT_ENABLE
+endif
+
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+  OPT_DEFS += -DTAP_DANCE_ENABLE
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
