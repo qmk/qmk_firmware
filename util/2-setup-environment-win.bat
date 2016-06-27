@@ -1,46 +1,55 @@
 @SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 @ECHO OFF
 
+CD %~dp0
+
 SET STARTINGDIR=%CD%
+echo %STARTINGDIR%
 
 :: Check for admin privilages
 SETX /M test test > nul 2>&1
 IF NOT ["%ERRORLEVEL%"]==["0"] (
-	ECHO FAILED. Rerun with administrator privileges.
-	GOTO ExitBatch
+	ELEVATE -wait 2-setup-environment-win.bat & goto :EOF
 ) 
+
+DEL %STARTINGDIR%\environment-setup.log
 
 :: Make sure path to MinGW exists - if so, CD to it
 SET MINGWPATH="C:\MinGW\bin"
-IF NOT EXIST !MINGWPATH! (ECHO Path not found: %MINGWPATH% && GOTO ExitBatch)
+IF NOT EXIST !MINGWPATH! (ECHO Path not found: %MINGWPATH%. Did you install MinGW to the default location? && GOTO ExitBatch)
 CD /D %MINGWPATH%
 
-
+ECHO.
 ECHO ------------------------------------------
 ECHO Installing wget and unzip
 ECHO ------------------------------------------
-mingw-get install msys-wget-bin msys-unzip-bin
+ECHO.
+mingw-get install msys-wget-bin msys-unzip-bin 
 
 MKDIR temp
 CD temp
 
+ECHO.
 ECHO ------------------------------------------
 ECHO Installing dfu-programmer.
 ECHO ------------------------------------------
-wget http://iweb.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip
-unzip dfu-programmer-win-0.7.2.zip
-COPY dfu-programmer.exe ..
+ECHO.
+wget 'http://downloads.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip' >> %STARTINGDIR%\environment-setup.log
+unzip -o dfu-programmer-win-0.7.2.zip >> %STARTINGDIR%\environment-setup.log
+COPY dfu-programmer.exe .. >> %STARTINGDIR%\environment-setup.log
 
 ECHO ------------------------------------------
 ECHO Downloading driver
 ECHO ------------------------------------------
-wget http://iweb.dl.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip
-unzip libusb-win32-bin-1.2.6.0.zip
-COPY libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll ../libusb0.dll
+wget http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip >> %STARTINGDIR%\environment-setup.log
+unzip -o libusb-win32-bin-1.2.6.0.zip >> %STARTINGDIR%\environment-setup.log
+COPY libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll ../libusb0.dll >> %STARTINGDIR%\environment-setup.log
 
+ECHO.
 ECHO ------------------------------------------
 ECHO Installing driver. Accept prompt.
 ECHO ------------------------------------------
+ECHO.
 IF EXIST "%WinDir%\System32\PnPUtil.exe" (%WinDir%\System32\PnPUtil.exe -i -a dfu-prog-usb-1.2.2\atmel_usb_dfu.inf && GOTO PNPUTILFOUND)
 IF EXIST "%WinDir%\Sysnative\PnPUtil.exe" (%WinDir%\Sysnative\PnPUtil.exe -i -a dfu-prog-usb-1.2.2\atmel_usb_dfu.inf && GOTO PNPUTILFOUND)
 
