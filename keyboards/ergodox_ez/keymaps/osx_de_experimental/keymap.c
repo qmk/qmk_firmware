@@ -654,7 +654,18 @@ break;
       SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " " QMK_VERSION " " KEYMAP_VERSION);
     }
 
-
+    SEQ_ONE_KEY(KC_L){
+	register_code(KC_LSFT);
+	register_code(DE_DOT);
+	unregister_code(DE_DOT);
+ 	unregister_code(DE_LSFT);
+	register_code(DE_MINS);
+	unregister_code(DE_MINS);
+	register_code(KC_LSFT); 
+	regigster_code(KC_D);
+	unregister_code(KC_D);
+	unregister_code(KC_LSFT);
+    }
   
     SEQ_ONE_KEY(KC_5) {
 	 layer_state ^=(1<<NUMB);
