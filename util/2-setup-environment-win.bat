@@ -13,7 +13,7 @@ IF NOT ["%ERRORLEVEL%"]==["0"] (
 
 :: Make sure path to MinGW exists - if so, CD to it
 SET MINGWPATH="C:\MinGW\bin"
-IF NOT EXIST !MINGWPATH! (ECHO Path not found: %MINGWPATH% && GOTO ExitBatch)
+IF NOT EXIST !MINGWPATH! (ECHO "Path not found: %MINGWPATH%. Did you install MinGW to the default location?\n" && GOTO ExitBatch)
 CD /D %MINGWPATH%
 
 
