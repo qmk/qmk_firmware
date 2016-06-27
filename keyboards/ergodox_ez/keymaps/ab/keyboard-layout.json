@@ -154,7 +154,8 @@
     },
     "S\n\n\n\n<i class=\"fa fa-caret-left\" aria-hidden=\"true\"></i>",
     {
-      "x": 1
+      "x": 1,
+      "c": "#c4bcbc"
     },
     "F\n\n\n\n<i class=\"fa fa-caret-right\" aria-hidden=\"true\"></i>",
     {
@@ -162,7 +163,8 @@
     },
     "J",
     {
-      "x": 1
+      "x": 1,
+      "c": "#cccccc"
     },
     "L"
   ],
@@ -223,7 +225,7 @@
       "y": -0.75,
       "x": 3.5
     },
-    "C",
+    "C\n\n\n\n<i class=\"fa fa-hand-o-up\" aria-hidden=\"true\"></i>",
     {
       "x": 10.5,
       "a": 4
@@ -236,11 +238,11 @@
       "x": 2.5,
       "a": 7
     },
-    "X",
+    "X\n\n\n\n<i class=\"fa fa-hand-o-left\" aria-hidden=\"true\"></i>",
     {
       "x": 1
     },
-    "V",
+    "V\n\n\n\n<i class=\"fa fa-hand-o-right\" aria-hidden=\"true\"></i>",
     {
       "x": 8.5
     },
@@ -286,7 +288,7 @@
       "x": 3.5,
       "a": 7
     },
-    "Alt\n\n\n\n<i class=\"fa fa-hand-o-left\" aria-hidden=\"true\"></i>",
+    "Alt\n\n\n\n<i class=\"fa fa-search-minus\" aria-hidden=\"true\"></i>",
     {
       "x": 10.5
     },
@@ -297,15 +299,15 @@
       "y": -0.875,
       "x": 2.5
     },
-    "<i class='fa fa-linux'></i>",
+    "<i class='fa fa-linux'></i>\n\n\n\n<i class=\"fa fa-search\" aria-hidden=\"true\"></i>",
     {
       "x": 1
     },
-    "Alt\n\n\n\n<i class=\"fa fa-hand-o-right\" aria-hidden=\"true\"></i>",
+    "Alt\n\n\n\n<i class=\"fa fa-search-plus\" aria-hidden=\"true\"></i>",
     {
       "x": 8.5
     },
-    "<i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i>",
+    "<i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i>\n\n\n\n<i class=\"fa fa-undo\" aria-hidden=\"true\"></i>",
     {
       "x": 1
     },
