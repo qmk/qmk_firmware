@@ -2,12 +2,11 @@
 @ECHO OFF
 SET CMDLINERUNSTR=%SystemRoot%\system32\cmd.exe
 
-CD UTIL
 DEL add-paths.log > NUL 2>&1
 DEL add-paths-detail.log > NUL 2>&1
 DEL UPDATE > NUL 2>&1
 
-ELEVATE -wait %cd%\add-paths.bat > NUL 2>&1
+ELEVATE -wait add-paths.bat > NUL 2>&1
 
 IF ERRORLEVEL 1 (
 	ECHO You denied admin access. Rerun the script, and be sure to press the yes button this time.
@@ -57,5 +56,5 @@ ECHO Your desktop is now loading. . .
 ECHO.   
 ping -n 5 127.0.0.1 > NUL 2>&1
 START explorer.exe
-START explorer.exe %CD%\..
+START explorer.exe %CD%
 EXIT /b
