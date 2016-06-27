@@ -1,6 +1,11 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "led.h"
+#include "action_util.h"
+#include "mousekey.h"
+#include "timer.h"
+#include "keymap_plover.h"
 #include "keymap_extras/keymap_french.h"
 #include "keymap_extras/keymap_neo2.h"
 #include "keymap_extras/keymap_uk.h"
@@ -103,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 **/
 [BASE]=KEYMAP(
 //left half
-    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
+    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, KC_LEAD, 
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
     KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, MEH_T(KC_NO), 
@@ -498,7 +503,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
 		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(UP(KC_LGUI),UP(KC_LSFT),END);
 		}
 
 break;
@@ -575,10 +580,14 @@ void matrix_init_user(void) {
 
 };
 
+uint8_t is_exp=0;
+
+LEADER_EXTERNS();
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
 uint8_t layer = biton32(layer_state);
+
 
 ergodox_board_led_off();
 ergodox_right_led_1_off();
@@ -610,6 +619,114 @@ default:
 // none
 break;
 }
+
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_J) {
+      register_code(KC_LSFT);
+      register_code(DE_DOT);
+      unregister_code(KC_LSFT);
+      unregister_code(DE_DOT);
+      register_code(DE_MINS);
+      unregister_code(DE_MINS);
+      register_code(KC_LSFT);
+      register_code(KC_9);
+      unregister_code(KC_9);
+      unregister_code(KC_LSFT);
+    }
+
+    SEQ_ONE_KEY(KC_H){
+	register_code(KC_LSFT);
+        register_code(DE_COMM); 
+        unregister_code(DE_COMM); 
+	unregister_code(KC_LSFT);
+	register_code(DE_MINS);
+	unregister_code(DE_MINS);
+	register_code(KC_LSFT);
+	register_code(KC_9);
+	unregister_code(KC_9);
+	unregister_code(KC_LSFT);
+    }	
+
+    SEQ_TWO_KEYS (KC_V,KC_E) {
+      SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " " QMK_VERSION " " KEYMAP_VERSION);
+    }
+
+
+  
+    SEQ_ONE_KEY(KC_5) {
+	 layer_state ^=(1<<NUMB);
+         layer_state &=(1<<NUMB);
+      if (is_exp == 0) { 
+       // default_layer_and (0); 
+       // default_layer_or ((1 << NUMB));
+        is_exp = 1; 
+
+        ergodox_led_all_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+      } else {
+        is_exp = 0; 
+
+        ergodox_led_all_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+      }    
+
+
+    }
+    SEQ_ONE_KEY(KC_4) {
+	layer_state ^=(1<<MDIA);
+	layer_state &=(1<<MDIA);
+      if (is_exp == 0) { 
+        is_exp = 1; 
+
+        ergodox_led_all_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+      } else {
+        is_exp = 0; 
+        ergodox_led_all_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+      }    
+    }
+  }
+
 
 };
 
