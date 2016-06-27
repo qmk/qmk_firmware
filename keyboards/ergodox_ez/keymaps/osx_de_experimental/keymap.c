@@ -658,11 +658,11 @@ break;
 	register_code(KC_LSFT);
 	register_code(DE_DOT);
 	unregister_code(DE_DOT);
- 	unregister_code(DE_LSFT);
+ 	unregister_code(KC_LSFT);
 	register_code(DE_MINS);
 	unregister_code(DE_MINS);
 	register_code(KC_LSFT); 
-	regigster_code(KC_D);
+	register_code(KC_D);
 	unregister_code(KC_D);
 	unregister_code(KC_LSFT);
     }
