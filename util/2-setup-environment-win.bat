@@ -6,6 +6,7 @@ SET STARTINGDIR=%CD%
 :: Check for admin privilages
 SETX /M test test > nul 2>&1
 IF NOT ["%ERRORLEVEL%"]==["0"] (
+	ELEVATE -wait 2-setup-environment-win.bat & goto :EOF
 	ECHO FAILED. Rerun with administrator privileges.
 	GOTO ExitBatch
 ) 
