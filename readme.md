@@ -51,7 +51,7 @@ Before you are able to compile, you'll need to install an environment for AVR de
 4. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
 5. Double-click on the 1-setup-path-win batch script to run it. You'll need to accept a User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
 6. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
-7. Future build commands should be run from the standard Windows command prompt, which you can find by searching for "command prompt" from the start menu or start screen. Ignore the "MHV AVR Shell".
+7. Future build commands should be run from the MHV AVR Shell, which sets up an environment compatible with colorful build output. The standard Command Prompt will also work, but add `COLOR=false` to the end of all make commands when using it.
 
 ### Mac
 If you're using [homebrew,](http://brew.sh/) you can use the following commands:
