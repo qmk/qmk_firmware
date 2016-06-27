@@ -43,9 +43,14 @@ EXIT /b
 :: -----------------------------------------------------------------------------
 
 :KillExplorer
+ECHO.
+ECHO.
 ECHO Your desktop will be restarted. 
+ECHO.
 ECHO All file explorer windows except for the one you launched this script from WILL BE CLOSED.
+ECHO.
 ECHO Press enter when ready, or close this window if you would rather do a full restart of your computer at a later time.
+ECHO.
 PAUSE
 ping -n 5 127.0.0.1 > NUL 2>&1
 ECHO Killing process Explorer.exe. . . 
