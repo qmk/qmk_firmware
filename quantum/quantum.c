@@ -56,13 +56,13 @@ bool process_record_quantum(keyrecord_t *record) {
 
   if (!(
     process_record_kb(keycode, record) &&
-    process_tap_dance(keycode, record) &&
   #ifdef MIDI_ENABLE
     process_midi(keycode, record) &&
   #endif
   #ifdef AUDIO_ENABLE
     process_music(keycode, record) &&
   #endif
+    process_tap_dance(keycode, record) &&
   #ifndef DISABLE_LEADER
     process_leader(keycode, record) &&
   #endif
