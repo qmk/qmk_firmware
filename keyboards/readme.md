@@ -5,27 +5,27 @@ QMK runs on a diverse range of keyboards. Some of these keyboards are officially
 
 These keyboards are manufactured by the maintainers of QMK.
 
-### [Ortholinear Keyboards](http://olkb.com) &mdash; Jack Humbert
+### Ortholinear Keyboards - Jack Humbert
 
 What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and killer tactile feel. These are available through [olkb.com](http://olkb.com) as well as through [Massdrop](http://massdrop.com) from time to time, as easy to assemble kits.
 
-* [Planck](/keyboards/planck/) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine.
-* [Preonic](/keyboards/preonic/) &mdash; Like the Planck, but bigger. 50%.
-* [Atomic](/keyboards/atomic/) &mdash; Imagine the size of the Planck. Now imagine the size of the Preonic. Now imagine _bigger_. That is the Atomic. A 60% keyboard.
+* [Planck](/keyboards/planck/) - A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine.
+* [Preonic](/keyboards/preonic/) - Like the Planck, but bigger. 50%.
+* [Atomic](/keyboards/atomic/) - Imagine the size of the Planck. Now imagine the size of the Preonic. Now imagine _bigger_. That is the Atomic. A 60% keyboard.
 
-### [ErgoDox EZ](https://ergodox-ez.com) &mdash; Erez Zukerman
+### ErgoDox EZ - Erez Zukerman
 
-Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-assembled, premium ergonomic keyboard. Its split design allows you to place both halves shoulder width, and its custom-made wrist rests and tilt/tent kit make for incredibly comfortable typing.
+Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-assembled, premium ergonomic keyboard. Its split design allows you to place both halves shoulder width, and its custom-made wrist rests and tilt/tent kit make for incredibly comfortable typing. Available on [ergodox-ez.com](https://ergodox-ez.com).
 
-* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
+* [ErgoDox EZ](/keyboards/ergodox_ez/) - Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
 
-### [Clueboard](http://clueboard.co) &mdash; Zach White
+### Clueboard - Zach White
 
-Designed and built in Felton, CA, Clueboards keyboard emphasize quality and locally sourced components.
+Designed and built in Felton, CA, Clueboards keyboard emphasize quality and locally sourced components, available on [clueboard.co](http://clueboard.co)
 
-* [Clueboard rev.1](/keyboards/clueboard1/) &mdash; The old Clueboard.
-* [Clueboard rev.2](/keyboards/clueboard2/) &mdash; New and improved! The Clueboard, revision 2.
-* [Cluepad](/keyboards/cluepad/) &mdash; A mechanical numpad with QMK superpowers.
+* [Clueboard rev.1](/keyboards/clueboard1/) - The old Clueboard.
+* [Clueboard rev.2](/keyboards/clueboard2/) - New and improved! The Clueboard, revision 2.
+* [Cluepad](/keyboards/cluepad/) - A mechanical numpad with QMK superpowers.
 
 
 ## Community-supported QMK Keyboards

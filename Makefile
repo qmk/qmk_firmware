@@ -81,8 +81,7 @@ SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap.c \
-	$(QUANTUM_DIR)/keycode_config.c \
-	$(QUANTUM_DIR)/led.c
+	$(QUANTUM_DIR)/keycode_config.c
 
 ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c

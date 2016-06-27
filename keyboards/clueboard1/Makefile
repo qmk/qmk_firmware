@@ -1,8 +1,5 @@
 
 
-# # project specific files
-SRC = led.c
-
 # MCU name
 MCU = atmega32u4
 

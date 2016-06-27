@@ -24,26 +24,4 @@
     { K40, K41, KC_NO, K43, KC_NO, KC_NO, K46, KC_NO, KC_NO, KC_NO, K4A, K4B,   K4C,   K4D,   K4E }  \
 }
 
-void matrix_init_user(void);
-void matrix_scan_user(void);
-bool process_action_user(keyrecord_t *record);
-void led_set_user(uint8_t usb_led);
-void backlight_init_ports(void);
-
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-
-void breathing_defaults(void);
-void breathing_intensity_default(void);
-void breathing_speed_default(void);
-void breathing_speed_set(uint8_t value);
-void breathing_speed_inc(uint8_t value);
-void breathing_speed_dec(uint8_t value);
-
-
 #endif
