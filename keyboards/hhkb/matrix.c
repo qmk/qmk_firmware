@@ -71,6 +71,14 @@ void matrix_init(void)
     matrix_prev = _matrix1;
 }
 
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
+void matrix_scan_kb(void) {
+  matrix_scan_user();
+}
+
 uint8_t matrix_scan(void)
 {
     uint8_t *tmp;
