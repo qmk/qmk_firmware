@@ -2,12 +2,12 @@
 @ECHO OFF
 SET CMDLINERUNSTR=%SystemRoot%\system32\cmd.exe
 
-CD UTIL
+DEL script1.log > NUL 2>&1
 DEL add-paths.log > NUL 2>&1
 DEL add-paths-detail.log > NUL 2>&1
 DEL UPDATE > NUL 2>&1
 
-ELEVATE -wait %cd%\add-paths.bat > NUL 2>&1
+ELEVATE -wait add-paths.bat >> script1.log 2>&1
 
 IF ERRORLEVEL 1 (
 	ECHO You denied admin access. Rerun the script, and be sure to press the yes button this time.
@@ -44,9 +44,14 @@ EXIT /b
 :: -----------------------------------------------------------------------------
 
 :KillExplorer
+ECHO.
+ECHO.
 ECHO Your desktop will be restarted. 
+ECHO.
 ECHO All file explorer windows except for the one you launched this script from WILL BE CLOSED.
+ECHO.
 ECHO Press enter when ready, or close this window if you would rather do a full restart of your computer at a later time.
+ECHO.
 PAUSE
 ping -n 5 127.0.0.1 > NUL 2>&1
 ECHO Killing process Explorer.exe. . . 
@@ -57,5 +62,5 @@ ECHO Your desktop is now loading. . .
 ECHO.   
 ping -n 5 127.0.0.1 > NUL 2>&1
 START explorer.exe
-START explorer.exe %CD%\..
+START explorer.exe %CD%
 EXIT /b
