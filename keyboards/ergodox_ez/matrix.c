@@ -187,7 +187,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-
+    matrix_scan_tap_dance();
     matrix_scan_kb();
 
     return 1;

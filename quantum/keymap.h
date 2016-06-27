@@ -77,6 +77,8 @@ enum quantum_keycodes {
 #endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x6FFF,
+    QK_TAP_DANCE          = 0x7100,
+    QK_TAP_DANCE_MAX      = 0x71FF,
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,

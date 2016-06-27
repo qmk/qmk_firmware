@@ -136,6 +136,9 @@ bool process_record_quantum(keyrecord_t *record) {
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
 
+  if (!process_tap_dance(keycode, record))
+    return false;
+
   if (!process_record_kb(keycode, record))
     return false;
 
@@ -668,6 +671,7 @@ void matrix_scan_quantum() {
 
   #endif
 
+  matrix_scan_tap_dance();
   matrix_scan_kb();
 }
 

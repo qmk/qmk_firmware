@@ -19,6 +19,7 @@
 #ifdef UNICODE_ENABLE
 	#include "unicode.h"
 #endif
+#include "tap_dance.h"
 
 #include "action_layer.h"
 #include "eeconfig.h"
