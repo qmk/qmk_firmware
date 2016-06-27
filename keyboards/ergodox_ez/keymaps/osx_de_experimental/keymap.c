@@ -654,7 +654,7 @@ break;
       SEND_STRING (QMK_KEYBOARD ":" QMK_KEYMAP " " QMK_VERSION " " KEYMAP_VERSION);
     }
 
-    SEQ_ONE_KEY(KC_L){
+    SEQ_ONE_KEY(KC_K){
 	register_code(KC_LSFT);
 	register_code(DE_DOT);
 	unregister_code(DE_DOT);
