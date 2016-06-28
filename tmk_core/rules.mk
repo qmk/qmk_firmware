@@ -40,7 +40,7 @@ OPT = s
 #     AVR [Extended] COFF format requires stabs, plus an avr-objcopy run.
 DEBUG = dwarf-2
 
-COLOR?=true
+COLOR ?= true
 
 ifeq ($(COLOR),true)
 	NO_COLOR=\033[0m
@@ -129,10 +129,8 @@ CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
+ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
 	CFLAGS+= -fdiagnostics-color
-else ifeq ("$(echo "int main(){}" | $(CC) -fcolor-diagnostics -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fcolor-diagnostics
 endif
 endif
 CFLAGS += -Wall
@@ -450,15 +448,6 @@ endif
 	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	dfu-programmer $(MCU) reset
 
-dfu-no-build:
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) erase --force
-else
-	dfu-programmer $(MCU) erase
-endif
-	dfu-programmer $(MCU) flash $(KEYMAP_PATH)/compiled.hex
-	dfu-programmer $(MCU) reset
-
 dfu-start:
 	dfu-programmer $(MCU) reset
 	dfu-programmer $(MCU) start
@@ -536,9 +525,6 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
 	@$(COPY) $@ $(TARGET).hex
-	$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/compiled.hex" | $(AWK_CMD)
-	$(eval CMD=$(COPY) $@ $(KEYMAP_PATH)/compiled.hex)
-	@$(BUILD_CMD)
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
@@ -622,7 +608,7 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboard/*/.)))
+SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/*/.)))
 all-keyboards-defaults-%:
 	@for x in $(SUBDIRS) ; do \
 		printf "Compiling with default: $$x" | $(AWK_CMD); \
@@ -631,14 +617,14 @@ all-keyboards-defaults-%:
 
 all-keyboards-defaults: all-keyboards-defaults-all
 
-KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboard/%/=/keyboard/%)
+KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboards/%/=/keyboards/%)
 all-keyboards-all: $(addsuffix -all,$(KEYBOARDS))
 all-keyboards-quick: $(addsuffix -quick,$(KEYBOARDS))
 all-keyboards-clean: $(addsuffix -clean,$(KEYBOARDS))
 all-keyboards: all-keyboards-all
 
 define make_keyboard
-$(eval KEYBOARD=$(patsubst /keyboard/%,%,$1))
+$(eval KEYBOARD=$(patsubst /keyboards/%,%,$1))
 $(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$1/keymaps/*/.))))
 @for x in $(KEYMAPS) ; do \
 	printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
@@ -651,18 +637,18 @@ define make_keyboard_helper
 $(call make_keyboard,$(subst -$2,,$1),$2)
 endef
 
-/keyboard/%-quick:
+/keyboards/%-quick:
 	$(call make_keyboard_helper,$@,quick)
-/keyboard/%-all:
+/keyboards/%-all:
 	$(call make_keyboard_helper,$@,all)
-/keyboard/%-clean:
+/keyboards/%-clean:
 	$(call make_keyboard_helper,$@,clean)
-/keyboard/%:
+/keyboards/%:
 	$(call make_keyboard_helper,$@,all)
 
 all-keymaps-%:
 	$(eval MAKECONFIG=$(call get_target,all-keymaps,$@))
-	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboard/$(KEYBOARD)/keymaps/*/.))))
+	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
 		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
 		LOG=$$($(MAKE) $(subst all-keymaps-,,$@) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \

@@ -141,6 +141,10 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     return action;
 }
 
+__attribute__ ((weak))
+const uint16_t PROGMEM fn_actions[] = {
+
+};
 
 /* Macro */
 __attribute__ ((weak))

@@ -29,12 +29,12 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 ## Main projects
 
 ### OLKB products
-* [planck](keyboard/planck/)                - [Planck] Ortholinear 40% keyboard
-* [preonic](keyboard/preonic/)              - [Preonic] Ortholinear 50% keyboard
-* [atomic](keyboard/atomic/)                - [Atomic] Ortholinear 60% keyboard
+* [planck](keyboards/planck/)                - [Planck] Ortholinear 40% keyboard
+* [preonic](keyboards/preonic/)              - [Preonic] Ortholinear 50% keyboard
+* [atomic](keyboards/atomic/)                - [Atomic] Ortholinear 60% keyboard
 
 ### Ergodox EZ
-* [ergodox_ez](keyboard/ergodox_ez)         - [Ergodox_EZ] Assembled split keyboard
+* [ergodox_ez](keyboards/ergodox_ez)         - [Ergodox_EZ] Assembled split keyboard
 
 ## Other projects
 
@@ -52,20 +52,20 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [ibm4704_usb](converter/ibm4704_usb)      - [IBM 4704 keyboard Converter][GH_ibm4704]
 
 ### keyboard
-* [hhkb](keyboard/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] hasu's main board
-* [gh60](keyboard/gh60/)                    - [GH60] DIY 60% keyboard [prototype][GH60_proto] hasu's second board
-* [hbkb](keyboard/hbkb/)                    - [Happy Buckling spring keyboard][GH_hbkb](IBM Model M 60% mod)
-* [hid_liber](keyboard/hid_liber/)          - [HID liberation][HID_liber] controller (by alaricljs)
-* [phantom](keyboard/phantom/)              - [Phantom] keyboard (by Tranquilite)
-* [IIgs_Standard](keyboard/IIgs/)           - Apple [IIGS] keyboard mod(by JeffreySung)
-* [macway](keyboard/macway/)                - [Compact keyboard mod][GH_macway] [retired]
-* [KMAC](keyboard/kmac/)                    - Korean custom keyboard
-* [Lightsaber](keyboard/lightsaber/)        - Korean custom keyboard
-* [Infinity](keyboard/infinity/)            - Massdrop [Infinity keyboard][Infinity]
-* [NerD](keyboard/nerd/)                    - Korean custom keyboard
-* [KittenPaw](keyboard/kitten_paw)          - Custom Majestouch controller
-* [Lightpad](keyboard/lightpad)             - Korean custom keypad
-* [ghost_squid](keyboard/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
+* [hhkb](keyboards/hhkb/)                    - [Happy Hacking Keyboard pro][GH_hhkb] hasu's main board
+* [gh60](keyboards/gh60/)                    - [GH60] DIY 60% keyboard [prototype][GH60_proto] hasu's second board
+* [hbkb](keyboards/hbkb/)                    - [Happy Buckling spring keyboard][GH_hbkb](IBM Model M 60% mod)
+* [hid_liber](keyboards/hid_liber/)          - [HID liberation][HID_liber] controller (by alaricljs)
+* [phantom](keyboards/phantom/)              - [Phantom] keyboard (by Tranquilite)
+* [IIgs_Standard](keyboards/IIgs/)           - Apple [IIGS] keyboard mod(by JeffreySung)
+* [macway](keyboards/macway/)                - [Compact keyboard mod][GH_macway] [retired]
+* [KMAC](keyboards/kmac/)                    - Korean custom keyboard
+* [Lightsaber](keyboards/lightsaber/)        - Korean custom keyboard
+* [Infinity](keyboards/infinity/)            - Massdrop [Infinity keyboard][Infinity]
+* [NerD](keyboards/nerd/)                    - Korean custom keyboard
+* [KittenPaw](keyboards/kitten_paw)          - Custom Majestouch controller
+* [Lightpad](keyboards/lightpad)             - Korean custom keypad
+* [ghost_squid](keyboards/ghost_squid/)      - [The Ghost Squid][ghost_squid] controller for [Cooler Master QuickFire XT][cmxt]
 
 ### Extenal projects using tmk_keyboard
 * [ErgoDox_cub-uanic][cub-uanic]            - Split Ergonomic Keyboard [ErgoDox][ergodox_org]
@@ -92,7 +92,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 [IIGS]:         http://en.wikipedia.org/wiki/Apple_IIGS
 [Infinity]:     https://www.massdrop.com/buy/infinity-keyboard-kit
 [ghost_squid]:  http://deskthority.net/wiki/Costar_replacement_controllers#The_Ghost_Squid
-[cmxt]:         http://gaming.coolermaster.com/en/products/keyboards/quickfirext/
+[cmxt]:         http://gaming.coolermaster.com/en/products/keyboard/quickfirext/
 [ergodox_org]:  http://ergodox.org/
 [cub-uanic]:    https://github.com/cub-uanic/tmk_keyboard/tree/master/keyboard/ergodox
 [mcdox]:        https://github.com/DavidMcEwan/mcdox
@@ -113,7 +113,7 @@ Third party libraries like LUFA, PJRC and V-USB have their own license respectiv
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](tmk_core/doc/build.md), or the README in the particular keyboard/* folder.
+See [doc/build.md](tmk_core/doc/build.md), or the readme in the particular keyboards/* folder.
 
 
 
@@ -226,7 +226,7 @@ Files and Directories
 -------------------
 ### Top
 * tmk_core/     - core library
-* keyboard/     - keyboard projects
+* keyboards/     - keyboard projects
 * converter/    - protocol converter projects
 * doc/          - documents
 

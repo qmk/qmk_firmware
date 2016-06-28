@@ -12,7 +12,7 @@ Other than having Vagrant and Virtualbox installed and possibly a restart of you
 
 Build Firmware and Program Controller
 -------------------------------------
-See [/doc/BUIDE_GUIDE.md](/doc/BUILD_GUIDE.md), or the README in the particular keyboard/* folder.
+See [/doc/BUIDE_GUIDE.md](/doc/BUILD_GUIDE.md), or the readme in the particular keyboards/* folder.
 
 Change your keymap
 ------------------
@@ -20,7 +20,7 @@ See [/doc/keymap.md](/doc/keymap.md).
 
 ## Flashing the firmware
 
-The "easy" way to flash the firmware is using a tool from your host OS like the Teensy programming app. [ErgoDox EZ](/keyboard/ergodox_ez/readme.md) gives a great example.
+The "easy" way to flash the firmware is using a tool from your host OS like the Teensy programming app. [ErgoDox EZ](/keyboards/ergodox_ez/readme.md) gives a great example.
 
 If you want to program via the command line you can uncomment the ['modifyvm'] lines in the Vagrantfile to enable the USB passthrough into Linux and then program using the command line tools like dfu-util/dfu-programmer or you can install the Teensy CLI version.
 	
