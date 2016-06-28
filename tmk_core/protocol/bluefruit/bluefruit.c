@@ -2,20 +2,16 @@
 Bluefruit Protocol for TMK firmware
 Author: Benjamin Gould, 2013
 Based on code Copyright 2011 Jun Wako <wakojun@gmail.com>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 */
 
 #include <stdint.h>
@@ -76,6 +72,13 @@ static void send_mouse(report_mouse_t *report);
 static void send_system(uint16_t data);
 static void send_consumer(uint16_t data);
 
+
+void sendString(char string[], int length) {
+    for(int i = 0; i < length; i++) {
+        serial_send(string[i]);
+    }
+}
+
 static host_driver_t driver = {
         keyboard_leds,
         send_keyboard,
@@ -100,6 +103,7 @@ static void send_keyboard(report_keyboard_t *report)
 #endif
     bluefruit_serial_send(0xFD);
     for (uint8_t i = 0; i < KEYBOARD_REPORT_SIZE; i++) {
+
         bluefruit_serial_send(report->raw[i]);
     }
 #ifdef BLUEFRUIT_TRACE_SERIAL   
@@ -199,4 +203,3 @@ static void send_consumer(uint16_t data)
     bluefruit_trace_footer();
 #endif
 }
-

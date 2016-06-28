@@ -8,9 +8,16 @@
 #include "suspend_avr.h"
 #include "suspend.h"
 #include "timer.h"
+#include "led.h"
+
 #ifdef PROTOCOL_LUFA
-#include "lufa.h"
+	#include "lufa.h"
 #endif
+
+#ifdef AUDIO_ENABLE
+    #include "audio.h"
+#endif /* AUDIO_ENABLE */
+
 
 
 #define wdt_intr_enable(value)   \
@@ -64,6 +71,18 @@ static void power_down(uint8_t wdto)
     // Watchdog Interrupt Mode
     wdt_intr_enable(wdto);
 
+#ifdef BACKLIGHT_ENABLE
+	backlight_set(0);
+#endif
+
+	// Turn off LED indicators
+	led_set(0);
+
+	#ifdef AUDIO_ENABLE
+        // This sometimes disables the start-up noise, so it's been disabled
+		// stop_all_notes();
+	#endif /* AUDIO_ENABLE */
+
     // TODO: more power saving
     // See PicoPower application note
     // - I/O port input with pullup
@@ -89,12 +108,13 @@ __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
 bool suspend_wakeup_condition(void)
 {
+#ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
+#endif
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        if (matrix_get_row(r)) return true;
-    }
+    if (matrix_key_count()) return true;
     return false;
 }
 
@@ -104,8 +124,10 @@ void suspend_wakeup_init(void)
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
+    backlight_set(0);
     backlight_init();
 #endif
+led_set(host_keyboard_leds());
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN

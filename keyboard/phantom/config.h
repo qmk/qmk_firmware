@@ -18,34 +18,74 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6057
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    t.m.k.
-#define PRODUCT         Phantom
+#define PRODUCT_ID      0x6060
+#define DEVICE_VER      0x0003
+#define MANUFACTURER    PHANTOM
+#define PRODUCT         PHANTOM RGB MOD
+#define DESCRIPTION     QMK keyboard firmware for PHANTOM TKL
 
-/* message strings */
-#define DESCRIPTION     t.m.k. keyboard firmware for Phantom
-
-/* matrix size */
+/* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
+
+// ROWS: Top to bottom, COLS: Left to right
+/* Row pin configuration
+*/
+#define MATRIX_ROW_PINS { B5, B4, B3, B2, B1, B0 }
+/* Column pin configuration
+ */
+#define MATRIX_COL_PINS { D5, C7, C6, D4, D0, E6, F0, F1, F4, F5, F6, F7, D7, D6, D1, D2, D3 }
+#define UNUSED_PINS
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION ROW2COL
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-/* Set 0 if need no debouncing */
-#define DEBOUNCE    7
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCING_DELAY 5
 
-/* Set LED brightness 0-255.
- * This have no effect if sleep LED is enabled. */
-#define LED_BRIGHTNESS  250
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+/* Underlight configuration
+ */
+ #define ws2812_PORTREG PORTE
+ #define ws2812_DDRREG DDRE
+ #define ws2812_pin 2
+ #define RGBLED_NUM 20     // Number of LEDs
+ #define RGBLIGHT_HUE_STEP 10
+ #define RGBLIGHT_SAT_STEP 17
+ #define RGBLIGHT_VAL_STEP 17
+
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
+
+/* disable debug print */
+//#define NO_DEBUG
+
+/* disable print */
+//#define NO_PRINT
+
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 #endif

@@ -85,6 +85,25 @@ typedef struct
     USB_HID_Descriptor_HID_t              NKRO_HID;
     USB_Descriptor_Endpoint_t             NKRO_INEndpoint;
 #endif
+
+#ifdef MIDI_ENABLE
+      // MIDI Audio Control Interface
+      USB_Descriptor_Interface_t                Audio_ControlInterface;
+      USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
+
+      // MIDI Audio Streaming Interface
+      USB_Descriptor_Interface_t                Audio_StreamInterface;
+      USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
+      USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Emb;
+      USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Ext;
+      USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Emb;
+      USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Ext;
+      USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_In_Jack_Endpoint;
+      USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
+      USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
+      USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
+#endif
+
 } USB_Descriptor_Configuration_t;
 
 
@@ -115,9 +134,15 @@ typedef struct
 #   define NKRO_INTERFACE           CONSOLE_INTERFACE
 #endif
 
+#ifdef MIDI_ENABLE
+#   define AC_INTERFACE           (NKRO_INTERFACE + 1)
+#   define AS_INTERFACE           (NKRO_INTERFACE + 2)
+#else
+#   define AS_INTERFACE           NKRO_INTERFACE
+#endif
 
 /* nubmer of interfaces */
-#define TOTAL_INTERFACES            (NKRO_INTERFACE + 1)
+#define TOTAL_INTERFACES            AS_INTERFACE + 1
 
 
 // Endopoint number and size
@@ -145,17 +170,29 @@ typedef struct
 
 #ifdef NKRO_ENABLE
 #   define NKRO_IN_EPNUM            (CONSOLE_OUT_EPNUM + 1)
-#   if defined(__AVR_ATmega32U2__) && NKRO_IN_EPNUM > 4
-#       error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO)"
-#   endif
+#else
+#   define NKRO_IN_EPNUM            CONSOLE_OUT_EPNUM
 #endif
 
+#ifdef MIDI_ENABLE
+#   define MIDI_STREAM_IN_EPNUM     (NKRO_IN_EPNUM + 1)
+// #   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 1)
+#   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 2)
+#   define MIDI_STREAM_IN_EPADDR    (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
+#   define MIDI_STREAM_OUT_EPADDR   (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
+#endif
+
+
+#if defined(__AVR_ATmega32U2__) && MIDI_STREAM_OUT_EPADDR > 4
+# error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI)"
+#endif
 
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 16
+#define MIDI_STREAM_EPSIZE          64
 
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

@@ -1,64 +1,3 @@
-#----------------------------------------------------------------------------
-# On command line:
-#
-# make all = Make software.
-#
-# make clean = Clean out built project files.
-#
-# make coff = Convert ELF to AVR COFF.
-#
-# make extcoff = Convert ELF to AVR Extended COFF.
-#
-# make program = Download the hex file to the device.
-#                Please customize your programmer settings(PROGRAM_CMD)
-#
-# make teensy = Download the hex file to the device, using teensy_loader_cli.
-#               (must have teensy_loader_cli installed).
-#
-# make dfu = Download the hex file to the device, using dfu-programmer (must
-#            have dfu-programmer installed).
-#
-# make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
-#
-# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
-#
-# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
-#
-# make debug = Start either simulavr or avarice as specified for debugging, 
-#              with avr-gdb or avr-insight as the front end for debugging.
-#
-# make filename.s = Just compile filename.c into the assembler code only.
-#
-# make filename.i = Create a preprocessed source file for use in submitting
-#                   bug reports to the GCC project.
-#
-# To rebuild project do "make clean" then "make all".
-#----------------------------------------------------------------------------
-
-# Target file name (without extension).
-TARGET = gh60_lufa
-
-# Directory common source filess exist
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
-# project specific files
-SRC =	keymap_common.c \
-	matrix.c \
-	led.c
-
-ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := keymap_poker.c $(SRC)
-endif
-
-CONFIG_H = config.h
 
 
 # MCU name
@@ -114,22 +53,22 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+BOOTMAGIC_ENABLE ?= yes		# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= yes		# Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes		# Audio control and System control(+450)
+# CONSOLE_ENABLE ?= yes		# Console for debug(+400)
+# COMMAND_ENABLE ?= yes		# Commands for debug and configuration
+KEYBOARD_LOCK_ENABLE ?= yes	# Allow locking of keyboard via magic key
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+# SLEEP_LED_ENABLE ?= yes	# Breathing sleep LED during USB suspend
+NKRO_ENABLE ?= yes			# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# BACKLIGHT_ENABLE ?= yes	# Enable keyboard backlight functionality
+# MIDI_ENABLE ?= YES			# MIDI controls
+# UNICODE_ENABLE ?= YES		# Unicode
+# BLUETOOTH_ENABLE ?= yes	# Enable Bluetooth with the Adafruit EZ-Key HID
 
 
-# Optimize size but this may cause error "relocation truncated to fit"
-#EXTRALDFLAGS = -Wl,--relax
+ifndef QUANTUM_DIR
+	include ../../Makefile
+endif
 
-# Search Path
-VPATH += $(TARGET_DIR)
-VPATH += $(TMK_DIR)
-
-include $(TMK_DIR)/protocol/lufa.mk
-include $(TMK_DIR)/common.mk
-include $(TMK_DIR)/rules.mk
