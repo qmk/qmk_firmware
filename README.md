@@ -7,6 +7,9 @@ Source code is available here: <http://github.com/tmk/tmk_keyboard>
 
 Updates
 -------
+#### 2016/02/10
+core: flabbergast's Chibios protocol was merged from <https://github.com/flabbergast/tmk_keyboard/tree/chibios> (@72b1668). See [tmk_core/protocol/chibios/README.md](tmk_core/protocol/chibios/README.md). Chibios protocol supports Cortex-M such as STM32 and Kinetis.
+
 #### 2015/04/22
 Core library was separated to other branch `core`. <https://github.com/tmk/tmk_keyboard/tree/core>
 
