@@ -170,6 +170,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/rgblight.c
 endif
 
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+  OPT_DEFS += -DTAP_DANCE_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
 

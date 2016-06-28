@@ -46,7 +46,6 @@ bool process_record_quantum(keyrecord_t *record) {
     keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
   #endif
 
-
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
     //   action_t action;
@@ -62,6 +61,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef AUDIO_ENABLE
     process_music(keycode, record) &&
+  #endif
+  #ifdef TAP_DANCE_ENABLE
+    process_tap_dance(keycode, record) &&
   #endif
   #ifndef DISABLE_LEADER
     process_leader(keycode, record) &&
@@ -317,6 +319,9 @@ void matrix_scan_quantum() {
     matrix_scan_music();
   #endif
 
+  #ifdef TAP_DANCE_ENABLE
+    matrix_scan_tap_dance();
+  #endif
   matrix_scan_kb();
 }
 
