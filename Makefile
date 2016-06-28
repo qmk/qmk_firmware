@@ -136,7 +136,6 @@ SRC += $(KEYBOARD_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap.c \
 	$(QUANTUM_DIR)/keycode_config.c \
-	$(QUANTUM_DIR)/process_keycode/process_tap_dance.c \
 	$(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifdef SUBPROJECT
@@ -173,6 +172,7 @@ endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   OPT_DEFS += -DTAP_DANCE_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"

@@ -62,7 +62,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef AUDIO_ENABLE
     process_music(keycode, record) &&
   #endif
+  #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
+  #endif
   #ifndef DISABLE_LEADER
     process_leader(keycode, record) &&
   #endif
@@ -317,7 +319,9 @@ void matrix_scan_quantum() {
     matrix_scan_music();
   #endif
 
-  matrix_scan_tap_dance();
+  #ifdef TAP_DANCE_ENABLE
+    matrix_scan_tap_dance();
+  #endif
   matrix_scan_kb();
 }
 

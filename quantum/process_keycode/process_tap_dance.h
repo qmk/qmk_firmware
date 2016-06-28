@@ -1,6 +1,8 @@
 #ifndef PROCESS_TAP_DANCE_H
 #define PROCESS_TAP_DANCE_H
 
+#ifdef TAP_DANCE_ENABLE
+
 #include <stdbool.h>
 #include <inttypes.h>
 
@@ -43,14 +45,18 @@ typedef struct
     .fn = user_fn                 \
   }
 
-#if TAP_DANCE_ENABLE
 extern const qk_tap_dance_action_t tap_dance_actions[];
-#endif
 
 /* To be used internally */
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_tap_dance (void);
 void reset_tap_dance (qk_tap_dance_state_t *state);
+
+#else
+
+#define TD(n) KC_NO
+
+#endif
 
 #endif

@@ -1,7 +1,5 @@
 #include "quantum.h"
 
-#if TAP_DANCE_ENABLE
-
 static qk_tap_dance_state_t qk_tap_dance_state;
 
 static void _process_tap_dance_action_pair (qk_tap_dance_state_t *state,
@@ -90,15 +88,3 @@ void reset_tap_dance (qk_tap_dance_state_t *state) {
   state->keycode = 0;
   state->count = 0;
 }
-
-#else
-void matrix_scan_tap_dance () {
-}
-
-bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void reset_tap_dance (qk_tap_dance_state_t *state) {
-}
-#endif
