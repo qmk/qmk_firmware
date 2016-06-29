@@ -119,15 +119,12 @@ else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
 endif
 
+
+
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
 else
 	CONFIG_H = $(KEYBOARD_PATH)/config.h
-	ifdef SUBPROJECT
-		ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
-			CONFIG_H = $(SUBPROJECT_PATH)/config.h
-		endif
-	endif
 endif
 
 # # project specific files
