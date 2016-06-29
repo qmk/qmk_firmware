@@ -308,8 +308,11 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 void tap_random_base64(void) {
-  uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
-  // uint8_t key = rand() % 64;
+  #if defined(__AVR_ATmega32U4__)
+    uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
+  #else
+    uint8_t key = rand() % 64;
+  #endif
   switch (key) {
     case 0 ... 25:
       register_code(KC_LSFT);
