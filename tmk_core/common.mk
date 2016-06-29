@@ -1,9 +1,10 @@
 COMMON_DIR = common
-ifeq ($(PLATFORM),LUFA)
-PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
+ifeq ($(PLATFORM),AVR)
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
-PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
 endif
+
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
@@ -19,7 +20,7 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
-ifeq ($(PLATFORM),LUFA)
+ifeq ($(PLATFORM),AVR)
 	SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
 endif 
 
@@ -110,6 +111,10 @@ endif
 # Version string
 OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
 
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
 
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)

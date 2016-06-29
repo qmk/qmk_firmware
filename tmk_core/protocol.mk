@@ -50,11 +50,5 @@ ifdef ADB_MOUSE_ENABLE
 	 OPT_DEFS += -DADB_MOUSE_ENABLE -DMOUSE_ENABLE
 endif
 
-ifeq ($(PLATFORM),CHIBIOS)
-	SRC += $(PROTOCOL_DIR)/chibios/usb_main.c
-	SRC += $(PROTOCOL_DIR)/chibios/main.c
-endif
-
-
 # Search Path
 VPATH += $(TMK_DIR)/protocol
