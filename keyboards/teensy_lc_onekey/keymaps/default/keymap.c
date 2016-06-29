@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "keymap.h"
 
-static const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_A}},
 };  // to test: KC_CAPS, KT_BTLD, KC_A
 
-static const uint16_t fn_actions[] = {
+const uint16_t fn_actions[] = {
 };
