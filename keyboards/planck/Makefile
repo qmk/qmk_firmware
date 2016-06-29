@@ -1,4 +1,5 @@
 
+SUBPROJECT_DEFAULT = rev4
 
 # MCU name
 #MCU = at90usb1287

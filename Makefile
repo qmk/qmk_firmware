@@ -119,6 +119,7 @@ else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
 endif
 
+
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
 else
@@ -137,6 +138,10 @@ SRC += $(KEYBOARD_FILE) \
 	$(QUANTUM_DIR)/keymap.c \
 	$(QUANTUM_DIR)/keycode_config.c \
 	$(QUANTUM_DIR)/process_keycode/process_leader.c
+
+ifdef SUBPROJECT
+	SRC += $(SUBPROJECT_FILE)
+endif
 
 ifdef SUBPROJECT
 	SRC += $(SUBPROJECT_FILE)
