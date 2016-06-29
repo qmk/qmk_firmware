@@ -396,6 +396,7 @@ void eeprom_write_byte(uint8_t *addr, uint8_t data)
 		for (i=0; i < EEPROM_SIZE; i++) {
 			buf[i] = 0xFF;
 		}
+		val = 0;
 		for (p = (uint16_t *)SYMVAL(__eeprom_workarea_start__); p < (uint16_t *)SYMVAL(__eeprom_workarea_end__); p++) {
 			val = *p;
 			if ((val & 255) < EEPROM_SIZE) {
