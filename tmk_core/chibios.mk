@@ -105,7 +105,7 @@ endif
 include $(PLATFORM_MK)
 
 
-BOARD_MK = $(TARGET_DIR)/boards/$(BOARD)
+BOARD_MK = $(KEYBOARD_PATH)/boards/$(BOARD)/board.mk
 ifeq ("$(wildcard $(BOARD_MK))","")
 	BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
 	ifeq ("$(wildcard $(BOARD_MK))","")
@@ -126,8 +126,8 @@ include $(PORT_V)
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 # Define linker script file here
-ifneq ("$(wildcard $(TARGET_DIR)/ld/$(MCU_LDSCRIPT).ld)","")
-LDSCRIPT = $(TARGET_DIR)/ld/$(MCU_LDSCRIPT).ld
+ifneq ("$(wildcard $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld)","")
+LDSCRIPT = $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld
 else
 LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
@@ -231,12 +231,12 @@ UDEFS += $(OPT_DEFS)
 # Define ASM defines here
 UADEFS += $(OPT_DEFS)
 # bootloader definitions may be used in the startup .s file
-ifneq ("$(wildcard $(TARGET_DIR)/bootloader_defs.h)","")
-    UADEFS += -include $(TARGET_DIR)/bootloader_defs.h
-    UDEFS += -include $(TARGET_DIR)/bootloader_defs.h
-else ifneq ("$(wildcard $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h)","")
-    UADEFS += -include $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h
-    UDEFS += -include $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h
+ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
+    UADEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
+    UDEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
+    UADEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
+    UDEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
 endif
 
 # List all user directories here
