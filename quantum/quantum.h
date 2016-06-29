@@ -22,6 +22,7 @@
 #include <avr/interrupt.h>
 #include "led.h"
 #include "action_util.h"
+#include <stdlib.h>
 
 
 extern uint32_t default_layer_state;
