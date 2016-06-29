@@ -30,9 +30,3 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t fn_actions[] = {
 };
-
-/* translates Fn keycode to action */
-action_t keymap_fn_to_action(uint16_t keycode)
-{
-    return (action_t){ .code = fn_actions[FN_INDEX(keycode)] };
-}

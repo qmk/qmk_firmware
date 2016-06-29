@@ -41,9 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 
-/* translates Fn keycode to action */
-action_t keymap_fn_to_action(uint16_t keycode);
-
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
 
