@@ -17,22 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYMAP_COMMON_H
 #define KEYMAP_COMMON_H
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "keycode.h"
-#include "action.h"
-#include "action_macro.h"
-#include "action_util.h"
-#include "report.h"
-#include "host.h"
-#include "print.h"
-#include "debug.h"
-#include "keymap.h"
-
-
-extern const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-extern const uint16_t fn_actions[];
-
+#include "quantum.h"
 
 #ifdef INFINITY_PROTOTYPE
 
