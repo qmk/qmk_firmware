@@ -125,6 +125,7 @@ ifeq ($(PLATFORM),LUFA)
 	include $(TMK_PATH)/protocol/lufa.mk
 	include $(TMK_PATH)/avr_rules.mk
 else ifeq ($(PLATFORM),CHIBIOS)
+	include $(TMK_PATH)/protocol/chibios.mk
 	include $(TMK_PATH)/tool/chibios/chibios.mk
 else
 	$(error Unknown platform)

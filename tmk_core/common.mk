@@ -1,4 +1,9 @@
 COMMON_DIR = common
+ifeq ($(PLATFORM),LUFA)
+PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
+else ifeq ($(PLATFORM),CHIBIOS)
+PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+endif
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
 	$(COMMON_DIR)/action.c \
@@ -8,21 +13,19 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
-	$(COMMON_DIR)/util.c
+	$(COMMON_DIR)/util.c \
+	$(COMMON_DIR)/eeconfig.c \
+	$(PLATFORM_COMMON_DIR)/suspend.c \
+	$(PLATFORM_COMMON_DIR)/timer.c \
+	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
 ifeq ($(PLATFORM),LUFA)
-	SRC += \
-		$(COMMON_DIR)/avr/suspend.c \
-		$(COMMON_DIR)/avr/xprintf.S \
-		$(COMMON_DIR)/avr/timer.c \
-		$(COMMON_DIR)/avr/bootloader.c
+	SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
 endif 
 
 ifeq ($(PLATFORM),CHIBIOS)
-	SRC += $(COMMON_DIR)/chibios/suspend.c \
-		$(COMMON_DIR)/chibios/printf.c \
-		$(COMMON_DIR)/chibios/timer.c \
-		$(COMMON_DIR)/chibios/bootloader.c
+	SRC += $(PLATFORM_COMMON_DIR)/printf.c
+	SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
 
@@ -30,15 +33,9 @@ endif
 # Option modules
 ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
     SRC += $(COMMON_DIR)/bootmagic.c
-	ifeq ($(PLATFORM),LUFA)
-		SRC += $(COMMON_DIR)/avr/eeconfig.c
-	endif
     OPT_DEFS += -DBOOTMAGIC_ENABLE
 else
     SRC += $(COMMON_DIR)/magic.c
-	ifeq ($(PLATFORM),LUFA)
-		SRC += $(COMMON_DIR)/avr/eeconfig.c
-	endif
 endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
@@ -91,9 +88,6 @@ endif
 
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     SRC += $(COMMON_DIR)/backlight.c
-	ifeq ($(PLATFORM),LUFA)
-		SRC += $(COMMON_DIR)/avr/eeconfig.c
-    endif
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 

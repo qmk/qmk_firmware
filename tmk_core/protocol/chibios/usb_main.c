@@ -793,6 +793,10 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     osalSysUnlockFromISR();
     return;
 
+  case USB_EVENT_UNCONFIGURED:
+	  //TOOD: This might need to be handled
+	  return;
+
   case USB_EVENT_SUSPEND:
     //TODO: from ISR! print("[S]");
 #ifdef SLEEP_LED_ENABLE

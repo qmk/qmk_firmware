@@ -4,9 +4,9 @@
 #if defined(__AVR__)
 #include <avr/pgmspace.h>
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 #endif
+#include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
 #ifdef BACKLIGHT_ENABLE

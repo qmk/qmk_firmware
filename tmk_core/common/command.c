@@ -239,7 +239,7 @@ static void print_status(void)
 #ifdef NKRO_ENABLE
     print_val_hex8(keyboard_nkro);
 #endif
-    print_val_hex32(timer_count);
+    print_val_hex32(timer_read32());
 
 #ifdef PROTOCOL_PJRC
     print_val_hex8(UDCON);
