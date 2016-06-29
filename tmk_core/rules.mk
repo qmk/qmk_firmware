@@ -51,6 +51,13 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
+ifdef quick
+	QUICK = $(quick)
+endif
+
+QUICK ?= false
+AUTOGEN ?= false
+
 ifneq ($(shell awk --version 2>/dev/null),)
 	AWK=awk
 else
@@ -524,7 +531,12 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
 	@$(BUILD_CMD)
-	@$(COPY) $@ $(TARGET).hex
+	@if $(AUTOGEN); then \
+		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYBOARD)_$(KEYMAP).hex\n"; \
+		$(COPY) $@ $(KEYMAP_PATH)/$(KEYBOARD)_$(KEYMAP).hex; \
+	else \
+		$(COPY) $@ $(TARGET).hex; \
+	fi
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
@@ -570,7 +582,7 @@ $(OBJDIR)/%.o : %.c
 $(OBJDIR)/%.o : %.cpp
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
-	$(CC) -c $(ALL_CPPFLAGS) $< -o $@
+	$(eval CMD=$(CC) -c $(ALL_CPPFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
@@ -600,9 +612,11 @@ $(OBJDIR)/%.o : %.S
 clean: begin clean_list end
 
 clean_list :
-	$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
-	$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
-	$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
+	@$(REMOVE) -r $(BUILD_DIR)
+	@$(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR)
+	@$(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR)
+	@if $$SUBPROJECT; then $(REMOVE) -r $(SUBPROJECT_PATH)/$(BUILD_DIR); fi
+	@$(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR)
 
 show_path:
 	@echo VPATH=$(VPATH)

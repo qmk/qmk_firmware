@@ -1,4 +1,5 @@
 
+SUBPROJECT_DEFAULT = rev2
 
 # MCU name
 MCU = atmega32u4

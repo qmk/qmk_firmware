@@ -23,8 +23,7 @@ Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-a
 
 Designed and built in Felton, CA, Clueboards keyboard emphasize quality and locally sourced components, available on [clueboard.co](http://clueboard.co)
 
-* [Clueboard rev.1](/keyboards/clueboard1/) - The old Clueboard.
-* [Clueboard rev.2](/keyboards/clueboard2/) - New and improved! The Clueboard, revision 2.
+* [Clueboard](/keyboards/clueboard/) - The 66% custom keyboard.
 * [Cluepad](/keyboards/cluepad/) - A mechanical numpad with QMK superpowers.
 
 

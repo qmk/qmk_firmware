@@ -1,8 +1,4 @@
-#include "clueboard1.h"
-
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-#endif
+#include "clueboard.h"
 
 // Used for SHIFT_ESC
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
