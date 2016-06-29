@@ -1,7 +1,12 @@
 #ifndef QUANTUM_H
 #define QUANTUM_H
 
+#if defined(__AVR__)
 #include <avr/pgmspace.h>
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#endif
 #include "matrix.h"
 #include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
@@ -23,12 +28,9 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include <stddef.h>
-#include <avr/io.h>
-#include <util/delay.h>
 #include "bootloader.h"
 #include "timer.h"
 #include "config_common.h"
-#include <avr/interrupt.h>
 #include "led.h"
 #include "action_util.h"
 

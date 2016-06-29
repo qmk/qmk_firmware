@@ -19,7 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
+#if defined(__AVR__)
 #include <util/delay.h>
+#include <stdio.h>
+#endif
 #include "action.h"
 #include "action_macro.h"
 #include "debug.h"
@@ -32,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern keymap_config_t keymap_config;
 
-#include <stdio.h>
 #include <inttypes.h>
 
 /* converts key to action */

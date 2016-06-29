@@ -83,8 +83,8 @@ endif
 #
 
 # Imported source files and paths
-CHIBIOS ?= $(TMK_DIR)/../lib/chibios
-CHIBIOS_CONTRIB ?= $(TMK_DIR)/../lib/chibios-contrib
+CHIBIOS ?= $(TMK_PATH)/../lib/chibios
+CHIBIOS_CONTRIB ?= $(TMK_PATH)/../lib/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and 
 # for things hardware in the contrib repository
 STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
@@ -142,8 +142,6 @@ CSRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
-       $(TMK_DIR)/protocol/chibios/usb_main.c \
-       $(TMK_DIR)/protocol/chibios/main.c \
        $(SRC)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
@@ -177,13 +175,12 @@ ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 INCDIR = $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various \
-         $(TMK_DIR) $(COMMON_DIR) $(TMK_DIR)/protocol/chibios \
-         $(TMK_DIR)/protocol $(TARGET_DIR)
+         $(STREAMSINC) $(CHIBIOS)/os/various 
 
 #
 # Project, sources and paths
 ##############################################################################
+
 
 ##############################################################################
 # Compiler settings
@@ -242,7 +239,7 @@ else ifneq ("$(wildcard $(TARGET_DIR)/boards/$(BOARD)/bootloader_defs.h)","")
 endif
 
 # List all user directories here
-#UINCDIR =
+UINCDIR = $(VPATH)
 
 # List the user directory to look for the libraries here
 #ULIBDIR =
@@ -254,8 +251,14 @@ endif
 # End of user defines
 ##############################################################################
 
+OLDVPATH:=$(VPATH)
+
 RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
 ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
 RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 endif
 include $(RULESPATH)/rules.mk
+
+# We need to fix the VPATH, since the ChibiOS rules assume that all sources 
+# have absolute paths, creates a new VPATH path based on that
+VPATH:=$(VPATH) $(OLDVPATH)

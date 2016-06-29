@@ -8,21 +8,37 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
-	$(COMMON_DIR)/util.c \
-	$(COMMON_DIR)/avr/suspend.c \
-	$(COMMON_DIR)/avr/xprintf.S \
-	$(COMMON_DIR)/avr/timer.c \
-	$(COMMON_DIR)/avr/bootloader.c
+	$(COMMON_DIR)/util.c
+
+ifeq ($(PLATFORM),LUFA)
+	SRC += \
+		$(COMMON_DIR)/avr/suspend.c \
+		$(COMMON_DIR)/avr/xprintf.S \
+		$(COMMON_DIR)/avr/timer.c \
+		$(COMMON_DIR)/avr/bootloader.c
+endif 
+
+ifeq ($(PLATFORM),CHIBIOS)
+	SRC += $(COMMON_DIR)/chibios/suspend.c \
+		$(COMMON_DIR)/chibios/printf.c \
+		$(COMMON_DIR)/chibios/timer.c \
+		$(COMMON_DIR)/chibios/bootloader.c
+endif
+
 
 
 # Option modules
 ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
     SRC += $(COMMON_DIR)/bootmagic.c
-    SRC += $(COMMON_DIR)/avr/eeconfig.c
+	ifeq ($(PLATFORM),LUFA)
+		SRC += $(COMMON_DIR)/avr/eeconfig.c
+	endif
     OPT_DEFS += -DBOOTMAGIC_ENABLE
 else
     SRC += $(COMMON_DIR)/magic.c
-    SRC += $(COMMON_DIR)/avr/eeconfig.c
+	ifeq ($(PLATFORM),LUFA)
+		SRC += $(COMMON_DIR)/avr/eeconfig.c
+	endif
 endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
@@ -75,7 +91,9 @@ endif
 
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     SRC += $(COMMON_DIR)/backlight.c
-    SRC += $(COMMON_DIR)/avr/eeconfig.c
+	ifeq ($(PLATFORM),LUFA)
+		SRC += $(COMMON_DIR)/avr/eeconfig.c
+    endif
     OPT_DEFS += -DBACKLIGHT_ENABLE
 endif
 
@@ -101,3 +119,6 @@ OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 
 
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
+ifeq ($(PLATFORM),CHIBIOS)
+VPATH += $(TMK_PATH)/$(COMMON_DIR)/chibios
+endif

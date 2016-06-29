@@ -17,7 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <stdint.h>
 #include <stdbool.h>
+#if defined(__AVR__)
 #include <avr/io.h>
+#endif
 #include "wait.h"
 #include "print.h"
 #include "debug.h"

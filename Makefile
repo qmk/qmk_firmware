@@ -28,6 +28,7 @@ endif
 TOP_DIR = $(tmk_root)
 TMK_DIR = tmk_core
 TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
+LIB_PATH = $(TOP_DIR)/lib
 
 QUANTUM_DIR = quantum
 QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
@@ -80,7 +81,7 @@ endif
 SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
-	$(QUANTUM_DIR)/keymap.c \
+	$(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/keycode_config.c
 
 ifndef CUSTOM_MATRIX
@@ -111,8 +112,24 @@ VPATH += $(QUANTUM_PATH)
 VPATH += $(QUANTUM_PATH)/keymap_extras
 VPATH += $(QUANTUM_PATH)/audio
 
-include $(TMK_PATH)/protocol/lufa.mk
+
+# We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
+ifdef MCU_FAMILY
+	PLATFORM=CHIBIOS
+else
+	PLATFORM=LUFA
+endif
+
 include $(TMK_PATH)/common.mk
+ifeq ($(PLATFORM),LUFA)
+	include $(TMK_PATH)/protocol/lufa.mk
+	include $(TMK_PATH)/avr_rules.mk
+else ifeq ($(PLATFORM),CHIBIOS)
+	include $(TMK_PATH)/tool/chibios/chibios.mk
+else
+	$(error Unknown platform)
+endif
+
 include $(TMK_PATH)/rules.mk
 
 GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")

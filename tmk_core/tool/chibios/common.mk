@@ -1,3 +1,4 @@
+i hope this is not included
 COMMON_DIR = $(TMK_DIR)/common
 SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
@@ -10,10 +11,6 @@ SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
-	$(COMMON_DIR)/chibios/suspend.c \
-	$(COMMON_DIR)/chibios/printf.c \
-	$(COMMON_DIR)/chibios/timer.c \
-	$(COMMON_DIR)/chibios/bootloader.c
 
 
 # Option modules

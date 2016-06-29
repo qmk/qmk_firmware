@@ -1,24 +1,6 @@
-# Target file name (without extension).
-PROJECT = ch
-TARGET = alps64
-
-# Directory common source files exist
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
 # project specific files
 SRC =	matrix.c \
 	    led.c
-
-ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := keymap_plain.c $(SRC)
-endif
-
-CONFIG_H = config.h
 
 ## chip/board settings
 # the next two should match the directories in
@@ -55,13 +37,14 @@ ARMV = 6
 #   comment out to disable the options.
 #
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-## BOOTMAGIC is not supported on STM32 chips yet.
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
+MOUSEKEY_ENABLE ?= yes	# Mouse keys
+EXTRAKEY_ENABLE ?= yes	# Audio control and System control
+CONSOLE_ENABLE ?= yes	# Console for debug
+COMMAND_ENABLE ?= yes    # Commands for debug and configuration
+SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE ?= yes	    # USB Nkey Rollover
+CUSTOM_MATRIX ?= yes # Custom matrix file
 
-include $(TMK_DIR)/tool/chibios/common.mk
-include $(TMK_DIR)/tool/chibios/chibios.mk
+ifndef QUANTUM_DIR
+	include ../../Makefile
+endif

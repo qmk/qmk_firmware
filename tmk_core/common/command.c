@@ -219,8 +219,11 @@ static void print_version(void)
 	    " " STR(BOOTLOADER_SIZE) "\n");
 
     print("GCC: " STR(__GNUC__) "." STR(__GNUC_MINOR__) "." STR(__GNUC_PATCHLEVEL__)
+#if defined(__AVR__)
           " AVR-LIBC: " __AVR_LIBC_VERSION_STRING__
-          " AVR_ARCH: avr" STR(__AVR_ARCH__) "\n");
+          " AVR_ARCH: avr" STR(__AVR_ARCH__)
+#endif
+		  "\n");
 
 	return;
 }
