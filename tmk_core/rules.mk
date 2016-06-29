@@ -75,7 +75,7 @@ endif
 TAB_LOG = printf "\n$$LOG\n\n" | $(AWK) '{ sub(/^/," | "); print }'
 TAB_LOG_PLAIN = printf "$$LOG\n"
 AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'
-AWK_CMD = $(AWK) '{ printf "%-69s", $$0; }'
+AWK_CMD = $(AWK) '{ printf "%-99s", $$0; }'
 PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && false
 PRINT_WARNING = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
 PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && false
