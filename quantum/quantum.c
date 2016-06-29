@@ -307,6 +307,41 @@ void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
+void tap_random_base64(void) {
+  uint8_t key = (TCNT0 + TCNT1 + TCNT3 + TCNT4) % 64;
+  // uint8_t key = rand() % 64;
+  switch (key) {
+    case 0 ... 25:
+      register_code(KC_LSFT);
+      register_code(key + KC_A);
+      unregister_code(key + KC_A);
+      unregister_code(KC_LSFT);
+      break;
+    case 26 ... 51:
+      register_code(key - 26 + KC_A);
+      unregister_code(key - 26 + KC_A);
+      break;
+    case 52:
+      register_code(KC_0);
+      unregister_code(KC_0);
+      break;
+    case 53 ... 61:
+      register_code(key - 53 + KC_1);
+      unregister_code(key - 53 + KC_1);
+      break;
+    case 62:
+      register_code(KC_LSFT);
+      register_code(KC_EQL);
+      unregister_code(KC_EQL);
+      unregister_code(KC_LSFT);
+      break;
+    case 63:
+      register_code(KC_SLSH);
+      unregister_code(KC_SLSH);
+      break;
+  }
+}
+
 void matrix_init_quantum() {
   #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
