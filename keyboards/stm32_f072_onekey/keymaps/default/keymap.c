@@ -15,14 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "keycode.h"
-#include "action.h"
-#include "action_macro.h"
-#include "report.h"
-#include "host.h"
-#include "print.h"
-#include "debug.h"
-#include "keymap.h"
+#include "stm32_f072_onekey.h"
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_CAPS}}, // test with KC_CAPS, KC_A, KC_BTLD

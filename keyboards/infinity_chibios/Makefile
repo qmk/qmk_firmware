@@ -1,24 +1,6 @@
-# Target file name (without extension).
-PROJECT = ch
-
-# Directory common source files exist
-TMK_DIR = ../../tmk_core
-
-# Directory keyboard dependent files exist
-TARGET_DIR = .
-
 # project specific files
 SRC =	matrix.c \
-	keymap_common.c \
 	led.c
-
-ifdef KEYMAP
-    SRC := keymap_$(KEYMAP).c $(SRC)
-else
-    SRC := keymap_plain.c $(SRC)
-endif
-
-CONFIG_H = config.h
 
 ## chip/board settings
 # - the next two should match the directories in
@@ -73,17 +55,16 @@ OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
+MOUSEKEY_ENABLE ?= yes	# Mouse keys
+EXTRAKEY_ENABLE ?= yes	# Audio control and System control
+CONSOLE_ENABLE ?= yes	# Console for debug
+COMMAND_ENABLE ?= yes    # Commands for debug and configuration
+SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE ?= yes	    # USB Nkey Rollover
+CUSTOM_MATRIX ?= yes # Custom matrix file
 
-include $(TMK_DIR)/tool/chibios/common.mk
-include $(TMK_DIR)/tool/chibios/chibios.mk
-
-program: $(BUILDDIR)/$(PROJECT).bin
-	dfu-util -D $(BUILDDIR)/$(PROJECT).bin
+ifndef QUANTUM_DIR
+	include ../../Makefile
+endif

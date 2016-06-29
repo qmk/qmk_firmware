@@ -1,4 +1,4 @@
-#include "keymap_common.h"
+#include "infinity_chibios.h"
 
 const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
