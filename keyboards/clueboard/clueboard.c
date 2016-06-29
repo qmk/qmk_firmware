@@ -1,4 +1,9 @@
-#include "clueboard1.h"
+#include "clueboard.h"
+
+void led_init_ports() {
+    // * Set our LED pins as output
+    DDRB |= (1<<4);
+}
 
 void led_set_kb(uint8_t usb_led) {
     DDRF |= (1<<0);
