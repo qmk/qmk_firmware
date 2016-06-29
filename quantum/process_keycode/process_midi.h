@@ -1,24 +1,9 @@
-/*
-Copyright 2015 Jack Humbert <jack.humb@gmail.com>
+#ifndef PROCESS_MIDI_H
+#define PROCESS_MIDI_H
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
+#include "quantum.h"
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#ifndef KEYMAP_MIDI_H
-#define KEYMAP_MIDI_H
-
-#include <lufa.h>
+bool process_midi(uint16_t keycode, keyrecord_t *record);
 
 #define MIDI(n) ((n) | 0x6000)
 #define MIDI12 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000, 0x6000

@@ -1,22 +1,16 @@
-/*
-Copyright 2016 Jack Humbert <jack.humb@gmail.com>
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#ifndef UNICODE_H
-#define UNICODE_H
+#ifndef PROCESS_UNICODE_H
+#define PROCESS_UNICODE_H
 
 #include "quantum.h"
-#include <math.h>
+
+#define UC_OSX 0
+#define UC_LNX 1
+#define UC_WIN 2
+#define UC_BSD 3
+
+void set_unicode_input_mode(uint8_t os_target);
+
+bool process_unicode(uint16_t keycode, keyrecord_t *record);
 
 #define UC_BSPC	UC(0x0008)
 

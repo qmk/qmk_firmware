@@ -87,7 +87,7 @@ uint8_t matrix_scan(void)
     matrix[0] = (PINC&(1<<7) ? 0 : (1<<0)) | (PINB&(1<<7) ? 0 : (1<<1)) | (PINB&(1<<5) ? 0 : (1<<2));
     matrix[1] = (PIND&(1<<6) ? 0 : (1<<0)) | (PIND&(1<<1) ? 0 : (1<<1)) | (PIND&(1<<4) ? 0 : (1<<2));
 
-    matrix_scan_kb();
+    matrix_scan_quantum();
 
     return 1;
 }
