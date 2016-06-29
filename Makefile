@@ -147,6 +147,10 @@ ifdef SUBPROJECT
 	SRC += $(SUBPROJECT_FILE)
 endif
 
+ifdef SUBPROJECT
+	SRC += $(SUBPROJECT_FILE)
+endif
+
 ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
