@@ -577,6 +577,18 @@ return MACRO_NONE;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+  ergodox_led_all_on();
+  for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
+    ergodox_led_all_set (i); 
+    _delay_ms (5); 
+  }
+  _delay_ms(1000);
+  for (int i = LED_BRIGHTNESS_LO; i > 0; i--) {
+    ergodox_led_all_set (i); 
+    _delay_ms (10);
+  }
+  ergodox_led_all_off();
+  ergodox_led_all_set(LED_BRIGHTNESS_HI);
 
 };
 
