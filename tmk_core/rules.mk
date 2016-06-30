@@ -622,7 +622,8 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/*/.)))
+SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/**/*/.)))
+SUBDIRS := $(SUBDIRS) $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/*/.)))
 all-keyboards-defaults-%:
 	@for x in $(SUBDIRS) ; do \
 		printf "Compiling with default: $$x" | $(AWK_CMD); \
@@ -641,7 +642,7 @@ define make_keyboard
 $(eval KEYBOARD=$(patsubst /keyboards/%,%,$1))
 $(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$1/keymaps/*/.))))
 @for x in $(KEYMAPS) ; do \
-	printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
+	printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-118s", $$0; }'; \
 	LOG=$$($(MAKE) -C $(TOP_DIR)$1 $2 keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 done
 endef
@@ -664,7 +665,7 @@ all-keymaps-%:
 	$(eval MAKECONFIG=$(call get_target,all-keymaps,$@))
 	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/keymaps/*/.))))
 	@for x in $(KEYMAPS) ; do \
-		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-88s", $$0; }'; \
+		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-118s", $$0; }'; \
 		LOG=$$($(MAKE) $(subst all-keymaps-,,$@) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 	done
 
