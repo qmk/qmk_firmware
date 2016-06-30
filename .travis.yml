@@ -20,5 +20,5 @@ addons:
     - pandoc
     - gcc-arm-none-eabi
     - binutils-arm-none-eabi
-    - arm-none-eabi-newlib
+    - libnewlib-arm-none-eabi
 after_success: bash util/travis_compiled_push.sh
