@@ -1,6 +1,13 @@
 #ifndef PLANCK_H
 #define PLANCK_H
 
+#ifdef SUBPROJECT_rev3
+    #include "rev3.h"
+#endif
+#ifdef SUBPROJECT_rev4
+    #include "rev4.h"
+#endif
+
 #include "quantum.h"
 
 #define PLANCK_MIT( \

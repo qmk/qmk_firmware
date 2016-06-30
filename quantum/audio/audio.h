@@ -1,3 +1,6 @@
+#ifndef AUDIO_H
+#define AUDIO_H
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
@@ -6,9 +9,6 @@
 #include "song_list.h"
 #include "voices.h"
 #include "quantum.h"
-
-#ifndef AUDIO_H
-#define AUDIO_H
 
 // Largely untested PWM audio mode (doesn't sound as good)
 // #define PWM_AUDIO

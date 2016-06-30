@@ -100,6 +100,8 @@ uint8_t matrix_scan(void)
         }
     }
 
+    matrix_scan_quantum();
+
     return 1;
 }
 
