@@ -8,8 +8,8 @@ OBJDUMP = avr-objdump
 SIZE = avr-size
 AR = avr-ar rcs
 NM = avr-nm
-HEX = $(OBJCOPY) -O $(FORMAT)
-EEP = 
+HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
+EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) 
 
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
