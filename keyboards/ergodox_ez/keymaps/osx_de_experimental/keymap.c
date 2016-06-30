@@ -15,7 +15,6 @@
 #include "keymap_extras/keymap_dvorak.h"
 #include "keymap_extras/keymap_german.h"
 #include "keymap_extras/keymap_norwegian.h"
-#include "keymap_extras/keymap_fr_ch.h"
 #include "keymap_extras/keymap_german_osx.h"
 #include "keymap_extras/keymap_spanish.h"
 #include "keymap_extras/keymap_bepo.h"
