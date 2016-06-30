@@ -112,12 +112,18 @@ NM = arm-none-eabi-nm
 HEX = $(OBJCOPY) -O $(FORMAT)
 EEP = 
 
+THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB 
+
 CFLAGS += -fomit-frame-pointer 
 CFLAGS += -falign-functions=16
 CFLAGS += -ffunction-sections
 CFLAGS += -fdata-sections
 CFLAGS += -fno-common
-CFLAGS += -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
+CFLAGS += $(THUMBFLAGS) 
+
+ASFLAGS += $(THUMBFLAGS)
+
+CPPFLAGS += $(THUMBFLAGS)
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS += -mno-thumb-interwork -mthumb
