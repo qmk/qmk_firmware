@@ -65,20 +65,22 @@ endif
 
 KEYBOARD_PATH = $(TOP_DIR)/keyboards/$(KEYBOARD)
 
-ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
-	KEYBOARD_FILE = keyboards/$(KEYBOARD)/$(KEYBOARD).c
-	ifndef ARCH
-		include $(KEYBOARD_PATH)/Makefile
-	endif
-else 
-$(error "$(KEYBOARD_PATH)/$(KEYBOARD).c" does not exist)
-endif
-
 ifdef sub
 	SUBPROJECT=$(sub)
 endif
 ifdef subproject
 	SUBPROJECT=$(subproject)
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
+	KEYBOARD_FILE = keyboards/$(KEYBOARD)/$(KEYBOARD).c
+	ifndef ARCH
+		ifneq ("$(wildcard $(KEYBOARD_PATH)/Makefile)","")
+			include $(KEYBOARD_PATH)/Makefile
+		endif
+	endif
+else 
+$(error "$(KEYBOARD_PATH)/$(KEYBOARD).c" does not exist)
 endif
 
 ifdef SUBPROJECT_DEFAULT
@@ -110,7 +112,13 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/keymap.c)","")
 	KEYMAP_FILE = keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/keymap.c
 	-include $(KEYMAP_PATH)/Makefile
 else 
+	ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/keymap.c)","")
 $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
+	else
+		KEYMAP_PATH = $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)
+		KEYMAP_FILE = keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/keymap.c
+		-include $(KEYMAP_PATH)/Makefile
+	endif
 endif
 
 ifdef SUBPROJECT
