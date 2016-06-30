@@ -333,13 +333,13 @@ gccversion :
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
-	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
+	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
 	@$(COPY) $@ $(TARGET).hex
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
-	$(eval CMD=$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0)
+	$(eval CMD=$(EEP) $< $@ || exit 0)
 	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.

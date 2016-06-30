@@ -8,6 +8,8 @@ OBJDUMP = avr-objdump
 SIZE = avr-size
 AR = avr-ar rcs
 NM = avr-nm
+HEX = $(OBJCOPY) -O $(FORMAT)
+EEP = 
 
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
