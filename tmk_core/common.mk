@@ -82,7 +82,7 @@ ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
-    SRC += $(COMMON_DIR)/avr/sleep_led.c
+    SRC += $(PLATFORM_COMMON_DIR)/sleep_led.c
     OPT_DEFS += -DSLEEP_LED_ENABLE
     OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif

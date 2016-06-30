@@ -1,63 +1,4 @@
-##############################################################################
-# Build global options
-# NOTE: Can be overridden externally.
-#
-
-# Compiler options here.
-ifeq ($(USE_OPT),)
-  USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16 -std=gnu99 -DPROTOCOL_CHIBIOS
-endif
-
-# C specific options here (added to USE_OPT).
-ifeq ($(USE_COPT),)
-  USE_COPT =
-endif
-
-# include specific config.h?
-ifdef CONFIG_H
-    USE_COPT += -include $(CONFIG_H)
-endif
-
-# C++ specific options here (added to USE_OPT).
-ifeq ($(USE_CPPOPT),)
-  USE_CPPOPT = -fno-rtti
-endif
-
-# Enable this if you want the linker to remove unused code and data
-ifeq ($(USE_LINK_GC),)
-  USE_LINK_GC = yes
-endif
-
-# Linker extra options here.
-ifeq ($(USE_LDOPT),)
-  USE_LDOPT =
-endif
-
-# Enable this if you want link time optimizations (LTO)
-ifeq ($(USE_LTO),)
-  USE_LTO = no
-endif
-
-# If enabled, this option allows to compile the application in THUMB mode.
-ifeq ($(USE_THUMB),)
-  USE_THUMB = yes
-endif
-
-# Enable this if you want to see the full log while compiling.
-ifeq ($(USE_VERBOSE_COMPILE),)
-  USE_VERBOSE_COMPILE = no
-endif
-
-# If enabled, this option makes the build process faster by not compiling
-# modules not used in the current configuration.
-ifeq ($(USE_SMART_BUILD),)
-  USE_SMART_BUILD = yes
-endif
-
-#
-# Build global options
-##############################################################################
-
+# Hey Emacs, this is a -*- makefile -*-
 ##############################################################################
 # Architecture or project specific options
 #
@@ -125,6 +66,11 @@ include $(PORT_V)
 # Other files (optional).
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
+RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
+ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
+RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
+endif
+
 # Define linker script file here
 ifneq ("$(wildcard $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld)","")
 LDSCRIPT = $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld
@@ -132,9 +78,7 @@ else
 LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
-# C sources that can be compiled in ARM or THUMB mode depending on the global
-# setting.
-CSRC = $(STARTUPSRC) \
+SRC += $(STARTUPSRC) \
        $(KERNSRC) \
        $(PORTSRC) \
        $(OSALSRC) \
@@ -142,37 +86,11 @@ CSRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
-       $(SRC)
+	   $(STARTUPASM) \
+	   $(PORTASM) \
+	   $(OSALASM)         
 
-# C++ sources that can be compiled in ARM or THUMB mode depending on the global
-# setting.
-CPPSRC =
-
-# C sources to be compiled in ARM mode regardless of the global setting.
-# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
-#       option that results in lower performance and larger code size.
-ACSRC =
-
-# C++ sources to be compiled in ARM mode regardless of the global setting.
-# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
-#       option that results in lower performance and larger code size.
-ACPPSRC =
-
-# C sources to be compiled in THUMB mode regardless of the global setting.
-# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
-#       option that results in lower performance and larger code size.
-TCSRC =
-
-# C sources to be compiled in THUMB mode regardless of the global setting.
-# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
-#       option that results in lower performance and larger code size.
-TCPPSRC =
-
-# List ASM source files here
-ASMSRC =
-ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
-
-INCDIR = $(CHIBIOS)/os/license \
+EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various 
@@ -185,81 +103,31 @@ INCDIR = $(CHIBIOS)/os/license \
 ##############################################################################
 # Compiler settings
 #
+CC = arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
+OBJDUMP = arm-none-eabi-objdump
+SIZE = arm-none-eabi-size -A
+AR = arm-none-eabi-ar
+NM = arm-none-eabi-nm
 
-#TRGT = arm-elf-
-TRGT = arm-none-eabi-
-CC   = $(TRGT)gcc
-CPPC = $(TRGT)g++
-# Enable loading with g++ only if you need C++ runtime support.
-# NOTE: You can use C++ even without C++ support if you are careful. C++
-#       runtime support makes code size explode.
-LD   = $(TRGT)gcc
-#LD   = $(TRGT)g++
-CP   = $(TRGT)objcopy
-AS   = $(TRGT)gcc -x assembler-with-cpp
-AR   = $(TRGT)ar
-OD   = $(TRGT)objdump
-SZ   = $(TRGT)size -A
-HEX  = $(CP) -O ihex
-BIN  = $(CP) -O binary
-
-# ARM-specific options here
-AOPT =
-
-# THUMB-specific options here
-TOPT = -mthumb -DTHUMB
-
-# Define C warning options here
-CWARN = -Wall -Wstrict-prototypes -Wno-missing-field-initializers -Werror
-#CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes -Wno-missing-field-initializers -Werror
-
-# Define C++ warning options here
-CPPWARN = -Wall -Wextra -Wundef
-
-#
-# Compiler settings
-##############################################################################
-
-##############################################################################
-# Start of user section
-#
-
-# List all user C define here, like -D_DEBUG=1
-## Select which interfaces to include here!
-UDEFS += $(OPT_DEFS)
+OPT_DEFS += -DPROTOCOL_CHIBIOS
 
 # Define ASM defines here
-UADEFS += $(OPT_DEFS)
 # bootloader definitions may be used in the startup .s file
 ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
-    UADEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
-    UDEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
+    OPT_DEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
 else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
-    UADEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
-    UDEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
+    OPT_DEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
 endif
 
-# List all user directories here
-UINCDIR = $(VPATH)
+LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
+LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
+LDSCRIPT := -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
 
-# List the user directory to look for the libraries here
-#ULIBDIR =
+MCUFLAGS = -mcpu=$(MCU)
+CPUDEFS =
+THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
+THUMBLDFLAGS = -mno-thumb-interwork -mthumb
 
-# List all user libraries here
-#ULIBS =
-
-#
-# End of user defines
-##############################################################################
-
-OLDVPATH:=$(VPATH)
-
-RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
-ifeq ("$(wildcard $(RULESPATH)/rules.mk)","")
-RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
-endif
-include $(RULESPATH)/rules.mk
-
-# We need to fix the VPATH, since the ChibiOS rules assume that all sources 
-# have absolute paths, creates a new VPATH path based on that
-VPATH:=$(VPATH) $(OLDVPATH)
+# List any extra directories to look for libraries here.
+EXTRALIBDIRS = $(RULESPATH)/ld

@@ -80,7 +80,7 @@ BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ 
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(subst :, ,$(VPATH))
+EXTRAINCDIRS += $(subst :, ,$(VPATH))
 
 
 # Compiler flag to set the C Standard level.
@@ -92,17 +92,17 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = -DF_CPU=$(F_CPU)UL
+CDEFS = $(CPUDEFS)
 CDEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for ASM sources
-ADEFS = -DF_CPU=$(F_CPU)
+ADEFS = $(CPUDEFS)
 ADEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for C++ sources
-CPPDEFS = -DF_CPU=$(F_CPU)UL
+CPPDEFS = $(CPUDEFS)
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
 CPPDEFS += $(OPT_DEFS)
@@ -143,6 +143,7 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
+CFLAGS += $(THUMBFLAGS)
 ifdef CONFIG_H
     CFLAGS += -include $(CONFIG_H)
 endif
@@ -177,6 +178,7 @@ CPPFLAGS += -Wundef
 CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 #CPPFLAGS += $(CSTANDARD)
+CFLAGS += $(THUMBFLAGS)
 ifdef CONFIG_H
     CPPFLAGS += -include $(CONFIG_H)
 endif
@@ -193,6 +195,7 @@ endif
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS = $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 ASFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
+ASFLAGS += $(THUMBFLAGS)
 ifdef CONFIG_H
     ASFLAGS += -include $(CONFIG_H)
 endif
@@ -225,28 +228,6 @@ SCANF_LIB =
 MATH_LIB = -lm
 
 
-# List any extra directories to look for libraries here.
-#     Each directory must be seperated by a space.
-#     Use forward slashes for directory separators.
-#     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS =
-
-
-
-#---------------- External Memory Options ----------------
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# used for variables (.data/.bss) and heap (malloc()).
-#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# only used for heap (malloc()).
-#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
-
-EXTMEMOPTS =
-
-
-
 #---------------- Linker Options ----------------
 #  -Wl,...:     tell GCC to pass this to linker.
 #    -Map:      create map file
@@ -264,7 +245,8 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 #LDFLAGS += -T linker_script.x
 # You can give EXTRALDFLAGS at 'make' command line.
 LDFLAGS += $(EXTRALDFLAGS)
-
+LDFLAGS += $(THUMBLDFLAGS)
+LDFLAGS += $(LDSCRIPT)
 
 
 #---------------- Debugging Options ----------------
@@ -301,12 +283,6 @@ DEBUG_HOST = localhost
 
 # Define programs and commands.
 SHELL = sh
-CC = avr-gcc
-OBJCOPY = avr-objcopy
-OBJDUMP = avr-objdump
-SIZE = avr-size
-AR = avr-ar rcs
-NM = avr-nm
 REMOVE = rm -f
 REMOVEDIR = rmdir
 COPY = cp
@@ -357,9 +333,9 @@ GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$@).d
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
 # You can give extra flags at 'make' command line like: make EXTRAFLAGS=-DFOO=bar
-ALL_CFLAGS = -mmcu=$(MCU) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
-ALL_CPPFLAGS = -mmcu=$(MCU) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
-ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
+ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
+ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
+ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 # Default target.
 all:
