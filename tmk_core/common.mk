@@ -17,10 +17,11 @@ SRC +=	$(COMMON_DIR)/host.c \
 
 # Option modules
 ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+    OPT_DEFS += -DBOOTMAGIC_ENABLE
     SRC += $(COMMON_DIR)/bootmagic.c
     SRC += $(COMMON_DIR)/avr/eeconfig.c
-    OPT_DEFS += -DBOOTMAGIC_ENABLE
 else
+    OPT_DEFS += -DMAGIC_ENABLE
     SRC += $(COMMON_DIR)/magic.c
     SRC += $(COMMON_DIR)/avr/eeconfig.c
 endif
@@ -49,18 +50,6 @@ endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
     OPT_DEFS += -DNKRO_ENABLE
-endif
-
-ifeq ($(strip $(MIDI_ENABLE)), yes)
-    OPT_DEFS += -DMIDI_ENABLE
-endif
-
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    OPT_DEFS += -DAUDIO_ENABLE
-endif
-
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-    OPT_DEFS += -DUNICODE_ENABLE
 endif
 
 ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
