@@ -1,3 +1,4 @@
+# Hey Emacs, this is a -*- makefile -*-
 ##############################################################################
 # Compiler settings
 #
@@ -8,11 +9,20 @@ SIZE = avr-size
 AR = avr-ar rcs
 NM = avr-nm
 
+CFLAGS += -funsigned-char
+CFLAGS += -funsigned-bitfields
+CFLAGS += -ffunction-sections
+CFLAGS += -fdata-sections
+CFLAGS += -fno-inline-small-functions
+CFLAGS += -fpack-struct
+CFLAGS += -fshort-enums
+CFLAGS += -fno-strict-aliasing
+
+LDFLAGS +=-Wl,--gc-sections
+
+OPT_DEFS += -DF_CPU=$(F_CPU)UL
+
 MCUFLAGS = -mmcu=$(MCU)
-CPUDEFS = -DF_CPU=$(F_CPU)UL
-THUMBFLAGS =
-THUMBLDFLAGS =
-LDSCRIPT =
 
 # List any extra directories to look for libraries here.
 #     Each directory must be seperated by a space.

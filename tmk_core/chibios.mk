@@ -110,7 +110,22 @@ SIZE = arm-none-eabi-size -A
 AR = arm-none-eabi-ar
 NM = arm-none-eabi-nm
 
+CFLAGS += -fomit-frame-pointer 
+CFLAGS += -falign-functions=16
+CFLAGS += -ffunction-sections
+CFLAGS += -fdata-sections
+CFLAGS += -fno-common
+CFLAGS += -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
+
+LDFLAGS +=-Wl,--gc-sections
+LDFLAGS += -mno-thumb-interwork -mthumb
+LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
+LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
+LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
+
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+MCUFLAGS = -mcpu=$(MCU)
 
 # Define ASM defines here
 # bootloader definitions may be used in the startup .s file
@@ -119,15 +134,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
     OPT_DEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
 endif
-
-LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
-LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
-LDSCRIPT := -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
-
-MCUFLAGS = -mcpu=$(MCU)
-CPUDEFS =
-THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
-THUMBLDFLAGS = -mno-thumb-interwork -mthumb
 
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld

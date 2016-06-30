@@ -92,17 +92,14 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = $(CPUDEFS)
 CDEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for ASM sources
-ADEFS = $(CPUDEFS)
 ADEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for C++ sources
-CPPDEFS = $(CPUDEFS)
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
 CPPDEFS += $(OPT_DEFS)
@@ -116,17 +113,9 @@ CPPDEFS += $(OPT_DEFS)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CFLAGS = -g$(DEBUG)
+CFLAGS += -g$(DEBUG)
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
-CFLAGS += -funsigned-char
-CFLAGS += -funsigned-bitfields
-CFLAGS += -ffunction-sections
-CFLAGS += -fdata-sections
-CFLAGS += -fno-inline-small-functions
-CFLAGS += -fpack-struct
-CFLAGS += -fshort-enums
-CFLAGS += -fno-strict-aliasing
 # add color
 ifeq ($(COLOR),true)
 ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
@@ -143,7 +132,6 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
-CFLAGS += $(THUMBFLAGS)
 ifdef CONFIG_H
     CFLAGS += -include $(CONFIG_H)
 endif
@@ -236,17 +224,14 @@ MATH_LIB = -lm
 # Comennt out "--relax" option to avoid a error such:
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
-LDFLAGS = -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 #LDFLAGS += -Wl,--relax
-LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 #LDFLAGS += -T linker_script.x
 # You can give EXTRALDFLAGS at 'make' command line.
 LDFLAGS += $(EXTRALDFLAGS)
-LDFLAGS += $(THUMBLDFLAGS)
-LDFLAGS += $(LDSCRIPT)
 
 
 #---------------- Debugging Options ----------------
