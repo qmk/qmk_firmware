@@ -2,6 +2,8 @@ ifndef VERBOSE
 .SILENT:
 endif
 
+.DEFAULT_GOAL := all
+
 space := $(subst ,, )
 starting_makefile := $(subst $(space),_SPACE_,$(abspath $(firstword $(MAKEFILE_LIST))))
 mkfile_path := $(subst $(space),_SPACE_,$(abspath $(lastword $(MAKEFILE_LIST))))
@@ -70,6 +72,14 @@ $(error "$(KEYMAP_PATH)/keymap.c" does not exist)
 endif
 
 TARGET ?= $(KEYBOARD)_$(KEYMAP)
+BUILD_DIR = .build
+
+# Object files directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
+
+
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h

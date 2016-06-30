@@ -127,6 +127,8 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 
 MCUFLAGS = -mcpu=$(MCU)
 
+DEBUG = gdb
+
 # Define ASM defines here
 # bootloader definitions may be used in the startup .s file
 ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
