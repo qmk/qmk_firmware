@@ -18,4 +18,6 @@ addons:
     - gcc-avr
     - dfu-programmer
     - pandoc
+    - gcc-arm-none-eabi
+    - binutils-arm-none-eabi
 after_success: bash util/travis_compiled_push.sh
