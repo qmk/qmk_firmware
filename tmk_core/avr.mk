@@ -11,14 +11,21 @@ NM = avr-nm
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) 
 
-CFLAGS += -funsigned-char
-CFLAGS += -funsigned-bitfields
-CFLAGS += -ffunction-sections
-CFLAGS += -fdata-sections
+
+
+COMPILEFLAGS += -funsigned-char
+COMPILEFLAGS += -funsigned-bitfields
+COMPILEFLAGS += -ffunction-sections
+COMPILEFLAGS += -fdata-sections
+COMPILEFLAGS += -fpack-struct
+COMPILEFLAGS += -fshort-enums
+
+CFLAGS += $(COMPILEFLAGS)
 CFLAGS += -fno-inline-small-functions
-CFLAGS += -fpack-struct
-CFLAGS += -fshort-enums
 CFLAGS += -fno-strict-aliasing
+
+CPPFLAGS += $(COMPILEFLAGS)
+CPPFLAGS += -fno-exceptions
 
 LDFLAGS +=-Wl,--gc-sections
 

@@ -114,16 +114,19 @@ EEP =
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB 
 
-CFLAGS += -fomit-frame-pointer 
-CFLAGS += -falign-functions=16
-CFLAGS += -ffunction-sections
-CFLAGS += -fdata-sections
-CFLAGS += -fno-common
-CFLAGS += $(THUMBFLAGS) 
+COMPILEFLAGS += -fomit-frame-pointer 
+COMPILEFLAGS += -falign-functions=16
+COMPILEFLAGS += -ffunction-sections
+COMPILEFLAGS += -fdata-sections
+COMPILEFLAGS += -fno-common
+COMPILEFLAGS += $(THUMBFLAGS) 
+
+CFLAGS += $(COMPILEFLAGS)
 
 ASFLAGS += $(THUMBFLAGS)
 
-CPPFLAGS += $(THUMBFLAGS)
+CPPFLAGS += $(COMPILEFLAGS)
+CPPFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS += -mno-thumb-interwork -mthumb

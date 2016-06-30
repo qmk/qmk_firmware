@@ -139,13 +139,6 @@ endif
 CPPFLAGS += -g$(DEBUG)
 CPPFLAGS += $(CPPDEFS)
 CPPFLAGS += -O$(OPT)
-CPPFLAGS += -funsigned-char
-CPPFLAGS += -funsigned-bitfields
-CPPFLAGS += -fpack-struct
-CPPFLAGS += -fshort-enums
-CPPFLAGS += -fno-exceptions
-CPPFLAGS += -ffunction-sections
-CPPFLAGS += -fdata-sections
 # to supress "warning: only initialized variables can be placed into program memory area"
 CPPFLAGS += -w
 CPPFLAGS += -Wall
