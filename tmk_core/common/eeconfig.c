@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include <avr/eeprom.h>
+#include "eeprom.h"
 #include "eeconfig.h"
 
 void eeconfig_init(void)
