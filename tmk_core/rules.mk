@@ -78,7 +78,7 @@ AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'
 AWK_CMD = $(AWK) '{ printf "%-99s", $$0; }'
 PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && false
 PRINT_WARNING = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
-PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && false
+PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && false && break
 PRINT_WARNING_PLAIN = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
 PRINT_OK = $(SILENT) || printf " $(OK_STRING)" | $(AWK_STATUS)
 BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
@@ -622,8 +622,10 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS := $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/**/*/.)))
-SUBDIRS := $(SUBDIRS) $(sort $(dir $(wildcard $(TOP_DIR)/keyboards/*/.)))
+SUBDIRS := $(filter-out %/util/ %/doc/ %/keymaps/ %/old_keymap_files/,$(dir $(wildcard $(TOP_DIR)/keyboards/**/*/.)))
+SUBDIRS := $(SUBDIRS) $(dir $(wildcard $(TOP_DIR)/keyboards/*/.))
+SUBDIRS := $(sort $(SUBDIRS))
+# $(error $(SUBDIRS))
 all-keyboards-defaults-%:
 	@for x in $(SUBDIRS) ; do \
 		printf "Compiling with default: $$x" | $(AWK_CMD); \
@@ -640,9 +642,12 @@ all-keyboards: all-keyboards-all
 
 define make_keyboard
 $(eval KEYBOARD=$(patsubst /keyboards/%,%,$1))
-$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)$1/keymaps/*/.))))
+$(eval SUBPROJECT=$(lastword $(subst /, ,$(KEYBOARD))))
+$(eval KEYBOARD=$(firstword $(subst /, ,$(KEYBOARD))))
+$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/keymaps/*/.))))
+$(eval KEYMAPS+=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/*/.))))
 @for x in $(KEYMAPS) ; do \
-	printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-118s", $$0; }'; \
+	printf "Compiling $(BOLD)$(KEYBOARD)/$(SUBPROJECT)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-118s", $$0; }'; \
 	LOG=$$($(MAKE) -C $(TOP_DIR)$1 $2 keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 done
 endef
