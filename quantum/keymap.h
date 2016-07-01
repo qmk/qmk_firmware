@@ -21,7 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "action.h"
+#if defined(__AVR__)
 #include <avr/pgmspace.h>
+#endif
 #include "keycode.h"
 #include "action_macro.h"
 #include "report.h"
@@ -30,11 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "keycode_config.h"
 
+// ChibiOS uses RESET in its FlagStatus enumeration
+// Therefore define it as QK_RESET here, to avoid name collision
+#if defined(PROTOCOL_CHIBIOS)
+#define RESET QK_RESET
+#endif
+
 /* translates key to keycode */
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
-
-/* translates Fn keycode to action */
-action_t keymap_fn_to_action(uint16_t keycode);
 
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t fn_actions[];
