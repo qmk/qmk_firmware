@@ -11,9 +11,6 @@
 #include "keymap_extras/keymap_uk.h"
 #include "keymap_extras/keymap_colemak.h"
 #include "keymap_extras/keymap_french_osx.h"
-#include "keymap_extras/keymap_nordic.h"
-#include "keymap_extras/keymap_dvorak.h"
-#include "keymap_extras/keymap_german.h"
 #include "keymap_extras/keymap_norwegian.h"
 #include "keymap_extras/keymap_german_osx.h"
 #include "keymap_extras/keymap_spanish.h"
@@ -604,21 +601,20 @@ ergodox_board_led_off();
 ergodox_right_led_1_off();
 ergodox_right_led_2_off();
 ergodox_right_led_3_off();
+ergodox_led_all_set(LED_BRIGHTNESS_HI);
+
 switch (layer) {
 
     case SYMB:
         ergodox_right_led_1_on();
-        
-        
     break;
     case MDIA:
-        
         ergodox_right_led_2_on();
-        
     break;
+    case SMLY:
+	ergodox_right_led_1_on();
+	ergodox_right_led_3_on();
     case NUMB:
-        
-        
         ergodox_right_led_3_on();
     break;
     case EGOS:
@@ -630,6 +626,55 @@ default:
 // none
 break;
 }
+  if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+      ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+    ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+    ergodox_right_led_1_on ();
+  } else {
+    ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
+    if (layer != SYMB && layer != EGOS && layer != SMLY)
+      ergodox_right_led_1_off ();
+  }
+
+  if (keyboard_report->mods & MOD_BIT(KC_LALT) ||
+      ((get_oneshot_mods() & MOD_BIT(KC_LALT)) && !has_oneshot_mods_timed_out())) {
+    ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+    ergodox_right_led_2_on ();
+  } else {
+    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+    if (layer != EGOS && layer != MDIA )
+      ergodox_right_led_2_off ();
+  }
+
+  if (keyboard_report->mods & MOD_BIT(KC_LCTRL) ||
+      ((get_oneshot_mods() & MOD_BIT(KC_LCTRL)) && !has_oneshot_mods_timed_out())) {
+    ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
+    ergodox_right_led_3_on ();
+  } else {
+    ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
+    if (layer != EGOS && layer != NUMB && layer!=SMLY) 
+      ergodox_right_led_3_off ();
+  }
+
+  if (keyboard_report->mods & MOD_BIT(KC_RGUI) || keyboard_report->mods & MOD_BIT(KC_LGUI) ||
+      ((get_oneshot_mods() & MOD_BIT(KC_LGUI) || keyboard_report->mods & MOD_BIT(KC_RGUI)) && !has_oneshot_mods_timed_out())) {
+	ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
+	ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+	ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+    ergodox_right_led_3_on ();
+    ergodox_right_led_2_on ();
+    ergodox_right_led_1_on ();
+  } else {
+    ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
+    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+    ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
+    if (layer != EGOS && layer != NUMB && layer!=SMLY) 
+      ergodox_right_led_3_off ();
+    if (layer != EGOS && layer != MDIA) 
+      ergodox_right_led_2_off ();
+    if (layer != EGOS && layer != SYMB&&!layer!=SMLY) 
+      ergodox_right_led_1_off ();
+  }
 
   LEADER_DICTIONARY() {
     leading = false;
