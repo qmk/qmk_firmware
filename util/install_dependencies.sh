@@ -16,7 +16,11 @@ if [[ -n "$(type -P pacman )" ]]; then
     avr-gcc \
     avr-binutils \
     avr-libc \
-    dfu-util
+    dfu-util \
+    arm-none-eabi-gcc \
+    arm-none-eabi-binutils \
+    arm-none-eabi-newlib \
+    git
 
 elif [[ -n "$(type -P apt-get)" ]]; then
   # Debian and derivatives
@@ -39,7 +43,11 @@ elif [[ -n "$(type -P apt-get)" ]]; then
     binutils-avr \
     avr-libc \
     dfu-programmer \
-    dfu-util
+    dfu-util \
+    gcc-arm-none-eabi \
+    binutils-arm-none-eabi \
+    libnewlib-arm-none-eabi \
+    git
 
 elif [[ -n "$(type -P yum)" ]]; then
   # Fedora, CentOS or RHEL and derivatives
@@ -57,7 +65,14 @@ elif [[ -n "$(type -P yum)" ]]; then
     avr-gcc \
     avr-libc \
     dfu-programmer \
-    dfu-util
+    dfu-util \
+    gcc-arm-none-eabi \
+    binutils-arm-none-eabi \
+    libnewlib-arm-none-eabi \
+    git
+  # The listed eabi pacackes do unfortunately not exist for CentOS,
+  # But at least in Fedora they do, so try to install them anyway
+  # TODO: Build them from sources, if the installation fails
 
 elif [[ -n "$(type -P zypper)" ]]; then
   # openSUSE
@@ -69,6 +84,9 @@ elif [[ -n "$(type -P zypper)" ]]; then
     kernel-devel \
     patch \
     wget \
-    dfu-programmer
+    dfu-programmer \
+    git
+  # TODO: The avr and eabi tools are not available as default packages, so we need 
+  # another way to install them
 
 fi
