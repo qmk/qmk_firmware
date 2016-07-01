@@ -33,6 +33,7 @@ enum usermacro {
     _SHLK,                      /* ShiftLock */
     _RST,                       /* Reset */
     _NUM,                       /* Numeric layer */
+    _SLP,                       /* Sleep 250 ms */
 };
 
 #define _______ KC_TRNS
@@ -65,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LW]= { /* LOWER */
     {KC_TILD, KC_EXLM,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
     {KC_ESC,  LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), M(_NUM), KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-    {_______, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_ENT },
+    {_______, LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), M(_SLP), KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_ENT },
     {_______, BL_TOGG,    _______,    _______,    _______,    KC_BTN1,    KC_BTN1, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_RS]= { /* RAISE */
@@ -142,6 +143,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
     case _NUM:
         layer_on(_NM);
+        break;
+    case _SLP:
+        if (record->event.pressed) {
+            _delay_ms(250);
+        }
         break;
     }
     return MACRO_NONE;
