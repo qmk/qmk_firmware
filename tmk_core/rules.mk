@@ -16,7 +16,6 @@
 #
 
 
-
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
@@ -312,8 +311,10 @@ begin:
 	@$(SECHO) $(MSG_BEGIN)
 	git submodule status --recursive | \
 	while IFS= read -r x; do \
-	if [[ $${x:0:1} != " " ]] ; then \
-		printf "$(MSG_SUBMODULE_DIRTY)"; break; fi \
+		case "$$x" in \
+			\ *) ;; \
+			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
+		esac \
 	done
 
 end:
