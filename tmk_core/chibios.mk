@@ -24,8 +24,8 @@ endif
 #
 
 # Imported source files and paths
-CHIBIOS ?= $(TMK_PATH)/../lib/chibios
-CHIBIOS_CONTRIB ?= $(TMK_PATH)/../lib/chibios-contrib
+CHIBIOS = $(TOP_DIR)/lib/chibios
+CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and 
 # for things hardware in the contrib repository
 STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
@@ -78,7 +78,7 @@ else
 LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
-SRC += $(STARTUPSRC) \
+CHIBISRC = $(STARTUPSRC) \
        $(KERNSRC) \
        $(PORTSRC) \
        $(OSALSRC) \
@@ -89,6 +89,8 @@ SRC += $(STARTUPSRC) \
 	   $(STARTUPASM) \
 	   $(PORTASM) \
 	   $(OSALASM)         
+	   
+SRC += $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
