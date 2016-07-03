@@ -9,7 +9,6 @@
 #define AQWER 3 // alted qwerty compat layer
 #define FNAV 4 // function / navigation keys
 #define NUM 5 // numeric keypad keys
-#define MSE 6 // mouse keys
 
 #define KP_00 0
 #define CA_Fx 1
@@ -26,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  Tab |                                  | NumLo|------+------+------+------+------+--------|
  * | E_CIRC |A_GRAV|   Y  |   X  |   .  |   K  |      |                                  |      |   '  |   Q  |   G  |   H  |   F  | C_CEDIL|
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   |QWERTY|      |LSuper| LCtrl|  LAlt|             |Escape| L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
+ *   |QWERTY|      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      | CA_Fx|      |      |
  *                                             | Space|LShift|------|      |------|RShift|Enter |
@@ -40,7 +39,7 @@ BP_PERCENT,	BP_B,		BP_E_ACUTE,	BP_P,		BP_O,		BP_E_GRAVE,	KC_BSPC,
 BP_W,		BP_A,		BP_U,		BP_I,		BP_E,		BP_COMMA,
 BP_ECRC,	BP_A_GRAVE,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_TAB,
 TG(QWER),	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_ESC,		MO(MSE),
+														KC_ESC,		KC_NO,
 																MO(NUM),
 												KC_SPC,		KC_LSHIFT,	MO(FNAV),
 // Right hand
@@ -63,7 +62,7 @@ MO(FNAV),	KC_RSHIFT,	KC_ENTER),
  * |--------+------+------+------+------+------|  Tab |                                  | NumLo|------+------+------+------+------+--------|
  * |   e    |   a  |   y  |   x  |   .  |   k  |      |                                  |      |   '  |   q  |   g  |   h  |   f  |   c    |
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape| L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
+ *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             | Space|LShift|------|      |------|RShift|Enter |
@@ -77,7 +76,7 @@ KC_PERCENT,	KC_B,		KC_E,		KC_P,		KC_O,		KC_E,		KC_BSPC,
 KC_W,		KC_A,		KC_U,		KC_I,		KC_E,		KC_COMMA,
 KC_E,		KC_A,		KC_Y,		KC_X,		KC_DOT,		KC_K,		KC_TAB,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_ESC,		MO(MSE),
+														KC_ESC,		KC_NO,
 																MO(NUM),
 												KC_SPC,		MO(SQWER),	MO(FNAV),
 // Right hand
@@ -100,7 +99,7 @@ MO(FNAV),	MO(SQWER),	KC_ENTER),
  * |--------+------+------+------+------+------|  Tab |                                  | NumLo|------+------+------+------+------+--------|
  * |   E    |   A  |   Y  |   X  |   :  |   K  |      |                                  |      |   ?  |   Q  |   G  |   H  |   F  |   C    |
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape| L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
+ *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             | Space|LShift|------|      |------|RShift|Enter |
@@ -114,7 +113,7 @@ KC_GRV,		S(KC_B),	S(KC_E),	S(KC_P),	S(KC_O),	S(KC_E),	KC_TRNS,
 S(KC_W),	S(KC_A),	S(KC_U),	S(KC_I),	S(KC_E),	KC_SCOLON,
 S(KC_E),	S(KC_A),	S(KC_Y),	S(KC_X),	KC_COLON,	S(KC_K),	S(KC_TAB),
 KC_TRNS,	KC_TRNS,	S(KC_LGUI),	S(KC_LCTL),	S(KC_LALT),
-														KC_TRNS,	KC_TRNS,
+														KC_TRNS,	KC_NO,
 																KC_TRNS,
 												KC_TRNS,	KC_TRNS,	KC_TRNS,
 // Right hand
@@ -137,7 +136,7 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
  * |--------+------+------+------+------+------|  Tab |                                  | NumLo|------+------+------+------+------+--------|
  * |   e    |   \  |   {  |   }  |   .  |   ~  |      |                                  |      |   '  |   q  |   g  |   h  |   f  |   c    |
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape| L_Mse|      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
+ *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
  *                                             |      |      | L_Num|      |      |      |      |
  *                                             |   _  |LShift|------|      |------|RShift|Enter |
@@ -151,7 +150,7 @@ KC_PERCENT,	KC_PIPE,	KC_E,		KC_AMPR,	KC_O,		KC_E,		KC_BSPC,
 KC_W,		KC_A,		KC_U,		KC_I,		RALT(KC_5),	KC_COMMA,
 KC_E,		KC_BSLASH,	KC_LCBR,	KC_RCBR,	KC_DOT,		KC_TILDE,	KC_TAB,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_ESC,		MO(MSE),
+														KC_ESC,		KC_NO,
 																MO(NUM),
 												KC_UNDS,	MO(SQWER),	MO(FNAV),
 // Right hand
@@ -168,9 +167,9 @@ MO(FNAV),	MO(SQWER),	KC_ENTER),
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |VolMut|                                  |      |  F6  |  F7  |  F8  |  F9  |  F10 |        |
  * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |VolDwn|                                  |      | PgUp | Home |  Up  |  End |  F11 |        |
+ * |        | Next |LClick|  Up  |RClick| WhUp |VolDwn|                                  |      | PgUp | Home |  Up  |  End |  F11 |        |
  * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|                                  |------| PgDn | Left | Down | Right|  F12 |        |
+ * |        | Prev | Left | Down | Right|WhDown|------|                                  |------| PgDn | Left | Down | Right|  F12 |        |
  * |--------+------+------+------+------+------| VolUp|                                  |      |------+------+------+------+------+--------|
  * |        | Undo |  Cut | Copy | Paste|      |      |                                  |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
@@ -184,8 +183,8 @@ MO(FNAV),	MO(SQWER),	KC_ENTER),
 [FNAV] = KEYMAP(
 // Left hand
 KC_NO,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_MUTE,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_VOLU,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
+KC_NO,		KC_MS_BTN5,	KC_MS_BTN1,	KC_MS_UP,	KC_MS_BTN2,	KC_MS_WH_UP,	KC_VOLU,
+KC_NO,		KC_MS_BTN4,	KC_MS_LEFT,	KC_MS_DOWN,	KC_MS_RIGHT,	KC_MS_WH_DOWN,
 KC_NO,		KC_UNDO,	KC_CUT,		KC_COPY,	KC_PASTE,	KC_NO,		KC_VOLD,
 KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 														KC_NO,		KC_NO,
@@ -236,44 +235,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 								KC_KP_0,	M(KP_00),	KC_KP_COMMA,	KC_NO,		KC_NO,
 KC_NO,		KC_NO,
 KC_NO,
-KC_NO,		KC_TRNS,	KC_KP_ENTER),
-/* Keymap 6: mouse layer
- *
- * ,--------------------------------------------------.                                  ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+-------------|                                  |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      |LClick|  Up  |RClick| WhUp |        |
- * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|                                  |------|      | Left | Down | Right|WhDown|        |
- * |--------+------+------+------+------+------|      |                                  |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |                                  |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |             |      |      |      |      |      |             |      |      |      |      |      |
- *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      |      |      |      |      |      |
- *                                             |      |      |------|      |------|      |      |
- *                                             |      |      |      |      |      |      |      |
- *                                             `--------------------'      `--------------------'
- */
-[MSE] = KEYMAP(
-// Left hand
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
-														KC_NO,		KC_TRNS,
-																KC_NO,
-												KC_NO,		KC_TRNS,	KC_NO,
-// Right hand
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-				KC_NO,		KC_NO,		KC_MS_BTN1,	KC_MS_UP,	KC_MS_BTN2,	KC_MS_WH_UP,	KC_NO,
-						KC_NO,		KC_MS_LEFT,	KC_MS_DOWN,	KC_MS_RIGHT,	KC_MS_WH_DOWN,	KC_NO,
-				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
-								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
-KC_NO,		KC_NO,
-KC_NO,
-KC_NO,		KC_TRNS,	KC_NO)
+KC_NO,		KC_TRNS,	KC_KP_ENTER)
 };
 
 const uint16_t PROGMEM fn_actions[] = {
