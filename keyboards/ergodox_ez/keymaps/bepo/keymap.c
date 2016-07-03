@@ -11,7 +11,6 @@
 #define NUM 5 // numeric keypad keys
 
 #define KP_00 0
-#define CA_Fx 1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base layer
@@ -27,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   |QWERTY|      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      | L_Num|      | CA_Fx|      |      |
+ *                                             |      |      | L_Num|      | L_Num|      |      |
  *                                             | Space|LShift|------|      |------|RShift|Enter |
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
@@ -39,7 +38,7 @@ BP_PERCENT,	BP_B,		BP_E_ACUTE,	BP_P,		BP_O,		BP_E_GRAVE,	KC_BSPC,
 BP_W,		BP_A,		BP_U,		BP_I,		BP_E,		BP_COMMA,
 BP_ECRC,	BP_A_GRAVE,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_TAB,
 TG(QWER),	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_ESC,		KC_NO,
+														KC_ESC,		KC_TRNS,
 																MO(NUM),
 												KC_SPC,		KC_LSHIFT,	MO(FNAV),
 // Right hand
@@ -48,8 +47,8 @@ TG(QWER),	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 						BP_C,		BP_T,		BP_S,		BP_R,		BP_N,		BP_M,
 				KC_NUMLOCK,	BP_APOS,	BP_Q,		BP_G,		BP_H,		BP_F,		BP_CCED,
 								BP_ALGR,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
-KC_NO,		KC_INS,
-M(CA_Fx),
+KC_TRNS,	KC_INS,
+MO(NUM),
 MO(FNAV),	KC_RSHIFT,	KC_ENTER),
 /* Keymap 1: QWERTY system compatibility layer
  *
@@ -64,7 +63,7 @@ MO(FNAV),	KC_RSHIFT,	KC_ENTER),
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      | L_Num|      |      |      |      |
+ *                                             |      |      | L_Num|      | L_Num|      |      |
  *                                             | Space|LShift|------|      |------|RShift|Enter |
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
@@ -76,7 +75,7 @@ KC_PERCENT,	KC_B,		KC_E,		KC_P,		KC_O,		KC_E,		KC_BSPC,
 KC_W,		KC_A,		KC_U,		KC_I,		KC_E,		KC_COMMA,
 KC_E,		KC_A,		KC_Y,		KC_X,		KC_DOT,		KC_K,		KC_TAB,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_ESC,		KC_NO,
+														KC_ESC,		KC_TRNS,
 																MO(NUM),
 												KC_SPC,		MO(SQWER),	MO(FNAV),
 // Right hand
@@ -85,8 +84,8 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 						KC_C,		KC_T,		KC_S,		KC_R,		KC_N,		KC_M,
 				KC_NUMLOCK,	KC_QUOT,	KC_Q,		KC_G,		KC_H,		KC_F,		KC_C,
 								MO(AQWER),	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
-KC_NO,		KC_INS,
-KC_TRNS,
+KC_TRNS,	KC_INS,
+MO(NUM),
 MO(FNAV),	MO(SQWER),	KC_ENTER),
 /* Keymap 2: QWERTY shifted system compatibility layer
  *
@@ -101,7 +100,7 @@ MO(FNAV),	MO(SQWER),	KC_ENTER),
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      | L_Num|      |      |      |      |
+ *                                             |      |      | L_Num|      | L_Num|      |      |
  *                                             | Space|LShift|------|      |------|RShift|Enter |
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
@@ -113,7 +112,7 @@ KC_GRV,		S(KC_B),	S(KC_E),	S(KC_P),	S(KC_O),	S(KC_E),	KC_TRNS,
 S(KC_W),	S(KC_A),	S(KC_U),	S(KC_I),	S(KC_E),	KC_SCOLON,
 S(KC_E),	S(KC_A),	S(KC_Y),	S(KC_X),	KC_COLON,	S(KC_K),	S(KC_TAB),
 KC_TRNS,	KC_TRNS,	S(KC_LGUI),	S(KC_LCTL),	S(KC_LALT),
-														KC_TRNS,	KC_NO,
+														KC_TRNS,	KC_TRNS,
 																KC_TRNS,
 												KC_TRNS,	KC_TRNS,	KC_TRNS,
 // Right hand
@@ -138,7 +137,7 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
  * `--------+------+------+------+------+-------------,-------------.      ,-------------`-------------+------+------+------+------+--------'
  *   | BEPO |      |LSuper| LCtrl|  LAlt|             |Escape|      |      |      |Insert|             | AltGr| RCtrl|RSuper|PrntSc| Pause|
  *   `----------------------------------'      ,------|------|------|      |------+------+------.      `----------------------------------'
- *                                             |      |      | L_Num|      |      |      |      |
+ *                                             |      |      | L_Num|      | L_Num|      |      |
  *                                             |   _  |LShift|------|      |------|RShift|Enter |
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
@@ -150,7 +149,7 @@ KC_PERCENT,	KC_PIPE,	KC_E,		KC_AMPR,	KC_O,		KC_E,		KC_BSPC,
 KC_W,		KC_A,		KC_U,		KC_I,		RALT(KC_5),	KC_COMMA,
 KC_E,		KC_BSLASH,	KC_LCBR,	KC_RCBR,	KC_DOT,		KC_TILDE,	KC_TAB,
 KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
-														KC_ESC,		KC_NO,
+														KC_ESC,		KC_TRNS,
 																MO(NUM),
 												KC_UNDS,	MO(SQWER),	MO(FNAV),
 // Right hand
@@ -159,8 +158,8 @@ KC_TRNS,	KC_NO,		KC_LGUI,	KC_LCTL,	KC_LALT,
 						KC_C,		KC_T,		KC_S,		KC_R,		KC_N,		KC_M,
 				KC_NUMLOCK,	KC_QUOT,	KC_Q,		KC_G,		KC_H,		KC_F,		KC_C,
 								KC_TRNS,	KC_RCTL,	KC_RGUI,	KC_PSCREEN,	KC_PAUSE,
-KC_NO,		KC_INS,
-KC_TRNS,
+KC_TRNS,	KC_INS,
+MO(NUM),
 MO(FNAV),	MO(SQWER),	KC_ENTER),
 /* Keymap 4: function / navigation layer
  *
@@ -187,8 +186,8 @@ KC_NO,		KC_MS_BTN5,	KC_MS_BTN1,	KC_MS_UP,	KC_MS_BTN2,	KC_MS_WH_UP,	KC_VOLU,
 KC_NO,		KC_MS_BTN4,	KC_MS_LEFT,	KC_MS_DOWN,	KC_MS_RIGHT,	KC_MS_WH_DOWN,
 KC_NO,		KC_UNDO,	KC_CUT,		KC_COPY,	KC_PASTE,	KC_NO,		KC_VOLD,
 KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
-														KC_NO,		KC_NO,
-																KC_NO,
+														KC_TRNS,	KC_TRNS,
+																KC_TRNS,
 												KC_NO,		KC_TRNS,	KC_TRNS,
 // Right hand
 				KC_NO,		KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_NO,
@@ -196,7 +195,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 						KC_PGDOWN,	KC_LEFT,	KC_DOWN,	KC_RIGHT,	KC_F12,		KC_NO,
 				KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 								KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_NO,		KC_NO,
-KC_NO,		KC_NO,
+KC_TRNS,	KC_TRNS,
 KC_TRNS,
 KC_TRNS,	KC_TRNS,	KC_NO),
 /* Keymap 5: numeric layer, sends keypad codes
@@ -224,18 +223,18 @@ KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
-														KC_NO,		KC_NO,
+														KC_TRNS,	KC_TRNS,
 																KC_TRNS,
-												KC_NO,		KC_TRNS,	KC_NO,
+												KC_NO,		KC_TRNS,	KC_TRNS,
 // Right hand
 				KC_NO,		KC_NO,		KC_KP_PLUS,	KC_KP_MINUS,	KC_KP_SLASH,	KC_KP_ASTERISK,	KC_NO,
 				KC_NO,		KC_NO,		KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_NO,		KC_NO,
 						KC_NO,		KC_KP_4,	KC_KP_5,	KC_KP_6,	KC_NO,		KC_NO,
 				KC_NO,		KC_NO,		KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_NO,		KC_NO,
 								KC_KP_0,	M(KP_00),	KC_KP_COMMA,	KC_NO,		KC_NO,
-KC_NO,		KC_NO,
-KC_NO,
-KC_NO,		KC_TRNS,	KC_KP_ENTER)
+KC_TRNS,	KC_TRNS,
+KC_TRNS,
+KC_TRNS,	KC_TRNS,	KC_KP_ENTER)
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -249,15 +248,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return MACRO( T(KP_0), D(KP_0), END );
       } else {
         return MACRO( U(KP_0), END );
-      }
-      break;
-    case CA_Fx:
-      if (record->event.pressed) {
-        layer_on(FNAV);
-        return MACRO( D(LALT), D(LCTL), END );
-      } else {
-        layer_off(FNAV);
-        return MACRO( U(LCTL), U(LALT), END );
       }
       break;
   }
