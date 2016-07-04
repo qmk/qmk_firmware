@@ -7,21 +7,23 @@
 #define MDIA 2 // media keys
 
 //macros
-#define CRT_SFT_T 100
+#define CTL_SFT_T 100
+#define CTL_SFT_G 101
+#define CTL_ALT_T 102
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | M 100|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | TAB    |   Q  |   W  |   E  |   R  |   T  | Meh  |           | Meh  |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * |TAB /Alt|   Q  |   W  |   E  |   R  |   T  | Meh  |           | Meh  |   Y  |   U  |   I  |   O  |   P  |\ / ALT |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCTL   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|' / CTL |
  * |--------+------+------+------+------+------| ~L1  |           | ~L1  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | WIN  |  `   | LALT | LCTL |AltShf|                                       |AltShf| Left | Down |  Up  | Right  |
+ *   | WIN  |  `   | M 102| M 101|AltShf|                                       |AltShf| Left | Down |  Up  | Right  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | App  | LALT |       | Alt  |  CAPS  |
@@ -39,12 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ALT_T(KC_TAB),  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   ALL_T(KC_NO),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_FN1,
-        KC_LGUI,        KC_GRV, KC_LALT,KC_LCTL,LALT(KC_LSFT),
+        KC_LGUI,        KC_GRV, M(CTL_ALT_T),M(CTL_SFT_G),LALT(KC_LSFT),
                                               CTL_T(KC_APP),  KC_LALT,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             M(CRT_SFT_T),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             M(CTL_SFT_T),KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              MEH_T(KC_NO),KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),CTL_T(KC_QUOT),
              KC_FN1,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
@@ -145,19 +147,31 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
+    switch(id) {
         case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-        case CRT_SFT_T:
-              if (record->event.pressed) {
-                  return MACRO(D(LCTL), D(LSFT), T(T), END);
-              }
-              return MACRO(U(LCTL), U(LSFT), END);
-        break;
-      }
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            break;
+        case CTL_SFT_T:
+            if (record->event.pressed) {
+                return MACRO(D(LCTL), D(LSFT), T(T), END);
+            }
+            return MACRO(U(LCTL), U(LSFT), END);
+            break;
+        case CTL_SFT_G:
+            if (record->event.pressed) {
+                return MACRO(D(LCTL), D(LSFT), T(G), END);
+            }
+            return MACRO(U(LCTL), U(LSFT), END);
+            break;
+        case CTL_ALT_T:
+            if (record->event.pressed) {
+                return MACRO(D(LCTL), D(LALT), T(T), END);
+            }
+            return MACRO(U(LCTL), U(LALT), END);
+            break;
+    }
     return MACRO_NONE;
 };
 
