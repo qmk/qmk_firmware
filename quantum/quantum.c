@@ -88,7 +88,7 @@ bool process_record_quantum(keyrecord_t *record) {
           stop_all_notes();
           shutdown_user();
         #endif
-        _delay_ms(250);
+        wait_ms(250);
         #ifdef ATREUS_ASTAR
             *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
         #endif

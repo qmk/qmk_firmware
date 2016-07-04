@@ -16,29 +16,13 @@
 #
 
 
-
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
-
-BUILD_DIR = .build
-
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
-
 
 # Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
-
-
-# Debugging format.
-#     Native formats for AVR-GCC's -g are dwarf-2 [default] or stabs.
-#     AVR Studio 4.10 requires dwarf-2.
-#     AVR [Extended] COFF format requires stabs, plus an avr-objcopy run.
-DEBUG = dwarf-2
 
 COLOR ?= true
 
@@ -87,7 +71,7 @@ BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ 
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(subst :, ,$(VPATH))
+EXTRAINCDIRS += $(subst :, ,$(VPATH))
 
 
 # Compiler flag to set the C Standard level.
@@ -99,17 +83,14 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = -DF_CPU=$(F_CPU)UL
 CDEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for ASM sources
-ADEFS = -DF_CPU=$(F_CPU)
 ADEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for C++ sources
-CPPDEFS = -DF_CPU=$(F_CPU)UL
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
 CPPDEFS += $(OPT_DEFS)
@@ -123,17 +104,9 @@ CPPDEFS += $(OPT_DEFS)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CFLAGS = -g$(DEBUG)
+CFLAGS += -g$(DEBUG)
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
-CFLAGS += -funsigned-char
-CFLAGS += -funsigned-bitfields
-CFLAGS += -ffunction-sections
-CFLAGS += -fdata-sections
-CFLAGS += -fno-inline-small-functions
-CFLAGS += -fpack-struct
-CFLAGS += -fshort-enums
-CFLAGS += -fno-strict-aliasing
 # add color
 ifeq ($(COLOR),true)
 ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
@@ -162,16 +135,9 @@ endif
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CPPFLAGS = -g$(DEBUG)
+CPPFLAGS += -g$(DEBUG)
 CPPFLAGS += $(CPPDEFS)
 CPPFLAGS += -O$(OPT)
-CPPFLAGS += -funsigned-char
-CPPFLAGS += -funsigned-bitfields
-CPPFLAGS += -fpack-struct
-CPPFLAGS += -fshort-enums
-CPPFLAGS += -fno-exceptions
-CPPFLAGS += -ffunction-sections
-CPPFLAGS += -fdata-sections
 # to supress "warning: only initialized variables can be placed into program memory area"
 CPPFLAGS += -w
 CPPFLAGS += -Wall
@@ -198,7 +164,7 @@ endif
 #             files -- see avr-libc docs [FIXME: not yet described there]
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
-ASFLAGS = $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
+ASFLAGS += $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 ASFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 ifdef CONFIG_H
     ASFLAGS += -include $(CONFIG_H)
@@ -232,28 +198,6 @@ SCANF_LIB =
 MATH_LIB = -lm
 
 
-# List any extra directories to look for libraries here.
-#     Each directory must be seperated by a space.
-#     Use forward slashes for directory separators.
-#     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS =
-
-
-
-#---------------- External Memory Options ----------------
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# used for variables (.data/.bss) and heap (malloc()).
-#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
-
-# 64 KB of external RAM, starting after internal RAM (ATmega128!),
-# only used for heap (malloc()).
-#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
-
-EXTMEMOPTS =
-
-
-
 #---------------- Linker Options ----------------
 #  -Wl,...:     tell GCC to pass this to linker.
 #    -Map:      create map file
@@ -262,9 +206,8 @@ EXTMEMOPTS =
 # Comennt out "--relax" option to avoid a error such:
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
-LDFLAGS = -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 #LDFLAGS += -Wl,--relax
-LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
@@ -272,59 +215,13 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # You can give EXTRALDFLAGS at 'make' command line.
 LDFLAGS += $(EXTRALDFLAGS)
 
-
-
-#---------------- Debugging Options ----------------
-
-# For simulavr only - target MCU frequency.
-DEBUG_MFREQ = $(F_CPU)
-
-# Set the DEBUG_UI to either gdb or insight.
-# DEBUG_UI = gdb
-DEBUG_UI = insight
-
-# Set the debugging back-end to either avarice, simulavr.
-DEBUG_BACKEND = avarice
-#DEBUG_BACKEND = simulavr
-
-# GDB Init Filename.
-GDBINIT_FILE = __avr_gdbinit
-
-# When using avarice settings for the JTAG
-JTAG_DEV = /dev/com1
-
-# Debugging port used to communicate between GDB / avarice / simulavr.
-DEBUG_PORT = 4242
-
-# Debugging host used to communicate between GDB / avarice / simulavr, normally
-#     just set to localhost unless doing some sort of crazy debugging when
-#     avarice is running on a different computer.
-DEBUG_HOST = localhost
-
-
-
-#============================================================================
-
-
 # Define programs and commands.
 SHELL = sh
-CC = avr-gcc
-OBJCOPY = avr-objcopy
-OBJDUMP = avr-objdump
-SIZE = avr-size
-AR = avr-ar rcs
-NM = avr-nm
 REMOVE = rm -f
 REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 SECHO = $(SILENT) || echo
-# Autodecct teensy loader
-ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-  TEENSY_LOADER_CLI = teensy-loader-cli
-else
-  TEENSY_LOADER_CLI = teensy_loader_cli
-endif
 
 # Define Messages
 # English
@@ -345,8 +242,12 @@ MSG_COMPILING_CPP = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
-
-
+MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
+	Some git sub-modules are out of date or modified, please consider runnning:$(BOLD)\n\
+	git submodule sync --recursive\n\
+	git submodule update --init --recursive$(NO_COLOR)\n\n\
+	You can ignore this warning if you are not compiling any ChibiOS keyboards,\n\
+	or if you have modified the ChibiOS libraries yourself. \n\n
 
 
 # Define all object files.
@@ -364,9 +265,9 @@ GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$@).d
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
 # You can give extra flags at 'make' command line like: make EXTRAFLAGS=-DFOO=bar
-ALL_CFLAGS = -mmcu=$(MCU) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
-ALL_CPPFLAGS = -mmcu=$(MCU) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
-ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
+ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
+ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
+ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 # Default target.
 all:
@@ -408,6 +309,13 @@ lib: $(LIBNAME)
 # the following magic strings to be generated by the compile job.
 begin:
 	@$(SECHO) $(MSG_BEGIN)
+	git submodule status --recursive | \
+	while IFS= read -r x; do \
+		case "$$x" in \
+			\ *) ;; \
+			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
+		esac \
+	done
 
 end:
 	@$(SECHO) $(MSG_END)
@@ -432,104 +340,10 @@ sizeafter:
 gccversion :
 	@$(SILENT) || $(CC) --version
 
-
-
-# Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-	$(PROGRAM_CMD)
-
-teensy: $(BUILD_DIR)/$(TARGET).hex
-	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
-
-flip: $(BUILD_DIR)/$(TARGET).hex
-	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-
-dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) erase --force
-else
-	dfu-programmer $(MCU) erase
-endif
-	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
-	dfu-programmer $(MCU) reset
-
-dfu-start:
-	dfu-programmer $(MCU) reset
-	dfu-programmer $(MCU) start
-
-flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
-
-dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
-else
-	dfu-programmer $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
-endif
-	dfu-programmer $(MCU) reset
-
-
-# Generate avr-gdb config/init file which does the following:
-#     define the reset signal, load the target file, connect to target, and set
-#     a breakpoint at main().
-gdb-config:
-	@$(REMOVE) $(GDBINIT_FILE)
-	@echo define reset >> $(GDBINIT_FILE)
-	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
-	@echo end >> $(GDBINIT_FILE)
-	@echo file $(BUILD_DIR)/$(TARGET).elf >> $(GDBINIT_FILE)
-	@echo target remote $(DEBUG_HOST):$(DEBUG_PORT)  >> $(GDBINIT_FILE)
-ifeq ($(DEBUG_BACKEND),simulavr)
-	@echo load  >> $(GDBINIT_FILE)
-endif
-	@echo break main >> $(GDBINIT_FILE)
-
-debug: gdb-config $(BUILD_DIR)/$(TARGET).elf
-ifeq ($(DEBUG_BACKEND), avarice)
-	@echo Starting AVaRICE - Press enter when "waiting to connect" message displays.
-	@$(WINSHELL) /c start avarice --jtag $(JTAG_DEV) --erase --program --file \
-	$(BUILD_DIR)/$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
-	@$(WINSHELL) /c pause
-
-else
-	@$(WINSHELL) /c start simulavr --gdbserver --device $(MCU) --clock-freq \
-	$(DEBUG_MFREQ) --port $(DEBUG_PORT)
-endif
-	@$(WINSHELL) /c start avr-$(DEBUG_UI) --command=$(GDBINIT_FILE)
-
-
-
-
-# Convert ELF to COFF for use in debugging / simulating in AVR Studio or VMLAB.
-COFFCONVERT = $(OBJCOPY) --debugging
-COFFCONVERT += --change-section-address .data-0x800000
-COFFCONVERT += --change-section-address .bss-0x800000
-COFFCONVERT += --change-section-address .noinit-0x800000
-COFFCONVERT += --change-section-address .eeprom-0x810000
-
-
-
-coff: $(BUILD_DIR)/$(TARGET).elf
-	@$(SECHO) $(MSG_COFF) $(BUILD_DIR)/$(TARGET).cof
-	$(COFFCONVERT) -O coff-avr $< $(BUILD_DIR)/$(TARGET).cof
-
-
-extcoff: $(BUILD_DIR)/$(TARGET).elf
-	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
-	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
-
-
-
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
-	$(eval CMD=$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@)
+	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
 	@if $(AUTOGEN); then \
 		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYBOARD)_$(KEYMAP).hex\n"; \
@@ -540,7 +354,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
-	$(eval CMD=$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0)
+	$(eval CMD=$(EEP) $< $@ || exit 0)
 	@$(BUILD_CMD)
 
 # Create extended listing file from ELF output file.
@@ -622,7 +436,7 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS := $(filter-out %/util/ %/doc/ %/keymaps/ %/old_keymap_files/,$(dir $(wildcard $(TOP_DIR)/keyboards/**/*/.)))
+SUBDIRS := $(filter-out %/util/ %/doc/ %/keymaps/ %/old_keymap_files/,$(dir $(wildcard $(TOP_DIR)/keyboards/**/*/Makefile)))
 SUBDIRS := $(SUBDIRS) $(dir $(wildcard $(TOP_DIR)/keyboards/*/.))
 SUBDIRS := $(sort $(SUBDIRS))
 # $(error $(SUBDIRS))

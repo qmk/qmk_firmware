@@ -2,6 +2,8 @@ ifndef VERBOSE
 .SILENT:
 endif
 
+.DEFAULT_GOAL := all
+
 space := $(subst ,, )
 starting_makefile := $(subst $(space),_SPACE_,$(abspath $(firstword $(MAKEFILE_LIST))))
 mkfile_path := $(subst $(space),_SPACE_,$(abspath $(lastword $(MAKEFILE_LIST))))
@@ -41,6 +43,7 @@ endif
 TOP_DIR = $(tmk_root)
 TMK_DIR = tmk_core
 TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
+LIB_PATH = $(TOP_DIR)/lib
 
 QUANTUM_DIR = quantum
 QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
@@ -126,6 +129,13 @@ ifdef SUBPROJECT
 else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
 endif
+BUILD_DIR = .build
+
+# Object files directory
+#     To put object files in current directory, use a dot (.), do NOT make
+#     this an empty or blank macro!
+OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
+
 
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
@@ -143,7 +153,7 @@ endif
 SRC += $(KEYBOARD_FILE) \
 	$(KEYMAP_FILE) \
 	$(QUANTUM_DIR)/quantum.c \
-	$(QUANTUM_DIR)/keymap.c \
+	$(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/keycode_config.c \
 	$(QUANTUM_DIR)/process_keycode/process_leader.c
 
@@ -208,8 +218,25 @@ VPATH += $(QUANTUM_PATH)/keymap_extras
 VPATH += $(QUANTUM_PATH)/audio
 VPATH += $(QUANTUM_PATH)/process_keycode
 
-include $(TMK_PATH)/protocol/lufa.mk
+
+# We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
+ifdef MCU_FAMILY
+	PLATFORM=CHIBIOS
+else
+	PLATFORM=AVR
+endif
+
 include $(TMK_PATH)/common.mk
+ifeq ($(PLATFORM),AVR)
+	include $(TMK_PATH)/protocol/lufa.mk
+	include $(TMK_PATH)/avr.mk
+else ifeq ($(PLATFORM),CHIBIOS)
+	include $(TMK_PATH)/protocol/chibios.mk
+	include $(TMK_PATH)/chibios.mk
+else
+	$(error Unknown platform)
+endif
+
 include $(TMK_PATH)/rules.mk
 
 GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")

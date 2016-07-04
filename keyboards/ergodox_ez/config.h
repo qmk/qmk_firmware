@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ErgoDox EZ
 #define PRODUCT         ErgoDox EZ
-#define DESCRIPTION     t.m.k. keyboard firmware for Ergodox
+#define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -40,12 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE  1
 
-#define COLS (int []){ F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
-#define ROWS (int []){ D0, D5, B5, B6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
@@ -53,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    2
+#define DEBOUNCE    5
 #define TAPPING_TERM    200
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 

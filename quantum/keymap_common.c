@@ -19,7 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
+#if defined(__AVR__)
 #include <util/delay.h>
+#include <stdio.h>
+#endif
 #include "action.h"
 #include "action_macro.h"
 #include "debug.h"
@@ -32,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern keymap_config_t keymap_config;
 
-#include <stdio.h>
 #include <inttypes.h>
 
 /* converts key to action */
@@ -46,10 +48,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
 
     action_t action;
     uint8_t action_layer, when, mod;
+    // The arm-none-eabi compiler generates out of bounds warnings when using the fn_actions directly for some reason
+    const uint16_t* actions = fn_actions;
 
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
-            action.code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]);
+            action.code = pgm_read_word(&actions[FN_INDEX(keycode)]);
             break;
         case KC_A ... KC_EXSEL:
         case KC_LCTRL ... KC_RGUI:
@@ -75,7 +79,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case QK_FUNCTION ... QK_FUNCTION_MAX: ;
             // Is a shortcut for function action_layer, pull last 12bits
             // This means we have 4,096 FN macros at our disposal
-            action.code = pgm_read_word(&fn_actions[(int)keycode & 0xFFF]);
+            action.code = pgm_read_word(&actions[(int)keycode & 0xFFF]);
             break;
         case QK_MACRO ... QK_MACRO_MAX:
             action.code = ACTION_MACRO(keycode & 0xFF);
