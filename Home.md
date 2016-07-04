@@ -1,7 +1,5 @@
 # qmk_firmware documentation
 
-- [[Build Guide]]
-
 
 ### tmk_firmware wiki
 Welcome to the tmk_keyboard wiki!
