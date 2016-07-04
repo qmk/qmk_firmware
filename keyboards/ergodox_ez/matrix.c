@@ -179,7 +179,7 @@ uint8_t matrix_scan(void)
 
     if (debouncing) {
         if (--debouncing) {
-            _delay_ms(1);
+            _delay_ms(2);
         } else {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debouncing[i];
