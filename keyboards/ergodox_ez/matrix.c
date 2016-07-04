@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
-#include <util/delay.h>
+#include "wait.h"
 #include "action_layer.h"
 #include "print.h"
 #include "debug.h"
@@ -166,6 +166,7 @@ uint8_t matrix_scan(void)
 
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
+        wait_us(30);  // without this wait read unstable value.
         matrix_row_t cols = read_cols(i);
         if (matrix_debouncing[i] != cols) {
             matrix_debouncing[i] = cols;
@@ -179,7 +180,7 @@ uint8_t matrix_scan(void)
 
     if (debouncing) {
         if (--debouncing) {
-            _delay_ms(1);
+            wait_us(1);
         } else {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debouncing[i];
@@ -267,7 +268,6 @@ static matrix_row_t read_cols(uint8_t row)
             return data;
         }
     } else {
-        _delay_us(30);  // without this wait read unstable value.
         // read from teensy
         return
             (PINF&(1<<0) ? 0 : (1<<0)) |

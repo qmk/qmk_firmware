@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stdbool.h>
+#if defined(__AVR__)
 #include <util/delay.h>
+#endif
 #include "matrix.h"
 #include "bootloader.h"
 #include "debug.h"

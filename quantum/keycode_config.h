@@ -18,4 +18,4 @@ typedef union {
     };
 } keymap_config_t;
 
-keymap_config_t keymap_config;
+extern keymap_config_t keymap_config;
