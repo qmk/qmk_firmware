@@ -113,6 +113,7 @@ AR = arm-none-eabi-ar
 NM = arm-none-eabi-nm
 HEX = $(OBJCOPY) -O $(FORMAT)
 EEP = 
+BIN = $(OBJCOPY) -O binary
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB 
 
@@ -152,3 +153,6 @@ endif
 
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
+
+dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	dfu-util -D $(BUILD_DIR)/$(TARGET).bin
