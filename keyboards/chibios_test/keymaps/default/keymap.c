@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "stm32_f072_onekey.h"
+#include "chibios_test.h"
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_CAPS}}, // test with KC_CAPS, KC_A, KC_BTLD
