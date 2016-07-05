@@ -234,6 +234,7 @@ MSG_COFF = Converting to AVR COFF:
 MSG_EXTENDED_COFF = Converting to AVR Extended COFF:
 MSG_FLASH = Creating load file for Flash:
 MSG_EEPROM = Creating load file for EEPROM:
+MSG_BIN = Creating binary load file for Flash:
 MSG_EXTENDED_LISTING = Creating Extended Listing:
 MSG_SYMBOL_TABLE = Creating Symbol Table:
 MSG_LINKING = Linking:
@@ -367,6 +368,11 @@ gccversion :
 %.sym: %.elf
 	@$(SILENT) || printf "$(MSG_SYMBOL_TABLE) $@" | $(AWK_CMD)
 	$(eval CMD=$(NM) -n $< > $@ )
+	@$(BUILD_CMD)
+
+%.bin: %.elf
+	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
+	$(eval CMD=$(BIN) $< $@ || exit 0)
 	@$(BUILD_CMD)
 
 # Create library from object files.
