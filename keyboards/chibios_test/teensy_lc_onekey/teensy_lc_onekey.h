@@ -1,4 +1,4 @@
 #ifndef TEENSY_LC_ONEKEY_H
 #define TEENSY_LC_ONEKEY_H
-#include "chbibios_test.h"
+#include "chibios_test.h"
 #endif
