@@ -208,7 +208,7 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
 	SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
 	SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
 	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-	OPT_DEFS += -DUSE_SERIAL_LINK
+	OPT_DEFS += -DSERIAL_LINK_ENABLE
 	VAPTH += $(SERIAL_PATH)
 endif
 
