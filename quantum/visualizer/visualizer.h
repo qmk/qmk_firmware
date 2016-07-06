@@ -28,9 +28,7 @@ SOFTWARE.
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef LCD_ENABLE
 #include "gfx.h"
-#endif
 
 #ifdef LCD_BACKLIGHT_ENABLE
 #include "lcd_backlight.h"

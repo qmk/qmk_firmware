@@ -218,14 +218,6 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
 	VAPTH += $(SERIAL_PATH)
 endif
 
-ifeq ($(MASTER),right)	
-	OPT_DEFS += -DMASTER_IS_ON_RIGHT
-else 
-	ifneq ($(MASTER),left)
-$(error MASTER does not have a valid value(left/right))
-	endif
-endif
-
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
 
@@ -257,8 +249,15 @@ ifeq ($(PLATFORM),AVR)
 else ifeq ($(PLATFORM),CHIBIOS)
 	include $(TMK_PATH)/protocol/chibios.mk
 	include $(TMK_PATH)/chibios.mk
+	OPT_OS = chibios
 else
 	$(error Unknown platform)
+endif
+
+ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+	VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
+	VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
+	include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
 include $(TMK_PATH)/rules.mk
