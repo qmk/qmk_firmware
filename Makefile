@@ -59,6 +59,12 @@ ifndef KEYBOARD
 	KEYBOARD=planck
 endif
 
+MASTER ?= left
+ifdef master
+	MASTER = $(master)
+endif
+
+
 # converts things to keyboards/subproject
 ifneq (,$(findstring /,$(KEYBOARD)))
 	TEMP:=$(KEYBOARD)
@@ -198,8 +204,26 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-  OPT_DEFS += -DTAP_DANCE_ENABLE
+	OPT_DEFS += -DTAP_DANCE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
+ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
+	SERIAL_DIR = $(QUANTUM_DIR)/serial_link
+	SERIAL_PATH = $(QUANTUM_PATH)/serial_link
+	SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
+	SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
+	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
+	OPT_DEFS += -DSERIAL_LINK_ENABLE
+	VAPTH += $(SERIAL_PATH)
+endif
+
+ifeq ($(MASTER),right)	
+	OPT_DEFS += -DMASTER_IS_ON_RIGHT
+else 
+	ifneq ($(MASTER),left)
+$(error MASTER does not have a valid value(left/right))
+	endif
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
