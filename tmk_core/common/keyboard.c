@@ -49,6 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #   include "rgblight.h"
 #endif
+#ifdef SERIAL_LINK_ENABLE
+#   include "serial_link/system/serial_link.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 static bool has_ghost_in_row(uint8_t row)
@@ -167,11 +170,15 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef SERIAL_MOUSE_ENABLE
-        serial_mouse_task();
+    serial_mouse_task();
 #endif
 
 #ifdef ADB_MOUSE_ENABLE
-        adb_mouse_task();
+    adb_mouse_task();
+#endif
+
+#ifdef SERIAL_LINK_ENABLE
+	serial_link_update();
 #endif
 
     // update LED
