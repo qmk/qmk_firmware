@@ -35,6 +35,9 @@
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
 #endif
+#ifdef SERIAL_LINK_ENABLE
+#include "serial_link/system/serial_link.h"
+#endif
 #include "suspend.h"
 
 
@@ -98,9 +101,27 @@ int main(void) {
   /* init printf */
   init_printf(NULL,sendchar_pf);
 
-  /* Wait until the USB is active */
-  while(USB_DRIVER.state != USB_ACTIVE)
+#ifdef SERIAL_LINK_ENABLE
+  init_serial_link();
+#endif
+
+  host_driver_t* driver = NULL;
+
+  /* Wait until the USB or serial link is active */
+  while (true) {
+    if(USB_DRIVER.state == USB_ACTIVE) {
+      driver = &chibios_driver;
+      break;
+    }
+#ifdef SERIAL_LINK_ENABLE
+    if(is_serial_link_connected()) {
+      driver = get_serial_link_driver();
+      break;
+    }
+    serial_link_update();
+#endif
     chThdSleepMilliseconds(50);
+  }
 
   /* Do need to wait here!
    * Otherwise the next print might start a transfer on console EP
@@ -113,7 +134,7 @@ int main(void) {
 
   /* init TMK modules */
   keyboard_init();
-  host_set_driver(&chibios_driver);
+  host_set_driver(driver);
 
 #ifdef SLEEP_LED_ENABLE
   sleep_led_init();
@@ -128,6 +149,9 @@ int main(void) {
       print("[s]");
       while(USB_DRIVER.state == USB_SUSPENDED) {
         /* Do this in the suspended state */
+#ifdef SERIAL_LINK_ENABLE
+        serial_link_update();
+#endif
         suspend_power_down(); // on AVR this deep sleeps for 15ms
         /* Remote wakeup */
         if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
