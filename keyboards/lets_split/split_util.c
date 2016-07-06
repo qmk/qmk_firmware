@@ -7,13 +7,22 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "i2c.h"
+#include "serial.h"
 #include "keyboard.h"
 #include "config.h"
 
 volatile bool isLeftHand = true;
 
 static void setup_handedness(void) {
+  #ifdef EE_HANDS
     isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
+  #else
+    #ifdef I2C_MASTER_RIGHT
+      isLeftHand = !has_usb();
+    #else
+      isLeftHand = has_usb();
+    #endif
+  #endif
 }
 
 static void keyboard_master_setup(void) {

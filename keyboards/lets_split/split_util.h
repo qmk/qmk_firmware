@@ -3,8 +3,10 @@
 
 #include <stdbool.h>
 
-#define EECONFIG_BOOTMAGIC_END      (uint8_t *)10
-#define EECONFIG_HANDEDNESS         EECONFIG_BOOTMAGIC_END
+#ifdef EE_HANDS
+	#define EECONFIG_BOOTMAGIC_END      (uint8_t *)10
+	#define EECONFIG_HANDEDNESS         EECONFIG_BOOTMAGIC_END
+#endif
 
 #define SLAVE_I2C_ADDRESS           0x32
 
