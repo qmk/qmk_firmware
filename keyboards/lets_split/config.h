@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
+// Rows are doubled-up
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
 
@@ -38,8 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_I2C
 
-// #define I2C_MASTER_LEFT
-#define I2C_MASTER_RIGHT
+// #define EE_HANDS
+
+#define I2C_MASTER_LEFT
+// #define I2C_MASTER_RIGHT
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
