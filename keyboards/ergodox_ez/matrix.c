@@ -39,6 +39,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include  "timer.h"
 #endif
 
+/*
+ * This constant define not debouncing time in msecs, but amount of matrix
+ * scan loops which should be made to get stable debounced results.
+ *
+ * On Ergodox matrix scan rate is relatively low, because of slow I2C.
+ * Now it's only 317 scans/second, or about 3.15 msec/scan.
+ * According to Cherry specs, debouncing time is 5 msec.
+ *
+ * And so, there is no sense to have DEBOUNCE higher than 2.
+ */
+
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
 #endif
@@ -181,6 +192,7 @@ uint8_t matrix_scan(void)
     if (debouncing) {
         if (--debouncing) {
             wait_us(1);
+            // this should be wait_ms(1) but has been left as-is at EZ's request
         } else {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debouncing[i];
