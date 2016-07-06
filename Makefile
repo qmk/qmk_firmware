@@ -198,8 +198,18 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-  OPT_DEFS += -DTAP_DANCE_ENABLE
+	OPT_DEFS += -DTAP_DANCE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
+ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
+	SERIAL_DIR = $(QUANTUM_DIR)/serial_link
+	SERIAL_PATH = $(QUANTUM_PATH)/serial_link
+	SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
+	SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
+	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
+	OPT_DEFS += -DUSE_SERIAL_LINK
+	VAPTH += $(SERIAL_PATH)
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
