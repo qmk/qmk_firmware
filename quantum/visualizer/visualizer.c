@@ -23,9 +23,11 @@ SOFTWARE.
 */
 
 #include "visualizer.h"
-#include "ch.h"
 #include "config.h"
 #include <string.h>
+#ifdef PROTOCOL_CHIBIOS
+#include "ch.h"
+#endif
 
 #ifdef LCD_ENABLE
 #include "gfx.h"
@@ -68,7 +70,6 @@ static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboa
         status1->suspended == status2->suspended;
 }
 
-static event_source_t layer_changed_event;
 static bool visualizer_enabled = false;
 
 #define MAX_SIMULTANEOUS_ANIMATIONS 4
@@ -83,6 +84,18 @@ static remote_object_t* remote_objects[] = {
 
 #endif
 
+GDisplay* LCD_DISPLAY = 0;
+GDisplay* LED_DISPLAY = 0;
+
+__attribute__((weak))
+GDisplay* get_lcd_display(void) {
+    return gdispGetDisplay(0);
+}
+
+__attribute__((weak))
+GDisplay* get_led_display(void) {
+    return gdispGetDisplay(1);
+}
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = -1;
@@ -106,6 +119,8 @@ void stop_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = animation->num_frames;
     animation->time_left_in_frame = 0;
     animation->need_update = true;
+    animation->first_update_of_frame = false;
+    animation->last_update_of_frame = false;
     for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
         if (animations[i] == animation) {
             animations[i] = NULL;
@@ -120,12 +135,15 @@ void stop_all_keyframe_animations(void) {
             animations[i]->current_frame = animations[i]->num_frames;
             animations[i]->time_left_in_frame = 0;
             animations[i]->need_update = true;
+            animations[i]->first_update_of_frame = false;
+            animations[i]->last_update_of_frame = false;
             animations[i] = NULL;
         }
     }
 }
 
-static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systime_t delta, systime_t* sleep_time) {
+static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systemticks_t delta, systemticks_t* sleep_time) {
+    // TODO: Clean up this messy code
     dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame,
             animation->time_left_in_frame, delta);
     if (animation->current_frame == animation->num_frames) {
@@ -136,16 +154,20 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
        animation->current_frame = 0;
        animation->time_left_in_frame = animation->frame_lengths[0];
        animation->need_update = true;
+       animation->first_update_of_frame = true;
     } else {
         animation->time_left_in_frame -= delta;
         while (animation->time_left_in_frame <= 0) {
             int left = animation->time_left_in_frame;
             if (animation->need_update) {
                 animation->time_left_in_frame = 0;
+                animation->last_update_of_frame = true;
                 (*animation->frame_functions[animation->current_frame])(animation, state);
+                animation->last_update_of_frame = false;
             }
             animation->current_frame++;
             animation->need_update = true;
+            animation->first_update_of_frame = true;
             if (animation->current_frame == animation->num_frames) {
                 if (animation->loop) {
                     animation->current_frame = 0;
@@ -162,14 +184,30 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
     }
     if (animation->need_update) {
         animation->need_update = (*animation->frame_functions[animation->current_frame])(animation, state);
+        animation->first_update_of_frame = false;
     }
 
-    int wanted_sleep = animation->need_update ? 10 : animation->time_left_in_frame;
-    if ((unsigned)wanted_sleep < *sleep_time) {
+    systemticks_t wanted_sleep = animation->need_update ? gfxMillisecondsToTicks(10) : (unsigned)animation->time_left_in_frame;
+    if (wanted_sleep < *sleep_time) {
         *sleep_time = wanted_sleep;
     }
 
     return true;
+}
+
+void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state) {
+    int next_frame = animation->current_frame + 1;
+    if (next_frame == animation->num_frames) {
+        next_frame = 0;
+    }
+    keyframe_animation_t temp_animation = *animation;
+    temp_animation.current_frame = next_frame;
+    temp_animation.time_left_in_frame = animation->frame_lengths[next_frame];
+    temp_animation.first_update_of_frame = true;
+    temp_animation.last_update_of_frame = false;
+    temp_animation.need_update  = false;
+    visualizer_state_t temp_state = *state;
+    (*temp_animation.frame_functions[next_frame])(&temp_animation, &temp_state);
 }
 
 bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state) {
@@ -303,12 +341,13 @@ bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* s
 }
 
 // TODO: Optimize the stack size, this is probably way too big
-static THD_WORKING_AREA(visualizerThreadStack, 1024);
-static THD_FUNCTION(visualizerThread, arg) {
+static DECLARE_THREAD_STACK(visualizerThreadStack, 1024);
+static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
     (void)arg;
 
-    event_listener_t event_listener;
-    chEvtRegister(&layer_changed_event, &event_listener, 0);
+    GListener event_listener;
+    geventListenerInit(&event_listener);
+    geventAttachSource(&event_listener, (GSourceHandle)&current_status, 0);
 
     visualizer_keyboard_status_t initial_status = {
         .default_layer = 0xFFFFFFFF,
@@ -335,12 +374,12 @@ static THD_FUNCTION(visualizerThread, arg) {
             LCD_INT(state.current_lcd_color));
 #endif
 
-    systime_t sleep_time = TIME_INFINITE;
-    systime_t current_time = chVTGetSystemTimeX();
+    systemticks_t sleep_time = TIME_INFINITE;
+    systemticks_t current_time = gfxSystemTicks();
 
     while(true) {
-        systime_t new_time = chVTGetSystemTimeX();
-        systime_t delta = new_time - current_time;
+        systemticks_t new_time = gfxSystemTicks();
+        systemticks_t delta = new_time - current_time;
         current_time = new_time;
         bool enabled = visualizer_enabled;
         if (!same_status(&state.status, &current_status)) {
@@ -373,6 +412,13 @@ static THD_FUNCTION(visualizerThread, arg) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
         }
+#ifdef LED_ENABLE
+        gdispGFlush(LED_DISPLAY);
+#endif
+
+#ifdef EMULATOR
+        draw_emulator();
+#endif
         // The animation can enable the visualizer
         // And we might need to update the state when that happens
         // so don't sleep
@@ -380,7 +426,7 @@ static THD_FUNCTION(visualizerThread, arg) {
             sleep_time = 0;
         }
 
-        systime_t after_update = chVTGetSystemTimeX();
+        systemticks_t after_update = gfxSystemTicks();
         unsigned update_delta = after_update - current_time;
         if (sleep_time != TIME_INFINITE) {
             if (sleep_time > update_delta) {
@@ -391,12 +437,24 @@ static THD_FUNCTION(visualizerThread, arg) {
             }
         }
         dprintf("Update took %d, last delta %d, sleep_time %d\n", update_delta, delta, sleep_time);
-        chEvtWaitOneTimeout(EVENT_MASK(0), sleep_time);
+#ifdef PROTOCOL_CHIBIOS
+        // The gEventWait function really takes milliseconds, even if the documentation says ticks.
+        // Unfortunately there's no generic ugfx conversion from system time to milliseconds,
+        // so let's do it in a platform dependent way.
+
+        // On windows the system ticks is the same as milliseconds anyway
+        if (sleep_time != TIME_INFINITE) {
+            sleep_time = ST2MS(sleep_time);
+        }
+#endif
+        geventEventWait(&event_listener, sleep_time);
     }
 #ifdef LCD_ENABLE
     gdispCloseFont(state.font_fixed5x8);
     gdispCloseFont(state.font_dejavusansbold12);
 #endif
+
+    return 0;
 }
 
 void visualizer_init(void) {
@@ -411,16 +469,26 @@ void visualizer_init(void) {
 #ifdef USE_SERIAL_LINK
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
 #endif
+
+#ifdef LCD_ENABLE
+    LCD_DISPLAY = get_lcd_display();
+#endif
+#ifdef LED_ENABLE
+    LED_DISPLAY = get_led_display();
+#endif
+
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
-    chEvtObjectInit(&layer_changed_event);
-    (void)chThdCreateStatic(visualizerThreadStack, sizeof(visualizerThreadStack),
+    gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
                               VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
 }
 
 void update_status(bool changed) {
     if (changed) {
-        chEvtBroadcast(&layer_changed_event);
+        GSourceListener* listener = geventGetSourceListener((GSourceHandle)&current_status, NULL);
+        if (listener) {
+            geventSendEvent(listener);
+        }
     }
 #ifdef USE_SERIAL_LINK
     static systime_t last_update = 0;

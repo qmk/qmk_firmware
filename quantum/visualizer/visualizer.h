@@ -45,8 +45,18 @@ void visualizer_suspend(void);
 // This should be called when the keyboard wakes up from suspend state
 void visualizer_resume(void);
 
-// If you need support for more than 8 keyframes per animation, you can change this
-#define MAX_VISUALIZER_KEY_FRAMES 8
+// These functions are week, so they can be overridden by the keyboard
+// if needed
+GDisplay* get_lcd_display(void);
+GDisplay* get_led_display(void);
+
+// For emulator builds, this function need to be implemented
+#ifdef EMULATOR
+void draw_emulator(void);
+#endif
+
+// If you need support for more than 16 keyframes per animation, you can change this
+#define MAX_VISUALIZER_KEY_FRAMES 16
 
 struct keyframe_animation_t;
 
@@ -95,12 +105,20 @@ typedef struct keyframe_animation_t {
     // keyframe update functions
     int current_frame;
     int time_left_in_frame;
+    bool first_update_of_frame;
+    bool last_update_of_frame;
     bool need_update;
 
 } keyframe_animation_t;
 
+extern GDisplay* LCD_DISPLAY;
+extern GDisplay* LED_DISPLAY;
+
 void start_keyframe_animation(keyframe_animation_t* animation);
 void stop_keyframe_animation(keyframe_animation_t* animation);
+// This runs the next keyframe, but does not update the animation state
+// Useful for crossfades for example
+void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state);
 
 // Some predefined keyframe functions that can be used by the user code
 // Does nothing, useful for adding delays
@@ -121,7 +139,7 @@ bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualiz
 // directly from the initalize_user_visualizer function (the animation can be null)
 bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
 
-// These two functions have to be implemented by the user
+// These functions have to be implemented by the user
 void initialize_user_visualizer(visualizer_state_t* state);
 void update_user_visualizer_state(visualizer_state_t* state);
 void user_visualizer_suspend(visualizer_state_t* state);
