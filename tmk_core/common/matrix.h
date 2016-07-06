@@ -72,6 +72,11 @@ void matrix_scan_kb(void);
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
+#ifdef I2C_SPLIT
+	void slave_matrix_init(void);
+	uint8_t slave_matrix_scan(void);
+#endif
+
 #ifdef __cplusplus
 }
 #endif
