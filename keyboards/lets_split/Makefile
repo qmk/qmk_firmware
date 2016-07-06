@@ -1,4 +1,6 @@
-
+SRC += matrix.c \
+	   i2c.c \
+	   split_util.c
 
 # MCU name
 #MCU = at90usb1287
@@ -67,6 +69,8 @@ RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
+
+CUSTOM_MATRIX = yes
 
 ifndef QUANTUM_DIR
 	include ../../Makefile

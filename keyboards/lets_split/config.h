@@ -29,11 +29,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
-#define MATRIX_ROWS 4
+#define MATRIX_ROWS 8
 #define MATRIX_COLS 6
 
-#define MATRIX_ROW_PINS { B5, B4, E6, D7, }
+// wiring of each half
+#define MATRIX_ROW_PINS { B5, B4, E6, D7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
+
+#define USE_I2C
+
+// #define I2C_MASTER_LEFT
+#define I2C_MASTER_RIGHT
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
