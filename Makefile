@@ -59,6 +59,12 @@ ifndef KEYBOARD
 	KEYBOARD=planck
 endif
 
+MASTER ?= left
+ifdef master
+	MASTER = $(master)
+endif
+
+
 # converts things to keyboards/subproject
 ifneq (,$(findstring /,$(KEYBOARD)))
 	TEMP:=$(KEYBOARD)
@@ -210,6 +216,14 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
 	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
 	OPT_DEFS += -DSERIAL_LINK_ENABLE
 	VAPTH += $(SERIAL_PATH)
+endif
+
+ifeq ($(MASTER),right)	
+	OPT_DEFS += -DMASTER_IS_ON_RIGHT
+else 
+	ifneq ($(MASTER),left)
+$(error MASTER does not have a valid value(left/right))
+	endif
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
