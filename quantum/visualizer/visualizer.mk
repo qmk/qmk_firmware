@@ -20,14 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-GFXLIB = $(VISUALIZER_DIR)/ugfx
 SRC += $(VISUALIZER_DIR)/visualizer.c
-UINCDIR += $(GFXINC) $(VISUALIZER_DIR)
+EXTRAINCDIRS += $(GFXINC) $(VISUALIZER_DIR)
+GFXLIB = $(LIB_PATH)/ugfx
+VPATH += $(VISUALIZER_PATH)
 
 ifdef LCD_ENABLE
-UDEFS += -DLCD_ENABLE
+OPT_DEFS += -DLCD_ENABLE
 ULIBS += -lm
-USE_UGFX = yes
 endif
 
 ifdef LCD_BACKLIGHT_ENABLE
@@ -35,21 +35,21 @@ SRC += $(VISUALIZER_DIR)/lcd_backlight.c
 ifndef EMULATOR
 SRC += lcd_backlight_hal.c
 endif
-UDEFS += -DLCD_BACKLIGHT_ENABLE
+OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
 ifdef LED_ENABLE
 SRC += $(VISUALIZER_DIR)/led_test.c
 UDEFS += -DLED_ENABLE
-USE_UGFX = yes
 endif
 
-ifdef USE_UGFX
 include $(GFXLIB)/gfx.mk
-SRC += $(GFXSRC)
-UDEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
-ULIBS += $(patsubst %,-l%,$(patsubst -l%,%,$(GFXLIBS)))
-endif
+#SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
+#SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
+#SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
+#SRC += $(GFXSRC)
+OPT_DEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
+#ULIBS += $(patsubst %,-l%,$(patsubst -l%,%,$(GFXLIBS)))
 
 ifndef VISUALIZER_USER
 VISUALIZER_USER = visualizer_user.c
