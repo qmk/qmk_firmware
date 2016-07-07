@@ -25,6 +25,8 @@ EXTRAINCDIRS += $(GFXINC) $(VISUALIZER_DIR)
 GFXLIB = $(LIB_PATH)/ugfx
 VPATH += $(VISUALIZER_PATH)
 
+OPT_DEFS += -DVISUALIZER_ENABLE
+
 ifdef LCD_ENABLE
 OPT_DEFS += -DLCD_ENABLE
 ULIBS += -lm
@@ -44,12 +46,8 @@ UDEFS += -DLED_ENABLE
 endif
 
 include $(GFXLIB)/gfx.mk
-#SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
-#SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
-#SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-#SRC += $(GFXSRC)
+SRC += $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
 OPT_DEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
-#ULIBS += $(patsubst %,-l%,$(patsubst -l%,%,$(GFXLIBS)))
 
 ifndef VISUALIZER_USER
 VISUALIZER_USER = visualizer_user.c
