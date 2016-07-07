@@ -89,7 +89,7 @@ bool process_record_quantum(keyrecord_t *record) {
           shutdown_user();
         #endif
         wait_ms(250);
-        #ifdef ATREUS_ASTAR
+        #ifdef CATERINA_BOOTLOADER
             *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
         #endif
         bootloader_jump();
