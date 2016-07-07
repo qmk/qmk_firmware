@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "backlight.h"
+#include "action_layer.h"
 #ifdef BOOTMAGIC_ENABLE
 #   include "bootmagic.h"
 #else
@@ -51,6 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef SERIAL_LINK_ENABLE
 #   include "serial_link/system/serial_link.h"
+#endif
+#ifdef VISUALIZER_ENABLE
+#   include "visualizer/visualizer.h"
 #endif
 
 #ifdef MATRIX_HAS_GHOST
@@ -179,6 +183,10 @@ MATRIX_LOOP_END:
 
 #ifdef SERIAL_LINK_ENABLE
 	serial_link_update();
+#endif
+
+#ifdef VISUALIZER_ENABLE
+    visualizer_update(default_layer_state, layer_state, host_keyboard_leds());
 #endif
 
     // update LED

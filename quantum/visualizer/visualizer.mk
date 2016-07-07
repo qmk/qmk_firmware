@@ -20,41 +20,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-GFXLIB = $(VISUALIZER_DIR)/ugfx
 SRC += $(VISUALIZER_DIR)/visualizer.c
-UINCDIR += $(GFXINC) $(VISUALIZER_DIR)
+EXTRAINCDIRS += $(GFXINC) $(VISUALIZER_DIR)
+GFXLIB = $(LIB_PATH)/ugfx
+VPATH += $(VISUALIZER_PATH)
+
+OPT_DEFS += -DVISUALIZER_ENABLE
 
 ifdef LCD_ENABLE
-UDEFS += -DLCD_ENABLE
+OPT_DEFS += -DLCD_ENABLE
 ULIBS += -lm
-USE_UGFX = yes
 endif
 
 ifdef LCD_BACKLIGHT_ENABLE
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
-ifndef EMULATOR
-SRC += lcd_backlight_hal.c
-endif
-UDEFS += -DLCD_BACKLIGHT_ENABLE
+OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
 ifdef LED_ENABLE
 SRC += $(VISUALIZER_DIR)/led_test.c
-UDEFS += -DLED_ENABLE
-USE_UGFX = yes
+OPT_DEFS += -DLED_ENABLE
 endif
 
-ifdef USE_UGFX
 include $(GFXLIB)/gfx.mk
-SRC += $(GFXSRC)
-UDEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
-ULIBS += $(patsubst %,-l%,$(patsubst -l%,%,$(GFXLIBS)))
-endif
+SRC += $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
+OPT_DEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
 
-ifndef VISUALIZER_USER
-VISUALIZER_USER = visualizer_user.c
+ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
+	SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
+else 
+	ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
+$(error "$(KEYMAP_PATH)/visualizer.c" does not exist)
+	else
+		SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/visualizer.c
+	endif
 endif
-SRC += $(VISUALIZER_USER)
 
 ifdef EMULATOR
 UINCDIR += $(TMK_DIR)/common
