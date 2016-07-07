@@ -1,5 +1,7 @@
+#ifndef LETS_SPLIT_H
+#define LETS_SPLIT_H
+
 #include "quantum.h"
-#include <avr/wdt.h>
 
 void promicro_bootloader_jmp(bool program);
 
@@ -19,3 +21,5 @@ void promicro_bootloader_jmp(bool program);
 		{ k60, k61, k62, k63, k64, k65 }, \
 		{ k70, k71, k72, k73, k74, k75 } \
 	}
+
+#endif

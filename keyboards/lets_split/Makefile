@@ -1,6 +1,7 @@
 SRC += matrix.c \
 	   i2c.c \
-	   split_util.c
+	   split_util.c \
+	   serial.c
 
 # MCU name
 #MCU = at90usb1287

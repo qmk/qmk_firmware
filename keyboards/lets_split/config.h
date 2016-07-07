@@ -37,7 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B5, B4, E6, D7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 
-#define USE_I2C
+#define CATERINA_BOOTLOADER
+
+// #define USE_I2C
 
 // #define EE_HANDS
 
@@ -51,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
+// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
