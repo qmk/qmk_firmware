@@ -42,7 +42,7 @@ endif
 
 ifdef LED_ENABLE
 SRC += $(VISUALIZER_DIR)/led_test.c
-UDEFS += -DLED_ENABLE
+OPT_DEFS += -DLED_ENABLE
 endif
 
 include $(GFXLIB)/gfx.mk

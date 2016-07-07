@@ -456,9 +456,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 }
 
 void visualizer_init(void) {
-#ifdef LCD_ENABLE
     gfxInit();
-#endif
 
 #ifdef LCD_BACKLIGHT_ENABLE
     lcd_backlight_init();
