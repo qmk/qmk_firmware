@@ -9,7 +9,7 @@
 //macros
 #define CTL_SFT_T 100
 #define CTL_SFT_G 101
-#define CTL_ALT_T 102
+#define CTL_ALT_H 102
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_ESC,
         ALT_T(KC_TAB),  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   ALL_T(KC_NO),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_FN1,
-        KC_LGUI,        KC_GRV, M(CTL_ALT_T),M(CTL_SFT_G),LALT(KC_LSFT),
+        KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(SYMB),
+        KC_LGUI,        KC_GRV, M(CTL_ALT_H),M(CTL_SFT_G),LALT(KC_LSFT),
                                               CTL_T(KC_APP),  KC_LALT,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              M(CTL_SFT_T),KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              MEH_T(KC_NO),KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),CTL_T(KC_QUOT),
-             KC_FN1,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
+             MO(SYMB),      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
                             LALT(KC_LSFT),KC_LEFT,KC_DOWN,KC_UP,            KC_RIGHT,
              KC_LALT,        KC_CAPS,
              KC_PGUP,
@@ -165,9 +165,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             return MACRO(U(LCTL), U(LSFT), END);
             break;
-        case CTL_ALT_T:
+        case CTL_ALT_H:
             if (record->event.pressed) {
-                return MACRO(D(LCTL), D(LALT), T(T), END);
+                return MACRO(D(LCTL), D(LALT), T(H), END);
             }
             return MACRO(U(LCTL), U(LALT), END);
             break;
