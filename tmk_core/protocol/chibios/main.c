@@ -155,6 +155,9 @@ int main(void) {
 
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
+#ifdef VISUALIZER_ENABLE
+      visualizer_suspend();
+#endif
       while(USB_DRIVER.state == USB_SUSPENDED) {
         /* Do this in the suspended state */
 #ifdef SERIAL_LINK_ENABLE
@@ -172,6 +175,10 @@ int main(void) {
 #ifdef MOUSEKEY_ENABLE
       mousekey_send();
 #endif /* MOUSEKEY_ENABLE */
+
+#ifdef VISUALIZER_ENABLE
+      visualizer_resume();
+#endif
     }
 
     keyboard_task();
