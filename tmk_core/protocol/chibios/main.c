@@ -38,6 +38,9 @@
 #ifdef SERIAL_LINK_ENABLE
 #include "serial_link/system/serial_link.h"
 #endif
+#ifdef VISUALIZER_ENABLE
+#include "visualizer/visualizer.h"
+#endif
 #include "suspend.h"
 
 
@@ -100,6 +103,10 @@ int main(void) {
 
   /* init printf */
   init_printf(NULL,sendchar_pf);
+
+#ifdef VISUALIZER_ENABLE
+  visualizer_init();
+#endif
 
 #ifdef SERIAL_LINK_ENABLE
   init_serial_link();
