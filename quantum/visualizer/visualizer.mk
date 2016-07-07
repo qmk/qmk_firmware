@@ -34,9 +34,6 @@ endif
 
 ifdef LCD_BACKLIGHT_ENABLE
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
-ifndef EMULATOR
-SRC += lcd_backlight_hal.c
-endif
 OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
