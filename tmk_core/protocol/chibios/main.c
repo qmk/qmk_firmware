@@ -104,13 +104,14 @@ int main(void) {
   /* init printf */
   init_printf(NULL,sendchar_pf);
 
+#ifdef SERIAL_LINK_ENABLE
+  init_serial_link();
+#endif
+
 #ifdef VISUALIZER_ENABLE
   visualizer_init();
 #endif
 
-#ifdef SERIAL_LINK_ENABLE
-  init_serial_link();
-#endif
 
   host_driver_t* driver = NULL;
 
