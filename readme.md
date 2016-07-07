@@ -704,23 +704,18 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 
     RGBLIGHT_ENABLE = yes
 
-Please note that the underglow is not compatible with audio output. So you cannot enable both of them at the same time.
+In order to use the underglow timer functions, you need to have `#define RGBLIGHT_TIMER` in your `config.h`, and have audio disabled (`AUDIO_ENABLE = no` in your Makefile).
 
-Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the F4 by default:
-
-    #define ws2812_PORTREG  PORTF
-    #define ws2812_DDRREG   DDRF
-    #define ws2812_pin PF4
+Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the `F4` pin by default:
+    
+    #define RGB_DI_PIN F4     // The pin your RGB strip is wired to
+    #define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 14     // Number of LEDs
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 
-You'll need to edit `PORTF`, `DDRF`, and `PF4` on the first three lines to the port/pin you have your LED(s) wired to, eg for B3 change things to:
-
-    #define ws2812_PORTREG  PORTB
-    #define ws2812_DDRREG   DDRB
-    #define ws2812_pin PB3
+You'll need to edit `RGB_DI_PIN` to the pin you have your `DI` on your RGB strip wired to.
 
 The firmware supports 5 different light effects, and the color (hue, saturation, brightness) can be customized in most effects. To control the underglow, you need to modify your keymap file to assign those functions to some keys/key combinations. For details, please check this keymap. `keyboards/planck/keymaps/yang/keymap.c`
 
