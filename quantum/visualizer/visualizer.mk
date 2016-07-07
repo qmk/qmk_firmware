@@ -46,10 +46,15 @@ include $(GFXLIB)/gfx.mk
 SRC += $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
 OPT_DEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
 
-ifndef VISUALIZER_USER
-VISUALIZER_USER = visualizer_user.c
+ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
+	SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
+else 
+	ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
+$(error "$(KEYMAP_PATH)/visualizer.c" does not exist)
+	else
+		SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/visualizer.c
+	endif
 endif
-SRC += $(VISUALIZER_USER)
 
 ifdef EMULATOR
 UINCDIR += $(TMK_DIR)/common
