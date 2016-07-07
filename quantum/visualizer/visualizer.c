@@ -43,7 +43,7 @@ SOFTWARE.
 #include "nodebug.h"
 #endif
 
-#ifdef USE_SERIAL_LINK
+#ifdef SERIAL_LINK_ENABLE
 #include "serial_link/protocol/transport.h"
 #include "serial_link/system/serial_link.h"
 #endif
@@ -73,7 +73,7 @@ static bool visualizer_enabled = false;
 #define MAX_SIMULTANEOUS_ANIMATIONS 4
 static keyframe_animation_t* animations[MAX_SIMULTANEOUS_ANIMATIONS] = {};
 
-#ifdef USE_SERIAL_LINK
+#ifdef SERIAL_LINK_ENABLE
 MASTER_TO_ALL_SLAVES_OBJECT(current_status, visualizer_keyboard_status_t);
 
 static remote_object_t* remote_objects[] = {
@@ -462,7 +462,7 @@ void visualizer_init(void) {
     lcd_backlight_init();
 #endif
 
-#ifdef USE_SERIAL_LINK
+#ifdef SERIAL_LINK_ENABLE
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
 #endif
 
@@ -486,7 +486,7 @@ void update_status(bool changed) {
             geventSendEvent(listener);
         }
     }
-#ifdef USE_SERIAL_LINK
+#ifdef SERIAL_LINK_ENABLE
     static systime_t last_update = 0;
     systime_t current_update = chVTGetSystemTimeX();
     systime_t delta = current_update - last_update;
@@ -506,7 +506,7 @@ void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds) {
     // Alternatively a mutex could be used instead of the volatile variables
 
     bool changed = false;
-#ifdef USE_SERIAL_LINK
+#ifdef SERIAL_LINK_ENABLE
     if (is_serial_link_connected ()) {
         visualizer_keyboard_status_t* new_status = read_current_status();
         if (new_status) {
