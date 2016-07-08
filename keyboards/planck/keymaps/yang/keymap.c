@@ -57,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 };
 
-enum function_id {
-    
-};
+/*enum function_id {
+  
+};*/
 
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_LAYER_TAP_KEY(_RGB, KC_SPC),
