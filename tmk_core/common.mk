@@ -107,7 +107,7 @@ endif
 
 
 # Version string
-OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
+OPT_DEFS += -DVERSION=$(GIT_VERSION)
 
 # Bootloader address
 ifdef STM32_BOOTLOADER_ADDRESS
