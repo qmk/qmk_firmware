@@ -103,6 +103,56 @@ bool process_record_quantum(keyrecord_t *record) {
           return false;
       }
       break;
+	#ifdef RGBLIGHT_ENABLE
+	case RGB_TOG:
+		if (record->event.pressed) {
+			rgblight_toggle();
+			return false;
+		}
+		break;
+	case RGB_MOD:
+		if (record->event.pressed) {
+			rgblight_step();
+			return false;
+		}
+		break;
+	case RGB_HUI:
+		if (record->event.pressed) {
+			rgblight_increase_hue();
+			return false;
+		}
+		break;
+	case RGB_HUD:
+		if (record->event.pressed) {
+			rgblight_decrease_hue();
+			return false;
+		}
+		break;
+	case RGB_SAI:
+		if (record->event.pressed) {
+			rgblight_increase_sat();
+			return false;
+		}
+		break;
+	case RGB_SAD:
+		if (record->event.pressed) {
+			rgblight_decrease_sat();
+			return false;
+		}
+		break;
+	case RGB_VAI:
+		if (record->event.pressed) {
+			rgblight_increase_val();
+			return false;
+		}
+		break;
+	case RGB_VAD:
+		if (record->event.pressed) {
+			rgblight_decrease_val();
+			return false;
+		}
+		break;
+	#endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_UNSWAP_ALT_GUI:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
