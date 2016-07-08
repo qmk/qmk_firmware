@@ -15,7 +15,7 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
+#define _QWERTY 10
 #define _COLEMAK 1
 #define _DVORAK 2
 #define _LOWER 3
@@ -23,29 +23,44 @@ extern keymap_config_t keymap_config;
 #define _PLOVER 5
 #define _ADJUST 16
 
-// Macro name shortcuts
-#define QWERTY M(_QWERTY)
-#define COLEMAK M(_COLEMAK)
-#define DVORAK M(_DVORAK)
-#define LOWER M(_LOWER)
-#define RAISE M(_RAISE)
-#define M_BL 5
-#define PLOVER M(12)
-#define EXT_PLV M(13)
+enum planck_keycodes {
+  QWERTY = SAFE_RANGE,
+  COLEMAK,
+  DVORAK,
+  PLOVER,
+  LOWER,
+  RAISE,
+  BACKLIT,
+  EXT_PLV,
+  RGBLED_TOGGLE,
+  RGBLED_STEP_MODE,
+  RGBLED_INCREASE_HUE,
+  RGBLED_DECREASE_HUE,
+  RGBLED_INCREASE_SAT,
+  RGBLED_DECREASE_SAT,
+  RGBLED_INCREASE_VAL,
+  RGBLED_DECREASE_VAL,
+};
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[0] = {
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL}
+},
 
 /* Qwerty
- * ,-----------------------------------------------------------------------------------.
+ ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -54,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak
@@ -90,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-  {M(M_BL), KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Lower
@@ -193,10 +208,10 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case _QWERTY:
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+        case QWERTY:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
@@ -204,7 +219,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             persistant_default_layer_set(1UL<<_QWERTY);
           }
           break;
-        case _COLEMAK:
+      return false;
+        case COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
@@ -212,7 +228,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             persistant_default_layer_set(1UL<<_COLEMAK);
           }
           break;
-        case _DVORAK:
+      return false;
+        case DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
@@ -220,7 +237,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             persistant_default_layer_set(1UL<<_DVORAK);
           }
           break;
-        case _LOWER:
+      return false;
+        case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
             #ifdef BACKLIGHT_ENABLE
@@ -233,7 +251,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           break;
-        case _RAISE:
+      return false;
+        case RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
             #ifdef BACKLIGHT_ENABLE
@@ -246,7 +265,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           break;
-        case M_BL:
+      return false;
+        case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
             #ifdef BACKLIGHT_ENABLE
@@ -256,7 +276,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RSFT);
           }
         break;
-        case 12:
+      return false;
+        case PLOVER:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               stop_all_notes();
@@ -274,7 +295,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             eeconfig_update_keymap(keymap_config.raw);
           }
         break;
-        case 13:
+      return false;
+        case EXT_PLV:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
@@ -282,9 +304,61 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_PLOVER);
           }
         break;
+      return false;
+
+    case RGBLED_TOGGLE:
+      //led operations
+      if (record->event.pressed) {
+        rgblight_toggle();
+      }
+      return false;
+      break;
+    case RGBLED_INCREASE_HUE:
+      if (record->event.pressed) {
+        rgblight_increase_hue();
+      }
+      return false;
+      break;
+    case RGBLED_DECREASE_HUE:
+      if (record->event.pressed) {
+        rgblight_decrease_hue();
+      }
+      return false;
+      break;
+    case RGBLED_INCREASE_SAT:
+      if (record->event.pressed) {
+        rgblight_increase_sat();
+      }
+      return false;
+      break;
+    case RGBLED_DECREASE_SAT:
+      if (record->event.pressed) {
+        rgblight_decrease_sat();
+      }
+      return false;
+      break;
+    case RGBLED_INCREASE_VAL:
+      if (record->event.pressed) {
+        rgblight_increase_val();
+      }
+      return false;
+      break;
+    case RGBLED_DECREASE_VAL:
+      if (record->event.pressed) {
+        rgblight_decrease_val();
+      }
+      return false;
+      break;
+    case RGBLED_STEP_MODE:
+      if (record->event.pressed) {
+        rgblight_step();
+      }
+      return false;
+      break;
+
 
       }
-    return MACRO_NONE;
+  return true;
 };
 
 void matrix_init_user(void) {
@@ -326,6 +400,17 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end(); 
 
+    SEQ_ONE_KEY (KC_R) {
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+      tap_random_base64();
+    }
     SEQ_ONE_KEY (KC_V) {
       SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
     }

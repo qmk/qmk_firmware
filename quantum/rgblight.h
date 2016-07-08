@@ -1,8 +1,11 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#ifndef RGBLIGHT_MODES
-#define RGBLIGHT_MODES 23
+
+#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+	#define RGBLIGHT_MODES 23
+#else
+	#define RGBLIGHT_MODES 1
 #endif
 
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
