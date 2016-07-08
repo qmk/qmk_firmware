@@ -93,65 +93,65 @@ bool process_record_quantum(keyrecord_t *record) {
             *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
         #endif
         bootloader_jump();
-        return false;
       }
+	  return false;
       break;
     case DEBUG:
       if (record->event.pressed) {
           print("\nDEBUG: enabled.\n");
           debug_enable = true;
-          return false;
       }
+	  return false;
       break;
 	#ifdef RGBLIGHT_ENABLE
 	case RGB_TOG:
 		if (record->event.pressed) {
 			rgblight_toggle();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_MOD:
 		if (record->event.pressed) {
 			rgblight_step();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_HUI:
 		if (record->event.pressed) {
 			rgblight_increase_hue();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_HUD:
 		if (record->event.pressed) {
 			rgblight_decrease_hue();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_SAI:
 		if (record->event.pressed) {
 			rgblight_increase_sat();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_SAD:
 		if (record->event.pressed) {
 			rgblight_decrease_sat();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_VAI:
 		if (record->event.pressed) {
 			rgblight_increase_val();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	case RGB_VAD:
 		if (record->event.pressed) {
 			rgblight_decrease_val();
-			return false;
-		}
-		break;
+      }
+	  return false;
+      break;
 	#endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_UNSWAP_ALT_GUI:
       if (record->event.pressed) {
