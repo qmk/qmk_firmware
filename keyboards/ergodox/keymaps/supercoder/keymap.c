@@ -2,7 +2,7 @@
  * SuperCoder 2000 layout
  */
 
-#include "ergodox_ez.h"
+#include "ergodox.h"
 
 /* Layers */
 

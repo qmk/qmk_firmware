@@ -1,7 +1,7 @@
 // Based on `default_osx`
 // Replace left Bksp with Ctrl/Esc
 // Remove the Ctrl from Z and /
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 

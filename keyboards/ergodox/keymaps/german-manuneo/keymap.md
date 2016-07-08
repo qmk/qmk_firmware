@@ -12,7 +12,7 @@ Tested with python 2.7 and python 3.4
     {
         "layout": "ergodox_ez",
         "keymaps_includes": [
-            "ergodox_ez.h",
+            "ergodox.h",
             "action_layer.h",
             "keymap_common.h",
             "keymap_extras/keymap_german.h",

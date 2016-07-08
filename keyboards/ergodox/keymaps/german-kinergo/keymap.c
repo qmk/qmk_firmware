@@ -1,7 +1,7 @@
 // German keymap derived from "german", but more closely resembling the German layout of the Kinesis Ergo Elan.
 //
 // chschmitz, 2016-01-27
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 #include "keymap_german.h"

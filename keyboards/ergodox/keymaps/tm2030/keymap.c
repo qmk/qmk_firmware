@@ -1,5 +1,5 @@
 /* TypeMatrix-2030-like keymap  */
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 #include "led.h"

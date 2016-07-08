@@ -1,4 +1,4 @@
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 
