@@ -1,5 +1,5 @@
 // French AZERTY version of the default_osx file
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 #include "keymap_french_osx.h"

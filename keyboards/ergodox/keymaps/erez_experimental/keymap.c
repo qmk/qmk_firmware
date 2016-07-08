@@ -1,5 +1,5 @@
 #include <keymap_extras/keymap_colemak.h>
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 

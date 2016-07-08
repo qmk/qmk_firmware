@@ -5,7 +5,7 @@
 // Only default layer was remapped all others layers are standard Ergodox EZ
 // Very personal mapping of-course, but who knows a starting point for others.
 
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 

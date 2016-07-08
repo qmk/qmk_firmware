@@ -1,4 +1,4 @@
-#include "ergodox_ez.h"
+#include "ergodox.h"
 #include "action_layer.h"
 #include "keymap.h"
 #include "keymap_german.h"
