@@ -365,7 +365,7 @@ gccversion :
 .PRECIOUS : $(OBJ)
 %.elf: gccversion sizebefore check_submodule $(OBJ)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=$(CC) $(ALL_CFLAGS) $(OBJ) --output $@ $(LDFLAGS))
+	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out gccversion sizebefore check_submodule,$^) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 # Compile: create object files from C source files.
