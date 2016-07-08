@@ -260,7 +260,7 @@ LST = $(patsubst %.c,$(OBJDIR)/%.lst,$(patsubst %.cpp,$(OBJDIR)/%.lst,$(patsubst
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
-GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$@).d
+GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$(subst $(BUILD_DIR)/,,$@)).d
 
 
 # Combine all necessary flags and optional flags.
@@ -360,49 +360,51 @@ gccversion :
 	$(eval CMD=$(AR) $@ $(OBJ) )
 	@$(BUILD_CMD)
 
+BEGIN = gccversion check_submodule sizebefore
+
 # Link: create ELF output file from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
-%.elf: gccversion sizebefore check_submodule $(OBJ)
+%.elf: $(OBJ) | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out gccversion sizebefore check_submodule,$^) --output $@ $(LDFLAGS))
+	$(eval CMD=$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 # Compile: create object files from C source files.
-$(OBJDIR)/%.o : %.c
+$(OBJDIR)/%.o : %.c | $(BEGIN)
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_COMPILING) $<" | $(AWK_CMD)
 	$(eval CMD=$(CC) -c $(ALL_CFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
-$(OBJDIR)/%.o : %.cpp
+$(OBJDIR)/%.o : %.cpp | $(BEGIN)
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
 	$(eval CMD=$(CC) -c $(ALL_CPPFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
-%.s : %.c
+%.s : %.c | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
 	$(eval CMD=$(CC) -S $(ALL_CFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Compile: create assembler files from C++ source files.
-%.s : %.cpp
+%.s : %.cpp | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
 	$(eval CMD=$(CC) -S $(ALL_CPPFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
-$(OBJDIR)/%.o : %.S
+$(OBJDIR)/%.o : %.S | $(BEGIN)
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
 	$(eval CMD=$(CC) -c $(ALL_ASFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Create preprocessed source for use in sending a bug report.
-%.i : %.c
+%.i : %.c | $(BEGIN)
 	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@
 
 # Target: clean project.
@@ -492,7 +494,7 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 # Listing of phony targets.
 .PHONY : all quick finish sizebefore sizeafter gccversion \
-build elf hex eep lss sym coff extcoff \
+build elf hex eep lss sym coff extcoff check_submodule \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
 all-keyboards-defaults all-keyboards all-keymaps \
