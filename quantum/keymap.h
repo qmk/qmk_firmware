@@ -156,6 +156,16 @@ enum quantum_keycodes {
     BL_INC,
     BL_TOGG,
     BL_STEP,
+	
+	// RGB functionality
+	RGB_TOG,
+	RGB_MOD,
+	RGB_HUI,
+	RGB_HUD,
+	RGB_SAI,
+	RGB_SAD,
+	RGB_VAI,
+	RGB_VAD,
 
     // Left shift, open paren
     KC_LSPO,
