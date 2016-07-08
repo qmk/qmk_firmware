@@ -66,78 +66,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------------------------'
    */
 [_RS] = KEYMAP(
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(0),             F(6), \
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                   F(7), \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, RGB_TOG,             RGB_VAI, \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                   RGB_VAD, \
   KC_TRNS, KC_TRNS, MO(_RS),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,                         \
-  MO(_FL), KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_FL),          F(4),          \
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,        F(1),   F(1),                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, F(3),    F(5),    F(2)),
+  MO(_FL), KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_FL),          RGB_SAI,          \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,        RGB_MOD,   RGB_MOD,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, RGB_HUD,    RGB_SAD,    RGB_HUI),
 };
 
-enum function_id {
-    RGBLED_TOGGLE,
-    RGBLED_STEP_MODE,
-    RGBLED_INCREASE_HUE,
-    RGBLED_DECREASE_HUE,
-    RGBLED_INCREASE_SAT,
-    RGBLED_DECREASE_SAT,
-    RGBLED_INCREASE_VAL,
-    RGBLED_DECREASE_VAL,
-};
+/*enum function_id {
+};*/
 
 const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_FUNCTION(RGBLED_TOGGLE),
-  [1]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
-  [2]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
-  [3]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
-  [4]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
-  [5]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
-  [6]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
-  [7]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
-    case RGBLED_TOGGLE:
-      //led operations
-      if (record->event.pressed) {
-        rgblight_toggle();
-      }
-
-      break;
-    case RGBLED_INCREASE_HUE:
-      if (record->event.pressed) {
-        rgblight_increase_hue();
-      }
-      break;
-    case RGBLED_DECREASE_HUE:
-      if (record->event.pressed) {
-        rgblight_decrease_hue();
-      }
-      break;
-    case RGBLED_INCREASE_SAT:
-      if (record->event.pressed) {
-        rgblight_increase_sat();
-      }
-      break;
-    case RGBLED_DECREASE_SAT:
-      if (record->event.pressed) {
-        rgblight_decrease_sat();
-      }
-      break;
-    case RGBLED_INCREASE_VAL:
-      if (record->event.pressed) {
-        rgblight_increase_val();
-      }
-      break;
-    case RGBLED_DECREASE_VAL:
-      if (record->event.pressed) {
-        rgblight_decrease_val();
-      }
-      break;
-    case RGBLED_STEP_MODE:
-      if (record->event.pressed) {
-        rgblight_step();
-      }
-      break;
   }
 }
