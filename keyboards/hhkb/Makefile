@@ -78,6 +78,10 @@ ifndef QUANTUM_DIR
 	include ../../Makefile
 endif
 
+ifneq (, $(findstring yes, $(HHKB_JP)))
+	OPT_DEFS += -DHHKB_JP
+endif
+
 debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
 
