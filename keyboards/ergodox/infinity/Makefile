@@ -52,14 +52,14 @@ ARMV = 7
 # Vector table for application
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x00002000
+OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 
 # Build Options
 #   comment out to disable the options.
 #
 CUSTOM_MATRIX ?= yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
-VISUALIZER_ENABLE ?= yes
+VISUALIZER_ENABLE ?= no #temporarily disabled to make everything compile
 LCD_ENABLE ?= yes
 LED_ENABLE ?= yes
 LCD_BACKLIGHT_ENABLE ?= yes

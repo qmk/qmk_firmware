@@ -1,8 +1,10 @@
-#include "infinity_ergodox.h"
+#include "infinity.h"
 #include "ch.h"
 #include "hal.h"
 #include "serial_link/system/serial_link.h"
+#ifdef VISUALIZER_ENABLE
 #include "lcd_backlight.h"
+#endif
 
 void init_serial_link_hal(void) {
     PORTA->PCR[1] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(2);
@@ -36,7 +38,7 @@ void init_serial_link_hal(void) {
 // Using a higher pre-scalar without flicker is possible but FTM0_MOD will need to be reduced
 // Which will reduce the brightness range
 #define PRESCALAR_DEFINE 0
-
+#ifdef VISUALIZER_ENABLE
 void lcd_backlight_hal_init(void) {
 	// Setup Backlight
     SIM->SCGC6 |= SIM_SCGC6_FTM0;
@@ -73,4 +75,19 @@ void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
 	CHANNEL_RED.CnV = r;
 	CHANNEL_GREEN.CnV = g;
 	CHANNEL_BLUE.CnV = b;
+}
+#endif
+
+void matrix_init_kb(void) {
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+
+	matrix_init_user();
+}
+
+void matrix_scan_kb(void) {
+	// put your looping keyboard code here
+	// runs every cycle (a lot)
+
+	matrix_scan_user();
 }
