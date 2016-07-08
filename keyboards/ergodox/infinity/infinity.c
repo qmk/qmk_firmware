@@ -91,3 +91,33 @@ void matrix_scan_kb(void) {
 
 	matrix_scan_user();
 }
+
+void ergodox_board_led_on(void){
+}
+
+void ergodox_right_led_1_on(void){
+}
+
+void ergodox_right_led_2_on(void){
+}
+
+void ergodox_right_led_3_on(void){
+}
+
+void ergodox_right_led_on(uint8_t led){
+}
+
+void ergodox_board_led_off(void){
+}
+
+void ergodox_right_led_1_off(void){
+}
+
+void ergodox_right_led_2_off(void){
+}
+
+void ergodox_right_led_3_off(void){
+}
+
+void ergodox_right_led_off(uint8_t led){
+}
