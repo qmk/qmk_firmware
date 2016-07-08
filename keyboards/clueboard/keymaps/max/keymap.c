@@ -73,8 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,        RGB_MOD,   RGB_MOD,                            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, RGB_HUD,    RGB_SAD,    RGB_HUI),
 };
 
-enum function_id {
-};
+/*enum function_id {
+};*/
 
 const uint16_t PROGMEM fn_actions[] = {
 };
