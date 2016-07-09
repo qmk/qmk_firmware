@@ -78,6 +78,15 @@ void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
 }
 #endif
 
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
+
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
