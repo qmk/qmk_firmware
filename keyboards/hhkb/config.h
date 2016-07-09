@@ -29,7 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     q.m.k keyboard firmware for HHKB
 
 /* key matrix size */
-#define MATRIX_ROWS 8
+#ifdef HHKB_JP
+#   define MATRIX_ROWS 16
+#else
+#   define MATRIX_ROWS 8
+#endif
 #define MATRIX_COLS 8
 
 #define TAPPING_TERM    200
