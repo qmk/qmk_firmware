@@ -125,8 +125,6 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function 
-  // This is some kind of macro code, haven't quite figured it out yet.
-  // Todo: Figure out macro coding here
       switch(id) {
         case 0:
           if (record->event.pressed) {
@@ -143,7 +141,6 @@ void matrix_scan_user(void) {
 
 // Layer LED indicators
 // ESC led on when in function layer, WASD cluster leds enabled when on arrow cluster
-// Todo: Caps lock led on when caps lock is enabled 
     uint32_t layer = layer_state;
     if (layer & (1<<1)) {
         gh60_wasd_leds_on();
@@ -204,6 +201,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         }
         break;
     static uint8_t shift_esc_shift_mask;
+    // Shift + ESC = ~
     case SHIFT_ESC:
       shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
       if (record->event.pressed) {
