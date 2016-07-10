@@ -59,6 +59,12 @@ ifndef KEYBOARD
 	KEYBOARD=planck
 endif
 
+MASTER ?= left
+ifdef master
+	MASTER = $(master)
+endif
+
+
 # converts things to keyboards/subproject
 ifneq (,$(findstring /,$(KEYBOARD)))
 	TEMP:=$(KEYBOARD)
@@ -198,8 +204,18 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-  OPT_DEFS += -DTAP_DANCE_ENABLE
+	OPT_DEFS += -DTAP_DANCE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
+ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
+	SERIAL_DIR = $(QUANTUM_DIR)/serial_link
+	SERIAL_PATH = $(QUANTUM_PATH)/serial_link
+	SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
+	SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
+	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
+	OPT_DEFS += -DSERIAL_LINK_ENABLE
+	VAPTH += $(SERIAL_PATH)
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
@@ -233,8 +249,15 @@ ifeq ($(PLATFORM),AVR)
 else ifeq ($(PLATFORM),CHIBIOS)
 	include $(TMK_PATH)/protocol/chibios.mk
 	include $(TMK_PATH)/chibios.mk
+	OPT_OS = chibios
 else
 	$(error Unknown platform)
+endif
+
+ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+	VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
+	VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
+	include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
 include $(TMK_PATH)/rules.mk

@@ -73,26 +73,46 @@ uint32_t reset_key  __attribute__ ((section (".noinit")));
 
 /* initialize MCU status by watchdog reset */
 void bootloader_jump(void) {
-#ifdef PROTOCOL_LUFA
-    USB_Disable();
-    cli();
-    _delay_ms(2000);
-#endif
+    #ifndef CATERINA_BOOTLOADER
 
-#ifdef PROTOCOL_PJRC
-    cli();
-    UDCON = 1;
-    USBCON = (1<<FRZCLK);
-    UCSR1B = 0;
-    _delay_ms(5);
-#endif
+        #ifdef PROTOCOL_LUFA
+            USB_Disable();
+            cli();
+            _delay_ms(2000);
+        #endif
 
-    // watchdog reset
-    reset_key = BOOTLOADER_RESET_KEY;
-    wdt_enable(WDTO_250MS);
-    for (;;);
+        #ifdef PROTOCOL_PJRC
+            cli();
+            UDCON = 1;
+            USBCON = (1<<FRZCLK);
+            UCSR1B = 0;
+            _delay_ms(5);
+        #endif
+
+        // watchdog reset
+        reset_key = BOOTLOADER_RESET_KEY;
+        wdt_enable(WDTO_250MS);
+        for (;;);
+
+    #else
+        // this block may be optional
+        // TODO: figure it out
+
+        uint16_t *const bootKeyPtr = (uint16_t *)0x0800;
+
+        // Value used by Caterina bootloader use to determine whether to run the
+        // sketch or the bootloader programmer.
+        uint16_t bootKey = 0x7777;
+
+        *bootKeyPtr = bootKey;
+
+        // setup watchdog timeout
+        wdt_enable(WDTO_60MS);
+
+        while(1) {} // wait for watchdog timer to trigger
+
+    #endif
 }
-
 
 /* this runs before main() */
 void bootloader_jump_after_watchdog_reset(void) __attribute__ ((used, naked, section (".init3")));

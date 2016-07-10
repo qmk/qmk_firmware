@@ -191,8 +191,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             persistant_default_layer_set(1UL<<_QWERTY);
           }
-          break;
           return false;
+          break;
         case COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -200,8 +200,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             persistant_default_layer_set(1UL<<_COLEMAK);
           }
-          break;
           return false;
+          break;
         case DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -209,8 +209,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             persistant_default_layer_set(1UL<<_DVORAK);
           }
-          break;
           return false;
+          break;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -219,8 +219,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
-          break;
           return false;
+          break;
         case RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
@@ -229,8 +229,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_RAISE);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
-          break;
           return false;
+          break;
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
@@ -240,8 +240,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             unregister_code(KC_RSFT);
           }
-          break;
           return false;
+          break;
       }
     return true;
 };
