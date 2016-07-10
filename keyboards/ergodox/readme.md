@@ -17,7 +17,7 @@ This requires a little bit of familiarity with coding.
 2. Clone the repository (download it)
 3. Set up a build environment as per [the build guide](/doc/BUILD_GUIDE.md) 
     - Using a Mac and have homebrew? just run `brew tap osx-cross/avr && brew install avr-libc`
-4. Copy `keyboards/ergodox_ez/keymaps/default/keymap.c` into `keymaps/your_name/keymap.c` (for example, `keymaps/german/keymap.c`)
+4. Copy `keyboards/ergodox/keymaps/default/keymap.c` into `keymaps/your_name/keymap.c` (for example, `keymaps/german/keymap.c`)
 5. Edit this file, changing keycodes to your liking (see "Finding the keycodes you need" below). Try to edit the comments as well, so the "text graphics" represent your layout correctly. See below for more tips on sharing your work.
 6. Compile your firmware by running `make keymap=your_name`. For example, `make keymap=german`. This will result in a hex file, which will be called `ergodox_ez_your_name.hex`, e.g. `ergodox_ez_german.hex`.
 6. Flash this hex file using the [Teensy loader](https://www.pjrc.com/teensy/loader.html) as described in step 4 in the "Easy Way" above. If you prefer you can automatically flash the hex file after successfull build by running `make teensy keymap=your_name`.
