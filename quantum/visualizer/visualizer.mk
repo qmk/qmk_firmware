@@ -50,7 +50,11 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
 	SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
 else 
 	ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
+		ifeq ("$(wildcard $(SUBPROJECT_PATH)/visualizer.c)","")
 $(error "$(KEYMAP_PATH)/visualizer.c" does not exist)
+		else
+			SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/visualizer.c
+		endif
 	else
 		SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/visualizer.c
 	endif
