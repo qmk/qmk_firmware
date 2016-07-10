@@ -14,7 +14,7 @@ This does not work for Infinity ErgoDox yet, you need to compile the firmware ac
 ## More technical: compile an existing keymap, or create your own totally custom firmware by editing the source files.
 
 This requires a little bit of familiarity with coding. 
-If you are just compiling and existing keymap and don't want to create your own, you can skip step 4, 5 and 8.
+If you are just compiling an existing keymap and don't want to create your own, you can skip step 4, 5 and 8.
 
 1. Go to https://github.com/jackhumbert/qmk_firmware and read the readme at the base of this repository, top to bottom. Then come back here :)
 2. Clone the repository (download it)
