@@ -65,11 +65,11 @@ LED_ENABLE ?= yes
 LCD_BACKLIGHT_ENABLE ?= yes
 
 ifdef LCD_ENABLE
-include drivers/gdisp/st7565ergodox/driver.mk
+include $(SUBPROJECT_PATH)/drivers/gdisp/st7565ergodox/driver.mk
 endif
 
 ifdef LED_ENABLE
-include drivers/gdisp/IS31FL3731C/driver.mk
+include $(SUBPROJECT_PATH)/drivers/gdisp/IS31FL3731C/driver.mk
 endif
 
 ifndef QUANTUM_DIR
