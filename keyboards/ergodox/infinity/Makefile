@@ -64,14 +64,14 @@ LCD_ENABLE ?= yes
 LED_ENABLE ?= yes
 LCD_BACKLIGHT_ENABLE ?= yes
 
+ifndef QUANTUM_DIR
+	include ../../../Makefile
+endif
+
 ifdef LCD_ENABLE
 include $(SUBPROJECT_PATH)/drivers/gdisp/st7565ergodox/driver.mk
 endif
 
 ifdef LED_ENABLE
 include $(SUBPROJECT_PATH)/drivers/gdisp/IS31FL3731C/driver.mk
-endif
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
 endif
