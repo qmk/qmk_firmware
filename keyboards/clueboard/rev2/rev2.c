@@ -45,3 +45,19 @@ void backlight_set(uint8_t level) {
         PORTD &= ~(1<<4); // Arrows
     }
 }
+
+void led_init_ports() {
+    // * Set our LED pins as output
+    DDRB |= (1<<4);
+}
+
+void led_set_kb(uint8_t usb_led) {
+    DDRB |= (1<<4);
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // Turn capslock on
+        PORTB |= (1<<4);
+    } else {
+        // Turn capslock off
+        PORTB &= ~(1<<4);
+    }
+}

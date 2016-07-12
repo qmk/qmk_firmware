@@ -146,7 +146,9 @@ void rgblight_init(void) {
 	}
 	eeconfig_debug_rgblight(); // display current eeprom values
 
-	rgblight_timer_init(); // setup the timer
+	#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+		rgblight_timer_init(); // setup the timer
+	#endif
 
   if (rgblight_config.enable) {
     rgblight_mode(rgblight_config.mode);
@@ -192,14 +194,19 @@ void rgblight_mode(uint8_t mode) {
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight mode: %u\n", rgblight_config.mode);
 	if (rgblight_config.mode == 1) {
-		rgblight_timer_disable();
+		#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+			rgblight_timer_disable();
+		#endif
 	} else if (rgblight_config.mode >=2 && rgblight_config.mode <=23) {
 		// MODE 2-5, breathing
 		// MODE 6-8, rainbow mood
 		// MODE 9-14, rainbow swirl
 		// MODE 15-20, snake
 		// MODE 21-23, knight
-		rgblight_timer_enable();
+
+		#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+			rgblight_timer_enable();
+		#endif
 	}
   rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
 }
@@ -211,7 +218,10 @@ void rgblight_toggle(void) {
 	if (rgblight_config.enable) {
 		rgblight_mode(rgblight_config.mode);
 	} else {
-		rgblight_timer_disable();
+
+		#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+			rgblight_timer_disable();
+		#endif
 		_delay_ms(50);
 		rgblight_set();
 	}
@@ -327,6 +337,9 @@ void rgblight_set(void) {
 		ws2812_setleds(led, RGBLED_NUM);
 	}
 }
+
+
+#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
 
 // Animation timer -- AVR Timer3
 void rgblight_timer_init(void) {
@@ -503,3 +516,5 @@ void rgblight_effect_knight(uint8_t interval) {
 	}
 
 }
+
+#endif

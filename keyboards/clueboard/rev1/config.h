@@ -25,9 +25,8 @@
 
 /* Underlight configuration
  */
-#define ws2812_PORTREG PORTB
-#define ws2812_DDRREG DDRB
-#define ws2812_pin 2
+#define RGB_DI_PIN B2
+#define RGBLIGHT_TIMER
 #define RGBLED_NUM 14     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
