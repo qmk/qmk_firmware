@@ -24,9 +24,6 @@ The project also includes community support for [lots of other keyboards](/keybo
 QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). This repo used to be a fork of [TMK](https://github.com/tmk/tmk_keyboard), and we are incredibly grateful for his founding contributions to the firmware. We've had to break the fork due to purely technical reasons - it simply became too different over time, and we've had to start refactoring some of the basic bits and pieces. We are huge fans of TMK and Hasu :)
 
 This documentation is edited and maintained by Erez Zukerman of ErgoDox EZ. If you spot any typos or inaccuracies, please [open an issue](https://github.com/jackhumbert/qmk_firmware/issues/new).
-#### 2016/02/10
-core: flabbergast's Chibios protocol was merged from <https://github.com/flabbergast/tmk_keyboard/tree/chibios> (@72b1668). See [tmk_core/protocol/chibios/README.md](tmk_core/protocol/chibios/README.md). Chibios protocol supports Cortex-M such as STM32 and Kinetis.
-
 
 The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [Erez Zukerman](https://github.com/ezuk), and the Clueboard by [Zach White](https://github.com/skullydazed).
 
@@ -309,6 +306,12 @@ It's defaulted to work on US keyboards, but if your layout uses different keys f
     #define LSPO_KEY KC_9
     #define RSPC_KEY KC_0
 
+You can also choose between different rollover behaviors of the shift keys by defining:
+
+    #define DISABLE_SPACE_CADET_ROLLOVER
+
+in your `config.h`. Disabling rollover allows you to use the opposite shift key to cancel the space cadet state in the event of an erroneous press instead of emitting a pair of parentheses when the keys are released.
+
 The only other thing you're going to want to do is create a `Makefile` in your keymap directory and set the following:
 
 ```
@@ -352,6 +355,81 @@ void matrix_scan_user(void) {
 ```
 
 As you can see, you have three function. you can use - `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS` and `SEQ_THREE_KEYS` for longer sequences. Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
+
+### Tap Dance: A single key can do 3, 5, or 100 different things
+
+Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/jackhumbert/qmk_firmware/pull/451). Here's how Algernon describes the feature:
+
+With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
+
+To make it clear how this is different from `ACTION_FUNCTION_TAP`, lets explore a certain setup! We want one key to send `Space` on single tap, but `Enter` on double-tap.
+
+With `ACTION_FUNCTION_TAP`, it is quite a rain-dance to set this up, and has the problem that when the sequence is interrupted, the interrupting key will be send first. Thus, `SPC a` will result in `a SPC` being sent, if they are typed within `TAPPING_TERM`. With the tap dance feature, that'll come out as `SPC a`, correctly.
+
+The implementation hooks into two parts of the system, to achieve this: into `process_record_quantum()`, and the matrix scan. We need the latter to be able to time out a tap sequence even when a key is not being pressed, so `SPC` alone will time out and register after `TAPPING_TERM` time.
+
+But lets start with how to use it, first!
+
+First, you will need `TAP_DANCE_ENABLE=yes` in your `Makefile`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
+
+This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are two possible options:
+
+* `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise.
+* `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the current state of the tap-dance action.
+
+The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
+
+And that's the bulk of it!
+
+Do note, however, that this implementation does have some consequences: keys do not register until either they reach the tapping ceiling, or they time out. This means that if you hold the key, nothing happens, no repeat, no nothing. It is possible to detect held state, and register an action then too, but that's not implemented yet. Keys also unregister immediately after being registered, so you can't even hold the second tap. This is intentional, to be consistent.
+
+And now, on to the explanation of how it works!
+
+The main entry point is `process_tap_dance()`, called from `process_record_quantum()`, which is run for every keypress, and our handler gets to run early. This function checks whether the key pressed is a tap-dance key. If it is not, and a tap-dance was in action, we handle that first, and enqueue the newly pressed key. If it is a tap-dance key, then we check if it is the same as the already active one (if there's one active, that is). If it is not, we fire off the old one first, then register the new one. If it was the same, we increment the counter and the timer.
+
+This means that you have `TAPPING_TERM` time to tap the key again, you do not have to input all the taps within that timeframe. This allows for longer tap counts, with minimal impact on responsiveness.
+
+Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-dance keys.
+
+For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
+
+In the end, let's see a full example!
+
+```c
+enum {
+ CT_SE = 0,
+ CT_CLN,
+ CT_EGG
+};
+
+/* Have the above three on the keymap, TD(CT_SE), etc... */
+
+void dance_cln (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    register_code (KC_RSFT);
+    register_code (KC_SCLN);
+    unregister_code (KC_SCLN);
+    unregister_code (KC_RSFT);
+  } else {
+    register_code (KC_SCLN);
+    unregister_code (KC_SCLN);
+    reset_tap_dance (state);
+  }
+}
+
+void dance_egg (qk_tap_dance_state_t *state) {
+  if (state->count >= 100) {
+    SEND_STRING ("Safety dance!");
+    reset_tap_dance (state);
+  }
+}
+
+const qk_tap_dance_action_t tap_dance_actions[] = {
+  [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
+ ,[CT_CLN] = ACTION_TAP_DANCE_FN (dance_cln)
+ ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
+};
+```
 
 ### Temporarily setting the default layer
 
@@ -704,23 +782,18 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 
     RGBLIGHT_ENABLE = yes
 
-Please note that the underglow is not compatible with audio output. So you cannot enable both of them at the same time.
+In order to use the underglow timer functions, you need to have `#define RGBLIGHT_TIMER` in your `config.h`, and have audio disabled (`AUDIO_ENABLE = no` in your Makefile).
 
-Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the F4 by default:
-
-    #define ws2812_PORTREG  PORTF
-    #define ws2812_DDRREG   DDRF
-    #define ws2812_pin PF4
+Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the `F4` pin by default:
+    
+    #define RGB_DI_PIN F4     // The pin your RGB strip is wired to
+    #define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 14     // Number of LEDs
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 
-You'll need to edit `PORTF`, `DDRF`, and `PF4` on the first three lines to the port/pin you have your LED(s) wired to, eg for B3 change things to:
-
-    #define ws2812_PORTREG  PORTB
-    #define ws2812_DDRREG   DDRB
-    #define ws2812_pin PB3
+You'll need to edit `RGB_DI_PIN` to the pin you have your `DI` on your RGB strip wired to.
 
 The firmware supports 5 different light effects, and the color (hue, saturation, brightness) can be customized in most effects. To control the underglow, you need to modify your keymap file to assign those functions to some keys/key combinations. For details, please check this keymap. `keyboards/planck/keymaps/yang/keymap.c`
 

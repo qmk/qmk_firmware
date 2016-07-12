@@ -15,7 +15,7 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
+#define _QWERTY 10
 #define _COLEMAK 1
 #define _DVORAK 2
 #define _LOWER 3
@@ -31,7 +31,15 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   BACKLIT,
-  EXT_PLV
+  EXT_PLV,
+  RGBLED_TOGGLE,
+  RGBLED_STEP_MODE,
+  RGBLED_INCREASE_HUE,
+  RGBLED_DECREASE_HUE,
+  RGBLED_INCREASE_SAT,
+  RGBLED_DECREASE_SAT,
+  RGBLED_INCREASE_VAL,
+  RGBLED_DECREASE_VAL,
 };
 
 // Fillers to make layering more clear
@@ -39,14 +47,20 @@ enum planck_keycodes {
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[0] = {
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL}
+},
 
 /* Qwerty
- * ,-----------------------------------------------------------------------------------.
+ ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -291,6 +305,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         break;
       return false;
+
+    case RGBLED_TOGGLE:
+      //led operations
+      if (record->event.pressed) {
+        rgblight_toggle();
+      }
+      return false;
+      break;
+    case RGBLED_INCREASE_HUE:
+      if (record->event.pressed) {
+        rgblight_increase_hue();
+      }
+      return false;
+      break;
+    case RGBLED_DECREASE_HUE:
+      if (record->event.pressed) {
+        rgblight_decrease_hue();
+      }
+      return false;
+      break;
+    case RGBLED_INCREASE_SAT:
+      if (record->event.pressed) {
+        rgblight_increase_sat();
+      }
+      return false;
+      break;
+    case RGBLED_DECREASE_SAT:
+      if (record->event.pressed) {
+        rgblight_decrease_sat();
+      }
+      return false;
+      break;
+    case RGBLED_INCREASE_VAL:
+      if (record->event.pressed) {
+        rgblight_increase_val();
+      }
+      return false;
+      break;
+    case RGBLED_DECREASE_VAL:
+      if (record->event.pressed) {
+        rgblight_decrease_val();
+      }
+      return false;
+      break;
+    case RGBLED_STEP_MODE:
+      if (record->event.pressed) {
+        rgblight_step();
+      }
+      return false;
+      break;
+
 
       }
   return true;

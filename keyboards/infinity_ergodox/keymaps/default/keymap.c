@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "infinity_ergodox.h"
 
+// Workaround for old keymap format
+#define KC_RESET RESET
+
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(  // layer 0 : default
         // left hand
@@ -63,7 +66,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KEYMAP(  // layer 2 : keyboard functions
         // left hand
-        BTLD,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
+        RESET,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, FN3,
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,

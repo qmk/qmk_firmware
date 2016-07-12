@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "chibios_test.h"
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    {{KC_CAPS}}, // test with KC_CAPS, KC_A, KC_BTLD
+    {{KC_CAPS}}, // test with KC_CAPS, KC_A, RESET
 };
 
 const uint16_t fn_actions[] = {
