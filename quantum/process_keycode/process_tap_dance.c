@@ -22,7 +22,9 @@ static void _process_tap_dance_action_pair (qk_tap_dance_state_t *state,
 static void _process_tap_dance_action_fn (qk_tap_dance_state_t *state,
                                           qk_tap_dance_user_fn_t fn)
 {
-  fn(state);
+  if (fn) {
+    fn(state);
+  }
 }
 
 void process_tap_dance_action (uint16_t keycode)
