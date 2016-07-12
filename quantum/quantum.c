@@ -212,6 +212,12 @@ bool process_record_quantum(keyrecord_t *record) {
         register_mods(MOD_BIT(KC_LSFT));
       }
       else {
+        #ifdef DISABLE_SPACE_CADET_ROLLOVER
+          if (get_mods() & MOD_BIT(KC_RSFT)) {
+            shift_interrupted[0] = true;
+            shift_interrupted[1] = true;
+          }
+        #endif
         if (!shift_interrupted[0]) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
@@ -228,6 +234,12 @@ bool process_record_quantum(keyrecord_t *record) {
         register_mods(MOD_BIT(KC_RSFT));
       }
       else {
+        #ifdef DISABLE_SPACE_CADET_ROLLOVER
+          if (get_mods() & MOD_BIT(KC_LSFT)) {
+            shift_interrupted[0] = true;
+            shift_interrupted[1] = true;
+          }
+        #endif
         if (!shift_interrupted[1]) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);

@@ -306,6 +306,12 @@ It's defaulted to work on US keyboards, but if your layout uses different keys f
     #define LSPO_KEY KC_9
     #define RSPC_KEY KC_0
 
+You can also choose between different rollover behaviors of the shift keys by defining:
+
+    #define DISABLE_SPACE_CADET_ROLLOVER
+
+in your `config.h`. Disabling rollover allows you to use the opposite shift key to cancel the space cadet state in the event of an erroneous press instead of emitting a pair of parentheses when the keys are released.
+
 The only other thing you're going to want to do is create a `Makefile` in your keymap directory and set the following:
 
 ```
