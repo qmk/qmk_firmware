@@ -22,6 +22,7 @@ typedef enum
 } qk_tap_dance_type_t;
 
 typedef void (*qk_tap_dance_user_fn_t) (qk_tap_dance_state_t *state);
+typedef void (*qk_tap_dance_user_fn_reset_t) (void);
 
 typedef struct
 {
@@ -31,18 +32,37 @@ typedef struct
       uint16_t kc1;
       uint16_t kc2;
     } pair;
-    qk_tap_dance_user_fn_t fn;
+    struct {
+      qk_tap_dance_user_fn_t regular;
+      qk_tap_dance_user_fn_t anyway;
+      qk_tap_dance_user_fn_reset_t reset;
+    } fn;
   };
 } qk_tap_dance_action_t;
 
 #define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) { \
-    .type = QK_TAP_DANCE_TYPE_PAIR,         \
-    .pair = { kc1, kc2 }                    \
+    .type = QK_TAP_DANCE_TYPE_PAIR, \
+    .pair = { kc1, kc2 }            \
   }
 
 #define ACTION_TAP_DANCE_FN(user_fn) { \
     .type = QK_TAP_DANCE_TYPE_FN, \
-    .fn = user_fn                 \
+    .fn = { user_fn, NULL, NULL } \
+  }
+
+#define ACTION_TAP_DANCE_FN_ANYWAY(user_fn, user_fn_anyway) { \
+    .type = QK_TAP_DANCE_TYPE_FN,           \
+    .fn = { user_fn, user_fn_anyway, NULL } \
+  }
+
+#define ACTION_TAP_DANCE_FN_RESET(user_fn, user_fn_reset) { \
+    .type = QK_TAP_DANCE_TYPE_FN,          \
+    .fn = { user_fn, NULL, user_fn_reset } \
+  }
+
+#define ACTION_TAP_DANCE_FN_ANYWAY_RESET(user_fn, user_fn_anyway, user_fn_reset) { \
+    .type = QK_TAP_DANCE_TYPE_FN,                    \
+    .fn = { user_fn, user_fn_anyway, user_fn_reset } \
   }
 
 extern const qk_tap_dance_action_t tap_dance_actions[];
