@@ -19,12 +19,16 @@
 // Setleds for standard RGB
 void inline ws2812_setleds(struct cRGB *ledarray, uint16_t leds)
 {
-   ws2812_setleds_pin(ledarray,leds, _BV(ws2812_pin));
+   // ws2812_setleds_pin(ledarray,leds, _BV(ws2812_pin));
+   ws2812_setleds_pin(ledarray,leds, _BV(RGB_DI_PIN & 0xF));
 }
 
 void inline ws2812_setleds_pin(struct cRGB *ledarray, uint16_t leds, uint8_t pinmask)
 {
-  ws2812_DDRREG |= pinmask; // Enable DDR
+  // ws2812_DDRREG |= pinmask; // Enable DDR
+  // new universal format (DDR)
+  _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask;
+
   ws2812_sendarray_mask((uint8_t*)ledarray,leds+leds+leds,pinmask);
   _delay_us(50);
 }
@@ -32,14 +36,17 @@ void inline ws2812_setleds_pin(struct cRGB *ledarray, uint16_t leds, uint8_t pin
 // Setleds for SK6812RGBW
 void inline ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t leds)
 {
-  ws2812_DDRREG |= _BV(ws2812_pin); // Enable DDR
-  ws2812_sendarray_mask((uint8_t*)ledarray,leds<<2,_BV(ws2812_pin));
+  // ws2812_DDRREG |= _BV(ws2812_pin); // Enable DDR
+  // new universal format (DDR)
+  _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= _BV(RGB_DI_PIN & 0xF);
+
+  ws2812_sendarray_mask((uint8_t*)ledarray,leds<<2,_BV(RGB_DI_PIN & 0xF));
   _delay_us(80);
 }
 
 void ws2812_sendarray(uint8_t *data,uint16_t datlen)
 {
-  ws2812_sendarray_mask(data,datlen,_BV(ws2812_pin));
+  ws2812_sendarray_mask(data,datlen,_BV(RGB_DI_PIN & 0xF));
 }
 
 /*
@@ -108,8 +115,10 @@ void inline ws2812_sendarray_mask(uint8_t *data,uint16_t datlen,uint8_t maskhi)
   uint8_t curbyte,ctr,masklo;
   uint8_t sreg_prev;
 
-  masklo	=~maskhi&ws2812_PORTREG;
-  maskhi |=        ws2812_PORTREG;
+  // masklo  =~maskhi&ws2812_PORTREG;
+  // maskhi |=        ws2812_PORTREG;
+  masklo  =~maskhi&_SFR_IO8((RGB_DI_PIN >> 4) + 2);
+  maskhi |=        _SFR_IO8((RGB_DI_PIN >> 4) + 2);
   sreg_prev=SREG;
   cli();
 
@@ -173,7 +182,7 @@ w_nop16
     "       dec   %0    \n\t"    //  '1' [+2] '0' [+2]
     "       brne  loop%=\n\t"    //  '1' [+3] '0' [+4]
     :	"=&d" (ctr)
-    :	"r" (curbyte), "I" (_SFR_IO_ADDR(ws2812_PORTREG)), "r" (maskhi), "r" (masklo)
+    :	"r" (curbyte), "I" (_SFR_IO_ADDR(_SFR_IO8((RGB_DI_PIN >> 4) + 2))), "r" (maskhi), "r" (masklo)
     );
   }
 

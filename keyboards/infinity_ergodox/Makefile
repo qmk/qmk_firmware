@@ -67,6 +67,18 @@ SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE ?= yes	    # USB Nkey Rollover
 CUSTOM_MATRIX ?= yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
+VISUALIZER_ENABLE ?= yes
+LCD_ENABLE ?= yes
+LED_ENABLE ?= yes
+LCD_BACKLIGHT_ENABLE ?= yes
+
+ifdef LCD_ENABLE
+include drivers/gdisp/st7565ergodox/driver.mk
+endif
+
+ifdef LED_ENABLE
+include drivers/gdisp/IS31FL3731C/driver.mk
+endif
 
 ifndef QUANTUM_DIR
 	include ../../Makefile
