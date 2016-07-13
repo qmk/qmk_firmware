@@ -7,15 +7,16 @@
 #define MDIA 2 // media keys
 
 //macros
-#define CTL_SFT_T 100
-#define CTL_SFT_G 101
-#define CTL_ALT_H 102
+#define CTL_SFT_T 100 // open type
+#define CTL_SFT_G 101 // find references
+#define CTL_ALT_H 102 // open call hierarchy
+#define CTL_SFT_R 103 // open resource
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | M 100|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           |M100/3|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |TAB /Alt|   Q  |   W  |   E  |   R  |   T  | Meh  |           | Meh  |   Y  |   U  |   I  |   O  |   P  |\ / ALT |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -46,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             M(CTL_SFT_T),KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             LT(M(CTL_SFT_T), M(CTL_SFT_R)),KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              MEH_T(KC_NO),KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),CTL_T(KC_QUOT),
              MO(SYMB),      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
@@ -170,6 +171,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO(D(LCTL), D(LALT), T(H), END);
             }
             return MACRO(U(LCTL), U(LALT), END);
+            break;
+        case CTL_SFT_R:
+            if (record->event.pressed) {
+                return MACRO(D(LCTL), D(LSFT), T(R), END);
+            }
+            return MACRO(U(LCTL), U(LSFT), END);
             break;
     }
     return MACRO_NONE;
