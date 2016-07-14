@@ -4,11 +4,11 @@
 
 ## The Base Layout ##
 
-(placeholder)
+![teckinesis base layout](teckinesis-base.png)
 
 ## The Symbols Layer ##
 
-(placeholder)
+![teckinesis symbols layout](teckinesis-symbol.png)
 
 ## The Media Layer ##
 
