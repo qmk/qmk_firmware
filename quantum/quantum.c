@@ -15,6 +15,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void reset_keyboard(void) {
+  clear_keyboard();
+#ifdef AUDIO_ENABLE
+  stop_all_notes();
+  shutdown_user();
+#endif
+  wait_ms(250);
+#ifdef CATERINA_BOOTLOADER
+  *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
+#endif
+  bootloader_jump();
+}
+
 // Shift / paren setup
 
 #ifndef LSPO_KEY
@@ -83,16 +96,7 @@ bool process_record_quantum(keyrecord_t *record) {
   switch(keycode) {
     case RESET:
       if (record->event.pressed) {
-        clear_keyboard();
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          shutdown_user();
-        #endif
-        wait_ms(250);
-        #ifdef CATERINA_BOOTLOADER
-            *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
-        #endif
-        bootloader_jump();
+        reset_keyboard();
       }
 	  return false;
       break;
