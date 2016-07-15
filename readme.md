@@ -77,18 +77,14 @@ Debian/Ubuntu example:
 
 ### Docker
 
-If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker](https://www.docker.com/products/docker), run the following commands at the root of the QMK folder:
+If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker](https://www.docker.com/products/docker), run the following command at the root of the QMK folder to build a keyboard/keymap:
 
 ```bash
-# You only need to run this once, it'll take a little while
-
-docker build -t qmk .
-
-# and you'll run this every time you want to build a keymap
+# You'll run this every time you want to build a keymap
 # modify the keymap and keyboard assigment to compile what you want
 # defaults are ergodox_ez/default
 
-docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw qmk
+docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
 ```
 
