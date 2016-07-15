@@ -15,6 +15,8 @@
  * here: https://colemakmods.github.io/mod-dh/
  */
 
+#include "atreus.h"
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -26,7 +28,7 @@
 #define _QW 1 // QWERTY
 #define _NU 2 // Numpad
 #define _FN 3 // Function
-#define _DV 4 // Dvorak
+#define _DV 4 // Dvorak (not currently used)
 
 // Quick alias for visual sake
 #define _______ KC_TRNS
@@ -55,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NU] = { /* Numbers and symbols */
   {KC_EXLM, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_PGUP, KC_7,    KC_8,   KC_9, KC_ASTR},
-  {KC_HASH, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  _______, KC_PGDN, KC_4,    KC_5,   KC_6, KC_PLUS},
+  {KC_HASH, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, KC_PGDN, KC_4,    KC_5,   KC_6, KC_PLUS},
   {KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_AMPR, KC_LCTL, KC_TILD, KC_1,    KC_2,   KC_3, KC_BSLS},
   {MO(_FN), KC_INS,  KC_LGUI, KC_LSFT, KC_DEL,  KC_LALT, KC_SPC,  _______, KC_DOT, KC_0, KC_EQL}
 },
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_UP,   KC_F7,   KC_F8,   KC_F9,   KC_F10},
   {KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN, _______, KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11},
   {_______, _______, _______, _______, _______, KC_LCTL, _______, KC_F1,   KC_F2,   KC_F3,   KC_F12},
-  {_______, _______, KC_LGUI, KC_LSFT, KC_BSPC, KC_LALT, KC_SPC,  _______, _______, _______, RESET}
+  {_______, _______, KC_LGUI, KC_LSFT, KC_BSPC, KC_LALT, KC_SPC,  _______, DF(_CO), DF(_QW), RESET}
 }};
 
 const uint16_t PROGMEM fn_actions[] = {
