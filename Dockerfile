@@ -1,6 +1,5 @@
-FROM debian
+FROM debian:jessie
 MAINTAINER Erik Dasque <erik@frenchguys.com>
-
 
 RUN apt-get update
 RUN apt-get install --no-install-recommends -y build-essential \
