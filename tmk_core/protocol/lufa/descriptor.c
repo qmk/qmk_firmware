@@ -140,9 +140,9 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtrakeyReport[] =
     HID_RI_USAGE(8, 0x80), /* System Control */
     HID_RI_COLLECTION(8, 0x01), /* Application */
         HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
-        HID_RI_LOGICAL_MINIMUM(16, 0x0001),
+        HID_RI_LOGICAL_MINIMUM(16, 0x0081),
         HID_RI_LOGICAL_MAXIMUM(16, 0x00B7),
-        HID_RI_USAGE_MINIMUM(16, 0x0001), /* System Power Down */
+        HID_RI_USAGE_MINIMUM(16, 0x0081), /* System Power Down */
         HID_RI_USAGE_MAXIMUM(16, 0x00B7), /* System Display LCD Autoscale */
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_REPORT_COUNT(8, 1),
