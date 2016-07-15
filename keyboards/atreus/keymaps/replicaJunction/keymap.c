@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-#include "atreus.h"
-
 /*
  * Keyboard: Atreus
  * Keymap:   replicaJunction
@@ -17,12 +14,6 @@
  * The default key layout in this keymap is Colemak-ModDH. Information on that layout can be found
  * here: https://colemakmods.github.io/mod-dh/
  */
-=======
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-
-#include "atreus.h"
->>>>>>> 32725dae5ba50f41bf16a80083727f08beaea7c6
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
