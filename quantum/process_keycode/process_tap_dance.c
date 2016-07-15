@@ -27,7 +27,24 @@ static void _process_tap_dance_action_fn (qk_tap_dance_state_t *state,
   }
 }
 
-void process_tap_dance_action (uint16_t keycode)
+void process_tap_dance_action_on_each_tap (uint16_t keycode)
+{
+  uint16_t idx = keycode - QK_TAP_DANCE;
+  qk_tap_dance_action_t action;
+
+  action = tap_dance_actions[idx];
+
+  switch (action.type) {
+  case QK_TAP_DANCE_TYPE_FN:
+    _process_tap_dance_action_fn (&qk_tap_dance_state, action.fn.on_each_tap);
+    break;
+
+  default:
+    break;
+  }
+}
+
+void process_tap_dance_action_on_dance_finished (uint16_t keycode)
 {
   uint16_t idx = keycode - QK_TAP_DANCE;
   qk_tap_dance_action_t action;
@@ -40,24 +57,7 @@ void process_tap_dance_action (uint16_t keycode)
                                     action.pair.kc1, action.pair.kc2);
     break;
   case QK_TAP_DANCE_TYPE_FN:
-    _process_tap_dance_action_fn (&qk_tap_dance_state, action.fn.regular);
-    break;
-
-  default:
-    break;
-  }
-}
-
-void process_tap_dance_action_anyway (uint16_t keycode)
-{
-  uint16_t idx = keycode - QK_TAP_DANCE;
-  qk_tap_dance_action_t action;
-
-  action = tap_dance_actions[idx];
-
-  switch (action.type) {
-  case QK_TAP_DANCE_TYPE_FN:
-    _process_tap_dance_action_fn (&qk_tap_dance_state, action.fn.anyway);
+    _process_tap_dance_action_fn (&qk_tap_dance_state, action.fn.on_dance_finished);
     break;
 
   default:
@@ -70,9 +70,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
   switch(keycode) {
   case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-    process_tap_dance_action_anyway (qk_tap_dance_state.keycode);
+    process_tap_dance_action_on_each_tap (qk_tap_dance_state.keycode);
     if (qk_tap_dance_state.keycode && qk_tap_dance_state.keycode != keycode) {
-      process_tap_dance_action (qk_tap_dance_state.keycode);
+      process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
     } else {
       r = false;
     }
@@ -85,10 +85,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     break;
 
   default:
+    process_tap_dance_action_on_each_tap (qk_tap_dance_state.keycode);
     if (qk_tap_dance_state.keycode) {
-      //process_tap_dance_action_anyway (qk_tap_dance_state.keycode);
-      process_tap_dance_action (qk_tap_dance_state.keycode);
-
+      process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
       reset_tap_dance (&qk_tap_dance_state);
     }
     break;
@@ -99,8 +98,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_tap_dance () {
   if (qk_tap_dance_state.keycode && timer_elapsed (qk_tap_dance_state.timer) > TAPPING_TERM) {
-    process_tap_dance_action (qk_tap_dance_state.keycode);
-
+    process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
     reset_tap_dance (&qk_tap_dance_state);
   }
 }
@@ -112,8 +110,8 @@ void reset_tap_dance (qk_tap_dance_state_t *state) {
   action = tap_dance_actions[idx];
   switch (action.type) {
   case QK_TAP_DANCE_TYPE_FN:
-    if (action.fn.reset) {
-      action.fn.reset();
+    if (action.fn.on_reset) {
+      action.fn.on_reset(state);
     }
     break;
 
