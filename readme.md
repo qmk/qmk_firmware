@@ -75,6 +75,25 @@ Debian/Ubuntu example:
     sudo apt-get update
     sudo apt-get install gcc-avr avr-libc dfu-programmer
 
+### Docker
+
+If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker](https://www.docker.com/products/docker), run the following commands at the root of the QMK folder:
+
+```bash
+# You only need to run this once, it'll take a little while
+
+docker build -t qmk .
+
+# and you'll run this every time you want to build a keymap
+# modify the keymap and keyboard assigment to compile what you want
+# defaults are ergodox_ez/default
+
+docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw qmk
+
+```
+
+This will compile the targetted keyboard/keymap and leave it in your QMK directory for you to flash.
+
 ### Vagrant
 If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](VAGRANT_GUIDE.md).
 
