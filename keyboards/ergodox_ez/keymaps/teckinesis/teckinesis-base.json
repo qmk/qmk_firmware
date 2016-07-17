@@ -1,8 +1,8 @@
 [
   {
-    "name": "teckinesis",
+    "name": "teckinesis (Base Layer)",
     "author": "Will Wolff-Myren",
-    "notes": "# teckinesis Layout # \r\n\r\n*A blend of TECK and Kinesis layouts, based on [\"The Ordinary Layout\" by Nicholas Keene](http://qmk.fm/keyboards/ergodox_ez/keymaps/ordinary/#the-ordinary-layout-a-familiar-and-powerful-layout)*\r\n\r\n## The Base Layout ##\r\n\r\n(placeholder)\r\n\r\n## The Symbols Layer ##\r\n\r\n(placeholder)\r\n\r\n## The Media Layer ##\r\n\r\n(placeholder)",
+    "notes": "# teckinesis Layout # \r\n\r\n*A blend of TECK and Kinesis layouts, based on [\"The Ordinary Layout\" by Nicholas Keene](http://qmk.fm/keyboards/ergodox_ez/keymaps/ordinary/#the-ordinary-layout-a-familiar-and-powerful-layout)*\r\n\r\n## The Base Layout ##\r\n\r\n![teckinesis base layout](teckinesis-base.png)\r\n\r\n## The Symbols Layer ##\r\n\r\n![teckinesis symbols layout](teckinesis-symbol.png)\r\n\r\n## The Media Layer ##\r\n\r\n(placeholder)\r\n",
     "switchMount": "cherry",
     "switchBrand": "gateron",
     "switchType": "KS-3-Tea"
@@ -15,7 +15,7 @@
     {
       "x": 10.5
     },
-    ")\n0"
+    "*\n8"
   ],
   [
     {
@@ -26,59 +26,57 @@
     {
       "x": 1
     },
-    "$\n4"
-  ],
-  [
+    "$\n4",
     {
-      "y": -0.995,
-      "x": 14
+      "x": 8.5
     },
-    "(\n9",
+    "&\n7",
     {
       "x": 1
     },
-    "_\n-"
-  ],
-  [
-    {
-      "y": -0.8799999999999999,
-      "x": 5.5
-    },
-    "%\n5",
-    "^\n6",
-    {
-      "x": 4.5
-    },
-    "&\n7",
-    "*\n8"
+    "(\n9"
   ],
   [
     {
       "y": -0.875,
-      "x": 1.5
+      "x": 5.5
+    },
+    "%\n5",
+    {
+      "c": "#ff4444"
+    },
+    "Esc",
+    {
+      "x": 4.5,
+      "c": "#cccccc"
+    },
+    "~\n`",
+    "^\n6"
+  ],
+  [
+    {
+      "y": -0.875,
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "Special\n\n+\n\n\n\nShift\n=",
+    {
+      "c": "#cccccc"
     },
     "!\n1",
     {
       "x": 14.5
     },
-    "+\n="
-  ],
-  [
+    ")\n0",
     {
-      "y": -0.995,
       "c": "#2277ff",
       "w": 1.5
     },
-    "Media\n\nEsc\n\n\n\nShift",
-    {
-      "x": 16.5,
-      "w": 1.5
-    },
-    "~\n`\nMedia\n\n\n\n\nShift"
+    "_\n\nSpecial\n\n\n\n-\nShift"
   ],
   [
     {
-      "y": -0.3799999999999999,
+      "y": -0.375,
       "x": 3.5,
       "c": "#cccccc"
     },
@@ -127,30 +125,33 @@
   [
     {
       "y": -0.875,
-      "x": 1.5
+      "c": "#2277ff",
+      "fa": [
+        0,
+        0,
+        4
+      ],
+      "w": 1.5
+    },
+    "Media\n\n<i class='kb kb-Line-Start-End'></i>\n\n\n\nShift",
+    {
+      "c": "#cccccc"
     },
     "Q",
     {
       "x": 14.5
     },
-    "P"
-  ],
-  [
+    "P",
     {
-      "y": -0.9950000000000001,
       "c": "#2277ff",
+      "f": 3,
       "w": 1.5
     },
-    "Symbols\n\n?\n/\n\n\nShift",
-    {
-      "x": 16.5,
-      "w": 1.5
-    },
-    "|\n\\\nSymbols\n\n\n\n\nShift"
+    "|\n\\\nMedia\n\n\n\n\nShift"
   ],
   [
     {
-      "y": -0.3799999999999999,
+      "y": -0.375,
       "x": 3.5,
       "c": "#cccccc"
     },
@@ -193,36 +194,34 @@
   [
     {
       "y": -0.875,
-      "x": 1.5
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "Symbols\n\n\n\n\n\nShift",
+    {
+      "c": "#cccccc"
     },
     "A",
     {
       "x": 14.5
     },
-    ":\n;"
-  ],
-  [
+    ":\n;",
     {
-      "y": -0.9950000000000001,
       "c": "#2277ff",
+      "f": 3,
       "w": 1.5
     },
-    "Capitals\n\n\n\n\n\nShift",
-    {
-      "x": 16.5,
-      "w": 1.5
-    },
-    "\n\nCapitals\n\n\n\n\nShift"
+    "\"\n'\nSymbols\n\n\n\n\nShift"
   ],
   [
     {
-      "y": -0.6299999999999999,
+      "y": -0.625,
       "x": 6.5,
       "c": "#54d6de",
       "fa": [
         0,
         0,
-        0,
+        4,
         1
       ],
       "h": 1.5
@@ -279,109 +278,99 @@
   [
     {
       "y": -0.875,
-      "x": 1.5
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "Capitals\n\n\n\n\n\nShift",
+    {
+      "c": "#cccccc"
     },
     "Z",
     {
       "x": 14.5
     },
-    "?\n/"
-  ],
-  [
+    "?\n/",
     {
-      "y": -0.9950000000000001,
       "c": "#2277ff",
+      "f": 3,
       "w": 1.5
     },
-    "Ctrl",
-    {
-      "x": 16.5,
-      "w": 1.5
-    },
-    "Ctrl"
+    "\n\nCapitals\n\n\n\n\nShift"
   ],
   [
     {
-      "y": -0.3799999999999999,
+      "y": -0.375,
       "x": 3.5,
-      "c": "#77aaff"
+      "c": "#77aaff",
+      "fa": [
+        5,
+        0,
+        4,
+        1
+      ]
     },
-    "Option\n\n\nLAlt",
+    "<i class='mss mss-Unicode-Option-3'></i>\n\n\nLAlt",
     {
       "x": 10.5
     },
-    "Option\n\n\nRAlt"
+    "<i class='mss mss-Unicode-Option-3'></i>\n\n\nRAlt"
   ],
   [
     {
       "y": -0.875,
       "x": 2.5,
-      "f": 3
-    },
-    "Hyper\n\n}\n]",
-    {
-      "x": 1
-    },
-    "Cmd\n\n\nSuper",
-    {
-      "x": 8.5,
       "fa": [
         5,
-        0,
-        0,
+        1
+      ]
+    },
+    "\nHyper\n?\n/",
+    {
+      "x": 1,
+      "fa": [
+        5,
         1,
         0,
-        0,
-        0
+        1
       ]
+    },
+    "<i class='mss mss-Unicode-Command-3'></i>\n\n\nSuper",
+    {
+      "x": 8.5
     },
     "<i class='mss mss-Unicode-Command-3'></i>\n\n\nSuper",
     {
       "x": 1,
       "fa": [
-        5,
-        0,
-        0,
         0,
         0,
         0,
         1
       ]
     },
-    "\n\n~\n`\n\n\nHyper"
+    "{\n[\n\nHyper"
   ],
   [
     {
       "y": -0.75,
-      "x": 0.5,
-      "f": 2
+      "x": 0.5
     },
-    "Print\n\n\n\n\n\nScreen",
+    "Ctrl\n\n\nLCtrl",
     {
-      "f": 3
+      "f2": 1
     },
-    "Meh\n\n{\n[",
+    "\nMeh\n|\n\\",
     {
       "x": 14.5,
       "fa": [
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        2
+        1,
+        1
       ]
     },
-    "\n\n\"\n'\n\n\nMeh"
-  ],
-  [
-    {
-      "y": -0.9950000000000001,
-      "x": 18,
-      "f": 2
-    },
-    "Special\n\n\n\n\n\nShift"
+    "}\n]\n\nMeh",
+    "Ctrl\n\n\nRCtrl"
   ],
   [
     {
@@ -390,20 +379,13 @@
       "ry": 4.25,
       "y": -1,
       "x": 1,
-      "c": "#54d6de",
-      "f": 3
+      "c": "#54d6de"
     },
     "Home",
     "End"
   ],
   [
     {
-      "fa": [
-        0,
-        0,
-        0,
-        1
-      ],
       "h": 2
     },
     "< Del\n\n\nBackspace",
