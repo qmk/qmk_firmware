@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------+------+------+------+------+------|Shift |           | Tab  |------+------+------+------+------+------------|
  * | Capitals   |   Z  |   X  |   C  |   V  |   B  | -Tab |           |      |   N  |   M  |   ,  |   .  |  /   |   Capitals |
  * `------------+------+------+------+------+-------------'           `-------------+------+------+------+------+------------'
- *      | LCtrl | Meh  |Hyper | LAlt | LGui |                                       | RGui | RAlt | Hyper|  Meh | RCtrl |
+ *      | LCtrl |Meh/\ |Hypr//| LAlt | LGui |                                       | RGui | RAlt |Hypr/[|Meh/] | RCtrl |
  *      `-----------------------------------'                                       `-----------------------------------'
  *                                          ,-------------.           ,-------------.
  *                                          | Home | End  |           | Left | Right|
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,F(LMdia)  ,KC_Q   ,KC_W   ,KC_E   ,KC_R  ,KC_T  ,KC_LBRC
 ,M(LSymb)  ,KC_A   ,KC_S   ,KC_D   ,KC_F  ,KC_G
 ,M(LCaps)  ,KC_Z   ,KC_X   ,KC_C   ,KC_V  ,KC_B  ,LSFT(KC_TAB)
-,KC_LCTL   ,KC_MEH ,KC_HYPR,KC_LALT,KC_LGUI
+,KC_LCTL,MEH_T(KC_BSLS),ALL_T(KC_SLSH),KC_LALT,KC_LGUI
                                          ,KC_HOME,KC_END
                                                  ,KC_PGUP
                                  ,KC_BSPC,KC_DEL ,KC_PGDN
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      ,KC_RBRC ,KC_Y   ,KC_U   ,KC_I   ,KC_O    ,KC_P     ,F(RMdia)
                                                                               ,KC_H   ,KC_J   ,KC_K   ,KC_L    ,KC_SCLN  ,F(RSymb)
                                                                      ,KC_TAB  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT  ,KC_SLSH  ,M(RCaps)
-                                                                                      ,KC_RGUI,KC_RALT,KC_HYPR ,KC_MEH   ,KC_RCTL
+                                                                                      ,KC_RGUI,KC_RALT,ALL_T(KC_LBRC),MEH_T(KC_RBRC),KC_RCTL
                                                                      ,KC_LEFT ,KC_RGHT
                                                                      ,KC_UP
                                                                      ,KC_DOWN ,KC_ENT ,KC_SPC
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_TRNS ,KC_EXLM ,KC_AT   ,KC_LCBR ,KC_RCBR ,KC_AMPR ,LSFT(KC_COMM)
 ,KC_TRNS ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV 
 ,KC_TRNS ,KC_PERC ,KC_CIRC ,KC_LBRC ,KC_RBRC ,KC_TILD ,KC_TAB
-,KC_LCTL   ,KC_MEH ,KC_HYPR,KC_LALT ,KC_LGUI
+,KC_LCTL ,KC_MEH  ,KC_HYPR ,KC_LALT ,KC_LGUI
                                              ,KC_LEFT ,KC_RGHT
                                                       ,KC_UP
                                     ,KC_SPC  ,KC_ENT  ,KC_DOWN
