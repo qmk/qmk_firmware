@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  ,KC_PGUP
                                  ,KC_BSPC,KC_DEL ,KC_PGDN
                                                                       // right hand
-                                                                     ,KC_MINS ,KC_6   ,KC_7   ,KC_8   ,KC_9    ,KC_0     ,F(RSpec)
+                                                                     ,KC_GRV  ,KC_6   ,KC_7   ,KC_8   ,KC_9    ,KC_0     ,F(RSpec)
                                                                      ,KC_RBRC ,KC_Y   ,KC_U   ,KC_I   ,KC_O    ,KC_P     ,F(RMdia)
                                                                               ,KC_H   ,KC_J   ,KC_K   ,KC_L    ,KC_SCLN  ,F(RSymb)
                                                                      ,KC_TAB  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT  ,KC_SLSH  ,M(RCaps)
