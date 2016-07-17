@@ -1,7 +1,7 @@
 #ifndef KEYMAP_SPANISH_H
 #define KEYMAP_SPANISH_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
 #define ALGR(kc) kc | 0x1400
@@ -49,7 +49,7 @@
 #define ES_PIPE	ALGR(KC_1)
 #define ES_AT 	ALGR(KC_2)
 #define ES_HASH	ALGR(KC_3)
-#define ES_TILD	ALGR(KC_4)
+#define ES_TILD	ALGR(ES_NTIL)
 #define ES_EURO	ALGR(KC_5)
 #define ES_NOT	ALGR(KC_6)
 

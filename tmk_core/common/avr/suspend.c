@@ -117,7 +117,7 @@ bool suspend_wakeup_condition(void)
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         if (matrix_get_row(r)) return true;
     }
-    return false;
+     return false;
 }
 
 // run immediately after wakeup
@@ -146,4 +146,3 @@ ISR(WDT_vect)
     }
 }
 #endif
-

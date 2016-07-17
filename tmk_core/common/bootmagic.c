@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include <util/delay.h>
+#include "wait.h"
 #include "matrix.h"
 #include "bootloader.h"
 #include "debug.h"
@@ -10,6 +10,7 @@
 #include "eeconfig.h"
 #include "bootmagic.h"
 
+keymap_config_t keymap_config;
 
 void bootmagic(void)
 {
@@ -19,9 +20,9 @@ void bootmagic(void)
     }
 
     /* do scans in case of bounce */
-    print("boogmagic scan: ... ");
+    print("bootmagic scan: ... ");
     uint8_t scan = 100;
-    while (scan--) { matrix_scan(); _delay_ms(10); }
+    while (scan--) { matrix_scan(); wait_ms(10); }
     print("done.\n");
 
     /* bootmagic skip */
