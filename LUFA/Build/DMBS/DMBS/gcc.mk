@@ -96,7 +96,7 @@ ifneq ($(OBJDIR),.)
    endif
 
    # Create the output object file directory if it does not exist and add it to the virtual path list
-   $(shell mkdir $(OBJDIR) 2> /dev/null)
+   $(shell mkdir -p $(OBJDIR) 2> /dev/null)
    VPATH           += $(dir $(SRC))
 endif
 

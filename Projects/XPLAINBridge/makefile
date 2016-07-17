@@ -31,13 +31,11 @@ LD_FLAGS     =
 # Default target
 all:
 
-OBJDIR      := obj
-
 # Since this project borrows files from the AVRISP-MKII project which may also have an
 # identical OBJDIR directory, we need to enforce the use of this project's object file
-# directory as the one where the build object files are to be stored by pre-pending the
-# absolute path of the current project to the OBJDIR variable.
-override OBJDIR:=$(shell pwd)/$(OBJDIR)
+# directory as the one where the build object files are to be stored, by giving it a
+# project-specific name.
+OBJDIR      := obj.$(TARGET)
 
 # Include LUFA-specific DMBS extension modules
 DMBS_LUFA_PATH ?= $(LUFA_PATH)/Build/LUFA
