@@ -292,13 +292,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case LSpec:
         if (record->event.pressed) {
             if (record->tap.count && !record->tap.interrupted) {
-                register_code(KC_GRV);
+                register_code(KC_EQL);
             } else {
                 layer_on(SPEC);
             }
         } else {
             if(record->tap.count && !record->tap.interrupted) {
-                unregister_code(KC_GRV);
+                unregister_code(KC_EQL);
             } else {
                 layer_off(SPEC);
             }
