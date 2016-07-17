@@ -25,15 +25,16 @@
 #define MDR   23 // mouse down right
 
 /*
- * The Ordinary Layout for the Ergodox EZ keyboard, v4
+ * teckinesis layout for ErgoDox (EZ)
  * 
+ * Modifications from The Ordinary Layout v4 by Will Wolff-Myren willwm@gmail.com
  * Modifications from default by Nicholas Keene ergodoxez@nicholaskeene.com
  *
  * No rights reserved. This software is in the public domain.
  * Credit me if you are friendly but if you're a jerk don't bother.
  * 
  * Details: readme.md
- *          https://github.com/nrrkeene/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/ordinary
+ *          https://github.com/willwm/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/teckinesis
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
