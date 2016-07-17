@@ -1,4 +1,4 @@
-# teckinesis Layout # 
+# teckinesis Layout
 
 *A blend of TECK and Kinesis layouts, based on ["The Ordinary Layout" by Nicholas Keene](http://qmk.fm/keyboards/ergodox_ez/keymaps/ordinary/#the-ordinary-layout-a-familiar-and-powerful-layout)*
 
@@ -11,7 +11,7 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 
 ## The Base Layout ##
 
-[Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists/befd4c5800d92114aa9e50d4f7c0dfb0) \
+[teckinesis (Base Layer)](http://www.keyboard-layout-editor.com/#/gists/befd4c5800d92114aa9e50d4f7c0dfb0)
 ![teckinesis base layout](teckinesis-base.png)
 
 ### Changes from The Ordinary Layout ###
@@ -26,7 +26,7 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 
 ## The Symbols Layer ##
 
-[teckinesis (Symbols Layer)](http://www.keyboard-layout-editor.com/#/gists/e6ddc4e9e0d194b3e52ac0616238ab61) \
+[teckinesis (Symbols Layer)](http://www.keyboard-layout-editor.com/#/gists/e6ddc4e9e0d194b3e52ac0616238ab61)
 ![teckinesis symbols layout](teckinesis-symbol.png)
 
 ### Changes from The Ordinary Layout ###
@@ -35,7 +35,7 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 
 ## The Media Layer ##
 
-[teckinesis (Media Layer)](http://www.keyboard-layout-editor.com/#/gists/41ff65e6a7c490211fd6702fb34d9908) \
+[teckinesis (Media Layer)](http://www.keyboard-layout-editor.com/#/gists/41ff65e6a7c490211fd6702fb34d9908)
 ![teckinesis media layout](teckinesis-media.png)
 
 ### Changes from The Ordinary Layout ###
@@ -43,7 +43,9 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 * Removed Power, Sleep, Mail, My Computer keys.
 (I kept hitting these while using the mouse/cursor. =P)
 
-## TECK Layout ##
+# Truly Ergonomic and Kinesis Advantage Layouts
+
+## TECK 209 Layout ##
 
 ![TECK 209 Layout](teck209layout.jpg)
 
