@@ -372,10 +372,11 @@ But lets start with how to use it, first!
 
 First, you will need `TAP_DANCE_ENABLE=yes` in your `Makefile`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
 
-This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are two possible options:
+This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:
 
 * `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise.
-* `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the current state of the tap-dance action.
+* `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
+* `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function on when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
 
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
 
@@ -399,7 +400,8 @@ In the end, let's see a full example!
 enum {
  CT_SE = 0,
  CT_CLN,
- CT_EGG
+ CT_EGG,
+ CT_FLSH,
 };
 
 /* Have the above three on the keymap, TD(CT_SE), etc... */
@@ -424,10 +426,50 @@ void dance_egg (qk_tap_dance_state_t *state) {
   }
 }
 
+// on each tap, light up one led, from right to left
+// on the forth tap, turn them off from right to left
+void dance_flsh_each(qk_tap_dance_state_t *state) {
+  switch (state->count) {
+  case 1:
+    ergodox_right_led_3_on();
+    break;
+  case 2:
+    ergodox_right_led_2_on();
+    break;
+  case 3:
+    ergodox_right_led_1_on();
+    break;
+  case 4:
+    ergodox_right_led_3_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_right_led_1_off();
+  }
+}
+
+// on the fourth tap, set the keyboard on flash state
+void dance_flsh_finished(qk_tap_dance_state_t *state) {
+  if (state->count >= 4) {
+    reset_keyboard();
+    reset_tap_dance(state);
+  }
+}
+
+// if the flash state didnt happen, then turn off leds, left to right
+void dance_flsh_reset(qk_tap_dance_state_t *state) {
+  ergodox_right_led_1_off();
+  _delay_ms(50);
+  ergodox_right_led_2_off();
+  _delay_ms(50);
+  ergodox_right_led_3_off();
+}
+
 const qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
  ,[CT_CLN] = ACTION_TAP_DANCE_FN (dance_cln)
  ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
+ ,[CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
 };
 ```
 
