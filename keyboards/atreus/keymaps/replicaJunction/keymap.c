@@ -34,40 +34,40 @@
 #define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_CO] = {
-  {KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    _______,        KC_J,            KC_L,    KC_U,    KC_Y,    KC_SCLN },
-  {KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    _______,        KC_M,            KC_N,    KC_E,    KC_I,    KC_O    },
-  {KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    CTL_T(KC_BSPC), KC_K,            KC_H,    KC_COMM, KC_DOT,  KC_SLSH },
-  {KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, KC_LSFT, ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), KC_MINS, KC_QUOT, KC_EQL  }
-},
+[_CO] = KEYMAP(
+  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                    KC_J,            KC_L,    KC_U,    KC_Y,    KC_SCLN,
+  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                    KC_M,            KC_N,    KC_E,    KC_I,    KC_O,
+  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                                    KC_K,            KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
+  KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, KC_LSFT, CTL_T(KC_BSPC), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), KC_MINS, KC_QUOT, KC_EQL
+),
 
-[_QW] = { /* Qwerty */
-  {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______,        KC_Y,            KC_U,    KC_I,    KC_O,    KC_P    },
-  {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______,        KC_H,            KC_J,    KC_K,    KC_L,    KC_SCLN },
-  {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    CTL_T(KC_BSPC), KC_N,            KC_M,    KC_COMM, KC_DOT,  KC_SLSH },
-  {KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, KC_BSPC, ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), TG(_GA), KC_QUOT, KC_EQL  }
-},
+[_QW] = KEYMAP( /* Qwerty */
+  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                    KC_Y,            KC_U,    KC_I,    KC_O,    KC_P,
+  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                    KC_H,            KC_J,    KC_K,    KC_L,    KC_SCLN,
+  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                    KC_N,            KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+  KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, KC_BSPC, CTL_T(KC_BSPC), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), TG(_GA), KC_QUOT, KC_EQL
+),
 
-[_NU] = { /* Numbers and symbols */
-  {KC_GRV,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_PGUP, KC_7,    KC_8,   KC_9, KC_ASTR},
-  {KC_HASH, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, KC_PGDN, KC_4,    KC_5,   KC_6, KC_PLUS},
-  {KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_AMPR, CTL_T(KC_BSPC), KC_TILD, KC_1,    KC_2,   KC_3, KC_BSLS},
-  {MO(_FN), KC_INS,  KC_LGUI, KC_LSFT, _______, _______, KC_SPC,  _______, KC_DOT, KC_0, _______}
-},
+[_NU] = KEYMAP( /* Numbers and symbols */
+  KC_GRV,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                          KC_PGUP, KC_7,    KC_8,   KC_9, KC_ASTR,
+  KC_HASH, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                          KC_PGDN, KC_4,    KC_5,   KC_6, KC_PLUS,
+  KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_AMPR,                          KC_TILD, KC_1,    KC_2,   KC_3, KC_BSLS,
+  MO(_FN), KC_INS,  KC_LGUI, KC_LSFT, _______, CTL_T(KC_BSPC), _______, KC_SPC,  _______, KC_DOT, KC_0, _______
+),
 
-[_FN] = { /* Functions */
-  {KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_UP,   KC_F7,   KC_F8,   KC_F9,   KC_F10},
-  {KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN, _______, KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11},
-  {_______, _______, _______, _______, _______, _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F12},
-  {_______, _______, KC_LGUI, KC_LSFT, _______, _______, KC_SPC,  _______, DF(_CO), DF(_QW), RESET}
-},
+[_FN] = KEYMAP( /* Functions */
+  KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                   KC_UP,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
+  KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN,                   KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11,
+  _______, _______, _______, _______, _______,                   _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,
+  _______, _______, KC_LGUI, KC_LSFT, _______, _______, _______, _______,  _______, DF(_CO), DF(_QW), RESET
+),
 
-[_GA] = { /* Gaming */
-  {_______, _______, _______, _______, _______, _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______ },
-  {_______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______ },
-  {_______, _______, _______, _______, _______, KC_BSPC, KC_BTN3, _______, KC_MS_D, _______, _______ },
-  {_______, _______, _______, _______, KC_SPC,  KC_BTN2, KC_BTN1, _______, _______, _______, _______ },
-}};
+[_GA] = KEYMAP( /* Gaming */
+  _______, _______, _______, _______, _______,                   _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,
+  _______, _______, _______, _______, _______,                   _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
+  _______, _______, _______, _______, _______,                   KC_BTN3, _______, KC_MS_D, _______, _______,
+  _______, _______, _______, _______, KC_SPC,  KC_BSPC, KC_BTN2, KC_BTN1, _______, _______, _______, _______
+)};
 
 const uint16_t PROGMEM fn_actions[] = {
 
