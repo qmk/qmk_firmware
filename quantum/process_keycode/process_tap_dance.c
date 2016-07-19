@@ -86,6 +86,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
   default:
     if (qk_tap_dance_state.keycode) {
+      // if we are here, the tap dance was interrupted by a different key
       process_tap_dance_action_on_each_tap (qk_tap_dance_state.keycode);
       process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
       reset_tap_dance (&qk_tap_dance_state);
@@ -98,6 +99,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_tap_dance () {
   if (qk_tap_dance_state.keycode && timer_elapsed (qk_tap_dance_state.timer) > TAPPING_TERM) {
+    // if we are here, the tap dance was timed out
     process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
     reset_tap_dance (&qk_tap_dance_state);
   }
