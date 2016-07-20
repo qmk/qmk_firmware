@@ -27,18 +27,25 @@
 #define _CO 0 // Colemak
 #define _QW 1 // QWERTY
 #define _GA 2 // Gaming
-#define _NU 3 // Numpad
-#define _FN 4 // Function
+#define _EX 3 // Extend
+#define _NU 4 // Numpad
+#define _FN 5 // Function
 
-// Quick alias for visual sake
+// Some quick aliases, just to make it look pretty
 #define _______ KC_TRNS
+#define KCX_CA  LCTL(KC_LALT)
+#define KCX_CS  LCTL(KC_LSFT)
+#define KCX_CSA LCTL(LSFT(KC_LALT))
+#define KCX_LST LSFT(KC_TAB)
+
+; // This doesn't do anything. It's just for VSCode because its syntax highlighting is weird for the above #define statements.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CO] = KEYMAP(
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                    KC_J,            KC_L,    KC_U,    KC_Y,    KC_SCLN,
-  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                    KC_M,            KC_N,    KC_E,    KC_I,    KC_O,
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                                    KC_K,            KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
-  KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, KC_LSFT, CTL_T(KC_BSPC), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), KC_MINS, KC_QUOT, KC_EQL
+  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                          KC_J,            KC_L,    KC_U,    KC_Y,    KC_SCLN,
+  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                          KC_M,            KC_N,    KC_E,    KC_I,    KC_O,
+  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                                          KC_K,            KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
+  KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, SFT_T(KC_BSPC), CTL_T(KC_DEL), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_EX), KC_MINS, KC_QUOT, KC_EQL
 ),
 
 [_QW] = KEYMAP( /* Qwerty */
@@ -48,18 +55,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  KC_TAB,  KC_LGUI, KC_LSFT, KC_BSPC, CTL_T(KC_BSPC), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), TG(_GA), KC_QUOT, KC_EQL
 ),
 
+[_EX] = KEYMAP( /* Extend */
+  _______, _______, _______, _______, _______,                   KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,
+  KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
+  KC_HYPR, KCX_CSA, KCX_CA,  KCX_CS,  _______,                   _______, KCX_LST, _______, KC_TAB,  _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_SPC,  _______, _______, _______, KC_PSCR
+),
+
 [_NU] = KEYMAP( /* Numbers and symbols */
-  KC_GRV,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                          KC_PGUP, KC_7,    KC_8,   KC_9, KC_ASTR,
-  KC_HASH, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                          KC_PGDN, KC_4,    KC_5,   KC_6, KC_PLUS,
-  KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_AMPR,                          KC_TILD, KC_1,    KC_2,   KC_3, KC_BSLS,
-  MO(_FN), KC_INS,  KC_LGUI, KC_LSFT, _______, CTL_T(KC_BSPC), _______, KC_SPC,  _______, KC_DOT, KC_0, _______
+  KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,                    KC_SLSH, KC_7,    KC_8,   KC_9,   KC_ASTR,
+  KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                     KC_PIPE, KC_4,    KC_5,   KC_6,   KC_MINS,
+  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                    KC_BSLS, KC_1,    KC_2,   KC_3,   KC_PLUS,
+  MO(_FN), _______, KC_LABK, KC_RABK, _______, _______,  _______, _______, KC_0,    KC_DOT, KC_EQL, _______
 ),
 
 [_FN] = KEYMAP( /* Functions */
-  KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                   KC_UP,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
-  KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN,                   KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11,
-  _______, _______, _______, _______, _______,                   _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,
-  _______, _______, KC_LGUI, KC_LSFT, _______, _______, _______, _______,  _______, DF(_CO), DF(_QW), RESET
+  KC_DEL,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,
+  KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN,                   _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,
+  _______, KC_VOLU, KC_MUTE, KC_VOLD, KC_MPLY,                   _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,
+  _______, _______, _______, _______, KC_MSTP, _______, _______, _______, KC_NO,   DF(_CO), DF(_QW), RESET
 ),
 
 [_GA] = KEYMAP( /* Gaming */
