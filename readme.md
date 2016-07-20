@@ -373,7 +373,7 @@ As you can see, you have three function. you can use - `SEQ_ONE_KEY` for single-
 
 ### Tap Dance: A single key can do 3, 5, or 100 different things
 
-Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/jackhumbert/qmk_firmware/pull/451). Here's how Algernon describes the feature:
+Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/jackhumbert/qmk_firmware/pull/451). Here's how algernon describes the feature:
 
 With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
 
