@@ -73,10 +73,14 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     process_tap_dance_action_on_each_tap (qk_tap_dance_state.keycode);
     if (qk_tap_dance_state.keycode && qk_tap_dance_state.keycode != keycode) {
       process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
+    } else if (qk_tap_dance_state.active && qk_tap_dance_state.pressed) {
+      reset_tap_dance (&qk_tap_dance_state);
     } else {
       r = false;
     }
 
+    qk_tap_dance_state.active = true;
+    qk_tap_dance_state.pressed = record->event.pressed;
     if (record->event.pressed) {
       qk_tap_dance_state.keycode = keycode;
       qk_tap_dance_state.timer = timer_read ();
@@ -90,6 +94,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       process_tap_dance_action_on_each_tap (qk_tap_dance_state.keycode);
       process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
       reset_tap_dance (&qk_tap_dance_state);
+      qk_tap_dance_state.active = false;
     }
     break;
   }
@@ -98,7 +103,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_tap_dance () {
-  if (qk_tap_dance_state.keycode && timer_elapsed (qk_tap_dance_state.timer) > TAPPING_TERM) {
+  if (qk_tap_dance_state.active && timer_elapsed (qk_tap_dance_state.timer) > TAPPING_TERM) {
     // if we are here, the tap dance was timed out
     process_tap_dance_action_on_dance_finished (qk_tap_dance_state.keycode);
     reset_tap_dance (&qk_tap_dance_state);
@@ -108,6 +113,9 @@ void matrix_scan_tap_dance () {
 void reset_tap_dance (qk_tap_dance_state_t *state) {
   uint16_t idx = state->keycode - QK_TAP_DANCE;
   qk_tap_dance_action_t action;
+
+  if (state->pressed)
+    return;
 
   action = tap_dance_actions[idx];
   switch (action.type) {
@@ -123,4 +131,5 @@ void reset_tap_dance (qk_tap_dance_state_t *state) {
 
   state->keycode = 0;
   state->count = 0;
+  state->active = false;
 }

@@ -11,6 +11,8 @@ typedef struct
   uint8_t count;
   uint16_t keycode;
   uint16_t timer;
+  bool active:1;
+  bool pressed:1;
 } qk_tap_dance_state_t;
 
 #define TD(n) (QK_TAP_DANCE + n)
