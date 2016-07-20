@@ -18,22 +18,22 @@ Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	/* Bone2
-	* ,-----------------------------------------------------------------------------------.
-	* | Q    |   J  |   D  |   U  |   A  |   X  |   P  |   H  |   L  |   M  |   W  |  ẞ   |
-	* |------+------+------+------+------+-------------+------+------+------+------+------|
-	* |M1/Tab|   C  |   T  |   I  |   E  |   O  |   B  |   N  |   R  |   S  |   G  |M1/Ent|  //hold for M1, tap for Tab/Enter
-	* |------+------+------+------+------+------|------+------+------+------+------+------|
-	* | Shift|   F  |   V  |   Ü  |   Ä  |   Ö  |   Y  |   Z  |   ,  |   .  |   K  |Shift |
-	* |------+------+------+------+------+------+------+------+------+------+------+------|
-	* | GUI  | Ctrl | Alt  |  M4  |  M2  |    Space    |  M2  |  M4  |      | Ctrl | Esc  |
-	* `-----------------------------------------------------------------------------------'
-	*/
-	[0] = {
-		{ DE_Q,         DE_J,    DE_D,    DE_U,  DE_A,  DE_X,   DE_P,   DE_H,  DE_L,    DE_M,   DE_W,    DE_SS },
-		{ LT(1,KC_TAB), DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,   DE_G,    LT(1,KC_ENT) },
-		{ KC_LSFT,      DE_F,    DE_V,    DE_UE, DE_AE, DE_OE,  DE_Y,   DE_Z,  DE_COMM, DE_DOT, DE_K,    KC_LSFT },
-		{ KC_LGUI,      KC_LCTL, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_NO,  KC_RCTL, KC_ESC }
+/* Bone2
+* ,-----------------------------------------------------------------------------------.
+* | Q    |   J  |   D  |   U  |   A  |   X  |   P  |   H  |   L  |   M  |   W  |  ẞ   |
+* |------+------+------+------+------+-------------+------+------+------+------+------|
+* |M1/Tab|   C  |   T  |   I  |   E  |   O  |   B  |   N  |   R  |   S  |   G  |M1/Ent|  //hold for M1, tap for Tab/Enter
+* |------+------+------+------+------+------|------+------+------+------+------+------|
+* | Shift|   F  |   V  |   Ü  |   Ä  |   Ö  |   Y  |   Z  |   ,  |   .  |   K  |Shift |
+* |------+------+------+------+------+------+------+------+------+------+------+------|
+* | GUI  | Ctrl | Alt  |  M4  |  M2  |    Space    |  M2  |  M4  |      | Ctrl | Esc  |
+* `-----------------------------------------------------------------------------------'
+*/
+[0] = {
+	{ DE_Q,         DE_J,    DE_D,    DE_U,  DE_A,  DE_X,   DE_P,   DE_H,  DE_L,    DE_M,   DE_W,    DE_SS },
+	{ LT(1,KC_TAB), DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,   DE_G,    LT(1,KC_ENT) },
+	{ KC_LSFT,      DE_F,    DE_V,    DE_UE, DE_AE, DE_OE,  DE_Y,   DE_Z,  DE_COMM, DE_DOT, DE_K,    KC_LSFT },
+	{ KC_LGUI,      KC_LCTL, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_NO,  KC_RCTL, KC_ESC }
 },
 
 /* M1 Special Characters
