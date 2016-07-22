@@ -31,18 +31,27 @@ typedef struct
       uint16_t kc1;
       uint16_t kc2;
     } pair;
-    qk_tap_dance_user_fn_t fn;
+    struct {
+      qk_tap_dance_user_fn_t on_each_tap;
+      qk_tap_dance_user_fn_t on_dance_finished;
+      qk_tap_dance_user_fn_t on_reset;
+    } fn;
   };
 } qk_tap_dance_action_t;
 
 #define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) { \
-    .type = QK_TAP_DANCE_TYPE_PAIR,         \
-    .pair = { kc1, kc2 }                    \
+    .type = QK_TAP_DANCE_TYPE_PAIR, \
+    .pair = { kc1, kc2 }            \
   }
 
-#define ACTION_TAP_DANCE_FN(user_fn) { \
+#define ACTION_TAP_DANCE_FN(user_fn) {  \
     .type = QK_TAP_DANCE_TYPE_FN, \
-    .fn = user_fn                 \
+    .fn = { NULL, user_fn, NULL } \
+  }
+
+#define ACTION_TAP_DANCE_FN_ADVANCED(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_reset) { \
+    .type = QK_TAP_DANCE_TYPE_FN,                                              \
+    .fn = { user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_reset } \
   }
 
 extern const qk_tap_dance_action_t tap_dance_actions[];
