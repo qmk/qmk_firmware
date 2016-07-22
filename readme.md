@@ -167,7 +167,7 @@ This allows you to use the system and audio control key codes.
 
 `CONSOLE_ENABLE`
 
-TODO
+This allows you to print messages that can be read using [`hid_listen`](https://www.pjrc.com/teensy/hid_listen.html). Add this to your `Makefile`, and set it to `yes`. Then put `println`, `printf`, etc. in your keymap or anywhere in the `qmk` source. Finally, open `hid_listen` and enjoy looking at your printed messages.
 
 `COMMAND_ENABLE`
 
