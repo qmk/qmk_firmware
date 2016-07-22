@@ -42,19 +42,32 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+
+/* Alpha-numeric
+  ,-----------------------------------------------------------------------------------------------.
+  |   Q   |   D   |   R   |   W   |   B   |   F   |   U   |   P   |   J   |   7   |   8   |   9   |
+  |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+  |   A   |   S   |   H   |   T   |   G   |   N   |   E   |   O   |   I   |   4   |   5   |   6   |
+  |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
+  |   Z   |   X   |   M   |   C   |   V   |   L   |   Y   |   K   |   Up  |   1   |   2   |   3   |
+  |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+  |Alt/Tab|Gui/Esc|   ,   |CTL/Bsp| Fn/Ent|SFT/SPC|   .   |  Left |  Down | Right |   0   |   /   |
+  `-----------------------------------------------------------------------------------------------'
+*/
+  
 [_ALPHA] = {
   {KC_Q, KC_D, KC_R, KC_W, KC_B, KC_F, KC_U, KC_P, KC_J, KC_KP_7, KC_KP_8, KC_KP_9},
   {KC_A, KC_S, KC_H, KC_T, KC_G, KC_N, KC_E, KC_O, KC_I, KC_KP_4, KC_KP_5, KC_KP_6},
-  {KC_Z, KC_X, KC_M, KC_C, KC_V, KC_L, KC_Y, KC_K, GUI_T(KC_ENTER), KC_KP_1, KC_KP_2, KC_KP_3},
-  {ALT_T(KC_TAB), KC_SLASH, KC_COMM, SFT_T(KC_BSPC), LT(_FN, KC_ESC), CTL_T(KC_SPC), KC_DOT,
-   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_KP_0}
+  {KC_Z, KC_X, KC_M, KC_C, KC_V, KC_L, KC_Y, KC_K, KC_UP, KC_KP_1, KC_KP_2, KC_KP_3},
+  {ALT_T(KC_TAB), GUI_T(KC_ESC), KC_COMM, CTL_T(KC_BSPC), LT(_FN, KC_ENTER), SFT_T(KC_SPC), KC_DOT,
+   KC_LEFT, KC_DOWN, KC_RGHT, KC_KP_0, KC_SLASH}
 },
 
 [_FN] = {
   {KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_FN12, KC_FN7, KC_FN8, KC_FN9},
   {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL, KC_LPRN, KC_RPRN, KC_FN11, KC_FN4, KC_FN5, KC_FN6},
-  {RESET, KC_INS, KC_PSCR, KC_SLCK, KC_PAUSE, KC_NUMLOCK, KC_MENU, KC_ENTER, _______, KC_FN1, KC_FN2, KC_FN3},
-  {_______, KC_BSLASH, KC_GRAVE, _______, _______, _______, KC_SCOLON, KC_HOME, KC_PGUP, KC_PGDN, KC_END, KC_FN10}
+  {RESET, KC_INS, KC_PSCR, KC_SLCK, KC_PAUSE, KC_NUMLOCK, KC_MENU, XXXXXXX, KC_PGUP, KC_FN1, KC_FN2, KC_FN3},
+  {_______, _______, KC_GRAVE, _______, _______, _______, KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_FN10, KC_BSLASH}
 },
 
 /* Qwerty
@@ -67,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
- */
+ */  
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
