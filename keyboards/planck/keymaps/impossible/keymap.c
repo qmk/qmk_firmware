@@ -63,6 +63,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_LEFT, KC_DOWN, KC_RGHT, KC_KP_0, KC_SLASH}
 },
 
+/* Symbols (FN Held)
+  ,-----------------------------------------------------------------------------------------------.
+  |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |  F12  |   F7  |   F8  |   F9  |
+  |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+  |  Caps |   [   |   ]   |   -   |  Del  |   =   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
+  |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
+  |  DFU  | Insert| PrtSc | ScrLk | Pause | NumLk |  Menu |       |  PgUp |   F1  |   F2  |   F3  |
+  |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+  |Alt/Tab|Gui/Esc|   `   |CTL/Bsp| Fn/Ent|SFT/SPC|   ;   |  Home |  PgDn |  End  |  F10  |   /   |
+  `-----------------------------------------------------------------------------------------------'
+*/
+
 [_FN] = {
   {KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_FN12, KC_FN7, KC_FN8, KC_FN9},
   {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL, KC_LPRN, KC_RPRN, KC_FN11, KC_FN4, KC_FN5, KC_FN6},
