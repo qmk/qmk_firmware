@@ -35,7 +35,7 @@ This is not a tiny project. While this is the main readme, there are many other 
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
   * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
   * [quantum/keymap.h](quantum/keymap.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap.h` is where they're actually defined.
-* The [TMK documentation](doc/TMK_readme.md). QMK is based on TMK, and this explains how it works internally.
+* The [TMK documentation](doc/TMK_README.md). QMK is based on TMK, and this explains how it works internally.
 
 # Getting started
 
@@ -91,7 +91,7 @@ docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasqu
 This will compile the targetted keyboard/keymap and leave it in your QMK directory for you to flash.
 
 ### Vagrant
-If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](VAGRANT_GUIDE.md).
+If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](doc/VAGRANT_GUIDE.md).
 
 ## Verify Your Installation
 1. If you haven't already, obtain this repository ([https://github.com/jackhumbert/qmk_firmware](https://github.com/jackhumbert/qmk_firmware)). You can either download it as a zip file and extract it, or clone it using the command line tool git or the Github Desktop application.
@@ -112,7 +112,7 @@ In every keymap folder, the following files are recommended:
 
 The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys). You can run `make` from the root (`/`), your keyboard folder (`/keyboards/<keyboard>/`), or your keymap folder (`/keyboards/<keyboard>/keymaps/<keymap>/`) if you have a `Makefile` there (see the example [here](/doc/keymap_makefile_example.mk)).
 
-By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests. Your .hex file will also be available on qmk.fm/keyboards/<keyboard>/keymaps/<keymap>/.
+By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests.
 
 Below are some definitions that will be useful:
 
@@ -789,7 +789,7 @@ float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 ```
 
-Wherein we bind predefined songs (from [audio/song_list.h](/audio/song_list.h)) into named variables. This is one optimization that helps save on memory: These songs only take up memory when you reference them in your keymap, because they're essentially all preprocessor directives.
+Wherein we bind predefined songs (from [quantum/audio/song_list.h](/quantum/audio/song_list.h)) into named variables. This is one optimization that helps save on memory: These songs only take up memory when you reference them in your keymap, because they're essentially all preprocessor directives.
 
 So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
 
@@ -831,7 +831,7 @@ AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
 ## RGB Under Glow Mod
 
-![Planck with RGB Underglow](https://raw.githubusercontent.com/yangliu/qmk_firmware/planck-rgb/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
+![Planck with RGB Underglow](https://raw.githubusercontent.com/jackhumbert/qmk_firmware/master/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
 
 Here is a quick demo on Youtube (with NPKC KC60) (https://www.youtube.com/watch?v=VKrpPAHlisY).
 
@@ -856,7 +856,7 @@ The firmware supports 5 different light effects, and the color (hue, saturation,
 
 ### WS2812 Wiring
 
-![WS2812 Wiring](https://raw.githubusercontent.com/yangliu/qmk_firmware/planck-rgb/keyboards/planck/keymaps/yang/WS2812-wiring.jpg)
+![WS2812 Wiring](https://raw.githubusercontent.com/jackhumbert/qmk_firmware/master/keyboards/planck/keymaps/yang/WS2812-wiring.jpg)
 
 Please note the USB port can only supply a limited amount of power to the keyboard (500mA by standard, however, modern computer and most usb hubs can provide 700+mA.). According to the data of NeoPixel from Adafruit, 30 WS2812 LEDs require a 5V 1A power supply, LEDs used in this mod should not more than 20.
 
