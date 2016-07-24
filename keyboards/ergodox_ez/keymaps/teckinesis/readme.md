@@ -43,13 +43,3 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 * Removed Power, Sleep, Mail, My Computer keys.
 (I kept hitting these while using the mouse/cursor. =P)
 
-# Truly Ergonomic and Kinesis Advantage Layouts
-
-## TECK 209 Layout ##
-
-![TECK 209 Layout](teck209layout.jpg)
-
-## Kinesis Advantage Layout ##
-
-![Kinesis Advantage Layout](advantage_layout_win.png)
-
