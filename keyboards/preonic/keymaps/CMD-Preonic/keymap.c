@@ -13,6 +13,7 @@
 #define _COLEMAK 1
 #define _DVORAK 2
 #define _GAME 3
+#define _ARROW 12
 #define _NUMPAD 13
 #define _LOWER 14
 #define _RAISE 15
@@ -23,6 +24,7 @@
 #define COLEMAK M(_COLEMAK)
 #define DVORAK M(_DVORAK)
 #define GAME M(_GAME)
+#define ARROW M(_ARROW)
 #define NUMPAD M(_NUMPAD)
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
@@ -47,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    | Raise|   -  |  =  |   [   |   ]  |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = { 
+[_QWERTY] = {
   {KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_BSPC},
   {KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSLASH},
   {LT(_RAISE, KC_ENT), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,     KC_K,     KC_L,     KC_SCLN, KC_QUOT},
@@ -134,10 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMPAD] = {
   {KC_ESC,  KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS, _______, _______, _______, _______, _______, _______, _______, _______},
   {KC_KP_7, KC_KP_8,     KC_KP_9,        KC_KP_PLUS,  _______, _______, _______, _______, _______, _______, _______, _______},
-  {KC_KP4,  KC_KP_5,     KC_KP_6,        KC_KP_PLUS,  _______, _______, _______, _______, _______, _______, _______, _______},
+  {KC_KP_4, KC_KP_5,     KC_KP_6,        KC_KP_PLUS,  _______, _______, _______, _______, _______, _______, _______, _______},
   {KC_KP_1, KC_KP_2,     KC_KP_3,        KC_KP_ENTER, _______, _______, _______, _______, _______, _______, _______, _______},
   {KC_KP_0, KC_KP_0,     KC_KP_DOT,      KC_KP_ENTER, _______, _______, _______, _______, _______, _______, _______, _______},
-},   
+},
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   F1 |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | Del  |
@@ -146,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Left | Down | Right| Refr  MLeft|  MDn  |MRight|   *  |   4  |   5  |  6   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Vol+| Prev | Play | Next | Back |  MWDn| MBtn3| MWUp |  -   |   1  |  2   |  3   | 
+ * |  Vol+| Prev | Play | Next | Back |  MWDn| MBtn3| MWUp |  -   |   1  |  2   |  3   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Vol- | Pause|  Ins | Print|      |             |      |   +  | Enter|  0   |  .   |
  * `-----------------------------------------------------------------------------------'
@@ -154,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = {
   {KC_GRV,  KC_F1,    KC_F2,   KC_F3,      KC_F4,          KC_F5,         KC_F6,       KC_F7,       KC_F8,          KC_F9,       KC_F10,  KC_DEL},
   {KC_MUTE, KC_BSPC,  KC_UP,   KC_DEL,     KC_WWW_FORWARD, KC_MS_BTN1,    KC_MS_UP,    KC_MS_BTN2,  KC_KP_SLASH,    KC_KP_7,     KC_KP_8, KC_KP_9},
-  {_______, KC_LEFT,  KC_DOWN, KC_RIGHT,   KC_WWW_REFRESH, KC_MS_LEFT,    KC_MS_DOWN,  KC_MS_RIGHT, KC_KP_ASTERISK, KC_KP4,      KC_KP_5, KC_KP_6},
+  {_______, KC_LEFT,  KC_DOWN, KC_RIGHT,   KC_WWW_REFRESH, KC_MS_LEFT,    KC_MS_DOWN,  KC_MS_RIGHT, KC_KP_ASTERISK, KC_KP_4,      KC_KP_5, KC_KP_6},
   {KC_VOLU, KC_MPRV,  KC_MPLY, KC_MNXT,    KC_WWW_BACK,    KC_MS_WH_DOWN, KC_MS_BTN3,  KC_MS_WH_UP, KC_KP_MINUS,    KC_KP_1,     KC_KP_2, KC_KP_3},
   {KC_VOLD, KC_PAUSE, KC_INS,  KC_PSCREEN, _______,        _______,       _______,     _______,     KC_KP_PLUS,     KC_KP_ENTER, KC_KP_0, KC_KP_DOT}
 },
@@ -188,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |Aud On|AudOff|MidiOn|MdiOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus On|MusOff| Sleep| Wake | Arrow| Game |      |      |      |
+ * |      |Voice-|Voice+|Mus On|MusOff| Sleep| Wake | Arrow| Game |NUMPAD|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |     Reset   |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -197,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______,  QWERTY, COLEMAK,  DVORAK, _______,          _______,        _______, _______, _______, _______, _______},
   {_______, RESET,   _______, AG_NORM, AG_SWAP, _______,          _______,        _______, _______, _______, _______, KC_DEL},
   {_______, _______, _______, AU_ON,   AU_OFF,  MI_ON,            MI_OFF,         QWERTY,  COLEMAK,  DVORAK, _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  KC_SYSTEM_SLEEP,  KC_SYSTEM_WAKE, ARROW,      GAME, _______, _______, _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  KC_SYSTEM_SLEEP,  KC_SYSTEM_WAKE, ARROW,      GAME,  NUMPAD, _______, _______},
   {_______, _______, _______, _______, _______, RESET,            RESET,          _______, _______, _______, _______, _______}
 }
 
@@ -269,6 +271,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
             persistant_default_layer_set(1UL<<_NUMPAD);
+          }
+          break;
+        case _ARROW:
+          if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+            #endif
+            persistant_default_layer_set(1UL<<_LOWER);
           }
           break;
         case _LOWER:
