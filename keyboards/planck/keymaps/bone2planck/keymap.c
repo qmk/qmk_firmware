@@ -64,19 +64,19 @@ very ergonomic placement for coding
 /* Navigation & Number Blocks
 very easy to get used to & intuituve placement
 * ,-----------------------------------------------------------------------------------.
-* |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |   7  |   8  |   9  |      |      |
+* |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |   7  |   8  |   9  |      | Ins  |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
 * |  Tab | Home |  Lft | Down | Right| End  |   .  |   4  |   5  |   6  |   ,  | Enter|
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* | Shift|      |  Tab | Ins  | Enter|      |   0  |   1  |   2  |   3  |   ;  |Shift |
+* | Shift|      |  Tab |      | Enter|      |   0  |   1  |   2  |   3  |   ;  |Shift |
 * |------+------+------+------+------+------+------+------+------+------+------+------|
 * | Ctrl | GUI  | Alt  |  M3  |  M2  |    Space    |  M2  |  M3  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 */
 [2] = {
-	{ KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO,   DE_7,    DE_8,  DE_9,    KC_NO,   KC_NO   },
+	{ KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO,   DE_7,    DE_8,  DE_9,    KC_NO,   KC_INS  },
 	{ KC_TAB,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  DE_DOT,  DE_4,    DE_5,  DE_6,    DE_COMM, KC_ENT  },
-	{ _______, KC_NO,   KC_TAB,  KC_INS,  KC_ENT,  KC_NO,   DE_0,    DE_1,    DE_2,  DE_3,    DE_SCLN, _______ },
+	{ _______, KC_NO,   KC_TAB,  KC_NO,   KC_ENT,  KC_NO,   DE_0,    DE_1,    DE_2,  DE_3,    DE_SCLN, _______ },
 	{ _______, _______, _______, MO(3),   _______, _______, _______, _______, MO(3), _______, _______, _______ }
 },
 
@@ -94,7 +94,7 @@ accessed by sliding from M2 to M3 with thumb
 */
 
 [3] = {
-	{ KC_NO,   KC_NO,   DE_7,    DE_8,     DE_9,  KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO   },
+	{ KC_NO,   KC_NO,   DE_7,    DE_8,    DE_9,  KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO   },
 	{ _______, DE_DOT,  DE_4,    DE_5,    DE_6,  DE_COMM, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______ },
 	{ _______, DE_0,    DE_1,    DE_2,    DE_3,  DE_SCLN, KC_NO,   KC_TAB,  KC_INS,  KC_ENT,  KC_NO,   _______ },
 	{ _______, _______, _______, _______, KC_NO, _______, _______, KC_NO,   _______, _______, _______, _______ }
