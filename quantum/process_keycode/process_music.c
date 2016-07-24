@@ -6,6 +6,7 @@ int offset = 7;
 
 // music sequencer
 static bool music_sequence_recording = false;
+static bool music_sequence_recorded = false;
 static bool music_sequence_playing = false;
 static float music_sequence[16] = {0};
 static uint8_t music_sequence_count = 0;
@@ -77,6 +78,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
         stop_all_notes();
         music_sequence_recording = true;
+        music_sequence_recorded = false;
         music_sequence_playing = false;
         music_sequence_count = 0;
         return false;
@@ -84,12 +86,15 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
 
       if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
         stop_all_notes();
+        if (music_sequence_recording) { // was recording
+          music_sequence_recorded = true;
+        }
         music_sequence_recording = false;
         music_sequence_playing = false;
         return false;
       }
 
-      if (keycode == KC_LGUI && record->event.pressed) { // Start playing
+      if (keycode == KC_LGUI && record->event.pressed && music_sequence_recorded) { // Start playing
         stop_all_notes();
         music_sequence_recording = false;
         music_sequence_playing = true;
