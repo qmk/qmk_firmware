@@ -346,6 +346,8 @@ That's what `KC_LEAD` does. Here's an example:
 3. Within your `matrix_scan_user` function, do something like this:
 
 ```
+LEADER_EXTERNS();
+
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
