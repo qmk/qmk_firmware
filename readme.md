@@ -806,6 +806,17 @@ This is inside one of the macros. So when that macro executes, your keyboard pla
 
 "Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
 
+
+## Recording And Playing back Music
+* ```Music On``` - Turn music mode on. The default mapping is ```Lower+Upper+C```
+* ```LCTL``` - start a recording
+* play some tones
+* ```LALT``` - stop recording, stop playing
+* ```LGUI``` - play recording
+* ```LALT``` - stop playing
+* ```Music Off``` - Turn music mode off. The default mapping is ```Lower+Upper+V```
+
+
 ## MIDI functionalty
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
