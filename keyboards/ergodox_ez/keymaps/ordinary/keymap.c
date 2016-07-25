@@ -3,7 +3,6 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "action_util.h"
-#include "mousekey.h"
 
 #define BASE   0 // default layer
 #define SYMB   1 // symbols layer
@@ -26,12 +25,12 @@
 
 /*
  * The Ordinary Layout for the Ergodox EZ keyboard, v4
- * 
+ *
  * Modifications from default by Nicholas Keene ergodoxez@nicholaskeene.com
  *
  * No rights reserved. This software is in the public domain.
  * Credit me if you are friendly but if you're a jerk don't bother.
- * 
+ *
  * Details: readme.md
  *          https://github.com/nrrkeene/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/ordinary
  */
@@ -64,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  F(LSpec),KC_1,KC_2,KC_3   ,KC_4  ,KC_5  ,KC_ESC
 ,F(LMdia)  ,KC_Q   ,KC_W   ,KC_E   ,KC_R  ,KC_T  ,KC_LBRC
 ,M(LSymb)  ,KC_A   ,KC_S   ,KC_D   ,KC_F  ,KC_G
-,M(LCaps)  ,KC_Z   ,KC_X   ,KC_C   ,KC_V  ,KC_B  ,LSFT(KC_TAB)
+,KC_LSFT   ,KC_Z   ,KC_X   ,KC_C   ,KC_V  ,KC_B  ,LSFT(KC_TAB)
 ,KC_LCTL   ,KC_MEH ,KC_HYPR,KC_LALT,KC_LGUI
                                          ,KC_HOME,KC_END
                                                  ,KC_PGUP
@@ -73,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      ,KC_MINS ,KC_6   ,KC_7   ,KC_8   ,KC_9    ,KC_0     ,F(RSpec)
                                                                      ,KC_RBRC ,KC_Y   ,KC_U   ,KC_I   ,KC_O    ,KC_P     ,F(RMdia)
                                                                               ,KC_H   ,KC_J   ,KC_K   ,KC_L    ,KC_SCLN  ,F(RSymb)
-                                                                     ,KC_TAB  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT  ,KC_SLSH  ,M(RCaps)
+                                                                     ,KC_TAB  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT  ,KC_SLSH  ,KC_RSFT
                                                                                       ,KC_RGUI,KC_RALT,KC_HYPR ,KC_MEH   ,KC_RCTL
                                                                      ,KC_LEFT ,KC_RGHT
                                                                      ,KC_UP
@@ -105,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_TRNS ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_ESC
 ,KC_TRNS ,KC_EXLM ,KC_AT   ,KC_LCBR ,KC_RCBR ,KC_AMPR ,LSFT(KC_COMM)
-,KC_TRNS ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV 
+,KC_TRNS ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV
 ,KC_TRNS ,KC_PERC ,KC_CIRC ,KC_LBRC ,KC_RBRC ,KC_TILD ,KC_TAB
 ,KC_LCTL   ,KC_MEH ,KC_HYPR,KC_LALT ,KC_LGUI
                                              ,KC_LEFT ,KC_RGHT
@@ -166,17 +165,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /******* Special Layer *****************************************************************************************************
  *
- * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |           |  Esc |      |      |      |      |      |           |      |      |      |      |      | Bspc |           |
- * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |           |      |      |      |      |      |------|           |------|      |      |      |      |      |           |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |           |      |      |      |      |      |      |           |      |      |      |      |      |      | RShift    |
- * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *      |      |      |      |      |      |                                       |      |      |      |      |      |
- *      `----------------------------------'                                       `----------------------------------'
+ * ,-------------------------------------------------------.           ,-------------------------------------------------------.
+ * |             |  Esc |      |      |      |      |      |           |      |      |      |      |   -  | Bspc |             |
+ * |-------------+------+------+------+------+-------------|           |------+------+------+------+------+------+-------------|
+ * | Media Lock  |      |      |      |      |      |      |           |      |      |      |      |      |      | Media Lock  |
+ * |-------------+------+------+------+------+------|      |           |      |------+------+------+------+------+-------------|
+ * | Symbol Lock |      |      |      |      |      |------|           |------|      |      |      |      |      | Symbol Lock |
+ * |-------------+------+------+------+------+------|      |           |      |------+------+------+------+------+-------------|
+ * | Caps Lock   |      |      |      |      |      |      |           |      |      |      |      |      |      | Caps Lock   |
+ * `-------------+------+------+------+------+-------------'           `-------------+------+------+------+------+-------------'
+ *      |        |      |      |      |      |                                       |      |      |      |      |        |
+ *      `------------------------------------'                                       `------------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         |      |      |           |      |      |
  *                                  ,------|------|------|           |------+------+------.
@@ -190,17 +189,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_TRNS ,KC_ESC  ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+,KC_CAPS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 
                                              ,KC_TRNS ,KC_TRNS
                                                       ,KC_TRNS
                                      ,KC_TRNS,KC_TRNS ,KC_TRNS
                                                                      // right hand
-                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_BSPC ,KC_TRNS
+                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_MINS ,KC_BSPC ,KC_TRNS
                                                                      ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
                                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_RSFT
+                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_CAPS
                                                                                        ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 
                                                                      ,KC_TRNS ,KC_TRNS
@@ -211,22 +210,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
      // the faux shift keys are implemented as macro taps
-     [LCaps] = ACTION_MACRO_TAP(LCaps)
-    ,[LSymb] = ACTION_MACRO_TAP(LSymb)
+     [LSymb] = ACTION_MACRO_TAP(LSymb)
     ,[LMdia] = ACTION_MACRO_TAP(LMdia)
     ,[LSpec] = ACTION_MACRO_TAP(LSpec)
-    ,[RCaps] = ACTION_MACRO_TAP(RCaps)
     ,[RSymb] = ACTION_MACRO_TAP(RSymb)
     ,[RMdia] = ACTION_MACRO_TAP(RMdia)
     ,[RSpec] = ACTION_MACRO_TAP(RSpec)
 };
 
-uint16_t caps_shift = 0;
 uint16_t symb_shift = 0;
 uint16_t mdia_shift = 0;
+uint16_t spec_shift = 0;
 
-bool symb_lock = false;
 bool mdia_lock = false;
+bool symb_lock = false;
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -237,50 +234,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         // only because sometimes rapid pressing led to irregular events; this way the states
         // are self healing during use.
 
-        case LCaps: // both caps-shift keys trigger Left Shift
-        case RCaps: // so they don't interfere with the magic combo
-        if (record->event.pressed && !record->tap.count) {
-            if(++caps_shift > 2) caps_shift = 2;
-            if(caps_shift == 2)  {
-                register_code(KC_CAPS);
-                unregister_code(KC_CAPS);
-            } else if(caps_shift == 1) {
-                register_code(KC_LSFT);
-            }
-        } else {
-            if(--caps_shift < 0) caps_shift = 0;
-            if(caps_shift == 0) unregister_code(KC_LSFT);
-        }
-        break;
-
-        case LSymb:
-        if (record->event.pressed) {
-            if(++symb_shift > 2) symb_shift = 2;
-            if(symb_shift == 2)  {
-                symb_lock = !symb_lock;
-            } else if(symb_shift == 1) {
-                layer_on(SYMB);
-            }
-        } else {
-            if(--symb_shift < 0) symb_shift = 0;
-            if((symb_shift == 0) && (!symb_lock)) layer_off(SYMB);
+        case LSymb:                                               //
+        if (record->event.pressed) {                              // when the LSymb button is pressed
+            if(++symb_shift > 2) mdia_shift = 2;                  // increment the symb shift count, max two
+            if(spec_shift) symb_lock = !symb_lock;                // if the Special layer is on, toggle the shift lock
+            layer_on(SYMB);                                       // in any case, turn on the Symbols layer
+        } else {                                                  // when the LSymb button is released
+            if(--symb_shift < 0) symb_shift = 0;                  // decrement the shift count, minimum zero
+            if((!symb_shift) && (!symb_lock)) layer_off(SYMB);    // if both shifts are released and the lock is off, turn off the Symbols layer
         }
         break;
 
         case LMdia:
         if (record->event.pressed) {
-            if (record->tap.count && (!mdia_shift) && (!mdia_lock)) {
+           if (record->tap.count && (!mdia_shift) && (!mdia_lock) && (!spec_shift)) {
                 register_code(KC_TAB);
             } else {
+                if(spec_shift) mdia_lock = !mdia_lock;
                 if(++mdia_shift > 2) mdia_shift = 2;
-                if(mdia_shift == 2)  {
-                    mdia_lock = !mdia_lock;
-                } else if(mdia_shift == 1) {
-                    layer_on(MDIA);
-                }
+                layer_on(MDIA);
             }
         } else {
-            if(record->tap.count && (!mdia_shift) && (!mdia_lock)) {
+            if(record->tap.count && (!mdia_shift) && (!mdia_lock) && (!spec_shift)) {
                 unregister_code(KC_TAB);
             } else {
                 if(--mdia_shift < 0) mdia_shift = 0;
@@ -290,35 +265,37 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
         case LSpec:
-        if (record->event.pressed) {
-            if (record->tap.count && !record->tap.interrupted) {
-                register_code(KC_GRV);
+        if (record->event.pressed) {                                     // when the LSpec button is pressed
+            if((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT))) { register_code(KC_CAPS); unregister_code(KC_CAPS); }
+            else if(symb_shift) symb_lock == !symb_lock;                 // if another layer button is engaged, then
+            else if(mdia_shift) mdia_lock = !mdia_lock;                  // lock that layer, be it caps or symb or mdia
+            else if (record->tap.count && !record->tap.interrupted && (!spec_shift)) {
+                register_code(KC_GRV);                                   // otherwise, if it's an uninterrupted tap, emit a char
             } else {
-                layer_on(SPEC);
+                if(++spec_shift > 2) spec_shift = 2;
+                layer_on(SPEC);                                          // otherwise, turn on the Special layer
             }
         } else {
-            if(record->tap.count && !record->tap.interrupted) {
+            if(record->tap.count && !record->tap.interrupted && (!spec_shift)) {
                 unregister_code(KC_GRV);
             } else {
-                layer_off(SPEC);
+                if(--spec_shift < 0) spec_shift = 0;
+                if(!spec_shift) layer_off(SPEC);
             }
         }
         break;
 
         case RSymb:
         if (record->event.pressed) {
-            if (record->tap.count && (!symb_shift) && (!symb_lock)) {
+            if (record->tap.count && (!symb_shift) && (!symb_lock) && (!spec_shift)) {
                 register_code(KC_QUOT);
             } else {
                 if(++symb_shift > 2) symb_shift = 2;
-                if(symb_shift == 2)  {
-                    symb_lock = !symb_lock;
-                } else if(symb_shift == 1) {
-                    layer_on(SYMB);
-                }
+                if(spec_shift) symb_lock = !symb_lock;
+                layer_on(SYMB);
             }
         } else {
-            if(record->tap.count && symb_shift == 0) {
+            if(record->tap.count && (!symb_shift) && (!symb_lock) && (!spec_shift)) {
                 unregister_code(KC_QUOT);
             } else {
                 if(--symb_shift < 0) symb_shift = 0;
@@ -329,18 +306,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case RMdia:
         if (record->event.pressed) {
-            if (record->tap.count && (!mdia_shift) && (!mdia_lock)) {
+            if (record->tap.count && (!mdia_shift) && (!mdia_lock) && (!spec_shift)) {
                 register_code(KC_BSLS);
             } else {
                 if(++mdia_shift > 2) mdia_shift = 2;
-                if(mdia_shift == 2)  {
-                    mdia_lock = !mdia_lock;
-                } else if(mdia_shift == 1) {
-                    layer_on(MDIA);
-                }
+                if(spec_shift) mdia_lock = !mdia_lock;
+                layer_on(MDIA);
             }
         } else {
-            if(record->tap.count && (!mdia_shift) && (!mdia_lock)) {
+            if(record->tap.count && (!mdia_shift) && (!mdia_lock) && (!spec_shift)) {
                 unregister_code(KC_BSLS);
             } else {
                 if(--mdia_shift < 0) mdia_shift = 0;
@@ -351,16 +325,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case RSpec:
         if (record->event.pressed) {
-            if (record->tap.count && !record->tap.interrupted) {
+            if((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT))) { register_code(KC_CAPS); unregister_code(KC_CAPS); }
+            else if(symb_shift) symb_lock = !symb_lock;
+            else if(mdia_shift) mdia_lock = !mdia_lock;
+            else if (record->tap.count && !record->tap.interrupted && (!spec_shift)) {
                 register_code(KC_EQL);
             } else {
+                if(++spec_shift > 2) spec_shift = 2;
                 layer_on(SPEC);
             }
         } else {
-            if(record->tap.count && !record->tap.interrupted) {
+            if(record->tap.count && !record->tap.interrupted && (!spec_shift)) {
                 unregister_code(KC_EQL);
             } else {
-                layer_off(SPEC);
+                if(--spec_shift < 0) spec_shift = 0;
+                if(!spec_shift) layer_off(SPEC);
             }
         }
         break;
@@ -419,7 +398,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             // none
             break;
     }
-    
+
     return MACRO_NONE;
 };
 
@@ -431,7 +410,9 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
     // shift or caps lock turns on red light
-    if(caps_shift || (keyboard_report->mods & MOD_BIT(KC_RSFT)) || (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
+    if((keyboard_report->mods & MOD_BIT(KC_LSFT))
+    || (keyboard_report->mods & MOD_BIT(KC_RSFT))
+    || (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
         ergodox_right_led_1_on();
     } else {
         ergodox_right_led_1_off();
@@ -451,4 +432,3 @@ void matrix_scan_user(void) {
         ergodox_right_led_3_off();
     }
 };
-
