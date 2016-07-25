@@ -123,19 +123,19 @@ slide from m4 to m5 to access flipped version
 
 /* flipped Function & Media Keys
 * ,-----------------------------------------------------------------------------------.
-* |      |      |  F7  |  F8  |  F9  |      |      | Print|Scroll| Pause|      |      |
+* |      |      |  F7  |  F8  |  F9  |  F12 |      | Print|Scroll| Pause|      |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
-* |      |  ³   |  F4  |  F5  |  F6  |      |      | Mute | Vol- | Vol+ |      |      |
+* |      |  ³   |  F4  |  F5  |  F6  |  F11 |      | Mute | Vol- | Vol+ |      |      |
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* | Shift|  ²   |  F1  |  F2  |  F3  |      |      | Prev | Play | Next |      |Shift |
+* | Shift|  ²   |  F1  |  F2  |  F3  |  F10 |      | Prev | Play | Next |      |Shift |
 * |------+------+------+------+------+------+------+------+------+------+------+------|
 * | Ctrl | GUI  | Alt  |      |  M5  |    Space    |  M5  |      | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 */
 [5] = {
-	{ KC_NO,   KC_NO,   KC_F7,   KC_F8, KC_F9,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_NO,   KC_NO   },
-	{ KC_NO,   DE_SQ3,  KC_F4,   KC_F5, KC_F6,   KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_NO   },
-	{ _______, DE_SQ2,  KC_F1,   KC_F2, KC_F3,   KC_NO,   KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,   _______ },
+	{ KC_NO,   KC_NO,   KC_F7,   KC_F8, KC_F9,   KC_F12,  KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_NO,   KC_NO   },
+	{ KC_NO,   DE_SQ3,  KC_F4,   KC_F5, KC_F6,   KC_F11,  KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_NO   },
+	{ _______, DE_SQ2,  KC_F1,   KC_F2, KC_F3,   KC_F10,  KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,   _______ },
 	{ _______, _______, _______, KC_NO, _______, _______, _______, _______, KC_NO,   _______, _______, _______ }
 }
 };
