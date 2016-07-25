@@ -26,3 +26,4 @@ CMakeLists.txt
 .project
 .settings/
 .idea
+.browse.VC.db*
