@@ -118,7 +118,7 @@
 // Fourth row
 #define BP_COLON    LSFT(BP_DOT)    // :
 #define BP_COLN     BP_COLON
-#define BP_QUESTION LSFT(BP_QUOTE)  // ?
+#define BP_QUESTION LSFT(BP_APOS)  // ?
 #define BP_QEST     BP_QUESTION
 
 // Space bar
@@ -183,7 +183,7 @@
 // Third row
 #define BP_AE_LIGATURE              ALTGR(BP_A)         // æ
 #define BP_AE                       BP_AE_LIGATURE
-#define BP_U_GRAVE                  AGR(BP_U)           // ù
+#define BP_U_GRAVE                  ALTGR(BP_U)           // ù
 #define BP_UGRV                     BP_U_GRAVE
 #define BP_DEAD_TREMA               ALTGR(BP_I)         // dead ¨ (trema/umlaut/diaresis)
 #define BP_DTRM                     BP_DEAD_TREMA

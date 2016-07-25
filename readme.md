@@ -346,6 +346,8 @@ That's what `KC_LEAD` does. Here's an example:
 3. Within your `matrix_scan_user` function, do something like this:
 
 ```
+LEADER_EXTERNS();
+
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
@@ -373,7 +375,7 @@ As you can see, you have three function. you can use - `SEQ_ONE_KEY` for single-
 
 ### Tap Dance: A single key can do 3, 5, or 100 different things
 
-Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/jackhumbert/qmk_firmware/pull/451). Here's how Algernon describes the feature:
+Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/jackhumbert/qmk_firmware/pull/451). Here's how algernon describes the feature:
 
 With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
 
@@ -389,15 +391,13 @@ First, you will need `TAP_DANCE_ENABLE=yes` in your `Makefile`, because the feat
 
 This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:
 
-* `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise.
+* `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function on when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
 
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
 
 And that's the bulk of it!
-
-Do note, however, that this implementation does have some consequences: keys do not register until either they reach the tapping ceiling, or they time out. This means that if you hold the key, nothing happens, no repeat, no nothing. It is possible to detect held state, and register an action then too, but that's not implemented yet. Keys also unregister immediately after being registered, so you can't even hold the second tap. This is intentional, to be consistent.
 
 And now, on to the explanation of how it works!
 
@@ -421,20 +421,25 @@ enum {
 
 /* Have the above three on the keymap, TD(CT_SE), etc... */
 
-void dance_cln (qk_tap_dance_state_t *state) {
+void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_RSFT);
     register_code (KC_SCLN);
-    unregister_code (KC_SCLN);
-    unregister_code (KC_RSFT);
   } else {
     register_code (KC_SCLN);
-    unregister_code (KC_SCLN);
-    reset_tap_dance (state);
   }
 }
 
-void dance_egg (qk_tap_dance_state_t *state) {
+void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_SCLN);
+  } else {
+    unregister_code (KC_SCLN);
+  }
+}
+
+void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count >= 100) {
     SEND_STRING ("Safety dance!");
     reset_tap_dance (state);
@@ -443,7 +448,7 @@ void dance_egg (qk_tap_dance_state_t *state) {
 
 // on each tap, light up one led, from right to left
 // on the forth tap, turn them off from right to left
-void dance_flsh_each(qk_tap_dance_state_t *state) {
+void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
   case 1:
     ergodox_right_led_3_on();
@@ -464,7 +469,7 @@ void dance_flsh_each(qk_tap_dance_state_t *state) {
 }
 
 // on the fourth tap, set the keyboard on flash state
-void dance_flsh_finished(qk_tap_dance_state_t *state) {
+void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count >= 4) {
     reset_keyboard();
     reset_tap_dance(state);
@@ -472,7 +477,7 @@ void dance_flsh_finished(qk_tap_dance_state_t *state) {
 }
 
 // if the flash state didnt happen, then turn off leds, left to right
-void dance_flsh_reset(qk_tap_dance_state_t *state) {
+void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_1_off();
   _delay_ms(50);
   ergodox_right_led_2_off();
@@ -482,7 +487,7 @@ void dance_flsh_reset(qk_tap_dance_state_t *state) {
 
 const qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
- ,[CT_CLN] = ACTION_TAP_DANCE_FN (dance_cln)
+ ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
  ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
  ,[CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
 };
@@ -800,6 +805,17 @@ PLAY_NOTE_ARRAY(tone_plover, false, 0); // Signature is: Song name, repeat, rest
 This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
 
 "Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
+
+
+## Recording And Playing back Music
+* ```Music On``` - Turn music mode on. The default mapping is ```Lower+Upper+C```
+* ```LCTL``` - start a recording
+* play some tones
+* ```LALT``` - stop recording, stop playing
+* ```LGUI``` - play recording
+* ```LALT``` - stop playing
+* ```Music Off``` - Turn music mode off. The default mapping is ```Lower+Upper+V```
+
 
 ## MIDI functionalty
 
