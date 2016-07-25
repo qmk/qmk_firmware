@@ -10,12 +10,13 @@
 #include "mousekey.h"
 #include "timer.h"
 #include "keymap_plover.h"
+#include "eeconfig.h"
 
 /* Layers */
 
 enum {
   BASE = 0,
-  EXPRM,
+  ADORE,
   ARRW,
   APPSEL,
   HUN,
@@ -94,7 +95,7 @@ enum {
 /* Custom keycodes */
 
 enum {
-  CT_CLN = 0x7101
+  CT_CLN = 0
 };
 
 /* States & timers */
@@ -114,8 +115,7 @@ uint16_t oh_left_blink_timer = 0;
 uint8_t oh_right_blink = 0;
 uint16_t oh_right_blink_timer = 0;
 
-uint8_t ct_cln_count = 0;
-uint16_t ct_cln_timer = 0;
+bool log_enable = false;
 
 /* The Keymap */
 
@@ -124,18 +124,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | 1HND | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | =         |
+ * | Tab/ARROW |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | = / Arrow |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
  * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |       |      | Left |  Up  |   :  |                                       |   -  | Down | Rght |      |       |
+ *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           | MDIA | ARRW |
+ *                                         | LAlt | GUI  |           | MDIA | 1HND |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      | Ctrl |           | LEAD |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
@@ -146,67 +146,67 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,LT(ARRW,KC_TAB)    ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,CT_CLN
+,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,M(OH_LEFT),M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_BSLS
-                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
-                                                               ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V        ,KC_Z        ,KC_MSTP
-                                                                                  ,KC_MINS,KC_DOWN,KC_RGHT     ,KC_NO       ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_G   ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
+                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
+                                                               ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
+                                                                                  ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
-                                                               ,OSL(NMDIA),OSL(ARRW)
+                                                               ,OSL(NMDIA),M(OH_LEFT)
                                                                ,KC_LEAD
                                                                ,F(F_HUN)  ,KC_ENT ,KC_SPC
     ),
 
-/* Keymap 1: Experimental layer
+/* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | 1HND | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   L  |   F  |   C  |   R  |  J   | =         |
+ * | Next/Prev |   ,  |   .  |   L  |   W  |   M  |   [  |           |  ]   |   F  |   H  |   C  |   P  |  Y   | \         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | = / Arrow |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   Z  |   G  |   V  |   K  |   X  |      |           |      |   Q  |   M  |   W  |   B  |  /   |      Stop |
+ * | Play/Pause|   /  |   Z  |   '  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  Q   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |       |      | Left |  Up  |   :  |                                       |   -  | Down | Rght |      |       |
+ *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           | MDIA | ARRW |
+ *                                         | LAlt | GUI  |           | MDIA | 1HND |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      | Ctrl |           | LEAD |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
  *                                  |      |      | ESC  |           | HUN  |      |      |
  *                                  `--------------------'           `--------------------'
  */
-[EXPRM] = KEYMAP(
+[ADORE] = KEYMAP(
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
-,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,CT_CLN
+,M(A_MPN)           ,KC_COMM     ,KC_DOT      ,KC_L   ,KC_W   ,KC_M   ,KC_LBRC
+,LT(ARRW, KC_TAB)   ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
+,KC_MPLY            ,KC_SLSH     ,KC_Z        ,KC_QUOT,KC_K   ,KC_X   ,KC_LPRN
+,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,M(OH_LEFT),M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
-                                                               ,KC_RBRC   ,KC_L   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_BSLS
-                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
-                                                               ,KC_RPRN   ,KC_Q   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
-                                                                                  ,KC_MINS,KC_DOWN,KC_RGHT     ,KC_NO       ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
+                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
+                                                               ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
+                                                                                  ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
-                                                               ,OSL(NMDIA),OSL(ARRW)
+                                                               ,OSL(NMDIA),M(OH_LEFT)
                                                                ,KC_LEAD
                                                                ,F(F_HUN)  ,KC_ENT ,KC_SPC
     ),
@@ -216,19 +216,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * |           |      |      |      |      |      |      |           |      |      | Home |  Up  |  End |      |           |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |           |      |      |      |      |      |------|           |------|      |      |      |      |      |           |
+ * |           |      |      |      |      |      |------|           |------|      | Left | Down | Rght |      |           |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *      |      |      | Home | PgUp |      |                                       |      | PgDn | End  |      |      |
+ *      |      |      |      |      |      |                                       |      |      |      |      |      |
  *      `----------------------------------'                                       `----------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         |      |      |           |      |      |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      |      |           |      |      |      |
- *                                  |      |      |------|           |------|      |      |
+ *                                  |      |      |------|           |------| PgUp | PgDn |
  *                                  |      |      |      |           |      |      |      |
  *                                  `--------------------'           `--------------------'
  */
@@ -239,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
 ,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
 ,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
-,KC_TRNS ,KC_TRNS    ,KC_HOME   ,KC_PGUP    ,KC_TRNS
+,KC_TRNS ,KC_TRNS    ,KC_TRNS   ,KC_TRNS    ,KC_TRNS
 
                                              ,KC_TRNS ,KC_TRNS
                                                       ,KC_TRNS
@@ -247,14 +247,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 // right hand
                                                                ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                               ,KC_TRNS ,KC_TRNS ,KC_HOME ,KC_UP   ,KC_END  ,KC_TRNS ,KC_TRNS
+                                                                        ,KC_TRNS ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_TRNS ,KC_TRNS
                                                                ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                        ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                                 ,KC_TRNS ,KC_PGDN ,KC_END  ,KC_TRNS ,KC_TRNS
+                                                                                 ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 
                                                                ,KC_TRNS ,KC_TRNS
                                                                ,KC_TRNS
-                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                               ,KC_TRNS ,KC_PGUP ,KC_PGDN
     ),
 
 /* Keymap 3: Application select layer
@@ -843,8 +843,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       return MACRO_NONE;
 };
 
+uint8_t is_adore = 0;
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+  uint8_t dl;
+
   ergodox_led_all_on();
   for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
     ergodox_led_all_set (i);
@@ -856,6 +860,12 @@ void matrix_init_user(void) {
     _delay_ms (10);
   }
   ergodox_led_all_off();
+
+  if (!eeconfig_is_enabled())
+    eeconfig_init();
+  dl = eeconfig_read_default_layer ();
+  if (dl == (1UL << ADORE))
+    is_adore = 1;
 };
 
 LEADER_EXTERNS();
@@ -882,7 +892,25 @@ void ang_tap (uint16_t codes[]) {
   register_code (code); \
   unregister_code (code)
 
-uint8_t is_exp = 0;
+void ang_tap_dance (qk_tap_dance_state_t *state) {
+  switch (state->keycode) {
+  case TD(CT_CLN):
+    if (state->count == 1) {
+      register_code (KC_RSFT);
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      unregister_code (KC_RSFT);
+    } else if (state->count == 2) {
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      reset_tap_dance (state);
+    }
+  }
+}
+
+const qk_tap_dance_action_t tap_dance_actions[] = {
+  [CT_CLN] = ACTION_TAP_DANCE_FN (ang_tap_dance)
+};
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
@@ -890,21 +918,6 @@ void matrix_scan_user(void) {
 
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
-
-  if (ct_cln_timer && timer_elapsed (ct_cln_timer) > TAPPING_TERM) {
-    if (ct_cln_count == 1) {
-      register_code (KC_RSFT);
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      unregister_code (KC_RSFT);
-    } else if (ct_cln_count == 2) {
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-    }
-
-    ct_cln_count = 0;
-    ct_cln_timer = 0;
-  }
 
   if (layer != OHLFT)
     oh_left_blink = 0;
@@ -921,7 +934,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
     ergodox_right_led_2_on ();
     ergodox_right_led_3_on ();
-  } else if (layer == EXPRM) {
+  } else if (layer == ADORE) {
     ergodox_right_led_1_on ();
     ergodox_right_led_2_on ();
     ergodox_right_led_3_on ();
@@ -961,7 +974,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
   } else {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != OHLFT && layer != NMDIA && layer != PLVR && layer != EXPRM)
+    if (layer != OHLFT && layer != NMDIA && layer != PLVR && layer != ADORE)
       ergodox_right_led_1_off ();
   }
 
@@ -971,7 +984,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_on ();
   } else {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != NMDIA && layer != PLVR && layer != EXPRM)
+    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != NMDIA && layer != PLVR && layer != ADORE)
       ergodox_right_led_2_off ();
   }
 
@@ -981,13 +994,17 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_on ();
   } else {
     ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != PLVR && layer != EXPRM)
+    if (layer != OHRGT && layer != HUN && layer != PLVR && layer != ADORE)
       ergodox_right_led_3_off ();
   }
 
   LEADER_DICTIONARY() {
     leading = false;
     leader_end ();
+
+    SEQ_ONE_KEY (KC_D) {
+      log_enable = !log_enable;
+    }
 
     SEQ_ONE_KEY (KC_U) {
       ang_do_unicode ();
@@ -1036,11 +1053,12 @@ void matrix_scan_user(void) {
       unregister_code (KC_LGUI);
     }
 
-    SEQ_ONE_KEY (KC_E) {
-      if (is_exp == 0) {
+    SEQ_ONE_KEY (KC_A) {
+      if (is_adore == 0) {
         default_layer_and (0);
-        default_layer_or ((1 << EXPRM));
-        is_exp = 1;
+        default_layer_or ((1UL << ADORE));
+        eeconfig_update_default_layer ((1UL << ADORE));
+        is_adore = 1;
 
         ergodox_led_all_off ();
         ergodox_right_led_3_on ();
@@ -1054,9 +1072,10 @@ void matrix_scan_user(void) {
         _delay_ms (100);
         ergodox_right_led_1_off ();
       } else {
-        is_exp = 0;
+        is_adore = 0;
         default_layer_and (0);
-        default_layer_or (1 << BASE);
+        default_layer_or (1UL << BASE);
+        eeconfig_update_default_layer ((1UL << BASE));
 
         ergodox_led_all_off ();
         ergodox_right_led_1_on ();
@@ -1075,29 +1094,11 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-  case CT_CLN:
-    if (record->event.pressed) {
-      ct_cln_count++;
-      ct_cln_timer = timer_read ();
-    } else {
-    }
-    return false;
-    break;
+  uint8_t layer = biton32(layer_state);
 
-  default:
-    if (ct_cln_count == 1) {
-      register_code (KC_RSFT);
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      unregister_code (KC_RSFT);
-    } else if (ct_cln_count == 2) {
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-    }
-    ct_cln_count = 0;
-    ct_cln_timer = 0;
-    break;
+  if (log_enable && layer == BASE) {
+    xprintf ("KL: col=%d, row=%d\n", record->event.key.col,
+             record->event.key.row);
   }
 
   return true;
