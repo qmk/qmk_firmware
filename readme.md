@@ -346,6 +346,8 @@ That's what `KC_LEAD` does. Here's an example:
 3. Within your `matrix_scan_user` function, do something like this:
 
 ```
+LEADER_EXTERNS();
+
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
@@ -803,6 +805,17 @@ PLAY_NOTE_ARRAY(tone_plover, false, 0); // Signature is: Song name, repeat, rest
 This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
 
 "Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
+
+
+## Recording And Playing back Music
+* ```Music On``` - Turn music mode on. The default mapping is ```Lower+Upper+C```
+* ```LCTL``` - start a recording
+* play some tones
+* ```LALT``` - stop recording, stop playing
+* ```LGUI``` - play recording
+* ```LALT``` - stop playing
+* ```Music Off``` - Turn music mode off. The default mapping is ```Lower+Upper+V```
+
 
 ## MIDI functionalty
 
