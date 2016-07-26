@@ -17,18 +17,12 @@ extern keymap_config_t keymap_config;
 
 #define _ALPHA 0
 #define _FN 1
-#define _QWERTY 3
-#define _COLEMAK 4
-#define _DVORAK 5
-#define _LOWER 6
-#define _RAISE 7
-#define _PLOVER 8
-#define _ADJUST 16
+#define _QWERTY 2
+#define _PLOVER 3
+#define _ADJUST 4
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
   PLOVER,
   LOWER,
   RAISE,
@@ -239,44 +233,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
         #endif
         persistant_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-        #endif
-        persistant_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
