@@ -453,9 +453,9 @@ void rgblight_effect_snake(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint8_t i, j;
   int8_t k;
-  int8_t increament = 1;
+  int8_t increment = 1;
   if (interval % 2) {
-    increament = -1;
+    increment = -1;
   }
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2])) {
     return;
@@ -466,7 +466,7 @@ void rgblight_effect_snake(uint8_t interval) {
     led[i].g = 0;
     led[i].b = 0;
     for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
-      k = pos + j * increament;
+      k = pos + j * increment;
       if (k < 0) {
         k = k + RGBLED_NUM;
       }
@@ -476,7 +476,7 @@ void rgblight_effect_snake(uint8_t interval) {
     }
   }
   rgblight_set();
-  if (increament == 1) {
+  if (increment == 1) {
     if (pos - 1 < 0) {
       pos = RGBLED_NUM - 1;
     } else {
@@ -492,7 +492,7 @@ void rgblight_effect_knight(uint8_t interval) {
   uint8_t i, j, cur;
   int8_t k;
   struct cRGB preled[RGBLED_NUM];
-  static int8_t increament = -1;
+  static int8_t increment = -1;
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
     return;
   }
@@ -502,7 +502,7 @@ void rgblight_effect_knight(uint8_t interval) {
     preled[i].g = 0;
     preled[i].b = 0;
     for (j = 0; j < RGBLIGHT_EFFECT_KNIGHT_LENGTH; j++) {
-      k = pos + j * increament;
+      k = pos + j * increment;
       if (k < 0) {
         k = 0;
       }
@@ -523,17 +523,17 @@ void rgblight_effect_knight(uint8_t interval) {
     }
   }
   rgblight_set();
-  if (increament == 1) {
+  if (increment == 1) {
     if (pos - 1 < 0 - RGBLIGHT_EFFECT_KNIGHT_LENGTH) {
       pos = 0 - RGBLIGHT_EFFECT_KNIGHT_LENGTH;
-      increament = -1;
+      increment = -1;
     } else {
       pos -= 1;
     }
   } else {
     if (pos + 1 > RGBLED_NUM + RGBLIGHT_EFFECT_KNIGHT_LENGTH) {
       pos = RGBLED_NUM + RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
-      increament = 1;
+      increment = 1;
     } else {
       pos += 1;
     }
