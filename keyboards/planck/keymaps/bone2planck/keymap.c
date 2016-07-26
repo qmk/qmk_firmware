@@ -5,7 +5,7 @@
 #endif
 #include "keymap_german.h"
 
-// for intellisense, comment for building
+// for intellisense, has to be commented for building
 /*
 #include "..\..\..\..\quantum\keymap_extras\keymap_german.h"
 #include "..\..\..\..\quantum\keymap_common.h"
@@ -83,7 +83,7 @@ very easy to get used to & intuituve placement
 /* Flipped Navigation & Number Blocks for one handed use
 accessed by sliding from M2 to M3 with thumb
 * ,-----------------------------------------------------------------------------------.
-* |      |      |  7   |  8   |  9   |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |
+* | Ins  |      |  7   |  8   |  9   |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
 * |  Tab |  .   |  4   |  5   |  6   |   ,  | Home | Left | Down | Right| End  | Enter|
 * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -94,7 +94,7 @@ accessed by sliding from M2 to M3 with thumb
 */
 
 [3] = {
-	{ KC_NO,   KC_NO,   DE_7,    DE_8,    DE_9,  KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO   },
+	{ KC_INS,   KC_NO,   DE_7,    DE_8,    DE_9,  KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO   },
 	{ _______, DE_DOT,  DE_4,    DE_5,    DE_6,  DE_COMM, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______ },
 	{ _______, DE_0,    DE_1,    DE_2,    DE_3,  DE_SCLN, KC_NO,   KC_TAB,  KC_INS,  KC_ENT,  KC_NO,   _______ },
 	{ _______, _______, _______, _______, KC_NO, _______, _______, KC_NO,   _______, _______, _______, _______ }
