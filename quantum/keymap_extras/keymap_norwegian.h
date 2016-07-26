@@ -13,7 +13,7 @@
 #undef NO_BSLS
 #define NO_BSLS KC_EQL  // '\'
 #undef NO_CIRC
-#define NO_CIRC LSFT(C_RBRC)  // ^
+#define NO_CIRC LSFT(KC_RBRC)  // ^
 #undef NO_GRV
 #define NO_GRV	LSFT(NO_BSLS)  //
 #undef NO_OSLH
