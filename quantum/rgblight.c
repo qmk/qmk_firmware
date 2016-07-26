@@ -55,15 +55,12 @@ uint8_t rgblight_inited = 0;
 
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
-  /* Convert hue, saturation and brightness ( HSB/HSV ) to RGB. The DIM_CURVE is
-  used only on brightness/value and on saturation (inverted). This looks the
-  most natural. */
-  uint8_t r = 0, g = 0, b = 0;
+  // Convert hue, saturation, and value (HSV/HSB) to RGB. DIM_CURVE is used only
+  // on value and saturation (inverted). This looks the most natural.
+  uint8_t r = 0, g = 0, b = 0, base, color;
 
   val = pgm_read_byte(&DIM_CURVE[val]);
   sat = 255 - pgm_read_byte(&DIM_CURVE[255 - sat]);
-
-  uint8_t base;
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -71,41 +68,43 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
     b = val;
   } else {
     base = ((255 - sat) * val) >> 8;
+    color = (val - base) * (hue % 60) / 60;
 
     switch (hue / 60) {
       case 0:
         r = val;
-        g = (((val - base) * hue) / 60) + base;
+        g = base + color;
         b = base;
         break;
       case 1:
-        r = (((val - base) * (60 - (hue % 60))) / 60) + base;
+        r = val - color;
         g = val;
         b = base;
         break;
       case 2:
         r = base;
         g = val;
-        b = (((val - base) * (hue % 60)) / 60) + base;
+        b = base + color;
         break;
       case 3:
         r = base;
-        g = (((val - base) * (60 - (hue % 60))) / 60) + base;
+        g = val - color;
         b = val;
         break;
       case 4:
-        r = (((val - base) * (hue % 60)) / 60) + base;
+        r = base + color;
         g = base;
         b = val;
         break;
       case 5:
         r = val;
         g = base;
-        b = (((val - base) * (60 - (hue % 60))) / 60) + base;
+        b = val - color;
         break;
     }
   }
-  setrgb(r,g,b, led1);
+
+  setrgb(r, g, b, led1);
 }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, struct cRGB *led1) {
@@ -345,7 +344,6 @@ void rgblight_set(void) {
     ws2812_setleds(led, RGBLED_NUM);
   }
 }
-
 
 #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
 
