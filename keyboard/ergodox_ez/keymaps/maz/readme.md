@@ -119,9 +119,3 @@ The only change here is the *dot* (`.`) character moving from next to `0` next t
                                   |      |      |      |       |      |      |      |
                                   `--------------------'       `--------------------'
 ```
-
-# ErgoDox EZ Default Configuration
-
-As of Feb 2, 2016, the default ErgoDox EZ keymap is:
-
-![Default](default_highres.png)
