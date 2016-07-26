@@ -24,9 +24,11 @@ There is still one blank key on this layout. I haven't decided what to use it fo
 
 This layout is designed primarily for keyboard navigation. Arrow keys are easily accessible under the right hand (a welcome change from the original Atreus layout, which places them under the left hand), along with Home/End and PgUp/PgDn.
 
-Modifiers are also placed under the home row of the left hand. One of the single keyboard actions I use most is Shift+Ctrl+Left/Right to select a whole word; this layer makes those keypresses simple by adding the Ctrl and Shift keys in easy-to-reach locations. In fact, I liked this idea so much that I added double modifiers in the row beneath it, so I can now press Ctrl+Shift with a single key instead of pressing both keys individually. Using this layer takes some practice to remember which modifiers are under which fingers, but it makes for much less awkward hand motions when using modifiers on a regular basis.
+Modifiers are also placed under the home row of the left hand. One of the single keyboard actions I use most is Shift+Ctrl+Left/Right to select a whole word; this layer makes those keypresses simple by adding the Ctrl and Shift keys in easy-to-reach locations.
 
-The Space key exists to prevent going from this layer directly into the Number layer.
+For the common Ctrl shortcuts, I also added some hotkeys to this layer over the letter keys they are associated with. This gives the Extend key some extra utility by letting it "feel" like a Ctrl key in some cases.
+
+The Space key exists to prevent going from this layer directly into the Number layer. Similarly, the Shift key on the left thumb helps make sure that the Backspace function doesn't fire (the other role of this key on the base layout).
 
 ## Number and Symbol Layer ##
 

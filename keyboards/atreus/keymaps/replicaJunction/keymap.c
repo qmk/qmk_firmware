@@ -1,10 +1,10 @@
 /*
  * Keyboard: Atreus
  * Keymap:   replicaJunction
- * Version:  0.1
+ * Version:  0.3
  *
  * This keymap is designed to complement my Ergodox keyboard layout, found in keyboards/ergodox_ez.
- * The Atreus keyboard is a 40% board whose design was heavily influenced by the Ergodox, and I now
+ * The Atreus keyboard is a 40% board whose design was heavily influenced by the Ergodox. I now
  * have both keyboards, so I've designed these layouts in an effort to make switching between the
  * two as easy as possible.
  *
@@ -37,6 +37,13 @@
 #define KCX_CS  LCTL(KC_LSFT)
 #define KCX_CSA LCTL(LSFT(KC_LALT))
 #define KCX_LST LSFT(KC_TAB)
+#define KX_COPY LCTL(KC_C)
+#define KX_CUT  LCTL(KC_X)
+#define KX_PAST LCTL(KC_V)
+#define KX_UNDO LCTL(KC_Z)
+
+// Uses 5 bytes of memory per 8 keys, but makes sure modifiers don't get "stuck" switching layers
+#define PREVENT_STUCK_MODIFIERS
 
 ; // This doesn't do anything. It's just for VSCode because its syntax highlighting is weird for the above #define statements.
 
@@ -57,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_EX] = KEYMAP( /* Extend */
   _______, _______, _______, _______, _______,                   KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,
-  KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
-  KC_HYPR, KCX_CSA, KCX_CA,  KCX_CS,  _______,                   _______, KCX_LST, _______, KC_TAB,  _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_SPC,  _______, _______, _______, KC_PSCR
+  _______, KC_LGUI, KC_LALT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
+  KX_UNDO, KX_CUT,  KX_COPY, _______, KX_PAST,                   _______, KCX_LST, _______, KC_TAB,  _______,
+  _______, _______, _______, _______, KC_LSFT, _______, _______, KC_SPC,  _______, _______, _______, KC_PSCR
 ),
 
 [_NU] = KEYMAP( /* Numbers and symbols */
