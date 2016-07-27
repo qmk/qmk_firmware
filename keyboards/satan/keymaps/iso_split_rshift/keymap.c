@@ -32,25 +32,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             CTL_T(KC_ESC),   KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT,        KC_NUHS,         CTL_T(KC_ENT),   \
             KC_LSFT,         KC_NUBS, KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,        TG(_SFX),        SFT_T(KC_UP),    \
             KC_LCTL,         KC_LGUI, KC_LALT,             LT(_SPC,KC_SPACE),               KC_RALT, ALT_T(KC_LEFT), GUI_T(KC_DOWN),  CTL_T(KC_RIGHT)),
+
     /* Keymap 1: F-and-vim Layer, modified with Space (by holding space)
      * ,-----------------------------------------------------------.
      * |PrSc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete|
      * |-----------------------------------------------------------|
-     * |    |Paus| Up|   |   |   |   |   |   |   |   |   |   |     |
+     * |    |Paus| Up| [ | ] |   |   |   | ( | ) |   |   |   |     |
      * |-----------------------------------------------------------|
      * |      |Lft|Dwn|Rgt|   |   |   |Left|Down|Right|Up|  | PLAY |
      * |-----------------------------------------------------------|
-     * |        |   |   |   |   |   |M0 |   |   |   |   | Vol+ |   |
+     * |        |   |   | < | > |   |M0 |   | { | } |   | Vol+ |   |
      * |-----------------------------------------------------------|
      * |    |    |    |                        |Alt |Prev|Vol-|Next|
      * `-----------------------------------------------------------'
      */
     [_SPC] = KEYMAP_ISO_SPLITRSHIFT(
-            KC_PSCR, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
-            KC_TRNS, KC_PAUS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-            KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, \
-            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPACE,M(0),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU, \
-            KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_MPRV, KC_VOLD, KC_MNXT),
+            KC_PSCR, KC_F1,   KC_F2,   KC_F3,      KC_F4,      KC_F5,         KC_F6,   KC_F7,      KC_F8,      KC_F9,      KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
+            KC_TRNS, KC_PAUS, KC_UP,   RALT(KC_8), RALT(KC_9), KC_TRNS,       KC_TRNS, LSFT(KC_8), LSFT(KC_9), KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+            KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT,   KC_TRNS,    KC_TRNS,       KC_LEFT, KC_DOWN,    KC_UP,      KC_RGHT,    KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, \
+            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_NUBS,    LSFT(KC_NUBS), KC_SPACE,M(0),       RALT(KC_7), RALT(KC_0), KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU, \
+            KC_TRNS, KC_TRNS, KC_TRNS,                                        KC_TRNS,                                     KC_TRNS, KC_MPRV, KC_VOLD, KC_MNXT),
 
     /* Keymap 2: Tab Layer w/ vim pageup, modified with Tab (by holding tab)
      * ,-----------------------------------------------------------.
