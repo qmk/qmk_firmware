@@ -295,6 +295,10 @@ enum backlight_opt {
     BACKLIGHT_STEP     = 3,
     BACKLIGHT_LEVEL    = 4,
 };
+
+enum command_id {
+    CMD_SWAP_HANDS = 0x14,
+};
 /* Macro */
 #define ACTION_MACRO(id)                ACTION(ACT_MACRO, (id))
 #define ACTION_MACRO_TAP(id)            ACTION(ACT_MACRO, FUNC_TAP<<8 | (id))
@@ -306,7 +310,7 @@ enum backlight_opt {
 #define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
 #define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | (level))
 /* Command */
-#define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
+#define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (id))
 /* Function */
 enum function_opts {
     FUNC_TAP = 0x8,     /* indciates function is tappable */
@@ -314,5 +318,7 @@ enum function_opts {
 #define ACTION_FUNCTION(id)             ACTION(ACT_FUNCTION, (id))
 #define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | (id))
 #define ACTION_FUNCTION_OPT(id, opt)    ACTION(ACT_FUNCTION, (opt)<<8 | (id))
+/* OneHand Support */
+#define ACTION_SWAP_HANDS()             ACTION_COMMAND(CMD_SWAP_HANDS, 0)
 
 #endif /* ACTION_CODE_H */
