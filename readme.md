@@ -409,7 +409,32 @@ Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-danc
 
 For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
 
-In the end, let's see a full example!
+#### Examples
+
+Here's a simple example for a single definition: 
+
+1. In your `makefile`, add `TAP_DANCE_ENABLE = yes`
+2. In your `config.h` (which you can copy from `qmk_firmware/keyboards/planck/config.h` to your keymap directory), add `#define TAPPING_TERM 200`
+3. In your `keymap.c` file, define the variables and definitions, then add to your keymap: 
+
+```c
+//Tap Dance Declarations
+enum {
+  TD_ESC_CAPS = 0
+};
+
+//Tap Dance Definitions
+const qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
+// Other declarations would go here, separated by commas, if you have them
+};
+
+//In Layer declaration, add tap dance item in place of a key code
+TD(TD_ESC_CAPS) 
+```
+
+Here's a more complex example involving custom actions: 
 
 ```c
 enum {
