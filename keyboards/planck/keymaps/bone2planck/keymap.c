@@ -3,8 +3,6 @@
 #include "backlight.h"
 #endif
 #include "keymap_german.h"
-//#include "..\..\..\..\quantum\keymap_common.h"
-//#include "..\..\..\..\tmk_core\common\keycode.h"
 
 #define _______ KC_TRNS
 
