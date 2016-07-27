@@ -41,6 +41,12 @@ void action_exec(keyevent_t event)
         dprint("EVENT: "); debug_event(event); dprintln();
     }
 
+#ifdef ONEHAND_ENABLE
+    if (!IS_NOEVENT(event)) {
+        process_hand_swap(&event);
+    }
+#endif
+
     keyrecord_t record = { .event = event };
 
 #ifndef NO_ACTION_TAPPING
@@ -52,6 +58,26 @@ void action_exec(keyevent_t event)
     }
 #endif
 }
+
+#ifdef ONEHAND_ENABLE
+bool swap_hands = false;
+
+void process_hand_swap(keyevent_t *event) {
+    static swap_state_row_t swap_state[MATRIX_ROWS];
+
+    keypos_t pos = event->key;
+    swap_state_row_t col_bit = (swap_state_row_t)1<<pos.col;
+    bool do_swap = event->pressed ? swap_hands :
+                                    swap_state[pos.row] & (col_bit);
+
+    if (do_swap) {
+        event->key = hand_swap_config[pos.row][pos.col];
+        swap_state[pos.row] |= col_bit;
+    } else {
+        swap_state[pos.row] &= ~(col_bit);
+    }
+}
+#endif
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 bool disable_action_cache = false;
@@ -439,6 +465,13 @@ void process_action(keyrecord_t *record, action_t action)
             break;
 #endif
         case ACT_COMMAND:
+            switch (action.command.id) {
+#ifdef ONEHAND_ENABLE
+                case CMD_SWAP_HANDS:
+                    swap_hands = event.pressed;
+                    break;
+#endif
+            }
             break;
 #ifndef NO_ACTION_FUNCTION
         case ACT_FUNCTION:
