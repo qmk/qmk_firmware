@@ -266,8 +266,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case LSpec:
         if (record->event.pressed) {                                     // when the LSpec button is pressed
-            if((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT))) { register_code(KC_CAPS); unregister_code(KC_CAPS); }
-            else if(symb_shift) symb_lock == !symb_lock;                 // if another layer button is engaged, then
+            if(symb_shift) symb_lock == !symb_lock;                      // if another layer button is engaged, then
             else if(mdia_shift) mdia_lock = !mdia_lock;                  // lock that layer, be it caps or symb or mdia
             else if (record->tap.count && !record->tap.interrupted && (!spec_shift)) {
                 register_code(KC_GRV);                                   // otherwise, if it's an uninterrupted tap, emit a char
@@ -325,8 +324,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case RSpec:
         if (record->event.pressed) {
-            if((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT))) { register_code(KC_CAPS); unregister_code(KC_CAPS); }
-            else if(symb_shift) symb_lock = !symb_lock;
+            if(symb_shift) symb_lock = !symb_lock;
             else if(mdia_shift) mdia_lock = !mdia_lock;
             else if (record->tap.count && !record->tap.interrupted && (!spec_shift)) {
                 register_code(KC_EQL);
