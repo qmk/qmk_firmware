@@ -9,14 +9,12 @@
 #define MDIA   2 // media layer
 #define SPEC   3 // special layer
 
-#define LCaps 10 // left caps-shift key
-#define LSymb 11 // left symbol-shift key
-#define LMdia 12 // left media-shift key
-#define LSpec 13 // left special-shift key
-#define RCaps 14 // right caps-shift key
-#define RSymb 15 // right symbol-shift key
-#define RMdia 16 // right media-shift key
-#define RSpec 17 // right special-shift key
+#define LSymb 10 // left symbol-shift key
+#define LMdia 11 // left media-shift key
+#define LSpec 12 // left special-shift key
+#define RSymb 13 // right symbol-shift key
+#define RMdia 14 // right media-shift key
+#define RSpec 15 // right special-shift key
 
 #define MUL   20 // mouse up left
 #define MUR   21 // mouse up right
@@ -24,12 +22,13 @@
 #define MDR   23 // mouse down right
 
 /*
- * The Ordinary Layout for the Ergodox EZ keyboard, v4
+ * The Ordinary Layout for the Ergodox EZ keyboard, v4.20
  *
  * Modifications from default by Nicholas Keene ergodoxez@nicholaskeene.com
  *
  * No rights reserved. This software is in the public domain.
  * Credit me if you are friendly but if you're a jerk don't bother.
+ * If you use or modify this layout I would love to hear from you.
  *
  * Details: readme.md
  *          https://github.com/nrrkeene/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/ordinary
@@ -60,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP(
 // left hand
- F(LSpec),KC_1,KC_2,KC_3   ,KC_4  ,KC_5  ,KC_ESC
+ F(LSpec)  ,KC_1   ,KC_2   ,KC_3   ,KC_4  ,KC_5  ,KC_ESC
 ,F(LMdia)  ,KC_Q   ,KC_W   ,KC_E   ,KC_R  ,KC_T  ,KC_LBRC
 ,M(LSymb)  ,KC_A   ,KC_S   ,KC_D   ,KC_F  ,KC_G
 ,KC_LSFT   ,KC_Z   ,KC_X   ,KC_C   ,KC_V  ,KC_B  ,LSFT(KC_TAB)
@@ -123,24 +122,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /******* Media Layer *******************************************************************************************************
  *
- * ,---------------------------------------------------------------.           ,---------------------------------------------------------------.
- * |      |   F11   |   F12   |   F13   |   F14   |   F15   | Esc  |           |      |   F16   |   F17   |   F18   |   F19   |   F20   |      |
- * |------+---------+---------+---------+---------+----------------|           |------+---------+---------+---------+---------+---------+------|
- * |      |Shut Down|MouseUpLf|Mouse Up |MouseUpRg|Volume Up|Scroll|           |Scroll|PrintScrn|   Home  |    Up   |   PgUp  |   Mail  |      |
- * |------+---------+---------+---------+---------+---------|  Up  |           |  Up  |---------+---------+---------+---------+---------+------|
- * |      |  Sleep  |MouseLeft|MouseDown|MouseRght|Volume Dn|------|           |------| Num Lock|   Left  |   Down  |   Right | MyComp  |      |
- * |------+---------+---------+---------+---------+---------|Scroll|           |Scroll|---------+---------+---------+---------+---------+------|
- * |      |         |MouseDnLf|MouseDown|MouseDnRg|  Mute   | Down |           | Down |         |   End   |   Down  |   PgDn  |         |      |
- * `------+---------+---------+---------+---------+----------------'           `----------------+---------+---------+---------+---------+------'
- *  |LCtrl|   Meh   |  MClick | LClick  |  R Click|                                             |Cmd/Insrt|Optn/Del | Hyper   |  Meh    |RCtrl|
- *  `---------------------------------------------'                                             `---------------------------------------------'
- *                                                   ,-------------.           ,-------------.
- *                                                   | Stop |Refrsh|           | Prev | Next |
- *                                            ,------|------|------|           |------+------+------.
- *                                            |Brwser|Brwser|Search|           |VolUp |      |      |
- *                                            |Back  | Fwd  |------|           |------| Stop | Play-|
- *                                            |      |      | Home |           |VolDn |      | Pause|
- *                                            `--------------------'           `--------------------'
+ * ,---------------------------------------------------------------.    ,---------------------------------------------------------------.
+ * |      |   F11   |   F12   |   F13   |   F14   |   F15   | Esc  |    |      |   F16   |   F17   |   F18   |   F19   |   F20   |      |
+ * |------+---------+---------+---------+---------+----------------|    |------+---------+---------+---------+---------+---------+------|
+ * |      |Shut Down|MouseUpLf|Mouse Up |MouseUpRg|Volume Up|Scroll|    |Scroll|PrintScrn|   Home  |    Up   |   PgUp  |   Mail  |      |
+ * |------+---------+---------+---------+---------+---------|  Up  |    |  Up  |---------+---------+---------+---------+---------+------|
+ * |      |  Sleep  |MouseLeft|MouseDown|MouseRght|Volume Dn|------|    |------| Num Lock|   Left  |   Down  |   Right | MyComp  |      |
+ * |------+---------+---------+---------+---------+---------|Scroll|    |Scroll|---------+---------+---------+---------+---------+------|
+ * |      |         |MouseDnLf|MouseDown|MouseDnRg|  Mute   | Down |    | Down |         |   End   |   Down  |   PgDn  |         |      |
+ * `------+---------+---------+---------+---------+----------------'    `----------------+---------+---------+---------+---------+------'
+ *  |LCtrl|   Meh   |  MClick | LClick  |  R Click|                                      |Cmd/Insrt|Optn/Del | Hyper   |  Meh    |RCtrl|
+ *  `---------------------------------------------'                                      `---------------------------------------------'
+ *                                                   ,-------------.    ,-------------.
+ *                                                   | Stop |Refrsh|    | Prev | Next |
+ *                                            ,------|------|------|    |------+------+------.
+ *                                            |Brwser|Brwser|Search|    |VolUp |      |      |
+ *                                            |Back  | Fwd  |------|    |------| Stop | Play-|
+ *                                            |      |      | Home |    |VolDn |      | Pause|
+ *                                            `--------------------'    `--------------------'
  */
 [MDIA] = KEYMAP(
 // left hand
@@ -165,24 +164,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /******* Special Layer *****************************************************************************************************
  *
- * ,-------------------------------------------------------.           ,-------------------------------------------------------.
- * |             |  Esc |      |      |      |      |      |           |      |      |      |      |   -  | Bspc |             |
- * |-------------+------+------+------+------+-------------|           |------+------+------+------+------+------+-------------|
- * | Media Lock  |      |      |      |      |      |      |           |      |      |      |      |      |      | Media Lock  |
- * |-------------+------+------+------+------+------|      |           |      |------+------+------+------+------+-------------|
- * | Symbol Lock |      |      |      |      |      |------|           |------|      |      |      |      |      | Symbol Lock |
- * |-------------+------+------+------+------+------|      |           |      |------+------+------+------+------+-------------|
- * | Caps Lock   |      |      |      |      |      |      |           |      |      |      |      |      |      | Caps Lock   |
- * `-------------+------+------+------+------+-------------'           `-------------+------+------+------+------+-------------'
- *      |        |      |      |      |      |                                       |      |      |      |      |        |
- *      `------------------------------------'                                       `------------------------------------'
- *                                         ,-------------.           ,-------------.
- *                                         |      |      |           |      |      |
- *                                  ,------|------|------|           |------+------+------.
- *                                  |      |      |      |           |      |      |      |
- *                                  |      |      |------|           |------|      |      |
- *                                  |      |      |      |           |      |      |      |
- *                                  `--------------------'           `--------------------'
+ * ,-------------------------------------------------------.    ,-------------------------------------------------------.
+ * |             |  Esc |      |      |      |      |      |    |      |      |      |      |   -  | Bspc |             |
+ * |-------------+------+------+------+------+-------------|    |------+------+------+------+------+------+-------------|
+ * | Media Lock  |      |      |      |      |      |      |    |      |      |      |      |  [   |   ]  | Media Lock  |
+ * |-------------+------+------+------+------+------|      |    |      |------+------+------+------+------+-------------|
+ * | Symbol Lock |      |      |      |      |      |------|    |------|      |      |      |      |      | Symbol Lock |
+ * |-------------+------+------+------+------+------|      |    |      |------+------+------+------+------+-------------|
+ * | Caps Lock   |      |      |      |      |      |      |    |      |      |      |      |      |      | Caps Lock   |
+ * `-------------+------+------+------+------+-------------'    `-------------+------+------+------+------+-------------'
+ *      |        |      |      |      |      |                                |      |      |      |      |        |
+ *      `------------------------------------'                                `------------------------------------'
+ *                                         ,-------------.     ,-------------.
+ *                                         |      |      |     |      |      |
+ *                                  ,------|------|------|     |------+------+------.
+ *                                  |      |      |      |     |      |      |      |
+ *                                  |      |      |------|     |------|      |      |
+ *                                  |      |      |      |     |      |      |      |
+ *                                  `--------------------'     `--------------------'
  */
 [SPEC] = KEYMAP(
 // left hand
@@ -191,20 +190,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 ,KC_CAPS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
 ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-
                                              ,KC_TRNS ,KC_TRNS
                                                       ,KC_TRNS
                                      ,KC_TRNS,KC_TRNS ,KC_TRNS
-                                                                     // right hand
-                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_MINS ,KC_BSPC ,KC_TRNS
-                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                              ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_CAPS
-                                                                                       ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-
-                                                                     ,KC_TRNS ,KC_TRNS
-                                                                     ,KC_TRNS
-                                                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                             // right hand
+                                                             ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_MINS ,KC_BSPC ,KC_TRNS
+                                                             ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_LBRC ,KC_RBRC ,KC_TRNS
+                                                                      ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                             ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_CAPS
+                                                                               ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                             ,KC_TRNS ,KC_TRNS
+                                                             ,KC_TRNS
+                                                             ,KC_TRNS ,KC_TRNS ,KC_TRNS
     )
 };
 
