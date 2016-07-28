@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         NO_COLN,         KC_A,         KC_R,    KC_S,   KC_T,   KC_D,
         KC_EXLM,        KC_Z,         KC_X,    KC_C,   KC_V,   KC_B,   NO_SCLN,
         MO(4),     KC_BTN1,      KC_BTN2, KC_TAB,GUI_T(KC_COMMA),
-                                                      NO_AMP, NO_PIPE,
+                                                      NO_AMPR, NO_PIPE,
                                                               NO_PLUS,
                                                KC_FN1,CTL_T(KC_DOT),ALT_T(NO_MINS),
         // right hand
