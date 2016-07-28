@@ -69,10 +69,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_FN] = {
-  {KC_EXLM,     KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC,    KC_AMPR,   KC_ASTR, KC_FN12, KC_FN7, KC_FN8,  KC_FN9},
-  {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL,   KC_LPRN,   KC_RPRN, KC_FN11, KC_FN4, KC_FN5,  KC_FN6},
-  {RESET,       KC_INS,      KC_PSCR,     KC_SLCK,  KC_PAUSE,  KC_NUMLOCK, KC_MENU,   XXXXXXX, KC_PGUP, KC_FN1, KC_FN2,  KC_FN3},
-  {_______,    _______,      KC_GRAVE,    _______,  _______,   _______,    KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_FN10, KC_BSLASH}
+  {KC_EXLM,     KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC,    KC_AMPR,   KC_ASTR, KC_F12, KC_F7, KC_F8,  KC_F9},
+  {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL,   KC_LPRN,   KC_RPRN, KC_F11, KC_F4, KC_F5,  KC_F6},
+  {RESET,       KC_INS,      KC_PSCR,     KC_SLCK,  KC_PAUSE,  KC_NUMLOCK, KC_MENU,   XXXXXXX, KC_PGUP, KC_F1, KC_F2,  KC_F3},
+  {_______,    _______,      KC_GRAVE,    _______,  _______,   _______,    KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, KC_BSLASH}
 },
 
 /* Qwerty
