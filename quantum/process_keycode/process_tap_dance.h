@@ -49,6 +49,7 @@ typedef struct
   }
 
 extern const qk_tap_dance_action_t tap_dance_actions[];
+extern bool td_debug_enable;
 
 /* To be used internally */
 
