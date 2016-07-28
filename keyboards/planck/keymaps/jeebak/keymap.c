@@ -21,6 +21,7 @@ extern keymap_config_t keymap_config;
 #define _RAISE 4
 #define _PLOVER 5
 #define _TOUCHCURSOR 6
+#define _MOUSE 7
 #define _ADJUST 16
 
 enum planck_keycodes {
@@ -43,6 +44,7 @@ enum planck_keycodes {
 #define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor
 //                  ^-- Requires KC_TRNS / _______ for the trigger key in the destination layer
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
+#define LT_ML       LT(_MOUSE, KC_A)            // L-ayer T-ap M-ouse C-ursor (on A)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -50,54 +52,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------.
  * | Tab      |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
- * | Ctrl/Esc |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "    |
+ * | Ctrl/Esc | ML/A |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Sft/Ent |
  * |----------+------+------+------+------+------+------+------+------+------+------+--------|
- * | Brite    | Ctrl | Alt  | GUI  |Lower |  TC/Space   |Raise | Left | Down |  Up  | Right  |
+ * | Brite    | Ctrl | Alt  | GUI  |Lower |  TC/Space   |Raise |      |      |      |        |
  * `-----------------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {CTL_ESC, LT_ML,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   _______, _______, _______, _______}
 },
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------------.
  * | Tab      |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
- * | Ctrl/Esc |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   "    |
+ * | Ctrl/Esc | ML/A |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   "    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Sft/Ent |
  * |----------+------+------+------+------+------+------+------+------+------+------+--------|
- * | Brite    | Ctrl | Alt  | GUI  |Lower |  TC/Space   |Raise | Left | Down |  Up  | Right  |
+ * | Brite    | Ctrl | Alt  | GUI  |Lower |  TC/Space   |Raise |      |      |      |        |
  * `-----------------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-  {CTL_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {CTL_ESC, LT_ML,   KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   _______, _______, _______, _______}
 },
 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------------.
  * | Tab      |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
- * | Ctrl/Esc |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |   /    |
+ * | Ctrl/Esc | ML/A |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |   /    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
  * | Shift    |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Sft/Ent |
  * |----------+------+------+------+------+------+------+------+------+------+------+--------|
- * | Brite    | Ctrl | Alt  | GUI  |Lower |  TC/Space   |Raise | Left | Down |  Up  | Right  |
+ * | Brite    | Ctrl | Alt  | GUI  |Lower |  TC/Space   |Raise |      |      |      |        |
  * `-----------------------------------------------------------------------------------------'
  */
 [_DVORAK] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
-  {CTL_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
+  {CTL_ESC, LT_ML,   KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LT_TC,  LT_TC,    RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   LT_TC,  LT_TC,    RAISE,   _______, _______, _______, _______}
 },
 
 /* Lower
@@ -140,11 +142,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |Shift | GUI  |  ~   |Insert| Home |  Up  | End  | Bksp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
-   |      | Alt  |Space |      |      |      | PgUp | Left | Down |Right |      |      |
+ * |      | Alt  |Space |      |      |      | PgUp | Left | Down |Right |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
-   |      |      |      |      |      |  `   | PgDn | Del  |      |      |      |      |
+ * |      |      |      |      |      |  `   | PgDn | Del  |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
-   |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -152,6 +154,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, KC_LSFT, KC_LGUI, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
   {_______, KC_LALT, KC_SPC,  _______, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
   {_______, _______, _______, _______, _______, KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Mouse Layer
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |ACCL0 |ACCL1 |ACCL2 |ACCL2 |      |WHL_L |  Up  |WHL_R | BTN2 |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      | BTN3 | BTN1 | BTN4 |WHL_Up| Left | Down |Right |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      | BTN2 | BTN5 |WHL_Dn| BTN1 |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[_MOUSE] = {
+  {_______, _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_ACL2, _______, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, _______},
+  {_______, _______, _______, KC_BTN3, KC_BTN1, KC_BTN4, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______},
+  {_______, _______, _______, _______, KC_BTN2, KC_BTN5, KC_WH_D, KC_BTN1, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
