@@ -69,7 +69,7 @@ Alas, the yellow keys have at best spotty success with common software. Good luc
 
 In addition to Symbols and Media there is the Capitals layer which is exactly the same as pressing the shift key. Each layer is accessed by a shift key on each edge of the keyboard and corresponds to one of the three LEDs on the keyboard: Capitals (red), Symbols (green), Media (blue). The color of a layer illuminates when the layer is active.
 
-Shift buttons work in the expected way: press them and all of the keys switch to that layer; release them and the keys switch back to the base layer. If you press both of a pair of shift keys, the layer will lock on until you press both shift keys again. For instance, the widely and rightly loathed Caps Lock is engaged by pressing both Capitals Shift buttons. All the Shift keys work this way.
+Shift buttons work in the expected way: press them and all of the keys switch to that layer; release them and the keys switch back to the base layer. Lock the shift keys using the Shift Lock button, which is the same as the Special Shift button. You can press the shift and shift-lock buttons in either order.
 
 Multiple layers can be turned on at once. The Capitals layer will affect characters on other layers to capitalize. Other layers, however, don't 'mix': Symbols blankets the base layout; Media blankets Symbols.
 
@@ -87,9 +87,9 @@ The Ordinary layout offers as a consolation prize a Special sequence for Escape:
 
 At the top right corner of the Ergodox EZ you can a gesture similar to the special Escape sequence, using the 0 key, to produce a Backspace. Users of this keyboard and this layout are well advised to learn to use their thumbs for deleting text, but sometimes you are doing other computery things and just want to flick your digits up to the right and press backspace a bunch times.
 
-### RShift ###
+### Other Characters ###
 
-The Ordinary Layout locks layers by pressing both of a pair of shift keys. This interferes with the QMK firmware magic sequence, which is LShift+RShift. To work around this, both of the Capitals Shift keys produce a *Left Shift* keystroke. If for some reason a person needs *Right Shift* they can find it by pressing a Special Shift key, then the Capitals Shift key on the right side of the keyboard.
+The Escape and Backspace special sequences are so useful why not have a few more? You can find dash under 9, left bracket under o, and right bracket under p. That's pretty much all the characters from the top right corner of the keyboard which moved to make room for the columnar layout.
 
 ****
 
