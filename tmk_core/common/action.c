@@ -465,14 +465,55 @@ void process_action(keyrecord_t *record, action_t action)
             break;
 #endif
         case ACT_COMMAND:
-            switch (action.command.id) {
+            break;
 #ifdef ONEHAND_ENABLE
-                case CMD_SWAP_HANDS:
+        case ACT_SWAP_HANDS:
+            switch (action.swap.code) {
+                case OP_SH_TOGGLE:
+                    if (event.pressed) {
+                        swap_hands = !swap_hands;
+                    }
+                    break;
+                case OP_SH_ON_OFF:
                     swap_hands = event.pressed;
                     break;
-#endif
+                case OP_SH_OFF_ON:
+                    swap_hands = !event.pressed;
+                    break;
+                case OP_SH_ON:
+                    if (!event.pressed) {
+                        swap_hands = true;
+                    }
+                    break;
+                case OP_SH_OFF:
+                    if (!event.pressed) {
+                        swap_hands = false;
+                    }
+                    break;
+    #ifndef NO_ACTION_TAPPING
+                case OP_SH_TAP_TOGGLE:
+                    /* tap toggle */
+                    if (tap_count > 0) {
+                        if (!event.pressed) {
+                            swap_hands = !swap_hands;
+                        }
+                    } else {
+                        swap_hands = event.pressed;
+                    }
+                    break;
+                default:
+                    if (tap_count > 0) {
+                        if (event.pressed) {
+                            register_code(action.swap.code);
+                        } else {
+                            unregister_code(action.swap.code);
+                        }
+                    } else {
+                        swap_hands = event.pressed;
+                    }
+    #endif
             }
-            break;
+#endif
 #ifndef NO_ACTION_FUNCTION
         case ACT_FUNCTION:
             action_function(record, action.func.id, action.func.opt);
@@ -685,6 +726,13 @@ bool is_tap_key(keypos_t key)
                     return true;
             }
             return false;
+        case ACT_SWAP_HANDS:
+            switch (action.swap.code) {
+                case 0x00 ... 0xdf:
+                case OP_SH_TAP_TOGGLE:
+                    return true;
+            }
+            return false;
         case ACT_MACRO:
         case ACT_FUNCTION:
             if (action.func.opt & FUNC_TAP) { return true; }
@@ -725,6 +773,7 @@ void debug_action(action_t action)
         case ACT_MACRO:             dprint("ACT_MACRO");             break;
         case ACT_COMMAND:           dprint("ACT_COMMAND");           break;
         case ACT_FUNCTION:          dprint("ACT_FUNCTION");          break;
+        case ACT_SWAP_HANDS:        dprint("ACT_SWAP_HANDS");        break;
         default:                    dprint("UNKNOWN");               break;
     }
     dprintf("[%X:%02X]", action.kind.param>>8, action.kind.param&0xff);
