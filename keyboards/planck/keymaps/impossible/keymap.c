@@ -20,6 +20,7 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 2
 #define _PLOVER 3
 #define _ADJUST 4
+#define _QWERTY2 5
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -36,7 +37,6 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-
 /* Alpha-numeric
  * ,-----------------------------------------------------------------------------------------------.
  * |   Q   |   D   |   R   |   W   |   B   |   F   |   U   |   P   |   J   |   7   |   8   |   9   |
@@ -50,50 +50,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ALPHA] = {
-  {KC_Q, KC_D, KC_R, KC_W, KC_B, KC_F, KC_U, KC_P, KC_J, KC_KP_7, KC_KP_8, KC_KP_9},
-  {KC_A, KC_S, KC_H, KC_T, KC_G, KC_N, KC_E, KC_O, KC_I, KC_KP_4, KC_KP_5, KC_KP_6},
-  {KC_Z, KC_X, KC_M, KC_C, KC_V, KC_L, KC_Y, KC_K, KC_UP, KC_KP_1, KC_KP_2, KC_KP_3},
-  {ALT_T(KC_TAB), GUI_T(KC_ESC), KC_COMM, CTL_T(KC_BSPC), LT(_FN, KC_ENTER), SFT_T(KC_SPC), KC_DOT,
-   KC_LEFT, KC_DOWN, KC_RGHT, KC_KP_0, KC_SLASH}
+  {KC_Q,          KC_D,          KC_R,    KC_W,           KC_B,              KC_F,          KC_U,   KC_P,    KC_J,    KC_KP_7, KC_KP_8, KC_KP_9},
+  {KC_A,          KC_S,          KC_H,    KC_T,           KC_G,              KC_N,          KC_E,   KC_O,    KC_I,    KC_KP_4, KC_KP_5, KC_KP_6},
+  {KC_Z,          KC_X,          KC_M,    KC_C,           KC_V,              KC_L,          KC_Y,   KC_K,    KC_UP,   KC_KP_1, KC_KP_2, KC_KP_3},
+  {ALT_T(KC_TAB), GUI_T(KC_ESC), KC_COMM, CTL_T(KC_BSPC), LT(_FN, KC_ENTER), SFT_T(KC_SPC), KC_DOT, KC_LEFT, KC_DOWN, KC_RGHT, KC_KP_0, KC_SLASH}
 },
 
 /* FN-key held
  * ,-----------------------------------------------------------------------------------------------.
  * |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |  F12  |   F7  |   F8  |   F9  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |  Caps |   [   |   ]   |   -   |  Del  |   =   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
+ * | Caps  |   [   |   ]   |   -   |  Del  |   =   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * |  DFU  | Insert| PrtSc | ScrLk | Pause | NumLk |  Menu |       |  PgUp |   F1  |   F2  |   F3  |
+ * |  DFU  |Insert | PrtSc | ScrLk | Pause | NumLk |  Menu |       |  PgUp |   F1  |   F2  |   F3  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |Alt/Tab|Gui/Esc|   `   |CTL/Bsp| Fn/Ent|SFT/SPC|   ;   |  Home |  PgDn |  End  |  F10  |   /   |
+ * |Alt/Tab|Gui/Esc|   `   |CTL/Bsp|Fn/Ent |SFT/Spc|   ;   |  Home |  PgDn |  End  |  F10  |   /   |
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_FN] = {
-  {KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_FN12, KC_FN7, KC_FN8, KC_FN9},
-  {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL, KC_LPRN, KC_RPRN, KC_FN11, KC_FN4, KC_FN5, KC_FN6},
-  {RESET, KC_INS, KC_PSCR, KC_SLCK, KC_PAUSE, KC_NUMLOCK, KC_MENU, XXXXXXX, KC_PGUP, KC_FN1, KC_FN2, KC_FN3},
-  {_______, _______, KC_GRAVE, _______, _______, _______, KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_FN10, KC_BSLASH}
+  {KC_EXLM,     KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC,    KC_AMPR,   KC_ASTR, KC_FN12, KC_FN7, KC_FN8,  KC_FN9},
+  {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL,   KC_LPRN,   KC_RPRN, KC_FN11, KC_FN4, KC_FN5,  KC_FN6},
+  {RESET,       KC_INS,      KC_PSCR,     KC_SLCK,  KC_PAUSE,  KC_NUMLOCK, KC_MENU,   XXXXXXX, KC_PGUP, KC_FN1, KC_FN2,  KC_FN3},
+  {_______,    _______,      KC_GRAVE,    _______,  _______,   _______,    KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_FN10, KC_BSLASH}
 },
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------------------.
- * |  Tab  |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | Bksp  |
+ * |  Esc  |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   |   /   |
  * |-------+-------+-------+-------+-------+---------------+-------+-------+-------+-------+-------|
- * |  Esc  |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |  "    |
+ * |  Tab  |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |   "   |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * | Shift |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   |Enter  |
+ * | Shift |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |  Up   | Enter |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * | Brite | Ctrl  | Alt   | GUI   |Lower  |    Sp ace     |Raise  | Left  | Down  |  Up   |Right  |
+ * | Ctrl  |  Alt  |  GUI  |       |       | Bksp  | Space |       |       | Left  | Down  | Right |
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_SLSH},
+    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_UP,   KC_ENT },
+    {KC_LCTL, KC_LALT, KC_LGUI, _______, _______, KC_BSPC, KC_SPC, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT}
 },
+
+/* Qwerty W/ Numbers
+ * ,-----------------------------------------------------------------------------------------------.
+ * |  Esc  |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   | Bksp  |
+ * |-------+-------+-------+-------+-------+---------------+-------+-------+-------+-------+-------|
+ * |  TAB  |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   |   /   |
+ * |-------+-------+-------+-------+-------+---------------+-------+-------+-------+-------+-------|
+ * | Shift |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |   "   |
+ * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
+ * | Ctrl  |   Z   |   X   |   C   |   V   |  SPC  |   B   |   N   |   M   |   ,   |   .   | Enter |
+ * `-----------------------------------------------------------------------------------------------'
+ */
+
+[_QWERTY2] = {
+    {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,      KC/3_7, KC_8,    KC_9,    KC_0,     KC_BSPC},
+    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,      KC_U,   KC_I,    KC_O,    KC_P,     KC_SLSH},
+    {KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,      KC_J,   KC_K,    KC_L,    KC_SCLN,  KC_QUOT},
+    {KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_SPC,    KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_ENT},
+1},
 
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------------------.
@@ -128,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, PLOVER,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -182,8 +200,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           stop_all_notes();
           PLAY_NOTE_ARRAY(tone_plover, false, 0);
         #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
         layer_off(_ADJUST);
         layer_on(_PLOVER);
         if (!eeconfig_is_enabled()) {
