@@ -95,7 +95,9 @@ enum {
 /* Custom keycodes */
 
 enum {
-  CT_CLN = 0
+  CT_CLN = 0,
+  CT_MNS,
+  CT_TA,
 };
 
 /* States & timers */
@@ -115,7 +117,11 @@ uint16_t oh_left_blink_timer = 0;
 uint8_t oh_right_blink = 0;
 uint16_t oh_right_blink_timer = 0;
 
+#if KEYLOGGER_ENABLE
 bool log_enable = false;
+#endif
+
+bool time_travel = false;
 
 /* The Keymap */
 
@@ -146,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,LT(ARRW,KC_TAB)    ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
@@ -155,11 +161,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_G   ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
-                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
-                                                               ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
-                                                                                  ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_G      ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
+                                                                          ,KC_D   ,KC_H      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_RPRN   ,KC_B   ,KC_M      ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
+                                                                                  ,TD(CT_MNS),KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),M(OH_LEFT)
                                                                ,KC_LEAD
@@ -191,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
 ,M(A_MPN)           ,KC_COMM     ,KC_DOT      ,KC_L   ,KC_W   ,KC_M   ,KC_LBRC
-,LT(ARRW, KC_TAB)   ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
+,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
 ,KC_MPLY            ,KC_SLSH     ,KC_Z        ,KC_QUOT,KC_K   ,KC_X   ,KC_LPRN
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
@@ -200,11 +206,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
-                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
-                                                               ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
-                                                                                  ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_H      ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
+                                                                          ,KC_D   ,KC_R      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_RPRN   ,KC_B   ,KC_G      ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
+                                                                                  ,TD(CT_MNS),KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),M(OH_LEFT)
                                                                ,KC_LEAD
@@ -892,24 +898,92 @@ void ang_tap (uint16_t codes[]) {
   register_code (code); \
   unregister_code (code)
 
-void ang_tap_dance (qk_tap_dance_state_t *state) {
-  switch (state->keycode) {
-  case TD(CT_CLN):
-    if (state->count == 1) {
-      register_code (KC_RSFT);
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      unregister_code (KC_RSFT);
-    } else if (state->count == 2) {
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      reset_tap_dance (state);
-    }
+void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_RSFT);
+    register_code (KC_SCLN);
+  } else if (state->count == 2) {
+    register_code (KC_SCLN);
   }
 }
 
+void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_SCLN);
+    unregister_code (KC_RSFT);
+  } else if (state->count == 2) {
+    unregister_code (KC_SCLN);
+  }
+}
+
+void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_MINS);
+  } else if (state->count == 2) {
+    register_code (KC_RSFT);
+    register_code (KC_MINS);
+  }
+}
+
+void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_MINS);
+  } else if (state->count == 2) {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_MINS);
+  }
+}
+
+typedef struct {
+  bool layer_toggle;
+  bool sticky;
+  bool finished_once;
+} td_ta_state_t;
+
+void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
+  td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
+
+  if (td_ta->finished_once) {
+    return;
+  }
+
+  if (td_ta->sticky) {
+    td_ta->sticky = false;
+    td_ta->layer_toggle = false;
+    layer_off (ARRW);
+    return;
+  }
+
+  td_ta->finished_once = true;
+  if (state->count == 1 && !state->pressed) {
+    register_code (KC_TAB);
+    td_ta->sticky = false;
+    td_ta->layer_toggle = false;
+  } else {
+    td_ta->layer_toggle = true;
+    layer_on (ARRW);
+    td_ta->sticky = (state->count == 2);
+  }
+}
+
+void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
+  td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
+
+  if (!td_ta->layer_toggle)
+    unregister_code (KC_TAB);
+  if (!td_ta->sticky)
+    layer_off (ARRW);
+
+  td_ta->finished_once = false;
+}
+
 const qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN] = ACTION_TAP_DANCE_FN (ang_tap_dance)
+   [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_cln_finished, ang_tap_dance_cln_reset)
+  ,[CT_MNS] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_mns_finished, ang_tap_dance_mns_reset)
+  ,[CT_TA]  = {
+     .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
+     .user_data = (void *)&((td_ta_state_t) { false, false, false })
+   }
 };
 
 // Runs constantly in the background, in a loop.
@@ -1002,8 +1076,17 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end ();
 
+#if KEYLOGGER_ENABLE
     SEQ_ONE_KEY (KC_D) {
+      ergodox_led_all_on();
+      _delay_ms(100);
+      ergodox_led_all_off();
       log_enable = !log_enable;
+    }
+#endif
+
+    SEQ_ONE_KEY (KC_T) {
+      time_travel = !time_travel;
     }
 
     SEQ_ONE_KEY (KC_U) {
@@ -1093,12 +1176,40 @@ void matrix_scan_user(void) {
   }
 }
 
+static uint16_t last4[4];
+
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+#if KEYLOGGER_ENABLE
   uint8_t layer = biton32(layer_state);
 
   if (log_enable && layer == BASE) {
     xprintf ("KL: col=%d, row=%d\n", record->event.key.col,
              record->event.key.row);
+  }
+#endif
+
+  if (time_travel && !record->event.pressed) {
+    uint8_t p;
+
+    // shift cache one to the left
+    for (p = 0; p < 3; p++) {
+      last4[p] = last4[p + 1];
+    }
+    last4[3] = keycode;
+
+    if (last4[0] == KC_D && last4[1] == KC_A && last4[2] == KC_T && last4[3] == KC_E) {
+      uint16_t codes[] = {KC_E, KC_SPC, KC_MINS, KC_D, KC_SPC, KC_QUOT, 0};
+      ang_tap (codes);
+      register_code (KC_RSFT);
+      register_code (KC_EQL);
+      unregister_code (KC_EQL);
+      unregister_code (KC_RSFT);
+
+      uint16_t codes2[] = {KC_4, KC_SPC, KC_D, KC_A, KC_Y, KC_S, KC_QUOT, 0};
+      ang_tap (codes2);
+
+      return false;
+    }
   }
 
   return true;
