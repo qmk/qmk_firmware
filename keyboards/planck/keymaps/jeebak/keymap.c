@@ -242,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
@@ -251,7 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_NOTE_ARRAY(tone_colemak, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
@@ -260,7 +260,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_DVORAK);
+        default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
