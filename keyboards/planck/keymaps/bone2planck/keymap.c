@@ -1,12 +1,10 @@
-﻿
-#include "planck.h"
+﻿#include "planck.h"
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
 #endif
-#include "..\..\..\..\quantum\keymap_extras\keymap_german.h"
-#include "..\..\..\..\quantum\keymap_common.h"
-#include "..\..\..\..\tmk_core\common\keycode.h"
-#define _______ = KC_TRNS;
+#include "keymap_german.h"
+
+#define _______ KC_TRNS
 
 /* This Layout tries to emulate the Bone2 Variant of Neo2, and is intended to be used with a German QWERTZ Softwarelayout.
 It has "üäöß" as it is optimized for a mix of German & English.
@@ -88,7 +86,7 @@ accessed by sliding from M2 to M3 with thumb
 */
 
 [3] = {
-	{ KC_NO,   KC_NO,   DE_7,    DE_8     DE_9,  KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO   },
+	{ KC_NO,   KC_NO,   DE_7,    DE_8,    DE_9,  KC_NO,   KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_NO   },
 	{ _______, DE_DOT,  DE_4,    DE_5,    DE_6,  DE_COMM, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______ },
 	{ _______, DE_0,    DE_1,    DE_2,    DE_3,  DE_SCLN, KC_NO,   KC_TAB,  KC_INS,  KC_ENT,  KC_NO,   _______ },
 	{ _______, _______, _______, _______, KC_NO, _______, _______, KC_NO,   _______, _______, _______, _______ }
@@ -112,7 +110,7 @@ slide from m4 to m5 to access flipped version
 	{ KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   DE_SQ3,  KC_F4, KC_F5,   KC_F6,   KC_F11,  KC_NO   },
 	{ _______, KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,   DE_SQ2,  KC_F1, KC_F2,   KC_F3,   KC_F10,  _______ },
 	{ _______, _______, _______, _______, MO(5),   _______, _______, MO(5), _______, _______, _______, _______ }
-}
+},
 
 
 /* flipped Function & Media Keys
@@ -128,8 +126,8 @@ slide from m4 to m5 to access flipped version
 */
 [5] = {
 	{ KC_NO,   KC_NO,   KC_F7,   KC_F8, KC_F9,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_NO,   KC_NO   },
-	{ KC_NO,   KC_SQ3,  KC_F4,   KC_F5, KC_F6,   KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_NO   },
-	{ _______, KC_SQ2,  KC_F1,   KC_F2, KC_F3,   KC_NO,   KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,   _______ },
+	{ KC_NO,   DE_SQ3,  KC_F4,   KC_F5, KC_F6,   KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_NO   },
+	{ _______, DE_SQ2,  KC_F1,   KC_F2, KC_F3,   KC_NO,   KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,   _______ },
 	{ _______, _______, _______, KC_NO, _______, _______, _______, _______, KC_NO,   _______, _______, _______ }
 }
 };
