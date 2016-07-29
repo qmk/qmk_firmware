@@ -50,6 +50,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD a` makes the [ADORE layer](#adore-layer) the default.
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
+    - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
 
 ## ADORE layer
 
@@ -147,6 +148,14 @@ $ make KEYBOARD=ergodox_ez KEYMAP=algernon
 The keymap default to forcing NKRO, which seems to upset Windows, and except the modifiers, none of them work. If you experience this problem, recompile the firmware with `FORCE_NKRO=no` added to the `make` command line.
 
 # Changelog
+
+## v1.4 - 2016-07-29
+
+* When toggling the key logging on or off, the LEDs will do a little dance.
+* The keylogger is now optional, but enabled by default. Use `KEYLOGGER_ENABLE=no` on the `make` command line to disable it.
+* The `TAB`/`ARRW` key was turned into a tap-dance key, allowing one to toggle the **ARROW** layer on by double-tapping, and as such, avoid the need to hold the key.
+* The `-`/`_` key was turned into a tap-dance key too.
+* There is now a way to travel time with the keyboard, toggle the feature on by hitting `LEAD t`.
 
 ## v1.3 - 2016-07-06
 

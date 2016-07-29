@@ -735,7 +735,7 @@ Enable the backlight from the Makefile.
 
 All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
 
-## `void martix_init_*(void)`
+## `void matrix_init_*(void)`
 
 This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
 
