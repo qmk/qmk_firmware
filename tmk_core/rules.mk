@@ -253,6 +253,14 @@ MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
 
 # Define all object files.
 OBJ = $(patsubst %.c,$(OBJDIR)/%.o,$(patsubst %.cpp,$(OBJDIR)/%.o,$(patsubst %.S,$(OBJDIR)/%.o,$(SRC))))
+# The files in the lib folder are shared between all keymaps, so generate that folder name by removing
+# the keymap from the name
+KBOBJDIR=$(subst _$(KEYMAP),,$(OBJDIR))
+# And fixup the object files to match
+LIBOBJ = $(foreach v,$(OBJ),$(if $(findstring /lib/,$v),$v))
+NONLIBOBJ := $(filter-out $(LIBOBJ),$(OBJ))
+LIBOBJ := $(subst _$(KEYMAP)/,/,$(LIBOBJ))
+OBJ := $(LIBOBJ) $(NONLIBOBJ)
 
 # Define all listing files.
 LST = $(patsubst %.c,$(OBJDIR)/%.lst,$(patsubst %.cpp,$(OBJDIR)/%.lst,$(patsubst %.S,$(OBJDIR)/%.lst,$(SRC))))
@@ -370,19 +378,34 @@ BEGIN = gccversion check_submodule sizebefore
 	$(eval CMD=$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
+define GEN_OBJRULE
 # Compile: create object files from C source files.
-$(OBJDIR)/%.o : %.c | $(BEGIN)
-	@mkdir -p $(@D)
-	@$(SILENT) || printf "$(MSG_COMPILING) $<" | $(AWK_CMD)
-	$(eval CMD=$(CC) -c $(ALL_CFLAGS) $< -o $@)
-	@$(BUILD_CMD)
+$1/%.o : %.c | $(BEGIN)
+	@mkdir -p $$(@D)
+	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$(ALL_CFLAGS) $$< -o $$@)
+	@$$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
-$(OBJDIR)/%.o : %.cpp | $(BEGIN)
-	@mkdir -p $(@D)
-	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
-	$(eval CMD=$(CC) -c $(ALL_CPPFLAGS) $< -o $@)
+$1/%.o : %.cpp | $(BEGIN)
+	@mkdir -p $$(@D)
+	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$(ALL_CPPFLAGS) $$< -o $$@)
 	@$(BUILD_CMD)
+
+# Assemble: create object files from assembler source files.
+$1/%.o : %.S | $(BEGIN)
+	@mkdir -p $$(@D)
+	@$(SILENT) || printf "$$(MSG_ASSEMBLING) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$(ALL_ASFLAGS) $$< -o $$@)
+	@$$(BUILD_CMD)
+
+endef
+
+# Since the object files could be in two different folders, generate
+# separate rules for them, rather than having too generic rules
+$(eval $(call GEN_OBJRULE,$(OBJDIR)))
+$(eval $(call GEN_OBJRULE,$(KBOBJDIR)))
 
 # Compile: create assembler files from C source files.
 %.s : %.c | $(BEGIN)
@@ -394,13 +417,6 @@ $(OBJDIR)/%.o : %.cpp | $(BEGIN)
 %.s : %.cpp | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
 	$(eval CMD=$(CC) -S $(ALL_CPPFLAGS) $< -o $@)
-	@$(BUILD_CMD)
-
-# Assemble: create object files from assembler source files.
-$(OBJDIR)/%.o : %.S | $(BEGIN)
-	@mkdir -p $(@D)
-	@$(SILENT) || printf "$(MSG_ASSEMBLING) $<" | $(AWK_CMD)
-	$(eval CMD=$(CC) -c $(ALL_ASFLAGS) $< -o $@)
 	@$(BUILD_CMD)
 
 # Create preprocessed source for use in sending a bug report.
@@ -486,7 +502,7 @@ $(shell mkdir $(BUILD_DIR) 2>/dev/null)
 
 # Create object files directory
 $(shell mkdir $(OBJDIR) 2>/dev/null)
-
+$(shell mkdir $(KBOBJDIR) 2>/dev/null)
 
 # Include the dependency files.
 -include $(shell mkdir $(BUILD_DIR)/.dep 2>/dev/null) $(wildcard $(BUILD_DIR)/.dep/*)
