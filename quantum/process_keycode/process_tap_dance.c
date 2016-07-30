@@ -1,6 +1,18 @@
 #include "quantum.h"
 
 static qk_tap_dance_state_t qk_tap_dance_state;
+bool td_debug_enable = false;
+
+#if CONSOLE_ENABLE
+#define td_debug(s) if (td_debug_enable) \
+    { \
+      xprintf ("D:tap_dance:%s:%s = { keycode = %d, count = %d, active = %d, pressed = %d }\n", __FUNCTION__, s, \
+               qk_tap_dance_state.keycode, qk_tap_dance_state.count, \
+               qk_tap_dance_state.active, qk_tap_dance_state.pressed);  \
+    }
+#else
+#define td_debug(s)
+#endif
 
 void qk_tap_dance_pair_finished (qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
@@ -33,16 +45,19 @@ static inline void _process_tap_dance_action_fn (qk_tap_dance_state_t *state,
 
 static inline void process_tap_dance_action_on_each_tap (qk_tap_dance_action_t action)
 {
+  td_debug("trigger");
   _process_tap_dance_action_fn (&qk_tap_dance_state, action.user_data, action.fn.on_each_tap);
 }
 
 static inline void process_tap_dance_action_on_dance_finished (qk_tap_dance_action_t action)
 {
+  td_debug("trigger");
   _process_tap_dance_action_fn (&qk_tap_dance_state, action.user_data, action.fn.on_dance_finished);
 }
 
 static inline void process_tap_dance_action_on_reset (qk_tap_dance_action_t action)
 {
+  td_debug("trigger")
   _process_tap_dance_action_fn (&qk_tap_dance_state, action.user_data, action.fn.on_reset);
 }
 
