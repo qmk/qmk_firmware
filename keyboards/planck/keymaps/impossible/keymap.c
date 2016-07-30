@@ -57,19 +57,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------------.
  * |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |  F12  |   F7  |   F8  |   F9  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |  Caps |   [   |   ]   |   -   |  Del  |   =   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
+ * |       |   [   |   ]   |   -   |  Del  |   =   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * |  Tab  | Insert| PrtSc | ScrLk | Pause | NumLk |  Menu |       |  PgUp |   F1  |   F2  |   F3  |
+ * |  Tab  | Insert| PrtSc |       | Pause |       |  Menu |       |  PgUp |   F1  |   F2  |   F3  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * |Alt/Tab|  Gui  |   ~   |CTL/Bsp|Fn/Ent |SFT/Spc|   ;   |  Home |  PgDn |  End  |  F10  |   \   |
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_WORKMAN_FN] = {
-  {KC_EXLM,     KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC,    KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9},
-  {KC_CAPSLOCK, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL,   KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6},
-  {KC_Tab,      KC_INS,      KC_PSCR,     KC_SLCK,  KC_PAUSE,  KC_NUMLOCK, KC_MENU,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3},
-  {_______,     KC_LGUI,     KC_GRAVE,    _______,  _______,   _______,    KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, KC_BSLASH}
+  {KC_EXLM, KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC,  KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9},
+  {XXXXXXX, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6},
+  {KC_Tab,  KC_INS,      KC_PSCR,     XXXXXXX,  KC_PAUSE,  XXXXXXX,  KC_MENU,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3},
+  {_______, KC_LGUI,     KC_GRAVE,    _______,  _______,   _______,  KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, KC_BSLASH}
 },
 
 /* Qwerty
@@ -99,15 +99,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * | Shift |       |  Home |  PgDn |  End  |  Del  |       |  Left |  Down | Right |   [   |   ]   |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * |Alt/Tab|       | CapsLk| ScrLk | NumLk | Fn/Spc|       | Insert| PrtSc | Pause |  Menu |   \   |
+ * |Alt/Tab|       |       |       |       | Fn/Spc|       | Insert| PrtSc | Pause |  Menu |   \   |
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_QWERTY_FN] = {
-  {KC_LGUI, KC_F1,    KC_F2,       KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,    KC_F9,    KC_F10,      KC_F11},
-  {_______, KC_GRAVE, XXXXXXX,     KC_PGUP, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_UP,    KC_MINUS, KC_EQUAL,    KC_F12},
-  {_______, XXXXXXX,  KC_HOME,     KC_PGDN, KC_END,  KC_DELETE, XXXXXXX, KC_LEFT, KC_DOWN,  KC_RIGHT, KC_LBRACKET, KC_RBRACKET},
-  {_______, XXXXXXX,  KC_CAPSLOCK, KC_SLCK, KC_NLCK, _______,   XXXXXXX, KC_INS,  KC_PSCR,  KC_PAUSE, KC_MENU,     KC_BSLASH}
+  {KC_LGUI, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,    KC_F9,    KC_F10,      KC_F11},
+  {_______, KC_GRAVE, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_UP,    KC_MINUS, KC_EQUAL,    KC_F12},
+  {_______, XXXXXXX,  KC_HOME, KC_PGDN, KC_END,  KC_DELETE, XXXXXXX, KC_LEFT, KC_DOWN,  KC_RIGHT, KC_LBRACKET, KC_RBRACKET},
+  {_______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,   XXXXXXX, KC_INS,  KC_PSCR,  KC_PAUSE, KC_MENU,     KC_BSLASH}
 },
 
 /* Plover layer (http://opensteno.org)
@@ -133,19 +133,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------------.
  * |       |       |       |       |       |       |       |       |       |       |       | RESET |
  * |-------+-------+-------+-------+-------+---------------+-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |Voice +| Audio |MIDIoff|       |
+ * |       |       |       |       |       |       |       | CapLk |Voice +| Audio |MIDIoff|       |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |Voice -| Music |MIDI on|       |
+ * |       |       |       |       |       |       |       | ScrLk |Voice -| Music |MIDI on|       |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |       |       |       |       |       |       |       |       |Workman| Qwerty| Plover| Adjust|
+ * |       |       |       |       |       |       |       | Numlk |Workman| Qwerty| Plover| Adjust|
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_ADJUST] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET},
-  {_______, _______, _______, _______, _______, _______, _______, _______, MUV_IN,  AU_TOG,  MI_OFF,  _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, MUV_DE,  MU_TOG,  MI_ON,   _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, WORKMAN, QWERTY,  PLOVER,  _______}
+  {_______, _______, _______, _______, _______, _______, _______, KC_CLCK, MUV_IN,  AU_TOG,  MI_OFF,  _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_SLCK, MUV_DE,  MU_TOG,  MI_ON,   _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_NLCK, WORKMAN, QWERTY,  PLOVER,  _______}
 }
 
 };
