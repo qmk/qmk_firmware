@@ -278,7 +278,7 @@ LST = $(patsubst %.c,$(OBJDIR)/%.lst,$(patsubst %.cpp,$(OBJDIR)/%.lst,$(patsubst
 
 # Compiler flags to generate dependency files.
 #GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
-GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$(subst $(BUILD_DIR)/,,$@)).d
+GENDEPFLAGS = -MMD -MP -MF $(patsubst %.o,%.td,$@)
 
 
 # Combine all necessary flags and optional flags.
@@ -287,6 +287,8 @@ GENDEPFLAGS = -MMD -MP -MF $(BUILD_DIR)/.dep/$(subst /,_,$(subst $(BUILD_DIR)/,,
 ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
+
+MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 # Default target.
 all: build sizeafter
@@ -390,17 +392,17 @@ BEGIN = gccversion check_submodule sizebefore
 
 define GEN_OBJRULE
 # Compile: create object files from C source files.
-$1/%.o : %.c | $(BEGIN)
+$1/%.o : %.c $1/%.d | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$(ALL_CFLAGS) $$< -o $$@)
+	$$(eval CMD=$$(CC) -c $$(ALL_CFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
-$1/%.o : %.cpp | $(BEGIN)
+$1/%.o : %.cpp $1/%.d | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$(ALL_CPPFLAGS) $$< -o $$@)
+	$$(eval CMD=$$(CC) -c $$(ALL_CPPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -409,8 +411,14 @@ $1/%.o : %.S | $(BEGIN)
 	@$(SILENT) || printf "$$(MSG_ASSEMBLING) $$<" | $$(AWK_CMD)
 	$$(eval CMD=$$(CC) -c $$(ALL_ASFLAGS) $$< -o $$@)
 	@$$(BUILD_CMD)
-
 endef
+
+# We have to use static rules for the .d files for some reason
+DEPS = $(patsubst %.o,%.d,$(OBJ))
+# Keep the .d files
+.PRECIOUS: $(DEPS)
+# Empty rule to force recompilation if the .d file is missing
+$(DEPS):
 
 # Since the object files could be in two different folders, generate
 # separate rules for them, rather than having too generic rules
@@ -434,7 +442,7 @@ $(eval $(call GEN_OBJRULE,$(KBOBJDIR)))
 	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@
 
 # Target: clean project.
-clean: 
+clean:
 
 show_path:
 	@echo VPATH=$(VPATH)
@@ -515,7 +523,7 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 $(shell mkdir $(KBOBJDIR) 2>/dev/null)
 
 # Include the dependency files.
--include $(shell mkdir $(BUILD_DIR)/.dep 2>/dev/null) $(wildcard $(BUILD_DIR)/.dep/*)
+-include $(patsubst %.o,%.d,$(OBJ))
 
 
 # Listing of phony targets.
