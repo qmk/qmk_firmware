@@ -82,9 +82,9 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 ```bash
 # You'll run this every time you want to build a keymap
 # modify the keymap and keyboard assigment to compile what you want
-# defaults are ergodox_ez/default
+# defaults are ergodox/default
 
-docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+docker run -e keymap=gwen -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
 ```
 
