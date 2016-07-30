@@ -42,9 +42,6 @@
 #define KX_PAST LCTL(KC_V)
 #define KX_UNDO LCTL(KC_Z)
 
-// Uses 5 bytes of memory per 8 keys, but makes sure modifiers don't get "stuck" switching layers
-#define PREVENT_STUCK_MODIFIERS
-
 ; // This doesn't do anything. It's just for VSCode because its syntax highlighting is weird for the above #define statements.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
