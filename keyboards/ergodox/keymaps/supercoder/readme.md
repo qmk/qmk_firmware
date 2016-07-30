@@ -23,7 +23,7 @@ your own:
 
 ```
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
-$ cd qmk_firmware/keyboards/ergodox_ez
+$ cd qmk_firmware/keyboards/ergodox
 $ git clone https://github.com/algernon/ergodox-supercoder.git keymaps/supercoder
 $ make KEYMAP=supercoder
 ```
