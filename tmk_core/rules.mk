@@ -284,8 +284,8 @@ GENDEPFLAGS = -MMD -MP -MF $(patsubst %.o,%.td,$@)
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
 # You can give extra flags at 'make' command line like: make EXTRAFLAGS=-DFOO=bar
-ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
-ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
+ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(EXTRAFLAGS)
+ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
@@ -385,32 +385,51 @@ BEGIN = gccversion check_submodule sizebefore
 # Link: create ELF output file from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
-%.elf: $(OBJ) | $(BEGIN)
+# Note the obj.txt depeendency is there to force linking if a source file is deleted
+%.elf: $(OBJ) $(OBJDIR)/cflags.txt $(OBJDIR)/ldflags.txt $(OBJDIR)/obj.txt | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS))
+	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 define GEN_OBJRULE
 # Compile: create object files from C source files.
-$1/%.o : %.c $1/%.d | $(BEGIN)
+$1/%.o : %.c $1/%.d $1/cflags.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$(ALL_CFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$(ALL_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
-$1/%.o : %.cpp $1/%.d | $(BEGIN)
+$1/%.o : %.cpp $1/%.d $1/cppflags.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$(ALL_CPPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$(ALL_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
-$1/%.o : %.S | $(BEGIN)
+$1/%.o : %.S $1/asflags.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$(SILENT) || printf "$$(MSG_ASSEMBLING) $$<" | $$(AWK_CMD)
 	$$(eval CMD=$$(CC) -c $$(ALL_ASFLAGS) $$< -o $$@)
 	@$$(BUILD_CMD)
+
+$1/force:
+
+$1/cflags.txt: $1/force
+	echo '$$(ALL_CFLAGS)' | cmp -s - $$@ || echo '$$(ALL_CFLAGS)' > $$@
+
+$1/cppflags.txt: $1/force
+	echo '$$(ALL_CPPFLAGS)' | cmp -s - $$@ || echo '$$(ALL_CPPFLAGS)' > $$@
+
+$1/asflags.txt: $1/force
+	echo '$$(ALL_ASFLAGS)' | cmp -s - $$@ || echo '$$(ALL_ASFLAGS)' > $$@
+
+$1/ldflags.txt: $1/force
+	echo '$$(LDFLAGS)' | cmp -s - $$@ || echo '$$(LDFLAGS)' > $$@
+
+$1/obj.txt: $1/force
+	echo '$$(OBJ)' | cmp -s - $$@ || echo '$$(OBJ)' > $$@
+
 endef
 
 # We have to use static rules for the .d files for some reason
