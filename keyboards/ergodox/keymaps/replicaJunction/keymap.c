@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                                        ,-------------.       ,-------------.
       *                                        | LCtrl| LAlt |       | Left | Right|
       *                                 ,------|------|------|       |------+------+------.
-      *                                 | Ctl/ | Alt/ | Home |       |  Up  |      | _NU/ |
+      *                                 |Shift/| Ctrl/| Home |       |  Up  |  Alt/| _NU/ |
       *                                 | BkSp |  Del |------|       |------| Enter| Space|
       *                                 |      |      | _NU  |       | Down |      |      |
       *                                 `--------------------'       `--------------------'
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 KC_LCTL,        KC_LALT,
                                                                                 KC_HOME,
-                                                CTL_T(KC_BSPC), ALT_T(KC_DEL),  MO(_NU),
+                                                SFT_T(KC_BSPC), CTL_T(KC_DEL),  MO(_NU),
         // right hand
              KC_ESC,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
              KC_BSPC,  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,KC_MINS,
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         KC_LEFT, KC_RGHT,
         KC_UP,
-        KC_DOWN, KC_ENT, LT(_NU,KC_SPC)
+        KC_DOWN, ALT_T(KC_ENT), LT(_NU,KC_SPC)
     ),
 
     /*
@@ -143,10 +143,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------| FN2  |           | ~L1  |------+------+------+------+------+--------|
      * | LShft  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  Up  | RShft  |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl|   `  |  \   |CtlShf| _NU  |                                       | _NU  |  /  | Left  | Down | Right|
+     *   | LCtrl|   `  |  \   |CtlShf| _NU  |                                       | ~_GA |  /  | Left  | Down | Right|
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        | LCtrl| LAlt |       | _ME | ~_GA|
+     *                                        | LCtrl| LAlt |       | _ME | ~_GA  |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      | Home |       | PgUp |      | _NU/ |
      *                                 | Space| LAlt |------|       |------| Enter| Space|
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, KC_Y,  KC_U,   KC_I,   KC_O,   KC_P,   KC_EQL,
                  KC_H,  KC_J,   KC_K,   KC_L,   KC_SCLN,KC_MINS,
         KC_END,  KC_N,  KC_M,   KC_COMM,KC_DOT, KC_UP  ,KC_RSFT,
-                        MO(_NU),KC_UP,  KC_LEFT,KC_DOWN,KC_RGHT,
+                        TG(_GA),KC_UP,  KC_LEFT,KC_DOWN,KC_RGHT,
 
         MO(_ME),TG(_GA),
         KC_PGUP,
@@ -345,19 +345,21 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    // uint8_t layer = biton32(layer_state);
+    uint8_t layer = biton32(layer_state);
+    // uint8_t default_layer = biton32(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
 
-    switch (layer_state) {
+    switch (layer) {
         case _CO:
             ergodox_right_led_1_on();
             break;
         case _QW:
             ergodox_right_led_2_on();
+            break;
         case _NU:
             ergodox_right_led_3_on();
             break;
