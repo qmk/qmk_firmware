@@ -17,7 +17,7 @@ What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and
 
 Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-assembled, premium ergonomic keyboard. Its split design allows you to place both halves shoulder width, and its custom-made wrist rests and tilt/tent kit make for incredibly comfortable typing. Available on [ergodox-ez.com](https://ergodox-ez.com).
 
-* [ErgoDox EZ](/keyboards/ergodox_ez/) - Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
+* [ErgoDox EZ](/keyboards/ergodox/) - Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
 
 ### Clueboard - Zach White
 
