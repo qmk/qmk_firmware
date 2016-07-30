@@ -142,18 +142,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |Shift | GUI  |  ~   |Insert| Home |  Up  | End  | Bksp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Alt  |Space |      |      |      | PgUp | Left | Down |Right |      |      |
+ * |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |  `   | PgDn | Del  |      |      |      |      |
+ * |      | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
+ *
+ * The KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND, and KC_AGAIN keycodes don't
+ * seem to work on Mac. Presumably they'll work under Windows.
  */
 
 [_TOUCHCURSOR] = {
   {_______, _______, _______, KC_LSFT, KC_LGUI, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
-  {_______, KC_LALT, KC_SPC,  _______, _______, _______, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
-  {_______, _______, _______, _______, _______, KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, _______, _______},
+  {_______, KC_LALT, KC_SPC,  _______, KC_FIND,KC_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
+  {_______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
