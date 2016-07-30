@@ -12,6 +12,7 @@
 #include "keymap_plover.h"
 #include "eeconfig.h"
 #include "wait.h"
+#include "version.h"
 
 /* Layers */
 
