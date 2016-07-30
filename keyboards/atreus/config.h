@@ -67,6 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* Prevent modifiers from sticking when switching layers */
+#define PREVENT_STUCK_MODIFIERS
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
