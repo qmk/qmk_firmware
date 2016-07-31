@@ -7,7 +7,7 @@ the exact changes. The diagrams in this README shows the highlights of the
 changes from the default mappings.
 
 I also decided to change all calls to `persistant_default_layer_set()` to
-`update_tri_layer()` since this is my personal perference.
+`default_layer_set()` since this is my personal perference.
 
 ## Base Layers (Qwerty/Colemak/Dvorak)
 These base layers are mostly the same as the default mappings. The interesting
@@ -69,11 +69,12 @@ keys at the far left are for quick access to beginning and end of line in vim.
 as the modifier, with the `IJKL` home row keys representing the inverted-T of
 the arrow keys. All of the default TouchCursor keymappings for the right hand
 are represented below. My personalizations include all of the keys shown for
-the left hand. Having the `Alt` and `Shift` keys readily accessible from the
-home row allows quick word jumps and highlighting when used in conjunction with
-the arrow keys. The `KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND,` and
-`KC_AGAIN` keycodes have been mapped but they don't seem to work on Mac.
-Presumably they'll work under Windows.
+the left hand. Having the `Alt` and `Shift` keys (as well as the `Control` key
+from the base layers) readily accessible from the home row allows quick word
+jumps and highlighting when used in conjunction with the arrow keys. The
+`KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND,` and `KC_AGAIN` keycodes have
+been mapped but they don't seem to work on Mac. Presumably they'll work under
+Windows.
 ``` 
   ,-----------------------------------------------------------------------------------.
   |      |      |      |Shift | GUI  |  ~   |Insert| Home |  Up  | End  | Bksp |      |
