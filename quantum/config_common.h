@@ -5,46 +5,46 @@
 #define COL2ROW 0
 #define ROW2COL 1
 /* I/O pins */
-#define B0 { .input_addr = 3, .bit = 0 }
-#define B1 { .input_addr = 3, .bit = 1 }
-#define B2 { .input_addr = 3, .bit = 2 }
-#define B3 { .input_addr = 3, .bit = 3 }
-#define B4 { .input_addr = 3, .bit = 4 }
-#define B5 { .input_addr = 3, .bit = 5 }
-#define B6 { .input_addr = 3, .bit = 6 }
-#define B7 { .input_addr = 3, .bit = 7 }
-#define C0 { .input_addr = 6, .bit = 0 }
-#define C1 { .input_addr = 6, .bit = 1 }
-#define C2 { .input_addr = 6, .bit = 2 }
-#define C3 { .input_addr = 6, .bit = 3 }
-#define C4 { .input_addr = 6, .bit = 4 }
-#define C5 { .input_addr = 6, .bit = 5 }
-#define C6 { .input_addr = 6, .bit = 6 }
-#define C7 { .input_addr = 6, .bit = 7 }
-#define D0 { .input_addr = 9, .bit = 0 }
-#define D1 { .input_addr = 9, .bit = 1 }
-#define D2 { .input_addr = 9, .bit = 2 }
-#define D3 { .input_addr = 9, .bit = 3 }
-#define D4 { .input_addr = 9, .bit = 4 }
-#define D5 { .input_addr = 9, .bit = 5 }
-#define D6 { .input_addr = 9, .bit = 6 }
-#define D7 { .input_addr = 9, .bit = 7 }
-#define E0 { .input_addr = 0xC, .bit = 0 }
-#define E1 { .input_addr = 0xC, .bit = 1 }
-#define E2 { .input_addr = 0xC, .bit = 2 }
-#define E3 { .input_addr = 0xC, .bit = 3 }
-#define E4 { .input_addr = 0xC, .bit = 4 }
-#define E5 { .input_addr = 0xC, .bit = 5 }
-#define E6 { .input_addr = 0xC, .bit = 6 }
-#define E7 { .input_addr = 0xC, .bit = 7 }
-#define F0 { .input_addr = 0xF, .bit = 0 }
-#define F1 { .input_addr = 0xF, .bit = 1 }
-#define F2 { .input_addr = 0xF, .bit = 2 }
-#define F3 { .input_addr = 0xF, .bit = 3 }
-#define F4 { .input_addr = 0xF, .bit = 4 }
-#define F5 { .input_addr = 0xF, .bit = 5 }
-#define F6 { .input_addr = 0xF, .bit = 6 }
-#define F7 { .input_addr = 0xF, .bit = 7 }
+#define B0 0x30
+#define B1 0x31
+#define B2 0x32
+#define B3 0x33
+#define B4 0x34
+#define B5 0x35
+#define B6 0x36
+#define B7 0x37
+#define C0 0x60
+#define C1 0x61
+#define C2 0x62
+#define C3 0x63
+#define C4 0x64
+#define C5 0x65
+#define C6 0x66
+#define C7 0x67
+#define D0 0x90
+#define D1 0x91
+#define D2 0x92
+#define D3 0x93
+#define D4 0x94
+#define D5 0x95
+#define D6 0x96
+#define D7 0x97
+#define E0 0xC0
+#define E1 0xC1
+#define E2 0xC2
+#define E3 0xC3
+#define E4 0xC4
+#define E5 0xC5
+#define E6 0xC6
+#define E7 0xC7
+#define F0 0xF0
+#define F1 0xF1
+#define F2 0xF2
+#define F3 0xF3
+#define F4 0xF4
+#define F5 0xF5
+#define F6 0xF6
+#define F7 0xF7
 
 /* USART configuration */
 #ifdef BLUETOOTH_ENABLE

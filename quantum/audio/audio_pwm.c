@@ -6,7 +6,7 @@
 #include <avr/io.h>
 #include "print.h"
 #include "audio.h"
-#include "keymap_common.h"
+#include "keymap.h"
 
 #include "eeconfig.h"
 
