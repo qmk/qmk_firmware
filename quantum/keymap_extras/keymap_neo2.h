@@ -1,8 +1,8 @@
 #ifndef KEYMAP_NEO2
 #define KEYMAP_NEO2
 
-#include "keymap_common.h"
-#include "keymap_extras/keymap_german.h"
+#include "keymap.h"
+#include "keymap_german.h"
 
 #define NEO_A KC_D
 #define NEO_B KC_N

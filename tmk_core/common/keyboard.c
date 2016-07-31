@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "backlight.h"
+#include "action_layer.h"
 #ifdef BOOTMAGIC_ENABLE
 #   include "bootmagic.h"
 #else
@@ -46,19 +47,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ADB_MOUSE_ENABLE
 #   include "adb.h"
 #endif
+#ifdef RGBLIGHT_ENABLE
+#   include "rgblight.h"
+#endif
+#ifdef SERIAL_LINK_ENABLE
+#   include "serial_link/system/serial_link.h"
+#endif
+#ifdef VISUALIZER_ENABLE
+#   include "visualizer/visualizer.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
-static bool is_row_ghosting(uint8_t row){
-    matrix_row_t state = matrix_get_row(row);
-    /* no ghosting happens when only one key in the row is pressed */
-    if (!(state - 1 & state)) return false;
-    /* ghosting occurs when two keys in the same column are pressed */
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        if (r != row && matrix_get_row(r) & state) return true;
+static bool has_ghost_in_row(uint8_t row)
+{
+    matrix_row_t matrix_row = matrix_get_row(row);
+    // No ghost exists when less than 2 keys are down on the row
+    if (((matrix_row - 1) & matrix_row) == 0)
+        return false;
+
+    // Ghost occurs when the row shares column line with other row
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        if (i != row && (matrix_get_row(i) & matrix_row))
+            return true;
     }
     return false;
 }
-
 #endif
 
 __attribute__ ((weak))
@@ -89,77 +102,102 @@ void keyboard_init(void) {
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
+#ifdef RGBLIGHT_ENABLE
+    rgblight_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
 	keyboard_nkro = true;
 #endif
 }
 
-/* does routine keyboard jobs */
-void keyboard_task(void) {
-    static uint8_t led_status;
-    matrix_scan();
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        static matrix_row_t previous_matrix[MATRIX_ROWS];
-        matrix_row_t state = matrix_get_row(r);
-        matrix_row_t changes = state ^ previous_matrix[r];
-        if (changes) {
+/*
+ * Do keyboard routine jobs: scan mantrix, light LEDs, ...
+ * This is repeatedly called as fast as possible.
+ */
+void keyboard_task(void)
+{
+    static matrix_row_t matrix_prev[MATRIX_ROWS];
 #ifdef MATRIX_HAS_GHOST
-            static matrix_row_t deghosting_matrix[MATRIX_ROWS];
-            if (is_row_ghosting(r)) {
-                /* debugs the deghosting mechanism */
-                /* doesn't update previous_matrix until the ghosting has stopped
-                 * in order to prevent the last key from being lost
+    static matrix_row_t matrix_ghost[MATRIX_ROWS];
+#endif
+    static uint8_t led_status = 0;
+    matrix_row_t matrix_row = 0;
+    matrix_row_t matrix_change = 0;
+
+    matrix_scan();
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+        matrix_row = matrix_get_row(r);
+        matrix_change = matrix_row ^ matrix_prev[r];
+        if (matrix_change) {
+#ifdef MATRIX_HAS_GHOST
+            if (has_ghost_in_row(r)) {
+                /* Keep track of whether ghosted status has changed for
+                 * debugging. But don't update matrix_prev until un-ghosted, or
+                 * the last key would be lost.
                  */
-                if (debug_matrix && deghosting_matrix[r] != state) {
+                if (debug_matrix && matrix_ghost[r] != matrix_row) {
                     matrix_print();
                 }
-                deghosting_matrix[r] = state;
+                matrix_ghost[r] = matrix_row;
                 continue;
             }
-            deghosting_matrix[r] = state;
+            matrix_ghost[r] = matrix_row;
 #endif
             if (debug_matrix) matrix_print();
-            for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
-                matrix_row_t mask = (matrix_row_t)1 << c;
-                if (changes & mask) {
-                    keyevent_t event;
-                    event.key = (keypos_t){ .row = r, .col = c };
-                    event.pressed = state & mask;
-                    /* the time should not be 0 */
-                    event.time = timer_read() | 1;
-                    action_exec(event);
-                    /* records the processed key event */
-                    previous_matrix[r] ^= mask;
-                    /* processes one key event per call */
-                    goto event_processed;
+            for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+                if (matrix_change & ((matrix_row_t)1<<c)) {
+                    action_exec((keyevent_t){
+                        .key = (keypos_t){ .row = r, .col = c },
+                        .pressed = (matrix_row & ((matrix_row_t)1<<c)),
+                        .time = (timer_read() | 1) /* time should not be 0 */
+                    });
+                    // record a processed key
+                    matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                    // process a key per task call
+                    goto MATRIX_LOOP_END;
                 }
             }
         }
     }
-    /* sends tick events when the keyboard is idle */
+    // call with pseudo tick event when no real key event.
     action_exec(TICK);
-event_processed:
+
+MATRIX_LOOP_END:
+
 #ifdef MOUSEKEY_ENABLE
-    /* repeats and accelerates the mouse keys */
+    // mousekey repeat & acceleration
     mousekey_task();
 #endif
+
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
 #endif
+
 #ifdef SERIAL_MOUSE_ENABLE
     serial_mouse_task();
 #endif
+
 #ifdef ADB_MOUSE_ENABLE
     adb_mouse_task();
 #endif
-    /* updates the LEDs */
+
+#ifdef SERIAL_LINK_ENABLE
+	serial_link_update();
+#endif
+
+#ifdef VISUALIZER_ENABLE
+    visualizer_update(default_layer_state, layer_state, host_keyboard_leds());
+#endif
+
+    // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
         keyboard_set_leds(led_status);
     }
 }
 
-void keyboard_set_leds(uint8_t leds) {
-    if (debug_keyboard) dprintf("Keyboard LEDs state: %x\n", leds);
+void keyboard_set_leds(uint8_t leds)
+{
+    if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }
     led_set(leds);
 }

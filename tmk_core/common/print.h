@@ -29,7 +29,9 @@
 #include <stdbool.h>
 #include "util.h"
 
-
+#if defined(PROTOCOL_CHIBIOS)
+#define PSTR(x) x
+#endif
 
 
 #ifndef NO_PRINT
@@ -47,7 +49,15 @@ extern "C"
 /* function pointer of sendchar to be used by print utility */
 void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
-#elif defined(__arm__)
+#elif defined(PROTOCOL_CHIBIOS) /* __AVR__ */
+
+#include "chibios/printf.h"
+
+#define print(s)    printf(s)
+#define println(s)  printf(s "\r\n")
+#define xprintf  printf
+
+#elif defined(__arm__) /* __AVR__ */
 
 #include "mbed/xprintf.h"
 

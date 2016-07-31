@@ -20,62 +20,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
-#if MATRIX_COLS <= 8
-typedef uint8_t matrix_row_t;
-#elif MATRIX_COLS <= 16
-typedef uint16_t matrix_row_t;
-#elif MATRIX_COLS <= 32
-typedef uint32_t matrix_row_t;
+
+#if (MATRIX_COLS <= 8)
+typedef  uint8_t    matrix_row_t;
+#elif (MATRIX_COLS <= 16)
+typedef  uint16_t   matrix_row_t;
+#elif (MATRIX_COLS <= 32)
+typedef  uint32_t   matrix_row_t;
 #else
-#   error "There are too many columns."
+#error "MATRIX_COLS: invalid value"
 #endif
 
-#if DIODE_DIRECTION == ROW2COL
-#   if MATRIX_ROWS <= 8
-typedef uint8_t matrix_col_t;
-#   elif MATRIX_ROWS <= 16
-typedef uint16_t matrix_col_t;
-#   elif MATRIX_ROWS <= 32
-typedef uint32_t matrix_col_t;
-#   else
-#       error "There are too many rows."
-#   endif
-#endif
+#define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
 
-typedef struct {
-    uint8_t input_addr:4;
-    uint8_t bit:4;
-} io_pin_t;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* counts the number of rows in the matrix */
+
+/* number of matrix rows */
 uint8_t matrix_rows(void);
-/* counts the number of columns in the matrix */
+/* number of matrix columns */
 uint8_t matrix_cols(void);
-/* sets up the matrix before matrix_init */
+/* should be called at early stage of startup before matrix_init.(optional) */
 void matrix_setup(void);
-/* intializes the matrix */
+/* intialize matrix for scaning. */
 void matrix_init(void);
-/* scans the entire matrix */
+/* scan all key states on matrix */
 uint8_t matrix_scan(void);
-/* checks if the matrix has been modified */
+/* whether modified from previous scan. used after matrix_scan. */
 bool matrix_is_modified(void) __attribute__ ((deprecated));
-/* checks if a key is pressed */
+/* whether a swtich is on */
 bool matrix_is_on(uint8_t row, uint8_t col);
-/* inspects the state of a row in the matrix */
+/* matrix state on row */
 matrix_row_t matrix_get_row(uint8_t row);
-/* prints the matrix for debugging */
+/* print matrix for debug */
 void matrix_print(void);
-/* counts the total number of keys pressed */
-uint8_t matrix_key_count(void);
-/* controls power to the matrix */
+
+
+/* power control */
 void matrix_power_up(void);
 void matrix_power_down(void);
+
 /* executes code for Quantum */
 void matrix_init_quantum(void);
 void matrix_scan_quantum(void);
+
+void matrix_init_kb(void);
+void matrix_scan_kb(void);
+
+void matrix_init_user(void);
+void matrix_scan_user(void);
+
+#ifdef I2C_SPLIT
+	void slave_matrix_init(void);
+	uint8_t slave_matrix_scan(void);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

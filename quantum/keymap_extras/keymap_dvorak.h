@@ -1,7 +1,7 @@
 #ifndef KEYMAP_DVORAK_H
 #define KEYMAP_DVORAK_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Normal characters
 #define DV_GRV	KC_GRV
@@ -18,18 +18,19 @@
 #define DV_LBRC	KC_MINS
 #define DV_RBRC	KC_EQL
 
-#define DV_QUOT KC_Q
+#define DV_QUOT	KC_Q
 #define DV_COMM	KC_W
 #define DV_DOT	KC_E
 #define DV_P	KC_R
 #define DV_Y	KC_T
 #define	DV_F	KC_Y
 #define DV_G	KC_U
-#define DV_C 	KC_I
+#define DV_C	KC_I
 #define	DV_R	KC_O
 #define DV_L	KC_P
 #define DV_SLSH	KC_LBRC
 #define DV_EQL	KC_RBRC
+#define DV_BSLS	KC_BSLS
 
 #define DV_A	KC_A
 #define DV_O	KC_S
@@ -68,7 +69,13 @@
 #define DV_RPRN	LSFT(DV_0)
 #define DV_LCBR	LSFT(DV_LBRC)
 #define DV_RCBR	LSFT(DV_RBRC)
-#define DV_UNDS LSFT(DV_MINS)
-#define DV_PLUS LSFT(DV_EQL)
+
+#define DV_QUES	LSFT(DV_SLSH)
+#define DV_PLUS	LSFT(DV_EQL)
+#define DV_PIPE	LSFT(DV_BSLS)
+
+#define DV_UNDS	LSFT(DV_MINS)
+
+#define DV_COLN	LSFT(DV_SCLN)
 
 #endif
