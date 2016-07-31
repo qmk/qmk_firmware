@@ -15,6 +15,16 @@
 # Carlos Lamas
 #
 
+# Enable vpath seraching for source files only
+# Without this, output files, could be read from the wrong .build directories
+VPATH_SRC := $(VPATH)
+vpath %.c $(VPATH_SRC)
+vpath %.h $(VPATH_SRC)
+vpath %.cpp $(VPATH_SRC)
+vpath %.hpp $(VPATH_SRC)
+vpath %.S $(VPATH_SRC)
+VPATH :=
+
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
@@ -71,7 +81,7 @@ BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ 
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS += $(subst :, ,$(VPATH))
+EXTRAINCDIRS += $(subst :, ,$(VPATH_SRC))
 
 
 # Compiler flag to set the C Standard level.
