@@ -140,7 +140,8 @@ ifdef SUBPROJECT
 else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
 endif
-BUILD_DIR = .build
+
+BUILD_DIR = $(TOP_DIR)/.build
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
