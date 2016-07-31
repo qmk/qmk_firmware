@@ -393,21 +393,21 @@ BEGIN = gccversion check_submodule sizebefore
 
 define GEN_OBJRULE
 # Compile: create object files from C source files.
-$1/%.o : %.c $1/%.d $1/cflags.txt | $(BEGIN)
+$1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
 	$$(eval CMD=$$(CC) -c $$(ALL_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
-$1/%.o : %.cpp $1/%.d $1/cppflags.txt | $(BEGIN)
+$1/%.o : %.cpp $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
 	$$(eval CMD=$$(CC) -c $$(ALL_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
-$1/%.o : %.S $1/asflags.txt | $(BEGIN)
+$1/%.o : %.S $1/asflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$(SILENT) || printf "$$(MSG_ASSEMBLING) $$<" | $$(AWK_CMD)
 	$$(eval CMD=$$(CC) -c $$(ALL_ASFLAGS) $$< -o $$@)
@@ -430,6 +430,8 @@ $1/ldflags.txt: $1/force
 $1/obj.txt: $1/force
 	echo '$$(OBJ)' | cmp -s - $$@ || echo '$$(OBJ)' > $$@
 
+$1/compiler.txt: $1/force
+	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 
 # We have to use static rules for the .d files for some reason
