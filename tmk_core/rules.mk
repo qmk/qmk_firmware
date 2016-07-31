@@ -45,11 +45,6 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
-ifdef quick
-	QUICK = $(quick)
-endif
-
-QUICK ?= false
 AUTOGEN ?= false
 
 ifneq ($(shell awk --version 2>/dev/null),)
@@ -293,9 +288,6 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 # Default target.
 all: build sizeafter
 
-# Quick make that doesn't clean
-quick: build sizeafter
-
 # Change the build target to build a HEX file or a library.
 build: elf hex
 #build: elf hex eep lss sym
@@ -464,6 +456,9 @@ $(eval $(call GEN_OBJRULE,$(KBOBJDIR)))
 
 # Target: clean project.
 clean:
+	$(REMOVE) -r $(OBJDIR) 2>/dev/null
+	$(REMOVE) -r $(KBOBJDIR) 2>/dev/null
+	$(REMOVE) $(BUILD_DIR)/$(TARGET).*
 
 show_path:
 	@echo VPATH=$(VPATH)
@@ -483,7 +478,6 @@ all-keyboards-defaults: all-keyboards-defaults-all
 
 KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboards/%/=/keyboards/%)
 all-keyboards-all: $(addsuffix -all,$(KEYBOARDS))
-all-keyboards-quick: $(addsuffix -quick,$(KEYBOARDS))
 all-keyboards-clean: $(addsuffix -clean,$(KEYBOARDS))
 all-keyboards: all-keyboards-all
 
@@ -500,12 +494,10 @@ done
 endef
 
 define make_keyboard_helper
-# Just remove the -quick, -all and so on from the first argument and pass it forward
+# Just remove the -all and so on from the first argument and pass it forward
 $(call make_keyboard,$(subst -$2,,$1),$2)
 endef
 
-/keyboards/%-quick:
-	$(call make_keyboard_helper,$@,quick)
 /keyboards/%-all:
 	$(call make_keyboard_helper,$@,all)
 /keyboards/%-clean:
@@ -523,19 +515,6 @@ all-keymaps-%:
 
 all-keymaps: all-keymaps-all
 
-GOAL=$(MAKECMDGOALS)
-ifeq ($(MAKECMDGOALS),)
-GOAL = all
-endif
-CLEANING_GOALS=clean clean_list all
-ifneq ($(findstring $(GOAL),$(CLEANING_GOALS)),)
-$(shell $(REMOVE) -r $(BUILD_DIR) 2>/dev/null)
-$(shell $(REMOVE) -r $(TOP_DIR)/$(BUILD_DIR))
-$(shell $(REMOVE) -r $(KEYBOARD_PATH)/$(BUILD_DIR))
-$(shell if $$SUBPROJECT; then $(REMOVE) -r $(SUBPROJECT_PATH)/$(BUILD_DIR); fi)
-$(shell $(REMOVE) -r $(KEYMAP_PATH)/$(BUILD_DIR))
-endif
-
 # Create build directory
 $(shell mkdir $(BUILD_DIR) 2>/dev/null)
 
@@ -548,7 +527,7 @@ $(shell mkdir $(KBOBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all quick finish sizebefore sizeafter gccversion \
+.PHONY : all finish sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff check_submodule \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
