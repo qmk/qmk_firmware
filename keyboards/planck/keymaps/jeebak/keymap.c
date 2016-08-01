@@ -24,6 +24,7 @@ extern keymap_config_t keymap_config;
 #define _MOUSE 7
 #define _ADJUST 16
 
+// Keycodes
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
@@ -35,16 +36,25 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+enum macro_keycodes {
+  KC_ALT_TAB,
+  KC_CMD_TAB,
+  KC_CTL_TAB,
+};
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
-#define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor
-//                  ^-- Requires KC_TRNS / _______ for the trigger key in the destination layer
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
+// Requires KC_TRNS/_______ for the trigger key in the destination layer
+#define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor.
 #define LT_ML       LT(_MOUSE, KC_A)            // L-ayer T-ap M-ouse C-ursor (on A)
+#define ALT_TAB     M(KC_ALT_TAB)               // Macro for Alt-Tab
+#define CMD_TAB     M(KC_CMD_TAB)               // Macro for Cmd-Tab
+#define CTL_TAB     M(KC_CTL_TAB)               // Macro for Ctl-Tab
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -140,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* TouchCursor layer (http://martin-stone.github.io/touchcursor/) plus personal customizations
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |Shift | GUI  |  ~   |Insert| Home |  Up  | End  | Bksp |      |
+ * |AltTab|CmdTab|CtlTab| GUI  |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -154,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_TOUCHCURSOR] = {
-  {_______, _______, _______, KC_LSFT, KC_LGUI, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
+  {ALT_TAB, CMD_TAB, CTL_TAB, KC_LGUI, KC_LSFT, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
   {_______, KC_LALT, KC_SPC,  _______, KC_FIND,KC_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
   {_______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -328,6 +338,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+/*
+ * Macro definition
+ */
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    switch (id) {
+      case KC_ALT_TAB:
+        return (record->event.pressed ? MACRO( D(LALT),  D(TAB), END ) : MACRO( U(TAB), END ));
+      case KC_CMD_TAB:
+        return (record->event.pressed ? MACRO( D(LGUI),  D(TAB), END ) : MACRO( U(TAB), END ));
+      case KC_CTL_TAB:
+        return (record->event.pressed ? MACRO( D(LCTRL), D(TAB), END ) : MACRO( U(TAB), END ));
+    }
+
+    return MACRO_NONE;
 }
 
 void matrix_init_user(void) {
