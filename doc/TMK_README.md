@@ -34,7 +34,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [atomic](keyboards/atomic/)                - [Atomic] Ortholinear 60% keyboard
 
 ### Ergodox EZ
-* [ergodox_ez](keyboards/ergodox_ez)         - [Ergodox_EZ] Assembled split keyboard
+* [ergodox_ez](keyboards/ergodox/ez)         - [Ergodox_EZ] Assembled split keyboard
 
 ## Other projects
 
