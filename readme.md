@@ -122,17 +122,16 @@ Below are some definitions that will be useful:
 
 Below is a list of the useful `make` commands in QMK:
 
-* `make` - cleans automatically and builds your keyboard and keymap depending on which folder you're in. This defaults to the "default" layout (unless in a keymap folder), and Planck keyboard in the root folder
+* `make` - builds your keyboard and keymap depending on which folder you're in. This defaults to the "default" layout (unless in a keymap folder), and Planck keyboard in the root folder
   * `make keyboard=<keyboard>` - specifies the keyboard (only to be used in root)
   * `make keymap=<keymap>` - specifies the keymap (only to be used in root and keyboard folder - not needed when in keymap folder)
-* `make quick` - skips the clean step (cannot be used immediately after modifying config.h or Makefiles)
+* `make clean` - cleans the `.build` folder, ensuring that everything is re-built
 * `make dfu` - (requires dfu-programmer) builds and flashes the keymap to your keyboard once placed in reset/dfu mode (button or press `KC_RESET`). This does not work for Teensy-based keyboards like the ErgoDox EZ.
   * `keyboard=` and `keymap=` are compatible with this
 * `make all-keyboards` - builds all keymaps for all keyboards and outputs status of each (use in root)
 * `make all-keyboards-default` - builds all default keymaps for all keyboards and outputs status of each (use in root)
 * `make all-keymaps [keyboard=<keyboard>]` - builds all of the keymaps for whatever keyboard folder you're in, or specified by `<keyboard>`
-* `make all-keyboards-quick`, `make all-keyboards-default-quick` and `make all-keymaps-quick [keyboard=<keyboard>]` - like the normal "make-all-*" commands, but they skip the clean steps
-
+* `make all-keyboards-*`, `make all-keyboards-default-*` and `make all-keymaps-* [keyboard=<keyboard>]` - like the normal "make-all-*" commands, but the last string aftter the `-` (for example clean) is passed to the keyboard make command.
 Other, less useful functionality:
 
 * `make COLOR=false` - turns off color output
