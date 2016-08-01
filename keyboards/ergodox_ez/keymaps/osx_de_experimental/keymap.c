@@ -618,16 +618,17 @@ switch (layer) {
         ergodox_right_led_3_on();
     break;
     case EGOS:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
+	ergodox_led_all_on();
+        //ergodox_right_led_1_on();
+        //ergodox_right_led_2_on();
+        //ergodox_right_led_3_on();
     break;
 default:
 // none
 break;
 }
-  if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT) ||
+      (((get_oneshot_mods() & MOD_BIT(KC_LSFT)) || get_oneshot_mods() & MOD_BIT(KC_RSFT)) && !has_oneshot_mods_timed_out())) {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
     ergodox_right_led_1_on ();
   } else {
@@ -636,8 +637,8 @@ break;
       ergodox_right_led_1_off ();
   }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LALT) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LALT)) && !has_oneshot_mods_timed_out())) {
+  if (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT) || 
+      (((get_oneshot_mods() & MOD_BIT(KC_LALT)) || get_oneshot_mods() & MOD_BIT(KC_RALT)) && !has_oneshot_mods_timed_out())) {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
     ergodox_right_led_2_on ();
   } else {
@@ -657,10 +658,11 @@ break;
   }
 
   if (keyboard_report->mods & MOD_BIT(KC_RGUI) || keyboard_report->mods & MOD_BIT(KC_LGUI) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LGUI) || keyboard_report->mods & MOD_BIT(KC_RGUI)) && !has_oneshot_mods_timed_out())) {
-	ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-	ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-	ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+      ((get_oneshot_mods() & MOD_BIT(KC_LGUI) || get_oneshot_mods() & MOD_BIT(KC_RGUI)) && !has_oneshot_mods_timed_out())) {
+	ergodox_led_all_set(LED_BRIGHTNESS_LO);
+	//ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
+	//ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+	//ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
     ergodox_right_led_3_on ();
     ergodox_right_led_2_on ();
     ergodox_right_led_1_on ();
