@@ -9,6 +9,11 @@ changes from the default mappings.
 I also decided to change all calls to `persistant_default_layer_set()` to
 `default_layer_set()` since this is my personal perference.
 
+## Macros
+```
+#define ALT_TAB     M(KC_ALT_TAB)
+```
+
 ## Base Layers (Qwerty/Colemak/Dvorak)
 These base layers are mostly the same as the default mappings. The interesting
 changes are shown below. The `Ctrl/Esc`, mapped using `CTL_T(KC_ESC)` will emit
@@ -72,12 +77,15 @@ are represented below. My personalizations include all of the keys shown for
 the left hand. Having the `Alt` and `Shift` keys (as well as the `Control` key
 from the base layers) readily accessible from the home row allows quick word
 jumps and highlighting when used in conjunction with the arrow keys. The
-`KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND,` and `KC_AGAIN` keycodes have
-been mapped but they don't seem to work on Mac. Presumably they'll work under
-Windows.
+`AltTab` macro is not only useful under Windows, but also under Mac when used
+with alternative switchers like [HyperSwitch](https://bahoom.com/hyperswitch).
+The `CmdTab` and `CtlTab` sequences are duplicated for easy access while in
+this layer. The `KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND,` and `KC_AGAIN`
+keycodes have been mapped but they don't seem to work on Mac. Presumably
+they'll work under Windows.
 ``` 
   ,-----------------------------------------------------------------------------------.
-  |      |      |      |Shift | GUI  |  ~   |Insert| Home |  Up  | End  | Bksp |      |
+  |AltTab|CmdTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
   |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |      |      |
   |------+------+------+------+------+------|------+------+------+------+------+------|
