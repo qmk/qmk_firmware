@@ -57,19 +57,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------------.
  * |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |  F12  |   F7  |   F8  |   F9  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |       |   [   |   ]   |   -   |  Del  |   =   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
+ * |  Tab  |   [   |   ]   |   -   |  Del  |   '   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
- * |  Tab  | Insert| PrtSc |       | Pause |       |  Menu |       |  PgUp |   F1  |   F2  |   F3  |
+ * |  Menu | Insert| PrtSc |   =   | Pause |   /   |       |       |  PgUp |   F1  |   F2  |   F3  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * |Alt/Tab|  Gui  |   ~   |CTL/Bsp|Fn/Ent |SFT/Spc|   ;   |  Home |  PgDn |  End  |  F10  |   \   |
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_WORKMAN_FN] = {
-  {KC_EXLM, KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC,  KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9},
-  {XXXXXXX, KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_EQUAL, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6},
-  {KC_Tab,  KC_INS,      KC_PSCR,     XXXXXXX,  KC_PAUSE,  XXXXXXX,  KC_MENU,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3},
-  {_______, KC_LGUI,     KC_GRAVE,    _______,  _______,   _______,  KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, KC_BSLASH}
+  {KC_EXLM, KC_AT,       KC_HASH,     KC_DLR,   KC_PERC,   KC_CIRC, KC_AMPR,   KC_ASTR, KC_F12,  KC_F7,  KC_F8,  KC_F9},
+  {KC_TAB,  KC_LBRACKET, KC_RBRACKET, KC_MINUS, KC_DELETE, KC_QUOT, KC_LPRN,   KC_RPRN, KC_F11,  KC_F4,  KC_F5,  KC_F6},
+  {KC_MENU, KC_INS,      KC_PSCR,     KC_EQUAL, KC_PAUSE,  KC_SLSH, XXXXXXX,   XXXXXXX, KC_PGUP, KC_F1,  KC_F2,  KC_F3},
+  {_______, KC_LGUI,     KC_GRAVE,    _______,  _______,   _______, KC_SCOLON, KC_HOME, KC_PGDN, KC_END, KC_F10, KC_BSLASH}
 },
 
 /* Qwerty
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * |  Ctrl |   ~   |       |  PgUp |       |       |       |       |   Up  |   -   |   =   |  F12  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * | Shift |       |  Home |  PgDn |  End  |  Del  |       |  Left |  Down | Right |   [   |   ]   |
+ * | Shift |  Tab  |  Home |  PgDn |  End  |  Del  |       |  Left |  Down | Right |   [   |   ]   |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
  * |Alt/Tab|       |       |       |       | Fn/Spc|       | Insert| PrtSc | Pause |  Menu |   \   |
  * `-----------------------------------------------------------------------------------------------'
