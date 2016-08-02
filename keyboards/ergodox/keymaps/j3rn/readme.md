@@ -1,4 +1,4 @@
-# J3RN's Mac-centric ErgoDox EZ keymap
+# J3RN's Mac-Centric ErgoDox EZ keymap
 
 ## Motivation
 
@@ -14,6 +14,7 @@ This layout more closely resembles that of the Mac keyboard, and has some other 
 - **The key to the right of "0" is Backspace instead of "-"** (misleadingly labeled "delete" on the Mac's keyboard). There was no room to fit in "-" and "=" between "0" and Backspace, unfortunately.
 - **The key to the left of "Q" is Tab instead of Delete.**
 - **The rightmost big key on the left thumb is CMD (LGui) instead of Backspace.**
+- **The key to the left of Alt-Shift is an Alt key**. This is close to it's position on the Mac keyboard, though slightly further left.
 
 ### Other changes
 
@@ -23,7 +24,9 @@ This layout more closely resembles that of the Mac keyboard, and has some other 
 - **The Toggle L1 keys have been replaced by the otherwise displaced "-" and "=".** They are laid out, left-to-right, in the same order as on the Mac keyboard. Honestly, they are not terribly conveniently placed, and their placement might change in a later version. I found that I did not toggle L1 frequently at all, and found using the momentary keys to access L1 to fit my workflow better.
 - **The "~"/L1 key in the bottom-left is now just momentary L1.** The "~" key was moved to the top-left as mentioned before, and I like to keep my multi-use keys to a minimum due to the latency for them to switch from "press" to "hold."
 - **The Home and End buttons have been shifted up on the left thumb, and Shift inserted below them.** This makes doing Shift-5 and other such combinations less painful.
-- **The Page Up and Page Down buttons have been shifted up on the right thumb, and Alt was moved from above them to below them.** I use Alt more than Page Up or Page Down (mostly in terminal applications), and thought that it deserved a more accessible location.
-
+- **The Page Up and Page Down buttons have been shifted up on the right thumb.** I don't use either of these keys often, and wanted to free up some real estate.
+- **The bottommost-inner keys on the left and right thumb are momentary L2 and momentary L1, respectively**. I have found that both modes are useful, and this seemed like a reasonably accessible place to put these.
+- **Traditional numpad layout.** The base of most numpads is a double-wide "0" key to the left of a "." key. This is reflected in my layout by having two "0" keys to the left of a "." key.
+- **The function keys (F1-F12) have been moved to L2.** They were in the way in L1.
 
 **I'm always open to feedback and/or suggestions!**
