@@ -42,4 +42,4 @@ I press C-a, C-e, and C-k all the time. It’s difficult to press these key comb
 
 ## use spreadsheets
 
-All the common spreadsheet operations (+-*/=) are now on the right side of the symbol layer.
+All the common spreadsheet operations (+-*/=) are now on the right side of the symbol layer. There’s also a colon there for entering times and maybe IPv6 addresses. Not that I expect people to type IPv6 addresses into a spreadsheet, but, y’know.
