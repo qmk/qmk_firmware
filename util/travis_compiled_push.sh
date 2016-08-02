@@ -16,7 +16,7 @@ rm -rf keyboard
 rm -rf keyboards
 cp -r ../qmk_firmware/keyboards .
 mkdir keyboards/ergodox_ez/
-cp ../qmk_firmware/util/ergodox_ex.html keyboards/ergodox_ez/index.html
+cp ../qmk_firmware/util/ergodox_ez.html keyboards/ergodox_ez/index.html
 cp ../qmk_firmware/readme.md qmk_readme.md
 ./generate.sh
 
