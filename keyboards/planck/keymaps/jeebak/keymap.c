@@ -40,6 +40,7 @@ enum macro_keycodes {
   KC_ALT_TAB,
   KC_CMD_TAB,
   KC_CTL_TAB,
+  KC_CMD_SLSH,
 };
 
 // Fillers to make layering more clear
@@ -55,6 +56,7 @@ enum macro_keycodes {
 #define ALT_TAB     M(KC_ALT_TAB)               // Macro for Alt-Tab
 #define CMD_TAB     M(KC_CMD_TAB)               // Macro for Cmd-Tab
 #define CTL_TAB     M(KC_CTL_TAB)               // Macro for Ctl-Tab
+#define CMD_SLSH    M(KC_CMD_SLSH)              // Macro for Cmd-Slash (personal shortcut to toggle iTerm2 visibility)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -166,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_TOUCHCURSOR] = {
   {ALT_TAB, CMD_TAB, CTL_TAB, KC_LGUI, KC_LSFT, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
   {_______, KC_LALT, KC_SPC,  _______, KC_FIND,KC_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
-  {_______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, _______, _______},
+  {_______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, CMD_SLSH,_______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -352,6 +354,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return (record->event.pressed ? MACRO( D(LGUI),  D(TAB), END ) : MACRO( U(TAB), END ));
       case KC_CTL_TAB:
         return (record->event.pressed ? MACRO( D(LCTRL), D(TAB), END ) : MACRO( U(TAB), END ));
+      case KC_CMD_SLSH:
+        return (record->event.pressed ? MACRO( D(LGUI),  D(SLSH),END ) : MACRO( U(SLSH),END ));
     }
 
     return MACRO_NONE;
