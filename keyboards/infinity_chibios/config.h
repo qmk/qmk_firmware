@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define PREVENT_STUCK_MODIFIERS
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -50,9 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* Keymap for Infiity prototype */
-#define INFINITY_PROTOTYPE
+/* Keymap for Infinity prototype */
+//#define INFINITY_PROTOTYPE
 
+/* Keymap for Infinity 1.1a (first revision with LED support) */
+//#define INFINITY_LED
 
 /*
  * Feature disable options
