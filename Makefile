@@ -36,6 +36,54 @@ $(info Keyboard: $(KEYBOARD))
 $(info Keymap: $(KEYMAP))
 $(info Subproject: $(SUBPROJECT))
 
+# Compare the start of the RULE_VARIABLE with the first argument($1)
+# If the rules equals $1 or starts with $1-, RULE_FOUND is set to true
+#     and $1 is removed from the RULE variable
+# Otherwise the RULE_FOUND variable is set to false
+# The function is a bit tricky, since there's no built in $(startswith) function
+define COMPARE_AND_REMOVE_FROM_RULE
+    ifeq ($1,$$(RULE))
+        RULE:=
+        RULE_FOUND := true
+    else
+        STARTDASH_REMOVED=$$(subst START$1-,,START$$(RULE))
+        ifneq ($$(STARTDASH_REMOVED),START$$(RULE))
+            RULE_FOUND := true
+            RULE := $$(STARTDASH_REMOVED)
+        else
+            RULE_FOUND := false
+        endif
+    endif
+endef
 
+define PARSE_ALL_KEYBOARDS
+    COMMANDS += allkb
+    #$$(info $$(RULE))
+    COMMAND_allkb := "All keyboards with $$(RULE)"
+endef
+
+define PARSE_RULE
+    RULE := $1
+    COMMANDS :=
+    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkb))
+    ifeq ($$(RULE_FOUND),true)
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    endif
+endef
+
+RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
+
+.PHONY: %
+%:
+	$(eval $(call PARSE_RULE,$@))
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+
+.PHONY: all-keyboards
+all-keyboards: allkb
+
+.PHONY: all-keyboards-defaults
+all-keyboards-defaults: allkb-default-default
+
+.PHONY: all
 all: 
 	echo "Compiling"
