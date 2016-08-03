@@ -1,5 +1,9 @@
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
+ROOT_DIR := $(dir, $(ROOT_MAKEFILE))
+ifeq ($(ROOT_DIR),)
+    ROOT_DIR := .
+endif
 ABS_STARTING_MAKEFILE := $(abspath $(STARTING_MAKEFILE))
 ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
@@ -32,9 +36,14 @@ ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
     endif
 endif
 
+$(info $(ROOT_DIR)/keyboards)
+KEYBOARDS := $(notdir $(patsubst %/.,%,$(wildcard $(ROOT_DIR)/keyboards/*/.)))
+
 $(info Keyboard: $(KEYBOARD))
 $(info Keymap: $(KEYMAP))
 $(info Subproject: $(SUBPROJECT))
+$(info Keyboards: $(KEYBOARDS))
+
 
 # Compare the start of the RULE_VARIABLE with the first argument($1)
 # If the rules equals $1 or starts with $1-, RULE_FOUND is set to true
@@ -62,12 +71,34 @@ define PARSE_ALL_KEYBOARDS
     COMMAND_allkb := "All keyboards with $$(RULE)"
 endef
 
+define PARSE_KEYBOARD
+    COMMANDS += $1
+    #$$(info $$(RULE))
+    COMMAND_$1 := "Keyboard $1 with $$(RULE)"
+endef
+
+
+# Recursively try to find a matching keyboard
+# During the first call $1 contains a list of all keyboards
+# One keyboard is checked and removed at a time
+define TRY_PARSE_KEYBOARD
+    CURRENT_KB := $$(firstword $1)
+    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,$$(CURRENT_KB)))
+    ifeq ($$(RULE_FOUND),true)
+        $$(eval $$(call PARSE_KEYBOARD,$$(CURRENT_KB)))
+    else ifneq ($1,)
+        $$(eval $$(call TRY_PARSE_KEYBOARD,$$(wordlist 2,9999,$1)))
+    endif
+endef
+
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
     $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkb))
     ifeq ($$(RULE_FOUND),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else
+        $$(eval $$(call TRY_PARSE_KEYBOARD,$(KEYBOARDS)))
     endif
 endef
 
