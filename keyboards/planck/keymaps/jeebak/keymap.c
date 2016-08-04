@@ -41,6 +41,12 @@ enum macro_keycodes {
   KC_CMD_TAB,
   KC_CTL_TAB,
   KC_CMD_SLSH,
+  KC_AG_FIND,
+  KC_AG_AGAIN,
+  KC_AG_UNDO,
+  KC_AG_CUT,
+  KC_AG_COPY,
+  KC_AG_PASTE,
 };
 
 // Fillers to make layering more clear
@@ -57,6 +63,12 @@ enum macro_keycodes {
 #define CMD_TAB     M(KC_CMD_TAB)               // Macro for Cmd-Tab
 #define CTL_TAB     M(KC_CTL_TAB)               // Macro for Ctl-Tab
 #define CMD_SLSH    M(KC_CMD_SLSH)              // Macro for Cmd-Slash (personal shortcut to toggle iTerm2 visibility)
+#define AG_FIND     M(KC_AG_FIND)               // Macros for Cmd-[x] vs Ctrl-[x] based on current AG_NORM or AG_SWAP settings
+#define AG_AGAIN    M(KC_AG_AGAIN)
+#define AG_UNDO     M(KC_AG_UNDO)
+#define AG_CUT      M(KC_AG_CUT)
+#define AG_COPY     M(KC_AG_COPY)
+#define AG_PASTE    M(KC_AG_PASTE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -167,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_TOUCHCURSOR] = {
   {ALT_TAB, CMD_TAB, CTL_TAB, KC_LGUI, KC_LSFT, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
-  {_______, KC_LALT, KC_SPC,  _______, KC_FIND,KC_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
-  {_______, KC_UNDO, KC_CUT,  KC_COPY, KC_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, CMD_SLSH,_______},
+  {_______, KC_LALT, KC_SPC,  _______, AG_FIND,AG_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
+  {_______, AG_UNDO, AG_CUT,  AG_COPY, AG_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, CMD_SLSH,_______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -347,15 +359,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  */
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+    if (!eeconfig_is_enabled()) {
+      eeconfig_init();
+    }
+
+    bool use_cmd = true;    // Use, for example, Cmd-Tab, Cmd-C, Cmd-V, etc.
+    // Compare to MAGIC_SWAP_ALT_GUI and MAGIC_UNSWAP_ALT_GUI configs, set in:
+    // quantum/quantum.c
+    if(keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+      use_cmd = false;      // ... or, Alt-Tab, Ctrl-C, Ctrl-V, etc.
+    }
+
     switch (id) {
       case KC_ALT_TAB:
-        return (record->event.pressed ? MACRO( D(LALT),  D(TAB), END ) : MACRO( U(TAB), END ));
+        if(use_cmd) { return (record->event.pressed ? MACRO( D(LGUI),  D(TAB), END ) : MACRO( U(TAB), END )); }
+        else        { return (record->event.pressed ? MACRO( D(LALT),  D(TAB), END ) : MACRO( U(TAB), END )); }
       case KC_CMD_TAB:
-        return (record->event.pressed ? MACRO( D(LGUI),  D(TAB), END ) : MACRO( U(TAB), END ));
+        if(use_cmd) { return (record->event.pressed ? MACRO( D(LALT),  D(TAB), END ) : MACRO( U(TAB), END )); }
+        else        { return (record->event.pressed ? MACRO( D(LGUI),  D(TAB), END ) : MACRO( U(TAB), END )); }
+
       case KC_CTL_TAB:
         return (record->event.pressed ? MACRO( D(LCTRL), D(TAB), END ) : MACRO( U(TAB), END ));
       case KC_CMD_SLSH:
         return (record->event.pressed ? MACRO( D(LGUI),  D(SLSH),END ) : MACRO( U(SLSH),END ));
+
+      case KC_AG_FIND:
+        return use_cmd ? MACRODOWN( D(LGUI), T(F), END ) : MACRODOWN( D(LCTRL), T(F), END );
+      case KC_AG_AGAIN:
+        return use_cmd ? MACRODOWN( D(LGUI), T(G), END ) : MACRODOWN( D(LCTRL), T(G), END );
+      case KC_AG_UNDO:
+        return use_cmd ? MACRODOWN( D(LGUI), T(Z), END ) : MACRODOWN( D(LCTRL), T(Z), END );
+      case KC_AG_CUT:
+        return use_cmd ? MACRODOWN( D(LGUI), T(X), END ) : MACRODOWN( D(LCTRL), T(X), END );
+      case KC_AG_COPY:
+        return use_cmd ? MACRODOWN( D(LGUI), T(C), END ) : MACRODOWN( D(LCTRL), T(C), END );
+      case KC_AG_PASTE:
+        return use_cmd ? MACRODOWN( D(LGUI), T(V), END ) : MACRODOWN( D(LCTRL), T(V), END );
     }
 
     return MACRO_NONE;
