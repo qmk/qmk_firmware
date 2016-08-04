@@ -78,31 +78,37 @@ define TRY_TO_MATCH_RULE_FROM_LIST
     endif
 endef
 
+define ALL_IN_LIST_LOOP
+    OLD_RULE$1 := $$(RULE)
+    $$(eval $$(call $1,$$(ITEM$1)))
+    RULE := $$(OLD_RULE$1)
+endef
+
+define PARSE_ALL_IN_LIST
+    $$(foreach ITEM$1,$2,$$(eval $$(call ALL_IN_LIST_LOOP,$1)))
+endef
 
 define PARSE_ALL_KEYBOARDS
-    COMMANDS += allkb
-    #$$(info $$(RULE))
-    COMMAND_allkb := "All keyboards with $$(RULE)"
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(KEYBOARDS)))
+endef
+
+define PARSE_ALL_KEYMAPS
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
 # $1 = Keyboard
 define PARSE_KEYBOARD
     CURRENT_KB := $1
+    KEYMAPS := $(notdir $(patsubst %/.,%,$(wildcard $(ROOT_DIR)/keyboards/$1/keymaps/*/.)))
     $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkm))
     ifeq ($$(RULE_FOUND),true)
         $$(eval $$(call PARSE_ALL_KEYMAPS))
     else
-        KEYMAPS := $(notdir $(patsubst %/.,%,$(wildcard $(ROOT_DIR)/keyboards/$1/keymaps/*/.)))
         $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)))
         ifeq ($$(RULE_FOUND),true)
             $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
         endif
     endif
-endef
-
-define PARSE_ALL_KEYMAPS
-    COMMANDS += ALL_KEYMAPS
-    COMMAND_ALL_KEYMAPS := All keymaps in $(CURRENT_KB)
 endef
 
 # $1 Keymap
@@ -111,7 +117,6 @@ define PARSE_KEYMAP
     COMMANDS += KEYBOARD_$$(CURRENT_KB)_KEYMAP_$$(CURRENT_KM)
     COMMAND_KEYBOARD_$$(CURRENT_KB)_KEYMAP_$$(CURRENT_KM) := Keyboard $$(CURRENT_KB), Keymap $$(CURRENT_KM)
 endef
-
 
 define PARSE_RULE
     RULE := $1
