@@ -8,6 +8,7 @@
 #endif
 
 #include "eeconfig.h"
+#include "version.h"
 
 extern keymap_config_t keymap_config;
 
