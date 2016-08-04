@@ -87,7 +87,7 @@ etc.) depending on which layout you've currently selected (`AG_NORM` or
 `AG_SWAP`) in the `_ADJUST` layer.
 ``` 
   ,-----------------------------------------------------------------------------------.
-  |CmdTab|AltTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
+  |AltTab|CmdTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
   |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |      |      |
   |------+------+------+------+------+------|------+------+------+------+------+------|
