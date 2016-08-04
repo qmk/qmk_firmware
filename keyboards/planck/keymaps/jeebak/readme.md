@@ -77,15 +77,17 @@ are represented below. My personalizations include all of the keys shown for
 the left hand. Having the `Alt` and `Shift` keys (as well as the `Control` key
 from the base layers) readily accessible from the home row allows quick word
 jumps and highlighting when used in conjunction with the arrow keys. The
-`AltTab` macro is not only useful under Windows, but also under Mac when used
+`Alt-Tab` macro is not only useful under Windows, but also under Mac when used
 with alternative switchers like [HyperSwitch](https://bahoom.com/hyperswitch).
-The `CmdTab` and `CtlTab` sequences are duplicated for easy access while in
+The `Cmd-Tab` and `Ctrl-Tab` sequences are duplicated for easy access while in
 this layer. The `KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND,` and `KC_AGAIN`
-keycodes have been mapped but they don't seem to work on Mac. Presumably
-they'll work under Windows.
+keycodes do not seem to work. There are macros in place that'll "automatically"
+choose the correct version (`Cmd-Tab` vs. `Alt-Tab`, `Cmd-C` vs. `Ctrl-C`,
+etc.) depending on which layout you've currently selected (`AG_NORM` or
+`AG_SWAP`) in the `_ADJUST` layer.
 ``` 
   ,-----------------------------------------------------------------------------------.
-  |AltTab|CmdTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
+  |CmdTab|AltTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
   |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |      |      |
   |------+------+------+------+------+------|------+------+------+------+------+------|
