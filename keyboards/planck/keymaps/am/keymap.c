@@ -37,24 +37,28 @@ enum planck_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+// Taps
+#define CTL_ESC CTL_T(KC_ESC) // Tap for Esc, hold for Ctr
+#define SFT_ENT SFT_T(KC_ENT) // Tap for Enter, hold for Shift
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Ctrl |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   ~  | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
+ * ,----------------------------------------------------------------------------------------.
+ * | Tab      |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp  |
+ * |----------+------+------+------+------+-------------+------+------+------+------+-------|
+ * | Ctrl/Esc |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "   |
+ * |----------+------+------+------+------+------|------+------+------+------+------+-------|
+ * | Shift    |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Sft/Ent|
+ * |----------+------+------+------+------+------+------+------+------+------+------+-------|
+ * | Power    |   ~  | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  | Right |
+ * `----------------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_ESC,  KC_TILD, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
+  {KC_PWR,  KC_TILD, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak
@@ -65,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   ~  | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Esc  |   ~  | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
@@ -83,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   ~  | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Esc  |   ~  | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = {
