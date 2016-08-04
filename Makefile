@@ -65,6 +65,20 @@ define COMPARE_AND_REMOVE_FROM_RULE
     endif
 endef
 
+# Recursively try to find a match
+# $1 The list to be checked
+# If a match is found, then RULE_FOUND is set to true
+# and MATCHED_ITEM to the item that was matched
+define TRY_TO_MATCH_RULE_FROM_LIST
+    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)))
+    ifeq ($$(RULE_FOUND),true)
+        MATCHED_ITEM := $$(firstword $1)
+    else ifneq ($1,)
+        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(wordlist 2,9999,$1)))
+    endif
+endef
+
+
 define PARSE_ALL_KEYBOARDS
     COMMANDS += allkb
     #$$(info $$(RULE))
@@ -73,51 +87,31 @@ endef
 
 # $1 = Keyboard
 define PARSE_KEYBOARD
+    CURRENT_KB := $1
     $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkm))
     ifeq ($$(RULE_FOUND),true)
-        $$(eval $$(call PARSE_ALL_KEYMAPS, $1))
+        $$(eval $$(call PARSE_ALL_KEYMAPS))
     else
         KEYMAPS := $(notdir $(patsubst %/.,%,$(wildcard $(ROOT_DIR)/keyboards/$1/keymaps/*/.)))
-        $$(eval $$(call TRY_PARSE_KEYMAP,$$(KEYMAPS),$1))
+        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)))
+        ifeq ($$(RULE_FOUND),true)
+            $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+        endif
     endif
 endef
 
 define PARSE_ALL_KEYMAPS
     COMMANDS += ALL_KEYMAPS
-    COMMAND_ALL_KEYMAPS := All keymaps in $1
+    COMMAND_ALL_KEYMAPS := All keymaps in $(CURRENT_KB)
 endef
 
-# $1 Keyboard
-# $2 Keymap
+# $1 Keymap
 define PARSE_KEYMAP
-    COMMANDS += KEYBOARD_$1_KEYMAP_$2
-    COMMAND_KEYBOARD_$1_KEYMAP_$2 := Keyboard $1, Keymap $2
+    CURRENT_KM = $1
+    COMMANDS += KEYBOARD_$$(CURRENT_KB)_KEYMAP_$$(CURRENT_KM)
+    COMMAND_KEYBOARD_$$(CURRENT_KB)_KEYMAP_$$(CURRENT_KM) := Keyboard $$(CURRENT_KB), Keymap $$(CURRENT_KM)
 endef
 
-# Recursively try to find a matching keyboard
-# During the first call $1 contains a list of all keyboards
-# One keyboard is checked and removed at a time
-define TRY_PARSE_KEYBOARD
-    CURRENT_KB := $$(firstword $1)
-    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,$$(CURRENT_KB)))
-    ifeq ($$(RULE_FOUND),true)
-        $$(eval $$(call PARSE_KEYBOARD,$$(CURRENT_KB)))
-    else ifneq ($1,)
-        $$(eval $$(call TRY_PARSE_KEYBOARD,$$(wordlist 2,9999,$1)))
-    endif
-endef
-
-# $1 list of keymaps
-# $2 keyboard
-define TRY_PARSE_KEYMAP
-    CURRENT_KM := $$(firstword $1)
-    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,$$(CURRENT_KM)))
-    ifeq ($$(RULE_FOUND),true)
-        $$(eval $$(call PARSE_KEYMAP,$2,$$(CURRENT_KM)))
-    else ifneq ($1,)
-        $$(eval $$(call TRY_PARSE_KEYMAP,$$(wordlist 2,9999,$1),$2))
-    endif
-endef
 
 define PARSE_RULE
     RULE := $1
@@ -126,7 +120,10 @@ define PARSE_RULE
     ifeq ($$(RULE_FOUND),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else
-        $$(eval $$(call TRY_PARSE_KEYBOARD,$(KEYBOARDS)))
+        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)))
+        ifeq ($$(RULE_FOUND),true)
+            $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
+        endif
     endif
 endef
 
