@@ -71,12 +71,28 @@ define PARSE_ALL_KEYBOARDS
     COMMAND_allkb := "All keyboards with $$(RULE)"
 endef
 
+# $1 = Keyboard
 define PARSE_KEYBOARD
-    COMMANDS += $1
-    #$$(info $$(RULE))
-    COMMAND_$1 := "Keyboard $1 with $$(RULE)"
+    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkm))
+    ifeq ($$(RULE_FOUND),true)
+        $$(eval $$(call PARSE_ALL_KEYMAPS, $1))
+    else
+        KEYMAPS := $(notdir $(patsubst %/.,%,$(wildcard $(ROOT_DIR)/keyboards/$1/keymaps/*/.)))
+        $$(eval $$(call TRY_PARSE_KEYMAP,$$(KEYMAPS),$1))
+    endif
 endef
 
+define PARSE_ALL_KEYMAPS
+    COMMANDS += ALL_KEYMAPS
+    COMMAND_ALL_KEYMAPS := All keymaps in $1
+endef
+
+# $1 Keyboard
+# $2 Keymap
+define PARSE_KEYMAP
+    COMMANDS += KEYBOARD_$1_KEYMAP_$2
+    COMMAND_KEYBOARD_$1_KEYMAP_$2 := Keyboard $1, Keymap $2
+endef
 
 # Recursively try to find a matching keyboard
 # During the first call $1 contains a list of all keyboards
@@ -88,6 +104,18 @@ define TRY_PARSE_KEYBOARD
         $$(eval $$(call PARSE_KEYBOARD,$$(CURRENT_KB)))
     else ifneq ($1,)
         $$(eval $$(call TRY_PARSE_KEYBOARD,$$(wordlist 2,9999,$1)))
+    endif
+endef
+
+# $1 list of keymaps
+# $2 keyboard
+define TRY_PARSE_KEYMAP
+    CURRENT_KM := $$(firstword $1)
+    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,$$(CURRENT_KM)))
+    ifeq ($$(RULE_FOUND),true)
+        $$(eval $$(call PARSE_KEYMAP,$2,$$(CURRENT_KM)))
+    else ifneq ($1,)
+        $$(eval $$(call TRY_PARSE_KEYMAP,$$(wordlist 2,9999,$1),$2))
     endif
 endef
 
