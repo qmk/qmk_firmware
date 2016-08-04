@@ -20,7 +20,7 @@ See [/doc/keymap.md](/doc/keymap.md).
 
 ## Flashing the firmware
 
-The "easy" way to flash the firmware is using a tool from your host OS like the Teensy programming app. [ErgoDox EZ](/keyboards/ergodox_ez/readme.md) gives a great example.
+The "easy" way to flash the firmware is using a tool from your host OS like the Teensy programming app. [ErgoDox EZ](/keyboards/ergodox/readme.md) gives a great example.
 
 If you want to program via the command line you can uncomment the ['modifyvm'] lines in the Vagrantfile to enable the USB passthrough into Linux and then program using the command line tools like dfu-util/dfu-programmer or you can install the Teensy CLI version.
 	
