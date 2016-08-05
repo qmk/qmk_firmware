@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |Grv|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
      * |-----------------------------------------------------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   \ | Tab is Fn1 !!
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|   \ | Tab is Fn1
      * |-----------------------------------------------------------|
      * |Ctrl   | A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '| Return |
      * |-----------------------------------------------------------|
@@ -107,15 +107,15 @@ enum function_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_FUNCTION(LAUNCH),
-    [2] = ACTION_FUNCTION(RGBLED_TOGGLE),
-    [3] = ACTION_FUNCTION(RGBLED_STEP_MODE),
-    [4] = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
-    [5] = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
-    [6] = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
-    [7] = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
-    [8] = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
-    [9] = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
+    [1]  = ACTION_FUNCTION(LAUNCH),
+    [2]  = ACTION_FUNCTION(RGBLED_TOGGLE),
+    [3]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
+    [4]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
+    [5]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
+    [6]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
+    [7]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
+    [8]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
+    [9]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
     [10] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ENT),
 };
 
