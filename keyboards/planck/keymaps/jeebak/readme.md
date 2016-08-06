@@ -107,9 +107,9 @@ buttons need to be held for dragging things or highlighting text, thus allowing
 the right hand to be free to use the up/down/left/right actions.
 ``` 
   ,-----------------------------------------------------------------------------------.
-  |      |      |ACCL0 |      |ACCL1 |      |      |WHL_L |  Up  |WHL_R | BTN2 |      |
+  |      |      |ACCL0 |      |      |      |      |WHL_L |  Up  |WHL_R | BTN2 |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
-  |      |ACCL2 | BTN2 |      | BTN1 |      |WHL_Up| Left | Down |Right | BTN4 | BTN5 |
+  |      |ACCL2 | BTN2 |      | BTN1 |ACCL1 |WHL_Up| Left | Down |Right | BTN4 | BTN5 |
   |------+------+------+------+------+------|------+------+------+------+------+------|
   |      |      |      |      | BTN3 |      |WHL_Dn| BTN1 |      |      | BTN3 |      |
   |------+------+------+------+------+------+------+------+------+------+------+------|
