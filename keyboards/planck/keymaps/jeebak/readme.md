@@ -84,12 +84,13 @@ this layer. The `KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND,` and `KC_AGAIN`
 keycodes do not seem to work. There are macros in place that'll "automatically"
 choose the correct version (`Cmd-Tab` vs. `Alt-Tab`, `Cmd-C` vs. `Ctrl-C`,
 etc.) depending on which layout you've currently selected (`AG_NORM` or
-`AG_SWAP`) in the `_ADJUST` layer.
+`AG_SWAP`) in the `_ADJUST` layer. The `Desk_L` and `Desk_R` macros are what I
+use to switch between Virtual Desktops Left/Right.
 ``` 
   ,-----------------------------------------------------------------------------------.
   |AltTab|CmdTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
-  |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |      |      |
+  |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |Desk_L|Desk_R|
   |------+------+------+------+------+------|------+------+------+------+------+------|
   |      | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |      |      |      |      |
   |------+------+------+------+------+------+------+------+------+------+------+------|
