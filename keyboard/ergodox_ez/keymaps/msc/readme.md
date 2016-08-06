@@ -2,7 +2,7 @@
 
 ### Based mostly on the ErgoDox EZ default layout with optimizations for coding on osx.
 
-#### Expecting the user to rely on Coder Layer this keymap removes some of the duplicate symbol keys in the lower portions of the board and replaces them with arrow keys and modifiers. The Media Layer is also updated to match the change in the arrow keys and the left and right click buttons are moved under the thumb position. The Media layer is now reached with toggle button in the lower right.
+#### Focused on moving heavily used keys for coding JavaScript or any bracketed languages into prime locations. The 'esc' key's lcoation is place under the right thumb for VIM users. This allows a quick toggle back to NORMAL mode.
 
 ### Main Layer
 
@@ -16,6 +16,10 @@
 ![Media Layer](img/media_layer.png)
 
 ## Changelog
+
+Version 1.2
+- Many optimizations for coding Javascript and Apex languages
+- Changes reflected in the new Main Layer image.
 
 Version 1.1
 
@@ -35,7 +39,6 @@ Version 1.0
 - Changed bottom left to Cmd
 - Changed single quote on left bottom row to alt
 
-#### Coming Soon:
-- A new layer for Blender editing with a focus on left hand shortcut and a righthand num pad to control the view in Blender.
+
 
 # TODO update images
