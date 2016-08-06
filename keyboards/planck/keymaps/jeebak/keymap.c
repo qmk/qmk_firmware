@@ -49,6 +49,9 @@ enum macro_keycodes {
   KC_AG_PASTE,
   KC_AG_DESK_L,
   KC_AG_DESK_R,
+  KC_AG_TAB_C,
+  KC_AG_TAB_N,
+  KC_AG_TAB_R,
 };
 
 // Fillers to make layering more clear
@@ -73,6 +76,9 @@ enum macro_keycodes {
 #define AG_PASTE    M(KC_AG_PASTE)
 #define AG_D_L      M(KC_AG_DESK_L)             // For Virtual Desktop Switching: Left, and
 #define AG_D_R      M(KC_AG_DESK_R)             //                                Right
+#define AG_T_C      M(KC_AG_TAB_C)              // For Chrome, etc. Tab Close,
+#define AG_T_N      M(KC_AG_TAB_N)              //                  Tab New, and
+#define AG_T_R      M(KC_AG_TAB_R)              //                  Tab Reopen Closed
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -170,9 +176,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |AltTab|CmdTab|CtlTab| GUI  |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |Desk_L|Desk_R|
+ * |      | Alt  |Space |Tab_C | Find |Again | PgUp | Left | Down |Right |Desk_L|Desk_R|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |      |      |      |      |
+ * |      | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |Tab_N |Tab_R |iTerm2|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -183,8 +189,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_TOUCHCURSOR] = {
   {ALT_TAB, CMD_TAB, CTL_TAB, KC_LGUI, KC_LSFT, KC_TILD, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_BSPC, _______},
-  {_______, KC_LALT, KC_SPC,  _______, AG_FIND,AG_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, AG_D_L,  AG_D_R },
-  {_______, AG_UNDO, AG_CUT,  AG_COPY, AG_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  _______, _______, CMD_SLSH,_______},
+  {_______, KC_LALT, KC_SPC,  AG_T_C, AG_FIND,AG_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT, AG_D_L,  AG_D_R },
+  {_______, AG_UNDO, AG_CUT,  AG_COPY, AG_PASTE,KC_GRV,  KC_PGDN, KC_DEL,  AG_T_N,  AG_T_R,  CMD_SLSH,_______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -404,6 +410,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return use_cmd ? MACRODOWN( D(LGUI), D(LCTRL), T(SCLN), END ) : MACRODOWN( D(LALT), D(LCTRL), T(SCLN), END );
       case KC_AG_DESK_R:
         return use_cmd ? MACRODOWN( D(LGUI), D(LCTRL), T(QUOT), END ) : MACRODOWN( D(LALT), D(LCTRL), T(QUOT), END );
+
+      case KC_AG_TAB_C:
+        return use_cmd ? MACRODOWN( D(LGUI),            T(W), END ) : MACRODOWN( D(LCTRL),            T(W), END );
+      case KC_AG_TAB_N:
+        return use_cmd ? MACRODOWN( D(LGUI),            T(T), END ) : MACRODOWN( D(LCTRL),            T(T), END );
+      case KC_AG_TAB_R:
+        return use_cmd ? MACRODOWN( D(LGUI), D(LSHIFT), T(T), END ) : MACRODOWN( D(LCTRL), D(LSHIFT), T(T), END );
     }
 
     return MACRO_NONE;
