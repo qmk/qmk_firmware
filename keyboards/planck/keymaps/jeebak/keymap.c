@@ -21,7 +21,7 @@ extern keymap_config_t keymap_config;
 #define _RAISE 4
 #define _PLOVER 5
 #define _TOUCHCURSOR 6
-#define _MOUSE 7
+#define _MOUSECURSOR 7
 #define _ADJUST 16
 
 // Keycodes
@@ -57,8 +57,8 @@ enum macro_keycodes {
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
-#define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor.
-#define LT_ML       LT(_MOUSE, KC_A)            // L-ayer T-ap M-ouse C-ursor (on A)
+#define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor
+#define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define ALT_TAB     M(KC_ALT_TAB)               // Macro for Alt-Tab
 #define CMD_TAB     M(KC_CMD_TAB)               // Macro for Cmd-Tab
 #define CTL_TAB     M(KC_CTL_TAB)               // Macro for Ctl-Tab
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------.
  * | Tab      |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
- * | Ctrl/Esc | ML/A |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "    |
+ * | Ctrl/Esc |   A  |   S  | MC/D |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Sft/Ent |
  * |----------+------+------+------+------+------+------+------+------+------+------+--------|
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {CTL_ESC, LT_ML,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {CTL_ESC, KC_A,    KC_S, LT_MC(KC_D),KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
   {KC_PSCR, KC_RGUI, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------.
  * | Tab      |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
- * | Ctrl/Esc | ML/A |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   "    |
+ * | Ctrl/Esc |   A  |   R  | MC/S |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   "    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
  * | Shift    |   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Sft/Ent |
  * |----------+------+------+------+------+------+------+------+------+------+------+--------|
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-  {CTL_ESC, LT_ML,   KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {CTL_ESC, KC_A,    KC_R, LT_MC(KC_S),KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
   {KC_PSCR, KC_RGUI, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------------.
  * | Tab      |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
- * | Ctrl/Esc | ML/A |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |   /    |
+ * | Ctrl/Esc |   A  |   O  | MC/E |   U  |   I  |   D  |   H  |   T  |   N  |   S  |   /    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
  * | Shift    |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Sft/Ent |
  * |----------+------+------+------+------+------+------+------+------+------+------+--------|
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DVORAK] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
-  {CTL_ESC, LT_ML,   KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
+  {CTL_ESC, KC_A,    KC_O, LT_MC(KC_E),KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
   {KC_PSCR, KC_RGUI, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
@@ -186,20 +186,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Mouse Layer
  * ,-----------------------------------------------------------------------------------.
- * |      |      |ACCL0 |ACCL1 |ACCL2 |ACCL2 |      |WHL_L |  Up  |WHL_R | BTN2 |      |
+ * |      |      |ACCL0 |      |ACCL1 |      |      |WHL_L |  Up  |WHL_R | BTN2 |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      | BTN3 | BTN1 | BTN4 |WHL_Up| Left | Down |Right |      |      |
+ * |      |ACCL2 | BTN2 |      | BTN1 |      |WHL_Up| Left | Down |Right | BTN4 | BTN5 |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      | BTN2 | BTN5 |WHL_Dn| BTN1 |      |      |      |      |
+ * |      |      |      |      | BTN3 |      |WHL_Dn| BTN1 |      |      | BTN3 |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
-[_MOUSE] = {
-  {_______, _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_ACL2, _______, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, _______},
-  {_______, _______, _______, KC_BTN3, KC_BTN1, KC_BTN4, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______},
-  {_______, _______, _______, _______, KC_BTN2, KC_BTN5, KC_WH_D, KC_BTN1, _______, _______, _______, _______},
+[_MOUSECURSOR] = {
+  {_______, _______, KC_ACL0, _______, KC_ACL1, _______, _______, KC_WH_L, KC_MS_U, KC_WH_R, KC_BTN2, _______},
+  {_______, KC_ACL2, KC_BTN2, _______, KC_BTN1, _______, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN4, KC_BTN5},
+  {_______, _______, _______, _______, KC_BTN3, _______, KC_WH_D, KC_BTN1, _______, _______, KC_BTN3, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 

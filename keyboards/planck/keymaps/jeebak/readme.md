@@ -99,19 +99,19 @@ etc.) depending on which layout you've currently selected (`AG_NORM` or
 
 ## Mouse Layer
 The Mouse layer, closely mimics the layout/behaviour of the TouchCursor layer.
-The `A` key is used to activate this layer. All 16 keycodes for the mouse from
-the `doc/keycode.txt` file are represented, and logically located, IMHO. The
-left and right click buttons are duplicated; on the right hand side, for a
-quick click here and there, and again on the left hand side for when the
+The `D` key (on QWERTY) is used to activate this layer. All 16 keycodes for the
+mouse from the `doc/keycode.txt` file are represented, and logically located,
+IMHO. The left and right click buttons are duplicated; on the right hand side,
+for a quick click here and there, and again on the left hand side for when the
 buttons need to be held for dragging things or highlighting text, thus allowing
 the right hand to be free to use the up/down/left/right actions.
 ``` 
   ,-----------------------------------------------------------------------------------.
-  |      |      |ACCL0 |ACCL1 |ACCL2 |ACCL2 |      |WHL_L |  Up  |WHL_R | BTN2 |      |
+  |      |      |ACCL0 |      |ACCL1 |      |      |WHL_L |  Up  |WHL_R | BTN2 |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
-  |      |      |      | BTN3 | BTN1 | BTN4 |WHL_Up| Left | Down |Right |      |      |
+  |      |ACCL2 | BTN2 |      | BTN1 |      |WHL_Up| Left | Down |Right | BTN4 | BTN5 |
   |------+------+------+------+------+------|------+------+------+------+------+------|
-  |      |      |      |      | BTN2 | BTN5 |WHL_Dn| BTN1 |      |      |      |      |
+  |      |      |      |      | BTN3 |      |WHL_Dn| BTN1 |      |      | BTN3 |      |
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |      |      |      |      |      |             |      |      |      |      |      |
   `-----------------------------------------------------------------------------------'
