@@ -85,14 +85,16 @@ keycodes do not seem to work. There are macros in place that'll "automatically"
 choose the correct version (`Cmd-Tab` vs. `Alt-Tab`, `Cmd-C` vs. `Ctrl-C`,
 etc.) depending on which layout you've currently selected (`AG_NORM` or
 `AG_SWAP`) in the `_ADJUST` layer. The `Desk_L` and `Desk_R` macros are what I
-use to switch between Virtual Desktops Left/Right.
+use to switch between Virtual Desktops Left/Right. The `Tab_C`, `Tab_N` and
+`Tab_R` are for "Close Tab," "New Tab" and "Reopen Closed Tab" for apps such as
+Google Chrome.
 ``` 
   ,-----------------------------------------------------------------------------------.
   |AltTab|CmdTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
-  |      | Alt  |Space |      | Find |Again | PgUp | Left | Down |Right |Desk_L|Desk_R|
+  |      | Alt  |Space |Tab_C | Find |Again | PgUp | Left | Down |Right |Desk_L|Desk_R|
   |------+------+------+------+------+------|------+------+------+------+------+------|
-  |      | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |      |      |      |      |
+  |      | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |Tab_N |Tab_R |iTerm2|      |
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |      |      |      |      |      |             |      |      |      |      |      |
   `-----------------------------------------------------------------------------------'
