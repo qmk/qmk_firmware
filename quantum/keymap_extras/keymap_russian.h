@@ -3,8 +3,6 @@
 
 #include "keymap.h"
 
-// rename ruble and numero in keymap_cyrillic.c
-
 // Normal Chracters      // reg   SHIFT
 #define RU_A     KC_F    // а and А
 #define RU_BE    KC_COMM // б and Б
