@@ -61,6 +61,7 @@ enum macro_keycodes {
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
+#define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
@@ -84,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------------.
- * | Tab      |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
+ * | Hyper/Tab|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
  * | Ctrl/Esc |   A  |   S  | MC/D |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   "    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+  {HPR_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {CTL_ESC, KC_A,    KC_S, LT_MC(KC_D),KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
   {KC_PSCR, KC_RGUI, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------------.
- * | Tab      |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  Bksp  |
+ * | Hyper/Tab|   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
  * | Ctrl/Esc |   A  |   R  | MC/S |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   "    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
@@ -112,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
+  {HPR_TAB, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {CTL_ESC, KC_A,    KC_R, LT_MC(KC_S),KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
   {KC_PSCR, KC_RGUI, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
@@ -120,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------------.
- * | Tab      |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  Bksp  |
+ * | Hyper/Tab|   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  Bksp  |
  * |----------+------+------+------+------+-------------+------+------+------+------+--------|
  * | Ctrl/Esc |   A  |   O  | MC/E |   U  |   I  |   D  |   H  |   T  |   N  |   S  |   /    |
  * |----------+------+------+------+------+------|------+------+------+------+------+--------|
@@ -130,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------'
  */
 [_DVORAK] = {
-  {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
+  {HPR_TAB, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {CTL_ESC, KC_A,    KC_O, LT_MC(KC_E),KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
   {KC_PSCR, KC_RGUI, KC_LALT, KC_LGUI, LOWER,   LT_TC,   LT_TC,   RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
