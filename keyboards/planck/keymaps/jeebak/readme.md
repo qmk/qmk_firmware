@@ -16,32 +16,36 @@ I also decided to change all calls to `persistant_default_layer_set()` to
 
 ## Base Layers (Qwerty/Colemak/Dvorak)
 These base layers are mostly the same as the default mappings. The interesting
-changes are shown below. The `Ctrl/Esc`, mapped using `CTL_T(KC_ESC)` will emit
-an `Escape` when tapped, and act as a `Control` key when held. A `TODO` item is
-to see if it can also act as a `CapsLock` when double-tapped. The right shift
-key acts as `Enter` when tapped, and as a `Shift` key when held. The arrow
-keys, which have been moved to the
+changes are shown below.
+
+- The `Ctrl/Esc`, will emit an `Escape` when tapped, and act as a `Control` key when held.
+- The `Sft/Ent` as `Enter` and `Shift`, and
+- The `Hyper/Tab` as `Tab` and `Hyper`
+
+A `TODO` item is to see if it can also act as a `CapsLock` when double-tapped.
+The arrow keys, which have been moved to the
 [TouchCursor](http://martin-stone.github.io/touchcursor/) layer, have been
-replaced with the Media keys as shown. The `ML/A` key activates the Mouse layer
-when held, and emits an `A` when tapped.
+replaced with the Media keys as shown. The `MC/kc` key activates the
+`MouseCursor` layer when held, and emits the corresponding `kc` for its layer,
+when tapped.
 ```
   ,-----------------------------------------------------------------------------------------.
-  |          |      |      |      |      |      |      |      |      |      |      |        |
+  | Hyper/Tab|      |      |      |      |      |      |      |      |      |      |        |
   |----------+------+------+------+------+-------------+------+------+------+------+--------|
-  | Ctrl/Esc | ML/A |      |      |      |      |      |      |      |      |      |        |
+  | Ctrl/Esc |      |      |MC/kc |      |      |      |      |      |      |      |        |
   |----------+------+------+------+------+------|------+------+------+------+------+--------|
   |          |      |      |      |      |      |      |      |      |      |      |Sft/Ent |
   |----------+------+------+------+------+------+------+------+------+------+------+--------|
   | PrntScrn | RGUI | Alt  | GUI  |Lower |  TC/Space   |Raise | Next | Vol- | Vol+ |  Play  |
   `-----------------------------------------------------------------------------------------'
-``` 
-  
+```
+
 ## Lower Layer (Symbols and Function Keys)
 The symbols and functions keys are essentially the same as the default mapping.
 The most notable changes are that the symbol keys from the `RAISE` layer have
 been moved here. The remaining Media keys replace those that are now on the
 base layers. The `BACKLIT` key has also been moved here.
-``` 
+```
   ,-----------------------------------------------------------------------------------.
   |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
   |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -51,13 +55,13 @@ base layers. The `BACKLIT` key has also been moved here.
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |Brite |      |      |      |      |             |      | Prev | Stop | Slct | Mute |
   `-----------------------------------------------------------------------------------'
-``` 
-  
+```
+
 ## Raise Layer (Numbers and Arithmetic Operators)
 All of the numbers and arithmetic operators are available on this layer. Some
 keys are duplicated for the convenience of their positions. The `0` and `$`
 keys at the far left are for quick access to beginning and end of line in vim.
-``` 
+```
   ,-----------------------------------------------------------------------------------.
   |   0  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
   |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -67,8 +71,8 @@ keys at the far left are for quick access to beginning and end of line in vim.
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |Brite |      |      |      |      |             |      | Prev | Stop | Slct | Mute |
   `-----------------------------------------------------------------------------------'
-``` 
-  
+```
+
 ## TouchCursor layer plus personal customizations
 [TouchCursor](http://martin-stone.github.io/touchcursor/) uses the `Space` key
 as the modifier, with the `IJKL` home row keys representing the inverted-T of
@@ -88,7 +92,7 @@ etc.) depending on which layout you've currently selected (`AG_NORM` or
 use to switch between Virtual Desktops Left/Right. The `Tab_C`, `Tab_N` and
 `Tab_R` are for "Close Tab," "New Tab" and "Reopen Closed Tab" for apps such as
 Google Chrome.
-``` 
+```
   ,-----------------------------------------------------------------------------------.
   |AltTab|CmdTab|CtlTab|  GUI |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -98,7 +102,7 @@ Google Chrome.
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |      |      |      |      |      |             |      |      |      |      |      |
   `-----------------------------------------------------------------------------------'
-``` 
+```
 
 ## Mouse Layer
 The Mouse layer, closely mimics the layout/behaviour of the TouchCursor layer.
@@ -108,7 +112,7 @@ IMHO. The left and right click buttons are duplicated; on the right hand side,
 for a quick click here and there, and again on the left hand side for when the
 buttons need to be held for dragging things or highlighting text, thus allowing
 the right hand to be free to use the up/down/left/right actions.
-``` 
+```
   ,-----------------------------------------------------------------------------------.
   |      |      |ACCL0 |      |      |      |      |WHL_L |  Up  |WHL_R | BTN2 |      |
   |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -118,4 +122,4 @@ the right hand to be free to use the up/down/left/right actions.
   |------+------+------+------+------+------+------+------+------+------+------+------|
   |      |      |      |      |      |             |      |      |      |      |      |
   `-----------------------------------------------------------------------------------'
-``` 
+```
