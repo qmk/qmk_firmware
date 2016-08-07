@@ -12,7 +12,7 @@ STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
 
 PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
 
-QUANTUM_DIR:=$(ROOT_DIR)/quantum
+MAKEFILE_INCLUDED=yes
 
 define NEXT_PATH_ELEMENT
     $$(eval CURRENT_PATH_ELEMENT := $$(firstword  $$(PATH_ELEMENTS)))
