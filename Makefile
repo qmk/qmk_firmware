@@ -38,7 +38,6 @@ ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
     endif
 endif
 
-$(info $(ROOT_DIR)/keyboards)
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
 KEYBOARDS := $(notdir $(patsubst %/Makefile,%,$(wildcard $(ROOT_DIR)/keyboards/*/Makefile)))
 
@@ -127,22 +126,11 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
-    $$(info $$(RULE))
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
-        $$(info $$(MATCHED_ITEM))
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     else ifneq ($$(KEYBOARD),)
-        # If there's no match in the beginning, then use the working directory instead
-        # First add the keymap to the commandline if we are in a keymap subdirectory
-        ifneq ($$(KEYMAP),)
-            RULE := $$(KEYMAP)-$$(RULE)
-        endif
-        # If we are in a subproject subdirectory add the subproject
-        ifneq ($$(SUBPROJECT),)
-            RULE := $$(SUBPROJECT)-$$(RULE)
-        endif
         $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
@@ -161,6 +149,8 @@ define PARSE_KEYBOARD
         $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(SUBPROJECTS)),true)
         $$(eval $$(call PARSE_SUBPROJECT,$$(MATCHED_ITEM)))
+    else ifneq ($$(SUBPROJECT),)
+        $$(eval $$(call PARSE_SUBPROJECT,$$(SUBPROJECT)))
     else 
         # If there's no matching subproject, we assume it's the default
         # This will allow you to leave the subproject part of the target out
@@ -194,10 +184,14 @@ define PARSE_SUBPROJECT
             SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
             KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
         endif
-        ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
+        ifeq ($$(RULE),)
+            $$(eval $$(call PARSE_ALL_KEYMAPS))
+        else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
             $$(eval $$(call PARSE_ALL_KEYMAPS))
         else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
             $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+        else ifneq ($$(KEYMAP),)
+            $$(eval $$(call PARSE_KEYMAP,$$(KEYMAP)))
         else
             ifeq ($$(CURRENT_SP),)
                 $$(info make: *** No rule to make target '$$(CURRENT_KB)-$$(RULE)'. Stop.)
@@ -232,11 +226,15 @@ endef
 
 RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
 
+# Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
+SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
+.PHONY: $(SUBPROJECTS)
+$(SUBPROJECTS): %: %-allkm 
+
 .PHONY: %
 %:
 	$(eval $(call PARSE_RULE,$@))
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
-
 
 .PHONY: all
 all: all-keyboards 
