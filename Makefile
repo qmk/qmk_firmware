@@ -94,30 +94,13 @@ define PARSE_ALL_IN_LIST
     $$(foreach ITEM$1,$2,$$(eval $$(call ALL_IN_LIST_LOOP,$1)))
 endef
 
-define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(KEYBOARDS)))
-endef
-
-define PARSE_ALL_KEYMAPS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
-endef
-
-define PARSE_ALL_SUBPROJECTS
-    ifeq ($$(SUBPROJECTS),)
-        $$(eval $$(call PARSE_SUBPROJECT,))
-    else
-        $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
-    endif
-endef
-
-# $1 Subproject
-define PARSE_SUBPROJECT
-    CURRENT_SP := $1
-    KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
-    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
-        $$(eval $$(call PARSE_ALL_KEYMAPS))
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
-        $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+define PARSE_RULE
+    RULE := $1
+    COMMANDS :=
+    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     endif
 endef
 
@@ -133,6 +116,29 @@ define PARSE_KEYBOARD
     endif
 endef
 
+define PARSE_ALL_KEYBOARDS
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(KEYBOARDS)))
+endef
+
+# $1 Subproject
+define PARSE_SUBPROJECT
+    CURRENT_SP := $1
+    KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
+    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
+        $$(eval $$(call PARSE_ALL_KEYMAPS))
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
+        $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+    endif
+endef
+
+define PARSE_ALL_SUBPROJECTS
+    ifeq ($$(SUBPROJECTS),)
+        $$(eval $$(call PARSE_SUBPROJECT,))
+    else
+        $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
+    endif
+endef
+
 # $1 Keymap
 define PARSE_KEYMAP
     CURRENT_KM = $1
@@ -140,14 +146,8 @@ define PARSE_KEYMAP
     COMMAND_KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM) := Keyboard $$(CURRENT_KB), Subproject $$(CURRENT_SP), Keymap $$(CURRENT_KM)
 endef
 
-define PARSE_RULE
-    RULE := $1
-    COMMANDS :=
-    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
-        $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
-        $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
-    endif
+define PARSE_ALL_KEYMAPS
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
 RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
