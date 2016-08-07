@@ -18,9 +18,11 @@ I also decided to change all calls to `persistant_default_layer_set()` to
 These base layers are mostly the same as the default mappings. The interesting
 changes are shown below.
 
-- The `Ctrl/Esc`, will emit an `Escape` when tapped, and act as a `Control` key when held.
-- The `Sft/Ent` as `Enter` and `Shift`, and
-- The `Hyper/Tab` as `Tab` and `Hyper`
+- The `Ctrl/Esc`, will emit an `Escape` when tapped, and act as a `Control` key when held,
+- `GUI/;` as `;` and `GUI`,
+- `Alt/"` as `"` and `Alt`,
+- `Sft/Ent` as `Enter` and `Shift`, and
+- `Hyper/Tab` as `Tab` and `Hyper`
 
 A `TODO` item is to see if it can also act as a `CapsLock` when double-tapped.
 The arrow keys, which have been moved to the
@@ -32,7 +34,7 @@ when tapped.
   ,-----------------------------------------------------------------------------------------.
   | Hyper/Tab|      |      |      |      |      |      |      |      |      |      |        |
   |----------+------+------+------+------+-------------+------+------+------+------+--------|
-  | Ctrl/Esc |      |      |MC/kc |      |      |      |      |      |      |      |        |
+  | Ctrl/Esc |      |      |MC/kc |      |      |      |      |      |      |GUI/; | Alt/"  |
   |----------+------+------+------+------+------|------+------+------+------+------+--------|
   |          |      |      |      |      |      |      |      |      |      |      |Sft/Ent |
   |----------+------+------+------+------+------+------+------+------+------+------+--------|
