@@ -61,6 +61,18 @@ $(info Keymap: $(KEYMAP))
 $(info Subproject: $(SUBPROJECT))
 $(info Keyboards: $(KEYBOARDS))
 
+ifneq ($(KEYMAP),)
+    ifeq ($(SUBPROJECT),)
+        .DEFAULT_GOAL := $(KEYBOARD)-$(KEYMAP)
+    else
+        .DEFAULT_GOAL := $(KEYBOARD)-$(SUBPROJECT)-$(KEYMAP)
+    endif
+else ifneq ($(SUBPROJECT),)
+    .DEFAULT_GOAL := $(KEYBOARD)-$(SUBPROJECT)-allkm
+else ifneq ($(KEYBOARD),)
+    .DEFAULT_GOAL := $(KEYBOARD)-allsp-allkm
+endif
+
 
 # Compare the start of the RULE_VARIABLE with the first argument($1)
 # If the rules equals $1 or starts with $1-, RULE_FOUND is set to true
@@ -114,9 +126,11 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
+    $$(info $$(RULE))
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        $$(info $$(MATCHED_ITEM))
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     else ifneq ($$(KEYBOARD),)
         # If there's no match in the beginning, then use the working directory instead
@@ -222,12 +236,13 @@ RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
 	$(eval $(call PARSE_RULE,$@))
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
 
+
+.PHONY: all
+all: 
+	echo "Compiling"
+
 .PHONY: all-keyboards
 all-keyboards: allkb
 
 .PHONY: all-keyboards-defaults
 all-keyboards-defaults: allkb-default-default
-
-.PHONY: all
-all: 
-	echo "Compiling"
