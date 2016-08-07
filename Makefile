@@ -1,6 +1,6 @@
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
-ROOT_DIR := $(dir, $(ROOT_MAKEFILE))
+ROOT_DIR := $(dir $(ROOT_MAKEFILE))
 ifeq ($(ROOT_DIR),)
     ROOT_DIR := .
 endif
@@ -104,6 +104,8 @@ define PARSE_RULE
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
+    else ifneq ($$(KEYBOARD),)
+        $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
 		exit 1
