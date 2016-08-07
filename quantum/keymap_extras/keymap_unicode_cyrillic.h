@@ -6,6 +6,8 @@
 /*
  * This is based off of
  * https://en.wikipedia.org/wiki/Cyrillic_script
+ *
+ * Unicode is iffy, a software implementation is preferred
  */
 
 // Capital                   Char russian/ukrainian/bulgarian
@@ -153,8 +155,8 @@
 #define CY_thsign UC(0x1c86) // ᲆ CYRILLIC SMALL LETTER TALL HARD SIGN
 #define CY_YERUBY UC(0xa650) // Ꙑ CYRILLIC CAPITAL LETTER YERU WITH BACK YER
 #define CY_yeruby UC(0xa651) // ꙑ CYRILLIC SMALL LETTER YERU WITH BACK YER
-#define CY_RUBLE  UC(0x20bd) // ₽
-#define CY_NUMERO UC(0x2116) // №
+#define CY_RUBL   UC(0x20bd) // ₽
+#define CY_NMRO   UC(0x2116) // №
 
 // The letters Zje and Sje are made for other letters and accent marks
 
