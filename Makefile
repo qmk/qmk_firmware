@@ -131,16 +131,32 @@ endef
 # $1 Subproject
 define PARSE_SUBPROJECT
     ifeq ($1,defaultsp)
+        SUBPROJECT_DEFAULT=
         $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/Makefile)
         CURRENT_SP := $$(SUBPROJECT_DEFAULT)
     else
         CURRENT_SP := $1
     endif
-    KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
-    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
-        $$(eval $$(call PARSE_ALL_KEYMAPS))
-    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
-        $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+    # If current subproject is empty (the default was not defined), and we have a list of subproject
+    # then make all
+    ifeq ($$(CURRENT_SP),)
+        ifneq ($$(SUBPROJECTS),)
+            CURRENT_SP := allsp
+         endif
+    endif
+    ifneq ($$(CURRENT_SP),allsp) 
+        KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
+        ifneq ($$(CURRENT_SP),)
+            SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
+            KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
+        endif
+        ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
+            $$(eval $$(call PARSE_ALL_KEYMAPS))
+        else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
+            $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+        endif
+    else
+        $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$(SUBPROJECTS)))
     endif
 endef
 
