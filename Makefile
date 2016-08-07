@@ -12,6 +12,8 @@ STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
 
 PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
 
+QUANTUM_DIR:=$(ROOT_DIR)/quantum
+
 define NEXT_PATH_ELEMENT
     $$(eval CURRENT_PATH_ELEMENT := $$(firstword  $$(PATH_ELEMENTS)))
     $$(eval PATH_ELEMENTS := $$(wordlist  2,9999,$$(PATH_ELEMENTS)))
@@ -111,8 +113,14 @@ define PARSE_KEYBOARD
     SUBPROJECTS := $$(notdir $$(patsubst %/Makefile,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/*/Makefile)))
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allsp),true)
         $$(eval $$(call PARSE_ALL_SUBPROJECTS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,defaultsp),true)
+        $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(SUBPROJECTS)),true)
         $$(eval $$(call PARSE_SUBPROJECT,$$(MATCHED_ITEM)))
+    else 
+        # If there's no matching subproject, we assume it's the default
+        # This will allow you to leave the subproject part of the target out
+        $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
     endif
 endef
 
@@ -122,7 +130,12 @@ endef
 
 # $1 Subproject
 define PARSE_SUBPROJECT
-    CURRENT_SP := $1
+    ifeq ($1,defaultsp)
+        $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/Makefile)
+        CURRENT_SP := $$(SUBPROJECT_DEFAULT)
+    else
+        CURRENT_SP := $1
+    endif
     KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
         $$(eval $$(call PARSE_ALL_KEYMAPS))
@@ -133,7 +146,7 @@ endef
 
 define PARSE_ALL_SUBPROJECTS
     ifeq ($$(SUBPROJECTS),)
-        $$(eval $$(call PARSE_SUBPROJECT,))
+        $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
     else
         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
     endif
