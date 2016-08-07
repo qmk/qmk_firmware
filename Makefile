@@ -39,7 +39,8 @@ ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
 endif
 
 $(info $(ROOT_DIR)/keyboards)
-KEYBOARDS := $(notdir $(patsubst %/.,%,$(wildcard $(ROOT_DIR)/keyboards/*/.)))
+# Only consider folders with makefiles, to prevent errors in case there are extra folders
+KEYBOARDS := $(notdir $(patsubst %/Makefile,%,$(wildcard $(ROOT_DIR)/keyboards/*/Makefile)))
 
 $(info Keyboard: $(KEYBOARD))
 $(info Keymap: $(KEYMAP))
@@ -154,6 +155,13 @@ define PARSE_SUBPROJECT
             $$(eval $$(call PARSE_ALL_KEYMAPS))
         else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
             $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
+        else
+            ifeq ($$(CURRENT_SP),)
+                $$(info make: *** No rule to make target '$$(CURRENT_KB)-$$(RULE)'. Stop.)
+            else
+                $$(info make: *** No rule to make target '$$(CURRENT_KB)-$$(CURRENT_SP)-$$(RULE)'. Stop.)
+            endif
+			exit 1
         endif
     else
         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$(SUBPROJECTS)))
