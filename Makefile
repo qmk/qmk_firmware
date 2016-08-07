@@ -61,6 +61,7 @@ $(info Keymap: $(KEYMAP))
 $(info Subproject: $(SUBPROJECT))
 $(info Keyboards: $(KEYBOARDS))
 
+.DEFAULT_GOAL := all
 ifneq ($(KEYMAP),)
     ifeq ($(SUBPROJECT),)
         .DEFAULT_GOAL := $(KEYBOARD)-$(KEYMAP)
@@ -238,11 +239,10 @@ RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
 
 
 .PHONY: all
-all: 
-	echo "Compiling"
+all: all-keyboards 
 
 .PHONY: all-keyboards
-all-keyboards: allkb
+all-keyboards: allkb-allsp-allkm
 
 .PHONY: all-keyboards-defaults
-all-keyboards-defaults: allkb-default-default
+all-keyboards-defaults: allkb-allsp-default
