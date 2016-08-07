@@ -105,6 +105,15 @@ define PARSE_RULE
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     else ifneq ($$(KEYBOARD),)
+        # If there's no match in the beginning, then use the working directory instead
+        # First add the keymap to the commandline if we are in a keymap subdirectory
+        ifneq ($$(KEYMAP),)
+            RULE := $$(KEYMAP)-$$(RULE)
+        endif
+        # If we are in a subproject subdirectory add the subproject
+        ifneq ($$(SUBPROJECT),)
+            RULE := $$(SUBPROJECT)-$$(RULE)
+        endif
         $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
