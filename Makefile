@@ -42,6 +42,20 @@ $(info $(ROOT_DIR)/keyboards)
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
 KEYBOARDS := $(notdir $(patsubst %/Makefile,%,$(wildcard $(ROOT_DIR)/keyboards/*/Makefile)))
 
+#Compability with the old make variables
+ifdef keyboard
+    KEYBOARD := $(keyboard)
+endif
+ifdef sub
+    SUBPROJECT := $(sub)
+endif
+ifdef subproject
+    SUBPROJECT := $(subproject)
+endif
+ifdef keymap
+    KEYMAP := $(keymap)
+endif
+
 $(info Keyboard: $(KEYBOARD))
 $(info Keymap: $(KEYMAP))
 $(info Subproject: $(SUBPROJECT))
