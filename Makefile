@@ -1,3 +1,7 @@
+ifndef VERBOSE
+.SILENT:
+endif
+
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
 ROOT_DIR := $(dir $(ROOT_MAKEFILE))
@@ -216,15 +220,37 @@ endef
 # $1 Keymap
 define PARSE_KEYMAP
     CURRENT_KM = $1
-    COMMANDS += KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM)
-    COMMAND_KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM) := Keyboard $$(CURRENT_KB), Subproject $$(CURRENT_SP), Keymap $$(CURRENT_KM)
+    COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM)
+    COMMANDS += $$(COMMAND)
+    ifeq ($$(CURRENT_SP),)
+        KB_SP := $(CURRENT_KB)
+    else
+        KB_SP := $(CURRENT_KB)/$$(CURRENT_SP)
+    endif
+    KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
+    COMMAND_$$(COMMAND) := \
+    printf "Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)" | \
+    $(AWK) '{ printf "%-118s", $$$$0;}'; \
+    LOG=$$$$(echo "$$(MAKE) -c $(ROOT_DIR) -f build_keyboard.mk VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true" 2>&1) ; \
+    if [ $$$$? -gt 0 ]; \
+        then $$(PRINT_ERROR_PLAIN); \
+    elif [ "$$$$LOG" != "" ] ; \
+        then $$(PRINT_WARNING_PLAIN); \
+    else \
+        $$(PRINT_OK); \
+    fi;
 endef
 
 define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
-RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
+include $(ROOT_DIR)/message.mk
+
+#RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
+RUN_COMMAND = \
+$(COMMAND_$(COMMAND))
+#LOG=$$(echo $(COMMAND) VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
 SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
@@ -244,3 +270,4 @@ all-keyboards: allkb-allsp-allkm
 
 .PHONY: all-keyboards-defaults
 all-keyboards-defaults: allkb-allsp-default
+
