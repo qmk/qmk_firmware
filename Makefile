@@ -50,8 +50,7 @@ $(info Keyboards: $(KEYBOARDS))
 #     and $1 is removed from the RULE variable
 # Otherwise the RULE_FOUND variable is set to false
 # The function is a bit tricky, since there's no built in $(startswith) function
-define COMPARE_AND_REMOVE_FROM_RULE
-    RULE_FOUND := false
+define COMPARE_AND_REMOVE_FROM_RULE_HELPER
     ifeq ($1,$$(RULE))
         RULE:=
         RULE_FOUND := true
@@ -66,20 +65,24 @@ define COMPARE_AND_REMOVE_FROM_RULE
     endif
 endef
 
+COMPARE_AND_REMOVE_FROM_RULE = $(eval $(call COMPARE_AND_REMOVE_FROM_RULE_HELPER,$1))$(RULE_FOUND)
+
+
 # Recursively try to find a match
 # $1 The list to be checked
 # If a match is found, then RULE_FOUND is set to true
 # and MATCHED_ITEM to the item that was matched
-define TRY_TO_MATCH_RULE_FROM_LIST
+define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
     ifneq ($1,)
-        $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)))
-        ifeq ($$(RULE_FOUND),true)
+        ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)),true)
             MATCHED_ITEM := $$(firstword $1)
         else 
-            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(wordlist 2,9999,$1)))
+            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER,$$(wordlist 2,9999,$1)))
         endif
     endif
 endef
+
+TRY_TO_MATCH_RULE_FROM_LIST = $(eval $(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER,$1))$(RULE_FOUND)
 
 define ALL_IN_LIST_LOOP
     OLD_RULE$1 := $$(RULE)
@@ -111,14 +114,10 @@ endef
 define PARSE_SUBPROJECT
     CURRENT_SP := $1
     KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
-    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkm))
-    ifeq ($$(RULE_FOUND),true)
+    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkm),true)
         $$(eval $$(call PARSE_ALL_KEYMAPS))
-    else
-        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)))
-        ifeq ($$(RULE_FOUND),true)
-            $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
-        endif
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
+        $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
     endif
 endef
 
@@ -127,14 +126,10 @@ define PARSE_KEYBOARD
     CURRENT_KB := $1
     # A subproject is any keyboard subfolder with a makefile
     SUBPROJECTS := $$(notdir $$(patsubst %/Makefile,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/*/Makefile)))
-    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allsp))
-    ifeq ($$(RULE_FOUND),true)
+    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allsp),true)
         $$(eval $$(call PARSE_ALL_SUBPROJECTS))
-    else
-        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(SUBPROJECTS)))
-        ifeq ($$(RULE_FOUND),true)
-            $$(eval $$(call PARSE_SUBPROJECT,$$(MATCHED_ITEM)))
-        endif
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(SUBPROJECTS)),true)
+        $$(eval $$(call PARSE_SUBPROJECT,$$(MATCHED_ITEM)))
     endif
 endef
 
@@ -148,14 +143,10 @@ endef
 define PARSE_RULE
     RULE := $1
     COMMANDS :=
-    $$(eval $$(call COMPARE_AND_REMOVE_FROM_RULE,allkb))
-    ifeq ($$(RULE_FOUND),true)
+    ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
-    else
-        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)))
-        ifeq ($$(RULE_FOUND),true)
-            $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
-        endif
+    else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     endif
 endef
 
