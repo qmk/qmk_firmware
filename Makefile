@@ -104,6 +104,9 @@ define PARSE_RULE
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
+    else
+        $$(info make: *** No rule to make target '$1'. Stop.)
+		exit 1
     endif
 endef
 
