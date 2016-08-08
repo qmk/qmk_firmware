@@ -4,6 +4,8 @@ endif
 
 .DEFAULT_GOAL := all
 
+include message.mk
+
 
 # Directory common source filess exist
 TOP_DIR = .
@@ -68,7 +70,7 @@ BUILD_DIR = $(TOP_DIR)/.build
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
+OBJDIR := $(BUILD_DIR)/obj_$(TARGET)
 
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
