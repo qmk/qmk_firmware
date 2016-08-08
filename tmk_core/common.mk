@@ -106,9 +106,6 @@ $(error MASTER does not have a valid value(left/right))
 endif
 
 
-# Version string
-OPT_DEFS += -DVERSION=$(GIT_VERSION)
-
 # Bootloader address
 ifdef STM32_BOOTLOADER_ADDRESS
     OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
