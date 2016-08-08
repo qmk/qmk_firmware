@@ -34,43 +34,8 @@ FORMAT = ihex
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
 
-COLOR ?= true
-
-ifeq ($(COLOR),true)
-	NO_COLOR=\033[0m
-	OK_COLOR=\033[32;01m
-	ERROR_COLOR=\033[31;01m
-	WARN_COLOR=\033[33;01m
-	BLUE=\033[0;34m
-	BOLD=\033[1m
-endif
-
 AUTOGEN ?= false
 
-ifneq ($(shell awk --version 2>/dev/null),)
-	AWK=awk
-else
-	AWK=cat && test
-endif
-
-OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)\n
-ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)\n
-WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)\n
-
-ifndef $(SILENT)
-	SILENT = false
-endif
-
-TAB_LOG = printf "\n$$LOG\n\n" | $(AWK) '{ sub(/^/," | "); print }'
-TAB_LOG_PLAIN = printf "$$LOG\n"
-AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'
-AWK_CMD = $(AWK) '{ printf "%-99s", $$0; }'
-PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && exit 1
-PRINT_WARNING = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
-PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && exit 1
-PRINT_WARNING_PLAIN = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
-PRINT_OK = $(SILENT) || printf " $(OK_STRING)" | $(AWK_STATUS)
-BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
 
 # List any extra directories to look for include files here.
 #     Each directory must be seperated by a space.
@@ -432,6 +397,7 @@ DEPS = $(patsubst %.o,%.d,$(OBJ))
 .PRECIOUS: $(DEPS)
 # Empty rule to force recompilation if the .d file is missing
 $(DEPS):
+	
 
 # Since the object files could be in two different folders, generate
 # separate rules for them, rather than having too generic rules
@@ -464,57 +430,6 @@ show_path:
 	@echo VPATH=$(VPATH)
 	@echo SRC=$(SRC)
 
-SUBDIRS := $(filter-out %/util/ %/doc/ %/keymaps/ %/old_keymap_files/,$(dir $(wildcard $(TOP_DIR)/keyboards/**/*/Makefile)))
-SUBDIRS := $(SUBDIRS) $(dir $(wildcard $(TOP_DIR)/keyboards/*/.))
-SUBDIRS := $(sort $(SUBDIRS))
-# $(error $(SUBDIRS))
-all-keyboards-defaults-%:
-	@for x in $(SUBDIRS) ; do \
-		printf "Compiling with default: $$x" | $(AWK_CMD); \
-		LOG=$$($(MAKE) -C $$x $(subst all-keyboards-defaults-,,$@) VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
-	done
-
-all-keyboards-defaults: all-keyboards-defaults-all
-
-KEYBOARDS := $(SUBDIRS:$(TOP_DIR)/keyboards/%/=/keyboards/%)
-all-keyboards-all: $(addsuffix -all,$(KEYBOARDS))
-all-keyboards-clean: $(addsuffix -clean,$(KEYBOARDS))
-all-keyboards: all-keyboards-all
-
-define make_keyboard
-$(eval KEYBOARD=$(patsubst /keyboards/%,%,$1))
-$(eval SUBPROJECT=$(lastword $(subst /, ,$(KEYBOARD))))
-$(eval KEYBOARD=$(firstword $(subst /, ,$(KEYBOARD))))
-$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/keymaps/*/.))))
-$(eval KEYMAPS+=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/*/.))))
-@for x in $(KEYMAPS) ; do \
-	printf "Compiling $(BOLD)$(KEYBOARD)/$(SUBPROJECT)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-118s", $$0; }'; \
-	LOG=$$($(MAKE) -C $(TOP_DIR)$1 $2 keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
-done
-endef
-
-define make_keyboard_helper
-# Just remove the -all and so on from the first argument and pass it forward
-$(call make_keyboard,$(subst -$2,,$1),$2)
-endef
-
-/keyboards/%-all:
-	$(call make_keyboard_helper,$@,all)
-/keyboards/%-clean:
-	$(call make_keyboard_helper,$@,clean)
-/keyboards/%:
-	$(call make_keyboard_helper,$@,all)
-
-all-keymaps-%:
-	$(eval MAKECONFIG=$(call get_target,all-keymaps,$@))
-	$(eval KEYMAPS=$(notdir $(patsubst %/.,%,$(wildcard $(TOP_DIR)/keyboards/$(KEYBOARD)/keymaps/*/.))))
-	@for x in $(KEYMAPS) ; do \
-		printf "Compiling $(BOLD)$(KEYBOARD)$(NO_COLOR) with $(BOLD)$$x$(NO_COLOR)" | $(AWK) '{ printf "%-118s", $$0; }'; \
-		LOG=$$($(MAKE) $(subst all-keymaps-,,$@) keyboard=$(KEYBOARD) keymap=$$x VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
-	done
-
-all-keymaps: all-keymaps-all
-
 # Create build directory
 $(shell mkdir $(BUILD_DIR) 2>/dev/null)
 
@@ -530,6 +445,4 @@ $(shell mkdir $(KBOBJDIR) 2>/dev/null)
 .PHONY : all finish sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff check_submodule \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start \
-all-keyboards-defaults all-keyboards all-keymaps \
-all-keyboards-defaults-% all-keyboards-% all-keymaps-%
+program teensy dfu flip dfu-ee flip-ee dfu-start 
