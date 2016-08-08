@@ -228,17 +228,19 @@ define PARSE_KEYMAP
         KB_SP := $(CURRENT_KB)/$$(CURRENT_SP)
     endif
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
+    MAKE_VARS := KEYBOARD=$$(CURRENT_KB) SUBPROJECT=$$(CURRENT_SP) KEYMAP=$$(CURRENT_KM)
+    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=false
     COMMAND_$$(COMMAND) := \
-    printf "Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)" | \
-    $(AWK) '{ printf "%-118s", $$$$0;}'; \
-    LOG=$$$$(echo "$$(MAKE) -c $(ROOT_DIR) -f build_keyboard.mk VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true" 2>&1) ; \
-    if [ $$$$? -gt 0 ]; \
-        then $$(PRINT_ERROR_PLAIN); \
-    elif [ "$$$$LOG" != "" ] ; \
-        then $$(PRINT_WARNING_PLAIN); \
-    else \
-        $$(PRINT_OK); \
-    fi;
+        printf "Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)" | \
+        $(AWK) '{ printf "%-118s", $$$$0;}'; \
+        LOG=$$$$($$(MAKE) -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_VARS) 2>&1) ; \
+        if [ $$$$? -gt 0 ]; \
+            then $$(PRINT_ERROR_PLAIN); \
+        elif [ "$$$$LOG" != "" ] ; \
+            then $$(PRINT_WARNING_PLAIN); \
+        else \
+            $$(PRINT_OK); \
+        fi;
 endef
 
 define PARSE_ALL_KEYMAPS
@@ -258,9 +260,11 @@ SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
 $(SUBPROJECTS): %: %-allkm 
 
 .PHONY: %
-%:
+%: 
+	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	$(eval $(call PARSE_RULE,$@))
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	
 
 .PHONY: all
 all: all-keyboards 

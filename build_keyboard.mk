@@ -4,44 +4,9 @@ endif
 
 .DEFAULT_GOAL := all
 
-space := $(subst ,, )
-ESCAPED_ABS_PATH = $(subst $(space),_SPACE_,$(abspath $1))
-starting_makefile := $(call ESCAPED_ABS_PATH,$(firstword $(MAKEFILE_LIST)))
-mkfile_path := $(call ESCAPED_ABS_PATH,$(lastword $(MAKEFILE_LIST))))
-abs_tmk_root := $(patsubst %/,%,$(dir $(mkfile_path)))
-
-ifneq (,$(findstring /keyboards/,$(starting_makefile)))
-	possible_keyboard:=$(patsubst %/,%,$(dir $(patsubst $(abs_tmk_root)/keyboards/%,%,$(starting_makefile))))
-	ifneq (,$(findstring /keymaps/,$(possible_keyboard)))
-		KEYMAP_DIR:=$(lastword $(subst /keymaps/, ,$(possible_keyboard)))
-		KEYBOARD_DIR:=$(firstword $(subst /keymaps/, ,$(possible_keyboard)))
-		ifneq (,$(findstring /,$(KEYBOARD_DIR)))
-			# SUBPROJECT_DIR:=$(lastword $(subst /, ,$(KEYBOARD_DIR)))
-			# KEYBOARD_DIR:=$(firstword $(subst /, ,$(KEYBOARD_DIR)))
-			tmk_root = ../../..
-		else
-			tmk_root = ../../../..
-		endif
-	else
-		KEYMAP_DIR:=default
-		KEYBOARD_DIR:=$(possible_keyboard)
-		ifneq (,$(findstring /,$(KEYBOARD_DIR)))
-			# SUBPROJECT_DIR:=$(lastword $(subst /, ,$(KEYBOARD_DIR)))
-			# KEYBOARD_DIR:=$(firstword $(subst /, ,$(KEYBOARD_DIR)))
-			tmk_root = ../../..
-		else
-			tmk_root = ../..
-		endif
-	endif
-else
-	tmk_root = .
-endif
-# $(info $(KEYBOARD_DIR))
-# $(info $(KEYMAP_DIR))
-# $(info $(SUBPROJECT_DIR))
 
 # Directory common source filess exist
-TOP_DIR = $(tmk_root)
+TOP_DIR = .
 TMK_DIR = tmk_core
 TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
 LIB_PATH = $(TOP_DIR)/lib
@@ -50,92 +15,49 @@ QUANTUM_DIR = quantum
 QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
 
 
-ifdef keyboard
-	KEYBOARD ?= $(keyboard)
-endif
-ifdef KEYBOARD_DIR
-	KEYBOARD ?= $(KEYBOARD_DIR)
-endif
-ifndef KEYBOARD
-	KEYBOARD=planck
-endif
-
 MASTER ?= left
 ifdef master
 	MASTER = $(master)
 endif
 
+KEYBOARD_PATH := keyboards/$(KEYBOARD)
+KEYBOARD_C := $(KEYBOARD_PATH)/$(KEYBOARD).c
 
-# converts things to keyboards/subproject
-ifneq (,$(findstring /,$(KEYBOARD)))
-	TEMP:=$(KEYBOARD)
-	KEYBOARD:=$(firstword $(subst /, ,$(TEMP)))
-	SUBPROJECT:=$(lastword $(subst /, ,$(TEMP)))
-endif
-
-KEYBOARD_PATH = $(TOP_DIR)/keyboards/$(KEYBOARD)
-
-ifdef sub
-	SUBPROJECT=$(sub)
-endif
-ifdef subproject
-	SUBPROJECT=$(subproject)
-endif
-
-ifneq ("$(wildcard $(KEYBOARD_PATH)/$(KEYBOARD).c)","")
-	KEYBOARD_FILE = keyboards/$(KEYBOARD)/$(KEYBOARD).c
-	ifneq ($(call ESCAPED_ABS_PATH,$(KEYBOARD_PATH)/Makefile),$(starting_makefile))
-		-include $(KEYBOARD_PATH)/Makefile
-	endif
+ifneq ("$(wildcard $(KEYBOARD_C))","")
+    include $(KEYBOARD_PATH)/rules.mk
 else 
-$(error "$(KEYBOARD_PATH)/$(KEYBOARD).c" does not exist)
+    $(error "$(KEYBOARD_C)" does not exist)
 endif
 
-ifdef SUBPROJECT_DEFAULT
-	SUBPROJECT?=$(SUBPROJECT_DEFAULT)
+
+ifneq ($(SUBPROJECT),)
+    SUBPROJECT_PATH := keyboards/$(KEYBOARD)/$(SUBPROJECT)
+    SUBPROJECT_C := $(SUBPROJECT_PATH)/$(SUBPROJECT).c
+    ifneq ("$(wildcard $(SUBPROJECT_C))","")
+        OPT_DEFS += -DSUBPROJECT_$(SUBPROJECT)
+        include $(SUBPROJECT_PATH)/rules.mk
+    else 
+        $(error "$(SUBPROJECT_PATH)/$(SUBPROJECT).c" does not exist)
+    endif
 endif
 
-ifdef SUBPROJECT
-	SUBPROJECT_PATH = $(TOP_DIR)/keyboards/$(KEYBOARD)/$(SUBPROJECT)
-	ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
-		OPT_DEFS += -DSUBPROJECT_$(SUBPROJECT)
-		SUBPROJECT_FILE = keyboards/$(KEYBOARD)/$(SUBPROJECT)/$(SUBPROJECT).c
-		ifneq ($(call ESCAPED_ABS_PATH,$(SUBPROJECT_PATH)/Makefile),$(starting_makefile))
-			-include $(SUBPROJECT_PATH)/Makefile
-		endif
-	else 
-$(error "$(SUBPROJECT_PATH)/$(SUBPROJECT).c" does not exist)
-	endif
+MAIN_KEYMAP_PATH := $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_C := $(MAIN_KEYMAP_PATH)/keymap.c
+SUBPROJ_KEYMAP_PATH := $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)
+SUBPROJ_KEYMAP_C := $(SUBPROJ_KEYMAP_PATH)/keymap.c
+ifneq ("$(wildcard $(SUBPROJ_KEYMAP_C))","")
+    -include $(SUBPROJ_KEYMAP_PATH)/Makefile
+    KEYMAP_C := $(SUBPROJ_KEYMAP_C)
+    KEYMAP_PATH := $(SUBPROJ_KEYMAP_PATH)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_C))","")
+    -include $(MAIN_KEYMAP_PATH)/Makefile
+    KEYMAP_C := $(MAIN_KEYMAP_C)
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH)
+else
+    $(error "$(MAIN_KEYMAP_C)/keymap.c" does not exist)
 endif
 
-ifdef keymap
-	KEYMAP ?= $(keymap)
-endif
-ifdef KEYMAP_DIR
-	KEYMAP ?= $(KEYMAP_DIR)
-endif
-ifndef KEYMAP
-	KEYMAP = default
-endif
-KEYMAP_PATH = $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
-ifneq ("$(wildcard $(KEYMAP_PATH)/keymap.c)","")
-	KEYMAP_FILE = keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/keymap.c
-	ifneq ($(call ESCAPED_ABS_PATH,$(KEYMAP_PATH)/Makefile),$(starting_makefile))
-		-include $(KEYMAP_PATH)/Makefile
-	endif
-else 
-	ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/keymap.c)","")
-$(error "$(KEYMAP_PATH)/keymap.c" does not exist)
-	else
-		KEYMAP_PATH = $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)
-		KEYMAP_FILE = keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/keymap.c
-		ifneq ($(call ESCAPED_ABS_PATH,$(KEYMAP_PATH)/Makefile),$(starting_makefile))
-			-include $(KEYMAP_PATH)/Makefile
-		endif
-	endif
-endif
-
-ifdef SUBPROJECT
+ifneq ($(SUBPROJECT),)
 	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
 else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
@@ -149,36 +71,27 @@ BUILD_DIR = $(TOP_DIR)/.build
 OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
 
 
-
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
 else
 	CONFIG_H = $(KEYBOARD_PATH)/config.h
-	ifdef SUBPROJECT
-		ifneq ("$(wildcard $(SUBPROJECT_PATH)/$(SUBPROJECT).c)","")
+	ifneq ($(SUBPROJECT),)
+		ifneq ("$(wildcard $(SUBPROJECT_C))","")
 			CONFIG_H = $(SUBPROJECT_PATH)/config.h
 		endif
 	endif
 endif
 
 # # project specific files
-SRC += $(KEYBOARD_FILE) \
-	$(KEYMAP_FILE) \
+SRC += $(KEYBOARD_C) \
+	$(KEYMAP_C) \
 	$(QUANTUM_DIR)/quantum.c \
 	$(QUANTUM_DIR)/keymap_common.c \
 	$(QUANTUM_DIR)/keycode_config.c \
 	$(QUANTUM_DIR)/process_keycode/process_leader.c
 
-ifdef SUBPROJECT
-	SRC += $(SUBPROJECT_FILE)
-endif
-
-ifdef SUBPROJECT
-	SRC += $(SUBPROJECT_FILE)
-endif
-
-ifdef SUBPROJECT
-	SRC += $(SUBPROJECT_FILE)
+ifneq ($(SUBPROJECT),)
+	SRC += $(SUBPROJECT_C)
 endif
 
 ifndef CUSTOM_MATRIX
@@ -229,7 +142,7 @@ endif
 
 # Search Path
 VPATH += $(KEYMAP_PATH)
-ifdef SUBPROJECT
+ifneq ($(SUBPROJECT),)
 	VPATH += $(SUBPROJECT_PATH)
 endif
 VPATH += $(KEYBOARD_PATH)
