@@ -25,6 +25,7 @@
 #include "led.h"
 #include "action_util.h"
 #include <stdlib.h>
+#include "print.h"
 
 
 extern uint32_t default_layer_state;
@@ -76,6 +77,8 @@ void matrix_scan_user(void);
 bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
+
+void reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
