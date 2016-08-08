@@ -183,9 +183,4 @@ endif
 
 include $(TMK_PATH)/rules.mk
 
-GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
-BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 OPT_DEFS += -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
-
-$(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(QUANTUM_PATH)/version.h)
-$(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(QUANTUM_PATH)/version.h)

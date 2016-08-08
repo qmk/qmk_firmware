@@ -267,15 +267,6 @@ sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
 
-check_submodule:
-	git submodule status --recursive | \
-	while IFS= read -r x; do \
-		case "$$x" in \
-			\ *) ;; \
-			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
-		esac \
-	done
-
 # Display size of file.
 HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
 #ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
@@ -337,7 +328,7 @@ gccversion :
 	$(eval CMD=$(AR) $@ $(OBJ) )
 	@$(BUILD_CMD)
 
-BEGIN = gccversion check_submodule sizebefore
+BEGIN = gccversion sizebefore
 
 # Link: create ELF output file from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).elf
@@ -443,6 +434,6 @@ $(shell mkdir $(KBOBJDIR) 2>/dev/null)
 
 # Listing of phony targets.
 .PHONY : all finish sizebefore sizeafter gccversion \
-build elf hex eep lss sym coff extcoff check_submodule \
+build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start 

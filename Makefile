@@ -262,6 +262,13 @@ $(SUBPROJECTS): %: %-allkm
 .PHONY: %
 %: 
 	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
+	git submodule status --recursive 2>/dev/null | \
+	while IFS= read -r x; do \
+		case "$$x" in \
+			\ *) ;; \
+			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
+		esac \
+	done
 	$(eval $(call PARSE_RULE,$@))
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
 	
@@ -275,3 +282,8 @@ all-keyboards: allkb-allsp-allkm
 .PHONY: all-keyboards-defaults
 all-keyboards-defaults: allkb-allsp-default
 
+
+GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
+$(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
