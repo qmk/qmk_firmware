@@ -113,7 +113,7 @@ Third party libraries like LUFA, PJRC and V-USB have their own license respectiv
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](tmk_core/doc/build.md), or the readme in the particular keyboards/* folder.
+See [doc/BUILD_GUIDE.md](tmk_core/doc/BUILD_GUIDE.md), or the readme in the particular keyboards/* folder.
 
 
 
