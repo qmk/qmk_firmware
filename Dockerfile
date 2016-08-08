@@ -20,7 +20,7 @@ RUN apt-get install --no-install-recommends -y build-essential \
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
-ENV keyboard=ergodox_ez
+ENV keyboard=ergodox
 ENV keymap=default
 
 VOLUME /qmk
