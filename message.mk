@@ -19,10 +19,6 @@ OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)\n
 ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)\n
 WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)\n
 
-ifndef $(SILENT)
-	SILENT = false
-endif
-
 TAB_LOG = printf "\n$$LOG\n\n" | $(AWK) '{ sub(/^/," | "); print }'
 TAB_LOG_PLAIN = printf "$$LOG\n"
 AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'

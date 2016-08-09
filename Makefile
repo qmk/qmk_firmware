@@ -2,6 +2,16 @@ ifndef VERBOSE
 .SILENT:
 endif
 
+ifdef silent
+    SILENT = $(silent)
+endif
+
+ifdef SILENT
+    SUB_IS_SILENT := $(silent)
+endif
+
+override SILENT = false
+
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
 ROOT_DIR := $(dir $(ROOT_MAKEFILE))
@@ -59,10 +69,10 @@ ifdef keymap
     KEYMAP := $(keymap)
 endif
 
-$(info Keyboard: $(KEYBOARD))
-$(info Keymap: $(KEYMAP))
-$(info Subproject: $(SUBPROJECT))
-$(info Keyboards: $(KEYBOARDS))
+#$(info Keyboard: $(KEYBOARD))
+#$(info Keymap: $(KEYMAP))
+#$(info Subproject: $(SUBPROJECT))
+#$(info Keyboards: $(KEYBOARDS))
 
 .DEFAULT_GOAL := all
 ifneq ($(KEYMAP),)
@@ -229,11 +239,14 @@ define PARSE_KEYMAP
     endif
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) SUBPROJECT=$$(CURRENT_SP) KEYMAP=$$(CURRENT_KM)
-    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=false
-    COMMAND_$$(COMMAND) := \
-        printf "Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)" | \
-        $(AWK) '{ printf "%-118s", $$$$0;}'; \
-        LOG=$$$$($$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_VARS) 2>&1) ; \
+    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
+    MAKE_COMMAND := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk
+    MAKE_MSG := Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
+    MAKE_MSG_FORMAT := $(AWK) '{ printf "%-118s", $$$$0;}'
+    COMMAND_true_$$(COMMAND) := \
+        printf "$$(MAKE_MSG)" | \
+        $$(MAKE_MSG_FORMAT); \
+        LOG=$$$$($$(MAKE_COMMAND) $$(MAKE_VARS) SILENT=true 2>&1) ; \
         if [ $$$$? -gt 0 ]; \
             then $$(PRINT_ERROR_PLAIN); \
         elif [ "$$$$LOG" != "" ] ; \
@@ -241,18 +254,30 @@ define PARSE_KEYMAP
         else \
             $$(PRINT_OK); \
         fi;
+    COMMAND_false_$$(COMMAND) := \
+        printf "$$(MAKE_MSG)\n" | \
+        $$(MAKE_MSG_FORMAT); \
+        $$(MAKE_COMMAND) $$(MAKE_VARS) SILENT=false;
 endef
 
 define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
+define SET_SILENT_MODE
+    ifdef SUB_IS_SILENT
+        SILENT_MODE := $(SUB_IS_SILENT)
+    else ifeq ($$(words $$(COMMANDS)),1)
+        SILENT_MODE := false
+    else
+        SILENT_MODE := true
+    endif
+endef
+
 include $(ROOT_DIR)/message.mk
 
-#RUN_COMMAND = echo "Running": $(COMMAND_$(COMMAND));
 RUN_COMMAND = \
-$(COMMAND_$(COMMAND))
-#LOG=$$(echo $(COMMAND) VERBOSE=$(VERBOSE) COLOR=$(COLOR) SILENT=true 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR_PLAIN); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING_PLAIN); else $(PRINT_OK); fi; \
+$(COMMAND_$(SILENT_MODE)_$(COMMAND))
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
 SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
@@ -270,6 +295,7 @@ $(SUBPROJECTS): %: %-allkm
 		esac \
 	done
 	$(eval $(call PARSE_RULE,$@))
+	$(eval $(call SET_SILENT_MODE))
 	+$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
 	
 
