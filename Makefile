@@ -270,7 +270,7 @@ $(SUBPROJECTS): %: %-allkm
 		esac \
 	done
 	$(eval $(call PARSE_RULE,$@))
-	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	+$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
 	
 
 .PHONY: all
