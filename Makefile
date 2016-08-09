@@ -233,7 +233,7 @@ define PARSE_KEYMAP
     COMMAND_$$(COMMAND) := \
         printf "Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)" | \
         $(AWK) '{ printf "%-118s", $$$$0;}'; \
-        LOG=$$$$($$(MAKE) -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_VARS) 2>&1) ; \
+        LOG=$$$$($$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_VARS) 2>&1) ; \
         if [ $$$$? -gt 0 ]; \
             then $$(PRINT_ERROR_PLAIN); \
         elif [ "$$$$LOG" != "" ] ; \
