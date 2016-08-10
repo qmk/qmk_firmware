@@ -1,7 +1,3 @@
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
-
 /*
  * Keyboard: Ergodox
  * Keymap:   replicaJunction
@@ -16,6 +12,10 @@
  * here: https://colemakmods.github.io/mod-dh/
  */
 
+#include "ergodox.h"
+#include "debug.h"
+#include "action_layer.h"
+
 #define _CO 0 // Colemak
 #define _DV 1 // Dvorak
 #define _QW 2 // QWERTY
@@ -25,9 +25,6 @@
 #define _GA 6 // mouse overlay for gaming
 
 #define _______ KC_TRNS // Simple alias that just makes the keymaps a bit easier to look at
-
-// Uses 5 bytes of memory per 8 keys, but makes sure modifiers don't get "stuck" switching layers
-#define PREVENT_STUCK_MODIFIERS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -42,12 +39,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
       * | LShft  |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   ,  |   /  | RShft  |
       * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-      *   | LGui |   [  |   ]  |CtlShf|      |                                       | _EX  |   -  |   '  | Right|   \  |
+      *   | LGui |   [  |   ]  |CtlShf| LAlt |                                       | _EX  |   -  |   '  | Right|   \  |
       *   `----------------------------------'                                       `----------------------------------'
       *                                        ,-------------.       ,-------------.
       *                                        | LCtrl| LAlt |       | Left | Right|
       *                                 ,------|------|------|       |------+------+------.
-      *                                 |Shift/| Ctrl/| Home |       |  Up  |  Alt/| _NU/ |
+      *                                 |LCtrl/| LAlt/| Home |       |  Up  |  Alt/| _NU/ |
       *                                 | BkSp |  Del |------|       |------| Enter| Space|
       *                                 |      |      | _NU  |       | Down |      |      |
       *                                 `--------------------'       `--------------------'
@@ -59,11 +56,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSLS,KC_Q,   KC_W,      KC_F,            KC_P,   KC_B,   KC_HOME,
         KC_TAB, KC_A,   KC_R,      KC_S,            KC_T,   KC_G,
         KC_LSFT,KC_Z,   KC_X,      KC_C,            KC_D,   KC_V,   ALL_T(KC_NO),
-        KC_LGUI,KC_LBRC,KC_RBRC,   LCTL(KC_LSFT),   MO(_NU),
+        KC_LGUI,KC_LBRC,KC_RBRC,   LCTL(KC_LSFT),   KC_LALT,
 
                                                                 KC_LCTL,        KC_LALT,
                                                                                 KC_HOME,
-                                                SFT_T(KC_BSPC), CTL_T(KC_DEL),  MO(_NU),
+                                                CTL_T(KC_BSPC), ALT_T(KC_DEL),  MO(_NU),
         // right hand
              KC_ESC,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
              KC_BSPC,  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,KC_MINS,
