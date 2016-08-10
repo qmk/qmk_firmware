@@ -90,7 +90,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
-#   comment out to disable the options.
+#   change to no to disable the options.
 #
 BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE ?= no	# Mouse keys(+4700)
