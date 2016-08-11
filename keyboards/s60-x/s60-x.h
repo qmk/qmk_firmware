@@ -23,8 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 /* S60-X keymap definition macro
-* K2C, K31 and  K3C are extra keys for ISO
-* K0D is extra key from split backspace, K3E is extra key from split right shift
+* K31 is the extra key next to short left ISO shift
+* K2C is the moved key next to enter on ISO boards
+* K3C is the extra key next to short right JIS shift
+* K0D is extra key from split backspace
+* K3E is extra key from HHKB-style split right shift
 */
 
 #define KEYMAP( \

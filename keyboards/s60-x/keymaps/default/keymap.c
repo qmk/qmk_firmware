@@ -31,10 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* `-----------------------------------------------------------'
 	*/
 	KEYMAP(
-		GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    MINS, EQL,  NO,   BSPC, \
+		GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    MINS,  EQL, BSPC, BSPC, \
 		TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    LBRC, RBRC, BSLS, \
-		LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, QUOT, NO,   ENT,  \
-		LSFT, NO,   Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, NO,   RSFT, NO, \
+		LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN,    QUOT, NUHS, ENT,  \
+		LSFT, NUBS, Z,    X,    C,    V,    B,    N,    M, COMM,  DOT,    SLSH,   NO, RSFT, NO, \
 		FN1,  LGUI, LALT,             FN0,                          RALT, RGUI, APP,  RCTL),
 
 	/* Layout 1: Function Layer
