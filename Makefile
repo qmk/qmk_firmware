@@ -240,13 +240,13 @@ define PARSE_KEYMAP
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) SUBPROJECT=$$(CURRENT_SP) KEYMAP=$$(CURRENT_KM)
     MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
-    MAKE_COMMAND := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk
     MAKE_MSG := Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
     MAKE_MSG_FORMAT := $(AWK) '{ printf "%-118s", $$$$0;}'
     COMMAND_true_$$(COMMAND) := \
         printf "$$(MAKE_MSG)" | \
         $$(MAKE_MSG_FORMAT); \
-        LOG=$$$$($$(MAKE_COMMAND) $$(MAKE_VARS) SILENT=true 2>&1) ; \
+        LOG=$$$$($$(MAKE_CMD) $$(MAKE_VARS) SILENT=true 2>&1) ; \
         if [ $$$$? -gt 0 ]; \
             then $$(PRINT_ERROR_PLAIN); \
         elif [ "$$$$LOG" != "" ] ; \
@@ -257,7 +257,7 @@ define PARSE_KEYMAP
     COMMAND_false_$$(COMMAND) := \
         printf "$$(MAKE_MSG)\n" | \
         $$(MAKE_MSG_FORMAT); \
-        $$(MAKE_COMMAND) $$(MAKE_VARS) SILENT=false;
+        $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false;
 endef
 
 define PARSE_ALL_KEYMAPS
