@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Layout 0: Default Layer
+	* RSFT will be replaced once a better way to control magic is found.
 	* ,-----------------------------------------------------------.
 	* |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|Del|
 	* |-----------------------------------------------------------|
@@ -25,17 +26,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |-----------------------------------------------------------|
 	* |Ctrl  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
 	* |-----------------------------------------------------------|
-	* |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up  | <> |
+	* |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up  |RSft|
 	* |-----------------------------------------------------------|
 	* |Fn2 |Gui |Alt |        SpaceFn        |Alt |Left|Down|Right|
 	* `-----------------------------------------------------------'
 	*/
 	KEYMAP(
-		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL, \
-		KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,         \
-		KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NO,   KC_ENT,          \
-		KC_LSFT, KC_NO,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_NO,   KC_UP,  KC_NUBS, \
-		KC_FN2,  KC_LGUI, KC_LALT,                   KC_FN0,                             KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT),
+		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL,  \
+		KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          \
+		KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,           \
+		KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_NO,   KC_UP,   KC_RSFT, \
+		KC_FN2,  KC_LGUI, KC_LALT,                            KC_FN0,                                      KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT),
 
 	/* Layout 1: Gaming Layer, SpaceFn disabled
 	* ,-----------------------------------------------------------.
@@ -55,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_FN1,  \
-		KC_TRNS, KC_NO,   KC_TRNS,                   KC_SPC,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		KC_TRNS, KC_NO,   KC_TRNS,                            KC_SPC,                                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
 	/* Layout 2: Function Layer
 	* ,-----------------------------------------------------------.
@@ -75,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_TRNS, KC_TRNS, KC_PGUP, KC_UP,   KC_PGDN, KC_TRNS, KC_SLCK, KC_PAUS, KC_INS,           \
 		KC_TRNS, KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_TRNS, KC_TRNS, KC_PENT,          \
 		KC_TRNS, KC_TRNS, KC_PSCR, KC_TRNS, KC_TRNS, KC_TRNS, KC_CALC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PAUS, KC_PGUP, KC_FN1,  \
-		KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS,                         KC_TRNS, KC_HOME, KC_PGDN, KC_END),
+		KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS, KC_HOME, KC_PGDN, KC_END),
 };
 
 /*
