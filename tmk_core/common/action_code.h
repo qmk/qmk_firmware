@@ -76,7 +76,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 101E|LLLL|1111 0001   On/Off                 (0xF1)   [NOT TAP]
  * 101E|LLLL|1111 0010   Off/On                 (0xF2)   [NOT TAP]
  * 101E|LLLL|1111 0011   Set/Clear              (0xF3)   [NOT TAP]
- * 101E|LLLL|1111 xxxx   Reserved               (0xF4-FF)
+ * 101E|LLLL|1111 0100   One Shot Layer         (0xF4)   [TAP]
+ * 101E|LLLL|1111 xxxx   Reserved               (0xF5-FF)
  *   ELLLL: layer 0-31(E: extra bit for layer 16-31)
  *
  *
@@ -250,6 +251,7 @@ enum layer_pram_tap_op {
     OP_ON_OFF,
     OP_OFF_ON,
     OP_SET_CLEAR,
+    OP_ONESHOT,
 };
 #define ACTION_LAYER_BITOP(op, part, bits, on)      (ACT_LAYER<<12 | (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
 #define ACTION_LAYER_TAP(layer, key)                (ACT_LAYER_TAP<<12 | (layer)<<8 | (key))
@@ -266,6 +268,7 @@ enum layer_pram_tap_op {
 #define ACTION_LAYER_ON_OFF(layer)                  ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
+#define ACTION_LAYER_ONESHOT(layer)                 ACTION_LAYER_TAP((layer), OP_ONESHOT)
 #define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | ((mods)&0x0f))
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
@@ -301,7 +304,7 @@ enum backlight_opt {
 #define ACTION_BACKLIGHT_DECREASE()     ACTION(ACT_BACKLIGHT, BACKLIGHT_DECREASE << 8)
 #define ACTION_BACKLIGHT_TOGGLE()       ACTION(ACT_BACKLIGHT, BACKLIGHT_TOGGLE << 8)
 #define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
-#define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | level)
+#define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | (level))
 /* Command */
 #define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
 /* Function */

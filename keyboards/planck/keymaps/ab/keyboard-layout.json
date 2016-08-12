@@ -1,0 +1,185 @@
+[
+  {
+    "name": "AB's Practical Keymap for Planck",
+    "author": "Anand Babu Periasamy"
+  },
+  [
+    {
+      "fa": [
+        2,
+        2,
+        0,
+        2
+      ]
+    },
+    "F1\n1\n\n!\n\n\n\n\n\nTab",
+    "F2\n2\n\n@\n\n\n\n\n\nQ",
+    "F3\n3\n\n#\n\n\n\n\n\nW",
+    "F4\n4\n\n$\n\n\n\n\n\nE",
+    "F5\n5\n\n%\n\n\n\n\n\nR",
+    "F6\n6\n\n^\n\n\n\n\n\nT",
+    "F7\n7\n\n&\n\n\n\n\n\nY",
+    "F8\n8\n\n*\n\n\n\n\n\nU",
+    "F9\n9\n\n(\n\n\n\n\n\nI",
+    "F10\n0\n\n)\n\n\n\n\n\nO",
+    "F11\n-\n\n_\n\n\n\n\n\nP",
+    "F12\n=\n\n+\n\n\n\n\n\n<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i>"
+  ],
+  [
+    {
+      "a": 7,
+      "f": 3
+    },
+    "Ctrl",
+    {
+      "f": 3
+    },
+    "A",
+    {
+      "f": 3
+    },
+    "S",
+    {
+      "f": 3
+    },
+    "D",
+    {
+      "c": "#c4bcbc",
+      "a": 4,
+      "f": 3
+    },
+    "\n(\n\n\n\n\n\n\n\nF",
+    {
+      "c": "#cccccc",
+      "f": 3
+    },
+    "\n)\n\n\n\n\n\n\n\nG",
+    {
+      "f": 3
+    },
+    "\n{\n\n\n\n\n\n\n\nH",
+    {
+      "c": "#c4bcbc",
+      "f": 3
+    },
+    "\n}\n\n\n\n\n\n\n\nJ",
+    {
+      "c": "#cccccc",
+      "a": 7,
+      "f": 3
+    },
+    "K",
+    {
+      "f": 3
+    },
+    "L",
+    {
+      "a": 6,
+      "f": 3
+    },
+    ";\n\n:",
+    {
+      "a": 7,
+      "f": 3
+    },
+    "Enter"
+  ],
+  [
+    {
+      "f": 3
+    },
+    "Shift",
+    {
+      "f": 3
+    },
+    "Z",
+    {
+      "f": 3
+    },
+    "X",
+    {
+      "f": 3
+    },
+    "C",
+    {
+      "a": 4,
+      "fa": [
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    "\\\n[\n\n\n\n\n\n\n\nV",
+    "|\n]\n\n\n\n\n\n\n\nB",
+    "`\n'\n\n\n\n\n\n\n\nN",
+    "~\n\"\n\n\n\n\n\n\n\nM",
+    {
+      "a": 6
+    },
+    ",\n\n<",
+    ".\n\n>",
+    "/\n\n?",
+    {
+      "a": 7
+    },
+    "Shift\n\n\n\nEnter"
+  ],
+  [
+    {
+      "a": 4,
+      "fa": [
+        2,
+        2
+      ]
+    },
+    "<i class='fa fa-download'></i>\n<i class='fa fa-lightbulb-o'></i>\n\n\n\n\n\n\n\nCtrl",
+    "\n<i class=\"fa fa-search\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\nEsc",
+    "\n<i class=\"fa fa-search-minus\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\n<i class='fa fa-linux'></i>",
+    "\n<i class=\"fa fa-search-plus\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\nAlt",
+    {
+      "a": 7,
+      "f": 3
+    },
+    "<i class='fa fa-sort-down'></i>",
+    {
+      "a": 4,
+      "fa": [
+        1,
+        1
+      ],
+      "w": 2
+    },
+    "PgUp\nPgDn\n\n\n\n\n\n\n\nSpace",
+    {
+      "a": 7,
+      "f": 3
+    },
+    "<i class='fa fa-sort-up'></i>",
+    {
+      "a": 4,
+      "fa": [
+        2
+      ]
+    },
+    "<i class=\"fa fa-undo\" aria-hidden=\"true\"></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i>",
+    {
+      "f": 3
+    },
+    "<i class='fa fa-volume-down'></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-down\" aria-hidden=\"true\"></i>",
+    {
+      "f": 3
+    },
+    "<i class='fa fa-volume-up'></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-up\" aria-hidden=\"true\"></i>",
+    {
+      "f": 3
+    },
+    "<i class='fa fa-volume-off'></i>\n\n\n\n\n\n\n\n\n<i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i>"
+  ]
+]
