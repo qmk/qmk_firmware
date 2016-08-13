@@ -38,7 +38,7 @@ extern const qk_ucis_symbol_t ucis_symbol_table[];
 
 void qk_ucis_start(void);
 void qk_ucis_symbol_fallback (void);
-bool process_record_ucis (uint16_t keycode, keyrecord_t *record);
+bool process_ucis (uint16_t keycode, keyrecord_t *record);
 
 #endif
 
