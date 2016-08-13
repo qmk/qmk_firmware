@@ -110,7 +110,15 @@ void qk_ucis_symbol_fallback (void) {
 bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
   uint8_t i;
 
-  if (!qk_ucis_state.in_progress || !record->event.pressed)
+  if (!qk_ucis_state.in_progress)
+    return true;
+
+  if (qk_ucis_state.count >= UCIS_MAX_SYMBOL_LENGTH &&
+      !(keycode == KC_BSPC || keycode == KC_ESC || keycode == KC_SPC || keycode == KC_ENT)) {
+    return false;
+  }
+
+  if (!record->event.pressed)
     return true;
 
   qk_ucis_state.codes[qk_ucis_state.count] = keycode;
