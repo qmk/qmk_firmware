@@ -15,6 +15,33 @@ void register_hex(uint16_t hex);
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
 
+#ifdef UCIS_ENABLE
+#ifndef UCIS_MAX_SYMBOL_LENGTH
+#define UCIS_MAX_SYMBOL_LENGTH 32
+#endif
+
+typedef struct {
+  char *symbol;
+  uint16_t codes[4];
+} qk_ucis_symbol_t;
+
+struct {
+  uint8_t count;
+  uint16_t codes[UCIS_MAX_SYMBOL_LENGTH];
+  bool in_progress:1;
+} qk_ucis_state;
+
+#define UCIS_TABLE(...) {__VA_ARGS__, {NULL, {}}}
+#define UCIS_SYM(name, ...) {name, {__VA_ARGS__, 0}}
+
+extern const qk_ucis_symbol_t ucis_symbol_table[];
+
+void qk_ucis_start(void);
+void qk_ucis_symbol_fallback (void);
+bool process_record_ucis (uint16_t keycode, keyrecord_t *record);
+
+#endif
+
 #define UC_BSPC	UC(0x0008)
 
 #define UC_SPC	UC(0x0020)

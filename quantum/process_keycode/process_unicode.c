@@ -69,3 +69,94 @@ bool process_unicode(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+#ifdef UCIS_ENABLE
+void qk_ucis_start(void) {
+  qk_ucis_state.count = 0;
+  qk_ucis_state.in_progress = true;
+
+  unicode_input_start();
+  register_hex(0x2328);
+  unicode_input_finish();
+}
+
+static bool is_uni_seq(char *seq) {
+  uint8_t i;
+
+  for (i = 0; seq[i]; i++) {
+    uint16_t code;
+    if (('1' <= seq[i]) && (seq[i] <= '0'))
+      code = seq[i] - '1' + KC_1;
+    else
+      code = seq[i] - 'a' + KC_A;
+
+    if (i > qk_ucis_state.count || qk_ucis_state.codes[i] != code)
+      return false;
+  }
+
+  return (qk_ucis_state.codes[i] == KC_ENT ||
+          qk_ucis_state.codes[i] == KC_SPC);
+}
+
+__attribute__((weak))
+void qk_ucis_symbol_fallback (void) {
+  for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
+    uint8_t code = qk_ucis_state.codes[i];
+    register_code(code);
+    unregister_code(code);
+  }
+}
+
+bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
+  uint8_t i;
+
+  if (!qk_ucis_state.in_progress || !record->event.pressed)
+    return true;
+
+  qk_ucis_state.codes[qk_ucis_state.count] = keycode;
+  qk_ucis_state.count++;
+
+  if (keycode == KC_BSPC) {
+    if (qk_ucis_state.count >= 2) {
+      qk_ucis_state.count -= 2;
+      return true;
+    } else {
+      qk_ucis_state.count--;
+      return false;
+    }
+  }
+
+  if (keycode == KC_ENT || keycode == KC_SPC || keycode == KC_ESC) {
+    bool symbol_found = false;
+
+    for (i = qk_ucis_state.count; i > 0; i--) {
+      register_code (KC_BSPC);
+      unregister_code (KC_BSPC);
+    }
+
+    if (keycode == KC_ESC) {
+      qk_ucis_state.in_progress = false;
+      return false;
+    }
+
+    unicode_input_start();
+    for (i = 0; ucis_symbol_table[i].symbol; i++) {
+      if (is_uni_seq (ucis_symbol_table[i].symbol)) {
+        symbol_found = true;
+        for (uint8_t j = 0; ucis_symbol_table[i].codes[j]; j++) {
+          register_hex(ucis_symbol_table[i].codes[j]);
+        }
+        break;
+      }
+    }
+    if (!symbol_found) {
+      qk_ucis_symbol_fallback();
+    }
+    unicode_input_finish();
+
+    qk_ucis_state.in_progress = false;
+    return false;
+  }
+  return true;
+}
+#endif
