@@ -9,6 +9,9 @@
 #define UC_BSD 3
 
 void set_unicode_input_mode(uint8_t os_target);
+void unicode_input_start(void);
+void unicode_input_finish(void);
+void register_hex(uint16_t hex);
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
 
