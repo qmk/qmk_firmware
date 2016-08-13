@@ -22,6 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+#ifdef __INTELLISENSE__
+#define PROGMEM
+#include "config.h"
+#endif
+
 /* S60-X keymap definition macro
 * K31 is the extra key next to short left ISO shift
 * K2C is the moved key next to enter on ISO boards
