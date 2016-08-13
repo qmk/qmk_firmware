@@ -107,7 +107,7 @@ void qk_ucis_symbol_fallback (void) {
   }
 }
 
-bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
+bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   uint8_t i;
 
   if (!qk_ucis_state.in_progress)
