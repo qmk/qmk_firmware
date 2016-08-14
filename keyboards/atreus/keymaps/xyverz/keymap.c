@@ -46,24 +46,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_L1] = { /* LAYER 1 */
     {KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_NO,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0   },
     {KC_TAB,  KC_INS,  KC_UP,   KC_DEL,  KC_HOME, KC_NO,   KC_PGUP, KC_MUTE, KC_VOLD, KC_VOLU, KC_EQL },
-<<<<<<< HEAD
     {KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_LCTL, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, KC_BSLS},
-=======
-    {KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_LCTL, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, KC_BSLS},
->>>>>>> upstream/master
     {KC_TRNS, KC_GRV,  KC_LGUI, KC_TRNS, KC_DEL,  KC_LALT, KC_SPC,  KC_TRNS, KC_LBRC, KC_RBRC, KC_ENT }
   },
   [_L2] = { /* LAYER 2 */
     {KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO,   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN},
-<<<<<<< HEAD
     {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,   KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_PLUS},
     {KC_TRNS, KC_TRNS, DVORAK,  QWERTY,  COLEMAK, KC_LCTL, KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12 },
     {KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS, KC_BSPC, KC_LALT, KC_SPC,  KC_TRNS, LSFT(KC_LBRC), LSFT(KC_RBRC), RESET}
-=======
-    {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10 },
-    {KC_TRNS, KC_TRNS, DVORAK,  QWERTY,  COLEMAK, KC_LCTL, KC_TRNS, KC_TRNS, KC_TRNS, KC_F11,  KC_F12 },
-    {KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS, KC_BSPC, KC_LALT, KC_SPC,  KC_TRNS, KC_TRNS, KC_TRNS, RESET  }
->>>>>>> upstream/master
   }
 };
 
