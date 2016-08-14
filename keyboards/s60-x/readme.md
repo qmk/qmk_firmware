@@ -5,19 +5,10 @@ DIY compact keyboard designed by VinnyCordeiro for Sentraq. Most of the keymaps 
 ## S60X Resources
 - [Massdrop page](https://www.massdrop.com/buy/sentraq-60-diy-keyboard-kit?mode=guest_open)
 
-## Quantum MK Firmware
+## Quickstart
 
-For the full Quantum feature list, see [the parent readme.md](/readme.md).
-
-## Keymap
-Several versions of keymaps are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document (you can find in top README.md) and existent keymap files.
-
-To build firmware binary hex file with a certain keymap just run `make` with the `keymap` option like:
-
-    $ make keymap=[custom|poker|poker_set|poker_bit|plain|hasu|spacefn|hhkb|<name>]
-
-File [S60-X_pre-compiled_firmwares.zip](S60-X_pre-compiled_firmwares.zip) contains pre-compiled firmwares for all keymaps available. Not all of them are tested.
-
+If you just want to test a few layouts, the archive [s60-x_precompiled.zip](s60-x_precompiled.zip) contains pre-compiled .hex-files for all available keymaps. Not all of them are tested.
+You only need to flash them onto your keyboard, which is explained below, there's no need to setup a build environment. For a full list 
 
 ## Flashing your keyboard
 The recommended programs for flashing your keyboard are [Atmel FLIP](http://www.atmel.com/tools/FLIP.aspx) (Windows) and [dfu-programmer](http://dfu-programmer.sourceforge.net/) (Linux/Windows).
@@ -29,7 +20,7 @@ The recommended programs for flashing your keyboard are [Atmel FLIP](http://www.
 **Programming the firmware (Windows)**
 
 1. download and install FLIP (http://www.atmel.com/tools/FLIP.aspx)
-2. connect the keyboard, press the program button (S1) and wait until it enumerates
+2. connect the keyboard, press the program button on the underside of the board (S1) and wait until it enumerates (you'll hear the "disconnect" and "connect" sound)
 3. go to device manager, find the atmega32u4 chip and click "update driver"
 4. choose location manually: folder named "usb" inside the installation directory of FLIP
 5. once the driver is installed, run flip
@@ -49,6 +40,21 @@ The recommended programs for flashing your keyboard are [Atmel FLIP](http://www.
   3. `sudo dfu-programmer atmega32u4 start`
 3. The keyboard should start working. If it doesn't, reconnect the cable.
 
+## Building the firmware
+
+To build firmware binary hex file with a certain keymap just run `make` with the `keymap` option like:
+
+    $ make keymap=[custom|poker|poker_set|poker_bit|plain|hasu|spacefn|hhkb|<name>]
+
+For a more detailed explanation of the build process and the environment setup, see the ["Getting Started" section](/readme.md#getting-started).
+
+## List of included Keymaps
+
+Several versions of keymaps are available in advance but you are recommended to define your favorite layout yourself. 
+To define your own keymap, copy the [default keymap template](/quantum/template/keymaps/default) directory into the `keymaps` directory and start modifying the `keymap.c` file. Some options might require you to change the `config.h` or `Makefile` as well, refer to the main documentation for more information on those.
+If you want to later merge your finalised keymap into this repository to make it available for everyone, make sure to also modify the `readme.md` in your keymap directory to show a visual version of your keymap.
+
+Here's a list of the standard layouts that are provided with the precompiled .hex-files.
 
 ### 0  Initial explanations
 The █████ blocks on the layouts hides the switch positions that do not exist physically on the PCB. If you feel like hacking the keyboard and adding new keys, those are the positions that can be used. You'll have to modify the [keymap_common.h](keymap_common.h) file for that.
