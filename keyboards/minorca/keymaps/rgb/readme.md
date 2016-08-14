@@ -19,7 +19,7 @@ The keymap is a work in progress. The RGB functions are accessed by holding down
 
 Example wiring:
 
-WS2812 data pin is connected to D2
+WS2812 data pin is connected to D5
 
 ![wiring](wiring1.jpg)
 ![wiring closeup](wiring2.jpg)
