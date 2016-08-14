@@ -17,7 +17,7 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 
      * **folder_name** description
 
-# List of Planck keymaps
+# List of Minorca keymaps
 
-* **default** default Planck layout
-* **cbbrowne** cbbrowne's Planck layout
+* **default** default Minorca layout
+* **rgb** layout with WS2812b control
