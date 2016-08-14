@@ -230,6 +230,9 @@ endef
 # $1 Keymap
 define PARSE_KEYMAP
     CURRENT_KM = $1
+    # The rest of the rule is the target
+    # Remove the leading "-" from the target, as it acts as a separator
+    MAKE_TARGET := $$(patsubst -%,%,$$(RULE))
     COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM)
     COMMANDS += $$(COMMAND)
     ifeq ($$(CURRENT_SP),)
@@ -240,8 +243,11 @@ define PARSE_KEYMAP
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) SUBPROJECT=$$(CURRENT_SP) KEYMAP=$$(CURRENT_KM)
     MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
-    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk
-    MAKE_MSG := Compiling $$(KB_SP) with $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
+    MAKE_MSG := Making $$(KB_SP) with keymap $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
+    ifneq ($$(MAKE_TARGET),)
+        MAKE_MSG += and target $(BOLD)$$(MAKE_TARGET)$(NO_COLOR)
+    endif
     MAKE_MSG_FORMAT := $(AWK) '{ printf "%-118s", $$$$0;}'
     COMMAND_true_$$(COMMAND) := \
         printf "$$(MAKE_MSG)" | \
