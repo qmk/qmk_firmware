@@ -21,13 +21,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xC1ED
-#define MANUFACTURER    Clueboard
-#define PRODUCT         Clueboard
-#define DESCRIPTION     QMK keyboard firmware for Clueboard
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x6061
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Ortholinear Keyboards
+#define PRODUCT         The Preonic Keyboard
+#define DESCRIPTION     A compact ortholinear keyboard
+
+/* key matrix size */
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 12
+
+/* Planck PCB default pin-out */
+#define MATRIX_ROW_PINS { D2, D5, B5, B6, D3 }
+#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
+#define UNUSED_PINS
+
+#define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -42,16 +61,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D1
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 28     // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
 
+#define TAPPING_TERM 200
+
 /* disable debug print */
-//#define NO_DEBUG
+// #define NO_DEBUG
 
 /* disable print */
-//#define NO_PRINT
+// #define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -59,13 +88,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2/config.h"
-#endif
 
 #endif
