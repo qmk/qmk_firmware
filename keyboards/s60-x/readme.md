@@ -230,7 +230,7 @@ The HHKB keymap emulates original HHKB layers.
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 
     
-### 8  [Custom](keymaps/custom/keymap.c]
+### 8  [Custom](keymaps/custom/keymap.c)
 The custom keymap is where I tested all the switches, not being concerned with a specific layout or layers. It's a plain layout option with the extra keys used on ISO & HHKB layouts being assigned some other keys.
 
 #### 8.0 Default layer
