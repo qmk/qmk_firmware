@@ -2,6 +2,8 @@ minorca keyboard firmware
 ======================
 Handwired 40% keyboard
 
+http://www.panc.co/blog/minorcasebright-information-page
+
 ## Quantum MK Firmware
 
 For the full Quantum feature list, see [the parent readme.md](/readme.md).
