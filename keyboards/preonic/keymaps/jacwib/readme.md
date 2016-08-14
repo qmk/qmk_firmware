@@ -1,2 +1,2 @@
-# Jack's preonic keymap.
+# Jacwib's preonic keymap.
 Tries to feel like a normal keyboard, and is also designed for use with a swedish keymap.
