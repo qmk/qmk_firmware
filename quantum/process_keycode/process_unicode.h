@@ -12,6 +12,7 @@ void set_unicode_input_mode(uint8_t os_target);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
+void register_hex32(uint32_t hex);
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
 
@@ -22,7 +23,7 @@ bool process_unicode(uint16_t keycode, keyrecord_t *record);
 
 typedef struct {
   char *symbol;
-  uint16_t codes[4];
+  uint32_t code;
 } qk_ucis_symbol_t;
 
 struct {
@@ -31,8 +32,8 @@ struct {
   bool in_progress:1;
 } qk_ucis_state;
 
-#define UCIS_TABLE(...) {__VA_ARGS__, {NULL, {}}}
-#define UCIS_SYM(name, ...) {name, {__VA_ARGS__, 0}}
+#define UCIS_TABLE(...) {__VA_ARGS__, {NULL, 0}}
+#define UCIS_SYM(name, code) {name, code}
 
 extern const qk_ucis_symbol_t ucis_symbol_table[];
 

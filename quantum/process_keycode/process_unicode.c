@@ -60,6 +60,14 @@ void register_hex(uint16_t hex) {
   }
 }
 
+void register_hex32(uint32_t hex) {
+  for(int i = 7; i >= 0; i--) {
+    uint8_t digit = ((hex >> (i*8)) & 0xF);
+    register_code(hex_to_keycode(digit));
+    unregister_code(hex_to_keycode(digit));
+  }
+}
+
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
   if (keycode > QK_UNICODE && record->event.pressed) {
     uint16_t unicode = keycode & 0x7FFF;
@@ -156,9 +164,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
     for (i = 0; ucis_symbol_table[i].symbol; i++) {
       if (is_uni_seq (ucis_symbol_table[i].symbol)) {
         symbol_found = true;
-        for (uint8_t j = 0; ucis_symbol_table[i].codes[j]; j++) {
-          register_hex(ucis_symbol_table[i].codes[j]);
-        }
+        register_hex32(ucis_symbol_table[i].code);
         break;
       }
     }
