@@ -13,7 +13,7 @@ uint16_t hex_to_keycode(uint8_t hex)
   }
 }
 
-void set_unicode_mode(uint8_t os_target)
+void set_unicode_input_mode(uint8_t os_target)
 {
   input_mode = os_target;
 }
