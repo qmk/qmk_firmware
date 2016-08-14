@@ -37,6 +37,7 @@ struct {
 extern const qk_ucis_symbol_t ucis_symbol_table[];
 
 void qk_ucis_start(void);
+void qk_ucis_start_user(void);
 void qk_ucis_symbol_fallback (void);
 bool process_ucis (uint16_t keycode, keyrecord_t *record);
 

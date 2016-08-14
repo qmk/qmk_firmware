@@ -75,6 +75,11 @@ void qk_ucis_start(void) {
   qk_ucis_state.count = 0;
   qk_ucis_state.in_progress = true;
 
+  qk_ucis_start_user();
+}
+
+__attribute__((weak))
+void qk_ucis_start_user(void) {
   unicode_input_start();
   register_hex(0x2328);
   unicode_input_finish();
