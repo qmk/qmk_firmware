@@ -58,7 +58,7 @@ The ▒▒▒▒▒ blocks hides switch positions not used on this particular la
 There is no LED support on the PCB at the moment, but I'll let the code for that untouched.
 
 
-### 1  Standard - ANSI
+### 1  [Standard - ANSI (default layout)](keymaps/default/keymap.c)
 The standard keymap is the one that is pre-flashed on the S60-X.
 
 #### 1.0 Default layer
@@ -87,7 +87,7 @@ The standard keymap is the one that is pre-flashed on the S60-X.
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 
 
-### 2  Standard - ISO
+### 2  [Standard - ISO](keymaps/iso/keymap.c)
 The same as the standard keymap, but with additional ISO keys.
 
 
@@ -118,8 +118,8 @@ The same as the standard keymap, but with additional ISO keys.
 
     
 ### 3  Poker
-[keymap_poker.c](keymap_poker.c) emulates original Poker layers
-while both [keymap_poker_bit.c](keymap_poker_bit.c) and [keymap_poker_set.c](keymap_poker_set.c) implements same layout in different way and they fix a minor issue of original Poker and enhance arrow keys.
+[The poker keymap](keymaps/poker/keymap.c) emulates original Vortex Poker layers
+while both [poker_bit](keymaps/poker_bit/keymap.c) and [poker_set](keymap/poker_set/keymap.c) implement the same layout in a slightly different way, fix a minor issue of the original poker Layout and enhance arrow keys.
 
     Fn + Esc = `
     Fn + {left, down, up, right}  = {home, pgdown, pgup, end}
@@ -150,9 +150,8 @@ while both [keymap_poker_bit.c](keymap_poker_bit.c) and [keymap_poker_set.c](key
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 
 
-### 4. Plain
+### 4. [Plain](keymaps/plain/keymap.c)
 Without any Fn layer this will be useful if you want to use key remapping tool like AHK on host.
-See [keymap_plain.c](keymap_plain.c) for detail.
 
 #### 4.0 Plain Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -168,14 +167,14 @@ See [keymap_plain.c](keymap_plain.c) for detail.
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 
 
-### 5. Hasu
-This is Hasu's favorite keymap with HHKB Fn, Vi cursor and Mousekey layer. See [keymap_hasu.c](keymap_hasu.c) for detail.
+### 5. [Hasu](keymaps/hasu/keymap.c)
+This is Hasu's favorite keymap with HHKB Fn, Vi cursor and Mousekey layer.
 
 (Hasu is the creator of the TMK firmware, for those who do not know that.)
 
 
-### 6. SpaceFN
-This layout proposed by spiceBar uses space bar to change layer with using Dual role key technique. See [keymap_spacefn.c](keymap_spacefn.c) and [SpaceFN discussion](http://geekhack.org/index.php?topic=51069.0).
+### 6. [SpaceFN](keymaps/spacefn/keymap.c)
+This layout proposed by spiceBar uses space bar to change layer with using Dual role key technique. Check the sourcefile and [SpaceFN discussion](http://geekhack.org/index.php?topic=51069.0) for more information.
 
 #### 6.0 Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -203,8 +202,8 @@ This layout proposed by spiceBar uses space bar to change layer with using Dual 
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 
 
-### 7. HHKB
-[keymap_hhkb.c](keymap_hhkb.c) emulates original HHKB layers.
+### 7. [HHKB](keymap/hhkb/keymap.c)
+The HHKB keymap emulates original HHKB layers.
 #### 7.0: Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
     │ Esc │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │  \  │  `  │
@@ -231,8 +230,8 @@ This layout proposed by spiceBar uses space bar to change layer with using Dual 
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 
     
-### 8  Custom
-The custom keymap - [keymap_custom.c](keymap_custom.c) - is where I tested all the switches, not being concerned with a specific layout or layers. It's a plain layout option with the extra keys used on ISO & HHKB layouts being assigned some other keys.
+### 8  [Custom](keymaps/custom/keymap.c]
+The custom keymap is where I tested all the switches, not being concerned with a specific layout or layers. It's a plain layout option with the extra keys used on ISO & HHKB layouts being assigned some other keys.
 
 #### 8.0 Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
