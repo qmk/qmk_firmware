@@ -7,12 +7,14 @@ For the full Quantum feature list, see the parent readme.md.
 * heavily modified ISO (!) layout with split right shift key
 * spaceFn
 * Dual-Role keys:
+* 
  | Original key     | when tapped   | when held     |
  | ---------------- | ------------- | ------------- |
  | Space            | Space         | layer change  |
  | Caps lock        | Escape        | Control       |
  | Tab              | Tab           | layer change  |
  | Enter            | Enter         | Control       |
+
 * Lockable layer for LED functions and numpad
 * vim-style arrow keys on hjkl (spacefn layer)
 * corresponding Home/PgDn/PgUp/End on hjkl (tab layer)
