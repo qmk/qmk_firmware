@@ -37,6 +37,7 @@ void unicode_input_start (void) {
     unregister_code(KC_PPLS);
     break;
   }
+  wait_ms(UNICODE_TYPE_DELAY);
 }
 
 void unicode_input_finish (void) {
@@ -109,6 +110,7 @@ void qk_ucis_symbol_fallback (void) {
     uint8_t code = qk_ucis_state.codes[i];
     register_code(code);
     unregister_code(code);
+    wait_ms(UNICODE_TYPE_DELAY);
   }
 }
 
@@ -135,6 +137,7 @@ void register_ucis(const char *hex) {
     if (kc) {
       register_code (kc);
       unregister_code (kc);
+      wait_ms (UNICODE_TYPE_DELAY);
     }
   }
 }
@@ -172,6 +175,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
     for (i = qk_ucis_state.count; i > 0; i--) {
       register_code (KC_BSPC);
       unregister_code (KC_BSPC);
+      wait_ms(UNICODE_TYPE_DELAY);
     }
 
     if (keycode == KC_ESC) {
