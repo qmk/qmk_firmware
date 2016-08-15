@@ -60,14 +60,6 @@ void register_hex(uint16_t hex) {
   }
 }
 
-void register_hex32(uint32_t hex) {
-  for(int i = 7; i >= 0; i--) {
-    uint8_t digit = ((hex >> (i*8)) & 0xF);
-    register_code(hex_to_keycode(digit));
-    unregister_code(hex_to_keycode(digit));
-  }
-}
-
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
   if (keycode > QK_UNICODE && record->event.pressed) {
     uint16_t unicode = keycode & 0x7FFF;
@@ -120,6 +112,33 @@ void qk_ucis_symbol_fallback (void) {
   }
 }
 
+void register_ucis(const char *hex) {
+  for(int i = 0; hex[i]; i++) {
+    uint8_t kc = 0;
+    char c = hex[i];
+
+    switch (c) {
+    case '0':
+      kc = KC_0;
+      break;
+    case '1' ... '9':
+      kc = c - '1' + KC_1;
+      break;
+    case 'a' ... 'f':
+      kc = c - 'a' + KC_A;
+      break;
+    case 'A' ... 'F':
+      kc = c - 'A' + KC_A;
+      break;
+    }
+
+    if (kc) {
+      register_code (kc);
+      unregister_code (kc);
+    }
+  }
+}
+
 bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   uint8_t i;
 
@@ -164,7 +183,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
     for (i = 0; ucis_symbol_table[i].symbol; i++) {
       if (is_uni_seq (ucis_symbol_table[i].symbol)) {
         symbol_found = true;
-        register_hex32(ucis_symbol_table[i].code);
+        register_ucis(ucis_symbol_table[i].code + 2);
         break;
       }
     }
