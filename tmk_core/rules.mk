@@ -98,9 +98,6 @@ CFLAGS += -Wstrict-prototypes
 #CFLAGS += -Wsign-compare
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
-ifdef CONFIG_H
-    CFLAGS += -include $(CONFIG_H)
-endif
 
 
 #---------------- Compiler Options C++ ----------------
@@ -124,10 +121,6 @@ CPPFLAGS += -Wundef
 #CPPFLAGS += -Wsign-compare
 CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #CPPFLAGS += $(CSTANDARD)
-ifdef CONFIG_H
-    CPPFLAGS += -include $(CONFIG_H)
-endif
-
 
 #---------------- Assembler Options ----------------
 #  -Wa,...:   tell GCC to pass this to the assembler.
@@ -140,9 +133,6 @@ endif
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS) 
 ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-ifdef CONFIG_H
-    ASFLAGS += -include $(CONFIG_H)
-endif
 
 #---------------- Library Options ----------------
 # Minimalistic printf version
@@ -296,10 +286,12 @@ BEGIN = gccversion sizebefore
 
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
-$1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS)
-$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS)
-$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS)
-$$(info $$($1_INCFLAGS))
+ifdef $1_CONFIG
+$1_CONFIG_FLAGS += -include $$($1_CONFIG)
+endif
+$1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
+$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
+$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 
 # Compile: create object files from C source files.
 $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)

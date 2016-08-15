@@ -56,9 +56,17 @@ ifeq ($(PLATFORM),CHIBIOS)
 	OPT_OS = chibios
 endif
 
+CONFIG_H = $(KEYBOARD_PATH)/config.h
+ifneq ($(SUBPROJECT),)
+	ifneq ("$(wildcard $(SUBPROJECT_C))","")
+		CONFIG_H = $(SUBPROJECT_PATH)/config.h
+	endif
+endif
+
 # Save the defines and includes here, so we don't include any keymap specific ones 
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(SUBPROJECT_PATH) $(KEYBOARD_PATH)
+PROJECT_CONFIG := $(CONFIG_H)
 
 MAIN_KEYMAP_PATH := $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_C := $(MAIN_KEYMAP_PATH)/keymap.c
@@ -94,13 +102,6 @@ KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 	CONFIG_H = $(KEYMAP_PATH)/config.h
-else
-	CONFIG_H = $(KEYBOARD_PATH)/config.h
-	ifneq ($(SUBPROJECT),)
-		ifneq ("$(wildcard $(SUBPROJECT_C))","")
-			CONFIG_H = $(SUBPROJECT_PATH)/config.h
-		endif
-	endif
 endif
 
 # # project specific files
@@ -192,9 +193,11 @@ OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
 $(KEYMAP_OUTPUT)_INC := $(EXTRAINCDIRS) $(VPATH)
+$(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)
 $(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
 $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
+$(KEYBOARD_OUTPUT)_CONFIG  := $(PROJECT_CONFIG)
 
 
 include $(TMK_PATH)/rules.mk
