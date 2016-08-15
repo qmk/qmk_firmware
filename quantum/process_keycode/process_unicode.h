@@ -8,6 +8,10 @@
 #define UC_WIN 2
 #define UC_BSD 3
 
+#ifndef UNICODE_TYPE_DELAY
+#define UNICODE_TYPE_DELAY 10
+#endif
+
 void set_unicode_input_mode(uint8_t os_target);
 void unicode_input_start(void);
 void unicode_input_finish(void);
