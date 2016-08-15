@@ -43,6 +43,9 @@ ifneq ($(SUBPROJECT),)
     endif
 endif
 
+# Save the defs here, so we don't include any keymap specific ones 
+PROJECT_DEFS := $(OPT_DEFS)
+
 MAIN_KEYMAP_PATH := $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_C := $(MAIN_KEYMAP_PATH)/keymap.c
 SUBPROJ_KEYMAP_PATH := $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)
@@ -59,18 +62,33 @@ else
     $(error "$(MAIN_KEYMAP_C)/keymap.c" does not exist)
 endif
 
+BUILD_DIR = $(TOP_DIR)/.build
+
 ifneq ($(SUBPROJECT),)
 	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
+	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)_$(SUBPROJECT)
 else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
+	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)
 endif
 
-BUILD_DIR = $(TOP_DIR)/.build
+# We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
+ifdef MCU_FAMILY
+	PLATFORM=CHIBIOS
+else
+	PLATFORM=AVR
+endif
+
+ifeq ($(PLATFORM),CHIBIOS)
+	include $(TMK_PATH)/protocol/chibios.mk
+	include $(TMK_PATH)/chibios.mk
+	OPT_OS = chibios
+endif
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-OBJDIR := $(BUILD_DIR)/obj_$(TARGET)
+KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
@@ -156,23 +174,10 @@ VPATH += $(QUANTUM_PATH)/audio
 VPATH += $(QUANTUM_PATH)/process_keycode
 
 
-# We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
-ifdef MCU_FAMILY
-	PLATFORM=CHIBIOS
-else
-	PLATFORM=AVR
-endif
-
 include $(TMK_PATH)/common.mk
 ifeq ($(PLATFORM),AVR)
 	include $(TMK_PATH)/protocol/lufa.mk
 	include $(TMK_PATH)/avr.mk
-else ifeq ($(PLATFORM),CHIBIOS)
-	include $(TMK_PATH)/protocol/chibios.mk
-	include $(TMK_PATH)/chibios.mk
-	OPT_OS = chibios
-else
-	$(error Unknown platform)
 endif
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
@@ -181,6 +186,13 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 	include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
+
+OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
+$(KEYMAP_OUTPUT)_SRC := $(SRC)
+$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
+$(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)
+$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
+
+
 include $(TMK_PATH)/rules.mk
 
-OPT_DEFS += -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
