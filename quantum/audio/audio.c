@@ -6,7 +6,7 @@
 #include <avr/io.h>
 #include "print.h"
 #include "audio.h"
-#include "keymap_common.h"
+#include "keymap.h"
 
 #include "eeconfig.h"
 
@@ -374,14 +374,21 @@ bool is_playing_notes(void) {
 	return playing_notes;
 }
 
+bool is_audio_on(void) {
+    return (audio_config.enable != 0);
+}
+
 void audio_toggle(void) {
     audio_config.enable ^= 1;
     eeconfig_update_audio(audio_config.raw);
+    if (audio_config.enable)
+        audio_on_user();
 }
 
 void audio_on(void) {
     audio_config.enable = 1;
     eeconfig_update_audio(audio_config.raw);
+    audio_on_user();
 }
 
 void audio_off(void) {
@@ -468,18 +475,3 @@ void increase_tempo(uint8_t tempo_change) {
         note_tempo -= tempo_change;
     }
 }
-
-
-//------------------------------------------------------------------------------
-// Override these functions in your keymap file to play different tunes on
-// startup and bootloader jump
-__attribute__ ((weak))
-void play_startup_tone()
-{
-}
-
-__attribute__ ((weak))
-void play_goodbye_tone()
-{
-}
-//------------------------------------------------------------------------------

@@ -1,10 +1,10 @@
 #ifndef KEYMAP_NORDIC_H
 #define KEYMAP_NORDIC_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
-#define ALGR(kc) kc | 0x1400
+#define ALGR(kc) RALT(kc)
 #define NO_ALGR KC_RALT
 
 // Normal characters
@@ -25,7 +25,7 @@
 #define NO_SECT LSFT(NO_HALF)
 #define NO_QUO2	LSFT(KC_2)
 #define NO_BULT LSFT(KC_4)
-#define NO_AMP	LSFT(KC_6)
+#define NO_AMPR	LSFT(KC_6)
 #define NO_SLSH LSFT(KC_7)
 #define NO_LPRN	LSFT(KC_8)
 #define NO_RPRN	LSFT(KC_9)
