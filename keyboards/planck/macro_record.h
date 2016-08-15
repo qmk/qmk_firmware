@@ -57,7 +57,7 @@ void macro_play(
 
         *macro_pointer = macro_buffer;
         while (*macro_pointer != macro_end) {
-            process_action(*macro_pointer);
+            process_record(*macro_pointer);
             *macro_pointer += direction;
         }
 
@@ -76,14 +76,14 @@ void macro_record_key(
     signed int direction,
     keyrecord_t *record)
 {
-    if (abs(*macro_pointer - macro_buffer) < MACRO_SIZE &&
+    if (labs(*macro_pointer - macro_buffer) < MACRO_SIZE &&
         *macro_pointer != macro_end2+direction) {
 
         **macro_pointer = *record;
         *macro_pointer += direction;
 
         layer_off(rec_layer);
-        process_action_nocache(record);
+        process_record_nocache(record);
         layer_on(rec_layer);
     } else {
         backlight_toggle(); /* Notify about the end of buffer. */
