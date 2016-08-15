@@ -89,9 +89,9 @@ CHIBISRC = $(STARTUPSRC) \
 	   $(STARTUPASM) \
 	   $(PORTASM) \
 	   $(OSALASM)         
-	   
-SRC += $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
+CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
+	   
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
