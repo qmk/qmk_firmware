@@ -27,8 +27,8 @@ enum planck_keycodes {
   COLEMAK,
   DVORAK,
   PLOVER,
-  LOWER,
-  RAISE,
+  LOWER = LT(_LOWER, KC_BSPC),
+  RAISE = LT(_RAISE, KC_ENT),
   BACKLIT,
   EXT_PLV
 };
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH},
   {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS},
-  {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_T(KC_ENT)},
+  {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT},
   {KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_ENT }
 },
 
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
-      return false;
+      //return false;
       break;
     case RAISE:
       if (record->event.pressed) {
@@ -235,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
-      return false;
+      //return false;
       break;
     case BACKLIT:
       if (record->event.pressed) {
