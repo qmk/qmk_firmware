@@ -7,6 +7,8 @@ rev=$(git rev-parse --short HEAD)
 git config --global user.name "Travis CI"
 git config --global user.email "jack.humb+travis.ci@gmail.com"
 
+make all-keymaps keyboard=ergodox/ez AUTOGEN=true
+
 find . -name ".build" | xargs rm -rf
 cd ..
 git clone https://$GH_TOKEN@github.com/jackhumbert/qmk.fm.git
