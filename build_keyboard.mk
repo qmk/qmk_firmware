@@ -54,6 +54,15 @@ ifeq ($(PLATFORM),CHIBIOS)
 	include $(TMK_PATH)/protocol/chibios.mk
 	include $(TMK_PATH)/chibios.mk
 	OPT_OS = chibios
+	ifneq ("$(wildcard $(SUBPROJECT_PATH)/bootloader_defs.h)","")
+		OPT_DEFS += -include $(SUBPROJECT_PATH)/bootloader_defs.h
+	else ifneq ("$(wildcard $(SUBPROJECT_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
+		OPT_DEFS += -include $(SUBPROJECT_PATH)/boards/$(BOARD)/bootloader_defs.h
+	else ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
+		OPT_DEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
+	else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
+		OPT_DEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
+	endif
 endif
 
 CONFIG_H = $(KEYBOARD_PATH)/config.h
