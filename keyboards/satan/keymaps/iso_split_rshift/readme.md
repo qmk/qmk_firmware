@@ -33,4 +33,4 @@ in the default qwertz layout
 * no-need-to-solder-on-chip picture:
 ![no need to solder directly on the chip anymore](LEDpinSatan.jpg)
 * special thanks to /u/TerryMathews  who suggested the pin PB2 so soldering
-directly on the atmega is not needed anymore [reddit](https://www.reddit.com/r/MechanicalKeyboards/comments/4ghq9z/photos_satan_rgb60_w1976/d2k5tra)
+directly on the atmega is not needed anymore. Happened on [reddit](https://www.reddit.com/r/MechanicalKeyboards/comments/4ghq9z/photos_satan_rgb60_w1976/d2k5tra)
