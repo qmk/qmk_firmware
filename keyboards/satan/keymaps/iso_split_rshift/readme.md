@@ -32,3 +32,5 @@ in the default qwertz layout
 * nice visualization of the layers [here](http://www.keyboard-layout-editor.com/#/gists/aba4e4396459ede85bc66a22cee88e48)
 * no-need-to-solder-on-chip picture:
 ![no need to solder directly on the chip anymore](LEDpinSatan.jpg)
+* special thanks to /u/TerryMathews  who suggested the pin PB2 so soldering
+directly on the atmega is not needed anymore [reddit](https://www.reddit.com/r/MechanicalKeyboards/comments/4ghq9z/photos_satan_rgb60_w1976/d2k5tra)
