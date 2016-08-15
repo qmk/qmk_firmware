@@ -1,2 +1,3 @@
-# The Default Planck Layout
+# Split Layout
+Inspired by TECK
 
