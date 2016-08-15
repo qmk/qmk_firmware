@@ -43,8 +43,22 @@ ifneq ($(SUBPROJECT),)
     endif
 endif
 
-# Save the defs here, so we don't include any keymap specific ones 
+# We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
+ifdef MCU_FAMILY
+	PLATFORM=CHIBIOS
+else
+	PLATFORM=AVR
+endif
+
+ifeq ($(PLATFORM),CHIBIOS)
+	include $(TMK_PATH)/protocol/chibios.mk
+	include $(TMK_PATH)/chibios.mk
+	OPT_OS = chibios
+endif
+
+# Save the defines and includes here, so we don't include any keymap specific ones 
 PROJECT_DEFS := $(OPT_DEFS)
+PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(SUBPROJECT_PATH) $(KEYBOARD_PATH)
 
 MAIN_KEYMAP_PATH := $(KEYBOARD_PATH)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_C := $(MAIN_KEYMAP_PATH)/keymap.c
@@ -70,19 +84,6 @@ ifneq ($(SUBPROJECT),)
 else
 	TARGET ?= $(KEYBOARD)_$(KEYMAP)
 	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)
-endif
-
-# We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
-ifdef MCU_FAMILY
-	PLATFORM=CHIBIOS
-else
-	PLATFORM=AVR
-endif
-
-ifeq ($(PLATFORM),CHIBIOS)
-	include $(TMK_PATH)/protocol/chibios.mk
-	include $(TMK_PATH)/chibios.mk
-	OPT_OS = chibios
 endif
 
 # Object files directory
@@ -190,8 +191,10 @@ endif
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
+$(KEYMAP_OUTPUT)_INC := $(EXTRAINCDIRS) $(VPATH)
 $(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)
 $(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
+$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 
 
 include $(TMK_PATH)/rules.mk

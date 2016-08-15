@@ -49,13 +49,6 @@ OPT = s
 AUTOGEN ?= false
 
 
-# List any extra directories to look for include files here.
-#     Each directory must be seperated by a space.
-#     Use forward slashes for directory separators.
-#     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS += $(subst :, ,$(VPATH_SRC))
-
-
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
 #     gnu89 = c89 plus GCC extensions
@@ -104,7 +97,6 @@ CFLAGS += -Wstrict-prototypes
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
 ifdef CONFIG_H
     CFLAGS += -include $(CONFIG_H)
@@ -131,7 +123,6 @@ CPPFLAGS += -Wundef
 #CPPFLAGS += -Wunreachable-code
 #CPPFLAGS += -Wsign-compare
 CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 #CPPFLAGS += $(CSTANDARD)
 ifdef CONFIG_H
     CPPFLAGS += -include $(CONFIG_H)
@@ -149,7 +140,6 @@ endif
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS) 
 ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-ASFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 ifdef CONFIG_H
     ASFLAGS += -include $(CONFIG_H)
 endif
@@ -305,9 +295,11 @@ BEGIN = gccversion sizebefore
 	
 
 define GEN_OBJRULE
-$1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS)
-$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS)
-$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS)
+$1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
+$1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS)
+$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS)
+$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS)
+$$(info $$($1_INCFLAGS))
 
 # Compile: create object files from C source files.
 $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
