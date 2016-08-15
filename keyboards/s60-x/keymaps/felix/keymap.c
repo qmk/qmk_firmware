@@ -20,6 +20,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#define ONESHOT_TAP_TOGGLE 2
+#define ONESHOT_TIMEOUT 1
+
+//Special keycodes for better readability
+//SpaceFN
+//OneShot LeftShift
+//GamingMode Lock (disables SpaceFn and OneShot LShift)
+//Function
+#define KC_SPACEFN KC_FN0
+#define KC_OSLS KC_FN3
+#define KC_GMLK KC_FN1
+#define KC_FUNC KC_FN2
+
+enum function_codes {
+    F_SPACEFN = 0,
+    F_OSLS = 3,
+    F_GMLK = 1,
+    F_FUNC = 2
+};
+
 enum layer_names {
 	DEFAULT,
 	GAMING,
@@ -52,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |-----------------------------------------------------------|
 	* |Ctrl  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
 	* |-----------------------------------------------------------|
-	* |Shift   |  Y|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up  |RSft|
+	* |Shift OS|  Y|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up  |RSft|
 	* |-----------------------------------------------------------|
 	* |Fn2 |Gui |Alt |         SpaceFn       |Alt |Left|Down|Right|
 	* `-----------------------------------------------------------'
@@ -61,8 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_DEL,  \
 		KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,          \
 		KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,           \
-		KC_LSFT, KC_NUBS, KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_NO,   KC_UP,   KC_RSFT, \
-		KC_FN2,  KC_LGUI, KC_LALT,                            KC_FN0,                                      KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT),
+		KC_OSLS, KC_NUBS, KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_NO,   KC_UP,   KC_RSFT, \
+		KC_FUNC, KC_LGUI, KC_LALT,                            KC_SPACEFN,                                  KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
 
 	/* Layout 1: Gaming Layer, SpaceFn disabled
 	* ,-----------------------------------------------------------.
@@ -72,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |-----------------------------------------------------------|
 	* |      |   |   |   |   |   |   |   |   |   |   |   |        |
 	* |-----------------------------------------------------------|
-	* |        |   |   |   |   |   |   |   |   |   |   |     |Fn1 |
+	* |SFTnonOS|   |   |   |   |   |   |   |   |   |   |     |Fn1 |
 	* |-----------------------------------------------------------|
 	* |   | NOP|     |          Space         |    |    |    |    |
 	* `-----------------------------------------------------------'
@@ -81,8 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          \
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_FN1,  \
-		_______, XXXXXXX,   _______,                            KC_SPC,                                    _______, _______, _______, _______),
+		KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GMLK,  \
+		_______, XXXXXXX,   _______,                            KC_SPC,                                    _______, _______, _______, _______
+    ),
 
 	/* Layout 2: Function Layer
 	* ,-----------------------------------------------------------.
@@ -92,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |-----------------------------------------------------------|
 	* |      | Ä | ß |   |Vl-|Mut|Vl+|   |   |   |   |   |PEnt    |
 	* |-----------------------------------------------------------|
-	* |        |   |   |   |   |Cal|   |   |   |   |Pau |PUp |Fn1 |
+	* | CpsLck |   |   |   |   |Cal|   |   |   |   |Pau |PUp |Fn1 |
 	* |-----------------------------------------------------------|
 	* |    |    |    |                        |    |Home|PDn |End |
 	* `-----------------------------------------------------------'
@@ -101,24 +123,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,   RESET,   \
 		_______, _______, KC_C_WM, KC_C_EM, KC_MPRV, KC_MPLY, KC_MNXT, KC_C_UM, KC_C_IM, KC_C_OM, _______, KC_PSCR, KC_SLCK, KC_PAUS, \
 		_______, KC_C_AM, KC_C_SM, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, _______, _______, KC_PENT,          \
-		_______, KC_C_YM, _______, _______, _______, _______, KC_CALC, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_FN1, \
-		_______, _______, _______,                            _______,                                     _______, KC_HOME, KC_PGDN, KC_END),
+		KC_CAPS, KC_C_YM, _______, _______, _______, _______, KC_CALC, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_GMLK, \
+		_______, _______, _______,                            _______,                                     _______, KC_HOME, KC_PGDN, KC_END
+    ),
 };
 
 /*
 * Fn action definition
 */
 const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_LAYER_TAP_KEY(2, KC_SPACE),    /* SpaceFn layout 1 */
-	[1] = ACTION_LAYER_TOGGLE(1),                /* Disable SpaceFn  */
-	[2] = ACTION_LAYER_MOMENTARY(2)             /* SpaceFn layout 1 */
+	[F_SPACEFN] = ACTION_LAYER_TAP_KEY(2, KC_SPACE),    // SpaceFn layout 1
+	[F_GMLK] = ACTION_LAYER_TOGGLE(1),                  // Disable SpaceFn and Oneshot Shift
+	[F_FUNC] = ACTION_LAYER_MOMENTARY(2),               // SpaceFn layout 1
+    [F_OSLS] = ACTION_MODS_ONESHOT(MOD_LSFT)            // Oneshot Leftshift
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     return MACRO_NONE;
 };
-
 
 void matrix_init_user(void) {
 
