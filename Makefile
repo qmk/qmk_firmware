@@ -12,6 +12,8 @@ endif
 
 override SILENT = false
 
+ON_ERROR := error_occured=1
+
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
 ROOT_DIR := $(dir $(ROOT_MAKEFILE))
@@ -302,7 +304,9 @@ $(SUBPROJECTS): %: %-allkm
 	done
 	$(eval $(call PARSE_RULE,$@))
 	$(eval $(call SET_SILENT_MODE))
-	+$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	+error_occured=0; \
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
+	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi
 	
 
 .PHONY: all
