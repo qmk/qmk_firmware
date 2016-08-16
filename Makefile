@@ -263,8 +263,7 @@ define PARSE_KEYMAP
             $$(PRINT_OK); \
         fi;
     COMMAND_false_$$(COMMAND) := \
-        printf "$$(MAKE_MSG)\n" | \
-        $$(MAKE_MSG_FORMAT); \
+        printf "$$(MAKE_MSG)\n\n"; \
         $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false;
 endef
 
