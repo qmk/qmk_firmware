@@ -13,7 +13,7 @@ For an easy-to-read version of this document and the repository, check out [http
 * [Planck](/keyboards/planck/)
 * [Preonic](/keyboards/preonic/)
 * [Atomic](/keyboards/atomic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
+* [ErgoDox EZ](/keyboards/ergodox/ez/)
 * [Clueboard](/keyboards/clueboard/)
 * [Cluepad](/keyboards/cluepad/)
 
@@ -31,7 +31,7 @@ The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/j
 
 This is not a tiny project. While this is the main readme, there are many other files you might want to consult. Here are some points of interest:
 
-* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox_ez/); for the Planck, it's [here](keyboards/planck/) and so on.
+* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox/ez/); for the Planck, it's [here](keyboards/planck/) and so on.
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
   * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
   * [quantum/keymap.h](quantum/keymap.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap.h` is where they're actually defined.
