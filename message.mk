@@ -15,6 +15,8 @@ else
 	AWK=cat && test
 endif
 
+ON_ERROR ?= exit 1
+
 OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)\n
 ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)\n
 WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)\n
@@ -23,9 +25,9 @@ TAB_LOG = printf "\n$$LOG\n\n" | $(AWK) '{ sub(/^/," | "); print }'
 TAB_LOG_PLAIN = printf "$$LOG\n"
 AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'
 AWK_CMD = $(AWK) '{ printf "%-99s", $$0; }'
-PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && exit 1
+PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && $(ON_ERROR)
 PRINT_WARNING = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG)
-PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && exit 1
+PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN) && $(ON_ERROR)
 PRINT_WARNING_PLAIN = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
 PRINT_OK = $(SILENT) || printf " $(OK_STRING)" | $(AWK_STATUS)
 BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
@@ -34,6 +36,7 @@ MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, pleas
 # Define Messages
 # English
 MSG_ERRORS_NONE = Errors: none
+MSG_ERRORS = $(ERROR_COLOR)Make finished with errors\n$(NO_COLOR)
 MSG_BEGIN = -------- begin --------
 MSG_END = --------  end  --------
 MSG_SIZE_BEFORE = Size before:
