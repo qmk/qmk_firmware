@@ -1,6 +1,5 @@
 /* File: macro_record.h */
-#ifndef _h_MACRO_RECORD_
-#define _h_MACRO_RECORD_
+#pragma once
 
 #include "action_layer.h"
 #include <stdlib.h>
@@ -163,5 +162,3 @@ bool macro_record_macro_handler(keyrecord_t *record, uint8_t id)
     }
     return true;
 }
-
-#endif
