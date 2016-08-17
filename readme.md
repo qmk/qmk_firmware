@@ -431,7 +431,7 @@ enum {
 };
 
 //Tap Dance Definitions
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
 // Other declarations would go here, separated by commas, if you have them
@@ -517,7 +517,7 @@ void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_3_off();
 }
 
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
  ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
  ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
