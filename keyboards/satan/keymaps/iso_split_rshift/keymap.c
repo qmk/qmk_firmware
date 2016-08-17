@@ -14,18 +14,18 @@
 #define _SFX 3
 
 // dual-role shortcuts
-#define TABDUAL LT(_TAB, KC_TAB)
-#define CAPSDUAL CTL_T(KC_ESC)
+#define TABDUAL   LT(_TAB, KC_TAB)
+#define CAPSDUAL  CTL_T(KC_ESC)
 #define SPACEDUAL LT(_SPC, KC_SPACE)
 #define ENTERDUAL CTL_T(KC_ENT)
 // arrow cluster duality bottom right corner
-#define ARRLEFT ALT_T(KC_LEFT)
-#define ARRDOWN GUI_T(KC_DOWN)
-#define ARRUP SFT_T(KC_UP)
+#define ARRLEFT  ALT_T(KC_LEFT)
+#define ARRDOWN  GUI_T(KC_DOWN)
+#define ARRUP    SFT_T(KC_UP)
 #define ARRRIGHT CTL_T(KC_RIGHT)
 // german brackets
 #define GER_CUR_L RALT(KC_7)    // [
-#define GER_CUR_R RALT(KC_9)    // ]
+#define GER_CUR_R RALT(KC_0)    // ]
 #define GER_PAR_L LSFT(KC_8)    // (
 #define GER_PAR_R LSFT(KC_9)    // )
 #define GER_ANG_L KC_NUBS       // <
