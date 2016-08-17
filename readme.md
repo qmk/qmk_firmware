@@ -695,6 +695,49 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for copy/paste.
 
+## Dynamic macros: record and replay macros in runtime
+
+In addition to the static macros described above, you may enable the dynamic macros which you may record while writing. They are forgotten as soon as the keyboard is unplugged. Only two such macros may be stored at the same time, with the total length of 128 keypresses.
+
+To enable them, first add a new element to the `planck_keycodes` enum -- `DYNAMIC_MACRO_RANGE`:
+
+    enum planck_keycodes {
+      QWERTY = SAFE_RANGE,
+      COLEMAK,
+      DVORAK,
+      PLOVER,
+      LOWER,
+      RAISE,
+      BACKLIT,
+      EXT_PLV,
+      DYNAMIC_MACRO_RANGE,
+    };
+
+Afterwards create a new layer called `_DYN`:
+
+    #define _DYN 6    /* almost any other free number should be ok */
+    
+Below these two modifications include the `dynamic_macro.h` header:
+
+    #include "dynamic_macro.h"`
+    
+Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_REC_PLAY1`,`DYN_REC_START2` and `DYN_REC_PLAY2`. It may also contain other keys, it doesn't matter apart from the fact that you won't be able to record these keys in the dynamic macros.
+
+    [_DYN]= {
+        {_______,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+        {_______,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+        {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
+        {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    },
+    
+Add the following code to the very beginning of your `process_record_user()` function:
+
+    if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+    }
+
+The usage should be pretty self-explanatory. For the details, please read the comments in the `dynamic_macro.h` header.
+
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
