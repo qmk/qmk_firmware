@@ -49,28 +49,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,        KC_W,    KC_F,    KC_P,    KC_B,                                   KC_J,            KC_L,    KC_U,    KC_Y,    KC_SCLN,
   KC_A,        KC_R,    KC_S,    KC_T,    KC_G,                                   KC_M,            KC_N,    KC_E,    KC_I,    KC_O,
   SFT_T(KC_Z), KC_X,    KC_C,    KC_D,    KC_V,                                   KC_K,            KC_H,    KC_COMM, KC_DOT,  SFT_T(KC_SLSH),
-  KC_ESC,      KC_TAB,  KC_LGUI, KC_LSFT, KC_BSPC, CTL_T(KC_DEL), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_EX), KC_MINS, KC_QUOT, KC_EQL
+  KC_ESC,      KC_TAB,  KC_LGUI, KC_LALT, KC_BSPC, CTL_T(KC_DEL), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_EX), KC_MINS, KC_QUOT, KC_EQL
 ),
 
 [_QW] = KEYMAP( /* Qwerty */
-  KC_Q,        KC_W,    KC_E,    KC_R,    KC_T,                                    KC_Y,            KC_U,    KC_I,    KC_O,    KC_P,
-  KC_A,        KC_S,    KC_D,    KC_F,    KC_G,                                    KC_H,            KC_J,    KC_K,    KC_L,    KC_SCLN,
-  SFT_T(KC_Z), KC_X,    KC_C,    KC_V,    KC_B,                                    KC_N,            KC_M,    KC_COMM, KC_DOT,  SFT_T(KC_SLSH),
-  KC_ESC,      KC_TAB,  KC_LGUI, KC_LSFT, KC_BSPC, CTL_T(KC_BSPC), ALT_T(KC_ENT),  LT(_NU, KC_SPC), MO(_NU), TG(_GA), KC_QUOT, KC_EQL
+  KC_Q,        KC_W,    KC_E,    KC_R,    KC_T,                                  KC_Y,            KC_U,    KC_I,    KC_O,    KC_P,
+  KC_A,        KC_S,    KC_D,    KC_F,    KC_G,                                  KC_H,            KC_J,    KC_K,    KC_L,    KC_SCLN,
+  SFT_T(KC_Z), KC_X,    KC_C,    KC_V,    KC_B,                                  KC_N,            KC_M,    KC_COMM, KC_DOT,  SFT_T(KC_SLSH),
+  KC_ESC,      KC_TAB,  KC_LGUI, KC_LALT, KC_BSPC, CTL_T(KC_DEL), ALT_T(KC_ENT), LT(_NU, KC_SPC), MO(_EX), KC_MINS, KC_QUOT, KC_EQL
 ),
 
 [_EX] = KEYMAP( /* Extend */
   _______, _______, _______, _______, _______,                   KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,
   _______, KC_LGUI, KC_LALT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
-  KX_UNDO, KX_CUT,  KX_COPY, _______, KX_PAST,                   _______, KCX_LST, _______, KC_TAB,  _______,
+  KC_CAPS, KX_CUT,  KX_COPY, _______, KX_PAST,                   _______, KC_TAB,  KCX_LST, _______, KC_INSERT,
   _______, _______, _______, _______, KC_LSFT, _______, _______, KC_SPC,  _______, _______, _______, KC_PSCR
 ),
 
 [_NU] = KEYMAP( /* Numbers and symbols */
   KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR,                    KC_SLSH, KC_7,    KC_8,   KC_9,   KC_ASTR,
-  KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                     KC_PIPE, KC_4,    KC_5,   KC_6,   KC_MINS,
-  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                    KC_BSLS, KC_1,    KC_2,   KC_3,   KC_PLUS,
-  MO(_FN), _______, KC_LABK, KC_RABK, _______, _______,  _______, _______, KC_0,    KC_DOT, KC_EQL, _______
+  KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_TILD,                    KC_PIPE, KC_4,    KC_5,   KC_6,   KC_MINS,
+  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_GRV,                     KC_BSLS, KC_1,    KC_2,   KC_3,   KC_PLUS,
+  TG(_GA), _______, _______, MO(_FN), _______, _______,  _______, _______, KC_0,    KC_DOT, KC_EQL, _______
 ),
 
 [_FN] = KEYMAP( /* Functions */
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_GA] = KEYMAP( /* Gaming */
   _______, _______, _______, _______, _______,                   _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,
   _______, _______, _______, _______, _______,                   _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
-  _______, _______, _______, _______, _______,                   KC_BTN3, _______, KC_MS_D, _______, _______,
+  KC_Z,    _______, _______, _______, _______,                   KC_BTN3, _______, KC_MS_D, _______, _______,
   _______, _______, _______, KC_LSFT, KC_SPC,  KC_BSPC, KC_BTN2, KC_BTN1, _______, _______, _______, _______
 )};
 
