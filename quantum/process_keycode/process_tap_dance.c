@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "action_tapping.h"
 
 static qk_tap_dance_state_t qk_tap_dance_state;
 bool td_debug_enable = false;
