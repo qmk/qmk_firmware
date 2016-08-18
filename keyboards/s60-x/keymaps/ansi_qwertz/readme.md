@@ -1,5 +1,7 @@
 # ANSI_QWERTZ
 
+[Click here to go to the layers directly.](readme.md#layers)
+
 This keymap was specifically designed to support keycaps with ANSI layout and legends, while retaining the possibility of inputting characters 
 with diacritics that are normally not used in the english language.
 
@@ -19,7 +21,7 @@ It currently relies on the US-International keyboard layout, which can be instal
 
 The US-International Layout is currently required for the support of non-english languages. This keymap swaps Y and Z to provide the familiar QWERTZ position for characters when using that layout.
 All diacritic characters are input by either holding `Space` or `Fn` and pressing the corresponding key. For languages that aren't yet supported explicitly, 
-one can also use AltGr to input the characters as intended by the US-Intl layout or the dead keys, if they're kept from being [revived](readme.md#Revive-Dead-Keys).
+one can also use AltGr to input the characters as intended by the US-Intl layout or the dead keys, if they're kept from being [revived](readme.md#revive-dead-keys).
 
 The illustration below shows the "US International" layout available in the Language settings of Windows, Linux and Mac OS.
 
@@ -55,7 +57,7 @@ It also turns the GUI-key (aka Win-key aka Super-key) into Right Shift, so it ca
 ###Mute Microphone
 
 The function layer has a "Mute Microphone"-key. As this is not an existing media key and you can't normally set a shortcut to this function, 
-you need to set this up in software before using it, see below. This key is bound to `Right Control` + `Left Control`, a keycombination that 
+you need to set this up in software before using it, see below. This key is bound to `RCtrl+LCtrl`, a keycombination that 
 no other program in existence uses for anything, at least to my knowledge. It also can't be pressed with this keymap in any other way.
 
 ####Linux
@@ -73,7 +75,7 @@ and check whether your microphone is selected under "Devices".
 ###Revive Dead Keys
 
 Some diacritics that are commonly used are dead keys on the international layouts, for example `` ` ``,  `'`, or `"`. 
-The dead keys on the regular international layout (shown in red [here](readme.md#Languages)) are revived with this keymap by automatically inserting a space if one of those characters is typed.
+The dead keys on the regular international layout (shown in red [here](readme.md#languages)) are revived with this keymap by automatically inserting a space if one of those characters is typed.
 If you don't want this to be the case, uncomment the following line in `keymap.c` prior to compiling:
 
 ```
