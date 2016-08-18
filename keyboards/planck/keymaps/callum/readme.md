@@ -31,9 +31,9 @@ On *macOS* I recommend using [Karabiner](https://pqrs.org/osx/karabiner/) and ti
 None of the modifiers are overwritten so that `shift-alt-arrows` etc work as expected.
 
 ## The `SYMB` layer
-![](http://i.imgur.com/iuU144Y.png)
+![](http://i.imgur.com/thh1ne2.png)
 
-The symbol layer has all the numbers and their usual corresponding symbols in the first two rows, with the symbols on the home row since I use them more frequently than the numbers. The third row contains all the remaining symbols, with brackets in the centre; then normally shifted symbols to the left, and non shifted to the right, in order of most to least used.
+The symbol layer has all the numbers and their usual corresponding symbols in the first two rows, with the symbols on the home row since I use them more frequently than the numbers. The third row contains all the remaining symbols, arranged roughly so that the most used symbols are accessible with the strongest fingers.
 
 `esc` and `del` are repeated here since I wanted to be able to reach either, one handed, with either hand.
 
