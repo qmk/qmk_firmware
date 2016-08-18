@@ -43,7 +43,7 @@ enum planck_keycodes {
 
 // Tap Dance Definitions
 #ifdef TAP_DANCE_ENABLE
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
 	[0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 #endif
