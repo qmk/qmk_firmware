@@ -17,9 +17,9 @@ It currently relies on the US-International keyboard layout, which can be instal
 
 ###Languages
 
-The US-International Layout is currently required for the support of non-english languages. This keymap swaps Y and Z to provide the familiar QWERTZ position for characters.
-All diacritic characters are input by either holding the Spacebar or the Fn key and pressing the corresponding key. For languages that aren't yet supported explicitly, 
-one can also use AltGr to input the characters as intended by the US-Intl layout or the dead keys, if they're kept from being [revived](#Revive-Dead-Keys).
+The US-International Layout is currently required for the support of non-english languages. This keymap swaps Y and Z to provide the familiar QWERTZ position for characters when using that layout.
+All diacritic characters are input by either holding `Space` or `Fn` and pressing the corresponding key. For languages that aren't yet supported explicitly, 
+one can also use AltGr to input the characters as intended by the US-Intl layout or the dead keys, if they're kept from being [revived](readme.md#Revive-Dead-Keys).
 
 The illustration below shows the "US International" layout available in the Language settings of Windows, Linux and Mac OS.
 
@@ -36,17 +36,15 @@ which contains more dead keys to input pretty much every diacritic character in 
 
 ####Implicitly Supported Languages
 
-This list only applys to Windows. Linux systems support all languages, see above.
-
-This list might be incomplete! Please add your language if you find it's supported.
+This list only applies to Windows. Linux systems support all languages, see above. This list might be incomplete! Please add your language if you find it's supported.
 
 * French
 
 ###SpaceFN
 
-SpaceFN basically means that Space acts as a normal spacebar when tapped, but acts as a layer-key when held down. 
+SpaceFN basically means that `Space` acts as a normal spacebar when tapped, but acts as a layer-key when held down. 
 This means that you can't hold space to output multiple spaces consecutively and that space only registers once released.
-The advantage is that the spacebar is easier to reach than any other Fn-key could be.
+The advantage is that the spacebar is easier to reach than any other `Fn`-key could be.
 
 ###"Gaming Mode"
 
@@ -75,7 +73,7 @@ and check whether your microphone is selected under "Devices".
 ###Revive Dead Keys
 
 Some diacritics that are commonly used are dead keys on the international layouts, for example `` ` ``,  `'`, or `"`. 
-The dead keys on the regular international layout (shown in red [here](#Languages)) are revived with this keymap by automatically inserting a space if one of those characters is typed.
+The dead keys on the regular international layout (shown in red [here](readme.md#Languages)) are revived with this keymap by automatically inserting a space if one of those characters is typed.
 If you don't want this to be the case, uncomment the following line in `keymap.c` prior to compiling:
 
 ```
@@ -86,22 +84,22 @@ If you don't want this to be the case, uncomment the following line in `keymap.c
 
 ###Base Layer
 
-The base layer is shown here for ANSI keys and an HHKB-style right shift.
+The base layer is shown here for ANSI keysm, HHKB-style right shift and split backspace. If you use a 2U backspace key there, `Del` will not be available.
 Again, the Y and Z keys are swapped, so you get the QWERTZ-positions of Y and Z when using the US-International layout.
 
-![base_layer](docs/base_layer.png)
+![base_layer](docs/base_layer.PNG)
 
 ###Gaming layer
 
-To turn this layer on, please use the combination Fn+RShift, not Space+Rshift. If you do the latter, the Function layer 
+To turn this layer on, please use the combination `Fn+RShift`, not `Space+RShift`. If you do the latter, the Function layer will become stuck. You can press `Fn` once to unstick it if this happens to you. A solution is being worked on.
 
-![gaming_layer](docs/gaming_layer.png)
+![gaming_layer](docs/gaming_layer.PNG)
 
 ###Function Layer
 
-This is the function layer for German diacritics. It can be accessed via the Fn-key or by holding space on the base layer.
+This is the function layer for German diacritics. It can be accessed via the `Fn` or by holding `Space` on the base layer.
 
-![function_layer](docs/function_layer.png)
+![function_layer](docs/function_layer.PNG)
 
 
 
