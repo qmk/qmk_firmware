@@ -42,7 +42,7 @@ KEYMAP macros for the following layouts are available:
 * ISO w/ split right shift key
 * HHKB
 
-Remark: all but "ISO w/ split tight shift key" are untested and were done to the best of my knowledge.
+Remark: all but "ISO w/ split right shift key" are untested and were done to the best of my knowledge.
 
 ### Original tmk firmware
 The original firmware that was used to port to qmk can be found [here](https://github.com/AMJKeyboard/AMJ60).
