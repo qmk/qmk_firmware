@@ -20,7 +20,7 @@ It currently relies on the US-International keyboard layout, which can be instal
 ###0.0 Languages
 The US-International Layout is currently required for the support of non-english languages. This keymap swaps Y and Z to provide the familiar QWERTZ position for characters when using that layout.
 All diacritic characters are input by either holding `Space` or `Fn` and pressing the corresponding key. For languages that aren't yet supported explicitly, 
-one can also use AltGr to input the characters as intended by the US-Intl layout or the dead keys, if they're kept from being [revived](readme.md#0.4-revive-dead-keys).
+one can also use AltGr to input the characters as intended by the US-Intl layout or the dead keys, if they're kept from being [revived](readme.md#04-revive-dead-keys).
 
 The illustration below shows the "US International" layout available in the Language settings of Windows, Linux and Mac OS.
 
@@ -66,7 +66,7 @@ and check whether your microphone is selected under "Devices".
 
 ###0.4 Revive Dead Keys
 Some diacritics that are commonly used are dead keys on the international layouts, for example `` ` ``,  `'`, or `"`. 
-The dead keys on the regular international layout (shown in red [here](readme.md#0.1-languages)) are revived with this keymap by automatically inserting a space if one of those characters is typed.
+The dead keys on the regular international layout (shown in red [here](readme.md#00-languages)) are revived with this keymap by automatically inserting a space if one of those characters is typed.
 If you don't want this to be the case, uncomment the following line in `keymap.c` prior to compiling:
 ```
 //#define DONT_REVIVE_DEADKEYS 1
