@@ -27,7 +27,7 @@ The illustration below shows the "US International" layout available in the Lang
 ![KB_US-International](docs/KB_US-International.png)
 
 Not all languages are supported by this layout. Linux also offers the "US International Alternative" layout, 
-which contains more dead keys to input pretty much every diacritic character in a language using latin letters.
+which contains more dead keys to input pretty much every diacritic character in a language using latin letters. More information can be found [here](http://web.archive.org/web/20160818101234/http://dry.sailingissues.com/us-international-keyboard-layout.html).
 
 ![KB_US-International-Alternative](docs/KB_US-International-Alternative.png)
 
