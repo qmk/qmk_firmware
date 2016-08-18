@@ -1,4 +1,10 @@
 /*
+ * PLEASE NOTE: This keymap will NOT work with the Infinity ErgoDox due to the fact that the mappings are
+ * based on the Matrix Layout in the ez.h file. If you want to use this for the infinity, you'll need to 
+ * figure out where the keys are in the matrix and redo the layout arrays below.
+ * 
+ * About this keymap:
+ * 
  * The Dvorak layout shown herestems from my early Kinesis years, using the Contour PS/2 with a Dvorak
  * software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner
  * keys. I've decided to continue using this layout with my ErgoDox.
@@ -33,8 +39,9 @@ extern keymap_config_t keymap_config;
 #define COLEMAK M(_CM)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Dvorak layer
- *
+
+[_DV] = {  // layer 0 : Dvorak
+/*  
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   ]    |   1  |   2  |   3  |   4  |   5  | ESC  |           | ESC  |   6  |   7  |   8  |   9  |   0  |   [    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -55,9 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  *
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[_DV] = {  // layer 0 : Dvorak
         // left hand
 	{KC_RBRC, KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI, KC_NO  },
 	{KC_1,    KC_QUOT, KC_A,    KC_SCLN, KC_GRV,  KC_END },
@@ -77,8 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{KC_LBRC, KC_BSLS, KC_MINS, KC_RSFT, KC_RGUI, KC_NO  }
 },
 
-/* Keymap 1: QWERTY layer
- *
+
+[_QW] = {  // layer 1 : QWERTY
+/* 
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | ESC  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -98,9 +103,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | End  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[_QW] = {  // layer 1 : QWERTY
         // left hand
 	{KC_EQL,  KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI, KC_NO  },
 	{KC_1,    KC_Q,    KC_A,    KC_Z,    KC_GRV,  KC_END },
@@ -120,8 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{KC_MINS, KC_BSLS, KC_QUOT, KC_RSFT, KC_RGUI, KC_NO  }
   },
 
-/* Keymap 2: Colemak layer
- *
+
+[_CM] = {  // layer 2 : Colemak
+/* 
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | ESC  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -141,9 +144,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | End  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[_CM] = {  // layer 2 : Colemak
         // left hand
 	{KC_EQL,  KC_TAB,  KC_BSPC, KC_LSFT, KC_LGUI, KC_NO  },
 	{KC_1,    KC_Q,    KC_A,    KC_Z,    KC_GRV,  KC_END },
@@ -163,15 +163,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{KC_MINS, KC_BSLS, KC_QUOT, KC_RSFT, KC_RGUI, KC_NO  }
   },
 
-/* Keymap 3: Symbol Layer
- *
+
+[_MD] = { // layer 3 : Media layer
+/* 
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | TEENSY |  F1  |  F2  |  F3  |  F4  |  F5  | F11  |           |  F12 |  F6  |  F7  |  F8  |  F9  |  F10 |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      | PrSc | ScLk | Paus |      | FN4  |           |  FN5 |      | Mute | Vol- | Vol+ |      |        |
+ * |        |      | PrSc | ScLk | Paus |      |      |           |      |      | Mute | Vol- | Vol+ |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------| Stop | Prev | Play | Next | Sel  |        |
- * |--------+------+------+------+------+------| FN4  |           |  FN5 |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |Dvorak|Qwerty|Colemk|      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -184,8 +185,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// Media Layer
-[_MD] = { // layer 3 : Media layer
         // left hand
 	{RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO  },
 	{KC_F1,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
@@ -205,15 +204,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO  }
   },
 
-/* Keymap 4: Keypad layer
- *
+
+[_KP] = { // layer 4 : Keypad layer
+/* 
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | Power  |      |      |      |      |      |      |           |      |      | NmLk | KP / | KP * | KP - |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Sleep  |      |      |      |      |      | FN5  |           |  FN4 |      | KP 7 | KP 8 | KP 9 | KP + |        |
+ * | Sleep  |      |      |      |      |      |      |           |      |      | KP 7 | KP 8 | KP 9 | KP + |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Wake   |      |      |      |      |      |------|           |------|      | KP 4 | KP 5 | KP 6 | KP + |        |
- * |--------+------+------+------+------+------| FN5  |           |  FN4 |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      | KP 1 | KP 2 | KP 3 |KP Ent|        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       | KP 0 |      | KP . |KP Ent|      |
@@ -226,8 +226,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// Keypad Layer
-[_KP] = { // layer 4 : Keypad layer
         // left hand
 	{KC_PWR,  KC_SLEP, KC_WAKE, KC_TRNS, KC_TRNS, KC_NO  },
 	{KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
@@ -246,6 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{KC_PMNS, KC_PPLS, KC_PPLS, KC_PENT, KC_PENT, KC_TRNS},
 	{KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO  }
   },
+
 
 };
 
