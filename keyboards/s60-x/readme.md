@@ -251,3 +251,10 @@ The custom keymap is where I tested all the switches, not being concerned with a
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
     │Ctrl │ Gui │ Alt │█████│█████│█████│Space│█████│█████│█████│ Alt │ Gui │ App │Ctrl │█████│
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+
+### 9. [ANSI_QWERTZ](keymap/ansi_qwertz/keymap.c)
+
+This keymap was designed for inputting characters with diacritics with ANSI keycaps. 
+It provides toggleable SpaceFn functionality, a dedicated arrow cluster and a microphone mute key on the function layer as well as a bootloader reset key.
+
+For more info, [check here](keymap/ansi_qwertz).
