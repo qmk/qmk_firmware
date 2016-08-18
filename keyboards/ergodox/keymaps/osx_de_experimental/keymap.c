@@ -1,17 +1,16 @@
 #include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "led.h"
-#include "action_util.h"
-#include "mousekey.h"
-#include "timer.h"
-#include "keymap_plover.h"
 #include "keymap_extras/keymap_french.h"
 #include "keymap_extras/keymap_neo2.h"
 #include "keymap_extras/keymap_uk.h"
 #include "keymap_extras/keymap_colemak.h"
 #include "keymap_extras/keymap_french_osx.h"
+#include "keymap_extras/keymap_nordic.h"
+#include "keymap_extras/keymap_dvorak.h"
+#include "keymap_extras/keymap_german.h"
 #include "keymap_extras/keymap_norwegian.h"
+#include "keymap_extras/keymap_fr_ch.h"
 #include "keymap_extras/keymap_german_osx.h"
 #include "keymap_extras/keymap_spanish.h"
 #include "keymap_extras/keymap_bepo.h"
@@ -72,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
 * Layer: BASE
 * /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                        /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                       
-* | ESC                | 1                  | 2                  | 3                  | 4                  | 5                  | ONEShot            |                       | OS MDIA            | 6                  | 7                  | 8                  | 9                  | 0                  | ß                  |                      
-* |                    |                    |                    |                    |                    |                    | NUMB               |                       |                    |                    |                    |                    |                    |                    |                    |                      
+* | ESC                | 1                  | 2                  | 3                  | 4                  | 5                  | Hold or toggle     |                       | Hold or toggle     | 6                  | 7                  | 8                  | 9                  | 0                  | ß                  |                      
+* |                    |                    |                    |                    |                    |                    | Layer NUMB         |                       | Layer MDIA         |                    |                    |                    |                    |                    |                    |                      
 * /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                        /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                       
 * | TAB                | Q                  | W                  | E                  | R                  | T                  | Cmd                |                       | Cmd                | Z                  | U                  | I                  | O                  | P                  | Ü                  |                      
 * |                    |                    |                    |                    |                    |                    |                    |                       |                    |                    |                    |                    |                    |                    |                    |                      
@@ -83,28 +82,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                        /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                       
 * | Shift              | Y                  | X                  | C                  | V                  | B                  | NO                 |                       | NO                 | N                  | M                  | ,                  | .                  | -                  | Shift              |                      
 * |                    | Ctrl               |                    |                    |                    |                    | Meh                |                       | Hyper              |                    |                    |                    |                    | Ctrl               |                    |                      
-* \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\                        \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------/
+* \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\                        \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\\-------------------\                       
 *                                                                                                                                                                                                                                                                                                                                                      
 *                                                                                                                                                                                                                                                                                                                                                      
 *                                           /-------------------//-------------------//-------------------//-------------------//-------------------/                                                                                       /-------------------//-------------------//-------------------//-------------------//-------------------/  
-*                                           | <                  | LongPress / Type   | Ctrl + Alt         | Shift+Ctrl         | One Shot           |                                                                                      | LongPress / Type   | CMD+Shift          | ALT+Shift          | Acut               | +                  | 
-*                                           | SYMB               | DE_OSX_CIRC_CTRLCMD|                    |                    |        SMLY        |                                                                                      | Key_BSLS_MODS      |                    |                    |                    | SYMB               | 
-*                                           \-------------------\\-------------------\\-------------------\\-------------------\/-------------------//-------------------/   /-------------------//-------------------/                     \-------------------\\-------------------\\-------------------\\-------------------\\-------------------/ 
+*                                           | <                  | LongPress / Type   | Ctrl+Alt           | Shift+Ctrl         | OSL(SMLY)          |                                                                                      | LongPress / Type   | CMD+Shift          | ALT+Shift          | ACUT               | +                  | 
+*                                           | SYMB               | DE_OSX_CIRC_CTRLCMD|                    |                    |                    |                                                                                      | Key_BSLS_MODS      |                    |                    |                    | SYMB               | 
+*                                           \-------------------\\-------------------\\-------------------\\-------------------\/-------------------//-------------------/   /-------------------//-------------------/                     \-------------------\\-------------------\\-------------------\\-------------------\\-------------------\  
 *                                                                                                                               | HOME               | END                |  | LEFT               | RIGHT              |                                                                                                                               
 *                                                                                                                               |                    |                    |  |                    |                    |                                                                                                                               
-*                                                                                                                               \-------------------\/-------------------/   /-------------------/\-------------------/                                                                                                                                
+*                                                                                                                               \-------------------\/-------------------/   /-------------------/\-------------------\                                                                                                                                
 *                                                                                                                                                    | PGUP               |  | UP                 |                                                                                                                                                    
 *                                                                                                                                                    |                    |  |                    |                                                                                                                                                    
 *                                                                                                          /-------------------//-------------------//-------------------/   /-------------------//-------------------//-------------------/                                                                                                           
 *                                                                                                          | BSPC               | DEL                | PGDN               |  | DOWN               | ENT                | SPC                |                                                                                                          
 *                                                                                                          |                    |                    |                    |  |                    |                    |                    |                                                                                                          
-*                                                                                                          \-------------------\\-------------------\\-------------------\   \-------------------\\-------------------\\-------------------/
+*                                                                                                          \-------------------\\-------------------\\-------------------\   \-------------------\\-------------------\\-------------------\                                                                                                           
 *                                                                                                                                                                                                                                                                                                                                                      
 * 
 **/
 [BASE]=KEYMAP(
 //left half
-    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, KC_LEAD, 
+    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
     KC_LSFT, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, MEH_T(KC_NO), 
@@ -113,11 +112,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_PGUP, 
                                        KC_BSPC, KC_DEL, KC_PGDN, 
     //right half
-    OSL(MDIA), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
+    M(TOG_HLD_MDIA), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
     KC_RGUI, DE_OSX_Z, DE_OSX_U, DE_OSX_I, DE_OSX_O, DE_OSX_P, DE_OSX_UE, 
            DE_OSX_H, DE_OSX_J, DE_OSX_K, DE_OSX_L, DE_OSX_OE, ALT_T(DE_OSX_AE), 
     ALL_T(KC_NO), DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSFT, 
-                         M(M_Key_KC_BSLS_MODS),  LGUI(KC_LSFT), LALT(KC_LSFT), DE_OSX_ACUT,LT(SYMB,DE_OSX_PLUS), 
+                         M(M_Key_KC_BSLS_MODS), LGUI(KC_LSFT), LALT(KC_LSFT), DE_OSX_ACUT, LT(SYMB,DE_OSX_PLUS), 
     KC_LEFT, KC_RIGHT, 
     KC_UP, 
     KC_DOWN, KC_ENT, KC_SPC),
@@ -135,22 +134,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * /-----------//-----------//-----------//-----------//-----------//-----------//-----------/                /-----------//-----------//-----------//-----------//-----------//-----------//-----------/               
 * |            |            | <          | %          | |          | ~          |            |               |            | |          | ~          |            |            |            |            |              
 * |            |            |            |            |            |            |            |               |            |            |            |            |            |            |            |              
-* \-----------\\-----------\\-----------\\-----------\\-----------\\-----------\\-----------\                \-----------\\-----------\\-----------\\-----------\\-----------\\-----------\\-----------\
+* \-----------\\-----------\\-----------\\-----------\\-----------\\-----------\\-----------\                \-----------\\-----------\\-----------\\-----------\\-----------\\-----------\\-----------\               
 *                                                                                                                                                                                                                      
 *                                                                                                                                                                                                                      
 *                           /-----------//-----------//-----------//-----------//-----------/                                                       /-----------//-----------//-----------//-----------//-----------/  
 *                           |            |            |            |            |            |                                                      | '          | DQOT       |            | Toggle 5   |            | 
 *                           |            |            |            |            |            |                                                      |            |            |            |            |            | 
-*                           \-----------\\-----------\\-----------\\-----------\/-----------//-----------/   /-----------//-----------/             \-----------\\-----------\\-----------\\-----------\\-----------\
+*                           \-----------\\-----------\\-----------\\-----------\/-----------//-----------/   /-----------//-----------/             \-----------\\-----------\\-----------\\-----------\\-----------\  
 *                                                                               |            |            |  | F13        | F12        |                                                                               
-*                                                                               |            |            |  |            |            |                                                                              
-*                                                                               \-----------\/-----------/   /-----------/\----------- 
+*                                                                               |            |            |  |            |            |                                                                               
+*                                                                               \-----------\/-----------/   /-----------/\-----------\                                                                                
 *                                                                                            |            |  | F14        |                                                                                            
 *                                                                                            |            |  |            |                                                                                            
 *                                                                  /-----------//-----------//-----------/   /-----------//-----------//-----------/                                                                   
 *                                                                  |            | DEL        |            |  | F15        |            |            |                                                                  
 *                                                                  |            |            |            |  |            |            |            |                                                                  
-*                                                                  \-----------\\-----------\\-----------\   \-----------\\-----------\\-----------
+*                                                                  \-----------\\-----------\\-----------\   \-----------\\-----------\\-----------\                                                                   
 *                                                                                                                                                                                                                      
 * 
 **/
@@ -187,22 +186,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
 * |      |      | L    | D    | R    | BTN3 |      |         |      |      |      |      |      | UP   |      |        
 * |      |      |      |      |      |      |      |         |      |      |      |      |      |      |      |        
-* \-----\\-----\\-----\\-----\\-----\\-----\\-----\          \-----\\-----\\-----\\-----\\-----\\-----\\-----
+* \-----\\-----\\-----\\-----\\-----\\-----\\-----\          \-----\\-----\\-----\\-----\\-----\\-----\\-----\         
 *                                                                                                                      
 *                                                                                                                      
 *               /-----//-----//-----//-----//-----/                               /-----//-----//-----//-----//-----/  
 *               |      |      |      |      |      |                              |      |      | LEFT | DOWN | RIGHT| 
 *               |      |      |      |      |      |                              |      |      |      |      |      | 
-*               \-----\\-----\\-----\\-----\/-----//-----/   /-----//-----/       \-----\\-----\\-----\\-----\\-----/
+*               \-----\\-----\\-----\\-----\/-----//-----/   /-----//-----/       \-----\\-----\\-----\\-----\\-----\  
 *                                           |      |      |  | MPRV | MNXT |                                           
 *                                           |      |      |  |      |      |                                           
-*                                           \-----\/-----/   /-----/\-----/
+*                                           \-----\/-----/   /-----/\-----\                                            
 *                                                  |      |  | VOLU |                                                  
 *                                                  |      |  |      |                                                  
 *                                    /-----//-----//-----/   /-----//-----//-----/                                     
 *                                    |      |      |      |  | VOLD | MUTE | MPLY |                                    
 *                                    |      |      |      |  |      |      |      |                                    
-*                                    \-----\\-----\\-----\   \-----\\-----\\-----/                                     
+*                                    \-----\\-----\\-----\   \-----\\-----\\-----\                                     
 *                                                                                                                      
 * 
 **/
@@ -499,7 +498,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
 		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),END);
+			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
@@ -573,270 +572,44 @@ return MACRO_NONE;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  ergodox_led_all_on();
-  for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
-    ergodox_led_all_set (i); 
-    _delay_ms (5); 
-  }
-  _delay_ms(1000);
-  for (int i = LED_BRIGHTNESS_LO; i > 0; i--) {
-    ergodox_led_all_set (i); 
-    _delay_ms (10);
-  }
-  ergodox_led_all_off();
-  ergodox_led_all_set(LED_BRIGHTNESS_HI);
 
 };
 
-uint8_t is_exp=0;
-
-LEADER_EXTERNS();
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
 uint8_t layer = biton32(layer_state);
 
-
 ergodox_board_led_off();
 ergodox_right_led_1_off();
 ergodox_right_led_2_off();
 ergodox_right_led_3_off();
-ergodox_led_all_set(LED_BRIGHTNESS_HI);
-
 switch (layer) {
 
     case SYMB:
         ergodox_right_led_1_on();
+        
+        
     break;
     case MDIA:
+        
         ergodox_right_led_2_on();
+        
     break;
     case SMLY:
-	ergodox_right_led_1_on();
-	ergodox_right_led_3_on();
-    case NUMB:
+        ergodox_right_led_1_on();
+        
         ergodox_right_led_3_on();
     break;
-    case EGOS:
-	ergodox_led_all_on();
-        //ergodox_right_led_1_on();
-        //ergodox_right_led_2_on();
-        //ergodox_right_led_3_on();
+    case NUMB:
+        
+        
+        ergodox_right_led_3_on();
     break;
 default:
 // none
 break;
 }
-  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT) ||
-      (((get_oneshot_mods() & MOD_BIT(KC_LSFT)) || get_oneshot_mods() & MOD_BIT(KC_RSFT)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    ergodox_right_led_1_on ();
-  } else {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
-    if (layer != SYMB && layer != EGOS && layer != SMLY)
-      ergodox_right_led_1_off ();
-  }
-
-  if (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT) || 
-      (((get_oneshot_mods() & MOD_BIT(KC_LALT)) || get_oneshot_mods() & MOD_BIT(KC_RALT)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    ergodox_right_led_2_on ();
-  } else {
-    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
-    if (layer != EGOS && layer != MDIA )
-      ergodox_right_led_2_off ();
-  }
-
-  if (keyboard_report->mods & MOD_BIT(KC_LCTRL) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LCTRL)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    ergodox_right_led_3_on ();
-  } else {
-    ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
-    if (layer != EGOS && layer != NUMB && layer!=SMLY) 
-      ergodox_right_led_3_off ();
-  }
-
-  if (keyboard_report->mods & MOD_BIT(KC_RGUI) || keyboard_report->mods & MOD_BIT(KC_LGUI) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LGUI) || get_oneshot_mods() & MOD_BIT(KC_RGUI)) && !has_oneshot_mods_timed_out())) {
-	ergodox_led_all_set(LED_BRIGHTNESS_LO);
-	//ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-	//ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-	//ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    ergodox_right_led_3_on ();
-    ergodox_right_led_2_on ();
-    ergodox_right_led_1_on ();
-  } else {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
-    if (layer != EGOS && layer != NUMB && layer!=SMLY) 
-      ergodox_right_led_3_off ();
-    if (layer != EGOS && layer != MDIA) 
-      ergodox_right_led_2_off ();
-    if (layer != EGOS && layer != SYMB&&!layer!=SMLY) 
-      ergodox_right_led_1_off ();
-  }
-
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_J) {
-      register_code(KC_LSFT);
-      register_code(DE_DOT);
-      unregister_code(KC_LSFT);
-      unregister_code(DE_DOT);
-      register_code(DE_MINS);
-      unregister_code(DE_MINS);
-      register_code(KC_LSFT);
-      register_code(KC_9);
-      unregister_code(KC_9);
-      unregister_code(KC_LSFT);
-    }
-
-    SEQ_ONE_KEY(KC_H){
-	register_code(KC_LSFT);
-        register_code(DE_COMM); 
-        unregister_code(DE_COMM); 
-	unregister_code(KC_LSFT);
-	register_code(DE_MINS);
-	unregister_code(DE_MINS);
-	register_code(KC_LSFT);
-	register_code(KC_9);
-	unregister_code(KC_9);
-	unregister_code(KC_LSFT);
-    }	
-
-    SEQ_TWO_KEYS (KC_V,KC_E) {
-	blinkRight();
-      SEND_STRING (QMK_KEYBOARD " " QMK_KEYMAP " " QMK_VERSION " " KEYMAP_VERSION);
-    }
-
-    SEQ_ONE_KEY(KC_K){
-	register_code(KC_LSFT);
-	register_code(DE_DOT);
-	unregister_code(DE_DOT);
- 	unregister_code(KC_LSFT);
-	register_code(DE_MINS);
-	unregister_code(DE_MINS);
-	register_code(KC_LSFT); 
-	register_code(KC_D);
-	unregister_code(KC_D);
-	unregister_code(KC_LSFT);
-    }
-
-    SEQ_ONE_KEY(KC_U){
-	register_code(KC_LSFT);
-	register_code(DE_DOT);
-	unregister_code(DE_DOT);
- 	unregister_code(KC_LSFT);
-	register_code(DE_MINS);
-	unregister_code(DE_MINS);
-	register_code(KC_LSFT); 
-	register_code(KC_8);
-	unregister_code(KC_8);
-	unregister_code(KC_LSFT);
-    }
-
-    SEQ_ONE_KEY(KC_I){
-	register_code(KC_LSFT);
-	register_code(DE_COMM);
-	unregister_code(DE_COMM);
- 	unregister_code(KC_LSFT);
-	register_code(DE_MINS);
-	unregister_code(DE_MINS);
-	register_code(KC_LSFT); 
-	register_code(KC_8);
-	unregister_code(KC_8);
-	unregister_code(KC_LSFT);
-    }
-
-    SEQ_ONE_KEY(KC_Z){
-	register_code(KC_LSFT);
-	register_code(DE_COLN);
-	unregister_code(DE_COLN);
-	unregister_code(KC_LSFT);
-	register_code(DE_MINS);
-	unregister_code(DE_MINS);
-	register_code(KC_LALT);
-	register_code(KC_8);
-	unregister_code(KC_8);
-	unregister_code(KC_LALT);
-    }
-
-    SEQ_ONE_KEY(KC_6){
-	register_code(KC_LSFT);
-	register_code(DE_COLN);
-	unregister_code(DE_COLN);
-	unregister_code(KC_LSFT);
-	register_code(DE_MINS);
-	unregister_code(DE_MINS);
-	register_code(KC_LSFT);
-	register_code(DE_PLUS);
-	unregister_code(DE_PLUS);
-	unregister_code(KC_LSFT);
-    }
-
-    SEQ_ONE_KEY(KC_7){
-	register_code(DE_OSX_LESS);
-	unregister_code(DE_OSX_LESS);
-	register_code(KC_3);
-	unregister_code(KC_3);
-   }
-    SEQ_ONE_KEY(KC_5) {
-	 layer_state ^=(1<<NUMB);
-         layer_state &=(1<<NUMB);
-      if (is_exp == 0) { 
-       // default_layer_and (0); 
-       // default_layer_or ((1 << NUMB));
-        is_exp = 1; 
-	blinkRight();
-      } else {
-        is_exp = 0; 
-	blinkLeft();
-      }    
-    }
-    SEQ_ONE_KEY(KC_4) {
-	layer_state ^=(1<<MDIA);
-	layer_state &=(1<<MDIA);
-      if (is_exp == 0) { 
-        is_exp = 1; 
-	blinkRight();
-      } else {
-        is_exp = 0; 
-	blinkLeft();
-      }    
-    }
-  }
 
 };
 
-void blinkLeft() {
-
-        ergodox_led_all_off ();
-        ergodox_right_led_3_on ();
-        _delay_ms (100);
-        ergodox_right_led_2_on ();
-        _delay_ms (100);
-        ergodox_right_led_3_off ();
-        ergodox_right_led_1_on ();
-        _delay_ms (100);
-        ergodox_right_led_2_off ();
-        _delay_ms (100);
-        ergodox_right_led_1_off ();
-}
-
-void blinkRight() {
-        ergodox_led_all_off ();
-        ergodox_right_led_1_on ();
-        _delay_ms (100);
-        ergodox_right_led_2_on ();
-        _delay_ms (100);
-        ergodox_right_led_1_off ();
-        ergodox_right_led_3_on ();
-        _delay_ms (100);
-        ergodox_right_led_2_off ();
-        _delay_ms (100);
-        ergodox_right_led_3_off ();
-}
