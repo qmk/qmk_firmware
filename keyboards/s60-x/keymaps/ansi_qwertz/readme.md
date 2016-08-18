@@ -1,13 +1,13 @@
 # ANSI_QWERTZ
 
-[Click here to go to the layers directly.](readme.md#1.0-layers)
+[Click here to go to the layers directly.](readme.md#1-layers)
 
 This keymap was specifically designed to support keycaps with ANSI layout and legends, while retaining the possibility of inputting characters 
 with diacritics that are normally not used in the english language.
 
 It currently relies on the US-International keyboard layout, which can be installed in any current operating system without the use of third party hardware.
 
-##0. Features
+##0 Features
 * Input of letters with diacritics on familiar QWERTZ layout
 * Support for ANSI-legend keycaps
 * Option to "revive" all dead keys
@@ -72,19 +72,19 @@ If you don't want this to be the case, uncomment the following line in `keymap.c
 //#define DONT_REVIVE_DEADKEYS 1
 ```
 
-##Layers
-###Base Layer
+##1 Layers
+###1.0 Base Layer
 The base layer is shown here for ANSI keysm, HHKB-style right shift and split backspace. If you use a 2U backspace key there, `Del` will not be available.
 Again, the Y and Z keys are swapped, so you get the QWERTZ-positions of Y and Z when using the US-International layout.
 
 ![base_layer](docs/base_layer.PNG)
 
-###Gaming layer
+###1.1 Gaming layer
 To turn this layer on, please use the combination `Fn+RShift`, not `Space+RShift`. If you do the latter, the Function layer will become stuck. You can press `Fn` once to unstick it if this happens to you. A solution is being worked on.
 
 ![gaming_layer](docs/gaming_layer.PNG)
 
-###Function Layer
+###1.2 Function Layer
 This is the function layer for German diacritics. It can be accessed via the `Fn` or by holding `Space` on the base layer.
 
 ![function_layer](docs/function_layer.PNG)
