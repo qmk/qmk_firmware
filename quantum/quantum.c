@@ -46,18 +46,20 @@ bool process_record_quantum(keyrecord_t *record) {
   uint16_t keycode;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    uint8_t layer;
+    /* TODO: Use store_or_get_action() or a similar function. */
+    if (!disable_action_cache) {
+      uint8_t layer;
 
-    if (record->event.pressed) {
-      layer = layer_switch_get_layer(key);
-      update_source_layers_cache(key, layer);
-    } else {
-      layer = read_source_layers_cache(key);
-    }
-    keycode = keymap_key_to_keycode(layer, key);
-  #else
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+      if (record->event.pressed) {
+        layer = layer_switch_get_layer(key);
+        update_source_layers_cache(key, layer);
+      } else {
+        layer = read_source_layers_cache(key);
+      }
+      keycode = keymap_key_to_keycode(layer, key);
+    } else
   #endif
+    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
