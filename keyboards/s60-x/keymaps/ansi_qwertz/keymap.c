@@ -82,7 +82,7 @@ enum custom_keycodes {
 //  KC_CM_V,
     KC_CM_W,
 //  KC_CM_X,
-//  KC_CM_Y,
+    KC_CM_Y,
     KC_CM_Z
 };
 
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [FUNCTION] = KEYMAP(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,   RESET,   \
-        _______, _______, KC_CM_W, KC_CM_E, KC_MPRV, KC_MPLY, KC_MNXT, KC_CM_U, KC_CM_I, KC_CM_O, KC_CM_P KC_PSCR, KC_SLCK, KC_PAUS, \
+        _______, _______, KC_CM_W, KC_CM_E, KC_MPRV, KC_MPLY, KC_MNXT, KC_CM_U, KC_CM_I, KC_CM_O, KC_CM_P, KC_PSCR, KC_SLCK, KC_PAUS, \
         _______, KC_CM_A, KC_CM_S, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, KC_CM_K, KC_CM_L, _______, _______, _______, KC_PENT,          \
         _______, _______, KC_CM_Y, _______, KC_CM_C, MICMUTE, KC_CALC, KC_CM_N, KC_CM_M, _______, _______, _______, _______, KC_PGUP, KC_GMLK, \
         _______, _______, _______,                            _______,                                     _______, KC_HOME, KC_PGDN, KC_END
@@ -179,16 +179,16 @@ bool process_german(uint16_t keycode, keyrecord_t *record) {
     uint16_t send_code = 0;
     if (record->event.pressed) {
         switch (keycode) {
-        case KC_C_AM:
+        case KC_CM_A:
             send_code = KC_Q;
             break;
-        case KC_C_OM:
+        case KC_CM_O:
             send_code = KC_P;
             break;
-        case KC_C_UM:
+        case KC_CM_U:
             send_code = KC_Y;
             break;
-        case KC_C_SM:
+        case KC_CM_S:
             send_code = KC_S;
             break;
         }
@@ -204,6 +204,7 @@ bool process_german(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
     }
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
