@@ -2,9 +2,7 @@
 
 ## Please Note:
 
-It will need **substantial** modification in order to work on the Infinity.
-
-PLEASE NOTE: This keymap will NOT work with the Infinity ErgoDox due to the fact that the mappings are based on the Matrix Layout in the ez.h file. If you want to use this for the infinity, you'll need to figure out where the keys are in the matrix and redo the layout arrays below.
+This keymap will probably **not** work with the Infinity ErgoDox. It will need **substantial** modification in order to work on the Infinity. This is due to the fact that the mappings are based on the matrix positions in the keymap definition in the ez.h file. If you want to use this for the infinity, you'll need to figure out where the keys are in the matrix and redo the layout arrays below.
 
 ## About this keymap:
 
