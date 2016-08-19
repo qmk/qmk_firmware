@@ -110,43 +110,103 @@ In every keymap folder, the following files are recommended:
 
 ## The `make` command
 
-The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys). You can run `make` from the root (`/`), your keyboard folder (`/keyboards/<keyboard>/`), or your keymap folder (`/keyboards/<keyboard>/keymaps/<keymap>/`) if you have a `Makefile` there (see the example [here](/doc/keymap_makefile_example.mk)).
+The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys).
 
-By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests.
+**NOTE:** To abort a make command press `Ctrl-c`
 
-Below are some definitions that will be useful:
+The following instruction refers to these folders.
 
-* The "root" (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
-* The "keyboard" folder is any keyboard project's folder, like `/keyboards/planck`.
-* The "keymap" folder is any keymap's folder, like `/keyboards/planck/keymaps/default`.
+* The `root` (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
+* The `keyboard` folder is any keyboard project's folder, like `/keyboards/planck`.
+* The `keymap` folder is any keymap's folder, like `/keyboards/planck/keymaps/default`.
+* The `subproject` folder is the subproject folder of a keyboard, like `/keyboards/ergodox/ez`
 
-Below is a list of the useful `make` commands in QMK:
+### Simple instructions for building and uploading a keyboard
 
-* `make` - builds your keyboard and keymap depending on which folder you're in. This defaults to the "default" layout (unless in a keymap folder), and Planck keyboard in the root folder
-  * `make keyboard=<keyboard>` - specifies the keyboard (only to be used in root)
-  * `make keymap=<keymap>` - specifies the keymap (only to be used in root and keyboard folder - not needed when in keymap folder)
-* `make clean` - cleans the `.build` folder, ensuring that everything is re-built
-* `make dfu` - (requires dfu-programmer) builds and flashes the keymap to your keyboard once placed in reset/dfu mode (button or press `KC_RESET`). This does not work for Teensy-based keyboards like the ErgoDox EZ.
-  * `keyboard=` and `keymap=` are compatible with this
-* `make all-keyboards` - builds all keymaps for all keyboards and outputs status of each (use in root)
-* `make all-keyboards-default` - builds all default keymaps for all keyboards and outputs status of each (use in root)
-* `make all-keymaps [keyboard=<keyboard>]` - builds all of the keymaps for whatever keyboard folder you're in, or specified by `<keyboard>`
-* `make all-keyboards-*`, `make all-keyboards-default-*` and `make all-keymaps-* [keyboard=<keyboard>]` - like the normal "make-all-*" commands, but the last string aftter the `-` (for example clean) is passed to the keyboard make command.
-Other, less useful functionality:
+**Most keyboards have more specific instructions in the keyboard specific readme.md file, so please check that first**
+
+If the `keymap` folder contains a file name `Makefile`
+
+1. Change the directory to the `keymap` folder 
+2. Run `make <subproject>-<programmer>`
+
+Otherwise, if there's no `Makefile` in the `keymap` folder
+
+1. Enter the `keyboard` folder
+2. Run `make <subproject>-<keymap>-<programmer>`
+
+In the above commands, replace:
+
+* `<keymap>` with the name of your keymap
+* `<subproject>` with the name of the subproject (revision or sub-model of your keyboard). For example, for Ergodox it can be `ez` or `infinity`, and for Planck `rev3` or `rev4`.
+  * If the keyboard doesn't have a subproject, or if you are happy with the default (defined in `rules.mk` file of the `keyboard` folder), you can leave it out. But remember to also remove the dash (`-`) from the command.
+* `<programmer>` The programmer to use. Most keyboards use `dfu`, but some use `teensy`. Infinity keyboards use `dfu-util`. Check the readme file in the keyboard folder to find out which programmer to use.
+  * If you  don't add `-<programmer` to the command line, the firmware will be still be compiled into a hex file, but the upload will be skipped.
+
+**NOTE:** Some operating systems will refuse to program unless you run the make command as root for example `sudo make dfu`
+
+### More detailed make instruction
+
+The full syntax of the `make` command is the following, but parts of the command can be left out if you run it from other directories than the `root` (as you might already have noticed by reading the simple instructions).
+
+`<keyboard>-<subproject>-<keymap>-<target>`, where:
+
+* `<keyboard>` is the name of the keyboard, for example `planck`
+  * Use `allkb` to compile all keyboards
+* `<subproject>` is the name of the subproject (revision or sub-model of the keyboard). For example, for Ergodox it can be `ez` or `infinity`, and for Planck `rev3` or `rev4`.
+  * If the keyboard doesn't have any subprojects, it can be left out
+  * To compile the default subproject, you can leave it out, or specify `defaultsp`
+  * Use `allsp` to compile all subprojects
+* `<keymap>` is the name of the keymap, for example `algernon`
+  * Use `allkm` to compile all keymaps
+* `<target>` will be explained in more detail below.
+
+**Note:** When you leave some parts of the command out, you should also remove the dash (`-`).
+
+As mentioned above, there are some shortcuts, when you are in a:
+
+* `keyboard` folder, the command will automatically fill the `<keyboard>` part. So you only need to type `<subproject>-<keymap>-<target>`
+* `subproject` folder, it will fill in both `<keyboard>` and `<subproject>`
+* `keymap` folder, then `<keyboard>` and `<keymap>` will be filled in. If you need to specify the `<subproject>` use the following syntax `<subproject>-<target>`
+  * Note in order to support this shortcut, the keymap needs its own Makefile (see the example [here](/doc/keymap_makefile_example.mk))
+* `keymap` folder of a `subproject`, then everything except the `<target>` will be filled in
+
+The `<target>` means the following
+* If no target is given, then it's the same as `all` below
+* `all` compiles the keyboard and generates a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests.
+* `dfu`, `teensy` or `dfu-util`, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for Infinity keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. **Note** that some operating systems needs root access for these commands to work, so in that case you need to run for example `sudo make dfu`.
+* `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
+
+Some other targets are supported but, but not important enough to be documented here. Check the source code of the make files for more information.
+
+You can also add extra options at the end of the make command line, after the target
 
 * `make COLOR=false` - turns off color output
 * `make SILENT=true` - turns off output besides errors/warnings
-* `make VERBOSE=true` - outputs all of the avr-gcc stuff (not interesting)
+* `make VERBOSE=true` - outputs all of the gcc stuff (not interesting, unless you need to debug)
+
+The make command itself also has some additional options, type `make --help` for more information. The most useful is probably `-jx`, which specifies that you want to compile using more than one CPU, the `x` represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.
+
+Here are some examples commands
+
+* `make allkb-allsp-allkm` builds everything (all keyboards, all subprojects, all keymaps). Running just `make` from the `root` will also run this.
+* `make` from within a `keyboard` directory, is the same as `make keyboard-allsp-allkm`, which compiles all subprojects and keymaps of the keyboard. **NOTE** that this behaviour has changed. Previously it compiled just the default keymap.
+* `make ergodox-infinity-algernon-clean` will clean the build output of the Ergodox Infinity keyboard. This example uses the full syntax and can be run from any folder with a `Makefile`
+* `make dfu COLOR=false` from within a keymap folder, builds and uploads the keymap, but without color output.
 
 ## The `Makefile`
 
-There are 3 different `make` and `Makefile` locations:
+There are 5 different `make` and `Makefile` locations:
 
 * root (`/`)
 * keyboard (`/keyboards/<keyboard>/`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/`)
+* subproject (`/keyboards/<keyboard>/<subproject>`)
+* subproject keymap (`/keyboards/<keyboard>/<subproject>/keymaps/<keymap>`)
 
-The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **It is required if you want to run `make` in the keymap folder.**
+The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **The file is required if you want to run `make` in the keymap folder.**
+
+For keyboards and subprojects, the make files are split in two parts `Makefile` and `rules.mk`. All settings can be found in the `rules.mk` file, while the `Makefile` is just there for support and including the root `Makefile`. Keymaps contain just one `Makefile` for simplicity.
 
 ### Makefile options
 
