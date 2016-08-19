@@ -21,4 +21,5 @@ addons:
     - gcc-arm-none-eabi
     - binutils-arm-none-eabi
     - libnewlib-arm-none-eabi
+    - diffutils
 after_success: bash util/travis_compiled_push.sh
