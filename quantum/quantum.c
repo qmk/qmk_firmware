@@ -1,5 +1,42 @@
 #include "quantum.h"
 
+static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
+  switch (code) {
+  case QK_MODS ... QK_MODS_MAX:
+    break;
+  default:
+    return;
+  }
+
+  if (code & QK_LCTL)
+    f(KC_LCTL);
+  if (code & QK_LSFT)
+    f(KC_LSFT);
+  if (code & QK_LALT)
+    f(KC_LALT);
+  if (code & QK_LGUI)
+    f(KC_LGUI);
+
+  if (code & QK_RCTL)
+    f(KC_RCTL);
+  if (code & QK_RSFT)
+    f(KC_RSFT);
+  if (code & QK_RALT)
+    f(KC_RALT);
+  if (code & QK_RGUI)
+    f(KC_RGUI);
+}
+
+void register_code16 (uint16_t code) {
+  do_code16 (code, register_code);
+  register_code (code);
+}
+
+void unregister_code16 (uint16_t code) {
+  unregister_code (code);
+  do_code16 (code, unregister_code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
