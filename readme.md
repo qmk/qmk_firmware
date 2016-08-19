@@ -721,7 +721,7 @@ Below these two modifications include the `dynamic_macro.h` header:
 
     #include "dynamic_macro.h"`
     
-Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_REC_PLAY1`,`DYN_REC_START2` and `DYN_REC_PLAY2`. It may also contain other keys, it doesn't matter apart from the fact that you won't be able to record these keys in the dynamic macros.
+Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_MACRO_PLAY1`,`DYN_REC_START2` and `DYN_MACRO_PLAY2`. It may also contain other keys, it doesn't matter apart from the fact that you won't be able to record these keys in the dynamic macros.
 
     [_DYN]= {
         {_______,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, _______, _______, _______, _______, _______},
@@ -736,7 +736,11 @@ Add the following code to the very beginning of your `process_record_user()` fun
         return false;
     }
 
-The usage should be pretty self-explanatory. For the details, please read the comments in the `dynamic_macro.h` header.
+To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. To finish the recording, press the `_DYN` layer button. The handler awaits specifically for the `MO(_DYN)` keycode as the "stop signal" so please don't use any fancy ways to access this layer, use the regular `MO()` modifier. To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
+
+If the LED-s start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 256; please read the comments for it in the header).
+
+For the details about the internals of the dynamic macros, please read the comments in the `dynamic_macro.h` header.
 
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
