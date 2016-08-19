@@ -1,3 +1,14 @@
+# Infinity on Ubuntu Quickstart
+
+To build an Infinity firmware under Ubuntu (tested on 15.10):
+
+  - Run the `util/install_dependencies.sh` script as root.
+  - Build the firmware with `make keymap=keymapname subproject=infinity`
+  - Plug in the left hand keyboard only.
+  - Press the program button (back of keyboard, above thumb pad).
+  - Install the firmware with `sudo make dfu-util keymap=keymapname subproject=infinity`
+  - Install the right hand firmware, but I haven't figured this out yet.
+
 # Getting started
 
 There are two main ways you could customize the ErgoDox (EZ and Infinity)
