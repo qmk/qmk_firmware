@@ -3,6 +3,7 @@
 To build an Infinity firmware under Ubuntu (tested on 15.10):
 
   - Run the `util/install_dependencies.sh` script as root.
+  - Check out the submodules with `git submodule update --init --recursive`
   - Build the firmware with `make keymap=keymapname subproject=infinity`
   - Plug in the left hand keyboard only.
   - Press the program button (back of keyboard, above thumb pad).
