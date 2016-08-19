@@ -2,7 +2,7 @@
 
 ## Please Note:
 
-This keymap will probably **not** work with the Infinity ErgoDox. It will need **substantial** modification in order to work on the Infinity. This is due to the fact that the mappings are based on the matrix positions in the keymap definition in the ez.h file. If you want to use this for the infinity, you'll need to figure out where the keys are in the matrix and redo the layout arrays below.
+This keymap has been updated to work with the Infinity ErgoDox. To build for the Infinity, simply append `SUBPROJECT=infinity` to the end of your `make` statement. This keymap file builds cleanly as is but as of this writing has not been tested on the Infinity ErgoDox. YMMV.
 
 ## About this keymap:
 
@@ -12,7 +12,7 @@ The QWERTY layout shown here is based entirely on the Kinesis Advantage layout, 
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
-For a better explanation of the layout matrices shown below, take a look at ../../ez/ez.h where the keymap is defined, beginning on line 81.
+For a better explanation of the layout matrices shown below, take a look at ../../ez/ez.h where the keymap is defined beginning on line 81, or in ../../infinity/infinity.h beginning at line 72.
 
 ### Layer 0: Dvorak layer
 
