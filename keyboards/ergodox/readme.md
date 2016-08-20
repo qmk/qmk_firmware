@@ -1,4 +1,4 @@
-# Customizing Keymap
+# Keymap Options
 
 There are external tools for customizing the layout, but those do not use
 the featurs of this qmk firmware.  These sites include:
@@ -117,7 +117,7 @@ for the left and right halves seperately.  To flash them:
 More information on the Infinity firmware is available in the [TMK/chibios for
 Input Club Infinity Ergodox](https://github.com/fredizzimo/infinity_ergodox/blob/master/README.md)
 
-## Contributing your keymap
+# Contributing your keymap
 
 The QMK firmware is open-source, so it would be wonderful to have your contribution! Within a very short time after launching we already amassed dozens of user-contributed keymaps, with all sorts of creative improvements and tweaks. This is very valuable for people who aren't comfortable coding, but do want to customize their ErgoDox. To make it easy for these people to use your layout, I recommend submitting your PR in the following format.
 
@@ -126,7 +126,7 @@ The QMK firmware is open-source, so it would be wonderful to have your contribut
 3. `readme.md` - a readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
 4. Any graphics you wish to add. This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link, just like I did with the default layout.
 
-## Finding the keycodes you need
+# Finding the keycodes you need
 
 Let's say you want a certain key in your layout to send a colon; to figure out what keycode to use to make it do that, you're going to need `quantum/keymap_common.h`.
 
