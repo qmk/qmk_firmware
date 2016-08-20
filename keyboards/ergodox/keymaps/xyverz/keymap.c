@@ -45,331 +45,215 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_DV] = {  // layer 0 : Dvorak
-/*  
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ]    |   1  |   2  |   3  |   4  |   5  | ESC  |           | ESC  |   6  |   7  |   8  |   9  |   0  |   [    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   '  |   ,  |   .  |   Y  |   Y  |      |           |      |   F  |   G  |   C  |   R  |   L  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | CapsLk |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |   -    |
- * |--------+------+------+------+------+------| _MD  |           | _KP  |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LGUI |   `  |  INS | Left | Rght |                                       |  Up  |  Dn  |   /  |   =  | RGUI |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | LCtr | LAlt |       | Ralt | RCtr |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      | Home |       | PgUp |      |      |
- *                                 | BkSp | Del  |------|       |------| Enter| Space|
- *                                 |      |      | End  |       | PgDn |      |      |
- *                                 `--------------------'       `--------------------'
+/* Layer 0 : Dvorak
+ * ,--------------------------------------------------. ,--------------------------------------------------.
+ * |   ]    |   1  |   2  |   3  |   4  |   5  | ESC  | | ESC  |   6  |   7  |   8  |   9  |   0  |   [    |
+ * |--------+------+------+------+------+-------------| |------+------+------+------+------+------+--------|
+ * | Tab    |   '  |   ,  |   .  |   P  |   Y  |      | |      |   F  |   G  |   C  |   R  |   L  |   \    |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * | CapsLk |   A  |   O  |   E  |   U  |   I  |------| |------|   D  |   H  |   T  |   N  |   S  |   -    |
+ * |--------+------+------+------+------+------| _MD  | | _KP  |------+------+------+------+------+--------|
+ * | LShift |   ;  |   Q  |   J  |   K  |   X  |      | |      |   B  |   M  |   W  |   V  |   Z  | RShift |
+ * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
+ *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | RGUI |
+ *   `----------------------------------'                             `----------------------------------'
+ *                                      ,-------------. ,-------------.
+ *                                      | LCTL | LALT | | RALT | RCTL |
+ *                               ,------|------|------| |------+------+------.
+ *                               |      |      | Home | | PgUp |      |      |
+ *                               | BkSp | Del  |------| |------| Enter| Space|
+ *                               |      |      | End  | | PgDn |      |      |
+ *                               `--------------------' `--------------------'
  *
  */
-#ifdef SUBPROJECT_infinity // Infinity Ergodox
-	// left hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT, KC_HOME},
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_LCTL, KC_END },
-	{KC_6,    MO(_KP), XXXXXXX, MO(_MD), KC_DEL },
-	{KC_5,    KC_Y,    KC_I,    KC_X,    KC_BSPC},
-	{KC_4,    KC_P,    KC_U,    KC_K,    KC_RGHT},
-	{KC_3,    KC_DOT,  KC_E,    KC_J,    KC_LEFT},
-	{KC_2,    KC_COMM, KC_O,    KC_Q,    KC_INS },
-	{KC_1,    KC_QUOT, KC_A,    KC_SCLN, KC_GRV },
-	{KC_RBRC, KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI},
-
-	//Right Hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_RALT, KC_PGUP},
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL, KC_PGDN},
-	{KC_ESC,  MO(_MD), XXXXXXX, MO(_KP), KC_ENT },
-	{KC_6,    KC_F,    KC_D,    KC_B,    KC_SPC },
-	{KC_7,    KC_G,    KC_H,    KC_M,    KC_UP  },
-	{KC_8,    KC_C,    KC_T,    KC_W,    KC_DOWN},
-	{KC_9,    KC_R,    KC_N,    KC_V,    KC_SLSH},
-	{KC_0,    KC_L,    KC_S,    KC_Z,    KC_EQL },
-	{KC_LBRC, KC_BSLS, KC_MINS, KC_RSFT, KC_RGUI}
-#else // Ergodox and Ergodox EZ 
+[_DV] = KEYMAP(
         // left hand
-	{KC_RBRC, KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI, XXXXXXX},
-	{KC_1,    KC_QUOT, KC_A,    KC_SCLN, KC_GRV,  KC_END },
-	{KC_2,    KC_COMM, KC_O,    KC_Q,    KC_INS,  KC_DEL },
-	{KC_3,    KC_DOT,  KC_E,    KC_J,    KC_LEFT, KC_BSPC},
-	{KC_4,    KC_P,    KC_U,    KC_K,    KC_RGHT, KC_HOME},
-	{KC_5,    KC_Y,    KC_I,    KC_X,    XXXXXXX, KC_LCTL},
-	{KC_ESC,  XXXXXXX, XXXXXXX, MO(_MD), XXXXXXX, KC_LALT},
+        KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_ESC,
+        KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    XXXXXXX,
+        KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,
+        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    MO(_MD),
+        KC_LGUI, KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
+                                            KC_LCTL, KC_LALT,
+                                                     KC_HOME,
+                                   KC_BSPC, KC_DEL,  KC_END,
+        // right hand
+        KC_ESC,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC,
+        XXXXXXX, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
+                 KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+        MO(_KP), KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+                          KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  KC_RGUI,
+        KC_RALT, KC_RCTL,
+        KC_PGUP,
+        KC_PGDN, KC_ENT,  KC_SPC
+  ),
 
-	// right hand
-	{KC_ESC,  XXXXXXX, XXXXXXX, MO(_KP), XXXXXXX, KC_RALT},
-	{KC_6,    KC_F,    KC_D,    KC_B,    XXXXXXX, KC_RCTL},
-	{KC_7,    KC_G,    KC_H,    KC_M,    KC_UP,   KC_PGUP},
-	{KC_8,    KC_C,    KC_T,    KC_W,    KC_DOWN, KC_SPC },
-	{KC_9,    KC_R,    KC_N,    KC_V,    KC_SLSH, KC_ENT },
-	{KC_0,    KC_L,    KC_S,    KC_Z,    KC_EQL,  KC_PGDN},
-	{KC_LBRC, KC_BSLS, KC_MINS, KC_RSFT, KC_RGUI, XXXXXXX}
-#endif
-  },
 
-
-[_QW] = {  // layer 1 : QWERTY
-/* 
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | ESC  |   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------| _MD  |           | _KP  |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LGUI |   `  |  INS | Left | Rght |                                       |  Up  |  Dn  |   [  |   ]  | RGUI |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | LCtr | LAlt |       | Ralt | RCtr |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      | Home |       | PgUp |      |      |
- *                                 | BkSp | Del  |------|       |------| Enter| Space|
- *                                 |      |      | End  |       | PgDn |      |      |
- *                                 `--------------------'       `--------------------'
+/* Layer 1: QWERTY
+ * ,--------------------------------------------------. ,--------------------------------------------------.
+ * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  | | ESC  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------| |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |      | |      |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * | CapsLk |   A  |   S  |   D  |   F  |   G  |------| |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |--------+------+------+------+------+------| _MD  | | _KP  |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      | |      |   N  |   M  |   ,  |   .  |   /  | RShift |
+ * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
+ *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | RGUI |
+ *   `----------------------------------'                             `----------------------------------'
+ *                                      ,-------------. ,-------------.
+ *                                      | LCTL | LALT | | RALT | RCTL |
+ *                               ,------|------|------| |------+------+------.
+ *                               |      |      | Home | | PgUp |      |      |
+ *                               | BkSp | Del  |------| |------| Enter| Space|
+ *                               |      |      | End  | | PgDn |      |      |
+ *                               `--------------------' `--------------------'
  */
-#ifdef SUBPROJECT_infinity // Infinity Ergodox
-	// left hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT, KC_HOME},
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_LCTL, KC_END },
-	{KC_6,    MO(_KP), XXXXXXX, MO(_MD), KC_DEL },
-	{KC_5,    KC_Y,    KC_I,    KC_X,    KC_BSPC},
-	{KC_4,    KC_P,    KC_U,    KC_K,    KC_RGHT},
-	{KC_3,    KC_DOT,  KC_E,    KC_J,    KC_LEFT},
-	{KC_2,    KC_COMM, KC_O,    KC_Q,    KC_INS },
-	{KC_1,    KC_QUOT, KC_A,    KC_SCLN, KC_GRV },
-	{KC_RBRC, KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI},
-
-	//Right Hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_RALT, KC_PGUP},
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL, KC_PGDN},
-	{KC_ESC,  MO(_MD), XXXXXXX, MO(_KP), KC_ENT },
-	{KC_6,    KC_F,    KC_D,    KC_B,    KC_SPC },
-	{KC_7,    KC_G,    KC_H,    KC_M,    KC_UP  },
-	{KC_8,    KC_C,    KC_T,    KC_W,    KC_DOWN},
-	{KC_9,    KC_R,    KC_N,    KC_V,    KC_SLSH},
-	{KC_0,    KC_L,    KC_S,    KC_Z,    KC_EQL },
-	{KC_LBRC, KC_BSLS, KC_MINS, KC_RSFT, KC_RGUI}
-#else // Ergodox and Ergodox EZ 
+[_QW] = KEYMAP(
         // left hand
-	{KC_EQL,  KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI, XXXXXXX},
-	{KC_1,    KC_Q,    KC_A,    KC_Z,    KC_GRV,  KC_END },
-	{KC_2,    KC_W,    KC_S,    KC_X,    KC_INS,  KC_DEL },
-	{KC_3,    KC_E,    KC_D,    KC_C,    KC_LEFT, KC_BSPC},
-	{KC_4,    KC_R,    KC_F,    KC_V,    KC_RGHT, KC_HOME},
-	{KC_5,    KC_T,    KC_G,    KC_B,    XXXXXXX, KC_LCTL},
-	{KC_ESC,  XXXXXXX, XXXXXXX, MO(_MD), XXXXXXX, KC_LALT},
+        KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,
+        KC_DELT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,
+        KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_MD),
+        KC_LGUI, KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
+                                            KC_LCTL, KC_LALT,
+                                                     KC_HOME,
+                                   KC_BSPC, KC_DEL,  KC_END,
+        // right hand
+        KC_ESC,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+        XXXXXXX, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+                 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        MO(_KP), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, KC_RGUI,
+        KC_LALT, KC_LCTL,
+        KC_PGUP,
+        KC_PGDN, KC_ENT, KC_SPC
+  ),
 
-	// right hand
-	{KC_ESC,  XXXXXXX, XXXXXXX, MO(_KP), XXXXXXX, KC_RALT},
-	{KC_6,    KC_Y,    KC_H,    KC_N,    XXXXXXX, KC_RCTL},
-	{KC_7,    KC_U,    KC_J,    KC_M,    KC_UP,   KC_PGUP},
-	{KC_8,    KC_I,    KC_K,    KC_COMM, KC_DOWN, KC_SPC },
-	{KC_9,    KC_O,    KC_L,    KC_DOT,  KC_LBRC, KC_ENT },
-	{KC_0,    KC_P,    KC_SCLN, KC_SLSH, KC_RBRC, KC_PGDN},
-	{KC_MINS, KC_BSLS, KC_QUOT, KC_RSFT, KC_RGUI, XXXXXXX}
-#endif
-  },
 
-
-[_CM] = {  // layer 2 : Colemak
-/* 
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | ESC  |   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   F  |   P  |   G  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSpc  |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |   O  |   '    |
- * |--------+------+------+------+------+------| _MD  |           | _KP  |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |   /  | RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LGUI |   `  |  INS | Left | Rght |                                       |  Up  |  Dn  |   [  |   ]  | RGUI |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | LCtr | LAlt |       | Ralt | RCtr |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      | Home |       | PgUp |      |      |
- *                                 | BkSp | Del  |------|       |------| Enter| Space|
- *                                 |      |      | End  |       | PgDn |      |      |
- *                                 `--------------------'       `--------------------'
+/* Layer 2 : Colemak
+ * ,--------------------------------------------------. ,--------------------------------------------------.
+ * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  | | ESC  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------| |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   F  |   P  |   G  |      | |      |   J  |   L  |   U  |   Y  |   ;  |   \    |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * | BkSpc  |   A  |   R  |   S  |   T  |   D  |------| |------|   H  |   N  |   E  |   I  |   O  |   '    |
+ * |--------+------+------+------+------+------| _MD  | | _KP  |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      | |      |   K  |   M  |   ,  |   .  |   /  | RShift |
+ * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
+ *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | RGUI |
+ *   `----------------------------------'                             `----------------------------------'
+ *                                      ,-------------. ,-------------.
+ *                                      | LCTL | LALT | | RALT | RCTL |
+ *                               ,------|------|------| |------+------+------.
+ *                               |      |      | Home | | PgUp |      |      |
+ *                               | BkSp | Del  |------| |------| Enter| Space|
+ *                               |      |      | End  | | PgDn |      |      |
+ *                               `--------------------' `--------------------'
  */
-#ifdef SUBPROJECT_infinity // Infinity Ergodox
-	// left hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT, KC_HOME},
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_LCTL, KC_END },
-	{KC_6,    MO(_KP), XXXXXXX, MO(_MD), KC_DEL },
-	{KC_5,    KC_Y,    KC_I,    KC_X,    KC_BSPC},
-	{KC_4,    KC_P,    KC_U,    KC_K,    KC_RGHT},
-	{KC_3,    KC_DOT,  KC_E,    KC_J,    KC_LEFT},
-	{KC_2,    KC_COMM, KC_O,    KC_Q,    KC_INS },
-	{KC_1,    KC_QUOT, KC_A,    KC_SCLN, KC_GRV },
-	{KC_RBRC, KC_TAB,  KC_CAPS, KC_LSFT, KC_LGUI},
-
-	//Right Hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_RALT, KC_PGUP},
-	{XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL, KC_PGDN},
-	{KC_ESC,  MO(_MD), XXXXXXX, MO(_KP), KC_ENT },
-	{KC_6,    KC_F,    KC_D,    KC_B,    KC_SPC },
-	{KC_7,    KC_G,    KC_H,    KC_M,    KC_UP  },
-	{KC_8,    KC_C,    KC_T,    KC_W,    KC_DOWN},
-	{KC_9,    KC_R,    KC_N,    KC_V,    KC_SLSH},
-	{KC_0,    KC_L,    KC_S,    KC_Z,    KC_EQL },
-	{KC_LBRC, KC_BSLS, KC_MINS, KC_RSFT, KC_RGUI}
-#else // Ergodox and Ergodox EZ 
+[_CM] = KEYMAP( 
         // left hand
-	{KC_EQL,  KC_TAB,  KC_BSPC, KC_LSFT, KC_LGUI, XXXXXXX},
-	{KC_1,    KC_Q,    KC_A,    KC_Z,    KC_GRV,  KC_END },
-	{KC_2,    KC_W,    KC_R,    KC_X,    KC_INS,  KC_DEL },
-	{KC_3,    KC_F,    KC_S,    KC_C,    KC_LEFT, KC_BSPC},
-	{KC_4,    KC_P,    KC_T,    KC_V,    KC_RGHT, KC_HOME},
-	{KC_5,    KC_G,    KC_D,    KC_B,    XXXXXXX, KC_LCTL},
-	{KC_ESC,  XXXXXXX, XXXXXXX, MO(_MD), XXXXXXX, KC_LALT},
+        KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,
+        KC_DELT, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    XXXXXXX,
+        KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_MD),
+        KC_LGUI, KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
+                                            KC_LCTL, KC_LALT,
+                                                     KC_HOME,
+                                   KC_BSPC, KC_DEL,  KC_END,
+        // right hand
+        KC_ESC,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+        XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
+                 KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+        MO(_KP), KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, KC_RGUI,
+        KC_LALT, KC_LCTL,
+        KC_PGUP,
+        KC_PGDN, KC_ENT, KC_SPC
+  ),
 
-	// right hand
-	{KC_ESC,  XXXXXXX, XXXXXXX, MO(_KP), XXXXXXX, KC_RALT},
-	{KC_6,    KC_J,    KC_H,    KC_K,    XXXXXXX, KC_RCTL},
-	{KC_7,    KC_L,    KC_N,    KC_M,    KC_UP,   KC_PGUP},
-	{KC_8,    KC_U,    KC_E,    KC_COMM, KC_DOWN, KC_SPC },
-	{KC_9,    KC_Y,    KC_I,    KC_DOT,  KC_LBRC, KC_ENT },
-	{KC_0,    KC_SCLN, KC_O,    KC_SLSH, KC_RBRC, KC_PGDN},
-	{KC_MINS, KC_BSLS, KC_QUOT, KC_RSFT, KC_RGUI, XXXXXXX}
-#endif
-  },
 
-
-[_MD] = { // layer 3 : Media layer
-/* 
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | TEENSY |  F1  |  F2  |  F3  |  F4  |  F5  | F11  |           |  F12 |  F6  |  F7  |  F8  |  F9  |  F10 |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      | PrSc | ScLk | Paus |      |      |           |      |      | Mute | Vol- | Vol+ |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------| Stop | Prev | Play | Next | Sel  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |Dvorak|Qwerty|Colemk|      |      |           |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
+/* Layer 3 : Media layer
+ * ,--------------------------------------------------. ,--------------------------------------------------.
+ * | TEENSY |  F1  |  F2  |  F3  |  F4  |  F5  | F11  | |  F12 |  F6  |  F7  |  F8  |  F9  |  F10 |        |
+ * |--------+------+------+------+------+-------------| |------+------+------+------+------+------+--------|
+ * |        |      | PrSc | ScLk | Paus |      |      | |      |      | Mute | Vol- | Vol+ |      |        |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------| |------| Stop | Prev | Play | Next | Sel  |        |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * |        |      |Dvorak|Qwerty|Colemk|      |      | |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                             |      |      |      |      |      |
+ *   `----------------------------------'                             `----------------------------------'
+ *                                      ,-------------. ,-------------.
+ *                                      |      |      | |      |      |
+ *                               ,------|------|------| |------+------+------.
+ *                               |      |      |      | |      |      |      |
+ *                               |      |      |------| |------|      |      |
+ *                               |      |      |      | |      |      |      |
+ *                               `--------------------' `--------------------'
  */
-#ifdef SUBPROJECT_infinity // Infinity Ergodox
-	// left hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{KC_F11,  _______, XXXXXXX, _______, _______},
-	{KC_F5,   _______, _______, _______, _______},
-	{KC_F4,   KC_PAUS, _______, COLEMAK, _______},
-	{KC_F3,   KC_SLCK, _______, QWERTY,  _______},
-	{KC_F2,   KC_PSCR, _______, DVORAK,  _______},
-	{KC_F1,   _______, _______, _______, _______},
-	{RESET,   _______, _______, _______, _______},
-
-	//Right Hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{KC_F12,  _______, XXXXXXX, _______, _______},
-	{KC_F6,   _______, KC_MSTP, _______, _______},
-	{KC_F7,   KC_VOLU, KC_MPRV, _______, _______},
-	{KC_F8,   KC_VOLD, KC_MPLY, _______, _______},
-	{KC_F9,   KC_MUTE, KC_MNXT, _______, _______},
-	{KC_F10,  _______, KC_MSEL, _______, _______},
-	{_______, _______, _______, _______, _______},
-#else // Ergodox and Ergodox EZ 
+[_MD] = KEYMAP(
         // left hand
-	{RESET,   _______, _______, _______, _______, XXXXXXX},
-	{KC_F1,   _______, _______, _______, _______, _______},
-	{KC_F2,   KC_PSCR, _______, DVORAK,  _______, _______},
-	{KC_F3,   KC_SLCK, _______, QWERTY,  _______, _______},
-	{KC_F4,   KC_PAUS, _______, COLEMAK, _______, _______},
-	{KC_F5,   _______, _______, _______, XXXXXXX, _______},
-	{KC_F11,  XXXXXXX, XXXXXXX, _______, XXXXXXX, _______},
+        RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,
+        _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                            _______, _______,
+                                                     _______,
+                                   _______, _______, _______,
+        // right hand
+        KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
+        _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
+                 KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, _______,
+        _______, _______, _______, _______, _______, _______, _______,
+                          _______, _______, _______, _______, _______,
+        _______, _______,
+        _______,
+        _______, _______, _______
+  ),
 
-	// right hand
-	{KC_F12,  XXXXXXX, XXXXXXX, _______, XXXXXXX, _______},
-	{KC_F6,   _______, KC_MSTP, _______, XXXXXXX, _______},
-	{KC_F7,   KC_MUTE, KC_MPRV, _______, _______, _______},
-	{KC_F8,   KC_VOLD, KC_MPLY, _______, _______, _______},
-	{KC_F9,   KC_VOLU, KC_MNXT, _______, _______, _______},
-	{KC_F10,  _______, KC_MSEL, _______, _______, _______},
-	{_______, _______, _______, _______, _______, XXXXXXX}
-#endif
-  },
 
-
-[_KP] = { // layer 4 : Keypad layer
-/* 
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Power  |      |      |      |      |      |      |           |      |      | NmLk | KP / | KP * | KP - |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Sleep  |      |      |      |      |      |      |           |      |      | KP 7 | KP 8 | KP 9 | KP + |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Wake   |      |      |      |      |      |------|           |------|      | KP 4 | KP 5 | KP 6 | KP + |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      | KP 1 | KP 2 | KP 3 |KP Ent|        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       | KP 0 |      | KP . |KP Ent|      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
+/* Layer 4 : Keypad layer
+ * ,--------------------------------------------------. ,--------------------------------------------------.
+ * | Power  |      |      |      |      |      |      | |      |      | NmLk | KP = | KP / | KP * |        |
+ * |--------+------+------+------+------+-------------| |------+------+------+------+------+------+--------|
+ * | Sleep  |      |      |      |      |      |      | |      |      | KP 7 | KP 8 | KP 9 | KP - |        |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * | Wake   |      |      |      |      |      |------| |------|      | KP 4 | KP 5 | KP 6 | KP + |        |
+ * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      | |      |      | KP 1 | KP 2 | KP 3 |KP Ent|        |
+ * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                             | KP 0 |      |      |KP Ent|      |
+ *   `----------------------------------'                             `----------------------------------'
+ *                                      ,-------------. ,-------------.
+ *                                      |      |      | |      |      |
+ *                               ,------|------|------| |------+------+------.
+ *                               |      |      |      | |      |      |      |
+ *                               |      |      |------| |------|      |      |
+ *                               |      |      |      | |      |      |      |
+ *                               `--------------------' `--------------------'
  */
-#ifdef SUBPROJECT_infinity // Infinity Ergodox
-	// left hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{_______, _______, XXXXXXX, _______, _______},
-	{_______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______},
-	{KC_PWR,  KC_SLEP, KC_WAKE, _______, _______},
-
-	//Right Hand
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, _______},
-	{_______, _______, XXXXXXX, _______, _______},
-	{_______, _______, KC_MSTP, _______, _______},
-	{KC_NLCK, KC_P7,   KC_P4,   KC_P1,   KC_P0  },
-	{KC_PSLS, KC_P8,   KC_P5,   KC_P2,   _______},
-	{KC_PAST, KC_P9,   KC_P6,   KC_P3,   KC_PDOT},
-	{KC_PMNS, KC_PPLS, KC_PPLS, KC_PENT, KC_PENT},
-	{_______, _______, _______, _______, _______},
-#else // Ergodox and Ergodox EZ 
+[_KP] = KEYMAP(
         // left hand
-	{KC_PWR,  KC_SLEP, KC_WAKE, _______, _______, XXXXXXX},
-	{_______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, XXXXXXX, _______},
-	{_______, XXXXXXX, XXXXXXX, _______, XXXXXXX, _______},
-
-	// right hand
-	{_______, XXXXXXX, XXXXXXX, _______, XXXXXXX, _______},
-	{_______, _______, _______, _______, XXXXXXX, _______},
-	{KC_NLCK, KC_P7,   KC_P4,   KC_P1,   KC_P0,   _______},
-	{KC_PSLS, KC_P8,   KC_P5,   KC_P2,   XXXXXXX, _______},
-	{KC_PAST, KC_P9,   KC_P6,   KC_P3,   KC_PDOT, _______},
-	{KC_PMNS, KC_PPLS, KC_PPLS, KC_PENT, KC_PENT, _______},
-	{_______, _______, _______, _______, XXXXXXX, XXXXXXX}
-#endif
-  },
-
+        KC_PWR,  _______, _______, _______, _______, _______, _______,
+        KC_SLEP, _______, _______, _______, _______, _______, _______,
+        KC_WAKE, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                            _______, _______,
+                                                     _______,
+                                   _______, _______, _______,
+        // right hand
+        _______, _______, KC_NLCK, KC_PEQL, KC_PSLS, KC_PAST, _______,
+        _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
+                 _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______,
+        _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
+                          _______, _______, _______, _______, _______,
+        _______, _______,
+        _______,
+        _______, _______, _______
+  ),
 
 };
 
