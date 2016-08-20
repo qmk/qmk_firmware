@@ -43,7 +43,7 @@
 # make flip-ee = Download the eeprom file to the device, using Atmel FLIP
 #                (must have Atmel FLIP installed).
 #
-# make debug = Start either simulavr or avarice as specified for debugging, 
+# make debug = Start either simulavr or avarice as specified for debugging,
 #              with avr-gdb or avr-insight as the front end for debugging.
 #
 # make filename.s = Just compile filename.c into the assembler code only.
@@ -66,7 +66,7 @@ BUILD_DIR = .build
 OBJDIR = $(BUILD_DIR)/obj_$(TARGET)
 
 
-# Optimization level, can be [0, 1, 2, 3, s]. 
+# Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
@@ -261,7 +261,7 @@ MATH_LIB = -lm
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS = 
+EXTRALIBDIRS =
 
 
 
@@ -322,7 +322,7 @@ JTAG_DEV = /dev/com1
 DEBUG_PORT = 4242
 
 # Debugging host used to communicate between GDB / avarice / simulavr, normally
-#     just set to localhost unless doing some sort of crazy debugging when 
+#     just set to localhost unless doing some sort of crazy debugging when
 #     avarice is running on a different computer.
 DEBUG_HOST = localhost
 
@@ -394,22 +394,22 @@ ALL_CPPFLAGS = -mmcu=$(MCU) -x c++ $(CPPFLAGS) $(GENDEPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = -mmcu=$(MCU) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 # Default target.
-all: 
-	@$(MAKE) begin 
-	@$(MAKE) gccversion 
-	@$(MAKE) sizebefore 
+all:
+	@$(MAKE) begin
+	@$(MAKE) gccversion
+	@$(MAKE) sizebefore
 	@$(MAKE) clean_list # force clean each time
-	@$(MAKE) build 
-	@$(MAKE) sizeafter 
+	@$(MAKE) build
+	@$(MAKE) sizeafter
 	@$(MAKE) end
 
 # Quick make that doesn't clean
-quick: 
-	@$(MAKE) begin 
-	@$(MAKE) gccversion 
-	@$(MAKE) sizebefore 
-	@$(MAKE) build 
-	@$(MAKE) sizeafter 
+quick:
+	@$(MAKE) begin
+	@$(MAKE) gccversion
+	@$(MAKE) sizebefore
+	@$(MAKE) build
+	@$(MAKE) sizeafter
 	@$(MAKE) end
 
 # Change the build target to build a HEX file or a library.
@@ -459,7 +459,7 @@ gccversion :
 
 
 
-# Program the device.  
+# Program the device.
 program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(PROGRAM_CMD)
 
@@ -490,7 +490,7 @@ endif
 	dfu-programmer $(MCU) erase
 	dfu-programmer $(MCU) flash $(KEYMAP_PATH)/compiled.hex
 	dfu-programmer $(MCU) reset
-	
+
 dfu-start:
 	dfu-programmer $(MCU) reset
 	dfu-programmer $(MCU) start
@@ -512,9 +512,9 @@ endif
 
 
 # Generate avr-gdb config/init file which does the following:
-#     define the reset signal, load the target file, connect to target, and set 
+#     define the reset signal, load the target file, connect to target, and set
 #     a breakpoint at main().
-gdb-config: 
+gdb-config:
 	@$(REMOVE) $(GDBINIT_FILE)
 	@echo define reset >> $(GDBINIT_FILE)
 	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
@@ -616,7 +616,7 @@ $(OBJDIR)/%.o : %.c
 $(OBJDIR)/%.o : %.cpp
 	@mkdir -p $(@D)
 	@$(SILENT) || printf "$(MSG_COMPILING_CPP) $<" | $(AWK_CMD)
-	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
+	$(CC) -c $(ALL_CPPFLAGS) $< -o $@
 	@$(BUILD_CMD)
 
 # Compile: create assembler files from C source files.
@@ -640,7 +640,7 @@ $(OBJDIR)/%.o : %.S
 
 # Create preprocessed source for use in sending a bug report.
 %.i : %.c
-	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@ 
+	$(CC) -E -mmcu=$(MCU) $(CFLAGS) $< -o $@
 
 # Target: clean project.
 clean: begin clean_list end
