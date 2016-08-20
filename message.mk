@@ -31,7 +31,7 @@ PRINT_ERROR_PLAIN = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $
 PRINT_WARNING_PLAIN = ($(SILENT) || printf " $(WARN_STRING)" | $(AWK_STATUS)) && $(TAB_LOG_PLAIN)
 PRINT_OK = $(SILENT) || printf " $(OK_STRING)" | $(AWK_STATUS)
 BUILD_CMD = LOG=$$($(CMD) 2>&1) ; if [ $$? -gt 0 ]; then $(PRINT_ERROR); elif [ "$$LOG" != "" ] ; then $(PRINT_WARNING); else $(PRINT_OK); fi;
-MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
+MAKE_MSG_FORMAT = $(AWK) '{ printf "%-118s", $$0;}'
 
 # Define Messages
 # English
@@ -60,3 +60,12 @@ MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
 	git submodule update --init --recursive$(NO_COLOR)\n\n\
 	You can ignore this warning if you are not compiling any ChibiOS keyboards,\n\
 	or if you have modified the ChibiOS libraries yourself. \n\n
+MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
+
+define GENERATE_MSG_MAKE_KB
+    MSG_MAKE_KB_ACTUAL := Making $$(KB_SP) with keymap $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
+    ifneq ($$(MAKE_TARGET),)
+        MSG_MAKE_KB_ACTUAL += and target $(BOLD)$$(MAKE_TARGET)$(NO_COLOR)
+    endif
+endef
+MSG_MAKE_KB = $(eval $(call GENERATE_MSG_MAKE_KB))$(MSG_MAKE_KB_ACTUAL)
