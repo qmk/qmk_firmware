@@ -352,8 +352,7 @@ $(foreach OUTPUT,$(OUTPUTS),$(eval $(call GEN_OBJRULE,$(OUTPUT))))
 
 # Target: clean project.
 clean:
-	$(REMOVE) -r $(OBJDIR) 2>/dev/null
-	$(REMOVE) -r $(KBOBJDIR) 2>/dev/null
+	$(foreach OUTPUT,$(OUTPUTS), $(REMOVE) -r $(OUTPUT) 2>/dev/null)
 	$(REMOVE) $(BUILD_DIR)/$(TARGET).*
 
 show_path:
