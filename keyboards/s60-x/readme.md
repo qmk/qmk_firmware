@@ -42,9 +42,9 @@ The recommended programs for flashing your keyboard are [Atmel FLIP](http://www.
 
 ## Building the firmware
 
-To build firmware binary hex file with a certain keymap just run `make` with the `keymap` option like:
+To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
 
-    $ make keymap=[custom|poker|poker_set|poker_bit|plain|hasu|spacefn|hhkb|<name>]
+    $ make [custom|poker|poker_set|poker_bit|plain|hasu|spacefn|hhkb|<name>]
 
 For a more detailed explanation of the build process and the environment setup, see the ["Getting Started" section](/readme.md#getting-started).
 
