@@ -63,6 +63,8 @@ Here are the steps
 
 **Note** From time to time, the dependencies might change, so just run `install_dependencies.sh` again if things are not working.
 
+**Warning:** If you edit Makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
+
 
 ### Windows (Vista and later)
 1. If you have ever installed WinAVR, uninstall it.
