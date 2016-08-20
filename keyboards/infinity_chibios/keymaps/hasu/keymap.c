@@ -14,12 +14,12 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |     |Gui|Alt  |         Space         |Alt  |Gui|   |     |
      * `-----------------------------------------------------------'
      */
-    [0] =
-    KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
-           TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
-           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,FN6, \
-           FN7, Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, RSFT,FN1, \
-           NO,  LGUI,LALT,          FN4,                FN5, RGUI,NO, NO),
+    [0] = KEYMAP(
+        KC_ESC,    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,           KC_MINS,KC_EQL, KC_BSLS,KC_GRV, \
+        KC_TAB,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,           KC_LBRC,KC_RBRC,KC_BSPC, \
+        KC_LCTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   LT(3, KC_SCLN), KC_QUOT,MT(KC_RCTL, KC_ENT), \
+        OSM(MOD_LSFT), KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, LT(2, KC_SLSH), KC_RSFT,TG(1), \
+        KC_NO,     KC_LGUI,KC_LALT,         LT(4, KC_SPC),                 MO(4),  KC_RGUI,KC_NO,          KC_NO),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -34,12 +34,12 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |     |Gui|Alt  |         Space         |Alt  |Gui|   |     |
      * `-----------------------------------------------------------'
      */ 
-    [1] = 
-    KEYMAP(PWR, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           CAPS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,PSCR,SLCK,PAUS, UP,  TRNS,BSPC, \
-           LCTL,VOLD,VOLU,MUTE,TRNS,TRNS,PAST,PSLS,HOME,PGUP,LEFT,RGHT,ENT, \
-           LSFT,TRNS,TRNS,TRNS,TRNS,TRNS,PPLS,PMNS,END, PGDN,DOWN,RSFT,TRNS, \
-           TRNS,LGUI,LALT,          TRNS,               RALT,RGUI,TRNS,TRNS),
+    [1] = KEYMAP(
+        KC_PWR, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL, \
+        KC_CAPS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PSCR,KC_SLCK,KC_PAUS, KC_UP,  KC_TRNS,KC_BSPC, \
+        KC_LCTL,KC_VOLD,KC_VOLU,KC_MUTE,KC_TRNS,KC_TRNS,KC_PAST,KC_PSLS,KC_HOME,KC_PGUP,KC_LEFT,KC_RGHT,KC_ENT, \
+        KC_LSFT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PPLS,KC_PMNS,KC_END, KC_PGDN,KC_DOWN,KC_RSFT,KC_TRNS, \
+        KC_TRNS,KC_LGUI,KC_LALT,          KC_TRNS,                      KC_RALT,KC_RGUI,KC_TRNS,KC_TRNS),
 
     /* Layer 2: Vi mode[Slash]
      * ,-----------------------------------------------------------.
@@ -54,12 +54,12 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       |Gui|Alt  |          Space        |Alt  |Gui|
      *       `-------------------------------------------'
      */
-    [2] = \
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           TAB, HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  BSPC, \
-           LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT,TRNS, \
-           TRNS,LGUI,LALT,          SPC,                RALT,RGUI,TRNS,TRNS),
+    [2] = KEYMAP(
+        KC_GRV, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10,         KC_F11, KC_F12, KC_INS, KC_DEL, \
+        KC_TAB, KC_HOME,KC_PGDN,KC_UP,  KC_PGUP,KC_END, KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_NO,          KC_NO,  KC_NO,  KC_BSPC, \
+        KC_LCTL,KC_NO,  KC_LEFT,KC_DOWN,KC_RGHT,KC_NO,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_NO,          KC_NO,  KC_ENT, \
+        KC_LSFT,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_HOME,KC_PGDN,KC_PGUP,KC_END, LT(2, KC_SLSH), KC_RSFT,KC_TRNS, \
+        KC_TRNS,KC_LGUI,KC_LALT,          KC_SPC,                       KC_RALT,KC_RGUI,KC_TRNS,        KC_TRNS),
 
     /* Layer 3: Mouse mode(IJKL)[Semicolon]
      * ,-----------------------------------------------------------.
@@ -75,12 +75,12 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *      `--------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
-    [3] = \
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           FN8, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,MS_U,WH_U,WH_R,FN9, FN10,FN8, \
-           LCTL,ACL0,ACL1,ACL2,ACL2,NO,  NO,  MS_L,MS_D,MS_R,FN3, NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,TRNS, \
-           TRNS,LGUI,LALT,          BTN1,               TRNS,TRNS,TRNS,TRNS),
+    [3] = KEYMAP(
+        KC_GRV,       KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,        KC_INS, KC_DEL, \
+        LALT(KC_TAB), KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_WH_L,KC_WH_D,KC_MS_U,        KC_WH_U,        KC_WH_R,        ALT_T(KC_LEFT), ALT_T(KC_RGHT),LALT(KC_TAB), \
+        KC_LCTL,      KC_ACL0,KC_ACL1,KC_ACL2,KC_ACL2,KC_NO,  KC_NO,  KC_MS_L,KC_MS_D,        KC_MS_R,        LT(3, KC_SCLN), KC_NO,          KC_ENT, \
+        KC_LSFT,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN3,KC_BTN2,KC_BTN1,ALT_T(KC_LEFT), ALT_T(KC_RGHT), KC_NO,          KC_RSFT,        KC_TRNS, \
+        KC_TRNS,      KC_LGUI,KC_LALT,          KC_BTN1,                      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS),
 
     /* Layer 4: Mouse mode(IJKL)[Space]
      * ,-----------------------------------------------------------.
@@ -96,104 +96,18 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *      `--------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
-    [4] = \
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           FN8, NO,  NO,  NO,  NO,  NO,  WH_L,WH_D,MS_U,WH_U,WH_R,BTN4,BTN5,FN8, \
-           LCTL,VOLD,VOLU,MUTE,NO,  NO,  NO,  MS_L,MS_D,MS_R,BTN1,NO,  ENT, \
-           LSFT,NO,  NO,  NO,  NO,  BTN3,BTN2,BTN1,FN9, FN10,NO,  RSFT,TRNS, \
-           TRNS,LGUI,LALT,          TRNS,               TRNS,TRNS,TRNS,TRNS),
+    [4] = KEYMAP(
+        KC_GRV,       KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,         KC_F9,         KC_F10, KC_F11, KC_F12, KC_INS,       KC_DEL, \
+        LALT(KC_TAB), KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_WH_L,KC_WH_D,KC_MS_U,       KC_WH_U,       KC_WH_R,KC_BTN4,KC_BTN5,LALT(KC_TAB), \
+        KC_LCTL,      KC_VOLD,KC_VOLU,KC_MUTE,KC_NO,  KC_NO,  KC_NO,  KC_MS_L,KC_MS_D,       KC_MS_R,       KC_BTN1,KC_NO,  KC_ENT, \
+        KC_LSFT,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN3,KC_BTN2,KC_BTN1,ALT_T(KC_LEFT),ALT_T(KC_RGHT),KC_NO,  KC_RSFT,KC_TRNS, \
+        KC_TRNS,      KC_LGUI,KC_LALT,          KC_TRNS,                      KC_TRNS,       KC_TRNS,       KC_TRNS,KC_TRNS),
 
-};
-
-/* id for user defined functions */
-enum function_id {
-    LSHIFT_LPAREN,
-};
-
-enum macro_id {
-    HELLO,
-    VOLUP,
-    ALT_TAB,
 };
 
 /*
  * Fn action definition
  */
 const uint16_t fn_actions[] = {
-    [0] = ACTION_DEFAULT_LAYER_SET(0),                // Default layer(not used)
-    [1] = ACTION_LAYER_TAP_TOGGLE(1),                 // HHKB layer(toggle with 5 taps)
-    [2] = ACTION_LAYER_TAP_KEY(2, KC_SLASH),          // Cursor layer with Slash*
-    [3] = ACTION_LAYER_TAP_KEY(3, KC_SCLN),           // Mousekey layer with Semicolon*
-    [4] = ACTION_LAYER_TAP_KEY(4, KC_SPC),            // Mousekey layer with Space
-    [5] = ACTION_LAYER_MOMENTARY(4),                  // Mousekey layer(IJKL)
-    [6] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT),      // RControl with tap Enter
-    [7] = ACTION_MODS_ONESHOT(MOD_LSFT),              // Oneshot Shift
-    [8] = ACTION_MACRO(ALT_TAB),                      // Application switching
-    [9] = ACTION_MODS_KEY(MOD_LALT, KC_LEFT),
-   [10] = ACTION_MODS_KEY(MOD_LALT, KC_RIGHT),
+
 };
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    switch (id) {
-        case HELLO:
-            return (record->event.pressed ?
-                    MACRO( I(0), T(H), T(E), T(L), T(L), W(255), T(O), END ) :
-                    MACRO_NONE );
-        case VOLUP:
-            return (record->event.pressed ?
-                    MACRO( D(VOLU), U(VOLU), END ) :
-                    MACRO_NONE );
-        case ALT_TAB:
-            return (record->event.pressed ?
-                    MACRO( D(LALT), D(TAB), END ) :
-                    MACRO( U(TAB), END ));
-    }
-    return MACRO_NONE;
-}
-
-
-
-/*
- * user defined action function
- */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (record->event.pressed) dprint("P"); else dprint("R");
-    dprintf("%d", record->tap.count);
-    if (record->tap.interrupted) dprint("i");
-    dprint("\n");
-
-    switch (id) {
-        case LSHIFT_LPAREN:
-            // Shift parentheses example: LShft + tap '('
-            // http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses
-            // http://geekhack.org/index.php?topic=41989.msg1304899#msg1304899
-            if (record->event.pressed) {
-                if (record->tap.count > 0 && !record->tap.interrupted) {
-                    if (record->tap.interrupted) {
-                        dprint("tap interrupted\n");
-                        register_mods(MOD_BIT(KC_LSHIFT));
-                    }
-                } else {
-                    register_mods(MOD_BIT(KC_LSHIFT));
-                }
-            } else {
-                if (record->tap.count > 0 && !(record->tap.interrupted)) {
-                    add_weak_mods(MOD_BIT(KC_LSHIFT));
-                    send_keyboard_report();
-                    register_code(KC_9);
-                    unregister_code(KC_9);
-                    del_weak_mods(MOD_BIT(KC_LSHIFT));
-                    send_keyboard_report();
-                    record->tap.count = 0;  // ad hoc: cancel tap
-                } else {
-                    unregister_mods(MOD_BIT(KC_LSHIFT));
-                }
-            }
-            break;
-    }
-}

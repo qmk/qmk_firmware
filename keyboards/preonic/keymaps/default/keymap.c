@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |Enter |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |Enter |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -142,9 +142,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Audoff|Aud on|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Musoff|Mus on|      |      |      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -191,8 +191,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             persistant_default_layer_set(1UL<<_QWERTY);
           }
-          break;
           return false;
+          break;
         case COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -200,8 +200,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             persistant_default_layer_set(1UL<<_COLEMAK);
           }
-          break;
           return false;
+          break;
         case DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -209,8 +209,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
             persistant_default_layer_set(1UL<<_DVORAK);
           }
-          break;
           return false;
+          break;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -219,8 +219,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
-          break;
           return false;
+          break;
         case RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
@@ -229,8 +229,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_RAISE);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
-          break;
           return false;
+          break;
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
@@ -240,8 +240,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             unregister_code(KC_RSFT);
           }
-          break;
           return false;
+          break;
       }
     return true;
 };

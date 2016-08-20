@@ -97,8 +97,17 @@ ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(MASTER),right)	
+	OPT_DEFS += -DMASTER_IS_ON_RIGHT
+else 
+	ifneq ($(MASTER),left)
+$(error MASTER does not have a valid value(left/right))
+	endif
+endif
+
+
 # Version string
-OPT_DEFS += -DVERSION=$(shell (git describe --always --dirty || echo 'unknown') 2> /dev/null)
+OPT_DEFS += -DVERSION=$(GIT_VERSION)
 
 # Bootloader address
 ifdef STM32_BOOTLOADER_ADDRESS

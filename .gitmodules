@@ -4,3 +4,6 @@
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
 	url = https://github.com/ChibiOS/ChibiOS-Contrib.git
+[submodule "lib/ugfx"]
+	path = lib/ugfx
+	url = https://bitbucket.org/Tectu/ugfx

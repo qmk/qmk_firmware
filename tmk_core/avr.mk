@@ -10,6 +10,7 @@ AR = avr-ar rcs
 NM = avr-nm
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) 
+BIN =
 
 
 
@@ -106,6 +107,10 @@ flip: $(BUILD_DIR)/$(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
 dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	until dfu-programmer $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 	dfu-programmer $(MCU) erase --force
 else
@@ -133,6 +138,11 @@ else
 endif
 	dfu-programmer $(MCU) reset
 
+# Convert hex to bin.
+flashbin: $(BUILD_DIR)/$(TARGET).hex
+	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin; 
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set

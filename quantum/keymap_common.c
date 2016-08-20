@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef MIDI_ENABLE
-	#include "keymap_midi.h"
+	#include "process_midi.h"
 #endif
 
 extern keymap_config_t keymap_config;
@@ -62,7 +62,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
-        case KC_AUDIO_MUTE ... KC_WWW_FAVORITES:
+        case KC_AUDIO_MUTE ... KC_MEDIA_REWIND:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
         case KC_MS_UP ... KC_MS_ACCEL2:
