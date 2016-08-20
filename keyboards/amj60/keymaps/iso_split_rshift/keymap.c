@@ -1,8 +1,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
-#include "satan.h"
-// TODO: replace your ugly german brckets with #defines
+#include "amj60.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -52,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------'   LEFT DWN RIGHT
      */
     [_DEF] = KEYMAP_ISO_SPLITRSHIFT(
-        KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   \
-        TABDUAL,  KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,   \
-        CAPSDUAL, KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, ENTERDUAL, \
-        KC_LSFT,  KC_NUBS, KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, ARRUP,   TG(_SFX),      \
-        KC_LCTL,  KC_LGUI, KC_LALT,             SPACEDUAL,                       KC_RALT, ARRLEFT, ARRDOWN, ARRRIGHT),
+        KC_GRV,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS, KC_EQL,   KC_BSPC,   \
+        TABDUAL,  KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC, KC_RBRC,  KC_BSLS,   \
+        CAPSDUAL, KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT, KC_NUHS,  ENTERDUAL, \
+        KC_LSFT,  KC_NUBS, KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, ARRUP,    TG(_SFX),  \
+        KC_LCTL,  KC_LGUI, KC_LALT,             SPACEDUAL,                       KC_RALT, ARRLEFT, ARRDOWN,  ARRRIGHT),
 
     /* Keymap 1: F-and-vim Layer, modified with Space (by holding space)
      * ,-----------------------------------------------------------.
@@ -122,25 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum function_id {
     LAUNCH,
     RGBLED_TOGGLE,
-    RGBLED_STEP_MODE,
-    RGBLED_INCREASE_HUE,
-    RGBLED_DECREASE_HUE,
-    RGBLED_INCREASE_SAT,
-    RGBLED_DECREASE_SAT,
-    RGBLED_INCREASE_VAL,
-    RGBLED_DECREASE_VAL,
 };
 
 const uint16_t PROGMEM fn_actions[] = {
     [1]  = ACTION_FUNCTION(LAUNCH),
-    [2]  = ACTION_FUNCTION(RGBLED_TOGGLE),
-    [3]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
-    [4]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
-    [5]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
-    [6]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
-    [7]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
-    [8]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
-    [9]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
     [10] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ENT),
 };
 
@@ -161,49 +145,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     }
     return MACRO_NONE;
 };
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch (id) {
-        case RGBLED_TOGGLE:
-            //led operations
-            if (record->event.pressed) {
-                rgblight_toggle();
-            }
-            break;
-        case RGBLED_INCREASE_HUE:
-            if (record->event.pressed) {
-                rgblight_increase_hue();
-            }
-            break;
-        case RGBLED_DECREASE_HUE:
-            if (record->event.pressed) {
-                rgblight_decrease_hue();
-            }
-            break;
-        case RGBLED_INCREASE_SAT:
-            if (record->event.pressed) {
-                rgblight_increase_sat();
-            }
-            break;
-        case RGBLED_DECREASE_SAT:
-            if (record->event.pressed) {
-                rgblight_decrease_sat();
-            }
-            break;
-        case RGBLED_INCREASE_VAL:
-            if (record->event.pressed) {
-                rgblight_increase_val();
-            }
-            break;
-        case RGBLED_DECREASE_VAL:
-            if (record->event.pressed) {
-                rgblight_decrease_val();
-            }
-            break;
-        case RGBLED_STEP_MODE:
-            if (record->event.pressed) {
-                rgblight_step();
-            }
-            break;
-    }
-}
