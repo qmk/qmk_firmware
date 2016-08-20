@@ -13,16 +13,16 @@ Depending on which keymap you would like to use, you will have to compile slight
 
 ### Default
 
-To build with the default keymap, simply run `make`.
+To build with the default keymap, simply run `make default`.
 
 ### Other Keymaps
 
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder, and see keymap documentation (you can find in top readme.md) and existant keymap files.
 
-To build the firmware binary hex file with a keymap just do `make` with `keymap` option like:
+To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
 
 ```
-$ make keymap=[default|jack|<name>]
+$ make [default|jack|<name>]
 ```
 
 Keymaps follow the format **__keymap.c__** and are stored in folders in the `keymaps` folder, eg `keymaps/my_keymap/`
