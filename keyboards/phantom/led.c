@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdint.h"
 #include "led.h"
 
-void led_init(void) {
+void led_init_ports(void) {
     // * Set our LED pins as output
     DDRB |= (1<<6);
 	DDRB |= (1<<7);

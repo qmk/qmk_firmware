@@ -17,6 +17,7 @@ build/
 .build/
 *.bak
 .vagrant/
+quantum/version.h
 .idea/
 CMakeLists.txt
 .DS_STORE
@@ -26,3 +27,5 @@ CMakeLists.txt
 .project
 .settings/
 .idea
+.browse.VC.db*
+*.stackdump

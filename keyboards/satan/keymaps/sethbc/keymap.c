@@ -1,9 +1,5 @@
 #include "satan.h"
 
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-#endif
-
 // Used for SHIFT_ESC
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
@@ -13,6 +9,9 @@
 // entirely and just use numbers.
 #define _BL 0
 #define _FL 1
+
+// Fillers to make layering more clear
+#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -37,46 +36,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FL] = KEYMAP_HHKB(
   #ifdef RGBLIGHT_ENABLE
-  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, RESET, \
-  KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   KC_TRNS, KC_BSPC, \
-  KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_PENT, \
-  KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RESET, \
+  KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   _______, KC_DEL,  \
+  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_PENT, \
+  _______,          _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______, \
+  _______, _______, _______,                   _______,                                     _______, _______, _______, _______),
   #else
-  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, RESET, \
-  KC_CAPS, KC_TRNS, F(1),    F(2),    F(3),    KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   KC_TRNS, KC_BSPC, \
-  KC_TRNS, KC_VOLD, F(4),    F(5),    F(6),    KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_PENT, \
-  KC_TRNS,          F(7),    F(8),    KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RESET, \
+  KC_CAPS, _______, RGB_TOG,RGB_MOD,RGB_HUI, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   _______, KC_DEL, \
+  _______, KC_VOLD, RGB_HUD,RGB_SAI,RGB_SAD, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_PENT, \
+  _______,          RGB_VAI,RGB_VAD,_______, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______, \
+  _______, _______, _______,                 _______,                                     _______, _______, _______, _______),
   #endif
 };
 
 enum function_id {
     SHIFT_ESC,
-    #ifdef RGBLIGHT_ENABLE
-    RGBLED_TOGGLE,
-    RGBLED_STEP_MODE,
-    RGBLED_INCREASE_HUE,
-    RGBLED_DECREASE_HUE,
-    RGBLED_INCREASE_SAT,
-    RGBLED_DECREASE_SAT,
-    RGBLED_INCREASE_VAL,
-    RGBLED_DECREASE_VAL
-    #endif
 };
 
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_FUNCTION(SHIFT_ESC),
-  #ifdef RGBLIGHT_ENABLE
-  [1]  = ACTION_FUNCTION(RGBLED_TOGGLE),
-  [2]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
-  [3]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
-  [4]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
-  [5]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
-  [6]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
-  [7]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
-  [8]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
-  #endif
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -102,48 +81,5 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         }
       }
       break;
-    //led operations
-    #ifdef RGBLIGHT_ENABLE
-    case RGBLED_TOGGLE:
-      if (record->event.pressed) {
-        rgblight_toggle();
-      }
-      break;
-    case RGBLED_INCREASE_HUE:
-      if (record->event.pressed) {
-        rgblight_increase_hue();
-      }
-      break;
-    case RGBLED_DECREASE_HUE:
-      if (record->event.pressed) {
-        rgblight_decrease_hue();
-      }
-      break;
-    case RGBLED_INCREASE_SAT:
-      if (record->event.pressed) {
-        rgblight_increase_sat();
-      }
-      break;
-    case RGBLED_DECREASE_SAT:
-      if (record->event.pressed) {
-        rgblight_decrease_sat();
-      }
-      break;
-    case RGBLED_INCREASE_VAL:
-      if (record->event.pressed) {
-        rgblight_increase_val();
-      }
-      break;
-    case RGBLED_DECREASE_VAL:
-      if (record->event.pressed) {
-        rgblight_decrease_val();
-      }
-      break;
-    case RGBLED_STEP_MODE:
-      if (record->event.pressed) {
-        rgblight_step();
-      }
-      break;
-    #endif
   }
 }

@@ -2,7 +2,7 @@ Keycode Symbol Table
 ====================
 Keycodes are defined in `common/keycode.h`.
 Range of 00-A4 and E0-E7 are identical with HID Usage:
-<http://www.usb.org/developers/devclass_docs/Hut1_11.pdf>
+<http://www.usb.org/developers/hidpage/Hut1_12v2.pdf>
 Virtual keycodes are defined out of above range to support special actions.
 
 
@@ -62,7 +62,7 @@ KC_NONUS_HASH       KC_NUHS         32 Keyboard Non-US # and ~
 KC_SCOLON           KC_SCLN         33 Keyboard ; and :
 KC_QUOTE            KC_QUOT         34 Keyboard ‘ and “
 KC_GRAVE            KC_GRV          35 Keyboard Grave Accent and Tilde
-KC_COMMA            KC_COMM         36 Keyboard, and <
+KC_COMMA            KC_COMM         36 Keyboard , and <
 KC_DOT                              37 Keyboard . and >
 KC_SLASH            KC_SLSH         38 Keyboard / and ?
 KC_CAPSLOCK         KC_CAPS         39 Keyboard Caps Lock
@@ -92,7 +92,7 @@ KC_LEFT                             50 Keyboard LeftArrow1
 KC_DOWN                             51 Keyboard DownArrow1
 KC_UP                               52 Keyboard UpArrow1
 KC_NUMLOCK          KC_NLCK         53 Keypad Num Lock and Clear11
-KC_KP_SLASH         KC_PSLS         54 Keypad /1
+KC_KP_SLASH         KC_PSLS         54 Keypad /
 KC_KP_ASTERISK      KC_PAST         55 Keypad *
 KC_KP_MINUS         KC_PMNS         56 Keypad -
 KC_KP_PLUS          KC_PPLS         57 Keypad +
