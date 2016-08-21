@@ -152,13 +152,52 @@ COMPARE_AND_REMOVE_FROM_RULE = $(eval $(call COMPARE_AND_REMOVE_FROM_RULE_HELPER
 # $1 The list to be checked
 # If a match is found, then RULE_FOUND is set to true
 # and MATCHED_ITEM to the item that was matched
-define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
+define TRY_TO_MATCH_RULE_FROM_LIST_HELPER3
     ifneq ($1,)
         ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)),true)
             MATCHED_ITEM := $$(firstword $1)
         else 
-            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER,$$(wordlist 2,9999,$1)))
+            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$$(wordlist 2,9999,$1)))
         endif
+    endif
+endef
+
+# A recursive helper function for finding the longest match
+# $1 The list to be checed
+# It works by always removing the currently matched item from the list 
+# and call itself recursively, until a match is found
+define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
+    # Stop the recursion when the list is empty 
+    ifneq ($1,)
+        RULE_BEFORE := $$(RULE)
+        $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$1))
+        # If a match is found in the current list, otherwise just return what we had before
+        ifeq ($$(RULE_FOUND),true)
+            # Save the best match so far and call itself recursivel
+            BEST_MATCH := $$(MATCHED_ITEM)
+            BEST_MATCH_RULE := $$(RULE)
+            RULE_FOUND := false
+            RULE := $$(RULE_BEFORE)
+            $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER2,$$(filter-out $$(MATCHED_ITEM),$1)))
+        endif
+     endif
+endef
+
+
+# Recursively try to find the longest match for the start of the rule to be checked
+# $1 The list to be checked
+# If a match is found, then RULE_FOUND is set to true
+# and MATCHED_ITEM to the item that was matched
+define TRY_TO_MATCH_RULE_FROM_LIST_HELPER
+    BEST_MATCH :=
+    $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER2,$1))
+    ifneq ($$(BEST_MATCH),)
+        RULE_FOUND := true
+        RULE := $$(BEST_MATCH_RULE)
+        MATCHED_ITEM := $$(BEST_MATCH)
+    else
+        RULE_FOUND := false
+        MATCHED_ITEM :=
     endif
 endef
 
