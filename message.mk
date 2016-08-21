@@ -69,3 +69,10 @@ define GENERATE_MSG_MAKE_KB
     endif
 endef
 MSG_MAKE_KB = $(eval $(call GENERATE_MSG_MAKE_KB))$(MSG_MAKE_KB_ACTUAL)
+define GENERATE_MSG_MAKE_TEST
+    MSG_MAKE_TEST_ACTUAL := Making test $(BOLD)$(TEST_NAME)$(NO_COLOR)
+    ifneq ($$(MAKE_TARGET),)
+        MSG_MAKE_TEST_ACTUAL += with target $(BOLD)$$(MAKE_TARGET)$(NO_COLOR)
+    endif
+endef
+MSG_MAKE_TEST = $(eval $(call GENERATE_MSG_MAKE_TEST))$(MSG_MAKE_TEST_ACTUAL)
