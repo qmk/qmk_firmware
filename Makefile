@@ -224,6 +224,8 @@ define PARSE_RULE
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
+        $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
@@ -396,6 +398,16 @@ define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
+define PARSE_TEST
+    TEST_NAME := $$(firstword $$(subst -, ,$$(RULE)))
+    TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME)-,,$$(RULE)))
+    MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+    $$(info Test name $$(TEST_NAME))
+    $$(info Test target $$(TEST_TARGET))
+    $$(info $$(MATCHED_TESTS))
+endef
+
+
 # Set the silent mode depending on if we are trying to compile multiple keyboards or not
 # By default it's on in that case, but it can be overriden by specifying silent=false 
 # from the command line
@@ -460,3 +472,5 @@ GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/nu
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
+
+include $(ROOT_DIR)/testlist.mk
