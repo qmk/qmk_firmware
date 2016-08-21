@@ -358,7 +358,6 @@ define PARSE_KEYMAP
     MAKE_TARGET := $$(patsubst -%,%,$$(RULE))
     # We need to generate an unique indentifer to append to the COMMANDS list
     COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM)
-    COMMANDS += $$(COMMAND)
     # If we are compiling a keyboard without a subproject, we want to display just the name
     # of the keyboard, otherwise keyboard/subproject
     ifeq ($$(CURRENT_SP),)
@@ -370,13 +369,18 @@ define PARSE_KEYMAP
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) SUBPROJECT=$$(CURRENT_SP) KEYMAP=$$(CURRENT_KM)
-    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
     MAKE_MSG := $$(MSG_MAKE_KB)
     # We run the command differently, depending on if we want more output or not
     # The true version for silent output and the false version otherwise
+    $$(eval $$(call BUILD))
+endef
+
+define BUILD
+    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
+    COMMANDS += $$(COMMAND)
     COMMAND_true_$$(COMMAND) := \
         printf "$$(MAKE_MSG)" | \
         $$(MAKE_MSG_FORMAT); \
@@ -398,13 +402,21 @@ define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
+define BUILD_TEST
+    TEST_NAME := $1
+    MAKE_TARGET := $2
+    COMMAND := $1
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
+    MAKE_VARS := TEST=$$(TEST_NAME)
+    MAKE_MSG := $$(MSG_MAKE_TEST)
+    $$(eval $$(call BUILD))
+endef
+
 define PARSE_TEST
     TEST_NAME := $$(firstword $$(subst -, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME)-,,$$(RULE)))
     MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
-    $$(info Test name $$(TEST_NAME))
-    $$(info Test target $$(TEST_TARGET))
-    $$(info $$(MATCHED_TESTS))
+    $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
 
 
