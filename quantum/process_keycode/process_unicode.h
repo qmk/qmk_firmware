@@ -8,11 +8,16 @@
 #define UC_WIN 2
 #define UC_BSD 3
 
+#ifndef UNICODE_LNX_KEY
+#define UNICODE_LNX_KEY KC_A
+#endif
+
 #ifndef UNICODE_TYPE_DELAY
 #define UNICODE_TYPE_DELAY 10
 #endif
 
 void set_unicode_input_mode(uint8_t os_target);
+void set_unicode_input_key_lnx(uint16_t linux_key);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);

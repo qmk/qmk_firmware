@@ -1,6 +1,7 @@
 #include "process_unicode.h"
 
 static uint8_t input_mode;
+static uint16_t linux_key = UNICODE_LNX_KEY;
 
 uint16_t hex_to_keycode(uint8_t hex)
 {
@@ -18,6 +19,11 @@ void set_unicode_input_mode(uint8_t os_target)
   input_mode = os_target;
 }
 
+void set_unicode_input_key_lnx(uint16_t key)
+{
+  linux_key = key;
+}
+
 void unicode_input_start (void) {
   switch(input_mode) {
   case UC_OSX:
@@ -26,8 +32,8 @@ void unicode_input_start (void) {
   case UC_LNX:
     register_code(KC_LCTL);
     register_code(KC_LSFT);
-    register_code(KC_U);
-    unregister_code(KC_U);
+    register_code(linux_key);
+    unregister_code(linux_key);
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     break;
