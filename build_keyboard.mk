@@ -16,6 +16,19 @@ LIB_PATH = $(TOP_DIR)/lib
 QUANTUM_DIR = quantum
 QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
 
+BUILD_DIR := $(TOP_DIR)/.build
+
+ifneq ($(SUBPROJECT),)
+	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
+	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)_$(SUBPROJECT)
+else
+	TARGET ?= $(KEYBOARD)_$(KEYMAP)
+	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)
+endif
+
+# Force expansion
+TARGET := $(TARGET)
+
 
 MASTER ?= left
 ifdef master
@@ -93,15 +106,6 @@ else
     $(error "$(MAIN_KEYMAP_C)/keymap.c" does not exist)
 endif
 
-BUILD_DIR = $(TOP_DIR)/.build
-
-ifneq ($(SUBPROJECT),)
-	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
-	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)_$(SUBPROJECT)
-else
-	TARGET ?= $(KEYBOARD)_$(KEYMAP)
-	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)
-endif
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
