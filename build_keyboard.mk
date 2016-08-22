@@ -204,6 +204,14 @@ $(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
 $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG  := $(PROJECT_CONFIG)
 
+# Default target.
+all: build sizeafter
+
+# Change the build target to build a HEX file or a library.
+build: elf hex
+#build: elf hex eep lss sym
+#build: lib
+
 
 include $(TMK_PATH)/rules.mk
 
