@@ -1,18 +1,3 @@
-# Keymap Options
-
-There are external tools for customizing the layout, but those do not use
-the featurs of this qmk firmware.  These sites include:
-
-  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for Ez
-  - [Input Club configurator](https://input.club/configurator-ergodox) for Infinity, provides left and right files
-
-You can also find an existing firmware that you like, for example from:
-
-  - [Dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/)
-
-This qmk firmware also provides the ability to customize keymaps, but requires
-a toolchain to build the firmware.  See below for instructions on building
-firmware and customizing keymaps.
 
 # Customizing Keymaps
 
@@ -94,8 +79,6 @@ To flash the firmware:
 The Infinity is two completely independent keyboards, and needs to be flashed
 for the left and right halves seperately.  To flash them:
 
-  - Remove the build directory with `rm -rf ../../.build`
-
   - Build the firmware with `make keymap=keymapname subproject=infinity`
 
   - Plug in the left hand keyboard only.
@@ -103,8 +86,6 @@ for the left and right halves seperately.  To flash them:
   - Press the program button (back of keyboard, above thumb pad).
 
   - Install the firmware with `sudo make dfu-util keymap=keymapname subproject=infinity`
-
-  - Remove the left-hand build with `rm -rf ../../.build`
 
   - Build left hand firmware with `make keymap=keymapname subproject=infinity MASTER=right`
 
@@ -133,3 +114,19 @@ Let's say you want a certain key in your layout to send a colon; to figure out w
 That file contains a big list of all of the special, fancy keys (like, being able to send % on its own and whatnot).
 
 If you want to send a plain vanilla key, you can look up its code under `doc/keycode.txt`. That's where all the boring keys hang out.
+
+# Other Firmware Options
+
+There are external tools for customizing the layout, but those do not use
+the featurs of this qmk firmware.  These sites include:
+
+  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for Ez
+  - [Input Club configurator](https://input.club/configurator-ergodox) for Infinity, provides left and right files
+
+You can also find an existing firmware that you like, for example from:
+
+  - [Dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/)
+
+This qmk firmware also provides the ability to customize keymaps, but requires
+a toolchain to build the firmware.  See below for instructions on building
+firmware and customizing keymaps.
