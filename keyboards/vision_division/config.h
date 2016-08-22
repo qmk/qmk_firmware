@@ -20,52 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2525
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    You
-#define PRODUCT         Vision Division
-#define DESCRIPTION     Split or Full Keyboard
-#define MATRIX_EXTENDED
+// Due to the configurability of this keyboard, matrix sizes are determined in the keymap's config.h
 
-/* key matrix size */
-#ifdef MATRIX_EXTENDED
-	#define MATRIX_ROWS 6
-	#define MATRIX_COLS 24
-#else 
-	#define MATRIX_ROWS 6
-	#define MATRIX_COLS 12
-#endif
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
-#ifdef MATRIX_EXTENDED
- // Note that the extended colums are reversed because the second PCB has col 1 on the far right.
-	#define MATRIX_ROW_PINS { C2, C3, F4, F5, F6, F7 }
-	#define MATRIX_COL_PINS { C1, C0, E1, E0, F3, F2, F1, F0, B0, B1, B2, B3, E6, A4, A0, A1, A5, A2, A6, A3, A7, C4, C5, C7}
-#else #ifdef MATRIX_LEFT 
-	#define MATRIX_ROW_PINS { C2, C3, F4, F5, F6, F7 }
-	#define MATRIX_COL_PINS { C1, C0, E1, E0, F3, F2, F1, F0, B0, B1, B2, B3 }
-
-
-	#define MATRIX_COL_PINS { B3, B2, B1, B0, F0, F1, F2, F3, E0, E1, C0, C1 }
-#endif
-
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3

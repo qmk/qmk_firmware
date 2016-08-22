@@ -45,6 +45,15 @@
 #define F5 0xF5
 #define F6 0xF6
 #define F7 0xF7
+#define A0 0xA0
+#define A1 0xA1
+#define A2 0xA2
+#define A3 0xA3
+#define A4 0xA4
+#define A5 0xA5
+#define A6 0xA6
+#define A7 0xA7
+
 
 /* USART configuration */
 #ifdef BLUETOOTH_ENABLE
