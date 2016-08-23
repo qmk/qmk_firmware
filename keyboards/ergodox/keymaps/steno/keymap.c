@@ -3,6 +3,7 @@
 #include "action_layer.h"
 #include "lufa.h"
 #include "sendchar.h"
+#include "virtser.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
