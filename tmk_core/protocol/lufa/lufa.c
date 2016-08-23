@@ -881,7 +881,7 @@ void virtser_init(void)
   CDC_Device_SendControlLineStateChange(&cdc_device);
 }
 
-__attribute__ ((weak))
+void virtser_recv(uint8_t c) __attribute__ ((weak));
 void virtser_recv(uint8_t c)
 {
   // Ignore by default
