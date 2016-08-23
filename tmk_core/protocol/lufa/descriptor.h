@@ -104,6 +104,21 @@ typedef struct
       USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
 #endif
 
+#ifdef VIRTSER_ENABLE
+        USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
+
+	// CDC Control Interface
+	USB_Descriptor_Interface_t               CDC_CCI_Interface;
+	USB_CDC_Descriptor_FunctionalHeader_t    CDC_Functional_Header;
+	USB_CDC_Descriptor_FunctionalACM_t       CDC_Functional_ACM;
+	USB_CDC_Descriptor_FunctionalUnion_t     CDC_Functional_Union;
+	USB_Descriptor_Endpoint_t                CDC_NotificationEndpoint;
+
+	// CDC Data Interface
+	USB_Descriptor_Interface_t               CDC_DCI_Interface;
+	USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
+	USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 
@@ -141,8 +156,15 @@ typedef struct
 #   define AS_INTERFACE           NKRO_INTERFACE
 #endif
 
+#ifdef VIRTSER_ENABLE
+#   define CCI_INTERFACE         (AS_INTERFACE + 1)
+#   define CDI_INTERFACE         (AS_INTERFACE + 2)
+#else
+#   define CDI_INTERFACE         AS_INTERFACE
+#endif
+
 /* nubmer of interfaces */
-#define TOTAL_INTERFACES            AS_INTERFACE + 1
+#define TOTAL_INTERFACES            (CDI_INTERFACE + 1)
 
 
 // Endopoint number and size
@@ -180,11 +202,24 @@ typedef struct
 #   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 2)
 #   define MIDI_STREAM_IN_EPADDR    (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
 #   define MIDI_STREAM_OUT_EPADDR   (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
+#else
+#   define MIDI_STREAM_OUT_EPNUM     NKRO_IN_EPNUM
+#endif
+
+#ifdef VIRTSER_ENABLE
+#   define CDC_NOTIFICATION_EPNUM   (MIDI_STREAM_OUT_EPNUM + 1)
+#   define CDC_IN_EPNUM		    (MIDI_STREAM_OUT_EPNUM + 2)
+#   define CDC_OUT_EPNUM		    (MIDI_STREAM_OUT_EPNUM + 3)
+#   define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
+#   define CDC_IN_EPADDR                  (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
+#   define CDC_OUT_EPADDR                  (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
+#else
+#   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
 #endif
 
 
-#if defined(__AVR_ATmega32U2__) && MIDI_STREAM_OUT_EPADDR > 4
-# error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI)"
+#if defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4
+# error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL)"
 #endif
 
 #define KEYBOARD_EPSIZE             8
@@ -193,6 +228,8 @@ typedef struct
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 16
 #define MIDI_STREAM_EPSIZE          64
+#define CDC_NOTIFICATION_EPSIZE     8
+#define CDC_EPSIZE                  16
 
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
