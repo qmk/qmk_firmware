@@ -1,7 +1,6 @@
 #include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
-#include "lufa.h"
 #include "sendchar.h"
 #include "virtser.h"
 
