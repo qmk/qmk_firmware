@@ -43,6 +43,29 @@ Before you are able to compile, you'll need to install an environment for AVR de
 
 ## Build Environment Setup
 
+### Windows 10
+
+It's still recommended to use the method for Vista and later below. The reason for this is that the Windows 10 Subsystem for Linux lacks [USB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it's not possible to flash the firmware to the keyboard. Please add your vote to the link!
+
+That said, it's still possible to use it for compilation. And recommended, if you need to compile much, since it's much faster than at least Cygwin (which is also supported, but currently lacking documentation). I haven't tried the method below, so I'm unable to tell.
+
+Here are the steps
+
+1. Install the Windows 10 subsystem for Linux, following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
+2. If you have previously cloned the repository using the normal Git bash, you will need to clean up the line endings. If you have cloned it after 20th of August 2016, you are likely fine. To clean up the line endings do the following
+   1. Make sure that you have no changes you haven't committed by running `git status`, if you do commit them first
+   2. From within the Git bash run ´git rm --cached -r .`
+   3. Followed by `git reset --hard`
+3. Start the "Bash On Ubuntu On Windows" from the start menu
+4. With the bash open, navigate to your git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
+5. Run `sudo util/install_dependencies.sh`. 
+6. After a while the installation will finish, and you are good to go
+
+**Note** From time to time, the dependencies might change, so just run `install_dependencies.sh` again if things are not working.
+
+**Warning:** If you edit Makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
+
+
 ### Windows (Vista and later)
 1. If you have ever installed WinAVR, uninstall it.
 2. Install [MHV AVR Tools](https://infernoembedded.com/sites/default/files/project/MHV_AVR_Tools_20131101.exe). Disable smatch, but **be sure to leave the option to add the tools to the PATH checked**.
@@ -68,12 +91,36 @@ You can also try these instructions:
 3. Install [DFU-Programmer][dfu-prog].
 
 ### Linux
-Install AVR GCC, AVR libc, and dfu-progammer with your favorite package manager.
+
+To ensure you are always up to date, you can just run `sudo utils/install_dependencies.sh`. That should always install all the dependencies needed. 
+
+You can also install things manually, but this documentation might not be always up to date with all requirements.
+
+The current requirements are the following, but not all might be needed depending on what you do. Also note that some systems might not have all the dependencies available as packages, or they might be named differently.
+
+```
+build-essential
+gcc
+unzip
+wget
+zip
+gcc-avr
+binutils-avr
+avr-libc
+dfu-programmer
+dfu-util
+gcc-arm-none-eabi
+binutils-arm-none-eabi
+libnewlib-arm-none-eabi
+git
+```
+
+Install the dependencies with your favorite package manager.
 
 Debian/Ubuntu example:
 
     sudo apt-get update
-    sudo apt-get install gcc-avr avr-libc dfu-programmer
+    sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
 
 ### Docker
 
