@@ -67,12 +67,13 @@ doing sundry experimentation:
 
   * I use tmux quite a lot; the mollat keymap seems to have some
     interesting helpers.  It might be interesting to add a "tmux
-    layer"
+    layer," or to have a few keys in a layer oriented towards that
   * The mollat tmux layer also suggests some thoughts about Emacs
     helpers.
   * I do not presently have anything that handles X11 screen
     switching, as with Control-Alt-various
   * I ought to probably look into KC_LEAD, to have some key combos
     that do not need to be concurrent
-
-
+  * The jeebak keymap seems to have some neat ideas:
+    - Number layer which is aggressive about having numbers in several places
+    - Touch layer seems interesting
