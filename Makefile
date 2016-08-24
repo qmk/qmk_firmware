@@ -262,7 +262,7 @@ define PARSE_KEYBOARD
 	# If there's no matching subproject, we assume it's the default
 	# This will allow you to leave the subproject part of the target out
     else 
-        $$(eval $$(call PARSE_SUBPROJECT,defaultsp))
+        $$(eval $$(call PARSE_SUBPROJECT,))
     endif
 endef
 
@@ -278,12 +278,14 @@ endef
 define PARSE_SUBPROJECT
     # If we want to compile the default subproject, then we need to 
     # include the correct makefile to determine the actual name of it
-    ifeq ($1,defaultsp)
+    CURRENT_SP := $1
+    ifeq ($$(CURRENT_SP),)
+        CURRENT_SP := defaultsp
+    endif
+    ifeq ($$(CURRENT_SP),defaultsp)
         SUBPROJECT_DEFAULT=
         $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/Makefile)
         CURRENT_SP := $$(SUBPROJECT_DEFAULT)
-    else
-        CURRENT_SP := $1
     endif
     # If current subproject is empty (the default was not defined), and we have a list of subproject
     # then make all of them
@@ -314,16 +316,16 @@ define PARSE_SUBPROJECT
         # Otherwise try to match the keymap from the current folder, or arguments to the make command
         else ifneq ($$(KEYMAP),)
             $$(eval $$(call PARSE_KEYMAP,$$(KEYMAP)))
+        # No matching keymap found, so we assume that the rest of the rule is the target
+        # If we haven't been able to parse out a subproject, then make all of them
+        # This is consistent with running make without any arguments from the keyboard
+        # folder
+        else ifeq ($1,)
+            $$(eval $$(call PARSE_ALL_SUBPROJECTS))
+        # Otherwise, make all keymaps, again this is consistent with how it works without
+        # any arguments
         else
-            # Otherwise something is wrong with the target
-            # Try to give as much information as possible of what it it was trying to do
-            ifeq ($$(CURRENT_SP),)
-                $$(info make: *** No rule to make target '$$(CURRENT_KB)-$$(RULE)'. Stop.)
-            else
-                $$(info make: *** No rule to make target '$$(CURRENT_KB)-$$(CURRENT_SP)-$$(RULE)'. Stop.)
-            endif
-            # Notice the tab instead of spaces below!
-			exit 1
+            $$(eval $$(call PARSE_ALL_KEYMAPS))
         endif
     else
         # As earlier mentione,d when allsb is specified, we call our self recursively
