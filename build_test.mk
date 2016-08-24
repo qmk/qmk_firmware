@@ -10,7 +10,9 @@ TARGET=test/$(TEST)
 
 GTEST_OUTPUT = $(BUILD_DIR)/gtest
 
-OUTPUTS := $(GTEST_OUTPUT)
+TEST_OBJ = $(BUILD_DIR)/test_obj
+
+OUTPUTS := $(TEST_OBJ)/$(TEST) $(GTEST_OUTPUT)
 
 GTEST_INC := \
 	$(LIB_PATH)/googletest/googletest/include\
@@ -36,8 +38,16 @@ VPATH +=\
 
 all: elf
 
+include $(QUANTUM_PATH)/serial_link/tests/rules.mk
+
+$(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
+$(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
+$(TEST_OBJ)/$(TEST)_DEFS := $($(TEST)_DEFS)
+
 include $(TMK_PATH)/native.mk
 include $(TMK_PATH)/rules.mk
 
-$(shell mkdir $(BUILD_DIR)/test 2>/dev/null)
+
+$(shell mkdir -p $(BUILD_DIR)/test 2>/dev/null)
+$(shell mkdir -p $(TEST_OBJ) 2>/dev/null)
 
