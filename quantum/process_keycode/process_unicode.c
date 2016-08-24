@@ -18,6 +18,7 @@ void set_unicode_input_mode(uint8_t os_target)
   input_mode = os_target;
 }
 
+__attribute__((weak))
 void unicode_input_start (void) {
   switch(input_mode) {
   case UC_OSX:
@@ -40,6 +41,7 @@ void unicode_input_start (void) {
   wait_ms(UNICODE_TYPE_DELAY);
 }
 
+__attribute__((weak))
 void unicode_input_finish (void) {
   switch(input_mode) {
   case UC_OSX:
@@ -72,6 +74,8 @@ bool process_unicode(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef UCIS_ENABLE
+qk_ucis_state_t qk_ucis_state;
+
 void qk_ucis_start(void) {
   qk_ucis_state.count = 0;
   qk_ucis_state.in_progress = true;
