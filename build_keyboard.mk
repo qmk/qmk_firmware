@@ -155,12 +155,8 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-	SERIAL_DIR = $(QUANTUM_DIR)/serial_link
-	SERIAL_PATH = $(QUANTUM_PATH)/serial_link
-	SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
-	SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
 	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-	OPT_DEFS += -DSERIAL_LINK_ENABLE
+	OPT_DEFS += $(SERIAL_DEFS)
 	VAPTH += $(SERIAL_PATH)
 endif
 
