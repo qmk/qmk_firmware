@@ -6,7 +6,8 @@ experience or the setup of a build environment.
 
 Quickstart:
 
-  - Find and download an [existing firmware](#other-firmware-options)
+  - Find and download an existing firmware
+    [from Other Firmware Options](#other-firmware-options)
 
   - Then flash the firmware to your [ErgoDox Ez](#ergodox-ez)
     or [ErgoDox Infinity](#ergodox-infinity)
