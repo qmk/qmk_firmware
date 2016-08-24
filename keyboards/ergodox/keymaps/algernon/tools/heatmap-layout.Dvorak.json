@@ -75,9 +75,9 @@
     "STENO",
     {
       "x": 4.5,
-      "f": 6
+      "f": 3
     },
-    "<i class='mss mss-Unicode-Option-3'></i>",
+    "F12",
     {
       "c": "#7adabd",
       "a": 4,
@@ -94,12 +94,21 @@
     {
       "y": -0.875,
       "c": "#ffb2d2",
-      "f": 3,
+      "f": 6,
+      "a": 6,
       "w": 1.5
     },
-    "\n\n~\n`",
+    "<i class='fa fa-fast-backward'></i>\n\n<i class='fa fa-fast-forward'></i>",
     {
-      "t": "#0d0d0b"
+      "f": 3,
+      "t": "#0d0d0b",
+      "a": 4,
+      "fa": [
+          0,
+          0,
+          2
+      ]
+
     },
     "!\n1\nF1",
     {
@@ -167,12 +176,12 @@
       "a": 4,
       "h": 1.5
     },
-    "{\n[",
+    "{\n(\n[",
     {
       "x": 4.5,
       "h": 1.5
     },
-    "}\n]",
+    "}\n)\n]",
     {
       "c": "#7adabd",
       "a": 6
@@ -184,10 +193,10 @@
       "y": -0.875,
       "c": "#ffb07b",
       "t": "#0d0d0b",
-      "f": 6,
+      "f": 3,
       "w": 1.5
     },
-    "<i class='fa fa-fast-backward'></i>\n\n<i class='fa fa-fast-forward'></i>",
+    "\n\n~\n`",
     {
       "c": "#ffb2d2",
       "a": 4,
@@ -503,7 +512,7 @@
     },
     "MEDIA",
     {},
-    "1HAND"
+    "DEL"
   ],
   [
     {
