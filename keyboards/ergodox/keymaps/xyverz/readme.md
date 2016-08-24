@@ -1,9 +1,5 @@
 # Xyverz's ErgoDox EZ Keymap
 
-## Please Note:
-
-This keymap will probably **not** work with the Infinity ErgoDox. It will need **substantial** modification in order to work on the Infinity. This is due to the fact that the mappings are based on the matrix positions in the keymap definition in the ez.h file. If you want to use this for the infinity, you'll need to figure out where the keys are in the matrix and redo the layout arrays below.
-
 ## About this keymap:
 
 The Dvorak layout shown herestems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my ErgoDox.
@@ -12,7 +8,11 @@ The QWERTY layout shown here is based entirely on the Kinesis Advantage layout, 
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
-For a better explanation of the layout matrices shown below, take a look at ../../ez/ez.h where the keymap is defined, beginning on line 81.
+## Still to do:
+
+ * Need to figure out a better position for the ESC key.
+ * Come up with a function for the empty keys shown in the alpha layers below.
+ * Fix the CapsLock, NumLock, and ScrLck LEDs.
 
 ### Layer 0: Dvorak layer
 
@@ -103,9 +103,9 @@ For a better explanation of the layout matrices shown below, take a look at ../.
 ### Keymap 4: Keypad layer
 
 	,--------------------------------------------------.,--------------------------------------------------.
-	| Power  |      |      |      |      |      |      ||      |      | NmLk | KP / | KP * | KP - |        |
+	| Power  |      |      |      |      |      |      ||      |      | NmLk | KP = | KP / | KP * |        |
 	|--------+------+------+------+------+-------------||------+------+------+------+------+------+--------|
-	| Sleep  |      |      |      |      |      |      ||      |      | KP 7 | KP 8 | KP 9 | KP + |        |
+	| Sleep  |      |      |      |      |      |      ||      |      | KP 7 | KP 8 | KP 9 | KP - |        |
 	|--------+------+------+------+------+------|      ||      |------+------+------+------+------+--------|
 	| Wake   |      |      |      |      |      |------||------|      | KP 4 | KP 5 | KP 6 | KP + |        |
 	|--------+------+------+------+------+------|      ||      |------+------+------+------+------+--------|
