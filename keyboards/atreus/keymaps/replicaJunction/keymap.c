@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______,                   _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,
   _______, _______, _______, _______, _______,                   _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
   KC_Z,    _______, _______, _______, _______,                   KC_BTN3, _______, KC_MS_D, _______, _______,
-  _______, _______, _______, KC_LSFT, KC_SPC,  KC_BSPC, KC_BTN2, KC_BTN1, _______, _______, _______, _______
+  _______, TG(_GA), _______, KC_LSFT, KC_SPC,  KC_BSPC, KC_BTN2, KC_BTN1, _______, _______, _______, _______
 )};
 
 const uint16_t PROGMEM fn_actions[] = {
