@@ -28,6 +28,7 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
+TEST_DIR := $(ROOT_DIR)/.build/test
 
 MAKEFILE_INCLUDED=yes
 
@@ -394,7 +395,10 @@ define BUILD
         fi;
     COMMAND_false_$$(COMMAND) := \
         printf "$$(MAKE_MSG)\n\n"; \
-        $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false;
+        $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false; \
+        if [ $$$$? -gt 0 ]; \
+            then error_occured=1; \
+        fi;
 endef
 
 # Just parse all the keymaps for a specifc keyboard
@@ -410,6 +414,7 @@ define BUILD_TEST
     MAKE_VARS := TEST=$$(TEST_NAME)
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
+    TESTS += $$(TEST_DIR)/$$(TEST_NAME).elf
 endef
 
 define PARSE_TEST
@@ -464,8 +469,8 @@ $(SUBPROJECTS): %: %-allkm
 	# But we return the error code at the end, to trigger travis failures
 	+error_occured=0; \
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
-	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi
-	
+	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
+	$(foreach TEST,$(TESTS),$(TEST))
 
 # All should compile everything
 .PHONY: all
