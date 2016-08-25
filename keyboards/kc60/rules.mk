@@ -1,4 +1,5 @@
-
+# project specific files
+SRC = led.c
 
 # MCU name
 #MCU = at90usb1287
