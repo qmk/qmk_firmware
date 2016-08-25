@@ -190,12 +190,21 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
+ifeq ($(strip $(VIRTSER_ENABLE)), yes)
+    OPT_DEFS += -DVIRTSER_ENABLE
+endif
+
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
 	SRC += $(QUANTUM_DIR)/audio/audio.c
 	SRC += $(QUANTUM_DIR)/audio/voices.c
 	SRC += $(QUANTUM_DIR)/audio/luts.c
+endif
+
+ifeq ($(strip $(UCIS_ENABLE)), yes)
+	OPT_DEFS += -DUCIS_ENABLE
+	UNICODE_ENABLE = yes
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
