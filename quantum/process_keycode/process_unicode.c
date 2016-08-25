@@ -74,6 +74,8 @@ bool process_unicode(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef UCIS_ENABLE
+qk_ucis_state_t qk_ucis_state;
+
 void qk_ucis_start(void) {
   qk_ucis_state.count = 0;
   qk_ucis_state.in_progress = true;
