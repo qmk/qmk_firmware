@@ -85,6 +85,10 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
 endif
 
+ifeq ($(strip $(ONEHAND_ENABLE)), yes)
+    OPT_DEFS += -DONEHAND_ENABLE
+endif
+
 ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
     OPT_DEFS += -DKEYMAP_SECTION_ENABLE
 

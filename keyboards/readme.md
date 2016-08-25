@@ -39,6 +39,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [hhkb](/keyboards/hhkb) &mdash; The Happy Hacking keyboard can be hacked with a custom controller to run QMK.
 * [jd45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
 * [kc60](/keyboards/kc60) &mdash; A programmable Chinese-made keyboard, lost in the mists of time.
+* [kitten_paw](/keyboards/kitten_paw) &mdash; A replacement controller (2016 revision) for the Filco Majestouch by [Bathroom Epiphanies](https://github.com/BathroomEpiphanies)
 * [phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.
 * [retro_refit](/keyboards/retro_refit) &mdash; Another creation by IBNobody.
 * [satan](/keyboards/satan) &mdash; A GH60 variant.
