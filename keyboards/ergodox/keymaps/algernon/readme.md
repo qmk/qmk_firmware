@@ -16,11 +16,12 @@ Some of the things in the layout only work when one uses Spacemacs and GNOME und
     - [ADORE layer](#adore-layer)
     - [Hungarian layer](#hungarian-layer)
     - [Navigation and media layer](#navigation-and-media-layer)
-    - [One-handed layer](#one-handed-layer)
     - [Steno layer](#steno-layer)
     - [LED states](#led-states)
 * [Tools](#tools)
     - [Heatmap](#heatmap)
+* [Special features](#special-features)
+    - [Unicode Symbol Input](#unicode-symbol-input)
 * [Building](#building)
     - [Using on Windows](#using-on-windows)
 * [Changelog](#changelog)
@@ -38,7 +39,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 * The `Shift`, `Alt`, and `Control` modifiers are one-shot. When tapped, they are considered active for the next key press only. When double tapped, they toggle on, until a third, single tap sometime later. When held, they act as expected. My usual pattern is that I use these for the next keypress only, so this behaviour is perfect. If I need them held, I'll just double-tap.
 * The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
-* The **Media** and **Hun** layer keys are one-shot, the **1Hand** and **STENO** keys are toggles.
+* The **Media** and **Hun** layer keys are one-shot, the **STENO** key is a toggle.
 * When holding any of the **Arrow** layer keys, the arrow layer activates while the layer key is held. Tapping the key produces the normal key.
 * Tapping the `:` key once yields `:`, tapping it twice yields `;`.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some actions:
@@ -51,6 +52,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
+    - `LEAD LEAD u` enters the [Unicode symbol input][#unicode-symbol-input] mode.
 
 ## ADORE layer
 
@@ -74,20 +76,6 @@ On this layer, the accented characters are at the same position as their base va
 
 This layer is primarily for navigating with the cursor or the mouse, and some media things.
 
-## One-handed layer
-
-[![One-handed layer](images/one-handed-layer.png)](http://www.keyboard-layout-editor.com/#/gists/edff2495135955b8963198dace7f7ece)
-
-The one-handed layer is used in situations where the right hand is occupied, by mousing around, for example. Tapping the `OTHER` key switches which side is active. For the most part, keys remain in their usual position. When the right half is active, keys are mirrored to the left half.
-
-The differences are as follows:
-
-* The `ESC` key has been moved to the bottom row, so the `OTHER` key is easier to tap.
-* Most keys on the thumb cluster now have dual uses, and these do not change when switching sides:
-    - The `Space`/`Backspace` key sends `Space` on tap, `Backspace` when held for longer than a normal tap.
-    - The `Enter`/`Shift` key sends `Enter` on short-tap, `Shift` on long-tap.
-* The `Apps`/`BASE` key can be used to go back to the base layer, by long-tapping it. A short-tap will send the `App` key, as usual.
-
 ## Steno layer
 
 [![Steno layer for Plover](images/steno-layer.png)](http://www.keyboard-layout-editor.com/#/gists/401ef9a84369e47c57f9aedcf0a0d667)
@@ -103,10 +91,24 @@ For the layers, the following rules apply:
 * When the [ADORE layer](#adore-layer) is toggled on, LEDs will light up from left to right in a sequence, then turn off. When the layer is toggled off, the LEDs light up and turn off in the other direction. No LEDs are on while the layer is active.
 * When the [Hungarian layer](#hungarian-layer) is active, the *green* and *blue* LEDs are on.
 * When the [Navigation and media layer](#navigation-and-media-layer) is active, the *red* and *green* ones are on.
-* When the [One-handed layer](#one-handed-layer) is active, the *green* LED is on and bright, and either the *red* or the *blue* one is going to slowly blink, depending on the currently active side.
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
 
 Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers use a stronger one, and modifiers override any layer preferences. For example, when on the one-handed layer, with the left side active (*red* light blinking), if `Shift` is on, the *red* light will be constantly on.
+
+# Special features
+
+## Unicode Symbol Input
+
+Once in the Unicode Symbol Input mode, one is able to type in symbol names, press `Enter` or `Space`, and get the Unicode symbol itself back. When in the mode, a capital `U` is printed first. Once the sequence is finished, all of it is erased by sending enough `Backspace` taps, and the firmware starts the OS-specific unicode input sequence. Then, it looks up the symbol name, and enters the associated code. If it is not found, it will just replay the pressed keycodes.
+
+The currently supported symbols are:
+
+- `snowman`: ☃
+- `kiss`: 😙
+- `rofl`: 🤣
+- `poop`: 💩
+
+This is an experimental feature, and may or may not work reliably.
 
 # Tools
 
@@ -133,14 +135,14 @@ To make my workflow easier, this layout is maintained in [its own repository][al
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
-            keyboards/ergodox_ez/keymaps/algernon-master
-$ make KEYBOARD=ergodox_ez KEYMAP=algernon-master
+            keyboards/ergodox/keymaps/algernon-master
+$ make keyboard=ergodox keymap=algernon-master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make KEYBOARD=ergodox_ez KEYMAP=algernon
+$ make keyboard=ergodox keymap=algernon
 ```
 
 ## Using on Windows
@@ -148,6 +150,16 @@ $ make KEYBOARD=ergodox_ez KEYMAP=algernon
 The keymap default to forcing NKRO, which seems to upset Windows, and except the modifiers, none of them work. If you experience this problem, recompile the firmware with `FORCE_NKRO=no` added to the `make` command line.
 
 # Changelog
+
+## v1.5 - 2016-08-12
+
+* The **1HAND** layer has been removed.
+* A `Delete` key is now available on the right thumb cluster.
+* The [ADORE](#adore-layer) layer received a major update, see the layout image above.
+* It is now possible to enable automatic logging for the [ADORE](#adore-layer) layer, by setting the `ADORE_AUTOLOG` makefile variable to `yes` when compiling the keymap. It is off by default.
+* The `~` key and the `Media Next/Prev` key have been swapped on the [base layer](#base-layer).
+* On the **ARROW** layer, `Backspace` has been replaced by `Enter`.
+* There is some experimental support for entering Unicode symbols.
 
 ## v1.4 - 2016-07-29
 
