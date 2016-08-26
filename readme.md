@@ -54,10 +54,10 @@ Here are the steps
 1. Install the Windows 10 subsystem for Linux, following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 2. If you have previously cloned the repository using the normal Git bash, you will need to clean up the line endings. If you have cloned it after 20th of August 2016, you are likely fine. To clean up the line endings do the following
    1. Make sure that you have no changes you haven't committed by running `git status`, if you do commit them first
-   2. From within the Git bash run ´git rm --cached -r .`
+   2. From within the Git bash run `git rm --cached -r .`
    3. Followed by `git reset --hard`
 3. Start the "Bash On Ubuntu On Windows" from the start menu
-4. With the bash open, navigate to your git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
+4. With the bash open, navigate to your Git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
 5. Run `sudo util/install_dependencies.sh`. 
 6. After a while the installation will finish, and you are good to go
 
