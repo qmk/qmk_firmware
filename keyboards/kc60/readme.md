@@ -25,3 +25,10 @@ Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` fol
 ![Image of KC60 with RGB Underglow](keymaps/ws2812/ws2812_example.jpg)
 
 Build with WS2812 Support by running `make KEYMAP=ws2812`.
+
+## Warning
+For those who want to use 2x1U instead of classic backspace you need to use K0D and K49 like this:
+* K0D represents the key at the right of =.
+* K49 represents the last key of the row (is wired at the right of the space key on the PCB)
+
+In kc60.h I've put several definitions' examples of possible layouts proposed by online editor (http://123.57.250.164:9128/).
