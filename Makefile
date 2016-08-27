@@ -2,6 +2,10 @@ ifndef VERBOSE
 .SILENT:
 endif
 
+# Never run this makefile in parallel, as it could screw things up
+# It won't affect the submakes, so you still get the speedup from specifying -jx
+.NOTPARALLEL:
+
 # Allow the silent with lower caps to work the same way as upper caps
 ifdef silent
     SILENT = $(silent)
@@ -28,6 +32,7 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
+TEST_DIR := $(ROOT_DIR)/.build/test
 
 MAKEFILE_INCLUDED=yes
 
@@ -224,6 +229,8 @@ define PARSE_RULE
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allkb),true)
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
+        $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
@@ -356,7 +363,6 @@ define PARSE_KEYMAP
     MAKE_TARGET := $$(patsubst -%,%,$$(RULE))
     # We need to generate an unique indentifer to append to the COMMANDS list
     COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB)_SUBPROJECT_$(CURRENT_SP)_KEYMAP_$$(CURRENT_KM)
-    COMMANDS += $$(COMMAND)
     # If we are compiling a keyboard without a subproject, we want to display just the name
     # of the keyboard, otherwise keyboard/subproject
     ifeq ($$(CURRENT_SP),)
@@ -368,13 +374,18 @@ define PARSE_KEYMAP
     KB_SP := $(BOLD)$$(KB_SP)$(NO_COLOR)
     # Specify the variables that we are passing forward to submake
     MAKE_VARS := KEYBOARD=$$(CURRENT_KB) SUBPROJECT=$$(CURRENT_SP) KEYMAP=$$(CURRENT_KM)
-    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
     # And the first part of the make command
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_keyboard.mk $$(MAKE_TARGET)
     # The message to display
     MAKE_MSG := $$(MSG_MAKE_KB)
     # We run the command differently, depending on if we want more output or not
     # The true version for silent output and the false version otherwise
+    $$(eval $$(call BUILD))
+endef
+
+define BUILD
+    MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
+    COMMANDS += $$(COMMAND)
     COMMAND_true_$$(COMMAND) := \
         printf "$$(MAKE_MSG)" | \
         $$(MAKE_MSG_FORMAT); \
@@ -388,13 +399,51 @@ define PARSE_KEYMAP
         fi;
     COMMAND_false_$$(COMMAND) := \
         printf "$$(MAKE_MSG)\n\n"; \
-        $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false;
+        $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false; \
+        if [ $$$$? -gt 0 ]; \
+            then error_occured=1; \
+        fi;
 endef
 
 # Just parse all the keymaps for a specifc keyboard
 define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
+
+define BUILD_TEST
+    TEST_NAME := $1
+    MAKE_TARGET := $2
+    COMMAND := $1
+    MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
+    MAKE_VARS := TEST=$$(TEST_NAME)
+    MAKE_MSG := $$(MSG_MAKE_TEST)
+    $$(eval $$(call BUILD))
+    ifneq ($$(MAKE_TARGET),clean)
+        TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
+        TESTS += $$(TEST_NAME)
+        TEST_MSG := $$(MSG_TEST)
+        $$(TEST_NAME)_COMMAND := \
+            printf "$$(TEST_MSG)\n"; \
+            $$(TEST_EXECUTABLE); \
+            if [ $$$$? -gt 0 ]; \
+                then error_occured=1; \
+            fi; \
+            printf "\n";
+    endif
+endef
+
+define PARSE_TEST
+    TESTS :=
+    TEST_NAME := $$(firstword $$(subst -, ,$$(RULE)))
+    TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME)-,,$$(RULE)))
+    ifeq ($$(TEST_NAME),all)
+        MATCHED_TESTS := $$(TEST_LIST)
+    else
+        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+    endif
+    $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
+endef
+
 
 # Set the silent mode depending on if we are trying to compile multiple keyboards or not
 # By default it's on in that case, but it can be overriden by specifying silent=false 
@@ -440,12 +489,13 @@ $(SUBPROJECTS): %: %-allkm
 	# But we return the error code at the end, to trigger travis failures
 	+error_occured=0; \
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
-	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi
-	
+	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
+	$(foreach TEST,$(TESTS),$($(TEST)_COMMAND)) \
+	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
 
 # All should compile everything
 .PHONY: all
-all: all-keyboards 
+all: all-keyboards test-all
 
 # Define some shortcuts, mostly for compability with the old syntax
 .PHONY: all-keyboards
@@ -454,9 +504,16 @@ all-keyboards: allkb-allsp-allkm
 .PHONY: all-keyboards-defaults
 all-keyboards-defaults: allkb-allsp-default
 
+.PHONY: test
+test: test-all
+
+.PHONY: test-clean
+test-clean: test-all-clean
 
 # Generate the version.h file
 GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
+
+include $(ROOT_DIR)/testlist.mk

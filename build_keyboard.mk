@@ -4,19 +4,7 @@ endif
 
 .DEFAULT_GOAL := all
 
-include message.mk
-
-
-# Directory common source filess exist
-TOP_DIR = .
-TMK_DIR = tmk_core
-TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
-LIB_PATH = $(TOP_DIR)/lib
-
-QUANTUM_DIR = quantum
-QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
-
-BUILD_DIR := $(TOP_DIR)/.build
+include common.mk
 
 ifneq ($(SUBPROJECT),)
 	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
@@ -34,6 +22,16 @@ MASTER ?= left
 ifdef master
 	MASTER = $(master)
 endif
+
+ifeq ($(MASTER),right)	
+	OPT_DEFS += -DMASTER_IS_ON_RIGHT
+else 
+	ifneq ($(MASTER),left)
+$(error MASTER does not have a valid value(left/right))
+	endif
+endif
+
+
 
 KEYBOARD_PATH := keyboards/$(KEYBOARD)
 KEYBOARD_C := $(KEYBOARD_PATH)/$(KEYBOARD).c
@@ -167,12 +165,8 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-	SERIAL_DIR = $(QUANTUM_DIR)/serial_link
-	SERIAL_PATH = $(QUANTUM_PATH)/serial_link
-	SERIAL_SRC = $(wildcard $(SERIAL_PATH)/protocol/*.c)
-	SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
 	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-	OPT_DEFS += -DSERIAL_LINK_ENABLE
+	OPT_DEFS += $(SERIAL_DEFS)
 	VAPTH += $(SERIAL_PATH)
 endif
 
@@ -185,15 +179,14 @@ ifneq ($(SUBPROJECT),)
 	VPATH += $(SUBPROJECT_PATH)
 endif
 VPATH += $(KEYBOARD_PATH)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_PATH)
-VPATH += $(QUANTUM_PATH)
-VPATH += $(QUANTUM_PATH)/keymap_extras
-VPATH += $(QUANTUM_PATH)/audio
-VPATH += $(QUANTUM_PATH)/process_keycode
+VPATH += $(COMMON_VPATH)
 
 
 include $(TMK_PATH)/common.mk
+SRC += $(TMK_COMMON_SRC)
+OPT_DEFS += $(TMK_COMMON_DEFS)
+EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
+
 ifeq ($(PLATFORM),AVR)
 	include $(TMK_PATH)/protocol/lufa.mk
 	include $(TMK_PATH)/avr.mk
@@ -205,16 +198,23 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 	include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
-
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
-$(KEYMAP_OUTPUT)_INC := $(EXTRAINCDIRS) $(VPATH)
+$(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)
 $(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
 $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG  := $(PROJECT_CONFIG)
+
+# Default target.
+all: build sizeafter
+
+# Change the build target to build a HEX file or a library.
+build: elf hex
+#build: elf hex eep lss sym
+#build: lib
 
 
 include $(TMK_PATH)/rules.mk
