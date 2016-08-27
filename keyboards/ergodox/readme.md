@@ -72,9 +72,7 @@ Some distributions provide a binary, maybe called `teensy-loader-cli`).
 
 To flash the firmware:
 
-  - Build the firmware with `make keymap=keymapname`, for example `make
-    keymap=default`
-
+  - Build the firmware with `make keymapname`, for example `make default` 
   - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
     `ergodox_ez_default.hex`
 
@@ -92,21 +90,21 @@ To flash the firmware:
 The Infinity is two completely independent keyboards, and needs to be flashed
 for the left and right halves seperately.  To flash them:
 
-  - Build the firmware with `make keymap=keymapname subproject=infinity`
+  - Build the firmware with `make infinity-keymapname`
 
   - Plug in the left hand keyboard only.
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make dfu-util keymap=keymapname subproject=infinity`
+  - Install the firmware with `sudo make infinity-keymapname-dfu-util`
 
-  - Build left hand firmware with `make keymap=keymapname subproject=infinity MASTER=right`
+  - Build left hand firmware with `make infinity-keymapname MASTER=right`
 
   - Plug in the right hand keyboard only.
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make dfu-util keymap=keymapname subproject=infinity MASTER=right`
+  - Install the firmware with `sudo make infinity-keymapname-dfu-util MASTER=right`
 
 More information on the Infinity firmware is available in the [TMK/chibios for
 Input Club Infinity Ergodox](https://github.com/fredizzimo/infinity_ergodox/blob/master/README.md)
