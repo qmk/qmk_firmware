@@ -31,6 +31,7 @@ $(GTEST_OUTPUT)_DEFS :=
 $(GTEST_OUTPUT)_INC := $(GTEST_INC) $(GTEST_INTERNAL_INC)
 
 LDFLAGS += -lstdc++ -lpthread -shared-libgcc
+CREATE_MAP := no
 
 VPATH +=\
 	$(LIB_PATH)/googletest\

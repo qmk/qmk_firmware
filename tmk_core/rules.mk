@@ -161,6 +161,7 @@ SCANF_LIB =
 
 
 MATH_LIB = -lm
+CREATE_MAP ?= yes
 
 
 #---------------- Linker Options ----------------
@@ -171,7 +172,10 @@ MATH_LIB = -lm
 # Comennt out "--relax" option to avoid a error such:
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
-LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+
+ifeq ($(CREATE_MAP),yes)
+	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
