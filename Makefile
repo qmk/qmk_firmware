@@ -415,7 +415,15 @@ define BUILD_TEST
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
-    TESTS += $$(TEST_EXECUTABLE)
+    TESTS += $$(TEST_NAME)
+    TEST_MSG := $$(MSG_TEST)
+    $$(TEST_NAME)_COMMAND := \
+        printf "$$(TEST_MSG)\n"; \
+        $$(TEST_EXECUTABLE); \
+        if [ $$$$? -gt 0 ]; \
+            then error_occured=1; \
+        fi; \
+        printf "\n";
 endef
 
 define PARSE_TEST
@@ -472,7 +480,8 @@ $(SUBPROJECTS): %: %-allkm
 	+error_occured=0; \
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
 	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
-	$(foreach TEST,$(TESTS),$(TEST);)
+	$(foreach TEST,$(TESTS),$($(TEST)_COMMAND)) \
+	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
 
 # All should compile everything
 .PHONY: all
