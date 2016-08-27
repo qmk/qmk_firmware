@@ -414,10 +414,12 @@ define BUILD_TEST
     MAKE_VARS := TEST=$$(TEST_NAME)
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
-    TESTS += $$(TEST_DIR)/$$(TEST_NAME).elf
+    TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
+    TESTS += $$(TEST_EXECUTABLE)
 endef
 
 define PARSE_TEST
+    TESTS :=
     TEST_NAME := $$(firstword $$(subst -, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME)-,,$$(RULE)))
     MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
@@ -470,7 +472,7 @@ $(SUBPROJECTS): %: %-allkm
 	+error_occured=0; \
 	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
 	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
-	$(foreach TEST,$(TESTS),$(TEST))
+	$(foreach TEST,$(TESTS),$(TEST);)
 
 # All should compile everything
 .PHONY: all
