@@ -364,10 +364,10 @@ show_path:
 	@echo OBJ=$(OBJ)
 
 # Create build directory
-$(shell mkdir $(BUILD_DIR) 2>/dev/null)
+$(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 
 # Create object files directory
-$(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir $(OUTPUT) 2>/dev/null)))
+$(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 # Include the dependency files.
 -include $(patsubst %.o,%.d,$(OBJ))
