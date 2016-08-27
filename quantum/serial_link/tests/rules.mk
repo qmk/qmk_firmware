@@ -11,3 +11,8 @@ serial_link_frame_router_SRC := \
 serial_link_frame_validator_SRC := \
 	$(SERIAL_PATH)/tests/frame_validator_tests.cpp \
 	$(SERIAL_PATH)/protocol/frame_validator.c 
+
+serial_link_transport_SRC := \
+	$(SERIAL_PATH)/tests/transport_tests.cpp \
+	$(SERIAL_PATH)/protocol/transport.c \
+	$(SERIAL_PATH)/protocol/triple_buffered_object.c 
