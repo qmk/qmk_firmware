@@ -38,6 +38,9 @@ VPATH +=\
 
 all: elf
 
+VPATH += $(COMMON_VPATH)
+
+include $(TMK_PATH)/common.mk
 include $(QUANTUM_PATH)/serial_link/tests/rules.mk
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)

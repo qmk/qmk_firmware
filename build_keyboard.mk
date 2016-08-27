@@ -23,6 +23,16 @@ ifdef master
 	MASTER = $(master)
 endif
 
+ifeq ($(MASTER),right)	
+	OPT_DEFS += -DMASTER_IS_ON_RIGHT
+else 
+	ifneq ($(MASTER),left)
+$(error MASTER does not have a valid value(left/right))
+	endif
+endif
+
+
+
 KEYBOARD_PATH := keyboards/$(KEYBOARD)
 KEYBOARD_C := $(KEYBOARD_PATH)/$(KEYBOARD).c
 
@@ -169,15 +179,14 @@ ifneq ($(SUBPROJECT),)
 	VPATH += $(SUBPROJECT_PATH)
 endif
 VPATH += $(KEYBOARD_PATH)
-VPATH += $(TOP_DIR)
-VPATH += $(TMK_PATH)
-VPATH += $(QUANTUM_PATH)
-VPATH += $(QUANTUM_PATH)/keymap_extras
-VPATH += $(QUANTUM_PATH)/audio
-VPATH += $(QUANTUM_PATH)/process_keycode
+VPATH += $(COMMON_VPATH)
 
 
 include $(TMK_PATH)/common.mk
+SRC += $(TMK_COMMON_SRC)
+OPT_DEFS += $(TMK_COMMON_DEFS)
+EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
+
 ifeq ($(PLATFORM),AVR)
 	include $(TMK_PATH)/protocol/lufa.mk
 	include $(TMK_PATH)/avr.mk
@@ -189,11 +198,13 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 	include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
+$(info $(VPATH))
+
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
-$(KEYMAP_OUTPUT)_INC := $(EXTRAINCDIRS) $(VPATH)
+$(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)
 $(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
