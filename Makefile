@@ -2,6 +2,10 @@ ifndef VERBOSE
 .SILENT:
 endif
 
+# Never run this makefile in parallel, as it could screw things up
+# It won't affect the submakes, so you still get the speedup from specifying -jx
+.NOTPARALLEL:
+
 # Allow the silent with lower caps to work the same way as upper caps
 ifdef silent
     SILENT = $(silent)
@@ -491,7 +495,7 @@ $(SUBPROJECTS): %: %-allkm
 
 # All should compile everything
 .PHONY: all
-all: all-keyboards 
+all: all-keyboards test-all
 
 # Define some shortcuts, mostly for compability with the old syntax
 .PHONY: all-keyboards

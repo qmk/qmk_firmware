@@ -198,9 +198,6 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 	include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
-$(info $(VPATH))
-
-
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
