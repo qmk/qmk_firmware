@@ -1137,3 +1137,54 @@ Here is where you can (optionally) define your `KEYMAP` function to remap your m
 ```
 
 Each of the `kxx` variables needs to be unique, and usually follows the format `k<row><col>`. You can place `KC_NO` where your dead keys are in your matrix.
+
+# Unit Testing
+
+If you are new to unit testing, then you can find many good resources on internet. However most of it is scattered around in small pieces here and there, and there's also many different opinions, so I won't give any recommendations. 
+
+Instead I recommend these two books, explaining two different styles of Unit Testing in detail.
+
+* "Test Driven Development: By Example: Kent Beck"
+* "Growing Object-Oriented Software, Guided By Tests: Steve Freeman, Nat Pryce"
+
+If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series. 
+
+## Google Test and Google Mock
+It's possible to Unit Test your code using [Google Test](https://github.com/google/googletest). The Google Test framework also includes another component for writing testing mocks and stubs, called "Google Mock". For information how to write the actual tests, please refer to the documentation on that site.
+
+## Use of C++
+
+Note that Google Test and therefore any test has to be written in C++, even if the rest of the QMK codebases is written in C. This should hopefully not be a problem even if you don't know any C++, since there's quite clear documentation and examples of the required C++ features, and you can write the rest of the test code almost as you would write normal C. Note that some compiler errors which you might get can look quite scary, but just read carefully what it says, and you should be ok.
+
+One thing to remember, is that you have to append `extern "C"` around all of your C file includes. 
+
+## Adding tests for new or existing features
+
+If you want to unit test some feature, then take a look at the existing serial_link tests, in the `quantum/serial_link/tests folder`, and follow the steps below to create a similar structure.
+
+1. If it doesn't already exist, add a test subfolder to the folder containing the feature.
+2. Create a `testlist.mk` and a `rules.mk` file in that folder.
+3. Include those files from the root folder `testlist.mk`and `build_test.mk` respectively.
+4. Add a new name for your testgroup to the `testlist.mk` file. Each group defined there will be a separate executable. And that's how you can support mocking out different parts. Note that it's worth adding some common prefix, just like it's done for the serial_link tests. The reason for that is that the make command allows substring filtering, so this way you can easily run a subset of the tests.
+5. Define the source files and required options in the `rules.mk` file.
+   * `_SRC` for source files
+   * `_DEFS` for additional defines
+   * `_INC` for additional include folders
+6. Write the tests in a new cpp file inside the test folder you created. That file has to be one of the files included from the `rules.mk` file.
+
+Note how there's several different tests, each mocking out a separate part. Also note that each of them only compiles the very minimum that's needed for the tests. It's recommend that you try to do the same. For a relevant video check out [Matt Hargett "Advanced Unit Testing in C & C++](https://www.youtube.com/watch?v=Wmy6g-aVgZI)
+
+## Running the tests
+
+To run all the tests in the codebase, type `make test`. You can also run test matching a substring by typing `make test-matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
+
+## Debugging the tests
+
+If there are problems with the tests, you can find the executable in the `./build/test` folder. You should be able to run those with GDB or a similar debugger.
+
+## Full Integration tests
+
+It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing. 
+
+In that model you would emulate the input, and expect a certain output from the emulated keyboard.
+

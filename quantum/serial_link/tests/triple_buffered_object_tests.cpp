@@ -22,53 +22,55 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <cgreen/cgreen.h>
-#include "serial_link/protocol/triple_buffered_object.c"
+#include "gtest/gtest.h"
+extern "C" {
+#include "serial_link/protocol/triple_buffered_object.h"
+}
 
-typedef struct {
+struct test_object{
     uint8_t state;
     uint32_t buffer[3];
-}test_object_t;
+};
 
-test_object_t test_object;
+test_object test_object;
 
-Describe(TripleBufferedObject);
-BeforeEach(TripleBufferedObject) {
-    triple_buffer_init((triple_buffer_object_t*)&test_object);
-}
-AfterEach(TripleBufferedObject) {}
+class TripleBufferedObject : public testing::Test {
+public:
+    TripleBufferedObject() {
+        triple_buffer_init((triple_buffer_object_t*)&test_object);
+    }
+};
 
-
-Ensure(TripleBufferedObject, writes_and_reads_object) {
+TEST_F(TripleBufferedObject, writes_and_reads_object) {
     *triple_buffer_begin_write(&test_object) = 0x3456ABCC;
     triple_buffer_end_write(&test_object);
-    assert_that(*triple_buffer_read(&test_object), is_equal_to(0x3456ABCC));
+    EXPECT_EQ(*triple_buffer_read(&test_object), 0x3456ABCC);
 }
 
-Ensure(TripleBufferedObject, does_not_read_empty) {
-    assert_that(triple_buffer_read(&test_object), is_equal_to(NULL));
+TEST_F(TripleBufferedObject, does_not_read_empty) {
+    EXPECT_EQ(triple_buffer_read(&test_object), nullptr);
 }
 
-Ensure(TripleBufferedObject, writes_twice_and_reads_object) {
+TEST_F(TripleBufferedObject, writes_twice_and_reads_object) {
     *triple_buffer_begin_write(&test_object) = 0x3456ABCC;
     triple_buffer_end_write(&test_object);
     *triple_buffer_begin_write(&test_object) = 0x44778899;
     triple_buffer_end_write(&test_object);
-    assert_that(*triple_buffer_read(&test_object), is_equal_to(0x44778899));
+    EXPECT_EQ(*triple_buffer_read(&test_object), 0x44778899);
 }
 
-Ensure(TripleBufferedObject, performs_another_write_in_the_middle_of_read) {
+TEST_F(TripleBufferedObject, performs_another_write_in_the_middle_of_read) {
     *triple_buffer_begin_write(&test_object) = 1;
     triple_buffer_end_write(&test_object);
     uint32_t* read = triple_buffer_read(&test_object);
     *triple_buffer_begin_write(&test_object) = 2;
     triple_buffer_end_write(&test_object);
-    assert_that(*read, is_equal_to(1));
-    assert_that(*triple_buffer_read(&test_object), is_equal_to(2));
-    assert_that(triple_buffer_read(&test_object), is_equal_to(NULL));
+    EXPECT_EQ(*read, 1);
+    EXPECT_EQ(*triple_buffer_read(&test_object), 2);
+    EXPECT_EQ(triple_buffer_read(&test_object), nullptr);
 }
 
-Ensure(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
+TEST_F(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
     *triple_buffer_begin_write(&test_object) = 1;
     triple_buffer_end_write(&test_object);
     uint32_t* read = triple_buffer_read(&test_object);
@@ -76,7 +78,7 @@ Ensure(TripleBufferedObject, performs_two_writes_in_the_middle_of_read) {
     triple_buffer_end_write(&test_object);
     *triple_buffer_begin_write(&test_object) = 3;
     triple_buffer_end_write(&test_object);
-    assert_that(*read, is_equal_to(1));
-    assert_that(*triple_buffer_read(&test_object), is_equal_to(3));
-    assert_that(triple_buffer_read(&test_object), is_equal_to(NULL));
+    EXPECT_EQ(*read, 1);
+    EXPECT_EQ(*triple_buffer_read(&test_object), 3);
+    EXPECT_EQ(triple_buffer_read(&test_object), nullptr);
 }

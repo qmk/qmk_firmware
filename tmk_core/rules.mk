@@ -21,13 +21,14 @@ VPATH_SRC := $(VPATH)
 vpath %.c $(VPATH_SRC)
 vpath %.h $(VPATH_SRC)
 vpath %.cpp $(VPATH_SRC)
+vpath %.cc $(VPATH_SRC)
 vpath %.hpp $(VPATH_SRC)
 vpath %.S $(VPATH_SRC)
 VPATH :=
 
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
-$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.S,$1/%.o,$($1_SRC))))
+$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$($1_SRC)))))
 endef
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(OUTPUT)_OBJ +=$(call OBJ_FROM_SRC,$(OUTPUT))))
 
@@ -160,6 +161,7 @@ SCANF_LIB =
 
 
 MATH_LIB = -lm
+CREATE_MAP ?= yes
 
 
 #---------------- Linker Options ----------------
@@ -170,7 +172,10 @@ MATH_LIB = -lm
 # Comennt out "--relax" option to avoid a error such:
 # 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
 #
-LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+
+ifeq ($(CREATE_MAP),yes)
+	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
 #LDFLAGS += -Wl,--relax
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
@@ -201,14 +206,6 @@ ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
-
-# Default target.
-all: build sizeafter
-
-# Change the build target to build a HEX file or a library.
-build: elf hex
-#build: elf hex eep lss sym
-#build: lib
 
 
 elf: $(BUILD_DIR)/$(TARGET).elf
@@ -305,7 +302,13 @@ $1/%.o : %.cpp $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
 	$$(eval CMD=$$(CC) -c $$($1_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
-	@$(BUILD_CMD)
+	@$$(BUILD_CMD)
+
+$1/%.o : %.cc $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
+	@mkdir -p $$(@D)
+	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$($1_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
 $1/%.o : %.S $1/asflags.txt $1/compiler.txt | $(BEGIN)
@@ -361,10 +364,10 @@ show_path:
 	@echo OBJ=$(OBJ)
 
 # Create build directory
-$(shell mkdir $(BUILD_DIR) 2>/dev/null)
+$(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 
 # Create object files directory
-$(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir $(OUTPUT) 2>/dev/null)))
+$(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 # Include the dependency files.
 -include $(patsubst %.o,%.d,$(OBJ))
