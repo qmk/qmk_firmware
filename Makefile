@@ -414,23 +414,29 @@ define BUILD_TEST
     MAKE_VARS := TEST=$$(TEST_NAME)
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
-    TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
-    TESTS += $$(TEST_NAME)
-    TEST_MSG := $$(MSG_TEST)
-    $$(TEST_NAME)_COMMAND := \
-        printf "$$(TEST_MSG)\n"; \
-        $$(TEST_EXECUTABLE); \
-        if [ $$$$? -gt 0 ]; \
-            then error_occured=1; \
-        fi; \
-        printf "\n";
+    ifneq ($$(MAKE_TARGET),clean)
+        TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
+        TESTS += $$(TEST_NAME)
+        TEST_MSG := $$(MSG_TEST)
+        $$(TEST_NAME)_COMMAND := \
+            printf "$$(TEST_MSG)\n"; \
+            $$(TEST_EXECUTABLE); \
+            if [ $$$$? -gt 0 ]; \
+                then error_occured=1; \
+            fi; \
+            printf "\n";
+    endif
 endef
 
 define PARSE_TEST
     TESTS :=
     TEST_NAME := $$(firstword $$(subst -, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME)-,,$$(RULE)))
-    MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+    ifeq ($$(TEST_NAME),all)
+        MATCHED_TESTS := $$(TEST_LIST)
+    else
+        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(findstring $$(TEST_NAME),$$(TEST)),$$(TEST),))
+    endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
 
@@ -494,6 +500,11 @@ all-keyboards: allkb-allsp-allkm
 .PHONY: all-keyboards-defaults
 all-keyboards-defaults: allkb-allsp-default
 
+.PHONY: test
+test: test-all
+
+.PHONY: test-clean
+test-clean: test-all-clean
 
 # Generate the version.h file
 GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
