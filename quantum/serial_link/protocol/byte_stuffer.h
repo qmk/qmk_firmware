@@ -27,6 +27,9 @@ SOFTWARE.
 
 #include <stdint.h>
 
+#define MAX_FRAME_SIZE 1024
+#define NUM_LINKS 2
+
 void init_byte_stuffer(void);
 void byte_stuffer_recv_byte(uint8_t link, uint8_t data);
 void byte_stuffer_send_frame(uint8_t link, uint8_t* data, uint16_t size);
