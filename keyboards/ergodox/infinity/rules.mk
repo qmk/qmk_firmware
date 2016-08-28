@@ -66,10 +66,6 @@ LCD_BACKLIGHT_ENABLE ?= yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
 
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
-
 ifdef LCD_ENABLE
 include $(SUBPROJECT_PATH)/drivers/gdisp/st7565ergodox/driver.mk
 endif
