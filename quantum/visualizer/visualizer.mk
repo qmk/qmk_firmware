@@ -43,8 +43,8 @@ OPT_DEFS += -DLED_ENABLE
 endif
 
 include $(GFXLIB)/gfx.mk
-SRC += $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
-OPT_DEFS += $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
+GFXSRC := $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
+GFXDEFS := $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
 	SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
