@@ -25,9 +25,15 @@ Just in case.
 
 ### [Plover](http://www.openstenoproject.org/plover/)
 
-The Plover layer in this keymap is identical to that of the default. This layout
-functions exactly as a QWERTY layout unless you're running the Plover
-application.
+This layout functions exactly as a Workman layout unless you're running the Plover
+application. Includes a key for toggling Plover while it's running.
+
+Add this in the appropriate section of your `plover.cfg` to allow this altered layout:
+
+``` ini
+[System: English Stenotype]
+keymap[keyboard] = [["#", ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="]], ["S-", ["q", "a"]], ["T-", ["d"]], ["K-", ["s"]], ["P-", ["r"]], ["W-", ["h"]], ["H-", ["w"]], ["R-", ["t"]], ["A-", ["m"]], ["O-", ["c"]], ["*", ["y", "g", "j", "b"]], ["-E", ["l"]], ["-U", [","]], ["-F", ["f"]], ["-R", ["n"]], ["-P", ["u"]], ["-B", ["e"]], ["-L", ["p"]], ["-G", ["o"]], ["-T", [";"]], ["-S", ["i"]], ["-D", ["BackSpace"]], ["-Z", ["'"]], ["no-op", ["\\", "]", "x", ".", "/"]], ["arpeggiate", ["space"]]]
+```
 
 ### Adjust Layer
 
