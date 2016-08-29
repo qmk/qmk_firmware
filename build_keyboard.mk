@@ -148,6 +148,11 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
+ifeq ($(strip $(UCIS_ENABLE)), yes)
+	OPT_DEFS += -DUCIS_ENABLE
+	UNICODE_ENABLE = yes
+endif
+
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
