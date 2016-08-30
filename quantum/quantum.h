@@ -25,6 +25,7 @@
 #include "led.h"
 #include "action_util.h"
 #include <stdlib.h>
+#include "print.h"
 
 
 extern uint32_t default_layer_state;
@@ -81,6 +82,9 @@ void reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
+
+void register_code16 (uint16_t code);
+void unregister_code16 (uint16_t code);
 
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);

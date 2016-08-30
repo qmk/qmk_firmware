@@ -1,5 +1,4 @@
-﻿
-#include "planck.h"
+﻿#include "planck.h"
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
 #endif
