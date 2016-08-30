@@ -166,9 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------------------------------------------------------------------------.
  * |        | $      | {      | [      | (      | %      | #      | )      | ]      | }      | @      | PG UP  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | ^      | *      | +      | -      | ;      | :      | _      | '      | "      | `      | PG DN  |
+ * |        | ^      | *      | +      | -      | /      | \      | _      | '      | "      | `      | PG DN  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | |      | &      | !      | ~      | /      | \      | =      | <      | >      | ?      | HOME   |
+ * |        | |      | &      | !      | ~      | ;      | :      | =      | <      | >      | ?      | HOME   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * |        |        |        |        |        |        |        |        |        |        |        | END    |
  * '-----------------------------------------------------------------------------------------------------------'
@@ -176,27 +176,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [LAYER_LOWER]        = { // LOWER
   { _______, KC_DLR,  KC_LCBR, KC_LBRC, KC_LPRN, KC_PERC, KC_HASH, KC_RPRN, KC_RBRC, KC_RCBR, KC_AT,   KC_PGUP  },
-  { _______, KC_CIRC, KC_ASTR, KC_PPLS, KC_PMNS, KC_SCLN, KC_COLN, KC_UNDS, KC_QUOT, KC_DQT,  KC_GRV,  KC_PGDN  },
-  { _______, KC_PIPE, KC_AMPR, KC_EXLM, KC_TILD, KC_SLSH, KC_BSLS, KC_EQL,  KC_LT,   KC_GT,   KC_QUES, KC_HOME  },
+  { _______, KC_CIRC, KC_ASTR, KC_PPLS, KC_PMNS, KC_SLSH, KC_BSLS, KC_UNDS, KC_QUOT, KC_DQT,  KC_GRV,  KC_PGDN  },
+  { _______, KC_PIPE, KC_AMPR, KC_EXLM, KC_TILD, KC_SCLN, KC_COLN, KC_EQL,  KC_LT,   KC_GT,   KC_QUES, KC_HOME  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_END   },
  },
 
 
 /* FUNCTION
  * .-----------------------------------------------------------------------------------------------------------.
- * | NUM LK | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | PAUSE  |
+ * | NUM LK | F13    | F14    | F15    | F16    | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | PAUSE  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | CAP LK | F11    | F12    | F13    | F14    | F15    | F16    | F17    | F18    | F19    | F20    | PRINT  |
+ * | CAP LK | F17    | F18    | F19    | F20    | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | PRINT  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | SCR LK | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | MUTE   |
+ * | SCR LK | F21    | F22    | F23    | F24    | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | MUTE   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | LCTRL  | LWIN   | FN     | LALT   | UPPER  | PLAY   | PLAY   | LOWER  | VOL UP | VOL DN | NEXT   | PREV   |
  * '-----------------------------------------------------------------------------------------------------------'
  */
  [LAYER_FUNCTION]     = { // FUNCTION
-  { KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_PAUS  },
-  { KC_CAPS, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_PSCR  },
-  { KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE  },
+  { KC_NLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS  },
+  { KC_CAPS, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR  },
+  { KC_SLCK, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE  },
   { _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, KC_VOLU, KC_VOLD, KC_MPRV, KC_MNXT  },
  },
 

@@ -108,6 +108,8 @@ enum action_kind_id {
     /* Other Keys */
     ACT_USAGE           = 0b0100,
     ACT_MOUSEKEY        = 0b0101,
+    /* One-hand Support */
+    ACT_SWAP_HANDS      = 0b0110,
     /* Layer Actions */
     ACT_LAYER           = 0b1000,
     ACT_LAYER_TAP       = 0b1010, /* Layer  0-15 */
@@ -178,6 +180,11 @@ typedef union {
         uint8_t  opt    :4;
         uint8_t  kind   :4;
     } func;
+    struct action_swap {
+        uint8_t  code   :8;
+        uint8_t  opt   :4;
+        uint8_t  kind   :4;
+    } swap;
 } action_t;
 
 
@@ -295,6 +302,7 @@ enum backlight_opt {
     BACKLIGHT_STEP     = 3,
     BACKLIGHT_LEVEL    = 4,
 };
+
 /* Macro */
 #define ACTION_MACRO(id)                ACTION(ACT_MACRO, (id))
 #define ACTION_MACRO_TAP(id)            ACTION(ACT_MACRO, FUNC_TAP<<8 | (id))
@@ -306,7 +314,7 @@ enum backlight_opt {
 #define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
 #define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | (level))
 /* Command */
-#define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (addr))
+#define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (id))
 /* Function */
 enum function_opts {
     FUNC_TAP = 0x8,     /* indciates function is tappable */
@@ -314,5 +322,23 @@ enum function_opts {
 #define ACTION_FUNCTION(id)             ACTION(ACT_FUNCTION, (id))
 #define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | (id))
 #define ACTION_FUNCTION_OPT(id, opt)    ACTION(ACT_FUNCTION, (opt)<<8 | (id))
+/* OneHand Support */
+enum swap_hands_pram_tap_op {
+    OP_SH_TOGGLE = 0xF0,
+    OP_SH_TAP_TOGGLE,
+    OP_SH_ON_OFF,
+    OP_SH_OFF_ON,
+    OP_SH_OFF,
+    OP_SH_ON,
+};
+
+#define ACTION_SWAP_HANDS()             ACTION_SWAP_HANDS_ON_OFF()
+#define ACTION_SWAP_HANDS_TOGGLE()      ACTION(ACT_SWAP_HANDS, OP_SH_TOGGLE)
+#define ACTION_SWAP_HANDS_TAP_TOGGLE()  ACTION(ACT_SWAP_HANDS, OP_SH_TAP_TOGGLE)
+#define ACTION_SWAP_HANDS_TAP_KEY(key)  ACTION(ACT_SWAP_HANDS, key)
+#define ACTION_SWAP_HANDS_ON_OFF()      ACTION(ACT_SWAP_HANDS, OP_SH_ON_OFF)
+#define ACTION_SWAP_HANDS_OFF_ON()      ACTION(ACT_SWAP_HANDS, OP_SH_OFF_ON)
+#define ACTION_SWAP_HANDS_ON()          ACTION(ACT_SWAP_HANDS, OP_SH_ON)
+#define ACTION_SWAP_HANDS_OFF()         ACTION(ACT_SWAP_HANDS, OP_SH_OFF)
 
 #endif /* ACTION_CODE_H */

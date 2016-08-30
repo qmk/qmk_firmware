@@ -4,6 +4,7 @@
 #endif
 #include "config.h"
 #include "quantum.h"
+#include "version.h"
 
 /* Each layer is given a name to aid in readability, which is then
    used in the keymap matrix below.  The underscores do not denote 
