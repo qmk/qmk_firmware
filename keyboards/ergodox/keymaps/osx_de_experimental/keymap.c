@@ -227,8 +227,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
 * Layer: SMLY
 * /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |         |            | Typing  | Typing  |         |         |         |         |         |           
-* |         |         |         |         |         |         |         |            | SM_KISS | SM_HEART|         |         |         |         |         |           
+* |         |         |         |         |         |         |         |            |         | Typing  | Typing  |         |         |         |         |           
+* |         |         |         |         |         |         |         |            |         | SM_KISS | SM_HEART|         |         |         |         |           
 * /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
 * |         |         |         |         |         |         |         |            |         | Typing  | Typing  | Typing  |         |         |         |           
 * |         |         |         |         |         |         |         |            |         | SM_FROWN| SM_SAD  | SM_CRY  |         |         |         |           
@@ -268,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_TRNS, 
                                        KC_TRNS, KC_TRNS, KC_TRNS, 
     //right half
-    M(SM_KISS), M(SM_HEART), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+    KC_TRNS, M(SM_KISS), M(SM_HEART), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, M(SM_FROWN), M(SM_SAD), M(SM_CRY), KC_TRNS, KC_TRNS, KC_TRNS, 
            M(SM_SMIRK), M(SM_SMILE), M(SM_LAUGH), KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -498,7 +498,7 @@ case M_LGUI_SHFT:
 if (record->event.pressed){
 			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
 		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
+			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
 		}
 
 break;
