@@ -8,8 +8,15 @@ CONSOLE_ENABLE = no
 TAP_DANCE_ENABLE = yes
 KEYLOGGER_ENABLE ?= yes
 
+ADORE_AUTOLOG ?= no
+
 ifeq (${FORCE_NKRO},yes)
 OPT_DEFS += -DFORCE_NKRO
+endif
+
+ifeq (${ADORE_AUTOLOG},yes)
+KEYLOGGER_ENABLE = yes
+OPT_DEFS += -DADORE_AUTOLOG
 endif
 
 ifeq (${KEYLOGGER_ENABLE},yes)

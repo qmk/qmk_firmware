@@ -1,5 +1,42 @@
 #include "quantum.h"
 
+static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
+  switch (code) {
+  case QK_MODS ... QK_MODS_MAX:
+    break;
+  default:
+    return;
+  }
+
+  if (code & QK_LCTL)
+    f(KC_LCTL);
+  if (code & QK_LSFT)
+    f(KC_LSFT);
+  if (code & QK_LALT)
+    f(KC_LALT);
+  if (code & QK_LGUI)
+    f(KC_LGUI);
+
+  if (code & QK_RCTL)
+    f(KC_RCTL);
+  if (code & QK_RSFT)
+    f(KC_RSFT);
+  if (code & QK_RALT)
+    f(KC_RALT);
+  if (code & QK_RGUI)
+    f(KC_RGUI);
+}
+
+void register_code16 (uint16_t code) {
+  do_code16 (code, register_code);
+  register_code (code);
+}
+
+void unregister_code16 (uint16_t code) {
+  unregister_code (code);
+  do_code16 (code, unregister_code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
@@ -46,18 +83,20 @@ bool process_record_quantum(keyrecord_t *record) {
   uint16_t keycode;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    uint8_t layer;
+    /* TODO: Use store_or_get_action() or a similar function. */
+    if (!disable_action_cache) {
+      uint8_t layer;
 
-    if (record->event.pressed) {
-      layer = layer_switch_get_layer(key);
-      update_source_layers_cache(key, layer);
-    } else {
-      layer = read_source_layers_cache(key);
-    }
-    keycode = keymap_key_to_keycode(layer, key);
-  #else
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+      if (record->event.pressed) {
+        layer = layer_switch_get_layer(key);
+        update_source_layers_cache(key, layer);
+      } else {
+        layer = read_source_layers_cache(key);
+      }
+      keycode = keymap_key_to_keycode(layer, key);
+    } else
   #endif
+    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -86,6 +125,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
+  #endif
+  #ifdef UCIS_ENABLE
+    process_ucis(keycode, record) &&
   #endif
       true)) {
     return false;

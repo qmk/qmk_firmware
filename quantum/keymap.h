@@ -156,16 +156,16 @@ enum quantum_keycodes {
     BL_INC,
     BL_TOGG,
     BL_STEP,
-	
-	// RGB functionality
-	RGB_TOG,
-	RGB_MOD,
-	RGB_HUI,
-	RGB_HUD,
-	RGB_SAI,
-	RGB_SAD,
-	RGB_VAI,
-	RGB_VAD,
+
+    // RGB functionality
+    RGB_TOG,
+    RGB_MOD,
+    RGB_HUI,
+    RGB_HUD,
+    RGB_SAI,
+    RGB_SAD,
+    RGB_VAI,
+    RGB_VAD,
 
     // Left shift, open paren
     KC_LSPO,
@@ -309,7 +309,7 @@ enum quantum_keycodes {
 #define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
 
 // One-shot mod
-#define OSM(layer) (layer | QK_ONE_SHOT_MOD)
+#define OSM(mod) (mod | QK_ONE_SHOT_MOD)
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0xF) << 8))
