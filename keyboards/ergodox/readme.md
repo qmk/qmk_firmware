@@ -1,33 +1,137 @@
-# Getting started
+# The Easy Way
 
-There are two main ways you could customize the ErgoDox (EZ and Infinity)
+If you can find firmware someone else has made that does what you want, that
+is the easiest way to customize your ErgoDox.  It requires no programming
+experience or the setup of a build environment.
 
-## The Easy Way: Use an existing firmware file and just flash it (ErgoDox EZ only)
+Quickstart:
 
-1. Download and install the [Teensy Loader](https://www.pjrc.com/teensy/loader.html). Some Linux distributions already provide a binary (may be called `teensy-loader-cli`), so you may prefer to use this.
-2. Find a firmware file you like. There are [dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/) you can browse and download. You can also use the [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) to create a firmware Hex file you like.
-3. Download the firmware file
-4. Connect the keyboard, press its Reset button (gently insert a paperclip into the hole in the top-right corner) and flash it using the Teensy loader you installed on step 1 and the firmware you downloaded.
+  - Find and download an existing firmware
+    [from Other Firmware Options](#other-firmware-options)
 
-## More technical: compile an existing keymap, or create your own totally custom firmware by editing the source files.
+  - Then flash the firmware to your [ErgoDox Ez](#ergodox-ez)
+    or [ErgoDox Infinity](#ergodox-infinity)
 
-This requires a little bit of familiarity with coding.
-If you are just compiling an existing keymap and don't want to create your own, you can skip step 4, 5 and 8.
+# Customizing Keymaps
 
-1. Go to https://github.com/jackhumbert/qmk_firmware and read the readme at the base of this repository, top to bottom. Then come back here :)
-2. Clone the repository (download it)
-3. Set up a build environment as per the readme.
-4. Copy `keyboards/ergodox/keymaps/default/keymap.c` into `keymaps/your_name/keymap.c` (for example, `keymaps/german/keymap.c`)
-5. Edit this file, changing keycodes to your liking (see "Finding the keycodes you need" below). Try to edit the comments as well, so the "text graphics" represent your layout correctly. See below for more tips on sharing your work.
-6. Compile your firmware by running `make keymap=keymap_name`. For example, `make keymap=german`. This will result in a hex file, which will be called `ergodox_ez_keymap_name.hex`, e.g. `ergodox_ez_german.hex`. For **Infinity ErgoDox** you need to add `subproject=infinity` to the make command.
-7. **ErgoDox EZ** - Flash this hex file using the [Teensy loader](https://www.pjrc.com/teensy/loader.html) as described in step 4 in the "Easy Way" above. If you prefer you can automatically flash the hex file after successful build by running `make teensy keymap=keymap_name`.
+There are many existing keymaps in the "keymaps" directory.  If you just want
+to use one of them, you don't need to modify keymaps and can just build and
+flash the firmware as described below.  These directories each have a
+"readme.md" file which describe them.
 
-   **Infinity ErgoDox** - Flash the firmware by running `make dfu-util keymap=keymap_name subproject=infinity`
-8. Submit your work as a pull request to this repository, so others can also use it. :) See below on specifics.
+If none of the existing keymaps suit you, you can create your own custom
+keymap.  This will require some experience with coding.  Follow these steps
+to customize a keymap:
 
-Good luck! :)
+  - Read the [qmk firmware README](https://github.com/jackhumbert/qmk_firmware) from top to bottom.  Then come back here.  :)
 
-## Contributing your keymap
+  - Clone the qmk_firmware repository
+
+  - Set up your build environment (see below).
+
+  - Make a new directory under "keymaps" to hold your customizations.
+
+  - Copy an existing keymap that is close to what you want, such as
+    "keymaps/default/keymap.c".
+
+  - Use an editor to modify the new "keymap.c".  See "Finding the keycodes you
+    need" below).  Try to edit the comments as well, so the "text graphics"
+    represent your layout correctly.
+
+  - Compile your new firmware (see below)
+
+  - Flash your firmware (see below)
+
+  - Test the changes.
+
+  - Submit your keymap as a pull request to the qmk_firmware repository so
+    others can use it.  You will want to add a "readme.md" that describes the
+    keymap.
+
+# Build Dependencies
+
+Before you can build, you will need the build dependencies.  There is a script
+to try to do this for Linux:
+
+  - Run the `util/install_dependencies.sh` script as root.
+
+For the Infinity, you need the chibios submodules to be checked out or you
+will receive errors about the build process being unable to find the chibios
+files.  Check them out with:
+
+  - Go to the top level repo directory and run: `git submodule update --init --recursive`
+
+# Flashing Firmware
+
+## ErgoDox Ez
+
+The Ez uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
+
+Linux users need to modify udev rules as described on the Teensy Linux page.
+Some distributions provide a binary, maybe called `teensy-loader-cli`).
+
+To flash the firmware:
+
+  - Build the firmware with `make keymapname`, for example `make default` 
+  - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
+    `ergodox_ez_default.hex`
+
+  - Start the teensy loader.
+
+  - Load the .hex file into it.
+
+  - Press the Reset button by inserting a paperclip gently into the reset hole
+    in the top right corder.
+
+  - Click the button in the Teensy app to download the firmware.
+
+## ErgoDox Infinity
+
+The Infinity is two completely independent keyboards, and needs to be flashed
+for the left and right halves seperately.  To flash them:
+
+  - Build the firmware with `make infinity-keymapname`
+
+  - Plug in the left hand keyboard only.
+
+  - Press the program button (back of keyboard, above thumb pad).
+
+  - Install the firmware with `sudo make infinity-keymapname-dfu-util`
+
+  - Build left hand firmware with `make infinity-keymapname MASTER=right`
+
+  - Plug in the right hand keyboard only.
+
+  - Press the program button (back of keyboard, above thumb pad).
+
+  - Install the firmware with `sudo make infinity-keymapname-dfu-util MASTER=right`
+
+More information on the Infinity firmware is available in the [TMK/chibios for
+Input Club Infinity Ergodox](https://github.com/fredizzimo/infinity_ergodox/blob/master/README.md)
+
+### Infinity Master/Two Halves
+
+The Infinity is two completely independent keyboards, that can connect together.
+You have a few options in how you flash the firmware:
+
+- Flash the left half, rebuild the firmware with "MASTER=right" and then flash
+  the right half.  This allows you to plug in either half directly to the
+  computer and is what the above instructions do.
+
+- Flash the left half, then flash the same firmware on the right.  This only
+  works when the left half is plugged directly to the computer and the keymap
+  is mirrored.  It saves the small extra step of rebuilding with
+  "MASTER=right".
+
+- The same as the previous one but with "MASTER=right" when you build the
+  firmware, then flash the same firmware to both halves.  You just have to
+  directly connect the right half to the computer.
+
+- For minor changes such as changing only the keymap without having updated
+  any part of the firmware code itself, you can program only the MASTER half.
+  It is safest to program both halves though.
+
+# Contributing your keymap
 
 The QMK firmware is open-source, so it would be wonderful to have your contribution! Within a very short time after launching we already amassed dozens of user-contributed keymaps, with all sorts of creative improvements and tweaks. This is very valuable for people who aren't comfortable coding, but do want to customize their ErgoDox. To make it easy for these people to use your layout, I recommend submitting your PR in the following format.
 
@@ -36,11 +140,26 @@ The QMK firmware is open-source, so it would be wonderful to have your contribut
 3. `readme.md` - a readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
 4. Any graphics you wish to add. This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link, just like I did with the default layout.
 
-
-## Finding the keycodes you need
+# Finding the keycodes you need
 
 Let's say you want a certain key in your layout to send a colon; to figure out what keycode to use to make it do that, you're going to need `quantum/keymap_common.h`.
 
 That file contains a big list of all of the special, fancy keys (like, being able to send % on its own and whatnot).
 
 If you want to send a plain vanilla key, you can look up its code under `doc/keycode.txt`. That's where all the boring keys hang out.
+
+# Other Firmware Options
+
+There are external tools for customizing the layout, but those do not use
+the featurs of this qmk firmware.  These sites include:
+
+  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for Ez
+  - [Input Club configurator](https://input.club/configurator-ergodox) for Infinity, provides left and right files
+
+You can also find an existing firmware that you like, for example from:
+
+  - [Dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/)
+
+This qmk firmware also provides the ability to customize keymaps, but requires
+a toolchain to build the firmware.  See below for instructions on building
+firmware and customizing keymaps.

@@ -13,7 +13,7 @@ For an easy-to-read version of this document and the repository, check out [http
 * [Planck](/keyboards/planck/)
 * [Preonic](/keyboards/preonic/)
 * [Atomic](/keyboards/atomic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
+* [ErgoDox EZ](/keyboards/ergodox/)
 * [Clueboard](/keyboards/clueboard/)
 * [Cluepad](/keyboards/cluepad/)
 
@@ -31,7 +31,7 @@ The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/j
 
 This is not a tiny project. While this is the main readme, there are many other files you might want to consult. Here are some points of interest:
 
-* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox_ez/); for the Planck, it's [here](keyboards/planck/) and so on.
+* The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox/ez/); for the Planck, it's [here](keyboards/planck/) and so on.
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
   * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
   * [quantum/keymap.h](quantum/keymap.h) - this is where the QMK-specific aliases are all set up. Things like the Hyper and Meh key, the Leader key, and all of the other QMK innovations. These are also explained and documented below, but `keymap.h` is where they're actually defined.
@@ -43,14 +43,38 @@ Before you are able to compile, you'll need to install an environment for AVR de
 
 ## Build Environment Setup
 
+### Windows 10
+
+It's still recommended to use the method for Vista and later below. The reason for this is that the Windows 10 Subsystem for Linux lacks [USB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it's not possible to flash the firmware to the keyboard. Please add your vote to the link!
+
+That said, it's still possible to use it for compilation. And recommended, if you need to compile much, since it's much faster than at least Cygwin (which is also supported, but currently lacking documentation). I haven't tried the method below, so I'm unable to tell.
+
+Here are the steps
+
+1. Install the Windows 10 subsystem for Linux, following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
+2. If you have previously cloned the repository using the normal Git bash, you will need to clean up the line endings. If you have cloned it after 20th of August 2016, you are likely fine. To clean up the line endings do the following
+   1. Make sure that you have no changes you haven't committed by running `git status`, if you do commit them first
+   2. From within the Git bash run `git rm --cached -r .`
+   3. Followed by `git reset --hard`
+3. Start the "Bash On Ubuntu On Windows" from the start menu
+4. With the bash open, navigate to your Git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
+5. Run `sudo util/install_dependencies.sh`. 
+6. After a while the installation will finish, and you are good to go
+
+**Note** From time to time, the dependencies might change, so just run `install_dependencies.sh` again if things are not working.
+
+**Warning:** If you edit Makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
+
+
 ### Windows (Vista and later)
 1. If you have ever installed WinAVR, uninstall it.
 2. Install [MHV AVR Tools](https://infernoembedded.com/sites/default/files/project/MHV_AVR_Tools_20131101.exe). Disable smatch, but **be sure to leave the option to add the tools to the PATH checked**.
-3. Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The scripts depend on the default location.
-4. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
-5. Double-click on the 1-setup-path-win batch script to run it. You'll need to accept a User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
-6. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
-7. Future build commands should be run from the MHV AVR Shell, which sets up an environment compatible with colorful build output. The standard Command Prompt will also work, but add `COLOR=false` to the end of all make commands when using it.
+3. If you are going to flash Infinity based keyboards you will need to install dfu-util, refer to the instructions by [Input Club](https://github.com/kiibohd/controller/wiki/Loading-DFU-Firmware).
+4. Install [MinGW](https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download). During installation, uncheck the option to install a graphical user interface. **DO NOT change the default installation folder.** The scripts depend on the default location.
+5. Clone this repository. [This link will download it as a zip file, which you'll need to extract.](https://github.com/jackhumbert/qmk_firmware/archive/master.zip) Open the extracted folder in Windows Explorer.
+6. Double-click on the 1-setup-path-win batch script to run it. You'll need to accept a User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.
+7. Right-click on the 2-setup-environment-win batch script, select "Run as administrator", and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!
+8. Future build commands should be run from the MHV AVR Shell, which sets up an environment compatible with colorful build output. The standard Command Prompt will also work, but add `COLOR=false` to the end of all make commands when using it.
 
 ### Mac
 If you're using [homebrew,](http://brew.sh/) you can use the following commands:
@@ -67,13 +91,41 @@ You can also try these instructions:
 2. Install the Command Line Tools from `Xcode->Preferences->Downloads`.
 3. Install [DFU-Programmer][dfu-prog].
 
+If you are going to flash Infinity based keyboards you will also need dfu-util
+    
+    brew install dfu-util
+
 ### Linux
-Install AVR GCC, AVR libc, and dfu-progammer with your favorite package manager.
+
+To ensure you are always up to date, you can just run `sudo utils/install_dependencies.sh`. That should always install all the dependencies needed. 
+
+You can also install things manually, but this documentation might not be always up to date with all requirements.
+
+The current requirements are the following, but not all might be needed depending on what you do. Also note that some systems might not have all the dependencies available as packages, or they might be named differently.
+
+```
+build-essential
+gcc
+unzip
+wget
+zip
+gcc-avr
+binutils-avr
+avr-libc
+dfu-programmer
+dfu-util
+gcc-arm-none-eabi
+binutils-arm-none-eabi
+libnewlib-arm-none-eabi
+git
+```
+
+Install the dependencies with your favorite package manager.
 
 Debian/Ubuntu example:
 
     sudo apt-get update
-    sudo apt-get install gcc-avr avr-libc dfu-programmer
+    sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
 
 ### Docker
 
@@ -110,43 +162,103 @@ In every keymap folder, the following files are recommended:
 
 ## The `make` command
 
-The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys). You can run `make` from the root (`/`), your keyboard folder (`/keyboards/<keyboard>/`), or your keymap folder (`/keyboards/<keyboard>/keymaps/<keymap>/`) if you have a `Makefile` there (see the example [here](/doc/keymap_makefile_example.mk)).
+The `make` command is how you compile the firmware into a .hex file, which can be loaded by a dfu programmer (like dfu-progammer via `make dfu`) or the [Teensy loader](https://www.pjrc.com/teensy/loader.html) (only used with Teensys).
 
-By default, this will generate a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests.
+**NOTE:** To abort a make command press `Ctrl-c`
 
-Below are some definitions that will be useful:
+The following instruction refers to these folders.
 
-* The "root" (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
-* The "keyboard" folder is any keyboard project's folder, like `/keyboards/planck`.
-* The "keymap" folder is any keymap's folder, like `/keyboards/planck/keymaps/default`.
+* The `root` (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
+* The `keyboard` folder is any keyboard project's folder, like `/keyboards/planck`.
+* The `keymap` folder is any keymap's folder, like `/keyboards/planck/keymaps/default`.
+* The `subproject` folder is the subproject folder of a keyboard, like `/keyboards/ergodox/ez`
 
-Below is a list of the useful `make` commands in QMK:
+### Simple instructions for building and uploading a keyboard
 
-* `make` - builds your keyboard and keymap depending on which folder you're in. This defaults to the "default" layout (unless in a keymap folder), and Planck keyboard in the root folder
-  * `make keyboard=<keyboard>` - specifies the keyboard (only to be used in root)
-  * `make keymap=<keymap>` - specifies the keymap (only to be used in root and keyboard folder - not needed when in keymap folder)
-* `make clean` - cleans the `.build` folder, ensuring that everything is re-built
-* `make dfu` - (requires dfu-programmer) builds and flashes the keymap to your keyboard once placed in reset/dfu mode (button or press `KC_RESET`). This does not work for Teensy-based keyboards like the ErgoDox EZ.
-  * `keyboard=` and `keymap=` are compatible with this
-* `make all-keyboards` - builds all keymaps for all keyboards and outputs status of each (use in root)
-* `make all-keyboards-default` - builds all default keymaps for all keyboards and outputs status of each (use in root)
-* `make all-keymaps [keyboard=<keyboard>]` - builds all of the keymaps for whatever keyboard folder you're in, or specified by `<keyboard>`
-* `make all-keyboards-*`, `make all-keyboards-default-*` and `make all-keymaps-* [keyboard=<keyboard>]` - like the normal "make-all-*" commands, but the last string aftter the `-` (for example clean) is passed to the keyboard make command.
-Other, less useful functionality:
+**Most keyboards have more specific instructions in the keyboard specific readme.md file, so please check that first**
+
+If the `keymap` folder contains a file name `Makefile`
+
+1. Change the directory to the `keymap` folder 
+2. Run `make <subproject>-<programmer>`
+
+Otherwise, if there's no `Makefile` in the `keymap` folder
+
+1. Enter the `keyboard` folder
+2. Run `make <subproject>-<keymap>-<programmer>`
+
+In the above commands, replace:
+
+* `<keymap>` with the name of your keymap
+* `<subproject>` with the name of the subproject (revision or sub-model of your keyboard). For example, for Ergodox it can be `ez` or `infinity`, and for Planck `rev3` or `rev4`.
+  * If the keyboard doesn't have a subproject, or if you are happy with the default (defined in `rules.mk` file of the `keyboard` folder), you can leave it out. But remember to also remove the dash (`-`) from the command.
+* `<programmer>` The programmer to use. Most keyboards use `dfu`, but some use `teensy`. Infinity keyboards use `dfu-util`. Check the readme file in the keyboard folder to find out which programmer to use.
+  * If you  don't add `-<programmer` to the command line, the firmware will be still be compiled into a hex file, but the upload will be skipped.
+
+**NOTE:** Some operating systems will refuse to program unless you run the make command as root for example `sudo make dfu`
+
+### More detailed make instruction
+
+The full syntax of the `make` command is the following, but parts of the command can be left out if you run it from other directories than the `root` (as you might already have noticed by reading the simple instructions).
+
+`<keyboard>-<subproject>-<keymap>-<target>`, where:
+
+* `<keyboard>` is the name of the keyboard, for example `planck`
+  * Use `allkb` to compile all keyboards
+* `<subproject>` is the name of the subproject (revision or sub-model of the keyboard). For example, for Ergodox it can be `ez` or `infinity`, and for Planck `rev3` or `rev4`.
+  * If the keyboard doesn't have any subprojects, it can be left out
+  * To compile the default subproject, you can leave it out, or specify `defaultsp`
+  * Use `allsp` to compile all subprojects
+* `<keymap>` is the name of the keymap, for example `algernon`
+  * Use `allkm` to compile all keymaps
+* `<target>` will be explained in more detail below.
+
+**Note:** When you leave some parts of the command out, you should also remove the dash (`-`).
+
+As mentioned above, there are some shortcuts, when you are in a:
+
+* `keyboard` folder, the command will automatically fill the `<keyboard>` part. So you only need to type `<subproject>-<keymap>-<target>`
+* `subproject` folder, it will fill in both `<keyboard>` and `<subproject>`
+* `keymap` folder, then `<keyboard>` and `<keymap>` will be filled in. If you need to specify the `<subproject>` use the following syntax `<subproject>-<target>`
+  * Note in order to support this shortcut, the keymap needs its own Makefile (see the example [here](/doc/keymap_makefile_example.mk))
+* `keymap` folder of a `subproject`, then everything except the `<target>` will be filled in
+
+The `<target>` means the following
+* If no target is given, then it's the same as `all` below
+* `all` compiles the keyboard and generates a `<keyboard>_<keymap>.hex` file in whichever folder you run `make` from. These files are ignored by git, so don't worry about deleting them when committing/creating pull requests.
+* `dfu`, `teensy` or `dfu-util`, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for Infinity keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. **Note** that some operating systems needs root access for these commands to work, so in that case you need to run for example `sudo make dfu`.
+* `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
+
+Some other targets are supported but, but not important enough to be documented here. Check the source code of the make files for more information.
+
+You can also add extra options at the end of the make command line, after the target
 
 * `make COLOR=false` - turns off color output
 * `make SILENT=true` - turns off output besides errors/warnings
-* `make VERBOSE=true` - outputs all of the avr-gcc stuff (not interesting)
+* `make VERBOSE=true` - outputs all of the gcc stuff (not interesting, unless you need to debug)
+
+The make command itself also has some additional options, type `make --help` for more information. The most useful is probably `-jx`, which specifies that you want to compile using more than one CPU, the `x` represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.
+
+Here are some examples commands
+
+* `make allkb-allsp-allkm` builds everything (all keyboards, all subprojects, all keymaps). Running just `make` from the `root` will also run this.
+* `make` from within a `keyboard` directory, is the same as `make keyboard-allsp-allkm`, which compiles all subprojects and keymaps of the keyboard. **NOTE** that this behaviour has changed. Previously it compiled just the default keymap.
+* `make ergodox-infinity-algernon-clean` will clean the build output of the Ergodox Infinity keyboard. This example uses the full syntax and can be run from any folder with a `Makefile`
+* `make dfu COLOR=false` from within a keymap folder, builds and uploads the keymap, but without color output.
 
 ## The `Makefile`
 
-There are 3 different `make` and `Makefile` locations:
+There are 5 different `make` and `Makefile` locations:
 
 * root (`/`)
 * keyboard (`/keyboards/<keyboard>/`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/`)
+* subproject (`/keyboards/<keyboard>/<subproject>`)
+* subproject keymap (`/keyboards/<keyboard>/<subproject>/keymaps/<keymap>`)
 
-The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **It is required if you want to run `make` in the keymap folder.**
+The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **The file is required if you want to run `make` in the keymap folder.**
+
+For keyboards and subprojects, the make files are split in two parts `Makefile` and `rules.mk`. All settings can be found in the `rules.mk` file, while the `Makefile` is just there for support and including the root `Makefile`. Keymaps contain just one `Makefile` for simplicity.
 
 ### Makefile options
 
@@ -431,7 +543,7 @@ enum {
 };
 
 //Tap Dance Definitions
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
 // Other declarations would go here, separated by commas, if you have them
@@ -517,7 +629,7 @@ void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_3_off();
 }
 
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
  ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
  ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
@@ -694,6 +806,53 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 ```
 
 And then, to assign this macro to a key on your keyboard layout, you just use `M(0)` on the key you want to press for copy/paste.
+
+## Dynamic macros: record and replay macros in runtime
+
+In addition to the static macros described above, you may enable the dynamic macros which you may record while writing. They are forgotten as soon as the keyboard is unplugged. Only two such macros may be stored at the same time, with the total length of 128 keypresses.
+
+To enable them, first add a new element to the `planck_keycodes` enum -- `DYNAMIC_MACRO_RANGE`:
+
+    enum planck_keycodes {
+      QWERTY = SAFE_RANGE,
+      COLEMAK,
+      DVORAK,
+      PLOVER,
+      LOWER,
+      RAISE,
+      BACKLIT,
+      EXT_PLV,
+      DYNAMIC_MACRO_RANGE,
+    };
+
+Afterwards create a new layer called `_DYN`:
+
+    #define _DYN 6    /* almost any other free number should be ok */
+    
+Below these two modifications include the `dynamic_macro.h` header:
+
+    #include "dynamic_macro.h"`
+    
+Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_MACRO_PLAY1`,`DYN_REC_START2` and `DYN_MACRO_PLAY2`. It may also contain other keys, it doesn't matter apart from the fact that you won't be able to record these keys in the dynamic macros.
+
+    [_DYN]= {
+        {_______,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+        {_______,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+        {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
+        {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    },
+    
+Add the following code to the very beginning of your `process_record_user()` function:
+
+    if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+    }
+
+To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. To finish the recording, press the `_DYN` layer button. The handler awaits specifically for the `MO(_DYN)` keycode as the "stop signal" so please don't use any fancy ways to access this layer, use the regular `MO()` modifier. To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
+
+If the LED-s start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 256; please read the comments for it in the header).
+
+For the details about the internals of the dynamic macros, please read the comments in the `dynamic_macro.h` header.
 
 ## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
 
@@ -983,3 +1142,54 @@ Here is where you can (optionally) define your `KEYMAP` function to remap your m
 ```
 
 Each of the `kxx` variables needs to be unique, and usually follows the format `k<row><col>`. You can place `KC_NO` where your dead keys are in your matrix.
+
+# Unit Testing
+
+If you are new to unit testing, then you can find many good resources on internet. However most of it is scattered around in small pieces here and there, and there's also many different opinions, so I won't give any recommendations. 
+
+Instead I recommend these two books, explaining two different styles of Unit Testing in detail.
+
+* "Test Driven Development: By Example: Kent Beck"
+* "Growing Object-Oriented Software, Guided By Tests: Steve Freeman, Nat Pryce"
+
+If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series. 
+
+## Google Test and Google Mock
+It's possible to Unit Test your code using [Google Test](https://github.com/google/googletest). The Google Test framework also includes another component for writing testing mocks and stubs, called "Google Mock". For information how to write the actual tests, please refer to the documentation on that site.
+
+## Use of C++
+
+Note that Google Test and therefore any test has to be written in C++, even if the rest of the QMK codebases is written in C. This should hopefully not be a problem even if you don't know any C++, since there's quite clear documentation and examples of the required C++ features, and you can write the rest of the test code almost as you would write normal C. Note that some compiler errors which you might get can look quite scary, but just read carefully what it says, and you should be ok.
+
+One thing to remember, is that you have to append `extern "C"` around all of your C file includes. 
+
+## Adding tests for new or existing features
+
+If you want to unit test some feature, then take a look at the existing serial_link tests, in the `quantum/serial_link/tests folder`, and follow the steps below to create a similar structure.
+
+1. If it doesn't already exist, add a test subfolder to the folder containing the feature.
+2. Create a `testlist.mk` and a `rules.mk` file in that folder.
+3. Include those files from the root folder `testlist.mk`and `build_test.mk` respectively.
+4. Add a new name for your testgroup to the `testlist.mk` file. Each group defined there will be a separate executable. And that's how you can support mocking out different parts. Note that it's worth adding some common prefix, just like it's done for the serial_link tests. The reason for that is that the make command allows substring filtering, so this way you can easily run a subset of the tests.
+5. Define the source files and required options in the `rules.mk` file.
+   * `_SRC` for source files
+   * `_DEFS` for additional defines
+   * `_INC` for additional include folders
+6. Write the tests in a new cpp file inside the test folder you created. That file has to be one of the files included from the `rules.mk` file.
+
+Note how there's several different tests, each mocking out a separate part. Also note that each of them only compiles the very minimum that's needed for the tests. It's recommend that you try to do the same. For a relevant video check out [Matt Hargett "Advanced Unit Testing in C & C++](https://www.youtube.com/watch?v=Wmy6g-aVgZI)
+
+## Running the tests
+
+To run all the tests in the codebase, type `make test`. You can also run test matching a substring by typing `make test-matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
+
+## Debugging the tests
+
+If there are problems with the tests, you can find the executable in the `./build/test` folder. You should be able to run those with GDB or a similar debugger.
+
+## Full Integration tests
+
+It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing. 
+
+In that model you would emulate the input, and expect a certain output from the emulated keyboard.
+
