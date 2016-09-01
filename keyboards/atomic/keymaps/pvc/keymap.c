@@ -154,29 +154,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* UPPER
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | PRINT  | BR TOG | BR SP+ | BR SP- | BR RST | XXXXXX | XXXXXX | NUM LK | /      | *      |        | NUM LK | SCR LK | XXXXXX . PAUSE  |
+ * | PRINT  | BR TOG | BR SP+ | BR SP- | BR RST | XXXXXX | XXXXXX | NUM LK | /      | *      |        |        |        | XXXXXX .        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * |        | F1     | F2     | F3     | F4     |        |        | 7      | 8      | 9      | -      |        |        |        | INS    |
+ * | PAUSE  | F1     | F2     | F3     | F4     | NUM LK | /      | 7      | 8      | 9      | -      |        |        |        | INS    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAP LK | F5     | F6     | F7     | F8     |        |        | 4      | 5      | 6      | +      |        | XXXXXX .        | HOME   |
+ * |        | F5     | F6     | F7     | F8     | CAP LK | *      | 4      | 5      | 6      | +      |        | XXXXXX .        | HOME   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * |        | F9     | F10    | F11    | F12    |        |        | 1      | 2      | 3      | ENTER  | XXXXXX .        |        | END    |
+ * |        | F9     | F10    | F11    | F12    | SCR LK | 0      | 1      | 2      | 3      | ENTER  | XXXXXX .        |        | END    |
  * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        | 0               |        | RALT   | .      | ENTER  |        |        |        |        |
+ * |        |        |        |        |        | XXXXXX . 0      |        | RALT   | .      | ENTER  |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
  [LAYER_UPPER]        = { // UPPER
-  { KC_PSCR, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, KC_NLCK, KC_PSLS, KC_PAST, XXXXXXX, XXXXXXX, KC_SLCK, KC_PAUS, KC_PAUS  },
-  { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, _______, _______, _______, KC_INS   },
-  { KC_CAPS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, ________________, KC_HOME  },
-  { _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, ________________, _______, KC_END   },
+  { KC_PSCR, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, XXXXXXX, XXXXXXX, _______, _______  },
+  { KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_NLCK, KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, _______, _______, _______, KC_INS   },
+  { _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_CAPS, KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, ________________, KC_HOME  },
+  { _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_SLCK, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, ________________, _______, KC_END   },
   { _______, _______, _______, _______, _______, KC_KP_0, KC_KP_0, _______, KC_RALT, KC_PDOT, KC_PENT, _______, _______, _______, _______  },
  },
 
 /* LOWER
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | XXXXXX . BACKSP |
+ * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | XXXXXX .        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * |        | $      | {      | [      | (      | %      | #      | )      | ]      | }      | @      |        |        |        | INS    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
  * |        | |      | &      | !      | ~      | ;      | :      | =      | <      | >      | ?      | XXXXXX .        |        | END    |
  * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        |                 |        |        |        |        |        |        |        |        |
+ * |        |        |        |        |        | XXXXXX .        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -198,23 +198,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* FUNCTION
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | NUM LK |        |        |        |        |        |        |        |        |        |        |        |        | XXXXXX .        |
+ * |        |        |        |        |        |        |        |        |        |        |        |        |        | XXXXXX .        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | SCR LK | F13    | F14    | F15    | F16    |        |        |        |        |        |        |        |        |        |        |
+ * |        | F13    | F14    | F15    | F16    | NUM LK |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAP LK | F17    | F18    | F19    | F20    |        |        |        |        |        |        |        | XXXXXX .        |        |
+ * |        | F17    | F18    | F19    | F20    | CAP LK |        |        |        |        |        |        | XXXXXX .        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * |        | F21    | F22    | F23    | F24    |        |        |        |        |        |        | XXXXXX .        | VOL UP | MUTE   |
+ * |        | F21    | F22    | F23    | F24    | SCR LK |        |        |        |        |        | XXXXXX .        | VOL UP | MUTE   |
  * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
  * |        |        |        |        |        | PLAY/PAUSE      |        |        |        |        |        | PTRACK | VOL DN | NTRACK |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
  [LAYER_FUNCTION]     = { // FUNCTION
-  { KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX  },
-  { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { KC_CAPS, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX, XXXXXXX  },
-  { _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ________________, KC_VOLU, KC_MUTE  },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX  },
+  { XXXXXXX, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+  { XXXXXXX, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX, XXXXXXX  },
+  { _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ________________, KC_VOLU, KC_MUTE  },
   { _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT  },
  },
 
