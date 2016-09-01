@@ -31,36 +31,36 @@ If you would like to use one of the alternative keymaps, or create your own, see
 
 ## Clueboard 1.0
 
-If you have a first generation Clueboard (one with a black PCB) you will need to use the revision 1 code. To do so add `SUBPROJECT=rev1` to your make command, like this:
+If you have a first generation Clueboard (one with a black PCB) you will need to use the revision 1 code. To do so add `rev1` to your make command, like this:
 
 ```
-$ make SUBPROJECT=rev1
+$ make rev1
 ```
 
 And when flashing your keyboard:
 
 ```
-$ make SUBPROJECT=rev1 dfu
+$ make rev1-dfu
 ```
 
-If you are flashing an alternative layout to your rev1, include both `SUBPROJECT=rev1` and `KEYMAP=<keymap>` in your command, for example when flashing max:
+If you are flashing an alternative layout to your rev1, include both `rev1` and `<keymap>` in your command, for example when flashing max:
 
 ```
-$ make SUBPROJECT=rev1 KEYMAP=max dfu
+$ make rev1-max-dfu
 ```
 
 ## Alternate Keymaps
 
-There are many alternative and user-contributed layouts available in the [keymaps/](keymaps/) directory. To compile and flash an alternative you will want to add `KEYMAP=<keymap>` to your command:
+There are many alternative and user-contributed layouts available in the [keymaps/](keymaps/) directory. To compile and flash an alternative you will want to add `<keymap>` to your command:
 
 ```
-$ make KEYMAP=skully
+$ make skully
 ```
 
-And when flashing your keyboard, put `KEYMAP=<keymap>` between "make" and "dfu":
+And when flashing your keyboard, put `<keymap>` between "make" and "dfu":
 
 ```
-$ make KEYMAP=skully dfu
+$ make skully-dfu
 ```
 
 ### Notable Layouts
@@ -76,15 +76,15 @@ These layouts are notable for one reason or another. If you are looking for idea
 There are a lot of possibilities when creating your own keymap, and the primary documentation for doing that is [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md. As a way to get started, here is the procedure I recommend:
 
 * Copy `[keymaps/default](keymaps/default/)` to `keymaps/<your_layout>`.
-* Compile the firmware (`$ make KEYMAP=<your_layout>`)
-* Flash the firmware (`$ make KEYMAP=<your_layout> dfu`)
+* Compile the firmware (`$ make <your_layout>`)
+* Flash the firmware (`$ make <your_layout>-dfu`)
 * Make sure everything works like the default keyboard
 * Modify `keymaps/<your_layout>/readme.md` to tell others about your layout.
 * Modify `keymaps/<your_layout>/keymap.c` to reflect your desired layout.
-* Compile your new custom firmware (`$ make KEYMAP=<your_layout>`)
+* Compile your new custom firmware (`$ make <your_layout>`)
 ** If you have warnings you may flash without fixing them, but something may not work right.
 ** If you have any errors you must fix them before continuing.
-* Flash the firmware (`$ make KEYMAP=<your_layout> dfu`)
+* Flash the firmware (`$ make <your_layout>-dfu`)
 
 ## Share Your Keymap
 
