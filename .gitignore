@@ -28,3 +28,4 @@ CMakeLists.txt
 .settings/
 .idea
 .browse.VC.db*
+*.stackdump

@@ -60,6 +60,10 @@
     #include "bluetooth.h"
 #endif
 
+#ifdef VIRTSER_ENABLE
+    #include "virtser.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
@@ -125,6 +129,34 @@ USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 #define SYS_COMMON_1 0x50
 #define SYS_COMMON_2 0x20
 #define SYS_COMMON_3 0x30
+#endif
+
+#ifdef VIRTSER_ENABLE
+USB_ClassInfo_CDC_Device_t cdc_device =
+{
+  .Config =
+  {
+    .ControlInterfaceNumber = CCI_INTERFACE,
+    .DataINEndpoint         =
+    {
+      .Address		= CDC_IN_EPADDR,
+      .Size		= CDC_EPSIZE,
+      .Banks		= 1,
+    },
+    .DataOUTEndpoint	    =
+    {
+      .Address		= CDC_OUT_EPADDR,
+      .Size		= CDC_EPSIZE,
+      .Banks		= 1,
+    },
+    .NotificationEndpoint   =
+    {
+      .Address		= CDC_NOTIFICATION_EPADDR,
+      .Size		= CDC_NOTIFICATION_EPSIZE,
+      .Banks		= 1,
+    },
+  },
+};
 #endif
 
 
@@ -311,6 +343,12 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
+
+#ifdef VIRTSER_ENABLE
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_OUT_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_IN_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 }
 
 /*
@@ -432,10 +470,15 @@ void EVENT_USB_Device_ControlRequest(void)
 
             break;
     }
+
+#ifdef VIRTSER_ENABLE
+    CDC_Device_ProcessControlRequest(&cdc_device);
+#endif
 }
 
 /*******************************************************************************
  * Host driver
+p
  ******************************************************************************/
 static uint8_t keyboard_leds(void)
 {
@@ -827,6 +870,61 @@ void MIDI_Task(void)
 
 #endif
 
+/*******************************************************************************
+ * VIRTUAL SERIAL
+ ******************************************************************************/
+
+#ifdef VIRTSER_ENABLE
+void virtser_init(void)
+{
+  cdc_device.State.ControlLineStates.DeviceToHost = CDC_CONTROL_LINE_IN_DSR ;
+  CDC_Device_SendControlLineStateChange(&cdc_device);
+}
+
+void virtser_recv(uint8_t c) __attribute__ ((weak));
+void virtser_recv(uint8_t c)
+{
+  // Ignore by default
+}
+
+void virtser_task(void)
+{
+  uint16_t count = CDC_Device_BytesReceived(&cdc_device);
+  uint8_t ch;
+  if (count)
+  {
+    ch = CDC_Device_ReceiveByte(&cdc_device);
+    virtser_recv(ch);
+  }
+}
+void virtser_send(const uint8_t byte)
+{
+  uint8_t timeout = 255;
+  uint8_t ep = Endpoint_GetCurrentEndpoint();
+
+  if (cdc_device.State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
+  {
+    /* IN packet */
+    Endpoint_SelectEndpoint(cdc_device.Config.DataINEndpoint.Address);
+
+    if (!Endpoint_IsEnabled() || !Endpoint_IsConfigured()) {
+        Endpoint_SelectEndpoint(ep);
+        return;
+    }
+
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+
+    Endpoint_Write_8(byte);
+    CDC_Device_Flush(&cdc_device);
+
+    if (Endpoint_IsINReady()) {
+      Endpoint_ClearIN();
+    }
+
+    Endpoint_SelectEndpoint(ep);
+  }
+}
+#endif
 
 /*******************************************************************************
  * main
@@ -918,6 +1016,10 @@ int main(void)
     sleep_led_init();
 #endif
 
+#ifdef VIRTSER_ENABLE
+    virtser_init();
+#endif
+
     print("Keyboard start.\n");
     while (1) {
         #ifndef BLUETOOTH_ENABLE
@@ -935,6 +1037,11 @@ int main(void)
         // MIDI_Task();
 #endif
         keyboard_task();
+
+#ifdef VIRTSER_ENABLE
+        virtser_task();
+        CDC_Device_USBTask(&cdc_device);
+#endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();

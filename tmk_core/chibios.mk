@@ -89,9 +89,9 @@ CHIBISRC = $(STARTUPSRC) \
 	   $(STARTUPASM) \
 	   $(PORTASM) \
 	   $(OSALASM)         
-	   
-SRC += $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
+CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
+	   
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
@@ -142,14 +142,6 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
-
-# Define ASM defines here
-# bootloader definitions may be used in the startup .s file
-ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
-endif
 
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
