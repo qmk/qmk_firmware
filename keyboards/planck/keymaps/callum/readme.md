@@ -1,11 +1,11 @@
 # callum’s planck layout
 
-This is a layout for the grid planck, built with a few ideals in mind. These ideals are just my opinion mind! The great thing about *qmk* is that we can all afford to have different opinions about what makes a good layout:
+This is a layout for the grid planck, built with a few ideals in mind:
 
-- Minimal response times should be maintained. i.e. keys that react differently depending on whether they are tapped or held, keys that react differently if they are double tapped, etc. should be avoided — since they inevitably send their keycode later than a normal key, interrupting the immediate feedback from the screen. Therefore we restrict ourselves to chording.
+- Minimal response times should be maintained. i.e. keys that react differently depending on whether they are tapped or held, keys that react differently if they are double tapped, etc. should be avoided — they inevitably send their keycode later than a normal key, interrupting the immediate feedback from the screen. Therefore we restrict ourselves to chording.
 - The hands should never need to leave the home position. The usual culprit for this is the arrow cluster, so the arrow cluster should be as close to home as possible.
-- There should be two of every modifier (one on each side), since otherwise certain long key combinations become hard to make.
-- Backspace should be in the “capslock position” as God intended.
+- There should be two of every modifier (one on each side), otherwise certain long key combinations become hard to make.
+- Backspace should be in the “capslock position” in the colemak tradition.
 
 We have four layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow cluster etc, a `SYMB` layer, with numbers and symbols; and a `FUNC` layer, with function keys and media keys.
 
