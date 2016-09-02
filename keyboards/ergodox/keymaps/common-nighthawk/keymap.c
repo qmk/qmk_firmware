@@ -7,17 +7,34 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+//Tap Dance Declarations
+enum {
+  TD_J_LBRC = 0,
+  TD_K_RBRC,
+  TD_Y_ESC,
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_J_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_J, KC_LBRC),
+  [TD_K_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_K, KC_RBRC),
+  [TD_Y_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_ESC)
+};
+
+//Macro Declarations
+static uint16_t sunds_timer;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | Esc    |   x  |   x  |   x  |   _  | Hypr | Home |           | End  | Hypr |  Esc |   x  |   x  |   x  |   `~   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |Tab/Ctrl|   Q  |   W  |   E  |   R  |   T  |  Up  |           | PgUp |   Y  |   U  |   I  |   O  |   P  |Bks/Ctrl|
+ * |Tab/Ctrl|   Q  |   W  |   E  |   R  |   T  |  Up  |           | PgUp |Y 2Esc|   U  |   I  |   O  |   P  |Bks/Ctrl|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | '"/Cmd |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;:  |Entr/Cmd|
+ * | '"/Cmd |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  | J 2[ | K 2] |   L  |  ;:  |Entr/Cmd|
  * |--------+------+------+------+------+------| Down |           | PgDn |------+------+------+------+------+--------|
- * | Sft//[ |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  ,<  |  .>  |  /?  |]/RShift|
+ * | _/Shft |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  ,<  |  .>  |  /?  | _/Shft |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | Alt  |   x  |   x  |   x  | Left |                                       |Right |   x  |   x  |   x  |  Alt |
  *   `----------------------------------'                                       `----------------------------------'
@@ -29,27 +46,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |Teensy|       | Prev |        |      |
  *                                 `--------------------'       `----------------------'
  */
-  /* TO DO: turn on third light when shifted */
-  /*        consider turning caplock back on.  but maybe not. */
-  /*        get less key presses for ShiftIt going with MEH or CAG */
-  /*        make all letter keys KC_NO for the media layer */
-            /* add the mouse wheel up and down */
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_ESC,          KC_1,          KC_1,     KC_1,     KC_UNDS,  ALL_T(KC_NO),   KC_HOME,
-        CTL_T(KC_TAB),   KC_Q,          KC_W,     KC_E,     KC_R,     KC_T,           KC_UP,
-        GUI_T(KC_QUOT),  KC_A,          KC_S,     KC_D,     KC_F,     KC_G,
-        ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_LBRC),  KC_Z,          KC_X,     KC_C,     KC_V,     KC_B,           KC_DOWN,
-        KC_LALT,         KC_1,          KC_1,     KC_1,     KC_LEFT,
-                                                            KC_MUTE,  KC_VOLU,
-                                                            KC_VOLD,
-                                                            LT(SYMB, KC_SPC),  TG(MDIA),  RESET,
+        KC_ESC,          KC_1,          KC_1,          KC_1,            KC_UNDS,  ALL_T(KC_NO),      KC_HOME,
+        CTL_T(KC_TAB),   KC_Q,          KC_W,          KC_E,            KC_R,     KC_T,              KC_UP,
+        GUI_T(KC_QUOT),  KC_A,          KC_S,          KC_D,            KC_F,     KC_G,
+        M(1),            KC_Z,          KC_X,          KC_C,            KC_V,     KC_B,              KC_DOWN,
+        KC_LALT,         KC_1,          KC_1,          KC_1,            KC_LEFT,
+                                                                        KC_MUTE,  KC_VOLU,
+                                                                        KC_VOLD,
+                                                                        LT(SYMB, KC_SPC),  TG(MDIA),  RESET,
         // right hand
-        KC_END,          ALL_T(KC_NO),  KC_ESC,   KC_1,     KC_1,     KC_1,       KC_GRV,
-        KC_PGUP,         KC_Y,          KC_U,     KC_I,     KC_O,     KC_P,       CTL_T(KC_BSPC),
-                         KC_H,          KC_J,     KC_K,     KC_L,     KC_SCOLON,  GUI_T(KC_ENT),
-        KC_PGDN,         KC_N,          KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,    ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_RBRC),
-                                        KC_RGHT,  KC_1,     KC_1,     KC_1,       KC_RALT,
+        KC_END,          ALL_T(KC_NO),  KC_ESC,         KC_1,           KC_1,     KC_1,              KC_GRV,
+        KC_PGUP,         TD(TD_Y_ESC),  KC_U,           KC_I,           KC_O,     KC_P,              CTL_T(KC_BSPC),
+                         KC_H,          TD(TD_J_LBRC),  TD(TD_K_RBRC),  KC_L,     KC_SCOLON,         GUI_T(KC_ENT),
+        KC_PGDN,         KC_N,          KC_M,           KC_COMM,        KC_DOT,   KC_SLSH,           M(1),
+                                        KC_RGHT,        KC_1,           KC_1,     KC_1,              KC_RALT,
         KC_MPLY,         KC_DEL,
         KC_MNXT,
         KC_MPRV,         TG(MDIA),      LT(SYMB, KC_SPC)
@@ -148,10 +160,24 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   // MACRODOWN only works in this function
       switch(id) {
         case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
+          if (record->event.pressed) {
+            SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+          }
+          break;
+
+        case 1:
+          if (record->event.pressed) {
+            sunds_timer = timer_read();
+            register_code (KC_LSFT);
+          } else {
+            if (timer_elapsed (sunds_timer) < TAPPING_TERM) {
+              register_code (KC_MINS);
+              unregister_code (KC_MINS);
+            }
+            unregister_code (KC_LSFT);
+          }
+          break;
+
       }
     return MACRO_NONE;
 };
