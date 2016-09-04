@@ -123,7 +123,7 @@ void music_scale_user(void)
 }
 
 
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for equal, twice for hyper + X (alfred lock)
   [TD_EQ_LOCK] = ACTION_TAP_DANCE_DOUBLE(KC_EQL,  HYPR(KC_X)),
   //Tap once for minus, twice for time.heals.nothing

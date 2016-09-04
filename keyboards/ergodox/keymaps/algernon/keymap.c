@@ -853,7 +853,7 @@ void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_ta->finished_once = false;
 }
 
-const qk_tap_dance_action_t tap_dance_actions[] = {
+qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_cln_finished, ang_tap_dance_cln_reset)
   ,[CT_MNS] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_mns_finished, ang_tap_dance_mns_reset)
   ,[CT_TA]  = {
