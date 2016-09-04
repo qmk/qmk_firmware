@@ -877,6 +877,66 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 
 You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
 
+## Backlight Breathing
+
+In order to enable backlight breathing, the following line must be added to your config.h file.
+
+    #define BACKLIGHT_BREATHING
+
+The following function calls are used to control the breathing effect.
+
+* ```breathing_enable()``` - Enable the free-running breathing effect.
+* ```breathing_disable()``` - Disable the free-running breathing effect immediately.
+* ```breathing_self_disable()``` - Disable the free-running breathing effect after the current effect ends.
+* ```breathing_toggle()``` - Toggle the free-running breathing effect.
+* ```breathing_defaults()``` - Reset the speed and brightness settings of the breathing effect.
+
+The following function calls are used to control the maximum brightness of the breathing effect.
+
+* ```breathing_intensity_set(value)``` - Set the brightness of the breathing effect when it is at its max value.
+* ```breathing_intensity_default()``` - Reset the brightness of the breathing effect to the default value based on the current backlight intensity.
+
+The following function calls are used to control the cycling speed of the breathing effect.
+
+* ```breathing_speed_set(value)``` - Set the speed of the breathing effect - how fast it cycles.
+* ```breathing_speed_inc(value)``` - Increase the speed of the breathing effect by a fixed value.
+* ```breathing_speed_dec(value)``` - Decrease the speed of the breathing effect by a fixed value.
+* ```breathing_speed_default()``` - Reset the speed of the breathing effect to the default value.
+
+The following example shows how to enable the backlight breathing effect when the FUNCTION layer macro button is pressed:
+
+    case MACRO_FUNCTION:
+        if (record->event.pressed)
+        {
+            breathing_speed_set(3);
+            breathing_enable();
+            layer_on(LAYER_FUNCTION);
+        }
+        else
+        {
+            breathing_speed_set(1);
+            breathing_self_disable();
+            layer_off(LAYER_FUNCTION);
+        }
+        break;
+
+The following example shows how to pulse the backlight on-off-on when the RAISED layer macro button is pressed:
+
+    case MACRO_RAISED:
+      if (record->event.pressed)
+      {
+        layer_on(LAYER_RAISED);
+        breathing_speed_set(2);
+        breathing_pulse();
+        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
+      }
+      else
+      {
+        layer_off(LAYER_RAISED);
+        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
+      }
+      break;
+
 ## Other firmware shortcut keycodes
 
 * `RESET` - puts the MCU in DFU mode for flashing new firmware (with `make dfu`)
@@ -1029,66 +1089,6 @@ In the default script of AutoHotkey you can define custom hotkeys.
 
 The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
 AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
-
-## Backlight Breathing
-
-In order to enable backlight breathing, the following line must be added to your config.h file.
-
-    #define BACKLIGHT_BREATHING
-
-The following function calls are used to control the breathing effect.
-
-* ```breathing_enable()``` - Enable the free-running breathing effect.
-* ```breathing_disable()``` - Disable the free-running breathing effect immediately.
-* ```breathing_self_disable()``` - Disable the free-running breathing effect after the current effect ends.
-* ```breathing_toggle()``` - Toggle the free-running breathing effect.
-* ```breathing_defaults()``` - Reset the speed and brightness settings of the breathing effect.
-
-The following function calls are used to control the maximum brightness of the breathing effect.
-
-* ```breathing_intensity_set(value)``` - Set the brightness of the breathing effect when it is at its max value.
-* ```breathing_intensity_default()``` - Reset the brightness of the breathing effect to the default value based on the current backlight intensity.
-
-The following function calls are used to control the cycling speed of the breathing effect.
-
-* ```breathing_speed_set(value)``` - Set the speed of the breathing effect - how fast it cycles.
-* ```breathing_speed_inc(value)``` - Increase the speed of the breathing effect by a fixed value.
-* ```breathing_speed_dec(value)``` - Decrease the speed of the breathing effect by a fixed value.
-* ```breathing_speed_default()``` - Reset the speed of the breathing effect to the default value.
-
-The following example shows how to enable the backlight breathing effect when the FUNCTION layer macro button is pressed:
-
-    case MACRO_FUNCTION:
-        if (record->event.pressed)
-        {
-            breathing_speed_set(3);
-            breathing_enable();
-            layer_on(LAYER_FUNCTION);
-        }
-        else
-        {
-            breathing_speed_set(1);
-            breathing_self_disable();
-            layer_off(LAYER_FUNCTION);
-        }
-        break;
-
-The following example shows how to pulse the backlight on-off-on when the RAISED layer macro button is pressed:
-
-    case MACRO_RAISED:
-      if (record->event.pressed)
-      {
-        layer_on(LAYER_RAISED);
-        breathing_speed_set(2);
-        breathing_pulse();
-        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
-      }
-      else
-      {
-        layer_off(LAYER_RAISED);
-        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
-      }
-      break;
 
 ## RGB Under Glow Mod
 
