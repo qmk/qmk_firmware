@@ -67,7 +67,6 @@ void matrix_init(void) {
     matrix[i] = 0;
     matrix_debouncing[i] = 0;
   }
-  matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
@@ -95,7 +94,7 @@ uint8_t matrix_scan(void) {
       }
     }
   }
-  matrix_scan_quantum();
+  
   return 1;
 }
 

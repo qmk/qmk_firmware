@@ -1,3 +1,3 @@
-ifndef MAKEFILE_INCLUDED
+ifndef QUANTUM_DIR
 	include ../../Makefile
 endif
