@@ -23,7 +23,8 @@ enum planck_keycodes {
   MOVE,
   SYMB,
   FUNC,
-  LOCK
+  LOCK,
+  CLOSE
 };
 
 // Fillers to make layering more clear
@@ -110,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------------------.
  * |      | Play | Prev | Next | BL+  |      |      | Lock |      |      | Mac  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Mute | Vol- | Vol+ | BL-  |      |      |      |      |      | Win  |      |
+ * |      | Mute | Vol- | Vol+ | BL-  |      |      |Close |      |      | Win  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |Reset |
  * `-----------------------------------------------------------------------------------'
@@ -118,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FUNC] = {
   {KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
   {_______, KC_MPLY, KC_MPRV, KC_MNXT, KC_PAUS, _______, _______, LOCK,    _______, _______, MAC,     _______},
-  {_______, KC_MUTE, KC_VOLD, KC_VOLU, KC_SLCK, _______, _______, _______, _______, _______, WIN,     _______},
+  {_______, KC_MUTE, KC_VOLD, KC_VOLU, KC_SLCK, _______, _______, CLOSE,   _______, _______, WIN,     _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET  }
 }
 
@@ -180,6 +181,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_POWER);
         unregister_code(KC_RCTL);
         unregister_code(KC_RSFT);
+      }
+      return false;
+      break;
+    case CLOSE:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        register_code(KC_F4);
+      } else {
+        unregister_code(KC_F4);
+        unregister_code(KC_LALT);
       }
       return false;
       break;
