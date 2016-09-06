@@ -332,11 +332,13 @@ $1/compiler.txt: $1/force
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 
+.PRECIOUS: $(MASTER_OUTPUT)/obj.txt
 $(MASTER_OUTPUT)/obj.txt: $(MASTER_OUTPUT)/force
-	echo '$(OBJ)' | cmp -s - $$@ || echo '$(OBJ)' > $$@
+	echo '$(OBJ)' | cmp -s - $@ || echo '$(OBJ)' > $@
 
+.PRECIOUS: $(MASTER_OUTPUT)/ldflags.txt
 $(MASTER_OUTPUT)/ldflags.txt: $(MASTER_OUTPUT)/force
-	echo '$(LDFLAGS)' | cmp -s - $$@ || echo '$(LDFLAGS)' > $$@
+	echo '$(LDFLAGS)' | cmp -s - $@ || echo '$(LDFLAGS)' > $@
 
 
 # We have to use static rules for the .d files for some reason
