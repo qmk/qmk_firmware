@@ -11,13 +11,15 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _BASE 0
-#define _MOVE 1
-#define _SYMB 2
-#define _FUNC 3
+#define _MAC 0
+#define _WIN 1
+#define _MOVE 2
+#define _SYMB 3
+#define _FUNC 4
 
 enum planck_keycodes {
-  BASE = SAFE_RANGE,
+  MAC = SAFE_RANGE,
+  WIN,
   MOVE,
   SYMB,
   FUNC,
@@ -30,7 +32,7 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* BASE
+/* BASE Mac
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  -   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -41,11 +43,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Func | Ctrl | Alt  | GUI  | Symb |Enter |Space | Move | GUI  | Alt  | Ctrl |Caps  |
  * `-----------------------------------------------------------------------------------'
  */
-[_BASE] = {
+[_MAC] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS},
   {KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
   {FUNC,    KC_LCTL, KC_LALT, KC_LGUI, SYMB,    KC_ENT,  KC_SPC,  MOVE,    KC_RGUI, KC_RALT, KC_RCTL, KC_CAPS}
+},
+
+/* BASE Windows
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  -   |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Bksp |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Func | GUI  | Alt  | Ctrl | Symb |Enter |Space | Move | Ctrl | Alt  | GUI  |Caps  |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_WIN] = {
+  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS},
+  {KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
+  {FUNC,    KC_LGUI, KC_LALT, KC_LCTL, SYMB,    KC_ENT,  KC_SPC,  MOVE,    KC_RCTL, KC_RALT, KC_RGUI, KC_CAPS}
 },
 
 /* MOVE
@@ -88,24 +108,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | F12  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |-----------------------------------------------------------------------------------.
- * |      | Play | Prev | Next | BL+  |      |      | Lock |      |      |      |      |
+ * |      | Play | Prev | Next | BL+  |      |      | Lock |      |      | Mac  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Mute | Vol- | Vol+ | BL-  |      |      |      |      |      |      |      |
+ * |      | Mute | Vol- | Vol+ | BL-  |      |      |      |      |      | Win  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |Reset |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = {
   {KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
-  {_______, KC_MPLY, KC_MPRV, KC_MNXT, KC_PAUS, _______, _______, LOCK,    _______, _______, _______, _______},
-  {_______, KC_MUTE, KC_VOLD, KC_VOLU, KC_SLCK, _______, _______, _______, _______, _______, _______, _______},
+  {_______, KC_MPLY, KC_MPRV, KC_MNXT, KC_PAUS, _______, _______, LOCK,    _______, _______, MAC,     _______},
+  {_______, KC_MUTE, KC_VOLD, KC_VOLU, KC_SLCK, _______, _______, _______, _______, _______, WIN,     _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET  }
 }
 
 };
 
+void persistant_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case MAC:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_MAC);
+      }
+      return false;
+      break;
+    case WIN:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_WIN);
+      }
+      return false;
+      break;
     case MOVE:
       if (record->event.pressed) {
         layer_on(_MOVE);
