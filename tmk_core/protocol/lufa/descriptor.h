@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
@@ -129,13 +129,13 @@ typedef struct
 #   define MOUSE_INTERFACE          (KEYBOARD_INTERFACE + 1)
 #else
 #   define MOUSE_INTERFACE          KEYBOARD_INTERFACE
-#endif 
+#endif
 
 #ifdef EXTRAKEY_ENABLE
 #   define EXTRAKEY_INTERFACE       (MOUSE_INTERFACE + 1)
 #else
 #   define EXTRAKEY_INTERFACE       MOUSE_INTERFACE
-#endif 
+#endif
 
 #ifdef CONSOLE_ENABLE
 #   define CONSOLE_INTERFACE        (EXTRAKEY_INTERFACE + 1)
@@ -171,7 +171,7 @@ typedef struct
 #define KEYBOARD_IN_EPNUM           1
 
 #ifdef MOUSE_ENABLE
-#   define MOUSE_IN_EPNUM           (KEYBOARD_IN_EPNUM + 1) 
+#   define MOUSE_IN_EPNUM           (KEYBOARD_IN_EPNUM + 1)
 #else
 #   define MOUSE_IN_EPNUM           KEYBOARD_IN_EPNUM
 #endif
@@ -179,7 +179,7 @@ typedef struct
 #ifdef EXTRAKEY_ENABLE
 #   define EXTRAKEY_IN_EPNUM        (MOUSE_IN_EPNUM + 1)
 #else
-#   define EXTRAKEY_IN_EPNUM        MOUSE_IN_EPNUM 
+#   define EXTRAKEY_IN_EPNUM        MOUSE_IN_EPNUM
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -226,7 +226,7 @@ typedef struct
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
 #define CONSOLE_EPSIZE              32
-#define NKRO_EPSIZE                 16
+#define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64
 #define CDC_NOTIFICATION_EPSIZE     8
 #define CDC_EPSIZE                  16
