@@ -1,5 +1,5 @@
 partial alphanumeric_keys modifier_keys
-xkb_symbols "ergodox_ez_yoruian" {
+xkb_symbols "ergodox_yoruian" {
     include "us"
     name[Group1]= "English (yoruian-1.0.0)";
 
