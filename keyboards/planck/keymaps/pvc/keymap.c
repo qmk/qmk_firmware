@@ -83,6 +83,7 @@ enum keyboard_macros {
 #define SC_ACLS             LALT(KC_F4)
 #define SC_CCLS             LCTL(KC_F4)
 
+#define TG_NKRO             MAGIC_TOGGLE_NKRO
 #define OS_SHFT             KC_FN0
 
 #define _______             KC_TRNS
@@ -206,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_ADJUST] = {
   { XXXXXXX, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG , AU_TOG  },
   { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
-  { XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, RESET  , XXXXXXX, M_MOUSE, XXXXXXX, XXXXXXX, MUV_IN , XXXXXXX },
+  { XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, RESET  , TG_NKRO, M_MOUSE, XXXXXXX, XXXXXXX, MUV_IN , XXXXXXX },
   { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_UPPER, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, TMPO_DN, MUV_DE , TMPO_UP }
 },
 
@@ -236,7 +237,7 @@ void persistant_default_layer_set(uint16_t default_layer)
 }
 
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_ONESHOT(MOD_LSFT),
+    [0] = ACTION_MODS_ONESHOT(MOD_RSFT),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
