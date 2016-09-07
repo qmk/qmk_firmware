@@ -9,15 +9,15 @@
 
 //Tap Dance Declarations
 enum {
-  TD_J_LBRC = 0,
-  TD_K_RBRC,
+  TD_U_LBRC = 0,
+  TD_I_RBRC,
   TD_Y_ESC,
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_J_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_J, KC_LBRC),
-  [TD_K_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_K, KC_RBRC),
+  [TD_U_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_U, KC_LBRC),
+  [TD_I_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_I, KC_RBRC),
   [TD_Y_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_ESC)
 };
 
@@ -30,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | Esc    |   x  |   x  |   x  |   _  | Hypr | Home |           | End  | Hypr |  Esc |   x  |   x  |   x  |   `~   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |Tab/Ctrl|   Q  |   W  |   E  |   R  |   T  |  Up  |           | PgUp |Y 2Esc|   U  |   I  |   O  |   P  |Bks/Ctrl|
+ * |Tab/Ctrl|   Q  |   W  |   E  |   R  |   T  |  Up  |           | PgUp |Y 2Esc| U 2[ | I 2] |   O  |   P  |Bks/Ctrl|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | '"/Cmd |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  | J 2[ | K 2] |   L  |  ;:  |Entr/Cmd|
+ * | '"/Cmd |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;:  |Entr/Cmd|
  * |--------+------+------+------+------+------| Down |           | PgDn |------+------+------+------+------+--------|
  * | _/Shft |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  ,<  |  .>  |  /?  | _/Shft |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -58,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                         LT(SYMB, KC_SPC),  TG(MDIA),  RESET,
         // right hand
         KC_END,          ALL_T(KC_NO),  KC_ESC,         KC_1,           KC_1,     KC_1,              KC_GRV,
-        KC_PGUP,         TD(TD_Y_ESC),  KC_U,           KC_I,           KC_O,     KC_P,              CTL_T(KC_BSPC),
-                         KC_H,          TD(TD_J_LBRC),  TD(TD_K_RBRC),  KC_L,     KC_SCOLON,         GUI_T(KC_ENT),
+        KC_PGUP,         TD(TD_Y_ESC),  TD(TD_U_LBRC),  TD(TD_I_RBRC),  KC_O,     KC_P,              CTL_T(KC_BSPC),
+                         KC_H,          KC_J,           KC_K,           KC_L,     KC_SCOLON,         GUI_T(KC_ENT),
         KC_PGDN,         KC_N,          KC_M,           KC_COMM,        KC_DOT,   KC_SLSH,           M(1),
                                         KC_RGHT,        KC_1,           KC_1,     KC_1,              KC_RALT,
         KC_MPLY,         KC_DEL,
