@@ -1,5 +1,0 @@
-#ifndef KEYBOARDS_ERGODOX_ERGODOX_H_
-#define KEYBOARDS_ERGODOX_ERGODOX_H_
-#include "ergodox80.h"
-
-#endif /* KEYBOARDS_ERGODOX_ERGODOX_H_ */
