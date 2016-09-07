@@ -147,8 +147,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
     case KM_PPLR:
-        if (!record->event.pressed) {
-            if (default_layer_state & (1UL << _PP) && !(default_layer_state & (1UL << _PPG))) {
+        if (record->event.pressed) {
+            key_timer = timer_read();
+        } else {
+            if (timer_elapsed(key_timer) >= 250) {
                 default_layer_set((1UL << _PP) | (1UL << _PPG));
                 backlight_toggle();
                 _delay_ms(100);
