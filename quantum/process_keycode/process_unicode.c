@@ -18,6 +18,10 @@ void set_unicode_input_mode(uint8_t os_target)
   input_mode = os_target;
 }
 
+uint8_t get_unicode_input_mode(void) {
+  return input_mode;
+}
+
 __attribute__((weak))
 void unicode_input_start (void) {
   switch(input_mode) {
