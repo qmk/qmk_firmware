@@ -77,3 +77,4 @@ doing sundry experimentation:
   * The jeebak keymap seems to have some neat ideas:
     - Number layer which is aggressive about having numbers in several places
     - Touch layer seems interesting
+  * Trying out sgoodwin's "hold Enter down to get Shift"
