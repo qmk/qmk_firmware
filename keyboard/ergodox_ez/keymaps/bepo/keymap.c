@@ -325,7 +325,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  RESET |      |      | Calc | Mail |Browsr|------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      | cut  | copy |paste | Mute |VolDn |           |      |      |      |      |      |      |        |
+ * |        | App  | cut  | copy |paste | Mute |VolDn |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -342,7 +342,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        TG(LR_CSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        RESET,      KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
-       KC_TRNS,    KC_TRNS, S(KC_DELT),   LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
+       KC_TRNS,    KC_APP,  S(KC_DELT),   LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,
