@@ -238,7 +238,7 @@ static void print_status(void)
     print_val_hex8(keyboard_protocol);
     print_val_hex8(keyboard_idle);
 #ifdef NKRO_ENABLE
-    print_val_hex8(keyboard_nkro);
+    print_val_hex8(keymap_config.nkro);
 #endif
     print_val_hex32(timer_read32());
 
@@ -435,8 +435,8 @@ static bool command_common(uint8_t code)
 		// NKRO toggle
         case MAGIC_KC(MAGIC_KEY_NKRO):
             clear_keyboard(); // clear to prevent stuck keys
-            keyboard_nkro = !keyboard_nkro;
-            if (keyboard_nkro) {
+            keymap_config.nkro = !keymap_config.nkro;
+            if (keymap_config.nkro) {
                 print("NKRO: on\n");
             } else {
                 print("NKRO: off\n");
