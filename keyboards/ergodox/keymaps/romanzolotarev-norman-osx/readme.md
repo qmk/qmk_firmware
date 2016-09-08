@@ -20,7 +20,7 @@ It is `CTL_T(KC_ESC)` and it works this way:
 
 ## How to activate N-rollover
 
-- Hold left `SHIFT` and right `SHIRT` and then tap `N`.
+- Hold left `SHIFT` and right `SHIFT` and then tap `N`.
 
 ## How to make and flash on OS X
 
