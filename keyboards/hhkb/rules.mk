@@ -72,10 +72,6 @@ CUSTOM_MATRIX ?= yes    # Custom matrix file for the HHKB
 # UNICODE_ENABLE ?= yes    # Unicode
 # BLUETOOTH_ENABLE ?= yes  # Enable Bluetooth with the Adafruit EZ-Key HID
 
-ifneq (, $(findstring yes, $(HHKB_JP)))
-	OPT_DEFS += -DHHKB_JP
-endif
-
 debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
 debug-on: all
 
