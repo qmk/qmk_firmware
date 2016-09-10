@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2012 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
@@ -52,12 +52,23 @@
 #include "descriptor.h"
 #include "lufa.h"
 
+#ifdef NKRO_ENABLE
+  #include "keycode_config.h"
+
+  extern keymap_config_t keymap_config;
+#endif
+
+
 #ifdef AUDIO_ENABLE
     #include <audio.h>
 #endif
 
 #ifdef BLUETOOTH_ENABLE
     #include "bluetooth.h"
+#endif
+
+#ifdef VIRTSER_ENABLE
+    #include "virtser.h"
 #endif
 
 uint8_t keyboard_idle = 0;
@@ -127,6 +138,34 @@ USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 #define SYS_COMMON_3 0x30
 #endif
 
+#ifdef VIRTSER_ENABLE
+USB_ClassInfo_CDC_Device_t cdc_device =
+{
+  .Config =
+  {
+    .ControlInterfaceNumber = CCI_INTERFACE,
+    .DataINEndpoint         =
+    {
+      .Address		= CDC_IN_EPADDR,
+      .Size		= CDC_EPSIZE,
+      .Banks		= 1,
+    },
+    .DataOUTEndpoint	    =
+    {
+      .Address		= CDC_OUT_EPADDR,
+      .Size		= CDC_EPSIZE,
+      .Banks		= 1,
+    },
+    .NotificationEndpoint   =
+    {
+      .Address		= CDC_NOTIFICATION_EPADDR,
+      .Size		= CDC_NOTIFICATION_EPSIZE,
+      .Banks		= 1,
+    },
+  },
+};
+#endif
+
 
 /*******************************************************************************
  * Console
@@ -152,10 +191,10 @@ static void Console_Task(void)
         {
             /* Create a temporary buffer to hold the read in report from the host */
             uint8_t ConsoleData[CONSOLE_EPSIZE];
- 
+
             /* Read Console Report Data */
             Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
- 
+
             /* Process Console Report Data */
             //ProcessConsoleHIDReport(ConsoleData);
         }
@@ -182,10 +221,6 @@ static void Console_Task(void)
     }
 
     Endpoint_SelectEndpoint(ep);
-}
-#else
-static void Console_Task(void)
-{
 }
 #endif
 
@@ -216,7 +251,7 @@ void EVENT_USB_Device_Disconnect(void)
     print("[D]");
     /* For battery powered device */
     USB_IsInitialized = false;
-/* TODO: This doesn't work. After several plug in/outs can not be enumerated. 
+/* TODO: This doesn't work. After several plug in/outs can not be enumerated.
     if (USB_IsInitialized) {
         USB_Disable();  // Disable all interrupts
 	USB_Controller_Enable();
@@ -313,7 +348,13 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 #ifdef MIDI_ENABLE
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);    
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
+
+#ifdef VIRTSER_ENABLE
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_OUT_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_IN_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 }
 
@@ -436,10 +477,15 @@ void EVENT_USB_Device_ControlRequest(void)
 
             break;
     }
+
+#ifdef VIRTSER_ENABLE
+    CDC_Device_ProcessControlRequest(&cdc_device);
+#endif
 }
 
 /*******************************************************************************
- * Host driver 
+ * Host driver
+p
  ******************************************************************************/
 static uint8_t keyboard_leds(void)
 {
@@ -463,7 +509,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
+    if (keyboard_protocol && keymap_config.nkro) {
         /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 
@@ -563,7 +609,7 @@ static void send_consumer(uint16_t data)
     bluefruit_serial_send(0x00);
     bluefruit_serial_send(0x02);
     bluefruit_serial_send((bitmap>>8)&0xFF);
-    bluefruit_serial_send(bitmap&0xFF); 
+    bluefruit_serial_send(bitmap&0xFF);
     bluefruit_serial_send(0x00);
     bluefruit_serial_send(0x00);
     bluefruit_serial_send(0x00);
@@ -831,6 +877,61 @@ void MIDI_Task(void)
 
 #endif
 
+/*******************************************************************************
+ * VIRTUAL SERIAL
+ ******************************************************************************/
+
+#ifdef VIRTSER_ENABLE
+void virtser_init(void)
+{
+  cdc_device.State.ControlLineStates.DeviceToHost = CDC_CONTROL_LINE_IN_DSR ;
+  CDC_Device_SendControlLineStateChange(&cdc_device);
+}
+
+void virtser_recv(uint8_t c) __attribute__ ((weak));
+void virtser_recv(uint8_t c)
+{
+  // Ignore by default
+}
+
+void virtser_task(void)
+{
+  uint16_t count = CDC_Device_BytesReceived(&cdc_device);
+  uint8_t ch;
+  if (count)
+  {
+    ch = CDC_Device_ReceiveByte(&cdc_device);
+    virtser_recv(ch);
+  }
+}
+void virtser_send(const uint8_t byte)
+{
+  uint8_t timeout = 255;
+  uint8_t ep = Endpoint_GetCurrentEndpoint();
+
+  if (cdc_device.State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
+  {
+    /* IN packet */
+    Endpoint_SelectEndpoint(cdc_device.Config.DataINEndpoint.Address);
+
+    if (!Endpoint_IsEnabled() || !Endpoint_IsConfigured()) {
+        Endpoint_SelectEndpoint(ep);
+        return;
+    }
+
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+
+    Endpoint_Write_8(byte);
+    CDC_Device_Flush(&cdc_device);
+
+    if (Endpoint_IsINReady()) {
+      Endpoint_ClearIN();
+    }
+
+    Endpoint_SelectEndpoint(ep);
+  }
+}
+#endif
 
 /*******************************************************************************
  * main
@@ -842,7 +943,10 @@ static void setup_mcu(void)
     wdt_disable();
 
     /* Disable clock division */
-    clock_prescale_set(clock_div_1);
+    // clock_prescale_set(clock_div_1);
+
+    CLKPR = (1 << CLKPCE);
+    CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
 }
 
 static void setup_usb(void)
@@ -887,7 +991,7 @@ int main(void)
     midi_register_cc_callback(&midi_device, cc_callback);
     midi_register_sysex_callback(&midi_device, sysex_callback);
 
-    init_notes();
+    // init_notes();
     // midi_send_cc(&midi_device, 0, 1, 2);
     // midi_send_cc(&midi_device, 15, 1, 0);
     // midi_send_noteon(&midi_device, 0, 64, 127);
@@ -919,6 +1023,10 @@ int main(void)
     sleep_led_init();
 #endif
 
+#ifdef VIRTSER_ENABLE
+    virtser_init();
+#endif
+
     print("Keyboard start.\n");
     while (1) {
         #ifndef BLUETOOTH_ENABLE
@@ -937,6 +1045,11 @@ int main(void)
 #endif
         keyboard_task();
 
+#ifdef VIRTSER_ENABLE
+        virtser_task();
+        CDC_Device_USBTask(&cdc_device);
+#endif
+
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
 #endif
@@ -951,10 +1064,10 @@ void fallthrough_callback(MidiDevice * device,
   if (cnt == 3) {
     switch (byte0 & 0xF0) {
         case MIDI_NOTEON:
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
+            play_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
             break;
         case MIDI_NOTEOFF:
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(byte1 & 0x7F)/12.0));
+            stop_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0));
             break;
     }
   }

@@ -266,7 +266,7 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x95, 0x06,          //   Report Count (6),
     0x75, 0x08,          //   Report Size (8),
     0x15, 0x00,          //   Logical Minimum (0),
-    0x25, 0xFF,          //   Logical Maximum(255),
+    0x25, 0xFF, 0x00     //   Logical Maximum(255),
     0x05, 0x07,          //   Usage Page (Key Codes),
     0x19, 0x00,          //   Usage Minimum (0),
     0x29, 0xFF,          //   Usage Maximum (255),
@@ -336,7 +336,7 @@ const PROGMEM uchar mouse_hid_report[] = {
     0xa1, 0x01,                    // COLLECTION (Application)
     0x85, REPORT_ID_SYSTEM,        //   REPORT_ID (2)
     0x15, 0x01,                    //   LOGICAL_MINIMUM (0x1)
-    0x25, 0xb7,                    //   LOGICAL_MAXIMUM (0xb7)
+    0x25, 0xb7, 0x00               //   LOGICAL_MAXIMUM (0xb7)
     0x19, 0x01,                    //   USAGE_MINIMUM (0x1)
     0x29, 0xb7,                    //   USAGE_MAXIMUM (0xb7)
     0x75, 0x10,                    //   REPORT_SIZE (16)
