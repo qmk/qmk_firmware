@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "backlight.h"
 #include "quantum.h"
+#include "version.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
@@ -180,7 +181,7 @@ static void print_version(void)
     print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
           "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
           "VER: " STR(DEVICE_VER) "\n");
-    print("BUILD: " STR(VERSION) " (" __TIME__ " " __DATE__ ")\n");
+    print("BUILD: " STR(QMK_VERSION) " (" __TIME__ " " __DATE__ ")\n");
 
     /* build options */
     print("OPTIONS:"
@@ -237,7 +238,7 @@ static void print_status(void)
     print_val_hex8(keyboard_protocol);
     print_val_hex8(keyboard_idle);
 #ifdef NKRO_ENABLE
-    print_val_hex8(keyboard_nkro);
+    print_val_hex8(keymap_config.nkro);
 #endif
     print_val_hex32(timer_read32());
 
@@ -434,8 +435,8 @@ static bool command_common(uint8_t code)
 		// NKRO toggle
         case MAGIC_KC(MAGIC_KEY_NKRO):
             clear_keyboard(); // clear to prevent stuck keys
-            keyboard_nkro = !keyboard_nkro;
-            if (keyboard_nkro) {
+            keymap_config.nkro = !keymap_config.nkro;
+            if (keymap_config.nkro) {
                 print("NKRO: on\n");
             } else {
                 print("NKRO: off\n");
