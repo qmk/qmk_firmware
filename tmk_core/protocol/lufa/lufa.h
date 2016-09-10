@@ -49,7 +49,7 @@
 #include <LUFA/Drivers/USB/USB.h>
 #include "host.h"
 #ifdef MIDI_ENABLE
-  #include "midi/midi.h"
+  #include "midi.h"
 #endif
 #ifdef __cplusplus
 extern "C" {

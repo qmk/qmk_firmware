@@ -56,10 +56,30 @@ void clear_macro_mods(void);
 
 /* oneshot modifier */
 void set_oneshot_mods(uint8_t mods);
+uint8_t get_oneshot_mods(void);
 void clear_oneshot_mods(void);
 void oneshot_toggle(void);
 void oneshot_enable(void);
 void oneshot_disable(void);
+bool has_oneshot_mods_timed_out(void);
+
+int8_t get_oneshot_locked_mods(void);
+void set_oneshot_locked_mods(int8_t mods);
+void clear_oneshot_locked_mods(void);
+
+typedef enum {
+  ONESHOT_PRESSED = 0b01,
+  ONESHOT_OTHER_KEY_PRESSED = 0b10,
+  ONESHOT_START = 0b11,
+  ONESHOT_TOGGLED = 0b100
+} oneshot_fullfillment_t;
+void set_oneshot_layer(uint8_t layer, uint8_t state);
+uint8_t get_oneshot_layer(void);
+void clear_oneshot_layer_state(oneshot_fullfillment_t state);
+void reset_oneshot_layer(void);
+bool is_oneshot_layer_active(void);
+uint8_t get_oneshot_layer_state(void);
+bool has_oneshot_layer_timed_out(void);
 
 /* inspect */
 uint8_t has_anykey(void);

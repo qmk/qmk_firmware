@@ -1,0 +1,1 @@
+HHKB_JP=yes

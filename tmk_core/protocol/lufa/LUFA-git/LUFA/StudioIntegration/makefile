@@ -109,7 +109,7 @@ generate_vsix: $(EXTENSION_OUTPUT_XML) $(MODULE_OUTPUT_XML) $(MSHELP_OUTPUT_XML)
 
 	@echo Archiving XDK content...
 	@rm -f contents.zip
-	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -0 -r --exclude=*Documentation* --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects README.txt
+	@cd $(LUFA_ROOT)/../ && zip contents.zip -q -0 -r --exclude=*Documentation* --exclude=*StudioIntegration* LUFA Bootloaders Demos Projects readme.txt
 
 	@echo Creating VSIX dependencies...
 	@cp $(VSIX_ASSETS) $(LUFA_ROOT)/..
