@@ -7,16 +7,10 @@ Christopher Browne
 This was originally based on the default keyboard map, but I have been
 doing sundry experimentation:
 
-1. Experiments
+1. Useful Experiments
 ----------------------------------------
 
- * To figure things out about the toolset
- * I'm an Emacs guy, so will be needing a fair bit of tuning
  * It made sense to mess around some with keyboard maps.
-   - I tried added Workman alongside Dvorak and Colemak
-     - Boy, oh boy, these don't help!!!
-     - I have done 30 years of learning of Emacs key mappings, and
-       these alternative keyboards massively mess me up
    - I added a keypad, originally based on keymaps/numpad.c, but
      mighty substantially revised, as that one seems to be rotated 90
      degrees from usual conventions for number pads
@@ -30,6 +24,7 @@ doing sundry experimentation:
    - Key [2][2] aka "a" uses a random number generator to select a digit 0-9 at random
    - Key [3][2] aka "z" uses a random number generator to select a letter a-z at random
    - Key [1][3] aka "e" spits out the keymap version number
+ * Minor use of Space Cadet Shift; my SHIFT key has switched to KC_LSP0, so that when I just hit SHIFT, I get a left parens: ( which is great for Lisping.  I don't have a Right Shift, so I don't get an autoclose; I think I'll live with that until a Planck successor with more lines of keys :-)
 
 2. Some code structure ideas
 ---------------------------------------------------
@@ -62,3 +57,24 @@ doing sundry experimentation:
      and shift ESC off the first column so KC_LCTL and KC_LALT can
      be on the first column.
    * I needed to swap ' and ENTER
+   * I tried added Workman alongside Dvorak and Colemak
+     - Boy, oh boy, these don't help!!!
+     - I have done 30 years of learning of Emacs key mappings, and
+       these alternative keyboards massively mess me up
+
+4. TODO
+---------------------------------------------------------
+
+  * I use tmux quite a lot; the mollat keymap seems to have some
+    interesting helpers.  It might be interesting to add a "tmux
+    layer," or to have a few keys in a layer oriented towards that
+  * The mollat tmux layer also suggests some thoughts about Emacs
+    helpers.
+  * I do not presently have anything that handles X11 screen
+    switching, as with Control-Alt-various
+  * I ought to probably look into KC_LEAD, to have some key combos
+    that do not need to be concurrent
+  * The jeebak keymap seems to have some neat ideas:
+    - Number layer which is aggressive about having numbers in several places
+    - Touch layer seems interesting
+  * Trying out sgoodwin's "hold Enter down to get Shift"
