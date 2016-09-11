@@ -97,7 +97,7 @@ If you are going to flash Infinity based keyboards you will also need dfu-util
 
 ### Linux
 
-To ensure you are always up to date, you can just run `sudo utils/install_dependencies.sh`. That should always install all the dependencies needed.
+To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed.
 
 You can also install things manually, but this documentation might not be always up to date with all requirements.
 
