@@ -1,7 +1,7 @@
 #ifndef KEYMAP_CANADIAN_MULTILINGUAG_H
 #define KEYMAP_CANADIAN_MULTILINGUAG_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
 #ifndef ALTGR
