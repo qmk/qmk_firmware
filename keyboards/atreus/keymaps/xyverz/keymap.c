@@ -17,43 +17,52 @@ extern keymap_config_t keymap_config;
 #define _CM 2
 #define _L1 3
 #define _L2 4
+#define _ADJUST 16
 
 // Macro name shortcuts
 #define DVORAK M(_DV)
 #define QWERTY M(_QW)
 #define COLEMAK M(_CM)
+#define L1 M(_L1)
+#define L2 M(_L2)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DV] = { /* Dvorak */
     {KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_NO,   KC_F,    KC_G,    KC_C,    KC_R,    KC_L   },
     {KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_NO,   KC_D,    KC_H,    KC_T,    KC_N,    KC_S   },
-    {SFT_T(KC_SCLN), KC_Q, KC_J, KC_K, KC_X, CTL_T(KC_DEL),  KC_B,  KC_M,  KC_W,  KC_V,   SFT_T(KC_Z) },
+    {SFT_T(KC_SCLN), KC_Q, KC_J, KC_K, KC_X, CTL_T(KC_BSPC),  KC_B,  KC_M,  KC_W,  KC_V,   SFT_T(KC_Z) },
     {KC_ESC, KC_TAB, KC_LGUI, MO(_L2), KC_BSPC, ALT_T(KC_ENT), KC_SPC, MO(_L1), KC_MINS, KC_SLSH, KC_EQL}
   },
   [_QW] = { /* Qwerty */
     {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_NO,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
     {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_NO,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
-    {SFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, CTL_T(KC_DEL), KC_N, KC_M, KC_COMM, KC_DOT, SFT_T(KC_SLSH)  },
-    {KC_ESC, KC_TAB, KC_LGUI, MO(_L2), KC_BSPC, ALT_T(KC_ENT), KC_SPC, MO(_L1), KC_MINS, KC_QUOT, KC_ENT}
+    {SFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, CTL_T(KC_BSPC), KC_N, KC_M, KC_COMM, KC_DOT, SFT_T(KC_SLSH)  },
+    {KC_ESC, KC_TAB, KC_LGUI, MO(_L2), KC_BSPC, ALT_T(KC_ENT), KC_SPC, MO(_L1), KC_MINS, KC_QUOT, KC_EQL}
   },
   [_CM] = { /* Colemak */
     {KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_NO,   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN},
     {KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_NO,   KC_H,    KC_N,    KC_E,    KC_I,    KC_O   },
-    {SFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, CTL_T(KC_DEL), KC_K, KC_M, KC_COMM, KC_DOT, SFT_T(KC_SLSH)  },
-    {KC_ESC, KC_TAB, KC_LGUI, MO(_L2), KC_BSPC, ALT_T(KC_ENT), KC_SPC, MO(_L1), KC_MINS, KC_QUOT, KC_ENT}
+    {SFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, CTL_T(KC_BSPC), KC_K, KC_M, KC_COMM, KC_DOT, SFT_T(KC_SLSH)  },
+    {KC_ESC, KC_TAB, KC_LGUI, MO(_L2), KC_BSPC, ALT_T(KC_ENT), KC_SPC, MO(_L1), KC_MINS, KC_QUOT, KC_EQL}
   },
   [_L1] = { /* LAYER 1 */
     {KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_NO,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0   },
     {KC_TAB,  KC_INS,  KC_UP,   KC_DEL,  KC_HOME, KC_NO,   KC_PGUP, KC_MUTE, KC_VOLD, KC_VOLU, KC_EQL },
     {KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_LCTL, KC_PGDN, KC_MPRV, KC_MPLY, KC_MNXT, KC_BSLS},
-    {KC_TRNS, KC_GRV,  KC_LGUI, KC_TRNS, KC_DEL,  KC_LALT, KC_SPC,  KC_TRNS, KC_LBRC, KC_RBRC, KC_ENT }
+    {KC_TRNS, KC_GRV,  KC_LGUI, KC_TRNS, KC_DEL,  KC_LALT, KC_SPC,  KC_TRNS, KC_LBRC, KC_RBRC, KC_TRNS}
   },
   [_L2] = { /* LAYER 2 */
     {KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO,   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN},
     {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,   KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_PLUS},
     {KC_TRNS, KC_TRNS, DVORAK,  QWERTY,  COLEMAK, KC_LCTL, KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12 },
-    {KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS, KC_BSPC, KC_LALT, KC_SPC,  KC_TRNS, LSFT(KC_LBRC), LSFT(KC_RBRC), RESET}
+    {KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS, KC_BSPC, KC_LALT, KC_SPC,  KC_TRNS, LSFT(KC_LBRC), LSFT(KC_RBRC), KC_TRNS}
+  },
+  [_ADJUST] = { /* LAYER 3 */
+    {RESET,   KC_TRNS, DVORAK,  QWERTY,  COLEMAK, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
   }
 };
 
@@ -84,6 +93,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             persistant_default_layer_set(1UL<<_CM);
           }
           break;
+    case _L1:
+      if (record->event.pressed) {
+        layer_on(_L1);
+        update_tri_layer(_L1, _L2, _ADJUST);
+      } else {
+        layer_off(_L1);
+        update_tri_layer(_L1, _L2, _ADJUST);
+      }
+      return false;
+      break;
+    case _L2:
+      if (record->event.pressed) {
+        layer_on(_L2);
+        update_tri_layer(_L1, _L2, _ADJUST);
+      } else {
+        layer_off(_L2);
+        update_tri_layer(_L1, _L2, _ADJUST);
+      }
+      return false;
+      break;
       }
     return MACRO_NONE;
 };
