@@ -69,6 +69,7 @@ enum layers {
   _LW, /* Lower layer, where top line has symbols !@#$%^&*() */
   _RS, /* Raised layer, where top line has digits 1234567890 */
   _KP, /* Key pad */
+  _ADJUST, /* Special Adjust layer coming via tri-placement */
 };
 
 enum macro_id {
@@ -76,8 +77,13 @@ enum macro_id {
   M_USERNAME,
   M_RANDDIGIT,
   M_RANDLETTER,
-  M_VERSION
+  M_VERSION,
+  MACRO_UPPER,
+  MACRO_LOWER,
 };
+
+#define M_LOWER M(MACRO_LOWER)
+#define M_UPPER M(MACRO_UPPER)
 
 /* Note that Planck has dimensions 4 rows x 12 columns */
 
@@ -86,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, MT(MOD_RSFT, KC_ENT)},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT },
-  {KC_TAB,  M(M_LED), KC_LALT, KC_LGUI, MO(_LW), KC_SPC,  KC_SPC,  MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TAB,  M(M_LED), KC_LALT, KC_LGUI, M_LOWER, KC_SPC,  KC_SPC,  M_UPPER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   /* Note that KC_SPC is recorded TWICE, so that either matrix position can activate it */
 },
 [_RS] = { /* RAISE */
@@ -106,7 +112,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LCTL, M(M_RANDDIGIT),   KC_F5,   KC_F6,    KC_F7,   KC_F8,    KC_PGDN, KC_KP_MINUS, KC_4, KC_5, KC_6, KC_PIPE},
   {KC_LSFT, M(M_RANDLETTER),  KC_F1,   KC_F2,    KC_F3,   KC_F4,    KC_DEL,  KC_KP_PLUS,  KC_1, KC_2,  KC_3, KC_ENTER},
   {BL_STEP, M(M_LED), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QW),   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
-}
+},
+
+[_ADJUST] = { /* Adjustments - gonna shift the wild tools in here */
+  { M(M_LED), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  {_______, _______, _______, _______, _______,   RESET,   RESET, _______, _______, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
+}  
 };
 
 /* What is fn_actions actually used for??? */
@@ -171,6 +184,31 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       unregister_code (KC_A + rval);
     }
     break;
+  case MACRO_UPPER:
+    if (record->event.pressed)
+      {
+	layer_on(_RS);
+	update_tri_layer(_LW, _RS, _ADJUST);
+      }
+    else
+      {
+	layer_off(_RS);
+	update_tri_layer(_LW, _RS, _ADJUST);
+      }
+    break;
+  case MACRO_LOWER:
+    if (record->event.pressed)
+      {
+	layer_on(_LW);
+	update_tri_layer(_LW, _RS, _ADJUST);
+      }
+    else
+      {
+	layer_off(_LW);
+	update_tri_layer(_LW, _RS, _ADJUST);
+      }
+    break;
+    
   }
   return MACRO_NONE;
 };
