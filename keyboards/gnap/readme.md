@@ -1,5 +1,22 @@
-GNAP keyboard firmware
+## GNAP keyboard firmware
 ======================
+GNAP dual matrix, dual controller. Per key LED control.
+![GNAP 1.0 PCB Front](pcb-front.png)
+![GNAP 1.0 PCB Back](pcb-bottom.png)
+![GNAP 1.0 PCB Schematic](schematic.png)
+
+Dual Pro Micro's. One runnign QMK, the other running an Arduino sketch driving the LEDs. Connected to each other via hardware UART.
+
+QMK pinout
+
+	Rows D1, D0, D4, C6 
+	Cols D7, E6, B4, B5, B6, B2, B3, B1, F7, F6, F5, F4
+	
+gnap.c contains functions to send bytes to the LED controller. The Arduino code interprets these to change modes or brightness.
+
+keyboard.c was modified to send the row/column of the key being pressed encoded as as single byte over the serial link to the LED controller.
+
+The example Arduino sketch (LED_FastGPIO.ino) uses the fastGPIO and TimerOne libraries. These can be installed with the Library manager.
 
 ## Quantum MK Firmware
 
