@@ -3,7 +3,6 @@
 ======================
 GNAP! dual matrix, dual controller. Per key LED control.
 ![GNAP! 1.0 PCB Front](pcb-front.png)
-![GNAP! 1.0 PCB Back](pcb-bottom.png)
 ![GNAP! 1.0 PCB Schematic](schematic.png)
 
 Dual Pro Micro's. One running QMK, the other running an Arduino sketch driving the LEDs. Pro Micro's are connected to each other via hardware serial UART.
@@ -31,7 +30,10 @@ gnap.c contains functions to send bytes to the LED controller. The Arduino code 
                     serial_send((r*16)+c);
 	#endif
 
-The example Arduino sketch (LED_FastGPIO.ino) uses the fastGPIO and TimerOne libraries. These can be installed with the Library manager.
+The example Arduino sketch [LED_FastGPIO.ino](LED_FastGPIO.ino) uses the fastGPIO and TimerOne libraries. These can be installed with the Library manager.
+
+https://www.pjrc.com/teensy/td_libs_TimerOne.html
+https://github.com/pololu/fastgpio-arduino
 
 ## Quantum MK Firmware
 
