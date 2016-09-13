@@ -58,7 +58,7 @@ Here are the steps
    3. Followed by `git reset --hard`
 3. Start the "Bash On Ubuntu On Windows" from the start menu
 4. With the bash open, navigate to your Git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
-5. Run `sudo util/install_dependencies.sh`. 
+5. Run `sudo util/install_dependencies.sh`.
 6. After a while the installation will finish, and you are good to go
 
 **Note** From time to time, the dependencies might change, so just run `install_dependencies.sh` again if things are not working.
@@ -92,12 +92,12 @@ You can also try these instructions:
 3. Install [DFU-Programmer][dfu-prog].
 
 If you are going to flash Infinity based keyboards you will also need dfu-util
-    
+
     brew install dfu-util
 
 ### Linux
 
-To ensure you are always up to date, you can just run `sudo utils/install_dependencies.sh`. That should always install all the dependencies needed. 
+To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed.
 
 You can also install things manually, but this documentation might not be always up to date with all requirements.
 
@@ -158,7 +158,7 @@ In every keymap folder, the following files are recommended:
 * `config.h` - the options to configure your keymap
 * `keymap.c` - all of your keymap code, required
 * `Makefile` - the features of QMK that are enabled, required to run `make` in your keymap folder
-* `readme.md` - a description of your keymap, how others might use it, and explanations of features 
+* `readme.md` - a description of your keymap, how others might use it, and explanations of features
 
 ## The `make` command
 
@@ -179,7 +179,7 @@ The following instruction refers to these folders.
 
 If the `keymap` folder contains a file name `Makefile`
 
-1. Change the directory to the `keymap` folder 
+1. Change the directory to the `keymap` folder
 2. Run `make <subproject>-<programmer>`
 
 Otherwise, if there's no `Makefile` in the `keymap` folder
@@ -433,7 +433,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) the Space Cadet Shift quite well. Essentially, you hit the left Shift on its own, and you get an opening parenthesis; hit the right Shift on its own, and you get the closing one. When hit with other keys, the Shift key keeps working as it always does. Yes, it's as cool as it sounds.
 
-To use it, use `KC_LSPO` (Left Shift, Parens Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parens Close) for your right Shift. 
+To use it, use `KC_LSPO` (Left Shift, Parens Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parens Close) for your right Shift.
 
 It's defaulted to work on US keyboards, but if your layout uses different keys for parenthesis, you can define those in your `config.h` like this:
 
@@ -530,11 +530,11 @@ For the sake of flexibility, tap-dance actions can be either a pair of keycodes,
 
 ### Examples
 
-Here's a simple example for a single definition: 
+Here's a simple example for a single definition:
 
 1. In your `makefile`, add `TAP_DANCE_ENABLE = yes`
 2. In your `config.h` (which you can copy from `qmk_firmware/keyboards/planck/config.h` to your keymap directory), add `#define TAPPING_TERM 200`
-3. In your `keymap.c` file, define the variables and definitions, then add to your keymap: 
+3. In your `keymap.c` file, define the variables and definitions, then add to your keymap:
 
 ```c
 //Tap Dance Declarations
@@ -550,10 +550,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 //In Layer declaration, add tap dance item in place of a key code
-TD(TD_ESC_CAPS) 
+TD(TD_ESC_CAPS)
 ```
 
-Here's a more complex example involving custom actions: 
+Here's a more complex example involving custom actions:
 
 ```c
 enum {
@@ -828,11 +828,11 @@ To enable them, first add a new element to the `planck_keycodes` enum -- `DYNAMI
 Afterwards create a new layer called `_DYN`:
 
     #define _DYN 6    /* almost any other free number should be ok */
-    
+
 Below these two modifications include the `dynamic_macro.h` header:
 
     #include "dynamic_macro.h"`
-    
+
 Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_MACRO_PLAY1`,`DYN_REC_START2` and `DYN_MACRO_PLAY2`. It may also contain other keys, it doesn't matter apart from the fact that you won't be able to record these keys in the dynamic macros.
 
     [_DYN]= {
@@ -841,7 +841,7 @@ Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_MAC
         {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
         {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
     },
-    
+
 Add the following code to the very beginning of your `process_record_user()` function:
 
     if (!process_record_dynamic_macro(keycode, record)) {
@@ -876,6 +876,66 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 ## Unicode support
 
 You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
+
+## Backlight Breathing
+
+In order to enable backlight breathing, the following line must be added to your config.h file.
+
+    #define BACKLIGHT_BREATHING
+
+The following function calls are used to control the breathing effect.
+
+* ```breathing_enable()``` - Enable the free-running breathing effect.
+* ```breathing_disable()``` - Disable the free-running breathing effect immediately.
+* ```breathing_self_disable()``` - Disable the free-running breathing effect after the current effect ends.
+* ```breathing_toggle()``` - Toggle the free-running breathing effect.
+* ```breathing_defaults()``` - Reset the speed and brightness settings of the breathing effect.
+
+The following function calls are used to control the maximum brightness of the breathing effect.
+
+* ```breathing_intensity_set(value)``` - Set the brightness of the breathing effect when it is at its max value.
+* ```breathing_intensity_default()``` - Reset the brightness of the breathing effect to the default value based on the current backlight intensity.
+
+The following function calls are used to control the cycling speed of the breathing effect.
+
+* ```breathing_speed_set(value)``` - Set the speed of the breathing effect - how fast it cycles.
+* ```breathing_speed_inc(value)``` - Increase the speed of the breathing effect by a fixed value.
+* ```breathing_speed_dec(value)``` - Decrease the speed of the breathing effect by a fixed value.
+* ```breathing_speed_default()``` - Reset the speed of the breathing effect to the default value.
+
+The following example shows how to enable the backlight breathing effect when the FUNCTION layer macro button is pressed:
+
+    case MACRO_FUNCTION:
+        if (record->event.pressed)
+        {
+            breathing_speed_set(3);
+            breathing_enable();
+            layer_on(LAYER_FUNCTION);
+        }
+        else
+        {
+            breathing_speed_set(1);
+            breathing_self_disable();
+            layer_off(LAYER_FUNCTION);
+        }
+        break;
+
+The following example shows how to pulse the backlight on-off-on when the RAISED layer macro button is pressed:
+
+    case MACRO_RAISED:
+      if (record->event.pressed)
+      {
+        layer_on(LAYER_RAISED);
+        breathing_speed_set(2);
+        breathing_pulse();
+        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
+      }
+      else
+      {
+        layer_off(LAYER_RAISED);
+        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
+      }
+      break;
 
 ## Other firmware shortcut keycodes
 
@@ -1043,7 +1103,7 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 In order to use the underglow timer functions, you need to have `#define RGBLIGHT_TIMER` in your `config.h`, and have audio disabled (`AUDIO_ENABLE = no` in your Makefile).
 
 Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the `F4` pin by default:
-    
+
     #define RGB_DI_PIN F4     // The pin your RGB strip is wired to
     #define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 14     // Number of LEDs
@@ -1090,15 +1150,15 @@ If your keyboard is running an Atmega chip (atmega32u4 and others), it's pretty 
 
 The `USB Device descriptor parameter` block contains parameters are used to uniquely identify your keyboard, but they don't really matter to the machine.
 
-Your `MATRIX_ROWS` and `MATRIX_COLS` are the numbers of rows and cols in your keyboard matrix - this may be different than the number of actual rows and columns on your keyboard. There are some tricks you can pull to increase the number of keys in a given matrix, but most keyboards are pretty straight-forward. 
+Your `MATRIX_ROWS` and `MATRIX_COLS` are the numbers of rows and cols in your keyboard matrix - this may be different than the number of actual rows and columns on your keyboard. There are some tricks you can pull to increase the number of keys in a given matrix, but most keyboards are pretty straight-forward.
 
 The `MATRIX_ROW_PINS` and `MATRIX_COL_PINS` are the pins your MCU uses on each row/column. Your schematic (if you have one) will have this information on it, and the values will vary depending on your setup. This is one of the most important things to double-check in getting your keyboard setup correctly.
 
 For the `DIODE_DIRECTION`, most hand-wiring guides will instruct you to wire the diodes in the `COL2ROW` position, but it's possible that they are in the other - people coming from EasyAVR often use `ROW2COL`. Nothing will function if this is incorrect.
 
-`BACKLIGHT_PIN` is the pin that your PWM-controlled backlight (if one exists) is hooked-up to. Currently only B5, B6, and B7 are supported. 
+`BACKLIGHT_PIN` is the pin that your PWM-controlled backlight (if one exists) is hooked-up to. Currently only B5, B6, and B7 are supported.
 
-`BACKLIGHT_BREATHING` is a fancier backlight feature, and uses one of the timers.
+`BACKLIGHT_BREATHING` is a fancier backlight feature that adds breathing/pulsing/fading effects to the backlight. It uses the same timer as the normal backlight. These breathing effects must be called by code in your keymap.
 
 `BACKLIGHT_LEVELS` is how many levels exist for your backlight - max is 15, and they are computed automatically from this number.
 
@@ -1145,14 +1205,14 @@ Each of the `kxx` variables needs to be unique, and usually follows the format `
 
 # Unit Testing
 
-If you are new to unit testing, then you can find many good resources on internet. However most of it is scattered around in small pieces here and there, and there's also many different opinions, so I won't give any recommendations. 
+If you are new to unit testing, then you can find many good resources on internet. However most of it is scattered around in small pieces here and there, and there's also many different opinions, so I won't give any recommendations.
 
 Instead I recommend these two books, explaining two different styles of Unit Testing in detail.
 
 * "Test Driven Development: By Example: Kent Beck"
 * "Growing Object-Oriented Software, Guided By Tests: Steve Freeman, Nat Pryce"
 
-If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series. 
+If you prefer videos there are Uncle Bob's [Clean Coders Videos](https://cleancoders.com/), which unfortunately cost quite a bit, especially if you want to watch many of them. But James Shore has a free [Let's Play](http://www.jamesshore.com/Blog/Lets-Play) video series.
 
 ## Google Test and Google Mock
 It's possible to Unit Test your code using [Google Test](https://github.com/google/googletest). The Google Test framework also includes another component for writing testing mocks and stubs, called "Google Mock". For information how to write the actual tests, please refer to the documentation on that site.
@@ -1161,7 +1221,7 @@ It's possible to Unit Test your code using [Google Test](https://github.com/goog
 
 Note that Google Test and therefore any test has to be written in C++, even if the rest of the QMK codebases is written in C. This should hopefully not be a problem even if you don't know any C++, since there's quite clear documentation and examples of the required C++ features, and you can write the rest of the test code almost as you would write normal C. Note that some compiler errors which you might get can look quite scary, but just read carefully what it says, and you should be ok.
 
-One thing to remember, is that you have to append `extern "C"` around all of your C file includes. 
+One thing to remember, is that you have to append `extern "C"` around all of your C file includes.
 
 ## Adding tests for new or existing features
 
@@ -1189,7 +1249,6 @@ If there are problems with the tests, you can find the executable in the `./buil
 
 ## Full Integration tests
 
-It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing. 
+It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing.
 
 In that model you would emulate the input, and expect a certain output from the emulated keyboard.
-

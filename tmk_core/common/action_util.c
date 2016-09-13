@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_util.h"
 #include "action_layer.h"
 #include "timer.h"
+#include "keycode_config.h"
+
+extern keymap_config_t keymap_config;
+
 
 static inline void add_key_byte(uint8_t code);
 static inline void del_key_byte(uint8_t code);
@@ -139,7 +143,7 @@ void send_keyboard_report(void) {
 void add_key(uint8_t key)
 {
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
+    if (keyboard_protocol && keymap_config.nkro) {
         add_key_bit(key);
         return;
     }
@@ -150,7 +154,7 @@ void add_key(uint8_t key)
 void del_key(uint8_t key)
 {
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
+    if (keyboard_protocol && keymap_config.nkro) {
         del_key_bit(key);
         return;
     }
@@ -231,7 +235,7 @@ uint8_t has_anymod(void)
 uint8_t get_first_key(void)
 {
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
+    if (keyboard_protocol && keymap_config.nkro) {
         uint8_t i = 0;
         for (; i < KEYBOARD_REPORT_BITS && !keyboard_report->nkro.bits[i]; i++)
             ;

@@ -65,9 +65,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       highest_td = idx;
     action = &tap_dance_actions[idx];
 
-    action->state.keycode = keycode;
     action->state.pressed = record->event.pressed;
     if (record->event.pressed) {
+      action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
 
@@ -77,8 +77,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
         process_tap_dance_action_on_dance_finished (paction);
         reset_tap_dance (&paction->state);
       }
+
+      last_td = keycode;
     }
-    last_td = keycode;
 
     break;
 
