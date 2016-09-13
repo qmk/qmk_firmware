@@ -65,10 +65,10 @@
 */
 
 enum layers {
-  _QW = 0,  /* Qwerty mapping */
-  _LW, /* Lower layer, where top line has symbols !@#$%^&*() */
-  _RS, /* Raised layer, where top line has digits 1234567890 */
-  _KP, /* Key pad */
+  _QWERTY = 0,  /* Qwerty mapping */
+  _LOWER, /* Lower layer, where top line has symbols !@#$%^&*() */
+  _RAISE, /* Raised layer, where top line has digits 1234567890 */
+  KEYPAD, /* Key pad */
   _ADJUST, /* Special Adjust layer coming via tri-placement */
 };
 
@@ -88,30 +88,30 @@ enum macro_id {
 /* Note that Planck has dimensions 4 rows x 12 columns */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QW] = { /* Qwerty */
+[_QWERTY] = { /* Qwerty */
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, MT(MOD_RSFT, KC_ENT)},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT },
   {KC_TAB,  M(M_LED), KC_LALT, KC_LGUI, M_LOWER, KC_SPC,  KC_SPC,  M_UPPER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   /* Note that KC_SPC is recorded TWICE, so that either matrix position can activate it */
 },
-[_RS] = { /* RAISE */
+[_RAISE] = { /* RAISE */
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_KP), DF(_KP), RESET,   _______},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QWERTY), DF(KEYPAD), DF(KEYPAD), RESET,   _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
-[_LW] = { /* LOWER */
+[_LOWER] = { /* LOWER */
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_KP), DF(_KP), RESET,   _______},
-  {_______, DF(_KP), _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QWERTY), DF(KEYPAD), DF(KEYPAD), RESET,   _______},
+  {_______, DF(KEYPAD), _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
-[_KP] = { /* Key Pad */
+[KEYPAD] = { /* Key Pad */
   {KC_ESC,  M(M_USERNAME),    M(M_VERSION),   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
   {KC_LCTL, M(M_RANDDIGIT),   KC_F5,   KC_F6,    KC_F7,   KC_F8,    KC_PGDN, KC_KP_MINUS, KC_4, KC_5, KC_6, KC_PIPE},
   {KC_LSFT, M(M_RANDLETTER),  KC_F1,   KC_F2,    KC_F3,   KC_F4,    KC_DEL,  KC_KP_PLUS,  KC_1, KC_2,  KC_3, KC_ENTER},
-  {BL_STEP, M(M_LED), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QW),   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
+  {BL_STEP, M(M_LED), KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  DF(_QWERTY),   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
 },
 
 [_ADJUST] = { /* Adjustments - gonna shift the wild tools in here */
@@ -187,25 +187,25 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   case MACRO_UPPER:
     if (record->event.pressed)
       {
-	layer_on(_RS);
-	update_tri_layer(_LW, _RS, _ADJUST);
+	layer_on(_RAISE);
+	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     else
       {
-	layer_off(_RS);
-	update_tri_layer(_LW, _RS, _ADJUST);
+	layer_off(_RAISE);
+	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     break;
   case MACRO_LOWER:
     if (record->event.pressed)
       {
-	layer_on(_LW);
-	update_tri_layer(_LW, _RS, _ADJUST);
+	layer_on(_LOWER);
+	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     else
       {
-	layer_off(_LW);
-	update_tri_layer(_LW, _RS, _ADJUST);
+	layer_off(_LOWER);
+	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     break;
     
