@@ -25,7 +25,12 @@ doing sundry experimentation:
    - Key [3][2] aka "z" uses a random number generator to select a letter a-z at random
    - Key [1][3] aka "e" spits out the keymap version number
   * Trying out sgoodwin's "hold Enter down to get Shift"
-
+    - Liking this Quite Well Enough...
+    - Applied this to both Shift and Quote
+  * I have added an alternate ADJUST layer that is activated via update_tri_layer()
+    - e.g. - LOWER+RAISE simultaneously
+    - This seems entirely more useful for handling my "special keys"
+      like the random numbers, user name, and such, than the keypad layer
 
 2. Some code structure ideas
 ---------------------------------------------------
