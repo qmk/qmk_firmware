@@ -1,7 +1,7 @@
 ## GNAP! keyboard firmware
 ![GNAP! 1.0 Assembled](GNAP.jpg)
 ======================
-GNAP! dual matrix, dual controller. Per key LED control.
+GNAP! dual matrix, dual controller. Per key LED control, reactive lighting.
 ![GNAP! 1.0 PCB Front](pcb-front.png)
 ![GNAP! 1.0 PCB Schematic](schematic.png)
 
@@ -32,8 +32,9 @@ gnap.c contains functions to send bytes to the LED controller. The Arduino code 
 
 The example Arduino sketch [LED_FastGPIO.ino](LED_FastGPIO.ino) uses the fastGPIO and TimerOne libraries. These can be installed with the Library manager.
 
-https://www.pjrc.com/teensy/td_libs_TimerOne.html
-https://github.com/pololu/fastgpio-arduino
+[FastGPIO](https://github.com/pololu/fastgpio-arduino)
+[TimerOne](https://www.pjrc.com/teensy/td_libs_TimerOne.html)
+
 
 ## Quantum MK Firmware
 
