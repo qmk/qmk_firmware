@@ -92,6 +92,7 @@ enum macro_id {
 #define RANDALP M(M_RANDLETTER)
 #define CTLENTER MT(MOD_RCTL, KC_ENT)
 #define SHIFTQUOTE MT(MOD_RSFT, KC_QUOT)
+#define ALTRIGHT MT(MOD_LALT, KC_RGHT)
 
 
 /* Note that Planck has dimensions 4 rows x 12 columns */
@@ -101,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
-  {KC_TAB,  ROT_LED, KC_LALT, KC_LGUI, M_LOWER, KC_SPC,  KC_SPC,  M_UPPER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TAB,  KC_LALT, ROT_LED, KC_LGUI, M_LOWER, KC_SPC,  KC_SPC,  M_UPPER, KC_LEFT, KC_DOWN, KC_UP,   ALTRIGHT}
   /* Note that KC_SPC is recorded TWICE, so that either matrix position can activate it */
 },
 [_RAISE] = { /* RAISE */
