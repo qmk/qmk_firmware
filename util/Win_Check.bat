@@ -19,7 +19,7 @@ set KEYMAP_CLEAN=atomic-pvc-clean
 
 :: -----------------------------------------------------------------------------
 
-if %0 == VERBOSE (goto :Verbose_Make) else (goto :Normal_Make)
+if %1 == VERBOSE (goto :Verbose_Make) else (goto :Normal_Make)
 
 :Normal_Make
 set MAKE_CMD_LEVEL_0=make -r -f Makefile COLOR=FALSE
@@ -127,7 +127,7 @@ set header=MINGW CHECK - OPTIONAL & call :ReportHeader
 if exist %MINGW_BASE_DIR% (echo Expected MinGW Base Dir = %MINGW_BASE_DIR%>>%REPORT_NAME% 2>&1) else (echo Expected MinGW Base Dir = %MINGW_BASE_DIR% - Not Found>>%REPORT_NAME% 2>&1)
 echo.>>%REPORT_NAME% 2>&1
 set filename=mingw32-make.exe & set version_cmd=--version & set version_find="GNU Make" & call :ReportVersion
-if exist %MINGW_BASE_DIR%\bin\gcc.exe (ECHO It is not recommended to have make.exe in mingw/bin.>>%REPORT_NAME% 2>&1 & echo.>>%REPORT_NAME% 2>&1)
+if exist %MINGW_BASE_DIR%\bin\make.exe (ECHO It is not recommended to have make.exe in mingw/bin.>>%REPORT_NAME% 2>&1 & echo.>>%REPORT_NAME% 2>&1)
 
 :: -----------------------------------------------------------------------------
 
