@@ -27,10 +27,23 @@ doing sundry experimentation:
   * Trying out sgoodwin's "hold Enter down to get Shift"
     - Liking this Quite Well Enough...
     - Applied this to both Shift and Quote
+    - It seems likely that Alt should get a right-hand-side, akin to this...
+    - Alt needs to move, and get a RHS
+      - Hence ALTRIGHT, and shifted ROT_LED over
+      - Emacs likes this!!!  :-)
+    - I'm suspicious that I'll want to shift ROT_LED another location over,
+      so some modifier can replace the OS/KC_LGUI key
   * I have added an alternate ADJUST layer that is activated via update_tri_layer()
     - e.g. - LOWER+RAISE simultaneously
     - This seems entirely more useful for handling my "special keys"
       like the random numbers, user name, and such, than the keypad layer
+  * The _ADJUST layer provides a good place to have RESET
+    - But this isn't strictly enough; I want RESET somewhat accessible from
+      main layer lest an error hide that layer
+    - I never use the OS/KC_LGUI key (that's Command on MacOS, Windows
+      Key on Windows), so that's a good place to have it as a chord of
+      some sort
+        
 
 2. Some code structure ideas
 ---------------------------------------------------
@@ -49,8 +62,8 @@ doing sundry experimentation:
    only need to fit 4 symbols onto each line, rather than 12.
 
    I used enums to manage layer IDs and macro IDs so that I don't need
-   to care (beyond "start at 0", and arguably that's not needed) about
-   their values.
+   to care (beyond "start at 0", and arguably even that's not needed)
+   about their values.
 
 3. Things I did not like about the default mapping
 ---------------------------------------------------------
@@ -82,8 +95,6 @@ unwise things again...
      - Unfortunately, there are times when mouse interfaces use SHIFT
        to allow selecting multiple items, and this really interferes
         with that
-
-
 
 5. TODO
 ---------------------------------------------------------
