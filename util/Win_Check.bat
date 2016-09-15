@@ -44,6 +44,7 @@ set header=CURRENT DIRECTORY & call :ReportHeader
 echo %CD%>>%REPORT_NAME% 2>&1
 
 echo.>>%REPORT_NAME% 2>&1
+
 :: -----------------------------------------------------------------------------
 
 set header=CURRENT PATHS & call :ReportHeader
@@ -54,10 +55,10 @@ echo.>>%REPORT_NAME% 2>&1
 
 :: -----------------------------------------------------------------------------
 
-set header=CURRENT ENVIRONMENTAL SETTINGS & call :ReportHeader
+rem set header=CURRENT ENVIRONMENTAL SETTINGS & call :ReportHeader
 
-set>>%REPORT_NAME% 2>&1
-echo.>>%REPORT_NAME% 2>&1
+rem set>>%REPORT_NAME% 2>&1
+rem echo.>>%REPORT_NAME% 2>&1
 
 :: -----------------------------------------------------------------------------
 
