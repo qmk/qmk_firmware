@@ -1,6 +1,9 @@
 @setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 @echo OFF
 set BAT_VERSION=v1.0
+set REPORT_NAME=Win_Check_Output.txt
+
+:: -----------------------------------------------------------------------------
 
 cls
 
@@ -10,7 +13,6 @@ echo QMK Windows Check Output %BAT_VERSION%.>%REPORT_NAME%
 :: -----------------------------------------------------------------------------
 
 set MINGW_BASE_DIR=C:\MinGW
-set REPORT_NAME=Win_Check_Output.txt
 
 set KEYMAP=atomic-pvc
 set KEYMAP_CLEAN=atomic-pvc-clean
