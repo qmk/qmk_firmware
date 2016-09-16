@@ -93,6 +93,7 @@ enum macro_id {
 #define CTLENTER MT(MOD_RCTL, KC_ENT)
 #define SHIFTQUOTE MT(MOD_RSFT, KC_QUOT)
 #define ALTRIGHT MT(MOD_LALT, KC_RGHT)
+#define MVERSION M(M_VERSION)
 
 
 /* Note that Planck has dimensions 4 rows x 12 columns */
@@ -116,16 +117,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  QWERTY,  KEYPAD,  KEYPAD, RESET,   _______},
   {_______, KEYPAD, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
-},
+    },
 [_KEYPAD] = { /* Key Pad */
-  {KC_ESC,  USERNAME,    M(M_VERSION),   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
+  {KC_ESC,  USERNAME,    MVERSION,   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
   {KC_LCTL, RANDDIG,   KC_F5,   KC_F6,    KC_F7,   KC_F8,    KC_PGDN, KC_KP_MINUS, KC_4, KC_5, KC_6, KC_PIPE},
   {KC_LSFT, RANDALP,   KC_F1,   KC_F2,    KC_F3,   KC_F4,    KC_DEL,  KC_KP_PLUS,  KC_1, KC_2,  KC_3, KC_ENTER},
-  {BL_STEP, ROT_LED, KC_LALT, KC_LGUI, KC_NO, KC_SPC,  KC_SPC,  QWERTY,   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
+  {KC_TAB,  KC_LALT, ROT_LED, KC_LGUI,  M_LOWER,  KC_SPC,    KC_SPC,  QWERTY,   KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT}
 },
 
 [_ADJUST] = { /* Adjustments - gonna shift the wild tools in here */
-  { ROT_LED, USERNAME, M(M_VERSION), _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  {ROT_LED,USERNAME,MVERSION, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   {_______, RANDDIG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   {_______, RANDALP, _______, _______, _______,   RESET,   RESET, _______, _______, _______, _______, _______ },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
@@ -198,6 +199,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed)
       {
 	layer_on(_RAISE);
+#ifdef BACKLIGHT_ENABLE
+	breathing_speed_set(2);
+	breathing_pulse();
+#endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     else
@@ -210,6 +215,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed)
       {
 	layer_on(_LOWER);
+#ifdef BACKLIGHT_ENABLE
+	breathing_speed_set(2);
+	breathing_pulse();
+#endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     else
