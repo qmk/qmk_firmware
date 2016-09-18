@@ -56,4 +56,29 @@ This plugin is necessary to properly display the colored build output generated 
 Once both plugins are installed, restart Eclipse as prompted.
 
 # Configure Eclipse for QMK
-(todo)
+## Importing the project
+1. Click <kbd><kbd>File</kbd> > <kbd>New</kbd> > <kbd>Makefile Project with Existing Code</kbd></kbd>
+2. On the next screen:
+  * Select the directory where you cloned the repository as _Existing Code Location_;
+  * (Optional) Give a different name to the project¹, e.g. _QMK_ or _Quantum_;
+  * Select the _AVR-GCC Toolchain_;
+  * Keep the rest as-is and click <kbd>Finish</kbd>
+
+  ![Importing QMK in Eclipse](http://i.imgur.com/oHYR1yW.png)
+
+3. The project will now be loaded and indexed. Its files can be browsed easily through the _Project Explorer_ on the left.
+
+¹ There might be issues for importing the project with a custom name. If it does not work properly, try leaving the default project name (i.e. the name of the directory, probably `qmk_firmware`).
+
+## Build your keyboard
+We will now configure a make target that cleans the project and builds the keymap of your choice.
+
+1. On the right side of the screen, select the <kbd>Make Target</kbd> tab
+2. Expand the folder structure to the keyboard of your choice, e.g. `qmk_firmware/keyboards/ergodox`
+3. Right-click on the keyboard folder and select <kbd>New…</kbd> (or select the folder and click the <kbd>New Make Target</kbd> icon above the tree)
+4. Choose a name for your build target, e.g. _clean \<your keymap\>_
+5. Make Target: this is the arguments that you give to `make` when building from the command line. If your target name does not match these arguments, uncheck <kbd>Same as target name</kbd> and input the correct arguments, e.g. `clean <your keymap>`
+6. Leave the other options checked and click <kbd>OK</kbd>. Your make target will now appear under the selected keyboard.
+7. (Optional) Toggle the <kbd>Hide Empty Folders</kbd> icon button above the targets tree to only show your build target.
+8. Double-click the build target you created to trigger a build.
+9. Select the <kbd>Console</kbd> view at the bottom to view the running build.
