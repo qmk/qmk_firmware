@@ -1,0 +1,61 @@
+#!/bin/bash
+set -e
+
+cmd_wm () {
+    WIN="$(xdotool getactivewindow)"
+    wmctrl -i -r ${WIN} -b remove,maximized_vert,maximized_horz
+    xdotool windowsize ${WIN} 100% 100%
+    wmctrl -i -r ${WIN} -b add,maximized_vert,maximized_horz
+}
+
+_cmd_appsel () {
+    wmctrl -x -a $1 || true
+    xdotool key Escape
+}
+
+cmd_appsel_music () {
+    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || true
+    xdotool key Escape
+}
+
+cmd_appsel_slack () {
+    _cmd_appsel slack
+}
+
+cmd_appsel_emacs () {
+    _cmd_appsel emacs24
+}
+
+cmd_appsel_term () {
+    _cmd_appsel gnome-terminal
+}
+
+cmd_appsel_chrome () {
+    _cmd_appsel chromium
+}
+
+cmd_help () {
+    cat <<EOF
+Use the source, Luke!
+EOF
+}
+
+while read l; do
+    case "$l" in
+        "CMD:"*)
+            ;;
+        *)
+            continue
+            ;;
+    esac
+
+    cmd="$(echo $l | cut -d: -f2-)"
+
+    echo "Got command: ${cmd}"
+
+    if type cmd_${cmd} >/dev/null 2>&1; then
+        cmd_${cmd}
+    fi
+done
+
+
