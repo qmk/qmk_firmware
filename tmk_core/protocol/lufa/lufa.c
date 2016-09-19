@@ -52,6 +52,13 @@
 #include "descriptor.h"
 #include "lufa.h"
 
+#ifdef NKRO_ENABLE
+  #include "keycode_config.h"
+
+  extern keymap_config_t keymap_config;
+#endif
+
+
 #ifdef AUDIO_ENABLE
     #include <audio.h>
 #endif
@@ -502,7 +509,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keyboard_nkro) {
+    if (keyboard_protocol && keymap_config.nkro) {
         /* Report protocol - NKRO */
         Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
 
