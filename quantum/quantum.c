@@ -1,5 +1,42 @@
 #include "quantum.h"
 
+static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
+  switch (code) {
+  case QK_MODS ... QK_MODS_MAX:
+    break;
+  default:
+    return;
+  }
+
+  if (code & QK_LCTL)
+    f(KC_LCTL);
+  if (code & QK_LSFT)
+    f(KC_LSFT);
+  if (code & QK_LALT)
+    f(KC_LALT);
+  if (code & QK_LGUI)
+    f(KC_LGUI);
+
+  if (code & QK_RCTL)
+    f(KC_RCTL);
+  if (code & QK_RSFT)
+    f(KC_RSFT);
+  if (code & QK_RALT)
+    f(KC_RALT);
+  if (code & QK_RGUI)
+    f(KC_RGUI);
+}
+
+void register_code16 (uint16_t code) {
+  do_code16 (code, register_code);
+  register_code (code);
+}
+
+void unregister_code16 (uint16_t code) {
+  unregister_code (code);
+  do_code16 (code, unregister_code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
@@ -46,18 +83,20 @@ bool process_record_quantum(keyrecord_t *record) {
   uint16_t keycode;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    uint8_t layer;
+    /* TODO: Use store_or_get_action() or a similar function. */
+    if (!disable_action_cache) {
+      uint8_t layer;
 
-    if (record->event.pressed) {
-      layer = layer_switch_get_layer(key);
-      update_source_layers_cache(key, layer);
-    } else {
-      layer = read_source_layers_cache(key);
-    }
-    keycode = keymap_key_to_keycode(layer, key);
-  #else
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+      if (record->event.pressed) {
+        layer = layer_switch_get_layer(key);
+        update_source_layers_cache(key, layer);
+      } else {
+        layer = read_source_layers_cache(key);
+      }
+      keycode = keymap_key_to_keycode(layer, key);
+    } else
   #endif
+    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -86,6 +125,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
+  #endif
+  #ifdef UCIS_ENABLE
+    process_ucis(keycode, record) &&
   #endif
       true)) {
     return false;
@@ -157,7 +199,7 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
-    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_UNSWAP_ALT_GUI:
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
         if (!eeconfig_is_enabled()) {
@@ -165,48 +207,73 @@ bool process_record_quantum(keyrecord_t *record) {
         }
         /* keymap config */
         keymap_config.raw = eeconfig_read_keymap();
-        if (keycode == MAGIC_SWAP_CONTROL_CAPSLOCK) {
-            keymap_config.swap_control_capslock = 1;
-        } else if (keycode == MAGIC_CAPSLOCK_TO_CONTROL) {
-            keymap_config.capslock_to_control = 1;
-        } else if (keycode == MAGIC_SWAP_LALT_LGUI) {
-            keymap_config.swap_lalt_lgui = 1;
-        } else if (keycode == MAGIC_SWAP_RALT_RGUI) {
-            keymap_config.swap_ralt_rgui = 1;
-        } else if (keycode == MAGIC_NO_GUI) {
-            keymap_config.no_gui = 1;
-        } else if (keycode == MAGIC_SWAP_GRAVE_ESC) {
-            keymap_config.swap_grave_esc = 1;
-        } else if (keycode == MAGIC_SWAP_BACKSLASH_BACKSPACE) {
-            keymap_config.swap_backslash_backspace = 1;
-        } else if (keycode == MAGIC_HOST_NKRO) {
-            keymap_config.nkro = 1;
-        } else if (keycode == MAGIC_SWAP_ALT_GUI) {
-            keymap_config.swap_lalt_lgui = 1;
-            keymap_config.swap_ralt_rgui = 1;
-        }
-        /* UNs */
-        else if (keycode == MAGIC_UNSWAP_CONTROL_CAPSLOCK) {
-            keymap_config.swap_control_capslock = 0;
-        } else if (keycode == MAGIC_UNCAPSLOCK_TO_CONTROL) {
-            keymap_config.capslock_to_control = 0;
-        } else if (keycode == MAGIC_UNSWAP_LALT_LGUI) {
-            keymap_config.swap_lalt_lgui = 0;
-        } else if (keycode == MAGIC_UNSWAP_RALT_RGUI) {
-            keymap_config.swap_ralt_rgui = 0;
-        } else if (keycode == MAGIC_UNNO_GUI) {
-            keymap_config.no_gui = 0;
-        } else if (keycode == MAGIC_UNSWAP_GRAVE_ESC) {
-            keymap_config.swap_grave_esc = 0;
-        } else if (keycode == MAGIC_UNSWAP_BACKSLASH_BACKSPACE) {
-            keymap_config.swap_backslash_backspace = 0;
-        } else if (keycode == MAGIC_UNHOST_NKRO) {
-            keymap_config.nkro = 0;
-        } else if (keycode == MAGIC_UNSWAP_ALT_GUI) {
-            keymap_config.swap_lalt_lgui = 0;
-            keymap_config.swap_ralt_rgui = 0;
+        switch (keycode)
+        {
+          case MAGIC_SWAP_CONTROL_CAPSLOCK:
+            keymap_config.swap_control_capslock = true;
+            break;
+          case MAGIC_CAPSLOCK_TO_CONTROL:
+            keymap_config.capslock_to_control = true;
+            break;
+          case MAGIC_SWAP_LALT_LGUI:
+            keymap_config.swap_lalt_lgui = true;
+            break;
+          case MAGIC_SWAP_RALT_RGUI:
+            keymap_config.swap_ralt_rgui = true;
+            break;
+          case MAGIC_NO_GUI:
+            keymap_config.no_gui = true;
+            break;
+          case MAGIC_SWAP_GRAVE_ESC:
+            keymap_config.swap_grave_esc = true;
+            break;
+          case MAGIC_SWAP_BACKSLASH_BACKSPACE:
+            keymap_config.swap_backslash_backspace = true;
+            break;
+          case MAGIC_HOST_NKRO:
+            keymap_config.nkro = true;
+            break;
+          case MAGIC_SWAP_ALT_GUI:
+            keymap_config.swap_lalt_lgui = true;
+            keymap_config.swap_ralt_rgui = true;
+            break;
+          case MAGIC_UNSWAP_CONTROL_CAPSLOCK:
+            keymap_config.swap_control_capslock = false;
+            break;
+          case MAGIC_UNCAPSLOCK_TO_CONTROL:
+            keymap_config.capslock_to_control = false;
+            break;
+          case MAGIC_UNSWAP_LALT_LGUI:
+            keymap_config.swap_lalt_lgui = false;
+            break;
+          case MAGIC_UNSWAP_RALT_RGUI:
+            keymap_config.swap_ralt_rgui = false;
+            break;
+          case MAGIC_UNNO_GUI:
+            keymap_config.no_gui = false;
+            break;
+          case MAGIC_UNSWAP_GRAVE_ESC:
+            keymap_config.swap_grave_esc = false;
+            break;
+          case MAGIC_UNSWAP_BACKSLASH_BACKSPACE:
+            keymap_config.swap_backslash_backspace = false;
+            break;
+          case MAGIC_UNHOST_NKRO:
+            keymap_config.nkro = false;
+            break;
+          case MAGIC_UNSWAP_ALT_GUI:
+            keymap_config.swap_lalt_lgui = false;
+            keymap_config.swap_ralt_rgui = false;
+            break;
+          case MAGIC_TOGGLE_NKRO:
+            keymap_config.nkro = !keymap_config.nkro;
+            break;
+          default:
+            break;
         }
         eeconfig_update_keymap(keymap_config.raw);
+        clear_keyboard(); // clear to prevent stuck keys
+
         return false;
       }
       break;
@@ -229,7 +296,7 @@ bool process_record_quantum(keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LSFT));
       }
       return false;
-      break;
+      // break;
     }
 
     case KC_RSPC: {
@@ -251,7 +318,7 @@ bool process_record_quantum(keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_RSFT));
       }
       return false;
-      break;
+      // break;
     }
     default: {
       shift_interrupted[0] = true;

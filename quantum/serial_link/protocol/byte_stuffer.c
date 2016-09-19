@@ -31,9 +31,6 @@ SOFTWARE.
 // https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing
 // http://www.stuartcheshire.org/papers/COBSforToN.pdf
 
-#define MAX_FRAME_SIZE 1024
-#define NUM_LINKS 2
-
 typedef struct byte_stuffer_state {
     uint16_t next_zero;
     uint16_t data_pos;
