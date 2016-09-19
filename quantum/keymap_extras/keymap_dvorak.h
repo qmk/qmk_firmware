@@ -70,6 +70,10 @@
 #define DV_LCBR	LSFT(DV_LBRC)
 #define DV_RCBR	LSFT(DV_RBRC)
 
+#define DV_DQUO	LSFT(DV_QUOT)
+#define DV_LABK	LSFT(DV_COMM)
+#define DV_RABK	LSFT(DV_DOT)
+
 #define DV_QUES	LSFT(DV_SLSH)
 #define DV_PLUS	LSFT(DV_EQL)
 #define DV_PIPE	LSFT(DV_BSLS)
