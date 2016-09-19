@@ -29,3 +29,4 @@ CMakeLists.txt
 .idea
 .browse.VC.db*
 *.stackdump
+util/Win_Check_Output.txt
